@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+
+<!DOCTYPE window SYSTEM "chrome://vivipos/locale/vivipos.dtd">
+
+<?xul-overlay href="chrome://vivipos/content/mainUIOverlay.xul"?>
+<?xul-overlay href="chrome://vivipos/content/mainScriptsOverlay.xul"?>
+
+<window title="ViviPOS" 
+        width="1024" 
+        height="768" 
+        screenX="0" 
+        screenY="0" 
+        sizemode="normal"    
+        hidechrome="false"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://vivipos/content/vivipos.js" />
+    <script type="application/x-javascript" src="chrome://vivipos/content/consoleErrors.js" />
+
+  <stringbundle id="vivipos_strings" src="chrome://vivipos/locale/vivipos.properties"/>
+
+
+  <commandset id="cmdset_file">
+    <command id="cmd_quitApplication" oncommand="goQuitApplication()"/>
+    <command id="cmd_restartApplication" oncommand="goRestartApplication()"/>
+  </commandset>
+
+  <keyset id="keyset_explorer">
+      <key id="key_quitApplication" key="q" command="cmd_quitApplication" modifiers="control"/>
+      <key id="key_restartApplication" key="r" command="cmd_restartApplication" modifiers="control"/>
+  </keyset>
+  <keyset id="keyset_extensions">
+  </keyset>
+
+  <hbox flex="1" id="vivipos">
+    <vbox id="appcontent" flex="1">
+    </vbox>
+  </hbox>
+
+  <vbox id="vivipos-bottombox">
+    <statusbar class="chromeclass-status" id="status-bar">
+      <statusbarpanel id="statusbar-display" label="" flex="1"/>
+      <statusbarpanel class="statusbarpanel-progress" collapsed="true" id="statusbar-progresspanel">
+        <progressmeter class="progressmeter-statusbar" id="statusbar-progress" mode="normal" value="0"/>
+      </statusbarpanel>
+    </statusbar>
+  </vbox>
+
+</window>
+

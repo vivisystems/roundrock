@@ -1,0 +1,292 @@
+<?xml version="1.0"?>
+
+<bindings xmlns="http://www.mozilla.org/xbl"
+          xmlns:xbl="http://www.mozilla.org/xbl"
+          xmlns:html="http://www.w3.org/1999/xhtml"
+          xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<binding id="simplelistbox">
+
+  <resources>
+  	<stylesheet src="chrome://vivipos/skin/bindings/simplelistbox.css" />
+  </resources>
+
+  <content>
+    <xul:vbox flex="1" anonid="box-container" class="simplelistbox" xbl:inherits="class,flex,pack">
+    <children/>
+    <xul:listbox anonid="box-listbox">
+    
+      <xul:listcols anonid="box-cols" >
+	    <xul:listcol flex="1" />
+	    <xul:splitter class="tree-splitter" />
+
+	    <xul:listcol flex="1" />
+	    <xul:splitter class="tree-splitter" />
+	    <xul:listcol flex="1" />
+      </xul:listcols>
+                  
+      <xul:listhead anonid="box-header">
+	    <xul:listheader label="Name" />
+	    <xul:listheader label="Sex" />
+	    <xul:listheader label="Color" />
+      </xul:listhead>
+
+    </xul:listbox>
+
+    </xul:vbox>
+  </content>
+
+  <implementation>
+
+    <constructor>
+    
+        this.headers = this.getAttribute('headers');        
+        this.listboxContainer = document.getAnonymousElementByAttribute(this, "anonid", "box-listbox");
+        // listboxContainer.setAttribute('rows', rows);
+        
+    </constructor>
+
+    <property name="headers" >
+      <getter>
+        return this.this.getAttribute('headers');
+      </getter>
+      <setter><![CDATA[
+        var headers = val.split(",");
+        if(headers.length > 0) {
+          this.setHeader(headers);  
+        }
+        this.setAttribute('headers', val);
+        this.headersCount = headers.length;
+      ]]>
+      </setter>
+    </property>
+    
+    	<field name="_columns">null</field>
+		<property name="columns">
+		  <getter><![CDATA[
+		    if (this._columns === null) {
+		      if (this.hasAttribute("columns")) {
+		        this._columns = this.getAttribute("columns").split(",");
+		      }
+		    }
+		    return this._columns;
+		  ]]></getter>
+		  <setter><![CDATA[
+		    this._columns = val.split(",");
+		    return val.split(",");
+		  ]]></setter>
+		</property>
+    
+    
+    
+    <field name="headersCount">0</field>
+    
+    <property name="autoscroll" onget="return this.getAttribute('autoscroll') || true;"
+           onset="this.setAttribute('autoscroll', val)" />
+    
+    <property name="selectedIndex"
+          onget="return this.listboxContainer.selectedIndex"
+          onset="this.listboxContainer.selectedIndex = val;"/>
+
+    <property name="itemCount"  readonly="true"
+          onget="return this.listboxContainer.itemCount;" />
+
+    <property name="listBox"  readonly="true"
+          onget='return this.listboxContainer' />
+
+    <property name="listBoxObject" readonly="true"
+          onget='return this.listboxContainer.listBoxObject;' />
+
+    <method name="getIndexOfFirstVisibleRow">
+      <body>
+        return this.listboxContainer.getIndexOfFirstVisibleRow();
+      </body>
+    </method>
+
+    <method name="getNumberOfVisibleRows">
+      <body>
+        return this.listboxContainer.getNumberOfVisibleRows();
+      </body>
+    </method>
+    
+    <method name="scrollOnePage">
+      <parameter name="direction" />
+      <body>
+        this.listboxContainer.scrollOnePage(direction);
+      </body>
+    </method>
+
+    <method name="setHeader">
+      <parameter name="headers"/>
+      <body><![CDATA[
+        var colsContainer = document.getAnonymousElementByAttribute(this, "anonid", "box-cols");
+        var headerContainer = document.getAnonymousElementByAttribute(this, "anonid", "box-header");
+
+        while (colsContainer.firstChild) {
+            //The list is LIVE so it will re-index each call
+            colsContainer.removeChild(colsContainer.firstChild);
+        };
+
+        while (headerContainer.firstChild) {
+            //The list is LIVE so it will re-index each call
+            headerContainer.removeChild(headerContainer.firstChild);
+        };
+
+        
+        for(var i=0; i<headers.length; i++) {
+
+            if(i>0) {
+                let splitter = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:splitter");
+                splitter.setAttribute('class', 'tree-splitter');
+                colsContainer.appendChild(splitter);                    
+            }
+            let listcol = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:listcol");
+            listcol.setAttribute('flex', '1');
+            colsContainer.appendChild(listcol);
+
+            let header =  document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:listheader");
+            header.setAttribute('label', headers[i]);
+            headerContainer.appendChild(header);
+        }
+
+        
+      ]]>
+      </body>
+
+    </method>
+    
+    <method name="createListItem">
+        <parameter name="data"/>
+        <body><![CDATA[
+
+            var listitem = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:listitem");
+            
+           	var data2 = {};
+           	if (this.columns == null) data2 = data;
+           	else {
+	           	//remapping            	 
+	           	for (let i=0; i < this.columns.length; i++){	
+	           		data2[this.columns[i]] = data[this.columns[i]];
+	           	}
+            }
+            let fieldCount = 0;
+            for( var k in data2) {
+                if(fieldCount >= this.headersCount) break;
+                let label = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:label");
+                label.setAttribute('value', data2[k]);
+                listitem.appendChild(label);
+                fieldCount++;
+            }
+            return listitem;
+        ]]>
+        </body>
+    </method>
+    
+    <method name="addData">
+      <parameter name="data"/>
+      <body><![CDATA[
+            var listboxContainer = this.listboxContainer;
+
+            var listitem = this.createListItem(data);
+            
+            listboxContainer.appendChild(listitem);
+            
+            if (this.autoscroll) {
+                listboxContainer.ensureIndexIsVisible(listboxContainer.itemCount-1);
+            }
+        
+            return listitem;
+        ]]>
+      </body>
+    </method>
+
+    <method name="insertItemAt">
+        <parameter name="index"/>
+        <parameter name="data"/>
+        <body><![CDATA[
+        
+            var listboxContainer = this.listboxContainer;
+            var listitem = this.createListItem(data);
+
+            var before = listboxContainer.getItemAtIndex(index);
+            if (before)
+              listboxContainer.insertBefore(listitem, before);
+            else
+              listboxContainer.appendChild(listitem);        
+
+            if (this.autoscroll) {
+                listboxContainer.ensureIndexIsVisible(listboxContainer.itemCount-1);
+            }
+        
+            return listitem;
+            
+        ]]>  
+        </body>
+    </method>
+
+
+    <method name="updateItemAt">
+        <parameter name="index"/>
+        <parameter name="data"/>
+        <body><![CDATA[
+        
+            var listboxContainer = this.listboxContainer;
+
+            var before = listboxContainer.getItemAtIndex(index);
+            if (before) {
+                var listitem = this.createListItem(data);
+                listboxContainer.replaceChild(listitem, before);
+                return listitem;
+            }
+        ]]>  
+        </body>
+    </method>
+
+    <method name="resetData">
+
+      <body>
+        <![CDATA[    
+            var listboxContainer = this.listboxContainer;
+
+            while (listboxContainer.childNodes.length > 2) {
+
+                listboxContainer.removeChild(listboxContainer.childNodes[2]);
+            };
+
+        ]]>
+      </body>
+    </method>
+
+
+
+    <method name="removeData">
+      <parameter name="index"/>
+      <body><![CDATA[
+        if (index < 0) return;
+        if(index >= this.itemCount ) index = this.itemCount-1;
+        
+        this.listboxContainer.removeItemAt(index);
+        
+      ]]>
+      </body>
+    </method>
+
+
+    <method name="loadData">
+      <parameter name="datas"/>
+      <body>
+        <![CDATA[    
+        
+        this.resetData();
+        for(var k in datas) {
+            this.addData(datas[k]);
+        };
+        ]]>
+
+      </body>
+    </method>
+
+  </implementation>
+
+</binding>
+</bindings>

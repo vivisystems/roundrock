@@ -1,0 +1,178 @@
+<?xml version="1.0"?>
+
+<bindings xmlns="http://www.mozilla.org/xbl"
+          xmlns:xbl="http://www.mozilla.org/xbl"
+          xmlns:html="http://www.w3.org/1999/xhtml"
+          xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<binding id="cartlistbox">
+  <resources>
+  	<stylesheet src="chrome://vivipos/skin/bindings/cartlistbox.css" />
+  </resources>
+
+  <content>
+  	<xul:hbox flex="1" anonid="box-container" class="cartlistbox" xbl:inherits="class,flex,pack,dir">
+  		<xul:simplelistbox flex="1" class="cartlistbox-listbox" xbl:inherits="headers,columns,rowheight,class=listboxClass"  anonid="listbox"/>
+  		<xul:vbox class="cartlistbox-scrollbar" xbl:inherits="class=scrollbarClass" anonid="scrollbar" >
+  			<xul:button label="UP" anonid="upbtn" xbl:inherits="class=scrollUpClass"></xul:button>
+  			<xul:label></xul:label>
+  			<xul:spacer flex="1"/>
+  			<xul:button label="DOWN" anonid="downbtn" xbl:inherits="class=scrollDownClass"></xul:button>
+  		</xul:vbox>
+  	</xul:hbox>
+  </content>
+  
+    <implementation>
+    
+    	<constructor><![CDATA[
+        
+        this.listboxContainer = document.getAnonymousElementByAttribute(this, "anonid", "listbox");
+        this.upBtn = document.getAnonymousElementByAttribute(this, "anonid", "upbtn");
+        this.downBtn = document.getAnonymousElementByAttribute(this, "anonid", "downbtn");
+        
+        var self = this;
+        
+        this.upBtn.addEventListener('command', function() {self.scrollPrevPage();}, true);
+        this.downBtn.addEventListener('command', function() {self.scrollNextPage();}, true );
+
+        ]]>
+        </constructor>
+
+	    <property name="selectedIndex"
+          onget="return this.listboxContainer.selectedIndex;"
+          onset="this.listboxContainer.selectedIndex = val;"/>
+        
+        <property name="itemCount"
+          onget="return this.listboxContainer.itemCount;" />
+        
+        <method name="scrollOnePage">
+          <parameter name="direction" />
+          <body>
+            this.listboxContainer.scrollOnePage(direction);
+          </body>
+        </method>
+
+        <method name="updataButtonState">
+            <body><![CDATA[
+
+            var seek = this.listboxContainer.getIndexOfFirstVisibleRow() + this.listboxContainer.getNumberOfVisibleRows();
+
+            if (this.listboxContainer.getIndexOfFirstVisibleRow() > 0 ) this.upBtn.setAttribute('disabled', false);
+            else this.upBtn.setAttribute('disabled', true);
+            
+            if (seek >= this.itemCount) {
+                this.downBtn.setAttribute('disabled', true);
+            }
+            else this.downBtn.setAttribute('disabled', false);
+            
+            ]]>
+            </body>
+        </method>
+
+        <method name="scrollPrevPage">
+          <body><![CDATA[
+            this.listboxContainer.scrollOnePage(-1);
+            this.updataButtonState();
+            ]]>
+            </body>
+        </method>
+    
+        <method name="scrollNextPage">
+          <body><![CDATA[
+            this.listboxContainer.scrollOnePage(1);
+            this.updataButtonState();
+                        
+            ]]>
+          </body>
+        </method>
+        
+        <method name="addItem">
+            <parameter name="data"/>
+            <body><![CDATA[
+
+                this.listboxContainer.addData(data);
+		
+                this.updataButtonState();            
+            	
+            ]]>  
+            </body>
+        </method>
+
+        <method name="insertItemAt">
+            <parameter name="index"/>
+            <parameter name="data"/>
+            <body><![CDATA[
+            
+                this.listboxContainer.insertItemAt(index, data);
+            
+                this.updataButtonState();            
+                
+            ]]>  
+            </body>
+        </method>
+            
+      <method name="removeItemAt">
+        <parameter name="index"/>
+           <body><![CDATA[
+           
+                if (index < 0) return;
+                if(index >= this.itemCount ) index = this.itemCount-1;
+
+                this.listboxContainer.removeData(index);
+
+                this.updataButtonState();
+
+                /*
+                var event = document.createEvent("datacontainerevent");
+                event.initEvent("CartListBoxRemoveData", true, true);
+                event.setData("data", oldData);
+                event.setData("index", index);
+                this._lastRemoveDataEvent = { data: oldData, index: index};
+                this.dispatchEvent(event);
+                */
+           ]]>     
+           </body>
+        </method>
+
+        <method name="updateItemAt">
+            <parameter name="index"/>
+            <parameter name="data"/>
+            <body><![CDATA[
+            
+                if (index < 0) return;
+                if(index >= this.itemCount ) index = this.itemCount-1;
+            
+                return this.listboxContainer.updateItemAt(index, data);
+            ]]>  
+            </body>
+        </method>
+        
+        <method name="resetData">
+            <body>
+                this.listboxContainer.resetData();
+                this.updataButtonState();
+                /*
+                var event = document.createEvent("event");
+                event.initEvent("CartListBoxResetData", true, true);
+                this.dispatchEvent(event);
+                */
+            </body>
+        </method>
+
+        <method name="loadData">
+            <parameter name="datas"/>
+            <body>
+                this.listboxContainer.loadData(datas);
+                this.updataButtonState();
+                /*
+                var event = document.createEvent("datacontainerevent");
+                event.initEvent("CartListBoxLoadData", true, true);
+                event.setData("data", datas);
+                this.dispatchEvent(event);
+                */
+            </body>
+        </method>
+    </implementation>
+</binding>
+
+</bindings>

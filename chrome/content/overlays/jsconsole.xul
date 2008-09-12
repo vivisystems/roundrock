@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<overlay id="overlay_jsconsole" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <script type="application/x-javascript">
+
+    function start_jsconsole() {
+      
+        window.open("chrome://global/content/console.xul", "_blank", "chrome,extrachrome,dependent,menubar,resizable,scrollbars,status,toolbar");
+    }
+  </script>
+
+  <statusbar id="status-bar">
+      <statusbarpanel id="jsconsole">
+        <image id="img_jsconsole" mode="ok" tooltiptext="jsconsole" ondblclick="start_jsconsole();" insertafter="statusbar-progresspanel" />
+      </statusbarpanel>
+  </statusbar>
+
+</overlay>

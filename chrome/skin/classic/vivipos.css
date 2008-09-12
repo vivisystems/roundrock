@@ -1,0 +1,11 @@
+/* global skin ------------------------------------------------------------- */
+@import url(chrome://global/skin/);
+
+/* vivipos bindings  ------------------------------------------------------------- */
+@import url(chrome://vivipos/content/bindings.css);
+
+/* UI Style --------------------------------------------------------------- */
+@import url(chrome://vivipos/skin/style.css);
+
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+

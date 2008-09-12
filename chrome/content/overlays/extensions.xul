@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+
+<overlay id="overlay_extensions" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script type="application/x-javascript">
+window.addEventListener('load', function() {
+ document.getElementById("search-view").hidden = true;
+  document.getElementById("themes-view").hidden = true;
+    document.getElementById("locales-view").hidden = false;
+   document.getElementById("plugins-view").hidden = true;
+   document.getElementById("searchPanel").hidden = true;
+      document.getElementById('extensionsManager').setAttribute('hidechrome', false);   
+   document.getElementById('extensionsManager').setAttribute('width', 1024);
+   document.getElementById('extensionsManager').setAttribute('height', 600);
+   document.getElementById('extensionsManager').setAttribute('screenX', 0);   
+   document.getElementById('extensionsManager').setAttribute('screenY', 0);      
+}, true);
+
+  </script>
+
+
+  <hbox id="commandBarBottom">
+    <button label="Close" oncommand="window.close();" />
+  </hbox>
+
+</overlay>

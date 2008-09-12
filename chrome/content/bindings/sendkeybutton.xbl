@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+
+<bindings xmlns="http://www.mozilla.org/xbl"
+          xmlns:xbl="http://www.mozilla.org/xbl"
+          xmlns:html="http://www.w3.org/1999/xhtml"
+          xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<binding id="sendkeybutton">
+  <resources>
+  	<stylesheet src="chrome://vivipos/skin/bindings/sendkeybutton.css" />
+  </resources>
+
+  <content>
+  	<xul:button class="sendkeybutton" xbl:inherits="class,id,orient,pack,flex" anonid="sendkeybutton">
+  		<xul:image anonid="sendkeybuttonImage" />
+  		<xul:label anonid="sendkeybuttonLabel" />
+  	</xul:button>
+  </content>
+  
+  <xbl:implementation>
+  	<xbl:field name="bubbles">false</xbl:field>
+  	<xbl:field name="cancelable">true</xbl:field>
+  	<xbl:field name="viewArg">null</xbl:field>
+	<xbl:field name="control">false</xbl:field>  
+	<xbl:field name="alt">false</xbl:field>
+	<xbl:field name="shift">false</xbl:field>
+	<xbl:field name="meta">false</xbl:field>
+	<xbl:field name="keyCode">0</xbl:field>
+	<xbl:field name="charCode">0</xbl:field>
+	<xbl:field name="canceled">false</xbl:field>
+	<xbl:field name="targetObject">null</xbl:field>
+	<xbl:property name="target" onget="return this.targetObject.id;" onset="this.setTarget(val);" ></xbl:property>
+	
+	<xbl:method name="setTarget">
+		<xbl:parameter name="target"/>
+		<xbl:body>
+			if (target.length > 0) 	this.targetObject = document.getElementById(target) ;
+		</xbl:body>
+	</xbl:method>
+	<xbl:constructor>
+	
+		this.control = this.hasAttribute('control') ?  this.getAttribute('control').toUpperCase() == "TRUE" : false;
+		this.alt = this.hasAttribute('alt') ? this.getAttribute('alt').toUpperCase() == "TRUE" : false;
+		this.shift = this.hasAttribute('shift') ? this.getAttribute('shift').toUpperCase() == "TRUE" : false;
+		this.meta = this.hasAttribute('meta') ? this.getAttribute('meta').toUpperCase() == "TRUE" : false;
+		this.keyCode = this.hasAttribute('keyCode') ? parseInt(this.getAttribute('keyCode')) : 0 ;
+		//this.charCode = this.hasAttribute('charCode') ? this.getAttribute('charCode').toUpperCase().charCodeAt(0) : 0;
+		this.charCodes = this.hasAttribute('charCode') ? this.getAttribute('charCode') : "" ;
+		this.canceled = this.hasAttribute('canceled') ? this.getAttribute('canceled').toUpperCase() == "TRUE" : false;
+		this.target =  this.hasAttribute('target')  ? this.getAttribute('target'): "";
+//		
+
+		let buttonContainer = document.getAnonymousElementByAttribute(this, "anonid", "sendkeybutton");
+		
+		let image= document.getAnonymousElementByAttribute(this, "anonid", "sendkeybuttonImage"); 		
+		if (this.hasAttribute('image')) {
+			image.setAttribute('src', this.getAttribute('image'));
+		}else {
+			buttonContainer.removeChild(image);
+		}
+	
+		let label = document.getAnonymousElementByAttribute(this, "anonid", "sendkeybuttonLabel");
+		if (this.hasAttribute('label')) {
+			let newtext = document.createTextNode(this.getAttribute('label'));
+			// label.setAttribute('value', this.getAttribute('label'));
+			label.appendChild(newtext);
+		}else {
+			buttonContainer.removeChild(label);
+		}
+		
+	</xbl:constructor>
+	
+	<xbl:method name="fireEvent">
+		<xbl:body >
+<![CDATA[
+
+		
+		var evt = document.createEvent('KeyboardEvent');
+		evt.initKeyEvent("keypress", this.bubbles, this.cancelable, this.viewArg, this.control, this.alt, this.shift, this.meta, this.keyCode, this.charCode);
+
+		var canceled = this.dispatchEvent(evt);
+		//if(this.canceled) return;
+		
+		// send event to target element 		
+		var aElement = this.targetObject;		
+
+		if (aElement == null) {
+			// try to find last input focus
+			aElement = document.commandDispatcher.focusedElement;
+			if(aElement == null) return;
+		}
+
+		if (aElement.localName == 'textbox' &&
+		'inputField' in aElement &&
+		aElement.inputField instanceof Components.interfaces.nsIDOMElement)
+		aElement = aElement.inputField;
+
+		this.canceled = !aElement.dispatchEvent(evt);
+
+]]>  	
+		</xbl:body>
+	</xbl:method>
+  </xbl:implementation>
+
+
+  <xbl:handlers>
+  	<xbl:handler event="command">
+<![CDATA[
+		if (this.charCodes.length > 0) {
+			// multikey
+			for(let i = 0; i < this.charCodes.length; i++) {
+				this.charCode = this.charCodes.toUpperCase().charCodeAt(i);
+				this.fireEvent();
+			}
+		}else {
+			// on key shot
+			this.fireEvent();
+		}
+		
+		// dispatch click event
+		/*
+		var evt = document.createEvent("Event");
+		evt.initEvent("click", true, false);
+		this.dispatchEvent(evt);
+		*/
+]]>  		
+  	</xbl:handler>
+  
+  </xbl:handlers>
+
+</binding>
+
+</bindings>

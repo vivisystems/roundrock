@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+
+<overlay id="overlay_extension_manager" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <script type="application/x-javascript">
+
+    function extension_manager() {
+    
+         const EMTYPE = "Extension:Manager";
+          var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+                             .getService(Components.interfaces.nsIWindowMediator);
+          var theEM = wm.getMostRecentWindow(EMTYPE);
+          if (theEM) {
+            theEM.focus();
+            return;
+          }
+
+          const EMURL = "chrome://mozapps/content/extensions/extensions.xul";
+          const EMFEATURES = "chrome,menubar,extra-chrome,toolbar,dialog=no";
+          //const EMFEATURES = "chrome,menubar,dialog=no,resizable";
+          window.openDialog(EMURL, "", EMFEATURES);
+    }
+  </script>
+
+  <statusbar id="status-bar">
+      <statusbarpanel id="statusbar-extension_manager">
+        <image id="tool_extension" tooltiptext="extension_manager" ondblclick="extension_manager();" insertafter="statusbar-progresspanel" />
+      </statusbarpanel>
+  </statusbar>
+
+</overlay>

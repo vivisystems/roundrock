@@ -1,0 +1,17 @@
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+simplelistbox {
+  -moz-binding: url("chrome://vivipos/content/bindings/simplelistbox.xbl#simplelistbox");
+}
+
+cartlistbox {
+  -moz-binding: url("chrome://vivipos/content/bindings/cartlistbox.xbl#cartlistbox");
+}
+
+numberpad {
+  -moz-binding: url("chrome://vivipos/content/bindings/numberpad.xbl#numberpad");
+}
+
+sendkeybutton {
+  -moz-binding: url("chrome://vivipos/content/bindings/sendkeybutton.xbl#sendkeybutton");
+}

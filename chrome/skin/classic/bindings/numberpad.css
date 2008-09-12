@@ -1,0 +1,22 @@
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+.numberpad {
+    width: 300px;
+}
+
+.numberpad button{
+    min-width:100px;
+    max-width:100px;
+    height: 64px;
+    width: 100px;
+    margin: 1px 1px 0px 0px;
+    padding: 0px;
+    list-style-type: none;
+    color: White;
+    font-weight: bold !important;
+    font-size: 30px;
+    overflow: hidden;
+    background-color:#800040;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+}

@@ -1,0 +1,11 @@
+content  vivipos                content/
+
+skin     vivipos  classic/1.0  skin/classic/skin     communicator  classic/1.0  skin/communicator/
+
+locale   vivipos  en-US         locale/en-US/locale   branding  en-US         locale/en-US/brand/
+
+locale   vivipos  zh-TW         locale/zh-TW/locale   branding  zh-TW         locale/zh-TW/brand/
+
+overlay  chrome://vivipos/content/vivipos.xul chrome://vivipos/content/overlays/extension_panel.xul
+overlay  chrome://vivipos/content/vivipos.xul chrome://vivipos/content/overlays/jsconsole.xul
+overlay chrome://mozapps/content/extensions/extensions.xul  chrome://vivipos/content/overlays/extensions.xul

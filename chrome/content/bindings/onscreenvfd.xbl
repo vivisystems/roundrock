@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+
+<bindings xmlns="http://www.mozilla.org/xbl"
+          xmlns:xbl="http://www.mozilla.org/xbl"
+          xmlns:html="http://www.w3.org/1999/xhtml"
+          xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<binding id="onscreenvfd">
+  <resources>
+  	<stylesheet src="chrome://vivipos/skin/bindings/onscreenvfd.css" />
+  </resources>
+
+  <content>
+	<xul:hbox flex="1" xbl:inherits="orient,align,pack">
+		<xul:label anonid="labelVfd" class="label_vfd" xbl:inherits="class=labelClass,value"></xul:label>
+	</xul:hbox>
+  </content>
+  
+  <xbl:implementation>
+	
+	<xbl:field name="_maxlen">25</xbl:field>
+	<field name="_label">null</field>
+	
+	<xbl:constructor>
+		this._label = document.getAnonymousElementByAttribute(this, "anonid", "labelVfd");
+		this._maxlen = this.getAttribute('maxlen'); 
+	</xbl:constructor>
+	
+	<xbl:method name="getText">
+		<xbl:body><![CDATA[
+			return this._label.value;
+		]]>
+		</xbl:body>
+	</xbl:method>
+
+	<xbl:method name="setText">
+		<xbl:parameter name="val"/>
+		<xbl:body><![CDATA[
+		
+			if(val.length > this._maxlen) {
+				val = val.substr(0,this._maxlen-4) + "..." + val.substr(val.length-1,1);
+			}
+			this._label.value = val;			
+		]]>
+		</xbl:body>
+	</xbl:method>
+
+  </xbl:implementation>
+
+
+</binding>
+
+</bindings>

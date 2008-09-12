@@ -1,0 +1,20 @@
+.simplelistbox listitem:nth-child(2n) {
+    -moz-box-align: center;
+    background-color: #cccccc; 
+    border-bottom-color: #999999;
+}
+
+.simplelistbox listitem:nth-child(2n+1) {
+    -moz-box-align: center;
+    background-color: #fff;
+    border-bottom-color: #999999;
+}
+
+.simplelistbox listitem[selected="true"]:nth-child(2n), simplelistbox listitem[selected="true"]:nth-child(2n+1){
+	background-color: #4466aa; 
+	color: white;
+}
+
+.simplelistbox listboxbody {
+	overflow: auto;
+}

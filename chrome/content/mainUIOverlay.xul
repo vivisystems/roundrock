@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+
+<overlay id="overlay_ui" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <vbox id="appcontent">
+        <!-- compatible old version -->
+        <vbox id="main-container" flex="1">
+        </vbox>
+    </vbox>
+</overlay>

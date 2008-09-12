@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<overlay id="overlay_test" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <hbox id="epos-constainer">
+  
+    <label value="TEST" />
+  </hbox>
+
+</overlay>
