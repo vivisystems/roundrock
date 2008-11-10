@@ -47,7 +47,7 @@ const Cc = Components.classes;
 const Ci = Components.interfaces;
 const Cr = Components.results;
 
-//@line 36 "/home/rack/workspace/xulrunner-build/shiretoko-a2/toolkit/components/url-classifier/content/moz/lang.js"
+//@line 36 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/components/url-classifier/content/moz/lang.js"
 
 
 /**
@@ -127,7 +127,7 @@ Function.prototype.inherits = function(parentCtor) {
   this.superClass_ = parentCtor.prototype;
   this.prototype = new tempCtor();
 }
-//@line 36 "/home/rack/workspace/xulrunner-build/shiretoko-a2/toolkit/components/url-classifier/content/moz/observer.js"
+//@line 36 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/components/url-classifier/content/moz/observer.js"
 
 
 // A couple of classes to simplify creating observers. 
@@ -227,7 +227,7 @@ G_ObserverServiceObserver.prototype.observe_ = function(subject, topic, data) {
     this.unregister();
 }
 
-//@line 36 "/home/rack/workspace/xulrunner-build/shiretoko-a2/toolkit/components/url-classifier/content/moz/alarm.js"
+//@line 36 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/components/url-classifier/content/moz/alarm.js"
 
 
 // An Alarm fires a callback after a certain amount of time, or at
@@ -373,7 +373,7 @@ G_ConditionalAlarm.prototype.notify = function(timer) {
     this.cancel();
   }
 }
-//@line 53 "/home/rack/workspace/xulrunner-build/shiretoko-a2/toolkit/components/places/src/nsLivemarkService.js"
+//@line 53 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/components/places/src/nsLivemarkService.js"
 
 function LOG(str) {
   dump("*** " + str + "\n");

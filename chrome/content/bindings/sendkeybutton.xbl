@@ -78,8 +78,8 @@
 		var evt = document.createEvent('KeyboardEvent');
 		evt.initKeyEvent("keypress", this.bubbles, this.cancelable, this.viewArg, this.control, this.alt, this.shift, this.meta, this.keyCode, this.charCode);
 
-		var canceled = this.dispatchEvent(evt);
-		//if(this.canceled) return;
+        this.canceled = this.dispatchEvent(evt);
+		if(!this.canceled) return;
 		
 		// send event to target element 		
 		var aElement = this.targetObject;		
@@ -92,11 +92,14 @@
 
 		if (aElement.localName == 'textbox' &&
 		'inputField' in aElement &&
-		aElement.inputField instanceof Components.interfaces.nsIDOMElement)
-		aElement = aElement.inputField;
+		aElement.inputField instanceof Components.interfaces.nsIDOMElement) {
+		    aElement = aElement.inputField;
+        }
 
-		this.canceled = !aElement.dispatchEvent(evt);
+		var evt2 = document.createEvent('KeyboardEvent');
+		evt2.initKeyEvent("keypress", this.bubbles, this.cancelable, this.viewArg, this.control, this.alt, this.shift, this.meta, this.keyCode, this.charCode);
 
+        aElement.dispatchEvent(evt2);
 ]]>  	
 		</xbl:body>
 	</xbl:method>

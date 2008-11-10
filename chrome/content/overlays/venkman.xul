@@ -15,7 +15,7 @@
   </menupopup>
 
   <statusbar id="status-bar">
-      <statusbarpanel id="statusbar-debuggerpanel">
+      <statusbarpanel id="statusbar-debugger">
         <image id="tool_debugger" tooltiptext="debugger" ondblclick="start_venkman();" insertafter="statusbar-progresspanel" />
       </statusbarpanel>
   </statusbar>

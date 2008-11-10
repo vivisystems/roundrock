@@ -1,4 +1,4 @@
-//@line 44 "/home/rack/workspace/xulrunner-build/shiretoko-a2/toolkit/mozapps/update/src/nsUpdateService.js.in"
+//@line 44 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/update/src/nsUpdateService.js.in"
 
 const PREF_APP_UPDATE_ENABLED             = "app.update.enabled";
 const PREF_APP_UPDATE_AUTO                = "app.update.auto";
@@ -15,6 +15,7 @@ const PREF_APP_UPDATE_URL_DETAILS         = "app.update.url.details";
 const PREF_APP_UPDATE_CHANNEL             = "app.update.channel";
 const PREF_APP_UPDATE_SHOW_INSTALLED_UI   = "app.update.showInstalledUI";
 const PREF_APP_UPDATE_LASTUPDATETIME_FMT  = "app.update.lastUpdateTime.%ID%";
+const PREF_GENERAL_USERAGENT_LOCALE       = "general.useragent.locale";
 const PREF_APP_UPDATE_INCOMPATIBLE_MODE   = "app.update.incompatible.mode";
 const PREF_UPDATE_NEVER_BRANCH            = "app.update.never.";
 const PREF_PARTNER_BRANCH                 = "app.partner.";
@@ -27,8 +28,9 @@ const URI_BRAND_PROPERTIES      = "chrome://branding/locale/brand.properties";
 const URI_UPDATES_PROPERTIES    = "chrome://mozapps/locale/update/updates.properties";
 const URI_UPDATE_NS             = "http://www.mozilla.org/2005/app-update";
 
+const KEY_GREDIR          = "GreD";
 const KEY_APPDIR          = "XCurProcD";
-//@line 77 "/home/rack/workspace/xulrunner-build/shiretoko-a2/toolkit/mozapps/update/src/nsUpdateService.js.in"
+//@line 79 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/update/src/nsUpdateService.js.in"
 
 const DIR_UPDATES         = "updates";
 const FILE_UPDATE_STATUS  = "update.status";
@@ -90,7 +92,7 @@ var gConsole    = null;
 var gLogEnabled = { };
 
 // shared code for suppressing bad cert dialogs
-//@line 40 "/home/rack/workspace/xulrunner-build/shiretoko-a2/toolkit/mozapps/shared/src/badCertHandler.js"
+//@line 40 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/shared/src/badCertHandler.js"
 
 /**
  * Only allow built-in certs for HTTPS connections.  See bug 340198.
@@ -156,7 +158,7 @@ BadCertHandler.prototype = {
     return this;
   }
 };
-//@line 139 "/home/rack/workspace/xulrunner-build/shiretoko-a2/toolkit/mozapps/update/src/nsUpdateService.js.in"
+//@line 141 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/update/src/nsUpdateService.js.in"
 
 /**
  * Logs a string to the error console.
@@ -264,7 +266,7 @@ function getDirInternal(key, pathArray, shouldCreate, update) {
   var fileLocator = Components.classes["@mozilla.org/file/directory_service;1"]
                               .getService(Components.interfaces.nsIProperties);
   var dir = fileLocator.get(key, Components.interfaces.nsIFile);
-//@line 254 "/home/rack/workspace/xulrunner-build/shiretoko-a2/toolkit/mozapps/update/src/nsUpdateService.js.in"
+//@line 256 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/update/src/nsUpdateService.js.in"
   for (var i = 0; i < pathArray.length; ++i) {
     dir.append(pathArray[i]);
     if (shouldCreate && !dir.exists())
@@ -336,18 +338,18 @@ function closeSafeOutputStream(fos) {
  * @returns A human readable status text string
  */
 function getStatusTextFromCode(code, defaultCode) {
-  const updateBundle = Components.classes["@mozilla.org/intl/stringbundle;1"]
-                                 .getService(Components.interfaces.nsIStringBundleService)
-                                 .createBundle(URI_UPDATES_PROPERTIES);
-  var reason;
+  var sbs =
+      Components.classes["@mozilla.org/intl/stringbundle;1"].
+      getService(Components.interfaces.nsIStringBundleService);
+  var updateBundle = sbs.createBundle(URI_UPDATES_PROPERTIES);
+  var reason = updateBundle.GetStringFromName("checker_error-" + defaultCode);
   try {
     reason = updateBundle.GetStringFromName("checker_error-" + code);
     LOG("General", "Transfer Error: " + reason + ", code: " + code);
   }
   catch (e) {
     // Use the default reason
-    reason = updateBundle.GetStringFromName("checker_error-" + defaultCode);
-    LOG("General", "Transfer Error: " + reason + ", default code: " + defaultCode);
+    LOG("General", "Transfer Error: " + reason + ", code: " + defaultCode);
   }
   return reason;
 }
@@ -370,7 +372,7 @@ function getUpdatesDir(key) {
     appDir = fileLocator.get(key, Components.interfaces.nsIFile);
   else {
     appDir = fileLocator.get(KEY_APPDIR, Components.interfaces.nsIFile);
-//@line 365 "/home/rack/workspace/xulrunner-build/shiretoko-a2/toolkit/mozapps/update/src/nsUpdateService.js.in"
+//@line 367 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/update/src/nsUpdateService.js.in"
   }
   appDir.append(DIR_UPDATES);
   appDir.append("0");
@@ -502,17 +504,36 @@ function getPref(func, preference, defaultValue) {
 
 /**
  * Gets the locale specified by the 'Locale' key in the 'Installation' section
- * of updater.ini.
+ * of updater.ini if it is available. Otherwise the general.useragent.locale
+ * preference is used to get the locale. It's possible for this preference to
+ * be localized, so we have to do a little extra work here. Similar code
+ * exists in nsHttpHandler.cpp when building the UA string.
  */
 function getLocale() {
   if (gLocale)
     return gLocale;
 
-  var updaterIni = getFile(KEY_APPDIR, [FILE_UPDATER_INI]);
-  var iniParser = Components.classes["@mozilla.org/xpcom/ini-parser-factory;1"]
-                            .getService(nsIINIParserFactory).createINIParser(updaterIni);
-  gLocale = iniParser.getString("Installation", "Locale");
-  LOG("General", "Getting Locale from File: " + updaterIni.path + " Locale: " + gLocale);
+  try {
+//@line 512 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/update/src/nsUpdateService.js.in"
+    var updaterIni = getFile(KEY_GREDIR, [FILE_UPDATER_INI]);
+//@line 514 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/update/src/nsUpdateService.js.in"
+    var iniParser = Components.classes["@mozilla.org/xpcom/ini-parser-factory;1"]
+                              .getService(nsIINIParserFactory).createINIParser(updaterIni);
+    gLocale = iniParser.getString("Installation", "Locale");
+    LOG("General", "Getting Locale from File: " + updaterIni.path + " Locale: " + gLocale);
+    return gLocale;
+  } catch (e) {}
+
+  try {
+    // Get the default branch
+    var prefs = Components.classes["@mozilla.org/preferences-service;1"]
+        .getService(Components.interfaces.nsIPrefService);
+    var defaultPrefs = prefs.getDefaultBranch(null);
+    gLocale = defaultPrefs.getCharPref(PREF_GENERAL_USERAGENT_LOCALE);
+  } catch (e) {
+    gLocale = gPref.getCharPref(PREF_GENERAL_USERAGENT_LOCALE);
+  }
+
   return gLocale;
 }
 
@@ -1052,7 +1073,7 @@ function UpdateService() {
     gOSVersion = encodeURIComponent(osVersion);
   }
 
-//@line 1055 "/home/rack/workspace/xulrunner-build/shiretoko-a2/toolkit/mozapps/update/src/nsUpdateService.js.in"
+//@line 1079 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/update/src/nsUpdateService.js.in"
 
   // Start the update timer only after a profile has been selected so that the
   // appropriate values for the update check are read from the user's profile.
@@ -1148,7 +1169,7 @@ UpdateService.prototype = {
       status = null;
 
     var updRootKey = null;
-//@line 1172 "/home/rack/workspace/xulrunner-build/shiretoko-a2/toolkit/mozapps/update/src/nsUpdateService.js.in"
+//@line 1196 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/update/src/nsUpdateService.js.in"
 
     if (status == STATE_DOWNLOADING) {
       LOG("UpdateService", "_postUpdateProcessing: Downloading patch, resuming...");
@@ -1192,13 +1213,13 @@ UpdateService.prototype = {
 
         LOG("UpdateService", "_postUpdateProcessing: Install Succeeded, Showing UI");
         prompter.showUpdateInstalled(update);
-//@line 1219 "/home/rack/workspace/xulrunner-build/shiretoko-a2/toolkit/mozapps/update/src/nsUpdateService.js.in"
+//@line 1243 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/update/src/nsUpdateService.js.in"
         // Perform platform-specific post-update processing.
         if (POST_UPDATE_CONTRACTID in Components.classes) {
           Components.classes[POST_UPDATE_CONTRACTID].
               createInstance(Components.interfaces.nsIRunnable).run();
         }
-//@line 1225 "/home/rack/workspace/xulrunner-build/shiretoko-a2/toolkit/mozapps/update/src/nsUpdateService.js.in"
+//@line 1249 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/update/src/nsUpdateService.js.in"
 
         // Done with this update. Clean it up.
         cleanupActiveUpdate(updRootKey);
@@ -1501,7 +1522,7 @@ UpdateService.prototype = {
         upDirFile.create(nsILocalFile.NORMAL_FILE_TYPE, PERMS_FILE);
         upDirFile.remove(false);
       }
-//@line 1606 "/home/rack/workspace/xulrunner-build/shiretoko-a2/toolkit/mozapps/update/src/nsUpdateService.js.in"
+//@line 1630 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/update/src/nsUpdateService.js.in"
     }
     catch (e) {
        LOG("UpdateService", "can't update, no privileges: " + e);
@@ -1866,8 +1887,7 @@ Checker.prototype = {
     url = url.replace(/%BUILD_ID%/g, gApp.appBuildID);
     url = url.replace(/%BUILD_TARGET%/g, gApp.OS + "_" + gABI);
     url = url.replace(/%OS_VERSION%/g, gOSVersion);
-    if (/%LOCALE%/.test(url))
-      url = url.replace(/%LOCALE%/g, getLocale());
+    url = url.replace(/%LOCALE%/g, getLocale());
     url = url.replace(/%CHANNEL%/g, getUpdateChannel());
     url = url.replace(/%PLATFORM_VERSION%/g, gApp.platformVersion);
     url = url.replace(/%DISTRIBUTION%/g,
@@ -1877,7 +1897,7 @@ Checker.prototype = {
     url = url.replace(/\+/g, "%2B");
 
     if (force)
-      url += "?force=1"
+	url += "?force=1"
 
     LOG("Checker", "update url: " + url);
     return url;
@@ -1999,20 +2019,13 @@ Checker.prototype = {
     LOG("Checker", "onError: error during load");
 
     var request = event.target;
-
-    // Set a default value of |0|,
-    // then if |request.status| is defined (but) to this (useless) value,
-    // we will not use it.
-    var status = 0;
     try {
-      status = request.status;
+      var status = request.status;
     }
     catch (e) {
+      var req = request.channel.QueryInterface(Components.interfaces.nsIRequest);
+      status = req.status;
     }
-
-    if (status == 0)
-      status = request.channel.QueryInterface(Components.interfaces.nsIRequest)
-                              .status;
 
     // If we can't find an error string specific to this status code,
     // just use the 200 message from above, which means everything
@@ -2459,9 +2472,8 @@ Downloader.prototype = {
         // TODO: use more informative error code here
         status = Components.results.NS_ERROR_UNEXPECTED;
 
-        // Yes, this code is a string.
-        const vfCode = "verification_failed";
-        var message = getStatusTextFromCode(vfCode, vfCode);
+        var message = getStatusTextFromCode("verification_failed",
+          "verification_failed");
         this._update.statusText = message;
 
         if (this._update.isCompleteUpdate)
@@ -2697,7 +2709,7 @@ TimerManager.prototype = {
   }
 };
 
-//@line 2802 "/home/rack/workspace/xulrunner-build/shiretoko-a2/toolkit/mozapps/update/src/nsUpdateService.js.in"
+//@line 2817 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/update/src/nsUpdateService.js.in"
 /**
  * UpdatePrompt
  * An object which can prompt the user with information about updates, request
@@ -2975,7 +2987,7 @@ UpdatePrompt.prototype = {
     return this;
   }
 };
-//@line 3080 "/home/rack/workspace/xulrunner-build/shiretoko-a2/toolkit/mozapps/update/src/nsUpdateService.js.in"
+//@line 3095 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/update/src/nsUpdateService.js.in"
 
 var gModule = {
   registerSelf: function(componentManager, fileSpec, location, type) {
@@ -3018,13 +3030,13 @@ var gModule = {
                className  : "Update Checker",
                factory    : makeFactory(Checker)
              },
-//@line 3123 "/home/rack/workspace/xulrunner-build/shiretoko-a2/toolkit/mozapps/update/src/nsUpdateService.js.in"
+//@line 3138 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/update/src/nsUpdateService.js.in"
     prompt:  { CID        : Components.ID("{27ABA825-35B5-4018-9FDD-F99250A0E722}"),
                contractID : "@mozilla.org/updates/update-prompt;1",
                className  : "Update Prompt",
                factory    : makeFactory(UpdatePrompt)
              },
-//@line 3129 "/home/rack/workspace/xulrunner-build/shiretoko-a2/toolkit/mozapps/update/src/nsUpdateService.js.in"
+//@line 3144 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/update/src/nsUpdateService.js.in"
     timers:  { CID        : Components.ID("{B322A5C0-A419-484E-96BA-D7182163899F}"),
                contractID : "@mozilla.org/updates/timer-manager;1",
                className  : "Timer Manager",
@@ -3068,14 +3080,14 @@ function NSGetModule(compMgr, fileSpec) {
  *          the specified update, false otherwise.
  */
 function isCompatible(update) {
-//@line 3173 "/home/rack/workspace/xulrunner-build/shiretoko-a2/toolkit/mozapps/update/src/nsUpdateService.js.in"
+//@line 3188 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/update/src/nsUpdateService.js.in"
   var em =
       Components.classes["@mozilla.org/extensions/manager;1"].
       getService(nsIExtensionManager);
   var items = em.getIncompatibleItemList("", update.extensionVersion,
     update.platformVersion, nsIUpdateItem.TYPE_ANY, false, { });
   return items.length == 0;
-//@line 3182 "/home/rack/workspace/xulrunner-build/shiretoko-a2/toolkit/mozapps/update/src/nsUpdateService.js.in"
+//@line 3197 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/update/src/nsUpdateService.js.in"
 }
 
 /**
@@ -3094,7 +3106,7 @@ function showPromptIfNoIncompatibilities(update) {
     prompter.showUpdateAvailable(update);
   }
 
-//@line 3201 "/home/rack/workspace/xulrunner-build/shiretoko-a2/toolkit/mozapps/update/src/nsUpdateService.js.in"
+//@line 3216 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/update/src/nsUpdateService.js.in"
   /**
    * Determines if an addon is compatible with a particular update.
    * @param   addon
@@ -3203,6 +3215,6 @@ function showPromptIfNoIncompatibilities(update) {
     em.update([], 0, mode, listener);
   }
   else
-//@line 3310 "/home/rack/workspace/xulrunner-build/shiretoko-a2/toolkit/mozapps/update/src/nsUpdateService.js.in"
+//@line 3325 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/update/src/nsUpdateService.js.in"
     showPrompt(update);
 }

@@ -1,6 +1,6 @@
 /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */
 /*
-//@line 38 "/home/rack/workspace/xulrunner-build/shiretoko-a2/toolkit/mozapps/extensions/src/nsAddonRepository.js"
+//@line 38 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/extensions/src/nsAddonRepository.js"
 */
 
 const Cc = Components.classes;

@@ -23,3 +23,31 @@ scrollablepanel {
 onscreenvfd {
   -moz-binding: url("chrome://vivipos/content/bindings/onscreenvfd.xbl#onscreenvfd");
 }
+
+isuserinrole {
+  -moz-binding: url("chrome://vivipos/content/bindings/isuserinrole.xbl#isuserinrole");
+}
+
+vivibutton {
+  -moz-binding: url("chrome://vivipos/content/bindings/vivibutton.xbl#vivibutton");
+}
+
+vivitree {
+  -moz-binding: url("chrome://vivipos/content/bindings/vivitree.xbl#vivitree");
+}
+
+vivibuttonpanel {
+  -moz-binding: url("chrome://vivipos/content/bindings/vivibuttonpanel.xbl#vivibuttonpanel");
+}
+
+viviscrollablebuttonpanel {
+  -moz-binding: url("chrome://vivipos/content/bindings/viviscrollablebuttonpanel.xbl#viviscrollablebuttonpanel");
+}
+
+viviscrollabletree {
+  -moz-binding: url("chrome://vivipos/content/bindings/viviscrollabletree.xbl#viviscrollabletree");
+}
+
+viviclock {
+  -moz-binding: url("chrome://vivipos/content/bindings/viviclock.xbl#viviclock");
+}

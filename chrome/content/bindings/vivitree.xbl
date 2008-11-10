@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+
+<bindings xmlns="http://www.mozilla.org/xbl"
+          xmlns:xbl="http://www.mozilla.org/xbl"
+          xmlns:html="http://www.w3.org/1999/xhtml"
+          xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<binding id="vivitree">
+    <content>
+      <xul:tree anonid="tree" flex="1" seltype="single" xbl:inherits="class,pack,orient,collapsed,hidden,flex,enableColumnDrag,flags,hidecolumnpicker,rows,seltype,align,dir">
+          <xul:treecols anonid="treecols" />
+          <xul:treechildren anonid="treechildren" />
+      </xul:tree>
+      <children />
+    </content>
+
+    <resources>
+      <stylesheet src="chrome://vivipos/skin/bindings/vivitree.css" />
+    </resources>
+
+  <implementation>
+  	
+    <property name="tree" onget="return document.getAnonymousElementByAttribute(this, 'anonid', 'tree');" readonly="true" />
+
+    <property name="headers"
+                onget="return this.getAttribute('headers')"
+                onset="this.setAttribute('headers', val); return val;"/>
+
+    <property name="fields"
+                onget="return this.getAttribute('fields')"
+                onset="this.setAttribute('fields', val); return val;"/>
+
+    <property name="currentIndex" onget="return this.tree.currentIndex;" onset="return this.tree.currentIndex = val;"/>
+
+    <property name="selectedIndex" onget="return this.currentIndex;" onset="return this.currentIndex = val;" />
+
+    <property name="treeBoxObject" onget="return this.tree.treeBoxObject;" readonly="true" />
+    
+    <property name="view" onget="return this.tree.view;" readonly="true" />
+
+    <property name="datasource" onget="return this.getDatasource();" onset="return this.setDatasource(val);"/>
+    
+    <constructor>
+    <![CDATA[
+        
+        var self = this;
+        this._datasource = null;
+
+        this.ready = function() {
+            self.initTreecols();
+        };
+
+        // add treecols and children
+        window.addEventListener('DOMContentLoaded', this.ready, true);
+
+    ]]>
+    </constructor>
+
+    <destructor>
+    <![CDATA[
+        window.removeEventListener('DOMContentLoaded', this.ready, true);
+    ]]>
+    </destructor>
+
+    <method name="initTreecols">
+        <body><![CDATA[
+
+            var treecols = document.getAnonymousElementByAttribute(this, 'anonid', 'treecols');
+            treecols.setAttribute('hidden', "true");
+            GeckoJS.Helper.removeAllChildren(treecols);
+
+            var _headers = this.headers.split(',');
+            var _fields = this.fields.split(',');
+
+            for (let i = 0; i < _headers.length ; i++) {
+
+                let treecol = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:treecol");
+                treecol.setAttribute("label", _headers[i]);
+                treecol.setAttribute("id", _fields[i]);
+                treecol.setAttribute("flex", 1);
+                treecols.appendChild(treecol);
+
+                let splitter = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:splitter");
+                // splitter.setAttribute("id", "splitter_" + _fields[i]);
+                splitter.setAttribute("class", "tree-splitter");        
+                splitter.setAttribute("resizebefore", "closest");
+                splitter.setAttribute("resizeafter", "grow");
+                treecols.appendChild(splitter); 
+            }
+            treecols.setAttribute('hidden', "false");
+        ]]>  
+        </body>
+    </method>
+
+    <method name="getDatasource">
+        <body><![CDATA[
+            if (!this._datasource) this._datasource = new GeckoJS.NSITreeViewArray();
+            return this._datasource;
+        ]]>  
+        </body>
+    </method>
+
+
+    <method name="setDatasource">
+        <parameter name="datasource"/>
+        <body><![CDATA[
+
+            if (datasource) {
+                if (datasource.constructor.name == 'Array') {
+                    this.getDatasource().data = datasource;
+                }else if (typeof datasource.getCellText == 'function'){
+                    this._datasource = datasource;
+                }
+                this.treeBoxObject.view = this._datasource;
+            }
+
+            this.refresh();
+            return this.getDatasource();
+        ]]>  
+        </body>
+    </method>
+
+
+    <method name="scrollByLines">
+        <parameter name="numLines"/>
+        <body><![CDATA[
+            this.treeBoxObject.scrollByLines(numLines);
+        ]]>  
+        </body>
+    </method>
+
+    <method name="scrollByPages">
+        <parameter name="numPages"/>
+        <body><![CDATA[
+            this.treeBoxObject.scrollByPages(numPages);
+        ]]>  
+        </body>
+    </method>
+
+
+    <method name="scrollToRow">
+        <parameter name="index"/>
+        <body><![CDATA[
+            this.treeBoxObject.scrollToRow(index);
+        ]]>  
+        </body>
+    </method>
+
+
+    <method name="refresh">
+        <body><![CDATA[
+
+            this.treeBoxObject.invalidate();
+        ]]>  
+        </body>
+    </method>
+
+  </implementation>
+
+</binding>
+</bindings>

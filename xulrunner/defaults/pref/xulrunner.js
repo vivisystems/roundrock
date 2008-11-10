@@ -34,7 +34,7 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-//@line 38 "/home/rack/workspace/xulrunner-build/shiretoko-a2/xulrunner/app/xulrunner.js"
+//@line 38 "/builds/xulrunner/xr_trunk_fdr/mozilla/xulrunner/app/xulrunner.js"
 
 // We need to override the default values of these preferences since all.js
 // assumes these are in the navigator package, which for us is non-existant.
@@ -59,7 +59,7 @@ pref("xpinstall.dialog.progress.skin", "chrome://mozapps/content/extensions/exte
 pref("xpinstall.dialog.progress.type.chrome", "Extension:Manager");
 pref("xpinstall.dialog.progress.type.skin", "Extension:Manager");
 pref("xpinstall.enabled", true);
-//@line 65 "/home/rack/workspace/xulrunner-build/shiretoko-a2/xulrunner/app/xulrunner.js"
+//@line 65 "/builds/xulrunner/xr_trunk_fdr/mozilla/xulrunner/app/xulrunner.js"
 pref("browser.preferences.instantApply", true);
-//@line 70 "/home/rack/workspace/xulrunner-build/shiretoko-a2/xulrunner/app/xulrunner.js"
+//@line 70 "/builds/xulrunner/xr_trunk_fdr/mozilla/xulrunner/app/xulrunner.js"
 pref("browser.preferences.animateFadeIn", false);

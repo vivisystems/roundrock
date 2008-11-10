@@ -1,6 +1,6 @@
 /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */
 /*
-//@line 40 "/home/rack/workspace/xulrunner-build/shiretoko-a2/toolkit/mozapps/extensions/src/nsBlocklistService.js"
+//@line 40 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/extensions/src/nsBlocklistService.js"
 */
 
 const Cc = Components.classes;
@@ -45,7 +45,7 @@ var gABI = null;
 var gOSVersion = null;
 
 // shared code for suppressing bad cert dialogs
-//@line 40 "/home/rack/workspace/xulrunner-build/shiretoko-a2/toolkit/mozapps/shared/src/badCertHandler.js"
+//@line 40 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/shared/src/badCertHandler.js"
 
 /**
  * Only allow built-in certs for HTTPS connections.  See bug 340198.
@@ -111,7 +111,7 @@ BadCertHandler.prototype = {
     return this;
   }
 };
-//@line 85 "/home/rack/workspace/xulrunner-build/shiretoko-a2/toolkit/mozapps/extensions/src/nsBlocklistService.js"
+//@line 85 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/extensions/src/nsBlocklistService.js"
 
 /**
  * Logs a string to the error console.
@@ -359,7 +359,7 @@ function Blocklist() {
     gOSVersion = encodeURIComponent(osVersion);
   }
 
-//@line 341 "/home/rack/workspace/xulrunner-build/shiretoko-a2/toolkit/mozapps/extensions/src/nsBlocklistService.js"
+//@line 341 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/extensions/src/nsBlocklistService.js"
 }
 
 Blocklist.prototype = {
@@ -574,7 +574,7 @@ Blocklist.prototype = {
   },
 
   /**
-//@line 604 "/home/rack/workspace/xulrunner-build/shiretoko-a2/toolkit/mozapps/extensions/src/nsBlocklistService.js"
+//@line 604 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/extensions/src/nsBlocklistService.js"
    */
 
   _loadBlocklistFromFile: function(file) {

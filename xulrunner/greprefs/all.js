@@ -128,14 +128,13 @@ pref("browser.chrome.image_icons.max_size", 1024);
 
 pref("browser.triple_click_selects_paragraph", true);
 
-pref("gfx.color_management.mode", 0);
+pref("gfx.color_management.enabled", false);
 pref("gfx.color_management.display_profile", "");
-pref("gfx.color_management.rendering_intent", 0);
 
 pref("accessibility.browsewithcaret", false);
 pref("accessibility.warn_on_browsewithcaret", true);
 
-//@line 139 "/home/rack/workspace/xulrunner-build/shiretoko-a2/modules/libpref/src/init/all.js"
+//@line 138 "/builds/xulrunner/xr_trunk_fdr/mozilla/modules/libpref/src/init/all.js"
 // Tab focus model bit field:
 // 1 focuses text controls, 2 focuses other form elements, 4 adds links.
 // Most users will want 1, 3, or 7.
@@ -148,7 +147,7 @@ pref("accessibility.tabfocus_applies_to_xul", false);
 // unless this preference was set manually
 pref("ui.scrollToClick", 0);
 
-//@line 155 "/home/rack/workspace/xulrunner-build/shiretoko-a2/modules/libpref/src/init/all.js"
+//@line 154 "/builds/xulrunner/xr_trunk_fdr/mozilla/modules/libpref/src/init/all.js"
 
 pref("accessibility.usetexttospeech", "");
 pref("accessibility.usebrailledisplay", "");
@@ -524,7 +523,7 @@ pref("network.protocol-handler.external.data", false);
 pref("network.protocol-handler.external.ms-help", false);
 pref("network.protocol-handler.external.shell", false);
 pref("network.protocol-handler.external.vnd.ms.radio", false);
-//@line 533 "/home/rack/workspace/xulrunner-build/shiretoko-a2/modules/libpref/src/init/all.js"
+//@line 532 "/builds/xulrunner/xr_trunk_fdr/mozilla/modules/libpref/src/init/all.js"
 pref("network.protocol-handler.external.disk", false);
 pref("network.protocol-handler.external.disks", false);
 pref("network.protocol-handler.external.afp", false);
@@ -753,7 +752,7 @@ pref("network.negotiate-auth.gsslib", "");
 // Specify if the gss lib comes standard with the OS
 pref("network.negotiate-auth.using-native-gsslib", true);
 
-//@line 767 "/home/rack/workspace/xulrunner-build/shiretoko-a2/modules/libpref/src/init/all.js"
+//@line 766 "/builds/xulrunner/xr_trunk_fdr/mozilla/modules/libpref/src/init/all.js"
 
 // The following prefs are used to enable automatic use of the operating
 // system's NTLM implementation to silently authenticate the user with their
@@ -777,9 +776,9 @@ pref("network.hosts.nntp_server",           "news.mozilla.org");
 
 pref("permissions.default.image",           1); // 1-Accept, 2-Deny, 3-dontAcceptForeign
 
-//@line 792 "/home/rack/workspace/xulrunner-build/shiretoko-a2/modules/libpref/src/init/all.js"
+//@line 791 "/builds/xulrunner/xr_trunk_fdr/mozilla/modules/libpref/src/init/all.js"
 pref("network.proxy.type",                  5);
-//@line 799 "/home/rack/workspace/xulrunner-build/shiretoko-a2/modules/libpref/src/init/all.js"
+//@line 798 "/builds/xulrunner/xr_trunk_fdr/mozilla/modules/libpref/src/init/all.js"
 
 pref("network.proxy.ftp",                   "");
 pref("network.proxy.ftp_port",              0);
@@ -1113,15 +1112,15 @@ pref("font.minimum-size.x-western", 0);
 pref("font.minimum-size.x-unicode", 0);
 pref("font.minimum-size.x-user-def", 0);
 
-//@line 1516 "/home/rack/workspace/xulrunner-build/shiretoko-a2/modules/libpref/src/init/all.js"
+//@line 1515 "/builds/xulrunner/xr_trunk_fdr/mozilla/modules/libpref/src/init/all.js"
 
-//@line 1933 "/home/rack/workspace/xulrunner-build/shiretoko-a2/modules/libpref/src/init/all.js"
+//@line 1932 "/builds/xulrunner/xr_trunk_fdr/mozilla/modules/libpref/src/init/all.js"
 
-//@line 2130 "/home/rack/workspace/xulrunner-build/shiretoko-a2/modules/libpref/src/init/all.js"
+//@line 2129 "/builds/xulrunner/xr_trunk_fdr/mozilla/modules/libpref/src/init/all.js"
 
-//@line 2221 "/home/rack/workspace/xulrunner-build/shiretoko-a2/modules/libpref/src/init/all.js"
+//@line 2220 "/builds/xulrunner/xr_trunk_fdr/mozilla/modules/libpref/src/init/all.js"
 
-//@line 2224 "/home/rack/workspace/xulrunner-build/shiretoko-a2/modules/libpref/src/init/all.js"
+//@line 2223 "/builds/xulrunner/xr_trunk_fdr/mozilla/modules/libpref/src/init/all.js"
 // Handled differently under Mac/Windows
 pref("network.hosts.smtp_server", "localhost");
 pref("network.hosts.pop_server", "pop");
@@ -1180,6 +1179,8 @@ pref("print.print_paper_size", 0);
 // print_extra_margin enables platforms to specify an extra gap or margin
 // around the content of the page for Print Preview only
 pref("print.print_extra_margin", 0); // twips
+
+pref("print.whileInPrintPreview", false);
 
 pref("font.allow_double_byte_special_chars", true);
 // font names
@@ -1379,22 +1380,22 @@ pref("print.postscript.paper_size",    "letter");
 pref("print.postscript.orientation",   "portrait");
 pref("print.postscript.print_command", "lpr ${MOZ_PRINTER_NAME:+-P\"$MOZ_PRINTER_NAME\"}");
 
-//@line 2484 "/home/rack/workspace/xulrunner-build/shiretoko-a2/modules/libpref/src/init/all.js"
+//@line 2485 "/builds/xulrunner/xr_trunk_fdr/mozilla/modules/libpref/src/init/all.js"
 
-//@line 2552 "/home/rack/workspace/xulrunner-build/shiretoko-a2/modules/libpref/src/init/all.js"
+//@line 2553 "/builds/xulrunner/xr_trunk_fdr/mozilla/modules/libpref/src/init/all.js"
 
-//@line 2578 "/home/rack/workspace/xulrunner-build/shiretoko-a2/modules/libpref/src/init/all.js"
+//@line 2579 "/builds/xulrunner/xr_trunk_fdr/mozilla/modules/libpref/src/init/all.js"
 
-//@line 2598 "/home/rack/workspace/xulrunner-build/shiretoko-a2/modules/libpref/src/init/all.js"
+//@line 2599 "/builds/xulrunner/xr_trunk_fdr/mozilla/modules/libpref/src/init/all.js"
 
-//@line 2606 "/home/rack/workspace/xulrunner-build/shiretoko-a2/modules/libpref/src/init/all.js"
+//@line 2607 "/builds/xulrunner/xr_trunk_fdr/mozilla/modules/libpref/src/init/all.js"
 
 // Login Manager prefs
 pref("signon.rememberSignons",              true);
 pref("signon.expireMasterPassword",         false);
 pref("signon.SignonFileName",               "signons.txt"); // obsolete 
 pref("signon.SignonFileName2",              "signons2.txt"); // obsolete
-pref("signon.SignonFileName3",              "signons3.txt"); // obsolete
+pref("signon.SignonFileName3",              "signons3.txt");
 pref("signon.autofillForms",                true); 
 pref("signon.debug",                        false); // logs to Error Console
 

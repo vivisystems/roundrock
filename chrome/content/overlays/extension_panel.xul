@@ -23,7 +23,7 @@
   </script>
 
   <statusbar id="status-bar">
-      <statusbarpanel id="extension_manager">
+      <statusbarpanel id="statusbar-extension_manager">
         <image id="tool_extension" tooltiptext="extension_manager" ondblclick="extension_manager();" insertafter="statusbar-progresspanel" />
       </statusbarpanel>
   </statusbar>

@@ -7,9 +7,7 @@
 <?xul-overlay href="chrome://vivipos/content/mainUIOverlay.xul"?>
 <?xul-overlay href="chrome://vivipos/content/mainScriptsOverlay.xul"?>
 
-<window title="ViviPOS" 
-        width="1024" 
-        height="768" 
+<window title="ViviPOS" windowtype="Vivipos:Main" id="vivipos_mainWindow"
         screenX="0" 
         screenY="0" 
         sizemode="normal"    

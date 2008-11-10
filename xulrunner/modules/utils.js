@@ -54,10 +54,10 @@ const READ_ONLY_ANNO = "placesInternal/READ_ONLY";
 const LMANNO_FEEDURI = "livemark/feedURI";
 const LMANNO_SITEURI = "livemark/siteURI";
 
-//@line 62 "/home/rack/workspace/xulrunner-build/shiretoko-a2/toolkit/components/places/src/utils.js"
+//@line 62 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/components/places/src/utils.js"
 // On other platforms, the transferable system converts "\r\n" to "\n".
 const NEWLINE = "\r\n";
-//@line 65 "/home/rack/workspace/xulrunner-build/shiretoko-a2/toolkit/components/places/src/utils.js"
+//@line 65 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/components/places/src/utils.js"
 
 function QI_node(aNode, aIID) {
   var result = null;
@@ -760,6 +760,18 @@ var PlacesUtils = {
                                   expires);
       }
     });
+  },
+
+  /**
+   * Helper for getting a serialized Places query for a particular folder.
+   * @param aFolderId The folder id to get a query for.
+   * @return string serialized place URI
+   */
+  getQueryStringForFolder: function PU_getQueryStringForFolder(aFolderId) {
+    var options = this.history.getNewQueryOptions();
+    var query = this.history.getNewQuery();
+    query.setFolders([aFolderId], 1);
+    return this.history.queriesToQueryString([query], 1, options);
   },
 
   // identifier getters for special folders

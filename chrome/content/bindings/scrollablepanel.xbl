@@ -11,7 +11,7 @@
         
         <xul:hbox style="margin: 0px; padding:0px;" flex="1" anonid="scrollablepanel-container" class="scrollablepanel" xbl:inherits="class,flex,pack,dir">
             
-            <xul:scrollbox style="margin: 0px; padding:0px;" orient="vertical" xbl:inherits="orient,align,pack" flex="1" anonid="scrollbox">
+            <xul:scrollbox style="margin: 0px; padding:0px;" orient="vertical" xbl:inherits="orient,align,pack,dir" flex="1" anonid="scrollbox">
               <children/>
             </xul:scrollbox>
             

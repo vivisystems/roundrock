@@ -1,5 +1,5 @@
 /*
-//@line 44 "/home/rack/workspace/xulrunner-build/shiretoko-a2/toolkit/mozapps/downloads/src/nsHelperAppDlg.js.in"
+//@line 44 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/downloads/src/nsHelperAppDlg.js.in"
 */
 
 /* This file implements the nsIHelperAppLauncherDialog interface.
@@ -233,7 +233,7 @@ nsUnknownContentTypeDialog.prototype = {
 
       this.makeFileUnique(aLocalFile);
 
-//@line 296 "/home/rack/workspace/xulrunner-build/shiretoko-a2/toolkit/mozapps/downloads/src/nsHelperAppDlg.js.in"
+//@line 296 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/downloads/src/nsHelperAppDlg.js.in"
 
       return aLocalFile;
     },
@@ -384,13 +384,8 @@ nsUnknownContentTypeDialog.prototype = {
         this.dialogElement("normalBox").collapsed = true;
         // show basic choice 
         this.dialogElement("basicBox").collapsed = false;
-        // change button labels and icons; use "save" icon for the accept
-        // button since it's the only action possible
-        let acceptButton = this.mDialog.document.documentElement
-                               .getButton("accept");
-        acceptButton.label = this.dialogElement("strings")
-                                 .getString("unknownAccept.label");
-        acceptButton.setAttribute("icon", "save");
+        // change button labels
+        this.mDialog.document.documentElement.getButton("accept").label = this.dialogElement("strings").getString("unknownAccept.label");
         this.mDialog.document.documentElement.getButton("cancel").label = this.dialogElement("strings").getString("unknownCancel.label");
         // hide other handler
         this.dialogElement("openHandler").collapsed = true;
@@ -406,7 +401,7 @@ nsUnknownContentTypeDialog.prototype = {
         // want users to be able to autodownload .exe files. 
         var rememberChoice = this.dialogElement("rememberChoice");
 
-//@line 487 "/home/rack/workspace/xulrunner-build/shiretoko-a2/toolkit/mozapps/downloads/src/nsHelperAppDlg.js.in"
+//@line 482 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/downloads/src/nsHelperAppDlg.js.in"
         if (shouldntRememberChoice) {
           rememberChoice.checked = false;
           rememberChoice.disabled = true;
@@ -546,12 +541,12 @@ nsUnknownContentTypeDialog.prototype = {
     // Returns true if opening the default application makes sense.
     openWithDefaultOK: function() {
         // The checking is different on Windows...
-//@line 637 "/home/rack/workspace/xulrunner-build/shiretoko-a2/toolkit/mozapps/downloads/src/nsHelperAppDlg.js.in"
+//@line 632 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/downloads/src/nsHelperAppDlg.js.in"
             // On other platforms, default is Ok if there is a default app.
             // Note that nsIMIMEInfo providers need to ensure that this holds true
             // on each platform.
         return this.mLauncher.MIMEInfo.hasDefaultHandler;
-//@line 642 "/home/rack/workspace/xulrunner-build/shiretoko-a2/toolkit/mozapps/downloads/src/nsHelperAppDlg.js.in"
+//@line 637 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/downloads/src/nsHelperAppDlg.js.in"
     },
     
     // Set "default" application description field.
@@ -572,9 +567,9 @@ nsUnknownContentTypeDialog.prototype = {
 
     // getPath:
     getPath: function (aFile) {
-//@line 665 "/home/rack/workspace/xulrunner-build/shiretoko-a2/toolkit/mozapps/downloads/src/nsHelperAppDlg.js.in"
+//@line 660 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/downloads/src/nsHelperAppDlg.js.in"
       return aFile.path;
-//@line 667 "/home/rack/workspace/xulrunner-build/shiretoko-a2/toolkit/mozapps/downloads/src/nsHelperAppDlg.js.in"
+//@line 662 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/downloads/src/nsHelperAppDlg.js.in"
     },
 
     // initAppAndSaveToDiskValues:
@@ -803,7 +798,7 @@ nsUnknownContentTypeDialog.prototype = {
           // for the file to be saved to to pass to |saveToDisk| - otherwise
           // we must ask the user to pick a save name.
 
-//@line 909 "/home/rack/workspace/xulrunner-build/shiretoko-a2/toolkit/mozapps/downloads/src/nsHelperAppDlg.js.in"
+//@line 904 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/downloads/src/nsHelperAppDlg.js.in"
 
           // see @notify
           // we cannot use opener's setTimeout, see bug 420405
@@ -858,13 +853,13 @@ nsUnknownContentTypeDialog.prototype = {
     // Retrieve the pretty description from the file
     getFileDisplayName: function getFileDisplayName(file)
     { 
-//@line 971 "/home/rack/workspace/xulrunner-build/shiretoko-a2/toolkit/mozapps/downloads/src/nsHelperAppDlg.js.in"
+//@line 966 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/downloads/src/nsHelperAppDlg.js.in"
         return file.leafName;
     },
 
     // chooseApp:  Open file picker and prompt user for application.
     chooseApp: function() {
-//@line 1042 "/home/rack/workspace/xulrunner-build/shiretoko-a2/toolkit/mozapps/downloads/src/nsHelperAppDlg.js.in"
+//@line 1037 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/downloads/src/nsHelperAppDlg.js.in"
       var nsIFilePicker = Components.interfaces.nsIFilePicker;
       var fp = Components.classes["@mozilla.org/filepicker;1"]
                          .createInstance(nsIFilePicker);
@@ -903,7 +898,7 @@ nsUnknownContentTypeDialog.prototype = {
           lastSelectedID = "defaultHandler";
         openHandler.selectedItem = this.dialogElement(lastSelectedID);
       }
-//@line 1081 "/home/rack/workspace/xulrunner-build/shiretoko-a2/toolkit/mozapps/downloads/src/nsHelperAppDlg.js.in"
+//@line 1076 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/downloads/src/nsHelperAppDlg.js.in"
     },
 
     // Turn this on to get debugging messages.

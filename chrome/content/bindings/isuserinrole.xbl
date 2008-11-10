@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<!DOCTYPE bindings PUBLIC "-//MOZILLA//DTD XBL V1.0//EN" "http://www.mozilla.org/xbl">
+
+<bindings
+    xmlns="http://www.mozilla.org/xbl"
+    xmlns:xbl="http://www.mozilla.org/xbl"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <binding id="isuserinrole">
+    <content >
+      <xul:box anonid="checkroleContainer" inherits="class,flex,pack,align,orient,collapsed,hidden">
+      <children/>
+      </xul:box>
+    </content>
+    
+    <implementation>
+
+    	<constructor><![CDATA[
+        
+        this.boxContainer = document.getAnonymousElementByAttribute(this, "anonid", "checkroleContainer");
+      
+        var self = this;
+
+        this.ready = function() {
+            self.render();
+        };
+
+        this.observer = GeckoJS.Observer.newInstance({
+                topics: ['acl-session-change'],
+                observe: function(aSubject, aTopic, aData) {
+                    self.render();
+                }
+            }).register();
+        
+        window.addEventListener('DOMContentLoaded', this.ready, true);
+
+        ]]>
+        </constructor>
+
+        <destructor><![CDATA[
+        window.removeEventListener('DOMContentLoaded', this.ready, true);
+        this.observer.unregister();
+        ]]>
+        </destructor>
+
+    <method name="render">
+      <body><![CDATA[
+
+        var roles = this.getAttribute('roles') || '';
+        var action = this.getAttribute('action') || 'display';
+
+        var isInRole = GeckoJS.AclComponent.isUserInRole(roles);
+
+        var $box =  jQuery(this.boxContainer);
+
+        if (isInRole) {
+            if(action =='display') $box.show();
+            else $box.hide();
+        }else {
+            if(action =='display') $box.hide();
+            else $box.show();
+        }
+            
+      ]]>
+      </body>
+    </method>
+
+    </implementation>
+
+    <handlers>
+        
+    </handlers>
+  </binding>
+
+</bindings>

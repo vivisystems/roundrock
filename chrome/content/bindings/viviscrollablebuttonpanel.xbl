@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+
+<bindings xmlns="http://www.mozilla.org/xbl"
+          xmlns:xbl="http://www.mozilla.org/xbl"
+          xmlns:html="http://www.w3.org/1999/xhtml"
+          xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<binding id="viviscrollablebuttonpanel">
+    <content>
+
+        <xul:hbox style="margin: 0px; padding:0px;" anonid="scrollablepanel-container" class="scrollablepanel" xbl:inherits="class,flex,pack,dir">
+
+            <xul:vivibuttonpanel anonid="vivibuttonpanel" xbl:inherits="flex,class=panelClass,orient,cols,rows,labelField,imageField,buttonClass" />
+
+            <xul:vbox style="margin: 0px; padding:0px;" class="scrollablepanel-scrollbar" xbl:inherits="class=scrollbarClass" anonid="scrollbar" >
+                <xul:button label="UP" disabled="true" anonid="scrollbutton-up" onclick="event.stopPropagation()" oncommand="_autorepeatbuttonScroll(event);" xbl:inherits="class=scrollUpClass"></xul:button>
+                <xul:spacer />
+                <xbl:children />
+                <xul:spacer />
+                <xul:button label="DOWN" disabled="true" anonid="scrollbutton-down" onclick="event.stopPropagation()" oncommand="_autorepeatbuttonScroll(event);" xbl:inherits="class=scrollDownClass"></xul:button>
+            </xul:vbox>
+        </xul:hbox>
+    </content>
+    <resources>
+      <stylesheet src="chrome://vivipos/skin/bindings/viviscrollablebuttonpanel.css" />
+    </resources>
+
+    <implementation>
+
+        <field name="_scrollbox">
+            document.getAnonymousElementByAttribute(this, "anonid", "scrollbox");
+        </field>
+        <field name="_scrollButtonUp">
+            document.getAnonymousElementByAttribute(this, "anonid", "scrollbutton-up");
+        </field>
+        <field name="_scrollButtonDown">
+            document.getAnonymousElementByAttribute(this, "anonid", "scrollbutton-down");
+        </field>
+
+        <property name="buttons" onget="return this.vivibuttonpanel.buttons;" readonly="true" />
+
+        <property name="buttonCount" onget="return this.vivibuttonpanel.buttonCount;" readonly="true" />
+
+        <property name="vivibuttonpanel" onget="return document.getAnonymousElementByAttribute(this, 'anonid', 'vivibuttonpanel');" readonly="true" />
+
+        <property name="scrollbar" onget="return document.getAnonymousElementByAttribute(this, 'anonid', 'scrollbar');" readonly="true" />
+
+        <property name="currentIndex" onget="return this.vivibuttonpanel.currentIndex;" onset="this.vivibuttonpanel.currentIndex = val; return val;"/>
+
+        <property name="selectedIndex" onget="return this.vivibuttonpanel.currentIndex;" onset="return this.vivibuttonpanel.currentIndex = val;" />
+
+        <property name="datasource" onget="return this.vivibuttonpanel.datasource" onset="this.vivibuttonpanel.datasource = val; this.updateScrollBtn(); return val;"/>
+
+        <method name="scrollByLines">
+            <parameter name="numLines"/>
+            <body><![CDATA[
+                this.vivibuttonpanel.scrollByLines(numLines);
+                this.updateScrollBtn();
+            ]]>
+            </body>
+        </method>
+
+        <method name="scrollByPages">
+            <parameter name="numPages"/>
+            <body><![CDATA[
+                this.vivibuttonpanel.scrollByPages(numPages);
+                this.updateScrollBtn();
+            ]]>
+            </body>
+        </method>
+
+
+        <method name="scrollToRow">
+            <parameter name="index"/>
+            <body><![CDATA[
+                this.vivibuttonpanel.scrollToRow(index);
+                this.updateScrollBtn();
+            ]]>
+            </body>
+        </method>
+
+        <method name="updateScrollBtn">
+            <body><![CDATA[
+                var hasPrev = this.vivibuttonpanel.startOffset > 0;
+                var hasNext = (this.vivibuttonpanel.startOffset + this.vivibuttonpanel.buttonCount) < this.vivibuttonpanel.rowCount;
+                // alert((this.vivibuttonpanel.startOffset + this.vivibuttonpanel.buttonCount) + "," + this.vivibuttonpanel.rowCount +","+  hasNext);
+
+                if (hasPrev) {
+                    this._scrollButtonUp.setAttribute('disabled', false);
+                }else {
+                    this._scrollButtonUp.setAttribute('disabled', true);
+                }
+
+                if (hasNext) {
+                    this._scrollButtonDown.setAttribute('disabled', false);
+                }else {
+                    this._scrollButtonDown.setAttribute('disabled', true);
+                }
+
+            ]]></body>
+        </method>
+
+
+        <method name="_autorepeatbuttonScroll">
+            <parameter name="event"/>
+            <body><![CDATA[
+              var dir = event.originalTarget == this._scrollButtonUp ? -1 : 1;
+
+              this.scrollByPages(dir);
+
+              event.stopPropagation();
+            ]]></body>
+        </method>
+
+    </implementation>
+
+    <handlers>
+    </handlers>
+
+</binding>
+</bindings>

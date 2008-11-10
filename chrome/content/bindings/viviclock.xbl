@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE bindings [
+  <!ENTITY % globalDTD SYSTEM "chrome://global/locale/global.dtd">
+  %globalDTD;
+  <!ENTITY % bindingsDTD SYSTEM "chrome://viviecr/locale/bindings.dtd">
+  %bindingsDTD;
+]>
+
+<bindings xmlns="http://www.mozilla.org/xbl"
+          xmlns:xbl="http://www.mozilla.org/xbl"
+          xmlns:html="http://www.w3.org/1999/xhtml"
+          xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <binding id="viviclock">
+        <resources>
+            <stylesheet src="chrome://vivipos/skin/bindings/viviclock.css" />
+        </resources>
+
+        <content>
+            <xul:box>
+                <xul:label value="" anonid="clock" flex="1" inherits="class,flex,align,dir,pack,orient,style" />
+            </xul:box>
+        </content>
+
+        <xbl:implementation>
+
+              <field name="_label">
+                document.getAnonymousElementByAttribute(this, "anonid", "clock");
+              </field>
+
+            <field name="timeNotation">
+                this.getAttribute("timeNotation") || '12';
+            </field>
+            <field name="ampm" >
+                this.getAttribute("ampm") || "true" ;
+            </field>
+            
+            <xbl:constructor>
+            this.startClock();
+            </xbl:constructor>
+
+            <xbl:destructor>
+            this.stopClock();
+            </xbl:destructor>
+
+            <method name="startClock">
+                <body><![CDATA[
+                    var el = this._label;
+                    el.timeNotation = this.timeNotation;
+                    el.ampm = this.ampm;
+                    el.intervalId = setInterval(function() {
+
+                        var now = new Date();
+                        var hours, minutes, seconds;
+
+                        hours = now.getHours();
+                        minutes = now.getMinutes();
+                        seconds = now.getSeconds();
+
+                        var am_pm_text = '';
+                        (hours >= 12) ? am_pm_text = " P.M." : am_pm_text = " A.M.";
+
+                        if (el.timeNotation == '12') {
+                          hours = ((hours > 12) ? hours - 12 : hours);
+                        } else {
+                          hours   = ((hours <  10) ? "0" : "") + hours;
+                        }
+
+                        minutes = ((minutes <  10) ? "0" : "") + minutes;
+                        seconds = ((seconds <  10) ? "0" : "") + seconds;
+
+                        var timeNow = hours + ":" + minutes + ":" + seconds;
+                        if ( el.timeNotation == '12'  && el.ampm == 'true' ) {
+                         timeNow += am_pm_text;
+                        }
+
+                        el.setAttribute('value', timeNow);
+
+                    }, 1000);
+
+          ]]>
+                </body>
+            </method>
+
+
+            <method name="stopClock">
+                <body><![CDATA[
+                    var el = this._label;
+                    try {
+                        clearInterval(el.intervalId);
+                    } catch(e) {}
+
+          ]]>
+                </body>
+            </method>
+
+        </xbl:implementation>
+
+    </binding>
+
+</bindings>

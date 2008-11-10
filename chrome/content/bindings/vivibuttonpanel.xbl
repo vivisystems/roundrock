@@ -1,0 +1,321 @@
+<?xml version="1.0"?>
+
+<bindings xmlns="http://www.mozilla.org/xbl"
+          xmlns:xbl="http://www.mozilla.org/xbl"
+          xmlns:html="http://www.w3.org/1999/xhtml"
+          xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<binding id="vivibuttonpanel">
+    <content>
+      <xul:grid anonid="grid" xbl:inherits="class,pack,orient,collapsed,hidden,flex,align,dir">
+          <xul:columns anonid="columns" />
+          <xul:rows anonid="rows" />
+      </xul:grid>
+      <children />
+    </content>
+
+    <resources>
+      <stylesheet src="chrome://vivipos/skin/bindings/vivibuttonpanel.css" />
+    </resources>
+
+  <implementation>
+
+    <field name="buttons" >null</field>
+    <field name="buttonCount" >0</field>
+
+    <property name="rowCount" onget="return this.datasource.rowCount;" readonly="true" />
+
+    <property name="startOffset" onget="return this._startOffset;">
+        <setter><![CDATA[
+
+            var preStartOffset = this._startOffset;
+            var offset = 0;
+            if (val <= 0) offset = 0;
+            else if(val >= this.rowCount ) {
+                var row = (Math.ceil(this.rowCount / this.buttonCount)-1) ;
+                row = row > 0 ? row : 0;
+                offset =  row * this.buttonCount;
+            }
+            else offset = val;
+
+            this._startOffset = offset; 
+
+            if(this._startOffset != preStartOffset) this.render();
+
+            return offset;
+        ]]>
+        </setter>
+    </property>
+
+    <property name="grid" onget="return document.getAnonymousElementByAttribute(this, 'anonid', 'grid');" readonly="true" />
+    <property name="cols" onget="return this.getAttribute('cols')" onset="this.setAttribute('cols', val); return val;"/>
+    <property name="rows" onget="return this.getAttribute('rows')" onset="this.setAttribute('rows', val); return val;"/>
+    <property name="buttonClass" onget="return this.getAttribute('buttonClass')" onset="this.setAttribute('buttonClass', val); return val;"/>
+
+    <property name="labelField"
+                onget="return this.getAttribute('labelField')"
+                onset="this.setAttribute('labelField', val); return val;"/>
+
+    <property name="imageField"
+                onget="return this.getAttribute('imageField')"
+                onset="this.setAttribute('imageField', val); return val;"/>
+
+    <property name="currentIndex" onget="return this._currentIndex;" onset="this._currentIndex = val; return val;"/>
+
+    <property name="selectedIndex" onget="return this.currentIndex;" onset="return this.currentIndex = val;" />
+
+    <property name="boxObject" onget="return this.grid.boxObject;" readonly="true" />
+
+    <property name="datasource" onget="return this.getDatasource();" onset="return this.setDatasource(val);"/>
+    
+    <constructor>
+    <![CDATA[
+        
+        var self = this;
+        this._datasource = null;
+
+        this.ready = function() {
+            self.initGrid();
+            self.resizeButtons();
+        };
+        // add treecols and children
+        window.addEventListener('DOMContentLoaded', this.ready, true);
+        //window.addEventListener('load', this.ready, true);
+
+    ]]>
+    </constructor>
+
+    <destructor>
+    <![CDATA[
+       window.removeEventListener('DOMContentLoaded', this.ready, true);
+       //window.removeEventListener('load', this.ready, true);
+    ]]>
+    </destructor>
+
+    <method name="initGrid">
+        <body><![CDATA[
+
+            var buttons = [];
+            // init columns
+            var columnsObj = document.getAnonymousElementByAttribute(this, 'anonid', 'columns');
+            columnsObj.setAttribute('hidden', "true");
+            GeckoJS.Helper.removeAllChildren(columnsObj);
+
+            var cols = parseInt(this.cols) || 0;
+
+            for(let i=0; i < cols ; i++) {
+
+                let column = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:column");
+                column.setAttribute("flex", 1);
+                columnsObj.appendChild(column);
+            }
+
+            columnsObj.setAttribute('hidden', "false");
+
+            // init rows
+            var rowsObj = document.getAnonymousElementByAttribute(this, 'anonid', 'rows');
+            rowsObj.setAttribute('hidden', "true");
+            GeckoJS.Helper.removeAllChildren(rowsObj);
+
+            var rows = parseInt(this.rows) || 0;
+
+            for(let i=0; i < rows ; i++) {
+
+                let row = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:row");
+                row.setAttribute("flex", 1);
+
+                for(let j=0; j < cols ; j++) {
+                    let btn = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:vivibutton");
+                    btn.setAttribute("flex", 1);
+                    btn.setAttribute("anonid", i*cols+j);
+                    // btn.setAttribute("label", '');
+                    // btn.setLabel('');
+                    // btn.setAttribute('orient',"vertical");
+                    if (this.buttonClass) btn.setAttribute('class', this.buttonClass);
+                    btn.setAttribute('disabled', 'true');        
+                    buttons.push(btn);
+                    row.appendChild(btn);
+                }
+
+                rowsObj.appendChild(row);
+            }
+
+            rowsObj.setAttribute('hidden', "false");
+
+            this.buttons = buttons;
+            this.buttonCount = cols * rows;
+            this._startOffset = -1;
+            this._currentIndex = -1;
+
+
+        ]]>  
+        </body>
+    </method>
+
+    <method name="getDatasource">
+        <body><![CDATA[
+            if (!this._datasource) this._datasource = new GeckoJS.NSITreeViewArray([]);
+            return this._datasource;
+        ]]>  
+        </body>
+    </method>
+
+
+    <method name="setDatasource">
+        <parameter name="datasource"/>
+        <body><![CDATA[
+
+            if (datasource) {
+                if (datasource.constructor.name == 'Array') {
+                    this.getDatasource().data = datasource;
+                }else if (typeof datasource.getCellText == 'function'){
+                    this._datasource = datasource;
+                    this._datasource.setTree(this);
+                }
+            }
+
+            this.refresh();
+            return this.getDatasource();
+        ]]>  
+        </body>
+    </method>
+
+
+    <method name="scrollByLines">
+        <parameter name="numLines"/>
+        <body><![CDATA[
+
+            this.startOffset += numLines*parseInt(this.cols);
+
+        ]]>  
+        </body>
+    </method>
+
+    <method name="scrollByPages">
+        <parameter name="numPages"/>
+        <body><![CDATA[
+            
+            this.startOffset += numPages*this.buttonCount;
+
+        ]]>  
+        </body>
+    </method>
+
+
+    <method name="scrollToRow">
+        <parameter name="index"/>
+        <body><![CDATA[
+
+            this.startOffset = index;
+
+        ]]>  
+        </body>
+    </method>
+
+
+    <method name="render">
+        <body><![CDATA[
+
+            var buttons = this.buttons;
+
+            var buttonCount = this.buttonCount;
+            var datasource = this.getDatasource();
+            var labelField = this.labelField;
+            var imageField = this.imageField;
+            var buttonClass = this.buttonClass;
+
+            var rowCount = this.rowCount;
+
+            var startOffset = this.startOffset;
+
+//            this.grid.childNodes[1].setAttribute('collapsed', true);
+
+            for(let i=0; i < buttonCount ; i++) {
+
+                let row = startOffset + i;
+
+                if (row >= rowCount) {
+
+                    buttons[i].setAttribute('disabled', 'true');
+                    // buttons[i].setAttribute('label', "");
+                    buttons[i].setLabel("");
+                    buttons[i].setAttribute('image', '');
+                    if (buttonClass) buttons[i].setAttribute('class', buttonClass);
+
+                }else {
+
+                    buttons[i].setAttribute('disabled', 'false');
+                    if (buttonClass) buttons[i].setAttribute('class', buttonClass);
+
+                    let text = datasource.getCellText(row, {id: labelField});
+                    // buttons[i].setAttribute('label', text);
+                    buttons[i].setLabel(text);
+                    
+                    let image = datasource.getImageSrc(row, {id: imageField});
+                    if (image) {
+                        buttons[i].setAttribute('image', image);
+                    }else {
+                        buttons[i].setAttribute('image', '');
+                    }
+
+                    if (typeof datasource.renderButton == 'function') {
+                        datasource.renderButton(row, buttons[i]);
+                    }
+
+
+                    
+
+                 }
+            }
+//            this.grid.childNodes[1].setAttribute('collapsed', false);
+
+        ]]>  
+        </body>
+    </method>
+
+
+    <method name="refresh">
+        <body><![CDATA[
+            this._startOffset = 0;
+            this.render();
+        ]]>  
+        </body>
+    </method>
+
+    <method name="resizeButtons">
+        <body><![CDATA[
+
+            var $grid = $(this.grid);
+            var width = $grid.css('width').replace('px', '');
+            var height = $grid.css('height').replace('px', '');
+            var rows = parseInt(this.rows);
+            var cols = parseInt(this.cols);
+            var btnWidth = Math.floor(width/cols);
+            var btnHeight = Math.floor(height/rows);
+            var buttonCount = this.buttonCount;
+            var buttons = this.buttons;
+           
+            for(let i=0; i < buttonCount ; i++) {
+                $(buttons[i]).css({width: btnWidth, height: btnHeight});
+            } 
+
+        ]]>  
+        </body>
+    </method>
+
+
+  </implementation>
+
+  <handlers>
+    <handler event="click" button="0">
+
+        if(event.originalTarget.getAttribute('disabled') != 'true') {
+            this.currentIndex = this.startOffset + parseInt(event.originalTarget.getAttribute('anonid'));
+        }
+        if(event.target == this) event.stopPropagation();
+
+    </handler>
+  </handlers>
+
+</binding>
+</bindings>

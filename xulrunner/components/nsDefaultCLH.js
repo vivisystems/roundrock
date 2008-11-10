@@ -1,4 +1,4 @@
-//@line 38 "/home/rack/workspace/xulrunner-build/shiretoko-a2/toolkit/components/nsDefaultCLH.js"
+//@line 38 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/components/nsDefaultCLH.js"
 
 const nsISupports              = Components.interfaces.nsISupports;
 

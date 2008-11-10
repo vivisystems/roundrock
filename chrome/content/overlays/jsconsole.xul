@@ -11,7 +11,7 @@
   </script>
 
   <statusbar id="status-bar">
-      <statusbarpanel id="jsconsole">
+      <statusbarpanel id="statusbar-jsconsole">
         <image id="img_jsconsole" mode="ok" tooltiptext="jsconsole" ondblclick="start_jsconsole();" insertafter="statusbar-progresspanel" />
       </statusbarpanel>
   </statusbar>

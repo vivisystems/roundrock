@@ -14,7 +14,7 @@
   <content>
     <xul:vbox flex="1" anonid="box-container" class="simplelistbox" xbl:inherits="class,flex,pack">
     <children/>
-    <xul:listbox anonid="box-listbox">
+    <xul:listbox anonid="box-listbox" xbl:inherits="class,flex,pack">
     
       <xul:listcols anonid="box-cols" >
 	    <xul:listcol flex="1" />
@@ -115,6 +115,13 @@
         this.listboxContainer.scrollOnePage(direction);
       </body>
     </method>
+    
+    <method name="ensureIndexIsVisible">
+      <parameter name="index" />
+      <body>
+        this.listboxContainer.ensureIndexIsVisible(index);
+      </body>
+    </method>
 
     <method name="setHeader">
       <parameter name="headers"/>
@@ -160,7 +167,7 @@
         <body><![CDATA[
 
             var listitem = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:listitem");
-            
+
            	var data2 = {};
            	if (this.columns == null) data2 = data;
            	else {
@@ -174,6 +181,7 @@
                 if(fieldCount >= this.headersCount) break;
                 let label = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:label");
                 label.setAttribute('value', data2[k]);
+                if(this.columns[fieldCount]) $(label).addClass('label_'+ this.columns[fieldCount]);
                 listitem.appendChild(label);
                 fieldCount++;
             }

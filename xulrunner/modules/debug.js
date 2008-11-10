@@ -1,4 +1,4 @@
-//@line 44 "/home/rack/workspace/xulrunner-build/shiretoko-a2/toolkit/content/debug.js"
+//@line 44 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/content/debug.js"
 
 var EXPORTED_SYMBOLS = ["NS_ASSERT"];
 

@@ -1,4 +1,4 @@
-//@line 37 "/home/rack/workspace/xulrunner-build/shiretoko-a2/toolkit/components/urlformatter/src/nsURLFormatter.js"
+//@line 37 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/components/urlformatter/src/nsURLFormatter.js"
 /**
  * @class nsURLFormatterService
  *
@@ -70,7 +70,7 @@ nsURLFormatterService.prototype = {
     }
 
     if (!PS.prefHasUserValue(aPref) &&
-        /^chrome:\/\/.+\/locale\/.+\.properties$/.test(format)) {
+        /^(?:data:.+,.+=.+|chrome:\/\/.+\/locale\/.+\.properties)$/.test(format)) {
       // This looks as if it might be a localised preference
       try {
         format = PS.getComplexValue(aPref, Ci.nsIPrefLocalizedString).data;

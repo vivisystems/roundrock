@@ -15,7 +15,7 @@
   </menupopup>
   
   <statusbar id="status-bar">
-      <statusbarpanel id="statusbar-inspectorpanel">
+      <statusbarpanel id="statusbar-inspector">
         <image id="tool_inspector" tooltiptext="inspector" ondblclick="inspectDOMDocument();" insertafter="statusbar-progresspanel" />
       </statusbarpanel>
   </statusbar>

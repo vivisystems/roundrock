@@ -1,0 +1,4 @@
+#!/bin/sh
+rm -fr /home/user/.vivipos2
+rm -fr /var/tmp
+cp /home/user/vivipos_sdk/data/*.db /var/tmp

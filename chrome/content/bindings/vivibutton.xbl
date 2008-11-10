@@ -1,0 +1,160 @@
+<?xml version="1.0"?>
+
+<bindings xmlns="http://www.mozilla.org/xbl"
+          xmlns:xbl="http://www.mozilla.org/xbl"
+          xmlns:html="http://www.w3.org/1999/xhtml"
+          xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<binding id="vivibutton" display="xul:button"
+           extends="chrome://global/content/bindings/button.xml#button-base">
+    <resources>
+      <stylesheet src="chrome://vivipos/skin/bindings/vivibutton.css" />
+    </resources>
+
+  <content>
+      <children includes="observes|template|menupopup|tooltip"/>
+      <xul:hbox class="box-inherit button-box" xbl:inherits="align,dir,pack,orient"
+                align="center" pack="center" flex="1" anonid="vivibutton-box">
+          <xul:image class="button-icon" xbl:inherits="src=image"/>
+          <xul:label class="button-text" xbl:inherits="accesskey,crop"> </xul:label>
+      </xul:hbox>
+  </content>
+
+  <xbl:implementation>
+
+    <property name="label" onget="return this.getLabel();" onset="return this.setLabel(val);" />
+
+    <constructor><![CDATA[
+
+        var self = this;
+
+        this.vivibuttonBox = document.getAnonymousElementByAttribute(this, "anonid", "vivibutton-box");
+       
+       	this.aLabel = this.vivibuttonBox.childNodes[1];
+
+        var value = this.getAttribute('label') || '';
+        this.setLabel(value);
+
+        self.render();
+
+        this.observer = GeckoJS.Observer.newInstance({
+                topics: ['acl-session-change'],
+                observe: function(aSubject, aTopic, aData) {
+                    self.render();
+                }
+            }).register();
+
+
+        this.addEventListener('DOMAttrModified', this._attrmodified, true);
+
+        this.ready = function() {
+            self.resizeLabel();
+        };
+        // add treecols and children
+        window.addEventListener('DOMContentLoaded', this.ready, true);
+
+
+        ]]>
+        </constructor>
+
+        <destructor><![CDATA[
+
+        this.removeEventListener('DOMAttrModified', this._attrmodified, true);
+        window.removeEventListener('DOMContentLoaded', this.ready, true);
+        this.observer.unregister();
+
+        ]]>
+        </destructor>
+
+    <method name="_attrmodified">
+      <parameter name="event"/>
+      <body><![CDATA[
+
+        let value = event.newValue;
+        let attr = event.attrName;
+
+        switch (attr) {
+
+            case 'label':
+                this.setLabel(value);
+            break;
+
+        }
+
+      ]]>
+      </body>
+    </method>
+
+    <method name="setLabel">
+      <parameter name="value" />
+      <body><![CDATA[
+
+        var label = this.aLabel;
+        label.firstChild.data = value;
+
+      ]]>
+      </body>
+    </method>     
+    	
+    <method name="getLabel">
+      <body><![CDATA[
+
+        var label = this.aLabel;
+        return label.firstChild.data;
+
+      ]]>
+      </body>
+    </method>     
+
+
+    <method name="render">
+      <body><![CDATA[
+
+        var roles = this.getAttribute('roles') || '';
+        var action = this.getAttribute('action') || 'display';
+
+        if (roles.length == 0) return;
+
+        var isInRole = GeckoJS.AclComponent.isUserInRole(roles);
+
+        var $button =  jQuery(this);
+
+        if (isInRole) {
+            if(action =='display') {
+            $button.show();
+            this.disabled = false;
+            }
+            else $button.hide();
+        }else {
+            if(action =='display') this.disabled = true;
+            else $button.show();
+        }
+      ]]>
+      </body>
+    </method>
+
+    <method name="resizeLabel">
+        <body><![CDATA[
+
+            var label = this.aLabel;
+            var $btn = $(this.vivibuttonBox);
+
+            var width = $btn.css('width').replace('px', '');
+            var height = $btn.css('height').replace('px', '');
+
+            $(label).css({width: width, height: height, 'max-width': width, 'max-height': height});
+            // GeckoJS.BaseObject.log('label ' + width + ',' + height);
+
+        ]]>  
+        </body>
+    </method>
+
+  </xbl:implementation>
+
+
+  <xbl:handlers>
+  </xbl:handlers>
+
+</binding>
+
+</bindings>
