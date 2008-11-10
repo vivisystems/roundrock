@@ -1,0 +1,212 @@
+<?xml version="1.0"?>
+
+<bindings xmlns="http://www.mozilla.org/xbl"
+          xmlns:xbl="http://www.mozilla.org/xbl"
+          xmlns:html="http://www.w3.org/1999/xhtml"
+          xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<binding id="vivibuttoncolorpicker">
+
+    <content>
+        <xul:grid xbl:inherits="flex" anonid="vivibuttoncolorpicker">
+        </xul:grid>
+    </content>
+
+    <xbl:implementation>
+
+        <field name="_color" >false</field>
+        <property name="color" onget="return this.getColor();" onset="return this.setColor(val);" />
+        <property name="value" onget="return this.color;" onset="return this.color = val;" />
+
+	<xbl:constructor>
+            this.addEventListener('DOMAttrModified', this._attrmodified, true);
+            
+            this._render();
+	</xbl:constructor>
+
+        <xbl:destructor>
+            this.removeEventListener('DOMAttrModified', this._attrmodified, true);
+        </xbl:destructor>
+
+        <method name="getColor">
+            <body>
+            <![CDATA[
+                return this._color || "";
+            ]]>
+            </body>
+        </method>
+
+
+        <method name="setColor">
+            <parameter name="color"/>
+            <body>
+            <![CDATA[
+                var oldColor = this._color;
+                var oldBtn = null;
+                var newBtn = null;
+                if(oldColor) {
+                    oldBtn = document.getAnonymousElementByAttribute(this, "color", oldColor);
+                    if(oldBtn) oldBtn.removeAttribute('selected');
+                }
+
+                newBtn = document.getAnonymousElementByAttribute(this, "color", color);
+
+                if (newBtn) {
+                    this._color = color;
+                    if (this._fireEvent(this, "select")) {
+                        newBtn.setAttribute('selected', true);
+                    }
+                    else
+                        this._color = null;
+                }
+
+            ]]>
+            </body>
+        </method>
+
+        <method name="_fireEvent">
+            <parameter name="aTarget"/>
+            <parameter name="aEventName"/>
+            <body>
+            <![CDATA[
+            try {
+                var event = document.createEvent("UIEvents");
+                event.initEvent(aEventName, true, true);
+                return aTarget.dispatchEvent(event);
+            }
+            catch (e) {
+                Components.utils.reportError(e);
+            }
+            return false;
+            ]]>
+            </body>
+        </method>
+
+
+        <method name="_attrmodified">
+            <parameter name="event"/>
+            <body>
+            <![CDATA[
+
+                let value = event.newValue;
+                let attr = event.attrName;
+
+                switch (attr) {
+
+                    case 'columns':
+                    case 'baseclass':
+                        //GREUtils.log('[ATTR-MODIFIED]: <' + attr + '> value <' + value + '>');
+
+                        this._render();
+                        break;
+                        
+                    case 'value':
+                    case 'color':
+                    
+                        //GREUtils.log('[ATTR-MODIFIED]: <' + attr + '> value <' + value + '>');
+                        this.setColor(value);
+                    break;
+                    
+                }
+
+            ]]>
+            </body>
+        </method>
+
+        <method name="_render">
+            <body>
+            <![CDATA[
+                //GREUtils.log('[RENDER]: entering');
+                
+                // remove existing child nodes
+                //GREUtils.log('[RENDER]: removing all child nodes <' + this.childNodes.length + '>');
+                while (this.firstChild) this.removeChild(this.firstChild);
+                //GREUtils.log('[RENDER]: removed all child nodes');
+
+                // read color classes from prefix
+                var prefix = this.getAttribute('prefix');
+                if (!prefix) prefix = 'vivipos.fec.ui.button.color';
+                GeckoJS.Configure.loadPreferences(prefix);
+
+                var prefs = GeckoJS.Configure.read(prefix);
+                var keys = GeckoJS.BaseObject.getKeys(prefs).sort();
+
+                //GREUtils.log('[RENDER]: preferences loaded from <' + prefix + '> entries <' + GeckoJS.BaseObject.dump(keys) + '>');
+                
+                // create columns: defaults to 5
+                var ncols = this.getAttribute('columns');
+                if (isNaN(ncols) || (ncols < 1)) ncols = 5;
+                //GREUtils.log('[RENDER]: number of columns <' + ncols + '>');
+                
+                var cols = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:columns");
+                //GREUtils.log('[RENDER]: columns node created');
+
+                for (var i = 0; i < ncols; i++) {
+                    var col = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:column");
+                    col.setAttribute('flex', 1);
+                    cols.appendChild(col);
+                    //GREUtils.log('[RENDER]: column node <' + i + '> added');
+                }
+                document.getAnonymousNodes(this)[0].appendChild(cols);
+                
+                // create rows
+                var nrows = Math.ceil(keys.length/ncols);
+                //GREUtils.log('[RENDER]: number of rows <' + nrows + '>');
+
+                var rows = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:rows");
+                //GREUtils.log('[RENDER]: rows node created');
+
+                // create buttons
+                var baseClass = this.getAttribute('baseclass');
+                //GREUtils.log('[RENDER]: button base class <' + baseClass + '>');
+                
+                var count = 0;
+                for (var r = 0; r < nrows; r++) {
+                    var row = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:row");
+                    row.setAttribute('flex', 1);
+                    rows.appendChild(row);
+                    //GREUtils.log('[RENDER]: row node <' + r + '> added');
+                    
+                    for (var j = 0; j < ncols; j++) {
+                        //GREUtils.log('[RENDER]: merging button classes <' + prefs[keys[count]] + '>');
+                        var btn = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:button");
+                        
+                        var classes = prefs[keys[count]].split(',');
+                        if (baseClass) classes.push(baseClass);
+                        //GREUtils.log('[RENDER]: merged button class <' + classes.join(' ') + '>');
+
+                        btn.setAttribute('flex', 1);
+                        btn.setAttribute('class', classes.join(' '));
+                        btn.setAttribute('color', prefs[keys[count]]);
+
+                        //GREUtils.log('[RENDER]: attributes set for button class');
+
+                        row.appendChild(btn);
+                        
+                        // have we created all the necessary buttons?
+                        if (++count == keys.length) break;
+                    }
+                }
+                document.getAnonymousNodes(this)[0].appendChild(rows);
+                //GREUtils.log('[RENDER]: exiting');
+            ]]>
+            </body>
+        </method>
+
+    </xbl:implementation>
+
+    <handlers>
+
+        <handler event="click">
+        <![CDATA[
+            if (event.originalTarget.hasAttribute("color")) {
+              this.setColor(event.originalTarget.getAttribute('color'));
+            }
+        ]]>
+        </handler>
+
+    </handlers>
+
+</binding>
+
+</bindings>

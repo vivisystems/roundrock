@@ -51,3 +51,19 @@ viviscrollabletree {
 viviclock {
   -moz-binding: url("chrome://vivipos/content/bindings/viviclock.xbl#viviclock");
 }
+
+vivifuncpanelecr {
+  -moz-binding: url("chrome://vivipos/content/bindings/vivifuncpanelecr.xbl#vivifuncpanelecr");
+}
+
+vivibuttoncolorpicker {
+  -moz-binding: url("chrome://vivipos/content/bindings/vivibuttoncolorpicker.xbl#vivibuttoncolorpicker");
+}
+
+vivibuttonfontsizepicker {
+  -moz-binding: url("chrome://vivipos/content/bindings/vivibuttonfontsizepicker.xbl#vivibuttonfontsizepicker");
+}
+
+viviorderstatus {
+  -moz-binding: url("chrome://vivipos/content/bindings/viviorderstatus.xbl#viviorderstatus");
+}
