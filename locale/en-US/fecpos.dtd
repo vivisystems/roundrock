@@ -1,0 +1,5 @@
+<!ENTITY vivipos.fec.settings.backups "System Backup">
+<!ENTITY vivipos.fec.settings.format "display Format">
+<!ENTITY vivipos.fec.settings.defaultlogin "Default Login">
+<!ENTITY vivipos.fec.settings.privatequeue "Private Order Queue">
+<!ENTITY Name "Name">

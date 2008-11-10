@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window SYSTEM "chrome://viviecr/locale/fecpos.dtd">
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/vivipos.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+<window id="pluprop" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/bootstrap.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/departments.js" />
+
+<!-- groupbox -->
+    <box flex="1" class="mainpanel1 pad40">
+        <vbox flex="1" class="panel40">
+            <vbox flex="1" class="footlogo">
+
+<!-- Begin Departments - PLUs -->
+                    <vbox id="catsplus">
+                        <label id="" value="Departments" class="labeltitle" />
+                        <hbox>
+                        <hbox flex="1" pack="start">
+                            <vbox pack="start" flex="1">
+                                <label id="" value="Departments:" />
+                                <!-- simplelistbox id="simpleListBoxCategory" rows="16"  headers="Dep. No,Dep. Name" columns="no,name" class="catsimplelistbox"/ -->
+                                <viviscrollablebuttonpanel dir="reverse" id="catescrollablepanel" flex="1" cols="3" rows="6" labelField="name" imageField="no" oncommand="$do('changeDepartmentPanel',this.selectedIndex, 'Departments');"
+                                    class="catescrollablepanel" buttonClass="catbtn button-radius" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue"/>
+                            </vbox>
+                            <spacer style="width: 20px;" />
+                        </hbox>
+                        <spacer style="height: 30px;" />
+                        <hbox>
+                            <vbox>
+                                <hbox align="center">
+                                    <label style="width:10em" value="Department No:"/>
+                                    <textbox id="category_no" />
+                                </hbox>
+                                <hbox align="center">
+                                    <label style="width:10em" value="Department Name:" />
+                                    <textbox id="category_name" value="" />
+                                </hbox>
+                                <hbox align="center">
+                                    <label style="width:4em" value="Visible:"  />
+                                    <checkbox id="category_visible" value="1"/>
+                                </hbox>
+                                <vbox align="center">
+                                    <label style="width:4em" value="Button Color:"  />
+                                    <button_colorpicker id="category_button_color"/>
+                                </vbox>
+                                <vbox align="center">
+                                    <label style="width:4em" value="Font Size:"  />
+                                    <button_fontsizepicker id="category_font_size" />
+                                </vbox>
+                            </vbox>
+                        </hbox>
+                        </hbox>
+                        <spacer style="height: 30px;" />
+                        <hbox>
+                            <button label="Add" class="genbtn" oncommand="$do('add', null, 'Departments');" />
+                            <button label="Delete" class="genbtn" oncommand="$do('remove', null, 'Departments');" />
+                            <button label="Modify" class="genbtn" oncommand="$do('modify', null, 'Departments');" />
+                        </hbox>
+                    </vbox>
+
+<!-- End Departments - PLUs -->
+
+            </vbox>
+        </vbox>
+
+
+    </box>
+<!-- /groupbox -->
+    <hbox id="okCancelButtonsRight" class="dialogbtns" />
+
+</window>

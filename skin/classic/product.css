@@ -1,0 +1,47 @@
+.catbtn, .plubtn {
+    min-height:50px;
+    /*
+    min-width:80px;
+    min-height:50px;
+    height: 50px;
+    width: 80px;
+    margin: 0px 0px;
+    */
+    min-width: 50px;
+    border: 1px solid;
+    -moz-appearance: none;
+    margin: 2px 2px 2px 2px;
+    padding: 0px;
+    
+    -moz-box-pack: center;
+    -moz-user-focus: ignore;
+    
+    /* border: 3px solid; */
+    
+    -moz-border-top-colors: #444;
+    -moz-border-right-colors: #444;
+    -moz-border-bottom-colors: #444;
+    -moz-border-left-colors: #444;
+}
+
+.catbtn:active, .plubtn:active {
+    background-position:0pt -60px;
+    border: 2px solid;
+    -moz-border-top-colors: #444 #222;
+    -moz-border-right-colors: #444 #ddd;
+    -moz-border-bottom-colors: #444 #ddd;
+    -moz-border-left-colors: #444 #222;
+}
+.catbtn[disabled=true], .plubtn[disabled=true] {
+    /* background: url(images/btn_gray.png);*/
+    background-position:0pt -64px;
+}
+.catbtn hbox, .plubtn hbox {
+    -moz-box-orient: vertical;
+
+}
+.catbtn label, .plubtn label {
+    text-wrap: normal;
+    word-wrap: break-word;
+}
+

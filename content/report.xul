@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window SYSTEM "chrome://viviecr/locale/fecpos.dtd">
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/content/skin/vivipos.css" type="text/css"?>
+<window id="report" 
+        sizemode="normal"    
+        hidechrome="false"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/report.js" />
+
+  <!-- groupbox -->
+
+    <box flex="1" class="mainpanel1 pad40">
+        <vbox flex="1" class="panel40">
+            <vbox flex="1" class="footlogo">
+
+        <!-- Begin Decks -->
+                <hbox  id="marcopad" flex="1" pack="start" class="hboxb" >
+
+                    <grid class="catplufuncpad">
+                        <rows>
+                            <row flex="1">
+                                <button id="prop0"  label="Product Sales"  type="radio" group="operator"   oncommand="document.getElementById('report_deck').selectedIndex=0;" class="genbtn"  image="chrome://viviecr/content/skin/icons/archive-24.png" orient="vertical"  checked="true" />
+                                <button id="prop1"  label="Cash by User"  type="radio" group="operator"   oncommand="document.getElementById('report_deck').selectedIndex=1;" class="genbtn"  image="chrome://viviecr/content/skin/icons/archive-24.png" orient="vertical" />
+                                <button id="prop2"  label="Stock Report"  type="radio" group="operator"   oncommand="document.getElementById('report_deck').selectedIndex=2;" class="genbtn"  image="chrome://viviecr/content/skin/icons/archive-24.png" orient="vertical"  />
+                            </row>
+                            <row>
+
+                            </row>
+                        </rows>
+                    </grid>
+
+                </hbox>
+        <!-- End Decks -->
+                <hbox>
+                    <vbox>
+                        <hbox align="center">
+                            <label style="width:70px;" value="Start:"/>
+                            <datepicker type="popup" value="2008/03/01"/>
+                            <timepicker value="13:15" increment="10" hideseconds="false"/>
+                        </hbox>
+                        <hbox>
+                            <label style="width:70px;" value=" to:"/>
+                            <datepicker type="popup" value=""/>
+                            <timepicker value="13:15" increment="10" hideseconds="false"/>
+                        </hbox>
+                    </vbox>
+                    <spacer flex="1" />
+                    <button id="execute"  label="Execute..."  type="radio" group="operator" class="genbtn" style="height: 64px;" orient="vertical"  />
+                </hbox>
+
+        <!-- Begin Report 1 -->
+                <deck id="report_deck">
+                    <vbox id="report_1">
+                        <label id="" value="Product Sales" style="background:green; color:white;" />
+                        <hbox>
+                            <vbox>
+                                <label id="" value="Report 1" />
+                                <hbox>
+                                    <vivitree id="simpleListBoxReport1"  headers="Date Time,Total,Tax" fields="created_date,total,tax"  seltype="single" class="prodsimplelistbox report"/>
+                                    <!-- simplelistbox id="simpleListBoxReport1" rows="16"  headers="Date Time,Total,Tax" columns="created_date,total,tax"  class="prodsimplelistbox report"/ -->
+                                    <simplelistbox id="simpleListBoxReport1detail" rows="16"  headers="Product No,Product Name,Price" columns="no,name,sell_price"  seltype="single" class="prodsimplelistbox"/>
+
+                                </hbox>
+                            </vbox>
+                        </hbox>
+                    </vbox>
+          <!-- End Report 1 -->
+
+          <!-- Begin Report 2 -->
+                    <vbox id="report_2">
+                        <label id="" value="Cash by User" style="background:green; color:white;" />
+                        <hbox>
+                            <vbox>
+                                <label id="" value="Report 2" />
+                                <simplelistbox id="simpleListBoxReport2" rows="16"  headers="Product No,Product Name,Barcode" columns="no,name,barcode"  class="prodsimplelistbox"/>
+                            </vbox>
+                        </hbox>
+                    </vbox>
+          <!-- End Report 2 -->
+
+          <!-- Begin Report 3 -->
+                    <vbox id="report_3">
+                        <label id="" value="Stock Report" style="background:green; color:white;" />
+                        <hbox>
+                            <vbox>
+                                <label id="" value="Report 3" />
+                                <simplelistbox id="simpleListBoxReport3" rows="16"  headers="Product No,Product Name,Barcode" columns="no,name,barcode"  class="prodsimplelistbox"/>
+                            </vbox>
+                        </hbox>
+                    </vbox>
+          <!-- End Report 3 -->
+
+                    <vbox id="Options">
+                        <label id="" value="Options"  style="background:green; color:white;" />
+                    </vbox>
+
+                </deck>
+
+                <hbox>
+                    <button label="OK" class="genbtn" onclick="close();"/>
+                    <button label="Cancel" class="genbtn" onclick="close();" />
+                </hbox>
+            </vbox>
+        </vbox>
+    </box>
+  <!-- /groupbox -->
+
+</window>

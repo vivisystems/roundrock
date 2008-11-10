@@ -1,0 +1,17 @@
+<!ENTITY button-default.label "DEFAULT">
+<!ENTITY button-gray.label "GRAY">
+<!ENTITY button-green.label "GREEN">
+<!ENTITY button-teal.label "TEAL">
+<!ENTITY button-yellow.label "YELLOW">
+<!ENTITY button-red.label "RED">
+<!ENTITY button-orange.label "ORANGE">
+<!ENTITY button-blue.label "BLUE">
+<!ENTITY button-fuchsia.label "FUCHSIA">
+<!ENTITY button-aqua.label "AQUA">
+<!ENTITY button-black.label "BLACK">
+<!ENTITY button-white.label "WHITE">
+<!ENTITY button-fontsize-xlarge.label "XLarge">
+<!ENTITY button-fontsize-large.label "Large">
+<!ENTITY button-fontsize-medium.label "Medium">
+<!ENTITY button-fontsize-small.label "Small">
+

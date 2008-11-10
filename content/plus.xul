@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window SYSTEM "chrome://viviecr/locale/fecpos.dtd">
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/vivipos.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+<window id="pluprop" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/bootstrap.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/plus.js" />
+
+<!-- groupbox -->
+    <box flex="1" class="mainpanel1 pad40">
+        <vbox flex="1" class="panel40">
+            <vbox flex="1" class="footlogo">
+
+
+
+<!-- Begin General Properties -->
+
+                    <vbox  id="pluprop" >
+                        <label id="" value="PLU Property "  class="labeltitle"/>
+
+                        <hbox>
+                            <vbox  style="overflow: auto" >
+                                <spacer style="height: 30px;" />
+                                <hbox align="center">
+                                    <label hidden="true" form="productForm" name="id" value="" />
+                                    <label id="cat_no" hidden="true" form="productForm" name="cate_no" value="" />
+                                    <label value="Product No:"/>
+                                    <textbox id="product_no" form="productForm" name="no"/>
+                                </hbox>
+                                <hbox align="center">
+                                    <label value="Product Name:" />
+                                    <textbox id="product_name" form="productForm" name="name" value="" />
+                                </hbox>
+                                <hbox align="center">
+                                    <label  value="Barcode:" />
+                                    <textbox id="barcode" form="productForm" name="barcode" value="" />
+                                </hbox>
+                                <hbox align="center">
+                                    <label value="Buy Price:"  />
+                                    <textbox id="buy_price" type="number" decimalplaces="2" hidespinbuttons="true" form="productForm" name="buy_price"/>
+                                </hbox>
+                                <vbox align="left">
+                                    <label value="Sell Price:" />
+                                    <hbox>
+                                        <label value="Level 1:" />
+                                        <textbox id="sell_price" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_price" size="12"/>
+                                        <spacer />
+                                        <label value="HALO 1:" />
+                                        <textbox id="sell_halo" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_halo" size="12"/>
+                                    </hbox>
+                                    <hbox>
+                                        <label value="Level 2:" />
+                                        <textbox id="sell_price1" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_price1" size="12"/>
+                                        <spacer />
+                                        <label value="HALO 2:" />
+                                        <textbox id="sell_halo1" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_halo1" size="12"/>
+                                    </hbox>
+                                    <hbox>
+                                        <label value="Level 3:" />
+                                        <textbox id="sell_price2" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_price2" size="12"/>
+                                        <spacer />
+                                        <label value="HALO 3:" />
+                                        <textbox id="sell_halo2" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_halo2" size="12"/>
+                                    </hbox>
+                                </vbox>
+                                <hbox>
+                                    <label value="Rate:"/>
+                                    <menulist id="taxList" form="productForm" name="rate" label="Rate">
+                                        <menupopup style="width: 200px;">
+                                            
+                                        </menupopup>
+                                    </menulist>
+                                </hbox>
+                                <hbox align="center">
+                                    <label value="Stock:"  />
+                                    <textbox id="other_stock" form="productForm" name="stock" default="8"/>
+                                </hbox>
+                                <hbox align="center">
+                                    <label value="Min-Stock:"  />
+                                    <textbox id="other_min_stock" form="productForm" name="min_stock" default="6"/>
+                                </hbox>
+                                <hbox align="center">
+                                    <label value="Auto Maintain:"  />
+                                    <checkbox id="other_auto_maintain_stock" value="true" form="productForm" name="auto_maintain_stock" default="true"/>
+                                    <spacer style="60px;" />
+                                    <label value="Preparation PLU:"  />
+                                    <checkbox id="other_preparation" value="true" form="productForm" name="preparation_plu" default="true"/>
+                                </hbox>
+                                <hbox align="center">
+                                    <label value="Visible:"  />
+                                    <checkbox id="user_visible" value="true" form="productForm" name="visible" default="true"/>
+      <!-- textbox id="user_visible" value="1"/ -->
+                                </hbox>
+                                <hbox align="center">
+                                    <label value="Button Color:"  />
+                                    <button_colorpicker id="other_button_color" form="productForm" name="button_color" />
+                                </hbox>
+                                <hbox align="center">
+                                    <label value="Font Size:"  />
+                                    <button_fontsizepicker id="other_font_size" form="productForm" name="font_size" />
+                                </hbox>
+   
+                            </vbox>
+                            <spacer style="width: 60px;" />
+                            <vbox flex="1" style="max-width: 100px;">
+
+                                <label style="width:100px" value="Photo:"  />
+                                <image id="pluimage" pack="start" style="width:100px; height:100px;"/>
+                                <hbox>
+                                    <button label="" id="imageBrowseBtn" class="iconbtn image32" image="chrome://viviecr/content/skin/images/png133_017.png"/>
+                                    <button label="" id="imageRemoveBtn" class="iconbtn image32" image="chrome://viviecr/content/skin/images/png133_016.png"/>
+                                    <spacer flex="1" />
+                                </hbox>
+                            </vbox>
+                        </hbox>
+                        <label id="status_bar" value="" />
+                        <spacer  flex="1" />
+                        <hbox>
+                            <button label="Add" class="genbtn" oncommand="$do('add', null, 'Products');" />
+                            <button label="Delete" class="genbtn" oncommand="$do('delete', null, 'Products');" />
+                            <button label="Modify" class="genbtn" oncommand="$do('update', null, 'Products');" />
+                        </hbox>
+                    </vbox>
+
+<!-- End General Properties -->
+
+
+
+                <hbox>
+                    <button label="OK" id="reloadBtn" class="genbtn"/>
+                    <button label="Cancel" class="genbtn" onclick="close();" />
+                    <spacer width="100"/>
+                </hbox>
+            </vbox>
+        </vbox>
+
+
+    </box>
+<!-- /groupbox -->
+    <hbox id="okCancelButtonsRight" class="dialogbtns" />
+
+</window>

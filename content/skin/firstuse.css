@@ -1,0 +1,502 @@
+/* global skin ------------------------------------------------------------- */
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+@namespace html url("http://www.w3.org/1999/xhtml");
+
+/* @import url(chrome://global/skin/); */
+@import url(chrome://viviecr/content/skin/);
+
+
+* {
+	padding: 0px;
+	margin: 0px;
+}
+
+textbox html|input {
+    background-color:#ded;
+    font-size: 20px;
+    border-style: solid;
+    border-color: #eb9;
+    -moz-outline-color: #eb9;
+/*    
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-box-align:center;
+    -moz-box-pack:center;
+*/
+/*    background: url(images/btn_purple.png); */
+}
+
+.mainpanel  {
+/*
+    position: center;
+    max-width: 640px;
+    max-height: 480px;
+    width: 640px;
+    height: 480px; 
+*/
+    background-color: #CCCCCC;
+    background-image: url(images/bg_fec_vivi.png);
+    background-repeat: no-repeat;
+    background-position: right bottom;
+    border: 0px solid red;
+    padding: 40px; 
+}
+
+.pad40 {
+    padding: 40px; 
+}
+
+.pad60 {
+    padding: 60px; 
+}
+
+.pad80 {
+    padding: 80px; 
+}
+
+.pad100 {
+    padding: 100px; 
+}
+
+.panel40 {
+    padding: 30px;
+    background-image: url(images/bg_gray.png);
+    -moz-box-shadow: #666 5px 5px 8px;
+}
+
+.footlogo {
+    padding: 20px;
+/*    background-color: #fff */
+    background-image: url(images/vivipos_icon1.png);
+    background-position: right bottom;
+    background-repeat: no-repeat;
+    overflow: auto;
+/*    -moz-box-shadow: #666 5px 5px 8px; */
+/*    margin-right: 3px;
+    margin-bottom: 5px; */
+/*    opacity: 0.5; */
+}
+
+.modelbtn {
+/*
+    min-width:100px;
+    max-width:100px;
+*/
+    min-height:120px;
+    max-height:120px;
+    height: 120px;
+/*    width: 100px; */
+    margin: 4px 4px 4px 4px;
+    padding: 6px;
+    list-style-type: none;
+    color: White;
+    font-weight: bold !important;
+/*    font-size: 30px; */
+    overflow: hidden;
+    background-color:#800040;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    background: url(images/btn_gray.png);
+    -moz-background-clip: border;
+    -moz-border-radius-bottomright: 30px; 
+    -moz-border-radius-topleft: 30px;  
+}
+.modelbtn[checked=true] {
+    background: url(images/btn_green.png);
+}
+
+.config {
+    min-height:56px;
+/*    max-height:56px; */
+}
+
+.browsefilebtn {
+    min-width:48px;
+    max-width:120px;
+    min-height:48px;
+    max-height:48px;
+    height: 48px;
+    width: 120px;
+/*    background-image: url(images/folder1.png);
+    background-repeat: no-repeat; */
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-border-radius-bottomright: 10px; 
+    -moz-border-radius-topleft: 10px;
+}
+
+.numberbtn {
+    min-width:100px;
+    max-width:100px;
+    min-height:64px;
+    max-height:64px;
+    height: 64px;
+    width: 100px;
+    margin: 1px 1px 0px 0px;
+    padding: 0px;
+    list-style-type: none;
+    color: White;
+    font-weight: bold !important;
+    font-size: 30px;
+    overflow: hidden;
+    background-color:#800040;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    background: url(images/btn_purple.png);
+    -moz-background-clip: border;
+}
+/*
+.numberbtn:active {
+    background-color:#FF8E97;
+    -moz-appearance: none;
+}
+*/
+
+.numberpad {
+    width: 300px;
+}
+.numberpad button{
+    min-width:100px;
+    max-width:100px;
+    min-height:64px;
+    max-height:64px;
+    height: 64px;
+    width: 100px;
+    margin: 1px 1px 0px 0px;
+    padding: 0px;
+    list-style-type: none;
+    color: White;
+    font-weight: bold !important;
+    font-size: 30px;
+    overflow: hidden;
+    background-color:#800040;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    background: url(images/btn_purple.png);
+    -moz-background-clip: border;
+}
+
+.systembtn {
+    min-width:100px;
+    max-width:100px;
+    min-height:64px;
+    max-height:64px;
+    margin: 1px 1px 0px 0px;
+    padding: 0px;
+    list-style-type: none;
+    color: White;
+    font-weight: bold !important;
+    font-size: 18px;
+    overflow: hidden;
+    background-color:#008040;
+    text-align: center;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    background: url(images/btn_green.png);
+    -moz-background-clip: border;
+}
+
+.marcocabtn {
+    min-width:100px;
+    max-width:100px;
+    min-height:64px;
+    max-height:64px;
+    height: 64px;
+    width: 100px;
+    margin: 1px 1px 0px 0px;
+    padding: 0px;
+    list-style-type: none;
+    color: White;
+    font-weight: bold !important;
+    font-size: 18px;
+    overflow: hidden;
+    text-align: center;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    background-color:#4444CC;
+    background: url(images/btn_blue.png);
+    -moz-background-clip: border;
+    -moz-border-radius: 10px; 
+}
+/*
+.marcocabtn:active {
+    background-color:#FF8E97;
+    -moz-appearance: none;
+}
+*/
+
+.rightprevbtn {
+    max-width:50px;
+    min-width:50px;
+    height: 64px;
+    width: 50px;
+    background: url(images/btn_green.png);
+    list-style-image: url(images/uparr-dis.png);
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-background-clip: border;
+    -moz-border-radius-topright: 30px; 
+    -moz-border-radius-topleft: 30px;  
+/*    -moz-border-radius-bottomright: 30px; */
+}
+.rightprevbtn label {
+	display: none;
+}
+
+.rightnextbtn {
+    max-width:50px;
+    min-width:50px;
+    height: 64px;
+    width: 50px;
+    background: url(images/btn_green.png);
+    list-style-image: url(images/dnarr-dis.png);
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-background-clip: border;
+/*    -moz-border-radius-topright: 30px; */
+    -moz-border-radius-bottomright: 30px;
+    -moz-border-radius-bottomleft: 30px;
+}
+.rightnextbtn: active {
+	background-position:0pt -128px;
+}
+.rightnextbtn: disable {
+	background-position:0pt -64px;
+}
+.rightnextbtn label {
+	display: none;
+}
+
+.leftprevbtn {
+    max-width:50px;
+    min-width:50px;
+    height: 64px;
+    width: 50px;
+    background: url(images/btn_green.png);
+    list-style-image: url(images/uparr-dis.png);
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+/*    -moz-background-clip: border; */
+    -moz-border-radius-topleft: 30px;
+    -moz-border-radius-topright: 30px;  
+/*    -moz-border-radius-bottomleft: 30px; */
+}
+.leftprevbtn label {
+	display: none;
+}
+
+.leftnextbtn {
+    max-width:50px;
+    min-width:50px;
+    height: 64px;
+    width: 50px;
+    background: url(images/btn_green.png);
+    list-style-image: url(images/dnarr-dis.png);
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+/*    -moz-background-clip: border; */
+/*    -moz-border-radius-topleft: 30px; */
+    -moz-border-radius-bottomleft: 30px;
+    -moz-border-radius-bottomright: 30px;
+}
+.leftnextbtn label {
+	display: none;
+}
+
+.genspeedbtn {
+    max-width:50px;
+    min-width:50px;
+    height: 50px;
+    width: 50px;
+    background: url(images/btn_green.png);
+    list-style-image: url(images/uparr-dis.png);
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-background-clip: border;
+    -moz-border-radius-topright: 25px; 
+    -moz-border-radius-topleft: 25px;  
+    -moz-border-radius-bottomright: 25px; 
+    -moz-border-radius-bottomleft: 25px;
+/*    -moz-border-radius-bottomright: 30px; */
+}
+.genspeedbtn label {
+	display: none;
+}
+.genspeedbtn image {
+	width: 32px;
+	height: 32px;
+}
+
+.prevnextlabel {
+  font-size: 24px;
+  text-align: center;
+}
+
+.marcobtn {
+    min-width:100px;
+    max-width:100px;
+    min-height:64px;
+    max-height:64px;
+    height: 64px;
+    width: 100px;
+    margin: 1px 1px 0px 0px;
+    padding: 0px;
+    list-style-type: none;
+    color: white;
+    font-weight: bold !important;
+    font-size: 18px;
+    overflow: hidden;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    background: url(images/btn_gray.png);
+    -moz-background-clip: border;
+    -moz-button;
+/*    -moz-border-radius-topleft: 10px; */
+/*    -moz-border-radius-bottomright: 10px; */
+}
+
+.marcobtn:active {
+/*    background-color:#FF8E97;
+    -moz-appearance: none; */
+/*    background: url(images/btn_purple.png); */
+    background-position:0pt -64px;
+}
+
+.gray {
+  background: url(images/btn_gray.png);
+  background-position:0pt -64px;
+}
+.gray:disable {
+  background: url(images/btn_gray.png);
+  background-position:0pt -128px;
+}
+
+.blue {
+  background: url(images/btn_blue.png);
+  background-position:0pt -64px;
+}
+
+.green {
+  background: url(images/btn_green.png);
+  background-position:0pt -64px;
+}
+
+.purple {
+  background: url(images/btn_purple.png);
+  background-position:0pt -64px;
+}
+
+.vfd_textbox html|input {
+/*    background-color:#FF8E97; */
+    font-size: 0px;
+    width: 0px;
+    height: 0px;
+    empty: true;
+    
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-box-align:center;
+    -moz-box-pack:center;
+/*    background: url(images/btn_purple.png); */
+}
+.operatorbtn {
+    min-width:94px;
+    max-width:94px;
+    height: 76px;
+    width: 94px;
+    margin: 1px 1px 0px 0px;
+    padding: 0px;
+    list-style-type: none;
+    color: Blue;
+    font-weight: bold !important;
+    font-size: 18px;
+    overflow: hidden;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+}
+.operatorbtn[checked=true] {
+    color: White;
+    background-color:#22CC22;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+}
+
+
+.vboxb {
+  background-color:#CCCCCC;
+  border: 0px solid black;
+  padding: 0px;
+  margin-left: 0px;
+  }
+
+.genbtn {
+    /* width:  100px; */
+    height: 48px;
+    margin: 1px 1px 0px 0px;
+    padding: 0px;
+    list-style-type: none;
+    overflow: hidden;
+    color: Blue;
+    font-weight: bold !important;
+    font-size: 18px;
+    overflow: hidden;
+    background: url(images/btn_gray.png);
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-background-clip: border;
+}
+
+
+.hboxb {
+/*    min-width:420px;
+    max-width:420px;
+    min-height:64px;
+    max-height:64px; */
+/*  background-color:#CCCCCC; */
+  border: 0px solid black;
+  padding: 0px;
+  margin: 0px;
+  -moz-box-pack: justify;
+
+  }
+
+.vbox_foot {
+//  background-color:#CCCCCC;
+  background: url(images/logo.png);
+  background-repeat: no-repeat;
+  background-position: right bottom;
+  border: 0px solid black;
+  padding: 0px;
+  margin: 0px;
+  height: 50px;
+/*  -moz-box-orient: vertical; */
+/*  -moz-box-align: center; */
+/*  vertical-align: bottom; */
+  }
+.label_foot {
+/*  height: 16px; */
+  color: #555;
+  font-size: 18px;
+  text-align: left; 
+  -moz-box-align: center;
+  vertical-align: bottom; 
+/*  text-shadow: black 0px 0px 5px; */
+  text-shadow: #888 2px 2px 1px;
+}
+
+.vbox_vfd {
+//  background-color:#CCCCCC;
+background: url(images/vfd_2.png);
+  border: 0px solid black;
+  padding: 10px;
+  margin-left: 0px;
+  height: 50px;
+  }
+
+.label_vfd {
+  color: #FFFFFF;
+  font-size: 32px;
+  }
+
+

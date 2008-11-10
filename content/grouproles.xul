@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window SYSTEM "chrome://viviecr/locale/fecpos.dtd">
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/vivipos.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+<window id="numpad" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/grouproles.js" />
+
+  <!-- groupbox -->
+    <box flex="1" class="mainpanel1 pad40">
+        <vbox flex="1" class="panel40">
+            <vbox flex="1" class="footlogo">
+
+
+          <!-- Begin GroupRoles -->
+                    <vbox  id="roles" flex="1" pack="start" class="hboxb" >
+                        <label id="" value="Role Groups"  style="background:green; color:white;" />
+
+            <!-- hbox -->
+                        <vbox>
+                            <label id="" value="Group List:" />
+              <!-- simplelistbox id="cartSimpleListBox1" flex="1" rows="24"  headers="Role Name" style="width:300px; height:450px;"/ -->
+                            <simplelistbox id="simpleListBoxRoleGroups" rows="16"  headers="Role Group" columns="name"  class="usersimplelistbox"/>
+                        </vbox>
+                        <vbox flex="1" >
+
+                            <hbox class="config" align="center">
+                                <label value="Group Name:"/>
+                                <textbox id="rolegroup_name" form="rolegroupForm" name="name" />
+                            </hbox>
+
+                            <groupbox id="rolelist" flex="1">
+                                <caption label="Role List:" />
+                                <hbox flex="1">
+                                    <spacer style="width: 60px;" />
+                                    <scrollablepanel flex="1" id="rolescrollablepanel" increment="65" class="catescrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray">
+
+                                    </scrollablepanel>
+                                </hbox>
+                            </groupbox>
+
+                        </vbox>
+            <!-- /hbox -->
+                        <spacer style="height: 10px;" />
+                        <hbox>
+                            <isuserinrole roles="manager,admin" action ='display'>
+                                <button label="Add" class="genbtn" oncommand="$do('add', null, 'RoleGroups');" />
+                <!-- button label="Refresh" class="genbtn" oncommand="$do('load', null, 'RoleGroups');" / -->
+                                <button label="Delete" class="genbtn" oncommand="$do('delete', null, 'RoleGroups');" />
+                                <button label="Modify" class="genbtn" oncommand="$do('update', null, 'RoleGroups');" />
+                            </isuserinrole>
+                        </hbox>
+                    </vbox>
+
+          <!-- End GroupRoles -->
+
+
+
+                <hbox>
+                    <button label="OK" class="genbtn" onclick="close();"/>
+                    <button label="Cancel" class="genbtn" onclick="close();" />
+                </hbox>
+            </vbox>
+        </vbox>
+    </box>
+  <!-- /groupbox -->
+    <hbox id="okCancelButtonsRight" class="dialogbtns" />
+
+</window>

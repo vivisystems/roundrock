@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window SYSTEM "chrome://viviecr/locale/fecpos.dtd">
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/vivipos.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+<window id="numpad" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/users.js" />
+
+  <!-- groupbox -->
+    <box flex="1" class="mainpanel1 pad40">
+        <vbox flex="1" class="panel40">
+            <vbox flex="1" class="footlogo">
+
+        <!-- Begin SysConfig 1 -->
+
+                    <vbox id="users">
+                        <label id="" value="Users" style="background:green; color:white;" />
+            <!-- hbox -->
+                        <vbox>
+                            <label hidden="true" form="userForm" name="id" value="" />
+                            <label id="" value="User List:" />
+              <!-- simplelistbox id="cartSimpleListBox1" flex="1" rows="24"  headers="User No,User Name" style="width:300px; height:450px;"/ -->
+                            <simplelistbox id="simpleListBoxUser" rows="16"  headers="No,User Name" columns="no,username"  class="usersimplelistbox"/>
+                        </vbox>
+                        <vbox flex="1" style="overflow: auto" >
+
+                            <hbox class="config" align="center">
+                                <label value="User No:"/>
+                                <textbox id="user_no" form="userForm" name="no"/>
+                            </hbox>
+                            <hbox class="config" align="center">
+                                <label value="User Name:" />
+                                <textbox id="user_name" value="" form="userForm" name="username" />
+                            </hbox>
+                            <hbox class="config" align="center">
+                                <label value="Password:" />
+                                <textbox type="password" id="user_password" value="" form="userForm" name="password" />
+                            </hbox>
+                            <hbox class="config" align="center">
+                                <label  value="Role:" />
+                                <menulist id="user_grouplist" label="Role" form="userForm" name="group">
+                                    <menupopup width="160">
+                                        <menuitem label="Administrator" selected="true"  />
+                                        <menuitem label="Manager"  />
+                                        <menuitem label="Operator"  />
+                                        <menuitem label="Guest" />
+                                    </menupopup>
+                                </menulist>
+                            </hbox>
+                            <hbox class="config" align="center">
+                                <label value="Visible:"  />
+                                <checkbox id="user_visible" value="1" form="userForm" name="visible"/>
+                            </hbox>
+                        </vbox>
+            <!-- /hbox -->
+                        <spacer style="height: 10px;" />
+                        <hbox>
+                            <button label="Add" class="genbtn" oncommand="$do('add', null, 'Users');" />
+              <!-- button label="Refresh" class="genbtn" oncommand="$do('load', null, ViviPOS.CategoriesController);" / -->
+                            <button label="Delete" class="genbtn" oncommand="$do('delete', null, 'Users');" />
+                            <button label="Modify" class="genbtn" oncommand="$do('update', null, 'Users');" />
+                        </hbox>
+                    </vbox>
+
+ 
+
+                <hbox>
+                    <button label="OK" class="genbtn" onclick="close();"/>
+                    <button label="Cancel" class="genbtn" onclick="close();" />
+                </hbox>
+            </vbox>
+        </vbox>
+    </box>
+  <!-- /groupbox -->
+    <hbox id="okCancelButtonsRight" class="dialogbtns" />
+
+</window>

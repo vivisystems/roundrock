@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window SYSTEM "chrome://viviecr/locale/fecpos.dtd">
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/content/skin/firstuse.css" type="text/css"?>
+
+
+<wizard id="theWizard" title="Secret Code Wizard" onwizardfinish="finishConfig();" onwizardcancel="cancelWizard();"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  xmlns:html="http://www.w3.org/1999/xhtml">
+
+<script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+
+
+<script>
+<![CDATA[
+function checkCode(){
+  document.getElementById('theWizard').canAdvance = (document.getElementById('secretCode').value == "vivipos");
+} 
+
+function checkRegFill(){
+  document.getElementById('theWizard').canAdvance = ((document.getElementById('register_no').value != "") &&
+	(document.getElementById('reg_name').value != "") &&
+	(document.getElementById('reg_address').value != "") &&
+	(document.getElementById('reg_tel').value != "") &&
+	(document.getElementById('admin_password').value != ""));
+
+} 
+
+function finishConfig(){
+	GREUtils.Pref.setPref('extensions.vivipos.firstrun', false);
+	var firstrun = GREUtils.Pref.getPref('extensions.vivipos.firstrun');
+	  // alert("Finish. Restarting...." + firstrun);
+	
+	GREUtils.restartApplication();
+}
+
+function cancelWizard(){
+  alert("Cancel.");
+}
+]]>
+</script>
+
+
+
+
+  <wizardpage next="" class="mainpanel pad60"
+		label="Welcome FEC - VIVIPOS" 
+		description="This process will guide you through the initial set VIVIPOS." >
+	<box flex="1">
+		<vbox flex="1" class="panel40">
+			<hbox flex="1" class="footlogo">
+			<description>
+Welcome to the use of FEC VIVIPOS!<html:br />
+Under the elegant appearance, VIVIPOS provide you with powerful features and a high degree of stability.<html:br />
+Following through fast and simple procedures, and lead you through the VIVIPOS the initial set.<html:br />
+<html:br />
+歡迎您使用 FEC VIVIPOS!<html:br />
+在優雅的外型下, VIVIPOS 提供您強大的功能及高度的穩定性.<html:br />
+以下將透過快速且簡易的程序, 帶領您完成 VIVIPOS 的初始設定.<html:br />
+<html:br />
+のFECの使用をviviposへようこそ！<html:br />
+エレガントな外観の下に、 vivipos提供する強力な機能と安定度の高いです。<html:br />
+次の迅速かつ簡単な手続きを通じて、と鉛の初期設定では、 viviposです。<html:br />
+<html:br />
+Bienvenue à l'utilisation de la FEC VIVIPOS!<html:br />
+En vertu de l'élégante apparence, VIVIPOS vous fournir des fonctionnalités puissantes et un <html:br />
+degré élevé de stabilité.<html:br />
+La suite grâce à une intervention rapide et des procédures simples, et vous guider dans la VIVIPOS <html:br />
+la première série.<html:br />
+<html:br />
+Willkommen auf den Einsatz von FEC VIVIPOS!<html:br />
+Unter der eleganten Erscheinung, VIVIPOS Ihnen mit leistungsstarken Features und <html:br />
+ein hohes Maß an Stabilität.<html:br />
+Nach der durch schnelle und einfache Verfahren, und führen Sie durch die VIVIPOS der ersten Reihe.<html:br />
+<html:br />
+Bienvenido a la utilización de FEC VIVIPOS!<html:br />
+Bajo la apariencia elegante, VIVIPOS le proporciona potentes funciones y un alto grado de estabilidad.<html:br />
+Tras rápido y a través de procedimientos sencillos, y conducir al usuario a través <html:br />
+del VIVIPOS el conjunto inicial.<html:br />
+<html:br />
+			</description>
+			<spacer flex="1" />
+			</hbox>
+			<!-- browser type="content" src="http://209.20.80.31/CMS_Support/" flex="1"/ -->
+		</vbox>
+	</box>
+  </wizardpage>
+
+  <wizardpage next="" class="mainpanel pad60"
+		label="Welcome FEC - VIVIPOS" 
+		description="This process will guide you through the initial set VIVIPOS." >
+	<box flex="1">
+		<vbox flex="1" class="panel40">
+			<hbox flex="1" class="footlogo">
+			<description>
+Please select the language you use ...<html:br /><html:br />
+請選擇您使用的語�...<html:br /><html:br />
+を使用する言語を選択してください...<html:br /><html:br />
+S’il vous plaît choisir la langue que vous utilisez ...<html:br /><html:br />
+Bitte wählen Sie die Sprache, die Sie benutzen ...<html:br /><html:br />
+Por favor seleccione el idioma que uso ...<html:br /><html:br />
+			</description>
+
+			<listbox id="theList">
+				<listitem label="English" selected="true"/>
+				<listitem label="中文"/>
+				<listitem label="日本語"/>
+				<listitem label="Français"/>
+				<listitem label="Deutsch"/>
+				<listitem label="Español"/>
+			</listbox>
+
+			<spacer flex="1" />
+			</hbox>
+		</vbox>
+	</box>
+  </wizardpage>
+
+  <wizardpage class="mainpanel pad60" onpageshow="checkCode();" 
+		label="Welcome FEC - VIVIPOS" 
+		description="This process will guide you through the initial set VIVIPOS." >
+	<box flex="1">
+		<vbox flex="1" class="panel40">
+			<vbox flex="1" class="footlogo">
+			<label value="Enter the VIVIPOS serial code:"/>
+			<textbox id="secretCode" onkeyup="checkCode();"/>
+			<spacer flex="1" />
+			</vbox>
+		</vbox>
+	</box>
+  </wizardpage>
+
+  <wizardpage  class="mainpanel pad40" 
+		label="Welcome FEC - VIVIPOS" 
+		description="This process will guide you through the initial set VIVIPOS." >
+	<box flex="1">
+		<vbox flex="1" class="panel40">
+			<label value="Please select the cash register model:"/>
+			<vbox flex="1" class="footlogo" >
+			
+			<button id="m3" flex="1" type="radio" group="operator" class="modelbtn" pack="start">
+				<image width="140" height="100" src="chrome://viviecr/content/skin/images/vivipos_image1.png" />
+				<label>Retail</label>
+			</button>
+			<button id="m4" flex="1" type="radio" group="operator" class="modelbtn" pack="start">
+				<image style="width:160px; height:120px;" src="chrome://viviecr/content/skin/images/bb.png" />
+				<label>Hospitality</label>
+			</button>
+
+			<button flex="1" type="radio" group="operator" class="modelbtn" pack="start">
+				<image style="width:160px; height:120px;" src="chrome://viviecr/content/skin/images/mm.png" />
+				<label>Quick Service</label>
+			</button>
+			<button flex="1" type="radio" group="operator" class="modelbtn" pack="start">
+				<image style="width:160px; height:120px;" src="chrome://viviecr/content/skin/images/mm.png" />
+				<label>Beauty Salon</label>
+			</button>
+
+			<button flex="1" type="radio" group="operator" class="modelbtn" pack="start">
+				<image src="chrome://viviecr/content/skin/images/mm.png" />
+				<label>DVD Rental</label>
+			</button>
+			<button flex="1" type="radio" group="operator" class="modelbtn" pack="start">
+				<image src="chrome://viviecr/content/skin/images/mm.png" />
+				<label>Book Store</label>
+			</button>
+
+			<button flex="1" type="radio" group="operator" class="modelbtn" pack="start">
+				<image src="chrome://viviecr/content/skin/images/mm.png" />
+				<label>Retail Version</label>
+			</button>
+			<button flex="1" type="radio" group="operator" class="modelbtn" pack="start">
+				<image src="chrome://viviecr/content/skin/images/mm.png" />
+				<label>Retail Version</label>
+			</button>
+			<button flex="1" type="radio" group="operator" class="modelbtn" pack="start">
+				<image src="chrome://viviecr/content/skin/images/mm.png" />
+				<label>Retail Version</label>
+			</button>
+			<spacer flex="1" />
+			</vbox>
+		</vbox>
+	</box>
+  </wizardpage>
+
+  <wizardpage next="" class="mainpanel pad60" onpageshow="checkRegFill();"
+		label="Welcome FEC - VIVIPOS" 
+		description="This process will guide you through the initial set VIVIPOS." >
+	<box flex="1">
+		<vbox flex="1" class="panel40">
+			<label value="Basic Configure:"/>
+			<vbox flex="1" class="footlogo">
+				<hbox class="config" align="center">
+					<label style="width:200px;" value="Register No:"/>
+					<textbox id="register_no" onkeyup="checkRegFill();" />
+				</hbox>
+				<hbox class="config" align="center">
+					<label style="width:200px;" value="Name:"/>
+					<textbox id="reg_name" onkeyup="checkRegFill();" />
+				</hbox>
+				<hbox class="config" align="center">
+					<label style="width:200px;" value="TEL:"/>
+					<textbox id="reg_tel" onkeyup="checkRegFill();" />
+				</hbox>
+				<hbox class="config" align="center">
+					<label style="width:200px;" value="Address:"/>
+					<textbox id="reg_address" size="40" onkeyup="checkRegFill();" />
+				</hbox>
+				<hbox class="config" align="center">
+					<label style="width:200px;" value="Administor Password:"/>
+					<textbox id="admin_password" type="password" onkeyup="checkRegFill();"/>
+				</hbox>
+				<hbox class="config" align="center">
+					<label style="width:200px;" value="Skin:"/>
+					<menulist id="reg_skin" label="Skin">
+					<menupopup width="120">
+						<menuitem label="General" selected="true"  />
+						<menuitem label="Green"  />
+						<menuitem label="Pink"  />
+						<menuitem label="Yellow" />
+					</menupopup>
+					</menulist>  
+				</hbox>
+				<hbox class="config" align="center">
+					<label style="width:200px;" value="Logo:(200x50)"  />
+					<image src="chrome://viviecr/content/skin/images/logo.png" width="200" height="50"/>
+					<button class="browsefilebtn" label="Select..."/>
+				</hbox>
+				<spacer flex="1" />
+			</vbox>
+		</vbox>
+	</box>
+  </wizardpage>
+
+  <wizardpage next="" class="mainpanel pad60"
+		label="Welcome FEC - VIVIPOS" 
+		description="This process will guide you through the initial set VIVIPOS." >
+	<box flex="1">
+		<vbox flex="1" class="panel40">
+			<label value="Finished:"/>
+			<vbox flex="1" class="footlogo">
+				<hbox>
+				<description>
+Finish! Before use in the beginning, first established PLU items.<html:br /><html:br />
+Press <html:font color="red">[Finish]</html:font> start by setting PLU items.
+				</description>
+				</hbox>
+				<spacer flex="1" />
+			</vbox>
+		</vbox>
+	</box>
+  </wizardpage>
+
+</wizard>
+

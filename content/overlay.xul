@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE overlay PUBLIC "-//MOZILLA//DTD XUL V1.0//EN" "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+
+<?xul-overlay href="chrome://viviecr/content/overlays/keysetExtensions.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/productPanelOverlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/functionPanelOverlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/rightPanelOverlay.xul" ?>
+
+<overlay id="viviecrOverlay"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+
+  <script src="chrome://viviecr/content/bootstrap.js" type="application/x-javascript"/>
+  <script src="chrome://viviecr/content/overlay.js" type="application/x-javascript"/>
+
+  <box id="main-container">
+    <hbox flex="1" class="mainpanel">
+
+      <vbox flex="1">
+
+
+        <box id="productPanelContainer" class="productPanel" />
+
+        <box id="functionPanelContainer" class="functionPanel" />
+
+        <!-- fix foot -->
+        <spacer flex="1" />
+
+      </vbox>
+
+      <box id="rightPanelContainer" class="rightPanel" />
+      
+    </hbox>
+  </box>
+</overlay>

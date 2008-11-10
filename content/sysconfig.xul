@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window SYSTEM "chrome://viviecr/locale/fecpos.dtd">
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/content/skin/vivipos.css" type="text/css"?>
+<window id="numpad" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/sysconfig.js" />
+
+  <!-- groupbox -->
+    <box flex="1" class="mainpanel1 pad40">
+        <vbox flex="1" class="panel40">
+            <vbox flex="1" class="footlogo">
+
+        <!-- Begin Decks -->
+                <hbox  id="marcopad" flex="1" pack="start" class="hboxb" >
+
+                    <grid class="catplufuncpad">
+                        <rows>
+                            <row flex="1">
+                                <button id="prop0"  label="Users"  type="radio" group="operator"   oncommand="document.getElementById('conf_deck').selectedIndex=0;" class="genbtn"  image="chrome://viviecr/content/skin/icons/comments-24.png" orient="vertical" checked="true" />
+                                <button id="prop1"  label="Role Groups"  type="radio" group="operator"   oncommand="document.getElementById('conf_deck').selectedIndex=1;" class="genbtn"  image="chrome://viviecr/content/skin/icons/plugins-24.png" orient="vertical" />
+                                <button id="prop2"  label="Others"  type="radio" group="operator"   oncommand="document.getElementById('conf_deck').selectedIndex=2;" class="genbtn"  image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical"  />
+                            </row>
+                        </rows>
+                    </grid>
+
+                </hbox>
+        <!-- End Decks -->
+
+        <!-- Begin SysConfig 1 -->
+                <deck id="conf_deck">
+                    <vbox id="users">
+                        <label id="" value="Users" style="background:green; color:white;" />
+            <!-- hbox -->
+                        <vbox>
+                            <label hidden="true" form="userForm" name="id" value="" />
+                            <label id="" value="User List:" />
+              <!-- simplelistbox id="cartSimpleListBox1" flex="1" rows="24"  headers="User No,User Name" style="width:300px; height:450px;"/ -->
+                            <simplelistbox id="simpleListBoxUser" rows="16"  headers="No,User Name" columns="no,username"  class="usersimplelistbox"/>
+                        </vbox>
+                        <vbox flex="1" style="overflow: auto" >
+
+                            <hbox class="config" align="center">
+                                <label value="User No:"/>
+                                <textbox id="user_no" form="userForm" name="no"/>
+                            </hbox>
+                            <hbox class="config" align="center">
+                                <label value="User Name:" />
+                                <textbox id="user_name" value="" form="userForm" name="username" />
+                            </hbox>
+                            <hbox class="config" align="center">
+                                <label value="Password:" />
+                                <textbox type="password" id="user_password" value="" form="userForm" name="password" />
+                            </hbox>
+                            <hbox class="config" align="center">
+                                <label  value="Role:" />
+                                <menulist id="user_grouplist" label="Role" form="userForm" name="group">
+                                    <menupopup width="160">
+                                        <menuitem label="Administrator" selected="true"  />
+                                        <menuitem label="Manager"  />
+                                        <menuitem label="Operator"  />
+                                        <menuitem label="Guest" />
+                                    </menupopup>
+                                </menulist>
+                            </hbox>
+                            <hbox class="config" align="center">
+                                <label value="Visible:"  />
+                                <checkbox id="user_visible" value="1" form="userForm" name="visible"/>
+                            </hbox>
+                        </vbox>
+            <!-- /hbox -->
+                        <spacer style="height: 10px;" />
+                        <hbox>
+                            <button label="Add" class="genbtn" oncommand="$do('add', null, 'Users');" />
+              <!-- button label="Refresh" class="genbtn" oncommand="$do('load', null, ViviPOS.CategoriesController);" / -->
+                            <button label="Delete" class="genbtn" oncommand="$do('delete', null, 'Users');" />
+                            <button label="Modify" class="genbtn" oncommand="$do('update', null, 'Users');" />
+                        </hbox>
+                    </vbox>
+
+          <!-- Begin General Properties -->
+                    <vbox  id="roles" flex="1" pack="start" class="hboxb" >
+                        <label id="" value="Role Groups"  style="background:green; color:white;" />
+
+            <!-- hbox -->
+                        <vbox>
+                            <label id="" value="Group List:" />
+              <!-- simplelistbox id="cartSimpleListBox1" flex="1" rows="24"  headers="Role Name" style="width:300px; height:450px;"/ -->
+                            <simplelistbox id="simpleListBoxRoleGroups" rows="16"  headers="Role Group" columns="name"  class="usersimplelistbox"/>
+                        </vbox>
+                        <vbox flex="1" >
+
+                            <hbox class="config" align="center">
+                                <label value="Group Name:"/>
+                                <textbox id="rolegroup_name" form="rolegroupForm" name="name" />
+                            </hbox>
+
+                            <groupbox id="rolelist" flex="1">
+                                <caption label="Role List:" />
+                                <hbox flex="1">
+                                    <spacer style="width: 60px;" />
+                                    <scrollablepanel flex="1" id="rolescrollablepanel" increment="65" class="catescrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray">
+
+                                    </scrollablepanel>
+                                </hbox>
+                            </groupbox>
+
+                        </vbox>
+            <!-- /hbox -->
+                        <spacer style="height: 10px;" />
+                        <hbox>
+                            <isuserinrole roles="manager,admin" action ='display'>
+                                <button label="Add" class="genbtn" oncommand="$do('add', null, 'RoleGroups');" />
+                <!-- button label="Refresh" class="genbtn" oncommand="$do('load', null, 'RoleGroups');" / -->
+                                <button label="Delete" class="genbtn" oncommand="$do('delete', null, 'RoleGroups');" />
+                                <button label="Modify" class="genbtn" oncommand="$do('update', null, 'RoleGroups');" />
+                            </isuserinrole>
+                        </hbox>
+                    </vbox>
+
+          <!-- End General Properties -->
+
+          <!-- Begin Others -->
+                    <vbox  id="others" flex="1" pack="start" class="hboxb" >
+                        <label id="" value="Others"  style="background:green; color:white;" />
+
+                        <hbox>
+
+                            <vbox flex="1" style="overflow: auto" >
+
+                                <hbox class="config" align="center">
+                                    <label value="Register No:"/>
+                                    <textbox id="other_register_no" />
+                                </hbox>
+                                <hbox class="config" align="center" checkrole="true">
+                                    <label value="Name:"/>
+                                    <textbox id="other_name" />
+                                </hbox>
+                                <hbox class="config" align="center">
+                                    <label value="TEL:"/>
+                                    <textbox id="other_tel" />
+                                </hbox>
+                                <hbox class="config" align="center">
+                                    <label value="Address:"/>
+                                    <textbox id="other_address" />
+                                </hbox>
+                                <hbox class="config" align="center">
+                                    <label value="***:"/>
+                                    <textbox id="other____" />
+                                </hbox>
+
+                                <hbox align="center">
+                                    <label value="Skin:"/>
+                                    <menulist id="other_skin" label="Skin">
+                                        <menupopup width="120">
+                                            <menuitem label="General" selected="true"  />
+                                            <menuitem label="Green"  />
+                                            <menuitem label="Pink"  />
+                                            <menuitem label="Yellow" />
+                                        </menupopup>
+                                    </menulist>
+                                </hbox>
+                                <hbox>
+                                    <label style="width:200px" value="Logo:(200x50)"  />
+                                    <image src="chrome://viviecr/content/skin/icons/themes-32.png" width="200" height="50"/>
+                                </hbox>
+                            </vbox>
+                        </hbox>
+
+                    </vbox>
+          <!-- End Others -->
+
+                </deck>
+
+                <hbox>
+                    <button label="OK" class="genbtn" onclick="close();"/>
+                    <button label="Cancel" class="genbtn" onclick="close();" />
+                </hbox>
+            </vbox>
+        </vbox>
+    </box>
+  <!-- /groupbox -->
+
+</window>

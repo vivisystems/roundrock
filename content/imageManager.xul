@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE window SYSTEM "chrome://viviecr/locale/fecpos.dtd">
+
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+<window title="Image Manager"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/imageManager.js" />
+
+    <hbox flex="1" style="border:1px solid #f00;">
+        <vbox flex="2">
+            <viviscrollablebuttonpanel id="imagePanel" cols="4" rows="4" labelField="leafName" imageField="path"
+                oncommand="$do('select',this.selectedIndex, 'ImageManager');"  buttonClass="imageThumbBtn largeimagebtn" scrollUpClass="rightprevbtn button-gray" scrollDownClass="rightnextbtn button-gray" />
+            <spacer flex="1"/>
+            <groupbox>
+              <caption label="Image Infomation:" />
+               <hbox>name: <label id="lblName" value="" /></hbox>
+               <hbox>size: <label id="lblSize" value="" /></hbox>
+            </groupbox>
+        </vbox>
+        <vbox flex="1" id="managerPanel" >
+            
+            <button label="Import From Disk" oncommand="$do('importFromDir',null, 'ImageManager');"/>
+            <button label="Export To Disk"/>
+            <button label="Delete" oncommand="$do('deleteImage',null, 'ImageManager');" />
+            <button label="Rename" oncommand="$do('renameImage',null, 'ImageManager');"/>
+            <spacer flex="1"/>
+            <groupbox>
+              <caption label="Disk Usage Limit" />
+               <progressmeter id="usageProgressmeter" mode="determined" value="" />
+               <hbox>Total: <label id="totalLimit" value="Limit: " /> </hbox>
+               <hbox>Usage: <label id="currentUsage" value="Current: " /></hbox>
+               <hbox>Files: <label id="currentFiles" value="Current: " /></hbox>
+            </groupbox>
+
+        </vbox>
+    </hbox>
+    
+    <hbox id="okCancelButtons" />
+
+</window>

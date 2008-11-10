@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE overlay PUBLIC "-//MOZILLA//DTD XUL V1.0//EN" "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<overlay id="catePanelOverlay"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <box id="productPanelContainer">
+    <vbox flex="1">
+        <!-- Begin Catalogs -->
+        <viviscrollablebuttonpanel dir="reverse1" id="catescrollablepanel" flex="1" cols="4" rows="2" labelField="name" imageField="no" oncommand="$do('changePluPanel',this.selectedIndex, 'Main');"
+          class="catescrollablepanel" buttonClass="catbtn button-radius" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue"/>
+
+        <!-- End Catalogs -->
+
+
+        <!-- Begin PLUs -->
+        <!-- scrollablepanel id="prodscrollablepanel" increment="65" dir="reverse" class="prodscrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray">
+          <deck id="plu_deck">
+          </deck>
+        </scrollablepanel -->
+        <viviscrollablebuttonpanel dir="reverse" id="prodscrollablepanel" flex="1" cols="2" rows="6" labelField="name" imageField="no"
+            oncommand="$do('clickPluPanel',this.selectedIndex, 'Main');"  class="prodscrollablepanel" buttonClass="plubtn smallimagebtn button-radius" scrollUpClass="rightprevbtn button-gray" scrollDownClass="rightnextbtn button-gray" />
+        <!-- viviscrollabletree dir="reverse" id="prodscrollablepanel" flex="1" rows="7" headers="Name,Price" fields="name,sell_price" onclick="$do('clickPluPanel',this.selectedIndex, 'Main');"
+           class="prodscrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray" /-->
+
+        <!--viviscrollablebuttonpanel labelField="name" imageField="image" cols="4" rows="7" id="prodscrollablepanel" dir="reverse" class="prodscrollablepanel" panelClass="prodscrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray">
+        </viviscrollablebuttonpanel-->
+        <!-- viviscrollabletree headers="Name,Price" fields="name,sell_price" rows="7" id="prodscrollablepanel" dir="reverse" class="prodscrollablepanel" panelClass="prodscrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray">
+        </viviscrollabletree -->
+
+        <!-- End PLUs -->
+
+    </vbox>
+  </box>
+</overlay>
