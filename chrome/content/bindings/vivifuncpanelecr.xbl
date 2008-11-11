@@ -377,12 +377,12 @@
                  <setter>
                 <![CDATA[
                     var maxpage = parseInt(val);
-                    GREUtils.log('[MAXPAGE]: preparing to sett maxpage to <' + val + '>');
+                    //GREUtils.log('[MAXPAGE]: preparing to sett maxpage to <' + val + '>');
 
                     if (!isNaN(maxpage) && (maxpage > 0)) {
-                        GREUtils.log('[MAXPAGE]: setting to <' + maxpage + '>');
+                        //GREUtils.log('[MAXPAGE]: setting to <' + maxpage + '>');
                         this.setAttribute('maxpage', maxpage);
-                        GREUtils.log('[MAXPAGE]: set to <' + this.maxpage + '>');
+                        //GREUtils.log('[MAXPAGE]: set to <' + this.maxpage + '>');
                     }
                 ]]>
                 </setter>
@@ -1327,13 +1327,18 @@
                                 posX = w + hs - (c - j) * (cellWidth + hs);
                             else
                                 posX = j * (cellWidth + hs);
-                            var btn = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:button");
+                            var btn = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:vivibutton");
                             btn.setAttribute('flex', 0);
                             btn.setAttribute('top', posY);
                             btn.setAttribute('left', posX);
                             btn.setAttribute('height', cellHeight);
                             btn.setAttribute('width', cellWidth);
                             btn.setAttribute('anonid', (1 - (-i)) +'x' + (1 - (-j)));
+                            
+                            // workaround to force word wrapping
+                            var l = document.getAnonymousElementByAttribute(btn, "anonid", "vivibutton-box")
+                            GREUtils.log('[STANDARD]: vivibutton <' + btn.nodeName + '> label found: <' + l + '>');
+
                             stack.appendChild(btn);
                         }
                     }
@@ -1385,7 +1390,7 @@
                                 // GREUtils.log('[CUSTOM]: button layout width adjusted <' + width + '>');
                             }
 
-                            btn = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:button");
+                            btn = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:vivibutton");
                             if (((location == 'left') && (dir == 'reverse')) ||
                                 ((location == 'right') && (dir != 'reverse')))
                                 posX = w + hs - (c - column + 1) * (cellWidth + hs);
@@ -1702,7 +1707,6 @@
                         //GREUtils.log('[KEYMAP]: found button fontsize entry <' + btnfontsizes + '> (' + btnfontsizes.length + ')');
                         if ((btnfontsizes.length == 0) && defaultButtonFontsize) btnfontsizes = defaultButtonFontsize.split(',');
                         
-                        
                         if ((mode == 'configure') || (mode == 'noop')) {
                             if (mode == 'noop') disabledFlag = true;
                             btn.setAttribute('disabled', disabledFlag);
@@ -1714,15 +1718,15 @@
                             btn.style.visibility = 'inherit';
 
                             btnstyles.push(this.getAttribute('matrix_button_configure_class'));
-                            //btn.setAttribute('class', this.getAttribute('matrix_button_configure_class'));
 
                             if (entry && (entry.label != null) && (entry.label != '')) {
                                 btn.setAttribute('label', entry.label);
                             }
-                            else
-                                btn.removeAttribute('label');
+                            else {
+                                btn.setAttribute('label', '');
+                            }
 
-                            //GREUtils.log('[KEYMAP]: set button to configure mode with label <' + btn.label + '> disabled <' + disabledFlag + '>');
+                            //GREUtils.log('[KEYMAP]: set button to configure mode with label <' + btn.getAttribute('label') + '> disabled <' + disabledFlag + '>');
                         }
                         else {
                             btn.removeAttribute('type');
@@ -1736,7 +1740,7 @@
                                     
                                     btnstyles.push(this.getAttribute('matrix_button_nomap_class'));
 
-                                    //GREUtils.log('[KEYMAP]: disabled button <' + btn.label + '> with empty command');
+                                    //GREUtils.log('[KEYMAP]: disabled button <' + btn.getAttribute('label') + '> with empty command');
                                 }
                                 else {
                                     // check ACL - relegated to vivibutton to check ACL access
@@ -1748,7 +1752,7 @@
 
                                     btnstyles.push(this.getAttribute('matrix_button_mapped_class'));
 
-                                    //GREUtils.log('[KEYMAP]: mapping function to button <' + btn.label + '> with class <' + this.getAttribute('matrix_button_mapped_class') + '> hasAccess <' + hasAccess + '> disabled <' + disabledFlag + '>');
+                                    //GREUtils.log('[KEYMAP]: mapping function to button <' + btn.getAttribute('label') + '> with class <' + this.getAttribute('matrix_button_mapped_class') + '> hasAccess <' + hasAccess + '> disabled <' + disabledFlag + '>');
 
                                     btn.setAttribute('disabled', (!hasAccess || disabledFlag));
 
@@ -1815,7 +1819,7 @@
 
                         //GREUtils.log('[KEYMAP]: merged button styles <' + btnstyles + '> with font size <' + btnfontsizes + '>');
 
-                        //btn.render();
+                        //btn.resizeLabel();
                     }
                     //GREUtils.log('[KEYMAP]: exiting');
                 ]]>
@@ -1997,7 +2001,7 @@
                         newLayout = newLayout.sort(this._buttonLayoutSort);
                         this.setPageLayout(page, newLayout);
                     }
-                    GREUtils.log('[SetLayout]: preparing to render new layout for page <' + page + '> <' + GeckoJS.BaseObject.dump(newLayout) + '>');
+                    //GREUtils.log('[SetLayout]: preparing to render new layout for page <' + page + '> <' + GeckoJS.BaseObject.dump(newLayout) + '>');
                     this._refreshCurrentPage();
 
                     // clear selection on a layout change
