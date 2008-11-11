@@ -21,10 +21,10 @@
 
   <xul:vbox flex="1" >
         <xul:hbox flex="1">
-            <xul:button class="button_fontsizepicker font-xlarge" label="&button-fontsize-xlarge.label;" fontsize="xlarge" />
-            <xul:button class="button_fontsizepicker font-large" label="&button-fontsize-large.label;" fontsize="large" />
-            <xul:button class="button_fontsizepicker font-medium" label="&button-fontsize-medium.label;" fontsize="medium" />
-            <xul:button class="button_fontsizepicker font-small" label="&button-fontsize-small.label;" fontsize="small" />
+            <xul:button class="button_fontsizepicker button-radius button-white font-xlarge" label="&button-fontsize-xlarge.label;" fontsize="xlarge" />
+            <xul:button class="button_fontsizepicker button-radius button-white font-large" label="&button-fontsize-large.label;" fontsize="large" />
+            <xul:button class="button_fontsizepicker button-radius button-white font-medium" label="&button-fontsize-medium.label;" fontsize="medium" />
+            <xul:button class="button_fontsizepicker button-radius button-white font-small" label="&button-fontsize-small.label;" fontsize="small" />
         </xul:hbox>
   </xul:vbox>
 
