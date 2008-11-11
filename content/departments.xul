@@ -24,7 +24,7 @@
                             <vbox pack="start" flex="1">
                                 <label id="" value="Departments:" />
                                 <!-- simplelistbox id="simpleListBoxCategory" rows="16"  headers="Dep. No,Dep. Name" columns="no,name" class="catsimplelistbox"/ -->
-                                <viviscrollablebuttonpanel dir="reverse" id="catescrollablepanel" flex="1" cols="3" rows="6" labelField="name" imageField="no" oncommand="$do('changeDepartmentPanel',this.selectedIndex, 'Departments');"
+                                <viviscrollablebuttonpanel dir="reverse" id="catescrollablepanel" flex="1" cols="4" rows="6" labelField="name" imageField="no" oncommand="$do('changeDepartmentPanel',this.selectedIndex, 'Departments');"
                                     class="catescrollablepanel" buttonClass="catbtn button-radius" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue"/>
                             </vbox>
                             <spacer style="width: 20px;" />

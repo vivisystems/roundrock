@@ -23,8 +23,8 @@
             var listObj = this.getListObj();
             var user = this.Acl.getUserPrincipal();
             
-            GeckoJS.Configure.loadPreferences("extensions.vivipos.settings");
-            var confs = GeckoJS.Configure.read('extensions.vivipos.settings');
+            // GeckoJS.Configure.loadPreferences("fec.vivipos.settings");
+            var confs = GeckoJS.Configure.read('vivipos.fec.settings');
 
             var cart = GeckoJS.Session.get('cart');
             this._listDatas = GeckoJS.Array.objectExtract(cart.orderQueue, '{s}');

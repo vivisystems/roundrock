@@ -5,7 +5,7 @@
      */
     function startup() {
 
-        var firstRun = GREUtils.Pref.getPref('vivipos.firstrun');
+        var firstRun = GREUtils.Pref.getPref('vivipos.fec.firstrun');
 
         if(firstRun) {
             var aURL = "chrome://viviecr/content/firstuse.xul";
@@ -22,7 +22,7 @@
 
         }
 
-        GeckoJS.Configure.loadPreferences("vivipos.settings");
+        GeckoJS.Configure.loadPreferences("vivipos.fec.settings");
 
         $do('checkClerk', null, "Main");
         $do('createPluPanel', null, "Main");

@@ -1,5 +1,6 @@
-GREUtils.define('ViviPOS.ProductModel');
-ViviPOS.ProductModel = GeckoJS.Model.extend({
+// GREUtils.define('ViviPOS.ProductModel');
+// ViviPOS.ProductModel = GeckoJS.Model.extend({
+var ProductModel = window.ProductModel = GeckoJS.Model.extend({
     name: 'Product',
     useDbConfig: 'default',
     

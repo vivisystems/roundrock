@@ -1,12 +1,5 @@
 .catbtn, .plubtn {
     min-height:50px;
-    /*
-    min-width:80px;
-    min-height:50px;
-    height: 50px;
-    width: 80px;
-    margin: 0px 0px;
-    */
     min-width: 50px;
     border: 1px solid;
     -moz-appearance: none;
@@ -15,8 +8,6 @@
     
     -moz-box-pack: center;
     -moz-user-focus: ignore;
-    
-    /* border: 3px solid; */
     
     -moz-border-top-colors: #444;
     -moz-border-right-colors: #444;
@@ -45,3 +36,30 @@
     word-wrap: break-word;
 }
 
+.button_colorpicker {
+    min-height:50px;
+    border: 1px solid;
+    margin: 2px 2px 2px 2px;
+    padding: 0px;
+    -moz-appearance: none;
+    -moz-box-pack: center;
+    -moz-user-focus: ignore;
+    -moz-border-top-colors: #444;
+    -moz-border-right-colors: #444;
+    -moz-border-bottom-colors: #444;
+    -moz-border-left-colors: #444;
+}
+
+.button_fontsizepicker {
+    min-height:50px;
+    border: 1px solid;
+    margin: 2px 2px 2px 2px;
+    padding: 0px;
+    -moz-appearance: none;
+    -moz-box-pack: center;
+    -moz-user-focus: ignore;
+    -moz-border-top-colors: #444;
+    -moz-border-right-colors: #444;
+    -moz-border-bottom-colors: #444;
+    -moz-border-left-colors: #444;
+}
