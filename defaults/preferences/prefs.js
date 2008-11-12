@@ -70,9 +70,11 @@ pref("dom.disable_open_during_load",        true);
 // https://bugzilla.mozilla.org/show_bug.cgi?id=376238
 pref("nglayout.enable_drag_images", false);
 
+/* Ignore OS locale setting */
+pref("intl.locale.matchOS", "false");
 
-/* vivipos prefs */
-pref("general.useragent.locale", "zh-TW");
+/* vivipos default locale */
+pref("general.useragent.locale", "en-US");
 
 pref("vivipos.fec.mainscreen.width", 800);
 pref("vivipos.fec.mainscreen.height", 600);

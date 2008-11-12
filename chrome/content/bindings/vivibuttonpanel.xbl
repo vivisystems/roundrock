@@ -23,6 +23,12 @@
     <field name="buttons" >null</field>
     <field name="buttonCount" >0</field>
 
+    <field name="_startOffset" >-1</field>
+    <field name="_currentIndex" >-1</field>
+
+    <field name="_selectedCount" >0</field>
+    <field name="_selectedItems" >null</field>
+
     <property name="rowCount" onget="return this.datasource.rowCount;" readonly="true" />
 
     <property name="startOffset" onget="return this._startOffset;">
@@ -50,6 +56,8 @@
     <property name="grid" onget="return document.getAnonymousElementByAttribute(this, 'anonid', 'grid');" readonly="true" />
     <property name="cols" onget="return this.getAttribute('cols')" onset="this.setAttribute('cols', val); return val;"/>
     <property name="rows" onget="return this.getAttribute('rows')" onset="this.setAttribute('rows', val); return val;"/>
+    <property name="seltype" onget="return (this.getAttribute('seltype') ||'single');" onset="this.setAttribute('seltype', val); return val;"/>
+
     <property name="buttonClass" onget="return this.getAttribute('buttonClass')" onset="this.setAttribute('buttonClass', val); return val;"/>
 
     <property name="labelField"
@@ -63,6 +71,10 @@
     <property name="currentIndex" onget="return this._currentIndex;" onset="this._currentIndex = val; return val;"/>
 
     <property name="selectedIndex" onget="return this.currentIndex;" onset="return this.currentIndex = val;" />
+
+    <property name="selectedCount" onget="return this._selectedCount;" onset="return this._selectedCount = val;" />
+    
+    <property name="selectedItems" onget="return this._selectedItems;" onset="return this._selectedItems = val;" />
 
     <property name="boxObject" onget="return this.grid.boxObject;" readonly="true" />
 
@@ -128,11 +140,10 @@
                     let btn = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:vivibutton");
                     btn.setAttribute("flex", 1);
                     btn.setAttribute("anonid", i*cols+j);
-                    // btn.setAttribute("label", '');
-                    // btn.setLabel('');
-                    // btn.setAttribute('orient',"vertical");
+
                     if (this.buttonClass) btn.setAttribute('class', this.buttonClass);
-                    btn.setAttribute('disabled', 'true');        
+
+                    btn.setAttribute('disabled', 'true');
                     buttons.push(btn);
                     row.appendChild(btn);
                 }
@@ -146,6 +157,8 @@
             this.buttonCount = cols * rows;
             this._startOffset = -1;
             this._currentIndex = -1;
+            this._selectedCount = 0;
+            this._selectedItems = [];
 
 
         ]]>  
@@ -173,7 +186,8 @@
                     this._datasource.setTree(this);
                 }
             }
-
+            this._selectedCount = 0;
+            this._selectedItems = [];
             this.refresh();
             return this.getDatasource();
         ]]>  
@@ -223,6 +237,7 @@
             var labelField = this.labelField;
             var imageField = this.imageField;
             var buttonClass = this.buttonClass;
+            var selectedItems = this.selectedItems;
 
             var rowCount = this.rowCount;
 
@@ -233,6 +248,12 @@
             for(let i=0; i < buttonCount ; i++) {
 
                 let row = startOffset + i;
+
+                if (GeckoJS.Array.inArray(row, selectedItems) != -1) {
+                    buttons[i].setAttribute('selected', 'true');
+                }else {
+                    buttons[i].removeAttribute('selected');
+                }
 
                 if (row >= rowCount) {
 
@@ -307,13 +328,42 @@
   </implementation>
 
   <handlers>
-    <handler event="click" button="0">
+    <handler event="click" button="0"><![CDATA[
 
         if(event.originalTarget.getAttribute('disabled') != 'true') {
             this.currentIndex = this.startOffset + parseInt(event.originalTarget.getAttribute('anonid'));
+            if (this.seltype == 'single') {
+
+                if (this.selectedItems.length >0)  {
+                    // process prev index
+                    var preIndex = this.selectedItems[0];
+
+                    if (preIndex >= this.startOffset && preIndex <= (this.startOffset+this.buttonCount)) {
+                        var btn = document.getAnonymousElementByAttribute(this, 'anonid', preIndex-this.startOffset);
+                        btn.removeAttribute('selected');
+                    }
+                    
+                }
+                this.selectedItems = [this.currentIndex];
+                this.selectedCount = 1;
+                event.originalTarget.setAttribute('selected', 'true');
+
+            }else {
+                // multiple
+                if (GeckoJS.Array.inArray(this.currentIndex, this.selectedItems) == -1) {
+                    this.selectedItems.push(this.currentIndex);
+                    this.selectedCount++;
+                    event.originalTarget.setAttribute('selected', 'true');
+                }else {
+                    this.selectedItems.splice(GeckoJS.Array.inArray(this.currentIndex, this.selectedItems), 1);
+                    this.selectedCount--;
+                    event.originalTarget.removeAttribute('selected');
+                }
+            }
+
         }
         if(event.target == this) event.stopPropagation();
-
+    ]]>
     </handler>
   </handlers>
 
