@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE bindings [
+  <!ENTITY % globalDTD SYSTEM "chrome://global/locale/global.dtd">
+  %globalDTD;
+]>
+
+<bindings xmlns="http://www.mozilla.org/xbl"
+          xmlns:xbl="http://www.mozilla.org/xbl"
+          xmlns:html="http://www.w3.org/1999/xhtml"
+          xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <binding id="vivilocaleslistbox">
+        <resources>
+            <stylesheet src="chrome://vivipos/skin/bindings/vivilocaleslistbox.css" />
+        </resources>
+
+        <content>
+            <xul:listbox anonid="locales-listbox" crop="none" xbl:inherits="rows,flex,class,crop,dir,pack,align">
+            </xul:listbox>
+        </content>
+
+        <xbl:implementation>
+
+            <field name="listbox">
+            document.getAnonymousElementByAttribute(this, "anonid", "locales-listbox");
+            </field>
+
+            <property name="package" onget="return this.getAttribute('package')" onset="this.setAttribute('package', val); return val;"/>
+
+            <property name="currentLocale" onget="return this._currentLocale;" readonly="true" />
+            
+            <property name="selectedLocale" onget="return this.listbox.selectedItem.value;" readonly="true" />
+
+            <xbl:constructor><![CDATA[
+                var self = this;
+                this.ready = function() {
+                    self.initListbox();
+                };
+                window.addEventListener('DOMContentLoaded', this.ready, true);
+            ]]>
+            </xbl:constructor>
+
+            <destructor>
+            <![CDATA[
+               window.removeEventListener('DOMContentLoaded', this.ready, true);
+            ]]>
+            </destructor>
+
+            <xbl:method name="initListbox">
+                <xbl:body><![CDATA[
+                var package = this.package;
+                var listbox = this.listbox;
+
+                if (!package) return;
+
+                // Query available and selected locales
+                var chromeRegInstance = Components.classes["@mozilla.org/chrome/chrome-registry;1"].createInstance();
+                var xulChromeReg = chromeRegInstance.QueryInterface(Components.interfaces.nsIXULChromeRegistry);
+                var toolkitChromeReg = chromeRegInstance.QueryInterface(Components.interfaces.nsIToolkitChromeRegistry);
+
+                var selectedLocale = xulChromeReg.getSelectedLocale(package);
+
+                this._currentLocale = selectedLocale;
+
+                var availableLocales = toolkitChromeReg.getLocalesForPackage(package);
+
+
+                // Render locale menulist
+                const XUL_NS = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
+
+                var selectedItem = null;
+
+                while(availableLocales.hasMore()) {
+
+                    var locale = availableLocales.getNext();
+
+                    var listitem = document.createElementNS(XUL_NS, "xul:listitem");
+                    listitem.setAttribute("value", locale);
+                    listitem.setAttribute("label", locale);
+                    listitem.setAttribute("class", "listitem-iconic");
+                    listitem.setAttribute("image", "chrome://vivipos/skin/flags/tb_" + locale + ".png");
+
+                    if (locale == selectedLocale) {
+                        // Is this the current locale?
+                        selectedItem = listitem;
+                    }
+
+                    listbox.appendChild(listitem);
+                }
+
+                // Highlight current locale
+                listbox.selectedItem = selectedItem;
+
+                ]]>
+                </xbl:body>
+            </xbl:method>
+
+        </xbl:implementation>
+
+    </binding>
+
+</bindings>

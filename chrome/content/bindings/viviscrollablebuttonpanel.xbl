@@ -10,7 +10,7 @@
 
         <xul:hbox style="margin: 0px; padding:0px;" anonid="scrollablepanel-container" class="scrollablepanel" xbl:inherits="class,flex,pack,dir">
 
-            <xul:vivibuttonpanel anonid="vivibuttonpanel" xbl:inherits="flex,class=panelClass,orient,cols,rows,labelField,imageField,buttonClass" />
+            <xul:vivibuttonpanel anonid="vivibuttonpanel" xbl:inherits="flex,class=panelClass,orient,cols,rows,labelField,imageField,buttonClass,seltype" />
 
             <xul:vbox style="margin: 0px; padding:0px;" class="scrollablepanel-scrollbar" xbl:inherits="class=scrollbarClass" anonid="scrollbar" >
                 <xul:button label="UP" disabled="true" anonid="scrollbutton-up" onclick="event.stopPropagation()" oncommand="_autorepeatbuttonScroll(event);" xbl:inherits="class=scrollUpClass"></xul:button>
@@ -48,6 +48,10 @@
         <property name="currentIndex" onget="return this.vivibuttonpanel.currentIndex;" onset="this.vivibuttonpanel.currentIndex = val; return val;"/>
 
         <property name="selectedIndex" onget="return this.vivibuttonpanel.currentIndex;" onset="return this.vivibuttonpanel.currentIndex = val;" />
+
+        <property name="selectedCount" onget="return this.vivibuttonpanel.selectedCount;" onset="return this.vivibuttonpanel.selectedCount = val;" />
+
+        <property name="selectedItems" onget="return this.vivibuttonpanel.selectedItems;" onset="return this.vivibuttonpanel.selectedItems = val;" />
 
         <property name="datasource" onget="return this.vivibuttonpanel.datasource" onset="this.vivibuttonpanel.datasource = val; this.updateScrollBtn(); return val;"/>
 

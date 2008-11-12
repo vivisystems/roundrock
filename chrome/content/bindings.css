@@ -56,6 +56,11 @@ vivifuncpanelecr {
   -moz-binding: url("chrome://vivipos/content/bindings/vivifuncpanelecr.xbl#vivifuncpanelecr");
 }
 
+vivilocaleslistbox {
+  -moz-binding: url("chrome://vivipos/content/bindings/vivilocaleslistbox.xbl#vivilocaleslistbox");
+}
+
+
 viviorderstatus {
   -moz-binding: url("chrome://vivipos/content/bindings/viviorderstatus.xbl#viviorderstatus");
 }
