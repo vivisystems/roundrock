@@ -13,7 +13,7 @@
         </handlers>
 
         <content>
-        <xul:grid id="viviorderstatus" class="viviorderstatus" xbl:inherits="flex">
+        <xul:grid anonid="viviorderstatus" class="viviorderstatus" xbl:inherits="flex">
             <xul:columns>
                 <xul:column flex="0"/>
                 <xul:column flex="1"/>
@@ -164,6 +164,7 @@
                             break;
                     }
                 }
+                this.keys = this.getAttribute('keys').split(',');
 
                 //GREUtils.log('[CONSTRUCTOR]: leaving');
             ]]>
@@ -190,34 +191,43 @@
 
                     var key = evt.getData().key;
                     var value = evt.getData().value;
+                    var found = -1;
+                    
+                    for (i = 0; i < this.keys.length; i++) {
+                        //GREUtils.log('[CHANGE]: checking key <' + i + '> value <' + this.keys[i] + '>');
+                        if (this.keys[i] == key) {
+                            found = i;
+                            break;
+                        }
+                    }
 
-                    switch(key) {
-                        case 'vivipos_fec_price_level':
+                    switch(found) {
+                        case 0:
                            // GREUtils.log('[CHANGE]: changing node <' + document.getAnonymousNodes(this)[0].childNodes[1].childNodes[0].childNodes[1].id + '> label to <' + value + '>');
                             document.getAnonymousNodes(this)[0].childNodes[1].childNodes[0].childNodes[1].value = value;
                             break;
 
-                        case 'vivipos_fec_tax_status':
+                        case 1:
                             document.getAnonymousNodes(this)[0].childNodes[1].childNodes[0].childNodes[4].value = value;
                             break;
 
-                        case 'vivipos_fec_order_sequence':
+                        case 2:
                             document.getAnonymousNodes(this)[0].childNodes[1].childNodes[0].childNodes[7].value = value;
                             break;
 
-                        case 'vivipos_fec_order_destination':
+                        case 3:
                             document.getAnonymousNodes(this)[0].childNodes[1].childNodes[1].childNodes[1].value = value;
                             break;
 
-                        case 'vivipos_fec_number_of_customers':
+                        case 4:
                             document.getAnonymousNodes(this)[0].childNodes[1].childNodes[1].childNodes[4].value = value;
                             break;
 
-                        case 'vivipos_fec_check_number':
+                        case 5:
                             document.getAnonymousNodes(this)[0].childNodes[1].childNodes[1].childNodes[7].value = value;
                             break;
 
-                        case 'vivipos_fec_table_number':
+                        case 6:
                             document.getAnonymousNodes(this)[0].childNodes[1].childNodes[1].childNodes[10].value = value;
                             break;
 

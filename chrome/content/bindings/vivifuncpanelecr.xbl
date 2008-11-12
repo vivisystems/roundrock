@@ -5,119 +5,23 @@
           xmlns:svg="http://www.w3.org/2000/svg"
           xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
     <binding id="vivifuncpanelecr">
-        <resources>
-            <stylesheet src="chrome://vivibuttonstyle/skin/vivibuttonstyle.css" />
-        </resources>
 
         <!-- Event Handlers -->
         <handlers>
         </handlers>
 
         <content>
-        <xul:deck xbl:inherits="class=function_panel_deck,width,height,disabled" flex="1" id="vivifuncpanelecr">
-            <xul:vbox flex="1" xbl:inherits="class=vbox_class">
-                <!-- Function Panel with control panel at bottom -->
-
-                <!-- Button Matrix -->
-                <xul:deck flex="1"
-                          xbl:inherits="class=button_panel_deck_class"
-                          />
-
-                <xul:spacer flex="0" xbl:inherits="class=panel_spacer_horizontal_class"/>
-                
-                <!-- Screen Control -->
-                <xul:hbox xbl:inherits="class=control_panel_horizontal_class">
-
-                    <!-- Left Scroll Button -->
-                    <xul:button type="button"
-                                flex="0"
-                                id="scroll_prev"
-                                xbl:inherits="disabled,class=control_scroll_left_horizontal_class"
-                                oncommand="prev()"
-                                />
-
-                    <!-- Screen Label -->
-                    <xul:button flex="1"
-                                id="control_label"
-                                xbl:inherits="class=control_label_horizontal_class"
-                                disabled="true"
-                                />
-
-                    <!-- Home Button -->
-                    <xul:button icon="refresh"
-                                flex="0"
-                                id="control_home"
-                                xbl:inherits="disabled,class=control_home_horizontal_class"
-                                oncommand="home()"
-                                />
-
-                    <!-- Right Scroll Button -->
-                    <xul:button type="button"
-                                flex="0"
-                                id="scroll_next"
-                                xbl:inherits="disabled,class=control_scroll_right_horizontal_class"
-                                oncommand="next()"
-                                />
-                </xul:hbox>
-            </xul:vbox>
-
-            <xul:vbox flex="1" xbl:inherits="class=vbox_class">
-                <!-- Function Panel with control panel at top -->
-
-                <!-- Screen Control -->
-                <xul:hbox xbl:inherits="class=control_panel_horizontal_class">
-
-                    <!-- Left Scroll Button -->
-                    <xul:button type="button"
-                                flex="0"
-                                id="scroll_prev"
-                                xbl:inherits="disabled,class=control_scroll_left_horizontal_class"
-                                oncommand="prev()"
-                                />
-
-                    <!-- Screen Label -->
-                    <xul:button flex="1"
-                                disabled="true"
-                                id="control_label"
-                                xbl:inherits="class=control_label_horizontal_class"
-                                />
-
-                    <!-- Home Button -->
-                    <xul:button icon="refresh"
-                                flex="0"
-                                id="control_home"
-                                xbl:inherits="disabled,class=control_home_horizontal_class"
-                                oncommand="home()"
-                                />
-
-                    <!-- Right Scroll Button -->
-                    <xul:button type="button"
-                                flex="0"
-                                id="scroll_next"
-                                xbl:inherits="disabled,class=control_scroll_right_horizontal_class"
-                                oncommand="next()"
-                                />
-                </xul:hbox>
-
-                <xul:spacer flex="0" xbl:inherits="class=panel_spacer_horizontal_class"/>
-                
-                <!-- Button Matrix -->
-                <xul:deck flex="1"
-                          xbl:inherits="class=button_panel_deck_class"
-                          />
-            </xul:vbox>
-
-            <xul:hbox flex="1" xbl:inherits="class=hbox_class">
+        <xul:hbox xbl:inherits="class,pack,width,height,disabled,flex" anonid="function-panel">
                 <!-- Function Panel with control panel at left -->
 
                 <!-- Screen Control -->
-                <xul:vbox flex="0" xbl:inherits="class=control_panel_vertical_class">
+                <xul:vbox flex="1" xbl:inherits="class=control_panel_class" anonid="control-panel">
 
                     <!-- Left Scroll Button -->
                     <xul:button type="button"
                                 flex="0"
-                                id="scroll_prev"
-                                xbl:inherits="disabled,class=control_scroll_left_vertical_class"
+                                anonid="control-prev"
+                                xbl:inherits="disabled,class=control_scroll_left_class"
                                 oncommand="next()"
                                 />
 
@@ -125,83 +29,36 @@
                     <xul:button flex="1"
                                 disabled="true"
                                 orient="vertical"
-                                id="control_label"
-                                xbl:inherits="class=control_label_vertical_class"
+                                anonid="control-label"
+                                xbl:inherits="class=control_label_class"
                                 />
 
                     <!-- Home Button -->
                     <xul:button icon="refresh"
                                 flex="0"
-                                id="control_home"
-                                xbl:inherits="disabled,class=control_home_vertical_class"
+                                anonid="control-home"
+                                xbl:inherits="disabled,class=control_home_class"
                                 oncommand="home()"
                                 />
 
                     <!-- Right Scroll Button -->
                     <xul:button type="button"
                                 flex="0"
-                                id="scroll_next"
-                                xbl:inherits="disabled,class=control_scroll_right_vertical_class"
+                                anonid="control-next"
+                                xbl:inherits="disabled,class=control_scroll_right_class"
                                 oncommand="prev()"
                                 />
                 </xul:vbox>
 
-                <xul:spacer flex="0" xbl:inherits="class=panel_spacer_vertical_class"/>
+                <xul:spacer flex="0" xbl:inherits="class=panel_spacer_class" anonid="panel-spacer"/>
                 
                 <!-- Button Matrix -->
-                <xul:deck flex="1"
-                          xbl:inherits="class=button_panel_deck_class"
+                <xul:stack flex="1"
+                           xbl:inherits="class=button_panel_class"
+                           anonid="keypad"
                           />
             </xul:hbox>
 
-            <xul:hbox flex="1" xbl:inherits="class=hbox_class">
-                <!-- Function Panel with control panel at right -->
-
-                <!-- Button Matrix -->
-                <xul:deck flex="1"
-                          xbl:inherits="class=button_panel_deck_class"
-                          />
-
-                <xul:spacer flex="0" xbl:inherits="class=panel_spacer_vertical_class"/>
-                
-                <!-- Screen Control -->
-                <xul:vbox flex="0" xbl:inherits="class=control_panel_vertical_class">
-
-                    <!-- Left Scroll Button -->
-                    <xul:button type="button"
-                                flex="0"
-                                id="scroll_prev"
-                                xbl:inherits="disabled,class=control_scroll_left_vertical_class"
-                                oncommand="next()"
-                                />
-
-                    <!-- Screen Label -->
-                    <xul:button flex="1"
-                                disabled="true"
-                                orient="vertical"
-                                id="control_label"
-                                xbl:inherits="class=control_label_vertical_class"
-                                />
-
-                    <!-- Home Button -->
-                    <xul:button icon="refresh"
-                                flex="0"
-                                id="control_home"
-                                xbl:inherits="disabled,class=control_home_vertical_class"
-                                oncommand="home()"
-                                />
-
-                    <!-- Right Scroll Button -->
-                    <xul:button type="button"
-                                flex="0"
-                                id="scroll_next"
-                                xbl:inherits="disabled,class=control_scroll_right_vertical_class"
-                                oncommand="prev()"
-                                />
-                </xul:vbox>
-
-            </xul:hbox>
-        </xul:deck>
         </content>
         <implementation>
 
@@ -388,36 +245,6 @@
                 </setter>
             </property>
 
-            <!-- controlLocation: default is "bottom" -->
-            <property name="controlLocation">
-                <getter>
-                <![CDATA[
-                    var location = 'bottom';
-                    if (this.hasAttribute('controlLocation')) {
-                        location = this.getAttribute('controlLocation').toLowerCase();
-                        if ((location != 'bottom') &&
-                            (location != 'top') &&
-                            (location != 'left') &&
-                            (location != 'right')) {
-                            location = 'bottom';
-                        }
-                    }
-                    return location;
-                ]]>
-                </getter>
-                 <setter>
-                <![CDATA[
-                    var curLocation = this.controlLocation;
-                    if ((val == 'bottom') ||
-                        (val == 'top') ||
-                        (val == 'left') ||
-                        (val == 'right')) {
-                        this.setAttribute('controlLocation', val);
-                    }
-                ]]>
-                </setter>
-            </property>
-
             <!-- currentPage -->
             <property name="currentPage">
                 <getter>
@@ -471,12 +298,17 @@
                 <getter>
                 <![CDATA[
                     // locate keypad element
-                    var nodes = document.getAnonymousNodes(this)[0].selectedPanel.childNodes;
-                    for (var i = 0; i < nodes.length; i++) {
-                        if (nodes[i].nodeName == 'xul:deck') {
-                            return nodes[i];
-                        }
-                    }
+                    return document.getAnonymousElementByAttribute(this,'anonid', 'keypad');
+                ]]>
+                </getter>
+            </property>
+
+            <!-- controlPanel: always point to the active controlPanel -->
+            <property name="controlPanel" readonly="true">
+                <getter>
+                <![CDATA[
+                    // locate control panel element
+                    return document.getAnonymousElementByAttribute(this,'anonid', 'control-panel');
                 ]]>
                 </getter>
             </property>
@@ -486,18 +318,7 @@
                 <getter>
                 <![CDATA[
                     // locate control label element
-                    var nodes = document.getAnonymousNodes(this)[0].selectedPanel.childNodes;
-                    for (var i = 0; i < nodes.length; i++) {
-                        if (nodes[i].nodeName == 'xul:hbox' || nodes[i].nodeName == 'xul:vbox') {
-                            var childNodes = nodes[i].childNodes;
-                            for (var j = 0; j < childNodes.length; j++) {
-                                if (childNodes[j].id == 'control_label') {
-                                    return childNodes[j];
-                                }
-                            }
-                        }
-                    }
-                    return null;
+                    return document.getAnonymousElementByAttribute(this,'anonid', 'control-label');
                 ]]>
                 </getter>
             </property>
@@ -506,63 +327,30 @@
             <property name="controlPrev" readonly="true">
                 <getter>
                 <![CDATA[
-                    // locate control label element
-                    var nodes = document.getAnonymousNodes(this)[0].selectedPanel.childNodes;
-                    for (var i = 0; i < nodes.length; i++) {
-                        if (nodes[i].nodeName == 'xul:hbox' || nodes[i].nodeName == 'xul:vbox') {
-                            var childNodes = nodes[i].childNodes;
-                            for (var j = 0; j < childNodes.length; j++) {
-                                if (childNodes[j].anonid == 'scroll_prev') {
-                                    return childNodes[j];
-                                }
-                            }
-                        }
-                    }
-                    return null;
+                    // locate control prev element
+                    return document.getAnonymousElementByAttribute(this,'anonid', 'control-prev');
                 ]]>
-                </getter>
+               </getter>
             </property>
 
             <!-- controlNext: always point to the active control-scroll-right element -->
             <property name="controlNext" readonly="true">
                 <getter>
                 <![CDATA[
-                    // locate control label element
-                    var nodes = document.getAnonymousNodes(this)[0].selectedPanel.childNodes;
-                    for (var i = 0; i < nodes.length; i++) {
-                        if (nodes[i].nodeName == 'xul:hbox' || nodes[i].nodeName == 'xul:vbox') {
-                            var childNodes = nodes[i].childNodes;
-                            for (var j = 0; j < childNodes.length; j++) {
-                                if (childNodes[j].anonid == 'scroll_next') {
-                                    return childNodes[j];
-                                }
-                            }
-                        }
-                    }
-                    return null;
+                    // locate control next element
+                    return document.getAnonymousElementByAttribute(this,'anonid', 'control-next');
                 ]]>
-                </getter>
+               </getter>
             </property>
 
             <!-- controlHome: always point to the active control-home element -->
             <property name="controlHome" readonly="true">
                 <getter>
                 <![CDATA[
-                    // locate control label element
-                    var nodes = document.getAnonymousNodes(this)[0].selectedPanel.childNodes;
-                    for (var i = 0; i < nodes.length; i++) {
-                        if (nodes[i].nodeName == 'xul:hbox' || nodes[i].nodeName == 'xul:vbox') {
-                            var childNodes = nodes[i].childNodes;
-                            for (var j = 0; j < childNodes.length; j++) {
-                                if (childNodes[j].anonid == 'control_home') {
-                                    return childNodes[j];
-                                }
-                            }
-                        }
-                    }
-                    return null;
+                    // locate control prev element
+                    return document.getAnonymousElementByAttribute(this,'anonid', 'control-home');
                 ]]>
-                </getter>
+               </getter>
             </property>
 
             <property name="datasource">
@@ -576,7 +364,7 @@
                     data.columns = this.columns;
                     data.hspacing = this.hspacing;
                     data.vspacing = this.vspacing;
-                    data.controlLocation = this.controlLocation;
+                    data.dir = this.getAttribute('dir');
                     data.wrap = this.getAttribute('wrap');
                     data.restrictMode = this.getAttribute('restrictMode');
                     data.pageLabelMap = this._pageLabelMap;
@@ -618,21 +406,18 @@
                                     break;
 
                                 case 'functionpanel-preferences-update':
-                                    // only load if not the notifier
+                                    // only load if the intended recipient, or if recipient is null (i.e. global)
                                     if (!aData || (self.id == aData)) {
 
                                         self._loadPreferences();
 
-                                        // refreshing controlLocation will invoke the following:
-                                        // - self._clearKeypad();
-                                        // - self._render();
-                                        // which will remove stacks from layoutStackMap
-                                        self._refreshControlLocation();
+                                        // clear button keypad and render buttons with new settings
                                         self._selectedNode1 = self._selectedNode2 = null;
-<!--
+                                        self._clearKeypad();
+
                                         GREUtils.log('[REFRESH] preparing <' + self.id + '> to navigate to <' + self.currentPage +
-                                                     '> with orientation <' + self.controlLocation + '>');
--->
+                                                     '> with orientation <' + self.dir + '>');
+
                                         self._refreshCurrentPage();
                                     }
                                     break;
@@ -641,7 +426,7 @@
                     }).register();
 
                 this.ready = function() {
-                    self._refreshControlLocation();
+                    self._refreshOrientation(self.getAttribute('dir'));
                     self.currentPage = self.homePage;
                 }
                 window.addEventListener('DOMContentLoaded', this.ready, true);
@@ -657,7 +442,7 @@
             <![CDATA[
                 this.observer.unregister();
                 this.removeEventListener('DOMAttrModified', this._attrModified, true);
-                window.removeEventListener('DOMContentLoaded', this._loadPanel, true);
+                window.removeEventListener('DOMContentLoaded', this.ready, true);
             ]]>
             </destructor>
 
@@ -674,7 +459,7 @@
                     
                         case 'height':
                         case 'width':
-                            //GREUtils.log('[ATTRIBUTE-MODIFIED]: attribute <' + evt.attrName + '> changed to value <' + evt.newValue + '>');
+                            //GREUtils.log('[ATTRIBUTE-MODIFIED]: node <' + evt.originalTarget.anonid + '> attribute <' + evt.attrName + '> changed to value <' + evt.newValue + '>');
                             this._clearKeypad();
                             this._refreshCurrentPage();
                             break;
@@ -691,9 +476,8 @@
 -->
 
                         case 'dir':
-                        case 'controlLocation':
-                            //GREUtils.log('[ATTRIBUTE-MODIFIED]: attribute <' + evt.attrName + '> changed to value <' + evt.newValue + '>');
-                            this._refreshControlLocation();
+                            GREUtils.log('[ATTRIBUTE-MODIFIED]: attribute <' + evt.attrName + '> changed to value <' + evt.newValue + '>');
+                            this._refreshOrientation(evt.newValue);
                             break;
 
                         case 'maxpage':
@@ -740,6 +524,40 @@
                 </body>
             </method>
             
+            <method name="_refreshOrientation">
+                <parameter name="dir"/>
+                <body>
+                <![CDATA[
+                
+                    //GREUtils.log('[REFRESH-ORIENTATION]: orientation <' + dir + '>');
+
+                    var panel = document.getAnonymousElementByAttribute(this,'anonid', 'function-panel');
+                    var keypad = document.getAnonymousElementByAttribute(this,'anonid', 'keypad');
+                    var controlpanel = document.getAnonymousElementByAttribute(this,'anonid', 'control-panel');
+                    var spacer = document.getAnonymousElementByAttribute(this,'anonid', 'panel-spacer');
+
+                    if (!dir) dir = 'normal';
+                    
+                    panel.removeChild(controlpanel);
+                    panel.removeChild(keypad);
+                    panel.removeChild(spacer);
+
+                    if (dir == 'normal') {
+                        panel.appendChild(controlpanel);
+                        panel.appendChild(spacer);
+                        panel.appendChild(keypad);
+                    }
+                    else if (dir == 'reverse') {
+                        panel.appendChild(keypad);
+                        panel.appendChild(spacer);
+                        panel.appendChild(controlpanel);
+                    }
+                    this._clearKeypad();
+                    this._refreshCurrentPage();
+                ]]>
+                </body>
+            </method>
+
             <method name="_refreshMaxPage">
                 <body>
                 <![CDATA[
@@ -778,7 +596,8 @@
                     // activate the corresponding stack
 
                     if (!stack) stack = this._render(page);
-                    this.keypad.selectedPanel = stack;
+                    while (this.keypad.childNodes.length > 0) this.keypad.removeChild(this.keypad.firstChild);
+                    this.keypad.appendChild(stack);
                     this.renderLabel();
 
                     this.renderKeymap(page, stack);
@@ -787,29 +606,6 @@
                     //GREUtils.log('[REFRESH-CURRENT-PAGEl: layout <' + GeckoJS.BaseObject.dump(layout) + '>');
                     //GREUtils.log('[REFRESH-CURRENT-PAGE]: stack <' + this.keypad.selectedIndex + '>');
                     //GREUtils.log('[REFRESH-CURRENT-PAGE]: refreshed current page <' + this.currentPage + '> with maxpage <' + this.maxpage + '>');
-                ]]>
-                </body>
-            </method>
-
-            <method name="_refreshControlLocation">
-                <body>
-                <![CDATA[
-                    //GREUtils.log('[REFRESH-CONTROL-LOCATION]: entering');
-                    //GREUtils.log('[REFRESH-CONTROL-LOCATION]: refreshing control location <' + this.controlLocation + '> with dir <' + this.dir + '>');
-
-                    var orientation = this._convertToOrientation(this.controlLocation, this.dir);
-
-                    // clear existing button matrix and layout to stack mapping
-                    // if we change orientation
-                    this._clearKeypad();
-
-                    // bring selected panel to top
-                    document.getAnonymousNodes(this)[0].selectedIndex = orientation;
-
-                    // repaint current page
-                    this._refreshCurrentPage();
-
-                    //GREUtils.log('[REFRESH-CONTROL-LOCATION]: refreshed control location <' + this.controlLocation + '>');
                 ]]>
                 </body>
             </method>
@@ -833,7 +629,7 @@
                     prefs.columns = GeckoJS.Configure.read(prefix + '.columns');
                     prefs.vspacing = GeckoJS.Configure.read(prefix + '.vspacing');
                     prefs.hspacing = GeckoJS.Configure.read(prefix + '.hspacing');
-                    prefs.controlLocation = GeckoJS.Configure.read(prefix + '.controlLocation');
+                    prefs.dir = GeckoJS.Configure.read(prefix + '.dir');
                     prefs.wrap = GeckoJS.Configure.read(prefix + '.wrap');
                     prefs.restrictMode = GeckoJS.Configure.read(prefix + '.restrictMode');
 
@@ -961,34 +757,6 @@
                     //GREUtils.log('[LoadPreferences]: preferences loaded, initializing self');
                     this._initialize(prefs);
                     //GREUtils.log('[LoadPreferences]: self initialized');
-                ]]>
-                </body>
-            </method>
-
-            <!-- convert contentLocation into orientation -->
-            <method name="_convertToOrientation">
-                <parameter name="location"/>
-                <parameter name="dir"/>
-                <body>
-                <![CDATA[
-                    if (!dir) dir = 'normal';
-                    
-                    switch(location) {
-                        case 'bottom':
-                            return (dir == 'reverse') ? 1 : 0;
-
-                        case 'top':
-                            return (dir == 'reverse') ? 0 : 1;
-
-                        case 'left':
-                            return (dir == 'reverse') ? 3 : 2;
-
-                        case 'right':
-                            return (dir == 'reverse') ? 2 : 3;
-
-                        default:
-                            return (dir == 'reverse') ? 1 : 0;
-                    }
                 ]]>
                 </body>
             </method>
@@ -1240,8 +1008,12 @@
                     var w = keypad.clientWidth;
                     var h = keypad.clientHeight;
                     -->
-                    var w = keypad.boxObject.width;
-                    var h = keypad.boxObject.height;
+                    var w = this.keypadWidth || this.keypad.boxObject.width;
+                    var h = this.keypadHeight || this.keypad.boxObject.height;
+                    
+                    this.keypadWidth = w;
+                    this.keypadHeight = h;
+
                     var cellWidth = Math.floor(((w + hs) / c) - hs);
                     var cellHeight = Math.floor(((h + vs) / r) - vs);
                     
@@ -1253,29 +1025,30 @@
                         // get the stack associated with the layout
                         var stack = this._getLayoutStack(layout);
 
-
                         //GREUtils.log('[RENDER]: page <' + GeckoJS.BaseObject.dump(page) + '>');
                         //GREUtils.log('[RENDER]: layout <' + GeckoJS.BaseObject.dump(layout) + '>');
                         //GREUtils.log('[RENDER]: stack <' + stack + '>');
 
                         if (stack == null) {
+                        
+                            // create new stack with standard layout
+                            stack = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:stack");
+                            stack.setAttribute('class', this.getAttribute('button_panel_class'));
+                            stack.setAttribute('flex', 1);
+                            stack.setAttribute('width', w);
+                            stack.setAttribute('height', h);
+                            stack.setAttribute('anonid', 'button-stack');
+                            keypad.appendChild(stack);
+
                             if (layout == null) {
-                                // create new stack with standard layout
-                                stack = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:stack");
-                                stack.setAttribute('class', this.getAttribute('button_panel_class'));
-                                stack.setAttribute('flex', 1);
-                                keypad.appendChild(stack);
+                                // render new stack with standard layout
                                 this._setLayoutStack(layout, stack);
                                 this._renderStandardLayout(stack, w, h, r, c, hs, vs, cellWidth, cellHeight);
 
                                 //GREUtils.log('[RENDER]: created new stack with standard layout <' + stack.boxObject.width + 'x' + stack.boxObject.height + '>');
                             }
                             else {
-                                // create new stack with custom layout
-                                stack = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:stack");
-                                stack.setAttribute('class', this.getAttribute('button_panel_class'));
-                                stack.setAttribute('flex', 1);
-                                keypad.appendChild(stack);
+                                // render new stack with custom layout
                                 this._setLayoutStack(layout, stack);
                                 this._renderCustomLayout(stack, w, h, r, c, hs, vs, cellWidth, cellHeight, layout);
 
@@ -1310,20 +1083,15 @@
                 <![CDATA[
                     var posX, posY, j;
                     var mode = this.getAttribute('mode');
-                    var location = this.controlLocation;
-                    var dir = this.dir;
+                    var dir = this.getAttribute('dir');
 
                     //GREUtils.log('[STANDARD]: rendering standard layout with <r=' + r + ',c=' + c + '>x<cellWidth=' + cellWidth + ',cellHeight=' + cellHeight + '>');
+                    //GREUtils.log('[STANDARD]: with mode <' + mode + '> and dir <' + dir + '>');
 
                     for (var i = 0; i < r; i++) {
-                        if (((location == 'top') && (dir == 'reverse')) ||
-                            ((location == 'bottom') && (dir != 'reverse')))
-                            posY = h + vs - (r - i) * (cellHeight + vs);
-                        else
-                            posY = i * (cellHeight + vs);
+                        posY = i * (cellHeight + vs);
                         for (var j = 0; j < c; j++) {
-                            if (((location == 'left') && (dir == 'reverse')) ||
-                                ((location == 'right') && (dir != 'reverse')))
+                            if (dir == 'reverse')
                                 posX = w + hs - (c - j) * (cellWidth + hs);
                             else
                                 posX = j * (cellWidth + hs);
@@ -1335,11 +1103,16 @@
                             btn.setAttribute('width', cellWidth);
                             btn.setAttribute('anonid', (1 - (-i)) +'x' + (1 - (-j)));
                             
-                            // workaround to force word wrapping
-                            var l = document.getAnonymousElementByAttribute(btn, "anonid", "vivibutton-box")
-                            GREUtils.log('[STANDARD]: vivibutton <' + btn.nodeName + '> label found: <' + l + '>');
-
                             stack.appendChild(btn);
+
+                            // workaround to force word wrapping
+<!--
+                            GREUtils.log('[STANDARD]: setting vivibutton to <' + cellWidth + 'x' + cellHeight + '>');
+                            GREUtils.log('[STANDARD]: vivibutton current dimension <' + btn.style.width + 'x' + btn.style.height + '>');
+                            btn.style.width = cellWidth;
+                            btn.style.height = celHeight;
+                            GREUtils.log('[STANDARD]: vivibutton <' + btn.style + '>');
+-->
                         }
                     }
                 ]]>
@@ -1364,10 +1137,10 @@
                     var posX, posY, posWidth, posHeight;
                     var entry, row, column, width, height;
                     var mode = this.getAttribute('mode');
-                    var location = this.controlLocation;
                     var dir = this.dir;
 
                     //GREUtils.log('[CUSTOM]: rendering custom layout with <r=' + r + ',c=' + c + '>x<cellWidth=' + cellWidth + ',cellHeight=' + cellHeight + '>');
+                    //GREUtils.log('[CUSTOM]: with mode <' + mode + '> and dir <' + dir + '>');
 
                     for (var i = 0; i < layout.length; i++) {
                         entry = layout[i].split(',');
@@ -1391,17 +1164,12 @@
                             }
 
                             btn = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:vivibutton");
-                            if (((location == 'left') && (dir == 'reverse')) ||
-                                ((location == 'right') && (dir != 'reverse')))
+                            if (dir == 'reverse')
                                 posX = w + hs - (c - column + 1) * (cellWidth + hs);
                             else
                                 posX = (column - 1) * (cellWidth + hs);
 
-                            if (((location == 'top') && (dir == 'reverse')) ||
-                                ((location == 'bottom') && (dir != 'reverse')))
-                                posY = h + vs - (r - row + 1) * (cellHeight + vs);
-                            else
-                                posY = (row - 1) * (cellHeight + vs);
+                            posY = (row - 1) * (cellHeight + vs);
 
                             // GREUtils.log('[CUSTOM]: posWidth <' + width + '> <' + cellWidth + '> <' + hs + '>');
                             // GREUtils.log('[CUSTOM]: posHeight <' + height + '> <' + cellHeight + '> <' + vs + '>');
@@ -1557,10 +1325,10 @@
                 <![CDATA[
                     //GREUtils.log('[SetSelection]: entering page <' + this.currentPage + '> state <' + state + '> on stack <' + stack + '> with layout <' + GeckoJS.BaseObject.dump(layout) + '>');
 
-                    if (!stack) stack = this.keypad.selectedPanel;
+                    if (!stack) stack = this.keypad.firstChild;
                     if (!layout) layout = this.getPageLayout(this.currentPage);
 
-                    //GREUtils.log('[SetSelection]: setting selection range to state <' + state + '> on stack <' + stack + '> with layout <' + GeckoJS.BaseObject.dump(layout) + '>');
+                    //GREUtils.log('[SetSelection]: setting selection range to state <' + state + '> on stack <' + stack.getAttribute('anonid') + '> with layout <' + GeckoJS.BaseObject.dump(layout) + '>');
 
                     var extent = this.getSelection(layout);
                     if (extent) {
@@ -1611,7 +1379,7 @@
                             if (seltype != 'single') {
                                 // first node has been selected: select a second node
                                 this.selectedNode2 = {row: pos[0], column: pos[1]};
-                                //GREUtils.log('[SelectButton]: 2nd cell selected: <' + this.selectedNode2.row + 'x' + this.selectedNode2.column + '>');
+                                GREUtils.log('[SelectButton]: 2nd cell selected: <' + this.selectedNode2.row + 'x' + this.selectedNode2.column + '>');
                             }
                             else {
                                 this.setSelection(false);
@@ -1668,22 +1436,22 @@
                     
                     var defaultButtonColor = GeckoJS.Configure.read('vivipos.fec.ui.button.defaultcolor');
                     var defaultButtonFontsize = GeckoJS.Configure.read('vivipos.fec.ui.button.defaultfontsize');
-
-                    //GREUtils.log('[KEYMAP]: page <' + page + '> global keymap <' + GeckoJS.BaseObject.dump(gkeymap) + '> local keymap <' + GeckoJS.BaseObject.dump(lkeymap) + '>');
-                    //GREUtils.log('[KEYMAP]: page <' + page + '> button style map <' + GeckoJS.BaseObject.dump(btnstylemap) + '>');
-                    //GREUtils.log('[KEYMAP]: page <' + page + '> button fontsize map <' + GeckoJS.BaseObject.dump(btnfontsizemap) + '>');
-
+<!--
+                    GREUtils.log('[KEYMAP]: page <' + page + '> global keymap <' + GeckoJS.BaseObject.dump(gkeymap) + '> local keymap <' + GeckoJS.BaseObject.dump(lkeymap) + '>');
+                    GREUtils.log('[KEYMAP]: page <' + page + '> button style map <' + GeckoJS.BaseObject.dump(btnstylemap) + '>');
+                    GREUtils.log('[KEYMAP]: page <' + page + '> button fontsize map <' + GeckoJS.BaseObject.dump(btnfontsizemap) + '>');
+-->
                     var restrictMode = this.getAttribute('restrictMode');
                     var mode = this.getAttribute('mode');
 
-                    if (stack == null) stack = this.keypad.selectedPanel;
+                    if (stack == null) stack = this.keypad.firstChild;
 
                     var btns = stack.childNodes;
                     var entry;
                     var disabledFlag = this.getAttribute('disabled');
-
-                    //GREUtils.log('[KEYMAP]: rendering on stack with <' + btns.length + '> buttons with mode <' + mode + '> restrictMode <' + restrictMode + '> disabled <' + disabledFlag + '>');
-
+<!--
+                    GREUtils.log('[KEYMAP]: rendering on stack <' + stack.getAttribute('anonid') + '> with <' + btns.length + '> buttons with mode <' + mode + '> restrictMode <' + restrictMode + '> disabled <' + disabledFlag + '>');
+-->
                     // for each button, check if corresponding key assignment and button style exists
                     for (var i = 0, btn; btn = btns[i]; i++) {
                         var btnid = btn.getAttribute('anonid');
@@ -1693,7 +1461,7 @@
                         if (gkeymap != null) entry = gkeymap.get(btnid);
                         if ((entry == null) && (lkeymap != null)) entry = lkeymap.get(btnid);
 
-                        //GREUtils.log('[KEYMAP]: found entry <' + entry + '>');
+                        //GREUtils.log('[KEYMAP]: found entry <' + GeckoJS.BaseObject.dump(entry) + '>');
 
                         //GREUtils.log('[KEYMAP]: looking up buttonstylemap for button <' + btnid + '>');
                         var btnstyles = (btnstylemap && (btnid in btnstylemap)) ? btnstylemap[btnid].split(',') : [];
@@ -1712,7 +1480,7 @@
                             btn.setAttribute('disabled', disabledFlag);
                             btn.setAttribute('type', 'checkbox');
                             btn.setAttribute('autoCheck', 'false');
-                            btn.setAttribute('oncommand', 'this.parentNode.parentNode.parentNode.parentNode.parentNode.selectButton(this, this.checked)');
+                            btn.setAttribute('oncommand', 'this.parentNode.parentNode.parentNode.parentNode.selectButton(this, this.checked)');
                             btn.setAttribute('roles', '');
                             btn.setAttribute('action', 'none');
                             btn.style.visibility = 'inherit';
@@ -1721,9 +1489,13 @@
 
                             if (entry && (entry.label != null) && (entry.label != '')) {
                                 btn.setAttribute('label', entry.label);
+                                //btn.setLabel(entry.label);
+                                //GREUtils.log('[KEYMAP]: label <' + entry.label + '> set');
                             }
                             else {
                                 btn.setAttribute('label', '');
+                                //btn.setLabel('');
+                                //GREUtils.log('[KEYMAP]: label not set');
                             }
 
                             //GREUtils.log('[KEYMAP]: set button to configure mode with label <' + btn.getAttribute('label') + '> disabled <' + disabledFlag + '>');
@@ -1747,6 +1519,8 @@
                                     var hasAccess = this._isUserInRole(entry.access);
 
                                     btn.setAttribute('label', entry.label);
+                                    //btn.setLabel(entry.label);
+                                    
                                     btn.setAttribute('roles', entry.access);
                                     btn.setAttribute('action', 'display');
 
@@ -1806,6 +1580,7 @@
                             }
                             else {
                                 btn.removeAttribute('label');
+                                //btn.setLabel('');
                                 btn.setAttribute('disabled', true);
                                 btn.setAttribute('oncommand', '');
                                 btn.style.visibility = 'inherit';
@@ -1838,7 +1613,7 @@
                     if (('columns' in data) && (data.columns != null)) this.setAttribute('columns', data.columns);
                     if (('vspacing' in data) && (data.vspacing != null)) this.setAttribute('vspacing', data.vspacing);
                     if (('hspacing' in data) && (data.hspacing != null)) this.setAttribute('hspacing', data.hspacing);
-                    if (('controlLocation' in data) && (data.controlLocation != null)) this.setAttribute('controlLocation', data.controlLocation);
+                    if (('dir' in data) && (data.dir != null)) this.setAttribute('dir', data.dir);
                     if (('wrap' in data) && (data.wrap != null)) this.setAttribute('wrap', data.wrap);
                     if (('restrictMode' in data) && (data.restrictMode != null)) this.setAttribute('restrictMode', data.restrictMode);
 
@@ -1888,7 +1663,12 @@
                 <body>
                 <![CDATA[
                     //GREUtils.log('[NEXT]: going forward from page <' + this.currentPage + '>');
+                    var stack = this.keypad.firstChild;
+                    var page = this.currentPage;
+
+                    this.setSelection(false, stack);
                     this.currentPage = this.currentPage - (- 1);
+                    
                     //GREUtils.log('[NEXT]: going forward to page <' + this.currentPage + '>');
                 ]]>
                 </body>
@@ -1899,7 +1679,12 @@
                 <body>
                 <![CDATA[
                     //GREUtils.log('[PREV]: going backward from page <' + this.currentPage + '>');
+                    var stack = this.keypad.firstChild;
+                    var page = this.currentPage;
+
+                    this.setSelection(false, stack);
                     this.currentPage = this.currentPage - 1;
+                    
                     //GREUtils.log('[PREV]: going backward to page <' + this.currentPage + '>');
                 ]]>
                 </body>
@@ -1908,7 +1693,12 @@
             <method name="home">
                 <body>
                 <![CDATA[
+                    var stack = this.keypad.firstChild;
+                    var page = this.currentPage;
+
+                    this.setSelection(false, stack);
                     this.currentPage = this.homePage;
+
                 ]]>
                 </body>
             </method>
@@ -1927,7 +1717,7 @@
                     if ((page == null) || (updateOnly && ((layout == null) || (layout.length == 0)))) return;
 
                     var existingLayout = this.getPageLayout(page);
-                    var currentStack = this.keypad.selectedPanel;
+                    var currentStack = this.keypad;
 
                     if ((existingLayout != null) || (page == null) || (page == 'global')) {
                         // removing the stack associated with the old layout if it is not the active stack
