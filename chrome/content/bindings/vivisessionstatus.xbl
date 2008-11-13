@@ -1,0 +1,243 @@
+<?xml version="1.0"?>
+<bindings xmlns="http://www.mozilla.org/xbl"
+          xmlns:xbl="http://www.mozilla.org/xbl"
+          xmlns:html="http://www.w3.org/1999/xhtml"
+          xmlns:svg="http://www.w3.org/2000/svg"
+          xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+    <binding id="vivisessionstatus">
+        <resources>
+        </resources>
+
+        <!-- Event Handlers -->
+        <handlers>
+        </handlers>
+
+        <content>
+        <xul:grid anonid="vivisessionstatus-grid" xbl:inherits="class" flex="1">
+        </xul:grid>
+        </content>
+        <implementation>
+
+            <!-- Fields -->
+
+            <!-- Constructor -->
+            <constructor>
+            <![CDATA[
+                //GREUtils.log('[CONSTRUCTOR]: entering');
+
+                this.events = GeckoJS.Session.getInstance().events;
+                if (this.events) {
+                    this.events.addListener('change', this.changeHandler, this);
+                    this.events.addListener('remove', this.removeHandler, this);
+                    this.events.addListener('clear', this.clearHandler, this);
+                    //GREUtils.log('[CONSTRUCTOR]: event listeners attached');
+                }
+                else {
+                    //GREUtils.log('[CONSTRUCTOR]: failed to get Session events');
+                }
+                _render();
+                
+                //window.addEventListener('DOMContentLoaded', this.ready, true);
+
+                // register listener for attribute modified events
+                this.addEventListener('DOMAttrModified', this._attrModified, true);
+                //GREUtils.log('[CONSTRUCTOR]: leaving');
+            ]]>
+            </constructor>
+
+            <!-- destructor -->
+            <destructor>
+            <![CDATA[
+                //GREUtils.log('[DESTRUCTOR]: entering');
+                if (this.events) {
+                    this.events.removeListener('change', this.changeHandler);
+                    this.events.removeListener('remove', this.removeHandler);
+                    this.events.removeListener('clear', this.clearHandler);
+                }
+
+                //window.removeEventListener('DOMContentLoaded', this.ready, true);
+                this.removeEventListener('DOMAttrModified', this._attrModified, true);
+                //GREUtils.log('[DESTRUCTOR]: leaving');
+            ]]>
+            </destructor>
+
+            <!-- Methods -->
+
+            <method name="_attrModified">
+                <parameter name="evt"/>
+                <body>
+                <![CDATA[
+                    //GREUtils.log('[ATTRIBUTE-MODIFIED]: attribute <' + evt.attrName + '> changed to value <' + evt.newValue + '>');
+
+                    if (evt.attrName != 'value') {
+                        this._render();
+                    }
+                ]]>
+                </body>
+            </method>
+
+            <method name="_render">
+                <body>
+                <![CDATA[
+
+                var labels = this.getAttribute('labels').split(',');
+                var ncols = this.getAttribute('columns');
+                var useSep = (this.getAttribute('noseparator') != 'true');
+                this.keys = this.getAttribute('keys').split(',');
+
+                var labelClass = this.getAttribute('labelClass');
+                var valueClass = this.getAttribute('valueClass');
+                var separatorClass = this.getAttribute('separator-class');
+
+                if (isNaN(ncols) || (ncols < 1)) ncols = 1;
+                
+                //GREUtils.log('[RENDER]: retrieved labels <' + labels + '> and keys <' + this.keys + '>');
+                var grid = document.getAnonymousElementByAttribute(this,'anonid', 'vivisessionstatus-grid');
+                //GREUtils.log('[RENDER]: located top-level grid <' + grid.nodeName + '>');
+  
+                while (grid.firstChild) grid.removeChild(grid.firstChild);
+                
+                // create columns
+                var columns = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:columns");
+                
+                for (var i = 0; i < ncols; i++) {
+                    var labelCol = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:column");
+                    labelCol.setAttribute('flex', '0');
+                    columns.appendChild(labelCol);
+                    
+                    var valueCol = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:column");
+                    valueCol.setAttribute('flex', '1');
+                    columns.appendChild(valueCol);
+
+                    if (useSep && (i < (ncols - 1))) {
+                        var sepCol = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:column");
+                        sepCol.setAttribute('flex', '0');
+                        columns.appendChild(sepCol);
+                    }
+                }
+                grid.appendChild(columns);
+
+                var rows = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:rows");
+                var r = Math.ceil(labels.length/ncols);
+
+                //GREUtils.log('[RENDER]: #labels <' + labels.length + '> #cols <' + ncols + '> #row <' + r + '>');
+                // create rows
+
+                var index = 0;
+                for (var i = 0; i < r; i++) {
+                    var row = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:row");
+
+                    for (j = 0; j < ncols; j++) {
+                        // create label
+                        var labelNode = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:textbox");
+                        labelNode.setAttribute('class', labelClass);
+                        labelNode.setAttribute('value', labels[index]);
+                        labelNode.setAttribute('readonly', 'true');
+                        row.appendChild(labelNode);
+
+                        //GREUtils.log('[RENDER]: added field label <' + labelNode.getAttribute('value') + '>');
+
+                        var valueNode = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:textbox");
+                        valueNode.setAttribute('class', valueClass);
+                        valueNode.setAttribute('anonid', 'value' + index);
+                        valueNode.setAttribute('value', GeckoJS.Session.get(this.keys[index]));
+//                        valueNode.setAttribute('readonly', 'true');
+                        row.appendChild(valueNode);
+
+                        //GREUtils.log('[RENDER]: added field value <' + valueNode.getAttribute('value') + '>');
+
+                        if (useSep && (j < (ncols - 1))) {
+                            var sepNode = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:separator");
+                            sepNode.setAttribute('class', 'groove-thin');
+                            sepNode.setAttribute('orient', 'vertical');
+                            sepNode.setAttribute('width', '1');
+                            row.appendChild(sepNode);
+                        }
+                        rows.appendChild(row);
+                        if (++index == labels.length) break;
+                    }
+                }
+                grid.appendChild(rows);
+                ]]>
+                </body>
+            </method>
+
+            <method name="_locateKey">
+                <parameter name="key"/>
+                <body>
+                <![CDATA[
+                    //GREUtils.log('[LOCATE]: checking for key <' + key + '>');
+
+                    var found = -1;
+                    
+                    for (var i = 0; i < this.keys.length; i++) {
+                        //GREUtils.log('[LOCATE]: checking key <' + i + '> value <' + this.keys[i] + '>');
+                        if (this.keys[i] == key) {
+                            found = i;
+                            break;
+                        }
+                    }
+                    //GREUtils.log('[LOCATE]: found key at index <' + found + '>');
+                    return found;
+                ]]>
+                </body>
+            </method>
+            
+            <method name="changeHandler">
+                <parameter name="evt"/>
+                <body>
+                <![CDATA[
+                    //GREUtils.log('[CHANGE]: entering <' + evt.getType() + '> + <' + GeckoJS.BaseObject.dump(evt.getData()) + '>');
+
+                    var value = evt.getData().value;
+                    var index = this._locateKey(evt.getData().key);
+
+                    if (index != -1) {
+                        var valueNode = document.getAnonymousElementByAttribute(this,'anonid', 'value' + index);
+                        if (valueNode) {
+                            valueNode.setAttribute('value', evt.getData().value);
+                        }
+                    }
+                    //GREUtils.log('[CHANGE]: leaving');
+                ]]>
+                </body>
+            </method>
+
+            <method name="removeHandler">
+                <parameter name="evt"/>
+                <body>
+                <![CDATA[
+                    //GREUtils.log('[REMOVE]: entering <' + evt.getType() + '> + <' + GeckoJS.BaseObject.dump(evt.getData()) + '>');
+
+                    var index = this._locateKey(evt.getData());
+                    if (index != -1) {
+                        var valueNode = document.getAnonymousElementByAttribute(this,'anonid', 'value' + index);
+                        if (valueNode) {
+                            valueNode.setAttribute('value', '');
+                        }
+                    }
+                    //GREUtils.log('[REMOVE]: leaving');
+                ]]>
+                </body>
+            </method>
+
+            <method name="clearHandler">
+                <parameter name="evt"/>
+                <body>
+                <![CDATA[
+                    //GREUtils.log('[CLEAR]: entering <' + evt.getType() + '> + <' + GeckoJS.BaseObject.dump(evt.getData()) + '>');
+
+                    for (var i = 0; i < this.keys.length; i++) {
+                        var valueNode = document.getAnonymousElementByAttribute(this,'anonid', 'value' + i);
+                        if (valueNode) {
+                            valueNode.setAttribute('value', '');
+                        }
+                    }
+                    //GREUtils.log('[CLEAR]: leaving');
+                ]]>
+                </body>
+            </method>
+
+        </implementation>
+    </binding>
+</bindings>
