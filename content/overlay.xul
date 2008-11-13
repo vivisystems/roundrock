@@ -22,7 +22,6 @@
 
       <vbox flex="1">
 
-
         <box id="productPanelContainer" class="productPanel" />
 
         <box id="functionPanelContainer" class="functionPanel" />

@@ -43,6 +43,7 @@ GREUtils.include('chrome://viviecr/content/controllers/selectqueue_controller.js
 GREUtils.include('chrome://viviecr/content/controllers/image_manager_controller.js');
 GREUtils.include('chrome://viviecr/content/controllers/control_panel_controller.js');
 GREUtils.include('chrome://viviecr/content/controllers/departments_controller.js');
+GREUtils.include('chrome://viviecr/content/controllers/plus_controller.js');
 
 // user define
 GREUtils.include('chrome://viviecr/content/tax.js');

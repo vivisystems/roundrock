@@ -138,7 +138,7 @@
             catescrollablepanel.datasource = catePanelView;
 
 
-            var prodModel = new ViviPOS.ProductModel();
+            var prodModel = new ProductModel();
             var products = prodModel.find('all', {
                 order: "cate_no"
             });

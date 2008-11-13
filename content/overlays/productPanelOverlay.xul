@@ -9,7 +9,7 @@
   <box id="productPanelContainer">
     <vbox flex="1">
         <!-- Begin Catalogs -->
-        <viviscrollablebuttonpanel dir="reverse1" id="catescrollablepanel" flex="1" cols="4" rows="2" labelField="name" imageField="no" oncommand="$do('changePluPanel',this.selectedIndex, 'Main');"
+        <viviscrollablebuttonpanel dir="reverse" id="catescrollablepanel" flex="1" cols="4" rows="2" labelField="name" imageField="no" oncommand="$do('changePluPanel',this.selectedIndex, 'Main');"
           class="catescrollablepanel" buttonClass="catbtn button-radius" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue"/>
 
         <!-- End Catalogs -->

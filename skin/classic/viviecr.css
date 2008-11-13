@@ -194,7 +194,7 @@ functionPanel {
 
 
 .pad40 {
-    padding: 10px;
+    padding: 5px;
 }
 
 .pad60 {
@@ -210,12 +210,12 @@ functionPanel {
 }
 
 .panel40 {
-    padding: 10px;
+    padding: 5px;
     background-image: url(images/bg_gray.png);
 }
 
 .footlogo {
-    padding: 10px;
+    padding: 0px;
     overflow: auto;
     background-position: right bottom;
     background-repeat: no-repeat;
@@ -482,7 +482,7 @@ treeitem {
  *	Dialog Class
  */
 
-.dialogbtns button {
+.dialogbtns button, .editbtns {
     min-width:100px;
     max-width:100px;
     min-height:45px;
@@ -527,7 +527,7 @@ treeitem {
     text-wrap: normal;
     word-wrap: break-word;
 }
-.dialogbtns button:active {
+.dialogbtns button:active , .editbtns:active {
     background-position:0pt -60px;
     border: 2px solid;
     -moz-border-top-colors: #444 #222;
@@ -601,7 +601,9 @@ treeitem {
 .iconbtn {
     width:  42px;
     height: 42px;
-    margin: 1px 1px 0px 0px;
+    min-height:42px;
+    min-width: 42px;
+    margin: 2px 2px 2px 2px;
     padding: 0px;
     list-style-type: none;
     overflow: hidden;
@@ -609,10 +611,16 @@ treeitem {
     font-weight: bold !important;
     font-size: 18px;
     overflow: hidden;
-    background: url(images/btn_gray.png);
+    background: url(images/white.png);
     -moz-appearance: none;
     -moz-user-focus: ignore;
-    -moz-background-clip: border;
+    border: 1px solid;
+    -moz-box-pack: center;
+    -moz-user-focus: ignore;
+    -moz-border-top-colors: #444;
+    -moz-border-right-colors: #444;
+    -moz-border-bottom-colors: #444;
+    -moz-border-left-colors: #444;
 }
 .iconbtn:active {
   background-position:0pt -64px;
