@@ -1318,10 +1318,14 @@
 
                     if (!stack) stack = this.keypad.firstChild;
                     if (!layout) layout = this.getPageLayout(this.currentPage);
+                    else if (layout == 'global') layout = this.getPageLayout('global');
 
-                    //GREUtils.log('[SetSelection]: setting selection range to state <' + state + '> on stack <' + stack.getAttribute('anonid') + '> with layout <' + GeckoJS.BaseObject.dump(layout) + '>');
+                    //GREUtils.log('[SetSelection]: layout is now <' + layout + '>');
 
                     var extent = this.getSelection(layout);
+
+                    //GREUtils.log('[SetSelection]: setting selection range to state <' + state + '> on stack <' + stack.getAttribute('anonid') + '> with layout <' + GeckoJS.BaseObject.dump(layout) + '> and extent <' + GeckoJS.BaseObject.dump(extent) + '>');
+
                     if (extent) {
                         // set selected buttons to given state
                         var btns = stack.childNodes;
@@ -1370,7 +1374,7 @@
                             if (seltype != 'single') {
                                 // first node has been selected: select a second node
                                 this.selectedNode2 = {row: pos[0], column: pos[1]};
-                                GREUtils.log('[SelectButton]: 2nd cell selected: <' + this.selectedNode2.row + 'x' + this.selectedNode2.column + '>');
+                                //GREUtils.log('[SelectButton]: 2nd cell selected: <' + this.selectedNode2.row + 'x' + this.selectedNode2.column + '>');
                             }
                             else {
                                 this.setSelection(false);
@@ -1712,7 +1716,15 @@
                     if ((page == null) || (updateOnly && ((layout == null) || (layout.length == 0)))) return;
 
                     var existingLayout = this.getPageLayout(page);
-                    var currentStack = this.keypad.firstchild;
+                    var currentStack = this.keypad.firstChild;
+
+                    // clear selection on a layout change
+                    if (currentStack) {
+                        if (layout == null) layout = 'global';
+                        this.setSelection(false, currentStack, 'global');
+                    }
+                    this._selectedNode1 = null;
+                    this.selectedNode2 = null; // this triggers the selection changed event
 
                     if ((existingLayout != null) || (page == null) || (page == 'global')) {
                         // removing the stack associated with the old layout if it is not the active stack
@@ -1788,16 +1800,6 @@
                     }
                     //GREUtils.log('[SetLayout]: preparing to render new layout for page <' + page + '> <' + GeckoJS.BaseObject.dump(newLayout) + '>');
                     this._refreshCurrentPage();
-
-                    // clear selection on a layout change
-                    //GREUtils.log('[SetLayout]: before calling setSelection, node1 <' + GeckoJS.BaseObject.dump(this.selectedNode1) + '>, node2 <' + GeckoJS.BaseObject.dump(this.selectedNode2) + '>');
-                    //GREUtils.log('[SetLayout]: before calling setSelection, layout <' + GeckoJS.BaseObject.dump(existingLayout) + '>');
-                    if (currentStack) {
-                        if (existingLayout == null) existingLayout = 'global';
-                        this.setSelection(false, currentStack, existingLayout);
-                    }
-                    this._selectedNode1 = null;
-                    this.selectedNode2 = null; // this triggers the selection changed event
 
                     //GREUtils.log('[SetLayout]: navigated to page <' + this.currentPage + '>');
                 ]]>

@@ -3311,3 +3311,1170 @@ Array
 2008-10-13 10:30:58 : [INFO] [VIVIPOS] VIVIPOS STARTUP
 2008-10-13 10:31:10 : [INFO] [VIVIPOS] VIVIPOS CLOSE
 2008-10-13 10:31:12 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 10:46:35 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 10:46:37 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 10:46:44 : [ERROR] [Dispatcher] GeckoJS.dispatch to commanddoPriceLevelShift1; TypeError
+{
+    'message': B is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ([object ChromeWindow],"doPriceLevelShift1","parm1",null)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"doPriceLevelShift1","parm1","ctrl1")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("doPriceLevelShift1","parm1","ctrl1")@chrome://vivipos/content/init_geckojs.js:54
+oncommand([object XULCommandEvent])@chrome://vivipos/content/vivipos.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: oncommand] [line: 1] [filename: chrome://vivipos/content/vivipos.xul]
+}
+
+2008-10-13 10:46:44 : [ERROR] [Dispatcher] GeckoJS.dispatch to commandPriceLevelShift2; TypeError
+{
+    'message': B is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ([object ChromeWindow],"PriceLevelShift2","parm2",null)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"PriceLevelShift2","parm2","ctrl1")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("PriceLevelShift2","parm2","ctrl1")@chrome://vivipos/content/init_geckojs.js:54
+oncommand([object XULCommandEvent])@chrome://vivipos/content/vivipos.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: oncommand] [line: 1] [filename: chrome://vivipos/content/vivipos.xul]
+}
+
+2008-10-13 10:46:44 : [ERROR] [Dispatcher] GeckoJS.dispatch to commandPriceLevelShift3; TypeError
+{
+    'message': B is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ([object ChromeWindow],"PriceLevelShift3","parm1",null)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"PriceLevelShift3","parm1","ctrl1")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("PriceLevelShift3","parm1","ctrl1")@chrome://vivipos/content/init_geckojs.js:54
+oncommand([object XULCommandEvent])@chrome://vivipos/content/vivipos.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: oncommand] [line: 1] [filename: chrome://vivipos/content/vivipos.xul]
+}
+
+2008-10-13 10:46:45 : [ERROR] [Dispatcher] GeckoJS.dispatch to commanddoPriceLevelShift1; TypeError
+{
+    'message': B is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ([object ChromeWindow],"doPriceLevelShift1","parm1",null)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"doPriceLevelShift1","parm1","ctrl1")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("doPriceLevelShift1","parm1","ctrl1")@chrome://vivipos/content/init_geckojs.js:54
+oncommand([object XULCommandEvent])@chrome://vivipos/content/vivipos.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: oncommand] [line: 1] [filename: chrome://vivipos/content/vivipos.xul]
+}
+
+2008-10-13 10:46:45 : [ERROR] [Dispatcher] GeckoJS.dispatch to commandPriceLevelShift2; TypeError
+{
+    'message': B is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ([object ChromeWindow],"PriceLevelShift2","parm2",null)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"PriceLevelShift2","parm2","ctrl1")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("PriceLevelShift2","parm2","ctrl1")@chrome://vivipos/content/init_geckojs.js:54
+oncommand([object XULCommandEvent])@chrome://vivipos/content/vivipos.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: oncommand] [line: 1] [filename: chrome://vivipos/content/vivipos.xul]
+}
+
+2008-10-13 10:46:45 : [ERROR] [Dispatcher] GeckoJS.dispatch to commandPriceLevelShift3; TypeError
+{
+    'message': B is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ([object ChromeWindow],"PriceLevelShift3","parm1",null)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"PriceLevelShift3","parm1","ctrl1")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("PriceLevelShift3","parm1","ctrl1")@chrome://vivipos/content/init_geckojs.js:54
+oncommand([object XULCommandEvent])@chrome://vivipos/content/vivipos.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: oncommand] [line: 1] [filename: chrome://vivipos/content/vivipos.xul]
+}
+
+2008-10-13 10:46:45 : [ERROR] [Dispatcher] GeckoJS.dispatch to commanddoPriceLevelShift1; TypeError
+{
+    'message': B is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ([object ChromeWindow],"doPriceLevelShift1","parm1",null)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"doPriceLevelShift1","parm1","ctrl1")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("doPriceLevelShift1","parm1","ctrl1")@chrome://vivipos/content/init_geckojs.js:54
+oncommand([object XULCommandEvent])@chrome://vivipos/content/vivipos.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: oncommand] [line: 1] [filename: chrome://vivipos/content/vivipos.xul]
+}
+
+2008-10-13 10:46:45 : [ERROR] [Dispatcher] GeckoJS.dispatch to commandPriceLevelShift2; TypeError
+{
+    'message': B is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ([object ChromeWindow],"PriceLevelShift2","parm2",null)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"PriceLevelShift2","parm2","ctrl1")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("PriceLevelShift2","parm2","ctrl1")@chrome://vivipos/content/init_geckojs.js:54
+oncommand([object XULCommandEvent])@chrome://vivipos/content/vivipos.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: oncommand] [line: 1] [filename: chrome://vivipos/content/vivipos.xul]
+}
+
+2008-10-13 10:46:45 : [ERROR] [Dispatcher] GeckoJS.dispatch to commandPriceLevelShift3; TypeError
+{
+    'message': B is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ([object ChromeWindow],"PriceLevelShift3","parm1",null)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"PriceLevelShift3","parm1","ctrl1")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("PriceLevelShift3","parm1","ctrl1")@chrome://vivipos/content/init_geckojs.js:54
+oncommand([object XULCommandEvent])@chrome://vivipos/content/vivipos.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: oncommand] [line: 1] [filename: chrome://vivipos/content/vivipos.xul]
+}
+
+2008-10-13 10:46:46 : [ERROR] [Dispatcher] GeckoJS.dispatch to commanddoPriceLevelShift1; TypeError
+{
+    'message': B is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ([object ChromeWindow],"doPriceLevelShift1","parm1",null)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"doPriceLevelShift1","parm1","ctrl1")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("doPriceLevelShift1","parm1","ctrl1")@chrome://vivipos/content/init_geckojs.js:54
+oncommand([object XULCommandEvent])@chrome://vivipos/content/vivipos.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: oncommand] [line: 1] [filename: chrome://vivipos/content/vivipos.xul]
+}
+
+2008-10-13 10:46:46 : [ERROR] [Dispatcher] GeckoJS.dispatch to commandPriceLevelShift2; TypeError
+{
+    'message': B is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ([object ChromeWindow],"PriceLevelShift2","parm2",null)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"PriceLevelShift2","parm2","ctrl1")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("PriceLevelShift2","parm2","ctrl1")@chrome://vivipos/content/init_geckojs.js:54
+oncommand([object XULCommandEvent])@chrome://vivipos/content/vivipos.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: oncommand] [line: 1] [filename: chrome://vivipos/content/vivipos.xul]
+}
+
+2008-10-13 10:46:46 : [ERROR] [Dispatcher] GeckoJS.dispatch to commandPriceLevelShift3; TypeError
+{
+    'message': B is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ([object ChromeWindow],"PriceLevelShift3","parm1",null)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"PriceLevelShift3","parm1","ctrl1")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("PriceLevelShift3","parm1","ctrl1")@chrome://vivipos/content/init_geckojs.js:54
+oncommand([object XULCommandEvent])@chrome://vivipos/content/vivipos.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: oncommand] [line: 1] [filename: chrome://vivipos/content/vivipos.xul]
+}
+
+2008-10-13 10:47:31 : [ERROR] [Dispatcher] GeckoJS.dispatch to commanddoPriceLevelShift1; TypeError
+{
+    'message': B is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ([object ChromeWindow],"doPriceLevelShift1","parm1",null)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"doPriceLevelShift1","parm1","ctrl1")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("doPriceLevelShift1","parm1","ctrl1")@chrome://vivipos/content/init_geckojs.js:54
+oncommand([object XULCommandEvent])@chrome://vivipos/content/vivipos.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: oncommand] [line: 1] [filename: chrome://vivipos/content/vivipos.xul]
+}
+
+2008-10-13 10:47:31 : [ERROR] [Dispatcher] GeckoJS.dispatch to commandPriceLevelShift2; TypeError
+{
+    'message': B is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ([object ChromeWindow],"PriceLevelShift2","parm2",null)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"PriceLevelShift2","parm2","ctrl1")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("PriceLevelShift2","parm2","ctrl1")@chrome://vivipos/content/init_geckojs.js:54
+oncommand([object XULCommandEvent])@chrome://vivipos/content/vivipos.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: oncommand] [line: 1] [filename: chrome://vivipos/content/vivipos.xul]
+}
+
+2008-10-13 10:47:31 : [ERROR] [Dispatcher] GeckoJS.dispatch to commandPriceLevelShift3; TypeError
+{
+    'message': B is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ([object ChromeWindow],"PriceLevelShift3","parm1",null)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"PriceLevelShift3","parm1","ctrl1")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("PriceLevelShift3","parm1","ctrl1")@chrome://vivipos/content/init_geckojs.js:54
+oncommand([object XULCommandEvent])@chrome://vivipos/content/vivipos.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: oncommand] [line: 1] [filename: chrome://vivipos/content/vivipos.xul]
+}
+
+2008-10-13 10:48:15 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 10:48:45 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 10:48:47 : [ERROR] [Dispatcher] GeckoJS.dispatch to commanddoPriceLevelShift1; TypeError
+{
+    'message': B is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ([object ChromeWindow],"doPriceLevelShift1","parm1",null)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"doPriceLevelShift1","parm1","ctrl1")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("doPriceLevelShift1","parm1","ctrl1")@chrome://vivipos/content/init_geckojs.js:54
+oncommand([object XULCommandEvent])@chrome://vivipos/content/vivipos.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: oncommand] [line: 1] [filename: chrome://vivipos/content/vivipos.xul]
+}
+
+2008-10-13 10:48:47 : [ERROR] [Dispatcher] GeckoJS.dispatch to commandPriceLevelShift2; TypeError
+{
+    'message': B is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ([object ChromeWindow],"PriceLevelShift2","parm2",null)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"PriceLevelShift2","parm2","ctrl1")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("PriceLevelShift2","parm2","ctrl1")@chrome://vivipos/content/init_geckojs.js:54
+oncommand([object XULCommandEvent])@chrome://vivipos/content/vivipos.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: oncommand] [line: 1] [filename: chrome://vivipos/content/vivipos.xul]
+}
+
+2008-10-13 10:48:47 : [ERROR] [Dispatcher] GeckoJS.dispatch to commandPriceLevelShift3; TypeError
+{
+    'message': B is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ([object ChromeWindow],"PriceLevelShift3","parm1",null)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"PriceLevelShift3","parm1","ctrl1")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("PriceLevelShift3","parm1","ctrl1")@chrome://vivipos/content/init_geckojs.js:54
+oncommand([object XULCommandEvent])@chrome://vivipos/content/vivipos.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: oncommand] [line: 1] [filename: chrome://vivipos/content/vivipos.xul]
+}
+
+2008-10-13 10:49:07 : [ERROR] [Dispatcher] GeckoJS.dispatch to commandpriceLevel; TypeError
+{
+    'message': B is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ([object ChromeWindow],"priceLevel","",null)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"priceLevel","","cart_controller")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("priceLevel","","cart_controller")@chrome://vivipos/content/init_geckojs.js:54
+oncommand([object XULCommandEvent])@chrome://vivipos/content/vivipos.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: oncommand] [line: 1] [filename: chrome://vivipos/content/vivipos.xul]
+}
+
+2008-10-13 10:50:31 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 10:50:46 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 10:51:07 : [ERROR] [Dispatcher] GeckoJS.dispatch to commandpriceLevel; TypeError
+{
+    'message': B is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ([object ChromeWindow],"priceLevel","",null)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"priceLevel","","cart_controller")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("priceLevel","","cart_controller")@chrome://vivipos/content/init_geckojs.js:54
+oncommand([object XULCommandEvent])@chrome://vivipos/content/vivipos.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: oncommand] [line: 1] [filename: chrome://vivipos/content/vivipos.xul]
+}
+
+2008-10-13 10:57:07 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 10:57:09 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 14:08:54 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 14:46:22 : [ERROR] [vivifuncpanelecr_prefs] vivifuncpanelecr_prefsController.doCommand selectFunction; TypeError
+{
+    'message': document.getElementById("vivifuncpanelecr_prefs_keymap_function_desc").firstChild.setAttribute is not a function
+    'fileName': chrome://vivifuncpanelecrprefs/content/vivifuncpanelecrprefs_controller.js
+    'lineNumber': 318
+    'stack': ([object XULElement])@chrome://vivifuncpanelecrprefs/content/vivifuncpanelecrprefs_controller.js:318
+("selectFunction")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"selectFunction",[object XULElement],E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"selectFunction",[object XULElement],"vivifuncpanelecr_prefs")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("selectFunction",[object XULElement],"vivifuncpanelecr_prefs")@chrome://vivipos/content/init_geckojs.js:54
+onselect([object Event])@chrome://vivifuncpanelecrprefs/content/vivifuncpanelecrprefs.xul:1
+select(1)@:0
+onxblmousedown([object MouseEvent])@chrome://global/content/bindings/tree.xml:952
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: onselect] [line: 1] [filename: chrome://vivifuncpanelecrprefs/content/vivifuncpanelecrprefs.xul]
+    '1': [name: <no name>] [line: 0] [filename: null]
+    '2': [name: onxblmousedown] [line: 952] [filename: chrome://global/content/bindings/tree.xml]
+}
+
+2008-10-13 14:46:23 : [ERROR] [vivifuncpanelecr_prefs] vivifuncpanelecr_prefsController.doCommand selectFunction; TypeError
+{
+    'message': document.getElementById("vivifuncpanelecr_prefs_keymap_function_desc").firstChild.setAttribute is not a function
+    'fileName': chrome://vivifuncpanelecrprefs/content/vivifuncpanelecrprefs_controller.js
+    'lineNumber': 318
+    'stack': ([object XULElement])@chrome://vivifuncpanelecrprefs/content/vivifuncpanelecrprefs_controller.js:318
+("selectFunction")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"selectFunction",[object XULElement],E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"selectFunction",[object XULElement],"vivifuncpanelecr_prefs")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("selectFunction",[object XULElement],"vivifuncpanelecr_prefs")@chrome://vivipos/content/init_geckojs.js:54
+onselect([object Event])@chrome://vivifuncpanelecrprefs/content/vivifuncpanelecrprefs.xul:1
+select(0)@:0
+onxblmousedown([object MouseEvent])@chrome://global/content/bindings/tree.xml:952
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: onselect] [line: 1] [filename: chrome://vivifuncpanelecrprefs/content/vivifuncpanelecrprefs.xul]
+    '1': [name: <no name>] [line: 0] [filename: null]
+    '2': [name: onxblmousedown] [line: 952] [filename: chrome://global/content/bindings/tree.xml]
+}
+
+2008-10-13 14:46:24 : [ERROR] [vivifuncpanelecr_prefs] vivifuncpanelecr_prefsController.doCommand selectFunction; TypeError
+{
+    'message': document.getElementById("vivifuncpanelecr_prefs_keymap_function_desc").firstChild.setAttribute is not a function
+    'fileName': chrome://vivifuncpanelecrprefs/content/vivifuncpanelecrprefs_controller.js
+    'lineNumber': 318
+    'stack': ([object XULElement])@chrome://vivifuncpanelecrprefs/content/vivifuncpanelecrprefs_controller.js:318
+("selectFunction")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"selectFunction",[object XULElement],E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"selectFunction",[object XULElement],"vivifuncpanelecr_prefs")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("selectFunction",[object XULElement],"vivifuncpanelecr_prefs")@chrome://vivipos/content/init_geckojs.js:54
+onselect([object Event])@chrome://vivifuncpanelecrprefs/content/vivifuncpanelecrprefs.xul:1
+select(1)@:0
+onxblmousedown([object MouseEvent])@chrome://global/content/bindings/tree.xml:952
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: onselect] [line: 1] [filename: chrome://vivifuncpanelecrprefs/content/vivifuncpanelecrprefs.xul]
+    '1': [name: <no name>] [line: 0] [filename: null]
+    '2': [name: onxblmousedown] [line: 952] [filename: chrome://global/content/bindings/tree.xml]
+}
+
+2008-10-13 14:47:40 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 14:48:11 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 14:50:17 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 14:50:18 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 14:50:29 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 14:50:30 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 15:39:19 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 15:39:21 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 15:43:03 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 15:43:05 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 15:44:07 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 15:44:08 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 15:44:42 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 15:44:43 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 15:44:58 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 15:44:59 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 15:45:36 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 15:45:37 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 15:46:18 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 15:46:19 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 15:46:38 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 15:46:39 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 15:46:43 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 15:46:44 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 15:46:49 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 15:46:50 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 15:46:54 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 15:46:55 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 15:47:09 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 15:47:10 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 15:47:15 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 15:47:16 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 15:47:26 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 15:47:27 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 15:47:44 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 15:47:45 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 15:48:14 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 15:48:15 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 15:49:35 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 15:49:37 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 15:49:58 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 15:49:59 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 15:51:07 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 15:51:08 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 15:51:42 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 15:51:43 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 15:51:57 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 15:51:58 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 15:52:15 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 15:52:16 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 15:53:02 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 15:53:03 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 15:55:26 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 15:55:28 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 15:56:18 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 15:56:19 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 15:57:22 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 15:57:24 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 15:58:26 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 15:58:28 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 15:59:11 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 15:59:12 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 15:59:42 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 15:59:43 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:01:02 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:01:04 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:03:19 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:03:20 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:03:41 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:03:42 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:04:10 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:04:11 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:05:32 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:05:33 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:06:17 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:06:18 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:06:33 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:06:34 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:06:44 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:06:45 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:07:20 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:07:21 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:07:48 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:07:49 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:08:09 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:08:10 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:08:47 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:08:48 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:09:06 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:09:07 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:09:31 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:09:32 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:09:37 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:09:38 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:09:45 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:09:46 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:10:22 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:10:23 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:11:30 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:11:31 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:11:36 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:11:37 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:11:45 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:11:46 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:14:34 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:14:35 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:16:31 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:16:33 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:16:43 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:16:44 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:16:49 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:16:50 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:19:04 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:19:05 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:19:44 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:19:46 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:20:24 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:20:25 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:21:45 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:21:47 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:31:34 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:31:36 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:34:13 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:34:15 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:35:53 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:35:54 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:36:10 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:36:11 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:36:52 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:36:53 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:37:08 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:37:09 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:37:21 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:37:22 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:37:44 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:37:45 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:39:11 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:39:12 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:39:22 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:39:23 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:40:26 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:40:28 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:40:57 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:40:58 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:43:24 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:43:25 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:44:14 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:44:15 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:46:38 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:46:39 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:46:44 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:46:45 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:46:50 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:46:51 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:46:55 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:46:56 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:47:01 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:47:02 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:56:55 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:56:57 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:57:17 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:57:18 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:57:55 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:57:56 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:58:29 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:58:30 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:58:41 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:58:42 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:58:48 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:58:49 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:59:09 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:59:11 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:59:21 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:59:22 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:59:38 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:59:39 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:59:50 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:59:51 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 16:59:58 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 16:59:59 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:00:07 : [ERROR] [Event] GeckoJS.Event.dispatch (change) ; TypeError
+{
+    'message': E.listener is undefined
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ([object Object],0,[object Array])@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("change",[object Object])@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("vivipos_fec_price_level",15.225942561983974)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+changeField("vivipos_fec_price_level")@chrome://vivisessionstatus/content/driver.xul:10
+oncommand([object XULCommandEvent])@chrome://vivipos/content/vivipos.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: changeField] [line: 10] [filename: chrome://vivisessionstatus/content/driver.xul]
+    '1': [name: oncommand] [line: 1] [filename: chrome://vivipos/content/vivipos.xul]
+}
+
+2008-10-13 17:02:59 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:03:01 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:03:06 : [ERROR] [Event] GeckoJS.Event.dispatch (change) ; TypeError
+{
+    'message': E.listener is undefined
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ([object Object],0,[object Array])@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("change",[object Object])@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("vivipos_fec_price_level",57.061102322666045)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+changeField("vivipos_fec_price_level")@chrome://vivisessionstatus/content/driver.xul:10
+oncommand([object XULCommandEvent])@chrome://vivipos/content/vivipos.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: changeField] [line: 10] [filename: chrome://vivisessionstatus/content/driver.xul]
+    '1': [name: oncommand] [line: 1] [filename: chrome://vivipos/content/vivipos.xul]
+}
+
+2008-10-13 17:03:59 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:04:00 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:04:08 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:04:10 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:04:24 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:04:25 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:04:56 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:04:57 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:05:26 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:05:27 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:05:28 : [ERROR] [Event] GeckoJS.Event.dispatch (change) ; TypeError
+{
+    'message': E.listener is undefined
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ([object Object],0,[object Array])@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("change",[object Object])@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("vivipos_fec_price_level",42.64733882239137)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+changeField("vivipos_fec_price_level")@chrome://vivisessionstatus/content/driver.xul:10
+oncommand([object XULCommandEvent])@chrome://vivipos/content/vivipos.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: changeField] [line: 10] [filename: chrome://vivisessionstatus/content/driver.xul]
+    '1': [name: oncommand] [line: 1] [filename: chrome://vivipos/content/vivipos.xul]
+}
+
+2008-10-13 17:06:22 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:06:23 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:07:40 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:07:41 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:08:04 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:08:05 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:10:12 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:10:13 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:10:43 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:10:45 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:12:16 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:12:17 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:12:57 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:12:58 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:13:12 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:13:13 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:13:36 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:13:37 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:16:00 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:16:01 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:17:26 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:17:27 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:17:54 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:18:29 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:18:45 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:18:46 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:19:07 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:19:08 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:19:28 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:19:29 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:19:52 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:19:53 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:20:02 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:20:03 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:21:25 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:21:26 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:21:44 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:21:45 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:22:43 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:22:44 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:23:26 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:23:27 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:23:35 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:23:36 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:23:40 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:23:41 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:25:20 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:25:22 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:25:45 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:25:46 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:26:09 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:26:10 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:27:11 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:27:12 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:27:42 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:27:43 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:27:55 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:27:56 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:28:43 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:28:44 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:29:42 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:29:44 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:30:01 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:30:02 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:31:06 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:31:07 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:31:30 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:31:31 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:31:40 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:31:41 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:31:50 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:31:51 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:31:59 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:32:01 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:32:06 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:32:07 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:32:24 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:32:25 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:32:41 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:32:42 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:32:52 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:39:04 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:39:13 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:39:15 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:39:54 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:39:57 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:43:08 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:43:09 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:43:39 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:43:40 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:46:09 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:46:11 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:47:13 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:47:14 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:55:03 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:55:05 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 17:55:29 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 17:55:30 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 18:03:13 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 18:03:14 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 18:03:47 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 18:03:49 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 18:03:57 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 18:03:58 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 18:04:20 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 18:04:21 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 18:04:42 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 18:04:44 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 18:06:07 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 18:06:09 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 18:07:09 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 18:07:11 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 18:34:45 : [ERROR] [vivifuncpanelecr_prefs] vivifuncpanelecr_prefsController.doCommand mergeButtons; TypeError
+{
+    'message': extent2 is undefined
+    'fileName': chrome://vivipos/content/bindings/vivifuncpanelecr.xbl
+    'lineNumber': 1284
+    'stack': getSelection([object Array])@chrome://vivipos/content/bindings/vivifuncpanelecr.xbl:1284
+setSelection(false,[object XULElement],[object Array])@chrome://vivipos/content/bindings/vivifuncpanelecr.xbl:1325
+setLayout("2",[object Array],false)@chrome://vivipos/content/bindings/vivifuncpanelecr.xbl:1801
+()@chrome://vivifuncpanelecrprefs/content/vivifuncpanelecrprefs_controller.js:608
+("mergeButtons")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"mergeButtons",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"mergeButtons",null,"vivifuncpanelecr_prefs")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("mergeButtons",null,"vivifuncpanelecr_prefs")@chrome://vivipos/content/init_geckojs.js:54
+oncommand([object XULCommandEvent])@chrome://vivifuncpanelecrprefs/content/vivifuncpanelecrprefs.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: oncommand] [line: 1] [filename: chrome://vivifuncpanelecrprefs/content/vivifuncpanelecrprefs.xul]
+}
+
+2008-10-13 18:40:26 : [ERROR] [vivifuncpanelecr_prefs] vivifuncpanelecr_prefsController.doCommand mergeButtons; TypeError
+{
+    'message': extent2 is undefined
+    'fileName': chrome://vivipos/content/bindings/vivifuncpanelecr.xbl
+    'lineNumber': 1284
+    'stack': getSelection([object Array])@chrome://vivipos/content/bindings/vivifuncpanelecr.xbl:1284
+setSelection(false,[object XULElement],"2")@chrome://vivipos/content/bindings/vivifuncpanelecr.xbl:1326
+setLayout("2",[object Array],false)@chrome://vivipos/content/bindings/vivifuncpanelecr.xbl:1799
+()@chrome://vivifuncpanelecrprefs/content/vivifuncpanelecrprefs_controller.js:608
+("mergeButtons")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"mergeButtons",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"mergeButtons",null,"vivifuncpanelecr_prefs")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("mergeButtons",null,"vivifuncpanelecr_prefs")@chrome://vivipos/content/init_geckojs.js:54
+oncommand([object XULCommandEvent])@chrome://vivifuncpanelecrprefs/content/vivifuncpanelecrprefs.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: oncommand] [line: 1] [filename: chrome://vivifuncpanelecrprefs/content/vivifuncpanelecrprefs.xul]
+}
+
+2008-10-13 18:41:41 : [ERROR] [vivifuncpanelecr_prefs] vivifuncpanelecr_prefsController.doCommand mergeButtons; TypeError
+{
+    'message': extent2 is undefined
+    'fileName': chrome://vivipos/content/bindings/vivifuncpanelecr.xbl
+    'lineNumber': 1284
+    'stack': getSelection([object Array])@chrome://vivipos/content/bindings/vivifuncpanelecr.xbl:1284
+setSelection(false,[object XULElement],"3")@chrome://vivipos/content/bindings/vivifuncpanelecr.xbl:1326
+setLayout("3",[object Array],false)@chrome://vivipos/content/bindings/vivifuncpanelecr.xbl:1799
+()@chrome://vivifuncpanelecrprefs/content/vivifuncpanelecrprefs_controller.js:608
+("mergeButtons")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"mergeButtons",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"mergeButtons",null,"vivifuncpanelecr_prefs")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("mergeButtons",null,"vivifuncpanelecr_prefs")@chrome://vivipos/content/init_geckojs.js:54
+oncommand([object XULCommandEvent])@chrome://vivifuncpanelecrprefs/content/vivifuncpanelecrprefs.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: oncommand] [line: 1] [filename: chrome://vivifuncpanelecrprefs/content/vivifuncpanelecrprefs.xul]
+}
+
+2008-10-13 18:43:30 : [ERROR] [vivifuncpanelecr_prefs] vivifuncpanelecr_prefsController.doCommand mergeButtons; TypeError
+{
+    'message': extent2 is undefined
+    'fileName': chrome://vivipos/content/bindings/vivifuncpanelecr.xbl
+    'lineNumber': 1284
+    'stack': getSelection([object Array])@chrome://vivipos/content/bindings/vivifuncpanelecr.xbl:1284
+setSelection(false,[object XULElement],"2")@chrome://vivipos/content/bindings/vivifuncpanelecr.xbl:1326
+setLayout("2",[object Array],false)@chrome://vivipos/content/bindings/vivifuncpanelecr.xbl:1799
+()@chrome://vivifuncpanelecrprefs/content/vivifuncpanelecrprefs_controller.js:608
+("mergeButtons")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"mergeButtons",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"mergeButtons",null,"vivifuncpanelecr_prefs")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("mergeButtons",null,"vivifuncpanelecr_prefs")@chrome://vivipos/content/init_geckojs.js:54
+oncommand([object XULCommandEvent])@chrome://vivifuncpanelecrprefs/content/vivifuncpanelecrprefs.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: oncommand] [line: 1] [filename: chrome://vivifuncpanelecrprefs/content/vivifuncpanelecrprefs.xul]
+}
+
+2008-10-13 18:45:52 : [ERROR] [vivifuncpanelecr_prefs] vivifuncpanelecr_prefsController.doCommand mergeButtons; TypeError
+{
+    'message': extent2 is undefined
+    'fileName': chrome://vivipos/content/bindings/vivifuncpanelecr.xbl
+    'lineNumber': 1284
+    'stack': getSelection([object Array])@chrome://vivipos/content/bindings/vivifuncpanelecr.xbl:1284
+setSelection(false,[object XULElement],"2")@chrome://vivipos/content/bindings/vivifuncpanelecr.xbl:1326
+setLayout("2",[object Array],false)@chrome://vivipos/content/bindings/vivifuncpanelecr.xbl:1799
+()@chrome://vivifuncpanelecrprefs/content/vivifuncpanelecrprefs_controller.js:608
+("mergeButtons")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"mergeButtons",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"mergeButtons",null,"vivifuncpanelecr_prefs")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("mergeButtons",null,"vivifuncpanelecr_prefs")@chrome://vivipos/content/init_geckojs.js:54
+oncommand([object XULCommandEvent])@chrome://vivifuncpanelecrprefs/content/vivifuncpanelecrprefs.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: oncommand] [line: 1] [filename: chrome://vivifuncpanelecrprefs/content/vivifuncpanelecrprefs.xul]
+}
+
+2008-10-13 18:46:28 : [ERROR] [vivifuncpanelecr_prefs] vivifuncpanelecr_prefsController.doCommand mergeButtons; TypeError
+{
+    'message': extent2 is undefined
+    'fileName': chrome://vivipos/content/bindings/vivifuncpanelecr.xbl
+    'lineNumber': 1284
+    'stack': getSelection([object Array])@chrome://vivipos/content/bindings/vivifuncpanelecr.xbl:1284
+setSelection(false,[object XULElement],"2")@chrome://vivipos/content/bindings/vivifuncpanelecr.xbl:1326
+setLayout("2",[object Array],false)@chrome://vivipos/content/bindings/vivifuncpanelecr.xbl:1799
+()@chrome://vivifuncpanelecrprefs/content/vivifuncpanelecrprefs_controller.js:608
+("mergeButtons")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"mergeButtons",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"mergeButtons",null,"vivifuncpanelecr_prefs")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("mergeButtons",null,"vivifuncpanelecr_prefs")@chrome://vivipos/content/init_geckojs.js:54
+oncommand([object XULCommandEvent])@chrome://vivifuncpanelecrprefs/content/vivifuncpanelecrprefs.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: oncommand] [line: 1] [filename: chrome://vivifuncpanelecrprefs/content/vivifuncpanelecrprefs.xul]
+}
+
+2008-10-13 18:53:36 : [ERROR] [Dispatcher] GeckoJS.dispatch to commanddoTaxShift1; TypeError
+{
+    'message': B is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ([object ChromeWindow],"doTaxShift1","",null)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"doTaxShift1","","ctrl1")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("doTaxShift1","","ctrl1")@chrome://vivipos/content/init_geckojs.js:54
+oncommand([object XULCommandEvent])@chrome://vivipos/content/vivipos.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: oncommand] [line: 1] [filename: chrome://vivipos/content/vivipos.xul]
+}
+
+2008-10-13 18:53:36 : [ERROR] [Dispatcher] GeckoJS.dispatch to commandTaxShift2; TypeError
+{
+    'message': B is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ([object ChromeWindow],"TaxShift2","",null)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"TaxShift2","","ctrl2")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("TaxShift2","","ctrl2")@chrome://vivipos/content/init_geckojs.js:54
+oncommand([object XULCommandEvent])@chrome://vivipos/content/vivipos.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: oncommand] [line: 1] [filename: chrome://vivipos/content/vivipos.xul]
+}
+
+2008-10-13 18:53:36 : [ERROR] [Dispatcher] GeckoJS.dispatch to commandTaxShift3; TypeError
+{
+    'message': B is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ([object ChromeWindow],"TaxShift3","",null)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"TaxShift3","","ctrl3")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("TaxShift3","","ctrl3")@chrome://vivipos/content/init_geckojs.js:54
+oncommand([object XULCommandEvent])@chrome://vivipos/content/vivipos.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: oncommand] [line: 1] [filename: chrome://vivipos/content/vivipos.xul]
+}
+
+2008-10-13 18:53:36 : [ERROR] [Dispatcher] GeckoJS.dispatch to commanddoTaxShift1; TypeError
+{
+    'message': B is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ([object ChromeWindow],"doTaxShift1","",null)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"doTaxShift1","","ctrl1")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("doTaxShift1","","ctrl1")@chrome://vivipos/content/init_geckojs.js:54
+oncommand([object XULCommandEvent])@chrome://vivipos/content/vivipos.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: oncommand] [line: 1] [filename: chrome://vivipos/content/vivipos.xul]
+}
+
+2008-10-13 18:53:36 : [ERROR] [Dispatcher] GeckoJS.dispatch to commandTaxShift2; TypeError
+{
+    'message': B is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ([object ChromeWindow],"TaxShift2","",null)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"TaxShift2","","ctrl2")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("TaxShift2","","ctrl2")@chrome://vivipos/content/init_geckojs.js:54
+oncommand([object XULCommandEvent])@chrome://vivipos/content/vivipos.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: oncommand] [line: 1] [filename: chrome://vivipos/content/vivipos.xul]
+}
+
+2008-10-13 18:53:36 : [ERROR] [Dispatcher] GeckoJS.dispatch to commandTaxShift3; TypeError
+{
+    'message': B is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ([object ChromeWindow],"TaxShift3","",null)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"TaxShift3","","ctrl3")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("TaxShift3","","ctrl3")@chrome://vivipos/content/init_geckojs.js:54
+oncommand([object XULCommandEvent])@chrome://vivipos/content/vivipos.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: oncommand] [line: 1] [filename: chrome://vivipos/content/vivipos.xul]
+}
+
+2008-10-13 18:53:37 : [ERROR] [Dispatcher] GeckoJS.dispatch to commanddoTaxShift1; TypeError
+{
+    'message': B is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ([object ChromeWindow],"doTaxShift1","",null)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"doTaxShift1","","ctrl1")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("doTaxShift1","","ctrl1")@chrome://vivipos/content/init_geckojs.js:54
+oncommand([object XULCommandEvent])@chrome://vivipos/content/vivipos.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: oncommand] [line: 1] [filename: chrome://vivipos/content/vivipos.xul]
+}
+
+2008-10-13 18:53:37 : [ERROR] [Dispatcher] GeckoJS.dispatch to commandTaxShift2; TypeError
+{
+    'message': B is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ([object ChromeWindow],"TaxShift2","",null)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"TaxShift2","","ctrl2")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("TaxShift2","","ctrl2")@chrome://vivipos/content/init_geckojs.js:54
+oncommand([object XULCommandEvent])@chrome://vivipos/content/vivipos.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: oncommand] [line: 1] [filename: chrome://vivipos/content/vivipos.xul]
+}
+
+2008-10-13 18:53:37 : [ERROR] [Dispatcher] GeckoJS.dispatch to commandTaxShift3; TypeError
+{
+    'message': B is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ([object ChromeWindow],"TaxShift3","",null)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"TaxShift3","","ctrl3")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("TaxShift3","","ctrl3")@chrome://vivipos/content/init_geckojs.js:54
+oncommand([object XULCommandEvent])@chrome://vivipos/content/vivipos.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: oncommand] [line: 1] [filename: chrome://vivipos/content/vivipos.xul]
+}
+
+2008-10-13 18:53:37 : [ERROR] [Dispatcher] GeckoJS.dispatch to commanddoTaxShift1; TypeError
+{
+    'message': B is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ([object ChromeWindow],"doTaxShift1","",null)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"doTaxShift1","","ctrl1")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("doTaxShift1","","ctrl1")@chrome://vivipos/content/init_geckojs.js:54
+oncommand([object XULCommandEvent])@chrome://vivipos/content/vivipos.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: oncommand] [line: 1] [filename: chrome://vivipos/content/vivipos.xul]
+}
+
+2008-10-13 18:53:37 : [ERROR] [Dispatcher] GeckoJS.dispatch to commandTaxShift2; TypeError
+{
+    'message': B is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ([object ChromeWindow],"TaxShift2","",null)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"TaxShift2","","ctrl2")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("TaxShift2","","ctrl2")@chrome://vivipos/content/init_geckojs.js:54
+oncommand([object XULCommandEvent])@chrome://vivipos/content/vivipos.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: oncommand] [line: 1] [filename: chrome://vivipos/content/vivipos.xul]
+}
+
+2008-10-13 18:53:37 : [ERROR] [Dispatcher] GeckoJS.dispatch to commandTaxShift3; TypeError
+{
+    'message': B is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ([object ChromeWindow],"TaxShift3","",null)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"TaxShift3","","ctrl3")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("TaxShift3","","ctrl3")@chrome://vivipos/content/init_geckojs.js:54
+oncommand([object XULCommandEvent])@chrome://vivipos/content/vivipos.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: oncommand] [line: 1] [filename: chrome://vivipos/content/vivipos.xul]
+}
+
+2008-10-13 18:53:37 : [ERROR] [Dispatcher] GeckoJS.dispatch to commanddoTaxShift1; TypeError
+{
+    'message': B is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ([object ChromeWindow],"doTaxShift1","",null)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"doTaxShift1","","ctrl1")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("doTaxShift1","","ctrl1")@chrome://vivipos/content/init_geckojs.js:54
+oncommand([object XULCommandEvent])@chrome://vivipos/content/vivipos.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: oncommand] [line: 1] [filename: chrome://vivipos/content/vivipos.xul]
+}
+
+2008-10-13 18:53:37 : [ERROR] [Dispatcher] GeckoJS.dispatch to commandTaxShift2; TypeError
+{
+    'message': B is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ([object ChromeWindow],"TaxShift2","",null)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"TaxShift2","","ctrl2")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("TaxShift2","","ctrl2")@chrome://vivipos/content/init_geckojs.js:54
+oncommand([object XULCommandEvent])@chrome://vivipos/content/vivipos.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: oncommand] [line: 1] [filename: chrome://vivipos/content/vivipos.xul]
+}
+
+2008-10-13 18:53:37 : [ERROR] [Dispatcher] GeckoJS.dispatch to commandTaxShift3; TypeError
+{
+    'message': B is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ([object ChromeWindow],"TaxShift3","",null)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"TaxShift3","","ctrl3")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("TaxShift3","","ctrl3")@chrome://vivipos/content/init_geckojs.js:54
+oncommand([object XULCommandEvent])@chrome://vivipos/content/vivipos.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: oncommand] [line: 1] [filename: chrome://vivipos/content/vivipos.xul]
+}
+
+2008-10-13 18:54:00 : [INFO] [VIVIPOS] VIVIPOS CLOSE
