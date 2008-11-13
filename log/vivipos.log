@@ -1934,3 +1934,1380 @@ Array
     '0': [name: startup] [line: 28] [filename: chrome://viviecr/content/overlay.js]
 }
 
+2008-10-13 03:04:19 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 03:11:06 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 03:11:06 : [ERROR] [Main] MainController.doCommand createPluPanel; TypeError
+{
+    'message': this._data is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ()@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+get_rowCount()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+render()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:242
+refresh()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:301
+setDatasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:191
+set_datasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+set_datasource([object Object])@chrome://vivipos/content/bindings/viviscrollablebuttonpanel.xbl:0
+()@chrome://viviecr/content/controllers/main_controller.js:138
+("createPluPanel")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js:54
+startup([object Event])@chrome://viviecr/content/overlay.js:28
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: startup] [line: 28] [filename: chrome://viviecr/content/overlay.js]
+}
+
+2008-10-13 03:17:05 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 03:17:07 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 03:17:08 : [ERROR] [Main] MainController.doCommand createPluPanel; TypeError
+{
+    'message': this._data is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ()@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+get_rowCount()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+render()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:242
+refresh()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:301
+setDatasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:191
+set_datasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+set_datasource([object Object])@chrome://vivipos/content/bindings/viviscrollablebuttonpanel.xbl:0
+()@chrome://viviecr/content/controllers/main_controller.js:138
+("createPluPanel")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js:54
+startup([object Event])@chrome://viviecr/content/overlay.js:28
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: startup] [line: 28] [filename: chrome://viviecr/content/overlay.js]
+}
+
+2008-10-13 03:17:17 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 03:17:19 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 03:17:19 : [ERROR] [Main] MainController.doCommand createPluPanel; TypeError
+{
+    'message': this._data is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ()@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+get_rowCount()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+render()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:242
+refresh()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:301
+setDatasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:191
+set_datasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+set_datasource([object Object])@chrome://vivipos/content/bindings/viviscrollablebuttonpanel.xbl:0
+()@chrome://viviecr/content/controllers/main_controller.js:138
+("createPluPanel")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js:54
+startup([object Event])@chrome://viviecr/content/overlay.js:28
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: startup] [line: 28] [filename: chrome://viviecr/content/overlay.js]
+}
+
+2008-10-13 03:18:00 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 03:18:01 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 03:18:02 : [ERROR] [Main] MainController.doCommand createPluPanel; TypeError
+{
+    'message': this._data is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ()@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+get_rowCount()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+render()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:242
+refresh()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:301
+setDatasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:191
+set_datasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+set_datasource([object Object])@chrome://vivipos/content/bindings/viviscrollablebuttonpanel.xbl:0
+()@chrome://viviecr/content/controllers/main_controller.js:138
+("createPluPanel")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js:54
+startup([object Event])@chrome://viviecr/content/overlay.js:28
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: startup] [line: 28] [filename: chrome://viviecr/content/overlay.js]
+}
+
+2008-10-13 03:18:02 : [WARN] [BaseObject] label 74,44
+2008-10-13 03:19:09 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 03:19:11 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 03:19:11 : [ERROR] [Main] MainController.doCommand createPluPanel; TypeError
+{
+    'message': this._data is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ()@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+get_rowCount()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+render()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:242
+refresh()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:301
+setDatasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:191
+set_datasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+set_datasource([object Object])@chrome://vivipos/content/bindings/viviscrollablebuttonpanel.xbl:0
+()@chrome://viviecr/content/controllers/main_controller.js:138
+("createPluPanel")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js:54
+startup([object Event])@chrome://viviecr/content/overlay.js:28
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: startup] [line: 28] [filename: chrome://viviecr/content/overlay.js]
+}
+
+2008-10-13 03:19:51 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 03:19:52 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 03:19:53 : [ERROR] [Main] MainController.doCommand createPluPanel; TypeError
+{
+    'message': this._data is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ()@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+get_rowCount()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+render()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:242
+refresh()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:301
+setDatasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:191
+set_datasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+set_datasource([object Object])@chrome://vivipos/content/bindings/viviscrollablebuttonpanel.xbl:0
+()@chrome://viviecr/content/controllers/main_controller.js:138
+("createPluPanel")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js:54
+startup([object Event])@chrome://viviecr/content/overlay.js:28
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: startup] [line: 28] [filename: chrome://viviecr/content/overlay.js]
+}
+
+2008-10-13 03:19:53 : [WARN] [BaseObject] label 74,44
+2008-10-13 03:23:10 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 03:23:12 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 03:23:13 : [ERROR] [Main] MainController.doCommand createPluPanel; TypeError
+{
+    'message': this._data is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ()@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+get_rowCount()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+render()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:242
+refresh()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:301
+setDatasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:191
+set_datasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+set_datasource([object Object])@chrome://vivipos/content/bindings/viviscrollablebuttonpanel.xbl:0
+()@chrome://viviecr/content/controllers/main_controller.js:138
+("createPluPanel")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js:54
+startup([object Event])@chrome://viviecr/content/overlay.js:28
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: startup] [line: 28] [filename: chrome://viviecr/content/overlay.js]
+}
+
+2008-10-13 03:23:45 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 03:23:47 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 03:23:47 : [ERROR] [Main] MainController.doCommand createPluPanel; TypeError
+{
+    'message': this._data is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ()@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+get_rowCount()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+render()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:242
+refresh()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:301
+setDatasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:191
+set_datasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+set_datasource([object Object])@chrome://vivipos/content/bindings/viviscrollablebuttonpanel.xbl:0
+()@chrome://viviecr/content/controllers/main_controller.js:138
+("createPluPanel")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js:54
+startup([object Event])@chrome://viviecr/content/overlay.js:28
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: startup] [line: 28] [filename: chrome://viviecr/content/overlay.js]
+}
+
+2008-10-13 03:32:20 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 03:32:23 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 03:32:23 : [ERROR] [Main] MainController.doCommand createPluPanel; TypeError
+{
+    'message': this._data is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ()@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+get_rowCount()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+render()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:242
+refresh()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:301
+setDatasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:191
+set_datasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+set_datasource([object Object])@chrome://vivipos/content/bindings/viviscrollablebuttonpanel.xbl:0
+()@chrome://viviecr/content/controllers/main_controller.js:138
+("createPluPanel")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js:54
+startup([object Event])@chrome://viviecr/content/overlay.js:28
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: startup] [line: 28] [filename: chrome://viviecr/content/overlay.js]
+}
+
+2008-10-13 03:33:25 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 03:33:26 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 03:33:27 : [ERROR] [Main] MainController.doCommand createPluPanel; TypeError
+{
+    'message': this._data is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ()@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+get_rowCount()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+render()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:242
+refresh()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:301
+setDatasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:191
+set_datasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+set_datasource([object Object])@chrome://vivipos/content/bindings/viviscrollablebuttonpanel.xbl:0
+()@chrome://viviecr/content/controllers/main_controller.js:138
+("createPluPanel")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js:54
+startup([object Event])@chrome://viviecr/content/overlay.js:28
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: startup] [line: 28] [filename: chrome://viviecr/content/overlay.js]
+}
+
+2008-10-13 03:35:57 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 03:35:59 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 03:36:00 : [ERROR] [Main] MainController.doCommand createPluPanel; TypeError
+{
+    'message': this._data is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ()@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+get_rowCount()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+render()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:242
+refresh()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:301
+setDatasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:191
+set_datasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+set_datasource([object Object])@chrome://vivipos/content/bindings/viviscrollablebuttonpanel.xbl:0
+()@chrome://viviecr/content/controllers/main_controller.js:138
+("createPluPanel")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js:54
+startup([object Event])@chrome://viviecr/content/overlay.js:28
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: startup] [line: 28] [filename: chrome://viviecr/content/overlay.js]
+}
+
+2008-10-13 03:37:41 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 03:37:42 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 03:37:43 : [ERROR] [Main] MainController.doCommand createPluPanel; TypeError
+{
+    'message': this._data is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ()@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+get_rowCount()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+render()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:242
+refresh()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:301
+setDatasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:191
+set_datasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+set_datasource([object Object])@chrome://vivipos/content/bindings/viviscrollablebuttonpanel.xbl:0
+()@chrome://viviecr/content/controllers/main_controller.js:138
+("createPluPanel")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js:54
+startup([object Event])@chrome://viviecr/content/overlay.js:28
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: startup] [line: 28] [filename: chrome://viviecr/content/overlay.js]
+}
+
+2008-10-13 03:44:02 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 03:44:03 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 03:44:04 : [ERROR] [Main] MainController.doCommand createPluPanel; TypeError
+{
+    'message': this._data is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ()@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+get_rowCount()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+render()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:242
+refresh()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:301
+setDatasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:191
+set_datasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+set_datasource([object Object])@chrome://vivipos/content/bindings/viviscrollablebuttonpanel.xbl:0
+()@chrome://viviecr/content/controllers/main_controller.js:138
+("createPluPanel")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js:54
+startup([object Event])@chrome://viviecr/content/overlay.js:28
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: startup] [line: 28] [filename: chrome://viviecr/content/overlay.js]
+}
+
+2008-10-13 03:51:32 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 03:51:34 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 03:51:35 : [ERROR] [Main] MainController.doCommand createPluPanel; TypeError
+{
+    'message': this._data is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ()@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+get_rowCount()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+render()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:242
+refresh()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:301
+setDatasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:191
+set_datasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+set_datasource([object Object])@chrome://vivipos/content/bindings/viviscrollablebuttonpanel.xbl:0
+()@chrome://viviecr/content/controllers/main_controller.js:138
+("createPluPanel")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js:54
+startup([object Event])@chrome://viviecr/content/overlay.js:28
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: startup] [line: 28] [filename: chrome://viviecr/content/overlay.js]
+}
+
+2008-10-13 04:17:21 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 04:17:23 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 04:17:23 : [ERROR] [Main] MainController.doCommand createPluPanel; TypeError
+{
+    'message': this._data is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ()@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+get_rowCount()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+render()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:242
+refresh()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:301
+setDatasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:191
+set_datasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+set_datasource([object Object])@chrome://vivipos/content/bindings/viviscrollablebuttonpanel.xbl:0
+()@chrome://viviecr/content/controllers/main_controller.js:138
+("createPluPanel")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js:54
+startup([object Event])@chrome://viviecr/content/overlay.js:28
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: startup] [line: 28] [filename: chrome://viviecr/content/overlay.js]
+}
+
+2008-10-13 04:21:15 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 04:21:17 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 04:21:18 : [ERROR] [Main] MainController.doCommand createPluPanel; TypeError
+{
+    'message': this._data is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ()@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+get_rowCount()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+render()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:242
+refresh()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:301
+setDatasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:191
+set_datasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+set_datasource([object Object])@chrome://vivipos/content/bindings/viviscrollablebuttonpanel.xbl:0
+()@chrome://viviecr/content/controllers/main_controller.js:138
+("createPluPanel")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js:54
+startup([object Event])@chrome://viviecr/content/overlay.js:28
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: startup] [line: 28] [filename: chrome://viviecr/content/overlay.js]
+}
+
+2008-10-13 04:22:15 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 04:22:17 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 04:22:17 : [ERROR] [Main] MainController.doCommand createPluPanel; TypeError
+{
+    'message': this._data is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ()@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+get_rowCount()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+render()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:242
+refresh()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:301
+setDatasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:191
+set_datasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+set_datasource([object Object])@chrome://vivipos/content/bindings/viviscrollablebuttonpanel.xbl:0
+()@chrome://viviecr/content/controllers/main_controller.js:138
+("createPluPanel")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js:54
+startup([object Event])@chrome://viviecr/content/overlay.js:28
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: startup] [line: 28] [filename: chrome://viviecr/content/overlay.js]
+}
+
+2008-10-13 04:26:59 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 04:27:01 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 04:27:02 : [ERROR] [Main] MainController.doCommand createPluPanel; TypeError
+{
+    'message': this._data is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ()@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+get_rowCount()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+render()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:242
+refresh()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:301
+setDatasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:191
+set_datasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+set_datasource([object Object])@chrome://vivipos/content/bindings/viviscrollablebuttonpanel.xbl:0
+()@chrome://viviecr/content/controllers/main_controller.js:138
+("createPluPanel")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js:54
+startup([object Event])@chrome://viviecr/content/overlay.js:28
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: startup] [line: 28] [filename: chrome://viviecr/content/overlay.js]
+}
+
+2008-10-13 04:38:10 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 04:38:12 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 04:41:02 : [ERROR] [Main] MainController.doCommand createPluPanel; TypeError
+{
+    'message': this._data is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ()@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+get_rowCount()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+render()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:242
+refresh()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:301
+setDatasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:191
+set_datasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+set_datasource([object Object])@chrome://vivipos/content/bindings/viviscrollablebuttonpanel.xbl:0
+()@chrome://viviecr/content/controllers/main_controller.js:138
+("createPluPanel")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js:54
+startup([object Event])@chrome://viviecr/content/overlay.js:28
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: startup] [line: 28] [filename: chrome://viviecr/content/overlay.js]
+}
+
+2008-10-13 04:41:25 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 04:41:26 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 04:41:30 : [ERROR] [Main] MainController.doCommand createPluPanel; TypeError
+{
+    'message': this._data is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ()@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+get_rowCount()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+render()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:242
+refresh()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:301
+setDatasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:191
+set_datasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+set_datasource([object Object])@chrome://vivipos/content/bindings/viviscrollablebuttonpanel.xbl:0
+()@chrome://viviecr/content/controllers/main_controller.js:138
+("createPluPanel")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js:54
+startup([object Event])@chrome://viviecr/content/overlay.js:28
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: startup] [line: 28] [filename: chrome://viviecr/content/overlay.js]
+}
+
+2008-10-13 04:43:04 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 04:43:06 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 04:43:07 : [ERROR] [Main] MainController.doCommand createPluPanel; TypeError
+{
+    'message': this._data is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ()@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+get_rowCount()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+render()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:242
+refresh()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:301
+setDatasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:191
+set_datasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+set_datasource([object Object])@chrome://vivipos/content/bindings/viviscrollablebuttonpanel.xbl:0
+()@chrome://viviecr/content/controllers/main_controller.js:138
+("createPluPanel")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js:54
+startup([object Event])@chrome://viviecr/content/overlay.js:28
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: startup] [line: 28] [filename: chrome://viviecr/content/overlay.js]
+}
+
+2008-10-13 04:43:48 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 04:43:49 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 04:43:53 : [ERROR] [Main] MainController.doCommand createPluPanel; TypeError
+{
+    'message': this._data is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ()@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+get_rowCount()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+render()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:242
+refresh()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:301
+setDatasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:191
+set_datasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+set_datasource([object Object])@chrome://vivipos/content/bindings/viviscrollablebuttonpanel.xbl:0
+()@chrome://viviecr/content/controllers/main_controller.js:138
+("createPluPanel")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js:54
+startup([object Event])@chrome://viviecr/content/overlay.js:28
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: startup] [line: 28] [filename: chrome://viviecr/content/overlay.js]
+}
+
+2008-10-13 06:20:19 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 06:20:21 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 06:20:24 : [ERROR] [Main] MainController.doCommand createPluPanel; TypeError
+{
+    'message': this._data is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ()@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+get_rowCount()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+render()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:242
+refresh()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:301
+setDatasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:191
+set_datasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+set_datasource([object Object])@chrome://vivipos/content/bindings/viviscrollablebuttonpanel.xbl:0
+()@chrome://viviecr/content/controllers/main_controller.js:138
+("createPluPanel")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js:54
+startup([object Event])@chrome://viviecr/content/overlay.js:28
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: startup] [line: 28] [filename: chrome://viviecr/content/overlay.js]
+}
+
+2008-10-13 06:22:14 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 06:22:16 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 06:22:18 : [ERROR] [Main] MainController.doCommand createPluPanel; TypeError
+{
+    'message': this._data is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ()@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+get_rowCount()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+render()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:242
+refresh()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:301
+setDatasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:191
+set_datasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+set_datasource([object Object])@chrome://vivipos/content/bindings/viviscrollablebuttonpanel.xbl:0
+()@chrome://viviecr/content/controllers/main_controller.js:138
+("createPluPanel")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js:54
+startup([object Event])@chrome://viviecr/content/overlay.js:28
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: startup] [line: 28] [filename: chrome://viviecr/content/overlay.js]
+}
+
+2008-10-13 06:23:21 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 06:23:23 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 06:23:28 : [ERROR] [Main] MainController.doCommand createPluPanel; TypeError
+{
+    'message': this._data is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ()@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+get_rowCount()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+render()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:242
+refresh()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:301
+setDatasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:191
+set_datasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+set_datasource([object Object])@chrome://vivipos/content/bindings/viviscrollablebuttonpanel.xbl:0
+()@chrome://viviecr/content/controllers/main_controller.js:138
+("createPluPanel")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js:54
+startup([object Event])@chrome://viviecr/content/overlay.js:28
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: startup] [line: 28] [filename: chrome://viviecr/content/overlay.js]
+}
+
+2008-10-13 06:23:52 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 06:23:53 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 06:23:53 : [ERROR] [Main] MainController.doCommand createPluPanel; TypeError
+{
+    'message': this._data is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ()@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+get_rowCount()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+render()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:242
+refresh()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:301
+setDatasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:191
+set_datasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+set_datasource([object Object])@chrome://vivipos/content/bindings/viviscrollablebuttonpanel.xbl:0
+()@chrome://viviecr/content/controllers/main_controller.js:138
+("createPluPanel")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js:54
+startup([object Event])@chrome://viviecr/content/overlay.js:28
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: startup] [line: 28] [filename: chrome://viviecr/content/overlay.js]
+}
+
+2008-10-13 06:24:10 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 06:24:12 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 06:24:12 : [ERROR] [Main] MainController.doCommand createPluPanel; TypeError
+{
+    'message': this._data is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ()@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+get_rowCount()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+render()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:242
+refresh()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:301
+setDatasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:191
+set_datasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+set_datasource([object Object])@chrome://vivipos/content/bindings/viviscrollablebuttonpanel.xbl:0
+()@chrome://viviecr/content/controllers/main_controller.js:138
+("createPluPanel")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js:54
+startup([object Event])@chrome://viviecr/content/overlay.js:28
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: startup] [line: 28] [filename: chrome://viviecr/content/overlay.js]
+}
+
+2008-10-13 06:25:31 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 06:25:33 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 06:25:33 : [ERROR] [Main] MainController.doCommand createPluPanel; TypeError
+{
+    'message': this._data is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ()@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+get_rowCount()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+render()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:242
+refresh()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:301
+setDatasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:191
+set_datasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+set_datasource([object Object])@chrome://vivipos/content/bindings/viviscrollablebuttonpanel.xbl:0
+()@chrome://viviecr/content/controllers/main_controller.js:138
+("createPluPanel")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js:54
+startup([object Event])@chrome://viviecr/content/overlay.js:28
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: startup] [line: 28] [filename: chrome://viviecr/content/overlay.js]
+}
+
+2008-10-13 06:25:48 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 06:25:49 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 06:25:50 : [ERROR] [Main] MainController.doCommand createPluPanel; TypeError
+{
+    'message': this._data is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ()@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+get_rowCount()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+render()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:242
+refresh()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:301
+setDatasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:191
+set_datasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+set_datasource([object Object])@chrome://vivipos/content/bindings/viviscrollablebuttonpanel.xbl:0
+()@chrome://viviecr/content/controllers/main_controller.js:138
+("createPluPanel")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("createPluPanel",null,"Main")@chrome://vivipos/content/init_geckojs.js:54
+startup([object Event])@chrome://viviecr/content/overlay.js:28
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: startup] [line: 28] [filename: chrome://viviecr/content/overlay.js]
+}
+
+2008-10-13 06:33:42 : [ERROR] [Departments] DepartmentsController.doCommand createDepartmentPanel; TypeError
+{
+    'message': this._data is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ()@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+get_rowCount()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+render()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:242
+refresh()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:301
+setDatasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:191
+set_datasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+set_datasource([object Object])@chrome://vivipos/content/bindings/viviscrollablebuttonpanel.xbl:0
+()@chrome://viviecr/content/controllers/departments_controller.js:29
+("createDepartmentPanel")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createDepartmentPanel",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createDepartmentPanel",null,"Departments")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("createDepartmentPanel",null,"Departments")@chrome://vivipos/content/init_geckojs.js:54
+startup([object Event])@chrome://viviecr/content/departments.js:8
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: startup] [line: 8] [filename: chrome://viviecr/content/departments.js]
+}
+
+2008-10-13 06:33:54 : [ERROR] [Departments] DepartmentsController.doCommand add; ReferenceError
+{
+    'message': cateModel is not defined
+    'fileName': chrome://viviecr/content/controllers/departments_controller.js
+    'lineNumber': 102
+    'stack': ()@chrome://viviecr/content/controllers/departments_controller.js:102
+("add")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"add",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"add",null,"Departments")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("add",null,"Departments")@chrome://vivipos/content/init_geckojs.js:54
+oncommand([object XULCommandEvent])@chrome://viviecr/content/departments.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: oncommand] [line: 1] [filename: chrome://viviecr/content/departments.xul]
+}
+
+2008-10-13 06:33:56 : [ERROR] [Departments] DepartmentsController.doCommand add; ReferenceError
+{
+    'message': cateModel is not defined
+    'fileName': chrome://viviecr/content/controllers/departments_controller.js
+    'lineNumber': 102
+    'stack': ()@chrome://viviecr/content/controllers/departments_controller.js:102
+("add")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"add",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"add",null,"Departments")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("add",null,"Departments")@chrome://vivipos/content/init_geckojs.js:54
+oncommand([object XULCommandEvent])@chrome://viviecr/content/departments.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: oncommand] [line: 1] [filename: chrome://viviecr/content/departments.xul]
+}
+
+2008-10-13 06:33:59 : [ERROR] [Departments] DepartmentsController.doCommand modify; TypeError
+{
+    'message': this._selectedIndex is null
+    'fileName': chrome://viviecr/content/controllers/departments_controller.js
+    'lineNumber': 117
+    'stack': ()@chrome://viviecr/content/controllers/departments_controller.js:117
+("modify")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"modify",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"modify",null,"Departments")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("modify",null,"Departments")@chrome://vivipos/content/init_geckojs.js:54
+oncommand([object XULCommandEvent])@chrome://viviecr/content/departments.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: oncommand] [line: 1] [filename: chrome://viviecr/content/departments.xul]
+}
+
+2008-10-13 06:33:59 : [ERROR] [Departments] DepartmentsController.doCommand modify; TypeError
+{
+    'message': this._selectedIndex is null
+    'fileName': chrome://viviecr/content/controllers/departments_controller.js
+    'lineNumber': 117
+    'stack': ()@chrome://viviecr/content/controllers/departments_controller.js:117
+("modify")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"modify",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"modify",null,"Departments")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("modify",null,"Departments")@chrome://vivipos/content/init_geckojs.js:54
+oncommand([object XULCommandEvent])@chrome://viviecr/content/departments.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: oncommand] [line: 1] [filename: chrome://viviecr/content/departments.xul]
+}
+
+2008-10-13 06:35:27 : [ERROR] [RoleGroups] RoleGroupsController.doCommand createRoleList; TypeError
+{
+    'message': roles is null
+    'fileName': chrome://viviecr/content/controllers/rolegroups_controller.js
+    'lineNumber': 67
+    'stack': ()@chrome://viviecr/content/controllers/rolegroups_controller.js:67
+("createRoleList")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createRoleList",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createRoleList",null,"RoleGroups")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("createRoleList",null,"RoleGroups")@chrome://vivipos/content/init_geckojs.js:54
+startup([object Event])@chrome://viviecr/content/users.js:14
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: startup] [line: 14] [filename: chrome://viviecr/content/users.js]
+}
+
+2008-10-13 06:35:27 : [ERROR] [RoleGroups] RoleGroupsController.doCommand load; TypeError
+{
+    'message': this._listObj is undefined
+    'fileName': chrome://viviecr/content/controllers/rolegroups_controller.js
+    'lineNumber': 94
+    'stack': ()@chrome://viviecr/content/controllers/rolegroups_controller.js:94
+("load")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"load",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"load",null,"RoleGroups")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("load",null,"RoleGroups")@chrome://vivipos/content/init_geckojs.js:54
+startup([object Event])@chrome://viviecr/content/users.js:18
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: startup] [line: 18] [filename: chrome://viviecr/content/users.js]
+}
+
+2008-10-13 06:35:37 : [ERROR] [RoleGroups] RoleGroupsController.doCommand createRoleList; TypeError
+{
+    'message': roles is null
+    'fileName': chrome://viviecr/content/controllers/rolegroups_controller.js
+    'lineNumber': 67
+    'stack': ()@chrome://viviecr/content/controllers/rolegroups_controller.js:67
+("createRoleList")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createRoleList",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createRoleList",null,"RoleGroups")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("createRoleList",null,"RoleGroups")@chrome://vivipos/content/init_geckojs.js:54
+startup([object Event])@chrome://viviecr/content/users.js:14
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: startup] [line: 14] [filename: chrome://viviecr/content/users.js]
+}
+
+2008-10-13 06:35:37 : [ERROR] [RoleGroups] RoleGroupsController.doCommand load; TypeError
+{
+    'message': this._listObj is undefined
+    'fileName': chrome://viviecr/content/controllers/rolegroups_controller.js
+    'lineNumber': 94
+    'stack': ()@chrome://viviecr/content/controllers/rolegroups_controller.js:94
+("load")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"load",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"load",null,"RoleGroups")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("load",null,"RoleGroups")@chrome://vivipos/content/init_geckojs.js:54
+startup([object Event])@chrome://viviecr/content/users.js:18
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: startup] [line: 18] [filename: chrome://viviecr/content/users.js]
+}
+
+2008-10-13 06:35:40 : [ERROR] [Plus] PlusController.doCommand createPluPanel; TypeError
+{
+    'message': this._data is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ()@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+get_rowCount()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+render()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:242
+refresh()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:301
+setDatasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:191
+set_datasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+set_datasource([object Object])@chrome://vivipos/content/bindings/viviscrollablebuttonpanel.xbl:0
+()@chrome://viviecr/content/controllers/plus_controller.js:61
+("createPluPanel")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,"Plus")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("createPluPanel",null,"Plus")@chrome://vivipos/content/init_geckojs.js:54
+startup([object Event])@chrome://viviecr/content/plus.js:8
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: startup] [line: 8] [filename: chrome://viviecr/content/plus.js]
+}
+
+2008-10-13 06:37:09 : [ERROR] [RoleGroups] RoleGroupsController.doCommand createRoleList; TypeError
+{
+    'message': roles is null
+    'fileName': chrome://viviecr/content/controllers/rolegroups_controller.js
+    'lineNumber': 67
+    'stack': ()@chrome://viviecr/content/controllers/rolegroups_controller.js:67
+("createRoleList")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createRoleList",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createRoleList",null,"RoleGroups")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("createRoleList",null,"RoleGroups")@chrome://vivipos/content/init_geckojs.js:54
+startup([object Event])@chrome://viviecr/content/users.js:14
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: startup] [line: 14] [filename: chrome://viviecr/content/users.js]
+}
+
+2008-10-13 06:37:09 : [ERROR] [RoleGroups] RoleGroupsController.doCommand load; TypeError
+{
+    'message': this._listObj is undefined
+    'fileName': chrome://viviecr/content/controllers/rolegroups_controller.js
+    'lineNumber': 94
+    'stack': ()@chrome://viviecr/content/controllers/rolegroups_controller.js:94
+("load")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"load",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"load",null,"RoleGroups")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("load",null,"RoleGroups")@chrome://vivipos/content/init_geckojs.js:54
+startup([object Event])@chrome://viviecr/content/users.js:18
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: startup] [line: 18] [filename: chrome://viviecr/content/users.js]
+}
+
+2008-10-13 06:37:13 : [ERROR] [ReportOrders] ReportOrdersController.doCommand load; TypeError
+{
+    'message': listObj.bindTreeData is not a function
+    'fileName': chrome://viviecr/content/controllers/report_orders_controller.js
+    'lineNumber': 34
+    'stack': ()@chrome://viviecr/content/controllers/report_orders_controller.js:34
+("load")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"load",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"load",null,"ReportOrders")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("load",null,"ReportOrders")@chrome://vivipos/content/init_geckojs.js:54
+startup([object Event])@chrome://viviecr/content/report.js:20
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: startup] [line: 20] [filename: chrome://viviecr/content/report.js]
+}
+
+2008-10-13 06:38:32 : [ERROR] [Departments] DepartmentsController.doCommand createDepartmentPanel; TypeError
+{
+    'message': this._data is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ()@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+get_rowCount()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+render()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:242
+refresh()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:301
+setDatasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:191
+set_datasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+set_datasource([object Object])@chrome://vivipos/content/bindings/viviscrollablebuttonpanel.xbl:0
+()@chrome://viviecr/content/controllers/departments_controller.js:29
+("createDepartmentPanel")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createDepartmentPanel",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createDepartmentPanel",null,"Departments")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("createDepartmentPanel",null,"Departments")@chrome://vivipos/content/init_geckojs.js:54
+startup([object Event])@chrome://viviecr/content/departments.js:8
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: startup] [line: 8] [filename: chrome://viviecr/content/departments.js]
+}
+
+2008-10-13 06:40:23 : [ERROR] [Plus] PlusController.doCommand createPluPanel; TypeError
+{
+    'message': this._data is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ()@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+get_rowCount()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+render()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:242
+refresh()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:301
+setDatasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:191
+set_datasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+set_datasource([object Object])@chrome://vivipos/content/bindings/viviscrollablebuttonpanel.xbl:0
+()@chrome://viviecr/content/controllers/plus_controller.js:61
+("createPluPanel")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createPluPanel",null,"Plus")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("createPluPanel",null,"Plus")@chrome://vivipos/content/init_geckojs.js:54
+startup([object Event])@chrome://viviecr/content/plus.js:8
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: startup] [line: 8] [filename: chrome://viviecr/content/plus.js]
+}
+
+2008-10-13 06:48:49 : [ERROR] [Departments] DepartmentsController.doCommand createDepartmentPanel; TypeError
+{
+    'message': this._data is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ()@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+get_rowCount()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+render()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:242
+refresh()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:301
+setDatasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:191
+set_datasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+set_datasource([object Object])@chrome://vivipos/content/bindings/viviscrollablebuttonpanel.xbl:0
+()@chrome://viviecr/content/controllers/departments_controller.js:29
+("createDepartmentPanel")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createDepartmentPanel",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createDepartmentPanel",null,"Departments")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("createDepartmentPanel",null,"Departments")@chrome://vivipos/content/init_geckojs.js:54
+startup([object Event])@chrome://viviecr/content/departments.js:8
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: startup] [line: 8] [filename: chrome://viviecr/content/departments.js]
+}
+
+2008-10-13 06:49:17 : [ERROR] [ReportOrders] ReportOrdersController.doCommand load; TypeError
+{
+    'message': listObj.bindTreeData is not a function
+    'fileName': chrome://viviecr/content/controllers/report_orders_controller.js
+    'lineNumber': 34
+    'stack': ()@chrome://viviecr/content/controllers/report_orders_controller.js:34
+("load")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"load",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"load",null,"ReportOrders")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("load",null,"ReportOrders")@chrome://vivipos/content/init_geckojs.js:54
+startup([object Event])@chrome://viviecr/content/report.js:20
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: startup] [line: 20] [filename: chrome://viviecr/content/report.js]
+}
+
+2008-10-13 07:02:32 : [ERROR] [RoleGroups] RoleGroupsController.doCommand createRoleList; TypeError
+{
+    'message': roles is null
+    'fileName': chrome://viviecr/content/controllers/rolegroups_controller.js
+    'lineNumber': 67
+    'stack': ()@chrome://viviecr/content/controllers/rolegroups_controller.js:67
+("createRoleList")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createRoleList",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createRoleList",null,"RoleGroups")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("createRoleList",null,"RoleGroups")@chrome://vivipos/content/init_geckojs.js:54
+startup([object Event])@chrome://viviecr/content/users.js:14
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: startup] [line: 14] [filename: chrome://viviecr/content/users.js]
+}
+
+2008-10-13 07:02:32 : [ERROR] [RoleGroups] RoleGroupsController.doCommand load; TypeError
+{
+    'message': this._listObj is undefined
+    'fileName': chrome://viviecr/content/controllers/rolegroups_controller.js
+    'lineNumber': 94
+    'stack': ()@chrome://viviecr/content/controllers/rolegroups_controller.js:94
+("load")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"load",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"load",null,"RoleGroups")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("load",null,"RoleGroups")@chrome://vivipos/content/init_geckojs.js:54
+startup([object Event])@chrome://viviecr/content/users.js:18
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: startup] [line: 18] [filename: chrome://viviecr/content/users.js]
+}
+
+2008-10-13 07:02:43 : [ERROR] [ReportOrders] ReportOrdersController.doCommand load; TypeError
+{
+    'message': listObj.bindTreeData is not a function
+    'fileName': chrome://viviecr/content/controllers/report_orders_controller.js
+    'lineNumber': 34
+    'stack': ()@chrome://viviecr/content/controllers/report_orders_controller.js:34
+("load")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"load",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"load",null,"ReportOrders")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("load",null,"ReportOrders")@chrome://vivipos/content/init_geckojs.js:54
+startup([object Event])@chrome://viviecr/content/report.js:20
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: startup] [line: 20] [filename: chrome://viviecr/content/report.js]
+}
+
+2008-10-13 07:06:05 : [ERROR] [Departments] DepartmentsController.doCommand createDepartmentPanel; TypeError
+{
+    'message': this._data is null
+    'fileName': chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js
+    'lineNumber': 9
+    'stack': ()@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+get_rowCount()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+render()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:242
+refresh()@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:301
+setDatasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:191
+set_datasource([object Object])@chrome://vivipos/content/bindings/vivibuttonpanel.xbl:0
+set_datasource([object Object])@chrome://vivipos/content/bindings/viviscrollablebuttonpanel.xbl:0
+()@chrome://viviecr/content/controllers/departments_controller.js:29
+("createDepartmentPanel")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createDepartmentPanel",null,E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"createDepartmentPanel",null,"Departments")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("createDepartmentPanel",null,"Departments")@chrome://vivipos/content/init_geckojs.js:54
+startup([object Event])@chrome://viviecr/content/departments.js:8
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: startup] [line: 8] [filename: chrome://viviecr/content/departments.js]
+}
+
+2008-10-13 07:20:34 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 07:20:37 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 07:22:01 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 07:22:03 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 07:23:27 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 07:23:29 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 07:24:25 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 07:24:27 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 07:25:24 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 07:25:26 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 07:25:35 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 07:25:37 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 07:25:54 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 07:25:56 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 07:26:45 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 07:26:47 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 07:27:49 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 07:27:50 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 07:28:09 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 07:28:11 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 07:28:33 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 07:29:17 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 07:29:41 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 07:29:43 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 07:30:23 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 07:30:25 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 07:30:44 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 07:30:45 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 07:31:14 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 07:31:16 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 07:32:01 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 07:32:02 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 07:32:51 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 07:32:53 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 07:33:22 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 07:33:23 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 07:34:18 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 07:34:19 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 07:36:42 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 07:36:43 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 07:37:01 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 07:37:03 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 07:52:36 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 07:52:37 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 07:52:59 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 07:53:01 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 07:54:37 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 07:54:39 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 07:54:53 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 07:54:54 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 08:11:35 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 08:11:37 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 08:12:03 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 08:12:04 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 08:14:18 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 08:14:20 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 08:14:51 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 08:14:52 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 08:15:17 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 08:15:18 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 08:15:57 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 08:15:59 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 08:16:24 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 08:16:25 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 08:17:21 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 08:17:23 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 08:23:02 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 08:23:04 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 08:24:21 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 08:24:23 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 08:24:41 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 08:24:43 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 09:30:39 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 09:30:41 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 09:34:55 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 09:36:16 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 09:40:44 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 09:40:48 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 09:44:02 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 09:44:06 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 09:44:07 : [ERROR] [Keypad] KeypadController.doCommand keypress; TypeError
+{
+    'message': barcodes is null
+    'fileName': chrome://viviecr/content/controllers/cart_controller.js
+    'lineNumber': 93
+    'stack': ()@chrome://viviecr/content/controllers/cart_controller.js:93
+([object Object])@chrome://viviecr/content/controllers/keypad_controller.js:93
+("keypress")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"keypress",[object Object],E)@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+([object ChromeWindow],"keypress",[object Object],"Keypad")@chrome://vivipos/content/init_geckojs.js -> resource://app/modules/GeckoJS.js:9
+("keypress",[object Object],"Keypad")@chrome://vivipos/content/init_geckojs.js:54
+oncommand([object XULCommandEvent])@chrome://vivipos/content/vivipos.xul:1
+
+}
+; Components.stack.caller 
+Array
+{
+    '0': [name: oncommand] [line: 1] [filename: chrome://vivipos/content/vivipos.xul]
+}
+
+2008-10-13 09:55:52 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 09:55:55 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 09:57:39 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 09:57:41 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 10:08:43 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 10:08:44 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 10:27:31 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 10:27:33 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 10:29:17 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 10:29:18 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 10:30:10 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 10:30:11 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 10:30:21 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 10:30:22 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 10:30:32 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 10:30:34 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 10:30:45 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 10:30:46 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 10:30:56 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 10:30:58 : [INFO] [VIVIPOS] VIVIPOS STARTUP
+2008-10-13 10:31:10 : [INFO] [VIVIPOS] VIVIPOS CLOSE
+2008-10-13 10:31:12 : [INFO] [VIVIPOS] VIVIPOS STARTUP
