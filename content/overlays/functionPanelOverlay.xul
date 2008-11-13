@@ -7,18 +7,20 @@
          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-  <hbox id="functionPanelContainer" flex="1">
+  <box id="functionPanelContainer">
+
         <!-- Begin FuncBtns -->
         <vivifuncpanelecr
-            id="viviecr_function_panel"
+            id="functionPanel"
             class="vivifuncpanelecr_function_panel"
-            label="PANEL %d/%m"
+            label="%d/%m"
             rows="4" columns="2" hspacing="1" vspacing="1"
             homePage="1"
+            controlLocation="left"
+            dir="normal"
             maxpage="3"
             wrap="0"
-            flex="1"
-            height="200"
+            flex="0"
             mode="normal"
             restrictMode="normal"
             disabled="false"
@@ -34,6 +36,7 @@
             matrix_button_configure_class="vivifuncpanelecr_matrix_button_configure"
             matrix_button_mapped_class="vivifuncpanelecr_matrix_button_mapped"
             />
-         <!-- End FuncBtns -->
-  </hbox>
+        <!-- End FuncBtns -->
+
+  </box>
 </overlay>

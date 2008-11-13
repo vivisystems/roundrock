@@ -1,7 +1,9 @@
 .vivifuncpanelecr_function_panel {
     background: transparent;
     max-width: 346px;
-    max-height: 240px;
+    min-width: 346px;
+    min-height: 230px;
+    max-height: 230px;
     margin: 0px 0px 0px 0px;
     padding: 0px 0px 0px 0px;
 }
@@ -31,7 +33,7 @@
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-background-clip: border;
-    -moz-border-radius: 10px; 
+    -moz-border-radius: 0px; 
 }
 
 .vivifuncpanelecr_matrix_button_nomap {
@@ -46,7 +48,7 @@
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-background-clip: border;
-    -moz-border-radius: 10px; 
+    -moz-border-radius: 0px; 
 }
 
 .vivifuncpanelecr_matrix_button_configure {
@@ -61,7 +63,7 @@
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-background-clip: border;
-    -moz-border-radius: 10px; 
+    -moz-border-radius: 0px; 
 }
 
 .vivifuncpanelecr_control_panel {
