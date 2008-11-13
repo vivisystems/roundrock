@@ -1550,7 +1550,7 @@
                                         if (!iData) iData = datas[0];
                                         if (!iController) iController = controllers[0];
                                         
-                                        var command = '$do("' + cmds[j] + '","' + iData + '","' + iController + '")';
+                                        var command = '$do("' + cmds[j] + '","' + ((iData == null) ? '' : iData) + '","' + iController + '")';
 
                                         //GREUtils.log('[KEYMAP]: adding command <' + command + '>');
 
