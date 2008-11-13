@@ -1,27 +1,13 @@
 .vivifuncpanelecr_function_panel {
     background: transparent;
-    width: 344px;
-    height: 240px;
+    max-width: 346px;
+    max-height: 240px;
     margin: 0px 0px 0px 0px;
     padding: 0px 0px 0px 0px;
 }
 
-.vivifuncpanelecr_spacer_vertical {
-    min-width: 2px;    
-    margin: 0px 0px 0px 0px;
-    padding: 0px 0px 0px 0px;
-}
-
-.vivifuncpanelecr_spacer_horizontal {
-    height: 0px;    
-    margin: 0px 0px 0px 0px;
-    padding: 0px 0px 0px 0px;
-}
-
-.vivifuncpanelecr_button_panel_deck {
-    border-width: 0px;
-    border-style: solid;
-    border-color: green;
+.vivifuncpanelecr_spacer {
+    min-width: 2px;
     margin: 0px 0px 0px 0px;
     padding: 0px 0px 0px 0px;
 }
@@ -78,7 +64,7 @@
     -moz-border-radius: 10px; 
 }
 
-.vivifuncpanelecr_control_panel_vertical {
+.vivifuncpanelecr_control_panel {
     min-width: 32px;
     max-width: 32px;
     margin: 0px 0px 0px 0px;
@@ -87,21 +73,13 @@
     border-style: solid;
 }
 
-.vivifuncpanelecr_control_panel_horizontal {
-    min-height: 32px;
-    max-height: 32px;
-    margin: 0px 0px 0px 0px;
-    padding: 0px 0px 0px 0px;
-    border-width: 0px;
-    border-style: solid;
-}
-
-.vivifuncpanelecr_control_scroll_left_vertical {
+.vivifuncpanelecr_control_scroll_left {
     min-height: 50px;
     max-height: 50px;
     margin: 0px 0px 0px 0px;
     padding: 0px 0px 0px 0px;
     list-style-image: url(chrome://viviecr/skin/images/up.png);
+    background-image: url(chrome://viviecr/skin/images/gray.png);
     background-position: center center;
     -moz-appearance: none;
     -moz-user-focus: ignore;
@@ -110,12 +88,13 @@
     -moz-border-radius-topleft: 12px;  
 }
 
-.vivifuncpanelecr_control_scroll_right_vertical {
+.vivifuncpanelecr_control_scroll_right {
     min-height: 50px;
     max-height: 50px;
     margin: 0px 0px 0px 0px;
     padding: 0px 0px 0px 0px;
     list-style-image: url(chrome://viviecr/skin/images/down.png);
+    background-image: url(chrome://viviecr/skin/images/gray.png);
     background-position: center center;
     -moz-appearance: none;
     -moz-user-focus: ignore;
@@ -124,78 +103,24 @@
     -moz-border-radius-bottomleft: 12px;  
 }
 
-.vivifuncpanelecr_control_scroll_left_horizontal {
-    min-width: 50px;
-    max-width: 50px;
-    margin: 0px 0px 0px 0px;
-    padding: 0px 0px 0px 0px;
-    list-style-image: url(chrome://vivipos/skin/images/back.png);
-    background-position: center center;
-    -moz-appearance: none;
-    -moz-user-focus: ignore;
-    -moz-background-clip: border;
-    -moz-border-radius-bottomleft: 16px; 
-    -moz-border-radius-topleft: 16px;  
-}
-.vivifuncpanelecr_control_scroll_right_horizontal {
-    min-width: 50px;
-    max-width: 50px;
-    margin: 0px 0px 0px 0px;
-    padding: 0px 0px 0px 0px;
-    list-style-image: url(chrome://vivipos/skin/images/forward.png);
-    background-position: center center;
-    -moz-appearance: none;
-    -moz-user-focus: ignore;
-    -moz-background-clip: border;
-    -moz-border-radius-bottomright: 16px; 
-    -moz-border-radius-topright: 16px;  
-}
-
-.vivifuncpanelecr_control_home_vertical {
+.vivifuncpanelecr_control_home {
     min-width: 32px;
     max-width: 32px;
     min-height: 32px;
     max-height: 32px;
     margin: 0px 0px 0px 0px;
     padding: 0px 0px 0px 0px;
+    background-image: url(chrome://viviecr/skin/images/gray.png);
     background-position: center center;
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-background-clip: border;
 }
 
-.vivifuncpanelecr_control_home_horizontal {
-    min-width: 32px;
-    max-width: 32px;
-    min-height: 32px;
-    max-height: 32px;
-    margin: 0px 0px 0px 0px;
-    padding: 0px 0px 0px 0px;
-    background-position: center center;
-    -moz-appearance: none;
-    -moz-user-focus: ignore;
-    -moz-background-clip: border;
-}
-
-.vivifuncpanelecr_control_label_vertical {
+.vivifuncpanelecr_control_label {
     color: #127b31;
     margin: 0px 0px 0px 0px;
     padding: 0px 0px 0px 0px;
-    text-align: center;
-    font-size: large;
-    border-width: 1px;
-    background: transparent;
-    border-color: transparent;
-    -moz-appearance: none;
-    -moz-user-focus: ignore;
-    -moz-background-clip: border;
-    -moz-border-radius: 0px; 
-}
-
-.vivifuncpanelecr_control_label_horizontal {
-    margin: 0px 0px 0px 0px;
-    padding: 0px 0px 0px 0px;
-    color: #127b31;
     text-align: center;
     font-size: large;
     border-width: 1px;

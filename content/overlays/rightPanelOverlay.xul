@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE overlay PUBLIC "-//MOZILLA//DTD XUL V1.0//EN" "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<?xml-stylesheet href="chrome://viviorderstatus/skin/viviorderstatus.css" type="text/css"?>
+<!DOCTYPE window SYSTEM "chrome://viviorderstatus/locale/viviorderstatus.dtd">
 
 <overlay id="rightPanelOverlay"
          xmlns:html="http://www.w3.org/1999/xhtml"
@@ -11,7 +12,12 @@
       <vbox flex="1" style="max-width: 400px;">
         <onscreenvfd  id="onscreenvfd" maxlen="32" class="vbox_vfd" labelClass="label_vfd" value="TOTAL: 0" />
         <vbox flex="1">
-          <cartlistbox id="cartSimpleListBox" flex="1" rows="16"  headers="ProductName,Qty,Price,Subtotal" columns="name,sell_qty,sell_price,sell_subtotal" rowheight="42" scrollUpClass="rightprevbtn  button-gray" scrollDownClass="rightnextbtn  button-gray" listboxClass="cartlistbox" pack="left"/>
+          <cartlistbox id="cartSimpleListBox" flex="1" rows="16"  headers="ProductName,Qty,Price,Subtotal" columns="name,sell_qty,sell_price,sell_subtotal" rowheight="42" scrollUpClass="rightprevbtn  button-gray" scrollDownClass="rightnextbtn  button-gray" listboxClass="cartlistbox" pack="left"/>          
+            <viviorderstatus id="vivipos_fec_order_status" flex="1"
+                             labels="&viviorderstatus.pricelevel.label;,&viviorderstatus.taxstatus.label;,&viviorderstatus.ordersequence.label;,&viviorderstatus.destination.label;,&viviorderstatus.numbercustomer.label;,&viviorderstatus.checknumber.label;,&viviorderstatus.tablenumber.label;"
+                             keys="vivipos_fec_price_level,vivipos_fec_tax_status,vivipos_fec_order_sequence,vivipos_fec_order_destination,vivipos_fec_number_of_customers,vivipos_fec_check_number,vivipos_fec_table_number"
+                             />
+<!--
           <hbox style="background: white;">
             <label id="shiftPriceStatus" value="S1" /> <spacer flex="1" />
              DIS: <label id="disAmount" value="0" /><spacer flex="1" />
@@ -21,7 +27,7 @@
              TAX1: <label id="taxAmount" value="0" /><spacer flex="1" />
              TAX2: <label id="taxAmount1" value="0" />
           </hbox>
-
+-->
         </vbox>
 
         <hbox flex="1">
