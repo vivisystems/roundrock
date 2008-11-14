@@ -38,6 +38,8 @@
     
     <property name="view" onget="return this.tree.view;" readonly="true" />
 
+    <property name="selection" onget="return this.tree.view.selection;" readonly="true" />
+
     <property name="datasource" onget="return this.getDatasource();" onset="return this.setDatasource(val);"/>
     
     <constructor>
@@ -154,6 +156,15 @@
         ]]>  
         </body>
     </method>
+
+    <method name="invalidate">
+        <body><![CDATA[
+
+            this.treeBoxObject.invalidate();
+        ]]>
+        </body>
+    </method>
+
 
   </implementation>
 

@@ -134,7 +134,7 @@ pref("gfx.color_management.display_profile", "");
 pref("accessibility.browsewithcaret", false);
 pref("accessibility.warn_on_browsewithcaret", true);
 
-//@line 138 "/builds/xulrunner/xr_trunk_fdr/mozilla/modules/libpref/src/init/all.js"
+//@line 138 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/modules/libpref/src/init/all.js"
 // Tab focus model bit field:
 // 1 focuses text controls, 2 focuses other form elements, 4 adds links.
 // Most users will want 1, 3, or 7.
@@ -147,7 +147,7 @@ pref("accessibility.tabfocus_applies_to_xul", false);
 // unless this preference was set manually
 pref("ui.scrollToClick", 0);
 
-//@line 154 "/builds/xulrunner/xr_trunk_fdr/mozilla/modules/libpref/src/init/all.js"
+//@line 154 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/modules/libpref/src/init/all.js"
 
 pref("accessibility.usetexttospeech", "");
 pref("accessibility.usebrailledisplay", "");
@@ -523,7 +523,7 @@ pref("network.protocol-handler.external.data", false);
 pref("network.protocol-handler.external.ms-help", false);
 pref("network.protocol-handler.external.shell", false);
 pref("network.protocol-handler.external.vnd.ms.radio", false);
-//@line 532 "/builds/xulrunner/xr_trunk_fdr/mozilla/modules/libpref/src/init/all.js"
+//@line 532 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/modules/libpref/src/init/all.js"
 pref("network.protocol-handler.external.disk", false);
 pref("network.protocol-handler.external.disks", false);
 pref("network.protocol-handler.external.afp", false);
@@ -752,7 +752,7 @@ pref("network.negotiate-auth.gsslib", "");
 // Specify if the gss lib comes standard with the OS
 pref("network.negotiate-auth.using-native-gsslib", true);
 
-//@line 766 "/builds/xulrunner/xr_trunk_fdr/mozilla/modules/libpref/src/init/all.js"
+//@line 766 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/modules/libpref/src/init/all.js"
 
 // The following prefs are used to enable automatic use of the operating
 // system's NTLM implementation to silently authenticate the user with their
@@ -776,9 +776,9 @@ pref("network.hosts.nntp_server",           "news.mozilla.org");
 
 pref("permissions.default.image",           1); // 1-Accept, 2-Deny, 3-dontAcceptForeign
 
-//@line 791 "/builds/xulrunner/xr_trunk_fdr/mozilla/modules/libpref/src/init/all.js"
+//@line 791 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/modules/libpref/src/init/all.js"
 pref("network.proxy.type",                  5);
-//@line 798 "/builds/xulrunner/xr_trunk_fdr/mozilla/modules/libpref/src/init/all.js"
+//@line 798 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/modules/libpref/src/init/all.js"
 
 pref("network.proxy.ftp",                   "");
 pref("network.proxy.ftp_port",              0);
@@ -1112,15 +1112,15 @@ pref("font.minimum-size.x-western", 0);
 pref("font.minimum-size.x-unicode", 0);
 pref("font.minimum-size.x-user-def", 0);
 
-//@line 1515 "/builds/xulrunner/xr_trunk_fdr/mozilla/modules/libpref/src/init/all.js"
+//@line 1515 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/modules/libpref/src/init/all.js"
 
-//@line 1932 "/builds/xulrunner/xr_trunk_fdr/mozilla/modules/libpref/src/init/all.js"
+//@line 1932 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/modules/libpref/src/init/all.js"
 
-//@line 2129 "/builds/xulrunner/xr_trunk_fdr/mozilla/modules/libpref/src/init/all.js"
+//@line 2129 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/modules/libpref/src/init/all.js"
 
-//@line 2220 "/builds/xulrunner/xr_trunk_fdr/mozilla/modules/libpref/src/init/all.js"
+//@line 2220 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/modules/libpref/src/init/all.js"
 
-//@line 2223 "/builds/xulrunner/xr_trunk_fdr/mozilla/modules/libpref/src/init/all.js"
+//@line 2223 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/modules/libpref/src/init/all.js"
 // Handled differently under Mac/Windows
 pref("network.hosts.smtp_server", "localhost");
 pref("network.hosts.pop_server", "pop");
@@ -1380,15 +1380,15 @@ pref("print.postscript.paper_size",    "letter");
 pref("print.postscript.orientation",   "portrait");
 pref("print.postscript.print_command", "lpr ${MOZ_PRINTER_NAME:+-P\"$MOZ_PRINTER_NAME\"}");
 
-//@line 2485 "/builds/xulrunner/xr_trunk_fdr/mozilla/modules/libpref/src/init/all.js"
+//@line 2485 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/modules/libpref/src/init/all.js"
 
-//@line 2553 "/builds/xulrunner/xr_trunk_fdr/mozilla/modules/libpref/src/init/all.js"
+//@line 2553 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/modules/libpref/src/init/all.js"
 
-//@line 2579 "/builds/xulrunner/xr_trunk_fdr/mozilla/modules/libpref/src/init/all.js"
+//@line 2579 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/modules/libpref/src/init/all.js"
 
-//@line 2599 "/builds/xulrunner/xr_trunk_fdr/mozilla/modules/libpref/src/init/all.js"
+//@line 2599 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/modules/libpref/src/init/all.js"
 
-//@line 2607 "/builds/xulrunner/xr_trunk_fdr/mozilla/modules/libpref/src/init/all.js"
+//@line 2607 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/modules/libpref/src/init/all.js"
 
 // Login Manager prefs
 pref("signon.rememberSignons",              true);

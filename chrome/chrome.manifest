@@ -14,4 +14,5 @@ locale   branding  zh-TW         locale/zh-TW/brand/
 overlay  chrome://vivipos/content/vivipos.xul chrome://vivipos/content/overlays/extension_panel.xul
 overlay  chrome://vivipos/content/vivipos.xul chrome://vivipos/content/overlays/jsconsole.xul
 
+# moz extension manager
 overlay chrome://mozapps/content/extensions/extensions.xul  chrome://vivipos/content/overlays/extensions.xul

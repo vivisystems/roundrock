@@ -88,7 +88,6 @@
 
         this.ready = function() {
             self.initGrid();
-            self.resizeButtons();
         };
         // add treecols and children
         window.addEventListener('DOMContentLoaded', this.ready, true);
@@ -160,6 +159,7 @@
             this._selectedCount = 0;
             this._selectedItems = [];
 
+            this.resizeButtons();
 
         ]]>  
         </body>
@@ -302,6 +302,14 @@
         ]]>  
         </body>
     </method>
+
+    <method name="invalidate">
+        <body><![CDATA[
+            this.refresh();
+        ]]>
+        </body>
+    </method>
+
 
     <method name="resizeButtons">
         <body><![CDATA[

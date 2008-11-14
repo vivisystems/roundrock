@@ -54,10 +54,10 @@ const READ_ONLY_ANNO = "placesInternal/READ_ONLY";
 const LMANNO_FEEDURI = "livemark/feedURI";
 const LMANNO_SITEURI = "livemark/siteURI";
 
-//@line 62 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/components/places/src/utils.js"
+//@line 62 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/toolkit/components/places/src/utils.js"
 // On other platforms, the transferable system converts "\r\n" to "\n".
 const NEWLINE = "\r\n";
-//@line 65 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/components/places/src/utils.js"
+//@line 65 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/toolkit/components/places/src/utils.js"
 
 function QI_node(aNode, aIID) {
   var result = null;

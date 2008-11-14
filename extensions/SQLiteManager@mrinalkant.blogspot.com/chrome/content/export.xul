@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://sqlitemanager/skin/sqlitemanager.css" type="text/css"?>
+ 
+<!DOCTYPE window SYSTEM "chrome://sqlitemanager/locale/export.dtd">
+
+<dialog id="dialog-exim" title=""
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        buttons="accept,cancel"
+        ondialogaccept="return SmExporter.doOKExport();"
+        ondialogcancel="return true;"
+				onload="SmExporter.loadExportDialog();">
+
+  <script type="application/x-javascript" src="preferences.js"/>  
+  <script type="application/x-javascript" src="sqlite.js"/>  
+  <script type="application/x-javascript" src="export.js"/>  
+  <script type="application/x-javascript" src="tokenize.js"/>  
+  <script type="application/x-javascript" src="misc.js"/>  
+
+<!-- dropdown list for table names-->
+	<hbox id="hb-object-selection" style="margin: 10px;">
+    <spacer flex="1"/>
+		<label style="padding-top:3px" 
+				accesskey="D"
+				control="dbName" 
+				value="Database:"/>
+    <menulist id="dbName"
+      oncommand="SmExporter.onSelectDb('dbName')"/>
+		<label id="lbl-objectnames" style="padding-top:3px" 
+				accesskey="&tablename.ak;"
+				control="ml-objectnames" 
+				value="&tablename;"/>
+     <menulist id="ml-objectnames" 
+		 		style="width: 25ex" sizetopopup="always"
+				oncommand="SmExporter.onSelectObject();">
+      <menupopup>
+        <menuitem label="(loading)" selected="true"/>
+      </menupopup>
+    </menulist>
+    <spacer flex="1"/>
+  </hbox>
+<!-- hbox for file selection-->
+	<hbox id="hb-file-selection" hidden="true" style="margin: 10px;">
+		<textbox id="tb-filename" flex="1" readonly="true"/>
+     <button id="btn-selectfile" label="Select File" accesskey="S"
+				oncommand="SmExporter.selectFile();"/>
+  </hbox>
+
+	<tabbox>
+		<tabs id="tabs-export" onselect="SmExporter.onSelectTab();">
+			<tab id="tab-exp-csv" class="exportTabs" label="&CSV;" persist="selected"/>
+			<tab id="tab-exp-sql" class="exportTabs" label="&SQL;" persist="selected"/>
+			<tab id="tab-exp-xml" class="exportTabs" label="&XML;" persist="selected"/>
+		</tabs>
+		<tabpanels>
+			<tabpanel>
+				<vbox id="setting-csv" style="">
+				<checkbox id="csv-column-names" label="&csv.firstrow;"/>
+				<groupbox>
+				<caption label="&csv.separate;" />
+				<radiogroup id="csv-separator" value=",">
+				<hbox>
+					<radio label="&Comma; (,)" value="," accesskey="&Comma.ak;" selected="true"/>
+					<radio label="&Semicolon; (;)" value=";"/>
+				</hbox>
+				<hbox>
+					<radio label="&Pipe; (|)" value="|"/>
+          <radio label="&Tab;" value="\t"/>
+				</hbox>
+				</radiogroup>
+				</groupbox>
+				<groupbox>
+				<caption label="&csv.enclose;" />
+				<radiogroup id="csv-encloser" value="din">
+				<hbox>
+					<radio label="&doublequotes; (&quot;), if necessary (Standard)" value="din" accesskey="&doublequotes.ak;" selected="true"/>
+				</hbox>
+				<hbox>
+					<radio label="&doublequotes; (&quot;), always" value="&quot;"/>
+				</hbox>
+				<hbox>
+<!--
+					<radio label="Single quotes (')" value="'"/>
+					<radio label="Other" value="other"/>
+					<textbox id="csv-encloser-text" value=""/>
+-->
+				</hbox>
+				</radiogroup>
+				</groupbox>
+				</vbox>
+			</tabpanel>
+			<tabpanel>
+				<vbox id="setting-sql">
+				<groupbox>
+				<caption label="&sql.settings;"/>
+					<checkbox id="sql-create-statement" label="&sql.create;"/>
+					<checkbox id="sql-transact-statement" label="&sql.transaction;"/>
+					<description id="sql-transact-desc" width="60">&sql.transaction.desc;</description>
+				</groupbox>
+				</vbox>
+			</tabpanel>
+			<tabpanel>
+				<vbox id="setting-xml">
+<!--
+					<hbox>
+					<label control="xml-root-element" style="width:25ex" value="Name of Root Element:"/>
+					<textbox id="xml-root-element" value="SQLite"/>
+					</hbox>
+					<hbox>
+					<label control="xml-prefix-table-element" style="width:25ex" value="Prefix this to Table Element:"/>
+					<textbox id="xml-prefix-table-element" value=""/>
+					</hbox>
+-->
+					<checkbox id="xml-type-attribute" style="width:300px" label="&xml.type;" checked="true"/>
+					<description width="60">&xml.type.desc;</description>
+				</vbox>
+			</tabpanel>
+		</tabpanels>
+	</tabbox>
+</dialog>

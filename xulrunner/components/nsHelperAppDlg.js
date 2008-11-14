@@ -1,5 +1,5 @@
 /*
-//@line 44 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/downloads/src/nsHelperAppDlg.js.in"
+//@line 44 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/toolkit/mozapps/downloads/src/nsHelperAppDlg.js.in"
 */
 
 /* This file implements the nsIHelperAppLauncherDialog interface.
@@ -233,7 +233,7 @@ nsUnknownContentTypeDialog.prototype = {
 
       this.makeFileUnique(aLocalFile);
 
-//@line 296 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/downloads/src/nsHelperAppDlg.js.in"
+//@line 296 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/toolkit/mozapps/downloads/src/nsHelperAppDlg.js.in"
 
       return aLocalFile;
     },
@@ -401,7 +401,7 @@ nsUnknownContentTypeDialog.prototype = {
         // want users to be able to autodownload .exe files. 
         var rememberChoice = this.dialogElement("rememberChoice");
 
-//@line 482 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/downloads/src/nsHelperAppDlg.js.in"
+//@line 482 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/toolkit/mozapps/downloads/src/nsHelperAppDlg.js.in"
         if (shouldntRememberChoice) {
           rememberChoice.checked = false;
           rememberChoice.disabled = true;
@@ -541,12 +541,12 @@ nsUnknownContentTypeDialog.prototype = {
     // Returns true if opening the default application makes sense.
     openWithDefaultOK: function() {
         // The checking is different on Windows...
-//@line 632 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/downloads/src/nsHelperAppDlg.js.in"
+//@line 632 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/toolkit/mozapps/downloads/src/nsHelperAppDlg.js.in"
             // On other platforms, default is Ok if there is a default app.
             // Note that nsIMIMEInfo providers need to ensure that this holds true
             // on each platform.
         return this.mLauncher.MIMEInfo.hasDefaultHandler;
-//@line 637 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/downloads/src/nsHelperAppDlg.js.in"
+//@line 637 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/toolkit/mozapps/downloads/src/nsHelperAppDlg.js.in"
     },
     
     // Set "default" application description field.
@@ -567,9 +567,9 @@ nsUnknownContentTypeDialog.prototype = {
 
     // getPath:
     getPath: function (aFile) {
-//@line 660 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/downloads/src/nsHelperAppDlg.js.in"
+//@line 660 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/toolkit/mozapps/downloads/src/nsHelperAppDlg.js.in"
       return aFile.path;
-//@line 662 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/downloads/src/nsHelperAppDlg.js.in"
+//@line 662 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/toolkit/mozapps/downloads/src/nsHelperAppDlg.js.in"
     },
 
     // initAppAndSaveToDiskValues:
@@ -798,7 +798,7 @@ nsUnknownContentTypeDialog.prototype = {
           // for the file to be saved to to pass to |saveToDisk| - otherwise
           // we must ask the user to pick a save name.
 
-//@line 904 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/downloads/src/nsHelperAppDlg.js.in"
+//@line 904 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/toolkit/mozapps/downloads/src/nsHelperAppDlg.js.in"
 
           // see @notify
           // we cannot use opener's setTimeout, see bug 420405
@@ -853,13 +853,13 @@ nsUnknownContentTypeDialog.prototype = {
     // Retrieve the pretty description from the file
     getFileDisplayName: function getFileDisplayName(file)
     { 
-//@line 966 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/downloads/src/nsHelperAppDlg.js.in"
+//@line 966 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/toolkit/mozapps/downloads/src/nsHelperAppDlg.js.in"
         return file.leafName;
     },
 
     // chooseApp:  Open file picker and prompt user for application.
     chooseApp: function() {
-//@line 1037 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/downloads/src/nsHelperAppDlg.js.in"
+//@line 1037 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/toolkit/mozapps/downloads/src/nsHelperAppDlg.js.in"
       var nsIFilePicker = Components.interfaces.nsIFilePicker;
       var fp = Components.classes["@mozilla.org/filepicker;1"]
                          .createInstance(nsIFilePicker);
@@ -898,7 +898,7 @@ nsUnknownContentTypeDialog.prototype = {
           lastSelectedID = "defaultHandler";
         openHandler.selectedItem = this.dialogElement(lastSelectedID);
       }
-//@line 1076 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/downloads/src/nsHelperAppDlg.js.in"
+//@line 1076 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/toolkit/mozapps/downloads/src/nsHelperAppDlg.js.in"
     },
 
     // Turn this on to get debugging messages.

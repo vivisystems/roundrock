@@ -1,0 +1,28 @@
+tabs#sm-tabs tab {
+	font-size: 130%;
+  padding: 6px 11px;
+}
+
+label.dbinfo {
+	padding-top: 5px;
+	width: 30ex;
+	text-align: right;
+}
+
+label.forControl {
+	padding-top: 5px;
+}
+
+tab.exportTabs {
+	padding: 5px 10px;
+	font-size: 125%;
+}
+
+tabbox#sm-tabbox tabpanel {
+  overflow: auto;
+}
+
+vbox#vb-dbInfoTab textbox,
+vbox#vb-dbInfoTab menulist {
+  width: 20ex;
+}

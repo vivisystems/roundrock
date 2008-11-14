@@ -1,0 +1,4 @@
+<!ENTITY dropColumn     "Drop Column">
+<!ENTITY alterColumn     "Alter Column">
+<!ENTITY failSqlForCopy "Failed to create sql statement for copying the table">
+<!ENTITY copyTheTable "Copy the Table">

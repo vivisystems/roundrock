@@ -34,7 +34,7 @@
   <keyset id="keyset_extensions">
   </keyset>
 
-  <hbox flex="1" id="vivipos">
+  <hbox flex="1" id="vivipos" style="overflow: hidden;">
     <vbox id="appcontent" flex="1">
     </vbox>
   </hbox>
