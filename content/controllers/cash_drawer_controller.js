@@ -3,7 +3,7 @@
     /**
      * Class ViviPOS.CashDrawerController
      */
-    GeckoJS.Controller.extend( {
+    var CashDrawer = GeckoJS.Controller.extend( {
         name: 'CashDrawer',
         _drawer: null,
 	
@@ -21,5 +21,9 @@
         }
 	
     });
+
+    CashDrawer.prototype.tt = function() {
+        
+    };
 
 })();

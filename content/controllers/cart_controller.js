@@ -60,7 +60,7 @@
             var halo_price = this.getHALOPrice(item);
 
             item.sell_price = cart.getPrice(sell_price);
-this.log("halo =" + halo_price + ", sell =" + item.sell_price);
+            this.log("halo =" + halo_price + ", sell =" + item.sell_price);
             if(halo_price > 0) {
                 if (item.sell_price > halo_price) item.sell_price = halo_price;
             }
@@ -88,9 +88,15 @@ this.log("halo =" + halo_price + ", sell =" + item.sell_price);
                 this.getKeypadController().clearBuffer();
             }
 		
-		
-            var barcodes = GeckoJS.Session.get('barcodes');
-            var item = barcodes[barcode];
+
+            var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
+            
+            var item = null;
+            var barcodeIdx = barcodesIndexes[barcode];
+            if (barcodeIdx) {
+                var products = GeckoJS.Session.get('products');
+                item = products[barcodeIdx];
+            }
             // get item from barcode ??
             if(item) {
                 this.data = item;
@@ -121,7 +127,7 @@ this.log("halo =" + halo_price + ", sell =" + item.sell_price);
             var halo_price = this.getHALOPrice(item);
             item.sell_price = cart.getPrice(sell_price);
             
-            if(halo_price) {
+            if(halo_price > 0 ) {
                 if (item.sell_price > halo_price) item.sell_price = halo_price;
             }
             
@@ -223,12 +229,12 @@ this.log("halo =" + halo_price + ", sell =" + item.sell_price);
                 this.clear();
 			
                 // save data to order model
-                var orderModel = new ViviPOS.OrderModel();
+                var orderModel = new OrderModel();
 			
                 orderModel.saveOrder(data);
 
-                var orderDetailModel = new ViviPOS.OrderDetailModel();
-                var productModel = new ViviPOS.ProductModel();
+                var orderDetailModel = new OrderDetailModel();
+                var productModel = new ProductModel();
 
                 data.items.forEach(function(o) {
                     orderDetailModel.create();

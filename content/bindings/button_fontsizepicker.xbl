@@ -19,26 +19,33 @@
 
   <content>
 
-  <xul:vbox flex="1" >
-        <xul:hbox flex="1">
-            <xul:button class="button_fontsizepicker font-xlarge" xbl:inherits="disabled" label="&button-fontsize-xlarge.label;" fontsize="xlarge" />
-            <xul:button class="button_fontsizepicker font-large" xbl:inherits="disabled" label="&button-fontsize-large.label;" fontsize="large" />
-            <xul:button class="button_fontsizepicker font-medium" xbl:inherits="disabled" label="&button-fontsize-medium.label;" fontsize="medium" />
-            <xul:button class="button_fontsizepicker font-small" xbl:inherits="disabled" label="&button-fontsize-small.label;" fontsize="small" />
-        </xul:hbox>
-  </xul:vbox>
+    <xul:hbox flex="1" xbl:inherits="flex,class" anonid="boxContainer">
+        <xul:button class="button_fontsizepicker" xbl:inherits="disabled,class=buttonClass" label="&button-fontsize-xlarge.label;" fontsize="xlarge" />
+        <xul:button class="button_fontsizepicker" xbl:inherits="disabled,class=buttonClass" label="&button-fontsize-large.label;" fontsize="large" />
+        <xul:button class="button_fontsizepicker" xbl:inherits="disabled,class=buttonClass" label="&button-fontsize-medium.label;" fontsize="medium" />
+        <xul:button class="button_fontsizepicker" xbl:inherits="disabled,class=buttonClass" label="&button-fontsize-small.label;" fontsize="small" />
+    </xul:hbox>
 
   </content>
 
   <xbl:implementation>
 
     <field name="_size" >false</field>
+    <property name="boxContainer" onget="return document.getAnonymousElementByAttribute(this, 'anonid', 'boxContainer');" readonly="true"/>
     <property name="disabled" onget="return this.hasAttribute('disabled') ?  this.getAttribute('disabled').toUpperCase() == 'TRUE' : false;" onset="return this.setAttribute('disabled', val); return val; " />
     <property name="size" onget="return this.getFontSize();" onset="return this.setFontSize(val);" />
     <property name="value" onget="return this.size;" onset="return this.size = val;" />
 
-	<xbl:constructor>
+	<xbl:constructor><![CDATA[
+
+        var buttons = this.boxContainer.getElementsByTagNameNS('http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul', 'button');
+        for (var i = 0; i < buttons.length; i++) {
+            var fontsize = buttons[i].getAttribute('fontsize');
+            buttons[i].className += (buttons[i].className ? " " : "") + 'font-' + fontsize;
+        }
+
         this.addEventListener('DOMAttrModified', this._attrmodified, true);
+         ]]>
 	</xbl:constructor>
 
     <xbl:destructor>

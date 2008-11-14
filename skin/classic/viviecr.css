@@ -1,7 +1,7 @@
 /* global skin ------------------------------------------------------------- */
-@import url(chrome://viviecr/skin/product.css);
-@import url(chrome://viviecr/skin/buttons.css);
 @import url(chrome://viviecr/skin/bindings.css);
+@import url(chrome://viviecr/skin/buttons.css);
+@import url(chrome://viviecr/skin/product.css);
 
 @namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
 
