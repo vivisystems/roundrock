@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <?xml-stylesheet href="chrome://viviecr/skin/functionpanel.css" type="text/css"?>
-<?xml-stylesheet href="chrome://vivibuttonstyle/skin/vivibuttoncolorpicker.css" type="text/css"?>
-<?xml-stylesheet href="chrome://vivibuttonstyle/skin/vivibuttonfontsizepicker.css" type="text/css"?>
 <!DOCTYPE overlay PUBLIC "-//MOZILLA//DTD XUL V1.0//EN" "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
 <overlay id="functionPanelOverlay"
@@ -27,21 +25,12 @@
             restrictMode="normal"
             disabled="false"
             prefix="vivipos.fec.ui.functionpanel"
-            vbox_class="vivifuncpanelecr_vbox"
-            hbox_class="vivifuncpanelecr_vbox"
-            button_panel_deck_class="vivifuncpanelecr_button_panel_deck"
-            panel_spacer_vertical_class="vivifuncpanelecr_spacer_vertical"
-            panel_spacer_horizontal_class="vivifuncpanelecr_spacer_horizontal"
-            control_panel_vertical_class="vivifuncpanelecr_control_panel_vertical"
-            control_panel_horizontal_class="vivifuncpanelecr_control_panel_horizontal"
-            control_scroll_left_horizontal_class="vivifuncpanelecr_control_scroll_left_horizontal"
-            control_scroll_left_vertical_class="vivifuncpanelecr_control_scroll_left_vertical"
-            control_scroll_right_horizontal_class="vivifuncpanelecr_control_scroll_right_horizontal"
-            control_scroll_right_vertical_class="vivifuncpanelecr_control_scroll_right_vertical"
-            control_label_vertical_class="vivifuncpanelecr_control_label_vertical"
-            control_label_horizontal_class="vivifuncpanelecr_control_label_horizontal"
-            control_home_vertical_class="vivifuncpanelecr_control_home_vertical"
-            control_home_horizontal_class="vivifuncpanelecr_control_home_horizontal"
+            panel_spacer_class="vivifuncpanelecr_spacer"
+            control_panel_class="vivifuncpanelecr_control_panel"
+            control_scroll_left_class="vivifuncpanelecr_control_scroll_left"
+            control_scroll_right_class="vivifuncpanelecr_control_scroll_right"
+            control_label_class="vivifuncpanelecr_control_label"
+            control_home_class="vivifuncpanelecr_control_home"
             button_panel_class="vivifuncpanelecr_button_panel"
             matrix_button_nomap_class="vivifuncpanelecr_matrix_button_nomap"
             matrix_button_configure_class="vivifuncpanelecr_matrix_button_configure"

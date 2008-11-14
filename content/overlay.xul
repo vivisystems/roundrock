@@ -27,7 +27,7 @@
         <box id="functionPanelContainer" class="functionPanel" />
 
         <!-- fix foot -->
-        <spacer flex="1" />
+        <!--spacer flex="0" /-->
 
       </vbox>
 

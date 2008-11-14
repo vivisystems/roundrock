@@ -1,0 +1,7 @@
+<!ENTITY    viviorderstatus.pricelevel.label       "PL@">
+<!ENTITY    viviorderstatus.taxstatus.label        "TX@">
+<!ENTITY    viviorderstatus.ordersequence.label    "SEQ#">
+<!ENTITY    viviorderstatus.destination.label      "DEST">
+<!ENTITY    viviorderstatus.numbercustomer.label   "#CST">
+<!ENTITY    viviorderstatus.checknumber.label      "CHK#">
+<!ENTITY    viviorderstatus.tablenumber.label      "TBL#">
