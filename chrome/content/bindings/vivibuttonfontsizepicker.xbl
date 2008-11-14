@@ -15,6 +15,9 @@
     <xbl:implementation>
 
         <field name="_size" >false</field>
+
+        <property name="disabled" onget="return this.hasAttribute('disabled') ?  this.getAttribute('disabled').toUpperCase() == 'TRUE' : false;"
+                                  onset="this.setFontSize(); return this.setAttribute('disabled', val); return val; " />
         <property name="size" onget="return this.getFontSize();" onset="return this.setFontSize(val);" />
         <property name="value" onget="return this.size;" onset="return this.size = val;" />
 
@@ -196,7 +199,7 @@
     <handlers>
         <handler event="click">
         <![CDATA[
-            if (event.originalTarget.hasAttribute("size")) {
+            if (event.originalTarget.hasAttribute("size") && !event.target.disabled) {
                 this.setFontSize(event.originalTarget.getAttribute('size'));
             }
         ]]>

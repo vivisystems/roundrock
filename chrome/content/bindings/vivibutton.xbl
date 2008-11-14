@@ -143,7 +143,7 @@
             var height = $btn.css('height').replace('px', '');
 
             $(label).css({width: width, height: height, 'max-width': width, 'max-height': height});
-            // GeckoJS.BaseObject.log('label ' + width + ',' + height);
+            //GeckoJS.BaseObject.log('label ' + width + ',' + height);
 
         ]]>  
         </body>

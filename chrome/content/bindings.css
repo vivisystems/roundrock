@@ -56,19 +56,10 @@ vivifuncpanelecr {
   -moz-binding: url("chrome://vivipos/content/bindings/vivifuncpanelecr.xbl#vivifuncpanelecr");
 }
 
-vivibuttoncolorpicker {
-  -moz-binding: url("chrome://vivipos/content/bindings/vivibuttoncolorpicker.xbl#vivibuttoncolorpicker");
-}
-
-vivibuttonfontsizepicker {
-  -moz-binding: url("chrome://vivipos/content/bindings/vivibuttonfontsizepicker.xbl#vivibuttonfontsizepicker");
-}
-
 vivilocaleslistbox {
   -moz-binding: url("chrome://vivipos/content/bindings/vivilocaleslistbox.xbl#vivilocaleslistbox");
 }
 
-
-viviorderstatus {
-  -moz-binding: url("chrome://vivipos/content/bindings/viviorderstatus.xbl#viviorderstatus");
+vivisessionstatus {
+  -moz-binding: url("chrome://vivipos/content/bindings/vivisessionstatus.xbl#vivisessionstatus");
 }

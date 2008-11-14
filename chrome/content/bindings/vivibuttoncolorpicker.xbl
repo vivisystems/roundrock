@@ -15,6 +15,9 @@
     <xbl:implementation>
 
         <field name="_color" >false</field>
+
+        <property name="disabled" onget="return this.hasAttribute('disabled') ?  this.getAttribute('disabled').toUpperCase() == 'TRUE' : false;"
+                                  onset="this.setColor(); return this.setAttribute('disabled', val); return val; " />
         <property name="color" onget="return this.getColor();" onset="return this.setColor(val);" />
         <property name="value" onget="return this.color;" onset="return this.color = val;" />
 
@@ -199,7 +202,7 @@
 
         <handler event="click">
         <![CDATA[
-            if (event.originalTarget.hasAttribute("color")) {
+            if (event.originalTarget.hasAttribute("color") && !event.target.disabled) {
               this.setColor(event.originalTarget.getAttribute('color'));
             }
         ]]>
