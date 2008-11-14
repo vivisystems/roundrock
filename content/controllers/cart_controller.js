@@ -371,13 +371,15 @@
 
         priceLevel: function() {
             this._priceLevel = (this._priceLevel++ < 2) ? (this._priceLevel) : 0;
+	GeckoJS.Session.set('vivipos_fec_price_level', this._priceLevel);
+/*
             var lbl = this.query('#shiftPriceStatus');
             switch (this._priceLevel) {
                 case 0: lbl.val("S1"); break;
                 case 1: lbl.val("S2"); break;
                 case 2: lbl.val("S3"); break;
             }
-
+*/
         },
 
         pushQueue: function() {

@@ -1,0 +1,28 @@
+.orderstatus {
+    border-width: 0px;
+    border-style: solid;
+    border-color: blue;
+    background-color: black;
+    max-height: 30px;
+}
+
+.orderstatus_field_label {
+    color: white;
+    max-width: 50px;
+    margin: 0px 5px 0px 2px;
+    padding: 0px 0px 0px 0px;
+    background-color: transparent;
+    border-width: 0px;
+    font-size: x-small;
+    -moz-appearance: none;
+}
+
+.orderstatus_field_value {
+    color: white;
+    margin: 0px 2px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    background-color: transparent;
+    border-width: 0px;
+    font-size: x-small;
+    -moz-appearance: none;
+}

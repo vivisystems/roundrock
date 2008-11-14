@@ -25,20 +25,11 @@
             <vbox flex="1">
                 <box id="productPanelContainer" class="productPanel" />
                 <box id="functionPanelContainer" class="functionPanel" />
-                <!-- fix foot -->
-                <spacer flex="1" />
             </vbox>
 
             <vbox flex="1" class="rightPanel">
-
                 <vbox id="cartlistPanelContainer" />
                 <vbox id="numberpadPanelContainer" />
-
-                <vbox class="vbox_foot">
-                  <!-- spacer flex="1" / -->
-                  <label class="label_foot" id="clerk" value="" />
-                  <label class="label_foot">FIRICH ENTERPRISES CO.,LTD.</label>
-                </vbox>
             </vbox>
 
         </hbox>
