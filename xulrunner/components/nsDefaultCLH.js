@@ -1,4 +1,4 @@
-//@line 38 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/components/nsDefaultCLH.js"
+//@line 38 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/toolkit/components/nsDefaultCLH.js"
 
 const nsISupports              = Components.interfaces.nsISupports;
 

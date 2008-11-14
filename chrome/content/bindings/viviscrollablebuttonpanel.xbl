@@ -12,7 +12,7 @@
 
             <xul:vivibuttonpanel anonid="vivibuttonpanel" xbl:inherits="flex,class=panelClass,orient,cols,rows,labelField,imageField,buttonClass,seltype" />
 
-            <xul:vbox style="margin: 0px; padding:0px;" class="scrollablepanel-scrollbar" xbl:inherits="class=scrollbarClass" anonid="scrollbar" >
+            <xul:vbox style="margin: 0px; padding:0px;" class="scrollablepanel-scrollbar" xbl:inherits="class=scrollbarClass,hidden=hideScrollbar" anonid="scrollbar" >
                 <xul:button label="UP" disabled="true" anonid="scrollbutton-up" onclick="event.stopPropagation()" oncommand="_autorepeatbuttonScroll(event);" xbl:inherits="class=scrollUpClass"></xul:button>
                 <xul:spacer />
                 <xbl:children />
@@ -55,6 +55,13 @@
 
         <property name="datasource" onget="return this.vivibuttonpanel.datasource" onset="this.vivibuttonpanel.datasource = val; this.updateScrollBtn(); return val;"/>
 
+
+        <method name="initGrid">
+        <body><![CDATA[
+            this.vivibuttonpanel.initGrid();
+        ]]>
+        </body>
+        </method>
         <method name="scrollByLines">
             <parameter name="numLines"/>
             <body><![CDATA[

@@ -1,6 +1,6 @@
 /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */
 /*
-//@line 38 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/extensions/src/nsAddonRepository.js"
+//@line 38 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/toolkit/mozapps/extensions/src/nsAddonRepository.js"
 */
 
 const Cc = Components.classes;

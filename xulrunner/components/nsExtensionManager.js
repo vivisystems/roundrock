@@ -1,6 +1,6 @@
 /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */
 /*
-//@line 44 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/extensions/src/nsExtensionManager.js.in"
+//@line 44 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/toolkit/mozapps/extensions/src/nsExtensionManager.js.in"
 */
 
 //
@@ -57,7 +57,6 @@ const TOOLKIT_ID                      = "toolkit@mozilla.org"
 const KEY_PROFILEDIR                  = "ProfD";
 const KEY_PROFILEDS                   = "ProfDS";
 const KEY_APPDIR                      = "XCurProcD";
-const KEY_XREDIR                      = "GreD";
 const KEY_TEMPDIR                     = "TmpD";
 
 const EM_ACTION_REQUESTED_TOPIC       = "em-action-requested";
@@ -80,7 +79,6 @@ const KEY_APP_GLOBAL                  = "app-global";
 const KEY_APP_SYSTEM_LOCAL            = "app-system-local";
 const KEY_APP_SYSTEM_SHARE            = "app-system-share";
 const KEY_APP_SYSTEM_USER             = "app-system-user";
-const KEY_XRE_GLOBAL                  = "xre-global";
 
 const CATEGORY_INSTALL_LOCATIONS      = "extension-install-locations";
 const CATEGORY_UPDATE_PARAMS          = "extension-update-params";
@@ -149,7 +147,7 @@ var gManifestNeedsFlush   = false;
 var gIDTest = /^(\{[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\}|[a-z0-9-\._]*\@[a-z0-9-\._]+)$/i;
 
 // shared code for suppressing bad cert dialogs
-//@line 40 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/shared/src/badCertHandler.js"
+//@line 40 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/toolkit/mozapps/shared/src/badCertHandler.js"
 
 /**
  * Only allow built-in certs for HTTPS connections.  See bug 340198.
@@ -215,7 +213,7 @@ BadCertHandler.prototype = {
     return this;
   }
 };
-//@line 193 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/extensions/src/nsExtensionManager.js.in"
+//@line 191 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/toolkit/mozapps/extensions/src/nsExtensionManager.js.in"
 
 /**
  * Creates a Version Checker object.
@@ -1378,7 +1376,7 @@ DirectoryInstallLocation.prototype = {
   QueryInterface: XPCOMUtils.generateQI([Ci.nsIInstallLocation])
 };
 
-//@line 1501 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/extensions/src/nsExtensionManager.js.in"
+//@line 1499 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/toolkit/mozapps/extensions/src/nsExtensionManager.js.in"
 
 /**
  * An object which handles the installation of an Extension.
@@ -1903,7 +1901,6 @@ function safeInstallOperation(itemID, installLocation, installCallback) {
   }
   else if (installLocation.name == KEY_APP_PROFILE ||
            installLocation.name == KEY_APP_GLOBAL ||
-           installLocation.name == KEY_XRE_GLOBAL ||
            installLocation.name == KEY_APP_SYSTEM_USER) {
     // Check for a pointer file and move it aside if it exists
     var pointerFile = installLocation.location.clone();
@@ -2317,21 +2314,6 @@ function ExtensionManager() {
                                                     priority, false);
   InstallLocations.put(globalLocation);
 
-  // Register XRE Global Install Location if needed
-  // (e.g. app/xulrunner/extensions/ or app/Contents/Frameworks/XUL.framework/extensions/)
-  try {
-    var xreGlobalExtensions = getDirNoCreate(KEY_XREDIR, [DIR_EXTENSIONS]);
-  }
-  catch(e) { }
-  
-  if (xreGlobalExtensions && (xreGlobalExtensions.path != appGlobalExtensions.path)) {
-    var priority = Ci.nsIInstallLocation.PRIORITY_XRE_SYSTEM_GLOBAL;
-    var xreLocation = new DirectoryInstallLocation(KEY_XRE_GLOBAL,
-                                                   xreGlobalExtensions, true,
-                                                   priority, false);
-    InstallLocations.put(xreLocation);
-  }
-
   // Register App-Profile Install Location
   var appProfileExtensions = getDirNoCreate(KEY_PROFILEDS, [DIR_EXTENSIONS]);
   var priority = Ci.nsIInstallLocation.PRIORITY_APP_PROFILE;
@@ -2383,7 +2365,7 @@ function ExtensionManager() {
     InstallLocations.put(systemLocation);
   }
 
-//@line 2520 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/extensions/src/nsExtensionManager.js.in"
+//@line 2502 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/toolkit/mozapps/extensions/src/nsExtensionManager.js.in"
 
   // Register Additional Install Locations
   var categoryManager = Cc["@mozilla.org/categorymanager;1"].
@@ -2747,7 +2729,7 @@ ExtensionManager.prototype = {
   _installGlobalItem: function(file) {
     if (!file || !file.exists())
       throw new Error("Unable to find the file specified on the command line!");
-//@line 2889 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/extensions/src/nsExtensionManager.js.in"
+//@line 2871 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/toolkit/mozapps/extensions/src/nsExtensionManager.js.in"
     var installManifestFile = extractRDFFileToTempDir(file, FILE_INSTALL_MANIFEST, true);
     if (!installManifestFile.exists())
       throw new Error("The package is missing an install manifest!");
@@ -3543,7 +3525,7 @@ ExtensionManager.prototype = {
         // Force an update of the metadata for appManaged extensions since the
         // last modified time is not updated for directories on FAT / FAT32
         // filesystems when software update applies a new version of the app.
-        if (location.name == KEY_APP_GLOBAL || location.name == KEY_XRE_GLOBAL) {
+        if (location.name == KEY_APP_GLOBAL) {
           var installRDF = location.getItemFile(id, FILE_INSTALL_MANIFEST);
           if (installRDF.exists()) {
             var metadataDS = getInstallManifest(installRDF);
@@ -3789,7 +3771,6 @@ ExtensionManager.prototype = {
       var items = PendingOperations.getOperations(OP_NEEDS_INSTALL);
       for (i = items.length - 1; i >= 0; --i) {
         if (items[i].locationKey == KEY_APP_PROFILE ||
-            items[i].locationKey == KEY_XRE_GLOBAL ||
             items[i].locationKey == KEY_APP_GLOBAL)
           itemsToCheck.push(items[i].id);
       }
@@ -4893,7 +4874,6 @@ ExtensionManager.prototype = {
     }
     else if (installLocation.name == KEY_APP_PROFILE ||
              installLocation.name == KEY_APP_GLOBAL ||
-             installLocation.name == KEY_XRE_GLOBAL ||
              installLocation.name == KEY_APP_SYSTEM_USER) {
       // Check for a pointer file and remove it if it exists
       var pointerFile = installLocation.location.clone();
@@ -5507,13 +5487,13 @@ ExtensionManager.prototype = {
       // count to 0 to prevent this dialog from being displayed again.
       this._downloadCount = 0;
       var result;
-//@line 5649 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/extensions/src/nsExtensionManager.js.in"
+//@line 5629 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/toolkit/mozapps/extensions/src/nsExtensionManager.js.in"
       result = this._confirmCancelDownloads(this._downloadCount,
                                             "quitCancelDownloadsAlertTitle",
                                             "quitCancelDownloadsAlertMsgMultiple",
                                             "quitCancelDownloadsAlertMsg",
                                             "dontQuitButtonWin");
-//@line 5661 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/extensions/src/nsExtensionManager.js.in"
+//@line 5641 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/toolkit/mozapps/extensions/src/nsExtensionManager.js.in"
       if (subject instanceof Ci.nsISupportsPRBool)
         subject.data = result;
     }
@@ -6027,7 +6007,7 @@ ExtensionItemUpdater.prototype = {
   _listener           : null,
 
   /* ExtensionItemUpdater
-//@line 6200 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/extensions/src/nsExtensionManager.js.in"
+//@line 6180 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/toolkit/mozapps/extensions/src/nsExtensionManager.js.in"
   */
   checkForUpdates: function(aItems, aItemCount, aUpdateCheckType,
                             aListener) {
@@ -6385,7 +6365,7 @@ RDFItemUpdater.prototype = {
 
   onDatasourceLoaded: function(aDatasource, aLocalItem) {
     /*
-//@line 6598 "/builds/xulrunner/xr_trunk_fdr/mozilla/toolkit/mozapps/extensions/src/nsExtensionManager.js.in"
+//@line 6578 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/toolkit/mozapps/extensions/src/nsExtensionManager.js.in"
     */
     if (!aDatasource.GetAllResources().hasMoreElements()) {
       LOG("RDFItemUpdater:onDatasourceLoaded: Datasource empty.\r\n" +
@@ -6985,7 +6965,7 @@ ExtensionsDataSource.prototype = {
       // we will continue to support it.
       var locationKey = this.getItemProperty(id, "installLocation");
       var appManaged = this.getItemProperty(id, "appManaged") == "true";
-      if (appManaged && (locationKey == KEY_APP_GLOBAL || locationKey == KEY_XRE_GLOBAL))
+      if (appManaged && locationKey == KEY_APP_GLOBAL)
         continue;
 
       if (type != -1 && (type & desiredType) &&
@@ -7565,7 +7545,7 @@ ExtensionsDataSource.prototype = {
     // (can't be removed or disabled), and hidden (not shown in the UI)
     if (installLocation.restricted)
       singleProps = singleProps.concat(["locked", "hidden"]);
-    if (installLocation.name == KEY_APP_GLOBAL || installLocation.name == KEY_XRE_GLOBAL)
+    if (installLocation.name == KEY_APP_GLOBAL)
       singleProps = singleProps.concat(["appManaged"]);
     for (var i = 0; i < singleProps.length; ++i) {
       var property = EM_R(singleProps[i]);
@@ -8235,7 +8215,7 @@ ExtensionsDataSource.prototype = {
   _rdfGet_appManaged: function(item, property) {
     var id = stripPrefix(item.Value, PREFIX_ITEM_URI);
     var locationKey = this.getItemProperty(id, "installLocation");
-    if (locationKey != KEY_APP_GLOBAL && locationKey != KEY_XRE_GLOBAL)
+    if (locationKey != KEY_APP_GLOBAL)
       return EM_L("false");
     return null;
   },

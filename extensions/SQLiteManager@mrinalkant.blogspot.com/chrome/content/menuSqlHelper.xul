@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<overlay id="tabDbInfo-overlay"
+      xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+	<menubar id="sql-help-menubar">
+	  <menu id="sql-help-alter-menu" label="Select">
+	    <menupopup>
+	      <menuitem oncommand="SQLiteManager.setSqlText(this.value)" 
+					label="SELECT * FROM tableName" 
+					value="SELECT * FROM tableName"/>
+	      <menuitem oncommand="SQLiteManager.setSqlText(this.value)" 
+					label="SELECT with WHERE clause" 
+					value="SELECT [ALL | DISTINCT] result FROM table-list WHERE expr"/>
+	      <menuitem oncommand="SQLiteManager.setSqlText(this.value)" 
+					label="SELECT (general)" 
+					value="SELECT [ALL | DISTINCT] result [FROM table-list] [WHERE expr] [GROUP BY expr-list] [HAVING expr] [compound-op select]* [ORDER BY sort-expr-list] [LIMIT integer [( OFFSET | , ) integer]]"/>
+	    </menupopup>
+	  </menu>
+	  <toolbarseparator/>
+	  <menu id="sql-help-drop-menu" label="Data Manipulation">
+	    <menupopup>
+	      <menuitem oncommand="SQLiteManager.setSqlText(this.value)" 
+					label="DELETE" 
+					value="DELETE FROM tableName [WHERE expr]"/>
+	      <menuitem oncommand="SQLiteManager.setSqlText(this.value)" 
+					label="INSERT values" 
+					value="INSERT INTO tableName [(column-list)] VALUES(value-list)"/>
+	      <menuitem oncommand="SQLiteManager.setSqlText(this.value)" 
+					label="INSERT using select" 
+					value="INSERT INTO tableName [(column-list)] select-statement"/>
+	      <menuitem oncommand="SQLiteManager.setSqlText(this.value)" 
+					label="UPDATE" 
+					value="UPDATE tableName SET assignment [, assignment]* [WHERE expr]"/>
+	      <menuitem oncommand="SQLiteManager.setSqlText(this.value)" 
+					label="REPLACE values" 
+					value="REPLACE INTO tableName [(column-list)] VALUES(value-list)"/>
+	      <menuitem oncommand="SQLiteManager.setSqlText(this.value)" 
+					label="REPLACE using select" 
+					value="REPLACE INTO tableName [(column-list)] select-statement"/>
+	    </menupopup>
+	  </menu>
+	  <toolbarseparator/>
+	  <menu id="sql-help-drop-menu" label="Create/Alter">
+	    <menupopup>
+	      <menuitem oncommand="SQLiteManager.setSqlText(this.value)" 
+					label="CREATE TABLE" 
+					value="CREATE TABLE IF NOT EXISTS table-name (column-def [, column-def]* [, constraint]*"/>
+	      <menuitem oncommand="SQLiteManager.setSqlText(this.value)" 
+					label="CREATE TEMP TABLE" 
+					value="CREATE TEMP TABLE IF NOT EXISTS table-name (column-def [, column-def]* [, constraint]*"/>
+	      <menuitem oncommand="SQLiteManager.setSqlText(this.value)" 
+					label="CREATE TABLE x AS select-statement" 
+					value="CREATE TABLE table-name AS select-statement"/>
+	      <menuitem oncommand="SQLiteManager.setSqlText(this.value)" 
+					label="CREATE TEMP TABLE x AS select-statement" 
+					value="CREATE TEMP TABLE table-name AS select-statement"/>
+				<menuseparator/>
+	      <menuitem oncommand="SQLiteManager.setSqlText(this.value)" 
+					label="ALTER TABLE x RENAME TO y" 
+					value="ALTER TABLE old_table_name RENAME TO new_table_name"/>
+	      <menuitem oncommand="SQLiteManager.setSqlText(this.value)" 
+					label="ALTER TABLE x ADD COLUMN column-def" 
+					value="ALTER TABLE x ADD COLUMN column-def"/>
+				<menuseparator/>
+				<menuseparator/>
+	      <menuitem oncommand="SQLiteManager.setSqlText(this.value)" 
+					label="CREATE INDEX" 
+					value="CREATE INDEX IF NOT EXISTS index-name ON table-name ( column-name [, column-name]* )"/>
+	      <menuitem oncommand="SQLiteManager.setSqlText(this.value)" 
+					label="CREATE UNIQUE INDEX" 
+					value="CREATE UNIQUE INDEX IF NOT EXISTS index-name ON table-name ( column-name [, column-name]* )"/>
+				<menuseparator/>
+	      <menuitem oncommand="SQLiteManager.setSqlText(this.value)" 
+					label="CREATE TRIGGER" 
+					value="CREATE TRIGGER IF NOT EXISTS trigger-name [ BEFORE | AFTER ] DELETE|INSERT|UPDATE ON table-name [ FOR EACH ROW ] [ WHEN expression ] BEGIN  semicolon-terminated-update-delete-select-or-insert-statements END"/>
+	      <menuitem oncommand="SQLiteManager.setSqlText(this.value)" 
+					label="CREATE TEMPORARY TRIGGER" 
+					value="CREATE TEMPORARY TRIGGER IF NOT EXISTS trigger-name [ BEFORE | AFTER ] DELETE|INSERT|UPDATE ON table-name [ FOR EACH ROW ] [ WHEN expression ] BEGIN  semicolon-terminated-update-delete-select-or-insert-statements END"/>
+				<menuseparator/>
+	      <menuitem oncommand="SQLiteManager.setSqlText(this.value)" 
+					label="CREATE VIEW" 
+					value="CREATE VIEW IF NOT EXISTS viewName AS selectStatement"/>
+	      <menuitem oncommand="SQLiteManager.setSqlText(this.value)" 
+					label="CREATE TEMPORARY VIEW" 
+					value="CREATE TEMPORARY VIEW IF NOT EXISTS viewName AS selectStatement"/>
+	    </menupopup>
+	  </menu>
+	  <toolbarseparator/>
+	  <menu id="sql-help-drop-menu" label="Drop">
+	    <menupopup>
+	      <menuitem oncommand="SQLiteManager.setSqlText(this.value)" 
+					label="DROP INDEX" 
+					value="DROP INDEX your_index_name"/>
+	      <menuitem oncommand="SQLiteManager.setSqlText(this.value)" 
+					label="DROP TABLE" 
+					value="DROP TABLE your_table_name"/>
+	      <menuitem oncommand="SQLiteManager.setSqlText(this.value)" 
+					label="DROP TRIGGER" 
+					value="DROP TRIGGER your_trigger_name"/>
+	      <menuitem oncommand="SQLiteManager.setSqlText(this.value)" 
+					label="DROP VIEW" 
+					value="DROP VIEW your_view_name"/>
+	    </menupopup>
+	  </menu>
+	  <toolbarseparator/>
+	  <menu id="sql-help-drop-menu" label="ReIndex">
+	    <menupopup>
+	      <menuitem oncommand="SQLiteManager.setSqlText(this.value)" 
+					label="REINDEX index-name" 
+					value="REINDEX index-name"/>
+	      <menuitem oncommand="SQLiteManager.setSqlText(this.value)" 
+					label="REINDEX table-name" 
+					value="REINDEX table-name"/>
+	      <menuitem oncommand="SQLiteManager.setSqlText(this.value)" 
+					label="REINDEX collation-name" 
+					value="REINDEX collation-name"/>
+	    </menupopup>
+	  </menu>
+	  <toolbarseparator/>
+	  <menu id="sql-help-pragma-menu" label="PRAGMA">
+	    <menupopup>
+	      <menuitem oncommand="SQLiteManager.setSqlText(this.value)" 
+					label="PRAGMA table_info" 
+					value="PRAGMA table_info (tableName)"/>
+	      <menuitem oncommand="SQLiteManager.setSqlText(this.value)" 
+					label="PRAGMA index_list" 
+					value="PRAGMA index_list (tableName)"/>
+	      <menuitem oncommand="SQLiteManager.setSqlText(this.value)" 
+					label="PRAGMA foreign_key_list" 
+					value="PRAGMA foreign_key_list (tableName)"/>
+	      <menuitem oncommand="SQLiteManager.setSqlText(this.value)" 
+					label="PRAGMA index_info" 
+					value="PRAGMA index_info (indexName)"/>
+	      <menuitem oncommand="SQLiteManager.setSqlText(this.value)" 
+					label="PRAGMA freelist_count" 
+					value="PRAGMA freelist_count"/>
+	    </menupopup>
+	  </menu>
+	</menubar>
+</overlay>

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE window SYSTEM "chrome://sqlitemanager/locale/jsStrings.dtd">
+
+<overlay id="jsStrings-overlay"
+      xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<vbox hidden="true" id="jsStrings">
+  <label id="jss-dropColumn" value="&dropColumn;" />
+  <label id="jss-alterColumn" value="&alterColumn;" />
+  <label id="jss-failSqlForCopy" value="&failSqlForCopy;" />
+  <label id="jss-copyTheTable" value="&copyTheTable;" />
+</vbox>
+
+</overlay>
