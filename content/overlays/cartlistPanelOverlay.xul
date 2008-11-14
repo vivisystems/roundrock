@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE overlay PUBLIC "-//MOZILLA//DTD XUL V1.0//EN" "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<overlay id="cartlistPanelOverlay"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <vbox id="cartlistPanelContainer">
+
+      
+        <onscreenvfd  id="onscreenvfd" maxlen="32" class="vbox_vfd" labelClass="label_vfd" value="TOTAL: 0" />
+
+        <vbox flex="1">
+          <cartlistbox id="cartSimpleListBox" flex="1" rows="16"  headers="ProductName,Qty,Price,Subtotal" columns="name,sell_qty,sell_price,sell_subtotal" rowheight="42" scrollUpClass="rightprevbtn  button-gray" scrollDownClass="rightnextbtn  button-gray" listboxClass="cartlistbox" pack="left"/>
+
+          <hbox style="background: white;">
+            <label id="shiftPriceStatus" value="S1" /> <spacer flex="1" />
+             DIS: <label id="disAmount" value="0" /><spacer flex="1" />
+          </hbox>
+          <hbox style="background: white;">
+            <label id="shiftTaxStatus" value="T1" /> <spacer flex="1" />
+             TAX1: <label id="taxAmount" value="0" /><spacer flex="1" />
+             TAX2: <label id="taxAmount1" value="0" />
+          </hbox>
+        </vbox>
+
+  </vbox>
+</overlay>
