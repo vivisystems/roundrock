@@ -30,7 +30,7 @@
         <!--spacer flex="0" /-->
 
       </vbox>
-
+	<!-- vivilocaleslistbox package="viviecr" / -->
       <box id="rightPanelContainer" class="rightPanel" />
       
     </hbox>

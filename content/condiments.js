@@ -5,7 +5,7 @@
  */
 function startup() {
 
-	// $do('createPluPanel', null, "Condiments");
+	$do('createCondimentPanel', null, "Condiments");
 
 };
 

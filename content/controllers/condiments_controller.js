@@ -5,12 +5,10 @@
      */
     GeckoJS.Controller.extend( {
 
-        name: 'Departments',
-        screenwidth: 800,
-        screenheight: 600,
+        name: 'Condiments',
         _selectedIndex: null,
 
-        createDepartmentPanel: function () {
+        createCondimentPanel: function () {
             /*
             var categories;
 
@@ -21,26 +19,26 @@
             // GeckoJS.Session.add('categories', categories);
             */
 
-            var categories = GeckoJS.Session.get('categories');
+            var condiments = GeckoJS.Session.get('condiments');
 
             // bind categories data
-            var catePanelView =  new NSICategoriesView(categories);
-            var catescrollablepanel = document.getElementById('catescrollablepanel');
-            catescrollablepanel.datasource = catePanelView;
+            var condPanelView =  new NSICategoriesView(condiments);
+            var condscrollablepanel = document.getElementById('condimentscrollablepanel');
+            condscrollablepanel.datasource = condPanelView;
 
 
             // bind plu data
-            var firstCateNo = categories[0]['no'];
+            var firstCondNo = condiments[0]['no'];
 
         },
 
-        changeDepartmentPanel: function(index) {
+        changeCondimentPanel: function(index) {
 
-            var categories = GeckoJS.Session.get('categories');
-            var cateNo = categories[index]['no'];
+            var condiments = GeckoJS.Session.get('condiments');
+            var condNo = condiments[index]['no'];
 
             this._selectedIndex = index;
-            this.setInputData(categories[index]);
+            this.setInputData(condiments[index]);
 
         },
 
