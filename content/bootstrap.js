@@ -22,6 +22,11 @@ GREUtils.include('chrome://viviecr/content/models/order.js');
 GREUtils.include('chrome://viviecr/content/models/order_detail.js');
 GREUtils.include('chrome://viviecr/content/models/cash_drawer.js');
 GREUtils.include('chrome://viviecr/content/models/sequence.js');
+GREUtils.include('chrome://viviecr/content/models/condiment.js');
+GREUtils.include('chrome://viviecr/content/models/condiment_detail.js');
+GREUtils.include('chrome://viviecr/content/models/plugroup.js');
+GREUtils.include('chrome://viviecr/content/models/plugroup_detail.js');
+GREUtils.include('chrome://viviecr/content/models/job.js');
 
 // include project helpers
 GREUtils.include('chrome://viviecr/content/helpers/nsi_products_view.js');
@@ -44,6 +49,9 @@ GREUtils.include('chrome://viviecr/content/controllers/image_manager_controller.
 GREUtils.include('chrome://viviecr/content/controllers/control_panel_controller.js');
 GREUtils.include('chrome://viviecr/content/controllers/departments_controller.js');
 GREUtils.include('chrome://viviecr/content/controllers/plus_controller.js');
+GREUtils.include('chrome://viviecr/content/controllers/plugroups_controller.js');
+GREUtils.include('chrome://viviecr/content/controllers/condiments_controller.js');
+GREUtils.include('chrome://viviecr/content/controllers/jobs_controller.js');
 
 // user define
 GREUtils.include('chrome://viviecr/content/tax.js');

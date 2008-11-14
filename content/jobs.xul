@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window SYSTEM "chrome://viviecr/locale/fecpos.dtd">
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/vivipos.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+<window id="numpad" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/jobs.js" />
+
+  <!-- groupbox -->
+    <box flex="1" class="mainpanel1 pad40">
+        <vbox flex="1" class="panel40">
+            <vbox flex="1" class="footlogo">
+
+        <!-- Begin SysConfig 1 -->
+
+                    <vbox id="jobs">
+                        <label id="" value="Jobs" style="background:green; color:white;" />
+            <!-- hbox -->
+                        <vbox>
+                            <label hidden="true" form="jobForm" name="id" value="" />
+                            <label id="" value="Job List:" />
+              <!-- simplelistbox id="cartSimpleListBox1" flex="1" rows="24"  headers="User No,User Name" style="width:300px; height:450px;"/ -->
+                            <simplelistbox id="simpleListBoxJob" rows="16"  headers="Job Name" columns="jobname"  class="usersimplelistbox"/>
+                        </vbox>
+                        <vbox flex="1" style="overflow: auto" >
+
+                            <hbox class="config" align="center">
+                                <label value="Job Name:" />
+                                <textbox id="job_name" value="" form="jobForm" name="jobname" />
+                            </hbox>
+                            
+                        </vbox>
+            <!-- /hbox -->
+                        <spacer style="height: 10px;" />
+                        <hbox>
+                            <button label="Add" class="genbtn" oncommand="$do('add', null, 'Jobs');" />
+              <!-- button label="Refresh" class="genbtn" oncommand="$do('load', null, ViviPOS.CategoriesController);" / -->
+                            <button label="Delete" class="genbtn" oncommand="$do('delete', null, 'Jobs');" />
+                            <button label="Modify" class="genbtn" oncommand="$do('update', null, 'Jobs');" />
+                        </hbox>
+                    </vbox>
+            </vbox>
+        </vbox>
+    </box>
+  <!-- /groupbox -->
+    <hbox id="okCancelButtonsRight" class="dialogbtns" />
+
+</window>

@@ -46,11 +46,11 @@
                                 </hbox>
                                 <vbox align="center">
                                     <label style="width:4em" value="Button Color:"  />
-                                    <button_colorpicker id="category_button_color"/>
+                                    <button_colorpicker id="category_button_color" buttonClass="catbtn button-radius"/>
                                 </vbox>
                                 <vbox align="center">
                                     <label style="width:4em" value="Font Size:"  />
-                                    <button_fontsizepicker id="category_font_size" />
+                                    <button_fontsizepicker id="category_font_size" buttonClass="catbtn button-white button-radius"/>
                                 </vbox>
                             </vbox>
                         </hbox>
