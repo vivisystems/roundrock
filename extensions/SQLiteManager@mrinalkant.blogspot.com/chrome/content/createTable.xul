@@ -1,0 +1,150 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<!DOCTYPE window SYSTEM "chrome://sqlitemanager/locale/sqlitemanager.dtd">
+
+<dialog id="createtable" title="&window.title; - &createTable;"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+				persist="width sizemode"
+        buttons="accept,cancel"
+        ondialogaccept="return CreateManager.doOKCreateTable();"
+        ondialogcancel="return CreateManager.doCancel();"
+				onload="CreateManager.loadCreateTableDialog();">
+
+  <script type="application/x-javascript" src="sqlite.js"/>  
+  <script type="application/x-javascript" src="createManager.js"/>  
+  <script type="application/x-javascript" src="misc.js"/>  
+  <script type="application/x-javascript" src="preferences.js"/>  
+
+	<hbox flex="1" style="margin:5px 0 5px 0;">
+    <spacer flex="1"/>
+		<label style="padding-top:3px" accesskey="D"
+				control="dbName" value="Database:"/>
+    <menulist id="dbName"/>
+		<label style="padding-top:3px" accesskey="N"
+				control="tablename" value="Table Name:"/>
+    <textbox id="tablename"/>
+    <spacer flex="1"/>
+  </hbox>
+	<hbox id="hb-temp-exists" flex="1" style="margin:5px 0 5px 0;">
+    <spacer flex="1"/>
+		<checkbox id="temptable" accesskey="T" label="Temporary table"/>
+		<checkbox id="ifnotexists" accesskey="I" label="If Not Exists"/>
+    <spacer flex="1"/>
+  </hbox>
+	<groupbox id="rows-grbox">
+	<caption label="Define Columns"/>
+
+	<!--
+		<tree id="tree-table-structure" 
+			width="200px" 
+			hidecolumnpicker="true"
+			seltype="single"
+			rows="4" 
+			onselect="SQLiteManager.getDbObjectInfo()">
+	  <treecols>
+	    <treecol id="col-table-colname" 
+				label="Column Name" 
+				flex="1"/>
+	    <treecol id="col-table-datatype" 
+				label="Data Type" 
+				flex="1"/>
+	    <treecol id="col-table-allownull" 
+				label="Allow Nulls?" 
+				type="progressmeter"
+				flex="1"/>
+	    <treecol id="col-table-primarykey" 
+				label="Primary Key?" 
+				type="checkbox"
+				flex="1"/>
+	  </treecols>
+<treechildren>
+    <treeitem>
+      <treerow>
+        <treecell label="joe@somewhere.com"/>
+        <treecell label="Top secret plans"/>
+        <treecell mode="normal" value="20"/>
+        <treecell value="true"/>
+      </treerow>
+    </treeitem>
+  </treechildren>		
+	</tree>
+-->
+		<grid style="overflow-y:auto" height="300">
+		  <columns>
+		    <column/>
+		    <column/>
+		    <column/>
+		    <column/>
+		  </columns>
+		  <rows id="rows-all">
+		    <row>
+		      <label control="colname" value="Column Name"/>
+		      <label control="datatype" value="Data Type"/>
+		      <label control="primarykey" value="Primary Key?"/>
+		      <label control="autoincrement" value="Autoinc?"/>
+		      <label control="allownull" value="Allow Null?"/>
+		      <label control="" value="Default Value"/>
+<!--
+		      <label control="" value="Unique?"/>
+-->
+		    </row>
+		    <row id="row-template" style="display:none">
+		      <textbox id="colname"  width="10"/>
+		      <menulist id="datatype"   style="width:120px"
+						sizetopopup="always" editable="true"
+						oncommand="CreateManager.changeDataType(this.id);"
+						onblur="CreateManager.changeDataType(this.id);">
+		        <menupopup>
+		          <menuitem label="" selected="true"/>
+		          <menuitem label="INTEGER" />
+		          <!-- columns with REAL affinity -->
+		          <menuitem label="DOUBLE" />
+		          <menuitem label="FLOAT" />
+		          <menuitem label="REAL" />
+		          <!-- columns with TEXT affinity -->
+		          <menuitem label="CHAR" />
+		          <!--<menuitem label="CLOB" />-->
+		          <menuitem label="TEXT" />
+		          <menuitem label="VARCHAR" />
+							<!-- columns with NONE affinity -->
+		          <menuitem label="BLOB" />
+							<!-- case default is NUMERIC affinity -->
+		          <menuitem label="NUMERIC" />
+		          <!-- others -->
+		          <menuitem label="DATETIME" />
+		        </menupopup>
+				  </menulist>
+		      <checkbox id="primarykey" 
+						label="Yes" checked="false"
+            oncommand="CreateManager.togglePrimaryKey(this.id);"/>
+		      <checkbox id="autoincrement" 
+						label="Yes" checked="false" disabled="true"
+						tooltiptext="AUTOINCREMENT is only allowed on an INTEGER PRIMARY KEY"
+            onclick=""/>
+		      <checkbox id="allownull" 
+						label="Yes"	checked="true"/>
+		      <menulist id="defaultvalue"   style="width:150px"
+						sizetopopup="always" editable="true">
+		        <menupopup>
+		          <menuitem id="mi-val-null" label="" selected="true"/>
+		          <menuitem label="CURRENT_DATE" />
+		          <menuitem label="CURRENT_TIME" />
+		          <menuitem label="CURRENT_TIMESTAMP" />
+		        </menupopup>
+				  </menulist>
+<!--
+		      <menulist id="unique"
+								sizetopopup="always"
+								oncommand="">
+				        <menupopup>
+				          <menuitem label="" selected="true"/>
+				          <menuitem label="Unique Column" />
+				          <menuitem label="Unique Column-list" />
+				        </menupopup>
+				  </menulist>
+-->
+		    </row>
+		  </rows>
+		</grid>  
+	</groupbox>
+</dialog>

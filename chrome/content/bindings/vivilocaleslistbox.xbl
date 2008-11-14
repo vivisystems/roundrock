@@ -96,6 +96,40 @@
                 </xbl:body>
             </xbl:method>
 
+            <xbl:method name="changeLocale">
+                <xbl:body><![CDATA[
+
+                    try {
+                        var chromeRegInstance = Components.classes["@mozilla.org/chrome/chrome-registry;1"].createInstance();
+                        var xulChromeReg = chromeRegInstance.QueryInterface(Components.interfaces.nsIXULChromeRegistry);
+                        xulChromeReg.reloadChrome();
+
+                    } catch(err) {
+                    }
+
+                ]]>
+                </xbl:body>
+            </xbl:method>
+
+            <xbl:method name="reloadChrome">
+                <xbl:body><![CDATA[
+
+                    try {
+                        // Which locale did the user select?
+                        var listbox = this.listbox;
+                        var newLocale = this.selectedLocale;
+
+                        // Write preferred locale to local user config
+                        var prefs = Components.classes["@mozilla.org/preferences-service;1"].
+                                    getService(Components.interfaces.nsIPrefBranch);
+                        prefs.setCharPref("general.useragent.locale", newLocale);
+
+                    } catch(err) {
+                    }
+
+                ]]>
+                </xbl:body>
+            </xbl:method>
         </xbl:implementation>
 
     </binding>
