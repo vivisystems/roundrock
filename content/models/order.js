@@ -1,5 +1,5 @@
-GREUtils.define('ViviPOS.OrderModel');
-ViviPOS.OrderModel = GeckoJS.Model.extend({
+// GREUtils.define('ViviPOS.OrderModel');
+var OrderModel = window.OrderModel =  GeckoJS.Model.extend({
     name: 'Order',
     hasMany: ['OrderDetail'],
 	

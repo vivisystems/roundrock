@@ -6,7 +6,8 @@
 <?xul-overlay href="chrome://viviecr/content/overlays/keysetExtensions.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/productPanelOverlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/functionPanelOverlay.xul" ?>
-<?xul-overlay href="chrome://viviecr/content/overlays/rightPanelOverlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/cartlistPanelOverlay.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/overlays/numberpadPanelOverlay.xul" ?>
 
 <overlay id="viviecrOverlay"
          xmlns:html="http://www.w3.org/1999/xhtml"
@@ -17,22 +18,20 @@
   <script src="chrome://viviecr/content/bootstrap.js" type="application/x-javascript"/>
   <script src="chrome://viviecr/content/overlay.js" type="application/x-javascript"/>
 
-  <box id="main-container">
-    <hbox flex="1" class="mainpanel">
+    <box id="main-container">
 
-      <vbox flex="1">
+        <hbox flex="1" class="mainpanel">
 
-        <box id="productPanelContainer" class="productPanel" />
+            <vbox flex="1">
+                <box id="productPanelContainer" class="productPanel" />
+                <box id="functionPanelContainer" class="functionPanel" />
+            </vbox>
 
-        <box id="functionPanelContainer" class="functionPanel" />
+            <vbox flex="1" class="rightPanel">
+                <vbox id="cartlistPanelContainer" />
+                <vbox id="numberpadPanelContainer" />
+            </vbox>
 
-        <!-- fix foot -->
-        <!--spacer flex="0" /-->
-
-      </vbox>
-	<!-- vivilocaleslistbox package="viviecr" / -->
-      <box id="rightPanelContainer" class="rightPanel" />
-      
-    </hbox>
-  </box>
+        </hbox>
+    </box>
 </overlay>

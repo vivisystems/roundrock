@@ -20,8 +20,8 @@
           <deck id="plu_deck">
           </deck>
         </scrollablepanel -->
-        <viviscrollablebuttonpanel dir="reverse" id="prodscrollablepanel" flex="1" cols="2" rows="4" labelField="name" imageField="no"
-            oncommand="$do('clickPluPanel',this.selectedIndex, 'Main');"  class="prodscrollablepanel" buttonClass="plubtn smallimagebtn button-radius" scrollUpClass="rightprevbtn button-gray" scrollDownClass="rightnextbtn button-gray" />
+        <viviscrollablebuttonpanel dir="reverse" id="prodscrollablepanel" flex="1" cols="2" rows="1" labelField="name" imageField="no"
+            oncommand="$do('clickPluPanel',this.selectedIndex, 'Main');"  class="prodscrollablepanel" buttonClass="plubtn smallimagebtn button-radius" scrollUpClass="rightprevbtn button-gray" scrollDownClass="rightnextbtn button-gray" seltype="multiple" />
         <!-- viviscrollabletree dir="reverse" id="prodscrollablepanel" flex="1" rows="7" headers="Name,Price" fields="name,sell_price" onclick="$do('clickPluPanel',this.selectedIndex, 'Main');"
            class="prodscrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray" /-->
 
