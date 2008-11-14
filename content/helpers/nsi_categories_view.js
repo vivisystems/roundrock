@@ -13,8 +13,7 @@
                     //alert('categories refresh');
                     self._data = evt.data.value;
                     try {
-                      //  alert(self.treeBox);
-                        self.treeBox.refresh();
+                        self.tree.invalidate();
                     }catch(e) {}
                 }
             });

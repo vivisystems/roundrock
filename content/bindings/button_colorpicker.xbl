@@ -18,24 +18,24 @@
   </resources>
 
   <content>
-    <xul:vbox flex="1">
+    <xul:vbox flex="1" xbl:inherits="flex,class" anonid="boxContainer">
         <xul:hbox>
-            <xul:button class="button_colorpicker button-default" xbl:inherits="disabled" label="&button-default.label;" color="default" />
-            <xul:button class="button_colorpicker button-gray" xbl:inherits="disabled" label="&button-gray.label;" color="gray" />
-            <xul:button class="button_colorpicker button-green" xbl:inherits="disabled" label="&button-green.label;" color="green" />
-            <xul:button class="button_colorpicker button-teal" xbl:inherits="disabled" label="&button-teal.label;" color="teal" />
+            <xul:button class="button_colorpicker" xbl:inherits="disabled,class=buttonClass" label="&button-default.label;" color="default" />
+            <xul:button class="button_colorpicker" xbl:inherits="disabled,class=buttonClass" label="&button-gray.label;" color="gray" />
+            <xul:button class="button_colorpicker" xbl:inherits="disabled,class=buttonClass" label="&button-green.label;" color="green" />
+            <xul:button class="button_colorpicker" xbl:inherits="disabled,class=buttonClass" label="&button-teal.label;" color="teal" />
         </xul:hbox>
         <xul:hbox>
-            <xul:button class="button_colorpicker button-yellow" xbl:inherits="disabled" label="&button-yellow.label;" color="yellow" />
-            <xul:button class="button_colorpicker button-red" xbl:inherits="disabled" label="&button-red.label;" color="red" />
-            <xul:button class="button_colorpicker button-orange" xbl:inherits="disabled" label="&button-orange.label;" color="orange" />
-            <xul:button class="button_colorpicker button-blue" xbl:inherits="disabled" label="&button-blue.label;" color="blue" />
+            <xul:button class="button_colorpicker" xbl:inherits="disabled,class=buttonClass" label="&button-yellow.label;" color="yellow" />
+            <xul:button class="button_colorpicker" xbl:inherits="disabled,class=buttonClass" label="&button-red.label;" color="red" />
+            <xul:button class="button_colorpicker" xbl:inherits="disabled,class=buttonClass" label="&button-orange.label;" color="orange" />
+            <xul:button class="button_colorpicker" xbl:inherits="disabled,class=buttonClass" label="&button-blue.label;" color="blue" />
         </xul:hbox>
         <xul:hbox>
-            <xul:button class="button_colorpicker button-fuchsia" xbl:inherits="disabled" label="&button-fuchsia.label;" color="fuchsia" />
-            <xul:button class="button_colorpicker button-aqua" xbl:inherits="disabled" label="&button-aqua.label;" color="aqua" />
-            <xul:button class="button_colorpicker button-black" xbl:inherits="disabled" label="&button-black.label;" color="black" />
-            <xul:button class="button_colorpicker button-white" xbl:inherits="disabled" label="&button-white.label;" color="white" />
+            <xul:button class="button_colorpicker" xbl:inherits="disabled,class=buttonClass" label="&button-fuchsia.label;" color="fuchsia" />
+            <xul:button class="button_colorpicker" xbl:inherits="disabled,class=buttonClass" label="&button-aqua.label;" color="aqua" />
+            <xul:button class="button_colorpicker" xbl:inherits="disabled,class=buttonClass" label="&button-black.label;" color="black" />
+            <xul:button class="button_colorpicker" xbl:inherits="disabled,class=buttonClass" label="&button-white.label;" color="white" />
         </xul:hbox>
   </xul:vbox>
   </content>
@@ -44,13 +44,21 @@
 
 
     <field name="_color" >false</field>
+    <property name="boxContainer" onget="return document.getAnonymousElementByAttribute(this, 'anonid', 'boxContainer');" readonly="true"/>
 
     <property name="disabled" onget="return this.hasAttribute('disabled') ?  this.getAttribute('disabled').toUpperCase() == 'TRUE' : false;" onset="return this.setAttribute('disabled', val); return val; " />
     <property name="color" onget="return this.getColor();" onset="return this.setColor(val);" />
     <property name="value" onget="return this.color;" onset="return this.color = val;" />
 
-	<xbl:constructor>
+	<xbl:constructor><![CDATA[
+        var buttons = this.boxContainer.getElementsByTagNameNS('http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul', 'button');
+        for (var i = 0; i < buttons.length; i++) {
+            var color = buttons[i].getAttribute('color');
+            buttons[i].className += (buttons[i].className ? " " : "") + 'button-' + color;
+        }
+
         this.addEventListener('DOMAttrModified', this._attrmodified, true);
+         ]]>
 	</xbl:constructor>
 
     <xbl:destructor>

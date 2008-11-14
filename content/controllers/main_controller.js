@@ -135,6 +135,11 @@
             // bind categories data
             var catePanelView =  new NSICategoriesView();
             var catescrollablepanel = document.getElementById('catescrollablepanel');
+            catescrollablepanel.setAttribute('rows', GeckoJS.Configure.read('vivipos.fec.settings.DepartmentRows'));
+            catescrollablepanel.setAttribute('cols', GeckoJS.Configure.read('vivipos.fec.settings.DepartmentCols'));
+            //catescrollablepanel.setAttribute('hideScrollbar', false);
+            catescrollablepanel.initGrid();
+
             catescrollablepanel.datasource = catePanelView;
 
 
@@ -168,6 +173,10 @@
             // bind plu data
             var firstCateNo = categories[0]['no'];
             var prodscrollablepanel = document.getElementById('prodscrollablepanel');
+            prodscrollablepanel.setAttribute('rows', GeckoJS.Configure.read('vivipos.fec.settings.PluRows'));
+            prodscrollablepanel.setAttribute('cols', GeckoJS.Configure.read('vivipos.fec.settings.PluCols'));
+            prodscrollablepanel.initGrid();
+
             var productPanelView = new NSIProductsView(productsIndexesByCate[firstCateNo]);
             prodscrollablepanel.datasource = productPanelView;
 
