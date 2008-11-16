@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<bindings xmlns="http://www.mozilla.org/xbl"
+          xmlns:xbl="http://www.mozilla.org/xbl"
+          xmlns:html="http://www.w3.org/1999/xhtml"
+          xmlns:svg="http://www.w3.org/2000/svg"
+          xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+    <binding id="viviuserlabel">
+        <resources>
+        </resources>
+
+        <!-- Event Handlers -->
+        <handlers>
+        </handlers>
+
+        <content>
+            <xul:textbox anonid="textbox"
+                         xbl:inherits="class,flex"
+                         readonly="true"/>
+        </content>
+        <implementation>
+
+            <!-- Fields -->
+
+            <!-- Constructor -->
+            <constructor>
+            <![CDATA[
+
+                var self = this;
+
+                // register observer listeners for 'acl-session-change'
+                this.observer = GeckoJS.Observer.newInstance({
+                        topics: ['acl-session-change'],
+                        observe: function(aSubject, aTopic, aData) {
+
+                            self._render();
+
+                        }
+                    }).register();
+
+                this.ready = function() {
+                    self._render();
+                }
+                window.addEventListener('DOMContentLoaded', this.ready, true);
+            ]]>
+            </constructor>
+
+            <!-- destructor -->
+            <destructor>
+            <![CDATA[
+                this.observer.unregister();
+                window.removeEventListener('DOMContentLoaded', this.ready, true);
+            ]]>
+            </destructor>
+
+            <!-- Methods -->
+
+            <method name="_render">
+                <body>
+                <![CDATA[
+
+                    var session = GeckoJS.Session.getInstance();
+
+                    if( !session.has('User') ) return;
+
+                    var user = session.get('User');
+
+                    var textbox = document.getAnonymousElementByAttribute(this, 'anonid', 'textbox');
+                    textbox.value = user.username;
+                ]]>
+                </body>
+            </method>
+
+        </implementation>
+    </binding>
+</bindings>

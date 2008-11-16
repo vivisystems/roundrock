@@ -53,9 +53,9 @@
                 <xul:spacer flex="0" xbl:inherits="class=panel_spacer_class" anonid="panel-spacer"/>
                 
                 <!-- Button Matrix -->
-                <xul:box flex="1"
-                         xbl:inherits="class=button_panel_class"
-                         anonid="keypad"
+                <xul:vbox flex="1"
+                          xbl:inherits="class=button_panel_class"
+                          anonid="keypad"
                          />
             </xul:hbox>
 
@@ -414,10 +414,10 @@
                                         // clear button keypad and render buttons with new settings
                                         self._selectedNode1 = self._selectedNode2 = null;
                                         self._clearKeypad();
-
+/*
                                         GREUtils.log('[REFRESH] preparing <' + self.id + '> to navigate to <' + self.currentPage +
                                                      '> with orientation <' + self.dir + '>');
-
+*/
                                         self._refreshCurrentPage();
                                     }
                                     break;
@@ -476,7 +476,7 @@
 -->
 
                         case 'dir':
-                            GREUtils.log('[ATTRIBUTE-MODIFIED]: attribute <' + evt.attrName + '> changed to value <' + evt.newValue + '>');
+                            //GREUtils.log('[ATTRIBUTE-MODIFIED]: attribute <' + evt.attrName + '> changed to value <' + evt.newValue + '>');
                             this._refreshOrientation(evt.newValue);
                             break;
 
@@ -1960,7 +1960,7 @@
                     if (rowColumnChanged) {
                         this._pageLayoutMap.clear();
                     }
-                    GREUtils.log('[SetSize]: navigating to page <' + this.currentPage + '>');
+                    //GREUtils.log('[SetSize]: navigating to page <' + this.currentPage + '>');
                     this._refreshCurrentPage();
                     this._selectedNode1 = null;
                     this._selectedNode2 = null;
