@@ -1,3 +1,4 @@
+<!ENTITY vivipos.fec.settings.terminalid "Terminal ID">
 <!ENTITY vivipos.fec.settings.backups "System Backup">
 <!ENTITY vivipos.fec.settings.format "Display/Number Format">
 <!ENTITY vivipos.fec.settings.defaultlogin "Default Login">

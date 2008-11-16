@@ -19,6 +19,7 @@
 
     <prefpane id="viviposSettingsPane" label="&vivipos.fec.settings.format;" image="chrome://viviecr/content/skin/icons/stock_print-setup.png">
 		<preferences>
+            <preference id="pref_terminalid" name="vivipos.fec.settings.TerminalID" type="string" />
 			<preference id="pref_defaultlogin" name="vivipos.fec.settings.DefaultLogin" type="bool" />
 			<preference id="pref_privatequeue" name="vivipos.fec.settings.PrivateQueue" type="bool" />
 			
@@ -34,6 +35,11 @@
             <preference id="pref_funcbtncols" name="vivipos.fec.settings.FuncBtnCols" type="int"/>
 
 		</preferences>
+
+        <hbox align="center">
+            <label control="terminalid" value="&vivipos.fec.settings.terminalid;"/>
+            <textbox preference="pref_terminalid" id="terminalid" maxlength="12"/>
+        </hbox>
 
 		<checkbox preference="pref_defaultlogin" id="pref_defaultloginCtrl" label="&vivipos.fec.settings.defaultlogin;" />
 		<checkbox preference="pref_privatequeue" id="pref_privatequeueCtrl" label="&vivipos.fec.settings.privatequeue;" />
