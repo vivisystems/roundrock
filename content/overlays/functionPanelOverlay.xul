@@ -20,7 +20,7 @@
             dir="normal"
             maxpage="3"
             wrap="0"
-            flex="0"
+            flex="1"
             mode="normal"
             restrictMode="normal"
             disabled="false"
