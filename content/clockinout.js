@@ -27,7 +27,6 @@
 
         }
 
-
         function createUsersBtn() {
             var userspad = document.getElementById("userspad");
             var datas;
@@ -48,18 +47,19 @@
         }
 
         function getJobs() {
-            var jobModel = new ViviPOS.JobModel();
+            var jobModel = new JobModel();
+
             jobs = jobModel.find('all', {
                 order: "no"
             });
-            
+
             jobs.sort(function(a, b) {
                 if (a.jobname < b.jobname) return -1;
                 else if (a.jobname > b.jobname) return 1;
                 else return 0;
             });
         }
-        
+
         getUsers();
         getJobs();
         $do('setJobList', jobs, 'ClockInOut');

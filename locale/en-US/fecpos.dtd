@@ -1,6 +1,7 @@
 <!ENTITY vivipos.fec.settings.category.backups "System Backup">
 <!ENTITY vivipos.fec.settings.category.display "Display Format">
 <!ENTITY vivipos.fec.settings.category.general "General Options">
+<!ENTITY vivipos.fec.settings.category.login "Sign In/Out">
 <!ENTITY vivipos.fec.settings.terminalid "Terminal ID">
 <!ENTITY vivipos.fec.settings.publicattendance "Individual Time and Attendance visible to all">
 <!ENTITY vivipos.fec.settings.defaultlogin "Default Login">
@@ -19,3 +20,6 @@
 <!ENTITY vivipos.fec.settings.rounding.to-nearest-dime "to nearest dime">
 <!ENTITY vivipos.fec.settings.rounding.always-round-up "always round up">
 <!ENTITY vivipos.fec.settings.rounding.always-round-down "always round down">
+<!ENTITY vivipos.fec.settings.login.autodiscardcart "Automatically discard cart content when signing off">
+<!ENTITY vivipos.fec.settings.login.autodiscardqueue "Automatically discard queued orders when signing off">
+<!ENTITY vivipos.fec.settings.login.mustemptyqueue "Order queue must be emptied when signing off">

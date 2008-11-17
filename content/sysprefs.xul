@@ -8,16 +8,7 @@
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/sysprefs.js" />
 
-    <prefpane id="saveoptions" label="&vivipos.fec.settings.category.backups;" image="chrome://viviecr/content/skin/icons/gnome-run.png">
-        <preferences>
-            <preference id="pref-backup" name="vivipos.fec.settings.backups" type="bool"/>
-            <preference id="pref-backupduration" name="vivipos.fec.settings.backups.duration" type="int"/>
-        </preferences>
-        <checkbox label="Automatically Save Backups" preference="pref-backup"/>
-        <textbox label="Duration:" preference="pref-backupduration"/>
-    </prefpane>
-
-    <prefpane id="viviposGeneralSettingsPane" label="&vivipos.fec.settings.category.general;" image="chrome://viviecr/content/skin/icons/stock_print-setup.png">
+    <prefpane id="generalSettingsPane" label="&vivipos.fec.settings.category.general;" image="chrome://viviecr/content/skin/icons/stock_print-setup.png">
         <preferences>
             <preference id="pref_publicattendance" name="vivipos.fec.settings.PublicAttendance" type="bool" />
             <preference id="pref_terminalid" name="vivipos.fec.settings.TerminalID" type="string" />
@@ -74,7 +65,18 @@
         
     </prefpane>
     
-    <prefpane id="viviposDisplaySettingsPane" label="&vivipos.fec.settings.category.display;" image="chrome://viviecr/content/skin/icons/stock_print-setup.png">
+    <prefpane id="loginSettingsPane" label="&vivipos.fec.settings.category.login;" image="chrome://viviecr/content/skin/icons/gnome-run.png">
+        <preferences>
+            <preference id="pref_autodiscardcart" name="vivipos.fec.settings.autodiscardcart" type="bool"/>
+            <preference id="pref_autodiscardqueue" name="vivipos.fec.settings.autodiscardqueue" type="bool"/>
+            <preference id="pref_mustemptyqueue" name="vivipos.fec.settings.mustemptyqueue" type="bool"/>
+        </preferences>
+        <checkbox label="&vivipos.fec.settings.login.autodiscardcart;" preference="pref_autodiscardcart"/>
+        <checkbox label="&vivipos.fec.settings.login.autodiscardqueue;" preference="pref_autodiscardqueue"/>
+        <checkbox label="&vivipos.fec.settings.login.mustemptyqueue;" preference="pref_mustemptyqueue"/>
+    </prefpane>
+
+    <prefpane id="displaySettingsPane" label="&vivipos.fec.settings.category.display;" image="chrome://viviecr/content/skin/icons/stock_print-setup.png">
         <preferences>
 			
             <preference id="pref_dateformatstr" name="vivipos.fec.settings.DateFormatStr" type="string"/>
@@ -116,5 +118,14 @@
         </hbox>
 
 	</prefpane>
-    <!-- prefpane id="pane2" label="pane2.title;" src="chrome://vivipos/content/syspref2.xul"/ -->
+
+    <prefpane id="backupSettingsPane" label="&vivipos.fec.settings.category.backups;" image="chrome://viviecr/content/skin/icons/gnome-run.png">
+        <preferences>
+            <preference id="pref_backup" name="vivipos.fec.settings.backups" type="bool"/>
+            <preference id="pref_backupduration" name="vivipos.fec.settings.backups.duration" type="int"/>
+        </preferences>
+        <checkbox label="Automatically Save Backups" preference="pref_backup"/>
+        <textbox label="Duration:" preference="pref_backupduration"/>
+    </prefpane>
+
 </prefwindow>

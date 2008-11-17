@@ -67,7 +67,7 @@ pref("vivipos.fec.settings.controlpanels.discount.icon", "chrome://viviecr/conte
 pref("vivipos.fec.settings.controlpanels.discount.roles", "admin");
 
 pref("vivipos.fec.settings.controlpanels.jobs.label", "Jobs");
-pref("vivipos.fec.settings.controlpanels.jobs.path", "chrome://viviecr/content/report.xul");
+pref("vivipos.fec.settings.controlpanels.jobs.path", "chrome://viviecr/content/jobs.xul");
 pref("vivipos.fec.settings.controlpanels.jobs.icon", "chrome://viviecr/content/skin/icons/document-open-recent.png");
 pref("vivipos.fec.settings.controlpanels.jobs.roles", "admin");
 

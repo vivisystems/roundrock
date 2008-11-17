@@ -34,14 +34,14 @@
         clockIn: function () {
             var username = $('#user_name').val();
             var userpass = $('#user_password').val();
+            var index = -1;
+            var job;
             
             if (this._listJob) {
-                var index = this._listJob.selectedIndex;
-                var job;
-                
+                index = this._listJob.selectedIndex;
                 if (index > -1) job = this._listJobs[index].jobname;
             }
-            
+
             if (index == -1) {
                 alert('Please Select a Job Function')
             }

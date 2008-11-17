@@ -42,8 +42,13 @@
                         <vbox>
                             <button id="numkey8"  label="PLU"  oncommand="" class="systembtn"  />
                             <sendkeybutton id="xkeyBtn"  label="X"   charCode='x' target="multinumberpad" class="systembtn"  />
+                            <!--
                             <button id="change_user" label="ChUser" oncommand="$do('ChangeUserDialog', null, 'Main');" class="systembtn">
                                 <label crop="center" style="max-width: none; width: 40px;" >Change Clerk</label>
+                            </button>
+                            -->
+                            <button id="sign_off" label="SignOff" oncommand="$do('signOff', null, 'Main');" class="systembtn">
+                                <label crop="center" style="max-width: none; width: 40px;" >Sign Off</label>
                             </button>
                 <!--button id="numkey00" label="QUICK CASH"    oncommand="$do('quickCash', null, 'Cart');" class="systembtn">
                   <label crop="center" style="max-width: none; width: 40px;" >QUICK CASH</label>
