@@ -24,7 +24,6 @@
                         <vbox>
                             <label hidden="true" form="jobForm" name="id" value="" />
                             <label id="" value="Job List:" />
-              <!-- simplelistbox id="cartSimpleListBox1" flex="1" rows="24"  headers="User No,User Name" style="width:300px; height:450px;"/ -->
                             <simplelistbox id="simpleListBoxJob" rows="16"  headers="Job Name" columns="jobname"  class="usersimplelistbox"/>
                         </vbox>
                         <vbox flex="1" style="overflow: auto" >
@@ -39,7 +38,6 @@
                         <spacer style="height: 10px;" />
                         <hbox>
                             <button label="Add" class="genbtn" oncommand="$do('add', null, 'Jobs');" />
-              <!-- button label="Refresh" class="genbtn" oncommand="$do('load', null, ViviPOS.CategoriesController);" / -->
                             <button label="Delete" class="genbtn" oncommand="$do('delete', null, 'Jobs');" />
                             <button label="Modify" class="genbtn" oncommand="$do('update', null, 'Jobs');" />
                         </hbox>

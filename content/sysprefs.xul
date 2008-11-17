@@ -8,7 +8,7 @@
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/sysprefs.js" />
 
-    <prefpane id="saveoptions" label="&vivipos.fec.settings.backups;" image="chrome://viviecr/content/skin/icons/gnome-run.png">
+    <prefpane id="saveoptions" label="&vivipos.fec.settings.category.backups;" image="chrome://viviecr/content/skin/icons/gnome-run.png">
         <preferences>
             <preference id="pref-backup" name="vivipos.fec.settings.backups" type="bool"/>
             <preference id="pref-backupduration" name="vivipos.fec.settings.backups.duration" type="int"/>
@@ -17,41 +17,24 @@
         <textbox label="Duration:" preference="pref-backupduration"/>
     </prefpane>
 
-    <prefpane id="viviposSettingsPane" label="&vivipos.fec.settings.format;" image="chrome://viviecr/content/skin/icons/stock_print-setup.png">
-		<preferences>
+    <prefpane id="viviposGeneralSettingsPane" label="&vivipos.fec.settings.category.general;" image="chrome://viviecr/content/skin/icons/stock_print-setup.png">
+        <preferences>
+            <preference id="pref_publicattendance" name="vivipos.fec.settings.PublicAttendance" type="bool" />
             <preference id="pref_terminalid" name="vivipos.fec.settings.TerminalID" type="string" />
-			<preference id="pref_defaultlogin" name="vivipos.fec.settings.DefaultLogin" type="bool" />
-			<preference id="pref_privatequeue" name="vivipos.fec.settings.PrivateQueue" type="bool" />
-			
-            <preference id="pref_dateformatstr" name="vivipos.fec.settings.DateFormatStr" type="string"/>
-            <preference id="pref_timeformatstr" name="vivipos.fec.settings.TimeformatStr" type="string"/>
             <preference id="pref_precisionprices" name="vivipos.fec.settings.PrecisionPrices" type="int"/>
             <preference id="pref_precisiontaxes" name="vivipos.fec.settings.PrecisionTaxes" type="int"/>
-            <preference id="pref_deprows" name="vivipos.fec.settings.DepartmentRows" type="int"/>
-            <preference id="pref_depcols" name="vivipos.fec.settings.DepartmentCols" type="int"/>
-            <preference id="pref_plurows" name="vivipos.fec.settings.PluRows" type="int"/>
-            <preference id="pref_plucols" name="vivipos.fec.settings.PluCols" type="int"/>
-            <preference id="pref_funcbtnrows" name="vivipos.fec.settings.FuncBtnRows" type="int"/>
-            <preference id="pref_funcbtncols" name="vivipos.fec.settings.FuncBtnCols" type="int"/>
-
-		</preferences>
-
+            <preference id="pref_defaultlogin" name="vivipos.fec.settings.DefaultLogin" type="bool" />
+            <preference id="pref_privatequeue" name="vivipos.fec.settings.PrivateQueue" type="bool" />
+        </preferences>
         <hbox align="center">
             <label control="terminalid" value="&vivipos.fec.settings.terminalid;"/>
             <textbox preference="pref_terminalid" id="terminalid" maxlength="12"/>
         </hbox>
 
-		<checkbox preference="pref_defaultlogin" id="pref_defaultloginCtrl" label="&vivipos.fec.settings.defaultlogin;" />
-		<checkbox preference="pref_privatequeue" id="pref_privatequeueCtrl" label="&vivipos.fec.settings.privatequeue;" />
-		
-        <hbox align="center">
-            <label control="dateformatstr" value="&vivipos.fec.settings.dateformat;"/>
-            <textbox preference="pref_dateformatstr" id="dateformatstr" maxlength="12"/>
-        </hbox>
-        <hbox align="center">
-            <label control="timeformatstr" value="&vivipos.fec.settings.timeformat;"/>
-            <textbox preference="pref_timeformatstr" id="timeformatstr" maxlength="12"/>
-        </hbox>
+        <checkbox preference="pref_defaultlogin" id="pref_defaultloginCtrl" label="&vivipos.fec.settings.defaultlogin;" />
+        <checkbox preference="pref_privatequeue" id="pref_privatequeueCtrl" label="&vivipos.fec.settings.privatequeue;" />
+        <checkbox preference="pref_publicattendance" id="pref_publicAttendanceCtrl" label="&vivipos.fec.settings.publicattendance;" />
+
         <hbox align="center">
             <label control="precisionprices" value="&vivipos.fec.settings.precisionprices;"/>
             <textbox preference="pref_precisionprices" id="precisionprices" type="number" size="2" maxlength="1" min="-100"/>
@@ -89,6 +72,30 @@
             </menulist>
         </hbox>
         
+    </prefpane>
+    
+    <prefpane id="viviposDisplaySettingsPane" label="&vivipos.fec.settings.category.display;" image="chrome://viviecr/content/skin/icons/stock_print-setup.png">
+        <preferences>
+			
+            <preference id="pref_dateformatstr" name="vivipos.fec.settings.DateFormatStr" type="string"/>
+            <preference id="pref_timeformatstr" name="vivipos.fec.settings.TimeformatStr" type="string"/>
+            <preference id="pref_deprows" name="vivipos.fec.settings.DepartmentRows" type="int"/>
+            <preference id="pref_depcols" name="vivipos.fec.settings.DepartmentCols" type="int"/>
+            <preference id="pref_plurows" name="vivipos.fec.settings.PluRows" type="int"/>
+            <preference id="pref_plucols" name="vivipos.fec.settings.PluCols" type="int"/>
+            <preference id="pref_funcbtnrows" name="vivipos.fec.settings.FuncBtnRows" type="int"/>
+            <preference id="pref_funcbtncols" name="vivipos.fec.settings.FuncBtnCols" type="int"/>
+
+        </preferences>
+
+        <hbox align="center">
+            <label control="dateformatstr" value="&vivipos.fec.settings.dateformat;"/>
+            <textbox preference="pref_dateformatstr" id="dateformatstr" maxlength="12"/>
+        </hbox>
+        <hbox align="center">
+            <label control="timeformatstr" value="&vivipos.fec.settings.timeformat;"/>
+            <textbox preference="pref_timeformatstr" id="timeformatstr" maxlength="12"/>
+        </hbox>
         <hbox align="center">
             <label control="deprows" value="Department Dimension => Rows:"/>
             <textbox preference="pref_deprows" id="deprows" type="number" size="2" maxlength="1"/>

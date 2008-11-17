@@ -7,26 +7,57 @@
     GeckoJS.Controller.extend( {
         name: 'ClockInOut',
         _listObj: null,
+        _listJob: null,
+        _listJobs: null,
         _listDatas: null,
+        _lastUser: null,
 
         getListObj: function() {
-            if(this._listObj == null) this._listObj = this.query("#simpleListBoxSummary")[0];
+            if(this._listObj == null) {
+                this._listObj = document.getElementById('simpleListBoxSummary');
+            }
             return this._listObj;
         },
         
+        view: function () {
+            var username = $('#user_name').val();
+            var userpass = $('#user_password').val();
+            
+            if (this.Acl.securityCheck(username, userpass, true)) {
+                this.listSummary();
+                this._lastUser = username;
+            } else {
+                alert('Please Check Username and Password...');
+            }
+        },
+
         clockIn: function () {
             var username = $('#user_name').val();
             var userpass = $('#user_password').val();
-            if (this.Acl.securityCheck(username, userpass, true)) {
+            
+            if (this._listJob) {
+                var index = this._listJob.selectedIndex;
+                var job;
                 
-                // alert('Clock In...' + username);
-                var clockstamp = new ViviPOS.ClockStampModel();
-                // clockstamp.saveStamp({username: username, clockin: true, clockout: false});
-                clockstamp.saveStamp('clockin', username);
-                this.listSummary();
-                // this.log(this.dump(clockstamp.find('all', {order: "created DESC"})));
-            } else {
-                alert('Please Check Username and Password...');
+                if (index > -1) job = this._listJobs[index].jobname;
+            }
+            
+            if (index == -1) {
+                alert('Please Select a Job Function')
+            }
+            else {
+                if (this.Acl.securityCheck(username, userpass, true)) {
+
+                    // alert('Clock In...' + username);
+                    var clockstamp = new ViviPOS.ClockStampModel();
+                    // clockstamp.saveStamp({username: username, clockin: true, clockout: false});
+                    clockstamp.saveStamp('clockin', username, job);
+                    this.listSummary();
+                    this._lastUser = username;
+                    // this.log(this.dump(clockstamp.find('all', {order: "created DESC"})));
+                } else {
+                    alert('Please Check Username and Password...');
+                }
             }
         },
 
@@ -62,8 +93,13 @@
             }
         },
 
-        listSummary: function (jobs) {
-            var self= this;
+        clearSummary: function () {
+            var listObj = this.getListObj();
+            if (listObj) listObj.resetData();
+            this._listDatas = null;
+        },
+        
+        listSummary: function () {
             var listObj = this.getListObj();
             var username = $('#user_name').val();
             var clockstamp = new ViviPOS.ClockStampModel();
@@ -72,21 +108,29 @@
                 conditions: "username='" + username + "' AND clockin_date='" + today.toString("yyyy-MM-dd") + "'",
                 order: "created"
             });
+            var oldDatas = this._listDatas;
             this._listDatas = stamps;
+            
             if (stamps) {
                 stamps.forEach(function(o){
-                    o.clockin_time = o.clockin_time ? o.clockin_time.substring(11, 18) : '--:--:--';
-                    o.clockout_time = o.clockout_time ? o.clockout_time.substring(11, 18) : '--:--:--';
-                    // self.log('clockin_time:' + o.clockin_time);
-                    // self.log('stamps this:' + self.dump(o));
+                    o.clockin_time = o.clockin_time ? o.clockin_time.substring(11, 19) : '--:--:--';
+                    o.clockout_time = o.clockout_time ? o.clockout_time.substring(11, 19) : '--:--:--';
                 });
-                // this.log('stamps:' + this.dump(stamps));
-                listObj.loadData(stamps);
+                if (oldDatas) {
+                    var lastIndex = oldDatas.length - 1;
+                    listObj.updateItemAt(lastIndex, stamps[lastIndex] );
+                    if (stamps.length > oldDatas.length) {
+                        listObj.insertItemAt(lastIndex + 1, stamps[lastIndex + 1] );
+                    }
+                }
+                else {
+                    listObj.loadData(stamps);
+                }
 
-                this._listObj.selectedIndex = 0;
-                this._listObj.ensureIndexIsVisible(0);
+                listObj.selectedIndex = stamps.length - 1;
+                listObj.ensureIndexIsVisible(listObj.selectedIndex);
             } else {
-                this._listObj.resetData();
+                listObj.resetData();
             }
         },
 
@@ -106,16 +150,29 @@
                 $('#sign_status').val('sign-off');
             }
         },
+        
+        setJobList: function (jobs) {
+            if (this._listJob == null) this._listJob = this.query("#simpleListBoxJobs")[0];
+            if (this._listJob) {
+                this._listJob.loadData(jobs);
+                this._listJobs = jobs;
+            }
+        },
 
         cancel: function () {
                 window.close();
         },
 
         setUsername: function (username) {
-            // alert('UserName: ' + GeckoJS.BaseObject.dump(this.data));
-            // alert('User: ' + username);
+            //alert('User: ' + username);
             $('#user_name').val(username);
-            this.listSummary();
+
+            if ((this._lastUser == username) || GeckoJS.Configure.read('vivipos.fec.settings.PublicAttendance')) {
+                this.listSummary();
+            }
+            else {
+                this.clearSummary();
+            }
         }
     });
 

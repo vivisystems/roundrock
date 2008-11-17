@@ -95,15 +95,16 @@
             if (this._listObj) this._listObj.loadData(groups);
             this._listDatas = groups;
 
+            /*
             alert(GeckoJS.BaseObject.dump(groups));
             alert(groups.constructor);
             alert(Array);
             if (groups.constructor == Array) alert('Array');
             else alert('Not Array');
-            
+            */
             GeckoJS.FormHelper.clearItems($('#user_grouplist')[0]);
             GeckoJS.FormHelper.appendItems($('#user_grouplist')[0], groups, function(){
-                alert('in function: ' + GeckoJS.BaseObject.dump(this));
+                //alert('in function: ' + GeckoJS.BaseObject.dump(this));
                 return {
                     // label: this.name + " - " + this.description,
                     label: this.description,

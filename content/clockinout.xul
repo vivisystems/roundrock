@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE window SYSTEM "chrome://viviecr/locale/fecpos.dtd">
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/content/skin/vivipos.css" type="text/css"?>
-<window id="changeuser" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<?xml-stylesheet href="chrome://viviecr/skin/clockin.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+<window id="clockinout" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/clockinout.js" />
 
     <box flex="1" class="mainpanel">
         <vbox  id="" pack="start" class="hboxb" flex="1">
-            <hbox pack="start">
-                <label id="inputtext" value="Clock In/Out: " style="font-size:28px;"/>
-                <label id="user_name" value="" style="font-size:28px;"/>
-            </hbox>
             <hbox  pack="start" flex="1">
                 <vbox style="width: 420px;" pack="start">
                     <scrollablepanel increment="50" dir="reverse" class="clockuserscrollablepanel clockusers" scrollUpClass="rightprevbtn blue" scrollDownClass="rightnextbtn blue">
@@ -20,33 +19,30 @@
                         </hbox>
                     </scrollablepanel>
                     <hbox>
-                        <simplelistbox id="simpleListBoxJobs" rows="16"  headers="Job List" columns="created_date,total,tax"  class="prodsimplelistbox jobs1" />
-                        <simplelistbox id="simpleListBoxSummary" rows="16"  headers="Clock In, Clock Out" columns="clockin_time,clockout_time"  class="prodsimplelistbox jobssummary1"/>
+                        <simplelistbox id="simpleListBoxJobs" rows="16"  headers="Job List" columns="jobname"  class="prodsimplelistbox jobs" />
+                        <simplelistbox id="simpleListBoxSummary" rows="16"  headers="Time In, Time Out, Job" columns="clockin_time,clockout_time,job"  class="prodsimplelistbox jobssummary"/>
                     </hbox>
                 </vbox>
+                <spacer width="10px"/>
                 <vbox>
-                    <hbox>
-                        <label id="inputtext" value=">" style="font-size:28px;"/>
-                        <label id="clock_now" value="" style="font-size:64px;"/>
-                    </hbox>
+                    <label id="user_name" value="" style="font-size:28px;"/>
+                    <viviclock id="clock" timeNotation="24" showdate="false" style="font-size:48px"/>
                     <vbox>
                         <label value="Password:" />
                         <textbox id="user_password" type="password" value="" />
                     </vbox>
                     <hbox>
-                        <numberpad id="multinumberpad" class="numberpad" target="null"/>
+                        <numberpad id="multinumberpad" class="numberpad" target="user_password"/>
                         <vbox>
-              <!-- sendkeybutton id="akeyBtn"  label="A"   charCode='A' target="user_password" class="systembtn"  / -->
-                            <sendkeybutton id="bkeyBtn"  label="BS"   keyCode='0x08' target="user_password" class="systembtn"  />
-                            <button id="clearBtn"  label="CLEAR" class="systembtn"  />
+                            <sendkeybutton id="bkeyBtn"  label="DEL"   keyCode='0x08' target="user_password" class="systembtn"  />
+                            <button id="clearBtn"  label="CLR" class="systembtn"  />
              
                         </vbox>
                     </hbox>
-                    <label id="sign_status" value="" style="font-size:28px; color: red;"/>
                     <spacer flex="1" />
                     <hbox>
+                        <vivibutton id="clock_view"  label="View Attendance"  oncommand="$do('view', null, 'ClockInOut');" class="clockinoutbtn"  />
                         <button id="clock_in"  label="Clock In"  oncommand="$do('clockIn', null, 'ClockInOut');" class="clockinoutbtn"  />
-                        <button id="clock_break"  label="Clock Break"  oncommand="$do('clockBreak', null, 'ClockInOut');" class="clockinoutbtn"  />
                         <button id="clock_out"  label="Clock Out"  oncommand="$do('clockOut', null, 'ClockInOut');" class="clockinoutbtn"  />
                     </hbox>
                     <spacer flex="1" />
@@ -54,8 +50,11 @@
                 <spacer flex="1" />
 
             </hbox>
-            <button label="OK" class="genbtn" oncommand="$do('cancel', null, 'ClockInOut');" />
-            <button label="Cancel" class="genbtn" oncommand="$do('cancel', null, 'ClockInOut');" />
+            <hbox flex="1" pack="center">
+                <button label="OK" class="genbtn" oncommand="$do('cancel', null, 'ClockInOut');" />
+                <spacer width="20px"/>
+                <button label="Cancel" class="genbtn" oncommand="$do('cancel', null, 'ClockInOut');" />
+            </hbox>
         </vbox>
 
     </box>
