@@ -26,8 +26,48 @@
                 //GREUtils.log('[CONSTRUCTOR]: entering');
 
                 this.events = GeckoJS.Session.getInstance().events;
+
+                var changeHandler = function (evt) {
+                    //GREUtils.log('[CHANGE]: entering id <' + this.id + '> event <' + evt.getType() + '> + <' + GeckoJS.BaseObject.dump(evt.getData()) + '>');
+
+                    var value = evt.getData().value;
+                    var index = this._locateKey(evt.getData().key);
+
+                    if (index != -1) {
+                        var valueNode = document.getAnonymousElementByAttribute(this, 'anonid', 'value' + index);
+                        if (valueNode) {
+                            valueNode.setAttribute('value', evt.getData().value);
+                        }
+                    }
+                }
+
+                var removeHandler = function (evt) {
+                    //GREUtils.log('[REMOVE]: entering <' + evt.getType() + '> + <' + GeckoJS.BaseObject.dump(evt.getData()) + '>');
+
+                    var index = this._locateKey(evt.getData());
+                    if (index != -1) {
+                        var valueNode = document.getAnonymousElementByAttribute(this,'anonid', 'value' + index);
+                        if (valueNode) {
+                            valueNode.setAttribute('value', '');
+                        }
+                    }
+                    //GREUtils.log('[REMOVE]: leaving');
+                }
+
+                var clearHandler = function (evt) {
+                    //GREUtils.log('[CLEAR]: entering <' + evt.getType() + '> + <' + GeckoJS.BaseObject.dump(evt.getData()) + '>');
+
+                    for (var i = 0; i < this.keys.length; i++) {
+                        var valueNode = document.getAnonymousElementByAttribute(this,'anonid', 'value' + i);
+                        if (valueNode) {
+                            valueNode.setAttribute('value', '');
+                        }
+                    }
+                    //GREUtils.log('[CLEAR]: leaving');
+                }
+
                 if (this.events) {
-                    this.events.addListener('change', this.changeHandler, this);
+                    this.events.addListener('change', changeHandler, this);
                     this.events.addListener('remove', this.removeHandler, this);
                     this.events.addListener('clear', this.clearHandler, this);
                     //GREUtils.log('[CONSTRUCTOR]: event listeners attached');
@@ -37,6 +77,7 @@
                 }
 
                 var self = this;
+                this.id = this.getAttribute('id');
                 this.ready = function() {
                     self._render();
                 }
@@ -96,7 +137,7 @@
 
                 if (isNaN(ncols) || (ncols < 1)) ncols = 1;
                 
-                //GREUtils.log('[RENDER]: retrieved labels <' + labels + '> and keys <' + this.keys + '>');
+                //GREUtils.log('[RENDER]: id <' + this.id + '> retrieved labels <' + labels + '> and keys <' + this.keys + '>');
                 var grid = document.getAnonymousElementByAttribute(this,'anonid', 'vivisessionstatus-grid');
                 //GREUtils.log('[RENDER]: located top-level grid <' + grid.nodeName + '>');
   
@@ -175,7 +216,7 @@
                 <parameter name="key"/>
                 <body>
                 <![CDATA[
-                    //GREUtils.log('[LOCATE]: checking for key <' + key + '>');
+                    //GREUtils.log('[LOCATE]: checking for key <' + key + '> in keys <' + this.keys + '');
 
                     var found = -1;
                     
@@ -191,62 +232,6 @@
                 ]]>
                 </body>
             </method>
-            
-            <method name="changeHandler">
-                <parameter name="evt"/>
-                <body>
-                <![CDATA[
-                    //GREUtils.log('[CHANGE]: entering <' + evt.getType() + '> + <' + GeckoJS.BaseObject.dump(evt.getData()) + '>');
-
-                    var value = evt.getData().value;
-                    var index = this._locateKey(evt.getData().key);
-
-                    if (index != -1) {
-                        var valueNode = document.getAnonymousElementByAttribute(this,'anonid', 'value' + index);
-                        if (valueNode) {
-                            valueNode.setAttribute('value', evt.getData().value);
-                        }
-                    }
-                    //GREUtils.log('[CHANGE]: leaving');
-                ]]>
-                </body>
-            </method>
-
-            <method name="removeHandler">
-                <parameter name="evt"/>
-                <body>
-                <![CDATA[
-                    //GREUtils.log('[REMOVE]: entering <' + evt.getType() + '> + <' + GeckoJS.BaseObject.dump(evt.getData()) + '>');
-
-                    var index = this._locateKey(evt.getData());
-                    if (index != -1) {
-                        var valueNode = document.getAnonymousElementByAttribute(this,'anonid', 'value' + index);
-                        if (valueNode) {
-                            valueNode.setAttribute('value', '');
-                        }
-                    }
-                    //GREUtils.log('[REMOVE]: leaving');
-                ]]>
-                </body>
-            </method>
-
-            <method name="clearHandler">
-                <parameter name="evt"/>
-                <body>
-                <![CDATA[
-                    //GREUtils.log('[CLEAR]: entering <' + evt.getType() + '> + <' + GeckoJS.BaseObject.dump(evt.getData()) + '>');
-
-                    for (var i = 0; i < this.keys.length; i++) {
-                        var valueNode = document.getAnonymousElementByAttribute(this,'anonid', 'value' + i);
-                        if (valueNode) {
-                            valueNode.setAttribute('value', '');
-                        }
-                    }
-                    //GREUtils.log('[CLEAR]: leaving');
-                ]]>
-                </body>
-            </method>
-
         </implementation>
     </binding>
 </bindings>
