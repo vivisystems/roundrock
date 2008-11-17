@@ -13,7 +13,7 @@
         </handlers>
 
         <content>
-        <xul:grid anonid="vivisessionstatus-grid" xbl:inherits="class" flex="1">
+        <xul:grid anonid="vivisessionstatus-grid" xbl:inherits="class,flex">
         </xul:grid>
         </content>
         <implementation>
@@ -35,9 +35,13 @@
                 else {
                     //GREUtils.log('[CONSTRUCTOR]: failed to get Session events');
                 }
-                _render();
+
+                var self = this;
+                this.ready = function() {
+                    self._render();
+                }
                 
-                //window.addEventListener('DOMContentLoaded', this.ready, true);
+                window.addEventListener('DOMContentLoaded', this.ready, true);
 
                 // register listener for attribute modified events
                 this.addEventListener('DOMAttrModified', this._attrModified, true);
@@ -83,6 +87,7 @@
                 var labels = this.getAttribute('labels').split(',');
                 var ncols = this.getAttribute('columns');
                 var useSep = (this.getAttribute('noseparator') != 'true');
+                var useLabel = (this.getAttribute('nolabels') != 'true');
                 this.keys = this.getAttribute('keys').split(',');
 
                 var labelClass = this.getAttribute('labelClass');
@@ -101,9 +106,11 @@
                 var columns = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:columns");
                 
                 for (var i = 0; i < ncols; i++) {
-                    var labelCol = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:column");
-                    labelCol.setAttribute('flex', '0');
-                    columns.appendChild(labelCol);
+                    if (useLabel) {
+                        var labelCol = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:column");
+                        labelCol.setAttribute('flex', '0');
+                        columns.appendChild(labelCol);
+                    }
                     
                     var valueCol = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:column");
                     valueCol.setAttribute('flex', '1');
@@ -128,12 +135,14 @@
                     var row = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:row");
 
                     for (j = 0; j < ncols; j++) {
-                        // create label
-                        var labelNode = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:textbox");
-                        labelNode.setAttribute('class', labelClass);
-                        labelNode.setAttribute('value', labels[index]);
-                        labelNode.setAttribute('readonly', 'true');
-                        row.appendChild(labelNode);
+                        if (useLabel) {
+                            // create label
+                            var labelNode = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:textbox");
+                            labelNode.setAttribute('class', labelClass);
+                            labelNode.setAttribute('value', labels[index]);
+                            labelNode.setAttribute('readonly', 'true');
+                            row.appendChild(labelNode);
+                        }
 
                         //GREUtils.log('[RENDER]: added field label <' + labelNode.getAttribute('value') + '>');
 
@@ -141,7 +150,7 @@
                         valueNode.setAttribute('class', valueClass);
                         valueNode.setAttribute('anonid', 'value' + index);
                         valueNode.setAttribute('value', GeckoJS.Session.get(this.keys[index]));
-//                        valueNode.setAttribute('readonly', 'true');
+                        valueNode.setAttribute('readonly', 'true');
                         row.appendChild(valueNode);
 
                         //GREUtils.log('[RENDER]: added field value <' + valueNode.getAttribute('value') + '>');

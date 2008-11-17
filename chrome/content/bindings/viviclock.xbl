@@ -49,7 +49,8 @@
                     var el = this._label;
                     el.timeNotation = this.timeNotation;
                     el.ampm = this.ampm;
-                    el.intervalId = setInterval(function() {
+                    el.showDate = (this.getAttribute('showdate') == 'true');
+                    el.setTime = function() {
 
                         var now = new Date();
                         var hours, minutes, seconds;
@@ -75,9 +76,17 @@
                          timeNow += am_pm_text;
                         }
 
+                        if (el.showDate) {
+                            //timeNow = now.toLocaleDateString() + ' ' + timeNow;
+                            timeNow = now.toLocaleDateString() + ' ' + timeNow;
+                        }
+                        
                         el.setAttribute('value', timeNow);
 
-                    }, 1000);
+                    }
+                    el.intervalId = setInterval(el.setTime, 1000);
+
+                    el.setTime();
 
           ]]>
                 </body>
