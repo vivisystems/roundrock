@@ -100,7 +100,7 @@
 		
             // var listObj = this.getListObj();
             this.getListObj();
-            var jobModel = new ViviPOS.JobModel();
+            var jobModel = new JobModel();
             var jobs = jobModel.find('all', {
                 order: "no"
             });

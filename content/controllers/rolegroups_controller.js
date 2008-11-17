@@ -93,7 +93,7 @@
             var groups = this.Acl.getGroupList();
             this._listObj.loadData(groups);
             this._listDatas = groups;
-
+/*
             GeckoJS.FormHelper.clearItems($('#user_grouplist')[0]);
             GeckoJS.FormHelper.appendItems($('#user_grouplist')[0], groups, function(){
                 return {
@@ -102,7 +102,7 @@
                     value: this.name
                 };
             });
-
+*/
             var i = 0;
             var j = 0;
             if (data) {

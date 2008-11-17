@@ -1,5 +1,3 @@
-GREUtils.define('ViviPOS.JobModel');
-ViviPOS.JobModel = GeckoJS.Model.extend({
-    name: 'Job'
-    
+var JobModel = window.JobModel = GeckoJS.Model.extend({
+    name: 'Job'    
 });

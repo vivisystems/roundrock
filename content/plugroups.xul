@@ -6,207 +6,49 @@
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
-<window id="pluprop" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
-    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/bootstrap.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/plus.js" />
+<window id="numpad" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-<!-- groupbox -->
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/plugroups.js" />
+
+  <!-- groupbox1 -->
     <box flex="1" class="mainpanel1 pad40">
         <vbox flex="1" class="panel40">
-            <label id="" value="PLU Property "  class="labeltitle"/>
-            <hbox flex="1" class="footlogo" style="overflow: hidden;">
-                <vbox flex="1">
-                    <!-- Begin Catalogs -->
-                    <viviscrollablebuttonpanel dir="reverse" id="catescrollablepanel" flex="1" cols="4" rows="2" labelField="name" imageField="no" oncommand="$do('changePluPanel',this.selectedIndex, 'Plus');"
-                      class="catescrollablepanel" buttonClass="catbtn button-radius" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue"/>
+            <vbox flex="1" class="footlogo">
 
-                    <!-- End Catalogs -->
+        <!-- Begin SysConfig 1 -->
 
-
-                    <!-- Begin PLUs -->
-                    <!-- scrollablepanel id="prodscrollablepanel" increment="65" dir="reverse" class="prodscrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray">
-                      <deck id="plu_deck">
-                      </deck>
-                    </scrollablepanel -->
-                    <viviscrollablebuttonpanel dir="reverse" id="prodscrollablepanel" flex="1" cols="2" rows="6" labelField="name" imageField="no"
-                        oncommand="$do('clickPluPanel',this.selectedIndex, 'Plus');"  class="prodscrollablepanel" buttonClass="plubtn smallimagebtn button-radius" scrollUpClass="rightprevbtn button-gray" scrollDownClass="rightnextbtn button-gray" />
-                    <!-- viviscrollabletree dir="reverse" id="prodscrollablepanel" flex="1" rows="7" headers="Name,Price" fields="name,sell_price" onclick="$do('clickPluPanel',this.selectedIndex, 'Main');"
-                       class="prodscrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray" /-->
-
-                    <!--viviscrollablebuttonpanel labelField="name" imageField="image" cols="4" rows="7" id="prodscrollablepanel" dir="reverse" class="prodscrollablepanel" panelClass="prodscrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray">
-                    </viviscrollablebuttonpanel-->
-                    <!-- viviscrollabletree headers="Name,Price" fields="name,sell_price" rows="7" id="prodscrollablepanel" dir="reverse" class="prodscrollablepanel" panelClass="prodscrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray">
-                    </viviscrollabletree -->
-
-                    <!-- End PLUs -->
-                    <spacer style="height: 60px;" />
-                </vbox>
-
-
-
-<!-- Begin General Properties -->
-
-                    <vbox  id="pluprop" >
-                        
-            <tabbox  flex="1">
-                <tabs >
-                   <tab label="PLU Data" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical"        />
-                   <tab label="Icon and Button Color" image="chrome://viviecr/content/skin/icons/plugins-24.png" orient="vertical"/>
-                   <tab label="Options" image="chrome://viviecr/content/skin/icons/comments-24.png" orient="vertical"/>
-                </tabs>
-
-<!-- End Decks -->
-                <tabpanels flex="1" >
-
-                <!-- deck id="prop_deck" -->
-                <tabpanel flex="1" >
-                        <hbox>
-                            <vbox  style="overflow: auto" >
-                                <hbox align="center">
-                                    <label hidden="true" form="productForm" name="id" value="" />
-                                    <label id="cat_no" hidden="true" form="productForm" name="cate_no" value="" />
-                                    <label value="Product No:"/>
-                                    <textbox id="product_no" form="productForm" name="no"/>
-                                </hbox>
-                                <hbox align="center">
-                                    <label value="Product Name:" />
-                                    <textbox id="product_name" form="productForm" name="name" value="" />
-                                </hbox>
-                                <hbox align="center">
-                                    <label  value="Barcode:" />
-                                    <textbox id="barcode" form="productForm" name="barcode" value="" />
-                                </hbox>
-                                <hbox align="center">
-                                    <label value="Buy Price:"  />
-                                    <textbox id="buy_price" type="number" decimalplaces="2" hidespinbuttons="true" form="productForm" name="buy_price"/>
-                                </hbox>
-                                <vbox align="left">
-                                    <label value="Sell Price:" />
-                                    <hbox>
-                                        <label value="Level 1:" />
-                                        <textbox id="sell_price" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_price" size="10"/>
-                                        <spacer />
-                                        <label value="HALO 1:" />
-                                        <textbox id="sell_halo" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_halo" size="10"/>
-                                    </hbox>
-                                    <hbox>
-                                        <label value="Level 2:" />
-                                        <textbox id="sell_price1" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_price1" size="10"/>
-                                        <spacer />
-                                        <label value="HALO 2:" />
-                                        <textbox id="sell_halo1" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_halo1" size="10"/>
-                                    </hbox>
-                                    <hbox>
-                                        <label value="Level 3:" />
-                                        <textbox id="sell_price2" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_price2" size="10"/>
-                                        <spacer />
-                                        <label value="HALO 3:" />
-                                        <textbox id="sell_halo2" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_halo2" size="10"/>
-                                    </hbox>
-                                </vbox>
-                                <hbox>
-                                    <label value="Rate:"/>
-                                    <menulist id="taxList" form="productForm" name="rate" label="Rate">
-                                        <menupopup style="width: 200px;">
-                                            
-                                        </menupopup>
-                                    </menulist>
-                                </hbox>
-                                <hbox align="center">
-                                    <label value="Stock:"  />
-                                    <textbox id="other_stock" form="productForm" name="stock" default="8"/>
-                                </hbox>
-                                <hbox align="center">
-                                    <label value="Min-Stock:"  />
-                                    <textbox id="other_min_stock" form="productForm" name="min_stock" default="6"/>
-                                </hbox>
-                                <hbox align="center">
-                                    <label value="Auto Maintain:"  />
-                                    <checkbox id="other_auto_maintain_stock" value="true" form="productForm" name="auto_maintain_stock" default="true"/>
-                                    <spacer style="60px;" />
-                                    <label value="Preparation PLU:"  />
-                                    <checkbox id="other_preparation" value="true" form="productForm" name="preparation_plu" default="true"/>
-                                </hbox>
-                                <hbox align="center">
-                                    <label value="Visible:"  />
-                                    <checkbox id="user_visible" value="true" form="productForm" name="visible" default="true"/>
-      <!-- textbox id="user_visible" value="1"/ -->
-                                </hbox>
-                                
-   
-                            </vbox>
-                            
-                        </hbox>
-                </tabpanel>
-<!-- End Departments - PLUs -->
-
-<!-- Begin General Properties -->
-                <tabpanel flex="1" >
-
-                        
+                    <vbox id="jobs">
+                        <label id="" value="PLU Groups" style="background:green; color:white;" />
+            <!-- hbox -->
                         <vbox>
-
-
-                                <groupbox>
-                                    <caption label="Photo:" />
-                                    <hbox>
-                                    <spacer style="width: 30px;" />
-                                    <image id="pluimage" pack="start" style="width:64px; height:64px;"/>
-                                    <spacer style="width: 30px;" />
-                                    <hbox>
-                                        <button id="imageBrowseBtn" class="iconbtn image32" image="chrome://viviecr/skin/images/add.png"/>
-                                        <button id="imageRemoveBtn" class="iconbtn image32" image="chrome://viviecr/skin/images/cancel.png"/>
-                                        <spacer flex="1" />
-                                    </hbox>
-                                    </hbox>
-                                </groupbox>
-
-
-                                <groupbox>
-                                    <caption label="Button Color:" />
-                                    <button_colorpicker id="other_button_color" form="productForm" name="button_color"/>
-                                </groupbox>
-
-                                <groupbox>
-                                    <caption label="Font Size:" />
-                                    <button_fontsizepicker id="other_font_size" form="productForm" name="font_size" />
-                                </groupbox>
-
+                            <label hidden="true" form="jobForm" name="id" value="" />
+                            <label id="" value="Group List:" />
+              <!-- simplelistbox id="cartSimpleListBox1" flex="1" rows="24"  headers="User No,User Name" style="width:300px; height:450px;"/ -->
+                            <simplelistbox id="simpleListBoxGroup" rows="16"  headers="Group Name" columns="name"  class="usersimplelistbox"/>
                         </vbox>
-<!-- End General Properties -->
+                        <vbox flex="1" style="overflow: auto" >
 
-                </tabpanel>
-<!-- End Options -->
-
-                <tabpanel>
-                    <label id="status_bar" value="" />
-                        <spacer  flex="1" />
+                            <hbox class="config" align="center">
+                                <label hidden="true" form="plugroupForm" name="id" value="" />
+                                <label value="Group Name:" />
+                                <textbox id="group_name" value="" form="plugroupForm" name="name" />
+                            </hbox>
+                            
+                        </vbox>
+            <!-- /hbox -->
+                        <spacer style="height: 10px;" />
                         <hbox>
-                            <button label="Add" class="genbtn" oncommand="$do('add', null, 'Plus');" />
-                            <button label="Delete" class="genbtn" oncommand="$do('delete', null, 'Plus');" />
-                            <button label="Modify" class="genbtn" oncommand="$do('modify', null, 'Plus');" />
+                            <button label="Add" class="genbtn" oncommand="$do('add', null, 'Plugroups');" />
+              <!-- button label="Refresh" class="genbtn" oncommand="$do('load', null, ViviPOS.CategoriesController);" / -->
+                            <button label="Delete" class="genbtn" oncommand="$do('delete', null, 'Plugroups');" />
+                            <button label="Modify" class="genbtn" oncommand="$do('update', null, 'Plugroups');" />
                         </hbox>
-                </tabpanel>
-                <!-- /deck -->
-                </tabpanels>
-                </tabbox>
-                <hbox>
-                    <button label="Add" class="editbtns" oncommand="$do('add', null, 'Plus');" />
-                    <spacer flex="1" />
-                    <button label="Delete" class="editbtns" oncommand="$do('delete', null, 'Plus');" />
-                    <button label="Modify" class="editbtns" oncommand="$do('modify', null, 'Plus');" />
-                </hbox>
-                <spacer style="height: 40px;" />
                     </vbox>
-
-               
-            </hbox>
+            </vbox>
         </vbox>
-
-
     </box>
-<!-- /groupbox -->
+  <!-- /groupbox -->
     <hbox id="okCancelButtonsRight" class="dialogbtns" />
 
 </window>
