@@ -1,5 +1,19 @@
+<!ENTITY vivipos.fec.settings.terminalid "Terminal ID">
 <!ENTITY vivipos.fec.settings.backups "System Backup">
-<!ENTITY vivipos.fec.settings.format "display Format">
+<!ENTITY vivipos.fec.settings.format "Display/Number Format">
 <!ENTITY vivipos.fec.settings.defaultlogin "Default Login">
 <!ENTITY vivipos.fec.settings.privatequeue "Private Order Queue">
+<!ENTITY vivipos.fec.settings.dateformat "Date Format:">
+<!ENTITY vivipos.fec.settings.timeformat "Time Format:">
+<!ENTITY vivipos.fec.settings.precisionprices "Precision to Use for Prices">
+<!ENTITY vivipos.fec.settings.precisiontaxes "Precision to Use for Taxes">
+<!ENTITY vivipos.fec.settings.roundingprices "Rounding Policy to Use for Prices">
+<!ENTITY vivipos.fec.settings.roundingtaxes "Rounding Policy to Use for Taxes">
 <!ENTITY Name "Name">
+<!ENTITY vivipos.fec.settings.rounding.to-nearest-precision "to nearest precision">
+<!ENTITY vivipos.fec.settings.rounding.to-nearest-half "to nearest half">
+<!ENTITY vivipos.fec.settings.rounding.to-nearest-quarter "to nearest quarter">
+<!ENTITY vivipos.fec.settings.rounding.to-nearest-nickel "to nearest nickel">
+<!ENTITY vivipos.fec.settings.rounding.to-nearest-dime "to nearest dime">
+<!ENTITY vivipos.fec.settings.rounding.always-round-up "always round up">
+<!ENTITY vivipos.fec.settings.rounding.always-round-down "always round down">

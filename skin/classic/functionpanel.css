@@ -2,8 +2,7 @@
     background: transparent;
     max-width: 346px;
     min-width: 346px;
-    min-height: 230px;
-    max-height: 230px;
+    height: 225px;
     margin: 0px 0px 0px 0px;
     padding: 0px 0px 0px 0px;
 }
@@ -132,4 +131,16 @@
     -moz-user-focus: ignore;
     -moz-background-clip: border;
     -moz-border-radius: 0px; 
+}
+
+.buttoncolor_baseclass {
+    min-height: 40px;
+    max-height: 40px;
+    max-width: 60px;
+}
+
+.buttonfontsize_baseclass {
+    min-height: 30px;
+    max-height: 40px;
+    max-width: 60px;
 }

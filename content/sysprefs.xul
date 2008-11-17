@@ -7,7 +7,7 @@
 
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/sysprefs.js" />
-    
+
     <prefpane id="saveoptions" label="&vivipos.fec.settings.backups;" image="chrome://viviecr/content/skin/icons/gnome-run.png">
         <preferences>
             <preference id="pref-backup" name="vivipos.fec.settings.backups" type="bool"/>
@@ -19,12 +19,14 @@
 
     <prefpane id="viviposSettingsPane" label="&vivipos.fec.settings.format;" image="chrome://viviecr/content/skin/icons/stock_print-setup.png">
 		<preferences>
+            <preference id="pref_terminalid" name="vivipos.fec.settings.TerminalID" type="string" />
 			<preference id="pref_defaultlogin" name="vivipos.fec.settings.DefaultLogin" type="bool" />
 			<preference id="pref_privatequeue" name="vivipos.fec.settings.PrivateQueue" type="bool" />
 			
             <preference id="pref_dateformatstr" name="vivipos.fec.settings.DateFormatStr" type="string"/>
             <preference id="pref_timeformatstr" name="vivipos.fec.settings.TimeformatStr" type="string"/>
-            <preference id="pref_decimal" name="vivipos.fec.settings.Decimal" type="int"/>
+            <preference id="pref_precisionprices" name="vivipos.fec.settings.PrecisionPrices" type="int"/>
+            <preference id="pref_precisiontaxes" name="vivipos.fec.settings.PrecisionTaxes" type="int"/>
             <preference id="pref_deprows" name="vivipos.fec.settings.DepartmentRows" type="int"/>
             <preference id="pref_depcols" name="vivipos.fec.settings.DepartmentCols" type="int"/>
             <preference id="pref_plurows" name="vivipos.fec.settings.PluRows" type="int"/>
@@ -34,27 +36,64 @@
 
 		</preferences>
 
+        <hbox align="center">
+            <label control="terminalid" value="&vivipos.fec.settings.terminalid;"/>
+            <textbox preference="pref_terminalid" id="terminalid" maxlength="12"/>
+        </hbox>
+
 		<checkbox preference="pref_defaultlogin" id="pref_defaultloginCtrl" label="&vivipos.fec.settings.defaultlogin;" />
 		<checkbox preference="pref_privatequeue" id="pref_privatequeueCtrl" label="&vivipos.fec.settings.privatequeue;" />
 		
         <hbox align="center">
-            <label control="dateformatstr" value="Date Format: "/>
+            <label control="dateformatstr" value="&vivipos.fec.settings.dateformat;"/>
             <textbox preference="pref_dateformatstr" id="dateformatstr" maxlength="12"/>
         </hbox>
         <hbox align="center">
-            <label control="timeformatstr" value="Time Format: "/>
+            <label control="timeformatstr" value="&vivipos.fec.settings.timeformat;"/>
             <textbox preference="pref_timeformatstr" id="timeformatstr" maxlength="12"/>
         </hbox>
         <hbox align="center">
-            <label control="decimal" value="Decimal Number: "/>
-            <textbox preference="pref_decimal" id="decimal" type="number" size="2" maxlength="1"/>
+            <label control="precisionprices" value="&vivipos.fec.settings.precisionprices;"/>
+            <textbox preference="pref_precisionprices" id="precisionprices" type="number" size="2" maxlength="1" min="-100"/>
+        </hbox>
+        <hbox align="center">
+            <label control="precisiontaxes" value="&vivipos.fec.settings.precisiontaxes;"/>
+            <textbox preference="pref_precisiontaxes" id="precisiontaxes" type="number" size="2" maxlength="1" min="-100"/>
+        </hbox>
+        <hbox align="center">
+            <label control="roundingprices" value="&vivipos.fec.settings.roundingprices;"/>
+            <menulist id="roundingprices" oncommand="GeckoJS.Configure.write('vivipos.fec.settings.RoundingPrices', this.value)">
+                <menupopup>
+                    <menuitem label="&vivipos.fec.settings.rounding.to-nearest-precision;" value="to-nearest-precision"/>
+                    <menuitem label="&vivipos.fec.settings.rounding.to-nearest-half;" value="to-nearest-half"/>
+                    <menuitem label="&vivipos.fec.settings.rounding.to-nearest-quarter;" value="to-nearest-quarter"/>
+                    <menuitem label="&vivipos.fec.settings.rounding.to-nearest-nickel;" value="to-nearest-nickel"/>
+                    <menuitem label="&vivipos.fec.settings.rounding.to-nearest-dime;" value="to-nearest-dime"/>
+                    <menuitem label="&vivipos.fec.settings.rounding.always-round-up;" value="always-round-up"/>
+                    <menuitem label="&vivipos.fec.settings.rounding.always-round-down;" value="always-round-down"/>
+                </menupopup>
+            </menulist>
+        </hbox>
+        <hbox align="center">
+            <label control="roundingtaxes" value="&vivipos.fec.settings.roundingtaxes;"/>
+            <menulist id="roundingtaxes" oncommand="GeckoJS.Configure.write('vivipos.fec.settings.RoundingTaxes', this.value)">
+                <menupopup>
+                    <menuitem label="&vivipos.fec.settings.rounding.to-nearest-precision;" value="to-nearest-precision"/>
+                    <menuitem label="&vivipos.fec.settings.rounding.to-nearest-half;" value="to-nearest-half"/>
+                    <menuitem label="&vivipos.fec.settings.rounding.to-nearest-quarter;" value="to-nearest-quarter"/>
+                    <menuitem label="&vivipos.fec.settings.rounding.to-nearest-nickel;" value="to-nearest-nickel"/>
+                    <menuitem label="&vivipos.fec.settings.rounding.to-nearest-dime;" value="to-nearest-dime"/>
+                    <menuitem label="&vivipos.fec.settings.rounding.always-round-up;" value="always-round-up"/>
+                    <menuitem label="&vivipos.fec.settings.rounding.always-round-down;" value="always-round-down"/>
+                </menupopup>
+            </menulist>
         </hbox>
         
         <hbox align="center">
-            <label control="decimal" value="Department Dimension => Rows:"/>
-            <textbox preference="pref_deprows" id="decimal" type="number" size="2" maxlength="1"/>
-            <label control="decimal" value="Cols:"/>
-            <textbox preference="pref_depcols" id="decimal" type="number" size="2" maxlength="1"/>
+            <label control="deprows" value="Department Dimension => Rows:"/>
+            <textbox preference="pref_deprows" id="deprows" type="number" size="2" maxlength="1"/>
+            <label control="depcols" value="Cols:"/>
+            <textbox preference="pref_depcols" id="depcols" type="number" size="2" maxlength="1"/>
         </hbox>
         <hbox align="center">
             <label control="decimal" value="PLUs Dimension => Rows:"/>
