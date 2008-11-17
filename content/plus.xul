@@ -165,12 +165,12 @@
 
                                 <groupbox>
                                     <caption label="Button Color:" />
-                                    <button_colorpicker id="other_button_color" form="productForm" name="button_color"/>
+                                    <button_colorpicker id="other_button_color" form="productForm" name="button_color" buttonClass="catbtn button-radius"/>
                                 </groupbox>
 
                                 <groupbox>
                                     <caption label="Font Size:" />
-                                    <button_fontsizepicker id="other_font_size" form="productForm" name="font_size" />
+                                    <button_fontsizepicker id="other_font_size" form="productForm" name="font_size" buttonClass="catbtn button-white button-radius" />
                                 </groupbox>
 
                         </vbox>
