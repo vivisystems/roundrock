@@ -1,150 +1,89 @@
 (function(){
 
     /**
-     * Class ViviPOS.MainController
+     * Class ViviPOS.PluGroupsController
      */
+    // GeckoJS.define('ViviPOS.JobsController');
+
     GeckoJS.Controller.extend( {
+        name: 'Plugroups',
+        scaffold: true,
 
-        name: 'Departments',
-        screenwidth: 800,
-        screenheight: 600,
-        _selectedIndex: null,
+        _listObj: null,
+        _listDatas: null,
 
-        createDepartmentPanel: function () {
-            /*
-            var categories;
-
-            var cateModel = new CategoryModel();
-            categories = cateModel.find('all', {
-                order: "no"
-            });
-            // GeckoJS.Session.add('categories', categories);
-            */
-
-            var categories = GeckoJS.Session.get('categories');
-
-            // bind categories data
-            var catePanelView =  new NSICategoriesView(categories);
-            var catescrollablepanel = document.getElementById('catescrollablepanel');
-            catescrollablepanel.datasource = catePanelView;
-
-
-            // bind plu data
-            var firstCateNo = categories[0]['no'];
-
-        },
-
-        changeDepartmentPanel: function(index) {
-
-            var categories = GeckoJS.Session.get('categories');
-            var cateNo = categories[index]['no'];
-
-            this._selectedIndex = index;
-            this.setInputData(categories[index]);
-
-        },
-
-        getInputData: function () {
-
-            var no  = this.query('#category_no').val();
-            var name  = this.query('#category_name').val();
-            var visible  = this.query('#category_visible').val() || 0;
-            var button_color  = this.query('#category_button_color').val();
-            var font_size  = this.query('#category_font_size').val();
-
-            return {
-                no: no,
-                name: name,
-                visible: visible,
-                button_color: button_color,
-                font_size: font_size
-            };
-
-        },
-
-        resetInputData: function () {
-
-            this.query('#category_no').val('');
-            this.query('#category_name').val('');
-            this.query('#category_visible').val('0');
-            this.query('#category_button_color').val('os');
-            this.query('#category_font_size').val('medium');
-
-        // return {no: no, name: name, visible: visible, button_color: button_color, font_color: font_color};
-
-        },
-
-        setInputData: function (valObj) {
-
-            this.query('#category_no').val(valObj.no);
-            this.query('#category_name').val(valObj.name);
-            this.query('#category_visible').val() || 0;
-            this.query('#category_button_color').val(valObj.button_color);
-            this.query('#category_font_size').val(valObj.font_size);
-            this.query('#cat_no').val(valObj.no);
-
-        // return {no: no, name: name, visible: visible, button_color: button_color, font_color: font_color};
-
-        },
-
-        add: function  () {
-            var inputData = this.getInputData();
-            /*
-            var inputData = {};
-            GREUtils.Dialog.prompt(null, "New Department", "Department No", input);
-            inputData.no = input;
-            GREUtils.Dialog.prompt(null, "New Department", "Department Name", input);
-            inputData.name = input;
-            */
-            var category = new CategoryModel();
-            category.save(inputData);
-
-            var categories = cateModel.find('all', {
-                order: "no"
-            });
-            GeckoJS.Session.add('categories', categories);
-
-            this.resetInputData();
-        },
-
-        modify: function  () {
-            var inputData = this.getInputData();
-            var cateModel = new CategoryModel();
-
-            if(this._selectedIndex >= 0) {
-
-                var categories = GeckoJS.Session.get('categories');
-                var category = categories[this._selectedIndex];
-
-                inputData.id = category.id;
-                cateModel.id = category.id;
-                cateModel.save(inputData);
-
-                var categories = cateModel.find('all', {
-                    order: "no"
-                });
-                GeckoJS.Session.add('categories', categories);
+        getListObj: function() {
+            if(this._listObj == null) {
+                this._listObj = this.query("#simpleListBoxGroup")[0];
             }
+            return this._listObj;
         },
 
-        remove: function() {
-
-            if (GREUtils.Dialog.confirm(null, "confirm delete", "Are you sure?")) {
-                var cateModel = new CategoryModel();
-                if(this._selectedIndex >= 0) {
-                    var categories = GeckoJS.Session.get('categories');
-                    var category = categories[this._selectedIndex];
-                    cateModel.del(category.id);
-
-                    var categories = cateModel.find('all', {
-                        order: "no"
-                    });
-                    GeckoJS.Session.add('categories', categories);
+        beforeScaffold: function(evt) {
+            if (evt.data == 'delete') {
+                if (GREUtils.Dialog.confirm(null, "confirm delete", "Are you sure?") == false) {
+                    evt.preventDefault();
                 }
             }
+        },
+
+        afterScaffoldSave: function(evt) {
+            // maintain Acl...
+            this.load(evt.data);
+        },
+        /*
+        beforeScaffoldDelete: function(evt) {
+            if (GREUtils.Dialog.confirm(null, "confirm delete", "Are you sure?") == false) {
+                evt.preventDefault();
+            }
+        },
+        */
+        afterScaffoldDelete: function() {
+            this.load();
+        },
+
+        load: function (data) {
+
+            // var listObj = this.getListObj();
+            this.getListObj();
+            // var pluGroupModel = new ViviPOS.PlugroupModel();
+            var pluGroupModel = new PlugroupModel();
+            var groups = pluGroupModel.find('all', {
+                order: "no"
+            });
+
+            this._listDatas = groups;
+            this._listObj.loadData(groups);
+
+            var i = 0;
+            var j = 0;
+            if (data) {
+                if ((typeof data) == 'object' ) {
+                    groups.forEach(function(o) {
+                        if (o.no == data.no) {
+                            j = i;
+                        }
+                        i++;
+                    });
+                }
+            }
+            this._listObj.selectedIndex = j;
+            this._listObj.ensureIndexIsVisible(j);
+        },
+
+        select: function(){
+
+            this.getListObj();
+            var selectedIndex = this._listObj.selectedIndex;
+            if (selectedIndex >= 0) {
+                var job = this._listDatas[selectedIndex];
+                this.requestCommand('view', job.id);
+            }
+
         }
 
     });
+
 
 })();
 

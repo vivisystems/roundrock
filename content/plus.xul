@@ -53,7 +53,7 @@
                 <tabs >
                    <tab label="PLU Data" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical"        />
                    <tab label="Icon and Button Color" image="chrome://viviecr/content/skin/icons/plugins-24.png" orient="vertical"/>
-                   <tab label="Options" image="chrome://viviecr/content/skin/icons/comments-24.png" orient="vertical"/>
+                   <tab label="Price Level" image="chrome://viviecr/content/skin/icons/comments-24.png" orient="vertical"/>
                 </tabs>
 
 <!-- End Decks -->
@@ -81,35 +81,34 @@
                                     <label value="Buy Price:"  />
                                     <textbox id="buy_price" type="number" decimalplaces="2" hidespinbuttons="true" form="productForm" name="buy_price"/>
                                 </hbox>
-                                <vbox align="left">
-                                    <label value="Sell Price:" />
-                                    <hbox>
-                                        <label value="Level 1:" />
-                                        <textbox id="sell_price" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_price" size="10"/>
-                                        <spacer />
-                                        <label value="HALO 1:" />
-                                        <textbox id="sell_halo" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_halo" size="10"/>
-                                    </hbox>
-                                    <hbox>
-                                        <label value="Level 2:" />
-                                        <textbox id="sell_price1" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_price1" size="10"/>
-                                        <spacer />
-                                        <label value="HALO 2:" />
-                                        <textbox id="sell_halo1" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_halo1" size="10"/>
-                                    </hbox>
-                                    <hbox>
-                                        <label value="Level 3:" />
-                                        <textbox id="sell_price2" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_price2" size="10"/>
-                                        <spacer />
-                                        <label value="HALO 3:" />
-                                        <textbox id="sell_halo2" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_halo2" size="10"/>
-                                    </hbox>
-                                </vbox>
+                                <hbox align="left">
+                                    <label value="Preset Price:" />
+                                    <textbox id="preset_sell_price" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="preset_sell_price" size="10"/>
+                                    <spacer />
+                                    <label value="HALO:" />
+                                    <textbox id="preset_sell_halo" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="preset_sell_halo" size="10"/>
+                                </hbox>
                                 <hbox>
                                     <label value="Rate:"/>
                                     <menulist id="taxList" form="productForm" name="rate" label="Rate">
                                         <menupopup style="width: 200px;">
                                             
+                                        </menupopup>
+                                    </menulist>
+                                </hbox>
+                                <hbox>
+                                    <label value="Plu Group:"/>
+                                    <menulist id="pluGroupList" form="productForm" name="pluGroup" label="Plu Group">
+                                        <menupopup style="width: 200px;">
+
+                                        </menupopup>
+                                    </menulist>
+                                </hbox>
+                                <hbox>
+                                    <label value="Condiment:"/>
+                                    <menulist id="condGroupList" form="productForm" name="condGroup" label="Condiment">
+                                        <menupopup style="width: 200px;">
+
                                         </menupopup>
                                     </menulist>
                                 </hbox>
@@ -180,13 +179,74 @@
 <!-- End Options -->
 
                 <tabpanel>
-                    <label id="status_bar" value="" />
-                        <spacer  flex="1" />
-                        <hbox>
-                            <button label="Add" class="genbtn" oncommand="$do('add', null, 'Plus');" />
-                            <button label="Delete" class="genbtn" oncommand="$do('delete', null, 'Plus');" />
-                            <button label="Modify" class="genbtn" oncommand="$do('modify', null, 'Plus');" />
-                        </hbox>
+                    <vbox>
+                                <vbox align="left">
+                                    <label value="Sell Price Level:" />
+                                    <hbox>
+                                        <label value="Level 1:" />
+                                        <textbox id="sell_price1" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_price1" size="10"/>
+                                        <spacer />
+                                        <label value="HALO 1:" />
+                                        <textbox id="sell_halo1" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_halo1" size="10"/>
+                                    </hbox>
+                                    <hbox>
+                                        <label value="Level 2:" />
+                                        <textbox id="sell_price2" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_price2" size="10"/>
+                                        <spacer />
+                                        <label value="HALO 2:" />
+                                        <textbox id="sell_halo2" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_halo2" size="10"/>
+                                    </hbox>
+                                    <hbox>
+                                        <label value="Level 3:" />
+                                        <textbox id="sell_price3" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_price3" size="10"/>
+                                        <spacer />
+                                        <label value="HALO 3:" />
+                                        <textbox id="sell_halo3" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_halo3" size="10"/>
+                                    </hbox>
+                                    <hbox>
+                                        <label value="Level 4:" />
+                                        <textbox id="sell_price4" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_price4" size="10"/>
+                                        <spacer />
+                                        <label value="HALO 4:" />
+                                        <textbox id="sell_halo4" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_halo4" size="10"/>
+                                    </hbox>
+                                    <hbox>
+                                        <label value="Level 5:" />
+                                        <textbox id="sell_price5" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_price5" size="10"/>
+                                        <spacer />
+                                        <label value="HALO 5:" />
+                                        <textbox id="sell_halo5" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_halo5" size="10"/>
+                                    </hbox>
+                                    <hbox>
+                                        <label value="Level 6:" />
+                                        <textbox id="sell_price6" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_price6" size="10"/>
+                                        <spacer />
+                                        <label value="HALO 6:" />
+                                        <textbox id="sell_halo6" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_halo6" size="10"/>
+                                    </hbox>
+                                    <hbox>
+                                        <label value="Level 7:" />
+                                        <textbox id="sell_price7" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_price7" size="10"/>
+                                        <spacer />
+                                        <label value="HALO 7:" />
+                                        <textbox id="sell_halo7" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_halo7" size="10"/>
+                                    </hbox>
+                                    <hbox>
+                                        <label value="Level 8:" />
+                                        <textbox id="sell_price8" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_price8" size="10"/>
+                                        <spacer />
+                                        <label value="HALO 8:" />
+                                        <textbox id="sell_halo8" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_halo8" size="10"/>
+                                    </hbox>
+                                    <hbox>
+                                        <label value="Level 9:" />
+                                        <textbox id="sell_price9" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_price9" size="10"/>
+                                        <spacer />
+                                        <label value="HALO 9:" />
+                                        <textbox id="sell_halo9" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_halo9" size="10"/>
+                                    </hbox>
+                                </vbox>
+                    </vbox>
                 </tabpanel>
                 <!-- /deck -->
                 </tabpanels>

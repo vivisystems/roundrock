@@ -1,5 +1,4 @@
-GREUtils.define('ViviPOS.CondimentModel');
-ViviPOS.CondimentModel = GeckoJS.Model.extend({
+var CondimentModel = window.CondimentModel = GeckoJS.Model.extend({
     name: 'Condiment',
-    hasMany: ['CondimentDetail']
+    belongsTo: ['CondimentGroup']
 });
