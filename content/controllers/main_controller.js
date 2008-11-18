@@ -9,24 +9,6 @@
         screenwidth: 800,
         screenheight: 600,
 
-        checkClerk: function () {
-
-            var confs = GeckoJS.Configure.read('vivipos.fec.settings');
-
-            // GREUtils.log(GeckoJS.BaseObject.dump(confs));
-            if (confs.DefaultLogin) {
-                this.Acl.securityCheck("achang", "1111")
-            }
-
-            var user = this.Acl.getUserPrincipal();
-
-            if ( user == null) {
-                $do('ChangeUserDialog', null, 'Main');
-            } else {
-                $('#clerk').val(user.username);
-            }
-        },
-
         SysConfigDialog: function () {
             var aURL = "chrome://viviecr/content/sysconfig.xul";
             var aName = "SysConfig";
@@ -208,10 +190,39 @@
         
         },
 
+        signIn: function(user) {
+            return this.Acl.securityCheck(user.username, user.password);
+        },
+
+        setClerk: function () {
+            var user = this.Acl.getUserPrincipal();
+
+            if (user) {
+                // perform user login initialization
+                // -> set price level
+                //    - if user has role 'vivipos_fec_acl_override_system_price_level', use user default price level
+                //    - otherwise use system price level
+                var sysPriceLevel = GeckoJS.Configure.read('vivipos.fec.settings.DefaultPriceLevel');
+                var userPriceLevel = user.default_price_level;
+                var canOverride = (GeckoJS.Array.inArray('vivipos_fec_acl_override_system_price_level', user.Roles) != -1);
+
+                if (userPriceLevel && canOverride) {
+                    $do('setPriceLevel', userPriceLevel, 'Cart');
+                }
+                else {
+                    $do('setPriceLevel', sysPriceLevel, 'Cart');
+                }
+            }
+        },
+
         signOff: function () {
             var autoDiscardCart = GeckoJS.Configure.read('vivipos.fec.settings.autodiscardcart');
             var autoDiscardQueue = GeckoJS.Configure.read('vivipos.fec.settings.autodiscardqueue');
             var mustEmptyQueue = GeckoJS.Configure.read('vivipos.fec.settings.mustemptyqueue');
+
+            var principal = this.Acl.getUserPrincipal();
+            var username = principal.username;
+            var canQueueOrder = (GeckoJS.Array.inArray('vivipos_fec_acl_queue_order', principal.Roles) != -1);
 
             var cart = GeckoJS.Session.get('cart');
             //GREUtils.log(GeckoJS.BaseObject.dump(cart));
@@ -221,8 +232,7 @@
             var responseDiscardCart = 2;  // 0: queue, 1: discard, 2: cancel
 
             if (promptDiscardCart) {
-                //TODO: need to check for access to queue orders
-                if (autoDiscardQueue || mustEmptyQueue) {
+                if (autoDiscardQueue || mustEmptyQueue || !canQueueOrder) {
                     if (!GREUtils.Dialog.confirm(null, 'Sign Off', 'Discard items that have been registered?')) return;
                     responseDiscardCart = 1;
                 }
@@ -246,8 +256,6 @@
             var orders = cart.orderQueue;
             var orderKeys = GeckoJS.BaseObject.getKeys(orders);
             var myOrders = [];
-            var username = this.Acl.getUserPrincipal().username;
-
             var responseDiscardQueue = 1; // 0: keep; 1: discard'
 
             orderKeys.forEach(function (key) {
@@ -259,7 +267,7 @@
             var promptDiscardQueue = (!autoDiscardQueue && (responseDiscardCart != 0) && (myOrders.length > 0));
 
             if (promptDiscardQueue) {
-                if (mustEmptyQueue) {
+                if (mustEmptyQueue || !canQueueOrder) {
                     if (GREUtils.Dialog.confirm(null, "Sign Off", "You have one or more queued orders. Discard them?") == false) {
                         return;
                     }

@@ -24,8 +24,7 @@
                         <vbox>
                             <label hidden="true" form="userForm" name="id" value="" />
                             <label id="" value="User List:" />
-              <!-- simplelistbox id="cartSimpleListBox1" flex="1" rows="24"  headers="User No,User Name" style="width:300px; height:450px;"/ -->
-                            <simplelistbox id="simpleListBoxUser" rows="16"  headers="No,User Name" columns="no,username"  class="usersimplelistbox"/>
+                            <simplelistbox id="simpleListBoxUser" rows="16"  headers="No,User,Default" columns="no,username,defaultuser_checked"  class="usersimplelistbox"/>
                         </vbox>
                         <vbox flex="1" style="overflow: auto" >
 
@@ -42,19 +41,27 @@
                                 <textbox type="password" id="user_password" value="" form="userForm" name="password" />
                             </hbox>
                             <hbox class="config" align="center">
-                                <label  value="Access Level:" />
+                                <label  value="Access Group:" />
                                 <menulist id="user_grouplist" label="Role" form="userForm" name="group">
                                     <menupopup width="160">
-                                        <menuitem label="Administrator" selected="true"  />
-                                        <menuitem label="Manager"  />
-                                        <menuitem label="Operator"  />
-                                        <menuitem label="Guest1" />
+                                        <menuitem label="Administrator" value="admin" selected="true"  />
+                                        <menuitem label="Manager" value="manager" />
+                                        <menuitem label="Operator" value="operator" />
+                                        <menuitem label="Guest" value="guest" />
                                     </menupopup>
                                 </menulist>
                             </hbox>
                             <hbox class="config" align="center">
+                                <label value="Default User:"  />
+                                <checkbox id="user_defaultuser" form="userForm" name="defaultuser"
+                                          oncommand="$do('setDefaultUser', this.checked, 'Users')"
+                                />
+                                <label hidden="true" id="user_defaultuser_label" form="userForm" name="defaultuser"/>
+                                <label hidden="true" id="user_defaultuser_checked" form="userForm" name="defaultuser_checked"/>
+                            </hbox>
+                            <hbox class="config" align="center">
                                 <label value="Default Price Level:"/>
-                                <textbox id="default_price_level" form="userForm" name="default_price_level" width="100px"/>
+                                <textbox id="default_price_level" form="userForm" type="number" min="1" max="9" value="" name="default_price_level" width="100px"/>
                             </hbox>
                             <hbox class="config" align="center">
                                 <label value="Item Discount Limit:"/>

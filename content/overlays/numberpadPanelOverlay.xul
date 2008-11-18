@@ -14,15 +14,13 @@
             <hbox flex="0">
                 <vbox flex="1">
                     <hbox flex="1">
-                        <isuserinrole roles="manager,admin" action ='display' style='width:240px;'>
-                            <sendkeybutton id="clearBtn"  label="CLEAR"   keyCode="0x27" target="multinumberpad" class="systembtn"  />
-                            <button id="new_order" label="NewOrder" class="systembtn" oncommand="$do('pushQueue',$('#cartSimpleListBox')[0].selectedIndex,'Cart');">
-                                <label crop="center" style="max-width: none; width: 40px;" >New Order</label>
-                            </button>
-                            <button id="quee_order_list" label="QuOrder" class="systembtn" oncommand="$do('SelectQueueDialog',null,'Main');">
-                                <label crop="center" style="max-width: none; width: 40px;" >List Queue</label>
-                            </button>
-                        </isuserinrole>
+                        <sendkeybutton id="clearBtn"  label="CLEAR"   keyCode="0x27" target="multinumberpad" class="systembtn"  />
+                        <button id="new_order" label="NewOrder" class="systembtn" oncommand="$do('pushQueue',$('#cartSimpleListBox')[0].selectedIndex,'Cart');">
+                            <label crop="center" style="max-width: none; width: 40px;" >New Order</label>
+                        </button>
+                        <button id="quee_order_list" label="QuOrder" class="systembtn" oncommand="$do('SelectQueueDialog',null,'Main');">
+                            <label crop="center" style="max-width: none; width: 40px;" >List Queue</label>
+                        </button>
                         <button id="modifyBtn" label="Modify" class="systembtn" oncommand="$do('modifyItem',$('#cartSimpleListBox')[0].selectedIndex,'Cart');"/>
                         <button id="deleteBtn" label="Delete" class="systembtn" oncommand="$do('removeItem',$('#cartSimpleListBox')[0].selectedIndex,'Cart');" />
     

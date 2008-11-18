@@ -71,10 +71,14 @@
                 alert('Duplicate user name...' + user.name);
                 evt.preventDefault();
             }
+            if (user.defaultuser) {
+                this.clearDefaultUser();
+            }
         },
 
         beforeScaffoldEdit: function (evt) {
             var user = evt.data;
+            
             if ((user.no == '') || (user.name == '')){
                 alert('user no or user name is empty...');
                 evt.preventDefault();
@@ -98,6 +102,9 @@
                 evt.preventDefault();
             }
 
+            if (user.defaultuser) {
+                this.clearDefaultUser();
+            }
         },
         
         load: function (data) {
@@ -137,8 +144,37 @@
                 this.requestCommand('view', user.id);
             }
 
+        },
+
+        clearDefaultUser: function() {
+            var userModel = new ViviPOS.UserModel();
+            var users = userModel.findByIndex('all', {
+                index: "defaultuser",
+                value: 'true'
+            });
+            if (users && users.length > 0) {
+                users.forEach(function(user) {
+                    user.defaultuser = 'false';
+                    user.defaultuser_checked = '';
+                    userModel.id = user.id;
+                    userModel.save(user);
+                });
+            }
+        },
+        
+        setDefaultUser: function(state) {
+            var label = document.getElementById('user_defaultuser_label');
+            var checked = document.getElementById('user_defaultuser_checked');
+            
+            if (state) {
+                checked.value = '***';
+                label.value = 'true';
+            }
+            else {
+                checked.value = '';
+                label.value = 'false';
+            }
         }
-	
     });
 
 

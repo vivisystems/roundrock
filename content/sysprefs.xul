@@ -14,7 +14,7 @@
             <preference id="pref_terminalid" name="vivipos.fec.settings.TerminalID" type="string" />
             <preference id="pref_precisionprices" name="vivipos.fec.settings.PrecisionPrices" type="int"/>
             <preference id="pref_precisiontaxes" name="vivipos.fec.settings.PrecisionTaxes" type="int"/>
-            <preference id="pref_defaultlogin" name="vivipos.fec.settings.DefaultLogin" type="bool" />
+            <preference id="pref_defaultpricelevel" name="vivipos.fec.settings.DefaultPriceLevel" type="int" />
             <preference id="pref_privatequeue" name="vivipos.fec.settings.PrivateQueue" type="bool" />
         </preferences>
         <hbox align="center">
@@ -22,10 +22,13 @@
             <textbox preference="pref_terminalid" id="terminalid" maxlength="12"/>
         </hbox>
 
-        <checkbox preference="pref_defaultlogin" id="pref_defaultloginCtrl" label="&vivipos.fec.settings.defaultlogin;" />
         <checkbox preference="pref_privatequeue" id="pref_privatequeueCtrl" label="&vivipos.fec.settings.privatequeue;" />
         <checkbox preference="pref_publicattendance" id="pref_publicAttendanceCtrl" label="&vivipos.fec.settings.publicattendance;" />
 
+        <hbox align="center">
+            <label control="precisionprices" value="&vivipos.fec.settings.defaultpricelevel;"/>
+            <textbox preference="pref_defaultpricelevel" id="defaultpricelevel" type="number" size="2" maxlength="1" min="1" max="9"/>
+        </hbox>
         <hbox align="center">
             <label control="precisionprices" value="&vivipos.fec.settings.precisionprices;"/>
             <textbox preference="pref_precisionprices" id="precisionprices" type="number" size="2" maxlength="1" min="-100"/>
@@ -70,10 +73,12 @@
             <preference id="pref_autodiscardcart" name="vivipos.fec.settings.autodiscardcart" type="bool"/>
             <preference id="pref_autodiscardqueue" name="vivipos.fec.settings.autodiscardqueue" type="bool"/>
             <preference id="pref_mustemptyqueue" name="vivipos.fec.settings.mustemptyqueue" type="bool"/>
+            <preference id="pref_defaultlogin" name="vivipos.fec.settings.DefaultLogin" type="bool" />
         </preferences>
-        <checkbox label="&vivipos.fec.settings.login.autodiscardcart;" preference="pref_autodiscardcart"/>
-        <checkbox label="&vivipos.fec.settings.login.autodiscardqueue;" preference="pref_autodiscardqueue"/>
-        <checkbox label="&vivipos.fec.settings.login.mustemptyqueue;" preference="pref_mustemptyqueue"/>
+        <checkbox preference="pref_defaultlogin" id="pref_defaultloginCtrl" label="&vivipos.fec.settings.defaultlogin;" />
+        <checkbox id="autodiscardcart" label="&vivipos.fec.settings.login.autodiscardcart;" preference="pref_autodiscardcart"/>
+        <checkbox id="autodiscardqueue" label="&vivipos.fec.settings.login.autodiscardqueue;" preference="pref_autodiscardqueue"/>
+        <checkbox id="mustemptyqueue" label="&vivipos.fec.settings.login.mustemptyqueue;" preference="pref_mustemptyqueue"/>
     </prefpane>
 
     <prefpane id="displaySettingsPane" label="&vivipos.fec.settings.category.display;" image="chrome://viviecr/content/skin/icons/stock_print-setup.png">

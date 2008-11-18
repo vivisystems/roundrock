@@ -3,9 +3,10 @@
 <!ENTITY vivipos.fec.settings.category.general "General Options">
 <!ENTITY vivipos.fec.settings.category.login "Sign In/Out">
 <!ENTITY vivipos.fec.settings.terminalid "Terminal ID">
-<!ENTITY vivipos.fec.settings.publicattendance "Individual Time and Attendance visible to all">
-<!ENTITY vivipos.fec.settings.defaultlogin "Default Login">
-<!ENTITY vivipos.fec.settings.privatequeue "Private Order Queue">
+<!ENTITY vivipos.fec.settings.publicattendance "Individual Time-and-Attendance visible to all">
+<!ENTITY vivipos.fec.settings.defaultlogin "Automatically log in default user">
+<!ENTITY vivipos.fec.settings.privatequeue "Private order queue">
+<!ENTITY vivipos.fec.settings.defaultpricelevel "System default price level">
 <!ENTITY vivipos.fec.settings.dateformat "Date Format:">
 <!ENTITY vivipos.fec.settings.timeformat "Time Format:">
 <!ENTITY vivipos.fec.settings.precisionprices "Precision to Use for Prices">

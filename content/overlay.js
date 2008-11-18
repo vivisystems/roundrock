@@ -24,7 +24,28 @@
 
         GeckoJS.Configure.loadPreferences("vivipos.fec.settings");
 
-        $do('checkClerk', null, "Main");
+        var defaultLogin = GeckoJS.Configure.read('vivipos.fec.settings.DefaultLogin');
+        var acl = new GeckoJS.AclComponent();
+
+        if (defaultLogin) {
+            var userModel = new ViviPOS.UserModel();
+            var users = userModel.findByIndex('all', {
+                index: "defaultuser",
+                value: 'true'
+            });
+
+            // we will only pick the first default user if there are more than one
+            if (users && (users.length > 0)) {
+                $do('signIn', users[0], 'Main');
+            }
+        }
+
+        if (acl.getUserPrincipal()) {
+            $do('setClerk', null, 'Main');
+        }
+        else {
+            $do('ChangeUserDialog', null, 'Main');
+        }
         $do('createPluPanel', null, "Main");
 
         // ViviPOS.VfdController.appendController();

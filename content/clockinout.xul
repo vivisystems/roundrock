@@ -50,7 +50,8 @@
                 <spacer flex="1" />
 
             </hbox>
-            <hbox flex="1" pack="center">
+            <spacer flex="1"/>
+            <hbox pack="center">
                 <button label="OK" class="genbtn" oncommand="$do('cancel', null, 'ClockInOut');" />
                 <spacer width="20px"/>
                 <button label="Cancel" class="genbtn" oncommand="$do('cancel', null, 'ClockInOut');" />

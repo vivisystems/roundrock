@@ -64,12 +64,14 @@
             var rolelist = document.getElementById("rolescrollablepanel");
             var self = this;
             var roles = this.Acl.getRoleList();
-            roles.forEach(function(o) {
-                var checkbox = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:checkbox");
-                checkbox.setAttribute('label', o.description);
-                checkbox.setAttribute('id', 'role_' + o.name);
-                rolelist.appendChild(checkbox);
-            });
+            if (rolelist && roles && roles.length > 0) {
+                roles.forEach(function(o) {
+                    var checkbox = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:checkbox");
+                    checkbox.setAttribute('label', o.description);
+                    checkbox.setAttribute('id', 'role_' + o.name);
+                    rolelist.appendChild(checkbox);
+                });
+            }
         },
         
         resetRoleList: function (rolegroup) {
@@ -95,22 +97,25 @@
             if (this._listObj) this._listObj.loadData(groups);
             this._listDatas = groups;
 
-            /*
-            alert(GeckoJS.BaseObject.dump(groups));
-            alert(groups.constructor);
-            alert(Array);
-            if (groups.constructor == Array) alert('Array');
-            else alert('Not Array');
-            */
             GeckoJS.FormHelper.clearItems($('#user_grouplist')[0]);
+            /* TODO: restore to FormHelper once Array bug is fixed
             GeckoJS.FormHelper.appendItems($('#user_grouplist')[0], groups, function(){
-                //alert('in function: ' + GeckoJS.BaseObject.dump(this));
                 return {
                     // label: this.name + " - " + this.description,
                     label: this.description,
                     value: this.name
                 };
             });
+            */
+           var groupListObj = document.getElementById('user_grouplist');
+           if (groupListObj) {
+               groupListObj.removeAllItems();
+               if (groups) {
+                   groups.forEach(function(group) {
+                       groupListObj.insertItemAt(groupListObj.itemCount, group.description, group.name);
+                   })
+               }
+           }
             var i = 0;
             var j = 0;
             if (data) {
@@ -123,8 +128,10 @@
                     });
                 }
             }
-            listObj.selectedIndex = j;
-            listObj.ensureIndexIsVisible(j);
+            if (this._listObj) {
+                listObj.selectedIndex = j;
+                listObj.ensureIndexIsVisible(j);
+            }
         },
 	
         select: function(){

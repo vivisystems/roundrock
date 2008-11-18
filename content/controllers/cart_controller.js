@@ -9,7 +9,7 @@
         components: ['Tax'],
         _cartObj: null,
         _key: '',
-        _priceLevel: 0,
+        _priceLevel: GeckoJS.Configure.read('vivipos.fec.settings.DefaultPriceLevel'),
 	
         getCart: function() {
             return GeckoJS.Session.get('cart');
@@ -369,9 +369,16 @@
 
         },
 
+        setPriceLevel: function(level) {
+            if (level < 1) level = 1;
+            else if (level > 9) level = 9;
+            this._priceLevel = level;
+            GeckoJS.Session.set('vivipos_fec_price_level', level);
+        },
+        
         priceLevel: function() {
-            this._priceLevel = (this._priceLevel++ < 2) ? (this._priceLevel) : 0;
-	GeckoJS.Session.set('vivipos_fec_price_level', this._priceLevel);
+            this._priceLevel = (this._priceLevel++ < 9) ? (this._priceLevel) : 1;
+            GeckoJS.Session.set('vivipos_fec_price_level', this._priceLevel);
 /*
             var lbl = this.query('#shiftPriceStatus');
             switch (this._priceLevel) {
