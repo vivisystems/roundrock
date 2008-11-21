@@ -270,7 +270,7 @@
                                 <vbox flex="1">
                                     <groupbox flex="1">
                                         <caption label="Link Group:" />
-                                        <viviscrollablebuttonpanel id="group_listscrollablepanel" seltype="multiple" flex="1" cols="3" rows="6" labelField="name" imageField="no" oncommand=""
+                                        <viviscrollablebuttonpanel id="group_listscrollablepanel" form="productForm" name="link_group" default="" seltype="multiple" flex="1" cols="3" rows="6" labelField="name" imageField="no" oncommand=""
                                         class="catescrollablepanel" buttonClass="catbtn button-radius" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue"/>
                                     </groupbox>
                                 </vbox>

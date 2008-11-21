@@ -1,27 +1,35 @@
 (function() {
 
     var NSIPluGroupsView = window.NSIPluGroupsView = GeckoJS.NSITreeViewArray.extend({
-        /*
-        init: function(data) {
-            this._super(data);
 
-            this._data = GeckoJS.Session.get('condGroups');
-            // alert(GeckoJS.BaseObject.dump(Application.storage.get('GeckoJS_Session_events', [])));
-            // alert(GeckoJS.BaseObject.dump(GeckoJS.Session.getEvents().listeners));
-            var self = this;
-            GeckoJS.Session.addEventListener('change', function(evt){
-                if (evt.data.key == 'condGroups') {
-                    //alert('categories refresh');
-                    self._data = evt.data.value;
-                    try {
-                        self.tree.invalidate();
-                    }catch(e) {}
-                }
+        getValue: function() {
+            
+            var selectedItems = this.tree.selectedItems;
+            var selectedItemsStr = [];
+
+            var data = this.data;
+            selectedItems.forEach(function(idx){
+                selectedItemsStr.push(data[idx].name);
             });
-            // alert(GeckoJS.BaseObject.dump(GeckoJS.Session.getEvents().listeners));
-            //alert(GeckoJS.BaseObject.dump(GeckoJS.Session.getEvents().listeners));
+
+            return selectedItemsStr.join(',');
         },
-        */
+
+        setValue: function(items) {
+
+            var selectedItemsStr = items.split(',');
+            var selectedItems = [];
+
+            var dataNameIndex = GeckoJS.Array.objectExtract(this.data, '{n}.name');
+
+            selectedItemsStr.forEach(function(name){
+                var index = GeckoJS.Array.inArray(name, dataNameIndex);
+                if (index != -1) selectedItems.push(index);
+            });
+            this.tree.selectedItems = selectedItems;
+            
+        },
+
         getCurrentIndexData: function (row) {
             return this.data[row];
         },

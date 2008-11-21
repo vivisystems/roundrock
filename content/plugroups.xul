@@ -26,16 +26,12 @@
                             <separator class="groove-thin"/>
 
                             <vbox>
-                                <!-- hbox align="center">
-                                    <label hidden="true" form="jobForm" name="id" value="" />
-                                    <label value="Job No:"/>
-                                    <textbox id="no" form="jobForm" name="no" readonly="true"/>
-                                </hbox -->
                                 <hbox align="center">
                                     <label id="plugroup_id" hidden="true" form="plugroupForm" name="id" value="" />
                                     <label value="Group Name:" />
                                     <textbox id="plugroup_name" value="" form="plugroupForm" name="name" />
                                 </hbox>
+                                <checkbox id="visible" value="true" label="Visible" form="productForm" name="visible" default="true"/>
                                 <spacer style="height: 10px;" />
                                 <hbox>
                                     <button label="Add" class="editbtns" oncommand="$do('add', null, 'Plugroups');" />

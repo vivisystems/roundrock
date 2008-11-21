@@ -42,15 +42,17 @@
             this.productPanelView.setCatePanelIndex(index);
             var category = this.depPanelView.getCurrentIndexData(index);
 
+            this.resetInputData();
             $("#cate_no").val(category.no);
-
         },
 
         clickPluPanel: function(index) {
-
+            this.resetInputData();
             var product = this.productPanelView.getCurrentIndexData(index);
             this.setInputData(product);
             this._selectedIndex = index;
+
+            
 
         },
 

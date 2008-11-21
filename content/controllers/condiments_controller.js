@@ -48,9 +48,9 @@
         },
 
         clickCondimentPanel: function(index) {
+            this._selectedCondIndex = index;
             var condGroups = GeckoJS.Session.get('condGroups');
             var conds = condGroups[this._selectedIndex]['Condiment'];
-            this._selectedCondIndex = index;
             this.setInputCondData(conds[index]);
         },
 
@@ -92,6 +92,10 @@
                 });
                 GeckoJS.Session.add('condGroups', condGroups);
 
+                var condPanelView =  new NSICondGroupsView(condGroups);
+                var condscrollablepanel = document.getElementById('condimentscrollablepanel');
+                condscrollablepanel.datasource = condPanelView;
+
                 
             }
             this.resetInputData();
@@ -114,6 +118,10 @@
                     order: "no"
                 });
                 GeckoJS.Session.add('condGroups', condGroups);
+
+                var condPanelView =  new NSICondGroupsView(condGroups);
+                var condscrollablepanel = document.getElementById('condimentscrollablepanel');
+                condscrollablepanel.datasource = condPanelView;
             }
             this.resetInputData();
         },
@@ -131,6 +139,10 @@
                         order: "no"
                     });
                     GeckoJS.Session.add('condGroups', condGroups);
+
+                    var condPanelView =  new NSICondGroupsView(condGroups);
+                    var condscrollablepanel = document.getElementById('condimentscrollablepanel');
+                    condscrollablepanel.datasource = condPanelView;
                 }
             }
         },
@@ -175,7 +187,9 @@
                 });
                 GeckoJS.Session.add('condGroups', condGroups);
 
-                this.resetInputData();
+                // this.resetInputData();
+                this.clickCondimentPanel(this._selectedCondIndex);
+
             }
         },
 
@@ -196,6 +210,7 @@
                     order: "no"
                 });
                 GeckoJS.Session.add('condGroups', condGroups);
+                this.clickCondimentPanel(this._selectedCondIndex);
             }
         },
 
@@ -214,6 +229,7 @@
                         order: "no"
                     });
                     GeckoJS.Session.add('condGroups', condGroups);
+                    this.clickCondimentPanel(this._selectedCondIndex);
                 }
             }
         },

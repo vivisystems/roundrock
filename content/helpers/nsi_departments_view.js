@@ -24,9 +24,9 @@
             });
 
             var catescrollablepanel = document.getElementById(data);
-            catescrollablepanel.setAttribute('rows', GeckoJS.Configure.read('vivipos.fec.settings.DepartmentRows'));
-            catescrollablepanel.setAttribute('cols', GeckoJS.Configure.read('vivipos.fec.settings.DepartmentCols'));
-            catescrollablepanel.initGrid();
+            //catescrollablepanel.setAttribute('rows', GeckoJS.Configure.read('vivipos.fec.settings.DepartmentRows'));
+            //catescrollablepanel.setAttribute('cols', GeckoJS.Configure.read('vivipos.fec.settings.DepartmentCols'));
+            //catescrollablepanel.initGrid();
             catescrollablepanel.datasource = this;
             
             this.updateCategories();
