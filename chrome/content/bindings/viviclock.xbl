@@ -23,11 +23,13 @@
             </xul:box>
         </content>
 
+
+
         <xbl:implementation>
 
-              <field name="_label">
+            <field name="_label">
                 document.getAnonymousElementByAttribute(this, "anonid", "clock");
-              </field>
+            </field>
 
             <field name="timeNotation">
                 this.getAttribute("timeNotation") || '12';
@@ -35,13 +37,15 @@
             <field name="ampm" >
                 this.getAttribute("ampm") || "true" ;
             </field>
+
+            <property name="value" onget="this._label.getAttribute('value');" readonly="true" />
             
             <xbl:constructor>
-            this.startClock();
+                this.startClock();
             </xbl:constructor>
 
             <xbl:destructor>
-            this.stopClock();
+                this.stopClock();
             </xbl:destructor>
 
             <method name="startClock">
