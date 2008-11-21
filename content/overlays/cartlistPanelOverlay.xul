@@ -14,7 +14,13 @@
         <onscreenvfd  id="onscreenvfd" maxlen="32" class="vbox_vfd" labelClass="label_vfd" value="TOTAL: 0" />
 
         <vbox flex="1">
-          <cartlistbox id="cartSimpleListBox" flex="1" rows="16"  headers="ProductName,Qty,Price,Subtotal" columns="name,sell_qty,sell_price,sell_subtotal" rowheight="42" scrollUpClass="rightprevbtn  button-gray" scrollDownClass="rightnextbtn  button-gray" listboxClass="cartlistbox" pack="left"/>
+
+          <viviscrollabletree class="cartList" id="cartList" hidecolumnpicker="false" hidevscroll="true" flex="1" headers="ProductName,Qty,Price,Subtotal" fields="name,current_qty,current_price,current_subtotal" rows="8" scrollUpClass="rightprevbtn  button-gray" scrollDownClass="rightnextbtn  button-gray" >
+            <vbox>
+                    <button id="btnPlus"  label="+"  oncommand="$do('modifyQty', 'plus', 'Cart');"  class="button-gray systoolbtn mediumimagebtn" image="chrome://viviecr/skin/images/list-add.png" />
+                    <button id="btnMinus"  label="-"  oncommand="$do('modifyQty', 'minus', 'Cart');"  class="button-gray systoolbtn mediumimagebtn" image="chrome://viviecr/skin/images/list-remove.png" />
+            </vbox>
+         </viviscrollabletree>
 
                 <vivisessionstatus id="vivipos_fec_order_status" flex="1"
                                class="orderstatus"

@@ -632,3 +632,7 @@ treeitem {
   height: 24px;
   width: 24px;
 }
+
+.cartList scrollbar {
+    display: none;
+}

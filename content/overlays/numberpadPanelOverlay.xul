@@ -23,8 +23,8 @@
                                 <label crop="center" style="max-width: none; width: 40px;" >List Queue</label>
                             </button>
                         </isuserinrole>
-                        <button id="modifyBtn" label="Modify" class="systembtn" oncommand="$do('modifyItem',$('#cartSimpleListBox')[0].selectedIndex,'Cart');"/>
-                        <button id="deleteBtn" label="Delete" class="systembtn" oncommand="$do('removeItem',$('#cartSimpleListBox')[0].selectedIndex,'Cart');" />
+                        <button id="modifyBtn" label="Modify" class="systembtn" oncommand="$do('modifyItem', null,'Cart');"/>
+                        <button id="voidBtn" label="VOID" class="systembtn" oncommand="$do('voidItem', null,'Cart');" />
     
                     </hbox>
 

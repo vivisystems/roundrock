@@ -22,43 +22,8 @@
 
         }
 
-        GeckoJS.Configure.loadPreferences("vivipos.fec.settings");
+        $do('initial', null, "Main");
 
-        $do('checkClerk', null, "Main");
-        $do('createPluPanel', null, "Main");
-
-        // ViviPOS.VfdController.appendController();
-        var self = ViviPOS.VfdController.getInstance();
-        var keypad = GeckoJS.Controller.getInstanceByName('Keypad');
-        var cart = GeckoJS.Controller.getInstanceByName('Cart');
-        // hook keypadcontroller
-        if(keypad) {
-
-            keypad.addEventListener('onAddBuffer', function(evt) {
-                self.onAddBuffer(evt);
-            });
-        }
-        if(cart) {
-            cart.addEventListener('onSetQty', function(evt) {
-                self.onSetQty(evt);
-            });
-            cart.addEventListener('onClear', function(evt) {
-                self.onClear(evt);
-            });
-
-            cart.addEventListener('afterAddItem', function(evt) {
-                self.afterAddItem(evt);
-            });
-
-            cart.addEventListener('onGetSubtotal', function(evt) {
-                self.onGetSubtotal(evt);
-            });
-
-            cart.addEventListener('onSubmit', function(evt) {
-                self.onSubmit(evt);
-            });
-
-        }
     };
 
     window.addEventListener('load', startup, false);

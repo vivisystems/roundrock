@@ -1,3 +1,4 @@
+// test
 (function(){
 
     /**
@@ -8,6 +9,22 @@
         name: 'Main',
         screenwidth: 800,
         screenheight: 600,
+        depPanelView: null,
+        productPanelView: null,
+
+        initial: function() {
+
+            this.checkClerk();
+            this.createPluPanel();
+            this.requestCommand('initial', null, 'Pricelevel');
+            this.requestCommand('initial', null, 'Cart');
+            this.requestCommand('initial', null, 'Vfd');
+
+            // change log level
+            GeckoJS.Log.getAppender('console').level = GeckoJS.Log.DEBUG;
+            GeckoJS.Log.defaultClassLevel = GeckoJS.Log.DEBUG;
+
+        },
 
         checkClerk: function () {
 
@@ -98,8 +115,8 @@
             var height = 480;
 
             var args = {
-              result: false,
-              data: null
+                result: false,
+                data: null
             };
             args.wrappedJSObject = args;
             GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,dependent=yes,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height, args);
@@ -124,82 +141,23 @@
 
         createPluPanel: function () {
 
-            var categories, products, barcodesIndexes = {}, productsIndexesByCate= {};
-
-            var cateModel = new CategoryModel();
-            categories = cateModel.find('all', {
-                order: "no"
-            });
-            GeckoJS.Session.add('categories', categories);
-
-            // bind categories data
-            var catePanelView =  new NSICategoriesView();
-            var catescrollablepanel = document.getElementById('catescrollablepanel');
-            catescrollablepanel.setAttribute('rows', GeckoJS.Configure.read('vivipos.fec.settings.DepartmentRows'));
-            catescrollablepanel.setAttribute('cols', GeckoJS.Configure.read('vivipos.fec.settings.DepartmentCols'));
-            //catescrollablepanel.setAttribute('hideScrollbar', false);
-            catescrollablepanel.initGrid();
-
-            catescrollablepanel.datasource = catePanelView;
-
-
-            var prodModel = new ProductModel();
-            var products = prodModel.find('all', {
-                order: "cate_no"
-            });
-
-            for (var pidx in products) {
-                var product = products[pidx];
-                var catno = product['cate_no'];
-                if (typeof catno == 'undefined') continue;
-                var barcode = product['barcode'];
-
-                if (typeof productsIndexesByCate[catno] == 'undefined') {
-                    productsIndexesByCate[catno] = [];
-                }
-
-                productsIndexesByCate[catno].push(pidx);
-
-
-                barcodesIndexes[barcode] = pidx;
-
-            };
-
-            GeckoJS.Session.add('products', products);
-
-            GeckoJS.Session.add('productsIndexesByCate', productsIndexesByCate);
-            GeckoJS.Session.add('barcodesIndexes', barcodesIndexes);
-
-            // bind plu data
-            var firstCateNo = categories[0]['no'];
-            var prodscrollablepanel = document.getElementById('prodscrollablepanel');
-            prodscrollablepanel.setAttribute('rows', GeckoJS.Configure.read('vivipos.fec.settings.PluRows'));
-            prodscrollablepanel.setAttribute('cols', GeckoJS.Configure.read('vivipos.fec.settings.PluCols'));
-            prodscrollablepanel.initGrid();
-
-            var productPanelView = new NSIProductsView(productsIndexesByCate[firstCateNo]);
-            prodscrollablepanel.datasource = productPanelView;
+            this.depPanelView =  new NSICategoriesView('catescrollablepanel');
+            this.productPanelView = new NSIProductsView('prodscrollablepanel');
+            this.productPanelView.setCatePanelView(this.depPanelView);
+            this.productPanelView.setCatePanelIndex(0);
 
         },
 
         changePluPanel: function(index) {
 
-            var categories = GeckoJS.Session.get('categories');
-            var productsIndexesByCate = GeckoJS.Session.get('productsIndexesByCate');
-            var cateNo = categories[index]['no'];
-
-            var prodscrollablepanel = document.getElementById('prodscrollablepanel');
-            prodscrollablepanel.datasource = productsIndexesByCate[cateNo];
+            this.productPanelView.setCatePanelIndex(index);
 
         },
 
         clickPluPanel: function(index) {
 
-            var products = GeckoJS.Session.get('products');
-            var prodscrollablepanel = document.getElementById('prodscrollablepanel');
-            var productIndex = prodscrollablepanel.datasource.getCurrentIndexData(index);
-            //            alert(index + "," + productIndex);
-            return this.requestCommand('addItem',products[productIndex],'Cart');
+            var product = this.productPanelView.getCurrentIndexData(index);
+            return this.requestCommand('addItem',product,'Cart');
 
         },
 
@@ -216,7 +174,7 @@
             this.pushQueue();
             this.Acl.invalidate();
             this.ChangeUserDialog();
-            // window.close();
+        // window.close();
         }
 
     });
