@@ -31,6 +31,7 @@ GREUtils.include('chrome://viviecr/content/models/job.js');
 GREUtils.include('chrome://viviecr/content/helpers/nsi_products_view.js');
 GREUtils.include('chrome://viviecr/content/helpers/nsi_categories_view.js');
 GREUtils.include('chrome://viviecr/content/helpers/nsi_condiments_view.js');
+GREUtils.include('chrome://viviecr/content/helpers/nsi_plugroups_view.js');
 
 // include project components
 GREUtils.include('chrome://viviecr/content/controllers/components/barcode.js');

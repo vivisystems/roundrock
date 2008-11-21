@@ -34,32 +34,35 @@
                             <vbox>
                                 <hbox align="center">
                                     <label style="width:10em" value="Department No:"/>
-                                    <textbox id="category_no" />
+                                    <textbox id="category_no" readonly="true" form="depForm" name="no"/>
                                 </hbox>
                                 <hbox align="center">
                                     <label style="width:10em" value="Department Name:" />
-                                    <textbox id="category_name" value="" />
+                                    <textbox id="category_name" value="" form="depForm" name="name"/>
                                 </hbox>
                                 <hbox align="center">
-                                    <label style="width:4em" value="Visible:"  />
-                                    <checkbox id="category_visible" value="1"/>
+                                    <checkbox id="category_visible" value="1" label="Visible" form="depForm" name="visible"/>
                                 </hbox>
-                                <vbox align="center">
-                                    <label style="width:4em" value="Button Color:"  />
-                                    <button_colorpicker id="category_button_color" buttonClass="catbtn button-radius"/>
-                                </vbox>
-                                <vbox align="center">
-                                    <label style="width:4em" value="Font Size:"  />
-                                    <button_fontsizepicker id="category_font_size" buttonClass="catbtn button-white button-radius"/>
-                                </vbox>
+                                <hbox align="center">
+                                    <checkbox id="category_cansale" value="0" label="Sale Department" form="depForm" name="cansale"/>
+                                </hbox>
+                                <groupbox>
+                                    <caption label="Button Color:" />
+                                    <button_colorpicker id="category_button_color" form="depForm" name="button_color" buttonClass="catbtn button-radius"/>
+                                </groupbox>
+                                <groupbox>
+                                    <caption label="Font Size:" />
+                                    <button_fontsizepicker id="category_font_size" form="depForm" name="font_size" buttonClass="catbtn button-white button-radius"/>
+                                </groupbox>
                             </vbox>
                         </hbox>
                         </hbox>
                         <spacer style="height: 30px;" />
                         <hbox>
-                            <button label="Add" class="genbtn" oncommand="$do('add', null, 'Departments');" />
-                            <button label="Delete" class="genbtn" oncommand="$do('remove', null, 'Departments');" />
-                            <button label="Modify" class="genbtn" oncommand="$do('modify', null, 'Departments');" />
+                            <button label="Add" class="editbtns" oncommand="$do('add', null, 'Departments');" />
+                            <spacer flex="1" />
+                            <button label="Delete" class="editbtns" oncommand="$do('remove', null, 'Departments');" />
+                            <button label="Modify" class="editbtns" oncommand="$do('modify', null, 'Departments');" />
                         </hbox>
                     </vbox>
 

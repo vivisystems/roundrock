@@ -5,6 +5,11 @@ var FuncItems = window.FuncItems = GeckoJS.NSITreeViewArray.extend({
             var prefs = GeckoJS.BaseObject.getValues(GeckoJS.Configure.read('vivipos.fec.settings.controlpanels'));
             this.data = new GeckoJS.ArrayQuery(prefs).orderBy("label asc");
             // this.data = new GeckoJS.ArrayQuery(prefs).filter("label='PLUs'");
+            this.log(this.dump(this.data));
+            this.data.forEach(function(o){
+                o.label = _(o.label);
+            });
+            // this.log(this.dump(this.data));
         }
 
     });

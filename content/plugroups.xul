@@ -11,44 +11,45 @@
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/plugroups.js" />
 
-  <!-- groupbox1 -->
     <box flex="1" class="mainpanel1 pad40">
         <vbox flex="1" class="panel40">
             <vbox flex="1" class="footlogo">
 
-        <!-- Begin SysConfig 1 -->
+                    <groupbox flex="1">
+                        <caption label="Group List:" />
 
-                    <vbox id="jobs">
-                        <label id="" value="PLU Groups" style="background:green; color:white;" />
-            <!-- hbox -->
-                        <vbox>
-                            <label hidden="true" form="jobForm" name="id" value="" />
-                            <label id="" value="Group List:" />
-              <!-- simplelistbox id="cartSimpleListBox1" flex="1" rows="24"  headers="User No,User Name" style="width:300px; height:450px;"/ -->
-                            <simplelistbox id="simpleListBoxGroup" rows="16"  headers="Group Name" columns="name"  class="usersimplelistbox"/>
-                        </vbox>
-                        <vbox flex="1" style="overflow: auto" >
+                        <hbox flex="1">
+                            <viviscrollablebuttonpanel dir="reverse" id="groupscrollablepanel" flex="1" cols="3" rows="8" labelField="name" imageField="no" oncommand="$do('select',this.selectedIndex, 'Plugroups');"
+                              class="catescrollablepanel" buttonClass="catbtn button-radius button-white font-medium" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue"/>
 
-                            <hbox class="config" align="center">
-                                <label hidden="true" form="plugroupForm" name="id" value="" />
-                                <label value="Group Name:" />
-                                <textbox id="group_name" value="" form="plugroupForm" name="name" />
-                            </hbox>
-                            
-                        </vbox>
-            <!-- /hbox -->
-                        <spacer style="height: 10px;" />
-                        <hbox>
-                            <button label="Add" class="genbtn" oncommand="$do('add', null, 'Plugroups');" />
-              <!-- button label="Refresh" class="genbtn" oncommand="$do('load', null, ViviPOS.CategoriesController);" / -->
-                            <button label="Delete" class="genbtn" oncommand="$do('delete', null, 'Plugroups');" />
-                            <button label="Modify" class="genbtn" oncommand="$do('update', null, 'Plugroups');" />
+                            <spacer style="width: 10px;" />
+                            <separator class="groove-thin"/>
+
+                            <vbox>
+                                <!-- hbox align="center">
+                                    <label hidden="true" form="jobForm" name="id" value="" />
+                                    <label value="Job No:"/>
+                                    <textbox id="no" form="jobForm" name="no" readonly="true"/>
+                                </hbox -->
+                                <hbox align="center">
+                                    <label id="plugroup_id" hidden="true" form="plugroupForm" name="id" value="" />
+                                    <label value="Group Name:" />
+                                    <textbox id="plugroup_name" value="" form="plugroupForm" name="name" />
+                                </hbox>
+                                <spacer style="height: 10px;" />
+                                <hbox>
+                                    <button label="Add" class="editbtns" oncommand="$do('add', null, 'Plugroups');" />
+                                    <button label="Delete" class="editbtns" oncommand="$do('delete', null, 'Plugroups');" />
+                                    <button label="Modify" class="editbtns" oncommand="$do('update', null, 'Plugroups');" />
+                                </hbox>
+                            </vbox>
                         </hbox>
-                    </vbox>
+                    </groupbox>
+
             </vbox>
         </vbox>
     </box>
-  <!-- /groupbox -->
+
     <hbox id="okCancelButtonsRight" class="dialogbtns" />
 
 </window>

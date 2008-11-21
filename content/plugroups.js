@@ -10,11 +10,7 @@
      */
     function startup() {
 
-        $("#simpleListBoxGroup").bind('select', function(evt) {
-            $do('select', evt, 'Plugroups');
-        });
         $do('load', null, 'Plugroups');
-
 
     };
 

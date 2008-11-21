@@ -11,7 +11,6 @@
     <script type="application/x-javascript" src="chrome://viviecr/content/bootstrap.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/plus.js" />
 
-<!-- groupbox -->
     <box flex="1" class="mainpanel1 pad40">
         <vbox flex="1" class="panel40">
             <label id="" value="PLU Property "  class="labeltitle"/>
@@ -19,254 +18,257 @@
                 <vbox flex="1">
                     <!-- Begin Catalogs -->
                     <viviscrollablebuttonpanel dir="reverse" id="catescrollablepanel" flex="1" cols="4" rows="2" labelField="name" imageField="no" oncommand="$do('changePluPanel',this.selectedIndex, 'Plus');"
-                      class="catescrollablepanel" buttonClass="catbtn button-radius" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue"/>
-
+                        class="catescrollablepanel" buttonClass="catbtn button-radius" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue"/>
                     <!-- End Catalogs -->
 
 
                     <!-- Begin PLUs -->
-                    <!-- scrollablepanel id="prodscrollablepanel" increment="65" dir="reverse" class="prodscrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray">
-                      <deck id="plu_deck">
-                      </deck>
-                    </scrollablepanel -->
                     <viviscrollablebuttonpanel dir="reverse" id="prodscrollablepanel" flex="1" cols="2" rows="6" labelField="name" imageField="no"
                         oncommand="$do('clickPluPanel',this.selectedIndex, 'Plus');"  class="prodscrollablepanel" buttonClass="plubtn smallimagebtn button-radius" scrollUpClass="rightprevbtn button-gray" scrollDownClass="rightnextbtn button-gray" />
-                    <!-- viviscrollabletree dir="reverse" id="prodscrollablepanel" flex="1" rows="7" headers="Name,Price" fields="name,sell_price" onclick="$do('clickPluPanel',this.selectedIndex, 'Main');"
-                       class="prodscrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray" /-->
-
-                    <!--viviscrollablebuttonpanel labelField="name" imageField="image" cols="4" rows="7" id="prodscrollablepanel" dir="reverse" class="prodscrollablepanel" panelClass="prodscrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray">
-                    </viviscrollablebuttonpanel-->
-                    <!-- viviscrollabletree headers="Name,Price" fields="name,sell_price" rows="7" id="prodscrollablepanel" dir="reverse" class="prodscrollablepanel" panelClass="prodscrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray">
-                    </viviscrollabletree -->
-
                     <!-- End PLUs -->
                     <spacer style="height: 60px;" />
                 </vbox>
 
-
-
-<!-- Begin General Properties -->
-
-                    <vbox  id="pluprop" >
+                <vbox id="" >
                         
-            <tabbox  flex="1">
-                <tabs >
-                   <tab label="PLU Data" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical"        />
-                   <tab label="Icon and Button Color" image="chrome://viviecr/content/skin/icons/plugins-24.png" orient="vertical"/>
-                   <tab label="Price Level" image="chrome://viviecr/content/skin/icons/comments-24.png" orient="vertical"/>
-                </tabs>
+                    <tabbox  flex="1">
+                        <tabs >
+                            <tab label="&vivipos.fec.plus.basedata;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical"        />
+                            <tab label="&vivipos.fec.plus.face;" image="chrome://viviecr/content/skin/icons/plugins-24.png" orient="vertical"/>
+                            <tab label="&vivipos.fec.plus.pricelevels;" image="chrome://viviecr/content/skin/icons/comments-24.png" orient="vertical"/>
+                            <tab label="&vivipos.fec.plus.groups;" image="chrome://viviecr/content/skin/icons/comments-24.png" orient="vertical"/>
+                        </tabs>
 
-<!-- End Decks -->
-                <tabpanels flex="1" >
+                        <tabpanels flex="1" >
 
-                <!-- deck id="prop_deck" -->
-                <tabpanel flex="1" >
-                        <hbox>
-                            <vbox  style="overflow: auto" >
-                                <hbox align="center">
-                                    <label hidden="true" form="productForm" name="id" value="" />
-                                    <label id="cat_no" hidden="true" form="productForm" name="cate_no" value="" />
-                                    <label value="Product No:"/>
-                                    <textbox id="product_no" form="productForm" name="no"/>
-                                </hbox>
-                                <hbox align="center">
-                                    <label value="Product Name:" />
-                                    <textbox id="product_name" form="productForm" name="name" value="" />
-                                </hbox>
-                                <hbox align="center">
-                                    <label  value="Barcode:" />
-                                    <textbox id="barcode" form="productForm" name="barcode" value="" />
-                                </hbox>
-                                <hbox align="center">
-                                    <label value="Buy Price:"  />
-                                    <textbox id="buy_price" type="number" decimalplaces="2" hidespinbuttons="true" form="productForm" name="buy_price"/>
-                                </hbox>
-                                <hbox align="left">
-                                    <label value="Preset Price:" />
-                                    <textbox id="preset_sell_price" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="preset_sell_price" size="10"/>
-                                    <spacer />
-                                    <label value="HALO:" />
-                                    <textbox id="preset_sell_halo" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="preset_sell_halo" size="10"/>
-                                </hbox>
+                            <!-- Plu Data -->
+                            <tabpanel flex="1" >
                                 <hbox>
-                                    <label value="Rate:"/>
-                                    <menulist id="taxList" form="productForm" name="rate" label="Rate">
-                                        <menupopup style="width: 200px;">
-                                            
-                                        </menupopup>
-                                    </menulist>
+                                    <vbox  style="overflow: auto" >
+                                        <groupbox>
+                                        <caption label="Sell Price Level:" />
+                                        <grid>
+                                            <rows>
+                                            <row>
+                                                <label hidden="true" form="productForm" name="id" value="" />
+                                                <label id="cate_no" hidden="true" form="productForm" name="cate_no" value="" />
+                                            </row>
+                                            <row>
+                                                <label value="Product No:"/>
+                                                <textbox id="product_no" form="productForm" name="no" readonly="true"/>
+                                            </row>
+                                            <row>
+                                                <label value="Product Name:" />
+                                                <textbox id="product_name" form="productForm" name="name" value="" />
+                                            </row>
+                                            <row>
+                                                <label  value="Barcode:" />
+                                                <textbox id="barcode" form="productForm" name="barcode" value="" />
+                                            </row>
+                                            <row>
+                                                <label value="Buy Price:"  />
+                                                <textbox id="buy_price" type="number" decimalplaces="2" hidespinbuttons="true" form="productForm" name="buy_price"/>
+                                            </row>
+                                            <row>
+                                                <label value="Rate:"/>
+                                                <menulist id="taxList" form="productForm" name="rate" label="Rate">
+                                                    <menupopup style="width: 200px;">
+
+                                                    </menupopup>
+                                                </menulist>
+                                            </row>
+                                            <row>
+                                                <label value="Condiment:"/>
+                                                <menulist id="condGroupList" form="productForm" name="cond_group" label="Condiment">
+                                                    <menupopup style="width: 200px;">
+
+                                                    </menupopup>
+                                                </menulist>
+                                            </row>
+                                            <row>
+                                                <label value="Stock:"  />
+                                                <textbox id="other_stock" form="productForm" name="stock" default="8"/>
+                                            </row>
+                                            <row>
+                                                <label value="Min-Stock:"  />
+                                                <textbox id="min_stock" form="productForm" name="min_stock" default="6"/>
+                                            </row>
+                                            <row>
+                                                <label value="Min-Sale-Qty:"  />
+                                                <textbox id="min_sale_qty" form="productForm" name="min_sale_qty" default="6"/>
+                                            </row>
+                                            <row>
+                                                <label value="Sale Unit:"/>
+                                                <menulist id="sale_unit" form="productForm" name="sale_unit" label="Sale Unit">
+                                                    <menupopup style="width: 200px;">
+                                                        <menuitem label="Number" value="0"/>
+                                                        <menuitem label="Gram" value="1"/>
+                                                        <menuitem label="Liter" value="2"/>
+                                                    </menupopup>
+                                                </menulist>
+                                            </row>
+                                        </rows>
+                                        </grid>
+
+                                            <grid>
+                                                <rows>
+                                                    <row>
+                                                        <checkbox id="auto_maintain_stock" value="true" label="Auto Maintain" form="productForm" name="auto_maintain_stock" default="true"/>
+                                                        <checkbox id="visible" value="true" label="Visible" form="productForm" name="visible" default="true"/>
+                                                    </row>
+                                                    <row>
+                                                        <checkbox id="singleplu" value="true" label="Single Plu" form="productForm" name="single" default="true"/>
+                                                        <checkbox id="return_stock" value="true" label="Can Return Stock" form="productForm" name="return_stock" default="true"/>
+                                                    </row>
+                                                    <row>
+                                                        <checkbox id="visible" value="true" label="Visible" form="productForm" name="visible" default="true"/>
+                                                    </row>
+                                                </rows>
+                                            </grid>
+
+                                        </groupbox>
+                                    </vbox>
                                 </hbox>
-                                <hbox>
-                                    <label value="Plu Group:"/>
-                                    <menulist id="pluGroupList" form="productForm" name="pluGroup" label="Plu Group">
-                                        <menupopup style="width: 200px;">
+                            </tabpanel>
 
-                                        </menupopup>
-                                    </menulist>
-                                </hbox>
-                                <hbox>
-                                    <label value="Condiment:"/>
-                                    <menulist id="condGroupList" form="productForm" name="condGroup" label="Condiment">
-                                        <menupopup style="width: 200px;">
-
-                                        </menupopup>
-                                    </menulist>
-                                </hbox>
-                                <hbox align="center">
-                                    <label value="Stock:"  />
-                                    <textbox id="other_stock" form="productForm" name="stock" default="8"/>
-                                </hbox>
-                                <hbox align="center">
-                                    <label value="Min-Stock:"  />
-                                    <textbox id="other_min_stock" form="productForm" name="min_stock" default="6"/>
-                                </hbox>
-                                <hbox align="center">
-                                    <label value="Auto Maintain:"  />
-                                    <checkbox id="other_auto_maintain_stock" value="true" form="productForm" name="auto_maintain_stock" default="true"/>
-                                    <spacer style="60px;" />
-                                    <label value="Preparation PLU:"  />
-                                    <checkbox id="other_preparation" value="true" form="productForm" name="preparation_plu" default="true"/>
-                                </hbox>
-                                <hbox align="center">
-                                    <label value="Visible:"  />
-                                    <checkbox id="user_visible" value="true" form="productForm" name="visible" default="true"/>
-      <!-- textbox id="user_visible" value="1"/ -->
-                                </hbox>
-                                
-   
-                            </vbox>
-                            
-                        </hbox>
-                </tabpanel>
-<!-- End Departments - PLUs -->
-
-<!-- Begin General Properties -->
-                <tabpanel flex="1" >
-
-                        
-                        <vbox>
+                            <!-- Icon and Button color -->
+                            <tabpanel flex="1" >
+                                <vbox>
+                                    <groupbox>
+                                        <caption label="Photo:" />
+                                        <hbox>
+                                            <spacer style="width: 30px;" />
+                                            <image id="pluimage" pack="start" style="width:64px; height:64px;"/>
+                                            <spacer style="width: 30px;" />
+                                            <hbox>
+                                                <button id="imageBrowseBtn" class="iconbtn image32" image="chrome://viviecr/skin/images/add.png"/>
+                                                <button id="imageRemoveBtn" class="iconbtn image32" image="chrome://viviecr/skin/images/cancel.png"/>
+                                                <spacer flex="1" />
+                                            </hbox>
+                                        </hbox>
+                                    </groupbox>
 
 
-                                <groupbox>
-                                    <caption label="Photo:" />
-                                    <hbox>
-                                    <spacer style="width: 30px;" />
-                                    <image id="pluimage" pack="start" style="width:64px; height:64px;"/>
-                                    <spacer style="width: 30px;" />
-                                    <hbox>
-                                        <button id="imageBrowseBtn" class="iconbtn image32" image="chrome://viviecr/skin/images/add.png"/>
-                                        <button id="imageRemoveBtn" class="iconbtn image32" image="chrome://viviecr/skin/images/cancel.png"/>
-                                        <spacer flex="1" />
-                                    </hbox>
-                                    </hbox>
-                                </groupbox>
+                                    <groupbox>
+                                        <caption label="Button Color:" />
+                                        <button_colorpicker id="other_button_color" form="productForm" name="button_color" buttonClass="catbtn button-radius"/>
+                                    </groupbox>
 
+                                    <groupbox>
+                                        <caption label="Font Size:" />
+                                        <button_fontsizepicker id="other_font_size" form="productForm" name="font_size" buttonClass="catbtn button-white button-radius" />
+                                    </groupbox>
 
-                                <groupbox>
-                                    <caption label="Button Color:" />
-                                    <button_colorpicker id="other_button_color" form="productForm" name="button_color" buttonClass="catbtn button-radius"/>
-                                </groupbox>
-
-                                <groupbox>
-                                    <caption label="Font Size:" />
-                                    <button_fontsizepicker id="other_font_size" form="productForm" name="font_size" buttonClass="catbtn button-white button-radius" />
-                                </groupbox>
-
-                        </vbox>
-<!-- End General Properties -->
-
-                </tabpanel>
-<!-- End Options -->
-
-                <tabpanel>
-                    <vbox>
-                                <vbox align="left">
-                                    <label value="Sell Price Level:" />
-                                    <hbox>
-                                        <label value="Level 1:" />
-                                        <textbox id="sell_price1" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_price1" size="10"/>
-                                        <spacer />
-                                        <label value="HALO 1:" />
-                                        <textbox id="sell_halo1" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_halo1" size="10"/>
-                                    </hbox>
-                                    <hbox>
-                                        <label value="Level 2:" />
-                                        <textbox id="sell_price2" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_price2" size="10"/>
-                                        <spacer />
-                                        <label value="HALO 2:" />
-                                        <textbox id="sell_halo2" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_halo2" size="10"/>
-                                    </hbox>
-                                    <hbox>
-                                        <label value="Level 3:" />
-                                        <textbox id="sell_price3" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_price3" size="10"/>
-                                        <spacer />
-                                        <label value="HALO 3:" />
-                                        <textbox id="sell_halo3" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_halo3" size="10"/>
-                                    </hbox>
-                                    <hbox>
-                                        <label value="Level 4:" />
-                                        <textbox id="sell_price4" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_price4" size="10"/>
-                                        <spacer />
-                                        <label value="HALO 4:" />
-                                        <textbox id="sell_halo4" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_halo4" size="10"/>
-                                    </hbox>
-                                    <hbox>
-                                        <label value="Level 5:" />
-                                        <textbox id="sell_price5" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_price5" size="10"/>
-                                        <spacer />
-                                        <label value="HALO 5:" />
-                                        <textbox id="sell_halo5" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_halo5" size="10"/>
-                                    </hbox>
-                                    <hbox>
-                                        <label value="Level 6:" />
-                                        <textbox id="sell_price6" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_price6" size="10"/>
-                                        <spacer />
-                                        <label value="HALO 6:" />
-                                        <textbox id="sell_halo6" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_halo6" size="10"/>
-                                    </hbox>
-                                    <hbox>
-                                        <label value="Level 7:" />
-                                        <textbox id="sell_price7" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_price7" size="10"/>
-                                        <spacer />
-                                        <label value="HALO 7:" />
-                                        <textbox id="sell_halo7" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_halo7" size="10"/>
-                                    </hbox>
-                                    <hbox>
-                                        <label value="Level 8:" />
-                                        <textbox id="sell_price8" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_price8" size="10"/>
-                                        <spacer />
-                                        <label value="HALO 8:" />
-                                        <textbox id="sell_halo8" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_halo8" size="10"/>
-                                    </hbox>
-                                    <hbox>
-                                        <label value="Level 9:" />
-                                        <textbox id="sell_price9" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_price9" size="10"/>
-                                        <spacer />
-                                        <label value="HALO 9:" />
-                                        <textbox id="sell_halo9" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="sell_halo9" size="10"/>
-                                    </hbox>
                                 </vbox>
-                    </vbox>
-                </tabpanel>
-                <!-- /deck -->
-                </tabpanels>
-                </tabbox>
-                <hbox>
-                    <button label="Add" class="editbtns" oncommand="$do('add', null, 'Plus');" />
-                    <spacer flex="1" />
-                    <button label="Delete" class="editbtns" oncommand="$do('delete', null, 'Plus');" />
-                    <button label="Modify" class="editbtns" oncommand="$do('modify', null, 'Plus');" />
-                </hbox>
-                <spacer style="height: 40px;" />
-                    </vbox>
+                            </tabpanel>
+                
+                            <!-- Sell Price Levels -->
+                            <tabpanel>
+                                <vbox>
+                                    <groupbox>
+                                        <caption label="Sell Price Level:" />
+                                        <grid>
+                                          <columns>
+                                            <column />
+                                            <column flex="1" />
+                                            <column flex="1" />
+                                            <column flex="1" />
+                                          </columns>
 
-               
+                                          <rows>
+                                            <row>
+                                              <label value="&vivipos.fec.plus.level;" />
+                                              <label value="&vivipos.fec.plus.price;" />
+                                              <label value="&vivipos.fec.plus.halo;" />
+                                              <label value="&vivipos.fec.plus.lalo;" />
+                                            </row>
+                                            <row>
+                                              <checkbox id="level_enable1" value="0" label="1." form="productForm" name="level_enable1" default="0"/>
+                                              <textbox id="price_level1" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="price_level1" size="10" class="geneditbox right"/>
+                                              <textbox id="halo1" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="halo1" size="10" class="geneditbox right"/>
+                                              <textbox id="lalo1" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="lalo1" size="10"/>
+                                            </row>
+                                            <row>
+                                              <checkbox id="level_enable2" value="0" label="2." form="productForm" name="level_enable2" default="0"/>
+                                              <textbox id="price_level2" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="price_level2" size="10"/>
+                                              <textbox id="halo2" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="halo2" size="10"/>
+                                              <textbox id="lalo2" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="lalo2" size="10"/>
+                                            </row>
+                                            <row>
+                                              <checkbox id="level_enable3" value="0" label="3." form="productForm" name="level_enable3" default="0"/>
+                                              <textbox id="price_level3" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="price_level3" size="10"/>
+                                              <textbox id="halo3" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="halo3" size="10"/>
+                                              <textbox id="lalo3" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="lalo3" size="10"/>
+                                            </row>
+                                            <row>
+                                              <checkbox id="level_enable4" value="0" label="4." form="productForm" name="level_enable4" default="0"/>
+                                              <textbox id="price_level4" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="price_level4" size="10"/>
+                                              <textbox id="halo4" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="halo4" size="10"/>
+                                              <textbox id="lalo4" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="lalo4" size="10"/>
+                                            </row>
+                                            <row>
+                                              <checkbox id="level_enable5" value="0" label="5." form="productForm" name="level_enable5" default="0"/>
+                                              <textbox id="price_level5" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="price_level5" size="10"/>
+                                              <textbox id="halo5" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="halo5" size="10"/>
+                                              <textbox id="lalo5" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="lalo5" size="10"/>
+                                            </row>
+                                            <row>
+                                              <checkbox id="level_enable6" value="0" label="6." form="productForm" name="level_enable6" default="0"/>
+                                              <textbox id="price_level6" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="price_level6" size="10"/>
+                                              <textbox id="halo6" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="halo6" size="10"/>
+                                              <textbox id="lalo6" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="lalo6" size="10"/>
+                                            </row>
+                                            <row>
+                                              <checkbox id="level_enable7" value="0" label="7." form="productForm" name="level_enable7" default="0"/>
+                                              <textbox id="price_level7" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="price_level7" size="10"/>
+                                              <textbox id="halo7" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="halo7" size="10"/>
+                                              <textbox id="lalo7" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="lalo7" size="10"/>
+                                            </row>
+                                            <row>
+                                              <checkbox id="level_enable8" value="0" label="8." form="productForm" name="level_enable8" default="0"/>
+                                              <textbox id="price_level8" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="price_level8" size="10"/>
+                                              <textbox id="halo8" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="halo8" size="10"/>
+                                              <textbox id="lalo8" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="lalo8" size="10"/>
+                                            </row>
+                                            <row>
+                                              <checkbox id="level_enable9" value="0" label="9." form="productForm" name="level_enable9" default="0"/>
+                                              <textbox id="price_level9" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="price_level9" size="10"/>
+                                              <textbox id="halo9" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="halo9" size="10"/>
+                                              <textbox id="lalo9" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="lalo9" size="10"/>
+                                            </row>
+                                          </rows>
+                                        </grid>
+
+                                    </groupbox>
+                                </vbox>
+                            </tabpanel>
+
+                            <!-- Link Groups -->
+                            <tabpanel flex="1" >
+                                <vbox flex="1">
+                                    <groupbox flex="1">
+                                        <caption label="Link Group:" />
+                                        <viviscrollablebuttonpanel id="group_listscrollablepanel" seltype="multiple" flex="1" cols="3" rows="6" labelField="name" imageField="no" oncommand=""
+                                        class="catescrollablepanel" buttonClass="catbtn button-radius" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue"/>
+                                    </groupbox>
+                                </vbox>
+                            </tabpanel>
+                
+                        </tabpanels>
+                    </tabbox>
+                    <hbox>
+                        <button label="&vivipos.fec.common.add;" class="editbtns" oncommand="$do('add', null, 'Plus');" />
+                        <spacer flex="1" />
+                        <button label="&vivipos.fec.common.delete;" class="editbtns" oncommand="$do('delete', null, 'Plus');" />
+                        <button label="&vivipos.fec.common.modify;" class="editbtns" oncommand="$do('modify', null, 'Plus');" />
+                    </hbox>
+                    <spacer style="height: 20px;" />
+                </vbox>
+
             </hbox>
         </vbox>
-
-
     </box>
-<!-- /groupbox -->
+
     <hbox id="okCancelButtonsRight" class="dialogbtns" />
 
 </window>

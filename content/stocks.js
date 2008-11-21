@@ -10,7 +10,11 @@
      */
     function startup() {
 
+        $("#simpleListBoxJob").bind('select', function(evt) {
+            $do('select', evt, 'Jobs');
+        });
         $do('load', null, 'Jobs');
+
 
     };
 

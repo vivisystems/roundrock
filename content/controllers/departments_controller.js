@@ -1,7 +1,7 @@
 (function(){
 
     /**
-     * Class ViviPOS.MainController
+     * Class DepartmentsController
      */
     GeckoJS.Controller.extend( {
 
@@ -11,15 +11,6 @@
         _selectedIndex: null,
 
         createDepartmentPanel: function () {
-            /*
-            var categories;
-
-            var cateModel = new CategoryModel();
-            categories = cateModel.find('all', {
-                order: "no"
-            });
-            // GeckoJS.Session.add('categories', categories);
-            */
 
             var categories = GeckoJS.Session.get('categories');
 
@@ -45,66 +36,43 @@
         },
 
         getInputData: function () {
-
-            var no  = this.query('#category_no').val();
-            var name  = this.query('#category_name').val();
-            var visible  = this.query('#category_visible').val() || 0;
-            var button_color  = this.query('#category_button_color').val();
-            var font_size  = this.query('#category_font_size').val();
-
-            return {
-                no: no,
-                name: name,
-                visible: visible,
-                button_color: button_color,
-                font_size: font_size
-            };
-
+            return GeckoJS.FormHelper.serializeToObject('depForm', false);
         },
 
         resetInputData: function () {
-
-            this.query('#category_no').val('');
-            this.query('#category_name').val('');
-            this.query('#category_visible').val('0');
-            this.query('#category_button_color').val('os');
-            this.query('#category_font_size').val('medium');
-
-        // return {no: no, name: name, visible: visible, button_color: button_color, font_color: font_color};
-
+            GeckoJS.FormHelper.reset('depForm');
         },
 
         setInputData: function (valObj) {
-
-            this.query('#category_no').val(valObj.no);
-            this.query('#category_name').val(valObj.name);
-            this.query('#category_visible').val() || 0;
-            this.query('#category_button_color').val(valObj.button_color);
-            this.query('#category_font_size').val(valObj.font_size);
-            this.query('#cat_no').val(valObj.no);
-
-        // return {no: no, name: name, visible: visible, button_color: button_color, font_color: font_color};
-
+            GeckoJS.FormHelper.unserializeFromObject('depForm', valObj);
         },
 
         add: function  () {
             var inputData = this.getInputData();
-            /*
-            var inputData = {};
-            GREUtils.Dialog.prompt(null, "New Department", "Department No", input);
-            inputData.no = input;
-            GREUtils.Dialog.prompt(null, "New Department", "Department Name", input);
-            inputData.name = input;
-            */
-            var category = new CategoryModel();
-            category.save(inputData);
+            
+            var aURL = "chrome://viviecr/content/prompt_additem.xul";
+            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250";
+            var inputObj = {
+                input0:null,
+                input1:null
+            };
+            window.openDialog(aURL, "prompt_additem", features, _("New Department"), _("Please input:"), _("No"), _("Name"), inputObj);
+            if (inputObj.ok && inputObj.input0 && inputObj.input1) {
+                var category = new CategoryModel();
+                inputData = {
+                    no: inputObj.input0,
+                    name: inputObj.input1
+                    };
 
-            var categories = cateModel.find('all', {
-                order: "no"
-            });
-            GeckoJS.Session.add('categories', categories);
+                category.save(inputData);
 
-            this.resetInputData();
+                var categories = category.find('all', {
+                    order: "no"
+                });
+                GeckoJS.Session.add('categories', categories);
+
+                this.resetInputData();
+            }
         },
 
         modify: function  () {
