@@ -16,9 +16,9 @@
             </xul:scrollbox>
             
             <xul:vbox style="margin: 0px; padding:0px;" class="scrollablepanel-scrollbar" xbl:inherits="class=scrollbarClass" anonid="scrollbar" >
-                <xul:button label="UP" anonid="scrollbutton-up" oncommand="_autorepeatbuttonScroll(event);" xbl:inherits="class=scrollUpClass"></xul:button>
+                <xul:button anonid="scrollbutton-up" oncommand="_autorepeatbuttonScroll(event);" xbl:inherits="class=scrollUpClass"></xul:button>
                 <xul:spacer flex="1"/>
-                <xul:button label="DOWN" anonid="scrollbutton-down" oncommand="_autorepeatbuttonScroll(event);" xbl:inherits="class=scrollDownClass"></xul:button>
+                <xul:button anonid="scrollbutton-down" oncommand="_autorepeatbuttonScroll(event);" xbl:inherits="class=scrollDownClass"></xul:button>
             </xul:vbox>
         </xul:hbox>
         
