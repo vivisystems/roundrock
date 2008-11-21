@@ -139,9 +139,11 @@
                 GeckoJS.Session.add('barcodesIndexes', barcodesIndexes);
 
                 // bind plu data
+                /*
                 var prodscrollablepanel = document.getElementById('prodscrollablepanel');
                 var productPanelView = new NSIProductsView(productsIndexesByCate[inputData.cate_no]);
                 prodscrollablepanel.datasource = productPanelView;
+                */
             }
         },
 
