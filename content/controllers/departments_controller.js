@@ -15,6 +15,7 @@
         createDepartmentPanel: function () {
 
             this.catePanelView =  new NSICategoriesView('catescrollablepanel');
+            this.catePanelView.toggle();
 
         },
 

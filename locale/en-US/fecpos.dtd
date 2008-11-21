@@ -28,6 +28,7 @@
 <!ENTITY vivipos.fec.common.delete "Delete">
 
 <!ENTITY vivipos.fec.plus.basedata "Plu Data">
+<!ENTITY vivipos.fec.plus.basedata2 "Plu Data 2">
 <!ENTITY vivipos.fec.plus.face "Icon and Color">
 <!ENTITY vivipos.fec.plus.pricelevels "Price Levels">
 <!ENTITY vivipos.fec.plus.groups "Link Groups">

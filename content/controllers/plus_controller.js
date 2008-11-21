@@ -28,10 +28,12 @@
         createPluPanel: function () {
 
             this.depPanelView =  new NSICategoriesView('catescrollablepanel');
+            this.depPanelView.toggle();
             this.productPanelView = new NSIProductsView('prodscrollablepanel');
+            
             this.productPanelView.setCatePanelView(this.depPanelView);
             this.productPanelView.setCatePanelIndex(0);
-
+            this.productPanelView.toggle();
 
         },
 

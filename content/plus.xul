@@ -34,6 +34,7 @@
                     <tabbox  flex="1">
                         <tabs >
                             <tab label="&vivipos.fec.plus.basedata;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical"        />
+                            <tab label="&vivipos.fec.plus.basedata2;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical"        />
                             <tab label="&vivipos.fec.plus.face;" image="chrome://viviecr/content/skin/icons/plugins-24.png" orient="vertical"/>
                             <tab label="&vivipos.fec.plus.pricelevels;" image="chrome://viviecr/content/skin/icons/comments-24.png" orient="vertical"/>
                             <tab label="&vivipos.fec.plus.groups;" image="chrome://viviecr/content/skin/icons/comments-24.png" orient="vertical"/>
@@ -46,7 +47,7 @@
                                 <hbox>
                                     <vbox  style="overflow: auto" >
                                         <groupbox>
-                                        <caption label="Sell Price Level:" />
+                                        <caption label="Base Data:" />
                                         <grid>
                                             <rows>
                                             <row>
@@ -85,14 +86,7 @@
                                                     </menupopup>
                                                 </menulist>
                                             </row>
-                                            <row>
-                                                <label value="Stock:"  />
-                                                <textbox id="other_stock" form="productForm" name="stock" default="8"/>
-                                            </row>
-                                            <row>
-                                                <label value="Min-Stock:"  />
-                                                <textbox id="min_stock" form="productForm" name="min_stock" default="6"/>
-                                            </row>
+                                            
                                             <row>
                                                 <label value="Min-Sale-Qty:"  />
                                                 <textbox id="min_sale_qty" form="productForm" name="min_sale_qty" default="6"/>
@@ -107,6 +101,7 @@
                                                     </menupopup>
                                                 </menulist>
                                             </row>
+                                            
                                         </rows>
                                         </grid>
 
@@ -114,19 +109,46 @@
                                                 <rows>
                                                     <row>
                                                         <checkbox id="auto_maintain_stock" value="true" label="Auto Maintain" form="productForm" name="auto_maintain_stock" default="true"/>
-                                                        <checkbox id="visible" value="true" label="Visible" form="productForm" name="visible" default="true"/>
-                                                    </row>
-                                                    <row>
-                                                        <checkbox id="singleplu" value="true" label="Single Plu" form="productForm" name="single" default="true"/>
                                                         <checkbox id="return_stock" value="true" label="Can Return Stock" form="productForm" name="return_stock" default="true"/>
                                                     </row>
                                                     <row>
+                                                        <checkbox id="force_condiment" value="true" label="Force Condiment" form="productForm" name="force_condiment" default="true"/>
+                                                        <checkbox id="force_memo" value="true" label="Force Memo" form="productForm" name="force_memo" default="true"/>
+                                                    </row>
+                                                    <row>
+                                                        <checkbox id="singleplu" value="true" label="Single Plu" form="productForm" name="single" default="true"/>
                                                         <checkbox id="visible" value="true" label="Visible" form="productForm" name="visible" default="true"/>
                                                     </row>
                                                 </rows>
                                             </grid>
 
                                         </groupbox>
+                                    </vbox>
+                                </hbox>
+                            </tabpanel>
+
+                            <tabpanel flex="1" >
+                                <hbox>
+                                    <vbox  style="overflow: auto" >
+                                        <groupbox>
+                                        <caption label="Base Data:" />
+                                        <grid>
+                                            <rows>
+                                            <row>
+                                                <label value="Stock:"  />
+                                                <textbox id="other_stock" form="productForm" name="stock" default="8"/>
+                                            </row>
+                                            <row>
+                                                <label value="Min-Stock:"  />
+                                                <textbox id="min_stock" form="productForm" name="min_stock" default="6"/>
+                                            </row>
+                                            <row>
+                                                <label value="Memo:"/>
+                                                <textbox id="product_memo" form="productForm" name="memo"/>
+                                            </row>
+                                            </rows>
+                                        </grid>
+                                    </groupbox>
                                     </vbox>
                                 </hbox>
                             </tabpanel>
