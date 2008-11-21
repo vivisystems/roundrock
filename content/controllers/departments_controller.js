@@ -9,19 +9,12 @@
         screenwidth: 800,
         screenheight: 600,
         _selectedIndex: null,
+        catePanelView: null,
+
 
         createDepartmentPanel: function () {
 
-            var categories = GeckoJS.Session.get('categories');
-
-            // bind categories data
-            var catePanelView =  new NSICategoriesView(categories);
-            var catescrollablepanel = document.getElementById('catescrollablepanel');
-            catescrollablepanel.datasource = catePanelView;
-
-
-            // bind plu data
-            var firstCateNo = categories[0]['no'];
+            this.catePanelView =  new NSICategoriesView('catescrollablepanel');
 
         },
 

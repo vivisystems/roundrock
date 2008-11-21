@@ -10,6 +10,9 @@
         screenheight: 600,
         _selectedIndex: null,
         _selCateNo: null,
+        depPanelView: null,
+        productPanelView: null,
+
 
         createGroupPanel: function () {
             var pluGroupModel = new PlugroupModel();
@@ -23,41 +26,28 @@
         },
 
         createPluPanel: function () {
-            var categories = GeckoJS.Session.get('categories');
-            // bind categories data
-            var catePanelView =  new NSICategoriesView();
-            var catescrollablepanel = document.getElementById('catescrollablepanel');
-            catescrollablepanel.datasource = catePanelView;
 
-            var productsIndexesByCate = GeckoJS.Session.get('productsIndexesByCate');
+            this.depPanelView =  new NSICategoriesView('catescrollablepanel');
+            this.productPanelView = new NSIProductsView('prodscrollablepanel');
+            this.productPanelView.setCatePanelView(this.depPanelView);
+            this.productPanelView.setCatePanelIndex(0);
 
-            var firstCateNo = categories[0]['no'];
-            var prodscrollablepanel = document.getElementById('prodscrollablepanel');
-            var productPanelView = new NSIProductsView(productsIndexesByCate[firstCateNo]);
-            prodscrollablepanel.datasource = productPanelView;
 
         },
 
         changePluPanel: function(index) {
 
-            var categories = GeckoJS.Session.get('categories');
-            var productsIndexesByCate = GeckoJS.Session.get('productsIndexesByCate');
-            var cateNo = categories[index]['no'];
+            this.productPanelView.setCatePanelIndex(index);
+            var category = this.depPanelView.getCurrentIndexData(index);
 
-            var prodscrollablepanel = document.getElementById('prodscrollablepanel');
-            prodscrollablepanel.datasource = productsIndexesByCate[cateNo];
-
-            $("#cate_no").val(cateNo);
+            $("#cate_no").val(category.no);
 
         },
 
         clickPluPanel: function(index) {
 
-            var products = GeckoJS.Session.get('products');
-            var prodscrollablepanel = document.getElementById('prodscrollablepanel');
-            var productIndex = prodscrollablepanel.datasource.getCurrentIndexData(index);
-
-            this.setInputData(products[productIndex]);
+            var product = this.productPanelView.getCurrentIndexData(index);
+            this.setInputData(product);
             this._selectedIndex = index;
 
         },
