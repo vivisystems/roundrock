@@ -63,3 +63,7 @@ vivilocaleslistbox {
 vivisessionstatus {
   -moz-binding: url("chrome://vivipos/content/bindings/vivisessionstatus.xbl#vivisessionstatus");
 }
+
+viviuserlabel {
+  -moz-binding: url("chrome://vivipos/content/bindings/viviuserlabel.xbl#viviuserlabel");
+}
