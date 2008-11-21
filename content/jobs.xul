@@ -15,37 +15,15 @@
     <box flex="1" class="mainpanel1 pad40">
         <vbox flex="1" class="panel40">
             <vbox flex="1" class="footlogo">
-<<<<<<< HEAD:content/jobs.xul
-                    <!-- Begin Condiments -->
                     <groupbox flex="1">
                         <caption label="Job List:" />
-=======
->>>>>>> d1cdc3ce29f1d4c686fa00848fb7812a893bf931:content/jobs.xul
 
-<<<<<<< HEAD:content/jobs.xul
                         <hbox flex="1">
                             <viviscrollablebuttonpanel dir="reverse" id="jobscrollablepanel" flex="1" cols="3" rows="8" labelField="jobname" imageField="no" oncommand="$do('select',this.selectedIndex, 'Jobs');"
                               class="catescrollablepanel" buttonClass="catbtn button-radius button-white font-medium" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue"/>
-=======
-        <!-- Begin SysConfig 1 -->
->>>>>>> d1cdc3ce29f1d4c686fa00848fb7812a893bf931:content/jobs.xul
-
-<<<<<<< HEAD:content/jobs.xul
                             <spacer style="width: 10px;" />
                             <separator class="groove-thin"/>
-=======
-                    <vbox id="jobs">
-                        <label id="" value="Jobs" style="background:green; color:white;" />
-            <!-- hbox -->
-                        <vbox>
-                            <label hidden="true" form="jobForm" name="id" value="" />
-                            <label id="" value="Job List:" />
-                            <simplelistbox id="simpleListBoxJob" rows="16"  headers="Job Name" columns="jobname"  class="usersimplelistbox"/>
-                        </vbox>
-                        <vbox flex="1" style="overflow: auto" >
->>>>>>> d1cdc3ce29f1d4c686fa00848fb7812a893bf931:content/jobs.xul
 
-<<<<<<< HEAD:content/jobs.xul
                             <vbox>
                                 <!-- hbox align="center">
                                     <label hidden="true" form="jobForm" name="id" value="" />
@@ -64,20 +42,7 @@
                                     <button label="Modify" class="editbtns" oncommand="$do('update', null, 'Jobs');" />
                                 </hbox>
                             </vbox>
-=======
-                            <hbox class="config" align="center">
-                                <label value="Job Name:" />
-                                <textbox id="job_name" value="" form="jobForm" name="jobname" />
-                            </hbox>
-                            
-                        </vbox>
-            <!-- /hbox -->
-                        <spacer style="height: 10px;" />
-                        <hbox>
-                            <button label="Add" class="genbtn" oncommand="$do('add', null, 'Jobs');" />
-                            <button label="Delete" class="genbtn" oncommand="$do('delete', null, 'Jobs');" />
-                            <button label="Modify" class="genbtn" oncommand="$do('update', null, 'Jobs');" />
->>>>>>> d1cdc3ce29f1d4c686fa00848fb7812a893bf931:content/jobs.xul
+
                         </hbox>
                     </groupbox>
             </vbox>
