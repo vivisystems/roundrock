@@ -18,13 +18,14 @@ if (typeof Date.CultureInfo == 'undefined') {
 	loader.loadSubScript("resource://app/modules/date.js", window);
 }
 
-// Components.utils.import("resource://app/modules/GREUtils.jsm", window);
-// Components.utils.import("resource://app/modules/GeckoJS.jsm", window);
+//Components.utils.import("resource://app/modules/GREUtils.jsm", window);
+//Components.utils.import("resource://app/modules/GeckoJS.jsm", window);
 
 if(typeof GREUtils == 'undefined') {
     loader.loadSubScript("resource://app/modules/GREUtils.js", window);
 //    GREUtils.global = window || this;
 }
+
 if (typeof GeckoJS == 'undefined') {
     loader.loadSubScript("resource://app/modules/GeckoJS.js", window);
 //    GeckoJS.global = window  || this;
@@ -40,9 +41,9 @@ loader.loadSubScript("chrome://global/content/globalOverlay.js", window);
 var shortDispatcher = {};
 window['gDispatch'] = window['$do'] = shortDispatcher['gDispatch'] = shortDispatcher['$do'] = function(){
 
-    var ww = GREUtils.XPCOM.getUsefulService("window-watcher");
+    ///var ww = GREUtils.XPCOM.getUsefulService("window-watcher");
 
-    ww.activeWindow = window;
+    // ww.activeWindow = window;
 
     var args = [];
 
