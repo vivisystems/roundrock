@@ -1,6 +1,7 @@
 (function(){
     GeckoJS.include('chrome://viviecr/content/models/user.js');
     GeckoJS.include('chrome://viviecr/content/models/clockstamp.js');
+    GeckoJS.include('chrome://viviecr/content/models/job.js');
 
     // include controllers  and register itself
     GeckoJS.include('chrome://viviecr/content/controllers/clockinout_controller.js');
@@ -11,6 +12,7 @@
     function startup() {
         
         var users;
+        var jobs;
 
         function getUsers() {
             var datas;
@@ -24,7 +26,6 @@
             createUsersBtn();
 
         }
-
 
         function createUsersBtn() {
             var userspad = document.getElementById("userspad");
@@ -45,14 +46,26 @@
             }
         }
 
-        getUsers();
-        $do('setUser', null, 'ClockInOut');
-        $do('listSummary', null , 'ClockInOut');
+        function getJobs() {
+            var jobModel = new JobModel();
 
+            jobs = jobModel.find('all', {
+                order: "no"
+            });
+
+            jobs.sort(function(a, b) {
+                if (a.jobname < b.jobname) return -1;
+                else if (a.jobname > b.jobname) return 1;
+                else return 0;
+            });
+        }
+
+        getUsers();
+        getJobs();
+        $do('setJobList', jobs, 'ClockInOut');
+        
         $('#clearBtn')[0].addEventListener('command', clearUserPass, false);
         $('#user_password').focus();
-
-        clocktick();
     };
 
     /**
@@ -63,36 +76,7 @@
         $('#user_password').val('');
 
     }
-
-    function clocktick(){
-        var clock_time = new Date();
-        var clock_hours = clock_time.getHours();
-        var clock_minutes = clock_time.getMinutes();
-        var clock_seconds = clock_time.getSeconds();
-        /*
-        var clock_suffix = "AM";
-        if (clock_hours > 11){
-            clock_suffix = "PM";
-            clock_hours = clock_hours - 12;
-        }
-        */
-        if (clock_hours == 0){
-            clock_hours = 12;
-        }
-        if (clock_hours < 10){
-            clock_hours = "0" + clock_hours;
-        }
-        if (clock_minutes < 10){
-            clock_minutes = "0" + clock_minutes;
-        }
-        if (clock_seconds < 10){
-            clock_seconds = "0" + clock_seconds;
-        }
-        // $('#clock_now').val(clock_hours + ":" + clock_minutes + ":" + clock_seconds + " " + clock_suffix);
-        $('#clock_now').val(clock_hours + ":" + clock_minutes + ":" + clock_seconds);
-        window.setTimeout(clocktick, 1000, 0, 0);
-    }
-
+    
     window.addEventListener('load', startup, false);
 
 })();

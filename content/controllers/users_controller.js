@@ -11,6 +11,7 @@
 	
         _listObj: null,
         _listDatas: null,
+        _listGroups: null,
 
         getListObj: function() {
             if(this._listObj == null) {

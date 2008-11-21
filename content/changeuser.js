@@ -24,7 +24,6 @@
 
         }
 
-
         function createUsersBtn() {
             var userspad = document.getElementById("userspad");
             var datas;
@@ -41,7 +40,6 @@
                 button.setAttribute('class', "userbtn");
                 button.setAttribute('type', "radio");
                 button.setAttribute('group', "operator");
-                // button.setAttribute('username', datas['username']);
                 button.setAttribute('id', "user_" + datas['username']);
                 userspad.appendChild(button);
             }

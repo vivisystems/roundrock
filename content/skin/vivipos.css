@@ -504,7 +504,7 @@ treeitem {
     height: 50px;
     width: 32px;
     background: url(images/btn_green.png);
-    list-style-image: url(images/dnarr-dis.png);
+    list-style-image: url(images/down.png);
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-background-clip: border;
@@ -527,7 +527,7 @@ treeitem {
     height: 50px;
     width: 32px;
     background: url(images/btn_green.png);
-    list-style-image: url(images/uparr-dis.png);
+    list-style-image: url(images/up.png);
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-border-radius-topleft: 16px;
@@ -543,7 +543,7 @@ treeitem {
     height: 50px;
     width: 32px;
     background: url(images/btn_green.png);
-    list-style-image: url(images/dnarr-dis.png);
+    list-style-image: url(images/down.png);
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-border-radius-bottomleft: 16px;
