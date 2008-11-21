@@ -1,13 +1,20 @@
 (function(){
 
+GeckoJS.include('chrome://viviecr/content/models/plugroup.js');
+
 /**
  * Controller Startup
  */
 function startup() {
 
+    $do('createGroupPanel', null, "Plus");
 	$do('createPluPanel', null, "Plus");
 
+    $('#imageBrowseBtn')[0].addEventListener('command', selectImages, false);
+	$('#imageRemoveBtn')[0].addEventListener('command', RemoveImage, false);
+
 };
+
 
 /**
  * Browse and select PLU images
@@ -15,14 +22,16 @@ function startup() {
 function selectImages() {
 	var no  = $('#product_no').val();
 
-        var sDstDir = GREUtils.File.chromeToPath("chrome://viviecr/content/skin/icons/");
+        // var sDstDir = GREUtils.File.chromeToPath("chrome://viviecr/content/skin/icons/");
+        var sDstDir = GREUtils.File.chromeToPath("chrome://viviecr/content/skin/images/");
         // alert(sDstDir);
     var aURL = "chrome://viviecr/content/imageManager.xul";
     var aName = "imagePicker";
 
     var args = {
       pickerMode: false,
-      directory: "/home/rack/workspace/sam4s/content/skin/icons/",
+      // directory: "/home/rack/workspace/sam4s/content/skin/icons/",
+      directory: sDstDir + "/",
       result: false,
       file: ""
     };

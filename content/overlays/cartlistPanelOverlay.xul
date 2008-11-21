@@ -8,7 +8,7 @@
          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-  <vbox id="cartlistPanelContainer">
+  <vbox id="cartlistPanelContainer" flex="1">
 
       
         <onscreenvfd  id="onscreenvfd" maxlen="32" class="vbox_vfd" labelClass="label_vfd" value="TOTAL: 0" />

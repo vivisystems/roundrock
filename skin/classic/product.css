@@ -15,7 +15,7 @@
     -moz-border-left-colors: #444;
 }
 .catbtn[selected] {
-    list-style-image: none;
+    /* list-style-image: none; */
 }
 
 .catbtn:active, .plubtn:active {

@@ -4,44 +4,38 @@
 <?xml-stylesheet href="chrome://viviecr/content/skin/vivipos.css" type="text/css"?>
 <window id="changeuser" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-  <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
-  <script type="application/x-javascript" src="chrome://viviecr/content/changeuser.js" />
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/changeuser.js" />
 
-  <box flex="1" class="mainpanel">
-    <vbox  id="" pack="start" class="hboxb" flex="1">
-      <hbox pack="start" flex="1">
-        <label id="inputtext" value="Please Choose the Clerk: " style="font-size:28px;"/>
-        <label id="user_name" value="" style="font-size:28px;"/>
-      </hbox>
-      <hbox>
-        <vbox style="width: 420px;">
-          <scrollablepanel increment="325" dir="reverse" class="userscrollablepanel" scrollUpClass="rightprevbtn blue" scrollDownClass="rightnextbtn blue">
-            <hbox  id="userspad" class="hboxb" style="display: block;">
+    <box flex="1" class="mainpanel">
+        <vbox  id="" pack="start" class="hboxb" flex="1">
+            <hbox>
+                <vbox style="width: 420px;">
+                    <scrollablepanel increment="325" dir="reverse" class="userscrollablepanel" scrollUpClass="rightprevbtn blue" scrollDownClass="rightnextbtn blue">
+                        <hbox  id="userspad" class="hboxb" style="display: block;">
+                        </hbox>
+                    </scrollablepanel>
+                </vbox>
+                <vbox>
+                    <label id="user_name" value="" style="font-size:28px;"/>
+                    <vbox>
+                        <label value="Password:" />
+                        <textbox id="user_password" type="password" value="" />
+                    </vbox>
+                    <hbox>
+                        <numberpad id="multinumberpad" class="numberpad" target="user_password"/>
+                        <vbox>
+                            <sendkeybutton id="bkeyBtn"  label="BS"   keyCode='0x08' target="user_password" class="systembtn"  />
+                            <vivibutton id="clearBtn"  label="CLEAR" class="systembtn"  roles="manager,admin" action ='display' />
+                            <button id="ckeyBtn"  label="Sign-off"  oncommand="$do('signOff', null, 'ChangeUser');" class="systembtn"  />
+                        </vbox>
+                    </hbox>
+                </vbox>
+                <spacer flex="1" />
+
             </hbox>
-          </scrollablepanel>
+            <button label="OK" class="genbtn" oncommand="$do('checkUser', null, 'ChangeUser');" />
+            <button label="Cancel" class="genbtn" oncommand="$do('cancel', null, 'ChangeUser');" />
         </vbox>
-        <vbox>
-          <vbox>
-            <label value="Password:" />
-            <textbox id="user_password" type="password" value="" />
-          </vbox>
-          <hbox>
-            <numberpad id="multinumberpad" class="numberpad" target="null"/>
-            <vbox>
-              <!-- sendkeybutton id="akeyBtn"  label="A"   charCode='A' target="user_password" class="systembtn"  / -->
-              <sendkeybutton id="bkeyBtn"  label="BS"   keyCode='0x08' target="user_password" class="systembtn"  />
-              <vivibutton id="clearBtn"  label="CLEAR" class="systembtn"  roles="manager,admin" action ='display' />
-              <button id="ckeyBtn"  label="Sign-off"  oncommand="$do('signOff', null, 'ChangeUser');" class="systembtn"  />
-            </vbox>
-          </hbox>
-          <label id="sign_status" value="" style="font-size:28px; color: red;"/>
-        </vbox>
-        <spacer flex="1" />
-
-      </hbox>
-      <button label="OK" class="genbtn" oncommand="$do('checkUser', null, 'ChangeUser');" />
-      <button label="Cancel" class="genbtn" oncommand="$do('cancel', null, 'ChangeUser');" />
-    </vbox>
-
-  </box>
+    </box>
 </window>

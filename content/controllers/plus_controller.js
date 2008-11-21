@@ -1,7 +1,7 @@
 (function(){
 
     /**
-     * Class ViviPOS.MainController
+     * Class PlusController
      */
     GeckoJS.Controller.extend( {
 
@@ -9,51 +9,20 @@
         screenwidth: 800,
         screenheight: 600,
         _selectedIndex: null,
+        _selCateNo: null,
 
-        createPluPanel2: function () {
-            /*
-            var categories;
-
-            var cateModel = new CategoryModel();
-            categories = cateModel.find('all', {
+        createGroupPanel: function () {
+            var pluGroupModel = new PlugroupModel();
+            var groups = pluGroupModel.find('all', {
                 order: "no"
             });
-            // GeckoJS.Session.add('categories', categories);
-            */
 
-            var categories = GeckoJS.Session.get('categories');
-
-            // bind categories data
-            var catePanelView =  new NSICategoriesView(categories);
-            var catescrollablepanel = document.getElementById('catescrollablepanel');
-            catescrollablepanel.datasource = catePanelView;
-
-
-            // bind plu data
-            var firstCateNo = categories[0]['no'];
-
-        },
-
-        changePluPanel2: function(index) {
-
-            var categories = GeckoJS.Session.get('categories');
-            var cateNo = categories[index]['no'];
-
-            this._selectedIndex = index;
-            this.setInputData(categories[index]);
-
+            var group_listscrollablepanel = document.getElementById('group_listscrollablepanel');
+            var plugroupPanelView = new NSIPluGroupsView(groups);
+            group_listscrollablepanel.datasource = plugroupPanelView;
         },
 
         createPluPanel: function () {
-            /*
-            var categories, products, barcodesIndexes = {}, productsIndexesByCate= {};
-
-            var cateModel = new CategoryModel();
-            categories = cateModel.find('all', {
-                order: "no"
-            });
-            GeckoJS.Session.add('categories', categories);
-            */
             var categories = GeckoJS.Session.get('categories');
             // bind categories data
             var catePanelView =  new NSICategoriesView();
@@ -61,17 +30,11 @@
             catescrollablepanel.datasource = catePanelView;
 
             var productsIndexesByCate = GeckoJS.Session.get('productsIndexesByCate');
-            // var cateNo = categories[index]['no'];
 
             var firstCateNo = categories[0]['no'];
             var prodscrollablepanel = document.getElementById('prodscrollablepanel');
             var productPanelView = new NSIProductsView(productsIndexesByCate[firstCateNo]);
             prodscrollablepanel.datasource = productPanelView;
-
-            // var prodscrollablepanel = document.getElementById('prodscrollablepanel');
-            // prodscrollablepanel.datasource = productsIndexesByCate[cateNo];
-
-
 
         },
 
@@ -84,7 +47,7 @@
             var prodscrollablepanel = document.getElementById('prodscrollablepanel');
             prodscrollablepanel.datasource = productsIndexesByCate[cateNo];
 
-            
+            $("#cate_no").val(cateNo);
 
         },
 
@@ -96,8 +59,6 @@
 
             this.setInputData(products[productIndex]);
             this._selectedIndex = index;
-            //            alert(index + "," + productIndex);
-            // return this.requestCommand('addItem',products[productIndex],'Cart');
 
         },
 
@@ -111,8 +72,6 @@
 
         setInputData: function (valObj) {
 
-            // this.resetInputData();
-
             GeckoJS.FormHelper.unserializeFromObject('productForm', valObj);
 
             document.getElementById('pluimage').setAttribute("src", "chrome://viviecr/content/skin/pluimages/" + valObj.no + ".png?" + Math.random());
@@ -120,22 +79,32 @@
 
         add: function  () {
             var inputData = this.getInputData();
-            /*
-            var inputData = {};
-            GREUtils.Dialog.prompt(null, "New Department", "Department No", input);
-            inputData.no = input;
-            GREUtils.Dialog.prompt(null, "New Department", "Department Name", input);
-            inputData.name = input;
-            */
-            var category = new CategoryModel();
-            category.save(inputData);
 
-            var categories = cateModel.find('all', {
-                order: "no"
-            });
-            GeckoJS.Session.add('categories', categories);
+            var aURL = "chrome://viviecr/content/prompt_additem.xul";
+            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250";
+            var inputObj = {
+                input0:null,
+                input1:null
+            };
+            window.openDialog(aURL, "prompt_additem", features, "New Plu", "Please input:", "No", "Name", inputObj);
 
-            this.resetInputData();
+            if (inputObj.ok && inputObj.input0 && inputObj.input1) {
+                var product = new ProductModel();
+                inputData = {
+                    no: inputObj.input0,
+                    name: inputObj.input1
+                    };
+                inputData.cate_no = $("#cate_no").val();
+                product.save(inputData);
+
+                var products = product.find('all', {
+                    order: "cate_no"
+                });
+                GeckoJS.Session.add('products', products);
+
+                this.resetInputData();
+            }
+
         },
 
         modify: function  () {
@@ -178,8 +147,6 @@
                 GeckoJS.Session.add('barcodesIndexes', barcodesIndexes);
 
                 // bind plu data
-                // var categories = GeckoJS.Session.get('categories');
-                // var cateNo = categories[self._selectedIndex]['no'];
                 var prodscrollablepanel = document.getElementById('prodscrollablepanel');
                 var productPanelView = new NSIProductsView(productsIndexesByCate[inputData.cate_no]);
                 prodscrollablepanel.datasource = productPanelView;
@@ -206,7 +173,6 @@
                 }
             }
         }
-
     });
 
 })();

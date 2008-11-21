@@ -1,5 +1,42 @@
-<!ENTITY vivipos.fec.settings.backups "System Backup">
-<!ENTITY vivipos.fec.settings.format "display Format">
+<!ENTITY vivipos.fec.settings.category.backups "System Backup">
+<!ENTITY vivipos.fec.settings.category.display "Display Format">
+<!ENTITY vivipos.fec.settings.category.general "General Options">
+<!ENTITY vivipos.fec.settings.category.login "Sign In/Out">
+<!ENTITY vivipos.fec.settings.terminalid "Terminal ID">
+<!ENTITY vivipos.fec.settings.publicattendance "Individual Time and Attendance visible to all">
 <!ENTITY vivipos.fec.settings.defaultlogin "Default Login">
 <!ENTITY vivipos.fec.settings.privatequeue "Private Order Queue">
-<!ENTITY Name "Name">
+<!ENTITY vivipos.fec.settings.dateformat "Date Format:">
+<!ENTITY vivipos.fec.settings.timeformat "Time Format:">
+<!ENTITY vivipos.fec.settings.precisionprices "Precision to Use for Prices">
+<!ENTITY vivipos.fec.settings.precisiontaxes "Precision to Use for Taxes">
+<!ENTITY vivipos.fec.settings.roundingprices "Rounding Policy to Use for Prices">
+<!ENTITY vivipos.fec.settings.roundingtaxes "Rounding Policy to Use for Taxes">
+<!ENTITY vivipos.fec.common.name "Name">
+<!ENTITY vivipos.fec.settings.rounding.to-nearest-precision "to nearest precision">
+<!ENTITY vivipos.fec.settings.rounding.to-nearest-half "to nearest half">
+<!ENTITY vivipos.fec.settings.rounding.to-nearest-quarter "to nearest quarter">
+<!ENTITY vivipos.fec.settings.rounding.to-nearest-nickel "to nearest nickel">
+<!ENTITY vivipos.fec.settings.rounding.to-nearest-dime "to nearest dime">
+<!ENTITY vivipos.fec.settings.rounding.always-round-up "always round up">
+<!ENTITY vivipos.fec.settings.rounding.always-round-down "always round down">
+
+<!ENTITY vivipos.fec.common.ok "Ok">
+<!ENTITY vivipos.fec.common.cancel "Cancel">
+<!ENTITY vivipos.fec.common.add "Add">
+<!ENTITY vivipos.fec.common.modify "Modify">
+<!ENTITY vivipos.fec.common.delete "Delete">
+
+<!ENTITY vivipos.fec.plus.basedata "Plu Data">
+<!ENTITY vivipos.fec.plus.face "Icon and Color">
+<!ENTITY vivipos.fec.plus.pricelevels "Price Levels">
+<!ENTITY vivipos.fec.plus.groups "Link Groups">
+<!ENTITY vivipos.fec.plus.level "Level">
+<!ENTITY vivipos.fec.plus.price "Price">
+<!ENTITY vivipos.fec.plus.halo "HALO">
+<!ENTITY vivipos.fec.plus.lalo "LALO">
+
+<!ENTITY vivipos.fec.settings.login.autodiscardcart "Automatically discard cart content when signing off">
+<!ENTITY vivipos.fec.settings.login.autodiscardqueue "Automatically discard queued orders when signing off">
+<!ENTITY vivipos.fec.settings.login.mustemptyqueue "Order queue must be emptied when signing off">
+
