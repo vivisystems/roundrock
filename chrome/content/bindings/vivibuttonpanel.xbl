@@ -84,10 +84,12 @@
     <property name="value">
         <getter>
             <![CDATA[
-                if (!this.datasource) return this.selectedIndex;
+                if (!this.datasource) return this.selectedItems.join(',');
 
                 if (typeof this.datasource['getValue'] == 'function') {
                     return this.datasource.getValue();
+                }else {
+                    return this.selectedItems.join(',');
                 }
 
             ]]>
@@ -95,10 +97,12 @@
         <setter>
             <![CDATA[
 
-                if (!this.datasource) return this.selectedIndex = val;
+                if (!this.datasource) return this.selectedItems = val.split(',');
 
                 if (typeof this.datasource['setValue'] == 'function') {
                     return this.datasource.setValue(val);
+                }else {
+                    return this.selectedItems = val.split(',');
                 }
 
             ]]>
