@@ -10,7 +10,7 @@
         screenwidth: 800,
         screenheight: 600,
         depPanelView: null,
-        productPanelView: null,
+        pluPanelView: null,
 
         initial: function() {
 
@@ -141,22 +141,22 @@
 
         createPluPanel: function () {
 
-            this.depPanelView =  new NSICategoriesView('catescrollablepanel');
-            this.productPanelView = new NSIProductsView('prodscrollablepanel');
-            this.productPanelView.setCatePanelView(this.depPanelView);
-            this.productPanelView.setCatePanelIndex(0);
+            this.depPanelView =  new NSIDepartmentsView('catescrollablepanel');
+            this.pluPanelView = new NSIPlusView('prodscrollablepanel');
+            this.pluPanelView.setCatePanelView(this.depPanelView);
+            this.pluPanelView.setCatePanelIndex(0);
 
         },
 
         changePluPanel: function(index) {
 
-            this.productPanelView.setCatePanelIndex(index);
+            this.pluPanelView.setCatePanelIndex(index);
 
         },
 
         clickPluPanel: function(index) {
 
-            var product = this.productPanelView.getCurrentIndexData(index);
+            var product = this.pluPanelView.getCurrentIndexData(index);
             return this.requestCommand('addItem',product,'Cart');
 
         },

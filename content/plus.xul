@@ -281,7 +281,7 @@
                     <hbox>
                         <button label="&vivipos.fec.common.add;" class="editbtns" oncommand="$do('add', null, 'Plus');" />
                         <spacer flex="1" />
-                        <button label="&vivipos.fec.common.delete;" class="editbtns" oncommand="$do('delete', null, 'Plus');" />
+                        <button label="&vivipos.fec.common.delete;" class="editbtns" oncommand="$do('remove', null, 'Plus');" />
                         <button label="&vivipos.fec.common.modify;" class="editbtns" oncommand="$do('modify', null, 'Plus');" />
                     </hbox>
                     <spacer style="height: 20px;" />

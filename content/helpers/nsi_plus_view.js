@@ -1,11 +1,16 @@
-(function() {
+(function(){
 
-    var NSIDepartmentsView = window.NSIDepartmentsView = NSICategoriesView.extend({
+    /**
+     * PLUs View is support for mainscreen registration use.
+     **/
+    var NSIPlusView = window.NSIPlusView = NSIProductsView.extend( {
         
         init: function(domId) {
 
             this._data = [];
             this.hideUnvisible = true;
+            this._cateView = false;
+            this._currentCateIndex = 0;
 
             // call parent init
             this._super(domId);
@@ -16,13 +21,14 @@
          * binding panel override
          */
         bindingPanel: function(domId) {
+            
+            var prodscrollablepanel = document.getElementById(domId);
+            prodscrollablepanel.setAttribute('rows', GeckoJS.Configure.read('vivipos.fec.settings.PluRows'));
+            prodscrollablepanel.setAttribute('cols', GeckoJS.Configure.read('vivipos.fec.settings.PluCols'));
+            prodscrollablepanel.initGrid();
+            prodscrollablepanel.datasource = this;
 
-            var catescrollablepanel = document.getElementById(domId);
-            catescrollablepanel.setAttribute('rows', GeckoJS.Configure.read('vivipos.fec.settings.DepartmentRows'));
-            catescrollablepanel.setAttribute('cols', GeckoJS.Configure.read('vivipos.fec.settings.DepartmentCols'));
-            catescrollablepanel.initGrid();
-            catescrollablepanel.datasource = this;
-            this.refreshView();
+            if(this._cateView) this.setCatePanelIndex(this._currentCateIndex);
 
         },
 
@@ -33,20 +39,22 @@
 
             var self = this;
             GeckoJS.Session.addEventListener('change', function(evt){
-                // maybe controllPanel update categories session.
-                // just refresh view , dont prepare categories array to session.
-                if (evt.data.key == 'categories') {
-                    self.refreshView();
+
+                // maybe controllPanel update product session.
+                // just refresh view , dont prepare product array to session.
+                if (evt.data.key == 'productsIndexesByCateAll') {
+                    if(self._cateView) self.setCatePanelIndex(self._currentCateIndex);
                 }
             });
 
         },
 
+
         /**
          * FrontEnd style
          */
         renderButton: function(row, btn) {
-            
+
             var buttonColor = this.getCellValue(row,{
                 id: 'button_color'
             });
@@ -60,8 +68,9 @@
             if (buttonFontSize && btn) {
                 $(btn).addClass('font-'+ buttonFontSize);
             }
-
         }
+
     });
 
 })();
+

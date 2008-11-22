@@ -1,21 +1,41 @@
 (function(){
-
+    /**
+     * Products View is support for controll panel  maintaince use.
+     **/
     var NSIProductsView = window.NSIProductsView = GeckoJS.NSITreeViewArray.extend( {
         
-        init: function(data) {
+        init: function(domId) {
 
-            this.showHidden = false;
+            this._data = [];
+            this.hideUnvisible = this.hideUnvisible || false;
             this._cateView = false;
             this._currentCateIndex = 0;
 
             if (GeckoJS.Session.get('products') == null) {
-                var prodModel = new ProductModel();
-                var products = prodModel.find('all', {
-                    order: "cate_no"
-                });
-
-                GeckoJS.Session.add('products', products);
+                this.updateProducts();
             }
+
+            // binding dom
+            this.bindingPanel(domId);
+
+            // register eventListener
+            this.registerEventListener();
+
+        },
+
+        bindingPanel: function(domId) {
+            
+            var prodscrollablepanel = document.getElementById(domId);
+            //prodscrollablepanel.setAttribute('rows', GeckoJS.Configure.read('vivipos.fec.settings.PluRows'));
+            //prodscrollablepanel.setAttribute('cols', GeckoJS.Configure.read('vivipos.fec.settings.PluCols'));
+            //prodscrollablepanel.initGrid();
+            prodscrollablepanel.datasource = this;
+
+            if(this._cateView) this.setCatePanelIndex(this._currentCateIndex);
+
+        },
+
+        registerEventListener: function() {
 
             var self = this;
             GeckoJS.Session.addEventListener('change', function(evt){
@@ -24,23 +44,24 @@
                     if(self._cateView) self.setCatePanelIndex(self._currentCateIndex);
                 }
             });
-
-            var prodscrollablepanel = document.getElementById(data);
-            prodscrollablepanel.setAttribute('rows', GeckoJS.Configure.read('vivipos.fec.settings.PluRows'));
-            prodscrollablepanel.setAttribute('cols', GeckoJS.Configure.read('vivipos.fec.settings.PluCols'));
-            prodscrollablepanel.initGrid();
-            prodscrollablepanel.datasource = this;
-
-            this.updateProducts();
-            if(this._cateView) this.setCatePanelIndex(this._currentCateIndex);
-
-
+            
         },
 
         updateProducts: function() {
 
             this._data = [];
             var products = GeckoJS.Session.get('products');
+
+            if (products == null) {
+                // find all product and update session.
+                var prodModel = new ProductModel();
+                products = prodModel.find('all', {
+                    order: "cate_no"
+                });
+
+                GeckoJS.Session.add('products', products);
+            }
+
             var byId ={}, indexCate = {}, indexCateAll={}, indexBarcode = {};
             
             products.forEach(function(product) {
@@ -58,8 +79,8 @@
                         indexCate[product.cate_no] = [];
                         indexCateAll[product.cate_no] = [];
                     }
-                    if(GeckoJS.String.parseBoolean(product.visible)) indexCate[product.cate_no].push(product.id);
-                    indexCateAll[product.cate_no].push(product.id);
+                    indexCateAll[(product.cate_no+"")].push((product.id+""));
+                    if(GeckoJS.String.parseBoolean(product.visible)) indexCate[(product.cate_no+"")].push((product.id+""));
                 }
             });
 
@@ -74,7 +95,6 @@
             this.log(this.dump(GeckoJS.Session.get('productsIndexesByCateAll')));
             this.log(this.dump(GeckoJS.Session.get('barcodesIndexes')));
             */
-            
         },
 
         setCatePanelView: function(cateView) {
@@ -91,11 +111,13 @@
             
             var productsIndexesByCate;
 
-            if (this.showHidden) {
-                productsIndexesByCate = GeckoJS.Session.get('productsIndexesByCateAll');
-            }else {
+
+            if (this.hideUnvisible) {
                 productsIndexesByCate = GeckoJS.Session.get('productsIndexesByCate');
+            }else {
+                productsIndexesByCate = GeckoJS.Session.get('productsIndexesByCateAll');
             }
+            
             this._data = productsIndexesByCate[cate.no];
 
             try {
@@ -106,7 +128,7 @@
         },
 
         toggle: function() {
-            this.showHidden = !this.showHidden;
+            this.hideUnvisible = !this.hideUnvisible;
             this.setCatePanelIndex(this._currentCateIndex);
         },
 
@@ -129,9 +151,12 @@
             var key;
 
             try {
+
                 key = col.id;
                 id = this.data[row];
                 sResult= products[id][key];
+
+                this.log('DEBUG', row +","+col +", id = " + id +", result = " +  sResult);
             }
             catch (e) {
                 return "";

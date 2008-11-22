@@ -30,7 +30,9 @@ GREUtils.include('chrome://viviecr/content/models/job.js');
 
 // include project helpers
 GREUtils.include('chrome://viviecr/content/helpers/nsi_products_view.js');
+GREUtils.include('chrome://viviecr/content/helpers/nsi_plus_view.js');
 GREUtils.include('chrome://viviecr/content/helpers/nsi_categories_view.js');
+GREUtils.include('chrome://viviecr/content/helpers/nsi_departments_view.js');
 GeckoJS.include('chrome://viviecr/content/helpers/nsi_cart_view.js');
 GREUtils.include('chrome://viviecr/content/helpers/nsi_condiments_view.js');
 GREUtils.include('chrome://viviecr/content/helpers/nsi_plugroups_view.js');

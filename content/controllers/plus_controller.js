@@ -10,7 +10,7 @@
         screenheight: 600,
         _selectedIndex: null,
         _selCateNo: null,
-        depPanelView: null,
+        catePanelView: null,
         productPanelView: null,
 
 
@@ -27,20 +27,18 @@
 
         createPluPanel: function () {
 
-            this.depPanelView =  new NSICategoriesView('catescrollablepanel');
-            this.depPanelView.toggle();
+            this.catePanelView =  new NSICategoriesView('catescrollablepanel');
             this.productPanelView = new NSIProductsView('prodscrollablepanel');
             
-            this.productPanelView.setCatePanelView(this.depPanelView);
+            this.productPanelView.setCatePanelView(this.catePanelView);
             this.productPanelView.setCatePanelIndex(0);
-            this.productPanelView.toggle();
 
         },
 
         changePluPanel: function(index) {
 
             this.productPanelView.setCatePanelIndex(index);
-            var category = this.depPanelView.getCurrentIndexData(index);
+            var category = this.catePanelView.getCurrentIndexData(index);
 
             this.resetInputData();
             $("#cate_no").val(category.no);
@@ -91,10 +89,7 @@
                 inputData.cate_no = $("#cate_no").val();
                 product.save(inputData);
 
-                var products = product.find('all', {
-                    order: "cate_no"
-                });
-                GeckoJS.Session.add('products', products);
+                this.updateSession();
 
                 this.resetInputData();
             }
@@ -105,47 +100,14 @@
             var inputData = this.getInputData();
             var prodModel = new ProductModel();
             var self = this;
-            if(this._selectedIndex >= 0) {
 
-                var products = GeckoJS.Session.get('products');
+            if(this._selectedIndex >= 0) {
 
                 prodModel.id = inputData.id;
                 prodModel.save(inputData);
 
-                var prodModel = new ProductModel();
-                var products = prodModel.find('all', {
-                    order: "cate_no"
-                });
-
-                var barcodesIndexes = {}, productsIndexesByCate= {};
-                for (var pidx in products) {
-                    var product = products[pidx];
-                    var catno = product['cate_no'];
-                    if (typeof catno == 'undefined') continue;
-                    var barcode = product['barcode'];
-
-                    if (typeof productsIndexesByCate[catno] == 'undefined') {
-                        productsIndexesByCate[catno] = [];
-                    }
-
-                    productsIndexesByCate[catno].push(pidx);
-
-
-                    barcodesIndexes[barcode] = pidx;
-
-                };
-
-                GeckoJS.Session.add('products', products);
-
-                GeckoJS.Session.add('productsIndexesByCate', productsIndexesByCate);
-                GeckoJS.Session.add('barcodesIndexes', barcodesIndexes);
-
-                // bind plu data
-                /*
-                var prodscrollablepanel = document.getElementById('prodscrollablepanel');
-                var productPanelView = new NSIProductsView(productsIndexesByCate[inputData.cate_no]);
-                prodscrollablepanel.datasource = productPanelView;
-                */
+                this.updateSession();
+                
             }
         },
 
@@ -153,21 +115,23 @@
 
             if (GREUtils.Dialog.confirm(null, "confirm delete", "Are you sure?")) {
                 var prodModel = new ProductModel();
-                var index = this._selectedIndex;
-                var productIndex = prodscrollablepanel.datasource.getCurrentIndexData(index);
+                var index = document.getElementById('prodscrollablepanel').selectedIndex;
 
-                if(index >= 0) {
-                    var products = GeckoJS.Session.get('products');
-                    var product = products[productIndex];
+                var product = this.productPanelView.getCurrentIndexData(index);
+                
+                if(product) {
                     prodModel.del(product.id);
-
-                    var products = prodModel.find('all', {
-                        order: "cate_no"
-                    });
-                    GeckoJS.Session.add('products', products);
-
+                    this.updateSession();
                 }
             }
+        },
+
+        updateSession: function() {
+            var prodModel = new ProductModel();
+            var products = prodModel.find('all', {
+                order: "cate_no"
+            });
+            GeckoJS.Session.add('products', products);
         }
     });
 

@@ -15,17 +15,16 @@
         createDepartmentPanel: function () {
 
             this.catePanelView =  new NSICategoriesView('catescrollablepanel');
-            this.catePanelView.toggle();
 
         },
 
         changeDepartmentPanel: function(index) {
 
-            var categories = GeckoJS.Session.get('categories');
-            var cateNo = categories[index]['no'];
+            var category = this.catePanelView.getCurrentIndexData(index);
+            var cateNo = category['no'];
 
             this._selectedIndex = index;
-            this.setInputData(categories[index]);
+            this.setInputData(category);
 
         },
 
@@ -60,10 +59,7 @@
 
                 category.save(inputData);
 
-                var categories = category.find('all', {
-                    order: "no"
-                });
-                GeckoJS.Session.add('categories', categories);
+                this.updateSession();
 
                 this.resetInputData();
             }
@@ -75,17 +71,14 @@
 
             if(this._selectedIndex >= 0) {
 
-                var categories = GeckoJS.Session.get('categories');
-                var category = categories[this._selectedIndex];
+                var category = this.catePanelView.getCurrentIndexData(this._selectedIndex);
 
                 inputData.id = category.id;
                 cateModel.id = category.id;
                 cateModel.save(inputData);
 
-                var categories = cateModel.find('all', {
-                    order: "no"
-                });
-                GeckoJS.Session.add('categories', categories);
+                this.updateSession();
+
             }
         },
 
@@ -94,17 +87,25 @@
             if (GREUtils.Dialog.confirm(null, "confirm delete", "Are you sure?")) {
                 var cateModel = new CategoryModel();
                 if(this._selectedIndex >= 0) {
-                    var categories = GeckoJS.Session.get('categories');
-                    var category = categories[this._selectedIndex];
+
+                    var category = this.catePanelView.getCurrentIndexData(this._selectedIndex);
+
                     cateModel.del(category.id);
 
-                    var categories = cateModel.find('all', {
-                        order: "no"
-                    });
-                    GeckoJS.Session.add('categories', categories);
+                    this.updateSession();
+                    
                 }
             }
+        },
+
+        updateSession: function() {
+            var cateModel = new CategoryModel();
+            var categories = cateModel.find('all', {
+                order: "no"
+            });
+            GeckoJS.Session.add('categories', categories);
         }
+
 
     });
 

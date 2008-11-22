@@ -2,18 +2,35 @@
 
     var NSICategoriesView = window.NSICategoriesView = GeckoJS.NSITreeViewArray.extend({
         
-        init: function(data) {
+        init: function(domId) {
 
-            this.showHidden = false;
-                        
-            if (GeckoJS.Session.get('categories') == null) {
-                var cateModel = new CategoryModel();
-                var categories = cateModel.find('all', {
-                    order: "no"
-                });
-                GeckoJS.Session.add('categories', categories);
+            this._data = [];
+            this.hideUnvisible = this.hideUnvisible || false;
 
+            if (GeckoJS.Session.get('products') == null) {
+                this.updateCategories();
             }
+
+            // binding dom
+            this.bindingPanel(domId);
+
+            // register eventListener
+            this.registerEventListener();
+
+        },
+
+        bindingPanel: function(domId) {
+
+            var catescrollablepanel = document.getElementById(domId);
+            //catescrollablepanel.setAttribute('rows', GeckoJS.Configure.read('vivipos.fec.settings.DepartmentRows'));
+            //catescrollablepanel.setAttribute('cols', GeckoJS.Configure.read('vivipos.fec.settings.DepartmentCols'));
+            //catescrollablepanel.initGrid();
+            catescrollablepanel.datasource = this;
+            this.refreshView();
+
+        },
+
+        registerEventListener: function() {
 
             var self = this;
             GeckoJS.Session.addEventListener('change', function(evt){
@@ -23,20 +40,22 @@
                 }
             });
 
-            var catescrollablepanel = document.getElementById(data);
-            catescrollablepanel.setAttribute('rows', GeckoJS.Configure.read('vivipos.fec.settings.DepartmentRows'));
-            catescrollablepanel.setAttribute('cols', GeckoJS.Configure.read('vivipos.fec.settings.DepartmentCols'));
-            catescrollablepanel.initGrid();
-            catescrollablepanel.datasource = this;
-            
-            this.updateCategories();
-            this.refreshView();
-
-
         },
+
 
         updateCategories: function() {
             var categories = GeckoJS.Session.get('categories');
+
+            if (categories == null) {
+                // find all categories and update session.
+                var cateModel = new CategoryModel();
+                categories = cateModel.find('all', {
+                    order: "no"
+                });
+                GeckoJS.Session.add('categories', categories);
+
+            }
+
             var byId ={}, indexCate = [], indexCateAll = [];
 
             categories.forEach(function(category) {
@@ -61,10 +80,11 @@
 
             var categiesIndexes;
 
-            if (this.showHidden) {
-                categiesIndexes = GeckoJS.Session.get('categiesIndexesAll');
-            }else {
+            if (this.hideUnvisible) {
                 categiesIndexes = GeckoJS.Session.get('categiesIndexes');
+            }else {
+
+                categiesIndexes = GeckoJS.Session.get('categiesIndexesAll');
             }
             this._data = categiesIndexes;
 
@@ -75,7 +95,7 @@
         },
 
         toggle: function() {
-            this.showHidden = !this.showHidden;
+            this.hideUnvisible = !this.hideUnvisible;
 
             this.refreshView();
         },
