@@ -428,6 +428,11 @@
                 this.ready = function() {
                     self._refreshOrientation(self.getAttribute('dir'));
                     self.currentPage = self.homePage;
+                    self.controlWidth = self.controlPanel.boxObject.width;
+
+                    if (self.getAttribute('hideScrollbar').toLowerCase() == 'true') {
+                        self._showHideScrollbar(true);
+                    }
                 }
                 window.addEventListener('DOMContentLoaded', this.ready, true);
 
@@ -448,6 +453,24 @@
 
             <!-- Methods -->
 
+            <method name="_showHideScrollbar">
+                <parameter name="hide"/>
+                <body>
+                <![CDATA[
+                    if (hide) {
+                        this.controlWidth = this.controlPanel.boxObject.width;
+                        this.keypadWidth = this.boxObject.width;
+                    }
+                    else {
+                        this.keypadWidth = this.boxObject.width - this.controlWidth;
+                    }
+                    this.controlPanel.setAttribute('hidden', hide);
+                    this._clearKeypad();
+                    this._refreshCurrentPage();
+                ]]>
+                </body>
+            </method>
+
             <!-- handle attribute modification event -->
             <method name="_attrModified">
                 <parameter name="evt"/>
@@ -458,21 +481,25 @@
                     switch(evt.attrName) {
                     
                         case 'height':
-                            GREUtils.log('[ATTRIBUTE-MODIFIED]: node <' + evt.originalTarget.anonid + '> attribute <' + evt.attrName + '> changed to value <' + evt.newValue + '>');
+                            //GREUtils.log('[ATTRIBUTE-MODIFIED]: node <' + evt.originalTarget.id + '> attribute <' + evt.attrName + '> changed to value <' + evt.newValue + '>');
                             this.keypadHeight = evt.newValue;
                             this._clearKeypad();
                             this._refreshCurrentPage();
-                            this._refreshOrientation();
-                            GREUtils.log('[ATTRIBUTE-MODIFIED]: done');
+                            //GREUtils.log('[ATTRIBUTE-MODIFIED]: done');
                             break;
 
                         case 'width':
-                            GREUtils.log('[ATTRIBUTE-MODIFIED]: node <' + evt.originalTarget.anonid + '> attribute <' + evt.attrName + '> changed to value <' + evt.newValue + '>');
+                            GREUtils.log('[ATTRIBUTE-MODIFIED]: node <' + evt.originalTarget.id + '> attribute <' + evt.attrName + '> changed to value <' + evt.newValue + '>');
                             this.keypadWidth = evt.newValue;
                             this._clearKeypad();
                             this._refreshCurrentPage();
                             break;
 
+                        case 'hideScrollbar':
+                            //GREUtils.log('[ATTRIBUTE-MODIFIED]: node <' + evt.originalTarget.id + '> attribute <' + evt.attrName + '> changed to value <' + evt.newValue + '>');
+                            this._showHideScrollbar(evt.newValue.toLowerCase() == 'true');
+                            break;
+                            
 <!-- we don't want changes to these attributes to be reflected immediately on screen: use setSize() instead
                         case 'vspacing':
                         case 'hspacing':
