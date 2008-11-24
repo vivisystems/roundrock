@@ -77,36 +77,8 @@
 
             var self = this;
             var roles = this.Acl.getRoleList();
-<<<<<<< HEAD:content/controllers/rolegroups_controller.js
-            if (rolelist && roles && roles.length > 0) {
-                roles.forEach(function(o) {
-                    var checkbox = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:checkbox");
-                    checkbox.setAttribute('label', o.description);
-                    checkbox.setAttribute('id', 'role_' + o.name);
-                    rolelist.appendChild(checkbox);
-                });
-            }
-        },
-        
-        resetRoleList: function (rolegroup) {
-
-            // var rolelist = document.getElementById("rolescrollablepanel");
-            var self = this;
-            var roles = this.Acl.getRoleList();
-            roles.forEach(function(o) {
-                $('#role_' + o.name)[0].checked = false;
-            });
-                  
-            roles = this.Acl.getRoleListInGroup(rolegroup.name);
-            roles.forEach(function(o) {
-                // self.log(rolegroup.name + ':' + o.name);
-                $('#role_' + o.name)[0].checked = true;
-            });
-=======
             var panelView =  new NSIRolesView(roles);
             this.getRoleListObj().datasource = panelView;
-            
->>>>>>> df7d674fc25754880fffb17bb5d44819a81a6176:content/controllers/rolegroups_controller.js
         },
         
         load: function (data) {
@@ -119,47 +91,8 @@
 
             this._listDatas = groups;
 
-<<<<<<< HEAD:content/controllers/rolegroups_controller.js
-            GeckoJS.FormHelper.clearItems($('#user_grouplist')[0]);
-            /* TODO: restore to FormHelper once Array bug is fixed
-            GeckoJS.FormHelper.appendItems($('#user_grouplist')[0], groups, function(){
-                return {
-                    // label: this.name + " - " + this.description,
-                    label: this.description,
-                    value: this.name
-                };
-            });
-            */
-           var groupListObj = document.getElementById('user_grouplist');
-           if (groupListObj) {
-               groupListObj.removeAllItems();
-               if (groups) {
-                   groups.forEach(function(group) {
-                       groupListObj.insertItemAt(groupListObj.itemCount, group.description, group.name);
-                   })
-               }
-           }
-            var i = 0;
-            var j = 0;
-=======
             var index = 0;
->>>>>>> df7d674fc25754880fffb17bb5d44819a81a6176:content/controllers/rolegroups_controller.js
             if (data) {
-<<<<<<< HEAD:content/controllers/rolegroups_controller.js
-                if ((typeof data) == 'object' ) {
-                    users.forEach(function(o) {
-                        if (o.no == data.no) {
-                            j = i;
-                        }
-                        i++;
-                    });
-                }
-            }
-            if (this._listObj) {
-                listObj.selectedIndex = j;
-                listObj.ensureIndexIsVisible(j);
-            }
-=======
                 listObj.value = data;            
             } else if (groups) {
                 listObj.selectedItems = [0];
@@ -168,7 +101,6 @@
             this.select();
 
 
->>>>>>> df7d674fc25754880fffb17bb5d44819a81a6176:content/controllers/rolegroups_controller.js
         },
 	
         select: function(){

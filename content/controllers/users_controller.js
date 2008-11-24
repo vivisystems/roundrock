@@ -90,11 +90,6 @@
         beforeScaffoldEdit: function (evt) {
             
             var user = evt.data;
-<<<<<<< HEAD:content/controllers/users_controller.js
-            
-=======
-
->>>>>>> df7d674fc25754880fffb17bb5d44819a81a6176:content/controllers/users_controller.js
             if ((user.no == '') || (user.name == '')){
                 alert('user no or user name is empty...');
                 evt.preventDefault();
