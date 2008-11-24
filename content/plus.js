@@ -29,7 +29,7 @@ function selectImages() {
     var aName = "imagePicker";
 
     var args = {
-      pickerMode: false,
+      pickerMode: true,
       // directory: "/home/rack/workspace/sam4s/content/skin/icons/",
       directory: sDstDir + "/",
       result: false,

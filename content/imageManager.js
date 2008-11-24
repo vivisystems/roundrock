@@ -1,11 +1,28 @@
 (function(){
 
- /**
-  * Window Startup
-  */
+    /**
+     * Window Startup
+     */
     function startup() {
-    
-        var args = window.args = window.arguments[0].wrappedJSObject;
+
+        if (window.arguments) {
+            var args = window.args = window.arguments[0].wrappedJSObject;
+        } else {
+
+            var sDstDir = GREUtils.File.chromeToPath("chrome://viviecr/content/skin/images/");
+
+            var aURL = "chrome://viviecr/content/imageManager.xul";
+            var aName = "imagePicker";
+
+            var args = {
+                pickerMode: false,
+                // directory: "/home/rack/workspace/sam4s/content/skin/icons/",
+                directory: sDstDir + "/",
+                result: false,
+                file: ""
+            };
+        }
+
         if (args.pickerMode) {
             // just hide manager panel ?
             $('#managerPanel').hide();
@@ -18,10 +35,10 @@
 
         centerWindowOnScreen();
 
-        //"/home/rack/workspace/sam4s/content/skin/icons/"
         $do('loadImage', args.directory, 'ImageManager');
 
     };
+
 
     window.addEventListener('load', startup, true);
 

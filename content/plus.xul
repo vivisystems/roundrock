@@ -159,7 +159,7 @@
                             <tabpanel flex="1" >
                                 <vbox>
                                     <groupbox>
-                                        <caption label="Photo:" />
+                                        <caption label="Image:" />
                                         <hbox>
                                             <spacer style="width: 30px;" />
                                             <image id="pluimage" pack="start" style="width:64px; height:64px;"/>
