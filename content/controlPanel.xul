@@ -21,7 +21,7 @@
         <label value="Control Panel: "/>
         <spacer flex="1" />
         <vbox flex="2"  class="footlogo">
-            <viviscrollablebuttonpanel id="imagePanel" cols="4" rows="4" labelField="label" imageField="icon" flex="1"
+            <viviscrollablebuttonpanel id="imagePanel" cols="4" rows="5" labelField="label" imageField="icon" flex="1"
                 oncommand="$do('select',this.selectedIndex, 'ControlPanel');"  buttonClass="imageThumbBtn largeimagebtn" scrollUpClass="rightprevbtn button-gray" scrollDownClass="rightnextbtn button-gray" >
                     <label value="aa" /><spacer flex="1" />
             </viviscrollablebuttonpanel>

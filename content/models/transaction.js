@@ -946,6 +946,8 @@
         this.data.discount_subtotal = discount_subtotal ;
         this.data.payment_subtotal = payment_subtotal;
 
+        this.log('DEBUG', this.dump(this.data));
+
     };
 
 
