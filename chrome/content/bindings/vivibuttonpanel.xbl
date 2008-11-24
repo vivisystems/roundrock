@@ -218,6 +218,9 @@
             }
             this._selectedCount = 0;
             this._selectedItems = [];
+            this._startOffset = -1;
+            this._currentIndex = -1;
+
             this.refresh();
             return this.getDatasource();
         ]]>  
