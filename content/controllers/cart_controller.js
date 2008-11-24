@@ -39,10 +39,9 @@
 
             this._cartView.setTransaction(transaction);
             GeckoJS.Session.set('current_transaction', transaction);
-            
             GeckoJS.Session.remove('cart_last_sell_item');
-            GeckoJS.Session.remove('cart_set_price_value');
-            GeckoJS.Session.remove('cart_set_qty_value');
+            //GeckoJS.Session.remove('cart_set_price_value');
+            //GeckoJS.Session.remove('cart_set_qty_value');
         },
 	
         _getCartlist: function() {
@@ -58,7 +57,10 @@
             var item = GREUtils.extend({}, plu);
 
             // not valid plu item.
-            if (typeof item != 'object' || item.id.length <= 0) return;
+            if (typeof item != 'object' || typeof item.id == 'undefined') {
+                this.dispatchEvent('onAddItemError', {});
+                return;
+            }
 
             var curTransaction = this._getTransaction();
 
@@ -82,39 +84,36 @@
 
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
-
-        // fire getSubtotal Event ?????????????
-        // subtotal mean subtotal marker ?
-        // this.getSubtotal();
+            
+            // fire getSubtotal Event ?????????????
+            this.subtotal();
         },
 	
-        addItemByBarcode: function() {
-            var barcode = this.data || "";
-            var cart = this.getCart();
-		
-            // check if has buffer
-            var buf = this.getKeypadController().getBuffer();
-            if (buf.length>0) {
-                barcode += buf;
-                this.getKeypadController().clearBuffer();
-            }
-		
-
-            var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
+        addItemByBarcode: function(barcode) {
             
-            var item = null;
-            var barcodeIdx = barcodesIndexes[barcode];
-            if (barcodeIdx) {
-                var products = GeckoJS.Session.get('products');
-                item = products[barcodeIdx];
-            }
-            // get item from barcode ??
-            if(item) {
-                this.data = item;
-                //			this.log('found barcode ' + barcode);
-                this.addItem();
-            }
+            var productsById = GeckoJS.Session.get('productsById');
+            var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
 
+            var event = { 
+                error: false,
+                barcode: barcode,
+                product: null
+            };
+            
+            if (!barcodesIndexes[barcode]) {
+                // barcode notfound
+                event.error = true;
+            }else {
+                var id = barcodesIndexes[barcode];
+                var product = productsById[id];
+                event.product = product;
+            }
+            this.dispatchEvent('beforeItemByBarcode', event);
+            
+            if (!event.error) {
+                this.addItem(product);
+            }
+            this.dispatchEvent('afterItemByBarcode', event);
         },
 	
         modifyItem: function() {
@@ -129,14 +128,23 @@
             var itemTrans = curTransaction.getItemAt(index);
 
             if (itemTrans.type != 'item') {
+                this.dispatchEvent('onModifyItemError', {});
                 return;
             }
+
+            if (itemTrans.hasDiscount || itemTrans.hasSurcharge || itemTrans.hasMarker) {
+                this.dispatchEvent('onModifyItemError', {});
+                return;
+            }
+
 
             if (GeckoJS.Session.get('cart_set_price_value') == null && GeckoJS.Session.get('cart_set_qty_value') == null && this._getKeypadController().getBuffer().length <= 0) {
                 // @todo popup ??
                 this.log('DEBUG', 'modifyItem but no qty / price set!! plu = ' + this.dump(itemTrans) );
+                this.dispatchEvent('onModifyItemError', {});
                 return ;
             }
+
             
             // check if has buffer
             var buf = this._getKeypadController().getBuffer();
@@ -153,6 +161,8 @@
 
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
+
+            this.subtotal();
 			
         },
 	
@@ -166,6 +176,12 @@
             if (curTransaction.isSubmit() || curTransaction.isCancel()) return;
 
             var itemTrans = curTransaction.getItemAt(index);
+
+            if (itemTrans.hasDiscount || itemTrans.hasSurcharge || itemTrans.hasMarker) {
+                this.dispatchEvent('onmodifyQtyError', {});
+                return;
+            }
+
 
             var qty = itemTrans.current_qty;
             var newQty = qty + 0;
@@ -193,13 +209,29 @@
 
             if(index <0) return;
 
-            if (curTransaction.isSubmit() || curTransaction.isCancel()) return;
+            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
+                this.dispatchEvent('onVoidItemError', {});
+                return;
+            }
 
-            var itemTrans = curTransaction.getItemAt(index);
+            var itemTrans = null;
 
-            if (itemTrans.type != 'item') {
-                // @todo 
+            var itemDisplay = curTransaction.getDisplaySeqAt(index);
+
+            
+            if (itemDisplay.type == 'subtotal' || itemDisplay.type == 'tray') {
+                // @todo
+                this.dispatchEvent('onVoidItemError', {});
                 return ;
+            }
+
+            itemTrans = curTransaction.getItemAt(index);
+            if (itemTrans) {
+                if(itemTrans.hasMarker) {
+                    // @todo
+                    this.dispatchEvent('onVoidItemError', {});
+                    return ;
+                }
             }
 
             this.dispatchEvent('beforeVoidItem', itemTrans);
@@ -207,6 +239,229 @@
             var voidedItem = curTransaction.voidItemAt(index);
 
             this.dispatchEvent('afterVoidItem', voidedItem);
+
+            this.subtotal();
+
+
+        },
+
+        addDiscount: function(discountAmount) {
+
+            var index = this._cartView.getSelectedIndex();
+            var curTransaction = this._getTransaction();
+
+            if(index <0) return;
+
+            discountAmount = discountAmount || false;
+
+            if (curTransaction.isSubmit() || curTransaction.isCancel()) return;
+
+            var itemTrans = curTransaction.getItemAt(index);
+            var itemDisplay = curTransaction.getDisplaySeqAt(index);
+
+            if (itemDisplay.type == 'item') {
+                if (itemTrans.hasDiscount) {
+                    this.log('already hasDiscount');
+                    this.dispatchEvent('onAddDiscountError', {});
+                    return;
+                }
+                if (itemTrans.hasMarker) {
+                    this.log('already hasMarker');
+                    this.dispatchEvent('onAddDiscountError', {});
+                    return;
+                }
+            }
+
+            // check if has buffer
+            var buf = this._getKeypadController().getBuffer();
+            if (buf.length>0) {
+                discountAmount = buf;
+                this._getKeypadController().clearBuffer();
+            }
+
+            if(!discountAmount) {
+                this.log('no discount value');
+                this.dispatchEvent('onAddDiscountError', {});
+                return;
+            }
+            
+            var discountType = '%';
+            
+            // check percentage or fixed number
+            if(discountAmount.indexOf('%') != -1) {
+                // percentage
+                discountType = '%';
+
+                discountAmount = parseFloat(discountAmount.replace('%', ''));
+
+            }else {
+                // fixed number
+                discountType = '$';
+
+                discountAmount = parseFloat(discountAmount.replace('$', ''));
+
+            }
+
+            var discountItem = {type: discountType, amount: discountAmount};
+
+            this.log('beforeAddDiscount ' + this.dump(discountItem) );
+            this.dispatchEvent('beforeAddDiscount', discountItem);
+
+            var discountedItem = curTransaction.appendDiscount(index, discountItem);
+
+            this.log('afterAddDiscount ' + index + ","+ this.dump(discountItem) );
+            this.dispatchEvent('afterAddDiscount', discountedItem);
+
+            GeckoJS.Session.remove('cart_last_sell_item');
+            GeckoJS.Session.remove('cart_set_price_value');
+            GeckoJS.Session.remove('cart_set_qty_value');
+
+            this.subtotal();
+
+
+        },
+
+
+        addSurcharge: function(surchargeAmount) {
+
+            var index = this._cartView.getSelectedIndex();
+            var curTransaction = this._getTransaction();
+
+            if(index <0) return;
+
+            surchargeAmount = surchargeAmount || false;
+
+            if (curTransaction.isSubmit() || curTransaction.isCancel()) return;
+
+            var itemTrans = curTransaction.getItemAt(index);
+
+            var itemDisplay = curTransaction.getDisplaySeqAt(index);
+
+            if (itemDisplay.type == 'item') {
+                if (itemTrans.hasSurcharge) {
+                    this.log('already hasSurcharge');
+                    this.dispatchEvent('onAddSurchargeError', {});
+                    return;
+                }
+                if (itemTrans.hasMarker) {
+                    this.log('already hasMarker');
+                    this.dispatchEvent('onAddSurchargeError', {});
+                    return;
+                }
+            }
+
+            // check if has buffer
+            var buf = this._getKeypadController().getBuffer();
+            if (buf.length>0) {
+                surchargeAmount = buf;
+                this._getKeypadController().clearBuffer();
+            }
+
+            var surchargeType = '%';
+
+            // check percentage or fixed number
+            if(surchargeAmount.indexOf('%') != -1) {
+                // percentage
+                surchargeType = '%';
+
+                surchargeAmount = parseFloat(surchargeAmount.replace('%', ''));
+
+            }else {
+                // fixed number
+                surchargeType = '$';
+
+                surchargeAmount = parseFloat(surchargeAmount.replace('$', ''));
+
+            }
+
+            var surchargeItem = {type: surchargeType, amount: surchargeAmount};
+
+            this.dispatchEvent('beforeAddSurcharge', surchargeItem);
+
+            var surchargedItem = curTransaction.appendSurcharge(index, surchargeItem);
+
+            this.dispatchEvent('afterAddSurcharge', surchargedItem);
+
+            GeckoJS.Session.remove('cart_last_sell_item');
+            GeckoJS.Session.remove('cart_set_price_value');
+            GeckoJS.Session.remove('cart_set_qty_value');
+
+            this.subtotal();
+
+
+        },
+
+        addMarker: function(type) {
+
+            var index = this._cartView.getSelectedIndex();
+            var curTransaction = this._getTransaction();
+
+            if(index <0) return;
+
+            type = type || 'subtotal';
+
+            if (curTransaction.isSubmit() || curTransaction.isCancel()) return;
+
+            var itemTrans = curTransaction.getItemAt(index);
+            var itemDisplay = curTransaction.getDisplaySeqAt(index);
+
+            if (itemDisplay.type == type) {
+                this.dispatchEvent('onAddMarkerError', {});
+                return;
+            }
+
+            this.dispatchEvent('beforeAddMarker', type);
+
+            var markerItem = curTransaction.appendMarker(index, type);
+
+            this.dispatchEvent('afterAddMarker', markerItem);
+
+            GeckoJS.Session.remove('cart_set_price_value');
+            GeckoJS.Session.remove('cart_set_qty_value');
+
+        },
+
+        addPayment: function(type, amount) {
+
+            var index = this._cartView.getSelectedIndex();
+            var curTransaction = this._getTransaction();
+
+            if(index <0) return;
+
+            if (curTransaction.isSubmit() || curTransaction.isCancel()) return;
+
+            type = type || 'cash';
+            amount = amount || false;
+
+            if(!amount) {
+                // @todo default totalamount ?
+                amount = true;
+            }
+
+            var paymentItem = {type: type, amount: amount};
+            this.dispatchEvent('beforeAddPayment', paymentItem);
+
+            var paymentedItem = curTransaction.appendPayment(type, amount);
+
+            this.dispatchEvent('afterAddPayment', paymentedItem);
+
+            GeckoJS.Session.remove('cart_set_price_value');
+            GeckoJS.Session.remove('cart_set_qty_value');
+
+
+            // @todo auto submit ??
+            if (curTransaction.getRemainTotal() <= 0) {
+                this.submit();
+            }else {
+                this.subtotal();
+            }
+
+
+
+        },
+
+
+        addTax: function() {
 
 
         },
@@ -234,7 +489,9 @@
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
 
-            this.dispatchEvent('onClear', 0.0);
+            var oldTransaction = this._getTransaction();
+            
+            this.dispatchEvent('onClear', oldTransaction);
             this._getKeypadController().clearBuffer();
 
         },
@@ -251,7 +508,6 @@
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
 
-            this.dispatchEvent('onClear', 0.00);
             this._getKeypadController().clearBuffer();
 
             this.dispatchEvent('onCancel', oldTransaction);
@@ -260,187 +516,35 @@
 	
         subtotal: function() {
 
-            var discount = this.getCart().getDiscountSubtotal();
-            var tax = this.getCart().getTaxSubtotal();
-            this.query('#disAmount').val(discount);
-            this.query('#taxAmount').val(tax);
-            this.dispatchEvent('onGetSubtotal', this.getCart().getAmount());
+            var oldTransaction = this._getTransaction();
+
+            this.dispatchEvent('onGetSubtotal', oldTransaction);
             
         },
 
 
         submit: function() {
-		
-            var cart = this.getCart();
-            var amount = cart.getAmount();
-		
-            if (amount <= 0) {
-			
-                // save
-                var subtotal = parseFloat(cart.getSubtotal());
-                var tax = parseFloat(cart.getTaxSubtotal());
-                var payment = parseFloat(cart.getPaymentSubtotal());
-                var discount = parseFloat(cart.getDiscountSubtotal());
-                var total = subtotal + tax - discount;
-                var data = {
-                    total: total,
-                    subtotal: subtotal,
-                    tax: tax,
-                    payment: payment,
-                    discount: discount,
-                    amount: (0-amount)
-                };
-                data.items = cart.getItems().slice();
-				
-                this.clear();
-			
-                // save data to order model
-                var orderModel = new OrderModel();
-			
-                orderModel.saveOrder(data);
 
-                var orderDetailModel = new OrderDetailModel();
-                var productModel = new ProductModel();
+            // cancel cart but save
+            var oldTransaction = this._getTransaction();
+            if (oldTransaction.getRemainTotal() > 0) return;
+            oldTransaction.submit();
 
-                data.items.forEach(function(o) {
-                    orderDetailModel.create();
-                    o.order_id = orderModel.id;
-                    orderDetailModel.save(o);
-                                
-                });
-			
-                this.dispatchEvent('onSave', data);
-			
-			
-                // finally
-                this.dispatchEvent('onSubmit', data);
-			
-			
-            }
+            GeckoJS.Session.remove('current_transaction');
+            GeckoJS.Session.remove('cart_last_sell_item');
+            GeckoJS.Session.remove('cart_set_price_value');
+            GeckoJS.Session.remove('cart_set_qty_value');
+
+            this.dispatchEvent('onClear', 0.00);
+            this._getKeypadController().clearBuffer();
+
+            this.dispatchEvent('onSubmit', oldTransaction);
 				
         },
 	
-        quickCash: function() {
+        cash: function(amount) {
 
-            var cart = this.getCart();
-            var amount = cart.getAmount();
-            cart.addPayment('cash', amount);
-            this.getKeypadController().clearBuffer();
-            this.cash();
-		
-        },
-
-        cash: function() {
-
-            var cart = this.getCart();
-		
-            if(cart.getItemCount() <=0) {
-                // opendrawer ???
-			
-                return;
-            }
-            // check if has buffer
-            var buf = this.getKeypadController().getBuffer();
-            if (buf.length>0) {
-                cart.addPayment('cash', buf);
-                this.getKeypadController().clearBuffer();
-            }
-		
-            var amount = cart.getAmount();
-		
-            if (amount <= 0) {
-                // auto submit
-                this.submit();
-            } else {
-                this.getKeypadController().clearBuffer();
-            }
-
-        },
-
-        openDiscount: function() {
-
-            var cart = this.getCart();
-
-            if(cart.getItemCount() <=0)	return;
-
-            var buff = this.getKeypadController().getBuffer();
-            if (buff.length == 0) return;
-            this.getKeypadController().clearBuffer();
-
-            var subtotal = cart.getSubtotal();
-            // var discountPercent = this.data.discount ;
-            var discountPercent = buff / 100 ;
-
-            var discount = subtotal * discountPercent;
-
-            cart.addDiscount('openDiscount', discount);
-
-            // fire getSubtotal Event
-            this.getSubtotal();
-
-            // this.log('Open Discount:' + this.dump(this.getCart().getDiscountSubtotal()));
-            this.log('Open Discount:' + this.dump(this.getCart().discounts));
-
-        },
-
-        addDiscount: function() {
-
-            var cart = this.getCart();
-		
-            if(cart.getItemCount() <=0)	return;
-		
-            var subtotal = cart.getSubtotal();
-            var discountPercent = this.data.discount ;
-		
-            var discount = subtotal * discountPercent;
-		
-            cart.addDiscount('member', discount);
-
-            // fire getSubtotal Event
-            this.getSubtotal();
-
-        },
-
-        openTax: function() {
-
-            var cart = this.getCart();
-
-            if(cart.getItemCount() <=0)	return;
-
-            var buff = this.getKeypadController().getBuffer();
-            if (buff.length == 0) return;
-            this.getKeypadController().clearBuffer();
-
-            var subtotal = cart.getSubtotal();
-            // var discountPercent = this.data.discount ;
-            var taxPercent = buff / 100 ;
-
-            var tax = subtotal * taxPercent;
-
-            cart.addTax('openTax', tax);
-
-            // fire getSubtotal Event
-            this.getSubtotal();
-
-            // this.log('Open Discount:' + this.dump(this.getCart().getDiscountSubtotal()));
-            this.log('Open Tax:' + this.dump(this.getCart().taxes));
-
-        },
-
-        addTax: function() {
-
-            var cart = this.getCart();
-
-            if(cart.getItemCount() <=0)	return;
-
-            var subtotal = cart.getSubtotal();
-            var taxes = this.Tax.getTax(valObj.name);
-            var taxPercent = this.data.discount ;
-            var tax = this.Tax.calcTaxAmount(taxes.rate, isubtotal)
-            cart.addTax(valObj.name, tax);
-
-            // fire getSubtotal Event
-            this.getSubtotal();
+            this.addPayment('cash', amount);
 
         },
 

@@ -36,10 +36,12 @@
 		
             var charPress = String.fromCharCode(evt.charCode);
             var keyCode = evt.keyCode;
-		
+
             switch(charPress) {
 			
+                case 'x':
                 case 'X':
+                case '*':
                     if (this.getBuffer().length > 0 ) {
                     this.getCartController().setQty(this.getBuffer());
                     this.clearBuffer();
@@ -83,13 +85,14 @@
 			
                 // END
                 case 0x35:
-                    this.getCartController().subtotal();
+                    this.getCartController().addMarker('subtotal');
                     break;
                 // ENTER
                 case 13:
                     var cart = this.getCartController();
-                    cart.data = null;
-                    this.getCartController().addItemByBarcode();
+                    cart.data = this.getBuffer();
+                    this.clearBuffer();
+                    this.getCartController().addItemByBarcode(cart.data);
                     break;
 			
             }

@@ -15,7 +15,7 @@
         <vbox flex="1" class="panel40">
             <vbox flex="1" class="footlogo">
                     <groupbox flex="1">
-                        <caption label="Stocks:" />
+                        <caption label="Promotion List:" />
 
                         <!-- hbox flex="1">
                             <viviscrollablebuttonpanel dir="reverse" id="jobscrollablepanel" flex="1" cols="3" rows="8" labelField="jobname" imageField="no" oncommand="$do('select',this.selectedIndex, 'Jobs');"

@@ -36,6 +36,8 @@ GREUtils.include('chrome://viviecr/content/helpers/nsi_departments_view.js');
 GeckoJS.include('chrome://viviecr/content/helpers/nsi_cart_view.js');
 GREUtils.include('chrome://viviecr/content/helpers/nsi_condiments_view.js');
 GREUtils.include('chrome://viviecr/content/helpers/nsi_plugroups_view.js');
+GREUtils.include('chrome://viviecr/content/helpers/nsi_rolegroups_view.js');
+GREUtils.include('chrome://viviecr/content/helpers/nsi_taxes_view.js');
 
 
 // include project components

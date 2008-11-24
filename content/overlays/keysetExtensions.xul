@@ -10,6 +10,7 @@
     <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('clearBtn').fireEvent();" />
     <key id="key_subtotal" keycode="VK_END" oncommand="document.getElementById('subtotalBtn').fireEvent();"/>
     <key id="key_enter" keycode="VK_RETURN" oncommand="$do('keypress', {keyCode: 13}, 'Keypad');"/>
+    <key id="key_x" key="x" oncommand="$do('keypress', {charCode: 120}, 'Keypad');"/>
     <key id="key_num0" key="0" oncommand="$do('keypress', {charCode: 48}, 'Keypad');"/>
     <key id="key_num1" key="1" oncommand="$do('keypress', {charCode: 49}, 'Keypad');"/>
     <key id="key_num2" key="2" oncommand="$do('keypress', {charCode: 50}, 'Keypad');"/>

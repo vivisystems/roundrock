@@ -54,6 +54,36 @@
 
         },
 
+        getCondiment: function () {
+            var cond_group = $("#cond_group").val();
+            var aURL = "chrome://viviecr/content/select_condgroup.xul";
+            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=800,height=600";
+            var inputObj = {
+                cond_group: cond_group
+            };
+            window.openDialog(aURL, "select_cond_group", features, inputObj);
+
+            if (inputObj.ok && inputObj.cond_group) {
+                $("#cond_group").val(inputObj.cond_group);
+
+            }
+        },
+
+        getRate: function () {
+            var rate = $("#rate").val();
+            var aURL = "chrome://viviecr/content/select_tax.xul";
+            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=800,height=600";
+            var inputObj = {
+                rate: rate
+            };
+            window.openDialog(aURL, "select_rate", features, inputObj);
+
+            if (inputObj.ok && inputObj.rate) {
+                $("#rate").val(inputObj.rate);
+
+            }
+        },
+
         getInputData: function () {
             return GeckoJS.FormHelper.serializeToObject('productForm', false);
         },
@@ -63,7 +93,7 @@
         },
 
         setInputData: function (valObj) {
-
+// this.log("valObj:" + this.dump(valObj));
             GeckoJS.FormHelper.unserializeFromObject('productForm', valObj);
 
             document.getElementById('pluimage').setAttribute("src", "chrome://viviecr/content/skin/pluimages/" + valObj.no + ".png?" + Math.random());

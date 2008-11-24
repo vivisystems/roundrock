@@ -15,25 +15,24 @@
 
         getListObj: function() {
             if(this._listObj == null) {
-                this._listObj = this.query("#simpleListBoxUser")[0];
+                // this._listObj = this.query("#userscrollablepanel")[0];
+                this._listObj = document.getElementById('userscrollablepanel');
             }
             return this._listObj;
         },
-
+        /*
         beforeScaffold: function(evt) {
-            if (evt.data == 'delete') {
-                if (GREUtils.Dialog.confirm(null, "confirm delete", "Are you sure?") == false) {
-                    evt.preventDefault();
-                }
-            }
+            
         },
-
+        */
+       
         afterScaffoldSave: function(evt) {
             // maintain Acl...
             this.Acl.addUser(evt.data.username, evt.data.password, evt.data.username);
             this.Acl.changeUserPassword(evt.data.username, evt.data.password);
             this.Acl.addUserToGroup(evt.data.username, evt.data.group);
             this.load(evt.data);
+            
         },
         /*
         beforeScaffoldDelete: function(evt) {
@@ -48,6 +47,18 @@
 
         beforeScaffoldAdd: function (evt) {
             var user = evt.data;
+
+            var aURL = "chrome://viviecr/content/prompt_additem.xul";
+            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250";
+            var inputObj = {input0:null, input1:null};
+            window.openDialog(aURL, "prompt_additem", features, "New Job", "Please input:", "No", "Name", inputObj);
+            if (inputObj.ok && inputObj.input0) {
+                $("#job_id").val('');
+                evt.data.jobname = inputObj.input0;
+            } else {
+                evt.preventDefault();
+            }
+
             if ((user.no == '') || (user.name == '')){
                 alert('user no or user name is empty...');
                 evt.preventDefault();
@@ -77,8 +88,13 @@
         },
 
         beforeScaffoldEdit: function (evt) {
-            var user = evt.data;
             
+            var user = evt.data;
+<<<<<<< HEAD:content/controllers/users_controller.js
+            
+=======
+
+>>>>>>> df7d674fc25754880fffb17bb5d44819a81a6176:content/controllers/users_controller.js
             if ((user.no == '') || (user.name == '')){
                 alert('user no or user name is empty...');
                 evt.preventDefault();
@@ -106,33 +122,40 @@
                 this.clearDefaultUser();
             }
         },
+
+        afterScaffoldIndex: function(evt) {
+            this._listDatas = evt.data;
+            var panelView =  new GeckoJS.NSITreeViewArray(evt.data);
+            this.getListObj().datasource = panelView;
+        },
+
+        getRoleGroup: function () {
+            var rolegroup = $("#user_group").val();
+            var aURL = "chrome://viviecr/content/select_rolegroup.xul";
+            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=800,height=600";
+            var inputObj = {
+                rolegroup: rolegroup
+            };
+            window.openDialog(aURL, "select_rolegroup", features, inputObj);
+
+            if (inputObj.ok && inputObj.rolegroup) {
+                $("#user_group").val(inputObj.rolegroup);
+
+            }
+        },
         
         load: function (data) {
 		
-            // var listObj = this.getListObj();
-            this.getListObj();
-            var userModel = new ViviPOS.UserModel();
-            var users = userModel.find('all', {
-                order: "no"
-            });
-            
-            this._listDatas = users;
-            this._listObj.loadData(users);
+            var listObj = this.getListObj();
+            this.requestCommand('list');
 
-            var i = 0;
-            var j = 0;
+            var index = 0;
             if (data) {
-                if ((typeof data) == 'object' ) {
-                    users.forEach(function(o) {
-                        if (o.no == data.no) {
-                            j = i;
-                        }
-                        i++;
-                    });
-                }
-            }
-            this._listObj.selectedIndex = j;
-            this._listObj.ensureIndexIsVisible(j);
+                listObj.value = data;
+            } else {
+                listObj.selectedItems = [0];
+                listObj.selectedIndex = 0;
+            };
         },
 
         select: function(){
@@ -140,6 +163,7 @@
             this.getListObj();
             selectedIndex = this._listObj.selectedIndex;
             if (selectedIndex >= 0) {
+                GeckoJS.FormHelper.reset('taxForm');
                 var user = this._listDatas[selectedIndex];
                 this.requestCommand('view', user.id);
             }

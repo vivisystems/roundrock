@@ -17,11 +17,14 @@
  * Controller Startup
  */
 function startup() {
+    /*
 	$("#simpleListBoxTax")[0].addEventListener('select', function(evt) {
 		$do('select', evt, 'Taxes');
 	}, false);
+    */
+    $do('createAddonTaxList', null, 'Taxes');
 	$do('load', null, 'Taxes');
-	$("#simpleListBoxTax")[0].selectedIndex = 0;
+	// $("#simpleListBoxTax")[0].selectedIndex = 0;
 
 };
 
