@@ -27,6 +27,8 @@
             this._transaction = transaction;
             transaction.view = this;
             this._cartList.datasource = this;
+            // last seq
+            this._cartList.currentIndex = (transaction.data.display_sequences.length -1);
             GeckoJS.Session.set('vivipos_fec_order_sequence', transaction.data.seq);
 
 

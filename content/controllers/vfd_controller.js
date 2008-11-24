@@ -27,9 +27,8 @@
                 cart.addEventListener('onClear', function(evt) {
                     self.onClear(evt);
                 });
-
-                cart.addEventListener('afterAddItem', function(evt) {
-                    self.afterAddItem(evt);
+                cart.addEventListener('onCancel', function(evt) {
+                    self.onCancel(evt);
                 });
 
                 cart.addEventListener('onGetSubtotal', function(evt) {
@@ -52,7 +51,7 @@
         },
 	
         onAddBuffer: function(evt) {
-            this.getVfd().setText(_('F') + ': ' + evt.data);
+            this.getVfd().setText(_('I') + ': ' + evt.data);
         },
 	
         onSetQty: function(evt) {
@@ -60,21 +59,25 @@
         },
 	
         onGetSubtotal: function(evt) {
-            this.getVfd().setText(_('TOTAL') + ': ' + evt.data);
+            var transaction = evt.data;
+            this.getVfd().setText(_('TOTAL') + ': ' + transaction.getRemainTotal());
         },
 
-        onClear: function() {
-            this.getVfd().setText(_('TOTAL') + ': ' + "0.000");
+        onClear: function(evt) {
+            var transaction = evt.data;
+            this.getVfd().setText(_('TOTAL') + ': ' + transaction.getRemainTotal());
         },
 	
-        afterAddItem: function(evt){
-            var item = evt.data;
+        onCancel: function(evt) {
+            //var transaction = evt.data;
+            this.getVfd().setText(_('CANCELED'));
+            //this.getVfd().setText(_('TOTAL') + ': ' + transaction.getTotal());
         },
-	
+
         onSubmit: function(evt) {
-            var submitData = evt.data;
-            var buf = _('TOTAL') + ': ' + submitData.total ;
-            buf += "    " + _('CHG') + ': ' + submitData.amount ;
+            var transaction = evt.data;
+            var buf = _('TOTAL') + ': ' + transaction.getTotal() ;
+            buf += "    " + _('CHG') + ': ' + transaction.getRemainTotal() ;
             this.getVfd().setText(buf);
         },
 

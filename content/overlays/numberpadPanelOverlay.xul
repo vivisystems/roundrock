@@ -53,8 +53,8 @@
                 <!--button id="numkey00" label="QUICK CASH"    oncommand="$do('quickCash', null, 'Cart');" class="systembtn">
                   <label crop="center" style="max-width: none; width: 40px;" >QUICK CASH</label>
                 </button-->
-                            <button id="shiftPriceBtn" label="#SP"    oncommand="$do('priceLevel', null, 'Cart');" class="systembtn">
-                                <label crop="center" style="max-width: none; width: 40px;" >#SP</label>
+                            <button id="openDiscountBtn" label="TRAY"    oncommand="$do('addMarker', 'tray', 'Cart');" class="systembtn">
+                                <label crop="center" style="max-width: none; width: 40px;" >TRAY</label>
                             </button>
                         </vbox>
 
