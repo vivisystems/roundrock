@@ -41,3 +41,6 @@
 <!ENTITY vivipos.fec.settings.login.autodiscardqueue "Automatically discard queued orders when signing off">
 <!ENTITY vivipos.fec.settings.login.mustemptyqueue "Order queue must be emptied when signing off">
 
+<!ENTITY vivipos.fec.users.basedata "User Data">
+<!ENTITY vivipos.fec.users.option1 "Option 1">
+<!ENTITY vivipos.fec.users.option2 "Option 2">

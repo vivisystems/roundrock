@@ -56,6 +56,7 @@
             }
 
         }
+
     });
 
     var NSICondimentsView = window.NSICondimentsView = GeckoJS.NSITreeViewArray.extend({
@@ -80,6 +81,19 @@
             //alert(GeckoJS.BaseObject.dump(GeckoJS.Session.getEvents().listeners));
         },
         */
+        getValue: function() {
+
+            var selectedItems = this.tree.selectedItems;
+            var selectedItemsStr = [];
+
+            var data = this.data;
+            selectedItems.forEach(function(idx){
+                selectedItemsStr.push(data[idx].name);
+            });
+
+            return selectedItemsStr.join(',');
+        },
+
         getCurrentIndexData: function (row) {
             return this.data[row];
         },

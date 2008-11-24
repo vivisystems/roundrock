@@ -2,14 +2,14 @@
 
     // include controllers  and register itself
 
-    // GeckoJS.include('chrome://viviecr/content/controllers/pricelevelschedule_controller.js');
+    // GeckoJS.include('chrome://viviecr/content/controllers/jobs_controller.js');
 
     /**
      * Controller Startup
      */
     function startup() {
 
-        // $do('load', null, 'Pricelevelschedule');
+        // $do('load', null, 'Promotions');
 
     };
 

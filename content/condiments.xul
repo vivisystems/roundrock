@@ -23,7 +23,7 @@
 
                         <hbox>
                             <viviscrollablebuttonpanel dir="reverse" id="condimentscrollablepanel" flex="1" cols="3" rows="2" labelField="name" imageField="no" oncommand="$do('changeCondimentPanel',this.selectedIndex, 'Condiments');"
-                              class="catescrollablepanel" buttonClass="catbtn button-radius" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue"/>
+                              class="catescrollablepanel" buttonClass="catbtn button-radius button-white font-medium" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue"/>
                             <vbox style="width: 400px;">
                                 <hbox align="center">
                                     <label hidden="true" form="condGroupForm" name="id" value="" />

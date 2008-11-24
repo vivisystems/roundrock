@@ -31,12 +31,12 @@
                                     <label value="Group Name:" />
                                     <textbox id="plugroup_name" value="" form="plugroupForm" name="name" />
                                 </hbox>
-                                <checkbox id="visible" value="true" label="Visible" form="productForm" name="visible" default="true"/>
+                                <checkbox id="visible" value="true" label="Visible" form="plugroupForm" name="visible" default="false"/>
                                 <spacer style="height: 10px;" />
                                 <hbox>
-                                    <button label="Add" class="editbtns" oncommand="$do('add', null, 'Plugroups');" />
-                                    <button label="Delete" class="editbtns" oncommand="$do('delete', null, 'Plugroups');" />
-                                    <button label="Modify" class="editbtns" oncommand="$do('update', null, 'Plugroups');" />
+                                    <button label="&vivipos.fec.common.add;" class="editbtns" oncommand="$do('add', null, 'Plugroups');" />
+                                    <button label="&vivipos.fec.common.delete;" class="editbtns" oncommand="$do('delete', null, 'Plugroups');" />
+                                    <button label="&vivipos.fec.common.modify;" class="editbtns" oncommand="$do('update', null, 'Plugroups');" />
                                 </hbox>
                             </vbox>
                         </hbox>

@@ -17,6 +17,7 @@
                     <groupbox flex="1">
                         <caption label="Price Level Schedule List:" />
 
+                        <viviclock id="clock" timeNotation="24" showdate="false" style="font-size:48px"/>
                         <!-- hbox flex="1">
                             <viviscrollablebuttonpanel dir="reverse" id="jobscrollablepanel" flex="1" cols="3" rows="8" labelField="jobname" imageField="no" oncommand="$do('select',this.selectedIndex, 'Jobs');"
                               class="catescrollablepanel" buttonClass="catbtn button-radius button-white font-medium" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue"/>

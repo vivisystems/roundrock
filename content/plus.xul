@@ -72,19 +72,21 @@
                                             </row>
                                             <row>
                                                 <label value="Rate:"/>
-                                                <menulist id="taxList" form="productForm" name="rate" label="Rate">
+                                                <textbox id="rate" value="" form="productForm" name="rate" readonly="true" onclick="$do('getRate',this.selectedIndex,'Plus');"/>
+                                                <!-- menulist id="taxList" form="productForm" name="rate" label="Rate">
                                                     <menupopup style="width: 200px;">
 
                                                     </menupopup>
-                                                </menulist>
+                                                </menulist -->
                                             </row>
                                             <row>
                                                 <label value="Condiment:"/>
-                                                <menulist id="condGroupList" form="productForm" name="cond_group" label="Condiment">
+                                                <textbox id="cond_group" value="" form="productForm" name="cond_group" readonly="true" onclick="$do('getCondiment',this.selectedIndex,'Plus');"/>
+                                                <!-- menulist id="condGroupList" form="productForm" name="cond_group" label="Condiment">
                                                     <menupopup style="width: 200px;">
 
                                                     </menupopup>
-                                                </menulist>
+                                                </menulist -->
                                             </row>
                                             
                                             <row>

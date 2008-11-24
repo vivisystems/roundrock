@@ -20,8 +20,8 @@
             GeckoJS.Session.add('condGroups', condGroups);
 
             // bind condiments data
-            // var condPanelView =  new GeckoJS.NSITreeViewArray(condiments);
-            var condPanelView =  new NSICondGroupsView(condGroups);
+            var condPanelView =  new GeckoJS.NSITreeViewArray(condGroups);
+            // var condPanelView =  new NSICondGroupsView(condGroups);
             var condscrollablepanel = document.getElementById('condimentscrollablepanel');
             condscrollablepanel.datasource = condPanelView;
 

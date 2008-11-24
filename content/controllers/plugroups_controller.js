@@ -99,6 +99,7 @@
 
         select: function(index){
             if (index >= 0) {
+                GeckoJS.FormHelper.reset('plugroupForm');
                 this.requestCommand('view', this._listDatas[index].id);
                 this._listObj.selectedIndex = index;
             }
