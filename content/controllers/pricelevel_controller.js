@@ -32,7 +32,7 @@
             if ( (typeof level != 'undefined') && (level >=1 && level <= this.limit)) {
                 GeckoJS.Session.set('vivipos_fec_price_level', level);
             }else {
-                currentLevel = (currentLevel++ <= this.level) ? (currentLevel) : 1;
+                currentLevel = (++currentLevel <= this.limit) ? (currentLevel) : 1;
                 GeckoJS.Session.set('vivipos_fec_price_level', currentLevel);
             }
         }
