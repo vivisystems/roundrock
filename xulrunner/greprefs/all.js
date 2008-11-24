@@ -343,6 +343,8 @@ pref("capability.policy.mailnews.*.data.get", "noAccess");
 pref("capability.policy.mailnews.*.getAttribute", "noAccess");
 pref("capability.policy.mailnews.HTMLDivElement.getAttribute", "sameOrigin");
 pref("capability.policy.mailnews.*.getAttributeNS", "noAccess");
+pref("capability.policy.mailnews.*.getAttributeNode", "noAccess");
+pref("capability.policy.mailnews.*.getAttributeNodeNS", "noAccess");
 pref("capability.policy.mailnews.*.getNamedItem", "noAccess");
 pref("capability.policy.mailnews.*.getNamedItemNS", "noAccess");
 pref("capability.policy.mailnews.*.host.get", "noAccess");
@@ -356,11 +358,13 @@ pref("capability.policy.mailnews.*.protocol.get", "noAccess");
 pref("capability.policy.mailnews.*.src.get", "noAccess");
 pref("capability.policy.mailnews.*.substringData.get", "noAccess");
 pref("capability.policy.mailnews.*.text.get", "noAccess");
+pref("capability.policy.mailnews.*.textContent", "noAccess");
 pref("capability.policy.mailnews.*.title.get", "noAccess");
 pref("capability.policy.mailnews.DOMException.toString", "noAccess");
 pref("capability.policy.mailnews.HTMLAnchorElement.toString", "noAccess");
 pref("capability.policy.mailnews.HTMLDocument.domain", "noAccess");
 pref("capability.policy.mailnews.HTMLDocument.URL", "noAccess");
+pref("capability.policy.mailnews.*.documentURI", "noAccess");
 pref("capability.policy.mailnews.Location.toString", "noAccess");
 pref("capability.policy.mailnews.Range.toString", "noAccess");
 pref("capability.policy.mailnews.Window.blur", "noAccess");
@@ -523,7 +527,7 @@ pref("network.protocol-handler.external.data", false);
 pref("network.protocol-handler.external.ms-help", false);
 pref("network.protocol-handler.external.shell", false);
 pref("network.protocol-handler.external.vnd.ms.radio", false);
-//@line 532 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/modules/libpref/src/init/all.js"
+//@line 536 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/modules/libpref/src/init/all.js"
 pref("network.protocol-handler.external.disk", false);
 pref("network.protocol-handler.external.disks", false);
 pref("network.protocol-handler.external.afp", false);
@@ -639,6 +643,7 @@ pref("network.IDN_show_punycode", false);
 
 // ccTLDs
 pref("network.IDN.whitelist.ac", true);
+pref("network.IDN.whitelist.ar", true);
 pref("network.IDN.whitelist.at", true);
 pref("network.IDN.whitelist.br", true);
 pref("network.IDN.whitelist.ch", true);
@@ -752,7 +757,7 @@ pref("network.negotiate-auth.gsslib", "");
 // Specify if the gss lib comes standard with the OS
 pref("network.negotiate-auth.using-native-gsslib", true);
 
-//@line 766 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/modules/libpref/src/init/all.js"
+//@line 771 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/modules/libpref/src/init/all.js"
 
 // The following prefs are used to enable automatic use of the operating
 // system's NTLM implementation to silently authenticate the user with their
@@ -776,9 +781,9 @@ pref("network.hosts.nntp_server",           "news.mozilla.org");
 
 pref("permissions.default.image",           1); // 1-Accept, 2-Deny, 3-dontAcceptForeign
 
-//@line 791 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/modules/libpref/src/init/all.js"
+//@line 796 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/modules/libpref/src/init/all.js"
 pref("network.proxy.type",                  5);
-//@line 798 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/modules/libpref/src/init/all.js"
+//@line 803 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/modules/libpref/src/init/all.js"
 
 pref("network.proxy.ftp",                   "");
 pref("network.proxy.ftp_port",              0);
@@ -1112,15 +1117,15 @@ pref("font.minimum-size.x-western", 0);
 pref("font.minimum-size.x-unicode", 0);
 pref("font.minimum-size.x-user-def", 0);
 
-//@line 1515 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/modules/libpref/src/init/all.js"
+//@line 1520 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/modules/libpref/src/init/all.js"
 
-//@line 1932 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/modules/libpref/src/init/all.js"
+//@line 1937 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/modules/libpref/src/init/all.js"
 
-//@line 2129 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/modules/libpref/src/init/all.js"
+//@line 2134 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/modules/libpref/src/init/all.js"
 
-//@line 2220 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/modules/libpref/src/init/all.js"
+//@line 2225 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/modules/libpref/src/init/all.js"
 
-//@line 2223 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/modules/libpref/src/init/all.js"
+//@line 2228 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/modules/libpref/src/init/all.js"
 // Handled differently under Mac/Windows
 pref("network.hosts.smtp_server", "localhost");
 pref("network.hosts.pop_server", "pop");
@@ -1380,15 +1385,15 @@ pref("print.postscript.paper_size",    "letter");
 pref("print.postscript.orientation",   "portrait");
 pref("print.postscript.print_command", "lpr ${MOZ_PRINTER_NAME:+-P\"$MOZ_PRINTER_NAME\"}");
 
-//@line 2485 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/modules/libpref/src/init/all.js"
+//@line 2490 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/modules/libpref/src/init/all.js"
 
-//@line 2553 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/modules/libpref/src/init/all.js"
+//@line 2558 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/modules/libpref/src/init/all.js"
 
-//@line 2579 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/modules/libpref/src/init/all.js"
+//@line 2584 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/modules/libpref/src/init/all.js"
 
-//@line 2599 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/modules/libpref/src/init/all.js"
+//@line 2604 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/modules/libpref/src/init/all.js"
 
-//@line 2607 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/modules/libpref/src/init/all.js"
+//@line 2612 "/builds/tinderbox/Xr-Mozilla1.9-Release/Linux_2.6.18-53.1.13.el5_Depend/mozilla/modules/libpref/src/init/all.js"
 
 // Login Manager prefs
 pref("signon.rememberSignons",              true);

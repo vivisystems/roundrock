@@ -74,11 +74,41 @@
 
     <property name="selectedCount" onget="return this._selectedCount;" onset="return this._selectedCount = val;" />
     
-    <property name="selectedItems" onget="return this._selectedItems;" onset="return this._selectedItems = val;" />
+    <property name="selectedItems" onget="return this._selectedItems;" onset="if(val.constructor.name == 'Array') { this._selectedItems = val; this._selectedCount = val.length; this.refresh(); return val; }" />
 
     <property name="boxObject" onget="return this.grid.boxObject;" readonly="true" />
 
     <property name="datasource" onget="return this.getDatasource();" onset="return this.setDatasource(val);"/>
+
+
+    <property name="value">
+        <getter>
+            <![CDATA[
+                if (!this.datasource) return this.selectedItems.join(',');
+
+                if (typeof this.datasource['getValue'] == 'function') {
+                    return this.datasource.getValue();
+                }else {
+                    return this.selectedItems.join(',');
+                }
+
+            ]]>
+        </getter>
+        <setter>
+            <![CDATA[
+
+                if (!this.datasource) return this.selectedItems = val.split(',');
+
+                if (typeof this.datasource['setValue'] == 'function') {
+                    return this.datasource.setValue(val);
+                }else {
+                    return this.selectedItems = val.split(',');
+                }
+
+            ]]>
+        </setter>
+    </property>
+
     
     <constructor>
     <![CDATA[

@@ -7,9 +7,9 @@
 
 <binding id="vivitree">
     <content>
-      <xul:tree anonid="tree" flex="1" seltype="single" xbl:inherits="class,pack,orient,collapsed,hidden,flex,enableColumnDrag,flags,hidecolumnpicker,rows,seltype,align,dir">
+      <xul:tree anonid="tree" flags="dont-build-content" flex="1" seltype="single" xbl:inherits="class,pack,orient,collapsed,hidden,flex,enableColumnDrag,flags,hidecolumnpicker,rows,seltype,align,dir,hidevscroll,hidehscroll">
           <xul:treecols anonid="treecols" />
-          <xul:treechildren anonid="treechildren" />
+          <xul:treechildren anonid="treechildren" alternatingbackground="true" />
       </xul:tree>
       <children />
     </content>
@@ -80,6 +80,9 @@
                 treecol.setAttribute("label", _headers[i]);
                 treecol.setAttribute("id", _fields[i]);
                 treecol.setAttribute("flex", 1);
+
+                if (i == 0) treecol.setAttribute('primary', true);
+
                 treecols.appendChild(treecol);
 
                 let splitter = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:splitter");
@@ -151,7 +154,6 @@
 
     <method name="refresh">
         <body><![CDATA[
-
             this.treeBoxObject.invalidate();
         ]]>  
         </body>
@@ -159,7 +161,6 @@
 
     <method name="invalidate">
         <body><![CDATA[
-
             this.treeBoxObject.invalidate();
         ]]>
         </body>
