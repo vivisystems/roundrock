@@ -655,7 +655,7 @@
                     var prefs = {};
                     var prefix = this.getAttribute('prefix');
                     if (!prefix) {
-                        prefix = 'vivipos.fec.ui.functionpanel';
+                        prefix = 'vivipos.fec.settings.functionpanel';
                         this.setAttribute('prefix', prefix);
                     }
                     GeckoJS.Configure.loadPreferences(prefix);
