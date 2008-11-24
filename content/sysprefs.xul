@@ -3,7 +3,9 @@
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/content/skin/vivipos.css" type="text/css"?>
 
-<prefwindow id="sysprefs" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" width="800" height="600">
+<prefwindow id="sysprefs" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" width="800" height="600"
+            ondialogcancel="opener.opener.$do('resetLayout', null, 'Main')"
+            >
 
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/sysprefs.js" />
@@ -16,6 +18,8 @@
             <preference id="pref_precisiontaxes" name="vivipos.fec.settings.PrecisionTaxes" type="int"/>
             <preference id="pref_defaultpricelevel" name="vivipos.fec.settings.DefaultPriceLevel" type="int" />
             <preference id="pref_privatequeue" name="vivipos.fec.settings.PrivateQueue" type="bool" />
+            <preference id="pref_dateformatstr" name="vivipos.fec.settings.DateFormatStr" type="string"/>
+            <preference id="pref_timeformatstr" name="vivipos.fec.settings.TimeformatStr" type="string"/>
         </preferences>
         <hbox align="center">
             <label control="terminalid" value="&vivipos.fec.settings.terminalid;"/>
@@ -66,6 +70,14 @@
             </menulist>
         </hbox>
         
+        <hbox align="center">
+            <label control="dateformatstr" value="&vivipos.fec.settings.dateformat;"/>
+            <textbox preference="pref_dateformatstr" id="dateformatstr" maxlength="12"/>
+        </hbox>
+        <hbox align="center">
+            <label control="timeformatstr" value="&vivipos.fec.settings.timeformat;"/>
+            <textbox preference="pref_timeformatstr" id="timeformatstr" maxlength="12"/>
+        </hbox>
     </prefpane>
     
     <prefpane id="loginSettingsPane" label="&vivipos.fec.settings.category.login;" image="chrome://viviecr/content/skin/icons/gnome-run.png">
@@ -81,28 +93,29 @@
         <checkbox id="mustemptyqueue" label="&vivipos.fec.settings.login.mustemptyqueue;" preference="pref_mustemptyqueue"/>
     </prefpane>
 
-    <prefpane id="displaySettingsPane" label="&vivipos.fec.settings.category.display;" image="chrome://viviecr/content/skin/icons/stock_print-setup.png">
+    <prefpane id="displaySettingsPane" label="&vivipos.fec.settings.category.layout;" image="chrome://viviecr/content/skin/icons/stock_print-setup.png">
         <preferences>
 			
-            <preference id="pref_dateformatstr" name="vivipos.fec.settings.DateFormatStr" type="string"/>
-            <preference id="pref_timeformatstr" name="vivipos.fec.settings.TimeformatStr" type="string"/>
+            <preference id="pref_registeratleft" name="vivipos.fec.settings.RegisterAtLeft" type="bool"/>
+            <preference id="pref_functionpanelontop" name="vivipos.fec.settings.FunctionPanelOnTop" type="bool"/>
+            <preference id="pref_plubeforedept" name="vivipos.fec.settings.DeptBeforePLU" type="bool"/>
+            <preference id="pref_hidedeptscrollbar" name="vivipos.fec.settings.HideDeptScrollbar" type="bool"/>
+            <preference id="pref_hidepluscrollbar" name="vivipos.fec.settings.HidePLUScrollbar" type="bool"/>
+            <preference id="pref_hidefpscrollbar" name="vivipos.fec.settings.HideFPScrollbar" type="bool"/>
             <preference id="pref_deprows" name="vivipos.fec.settings.DepartmentRows" type="int"/>
             <preference id="pref_depcols" name="vivipos.fec.settings.DepartmentCols" type="int"/>
             <preference id="pref_plurows" name="vivipos.fec.settings.PluRows" type="int"/>
             <preference id="pref_plucols" name="vivipos.fec.settings.PluCols" type="int"/>
-            <preference id="pref_funcbtnrows" name="vivipos.fec.settings.FuncBtnRows" type="int"/>
-            <preference id="pref_funcbtncols" name="vivipos.fec.settings.FuncBtnCols" type="int"/>
 
         </preferences>
 
-        <hbox align="center">
-            <label control="dateformatstr" value="&vivipos.fec.settings.dateformat;"/>
-            <textbox preference="pref_dateformatstr" id="dateformatstr" maxlength="12"/>
-        </hbox>
-        <hbox align="center">
-            <label control="timeformatstr" value="&vivipos.fec.settings.timeformat;"/>
-            <textbox preference="pref_timeformatstr" id="timeformatstr" maxlength="12"/>
-        </hbox>
+        <checkbox id="registeratleft" label="&vivipos.fec.settings.layout.registeratleft;" preference="pref_registeratleft"/>
+        <checkbox id="functionpanelontop" label="&vivipos.fec.settings.layout.functionpanelontop;" preference="pref_functionpanelontop"/>
+        <checkbox id="PLUbeforedept" label="&vivipos.fec.settings.layout.PLUbeforedept;" preference="pref_plubeforedept"/>
+        <checkbox id="hideDeptScrollbar" label="&vivipos.fec.settings.layout.hidedeptscrollbar;" preference="pref_hidedeptscrollbar"/>
+        <checkbox id="hidePLUScrollbar" label="&vivipos.fec.settings.layout.hidepluscrollbar;" preference="pref_hidepluscrollbar"/>
+        <checkbox id="hideFPScrollbar" label="&vivipos.fec.settings.layout.hidefpscrollbar;" preference="pref_hidefpscrollbar"/>
+
         <hbox align="center">
             <label control="deprows" value="Department Dimension => Rows:"/>
             <textbox preference="pref_deprows" id="deprows" type="number" size="2" maxlength="1"/>
@@ -114,12 +127,6 @@
             <textbox preference="pref_plurows" id="decimal" type="number" size="2" maxlength="1"/>
             <label control="decimal" value="Cols:"/>
             <textbox preference="pref_plucols" id="decimal" type="number" size="2" maxlength="1"/>
-        </hbox>
-        <hbox align="center">
-            <label control="decimal" value="Function Panel Dimension => Rows:"/>
-            <textbox preference="pref_funcbtnrows" id="decimal" type="number" size="2" maxlength="1"/>
-            <label control="decimal" value="Cols:"/>
-            <textbox preference="pref_funcbtncols" id="decimal" type="number" size="2" maxlength="1"/>
         </hbox>
 
 	</prefpane>

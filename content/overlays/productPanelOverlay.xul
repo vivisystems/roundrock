@@ -7,7 +7,7 @@
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
   <box id="productPanelContainer">
-    <vbox flex="1">
+    <vbox id="productPanel" flex="1">
         <!-- Begin Catalogs -->
         <viviscrollablebuttonpanel dir="reverse" id="catescrollablepanel" flex="1" cols="3" rows="2" labelField="name" imageField="no" oncommand="$do('changePluPanel',this.selectedIndex, 'Main');"
           class="catescrollablepanel" buttonClass="catbtn button-radius" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue"/>

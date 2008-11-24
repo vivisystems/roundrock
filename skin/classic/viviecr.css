@@ -24,11 +24,11 @@
     overflow: hidden;
     
     margin-right: 4px;
-    margin-bottom: 3px;
+    margin-bottom: 0px;
 
 }
 
-functionPanel {
+.functionPanel {
 
 /*    min-width: 100px;*/
     width: 220px;
@@ -37,7 +37,7 @@ functionPanel {
     overflow: hidden;
     
     margin-right: 4px;
-    margin-bottom: 3px;
+    margin-bottom: 0px;
 
 }
 

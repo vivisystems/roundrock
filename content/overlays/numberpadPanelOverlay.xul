@@ -11,7 +11,7 @@
 
         <vbox flex="1" style="max-width: 400px;">
 
-            <hbox flex="0">
+            <hbox id="toolbarPanel" flex="0">
                 <vbox flex="1">
                     <hbox flex="1">
                         <sendkeybutton id="clearBtn"  label="CLEAR"   keyCode="0x27" target="multinumberpad" class="systembtn"  />

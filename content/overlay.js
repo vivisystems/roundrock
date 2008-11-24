@@ -80,6 +80,8 @@
             });
 
         }
+            
+        $do('resetLayout', null, 'Main');
     };
 
     window.addEventListener('load', startup, false);
