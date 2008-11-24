@@ -63,10 +63,10 @@
                                 </hbox>
                                 <spacer style="height: 30px;" />
                                 <hbox>
-                                    <button label="Add" class="genbtn" oncommand="$do('add', null, 'Taxes');" />
+                                    <button label="Add" class="editbtns" oncommand="$do('add', null, 'Taxes');" />
    <!-- button label="Refresh" class="genbtn" oncommand="$do('load', null, 'Taxes');" / -->
-                                    <button label="Delete" class="genbtn" oncommand="$do('delete', null, 'Taxes');" />
-                                    <button label="Modify" class="genbtn" oncommand="$do('update', null, 'Taxes');" />
+                                    <button label="Delete" class="editbtns" oncommand="$do('delete', null, 'Taxes');" />
+                                    <button label="Modify" class="editbtns" oncommand="$do('update', null, 'Taxes');" />
                                 </hbox>
                             </vbox>
                         </hbox>
@@ -74,13 +74,6 @@
 
 <!-- End Taxes -->
 
-
-
-                <hbox>
-                    <button label="OK" id="reloadBtn" class="genbtn"/>
-                    <button label="Cancel" class="genbtn" onclick="close();" />
-                    <spacer width="100"/>
-                </hbox>
             </vbox>
         </vbox>
 

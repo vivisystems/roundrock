@@ -48,9 +48,9 @@
         },
 
         clickCondimentPanel: function(index) {
+            this._selectedCondIndex = index;
             var condGroups = GeckoJS.Session.get('condGroups');
             var conds = condGroups[this._selectedIndex]['Condiment'];
-            this._selectedCondIndex = index;
             this.setInputCondData(conds[index]);
         },
 
@@ -62,7 +62,8 @@
 
         resetInputData: function () {
 
-            this.query('#condiment_group_no').val('');
+            // this.query('#condiment_group_no').val('');
+            $('#condiment_group_no').val('');
             this.query('#condiment_group_name').val('');
             // this.query('#condiment_group_button_color').val('os');
             // this.query('#condiment_group_font_size').val('medium');
@@ -75,16 +76,28 @@
         },
 
         add: function  () {
-            var inputData = this.getInputData();
-            var inputCondData = this.getInputCondData();
-            var condGroupModel = new CondimentGroupModel();
-            condGroupModel.save(inputData);
+            var aURL = "chrome://viviecr/content/prompt_additem.xul";
+            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250";
 
-            var condGroups = condGroupModel.find('all', {
-                order: "no"
-            });
-            GeckoJS.Session.add('condGroups', condGroups);
+            var inputObj = {input0:null, input1:null};
+            window.openDialog(aURL, "prompt_additem", features, "New Condiment Group", "Please input:", "No", "Name", inputObj);
+            window.focus();
+            if (inputObj.ok && inputObj.input0 && inputObj.input1) {
+                var inputData = {no: inputObj.input0, name: inputObj.input1};
+                var condGroupModel = new CondimentGroupModel();
+                condGroupModel.save(inputData);
 
+                var condGroups = condGroupModel.find('all', {
+                    order: "no"
+                });
+                GeckoJS.Session.add('condGroups', condGroups);
+
+                var condPanelView =  new NSICondGroupsView(condGroups);
+                var condscrollablepanel = document.getElementById('condimentscrollablepanel');
+                condscrollablepanel.datasource = condPanelView;
+
+                
+            }
             this.resetInputData();
         },
 
@@ -105,7 +118,12 @@
                     order: "no"
                 });
                 GeckoJS.Session.add('condGroups', condGroups);
+
+                var condPanelView =  new NSICondGroupsView(condGroups);
+                var condscrollablepanel = document.getElementById('condimentscrollablepanel');
+                condscrollablepanel.datasource = condPanelView;
             }
+            this.resetInputData();
         },
 
         remove: function() {
@@ -121,6 +139,10 @@
                         order: "no"
                     });
                     GeckoJS.Session.add('condGroups', condGroups);
+
+                    var condPanelView =  new NSICondGroupsView(condGroups);
+                    var condscrollablepanel = document.getElementById('condimentscrollablepanel');
+                    condscrollablepanel.datasource = condPanelView;
                 }
             }
         },
@@ -146,18 +168,29 @@
         },
 
         addCond: function  () {
-            var inputData = this.getInputData();
-            var inputCondData = this.getInputCondData();
-            var condModel = new CondimentModel();
-            condModel.save(inputCondData);
 
-            var condGroupModel = new CondimentGroupModel();
-            var condGroups = condGroupModel.find('all', {
-                order: "no"
-            });
-            GeckoJS.Session.add('condGroups', condGroups);
+            var aURL = "chrome://viviecr/content/prompt_additem.xul";
+            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250";
+            var inputObj = {input0:null, input1:null};
+            window.openDialog(aURL, "prompt_additem", features, "New Condiment", "Please input:", "No", "Name", inputObj);
 
-            // this.resetInputCondData();
+            if (inputObj.ok && inputObj.input0 && inputObj.input1) {
+
+                var inputData = {no: inputObj.input0, name: inputObj.input1};
+                inputData.condiment_group_id = this.query('#condiment_group_id').val();
+                var condModel = new CondimentModel();
+                condModel.save(inputData);
+
+                var condGroupModel = new CondimentGroupModel();
+                var condGroups = condGroupModel.find('all', {
+                    order: "no"
+                });
+                GeckoJS.Session.add('condGroups', condGroups);
+
+                // this.resetInputData();
+                this.clickCondimentPanel(this._selectedCondIndex);
+
+            }
         },
 
         modifyCond: function  () {
@@ -177,6 +210,7 @@
                     order: "no"
                 });
                 GeckoJS.Session.add('condGroups', condGroups);
+                this.clickCondimentPanel(this._selectedCondIndex);
             }
         },
 
@@ -195,6 +229,7 @@
                         order: "no"
                     });
                     GeckoJS.Session.add('condGroups', condGroups);
+                    this.clickCondimentPanel(this._selectedCondIndex);
                 }
             }
         },

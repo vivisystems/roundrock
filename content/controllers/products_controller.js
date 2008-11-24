@@ -31,7 +31,7 @@
 
             var cate_no = this._selCateNo;
             var listObj = this.getListProductObj();
-            var productModel = new ViviPOS.ProductModel();
+            var productModel = new ProductModel();
             var products = productModel.findByIndex('all', {
                 index: "cate_no",
                 value: cate_no

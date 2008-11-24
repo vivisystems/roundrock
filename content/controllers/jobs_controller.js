@@ -14,125 +14,71 @@
 
         getListObj: function() {
             if(this._listObj == null) {
-                this._listObj = this.query("#simpleListBoxJob")[0];
+                this._listObj = document.getElementById('jobscrollablepanel');
             }
             return this._listObj;
         },
 
+        /*
         beforeScaffold: function(evt) {
-            if (evt.data == 'delete') {
-                if (GREUtils.Dialog.confirm(null, "confirm delete", "Are you sure?") == false) {
-                    evt.preventDefault();
-                }
+            
+        },
+        */
+        beforeScaffoldAdd: function(evt) {
+            var aURL = "chrome://viviecr/content/prompt_additem.xul";
+            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250";
+            var inputObj = {input0:null, input1:null};
+            window.openDialog(aURL, "prompt_additem", features, "New Job", "Please input:", "No", "Name", inputObj);
+            if (inputObj.ok && inputObj.input0) {
+                $("#job_id").val('');
+                evt.data.jobname = inputObj.input0;
+            } else {
+                evt.preventDefault();
             }
         },
 
+        /*
+        afterScaffoldAdd: function(evt) {
+
+        },
+        */
+
+        beforeScaffoldSave: function(evt) {
+            // this.log(this.dump(evt));
+
+        },
+
         afterScaffoldSave: function(evt) {
-            // maintain Acl...
             this.load(evt.data);
         },
-        /*
+
         beforeScaffoldDelete: function(evt) {
             if (GREUtils.Dialog.confirm(null, "confirm delete", "Are you sure?") == false) {
                 evt.preventDefault();
             }
         },
-        */
+
         afterScaffoldDelete: function() {
             this.load();
         },
-/*
-        beforeScaffoldAdd: function (evt) {
-            var user = evt.data;
-            if ((user.no == '') || (user.name == '')){
-                alert('user no or user name is empty...');
-                evt.preventDefault();
-                return ;
-            }
-            var userModel = new ViviPOS.UserModel();
 
-            var user_no = userModel.findByIndex('all', {
-                index: "no",
-                value: user.no
-            });
-            var user_name = userModel.findByIndex('all', {
-                index: "name",
-                value: user.name
-            });
 
-            if (user_no != null) {
-                alert('Duplicate user no...' + user.no);
-                evt.preventDefault();
-            } else if (user_name != null) {
-                alert('Duplicate user name...' + user.name);
-                evt.preventDefault();
-            }
+        afterScaffoldIndex: function(evt) {
+            this._listDatas = evt.data;
+            var jobPanelView =  new GeckoJS.NSITreeViewArray(evt.data);
+            this.getListObj().datasource = jobPanelView;
         },
 
-        beforeScaffoldEdit: function (evt) {
-            var user = evt.data;
-            if ((user.no == '') || (user.name == '')){
-                alert('user no or user name is empty...');
-                evt.preventDefault();
-                return ;
-            }
-            var userModel = new ViviPOS.UserModel();
-
-            var user_no = userModel.findByIndex('all', {
-                index: "no",
-                value: user.no
-            });
-            var user_name = userModel.findByIndex('all', {
-                index: "name",
-                value: user.name
-            });
-            if ((user_no != null) && (user_no[0].id != this.Scaffold.currentData.id)) {
-                alert('Duplicate user no...' + user.no);
-                evt.preventDefault();
-            } else if ((user_name != null) && (user_name[0].id != this.Scaffold.currentData.id)) {
-                alert('Duplicate user name...' + user.name);
-                evt.preventDefault();
-            }
-
-        },
-*/
         load: function (data) {
-		
-            // var listObj = this.getListObj();
-            this.getListObj();
-            var jobModel = new JobModel();
-            var jobs = jobModel.find('all', {
-                order: "no"
-            });
-            
-            this._listDatas = jobs;
-            this._listObj.loadData(jobs);
-
-            var i = 0;
-            var j = 0;
-            if (data) {
-                if ((typeof data) == 'object' ) {
-                    jobs.forEach(function(o) {
-                        if (o.no == data.no) {
-                            j = i;
-                        }
-                        i++;
-                    });
-                }
-            }
-            this._listObj.selectedIndex = j;
-            this._listObj.ensureIndexIsVisible(j);
+            this.requestCommand('list');
         },
 
-        select: function(){
-		
-            this.getListObj();
-            selectedIndex = this._listObj.selectedIndex;
-            if (selectedIndex >= 0) {
-                var job = this._listDatas[selectedIndex];
+        select: function(index){
+            if (index >= 0) {
+                var job = this._listDatas[index];
                 this.requestCommand('view', job.id);
+                this._listObj.selectedIndex = index;
             }
-
         }
 	
     });

@@ -22,7 +22,7 @@
 
         }
 
-        GeckoJS.Configure.loadPreferences("vivipos.fec.settings");
+        $do('initial', null, "Main");
 
         var defaultLogin = GeckoJS.Configure.read('vivipos.fec.settings.DefaultLogin');
         var acl = new GeckoJS.AclComponent();
@@ -46,7 +46,6 @@
         else {
             $do('ChangeUserDialog', null, 'Main');
         }
-        $do('createPluPanel', null, "Main");
 
         // ViviPOS.VfdController.appendController();
         var self = ViviPOS.VfdController.getInstance();

@@ -9,8 +9,7 @@
         name: 'Keypad',
         // charpress buffer
         buf: "",
-	
-	
+
         getBuffer: function() {
             return this.buf;
         },
@@ -72,7 +71,7 @@
             switch(keyCode) {
                 // ESCAPE
                 case 0x27:
-                    this.getCartController().getSubtotal();
+                    this.getCartController().clear();
                     this.clearBuffer();
                     break;
 			
@@ -84,7 +83,7 @@
 			
                 // END
                 case 0x35:
-                    this.getCartController().getSubtotal();
+                    this.getCartController().subtotal();
                     break;
                 // ENTER
                 case 13:

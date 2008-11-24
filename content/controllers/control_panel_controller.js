@@ -4,7 +4,19 @@ var FuncItems = window.FuncItems = GeckoJS.NSITreeViewArray.extend({
         init: function() {
             var prefs = GeckoJS.BaseObject.getValues(GeckoJS.Configure.read('vivipos.fec.settings.controlpanels'));
             this.data = new GeckoJS.ArrayQuery(prefs).orderBy("label asc");
-            // this.data = new GeckoJS.ArrayQuery(prefs).filter("label='PLUs'");
+        },
+
+        getCellValue: function(row, col) {
+
+            var sResult;
+
+            try {
+                sResult = this.data[row][col.id];
+            }
+            catch (e) {
+                return "";
+            }
+            return _(sResult);
         }
 
     });

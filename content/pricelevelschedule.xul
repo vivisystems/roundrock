@@ -9,43 +9,40 @@
 <window id="numpad" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/plugroups.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/pricelevelschedule.js" />
 
     <box flex="1" class="mainpanel1 pad40">
         <vbox flex="1" class="panel40">
             <vbox flex="1" class="footlogo">
-
                     <groupbox flex="1">
-                        <caption label="Group List:" />
+                        <caption label="Price Level Schedule List:" />
 
-                        <hbox flex="1">
-                            <viviscrollablebuttonpanel dir="reverse" id="groupscrollablepanel" flex="1" cols="3" rows="8" labelField="name" imageField="no" oncommand="$do('select',this.selectedIndex, 'Plugroups');"
+                        <!-- hbox flex="1">
+                            <viviscrollablebuttonpanel dir="reverse" id="jobscrollablepanel" flex="1" cols="3" rows="8" labelField="jobname" imageField="no" oncommand="$do('select',this.selectedIndex, 'Jobs');"
                               class="catescrollablepanel" buttonClass="catbtn button-radius button-white font-medium" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue"/>
-
                             <spacer style="width: 10px;" />
                             <separator class="groove-thin"/>
 
                             <vbox>
                                 <hbox align="center">
-                                    <label id="plugroup_id" hidden="true" form="plugroupForm" name="id" value="" />
-                                    <label value="Group Name:" />
-                                    <textbox id="plugroup_name" value="" form="plugroupForm" name="name" />
+                                    <label id="job_id" hidden="true" form="jobForm" name="id" value="" />
+                                    <label value="Job Name:" />
+                                    <textbox id="job_name" value="" form="jobForm" name="jobname" />
                                 </hbox>
-                                <checkbox id="visible" value="true" label="Visible" form="productForm" name="visible" default="true"/>
                                 <spacer style="height: 10px;" />
                                 <hbox>
-                                    <button label="Add" class="editbtns" oncommand="$do('add', null, 'Plugroups');" />
-                                    <button label="Delete" class="editbtns" oncommand="$do('delete', null, 'Plugroups');" />
-                                    <button label="Modify" class="editbtns" oncommand="$do('update', null, 'Plugroups');" />
+                                    <button label="Add" class="editbtns" oncommand="$do('add', null, 'Jobs');" />
+                                    <button label="Delete" class="editbtns" oncommand="$do('delete', null, 'Jobs');" />
+                                    <button label="Modify" class="editbtns" oncommand="$do('update', null, 'Jobs');" />
                                 </hbox>
                             </vbox>
-                        </hbox>
-                    </groupbox>
 
+                        </hbox -->
+                    </groupbox>
             </vbox>
         </vbox>
     </box>
-
+  
     <hbox id="okCancelButtonsRight" class="dialogbtns" />
 
 </window>

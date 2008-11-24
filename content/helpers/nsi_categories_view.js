@@ -1,28 +1,133 @@
 (function() {
 
     var NSICategoriesView = window.NSICategoriesView = GeckoJS.NSITreeViewArray.extend({
-        init: function(data) {
-            this._super(data);
+        
+        init: function(domId) {
 
-            this._data = GeckoJS.Session.get('categories');
-            // alert(GeckoJS.BaseObject.dump(Application.storage.get('GeckoJS_Session_events', [])));
-            // alert(GeckoJS.BaseObject.dump(GeckoJS.Session.getEvents().listeners));
+            this._data = [];
+            this.hideUnvisible = this.hideUnvisible || false;
+
+            if (GeckoJS.Session.get('products') == null) {
+                this.updateCategories();
+            }
+
+            // binding dom
+            this.bindingPanel(domId);
+
+            // register eventListener
+            this.registerEventListener();
+
+        },
+
+        bindingPanel: function(domId) {
+
+            var catescrollablepanel = document.getElementById(domId);
+            //catescrollablepanel.setAttribute('rows', GeckoJS.Configure.read('vivipos.fec.settings.DepartmentRows'));
+            //catescrollablepanel.setAttribute('cols', GeckoJS.Configure.read('vivipos.fec.settings.DepartmentCols'));
+            //catescrollablepanel.initGrid();
+            catescrollablepanel.datasource = this;
+            this.refreshView();
+
+        },
+
+        registerEventListener: function() {
+
             var self = this;
             GeckoJS.Session.addEventListener('change', function(evt){
                 if (evt.data.key == 'categories') {
-                    //alert('categories refresh');
-                    self._data = evt.data.value;
-                    try {
-                        self.tree.invalidate();
-                    }catch(e) {}
+                    self.updateCategories();
+                    self.refreshView();
                 }
             });
-            // alert(GeckoJS.BaseObject.dump(GeckoJS.Session.getEvents().listeners));
-            //alert(GeckoJS.BaseObject.dump(GeckoJS.Session.getEvents().listeners));
+
         },
+
+
+        updateCategories: function() {
+            var categories = GeckoJS.Session.get('categories');
+
+            if (categories == null) {
+                // find all categories and update session.
+                var cateModel = new CategoryModel();
+                categories = cateModel.find('all', {
+                    order: "no"
+                });
+                GeckoJS.Session.add('categories', categories);
+
+            }
+
+            var byId ={}, indexCate = [], indexCateAll = [];
+
+            categories.forEach(function(category) {
+
+                if (category.id.length > 0) {
+                    byId[category.id] = category;
+                }
+
+                if(GeckoJS.String.parseBoolean(category.visible)) indexCate.push(category.id);
+                indexCateAll.push(category.id);
+                
+            });
+
+            GeckoJS.Session.add('categiesById', byId);
+            GeckoJS.Session.add('categiesIndexes', indexCate);
+            GeckoJS.Session.add('categiesIndexesAll', indexCateAll);
+
+        },
+
+        refreshView: function() {
+
+
+            var categiesIndexes;
+
+            if (this.hideUnvisible) {
+                categiesIndexes = GeckoJS.Session.get('categiesIndexes');
+            }else {
+
+                categiesIndexes = GeckoJS.Session.get('categiesIndexesAll');
+            }
+            this._data = categiesIndexes;
+
+            try {
+                this.tree.invalidate();
+            }catch(e) {}
+
+        },
+
+        toggle: function() {
+            this.hideUnvisible = !this.hideUnvisible;
+
+            this.refreshView();
+        },
+
         getCurrentIndexData: function (row) {
-            return this.data[row];
+            var id = this.data[row];
+            var categories = GeckoJS.Session.get('categiesById');
+            
+            return categories[id];
         },
+
+        getCellValue: function(row, col) {
+            
+            // this.log(row +","+col);
+            var categories = GeckoJS.Session.get('categiesById');
+
+            var sResult;
+            var id;
+            var key;
+
+            try {
+                key = col.id;
+                id = this.data[row];
+                sResult= categories[id][key];
+            }
+            catch (e) {
+                return "";
+            }
+            return sResult;
+
+        },
+
 
         getImageSrc: function(row, col) {
             var val = this.getCellValue(row, col);

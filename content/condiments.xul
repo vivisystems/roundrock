@@ -28,7 +28,7 @@
                                 <hbox align="center">
                                     <label hidden="true" form="condGroupForm" name="id" value="" />
                                     <label value="Group No:"/>
-                                    <textbox id="condiment_group_no" form="condGroupForm" name="no"/>
+                                    <textbox id="condiment_group_no" form="condGroupForm" name="no" readonly="true"/>
                                 </hbox>
                                 <hbox align="center">
                                     <label value="Group Name:"/>
@@ -59,7 +59,7 @@
                                     <label hidden="true" form="condimentForm" name="id" value="" />
                                     <label id="condiment_group_id" hidden="true" form="condimentForm" name="condiment_group_id" value="" />
                                     <label value="No:"/>
-                                    <textbox id="condiment_no" form="condimentForm" name="no"/>
+                                    <textbox id="condiment_no" form="condimentForm" name="no" readonly="true"/>
                                 </hbox>
                                 <hbox align="center">
                                     <label value="Name:"/>
