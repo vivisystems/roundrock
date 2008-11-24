@@ -77,7 +77,7 @@
         onSubmit: function(evt) {
             var transaction = evt.data;
             var buf = _('TOTAL') + ': ' + transaction.getTotal() ;
-            buf += "    " + _('CHG') + ': ' + transaction.getRemainTotal() ;
+            buf += "    " + _('CHG') + ': ' + (0-transaction.getRemainTotal()) ;
             this.getVfd().setText(buf);
         },
 

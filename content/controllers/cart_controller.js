@@ -84,7 +84,17 @@
 
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
+
+            if (addedItem.id == plu.id) {
+                if (plu.force_condiment) {
+                    this.addCondiment(plu);
+                }
+                if (plu.force_memo) {
+                    this.addMemo(plu);
+                }
+            }
             
+
             // fire getSubtotal Event ?????????????
             this.subtotal();
         },
@@ -435,7 +445,7 @@
 
             if(!amount) {
                 // @todo default totalamount ?
-                amount = true;
+                amount = curTransaction.getRemainTotal();
             }
 
             var paymentItem = {type: type, amount: amount};
@@ -535,18 +545,103 @@
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
 
-            this.dispatchEvent('onClear', 0.00);
+            //this.dispatchEvent('onClear', 0.00);
             this._getKeypadController().clearBuffer();
 
             this.dispatchEvent('onSubmit', oldTransaction);
 				
         },
-	
+
+
         cash: function(amount) {
+
+            // check if has buffer
+            var buf = this._getKeypadController().getBuffer();
+            if (buf.length>0) {
+                amount = parseFloat(buf);
+                this._getKeypadController().clearBuffer();
+            }
 
             this.addPayment('cash', amount);
 
         },
+
+        addCondiment: function(plu) {
+
+            var index = this._cartView.getSelectedIndex();
+            var curTransaction = this._getTransaction();
+
+            if(index <0) return;
+
+            // transaction is submit and close success
+            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
+                curTransaction = this._newTransaction();
+            }
+
+            if (plu.force_condiment) {
+                   var condiments = this.getCondimentsDialog(plu.cond_group);
+
+                   if (condiments) curTransaction.appendCondiment(index, condiments);
+            }
+
+        },
+
+        addMemo: function(plu) {
+
+            var index = this._cartView.getSelectedIndex();
+            var curTransaction = this._getTransaction();
+
+            if(index <0) return;
+
+            // transaction is submit and close success
+            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
+                curTransaction = this._newTransaction();
+            }
+
+            if (plu.force_memo) {
+                   var memo = this.getMemoDialog(plu.memo);
+
+                   if (memo) curTransaction.appendMemo(index, memo);
+            }
+
+        },
+
+
+        getCondimentsDialog: function (condgroup) {
+            var condiments = null;
+            var aURL = "chrome://viviecr/content/select_condiments.xul";
+            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=600,height=480";
+            var inputObj = {
+                condgroup: condgroup,
+                condiments: condiments
+            };
+
+            window.openDialog(aURL, "select_condiments", features, inputObj);
+
+            if (inputObj.ok && inputObj.condiments) {
+                return inputObj.condiments;
+            }else {
+                return null;
+            }
+            
+        },
+
+        getMemoDialog: function (memo) {
+            var aURL = "chrome://viviecr/content/prompt_additem.xul";
+            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250";
+            var inputObj = {
+                input0:memo,
+                input1:null
+            };
+            window.openDialog(aURL, "prompt_addmemo", features, "Add Memo", "Please input:", "Memo:", "", inputObj);
+
+            if (inputObj.ok && inputObj.input0) {
+                return inputObj.input0;
+            }else {
+                return null;
+            }
+        },
+
 
         pushQueue: function() {
 
