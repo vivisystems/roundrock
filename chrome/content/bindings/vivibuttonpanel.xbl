@@ -96,13 +96,15 @@
         </getter>
         <setter>
             <![CDATA[
-                alert(GeckoJS.BaseObject.dump(val));
-                if (!this.datasource) return this.selectedItems = val.split(',');
+
+                if (val == null || typeof val == 'undefined' ) return;
+
+                if (!this.datasource) return this.selectedItems = (val+"").split(',');
 
                 if (typeof this.datasource['setValue'] == 'function') {
                     return this.datasource.setValue(val);
                 }else {
-                    return this.selectedItems = val.split(',');
+                    return this.selectedItems = (val+"").split(',');
                 }
 
             ]]>
