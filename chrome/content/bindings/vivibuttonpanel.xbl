@@ -96,12 +96,15 @@
         </getter>
         <setter>
             <![CDATA[
-                if (!this.datasource) return this.selectedItems = val.split(',');
+
+                if (val == null || typeof val == 'undefined' ) return;
+
+                if (!this.datasource) return this.selectedItems = (val+"").split(',');
 
                 if (typeof this.datasource['setValue'] == 'function') {
                     return this.datasource.setValue(val);
                 }else {
-                    return this.selectedItems = val.split(',');
+                    return this.selectedItems = (val+"").split(',');
                 }
 
             ]]>
@@ -329,7 +332,7 @@
 
     <method name="refresh">
         <body><![CDATA[
-            this._startOffset = 0;
+            this._startOffset = (this._startOffset < 0) ? 0 : this._startOffset;
             this.render();
         ]]>  
         </body>
