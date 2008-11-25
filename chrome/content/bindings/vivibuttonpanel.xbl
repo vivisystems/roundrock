@@ -96,7 +96,7 @@
         </getter>
         <setter>
             <![CDATA[
-
+                alert(GeckoJS.BaseObject.dump(val));
                 if (!this.datasource) return this.selectedItems = val.split(',');
 
                 if (typeof this.datasource['setValue'] == 'function') {
@@ -218,6 +218,9 @@
             }
             this._selectedCount = 0;
             this._selectedItems = [];
+            this._startOffset = -1;
+            this._currentIndex = -1;
+
             this.refresh();
             return this.getDatasource();
         ]]>  

@@ -59,13 +59,18 @@
                 <![CDATA[
 
                     var session = GeckoJS.Session.getInstance();
-
-                    if( !session.has('User') ) return;
-
-                    var user = session.get('User');
-
                     var textbox = document.getAnonymousElementByAttribute(this, 'anonid', 'textbox');
-                    textbox.value = user.username;
+
+                    if( !session.has('User') ) {
+                        textbox.value = '';
+                    }
+                    else {
+
+                        var user = session.get('User');
+
+                        var textbox = document.getAnonymousElementByAttribute(this, 'anonid', 'textbox');
+                        textbox.value = user.username;
+                    }
                 ]]>
                 </body>
             </method>
