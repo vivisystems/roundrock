@@ -250,11 +250,11 @@
             var totalHeight = deptPanel.boxObject.height - (- pluPanel.boxObject.height);
             var fnHeight = this.screenheight - totalHeight - btmBox.boxObject.height;
             if (fnHeight < 1) {
-                fnPanel.setAttribute('hidden', true);
+                fnPanel.setAttribute('height', 0);
+                fnPanel.hide();
             }
             else {
-                fnPanel.setAttribute('hidden', false);
-                alert(fnHeight);
+                fnPanel.show();
                 fnPanel.setAttribute('height', fnHeight);
             }
         },
@@ -325,7 +325,7 @@
                 var promptDiscardQueue = !autoDiscardQueue && (responseDiscardCart != 0) && cart._hasUserQueue(principal);
 
                 if (promptDiscardQueue) {
-                    if (mustEmptyQueue || !canQueueOrder) {
+                    if (mustEmptyQueue) {
                         if (GREUtils.Dialog.confirm(null, "Sign Off", "You have one or more queued orders. Discard them?") == false) {
                             return;
                         }
