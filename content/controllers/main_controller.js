@@ -286,11 +286,9 @@
                 var username = principal.username;
                 var canQueueOrder = (GeckoJS.Array.inArray('vivipos_fec_acl_queue_order', principal.Roles) != -1);
 
-                var cart = GeckoJS.Session.get('cart');
-                //GREUtils.log(GeckoJS.BaseObject.dump(cart));
-                var itemCount = (cart == null) ? 0 : cart.getItemCount();
+                var txn = GeckoJS.Session.get('current_transaction');
 
-                var promptDiscardCart = (itemCount > 0 && !autoDiscardCart);
+                var promptDiscardCart = (txn != null) && (!txn.isSubmit()) && (!autoDiscardCart);
                 var responseDiscardCart = 2;  // 0: queue, 1: discard, 2: cancel
 
                 if (promptDiscardCart) {

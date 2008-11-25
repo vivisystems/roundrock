@@ -82,14 +82,14 @@
                 alert('Duplicate user name...' + user.name);
                 evt.preventDefault();
             }
-            if (user.defaultuser) {
-                this.clearDefaultUser();
-            }
+            
+            alert(GeckoJS.BaseObject.dump(user));
         },
 
         beforeScaffoldEdit: function (evt) {
             
             var user = evt.data;
+
             if ((user.no == '') || (user.name == '')){
                 alert('user no or user name is empty...');
                 evt.preventDefault();
@@ -112,10 +112,8 @@
                 alert('Duplicate user name...' + user.name);
                 evt.preventDefault();
             }
+            alert(GeckoJS.BaseObject.dump(user));
 
-            if (user.defaultuser) {
-                this.clearDefaultUser();
-            }
         },
 
         afterScaffoldIndex: function(evt) {
@@ -146,7 +144,7 @@
 
             var index = 0;
             if (data) {
-                listObj.value = data;
+                listObj.selectedItems = [data];
             } else {
                 listObj.selectedItems = [0];
                 listObj.selectedIndex = 0;
@@ -163,37 +161,8 @@
                 this.requestCommand('view', user.id);
             }
 
-        },
-
-        clearDefaultUser: function() {
-            var userModel = new ViviPOS.UserModel();
-            var users = userModel.findByIndex('all', {
-                index: "defaultuser",
-                value: 'true'
-            });
-            if (users && users.length > 0) {
-                users.forEach(function(user) {
-                    user.defaultuser = 'false';
-                    user.defaultuser_checked = '';
-                    userModel.id = user.id;
-                    userModel.save(user);
-                });
-            }
-        },
-        
-        setDefaultUser: function(state) {
-            var label = document.getElementById('user_defaultuser_label');
-            var checked = document.getElementById('user_defaultuser_checked');
-            
-            if (state) {
-                checked.value = '***';
-                label.value = 'true';
-            }
-            else {
-                checked.value = '';
-                label.value = 'false';
-            }
         }
+        	
     });
 
 

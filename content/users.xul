@@ -61,11 +61,7 @@
                                                 </menupopup>
                                             </menulist -->
                                         </hbox>
-                                        <hbox class="config" align="center">
-                                            <label value="Visible:"  />
-                                            <checkbox id="user_visible" value="1" form="userForm" name="visible"/>
-                                        </hbox>
-                                        </vbox>
+                                       </vbox>
                                     </tabpanel>
 
                                     <tabpanel flex="1" >
