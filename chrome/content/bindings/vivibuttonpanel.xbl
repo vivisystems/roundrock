@@ -96,7 +96,7 @@
         </getter>
         <setter>
             <![CDATA[
-
+                alert(GeckoJS.BaseObject.dump(val));
                 if (!this.datasource) return this.selectedItems = val.split(',');
 
                 if (typeof this.datasource['setValue'] == 'function') {

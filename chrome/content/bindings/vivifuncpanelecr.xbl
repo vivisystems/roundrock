@@ -481,22 +481,22 @@
                     switch(evt.attrName) {
                     
                         case 'height':
-                            GREUtils.log('[ATTRIBUTE-MODIFIED]: node <' + evt.originalTarget.anonid + '> attribute <' + evt.attrName + '> changed to value <' + evt.newValue + '>');
+                            //GREUtils.log('[ATTRIBUTE-MODIFIED]: node <' + evt.originalTarget.id + '> attribute <' + evt.attrName + '> changed to value <' + evt.newValue + '>');
                             this.keypadHeight = evt.newValue;
                             this._clearKeypad();
                             this._refreshCurrentPage();
-                            GREUtils.log('[ATTRIBUTE-MODIFIED]: done');
+                            //GREUtils.log('[ATTRIBUTE-MODIFIED]: done');
                             break;
 
                         case 'width':
-                            GREUtils.log('[ATTRIBUTE-MODIFIED]: node <' + evt.originalTarget.anonid + '> attribute <' + evt.attrName + '> changed to value <' + evt.newValue + '>');
+                            GREUtils.log('[ATTRIBUTE-MODIFIED]: node <' + evt.originalTarget.id + '> attribute <' + evt.attrName + '> changed to value <' + evt.newValue + '>');
                             this.keypadWidth = evt.newValue;
                             this._clearKeypad();
                             this._refreshCurrentPage();
                             break;
 
                         case 'hideScrollbar':
-                            GREUtils.log('[ATTRIBUTE-MODIFIED]: node <' + evt.originalTarget.anonid + '> attribute <' + evt.attrName + '> changed to value <' + evt.newValue + '>');
+                            //GREUtils.log('[ATTRIBUTE-MODIFIED]: node <' + evt.originalTarget.id + '> attribute <' + evt.attrName + '> changed to value <' + evt.newValue + '>');
                             this._showHideScrollbar(evt.newValue.toLowerCase() == 'true');
                             break;
                             
@@ -655,7 +655,7 @@
                     var prefs = {};
                     var prefix = this.getAttribute('prefix');
                     if (!prefix) {
-                        prefix = 'vivipos.fec.ui.functionpanel';
+                        prefix = 'vivipos.fec.settings.functionpanel';
                         this.setAttribute('prefix', prefix);
                     }
                     GeckoJS.Configure.loadPreferences(prefix);
