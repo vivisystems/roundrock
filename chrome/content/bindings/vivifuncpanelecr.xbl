@@ -617,9 +617,9 @@
             <method name="_refreshCurrentPage">
                 <body>
                 <![CDATA[
-                    //GREUtils.log('[REFRESH-CURRENT-PAGE]: refreshing current page <' + this.currentPage + '> with maxpage <' + this.maxpage + '>');
+                    GREUtils.log('[REFRESH-CURRENT-PAGE]: refreshing current page <' + this.currentPage + '> with maxpage <' + this.maxpage + '>');
                     if (this.currentPage == '') {
-                        //GREUtils.log('[REFRESH-CURRENT-PAGE]: exiting due to null page');
+                        GREUtils.log('[REFRESH-CURRENT-PAGE]: exiting due to null page');
                         return;
                     }
 
@@ -627,7 +627,7 @@
                     var layout = this.getPageLayout(page);
                     var stack = this._getLayoutStack(layout);
 
-                    //GREUtils.log('[REFRESH-CURRENT-PAGE]: refreshing current page layout <' + GeckoJS.BaseObject.dump(layout) + '> and stack <' + stack + '> for page <' + page + '>');
+                    GREUtils.log('[REFRESH-CURRENT-PAGE]: refreshing current page layout <' + GeckoJS.BaseObject.dump(layout) + '> and stack <' + stack + '> for page <' + page + '>');
 
                     // activate the corresponding stack
 
@@ -1521,9 +1521,11 @@
 
                             if (entry && (entry.label != null) && (entry.label != '')) {
                                 btn.setAttribute('label', entry.label);
-                                var ch = document.getAnonymousElementByAttribute(btn,'class', 'button-text');
-                                var labelWidth = btn.width * 0.85;
-                                ch.style.width = labelWidth + 'px';
+                                var ch = document.getAnonymousElementByAttribute(btn, 'class', 'button-text');
+                                if (ch) {
+                                    var labelWidth = btn.width * 0.85;
+                                    ch.style.width = labelWidth + 'px';
+                                }
                                 //btn.setLabel(entry.label);
                                 //GREUtils.log('[KEYMAP]: label <' + entry.label + '> set');
                             }
@@ -1554,9 +1556,11 @@
                                     var hasAccess = this._isUserInRole(entry.access);
 
                                     btn.setAttribute('label', entry.label);
-                                    var ch = document.getAnonymousElementByAttribute(btn,'class', 'button-text');
-                                    var labelWidth = btn.width * 0.85;
-                                    ch.style.width = labelWidth + 'px';
+                                    var ch = document.getAnonymousElementByAttribute(btn, 'class', 'button-text');
+                                    if (ch) {
+                                        var labelWidth = btn.width * 0.85;
+                                        ch.style.width = labelWidth + 'px';
+                                    }
                                     
                                     btn.setAttribute('roles', entry.access);
                                     btn.setAttribute('action', 'display');
