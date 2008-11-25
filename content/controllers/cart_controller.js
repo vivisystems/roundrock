@@ -730,11 +730,39 @@
 
 
         getCondimentsDialog: function (condgroup) {
+
+            var condGroups = GeckoJS.Session.get('condGroups');
+            if (!condGroups) {
+                var condGroupModel = new CondimentGroupModel();
+                var condGroups = condGroupModel.find('all', {
+                    order: "no"
+                });
+                GeckoJS.Session.add('condGroups', condGroups);
+                condGroups = GeckoJS.Session.get('condGroups');
+                /*
+                var idx = 0;
+                condGroups.forEach(function(o) {
+                    o
+                });
+                */
+            }
+
+            var i = -1;
+            var index = -1;
+
+            condGroups.forEach(function(o) {
+                i++;
+                if (o.name == condgroup) {index = i}
+            });
+
+            var conds = condGroups[index]['Condiment'];
+
             var condiments = null;
             var aURL = "chrome://viviecr/content/select_condiments.xul";
             var features = "chrome,titlebar,toolbar,centerscreen,modal,width=600,height=480";
             var inputObj = {
                 condgroup: condgroup,
+                condsData: conds,
                 condiments: condiments
             };
 
