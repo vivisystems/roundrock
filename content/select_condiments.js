@@ -17,6 +17,25 @@
 
         // document.getElementById('condiments').value = inputObj.condiments;
         window.viewHelper = new opener.GeckoJS.NSITreeViewArray(condsData);
+
+        window.viewHelper.renderButton= function(row, btn) {
+
+            var buttonColor = this.getCellValue(row,{
+                id: 'button_color'
+            });
+            var buttonFontSize = this.getCellValue(row,{
+                id: 'font_size'
+            });
+
+            if (buttonColor && btn) {
+                $(btn).addClass('button-'+ buttonColor);
+            }
+            if (buttonFontSize && btn) {
+                $(btn).addClass('font-'+ buttonFontSize);
+            }
+
+        };
+
         document.getElementById('condimentscrollablepanel').datasource = window.viewHelper ;
 
         /*
