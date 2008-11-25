@@ -40,9 +40,31 @@
             GeckoJS.FormHelper.unserializeFromObject('depForm', valObj);
         },
 
+        _checkData: function (data) {
+            var cates = GeckoJS.Session.get('categories');
+            var result = 0;
+            cates.forEach(function(o){
+                if (o.no == data.no) {
+                    alert('Duplicate Department No...' + data.no);
+                    result = 1;
+                } else if (o.name == data.name) {
+                    alert('Duplicate Department Name...' + data.name);
+                    result = 2;
+                } else if (data.no) {
+                    alert('No is empty...');
+                    result = 3;
+                } else if (data.name) {
+                    alert('Name is empty...');
+                    result = 4;
+                }
+
+            });
+            return result;
+        },
+
         add: function  () {
             var inputData = this.getInputData();
-            
+
             var aURL = "chrome://viviecr/content/prompt_additem.xul";
             var features = "chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250";
             var inputObj = {
@@ -52,16 +74,20 @@
             window.openDialog(aURL, "prompt_additem", features, _("New Department"), _("Please input:"), _("No"), _("Name"), inputObj);
             if (inputObj.ok && inputObj.input0 && inputObj.input1) {
                 var category = new CategoryModel();
+
                 inputData = {
                     no: inputObj.input0,
                     name: inputObj.input1
                     };
 
-                category.save(inputData);
+                if(this._checkData(inputData) == 0) {
 
-                this.updateSession();
+                    category.save(inputData);
 
-                this.resetInputData();
+                    this.updateSession();
+
+                    this.resetInputData();
+                }
             }
         },
 
@@ -73,11 +99,16 @@
 
                 var category = this.catePanelView.getCurrentIndexData(this._selectedIndex);
 
-                inputData.id = category.id;
-                cateModel.id = category.id;
-                cateModel.save(inputData);
+                inputData = {
+                    no: inputObj.input0,
+                    name: inputObj.input1
+                    };
 
-                this.updateSession();
+                    inputData.id = category.id;
+                    cateModel.id = category.id;
+                    cateModel.save(inputData);
+
+                    this.updateSession();
 
             }
         },

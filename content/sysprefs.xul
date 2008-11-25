@@ -145,4 +145,7 @@
         <textbox label="Duration:" preference="pref_backupduration"/>
     </prefpane>
 
+    <!-- prefpane id="localeSettingsPane" label="locale" image="chrome://viviecr/content/skin/icons/gnome-run.png">
+        <vivilocaleslistbox package="viviecr" />
+    </prefpane -->
 </prefwindow>

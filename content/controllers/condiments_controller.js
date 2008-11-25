@@ -81,7 +81,7 @@
 
             var inputObj = {input0:null, input1:null};
             window.openDialog(aURL, "prompt_additem", features, "New Condiment Group", "Please input:", "No", "Name", inputObj);
-            window.focus();
+
             if (inputObj.ok && inputObj.input0 && inputObj.input1) {
                 var inputData = {no: inputObj.input0, name: inputObj.input1};
                 var condGroupModel = new CondimentGroupModel();

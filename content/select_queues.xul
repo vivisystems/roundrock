@@ -24,7 +24,7 @@
                     <label id="queues" hidden="true" value="" />
                     <hbox>
                         <viviscrollablebuttonpanel id="queueScrollablepanel" flex="1" cols="2" rows="5"  seltype="single" labelField="key"
-                              class="catescrollablepanel" buttonClass="plubtn smallimagebtn button-radius" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue" />
+                              class="catescrollablepanel" buttonClass="plubtn smallimagebtn button-radius button-white" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue" />
                     </hbox>
                 </groupbox>
             </vbox>

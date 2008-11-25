@@ -99,6 +99,28 @@
             document.getElementById('pluimage').setAttribute("src", "chrome://viviecr/content/skin/pluimages/" + valObj.no + ".png?" + Math.random());
         },
 
+        _checkData: function (data) {
+            var prods = GeckoJS.Session.get('products');
+            var result = 0;
+            prods.forEach(function(o){
+                if (o.no == data.no) {
+                    alert('Duplicate Plu No...' + data.no);
+                    result = 1;
+                } else if (o.name == data.name) {
+                    alert('Duplicate Plu Name...' + data.name);
+                    result = 2;
+                } else if (data.no) {
+                    alert('No is empty...');
+                    result = 3;
+                } else if (data.name) {
+                    alert('Name is empty...');
+                    result = 4;
+                }
+
+            });
+            return result;
+        },
+
         add: function  () {
             var inputData = this.getInputData();
 
@@ -116,12 +138,15 @@
                     no: inputObj.input0,
                     name: inputObj.input1
                     };
-                inputData.cate_no = $("#cate_no").val();
-                product.save(inputData);
 
-                this.updateSession();
+                if(this._checkData(inputData) == 0) {
+                    inputData.cate_no = $("#cate_no").val();
+                    product.save(inputData);
 
-                this.resetInputData();
+                    this.updateSession();
+
+                    this.resetInputData();
+                }
             }
 
         },

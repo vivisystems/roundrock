@@ -70,6 +70,28 @@
 
         },
 
+        _checkData: function (data) {
+            var taxes = this._listDatas;
+            var result = 0;
+            taxes.forEach(function(o){
+                if (o.no == data.no) {
+                    alert('Tax No...' + data.no);
+                    result = 1;
+                } else if (o.name == data.name) {
+                    alert('Tax Name...' + data.name);
+                    result = 2;
+                } else if (data.no) {
+                    alert('No is empty...');
+                    result = 3;
+                } else if (data.name) {
+                    alert('Name is empty...');
+                    result = 4;
+                }
+
+            });
+            return result;
+        },
+
         add: function (evt) {
             var self = this;
             var aURL = "chrome://viviecr/content/prompt_addtaxitem.xul";
@@ -90,10 +112,12 @@
                     name: inputObj.input1,
                     type: tax_type
                 };
-                this.Tax.setTax(data.name, data);
+                if (this._checkData(inputObj) == 0) {
+                    this.Tax.setTax(data.name, data);
 
-                this.createAddonTaxList();
-                this.load(data);
+                    this.createAddonTaxList();
+                    this.load(data);
+                }
             }
 
         },
