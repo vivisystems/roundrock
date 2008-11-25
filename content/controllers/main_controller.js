@@ -9,16 +9,19 @@
         name: 'Main',
         screenwidth: 800,
         screenheight: 600,
+        maxButtonRows: 10,
         depPanelView: null,
         pluPanelView: null,
 
         initial: function() {
 
-            //this.checkClerk();
+            this.initialLogin();
             this.createPluPanel();
             this.requestCommand('initial', null, 'Pricelevel');
             this.requestCommand('initial', null, 'Cart');
             this.requestCommand('initial', null, 'Vfd');
+
+            this.resetLayout();
 
             // change log level
             GeckoJS.Log.getAppender('console').level = GeckoJS.Log.DEBUG;
@@ -190,6 +193,9 @@
             if (leftPanel) leftPanel.setAttribute('dir', functionPanelOnTop ? 'reverse' : 'normal');
             if (productPanel) productPanel.setAttribute('dir', PLUbeforeDept ? 'reverse' : 'normal');
             
+            // fudge to make functionPanelOnTop work
+            leftPanel.setAttribute('pack', functionPanelOnTop ? 'end' : 'start');
+            
             if (deptPanel) deptPanel.setAttribute('hideScrollbar', hideDeptScrollbar);
             if (pluPanel) pluPanel.setAttribute('hideScrollbar', hidePLUScrollbar);
             if (fnPanel) fnPanel.setAttribute('hideScrollbar', hideFPScrollbar);
@@ -201,6 +207,12 @@
             var pluCols = GeckoJS.Configure.read('vivipos.fec.settings.PluCols');
 
             // first check if rows and columns have changed
+
+            var rowsLeft = this.maxButtonRows;
+            if (departmentRows > rowsLeft) {
+                departmentRows = rowsLeft;
+            }
+            rowsLeft -= departmentRows;
 
             if ((deptPanel.getAttribute('rows') != departmentRows) ||
                 (deptPanel.getAttribute('cols') != departmentCols)) {
@@ -215,6 +227,12 @@
                     deptPanel.setAttribute('hidden', true);
                 }
             }
+            
+            if (pluRows > rowsLeft) {
+                pluRows = rowsLeft;
+            }
+            rowsLeft -= pluRows;
+            
             if ((pluPanel.getAttribute('rows') != pluRows) ||
                 (pluPanel.getAttribute('cols') != pluCols)) {
                 pluPanel.setAttribute('rows', pluRows);
@@ -235,8 +253,35 @@
                 fnPanel.setAttribute('hidden', true);
             }
             else {
-                fnPanel.setAttribute('height', fnHeight);
                 fnPanel.setAttribute('hidden', false);
+                alert(fnHeight);
+                fnPanel.setAttribute('height', fnHeight);
+            }
+        },
+        
+        initialLogin: function () {
+
+            var defaultLogin = GeckoJS.Configure.read('vivipos.fec.settings.DefaultLogin');
+            var defaultUser = GeckoJS.Configure.read('vivipos.fec.settings.DefaultUser');
+            var acl = new GeckoJS.AclComponent();
+
+            if (defaultLogin) {
+                var userModel = new ViviPOS.UserModel();
+                var users = userModel.findByIndex('all', {
+                    index: "id",
+                    value: defaultUser
+                });
+                // we will only pick the first default user if there are more than one
+                if (users && (users.length > 0)) {
+                    this.signIn(users[0]);
+                }
+            }
+
+            if (acl.getUserPrincipal()) {
+                this.setClerk();
+            }
+            else {
+                this.ChangeUserDialog();
             }
         },
         
@@ -304,7 +349,7 @@
                 }
 
                 if (!promptDiscardCart && !promptDiscardQueue)
-                    if (GREUtils.Dialog.confirm(null, "confirm sign-off", "Are you sure to sign off?") == false) {
+                    if (GREUtils.Dialog.confirm(null, "confirm sign-off", "Are you ready to sign off?") == false) {
                         return;
                 }
 
