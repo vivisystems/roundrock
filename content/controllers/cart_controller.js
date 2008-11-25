@@ -7,14 +7,15 @@
     GeckoJS.Controller.extend( {
         name: 'Cart',
         components: ['Tax'],
-        _key: '',
         _cartView: null,
+        _queuePool: null,
 
         initial: function() {
             
             if (this._cartView == null ) {
                 this._cartView = new NSICartView('cartList');
             }
+
 
             GeckoJS.Session.remove('cart_last_sell_item');
             GeckoJS.Session.remove('cart_set_price_value');
@@ -52,6 +53,17 @@
             return GeckoJS.Controller.getInstanceByName('Keypad');
         },
 
+        _getQueuePool: function() {
+
+            this._queuePool = GeckoJS.Session.get('cart_queue_pool');
+            if (this._queuePool == null) {
+                this._queuePool = {user: {}, data:{}};
+                GeckoJS.Session.set('cart_queue_pool', this._queuePool);
+            }
+            return this._queuePool;
+            
+        },
+
         addItem: function(plu) {
 
             var item = GREUtils.extend({}, plu);
@@ -84,7 +96,17 @@
 
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
+
+            if (addedItem.id == plu.id) {
+                if (plu.force_condiment) {
+                    this.addCondiment(plu);
+                }
+                if (plu.force_memo) {
+                    this.addMemo(plu);
+                }
+            }
             
+
             // fire getSubtotal Event ?????????????
             this.subtotal();
         },
@@ -245,6 +267,51 @@
 
         },
 
+        addDiscountByNumber: function(amount) {
+            // shorcut
+            amount = amount || false;
+
+            // check if has buffer
+            var buf = this._getKeypadController().getBuffer();
+            if (buf.length>0) {
+                amount = buf;
+                this._getKeypadController().clearBuffer();
+            }
+
+            if(amount === false) return;
+
+            var discountAmount = "";
+
+            if((amount+"").indexOf('$') == -1)  {
+                discountAmount = amount + "$";
+            }
+            this.addDiscount(discountAmount);
+
+        },
+
+        addDiscountByPercentage: function(amount) {
+            // shortcut
+            amount = amount || false;
+
+            // check if has buffer
+            var buf = this._getKeypadController().getBuffer();
+            if (buf.length>0) {
+                amount = buf;
+                this._getKeypadController().clearBuffer();
+            }
+
+            if(amount === false) return;
+
+            var discountAmount = "";
+
+            if((amount+"").indexOf('%') == -1)  {
+                discountAmount = amount + "%";
+            }
+            this.addDiscount(discountAmount);
+
+        },
+
+
         addDiscount: function(discountAmount) {
 
             var index = this._cartView.getSelectedIndex();
@@ -292,7 +359,7 @@
                 // percentage
                 discountType = '%';
 
-                discountAmount = parseFloat(discountAmount.replace('%', ''));
+                discountAmount = parseFloat(discountAmount.replace('%', '')) / 100;
 
             }else {
                 // fixed number
@@ -318,11 +385,57 @@
 
             this.subtotal();
 
+        },
+
+        addSurchargeByNumber: function(amount) {
+            // shorcut
+            amount = amount || false;
+
+            // check if has buffer
+            var buf = this._getKeypadController().getBuffer();
+            if (buf.length>0) {
+                amount = buf;
+                this._getKeypadController().clearBuffer();
+            }
+
+            if(amount === false) return;
+
+            var surchargeAmount = "";
+
+            if((amount+"").indexOf('$') == -1)  {
+                surchargeAmount = amount + "$";
+            }
+            this.addSurcharge(surchargeAmount);
+
+        },
+
+        addSurchargeByPercentage: function(amount) {
+            // shortcut
+            amount = amount || false;
+
+            // check if has buffer
+            var buf = this._getKeypadController().getBuffer();
+            if (buf.length>0) {
+                amount = buf;
+                this._getKeypadController().clearBuffer();
+            }
+
+            if(amount === false) return;
+            
+            var surchargeAmount = "";
+
+            if((amount+"").indexOf('%') == -1)  {
+                surchargeAmount = amount + "%";
+            }
+            this.addSurcharge(surchargeAmount);
 
         },
 
 
+
         addSurcharge: function(surchargeAmount) {
+
+
 
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
@@ -364,7 +477,7 @@
                 // percentage
                 surchargeType = '%';
 
-                surchargeAmount = parseFloat(surchargeAmount.replace('%', ''));
+                surchargeAmount = parseFloat(surchargeAmount.replace('%', '')) / 100;
 
             }else {
                 // fixed number
@@ -435,7 +548,7 @@
 
             if(!amount) {
                 // @todo default totalamount ?
-                amount = true;
+                amount = curTransaction.getRemainTotal();
             }
 
             var paymentItem = {type: type, amount: amount};
@@ -460,6 +573,25 @@
 
         },
 
+
+        showPaymentStatus: function() {
+
+            var curTransaction = this._getTransaction();
+
+            if (curTransaction.isSubmit() || curTransaction.isCancel()) return;
+
+            var payments = curTransaction.getPayments();
+            var statusStr = "";
+
+            for(var idx in payments) {
+                var payment = payments[idx];
+
+                statusStr += payment.name + '  =  ' + payment.amount + '\n';
+                statusStr += '    memo1: ' + (payment.memo1||"") + ' , memo2: ' + (payment.memo2||"") + '\n\n';
+            }
+
+            alert(statusStr);
+        },
 
         addTax: function() {
 
@@ -535,29 +667,201 @@
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
 
-            this.dispatchEvent('onClear', 0.00);
+            //this.dispatchEvent('onClear', 0.00);
             this._getKeypadController().clearBuffer();
 
             this.dispatchEvent('onSubmit', oldTransaction);
 				
         },
-	
+
+
         cash: function(amount) {
+
+            // check if has buffer
+            var buf = this._getKeypadController().getBuffer();
+            if (buf.length>0) {
+                amount = parseFloat(buf);
+                this._getKeypadController().clearBuffer();
+            }
 
             this.addPayment('cash', amount);
 
         },
 
+        addCondiment: function(plu) {
+
+            var index = this._cartView.getSelectedIndex();
+            var curTransaction = this._getTransaction();
+
+            if(index <0) return;
+
+            // transaction is submit and close success
+            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
+                curTransaction = this._newTransaction();
+            }
+
+            if (plu.force_condiment) {
+                   var condiments = this.getCondimentsDialog(plu.cond_group);
+
+                   if (condiments) curTransaction.appendCondiment(index, condiments);
+            }
+
+        },
+
+        addMemo: function(plu) {
+
+            var index = this._cartView.getSelectedIndex();
+            var curTransaction = this._getTransaction();
+
+            if(index <0) return;
+
+            // transaction is submit and close success
+            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
+                curTransaction = this._newTransaction();
+            }
+
+            if (plu.force_memo) {
+                   var memo = this.getMemoDialog(plu.memo);
+
+                   if (memo) curTransaction.appendMemo(index, memo);
+            }
+
+        },
+
+
+        getCondimentsDialog: function (condgroup) {
+            var condiments = null;
+            var aURL = "chrome://viviecr/content/select_condiments.xul";
+            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=600,height=480";
+            var inputObj = {
+                condgroup: condgroup,
+                condiments: condiments
+            };
+
+            window.openDialog(aURL, "select_condiments", features, inputObj);
+
+            if (inputObj.ok && inputObj.condiments) {
+                return inputObj.condiments;
+            }else {
+                return null;
+            }
+            
+        },
+
+        getMemoDialog: function (memo) {
+            var aURL = "chrome://viviecr/content/prompt_additem.xul";
+            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250";
+            var inputObj = {
+                input0:memo,
+                input1:null
+            };
+            window.openDialog(aURL, "prompt_addmemo", features, "Add Memo", "Please input:", "Memo:", "", inputObj);
+
+            if (inputObj.ok && inputObj.input0) {
+                return inputObj.input0;
+            }else {
+                return null;
+            }
+        },
+
+
+        _hasUserQueue: function(user) {
+
+            if (!user) return false;
+
+            var queuePool = this._getQueuePool();
+
+            var username = user.username;
+            
+            if(!queuePool.user[username] || queuePool.user[username].constructor.name != 'array') {
+                return false;
+            } else {
+                return (queuePool.user[username].length >0);
+            }
+           
+        },
+
+        _removeUserQueue: function(user) {
+
+            if (!user) return false;
+
+            var queuePool = this._getQueuePool();
+
+            var username = user.username;
+
+            if(!queuePool.user[username] || queuePool.user[username].constructor.name != 'array') {
+                return ;
+            }
+
+            var removeCount = 0;
+
+            queuePool.user[username].forEach(function(key){
+
+                // just delete queue
+                if(queuePool.data[key]) delete queuePool.data[key];
+
+                removeCount++;
+                
+            }, this);
+
+            delete queuePool.user[username];
+
+            return removeCount;
+
+        },
+
         pushQueue: function() {
 
+            var curTransaction = this._getTransaction();
+            if (curTransaction.isSubmit() || curTransaction.isCancel()) return;
+
             var user = this.Acl.getUserPrincipal();
-            var cart = this.getCart();
-            if (cart.items.length > 0) {
-                this._key = new Date().toString('hh:mm:ss') + ':' + user.username;
-                cart.pushQueue(this._key);
-                this.clear();
+
+            var count = curTransaction.getItemsCount();
+            var key = "";
+            var queuePool = this._getQueuePool();
+
+            if (count > 0) {
+                key = new Date().toString('hh:mm:ss') + ':' + user.username;
+                
+                // queue
+                queuePool.data[key] = curTransaction.data;
+
+                // update user queue status
+                if(!queuePool.user[user.username]) queuePool.user[user.username] = [];
+                queuePool.user[user.username].push(key);
+
+                // only empty view ,
+                // next added item will auto create new transaction
+                curTransaction.emptyView();
+
+                this._getKeypadController().clearBuffer();
+
+                this.dispatchEvent('onQueue', curTransaction);
+
+                GeckoJS.Session.remove('current_transaction');
+                GeckoJS.Session.remove('cart_last_sell_item');
+                GeckoJS.Session.remove('cart_set_price_value');
+                GeckoJS.Session.remove('cart_set_qty_value');
+
             }
-        // alert('push...');
+        
+        },
+
+        getQueueIdDialog: function () {
+            var aURL = "chrome://viviecr/content/prompt_additem.xul";
+            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250";
+            var inputObj = {
+                input0:memo,
+                input1:null
+            };
+            window.openDialog(aURL, "prompt_addmemo", features, "Add Memo", "Please input:", "Memo:", "", inputObj);
+
+            if (inputObj.ok && inputObj.input0) {
+                return inputObj.input0;
+            }else {
+                return null;
+            }
         },
 
         pullQueue: function(data) {

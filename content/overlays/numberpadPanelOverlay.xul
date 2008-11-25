@@ -36,6 +36,14 @@
                             <button id="cancelBtn"  label="CANCEL"    oncommand="$do('cancel', null, 'Cart');" class="systembtn"  />
                             <sendkeybutton id="subtotalBtn"  label="SUB TOTAL"  keyCode="0x35" target="multinumberpad"  class="systembtn" />
                             <button id="cashBtn"  label="CASH"    oncommand="$do('cash', null, 'Cart');" class="systembtn"  />
+                            <button id="surchargeNBtn" label="$+"    oncommand="$do('addSurchargeByNumber', null, 'Cart');" class="systembtn">
+                                <label crop="center" style="max-width: none; width: 40px;" >$+</label>
+                            </button>
+
+                            <button id="surchargePBtn" label="%-"    oncommand="$do('addSurchargeByPercentage', 5, 'Cart');" class="systembtn">
+                                <label crop="center" style="max-width: none; width: 40px;" >%+</label>
+                            </button>
+
                         </vbox>
                         <vbox>
                             <button id="numkey8"  label="PLU"  oncommand="" class="systembtn"  />
@@ -54,6 +62,15 @@
                             <button id="openDiscountBtn" label="TRAY"    oncommand="$do('addMarker', 'tray', 'Cart');" class="systembtn">
                                 <label crop="center" style="max-width: none; width: 40px;" >TRAY</label>
                             </button>
+
+                            <button id="discountNBtn" label="$-"    oncommand="$do('addDiscountByNumber', null, 'Cart');" class="systembtn">
+                                <label crop="center" style="max-width: none; width: 40px;" >$-</label>
+                            </button>
+
+                            <button id="discountPBtn" label="%-"    oncommand="$do('addDiscountByPercentage', 5, 'Cart');" class="systembtn">
+                                <label crop="center" style="max-width: none; width: 40px;" >%-</label>
+                            </button>
+
                         </vbox>
 
               <!-- Number Keypad -->

@@ -73,37 +73,6 @@
             GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,dependent=yes,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height, "");
         },
 
-        getCondiments: function (condgroup) {
-            var condiments = null;
-            var aURL = "chrome://viviecr/content/select_condiments.xul";
-            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=600,height=480";
-            var inputObj = {
-                condgroup: condgroup,
-                condiments: condiments
-            };
-
-            window.openDialog(aURL, "select_condiments", features, inputObj);
-
-            if (inputObj.ok && inputObj.condiments) {
-                alert("Condiments:" + inputObj.condiments);
-
-            }
-            this.addMemo("Memo Test...");
-        },
-
-        addMemo: function (memo) {
-            var aURL = "chrome://viviecr/content/prompt_additem.xul";
-            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250";
-            var inputObj = {
-                input0:memo,
-                input1:null
-            };
-            window.openDialog(aURL, "prompt_addmemo", features, "Add Memo", "Please input:", "Memo:", "", inputObj);
-
-            if (inputObj.ok && inputObj.input0) {
-                alert("Memo:" + inputObj.input0);
-            }
-        },
 
         PLUSearchDialog: function () {
             

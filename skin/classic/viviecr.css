@@ -491,7 +491,7 @@ treeitem {
  *	Dialog Class
  */
 
-.dialogbtns button, .editbtns {
+.dialogbtns button, .editbtns, .widebtns {
     min-width:100px;
     max-width:100px;
     min-height:45px;
@@ -518,6 +518,14 @@ treeitem {
     /* background: white; */
     background: url(images/white.png);
     color: black;
+}
+.widebtns {
+    min-width:160px;
+    max-width:160px;
+    min-height:45px;
+    max-height:45px;
+    height: 45px;
+    width: 160px;
 }
 .dialogbtns button hbox{
   max-height: 50px;

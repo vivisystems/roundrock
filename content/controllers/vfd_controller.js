@@ -30,6 +30,9 @@
                 cart.addEventListener('onCancel', function(evt) {
                     self.onCancel(evt);
                 });
+                cart.addEventListener('onQueue', function(evt) {
+                    self.onQueue(evt);
+                });
 
                 cart.addEventListener('onGetSubtotal', function(evt) {
                     self.onGetSubtotal(evt);
@@ -69,15 +72,21 @@
         },
 	
         onCancel: function(evt) {
-            //var transaction = evt.data;
-            this.getVfd().setText(_('CANCELED'));
+            var transaction = evt.data;
+            this.getVfd().setText(_('CANCELED') + '  SEQ#' + transaction.data.seq);
+            //this.getVfd().setText(_('TOTAL') + ': ' + transaction.getTotal());
+        },
+
+        onQueue: function(evt) {
+            var transaction = evt.data;
+            this.getVfd().setText(_('QUEUED') + '  SEQ#' + transaction.data.seq);
             //this.getVfd().setText(_('TOTAL') + ': ' + transaction.getTotal());
         },
 
         onSubmit: function(evt) {
             var transaction = evt.data;
             var buf = _('TOTAL') + ': ' + transaction.getTotal() ;
-            buf += "    " + _('CHG') + ': ' + transaction.getRemainTotal() ;
+            buf += "    " + _('CHG') + ': ' + (0-transaction.getRemainTotal()) ;
             this.getVfd().setText(buf);
         },
 

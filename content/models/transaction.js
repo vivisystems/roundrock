@@ -19,13 +19,14 @@
 
                 items: {},
 
+                items_count: 0,
+
                 items_summary: {},
 
                 trans_discounts: {},
                 trans_surcharges: {},
 
-                trans_payments: [],
-                trans_coupons: [],
+                trans_payments: {},
 
                 markers: [],
 
@@ -85,9 +86,14 @@
     };
 
 
+    Transaction.prototype.emptyView = function() {
+        this.view.empty();
+    };
+
+
     Transaction.prototype.cancel = function() {
         this.data.status = -1;
-        this.view.empty();
+        this.emptyView();
     };
 
     Transaction.prototype.isCancel = function() {
@@ -142,6 +148,9 @@
             surcharge_type: null,
             current_surcharge: 0,
 
+            condiments: null,
+            memo: null,
+            
             hasTax: false,
             hasDiscount: false,
             hasSurcharge: false,
@@ -225,6 +234,17 @@
                 index: index,
                 level: 0
             });
+        }else if(type =='condiment' || type =='memo') {
+            itemDisplay = GREUtils.extend(itemDisplay, {
+                id: '',
+                name: item.name,
+                current_qty: '',
+                current_price: '',
+                current_subtotal: '',
+                type: type,
+                index: index,
+                level: 1
+            });           
         }
 
         return itemDisplay;
@@ -289,6 +309,7 @@
 
         // push to items array
         this.data.items[itemIndex] = itemAdded;
+        this.data.items_count++;
 
         this.log('DEBUG', 'dispatchEvent afterAppendItem ' + this.dump(itemAdded));
         Transaction.events.dispatch('afterAppendItem', itemAdded, this);
@@ -394,6 +415,7 @@
             // remove to items array
             var itemRemoved = itemTrans;
             delete(this.data.items[itemIndex]);
+            this.data.items_count--;
 
             var removeCount = 1;
 
@@ -464,6 +486,11 @@
 
         if (itemDisplay.type == 'item') {
 
+            if(item.hasDiscount) {
+                // already hasDiscount
+                return;
+            }
+            
             item.discount_name = 'open';
             item.discount_rate =  discount.amount;
             item.discount_type =  discount.type;
@@ -526,13 +553,17 @@
         var itemDisplay = this.getDisplaySeqAt(index); // last seq
         var itemIndex = itemDisplay.index;
 
-        if(item.hasSurcharge) return ;
 
         var prevRowCount = this.data.display_sequences.length;
 
 
         if (itemDisplay.type == 'item') {
 
+            // already hasSurcharge
+            if(item.hasSurcharge) {
+
+                return ;
+            }
             item.surcharge_name = 'open';
             item.surcharge_rate =  surcharge.amount;
             item.surcharge_type =  surcharge.type;
@@ -651,7 +682,76 @@
     
     };
 
-    Transaction.prototype.appendPayment = function(type, amount){
+    Transaction.prototype.appendCondiment = function(index, condiments){
+        
+        var item = this.getItemAt(index);
+        var itemDisplay = this.getDisplaySeqAt(index);
+        var itemIndex = itemDisplay.index;
+
+        var prevRowCount = this.data.display_sequences.length;
+
+        if (item.type == 'item') {
+            
+            var condimentItem = {id: item.id, name: condiments};
+
+            item.condiments = condiments;
+            
+            var itemDisplay = this.createDisplaySeq(itemIndex, condimentItem, 'condiment');
+
+            var lastIndex = this.data.display_sequences.length - 1;
+            this.data.display_sequences.splice(lastIndex+1,0,itemDisplay);
+
+        }
+
+        var currentRowCount = this.data.display_sequences.length;
+
+        this.updateCartView(prevRowCount, currentRowCount);
+
+        return item;
+
+
+    };
+
+
+    Transaction.prototype.appendMemo = function(index, memo){
+
+        var item = this.getItemAt(index);
+        var itemDisplay = this.getDisplaySeqAt(index);
+        var itemIndex = itemDisplay.index;
+
+        var prevRowCount = this.data.display_sequences.length;
+
+        if (item.type == 'item') {
+
+            var memoItem = {id: item.id, name: memo};
+
+            item.memo = memo;
+
+            var itemDisplay = this.createDisplaySeq(itemIndex, memoItem, 'memo');
+
+            var lastIndex = this.data.display_sequences.length - 1;
+            this.data.display_sequences.splice(lastIndex+1,0,itemDisplay);
+
+        }
+
+        var currentRowCount = this.data.display_sequences.length;
+
+        this.updateCartView(prevRowCount, currentRowCount);
+
+        return item;
+
+
+    };
+
+
+    Transaction.prototype.appendPayment = function(type, amount, memo1, memo2){
+
+        var paymentId =  GeckoJS.String.uuid();
+        var paymentItem = {id: paymentId, name: type, amount: amount, memo1: memo1, memo2: memo2};
+
+        this.data.trans_payments[paymentId] = paymentItem;
+
+        this.calcTotal();
 
     };
 
@@ -672,6 +772,11 @@
                 item = this.data.items[itemIndex];
                 break;
             case 'surcharge':
+                item = this.data.items[itemIndex];
+                break;
+
+            case 'condiment':
+            case 'memo':
                 item = this.data.items[itemIndex];
                 break;
 
@@ -801,6 +906,22 @@
     };
 
 
+    Transaction.prototype.getItems = function() {
+        return this.data.items;
+    };
+
+
+    Transaction.prototype.getItemsCount = function() {
+        return this.data.items_count;
+    };
+
+    Transaction.prototype.getPayments = function() {
+        return this.data.trans_payments;
+    };
+
+
+
+
     Transaction.prototype.calcPromotions =  function() {
         var obj = this.data;
         this.log('DEBUG', 'dispatchEvent onCalcPromotions ' + obj);
@@ -820,7 +941,7 @@
         this.log('DEBUG', 'dispatchEvent onCalcTotal ' + this.data);
         Transaction.events.dispatch('onCalcTotal', this.data, this);
 
-        var total=0, remain=0, tax_subtotal=0, surcharge_subtotal=0, discount_subtotal=0, payment_subtotal=0;
+        var total=0, remain=0, item_subtotal=0, tax_subtotal=0, surcharge_subtotal=0, discount_subtotal=0, payment_subtotal=0;
 
         // item subtotal
         for(var itemIndex in this.data.items ) {
@@ -829,7 +950,7 @@
             tax_subtotal += parseFloat(item.current_tax);
             surcharge_subtotal += parseFloat(item.current_surcharge);
             discount_subtotal += parseFloat(item.current_discount);
-            total += parseFloat(item.current_subtotal);
+            item_subtotal += parseFloat(item.current_subtotal);
 
         }
 
@@ -844,8 +965,13 @@
             surcharge_subtotal += parseFloat(surItem.current_surcharge);
         }
 
-       
-        remain = total + tax_subtotal + surcharge_subtotal + discount_subtotal;
+        for(var payIndex in this.data.trans_payments ) {
+            var payItem = this.data.trans_payments[payIndex];
+            payment_subtotal += parseFloat(payItem.amount);
+        }
+
+        total = item_subtotal + tax_subtotal + surcharge_subtotal + discount_subtotal;
+        remain = total - payment_subtotal;
 
         this.data.total = total;
         this.data.remain = remain;
@@ -853,6 +979,8 @@
         this.data.surcharge_subtotal = surcharge_subtotal;
         this.data.discount_subtotal = discount_subtotal ;
         this.data.payment_subtotal = payment_subtotal;
+
+        this.log('DEBUG', this.dump(this.data));
 
     };
 

@@ -4,6 +4,7 @@
 
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/vivipos.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -12,11 +13,12 @@
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/bootstrap.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/imageManager.js" />
 
     <hbox flex="1" style="border:1px solid #f00;">
         <vbox flex="2">
-            <viviscrollablebuttonpanel id="imagePanel" cols="4" rows="4" labelField="leafName" imageField="path"
+            <viviscrollablebuttonpanel id="imagePanel" flex="1" cols="4" rows="4" labelField="leafName" imageField="path"
                 oncommand="$do('select',this.selectedIndex, 'ImageManager');"  buttonClass="imageThumbBtn largeimagebtn" scrollUpClass="rightprevbtn button-gray" scrollDownClass="rightnextbtn button-gray" />
             <spacer flex="1"/>
             <groupbox>
@@ -27,10 +29,10 @@
         </vbox>
         <vbox flex="1" id="managerPanel" >
             
-            <button label="Import From Disk" oncommand="$do('importFromDir',null, 'ImageManager');"/>
-            <button label="Export To Disk"/>
-            <button label="Delete" oncommand="$do('deleteImage',null, 'ImageManager');" />
-            <button label="Rename" oncommand="$do('renameImage',null, 'ImageManager');"/>
+            <button label="Import From Disk" class="widebtns" oncommand="$do('importFromDir',null, 'ImageManager');"/>
+            <button label="Export To Disk" class="widebtns"/>
+            <button label="Delete" class="widebtns" oncommand="$do('deleteImage',null, 'ImageManager');" />
+            <button label="Rename" class="widebtns" oncommand="$do('renameImage',null, 'ImageManager');"/>
             <spacer flex="1"/>
             <groupbox>
               <caption label="Disk Usage Limit" />
@@ -43,6 +45,6 @@
         </vbox>
     </hbox>
     
-    <hbox id="okCancelButtons" />
+    <hbox id="okCancelButtonsRight" class="dialogbtns" />
 
 </window>

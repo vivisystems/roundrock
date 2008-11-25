@@ -19,6 +19,7 @@
             <vbox>
                     <button id="btnPlus"  label="+"  oncommand="$do('modifyQty', 'plus', 'Cart');"  class="button-gray systoolbtn mediumimagebtn" image="chrome://viviecr/skin/images/list-add.png" />
                     <button id="btnMinus"  label="-"  oncommand="$do('modifyQty', 'minus', 'Cart');"  class="button-gray systoolbtn mediumimagebtn" image="chrome://viviecr/skin/images/list-remove.png" />
+                    <button id="btnPayment"  label="Pay"  oncommand="$do('showPaymentStatus', null, 'Cart');"  class="button-gray systoolbtn mediumimagebtn" image="chrome://viviecr/skin/images/gnucash-icon.png" />
             </vbox>
          </viviscrollabletree>
 
