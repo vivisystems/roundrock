@@ -162,7 +162,6 @@
         },
         
         setDefaultUser: function() {
-            this.getListObj();
             selectedIndex = this._listObj.selectedIndex;
             if (selectedIndex >= 0) {
                 var user = this._listDatas[selectedIndex];
@@ -171,7 +170,22 @@
                 }
             }
         },
-        	
+        
+        initUser: function(userid) {
+            
+            var listObj = this.getListObj();
+            var users = this._listDatas;
+
+            if (users) {
+                for (var i = 0; i < users.length; i++) {
+                    if (users[i].id == userid) {
+                        listObj.selectedItems = [i];
+                        listObj.selectedIndex = i;
+                        break;
+                    }
+                }
+            }
+        }
     });
 
 
