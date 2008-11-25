@@ -22,9 +22,7 @@
             // var panelView =  new GeckoJS.NSITreeViewArray(groups);
             var panelView =  new NSIRoleGroupsView(groups);
             this.getListObj().datasource = panelView;
-
             this._listDatas = groups;
-
             var index = 0;
             if (data) {
                 listObj.value = data;            
@@ -33,7 +31,6 @@
                 listObj.selectedIndex = 0;
             };
             this.select();
-
 
         },
 	

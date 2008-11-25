@@ -17,6 +17,7 @@
         var rtNode = document.getElementById('roundingtaxes');
         if (rtNode) rtNode.value = rt;
     };
+    
 
     window.addEventListener('load', startup, false);
 

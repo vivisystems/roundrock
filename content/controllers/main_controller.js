@@ -207,9 +207,9 @@
                 deptPanel.setAttribute('rows', departmentRows);
                 deptPanel.setAttribute('cols', departmentCols);
                 if ((departmentRows > 0) && (departmentCols > 0)) {
+                    deptPanel.setAttribute('hidden', false);
                     deptPanel.initGrid();
                     deptPanel.vivibuttonpanel.refresh();
-                    deptPanel.setAttribute('hidden', false);
                 }
                 else {
                     deptPanel.setAttribute('hidden', true);
@@ -220,9 +220,9 @@
                 pluPanel.setAttribute('rows', pluRows);
                 pluPanel.setAttribute('cols', pluCols);
                 if ((pluRows > 0) && (pluCols > 0)) {
+                    pluPanel.setAttribute('hidden', false);
                     pluPanel.initGrid();
                     pluPanel.vivibuttonpanel.refresh();
-                    pluPanel.setAttribute('hidden', false);
                 }
                 else {
                     pluPanel.setAttribute('hidden', true);

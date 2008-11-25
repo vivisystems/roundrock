@@ -11,7 +11,6 @@
     function startup() {
 
         $do('load', inputObj.rolegroup, 'SelectRolegroup');
-
         document.getElementById('rolegroup').value = inputObj.rolegroup;
 
         doSetOKCancel(

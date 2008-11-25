@@ -810,6 +810,24 @@
 
         },
 
+        _removeQueueByKey: function(key) {
+
+            var queuePool = this._getQueuePool();
+
+            if (queuePool.data[key]) delete queuePool.data[key];
+            
+            for (var user in queuePool.user) {
+                var userQueues = queuePool.user[user];
+
+                var idx = GeckoJS.Array.inArray(key, userQueues);
+
+                if (idx != -1) {
+                    userQueues.splice(idx, 1);
+                }
+            }
+            
+        },
+
         pushQueue: function() {
 
             var curTransaction = this._getTransaction();
@@ -849,35 +867,52 @@
         },
 
         getQueueIdDialog: function () {
-            var aURL = "chrome://viviecr/content/prompt_additem.xul";
-            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250";
-            var inputObj = {
-                input0:memo,
-                input1:null
-            };
-            window.openDialog(aURL, "prompt_addmemo", features, "Add Memo", "Please input:", "Memo:", "", inputObj);
 
-            if (inputObj.ok && inputObj.input0) {
-                return inputObj.input0;
+            var queuePool = this._getQueuePool();
+            var queues = [];
+
+            for(var key in queuePool.data) {
+                queues.push({key: key});
+            }
+            var aURL = "chrome://viviecr/content/select_queues.xul";
+            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=700,height=500";
+            var inputObj = {
+                queues: queues,
+                queuePool: queuePool
+            };
+
+            window.openDialog(aURL, "select_queues", features, inputObj);
+
+            if (inputObj.ok && inputObj.index) {
+                var idx = inputObj.index;
+                return queues[idx].key;
             }else {
                 return null;
             }
         },
 
         pullQueue: function(data) {
-            
-            var cart = this.getCart();
-            var listObj = this.getCartlistObj();
-            
-            cart.pullQueue(data.no);
-            
-            cart.items.forEach(function(o){
-                listObj.addItem(o);
-                
-            });
-            // fire getSubtotal Event
-            this.getSubtotal();
-        // alert('pull...');
+
+            var key = this.getQueueIdDialog();
+            var queuePool = this._getQueuePool();
+
+
+            if(!key) return;
+
+            // if has transaction push queue
+            this.pushQueue();
+
+            var data = queuePool.data[key];
+
+            // remove from list;
+            this._removeQueueByKey(key);
+
+            var curTransaction = new Transaction();
+            curTransaction.data = data ;
+            this._setTransactionToView(curTransaction);
+            curTransaction.updateCartView();
+            this.subtotal();
+
         }
 	
 	

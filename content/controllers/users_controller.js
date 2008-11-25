@@ -111,7 +111,6 @@
                 alert('Duplicate user name...' + user.name);
                 evt.preventDefault();
             }
-            alert(GeckoJS.BaseObject.dump(user));
 
         },
 
@@ -160,7 +159,18 @@
                 this.requestCommand('view', user.id);
             }
 
-        }
+        },
+        
+        setDefaultUser: function() {
+            this.getListObj();
+            selectedIndex = this._listObj.selectedIndex;
+            if (selectedIndex >= 0) {
+                var user = this._listDatas[selectedIndex];
+                if (user) {
+                    GeckoJS.Configure.write('vivipos.fec.settings.DefaultUser', user.id);
+                }
+            }
+        },
         	
     });
 

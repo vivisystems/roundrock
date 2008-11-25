@@ -18,7 +18,7 @@
                         <button id="new_order" label="NewOrder" class="systembtn" oncommand="$do('pushQueue',null,'Cart');">
                             <label crop="center" style="max-width: none; width: 40px;" >Queue Order</label>
                         </button>
-                        <button id="queue_order_list" label="QuOrder" class="systembtn" oncommand="$do('SelectQueueDialog',null,'Main');">
+                        <button id="queue_order_list" label="QuOrder" class="systembtn" oncommand="$do('pullQueue',null,'Cart');">
                             <label crop="center" style="max-width: none; width: 40px;" >View Queue</label>
                         </button>
                         <button id="modifyBtn" label="Modify" class="systembtn" oncommand="$do('modifyItem', null,'Cart');"/>
