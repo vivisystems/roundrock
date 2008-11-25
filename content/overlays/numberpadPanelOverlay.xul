@@ -15,11 +15,11 @@
                 <vbox flex="1">
                     <hbox flex="1">
                         <sendkeybutton id="clearBtn"  label="CLEAR"   keyCode="0x27" target="multinumberpad" class="systembtn"  />
-                        <button id="new_order" label="NewOrder" class="systembtn" oncommand="$do('pushQueue',$('#cartSimpleListBox')[0].selectedIndex,'Cart');">
-                            <label crop="center" style="max-width: none; width: 40px;" >New Order</label>
+                        <button id="new_order" label="NewOrder" class="systembtn" oncommand="$do('pushQueue',null,'Cart');">
+                            <label crop="center" style="max-width: none; width: 40px;" >Queue Order</label>
                         </button>
                         <button id="queue_order_list" label="QuOrder" class="systembtn" oncommand="$do('SelectQueueDialog',null,'Main');">
-                            <label crop="center" style="max-width: none; width: 40px;" >List Queue</label>
+                            <label crop="center" style="max-width: none; width: 40px;" >View Queue</label>
                         </button>
                         <button id="modifyBtn" label="Modify" class="systembtn" oncommand="$do('modifyItem', null,'Cart');"/>
                         <button id="voidBtn" label="VOID" class="systembtn" oncommand="$do('voidItem', null,'Cart');" />

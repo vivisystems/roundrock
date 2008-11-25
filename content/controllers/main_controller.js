@@ -144,11 +144,6 @@
 
         },
 
-        pushQueue: function() {
-            $do('pushQueue',$('#cartSimpleListBox')[0].selectedIndex,'Cart');
-        
-        },
-
         signIn: function(user) {
             return this.Acl.securityCheck(user.username, user.password);
         },
@@ -252,12 +247,10 @@
 
             var principal = this.Acl.getUserPrincipal();
             if (principal) {
-                var username = principal.username;
                 var canQueueOrder = (GeckoJS.Array.inArray('vivipos_fec_acl_queue_order', principal.Roles) != -1);
-
                 var txn = GeckoJS.Session.get('current_transaction');
 
-                var promptDiscardCart = (txn != null) && (!txn.isSubmit()) && (!autoDiscardCart);
+                var promptDiscardCart = (txn != null) && (!txn.isSubmit()) && (txn.getItemsCount() > 0) && (!autoDiscardCart);
                 var responseDiscardCart = 2;  // 0: queue, 1: discard, 2: cancel
 
                 if (promptDiscardCart) {
@@ -282,18 +275,9 @@
                 else {
                     responseDiscardCart = 1;
                 }
-                var orders = cart.orderQueue;
-                var orderKeys = GeckoJS.BaseObject.getKeys(orders);
-                var myOrders = [];
                 var responseDiscardQueue = 1; // 0: keep; 1: discard'
-
-                orderKeys.forEach(function (key) {
-                    var fields = key.split(':');
-                    var user = fields[fields.length - 1];
-                    if (username == user) myOrders.push(key);
-                    });
-
-                var promptDiscardQueue = (!autoDiscardQueue && (responseDiscardCart != 0) && (myOrders.length > 0));
+                var cart = GeckoJS.Controller.getInstanceByName('Cart');
+                var promptDiscardQueue = !autoDiscardQueue && (responseDiscardCart != 0) && cart._hasUserQueue(principal);
 
                 if (promptDiscardQueue) {
                     if (mustEmptyQueue || !canQueueOrder) {
@@ -310,7 +294,7 @@
                                     prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING  +
                                     prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_CANCEL;
 
-                        var responseDiscardQueue= prompts.confirmEx(null, "Sign Off", "You have one or more queued orders. What do you want to do with them?",
+                        var responseDiscardQueue = prompts.confirmEx(null, "Sign Off", "You have one or more queued orders. What do you want to do with them?",
                                                                     flags, "Keep", "Discard", "", null, check);
                         if (responseDiscardQueue == 2) return;
                     }
@@ -325,23 +309,22 @@
                 }
 
                 if (responseDiscardCart == 1) {
+                    $do('cancel', null, 'Cart');
                     $do('clear', null, 'Cart');
                 }
                 else {
-                    this.pushQueue();
+                    $do('pushQueue', null, 'Cart');
+                    $do('clear', null, 'Cart');
                 }
 
                 if (responseDiscardQueue == 1) {
-                    myOrders.forEach(function (key) {
-                        cart.pullQueue(key);
-                    });
-                    delete cart.items;
-                    cart.items = [];
+                    cart._removeUserQueue(principal);
                 }
 
                 this.Acl.invalidate();
             }
             else {
+                $do('cancel', null, 'Cart');
                 $do('clear', null, 'Cart');
             }
             this.ChangeUserDialog();

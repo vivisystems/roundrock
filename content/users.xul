@@ -10,7 +10,6 @@
 
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/users.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/select_rolegroup.js" />
 
     <box flex="1" class="mainpanel1 pad40">
         <vbox flex="1" class="panel40">
@@ -61,15 +60,15 @@
                                                 </menupopup>
                                             </menulist -->
                                         </hbox>
+                                        <hbox class="config" align="center">
+                                            <label value="Default Price Level:"/>
+                                            <textbox id="default_price_level" form="userForm" name="default_price_level" width="100px"/>
+                                        </hbox>
                                        </vbox>
                                     </tabpanel>
 
                                     <tabpanel flex="1" >
                                         <vbox>
-                                        <hbox class="config" align="center">
-                                            <label value="Default Price Level:"/>
-                                            <textbox id="default_price_level" form="userForm" name="default_price_level" width="100px"/>
-                                        </hbox>
                                         <hbox class="config" align="center">
                                             <label value="Item Discount Limit:"/>
                                             <textbox id="item_discount_limit" form="userForm" name="item_discount_limit" width="100px"/>
@@ -102,16 +101,16 @@
                                             <label value="Order Coupon Limit:"/>
                                             <textbox id="order_coupon_limit" form="userForm" name="order_coupon_limit" width="100px"/>
                                         </hbox>
+                                        <hbox class="config" align="center">
+                                            <label value="Check Cashing Limit:"/>
+                                            <textbox id="max_cash_check" form="userForm" name="max_cash_check" width="100px"/>
+                                        </hbox>
                                         
                                         </vbox>
                                     </tabpanel>
 
                                     <tabpanel flex="1" >
                                         <vbox>
-                                            <hbox class="config" align="center">
-                                            <label value="Check Cashing Limit:"/>
-                                            <textbox id="max_cash_check" form="userForm" name="max_cash_check" width="100px"/>
-                                        </hbox>
                                         <hbox class="config" align="center">
                                             <label value="Minimum Check Number:"/>
                                             <textbox id="min_check_no" form="userForm" name="min_check" width="100px"/>

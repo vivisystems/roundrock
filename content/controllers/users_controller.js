@@ -83,7 +83,6 @@
                 evt.preventDefault();
             }
             
-            alert(GeckoJS.BaseObject.dump(user));
         },
 
         beforeScaffoldEdit: function (evt) {

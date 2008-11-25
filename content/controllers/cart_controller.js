@@ -773,7 +773,7 @@
 
             var username = user.username;
             
-            if(!queuePool.user[username] || queuePool.user[username].constructor.name != 'array') {
+            if(!queuePool.user[username] || queuePool.user[username].constructor.name != 'Array') {
                 return false;
             } else {
                 return (queuePool.user[username].length >0);
@@ -789,7 +789,7 @@
 
             var username = user.username;
 
-            if(!queuePool.user[username] || queuePool.user[username].constructor.name != 'array') {
+            if(!queuePool.user[username] || queuePool.user[username].constructor.name != 'Array') {
                 return ;
             }
 

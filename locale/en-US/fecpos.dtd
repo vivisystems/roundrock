@@ -47,6 +47,6 @@
 <!ENTITY vivipos.fec.settings.layout.hidedeptscrollbar "Hide scrollbars for Department Panel">
 <!ENTITY vivipos.fec.settings.layout.hidepluscrollbar "Hide scrollbars for PLU Panel">
 <!ENTITY vivipos.fec.settings.layout.hidefpscrollbar "Hide scrollbars for Function Panel">
-<!ENTITY vivipos.fec.users.basedata "User Data">
-<!ENTITY vivipos.fec.users.option1 "Option 1">
-<!ENTITY vivipos.fec.users.option2 "Option 2">
+<!ENTITY vivipos.fec.users.basedata "User Profile">
+<!ENTITY vivipos.fec.users.option1 "User Limits">
+<!ENTITY vivipos.fec.users.option2 "Check Tracking">
