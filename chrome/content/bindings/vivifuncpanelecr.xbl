@@ -71,6 +71,7 @@
             <field name="_pageButtonfontsizeMap">new GeckoJS.Map()</field>
             <field name="_selectedNode1"/>
             <field name="_selectedNode2"/>
+            <field name="_hiddenChildren">[]</field>
 
             <!-- Properties -->
 
@@ -293,7 +294,17 @@
                 </setter>
             </property>
 
-            <!-- keypad: always point to the active keypad -->
+            <!-- functionPanel: always point to the toplevel function panel -->
+            <property name="functionPanel" readonly="true">
+                <getter>
+                <![CDATA[
+                    // locate keypad element
+                    return document.getAnonymousElementByAttribute(this,'anonid', 'function-panel');
+                ]]>
+                </getter>
+            </property>
+
+            <!-- keypad: always point to the keypad -->
             <property name="keypad" readonly="true">
                 <getter>
                 <![CDATA[
@@ -303,7 +314,7 @@
                 </getter>
             </property>
 
-            <!-- controlPanel: always point to the active controlPanel -->
+            <!-- controlPanel: always point to the controlPanel -->
             <property name="controlPanel" readonly="true">
                 <getter>
                 <![CDATA[
@@ -313,7 +324,7 @@
                 </getter>
             </property>
 
-            <!-- controlLabel: always point to the active controlLabel -->
+            <!-- controlLabel: always point to the controlLabel -->
             <property name="controlLabel" readonly="true">
                 <getter>
                 <![CDATA[
@@ -323,7 +334,7 @@
                 </getter>
             </property>
 
-            <!-- controlPrev: always point to the active control-scroll-left element -->
+            <!-- controlPrev: always point to the control-scroll-left element -->
             <property name="controlPrev" readonly="true">
                 <getter>
                 <![CDATA[
@@ -333,7 +344,7 @@
                </getter>
             </property>
 
-            <!-- controlNext: always point to the active control-scroll-right element -->
+            <!-- controlNext: always point to the control-scroll-right element -->
             <property name="controlNext" readonly="true">
                 <getter>
                 <![CDATA[
@@ -343,12 +354,22 @@
                </getter>
             </property>
 
-            <!-- controlHome: always point to the active control-home element -->
+            <!-- controlHome: always point to the control-home element -->
             <property name="controlHome" readonly="true">
                 <getter>
                 <![CDATA[
                     // locate control prev element
                     return document.getAnonymousElementByAttribute(this,'anonid', 'control-home');
+                ]]>
+               </getter>
+            </property>
+
+            <!-- spacer: always point to the spacer element -->
+            <property name="spacer" readonly="true">
+                <getter>
+                <![CDATA[
+                    // locate control prev element
+                    return document.getAnonymousElementByAttribute(this,'anonid', 'panel-spacer');
                 ]]>
                </getter>
             </property>
@@ -471,6 +492,37 @@
                 </body>
             </method>
 
+            <!-- hide: use this method to hide the function panel instead of using the 'hidden' attribute -->
+            <method name="hide">
+                <body>
+                <![CDATA[
+                    var panel = this.functionPanel;
+
+                    if (panel.hasChildNodes()) {
+                        this._hiddenChildren = [];
+                        while (panel.hasChildNodes())
+                            this._hiddenChildren.push(panel.removeChild(panel.firstChild));
+                    }
+                ]]>
+                </body>
+            </method>
+
+            <!-- show: use this method to show the function panel instead of using the 'hidden' attribute -->
+            <method name="show">
+                <body>
+                <![CDATA[
+                    var panel = this.functionPanel;
+
+                    if (!panel.hasChildNodes() && (this._hiddenChildren.length > 0)) {
+                        this._hiddenChildren.forEach(function (node) {
+                            panel.appendChild(node);
+                        })
+                        this._hiddenChildren = [];
+                    }
+                ]]>
+                </body>
+            </method>
+
             <!-- handle attribute modification event -->
             <method name="_attrModified">
                 <parameter name="evt"/>
@@ -482,17 +534,21 @@
                     
                         case 'height':
                             //GREUtils.log('[ATTRIBUTE-MODIFIED]: node <' + evt.originalTarget.id + '> attribute <' + evt.attrName + '> changed to value <' + evt.newValue + '>');
-                            this.keypadHeight = evt.newValue;
-                            this._clearKeypad();
-                            this._refreshCurrentPage();
-                            //GREUtils.log('[ATTRIBUTE-MODIFIED]: done');
+                            if (this.keypadHeight != evt.newValue) {
+                                this.keypadHeight = evt.newValue;
+                                this._clearKeypad();
+                                this._refreshCurrentPage();
+                            }
+                            //GREUtils.log('[ATTRIBUTE-MODIFIED]: height done');
                             break;
 
                         case 'width':
-                            GREUtils.log('[ATTRIBUTE-MODIFIED]: node <' + evt.originalTarget.id + '> attribute <' + evt.attrName + '> changed to value <' + evt.newValue + '>');
-                            this.keypadWidth = evt.newValue;
-                            this._clearKeypad();
-                            this._refreshCurrentPage();
+                            //GREUtils.log('[ATTRIBUTE-MODIFIED]: node <' + evt.originalTarget.id + '> attribute <' + evt.attrName + '> changed to value <' + evt.newValue + '>');
+                            if (this.keypadWidth != evt.newValue) {
+                                this.keypadWidth = evt.newValue;
+                                this._clearKeypad();
+                                this._refreshCurrentPage();
+                            }
                             break;
 
                         case 'hideScrollbar':
@@ -567,10 +623,10 @@
                 
                     //GREUtils.log('[REFRESH-ORIENTATION]: orientation <' + dir + '>');
 
-                    var panel = document.getAnonymousElementByAttribute(this,'anonid', 'function-panel');
-                    var keypad = document.getAnonymousElementByAttribute(this,'anonid', 'keypad');
-                    var controlpanel = document.getAnonymousElementByAttribute(this,'anonid', 'control-panel');
-                    var spacer = document.getAnonymousElementByAttribute(this,'anonid', 'panel-spacer');
+                    var panel = this.functionPanel;
+                    var keypad = this.keypad;
+                    var controlpanel = this.controlPanel;
+                    var spacer = this.spacer;
 
                     if (!dir) dir = 'normal';
                     
@@ -1458,6 +1514,7 @@
                     //GREUtils.log('[KEYMAP]: entering page <' + page + '>');
 
                     // global keymap has priority over local keymap
+                    //alert('entering renderKeymap: ' + this.getAttribute('height'));
                     var r = this.row;
                     var c = this.column;
 
@@ -1521,9 +1578,11 @@
 
                             if (entry && (entry.label != null) && (entry.label != '')) {
                                 btn.setAttribute('label', entry.label);
-                                var ch = document.getAnonymousElementByAttribute(btn,'class', 'button-text');
-                                var labelWidth = btn.width * 0.85;
-                                ch.style.width = labelWidth + 'px';
+                                var ch = document.getAnonymousElementByAttribute(btn, 'class', 'button-text');
+                                if (ch) {
+                                    var labelWidth = btn.width * 0.85;
+                                    ch.style.width = labelWidth + 'px';
+                                }
                                 //btn.setLabel(entry.label);
                                 //GREUtils.log('[KEYMAP]: label <' + entry.label + '> set');
                             }
@@ -1554,9 +1613,11 @@
                                     var hasAccess = this._isUserInRole(entry.access);
 
                                     btn.setAttribute('label', entry.label);
-                                    var ch = document.getAnonymousElementByAttribute(btn,'class', 'button-text');
-                                    var labelWidth = btn.width * 0.85;
-                                    ch.style.width = labelWidth + 'px';
+                                    var ch = document.getAnonymousElementByAttribute(btn, 'class', 'button-text');
+                                    if (ch) {
+                                        var labelWidth = btn.width * 0.85;
+                                        ch.style.width = labelWidth + 'px';
+                                    }
                                     
                                     btn.setAttribute('roles', entry.access);
                                     btn.setAttribute('action', 'display');
