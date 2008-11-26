@@ -35,8 +35,6 @@
             } else {
                 evt.preventDefault();
             }
-            this.log("beforeScaffoldAdd:" + this.dump(this.data));
-            evt.preventDefault();
         },
 
         /*
@@ -45,12 +43,11 @@
         },
         */
 
-        
+        /*
         beforeScaffoldEdit: function(evt) {
-            this.log("beforeScaffoldEdit:" + this.dump(this.data));
-            evt.preventDefault();
+
         },
-        
+        */
 
         /*
         afterScaffoldEdit: function(evt) {
@@ -92,12 +89,15 @@
 
         afterScaffoldIndex: function(evt) {
             this._listDatas = evt.data;
+            GeckoJS.Session.add('pluGroups', evt.data);
+
             var panelView =  new GeckoJS.NSITreeViewArray(evt.data);
             this.getListObj().datasource = panelView;
         },
 
         load: function (data) {
             this.requestCommand('list');
+            
         },
 
         select: function(index){

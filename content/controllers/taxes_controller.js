@@ -103,7 +103,7 @@
                 input1:null,
                 combinetax:false
             };
-            window.openDialog(aURL, "prompt_additem", features, "New Tax", "Please input:", "No:", "Name", inputObj);
+            window.openDialog(aURL, "prompt_additem", features, "New Tax", "Please input:", "Tax Code:", "Tax Name:", inputObj);
             if (inputObj.ok && inputObj.input0 && inputObj.input1) {
 
                 var tax_type = "ADDON";
