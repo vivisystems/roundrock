@@ -288,6 +288,7 @@
             var totalHeight = deptPanel.boxObject.height - (- pluPanel.boxObject.height);
             var fnWidth = this.screenwidth - rightPanel.boxObject.width - 5;
             var fnHeight = this.screenheight - totalHeight - btmBox.boxObject.height;
+
             if (fnHeight < 1) {
                 fnPanel.setAttribute('height', 0);
                 fnPanel.hide();
