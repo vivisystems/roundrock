@@ -29,6 +29,11 @@
 
         },
 
+        _getKeypadController: function() {
+            return GeckoJS.Controller.getInstanceByName('Keypad');
+        },
+
+
         SysConfigDialog: function () {
             var aURL = "chrome://viviecr/content/sysconfig.xul";
             var aName = "SysConfig";
@@ -136,6 +141,17 @@
 
         changePluPanel: function(index) {
 
+            // depPanel click
+            // change cate or sale it
+            var dep = this.depPanelView.getCurrentIndexData(index);
+            if (typeof dep.no != 'undefined' && dep.cansale)  {
+                // department not group
+                var buf = this._getKeypadController().getBuffer();
+                if(GeckoJS.Session.get('cart_set_qty_value') != null || buf.length > 0  ) {
+                    return this.requestCommand('addItem',dep,'Cart');
+                }
+            }
+            // change pluview panel
             this.pluPanelView.setCatePanelIndex(index);
 
         },

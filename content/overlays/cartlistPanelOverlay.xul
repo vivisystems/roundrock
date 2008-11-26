@@ -11,7 +11,7 @@
   <vbox id="cartlistPanelContainer" flex="1">
 
       
-        <onscreenvfd  id="onscreenvfd" maxlen="32" class="vbox_vfd" labelClass="label_vfd" value="TOTAL: 0" />
+        <onscreenvfd id="onscreenvfd" maxlen="32" class="vbox_vfd" labelClass="label_vfd" value="TAL: 0" />
 
         <vbox flex="1">
 

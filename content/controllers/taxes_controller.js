@@ -73,22 +73,24 @@
         _checkData: function (data) {
             var taxes = this._listDatas;
             var result = 0;
-            taxes.forEach(function(o){
-                if (o.no == data.no) {
-                    alert('Tax No...' + data.no);
-                    result = 1;
-                } else if (o.name == data.name) {
-                    alert('Tax Name...' + data.name);
-                    result = 2;
-                } else if (data.no) {
-                    alert('No is empty...');
-                    result = 3;
-                } else if (data.name) {
-                    alert('Name is empty...');
-                    result = 4;
-                }
 
-            });
+            if (data.no.length <= 0) {
+                alert('No is empty...');
+                result = 3;
+            } else if (data.name.length <= 0) {
+                alert('Name is empty...');
+                result = 4;
+            } else {
+                taxes.forEach(function(o){
+                    if (o.no == data.no) {
+                        alert('Tax No...' + data.no);
+                        result = 1;
+                    } else if (o.name == data.name) {
+                        alert('Tax Name...' + data.name);
+                        result = 2;
+                    }
+                });
+            }
             return result;
         },
 
@@ -112,7 +114,7 @@
                     name: inputObj.input1,
                     type: tax_type
                 };
-                if (this._checkData(inputObj) == 0) {
+                if (this._checkData(data) == 0) {
                     this.Tax.setTax(data.name, data);
 
                     this.createAddonTaxList();
