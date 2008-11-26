@@ -112,7 +112,7 @@
                     name: inputObj.input1,
                     type: tax_type
                 };
-                if (this._checkData(inputObj) == 0) {
+                if (this._checkData(data) == 0) {
                     this.Tax.setTax(data.name, data);
 
                     this.createAddonTaxList();
