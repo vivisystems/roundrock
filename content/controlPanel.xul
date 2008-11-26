@@ -12,24 +12,32 @@
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/bootstrap.js" />
+    <script type="application/x-javascript" src="resource://app/modules/jquery-1.2.6.js" />
+    <script type="application/x-javascript">
+        window['GeckoJS'] = opener.GeckoJS;
+        window['GREutils'] = opener.GREUtils;
+    </script>
     <script type="application/x-javascript" src="chrome://viviecr/content/controlPanel.js" />
 
-    <box flex="1" class="mainpanel1 pad40">
-    <vbox flex="1" class="panel40">
-        <label value="Control Panel: "/>
-        <spacer flex="1" />
-        <vbox flex="2"  class="footlogo">
-            <viviscrollablebuttonpanel id="imagePanel" cols="4" rows="5" labelField="label" imageField="icon" flex="1"
-                oncommand="$do('select',this.selectedIndex, 'ControlPanel');"  buttonClass="imageThumbBtn largeimagebtn" scrollUpClass="rightprevbtn button-gray" scrollDownClass="rightnextbtn button-gray" >
-                    <label value="aa" /><spacer flex="1" />
-            </viviscrollablebuttonpanel>
+    <hbox flex="1" class="mainpanel1 pad40">
+        <stack flex="1">
+        <vbox flex="1" class="panel40">
+            <label value="Control Panel: "/>
+            <spacer flex="1" />
+            <vbox flex="2"  class="footlogo">
+                <viviscrollablebuttonpanel id="imagePanel" cols="4" rows="5" labelField="label" imageField="icon" flex="1"
+                    oncommand="$do('select',this.selectedIndex, 'ControlPanel');"  buttonClass="imageThumbBtn largeimagebtn" scrollUpClass="rightprevbtn button-gray" scrollDownClass="rightnextbtn button-gray" >
+                        <label value="aa" /><spacer flex="1" />
+                </viviscrollablebuttonpanel>
+            </vbox>
+            <spacer flex="1" />
         </vbox>
-        <spacer flex="1" />
-    </vbox>
-    </box>
-    
+        <hbox id="loading" align="center" style="display: none;border: 1px soild #f00; background: white;width:300px; " left="200px" top="200px">
+            <image src="chrome://viviecr/skin/images/loading.gif" width="55" height="55"/><label>Loading........</label>
+        </hbox>
+        </stack>
+    </hbox>
+
     <hbox id="okCancelButtonsRight" class="dialogbtns" />
 
 </window>
