@@ -52,9 +52,7 @@ GREUtils.include('chrome://viviecr/content/controllers/cash_drawer_controller.js
 GREUtils.include('chrome://viviecr/content/controllers/products_controller.js');
 GREUtils.include('chrome://viviecr/content/controllers/categories_controller.js');
 GREUtils.include('chrome://viviecr/content/controllers/taxes_controller.js');
-GREUtils.include('chrome://viviecr/content/controllers/selectqueue_controller.js');
 GREUtils.include('chrome://viviecr/content/controllers/image_manager_controller.js');
-GREUtils.include('chrome://viviecr/content/controllers/control_panel_controller.js');
 GREUtils.include('chrome://viviecr/content/controllers/departments_controller.js');
 GREUtils.include('chrome://viviecr/content/controllers/plus_controller.js');
 GeckoJS.include('chrome://viviecr/content/controllers/pricelevel_controller.js');
