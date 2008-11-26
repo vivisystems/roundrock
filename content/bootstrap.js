@@ -42,6 +42,7 @@ GREUtils.include('chrome://viviecr/content/helpers/nsi_taxes_view.js');
 
 // include project components
 GeckoJS.include('chrome://viviecr/content/controllers/components/barcode.js');
+GeckoJS.include('chrome://viviecr/content/controllers/components/tax.js');
 
 // include project controllers
 GREUtils.include('chrome://viviecr/content/controllers/main_controller.js');
@@ -61,7 +62,7 @@ GREUtils.include('chrome://viviecr/content/controllers/condiments_controller.js'
 GREUtils.include('chrome://viviecr/content/controllers/jobs_controller.js');
 
 // user define
-GeckoJS.include('chrome://viviecr/content/tax.js');
+// GeckoJS.include('chrome://viviecr/content/tax.js');
 GeckoJS.include('chrome://viviecr/content/fecposutils.js');
 
 })();

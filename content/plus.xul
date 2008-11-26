@@ -52,7 +52,9 @@
                                             <rows>
                                             <row>
                                                 <label hidden="true" form="productForm" name="id" value="" />
-                                                <label id="cate_no" hidden="true" form="productForm" name="cate_no" value="" />
+                                                <!-- label id="cate_no" hidden="true" form="productForm" name="cate_no" value="" / -->
+                                                <label value="Department:"/>
+                                                <textbox id="cate_no" form="productForm" name="cate_no" readonly="true" onclick="$do('getDepartment',this.selectedIndex,'Plus');"/>
                                             </row>
                                             <row>
                                                 <label value="Product No:"/>

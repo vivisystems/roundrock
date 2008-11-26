@@ -43,22 +43,25 @@
         _checkData: function (data) {
             var cates = GeckoJS.Session.get('categories');
             var result = 0;
-            cates.forEach(function(o){
-                if (o.no == data.no) {
-                    alert('Duplicate Department No...' + data.no);
-                    result = 1;
-                } else if (o.name == data.name) {
-                    alert('Duplicate Department Name...' + data.name);
-                    result = 2;
-                } else if (data.no) {
-                    alert('No is empty...');
-                    result = 3;
-                } else if (data.name) {
-                    alert('Name is empty...');
-                    result = 4;
-                }
 
-            });
+            if (data.no.length <= 0) {
+                alert('No is empty...');
+                result = 3;
+            } else if (data.name.length <= 0) {
+                alert('Name is empty...');
+                result = 4;
+            } else {
+                cates.forEach(function(o){
+                    if (o.no == data.no) {
+                        alert('Duplicate Department No...' + data.no);
+                        result = 1;
+                    } else if (o.name == data.name) {
+                        alert('Duplicate Department Name...' + data.name);
+                        result = 2;
+                    }
+                });
+            }
+
             return result;
         },
 
@@ -98,11 +101,6 @@
             if(this._selectedIndex >= 0) {
 
                 var category = this.catePanelView.getCurrentIndexData(this._selectedIndex);
-
-                inputData = {
-                    no: inputObj.input0,
-                    name: inputObj.input1
-                    };
 
                     inputData.id = category.id;
                     cateModel.id = category.id;

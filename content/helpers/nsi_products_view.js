@@ -65,12 +65,16 @@
             var byId ={}, indexCate = {}, indexCateAll={}, indexBarcode = {};
             
             products.forEach(function(product) {
+                if (product.barcode == null) {product.barcode = "";}
+
                 if (product.id.length > 0) {
                     byId[product.id] = product;
                 }
+
                 if (product.barcode.length > 0) {
                     indexBarcode[product.barcode] = product.id;
                 }
+
                 if (product.no.length > 0 && (product.barcode != product.no) ) {
                     indexBarcode[product.no] = product.id;
                 }
