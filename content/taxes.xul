@@ -40,8 +40,8 @@
                     <vbox>
                         <hbox align="center">
                             <label id="tax_id" hidden="true" form="taxForm" name="id" value="" />
-                            <label  value="Tax No:" />
-                            <textbox id="tax_no" form="taxForm" name="no" value="" default="" size="15" readonly="true"/>
+                            <label  value="Tax Code:" />
+                            <textbox id="tax_no" form="taxForm" name="no" value="" default="" size="2" maxsize="2" readonly="true"/>
                         </hbox>
                         <hbox align="center">
                             <label  value="Tax Type:" />
