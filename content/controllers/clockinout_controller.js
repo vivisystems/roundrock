@@ -146,8 +146,6 @@
                         this.checked = true;
                     }
                 });
-            } else {
-                $('#sign_status').val('sign-off');
             }
         },
         
@@ -168,6 +166,7 @@
             $('#user_name').val(username);
 
             if ((this._lastUser == username) || GeckoJS.Configure.read('vivipos.fec.settings.PublicAttendance')) {
+                this.clearSummary();
                 this.listSummary();
             }
             else {

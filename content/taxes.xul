@@ -28,7 +28,7 @@
                         <hbox>
                             <button label="&vivipos.fec.common.add;" class="editbtns" oncommand="$do('add', null, 'Taxes');" />
                             <spacer flex="1" />
-                            <button label="&vivipos.fec.common.delete;" class="editbtns" oncommand="$do('delete', null, 'Taxes');" />
+                            <button label="&vivipos.fec.common.delete;" class="editbtns" oncommand="$do('remove', null, 'Taxes');" />
                             <button label="&vivipos.fec.common.modify;" class="editbtns" oncommand="$do('update', null, 'Taxes');" />
                         </hbox>
 

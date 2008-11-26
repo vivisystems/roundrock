@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE window SYSTEM "chrome://viviecr/locale/fecpos.dtd">
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/content/skin/vivipos.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/changeuser.css" type="text/css"?>
+
 <window id="changeuser" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
@@ -25,17 +26,18 @@
                     <hbox>
                         <numberpad id="multinumberpad" class="numberpad" target="user_password"/>
                         <vbox>
-                            <sendkeybutton id="bkeyBtn"  label="BS"   keyCode='0x08' target="user_password" class="systembtn"  />
-                            <vivibutton id="clearBtn"  label="CLEAR" class="systembtn"  roles="manager,admin" action ='display' />
-                            <button id="ckeyBtn"  label="Sign-off"  oncommand="$do('signOff', null, 'ChangeUser');" class="systembtn"  />
+                            <sendkeybutton id="bkeyBtn"  label="DEL"   keyCode='0x08' target="user_password" class="systembtn"  />
+                            <vivibutton id="clearBtn"  label="CLEAR" class="systembtn"/>
                         </vbox>
                     </hbox>
                 </vbox>
                 <spacer flex="1" />
 
             </hbox>
-            <button label="OK" class="genbtn" oncommand="$do('checkUser', null, 'ChangeUser');" />
-            <button label="Cancel" class="genbtn" oncommand="$do('cancel', null, 'ChangeUser');" />
+            <spacer flex="1"/>
+            <hbox pack="center">
+                <button label="OK" class="genbtn" oncommand="$do('checkUser', null, 'ChangeUser');" />
+            </hbox>
         </vbox>
     </box>
 </window>

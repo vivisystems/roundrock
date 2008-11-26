@@ -1,7 +1,7 @@
 .vivifuncpanelecr_function_panel {
     background: transparent;
-    max-width: 346px;
-    min-width: 346px;
+    max-width: 344px;
+    min-width: 344px;
     height: 225px;
     margin: 0px 0px 0px 0px;
     padding: 0px 0px 0px 0px;
@@ -72,6 +72,7 @@
     padding: 0px 0px 0px 0px;
     border-width: 0px;
     border-style: solid;
+    overflow: hidden;
 }
 
 .vivifuncpanelecr_control_scroll_left {

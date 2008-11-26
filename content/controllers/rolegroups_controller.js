@@ -79,7 +79,6 @@
             var roles = this.Acl.getRoleList();
             var panelView =  new NSIRolesView(roles);
             this.getRoleListObj().datasource = panelView;
-            
         },
         
         load: function (data) {

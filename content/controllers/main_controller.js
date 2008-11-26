@@ -9,39 +9,24 @@
         name: 'Main',
         screenwidth: 800,
         screenheight: 600,
+        maxButtonRows: 10,
         depPanelView: null,
         pluPanelView: null,
 
         initial: function() {
 
-            this.checkClerk();
+            this.initialLogin();
             this.createPluPanel();
             this.requestCommand('initial', null, 'Pricelevel');
             this.requestCommand('initial', null, 'Cart');
             this.requestCommand('initial', null, 'Vfd');
 
+            this.resetLayout();
+
             // change log level
             GeckoJS.Log.getAppender('console').level = GeckoJS.Log.DEBUG;
             GeckoJS.Log.defaultClassLevel = GeckoJS.Log.DEBUG;
 
-        },
-
-        checkClerk: function () {
-
-            var confs = GeckoJS.Configure.read('vivipos.fec.settings');
-
-            // GREUtils.log(GeckoJS.BaseObject.dump(confs));
-            if (confs.DefaultLogin) {
-                this.Acl.securityCheck("achang", "1111")
-            }
-
-            var user = this.Acl.getUserPrincipal();
-
-            if ( user == null) {
-                $do('ChangeUserDialog', null, 'Main');
-            } else {
-                $('#clerk').val(user.username);
-            }
         },
 
         SysConfigDialog: function () {
@@ -162,108 +147,232 @@
 
         },
 
-        pushQueue: function() {
-            $do('pushQueue',$('#cartSimpleListBox')[0].selectedIndex,'Cart');
-        
+        signIn: function(user) {
+            return this.Acl.securityCheck(user.username, user.password);
         },
 
+        setClerk: function () {
+            var user = this.Acl.getUserPrincipal();
+
+            if (user) {
+                // perform user login initialization
+                // -> set price level
+                //    - if user has role 'vivipos_fec_acl_override_system_price_level', use user default price level
+                var userPriceLevel = user.default_price_level;
+                var canOverride = (GeckoJS.Array.inArray('vivipos_fec_acl_override_system_price_level', user.Roles) != -1);
+
+                if (userPriceLevel && canOverride) {
+                    $do('change', userPriceLevel, 'Pricelevel');
+                }
+            }
+        },
+
+        resetLayout: function () {
+            var registerAtLeft = GeckoJS.Configure.read('vivipos.fec.settings.RegisterAtLeft');
+            var functionPanelOnTop = GeckoJS.Configure.read('vivipos.fec.settings.FunctionPanelOnTop');
+            var PLUbeforeDept = GeckoJS.Configure.read('vivipos.fec.settings.DeptBeforePLU');
+            var hideDeptScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.HideDeptScrollbar');
+            var hidePLUScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.HidePLUScrollbar');
+            var hideFPScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.HideFPScrollbar');
+            
+            var hbox = document.getElementById('mainPanel');
+            var deptPanel = document.getElementById('catescrollablepanel');
+            var pluPanel = document.getElementById('prodscrollablepanel');
+            var fnPanel = document.getElementById('functionPanel');
+            var toolbarPanel = document.getElementById('toolbarPanel');
+            var leftPanel = document.getElementById('leftPanel');
+            var productPanel = document.getElementById('productPanel');
+            var btmBox = document.getElementById('vivipos-bottombox');
+            
+            if (hbox) hbox.setAttribute('dir', registerAtLeft ? 'reverse' : 'normal');
+            if (deptPanel) deptPanel.setAttribute('dir', registerAtLeft ? 'normal' : 'reverse');
+            if (pluPanel) pluPanel.setAttribute('dir', registerAtLeft ? 'normal' : 'reverse');
+            if (fnPanel) fnPanel.setAttribute('dir', registerAtLeft ? 'reverse' : 'normal');
+            if (toolbarPanel) toolbarPanel.setAttribute('dir', registerAtLeft ? 'reverse' : 'normal');
+            
+            if (leftPanel) leftPanel.setAttribute('dir', functionPanelOnTop ? 'reverse' : 'normal');
+            if (productPanel) productPanel.setAttribute('dir', PLUbeforeDept ? 'reverse' : 'normal');
+            
+            // fudge to make functionPanelOnTop work
+            leftPanel.setAttribute('pack', functionPanelOnTop ? 'end' : 'start');
+            
+            if (deptPanel) deptPanel.setAttribute('hideScrollbar', hideDeptScrollbar);
+            if (pluPanel) pluPanel.setAttribute('hideScrollbar', hidePLUScrollbar);
+            if (fnPanel) fnPanel.setAttribute('hideScrollbar', hideFPScrollbar);
+
+            // resizing product/function panels
+            var departmentRows = GeckoJS.Configure.read('vivipos.fec.settings.DepartmentRows');
+            var departmentCols = GeckoJS.Configure.read('vivipos.fec.settings.DepartmentCols');
+            var pluRows = GeckoJS.Configure.read('vivipos.fec.settings.PluRows');
+            var pluCols = GeckoJS.Configure.read('vivipos.fec.settings.PluCols');
+
+            // first check if rows and columns have changed
+
+            var rowsLeft = this.maxButtonRows;
+            if (departmentRows > rowsLeft) {
+                departmentRows = rowsLeft;
+            }
+            rowsLeft -= departmentRows;
+
+            if ((deptPanel.getAttribute('rows') != departmentRows) ||
+                (deptPanel.getAttribute('cols') != departmentCols)) {
+                deptPanel.setAttribute('rows', departmentRows);
+                deptPanel.setAttribute('cols', departmentCols);
+                if ((departmentRows > 0) && (departmentCols > 0)) {
+                    deptPanel.setAttribute('hidden', false);
+                    deptPanel.initGrid();
+                    deptPanel.vivibuttonpanel.refresh();
+                }
+                else {
+                    deptPanel.setAttribute('hidden', true);
+                }
+            }
+            
+            if (pluRows > rowsLeft) {
+                pluRows = rowsLeft;
+            }
+            rowsLeft -= pluRows;
+            
+            if ((pluPanel.getAttribute('rows') != pluRows) ||
+                (pluPanel.getAttribute('cols') != pluCols)) {
+                pluPanel.setAttribute('rows', pluRows);
+                pluPanel.setAttribute('cols', pluCols);
+                if ((pluRows > 0) && (pluCols > 0)) {
+                    pluPanel.setAttribute('hidden', false);
+                    pluPanel.initGrid();
+                    pluPanel.vivibuttonpanel.refresh();
+                }
+                else {
+                    pluPanel.setAttribute('hidden', true);
+                }
+            }
+
+            var totalHeight = deptPanel.boxObject.height - (- pluPanel.boxObject.height);
+            var fnHeight = this.screenheight - totalHeight - btmBox.boxObject.height;
+            if (fnHeight < 1) {
+                fnPanel.setAttribute('height', 0);
+                fnPanel.hide();
+            }
+            else {
+                fnPanel.show();
+                fnPanel.setAttribute('height', fnHeight);
+            }
+        },
+        
+        initialLogin: function () {
+
+            var defaultLogin = GeckoJS.Configure.read('vivipos.fec.settings.DefaultLogin');
+            var defaultUser = GeckoJS.Configure.read('vivipos.fec.settings.DefaultUser');
+            var acl = new GeckoJS.AclComponent();
+
+            if (defaultLogin) {
+                var userModel = new ViviPOS.UserModel();
+                var users = userModel.findByIndex('all', {
+                    index: "id",
+                    value: defaultUser
+                });
+                // we will only pick the first default user if there are more than one
+                if (users && (users.length > 0)) {
+                    this.signIn(users[0]);
+                }
+            }
+
+            if (acl.getUserPrincipal()) {
+                this.setClerk();
+            }
+            else {
+                this.ChangeUserDialog();
+            }
+        },
+        
         signOff: function () {
             var autoDiscardCart = GeckoJS.Configure.read('vivipos.fec.settings.autodiscardcart');
             var autoDiscardQueue = GeckoJS.Configure.read('vivipos.fec.settings.autodiscardqueue');
             var mustEmptyQueue = GeckoJS.Configure.read('vivipos.fec.settings.mustemptyqueue');
 
-            var cart = GeckoJS.Session.get('cart');
-            //GREUtils.log(GeckoJS.BaseObject.dump(cart));
-            var itemCount = (cart == null) ? 0 : cart.getItemCount();
+            var principal = this.Acl.getUserPrincipal();
+            if (principal) {
+                var canQueueOrder = (GeckoJS.Array.inArray('vivipos_fec_acl_queue_order', principal.Roles) != -1);
+                var txn = GeckoJS.Session.get('current_transaction');
 
-            var promptDiscardCart = (itemCount > 0 && !autoDiscardCart);
-            var responseDiscardCart = 2;  // 0: queue, 1: discard, 2: cancel
+                var promptDiscardCart = (txn != null) && (!txn.isSubmit()) && (txn.getItemsCount() > 0) && (!autoDiscardCart);
+                var responseDiscardCart = 2;  // 0: queue, 1: discard, 2: cancel
 
-            if (promptDiscardCart) {
-                //TODO: need to check for access to queue orders
-                if (autoDiscardQueue || mustEmptyQueue) {
-                    if (!GREUtils.Dialog.confirm(null, 'Sign Off', 'Discard items that have been registered?')) return;
-                    responseDiscardCart = 1;
-                }
-                else {
-                    var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
-                                            .getService(Components.interfaces.nsIPromptService);
-                    var check = {value: false};
+                if (promptDiscardCart) {
+                    if (autoDiscardQueue || mustEmptyQueue || !canQueueOrder) {
+                        if (!GREUtils.Dialog.confirm(null, 'Sign Off', 'Discard items that have been registered?')) return;
+                        responseDiscardCart = 1;
+                    }
+                    else {
+                        var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+                                                .getService(Components.interfaces.nsIPromptService);
+                        var check = {value: false};
 
-                    var flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
-                                prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING  +
-                                prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_CANCEL;
+                        var flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
+                                    prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING  +
+                                    prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_CANCEL;
 
-                    var responseDiscardCart = prompts.confirmEx(null, "Sign Off", "What do you want to do with the registered items?",
-                                                                flags, "Queue", "Discard", "", null, check);
-                    if (responseDiscardCart == 2) return;
-                }
-            }
-            else {
-                responseDiscardCart = 1;
-            }
-            var orders = cart.orderQueue;
-            var orderKeys = GeckoJS.BaseObject.getKeys(orders);
-            var myOrders = [];
-            var username = this.Acl.getUserPrincipal().username;
-
-            var responseDiscardQueue = 1; // 0: keep; 1: discard'
-
-            orderKeys.forEach(function (key) {
-                var fields = key.split(':');
-                var user = fields[fields.length - 1];
-                if (username == user) myOrders.push(key);
-                });
-
-            var promptDiscardQueue = (!autoDiscardQueue && (responseDiscardCart != 0) && (myOrders.length > 0));
-
-            if (promptDiscardQueue) {
-                if (mustEmptyQueue) {
-                    if (GREUtils.Dialog.confirm(null, "Sign Off", "You have one or more queued orders. Discard them?") == false) {
-                        return;
+                        var responseDiscardCart = prompts.confirmEx(null, "Sign Off", "What do you want to do with the registered items?",
+                                                                    flags, "Queue", "Discard", "", null, check);
+                        if (responseDiscardCart == 2) return;
                     }
                 }
                 else {
-                    var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
-                                            .getService(Components.interfaces.nsIPromptService);
-                    var check = {value: false};
-
-                    var flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
-                                prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING  +
-                                prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_CANCEL;
-
-                    var responseDiscardQueue= prompts.confirmEx(null, "Sign Off", "You have one or more queued orders. What do you want to do with them?",
-                                                                flags, "Keep", "Discard", "", null, check);
-                    if (responseDiscardQueue == 2) return;
+                    responseDiscardCart = 1;
                 }
-            }
-            else if (responseDiscardCart == 0) { // queue order
-                responseDiscardQueue = 0;
-            }
+                var responseDiscardQueue = 1; // 0: keep; 1: discard'
+                var cart = GeckoJS.Controller.getInstanceByName('Cart');
+                var promptDiscardQueue = !autoDiscardQueue && (responseDiscardCart != 0) && cart._hasUserQueue(principal);
 
-            if (!promptDiscardCart && !promptDiscardQueue)
-                if (GREUtils.Dialog.confirm(null, "confirm sign-off", "Are you sure to sign off?") == false) {
-                    return;
-            }
+                if (promptDiscardQueue) {
+                    if (mustEmptyQueue) {
+                        if (GREUtils.Dialog.confirm(null, "Sign Off", "You have one or more queued orders. Discard them?") == false) {
+                            return;
+                        }
+                    }
+                    else {
+                        var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+                                                .getService(Components.interfaces.nsIPromptService);
+                        var check = {value: false};
 
-            if (responseDiscardCart == 1) {
-                 $do('clear', null, 'Cart');
+                        var flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
+                                    prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING  +
+                                    prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_CANCEL;
+
+                        var responseDiscardQueue = prompts.confirmEx(null, "Sign Off", "You have one or more queued orders. What do you want to do with them?",
+                                                                    flags, "Keep", "Discard", "", null, check);
+                        if (responseDiscardQueue == 2) return;
+                    }
+                }
+                else if (responseDiscardCart == 0) { // queue order
+                    responseDiscardQueue = 0;
+                }
+
+                if (!promptDiscardCart && !promptDiscardQueue)
+                    if (GREUtils.Dialog.confirm(null, "confirm sign-off", "Are you ready to sign off?") == false) {
+                        return;
+                }
+
+                if (responseDiscardCart == 1) {
+                    $do('cancel', null, 'Cart');
+                    $do('clear', null, 'Cart');
+                }
+                else {
+                    $do('pushQueue', null, 'Cart');
+                    $do('clear', null, 'Cart');
+                }
+
+                if (responseDiscardQueue == 1) {
+                    cart._removeUserQueue(principal);
+                }
+
+                this.Acl.invalidate();
             }
             else {
-                this.pushQueue();
+                $do('cancel', null, 'Cart');
+                $do('clear', null, 'Cart');
             }
-
-            if (responseDiscardQueue == 1) {
-                myOrders.forEach(function (key) {
-                    cart.pullQueue(key);
-                });
-                delete cart.items;
-                cart.items = [];
-            }
-
-            this.Acl.invalidate();
             this.ChangeUserDialog();
-        // window.close();
         }
 
     });

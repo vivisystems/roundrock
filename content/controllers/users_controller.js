@@ -82,6 +82,7 @@
                 alert('Duplicate user name...' + user.name);
                 evt.preventDefault();
             }
+            
         },
 
         beforeScaffoldEdit: function (evt) {
@@ -141,7 +142,7 @@
 
             var index = 0;
             if (data) {
-                listObj.value = data;
+                listObj.selectedItems = [data];
             } else {
                 listObj.selectedItems = [0];
                 listObj.selectedIndex = 0;
@@ -158,8 +159,33 @@
                 this.requestCommand('view', user.id);
             }
 
+        },
+        
+        setDefaultUser: function() {
+            selectedIndex = this._listObj.selectedIndex;
+            if (selectedIndex >= 0) {
+                var user = this._listDatas[selectedIndex];
+                if (user) {
+                    GeckoJS.Configure.write('vivipos.fec.settings.DefaultUser', user.id);
+                }
+            }
+        },
+        
+        initUser: function(userid) {
+            
+            var listObj = this.getListObj();
+            var users = this._listDatas;
+
+            if (users) {
+                for (var i = 0; i < users.length; i++) {
+                    if (users[i].id == userid) {
+                        listObj.selectedItems = [i];
+                        listObj.selectedIndex = i;
+                        break;
+                    }
+                }
+            }
         }
-	
     });
 
 

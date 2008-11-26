@@ -24,7 +24,7 @@
             mode="normal"
             restrictMode="normal"
             disabled="false"
-            prefix="vivipos.fec.ui.functionpanel"
+            prefix="vivipos.fec.settings.functionpanel"
             panel_spacer_class="vivifuncpanelecr_spacer"
             control_panel_class="vivifuncpanelecr_control_panel"
             control_scroll_left_class="vivifuncpanelecr_control_scroll_left"

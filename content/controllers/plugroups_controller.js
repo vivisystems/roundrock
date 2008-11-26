@@ -35,6 +35,8 @@
             } else {
                 evt.preventDefault();
             }
+            this.log("beforeScaffoldAdd:" + this.dump(this.data));
+            evt.preventDefault();
         },
 
         /*
@@ -43,11 +45,12 @@
         },
         */
 
-        /*
+        
         beforeScaffoldEdit: function(evt) {
-
+            this.log("beforeScaffoldEdit:" + this.dump(this.data));
+            evt.preventDefault();
         },
-        */
+        
 
         /*
         afterScaffoldEdit: function(evt) {

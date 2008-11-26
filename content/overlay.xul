@@ -20,14 +20,14 @@
 
     <box id="main-container">
 
-        <hbox flex="1" class="mainpanel">
+        <hbox id="mainPanel" flex="1" class="mainpanel">
 
-            <vbox flex="1">
+            <vbox id="leftPanel" flex="1">
                 <box id="productPanelContainer" class="productPanel" />
                 <box id="functionPanelContainer" class="functionPanel" />
             </vbox>
 
-            <vbox flex="1" class="rightPanel">
+            <vbox id="rightPanel" flex="1" class="rightPanel">
                 <vbox id="cartlistPanelContainer" />
                 <vbox id="numberpadPanelContainer" />
             </vbox>

@@ -23,7 +23,6 @@
         }
 
         $do('initial', null, "Main");
-
     };
 
     window.addEventListener('load', startup, false);

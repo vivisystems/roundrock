@@ -23,7 +23,7 @@
                     <label id="condiments" hidden="true" value="" />
                     <hbox>
                         <viviscrollablebuttonpanel id="condimentscrollablepanel" flex="1" cols="4" rows="5"  seltype="multiple" labelField="name"
-                              class="catescrollablepanel" buttonClass="plubtn smallimagebtn button-radius button-white" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue" />
+                              class="catescrollablepanel" buttonClass="plubtn smallimagebtn button-radius" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue" />
                     </hbox>
                 </groupbox>
             </vbox>

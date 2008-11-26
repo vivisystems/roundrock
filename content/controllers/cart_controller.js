@@ -898,9 +898,21 @@
 
             var queuePool = this._getQueuePool();
             var queues = [];
+            var confs = GeckoJS.Configure.read('vivipos.fec.settings');
 
-            for(var key in queuePool.data) {
-                queues.push({key: key});
+            // check private queue
+            if (confs.PrivateQueue) {
+                var user = this.Acl.getUserPrincipal();
+                if (user && user.username && queuePool.user[user.username]) {
+                    queuePool.user[user.username].forEach(function(key) {
+                        queues.push({key: key});
+                    });
+                }
+            }
+            else {
+                for(var key in queuePool.data) {
+                    queues.push({key: key});
+                }
             }
             var aURL = "chrome://viviecr/content/select_queues.xul";
             var features = "chrome,titlebar,toolbar,centerscreen,modal,width=700,height=500";

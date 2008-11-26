@@ -14,7 +14,7 @@
             var userpass = $('#user_password').val();
 
             if (this.Acl.securityCheck(username, userpass)) {
-                $do('checkClerk', null, 'Main');
+                opener.$do('setClerk', null, 'Main');
                 window.close();
             } else {
                 alert('Please Check Username and Password...');
@@ -33,8 +33,6 @@
                         this.checked = true;
                     }
                 });
-            } else {
-                $('#sign_status').val('sign-off');
             }
         },
 
