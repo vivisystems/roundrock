@@ -142,7 +142,7 @@
                 productsIndexesByCate = GeckoJS.Session.get('productsIndexesByCateAll');
             }
             
-            this._data = productsIndexesByCate[cate.no];
+            this._data = productsIndexesByCate[cate.no] || [];
 
             try {
                 this.tree.invalidate();

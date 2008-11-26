@@ -52,24 +52,25 @@
             GeckoJS.Session.addEventListener('change', function(evt){
                 // maybe controllPanel update categories session.
                 // just refresh view , dont prepare categories array to session.
-                if (evt.data.key == 'categories') {
+                if (evt.data.key == 'categiesIndexesAll') {
                     self.refreshView();
                 }
             });
 
         },
 
-
+/*
         refreshView: function() {
 
             var departmentsIndexes;
 
             if (this.hideUnvisible) {
-                departmentsIndexes = GeckoJS.Session.get('categiesIndexes').concat(this.visiblePluGroups);
+                departmentsIndexes = GeckoJS.Session.get('categiesIndexes');//.concat(this.visiblePluGroups);
             }else {
                 departmentsIndexes = GeckoJS.Session.get('categiesIndexesAll');
             }
             this._data = departmentsIndexes;
+            alert('refreshView');
 
             try {
                 this.tree.invalidate();
@@ -109,7 +110,7 @@
             return sResult;
 
         },
-
+*/
         /**
          * FrontEnd style
          */
