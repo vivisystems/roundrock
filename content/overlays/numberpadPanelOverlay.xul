@@ -11,18 +11,16 @@
 
         <vbox flex="1" style="max-width: 400px;">
 
-            <hbox flex="0">
+            <hbox id="toolbarPanel" flex="0">
                 <vbox flex="1">
                     <hbox flex="1">
-                        <isuserinrole roles="manager,admin" action ='display' style='width:240px;'>
-                            <sendkeybutton id="clearBtn"  label="CLEAR"   keyCode="0x27" target="multinumberpad" class="systembtn"  />
-                            <button id="new_order" label="NewOrder" class="systembtn" oncommand="$do('pushQueue', null,'Cart');">
-                                <label crop="center" style="max-width: none; width: 40px;" >New Order</label>
-                            </button>
-                            <button id="quee_order_list" label="QuOrder" class="systembtn" oncommand="$do('pullQueue',null,'Cart');">
-                                <label crop="center" style="max-width: none; width: 40px;" >List Queue</label>
-                            </button>
-                        </isuserinrole>
+                        <sendkeybutton id="clearBtn"  label="CLEAR"   keyCode="0x27" target="multinumberpad" class="systembtn"  />
+                        <button id="new_order" label="NewOrder" class="systembtn" oncommand="$do('pushQueue',null,'Cart');">
+                            <label crop="center" style="max-width: none; width: 40px;" >Queue Order</label>
+                        </button>
+                        <button id="queue_order_list" label="QuOrder" class="systembtn" oncommand="$do('pullQueue',null,'Cart');">
+                            <label crop="center" style="max-width: none; width: 40px;" >View Queue</label>
+                        </button>
                         <button id="modifyBtn" label="Modify" class="systembtn" oncommand="$do('modifyItem', null,'Cart');"/>
                         <button id="voidBtn" label="VOID" class="systembtn" oncommand="$do('voidItem', null,'Cart');" />
     
@@ -38,13 +36,6 @@
                             <button id="cancelBtn"  label="CANCEL"    oncommand="$do('cancel', null, 'Cart');" class="systembtn"  />
                             <sendkeybutton id="subtotalBtn"  label="SUB TOTAL"  keyCode="0x35" target="multinumberpad"  class="systembtn" />
                             <button id="cashBtn"  label="CASH"    oncommand="$do('cash', null, 'Cart');" class="systembtn"  />
-                            <button id="surchargeNBtn" label="$+"    oncommand="$do('addSurchargeByNumber', null, 'Cart');" class="systembtn">
-                                <label crop="center" style="max-width: none; width: 40px;" >$+</label>
-                            </button>
-
-                            <button id="surchargePBtn" label="%-"    oncommand="$do('addSurchargeByPercentage', 5, 'Cart');" class="systembtn">
-                                <label crop="center" style="max-width: none; width: 40px;" >%+</label>
-                            </button>
 
                         </vbox>
                         <vbox>
@@ -63,14 +54,6 @@
                 </button-->
                             <button id="openDiscountBtn" label="TRAY"    oncommand="$do('addMarker', 'tray', 'Cart');" class="systembtn">
                                 <label crop="center" style="max-width: none; width: 40px;" >TRAY</label>
-                            </button>
-
-                            <button id="discountNBtn" label="$-"    oncommand="$do('addDiscountByNumber', null, 'Cart');" class="systembtn">
-                                <label crop="center" style="max-width: none; width: 40px;" >$-</label>
-                            </button>
-
-                            <button id="discountPBtn" label="%-"    oncommand="$do('addDiscountByPercentage', 5, 'Cart');" class="systembtn">
-                                <label crop="center" style="max-width: none; width: 40px;" >%-</label>
                             </button>
 
                         </vbox>

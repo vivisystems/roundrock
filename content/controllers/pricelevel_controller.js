@@ -19,7 +19,7 @@
             var priceLevel = GeckoJS.Session.get('vivipos_fec_price_level');
             
             if (priceLevel == null) {
-                priceLevel = 1;
+                priceLevel = GeckoJS.Configure.read('vivipos.fec.settings.DefaultPriceLevel');
                 GeckoJS.Session.set('vivipos_fec_price_level', priceLevel);
             }
 
