@@ -480,10 +480,10 @@
                 <![CDATA[
                     if (hide) {
                         this.controlWidth = this.controlPanel.boxObject.width;
-                        this.keypadWidth = this.boxObject.width;
+                        this.keypadWidth = this.width || this.functionPanel.boxObject.width;
                     }
                     else {
-                        this.keypadWidth = this.boxObject.width - this.controlWidth;
+                        this.keypadWidth = (this.width || this.functionPanel.boxObject.width) - this.controlWidth;
                     }
                     this.controlPanel.setAttribute('hidden', hide);
                     this._clearKeypad();
@@ -544,8 +544,11 @@
 
                         case 'width':
                             //GREUtils.log('[ATTRIBUTE-MODIFIED]: node <' + evt.originalTarget.id + '> attribute <' + evt.attrName + '> changed to value <' + evt.newValue + '>');
-                            if (this.keypadWidth != evt.newValue) {
-                                this.keypadWidth = evt.newValue;
+                            var offset = (this.getAttribute('hideScrollbar') == 'true') ? 0 : this.controlWidth;
+                            var newKeypadWidth = evt.newValue - offset;
+                            if (this.keypadWidth != newKeypadWidth) {
+                                this.keypadWidth = newKeypadWidth;
+
                                 this._clearKeypad();
                                 this._refreshCurrentPage();
                             }
