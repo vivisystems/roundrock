@@ -68,13 +68,16 @@
 
                 if (this.events) {
                     this.events.addListener('change', changeHandler, this);
-                    this.events.addListener('remove', this.removeHandler, this);
-                    this.events.addListener('clear', this.clearHandler, this);
+                    this.events.addListener('remove', removeHandler, this);
+                    this.events.addListener('clear', clearHandler, this);
                     //GREUtils.log('[CONSTRUCTOR]: event listeners attached');
                 }
                 else {
                     //GREUtils.log('[CONSTRUCTOR]: failed to get Session events');
                 }
+                this.changeHandler = changeHandler;
+                this.removeHandler = removeHandler;
+                this.clearHandler = clearHandler;
 
                 var self = this;
                 this.id = this.getAttribute('id');
@@ -100,7 +103,7 @@
                     this.events.removeListener('clear', this.clearHandler);
                 }
 
-                //window.removeEventListener('DOMContentLoaded', this.ready, true);
+                window.removeEventListener('DOMContentLoaded', this.ready, true);
                 this.removeEventListener('DOMAttrModified', this._attrModified, true);
                 //GREUtils.log('[DESTRUCTOR]: leaving');
             ]]>

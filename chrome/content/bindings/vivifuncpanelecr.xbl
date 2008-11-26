@@ -673,9 +673,9 @@
             <method name="_refreshCurrentPage">
                 <body>
                 <![CDATA[
-                    GREUtils.log('[REFRESH-CURRENT-PAGE]: refreshing current page <' + this.currentPage + '> with maxpage <' + this.maxpage + '>');
+                    //GREUtils.log('[REFRESH-CURRENT-PAGE]: refreshing current page <' + this.currentPage + '> with maxpage <' + this.maxpage + '>');
                     if (this.currentPage == '') {
-                        GREUtils.log('[REFRESH-CURRENT-PAGE]: exiting due to null page');
+                        //GREUtils.log('[REFRESH-CURRENT-PAGE]: exiting due to null page');
                         return;
                     }
 
@@ -683,7 +683,7 @@
                     var layout = this.getPageLayout(page);
                     var stack = this._getLayoutStack(layout);
 
-                    GREUtils.log('[REFRESH-CURRENT-PAGE]: refreshing current page layout <' + GeckoJS.BaseObject.dump(layout) + '> and stack <' + stack + '> for page <' + page + '>');
+                    //GREUtils.log('[REFRESH-CURRENT-PAGE]: refreshing current page layout <' + GeckoJS.BaseObject.dump(layout) + '> and stack <' + stack + '> for page <' + page + '>');
 
                     // activate the corresponding stack
 
@@ -1185,7 +1185,7 @@
                         posY = i * (cellHeight + vs);
                         for (var j = 0; j < c; j++) {
                             if (dir == 'reverse')
-                                posX = w + hs - (c - j) * (cellWidth + hs);
+                                posX = w - (- hs) - (c - j) * (cellWidth - (- hs));
                             else
                                 posX = j * (cellWidth + hs);
                             var btn = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:vivibutton");
@@ -1249,11 +1249,11 @@
 
                             btn = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:vivibutton");
                             if (dir == 'reverse')
-                                posX = w + hs - (c - column + 1) * (cellWidth + hs);
+                                posX = w - (- hs) - (c - column - (- 1)) * (cellWidth - (- hs));
                             else
-                                posX = (column - 1) * (cellWidth + hs);
+                                posX = (column - 1) * (cellWidth - (- hs));
 
-                            posY = (row - 1) * (cellHeight + vs);
+                            posY = (row - 1) * (cellHeight - (- vs));
 
                             // GREUtils.log('[CUSTOM]: posWidth <' + width + '> <' + cellWidth + '> <' + hs + '>');
                             // GREUtils.log('[CUSTOM]: posHeight <' + height + '> <' + cellHeight + '> <' + vs + '>');
