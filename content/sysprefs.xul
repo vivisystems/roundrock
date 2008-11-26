@@ -103,6 +103,7 @@
         <preferences>
 			
             <preference id="pref_registeratleft" name="vivipos.fec.settings.RegisterAtLeft" type="bool"/>
+            <preference id="pref_hidenumpad" name="vivipos.fec.settings.HideNumPad" type="bool"/>
             <preference id="pref_functionpanelontop" name="vivipos.fec.settings.FunctionPanelOnTop" type="bool"/>
             <preference id="pref_plubeforedept" name="vivipos.fec.settings.DeptBeforePLU" type="bool"/>
             <preference id="pref_hidedeptscrollbar" name="vivipos.fec.settings.HideDeptScrollbar" type="bool"/>
@@ -112,10 +113,13 @@
             <preference id="pref_depcols" name="vivipos.fec.settings.DepartmentCols" type="int"/>
             <preference id="pref_plurows" name="vivipos.fec.settings.PluRows" type="int"/>
             <preference id="pref_plucols" name="vivipos.fec.settings.PluCols" type="int"/>
+            <preference id="pref_fprows" name="vivipos.fec.settings.functionpanel.rows" type="int"/>
+            <preference id="pref_fpcols" name="vivipos.fec.settings.functionpanel.columns" type="int"/>
 
         </preferences>
 
         <checkbox id="registeratleft" label="&vivipos.fec.settings.layout.registeratleft;" preference="pref_registeratleft"/>
+        <checkbox id="hidenumpad" label="&vivipos.fec.settings.layout.hidenumpad;" preference="pref_hidenumpad"/>
         <checkbox id="functionpanelontop" label="&vivipos.fec.settings.layout.functionpanelontop;" preference="pref_functionpanelontop"/>
         <checkbox id="PLUbeforedept" label="&vivipos.fec.settings.layout.PLUbeforedept;" preference="pref_plubeforedept"/>
         <checkbox id="hideDeptScrollbar" label="&vivipos.fec.settings.layout.hidedeptscrollbar;" preference="pref_hidedeptscrollbar"/>
@@ -129,10 +133,16 @@
             <textbox preference="pref_depcols" id="depcols" type="number" size="2" maxlength="1"/>
         </hbox>
         <hbox align="center">
-            <label control="decimal" value="PLUs Dimension => Rows:"/>
-            <textbox preference="pref_plurows" id="decimal" type="number" size="2" maxlength="1"/>
-            <label control="decimal" value="Cols:"/>
-            <textbox preference="pref_plucols" id="decimal" type="number" size="2" maxlength="1"/>
+            <label control="pref_plurows" value="PLUs Dimension => Rows:"/>
+            <textbox preference="pref_plurows" id="pref_plurows" type="number" size="2" maxlength="1"/>
+            <label control="pref_plucols" value="Cols:"/>
+            <textbox preference="pref_plucols" id="pref_plucols" type="number" size="2" maxlength="1"/>
+        </hbox>
+        <hbox align="center">
+            <label control="pref_fprows" value="Function Panel Dimension => Rows:"/>
+            <textbox preference="pref_fprows" id="pref_fprows" type="number" size="2" maxlength="1"/>
+            <label control="pref_fpcols" value="Cols:"/>
+            <textbox preference="pref_fpcols" id="pref_fpcols" type="number" size="2" maxlength="1"/>
         </hbox>
 
 	</prefpane>
