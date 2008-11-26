@@ -62,7 +62,7 @@
                 GeckoJS.Session.add('products', products);
             }
 
-            var byId ={}, indexCate = {}, indexCateAll={}, indexBarcode = {};
+            var byId ={}, indexCate = {}, indexCateAll={}, indexLinkGroup = {}, indexLinkGroupAll={}, indexBarcode = {};
             
             products.forEach(function(product) {
                 if (product.barcode == null) {product.barcode = "";}
@@ -86,18 +86,38 @@
                     indexCateAll[(product.cate_no+"")].push((product.id+""));
                     if(GeckoJS.String.parseBoolean(product.visible)) indexCate[(product.cate_no+"")].push((product.id+""));
                 }
+
+                if (product.link_group.length > 0) {
+                    var groups = product.link_group.split(',');
+
+                    groups.forEach(function(group) {
+
+                        if (typeof indexLinkGroup[group] == 'undefined') {
+                            indexLinkGroup[group] = [];
+                            indexLinkGroupAll[group] = [];
+                        }
+                        indexLinkGroupAll[(group+"")].push((product.id+""));
+                        if(GeckoJS.String.parseBoolean(product.visible)) indexLinkGroup[(group+"")].push((product.id+""));
+                        
+                    });
+                }
+
             });
 
             GeckoJS.Session.add('productsById', byId);
             GeckoJS.Session.add('barcodesIndexes', indexBarcode);
             GeckoJS.Session.add('productsIndexesByCate', indexCate);
             GeckoJS.Session.add('productsIndexesByCateAll', indexCateAll);
+            GeckoJS.Session.add('productsIndexesByLinkGroup', indexLinkGroup);
+            GeckoJS.Session.add('productsIndexesByLinkGroupAll', indexLinkGroupAll);
 
             /*
             this.log(this.dump(GeckoJS.Session.get('productsById')));
             this.log(this.dump(GeckoJS.Session.get('productsIndexesByCate')));
             this.log(this.dump(GeckoJS.Session.get('productsIndexesByCateAll')));
             this.log(this.dump(GeckoJS.Session.get('barcodesIndexes')));
+            this.log(this.dump(GeckoJS.Session.get('productsIndexesByLinkGroup')));
+            this.log(this.dump(GeckoJS.Session.get('productsIndexesByLinkGroupAll')));
             */
         },
 
