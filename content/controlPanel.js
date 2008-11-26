@@ -4,8 +4,9 @@
   * Window Startup
   */
     function startup() {
-        var width = 800;
-        var height = 600;
+
+        var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
+        var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
 
         var openModel = function(url, name, args) {
             var features = "chrome,titlebar,toolbar,centerscreen,modal,width=" + width + ",height=" + height;
