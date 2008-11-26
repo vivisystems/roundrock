@@ -99,11 +99,6 @@
 
                 var category = this.catePanelView.getCurrentIndexData(this._selectedIndex);
 
-                inputData = {
-                    no: inputObj.input0,
-                    name: inputObj.input1
-                    };
-
                     inputData.id = category.id;
                     cateModel.id = category.id;
                     cateModel.save(inputData);

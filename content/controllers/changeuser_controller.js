@@ -27,7 +27,6 @@
 
             if (user) {
                 $('#user_name').val(user.username);
-                $('#sign_status').val(user.username + ' sign-on');
                 $('.userbtn').each(function(){
                     if (this.id == 'user_' + user.username) {
                         this.checked = true;

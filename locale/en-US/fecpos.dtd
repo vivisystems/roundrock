@@ -42,6 +42,7 @@
 <!ENTITY vivipos.fec.settings.login.autodiscardqueue "Automatically discard queued orders when signing off">
 <!ENTITY vivipos.fec.settings.login.mustemptyqueue "Order queue must be emptied when signing off">
 <!ENTITY vivipos.fec.settings.layout.registeratleft "Place Register Screen on the left side of screen">
+<!ENTITY vivipos.fec.settings.layout.hidenumpad "Hide numeric keypad">
 <!ENTITY vivipos.fec.settings.layout.functionpanelontop "Place Function Key Panel at the top of the screen">
 <!ENTITY vivipos.fec.settings.layout.PLUbeforedept "Place PLU Panel before Department Panel">
 <!ENTITY vivipos.fec.settings.layout.hidedeptscrollbar "Hide scrollbars for Department Panel">

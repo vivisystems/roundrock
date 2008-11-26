@@ -65,7 +65,7 @@
                 </vbox>
           
           <!-- begin tools -->
-                <vbox>
+                <vbox id="toolbar">
                     <button id="tool1"  label=""  oncommand="$do('ClockInOutDialog', null, 'Main');"  class="systoolbtn mediumimagebtn button-fuchsia" image="chrome://viviecr/content/skin/images/aa.png" />
                     <button id="tool2"  label=""    onclick="extension_manager();" class="systoolbtn mediumimagebtn button-fuchsia" image="chrome://viviecr/content/skin/images/fact.png" />
                     <button id="tool3"  label=""  oncommand="$do('SysConfigDialog', null, 'Main');"  class="systoolbtn mediumimagebtn button-fuchsia" image="chrome://viviecr/content/skin/images/ee.png" />
