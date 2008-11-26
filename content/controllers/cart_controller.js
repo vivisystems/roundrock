@@ -10,12 +10,12 @@
         _cartView: null,
         _queuePool: null,
 
+
         initial: function() {
             
             if (this._cartView == null ) {
                 this._cartView = new NSICartView('cartList');
             }
-
 
             GeckoJS.Session.remove('cart_last_sell_item');
             GeckoJS.Session.remove('cart_set_price_value');
@@ -30,9 +30,17 @@
             return curTransaction;
         },
 
-        _getTransaction: function() {
+        _getTransaction: function(autoCreate) {
+
+            autoCreate = autoCreate || false;
+
             var curTransaction = GeckoJS.Session.get('current_transaction');
-            if (curTransaction == null) return this._newTransaction();
+
+            // null 
+            if (curTransaction == null && autoCreate) return this._newTransaction();
+
+            // has submit
+            if (curTransaction.isSubmit() && autoCreate ) return this._newTransaction();
             return curTransaction;
         },
 
@@ -74,7 +82,12 @@
                 return;
             }
 
-            var curTransaction = this._getTransaction();
+            var curTransaction = this._getTransaction(true);
+
+            if(curTransaction == null) {
+                this.dispatchEvent('onAddItem', null);
+                return; // fatal error ?
+            }
 
             // transaction is submit and close success
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
@@ -97,6 +110,8 @@
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
 
+            this.dispatchEvent('onAddItem', addedItem);
+
             if (addedItem.id == plu.id) {
                 if (plu.force_condiment) {
                     this.addCondiment(plu);
@@ -105,10 +120,11 @@
                     this.addMemo(plu);
                 }
             }
-            
 
             // fire getSubtotal Event ?????????????
             this.subtotal();
+
+            
         },
 	
         addItemByBarcode: function(barcode) {
@@ -142,6 +158,11 @@
 
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
+
+            if(curTransaction == null) {
+                this.dispatchEvent('onModifyItem', null);
+                return; // fatal error ?
+            }
 
             if(index <0) return;
 
@@ -194,6 +215,11 @@
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
 
+            if(curTransaction == null) {
+                this.dispatchEvent('onModifyQty', null);
+                return; // fatal error ?
+            }
+
             if(index <0) return;
             if (curTransaction.isSubmit() || curTransaction.isCancel()) return;
 
@@ -228,6 +254,11 @@
 
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
+
+            if(curTransaction == null) {
+                this.dispatchEvent('onVoidItem', null);
+                return; // fatal error ?
+            }
 
             if(index <0) return;
 
@@ -316,6 +347,11 @@
 
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
+
+            if(curTransaction == null) {
+                this.dispatchEvent('onAddDiscount', null);
+                return; // fatal error ?
+            }
 
             if(index <0) return;
 
@@ -440,6 +476,11 @@
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
 
+            if(curTransaction == null) {
+                this.dispatchEvent('onAddSurcharge', null);
+                return; // fatal error ?
+            }
+
             if(index <0) return;
 
             surchargeAmount = surchargeAmount || false;
@@ -509,6 +550,11 @@
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
 
+            if(curTransaction == null) {
+                this.dispatchEvent('onAddMarker', null);
+                return; // fatal error ?
+            }
+
             if(index <0) return;
 
             type = type || 'subtotal';
@@ -538,6 +584,11 @@
 
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
+
+            if(curTransaction == null) {
+                this.dispatchEvent('onAddPayment', null);
+                return; // fatal error ?
+            }
 
             if(index <0) return;
 
@@ -578,7 +629,12 @@
 
             var curTransaction = this._getTransaction();
 
-            if (curTransaction.isSubmit() || curTransaction.isCancel()) return;
+            if(curTransaction == null) {
+                this.dispatchEvent('onShowPaymentStatus', null);
+                return; // fatal error ?
+            }
+
+            // if (curTransaction.isSubmit() || curTransaction.isCancel()) return;
 
             var payments = curTransaction.getPayments();
             var statusStr = "";
@@ -591,11 +647,6 @@
             }
 
             alert(statusStr);
-        },
-
-        addTax: function() {
-
-
         },
 
 
@@ -621,18 +672,31 @@
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
 
-            var oldTransaction = this._getTransaction();
-            
-            this.dispatchEvent('onClear', oldTransaction);
+            var curTransaction = this._getTransaction();
+
             this._getKeypadController().clearBuffer();
+
+            if(curTransaction == null) {
+                this.dispatchEvent('onClear', null);
+                return; // fatal error ?
+            }
 
         },
 	
         cancel: function() {
-            
+
+            this._getKeypadController().clearBuffer();
+
             // cancel cart but save
-            var oldTransaction = this._getTransaction();
-            oldTransaction.cancel();
+            var curTransaction = this._getTransaction();
+
+            if(curTransaction == null) {
+                this.dispatchEvent('onCancel', null);
+                return; // fatal error ?
+            }
+
+
+            curTransaction.cancel();
             // @todo save oldTransaction to log ??
 
             GeckoJS.Session.remove('current_transaction');
@@ -640,9 +704,7 @@
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
 
-            this._getKeypadController().clearBuffer();
-
-            this.dispatchEvent('onCancel', oldTransaction);
+            this.dispatchEvent('onCancel', curTransaction);
             
         },
 	
@@ -659,10 +721,13 @@
 
             // cancel cart but save
             var oldTransaction = this._getTransaction();
+            
+            if(oldTransaction == null) return; // fatal error ?
+
             if (oldTransaction.getRemainTotal() > 0) return;
             oldTransaction.submit();
 
-            GeckoJS.Session.remove('current_transaction');
+            // GeckoJS.Session.remove('current_transaction');
             GeckoJS.Session.remove('cart_last_sell_item');
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
@@ -693,6 +758,8 @@
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
 
+            if(curTransaction == null) return; // fatal error ?
+
             if(index <0) return;
 
             // transaction is submit and close success
@@ -712,6 +779,8 @@
 
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
+
+            if(curTransaction == null) return; // fatal error ?
 
             if(index <0) return;
 
@@ -859,6 +928,9 @@
         pushQueue: function() {
 
             var curTransaction = this._getTransaction();
+
+            if(curTransaction == null) return; // fatal error ?
+
             if (curTransaction.isSubmit() || curTransaction.isCancel()) return;
 
             var user = this.Acl.getUserPrincipal();

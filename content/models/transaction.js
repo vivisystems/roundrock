@@ -124,9 +124,10 @@
     Transaction.prototype.createItemDataObj = function(item, sellQty, sellPrice) {
 
         // name,current_qty,current_price,current_subtotal
-        var item2 = GREUtils.extend({}, {
+        var item2 = {
             type: 'item', // item or category
             id: item.id,
+            no: item.no,
             name: item.name,
             
             current_qty: sellQty,
@@ -156,8 +157,8 @@
             hasSurcharge: false,
             hasMarker: false
 
-        });
-        
+        };
+
         return item2;
         
     };
@@ -171,6 +172,7 @@
         if (type == 'item') {
             itemDisplay = GREUtils.extend(itemDisplay, {
                 id: item.id,
+                no: item.no,
                 name: item.name,
                 current_qty: item.current_qty,
                 current_price: item.current_price,
@@ -182,6 +184,7 @@
         }else if (type == 'discount') {
             itemDisplay = GREUtils.extend(itemDisplay, {
                 id: item.id,
+                no: item.no,
                 name: item.discount_type + '-',
                 current_qty: '',
                 current_price: '',
@@ -193,6 +196,7 @@
         }else if (type == 'trans_discount') {
             itemDisplay = GREUtils.extend(itemDisplay, {
                 id: null,
+                no: item.no,
                 name: item.discount_type + '-',
                 current_qty: '',
                 current_price: '',
@@ -204,6 +208,7 @@
         }else if (type == 'surcharge') {
             itemDisplay = GREUtils.extend(itemDisplay, {
                 id: item.id,
+                no: item.no,
                 name: item.surcharge_type + '+',
                 current_qty: '',
                 current_price: '',
@@ -215,6 +220,7 @@
         }else if (type == 'trans_surcharge') {
             itemDisplay = GREUtils.extend(itemDisplay, {
                 id: null,
+                no: item.no,
                 name: item.surcharge_type + '+',
                 current_qty: '',
                 current_price: '',
@@ -264,8 +270,8 @@
         // save lastSellItem
         var lastSellItem = {
             id: item.id,
-            sellPrice: item.current_price,
-            sellQty: item.current_qty
+            sellPrice: item.current_price /*,
+            sellQty: item.current_qty*/
         };
 
         GeckoJS.Session.set('cart_last_sell_item', lastSellItem);
@@ -282,7 +288,7 @@
         var lastSellItem = GeckoJS.Session.get('cart_last_sell_item');
         if (lastSellItem != null) {
             if (lastSellItem.id == item.id) {
-                sellQty = lastSellItem.sellQty;
+                // sellQty = lastSellItem.sellQty;
                 sellPrice = lastSellItem.sellPrice;
             }
         }
@@ -345,7 +351,12 @@
 
         if (itemDisplay.type != 'item') return ; // TODO
 
-        var item = GREUtils.extend({}, GeckoJS.Session.get('productsById')[itemTrans.id]);
+        var item = null;
+        if(GeckoJS.Session.get('productsById')[itemTrans.id]) {
+            item = GREUtils.extend({}, GeckoJS.Session.get('productsById')[itemTrans.id]);
+        }else {
+            item = GREUtils.extend({},itemTrans);
+        }
         
         var sellQty = itemTrans.current_qty;
         var sellPrice = itemTrans.current_price;
@@ -408,7 +419,14 @@
 
         if (itemDisplay.type == 'item' && !itemTrans.hasMarker) {
 
-            var item = GREUtils.extend({}, GeckoJS.Session.get('productsById')[itemTrans.id]);
+
+            var item = null;
+            if(GeckoJS.Session.get('productsById')[itemTrans.id]) {
+                item = GREUtils.extend({}, GeckoJS.Session.get('productsById')[itemTrans.id]);
+            }else {
+                item = GREUtils.extend({},itemTrans);
+            }
+
             this.log('DEBUG', 'dispatchEvent beforeVoidItem ' + this.dump(item) );
             Transaction.events.dispatch('beforeVoidItem', item, this);
 
@@ -980,7 +998,9 @@
         this.data.discount_subtotal = discount_subtotal ;
         this.data.payment_subtotal = payment_subtotal;
 
-        this.log('DEBUG', this.dump(this.data));
+        Transaction.events.dispatch('afterCalcTotal', this.data, this);
+
+        this.log('DEBUG', "afterCalcTotal " + this.dump(this.data));
 
     };
 
