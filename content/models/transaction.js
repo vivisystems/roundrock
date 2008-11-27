@@ -850,7 +850,7 @@
         var priceLevelHalo = this.getPriceLevelHalo(priceLevel, item);
         var priceLevelLalo = this.getPriceLevelLalo(priceLevel, item);
 
-        if (sellPrice == null) sellPrice = priceLevelPrice;
+        if (sellPrice == null || typeof sellPrice  == 'undefined' || isNaN(sellPrice) ) sellPrice = priceLevelPrice;
 
         if(priceLevelHalo > 0 && sellPrice > priceLevelHalo) {
 
@@ -893,8 +893,9 @@
     Transaction.prototype.getPriceLevelPrice = function(priceLevel, item) {
         
         if (typeof item['price_level'+priceLevel] !='undefined'){
-            if (item['price_level'+priceLevel].length > 0) {
-                return parseFloat(item['price_level'+priceLevel]);
+            var price = parseFloat(item['price_level'+priceLevel]);
+            if (!isNaN(price)) {
+                return price;
             }
         }
         return parseFloat(item['price_level']);
