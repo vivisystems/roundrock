@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE bindings [
+  <!ENTITY % globalDTD SYSTEM "chrome://global/locale/global.dtd">
+  %globalDTD;
+  <!ENTITY % bindingsDTD SYSTEM "chrome://viviecr/locale/bindings.dtd">
+  %bindingsDTD;
+]>
+
+<bindings xmlns="http://www.mozilla.org/xbl"
+          xmlns:xbl="http://www.mozilla.org/xbl"
+          xmlns:html="http://www.w3.org/1999/xhtml"
+          xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <binding id="vividatetimepicker">
+        <resources>
+            <stylesheet src="chrome://vivipos/skin/bindings/vividatetimepicker.css" />
+        </resources>
+
+        <content align="center">
+            <xul:box>
+                <xul:vbox align="center">
+                    <xul:hbox>
+                        <xul:button class="button_vividatetimepicker" xbl:inherits="disabled,class=buttonClass" label="+1:00" type="repeat" oncommand="document.getBindingParent(this)._increaseOrDecreaseHour(1);"/>
+                        <xul:button class="button_vividatetimepicker" xbl:inherits="disabled,class=buttonClass" label="+0:15" type="repeat" oncommand="document.getBindingParent(this)._increaseOrDecreaseMinute(15);"/>
+                        <xul:button class="button_vividatetimepicker" xbl:inherits="disabled,class=buttonClass" label="+0:01" type="repeat" oncommand="document.getBindingParent(this)._increaseOrDecreaseMinute(1);"/>
+                        <!-- xul:button class="button_vividatetimepicker" xbl:inherits="disabled,class=buttonClass" label="S+" type="repeat" oncommand="document.getBindingParent(this)._increaseOrDecreaseSecond(1);"/ -->
+                    </xul:hbox>
+                    <xul:hbox align="center">
+                        <xul:label value="" anonid="time_label" flex="1" inherits="class,flex,align,dir,pack,orient,style" />
+                        <xul:datepicker anonid="hidden_datepicker" inherits="class,flex,align,dir,pack,orient,style,hideseconds" style="display:none;"/>
+                        <xul:timepicker anonid="hidden_timepicker" inherits="class,flex,align,dir,pack,orient,style,hideseconds" style="display:none;"/>
+                    </xul:hbox>
+                    <xul:hbox>
+                        <xul:button class="button_vividatetimepicker" xbl:inherits="disabled,class=buttonClass" label="-1:00" type="repeat" oncommand="document.getBindingParent(this)._increaseOrDecreaseHour(-1);"/>
+                        <xul:button class="button_vividatetimepicker" xbl:inherits="disabled,class=buttonClass" label="-0:15" type="repeat" oncommand="document.getBindingParent(this)._increaseOrDecreaseMinute(-15);"/>
+                        <xul:button class="button_vividatetimepicker" xbl:inherits="disabled,class=buttonClass" label="-0:01" type="repeat" oncommand="document.getBindingParent(this)._increaseOrDecreaseMinute(-1);"/>
+                        <!-- xul:button class="button_vividatetimepicker" xbl:inherits="disabled,class=buttonClass" label="S-" type="repeat" oncommand="document.getBindingParent(this)._increaseOrDecreaseSecond(-1);"/ -->
+                    </xul:hbox>
+                </xul:vbox>
+            </xul:box>
+        </content>
+
+        <xbl:implementation>
+
+            <field name="_timepicker">
+                document.getAnonymousElementByAttribute(this, "anonid", "hidden_timepicker");
+            </field>
+            
+            <field name="_timelabel">
+                document.getAnonymousElementByAttribute(this, "anonid", "time_label");
+            </field>
+
+            <xbl:constructor>
+                var timeStr = this.getAttribute('value');
+                this._timelabel.setAttribute('value', timeStr);
+                this._timepicker.value = timeStr;
+            </xbl:constructor>
+
+            <xbl:destructor>
+                // 
+            </xbl:destructor>
+	
+            <property name="hour" onget="return this._timepicker.hour;" onset="this._timepicker.hour=val" />
+            <property name="minute" onget="return this._timepicker.minute;" onset="this._timepicker.minute=val" />
+            <property name="second" onget="return this._timepicker.second;" onset="this._timepicker.second=val" />
+            <property name="timevalue" onget="return this._timepicker.value;" onset="this._timepicker.value=val" />
+            <property name="value" onget="return this._timelabel.getAttribute('value');">
+                <setter>
+                    <![CDATA[
+                        var items = val.match(/^([0-9]{1,2})\:([0-9]{1,2})\:?([0-9]{1,2})?$/);
+                        if (!items)
+                          throw "Invalid Time";
+                        this._timepicker.value = val;
+                        return val;
+                      ]]>
+                </setter>
+            </property>
+
+            <property name="hideSeconds">
+                <getter>
+                  return (this.getAttribute("hideseconds") == "true");
+                </getter>
+                <setter>
+                  if (val)
+                    this.setAttribute("hideseconds", "true");
+                  else
+                    this.removeAttribute("hideseconds");
+                  return val;
+                </setter>
+              </property>
+
+            <method name="_increaseOrDecreaseHour">
+                <parameter name="aDir"/>
+                <body><![CDATA[
+                    var aValue = this.hour + aDir;
+                    if (aValue < 0) {this.hour = 24 + aValue;}
+                    else if (aValue >= 24) {this.hour = aValue - 24;}
+                    else this.hour = aValue;
+
+                    this._setValueOnChange();
+                ]]>
+                </body>
+            </method>
+
+            <method name="_increaseOrDecreaseMinute">
+                <parameter name="aDir"/>
+                <body><![CDATA[
+                    var aValue = this.minute + aDir;
+                    if (aValue < 0) {this.minute = 60 + aValue;}
+                    else if (aValue >= 60) {this.minute = aValue - 60;}
+                    else this.minute = aValue;
+
+                    this._setValueOnChange();
+                ]]>
+                </body>
+            </method>
+
+            <method name="_increaseOrDecreaseSecond">
+                <parameter name="aDir"/>
+                <body><![CDATA[
+                    var aValue = this.second + aDir;
+                    if (aValue < 0) {this.second = 60 + aValue;}
+                    else if (aValue >= 60) {this.second = aValue - 60;}
+                    else this.second = aValue;
+
+                    this._setValueOnChange();
+                ]]>
+                </body>
+            </method>
+
+            <method name="_setValueOnChange">
+                <body>
+              <![CDATA[
+                //var timeStr = this.hour + ":" + this.minute + ":" + this.second;
+                // var timeStr = this.timevalue;
+
+                //if (this.hour < 10) timeStr = "0" + timeStr;
+
+                var hour = this.hour;
+                var minute = this.minute;
+                if (hour < 10) hour = "0" + hour;
+                if (minute < 10) minute = "0" + minute;
+                var timeStr = hour + ":" + minute
+
+                this._timelabel.setAttribute('value', timeStr);
+
+              ]]>
+                </body>
+            </method>
+
+        </xbl:implementation>
+
+    </binding>
+
+</bindings>
