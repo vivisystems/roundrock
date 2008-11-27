@@ -26,6 +26,9 @@ pref("dom.disable_window_open_feature.status", true);
 pref("dom.disable_window_status_change", true);
 
 
+pref("dom.max_script_run_time", 180);
+
+
 /* TraceMonkey JIT 1.9.1 */
 pref("javascript.options.jit.content", true);
 pref("javascript.options.jit.chrome", true);

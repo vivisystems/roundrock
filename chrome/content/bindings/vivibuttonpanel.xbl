@@ -334,6 +334,11 @@
         <body><![CDATA[
             this._startOffset = (this._startOffset < 0) ? 0 : this._startOffset;
             this.render();
+
+            var evt = document.createEvent('Event');
+            evt.initEvent("refresh", true, false);
+            this.canceled = this.dispatchEvent(evt);
+
         ]]>  
         </body>
     </method>
