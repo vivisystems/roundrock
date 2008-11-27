@@ -57,6 +57,28 @@
 
         <property name="datasource" onget="return this.vivibuttonpanel.datasource" onset="this.vivibuttonpanel.datasource = val; this.updateScrollBtn(); return val;"/>
 
+    <constructor>
+    <![CDATA[
+
+        var self = this;
+
+        this.ready = function() {
+            self.initGrid();
+        };
+        // add treecols and children
+        window.addEventListener('DOMContentLoaded', this.ready, true);
+        //window.addEventListener('load', this.ready, true);
+
+    ]]>
+    </constructor>
+
+    <destructor>
+    <![CDATA[
+       window.removeEventListener('DOMContentLoaded', this.ready, true);
+       //window.removeEventListener('load', this.ready, true);
+    ]]>
+    </destructor>
+
 
         <method name="initGrid">
         <body><![CDATA[
