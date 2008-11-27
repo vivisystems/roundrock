@@ -32,12 +32,25 @@
 }
 .catbtn hbox, .plubtn hbox {
     -moz-box-orient: vertical;
-
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .catbtn label, .plubtn label {
     text-wrap: normal;
     word-wrap: break-word;
+/*
+    white-space: nowrap;
+    text-overflow: ellipsis;
+*/
 }
+
+.catbtn description, .plubtn description {
+    text-wrap: normal;
+    word-wrap: break-word;
+/*    white-space: nowrap; 
+    text-overflow: ellipsis; */
+}
+
 
 .button_colorpicker {
     min-height:50px;

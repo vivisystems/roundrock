@@ -152,7 +152,9 @@
                 }
             }
             // change pluview panel
+            this.requestCommand('clear',null,'Cart');
             this.pluPanelView.setCatePanelIndex(index);
+            
 
         },
 

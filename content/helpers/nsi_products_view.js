@@ -135,7 +135,6 @@
             
             var productsIndexesByCate;
 
-
             if (this.hideUnvisible) {
                 productsIndexesByCate = GeckoJS.Session.get('productsIndexesByCate');
             }else {
@@ -146,7 +145,10 @@
 
             try {
                 this.tree.invalidate();
-            }catch(e) {}
+            }catch(e) {
+                
+                alert('error' + e);
+            }
 
             
         },
