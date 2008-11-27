@@ -22,6 +22,8 @@
             <preference id="pref_privatequeue" name="vivipos.fec.settings.PrivateQueue" type="bool" />
             <preference id="pref_dateformatstr" name="vivipos.fec.settings.DateFormatStr" type="string"/>
             <preference id="pref_timeformatstr" name="vivipos.fec.settings.TimeformatStr" type="string"/>
+
+            <preference id="pref_activepricelevelschedule" name="vivipos.fec.settings.ActivePriceLevelSchedule" type="bool" />
         </preferences>
         <hbox align="center">
             <label control="terminalid" value="&vivipos.fec.settings.terminalid;"/>
@@ -30,6 +32,7 @@
 
         <checkbox preference="pref_privatequeue" id="pref_privatequeueCtrl" label="&vivipos.fec.settings.privatequeue;" />
         <checkbox preference="pref_publicattendance" id="pref_publicAttendanceCtrl" label="&vivipos.fec.settings.publicattendance;" />
+        <checkbox preference="pref_activepricelevelschedule" id="pref_activepricelevelscheduleCtrl" label="&vivipos.fec.settings.activepricelevelschedule;" />
 
         <hbox align="center">
             <label control="precisionprices" value="&vivipos.fec.settings.defaultpricelevel;"/>

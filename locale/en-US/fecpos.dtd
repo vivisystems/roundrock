@@ -21,6 +21,7 @@
 <!ENTITY vivipos.fec.settings.rounding.to-nearest-dime "to nearest dime">
 <!ENTITY vivipos.fec.settings.rounding.always-round-up "always round up">
 <!ENTITY vivipos.fec.settings.rounding.always-round-down "always round down">
+<!ENTITY vivipos.fec.settings.activepricelevelschedule "Active Schedulable Price Level">
 
 <!ENTITY vivipos.fec.common.ok "Ok">
 <!ENTITY vivipos.fec.common.cancel "Cancel">

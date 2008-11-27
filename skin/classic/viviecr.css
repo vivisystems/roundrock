@@ -491,7 +491,7 @@ treeitem {
  *	Dialog Class
  */
 
-.dialogbtns button, .editbtns, .widebtns {
+.dialogbtns button, .editbtns, .widebtns, .timepickerbtns {
     min-width:100px;
     max-width:100px;
     min-height:45px;
@@ -544,7 +544,7 @@ treeitem {
     text-wrap: normal;
     word-wrap: break-word;
 }
-.dialogbtns button:active , .editbtns:active {
+.dialogbtns button:active , .editbtns:active, .timepickerbtns:active {
     background-position:0pt -60px;
     border: 2px solid;
     -moz-border-top-colors: #444 #222;
@@ -661,4 +661,8 @@ treeitem {
 
 .cartList scrollbar {
     display: none;
+}
+
+.timepickerfont {
+  font-size: 48px;
 }

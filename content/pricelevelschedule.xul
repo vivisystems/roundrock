@@ -17,12 +17,8 @@
             <vbox flex="1" class="footlogo">
                     <groupbox flex="1">
                         <caption label="Price Level Schedule List:" />
-
-                        <viviclock id="clock" timeNotation="24" showdate="false" style="font-size:48px"/>
                         <hbox flex="1">
                             <vbox>
-                            <!-- viviscrollablebuttonpanel dir="reverse" id="plschscrollablepanel" flex="1" cols="3" rows="8" labelField="jobname" imageField="no" oncommand="$do('select',this.selectedIndex, 'Jobs');"
-                              class="catescrollablepanel" buttonClass="catbtn button-radius button-white font-medium" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue"/ -->
                             <simplelistbox id="simpleListBoxSchedule" rows="16"  headers="Time, Price Level" columns="time,pricelevel"  class="prodsimplelistbox jobssummary"/>
                             <spacer style="height: 10px;" />
                             <button label="Remove from Schedule" class="editbtns" oncommand="$do('remove', null, 'PriceLevelSchedule');" />
@@ -32,11 +28,10 @@
 
                             <vbox>
                                 <hbox align="center">
-                                    <label id="plsch_id" hidden="true" form="plschForm" name="id" value="" />
-                                    <!-- label value="Job Name:" />
-                                    <textbox id="job_name" value="" form="jobForm" name="jobname" / -->
-                                    <vividatetimepicker id="seltime" value="12:00"/>
+                                    <vividatetimepicker id="seltime" value="12:00" flex="1" labelClass="timepickerfont" buttonClass="timepickerbtns"/>
                                 </hbox>
+
+                                <separator class="groove-thin" style="height:20px;"/>
                                 <hbox>
                                     <viviscrollablebuttonpanel id="pricelevelscrollablepanel" flex="1" cols="2" rows="5" labelField="name" oncommand=""
                                         class="catescrollablepanel" buttonClass="catbtn button-radius button-white font-medium" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue"/>
