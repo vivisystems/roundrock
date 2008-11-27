@@ -59,57 +59,7 @@
 
         },
 
-        refreshView: function() {
-
-            var departmentsIndexes;
-
-            if (this.hideUnvisible) {
-                departmentsIndexes = GeckoJS.Session.get('categiesIndexes').concat(this.visiblePluGroups);
-            }else {
-                departmentsIndexes = GeckoJS.Session.get('categiesIndexesAll');
-            }
-            this._data = departmentsIndexes;
-
-            try {
-                this.tree.invalidate();
-            }catch(e) {}
-
-        },
-
-
-        getCurrentIndexData: function (row) {
-            var id = this.data[row];
-            var categories = GeckoJS.Session.get('categiesById');
-            var plugroupsById = GeckoJS.Session.get('plugroupsById');
-
-            if (typeof categories[id] == 'undefined') {
-                // try plugroup
-                return plugroupsById[id];
-            }
-            return categories[id];
-        },
-
-        getCellValue: function(row, col) {
-
-            // this.log(row +","+col);
-
-            var category = this.getCurrentIndexData(row);
-
-            var sResult;
-            var key;
-
-            try {
-                key = col.id;
-                sResult= category[key];
-            }
-            catch (e) {
-                return "";
-            }
-            return sResult;
-
-        },
-
-        /**
+        /*
          * FrontEnd style
          */
         renderButton: function(row, btn) {

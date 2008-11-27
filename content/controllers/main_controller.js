@@ -15,13 +15,13 @@
 
         initial: function() {
 
-            this.initialLogin();
             this.createPluPanel();
             this.requestCommand('initial', null, 'Pricelevel');
             this.requestCommand('initial', null, 'Cart');
             this.requestCommand('initial', null, 'Vfd');
 
-            this.resetLayout();
+            this.resetLayout(true);
+            this.initialLogin();
 
             // change log level
             GeckoJS.Log.getAppender('console').level = GeckoJS.Log.DEBUG;
@@ -174,22 +174,32 @@
                 // perform user login initialization
                 // -> set price level
                 //    - if user has role 'vivipos_fec_acl_override_system_price_level', use user default price level
-                var userPriceLevel = user.default_price_level;
-                var canOverride = (GeckoJS.Array.inArray('vivipos_fec_acl_override_system_price_level', user.Roles) != -1);
+                var userModel = new ViviPOS.UserModel();
 
-                if (userPriceLevel && canOverride) {
-                    $do('change', userPriceLevel, 'Pricelevel');
+                var userRecord = userModel.findByIndex('all', {
+                    index: "username",
+                    value: user.username
+                });
+
+                if (userRecord && userRecord.length > 0) {
+                    var userPriceLevel = userRecord[0].default_price_level;
+                    var canOverride = (GeckoJS.Array.inArray('vivipos_fec_acl_override_system_price_level', user.Roles) != -1);
+
+                    if (userPriceLevel && canOverride) {
+                        $do('change', userPriceLevel, 'Pricelevel');
+                    }
                 }
             }
         },
 
-        resetLayout: function () {
+        resetLayout: function (initial) {
             var registerAtLeft = GeckoJS.Configure.read('vivipos.fec.settings.RegisterAtLeft');
             var functionPanelOnTop = GeckoJS.Configure.read('vivipos.fec.settings.FunctionPanelOnTop');
             var PLUbeforeDept = GeckoJS.Configure.read('vivipos.fec.settings.DeptBeforePLU');
             var hideDeptScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.HideDeptScrollbar');
             var hidePLUScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.HidePLUScrollbar');
             var hideFPScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.HideFPScrollbar');
+            var hideNumPad = GeckoJS.Configure.read('vivipos.fec.settings.HideNumPad');
             
             var hbox = document.getElementById('mainPanel');
             var deptPanel = document.getElementById('catescrollablepanel');
@@ -197,9 +207,17 @@
             var fnPanel = document.getElementById('functionPanel');
             var toolbarPanel = document.getElementById('toolbarPanel');
             var leftPanel = document.getElementById('leftPanel');
+            var rightPanel = document.getElementById('rightPanel');
             var productPanel = document.getElementById('productPanel');
             var btmBox = document.getElementById('vivipos-bottombox');
+            var numPad = document.getElementById('numberpadPanelContainer');
+            var toolbar = document.getElementById('toolbar');
+            var cartSidebar = document.getElementById('cartsidebar');
             
+            if (deptPanel) deptPanel.setAttribute('hideScrollbar', hideDeptScrollbar);
+            if (pluPanel) pluPanel.setAttribute('hideScrollbar', hidePLUScrollbar);
+            if (fnPanel) fnPanel.setAttribute('hideScrollbar', hideFPScrollbar);
+
             if (hbox) hbox.setAttribute('dir', registerAtLeft ? 'reverse' : 'normal');
             if (deptPanel) deptPanel.setAttribute('dir', registerAtLeft ? 'normal' : 'reverse');
             if (pluPanel) pluPanel.setAttribute('dir', registerAtLeft ? 'normal' : 'reverse');
@@ -209,18 +227,36 @@
             if (leftPanel) leftPanel.setAttribute('dir', functionPanelOnTop ? 'reverse' : 'normal');
             if (productPanel) productPanel.setAttribute('dir', PLUbeforeDept ? 'reverse' : 'normal');
             
-            // fudge to make functionPanelOnTop work
+            // fudge to make functionPanelOnTop work even if rightPanel is taller than the screen
             leftPanel.setAttribute('pack', functionPanelOnTop ? 'end' : 'start');
-            
-            if (deptPanel) deptPanel.setAttribute('hideScrollbar', hideDeptScrollbar);
-            if (pluPanel) pluPanel.setAttribute('hideScrollbar', hidePLUScrollbar);
-            if (fnPanel) fnPanel.setAttribute('hideScrollbar', hideFPScrollbar);
+
+            if (hideNumPad) {
+                if (numPad && (numPad.getAttribute('hidden') != 'true')) {
+                // relocate toolbar to cart
+                    if (toolbar && toolbarPanel) toolbarPanel.removeChild(toolbar);
+                    if (toolbar && cartSidebar) cartSidebar.appendChild(toolbar);
+
+                    if (numPad) numPad.setAttribute('hidden', true);
+                }
+            }
+            else {
+                // if already visible then don't change
+                if (numPad && (numPad.getAttribute('hidden') == 'true')) {
+                    // relocate toolbar to toolbarPanel
+                    if (toolbar && cartSidebar) cartSidebar.removeChild(toolbar);
+                    if (toolbar && toolbarPanel) toolbarPanel.appendChild(toolbar);
+
+                    if (numPad) numPad.setAttribute('hidden', false);
+                }
+            }
 
             // resizing product/function panels
             var departmentRows = GeckoJS.Configure.read('vivipos.fec.settings.DepartmentRows');
             var departmentCols = GeckoJS.Configure.read('vivipos.fec.settings.DepartmentCols');
             var pluRows = GeckoJS.Configure.read('vivipos.fec.settings.PluRows');
             var pluCols = GeckoJS.Configure.read('vivipos.fec.settings.PluCols');
+            var fnRows = GeckoJS.Configure.read('vivipos.fec.settings.functionpanel.rows');
+            var fnCols = GeckoJS.Configure.read('vivipos.fec.settings.functionpanel.columns');
 
             // first check if rows and columns have changed
 
@@ -230,7 +266,8 @@
             }
             rowsLeft -= departmentRows;
 
-            if ((deptPanel.getAttribute('rows') != departmentRows) ||
+            if (initial ||
+                (deptPanel.getAttribute('rows') != departmentRows) ||
                 (deptPanel.getAttribute('cols') != departmentCols)) {
                 deptPanel.setAttribute('rows', departmentRows);
                 deptPanel.setAttribute('cols', departmentCols);
@@ -249,7 +286,8 @@
             }
             rowsLeft -= pluRows;
             
-            if ((pluPanel.getAttribute('rows') != pluRows) ||
+            if (initial ||
+                (pluPanel.getAttribute('rows') != pluRows) ||
                 (pluPanel.getAttribute('cols') != pluCols)) {
                 pluPanel.setAttribute('rows', pluRows);
                 pluPanel.setAttribute('cols', pluCols);
@@ -264,14 +302,30 @@
             }
 
             var totalHeight = deptPanel.boxObject.height - (- pluPanel.boxObject.height);
+            var fnWidth = this.screenwidth - rightPanel.boxObject.width - 5;
             var fnHeight = this.screenheight - totalHeight - btmBox.boxObject.height;
+
             if (fnHeight < 1) {
                 fnPanel.setAttribute('height', 0);
                 fnPanel.hide();
             }
             else {
+                // check if rows/columns have changed
+                var currentRows = fnPanel.rows;
+                var currentColumns = fnPanel.columns;
+
+                if ((currentRows != fnRows) || (currentColumns != fnCols)) {
+                    // need to change layout, first retrieve h/vspacing
+
+                    var hspacing = fnPanel.hspacing;
+                    var vspacing = fnPanel.vspacing;
+
+                    fnPanel.setSize(fnRows, fnCols, hspacing, vspacing);
+                }
+
                 fnPanel.show();
                 fnPanel.setAttribute('height', fnHeight);
+                fnPanel.setAttribute('width', fnWidth);
             }
         },
         
