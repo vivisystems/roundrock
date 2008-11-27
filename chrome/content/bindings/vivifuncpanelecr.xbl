@@ -262,7 +262,9 @@
                 //
                  <setter>
                 <![CDATA[
-                    if (val != null) {
+                    if (val == 'global') {
+                        this.setAttribute('currentPage', 'global');
+                    } else if (val != null) {
                         var wrap = parseInt(this.getAttribute('wrap'));
                         if (isNaN(wrap)) wrap = 0;
 
