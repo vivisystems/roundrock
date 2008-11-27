@@ -59,18 +59,17 @@
 
         },
 
-/*
+
         refreshView: function() {
 
             var departmentsIndexes;
 
             if (this.hideUnvisible) {
-                departmentsIndexes = GeckoJS.Session.get('categiesIndexes');//.concat(this.visiblePluGroups);
+                departmentsIndexes = GeckoJS.Session.get('categiesIndexes').concat(this.visiblePluGroups);
             }else {
                 departmentsIndexes = GeckoJS.Session.get('categiesIndexesAll');
             }
             this._data = departmentsIndexes;
-            alert('refreshView');
 
             try {
                 this.tree.invalidate();
@@ -110,7 +109,7 @@
             return sResult;
 
         },
-*/
+
         /**
          * FrontEnd style
          */
