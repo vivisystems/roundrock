@@ -78,7 +78,7 @@
 
         this.data.created = new Date().toString('hh:mm:ss');
 
-        if (Transaction.Tax == null) Transaction.Tax = new GeckoJS.TaxComponent();
+        if (Transaction.Tax == null) Transaction.Tax = new TaxComponent();
         
         if (Transaction.events == null) Transaction.events = new GeckoJS.Event();
 

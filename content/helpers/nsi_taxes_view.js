@@ -52,7 +52,7 @@
 
             var data = this.data;
             selectedItems.forEach(function(idx){
-                selectedItemsStr.push(data[idx].name);
+                selectedItemsStr.push(data[idx].no);
             });
 
             return selectedItemsStr.join(',');
@@ -63,10 +63,10 @@
             var selectedItemsStr = items.split(',');
             var selectedItems = [];
 
-            var dataNameIndex = GeckoJS.Array.objectExtract(this.data, '{n}.name');
+            var dataNameIndex = GeckoJS.Array.objectExtract(this.data, '{n}.no');
 
-            selectedItemsStr.forEach(function(name){
-                var index = GeckoJS.Array.inArray(name, dataNameIndex);
+            selectedItemsStr.forEach(function(no){
+                var index = GeckoJS.Array.inArray(no, dataNameIndex);
                 if (index != -1) selectedItems.push(index);
             });
 

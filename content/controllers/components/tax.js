@@ -1,14 +1,9 @@
-/**
- * Defines GeckoJS.TaxComponent namespace
- *
- */
-GREUtils.define('GeckoJS.TaxComponent', GeckoJS.global);
+(function() {
 
-
-/**
+    /**
  * Creates a new GeckoJS.TaxComponent instance.
- * 
- * @class GeckoJS.TaxComponent implements 
+ *
+ * @class GeckoJS.TaxComponent implements
  * <br/>
  * <pre>
  * </pre>
@@ -17,35 +12,93 @@ GREUtils.define('GeckoJS.TaxComponent', GeckoJS.global);
  * @extends GeckoJS.Component
  *
  */
-GeckoJS.TaxComponent = GeckoJS.Component.extend({
-    name: 'Tax',
 
-    taxModel: GeckoJS.Model.extend({
+    var TaxComponent = window.TaxComponent = GeckoJS.Component.extend('Tax', {
+
         name: 'Tax',
-        indexes: ['name', 'no', 'type'],
-        hasMany: ['CombineTax']
-    }),
+
+        taxModel: GeckoJS.Model.extend({
+            name: 'Tax',
+            indexes: ['name', 'no', 'type'],
+            hasMany: ['CombineTax']
+        }),
     
-    combineTaxModel: GeckoJS.Model.extend({
-        name: 'CombineTax',
-        indexes: ['combine_tax_id', 'tax_id'],
-        belongsTo: ['Tax']
-    }),
+        combineTaxModel: GeckoJS.Model.extend({
+            name: 'CombineTax',
+            indexes: ['combine_tax_id', 'tax_id'],
+            belongsTo: ['Tax']
+        }),
     
-    _calcTaxCache: {}
+        _calcTaxCache: {}
 
-});
+    });
+
+    /**
+ * TaxComponent constructor
+ */
+    TaxComponent.prototype.init = function(controller) {
+        this._controller = controller || null;
+
+        // cache Taxs by no list
+        if (GeckoJS.Session.get('taxesByNo') == null) {
+            this.processCache();
+        }
+    /*
+        var self = this;
+        this.taxModel.addEventListener('onSave', function(evt) {
+            var tax = evt.data;
+            if(tax) self.processCache(tax);
+        });
+        */
+    };
 
 
+    TaxComponent.prototype.processCache = function(tax) {
+        tax = tax || false;
 
-/**
+        if(tax) {
+            byNo[tax.no]= tax;
+        }else {
+            
+            var taxes = this.getTaxList();
+            var byNo = {}, byId = {};
+            taxes.forEach(function(tax2){
+                byNo[tax2.no]= tax2;
+                byId[tax2.id]= tax2;
+            });
+
+            taxes.forEach(function(tax3){
+
+                if(tax3.type != 'ADDON' && tax3.CombineTax != null) {
+
+                   for (var i = 0; i <tax3.CombineTax.length; i++) {
+                       var cbTaxed = tax3.CombineTax[i];
+                       tax3.CombineTax[i] = GREUtils.extend({}, tax3.CombineTax[i], GREUtils.extend({}, byId[cbTaxed.combine_tax_id]));
+                   }
+
+                }
+            });
+
+        }
+
+        // store in session
+        GeckoJS.Session.set('taxesByNo', byNo);
+        GeckoJS.Session.set('taxesById', byId);
+        GeckoJS.Session.set('taxes', GeckoJS.BaseObject.getValues(byNo));
+
+        //this.log(this.dump(GeckoJS.Session.get('taxesByNo')));
+        //this.log(this.dump(GeckoJS.Session.get('taxes')));
+    
+    };
+
+    /**
  * Adds an Tax<br/>
  * <br/>
  *
  * @public
  * @function  
- * @param {String} name
  * @param {String} no
+ * @param {String} name
  * @param {String} type               "ADDON" , "TABLE", "COMBINE" , "VAT"
  * @param {Number|Object} rate               percentage for example 05.00 of Object of TABLE
  * @param {String} rate_type               percentage (%) or value ($)
@@ -53,94 +106,96 @@ GeckoJS.TaxComponent = GeckoJS.Component.extend({
  * @param {String} updateId           tax's id for update , empty for add
  * @return {Boolean|String}           The new Tax uuid, or "false" if the user fails to be added
  */
-GeckoJS.TaxComponent.prototype.addTax = function(name, no, type, rate, rate_type, threshold, updateId) {
-    
-    name = name || null;
-    no = no || "";
-    type = type || "ADDON";
-    rate = rate || 0;
-    rate_type = rate_type || '%';
-    threshold = threshold || 0;
-    updateId =  updateId || false ;
+    TaxComponent.prototype.addTax = function(no, name, type, rate, rate_type, threshold, updateId) {
 
-    threshold = parseFloat(threshold);
+        no = no || "";
+        name = name || null;
+        type = type || "ADDON";
+        rate = rate || 0;
+        rate_type = rate_type || '%';
+        threshold = threshold || 0;
+        updateId =  updateId || false ;
 
-    // no roleName parameter return false
-    if (name == null) return false;
+        threshold = parseFloat(threshold);
 
-    if(isNaN(threshold) || threshold == Infinity) return false;
+        // no roleName parameter return false
+        if (name == null) return false;
 
-    if (type == "ADDON") {
-        rate = parseFloat(rate);
-        if(isNaN(rate) || rate == Infinity) return false;
-    }
+        if(isNaN(threshold) || threshold == Infinity) return false;
 
-    var taxModel = new this.taxModel;
+        if (type == "ADDON") {
+            rate = parseFloat(rate);
+            if(isNaN(rate) || rate == Infinity) return false;
+        }
 
-    if (updateId) {
-        taxModel.id = updateId;
+        var taxModel = new this.taxModel;
 
-    }else {
-        // check duplicate
-        var count = taxModel.find("count", {
-            conditions: "name='"+name+"'"
-        });
-        if (count >0) return false;
+        if (updateId) {
+            taxModel.id = updateId;
+
+        }else {
+            // check duplicate
+            var count = taxModel.find("count", {
+                conditions: "no='"+no+"'"
+            });
+            if (count >0) return false;
         
-        taxModel.create();
-    }
+            taxModel.create();
+        }
     
-    taxModel.save({
-        name: name,
-        no: no,
-        type: type,
-        rate: rate,
-        rate_type: rate_type,
-        threshold: threshold
-    });
+        taxModel.save({
+            no: no,
+            name: name,
+            type: type,
+            rate: rate,
+            rate_type: rate_type,
+            threshold: threshold
+        });
       
-    var id = taxModel.id;
+        var id = taxModel.id;
     
-    delete taxModel;
-    
-    return id;
+        delete taxModel;
+
+        if(id) this.processCache();
+        
+        return id;
 
 
-};
+    };
 
 
-/**
+    /**
  * update an Tax<br/>
  * <br/>
  *
  * @public
  * @function
- * @param {String} name
+ * @param {String} no
  * @param {Object} data tax data
  * @return {Object} tax Object
  */
-GeckoJS.TaxComponent.prototype.setTax = function(name, data) {
+    TaxComponent.prototype.setTax = function(no, data) {
 
-    name = name || null;
-    data = data || null;
+        no = no || null;
+        data = data || null;
 
-    if (name == null || data == null ) return false;
+        if (no == null || data == null ) return false;
 
-    var tax = this.getTax(name);
+        var tax = this.getTax(no);
 
-    if (tax == null) return false;
+        if (tax == null) return false;
 
-    var taxId = tax.id;
+        var taxId = tax.id;
 
-    var newTax = GREUtils.extend({}, tax, data);
+        var newTax = GREUtils.extend({}, tax, data);
 
-    return this.addTax(name, newTax.no, newTax.type, newTax.rate, newTax.rate_type, newTax.threshold, taxId);
+        return this.addTax(no, newTax.name, newTax.type, newTax.rate, newTax.rate_type, newTax.threshold, taxId);
 
-};
+    };
 
 
 
-/**
+    /**
  * Removes an Tax . If "cascade" is "true", its group membership is also
  * removed.<br/>
  * <br/>
@@ -149,94 +204,54 @@ GeckoJS.TaxComponent.prototype.setTax = function(name, data) {
  *
  * @public
  * @function  
- * @param {String} name               This is the tax name
+ * @param {String} no               This is the tax no
  * @param {Boolean} cascade           This flag indicates if the removal should cascade to combine tax
  * @return {Boolean}                  Whether the tax has been successfully removed
  */
-GeckoJS.TaxComponent.prototype.removeTax = function(name, cascade) {
+    TaxComponent.prototype.removeTax = function(no, cascade) {
     
-    name = name || null;
-    cascade = cascade || false;
+        no = no || null;
+        cascade = cascade || false;
         
-    // no roleName parameter return false
-    if (name == null) return false;
+        // no roleName parameter return false
+        if (no == null) return false;
          
-    var taxModel = new this.taxModel;
+        var taxModel = new this.taxModel;
 
-    var tax = taxModel.find("first", {
-        conditions: "name='"+name+"'"
-    });
-    if (tax == null) return false;
 
-    var taxId = tax.id;
+        var tax = this.getTax(no);
+        if (tax == null) return false;
+
+        var taxId = tax.id;
     
-    taxModel.id = taxId;
-    taxModel.del(taxId);
+        taxModel.id = taxId;
+        taxModel.del(taxId);
     
-    if (cascade) {
-        var combineTaxModel = new this.combineTaxModel;
-        var childTaxes = combineTaxModel.find('all', {
-            conditions: "tax_id='"+taxId+"'"
+        if (cascade) {
+            var combineTaxModel = new this.combineTaxModel;
+            var childTaxes = combineTaxModel.find('all', {
+                conditions: "tax_id='"+taxId+"'"
             });
-        if(childTaxes.length > 0) {
-            // remove childTaxes;
-            childTaxes.forEach(function(ct) {
-                combineTaxModel.del(ct.id);
-            });
+            if(childTaxes.length > 0) {
+                // remove childTaxes;
+                childTaxes.forEach(function(ct) {
+                    combineTaxModel.del(ct.id);
+                });
+            }
         }
-    }
     
-    delete taxModel;
-    delete combineTaxModel;
-    
-    return true;
+        delete taxModel;
+        delete combineTaxModel;
 
-};
+        if(taxId) this.processCache();
+        
+        return true;
+
+    };
 
 
-/**
+    /**
  * Get an Tax<br/>
- * <br/>
- *
- * @public
- * @function
- * @param {String} name
- * @return {Object} tax Object
- */
-GeckoJS.TaxComponent.prototype.getTax = function(name) {
-
-    var taxModel = new this.taxModel;
-
-    var tax = taxModel.find("first", {
-        conditions: "name='"+name+"'"
-    });
-
-    if (tax == null) tax =  {};
-
-    // reformat object for CombineTax
-    if (tax.CombineTax) {
-
-        var combineTaxes = GeckoJS.Array.objectExtract(tax.CombineTax, "{n}.combine_tax_id");
-        var newCombineTaxes = [];
-
-        combineTaxes.forEach(function(ctid) {
-            var cTax = taxModel.findById(ctid);
-            delete cTax['CombineTax'];
-            if (cTax) newCombineTaxes.push(cTax);
-        });
-
-        tax['CombineTax'] = newCombineTaxes;
-    }
-
-    delete taxModel;
-
-    return tax;
-
-};
-
-
-/**
- * Get an Tax by no<br/>
  * <br/>
  *
  * @public
@@ -244,39 +259,89 @@ GeckoJS.TaxComponent.prototype.getTax = function(name) {
  * @param {String} no
  * @return {Object} tax Object
  */
-GeckoJS.TaxComponent.prototype.getTaxByNo = function(no) {
+    TaxComponent.prototype.getTax = function(no) {
 
-    var taxModel = new this.taxModel;
+        // use cache first
+        var taxesByNo = GeckoJS.Session.get('taxesByNo');
+        if(taxesByNo != null) {
+            if(taxesByNo[no]) return taxesByNo[no];
+        }
 
-    var tax = taxModel.find("first", {
-        conditions: "no='"+no+"'"
-    });
+        // find from model
+        var taxModel = new this.taxModel;
 
-    if (tax == null) tax =  {};
-
-    // reformat object for CombineTax
-    if (tax.CombineTax) {
-
-        var combineTaxes = GeckoJS.Array.objectExtract(tax.CombineTax, "{n}.combine_tax_id");
-        var newCombineTaxes = [];
-        
-        combineTaxes.forEach(function(ctid) {
-            var cTax = taxModel.findById(ctid);
-            delete cTax['CombineTax'];
-            if (cTax) newCombineTaxes.push(cTax);
+        var tax = taxModel.find("first", {
+            conditions: "no='"+no+"'"
         });
 
-        tax['CombineTax'] = newCombineTaxes;
-    }
+        if (tax == null) tax =  {};
+
+        // reformat object for CombineTax
+        if (tax.CombineTax) {
+
+            var combineTaxes = GeckoJS.Array.objectExtract(tax.CombineTax, "{n}.combine_tax_id");
+            var newCombineTaxes = [];
+
+            combineTaxes.forEach(function(ctid) {
+                var cTax = taxModel.findById(ctid);
+                delete cTax['CombineTax'];
+                if (cTax) newCombineTaxes.push(cTax);
+            });
+
+            tax['CombineTax'] = newCombineTaxes;
+        }
+
+        delete taxModel;
+
+        return tax;
+
+    };
+
+
+    /**
+ * Get an Tax by no<br/>
+ * <br/>
+ *
+ * @public
+ * @function
+ * @param {String} name
+ * @return {Object} tax Object
+ */
+    TaxComponent.prototype.getTaxByName = function(name) {
+
+        // find from model
+
+        var taxModel = new this.taxModel;
+
+        var tax = taxModel.find("first", {
+            conditions: "name='"+name+"'"
+        });
+
+        if (tax == null) tax =  {};
+
+        // reformat object for CombineTax
+        if (tax.CombineTax) {
+
+            var combineTaxes = GeckoJS.Array.objectExtract(tax.CombineTax, "{n}.combine_tax_id");
+            var newCombineTaxes = [];
+        
+            combineTaxes.forEach(function(ctid) {
+                var cTax = taxModel.findById(ctid);
+                delete cTax['CombineTax'];
+                if (cTax) newCombineTaxes.push(cTax);
+            });
+
+            tax['CombineTax'] = newCombineTaxes;
+        }
     
-    delete taxModel;
+        delete taxModel;
 
-    return tax;
+        return tax;
 
-};
+    };
 
 
-/**
+    /**
  * Get an Tax List <br/>
  * <br/>
  *
@@ -285,196 +350,261 @@ GeckoJS.TaxComponent.prototype.getTaxByNo = function(no) {
  * @param {String} type         type or "" for all tax list
  * @return {Array} tax array
  */
-GeckoJS.TaxComponent.prototype.getTaxList = function(type) {
+    TaxComponent.prototype.getTaxList = function(type) {
 
-    var taxModel = new this.taxModel;
+        var taxModel = new this.taxModel;
 
-    var params = {};
+        var params = {};
 
-    if (GeckoJS.Array.inArray(type, ["ADDON", "TABLE", "COMBINE", "VAT"]) != -1) {
-        params['conditions'] = "type='"+type+"'";
-    }
+        if (GeckoJS.Array.inArray(type, ["ADDON", "TABLE", "COMBINE", "VAT"]) != -1) {
+            params['conditions'] = "type='"+type+"'";
+        }
     
-    var taxes = taxModel.find("all", params);
+        var taxes = taxModel.find("all", params);
 
-    delete taxModel;
+        delete taxModel;
 
-    return taxes || [];
+        return taxes || [];
 
-};
+    };
 
 
 
-/**
- * Add Combine Taxes , for performance , use uuid for taxes.
+    /**
+ * Add Combine Taxes.
  * 
  * @public
  * @function  
- * @param {String} taxId
+ * @param {String} taxNo
  * @param {Array} combineTaxes
  * @return {Boolean}
  */
-GeckoJS.TaxComponent.prototype.addCombineTax = function(taxId, combineTaxes) {
+    TaxComponent.prototype.addCombineTax = function(no, combineTaxes) {
     
-    taxId = taxId || null;
-    combineTaxes = combineTaxes || [];
+        no = no || null;
+        combineTaxes = combineTaxes || [];
         
-    // no roleName parameter return false
-    if (taxId == null || combineTaxes.length == 0 ) return false;
-         
-    this.removeCombineTax(taxId);
+        // no roleName parameter return false
+        if (no == null || combineTaxes.length == 0 ) return false;
 
-    var combineTaxModel = new this.combineTaxModel;
+        var tax = this.getTax(no);
+        if(tax == null) return false;
 
-    combineTaxes.forEach(function(ctid){
-        combineTaxModel.create();
-        combineTaxModel.save({tax_id: taxId, combine_tax_id: ctid});
-    });
+        var taxId = tax.id + "";
 
-    delete combineTaxModel;
+        this.removeCombineTax(no);
 
-    return true;
+        var combineTaxModel = new this.combineTaxModel;
 
-};
+        var self = this;
+        combineTaxes.forEach(function(cbNo){
+
+            var cbTax = self.getTax(cbNo);
+
+            if(cbTax == null) return;
+
+            var cbId = cbTax.id +"";
+
+            combineTaxModel.create();
+            combineTaxModel.save({
+                tax_id: taxId +"",
+                combine_tax_id: cbId +""
+            });
+            
+        });
+
+        delete combineTaxModel;
+
+        this.processCache();
+
+        return true;
+
+    };
 
 
-/**
- * remove Combine Taxes , for performance , use uuid for taxId.
+    /**
+ * remove Combine Taxes
  *
  * @public
  * @function
- * @param {String} taxId
+ * @param {String} no
  * @return {Boolean}
  */
-GeckoJS.TaxComponent.prototype.removeCombineTax = function(taxId) {
+    TaxComponent.prototype.removeCombineTax = function(no) {
 
-    taxId = taxId || null;
+        no = no || null;
 
-    // no roleName parameter return false
-    if (taxId == null) return false;
+        // no roleName parameter return false
+        if (no == null) return false;
 
-    var combineTaxModel = new this.combineTaxModel;
-    var childTaxes = combineTaxModel.find('all', {
-        conditions: "tax_id='"+taxId+"'"
+        var tax = this.getTax(no);
+        
+        if (tax == null) return false;
+        var taxId = tax.id;
+
+        var combineTaxModel = new this.combineTaxModel;
+        var childTaxes = combineTaxModel.find('all', {
+            conditions: "tax_id='"+taxId+"'"
         });
 
-    if (childTaxes == null) return false;
+        if (childTaxes == null) return false;
 
-    if(childTaxes.length > 0) {
-        // remove childTaxes;
-        childTaxes.forEach(function(ct) {
-            combineTaxModel.del(ct.id);
-        });
-    }
+        if(childTaxes.length > 0) {
+            // remove childTaxes;
+            childTaxes.forEach(function(ct) {
+                combineTaxModel.del(ct.id);
+            });
+        }
 
-    delete combineTaxModel;
+        delete combineTaxModel;
 
-    return true;
+        this.processCache();
 
-};
+        return true;
+
+    };
 
 
-/**
+    /**
  * calculate tax for parameter amount
  *
  *  return detail of calculate result
  *
- *  {taxname: {charge: tax charged, tax: taxObject}, combine: {taxname: {charge: tax charged, tax:taxObject}, taxname2: .....}}
+ *  {taxNo: {charge: tax_charged, tax: taxObject}, combine: {taxNo: {charge: tax_charged, tax:taxObject}, taxNo2: .....}}
  *  
  * @public
  * @function
- * @param {String} name
+ * @param {String} no
  * @param {Number} amount
  * @return {Object} 
  */
-GeckoJS.TaxComponent.prototype.calcTaxAmount = function(name, amount) {
+    TaxComponent.prototype.calcTaxAmount = function(no, amount) {
 
-    var taxObject = null;
-    amount = amount || 0;
-    amount = parseFloat(amount);
+        var taxObject = null;
+        amount = amount || 0;
+        amount = parseFloat(amount);
 
-    var taxAmount = {}; taxAmount[name] = {charge: 0, tax: taxObject};
+        var taxAmount = {}; taxAmount[no] = {
+            charge: 0,
+            tax: taxObject
+        };
 
-    if (this._calcTaxCache[name]) {
-        taxObject = this._calcTaxCache[name];
-    }else {
-        taxObject = this.getTax(name);
-        if(taxObject) this._calcTaxCache[name] = taxObject;
-    }
+        taxObject = this.getTax(no);
 
-    if (taxObject == null || (isNaN(amount) || amount == Infinity) ) return taxAmount;
+        if (taxObject == null || (isNaN(amount) || amount == Infinity) ) return taxAmount;
 
-    taxAmount[name]['tax'] = taxObject;
+        taxAmount[no]['tax'] = taxObject;
 
-    switch(taxObject['type']) {
-        default:
-        case "ADDON":
-            if (amount > taxObject['threshold']) {
-                var charge = 0;
-                if (taxObject['rate_type'] == '$') {
-                    charge = taxObject['rate'];
-                }else {
-                    charge = amount * (taxObject['rate'] / 100) ;
+        switch(taxObject['type']) {
+            default:
+            case "ADDON":
+                if (amount > taxObject['threshold']) {
+                    var charge = 0;
+                    if (taxObject['rate_type'] == '$') {
+                        charge = taxObject['rate'];
+                    }else {
+                        charge = amount * (taxObject['rate'] / 100) ;
+                    }
+                    if (charge > 0) taxAmount[no]['charge'] = charge;
                 }
-                if (charge > 0) taxAmount[name]['charge'] = charge;
-            }
-            break;
+                break;
 
-        case "COMBINE":
-            var totalCharge = 0;
-            taxAmount['combine'] = {};
-            if (amount > taxObject['threshold'] && taxObject.CombineTax != null) {
+            case "COMBINE":
+                var totalCharge = 0;
+                taxAmount['combine'] = {};
+                if (amount > taxObject['threshold'] && taxObject.CombineTax != null) {
 
-                // foreach combine taxes
-                // this.log('Tax List:' + this.dump(taxObject.CombineTax));
-                taxObject.CombineTax.forEach(function(cTaxObj){
-                    if (amount > cTaxObj['threshold']) {
+                    // foreach combine taxes
+                    taxObject.CombineTax.forEach(function(cTaxObj){
+                        if (amount > cTaxObj['threshold']) {
 
-                        var charge = 0;
-                        if (cTaxObj['rate_type'] == '$') {
-                            charge = cTaxObj['rate'];
-                        }else {
-                            charge = amount * (cTaxObj['rate'] / 100) ;
-                        }
+                            var charge = 0;
+                            if (cTaxObj['rate_type'] == '$') {
+                                charge = cTaxObj['rate'];
+                            }else {
+                                charge = amount * (cTaxObj['rate'] / 100) ;
+                            }
                         
-                        if (charge > 0) {
-                            totalCharge += charge;
-                            taxAmount['combine'][cTaxObj.name] = {charge: charge, tax: cTaxObj};
+                            if (charge > 0) {
+                                totalCharge += charge;
+                                taxAmount['combine'][cTaxObj.name] = {
+                                    charge: charge,
+                                    tax: cTaxObj
+                                };
+                            }
                         }
-                    }
-                });
+                    });
 
-                taxAmount[name]['charge'] = totalCharge;
-            }
-            break;
+                    taxAmount[no]['charge'] = totalCharge;
+                }
+                break;
 
-        case "VAT":
-            var totalCharge = 0;
-            taxAmount['combine'] = {};
-            if (amount > taxObject['threshold'] && taxObject.CombineTax != null) {
+            case "VAT":
+                var totalCharge = 0;
+                taxAmount['combine'] = {};
+                if (amount > taxObject['threshold'] && taxObject.CombineTax != null) {
 
-                // foreach combine taxes
-                taxObject.CombineTax.forEach(function(cTaxObj){
-                    if (amount > cTaxObj['threshold']) {
+                    // foreach combine taxes
+                    taxObject.CombineTax.forEach(function(cTaxObj){
+                        if (amount > cTaxObj['threshold']) {
 
-                        var charge = 0;
-                        if (cTaxObj['rate_type'] == '$') {
-                            charge = cTaxObj['rate'];
-                        }else {
-                            charge = (amount + totalCharge) * (cTaxObj['rate'] / 100) ;
+                            var charge = 0;
+                            if (cTaxObj['rate_type'] == '$') {
+                                charge = cTaxObj['rate'];
+                            }else {
+                                charge = (amount + totalCharge) * (cTaxObj['rate'] / 100) ;
+                            }
+
+                            if (charge > 0) {
+                                totalCharge += charge;
+                                taxAmount['combine'][cTaxObj.name] = {
+                                    charge: charge,
+                                    tax: cTaxObj
+                                };
+                            }
                         }
+                    });
 
-                        if (charge > 0) {
-                            totalCharge += charge;
-                            taxAmount['combine'][cTaxObj.name] = {charge: charge, tax: cTaxObj};
-                        }
-                    }
-                });
+                    taxAmount[no]['charge'] = totalCharge;
+                }
+                break;
+        }
+        return taxAmount;
+    };
 
-                taxAmount[name]['charge'] = totalCharge;
-            }
-            break;
-    }
-    return taxAmount;
-};
 
+    TaxComponent.prototype.calcOpenTaxAmount = function(rate_type, rate, amount) {
+
+        var taxObject = null;
+        amount = amount || 0;
+        amount = parseFloat(amount);
+
+        var no = 'OP';
+
+        var taxAmount = {}; taxAmount[no] = {
+            charge: 0,
+            tax: null
+        };
+
+        taxObject = this.getTax(no);
+
+        if ((isNaN(amount) || amount == Infinity) ) return taxAmount;
+    
+        taxAmount[no]['tax'] = {
+            rate_type: rate_type,
+            rate: rate
+        };
+
+        var charge = 0;
+        if (rate_type == '$') {
+            charge = rate;
+        }else {
+            charge = amount * (rate / 100) ;
+        }
+        if (charge > 0) taxAmount[no]['charge'] = charge;
+
+        return taxAmount;
+
+    };
+
+})();
