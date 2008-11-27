@@ -480,10 +480,10 @@
                 <![CDATA[
                     if (hide) {
                         this.controlWidth = this.controlPanel.boxObject.width;
-                        this.keypadWidth = this.boxObject.width;
+                        this.keypadWidth = this.width || this.functionPanel.boxObject.width;
                     }
                     else {
-                        this.keypadWidth = this.boxObject.width - this.controlWidth;
+                        this.keypadWidth = (this.width || this.functionPanel.boxObject.width) - this.controlWidth;
                     }
                     this.controlPanel.setAttribute('hidden', hide);
                     this._clearKeypad();
@@ -544,8 +544,11 @@
 
                         case 'width':
                             //GREUtils.log('[ATTRIBUTE-MODIFIED]: node <' + evt.originalTarget.id + '> attribute <' + evt.attrName + '> changed to value <' + evt.newValue + '>');
-                            if (this.keypadWidth != evt.newValue) {
-                                this.keypadWidth = evt.newValue;
+                            var offset = (this.getAttribute('hideScrollbar') == 'true') ? 0 : this.controlWidth;
+                            var newKeypadWidth = evt.newValue - offset;
+                            if (this.keypadWidth != newKeypadWidth) {
+                                this.keypadWidth = newKeypadWidth;
+
                                 this._clearKeypad();
                                 this._refreshCurrentPage();
                             }
@@ -1185,7 +1188,7 @@
                         posY = i * (cellHeight + vs);
                         for (var j = 0; j < c; j++) {
                             if (dir == 'reverse')
-                                posX = w + hs - (c - j) * (cellWidth + hs);
+                                posX = w - (- hs) - (c - j) * (cellWidth - (- hs));
                             else
                                 posX = j * (cellWidth + hs);
                             var btn = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:vivibutton");
@@ -1249,11 +1252,11 @@
 
                             btn = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:vivibutton");
                             if (dir == 'reverse')
-                                posX = w + hs - (c - column + 1) * (cellWidth + hs);
+                                posX = w - (- hs) - (c - column - (- 1)) * (cellWidth - (- hs));
                             else
-                                posX = (column - 1) * (cellWidth + hs);
+                                posX = (column - 1) * (cellWidth - (- hs));
 
-                            posY = (row - 1) * (cellHeight + vs);
+                            posY = (row - 1) * (cellHeight - (- vs));
 
                             // GREUtils.log('[CUSTOM]: posWidth <' + width + '> <' + cellWidth + '> <' + hs + '>');
                             // GREUtils.log('[CUSTOM]: posHeight <' + height + '> <' + cellHeight + '> <' + vs + '>');
