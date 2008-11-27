@@ -192,71 +192,66 @@
             }
         },
 
-        resetLayout: function (initial) {
-            var registerAtLeft = GeckoJS.Configure.read('vivipos.fec.settings.RegisterAtLeft');
-            var functionPanelOnTop = GeckoJS.Configure.read('vivipos.fec.settings.FunctionPanelOnTop');
-            var PLUbeforeDept = GeckoJS.Configure.read('vivipos.fec.settings.DeptBeforePLU');
-            var hideDeptScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.HideDeptScrollbar');
-            var hidePLUScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.HidePLUScrollbar');
-            var hideFPScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.HideFPScrollbar');
-            var hideNumPad = GeckoJS.Configure.read('vivipos.fec.settings.HideNumPad');
-            
-            var hbox = document.getElementById('mainPanel');
-            var deptPanel = document.getElementById('catescrollablepanel');
-            var pluPanel = document.getElementById('prodscrollablepanel');
-            var fnPanel = document.getElementById('functionPanel');
-            var toolbarPanel = document.getElementById('toolbarPanel');
-            var leftPanel = document.getElementById('leftPanel');
-            var rightPanel = document.getElementById('rightPanel');
-            var productPanel = document.getElementById('productPanel');
-            var btmBox = document.getElementById('vivipos-bottombox');
-            var numPad = document.getElementById('numberpadPanelContainer');
+        toggleNumPad: function (state, initial) {
+            var numPad = document.getElementById('numpad');
             var toolbar = document.getElementById('toolbar');
+            var toggleBtn = document.getElementById('toggleNumPad');
+            var fixedbtnrow = document.getElementById('fixedbtnrow');
             var cartSidebar = document.getElementById('cartsidebar');
-            
-            if (deptPanel) deptPanel.setAttribute('hideScrollbar', hideDeptScrollbar);
-            if (pluPanel) pluPanel.setAttribute('hideScrollbar', hidePLUScrollbar);
-            if (fnPanel) fnPanel.setAttribute('hideScrollbar', hideFPScrollbar);
-
-            if (hbox) hbox.setAttribute('dir', registerAtLeft ? 'reverse' : 'normal');
-            if (deptPanel) deptPanel.setAttribute('dir', registerAtLeft ? 'normal' : 'reverse');
-            if (pluPanel) pluPanel.setAttribute('dir', registerAtLeft ? 'normal' : 'reverse');
-            if (fnPanel) fnPanel.setAttribute('dir', registerAtLeft ? 'reverse' : 'normal');
-            if (toolbarPanel) toolbarPanel.setAttribute('dir', registerAtLeft ? 'reverse' : 'normal');
-            
-            if (leftPanel) leftPanel.setAttribute('dir', functionPanelOnTop ? 'reverse' : 'normal');
-            if (productPanel) productPanel.setAttribute('dir', PLUbeforeDept ? 'reverse' : 'normal');
-            
-            // fudge to make functionPanelOnTop work even if rightPanel is taller than the screen
-            leftPanel.setAttribute('pack', functionPanelOnTop ? 'end' : 'start');
+            var toolbarPanel = document.getElementById('numberpadPanelContainer');
+            var isHidden = numPad.getAttribute('hidden') || 'false';
+            var hideNumPad = state || (isHidden == 'false');
+            var toggled = false;
 
             if (hideNumPad) {
-                if (numPad && (numPad.getAttribute('hidden') != 'true')) {
+                if (numPad && (isHidden != 'true')) {
                 // relocate toolbar to cart
                     if (toolbar && toolbarPanel) toolbarPanel.removeChild(toolbar);
                     if (toolbar && cartSidebar) cartSidebar.appendChild(toolbar);
+                    if (toolbar && fixedbtnrow) {
+                        toolbar.removeChild(toggleBtn);
+                        fixedbtnrow.appendChild(toggleBtn);
+                    }
 
-                    if (numPad) numPad.setAttribute('hidden', true);
+                    if (numPad) numPad.setAttribute('hidden', 'true');
+                    if (toggleBtn) toggleBtn.setAttribute('state', 'true');
+                    toggled = true;
                 }
             }
             else {
                 // if already visible then don't change
-                if (numPad && (numPad.getAttribute('hidden') == 'true')) {
+                if (numPad && (isHidden == 'true')) {
                     // relocate toolbar to toolbarPanel
                     if (toolbar && cartSidebar) cartSidebar.removeChild(toolbar);
                     if (toolbar && toolbarPanel) toolbarPanel.appendChild(toolbar);
+                    if (toolbar && fixedbtnrow) {
+                        fixedbtnrow.removeChild(toggleBtn);
+                        toolbar.appendChild(toggleBtn);
+                    }
 
-                    if (numPad) numPad.setAttribute('hidden', false);
+                    if (numPad) numPad.setAttribute('hidden', 'false');
+                    if (toggleBtn) toggleBtn.setAttribute('state', 'false');
+                    toggled = true;
                 }
             }
 
+            if (toggled) this.resizeLeftPanel(initial);
+            return toggled;
+        },
+
+        resizeLeftPanel: function (initial) {
             // resizing product/function panels
+            var rightPanel = document.getElementById('rightPanel');
+            var deptPanel = document.getElementById('catescrollablepanel');
+            var pluPanel = document.getElementById('prodscrollablepanel');
+            var fnPanel = document.getElementById('functionPanel');
             var departmentRows = GeckoJS.Configure.read('vivipos.fec.settings.DepartmentRows');
             var departmentCols = GeckoJS.Configure.read('vivipos.fec.settings.DepartmentCols');
             var pluRows = GeckoJS.Configure.read('vivipos.fec.settings.PluRows');
             var pluCols = GeckoJS.Configure.read('vivipos.fec.settings.PluCols');
             var fnRows = GeckoJS.Configure.read('vivipos.fec.settings.functionpanel.rows');
             var fnCols = GeckoJS.Configure.read('vivipos.fec.settings.functionpanel.columns');
+            var btmBox = document.getElementById('vivipos-bottombox');
 
             // first check if rows and columns have changed
 
@@ -280,12 +275,12 @@
                     deptPanel.setAttribute('hidden', true);
                 }
             }
-            
+
             if (pluRows > rowsLeft) {
                 pluRows = rowsLeft;
             }
             rowsLeft -= pluRows;
-            
+
             if (initial ||
                 (pluPanel.getAttribute('rows') != pluRows) ||
                 (pluPanel.getAttribute('cols') != pluCols)) {
@@ -301,31 +296,73 @@
                 }
             }
 
-            var totalHeight = deptPanel.boxObject.height - (- pluPanel.boxObject.height);
-            var fnWidth = this.screenwidth - rightPanel.boxObject.width - 5;
-            var fnHeight = this.screenheight - totalHeight - btmBox.boxObject.height;
+            if (fnPanel) {
+                var totalHeight = deptPanel.boxObject.height - (- pluPanel.boxObject.height);
+                var fnWidth = this.screenwidth - rightPanel.boxObject.width - 5;
+                var fnHeight = this.screenheight - totalHeight - btmBox.boxObject.height;
 
-            if (fnHeight < 1) {
-                fnPanel.setAttribute('height', 0);
-                fnPanel.hide();
-            }
-            else {
-                // check if rows/columns have changed
-                var currentRows = fnPanel.rows;
-                var currentColumns = fnPanel.columns;
-
-                if ((currentRows != fnRows) || (currentColumns != fnCols)) {
-                    // need to change layout, first retrieve h/vspacing
-
-                    var hspacing = fnPanel.hspacing;
-                    var vspacing = fnPanel.vspacing;
-
-                    fnPanel.setSize(fnRows, fnCols, hspacing, vspacing);
+                if (fnHeight < 1) {
+                    fnPanel.setAttribute('height', 0);
+                    fnPanel.hide();
                 }
+                else {
+                    // check if rows/columns have changed
+                    var currentRows = fnPanel.rows;
+                    var currentColumns = fnPanel.columns;
 
-                fnPanel.show();
-                fnPanel.setAttribute('height', fnHeight);
-                fnPanel.setAttribute('width', fnWidth);
+                    if ((currentRows != fnRows) || (currentColumns != fnCols)) {
+                        // need to change layout, first retrieve h/vspacing
+
+                        var hspacing = fnPanel.hspacing;
+                        var vspacing = fnPanel.vspacing;
+
+                        fnPanel.setSize(fnRows, fnCols, hspacing, vspacing);
+                    }
+
+                    fnPanel.show();
+                    fnPanel.setAttribute('height', fnHeight);
+                    fnPanel.setAttribute('width', fnWidth);
+                }
+            }
+
+        },
+        
+        resetLayout: function (initial) {
+            var registerAtLeft = GeckoJS.Configure.read('vivipos.fec.settings.RegisterAtLeft');
+            var functionPanelOnTop = GeckoJS.Configure.read('vivipos.fec.settings.FunctionPanelOnTop');
+            var PLUbeforeDept = GeckoJS.Configure.read('vivipos.fec.settings.DeptBeforePLU');
+            var hideDeptScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.HideDeptScrollbar');
+            var hidePLUScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.HidePLUScrollbar');
+            var hideFPScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.HideFPScrollbar');
+            var hideNumPad = GeckoJS.Configure.read('vivipos.fec.settings.HideNumPad');
+            
+            var hbox = document.getElementById('mainPanel');
+            var deptPanel = document.getElementById('catescrollablepanel');
+            var pluPanel = document.getElementById('prodscrollablepanel');
+            var fnPanel = document.getElementById('functionPanel');
+            var toolbarPanel = document.getElementById('numberpadPanelContainer');
+            var leftPanel = document.getElementById('leftPanel');
+            var productPanel = document.getElementById('productPanel');
+            
+            if (deptPanel) deptPanel.setAttribute('hideScrollbar', hideDeptScrollbar);
+            if (pluPanel) pluPanel.setAttribute('hideScrollbar', hidePLUScrollbar);
+            if (fnPanel) fnPanel.setAttribute('hideScrollbar', hideFPScrollbar);
+
+            if (hbox) hbox.setAttribute('dir', registerAtLeft ? 'reverse' : 'normal');
+            if (deptPanel) deptPanel.setAttribute('dir', registerAtLeft ? 'normal' : 'reverse');
+            if (pluPanel) pluPanel.setAttribute('dir', registerAtLeft ? 'normal' : 'reverse');
+            if (fnPanel) fnPanel.setAttribute('dir', registerAtLeft ? 'reverse' : 'normal');
+            if (toolbarPanel) toolbarPanel.setAttribute('dir', registerAtLeft ? 'reverse' : 'normal');
+            
+            if (leftPanel) leftPanel.setAttribute('dir', functionPanelOnTop ? 'reverse' : 'normal');
+            if (productPanel) productPanel.setAttribute('dir', PLUbeforeDept ? 'reverse' : 'normal');
+            
+            // fudge to make functionPanelOnTop work even if rightPanel is taller than the screen
+            leftPanel.setAttribute('pack', functionPanelOnTop ? 'end' : 'start');
+
+            // toggleNumPad() returns true if it invoked resizeLeftPanel()
+            if (!this.toggleNumPad(hideNumPad, initial)) {
+                this.resizeLeftPanel(initial);
             }
         },
         

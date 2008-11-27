@@ -29,7 +29,7 @@
 
             <vbox id="rightPanel" flex="1" class="rightPanel">
                 <vbox id="cartlistPanelContainer" />
-                <vbox id="numberpadPanelContainer" />
+                <box id="numberpadPanelContainer" />
             </vbox>
 
         </hbox>
