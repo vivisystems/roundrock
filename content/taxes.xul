@@ -47,14 +47,15 @@
                             <label  value="Tax Type:" />
                             <textbox id="tax_type" form="taxForm" name="type" value="" default="ADDON" size="15" readonly="true"/>
                         </hbox>
+                        <hbox align="center">
+                            <label  value="Tax Name:" />
+                            <textbox id="tax_name" form="taxForm" name="name" value="" default="" size="15"/>
+                        </hbox>
+
                         <deck id="prop_deck">
 
                             <vbox>
                             
-                                <hbox align="center">
-                                    <label  value="Tax Name:" />
-                                    <textbox id="tax_name" form="taxForm" name="name" value="" default="" size="15"/>
-                                </hbox>
                                 <hbox align="center">
                                     <label value="Tax Rate:"  />
                                     <textbox id="tax_rate" form="taxForm" name="rate" default="0" size="15"/>
