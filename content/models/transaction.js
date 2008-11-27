@@ -277,12 +277,12 @@
 
 
         // format display precision
-        if(itemDisplay.current_subtotal != '' || itemDisplay.current_subtotal == 0) {
+        if(itemDisplay.current_subtotal != '' || itemDisplay.current_subtotal === 0) {
             itemDisplay.current_subtotal = this.formatPrice(itemDisplay.current_subtotal)
         }
         
         // format display precision
-        if(itemDisplay.current_price != ''  || itemDisplay.current_price == 0 ) {
+        if(itemDisplay.current_price != ''  || itemDisplay.current_price === 0 ) {
             itemDisplay.current_price = this.formatPrice(itemDisplay.current_price);
         }
 

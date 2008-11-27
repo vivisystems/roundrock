@@ -106,7 +106,7 @@
                 return;
             }
             var buf = _('TAL') + ': ' + transaction.getTotal(true) ;
-            buf += " " + _('CG') + ': ' + (0-transaction.getRemainTotal(true)) ;
+            buf += " " + _('CG') + ': ' + this.format(0-transaction.getRemainTotal(true)) ;
             this.getVfd().setText(buf);
         },
 
