@@ -200,7 +200,7 @@
             var cartSidebar = document.getElementById('cartsidebar');
             var toolbarPanel = document.getElementById('numberpadPanelContainer');
             var isHidden = numPad.getAttribute('hidden') || 'false';
-            var hideNumPad = state || (isHidden == 'false');
+            var hideNumPad = (state == null) ? (isHidden == 'false') : state;
             var toggled = false;
 
             if (hideNumPad) {
@@ -214,9 +214,9 @@
                     }
 
                     if (numPad) numPad.setAttribute('hidden', 'true');
-                    if (toggleBtn) toggleBtn.setAttribute('state', 'true');
                     toggled = true;
                 }
+                if (toggleBtn) toggleBtn.setAttribute('state', 'true');
             }
             else {
                 // if already visible then don't change
@@ -230,10 +230,11 @@
                     }
 
                     if (numPad) numPad.setAttribute('hidden', 'false');
-                    if (toggleBtn) toggleBtn.setAttribute('state', 'false');
                     toggled = true;
                 }
+                if (toggleBtn) toggleBtn.setAttribute('state', 'false');
             }
+            GeckoJS.Configure.write('vivipos.fec.settings.HideNumPad', hideNumPad);
 
             if (toggled) this.resizeLeftPanel(initial);
             return toggled;
@@ -335,7 +336,7 @@
             var hidePLUScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.HidePLUScrollbar');
             var hideFPScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.HideFPScrollbar');
             var hideNumPad = GeckoJS.Configure.read('vivipos.fec.settings.HideNumPad');
-            
+
             var hbox = document.getElementById('mainPanel');
             var deptPanel = document.getElementById('catescrollablepanel');
             var pluPanel = document.getElementById('prodscrollablepanel');
@@ -484,11 +485,12 @@
 
         dispatch: function(arg) {
 
-            var args = arg.split(',,');
+            var args = arg.split('|');
 
             this.requestCommand(args[0], args[1], args[2]) ;
             
         }
+
 
     });
 

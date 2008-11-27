@@ -22,6 +22,8 @@
             <preference id="pref_privatequeue" name="vivipos.fec.settings.PrivateQueue" type="bool" />
             <preference id="pref_dateformatstr" name="vivipos.fec.settings.DateFormatStr" type="string"/>
             <preference id="pref_timeformatstr" name="vivipos.fec.settings.TimeformatStr" type="string"/>
+
+            <preference id="pref_activepricelevelschedule" name="vivipos.fec.settings.ActivePriceLevelSchedule" type="bool" />
         </preferences>
         <hbox align="center">
             <label control="terminalid" value="&vivipos.fec.settings.terminalid;"/>
@@ -30,6 +32,7 @@
 
         <checkbox preference="pref_privatequeue" id="pref_privatequeueCtrl" label="&vivipos.fec.settings.privatequeue;" />
         <checkbox preference="pref_publicattendance" id="pref_publicAttendanceCtrl" label="&vivipos.fec.settings.publicattendance;" />
+        <checkbox preference="pref_activepricelevelschedule" id="pref_activepricelevelscheduleCtrl" label="&vivipos.fec.settings.activepricelevelschedule;" />
 
         <hbox align="center">
             <label control="precisionprices" value="&vivipos.fec.settings.defaultpricelevel;"/>
@@ -103,7 +106,6 @@
         <preferences>
 			
             <preference id="pref_registeratleft" name="vivipos.fec.settings.RegisterAtLeft" type="bool"/>
-            <preference id="pref_hidenumpad" name="vivipos.fec.settings.HideNumPad" type="bool"/>
             <preference id="pref_functionpanelontop" name="vivipos.fec.settings.FunctionPanelOnTop" type="bool"/>
             <preference id="pref_plubeforedept" name="vivipos.fec.settings.DeptBeforePLU" type="bool"/>
             <preference id="pref_hidedeptscrollbar" name="vivipos.fec.settings.HideDeptScrollbar" type="bool"/>
@@ -119,7 +121,6 @@
         </preferences>
 
         <checkbox id="registeratleft" label="&vivipos.fec.settings.layout.registeratleft;" preference="pref_registeratleft"/>
-        <checkbox id="hidenumpad" label="&vivipos.fec.settings.layout.hidenumpad;" preference="pref_hidenumpad"/>
         <checkbox id="functionpanelontop" label="&vivipos.fec.settings.layout.functionpanelontop;" preference="pref_functionpanelontop"/>
         <checkbox id="PLUbeforedept" label="&vivipos.fec.settings.layout.PLUbeforedept;" preference="pref_plubeforedept"/>
         <checkbox id="hideDeptScrollbar" label="&vivipos.fec.settings.layout.hidedeptscrollbar;" preference="pref_hidedeptscrollbar"/>

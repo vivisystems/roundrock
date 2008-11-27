@@ -75,8 +75,6 @@
                 this._data = productsIndexesByCate[cate.no] || [];
             }
 
-            
-
             try {
                 this.tree.invalidate();
             }catch(e) {}
