@@ -144,6 +144,8 @@
             columnsObj.setAttribute('hidden', "true");
             GeckoJS.Helper.removeAllChildren(columnsObj);
 
+            var crop = this.getAttribute('crop');
+
             var cols = parseInt(this.cols) || 0;
 
             for(let i=0; i < cols ; i++) {
@@ -173,7 +175,7 @@
                     btn.setAttribute("anonid", i*cols+j);
 
                     if (this.buttonClass) btn.setAttribute('class', this.buttonClass);
-
+                    if(crop) btn.setAttribute('crop', crop);
                     btn.setAttribute('disabled', 'true');
                     buttons.push(btn);
                     row.appendChild(btn);
@@ -295,7 +297,8 @@
                     buttons[i].setAttribute('disabled', 'true');
                     // buttons[i].setAttribute('label', "");
                     buttons[i].setLabel("");
-                    buttons[i].setAttribute('image', '');
+                    // buttons[i].setAttribute('image', '');
+                    buttons[i].setImage('');
                     if (buttonClass) buttons[i].setAttribute('class', buttonClass);
 
                 }else {
@@ -309,9 +312,11 @@
                     
                     let image = datasource.getImageSrc(row, {id: imageField});
                     if (image) {
-                        buttons[i].setAttribute('image', image);
+                        // buttons[i].setAttribute('image', image);
+                        buttons[i].setImage(image);
                     }else {
-                        buttons[i].setAttribute('image', '');
+                        //buttons[i].setAttribute('image', '');
+                        buttons[i].setImage('');
                     }
 
                     if (typeof datasource.renderButton == 'function') {

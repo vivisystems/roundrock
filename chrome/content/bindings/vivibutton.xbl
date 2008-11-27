@@ -14,9 +14,10 @@
   <content>
       <children includes="observes|template|menupopup|tooltip"/>
       <xul:hbox class="box-inherit button-box" xbl:inherits="align,dir,pack,orient"
-                align="center" pack="center" flex="1" anonid="vivibutton-box">
-          <xul:image class="button-icon" xbl:inherits="src=image"/>
-          <xul:label class="button-text" xbl:inherits="accesskey,crop"> </xul:label>
+                align="center" pack="center" flex="1" anonid="vivibutton-box" style="overflow: hidden;">
+          <xul:image anonid="image" class="button-icon" xbl:inherits="src=image"/>
+          <!-- xul:label anonid="label" crop="end" class="button-text" xbl:inherits="accesskey,crop"> </xul:label-->
+          <xul:description anonid="label" class="button-text" xbl:inherits="value=label,accesskey,crop" > </xul:description>
       </xul:hbox>
   </content>
 
@@ -29,10 +30,14 @@
         var self = this;
 
         this.vivibuttonBox = document.getAnonymousElementByAttribute(this, "anonid", "vivibutton-box");
-       
-       	this.aLabel = this.vivibuttonBox.childNodes[1];
+        this.vivibuttonImage = document.getAnonymousElementByAttribute(this, "anonid", "image");
+       	// this.aLabel = this.vivibuttonBox.childNodes[1];
+        this.aLabel = document.getAnonymousElementByAttribute(this, "anonid", "label");
 
         var value = this.getAttribute('label') || '';
+        if(this.aLabel.getAttribute('crop')) {
+            this.aLabel.removeChild(this.aLabel.firstChild);
+        }
         this.setLabel(value);
 
         self.render();
@@ -79,6 +84,10 @@
                 this.setLabel(value);
             break;
 
+            case 'image':
+                this.setImage(value);
+                break;
+
         }
 
       ]]>
@@ -90,21 +99,49 @@
       <body><![CDATA[
 
         var label = this.aLabel;
-        label.firstChild.data = value;
+        if(label.getAttribute('crop')) {
+            label.value = value;
+        }else {
+            label.firstChild.data = value;
+        }
+        //
 
       ]]>
       </body>
     </method>     
+
     	
     <method name="getLabel">
       <body><![CDATA[
 
         var label = this.aLabel;
         return label.firstChild.data;
+        //return label.value;
+
+        if(label.getAttribute('crop')) {
+            return label.value;
+        }else {
+            return label.firstChild.data;
+        }
+
 
       ]]>
       </body>
     </method>     
+
+
+    <method name="setImage">
+      <parameter name="value" />
+      <body><![CDATA[
+
+        var image = this.vivibuttonImage;
+        image.src = value;
+        if(image.src == '') image.collapsed = true;
+        else image.collapsed = false;
+
+      ]]>
+      </body>
+    </method>
 
 
     <method name="render">
