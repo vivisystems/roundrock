@@ -7,7 +7,7 @@
             this._data = [];
             this.hideUnvisible = this.hideUnvisible || false;
 
-            if (GeckoJS.Session.get('products') == null) {
+            if (GeckoJS.Session.get('categories') == null) {
                 this.updateCategories();
             }
 

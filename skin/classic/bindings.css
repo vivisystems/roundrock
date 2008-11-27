@@ -7,3 +7,8 @@ button_colorpicker {
 button_fontsizepicker {
   -moz-binding: url("chrome://viviecr/content/bindings/button_fontsizepicker.xbl#button_fontsizepicker");
 }
+
+vividatetimepicker {
+  -moz-binding: url("chrome://viviecr/content/bindings/vividatetimepicker.xbl#vividatetimepicker");
+}
+

@@ -50,6 +50,40 @@
         },
 
 
+        setCatePanelIndex: function(index) {
+
+            this._currentCateIndex = index;
+
+            var cate = this._cateView.getCurrentIndexData(index);
+
+            if(! cate) return;
+
+            var productsIndexesByCate;
+
+            if (this.hideUnvisible) {
+                if(typeof cate['no'] == 'undefined') {
+                    // group
+                    productsIndexesByCate = GeckoJS.Session.get('productsIndexesByLinkGroup');
+                    this._data = productsIndexesByCate[cate.name] || [];
+                }else {
+                    productsIndexesByCate = GeckoJS.Session.get('productsIndexesByCate');
+                    this._data = productsIndexesByCate[cate.no] || [];
+                }
+                
+            }else {
+                productsIndexesByCate = GeckoJS.Session.get('productsIndexesByCateAll');
+                this._data = productsIndexesByCate[cate.no] || [];
+            }
+
+            
+
+            try {
+                this.tree.invalidate();
+            }catch(e) {}
+
+
+        },
+
         /**
          * FrontEnd style
          */

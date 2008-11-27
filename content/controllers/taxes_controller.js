@@ -55,9 +55,9 @@
             if (valObj.type == 'COMBINE') {
                 document.getElementById('prop_deck').selectedIndex=1;
 
-                var taxes = this.Tax.getTax(valObj.name);
+                var taxes = this.Tax.getTax(valObj.no);
                 var combineTax = taxes.CombineTax;
-                var combineTaxarray = GeckoJS.Array.objectExtract(combineTax, '{n}.name');
+                var combineTaxarray = GeckoJS.Array.objectExtract(combineTax, '{n}.no');
                 var combineTaxStr = combineTaxarray.join(",");
                 valObj.combine_tax = combineTaxStr;
                 
@@ -103,7 +103,7 @@
                 input1:null,
                 combinetax:false
             };
-            window.openDialog(aURL, "prompt_additem", features, "New Tax", "Please input:", "No:", "Name", inputObj);
+            window.openDialog(aURL, "prompt_additem", features, "New Tax", "Please input:", "Tax Code:", "Tax Name:", inputObj);
             if (inputObj.ok && inputObj.input0 && inputObj.input1) {
 
                 var tax_type = "ADDON";
@@ -115,9 +115,14 @@
                     type: tax_type
                 };
                 if (this._checkData(data) == 0) {
-                    this.Tax.setTax(data.name, data);
+                    this.Tax.setTax(data.no, data);
 
                     this.createAddonTaxList();
+
+                    // set selectedIndex to added data
+                    this.getListObj().selectedIndex = this._listDatas.length;
+                    this.getListObj().selectedItems = [this._listDatas.length];
+
                     this.load(data);
                 }
             }
@@ -131,14 +136,23 @@
             var listObj = this.getListObj();
             var selectedIndex = listObj.selectedIndex;
             var tax = this._listDatas[selectedIndex];
-            this.Tax.removeTax(tax.name);
+
+            this.Tax.removeTax(tax.no);
             this.load();
         },
 
         update: function (evt) {
             
             var data = this.getInputData();
-            this.Tax.setTax(data.name, data);
+            
+            //alert(this.dump(data));
+
+            if (data.type == 'COMBINE' || data.type =='VAT') {
+                this.Tax.addCombineTax(data.no, data.combine_tax.split(','));
+            }
+            delete(data.combine_tax);
+            this.Tax.setTax(data.no, data);
+
             this.load(data);
             
         },
@@ -157,6 +171,7 @@
         load: function (data) {
 
             var listObj = this.getListObj();
+            var selectedIndex = listObj.selectedIndex;
             var taxes = this.Tax.getTaxList();
 
             var panelView =  new NSITaxesView(taxes);
@@ -165,12 +180,15 @@
             this._listDatas = taxes;
 
             var index = 0;
+
             if (data) {
                 listObj.value = data;
-            } else if (taxes) {
+                listObj.selectedItems = [selectedIndex];
+                listObj.selectedIndex = selectedIndex;
+            }else if(taxes) {
                 listObj.selectedItems = [0];
                 listObj.selectedIndex = 0;
-            };
+            }
 
             this.select();
 

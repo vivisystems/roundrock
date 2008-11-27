@@ -443,6 +443,14 @@
                 $do('clear', null, 'Cart');
             }
             this.ChangeUserDialog();
+        },
+
+        dispatch: function(arg) {
+
+            var args = arg.split(',,');
+
+            this.requestCommand(args[0], args[1], args[2]) ;
+            
         }
 
     });

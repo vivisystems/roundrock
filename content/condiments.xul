@@ -22,7 +22,7 @@
                         <caption label="Condiment Group:" />
 
                         <hbox>
-                            <viviscrollablebuttonpanel dir="reverse" id="condimentscrollablepanel" flex="1" cols="3" rows="2" labelField="name" imageField="no" oncommand="$do('changeCondimentPanel',this.selectedIndex, 'Condiments');"
+                            <viviscrollablebuttonpanel dir="reverse" id="condimentscrollablepanel" flex="1" cols="3" rows="2" labelField="name" oncommand="$do('changeCondimentPanel',this.selectedIndex, 'Condiments');"
                               class="catescrollablepanel" buttonClass="catbtn button-radius button-white font-medium" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue"/>
                             <vbox style="width: 400px;">
                                 <hbox align="center">

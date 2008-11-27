@@ -25,6 +25,10 @@
             var condscrollablepanel = document.getElementById('condimentscrollablepanel');
             condscrollablepanel.datasource = condPanelView;
 
+            condscrollablepanel.selectedIndex = 0;
+            condscrollablepanel.selectedItems = [0];
+
+            this.changeCondimentPanel(0);
 
             // bind condiment data
 //            if (condiments.length > 0) {
@@ -44,6 +48,8 @@
             var condPanelView =  new NSICondimentsView(conds);
             var condscrollablepanel = document.getElementById('detailscrollablepanel');
             condscrollablepanel.datasource = condPanelView;
+
+            this.clickCondimentPanel(0);
 
         },
 
