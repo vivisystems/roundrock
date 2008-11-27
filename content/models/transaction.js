@@ -275,17 +275,15 @@
             });           
         }
 
-        var options = {
-          places: this.data.PrecisionPrices
-        };
 
         // format display precision
         if(itemDisplay.current_subtotal != '' || itemDisplay.current_subtotal == 0) {
-            itemDisplay.current_subtotal = Transaction.Number.format(itemDisplay.current_subtotal, options);
+            itemDisplay.current_subtotal = this.formatPrice(itemDisplay.current_subtotal)
         }
+        
         // format display precision
         if(itemDisplay.current_price != ''  || itemDisplay.current_price == 0 ) {
-            itemDisplay.current_price = Transaction.Number.format(itemDisplay.current_price, options);
+            itemDisplay.current_price = this.formatPrice(itemDisplay.current_price);
         }
 
         return itemDisplay;
@@ -1077,25 +1075,17 @@
 
     Transaction.prototype.getTotal = function(format) {
         format = format || false;
-        if (format) {
-            var options = {
-                places: this.data.PrecisionPrices
-            };
-            // format display precision
-            return Transaction.Number.format(this.data.total, options);
-        }
+        
+        if (format) return this.formatPrice(this.data.total);
+
         return this.data.total;
     };
 
     Transaction.prototype.getRemainTotal = function(format) {
         format = format || false;
-        if (format) {
-            var options = {
-                places: this.data.PrecisionPrices
-            };
-            // format display precision
-            return Transaction.Number.format(this.data.remain, options);
-        }
+
+        if (format) return this.formatPrice(this.data.remain);
+
         return this.data.remain;
     };
 
@@ -1111,5 +1101,12 @@
         return roundedTax;
     };
 
+    Transaction.prototype.formatPrice = function(price) {
+        var options = {
+          places: ((this.data.PrecisionPrices>0)?this.data.PrecisionPrices:0)
+        };
+        // format display precision
+        return Transaction.Number.format(price, options);
+    };
 
 })();

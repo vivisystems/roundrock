@@ -121,8 +121,10 @@
         },
 
         format: function(number) {
+            this.roundPrecision = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
+            
             var options = {
-                places: this.roundPrecision
+                places: ((this.roundPrecision>0)? this.roundPrecision : 0)
             };
             // format display precision
             return GeckoJS.NumberHelper.format(number, options);
