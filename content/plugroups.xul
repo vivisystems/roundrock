@@ -32,6 +32,14 @@
                                     <textbox id="plugroup_name" value="" form="plugroupForm" name="name" />
                                 </hbox>
                                 <checkbox id="visible" value="true" label="Visible" form="plugroupForm" name="visible" default="false"/>
+                                <groupbox>
+                                    <caption label="Button Color:" />
+                                    <button_colorpicker id="group_button_color" form="plugroupForm" name="button_color" buttonClass="catbtn button-radius"/>
+                                </groupbox>
+                                <groupbox>
+                                    <caption label="Font Size:" />
+                                    <button_fontsizepicker id="group_font_size" form="plugroupForm" name="font_size" buttonClass="catbtn button-white button-radius"/>
+                                </groupbox>
                                 <spacer style="height: 10px;" />
                                 <hbox>
                                     <button label="&vivipos.fec.common.add;" class="editbtns" oncommand="$do('add', null, 'Plugroups');" />

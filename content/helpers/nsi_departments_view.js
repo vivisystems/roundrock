@@ -110,7 +110,7 @@
 
         },
 
-        /**
+        /*
          * FrontEnd style
          */
         renderButton: function(row, btn) {
