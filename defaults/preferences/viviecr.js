@@ -55,7 +55,6 @@ pref("vivipos.fec.settings.controlpanels.pluprop.path", "chrome://viviecr/conten
 pref("vivipos.fec.settings.controlpanels.pluprop.icon", "chrome://viviecr/content/skin/icons/gtk-paste.png");
 pref("vivipos.fec.settings.controlpanels.pluprop.roles", "admin");
 
-
 pref("vivipos.fec.settings.controlpanels.reports.label", "Reports");
 pref("vivipos.fec.settings.controlpanels.reports.path", "chrome://viviecr/content/report.xul");
 pref("vivipos.fec.settings.controlpanels.reports.icon", "chrome://viviecr/content/skin/icons/gtk-copy.png");
@@ -71,18 +70,24 @@ pref("vivipos.fec.settings.controlpanels.jobs.path", "chrome://viviecr/content/j
 pref("vivipos.fec.settings.controlpanels.jobs.icon", "chrome://viviecr/content/skin/icons/document-open-recent.png");
 pref("vivipos.fec.settings.controlpanels.jobs.roles", "admin");
 
-user_pref("vivipos.fec.registry.function.programmable.pricelevelshift.access", "manager");
-user_pref("vivipos.fec.registry.function.programmable.pricelevelshift.command", "priceLevel");
-user_pref("vivipos.fec.registry.function.programmable.pricelevelshift.controller", "Cart");
-user_pref("vivipos.fec.registry.function.programmable.pricelevelshift.data", "");
-user_pref("vivipos.fec.registry.function.programmable.pricelevelshift.desc", "This function shifts the current price level.");
-user_pref("vivipos.fec.registry.function.programmable.pricelevelshift.label", "Price Level Shift");
-user_pref("vivipos.fec.registry.function.programmable.pricelevelshift.name", "Price Level Shift");
-user_pref("vivipos.fec.registry.function.programmable.taxshift.access", "manager");
-user_pref("vivipos.fec.registry.function.programmable.taxshift.command", "doTaxShift1,TaxShift2,TaxShift3");
-user_pref("vivipos.fec.registry.function.programmable.taxshift.controller", "ctrl1,ctrl2,ctrl3");
-user_pref("vivipos.fec.registry.function.programmable.taxshift.data", "");
-user_pref("vivipos.fec.registry.function.programmable.taxshift.desc", "This function shifts the tax status of the selected/last registered item.");
-user_pref("vivipos.fec.registry.function.programmable.taxshift.label", "Tax Shift");
-user_pref("vivipos.fec.registry.function.programmable.taxshift.name", "Tax Shift");
+pref("vivipos.fec.registry.function.programmable.pricelevelshift.access", "manager");
+pref("vivipos.fec.registry.function.programmable.pricelevelshift.command", "priceLevel");
+pref("vivipos.fec.registry.function.programmable.pricelevelshift.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.pricelevelshift.data", "");
+pref("vivipos.fec.registry.function.programmable.pricelevelshift.desc", "This function shifts the current price level.");
+pref("vivipos.fec.registry.function.programmable.pricelevelshift.label", "Price Level Shift");
+pref("vivipos.fec.registry.function.programmable.pricelevelshift.name", "Price Level Shift");
+pref("vivipos.fec.registry.function.programmable.taxshift.access", "manager");
+pref("vivipos.fec.registry.function.programmable.taxshift.command", "doTaxShift1,TaxShift2,TaxShift3");
+pref("vivipos.fec.registry.function.programmable.taxshift.controller", "ctrl1,ctrl2,ctrl3");
+pref("vivipos.fec.registry.function.programmable.taxshift.data", "");
+pref("vivipos.fec.registry.function.programmable.taxshift.desc", "This function shifts the tax status of the selected/last registered item.");
+pref("vivipos.fec.registry.function.programmable.taxshift.label", "Tax Shift");
+pref("vivipos.fec.registry.function.programmable.taxshift.name", "Tax Shift");
 
+pref('vivipos.fec.registry.comm.port1.id', 'port1');
+pref('vivipos.fec.registry.comm.port1.name', 'COM1');
+pref('vivipos.fec.registry.comm.port1.path', '/dev/ttya');
+pref('vivipos.fec.registry.comm.port2.id', 'port2');
+pref('vivipos.fec.registry.comm.port2.name', 'COM2');
+pref('vivipos.fec.registry.comm.port2.path', '/dev/ttyb');
