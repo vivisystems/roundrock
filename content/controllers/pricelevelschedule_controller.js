@@ -69,23 +69,23 @@
             var pricelevel = this.getPriceLevelObj().value;
             let item = {time: seltime, pricelevel: pricelevel};
 
-            var addDefault = false;
+            var addedDefault = false;
             var modify = false;
             this._listDatas.forEach(function(o){
-                if (o.time == "00:00") addDefault = true;
-                else if (o.time == item.time) {
+                if (o.time == "00:00") addedDefault = true;
+                if (o.time == item.time) {
                     o.pricelevel = item.pricelevel;
                     modify = true;
                 }
             });
 
-            if (!addDefault) {
+            if (!addedDefault) {
                 let item = {time: "00:00", pricelevel: 0};
                 this._listDatas.push(item);
             }
 
             if (!modify) {
-               this._listDatas.push(item);
+                this._listDatas.push(item);
             }
 
             let datas = new GeckoJS.ArrayQuery(this._listDatas).orderBy("time asc");
@@ -99,11 +99,13 @@
         },
 
         remove: function() {
-
+            var index = this._listObj.selectedIndex;
+            if (index < 0) return;
+            
             if (GREUtils.Dialog.confirm(null, "confirm remove", "Are you sure?")) {
 
-                var index = this._listObj.selectedIndex;
-                if(index >= 0) {
+                
+                if(index > 0) {
 
                     var datas = [];
                     var itemtime = this._listDatas[index].time;
@@ -111,13 +113,15 @@
                         if (o.time != itemtime) datas.push(o);
                     });
                     this._listDatas = datas;
-
-                    var datastr = GeckoJS.BaseObject.serialize(this._listDatas);
-                    GeckoJS.Configure.write('vivipos.fec.settings.PriceLevelSchedule', datastr);
-
-                    this.updateSession();
-                    
+                } else if (index == 0){
+                    this._listDatas[0].pricelevel = 0;
                 }
+
+                var datastr = GeckoJS.BaseObject.serialize(this._listDatas);
+                GeckoJS.Configure.write('vivipos.fec.settings.PriceLevelSchedule', datastr);
+
+                this.updateSession();
+
             }
         },
 

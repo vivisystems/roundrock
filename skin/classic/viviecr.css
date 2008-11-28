@@ -388,6 +388,15 @@ treeitem {
   height: 32px;
   border-bottom-color: #aaa;
 }
+.pricelevelschedule {
+  min-width: 380px;
+  max-width: 380px;
+  width:380px;
+
+  min-height: 420px;
+  max-height: 420px;
+  height:420px;
+}
 
 .userscrollablepanel {
    max-height: 459px;
@@ -527,6 +536,12 @@ treeitem {
     height: 45px;
     width: 160px;
 }
+.timepickerbtns {
+    min-height:40px;
+    max-height:40px;
+    height: 40px;
+    background: url(images/gray.png);
+}
 .dialogbtns button hbox{
   max-height: 50px;
   height: 50px;
@@ -609,7 +624,7 @@ treeitem {
     /* background: white; */
     background: url(images/white.png);
 }
-.systembtn:active {
+.systembtn:active, .numberpad button:active {
     background-position:0pt -64px;
 }
 .systembtn[disabled=true] {

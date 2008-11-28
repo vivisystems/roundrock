@@ -76,6 +76,17 @@
         createRoleList: function () {
 
             var self = this;
+/*
+            this.Acl.addRole('department_add');
+            this.Acl.addRole('department_delete');
+            this.Acl.addRole('department_update');
+            this.Acl.addRole('plu_add');
+            this.Acl.addRole('plu_delete');
+            this.Acl.addRole('plu_update');
+            this.Acl.addRole('user_add');
+            this.Acl.addRole('user_delete');
+            this.Acl.addRole('user_update');
+*/
             var roles = this.Acl.getRoleList();
             var panelView =  new NSIRolesView(roles);
             this.getRoleListObj().datasource = panelView;

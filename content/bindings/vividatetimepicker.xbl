@@ -21,9 +21,9 @@
             <xul:box>
                 <xul:vbox align="center">
                     <xul:hbox>
-                        <xul:button class="button_vividatetimepicker" xbl:inherits="disabled,class" label="+1:00" type="repeat" oncommand="document.getBindingParent(this)._increaseOrDecreaseHour(1);"/>
-                        <xul:button class="button_vividatetimepicker" xbl:inherits="disabled,class" label="+0:15" type="repeat" oncommand="document.getBindingParent(this)._increaseOrDecreaseMinute(15);"/>
-                        <xul:button class="button_vividatetimepicker" xbl:inherits="disabled,class" label="+0:01" type="repeat" oncommand="document.getBindingParent(this)._increaseOrDecreaseMinute(1);"/>
+                        <xul:button class="button_vividatetimepicker" xbl:inherits="disabled,class=buttonClass" label="+1:00" type="repeat" oncommand="document.getBindingParent(this)._increaseOrDecreaseHour(1);"/>
+                        <xul:button class="button_vividatetimepicker" xbl:inherits="disabled,class=buttonClass" label="+0:15" type="repeat" oncommand="document.getBindingParent(this)._increaseOrDecreaseMinute(15);"/>
+                        <xul:button class="button_vividatetimepicker" xbl:inherits="disabled,class=buttonClass" label="+0:01" type="repeat" oncommand="document.getBindingParent(this)._increaseOrDecreaseMinute(1);"/>
                         <!-- xul:button class="button_vividatetimepicker" xbl:inherits="disabled,class=buttonClass" label="S+" type="repeat" oncommand="document.getBindingParent(this)._increaseOrDecreaseSecond(1);"/ -->
                     </xul:hbox>
                     <xul:hbox align="center">
@@ -32,9 +32,9 @@
                         <xul:timepicker anonid="hidden_timepicker" inherits="class,flex,align,dir,pack,orient,style,hideseconds" style="display:none;"/>
                     </xul:hbox>
                     <xul:hbox>
-                        <xul:button class="button_vividatetimepicker" xbl:inherits="disabled,class" label="-1:00" type="repeat" oncommand="document.getBindingParent(this)._increaseOrDecreaseHour(-1);"/>
-                        <xul:button class="button_vividatetimepicker" xbl:inherits="disabled,class" label="-0:15" type="repeat" oncommand="document.getBindingParent(this)._increaseOrDecreaseMinute(-15);"/>
-                        <xul:button class="button_vividatetimepicker" xbl:inherits="disabled,class" label="-0:01" type="repeat" oncommand="document.getBindingParent(this)._increaseOrDecreaseMinute(-1);"/>
+                        <xul:button class="button_vividatetimepicker" xbl:inherits="disabled,class=buttonClass" label="-1:00" type="repeat" oncommand="document.getBindingParent(this)._increaseOrDecreaseHour(-1);"/>
+                        <xul:button class="button_vividatetimepicker" xbl:inherits="disabled,class=buttonClass" label="-0:15" type="repeat" oncommand="document.getBindingParent(this)._increaseOrDecreaseMinute(-15);"/>
+                        <xul:button class="button_vividatetimepicker" xbl:inherits="disabled,class=buttonClass" label="-0:01" type="repeat" oncommand="document.getBindingParent(this)._increaseOrDecreaseMinute(-1);"/>
                         <!-- xul:button class="button_vividatetimepicker" xbl:inherits="disabled,class=buttonClass" label="S-" type="repeat" oncommand="document.getBindingParent(this)._increaseOrDecreaseSecond(-1);"/ -->
                     </xul:hbox>
                 </xul:vbox>
