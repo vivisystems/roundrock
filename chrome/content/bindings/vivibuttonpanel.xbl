@@ -342,6 +342,7 @@
             this.canceled = this.dispatchEvent(evt);
 
             this._startOffset = (this._startOffset < 0) ? 0 : this._startOffset;
+            if (this._startOffset > this.rowCount) this._startOffset = 0;
             this.render();
 
         ]]>  
