@@ -50,6 +50,11 @@
 <!ENTITY vivipos.fec.settings.layout.hidedeptscrollbar "Hide scrollbars for Department Panel">
 <!ENTITY vivipos.fec.settings.layout.hidepluscrollbar "Hide scrollbars for PLU Panel">
 <!ENTITY vivipos.fec.settings.layout.hidefpscrollbar "Hide scrollbars for Function Panel">
+
+<!ENTITY vivipos.fec.settings.layout.cropdeptlabel "Crop Department Label (Need restart vivipos application)">
+<!ENTITY vivipos.fec.settings.layout.cropplulabel "Crop PLU Label (Need restart vivipos application)">
+
+
 <!ENTITY vivipos.fec.users.basedata "User Profile">
 <!ENTITY vivipos.fec.users.option1 "User Limits">
 <!ENTITY vivipos.fec.users.option2 "Check Tracking">

@@ -170,7 +170,6 @@
             condiments: null,
             memo: null,
             
-            hasTax: false,
             hasDiscount: false,
             hasSurcharge: false,
             hasMarker: false
@@ -195,6 +194,7 @@
                 current_qty: item.current_qty,
                 current_price: item.current_price,
                 current_subtotal: item.current_subtotal,
+                current_tax: item.tax_name,
                 type: type,
                 index: index,
                 level: 0
@@ -208,6 +208,7 @@
                 current_qty: '',
                 current_price: '',
                 current_subtotal: item.current_discount,
+                current_tax: '',
                 type: type,
                 index: index,
                 level: 2
@@ -221,6 +222,7 @@
                 current_qty: '',
                 current_price: '',
                 current_subtotal: item.current_discount,
+                current_tax: '',
                 type: type,
                 index: index,
                 level: 0
@@ -234,6 +236,7 @@
                 current_qty: '',
                 current_price: '',
                 current_subtotal: item.current_surcharge,
+                current_tax: '',
                 type: type,
                 index: index,
                 level: 2
@@ -247,6 +250,7 @@
                 current_qty: '',
                 current_price: '',
                 current_subtotal: item.current_surcharge,
+                current_tax: '',
                 type: type,
                 index: index,
                 level: 0
@@ -258,6 +262,7 @@
                 current_qty: '',
                 current_price: '',
                 current_subtotal: item.current_subtotal,
+                current_tax: '',
                 type: type,
                 index: index,
                 level: 0
@@ -269,6 +274,7 @@
                 current_qty: '',
                 current_price: '',
                 current_subtotal: '',
+                current_tax: '',
                 type: type,
                 index: index,
                 level: 1
@@ -1016,6 +1022,36 @@
 
     Transaction.prototype.calcItemsTax =  function() {
         var obj = this.data;
+
+        // item subtotal
+        for(var itemIndex in this.data.items ) {
+            var item = this.data.items[itemIndex];
+
+            /*
+            tax_name: item.rate,
+            tax_rate: null,
+            tax_type: null,
+            current_tax: 0,
+            */
+
+            var tax = Transaction.Tax.getTax(item.tax_name);
+            if(tax) {
+                item.tax_rate = tax.rate;
+                item.tax_type = tax.type;
+                
+                var taxChargeObj = Transaction.Tax.calcTaxAmount(item.tax_name, item.current_subtotal);
+
+                // @todo total only or summary ?
+                item.current_tax =  taxChargeObj[item.tax_name].charge;
+            }else {
+                item.current_tax = 0;
+            }
+
+            // rounding tax
+            item.current_tax = this.getRoundedTax(item.current_tax);
+
+        }
+
         this.log('DEBUG', 'dispatchEvent onCalcItemsTax ' + obj);
         Transaction.events.dispatch('onCalcItemsTax', obj, this);
 
