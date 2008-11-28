@@ -40,7 +40,7 @@
 
         rowCountChanged: function(rc1, rc2) {
             // lazy way ? full refresh
-            this._cartList.datasource = this;
+            var oldIndex = this._cartList.currentIndex;
 
             // standard way, update rowCountChanged event.
             /*
@@ -50,10 +50,19 @@
                 this.tree.invalidate();
             }*/
             if (rc1 != rc2) {
+                // lazy way ? full refresh
+                this._cartList.datasource = this;
+
                 this.tree.ensureRowIsVisible(rc2-1);
                 this.tree.view.selection.currentIndex = rc2-1;
                 this.tree.view.selection.select(rc2-1);
+            }else {
+                this.tree.invalidate();
+                //this.tree.ensureRowIsVisible(oldIndex);
+                //this.tree.view.selection.currentIndex = oldIndex;
+                //this.tree.view.selection.select(oldIndex);
             }
+
         },
 
         getLevel: function(row) {
