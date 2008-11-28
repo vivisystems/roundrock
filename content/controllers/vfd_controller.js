@@ -8,6 +8,7 @@
     ViviPOS.VfdController = GeckoJS.Controller.extend( {
         name: 'Vfd',
         _vfdObj: null,
+        roundPrecision: 0,
 
         initial: function() {
 
@@ -44,6 +45,10 @@
 
             }
 
+            // emulate clear vfd
+            this.roundPrecision = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
+            this.onClear({data: null});
+
         },
 
         getVfd: function() {
@@ -63,13 +68,21 @@
 	
         onGetSubtotal: function(evt) {
             var transaction = evt.data;
-            this.getVfd().setText(_('TAL') + ': ' + transaction.getRemainTotal());
+            this.getVfd().setText(_('TAL') + ': ' + transaction.getRemainTotal(true));
         },
 
         onClear: function(evt) {
+
             var transaction = evt.data;
-            if (transaction == null) return;
-            this.getVfd().setText(_('TAL') + ': ' + transaction.getRemainTotal());
+            var remain = "0";
+
+            if (transaction != null) {
+                remain = transaction.getRemainTotal(true);
+            }else {
+                remain = this.format(0);
+            }
+
+            this.getVfd().setText(_('TAL') + ': ' +  remain);
         },
 	
         onCancel: function(evt) {
@@ -88,9 +101,12 @@
 
         onSubmit: function(evt) {
             var transaction = evt.data;
-            if (transaction == null) return;
-            var buf = _('TAL') + ': ' + transaction.getTotal() ;
-            buf += " " + _('CG') + ': ' + (0-transaction.getRemainTotal()) ;
+            if (transaction == null) {
+                this.getVfd().setText('TAL: ' + this.format(0));
+                return;
+            }
+            var buf = _('TAL') + ': ' + transaction.getTotal(true) ;
+            buf += " " + _('CG') + ': ' + this.format(0-transaction.getRemainTotal(true)) ;
             this.getVfd().setText(buf);
         },
 
@@ -102,6 +118,17 @@
 		
             this.getVfd().setText('ppp: ' + evt.target.data.keyCode);
 	
+        },
+
+        format: function(number) {
+            this.roundPrecision = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
+            
+            var options = {
+                places: ((this.roundPrecision>0)? this.roundPrecision : 0)
+            };
+            // format display precision
+            return GeckoJS.NumberHelper.format(number, options);
+
         }
 	
     });
