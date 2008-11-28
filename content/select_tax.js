@@ -14,6 +14,7 @@
         for (var selectedIndex=0; selectedIndex<taxes.length; selectedIndex++) {
             if(taxes[selectedIndex].no ==rate) break;
         }
+        if(selectedIndex ==taxes.length) selectedIndex = 0;
 
         window.viewHelper = new opener.GeckoJS.NSITreeViewArray(taxes);
 

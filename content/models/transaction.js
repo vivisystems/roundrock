@@ -696,9 +696,61 @@
     };
 
 
-    Transaction.prototype.appendTax = function(item){
+    Transaction.prototype.shiftTax = function(index){
+
+        var prevRowCount = this.data.display_sequences.length;
+
+        var itemTrans = this.getItemAt(index); // item in transaction
+        var itemDisplay = this.getDisplaySeqAt(index); // item in transaction
+        var itemIndex = itemDisplay.index;
+
+        if (itemDisplay.type != 'item') return ; // TODO
+
+        this.log('DEBUG', 'dispatchEvent beforeShiftTax ' + this.dump(itemTrans) );
+        Transaction.events.dispatch('beforeShiftTax', itemTrans, this);
+
+
+        var taxes = GeckoJS.Session.get('taxes');
+        if(taxes == null) taxes = Transaction.Tax.getTaxList();
+
+        var oldTax = itemTrans.tax_name;
+        for (var taxIndex=0; taxIndex<taxes.length; taxIndex++) {
+            if(taxes[taxIndex].no ==oldTax) break;
+        }
+        taxIndex = ( (taxIndex+1) >= taxes.length ) ? 0 : (taxIndex+1);
+        var newTax = taxes[taxIndex];
+
+        itemTrans.tax_name = newTax.no;
+        // create data object to push in items array
+        var itemModified = itemTrans ;
+
+        // update to items array
+        this.data.items[itemIndex]  = itemModified;
+
+        this.log('DEBUG', 'dispatchEvent afterShiftTax ' + this.dump(itemModified) );
+        Transaction.events.dispatch('afterShiftTax', itemModified, this);
+
+        // create data object to push in items array
+        var itemDisplay = this.createDisplaySeq(itemIndex, itemModified, 'item');
+
+        // update
+        this.data.display_sequences[index] = itemDisplay ;
+
+        var currentRowCount = this.data.display_sequences.length;
+
+        /*
+        this.calcPromotions();
+        */
+        this.calcItemsTax();
+
+        this.calcTotal();
+
+        this.updateCartView(prevRowCount, currentRowCount);
+
+        return itemModified;
 
     };
+
 
     Transaction.prototype.appendMarker = function(index, type){
 

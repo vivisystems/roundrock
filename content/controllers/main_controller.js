@@ -154,8 +154,11 @@
                     return this.requestCommand('addItem',dep,'Cart');
                 }
             }
+            
             // change pluview panel
-            this.requestCommand('clear',null,'Cart');
+            var clearBuf = GeckoJS.Configure.read("vivipos.fec.settings.ChangeDepartmentClearBuffer") || false;
+            if(clearBuf) this.requestCommand('clear',null,'Cart');
+            
             this.pluPanelView.setCatePanelIndex(index);
             
 

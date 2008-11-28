@@ -16,6 +16,15 @@
 
         schedule: function() {
 
+            var activeSchedule = GeckoJS.Configure.read("vivipos.fec.settings.ActivePriceLevelSchedule") || false;
+
+            if (activeSchedule) {
+
+                // @todo cron job
+
+            }
+
+
             var priceLevel = GeckoJS.Session.get('vivipos_fec_price_level');
             
             if (priceLevel == null) {
