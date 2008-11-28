@@ -90,7 +90,7 @@
         afterScaffoldIndex: function(evt) {
             this._listDatas = evt.data;
             GeckoJS.Session.add('pluGroups', evt.data);
-this.log(this.dump(evt.data));
+
             var panelView =  new GeckoJS.NSITreeViewArray(evt.data);
             this.getListObj().datasource = panelView;
         },

@@ -118,6 +118,10 @@
                                                         <checkbox id="singleplu" value="true" label="Single Plu" form="productForm" name="single" default="true"/>
                                                         <checkbox id="visible" value="true" label="Visible" form="productForm" name="visible" default="true"/>
                                                     </row>
+                                                    <row>
+                                                        <checkbox id="age_verification" value="true" label="Age Verification" form="productForm" name="age_verification" default="false"/>
+
+                                                    </row>
                                                 </rows>
                                             </grid>
 
@@ -155,7 +159,7 @@
                                             <viviscrollabletree id="plusetscrollablepanel" flex="1" rows="7" headers="No,Name,Qty" fields="no,name,qty" onclick="$do('clickPluSetsPanel',this.selectedIndex, 'Plus');"
                                                         class="prodscrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray">
                                                 <vivibutton label="+" oncommand="$do('getPlu', null, 'Plus');" />
-                                                <vivibutton label="-" />
+                                                <vivibutton label="-" oncommand="$do('removePluSet', null, 'Plus');"/>
                                             </viviscrollabletree>
                                         </groupbox>
                                     </vbox>

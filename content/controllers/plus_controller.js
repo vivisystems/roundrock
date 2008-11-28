@@ -15,6 +15,7 @@
         catePanelView: null,
         productPanelView: null,
         _pluset: [],
+        _selectedPluSetIndex: null,
 
 
         createGroupPanel: function () {
@@ -36,6 +37,8 @@
             this.productPanelView.setCatePanelView(this.catePanelView);
             this.productPanelView.setCatePanelIndex(0);
 
+            this.changePluPanel(0);
+
         },
 
         changePluPanel: function(index) {
@@ -45,6 +48,8 @@
 
             this.resetInputData();
             $("#cate_no").val(category.no);
+
+            this.clickPluPanel(0);
 
         },
 
@@ -118,6 +123,11 @@
             return this._listObj;
         },
 
+        clickPluSetsPanel: function (index) {
+            this._selectedPluSetIndex = index;
+        // this.log("clickPluSetsPanel:" + index);
+        },
+
         _searchPlu: function (barcode) {
             // alert(barcode);
             $('#plu').val('').focus();
@@ -138,6 +148,49 @@
                 return product;
             }
         },
+
+        removePluSet: function (){
+            if (this._selectedPluSetIndex == null) return;
+            this._pluset.splice(this._selectedPluSetIndex, 1);
+            var panelView =  new GeckoJS.NSITreeViewArray(this._pluset);
+            this.getPluSetListObj().datasource = panelView;
+
+            var setmenu = [];
+            this._pluset.forEach(function(o){
+                setmenu.push(o.no + "=" + o.qty);
+            });
+            $("#setmenu").val( setmenu.join("&"));
+        },
+
+        _setPluSet: function () {
+            var productsById = GeckoJS.Session.get('productsById');
+            var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
+            var str = $("#setmenu").val();
+
+            var pluset = GeckoJS.String.parseStr(str);
+
+            // this.log("pluset:" + this.dump(pluset));
+
+            this._pluset = [];
+            for (var key in pluset) {
+                if (key == "") break;
+                
+                var qty = pluset[key];
+                var id = barcodesIndexes[key];
+                var name = productsById[id].name;
+
+                this._pluset.push({
+                    no: key,
+                    name: name,
+                    qty: qty
+                });
+            };
+
+            var panelView =  new GeckoJS.NSITreeViewArray(this._pluset);
+            this.getPluSetListObj().datasource = panelView;
+        },
+
+
 
         getPlu: function (){
             // $do('PLUSearchDialog', null, 'Main');
@@ -174,7 +227,7 @@
 
             return;
 
-            /*
+        /*
             var aURL = "chrome://viviecr/content/plusearch.xul";
             var aName = "PLUSearch";
             var features = "chrome,titlebar,toolbar,centerscreen,modal,width=800,height=600";
@@ -201,8 +254,10 @@
         },
 
         setInputData: function (valObj) {
-// this.log("valObj:" + this.dump(valObj));
+            // this.log("valObj:" + this.dump(valObj));
             GeckoJS.FormHelper.unserializeFromObject('productForm', valObj);
+
+            this._setPluSet();
 
             document.getElementById('pluimage').setAttribute("src", "chrome://viviecr/content/skin/pluimages/" + valObj.no + ".png?" + Math.random());
         },
@@ -246,7 +301,7 @@
                 inputData = {
                     no: inputObj.input0,
                     name: inputObj.input1
-                    };
+                };
 
                 if(this._checkData(inputData) == 0) {
                     inputData.cate_no = $("#cate_no").val();
