@@ -50,11 +50,13 @@
                 var indexes = document.getElementById('condimentscrollablepanel').value.split(',');
                 var condiments = [];
                 indexes.forEach(function(index) {
-                    condiments.push(condsData[index].name);
+                    // condiments.push(condsData[index].name);
+                    condiments.push(condsData[index]);
                 });
 
 
-                inputObj.condiments = condiments.join(',');
+                //inputObj.condiments = condiments.join(',');
+                inputObj.condiments = condiments;
                 // inputObj.condiments = document.getElementById('condimentscrollablepanel').value;
                 inputObj.ok = true;
 
