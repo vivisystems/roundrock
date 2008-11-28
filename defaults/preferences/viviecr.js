@@ -70,6 +70,11 @@ pref("vivipos.fec.settings.controlpanels.jobs.path", "chrome://viviecr/content/j
 pref("vivipos.fec.settings.controlpanels.jobs.icon", "chrome://viviecr/content/skin/icons/document-open-recent.png");
 pref("vivipos.fec.settings.controlpanels.jobs.roles", "admin");
 
+pref("vivipos.fec.settings.controlpanels.functionpanel.label", "Function Key Mapping");
+pref("vivipos.fec.settings.controlpanels.functionpanel.path", "chrome://viviecr/content/vivifuncpanelecrprefs.xul");
+pref("vivipos.fec.settings.controlpanels.functionpanel.icon", "chrome://viviecr/content/skin/icons/stock_add-bookmark.png");
+pref("vivipos.fec.settings.controlpanels.functionpanel.roles", "admin");
+
 pref("vivipos.fec.registry.function.programmable.pricelevelshift.access", "manager");
 pref("vivipos.fec.registry.function.programmable.pricelevelshift.command", "priceLevel");
 pref("vivipos.fec.registry.function.programmable.pricelevelshift.controller", "Cart");

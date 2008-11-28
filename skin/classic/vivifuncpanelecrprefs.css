@@ -1,0 +1,86 @@
+* {
+  overflow: hidden;
+}
+
+.label_general {
+  margin-top: 10px;
+}
+
+.label_layout {
+  margin-top: 10px;
+}
+
+.label_keymap {
+  margin-top: 10px;
+}
+
+.label_argument {
+  margin-top: 10px;
+}
+
+separator {
+  margin: 2px 0px 2px 0px;
+}
+
+.textbox_general {
+    font-size: small;
+    min-height: 28px;
+    max-height: 28px;
+}
+
+.textbox_layout {
+    font-size: small;
+    min-height: 28px;
+    max-height: 28px;
+}
+
+.textbox_layout_readonly {
+    font-size: small;
+    min-height: 28px;
+    max-height: 28px;
+}
+
+.action_layout {
+    min-height: 28px;
+    max-height: 28px;
+}
+
+.textbox_keymap {
+    font-size: small;
+    min-height: 28px;
+    max-height: 28px;
+}
+
+.textbox_keymap_readonly {
+    font-size: small;
+    min-height: 28px;
+    max-height: 28px;
+}
+
+.descbox_keymap {
+    border-width: 1px;
+    border-color: black;
+    border-style: groove;
+    font-size: small;
+    height: 60px;
+}
+
+.keymap_function_list {
+    height: 172px;
+}
+
+.action_button {
+  width: 120px;
+  height: 55px;
+}
+
+.action_box {
+  margin-right: 10px;
+}
+
+.preview_box {
+  border-color: black;
+  border-style: solid;
+  border-width:1px;
+  max-width: 360px;
+}
