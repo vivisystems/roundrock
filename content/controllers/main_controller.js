@@ -201,6 +201,7 @@
         },
 
         toggleNumPad: function (state, initial) {
+            var registerAtLeft = GeckoJS.Configure.read('vivipos.fec.settings.RegisterAtLeft');
             var numPad = document.getElementById('numpad');
             var toolbar = document.getElementById('toolbar');
             var toggleBtn = document.getElementById('toggleNumPad');
@@ -218,7 +219,12 @@
                     if (toolbar && cartSidebar) cartSidebar.appendChild(toolbar);
                     if (toolbar && fixedbtnrow) {
                         toolbar.removeChild(toggleBtn);
-                        fixedbtnrow.appendChild(toggleBtn);
+                        if (registerAtLeft) {
+                            fixedbtnrow.insertBefore(toggleBtn, fixedbtnrow.firstChild);
+                        }
+                        else {
+                            fixedbtnrow.appendChild(toggleBtn);
+                        }
                     }
 
                     if (numPad) numPad.setAttribute('hidden', 'true');
