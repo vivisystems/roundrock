@@ -19,11 +19,11 @@
                         <caption label="Price Level Schedule List:" />
                         <hbox flex="1">
                             <vbox>
-                            <simplelistbox id="simpleListBoxSchedule" rows="16"  headers="Time, Price Level" columns="time,pricelevel"  class="prodsimplelistbox jobssummary"/>
-                            <spacer style="height: 10px;" />
-                            <button label="Remove from Schedule" class="editbtns" oncommand="$do('remove', null, 'PriceLevelSchedule');" />
+                            <simplelistbox id="simpleListBoxSchedule" rows="16"  headers="Time, Price Level" columns="time,pricelevel"  class="prodsimplelistbox pricelevelschedule"/>
+                            <spacer style="height: 20px;" />
+                            <button label="Remove from Schedule" class="widebtns" oncommand="$do('remove', null, 'PriceLevelSchedule');" />
                             </vbox>
-                            <spacer style="width: 10px;" />
+                            <spacer style="width: 40px;" />
                             <separator class="groove-thin"/>
 
                             <vbox>
@@ -31,15 +31,16 @@
                                     <vividatetimepicker id="seltime" value="12:00" flex="1" labelClass="timepickerfont" buttonClass="timepickerbtns"/>
                                 </hbox>
 
-                                <separator class="groove-thin" style="height:20px;"/>
+                                <separator class="groove-thin" style="height:10px;"/>
+
                                 <hbox>
-                                    <viviscrollablebuttonpanel id="pricelevelscrollablepanel" flex="1" cols="2" rows="5" labelField="name" oncommand=""
+                                    <viviscrollablebuttonpanel id="pricelevelscrollablepanel" flex="1" cols="2" rows="5" hideScrollbar="true" labelField="name" oncommand=""
                                         class="catescrollablepanel" buttonClass="catbtn button-radius button-white font-medium" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue"/>
                                 </hbox>
 
                                 <spacer style="height: 10px;" />
                                 <hbox>
-                                    <button label="Add to Schedule" class="editbtns" oncommand="$do('add', null, 'PriceLevelSchedule');" />
+                                    <button label="Add to Schedule" class="widebtns" oncommand="$do('add', null, 'PriceLevelSchedule');" />
                                     
                                 </hbox>
                             </vbox>

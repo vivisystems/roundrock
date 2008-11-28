@@ -89,8 +89,8 @@
             var aArguments = "";
             var posX = 0;
             var posY = 0;
-            var width = 410;
-            var height = 760;
+            var width = 800;
+            var height = 600;
             //$do('load', null, 'Categories');
             GREUtils.Dialog.openDialog(window, aURL, aName, aArguments, posX, posY, width, height);
         },

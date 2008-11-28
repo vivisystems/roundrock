@@ -21,7 +21,7 @@
                     <hbox>
 
 
-                        <viviscrollablebuttonpanel dir="reverse" id="rolegroupscrollablepanel" flex="1" cols="4" rows="2" labelField="name" imageField="no" oncommand="$do('select',this.selectedIndex, 'RoleGroups');"
+                        <viviscrollablebuttonpanel dir="reverse" id="rolegroupscrollablepanel" flex="1" cols="3" rows="2" labelField="name" imageField="no" oncommand="$do('select',this.selectedIndex, 'RoleGroups');"
                               class="catescrollablepanel" buttonClass="catbtn button-radius button-white font-medium" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue"
                               style="width: 200px;" />
 
@@ -46,7 +46,7 @@
                 <separator class="groove-thin"/>
                 <groupbox flex="1">
                     <caption label="Role List:" />
-                    <viviscrollablebuttonpanel id="rolelistscrollablepanel" form="rolegroupForm" name="role_group" default="" seltype="multiple" flex="1" cols="6" rows="6" labelField="name" imageField="no" oncommand=""
+                    <viviscrollablebuttonpanel id="rolelistscrollablepanel" form="rolegroupForm" name="role_group" default="" seltype="multiple" flex="1" cols="4" rows="6" labelField="name" imageField="no" oncommand=""
                                         class="catescrollablepanel" buttonClass="catbtn button-radius button-white font-medium" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue"/>
 
                 </groupbox>

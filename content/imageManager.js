@@ -5,7 +5,7 @@
      */
     function startup() {
 
-        if (window.arguments) {
+        if (typeof window.arguments[0].wrappedJSObject == "object") {
             var args = window.args = window.arguments[0].wrappedJSObject;
         } else {
 
@@ -38,7 +38,6 @@
         $do('loadImage', args.directory, 'ImageManager');
 
     };
-
 
     window.addEventListener('load', startup, true);
 

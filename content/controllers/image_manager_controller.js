@@ -52,6 +52,7 @@ var ImageFilesView = window.ImageFilesView = GeckoJS.NSITreeViewArray.extend({
             this._dir = dir;
 
             this.imagefilesView = new ImageFilesView(dir);
+
             this.query('#imagePanel')[0].datasource = this.imagefilesView;
 
             this.query("#currentUsage").val(this.Number.toReadableSize(this.imagefilesView._totalSize));
