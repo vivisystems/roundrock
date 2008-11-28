@@ -30,6 +30,27 @@
 
         },
 
+        getRate: function () {
+            var rate = $("#rate").val();
+            var aURL = "chrome://viviecr/content/select_tax.xul";
+            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=800,height=600";
+            var inputObj = {
+                rate: rate
+            };
+
+            var taxes = GeckoJS.Session.get('taxes');
+            if(taxes == null) taxes = this.Tax.getTaxList();
+
+            inputObj.taxes = taxes;
+
+            window.openDialog(aURL, "select_rate", features, inputObj);
+
+            if (inputObj.ok && inputObj.rate) {
+                $("#rate").val(inputObj.rate);
+
+            }
+        },
+
         getInputData: function () {
             return GeckoJS.FormHelper.serializeToObject('depForm', false);
         },

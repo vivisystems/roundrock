@@ -15,7 +15,7 @@
             var condGroups;
             var condGroupModel = new CondimentGroupModel();
             condGroups = condGroupModel.find('all', {
-                order: "no"
+                order: "name"
             });
             GeckoJS.Session.add('condGroups', condGroups);
 
@@ -85,16 +85,17 @@
             var aURL = "chrome://viviecr/content/prompt_additem.xul";
             var features = "chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250";
 
-            var inputObj = {input0:null, input1:null};
-            window.openDialog(aURL, "prompt_additem", features, "New Condiment Group", "Please input:", "No", "Name", inputObj);
+            var inputObj = {input0:null};
 
-            if (inputObj.ok && inputObj.input0 && inputObj.input1) {
-                var inputData = {no: inputObj.input0, name: inputObj.input1};
+            window.openDialog(aURL, "prompt_additem", features, "New Condiment Group", "Please input:", "Name", "", inputObj);
+
+            if (inputObj.ok && inputObj.input0) {
+                var inputData = {no: inputObj.input0};
                 var condGroupModel = new CondimentGroupModel();
                 condGroupModel.save(inputData);
 
                 var condGroups = condGroupModel.find('all', {
-                    order: "no"
+                    order: "name"
                 });
                 GeckoJS.Session.add('condGroups', condGroups);
 
@@ -121,7 +122,7 @@
                 condGroupModel.save(inputData);
 
                 var condGroups = condGroupModel.find('all', {
-                    order: "no"
+                    order: "name"
                 });
                 GeckoJS.Session.add('condGroups', condGroups);
 
@@ -142,7 +143,7 @@
                     condGroupModel.del(condGroup.id);
 
                     var condGroups = condGroupModel.find('all', {
-                        order: "no"
+                        order: "name"
                     });
                     GeckoJS.Session.add('condGroups', condGroups);
 
@@ -163,13 +164,14 @@
 
         resetInputCondData: function () {
 
-            this.query('#condiment_no').val('');
+            // this.query('#condiment_no').val('');
             this.query('#condiment_name').val('');
             this.query('#condiment_button_color').val('os');
             this.query('#condiment_font_size').val('medium');
         },
 
         setInputCondData: function (valObj) {
+            GeckoJS.FormHelper.reset('condimentForm');
             GeckoJS.FormHelper.unserializeFromObject('condimentForm', valObj);
         },
 
@@ -178,7 +180,7 @@
             var aURL = "chrome://viviecr/content/prompt_additem.xul";
             var features = "chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250";
             var inputObj = {input0:null, input1:null};
-            window.openDialog(aURL, "prompt_additem", features, "New Condiment", "Please input:", "No", "Name", inputObj);
+            window.openDialog(aURL, "prompt_additem", features, "New Condiment", "Please input:", "Name", "Price", inputObj);
 
             if (inputObj.ok && inputObj.input0 && inputObj.input1) {
 
@@ -189,7 +191,7 @@
 
                 var condGroupModel = new CondimentGroupModel();
                 var condGroups = condGroupModel.find('all', {
-                    order: "no"
+                    order: "name"
                 });
                 GeckoJS.Session.add('condGroups', condGroups);
 
@@ -213,7 +215,7 @@
 
                 var condGroupModel = new CondimentGroupModel();
                 var condGroups = condGroupModel.find('all', {
-                    order: "no"
+                    order: "name"
                 });
                 GeckoJS.Session.add('condGroups', condGroups);
                 this.clickCondimentPanel(this._selectedCondIndex);
@@ -232,7 +234,7 @@
                     var condGroups;
                     var condGroupModel = new CondimentGroupModel();
                     condGroups = condGroupModel.find('all', {
-                        order: "no"
+                        order: "name"
                     });
                     GeckoJS.Session.add('condGroups', condGroups);
                     this.clickCondimentPanel(this._selectedCondIndex);

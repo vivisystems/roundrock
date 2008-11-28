@@ -17,9 +17,9 @@
             <vbox flex="1" class="footlogo">
 
 <!-- Begin Departments - PLUs -->
-                    <vbox id="catsplus">
-                        <label id="" value="Departments" class="labeltitle" />
-                        <hbox>
+                <vbox id="catsplus">
+                    <label id="" value="Departments" class="labeltitle" />
+                    <hbox>
                         <hbox flex="1" pack="start">
                             <vbox pack="start" flex="1">
                                 <label id="" value="Departments:" />
@@ -32,20 +32,35 @@
                         <spacer style="height: 30px;" />
                         <hbox>
                             <vbox>
-                                <hbox align="center">
-                                    <label style="width:10em" value="Department No:"/>
-                                    <textbox id="category_no" readonly="true" form="depForm" name="no"/>
-                                </hbox>
-                                <hbox align="center">
-                                    <label style="width:10em" value="Department Name:" />
-                                    <textbox id="category_name" value="" form="depForm" name="name"/>
-                                </hbox>
-                                <hbox align="center">
-                                    <checkbox id="category_visible" value="1" label="Visible" form="depForm" name="visible"/>
-                                </hbox>
-                                <hbox align="center">
-                                    <checkbox id="category_cansale" value="0" label="Sale Department" form="depForm" name="cansale"/>
-                                </hbox>
+                                <groupbox>
+                                    <caption label="Button Color:" />
+                                    <grid>
+                                        <rows>
+                                            <row>
+                                                <label style="width:10em" value="Department No:"/>
+                                                <textbox id="category_no" readonly="true" form="depForm" name="no"/>
+                                            </row>
+                                            <row>
+                                                <label style="width:10em" value="Department Name:" />
+                                                <textbox id="category_name" value="" form="depForm" name="name"/>
+                                            </row>
+
+                                            <row>
+                                                <label value="Rate:"/>
+                                                <textbox id="rate" value="" form="depForm" name="rate" readonly="true" onclick="$do('getRate',this.selectedIndex,'Departments');"/>
+                                            </row>
+
+                                            <row>
+                                                <checkbox id="category_visible" value="1" label="Visible" form="depForm" name="visible"/>
+                                            </row>
+
+                                            <row>
+                                                <checkbox id="category_cansale" value="0" label="Sale Department" form="depForm" name="cansale"/>
+                                            </row>
+                                        </rows>
+                                    </grid>
+
+                                </groupbox>
                                 <groupbox>
                                     <caption label="Button Color:" />
                                     <button_colorpicker id="category_button_color" form="depForm" name="button_color" buttonClass="catbtn button-radius"/>
@@ -56,15 +71,15 @@
                                 </groupbox>
                             </vbox>
                         </hbox>
-                        </hbox>
-                        <spacer style="height: 30px;" />
-                        <hbox>
-                            <button label="Add" class="editbtns" oncommand="$do('add', null, 'Departments');" />
-                            <spacer flex="1" />
-                            <button label="Delete" class="editbtns" oncommand="$do('remove', null, 'Departments');" />
-                            <button label="Modify" class="editbtns" oncommand="$do('modify', null, 'Departments');" />
-                        </hbox>
-                    </vbox>
+                    </hbox>
+                    <spacer style="height: 10px;" />
+                    <hbox>
+                        <button label="Add" class="editbtns" oncommand="$do('add', null, 'Departments');" />
+                        <spacer flex="1" />
+                        <button label="Delete" class="editbtns" oncommand="$do('remove', null, 'Departments');" />
+                        <button label="Modify" class="editbtns" oncommand="$do('modify', null, 'Departments');" />
+                    </hbox>
+                </vbox>
 
 <!-- End Departments - PLUs -->
 

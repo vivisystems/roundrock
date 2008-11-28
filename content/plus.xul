@@ -75,11 +75,6 @@
                                                     <row>
                                                         <label value="Rate:"/>
                                                         <textbox id="rate" value="" form="productForm" name="rate" readonly="true" onclick="$do('getRate',this.selectedIndex,'Plus');"/>
-                                                <!-- menulist id="taxList" form="productForm" name="rate" label="Rate">
-                                                    <menupopup style="width: 200px;">
-
-                                                    </menupopup>
-                                                </menulist -->
                                                     </row>
                                                     <row>
                                                         <label value="Condiment:"/>

@@ -20,20 +20,24 @@
                     <!-- Begin Condiments -->
                     <groupbox>
                         <caption label="Condiment Group:" />
-
                         <hbox>
                             <viviscrollablebuttonpanel dir="reverse" id="condimentscrollablepanel" flex="1" cols="3" rows="2" labelField="name" oncommand="$do('changeCondimentPanel',this.selectedIndex, 'Condiments');"
                               class="catescrollablepanel" buttonClass="catbtn button-radius button-white font-medium" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue"/>
+                            <spacer style="width: 20px;" />
                             <vbox style="width: 400px;">
-                                <hbox align="center">
-                                    <label hidden="true" form="condGroupForm" name="id" value="" />
-                                    <label value="Group No:"/>
-                                    <textbox id="condiment_group_no" form="condGroupForm" name="no" readonly="true"/>
-                                </hbox>
-                                <hbox align="center">
-                                    <label value="Group Name:"/>
-                                    <textbox id="condiment_group_name" form="condGroupForm" name="name"/>
-                                </hbox>
+                                <grid>
+                                    <rows>
+                                        <!-- row>
+                                            <label value="Group No:"/>
+                                            <textbox id="condiment_group_no" form="condGroupForm" name="no" readonly="true"/>
+                                        </row -->
+                                        <row>
+                                            <label hidden="true" form="condGroupForm" name="id" value="" />
+                                            <label value="Group Name:"/>
+                                            <textbox id="condiment_group_name" form="condGroupForm" name="name"/>
+                                        </row>
+                                    </rows>
+                                </grid>
                                 <spacer style="height: 10px;" />
                                 <hbox>
                                     <button label="Add" class="editbtns" oncommand="$do('add', null, 'Condiments');" />
@@ -52,55 +56,55 @@
                         <caption label="Condiments:" />
 
                         <hbox>
-                            <viviscrollablebuttonpanel dir="reverse" id="detailscrollablepanel" flex="1" cols="2" rows="6" labelField="name" imageField="no"
+                            <vbox>
+                                <viviscrollablebuttonpanel dir="reverse" id="detailscrollablepanel" flex="1" cols="2" rows="4" labelField="name" imageField="no"
                                 oncommand="$do('clickCondimentPanel',this.selectedIndex, 'Condiments');"  class="prodscrollablepanel" buttonClass="plubtn smallimagebtn button-radius" scrollUpClass="rightprevbtn button-gray" scrollDownClass="rightnextbtn button-gray" />
-                            <vbox style="width: 400px;">
-                                <hbox align="center">
-                                    <label hidden="true" form="condimentForm" name="id" value="" />
-                                    <label id="condiment_group_id" hidden="true" form="condimentForm" name="condiment_group_id" value="" />
-                                    <label value="No:"/>
-                                    <textbox id="condiment_no" form="condimentForm" name="no" readonly="true"/>
-                                </hbox>
-                                <hbox align="center">
-                                    <label value="Name:"/>
-                                    <textbox id="condiment_name" form="condimentForm" name="name"/>
-                                </hbox>
-                                <hbox align="center">
-                                    <label style="width:4em" value="Button Color:"  />
-                                    <button_colorpicker id="condiment_button_color" buttonClass="catbtn button-radius"/>
-                                </hbox>
-                                <hbox align="center">
-                                    <label style="width:4em" value="Font Size:"  />
-                                    <button_fontsizepicker id="condiment_font_size" buttonClass="catbtn button-white button-radius"/>
-                                </hbox>
-                                <spacer style="height: 10px;" />
+                                <spacer style="height: 20px;" />
                                 <hbox>
                                     <button label="Add" class="editbtns" oncommand="$do('addCond', null, 'Condiments');" />
                                     <button label="Delete" class="editbtns" oncommand="$do('removeCond', null, 'Condiments');" />
                                     <button label="Modify" class="editbtns" oncommand="$do('modifyCond', null, 'Condiments');" />
                                 </hbox>
                             </vbox>
+                            <vbox style="width: 400px;">
+                                <groupbox>
+                                    <grid>
+                                        <rows>
+                                            <!-- row>
+                                                <label value="No:"/>
+                                                <textbox id="condiment_no" form="condimentForm" name="no" readonly="true"/>
+                                            </row -->
+                                            <row>
+                                                <label hidden="true" form="condimentForm" name="id" value="" />
+                                                <label id="condiment_group_id" hidden="true" form="condimentForm" name="condiment_group_id" value="" />
+                                                <label value="Name:"/>
+                                                <textbox id="condiment_name" form="condimentForm" name="name"/>
+                                            </row>
+                                            <row>
+                                                <label value="Price:"/>
+                                                <textbox id="condiment_price" form="condimentForm" name="price" default="0"/>
+                                            </row>
+                                            <row>
+                                                <label value="Button Color:"  />
+                                                <button_colorpicker id="condiment_button_color" buttonClass="catbtn button-radius" form="condimentForm" name="button_color"/>
+                                            </row>
+                                            <row>
+                                                <label value="Font Size:"  />
+                                                <button_fontsizepicker id="condiment_font_size" buttonClass="catbtn button-white button-radius" form="condimentForm" name="font_size"/>
+                                            </row>
+                                        </rows>
+                                    </grid>
+                                </groupbox>
+                            </vbox>
                         </hbox>
                     </groupbox>
-                    <!-- viviscrollabletree dir="reverse" id="prodscrollablepanel" flex="1" rows="7" headers="Name,Price" fields="name,sell_price" onclick="$do('clickPluPanel',this.selectedIndex, 'Main');"
-                       class="prodscrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray" /-->
-                    <!-- End PLUs -->
-                    <spacer style="height: 60px;" />
                 </vbox>
 
-
-
-<!-- Begin General Properties -->
-
-                    
-
-               
             </hbox>
         </vbox>
 
-
     </box>
-<!-- /groupbox -->
+
     <hbox id="okCancelButtonsRight" class="dialogbtns" />
 
 </window>
