@@ -69,7 +69,7 @@
         resetInputData: function () {
 
             // this.query('#condiment_group_no').val('');
-            $('#condiment_group_no').val('');
+            // $('#condiment_group_no').val('');
             this.query('#condiment_group_name').val('');
             // this.query('#condiment_group_button_color').val('os');
             // this.query('#condiment_group_font_size').val('medium');
@@ -90,7 +90,7 @@
             window.openDialog(aURL, "prompt_additem", features, "New Condiment Group", "Please input:", "Name", "", inputObj);
 
             if (inputObj.ok && inputObj.input0) {
-                var inputData = {no: inputObj.input0};
+                var inputData = {name: inputObj.input0};
                 var condGroupModel = new CondimentGroupModel();
                 condGroupModel.save(inputData);
 
@@ -184,7 +184,7 @@
 
             if (inputObj.ok && inputObj.input0 && inputObj.input1) {
 
-                var inputData = {no: inputObj.input0, name: inputObj.input1};
+                var inputData = {name: inputObj.input0, price: inputObj.input1};
                 inputData.condiment_group_id = this.query('#condiment_group_id').val();
                 var condModel = new CondimentModel();
                 condModel.save(inputData);
