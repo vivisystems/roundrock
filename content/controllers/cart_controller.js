@@ -671,6 +671,8 @@
 
         shiftTax: function(taxNo) {
 
+            taxNo = taxNo || false;
+          
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
 
@@ -686,7 +688,7 @@
             var itemTrans = curTransaction.getItemAt(index);
 
             if (itemTrans.type != 'item') {
-                this.dispatchEvent('onModifyItemError', {});
+                this.dispatchEvent('onShiftTaxError', {});
                 return;
             }
 
@@ -696,6 +698,23 @@
             }
 
             this.dispatchEvent('beforeShiftTax', itemTrans);
+
+
+            if(taxNo && taxNo != 0 && taxNo != null) {
+                var taxes = GeckoJS.Session.get('taxes');
+                if(taxes == null) taxes = this.Tax.getTaxList();
+
+
+                for (var taxIndex=0; taxIndex<taxes.length; taxIndex++) {
+                    if(taxes[taxIndex].no == taxNo) break;
+                }
+                if(taxIndex == taxes.length) {
+                    // not found
+                    this.dispatchEvent('onShiftTaxError', {});
+                    return;
+                }
+            }
+
 
             var modifiedItem = curTransaction.shiftTax(index);
 

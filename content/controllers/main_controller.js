@@ -334,6 +334,9 @@
         },
         
         resetLayout: function (initial) {
+
+
+
             var registerAtLeft = GeckoJS.Configure.read('vivipos.fec.settings.RegisterAtLeft');
             var functionPanelOnTop = GeckoJS.Configure.read('vivipos.fec.settings.FunctionPanelOnTop');
             var PLUbeforeDept = GeckoJS.Configure.read('vivipos.fec.settings.DeptBeforePLU');
@@ -376,6 +379,8 @@
             if (!this.toggleNumPad(hideNumPad, initial)) {
                 this.resizeLeftPanel(initial);
             }
+
+            // document.getElementById('cartList').setAttribute('dir', 'reverse');
         },
         
         initialLogin: function () {
