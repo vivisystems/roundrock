@@ -136,8 +136,8 @@
 
         var image = this.vivibuttonImage;
         image.src = value;
-        if(image.src == '') image.collapsed = true;
-        else image.collapsed = false;
+        //if(image.src == '') image.collapsed = true;
+        //else image.collapsed = false;
 
       ]]>
       </body>
