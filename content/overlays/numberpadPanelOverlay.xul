@@ -60,6 +60,7 @@
             <button id="tool1"  label=""  oncommand="$do('ClockInOutDialog', null, 'Main');"  class="systoolbtn mediumimagebtn button-fuchsia" image="chrome://viviecr/content/skin/images/aa.png" />
                 <!--button id="tool2"  label=""  onclick="extension_manager();" class="systoolbtn mediumimagebtn button-fuchsia" image="chrome://viviecr/content/skin/images/fact.png" /-->
             <button id="tool4"  label=""  oncommand="$do('ControlPanelDialog', null, 'Main');"  class="systoolbtn mediumimagebtn button-fuchsia" image="chrome://viviecr/content/skin/images/keyboard.png" />
+            <spacer flex="1"/>
             <button id="toggleNumPad"  label=""  onclick="$do('toggleNumPad', null, 'Main');" class="systoolbtn mediumimagebtn button-blue togglenumpad" />
         </vbox>
       <!-- end tools -->
