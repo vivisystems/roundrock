@@ -693,8 +693,17 @@
                     // activate the corresponding stack
 
                     if (!stack) stack = this._render(page);
-                    while (this.keypad.childNodes.length > 0) this.keypad.removeChild(this.keypad.firstChild);
-                    this.keypad.appendChild(stack);
+                    var found = false;
+                    while (this.keypad.childNodes.length > 0) {
+                        if (stack == this.keypad.firstChild) {
+                            found = true;
+                            break;
+                        }
+                        else {
+                            this.keypad.removeChild(this.keypad.firstChild);
+                        }
+                    }
+                    if (!found) this.keypad.appendChild(stack);
                     this.renderLabel();
 
                     this.renderKeymap(page, stack);
@@ -1582,18 +1591,17 @@
                             btnstyles.push(this.getAttribute('matrix_button_configure_class'));
 
                             if (entry && (entry.label != null) && (entry.label != '')) {
-                                //btn.setAttribute('label', entry.label);
-                                btn.setLabel(entry.label);
+                                btn.setAttribute('label', entry.label);
+                                //btn.setLabel(entry.label);
                                 var ch = document.getAnonymousElementByAttribute(btn, 'class', 'button-text');
                                 if (ch) {
                                     var labelWidth = btn.width * 0.85;
                                     ch.style.width = labelWidth + 'px';
                                 }
-                                //btn.setLabel(entry.label);
                                 //GREUtils.log('[KEYMAP]: label <' + entry.label + '> set');
                             }
                             else {
-                                btn.setAttribute('label', '');
+                                btn.removeAttribute('label');
                                 //btn.setLabel('');
                                 //GREUtils.log('[KEYMAP]: label not set');
                             }
@@ -1605,8 +1613,8 @@
                             btn.removeAttribute('autoCheck');
                             if (entry) {
                                 if ((entry.command == null) || (entry.command == '') || (entry.label == null) || (entry.label == '')) {
-                                    //btn.removeAttribute('label');
-                                    btn.setLabel('');
+                                    btn.removeAttribute('label');
+                                    //btn.setLabel('');
                                     btn.setAttribute('disabled', true);
                                     btn.removeAttribute('oncommand');
                                     btn.style.visibility = 'inherit';
@@ -1619,8 +1627,8 @@
                                     // check ACL - relegated to vivibutton to check ACL access
                                     var hasAccess = this._isUserInRole(entry.access);
 
-                                    //btn.setAttribute('label', entry.label);
-                                    btn.setLabel(entry.label);
+                                    btn.setAttribute('label', entry.label);
+                                    //btn.setLabel(entry.label);
                                     var ch = document.getAnonymousElementByAttribute(btn, 'class', 'button-text');
                                     if (ch) {
                                         var labelWidth = btn.width * 0.85;
@@ -1685,8 +1693,8 @@
                                 }
                             }
                             else {
-                                //btn.removeAttribute('label');
-                                btn.setLabel('');
+                                btn.removeAttribute('label');
+                                //btn.setLabel('');
                                 btn.setAttribute('disabled', true);
                                 btn.setAttribute('oncommand', '');
                                 btn.style.visibility = 'inherit';
