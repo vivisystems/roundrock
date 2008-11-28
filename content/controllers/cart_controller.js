@@ -346,7 +346,7 @@
         },
 
 
-        addDiscount: function(discountAmount) {
+        addDiscount: function(discountAmount, discountName) {
 
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
@@ -359,6 +359,7 @@
             if(index <0) return;
 
             discountAmount = discountAmount || false;
+            discountName = discountName || '';
 
             if (curTransaction.isSubmit() || curTransaction.isCancel()) return;
 
@@ -408,7 +409,7 @@
 
             }
 
-            var discountItem = {type: discountType, amount: discountAmount};
+            var discountItem = {type: discountType, name: discountName, amount: discountAmount};
 
             this.log('beforeAddDiscount ' + this.dump(discountItem) );
             this.dispatchEvent('beforeAddDiscount', discountItem);
@@ -582,6 +583,33 @@
             GeckoJS.Session.remove('cart_set_qty_value');
 
         },
+
+
+        houseBon: function() {
+
+            var index = this._cartView.getSelectedIndex();
+            var curTransaction = this._getTransaction();
+
+            if(curTransaction == null) {
+                this.dispatchEvent('onHouseBon', null);
+                return; // fatal error ?
+            }
+
+            if(index <0) return;
+
+            if (curTransaction.isSubmit() || curTransaction.isCancel()) return;
+
+            var itemTrans = curTransaction.getItemAt(index);
+            var itemDisplay = curTransaction.getDisplaySeqAt(index);
+
+            if (itemDisplay.type == 'item') {
+
+                var discountAmount =  itemTrans.current_subtotal +'' + '$';
+                this.addDiscount(discountAmount, 'House Bon');
+            }
+
+        },
+
 
         addPayment: function(type, amount) {
 

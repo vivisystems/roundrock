@@ -204,7 +204,7 @@
                 level: 0
             });
         }else if (type == 'discount') {
-            var dispName = ((item.discount_type == '$') ? item.discount_rate : item.discount_rate*100 )+ item.discount_type + '-';
+            var dispName = item.discount_name + ' ' + ((item.discount_type == '$') ? item.discount_rate : item.discount_rate*100 )+ item.discount_type + '-';
             itemDisplay = GREUtils.extend(itemDisplay, {
                 id: item.id,
                 no: item.no,
@@ -579,7 +579,7 @@
                 return;
             }
             
-            item.discount_name = 'open';
+            item.discount_name =  discount.name || '' ;
             item.discount_rate =  discount.amount;
             item.discount_type =  discount.type;
             item.hasDiscount = true;
@@ -1153,12 +1153,16 @@
             current_tax: 0,
             */
 
+
+
             var tax = Transaction.Tax.getTax(item.tax_name);
             if(tax) {
                 item.tax_rate = tax.rate;
                 item.tax_type = tax.type;
+
+                var toTaxCharge = item.current_subtotal - item.current_discount + item.current_surcharge;
                 
-                var taxChargeObj = Transaction.Tax.calcTaxAmount(item.tax_name, item.current_subtotal);
+                var taxChargeObj = Transaction.Tax.calcTaxAmount(item.tax_name, toTaxCharge);
 
                 // @todo total only or summary ?
                 item.current_tax =  taxChargeObj[item.tax_name].charge;
