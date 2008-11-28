@@ -230,6 +230,16 @@
                     if (numPad) numPad.setAttribute('hidden', 'true');
                     toggled = true;
                 }
+                else if (numPad) {
+                    // may need to switch position of toggleBtn if registerAtLeft has changed
+                    fixedbtnrow.removeChild(toggleBtn);
+                    if (registerAtLeft) {
+                        fixedbtnrow.insertBefore(toggleBtn, fixedbtnrow.firstChild);
+                    }
+                    else {
+                        fixedbtnrow.appendChild(toggleBtn);
+                    }
+                }
                 if (toggleBtn) toggleBtn.setAttribute('state', 'true');
             }
             else {
@@ -361,6 +371,7 @@
             var toolbarPanel = document.getElementById('numberpadPanelContainer');
             var leftPanel = document.getElementById('leftPanel');
             var productPanel = document.getElementById('productPanel');
+            var cartList = document.getElementById('cartList');
             
             if (deptPanel) deptPanel.setAttribute('hideScrollbar', hideDeptScrollbar);
             if (pluPanel) pluPanel.setAttribute('hideScrollbar', hidePLUScrollbar);
@@ -374,9 +385,11 @@
             if (pluPanel) pluPanel.setAttribute('dir', registerAtLeft ? 'normal' : 'reverse');
             if (fnPanel) fnPanel.setAttribute('dir', registerAtLeft ? 'reverse' : 'normal');
             if (toolbarPanel) toolbarPanel.setAttribute('dir', registerAtLeft ? 'reverse' : 'normal');
+            if (cartList) cartList.setAttribute('dir', registerAtLeft ? 'reverse': 'normal');
             
             if (leftPanel) leftPanel.setAttribute('dir', functionPanelOnTop ? 'reverse' : 'normal');
             if (productPanel) productPanel.setAttribute('dir', PLUbeforeDept ? 'reverse' : 'normal');
+
             
             // fudge to make functionPanelOnTop work even if rightPanel is taller than the screen
             leftPanel.setAttribute('pack', functionPanelOnTop ? 'end' : 'start');
