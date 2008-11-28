@@ -668,7 +668,43 @@
             this.dispatchEvent('onSetPrice', newprice);
 
         },
-	
+
+        shiftTax: function(taxNo) {
+
+            var index = this._cartView.getSelectedIndex();
+            var curTransaction = this._getTransaction();
+
+            if(curTransaction == null) {
+                this.dispatchEvent('onShiftTax', null);
+                return; // fatal error ?
+            }
+
+            if(index <0) return;
+
+            if (curTransaction.isSubmit() || curTransaction.isCancel()) return;
+
+            var itemTrans = curTransaction.getItemAt(index);
+
+            if (itemTrans.type != 'item') {
+                this.dispatchEvent('onModifyItemError', {});
+                return;
+            }
+
+            if (itemTrans.hasMarker) {
+                this.dispatchEvent('onShiftTaxError', {});
+                return;
+            }
+
+            this.dispatchEvent('beforeShiftTax', itemTrans);
+
+            var modifiedItem = curTransaction.shiftTax(index);
+
+            this.dispatchEvent('afterShiftTax', modifiedItem);
+
+            this.subtotal();
+
+        },
+
         clear: function() {
 
             GeckoJS.Session.remove('cart_last_sell_item');
