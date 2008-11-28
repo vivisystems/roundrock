@@ -20,7 +20,7 @@
 
             if (!barcodesIndexes[barcode]) {
                 // barcode notfound
-                // alert("Plu Not Found!");
+                alert("Plu (" + barcode + ") Not Found!");
             }else {
                 var id = barcodesIndexes[barcode];
                 product = productsById[id];
