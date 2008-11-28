@@ -70,7 +70,6 @@
                                 </hbox>
                             </vbox>
                             <vbox>
-                            
                                 <viviscrollablebuttonpanel id="addontaxscrollablepanel" form="taxForm" name="combine_tax" default="" seltype="multiple" flex="1" cols="1" rows="7" labelField="name" oncommand=""
                                         class="catescrollablepanel" buttonClass="catbtn button-radius button-white font-medium" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue"/>
                             </vbox>

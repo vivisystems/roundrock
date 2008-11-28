@@ -15,7 +15,7 @@
 
         <vbox flex="1">
 
-          <viviscrollabletree class="cartList" id="cartList" hidecolumnpicker="false" hidevscroll="true" flex="1" headers="ProductName,Qty,Price,Subtotal" fields="name,current_qty,current_price,current_subtotal" rows="8" scrollUpClass="rightprevbtn  button-gray" scrollDownClass="rightnextbtn  button-gray" >
+          <viviscrollabletree class="cartList" id="cartList" hidecolumnpicker="true" hidevscroll="true" flex="1" headers="ProductName,Qty,Price,Subtotal,Tx" fields="name,current_qty,current_price,current_subtotal,current_tax" rows="8" scrollUpClass="rightprevbtn  button-gray" scrollDownClass="rightnextbtn  button-gray" >
             <vbox id="cartsidebar">
                     <button id="btnPlus"  label="+"  oncommand="$do('modifyQty', 'plus', 'Cart');"  class="button-gray systoolbtn mediumimagebtn" image="chrome://viviecr/skin/images/list-add.png" />
                     <button id="btnMinus"  label="-"  oncommand="$do('modifyQty', 'minus', 'Cart');"  class="button-gray systoolbtn mediumimagebtn" image="chrome://viviecr/skin/images/list-remove.png" />

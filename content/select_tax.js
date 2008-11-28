@@ -3,20 +3,35 @@
     var inputObj = window.arguments[0];
     // include controllers  and register itself
 
-    GeckoJS.include('chrome://viviecr/content/controllers/select_tax_controller.js');
-
     /**
      * Controller Startup
      */
     function startup() {
 
-        $do('load', inputObj.rate, 'SelectTax');
+        var taxes = inputObj.taxes;
+        var rate = inputObj.rate;
 
-        document.getElementById('rate').value = inputObj.rate;
+        for (var selectedIndex=0; selectedIndex<taxes.length; selectedIndex++) {
+            if(taxes[selectedIndex].no ==rate) break;
+        }
 
+        window.viewHelper = new opener.GeckoJS.NSITreeViewArray(taxes);
+
+        document.getElementById('taxscrollablepanel').datasource = window.viewHelper ;
+        document.getElementById('taxscrollablepanel').selectedIndex = selectedIndex;
+        document.getElementById('taxscrollablepanel').selectedItems = [selectedIndex];
+        
         doSetOKCancel(
             function(){
-                inputObj.rate = document.getElementById('rate').value;
+
+                var index = document.getElementById('taxscrollablepanel').selectedIndex ;
+
+                if (index == -1) {
+                    inputObj.ok = false;
+                    return false;
+                }
+
+                inputObj.rate = taxes[index].no;
                 inputObj.ok = true;
 
                 return true;

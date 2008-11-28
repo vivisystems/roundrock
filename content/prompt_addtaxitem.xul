@@ -23,7 +23,14 @@
                     <label id="title1" style="width:6em" value="" />
                     <textbox id="input1" value="" />
                 </hbox>
-                <checkbox id="combinetax" value="false" label="Combine Tax" />
+                <radiogroup flex="1">
+                   <label id="rate_type" value="INCLUDED" hidden="true" />
+                   <description value="Select Tax Type:"/>
+                   <radio label="INCLUDED" selected="true" value="INCLUDED" oncommand="setRateType(this.value);" />
+                   <radio label="ADDON" value="ADDON" oncommand="setRateType(this.value);" />
+                   <radio label="COMBINE" value="COMBINE" oncommand="setRateType(this.value);" />
+                   <radio label="VAT" disabled="true" value="VAT" oncommand="setRateType(this.value);" />
+                 </radiogroup>
             </groupbox>
         </vbox>
     </box>

@@ -43,7 +43,13 @@
                 payment_subtotal: 0,
 
                 created: '',
-                modified: ''
+                modified: '',
+
+                RoundingPrices: 'to-nearest-precision',
+                PrecisionPrices: 0,
+                RoundingTaxes: 'to-nearest-precision',
+                PrecisionTaxes: 0
+
             };
 
 
@@ -55,13 +61,15 @@
         },
 
         unserialize: function(data) {
-            // @todo
+        // @todo
             
         }
 
     });
 
     Transaction.Tax =  null;
+
+    // Transaction.Number =  null;
 
     Transaction.prototype.create = function() {
 
@@ -79,9 +87,16 @@
         this.data.created = new Date().toString('hh:mm:ss');
 
         if (Transaction.Tax == null) Transaction.Tax = new TaxComponent();
+
+        if (Transaction.Number == null) Transaction.Number = GeckoJS.NumberHelper;
         
         if (Transaction.events == null) Transaction.events = new GeckoJS.Event();
 
+        // update rounding / precision data
+        this.data.RoundingPrices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
+        this.data.RoundingTaxes = GeckoJS.Configure.read('vivipos.fec.settings.RoundingTaxes') || 'to-nearest-precision';
+        this.data.PrecisionPrices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
+        this.data.PrecisionTaxes = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionTaxes') || 0;
        
     };
 
@@ -103,9 +118,9 @@
 
     Transaction.prototype.submit = function() {
         this.data.status = 1;
-        // save transaction to order / orderdetail ...
+    // save transaction to order / orderdetail ...
 
-        // empty ?
+    // empty ?
         
     };
 
@@ -123,6 +138,9 @@
 
     Transaction.prototype.createItemDataObj = function(item, sellQty, sellPrice) {
 
+        var roundedPrice = this.getRoundedPrice(sellPrice) || 0;
+        var roundedSubtotal = this.getRoundedPrice(sellQty*sellPrice) || 0;
+        
         // name,current_qty,current_price,current_subtotal
         var item2 = {
             type: 'item', // item or category
@@ -131,8 +149,8 @@
             name: item.name,
             
             current_qty: sellQty,
-            current_price: sellPrice,
-            current_subtotal: (sellQty*sellPrice),
+            current_price: roundedPrice,
+            current_subtotal: roundedSubtotal,
 
             tax_name: item.rate,
             tax_rate: null,
@@ -152,7 +170,6 @@
             condiments: null,
             memo: null,
             
-            hasTax: false,
             hasDiscount: false,
             hasSurcharge: false,
             hasMarker: false
@@ -177,54 +194,63 @@
                 current_qty: item.current_qty,
                 current_price: item.current_price,
                 current_subtotal: item.current_subtotal,
+                current_tax: item.tax_name,
                 type: type,
                 index: index,
                 level: 0
             });
         }else if (type == 'discount') {
+            var dispName = ((item.discount_type == '$') ? item.discount_rate : item.discount_rate*100 )+ item.discount_type + '-';
             itemDisplay = GREUtils.extend(itemDisplay, {
                 id: item.id,
                 no: item.no,
-                name: item.discount_type + '-',
+                name: dispName,
                 current_qty: '',
                 current_price: '',
                 current_subtotal: item.current_discount,
+                current_tax: '',
                 type: type,
                 index: index,
                 level: 2
             });
         }else if (type == 'trans_discount') {
+            var dispName = ((item.discount_type == '$') ? item.discount_rate : item.discount_rate*100 )+ item.discount_type + '-';
             itemDisplay = GREUtils.extend(itemDisplay, {
                 id: null,
                 no: item.no,
-                name: item.discount_type + '-',
+                name: dispName,
                 current_qty: '',
                 current_price: '',
                 current_subtotal: item.current_discount,
+                current_tax: '',
                 type: type,
                 index: index,
                 level: 0
             });
         }else if (type == 'surcharge') {
+            var dispName = ((item.surcharge_type == '$') ? item.surcharge_rate : item.surcharge_rate*100 )+ item.surcharge_type + '+';
             itemDisplay = GREUtils.extend(itemDisplay, {
                 id: item.id,
                 no: item.no,
-                name: item.surcharge_type + '+',
+                name: dispName,
                 current_qty: '',
                 current_price: '',
                 current_subtotal: item.current_surcharge,
+                current_tax: '',
                 type: type,
                 index: index,
                 level: 2
             });
         }else if (type == 'trans_surcharge') {
+            var dispName = ((item.surcharge_type == '$') ? item.surcharge_rate : item.surcharge_rate*100 )+ item.surcharge_type + '+';
             itemDisplay = GREUtils.extend(itemDisplay, {
                 id: null,
                 no: item.no,
-                name: item.surcharge_type + '+',
+                name: dispName,
                 current_qty: '',
                 current_price: '',
                 current_subtotal: item.current_surcharge,
+                current_tax: '',
                 type: type,
                 index: index,
                 level: 0
@@ -236,6 +262,7 @@
                 current_qty: '',
                 current_price: '',
                 current_subtotal: item.current_subtotal,
+                current_tax: '',
                 type: type,
                 index: index,
                 level: 0
@@ -247,10 +274,22 @@
                 current_qty: '',
                 current_price: '',
                 current_subtotal: '',
+                current_tax: '',
                 type: type,
                 index: index,
                 level: 1
             });           
+        }
+
+
+        // format display precision
+        if(itemDisplay.current_subtotal != '' || itemDisplay.current_subtotal === 0) {
+            itemDisplay.current_subtotal = this.formatPrice(itemDisplay.current_subtotal)
+        }
+        
+        // format display precision
+        if(itemDisplay.current_price != ''  || itemDisplay.current_price === 0 ) {
+            itemDisplay.current_price = this.formatPrice(itemDisplay.current_price);
         }
 
         return itemDisplay;
@@ -439,6 +478,8 @@
 
             if (itemRemoved.hasDiscount) removeCount++;
             if (itemRemoved.hasSurcharge) removeCount++;
+            if (itemRemoved.memo != null) removeCount++;
+            if (itemRemoved.condiments != null) removeCount++;
 
             this.log('DEBUG', 'dispatchEvent afterVoidItem ' + this.dump(itemRemoved) );
             Transaction.events.dispatch('afterVoidItem', itemRemoved, this);
@@ -520,6 +561,9 @@
                 item.current_discount = 0 - item.current_subtotal * item.discount_rate;
             }
 
+            // rounding discount
+            item.current_discount = this.getRoundedPrice(item.current_discount);
+
             // create data object to push in items array
             var itemDisplay = this.createDisplaySeq(itemIndex, item, 'discount');
 
@@ -528,17 +572,22 @@
 
         }else if (itemDisplay.type == 'subtotal'){
 
-            var discountItem = { discount_name: 'open',
-                                 discount_rate: discount.amount,
-                                 discount_type: discount.type,
-                                 current_discount: 0,
-                                 hasMarker: false };
+            var discountItem = {
+                discount_name: 'open',
+                discount_rate: discount.amount,
+                discount_type: discount.type,
+                current_discount: 0,
+                hasMarker: false
+            };
 
             if (discountItem.discount_type == '$') {
                 discountItem.current_discount = 0 - discount.amount;
             }else {
                 discountItem.current_discount = 0 - this.getRemainTotal() * discountItem.discount_rate;
             }
+
+            // rounding discount
+            discountItem.current_discount = this.getRoundedPrice(discountItem.current_discount);
 
             var discountIndex = GeckoJS.String.uuid();
             this.data.trans_discounts[discountIndex] = discountItem;
@@ -593,6 +642,10 @@
                 item.current_surcharge = item.current_subtotal * item.surcharge_rate;
             }
 
+            // rounding surcharge
+            item.current_surcharge = this.getRoundedPrice(item.current_surcharge);
+
+
             // create data object to push in items array
             var itemDisplay = this.createDisplaySeq(itemIndex, item, 'surcharge');
 
@@ -600,18 +653,23 @@
             
         }else if (itemDisplay.type == 'subtotal'){
 
-            var surchargeItem = { surcharge_name: 'open',
-                                 surcharge_rate: surcharge.amount,
-                                 surcharge_type: surcharge.type,
-                                 current_surcharge: 0,
-                                 hasMarker: false
-                                 };
+            var surchargeItem = {
+                surcharge_name: 'open',
+                surcharge_rate: surcharge.amount,
+                surcharge_type: surcharge.type,
+                current_surcharge: 0,
+                hasMarker: false
+            };
 
             if (surchargeItem.surcharge_type == '$') {
                 surchargeItem.current_surcharge = surcharge.amount;
             }else {
                 surchargeItem.current_surcharge = this.getRemainTotal() * surchargeItem.surcharge_rate;
             }
+
+            // rounding surcharge
+            surchargeItem.current_surcharge = this.getRoundedPrice(surchargeItem.current_surcharge);
+
 
             var surchargeIndex = GeckoJS.String.uuid();
             this.data.trans_surcharges[surchargeIndex] = surchargeItem;
@@ -651,7 +709,10 @@
         var prevRowCount = this.data.display_sequences.length;
 
         // create data object to push in items array
-        var markerItem = {name: '** ' + type.toUpperCase(), current_subtotal: 0};
+        var markerItem = {
+            name: '** ' + type.toUpperCase(),
+            current_subtotal: 0
+        };
         
         var remain = this.getRemainTotal();
         
@@ -710,7 +771,10 @@
 
         if (item.type == 'item') {
             
-            var condimentItem = {id: item.id, name: condiments};
+            var condimentItem = {
+                id: item.id,
+                name: condiments
+            };
 
             item.condiments = condiments;
             
@@ -741,7 +805,10 @@
 
         if (item.type == 'item') {
 
-            var memoItem = {id: item.id, name: memo};
+            var memoItem = {
+                id: item.id,
+                name: memo
+            };
 
             item.memo = memo;
 
@@ -765,7 +832,13 @@
     Transaction.prototype.appendPayment = function(type, amount, memo1, memo2){
 
         var paymentId =  GeckoJS.String.uuid();
-        var paymentItem = {id: paymentId, name: type, amount: amount, memo1: memo1, memo2: memo2};
+        var paymentItem = {
+            id: paymentId,
+            name: type,
+            amount: amount,
+            memo1: memo1,
+            memo2: memo2
+        };
 
         this.data.trans_payments[paymentId] = paymentItem;
 
@@ -949,6 +1022,36 @@
 
     Transaction.prototype.calcItemsTax =  function() {
         var obj = this.data;
+
+        // item subtotal
+        for(var itemIndex in this.data.items ) {
+            var item = this.data.items[itemIndex];
+
+            /*
+            tax_name: item.rate,
+            tax_rate: null,
+            tax_type: null,
+            current_tax: 0,
+            */
+
+            var tax = Transaction.Tax.getTax(item.tax_name);
+            if(tax) {
+                item.tax_rate = tax.rate;
+                item.tax_type = tax.type;
+                
+                var taxChargeObj = Transaction.Tax.calcTaxAmount(item.tax_name, item.current_subtotal);
+
+                // @todo total only or summary ?
+                item.current_tax =  taxChargeObj[item.tax_name].charge;
+            }else {
+                item.current_tax = 0;
+            }
+
+            // rounding tax
+            item.current_tax = this.getRoundedTax(item.current_tax);
+
+        }
+
         this.log('DEBUG', 'dispatchEvent onCalcItemsTax ' + obj);
         Transaction.events.dispatch('onCalcItemsTax', obj, this);
 
@@ -1006,12 +1109,40 @@
     };
 
 
-    Transaction.prototype.getTotal = function() {
+    Transaction.prototype.getTotal = function(format) {
+        format = format || false;
+        
+        if (format) return this.formatPrice(this.data.total);
+
         return this.data.total;
     };
 
-    Transaction.prototype.getRemainTotal = function() {
+    Transaction.prototype.getRemainTotal = function(format) {
+        format = format || false;
+
+        if (format) return this.formatPrice(this.data.remain);
+
         return this.data.remain;
+    };
+
+
+    Transaction.prototype.getRoundedPrice = function(price) {
+        var roundedPrice = Transaction.Number.round(price, this.data.PrecisionPrices, this.data.RoundingPrices) || 0;
+        return roundedPrice;
+    };
+
+
+    Transaction.prototype.getRoundedTax = function(tax) {
+        var roundedTax = Transaction.Number.round(tax, this.data.PrecisionTaxes, this.data.RoundingTaxes) || 0;
+        return roundedTax;
+    };
+
+    Transaction.prototype.formatPrice = function(price) {
+        var options = {
+          places: ((this.data.PrecisionPrices>0)?this.data.PrecisionPrices:0)
+        };
+        // format display precision
+        return Transaction.Number.format(price, options);
     };
 
 })();

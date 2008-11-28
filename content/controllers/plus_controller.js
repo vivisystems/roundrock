@@ -10,6 +10,8 @@
         screenheight: 600,
         _selectedIndex: null,
         _selCateNo: null,
+        components: ['Tax'],
+        
         catePanelView: null,
         productPanelView: null,
 
@@ -94,6 +96,12 @@
             var inputObj = {
                 rate: rate
             };
+
+            var taxes = GeckoJS.Session.get('taxes');
+            if(taxes == null) taxes = this.Tax.getTaxList();
+
+            inputObj.taxes = taxes;
+            
             window.openDialog(aURL, "select_rate", features, inputObj);
 
             if (inputObj.ok && inputObj.rate) {

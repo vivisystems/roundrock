@@ -24,6 +24,7 @@
             <preference id="pref_timeformatstr" name="vivipos.fec.settings.TimeformatStr" type="string"/>
 
             <preference id="pref_activepricelevelschedule" name="vivipos.fec.settings.ActivePriceLevelSchedule" type="bool" />
+            <preference id="pref_changedepartmentclearbuffer" name="vivipos.fec.settings.ChangeDepartmentClearBuffer" type="bool" />
         </preferences>
         <hbox align="center">
             <label control="terminalid" value="&vivipos.fec.settings.terminalid;"/>
@@ -33,6 +34,7 @@
         <checkbox preference="pref_privatequeue" id="pref_privatequeueCtrl" label="&vivipos.fec.settings.privatequeue;" />
         <checkbox preference="pref_publicattendance" id="pref_publicAttendanceCtrl" label="&vivipos.fec.settings.publicattendance;" />
         <checkbox preference="pref_activepricelevelschedule" id="pref_activepricelevelscheduleCtrl" label="&vivipos.fec.settings.activepricelevelschedule;" />
+        <checkbox preference="pref_changedepartmentclearbuffer" id="pref_changedepartmentclearbufferCtrl" label="&vivipos.fec.settings.changedepartmentclearbuffer;" />
 
         <hbox align="center">
             <label control="precisionprices" value="&vivipos.fec.settings.defaultpricelevel;"/>
@@ -111,6 +113,10 @@
             <preference id="pref_hidedeptscrollbar" name="vivipos.fec.settings.HideDeptScrollbar" type="bool"/>
             <preference id="pref_hidepluscrollbar" name="vivipos.fec.settings.HidePLUScrollbar" type="bool"/>
             <preference id="pref_hidefpscrollbar" name="vivipos.fec.settings.HideFPScrollbar" type="bool"/>
+
+            <preference id="pref_crop_dept_label" name="vivipos.fec.settings.CropDeptLabel" type="bool"/>
+            <preference id="pref_crop_plu_label" name="vivipos.fec.settings.CropPLULabel" type="bool"/>
+
             <preference id="pref_deprows" name="vivipos.fec.settings.DepartmentRows" type="int"/>
             <preference id="pref_depcols" name="vivipos.fec.settings.DepartmentCols" type="int"/>
             <preference id="pref_plurows" name="vivipos.fec.settings.PluRows" type="int"/>
@@ -126,6 +132,10 @@
         <checkbox id="hideDeptScrollbar" label="&vivipos.fec.settings.layout.hidedeptscrollbar;" preference="pref_hidedeptscrollbar"/>
         <checkbox id="hidePLUScrollbar" label="&vivipos.fec.settings.layout.hidepluscrollbar;" preference="pref_hidepluscrollbar"/>
         <checkbox id="hideFPScrollbar" label="&vivipos.fec.settings.layout.hidefpscrollbar;" preference="pref_hidefpscrollbar"/>
+
+        <checkbox id="cropDeptLabel" label="&vivipos.fec.settings.layout.cropdeptlabel;" preference="pref_crop_dept_label" />
+        <checkbox id="cropPLULabel" label="&vivipos.fec.settings.layout.cropplulabel;" preference="pref_crop_plu_label"/>
+
 
         <hbox align="center">
             <label control="deprows" value="Department Dimension => Rows:"/>

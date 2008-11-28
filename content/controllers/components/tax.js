@@ -82,9 +82,11 @@
         }
 
         // store in session
-        GeckoJS.Session.set('taxesByNo', byNo);
-        GeckoJS.Session.set('taxesById', byId);
         GeckoJS.Session.set('taxes', GeckoJS.BaseObject.getValues(byNo));
+        GeckoJS.Session.set('taxesById', byId);
+        GeckoJS.Session.set('taxesByNo', byNo);
+        
+        
 
         //this.log(this.dump(GeckoJS.Session.get('taxesByNo')));
         //this.log(this.dump(GeckoJS.Session.get('taxes')));
@@ -497,6 +499,9 @@
 
         switch(taxObject['type']) {
             default:
+            case "INCLUDED":
+                taxAmount[no]['charge'] = 0;
+                break;
             case "ADDON":
                 if (amount > taxObject['threshold']) {
                     var charge = 0;
