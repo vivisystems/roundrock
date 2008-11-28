@@ -26,8 +26,8 @@
                 <vivisessionstatus id="vivipos_fec_order_status" flex="1"
                                class="orderstatus"
                                columns="4"
-                               labels="&viviorderstatus.pricelevel.label;,&viviorderstatus.taxstatus.label;,&viviorderstatus.ordersequence.label;,,&viviorderstatus.destination.label;,&viviorderstatus.numbercustomer.label;,&viviorderstatus.checknumber.label;,&viviorderstatus.tablenumber.label;"
-                               keys="vivipos_fec_price_level,vivipos_fec_tax_status,vivipos_fec_order_sequence,,vivipos_fec_order_destination,vivipos_fec_number_of_customers,vivipos_fec_check_number,vivipos_fec_table_number"
+                               labels="&viviorderstatus.pricelevel.label;,&viviorderstatus.taxtotal.label;,&viviorderstatus.numberitems.label;,&viviorderstatus.ordersequence.label;,&viviorderstatus.destination.label;,&viviorderstatus.numbercustomer.label;,&viviorderstatus.checknumber.label;,&viviorderstatus.tablenumber.label;"
+                               keys="vivipos_fec_price_level,vivipos_fec_tax_total,vivipos_fec_number_of_items,vivipos_fec_order_sequence,,vivipos_fec_order_destination,vivipos_fec_number_of_customers,vivipos_fec_check_number,vivipos_fec_table_number"
                                labelClass="orderstatus_field_label"
 			       valueClass="orderstatus_field_value"
                              />

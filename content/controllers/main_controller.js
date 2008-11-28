@@ -15,6 +15,9 @@
 
         initial: function() {
 
+            this.screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
+            this.screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
+
             this.createPluPanel();
             this.requestCommand('initial', null, 'Pricelevel');
             this.requestCommand('initial', null, 'Cart');
