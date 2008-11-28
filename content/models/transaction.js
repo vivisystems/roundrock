@@ -136,7 +136,7 @@
 
     },
 
-    Transaction.prototype.createItemDataObj = function(item, sellQty, sellPrice) {
+    Transaction.prototype.createItemDataObj = function(index, item, sellQty, sellPrice) {
 
         var roundedPrice = this.getRoundedPrice(sellPrice) || 0;
         var roundedSubtotal = this.getRoundedPrice(sellQty*sellPrice) || 0;
@@ -147,6 +147,8 @@
             id: item.id,
             no: item.no,
             name: item.name,
+
+            index: index,
             
             current_qty: sellQty,
             current_price: roundedPrice,
@@ -168,6 +170,8 @@
             current_surcharge: 0,
 
             condiments: null,
+            current_codiment: 0,
+
             memo: null,
             
             hasDiscount: false,
@@ -272,7 +276,7 @@
                 id: '',
                 name: item.name,
                 current_qty: '',
-                current_price: '',
+                current_price: item.current_subtotal,
                 current_subtotal: '',
                 current_tax: '',
                 type: type,
@@ -348,9 +352,10 @@
         this.log('DEBUG', 'dispatchEvent beforeAppendItem ' + this.dump(obj) );
         Transaction.events.dispatch('beforeAppendItem', obj, this);
 
-        // create data object to push in items array
-        var itemAdded = this.createItemDataObj(item, sellQty, sellPrice);
         var itemIndex = GeckoJS.String.uuid();
+
+        // create data object to push in items array
+        var itemAdded = this.createItemDataObj(itemIndex, item, sellQty, sellPrice);
 
         // push to items array
         this.data.items[itemIndex] = itemAdded;
@@ -418,7 +423,7 @@
         Transaction.events.dispatch('beforeModifyItem', obj, this);
 
         // create data object to push in items array
-        var itemModified = this.createItemDataObj(item, sellQty, sellPrice);
+        var itemModified = this.createItemDataObj(itemIndex, item, sellQty, sellPrice);
 
         // update to items array
         this.data.items[itemIndex]  = itemModified;
@@ -479,7 +484,12 @@
             if (itemRemoved.hasDiscount) removeCount++;
             if (itemRemoved.hasSurcharge) removeCount++;
             if (itemRemoved.memo != null) removeCount++;
-            if (itemRemoved.condiments != null) removeCount++;
+
+            if (itemRemoved.condiments != null) {
+                for (var cn in itemRemoved.condiments) {
+                    removeCount++;
+                }
+            }
 
             this.log('DEBUG', 'dispatchEvent afterVoidItem ' + this.dump(itemRemoved) );
             Transaction.events.dispatch('afterVoidItem', itemRemoved, this);
@@ -512,7 +522,26 @@
             if (itemDisplay.type == 'trans_surcharge') {
                 delete this.data.trans_surcharges[itemIndex];
             }
+            if (itemDisplay.type == 'condiment') {
+                delete itemTrans.condiments[itemDisplay.name];
 
+                var roundedPrice = this.getRoundedPrice(itemTrans.current_price) || 0;
+                var roundedSubtotal = this.getRoundedPrice(itemTrans.current_qty * itemTrans.current_price) || 0;
+                var roundedCodiment = 0;
+
+                for(var cn in itemTrans.condiments) {
+                    roundedCodiment += parseFloat(itemTrans.condiments[cn].price);
+                }
+
+                roundedCodiment = this.getRoundedPrice(roundedCodiment);
+
+                itemTrans.current_codiment = roundedCodiment;
+                itemTrans.current_subtotal = roundedSubtotal + roundedCodiment;
+
+                var orgItemDisplay = this.getDisplaySeqByIndex(itemIndex);
+                orgItemDisplay.current_subtotal =  this.formatPrice(itemTrans.current_subtotal);
+
+            }
 
             this.removeDisplaySeq(index, 1);
         }
@@ -804,8 +833,6 @@
 
         var currentRowCount = this.data.display_sequences.length;
 
-
-
         this.updateCartView(prevRowCount, currentRowCount);
 
         return item;
@@ -822,18 +849,47 @@
         var prevRowCount = this.data.display_sequences.length;
 
         if (item.type == 'item') {
-            
-            var condimentItem = {
-                id: item.id,
-                name: condiments
-            };
 
-            item.condiments = condiments;
-            
-            var itemDisplay = this.createDisplaySeq(itemIndex, condimentItem, 'condiment');
+            condiments.forEach(function(condiment){
+                var condimentItem = {
+                    id: item.id,
+                    name: condiment.name,
+                    current_subtotal: (this.getRoundedPrice(condiment.price) == 0) ? '' : this.formatPrice(this.getRoundedPrice(condiment.price))
+                };
 
-            var lastIndex = this.data.display_sequences.length - 1;
-            this.data.display_sequences.splice(lastIndex+1,0,itemDisplay);
+                if(item.condiments == null) item.condiments = {};
+
+                item.condiments[condiment.name] = condiment;
+
+                // up
+                var itemDisplay = this.createDisplaySeq(itemIndex, condimentItem, 'condiment');
+
+                var lastIndex = this.data.display_sequences.length - 1;
+                this.data.display_sequences.splice(lastIndex+1,0,itemDisplay);
+
+            }, this);
+
+            if (condiments.length >0) {
+
+                var roundedPrice = this.getRoundedPrice(item.current_price) || 0;
+                var roundedSubtotal = this.getRoundedPrice(item.current_qty*item.current_price) || 0;
+                var roundedCodiment = 0;
+
+                for(var cn in item.condiments) {
+                    roundedCodiment += parseFloat(item.condiments[cn].price);
+                }
+
+                roundedCodiment = this.getRoundedPrice(roundedCodiment);
+
+                item.current_codiment = roundedCodiment;
+                item.current_subtotal = roundedSubtotal + roundedCodiment;
+
+                itemDisplay.current_subtotal = this.formatPrice(item.current_subtotal);
+
+                this.calcItemsTax();
+
+                this.calcTotal();
+            }
 
         }
 
@@ -859,7 +915,8 @@
 
             var memoItem = {
                 id: item.id,
-                name: memo
+                name: memo,
+                current_subtotal: ''
             };
 
             item.memo = memo;
@@ -944,6 +1001,16 @@
 
         return itemDisplay;
     };
+
+    Transaction.prototype.getDisplaySeqByIndex = function(index){
+
+        for (var i =0 ; i < this.data.display_sequences.length; i++) {
+            var itemDisplay = this.data.display_sequences[i];
+            if (itemDisplay.index == index) return itemDisplay;
+        }
+        
+    };
+
 
 
     Transaction.prototype.calcSellPrice =  function(sellPrice, sellQty, item) {
