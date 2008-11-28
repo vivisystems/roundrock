@@ -97,7 +97,7 @@
         add: function (evt) {
             var self = this;
             var aURL = "chrome://viviecr/content/prompt_addtaxitem.xul";
-            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250";
+            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=600,height=400";
             var inputObj = {
                 input0:null,
                 input1:null,
@@ -107,13 +107,14 @@
             if (inputObj.ok && inputObj.input0 && inputObj.input1) {
 
                 var tax_type = "ADDON";
-                if (inputObj.combinetax) tax_type = "COMBINE";
+                tax_type = inputObj.rate_type;
                 // var data = this.getInputData();
                 var data = {
                     no: inputObj.input0,
                     name: inputObj.input1,
                     type: tax_type
                 };
+
                 if (this._checkData(data) == 0) {
                     this.Tax.setTax(data.no, data);
 

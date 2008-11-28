@@ -339,6 +339,9 @@
             var hideFPScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.HideFPScrollbar');
             var hideNumPad = GeckoJS.Configure.read('vivipos.fec.settings.HideNumPad');
 
+            var cropDeptLabel = GeckoJS.Configure.read('vivipos.fec.settings.CropDeptLabel') || false;
+            var cropPLULabel = GeckoJS.Configure.read('vivipos.fec.settings.CropPLULabel') || false;
+
             var hbox = document.getElementById('mainPanel');
             var deptPanel = document.getElementById('catescrollablepanel');
             var pluPanel = document.getElementById('prodscrollablepanel');
@@ -350,6 +353,9 @@
             if (deptPanel) deptPanel.setAttribute('hideScrollbar', hideDeptScrollbar);
             if (pluPanel) pluPanel.setAttribute('hideScrollbar', hidePLUScrollbar);
             if (fnPanel) fnPanel.setAttribute('hideScrollbar', hideFPScrollbar);
+
+            if(cropDeptLabel) deptPanel.setAttribute('crop', 'end');
+            if(cropPLULabel) pluPanel.setAttribute('crop', 'end');
 
             if (hbox) hbox.setAttribute('dir', registerAtLeft ? 'reverse' : 'normal');
             if (deptPanel) deptPanel.setAttribute('dir', registerAtLeft ? 'normal' : 'reverse');

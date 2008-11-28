@@ -4,7 +4,11 @@
     var title0  = window.arguments[2];
     var title1  = window.arguments[3];
     var inputObj = window.arguments[4];
-    
+
+    var setRateType = window.setRateType = function(value)  {
+        document.getElementById('rate_type').value = value;
+    };
+
     /**
      * Controller Startup
      */
@@ -15,13 +19,13 @@
         document.getElementById('title1').value = title1;
         document.getElementById('input0').value = inputObj.input0;
         document.getElementById('input1').value = inputObj.input1;
-        document.getElementById('combinetax').checked = inputObj.combinetax;
+
 
         doSetOKCancel(
             function(){
                 inputObj.input0 = document.getElementById('input0').value;
                 inputObj.input1 = document.getElementById('input1').value;
-                inputObj.combinetax = document.getElementById('combinetax').checked;
+                inputObj.rate_type = document.getElementById('rate_type').value;
                 inputObj.ok = true;
                 return true;
             },
