@@ -106,7 +106,6 @@
         <preferences>
 			
             <preference id="pref_registeratleft" name="vivipos.fec.settings.RegisterAtLeft" type="bool"/>
-            <preference id="pref_hidenumpad" name="vivipos.fec.settings.HideNumPad" type="bool"/>
             <preference id="pref_functionpanelontop" name="vivipos.fec.settings.FunctionPanelOnTop" type="bool"/>
             <preference id="pref_plubeforedept" name="vivipos.fec.settings.DeptBeforePLU" type="bool"/>
             <preference id="pref_hidedeptscrollbar" name="vivipos.fec.settings.HideDeptScrollbar" type="bool"/>
@@ -122,7 +121,6 @@
         </preferences>
 
         <checkbox id="registeratleft" label="&vivipos.fec.settings.layout.registeratleft;" preference="pref_registeratleft"/>
-        <checkbox id="hidenumpad" label="&vivipos.fec.settings.layout.hidenumpad;" preference="pref_hidenumpad"/>
         <checkbox id="functionpanelontop" label="&vivipos.fec.settings.layout.functionpanelontop;" preference="pref_functionpanelontop"/>
         <checkbox id="PLUbeforedept" label="&vivipos.fec.settings.layout.PLUbeforedept;" preference="pref_plubeforedept"/>
         <checkbox id="hideDeptScrollbar" label="&vivipos.fec.settings.layout.hidedeptscrollbar;" preference="pref_hidedeptscrollbar"/>

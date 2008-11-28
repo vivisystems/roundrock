@@ -37,7 +37,10 @@
             var curTransaction = GeckoJS.Session.get('current_transaction');
 
             // null 
-            if (curTransaction == null && autoCreate) return this._newTransaction();
+            if (curTransaction == null){
+                if(autoCreate) return this._newTransaction();
+                return null;
+            }
 
             // has submit
             if (curTransaction.isSubmit() && autoCreate ) return this._newTransaction();
@@ -680,6 +683,7 @@
                 this.dispatchEvent('onClear', null);
                 return; // fatal error ?
             }
+            this.dispatchEvent('onClear', curTransaction);
 
         },
 	
@@ -824,6 +828,8 @@
                 if (o.name == condgroup) {index = i}
             });
 
+            if (typeof condGroups[index] == 'undefined') return null;
+            
             var conds = condGroups[index]['Condiment'];
 
             var condiments = null;
