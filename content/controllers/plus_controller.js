@@ -14,6 +14,7 @@
         
         catePanelView: null,
         productPanelView: null,
+        _pluset: [],
 
 
         createGroupPanel: function () {
@@ -109,10 +110,71 @@
 
             }
         },
+        
+        getPluSetListObj: function() {
+            if(this._listObj == null) {
+                this._listObj = document.getElementById('plusetscrollablepanel');
+            }
+            return this._listObj;
+        },
+
+        _searchPlu: function (barcode) {
+            // alert(barcode);
+            $('#plu').val('').focus();
+            // $('#plu').focus();
+            if (barcode == "") return;
+
+            var productsById = GeckoJS.Session.get('productsById');
+            var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
+            var product;
+
+            if (!barcodesIndexes[barcode]) {
+                // barcode notfound
+                // alert("Plu (" + barcode + ") Not Found!");
+                return null;
+            }else {
+                var id = barcodesIndexes[barcode];
+                product = productsById[id];
+                return product;
+            }
+        },
 
         getPlu: function (){
             // $do('PLUSearchDialog', null, 'Main');
 
+            var aURL = "chrome://viviecr/content/prompt_addpluset.xul";
+            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250";
+            var inputObj = {
+                input0:null,
+                input1:1
+            };
+            window.openDialog(aURL, "prompt_addpluset", features, "Plu Set Menu", "Please input:", "Plu No or Barcode:", "Qty:", inputObj);
+
+            if (inputObj.ok && inputObj.input0 && inputObj.input1) {
+                var product = this._searchPlu(inputObj.input0);
+                if (product) {
+                    var inputData = {
+                        no: product.no,
+                        name: product.name,
+                        qty: inputObj.input1
+                    };
+
+                    this._pluset.push(inputData);
+
+                    var panelView =  new GeckoJS.NSITreeViewArray(this._pluset);
+                    this.getPluSetListObj().datasource = panelView;
+                    var setmenu = [];
+                    this._pluset.forEach(function(o){
+                        setmenu.push(o.no + "=" + o.qty);
+                    });
+                    $("#setmenu").val( setmenu.join("&"));
+                }
+
+            }
+
+            return;
+
+            /*
             var aURL = "chrome://viviecr/content/plusearch.xul";
             var aName = "PLUSearch";
             var features = "chrome,titlebar,toolbar,centerscreen,modal,width=800,height=600";
@@ -127,6 +189,7 @@
 //
 
             }
+            */
         },
 
         getInputData: function () {
