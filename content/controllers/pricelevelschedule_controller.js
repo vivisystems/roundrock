@@ -104,16 +104,9 @@
             
             if (GREUtils.Dialog.confirm(null, "confirm remove", "Are you sure?")) {
 
-                
-                if(index > 0) {
-
-                    var datas = [];
-                    var itemtime = this._listDatas[index].time;
-                    this._listDatas.forEach(function(o){
-                        if (o.time != itemtime) datas.push(o);
-                    });
-                    this._listDatas = datas;
-                } else if (index == 0){
+                if (index > 0) {
+                    this._listDatas.splice(index, 1);
+                } else if (index == 0) {
                     this._listDatas[0].pricelevel = 0;
                 }
 
