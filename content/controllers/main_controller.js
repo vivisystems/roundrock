@@ -15,6 +15,9 @@
 
         initial: function() {
 
+            this.screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
+            this.screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
+
             this.createPluPanel();
             this.requestCommand('initial', null, 'Pricelevel');
             this.requestCommand('initial', null, 'Cart');
@@ -334,6 +337,9 @@
         },
         
         resetLayout: function (initial) {
+
+
+
             var registerAtLeft = GeckoJS.Configure.read('vivipos.fec.settings.RegisterAtLeft');
             var functionPanelOnTop = GeckoJS.Configure.read('vivipos.fec.settings.FunctionPanelOnTop');
             var PLUbeforeDept = GeckoJS.Configure.read('vivipos.fec.settings.DeptBeforePLU');
@@ -376,6 +382,8 @@
             if (!this.toggleNumPad(hideNumPad, initial)) {
                 this.resizeLeftPanel(initial);
             }
+
+            // document.getElementById('cartList').setAttribute('dir', 'reverse');
         },
         
         initialLogin: function () {
