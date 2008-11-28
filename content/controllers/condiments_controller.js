@@ -85,7 +85,7 @@
             var aURL = "chrome://viviecr/content/prompt_additem.xul";
             var features = "chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250";
 
-            var inputObj = {input0:null};
+            var inputObj = {input0:null,input1:null};
 
             window.openDialog(aURL, "prompt_additem", features, "New Condiment Group", "Please input:", "Name", "", inputObj);
 
@@ -179,7 +179,7 @@
 
             var aURL = "chrome://viviecr/content/prompt_additem.xul";
             var features = "chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250";
-            var inputObj = {input0:null, input1:null};
+            var inputObj = {input0:null, input1:0};
             window.openDialog(aURL, "prompt_additem", features, "New Condiment", "Please input:", "Name", "Price", inputObj);
 
             if (inputObj.ok && inputObj.input0 && inputObj.input1) {
