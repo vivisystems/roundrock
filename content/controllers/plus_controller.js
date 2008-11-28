@@ -110,6 +110,25 @@
             }
         },
 
+        getPlu: function (){
+            // $do('PLUSearchDialog', null, 'Main');
+
+            var aURL = "chrome://viviecr/content/plusearch.xul";
+            var aName = "PLUSearch";
+            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=800,height=600";
+            var inputObj = {
+                no: no,
+                name: name,
+                qty: qty
+            };
+            window.openDialog(aURL, aName, features, inputObj);
+
+            if (inputObj.ok && inputObj.no) {
+//
+
+            }
+        },
+
         getInputData: function () {
             return GeckoJS.FormHelper.serializeToObject('productForm', false);
         },

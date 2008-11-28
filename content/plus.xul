@@ -158,7 +158,7 @@
                                             <caption label="Plu Sets:" />
                                             <viviscrollabletree id="prodscrollablepanel" flex="1" rows="7" headers="No,Name,Qty" fields="no,name,qty" onclick="$do('clickPluSetsPanel',this.selectedIndex, 'Plus');"
                                                         class="prodscrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray">
-                                                <vivibutton label="+" oncommand="$do('PLUSearchDialog', null, 'Main');" />
+                                                <vivibutton label="+" oncommand="$do('getPlu', null, 'Plus');" />
                                                 <vivibutton label="-" />
                                             </viviscrollabletree>
                                         </groupbox>

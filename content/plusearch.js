@@ -13,6 +13,21 @@
         $('#clearBtn')[0].addEventListener('command', clearTextBox, false);
         // $('#ekeyBtn')[0].addEventListener('command', searchPlu, true);
         $('#plu').focus();
+
+        doSetOKCancel(
+            function(){
+                // inputObj.condiments = document.getElementById('condiments').value;
+                //inputObj.index = document.getElementById('queueScrollablepanel').value;
+                // inputObj.ok = true;
+
+                return true;
+            },
+            function(){
+                // inputObj.ok = false;
+
+                return true;
+            }
+            );
     };
 
     /**
