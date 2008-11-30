@@ -281,6 +281,8 @@
             var hideDeptScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.HideDeptScrollbar');
             var hidePLUScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.HidePLUScrollbar');
             var hideFPScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.HideFPScrollbar');
+            var cropDeptLabel = GeckoJS.Configure.read('vivipos.fec.settings.CropDeptLabel') || false;
+            var cropPLULabel = GeckoJS.Configure.read('vivipos.fec.settings.CropPLULabel') || false;
 
             // first check if rows and columns have changed
 
@@ -290,12 +292,18 @@
             }
             rowsLeft -= departmentRows;
 
+            if (cropPLULabel) pluPanel.setAttribute('crop', 'end');
+
             if (initial ||
                 (deptPanel.getAttribute('rows') != departmentRows) ||
                 (deptPanel.getAttribute('cols') != departmentCols) ||
+                (cropDeptLabel && (deptPanel.getAttribute('crop') != 'end')) ||
+                (!cropDeptLabel && (deptPanel.getAttribute('crop') == 'end')) ||
                 (deptPanel.getAttribute('hideScrollbar') != hideDeptScrollbar)) {
                 deptPanel.setAttribute('rows', departmentRows);
                 deptPanel.setAttribute('cols', departmentCols);
+                if (cropDeptLabel) deptPanel.setAttribute('crop', 'end');
+                else deptPanel.removeAttribute('crop');
                 if ((departmentRows > 0) && (departmentCols > 0)) {
                     deptPanel.setAttribute('hideScrollbar', hideDeptScrollbar);
                     deptPanel.setAttribute('hidden', false);
@@ -315,9 +323,13 @@
             if (initial ||
                 (pluPanel.getAttribute('rows') != pluRows) ||
                 (pluPanel.getAttribute('cols') != pluCols) ||
+                (cropPLULabel && (pluPanel.getAttribute('crop') != 'end')) ||
+                (!cropPLULabel && (pluPanel.getAttribute('crop') == 'end')) ||
                 (pluPanel.getAttribute('hideScrollbar') != hidePLUScrollbar)) {
                 pluPanel.setAttribute('rows', pluRows);
                 pluPanel.setAttribute('cols', pluCols);
+                if (cropPLULabel) pluPanel.setAttribute('crop', 'end');
+                else pluPanel.removeAttribute('crop');
                 if ((pluRows > 0) && (pluCols > 0)) {
                     pluPanel.setAttribute('hideScrollbar', hidePLUScrollbar);
                     pluPanel.setAttribute('hidden', false);
@@ -369,9 +381,6 @@
             var PLUbeforeDept = GeckoJS.Configure.read('vivipos.fec.settings.DeptBeforePLU');
             var hideNumPad = GeckoJS.Configure.read('vivipos.fec.settings.HideNumPad');
 
-            var cropDeptLabel = GeckoJS.Configure.read('vivipos.fec.settings.CropDeptLabel') || false;
-            var cropPLULabel = GeckoJS.Configure.read('vivipos.fec.settings.CropPLULabel') || false;
-
             var hbox = document.getElementById('mainPanel');
             var deptPanel = document.getElementById('catescrollablepanel');
             var pluPanel = document.getElementById('prodscrollablepanel');
@@ -381,9 +390,6 @@
             var productPanel = document.getElementById('productPanel');
             var cartList = document.getElementById('cartList');
             
-            if(cropDeptLabel) deptPanel.setAttribute('crop', 'end');
-            if(cropPLULabel) pluPanel.setAttribute('crop', 'end');
-
             if (hbox) hbox.setAttribute('dir', registerAtLeft ? 'reverse' : 'normal');
             if (deptPanel) deptPanel.setAttribute('dir', registerAtLeft ? 'normal' : 'reverse');
             if (pluPanel) pluPanel.setAttribute('dir', registerAtLeft ? 'normal' : 'reverse');
@@ -394,7 +400,6 @@
             if (leftPanel) leftPanel.setAttribute('dir', functionPanelOnTop ? 'reverse' : 'normal');
             if (productPanel) productPanel.setAttribute('dir', PLUbeforeDept ? 'reverse' : 'normal');
 
-            
             // fudge to make functionPanelOnTop work even if rightPanel is taller than the screen
             leftPanel.setAttribute('pack', functionPanelOnTop ? 'end' : 'start');
 
@@ -402,8 +407,6 @@
             if (!this.toggleNumPad(hideNumPad, initial)) {
                 this.resizeLeftPanel(initial);
             }
-
-            // document.getElementById('cartList').setAttribute('dir', 'reverse');
         },
         
         initialLogin: function () {

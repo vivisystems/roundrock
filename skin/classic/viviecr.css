@@ -84,7 +84,9 @@
     color: black;
 }
 
-
+.cartList tree {
+    margin: 0px 0px 0px 0px;
+}
 
 .rightprevbtn {
     min-width:32px;
@@ -170,36 +172,6 @@
     color: red;
     font-weight: bold;
 }
-
-
-
-/************************************************/
-.cartlistbox{
-  font-size: 14px;
-  
-  overflow: hidden;
-  margin: 0px 0px 0px 0px;
-  padding: 0px;
-  
-}
-.cartlistbox listitem{
-  height: 32px;
-  border-bottom-color: #aaa;
-  -moz-box-align: center;
-}
-
-.cartlistbox .label_sell_qty, .cartlistbox .label_sell_price, .cartlistbox .label_sell_subtotal {
-  text-align: right;
-}
-.funcscrollablepanel {
-   max-height: 102px;
-   min-height: 102px;
-  margin-right: 3px;
-  margin-bottom: 5px;
-}
-/************************************************/
-
-
 
 
 
