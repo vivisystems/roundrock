@@ -9,6 +9,8 @@
         helpers: ['Form'],
         _selectedIndex: null,
         _selectedCondIndex: null,
+        _condGroupscrollablepanel: null,
+        _condscrollablepanel: null,
 
         createCondimentPanel: function () {
             
@@ -22,11 +24,11 @@
             // bind condiments data
             var condPanelView =  new GeckoJS.NSITreeViewArray(condGroups);
             // var condPanelView =  new NSICondGroupsView(condGroups);
-            var condscrollablepanel = document.getElementById('condimentscrollablepanel');
-            condscrollablepanel.datasource = condPanelView;
+            this._condGroupscrollablepanel = document.getElementById('condimentscrollablepanel');
+            this._condGroupscrollablepanel.datasource = condPanelView;
 
-            condscrollablepanel.selectedIndex = 0;
-            condscrollablepanel.selectedItems = [0];
+            this._condGroupscrollablepanel.selectedIndex = 0;
+            this._condGroupscrollablepanel.selectedItems = [0];
 
             this.changeCondimentPanel(0);
 
@@ -100,8 +102,8 @@
                 GeckoJS.Session.add('condGroups', condGroups);
 
                 var condPanelView =  new NSICondGroupsView(condGroups);
-                var condscrollablepanel = document.getElementById('condimentscrollablepanel');
-                condscrollablepanel.datasource = condPanelView;
+                this._condscrollablepanel = document.getElementById('condimentscrollablepanel');
+                this._condscrollablepanel.datasource = condPanelView;
 
                 
             }
@@ -194,8 +196,6 @@
                     order: "name"
                 });
                 GeckoJS.Session.add('condGroups', condGroups);
-
-                // this.resetInputData();
                 this.clickCondimentPanel(this._selectedCondIndex);
 
             }
@@ -219,6 +219,8 @@
                 });
                 GeckoJS.Session.add('condGroups', condGroups);
                 this.clickCondimentPanel(this._selectedCondIndex);
+
+                // this._condscrollablepanel.datasource
             }
         },
 
