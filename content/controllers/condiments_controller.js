@@ -94,6 +94,15 @@
             if (inputObj.ok && inputObj.input0) {
                 var inputData = {name: inputObj.input0};
                 var condGroupModel = new CondimentGroupModel();
+                var condGroups = condGroupModel.findByIndex('all', {
+                    index: "name",
+                    value: inputData.name
+                });
+                if (condGroups != null) {
+                    alert("The Group (" + inputData.name + ") is exist..");
+                    return;
+                }
+                
                 condGroupModel.save(inputData);
 
                 var condGroups = condGroupModel.find('all', {
@@ -189,6 +198,15 @@
                 var inputData = {name: inputObj.input0, price: inputObj.input1};
                 inputData.condiment_group_id = this.query('#condiment_group_id').val();
                 var condModel = new CondimentModel();
+                var conds = condModel.findByIndex('all', {
+                    index: "name",
+                    value: inputData.name
+                });
+                if (conds != null) {
+                    alert("The Condiment (" + inputData.name + ") is exist..");
+                    return;
+                }
+
                 condModel.save(inputData);
 
                 var condGroupModel = new CondimentGroupModel();
@@ -196,6 +214,8 @@
                     order: "name"
                 });
                 GeckoJS.Session.add('condGroups', condGroups);
+
+                this.changeCondimentPanel(this._selectedIndex);
                 this.clickCondimentPanel(this._selectedCondIndex);
 
             }
@@ -218,6 +238,7 @@
                     order: "name"
                 });
                 GeckoJS.Session.add('condGroups', condGroups);
+                
                 this.clickCondimentPanel(this._selectedCondIndex);
 
                 // this._condscrollablepanel.datasource

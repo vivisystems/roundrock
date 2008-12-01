@@ -33,97 +33,114 @@
                                 <tabpanels flex="1" >
 
                                     <tabpanel flex="1" >
-                                        <vbox>
-                                        <hbox class="config" align="center">
-                                            <label id="user_id" hidden="true" form="userForm" name="id" value="" />
-                                            <label value="User No:"/>
-                                            <textbox id="user_no" form="userForm" name="no"/>
-                                        </hbox>
-                                        <hbox class="config" align="center">
-                                            <label value="User Name:" />
-                                            <textbox id="user_name" value="" form="userForm" name="username" />
-                                        </hbox>
-                                        <hbox class="config" align="center">
-                                            <label value="Password:" />
-                                            <textbox type="password" id="user_password" value="" form="userForm" name="password" />
-                                        </hbox>
-                                        <hbox class="config" align="center">
-                                            <label  value="Access Level:" />
-                                            <textbox id="user_group" value="" form="userForm" name="group" readonly="true" onclick="$do('getRoleGroup',this.selectedIndex,'Users');"/>
-                                            <!-- menulist id="user_grouplist" label="Role" form="userForm" name="group">
-                                                <menupopup width="160">
-                                                    <menuitem label="Administrator" selected="true"  />
-                                                    <menuitem label="Manager"  />
-                                                    <menuitem label="Operator"  />
-                                                    <menuitem label="Guest1" />
-                                                </menupopup>
-                                            </menulist -->
-                                        </hbox>
-                                        <hbox class="config" align="center">
-                                            <label value="Default Price Level:"/>
-                                            <textbox id="default_price_level" form="userForm" name="default_price_level" width="100px"/>
-                                        </hbox>
-                                       </vbox>
-                                    </tabpanel>
 
-                                    <tabpanel flex="1" >
                                         <vbox>
-                                        <hbox class="config" align="center">
-                                            <label value="Item Discount Limit:"/>
-                                            <textbox id="item_discount_limit" form="userForm" name="item_discount_limit" width="100px"/>
-                                        </hbox>
-                                        <hbox class="config" align="center">
-                                            <label value="Order Discount Limit:"/>
-                                            <textbox id="order_discount_limit" form="userForm" name="order_discount_limit" width="100px"/>
-                                        </hbox>
-                                        <hbox class="config" align="center">
-                                            <label value="Item Surcharge Limit:"/>
-                                            <textbox id="item_surcharge_limit" form="userForm" name="item_surcharge_limit"  width="100px"/>
-                                        </hbox>
-                                        <hbox class="config" align="center">
-                                            <label value="Order Surcharge Limit:"/>
-                                            <textbox id="order_surcharge_limit" form="userForm" name="order_surcharge_limit"  width="100px"/>
-                                        </hbox>
-                                        <hbox class="config" align="center">
-                                            <label value="PLU Quantity Limit:"/>
-                                            <textbox id="max_plu_qty" form="userForm" name="max_plu_qty" width="100px"/>
-                                        </hbox>
-                                        <hbox class="config" align="center">
-                                            <label value="PLU Price Limit:"/>
-                                            <textbox id="max_plu_price" form="userForm" name="max_plu_price" width="100px"/>
-                                        </hbox>
-                                        <hbox class="config" align="center">
-                                            <label value="Item Coupon Limit:"/>
-                                            <textbox id="item_coupon_limit" form="userForm" name="item_coupon_limit" width="100px"/>
-                                        </hbox>
-                                        <hbox class="config" align="center">
-                                            <label value="Order Coupon Limit:"/>
-                                            <textbox id="order_coupon_limit" form="userForm" name="order_coupon_limit" width="100px"/>
-                                        </hbox>
-                                        <hbox class="config" align="center">
-                                            <label value="Check Cashing Limit:"/>
-                                            <textbox id="max_cash_check" form="userForm" name="max_cash_check" width="100px"/>
-                                        </hbox>
-                                        
+                                            <grid>
+                                                <rows>
+                                                    <row>
+                                                        <label id="user_id" hidden="true" form="userForm" name="id" value="" />
+                                                        <label value="User Name:(a..z,0..9)" />
+                                                        <textbox id="user_name" value="" form="userForm" name="username" readonly="true" />
+                                                    </row>
+
+                                                    <row>
+                                                        <label value="Password:" />
+                                                        <textbox type="password" id="user_password" value="" form="userForm" name="password" />
+                                                    </row>
+
+                                                    <row>
+                                                        <label value="Display Name:" />
+                                                        <textbox id="display_name" value="" form="userForm" name="displayname" default="" />
+                                                    </row>
+
+                                                    <row>
+                                                        <label  value="Access Level:" />
+                                                        <textbox id="user_group" value="" form="userForm" name="group" readonly="true" onclick="$do('getRoleGroup',this.selectedIndex,'Users');"/>
+                                                    </row>
+
+                                                    <row>
+                                                        <label value="Default Price Level:"/>
+                                                        <textbox id="default_price_level" form="userForm" name="default_price_level" width="100px"/>
+                                                    </row>
+                                                </rows>
+                                            </grid>
                                         </vbox>
                                     </tabpanel>
 
                                     <tabpanel flex="1" >
                                         <vbox>
-                                        <hbox class="config" align="center">
-                                            <label value="Minimum Check Number:"/>
-                                            <textbox id="min_check_no" form="userForm" name="min_check" width="100px"/>
-                                        </hbox>
-                                        <hbox class="config" align="center">
-                                            <label value="Maximum Check Number:"/>
-                                            <textbox id="max_check_no" form="userForm" name="max_check" width="100px"/>
-                                        </hbox>
-                                        <hbox class="config" align="center">
-                                            <label value="Maximum Number of Open Checks:"/>
-                                            <textbox id="max_open_checks" form="userForm" name="max_open_checks" width="100px"/>
-                                        </hbox>
+                                            <grid>
+                                                <rows>
+                                                    <row>
+                                                        <label value="Item Discount Limit:"/>
+                                                        <textbox id="item_discount_limit" form="userForm" name="item_discount_limit" width="100px"/>
+                                                    </row>
 
-                                        <spacer style="height: 10px;" />
+                                                    <row>
+                                                        <label value="Order Discount Limit:"/>
+                                                        <textbox id="order_discount_limit" form="userForm" name="order_discount_limit" width="100px"/>
+                                                    </row>
+
+                                                    <row>
+                                                        <label value="Item Surcharge Limit:"/>
+                                                        <textbox id="item_surcharge_limit" form="userForm" name="item_surcharge_limit"  width="100px"/>
+                                                    </row>
+
+                                                    <row>
+                                                        <label value="Order Surcharge Limit:"/>
+                                                        <textbox id="order_surcharge_limit" form="userForm" name="order_surcharge_limit"  width="100px"/>
+                                                    </row>
+
+                                                    <row>
+                                                        <label value="PLU Quantity Limit:"/>
+                                                        <textbox id="max_plu_qty" form="userForm" name="max_plu_qty" width="100px"/>
+                                                    </row>
+
+                                                    <row>
+                                                        <label value="PLU Price Limit:"/>
+                                                        <textbox id="max_plu_price" form="userForm" name="max_plu_price" width="100px"/>
+                                                    </row>
+
+                                                    <row>
+                                                        <label value="Item Coupon Limit:"/>
+                                                        <textbox id="item_coupon_limit" form="userForm" name="item_coupon_limit" width="100px"/>
+                                                    </row>
+
+                                                    <row>
+                                                        <label value="Order Coupon Limit:"/>
+                                                        <textbox id="order_coupon_limit" form="userForm" name="order_coupon_limit" width="100px"/>
+                                                    </row>
+
+                                                    <row>
+                                                        <label value="Check Cashing Limit:"/>
+                                                        <textbox id="max_cash_check" form="userForm" name="max_cash_check" width="100px"/>
+                                                    </row>
+                                                </rows>
+                                            </grid>
+                                        </vbox>
+                                    </tabpanel>
+
+                                    <tabpanel flex="1" >
+                                        <vbox>
+                                            <grid>
+                                                <rows>
+                                                    <row>
+                                                        <label value="Minimum Check Number:"/>
+                                                        <textbox id="min_check_no" form="userForm" name="min_check" width="100px"/>
+                                                    </row>
+
+                                                    <row>
+                                                        <label value="Maximum Check Number:"/>
+                                                        <textbox id="max_check_no" form="userForm" name="max_check" width="100px"/>
+                                                    </row>
+
+                                                    <row>
+                                                        <label value="Maximum Number of Open Checks:"/>
+                                                        <textbox id="max_open_checks" form="userForm" name="max_open_checks" width="100px"/>
+                                                    </row>
+                                                </rows>
+                                            </grid>
+
                                         </vbox>
                                     </tabpanel>
 
@@ -131,6 +148,7 @@
                             </tabbox>
                             <hbox>
                                 <button label="Add" class="editbtns" oncommand="$do('add', null, 'Users');" />
+                                <spacer flex="1" />
                                 <button label="Delete" class="editbtns" oncommand="$do('delete', null, 'Users');" />
                                 <button label="Modify" class="editbtns" oncommand="$do('update', null, 'Users');" />
                             </hbox>

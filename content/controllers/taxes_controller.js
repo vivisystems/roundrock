@@ -75,7 +75,7 @@
             var result = 0;
 
             if (data.no.length <= 0) {
-                alert('No is empty...');
+                alert('Tax Code is empty...');
                 result = 3;
             } else if (data.name.length <= 0) {
                 alert('Name is empty...');
@@ -83,10 +83,10 @@
             } else {
                 taxes.forEach(function(o){
                     if (o.no == data.no) {
-                        alert('Tax No...' + data.no);
+                        //alert('Tax No...' + data.no);
                         result = 1;
                     } else if (o.name == data.name) {
-                        alert('Tax Name...' + data.name);
+                        //alert('Tax Name...' + data.name);
                         result = 2;
                     }
                 });

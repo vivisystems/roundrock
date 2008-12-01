@@ -12,6 +12,7 @@
         _listObj: null,
         _listDatas: null,
         _listGroups: null,
+        _selectedIndex: null,
 
         getListObj: function() {
             if(this._listObj == null) {
@@ -31,16 +32,20 @@
             this.Acl.addUser(evt.data.username, evt.data.password, evt.data.username);
             this.Acl.changeUserPassword(evt.data.username, evt.data.password);
             this.Acl.addUserToGroup(evt.data.username, evt.data.group);
+
+// this.log("evt.data:" + this.dump(evt.data));
             this.load(evt.data);
+
+            // this.load(this.getListObj().selectedIndex);
             
         },
-        /*
+
         beforeScaffoldDelete: function(evt) {
             if (GREUtils.Dialog.confirm(null, "confirm delete", "Are you sure?") == false) {
                 evt.preventDefault();
             }
         },
-        */
+
         afterScaffoldDelete: function() {
             this.load();
         },
@@ -51,69 +56,39 @@
             var aURL = "chrome://viviecr/content/prompt_additem.xul";
             var features = "chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250";
             var inputObj = {input0:null, input1:null};
-            window.openDialog(aURL, "prompt_additem", features, "New Job", "Please input:", "No", "Name", inputObj);
+            window.openDialog(aURL, "prompt_additem", features, "New User", "Please input:", "User Name", "", inputObj);
             if (inputObj.ok && inputObj.input0) {
-                $("#job_id").val('');
-                evt.data.jobname = inputObj.input0;
+                user.username = inputObj.input0;
             } else {
                 evt.preventDefault();
+                return ;
             }
 
-            if ((user.no == '') || (user.name == '')){
-                alert('user no or user name is empty...');
+            var userModel = new ViviPOS.UserModel();
+
+            var user_name = userModel.findByIndex('all', {
+                index: "username",
+                value: user.username
+            });
+
+            if (user_name != null) {
+                alert('Duplicate user name...' + user.username);
                 evt.preventDefault();
                 return ;
             }
-            var userModel = new ViviPOS.UserModel();
 
-            var user_no = userModel.findByIndex('all', {
-                index: "no",
-                value: user.no
-            });
-            var user_name = userModel.findByIndex('all', {
-                index: "name",
-                value: user.name
-            });
+            $("#user_id").val('');
+            $("#user_password").val('');
+            $("#user_group").val('');
+            $("#user_group").val('');
 
-            if (user_no != null) {
-                alert('Duplicate user no...' + user.no);
-                evt.preventDefault();
-            } else if (user_name != null) {
-                alert('Duplicate user name...' + user.name);
-                evt.preventDefault();
-            }
             
         },
-
+        /*
         beforeScaffoldEdit: function (evt) {
-            
-            var user = evt.data;
-
-            if ((user.no == '') || (user.name == '')){
-                alert('user no or user name is empty...');
-                evt.preventDefault();
-                return ;
-            }
-            var userModel = new ViviPOS.UserModel();
-
-            var user_no = userModel.findByIndex('all', {
-                index: "no",
-                value: user.no
-            });
-            var user_name = userModel.findByIndex('all', {
-                index: "name",
-                value: user.name
-            });
-            if ((user_no != null) && (user_no[0].id != this.Scaffold.currentData.id)) {
-                alert('Duplicate user no...' + user.no);
-                evt.preventDefault();
-            } else if ((user_name != null) && (user_name[0].id != this.Scaffold.currentData.id)) {
-                alert('Duplicate user name...' + user.name);
-                evt.preventDefault();
-            }
 
         },
-
+        */
         afterScaffoldIndex: function(evt) {
             this._listDatas = evt.data;
             var panelView =  new GeckoJS.NSITreeViewArray(evt.data);
@@ -140,31 +115,37 @@
             var listObj = this.getListObj();
             this.requestCommand('list');
 
-            var index = 0;
+            var index = this._selectedIndex;
+
             if (data) {
-                listObj.selectedItems = [data];
+                this.requestCommand('view', data.id);
+                listObj.selectedItems = [index];
+                listObj.selectedIndex = index;
             } else {
                 listObj.selectedItems = [0];
                 listObj.selectedIndex = 0;
             };
+
+            
         },
 
         select: function(){
 		
             this.getListObj();
-            selectedIndex = this._listObj.selectedIndex;
-            if (selectedIndex >= 0) {
-                GeckoJS.FormHelper.reset('taxForm');
-                var user = this._listDatas[selectedIndex];
+            this._selectedIndex = this._listObj.selectedIndex;
+
+            if (this._selectedIndex >= 0) {
+                GeckoJS.FormHelper.reset('userForm');
+                var user = this._listDatas[this._selectedIndex];
                 this.requestCommand('view', user.id);
             }
 
         },
         
         setDefaultUser: function() {
-            selectedIndex = this._listObj.selectedIndex;
-            if (selectedIndex >= 0) {
-                var user = this._listDatas[selectedIndex];
+            this._selectedIndex = this._listObj.selectedIndex;
+            if (this._selectedIndex >= 0) {
+                var user = this._listDatas[this._selectedIndex];
                 if (user) {
                     GeckoJS.Configure.write('vivipos.fec.settings.DefaultUser', user.id);
                 }
