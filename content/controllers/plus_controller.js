@@ -54,11 +54,13 @@
         },
 
         clickPluPanel: function(index) {
-            this.resetInputData();
             var product = this.productPanelView.getCurrentIndexData(index);
-            this.setInputData(product);
-            this._selectedIndex = index;
 
+            if (product) {
+                this.resetInputData();
+                this.setInputData(product);
+                this._selectedIndex = index;
+            }
             
 
         },
@@ -255,11 +257,13 @@
 
         setInputData: function (valObj) {
             // this.log("valObj:" + this.dump(valObj));
-            GeckoJS.FormHelper.unserializeFromObject('productForm', valObj);
+            if (valObj) {
+                GeckoJS.FormHelper.unserializeFromObject('productForm', valObj);
 
-            this._setPluSet();
+                this._setPluSet();
 
-            document.getElementById('pluimage').setAttribute("src", "chrome://viviecr/content/skin/pluimages/" + valObj.no + ".png?" + Math.random());
+                document.getElementById('pluimage').setAttribute("src", "chrome://viviecr/content/skin/pluimages/" + valObj.no + ".png?" + Math.random());
+            }
         },
 
         _checkData: function (data) {

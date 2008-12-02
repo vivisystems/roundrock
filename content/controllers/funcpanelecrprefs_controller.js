@@ -406,18 +406,20 @@
 
         this.selectedIndex = index;
 
+        if (this.tabIndex == 2) {
+            var descID = 'vivifuncpanelecr_prefs_keymap_function_desc';
+            var linkID = 'vivifuncpanelecr_prefs_keymap_link';
+        }
+        else {
+            var descID = 'vivifuncpanelecr_prefs_gkeymap_function_desc';
+            var linkID = 'vivifuncpanelecr_prefs_gkeymap_link';
+        }
+
         if (index > -1) {
             // if function selected, show description, enable link button
 
-            if (this.tabIndex == 2) {
-                var descID = 'vivifuncpanelecr_prefs_keymap_function_desc';
-                var linkID = 'vivifuncpanelecr_prefs_keymap_link';
-            }
-            else {
-                var descID = 'vivifuncpanelecr_prefs_gkeymap_function_desc';
-                var linkID = 'vivifuncpanelecr_prefs_gkeymap_link';
-            }
-            document.getElementById(descID).firstChild.data = this.functionArray[index].desc;
+            //document.getElementById(descID).firstChild.data = this.functionArray[index].desc;
+            document.getElementById(descID).value = this.functionArray[index].desc;
 
             // enable link button only if button selection is not null
             if (this.panel.getSelection()) {
@@ -425,7 +427,8 @@
             }
         }
         else {
-            document.getElementById(descID).firstChild.data = '';
+            //document.getElementById(descID).firstChild.data = '';
+            document.getElementById(descID).value = '';
             document.getElementById(linkID).disabled = true;
         }
     },
@@ -809,6 +812,11 @@
         for (var i = 0; i < keys.length; i++) {
             functionArray.push(fns[keys[i]]);
         }
+        functionArray.sort(function(a, b) {
+            if (a.name < b.name) return -1;
+            else if (a.name > b.name) return 1;
+            else return 0;
+        });
         this.functionArray = functionArray;
 
         //GREUtils.log('[PREFS][STARTUP]: programmable functions <' + GeckoJS.BaseObject.dump(functionArray) + '>');
@@ -856,9 +864,9 @@
                                                                    }, false);
 
         // get size of function description label and set its width to enable text-breaks
-        var descbox = document.getElementById('vivifuncpanelecr_prefs_keymap_function_desc');
-        var descWidth = descbox.width * 0.95;
-        descbox.style.width = descWidth + 'px';
+        //var descbox = document.getElementById('vivifuncpanelecr_prefs_keymap_function_desc');
+        //var descWidth = descbox.width * 0.95;
+        //descbox.style.width = descWidth + 'px';
     }
 
   });

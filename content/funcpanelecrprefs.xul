@@ -308,13 +308,13 @@
                             </grid>
                             <vivitree id="vivifuncpanelecr_prefs_keymap_function_tree"
                                       class="keymap_function_list"
-                                      rows="6"
                                       headers="Function,Label"
                                       fields="name,label"
                                       seltype="single"
                                       onselect="$do('selectFunction', this, 'vivifuncpanelecr_prefs')"/>
-                            <label class="descbox_keymap" id="vivifuncpanelecr_prefs_keymap_function_desc" wrap="true">
-                            </label>
+                            <textbox class="descbox_keymap" id="vivifuncpanelecr_prefs_keymap_function_desc" wrap="true"
+                                     readonly="true" multiline="true">
+                            </textbox>
                             <button id="vivifuncpanelecr_prefs_keymap_link" icon="apply"
                                     label="&vivifuncpanelecr.prefs.tabpanel.keymap.link.label;"
                                     disabled="true"
@@ -390,13 +390,13 @@
                             </grid>
                             <vivitree id="vivifuncpanelecr_prefs_gkeymap_function_tree"
                                       class="keymap_function_list"
-                                      rows="6"
                                       headers="Function,Label"
                                       fields="name,label"
                                       seltype="single"
                                       onselect="$do('selectFunction', this, 'vivifuncpanelecr_prefs')"/>
-                            <label class="descbox_keymap" id="vivifuncpanelecr_prefs_gkeymap_function_desc" wrap="true">
-                            </label>
+                            <textbox class="descbox_keymap" id="vivifuncpanelecr_prefs_gkeymap_function_desc" wrap="true"
+                                     readonly="true" multiline="true">
+                            </textbox>
                             <button id="vivifuncpanelecr_prefs_gkeymap_link" icon="apply"
                                     label="&vivifuncpanelecr.prefs.tabpanel.gkeymap.link.label;"
                                     disabled="true"

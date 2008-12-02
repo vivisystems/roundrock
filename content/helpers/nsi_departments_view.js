@@ -12,7 +12,7 @@
 
 
             var visiblePluGroups = [], plugroupsById= {};
-            plugroups.forEach(function(plugroup) {
+            if (plugroups) plugroups.forEach(function(plugroup) {
                 if(GeckoJS.String.parseBoolean(plugroup.visible)) visiblePluGroups.push(plugroup.id);
 
                 plugroupsById[plugroup.id] = plugroup;

@@ -37,7 +37,7 @@
                 </vbox>
                 <vbox>
                     <button id="PLUBtn"  label="PLU Search"  oncommand="$do('PLUSearchDialog', null, 'Main');" class="systembtn" >
-                        <label crop="center" style="max-width: none; width: 40px;" >Plu Search</label>
+                        <label crop="center" style="max-width: none; width: 40px;" >PLU Search</label>
                     </button>
                     <sendkeybutton id="xkeyBtn"  label="X"   charCode='x' target="multinumberpad" class="systembtn"  />
                     <button id="sign_off" label="SignOff" oncommand="$do('signOff', null, 'Main');" class="systembtn">

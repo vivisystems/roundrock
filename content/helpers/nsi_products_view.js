@@ -87,7 +87,7 @@
                     if(GeckoJS.String.parseBoolean(product.visible)) indexCate[(product.cate_no+"")].push((product.id+""));
                 }
 
-                if (product.link_group.length > 0) {
+                if (product.link_group && product.link_group.length > 0) {
                     var groups = product.link_group.split(',');
 
                     groups.forEach(function(group) {
