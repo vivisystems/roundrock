@@ -20,7 +20,7 @@
 
                         <hbox flex="1">
                             <viviscrollablebuttonpanel dir="reverse" id="groupscrollablepanel" flex="1" cols="3" rows="8" labelField="name" imageField="no" oncommand="$do('select',this.selectedIndex, 'Plugroups');"
-                              class="catescrollablepanel" buttonClass="catbtn button-radius button-white font-medium" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue"/>
+                              class="catescrollablepanel" buttonClass="catbtn button-radius" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue"/>
 
                             <spacer style="width: 10px;" />
                             <separator class="groove-thin"/>

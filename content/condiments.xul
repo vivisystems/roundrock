@@ -25,8 +25,8 @@
                               class="catescrollablepanel" buttonClass="catbtn button-radius button-white font-medium" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue">
                                   <spacer flex="1" />
                             </viviscrollablebuttonpanel>
-                            <spacer style="width: 20px;" />
-                            <vbox style="width: 400px;">
+                            <spacer style="width: 30px;" />
+                            <vbox style="width: 340px;">
                                 <grid>
                                     <rows>
                                         <!-- row>

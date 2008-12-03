@@ -49,6 +49,8 @@
             }else {
                 this.tree.invalidate();
             }*/
+            if (rc2 < 0) rc2 = this.data.length;
+
             if (rc1 != rc2) {
                 // lazy way ? full refresh
                 this._cartList.datasource = this;

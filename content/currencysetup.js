@@ -2,18 +2,15 @@
 
     // include controllers  and register itself
 
-    // GeckoJS.include('chrome://viviecr/content/controllers/stocks_controller.js');
+    GeckoJS.include('chrome://viviecr/content/controllers/currencysetup_controller.js');
 
     /**
      * Controller Startup
      */
     function startup() {
-
         $('#clearBtn')[0].addEventListener('command', clearTextBox, false);
-        // $('#ekeyBtn')[0].addEventListener('command', searchPlu, true);
-        $('#plu').focus();
-        
-        $do('load', null, 'Stocks');
+
+        $do('load', null, 'CurrencySetup');
 
     };
 
@@ -22,7 +19,8 @@
      */
     function clearTextBox() {
 
-        $('#plu').val('');
+        var focused = document.commandDispatcher.focusedElement;
+        focused.value = '';
 
     };
 

@@ -65,7 +65,9 @@
             var byId ={}, indexCate = {}, indexCateAll={}, indexLinkGroup = {}, indexLinkGroupAll={}, indexBarcode = {};
             
             products.forEach(function(product) {
-                if (product.barcode == null) {product.barcode = "";}
+                if (product.barcode == null) {
+                    product.barcode = "";
+                }
 
                 if (product.id.length > 0) {
                     byId[product.id] = product;
@@ -87,19 +89,21 @@
                     if(GeckoJS.String.parseBoolean(product.visible)) indexCate[(product.cate_no+"")].push((product.id+""));
                 }
 
-                if (product.link_group.length > 0) {
-                    var groups = product.link_group.split(',');
+                if (product.link_group) {
+                    if (product.link_group.length > 0) {
+                        var groups = product.link_group.split(',');
 
-                    groups.forEach(function(group) {
+                        groups.forEach(function(group) {
 
-                        if (typeof indexLinkGroup[group] == 'undefined') {
-                            indexLinkGroup[group] = [];
-                            indexLinkGroupAll[group] = [];
-                        }
-                        indexLinkGroupAll[(group+"")].push((product.id+""));
-                        if(GeckoJS.String.parseBoolean(product.visible)) indexLinkGroup[(group+"")].push((product.id+""));
+                            if (typeof indexLinkGroup[group] == 'undefined') {
+                                indexLinkGroup[group] = [];
+                                indexLinkGroupAll[group] = [];
+                            }
+                            indexLinkGroupAll[(group+"")].push((product.id+""));
+                            if(GeckoJS.String.parseBoolean(product.visible)) indexLinkGroup[(group+"")].push((product.id+""));
                         
-                    });
+                        });
+                    }
                 }
 
             });
@@ -111,7 +115,7 @@
             GeckoJS.Session.add('productsIndexesByLinkGroup', indexLinkGroup);
             GeckoJS.Session.add('productsIndexesByLinkGroupAll', indexLinkGroupAll);
 
-            /*
+        /*
             this.log(this.dump(GeckoJS.Session.get('productsById')));
             this.log(this.dump(GeckoJS.Session.get('productsIndexesByCate')));
             this.log(this.dump(GeckoJS.Session.get('productsIndexesByCateAll')));

@@ -92,8 +92,29 @@
             GeckoJS.Session.add('pluGroups', evt.data);
 
             var panelView =  new GeckoJS.NSITreeViewArray(evt.data);
+            // var panelView =  new NSIPluGroupsView(evt.data);
+            panelView.renderButton = function(row, btn) {
+
+                var buttonColor = this.getCellValue(row,{
+                    id: 'button_color'
+                });
+                var buttonFontSize = this.getCellValue(row,{
+                    id: 'font_size'
+                });
+
+                if (buttonColor && btn) {
+                    $(btn).addClass('button-'+ buttonColor);
+                }
+                if (buttonFontSize && btn) {
+                    $(btn).addClass('font-'+ buttonFontSize);
+                }
+
+            };
+            
             this.getListObj().datasource = panelView;
         },
+
+        
 
         load: function (data) {
             this.requestCommand('list');

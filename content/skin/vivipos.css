@@ -134,13 +134,17 @@ textbox html|input {
   height: 28px;
   border-bottom-color: #aaa;
 }
+/*
 .prodsimplelistbox treechildren::-moz-tree-row(selected) { height: 30px; background-color: #FFFFAA; }
 .prodsimplelistbox treechildren::-moz-tree-row(odd) {  height: 30px; background-color: #DDDDDD;}
 .prodsimplelistbox treechildren::-moz-tree-row(odd, selected) {  height: 30px; background-color: #FFFFAA; }
 .prodsimplelistbox treechildren::-moz-tree-cell-text(selected) {  height: 30px; color: #000000;}
-.prodsimplelistbox treechildren::-moz-tree-cell-text(odd, selected) {  height: 30px; color: #000000;}
+.prodsimplelistbox treechildren::-moz-tree-cell-text(odd, selected) {  height: 30px; color: #000000;}*/
 treechildren::-moz-tree-row {
   height: 28px;
+  background-image: url(images/vivipos_icon1.png);
+    background-position: right bottom;
+    background-repeat: no-repeat;
 }
 
 treeitem {

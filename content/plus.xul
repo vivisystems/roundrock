@@ -33,8 +33,9 @@
                         
                     <tabbox  flex="1">
                         <tabs >
-                            <tab label="&vivipos.fec.plus.basedata;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical"        />
-                            <tab label="&vivipos.fec.plus.basedata2;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical"        />
+                            <tab label="&vivipos.fec.plus.basedata;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
+                            <tab label="&vivipos.fec.plus.basedata2;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
+                            <tab label="&vivipos.fec.plus.sets;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
                             <tab label="&vivipos.fec.plus.face;" image="chrome://viviecr/content/skin/icons/plugins-24.png" orient="vertical"/>
                             <tab label="&vivipos.fec.plus.pricelevels;" image="chrome://viviecr/content/skin/icons/comments-24.png" orient="vertical"/>
                             <tab label="&vivipos.fec.plus.groups;" image="chrome://viviecr/content/skin/icons/comments-24.png" orient="vertical"/>
@@ -69,38 +70,13 @@
                                                         <textbox id="barcode" form="productForm" name="barcode" value="" />
                                                     </row>
                                                     <row>
-                                                        <label value="Buy Price:"  />
-                                                        <textbox id="buy_price" type="number" decimalplaces="2" hidespinbuttons="true" form="productForm" name="buy_price"/>
-                                                    </row>
-                                                    <row>
                                                         <label value="Rate:"/>
                                                         <textbox id="rate" value="" form="productForm" name="rate" readonly="true" onclick="$do('getRate',this.selectedIndex,'Plus');"/>
                                                     </row>
                                                     <row>
                                                         <label value="Condiment:"/>
                                                         <textbox id="cond_group" value="" form="productForm" name="cond_group" readonly="true" onclick="$do('getCondiment',this.selectedIndex,'Plus');"/>
-                                                <!-- menulist id="condGroupList" form="productForm" name="cond_group" label="Condiment">
-                                                    <menupopup style="width: 200px;">
-
-                                                    </menupopup>
-                                                </menulist -->
                                                     </row>
-                                            
-                                                    <row>
-                                                        <label value="Min-Sale-Qty:"  />
-                                                        <textbox id="min_sale_qty" form="productForm" name="min_sale_qty" default="6"/>
-                                                    </row>
-                                                    <row>
-                                                        <label value="Sale Unit:"/>
-                                                        <menulist id="sale_unit" form="productForm" name="sale_unit" label="Sale Unit">
-                                                            <menupopup style="width: 200px;">
-                                                                <menuitem label="Number" value="0"/>
-                                                                <menuitem label="Gram" value="1"/>
-                                                                <menuitem label="Liter" value="2"/>
-                                                            </menupopup>
-                                                        </menulist>
-                                                    </row>
-                                            
                                                 </rows>
                                             </grid>
 
@@ -120,8 +96,7 @@
                                                     </row>
                                                     <row>
                                                         <checkbox id="age_verification" value="true" label="Age Verification" form="productForm" name="age_verification" default="false"/>
-
-                                                    </row>
+                                                    </row>                                                    
                                                 </rows>
                                             </grid>
 
@@ -138,6 +113,10 @@
                                             <grid>
                                                 <rows>
                                                     <row>
+                                                        <label value="Buy Price:"  />
+                                                        <textbox id="buy_price" type="number" decimalplaces="2" hidespinbuttons="true" form="productForm" name="buy_price"/>
+                                                    </row>
+                                                    <row>
                                                         <label value="Stock:"  />
                                                         <textbox id="stock" form="productForm" name="stock" default="8"/>
                                                     </row>
@@ -149,9 +128,31 @@
                                                         <label value="Memo:"/>
                                                         <textbox id="product_memo" form="productForm" name="memo"/>
                                                     </row>
+                                                    <row>
+                                                        <label value="Min-Sale-Qty:"  />
+                                                        <textbox id="min_sale_qty" form="productForm" name="min_sale_qty" default="6"/>
+                                                    </row>
+                                                    <row>
+                                                        <label value="Sale Unit:"/>
+                                                        <menulist id="sale_unit" form="productForm" name="sale_unit" label="Sale Unit">
+                                                            <menupopup style="width: 200px;">
+                                                                <menuitem label="Number" value="0"/>
+                                                                <menuitem label="Gram" value="1"/>
+                                                                <menuitem label="Liter" value="2"/>
+                                                            </menupopup>
+                                                        </menulist>
+                                                    </row>
                                                 </rows>
                                             </grid>
                                         </groupbox>
+
+                                    </vbox>
+                                </hbox>
+                            </tabpanel>
+
+                            <tabpanel flex="1" >
+                                <hbox flex="1">
+                                    <vbox  style="overflow: auto" flex="1" >
 
                                         <groupbox>
                                             <caption label="Plu Sets:" />
@@ -162,6 +163,7 @@
                                                 <vivibutton label="-" oncommand="$do('removePluSet', null, 'Plus');"/>
                                             </viviscrollabletree>
                                         </groupbox>
+
                                     </vbox>
                                 </hbox>
                             </tabpanel>

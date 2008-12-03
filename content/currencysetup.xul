@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window SYSTEM "chrome://viviecr/locale/fecpos.dtd">
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/vivipos.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+<window id="numpad" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script>
+    <![CDATA[
+    /**
+     * Clear Calculate Fields
+     */
+    function clearField(no) {
+        var i;
+        var currency_input_id;
+        var currency_result_id;
+        for (i=1; i <= 5; i++ ) {
+            currency_input_id = 'currency_input_' + i;
+            currency_result_id = 'currency_result_' + i;
+
+            if (i != no) {
+                document.getElementById(currency_input_id).value = '';
+                document.getElementById(currency_result_id).value = '';
+            }
+        }
+
+    }
+
+    /**
+     * Convert Currency
+     */
+    function calCurrency(no, input_id, result_id) {
+      clearField(no);
+      var change_id = 'currency_change_' + no;
+      var input_id = 'currency_input_' + no;
+      var result_id = 'currency_result_' + no;
+      var change = document.getElementById(change_id).value;
+      var input = document.getElementById(input_id).value;
+      document.getElementById(result_id).value = change * input;
+    }
+
+    ]]>
+    </script>
+
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/currencysetup.js" />
+
+    <box flex="1" class="mainpanel1 pad40">
+        <vbox flex="1" class="panel40">
+            <vbox flex="1" class="footlogo">
+                <groupbox flex="1">
+                    <caption label="Currency Transfer:" />
+
+                    <grid>
+                        <rows>
+                            <columns>
+                                <column />
+                                <column flex="1" />
+                                <column flex="1" />
+                                <column flex="1" />
+                                <column />
+                                <column flex="1" />
+                                <column />
+                                <column flex="1" />
+                            </columns>
+
+                            <row>
+                                <label value="" />
+                                <label value="Type" />
+                                <label value="Sign" />
+                                <label value="Rate" />
+                                <label value=":" />
+                                <label value="Calculate" />
+                                <label value="=" />
+                                <label value="Result" />
+                            </row>
+                            <row>
+                                <label value="Main" />
+                                <textbox id="currency_0" value="USD" size="4" maxsize="4" form="currencyForm" name="currency_0" />
+                                <textbox id="currency_sign_0" value="$" size="4" maxsize="4" form="currencyForm" name="currency_sign_0" />
+                                <label value="1.00" form="currencyForm" name="currency_change_0" />
+                                <label value=":" />
+                                <label value="1.00" />
+                                <label value="=" />
+                                <label value="1.00" />
+                            </row>
+                            <row>
+                                <label value="1." />
+                                <textbox id="currency_1" value="EUR" size="4" maxsize="4" form="currencyForm" name="currency_1" />
+                                <textbox id="currency_sign_1" value="EU" size="4" maxsize="4" form="currencyForm" name="currency_sign_1" />
+                                <textbox id="currency_change_1" value="1.25909" size="8" maxsize="8" form="currencyForm" name="currency_change_1" />
+                                <label value=":" />
+                                <textbox id="currency_input_1" value="" size="8" maxsize="8" oninput="calCurrency('1');" />
+                                <label value="=" />
+                                <textbox id="currency_result_1" value="" size="8" maxsize="8" readonly="true" />
+                            </row>
+                            <row>
+                                <label value="2." />
+                                <textbox id="currency_2" value="TWD" size="4" maxsize="4" form="currencyForm" name="currency_2" />
+                                <textbox id="currency_sign_2" value="NT" size="4" maxsize="4" form="currencyForm" name="currency_sign_2" />
+                                <textbox id="currency_change_2" value="0.029845" size="8" maxsize="8" form="currencyForm" name="currency_change_2" />
+                                <label value=":" />
+                                <textbox id="currency_input_2" value="" size="8" maxsize="8" oninput="calCurrency('2');" />
+                                <label value="=" />
+                                <textbox id="currency_result_2" value="" size="8" maxsize="8" readonly="true" />
+                            </row>
+                            <row>
+                                <label value="3." />
+                                <textbox id="currency_3" value="GBP" size="4" maxsize="4" form="currencyForm" name="currency_3" />
+                                <textbox id="currency_sign_3" value="EN" size="4" maxsize="4" form="currencyForm" name="currency_sign_3" />
+                                <textbox id="currency_change_3" value="1.48144" size="8" maxsize="8" form="currencyForm" name="currency_change_3" />
+                                <label value=":" />
+                                <textbox id="currency_input_3" value="" size="8" maxsize="8" oninput="calCurrency('3');" />
+                                <label value="=" />
+                                <textbox id="currency_result_3" value="" size="8" maxsize="8" readonly="true" />
+                            </row>
+                            <row>
+                                <label value="4." />
+                                <textbox id="currency_4" value="JPY" size="4" maxsize="4" form="currencyForm" name="currency_4" />
+                                <textbox id="currency_sign_4" value="Y" size="4" maxsize="4" form="currencyForm" name="currency_sign_4" />
+                                <textbox id="currency_change_4" value="0.01075" size="8" maxsize="8" form="currencyForm" name="currency_change_4" />
+                                <label value=":" />
+                                <textbox id="currency_input_4" value="" size="8" maxsize="8" oninput="calCurrency('4');" />
+                                <label value="=" />
+                                <textbox id="currency_result_4" value="" size="8" maxsize="8" readonly="true" />
+                            </row>
+                            <row>
+                                <label value="5." />
+                                <textbox id="currency_5" value="CAD" size="4" maxsize="4" form="currencyForm" name="currency_5" />
+                                <textbox id="currency_sign_5" value="CA" size="4" maxsize="4" form="currencyForm" name="currency_sign_5" />
+                                <textbox id="currency_change_5" value="0.80118" size="8" maxsize="8" form="currencyForm" name="currency_change_5" />
+                                <label value=":" />
+                                <textbox id="currency_input_5" value="" size="8" maxsize="8" oninput="calCurrency('5');" />
+                                <label value="=" />
+                                <textbox id="currency_result_5" value="" size="8" maxsize="8" readonly="true" />
+                            </row>
+
+                        </rows>
+                    </grid>
+
+                    <spacer style="height: 30px;" />
+                    <separator class="groove-thin"/>
+                    <spacer style="height: 30px;" />
+                    <hbox>
+                        <numberpad id="multinumberpad" class="numberpad"/>
+
+                        <spacer style="width:10px;" />
+
+                        <vbox>
+                            <sendkeybutton id="bkeyBtn"  label="DEL"   keyCode='0x08' class="systembtn"  />
+                            <vivibutton id="clearBtn"  label="CLEAR" class="systembtn"/>
+                            <spacer flex="1" />
+                            <button id="ekeyBtn"  label="Save"   oncommand="$do('save', null, 'CurrencySetup');" class="systembtn"  />
+                                <!-- sendkeybutton id="ekeyBtn"  label="ENTER"   keyCode='0x0D' target="plu" class="systembtn"  / -->
+                                <!-- button id="ekeyBtn"  label="ENTER" class="systembtn"  / -->
+                        </vbox>
+                    </hbox>
+                </groupbox>
+            </vbox>
+        </vbox>
+    </box>
+  
+    <hbox id="okCancelButtonsRight" class="dialogbtns" />
+
+</window>
