@@ -87,15 +87,15 @@
                                                         <checkbox id="return_stock" value="true" label="Can Return Stock" form="productForm" name="return_stock" default="true"/>
                                                     </row>
                                                     <row>
-                                                        <checkbox id="force_condiment" value="true" label="Force Condiment" form="productForm" name="force_condiment" default="true"/>
-                                                        <checkbox id="force_memo" value="true" label="Force Memo" form="productForm" name="force_memo" default="true"/>
+                                                        <checkbox id="force_condiment" value="false" label="Force Condiment" form="productForm" name="force_condiment" default="false"/>
+                                                        <checkbox id="force_memo" value="false" label="Force Memo" form="productForm" name="force_memo" default="false"/>
                                                     </row>
                                                     <row>
-                                                        <checkbox id="singleplu" value="true" label="Single Plu" form="productForm" name="single" default="true"/>
+                                                        <checkbox id="singleplu" value="false" label="Single Plu" form="productForm" name="single" default="false"/>
                                                         <checkbox id="visible" value="true" label="Visible" form="productForm" name="visible" default="true"/>
                                                     </row>
                                                     <row>
-                                                        <checkbox id="age_verification" value="true" label="Age Verification" form="productForm" name="age_verification" default="false"/>
+                                                        <checkbox id="age_verification" value="false" label="Age Verification" form="productForm" name="age_verification" default="false"/>
                                                     </row>                                                    
                                                 </rows>
                                             </grid>
@@ -188,12 +188,12 @@
 
                                         <groupbox>
                                             <caption label="Button Color:" />
-                                            <button_colorpicker id="button_color" form="productForm" name="button_color" buttonClass="catbtn button-radius"/>
+                                            <button_colorpicker id="button_color" form="productForm" name="button_color" buttonClass="catbtn button-radius" default="default"/>
                                         </groupbox>
 
                                         <groupbox>
                                             <caption label="Font Size:" />
-                                            <button_fontsizepicker id="font_size" form="productForm" name="font_size" buttonClass="catbtn button-white button-radius" />
+                                            <button_fontsizepicker id="font_size" form="productForm" name="font_size" buttonClass="catbtn button-white button-radius" default="medium"/>
                                         </groupbox>
 
                                     </vbox>

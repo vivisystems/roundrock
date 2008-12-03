@@ -35,9 +35,9 @@
             this.productPanelView = new NSIProductsView('prodscrollablepanel');
             
             this.productPanelView.setCatePanelView(this.catePanelView);
-            this.productPanelView.setCatePanelIndex(0);
+            //this.productPanelView.setCatePanelIndex(0);
 
-            this.changePluPanel(0);
+            //this.changePluPanel(0);
 
         },
 
@@ -47,11 +47,12 @@
             var category = this.catePanelView.getCurrentIndexData(index);
 
             this.resetInputData();
-            this._selCateNo = category.no;
-            $("#cate_no").val(category.no);
+            if (category) {
+                this._selCateNo = category.no;
+                $("#cate_no").val(category.no);
 
-            this.clickPluPanel(0);
-
+                this.clickPluPanel(document.getElementById('prodscrollablepanel').currentIndex);
+            }
         },
 
         clickPluPanel: function(index) {
@@ -62,7 +63,19 @@
                 this.setInputData(product);
                 this._selectedIndex = index;
             }
-            
+
+            var rate = $("#rate").val();
+            if (!rate || rate == '') {
+                // set rate to system default
+                var defaultRate = GeckoJS.Configure.read('vivipos.fec.settings.DefaultTaxStatus');
+                if (!defaultRate || defaultRate == '') {
+                    var taxes = GeckoJS.Session.get('taxes');
+                    if (taxes == null) taxes = this.Tax.getTaxList();
+                    if (taxes && taxes.length > 0) defaultRate = taxes[0].no;
+                }
+                $("#rate").val(defaultRate);
+            }
+
 
         },
 
@@ -259,7 +272,7 @@
                 alert('Name is empty...');
                 result = 4;
             } else {
-                prods.forEach(function(o){
+                if (prods) prods.forEach(function(o){
                     if (o.no == data.no) {
                         alert('Duplicate Plu No...' + data.no);
                         result = 1;
@@ -273,6 +286,8 @@
         },
 
         add: function  () {
+            if (this._selCateNo == null) return;
+
             var inputData = this.getInputData();
 
             var aURL = "chrome://viviecr/content/prompt_additem.xul";
@@ -285,25 +300,26 @@
 
             if (inputObj.ok && inputObj.input0 && inputObj.input1) {
                 var product = new ProductModel();
-                inputData = {
-                    no: inputObj.input0,
-                    name: inputObj.input1
-                };
+                inputData.no = inputObj.input0;
+                inputData.name = inputObj.input1;
 
                 if(this._checkData(inputData) == 0) {
-                    inputData.cate_no = $("#cate_no").val();
                     if (inputData.cate_no.length == 0) inputData.cate_no = this._selCateNo;
                     product.save(inputData);
 
                     this.updateSession();
 
                     this.resetInputData();
+
+                    this.clickPluPanel(document.getElementById('prodscrollablepanel').currentIndex);
                 }
             }
 
         },
 
         modify: function  () {
+            if (this._selectedIndex == null || this._selectedIndex == -1) return;
+
             var inputData = this.getInputData();
             var prodModel = new ProductModel();
             var self = this;
@@ -319,7 +335,8 @@
         },
 
         remove: function() {
-
+            if (this._selectedIndex == null || this._selectedIndex == -1) return;
+            
             if (GREUtils.Dialog.confirm(null, "confirm delete", "Are you sure?")) {
                 var prodModel = new ProductModel();
                 var index = document.getElementById('prodscrollablepanel').selectedIndex;
@@ -328,7 +345,10 @@
                 
                 if(product) {
                     prodModel.del(product.id);
+                    this.resetInputData();
                     this.updateSession();
+                    
+                    this.clickPluPanel(document.getElementById('prodscrollablepanel').currentIndex);
                 }
             }
         },

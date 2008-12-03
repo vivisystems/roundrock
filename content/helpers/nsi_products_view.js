@@ -59,12 +59,12 @@
                     order: "cate_no"
                 });
 
-                GeckoJS.Session.add('products', products);
+                if (products && products.length > 0) GeckoJS.Session.add('products', products);
             }
 
             var byId ={}, indexCate = {}, indexCateAll={}, indexLinkGroup = {}, indexLinkGroupAll={}, indexBarcode = {};
             
-            products.forEach(function(product) {
+            if (products) products.forEach(function(product) {
                 if (product.barcode == null) {
                     product.barcode = "";
                 }

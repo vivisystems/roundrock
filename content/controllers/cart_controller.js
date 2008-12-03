@@ -618,19 +618,19 @@
 
             // check if has buffer
             var buf = this._getKeypadController().getBuffer();
-            if (buf.length>0) {
+            var currencies = GeckoJS.Session.get('Currencies');
+
+            if (buf.length>0 && currencies && currencies.length > convertIndex) {
                 var amount = parseFloat(buf)
                 // currency convert array
-                var currencies = GeckoJS.Session.get('Currencies');
                 var currency_rate = currencies[convertIndex].currency_change;
                 var memo1 = currencies[convertIndex].currency + ":" + amount;
                 var memo2 = "x" + currency_rate;
                 amount = amount * currency_rate;
                 this._getKeypadController().clearBuffer();
+                
+                this.addPayment('cash', amount, memo1, memo2);
             }
-
-            this.addPayment('cash', amount, memo1, memo2);
-
         },
 
 
@@ -767,7 +767,7 @@
             }
 
 
-            var modifiedItem = curTransaction.shiftTax(index);
+            var modifiedItem = curTransaction.shiftTax(index, taxIndex);
 
             this.dispatchEvent('afterShiftTax', modifiedItem);
 
@@ -855,7 +855,7 @@
             // check if has buffer
             var buf = this._getKeypadController().getBuffer();
             if (buf.length>0) {
-                amount = parseFloat(buf);
+                if (!amount) amount = parseFloat(buf);
                 this._getKeypadController().clearBuffer();
             }
 

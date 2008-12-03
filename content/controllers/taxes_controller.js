@@ -48,12 +48,13 @@
 
         setInputData: function (valObj) {
             var self = this;
+            var propDeck = document.getElementById('prop_deck');
             GeckoJS.FormHelper.reset('taxForm');
 
             valObj.combine_tax = "";
 
             if (valObj.type == 'COMBINE') {
-                document.getElementById('prop_deck').selectedIndex=1;
+                if (propDeck) document.getElementById('prop_deck').selectedIndex=1;
 
                 var taxes = this.Tax.getTax(valObj.no);
                 var combineTax = taxes.CombineTax;
@@ -62,7 +63,7 @@
                 valObj.combine_tax = combineTaxStr;
                 
             } else {
-                document.getElementById('prop_deck').selectedIndex=0;
+                if (propDeck) document.getElementById('prop_deck').selectedIndex=0;
                 
             }
 
@@ -203,8 +204,39 @@
             var selectedIndex = listObj.selectedIndex;
             var tax = this._listDatas[selectedIndex];
             this.setInputData(tax);
+        },
+
+        setDefaultTaxStatus: function() {
+            if (this._listObj) {
+                this._selectedIndex = this._listObj.selectedIndex;
+                if (this._selectedIndex >= 0) {
+                    var tax = this._listDatas[this._selectedIndex];
+                    if (tax) {
+                        GeckoJS.Configure.write('vivipos.fec.settings.DefaultTaxStatus', tax.no);
+                    }
+                }
+            }
+        },
+
+        initTaxStatus: function(tax_no) {
+            this.load();
+
+            var listObj = this.getListObj();
+            var taxes = this._listDatas;
+
+            if (taxes && listObj) {
+                listObj.selectedItems = [];
+                listObj.selectedIndex = -1;
+                for (var i = 0; i < taxes.length; i++) {
+                    if (taxes[i].no == tax_no) {
+                        listObj.selectedItems = [i];
+                        listObj.selectedIndex = i;
+                        break;
+                    }
+                }
+            }
         }
-	
+
     });
 
 })();

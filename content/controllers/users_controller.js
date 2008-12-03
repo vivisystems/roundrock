@@ -143,11 +143,13 @@
         },
         
         setDefaultUser: function() {
-            this._selectedIndex = this._listObj.selectedIndex;
-            if (this._selectedIndex >= 0) {
-                var user = this._listDatas[this._selectedIndex];
-                if (user) {
-                    GeckoJS.Configure.write('vivipos.fec.settings.DefaultUser', user.id);
+            if (this._listObj) {
+                this._selectedIndex = this._listObj.selectedIndex;
+                if (this._selectedIndex >= 0) {
+                    var user = this._listDatas[this._selectedIndex];
+                    if (user) {
+                        GeckoJS.Configure.write('vivipos.fec.settings.DefaultUser', user.id);
+                    }
                 }
             }
         },

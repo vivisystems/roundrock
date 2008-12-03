@@ -16,18 +16,15 @@
 
             this.catePanelView =  new NSICategoriesView('catescrollablepanel');
             
-            this.changeDepartmentPanel(0);
+            //this.changeDepartmentPanel(-1);
 
         },
 
         changeDepartmentPanel: function(index) {
 
             var category = this.catePanelView.getCurrentIndexData(index);
-            var cateNo = category['no'];
-
             this._selectedIndex = index;
             this.setInputData(category);
-
         },
 
         getRate: function () {
@@ -57,6 +54,19 @@
 
         resetInputData: function () {
             GeckoJS.FormHelper.reset('depForm');
+
+            // make sure tax rate field is always populated
+            var rate = $("#rate").val();
+            if (!rate || rate == '') {
+                // set rate to system default
+                var defaultRate = GeckoJS.Configure.read('vivipos.fec.settings.DefaultTaxStatus');
+                if (!defaultRate || defaultRate == '') {
+                    var taxes = GeckoJS.Session.get('taxes');
+                    if (taxes == null) taxes = this.Tax.getTaxList();
+                    if (taxes && taxes.length > 0) defaultRate = taxes[0].no;
+                }
+                $("#rate").val(defaultRate);
+            }
         },
 
         setInputData: function (valObj) {
@@ -74,7 +84,7 @@
                 alert('Name is empty...');
                 result = 4;
             } else {
-                cates.forEach(function(o){
+                if (cates) cates.forEach(function(o){
                     if (o.no == data.no) {
                         alert('Duplicate Department No...' + data.no);
                         result = 1;
@@ -89,8 +99,6 @@
         },
 
         add: function  () {
-            var inputData = this.getInputData();
-
             var aURL = "chrome://viviecr/content/prompt_additem.xul";
             var features = "chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250";
             var inputObj = {
@@ -101,23 +109,24 @@
             if (inputObj.ok && inputObj.input0 && inputObj.input1) {
                 var category = new CategoryModel();
 
-                inputData = {
-                    no: inputObj.input0,
-                    name: inputObj.input1
-                    };
+                this.resetInputData();
+                var inputData = this.getInputData();
+                inputData.no = inputObj.input0;
+                inputData.name = inputObj.input1
 
                 if(this._checkData(inputData) == 0) {
-
                     category.save(inputData);
 
                     this.updateSession();
 
-                    this.resetInputData();
+                    this.changeDepartmentPanel(document.getElementById('catescrollablepanel').currentIndex);
                 }
             }
         },
 
         modify: function  () {
+            if (this._selectedIndex == null || this._selectedIndex == -1) return;
+
             var inputData = this.getInputData();
             var cateModel = new CategoryModel();
 
@@ -135,6 +144,7 @@
         },
 
         remove: function() {
+            if (this._selectedIndex == null || this._selectedIndex == -1) return;
 
             if (GREUtils.Dialog.confirm(null, "confirm delete", "Are you sure?")) {
                 var cateModel = new CategoryModel();
@@ -144,8 +154,10 @@
 
                     cateModel.del(category.id);
 
+                    this.resetInputData();
                     this.updateSession();
                     
+                    this.changeDepartmentPanel(document.getElementById('catescrollablepanel').currentIndex);
                 }
             }
         },

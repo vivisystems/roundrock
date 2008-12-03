@@ -170,7 +170,7 @@
             current_surcharge: 0,
 
             condiments: null,
-            current_codiment: 0,
+            current_Condiment: 0,
 
             memo: null,
             
@@ -204,7 +204,12 @@
                 level: 0
             });
         }else if (type == 'discount') {
-            var dispName = item.discount_name + ' ' + ((item.discount_type == '$') ? item.discount_rate : item.discount_rate*100 )+ item.discount_type + '-';
+            if (item.discount_name && item.discount_name.length > 0) {
+                var dispName = '-' + item.discount_name;
+            }
+            else {
+                var dispName = '-' + ((item.discount_type == '%') ? item.discount_rate*100 + '%' : '');
+            }
             itemDisplay = GREUtils.extend(itemDisplay, {
                 id: item.id,
                 no: item.no,
@@ -218,7 +223,12 @@
                 level: 2
             });
         }else if (type == 'trans_discount') {
-            var dispName = ((item.discount_type == '$') ? item.discount_rate : item.discount_rate*100 )+ item.discount_type + '-';
+            if (item.discount_name && item.discount_name.length > 0) {
+                var dispName = '-' + item.discount_name;
+            }
+            else {
+                var dispName = '-' + ((item.discount_type == '%') ? item.discount_rate*100 + '%' : '');
+            }
             itemDisplay = GREUtils.extend(itemDisplay, {
                 id: null,
                 no: item.no,
@@ -232,7 +242,7 @@
                 level: 0
             });
         }else if (type == 'surcharge') {
-            var dispName = ((item.surcharge_type == '$') ? item.surcharge_rate : item.surcharge_rate*100 )+ item.surcharge_type + '+';
+            var dispName = '+' + ((item.surcharge_type == '%') ? item.surcharge_rate*100 + '%' : '');
             itemDisplay = GREUtils.extend(itemDisplay, {
                 id: item.id,
                 no: item.no,
@@ -246,7 +256,7 @@
                 level: 2
             });
         }else if (type == 'trans_surcharge') {
-            var dispName = ((item.surcharge_type == '$') ? item.surcharge_rate : item.surcharge_rate*100 )+ item.surcharge_type + '+';
+            var dispName = '+' + ((item.surcharge_type == '%') ? item.surcharge_rate*100 + '%' : '');
             itemDisplay = GREUtils.extend(itemDisplay, {
                 id: null,
                 no: item.no,
@@ -424,6 +434,27 @@
 
         // create data object to push in items array
         var itemModified = this.createItemDataObj(itemIndex, item, sellQty, sellPrice);
+        itemTrans.current_qty = itemModified.current_qty;
+        itemTrans.current_price = itemModified.current_price;
+        itemTrans.current_subtotal = itemModified.current_subtotal;
+        itemModified = itemTrans;
+
+        var condiments = itemModified.condiments;
+        if (condiments) {
+
+            var roundedPrice = this.getRoundedPrice(itemModified.current_price) || 0;
+            var roundedSubtotal = this.getRoundedPrice(itemModified.current_qty*itemModified.current_price) || 0;
+            var roundedCondiment = 0;
+
+            for(var cn in itemTrans.condiments) {
+                roundedCondiment += parseFloat(itemTrans.condiments[cn].price)*itemModified.current_qty;
+            }
+
+            roundedCondiment = this.getRoundedPrice(roundedCondiment);
+
+            itemModified.current_Condiment = roundedCondiment;
+            itemModified.current_subtotal = roundedSubtotal + roundedCondiment;
+        }
 
         // update to items array
         this.data.items[itemIndex]  = itemModified;
@@ -433,6 +464,7 @@
 
         // create data object to push in items array
         var itemDisplay = this.createDisplaySeq(itemIndex, itemModified, 'item');
+
         // update
         this.data.display_sequences[index] = itemDisplay ;
 
@@ -527,16 +559,16 @@
 
                 var roundedPrice = this.getRoundedPrice(itemTrans.current_price) || 0;
                 var roundedSubtotal = this.getRoundedPrice(itemTrans.current_qty * itemTrans.current_price) || 0;
-                var roundedCodiment = 0;
+                var roundedCondiment = 0;
 
                 for(var cn in itemTrans.condiments) {
-                    roundedCodiment += parseFloat(itemTrans.condiments[cn].price);
+                    roundedCondiment += parseFloat(itemTrans.condiments[cn].price) * itemTrans.current_qty;
                 }
 
-                roundedCodiment = this.getRoundedPrice(roundedCodiment);
+                roundedCondiment = this.getRoundedPrice(roundedCondiment);
 
-                itemTrans.current_codiment = roundedCodiment;
-                itemTrans.current_subtotal = roundedSubtotal + roundedCodiment;
+                itemTrans.current_Condiment = roundedCondiment;
+                itemTrans.current_subtotal = roundedSubtotal + roundedCondiment;
 
                 var orgItemDisplay = this.getDisplaySeqByIndex(itemIndex);
                 orgItemDisplay.current_subtotal =  this.formatPrice(itemTrans.current_subtotal);
@@ -602,7 +634,7 @@
         }else if (itemDisplay.type == 'subtotal'){
 
             var discountItem = {
-                discount_name: 'open',
+                discount_name: '',
                 discount_rate: discount.amount,
                 discount_type: discount.type,
                 current_discount: 0,
@@ -627,7 +659,6 @@
             this.data.display_sequences.splice(index+1,0,itemDisplay);
 
         }
-
 
         var currentRowCount = this.data.display_sequences.length;
 
@@ -660,7 +691,7 @@
 
                 return ;
             }
-            item.surcharge_name = 'open';
+            item.surcharge_name = '';
             item.surcharge_rate =  surcharge.amount;
             item.surcharge_type =  surcharge.type;
             item.hasSurcharge = true;
@@ -683,7 +714,7 @@
         }else if (itemDisplay.type == 'subtotal'){
 
             var surchargeItem = {
-                surcharge_name: 'open',
+                surcharge_name: '',
                 surcharge_rate: surcharge.amount,
                 surcharge_type: surcharge.type,
                 current_surcharge: 0,
@@ -725,7 +756,7 @@
     };
 
 
-    Transaction.prototype.shiftTax = function(index){
+    Transaction.prototype.shiftTax = function(index, taxIndex){
 
         var prevRowCount = this.data.display_sequences.length;
 
@@ -742,11 +773,13 @@
         var taxes = GeckoJS.Session.get('taxes');
         if(taxes == null) taxes = Transaction.Tax.getTaxList();
 
-        var oldTax = itemTrans.tax_name;
-        for (var taxIndex=0; taxIndex<taxes.length; taxIndex++) {
-            if(taxes[taxIndex].no ==oldTax) break;
+        if (taxIndex == null) {
+            var oldTax = itemTrans.tax_name;
+            for (var taxIndex=0; taxIndex<taxes.length; taxIndex++) {
+                if(taxes[taxIndex].no ==oldTax) break;
+            }
+            taxIndex = ( (taxIndex+1) >= taxes.length ) ? 0 : (taxIndex+1);
         }
-        taxIndex = ( (taxIndex+1) >= taxes.length ) ? 0 : (taxIndex+1);
         var newTax = taxes[taxIndex];
 
         itemTrans.tax_name = newTax.no;
@@ -873,16 +906,16 @@
 
                 var roundedPrice = this.getRoundedPrice(item.current_price) || 0;
                 var roundedSubtotal = this.getRoundedPrice(item.current_qty*item.current_price) || 0;
-                var roundedCodiment = 0;
+                var roundedCondiment = 0;
 
                 for(var cn in item.condiments) {
-                    roundedCodiment += parseFloat(item.condiments[cn].price);
+                    roundedCondiment += parseFloat(item.condiments[cn].price)*item.current_qty;
                 }
 
-                roundedCodiment = this.getRoundedPrice(roundedCodiment);
+                roundedCondiment = this.getRoundedPrice(roundedCondiment);
 
-                item.current_codiment = roundedCodiment;
-                item.current_subtotal = roundedSubtotal + roundedCodiment;
+                item.current_Condiment = roundedCondiment;
+                item.current_subtotal = roundedSubtotal + roundedCondiment;
 
                 itemDisplay.current_subtotal = this.formatPrice(item.current_subtotal);
 
@@ -1011,7 +1044,9 @@
         
     };
 
+    Transaction.prototype.calcCondimentPrice = function() {
 
+    };
 
     Transaction.prototype.calcSellPrice =  function(sellPrice, sellQty, item) {
 

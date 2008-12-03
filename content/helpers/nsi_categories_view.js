@@ -52,13 +52,13 @@
                 categories = cateModel.find('all', {
                     order: "no"
                 });
-                GeckoJS.Session.add('categories', categories);
+                if (categories && categories.length > 0) GeckoJS.Session.add('categories', categories);
 
             }
 
             var byId ={}, indexCate = [], indexCateAll = [];
 
-            categories.forEach(function(category) {
+            if (categories) categories.forEach(function(category) {
 
                 if (category.id.length > 0) {
                     byId[category.id] = category;

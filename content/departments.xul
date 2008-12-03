@@ -51,11 +51,11 @@
                                             </row>
 
                                             <row>
-                                                <checkbox id="category_visible" value="1" label="Visible" form="depForm" name="visible"/>
+                                                <checkbox id="category_visible" value="1" label="Visible" form="depForm" name="visible" default="1"/>
                                             </row>
 
                                             <row>
-                                                <checkbox id="category_cansale" value="0" label="Sale Department" form="depForm" name="cansale"/>
+                                                <checkbox id="category_cansale" value="0" label="Sale Department" form="depForm" name="cansale" default="0"/>
                                             </row>
                                         </rows>
                                     </grid>
@@ -63,11 +63,11 @@
                                 </groupbox>
                                 <groupbox>
                                     <caption label="Button Color:" />
-                                    <button_colorpicker id="category_button_color" form="depForm" name="button_color" buttonClass="catbtn button-radius"/>
+                                    <button_colorpicker id="category_button_color" form="depForm" name="button_color" buttonClass="catbtn button-radius" default="default"/>
                                 </groupbox>
                                 <groupbox>
                                     <caption label="Font Size:" />
-                                    <button_fontsizepicker id="category_font_size" form="depForm" name="font_size" buttonClass="catbtn button-white button-radius"/>
+                                    <button_fontsizepicker id="category_font_size" form="depForm" name="font_size" buttonClass="catbtn button-white button-radius" default="medium"/>
                                 </groupbox>
                             </vbox>
                         </hbox>

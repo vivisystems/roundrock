@@ -41,6 +41,7 @@
         rowCountChanged: function(rc1, rc2) {
             // lazy way ? full refresh
             var oldIndex = this._cartList.currentIndex;
+            var newIndex;
 
             // standard way, update rowCountChanged event.
             /*
@@ -55,9 +56,15 @@
                 // lazy way ? full refresh
                 this._cartList.datasource = this;
 
-                this.tree.ensureRowIsVisible(rc2-1);
-                this.tree.view.selection.currentIndex = rc2-1;
-                this.tree.view.selection.select(rc2-1);
+                if (rc2 >= rc1) newIndex = oldIndex + rc2 - rc1;
+                else newIndex = oldIndex - 1;
+
+                if (newIndex < 0) newIndex = (this.data.length > 0) ? 0 : -1;
+                else if (newIndex >= this.data.length) newIndex = this.data.length - 1;
+
+                this.tree.ensureRowIsVisible(newIndex);
+                this.tree.view.selection.currentIndex = newIndex;
+                this.tree.view.selection.select(newIndex);
             }else {
                 this.tree.invalidate();
                 //this.tree.ensureRowIsVisible(oldIndex);
