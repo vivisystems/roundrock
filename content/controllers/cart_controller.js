@@ -145,7 +145,7 @@
                 product: null
             };
             
-            if (!barcodesIndexes[barcode]) {
+            if (!barcodesIndexes || !barcodesIndexes[barcode]) {
                 // barcode notfound
                 event.error = true;
             }else {

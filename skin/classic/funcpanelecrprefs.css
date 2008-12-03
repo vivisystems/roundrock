@@ -63,10 +63,13 @@ separator {
     border-style: groove;
     font-size: small;
     height: 60px;
+    max-height: 60px;
+    overflow: auto;
 }
 
 .keymap_function_list {
     height: 172px;
+    max-width: 415px;
 }
 
 .action_button {

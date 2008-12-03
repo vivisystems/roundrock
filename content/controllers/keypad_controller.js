@@ -31,6 +31,20 @@
         /**
          * sampleAction
          */
+
+        sendCharcode: function(chars) {
+            for (var i = 0; i < chars.length; i++) {
+                this.data = {charCode: chars.charCodeAt(i), keyCode: null};
+                this.keypress();
+            }
+        },
+        
+        sendKeycode: function(code) {
+            this.data = {keyCode: parseInt(code),
+                         charCode: null};
+            this.keypress();
+        },
+
         keypress: function() {
             var evt = this.data;
 		
@@ -69,7 +83,7 @@
                     this.addBuffer(charPress);
                     break;
             }
-		
+
             switch(keyCode) {
                 // ESCAPE
                 case 0x27:

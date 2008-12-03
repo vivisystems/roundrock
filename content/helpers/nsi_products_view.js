@@ -89,23 +89,20 @@
                     if(GeckoJS.String.parseBoolean(product.visible)) indexCate[(product.cate_no+"")].push((product.id+""));
                 }
 
-                if (product.link_group) {
-                    if (product.link_group.length > 0) {
-                        var groups = product.link_group.split(',');
+                if (product.link_group && product.link_group.length > 0) {
+                    var groups = product.link_group.split(',');
 
-                        groups.forEach(function(group) {
+                    groups.forEach(function(group) {
 
-                            if (typeof indexLinkGroup[group] == 'undefined') {
-                                indexLinkGroup[group] = [];
-                                indexLinkGroupAll[group] = [];
-                            }
-                            indexLinkGroupAll[(group+"")].push((product.id+""));
-                            if(GeckoJS.String.parseBoolean(product.visible)) indexLinkGroup[(group+"")].push((product.id+""));
+                        if (typeof indexLinkGroup[group] == 'undefined') {
+                            indexLinkGroup[group] = [];
+                            indexLinkGroupAll[group] = [];
+                        }
+                        indexLinkGroupAll[(group+"")].push((product.id+""));
+                        if(GeckoJS.String.parseBoolean(product.visible)) indexLinkGroup[(group+"")].push((product.id+""));
                         
-                        });
-                    }
+                    });
                 }
-
             });
 
             GeckoJS.Session.add('productsById', byId);
@@ -122,7 +119,7 @@
             this.log(this.dump(GeckoJS.Session.get('barcodesIndexes')));
             this.log(this.dump(GeckoJS.Session.get('productsIndexesByLinkGroup')));
             this.log(this.dump(GeckoJS.Session.get('productsIndexesByLinkGroupAll')));
-            */
+         */
         },
 
         setCatePanelView: function(cateView) {
