@@ -22,13 +22,14 @@
             this.requestCommand('initial', null, 'Pricelevel');
             this.requestCommand('initial', null, 'Cart');
             this.requestCommand('initial', null, 'Vfd');
+            this.requestCommand('initial', null, 'CurrencySetup');
 
             this.resetLayout(true);
             this.initialLogin();
 
             // change log level
-            GeckoJS.Log.getAppender('console').level = GeckoJS.Log.DEBUG;
-            GeckoJS.Log.defaultClassLevel = GeckoJS.Log.DEBUG;
+            GeckoJS.Log.getAppender('console').level = GeckoJS.Log.ERROR;
+            GeckoJS.Log.defaultClassLevel = GeckoJS.Log.ERROR;
 
         },
 

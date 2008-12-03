@@ -21,8 +21,9 @@
 
                         <viviscrollablebuttonpanel dir="reverse" id="taxscrollablepanel" flex="1" cols="1" rows="7" labelField="name" oncommand="$do('select',this.selectedIndex, 'Taxes');"
                               class="catescrollablepanel" buttonClass="catbtn button-radius button-white font-medium" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue"
-                              style="width: 200px;" />
-                            
+                              style="width: 240px;" >
+                            <spacer flex="1" />
+                        </viviscrollablebuttonpanel>
 
                         <spacer style="height: 10px;" />
                         <hbox>
@@ -34,46 +35,63 @@
 
                     </vbox>
                 </groupbox>
-                <separator class="groove-thin"/>
+                <spacer style="width: 30px;" />
                 <groupbox flex="1">
                     <caption label="Tax Properties:" />
                     <vbox>
-                        <hbox align="center">
-                            <label id="tax_id" hidden="true" form="taxForm" name="id" value="" />
-                            <label  value="Tax Code:" />
-                            <textbox id="tax_no" form="taxForm" name="no" value="" default="" size="2" maxsize="2" readonly="true"/>
-                        </hbox>
-                        <hbox align="center">
-                            <label  value="Tax Type:" />
-                            <textbox id="tax_type" form="taxForm" name="type" value="" default="ADDON" size="15" readonly="true"/>
-                        </hbox>
-                        <hbox align="center">
-                            <label  value="Tax Name:" />
-                            <textbox id="tax_name" form="taxForm" name="name" value="" default="" size="15"/>
-                        </hbox>
+                        <grid>
+                            <rows>
+                                <row>
+                                    <label id="tax_id" hidden="true" form="taxForm" name="id" value="" />
+                                    <label  value="Tax Code:" />
+                                    <textbox id="tax_no" form="taxForm" name="no" value="" default="" size="2" maxsize="2" readonly="true"/>
+                                </row>
+
+                                <row>
+                                    <label  value="Tax Type:" />
+                                    <textbox id="tax_type" form="taxForm" name="type" value="" default="ADDON" size="15" readonly="true"/>
+                                </row>
+
+                                <row>
+                                    <label  value="Tax Name:" />
+                                    <textbox id="tax_name" form="taxForm" name="name" value="" default="" size="15"/>
+                                </row>
+
+                            </rows>
+                        </grid>
+
 
                         <deck id="prop_deck">
 
                             <vbox>
-                            
-                                <hbox align="center">
-                                    <label value="Tax Rate:"  />
-                                    <textbox id="tax_rate" form="taxForm" name="rate" default="0" size="15"/>
-                                </hbox>
-                                <hbox align="center">
-                                    <label value="Tax Rate Type:"  />
-                                    <textbox id="tax_rate_type" form="taxForm" name="rate_type" default="%" size="2"/>
-                                </hbox>
-                                <hbox align="center">
-                                    <label value="Tax Threshold:"  />
-                                    <textbox id="tax_threshold" form="taxForm" name="threshold" default="0" size="10"/>
-                                </hbox>
+                                <grid>
+                                    <rows>
+                                        <row>
+                                            <label value="Tax Rate:"  />
+                                            <textbox id="tax_rate" form="taxForm" name="rate" default="0" size="15"/>
+                                        </row>
+
+                                        <row>
+                                            <label value="Tax Rate Type:"  />
+                                            <textbox id="tax_rate_type" form="taxForm" name="rate_type" default="%" size="2"/>
+                                        </row>
+
+                                        <row>
+                                            <label value="Tax Threshold:"  />
+                                            <textbox id="tax_threshold" form="taxForm" name="threshold" default="0" size="10"/>
+                                        </row>
+                                    </rows>
+                                </grid>
                             </vbox>
                             <vbox>
                                 <viviscrollablebuttonpanel id="addontaxscrollablepanel" form="taxForm" name="combine_tax" default="" seltype="multiple" flex="1" cols="1" rows="7" labelField="name" oncommand=""
-                                        class="catescrollablepanel" buttonClass="catbtn button-radius button-white font-medium" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue"/>
+                                        class="catescrollablepanel" buttonClass="catbtn button-radius button-white font-medium" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue">
+                                    <spacer flex="1" />
+                                </viviscrollablebuttonpanel>
                             </vbox>
                         </deck>
+                       
+
                     </vbox>
                 </groupbox>
 

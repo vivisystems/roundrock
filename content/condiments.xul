@@ -22,9 +22,11 @@
                         <caption label="Condiment Group:" />
                         <hbox>
                             <viviscrollablebuttonpanel dir="reverse" id="condimentscrollablepanel" flex="1" cols="3" rows="2" labelField="name" oncommand="$do('changeCondimentPanel',this.selectedIndex, 'Condiments');"
-                              class="catescrollablepanel" buttonClass="catbtn button-radius button-white font-medium" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue"/>
-                            <spacer style="width: 20px;" />
-                            <vbox style="width: 400px;">
+                              class="catescrollablepanel" buttonClass="catbtn button-radius button-white font-medium" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue">
+                                  <spacer flex="1" />
+                            </viviscrollablebuttonpanel>
+                            <spacer style="width: 30px;" />
+                            <vbox style="width: 340px;">
                                 <grid>
                                     <rows>
                                         <!-- row>
@@ -41,6 +43,7 @@
                                 <spacer style="height: 10px;" />
                                 <hbox>
                                     <button label="Add" class="editbtns" oncommand="$do('add', null, 'Condiments');" />
+                                    <spacer flex="1" />
                                     <button label="Delete" class="editbtns" oncommand="$do('remove', null, 'Condiments');" />
                                     <button label="Modify" class="editbtns" oncommand="$do('modify', null, 'Condiments');" />
                                 </hbox>
@@ -58,10 +61,13 @@
                         <hbox>
                             <vbox>
                                 <viviscrollablebuttonpanel dir="reverse" id="detailscrollablepanel" flex="1" cols="2" rows="4" labelField="name" imageField="no"
-                                oncommand="$do('clickCondimentPanel',this.selectedIndex, 'Condiments');"  class="prodscrollablepanel" buttonClass="plubtn smallimagebtn button-radius" scrollUpClass="rightprevbtn button-gray" scrollDownClass="rightnextbtn button-gray" />
+                                    oncommand="$do('clickCondimentPanel',this.selectedIndex, 'Condiments');"  class="prodscrollablepanel" buttonClass="plubtn smallimagebtn button-radius" scrollUpClass="rightprevbtn button-gray" scrollDownClass="rightnextbtn button-gray" >
+                                      <spacer flex="1" />
+                                </viviscrollablebuttonpanel>
                                 <spacer style="height: 20px;" />
                                 <hbox>
                                     <button label="Add" class="editbtns" oncommand="$do('addCond', null, 'Condiments');" />
+                                    <spacer flex="1" />
                                     <button label="Delete" class="editbtns" oncommand="$do('removeCond', null, 'Condiments');" />
                                     <button label="Modify" class="editbtns" oncommand="$do('modifyCond', null, 'Condiments');" />
                                 </hbox>

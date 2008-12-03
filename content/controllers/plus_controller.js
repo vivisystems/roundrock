@@ -47,6 +47,7 @@
             var category = this.catePanelView.getCurrentIndexData(index);
 
             this.resetInputData();
+            this._selCateNo = category.no;
             $("#cate_no").val(category.no);
 
             this.clickPluPanel(0);
@@ -203,6 +204,7 @@
                 input0:null,
                 input1:1
             };
+
             window.openDialog(aURL, "prompt_addpluset", features, "Plu Set Menu", "Please input:", "Plu No or Barcode:", "Qty:", inputObj);
 
             if (inputObj.ok && inputObj.input0 && inputObj.input1) {
@@ -227,24 +229,6 @@
 
             }
 
-            return;
-
-        /*
-            var aURL = "chrome://viviecr/content/plusearch.xul";
-            var aName = "PLUSearch";
-            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=800,height=600";
-            var inputObj = {
-                no: no,
-                name: name,
-                qty: qty
-            };
-            window.openDialog(aURL, aName, features, inputObj);
-
-            if (inputObj.ok && inputObj.no) {
-//
-
-            }
-            */
         },
 
         getInputData: function () {
@@ -257,11 +241,10 @@
 
         setInputData: function (valObj) {
             // this.log("valObj:" + this.dump(valObj));
+
+            GeckoJS.FormHelper.unserializeFromObject('productForm', valObj);
+            this._setPluSet();
             if (valObj) {
-                GeckoJS.FormHelper.unserializeFromObject('productForm', valObj);
-
-                this._setPluSet();
-
                 document.getElementById('pluimage').setAttribute("src", "chrome://viviecr/content/skin/pluimages/" + valObj.no + ".png?" + Math.random());
             }
         },
@@ -309,6 +292,7 @@
 
                 if(this._checkData(inputData) == 0) {
                     inputData.cate_no = $("#cate_no").val();
+                    if (inputData.cate_no.length == 0) inputData.cate_no = this._selCateNo;
                     product.save(inputData);
 
                     this.updateSession();

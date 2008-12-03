@@ -65,7 +65,9 @@
             var byId ={}, indexCate = {}, indexCateAll={}, indexLinkGroup = {}, indexLinkGroupAll={}, indexBarcode = {};
             
             products.forEach(function(product) {
-                if (product.barcode == null) {product.barcode = "";}
+                if (product.barcode == null) {
+                    product.barcode = "";
+                }
 
                 if (product.id.length > 0) {
                     byId[product.id] = product;
@@ -101,7 +103,6 @@
                         
                     });
                 }
-
             });
 
             GeckoJS.Session.add('productsById', byId);
@@ -111,14 +112,14 @@
             GeckoJS.Session.add('productsIndexesByLinkGroup', indexLinkGroup);
             GeckoJS.Session.add('productsIndexesByLinkGroupAll', indexLinkGroupAll);
 
-            /*
+        /*
             this.log(this.dump(GeckoJS.Session.get('productsById')));
             this.log(this.dump(GeckoJS.Session.get('productsIndexesByCate')));
             this.log(this.dump(GeckoJS.Session.get('productsIndexesByCateAll')));
             this.log(this.dump(GeckoJS.Session.get('barcodesIndexes')));
             this.log(this.dump(GeckoJS.Session.get('productsIndexesByLinkGroup')));
             this.log(this.dump(GeckoJS.Session.get('productsIndexesByLinkGroupAll')));
-            */
+         */
         },
 
         setCatePanelView: function(cateView) {

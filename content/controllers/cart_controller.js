@@ -27,6 +27,10 @@
             var curTransaction = new Transaction();
             curTransaction.create();
             this._setTransactionToView(curTransaction);
+
+            // check pricelevel schedule
+            this.requestCommand('schedule', null, 'Pricelevel');
+
             return curTransaction;
         },
 
@@ -610,8 +614,27 @@
 
         },
 
+        currencyConvert: function(convertIndex) {
 
-        addPayment: function(type, amount) {
+            // check if has buffer
+            var buf = this._getKeypadController().getBuffer();
+            if (buf.length>0) {
+                var amount = parseFloat(buf)
+                // currency convert array
+                var currencies = GeckoJS.Session.get('Currencies');
+                var currency_rate = currencies[convertIndex].currency_change;
+                var memo1 = currencies[convertIndex].currency + ":" + amount;
+                var memo2 = "x" + currency_rate;
+                amount = amount * currency_rate;
+                this._getKeypadController().clearBuffer();
+            }
+
+            this.addPayment('cash', amount, memo1, memo2);
+
+        },
+
+
+        addPayment: function(type, amount, memo1, memo2) {
 
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
@@ -636,7 +659,7 @@
             var paymentItem = {type: type, amount: amount};
             this.dispatchEvent('beforeAddPayment', paymentItem);
 
-            var paymentedItem = curTransaction.appendPayment(type, amount);
+            var paymentedItem = curTransaction.appendPayment(type, amount, memo1, memo2);
 
             this.dispatchEvent('afterAddPayment', paymentedItem);
 
@@ -1111,7 +1134,7 @@
             var curTransaction = new Transaction();
             curTransaction.data = data ;
             this._setTransactionToView(curTransaction);
-            curTransaction.updateCartView();
+            curTransaction.updateCartView(-1, -1);
             this.subtotal();
 
         }

@@ -62,6 +62,8 @@ GREUtils.include('chrome://viviecr/content/controllers/condiments_controller.js'
 GREUtils.include('chrome://viviecr/content/controllers/jobs_controller.js');
 GREUtils.include('chrome://viviecr/content/controllers/pricelevelschedule_controller.js');
 GREUtils.include('chrome://viviecr/content/controllers/plusearch_controller.js');
+GREUtils.include('chrome://viviecr/content/controllers/stocks_controller.js');
+GREUtils.include('chrome://viviecr/content/controllers/currencysetup_controller.js');
 // user define
 // GeckoJS.include('chrome://viviecr/content/tax.js');
 GeckoJS.include('chrome://viviecr/content/fecposutils.js');

@@ -20,11 +20,11 @@
 
                     <hbox>
 
-
                         <viviscrollablebuttonpanel dir="reverse" id="rolegroupscrollablepanel" flex="1" cols="3" rows="2" labelField="name" imageField="no" oncommand="$do('select',this.selectedIndex, 'RoleGroups');"
                               class="catescrollablepanel" buttonClass="catbtn button-radius button-white font-medium" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue"
                               style="width: 200px;" />
 
+                        <spacer style="width: 20px;" />
                         <vbox>
                             <hbox align="center">
                                 <label id="job_id" hidden="true" form="rolegroupForm" name="id" value="" />

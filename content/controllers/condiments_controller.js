@@ -9,6 +9,8 @@
         helpers: ['Form'],
         _selectedIndex: null,
         _selectedCondIndex: null,
+        _condGroupscrollablepanel: null,
+        _condscrollablepanel: null,
 
         createCondimentPanel: function () {
             
@@ -22,11 +24,11 @@
             // bind condiments data
             var condPanelView =  new GeckoJS.NSITreeViewArray(condGroups);
             // var condPanelView =  new NSICondGroupsView(condGroups);
-            var condscrollablepanel = document.getElementById('condimentscrollablepanel');
-            condscrollablepanel.datasource = condPanelView;
+            this._condGroupscrollablepanel = document.getElementById('condimentscrollablepanel');
+            this._condGroupscrollablepanel.datasource = condPanelView;
 
-            condscrollablepanel.selectedIndex = 0;
-            condscrollablepanel.selectedItems = [0];
+            this._condGroupscrollablepanel.selectedIndex = 0;
+            this._condGroupscrollablepanel.selectedItems = [0];
 
             this.changeCondimentPanel(0);
 
@@ -92,6 +94,15 @@
             if (inputObj.ok && inputObj.input0) {
                 var inputData = {name: inputObj.input0};
                 var condGroupModel = new CondimentGroupModel();
+                var condGroups = condGroupModel.findByIndex('all', {
+                    index: "name",
+                    value: inputData.name
+                });
+                if (condGroups != null) {
+                    alert("The Group (" + inputData.name + ") is exist..");
+                    return;
+                }
+                
                 condGroupModel.save(inputData);
 
                 var condGroups = condGroupModel.find('all', {
@@ -100,8 +111,8 @@
                 GeckoJS.Session.add('condGroups', condGroups);
 
                 var condPanelView =  new NSICondGroupsView(condGroups);
-                var condscrollablepanel = document.getElementById('condimentscrollablepanel');
-                condscrollablepanel.datasource = condPanelView;
+                this._condscrollablepanel = document.getElementById('condimentscrollablepanel');
+                this._condscrollablepanel.datasource = condPanelView;
 
                 
             }
@@ -187,6 +198,15 @@
                 var inputData = {name: inputObj.input0, price: inputObj.input1};
                 inputData.condiment_group_id = this.query('#condiment_group_id').val();
                 var condModel = new CondimentModel();
+                var conds = condModel.findByIndex('all', {
+                    index: "name",
+                    value: inputData.name
+                });
+                if (conds != null) {
+                    alert("The Condiment (" + inputData.name + ") is exist..");
+                    return;
+                }
+
                 condModel.save(inputData);
 
                 var condGroupModel = new CondimentGroupModel();
@@ -195,7 +215,7 @@
                 });
                 GeckoJS.Session.add('condGroups', condGroups);
 
-                // this.resetInputData();
+                this.changeCondimentPanel(this._selectedIndex);
                 this.clickCondimentPanel(this._selectedCondIndex);
 
             }
@@ -218,7 +238,10 @@
                     order: "name"
                 });
                 GeckoJS.Session.add('condGroups', condGroups);
+                
                 this.clickCondimentPanel(this._selectedCondIndex);
+
+                // this._condscrollablepanel.datasource
             }
         },
 
