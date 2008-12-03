@@ -33,7 +33,7 @@
                         <hbox>
                             <vbox>
                                 <groupbox>
-                                    <caption label="Button Color:" />
+                                    <caption label="Department Details:" />
                                     <grid>
                                         <rows>
                                             <row>
