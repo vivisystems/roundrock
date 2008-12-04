@@ -29,10 +29,6 @@
                             <vbox style="width: 340px;">
                                 <grid>
                                     <rows>
-                                        <!-- row>
-                                            <label value="Group No:"/>
-                                            <textbox id="condiment_group_no" form="condGroupForm" name="no" readonly="true"/>
-                                        </row -->
                                         <row>
                                             <label hidden="true" form="condGroupForm" name="id" value="" />
                                             <label value="Group Name:"/>
@@ -76,10 +72,6 @@
                                 <groupbox>
                                     <grid>
                                         <rows>
-                                            <!-- row>
-                                                <label value="No:"/>
-                                                <textbox id="condiment_no" form="condimentForm" name="no" readonly="true"/>
-                                            </row -->
                                             <row>
                                                 <label hidden="true" form="condimentForm" name="id" value="" />
                                                 <label id="condiment_group_id" hidden="true" form="condimentForm" name="condiment_group_id" value="" />
@@ -88,15 +80,15 @@
                                             </row>
                                             <row>
                                                 <label value="Price:"/>
-                                                <textbox id="condiment_price" form="condimentForm" name="price" default="0"/>
+                                                <textbox id="condiment_price" form="condimentForm" name="price" default=""/>
                                             </row>
                                             <row>
                                                 <label value="Button Color:"  />
-                                                <button_colorpicker id="condiment_button_color" buttonClass="catbtn button-radius" form="condimentForm" name="button_color"/>
+                                                <button_colorpicker id="condiment_button_color" buttonClass="catbtn button-radius" form="condimentForm" name="button_color" default="default"/>
                                             </row>
                                             <row>
                                                 <label value="Font Size:"  />
-                                                <button_fontsizepicker id="condiment_font_size" buttonClass="catbtn button-white button-radius" form="condimentForm" name="font_size"/>
+                                                <button_fontsizepicker id="condiment_font_size" buttonClass="catbtn button-white button-radius" form="condimentForm" name="font_size" default="medium"/>
                                             </row>
                                         </rows>
                                     </grid>
