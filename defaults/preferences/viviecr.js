@@ -17,7 +17,7 @@ pref("vivipos.fec.settings.TimeformatStr", "hh:nn:ss");
 
 pref("vivipos.fec.settings.image.disklimit", 52428800);
 pref("vivipos.fec.settings.image.importdir", "/media/disk/image_import/");
-pref("vivipos.fec.settings.image.importdir", "/media/disk/image_export/");
+pref("vivipos.fec.settings.image.exportdir", "/media/disk/image_export/");
 
 pref("vivipos.fec.settings.controlpanels.sysprefs.label", "System Options");
 pref("vivipos.fec.settings.controlpanels.sysprefs.path", "chrome://viviecr/content/sysprefs.xul");
