@@ -307,11 +307,12 @@
                                 </rows>
                             </grid>
                             <vivitree id="vivifuncpanelecr_prefs_keymap_function_tree"
-                                      class="keymap_function_list"
-                                      headers="Function,Label"
-                                      fields="name,label"
-                                      seltype="single"
-                                      onselect="$do('selectFunction', this, 'vivifuncpanelecr_prefs')"/>
+                                                class="keymap_function_list"
+                                                headers="Function,Label"
+                                                fields="name,label"
+                                                seltype="single"
+                                                hidevscroll="true"
+                                                onselect="$do('selectFunction', this, 'vivifuncpanelecr_prefs')"/>
                             <textbox class="descbox_keymap" id="vivifuncpanelecr_prefs_keymap_function_desc" wrap="true"
                                      readonly="true" multiline="true">
                             </textbox>
@@ -389,11 +390,12 @@
                                 </rows>
                             </grid>
                             <vivitree id="vivifuncpanelecr_prefs_gkeymap_function_tree"
-                                      class="keymap_function_list"
-                                      headers="Function,Label"
-                                      fields="name,label"
-                                      seltype="single"
-                                      onselect="$do('selectFunction', this, 'vivifuncpanelecr_prefs')"/>
+                                                class="keymap_function_list"
+                                                headers="Function,Label"
+                                                fields="name,label"
+                                                seltype="single"
+                                                hidevscroll="true"
+                                                onselect="$do('selectFunction', this, 'vivifuncpanelecr_prefs')"/>
                             <textbox class="descbox_keymap" id="vivifuncpanelecr_prefs_gkeymap_function_desc" wrap="true"
                                      readonly="true" multiline="true">
                             </textbox>

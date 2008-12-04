@@ -866,7 +866,7 @@
 
         var currentRowCount = this.data.display_sequences.length;
 
-        this.updateCartView(prevRowCount, currentRowCount);
+        this.updateCartView(prevRowCount, currentRowCount, true);
 
         return item;
 
