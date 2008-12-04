@@ -129,10 +129,10 @@
     };
 
 
-    Transaction.prototype.updateCartView = function(prevRowCount, currentRowCount) {
+    Transaction.prototype.updateCartView = function(prevRowCount, currentRowCount, jumpToLast) {
 
         this.view.data = this.data.display_sequences;
-        this.view.rowCountChanged(prevRowCount, currentRowCount);
+        this.view.rowCountChanged(prevRowCount, currentRowCount, jumpToLast);
 
     },
 
@@ -387,7 +387,7 @@
 
         this.calcTotal();
 
-        this.updateCartView(prevRowCount, currentRowCount);
+        this.updateCartView(prevRowCount, currentRowCount, true);
 
         this.updateLastSellItem(itemAdded);
 
