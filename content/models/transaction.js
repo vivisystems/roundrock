@@ -269,7 +269,7 @@
                 index: index,
                 level: 0
             });
-        }else if (type == 'tray' || type == 'subtotal') {
+        }else if (type == 'tray' || type == 'subtotal' || type == 'total') {
             itemDisplay = GREUtils.extend(itemDisplay, {
                 id: '',
                 name: item.name,
@@ -293,8 +293,19 @@
                 index: index,
                 level: 1
             });           
+        }else if(type =='payment') {
+            itemDisplay = GREUtils.extend(itemDisplay, {
+                id: '',
+                name: item.name.toUpperCase(),
+                current_qty: '',
+                current_price: '',
+                current_subtotal: item.amount,
+                current_tax: '',
+                type: type,
+                index: index,
+                level: 0
+            });
         }
-
 
         // format display precision
         if(itemDisplay.current_subtotal != '' || itemDisplay.current_subtotal === 0) {
@@ -649,7 +660,7 @@
 
             if (discountItem.discount_type == '$') {
                 discountItem.current_discount = 0 - discount.amount;
-                if (discount.amount > item.current_subtotal) {
+                if (discount.amount >  this.getRemainTotal()) {
                     // discount too much
                     return;
                 }
@@ -982,6 +993,8 @@
 
 
     Transaction.prototype.appendPayment = function(type, amount, memo1, memo2){
+        
+        var prevRowCount = this.data.display_sequences.length;
 
         var paymentId =  GeckoJS.String.uuid();
         var paymentItem = {
@@ -992,7 +1005,16 @@
             memo2: memo2
         };
 
+        var itemDisplay = this.createDisplaySeq(paymentId, paymentItem, 'payment');
+
+        var lastIndex = this.data.display_sequences.length - 1;
+        this.data.display_sequences.splice(lastIndex+1,0,itemDisplay);
+
         this.data.trans_payments[paymentId] = paymentItem;
+
+        var currentRowCount = this.data.display_sequences.length;
+
+        this.updateCartView(prevRowCount, currentRowCount);
 
         this.calcTotal();
 
