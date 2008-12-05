@@ -2,39 +2,49 @@
  * Initial GREUtils and GeckoJS
  */
 (function(){
+var loader = window.jssubscript_loader = Components.classes["@mozilla.org/moz/jssubscript-loader;1"].getService(Components.interfaces.mozIJSSubScriptLoader);
 
-var loader = Components.classes["@mozilla.org/moz/jssubscript-loader;1"]
-                       .getService(Components.interfaces.mozIJSSubScriptLoader); 
+window.include = function include(src, scope) {
+    scope = scope || window;
+
+    try {
+
+        loader.loadSubScript(src, scope);
+
+    }catch(e) {
+        // error loadSubscript
+    }
+};
+
 
 // include jquery
-//if(typeof window.jQuery == 'undefined') {
-    loader.loadSubScript("resource://app/modules/jquery-1.2.6.js", window); 
-	loader.loadSubScript("resource://app/modules/jquery.qsa.js", window);
-	loader.loadSubScript("resource://app/modules/jquery.form.js", window);
-//}
+if(typeof window.jQuery == 'undefined') {
+    include("resource://app/modules/jquery-1.2.6.js");
+	include("resource://app/modules/jquery.qsa.js");
+	include("resource://app/modules/jquery.form.js");
+}
 
 // include date-js
 if (typeof Date.CultureInfo == 'undefined') {
-	loader.loadSubScript("resource://app/modules/date.js", window);
+	include("resource://app/modules/date.js");
 }
 
 //Components.utils.import("resource://app/modules/GREUtils.jsm", window);
 //Components.utils.import("resource://app/modules/GeckoJS.jsm", window);
 
 if(typeof GREUtils == 'undefined') {
-    loader.loadSubScript("resource://app/modules/GREUtils.js", window);
+    include("resource://app/modules/GREUtils.js");
 //    GREUtils.global = window || this;
 }
 
 if (typeof GeckoJS == 'undefined') {
-    loader.loadSubScript("resource://app/modules/GeckoJS.js", window);
+    include("resource://app/modules/GeckoJS.js");
 //    GeckoJS.global = window  || this;
 }
 
 // ONLY FOR jsmodules version gecko 1.9
 // initial current window context to javascript code modules
-
-loader.loadSubScript("chrome://global/content/globalOverlay.js", window);
+include("chrome://global/content/globalOverlay.js");
 
 
 // Dispatcher shortcut
@@ -77,6 +87,7 @@ window.toOpenWindowByType = function toOpenWindowByType(inType, uri) {
     var winopts = "chrome,extrachrome,menubar,resizable,scrollbars,status,toolbar";
     window.open(uri, "_blank", winopts);
 };
+
 
 
 

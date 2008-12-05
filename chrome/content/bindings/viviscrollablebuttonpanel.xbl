@@ -5,7 +5,7 @@
           xmlns:html="http://www.w3.org/1999/xhtml"
           xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-<binding id="viviscrollablebuttonpanel">
+  <binding id="viviscrollablebuttonpanel">
     <content>
 
         <xul:hbox style="margin: 0px; padding:0px;" anonid="scrollablepanel-container" class="scrollablepanel" xbl:inherits="class,flex,pack,dir">
@@ -156,5 +156,5 @@
     <handlers>
     </handlers>
 
-</binding>
+  </binding>
 </bindings>
