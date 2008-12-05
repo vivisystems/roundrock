@@ -54,6 +54,11 @@ pref("vivipos.fec.settings.controlpanels.roles.path", "chrome://viviecr/content/
 pref("vivipos.fec.settings.controlpanels.roles.icon", "chrome://viviecr/content/skin/icons/xfce-system-lock.png");
 pref("vivipos.fec.settings.controlpanels.roles.roles", "admin");
 
+pref("vivipos.fec.settings.controlpanels.currency.label", "Currency Exchange");
+pref("vivipos.fec.settings.controlpanels.currency.path", "chrome://viviecr/content/currencysetup.xul");
+pref("vivipos.fec.settings.controlpanels.currency.icon", "chrome://viviecr/content/skin/icons/reload.png");
+pref("vivipos.fec.settings.controlpanels.currency.roles", "admin");
+
 pref("vivipos.fec.settings.controlpanels.stocks.label", "Stocks");
 pref("vivipos.fec.settings.controlpanels.stocks.path", "chrome://viviecr/content/stocks.xul");
 pref("vivipos.fec.settings.controlpanels.stocks.icon", "chrome://viviecr/content/skin/icons/gtk-paste.png");
@@ -271,6 +276,14 @@ pref("vivipos.fec.registry.function.programmable.signOff.data", "");
 pref("vivipos.fec.registry.function.programmable.signOff.desc", "This function signs off the current operator. No parameter is needed.");
 pref("vivipos.fec.registry.function.programmable.signOff.label", "Sign Off");
 pref("vivipos.fec.registry.function.programmable.signOff.name", "Sign Off");
+
+pref("vivipos.fec.registry.function.programmable.currencyConvert.access", "manager");
+pref("vivipos.fec.registry.function.programmable.currencyConvert.command", "currencyConvert");
+pref("vivipos.fec.registry.function.programmable.currencyConvert.controller", "Main");
+pref("vivipos.fec.registry.function.programmable.currencyConvert.data", "");
+pref("vivipos.fec.registry.function.programmable.currencyConvert.desc", "This function registers a currency conversion. The parameter indicates the currency conversion table entry and must be filled.");
+pref("vivipos.fec.registry.function.programmable.currencyConvert.label", "Currency Exchange");
+pref("vivipos.fec.registry.function.programmable.currencyConvert.name", "Currency Exchange");
 
 pref('vivipos.fec.registry.comm.port1.id', 'port1');
 pref('vivipos.fec.registry.comm.port1.name', 'COM1');
