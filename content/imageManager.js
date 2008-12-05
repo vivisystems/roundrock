@@ -16,7 +16,6 @@
 
             var args = {
                 pickerMode: false,
-                // directory: "/home/rack/workspace/sam4s/content/skin/icons/",
                 directory: sDstDir + "/",
                 result: false,
                 file: ""
