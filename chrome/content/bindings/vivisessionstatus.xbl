@@ -26,6 +26,7 @@
                 //GREUtils.log('[CONSTRUCTOR]: entering');
 
                 this.events = GeckoJS.Session.getInstance().events;
+                this.keys = [];
 
                 var changeHandler = function (evt) {
                     //GREUtils.log('[CHANGE]: entering id <' + this.id + '> event <' + evt.getType() + '> + <' + GeckoJS.BaseObject.dump(evt.getData()) + '>');
