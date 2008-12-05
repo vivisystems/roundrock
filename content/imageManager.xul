@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!DOCTYPE window SYSTEM "chrome://viviecr/locale/fecpos.dtd">
+<!DOCTYPE window SYSTEM "chrome://viviecr/locale/imagemanager.dtd">
 
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
@@ -8,7 +8,7 @@
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
-<window title="Image Manager"
+<window title="&imagemanager.window.title;"
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
@@ -22,24 +22,31 @@
                 oncommand="$do('select',this.selectedIndex, 'ImageManager');"  buttonClass="imageThumbBtn largeimagebtn" scrollUpClass="rightprevbtn button-gray" scrollDownClass="rightnextbtn button-gray" />
             <spacer flex="1"/>
             <groupbox>
-              <caption label="Image Infomation:" />
-               <hbox>name: <label id="lblName" value="" /></hbox>
-               <hbox>size: <label id="lblSize" value="" /></hbox>
+              <caption label="&imagemanager.image.caption;" />
+               <hbox>&imagemanager.image.name;<label id="lblName" value="" /></hbox>
+               <hbox>&imagemanager.image.size;<label id="lblSize" value="" /></hbox>
             </groupbox>
         </vbox>
         <vbox flex="1" id="managerPanel" >
             
-            <button label="Import From Disk" class="widebtns" oncommand="$do('importFromDir',null, 'ImageManager');"/>
-            <button label="Export To Disk" class="widebtns"/>
-            <button label="Delete" class="widebtns" oncommand="$do('deleteImage',null, 'ImageManager');" />
-            <button label="Rename" class="widebtns" oncommand="$do('renameImage',null, 'ImageManager');"/>
+            <button label="&imagemanager.action.import;" class="widebtns" oncommand="$do('importFromDir',null, 'ImageManager');"/>
+            <button label="&imagemanager.action.export;" class="widebtns" oncommand="$do('exportToDir',null, 'ImageManager');"/>
+            <button label="&imagemanager.action.delete;" class="widebtns" oncommand="$do('deleteImage',null, 'ImageManager');" />
+            <button label="&imagemanager.action.rename;" class="widebtns" oncommand="$do('renameImage',null, 'ImageManager');"/>
+            <spacer flex="5"/>
+            <groupbox>
+                <caption label="&imagemanager.action.caption;"/>
+                <hbox>&imagemanager.action.usage;<label id="actionUsage" value="" /> </hbox>
+                <hbox>&imagemanager.action.files;<label id="actionFiles" value="" /> </hbox>
+                <hbox>&imagemanager.action.status;<label id="actionStatus" value="" /> </hbox>
+            </groupbox>
             <spacer flex="1"/>
             <groupbox>
-              <caption label="Disk Usage Limit" />
+              <caption label="&imagemanager.status.disklimit;" />
                <progressmeter id="usageProgressmeter" mode="determined" value="" />
-               <hbox>Total: <label id="totalLimit" value="Limit: " /> </hbox>
-               <hbox>Usage: <label id="currentUsage" value="Current: " /></hbox>
-               <hbox>Files: <label id="currentFiles" value="Current: " /></hbox>
+               <hbox>&imagemanager.status.total;<label id="totalLimit" value="" /> </hbox>
+               <hbox>&imagemanager.status.usage;<label id="currentUsage" value="" /></hbox>
+               <hbox>&imagemanager.status.files;<label id="currentFiles" value="" /></hbox>
             </groupbox>
 
         </vbox>

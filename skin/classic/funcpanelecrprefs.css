@@ -1,7 +1,3 @@
-* {
-  overflow: hidden;
-}
-
 .label_general {
   margin-top: 10px;
 }
@@ -30,14 +26,14 @@ separator {
 
 .textbox_layout {
     font-size: small;
-    min-height: 28px;
-    max-height: 28px;
+   min-height: 28px;
+   max-height: 28px;
 }
 
 .textbox_layout_readonly {
     font-size: small;
-    min-height: 28px;
-    max-height: 28px;
+   min-height: 28px;
+   max-height: 28px;
 }
 
 .action_layout {
@@ -47,14 +43,14 @@ separator {
 
 .textbox_keymap {
     font-size: small;
-    min-height: 28px;
-    max-height: 28px;
+   min-height: 28px;
+   max-height: 28px;
 }
 
 .textbox_keymap_readonly {
     font-size: small;
-    min-height: 28px;
-    max-height: 28px;
+   min-height: 28px;
+   max-height: 28px;
 }
 
 .descbox_keymap {
