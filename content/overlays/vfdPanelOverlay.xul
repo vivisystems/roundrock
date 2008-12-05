@@ -3,14 +3,13 @@
 
 <!DOCTYPE window SYSTEM "chrome://viviecr/locale/orderstatus.dtd">
 
-<overlay id="cartlistPanelOverlay"
+<overlay id="vfdPanelOverlay"
          xmlns:html="http://www.w3.org/1999/xhtml"
          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-    <vbox id="cartlistPanelContainer" flex="1">
-
-        <!-- vbox flex="1">
+  <box id="vfdPanelContainer">
+    <vbox id="vfdPanel" flex="1">
         <onscreenvfd id="onscreenvfd" maxlen="32" class="vbox_vfd" labelClass="label_vfd" value="TAL: 0" />
         <vivisessionstatus id="vivipos_fec_order_status" flex="1"
                                class="orderstatus"
@@ -20,20 +19,6 @@
                                labelClass="orderstatus_field_label"
                                valueClass="orderstatus_field_value"
                                />
-        </vbox>
-        <vbox flex="1" -->
-
-            <viviscrollabletree class="cartList" id="cartList" hidecolumnpicker="true" hidevscroll="true" flex="1" headers="ProductName,Qty,Price,Subtotal,Tx" fields="name,current_qty,current_price,current_subtotal,current_tax" rows="7" scrollUpClass="rightprevbtn  button-gray" scrollDownClass="rightnextbtn  button-gray" >
-                <vbox id="cartsidebar">
-                    <button id="btnPlus"  label="+"  oncommand="$do('modifyQty', 'plus', 'Cart');"  class="button-gray systoolbtn mediumimagebtn" image="chrome://viviecr/skin/images/list-add.png" />
-                    <button id="btnMinus"  label="-"  oncommand="$do('modifyQty', 'minus', 'Cart');"  class="button-gray systoolbtn mediumimagebtn" image="chrome://viviecr/skin/images/list-remove.png" />
-                    <button id="btnPayment"  label="Pay"  oncommand="$do('showPaymentStatus', null, 'Cart');"  class="button-gray systoolbtn mediumimagebtn" image="chrome://viviecr/skin/images/gnucash-icon.png" />
-                </vbox>
-            </viviscrollabletree>
-
-
-
-        <!-- /vbox -->
-
     </vbox>
+  </box>
 </overlay>

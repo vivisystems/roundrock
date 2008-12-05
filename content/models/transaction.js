@@ -610,17 +610,23 @@
                 // already hasDiscount
                 return;
             }
+
             
             item.discount_name =  discount.name || '' ;
             item.discount_rate =  discount.amount;
             item.discount_type =  discount.type;
-            item.hasDiscount = true;
 
             if (item.discount_type == '$') {
                 item.current_discount = 0 - discount.amount;
+                if (discount.amount > item.current_subtotal) {
+                    // discount too much
+                    return;
+                }
             }else {
                 item.current_discount = 0 - item.current_subtotal * item.discount_rate;
             }
+
+            item.hasDiscount = true;
 
             // rounding discount
             item.current_discount = this.getRoundedPrice(item.current_discount);
@@ -643,6 +649,10 @@
 
             if (discountItem.discount_type == '$') {
                 discountItem.current_discount = 0 - discount.amount;
+                if (discount.amount > item.current_subtotal) {
+                    // discount too much
+                    return;
+                }
             }else {
                 discountItem.current_discount = 0 - this.getRemainTotal() * discountItem.discount_rate;
             }
@@ -1281,6 +1291,14 @@
         if (format) return this.formatPrice(this.data.remain);
 
         return this.data.remain;
+    };
+
+    Transaction.prototype.getPaymentSubtotal = function(format) {
+        format = format || false;
+
+        if (format) return this.formatPrice(this.data.payment_subtotal);
+
+        return this.data.payment_subtotal;
     };
 
 

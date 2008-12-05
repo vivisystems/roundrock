@@ -51,12 +51,30 @@
                 this.load(group);
             }
         },
-        
-        delete: function (evt) {
-            alert('delete');
+
+        remove: function(evt) {
+            // @todo
+            // must check if the group used by any user...
+            var group = $('#rolegroup_name').val();
+            if (!group && group.length <= 0) return;
+
+            var userModel = new UserModel();
+            var users = userModel.find('all', {
+                conditions: "group='" + group + "'"
+            });
+
+            if (users) {
+                var userlist = GeckoJS.Array.objectExtract(users, '{n}.username').join("\n");;
+                alert("the group:" + group + " is used by some user...\n\n" + userlist + "\n\ncan not be removed.");
+                
+            } else if (GREUtils.Dialog.confirm(null, "confirm delete group:" + group, "Are you sure?")) {
+   
+                this.Acl.removeGroup(group);
+                this.load();
+            }
         },
         
-        update: function (evt) {
+        modify: function (evt) {
 
             var self = this;
             var group = $('#rolegroup_name').val();

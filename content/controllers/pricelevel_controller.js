@@ -8,23 +8,31 @@
         name: 'Pricelevel',
 
         limit: 9,
+        _manualChange: false,
 
         initial: function() {
             
             this.schedule();
         },
 
-        schedule: function() {
+        schedule: function(changeToCurrent) {
 
             var activeSchedule = GeckoJS.Configure.read("vivipos.fec.settings.ActivePriceLevelSchedule") || false;
+            var revertSchedule = GeckoJS.Configure.read("vivipos.fec.settings.PriceLevelRevert") || false;
 
             if (activeSchedule) {
 
                 // @todo cron job
                 var schedule = GeckoJS.Session.get('pricelevelSchedule');
-                if (!schedule || schedule.length == 0) {
+                // if (!schedule || schedule.length == 0) {
+                if (!schedule || revertSchedule || changeToCurrent) {
                     this.requestCommand('readPrefSchedule', null, 'PriceLevelSchedule');
                     schedule = GeckoJS.Session.get('pricelevelSchedule');
+                }
+
+                if ( schedule.length == 0) {
+                    this._manualChange = false;
+                    return;
                 }
 
                 var timenow = new Date();
@@ -39,15 +47,17 @@
                     } else break;
                 }
 
-                if (idx >= 0) {
+                if (idx >= 0 && !this._manualChange) {
                     var oldpriceLevel = GeckoJS.Session.get('vivipos_fec_price_level');
                     var newpriceLevel = schedule[idx].pricelevel;
                     if (newpriceLevel == 0) newpriceLevel = GeckoJS.Configure.read('vivipos.fec.settings.DefaultPriceLevel') || 1;
                     if (oldpriceLevel && oldpriceLevel != newpriceLevel) alert("Price Level changed from " + oldpriceLevel + " to " + newpriceLevel + ".");
 
-                    this.change(newpriceLevel);
+                    this._changeLevel(newpriceLevel);
                     schedule.splice(0, idx + 1);
                 }
+
+                this._manualChange = false;
 
             }
 
@@ -60,7 +70,12 @@
 
         },
 
-        change: function(level) {
+        changeToCurrentLevel: function() {
+            
+            this.schedule(true);
+        },
+
+        _changeLevel: function(level) {
 
             var currentLevel = GeckoJS.Session.get('vivipos_fec_price_level');
 
@@ -70,6 +85,11 @@
                 currentLevel = (++currentLevel <= this.limit) ? (currentLevel) : 1;
                 GeckoJS.Session.set('vivipos_fec_price_level', currentLevel);
             }
+        },
+
+        change: function(level) {
+            this._manualChange = true;
+            this._changeLevel(level);
         }
 
     });

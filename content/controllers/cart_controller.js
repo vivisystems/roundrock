@@ -9,6 +9,7 @@
         components: ['Tax'],
         _cartView: null,
         _queuePool: null,
+        _returnMode: false,
 
 
         initial: function() {
@@ -109,7 +110,12 @@
             }
 
             this.dispatchEvent('beforeAddItem', item);
-            
+
+            if ( this._returnMode) {
+                var qty = 0 - (GeckoJS.Session.get('cart_set_qty_value') || 1);
+                GeckoJS.Session.set('cart_set_qty_value', qty);
+            }
+
             var addedItem = curTransaction.appendItem(item);
 
             this.dispatchEvent('afterAddItem', addedItem);
@@ -119,7 +125,7 @@
 
             this.dispatchEvent('onAddItem', addedItem);
 
-            if (addedItem.id == plu.id) {
+            if (addedItem.id == plu.id && !this._returnMode) {
                 if (plu.force_condiment) {
                     this.addCondiment(plu);
                 }
@@ -129,6 +135,7 @@
             }
 
             // fire getSubtotal Event ?????????????
+            this._returnMode = false;
             this.subtotal();
 
             
@@ -256,6 +263,11 @@
             
         },
 
+        returnItem: function(action) {
+
+            this._returnMode = true;
+
+        },
 
         voidItem: function() {
 
@@ -794,6 +806,10 @@
         },
 	
         cancel: function() {
+            var curTransaction = this._getTransaction();
+            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
+                return ;
+            }
 
             this._getKeypadController().clearBuffer();
 

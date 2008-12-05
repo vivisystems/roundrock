@@ -16,7 +16,7 @@
 
         function getUsers() {
             var datas;
-            var userModel = new ViviPOS.UserModel();
+            var userModel = new UserModel();
             users = userModel.find('all', {
                 order: "no"
             });
