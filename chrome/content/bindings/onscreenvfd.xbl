@@ -108,7 +108,7 @@
 
                 this.onCancel = function(evt) {
                     var transaction = evt.data;
-                    if (transaction == null) return;
+                    if (transaction == null || typeof transaction.data == "undefined") return;
                     self.setText1_0(_('CANCELED'));
                     self.setText1_1('SEQ#' + transaction.data.seq);
                     self.setText0_1(self.format(0));
@@ -236,7 +236,6 @@
             </xbl:method>
 
         </xbl:implementation>
-
 
     </binding>
 
