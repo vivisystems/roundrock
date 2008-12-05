@@ -660,6 +660,12 @@
 
             if (curTransaction.isSubmit() || curTransaction.isCancel()) return;
 
+            // check if first time payment
+            var paymentsTypes = GeckoJS.BaseObject.getKeys(curTransaction.getPayments());
+            if (paymentsTypes.length == 0) {
+                this.addMarker('total');
+            }
+
             type = type || 'cash';
             amount = amount || false;
 
@@ -677,7 +683,6 @@
 
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
-
 
             // @todo auto submit ??
             if (curTransaction.getRemainTotal() <= 0) {

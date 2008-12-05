@@ -24,7 +24,7 @@
 
                 // @todo cron job
                 var schedule = GeckoJS.Session.get('pricelevelSchedule');
-                // if (!schedule || schedule.length == 0) {
+
                 if (!schedule || revertSchedule || changeToCurrent) {
                     this.requestCommand('readPrefSchedule', null, 'PriceLevelSchedule');
                     schedule = GeckoJS.Session.get('pricelevelSchedule');
@@ -52,7 +52,6 @@
                     var newpriceLevel = schedule[idx].pricelevel;
                     if (newpriceLevel == 0) newpriceLevel = GeckoJS.Configure.read('vivipos.fec.settings.DefaultPriceLevel') || 1;
                     if (oldpriceLevel && oldpriceLevel != newpriceLevel) alert("Price Level changed from " + oldpriceLevel + " to " + newpriceLevel + ".");
-
                     this._changeLevel(newpriceLevel);
                     schedule.splice(0, idx + 1);
                 }
