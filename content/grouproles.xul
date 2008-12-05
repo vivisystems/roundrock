@@ -27,17 +27,17 @@
                         <spacer style="width: 20px;" />
                         <vbox>
                             <hbox align="center">
-                                <label id="job_id" hidden="true" form="rolegroupForm" name="id" value="" />
+                                <label id="rolegroup_id" hidden="true" form="rolegroupForm" name="id" value="" />
                                 <label value="Group Name:" />
-                                <textbox id="rolegroup_name" value="" form="rolegroupForm" name="name" />
+                                <textbox id="rolegroup_name" value="" form="rolegroupForm" name="name" readonly="true"/>
                             </hbox>
                             
                             <spacer style="height: 10px;" />
                             <hbox>
                                 <button label="&vivipos.fec.common.add;" class="editbtns" oncommand="$do('add', null, 'RoleGroups');" />
                                 <spacer flex="1" />
-                                <button label="&vivipos.fec.common.delete;" class="editbtns" oncommand="$do('delete', null, 'RoleGroups');" />
-                                <button label="&vivipos.fec.common.modify;" class="editbtns" oncommand="$do('update', null, 'RoleGroups');" />
+                                <button label="&vivipos.fec.common.delete;" class="editbtns" oncommand="$do('remove', null, 'RoleGroups');" />
+                                <button label="&vivipos.fec.common.modify;" class="editbtns" oncommand="$do('modify', null, 'RoleGroups');" />
                             </hbox>
                         </vbox>
 

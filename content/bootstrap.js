@@ -48,7 +48,7 @@ GeckoJS.include('chrome://viviecr/content/controllers/components/tax.js');
 GREUtils.include('chrome://viviecr/content/controllers/main_controller.js');
 GREUtils.include('chrome://viviecr/content/controllers/cart_controller.js');
 GREUtils.include('chrome://viviecr/content/controllers/keypad_controller.js');
-GREUtils.include('chrome://viviecr/content/controllers/vfd_controller.js');
+// GREUtils.include('chrome://viviecr/content/controllers/vfd_controller.js');
 GREUtils.include('chrome://viviecr/content/controllers/cash_drawer_controller.js');
 GREUtils.include('chrome://viviecr/content/controllers/products_controller.js');
 GREUtils.include('chrome://viviecr/content/controllers/categories_controller.js');

@@ -25,7 +25,9 @@
             <preference id="pref_timeformatstr" name="vivipos.fec.settings.TimeformatStr" type="string"/>
 
             <preference id="pref_activepricelevelschedule" name="vivipos.fec.settings.ActivePriceLevelSchedule" type="bool" />
+            <preference id="pref_pricelevelrevert" name="vivipos.fec.settings.PriceLevelRevert" type="bool" />
             <preference id="pref_changedepartmentclearbuffer" name="vivipos.fec.settings.ChangeDepartmentClearBuffer" type="bool" />
+
         </preferences>
         <hbox align="center">
             <label control="terminalid" value="&vivipos.fec.settings.terminalid;"/>
@@ -35,6 +37,7 @@
         <checkbox preference="pref_privatequeue" id="pref_privatequeueCtrl" label="&vivipos.fec.settings.privatequeue;" />
         <checkbox preference="pref_publicattendance" id="pref_publicAttendanceCtrl" label="&vivipos.fec.settings.publicattendance;" />
         <checkbox preference="pref_activepricelevelschedule" id="pref_activepricelevelscheduleCtrl" label="&vivipos.fec.settings.activepricelevelschedule;" />
+        <checkbox preference="pref_pricelevelrevert" id="pref_pricelevelrebackCtrl" label="&vivipos.fec.settings.pricelevelrevert;" />
         <checkbox preference="pref_changedepartmentclearbuffer" id="pref_changedepartmentclearbufferCtrl" label="&vivipos.fec.settings.changedepartmentclearbuffer;" />
 
         <hbox align="center">

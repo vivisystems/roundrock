@@ -21,7 +21,7 @@
             this.createPluPanel();
             this.requestCommand('initial', null, 'Pricelevel');
             this.requestCommand('initial', null, 'Cart');
-            this.requestCommand('initial', null, 'Vfd');
+//            this.requestCommand('initial', null, 'Vfd');
             this.requestCommand('initial', null, 'CurrencySetup');
 
             this.resetLayout(true);
@@ -183,7 +183,7 @@
                 // perform user login initialization
                 // -> set price level
                 //    - if user has role 'vivipos_fec_acl_override_system_price_level', use user default price level
-                var userModel = new ViviPOS.UserModel();
+                var userModel = new UserModel();
 
                 var userRecord = userModel.findByIndex('all', {
                     index: "username",
@@ -417,7 +417,7 @@
             var acl = new GeckoJS.AclComponent();
 
             if (defaultLogin) {
-                var userModel = new ViviPOS.UserModel();
+                var userModel = new UserModel();
                 var users = userModel.findByIndex('all', {
                     index: "id",
                     value: defaultUser

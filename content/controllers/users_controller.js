@@ -64,7 +64,7 @@
                 return ;
             }
 
-            var userModel = new ViviPOS.UserModel();
+            var userModel = new UserModel();
 
             var user_name = userModel.findByIndex('all', {
                 index: "username",

@@ -123,9 +123,11 @@
 }
 
 .systoolbtn {
+    max-height:42px;
+    min-height:42px;
     max-width:36px;
     min-width:36px;
-    height: 36px;
+    height: 42px;
     width: 36px;
      -moz-user-focus: ignore;
 }
@@ -451,10 +453,10 @@ treechildren {
 
 .vbox_vfd {
   background-color: green;
-  border: 0px solid black;
-  padding: 3px;
+  border: 1px solid white;
+  padding: 0px;
   margin-left: 0px;
-  height: 28px;
+  height: 48px;
   }
 
 .label_vfd {
