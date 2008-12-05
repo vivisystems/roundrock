@@ -1779,9 +1779,10 @@
                     var stack = this.keypad.firstChild;
                     var page = this.currentPage;
 
-                    this.setSelection(false, stack);
-                    this.currentPage = this.currentPage - (- 1);
-                    
+                    if (page != 'global') {
+                        this.setSelection(false, stack);
+                        this.currentPage = this.currentPage - (- 1);
+                    }
                     //GREUtils.log('[NEXT]: going forward to page <' + this.currentPage + '>');
                 ]]>
                 </body>
@@ -1795,8 +1796,10 @@
                     var stack = this.keypad.firstChild;
                     var page = this.currentPage;
 
-                    this.setSelection(false, stack);
-                    this.currentPage = this.currentPage - 1;
+                    if (page != 'global') {
+                        this.setSelection(false, stack);
+                        this.currentPage = this.currentPage - 1;
+                    }
                     
                     //GREUtils.log('[PREV]: going backward to page <' + this.currentPage + '>');
                 ]]>
@@ -1809,8 +1812,10 @@
                     var stack = this.keypad.firstChild;
                     var page = this.currentPage;
 
-                    this.setSelection(false, stack);
-                    this.currentPage = this.homePage;
+                    if (page != 'global') {
+                        this.setSelection(false, stack);
+                        this.currentPage = this.homePage;
+                    }
 
                 ]]>
                 </body>
