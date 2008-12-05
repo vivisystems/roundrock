@@ -51,17 +51,22 @@
                 this._selCateNo = category.no;
                 $("#cate_no").val(category.no);
 
-                this.clickPluPanel(document.getElementById('prodscrollablepanel').currentIndex);
+                this.clickPluPanel(-1);
             }
         },
 
         clickPluPanel: function(index) {
             var product = this.productPanelView.getCurrentIndexData(index);
 
+            this._selectedIndex = index;
             if (product) {
                 this.resetInputData();
                 this.setInputData(product);
-                this._selectedIndex = index;
+            }
+            else {
+                var plupanel = document.getElementById('prodscrollablepanel');
+                plupanel.selectedIndex = -1;
+                plupanel.selectedItems = [];
             }
 
             var rate = $("#rate").val();
@@ -298,6 +303,7 @@
             };
             window.openDialog(aURL, "prompt_additem", features, "New Plu", "Please input:", "No", "Name", inputObj);
 
+            GREUtils.log(GeckoJS.BaseObject.dump(inputData))
             if (inputObj.ok && inputObj.input0 && inputObj.input1) {
                 var product = new ProductModel();
                 inputData.no = inputObj.input0;
@@ -305,11 +311,18 @@
 
                 if(this._checkData(inputData) == 0) {
                     if (inputData.cate_no.length == 0) inputData.cate_no = this._selCateNo;
-                    product.save(inputData);
+                    this.resetInputData();
+                    $("#cate_no").val(inputData.cate_no);
+                    var prodData = this.getInputData(); // get product default
+
+                    prodData.id = '';
+                    prodData.no = inputData.no;
+                    prodData.name = inputData.name;
+                    prodData.cate_no = inputData.cate_no;
+
+                    product.save(prodData);
 
                     this.updateSession();
-
-                    this.resetInputData();
 
                     this.clickPluPanel(document.getElementById('prodscrollablepanel').currentIndex);
                 }
@@ -349,6 +362,7 @@
                     this.updateSession();
                     
                     this.clickPluPanel(document.getElementById('prodscrollablepanel').currentIndex);
+                    $("#cate_no").val(this._selCateNo);
                 }
             }
         },
