@@ -6,4 +6,15254 @@
  * Copyright (c) 2008 Rack Lin (racklin@gmail.com)
  *
  */
-eval(function(p,a,c,k,e,r){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)r[e(c)]=k[c]||e(c);k=[function(e){return r[e]}];e=function(){return'\\w+'};c=1};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p}('k 7=7||{gr:"0.9.21"};7.1d=(Y 2U!="1q")?2U:e;7.bs=h(A){if(A.7H&&A.7H(7.4j)){j A[7.4j]}if(!A[7.4j]){A[7.4j]=++7.cH}j A[7.4j]};7.ip=h(B){if("bT"in B){B.bT(7.4j)}18{1m B[7.4j]}19(A){}};7.4j="fY";7.cH=0;7.1x=h(A,B){z.1x.2i(u,1n)};7.dU=h(A,B){j z.dU.2i(u,1n)};7.dF=h(A,B){j z.dF.2i(u,1n)};z.1x("7.2F",7.1d);7.2F={1g:h 1g(){},2L:h(B){z.1o(B,{1g:h A(){if(e.7k==u||Y(e.7k)=="1q"){e.7k=14 e()}j e.7k}})}};(h(){k A=V,B=/c2/.4E(h(){c2})?/\\hl\\b/:/.*/;7.3Y=h(){};7.3Y.1J=h(){};7.3Y.1o=h(D,I){if(!I){I=D;D=u}k C=e;k H=e.q;A=16;k G=14 e();A=V;1c(k F in I){G[F]=Y I[F]=="h"&&Y H[F]=="h"&&B.4E(I[F])?(h(J,K){j h(){k M=e.4z;e.4z=H[J];k L=K.2i(e,1n);e.4z=M;j L}})(F,I[F]):I[F]}h E(){if(!A&&e.1J){e.1J.2i(e,1n)}}E.q=G;E.q.3Y=E;E.q.eg=C;E.38=E;1c(k F in e){if(e.7H(F)&&F!="q"){E[F]=e[F]}}if(Y D=="2n"){D={3G:D}}1c(k F in D){E[F]=Y D[F]=="h"&&Y E[F]=="h"&&B.4E(D[F])?(h(J,K){j h(){k M=e.4z;e.4z=C[J];k L=K.2i(e,1n);e.4z=M;j L}})(F,D[F]):D[F]}E.1o=1n.kD;if(E.1J){E.1J(E)}if(C.4O){C.4O(E)}j E}})();z.1x("7.17",7.1d);7.17=7.3Y.1o("17",{});7.17.4f=h(C){k B={};1c(k A in C){B[A]=C[A]}j B};7.17.q.4f=h(A){j 7.17.4f((A||e))};7.17.1b=h(C,E,D,B){if(1n.W==1){D=1n[0];E=7.12.4d;C=u;B=u}v{if(1n.W==2){D=1n[1];E=1n[0];C=u;B=u}v{if(1n.W==3){D=1n[2];E=1n[1];C=1n[0];B=u}}}if(Y E=="2n"){if(7.1N.3q(E,7.12.8P)!=-1){E=7.12[E.3x()]}v{E=7.12.4d}}C=(C)?C:7.17.1R(e);k A=7.12.6c(C);j A.1b(E,D,B)};7.17.q.1b=h(C,B,A){if(1n.W==1){B=1n[0];C=7.12.4d;A=u}v{if(1n.W==2){B=1n[1];C=1n[0];A=u}}j 7.17.1b(e.1R(),C,B,A)};7.17.c1=h(){j 7.12.6c(7.hD.1R(e))};7.17.q.c1=h(){j 7.12.6c(e.1R())};7.17.q.bV=h(D,C,A){k B=B||7.1d;A=A||e;7.2K.1O(B,D,C,A);j e};7.17.bV=h(D,C,A){k B=B||7.1d;A=A||B;7.2K.1O(B,D,C,A);j e};7.17.2q=h(B){k A=z.56.bN(B);j A};7.17.q.2q=h(){j 7.17.2q(e)};7.17.bK=7.17.2q;7.17.q.bK=7.17.q.2q;7.17.2B=h(B){k A=z.56.bC(B);j A};7.17.q.2B=h(B){k A=7.17.2B(B);j z.1o(e,A)};7.17.1R=h(A){if(z.4l(A)){j(A.3G||A.15)}v{if(z.7c(A)){if(A 5X 7.3Y){j(A.3Y.3G||A.15)}v{j A.38.15}}}j""};7.17.q.1R=h(){j 7.17.1R(e)};7.17.2W=h(C){k B=[];1c(k A in C){if(C[A]!==5v.q[A]){B.1v(C[A])}}j B};7.17.3o=h(C){k B=[];1c(k A in C){if(C[A]!==5v.q[A]){B.1v(A)}}j B};7.17.5p=h(F){k A="";k D=" ";k E=4;k C=h(M,L,K,I){if(L>0){L++}k G=B(K*L,I);k J=B(K*(L+1),I);k N="";if(M==u){j N}if(L>6){j"** fX fT 3M **\\n"}if((Y M=="2O")||(Y M=="ac")){N+=M.38.15+"\\n"+G+"{\\n";1c(k H in M){if((Y M[H]=="2O")||(Y M[H]=="ac")||(Y M[H]=="h")){if(M[H]==u){N+=J+"\'"+H+"\': u\\n"}v{N+=J+"\'"+H+"\': "+C(M[H],L+1,K,I)}}v{if(M.7H(H)){N+=J+"\'"+H+"\': "+M[H]+"\\n"}}}N+=G+"}\\n"}v{if(Y M=="h"){N=M.38.15+"\\n"||"fo\\n"}v{N=M.3L()}}j N};k B=h(G,I){k J="";1c(k H=0;H<G;H++){J+=I}j J};A=C(F,0,E,D);j A};7.17.q.5p=h(B){k A=B||e;j 7.17.5p(A)};z.1x("7.1k",7.1d);7.1k=7.17.1o("1k",{1J:h(){e.3l={};e.2w=[];e.3m=0}});7.1k.4T=h(B){if(Y B.4T=="h"){j B.4T()}k C=0;1c(k A in B){C++}j C};7.1k.q.4T=h(){j e.3m};7.1k.4s=h(A,B){j 7.1k.5I(A,B)};7.1k.q.4s=h(A){j 7.1k.4s(e,A)};7.1k.2a=h(B,A){j A in B&&B[A]!==5v.q[A]};7.1k.q.2a=h(A){j 7.1k.2a(e.3l,A)};7.1k.5I=h(B,C){if(Y B.5I=="h"){j B.5I(C)}1c(k A in B){if(B[A]==C){j 16}}j V};7.1k.q.5I=h(C){1c(k B=0;B<e.2w.W;B++){k A=e.2w[B];if(e.2a(A)&&e.3l[A]==C){j 16}}j V};7.1k.2W=h(C){if(Y C.2W=="h"){j C.2W()}k B=[];1c(k A in C){B.1v(C[A])}j B};7.1k.q.2W=h(){e.6u();k C=[];1c(k B=0;B<e.2w.W;B++){k A=e.2w[B];C.1v(e.3l[A])}j C};7.1k.3o=h(C){if(Y C.3o=="h"){j C.3o()}k B=[];1c(k A in C){if(C[A]!==5v.q[A]){B.1v(A)}}j B};7.1k.q.3o=h(){e.6u();j e.2w.60()};7.1k.53=h(B){if(Y B.53=="h"){j B.53()}1c(k A in B){if(B[A]!==5v.q[A]){j V}}j 16};7.1k.q.53=h(){j e.3m==0};7.1k.2y=h(C){if(Y C.2y=="h"){j C.2y()}k B=7.1k.3o(C);1c(k A=B.W-1;A>=0;A--){7.1k.1Y(C,B[A])}};7.1k.q.2y=h(){1m e.3l;e.3l={};e.2w.W=0;e.3m=0};7.1k.1Y=h(B,A){if(Y B.1Y=="h"){j B.1Y(A)}if((A in B&&B[A]!==5v.q[A])){1m B[A];j 16}};7.1k.q.1Y=h(A){if(e.2a(A)){1m e.3l[A];e.3m--;if(e.2w.W>2*e.3m){e.6u()}j 16}j V};7.1k.q.6u=h(){if(e.3m!=e.2w.W){k C=0;k B=0;2V(C<e.2w.W){k D=e.2w[C];if(e.2a(D)){e.2w[B++]=D}C++}e.2w.W=B}if(e.3m!=e.2w.W){k A={};k C=0;k B=0;2V(C<e.2w.W){k D=e.2w[C];if(!(7.1k.q.2a(A,D))){e.2w[B++]=D;A[D]=1}C++}e.2w.W=B}};7.1k.33=h(B,A,C){if(7.1k.2a(B,A)){57 2A(\'kL 2O kC 4s 4o 6l "\'+A+\'"\');}7.1k.1L(B,A,C)};7.1k.q.33=h(A,B){7.1k.33(e,A,B)};7.1k.1B=h(D,B,C){k A=C||u;if(7.1k.2a(D,B)){j D[B]}j A};7.1k.q.1B=h(A,B){j 7.1k.1B(e.3l,A,B)};7.1k.1L=h(C,A,B){if(Y C.1L=="h"){C.1L(A,B);j}C[A]=B;j};7.1k.q.1L=h(A,B){if(!e.2a(A)){e.3m++;e.2w.1v(A)}e.3l[A]=B};7.1k.q.7q=h(D){k C,A;if(D 5X 7.1k){C=D.3o();A=D.2W()}v{C=7.17.3o(D);A=7.17.2W(D)}1c(k B=0;B<C.W;B++){e.1L(C[B],A[B])}};7.1k.q.2q=h(){j 7.17.2q(e.3l)};7.1k.q.2B=h(B){k A=7.17.2B(B);e.2y();j e.7q(A)};z.1x("7.2s",7.1d);7.2s=7.17.1o("2s",{1J:h(){e.24=14 7.1k()}});7.2s.6k=h(B){k A=Y B;if(A=="2O"){j"o"+7.bs(B)}v{j A.6g(0,1)+B}};7.2s.q.4T=h(){j e.24.4T()};7.2s.q.4s=h(A){j e.24.2a(7.2s.6k(A))};7.2s.q.2W=h(){j e.24.2W()};7.2s.q.53=h(){j e.24.53()};7.2s.q.2y=h(){e.24.2y()};7.2s.q.1Y=h(A){j e.24.1Y(7.2s.6k(A))};7.2s.q.33=h(A){e.24.1L(7.2s.6k(A),A)};7.2s.q.1L=h(A){e.24.1L(7.2s.6k(A),A)};7.2s.q.7q=h(C){k A;if(C 5X 7.2s){A=C.2W()}v{A=7.17.2W(C)}1c(k B=0;B<A.W;B++){e.1L(A[B])}};7.2s.q.2q=h(){j e.24.2q()};7.2s.q.2B=h(A){j e.24.2B(A)};z.1x("7.12",7.1d);7.12=7.3Y.1o("12",{});if(1A.1Q.2N("97")){7.12.2J=1A.1Q.1B("97",(14 7.1k()))}v{7.12.2J=14 7.1k();1A.1Q.1L("97",7.12.2J)}if(1A.1Q.2N("93")){7.12.3t=1A.1Q.1B("93",(14 7.1k()))}v{7.12.3t=(14 7.1k());1A.1Q.1L("93",7.12.3t)}7.12.4d=u;7.12.2X={};7.12.8P=["cR","d7","dt","3w","1T","9p"];7.12.cj=h(){j 7.12.8P};7.12.6c=h(A){if(!7.12.2J.2a(A)){7.12.2J.1L(A,14 7.12.3p(A,7.12.4d));2U.2j("6e",h(B){7.12.2J.1Y(A)},16)}j 7.12.2J.1B(A)};7.12.i9=h(A){j 7.12.2J.2a(A)};7.12.c8=h(B,A){if(!7.12.3t.2a(B)){7.12.3t.1L(B,A);2U.2j("6e",h(C){7.12.3t.1Y(B)},16)}};7.12.hW=h(A){7.12.3t.1Y(A)};7.12.hQ=h(A){j 7.12.3t.1B(A)};7.12.1b=h(C,E,D,B){k A=7.12.3t.3o();A.1S(h(G){k F=7.12.3t.1B(G);18{if(E.c4(F.4C())){F.3e(C,E,D,B)}}19(H){7.12.3t.1Y(G);z.1b(G+", "+H)}});j 7.12};7.12.1J=h(C){k D=7.12.cj();1c(k B=0;B<D.W;B++){k A=D[B];7.12[A]=14 7.12.5b(A,B)}7.12.4d=7.12[C];7.12.2X=7.12.6c("7")};7.12.8A=h(){j 7.12.2X.8A.2i(7.12.2X,1n)};7.12.8z=h(){j 7.12.2X.8z.2i(7.12.2X,1n)};7.12.8w=h(){j 7.12.2X.8w.2i(7.12.2X,1n)};7.12.8u=h(){j 7.12.2X.8u.2i(7.12.2X,1n)};7.12.34=h(){j 7.12.2X.34.2i(7.12.2X,1n)};7.12.8s=h(){j 7.12.2X.8s.2i(7.12.2X,1n)};7.12.5b=h(A,B){e.15=A.3x();e.22=B};7.12.5b.q.3L=h(){j e.15};7.12.5b.q.c4=h(A){j e.22>=A.22};7.12.5b.q.h3=h(A){j e.22<=A.22};7.12.5b.q.bQ=h(A){j e.22<A.22};7.12.3p=h(A,B){e.3G=A;e.3B=B||7.12.4d};7.12.3p.q.1b=h(D,B,A){if(D.bQ(e.3B)){j e}18{7.12.1b(e.3G,D,B,A)}19(C){}j e};7.12.3p.q.4C=h 4C(){j e.3B};7.12.3p.q.6R=h 6R(A){e.3B=A;j e};7.12.3p.q.8A=h(B,A){j e.1b(7.12.cR,B,A)};7.12.3p.q.8z=h(B,A){j e.1b(7.12.d7,B,A)};7.12.3p.q.8w=h(B,A){j e.1b(7.12.dt,B,A)};7.12.3p.q.8u=h(B,A){j e.1b(7.12.3w,B,A)};7.12.3p.q.34=h(B,A){j e.1b(7.12.1T,B,A)};7.12.3p.q.8s=h(B,A){j e.1b(7.12.9p,B,A)};7.12.3S=7.3Y.1o("3S",{1J:h(A){e.3B=A}});7.12.3S.q.8m=h(I,B,M,C){B=B||e.3B||7.12.4d;k J=14 3P();k E=J.gK()+"-"+7.1K.4K(J.gy(),2)+"-"+7.1K.4K(J.gw(),2)+" "+7.1K.4K(J.gu(),2)+":"+7.1K.4K(J.gq(),2)+":"+7.1K.4K(J.gp(),2);k G="";if(C){G="; "+7.17.5p(C);k K=1V.br.8g;k D=0;k H=[];k L=50;2V(K&&(D<L)){if(K==u||Y K=="1q"){1t}k A=(K.15==u)?"<ge 15>":K.15;if(K.7i!=u&&K.7i.5w(/gd|gb/i)){}v{H.1v("[15: "+A+"] [ga: "+K.g8+"] [7i: "+K.7i+"]")}K=K.8g;D++}G+="; 1V.br.8g \\n"+7.17.5p(H)}k F=E+" : ["+B+"] ["+I+"] "+M+G+"\\n";j F};7.12.3S.q.3e=h(B,D,C,A){};7.12.3S.q.4C=h(){j e.3B};7.12.3S.q.6R=h 6R(A){e.3B=A};7.12.3S.q.3L=h(){j"["+e.1R()+"]"};7.12.7m=7.12.3S.1o("7m",{1J:h(A){e.3B=A}});7.12.7m.q.3e=h(B,D,C,A){z.3R.aS("g6").g5(e.8m(B,D,C,A));j e};7.12.87=7.12.3S.1o("87",{1J:h(B,A){e.3B=B;e.aF=A||u}});7.12.87.q.3e=h(B,D,C,A){7.1j.az(e.aF,e.8m(B,D,C,A));j e};z.1x("7.3E",7.1d);7.3E=h(A,B,C){e.2b=A;e.1e=(Y B!="1q")?B:u;e.ap=C||e;e.84=V};7.3E.q.1l("5G",h(){j e.84});7.3E.q.fN=h(){j e.2b};7.3E.q.fJ=h(){j e.1e};7.3E.q.fG=h(){j e.ap};7.3E.q.fC=h(){j e.5G};7.3E.q.fr=h(){e.84=16};z.1x("7.1U",7.1d);7.1U=7.17.1o("1U",{1J:h(A){e.2c=A||[]}});if(1A.1Q.2N("7T")){7.1U.2R=1A.1Q.1B("7T",(14 1N()))}v{7.1U.2R=(14 1N());1A.1Q.1L("7T",7.1U.2R)}7.1U.ff=h(B,A,D){if(!B||!A){j}if(7.1U.2R.7S(h(E){j E.2b==B&&E.4u==A})){j}if(!A.49){A.49=7.1K.4W()}7.1U.2R.1v({2b:B.2u(),4u:A,4U:D||7.1d});if(Y 2U!="1q"){k C=e;2U.2j("6e",h(E){7.1U.ab(B,A)},16)}};7.1U.ab=h(B,A){1c(k D=7.1U.2R.W-1;D>0;D--){k C=7.1U.2R[D];if(C.2b==B&&(C.4u==A||C.4u.49==A.49)){e.7.1U.2R.9Z(D,1)}}};7.1U.6D=h(A,B){7.1U.2R.1S(h(C){if(C.2b==A&&!B.5G){18{C.4u.6G?C.4u.6G.4Z(C.4U,B):C.4u.4Z(C.4U,B)}19(D){7.1U.1b("1U","1T","7.1U.6D",D)}}})};7.1U.q.3i=h(B,D,C){if(!B||!D){j}if(e.2c.7S(h(E){j E.5S==B&&E.4Q==D})){j}if(!D.49){D.49=7.1K.4W()}e.2c.1v({5S:B,4Q:D,4U:C||7.1d});if(Y 2U!="1q"){k A=e;2U.2j("6e",h(E){A.aA(B,D)},16)}};7.1U.q.aA=h(C,D){1c(k B=e.2c.W-1;B>0;B--){k A=e.2c[B];if(A.5S==C&&(A.4Q==D||A.4Q.49==D.49)){e.2c.9Z(B,1)}}};7.1U.q.1O=h(B,D,C){k A=14 7.3E(B,D,C);e.2c.1S(h(E){7.1U.6D("3T",A);if(E.5S==B&&!A.5G){18{E.4Q.6G?E.4Q.6G.4Z(E.4U,A):E.4Q.4Z(E.4U,A)}19(F){7.1U.1b("1U","1T","7.1U.1O ("+E.5S+") ",F)}}7.1U.6D("43",A)});j!A.5G};z.1x("7.5s",7.1d);7.5s=h(){e.2R=[]};7.5s.q.ej=h(B,C){if(e.2R.7S(A)){j}e.2R.1v({2b:B,3I:C});h A(D){j D.2b==B&&D.3I==C}};7.5s.q.ed=h(A,B){e.2R=e.2R.3I(h(C){j C.2b!=A&&C.3I!=B})};7.5s.q.7I=h(A,E,C){k B=14 7.3E(A,E,C);k D=16;e.2R.1S(h(F){if(F.2b==A&&D==16){18{D=F.3I.bA?F.3I.bA(B):F.3I(B)}19(G){e.1b("[2A] 7.5s.7I "+G.3a);D=16}}});j D};z.1x("7.1H",7.1d);7.1H=h(){};7.1H.2I={7G:[[/(s)l2$/i,"$kY"],[/(dV)$/i,"$kS"],[/^(7y)$/i,"$dR"],[/([m|l])dP$/i,"$ku"],[/(dM|dG|c5)ix|ex$/i,"$ki"],[/(x|ch|dv|ds)$/i,"$8N"],[/([^dk]|dg)y$/i,"$jX"],[/(da)$/i,"$1s"],[/(?:([^f])fe|([cX])f)$/i,"$1$jR"],[/jP$/i,"98"],[/([cP])jA$/i,"$1a"],[/(p)jg$/i,"$jc"],[/(m)an$/i,"$dR"],[/(c)j7$/i,"$j5"],[/(j3|j1)o$/i,"$j0"],[/(e5|cB|cz|cy|cw|cv|cq|co|cm|ck|9L)6o$/i,"$1i"],[/6o$/i,"6n"],[/(cg)$/i,"$8N"],[/(cf|9L)6o$/i,"$1i"],[/(ax|ie|4E)is$/i,"$8N"],[/s$/i,"s"],[/$/,"s"]],6T:[[/(s)i6$/i,"$i3"],[/^(.*)(hY)s$/i,"$1$2"],[/(dV)hV$/i,"$1"],[/(dM)e2$/i,"$hP"],[/(dG|c5)e2$/i,"$hM"],[/^(7y)en/i,"$1"],[/(cg)(es)*$/i,"$1"],[/(e5|cB|cz|cy|cw|cv|cq|co|cm|ck|hL?)i$/i,"$c3"],[/(hK|ax|4E)es$/i,"$hJ"],[/(c0)s$/i,"$1"],[/(cf|9L)i$/i,"$c3"],[/hI$/i,"dP"],[/6n$/i,"6o"],[/([m|l])hH$/i,"$hG"],[/(x|ch|dv|ds)es$/i,"$1"],[/(m)hC$/i,"$hA"],[/(s)hx$/i,"$hu"],[/([^dk]|dg)hr$/i,"$1y"],[/([cX])bU$/i,"$1f"],[/(hk)s$/i,"$1"],[/(da)s$/i,"$1"],[/(hh)s$/i,"$1"],[/([^f])bU$/i,"$hd"],[/(^ha)98$/i,"$h7"],[/((a)h2|(b)a|(d)gZ|(p)gX|(p)gV|(s)gU|(t)he)98$/i,"$1$gR"],[/([cP])a$/i,"$gQ"],[/(p)gO$/i,"$gN"],[/(m)en$/i,"$gM"],[/(c)gL$/i,"$gJ"],[/(n)gH$/i,"$gE"],[/(c0)s$/i,"$1"],[/(gD)es$/i,"$1"],[/^(.*6o)$/i,"$1"],[/s$/i,""]],6N:[["bI","bH"],["bG","bE"],["ct","bB"],["cx","bz"],["by","bx"],["bw","bv"],["bt","cL"],["bq","bp"],["bo","bm"],["bk","8f"],["bj","bi"],["bh","bg"],["be","bd"],["9e","ba"],["b8","b7"],["b6","b4"],["b2","b1"],["b0","aZ"],["aX","aW"],["aV","aU"],["aT","aR"],["7y","aQ"],["aO","aN"],["aM","aK"],["aI","aH"],["aG","aE"],["aD","9C"],["dY","ay"],["au","at"],["as","ar"]],6E:[["bH","bI"],["bE","bG"],["bB","ct"],["bz","cx"],["bx","by"],["bv","bw"],["cL","bt"],["bp","bq"],["bm","bo"],["8f","bk"],["bi","bj"],["bg","bh"],["bd","be"],["ba","9e"],["b7","b8"],["b4","b6"],["b1","b2"],["aZ","b0"],["aW","aX"],["aU","aV"],["aR","aT"],["aQ","7y"],["aN","aO"],["aK","aM"],["aH","aI"],["aE","aG"],["9C","aD"],["ay","dY"],["at","au"],["ar","as"]],5E:["fQ","fP","ao","am","9e","al","ak","aj","ag","fM","a0","fI","fH","fF","fE","fA","fw","fq","fp","fn","fm","fl","fk","fj","fi","fh","fg","fd","fc","fb","fa","f9","aj","f8","f6","f5","f4","f2","f0","eZ","8f","eY","eW","eV","eT","ak","eS","eQ","eO","eN","eM","eL","eJ","eI","eH","ag","eG","eF","a0","eD","eC","eA","ez","ew","ev","eu","eq","ep","eo","al","ek","ei","eh","ef","ee[- ]ec","ao","eb","ea","e9","am","e8","9C","e6","lq","lo","ln","ll","li","lg","le"]};7.1H.l8=h(A){if(11<=3g(A)%dZ&&3g(A)%dZ<=13){j A+"dW"}v{3r(3g(A)%10){1w 1:j A+"kR";1w 2:j A+"kP";1w 3:j A+"kO";4I:j A+"dW"}}};7.1H.dS=h(F){1c(k C=0;C<7.1H.2I.5E.W;C++){k B=7.1H.2I.5E[C];if(F.2u()==B){j B}}1c(k C=0;C<7.1H.2I.6N.W;C++){k D=7.1H.2I.6N[C][0];k A=7.1H.2I.6N[C][1];if((F.2u()==D)||(F.2u()==A)){j A}}1c(k C=0;C<7.1H.2I.7G.W;C++){k E=7.1H.2I.7G[C][0];k G=7.1H.2I.7G[C][1];if(E.4E(F)){j F.2l(E,G)}}j F};7.1H.9y=h(F){1c(k C=0;C<7.1H.2I.5E.W;C++){k B=7.1H.2I.5E[C];if(F.2u()==B){j B}}1c(k C=0;C<7.1H.2I.6E.W;C++){k A=7.1H.2I.6E[C][0];k D=7.1H.2I.6E[C][1];if((F.2u()==D)||(F.2u()==A)){j D}}1c(k C=0;C<7.1H.2I.6T.W;C++){k E=7.1H.2I.6T[C][0];k G=7.1H.2I.6T[C][1];if(E.4E(F)){j F.2l(E,G)}}j F};7.1H.8t=h(C){k B=h(D){j D.2l(/^(.)|4h(.)/g,h(E){j E.3x()})};k A=B(C).2l(/4h/g,"");j A};7.1H.7w=h(B){k A=B.2l(/([A-Z])/g,"4h$1").2u().6g(1);j A};7.1H.kt=h(C){k B=h(D){j D.2l(/^(.)|4h(.)/g,h(E){j E.3x()})};k A=B(C);j A};7.1H.dO=h(B){k A=7.1H.dS(7.1H.7w(B));j A};7.1H.9r=h(A){k B=7.1H.8t(7.1H.9y(A));j B};z.1x("7.1K",7.1d);7.1K.4W=h(){j z.4W()};7.1K.dL=h(A){j z.dL(A)};7.1K.dI=h(A){j z.dI(A)};7.1K.dH=h(A){j z.dH(A)};7.1K.dE=h(A){j z.dE(A)};7.1K.dD=h(A){j A.2l(/^[\\s\\6X]+|[\\s\\6X]+$/g,"")};7.1K.kl=h(A){j A.2l(/^[\\s\\6X]+/,"")};7.1K.kk=h(A){j A.2l(/[\\s\\6X]+$/,"")};7.1K.4K=h(C,A,B){C=C+"";A=A<C.W?C.W:A;B=(B)?B:"0";if(C.W<A){2V(C.W<A){C=B+C}}v{}if(C.W>A){C=C.8J((C.W-A),A)}v{}j C};7.1K.kh=h(C,A,B){C=C+"";A=A<C.W?C.W:A;B=(B)?B:"0";if(C.W<A){2V(C.W<A){C=C+B}}v{}if(C.W>A){C=C.8J(0,A)}v{}j C};7.1K.kg=h(A){A=1K(A);j 5t(A)};7.1K.kf=h(A){j ke(A.2l(/\\+/g," "))};7.1K.4s=h(B,A){j B.7h(A)!=-1};7.1K.kc=h(){j 2e.5i(2e.do()*dn).3L(36)+(2e.5i(2e.do()*dn)^(14 3P).72()).3L(36)};7.1K.k7=h(A,B,C){j z.di.k4(C,A,B)};7.1K.9h=h(B,H,A){A=A||"&";k E,G,C,D=0,F=[];if(B.38==1N){B.1S(h(I){C=5t(I.15);G=5t(I.22);G=G.2l(/%20/g,"+");if(H&&!5k(C)){C=H+F.W}F.1v(C+"="+G)})}v{1c(k E in B){C=5t(E);if(H&&!5k(E)){C=H+F.W}if(B[E]&&B[E].38==1N){B[E].1S(h(I){G=5t(I);G=G.2l(/%20/g,"+");F.1v(C+"="+G)})}v{G=5t(B[E]);G=G.2l(/%20/g,"+");F.1v(C+"="+G)}}}j F.dc(A)};7.1K.d9=h(F,H){k B="=";k G="&";k E=F.3v(G);k D={};1c(k A=0;A<E.W;A++){k C=E[A].3v(B);D[d6(C[0])]=d6(C[1]).2l(/[+]/g," ")}if(H){H=D}v{j D}};7.1K.d5=h(D,B,I,C){k A=D,H=5k(B=2e.77(B))?2:B;k G=I==1q?".":I;k J=C==1q?",":C,K=A<0?"-":"";k F=3g(A=2e.77(+A||0).78(H))+"",E=(E=F.W)>3?E%3:0;j K+(E?F.6g(0,E)+J:"")+F.6g(E).2l(/(\\d{3})(?=\\d)/g,"$1"+J)+(H?G+2e.77(A-F).78(H).4L(2):"")};7.1K.jS=h(H,G,C,F){G=Y G=="2n"?14 79("["+(G||",")+"]"):Y G=="1q"?",":G;C=Y C=="2n"?14 79("^["+(C||\'"\')+"]"):Y C=="1q"?\'"\':C;F=Y F=="2n"?14 79("["+(F||"\\r\\n")+"]+"):Y F=="1q"?"\\r\\n":F;h E(K){k I=K.3v(G),M=[],P;1c(k N=0,J=I.W;N<J;N++){if(P=I[N].5w(C)){1c(k L=N;L<J;L++){if(I[L].jQ(I[L].W-1)==P[0]){1t}}k O=I.4L(N,L+1).dc(G);M.1v(O.6g(1,O.W-2));N=L}v{M.1v(I[N])}}j M}k A=H.3v(F);1c(k B=0,D=A.W;B<D;B++){A[B]=E(A[B])}j A};7.1K.jN=h(A){if(Y A=="2n"){j(A.W==0||A.3x()=="0"||A.3x()=="jL"||A.3x()=="jI")?V:16}v{j 14 jG(A).jD()}};z.1x("7.1N",7.1d);7.1N.jz=h(C){k A=[];if(C!=u){k B=C.W;if(B==u||C.3v||C.jw||C.4Z){A[0]=C}v{2V(B){A[--B]=C[B]}}}j A};7.1N.3q=h(C,D){1c(k A=0,B=D.W;A<B;A++){if(D[A]===C){j A}}j-1};7.1N.jt=h(D,A){k B=0,C,E=D.W;2V(C=A[B++]){D[E++]=C}j D};7.1N.jo=h(H){k B=[],A={};18{1c(k C=0,E=H.W;C<E;C++){k D=z.56.bN(H[C]);D=D||1K(H[C]);k G=z.cN.cM(D);if(!A[G]){A[G]=16;B.1v(H[C])}}}19(F){B=H}j B};7.1N.jf=h(B,F,A){k C=[];1c(k D=0,E=B.W;D<E;D++){if(!A!=!F(B[D],D)){C.1v(B[D])}}j C};7.1N.1G=h(A,F){k B=[];1c(k C=0,D=A.W;C<D;C++){k E=F(A[C],C);if(E!=u){B[B.W]=E}}j B.60.2i([],B)};7.1N.52=h(C,I){if(!I){j C}if(Y C!="2O"){j C}k H=(Y I=="2n")?I.3v("."):I;k D=[];if(H.W==0){j u}1c(k E in H){k F=H[E];if(3g(F)>0||F=="0"){if(Y C[3g(F)]!="1q"){C=C[3g(F)]}v{j u}}v{if(F=="{n}"){k D=[];1c(k B in C){k A=C[B];if(!5k(3g(B))){k G=H.4L(E+1);if(G.W==0){D.1v(A)}v{D.1v(7.1N.52(A,G))}}}j D}v{if(F=="{s}"){k D=[];1c(k B in C){k A=C[B];if(Y B=="2n"){k G=H.4L(E+1);if(G.W==0){D.1v(A)}v{D.1v(7.1N.52(A,G))}}}j D}v{if(Y C[F]!="1q"){C=C[F]}v{j u}}}}}j C};7.1N.ja=h(E,B,D){if(!B||!D){j E}if(Y E!="2O"){j E}k G={};k A=7.1N.52(E,B);k F=7.1N.52(E,D);1c(k C=0;C<A.W;C++){G[A[C]]=F[C]}j G};z.1x("7.1j",7.1d);7.1j=h(A,B){B=B||V;if(z.cJ(A)){e.5n=A}v{e.5n=z.1j.cO(A,B)}e.6p=u;e.6w=V;e.30=u;e.3b=u;e.j4=0;e.cG="j2-8"};7.1j.q.1l("1h",h(){j e.5n});7.1j.q.1l("2G",h(){if(e.1h){j e.1h.2G}v{j""}});7.1j.q.1l("5q",h(){if(e.1h){j e.1h.5q}v{j""}});7.1j.q.1l("iW",h(){if(e.1h){j e.1h.dK}v{j-1}});7.1j.q.1l("75",h(){if(e.1h){j e.1h.75.3L(8)}v{j"cA"}});7.1j.q.1l("df",h(){if(e.1h){j 14 3P(e.1h.dd).7o()}v{j 14 3P("9g-6h-6h 41:41:41").7o()}});7.1j.q.1l("iL",h(){if(e.1h){k B=e.5q.iK(".");k A=(B>=0)?e.5q.8J(B+1):"";j A}v{j""}});7.1j.q.5g=h(B,A){if(B.7h("b")!=-1){e.6w=16}if(B.7h("r")!=-1){e.3b=z.1j.iH(e.1h,B,A)}v{e.39();e.30=z.1j.iG(e.1h,B,A)}};7.1j.q.5a=h(){if(e.6p){e.6p=u}if(e.30){e.30.5a();1m e.30;e.30=u}if(e.3b){e.3b.5a();1m e.3b;e.3b=u}};7.1j.q.39=h(A){if(e.1h==u){j V}if(!e.1h.3F()){e.1h.39(z.1j.iE,A||z.1j.iD)}j e.1h.3F()};7.1j.q.3y=h(A){k C;18{if(!A){A=e.1h.dK}if(e.6w){C=e.3b.iy(A)}v{C=e.3b.3y(A)}e.3b.5a()}19(B){7.17.1b("[2A] 7.1j.3y "+A);C=u}j C};7.1j.q.2Q=h(D){k C=0;18{if(e.6w){if(D.38==1N){e.30.iu(D,D.W)}v{e.30.2Q(D,D.W)}}v{k A=z.di.it(D,e.cG);e.30.2Q(A,A.W)}e.30.6b()}19(B){7.17.1b("[2A] 7.1j.2Q "+D.W);C=1}j C};7.1j.q.3F=h(){if(e.1h==u){j V}j e.1h.3F()};7.1j.3F=h(B){k A=14 7.1j(B);j A.3F()};7.1j.q.1Y=h(){if(e.1h==u){j V}k A=z.1j.1Y(e.1h);if(A){if(e.6p){e.6p=u}if(e.30){1m e.30;e.30=u}if(e.3b){1m e.3b;e.3b=u}j 16}j A};7.1j.1Y=h(B){k A=14 7.1j(B);if(!A.74()){57 B+" is 6f a 1h";}if(A.3F()){A.1Y()}};7.1j.q.7A=h(B){if(!B){j V}if(e.1h==u){j V}k A=z.1j.7A(e.1h,B);j A};7.1j.7A=h(A,C){k B=14 7.1j(A);if(!B.3F()){j V}if(!C){j V}j B.7A(C)};7.1j.q.3e=h(A){if(e.1h==u){j V}if(!A){j V}k C=V;18{if(e.1h.9B()){e.1h.3e(A);C=16}}19(B){7.17.1b("[2A] 7.1j.3e: "+B.3a);j""}j C};7.1j.q.9x=h(){if(e.1h==u){j V}k B=V;18{B=e.1h.9B()}19(A){7.17.1b("[2A] 7.1j.9x: "+A.3a);B=V}j B};7.1j.q.74=h(){if(e.1h==u){j V}k B=V;18{B=e.1h.74()}19(A){7.17.1b("[2A] 7.1j.74: "+A.3a);B=V}j B};7.1j.q.9z=h(){if(e.1h==u){j V}k B=V;18{B=e.1h.9z()}19(A){7.17.1b("[2A] 7.1j.9z: "+A.3a);B=V}j B};7.1j.q.9A=h(){if(e.1h==u){j V}k B=V;18{B=e.1h.9A()}19(A){7.17.1b("[2A] 7.1j.9A: "+A.3a);B=V}j B};7.1j.q.9E=h(){if(e.1h==u){j V}k B=V;18{B=e.1h.9E()}19(A){7.17.1b("[2A] 7.1j.9E: "+A.3a);B=V}j B};7.1j.q.8R=h(){if(e.1h==u){j V}k B=V;18{B=e.1h.8R()}19(A){7.17.1b("[2A] 7.1j.8R: "+A.3a);B=V}j B};7.1j.q.8Q=h(){if(e.1h==u){j V}k B=V;18{B=e.1h.8Q()}19(A){7.17.1b("[2A] 7.1j.8Q: "+A.3a);B=V}j B};7.1j.q.9J=h(){if(e.1h==u){j V}k B=V;18{B=e.1h.9J()}19(A){7.17.1b("[2A] 7.1j.9J: "+A.3a);B=V}j B};7.1j.q.9G=h(){if(e.1h==u){j-1}k B;18{B=e.1h.9G()}19(A){7.17.1b("[2A] 7.1j.9G: "+A.3a);B=-1}j B};7.1j.q.6U=h(F,B){if(e.1h==u){j-1}if(e.9x()){j-2}B=B||V;k E=0;18{k D=z.3R.7C("@2D.2z/7I/i2;1","hZ");D.1J(e.1h);k A=0;if(F){A=F.W}v{F=u}E=D.6U(B,F,A)}19(C){z.1b("[2A] 7.1j.6U: "+C.3a);E=-3}j E};7.1j.az=h(C,D){k B=14 7.1j(C,16);18{B.5g("a");1c(k A=1;A<1n.W;A++){B.2Q(1n[A].3L())}}hX{if(B){B.5a()}}};z.1x("7.2x",7.1d);7.2x=h(B,A){A=A||V;if(z.cJ(B)){e.5n=B}v{e.5n=z.2x.cO(B,A)}};7.2x.q.1l("1h",h(){j e.5n});7.2x.q.1l("2G",h(){if(e.1h){j e.1h.2G}v{j""}});7.2x.q.1l("5q",h(){if(e.1h){j e.1h.5q}v{j""}});7.2x.q.1l("75",h(){if(e.1h){j e.1h.75.3L(8)}v{j"cA"}});7.2x.q.1l("df",h(){if(e.1h){j 14 3P(e.1h.dd).7o()}v{j 14 3P("9g-6h-6h 41:41:41").7o()}});7.2x.q.3F=h(){if(e.1h==u){j V}18{j e.1h.3F()}19(A){j V}j V};7.2x.q.3e=h(A){if(e.1h==u){j V}if(!A){j V}k C=V;18{if(e.1h.9B()){e.1h.3e(A);C=16}}19(B){7.17.1b("[2A] 7.2x.3e: "+B.3a);j""}j C};7.2x.q.1Y=h(A){j z.2x.1Y(e.2G,A)};7.2x.q.4s=h(A){j z.2x.4s(e.2G,A)};7.2x.7F=h(A){j z.2x.7F(A)};7.2x.q.7F=h(){j z.2x.7F(e.2G)};z.1x("7.1p",7.1d);7.1p=7.17.1o("1p",{1J:h(){e.23=14 7.1U();e.24=14 7.1k()}});7.2F.2L(7.1p);7.1p.q.1l("1X",h(){j e.23});7.1p.q.1l("1G",h(){j e.24});7.1p.q.4p=h(){j e.23};7.1p.q.8L=h(){j e.24};7.1p.q.6b=h(){e.1G.2y();e.1X.1O("6b",e)};7.1p.6b=h(){7.1p.1g().6b()};7.1p.q.8K=h(A){e.1G.1Y(A);e.1X.1O("1Y",A)};7.1p.8K=h(A){7.1p.1g().8K(A)};7.1p.q.40=h(A,B){e.6Z(A,B)};7.1p.40=h(A,B){7.1p.1g().40(A,B)};7.1p.q.6Z=h(A,B){e.1G.1L(A,B);e.1X.1O("5W",{6l:A,22:B})};7.1p.6Z=h(A,B){7.1p.1g().6Z(A,B)};7.1p.q.3D=h(A){j e.1G.1B(A)};7.1p.3D=h(A){j 7.1p.1g().3D(A)};7.1p.q.4i=h(A){j e.1G.2a(A)};7.1p.4i=h(A){j 7.1p.1g().4i(A)};7.1p.q.8I=h(){j e.1G.3o()};7.1p.8I=h(){j 7.1p.1g().8I()};7.1p.q.4f=h(){};z.1x("7.1r",7.1d);7.1r=7.17.1o("1r",{1J:h(){e.23=14 7.1U();if(1A.1Q.2N("8G")){k B=1A.1Q.1B("8G",{2c:[]});e.23.2c=B.2c}v{k B={2c:[]};e.23.2c=B.2c;1A.1Q.1L("8G",B)}if(1A.1Q.2N("8F")){e.24=1A.1Q.1B("8F",(14 7.1k()))}v{e.24=14 7.1k();1A.1Q.1L("8F",e.24)}if(1A.1Q.2N("8E")){e.5c=1A.1Q.1B("8E",{})}v{e.5c={};1A.1Q.1L("8E",e.5c)}if(!1A.1Q.2N("6Y")){18{k C=z.6J.8C();C.3Z(1V.2M.bZ);C.3Z(1V.2M.bY);k F={8B:h(J,G,H){if(G!="hF:hE"){j}18{if(7.1r.6W(H)){J.3Z(1V.2M.bY);3r(J.hB(H)){1w J.hz:7.1r.2Q(H,J.hy(H));1t;1w J.hw:7.1r.2Q(H,J.hv(H));1t;1w J.ht:7.1r.2Q(H,J.hs(H));1t}}}19(I){z.1b("[1T] 6Y "+I)}}};1A.1Q.1L("6Y",F);C.8x("",1A.1Q.1B("6Y",F),V)}19(D){z.1b(D)}}k A=e;k E=1V.2J["@2D.2z/1h/bW;1"].3c(1V.2M.hq);["hp","ho","hn","hm","hj","hi","hg","hf","hc","hb","h9","h8","h6","h5:bS","h4"].1S(h(G){18{A.2Q(G,(E.1B(G,1V.2M.bR)).2G);A.2Q("h1."+G,(E.1B(G,1V.2M.bR)).2G)}19(H){A.1b("[2A] 7.1r bW;1 1B ["+G+"] h0.")}})}});7.2F.2L(7.1r);7.1r.q.1l("1X",h(){j e.23});7.1r.q.1l("1G",h(){j e.24});7.1r.q.4p=h(){j e.23};7.1r.q.8L=h(){j e.24};7.1r.q.2y=h(){e.1G.2y();e.1X.1O("2y",e)};7.1r.2y=h(){7.1r.1g().2y()};7.1r.q.1Y=h(D){k B=e.68(D);if(B.W>1){k E=e.1G.1B(B[0]);k F=E;1c(k C=1;C<B.W;C++){k A=B[C];if(C==(B.W-1)){1m F[A]}v{if(F[A]){F=F[A]}v{1t}}}}v{e.1G.1Y(B[0])}e.1X.1O("1Y",D)};7.1r.1Y=h(A){7.1r.1g().1Y(A)};7.1r.q.2Q=h(D,E){k B=e.68(D);if(B.W>1){k F=e.1G.1B(B[0])==u?{}:e.1G.1B(B[0]);k G=F;1c(k C=1;C<B.W;C++){k A=B[C];if(C==(B.W-1)){G[A]=E}v{if(G[A]){G=G[A]}v{G=G[A]={}}}}e.1G.1L(B[0],F);e.1X.1O("2Q",{6l:D,22:E})}v{e.1G.1L(B[0],E);e.1X.1O("2Q",{6l:D,22:E})}};7.1r.2Q=h(A,B){7.1r.1g().2Q(A,B)};7.1r.q.3y=h(D){k B=e.68(D);if(B.W>1){k E=e.1G.1B(B[0]);if(E==u){j E}k F=E;1c(k C=1;C<B.W;C++){k A=B[C];if(Y F[A]!="1q"){F=F[A]}v{j u}}if(F==u||Y F=="1q"){F=u}j F}v{j e.1G.1B(B[0])}};7.1r.3y=h(A){j 7.1r.1g().3y(A)};7.1r.q.6W=h(B){k A=e.68(B);if(A.W>1){k C=e.1G.1B(A[0]);if(C==u||Y C[A[1]]=="1q"){j V}v{j 16}}v{j e.1G.2a(A[0])}};7.1r.6W=h(A){j 7.1r.1g().6W(A)};7.1r.q.4f=h(){};7.1r.q.2q=h(){j e.1G.2q()};7.1r.2q=h(){j 7.1r.1g().2q()};7.1r.q.2B=h(A){j e.1G.2B(A)};7.1r.2B=h(A){j 7.1r.1g().2B(A)};7.1r.q.67=h(A){if(Y e.5c[A]=="1q"||!e.5c[A]){k D=z.6J.8C();k C={},B={};B=D.gY(A,C);1c(k E=0;E<C.22;E++){e.2Q(B[E],z.6J.gW(B[E]))}e.5c[A]=16}};7.1r.67=h(A){7.1r.1g().67(A)};7.1r.q.8r=h(C){k B=e.3y(C);if(B==u){j}k D={};k F=h(I,H){k K=Y(H);3r(K){1w"2O":1c(k J in H){F(I+"."+J,H[J])}1t;1w"8q":1w"bP":1w"2n":D[I]=H;1t}};F(C,B);k A=z.6J.8C();1c(k G in D){k E=Y(D[G]);3r(E){1w"2n":A.bO(G,D[G]);1t;1w"8q":A.gT(G,D[G]);1t;1w"bP":A.gS(G,D[G]);1t}}j};7.1r.8r=h(A){7.1r.1g().8r(A)};7.1r.q.68=h(A){if(Y A=="2n"){A=A.3v(".")}j A};z.1x("7.1C",7.1d);7.1C=7.17.1o("1C",{1J:h(){k A;if(1A.1Q.2N("8o")){A=1A.1Q.1B("8o",{2c:[]});e.23=14 7.1U(A.2c)}v{A={2c:[]};e.23=14 7.1U(A.2c);1A.1Q.1L("8o",A)}if(1A.1Q.2N("8n")){e.24=1A.1Q.1B("8n",(14 7.1k()))}v{e.24=14 7.1k();1A.1Q.1L("8n",e.24)}}});7.2F.2L(7.1C);7.1C.q.1l("1X",h(){j e.23});7.1C.q.1l("1G",h(){j e.24});7.1C.q.4p=h(){j e.23};7.1C.4p=h(){j e.1g().4p()};7.1C.q.8L=h(){j e.24};7.1C.2j=h(A,C,B){e.1g().2j(A,C,B)};7.1C.q.2j=h(A,D,C){18{C=C||7.1d;e.1X.3i(A,D,C)}19(B){e.1b("1T","7.1C.2j "+A,B)}};7.1C.q.2y=h(){e.1G.2y();e.1X.1O("2y",e)};7.1C.2y=h(){7.1C.1g().2y()};7.1C.q.1Y=h(A){if(e.1G.2a(A)){e.1G.1Y(A);e.1X.1O("1Y",A)}};7.1C.1Y=h(A){7.1C.1g().1Y(A)};7.1C.q.33=h(A,B){e.1L(A,B)};7.1C.33=h(A,B){7.1C.1g().33(A,B)};7.1C.q.1L=h(A,B){e.1G.1L(A,B);e.1X.1O("5W",{6l:A,22:B})};7.1C.1L=h(A,B){7.1C.1g().1L(A,B)};7.1C.q.1B=h(A){j e.1G.1B(A)};7.1C.1B=h(A){j 7.1C.1g().1B(A)};7.1C.q.2N=h(A){j e.1G.2a(A)};7.1C.2N=h(A){j 7.1C.1g().2N(A)};7.1C.q.4f=h(){};7.1C.q.2q=h(){j e.1G.2q()};7.1C.q.2B=h(A){j e.1G.2B(A)};z.1x("7.5r",7.1d);7.5r=7.17.1o("5r",{1J:h(){}});7.5r.q.6U=h(){};7.5r.q.3Z=h(A){if(A.66(1V.65.gP)||A.66(1V.65.8l)){j e}57 1V.8D.8k;};z.1x("7.2E",7.1d);7.2E=7.5r.1o("2E",{1J:h(A){e.64=A||e}});7.2E.3m=0;7.2E.q.64=u;7.2E.q.1l("bM",h(){e.64=e.64||e;j e.64});7.2E.q.6Q=u;7.2E.q.1l("bL",h(){e.6Q=e.6Q||z.2E.gI();j e.6Q});7.2E.q.6P=u;7.2E.q.1l("gG",h(){e.6P=e.6P||z.2E.gF();j e.6P});7.2E.q.6O=0;7.2E.q.1l("id",h(){e.6O=e.6O||++7.2E.3m;j e.6O});7.2E.q.bJ=h(){k D=e.bL;k A=D.gB;k C=e.bM;18{D.1O(C,A)}19(B){z.2E.gA(B)}};z.1x("7.55",7.1d);7.55=7.17.1o("55",{1J:h(){}});7.55.q.8B=h(C,A,B){};7.55.q.3Z=h(A){if(A.66(1V.65.gz)||A.66(1V.65.8l)){j e}57 1V.8D.8k;};z.1x("7.2Z",7.1d);7.2Z=7.55.1o("2Z",{1J:h(){}});7.2Z.q.8B=h(C,A,B){};7.2Z.q.6M=[];7.2Z.q.gx=h(D){k C=1V.2J["@2D.2z/8j-76;1"].3c(1V.2M.8Y);k B=e;D=D||e.6M;k A=[];D.1S(h(E){18{C.8x(B,E,V);A.1v(E)}19(F){e.1b("1T","8x 1c "+E+" bD.")}});e.6M=A;j e};7.2Z.q.gv=h(){k B=1V.2J["@2D.2z/8j-76;1"].3c(1V.2M.8Y);k A=e;k C=e.6M;C.1S(h(D){18{B.cu(A,D)}19(E){e.1b("1T","cu 1c "+D+" bD.")}});j e};7.2Z.62=h(B,A,D){if(B){if(Y B.3Z=="1q"){B.2H=B;B.3Z=h(E){if(E.66(1V.65.8l)){j B}57 1V.8D.8k;}}}k C=1V.2J["@2D.2z/8j-76;1"].3c(1V.2M.8Y);C.gt(B,A,D)};7.2Z.q.62=h(B,A,C){7.2Z.62(B,A,C)};7.2Z.gs=h(B){k A=7.2Z.1o(B);j 14 A};z.1x("7.2K",7.1d);7.2K=7.17.1o("2K",{1J:h(){e.23=14 7.1U();if(1A.1Q.2N("8i")){k A=1A.1Q.1B("8i",{2c:[]});e.23.2c=A.2c}v{k A={2c:[]};e.23.2c=A.2c;1A.1Q.1L("8i",A)}}});7.2F.2L(7.2K);7.2K.q.1l("1X",h(){j e.23});7.2K.q.45("1X",h(A){});7.2K.2j=h(A,B){e.1g().2j(A,B)};7.2K.q.2j=h(A,C){18{e.1X.3i(A,C)}19(B){e.1b("1T","7.2K.2j "+A,B)}};7.2K.1z=h(A,B){j e.1g().1z(A,B)};7.2K.q.1z=h(A,B){18{j e.1X.1O(A,B,e)}19(C){e.1b("1T","7.2K.1z "+A,C);j V}};7.2K.1O=h(C,D,B,A){j e.1g().1O(C,D,B,A)};7.2K.q.1O=h(F,G,D,B){18{G=G||"61";D=(Y D!="1q")?D:u;B=B||u;k A=u;if(B!=u){if(Y B=="2n"){B=7.1E.8h(B)}if(Y B=="h"){if(Y B.1g=="h"){18{A=B.1g()}19(E){e.1b("1T","7.1O 1P.1g ",E)}}v{A=u}}v{if(Y B=="2O"){if(B 5X 7.2p||Y B.4G=="h"){A=B}v{A=u}}}}v{k C=2P.bu||go.2P.bu||2U.cK;A=C.gh(G)}if(A==u){e.1b("3w","7.1O 1P 6f 7j 1c "+G)}v{if(A.4G(G)){18{if(Y A.2H!="1q"){A.2H.2k=D;A.2H.5m=G}e.1z("gg",A);A.4v(G)}19(E){e.1b("1T","7.1O ",E)}}v{if(Y A.bn!="1q"){if(Y A.2H.2t=="1q"){A.2H.2t=14 7.2t(A)}A.2H.2t.bl(G,D)}v{e.1b("3w","7.1O 2T 6f 7j 1c "+G)}}}j e}19(E){e.1b("1T","7.1O 5z 2T"+G,E)}j e};z.1x("7.3z",7.1d);7.3z=7.17.1o("3z",{1J:h(){e.2H=e;e.5h={5h:16,42:16,4G:16,4v:16,8e:16,1o:16,2q:16,2B:16,1b:16}}});7.2F.2L(7.3z);7.3z.q.42=h(A){if((!(A in e.5h))&&(A in e)&&Y e[A]=="h"){j 16}e.1b("3w","7.2p.42: ["+A+"] j V");j V};7.3z.q.4G=h(A){if(e.42(A)){j 16}j V};7.3z.q.4v=h(B){18{if(e.42(B)&&e.4G(B)){e[B].2i(e,1n)}}19(A){e.1b("9p","5A 34 4M 4P 4o "+B+" 2T\\n",A)}};7.3z.q.8e=h(A){j 16};7.3z.d3=h(){k A=A||7.1d;A.cK.d3(e.1g())};z.1x("7.1E",7.1d);7.1E=7.3z.1o("1E",{15:"1E",1J:h(){e.15=e.15||"1E";e.23=14 7.1U();e.bf=7.1C.1g();e.2H=e;e.8d="";e.2k=u;e.5m="";e.3s="";e.6t="";e.6n=e.6n||[];e.bc();e.7n();e.9i=e.9i||[];e.bb();e.8b=e.8b||[];e.b9();e.5h={5h:16,gc:16,4p:16,42:16,4G:16,4v:16,8e:16,1o:16,2q:16,2B:16,1b:16,9d:16,8a:16,1C:16,4r:16,2j:16,1z:16,7u:16,3u:16}}});7.2F.2L(7.1E);7.1E.b3=h(B,A){if(B=="2p"||7.1p.4i("89"+B)){j}7.1p.40("89"+B,A)};7.1E.8h=h(A){j 7.1p.3D("89"+A)};7.1E.q.1l("1X",h(){j e.23});7.1E.q.1l("1C",h(){j e.bf});7.1E.q.1l("4r",h(){k C=e.2U;k B=C.2P;k A=C.dl||h(D){B.dm(D.2l("#",""))};j A});7.1E.q.1l("2P",h(){j e.6I.2P});7.1E.q.1l("2U",h(){k A=(Y 2U!="1q")?2U:e.6I;j A});7.1E.q.1l("6I",h(){k A=z.3R.aS("2U-g9");j A.6I});7.1E.q.1l("1e",h(){j e.2k});7.1E.q.45("1e",h(A){e.2k=A});7.1E.q.1l("2T",h(){j e.5m});7.1E.q.45("2T",h(A){e.5m=A});7.1E.q.7n=h(){k B=e.23;k A=e;if(e.1R()=="1E"||e.1R()=="2p"){j}["9d","8a"].1S(h(C){if(Y A[C]=="1q"){j}if(z.4l(A[C])){B.3i(C,A[C],A)}v{if(z.7c(A[C])){A[C].1S(h(D){if(Y(D)=="h"){B.3i(C,D,A)}})}}},A)};7.1E.q.bb=h(){k A=e;k B=e.9i;if(e.1R()=="1E"||e.1R()=="2p"){j}if(7.1N.3q("7u",B)==-1){B.1v("7u")}B.1S(h(C){k D=7.2S.dq(C);if(D!=u){A[C]=14 D(A)}})};7.1E.q.b9=h(){k A=e;k B=e.8b;if(e.1R()=="1E"||e.1R()=="2p"){j}if(7.1N.3q("3u",B)==-1){B.1v("3u")}B.1S(h(D){k C=7.2d.aY(D);if(C!=u){if(Y C.1g=="h"){A[D]=C.1g()}v{A[D]=14 C()}}})};7.1E.q.bc=h(){k A=[7.1H.9r(e.15)].60(e.6n);A.1S(h(B){if(Y e[B]!="1q"){j}k C=7.1u.7l(B);if(C){e[B]=14 C;if(e.3s.W==0&&e.6t.W==0){e.3s=B;e.6t=7.1H.7w(B)}}},e)};7.1E.q.4p=h(){j e.23};7.1E.88=h(A){k C=u;k B=A||u;if(B){C=7.1E.8h(B)}if(C){j C.1g()}v{j u}};7.1E.2j=h(B,E,D){if(Y B=="2n"&&Y E=="2n"){k A=u;D=1n[3]||7.1d;E=1n[2];B=1n[1];k C=1n[0];A=7.1E.88(C);if(A){A.2j(B,E,D)}}v{e.1g().2j(B,E,D)}};7.1E.q.2j=h(A,D,C){18{C=C||7.1d;e.1X.3i(A,D,C)}19(B){e.1b("1T",e.1R()+"2p.2j "+A,B)}};7.1E.1z=h(A,B){j e.1g().1z(A,B)};7.1E.q.1z=h(A,B){18{e.8d=A;j e.1X.1O(A,B,e)}19(C){e.1b("1T",e.1R()+"2p.1z "+A,C);j V}};7.1E.q.42=h(A){if((!(A in e.5h))&&(A in e)&&Y e[A]=="h"){j 16}v{if(e["bn"]&&(7.1N.3q(A,7.2t.9k)!=-1)){j V}}e.1b("3w","7.2p.42: ["+A+"] j V");j V};7.1E.q.4v=h(F){18{k E=e.1z("9d",F);if(E){if(e.42(F)&&e.4G(F)){18{k A=[];if(e.2H.2k==u){}v{if(Y e.2H.2k=="2O"&&Y e.2H.2k.38.15=="1N"){A=e.2H.2k}v{A.1v(e.2H.2k)}}e[F].2i(e,A)}19(C){e.1b("1T",e.1R()+"2p.4v "+F,C)}}k B=e.8d;k D="g7"+7.1H.8t(F);if(B!=D){e.1z(D,1n)}}e.1z("8a",F)}19(C){e.1b("1T",e.1R()+".4v 34 4M 4P 4o "+F,C)}};z.1x("7.2p",7.1d);7.2p=7.1E.1o("2p",{15:"2p"});7.2F.2L(7.2p);7.2p.3J=1;7.2p.4O=h(A){if(A.q.15=="2p"||A.q.15=="1E"){A.q.15="5V"+7.2p.3J++}k B=A.q.15;A.3G=B;7.1E.b3(B,A)};z.1x("7.1M",7.1d);7.1M=7.17.1o("1M",{1J:h(B){e.5U=B||"";e.6r=[];e.4N=0;e.6H=[];e.2T="";if(1n.W>1){1c(k A=1;A<1n.W;A++){e.6H.1v(1n[A])}}}});7.1M.aP=/(?:\'[^\'\\n\\r]*\')+|<=|>=|!=|=|<|>|:\\w+|,|\\*|-?\\d+(?:\\.\\d+)?|\\w+|\\(|\\)|\\S+/ig;7.1M.7t=/(\\w+)$/;7.1M.dJ=/(<=|>=|!=|=|<|>|is|in)$/i;7.1M.9q=/(\\d+)$/;7.1M.aL=/:(\\d+)$/;7.1M.1g=h(){j 14 7.1M()};7.1M.q.29=h(A){if(e.4N<e.6r.W){if(Y A=="2n"){if(e.6r[e.4N].3x()==A){e.4N++;j 16}}v{if(Y A=="2O"&&A.38.15=="79"){k B=e.6r[e.4N].5w(A);if(B){e.4N++;j B[1]}}}}j V};7.1M.q.dN=h(D){k D=e.5U||"";k E=e.2T="9o";k A="*";k Q="";k B=[];k J=[];k H={7B:0,3X:0};if(e.29("9o")){e.29("*");e.29("g4");Q=e.29(7.1M.7t)}if(e.29("g2")){k C,P,G,O,I="6m",K=V,L=[];2V(16){if(e.29("(")){K=16}C=e.29(7.1M.7t);if(!C){1t}P=e.29(7.1M.dJ);if(!P){1t}G=e.29(7.1M.aL);if(G){O=e.6H[G-1]}v{O=e.29(/(.*)/).2l(/^\'|\'$/g,"")}L.1v({dT:I,5j:C,aC:P,22:O});if(e.29(")")){K=V}if(!K){if(L.W<=1){B=B.60(L)}v{B.1v(L)}L=[]}I=e.29("6m")?"6m":V;I=I?I:(e.29("aB")?"aB":V);if(!I){1t}}}if(e.29("g0")){e.29("fZ");k C,R;2V(16){C=e.29(7.1M.7t);if(!C){1t}if(e.29("e0")){R="e0"}v{if(e.29("9Q")){R="9Q"}v{R="9Q"}}J.1v({5j:C,av:R});if(!e.29(",")){1t}}}if(e.29("fW")){k M=0;k N=0;M=e.29(7.1M.9q);if(M){M=3g(M);if(e.29(",")){N=e.29(7.1M.9q);if(N){N=3g(N);if(N<0){N=0}k F=N;N=M;M=F}}}H={7B:N,3X:M}}j{fV:D,2b:E,31:Q,fU:A,4c:B,7R:J,35:H}};7.1M.q.5F=h(F){e.5U=F||e.5U||"";if(1n.W>1){1c(k B=1;B<1n.W;B++){e.6H.1v(1n[B])}}k D=[];k C=u;2V(C=7.1M.aP.aq(e.5U)){D.1v(C[0])}e.6r=D.4L();e.4N=0;k E=e.2T=D[0].3x();k A=u;3r(E){4I:1w"9o":A=e.dN();1t}j A};7.1M.5F=h(B){k A=14 7.1M();j A.5F.2i(A,1n)};7.1M.fR=h(A){};7.1M.86=h(D){k B=D.4c||"";k A="";if(B==""){j A}k C=0;B.1S(h(E){if(C>0){A+=" "+E.dT+" "}A+=E.5j+E.aC+"\'"+E.22+"\'";C++});j A};7.1M.85=h(C){k B=C.7R||"";k A="";if(B==""){j A}B.1S(h(D){A+=D.5j+" "+D.av+","});j A.2l(/,$/,"")};7.1M.7J=h(C){k B=C.35|"";if(B==""){j[0,1]}k A=0,D=1;if(B.35<=0){A=fO}v{A=B.35}if(B.7B<=0){D=1}v{D=2e.5i(B.7B/A)+1}j[A,D]};z.1x("7.2r",7.1d);7.2r=7.17.1o("2r",{1J:h(){7.1r.67("83");e.4t=7.1r.3y("83")||{"4I":{82:"7O",2G:"/k/81"}};if(1A.1Q.2N("7L")){e.4H=1A.1Q.1B("7L",(14 7.1k()))}v{e.4H=14 7.1k();1A.1Q.1L("7L",e.4H)}}});7.2F.2L(7.2r);7.2r.4n=h(D){D=D||"4I";k B=7.2r.1g();18{if(B.4H.2a(D)){j B.4H.1B(D)}}19(F){e.1b("1T","2r.4n - ai-ah 1e 9S "+D,F)}if(7.1N.3q(D,7.17.3o(B.4t))!=-1){k C=B.4t[D]||{82:"7O",2G:"/k/81"};k A=C.82||"7O";k E=B.5H(A);if(E!=u){E.4t=C;E.af=D}B.4H.1L(D,E)}v{e.1b("3w","2r.4n - ai-ah 1e 9S "+D)}j B.4H.1B(D)};7.2r.fL=h(A){k B=7.2r.1g();k C=u;C=B.5H(A);j C};7.2r.q.5H=h(A){if(Y 7["28"+A]=="h"){18{j 14 7["28"+A]}19(B){e.1b("1T","7.2r.5H fK\'t 1g() 7.28"+A,B)}}v{e.1b("1T","7.2r.5H 6f 7j 7.28"+A)}j u};z.1x("7.28",7.1d);7.28=7.17.1o("28",{1J:h(){e.2H=e;e.4t={};e.af="4I"}});7.2F.2L(7.28);7.28.q.80=h(A,C,B){};7.28.q.7Z=h(C,E,A,B,D){};7.28.q.4S=h(C,E,A,B,D){};7.28.q.7Y=h(A,B){};7.28.q.7X=h(D,C,F,A,B,E){};7.28.q.5P=h(D,C,F,A,B,E){};7.28.q.7W=h(A,C,B){};7.28.q.7Q=h(A,B){};7.28.q.fy=h(){};7.28.q.5g=h(A){};7.28.q.5a=h(){};7.28.q.fx=h(){};7.28.q.ft=h(){};7.28.q.fs=h(){};z.1x("7.1u",7.1d);7.1u=7.17.1o("1u",{15:"1u",1J:h(B,A){e.15=e.15||"1u";A=A||0;e.23=14 7.1U();e.2H=e;e.47=e.47||7.1r.3y("83.47")||"4I";e.31=e.31||7.1H.dO(e.15);e.5O=u;e.3N=e.3N||"id";e.id="";e.1e=B||u;e.4b=e.4b||[];e.3O=e.3O||[];e.5N=e.5N||[];e.4Y=e.4Y||[];e.7V=e.7V||[];e.5M=u;e.a9();e.7U=e.7U||[];e.a8();e.a7(A)}});7.1u.a6=h(B,A){if(7.1p.4i("6C"+B)){j}7.1p.40("6C"+B,A)};7.1u.7l=h(A){j 7.1p.3D("6C"+A)};7.1u.q.6x=["3O","5N","4Y","7V"];7.1u.q.1l("1X",h(){j e.23});7.1u.q.1l("a5",h(){if(e.5O==u){e.5O=7.2r.4n(e.47)}j e.5O});7.1u.q.45("a5",h(A){if(A!=u&&A 5X 28){e.5O=A}});7.1u.q.4p=h(){j e.23};7.1u.88=h(C){k B=u;k A=C||u;if(A){B=7.1u.7l(A)}if(B){j 14 B}v{j u}};7.1u.q.2j=h(A,D,C){18{C=C||7.1d;j e.1X.3i(A,D,C)}19(B){e.1b("1T",e.1R()+"2h.2j "+A,B)}};7.1u.q.1z=h(A,B){18{j e.1X.1O(A,B,e)}19(C){e.1b("1T",e.1R()+"2h.1z "+A,C)}};7.1u.q.a7=h(B){B=B||0;if(B>=1){j}if(e.1R()=="1u"||e.1R()=="2h"){j}k A=e;e.6x.1S(h(E){if(A[E].W>0){1c(k D=0;D<A[E].W;D++){k C=A[E][D];A[C]=A.4V(C,++B)}}})};7.1u.q.4V=h(D,C){C=C||1;k B=7.1p.3D("a4"+D);k A=7.1p.3D("6C"+D);if(B==u&&A!=u){B=14 A(u,C);7.1p.40("a4"+D,B)}j B};7.1u.q.a9=h(){k B=e.23;k A=e;if(e.1R()=="1u"||e.1R()=="2h"){j}["6B","6A","5L","5J","6z","6y"].1S(h(C){if(Y A[C]=="1q"){j}if(z.4l(A[C])){B.3i(C,A[C],A)}v{if(z.7c(A[C])){A[C].1S(h(D){if(Y(D)=="h"){B.3i(C,D,A)}})}}},A)};7.1u.q.a8=h(){k D=e.23;k B=e;k C=e.47;k A=e.7U;if(e.1R()=="1u"||e.1R()=="2h"){j}A.1S(h(F){k E=7.2o.a2(F);if(E!=u){k G=14 E(B,C);["6B","6A","5L","5J","6z","6y"].1S(h(H){D.3i(H,G[H],G)},B)}})};7.1u.q.4X=h(B){B=B||0;if(e.5M!=u){j e.5M}if(e.1R()=="1u"||e.1R()=="2h"){j{}}k C={};C.15=e.15;C.31=e.31;C.3N=e.3N;C.5K=7.1H.9y(e.31)+"4h"+e.3N;C.4b=e.4b;if(B>=1){j C}B++;k A=e;e.6x.1S(h(G){1c(k F=0;F<A[G].W;F++){if(F==0){C[G]={}}k E=A[G][F];k D=A.4V(E,B);if(Y A[E]!="1q"&&Y A[E].4X=="h"){C[G][E]=A[E].4X(B)}v{if(D!=u&&Y D.4X=="h"){C[G][E]=D.4X(B)}}if(G=="3O"){C.4b.1v(C[G][E]["5K"])}}});e.5M=C;j e.5M};7.1u.q.a3=h(B){k A=e;k C=16;e.6x.1S(h(D){if(7.1N.3q(B,A[D])!=-1){C=V}});j C};7.1u.q.39=h(A){e.id="";e.1e=A||u};7.1u.q.f7=h(D,A,B,C){j e.1D("2C",{1F:D,4y:A,35:B,4a:C})};7.1u.q.f3=h(D,A,B,C){j e.1D("3X",{1F:D,4y:A,35:B,4a:C})};7.1u.q.f1=h(D,A,B,C){j e.1D("2v",{1F:D,4y:A,35:B,4a:C})};7.1u.q.1D=h(H,D){H=H||"2C";D=D||{};if(Y D=="2n"){D={1F:D}}k I=D.1F||u;k C=D.4y||u;k E=D.35||u;k G=D.4a||u;k B=Y D.3M!="1q"?D.3M:1;k K=u;18{k J=e.1z("5L",1n);if(J){k A=7.2r.4n(e.47);K=u;3r(H){1w"2C":K=A.4S(e,I,C,E,G,B);if(K.W==0){K=u}1t;1w"2v":K=A.4S(e,I,C,1,1,B);if(K.W==0){K=u}v{K=K[0]}1t;1w"3X":K=A.7Z(e,I,C,E,G);1t;1w"id":K=A.7Y(e,I,B);1t}e.1z("a1",K)}e.1z("5J",K);j K}19(F){e.1b("1T",e.1R()+"2h.1D ",F);j K}};7.1u.q.4e=h(A){j e.1D("id",{1F:A,3M:1})};7.1u.q.fu=h(I,D){I=I||"2C";D=D||{};k F=D.61||"id";k J=D.22||u;k C=D.4y||u;k E=D.35||u;k H=D.4a||u;k B=Y D.3M!="1q"?D.3M:1;k L=u;18{k K=e.1z("5L",1n);if(K){k A=7.2r.4n(e.47);L=u;3r(I){1w"2C":L=A.5P(e,F,J,C,E,H,B);if(L.W==0){L=u}1t;1w"2v":L=A.5P(e,F,J,C,1,1,B);if(L.W==0){L=u}v{j L[0]}1t;1w"3X":L=A.7X(e,F,J,C,E,H);1t}e.1z("a1",L)}e.1z("5J",L);j L}19(G){e.1b("1T",e.1R()+"2h.fv ",G);j L}};7.1u.q.3y=h(A){e.1e=e.4e(A);j e.1e};7.1u.q.3d=h(D){e.1e=D||e.1e;if(e.1e==u){j}k E=[];k H={};1c(k G in e.1e){if(e.a3(G)){H[G]=e.1e[G];E.1v(G)}}e.1e=H;18{k I=e.1z("6B",e.1e);if(I){k A=7.2r.4n(e.47);k C=V;if(e.id.3L().W==0){e.39(e.1e);e.1e.eX=(14 3P()).72();k B=A.80(e,e.1e);e.id=B;C=16}v{e.1e.aa=(14 3P()).72();e.1e.fz=e.1e.aa;A.7W(e,e.1e);C=V}e.1z("eU",e.1e)}e.1z("6A",C);1m H;1m D;e.1e=u}19(F){e.1b("1T",e.1R()+"2h.3d ",F);1m H;1m D;e.1e=u}};7.1u.q.fB=h(B){k A=e;if(Y B=="2O"&&B.38.15=="1N"){B.1S(h(C){A.39(C);A.3d()})}};7.1u.q.3k=h(D){if(Y D=="1q"){j}18{k C=e.1z("6z",D);if(C){k A=7.2r.4n(e.47);A.7Q(e,D);e.1z("fD",D)}e.1z("6y",D)}19(B){e.1b("1T",e.1R()+"2h.3k ",B)}};7.1u.q["1m"]=h(A){j e.3k(A)};7.1u.q.1Y=h(A){j e.3k(A)};7.1u.q.4r=h(E){k D=7.1M.5F.2i(7.1M,1n);if(D.4c.W==1&&D.4c[0].5j=="id"){j[e.4e(D.4c[0].22)]}k G=7.1M.86(D);k A=7.1M.85(D);k C=7.1M.7J(D);k B=C[0];k F=C[1];j e.1D("2C",{1F:G,4y:A,35:B,4a:F})};7.1u.4r=h(B){k G=7.1M.5F.2i(7.1M,1n);k J=G.31;k H=7.1u.7l(J);if(!H){j[]}k E=14 H();if(G.4c.W==1&&G.4c[0].5j=="id"){j[E.4e(G.4c[0].22)]}k I=7.1M.86(G);k C=7.1M.85(G);k A=7.1M.7J(G);k D=A[0];k F=A[1];j E.1D("2C",{1F:I,4y:C,35:D,4a:F})};7.1u.q.eR=h(A){j u};z.1x("7.2h",7.1d);7.2h=7.1u.1o("2h",{15:"2h",1J:h(B,A){e.4z(B,A)}});7.2h.3J=1;7.2h.4O=h(A){if(A.q.15=="2h"||A.q.15=="1u"){A.q.15="5V"+7.2h.3J++}k B=A.q.15;A.3G=B;7.1u.a6(B,A)};z.1x("7.37",7.1d);7.37=7.17.1o("37",{1J:h(){e.2k=1n[0]||[]}});7.37.1g=h(){j 14 7.37()};7.37.q.1l("1e",h(){j e.2k});7.37.q.45("1e",h(A){e.2k=A||[]});7.37.q.9Y=h(B){k A=[],I=[];k F=/(?:\'[^\'\\n\\r]*\')+|<=|>=|!=|=|<|>|:\\w+|,|\\*|-?\\d+(?:\\.\\d+)?|\\w+|\\(|\\)|\\S+/ig;k H=[];k G=u;2V(G=F.aq(B)){H.1v(G[0])}1c(k J=0;J<H.W;J+=3){k D=H[J];if(D.5w(/eP/i)){J++;D=H[J]}k E=H[J+1];k C=H[J+2].2l(/^\'|\'$/g,"");A.1v({9X:D,4w:E,ad:C})}j h(N,O,P){k M=16,L=N,K=O,S,Q;1c(k R=0;R<A.W;R++){if(M===16){S=L[A[R]["9X"]];Q=A[R]["ad"];if(A[R].4w=="="){if(z.3A(S)||!z.3K(S)||S!=Q){M=V}}v{if(A[R].4w=="<="){if(z.3A(S)||!z.3K(S)||S>Q){M=V}}v{if(A[R].4w==">="){if(z.3A(S)||!z.3K(S)||S<Q){M=V}}v{if(A[R].4w=="!="){if(z.3A(S)||!z.3K(S)||S==Q){M=V}}v{if(A[R].4w=="<"){if(z.3A(S)||!z.3K(S)||S>=Q){M=V}}v{if(A[R].4w==">"){if(z.3A(S)||!z.3K(S)||S<=Q){M=V}}}}}}}}}j M}};7.37.q.9W=h(C){k D=[],B=[];B=C.3v(",");1c(k A=0;A<B.W;A++){k F=7.1K.dD(B[A]);k E="eK";k G=F.3v(/[\\s]+/);if(G.W==2){F=G[0];E=G[1].2u()}D.1v({7M:F,9V:E})}j h(L,J){k N=0,M=L,K=J,I,O;1c(k H=0;H<D.W;H++){if(N===0){I=M[D[H]["7M"]];O=K[D[H]["7M"]];I=(z.ae(I))?I.2u():I;O=(z.ae(O))?O.2u():O;if(D[H].9V=="fS"){if(z.3A(O)||!z.3K(O)||O<I){N=-1}v{if(z.3A(I)||!z.3K(I)||O>I){N=1}}}v{if(z.3A(I)||!z.3K(I)||I<O){N=-1}v{if(z.3A(O)||!z.3K(O)||I>O){N=1}}}}}j N}};7.37.q.3I=h(C){k B=e.9Y(C);k A=e.1e.60([]);j A.3I(B)};7.37.q.aw=h(A){k B=e.9W(A);e.1e.7R(B);j e.1e};7.37.q.35=h(A,D){A=A||e.1e.W;A=(A>e.1e.W||A<0)?e.1e.W:A;k C=2e.5i(e.1e.W/A);D=D||1;D=(D>C||D<=0)?C:D;k F=A*(D-1);F=(F<0||F>e.1e.W)?0:F;k E=F+A;E=(E>e.1e.W)?e.1e.W:E;k B=E-F;if(B==e.1e.W){j e.1e}j e.1e.4L(F,E)};z.1x("7.2f",7.1d);7.2f=7.28.1o("2f",{1J:h(){e.2H=e;e.6v=u;e.2k=14 7.1k();e.9U=""}});7.2F.2L(7.2f);7.2f.q.1l("1e",h(){j e.2k});7.2f.q.1l("2G",h(){if(e.6v==u){e.6v=e.4t.2G||"/k/81"}j e.6v});7.2f.q.5x=h(C){k A=u;if(e.1e.2a(C)){A=e.1e.1B(C)}v{k B=14 7.1j(e.2G);B.3e(C+".db");k D=z.56.eE(B.2G);if(D==u){D={}}A=14 7.1k();A.7q(D);e.1e.1L(C,A)}j A};7.2f.q.6F=h(C,A){k B=14 7.1j(e.2G);B.3e(C+".db");z.56.g1(B.2G,A.3l);e.1e.1L(C,A)};7.2f.q.80=h(B,E){k D=B.31;18{k A=e.5x(D);k C=7.1K.4W();if(C.3L().W==0){C=7.1K.4W()}E[B.3N]=C;A.1L(C,E);e.6F(D,A);e.9U=C;j C}19(F){e.1b("1T","7.2f: 5A 34 4M 4P 4o eB 2T\\n",F)}};7.2f.q.7Z=h(C,E,A,B,D){j e.4S(C,E,A,B,D,0).W};7.2f.q.4S=h(E,A,C,D,G,B){B=Y B!="1q"?B:1;k I=E.31;18{k J=e.5x(I);k H=J.2W();k L=14 7.37(H);if(A){L.1e=L.3I(A)}if(C){L.aw(C)}if(D||G){L.1e=L.35(D,G)}k K=L.1e.4L();1m L;1m H;1m J;if(B==1){j e.7P(E,K,B)}v{j K}}19(F){e.1b("1T","7.2f: 5A 34 4M 4P 4o g3 ("+A+")2T\\n",F);j[]}};7.2f.q.7P=h(D,A,C){C=Y C!="1q"?C:1;k B=e;k E=14 1N();k F=D.4X();A.1S(h(Q){k N=7.17.4f(Q);if(Y F.3O=="2O"){1c(k O in F.3O){k U=F.3O[O];k P=U.5K;k I=N[P];if(Y I!="1q"){k S=D.4V(O);N[O]=S.1D("id",{1F:I,3M:0})}}}if(Y F.5N=="2O"){1c(k T in F.5N){k H=F.5K;k M=N.id;if(Y M!="1q"){k L=D.4V(T);N[T]=L.1D("2v",{1F:H+" = \'"+M+"\'",3M:0})}}}if(Y F.4Y=="2O"){1c(k R in F.4Y){k G=F.5K;k K=N.id;if(Y K!="1q"){k J=D.4V(R);N[R]=J.1D("2C",{1F:G+" = \'"+K+"\'",3M:0})}}}E.1v(N)});1m A;j E};7.2f.q.7Y=h(D,H,C){C=Y C!="1q"?C:1;k F=D.31;18{k B=e.5x(F);k E=B.1B(H);k A=u;if(E!=u){A=7.17.4f(E)}1m E;if(C==1){j e.7P(D,[A],C)[0]}v{j A}}19(G){e.1b("1T","7.2f: 5A 34 4M 4P 4o ey 2T\\n",G);j u}};7.2f.q.7X=h(D,C,F,A,B,E){j e.5P(D,C,F,A,B,E,0).W};7.2f.q.5P=h(E,D,G,A,B,F,C){C=Y C!="1q"?C:1;k H=D+" = \'"+G+"\'";j e.4S(E,H,A,B,F,C)};7.2f.q.7W=h(B,F){k E=B.31;18{k A=e.5x(E);k D=B.id;if(A.2a(D)){k C=A.1B(D);C=z.1o(C,F);A.1L(D,C);e.6F(E,A);j 1}j 0}19(G){e.1b("1T","7.2f: 5A 34 4M 4P 4o 9w 2T\\n",G);j 0}};7.2f.q.7Q=h(B,F){k D=B.31;18{k A=e.5x(D);k C=F||B.id;if(A.2a(C)){A.1Y(C);e.6F(D,A);j 1}j 0}19(E){e.1b("1T","7.2f: 5A 34 4M 4P 4o 1m 2T\\n",E);j 0}};z.1x("7.2d",7.1d);7.2d=7.17.1o("2d",{15:"2d"});7.2F.2L(7.2d);7.2d.3J=1;7.2d.4O=h(A){if(A.q.15=="2d"){A.q.15="5V"+7.2d.3J++}k B=A.q.15;A.3G=B;7.2d.aJ(B,A)};7.2d.aJ=h(B,A){if(7.1p.4i("7N"+B)){j}7.1p.40("7N"+B,A)};7.2d.aY=h(A){j 7.1p.3D("7N"+A)};7.2d.q.1l("4r",h(){k C=C||7.1d;k A=A||C.2P||7.1d;k B=C.dl||A.dm;j B});7.2d.q.6K=h(B,A){j 7.2d.6K(B,A)};7.2d.6K=h(C,B){C=C.3x();k D=D||7.1d;k A=A||D.2P||7.1d.2P||7.1d;3r(C){1w"et":1w"er":j A.9T("b5://8c.gf.2z/em/el",B);1t;1w"gi":j A.9T("b5://8c.2D.2z/gj/gk/gl.is.gm.gn",B);1t}};7.2d.q.7K=h(A){7.2d.7K(A)};7.2d.7K=h(A){if(A==u||Y A=="1q"){j}2V(A.6L){A.9R(A.6L)}};z.1x("7.1Z",7.1d);7.1Z=7.2d.1o({15:"3u"});7.2F.2L(7.1Z);7.1Z.5Z=h(A){j 7.1Z.1g().5Z(A)};7.1Z.q.5Z=h(A){e.4r("[5D="+A+"]").8S(h(){k C=e.15||e.3j("15");if(!C){j}k B=e.3j("4I");if(Y B!="1q"){7.1Z.63(e,B)}})};7.1Z.4R=h(A,B){j 7.1Z.1g().4R(A,B)};7.1Z.q.4R=h(B,C){k A={};e.4r("[5D="+B+"]").8S(h(){k E=e.15||e.3j("15");if(!E){j}k D=7.1Z.6S(e,C);if(D&&D.38.15=="1N"){A[E]=D}v{if(D!==u&&Y D!="1q"){A[E]=D}}});j A};7.1Z.2q=h(A,B){j 7.1Z.1g().2q(A,B)};7.1Z.q.2q=h(A,B){j 7.1K.9h(e.4R(A,B))};7.1Z.2B=h(A,B){j 7.1Z.1g().2B(A,B)};7.1Z.q.2B=h(A,B){j e.5l(A,7.1K.d9(B))};7.1Z.5l=h(A,B){7.1Z.1g().5l(A,B)};7.1Z.q.5l=h e7(A,B){if(Y B=="1q"||Y A=="1q"){j}e.4r("[5D="+A+"]").8S(h(){k D=e.15||e.3j("15");if(!D){j}k C=B[D];if(Y C!="1q"){7.1Z.63(e,C)}})};7.1Z.6S=h(A,B){j 7.1Z.1g().6S(A,B)};7.1Z.q.6S=h(B,N){if(B==u){j u}k I=B.15||B.3j("15"),R=B.5Q.2u(),G=B.2b||B.3j("2b")||R;if(Y N=="1q"){N=16}if(N&&(!I||B.bF||G=="5Z"||G=="gC"||(G=="9P"||G=="lp")&&!B.9O||(R=="9N")&&!B.9M||(G=="lm"||G=="lk")&&B.5D&&B.5D.lj!=B||(R=="3W"||R=="3C"||R=="3U")&&B.5C==-1)){j u}if(R=="3W"){k D=B.5C;if(D<0){j u}k P=[],A=B.e3;k K=(G=="3W-l9");k M=(K?D+1:A.W);1c(k O=(K?D:0);O<M;O++){k E=A[O];if(E.e1){k F=E.22;if(K){j F}P.1v(F)}}j P}v{if(R=="3C"||R=="3U"){if(B.5C<0){j u}k Q=[],H=[],J=16;if(R=="3C"){H=B.l6;J=(B.l5!="l4")}v{H=[B.l3]}1c(k L=0;L<H.W;L++){k C=H[L].22||H[L].5B;if(J){j C}Q.1v(C)}j Q}v{if(R=="9P"){j B.9O}v{if(R=="9N"){j B.9M||""}}}}j B.22};7.1Z.63=h(A,B){j 7.1Z.1g().63(A,B)};7.1Z.q.63=h(A,F){if(A==u){j}k C=A.15||A.3j("15"),K=A.5Q.2u(),J=A.2b||A.3j("2b")||K;if((!C)||A.bF){j}if(K=="3W"||K=="3C"||K=="3U"){k B=[];if(K=="3W"){A.5C=-1;B=A.e3}v{if(K=="3C"){A.l1();1c(k G=0;G<A.7E;G++){1N.q.1v.2i(B,[A.dX(G)])}}v{if(K=="3U"){A.5C=-1;1c(k G=0;G<A.7E;G++){1N.q.1v.2i(B,[A.dX(G)])}}}}1c(k E=0;E<B.W;E++){k D=V;k I=B[E].22||B[E].5B;if(F.38.15=="1N"){if(7.1N.3q(I,F)!=-1){D=16}}v{if(I==F){D=16}}if(D){if(K=="3C"){A.kZ(B[E])}v{if(K=="3U"){A.5C=E}v{B[E].e1=16}}}}}v{if(K=="9P"){k H=F;if(Y F=="2n"){H=(F.2u()=="16"||F.2u()=="1")?16:V}A.9O=H}v{if(K=="9N"){A.9M=F}v{A.22=F}}}};7.1Z.9H=h(B,C,A){j 7.1Z.1g().9H(B,C,A)};7.1Z.q.9H=h(B,G,A){if(B==u||Y B=="1q"){j}if(G==u||Y G=="1q"){j}A=A||{};k D=B.15||B.3j("15"),O=B.5Q.2u(),M=B.2b||B.3j("2b")||O;if((O!="3W"&&O!="3C"&&O!="3U")){j}k C=[];if(G.38.15=="1N"){C=G}v{C.1v(G)}1c(k F=0;F<C.W;F++){k I,J,L;if(Y C[F]=="2n"){I=J=C[F]}v{if(Y A=="h"){k N={};18{N=A.4Z(C[F])||{}}19(H){}J=N.22||"";I=N.5B||J}v{k K=A.5B||"5B";k E=A.22||"22";J=C[F][E]||"";I=C[F][K]||J}}if(O=="3W"){L=7.2d.6K("8p","kX");L.5B=I;L.22=J;B.kW(L);kV}v{if(O=="3C"){}v{if(O=="3U"){}}}L=B.kU(I,J);if(C[F].2b){L.2b=C[F].2b}}};7.1Z.9F=h(A){j 7.1Z.1g().9F(A)};7.1Z.q.9F=h(C){if(C==u||Y C=="1q"){j}k D=C.15||C.3j("15"),A=C.5Q.2u(),B=C.2b||C.3j("2b")||A;if((A!="3W"&&A!="3C"&&A!="3U")){j}if(A=="3W"){2V(C.6L){C.9R(C.6L)}}v{if(A=="3C"||A=="3U"){2V(C.7E>0){C.kT(C.7E-1)}}}};z.1x("7.26",7.1d);7.26=7.2d.1o({15:"kQ"});7.2F.2L(7.26);7.26.3f=h(F,C,D,H){if(5k(F)||5k(C)){j F}k A=2e.3f(C);k I=F*2e.7z(10,A);3r(D){1w"5z-69-3V":I=2e.3f(I);1t;1w"5z-69-kN":I=2e.3f(I*2)/2;1t;1w"5z-69-kM":I=2e.3f(I*4)/4;1t;1w"5z-69-kK":I=2e.3f(I*10)/10;1t;1w"5z-69-kJ":I=2e.3f(I*20)/20;1t;1w"dQ-3f-kI":I=2e.3f(I+0.5);1t;1w"dQ-3f-kH":I=2e.5i(I);1t;1w"kG-31":k E=2e.5i(I);k G=(I-E)*2e.7z(10,-A);1c(i=0;i<H.W;i++){if(G<=H[i].kF){I=E+H[i].22*2e.7z(10,A);1t}}1t}k B=(I*2e.7z(10,-A));j(C>=0)?9v(B.78(C)):B};7.26.q.3f=h(C,A,D,B){j 7.26.3f(C,A,D,B)};7.26.3V=h(B,A){B=B||0;A=A||2;j 9v(9v(B).78(A))};7.26.q.3V=h(B,A){j 7.26.3V(B,A)};7.26.9u=h(A){A=A||0;A=3g(A);if(A==0){j"0 8v"}v{if(A==1){j"1 kB"}v{if(A<27){j A+" 8v"}v{if(A<27*27){j 7.26.3V(A/27,0)+" kz"}v{if(A<27*27*27){j 7.26.3V(A/27/27,2)+" ky"}v{if(A<27*27*27*27){j 7.26.3V(A/27/27/27,2)+" kv"}v{if(A<27*27*27*27*27){j 7.26.3V(A/27/27/27/27,2)+" ks"}v{j A+" 8v"}}}}}}}};7.26.q.9u=h(A){j 7.26.9u(A)};7.26.9s=h(B,A){A=A||2;j 7.26.3V(B,A)+"%"};7.26.q.9s=h(B,A){j 7.26.9s(B,A)};7.26.7v=h(D,I){I=I||{};k A=2;if(Y I=="8q"){A=I}k E=[",",".","-",":"];k H,B=u;if(Y I=="2n"&&7.1N.3q(I,E)==-1){H=I}k G=",";k C=".";if(Y I=="2O"){H=I.3T||"";A=I.4k||0;G=I.59||",";C=I.54||".";B=I.43||""}k F=H+7.1K.d5(D,A,C,G)+B;j F};7.26.q.7v=h(B,A){j 7.26.7v(B,A)};7.26.8y=h(G,D,F){G=G||0;D=D||"bX";F=F||{};k H={3T:"",43:"",4F:"0",4k:2,59:",",54:".",4D:"()"};k C={kr:{3T:"kq$",43:"",4F:"0",4k:1,59:",",54:".",4D:"()"},bX:{3T:"$",43:"",4F:"0",4k:2,59:",",54:".",4D:"()"},kp:{3T:"\\ko",43:"",4F:"0",4k:2,59:",",54:".",4D:"()"},kn:{3T:"\\km",43:"",4F:"0",4k:2,59:".",54:",",4D:"()"}};if(Y C[D]!="1q"){H=C[D]}v{if(Y D=="2n"){F.3T=D}}F=z.1o(H,F);k B=u;if(G==0){if(F.4F!=0){j F.4F}F.43=u}v{if(G<1&&G>-1){k E=3g("1"+7.1K.4K("",F.4k,"0"));G=G*E;F.3T=u;F.4k=u}v{F.43=u}}k A=2e.77(G);B=7.26.7v(A,F);if(G<0){if(F.4D=="()"){B="("+B+")"}v{B=F.4D+B}}j B};7.26.q.8y=h(C,A,B){j 7.26.q.8y(C,A,B)};z.1x("7.2o",7.1d);7.2o=7.17.1o("2o",{15:"2o",1J:h(B,A){e.dC=B||u;e.dB=A||{}}});7.2o.3J=1;7.2o.4O=h(A){if(A.q.15=="2o"){A.q.15="5V"+7.2o.3J++}k B=A.q.15;A.3G=B;7.2o.dA(B,A)};7.2o.dA=h(B,A){if(7.1p.4i("8H"+B)){j}7.1p.40("8H"+B,A)};7.2o.a2=h(A){j 7.1p.3D("8H"+A)};7.2o.q.1l("kj",h(){j e.dC});7.2o.q.1l("4t",h(){j e.dB});7.2o.q.5L=h(A){};7.2o.q.5J=h(A){};7.2o.q.6B=h(A){};7.2o.q.6A=h(A){};7.2o.q.6z=h(A){};7.2o.q.6y=h(A){};z.1x("7.2S",7.1d);7.2S=7.17.1o("2S",{15:"2S",1J:h(A){e.4J=A||u}});7.2S.3J=1;7.2S.4O=h(A){if(A.q.15=="2S"){A.q.15="5V"+7.2S.3J++}k B=A.q.15;A.3G=B;7.2S.dy(B,A)};7.2S.dy=h(B,A){if(7.1p.4i("8M"+B)){j}7.1p.40("8M"+B,A)};7.2S.dq=h(A){j 7.1p.3D("8M"+A)};7.2S.q.1l("1P",h(){j e.4J});7.2S.q.45("1P",h(A){e.4J=A});z.1x("7.25",7.1d);7.25=7.2S.1o({15:"7u",46:7.2h.1o({15:"9l",4b:["3H"],3O:["5e"]}),3n:7.2h.1o({15:"5e",4b:["15"],4Y:["9l"]}),5d:7.2h.1o({15:"70",4b:["15"]}),4x:7.2h.1o({15:"kd",3O:["70","5e"]})});7.25.q.dx=h(D,J,F){if(!D||!J){j V}F=F||V;k A=14 e.46;k G="3H=\'"+D+"\'";k B=A.1D("2v",{1F:G});if(!B){j V}if(!B.5f||B.5f!=J){j V}if(F){j 16}k C=B.5e.id;k H=14 e.4x;k I=H.1D("2C",{1F:"3Q=\'"+C+"\'"});if(I){k E=[];I.1S(h(K){E.1v(K.70.15)});B.c7=E;B.kb=[B.5e.15]}e.1P.1C.1L("7p",B);7.2Z.62(u,"dr-dp-5W","dx");j 16};7.25.q.ca=h(){e.1P.1C.1Y("7p");7.2Z.62(u,"dr-dp-5W","ca")};7.25.71=h(){k A=7.1C.1g();if(!A.2N("7p")){j u}v{j A.1B("7p")}};7.25.q.71=h(){j 7.25.71()};7.25.9j=h(B){B=B||u;if(B==u){j V}k E=7.25.71();if(E==u){j V}k C=e;k D=B.3v(",");k A=V;D.1S(h(F){if(!A){A=(7.1N.3q(F,E.c7)!=-1)}});j A};7.25.q.9j=h(A){j 7.25.9j(A)};7.25.q.ka=h(F,B,A){F=F||u;B=B||u;A=A||F;if(F==u||B==u){j V}k C=14 e.46;k D=C.1D("3X",{1F:"3H=\'"+F+"\'"});if(D>0){j V}C.39();C.3d({3H:F,5f:B,8O:A});k E=C.id;1m C;j E};7.25.q.k9=h(H,B){H=H||u;B=B||V;if(H==u){j V}k E=14 e.46;k A=E.1D("2v",{1F:"3H=\'"+H+"\'"});if(A==u){j V}k D=A.id;k C=A.5e.id;E.id=D;E.3k(D);if(B){k F=14 e.3n;k G=F.4e(C);if(G!=u){if(G.9l.W==1){e.dj(G.15)}}}1m E;1m F;j 16};7.25.q.k8=h(E,B){E=E||u;B=B||u;if(E==u||B==u){j V}k D=14 e.46;k A=D.1D("2v",{1F:"3H=\'"+E+"\'"});if(A==u){j V}k C=A.id;D.id=C;D.3d({5f:B});1m D;j 16};7.25.q.k6=h(A,D){A=A||u;D=D||A;if(A==u){j V}k C=14 e.5d;k B=C.1D("3X",{1F:"15=\'"+A+"\'"});if(B>0){j V}C.39();C.3d({15:A,8O:D});k E=C.id;1m C;j E};7.25.q.k5=h(A){A=A||u;if(A==u){j V}k E=14 e.5d;k G=E.1D("2v",{1F:"15=\'"+A+"\'"});if(G==u){j V}k C=G.id;E.id=C;E.3k(C);1m E;k B=14 e.4x;k D="73=\'"+C+"\'";k F=B.1D("2C",{1F:D});if(F==u||F.W==0){j 16}F.1S(h(I){k H=I.id;B.id=H;B.3k(H)});1m B;j 16};7.25.q.dh=h(D,B){D=D||u;B=B||D;if(D==u){j V}k C=14 e.3n;k A=C.1D("3X",{1F:"15=\'"+D+"\'"});if(A>0){j V}C.39();C.3d({15:D,8O:B});1m C;j C.id};7.25.q.dj=h(G){G=G||u;if(G==u){j V}k D=14 e.3n;k E=D.1D("2v",{1F:"15=\'"+G+"\'"});if(E==u){j V}k B=E.id;D.id=B;D.3k(B);1m D;k A=14 e.4x;k C="3Q=\'"+B+"\'";k F=A.1D("2C",{1F:C});if(F==u||F.W==0){j 16}F.1S(h(I){k H=I.id;A.id=H;A.3k(H)});1m A;j 16};7.25.q.k2=h(H,G){H=H||u;G=G||u;if(G==u||H==u){j V}k D=14 e.46;k E=14 e.3n;k A=D.1D("2v",{1F:"3H=\'"+H+"\'"});if(A==u){j V}k C=A.id;k F=E.1D("2v",{1F:"15=\'"+G+"\'"});k B=u;if(F==u){B=e.dh(G);if(!B){j V}}v{B=F.id}D.id=C;D.3d({3Q:B});1m D;1m E;1m A;1m F;j 16};7.25.q.k1=h(H,G){H=H||u;G=G||u;if(G==u||H==u){j V}k D=14 e.46;k E=14 e.3n;k A=D.1D("2v",{1F:"3H=\'"+H+"\'"});if(A==u){j V}k C=A.id;k F=E.1D("2v",{1F:"15=\'"+G+"\'"});if(F==u){j V}k B=F.id;D.id=C;D.3d({3Q:""});1m D;1m E;1m A;1m F;j 16};7.25.q.k0=h(J,D){D=D||u;J=J||u;if(J==u||D==u){j V}k B=14 e.5d;k H=14 e.3n;k C=B.1D("2v",{1F:"15=\'"+D+"\'"});if(C==u){j V}k I=H.1D("2v",{1F:"15=\'"+J+"\'"});if(I==u){j V}k G=14 e.4x;k F="3Q=\'"+I.id+"\' 6m 73=\'"+C.id+"\'";k E=G.1D("3X",{1F:F});if(E>0){j V}G.39();G.3d({3Q:I.id,73:C.id});k A=G.id;1m B;1m H;1m G;j A};7.25.q.jZ=h(I,C){C=C||u;I=I||u;if(I==u||C==u){j V}k A=14 e.5d;k G=14 e.3n;k B=A.1D("2v",{1F:"15=\'"+C+"\'"});if(B==u){j V}k H=G.1D("2v",{1F:"15=\'"+I+"\'"});if(H==u){j V}k E=14 e.4x;k D="3Q=\'"+H.id+"\' 6m 73=\'"+B.id+"\'";k F=E.1D("2C",{1F:D});if(F==u||F.W==0){j V}F.1S(h(K){k J=K.id;E.id=J;E.3k(J)});1m A;1m G;1m E;j 16};7.25.q.91=h(B){k C=u;if(B){C={1F:B}}k A=14 e.46;k D=A.1D("2C",C);1m A;j D};7.25.q.jY=h(F){F=F||u;if(F==u){j e.91()}k C=14 e.3n;k D=C.1D("2v",{1F:"15=\'"+F+"\'"});k A=u;if(D==u){j e.91()}v{A=D.id}k B=14 e.46;k E=B.1D("2C",{1F:"3Q=\'"+A+"\'"});1m B;1m C;j E};7.25.q.jV=h(C){k D=u;if(C){D={1F:C}}k B=14 e.3n;k A=B.1D("2C",D);1m B;j A};7.25.q.8U=h(C){k D=u;if(C){D={1F:C}}k B=14 e.5d;k A=B.1D("2C",D);1m B;j A};7.25.q.jU=h(F){F=F||u;if(F==u){j e.8U()}k C=14 e.3n;k D=C.1D("2v",{1F:"15=\'"+F+"\'"});k B=u;if(D==u){j e.8U()}v{B=D.id}k A=14 e.4x;k E=A.1D("2C",{1F:"3Q=\'"+B+"\'"});1m A;1m C;j 7.1N.52(E,"{n}.70")};z.1x("7.2t",7.1d);7.2t=7.17.1o("2t",{1J:h(B){e.4J=B||u;if(e.4J){e.7n(e.4J)}k A=7.17.1R(e.1P);e.3s=7.1H.9r(A);e.6t=7.1H.7w(e.3s);e.4B=e.6t+"3u";if(Y e.1P[e.3s]=="1q"){e.1b("1T","7.2t jT  "+e.3s);j}e.2Y=e.1P[e.3s];e.8T=u}});7.2t.9k=["61","d8","8V","33","39","51","9w","1m"];7.2t.q.1l("1P",h(){j e.4J});7.2t.q.1l("2T",h(){j e.5m});7.2t.q.1l("1e",h(){j e.2k});7.2t.q.7n=h(A){k B=A;k C=A.23;if(A.1R()=="1E"||A.1R()=="2p"){j}["5R","cl","d4","d2","9b","8W","d1","d0","cZ","cY","cW","cV"].1S(h(D){if(Y B[D]=="1q"){j}if(z.4l(B[D])){C.3i(D,B[D],B)}v{if(z.7c(B[D])){B[D].1S(h(E){if(Y(E)=="h"){C.3i(D,E,B)}})}}},B)};7.2t.q.bl=h(B,A){e.5m=B||u;e.2k=A||u;if(7.1N.3q(B,7.2t.9k)==-1){e.1b("3w","7.1O 2T 6f 7j 1c "+B);j}3r(B){1w"61":e.8Z();1t;1w"8V":e.cU();1t;1w"d8":e.8Z();1t;1w"33":e.6j("33");1t;1w"51":e.6j("51");1t;1w"39":e.6j("33");1t;1w"9w":e.6j("51");1t;1w"1m":e.cT();1t}};7.2t.q.cU=h(){k D=D||7.1d;k A=A||D.2P||7.1d.2P||7.1d;if(e.1P.1z("5R","8V")){k B,C,F=u;F=e.1e||u;if(F==u){B=e.1P.3u.4R(e.4B);C=e.1P[e.3s].3N;F=B[C]}e.1P.1z("d4",F);if(F){e.2Y.id=F;k E=e.2Y.4e(F);e.8T=E;e.1P.3u.5l(e.4B,E);e.1P.1z("d2",E)}}};7.2t.q.8Z=h(){k C=C||7.1d;k B=B||C.2P||7.1d.2P||7.1d;if(e.1P.1z("5R","61")){k A=e.2Y.1D("2C");e.1P.3u.5Z(e.4B);e.8T=A[0];e.1P.3u.5l(e.4B,A[0]);e.1P.1z("cl",A)}};7.2t.q.6j=h(F){k E=E||7.1d;k A=A||E.2P||7.1d.2P||7.1d;F=F||"51";if(e.1P.1z("5R",F)){k B=e.1P.3u.4R(e.4B);k C=e.1P[e.3s].3N;k G=B[C];B[C]=G;if(F=="51"){if(e.1P.1z("cZ",B)){k D=e.2Y.4e(B[C]);if(D<=0){j}v{e.2Y.id=B[C]}if(e.1P.1z("9b",B)){e.2Y.3d(B);B[C]=e.2Y.id}e.1P.1z("8W",B)}e.1P.1z("cY",B)}if(F=="33"){if(e.1P.1z("d1",B)){e.2Y.39();if(e.1P.1z("9b",B)){e.2Y.3d(B);B[C]=e.2Y.id}e.1P.1z("8W",B)}e.1P.1z("d0",B)}}};7.2t.q.cT=h(){k D=D||7.1d;k A=A||D.2P||7.1d.2P||7.1d;if(e.1P.1z("5R","1m")){k B=e.1P.3u.4R(e.4B);k C=e.1P[e.3s].3N;k F=B[C];B[C]=F;if(e.1P.1z("cW",B)){F=B[C];if(F){e.2Y.id=F;k E=e.2Y.4e(F);e.2Y.3k(F);e.1P.1z("cV",E)}}}};z.1x("7.1I",7.1d);7.1I=7.17.1o("1I",{1J:h(A){e.9a=u;e.cS=u;e.2k=A||[]}});7.1I.q.9a=u;7.1I.q.cS=u;7.1I.q.2k=[];7.1I.q.1l("1e",h(){j e.2k});7.1I.q.45("1e",h(A){e.2k=A||[]});7.1I.q.1l("jO",h(){j e.2k.W});7.1I.q.90=h(E,A){k C;k B=(Y A=="2O")?A.id:A;18{C=e.1e[E][B]}19(D){j"<"+E+","+B+">"}j C};7.1I.q.jM=h(B,A){j e.90(B,A)};7.1I.q.jK=h(C,A,B){};7.1I.q.jJ=h(C,A,B){};7.1I.q.jH=h(A){e.9a=A};7.1I.q.7a=h(A){j V};7.1I.q.jF=h(A){j V};7.1I.q.jE=h(A){j V};7.1I.q.jC=h(A){j V};7.1I.q.jB=h(){j V};7.1I.q.jy=h(B,A){j V};7.1I.q.jx=h(B,A){j V};7.1I.q.jv=h(B,A){j V};7.1I.q.ju=h(B,A){j V};7.1I.q.js=h(A){};7.1I.q.jq=h(A){};7.1I.q.jm=h(B){if(e.7a(B)){j-1}1c(k A=B-1;A>=0;A--){if(e.7a(A)){j A}}};7.1I.q.4C=h(A){if(e.7a(A)){j 0}j 1};7.1I.q.jl=h(D,C){k A=e.4C(D);k B=e.4C(C);if(B==A){j 16}v{j V}};7.1I.q.jk=h(A){};7.1I.q.jj=h(B,A){j e.90(B,A)};7.1I.q.ji=h(B,A){j 1};7.1I.q.jh=h(B,A){};7.1I.q.je=h(C,A,B){};7.1I.q.jn=h(A,B){};7.1I.q.jd=h(){};7.1I.q.jp=h(A){};7.1I.q.jb=h(A,B){};7.1I.q.jr=h(B,C,A){};z.1x("7.2m",7.1d);7.2m=7.17.1o("2m",{1J:h(){if(1A.1Q.2N("95")){e.24=1A.1Q.1B("95",(14 7.1k()))}v{e.24=14 7.1k();1A.1Q.1L("95",e.24)}}});7.2F.2L(7.2m);7.2m.q.1l("1G",h(){j e.24});7.2m.q.1l("94",h(){if(e.96==u){e.96=z.3R.3c("@2D.2z/5o/j9;1","j8")}j e.96});7.2m.5y=h(A){j 7.2m.1g().5y(A)};7.2m.q.5y=h(D){k B=z.cN.cM(D);if(!e.1G.2a(B)){18{e.1G.33(B,e.94.5y(D));k A=e;2U.2j("6e",h(E){A.1G.1Y(B)},16)}19(C){}}j e.1G.1B(B)};7.2m.7d=h(){7.2m.1g().7d()};7.2m.q.7d=h(){e.94.7d();e.1G.2y()};7.2m.7g=h(A,B){j 7.2m.1g().j6(A,B)};7.2m.q.7g=h(B,D){k C=u;k A=(D)?[].1v(e.5y(D)):e.1G.2W();A.1S(h(E){18{C=E.7g(B)}19(F){}if(C){j C}});if(C==u){C=B}j C};7.2m.6q=h(A,B,C){j 7.2m.1g().6q(A,B,C)};7.2m.q.6q=h(B,D,E){k C=u;k A=(E)?[].1v(e.5y(E)):e.1G.2W();A.1S(h(F){18{C=F.6q(B,D,D.W)}19(G){}if(C){j C}});if(C==u){C=B;D.1S(h(F){C=C.2l(/%S/,F)})}j C};z.1x("7.2g",7.1d);7.2g=7.17.1o("2g",{1J:h(){e.92=7.2m.1g()}});7.2F.2L(7.2g);7.2g.q.7e=h(){if(1n.W==1){j e.92.7g(1n[0])}v{j e.92.6q(1n[0],1n[1])}};7.2g.cI=h(){18{k A=z.3R.3c("@2D.2z/5o/6s;1","6i");j A.cI().7b("7f")}19(B){j""}};7.2g.cF=h(){18{k A=z.3R.3c("@2D.2z/5o/6s;1","6i");j A.cF().7b("7f")}19(B){j""}};7.2g.cQ=h(){18{k A=z.3R.3c("@2D.2z/5o/6s;1","6i");j A.cQ()}19(B){j""}};7.2g.cE=h(C){18{k A=z.3R.3c("@2D.2z/5o/6s;1","6i");j A.cE(C).7b("7f")}19(B){j""}};7.2g.cD=h(C){k A="";18{k E=1V.2J["@2D.2z/7x/7x-cC;1"].7C();k B=E.3Z(1V.2M.iZ);A=B.iY("iX")}19(D){7.2g.1b("1T","99\'t cD "+C+", "+D);A=""}j A};7.2g.9c=h(D){k C=[];18{k G=1V.2J["@2D.2z/7x/7x-cC;1"].7C();k F=G.3Z(1V.2M.iV);k B=F.9c(D);2V(B.iU()){k A=B.jW();C.1v(A)}}19(E){7.2g.1b("1T","99\'t 9c "+D+", "+E);C=[]}j C};7.2g.du=h(){18{k A=z.3R.3c("@2D.2z/5o/6s;1","6i");j A.du().7b("7f")}19(B){j""}};7.2g.iT=h(B,C){C=C||V;18{k D=1V.2J["@2D.2z/iS-76;1"].3c(1V.2M.bZ);D.bO("iR.iQ.de",B);if(C){k A=1V.2J["@2D.2z/iP/bS-k3;1"].3c(1V.2M.9f);A.iO(1V.2M.9f.iN|1V.2M.9f.iM)}}19(E){7.2g.1b("1T","99\'t 5W de: "+E)}};7.2g.7e=h(){j 7.2g.1g().7e.2i(7.2g.1g(),1n)};k 4h=h(){j 7.2g.7e.2i(u,1n)};z.1x("7.1W",7.1d);7.1W=7.17.1o("1W",{1J:h(){e.23=14 7.1U();e.4A=u;e.5T={4q:"cs",44:iJ,cr:"7r/x-8c-5D-iI",dw:16,4g:V,1e:u,3H:u,5f:u};e.8X={}}});7.1W.cp={7s:"7r/7s, 5u/7s",8p:"5u/8p",cn:"5u/9n, 7r/9n",9m:"7r/9m, 5u/9n",5u:"5u/iF",dz:"*/*"};7.1W.q.1l("1X",h(){j e.23});7.1W.q.1l("32",h(){if(e.4A==u){e.4A=1V.2J["@2D.2z/iC/iB;1"].7C(1V.2M.iA);k A=e;e.4A.iz=h(B){A.1X.1O("kw",B)};e.4A.kx=h(B){A.1X.1O("iw",B)};e.4A.iv=h(B){A.1X.1O("34",B)}}j e.4A});7.1W.q.1l("6a",h(){j e.5T});7.1W.q.1l("kA",h(){j e.8X});7.1W.q.1l("6a",h(){j e.5T});7.1W.q.1l("5Y",h(){j e.32.5Y});7.1W.q.1l("ir",h(){k A="";3r(e.5Y){1w 0:A="iq";1t;1w 1:A="kE";1t;1w 2:A="io";1t;1w 3:A="im";1t;1w 4:A="il";1t}j A});7.1W.q.1l("ci",h(){k D=u;k C=e.32;if(e.5Y==4){k B=C.9t("ik-2b");k A=B&&B.7h("7s")>=0;D=A?C.ij:C.ii;if(A&&D.ih.5Q=="ce"){57"ce";}}j D});7.1W.q.1l("4g",h(){j e.6a.4g});7.1W.q.45("4g",h(A){j e.6a.4g=A});7.1W.q.1l("44",h(){j e.5T.44});7.1W.q.45("44",h(A){e.5T.44=A});7.1W.q.cd=h(){18{j e.32.cd()}19(A){j""}};7.1W.q.9t=h(B){18{j e.32.9t(B)}19(A){j""}};7.1W.q.58=h(C,A){18{e.32.58(C,A)}19(B){}};7.1W.q.cc=h(A){18{e.32.cc(A)}19(B){}};7.1W.q.6V=h(A){18{e.32.6V(A)}19(B){}};7.1W.q.cb=h(A){18{e.32.cb(A)}19(B){}};7.1W.q.9D=h(){18{e.32.9D()}19(A){}};7.1W.q.5g=h(F,C,D,A,B){18{e.32.5g(F,C,D,A,B)}19(E){}};7.1W.q.1B=h(A,C,D,B){if(z.4l(C)){D=C;C=u}j e.6d({4q:"cs",3h:A,1e:C,4m:D,48:B})};7.1W.q.ic=h(A,C,D,B){if(z.4l(C)){D=C;C={}}j e.6d({4q:"ib",3h:A,1e:C,4m:D,48:B})};7.1W.q.ia=h(A,C,D,B){if(z.4l(C)){D=C;C={}}j e.6d({4q:"l0",3h:A,1e:C,4m:D,48:B})};7.1W.q.c9=h(A,C,D,B){if(z.4l(C)){D=C;C={}}j e.6d({4q:"i8",3h:A,1e:C,4m:D,48:B})};7.1W.q["1m"]=7.1W.q.c9;7.1W.q.6d=h(M){k D,E,C;M=z.1o({},e.6a,M);if(M.1e&&M.dw&&Y M.1e!="2n"){M.1e=7.1K.9h(M.1e)}if(M.48=="cn"&&M.9I==u){M.9I=V}if(M.9I===V&&M.4q.2u()=="1B"){k I=(14 3P()).72();k H=M.3h.2l(/(\\?|&)4h=.*?(&|$)/,"$i7="+I+"$2");M.3h=H+((H==M.3h)?(M.3h.5w(/\\?/)?"&":"?")+"4h="+I:"")}if(M.1e&&M.4q.2u()=="1B"){M.3h+=(M.3h.5w(/\\?/)?"&":"?")+M.1e;M.1e=u}e.1X.1O("bJ",M);k B=V;k F=e;k J=F.32;M.7D=7.1W.cp;F.5g(M.4q,M.3h,M.4g,M.3H,M.5f);18{if(M.1e){F.58("i5-i4",M.cr)}if(M.l7){F.58("i1-i0-la",e.8X[M.3h]||"lb, 6h lc 9g 41:41:41 ld")}F.58("X-lf-hU","32");F.58("lh",M.48&&M.7D[M.48]?M.7D[M.48]+", */*":M.7D.dz)}19(G){e.1X.1O("34",G)}e.1X.1O("6V",[F,M]);k K=h(N){if(!B&&J&&(F.5Y==4||N=="44")){c6(C);B=16;D="4m";E=F.ci;E=7.1W.e4(E,M.48);L();A()}v{5p("2A hT 4a\\n")}};if(M.4g){J.hS=K}if(M.44>0){C=hR(h(){if(F){F.9D();if(!B){K("44")}c6(C)}},M.44)}18{F.6V(M.1e)}19(G){e.1X.1O("34",G)}if(!M.4g){K()}h L(){if(M.4m){M.4m(E,D)}F.1X.1O("4m",[F,M])}h A(){if(M.9K){M.9K(E,D)}F.1X.1O("9K",[F,M])}j E};7.1W.e4=h(B,A){if(A=="9m"){B=z.56.bC(B)}j B};z.1x("7.1A",7.1d);7.1A.1C=7.1C.1g();7.1A.1r=7.1r.1g();7.1A.1r.67("hO");7.1A.1p=7.1p.1g();7.1A.2m=7.2m.1g();7.1A.2g=7.2g.1g();7.1A.2r=7.2r.1g();7.12.1J("3w");7.12.c8("hN",14 7.12.7m(7.12.3w));',62,1329,'|||||||GeckoJS|||||||this|||function||return|var||||||prototype||||null|else||||GREUtils||||||||||||||||||||||false|length||typeof||||Log||new|name|true|BaseObject|try|catch||log|for|global|data||getInstance|file||File|Map|__defineGetter__|delete|arguments|extend|ClassRegistry|undefined|Configure||break|BaseModel|push|case|define||dispatchEvent|Application|get|Session|find|BaseController|conditions|map|Inflector|NSITreeViewArray|init|String|set|VqlParser|Array|dispatch|controller|storage|getClassName|forEach|ERROR|Event|Components|HttpRequest|events|remove|FormHelper|||value|_events|_map|AclComponent|NumberHelper|1024|Datasource|_accept|containsKey|type|listeners|Helper|Math|DatasourceJsonFile|I18n|Model|apply|addEventListener|_data|replace|StringBundle|string|Behavior|Controller|serialize|ConnectionManager|Set|Scaffold|toLowerCase|first|_keys|Dir|clear|org|Error|unserialize|all|mozilla|Thread|Singleton|path|wrappedJSObject|Inflections|classes|Dispatcher|support|interfaces|has|object|document|write|callbacks|Component|command|window|while|getValues|defaultLogger|ScaffoldModel|Observer|_OutStream|table|XMLHttpRequest|add|error|limit||ArrayQuery|constructor|create|message|_InputStream|getService|save|append|round|parseInt|url|addListener|getAttribute|del|_obj|_count|groupModel|getKeys|ClassLogger|inArray|switch|modelClass|appenders|Form|split|WARN|toUpperCase|read|NSIController|isNull|level|listbox|getObject|EventItem|exists|className|username|filter|unnamedCounter|isDefined|toString|recursive|primaryKey|belongsTo|Date|acl_group_id|XPCOM|Appender|before|menulist|precision|select|count|Class|QueryInterface|addObject|00|supportsCommand|after|timeout|__defineSetter__|userModel|useDbConfig|dataType|__hashCode|page|indexes|where|defaultClassLevel|findById|clone|async|_|isKeySet|HASH_CODE_PROPERTY|places|isFunction|success|getDataSource|the|getEvents|method|query|contains|config|callback|doCommand|condTest|groupRoleModel|order|_super|_xhr|formId|getLevel|negative|test|zero|isCommandEnabled|_dataSources|default|_controller|padLeft|slice|occurred|nextTokenIndex|extended|executing|listener|serializeToObject|querySelect|getCount|thisObj|_getAssociationModel|uuid|schema|hasMany|call||edit|objectExtract|isEmpty|decimals|NSIObserver|JSON|throw|setRequestHeader|thousands|close|Level|_hasLoadPreferences|roleModel|AclGroup|password|open|_privateCommands|floor|column|isNaN|unserializeFromObject|_command|_file|intl|dump|leafName|NSIRunnable|Filter|encodeURIComponent|text|Object|match|readTableFile|createBundle|to|An|label|selectedIndex|form|uncountable|parseVQL|cancel|loadDatasource|containsValue|afterFind|foreignKey|beforeFind|_schema|hasOne|_datasource|querySelectByIndex|tagName|beforeScaffold|event|_requestSettings|queryString|Unnamed|change|instanceof|readyState|reset|concat|index|notify|setFieldValue|_runnable|Interfaces|equals|loadPreferences|__configVarNames|nearest|requestSettings|flush|getLoggerForClass|request|unload|not|substr|01|nsILocaleService|__scaffoldSave|getKey|key|AND|uses|us|_Mode|formatStringFromName|tokens|nslocaleservice|modelKey|updateKeysArray|_path|_IsBinary|_associations|afterDelete|beforeDelete|afterSave|beforeSave|ModelClass_|processCallback|irregularSingular|saveTableFile|handleEvent|queryArguments|activeWindow|Pref|createElement|firstChild|topics|irregularPlural|_id|_main|_worker|setLevel|getFieldValue|singular|run|send|check|xa0|GeckoJS_Configure_PrefObserver|setObject|AclRole|getUserPrincipal|getTime|acl_role_id|isFile|permissions|service|abs|toFixed|RegExp|isContainer|getCategory|isObject|flushBundles|translate|NSILOCALE_MESSAGES|getStringFromName|indexOf|filename|found|__instance__|getModelClass|ConsoleAppender|_addControllerEvents|toLocaleString|User|addAll|application|xml|IDENTIFIER_REGEX|Acl|format|underscore|chrome|ox|pow|copy|offset|createInstance|accepts|itemCount|readDir|plural|hasOwnProperty|process|toLimitSQL|removeAllChildren|GeckoJS_ConnectionManager_datasources|sortCol|HelperClass_|JsonFile|__queryAssociations|executeDelete|sort|some|GeckoJS_Event_callbacks|behaviors|hasAndBelongsToMany|executeUpdate|querySelectCountByIndex|querySelectById|querySelectCount|executeInsert|tmp|classname|DATABASE_CONFIG|_cancel|toSortOrderSQL|toWhereSQL|FileAppender|getInstanceByName|ControllerClass_|afterFilter|helpers|www|lastDispatchEvent|onEvent|graffiti|caller|getControllerClass|GeckoJS_Dispatcher_events|observer|NS_ERROR_NO_INTERFACE|nsISupports|getFormattedMessage|GeckoJS_Session_map|GeckoJS_Session_events|html|number|savePreferences|fatal|camelize|warn|Bytes|info|addObserver|currency|debug|trace|observe|getPrefService|results|GeckoJS_Configure_hasLoadPreferences|GeckoJS_Configure_map|GeckoJS_Configure_events|BehaviorClass_|keys|substring|removeObject|getMap|ComponentClass_|1es|description|levels|isReadable|isHidden|each|currentData|getRoleList|view|afterScaffoldSave|_lastModified|nsIObserverService|__scaffoldIndex|getCellValue|getUserList|_stringbundle|GeckoJS_Log_appenders|bundleService|GeckoJS_StringBundle_map|_bundleService|GeckoJS_Log_classes|ses|Couldn|tree|beforeScaffoldSave|getLocalesForPackage|beforeFilter|money|nsIAppStartup|1970|httpBuildQuery|components|isUserInRole|Actions|AclUser|json|javascript|SELECT|FATAL|NUMBER_REGEX|classify|toPercentage|getResponseHeader|toReadableSize|parseFloat|update|isDir|singularize|isExecutable|isSymlink|isDirectory|testes|abort|isWritable|clearItems|normalize|appendItems|cache|isSpecial|complete|vir|color|colorpicker|checked|checkbox|ASC|removeChild|source|createElementNS|lastInsertId|sortDir|buildSortFunction|condCol|buildFilterFunction|splice|news|onFind|getBehaviorClass|hasField|ModelAssoc_|datasource|setModelClass|_generateAssociation|_addBehaviors|_addModelEvents|modified|removeCallback|array|condVal|isString|configKeyName|moose|existent|Non|equipment|information|rice|species||series|target|exec|taxes|tax|turfs|turf|direction|orderBy||trilbys|appendLine|removeListener|OR|condition|testis|soliloquies|logFile|soliloquy|sexes|sex|setHelperClass|people|REFERENCE_REGEX|person|penises|penis|QUERY_REGEX|oxen|opuses|getUsefulService|opus|octopuses|octopus|occiputs|occiput|getHelperClass|numina|numen|mythoi|mythos|setControllerClass|moves|http|move|mongooses|mongoose|_addHelpers|monies|_addComponents|_loadModels|men|man|_session|loaves|loaf|hoofs|hoof|graffito|__invoke|genera|scaffold|genus|genies|genie|stack|getHashCode|ganglion|commandDispatcher|cows|cow|corpuses|corpus|children|handleFilter|brothers|decode|failure|beefs|disabled|beef|atlases|atlas|start|stringify|worker|runnable|encode|setCharPref|boolean|isBelow|nsIFile|app|removeAttribute|ves|requestCommand|directory_service|USD|nsIPrefBranch2|nsIPrefBranch|shoe|getLogger|xyz|1us|isAtLeast|ind|clearTimeout|Roles|addAppender|delete_|invalidate|sendAsBinary|overrideMimeType|getAllResponseHeaders|parsererror|octop|alias||responseData|getLevels|termin|afterScaffoldIndex|syllab|script|stimul|requestAccepts|radi|contentType|GET|brother|removeObserver|nucle|fung|child|foc|cact|000|bacill|registry|getSelectedLocaleForPackage|getLocaleFromAcceptLanguage|getSystemLocale|_OutputCharset|hashCodeCounter|getApplicationLocale|isXPCOM|controllers|ganglions|md5|CryptoHash|getFile|ti|getLocaleComponentForUserAgent|TRACE|selection|__scaffoldDelete|__scaffoldView|afterScaffoldDelete|beforeScaffoldDelete|lr|afterScaffoldEdit|beforeScaffoldEdit|afterScaffoldAdd|beforeScaffoldAdd|afterScaffoldView|appendController|beforeScaffoldView|numberFormat|unescape|DEBUG|list|parseStr|hive||join|lastModifiedTime|locale|dateModified|qu|addGroup|Charset|removeGroup|aeiouy|jQuery|getElementById|2147483648|random|session|getComponentClass|acl|sh|INFO|newLocale|ss|processData|securityCheck|setComponentClass|_default|setBehaviorClass|_config|_model|trim|ucfirst|include_once|vert|ucwords|base64Decode|CONDITIONS_REGEX|fileSize|base64Encode|matr|_parseSelectStatement|tableize|ouse|always|1en|pluralize|op|include|quiz|th|getItemAtIndex|trilby|100|DESC|selected|ices|options|httpData|alumn|trousers|FormHelper_unserializeFromObject|swine|siemens|shears|Shavese|bass|removeFilter|sea|scissors|superclass|Sarawakese|salmon|addFilter|rhinoceros|xhtml|1999||rabies|proceedings|Portuguese|XHTML||HTML|pliers|Pistoiese|pincers||byId|Piedmontese|Pekingese|insert|Niasese|nexus|decodeFromFile|Nankingese|mumps|mews|media|Maltese|asc|mackerel|Lucchese|Kongoese|Kiplingese|and|jackanapes|execute|innings|Hottentotese|onSave|hijinks|herpes|created|headquarters|Gilbertese|Genoese|findFirst|Genevese|findCount|gallows|Foochowese|flounder|findAll|Faroese|elk|eland|djinn|diabetes|debris||addCallback|corps|contretemps|Congoese|coitus|cod|clippers|chassis|carp|Function|cantus|buffalo|preventDefault|rollback|commit|findByIndex|FindByIndex|britches|begin|getLastInsertId|updated|breeches|saveAll|isCancel|onDelete|bream|Borghese|getTarget|bison|Amoyese|getData|can|getDataSourceByClass|deer|getType|3000|fish|sheep|toSQL|desc|many|columns|vql|LIMIT|too|__GeckoJS_hashCode__|BY|ORDER|encodeToFile|WHERE|selectAll|FROM|logStringMessage|consoleservice|on|lineNumber|watcher|line|greutils|getCallbacks|geckojs|no|w3|onDispatch|getControllerForCommand|XUL|keymaster|gatekeeper|there|only|xul|top|getUTCSeconds|getUTCMinutes|version|newInstance|notifyObservers|getUTCHours|unregister|getUTCDate|register|getUTCMonth|nsIObserver|reportError|DISPATCH_NORMAL|button|bus|1ews|getMainThread|main|ews|createWorkerThread|1hild|getUTCFullYear|hildren|1an|1erson|eople|nsIRunnable|1um|2sis|setBoolPref|setIntPref|ynop|rogno|getPref|arenthe|getChildList|iagno|fail|CORE|naly|isAtOrBelow|Desk|resource|ProfLD|1sis|TmpD|Home|analy|CurProcD|ComsD|1fe||AChrom|APlugns|drive|ProfDefNoLoc|PrfDef|tive|b_super|DefRt|UChrm|DefProfRt|ProfD|nsIProperties|ies|getBoolPref|PREF_BOOL|1eries|getIntPref|PREF_INT|eries|getCharPref|PREF_STRING|1ovie|getPrefType|ovies|Baseobject|changed|nsPref|1ouse|ice|ouses|1is|cris|viri|1ex|console|vivipos|1ix|getAppender|setTimeout|onreadystatechange|loading|With|zes|removeAppender|finally|menu|nsIProcess|Modified|If|util|1tatus|Type|Content|tatuses|1_|DELETE|hasLoggerForClass|put|POST|post||cri|||documentElement|responseText|responseXML|content|COMPLETED|INTERACTIVE||LOADED|removeHashCode|UNINITIALIZED|readyStateText||convertFromUnicode|writeByteArray|onerror|load||readBytes|onprogress|nsIXMLHttpRequest|xmlhttprequest|xmlextras|FILE_DEFAULT_PERMS|NORMAL_FILE_TYPE|plain|getOutputStream|getInputStream|urlencoded|60000|lastIndexOf|ext|eAttemptQuit|eRestart|quit|toolkit|useragent|general|preferences|changeLocale|hasMore|nsIToolkitChromeRegistry|size|localeswitchdemo|getSelectedLocale|nsIXULChromeRegistry|1oes|tomat|utf|buffal|_Position|1hildren|GetStringFromName|hild|nsIStringBundleService|stringbundle|objectCombine|performActionOnRow|1eople|selectionChanged|getCellProperties|grep|erson|getRowProperties|getProgressMode|getImageSrc|toggleOpenState|hasNextSibling|getParentIndex|getColumnProperties|unique|performAction|cycleCell|performActionOnCell|cycleHeader|merge|isSelectable|isEditable|setInterval|drop|canDrop|makeArray|um|isSorted|isSeparator|valueOf|isContainerEmpty|isContainerOpen|Boolean|setTree|NULL|setCellText|setCellValue|FALSE|getCellText|parseBoolean|rowCount|sis|charAt|2ves|parseCSV|missingModel|getRoleListInGroup|getGroupList|getNext|1ies|getUserListInGroup|removeRoleFromGroup|addRoleToGroup|removeUserFromGroup|addUserToGroup|startup|convertCharset|removeRole|addRole|iconv|changeUserPassword|removeUser|addUser|Groups|getRandomString|AclGroupRole|decodeURIComponent|urlDecode|urlEncode|padRight|1ices|model|trimRight|trimLeft|u20ac|EUR|u20a4|GBP|NT|NTD|TB|humanize|1ice|GB|progress|onload|MB|KB|lastModified|Byte|already|callee|LOADING|breakpoint|use|down|up|dime|nickel|The|quarter|half|rd|nd|Number|st|1zes|removeItemAt|appendItem|continue|appendChild|option|1tatuses|addItemToSelection|PUT|clearSelection|tatus|selectedItem|multiple|selType|selectedItems|ifModified|ordinalize|one|Since|Thu|Jan|GMT|Yengeese|Requested|wildebeest|Accept|whiting|clk|image|Wenchowese|submit|Vermontese|tuna|radio|trout'.split('|'),0,{}))
+/**
+ * GeckoJS is a simple, easy-to-use, and powerful framework for developing
+ * XULRunner applications with support for inheritance and Model-View-Controller
+ * design pattern.<br/>
+ *  
+ * @public
+ * @namespace
+ */
+var GeckoJS = GeckoJS || {version: "0.9.21"}; // Check to see if already defined in current scope
+
+/**
+ * This is a reference to the global context, which is normally the "window" object.
+ *  
+ * @public
+ * @static
+ * @field global    
+ */
+//GeckoJS.global = this;
+GeckoJS.global = (typeof window != 'undefined') ? window : this;
+
+
+/**
+ * Returns the hash code of an object. If the object does not have a hash code, a
+ * unique hash code is created for it.
+ * 
+ * @public
+ * @static 
+ * @function  
+ * @param {Object} obj      This is the object for which to get the hash code
+ * @return {Number}          The hash code for the object.
+ */
+GeckoJS.getHashCode = function(obj) {
+  if (obj.hasOwnProperty && obj.hasOwnProperty(GeckoJS.HASH_CODE_PROPERTY)) {
+    return obj[GeckoJS.HASH_CODE_PROPERTY];
+  }
+  if (!obj[GeckoJS.HASH_CODE_PROPERTY]) {
+    obj[GeckoJS.HASH_CODE_PROPERTY] = ++GeckoJS.hashCodeCounter;
+  }
+  return obj[GeckoJS.HASH_CODE_PROPERTY];
+};
+
+
+/**
+ * Removes the hash code of an object.
+ * 
+ * @public
+ * @static 
+ * @function  
+ * @param {Object} obj        This is the object from which to remove the hash code
+ */
+GeckoJS.removeHashCode = function(obj) {
+  if ('removeAttribute' in obj) {
+    obj.removeAttribute(GeckoJS.HASH_CODE_PROPERTY);
+  }
+  /** @preserveTry */
+  try {
+    delete obj[GeckoJS.HASH_CODE_PROPERTY];
+  } catch (ex) {
+  }
+};
+
+
+/**
+ * @field
+ * @type {String} Name for hash code property
+ * @private
+ */
+GeckoJS.HASH_CODE_PROPERTY = '__GeckoJS_hashCode__';
+
+
+/**
+ * @field
+ * @type {Number} Counter for hash codes.
+ * @private
+ */
+GeckoJS.hashCodeCounter = 0;
+
+
+/**
+ * Creates a namespace in a context. The namespace is also declared in the
+ * GREUtils global context, overriding any previously declared namespace of the
+ * same name.  
+ * 
+ * This is an alias for GREUtils.define().
+ *
+ * @public
+ * @static 
+ * @function
+ * @param {String} name       This is the name of the namespace
+ * @param {Object} context    This is the context in which to declare the namespace; defaults to the GREUtils global context
+ */
+GeckoJS.define = function(name, context) {
+
+  GREUtils.define.apply(null, arguments);
+
+};
+
+
+/**
+ * Synchronously loads and executes the script from the specified URL in a given
+ * scope.
+ * 
+ * The default scope is the GREUtils.global. 
+ *
+ * If the script is executed successfully, this method returns the NS_OK result code;
+ * otherwise NS_ERROR_INVALID_ARG is returned.
+ * 
+ * This is an alias for GREUtils.include()
+ *   
+ * @public
+ * @static
+ * @function 
+ * @param {String} scriptSrc          This is a URL specifying the location of the script
+ * @param {Object} scope              This is the scope in which to execute the script
+ * @return {Object}                    A NSResult return code
+ */
+GeckoJS.include = function (scriptSrc, scope) {
+
+	return GREUtils.include.apply(null, arguments);
+
+};
+
+
+/**
+ * Synchronously loads and executes the script from the specified URL in a given
+ * scope. The default scope is the GREUtils.global. 
+ *
+ * If the script is executed successfully, this method returns the NS_OK result code;
+ * otherwise NS_ERROR_INVALID_ARG is returned. Once thes cript has been successfully
+ * executed, this method will not execute the script again on subsequent calls; it will
+ * simply return NS_OK.   
+ *
+ * This is an alias for GREUtils.include_once()
+ *   
+ * @public
+ * @static
+ * @function 
+ * @param {String} scriptSrc          This is the URL specifying the location of the script
+ * @param {Object} scope              This is the the scope in which to execute the script
+ * @return {Object}                   An NSResult return code  
+ */
+GeckoJS.include_once = function(scriptSrc, scope) {
+
+	return GREUtils.include_once.apply(null, arguments);
+
+};
+
+/**
+ * GeckoJS.Singleton provides support for the Singleton pattern.<br/>
+ * <br/>
+ * The Singleton pattern ensures that when a Singleton class has only a single
+ * instance and has a global point of access to that instance.<br/>
+ *
+ * @name GeckoJS.Singleton
+ * @namespace
+ */
+GREUtils.define('GeckoJS.Singleton', GeckoJS.global);
+
+GeckoJS.Singleton = {
+
+/**
+ * Gets an instance of the Singleton class.<br/>
+ * <br/>
+ * This is a dummy method and is overridden in individual Singleton classes.<br/>
+ *
+ * @public
+ * @static
+ * @function
+ * @return {Object}         The Singleton instance of the class
+ */
+    getInstance: function getInstance(){
+		// fake function for ducument only
+	},
+
+/**
+ * Extends Singleton support to the target class.<br/>
+ * <br/>
+ * This method extends the target class with Singleton pattern, adding a
+ * "getInstance()" method to the target class as the point of access to the
+ * class singleton.<br/>
+ *
+ * @public
+ * @static
+ * @function
+ * @param {Object} target   This the class to be extended with Singleton pattern
+ */
+	support: function(target){
+
+		GREUtils.extend(target, {
+
+			// return single instance
+			getInstance: function getInstance(){
+
+				if (this.__instance__ == null || typeof(this.__instance__) == "undefined") {
+					this.__instance__ = new this();
+				}
+
+				return this.__instance__;
+			}
+		});
+	}
+};/**
+ * @namespace Defines the GeckoJS.Class namespace
+ */
+/**
+ * Creates a new GeckoJS.Class instance.
+ * 
+ * @class GeckoJS.Class is the foundation class upon which a simple class
+ * inheritance scheme is built. All other classes in the VIVIPOS APP Engine
+ * are direct or indirect descendants of GeckoJS.Class.<br/>
+ * <br/>
+ * This implementation provides class-level inheritance, class initialization
+ * callbacks, introspection, and different accesses to the instance's class and
+ * super-classes.<br/>
+ * 
+ * @name GeckoJS.Class
+ */
+(function(){
+    var initializing = false, fnTest = /xyz/.test(function(){
+        xyz;
+    }) ? /\b_super\b/ : /.*/;
+    // The base Class implementation (does nothing)
+
+    GeckoJS.Class = function(){
+    };
+
+    GeckoJS.Class.init = function(){
+    }
+
+/**
+ * Creates a new class that inherits from this class.<br/>
+ * <br/>
+ * This method creates a new class by extending the current class with new properties
+ * and methods. It normally takes a single parameter: a "proto" object containing the
+ * set of instance properties and methods with which to extend the current class. If
+ * two parameters are given, then the first parameter ("klass") should be an object
+ * containing the set of class properties and methods, and the second parameter ("proto")
+ * should be the set of instance properties and methods.<br/>
+ *
+ * @public
+ * @static
+ * @function
+ * @param {Object} klass          This is the set of class properties and methods with which to extend the current class
+ * @param {Object} proto          This is the set of instance properties and methods with which to extend the current class
+ * @return {Object}               The new class
+ */
+    GeckoJS.Class.extend = function(klass, proto){
+        if (!proto) {
+            proto = klass;
+            klass = null;
+        }
+        var _super_class = this;
+        var _super = this.prototype;
+
+        // Instantiate a base class (but only create the instance,
+        // don't run the init constructor)
+        initializing = true;
+        var prototype = new this();
+        initializing = false;
+
+        // Copy the properties over onto the new prototype
+        for (var name in proto) {
+            // Check if we're overwriting an existing function
+            prototype[name] = typeof proto[name] == "function" &&
+            typeof _super[name] == "function" &&
+            fnTest.test(proto[name]) ? (function(name, fn){
+                return function(){
+                    var tmp = this._super;
+
+                    // Add a new ._super() method that is the same method
+                    // but on the super-class
+                    this._super = _super[name];
+
+                    // The method only need to be bound temporarily, so we
+                    // remove it when we're done executing
+                    var ret = fn.apply(this, arguments);
+                    this._super = tmp;
+
+                    return ret;
+                };
+            })(name, proto[name]) : proto[name];
+        }
+
+        // The dummy class constructor
+        function Class(){
+            // All construction is actually done in the init method
+            if (!initializing && this.init)
+                this.init.apply(this, arguments);
+        }
+        // Populate our constructed prototype object
+        Class.prototype = prototype;
+        Class.prototype.Class = Class;
+        Class.prototype.superclass = _super_class;
+        // Enforce the constructor to be what we expect
+        Class.constructor = Class;
+        // And make this class extendable
+
+        for (var name in this) {
+            if (this.hasOwnProperty(name) && name != 'prototype') {
+                Class[name] = this[name];
+            }
+        }
+
+        // klass is string for class name default
+        if(typeof klass == 'string') {
+            klass = {className: klass};
+        }
+
+        for (var name in klass) {
+            Class[name] = typeof klass[name] == "function" &&
+            typeof Class[name] == "function" &&
+            fnTest.test(klass[name]) ? (function(name, fn){
+                return function(){
+                    var tmp = this._super;
+                    this._super = _super_class[name];
+                    var ret = fn.apply(this, arguments);
+                    this._super = tmp;
+                    return ret;
+                };
+            })(name, klass[name]) : klass[name];
+        };
+
+
+        Class.extend = arguments.callee;
+
+        if (Class.init)
+            Class.init(Class);
+        if (_super_class.extended)
+            _super_class.extended(Class)
+
+        return Class;
+    };
+})();
+/**
+ * Defines the GeckoJS.BaseObject namespace.
+ * 
+ * @namespace 
+ */
+GREUtils.define('GeckoJS.BaseObject', GeckoJS.global);
+
+/**
+ * Creates a new GeckoJS.BaseObject instance.
+ * 
+ * @class GeckoJS.BaseObject is the base object class upon which other GeckoJS classes
+ * are built. It defines a basic set of common methods which may be overridden
+ * by inheriting classes.<br/>
+ * 
+ * @extends GeckoJS.Class
+ * @name GeckoJS.BaseObject
+ */
+GeckoJS.BaseObject = GeckoJS.Class.extend('BaseObject', {});
+
+
+/**
+ * Clones an object.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {Object} obj      This is the object to clone
+ * @return {Object}         A clone of the object
+ */
+GeckoJS.BaseObject.clone = function(obj){
+
+    var res = {};
+    for (var key in obj) {
+        res[key] = obj[key];
+    }
+    return res;
+};
+
+
+/**
+ * Clones an object.
+ *
+ * @public
+ * @function
+ * @param {Object} obj      This is the object to clone , defaults to this instance
+ * @return {Object}         A clone of this GeckoJS.BaseObject
+ */
+GeckoJS.BaseObject.prototype.clone = function(obj){
+    return GeckoJS.BaseObject.clone((obj || this));
+};
+
+
+/**
+ * Logs a message.<br/>
+ * <br/>
+ * examples:<br/>
+ * <pre>
+ *      GeckoJS.BaseObject.log(message)
+ *      GeckoJS.BaseObject.log(level, message)
+ *      GeckoJS.BaseObject.log(className, level, message)
+ *      GeckoJS.BaseObject.log(className, level, message, exception)
+ * </pre>
+ * 
+ * @public
+ * @static
+ * @function
+ * @param {String} className  		This is the class name
+ * @param {GeckoJS.Log.Level||String} level This is the level of the message
+ * @param {String} message   		This is the message to log
+ * @param {Object} [exception]      This is an optional exception to use
+ * @return {GeckoJS.Log.ClassLogger} An instance of the class-specific logger
+ */
+GeckoJS.BaseObject.log = function(className, level, message, exception){
+    if (arguments.length == 1) {
+        message = arguments[0];
+        level = GeckoJS.Log.defaultClassLevel;
+        className = null;
+        exception = null;
+    }else if (arguments.length == 2) {
+        message = arguments[1];
+        level = arguments[0];
+        className = null;
+        exception = null;
+    }else if (arguments.length == 3) {
+        message = arguments[2];
+        level = arguments[1];
+        className = arguments[0];
+        exception = null;
+    }
+
+    if (typeof level =='string') {
+        if(GeckoJS.Array.inArray(level , GeckoJS.Log.levels) != -1) {
+            level = GeckoJS.Log[level.toUpperCase()];
+        }else {
+            level = GeckoJS.Log.defaultClassLevel;
+        }
+    }
+
+    className = (className) ? className : GeckoJS.BaseObject.getClassName(this);
+    var logger = GeckoJS.Log.getLoggerForClass(className);
+
+    return logger.log(level, message, exception);
+};
+
+
+/**
+ * Logs a message.<br/>
+ * <br/>
+ * example:<br/>
+ * <pre/>
+ *      this.log(message)
+ *      this.log(level, message)
+ *      this.log(level, message, exception)
+ * </pre>
+ * 
+ * @public
+ * @function
+ * @param {GeckoJS.Log.Level} level This is the level of the message
+ * @param {String} message   		This is the message to log
+ * @param {Object} [exception]      This is an optional exception to use
+ * @return {GeckoJS.Log.ClassLogger} An instance of the class specific logger
+ */
+GeckoJS.BaseObject.prototype.log = function(level, message, exception) {
+
+    if (arguments.length == 1) {
+        message = arguments[0];
+        level = GeckoJS.Log.defaultClassLevel;
+        exception = null;
+    }else if (arguments.length == 2) {
+        message = arguments[1];
+        level = arguments[0];
+        exception = null;
+    }
+
+    return GeckoJS.BaseObject.log(this.getClassName(), level, message, exception);
+};
+
+
+/**
+ * Gets a class-specific logger for this object class.
+ *
+ * @public
+ * @static
+ * @function
+ * @return {GeckoJS.Log.ClassLogger}   The class-specific logger
+ */
+GeckoJS.BaseObject.getLogger = function() {
+
+    return GeckoJS.Log.getLoggerForClass(GeckoJS.Baseobject.getClassName(this));
+
+};
+
+
+
+/**
+ * Get a class-specific logger for this object class.
+ *
+ *
+ * @public
+ * @function
+ * @return {GeckoJS.Log.ClassLogger}   The class-specific logger
+ */
+GeckoJS.BaseObject.prototype.getLogger = function() {
+
+    return GeckoJS.Log.getLoggerForClass(this.getClassName());
+    
+};
+
+
+/**
+ * Dispatches a command to a controller.
+ *
+ * @public
+ * @function
+ * @param {String} command              This is the command to dispatch
+ * @param {Object} data                 This is the data to pass to the controller
+ * @param {Object} context              This is the controller to dispatch the command to
+ * @return {GeckoJS.BaseObject}
+ */
+GeckoJS.BaseObject.prototype.requestCommand = function(command, data, context) {
+    var window = window || GeckoJS.global;
+    context = context || this;
+    GeckoJS.Dispatcher.dispatch(window, command, data, context);
+    return this;
+};
+
+
+/**
+ * Dispatches a command to a controller
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} command              This is the command to dispatch
+ * @param {Object} data                 This is the data to pass to the controller
+ * @param {Object} context              This is the controller to dispatch the command to
+ * @return {GeckoJS.BaseObject}
+ */
+GeckoJS.BaseObject.requestCommand = function(command, data, context) {
+    var window = window || GeckoJS.global;
+    context = context || window;
+    GeckoJS.Dispatcher.dispatch(window, command, data, context);
+    return this;
+};
+
+/**
+ * Serializes an object using JSON encoding.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {Object} obj      This is the object to serialize
+ * @return {String}         The JSON representation of the object
+ */
+GeckoJS.BaseObject.serialize = function(obj){
+
+    var res = GREUtils.JSON.encode(obj);
+    return res;
+
+};
+
+
+/**
+ * Serializes this GeckoJS.BaseObject instance using JSON encoding.
+ *
+ * @public
+ * @function
+ * @return {String}         The JSON representation of this BaseObject
+ */
+GeckoJS.BaseObject.prototype.serialize = function(){
+    return GeckoJS.BaseObject.serialize(this);
+};
+
+/**
+ * Serializes an object using JSON encoding.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {Object} obj      This is the object to serialize
+ * @return {String}         The JSON representation of the object
+ */
+GeckoJS.BaseObject.stringify = GeckoJS.BaseObject.serialize;
+
+
+/**
+ * Serializes this GeckoJS.BaseObject instance using JSON encoding.
+ *
+ * @public
+ * @function
+ * @return {String}                 The JSON representation of this BaseObject
+ */
+GeckoJS.BaseObject.prototype.stringify = GeckoJS.BaseObject.prototype.serialize;
+
+
+/**
+ * Recreates an object from its JSON encoding.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} str      The JSON representation of the object
+ * @return {Object}         The object represented by the JSON string
+ */
+GeckoJS.BaseObject.unserialize = function(str){
+
+    var res = GREUtils.JSON.decode(str);
+    return res;
+
+};
+
+
+/**
+ * Restores this GeckoJS.BaseOBject instance to the state represented by the JSON encoding.
+ *
+ * @public
+ * @function
+ * @param {String} str      The JSON representation of this BaseObject
+ * @return {Object}         This BaseObject restored to state represented by the JSON encoding
+ */
+GeckoJS.BaseObject.prototype.unserialize = function(str){
+    var res = GeckoJS.BaseObject.unserialize(str);
+    return GREUtils.extend(this, res);
+};
+
+
+/**
+ * Returns the name of an object's class.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {Object} obj      This is the object for which to return the class name
+ * @return {String}         The object's class name
+ */
+GeckoJS.BaseObject.getClassName = function(obj){
+
+    if (GREUtils.isFunction(obj)) {
+        return (obj.className || obj.name);
+    }
+    else
+    if (GREUtils.isObject(obj)) {
+        if (obj instanceof GeckoJS.Class) {
+            return (obj.Class.className || obj.name);
+        //if(obj.Class.name == 'Class' && typeof obj.name != 'undefined') return obj.name;
+        //else return obj.Class.name || obj.name ;
+        }else {
+            return obj.constructor.name;
+        }
+    }
+    return "";
+};
+
+/**
+ * Returns the name of this GeckoJS.BaseObject instance's class.
+ *
+ * @public
+ * @function
+ * @return {String}         This BaseObject's class name
+ */
+GeckoJS.BaseObject.prototype.getClassName = function(){
+    return GeckoJS.BaseObject.getClassName(this);
+};
+
+
+/**
+ * Returns in an array the values contained in an object.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {Object} obj      This is the object for which to return the values
+ * @return {Array}          An array of values contained in the object
+ */
+GeckoJS.BaseObject.getValues = function(obj) {
+    var res = [];
+    for (var key in obj) {
+        if(obj[key] !== Object.prototype[key]) {
+            res.push(obj[key]);
+        }
+    }
+    return res;
+};
+
+
+/**
+ * Returns in an array the keys contained in an object.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {Object} obj      This is the object for which to return the keys
+ * @return {Array}          An array of keys contained in the object
+ */
+GeckoJS.BaseObject.getKeys = function(obj) {
+    var res = [];
+    for (var key in obj) {
+        if(obj[key] !== Object.prototype[key]) {
+            res.push(key);
+        }
+    }
+    return res;
+};
+
+
+/**
+ * Dumps the content of an object or array in a human-readable format.
+ * 
+ * @public 
+ * @static
+ * @function  
+ * @param {Object} array     This is the object to dump 
+ * @return {String}          The formatted dump output
+ *
+ */
+GeckoJS.BaseObject.dump = function ( array ) {
+
+    var output = "";
+    var pad_char = " ";
+    var pad_val = 4;
+
+    var formatArray = function (obj, cur_depth, pad_val, pad_char) {
+        if (cur_depth > 0) {
+            cur_depth++;
+        }
+
+        var base_pad = repeat_char(pad_val*cur_depth, pad_char);
+        var thick_pad = repeat_char(pad_val*(cur_depth+1), pad_char);
+        var str = "";
+
+        if(obj == null) return str;
+        
+        // TODO recursive depth use setting ?
+        if(cur_depth > 6) return "** too many recursive **" + "\n";
+
+        if ( (typeof obj == "object") || (typeof obj == "array"))  {
+            str += obj.constructor.name + "\n" + base_pad + "{" + "\n";
+            for (var key in obj) {
+                if ( (typeof obj[key] == "object") || (typeof obj[key] == "array") || (typeof obj[key] == "function") ) {
+
+                    if ( obj[key] == null) {
+                        str += thick_pad + "'"+key+"': "+ 'null' + "\n";
+                    }else {
+                        str += thick_pad + "'"+key+"': "+formatArray(obj[key], cur_depth+1, pad_val, pad_char);
+                    }
+
+                } else if(obj.hasOwnProperty(key)) {
+                    str += thick_pad + "'"+key+"': " + obj[key] + "\n";
+                }
+            }
+            str += base_pad + "}" + "\n";
+        }else if (typeof obj == "function" ) {
+            str = obj.constructor.name + "\n" || 'Function' + "\n" ;
+        }else {
+            str = obj.toString();
+        }
+
+        return str;
+    };
+
+    var repeat_char = function (len, pad_char) {
+        var str = "";
+        for(var i=0; i < len; i++) {
+            str += pad_char;
+        }
+        return str;
+    };
+    
+    output = formatArray(array, 0, pad_val, pad_char);
+
+    return output;
+
+};
+
+
+/**
+ * Dumps the content of an object or array in a human-readable format.
+ * 
+ * @public 
+ * @function  
+ * @param {Object} array     This is the object to dump 
+ * @return {String}          The formatted dump output
+ *
+ */
+GeckoJS.BaseObject.prototype.dump = function (array) {
+
+    var obj = array || this;
+    return GeckoJS.BaseObject.dump(obj);
+
+};
+
+/**
+ * Defines the GeckoJS.Map namespace.
+ *
+ * @public
+ * @namespace
+ */
+GREUtils.define('GeckoJS.Map', GeckoJS.global);
+
+/**
+ * Creates a new GeckoJS.Map instance.
+ * 
+ * @class GeckoJS.Map implements the Map data structure, which is a collectin
+ * of key-value pairs containing no duplicate keys.<br/>
+ *
+ * @name GeckoJS.Map
+ * @class
+ * @extends GeckoJS.BaseObject
+ */
+GeckoJS.Map = GeckoJS.BaseObject.extend('Map', {
+    init: function(){
+
+        this._obj = {};
+		this._keys = [];
+		this._count = 0;
+
+    }
+});
+
+
+/**
+ * Returns the number of elements in a Map.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {Object} obj      This is the Map object, or a function with getCount() method
+ * @return {Number}         The number of elements in the Map
+ */
+GeckoJS.Map.getCount = function(obj){
+
+	if (typeof obj.getCount == 'function') {
+    	return obj.getCount();
+  	}
+
+    var rv = 0;
+    for (var key in obj) {
+        rv++;
+    }
+    return rv;
+};
+
+
+/**
+ * Returns the number of elements in this GeckoJS.Map instance.
+ *
+ * @public
+ * @function
+ * @return {Number}         The number of elements in this Map
+ */
+GeckoJS.Map.prototype.getCount = function(){
+    return this._count;
+};
+
+
+/**
+ * Checks whether an object/hash/map contains the given object as a value.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {Object} obj      This is the object in which to look for val
+ * @param {Object} val      The object for which to check
+ * @return {Boolean}        "true" if "val" is contained in "obj"
+ */
+GeckoJS.Map.contains = function(obj, val){
+    return GeckoJS.Map.containsValue(obj, val);
+};
+
+
+/**
+ * Checks whether this Map contains the given object as a value.
+ *
+ * @public
+ * @function
+ * @param {Object} obj      This is the object in which to look for val
+ * @param {Object} val      The object for which to check
+ * @return {Boolean}        "true" if this Map contains "val"
+ */
+GeckoJS.Map.prototype.contains = function(val){
+    return GeckoJS.Map.contains(this, val);
+};
+
+
+/**
+ * Checks whether an object/hash/map contains the given key.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {Object} obj      This is the object in which to look for key
+ * @param {String} key      The key for which to check
+ * @return {Boolean}        "true" if "key" is contained in "obj"
+ */
+GeckoJS.Map.containsKey = function(obj, key){
+    return key in obj && obj[key] !== Object.prototype[key] ;
+};
+
+
+/**
+ * Checks whether this Map contains the given key.
+ *
+ * @public
+ * @function
+ * @param {Object} key      The key for which to check
+ * @return {Boolean}        "true" if this Map contains "key"
+ */
+GeckoJS.Map.prototype.containsKey = function(key){
+    return GeckoJS.Map.containsKey(this._obj, key);
+};
+
+
+/**
+ * Checks whether an object/hash/map contains the given object as a value.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {Object} obj      This is the object in which to look for val
+ * @param {Object} val      The object for which to check
+ * @return {Boolean}        "true" if "val" is contained in "obj"
+ */
+GeckoJS.Map.containsValue = function(obj, val){
+
+	if(typeof obj.containsValue == 'function') {
+		return obj.containsValue(val);
+	}
+
+    for (var key in obj) {
+        if (obj[key] == val) {
+            return true;
+        }
+    }
+    return false;
+};
+
+
+/**
+ * Checks whether this Map contains the given object as a value.
+ *
+ * @public
+ * @function
+ * @param {Object} obj      This is the object in which to look for val
+ * @param {Object} val      The object for which to check
+ * @return {Boolean}        "true" if this Map contains "val"
+ */
+GeckoJS.Map.prototype.containsValue = function(val){
+
+  for (var i = 0; i < this._keys.length; i++) {
+    var key = this._keys[i];
+    if (this.containsKey(key) && this._obj[key] == val) {
+      return true;
+    }
+  }
+  return false;
+
+};
+
+
+/**
+ * Returns in an array the values contained in an object/hash/map.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {Object} obj      This is the object for which to return the values
+ * @return {Object}         An array of values contained in the object
+ */
+GeckoJS.Map.getValues = function(obj){
+
+	if(typeof obj.getValues == 'function') {
+		return obj.getValues();
+	}
+
+    var res = [];
+    for (var key in obj) {
+        res.push(obj[key]);
+    }
+    return res;
+};
+
+
+/**
+ * Returns in an array the values contained in this Map.
+ *
+ * @public
+ * @function
+ * @return {Object}         An array of values contained in this Map
+ */
+GeckoJS.Map.prototype.getValues = function(){
+	this.updateKeysArray();
+
+	var rv = [];
+	for (var i = 0; i < this._keys.length; i++) {
+    	var key = this._keys[i];
+	    rv.push(this._obj[key]);
+  	}
+    return rv;
+};
+
+
+/**
+ * Returns in an array the keys contained in an object/hash/map.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {Object} obj      This is the object for which to return the keys
+ * @return {Array}          An array of keys contained in the object
+ */
+GeckoJS.Map.getKeys = function(obj){
+
+	if (typeof obj.getKeys == 'function') {
+		return obj.getKeys();
+	}
+
+    var res = [];
+    for (var key in obj) {
+		if(obj[key] !== Object.prototype[key]) res.push(key);
+    }
+    return res;
+};
+
+
+/**
+ * Returns in an array the values contained in this Map.
+ *
+ * @public
+ * @function
+ * @return {Array}          An array of keys contained in this Map
+ */
+GeckoJS.Map.prototype.getKeys = function(){
+
+	this.updateKeysArray();
+	return this._keys.concat();
+
+};
+
+
+/**
+ * Checks whether an object/hash/map is empty.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {Object} obj      This is the object to check
+ * @return {Boolean}        "true" if the object is empty
+ */
+GeckoJS.Map.isEmpty = function(obj){
+
+	if(typeof obj.isEmpty == 'function') {
+		return obj.isEmpty();
+	}
+
+    for (var key in obj) {
+        if(obj[key] !== Object.prototype[key]) return false;
+    }
+    return true;
+};
+
+
+/**
+ * Checks whether this Map is empty.
+ *
+ * @public
+ * @function
+ * @return {Boolean}        "true" if this Map is empty
+ */
+GeckoJS.Map.prototype.isEmpty = function(){
+    return this._count == 0;
+};
+
+
+/**
+ * Removes all key-value pairs from an object/hash/map.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {Object} obj      This is the object from which to remove all key-value pairs
+ */
+GeckoJS.Map.clear = function(obj){
+	if (typeof obj.clear =='function') {
+		return obj.clear();
+	}
+
+    var keys = GeckoJS.Map.getKeys(obj);
+    for (var i = keys.length - 1; i >= 0; i--) {
+        GeckoJS.Map.remove(obj, keys[i]);
+    }
+};
+
+
+/**
+ * Removes all key-value pairs from this Map.
+ *
+ * @public
+ * @function
+ */
+GeckoJS.Map.prototype.clear = function(){
+
+      // delete old reference
+      delete this._obj ;
+
+      // reset
+	  this._obj = {};
+	  this._keys.length = 0;
+	  this._count = 0;
+
+};
+
+
+/**
+ * Removes a key-value pair from an object/hash/map based on the key.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {Object} obj      This is the object from which to remove a key-value pair
+ * @param {String} key      This is the key to remove
+ * @return {Boolean}        "true" if the key-value pair is removed, "false" otherwise
+ */
+GeckoJS.Map.remove = function(obj, key){
+
+	if (typeof obj.remove == 'function') {
+		return obj.remove(key);
+	}
+
+    if ((key in obj && obj[key] !== Object.prototype[key])) {
+        delete obj[key];
+		return true;
+    }
+};
+
+
+/**
+ * Removes a key-value pair from this Map based on the key.
+ *
+ * @public
+ * @function
+ * @param {String} key      This is the key to remove
+ * @return {Boolean}        "true" if the key-value pair is removed, "false" otherwise
+ */
+GeckoJS.Map.prototype.remove = function(key){
+
+  if (this.containsKey(key)) {
+    delete this._obj[key];
+    this._count--;
+
+    // clean up the keys array if the threshhold is hit
+    if (this._keys.length > 2 * this._count) {
+      this.updateKeysArray();
+    }
+
+    return true;
+  }
+  return false;
+};
+
+
+/**
+ * Cleans up the temp keys array by removing entries that are no longer in the
+ * map.
+ * @private
+ */
+GeckoJS.Map.prototype.updateKeysArray = function() {
+  if (this._count != this._keys.length) {
+    // First remove keys that are no longer in the map.
+    var srcIndex = 0;
+    var destIndex = 0;
+    while (srcIndex < this._keys.length) {
+      var key = this._keys[srcIndex];
+      if (this.containsKey(key)) {
+        this._keys[destIndex++] = key;
+      }
+      srcIndex++;
+    }
+    this._keys.length = destIndex;
+  }
+
+  if (this._count != this._keys.length) {
+    // If the count still isn't correct, that means we have duplicates. This can
+    // happen when the same key is added and removed multiple times. Now we have
+    // to allocate one extra Object to remove the duplicates. This could have
+    // been done in the first pass, but in the common case, we can avoid
+    // allocating an extra object by only doing this when necessary.
+    var seen = {};
+    var srcIndex = 0;
+    var destIndex = 0;
+    while (srcIndex < this._keys.length) {
+      var key = this._keys[srcIndex];
+      if (!(GeckoJS.Map.prototype.containsKey(seen, key))) {
+        this._keys[destIndex++] = key;
+        seen[key] = 1;
+      }
+      srcIndex++;
+    }
+    this._keys.length = destIndex;
+  }
+};
+
+/**
+ * Adds a key-value pair to an object/hash/map. If the object/hash/map already
+ * contains the key, an Error exception is thrown.<br/>
+ * <br/>
+ * Use the set() method to replace an existing key-value pair.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {Object} obj      This is the object to which to add a key-value pair
+ * @param {String} key      This is the key to add
+ * @param {Object} val      This is the value to add
+ */
+GeckoJS.Map.add = function(obj, key, val){
+	if(GeckoJS.Map.containsKey(obj, key)) {
+        throw Error('The object already contains the key "' + key + '"');
+    }
+    GeckoJS.Map.set(obj, key, val);
+};
+
+
+/**
+ * Adds a key-value pair to this Map. If the key already exists, an Error
+ * exception is thrown.<br/>
+ * <br/>
+ * Use the set() method to replace an existing key-value pair.
+ *
+ * @public
+ * @function
+ * @param {String} key      This is the key to add
+ * @param {Object} val      This is the value to add
+ */
+GeckoJS.Map.prototype.add = function(key, val){
+    GeckoJS.Map.add(this, key, val);
+};
+
+
+/**
+ * Returns the value for a given key from an object/hash/map. If the key is not
+ * found in the object/hash/map, "opt_val" is returned.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {Object} obj      This is the object from which to get the value
+ * @param {String} key      This is the key for which to get the value
+ * @param {Object} opt_val  This is the value to return if key is not found; defaults to null
+ * @return {Object}         The value for the given key in the object
+ */
+GeckoJS.Map.get = function(obj, key, opt_val){
+	var opt = opt_val || null;
+	if(GeckoJS.Map.containsKey(obj, key)) {
+        return obj[key];
+    }
+    return opt;
+};
+
+
+/**
+ * Returns the value for a given key from this Map. If the key is not found
+ * in the object/hash/map, "opt_val" is returned.
+ *
+ * @public
+ * @function
+ * @param {String} key      This is the key for which to get the value
+ * @param {Object} opt_val  This is the value to return if key is not found; defaults to null
+ * @return {Object}         The value for the given key in this Map
+ */
+GeckoJS.Map.prototype.get = function(key, opt_val){
+    return GeckoJS.Map.get(this._obj, key, opt_val);
+};
+
+
+/**
+ * Adds a key-value pair to an object/hash/map. If the object/hash/map already
+ * contains the key, replaces its current value wih the new value.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {Object} obj      This is the object to which to add a key-value pair
+ * @param {String} key      This is the key to add
+ * @param {Object} val      This is the value to add
+ */
+GeckoJS.Map.set = function(obj, key, value){
+	if(typeof obj.set == 'function') {
+		obj.set(key, value);
+		return;
+	}
+    obj[key] = value;
+	return;
+};
+
+
+/**
+ * Adds a key-value pair to this Map. If the key already exists, replaces its
+ * current value with the new value.
+ *
+ * @public
+ * @function
+ * @param {String} key      This is the key to add
+ * @param {Object} val      This is the value to add
+ */
+GeckoJS.Map.prototype.set = function(key, value){
+
+  if (!this.containsKey(key)) {
+    this._count++;
+    this._keys.push(key);
+  }
+  this._obj[key] = value;
+
+};
+
+
+/**
+ * Adds multiple key-value pairs to this Map from another Map or Object.
+ *
+ * @public
+ * @function
+ * @param {Object} map      This is the Map or Object containing the key-value pairs to add
+ */
+GeckoJS.Map.prototype.addAll = function(map) {
+  var keys, values;
+  if (map instanceof GeckoJS.Map) {
+    keys = map.getKeys();
+    values = map.getValues();
+  } else {
+    keys = GeckoJS.BaseObject.getKeys(map);
+    values = GeckoJS.BaseObject.getValues(map);
+  }
+  for (var i = 0; i < keys.length; i++) {
+    this.set(keys[i], values[i]);
+  }
+};
+
+
+/**
+ * Serializes this Map using JSON encoding.
+ *
+ * @public
+ * @function
+ * @return {String}         The JSON representation of this Set
+ */
+GeckoJS.Map.prototype.serialize = function(){
+	return GeckoJS.BaseObject.serialize(this._obj);
+};
+
+
+/**
+ * Restores this Map to the state represented by the JSON string.
+ *
+ * @public
+ * @function
+ * @param {String} str      The JSON representation of this Set
+ * @return {Object}         The Set represented by the JSON string
+ */
+GeckoJS.Map.prototype.unserialize = function(str) {
+	var res = GeckoJS.BaseObject.unserialize(str);
+	this.clear();
+	return this.addAll(res);
+};
+/**
+ * Defines the GeckoJS.Set namespace.
+ *
+ * @public
+ * @namespace
+ */
+GREUtils.define('GeckoJS.Set', GeckoJS.global);
+
+/**
+ * Creates a new GeckoJS.Set instance and initializes it with an empty set.
+ * 
+ * @class GeckoJS.Set implements the Set data structure, which is a collection
+ * that contains no duplicate elements.<br/>
+ *
+ * @extends GeckoJS.BaseObject
+ */
+GeckoJS.Set = GeckoJS.BaseObject.extend('Set', {
+    init: function(){
+
+        this._map = new GeckoJS.Map();
+
+    }
+});
+
+
+/**
+ * This is used to get the key or the hash. We are not using getHashCode
+ * because it only works with objects
+ * 
+ * @param {*} val Object or primitive value to get a key for.
+ * @return {string} A unique key for this value/object.
+ * @private
+ */
+GeckoJS.Set.getKey = function(val) {
+  var type = typeof val;
+  if (type == 'object') {
+    return 'o' + GeckoJS.getHashCode(val);
+  } else {
+    return type.substr(0, 1) + val;
+  }
+};
+
+
+/**
+ * Returns the number of elements in the Set.
+ *
+ * @public
+ * @function
+ * @return {Number}         The number of elements in the Set
+ */
+GeckoJS.Set.prototype.getCount = function(){
+    return this._map.getCount();
+};
+
+
+/**
+ * Checks if an object is in the Set.
+ *
+ * @public
+ * @function
+ * @param {Object} val      This is the object to check
+ * @return {Boolean}        "true" if the object is in the Set; "false" otherwise
+ */
+GeckoJS.Set.prototype.contains = function(val){
+    return this._map.containsKey(GeckoJS.Set.getKey(val));
+};
+
+
+/**
+ * Returns all elements of the Set in an array.
+ *
+ * @public
+ * @function
+ * @return {Object}          An array containing all the elements of the Set
+ */
+GeckoJS.Set.prototype.getValues = function(){
+    return this._map.getValues();
+};
+
+
+/**
+ * Checks if the Set is empty.
+ *
+ * @public
+ * @function
+ * @return {Boolean}        "true" if the Set if empty; "false" otherwise
+ */
+GeckoJS.Set.prototype.isEmpty = function(){
+    return this._map.isEmpty();
+};
+
+
+/**
+ * Clears the Set (i.e. removes all elements of the Set, making it empty).
+ *
+ * @public
+ * @function
+ */
+GeckoJS.Set.prototype.clear = function(){
+    this._map.clear();
+};
+
+
+/**
+ * Removes an object from the Set.
+ *
+ * @public
+ * @function
+ * @param {Object} obj      This is the object to remove from the Set
+ * @return {Boolean}        "true" if the object exists in and is removed from the Set; "false" otherwise
+ */
+GeckoJS.Set.prototype.remove = function(obj){
+    return this._map.remove( GeckoJS.Set.getKey(obj));
+};
+
+
+/**
+ * Adds an object to the Set.<br/>
+ * <br/>
+ * If the object is already in the Set then no action takes place.
+ *
+ * @public
+ * @function
+ * @param {Object} obj      This is the object to add to the Set
+ */
+GeckoJS.Set.prototype.add = function(obj){
+    this._map.set(GeckoJS.Set.getKey(obj), obj);
+};
+
+
+/**
+ * Adds an object to the Set.<br/>
+ * <br/>
+ * If the object is already in the Set then no action takes place.
+ *
+ * @public
+ * @function
+ * @param {Object} obj}     This is the object to add to the Set
+ */
+GeckoJS.Set.prototype.set = function(obj){
+    this._map.set(GeckoJS.Set.getKey(obj), obj);
+};
+
+
+/**
+ * Adds all the elements from another Set.
+ *
+ * @public
+ * @function
+ * @param {Object} set      This is the Set containing the elements to add
+ */
+GeckoJS.Set.prototype.addAll = function(set) {
+  var values;
+  if (set instanceof GeckoJS.Set) {
+    values = set.getValues();
+  } else {
+    values = GeckoJS.BaseObject.getValues(set);
+  }
+  for (var i = 0; i < values.length; i++) {
+    this.set(values[i]);
+  }
+};
+
+
+/**
+ * Serializes the Set using JSON encoding.
+ *
+ * @public
+ * @function
+ * @return {String}         The JSON representation of this Set
+ */
+GeckoJS.Set.prototype.serialize = function(){
+	return this._map.serialize();
+};
+
+
+/**
+ * Restores this Set to the state represented by the JSON string.
+ *
+ * @public
+ * @function
+ * @param {String} str      The JSON representation of this Set
+ */
+GeckoJS.Set.prototype.unserialize = function(str) {
+	return this._map.unserialize(str);
+};
+/**
+ * Defines the GeckoJS.Log namespace.
+ *
+ */
+GREUtils.define('GeckoJS.Log', GeckoJS.global);
+
+/**
+ * Creates a static GeckoJS.Log instance.
+ * 
+ * @class GeckoJS.Log is a static object meant to be shared across the framework
+ * and perhaps even the user's code. Its purpose is to provide a level-based
+ * logging mechanism that can record log entris to multiple destinations of
+ * various types.<br/>
+ * <br/>
+ * Under this scheme, each log destination is represented by an instance of
+ * a GeckoJS.Log.Appender, and GeckoJS.Log acts as a central point of
+ * dispatch that sends the log messages to the appropriate appenders. The log
+ * level is used as the switch: when a message is logged as a certain level,
+ * it is dispatched only to appenders whose log level is the same or higher.
+ * This allows you to easily stream log messages to different output devices
+ * and/or destinations.<br/>
+ * <br/>
+ * Finally, GeckoJS.Log can also used to instantiate class-specific loggers that
+ * tag each log entry with a class identification string.<br/>
+ * <pre>
+ * - TRACE
+ * - DEBUG
+ * - INFO
+ * - WARN
+ * - ERROR
+ * - FATAL
+ * </pre>
+ * @property {Object} classes            This is used to hold the class-specific loggers
+ * @property {Object} levels             This is the list of built-in log levels
+ * @property {Object} defaultClassLevel  This is the default log level used when creating class-specific loggers
+ * @property {Object} appenders          This is used to hold the appenders
+ * @property {GeckoJS.Log.defaultLogger} This is the default "GeckoJS" logger
+ * @name GeckoJS.Log
+ */
+GeckoJS.Log = GeckoJS.Class.extend('Log', {});
+
+// init static variables
+// FUEL's SessionStorage support
+if (Application.storage.has("GeckoJS_Log_classes")) {
+    GeckoJS.Log.classes = Application.storage.get("GeckoJS_Log_classes", (new GeckoJS.Map()) );
+}else {
+    GeckoJS.Log.classes = new GeckoJS.Map();
+    Application.storage.set("GeckoJS_Log_classes", GeckoJS.Log.classes);
+}
+
+if (Application.storage.has("GeckoJS_Log_appenders")) {
+    GeckoJS.Log.appenders = Application.storage.get("GeckoJS_Log_appenders", (new GeckoJS.Map()) );
+}else {
+    GeckoJS.Log.appenders = (new GeckoJS.Map());
+    Application.storage.set("GeckoJS_Log_appenders", GeckoJS.Log.appenders);
+}
+
+
+//if (Application.storage.has("GeckoJS_Log_defaultClassLevel")) {
+//    GeckoJS.Log.defaultClassLevel = Application.storage.get("GeckoJS_Log_classes", null );
+//}else {
+    GeckoJS.Log.defaultClassLevel = null;
+//    Application.storage.set("GeckoJS_Log_defaultClassLevel", GeckoJS.Log.defaultClassLevel);
+//}
+
+//if (Application.storage.has("GeckoJS_Log_defaultLogger")) {
+//    GeckoJS.Log.defaultLogger = Application.storage.get("GeckoJS_Log_defaultLogger", {} );
+//}else {
+    GeckoJS.Log.defaultLogger = {};
+//    Application.storage.set("GeckoJS_Log_defaultLogger", GeckoJS.Log.defaultLogger);
+//}
+
+GeckoJS.Log.levels = ["TRACE", "DEBUG", "INFO", "WARN", "ERROR", "FATAL"];
+
+/**
+ * Returns in an array the built-in log levels.
+ *
+ * @public
+ * @static
+ * @function
+ * @return {Object}     An array of built-in log levels
+ */
+GeckoJS.Log.getLevels = function () {
+    return GeckoJS.Log.levels;
+};
+
+
+/**
+ * Creates a logger for the given class if such a logger has not already
+ * been created, and returns it. This GeckoJS.Log.ClassLogger instance will log
+ * entries marked as belonging to that specific class.<br/>
+ * <br/>
+ * The class is used only for identification purposes and is not related to
+ * any GeckoJS classes or objects.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} className  		This is the name of the class (just an identifier string).
+ * @return {GeckoJS.Log.ClassLogger} 	A class-specific logger
+ */
+GeckoJS.Log.getLoggerForClass = function (className) {
+    if (!GeckoJS.Log.classes.containsKey(className))
+    {
+        GeckoJS.Log.classes.set(className, new GeckoJS.Log.ClassLogger(className, GeckoJS.Log.defaultClassLevel));
+
+        // resource release guarder
+        window.addEventListener('unload', function(evt) {
+            GeckoJS.Log.classes.remove(className);
+        }, true);
+
+    }
+    return GeckoJS.Log.classes.get(className);
+};
+
+
+/**
+ * Checks if a class-specific logger already exists for a given class.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} className		This is the name of the class to look up
+ * @return {Boolean}                  "true" if a logger already exists for the given class; "false" otherwise
+ */
+GeckoJS.Log.hasLoggerForClass = function (className) {
+    return GeckoJS.Log.classes.containsKey(className);
+};
+
+
+/**
+ * Adds a Log appender.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} name 		This is the name of the appender
+ * @param {GeckoJS.Log.Appender} appender     The instance of the Log appender to add
+ */
+GeckoJS.Log.addAppender = function (name, appender) {
+    if(!GeckoJS.Log.appenders.containsKey(name)) {
+        GeckoJS.Log.appenders.set(name, appender);
+
+        // resource release guarder
+        window.addEventListener('unload', function(evt) {
+            GeckoJS.Log.appenders.remove(name);
+        }, true);
+    }
+};
+
+/**
+ * Removes the specified appender.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} name 		This is the name of the appender to remove
+ */
+GeckoJS.Log.removeAppender = function (name) {
+    GeckoJS.Log.appenders.remove(name);
+};
+
+/**
+ * Retrieves the given appender.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} name 		This is the name of the appender to look for
+ * @return {GeckoJS.Log.Appender}    		The appender instance
+ */
+GeckoJS.Log.getAppender = function (name) {
+    return GeckoJS.Log.appenders.get(name);
+};
+
+
+/**
+ * Dispatches the log message to the appropriate appenders for recording.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} className  		This is the associated log class
+ * @param {GeckoJS.Log.Level} level This is the log level of the message
+ * @param {String} message   		This is the message to log
+ * @param {Object} [exception]      This is an optional exception to use
+ * @return {GeckoJS.Log}            The GeckoJS.Log object;
+ */
+GeckoJS.Log.log = function (className, level, message, exception) {
+
+    var appenders = GeckoJS.Log.appenders.getKeys();
+
+    appenders.forEach(function(appenderName){
+        var appender = GeckoJS.Log.appenders.get(appenderName);
+        try {
+              if (level.isAtLeast(appender.getLevel())) {
+                  appender.append(className, level, message, exception);
+              }
+        }catch(e) {
+            // maybe append at openwindow, and window closed
+            GeckoJS.Log.appenders.remove(appenderName);
+            GREUtils.log(appenderName + ", " + e );
+        }
+    });
+
+    return GeckoJS.Log;
+    
+};
+
+
+/**
+ * Initializes GeckoJS.Log and instantiates a default Logger of class "GeckoJS".
+ *
+ * @private
+ * @param {String} defClassLevel        The default level to use
+ */
+GeckoJS.Log.init = function (defClassLevel)
+{
+    var levels = GeckoJS.Log.getLevels();
+    for (var i=0; i<levels.length; i++)	{
+        var levelName = levels[i];
+        GeckoJS.Log[levelName] = new GeckoJS.Log.Level(levelName, i);
+    }
+    GeckoJS.Log.defaultClassLevel = GeckoJS.Log[defClassLevel];
+
+    GeckoJS.Log.defaultLogger = GeckoJS.Log.getLoggerForClass("GeckoJS");
+
+};
+
+
+/**
+ * Logs a message at the "TRACE" level.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} message		This is the message to append to the log.
+ * @param {Error} [exception]   This is an optional error or exception to be logged
+ * @return {GeckoJS.Log.ClassLogger}    The default logger object
+ */
+GeckoJS.Log.trace = function () {
+    return GeckoJS.Log.defaultLogger.trace.apply(GeckoJS.Log.defaultLogger, arguments);
+};
+
+/**
+ * Logs a message at the "DEBUG" level.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} message		This is the message to append to the log.
+ * @param {Error} [exception]   This is an optional error or exception to be logged
+ * @return {GeckoJS.Log.ClassLogger}    The default logger object
+ */
+GeckoJS.Log.debug = function () {
+    return GeckoJS.Log.defaultLogger.debug.apply(GeckoJS.Log.defaultLogger, arguments);
+};
+
+/**
+ * Logs a message at the "INFO" level.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} message		This is the message to append to the log.
+ * @param {Error} [exception]   This is an optional error or exception to be logged
+ * @return {GeckoJS.Log.ClassLogger}    The default logger object
+ */
+GeckoJS.Log.info = function () {
+    return GeckoJS.Log.defaultLogger.info.apply(GeckoJS.Log.defaultLogger, arguments);
+};
+
+/**
+ * Logs a message at the "WARN" level.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} message		This is the message to append to the log.
+ * @param {Error} [exception]   This is an optional error or exception to be logged
+ * @return {GeckoJS.Log.ClassLogger}    The default logger object
+ */
+GeckoJS.Log.warn = function () {
+    return GeckoJS.Log.defaultLogger.warn.apply(GeckoJS.Log.defaultLogger, arguments);
+};
+
+/**
+ * Logs a message at the "ERROR" level.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} message		This is the message to append to the log.
+ * @param {Error} [exception]   This is an optional error or exception to be logged
+ * @return {GeckoJS.Log.ClassLogger}    The default logger object
+ */
+GeckoJS.Log.error = function () {
+    return GeckoJS.Log.defaultLogger.error.apply(GeckoJS.Log.defaultLogger, arguments);
+};
+
+/**
+ * Logs a message at the "FATAL" level.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} message		This is the message to append to the log.
+ * @param {Error} [exception]   This is an optional error or exception to be logged
+ * @return {GeckoJS.Log.ClassLogger}    The default logger object
+ */
+GeckoJS.Log.fatal = function () {
+    return GeckoJS.Log.defaultLogger.fatal.apply(GeckoJS.Log.defaultLogger, arguments);
+};
+/**
+ * Creates a new GeckoJS.Log.Level instance with the given name and severity.
+ *
+ * @class GeckoJS.Log.Level is used to define logging levels. Each level is
+ * associated with a name and a numeric value representing severity (higher
+ * is more severe.)<br/>
+ * 
+ * @param {String} name		This is the name of the logging level
+ * @param {Number} value	This is the severity
+ */
+GeckoJS.Log.Level = function (name, value) {
+	this.name = name.toUpperCase();
+	this.value = value;
+};
+
+/**
+ * Returns the textual representation of the logging level, namely its name.
+ *
+ * @public
+ * @function
+ * @return {String} The textual representation of the logging level
+ */
+GeckoJS.Log.Level.prototype.toString = function () {
+	return this.name;
+};
+
+/**
+ * A common comparison operator on Level objects: is the current level
+ * at or above the given level?
+ *
+ * @public
+ * @function
+ * @param {Number} otherLevel  the severity level to compare against
+ * @return {Boolean} 		"true" if this logging level matches or is above the given level
+ */
+GeckoJS.Log.Level.prototype.isAtLeast = function (otherLevel) {
+	return this.value >= otherLevel.value;
+};
+
+/**
+ * A common comparison operator on Level objects: is the current level
+ * at or below the given level?
+ *
+ * @public
+ * @function
+ * @param {Number} otherLevel  the severity level to compare against
+ * @return {Boolean} 		"true" if this logging level matches or is below the given level
+ */
+GeckoJS.Log.Level.prototype.isAtOrBelow = function (otherLevel) {
+	return this.value <= otherLevel.value;
+};
+
+/**
+ * A common comparison operator on Level objects: is the current level
+ * below the given level?
+ *
+ * @public
+ * @function
+ * @param {Number} otherLevel  the severity level to compare against
+ * @return {Boolean} 		"true" if this logging level is below the given level
+ */
+GeckoJS.Log.Level.prototype.isBelow = function (otherLevel) {
+	return this.value < otherLevel.value;
+};
+
+/**
+ * Creates a new GeckoJS.Log.ClassLogger instance and initializes it with
+ * a class name and a log level.
+ * 
+ * @class GeckoJS.Log.ClassLogger is used to log class-specific messages.
+ * Each GeckoJS.Log.ClassLogger instance is associated with a class name and
+ * a log level. The class logger will only record log messages at or above
+ * its level, and each log entry will be tagged with its class name.<br/>
+ *
+ * @param {String} name 		This is the class name
+ * @param {GeckoJS.Log.Level} level     This is the log level
+ */
+GeckoJS.Log.ClassLogger = function (name, level) {
+    this.className = name;
+    this.level = level || GeckoJS.Log.defaultClassLevel;
+};
+
+/**
+ * Logs a message.
+ *
+ * @param {GeckoJS.Log.Level} level 		This is the level at which to log the message
+ * @param {String} message           		This is the message (the module and caller will be prepended automatically)
+ * @param {Exception} [exception]           This is an optional exception to log
+ * @return {GeckoJS.Log.ClassLogger}        This GeckoJS.Log.ClassLogger instance
+ */
+GeckoJS.Log.ClassLogger.prototype.log = function (level, message, exception)
+{
+    if (level.isBelow(this.level))
+    {
+        return this;
+    }
+    // message = "[" + this.className + "] " + message;
+    try {
+        GeckoJS.Log.log(this.className, level, message, exception); 
+    }catch(e) {
+    }
+    return this;
+    
+};
+
+
+/**
+ * Returns the current log level.
+ *
+ * @return {GeckoJS.Log.Level}		The current log level
+ */
+GeckoJS.Log.ClassLogger.prototype.getLevel = function getLevel()
+{
+    return this.level;
+};
+
+/**
+ * Sets the log level.
+ *
+ * @param {GeckoJS.Log.Level} level     This is the log level to set this instance to
+ * @return {GeckoJS.Log.ClassLogger}    This GeckoJS.Log.ClassLogger instance
+ */
+GeckoJS.Log.ClassLogger.prototype.setLevel = function setLevel(level)
+{
+    this.level = level;
+    
+    return this;
+};
+
+
+/**
+ * Logs a message at the "TRACE" level.
+ *
+ * @param {String} message		This is the message to append to the log.
+ * @param {Error} [exception]   This is an optional error or exception to be logged
+ * @return {GeckoJS.Log.ClassLogger}        This GeckoJS.Log.ClassLogger instance
+ */
+GeckoJS.Log.ClassLogger.prototype.trace = function(message, exception) {
+    return this.log(GeckoJS.Log.TRACE, message, exception);
+};
+
+/**
+ * Logs a message at the "DEBUG" level.
+ *
+ * @param {String} message		This is the message to append to the log.
+ * @param {Error} [exception]   This is an optional error or exception to be logged
+ * @return {GeckoJS.Log.ClassLogger}        This GeckoJS.Log.ClassLogger instance
+ */
+GeckoJS.Log.ClassLogger.prototype.debug = function(message, exception) {
+    return this.log(GeckoJS.Log.DEBUG, message, exception);
+};
+
+/**
+ * Logs a message at the "INFO" level.
+ *
+ * @param {String} message		This message to append to the log.
+ * @param {Error} [exception]   This is an optional error or exception to be logged
+ * @return {GeckoJS.Log.ClassLogger}        This GeckoJS.Log.ClassLogger instance
+ */
+GeckoJS.Log.ClassLogger.prototype.info = function(message, exception) {
+    return this.log(GeckoJS.Log.INFO, message, exception);
+};
+
+/**
+ * Logs a message at the "WARN" level.
+ *
+ * @param {String} message		This is the message to append to the log.
+ * @param {Error} [exception]   This is an optional error or exception to be logged
+ * @return {GeckoJS.Log.ClassLogger}        This GeckoJS.Log.ClassLogger instance
+ */
+GeckoJS.Log.ClassLogger.prototype.warn = function(message, exception) {
+    return this.log(GeckoJS.Log.WARN, message, exception);
+};
+
+/**
+ * Logs a message at the "ERROR" level.
+ *
+ * @param {String} message		This is the message to append to the log.
+ * @param {Error} [exception]   This is an optional error or exception to be logged
+ * @return {GeckoJS.Log.ClassLogger}        This GeckoJS.Log.ClassLogger instance
+ */
+GeckoJS.Log.ClassLogger.prototype.error = function(message, exception) {
+    return this.log(GeckoJS.Log.ERROR, message, exception);
+};
+
+/**
+ * Logs a message at the "FATAL" level.
+ *
+ * @param {String} message		This is the message to append to the log.
+ * @param {Error} [exception]   This is an optional error or exception to be logged
+ * @return {GeckoJS.Log.ClassLogger}        This GeckoJS.Log.ClassLogger instance
+ */
+GeckoJS.Log.ClassLogger.prototype.fatal = function(message, exception) {
+    return this.log(GeckoJS.Log.FATAL, message, exception);
+};
+
+/**
+ * Creates a new GeckoJS.Log.Appender instance and initializes it with a
+ * log level.
+ *
+ * @class GeckoJS.Log.Appender is the base Log Appender class. A log appender
+ * performs the recording of log messages to an output device, which may be
+ * the console, a file, or a network end-point, for example. <br/>
+ * <br/>
+ * Each appender is assigned a log level; the appender will only process
+ * messages at or above its assigned level.<br/>
+ * <br/>
+ * This is an abstract class and should be extended by sub-classes that
+ * implement the actual writing of the log messages to specific output
+ * devices.<br/>
+ * 
+ * @name GeckoJS.Log.Appender
+ * @param {GeckoJS.Log.Level} level  This is the log level
+ */
+GeckoJS.Log.Appender = GeckoJS.Class.extend('Appender', {
+    init: function (level) {
+        this.level = level;
+    }
+});
+
+/**
+ * Formats a log message for output.
+ *
+ * @public
+ * @function
+ * @param {String} className 		This is the name of the class to use
+ * @param {GeckoJS.Log.Level} level	This is the level to use for this message
+ * @param {String} message   		This is the message to log
+ * @param {Object} [exception] 		This is an optional exception object to use
+ * @return {String} formattedMessage     The appropriately formatted log message
+ */
+GeckoJS.Log.Appender.prototype.getFormattedMessage = function (className, level, message, exception) {
+
+    level = level || this.level || GeckoJS.Log.defaultClassLevel;
+
+    var today = new Date();
+    var formattedDate = today.getUTCFullYear() + "-" + GeckoJS.String.padLeft(today.getUTCMonth(), 2) + "-" + GeckoJS.String.padLeft(today.getUTCDate(), 2) + " " +
+    GeckoJS.String.padLeft(today.getUTCHours(), 2) + ":" + GeckoJS.String.padLeft(today.getUTCMinutes(), 2) + ":" + GeckoJS.String.padLeft(today.getUTCSeconds(), 2);
+
+    var formattedException = '';
+    if(exception) {
+        // delete exception.stack;
+        // delete exception.source;
+
+        formattedException = '; ' + GeckoJS.BaseObject.dump(exception);
+
+        var stack = Components.stack.caller;
+
+        var iterations = 0;
+        var stackTrace = [];
+        var MAX_ITERATIONS = 50;
+        while (stack && (iterations < MAX_ITERATIONS))
+        {
+            if (stack==null || typeof stack == 'undefined') break;
+
+            var name = (stack.name == null) ? '<no name>' : stack.name;
+
+            // skip geckojs / greutils and binding
+            if (stack.filename != null && stack.filename.match(/geckojs|greutils/i)) {
+                
+            }else {
+                stackTrace.push("[name: " + name + "] [line: " + stack.lineNumber + "] [filename: " + stack.filename + "]");
+            }
+            stack = stack.caller;
+            iterations++;
+        }
+
+        formattedException += "; Components.stack.caller \n" + GeckoJS.BaseObject.dump(stackTrace);
+
+    }
+
+    var formattedMessage = formattedDate + " : [" + level + "] [" + className + "] " + message + formattedException + "\n";
+    
+    return formattedMessage;
+};
+
+
+/**
+ * Appends a log message
+ *
+ * @public
+ * @function
+ * @param {String} className 		This is the name of the class to use
+ * @param {GeckoJS.Log.Level} level	This is the level to use for this message
+ * @param {String} message   		This is the message to log
+ * @param {Object} [exception] 		This is the optional exception object to use
+ */
+GeckoJS.Log.Appender.prototype.append = function (className, level, message, exception) {
+};
+
+
+/**
+ * Returns the log level to which this appender is set. Messages below this
+ * level will not be logged.
+ *
+ * @public
+ * @function
+ * @return {GeckoJS.Log.Level} 		The current log level
+ */
+GeckoJS.Log.Appender.prototype.getLevel = function () {
+    return this.level;
+};
+
+/**
+ * Sets the appender's log level. The appender will not log messages below this
+ * level.
+ *
+ * @public
+ * @function
+ * @param {GeckoJS.Log.Level} level  This is the log level to assign to the appender
+ */
+GeckoJS.Log.Appender.prototype.setLevel = function setLevel(level) {
+    this.level = level;
+};
+
+
+
+/**
+ * Returns the appender's name.
+ * 
+ * @public
+ * @function
+ * @return {String} 		The appender's name
+ */
+GeckoJS.Log.Appender.prototype.toString = function() {
+    return "["+ this.getClassName() +"]";
+};
+
+/**
+ * Creates a new GeckoJS.Log.ConsoleAppender instance and initializes it with
+ * a log level.
+ *
+ * @class GeckoJS.Log.ConsoleAppender is a log appender that records log
+ * messages to the console.<br/>
+ * <br/>
+ * Each GeckoJS.Log.ConsoleAppender is assigned a log level; the appender will
+ * only output to the console messages at or above its assigned level.<br/>
+ *
+ * @name GeckoJS.Log.ConsoleAppender
+ * @extends GeckoJS.Log.Appender
+ *
+ * @param {GeckoJS.Log.Level} level  This is the logl level
+ */
+GeckoJS.Log.ConsoleAppender = GeckoJS.Log.Appender.extend('ConsoleAppender', {
+    init: function(level) {
+        this.level = level;
+    }
+});
+
+
+/**
+ * Logs a message by appending it to the end of the console device.
+ *
+ * @public
+ * @function
+ * @param {String} className 		This is the name of the class to use
+ * @param {GeckoJS.Log.Level} level	This is the log level to use for this message
+ * @param {String} message   		This is the message to log
+ * @param {Object} [exception] 		This is an optional exception object to use
+ * @return {GeckoJS.Log.ConsoleAppender} This GeckoJS.Log.ConsoleAppender instance
+ */
+GeckoJS.Log.ConsoleAppender.prototype.append = function (className, level, message, exception) {
+
+    GREUtils.XPCOM.getUsefulService("consoleservice").logStringMessage(this.getFormattedMessage(className, level, message, exception));
+    return this;
+
+};
+
+/**
+/**
+ * Creates a new GeckoJS.Log.FileAppender instance and initializes it with a
+ * log level and the path to the log file.
+ *
+ * @class GeckoJS.Log.ConsoleAppender is a log appender that records log
+ * messages to a file.<br/>
+ * <br/>
+ * Each GeckoJS.Log.FileAppender is assigned a log level; the appender will
+ * only output to the log file messages at or above its assigned level.<br/>
+ *
+ * @name GeckoJS.Log.FileAppender
+ * @extends GeckoJS.Log.Appender
+ *
+ * @param {GeckoJS.Log.Level} level  This is the log level
+ * @param {String} logFile   		This is the path to the log file
+ */
+GeckoJS.Log.FileAppender = GeckoJS.Log.Appender.extend('FileAppender', {
+    
+    init: function(level, logFile) {
+        this.level = level;
+        this.logFile = logFile || null;
+    }
+});
+
+
+/**
+ * Logs a message by appending it to the end of the log file.
+ *
+ * @param {String} className 		This is the name of the class to use
+ * @param {GeckoJS.Log.Level} level	This is the level to use for this message
+ * @param {String} message   		This is the message to log
+ * @param {Object} [exception] 		This is an optional exception object to use
+ * @return {GeckoJS.Log.FileAppender} This GeckoJS.Log.FileAppender instance
+ */
+GeckoJS.Log.FileAppender.prototype.append = function (className, level, message, exception) {
+    GeckoJS.File.appendLine(this.logFile, this.getFormattedMessage(className, level, message, exception));
+    return this;
+};
+/**
+ * Defines the GeckoJS.EventItem namespace.
+ *
+ * @public
+ * @namespace
+ */
+GREUtils.define('GeckoJS.EventItem', GeckoJS.global);
+
+/**
+ * Creates a new GeckoJS.EventItem instance and initializes its type, data, and
+ * target fields.
+ * 
+ * @class GeckoJS.EventItem represents an occurrence of an event in VIVIPOS
+ * APP Engine MVC Framework.<br/>
+ *
+ * @name GeckoJS.EventItem
+ * @property {Boolean} cancel       The cancel status of the event item; initially "false"; changes to "true" when preventDefault() is invoked on the EventItem instance (read-only)
+ *     
+ * @param {String} type             This is the event type
+ * @param {Object} data             This is the event data
+ * @param {Object} target           This is the event target
+ */
+GeckoJS.EventItem = function(type, data, target){
+
+    this.type = type;
+    this.data = (typeof data != 'undefined') ? data : null;
+	this.target = target || this;
+
+	// is Event Cancel
+        
+    this._cancel = false;
+
+};
+
+// cancel getter
+GeckoJS.EventItem.prototype.__defineGetter__('cancel', function(){
+    return this._cancel;
+});
+
+/**
+ * Returns the event name of this event item.
+ *
+ * @public
+ * @function
+ * @return {String}         The event name of this event item
+ */
+GeckoJS.EventItem.prototype.getType = function() {
+	return this.type;
+};
+
+
+/**
+ * Returns the event data of this event item.
+ *
+ * @public
+ * @function
+ * @return {Object}         The event data of this event item
+ */
+GeckoJS.EventItem.prototype.getData = function() {
+	return this.data;
+};
+
+/**
+ * Returns the event target of this event item.
+ *
+ * @public
+ * @function
+ * @return {Object}         The event target of this event item
+ */
+GeckoJS.EventItem.prototype.getTarget = function() {
+	return this.target;
+};
+
+
+/**
+ * Returns the cancel status of this event item (i.e. whether preventDefault()
+ * has been invoked on this event item.) 
+ *
+ * @public
+ * @function
+ * @return {Boolean}         The cancel status of this event item
+ */
+GeckoJS.EventItem.prototype.isCancel = function() {
+	return this.cancel;
+};
+
+/**
+ * Causes the Event dispatcher that created this EventItem instance to return
+ * "false" to the dispatcher's caller.
+ *
+ * @public
+ * @function
+ */
+GeckoJS.EventItem.prototype.preventDefault = function(){
+    this._cancel = true;
+};
+/**
+ * Defines the GeckoJS.Event namespace.
+ *
+ * @public
+ * @namespace
+ */
+GREUtils.define('GeckoJS.Event', GeckoJS.global);
+
+/**
+ * Creates a new GeckoJS.Event instance and initializes it with an empty list
+ * of listeners.
+ * 
+ * @class GeckoJS.Event is used to associate MVC events with event listeners in
+ * the GeckoJS APP Engine.<br/>
+ * <br/>
+ * GeckoJS.Event provides a mechanism for global callbacks to be hooked into
+ * the event dispatching flow. A global callback may be of type "before" or
+ * "after". Before dispatching any event, GeckoJS.Event will invoke each of the
+ * callbacks in turn, and will stop when either all the callbacks have been
+ * invoked, or if a callback cancels the callback chain by calling
+ * preventDefault() on the EventItem. Similarly, "after" callbacks are invoked
+ * after the event has been dispatched (the event is dispatched regardless of
+ * the results of the "before" callbacks.)<br/>
+ * <br/>
+ * Each callback may be an object or a function; if an object, it should have
+ * a "handleEvent" property containing a function. GeckoJS.Event will invoke
+ * the callback in the scope given when the callback is added (through
+ * "addCallback" with an EventItem argument containing the name, data, and
+ * target of the event being dispatched.<br/>
+ * 
+ * @name GeckoJS.Event
+ * @class
+ *
+ * @property {Object} listeners   An array of event listeners (read-only)
+ *
+ */
+
+GeckoJS.Event = GeckoJS.BaseObject.extend('Event', {
+    init: function(listeners){
+        this.listeners = listeners || [];
+    }
+});
+/*
+GeckoJS.Event = function(){
+    this.listeners = [];
+};
+*/
+
+/**
+ * An array of global event callbacks
+ * 
+ * @public
+ * @static
+ * @field {Object} callbacks
+ */
+// GeckoJS.Event.callbacks = [];
+if (Application.storage.has("GeckoJS_Event_callbacks")) {
+    GeckoJS.Event.callbacks = Application.storage.get("GeckoJS_Event_callbacks", (new Array()) );
+}else {
+    GeckoJS.Event.callbacks = (new Array());
+    Application.storage.set("GeckoJS_Event_callbacks", GeckoJS.Event.callbacks);
+}
+
+
+/**
+ * Adds a global event callback.<br/>
+ * <br/>
+ * This method checks if the same event-callback combination already exists
+ * before adding a new callback.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} aType          This is the type of callback to add ("before" or "after")
+ * @param {Object} aCallback    This is the callback function or object
+ * @param {Object} thisObj        Locking its execution scope to this object
+ */
+GeckoJS.Event.addCallback = function(aType, aCallback, thisObj){
+
+    if(!aType || !aCallback) return;
+
+    if (GeckoJS.Event.callbacks.some(function(element){
+        return element.type == aType && element.callback == aCallback;
+    })) return;
+
+    // add id
+    if(!aCallback.__hashCode) aCallback.__hashCode = GeckoJS.String.uuid();
+
+    GeckoJS.Event.callbacks.push({
+        type: aType.toLowerCase(),
+        callback: aCallback,
+        thisObj: thisObj || GeckoJS.global
+    });
+
+    // resource release guarder
+    if(typeof window != 'undefined') {
+        var self = this;
+        window.addEventListener('unload', function(evt) {
+            GeckoJS.Event.removeCallback(aType, aCallback);
+        }, true);
+    }
+
+};
+
+/**
+ * Removes a global event callback.<br/>
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} aType          This is the event for type of callback is to be added , before or after
+ * @param {Function} aCallback    This is the callback function to add
+ */
+GeckoJS.Event.removeCallback = function(aType, aCallback){
+
+    for (var i = GeckoJS.Event.callbacks.length -1; i >0; i--) {
+        var element = GeckoJS.Event.callbacks[i];
+        if ( element.type == aType && (element.callback == aCallback || element.callback.__hashCode == aCallback.__hashCode) ) {
+            this.GeckoJS.Event.callbacks.splice(i,1);
+        }
+
+    }
+    /*
+    GeckoJS.Event.callbacks = GeckoJS.Event.callbacks.filter(function(element){
+        return element.type != aType && element.callback != aCallback;
+    });
+    */
+
+};
+
+/**
+ * Invokes global event callbacks.<br/>
+ * <br/>
+ * Callbacks are invoked in turn until a callback stops the chain by calling
+ * preventDefault() on the EventItem or until all the callbacks have been
+ * invoked.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} aType          This is the type of callback to invoke ("before" or "after")
+ * @param {GeckoJS.EventItem} aEventItem     This is the EventItem to pass to the callbacks
+ */
+GeckoJS.Event.processCallback = function(aType, aEventItem){
+    
+    GeckoJS.Event.callbacks.forEach(function(key){
+        if (key.type == aType && !aEventItem.cancel) {
+
+            try {
+                key.callback.handleEvent ? key.callback.handleEvent.call(key.thisObj, aEventItem) : key.callback.call(key.thisObj, aEventItem);                
+            }catch(e) {
+                GeckoJS.Event.log('Event', 'ERROR', 'GeckoJS.Event.processCallback', e);
+            }
+        }
+    });
+    
+};
+
+
+/**
+ * Adds a listener for an event.<br/>
+ * <br/>
+ * This method checks if the same event-listener combination already exists
+ * before adding a new listener.
+ *
+ * @public
+ * @function
+ * @param {String} aEvent         This is the event for which a listener is to be added
+ * @param {Function} aListener    This is the listener function to add
+ * @param {Object} thisObj        Locking its execution scope to this object
+ */
+GeckoJS.Event.prototype.addListener = function(aEvent, aListener, thisObj){
+    
+    if(!aEvent || !aListener) return;
+
+    if (this.listeners.some(function(element){
+        return element.event == aEvent && element.listener == aListener;
+    })) return;
+
+    // add id
+    if(!aListener.__hashCode) aListener.__hashCode = GeckoJS.String.uuid();
+    
+    this.listeners.push({
+        event: aEvent,
+        listener: aListener,
+        thisObj: thisObj || GeckoJS.global
+    });
+
+    // resource release guarder
+    if(typeof window != 'undefined') {
+        var self = this;
+        window.addEventListener('unload', function(evt) {
+            self.removeListener(aEvent, aListener);
+        }, true);
+    }
+/*
+    function hasFilter(element){
+        return element.event == aEvent && element.listener == aListener;
+    }*/
+};
+
+/**
+ * Removes a listener for an event.<br/>
+ *
+ * @public
+ * @function
+ *
+ * @param {String} aEvent         This is the event for which a listener is to be removed
+ * @param {Function} aListener    This is the listener function to be removed
+ */
+GeckoJS.Event.prototype.removeListener = function(aEvent, aListener){
+
+    for (var i = this.listeners.length -1; i >0; i--) {
+        var element = this.listeners[i];
+        if ( element.event == aEvent && (element.listener == aListener || element.listener.__hashCode == aListener.__hashCode) ) {
+            this.listeners.splice(i,1);
+        }
+
+    }
+    /*
+    this.listeners = this.listeners.filter(function(element){
+        return !(element.event == aEvent && (element.listener == aListener) );
+    });
+    */
+
+};
+
+/**
+ * Dispatches an event to all listeners of that event.<br/>
+ * <br/>
+ * This method creates an EventItem instance from the input parameters to pass
+ * to the event listeners. If any of the listeners invokes the preventDefault()
+ * method on the EventItem instance, this method will return "false". Otherwise
+ * it returns "true".
+ *
+ * @public
+ * @function
+ * @param {String} aEvent         This is the name of the event to dispatch
+ * @param {Object} aEventData     This is the event data to dispatch
+ * @param {Object} aTarget        This is the event target
+ * @return {Boolean}              Whether preventDefault() has been invoked on the event
+ */
+GeckoJS.Event.prototype.dispatch = function(aEvent, aEventData, aTarget){
+    var eventItem = new GeckoJS.EventItem(aEvent, aEventData, aTarget);
+
+    this.listeners.forEach(function(key){
+        GeckoJS.Event.processCallback("before", eventItem);
+        
+        if (key.event == aEvent && !eventItem.cancel) {
+
+            try {
+                key.listener.handleEvent ? key.listener.handleEvent.call(key.thisObj, eventItem) : key.listener.call(key.thisObj, eventItem);
+            }catch(e) {
+                GeckoJS.Event.log('Event', 'ERROR', 'GeckoJS.Event.dispatch (' + key.event +') ', e);
+            }
+
+        }
+        
+        GeckoJS.Event.processCallback("after", eventItem);
+    });
+
+    return !eventItem.cancel;
+};
+/**
+ * Defines the GeckoJS.Filter namespace.
+ *
+ * @public
+ * @namespace
+ */
+GREUtils.define('GeckoJS.Filter', GeckoJS.global);
+
+/**
+ * Creates a new GeckoJS.Filter instance and initializes it with an empty
+ * list of callbacks.
+ * @deprecated Use GeckoJS.Event instead
+ *
+ * @class [deprecated] GeckoJS.Filter is used to associate MVC actions with a chain of
+ * filter functions in the GeckoJS App Engine.<br/>
+ *
+ * @name GeckoJS.Filter
+ * @property {Object} callbacks   An array of filter functions
+ */
+GeckoJS.Filter = function(){
+    this.callbacks = [];
+};
+
+/**
+ * Adds a filter for an action to the filter chain.<br/>
+ * <br/>
+ * This method checks if the same filter type/callback combination already exists
+ * before adding a new filter.
+ *
+ * @public
+ * @function
+ * @param {Object} aType          This is the type of filter to add
+ * @param {Function} aFilter      This is the filter function to add
+ */
+GeckoJS.Filter.prototype.addFilter = function(aType, aFilter){
+    if (this.callbacks.some(hasFilter))
+        return;
+
+    this.callbacks.push({
+        type: aType,
+        filter: aFilter
+    });
+
+    function hasFilter(element){
+        return element.type == aType && element.filter == aFilter;
+    }
+};
+
+/**
+ * Removes a filter from the filter chain.
+ *
+ * @public
+ * @function
+ *
+ * @param {Object} aType          This is the type of filter to remove
+ * @param {Function} aFilter      This is the filter function to removed
+ */
+GeckoJS.Filter.prototype.removeFilter = function(aType, aFilter){
+    this.callbacks = this.callbacks.filter(function(element){
+        return element.type != aType && element.filter != aFilter;
+    });
+};
+
+/**
+ * Processes each filter of a given type in the filter chain in order.<br/>
+ * <br/>
+ * This method creates an EventItem instance from the input parameters to pass
+ * to the filter functions. If any of the filters fails (i.e. returns "false")
+ * then the chain is broken, subsequent filters are not called, and "false" is
+ * returned.<br/>
+ * <br/>
+ * Otherwise "true" is returned.s
+ *
+ * @public
+ * @function
+ * @param {String} aType          This is the type of filters to process
+ * @param {Object} aEventData     This is the data to pass to the filter functions
+ * @param {Object} aTarget        This is the target to pass to the filter functions
+ * @return {Boolean}              Whether all filters pass (i.e. return "true")
+ */
+GeckoJS.Filter.prototype.process = function(aType, aEventData, aTarget) {
+	var eventItem = new GeckoJS.EventItem(aType, aEventData, aTarget);
+
+    var filterChain = true;
+
+    this.callbacks.forEach(function(key){
+
+        if (key.type == aType && filterChain == true) {
+
+			try {
+            	filterChain = key.filter.handleFilter ? key.filter.handleFilter(eventItem) : key.filter(eventItem);
+			}catch(e) {
+				this.log('[Error] GeckoJS.Filter.process ' + e.message);
+				// make other filter to run
+				filterChain = true;
+			}
+        }
+
+    });
+    return filterChain;
+};
+/**
+ * Defines the  GeckoJS.Inflector namespace
+ * 
+ * @public
+ * @namespace
+ */
+GREUtils.define('GeckoJS.Inflector', GeckoJS.global);
+
+
+/**
+ * Creates a new GeckoJS.Inflector instance.
+ * 
+ * @class GeckoJS.Inflector provides a Rails-like set of methods for inflecting
+ * natural language words.<br/>
+ *
+ * @public
+ * @name GeckoJS.Inflector
+ * @class
+ */
+GeckoJS.Inflector = function(){
+    };
+
+// GREUtils.inherits(GeckoJS.Inflector, GeckoJS.BaseObject);
+
+/**
+ * Inflections
+ * @private
+ * @field Inflections
+ */
+GeckoJS.Inflector.Inflections = {
+    plural: [
+    [/(s)tatus$/i,               "$1tatuses"  ],
+    [/(quiz)$/i,               "$1zes"  ],
+    [/^(ox)$/i,                "$1en"   ],
+    [/([m|l])ouse$/i,          "$1ice"  ],
+    [/(matr|vert|ind)ix|ex$/i, "$1ices" ],
+    [/(x|ch|ss|sh)$/i,         "$1es"   ],
+    [/([^aeiouy]|qu)y$/i,      "$1ies"  ],
+    [/(hive)$/i,               "$1s"    ],
+    [/(?:([^f])fe|([lr])f)$/i, "$1$2ves"],
+    [/sis$/i,                  "ses"    ],
+    [/([ti])um$/i,             "$1a"    ],
+    [/(p)erson$/i,             "$1eople"],
+    [/(m)an$/i,                "$1en"   ],
+    [/(c)hild$/i,              "$1hildren"   ],
+    [/(buffal|tomat)o$/i,      "$1oes"  ],
+    [/(alumn|bacill|cact|foc|fung|nucle|radi|stimul|syllab|termin|vir)us$/i,                "$1i"  ],
+    [/us$/i,                "uses"  ],
+    [/(alias)$/i,       "$1es"   ],
+    [/(octop|vir)us$/i,        "$1i"    ],
+    [/(ax|cri|test)is$/i,      "$1es"   ],
+    [/s$/i,                    "s"      ],
+    [/$/,                      "s"      ]
+    ],
+
+    singular: [
+    [/(s)tatuses$/i,                                                    "$1tatus"     ],
+    [/^(.*)(menu)s$/i,                                                    "$1$2"     ],
+    [/(quiz)zes$/i,                                                    "$1"     ],
+    [/(matr)ices$/i,                                                   "$1ix"   ],
+    [/(vert|ind)ices$/i,                                               "$1ex"   ],
+    [/^(ox)en/i,                                                       "$1"     ],
+    [/(alias)(es)*$/i,                                             "$1"     ],
+    [/(alumn|bacill|cact|foc|fung|nucle|radi|stimul|syllab|termin|viri?)i$/i,   "$1us"     ],
+    [/(cris|ax|test)es$/i,                                             "$1is"   ],
+    [/(shoe)s$/i,                                                       "$1"],
+    [/(octop|vir)i$/i,                                                 "$1us"   ],
+    [/ouses$/i,                                                        "ouse"   ],
+    [/uses$/i,                                                         "us"     ],
+    [/([m|l])ice$/i,                                                   "$1ouse" ],
+    [/(x|ch|ss|sh)es$/i,                                               "$1"     ],
+    [/(m)ovies$/i,                                                     "$1ovie" ],
+    [/(s)eries$/i,                                                     "$1eries"],
+    [/([^aeiouy]|qu)ies$/i,                                            "$1y"    ],
+    [/([lr])ves$/i,                                                    "$1f"    ],
+    [/(tive)s$/i,                                                      "$1"     ],
+    [/(hive)s$/i,                                                      "$1"     ],
+    [/(drive)s$/i,                                                     "$1"       ],
+    [/([^f])ves$/i,                                                    "$1fe"   ],
+    [/(^analy)ses$/i,                                                  "$1sis"  ],
+    [/((a)naly|(b)a|(d)iagno|(p)arenthe|(p)rogno|(s)ynop|(t)he)ses$/i, "$1$2sis"],
+    [/([ti])a$/i,                                                      "$1um"   ],
+    [/(p)eople$/i,                                                      "$1erson" ],
+    [/(m)en$/i,                                                         "$1an" ],
+    [/(c)hildren$/i,                                                    "$1hild" ],
+    [/(n)ews$/i,                                                       "$1ews"  ],
+    [/(shoe)s$/i,                                                      "$1"     ],
+    [/(bus)es$/i,                                                      "$1"     ],
+    [/^(.*us)$/i,                                                      "$1"     ],
+    [/s$/i,                                                            ""       ]
+    ],
+
+    irregularPlural: [
+    ['atlas',   'atlases'   ],
+    ['beef',    'beefs'   ],
+    ['brother',  'brothers'],
+    ['child',    'children'     ],
+    ['corpus', 'corpuses'  ],
+    ['cow', 'cows'  ],
+    ['ganglion', 'ganglions'  ],
+    ['genie', 'genies'  ],
+    ['genus', 'genera'  ],
+    ['graffito', 'graffiti'  ],
+    ['hoof', 'hoofs'  ],
+    ['loaf', 'loaves'  ],
+    ['man', 'men'  ],
+    ['money', 'monies'  ],
+    ['mongoose', 'mongooses'  ],
+    ['move', 'moves'  ],
+    ['mythos', 'mythoi'  ],
+    ['numen', 'numina'  ],
+    ['occiput', 'occiputs'  ],
+    ['octopus', 'octopuses'  ],
+    ['opus', 'opuses'  ],
+    ['ox', 'oxen'  ],
+    ['penis', 'penises'  ],
+    ['person', 'people'  ],
+    ['sex', 'sexes'  ],
+    ['soliloquy', 'soliloquies'  ],
+    ['testis', 'testes'  ],
+    ['trilby', 'trilbys'  ],
+    ['turf', 'turfs'  ],
+    ['tax', 'taxes'  ]
+    ],
+
+    irregularSingular: [
+    ['atlases',   'atlas'   ],
+    ['beefs',    'beef'   ],
+    ['brothers',  'brother'],
+    ['children',    'child'     ],
+    ['corpuses', 'corpus'  ],
+    ['cows', 'cow'  ],
+    ['ganglions', 'ganglion'  ],
+    ['genies', 'genie'  ],
+    ['genera', 'genus'  ],
+    ['graffiti', 'graffito'  ],
+    ['hoofs', 'hoof'  ],
+    ['loaves', 'loaf'  ],
+    ['men', 'man'  ],
+    ['monies', 'money'  ],
+    ['mongooses', 'mongoose'  ],
+    ['moves', 'move'  ],
+    ['mythoi', 'mythos'  ],
+    ['numina', 'numen'  ],
+    ['occiputs', 'occiput'  ],
+    ['octopuses', 'octopus'  ],
+    ['opuses', 'opus'  ],
+    ['oxen', 'ox'  ],
+    ['penises', 'penis'  ],
+    ['people', 'person'  ],
+    ['sexes', 'sex'  ],
+    ['soliloquies', 'soliloquy'  ],
+    ['testes', 'testis'  ],
+    ['trilbys', 'trilby'  ],
+    ['turfs', 'turf'  ],
+    ['taxes', 'tax'  ]
+    ],
+
+    uncountable: [
+    "sheep", "fish", "series", "species", "money", "rice", "information", "equipment", 'moose', 'deer',	'news', 'Amoyese',
+    'bison', 'Borghese', 'bream', 'breeches', 'britches', 'buffalo', 'cantus', 'carp', 'chassis', 'clippers',
+    'cod', 'coitus', 'Congoese', 'contretemps', 'corps', 'debris', 'diabetes', 'djinn', 'eland', 'elk',
+    'equipment', 'Faroese', 'flounder', 'Foochowese', 'gallows', 'Genevese', 'Genoese', 'Gilbertese', 'graffiti',
+    'headquarters', 'herpes', 'hijinks', 'Hottentotese', 'information', 'innings', 'jackanapes', 'Kiplingese',
+    'Kongoese', 'Lucchese', 'mackerel', 'Maltese', 'media', 'mews', 'moose', 'mumps', 'Nankingese', 'news',
+    'nexus', 'Niasese', 'Pekingese', 'Piedmontese', 'pincers', 'Pistoiese', 'pliers', 'Portuguese', 'proceedings',
+    'rabies', 'rice', 'rhinoceros', 'salmon', 'Sarawakese', 'scissors', 'sea[- ]bass', 'series', 'Shavese', 'shears',
+    'siemens', 'species', 'swine', 'testes', 'trousers', 'trout', 'tuna', 'Vermontese', 'Wenchowese',
+    'whiting', 'wildebeest', 'Yengeese'
+    ]
+};
+
+/**
+ * Turns a number into an ordinal string used to denote the position in an ordered
+ * sequence such as 1st, 2nd, 3rd, 4th...
+ *
+ * @public
+ * @static
+ * @function
+ * @param {Int} number        This is an integer to ordinalize
+ * @return {String}           An ordinal string
+ */
+GeckoJS.Inflector.ordinalize = function(number) {
+    if (11 <= parseInt(number) % 100 && parseInt(number) % 100 <= 13) {
+        return number + "th";
+    } else {
+        switch (parseInt(number) % 10) {
+            case  1: return number + "st";
+            case  2: return number + "nd";
+            case  3: return number + "rd";
+            default: return number + "th";
+        }
+    }
+};
+
+/**
+ * Returns the plural form of a word.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} word       This is the word to pluralize
+ * @return {String}           The plural form of the word
+ */
+GeckoJS.Inflector.pluralize = function(word) {
+    for (var i = 0; i < GeckoJS.Inflector.Inflections.uncountable.length; i++) {
+        var uncountable = GeckoJS.Inflector.Inflections.uncountable[i];
+        if (word.toLowerCase() == uncountable) {
+            return uncountable;
+        }
+    }
+    for (var i = 0; i < GeckoJS.Inflector.Inflections.irregularPlural.length; i++) {
+        var singular = GeckoJS.Inflector.Inflections.irregularPlural[i][0];
+        var plural   = GeckoJS.Inflector.Inflections.irregularPlural[i][1];
+        if ((word.toLowerCase() == singular) || (word.toLowerCase() == plural)) {
+            return plural;
+        }
+    }
+    for (var i = 0; i < GeckoJS.Inflector.Inflections.plural.length; i++) {
+        var regex          = GeckoJS.Inflector.Inflections.plural[i][0];
+        var replace_string = GeckoJS.Inflector.Inflections.plural[i][1];
+        if (regex.test(word)) {
+            return word.replace(regex, replace_string);
+        }
+    }
+
+    // not match anymore
+    return word;
+};
+
+
+/**
+ * Returns the singular form of a word.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} word       This is the word to singularize
+ * @return {String}           The singular form of the word
+ */
+GeckoJS.Inflector.singularize = function(word) {
+    for (var i = 0; i < GeckoJS.Inflector.Inflections.uncountable.length; i++) {
+        var uncountable = GeckoJS.Inflector.Inflections.uncountable[i];
+        if (word.toLowerCase() == uncountable) {
+            return uncountable;
+        }
+    }
+    for (var i = 0; i < GeckoJS.Inflector.Inflections.irregularSingular.length; i++) {
+        var plural = GeckoJS.Inflector.Inflections.irregularSingular[i][0];
+        var singular = GeckoJS.Inflector.Inflections.irregularSingular[i][1];
+        if ((word.toLowerCase() == singular) || (word.toLowerCase() == plural)) {
+            return singular;
+        }
+    }
+    for (var i = 0; i < GeckoJS.Inflector.Inflections.singular.length; i++) {
+        var regex          = GeckoJS.Inflector.Inflections.singular[i][0];
+        var replace_string = GeckoJS.Inflector.Inflections.singular[i][1];
+        if (regex.test(word)) {
+            return word.replace(regex, replace_string);
+        }
+    }
+    
+    // not match anymore
+    return word;
+};
+
+/**
+ * Returns the Camelized form of a string.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} word       This is the string to camelize
+ * @return {String}           The camelized form of the string
+ */
+GeckoJS.Inflector.camelize = function (word) {
+    var rep_words = function(str) {
+        return str.replace(/^(.)|_(.)/g, function ( $1 ) {
+            return $1.toUpperCase();
+        } );
+    };
+
+    var replace = rep_words(word).replace(/_/g,"");
+    return replace;
+};
+
+
+/**
+ * Returns the underscored (the reverse of Camelized) form of a string.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} word       This is the string to underscore
+ * @return {String}           The underscored form of the string
+ */
+GeckoJS.Inflector.underscore = function(word) {
+    var replace = word.replace(/([A-Z])/g, '_$1').toLowerCase().substr(1);
+    return replace;
+};
+
+/**
+ * Returns a human-readable string from word, by replacing underscores with space
+ * and upper-casing the initial characters.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} word       This is the string to make more human-readable
+ * @return {String}           The human-readable form of the string
+ */
+GeckoJS.Inflector.humanize = function(word) {
+    var rep_words = function(str) {
+        return str.replace(/^(.)|_(.)/g, function ( $1 ) {
+            return $1.toUpperCase();
+        } );
+    };
+
+    var replace = rep_words(word);
+    return replace;
+};
+
+/**
+ * Returns the corresponding table name for a class name by first underscoring
+ * and then pluralizing the class name.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} className  This is the string to tableize
+ * @return {String}           The tableized form of the string
+ *
+ * @example
+ *      tableize("RawScaledScorer") returns "raw_scaled_scorers"
+ *
+ */
+GeckoJS.Inflector.tableize = function(className) {
+    var replace = GeckoJS.Inflector.pluralize(GeckoJS.Inflector.underscore(className));
+    return replace;
+};
+
+/**
+ * Returns the corresponding class name for a table name by first singularizing
+ * and then camelizing the table name.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} tableName  This is the string to classify
+ * @return {String}           The classified form of the string
+ * @type                      String
+ *
+ * @example
+ *       classify("posts") returns "Post".
+ */
+GeckoJS.Inflector.classify = function(tableName) {
+    var replace = GeckoJS.Inflector.camelize(GeckoJS.Inflector.singularize(tableName));
+    return replace;
+};
+/**
+ * GeckoJS.String provides a set of common string manipulation functions.
+ * <br/>
+ *
+ * @public
+ * @namespace
+ * @name GeckoJS.String
+ */
+GREUtils.define('GeckoJS.String', GeckoJS.global);
+
+
+/**
+ * Generates a globally unique ID.
+ *
+ * @public
+ * @static
+ * @function
+ * @return {String}           A globally unique ID
+ */
+GeckoJS.String.uuid = function(){
+    return GREUtils.uuid();
+};
+
+/**
+ * Creates a base-64 encoding of a string.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} str            This is the string to encode
+ * @return {String}               The base-64 encoded ASCII string
+ */
+GeckoJS.String.base64Encode = function(str){
+    return GREUtils.base64Encode(str);
+};
+
+/**
+ * Decodes a string of data which has been encoded using base-64 encoding.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} str            This is the base-64 encoded string data
+ * @return {String}               The decoded string
+ * @type                          String
+ */
+GeckoJS.String.base64Decode = function(str){
+    return GREUtils.base64Decode(str);
+};
+
+
+/**
+ * Converts the first character of each word in a string to upper case.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} word           This is the string of words
+ * @return {String}               The string with first character of each word converted to upper case
+ */
+GeckoJS.String.ucwords = function(word){
+    return GREUtils.ucwords(word);
+};
+
+
+/**
+ * Converts the first character of a string to upper case.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} word           This is the string
+ * @return {String}               The string with the first character converted to upper case
+ */
+GeckoJS.String.ucfirst = function(word){
+    return GREUtils.ucfirst(word);
+};
+
+
+/**
+ * Trims white spaces to the left and right of a string.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} str            This is the string to trim
+ * @return {String}               The trimmed string
+ */
+GeckoJS.String.trim = function(str){
+    // include it in the regexp to enforce consistent cross-browser behavior.
+    return str.replace(/^[\s\xa0]+|[\s\xa0]+$/g, '');
+};
+
+
+/**
+ * Trims white spaces at the left end of a string.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} str            This is the string to trim
+ * @return {String}               The trimmed string
+ */
+GeckoJS.String.trimLeft = function(str){
+    // include it in the regexp to enforce consistent cross-browser behavior.
+    return str.replace(/^[\s\xa0]+/, '');
+};
+
+
+/**
+ * Trims white spaces at the right end of a string.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} str            This is the string to trim
+ * @return {String}               The trimmed string
+ */
+GeckoJS.String.trimRight = function(str){
+    // include it in the regexp to enforce consistent cross-browser behavior.
+    return str.replace(/[\s\xa0]+$/, '');
+};
+
+
+/**
+ * Pads a string 'on the left' to the specified length by prepending the string
+ * with the given padding character. 
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} num                   This is the string to pad
+ * @param {Number} totalChars            This is the length to pad the string to
+ * @param {String} padWith               This is the padding charactor
+ * @return {String}                      The padded string
+ */
+GeckoJS.String.padLeft = function(num, totalChars, padWith) {
+    num = num + "";
+    totalChars = totalChars <num.length ? num.length : totalChars;
+    
+    padWith = (padWith) ? padWith : "0";
+    if (num.length < totalChars) {
+        while (num.length < totalChars) {
+            num = padWith + num;
+        }
+    } else {}
+     
+    if (num.length > totalChars) { //if padWith was a multiple character string and num was overpadded
+        num = num.substring((num.length - totalChars), totalChars);
+    } else {}
+    
+    return num;
+};
+
+
+/**
+ * Pads a string 'on the right' to the specified length by appending the string
+ * with the given padding character. 
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} num                   This is the string to pad
+ * @param {Number} totalChars            This is the length to pad the string to
+ * @param {String} padWith               This is the padding charactor
+ * @return {String}                      The padded string
+ */
+GeckoJS.String.padRight = function(num, totalChars, padWith) {
+    num = num + "";
+    totalChars = totalChars <num.length ? num.length : totalChars;
+    
+    padWith = (padWith) ? padWith : "0";
+    if (num.length < totalChars) {
+        while (num.length < totalChars) {
+            num = num + padWith;
+        }
+    } else {}
+     
+    if (num.length > totalChars) { //if padWith was a multiple character string and num was overpadded
+        num = num.substring(0, totalChars);
+    } else {}
+    
+    return num;
+};
+
+
+/**
+ * Converts a string to a form suitable for use in a URL.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} str            This is the string to URL-encode
+ * @return {String}               The URL-encoded string
+ */
+GeckoJS.String.urlEncode = function(str){
+    str = String(str);
+    return encodeURIComponent(str);
+};
+
+
+/**
+ * Converts a string from its URL-encoded form.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} str            This is the string to URL-decode
+ * @return {String}               The URL-decoded string
+ */
+GeckoJS.String.urlDecode = function(str){
+    return decodeURIComponent(str.replace(/\+/g, ' '));
+};
+
+
+/**
+ * Checks whether a string contains a given substring.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} s              This is the string to check
+ * @param {String} ss             This is the substring to look for in the string
+ * @return {Boolean}              "true" if the string contains the substring; "false" otherwise
+ */
+GeckoJS.String.contains = function(s, ss){
+    return s.indexOf(ss) != -1;
+};
+
+
+/**
+ * Returns a string with at least 64-bits of randomness.
+ *
+ * @public
+ * @static
+ * @function
+ * @return {String}               A random string
+ */
+GeckoJS.String.getRandomString = function(){
+    return Math.floor(Math.random() * 2147483648).toString(36) +
+    (Math.floor(Math.random() * 2147483648) ^
+    (new Date).getTime()).toString(36);
+};
+
+
+/**
+ * Converts a string from one character set encoding to another.<br/>
+ * <br/>
+ * This method takes a string encoded in character set "in_charset"
+ * and returns the corresponding string encoded in character set "out_charset".
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} in_charset     This is the character set used to encode the string
+ * @param {String} out_charset    This is the character set encoding the string is to be converted to
+ * @param {String} str            This is the string to convert
+ * @return {String}               A string encoded using the given character set "out_charset" if conversion succeeds; otherwise the original string is returned
+ */
+GeckoJS.String.iconv = function(in_charset, out_charset, str){
+    return GREUtils.Charset.convertCharset(str, in_charset, out_charset);
+};
+
+
+/**
+ * Generates a URL-encoded query string.<br/>
+ * <br/>
+ * This method builds a URL-encoded query string out of the elements of
+ * "formdata". Each element of formdata should be a name-value pair, which is
+ * converted into a field-value pair in the query string. The field name used
+ * is normally the same as the element name, but if numeric_prefix is
+ * specified, then each field is assigned a numeric ID prefixed with
+ * numeric_prefix. Finally, arg_separator is used to delimite field-value pairs
+ * in the query string.
+ *
+ *
+ * @public
+ * @static
+ * @function
+ * @param {Object} formdata       This is an object containing name-value pairs
+ * @param {String} numeric_prefix This is the prefix for auto-generated field names
+ * @param {String} arg_separator  This is the separator delimiting field-value pairs in the query string; defaults to "&"
+ * @return {String}               A URL-encoded query string
+ *
+ * @example
+ * <pre>
+ *     GeckoJS.String.httpBuildQuery({ foo: 'bar',
+ *                                     baz: 'boom',
+ *                                     cow: 'milk',
+ *                                     php: 'hypertext processor' }, '', '&');
+ *     => 'foo=bar&baz=boom&cow=milk&php=hypertext+processor'
+ * </pre>
+ * @example
+ * <pre>
+ *     GeckoJS.String.httpBuildQuery({ 0: 'foo',
+ *                                     1: 'bar',
+ *                                     2: 'baz',
+ *                                     3: 'boom',
+ *                                     cow: 'milk',
+ *                                     php :'hypertext processor'}, 'myvar_');
+ *     => 'myvar_0=foo&myvar_1=bar&myvar_2=baz&myvar_3=boom&cow=milk&php=hypertext+processor'
+ * </pre>
+ */
+GeckoJS.String.httpBuildQuery = function(formdata, numeric_prefix, arg_separator){
+
+    arg_separator = arg_separator || '&';
+
+    var key, use_val, use_key, i = 0, s = [];
+
+    // If an array was passed in, assume that it is an array of form elements
+    if (formdata.constructor == Array) {
+        // Serialize the form elements
+        formdata.forEach(function(data){
+            use_key = encodeURIComponent(data.name);
+            use_val = encodeURIComponent(data.value);
+            use_val = use_val.replace(/%20/g, '+');
+
+			if(numeric_prefix && !isNaN(use_key)){
+            	use_key = numeric_prefix + s.length;
+        	}
+            s.push(use_key + "=" + use_val);
+        });
+    }
+    else {
+        for (var key in formdata) {
+
+			use_key = encodeURIComponent(key);
+
+			if(numeric_prefix && !isNaN(key)){
+            	use_key = numeric_prefix + s.length;
+        	}
+
+            // If the value is an array then the key names need to be repeated
+            if (formdata[key] && formdata[key].constructor == Array) {
+                formdata[key].forEach(function(data){
+		            use_val = encodeURIComponent(data);
+		            use_val = use_val.replace(/%20/g, '+');
+		            s.push(use_key + "=" + use_val);
+                });
+            }
+            else {
+	            use_val = encodeURIComponent(formdata[key]);
+	            use_val = use_val.replace(/%20/g, '+');
+                s.push(use_key + "=" + use_val);
+            }
+        }
+    }
+    // Return the resulting serialization
+    return s.join(arg_separator);
+};
+
+
+/**
+ * Parses a query string into property-value pairs.<br/>
+ * <br/>
+ * This method parses the field-values pairs in the query string "str" and
+ * converts them into properties of the "array" object. The field name is used
+ * as the property name and the value of the field is stored as the value of
+ * the corresponding property.<br/>
+ * <br/>
+ * If "array" is not specified then a new object is created to store the parsed
+ * results.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} str            This is the query string to parse
+ * @param {Object} array          This is the object in which to store the parsed field-value pairs
+ * @return {Object}                An object containing the field-value pairs from the query string
+ *
+ * @example
+ *     example 1: GeckoJS.String.parseStr('first=foo&second=bar');
+ *     returns 1: { first: 'foo', second: 'bar' }
+ *     example 2: GeckoJS.String.parseStr('str_a=Jack+and+Jill+didn%27t+see+the+well.');
+ *     returns 2: { str_a: "Jack and Jill didn't see the well." }
+ *
+ */
+GeckoJS.String.parseStr = function (str, array){
+
+    var glue1 = '=';
+    var glue2 = '&';
+
+    var array2 = str.split(glue2);
+    var array3 = {};
+    for(var x=0; x<array2.length; x++){
+        var tmp = array2[x].split(glue1);
+        array3[unescape(tmp[0])] = unescape(tmp[1]).replace(/[+]/g, ' ');
+    }
+
+    if(array){
+        array = array3;
+    } else{
+        return array3;
+    }
+};
+
+
+/**
+ * Formats a number with grouped thousands.
+ * 
+ * @public
+ * @static
+ * @function   
+ * @param {Number} number           This is the number to format   
+ * @param {Number} decimals         This is the number of decimal places
+ * @param {String} dec_point        This is the decimal point symbol
+ * @param {String} thousands_sep    This is the grouped thousands separator
+ * @return {String}
+ *  
+ * @example
+ *   number_format(1234.5678, 2, '.', '') returns 1234.57
+ *   number_format(1234.5678, 2, '.', ',') returns 1,234.57      
+ *
+ */
+GeckoJS.String.numberFormat = function ( number, decimals, dec_point, thousands_sep ) {
+    // Format a number with grouped thousands
+    // 
+    // +    discuss at: http://kevin.vanzonneveld.net/techblog/article/javascript_equivalent_for_phps_number_format/
+    // +       version: 806.816
+    // +   original by: Jonas Raoni Soares Silva (http://www.jsfromhell.com)
+    // +   improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+    // +     bugfix by: Michael White (http://crestidg.com)
+    // +     bugfix by: Benjamin Lupton
+    // +     bugfix by: Allan Jensen (http://www.winternet.no)
+    // +    revised by: Jonas Raoni Soares Silva (http://www.jsfromhell.com)
+    // +     bugfix by: Howard Yeend
+    // *     example 1: number_format(1234.5678, 2, '.', '');
+    // *     returns 1: 1234.57     
+
+    var n = number, c = isNaN(decimals = Math.abs(decimals)) ? 2 : decimals;
+    var d = dec_point == undefined ? "." : dec_point;
+    var t = thousands_sep == undefined ? "," : thousands_sep, s = n < 0 ? "-" : "";
+    var i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", j = (j = i.length) > 3 ? j % 3 : 0;
+    
+    return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+};
+
+/**
+ * parse CSV Format Text to Array
+ *
+ * @public
+ * @static
+ * @function
+ * @param {Number} text             This is the csv format text
+ * @param {Number} delim            This is the column delimeter
+ * @param {String} quote            This is the quote
+ * @param {String} linedelim        This is the line delimeter
+ * @return {Array}
+ *
+ */
+GeckoJS.String.parseCSV = function(text, delim, quote, linedelim) {
+
+        delim = typeof delim == "string" ? new RegExp( "[" + (delim || ","   ) + "]" ) : typeof delim == "undefined" ? ","    : delim;
+        quote = typeof quote == "string" ? new RegExp("^[" + (quote || '"'   ) + "]" ) : typeof quote == "undefined" ? '"'    : quote;
+        linedelim = typeof linedelim == "string" ? new RegExp( "[" + (linedelim || "\r\n") + "]+") : typeof linedelim == "undefined" ? "\r\n" : linedelim;
+
+        function splitline (v) {
+            // Split the line using the delimitor
+            var arr  = v.split(delim),
+                out = [], q;
+            for (var i=0, l=arr.length; i<l; i++) {
+                if (q = arr[i].match(quote)) {
+                    for (var j=i; j<l; j++) {
+                        if (arr[j].charAt(arr[j].length-1) == q[0]) { break; }
+                    }
+                    var s = arr.slice(i,j+1).join(delim);
+                    out.push(s.substr(1,s.length-2));
+                    i = j;
+                }
+                else { out.push(arr[i]); }
+            }
+
+            return out;
+        }
+
+        var lines = text.split(linedelim);
+        
+        for (var k=0, ll=lines.length; k<ll; k++) {
+            lines[k] = splitline(lines[k]);
+        }
+        
+        return lines;
+
+};
+
+
+/**
+ * Parses a string or boolean or object into Boolean value.
+ * <br/>
+ *
+ * returns false when the passed value to the object is any one of the following:
+ *
+ *   0 / "" / false / undefined / NaN / "false" / "0"
+ *
+ * @public
+ * @static
+ * @function
+ * @param {Boolean|String|Object} bool            This is the value to parse
+ * @return {Boolean}
+ *
+ */
+GeckoJS.String.parseBoolean = function(bool) {
+
+    if (typeof bool == 'string' ) {
+        return (bool.length == 0 || bool.toUpperCase() == '0' || bool.toUpperCase() == 'FALSE' || bool.toUpperCase() == 'NULL') ? false : true;
+    }else {
+        return new Boolean(bool).valueOf();
+    }
+};
+
+
+/**
+ * Escapes an input string for use with SQL
+ *
+ * @alias GeckoJS.String.escapeForSQL
+ * @param {String} raw
+ * 		The source string
+ * @return {String}
+ * 		The escaped string suitable for use in a SQL query
+ */
+GeckoJS.String.escapeForSQL = function (raw)
+{
+	var regex = /['\\\t\r\n]/g;
+	var escaped = raw.replace(regex, function(a) {
+		switch (a)
+		{
+			case '\'':
+				return "\\'";
+				break;
+
+			case '\\':
+				return "\\\\";
+				break;
+
+			case '\r':
+				return "\\r";
+				break;
+
+			case '\n':
+				return "\\n";
+				break;
+
+			case '\t':
+				return "\\t";
+				break;
+		}
+	});
+
+	return escaped;
+};
+
+/**
+ * Surround the provided string in single quotation marks
+ *
+ * @alias GeckoJS.String.singleQuote
+ * @param {String} text
+ * 		The original string
+ * @return {String}
+ * 		The original string encased in single quotes
+ */
+GeckoJS.String.singleQuote = function(text)
+{
+	return "'" + text + "'";
+};
+/**
+ * GeckoJS.Array provides a set of functions for manipulating arrays.<br/>
+ * 
+ * @public
+ * @namespace 
+ * @name GeckoJS.Array
+ */
+GREUtils.define('GeckoJS.Array', GeckoJS.global);
+
+
+/**
+ * Creates a copy of an array.<br/>
+ * <br/>
+ * If the object passed in is not an array, a new array with the object as its
+ * only element is returned.<br/>
+ *
+ * @public
+ * @static
+ * @function
+ * @param {Object} array       This is an array object
+ * @return {Object}            A copy of the array object
+ */
+GeckoJS.Array.makeArray = function( array ) {
+	var ret = [];
+
+	if( array != null ){
+		var i = array.length;
+		//the window, strings and functions also have 'length'
+		if( i == null || array.split || array.setInterval || array.call )
+			ret[0] = array;
+		else
+			while( i )
+				ret[--i] = array[i];
+	}
+
+	return ret;
+};
+
+
+/**
+ * Returns the index of an element in an array.<br/>
+ * <br/>
+ * This method returns -1 if the element is not found.<br/>
+ *
+ * @public
+ * @static
+ * @function
+ * @param {Object} elem       This is the element to look for in the array
+ * @param {Object} array      This is the array
+ * @return {Number}          The index of the element
+ */
+GeckoJS.Array.inArray =  function( elem, array ) {
+	for ( var i = 0, length = array.length; i < length; i++ )
+	// Use === because on IE, window == document
+		if ( array[ i ] === elem )
+			return i;
+
+	return -1;
+};
+
+
+/**
+ * Merges two arrays.<br/>
+ * <br/>
+ * This method appends the second array to the end of the first array.<br/>
+ *
+ * @public
+ * @static
+ * @function
+ * @param {Object} first      This is the first array
+ * @param {Object} second     This is the second array
+ * @return {Object}           The merged array
+ */
+GeckoJS.Array.merge =  function( first, second ) {
+
+    var i = 0, elem, pos = first.length;
+
+    while ( elem = second[ i++ ] )
+        first[ pos++ ] = elem;
+
+    return first;
+};
+
+
+/**
+ * Returns an array containing only unique elements.<br/>
+ * <br/>
+ * This method takes an array and returns a new array containing only unique
+ * elements from that array.<br/>
+ *
+ * @public
+ * @static
+ * @function
+ * @param {Object} array      This is the array
+ * @return {Object}           A new array containing only unique elements
+ */
+GeckoJS.Array.unique = function( array ) {
+	var ret = [], done = {};
+
+	try {
+
+		for ( var i = 0, length = array.length; i < length; i++ ) {
+            var serialize = GREUtils.JSON.encode( array[ i ] );
+            serialize = serialize || String(array[i]);
+			var id = GREUtils.CryptoHash.md5(serialize);
+			if ( !done[ id ] ) {
+				done[ id ] = true;
+				ret.push( array[ i ] );
+			}
+		}
+
+	} catch( e ) {
+		ret = array;
+	}
+
+	return ret;
+};
+
+
+/**
+ * Applies a validator function on each element of an array, and returns a new
+ * array containing only those elements that pass the validator function.<br/>
+ * <br/>
+ * The validator function is invoked with two arguments: the array element,
+ * and the element index, and should return "true" or "false". This method
+ * returns array elements that return "true" from the validator function if "inv"
+ * is "false"; otherwise, array elements that return "false" from the validator
+ * function are returned.<br/>
+ *
+ * @public
+ * @static
+ * @function
+ * @param {Object} array       This is the array
+ * @param {Function} callback This is the validator function
+ * @param {Boolean} inv       This is the validation flag
+ * @return {Object}            An array containing only validated elements
+ */
+GeckoJS.Array.grep = function( elems, callback, inv ) {
+	var ret = [];
+
+	// Go through the array, only saving the items
+	// that pass the validator function
+	for ( var i = 0, length = elems.length; i < length; i++ )
+		if ( !inv != !callback( elems[ i ], i ) )
+			ret.push( elems[ i ] );
+
+	return ret;
+};
+
+
+/**
+ * Applies a function on each element of an array, and returns an array containing
+ * the results of the function calls.<br/>
+ * <br/>
+ * The function will be invoked with two arguments: the array element,
+ * and the element index. "null" return values are ignored.<br/>
+ *
+ * @public
+ * @static 
+ * @function  
+ * @param {Object} array       This is the array
+ * @param {Function} callback This is the function to apply to each element
+ * @return {Object}            An array containing results from applying the function to each element
+ */
+GeckoJS.Array.map = function( elems, callback ) {
+    var ret = [];
+
+    // Go through the array, translating each of the items to their
+    // new value (or values).
+    for ( var i = 0, length = elems.length; i < length; i++ ) {
+        var value = callback( elems[ i ], i );
+
+        if ( value != null )
+            ret[ ret.length ] = value;
+    }
+
+    return ret.concat.apply( [], ret );
+};
+
+
+/**
+ * Extracts from an array or object the value that is contained in a given path
+ * within the array or object indicated by an array path. Each component in the
+ * array path syntax is delimited with ".", and may be:<br/><br/>
+ * <em>{n}</em> matching a numeric key, <br/>
+ * <em>{s}</em> matching a literal key, <br/>
+ * <em>a string literal</em>, or<br/>
+ * <em>{[a-z]+}</em> representing a regular expression<br/><br/>
+ * The following is an example of an array path:
+ * <em>"{n}.Person.{[a-z]+}"</em>
+ *
+ * @public
+ * @static
+ * @param {Object} data     This is the object from which to extract
+ * @param {String} path     This is a dot-separated string identifying the data to extract
+ * @return {Object}          An array holding the extracted data
+ * @access public
+
+ */
+GeckoJS.Array.objectExtract = function (data, path) {
+    if (!path) {
+        return data;
+    }
+
+    if (typeof data != 'object') {
+        return data;
+    }
+
+    var paths = (typeof path == 'string') ? path.split('.') : path;
+    var tmp = [];
+
+    if (paths.length == 0) {
+        return null;
+    }
+
+    for (var i in paths) {
+        var key = paths[i];
+
+        if (parseInt(key) > 0 || key == '0' ) {
+            if (typeof  data[parseInt(key)]  != 'undefined') {
+                data = data[parseInt(key)];
+            }else {
+                return null;
+            }
+        }else if (key == '{n}') {
+            var tmp = [];
+            for (var j in data) {
+                var val = data[j];
+
+                if (!isNaN(parseInt(j))) {
+                    var tmpPath = paths.slice(i+1);
+                    if (tmpPath.length == 0) {
+                        tmp.push(val);
+                    } else {
+                        tmp.push(GeckoJS.Array.objectExtract(val, tmpPath));
+                    }
+                }
+            }
+            return tmp;
+
+        }else if (key == '{s}') {
+            var tmp = [];
+            for (var j in data) {
+                var val = data[j];
+
+                if (typeof j =='string') {
+                    var tmpPath = paths.slice(i+1);
+                    if (tmpPath.length == 0) {
+                        tmp.push(val);
+                    } else {
+                        tmp.push(GeckoJS.Array.objectExtract(val, tmpPath));
+                    }
+                }
+            }
+            return tmp;
+
+        } else {
+            if (typeof data[key] != 'undefined') {
+                data = data[key];
+            } else {
+                return null;
+            }
+        }
+    }
+    return data;
+
+};
+
+
+/**
+ * Gets a value from an array or object that is contained in a given path using an array path syntax, i.e.:
+ * "{n}.Person.{[a-z]+}" - Where "{n}" represents a numeric key, "Person" represents a string literal,
+ * and "{[a-z]+}" (i.e. any string literal enclosed in brackets besides {n} and {s}) is interpreted as
+ * a regular expression.
+ *
+ * @param {Object||Array} data Array Or Data from where to extract
+ * @param {String} pathKey  dot-separated string.
+ * @param {String} pathValue  dot-separated string.
+ * @return {Object} Extracted data
+ * @access public
+
+ */
+GeckoJS.Array.objectCombine = function (data, pathKey, pathValue) {
+    if (!pathKey || !pathValue) {
+        return data;
+    }
+
+    if (typeof data != 'object') {
+        return data;
+    }
+    
+    var obj = {};
+    var keyArray = GeckoJS.Array.objectExtract(data, pathKey);
+    var valArray = GeckoJS.Array.objectExtract(data, pathValue);
+    
+    for(var i=0; i<keyArray.length; i++) {
+        obj[keyArray[i]] = valArray[i];
+    }
+    return obj;
+    
+};
+/**
+ * Defines the GeckoJS.File namespace.
+ *
+ * @public
+ * @namespace
+ */
+GREUtils.define('GeckoJS.File', GeckoJS.global);
+
+/**
+ * Creates a new GeckoJS.File() instance and initializes it by associating it
+ * with a file path.<br/>
+ * <br/>
+ * If "autoCreate" is "true", the file is created if it does not already exist.
+ *
+ * @class GeckoJS.File provides a logical representation of a file or directory
+ * at a location in the local file system. Through GeckoJS.File, local files
+ * and directories may be created, read, written to, queried, and otherwise
+ * manipulated.<br/>
+ *
+ * @name GeckoJS.File 
+ * @class
+ * 
+ * @property {nsIFile} file         A reference to the file location (read-only)
+ * @property {String} path          The full file path (read-only)
+ * @property {String} leafName      The file name without any directory components (read-only)
+ * @property {Int} size             The size of the file (read-only)
+ * @property {String} permissions   The Unix-style file permission bits (read-only)
+ * @property {String} dateModified  The time when the file was last modified (read-only)
+ * @property {String} ext           The file extension (read-only)
+ *
+ * @param {String} file             This is the file associated with this GeckoJS.File instance
+ * @param {String} autoCreate       This flag indicates whether the file should be created if it does not exist; defaults to false
+ */
+GeckoJS.File = function(file, autoCreate){
+	
+	autoCreate = autoCreate || false;
+	
+	if(GREUtils.isXPCOM(file)) {
+		this._file = file;
+	}else {
+		this._file = GREUtils.File.getFile(file, autoCreate, true);
+	}
+	
+  this._Mode        = null;
+  this._IsBinary    = false;
+  this._OutStream   = null;
+  this._InputStream = null;
+  this._Position    = 0;
+  this._OutputCharset = 'utf-8';
+	
+};
+
+GeckoJS.File.prototype.__defineGetter__('file', function(){
+	return this._file;
+});
+
+
+GeckoJS.File.prototype.__defineGetter__('nsIFile', function(){
+	return this._file;
+});
+
+
+GeckoJS.File.prototype.__defineGetter__('path', function(){
+	if(this.file) {
+		return this.file.path;	
+	}else {
+		return "";
+	}
+	
+});
+
+GeckoJS.File.prototype.__defineGetter__('leafName', function(){
+	if(this.file) {
+		return this.file.leafName;	
+	}else {
+		return "";
+	}
+	
+});
+
+
+GeckoJS.File.prototype.__defineGetter__('size', function(){
+	if(this.file) {
+		return this.file.fileSize;	
+	}else {
+		return -1;
+	}
+	
+});
+
+
+GeckoJS.File.prototype.__defineGetter__('permissions', function(){
+	if(this.file) {
+		return this.file.permissions.toString(8);	
+	}else {
+		return "000";
+	}
+});
+
+
+GeckoJS.File.prototype.__defineGetter__('dateModified', function(){
+	if(this.file) {
+		return new Date(this.file.lastModifiedTime).toLocaleString();	
+	}else {
+		return new Date("1970-01-01 00:00:00").toLocaleString();
+	}
+});
+
+
+GeckoJS.File.prototype.__defineGetter__('ext', function(){
+	if(this.file) {
+		var dotIndex = this.leafName.lastIndexOf('.');
+		var ext = (dotIndex >= 0) ? this.leafName.substring(dotIndex + 1) : "";
+		return ext;
+	}else {
+		return "";
+	}
+});
+
+
+/**
+ * Opens the file for reading/writing.<br/>
+ * <br/>
+ * This method opens the file associated with this GeckoJS.File instance with
+ * the given mode and permission. The mode can be a valid combination of:<br/>
+ * <br/>
+ *  - "r" (read) <br/>
+ *  - "w" (write) <br/>
+ *  - "a" (append) <br/>
+ *  - "b" (binary) <br/>
+ * <br/>
+ * If "r" is specified in the mode parameter, the file is opened for reading.
+ * Otherwise the file is created if it does not already exist and is opened for
+ * writing.
+ *   
+ * @public
+ * @function
+ * @param {String} aMode            This is the mode flag
+ * @param {Number} aPerms           This is the permission with which to create the file (if needed); defaults to FILE_DEFAULT_PERMS
+ */
+GeckoJS.File.prototype.open = function(aMode, aPerms) {
+
+	if (aMode.indexOf("b") != -1) {
+		// binary mode
+		this._IsBinary = true;
+	}
+
+	if(aMode.indexOf("r") != -1) {
+		// read mode
+		this._InputStream = GREUtils.File.getInputStream(this.file, aMode, aPerms);
+	}else {
+		// write mode ?
+		this.create(); // if not exists
+		this._OutStream = GREUtils.File.getOutputStream(this.file, aMode, aPerms);
+	}
+};
+
+
+/**
+ * Closes the file.<br/>
+ * <br/>
+ * This method closes an open file. It has no effect on a file that is not
+ * already open. 
+ * 
+ * @public
+ * @function
+ */
+GeckoJS.File.prototype.close = function() {
+
+    if (this._Mode)          this._Mode = null;
+  
+    if (this._OutStream) {
+      this._OutStream.close();
+      delete this._OutStream;
+	  this._OutStream = null;
+    }
+  
+    if (this._InputStream) {
+      this._InputStream.close();
+      delete this._InputStream;
+	  this._InputStream = null;
+    }
+};
+
+
+/**
+ * Creates the file if it does not already exists.<br/>
+ * <br/>
+ * This method checks if the file already exists. If it does not, it is created
+ * with the given permission.<br/>
+ * 
+ * @public
+ * @function
+ * @param {Number} perm             This is the permission with which to create the file (if needed); defaults to GREUtils.File.FILE_DEFAULT_PERMS
+ * @return {Boolean}                "true" if the file has been created or already exists, "false" otherwise
+ */
+GeckoJS.File.prototype.create = function(perm){
+
+	if(this.file == null) return false;
+	if (!this.file.exists()) {
+		this.file.create(GREUtils.File.NORMAL_FILE_TYPE, perm || GREUtils.File.FILE_DEFAULT_PERMS);
+	}
+	return this.file.exists();
+
+};
+
+
+/**
+ * Reads a given number of bytes from the file and closes the file.<br/>
+ * <br/>
+ * The file must already be open for reading before its content may be read. If
+ * the file has been opened in binary mode, the content is returned as an array
+ * of bytes. Otherwise the content is returned as a String.<br/>
+ * <br/>
+ * If errors occur while reading from the file, null is returned.
+ * 
+ * @public
+ * @function
+ * @param {Number} aSize            This is the number of bytes to read; defaults to the size of the file
+ * @return {String|Object}          Data read from the file, either as a string or as an array of bytes
+ */
+GeckoJS.File.prototype.read = function (aSize) {
+
+    var rv;
+    try {
+      if (!aSize)
+        aSize = this.file.fileSize;
+
+      if (this._IsBinary)
+        rv = this._InputStream.readBytes(aSize);
+      else
+        rv = this._InputStream.read(aSize);
+      
+      this._InputStream.close();
+    } catch (e) {
+		GeckoJS.BaseObject.log('[Error] GeckoJS.File.read ' + aSize); 
+		rv = null;
+	}
+
+    return rv;	
+	
+};
+
+
+/**
+ * Writes the content of the given buffer to the file.<br/>
+ * <br/>
+ * The file must already be open for writing. Textual data is written to the
+ * file using UTF-8 encoding. If the file has been opened in binary mode, the
+ * buffer can be either an array of bytes or a string of bytes.
+ * 
+ * @public
+ * @function
+ * @param {Object|String} aBuffer    This is the buffer containing data to write to file
+ * @return {Number}                 0 if successful, 1 otherwise
+ */
+GeckoJS.File.prototype.write = function (aBuffer) {
+
+    var rv  = 0;
+    try {
+      if (this._IsBinary) {
+	  	
+	  	if(aBuffer.constructor == Array) this._OutStream.writeByteArray(aBuffer, aBuffer.length);
+		else this._OutStream.write(aBuffer, aBuffer.length);
+		
+	  }else {
+	  	
+		// auto convert text output charset
+		var oBuffer = GREUtils.Charset.convertFromUnicode(aBuffer, this._OutputCharset);
+		this._OutStream.write(oBuffer, oBuffer.length);
+	  }
+      this._OutStream.flush();
+	  
+    } catch (e) {
+		GeckoJS.BaseObject.log('[Error] GeckoJS.File.write ' + aBuffer.length); 
+		rv = 1; 	
+	}
+  
+    return rv;
+};
+
+
+/**
+ * Checks if the file exists.
+ * 
+ * @public
+ * @function
+ * @return {Boolean}                "true" if the file exists; "false" otherwise
+ */
+GeckoJS.File.prototype.exists = function(){
+
+	if(this.file == null) return false;
+	return this.file.exists();
+	
+};
+
+
+/**
+ * Checks if the given file exists.
+ *
+ * @public
+ * @function
+ * @param {String} path             This is the full path of the file
+ * @return {Boolean}                "true" if the file exists; "false" otherwise
+ */
+GeckoJS.File.exists = function(path){
+
+    var file = new GeckoJS.File(path);
+    return file.exists();
+
+};
+
+
+
+/**
+ * Deletes the file from the file system.
+ *
+ * @public
+ * @function
+ * @return {Boolean}                "true" if the file is successfully removed; "false" otherwise
+ */
+GeckoJS.File.prototype.remove = function(){
+
+	if(this.file == null) return false;
+    
+    var rv = GREUtils.File.remove(this.file);
+	if (rv) {        
+
+    	if (this._Mode)          this._Mode = null;
+  
+    	if (this._OutStream) {
+      		delete this._OutStream;
+	  		this._OutStream = null;
+    	}
+  
+    	if (this._InputStream) {
+	        delete this._InputStream;
+	  		this._InputStream = null;
+    	}
+        return true;
+    } 
+    return rv;
+};
+
+
+/**
+ * Deletes a file if it exists.
+ *
+ * @param {String} path 		This is the full or partial (to be resolved) path of the file to delete
+ */
+GeckoJS.File.remove = function (path)
+{
+	var file = new GeckoJS.File(path);
+
+	if (!file.isFile()) {
+		throw path+" is not a file" ;
+	}
+
+	if (file.exists())	{
+		file.remove();
+	}
+};
+
+
+/**
+ * Copies the file to a new location.<br/>
+ * <br/>
+ * This method copies the file to a new location. If the new location is
+ * a directory, that directory must already exist, and the file is copied into
+ * that directory with the same file name.<br/>
+ * <br/>
+ * This method will not overwrite existing file; if a file already exists at the
+ * new location then no copy takes place and the method returns "false".<br/>
+ * <br/>
+ * Returns "true" if the file is successfully copied, "false" otherwise.
+ *    
+ * @public
+ * @function
+ * @param {String} aDest          This is the location to which to copy
+ * @return {Boolean}              "true" if the copy succeeds; "false" otherwise
+ */
+GeckoJS.File.prototype.copy = function(aDest){
+
+    if (!aDest) return false;
+	
+    if(this.file == null) return false;
+    
+    var rv = GREUtils.File.copy(this.file, aDest);
+
+    return rv;
+};
+
+
+/**
+ * Copies a file to a new location.<br/>
+ * <br/>
+ * This method copies a given file to a new location. If the new location is
+ * a directory, that directory must already exist, and the file is copied into
+ * that directory with the same file name.<br/>
+ * <br/>
+ * This method will not overwrite existing file; if a file already exists at the
+ * new location then no copy takes place and the method returns "false".<br/>
+ * <br/>
+ * Returns "true" if the file is successfully copied, "false" otherwise.
+ *
+ * @public
+ * @function
+ * @param {String} aSrc           This is the path of the source file
+ * @param {String} aDest          This is the path to the destination
+ * @return {Boolean}              "true" if the copy succeeds; "false" otherwise
+ */
+GeckoJS.File.copy = function(aSrc, aDest){
+
+    var file = new GeckoJS.File(aSrc);
+    if (!file.exists()) return false;
+    if (!aDest) return false;
+
+    return file.copy(aDest);
+};
+
+
+/**
+ * Changes the current file path by appending a file name to it.<br/>
+ * <br/>
+ * This method is used to construct a descendant of the current file location.
+ * If successful, the current GeckoJS.File instance will point to a new file
+ * location constructed from appending the given filename to the original file
+ * path. The original file path must corresponds to a directory for this method
+ * to succeed.      
+ * 
+ * @public
+ * @function
+ * @param {String} aFileName      This is the file name to append to the directory
+ * @return {Boolean}              Whether the file name has been successfully appended
+ */
+GeckoJS.File.prototype.append = function(aFileName){
+
+	if(this.file == null) return false;
+	
+    if (!aFileName) return false;
+    
+	var rv = false; 
+    try {
+		if(this.file.isDirectory()) {
+	        this.file.append(aFileName);
+			rv = true;
+		}
+    } 
+    catch (e) {
+		GeckoJS.BaseObject.log('[Error] GeckoJS.File.append: '+e.message);
+        return "";
+    }
+    
+    return rv;
+};
+
+
+/**
+ * Checks if this GeckoJS.File instance corresponds to a directory.
+ * 
+ * @public
+ * @function
+ * @return {Boolean}                "true" if this File instance is a directory; "false" otherwise
+ */
+GeckoJS.File.prototype.isDir = function(){
+
+	if(this.file == null) return false;
+	    
+	var rv = false; 
+    try {
+		rv = this.file.isDirectory();
+    } 
+    catch (e) {
+		GeckoJS.BaseObject.log('[Error] GeckoJS.File.isDir: '+e.message);
+        rv = false;
+    }
+    return rv;
+};
+
+/**
+ * Checks if this GeckoJS.File instance corresponds to a file.
+ * 
+ * @public
+ * @function
+ * @return {Boolean}                "true" if this File instance is a file; "false" otherwise
+ */
+GeckoJS.File.prototype.isFile = function(){
+
+	if(this.file == null) return false;
+	    
+	var rv = false; 
+    try {
+		rv = this.file.isFile();
+    } 
+    catch (e) {
+		GeckoJS.BaseObject.log('[Error] GeckoJS.File.isFile: '+e.message);
+        rv = false;
+    }
+    return rv;
+};
+
+/**
+ * Checks if this GeckoJS.File instance corresponds to an executable file.
+ * 
+ * @public
+ * @function
+ * @return {Boolean}                "true" if this File instance is an executable file; "false" otherwise
+ */
+GeckoJS.File.prototype.isExecutable = function(){
+
+	if(this.file == null) return false;
+	    
+	var rv = false; 
+    try {
+		rv = this.file.isExecutable();
+    } 
+    catch (e) {
+		GeckoJS.BaseObject.log('[Error] GeckoJS.File.isExecutable: '+e.message);
+        rv = false;
+    }
+    return rv;
+};
+
+
+/**
+ * Checks if this GeckoJS.File instance corresponds to a symbolic link.
+ * 
+ * @public
+ * @function
+ * @return {Boolean}                "true" if this File instance is a symbolic link; "false" otherwise
+ */
+GeckoJS.File.prototype.isSymlink = function(){
+
+	if(this.file == null) return false;
+	    
+	var rv = false; 
+    try {
+		rv = this.file.isSymlink();
+    } 
+    catch (e) {
+		GeckoJS.BaseObject.log('[Error] GeckoJS.File.isSymlink: '+e.message);
+        rv = false;
+    }
+    return rv;
+};
+
+/**
+ * Checks if this GeckoJS.File instance corresponds to a file or directory that
+ * may be modified by the user.
+ * 
+ * @public
+ * @function
+ * @return {Boolean}                "true" if this File instance is writable; "false" otherwise
+ */
+GeckoJS.File.prototype.isWritable = function(){
+
+	if(this.file == null) return false;
+	    
+	var rv = false; 
+    try {
+		rv = this.file.isWritable();
+    } 
+    catch (e) {
+		GeckoJS.BaseObject.log('[Error] GeckoJS.File.isWritable: '+e.message);
+        rv = false;
+    }
+    return rv;
+};
+
+/**
+ * Checks if this GeckoJS.File instance corresponds to a file or directory that
+ * is hidden.
+ * 
+ * @public
+ * @function
+ * @return {Boolean}                "true" if this File instance is hidden; "false" otherwise
+ */
+GeckoJS.File.prototype.isHidden = function(){
+
+	if(this.file == null) return false;
+	    
+	var rv = false; 
+    try {
+		rv = this.file.isHidden();
+    } 
+    catch (e) {
+		GeckoJS.BaseObject.log('[Error] GeckoJS.File.isHidden: '+e.message);
+        rv = false;
+    }
+    return rv;
+};
+
+/**
+ * Checks if this GeckoJS.File instance corresponds to a file or directory that
+ * may be read by the user.
+ * 
+ * @public
+ * @function
+ * @return {Boolean}                "true" if this File instance is readable; "false" otherwise
+ */
+GeckoJS.File.prototype.isReadable = function(){
+
+	if(this.file == null) return false;
+	    
+	var rv = false; 
+    try {
+		rv = this.file.isReadable();
+    } 
+    catch (e) {
+		GeckoJS.BaseObject.log('[Error] GeckoJS.File.isReadable: '+e.message);
+        rv = false;
+    }
+    return rv;
+};
+
+/**
+ * Checks if this GeckoJS.File instance corresponds to a special system file,
+ * that is, a file system object that isn't a regular file, directory, or
+ * symbolic link. 
+ * 
+ * @public
+ * @function
+ * @return {Boolean}                "true" if this File instance is special; "false" otherwise
+ */
+GeckoJS.File.prototype.isSpecial = function(){
+
+	if(this.file == null) return false;
+	    
+	var rv = false; 
+    try {
+		rv = this.file.isSpecial();
+    } 
+    catch (e) {
+		GeckoJS.BaseObject.log('[Error] GeckoJS.File.isSpecial: '+e.message);
+        rv = false;
+    }
+    return rv;
+};
+
+/**
+ * Canonicalizes the path represented by this GeckoJS.File instance.<br/>
+ * <br/>
+ * If successful, "null" is returned.<br/>
+ * <br/>
+ * A return code of -1 is returned when the operation fails (i.e. the file path
+ * does not exist or if read permission is denied for a component of the path
+ * prefix. 
+ *  
+ * @public
+ * @function
+ * @return {Number}                -1 when exceptions occur; "null" otherwise
+ */
+GeckoJS.File.prototype.normalize = function(){
+
+	if(this.file == null) return -1;
+	    
+	var rv;
+    try {
+		rv = this.file.normalize();
+    } 
+    catch (e) {
+		GeckoJS.BaseObject.log('[Error] GeckoJS.File.normalize: '+e.message);
+        rv = -1;
+    }
+    return rv;
+};
+
+/**
+ * Spawns a new process to run an executable file.<br/>
+ * <br/>
+ * This method runs the executable file corresponding to this GeckoJS.File
+ * instance in a newly spawned process. The "aArgs" parameter contains a array
+ * of arguments to pass to this executable on its command line. The "blocking"
+ * parameter controls whether to block until the process terminates.<br/>
+ * <br/> 
+ * Normally the process ID of the newly spawn process is returned. A negative
+ * return value indicates an error condition:<br/>
+ * <br/>
+ *  -1: the file does not exist <br/>
+ *  -2: the file path points to a directory <br/>
+ *  -3: other exceptions <br/>
+ *   
+ * @public
+ * @function
+ * @param {String} aArgs          This is the array of arguments to pass to the executable
+ * @param {Boolean} blocking      If "true", the method blocks until the process terminates; defaults to false
+ * @return {Number}               The process ID
+ */
+GeckoJS.File.prototype.run = function(aArgs, blocking){
+	if (this.file == null) return -1;
+    if (this.isDir()) return -2;
+    
+    blocking = blocking || false;
+    var rv = 0;
+    
+    try {
+        var process = GREUtils.XPCOM.createInstance("@mozilla.org/process/util;1", "nsIProcess");
+
+        process.init(this.file);
+        
+        var len = 0;
+        if (aArgs) 
+            len = aArgs.length;
+        else 
+            aArgs = null;
+        rv = process.run(blocking, aArgs, len);
+    } 
+    catch (e) {
+		GREUtils.log('[Error] GeckoJS.File.run: ' + e.message);
+        rv = -3
+    }
+    return rv;
+};
+
+
+/**
+ * Adds a line to the end of an existing file.
+ *
+ * @param {String} path     The full or partial (to be resolved) path of the file to append
+ * @param {String} text		The text to append, as a new line
+*/
+GeckoJS.File.appendLine = function(path, text){
+
+	var file = new GeckoJS.File(path, true);
+
+	try
+	{
+		file.open('a');
+		for (var i=1; i<arguments.length; i++)
+		{
+			file.write(arguments[i].toString());
+		}
+	}
+	finally
+	{
+		if (file)
+		{
+			file.close();
+		}
+	}
+
+};
+
+/**
+ * Defines the GeckoJS.Dir namespace.
+ *
+ * @public
+ * @namespace
+ */
+GREUtils.define('GeckoJS.Dir', GeckoJS.global);
+
+/**
+ * Creates a new GeckoJS.Dir instance and initializes it by associating it with
+ * a directory path.<br/>
+ * <br/>
+ * If "autoCreate" is "true", the directory path is created if it does not
+ * already exist.<br/>
+ * 
+ * @class GeckoJS.Dir provides a logical representation of a directory in the
+ * local file system. Through GeckoJS.Dir, local directories may be created,
+ * read, written to, queried, and otherwise manipulated.<br/>
+ *
+ * @name GeckoJS.Dir
+ * @class
+ * @property {nsIFile} file         A reference to the directory location (read-only)
+ * @property {String} path          The full path for the directory (read-only)
+ * @property {String} leafName      The file name without any prefix components (read-only)
+ * @property {String} permissions   The Unix-style file permission bits (read-only)
+ * @property {String} dateModified  The time when the directory was last modified (read-only)
+ *
+ * @param {String} path             This is the directory path associated with this Dir instance
+ * @param {String} autoCreate       This flag indicates whether the directory should be created if it does not exist; defaults to "false"
+ */
+GeckoJS.Dir = function(path, autoCreate){
+
+	autoCreate = autoCreate || false;
+
+	if(GREUtils.isXPCOM(path)) {
+		this._file = path;
+	}else {
+		this._file = GREUtils.Dir.getFile(path, autoCreate);
+	}
+
+};
+
+GeckoJS.Dir.prototype.__defineGetter__('file', function(){
+	return this._file;
+});
+
+
+GeckoJS.Dir.prototype.__defineGetter__('path', function(){
+	if(this.file) {
+		return this.file.path;
+	}else {
+		return "";
+	}
+});
+
+GeckoJS.Dir.prototype.__defineGetter__('leafName', function(){
+	if(this.file) {
+		return this.file.leafName;
+	}else {
+		return "";
+	}
+});
+
+GeckoJS.Dir.prototype.__defineGetter__('permissions', function(){
+	if(this.file) {
+		return this.file.permissions.toString(8);
+	}else {
+		return "000";
+	}
+});
+
+GeckoJS.Dir.prototype.__defineGetter__('dateModified', function(){
+	if(this.file) {
+		return new Date(this.file.lastModifiedTime).toLocaleString();
+	}else {
+		return new Date("1970-01-01 00:00:00").toLocaleString();
+	}
+});
+
+/**
+ * Checks if the directory exists.
+ *
+ * @public
+ * @function
+ * @return {Boolean}                "true" if the directory exists; "false" otherwise
+ */
+GeckoJS.Dir.prototype.exists = function() {
+	if (this.file == null) return false ;
+	try {
+		return this.file.exists();
+	}catch(e) {
+		return false;
+	}
+    return false;
+
+};
+
+/**
+ * Changes the current directory path by appending a file name to it.<br/>
+ * <br/>
+ * This method is used to construct a descendant of the current directory.
+ * If successful, the current Dir instance will point to a new file location
+ * constructed from appending the given filename to the original file path.
+ *
+ * @public
+ * @function
+ * @param {String} aFileName      This is the file name to append to the directory
+ * @return {String}               The new file path
+ */
+GeckoJS.Dir.prototype.append = function(aFileName){
+
+	if(this.file == null) return false;
+
+    if (!aFileName) return false;
+
+	var rv = false;
+    try {
+		if(this.file.isDirectory()) {
+	        this.file.append(aFileName);
+			rv = true;
+		}
+    }
+    catch (e) {
+		GeckoJS.BaseObject.log('[Error] GeckoJS.Dir.append: '+e.message);
+        return "";
+    }
+
+    return rv;
+};
+
+
+/**
+ * Removes the directory corresponding to this Dir instance.<br/>
+ * <br/>
+ * If aRecursive is "false", then the directory must be empty before it can be
+ * deleted.<br/>
+ * <br/>
+ * If errors occur while attempting to remove the directory, this method returns
+ * one of the following error code:<br/>
+ * -1: path does not exist<br/>
+ * -2: path is not a directory<br/>
+ * -3: removal fails<br/>
+ *
+ *
+ * @public
+ * @function
+ * @param {Boolean} aRecursive          This flag indicates if directory is to be deleted if it is not empty
+ * @return {Number}                      "null" if directory is successfully removed; an error code otherwise
+ */
+GeckoJS.Dir.prototype.remove = function(aRecursive){
+
+	return GREUtils.Dir.remove(this.path, aRecursive);
+
+};
+
+
+/**
+ * Tests whether a file is a descendant of this directory.<br/>
+ * <br/>
+ * This method will also return false if either file or the directory does not
+ * exist.
+ *
+ * @public
+ * @function
+ * @param {String} aFile                This is the full path of the file to test
+ * @return {Boolean}                    Returns "true" if the file is a descendant of this directory, "false" otherwise
+ */
+GeckoJS.Dir.prototype.contains = function(aFile){
+	return GREUtils.Dir.contains(this.path, aFile);
+};
+
+/**
+ * Reads directory entries.<br/>
+ * <br/>
+ * This method returns the directory entries as an array. Each array
+ * element can be a string representing a file path, or an array of representing
+ * a sub-directory.<br/>
+ *
+ * If the given path is not a directory an empty array is returned.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} path                  This is the full path of the directory
+ * @return {Object}                      Returns the directory entries as an array of strings containing file paths
+ */
+GeckoJS.Dir.readDir = function(path){
+	return GREUtils.Dir.readDir(path);
+};
+
+
+
+/**
+ * Reads directory entries.<br/>
+ * <br/>
+ * This method returns the directory entries as an array. Each array
+ * element can be a string representing a file path, or an array of representing
+ * a sub-directory.<br/>
+ *
+ * If the given path is not a directory an empty array is returned.
+ *
+ * @public
+ * @function
+ * @return {Object}                      Returns the directory entries as an array of strings containing file paths
+ */
+GeckoJS.Dir.prototype.readDir = function(){
+	return GREUtils.Dir.readDir(this.path);
+};
+
+/**
+ * Defines the GeckoJS.ClassRegistry namespace.
+ *
+ * @public
+ * @namespace
+ */
+GREUtils.define('GeckoJS.ClassRegistry', GeckoJS.global);
+
+/**
+ * Creates a new GeckoJS.ClassRegistry instance and initializes it with an
+ * empty registry repository and listener list.<br/>
+ * 
+ * @class GeckoJS.ClassRegistry provides a central Singleton registry for
+ * GeckoJS classes. Each class should be registered with its class name as
+ * the key. The registration entries are stored in the "map" field.<br/>
+ * <br/>
+ * The class registry contains a read-only "events" field of type GeckoJS.Event.
+ * This "events" field may be associated with event listeners that are invoked
+ * whenever the repository is updated. Please see the individual method
+ * description for information on the details of the various update events.<br/>
+ * 
+ * @name GeckoJS.ClassRegistry
+ * @extends GeckoJS.BaseObject
+ * @extends GeckoJS.Singleton
+ *
+ * @property {GeckoJS.Event} events   A set of event listeners for updates on the registry (read-only)
+ * @property {GeckoJS.Map} map        A collection of the key-object pairs stored in the registry (read-only)
+ */
+GeckoJS.ClassRegistry = GeckoJS.BaseObject.extend('ClassRegistry', {
+    init: function(){
+
+        this._events = new GeckoJS.Event();
+        this._map = new GeckoJS.Map();
+    }
+});
+
+// make ClassRegistry support singleton
+GeckoJS.Singleton.support(GeckoJS.ClassRegistry);
+
+//events getter
+GeckoJS.ClassRegistry.prototype.__defineGetter__('events', function(){
+    return this._events;
+});
+
+
+//map getter
+GeckoJS.ClassRegistry.prototype.__defineGetter__('map', function(){
+    return this._map;
+});
+
+/**
+ * Returns the set of event listeners associated with the registry.
+ *
+ * @public
+ * @function
+ * @return {GeckoJS.Event}            The set of event listeners associated with the registry
+ */
+GeckoJS.ClassRegistry.prototype.getEvents = function(){
+    return this._events;
+};
+
+
+/**
+ * Returns the collection of key-object pairs stored in the registry.
+ *
+ * @public
+ * @function
+ * @return {GeckoJS.Map}              The collection of the key-object pairs stored in the registry
+ */
+GeckoJS.ClassRegistry.prototype.getMap = function(){
+    return this._map;
+};
+
+// We need shadow some method for event support.
+
+
+/**
+ * Flushes all objects from the registry.<br/>
+ * <br/>
+ * This method flushes (clears) all key-object pairs stored in the registry,
+ * generating a "flush" event that is dispatched to all listeners of that event
+ * after all the key-object pairs have been flushed. This GeckoJS.ClassRegistry
+ * instance is passed to the event listeners as the event data
+ * (in the field "eventItem.data").
+ *
+ * @public
+ * @function
+ */
+GeckoJS.ClassRegistry.prototype.flush = function(){
+    this.map.clear();
+    this.events.dispatch("flush", this);
+};
+
+
+/**
+ * Flushes all objects from the registry.<br/>
+ * <br/>
+ * This method flushes (clears) all key-object pairs stored in the registry,
+ * generating a "flush" event that is dispatched to all listeners of that event
+ * after all the key-object pairs have been flushed. This GeckoJS.ClassRegistry
+ * instance is passed to the event listeners as the event data
+ * (in the field "eventItem.data").
+ *
+ * @public
+ * @static
+ * @function
+ */
+GeckoJS.ClassRegistry.flush = function(){
+	GeckoJS.ClassRegistry.getInstance().flush();
+};
+
+/**
+ * Removes an object from the registry.<br/>
+ * <br/>
+ * This method removes an object identified by the given key from the registry,
+ * generating a "remove" event that is dispatched to all listeners of that event
+ * after the object has been removed. The key is passed to the event listeners
+ * as the event data (in the field "eventItem.data").
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} key                This is the key that identifies the object to remove
+ */
+GeckoJS.ClassRegistry.prototype.removeObject = function(key){
+    this.map.remove(key);
+    this.events.dispatch("remove", key);
+};
+
+
+/**
+ * Removes an object from the registry.<br/>
+ * <br/>
+ * This method removes an object identified by the given key from the registry,
+ * generating a "remove" event that is dispatched to all listeners of that event
+ * after the object has been removed. The key is passed to the event listeners
+ * as the event data (in the field "eventItem.data").
+ *
+ * @public
+ * @function
+ * @param {String} key                This is the key that identifies the object to remove
+ */
+GeckoJS.ClassRegistry.removeObject = function(key){
+	GeckoJS.ClassRegistry.getInstance().removeObject(key);
+};
+
+
+/**
+ * Adds an object to the registry.<br/>
+ * <br/>
+ * This method adds the given object to the registry, registering it with the
+ * give key. A "change" event is dispatched to all listeners of that event
+ * after the object has been added, where the key-object pair is passed to the
+ * event listeners as named properties of the event data object (i.e. as
+ * "eventItem.data.key" and "eventItem.data.value").<br/>
+ * <br/>
+ * Any existing object in the registry associated with the key is replaced by the
+ * new object.
+ *
+ * @public
+ * @function
+ * @param {String} key                This is the key used to register the object
+ * @param {Object} obj                This is the object to store in the registry
+ */
+GeckoJS.ClassRegistry.prototype.addObject = function(key, obj){
+    this.setObject(key, obj);
+};
+
+
+/**
+ * Adds an object to the registry.<br/>
+ * <br/>
+ * This method adds the given object to the registry, registering it with the
+ * give key. A "change" event is dispatched to all listeners of that event
+ * after the object has been added, where the key-object pair is passed to the
+ * event listeners as named properties of the event data object (i.e. as
+ * "eventItem.data.key" and "eventItem.data.value").
+ * <br/>
+ * Any existing object in the registry associated with the key is replaced by the
+ * new object.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} key                This is the key used to register the object
+ * @param {Object} obj                This is the object to store in the registry
+ */
+GeckoJS.ClassRegistry.addObject = function(key, obj){
+	GeckoJS.ClassRegistry.getInstance().addObject(key, obj);
+};
+
+
+/**
+ * Adds an object to the registry.<br/>
+ * <br/>
+ * This method adds the given object to the registry, registering it with the
+ * give key. A "change" event is dispatched to all listeners of that event
+ * after the object has been added, where the key-object pair is passed to the
+ * event listeners as named properties of the event data object (i.e. as
+ * "eventItem.data.key" and "eventItem.data.value").
+ * <br/>
+ * Any existing object in the registry associated with the key is replaced by the
+ * new object.
+ *
+ * @public
+ * @function
+ * @param {String} key                This is the key used to register the object
+ * @param {Object} obj                This is the object to store in the registry
+ */
+GeckoJS.ClassRegistry.prototype.setObject = function(key, obj){
+    this.map.set(key, obj);
+    this.events.dispatch("change", {
+        key: key,
+        value: obj
+    });
+};
+
+
+/**
+ * Adds an object to the registry.<br/>
+ * <br/>
+ * This method adds the given object to the registry, registering it with the
+ * give key. A "change" event is dispatched to all listeners of that event
+ * after the object has been added, where the key-object pair is passed to the
+ * event listeners as named properties of the event data object (i.e. as
+ * "eventItem.data.key" and "eventItem.data.value").
+ * <br/>
+ * Any existing object in the registry associated with the key is replaced by the
+ * new object.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} key                This is the key used to register the object
+ * @param {Object} obj                This is the object to store in the registry
+ */
+GeckoJS.ClassRegistry.setObject = function(key, obj){
+	GeckoJS.ClassRegistry.getInstance().setObject(key, obj);
+};
+
+
+/**
+ * Retrieves the object registered with the given key from the registry.<br/>
+ * <br/>
+ * This method returns null if the key has not been registered.
+ *
+ * @public
+ * @function
+ * @param {String} key                This is the key that identifies the object to retrieve
+ * @return {Object}                   The object registered with the given key
+ */
+GeckoJS.ClassRegistry.prototype.getObject = function(key){
+    return this.map.get(key);
+};
+
+
+/**
+ * Retrieves the object registered with the given key from the registry.<br/>
+ * <br/>
+ * This method returns null if the key has not been registered.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} key                This is the key that identifies the object to retrieve
+ * @return {Object}                   The object registered with the given key
+ */
+GeckoJS.ClassRegistry.getObject = function(key){
+    return GeckoJS.ClassRegistry.getInstance().getObject(key);
+};
+
+
+/**
+ * Checks if the given key has been registered.
+ *
+ * @public
+ * @function
+ * @param {String} key                This is the key to check
+ * @return {Boolean}                  "true" if the key has been registered, "false" otherwise
+ */
+GeckoJS.ClassRegistry.prototype.isKeySet = function(key){
+    return this.map.containsKey(key);
+};
+
+
+/**
+ * Checks if the given key has been registered.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} key                This is the key to check
+ * @return {Boolean}                  "true" if the key has been registered, "false" otherwise
+ */
+GeckoJS.ClassRegistry.isKeySet = function(key){
+    return GeckoJS.ClassRegistry.getInstance().isKeySet(key);
+};
+
+
+/**
+ * Returns all the keys that have been registered.
+ *
+ * @public
+ * @function
+ * @return {Object}                    An array containing all the keys in the registry
+ */
+GeckoJS.ClassRegistry.prototype.keys = function(){
+    return this.map.getKeys();
+};
+
+
+/**
+ * Returns all the keys that have been registered.
+ *    
+ * @public
+ * @static 
+ * @function
+ * @return {Object}                    An array containing all the keys in the registry
+ */
+GeckoJS.ClassRegistry.keys = function(){
+    return GeckoJS.ClassRegistry.getInstance().keys();
+};
+
+
+/**
+ * Cloning of GeckoJS.ClassRegistry instances is not supported.<br/>
+ * <br/>
+ * The clone() method from GeckoJS.BaseObject is overridden in
+ * GeckoJS.ClassRegistry with a dummy method.
+ *
+ * @public
+ * @function
+ */
+GeckoJS.ClassRegistry.prototype.clone = function(){
+};
+
+/**
+ * Defines the GeckoJS.Configure namespace.
+ *
+ * @public
+ * @namespace
+ */
+GREUtils.define('GeckoJS.Configure', GeckoJS.global);
+
+/**
+ * Creates a new GeckoJS.Configure instance and intializes the instance with
+ * a set of built-in system configuration.<br/>
+ * <br/>
+ * The set of built-in configuration consists of the following:<br/>
+ * <pre>
+ * String             Meaning
+ * --------------------------------------------------------------------------
+ * ProfD              profile directory
+ * DefProfRt          user (e.g., /root/.mozilla)
+ * UChrm              %profile%/chrome
+ * DefRt              %installation%/defaults
+ * PrfDef             %installation%/defaults/pref
+ * ProfDefNoLoc       %installation%/defaults/profile
+ * APlugns            %installation%/plugins
+ * AChrom             %installation%/chrome
+ * ComsD              %installation%/components
+ * CurProcD           installation (usually)
+ * Home               OS root (e.g., /root)
+ * TmpD               OS tmp (e.g., /tmp)
+ * ProfLD             Local Settings on windows; where the network cache and fastload files are stored
+ * resource:app       Application directory in a XULRunner app
+ * Desk               Desktop directory (e.g. ~/Desktop on Linux, C:\Documents and Settings\username\Desktop on Windows)
+ * Progs              User start menu programs directory (e.g., C:\Documents and Settings\username\Start Menu\Programs)
+ * </pre>
+ *
+ * @class GeckoJS.Configure provides a Singleton configuration repository for
+ * the GeckoJS App Engine. Each configuration entry consists of a key-value
+ * pair. The configuration entries are stored in the "map" field.<br/>
+ * <br/>
+ * The configuration repository contains a read-only "events" field of type
+ * GeckoJS.Event. This "events" field may be associated with event listeners
+ * that are invoked whenever the repository is updated. Please see the
+ * individual method description for information on the details of the various
+ * update events.<br/>
+ *
+ * @name GeckoJS.Configure
+ * @extends GeckoJS.BaseObject
+ * @extends GeckoJS.Singleton
+ *
+ * @property {GeckoJS.Event} events   A set of event listeners for updates on the configuration repository (read-only)
+ * @property {GeckoJS.Map} map        A collection of configuration key-value pairs stored in the repository (read-only)
+ */
+GeckoJS.Configure = GeckoJS.BaseObject.extend('Configure', {
+    init: function(){
+
+        // FUEL's SessionStorage support
+        this._events = new GeckoJS.Event();
+        if (Application.storage.has('GeckoJS_Configure_events')) {
+            var sessObj = Application.storage.get('GeckoJS_Configure_events', {listeners: []} );
+            this._events.listeners = sessObj.listeners;
+        }else {
+            var sessObj = {listeners: []};
+            this._events.listeners = sessObj.listeners;
+            Application.storage.set('GeckoJS_Configure_events', sessObj);
+        }
+
+
+        if (Application.storage.has('GeckoJS_Configure_map')) {
+            this._map = Application.storage.get('GeckoJS_Configure_map', (new GeckoJS.Map()) );
+        }else {
+            this._map = new GeckoJS.Map();
+            Application.storage.set('GeckoJS_Configure_map', this._map);
+        }
+
+        if (Application.storage.has('GeckoJS_Configure_hasLoadPreferences')) {
+            this._hasLoadPreferences = Application.storage.get('GeckoJS_Configure_hasLoadPreferences', {} );
+        }else {
+            this._hasLoadPreferences = {};
+            Application.storage.set('GeckoJS_Configure_hasLoadPreferences', this._hasLoadPreferences);
+        }
+
+	// try add preference listener
+	if (!Application.storage.has('GeckoJS_Configure_PrefObserver')) {
+		try {
+			var prefs = GREUtils.Pref.getPrefService();
+		  	prefs.QueryInterface(Components.interfaces.nsIPrefBranch);
+		  	prefs.QueryInterface(Components.interfaces.nsIPrefBranch2);
+
+			var prefObserver =
+			{
+
+			  observe: function(aSubject, aTopic, aData)
+			  {
+			    if(aTopic != "nsPref:changed") return;
+			    // aSubject is the nsIPrefBranch we're observing (after appropriate QI)
+			    // aData is the name of the pref that's been changed (relative to aSubject)
+				try {
+				if (GeckoJS.Configure.check(aData)) {
+					// update new value
+					aSubject.QueryInterface(Components.interfaces.nsIPrefBranch2);
+					switch(aSubject.getPrefType(aData)) {
+						case aSubject.PREF_STRING:
+							GeckoJS.Configure.write(aData, aSubject.getCharPref(aData));
+							break;
+						case aSubject.PREF_INT:
+							GeckoJS.Configure.write(aData, aSubject.getIntPref(aData));
+							break;
+						case aSubject.PREF_BOOL:
+							GeckoJS.Configure.write(aData, aSubject.getBoolPref(aData));
+							break;
+					}
+				}
+				}catch(e) { GREUtils.log('[ERROR] GeckoJS_Configure_PrefObserver ' + e); }
+			  }
+			};
+			Application.storage.set('GeckoJS_Configure_PrefObserver', prefObserver);
+			prefs.addObserver("", Application.storage.get('GeckoJS_Configure_PrefObserver', prefObserver), false);
+
+		}catch(e) {
+			GREUtils.log(e);
+		}
+	}
+
+        var self = this;
+        // set System PATH
+        var directory_service = Components.classes["@mozilla.org/file/directory_service;1"]
+        .getService(Components.interfaces.nsIProperties);
+
+        ['ProfD', 'DefProfRt','UChrm','DefRt','PrfDef','ProfDefNoLoc','APlugns','AChrom','ComsD','CurProcD','Home','TmpD','ProfLD','resource:app','Desk'/*,'Progs'*/].forEach(function(key) {
+            try {
+                self.write(key, (directory_service.get(key, Components.interfaces.nsIFile)).path);
+                self.write("CORE."+key, (directory_service.get(key, Components.interfaces.nsIFile)).path);
+            }
+            catch (e) {
+                self.log('[Error] GeckoJS.Configure directory_service;1 get [' + key +'] fail.');
+            }
+        });
+
+    // auto load extension
+    //        this.loadPreferences('extensions');
+    }
+});
+
+// make Configure support singleton
+GeckoJS.Singleton.support(GeckoJS.Configure);
+
+
+//events getter
+GeckoJS.Configure.prototype.__defineGetter__('events', function(){
+    return this._events;
+});
+
+
+//map getter
+GeckoJS.Configure.prototype.__defineGetter__('map', function(){
+    return this._map;
+});
+
+/**
+ * Returns the set of event listeners associated with the configuration repository.
+ *
+ * @public
+ * @function
+ * @return {GeckoJS.Event}            The set of event listeners associated with the repository
+ */
+GeckoJS.Configure.prototype.getEvents = function() {
+    return this._events;
+};
+
+
+/**
+ * Returns the collection of key-value pairs stored in the configuration repository.
+ *
+ * @public
+ * @function
+ * @return {GeckoJS.Map}              The collection of the key-value pairs stored in the repository
+ */
+GeckoJS.Configure.prototype.getMap = function() {
+    return this._map;
+};
+
+// We need shadow some method for event support.
+
+
+/**
+ * Clears all entries from the configuration repository.<br/>
+ * <br/>
+ * This method clears all key-value entries stored in the configuration repository,
+ * generating a "clear" event that is dispatched to all listeners of that event
+ * after all the entries have been cleared. This Configure instance is passed to the
+ * event listeners as the event data (in the field eventItem.data).
+ *
+ * @public
+ * @static
+ * @function
+ */
+GeckoJS.Configure.prototype.clear = function() {
+    this.map.clear();
+    this.events.dispatch("clear", this);
+};
+
+/**
+ * Clears all entries from the configuration repository.<br/>
+ * <br/>
+ * This method clears all key-value entries stored in the configuration repository,
+ * generating a "clear" event that is dispatched to all listeners of that event
+ * after all the entries have been cleared. This Configure instance is passed to the
+ * event listeners as the event data (in the field eventItem.data).
+ *
+ * @public
+ * @static
+ * @function
+ */
+GeckoJS.Configure.clear = function() {
+    GeckoJS.Configure.getInstance().clear();
+};
+
+
+/**
+ * Removes a configuration entry from the repository.<br/>
+ * <br/>
+ * This method removes a configuration entry identified by the given key from the
+ * repository, generating a "remove" event that is dispatched to all listeners of
+ * that event after the configuration entry has been removed. The key is passed to
+ * the event listeners as the event data (in the field "eventItem.data").<br/>
+ * <br/>
+ * Usage:<br/>
+ * Configure::remove('Name'); will delete the entire Configure::Name<br/>
+ * Configure::remove('Name.key'); will delete only the Configure::Name[key]<br/>
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} key                This is the key that identifies the configuration entry to remove
+ */
+GeckoJS.Configure.prototype.remove = function(key){
+    
+    var name = this.__configVarNames(key);
+
+    if (name.length > 1) {
+        var obj = this.map.get(name[0]);
+        
+        var cur = obj;
+
+        for (var i=1; i<name.length ; i++ ) {
+            var part = name[i];
+            if ( i == (name.length-1)) {
+                delete cur[part];
+            } else if (cur[part]) {
+                cur = cur[part];
+            } else {
+                break;
+            }
+        }
+    // this.map.set(name[0], obj);
+
+    }else {
+        this.map.remove(name[0]);
+    }
+    
+    this.events.dispatch("remove", key);
+};
+
+
+/**
+ * Removes a configuration entry from the repository.<br/>
+ * <br/>
+ * This method removes a configuration entry identified by the given key from the
+ * repository, generating a "remove" event that is dispatched to all listeners of
+ * that event after the configuration entry has been removed. The key is passed to
+ * the event listeners as the event data (in the field "eventItem.data").
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} key                This is the key that identifies the configuration entry to remove
+ */
+GeckoJS.Configure.remove = function(key){
+    GeckoJS.Configure.getInstance().remove(key);
+};
+
+
+/**
+ * Adds a configuration entry to the repository.<br/>
+ * <br/>
+ * This method adds the given key-value pair to the repository. A "write" event
+ * is dispatched to all listeners of that event after the entry has been added,
+ * where the key-value pair is passed to the event listeners as named properties
+ * of the event data object (i.e. as "eventItem.data.key" and
+ * "eventItem.data.value").<br/>
+ * <br/>
+ * Any existing entry in the repository associated with the same key is replaced
+ * with the new value.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} key                This is the configuration key
+ * @param {Object} value              This is the configuration value
+ */
+GeckoJS.Configure.prototype.write = function(key, value) {
+
+    var name = this.__configVarNames(key);
+    
+    if (name.length >1) {
+        var obj = this.map.get(name[0]) == null ? {} : this.map.get(name[0]);
+
+        var cur = obj;
+
+        for (var i=1; i<name.length ; i++ ) {
+            var part = name[i];
+            if ( i == (name.length-1)) {
+                cur[part] = value;
+            } else if (cur[part]) {
+                cur = cur[part];
+            } else {
+                cur = cur[part] = {};
+            }
+        }
+
+        this.map.set(name[0], obj);
+
+        this.events.dispatch("write", {
+            key: key,
+            value: value
+        });
+    }else {
+        this.map.set(name[0], value);
+
+        this.events.dispatch("write", {
+            key: key,
+            value: value
+        });
+    }
+    
+    
+};
+
+
+/**
+ * Adds a configuration entry to the repository.<br/>
+ * <br/>
+ * This method adds the given key-value pair to the repository. A "write" event
+ * is dispatched to all listeners of that event after the entry has been added,
+ * where the key-value pair is passed to the event listeners as named properties
+ * of the event data object (i.e. as "eventItem.data.key" and
+ * "eventItem.data.value").<br/>
+ * <br/>
+ * Any existing entry in the repository associated with the same key is replaced
+ * with the new value.<br/>
+ * <br/>
+ * Usage:<br/>
+ * Configure::write('key', 'value of the Configure::key');<br/>
+ * Configure::write('One.key1', 'value of the Configure::One[key1]');<br/>
+ * Configure::write('One', {'key1': 'value of the Configure::One[key1]', 'key2':'value of the Configure::One[key2]'});
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} key                This is the configuration key
+ * @param {Object} value              This is the configuration value
+ */
+GeckoJS.Configure.write = function(key, value) {
+    GeckoJS.Configure.getInstance().write(key, value);
+};
+
+
+/**
+ * Retrieves the configuration value identified by the given key.<br/>
+ * <br/>
+ * This method returns null if the key does not exist in the configuration
+ * repository.<br/>
+ * <br/>
+ * Usage:<br/>
+ * Configure::read('Name'); will return all values for Name<br/>
+ * Configure::read('Name.key'); will return only the value of Configure::Name[key]
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} key                This is the key that identifies the object to retrieve
+ * @return {Object}                   The configuration value
+ */
+GeckoJS.Configure.prototype.read = function(key){
+    
+    var name = this.__configVarNames(key);
+
+    if(name.length >1) {
+        var obj = this.map.get(name[0]);
+        if (obj == null) return obj;
+        
+        var cur = obj;
+
+        for (var i=1; i<name.length ; i++ ) {
+            var part = name[i];
+
+            if (typeof cur[part] != 'undefined') {
+                cur = cur[part];
+            }else {
+                return null;
+            }
+        }
+        if (cur == null || typeof cur == 'undefined') cur = null;
+
+        return cur;
+
+    }else {
+        return this.map.get(name[0]);
+    }
+};
+
+
+/**
+ * Retrieves the configuration value identified by the given key.<br/>
+ * <br/>
+ * This method returns null if the key does not exist in the configuration repository.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} key                This is the key that identifies the object to retrieve
+ * @return {Object}                   The configuration value
+ */
+GeckoJS.Configure.read = function(key) {
+    return GeckoJS.Configure.getInstance().read(key);
+};
+
+
+/**
+ * Checks if the given key exists in the configuration repository.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} key                This is the key to check
+ * @return {Boolean}                  "true" if the key exists, "false" otherwise
+ */
+GeckoJS.Configure.prototype.check = function(key) {
+    
+    var name = this.__configVarNames(key);
+
+    if(name.length >1) {
+        var obj = this.map.get(name[0]);
+        if (obj == null || typeof obj[name[1]] == 'undefined') return false;
+        else return true;
+    }else {
+        return this.map.containsKey(name[0]);
+    }
+    
+};
+
+
+/**
+ * Checks if the given key exists in the configuration repository.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} key                This is the key to check
+ * @return {Boolean}                  "true" if the key exists, "false" otherwise
+ */
+GeckoJS.Configure.check = function(key) {
+    return GeckoJS.Configure.getInstance().check(key);
+};
+
+
+/**
+ * Cloning of GeckoJS.Configure instances are not supported.<br/>
+ * <br/>
+ * The clone() method from GeckoJS.BaseObject is overridden in GeckoJS.Configure
+ * with a dummy method.
+ *
+ * @public
+ * @function
+ */
+GeckoJS.Configure.prototype.clone = function(){
+    };
+
+
+/**
+ * Serializes the configuration repository using JSON encoding.
+ *
+ * @public
+ * @static
+ * @function
+ * @return {String}         The JSON representation of the configuration repository
+ */
+GeckoJS.Configure.prototype.serialize = function(){
+    return this.map.serialize();
+};
+
+
+/**
+ * Serializes the configuration repository using JSON encoding.
+ *
+ * @public
+ * @static
+ * @function
+ * @return {String}         The JSON representation of the configuration repository
+ */
+GeckoJS.Configure.serialize = function(){
+    return GeckoJS.Configure.getInstance().serialize();
+};
+
+
+/**
+ * Restores the configuration repository from its JSON encoding. Event listeners
+ * are not restored.  
+ *
+ * @public
+ * @static 
+ * @function
+ * @param {String} str      The JSON representation of the configuration repository
+ */
+GeckoJS.Configure.prototype.unserialize = function(str) {
+    return this.map.unserialize(str);
+};
+
+/**
+ * Restores the configuration repository from its JSON encoding. Event listeners
+ * are not restored.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} str      The JSON representation of the configuration repository
+ */
+GeckoJS.Configure.unserialize = function(str) {
+    return GeckoJS.Configure.getInstance().unserialize(str);
+};
+
+
+/**
+ * Loads XULRunner's and extensions' preferences into the configuration
+ * repository.
+ *
+ * @public
+ * @function
+ * @param {String} startingAt                The point on the branch at which to start enumerating the child preferences. Pass in "" to enumerate all preferences referenced by this branch.
+ */
+GeckoJS.Configure.prototype.loadPreferences = function(startingAt){
+	
+    if(typeof this._hasLoadPreferences[startingAt] =='undefined' || !this._hasLoadPreferences[startingAt]) {
+        var prefs = GREUtils.Pref.getPrefService();
+        var prefCount = {}, prefValues = {};
+
+        prefValues = prefs.getChildList(startingAt, prefCount );
+	
+        for(var i=0; i<prefCount.value; i++) {
+            this.write(prefValues[i], GREUtils.Pref.getPref(prefValues[i]));
+        }
+        this._hasLoadPreferences[startingAt] = true;
+
+    }
+};
+
+
+/**
+ * Loads XULRunner's and extensions' preferences into the configuration
+ * repository.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} startingAt                The point on the branch at which to start enumerating the child preferences. Pass in "" to enumerate all preferences referenced by this branch. 
+ */
+GeckoJS.Configure.loadPreferences = function(startingAt){
+    GeckoJS.Configure.getInstance().loadPreferences(startingAt);
+};
+
+
+/**
+ * Save to XULRunner's and extensions' preferences from the configuration
+ * repository.
+ *
+ * @public
+ * @function
+ * @param {String} startingAt                The point on the branch at which to start enumerating the child preferences. Pass in "" to enumerate all preferences referenced by this branch.
+ */
+GeckoJS.Configure.prototype.savePreferences = function(startingAt){
+
+    var confValues = this.read(startingAt);
+    if (confValues == null) return;
+    
+    var prefValues = {};
+
+    var getPrefValues = function (key, values) {
+        var type = typeof(values);
+
+        switch(type) {
+            case 'object':
+                for (var key2 in values) {
+                    getPrefValues(key+"."+key2, values[key2]);
+                }
+                break;
+
+            case 'number':
+            case 'boolean':
+            case 'string':
+                prefValues[key] = values;
+                break;
+        }
+
+    };
+
+    getPrefValues(startingAt, confValues);
+
+    var prefServices =  GREUtils.Pref.getPrefService();
+
+    for(var prefKey in prefValues) {
+        var type2 = typeof(prefValues[prefKey]);
+        
+        switch(type2) {
+            case 'string':
+                prefServices.setCharPref(prefKey, prefValues[prefKey]);
+                break;
+            case 'number':
+                prefServices.setIntPref(prefKey, prefValues[prefKey]);
+                break;
+            case 'boolean':
+                prefServices.setBoolPref(prefKey, prefValues[prefKey]);
+                break;
+        }
+    }
+    return ;
+
+};
+
+
+/**
+ * Save to XULRunner's and extensions' preferences from the configuration
+ * repository.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} startingAt                The point on the branch at which to start enumerating the child preferences. Pass in "" to enumerate all preferences referenced by this branch.
+ */
+GeckoJS.Configure.savePreferences = function(startingAt){
+    GeckoJS.Configure.getInstance().savePreferences(startingAt);
+};
+
+
+GeckoJS.Configure.prototype.__configVarNames = function (name) {
+    if (typeof name == "string") {
+        name = name.split(".");
+    }
+    return name;
+};
+/**
+ * Defines the GeckoJS.Session namespace.
+ *
+ * @public
+ * @namespace
+ */
+GREUtils.define('GeckoJS.Session', GeckoJS.global);
+
+/**
+ * Creates a new GeckoJS.Session instance and initializes this instance with
+ * an empty list of event listeners and empty session data.
+ * 
+ * @class GeckoJS.Session provides a Singleton Session context for applications
+ * running on the GeckoJS APP Engine.<br/>
+ * <br/>
+ * The Session context may be used to store session data as key-value pairs.
+ * <br/>
+ *
+ * @name GeckoJS.Session
+ * @extends GeckoJS.BaseObject
+ * @extends GeckoJS.Singleton
+ *
+ * @property {GeckoJS.Event} events   A list of event listeners for updates on the Session context (read-only)
+ * @property {GeckoJS.Map} map        A collection of session data stored in the Session context (read-only)
+ */
+GeckoJS.Session = GeckoJS.BaseObject.extend('Session', {
+    init: function(){
+
+        // FUEL's SessionStorage support
+        var sessObj;
+        if (Application.storage.has('GeckoJS_Session_events')) {
+            sessObj = Application.storage.get('GeckoJS_Session_events', {listeners: []} );
+            this._events = new GeckoJS.Event(sessObj.listeners);
+            // this._events.listeners = sessObj.listeners;
+        }else {
+            sessObj = {listeners: []};
+            //this._events.listeners = sessObj.listeners;
+            this._events = new GeckoJS.Event(sessObj.listeners);
+            Application.storage.set('GeckoJS_Session_events', sessObj);
+        }
+
+        if (Application.storage.has('GeckoJS_Session_map')) {
+            this._map = Application.storage.get('GeckoJS_Session_map',  (new GeckoJS.Map()) );
+        }else {
+            this._map = new GeckoJS.Map();
+            Application.storage.set('GeckoJS_Session_map', this._map);
+        }
+
+    }
+});
+
+// make Session support singleton
+GeckoJS.Singleton.support(GeckoJS.Session);
+
+
+//events getter
+GeckoJS.Session.prototype.__defineGetter__('events', function(){
+	return this._events;
+});
+
+
+//map getter
+GeckoJS.Session.prototype.__defineGetter__('map', function(){
+	return this._map;
+});
+
+/**
+ * Returns the set of event listeners associated with the Session context.
+ *
+ * @public
+ * @function
+ * @return {GeckoJS.Event}            The set of event listeners associated with the Session context
+ */
+GeckoJS.Session.prototype.getEvents = function() {
+    return this._events;
+};
+
+/**
+ * Returns the set of event listeners associated with the Session context.
+ *
+ * @public
+ * @function
+ * @return {GeckoJS.Event}            The set of event listeners associated with the Session context
+ */
+GeckoJS.Session.getEvents = function() {
+    return this.getInstance().getEvents();
+};
+
+
+/**
+ * Returns data stored in the Session context as key-value pairs.
+ *
+ * @public
+ * @function
+ * @return {GeckoJS.Map}              The collection of the key-value pairs stored in the Session context
+ */
+GeckoJS.Session.prototype.getMap = function() {
+    return this._map;
+};
+
+// We need shadow some method for event support.
+/**
+ * Adds a listener for a given event to this Session instance.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} aEvent           This is the event name
+ * @param {Function} aListener      This is the listener to add
+ * @param {Object} thisObj          This is the execution scope to lock the listener to
+ */
+GeckoJS.Session.addEventListener = function(aEvent, aListener, thisObj) {
+    
+    this.getInstance().addEventListener(aEvent, aListener, thisObj);
+
+};
+
+
+/**
+ * Adds a listener for a given event to Session.
+ *
+ * @public
+ * @function
+ * @param {String} aEvent           This is the event name
+ * @param {Function} aListener      This is the listener to add
+ * @param {Object} thisObj          This is the execution scope to lock the listener to
+ */
+GeckoJS.Session.prototype.addEventListener = function(aEvent, aListener, thisObj) {
+    try {
+        thisObj = thisObj || GeckoJS.global;
+        this.events.addListener(aEvent, aListener, thisObj);
+    }catch(e) {
+        this.log("ERROR", 'GeckoJS.Session.addEventListener ' + aEvent , e);
+    }
+
+};
+
+
+
+
+/**
+ * Clears all entries from the Session context.<br/>
+ * <br/>
+ * This method clears all data entries stored in the Session context, generating
+ * a "clear" event that is dispatched to all listeners of that event after all
+ * the entries have been cleared. This Session instance is passed to the event
+ * listeners as the event data (in the field eventItem.data).
+ *
+ * @public
+ * @static
+ * @function
+ */
+GeckoJS.Session.prototype.clear = function() {
+	this.map.clear();
+	this.events.dispatch("clear", this);
+};
+
+/**
+ * Clears all entries from the Session context.<br/>
+ * <br/>
+ * This method clears all data entries stored in the Session context, generating
+ * a "clear" event that is dispatched to all listeners of that event after all
+ * the entries have been cleared. This Session instance is passed to the event
+ * listeners as the event data (in the field eventItem.data).
+ *
+ * @public
+ * @static
+ * @function
+ */
+GeckoJS.Session.clear = function() {
+	GeckoJS.Session.getInstance().clear();
+};
+
+
+/**
+ * Removes a data entry from the Session context.<br/>
+ * <br/>
+ * This method removes a data entry identified by the given key from the
+ * Session context, generating a "remove" event that is dispatched to all listeners
+ * of that event after the data entry has been removed. The key is passed to the
+ * event listeners as the event data (in the field "eventItem.data").
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} key                This is the key that identifies the data entry to remove
+ */
+GeckoJS.Session.prototype.remove = function(key){
+    if(this.map.containsKey(key)) {
+        this.map.remove(key);
+        this.events.dispatch("remove", key);
+    }
+};
+
+
+/**
+ * Removes a data entry from the Session context.<br/>
+ * <br/>
+ * This method removes a data entry identified by the given key from the
+ * Session context, generating a "remove" event that is dispatched to all listeners
+ * of that event after the data entry has been removed. The key is passed to the
+ * event listeners as the event data (in the field "eventItem.data").
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} key                This is the key that identifies the data entry to remove
+ */
+GeckoJS.Session.remove = function(key){
+	GeckoJS.Session.getInstance().remove(key);
+};
+
+
+/**
+ * Adds a data entry to the Session context.<br/>
+ * <br/>
+ * This method stores the given data value in the Session context under the given
+ * key. A "change" event is dispatched to all listeners of that event after the
+ * data entry has been added, where the key-value pair is passed to the event
+ * listeners as named properties of the event data object (i.e. as "eventItem.data.key"
+ * and "eventItem.data.value").<br/>
+ * <br/>
+ * Any existing data entry in the Session context associated with the same key is
+ * replaced with the new value.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} key                This is the key under which to store the Session data
+ * @param {Object} val                This is the data value
+ */
+GeckoJS.Session.prototype.add = function(key, val){
+	this.set(key, val);
+};
+
+
+/**
+ * Adds a data entry to the Session context.<br/>
+ * <br/>
+ * This method stores the given data value in the Session context under the given
+ * key. A "change" event is dispatched to all listeners of that event after the
+ * data entry has been added, where the key-value pair is passed to the event
+ * listeners as named properties of the event data object (i.e. as "eventItem.data.key"
+ * and "eventItem.data.value").<br/>
+ * <br/>
+ * Any existing data entry in the Session context associated with the same key is
+ * replaced with the new value.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} key                This is the key under which to store the Session data
+ * @param {Object} val                This is the data value
+ */
+GeckoJS.Session.add = function(key, val){
+	GeckoJS.Session.getInstance().add(key, val);
+};
+
+
+/**
+ * Adds a data entry to the Session context.<br/>
+ * <br/>
+ * This method stores the given data value in the Session context under the given
+ * key. A "change" event is dispatched to all listeners of that event after the
+ * data entry has been added, where the key-value pair is passed to the event
+ * listeners as named properties of the event data object (i.e. as "eventItem.data.key"
+ * and "eventItem.data.value").<br/>
+ * <br/>
+ * Any existing data entry in the Session context associated with the same key is
+ * replaced with the new value.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} key                This is the key under which to store the Session data
+ * @param {Object} value              This is the data value
+ */
+GeckoJS.Session.prototype.set = function(key, value) {
+	this.map.set(key, value);
+	this.events.dispatch("change", {key:key, value:value});
+};
+
+
+/**
+ * Adds a data entry to the Session context.<br/>
+ * <br/>
+ * This method stores the given data value in the Session context under the given
+ * key. A "change" event is dispatched to all listeners of that event after the
+ * data entry has been added, where the key-value pair is passed to the event
+ * listeners as named properties of the event data object (i.e. as "eventItem.data.key"
+ * and "eventItem.data.value").<br/>
+ * <br/>
+ * Any existing data entry in the Session context associated with the same key is
+ * replaced with the new value.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} key                This is the key under which to store the Session data
+ * @param {Object} value              This is the data value
+ */
+GeckoJS.Session.set = function(key, value) {
+	GeckoJS.Session.getInstance().set(key, value);
+};
+
+
+/**
+ * Retrieves the data value identified by the given key.<br/>
+ * <br/>
+ * This method returns null if the key does not exist in the Session context.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} key                This is the key that identifies the data to retrieve
+ * @return {Object}                   The Session data stored under the given key
+ */
+GeckoJS.Session.prototype.get = function(key){
+    return this.map.get(key);
+};
+
+
+/**
+ * Retrieves the data value identified by the given key.<br/>
+ * <br/>
+ * This method returns null if the key does not exist in the Session context.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} key                This is the key that identifies the data to retrieve
+ * @return {Object}                   The Session data stored under the given key
+ */
+GeckoJS.Session.get = function(key){
+    return GeckoJS.Session.getInstance().get(key);
+};
+
+/**
+ * Checks if the given key exists in the Session context.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} key                This is the key to check
+ * @return {Boolean}                  "true" if the key exists, "false" otherwise
+ */
+GeckoJS.Session.prototype.has = function(key) {
+    return this.map.containsKey(key);
+};
+
+
+/**
+ * Checks if the given key exists in the Session context.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} key                This is the key to check
+ * @return {Boolean}                  "true" if the key exists, "false" otherwise
+ */
+GeckoJS.Session.has = function(key) {
+    return GeckoJS.Session.getInstance().has(key);
+};
+
+
+/**
+ * Cloning of GeckoJS.Session instances is not supported.<br/>
+ * <br/>
+ * The clone() method from GeckoJS.BaseObject is overridden in GeckoJS.Session
+ * with a dummy method.
+ *
+ * @public
+ * @function
+ */
+GeckoJS.Session.prototype.clone = function(){
+};
+
+
+/**
+ * Serializes the Session context using JSON encoding. Event listeners are not
+ * serialized. 
+ *
+ * @public
+ * @function
+ * @return {String}         The JSON representation of the Session data
+ */
+GeckoJS.Session.prototype.serialize = function(){
+	return this.map.serialize();
+};
+
+/**
+ * Restores the Session context from its JSON encoding. Event listeners
+ * are not restored.
+ *
+ * @public
+ * @function
+ * @param {String} str      The JSON representation of the Session context
+ */
+GeckoJS.Session.prototype.unserialize = function(str) {
+	return this.map.unserialize(str);
+};
+/**
+ * Defines the GeckoJS.NSIRunnable namespace.
+ *
+ * @public
+ * @namespace GeckoJS.NSIRunnable
+ */
+GREUtils.define('GeckoJS.NSIRunnable', GeckoJS.global);
+
+/**
+ * @class The GeckoJS.NSIRunnable interface is equivalent to the XPCOM
+ * nsIRunnable interface and should be implemented by any class whose instances
+ * are intended to be executed by a thread. The class must define a method of
+ * no arguments called run().<br/>
+ * <br/>
+ * This interface is designed to provide a common protocol for objects that wish
+ * to execute code while they are active. Thread is an example of a class that
+ * implements this interface (being active simply means that a thread has been
+ * started and has not yet been stopped.)<br/>
+ * <br/>
+ * GeckoJS.NSIRunnable is an interface and should not be instantiated under
+ * normal circumstances. Classes that wish to implement the GeckoJS.NSIRunnable
+ * interface should inherit (extend) the GeckoJS.NSIRunnable class.<br/>
+ *
+ * @name GeckoJS.NSIRunnable
+ * @extends GeckoJS.BaseObject
+ */
+GeckoJS.NSIRunnable = GeckoJS.BaseObject.extend('NSIRunnable', {
+    init: function(){
+
+    }
+});
+
+
+/**
+ * A class implementing the GeckoJS.NSIRunnable interface should provide its
+ * own run() method to override the dummy GeckoJS.NSIRunnable.run() method.<br/>
+ * <br/>
+ * When an object that implements the GeckoJS.NSIRunnable interface is used to
+ * create a thread, starting the thread causes the object's run() method to be
+ * called in that separately executing thread.
+ *
+ * @public
+ * @function
+ */
+GeckoJS.NSIRunnable.prototype.run = function() {
+};
+
+/**
+ * Returns an XPCOM nsIRunnable interface, letting the Thread Manager know that
+ * this component implements the XPCOM nsIRunnable interface.<br/>
+ * <br/>
+ * If the "iid" parameter is not Components.Interfaces.nsIRunnable or
+ * Components.Interfaces.nsISupports, this method throws the
+ * Components.results.NS_ERROR_NO_INTERFACE exception.
+ *
+ * @public
+ * @function
+ * @param {nsIID} iid               The IID of the requested interface
+ * @return {nsIRunnable}            The XPCOM nsIRunnable interface
+ */
+GeckoJS.NSIRunnable.prototype.QueryInterface = function(iid) {
+	if (iid.equals(Components.Interfaces.nsIRunnable) || iid.equals(Components.Interfaces.nsISupports)) {
+	    return this;
+	}
+	throw Components.results.NS_ERROR_NO_INTERFACE;
+};
+/**
+ * Defines the GeckoJS.Thread namespace.
+ *
+ * @public
+ * @namespace
+ */
+GREUtils.define('GeckoJS.Thread', GeckoJS.global);
+
+/**
+ * Creates a new GeckoJS.Thread instance and initializes it with a
+ * GeckoJS.NSIRunnable object.
+ *
+ * @class GeckoJS.Thread represents a thread of execution. It implements the
+ * GeckoJS.NSIRunnable interface, and is used to execute a GeckoJS.NSIRunnable
+ * object in a worker thread.<br/>
+ *
+ * @name GeckoJS.Thread
+ * @class
+ * @extends GeckoJS.NSIRunnable
+ *
+ * @property {GeckoJS.NSIRunnable} runnable   The GeckoJS.NSIRunnable object to execute (read-only)
+ * @property {nsIThread} worker               An nsIThread worker thread to execute the runnable (read-only)
+ * @property {nsIThread} main                 The main thread (read-only)
+ * @property {Number} id                      The thread id (read-only)
+ */
+GeckoJS.Thread = GeckoJS.NSIRunnable.extend('Thread', {
+    init: function(target){
+	  this._runnable = target || this;
+    }
+});
+
+/**
+ * Thread active Count
+ * @private
+ */
+GeckoJS.Thread._count = 0;
+
+GeckoJS.Thread.prototype._runnable = null;
+
+//runnable getter
+GeckoJS.Thread.prototype.__defineGetter__('runnable', function() {
+    this._runnable = this._runnable || this;
+	return this._runnable;
+});
+
+
+GeckoJS.Thread.prototype._worker = null;
+
+//worker thread getter
+GeckoJS.Thread.prototype.__defineGetter__('worker', function(){
+    this._worker = this._worker || GREUtils.Thread.createWorkerThread();
+	return this._worker ;
+});
+
+GeckoJS.Thread.prototype._main = null;
+
+//worker thread getter
+GeckoJS.Thread.prototype.__defineGetter__('main', function(){
+    this._main = this._main || GREUtils.Thread.getMainThread();
+	return this._main;
+});
+
+
+GeckoJS.Thread.prototype._id = 0;
+
+//worker thread getter
+GeckoJS.Thread.prototype.__defineGetter__('id', function(){
+    this._id = this._id || ++GeckoJS.Thread._count;
+	return this._id;
+});
+
+/**
+ * Starts the execution of the runnable object in the worker thread.<br/>
+ * <br/>
+ * This method dispatches the NSIRunnable object in the "runnable" field to the
+ * worker thread and schedules it for normal execution. The method returns
+ * immediately.
+ *
+ * @public
+ * @function
+ */
+GeckoJS.Thread.prototype.start = function() {
+	var worker = this.worker;
+    var aType = worker.DISPATCH_NORMAL;
+	var aRunnable = this.runnable;
+
+    try {
+       worker.dispatch(aRunnable, aType);
+    }catch (err) {
+        GREUtils.Thread.reportError(err);
+    }
+};
+/**
+ * Defines the GeckoJS.NSIObserver namespace.
+ *
+ * @public
+ * @namespace GeckoJS.NSIObserver
+ */
+GREUtils.define('GeckoJS.NSIObserver', GeckoJS.global);
+
+/**
+ * Creates a new GeckoJS.NSIObserver instance.
+ * 
+ * @class GeckoJS.NSIObserver is an interface that is normally implemented by
+ * an object that wishes to observe notifications. These notifications are
+ * often, though not always, broadcast via the nsIObserverService<br/>
+ *
+ * @name GeckoJS.NSIObserver
+ * @extends GeckoJS.BaseObject
+ */
+GeckoJS.NSIObserver = GeckoJS.BaseObject.extend('NSIObserver', {
+    init: function(){
+
+    }
+});
+
+
+/**
+ * This method will be invoked when there is a notification for the topic that
+ * the observer has registered for.<br/>
+ * <br/>
+ * In general, aSubject reflects the object whose change or action is being
+ * observed, aTopic indicates the specific change or action, and aData is an
+ * optional parameter or other auxiliary data further describing the change or
+ * action.<br/>
+ * <br/>
+ * The specific values and meanings of the parameters provided varies widely,
+ * though, according to where the observer was registered, and what topic is
+ * being observed.<br/>
+ * <br/>
+ * A single nsIObserver implementation can observe multiple types of
+ * notification, and is responsible for dispatching its own behavior on the
+ * basis of the parameters for a given callback.<br/>
+ * <br/>
+ * In general, aTopic is the primary criterion for such dispatch; nsIObserver
+ * implementations should take care that they can handle being called with
+ * unknown values for aTopic.<br/>
+ * <br/>
+ * While some observer-registration systems may make this safe in specific
+ * contexts, it is generally recommended that observe implementations not add
+ * or remove observers while they are being notified.
+ * 
+ * @public
+ * @function
+ *
+ * @param {nsISupports} aSubject
+ * @param {String} aTopic
+ * @param {String} aData
+ *
+ */
+GeckoJS.NSIObserver.prototype.observe = function(aSubject, aTopic, aData) {
+};
+
+/**
+ * Returns an XPCOM nsIObserver interface, letting the Observer services know
+ * that this component implements the XPCOM nsIObserver interface.<br/>
+ * <br/>
+ * If the "iid" parameter is not Components.Interfaces.nsIObserver or
+ * Components.Interfaces.nsISupports, this method throws the
+ * Components.results.NS_ERROR_NO_INTERFACE exception.
+ *
+ * @public
+ * @function
+ * @param {nsIID} iid               The IID of the requested interface
+ * @return {nsIObserver}            The XPCOM nsIObserver interface
+ */
+GeckoJS.NSIObserver.prototype.QueryInterface = function(iid) {
+	if (iid.equals(Components.Interfaces.nsIObserver) || iid.equals(Components.Interfaces.nsISupports)) {
+	    return this;
+	}
+	throw Components.results.NS_ERROR_NO_INTERFACE;
+};
+
+/**
+ * Defines the GeckoJS.Observer namespace.
+ *
+ * @public
+ * @namespace
+ */
+GREUtils.define('GeckoJS.Observer', GeckoJS.global);
+
+
+/**
+ * Creates a new GeckoJS.Observer instance.
+ *
+ * @class GeckoJS.Observer represents a Observer services
+ *
+ * @name GeckoJS.Observer
+ * @extends GeckoJS.NSIObserver
+ *
+ */
+GeckoJS.Observer = GeckoJS.NSIObserver.extend('Observer', {
+    
+    init: function(){
+
+    }
+    
+});
+
+
+/**
+ * This method is invoked when there is a notification for the topic that the
+ * observer has registered for.<br/>
+ * <br/>
+ * In general, aSubject reflects the object whose change or action is being
+ * observed, aTopic indicates the specific change or action, and aData is an
+ * optional parameter or other auxiliary data further describing the change or
+ * action.<br/>
+ * <br/>
+ * The specific values and meanings of the parameters provided varies widely,
+ * though, according to where the observer was registered, and what topic is
+ * being observed.<br/>
+ * <br/>
+ * A single nsIObserver implementation can observe multiple types of
+ * notification, and is responsible for dispatching its own behavior on the
+ * basis of the parameters for a given callback.<br/>
+ * <br/>
+ * In general, aTopic is the primary criterion for such dispatch; nsIObserver
+ * implementations should take care that they can handle being called with
+ * unknown values for aTopic.<br/>
+ * <br/>
+ * While some observer-registration systems may make this safe in specific
+ * contexts, it is generally recommended that observe implementations not add
+ * or remove observers while they are being notified.
+ * 
+ * @public
+ * @function
+ *
+ * @param {nsISupports} aSubject
+ * @param {String} aTopic
+ * @param {String} aData
+ *
+ */
+GeckoJS.Observer.prototype.observe = function(aSubject, aTopic, aData) {
+};
+
+/**
+ * Observe Topic for register
+ *
+ */
+GeckoJS.Observer.prototype.topics = [];
+
+/**
+ * register this observer to Observer Service.
+ *
+ * @public
+ * @function
+ * @param {Array} topics
+ * @return {GeckoJS.Observer} this
+ */
+GeckoJS.Observer.prototype.register = function(topics) {
+
+    var observerService = Components.classes["@mozilla.org/observer-service;1"]
+    .getService(Components.interfaces.nsIObserverService);
+
+    var self = this;
+    topics = topics || this.topics;
+    var newTopics = [] ;
+    topics.forEach(function(topic) {
+        try {
+            observerService.addObserver(self, topic, false);
+            newTopics.push(topic);
+        }catch(e) {
+            this.log('ERROR', 'addObserver for ' + topic + ' failure.');
+        }
+    });
+    this.topics = newTopics;
+
+    return this;
+
+};
+
+
+/**
+ * unregister this observer from Observer Service.
+ *
+ * @public
+ * @function
+ * @return {GeckoJS.Observer} this
+ */
+GeckoJS.Observer.prototype.unregister = function() {
+
+    var observerService = Components.classes["@mozilla.org/observer-service;1"]
+    .getService(Components.interfaces.nsIObserverService);
+
+
+    var self = this;
+    var topics = this.topics;
+    topics.forEach(function(topic) {
+        try {
+            observerService.removeObserver(self, topic);
+        }catch(e) {
+            this.log('ERROR', 'removeObserver for ' + topic + ' failure.');
+        }
+    });
+
+   return this;
+};
+
+
+
+
+/**
+ * To signal the observers of a topic.
+ * Calling this method will signal all registered observers of a given topic.
+ *
+ * @public
+ * @function
+ * @static
+ * @param {Object} subject  Notification specific interface pointer.
+ * @param {String} topic    The notification topic or subject.
+ * @param {String} data         Notification specific wide string.
+ *
+ * @example
+ * example: <pre>
+ *   GeckoJS.Observer.notify(subject,"my-topic","add");
+ * </pre>
+ *
+ */
+GeckoJS.Observer.notify = function(subject, topic, data) {
+
+    if (subject) {
+        if (typeof subject.QueryInterface == 'undefined') {
+            subject.wrappedJSObject = subject;
+            subject.QueryInterface = function(iid) {
+                if (iid.equals(Components.Interfaces.nsISupports)) {
+                    return subject;
+                }
+                throw Components.results.NS_ERROR_NO_INTERFACE;
+            };
+        }
+    }
+
+    var observerService = Components.classes["@mozilla.org/observer-service;1"]
+    .getService(Components.interfaces.nsIObserverService);
+
+    observerService.notifyObservers(subject, topic, data);
+};
+
+
+/**
+ * To signal the observers of a topic.
+ * Calling this method will signal all registered observers of a given topic.
+ *
+
+ *
+ * @public
+ * @function
+ * @param {Object} subject  Notification specific interface pointer.
+ * @param {String} topic    The notification topic or subject.
+ * @param {String} data         Notification specific wide string.
+ *
+ * @example
+ * example: <pre>
+ *   GeckoJS.Observer.notify(subject,"my-topic","add");
+ * </pre>
+ *
+ */
+GeckoJS.Observer.prototype.notify = function(subject, topic, data) {
+
+    GeckoJS.Observer.notify(subject, topic, data);
+
+};
+
+/**
+ * return new instance of observer
+ *
+ * proto is javascript object for quick implement observer
+ *
+ * @public
+ * @function
+ * @param {Object} proto
+ *
+  * @example
+ * example: <pre>
+ *  {
+ *    topics: ['myTopic1', 'myTopic2'],
+ *
+ *    observe: function(aSubject, aTopic, aData) {
+ *    }
+ *  }
+ *  </pre>
+ *
+ *  usage: <pre>
+ *  var closeObserve = GeckoJS.Observer.newInstance({
+ *          topics: ['quit-applicatio-requested','quit-application-granted', 'quit-application'],
+ *          observe: function(aSubject, aTopic, aData) {
+ *              this.unregister();
+ *              // application quit.....
+ *          }
+ *          }).register();
+ * </pre>
+ *
+ */
+GeckoJS.Observer.newInstance = function(proto) {
+
+    var klass = GeckoJS.Observer.extend(proto);
+    return new klass;
+
+};
+
+
+
+/**
+ * Defines the GeckoJS.Dispatcher namespace.
+ *
+ * @public
+ * @namespace
+ */
+GREUtils.define('GeckoJS.Dispatcher', GeckoJS.global);
+
+
+/**
+ * Creates a new GeckoJS.Dispatcher instance.
+ * 
+ * @class GeckoJS.Dispatcher is a Singleton that provides the mechanism via
+ * which MVC UI events are dispatched to the appropriate controllers in the
+ * Gecko APP Engine MVC Framework.<br/>
+ *
+ * @name GeckoJS.Dispatcher
+ * @class
+ * @extends GeckoJS.BaseObject
+ * @extends GeckoJS.Singleton
+ * @property {GeckoJS.Event} events       A list of event listeners
+ */
+GeckoJS.Dispatcher = GeckoJS.BaseObject.extend('Dispatcher', {
+    init: function(){
+
+        // FUEL's SessionStorage support
+        this._events = new GeckoJS.Event();
+        if (Application.storage.has('GeckoJS_Dispatcher_events')) {
+            var sessObj = Application.storage.get('GeckoJS_Dispatcher_events', {listeners: []} );
+            this._events.listeners = sessObj.listeners;
+        }else {
+            var sessObj = {listeners: []};
+            this._events.listeners = sessObj.listeners;
+            Application.storage.set('GeckoJS_Dispatcher_events', sessObj);
+        }
+
+
+    }
+});
+
+// make ClassRegistry support singleton
+GeckoJS.Singleton.support(GeckoJS.Dispatcher);
+
+
+//events getter
+GeckoJS.Dispatcher.prototype.__defineGetter__('events', function(){
+    return this._events;
+});
+//callbacks setter
+GeckoJS.Dispatcher.prototype.__defineSetter__('events', function(e){
+    // do not things
+    });
+
+
+/**
+ * Adds a listener for a given event to this Dispatcher instance.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} aEvent           This is the event name
+ * @param {Function} aListener      This is the listener to add
+ */
+GeckoJS.Dispatcher.addEventListener = function(aEvent, aListener) {
+    this.getInstance().addEventListener(aEvent, aListener);
+};
+
+
+/**
+ * Adds a listener for a given event to this Dispatcher instance.
+ *
+ * @public
+ * @function
+ * @param {String} aEvent           This is the event name
+ * @param {Function} aListener      This is the listener to add
+ */
+GeckoJS.Dispatcher.prototype.addEventListener = function(aEvent, aListener) {
+    try {
+        this.events.addListener(aEvent, aListener);
+    }catch(e) {
+        this.log("ERROR", 'GeckoJS.Dispatcher.addEventListener ' + aEvent , e);
+    }
+
+};
+
+/**
+ * Dispatches the given event to all listeners of that event.<br/>
+ * <br/>
+ * This method creates an EventItem instance from (sEvt, data, "this") to pass
+ * to the event listeners. If any of the listeners invokes the preventDefault()
+ * method on the EventItem instance, this method will return "false". Otherwise
+ * it returns "true".
+ *
+ * @public
+ * @function
+ * @param {String} sEvt             This is the event name
+ * @param {Object} data             This is the event data
+ * @return {Boolean}                Whether preventDefault() has been invoked
+ */
+GeckoJS.Dispatcher.dispatchEvent = function(sEvt, data ) {
+    return this.getInstance().dispatchEvent(sEvt, data);
+};
+
+
+/**
+ * Dispatches the given event to all listeners of that event.<br/>
+ * <br/>
+ * This method creates an EventItem instance from (sEvt, data, "this") to pass
+ * to the event listeners. If any of the listeners invokes the preventDefault()
+ * method on the EventItem instance, this method will return "false". Otherwise
+ * it returns "true".
+ *
+ * @public
+ * @function
+ * @param {String} sEvt             This is the event name
+ * @param {Object} data             This is the event data
+ * @return {Boolean}                Whether preventDefault() has been invoked on the event
+ */
+GeckoJS.Dispatcher.prototype.dispatchEvent = function(sEvt, data ) {
+    try {
+        return this.events.dispatch(sEvt, data, this);        
+    }catch(e) {
+        this.log('ERROR', 'GeckoJS.Dispatcher.dispatchEvent ' + sEvt , e);
+        return false;
+    }
+};
+
+
+/**
+ * Dispatches the given command to a controller and invokes the command handler
+ * of that controller. If the controller is not given, an appropriate controller
+ * supporting the given command will be selected from the global context.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {Object} win                  window object because jsmodules can't access window 
+ * @param {String} command              This is the command to dispatch
+ * @param {Object} data                 This is the command data to pass to the controller
+ * @param {Object} context              This is the controller to handle the command
+ * @return {GeckoJS.Dispatcher}
+ */
+GeckoJS.Dispatcher.dispatch = function(win, command, data, context){
+    return this.getInstance().dispatch(win, command, data, context);
+};
+
+
+/**
+ * Dispatches the given command to a controller and invokes the command handler
+ * of that controller. If the controller is not given, an appropriate controller
+ * supporting the given command will be selected from the global context.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {Object} win                  This is the window object because jsmodules can't access window 
+ * @param {String} command              This is the command to dispatch; defaults to "index"
+ * @param {Object} data                 This is the command data to pass to the controller
+ * @param {Object} context              This is the controller to handle the command
+ * @return {GeckoJS.Dispatcher}
+ */
+GeckoJS.Dispatcher.prototype.dispatch = function(win, command, data, context){
+
+    try {
+
+        //var window = win || window || GeckoJS.global;
+	    //var document = window.document;
+        
+        command = command || 'index';
+        data = (typeof data != 'undefined') ? data : null;
+        context = context || null;
+
+        var controller = null;
+
+        if (context != null) {
+            if (typeof context == 'string' ) {
+                // get controller class from name
+                context = GeckoJS.BaseController.getControllerClass(context);
+            }
+            
+            if(typeof context == 'function'){
+
+                if ( typeof context['getInstance'] == 'function') {
+                    // controller class ?
+                    try {
+                        controller = context.getInstance();
+                    }catch(e) {
+                        this.log('ERROR','GeckoJS.dispatch controller.getInstance ', e);
+                    }
+                    
+                }else {
+                    // not controller class
+                    controller = null;
+                }
+
+            }else if(typeof context == 'object') {
+                
+                if(context instanceof GeckoJS.Controller || typeof context['isCommandEnabled'] == 'function') {
+                    // controller object ?
+                    controller = context;
+                }else {
+                    // not accept controller object
+                    controller = null;
+                }
+            }
+        }else {
+            
+            // nsIController and has been appendController .
+            //var top = window.top || top || GeckoJS.global.top;
+            //var document = window.document || document || GeckoJS.global.document;
+            var cmdDispatcher = document.commandDispatcher || top.document.commandDispatcher || window.controllers;
+
+            controller = cmdDispatcher.getControllerForCommand(command);
+
+        }
+        
+        if (controller == null ){
+            this.log('WARN', 'GeckoJS.dispatch controller not found for '+ command);
+
+        }else if (controller.isCommandEnabled(command)) {
+            // command enabled 
+            
+            try {
+
+                // if wrappedJSObject exists , we can access property directly
+                if(typeof controller.wrappedJSObject != 'undefined') {
+                    controller.wrappedJSObject._data = data;
+                    controller.wrappedJSObject._command = command;
+                }
+
+                // dispatch dispatcher's event
+                this.dispatchEvent('onDispatch', controller);
+
+                // invoke controller 's command
+                controller.doCommand(command);
+
+            }catch(e) {
+                this.log('ERROR','GeckoJS.dispatch ', e);
+            }
+
+        }else if (typeof controller['scaffold'] != 'undefined') {
+            // scaffold ?
+            if (typeof controller.wrappedJSObject['Scaffold'] == 'undefined') {
+                // always instance new for cross window controller
+                controller.wrappedJSObject['Scaffold'] = new GeckoJS.Scaffold(controller);
+            }
+            controller.wrappedJSObject['Scaffold'].__invoke(command, data);
+
+        }else {
+            this.log('WARN', 'GeckoJS.dispatch command not found for '+ command);
+        }
+        
+        return this;
+    }catch (e) {
+        this.log('ERROR', 'GeckoJS.dispatch to command' + command , e);
+    }
+
+    return this;
+};
+
+
+/**
+ * Defines GeckoJS.NSIController namespace
+ * 
+ * @namespace
+ */
+GREUtils.define('GeckoJS.NSIController', GeckoJS.global);
+
+/**
+ * Creates a new GeckoJS.NSIController instance.
+ * 
+ * @class GeckoJS.NSIController implements the nsIController interface. This
+ * class provides the basis for other Controller classes that actually do the
+ * work.<br/>
+ *       
+ * @name GeckoJS.NSIController
+ * @extends GeckoJS.BaseObject
+ * @extends GeckoJS.Singleton
+ */
+GeckoJS.NSIController = GeckoJS.BaseObject.extend('NSIController', {
+    init: function(){
+        // http://developer.mozilla.org/en/docs/wrappedJSObject
+        this.wrappedJSObject = this;
+		
+        this._privateCommands =  {
+            '_privateCommands': true,
+            'supportsCommand': true,
+            'isCommandEnabled': true,
+            'doCommand': true,
+            'onEvent': true,
+			
+            // from BaseObject
+            'extend': true,
+            'serialize': true,
+            'unserialize': true,
+            'log': true
+        };
+    }
+});
+
+// make Controller support singleton
+GeckoJS.Singleton.support(GeckoJS.NSIController);
+
+
+/**
+ * Checks if the given command is supported by this controller.<br/>
+ * <br/>
+ * Returns "true" if the given command is supported, "false" otherwise.  
+ * 
+ * @public
+ * @function
+ * @param {String} sCmd             This is the command to check 
+ * @return {Boolean}                Whether the given command is supported
+ */
+GeckoJS.NSIController.prototype.supportsCommand = function(sCmd){
+    if ((!(sCmd in this._privateCommands)) && (sCmd in this) && typeof this[sCmd] == 'function') {
+        return true;
+    }
+    this.log('WARN', 'GeckoJS.Controller.supportsCommand: [' + sCmd + '] return false');
+    return false;
+};
+
+
+/**
+ * Checks if the given command is enabled in this controller.<br/>
+ * <br/>
+ * Returns "true" if the given command is enabled, "false" otherwise.  
+ * 
+ * @public
+ * @function
+ * @param {String} sCmd             This is the command to check 
+ * @return {Boolean}                Whether the given command is enabled
+ */
+GeckoJS.NSIController.prototype.isCommandEnabled = function(sCmd){
+    if (this.supportsCommand(sCmd)) {
+        return true;
+    }
+    return false;
+};
+
+
+/**
+ * Performs the specified command.<br/>
+ * <br/>
+ * The specified command is performed only if it is supported by the Controller
+ * and is enabled.
+ *     
+ * @public
+ * @function
+ * @param {String} sCmd             This is the command to perform
+ */
+GeckoJS.NSIController.prototype.doCommand = function(sCmd){
+	
+    try {
+        if (this.supportsCommand(sCmd) && this.isCommandEnabled(sCmd)) {
+            this[sCmd].apply(this, arguments);
+        }
+    }catch(e){
+        this.log("FATAL", "An error occurred executing the " + sCmd + " command\n", e);
+    }
+	
+};
+
+
+/**
+ * Provides a dummy onEvent() method that always returns "true".
+ * 
+ * @public
+ * @function
+ * @param {String} sCmd             This is the event name 
+ * @return {Boolean}                "true" always
+ */
+GeckoJS.NSIController.prototype.onEvent = function(sEvt){
+    return true;
+};
+
+
+/**
+ * Appends an instance of this Controller to the list of global controllers.
+ * 
+ * @public
+ * @static 
+ * @function
+ */
+GeckoJS.NSIController.appendController = function() {
+    var window = window || GeckoJS.global;
+    window.controllers.appendController(this.getInstance());
+};
+
+ /**
+ * Defines the GeckoJS.BaseController namespace.
+ *
+ * @public
+ * @namespace
+ */
+GREUtils.define('GeckoJS.BaseController', GeckoJS.global);
+
+
+/**
+ * Creates a new GeckoJS.BaseController instance.
+ * 
+ * @class GeckoJS.BaseController is the base Controller class for the VIVIPOS APP
+ * Engine MVC Framework. The Controller in a Model-View-Controller design
+ * pattern is responsible for processing and responding to events, such as
+ * user actions, and invoking changes on the model.<br/>
+ * <br/>
+ * GeckoJS.BaseController inherits from NSIController and supports the
+ * nsIController interface. It is a Singleton class.<br/>
+ *
+ * @name GeckoJS.BaseController
+ * @extends GeckoJS.NSIController
+ * @extends GeckoJS.Singleton
+ *
+ * @property {GeckoJS.Event} events       A list of event listeners (read-only)
+ * @property {GeckoJS.Session} Session    A session context (read-only)
+ * @property {jQuery} query               The query function used to look for a document element; normally jQuery, but document.getElementById if jQuery is not available (read-only)
+ * @property {Window} activeWindow        activeWindow's window object || ChromeWindow (read-only)
+ * @property {Window} window              activeWindow's window object || ChromeWindow (read-only)
+ * @property {Document} document          activeWindow's document object || XULDocument (read-only)
+ * @property {Object} data                Data from gDispatch
+ * @property {String} command             Command from gDispatch
+ * @property {String} lastDispatchEvent   Name of the last dispatched event
+ * @property {String} name                Name of this Controller class
+ */
+GeckoJS.BaseController = GeckoJS.NSIController.extend('BaseController', {
+    name: 'BaseController',
+    
+    init: function(){
+
+
+        // set Default controller name
+        this.name = this.name || "BaseController";
+
+        /*
+        // FUEL's SessionStorage support
+        var eventKey = "GeckoJS_Controller_"+this.name+"_events";
+        if (Application.storage.has(eventKey)) {
+            this._events = Application.storage.get(eventKey, (new GeckoJS.Event()) );
+        }else {
+            this._events = new GeckoJS.Event();
+            Application.storage.set(eventKey, this._events);
+        }*/
+
+        this._events = new GeckoJS.Event();
+
+        this._session = GeckoJS.Session.getInstance();
+
+        // http://developer.mozilla.org/en/docs/wrappedJSObject
+        this.wrappedJSObject = this;
+
+        // lastDispatchEvent
+        this.lastDispatchEvent = "";
+		
+        // gDispatch set data to here
+        this._data = null;
+
+        // gDispatch set command to here
+        this._command = "";
+
+        // load Models
+        this.modelClass = "";
+        this.modelKey = "";
+        this.uses = this.uses || [];
+        this._loadModels();
+
+        // auto register events from class prototype method
+        this._addControllerEvents();
+
+        // _addComponents
+        this.components = this.components || [];
+        this._addComponents();
+
+        // _addHelpers
+        this.helpers = this.helpers || [];
+        this._addHelpers();
+
+        this._privateCommands =  {
+            '_privateCommands': true,
+            'getCallbacks': true,
+            'getEvents': true,
+            'supportsCommand': true,
+            'isCommandEnabled': true,
+            'doCommand': true,
+            'onEvent': true,
+
+            // from BaseObject
+            'extend': true,
+            'serialize': true,
+            'unserialize': true,
+            'log': true,
+
+            // for filter rule
+            'beforeFilter': true,
+            'afterFilter': true,
+
+            'Session': true,
+            'query': true,
+            'addEventListener': true,
+            'dispatchEvent': true,
+            
+            'Acl': true,
+            'Form': true
+            
+        };
+
+
+    }
+});
+
+// make Controller support singleton
+GeckoJS.Singleton.support(GeckoJS.BaseController);
+
+
+/**
+ * Registers the Controller sub-class in the Class Registry.
+ *
+ * @public
+ * @static
+ * @function   
+ * @param {String} name                 This is the name to register the sub-class with
+ * @param {GeckoJS.Controller} klass    This is the Controller sub-class to register
+ */
+GeckoJS.BaseController.setControllerClass = function(name, klass) {
+    
+    if (name == 'Controller' || GeckoJS.ClassRegistry.isKeySet("ControllerClass_" + name)) return ;
+
+    /*
+    // FUEL's SessionStorage support
+    var eventKey = "GeckoJS_Controller_"+ name + "_events";
+    Application.storage.set(eventKey, (new GeckoJS.Event()) );
+    */
+
+    GeckoJS.ClassRegistry.addObject("ControllerClass_" + name, klass);
+};
+
+
+/**
+ * Retrieves the Controller sub-class object by name from the Class Registry.
+ *
+ * @public
+ * @static
+ * @function   
+ * @param {String} name                 This is the name of the Model sub-class to retrieve
+ * @return {GeckoJS.Controller}         The Controller sub-class identified by name
+ */
+GeckoJS.BaseController.getControllerClass = function(name) {
+    
+    return GeckoJS.ClassRegistry.getObject("ControllerClass_" + name);
+
+};
+
+
+//events getter
+GeckoJS.BaseController.prototype.__defineGetter__('events', function(){
+    return this._events;
+});
+
+//session getter
+GeckoJS.BaseController.prototype.__defineGetter__('Session', function(){
+    return this._session;
+});
+
+//domquery getter
+GeckoJS.BaseController.prototype.__defineGetter__('query', function(){
+
+    var win = this.window; // this.activeWindow;
+    var doc = win.document;
+
+    var fn = win.jQuery || function(id) {
+        doc.getElementById(id.replace('#',''));
+    };
+
+    return fn;
+});
+
+//document object getter
+GeckoJS.BaseController.prototype.__defineGetter__('document', function(){
+
+    return this.activeWindow.document;
+    
+});
+
+//window object getter
+GeckoJS.BaseController.prototype.__defineGetter__('window', function(){
+
+    var ww =  (typeof window != 'undefined') ? window : this.activeWindow ;
+
+    return ww;
+
+});
+
+//window object getter
+GeckoJS.BaseController.prototype.__defineGetter__('activeWindow', function(){
+
+    var ww = GREUtils.XPCOM.getUsefulService("window-watcher");
+
+    return ww.activeWindow;
+
+});
+
+
+//dispatchData getter
+GeckoJS.BaseController.prototype.__defineGetter__('data', function(){
+    return this._data;
+});
+
+//dispatchData setter
+GeckoJS.BaseController.prototype.__defineSetter__('data', function(d){
+    this._data = d;
+});
+
+//dispatchData getter
+GeckoJS.BaseController.prototype.__defineGetter__('command', function(){
+    return this._command;
+});
+
+//dispatchData setter
+GeckoJS.BaseController.prototype.__defineSetter__('command', function(d){
+    this._command = d;
+});
+
+
+/**
+ * _addControllerEvents
+ *
+ * @private
+ */
+GeckoJS.BaseController.prototype._addControllerEvents = function() {
+    
+    var events = this._events;
+    var self = this;
+
+    // ignore basecontroller or controller
+    if (this.getClassName() == 'BaseController' || this.getClassName() == 'Controller' ) return;
+
+    ['beforeFilter', 'afterFilter'].forEach(function(evt){
+        if(typeof self[evt] == 'undefined') return;
+
+        if (GREUtils.isFunction(self[evt])) {
+            events.addListener(evt, self[evt], self);
+        } else if (GREUtils.isObject(self[evt])) {
+            self[evt].forEach(function(fn){
+                if (typeof(fn) == 'function') {
+                    events.addListener(evt, fn, self);
+                }
+            });
+        }
+    }, self);
+    
+};
+
+
+/**
+ * _addComponents
+ *
+ * @private
+ */
+GeckoJS.BaseController.prototype._addComponents = function() {
+    
+    var self = this;
+    var components = this.components;
+
+    // ignore basecontroller or controller
+    if (this.getClassName() == 'BaseController' || this.getClassName() == 'Controller' ) return;
+
+    
+    if (GeckoJS.Array.inArray('Acl', components) == -1) {
+        components.push('Acl');
+    }
+    
+    components.forEach( function(componentName) {
+        var componentClass =GeckoJS.Component.getComponentClass(componentName);
+        if (componentClass != null) {
+            self[componentName] = new componentClass(self);
+        }
+    });
+
+};
+
+
+/**
+ * _addHelpers
+ *
+ * @private
+ */
+GeckoJS.BaseController.prototype._addHelpers = function() {
+    
+    var self = this;
+    var helpers = this.helpers;
+    
+    // ignore basecontroller or controller
+    if (this.getClassName() == 'BaseController' || this.getClassName() == 'Controller' ) return;
+
+    if (GeckoJS.Array.inArray('Form', helpers) == -1) {
+        helpers.push('Form');
+    }
+    
+    helpers.forEach( function(helperName) {
+        var helperClass = GeckoJS.Helper.getHelperClass(helperName);
+        if (helperClass != null) {
+            if(typeof helperClass['getInstance'] == 'function') {
+                self[helperName] = helperClass.getInstance();
+            } else {
+                self[helperName] = new helperClass();
+            }
+        }
+    });
+
+};
+
+
+/**
+ * _loadModels
+ *
+ * @private
+ */
+GeckoJS.BaseController.prototype._loadModels = function() {
+
+    var modelClasses = [GeckoJS.Inflector.classify(this.name)].concat(this.uses);
+
+    modelClasses.forEach(function(modelClass){
+
+        if (typeof this[modelClass] != 'undefined' ) return;
+
+        var model = GeckoJS.BaseModel.getModelClass(modelClass);
+
+        if (model) {
+            this[modelClass] = new model;
+            
+            // set default ModelClass and ModelKey
+            if(this.modelClass.length == 0 && this.modelKey.length == 0) {
+
+                this.modelClass = modelClass;
+                this.modelKey = GeckoJS.Inflector.underscore(modelClass);
+
+            }
+        }
+
+    }, this);
+
+};
+
+
+/**
+ * Returns the list of event listeners associated with this BaseController
+ * instance.
+ *
+ * @public
+ * @function
+ * @return {GeckoJS.Event}          The list of event listeners
+ */
+GeckoJS.BaseController.prototype.getEvents = function(){
+    return this._events;
+};
+
+
+/**
+ * Retrieves a controller's Singleton instance by the controller's name.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} name           This is the controller's name
+ * @return {GeckoJS.BaseController}    The controller's Singleton instance, or null
+ */
+GeckoJS.BaseController.getInstanceByName = function(name) {
+
+        var controllerClass = null;
+        var controllerName = name || null;
+
+        if (controllerName) {
+            controllerClass = GeckoJS.BaseController.getControllerClass(controllerName);
+        }
+        
+        if (controllerClass) {
+            return controllerClass.getInstance();
+        }else {
+            return null;
+        }
+       
+};
+
+
+/**
+ * Adds a listener for a given event to this BaseController instance.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} aEvent           This is the event name
+ * @param {Function} aListener      This is the listener to add
+ * @param {Object} thisObj          This is the execution scope to lock the listener to
+ */
+GeckoJS.BaseController.addEventListener = function(aEvent, aListener, thisObj) {
+    
+    if (typeof aEvent == 'string' && typeof aListener == 'string') {
+
+        var controller = null;
+        
+        
+        // shift arguments
+        thisObj = arguments[3] || GeckoJS.global;
+        aListener = arguments[2];
+        aEvent = arguments[1];
+        var controllerName = arguments[0];
+        
+        
+
+        controller = GeckoJS.BaseController.getInstanceByName(controllerName);
+        if (controller) {
+            controller.addEventListener(aEvent, aListener, thisObj);
+        }
+        
+    }else {
+        this.getInstance().addEventListener(aEvent, aListener, thisObj);
+    }
+};
+
+
+/**
+ * Adds a listener for a given event to this BaseController instance.
+ *
+ * @public
+ * @function
+ * @param {String} aEvent           This is the event name
+ * @param {Function} aListener      This is the listener to add
+ * @param {Object} thisObj          This is the execution scope to lock the listener to
+ */
+GeckoJS.BaseController.prototype.addEventListener = function(aEvent, aListener, thisObj) {
+    try {
+        thisObj = thisObj || GeckoJS.global;
+        this.events.addListener(aEvent, aListener, thisObj);
+    }catch(e) {
+        this.log("ERROR", this.getClassName() + 'Controller.addEventListener ' + aEvent , e);
+    }
+
+};
+
+
+/**
+ * Dispatches the given event to all listeners of that event.<br/>
+ * <br/>
+ * This method creates an EventItem instance from (sEvt, data, "this") to pass to
+ * the event listeners. If any of the listeners invokes the preventDefault() method on
+ * the EventItem instance, this method will return "false". Otherwise it returns
+ * "true".
+ *
+ * @public
+ * @function
+ * @param {String} sEvt             This is the event name
+ * @param {Object} data                 This is the event data
+ * @return {Boolean}                Whether preventDefault() has been invoked
+ */
+GeckoJS.BaseController.dispatchEvent = function(sEvt, data) {
+    return this.getInstance().dispatchEvent(sEvt, data);
+};
+
+
+/**
+ * Dispatches the given event to all listeners of that event.<br/>
+ * <br/>
+ * This method creates an EventItem instance from (sEvt, data, "this") to pass to
+ * the event listeners. If any of the listeners invokes the preventDefault() method on
+ * the EventItem instance, this method will return "false". Otherwise it returns
+ * "true".
+ *
+ * @public
+ * @function
+ * @param {String} sEvt             This is the event name
+ * @param {Object} data             This is the event data
+ * @return {Boolean}                The return value is false, if at least one of the event handlers which handled this event, called preventDefault. Otherwise it returns true. 
+ */
+GeckoJS.BaseController.prototype.dispatchEvent = function(sEvt, data ) {
+    try {
+        this.lastDispatchEvent = sEvt;
+        return this.events.dispatch(sEvt, data, this);
+    }catch(e) {
+        this.log('ERROR',this.getClassName()  + 'Controller.dispatchEvent ' + sEvt , e);
+        return false;
+    }
+};
+
+
+/**
+ * Checks if the given command is supported by this controller.<br/>
+ * <br/>
+ * Returns "true" if the given command is supported, "false" otherwise.
+ *
+ * Override NSIController 's supportCommand.
+ * if scaffold is true , and dispatch to scaffold , don't warning messages.
+ *
+ * @public
+ * @function
+ * @param {String} sCmd             This is the command to check
+ * @return {Boolean}                Whether the given command is supported
+ */
+GeckoJS.BaseController.prototype.supportsCommand = function(sCmd){
+    if ((!(sCmd in this._privateCommands)) && (sCmd in this) && typeof this[sCmd] == 'function') {
+        return true;
+    }else if (this['scaffold'] && (GeckoJS.Array.inArray(sCmd, GeckoJS.Scaffold.Actions) != -1) )  {
+        // scaffold return false but no warnning.
+        return false;
+    }
+    this.log('WARN', 'GeckoJS.Controller.supportsCommand: [' + sCmd + '] return false');
+    return false;
+};
+
+
+
+
+/**
+ * Executes a command.<br/>
+ * <br/>
+ * This method dispatches the "beforeFilter" event before invoking the requested
+ * command. These events are called even if the given command is not supported
+ * or enabled by this BaseController instance.<br/>
+ * <br/>
+ * If the "beforeFilter" event passes, the command is invoked if it is supported
+ * and enabled, and an event is dispatched (regardless of whether the command is
+ * actually invoked). The event name is constructed from concatenating "on" with
+ * the camelized command name (i.e. a command of "btn_click" results in the
+ * dispatch of event "onBtnClick".<br/>
+ * <br/>
+ * Finally the "afterFilter" event is dispatched.<br/>
+ * <br/>
+ * Events are passed the "command" string to the doCommand() call through the
+ * event data field . The first element of this array is the command name.<br/>
+ * <br/>
+ * The command is invoked with the same set of arguments as this doCommand()
+ * call.<br/>
+ * <br/>
+ * The event is dispatched with the arguments to this doCommand() call as the
+ * event data.
+ *
+ * @public
+ * @function
+ * @param {String} sCmd             This is the command to execute
+ */
+GeckoJS.BaseController.prototype.doCommand = function(sCmd){
+
+    try {
+        var beforeResult = this.dispatchEvent('beforeFilter', sCmd);
+
+        // if result invoke command
+        if (beforeResult) {
+
+            if (this.supportsCommand(sCmd) && this.isCommandEnabled(sCmd)) {
+                try {
+                    var args = [];
+                    if (this.wrappedJSObject._data == null) {
+                        
+                    }else if (typeof this.wrappedJSObject._data == 'object' && typeof this.wrappedJSObject._data.constructor.name == 'Array') {
+                        args = this.wrappedJSObject._data;
+                    }else {
+                        args.push(this.wrappedJSObject._data);
+                    }
+
+                    // invoke command
+                    this[sCmd].apply(this, args);
+                    
+                }catch(e) {
+                    this.log('ERROR', this.getClassName() + 'Controller.doCommand ' + sCmd , e);
+                }
+            }
+			
+            // check if user had dispatchEvent by itself
+            var lastDispatchEvent = this.lastDispatchEvent;
+            var autoEvent = 'on' + GeckoJS.Inflector.camelize(sCmd);
+			
+            if (lastDispatchEvent != autoEvent) {
+                this.dispatchEvent(autoEvent, arguments);
+            }
+        }
+
+        this.dispatchEvent('afterFilter', sCmd);
+
+    }
+    catch (e) {
+        this.log('ERROR' , this.getClassName() + '.doCommand error occurred executing the ' + sCmd, e);
+    }
+
+};
+/**
+ * Defines GeckoJS.Controller namespace
+ *
+ * @namespace
+ */
+GREUtils.define('GeckoJS.Controller', GeckoJS.global);
+
+/**
+ * Creates a new GeckoJS.Controller instance.
+ * 
+ * @class GeckoJS.Controller inherits from GeckoJS.BaseController and is
+ * intended to be extended by applications that require specialized controller
+ * behaviors.<br/>
+ *
+ * @name GeckoJS.Controller
+ * @extends GeckoJS.BaseController
+ *
+ */
+GeckoJS.Controller = GeckoJS.BaseController.extend('Controller', {
+    name: 'Controller'
+});
+
+// make Controller support singleton
+GeckoJS.Singleton.support(GeckoJS.Controller);
+
+// unnamed Controller counter
+GeckoJS.Controller.unnamedCounter = 1;
+
+
+/**
+ * addObject to ClassRegistry, when BaseController has been extended.
+ * 
+ * @private
+ */
+GeckoJS.Controller.extended = function(klass) {
+
+    if (klass.prototype.name == 'Controller' || klass.prototype.name == 'BaseController') {
+        klass.prototype.name = 'Unnamed' + GeckoJS.Controller.unnamedCounter++;
+    }
+
+    var name = klass.prototype.name;
+    klass.className = name;
+
+    GeckoJS.BaseController.setControllerClass(name, klass);
+};
+/**
+ * Defines GeckoJS.VqlParser namespace
+ *
+ * @private
+ * @namespace
+ */
+GREUtils.define('GeckoJS.VqlParser', GeckoJS.global);
+/**#nocode+*/
+/**
+ * @private
+ * @class Defines the VQL-based query class, which is a query mechanism
+ * for the model.
+ * 
+ * @extends GeckoJS.BaseObject
+ * @param {Object} queryString           VQL query string
+ *
+ */
+GeckoJS.VqlParser = GeckoJS.BaseObject.extend('VqlParser', {
+    init: function(queryString){
+        this.queryString = queryString || "";
+        this.tokens = [];
+        this.nextTokenIndex = 0;
+        this.queryArguments = [];
+        this.command = "";
+        
+        if (arguments.length >1)
+            for(var i=1; i<arguments.length; i++) this.queryArguments.push(arguments[i]);
+    }
+});
+
+GeckoJS.VqlParser.QUERY_REGEX = /(?:'[^'\n\r]*')+|<=|>=|!=|=|<|>|:\w+|,|\*|-?\d+(?:\.\d+)?|\w+|\(|\)|\S+/ig;
+GeckoJS.VqlParser.IDENTIFIER_REGEX = /(\w+)$/ ;
+GeckoJS.VqlParser.CONDITIONS_REGEX = /(<=|>=|!=|=|<|>|is|in)$/i ;
+GeckoJS.VqlParser.NUMBER_REGEX = /(\d+)$/ ;
+GeckoJS.VqlParser.REFERENCE_REGEX = /:(\d+)$/ ;
+
+/**
+ * Returns a new instance of VqlParser.<br/>
+ * <br/>
+ * VqlParser does not support Singleton pattern, so calling getInstance()
+ * will always return a new instance.
+ *  
+ * @private
+ * @static 
+ * @function
+ * @return {GeckoJS.ArrayQuery}  A new ArrayQuery instance
+ */
+GeckoJS.VqlParser.getInstance = function(){
+    return new GeckoJS.VqlParser();
+};
+
+
+/**
+ * @private
+ */
+GeckoJS.VqlParser.prototype._accept = function(cond) {
+    
+    if (this.nextTokenIndex < this.tokens.length) {
+
+        if (typeof cond == 'string') {
+            if (this.tokens[this.nextTokenIndex].toUpperCase() == cond) {
+                this.nextTokenIndex++;
+                return true;
+            }
+        }else if (typeof cond == 'object' && cond.constructor.name == 'RegExp') {
+            var matched_strings = this.tokens[this.nextTokenIndex].match(cond);
+            if (matched_strings) {
+                this.nextTokenIndex++;
+                return matched_strings[1];
+            }
+        }
+    }
+    return false;
+};
+
+
+/**
+ * @private
+ * @function
+ */
+GeckoJS.VqlParser.prototype._parseSelectStatement = function(queryString) {
+
+    var queryString = this.queryString || "";
+    var command = this.command = "SELECT";
+    var columns = "*";
+    var table = "";
+    var whereClause = [];
+    var sortOrders = [];
+    var limitClause = {offset:0, count:0} ;
+
+    if(this._accept('SELECT')) {
+
+        this._accept('*');
+        this._accept('FROM');
+
+        table = this._accept(GeckoJS.VqlParser.IDENTIFIER_REGEX);        
+    }
+
+    if (this._accept('WHERE')) {
+
+        var identifier, condition, reference , value, op = "AND", isGroup = false, whereClause2 = [];
+        while (true) {
+            
+            if (this._accept('(')) isGroup = true;
+            
+            identifier = this._accept(GeckoJS.VqlParser.IDENTIFIER_REGEX);
+            if (!identifier) break;
+            
+            condition = this._accept(GeckoJS.VqlParser.CONDITIONS_REGEX);
+            if (!condition) break;
+
+            // reference :1 :2 :3
+            reference = this._accept(GeckoJS.VqlParser.REFERENCE_REGEX);
+            if (reference) {
+                value = this.queryArguments[reference-1];
+            }else {
+                value = this._accept(/(.*)/).replace(/^'|'$/g, "");
+            }
+
+            whereClause2.push({
+                op: op,
+                column: identifier,
+                condition: condition,
+                value: value
+            });
+
+            if (this._accept(')')) isGroup = false;
+            
+            if (!isGroup) {
+                if (whereClause2.length <= 1) {
+                    whereClause = whereClause.concat(whereClause2);
+                }else {
+                    whereClause.push(whereClause2);
+                }
+                whereClause2 = [];
+            }
+
+            // support AND OR operator
+            op = this._accept('AND') ? "AND" : false;
+            op = op ? op : (this._accept('OR') ? "OR" : false);
+
+            if (!op) break;
+
+        }
+    }
+
+    if (this._accept('ORDER')) {
+        this._accept('BY');
+
+        var identifier, direction;
+        while(true) {
+            
+            identifier = this._accept(GeckoJS.VqlParser.IDENTIFIER_REGEX);
+            if (!identifier) break;
+            
+            if(this._accept('DESC')){
+                direction = 'DESC';
+            }else if(this._accept('ASC')){
+                direction = 'ASC';
+            }else {
+                direction = 'ASC';
+            }
+            sortOrders.push({
+                column: identifier,
+                direction: direction
+            });
+
+            if (!this._accept(',')) break;
+        }
+    }
+    
+    if (this._accept('LIMIT')) {
+        var maybe_count = 0;
+        var maybe_offset = 0;
+        
+        maybe_count = this._accept(GeckoJS.VqlParser.NUMBER_REGEX);
+        if (maybe_count) {
+            maybe_count = parseInt(maybe_count);
+            
+            if (this._accept(',')) {
+                maybe_offset = this._accept(GeckoJS.VqlParser.NUMBER_REGEX);
+                if (maybe_offset) {
+                    maybe_offset = parseInt(maybe_offset);
+                    if (maybe_offset < 0) maybe_offset = 0;
+                    
+                    var count = maybe_offset;
+                    maybe_offset = maybe_count;
+                    maybe_count = count;
+                }
+            }
+        }
+        limitClause = {offset: maybe_offset, count: maybe_count} ;
+    }
+    
+    return {
+        vql: queryString,
+        type: command,
+        table: table,
+        columns: columns,
+        where: whereClause,
+        sort: sortOrders,
+        limit: limitClause
+    };
+
+};
+
+
+/**
+ *  
+ * @private
+ * @function
+ * @param {String} queryString      
+ * @return {Object}
+ */
+GeckoJS.VqlParser.prototype.parseVQL = function (queryString) {
+
+    this.queryString = queryString || this.queryString || "";
+
+    if (arguments.length >1)
+        for(var i=1; i<arguments.length; i++) this.queryArguments.push(arguments[i]);
+
+    var tokens = [] ;
+    var tt = null;
+    while (tt = GeckoJS.VqlParser.QUERY_REGEX.exec(this.queryString)) {
+        tokens.push(tt[0]);
+    }
+    // clone to this.tokens
+    this.tokens = tokens.slice();
+    this.nextTokenIndex = 0;
+    
+    var command = this.command = tokens[0].toUpperCase();
+
+    var result = null;
+    switch (command) {
+        default:
+        case "SELECT":
+            result = this._parseSelectStatement();
+            break;
+    }
+    return result;
+    
+};
+
+
+/**
+ * @private
+ */
+GeckoJS.VqlParser.parseVQL = function (queryString) {
+    var parser = new GeckoJS.VqlParser();
+    return parser.parseVQL.apply(parser, arguments);
+};
+
+/**
+ * @private
+ */
+GeckoJS.VqlParser.toSQL = function(statement) {
+
+    
+};
+
+/**
+ * @private
+ */
+GeckoJS.VqlParser.toWhereSQL = function(statement) {
+
+    var whereClause = statement.where || "";
+    var result = "";
+    
+    if(whereClause == "") return result;
+
+    var i = 0;
+    whereClause.forEach(function(where){
+        if (i > 0) result += " " + where.op + " ";
+        
+        result += where.column + where.condition + "'" + where.value + "'";
+        i++;
+    });
+    
+    return result;
+};
+
+/**
+ * @private
+ */
+GeckoJS.VqlParser.toSortOrderSQL = function(statement) {
+
+    var sortClause = statement.sort || "";
+    var result = "";
+
+    if(sortClause == "") return result;
+
+    sortClause.forEach(function(sort){
+        result += sort.column + " " + sort.direction + ",";
+    });
+    
+    return result.replace(/,$/, "");
+};
+
+
+/**
+ * @private
+ */
+GeckoJS.VqlParser.toLimitSQL = function(statement) {
+
+    var limitClause = statement.limit | "";
+    if (limitClause == "") return [0, 1];
+
+    var limit = 0, page = 1;
+    
+    if (limitClause.limit <= 0) limit = 3000;
+    else limit = limitClause.limit;
+    
+    if (limitClause.offset <= 0) page = 1;
+    else page = Math.floor(limitClause.offset/limit) + 1;
+    
+    return [limit, page];
+};
+
+/**
+ * Defines GeckoJS.ConnectionManager namespace
+ *
+ * @public
+ * @namespace
+ */
+GREUtils.define('GeckoJS.ConnectionManager', GeckoJS.global);
+
+/**
+ * Creates a new GeckoJS.ConnectionManager instance and initializes it by
+ * setting the "config" field to the value of the 'DATABASE_CONFIG'
+ * configuration parameter. This parameter should be a list of name-value pairs
+ * where the name is the database configuration key and the value is an object
+ * whose "classname" property is the data source class.<br/>
+ * <br/>
+ * If 'DATABASE_CONFIG' is not found, "config" is set to a "default" database
+ * configuration with a data source of class "DatasourceJsonFile", using
+ * storage from the "/var/tmp" file system.
+ *
+ * @class GeckoJS.ConnectionManager is a Singleton that maintains a cache of
+ * data sources.<br/>
+ *     
+ * @class GeckoJS.ConnectionManager
+ * @extends GeckoJS.BaseObject
+ * @extends GeckoJS.Singleton 
+ *
+ * @property {Object} config Database configuration
+ *
+ */ 
+
+GeckoJS.ConnectionManager = GeckoJS.BaseObject.extend('ConnectionManager', {
+    init: function() {
+		
+        // loadPreferences
+        GeckoJS.Configure.loadPreferences('DATABASE_CONFIG');
+        
+        this.config = GeckoJS.Configure.read('DATABASE_CONFIG') || {
+            'default': {
+                classname: 'JsonFile',
+                path: '/var/tmp'
+            }
+        };
+
+        // FUEL's SessionStorage support
+        if (Application.storage.has('GeckoJS_ConnectionManager_datasources')) {
+            this._dataSources = Application.storage.get('GeckoJS_ConnectionManager_datasources',  (new GeckoJS.Map()) );
+        }else {
+            this._dataSources = new GeckoJS.Map();
+            Application.storage.set('GeckoJS_ConnectionManager_datasources', this._dataSources);
+        }
+				
+    }
+});
+
+// make ConnectionManager support singleton
+GeckoJS.Singleton.support(GeckoJS.ConnectionManager);
+
+
+/**
+ * Returns the data source identified by the given name.<br/>
+ * <br/>
+ * If the data source has not yet been loaded, this name is used to look up the
+ * corresponding data source class to load. Once loaded, the data source is
+ * cached using the name as the key.<br/>
+ * <br/>
+ * Returns null if the data source is not found.  
+ *  
+ * @public
+ * @static
+ * @function
+ * @param {String} name                   This is the data source name
+ * @return {GeckoJS.DataSource}           The requested data source
+ */   
+GeckoJS.ConnectionManager.getDataSource = function(name) {
+
+    name = name || 'default';
+    
+    var self = GeckoJS.ConnectionManager.getInstance();
+
+    try {
+		
+        if (self._dataSources.containsKey(name)) {
+            return self._dataSources.get(name);
+        }
+    }catch(e) {
+        this.log("ERROR","ConnectionManager.getDataSource - Non-existent data source " + name, e);
+    }
+    if (GeckoJS.Array.inArray(name, GeckoJS.BaseObject.getKeys(self.config)) != -1) {
+        var conf = self.config[name] || {
+            classname: 'JsonFile',
+            path: '/var/tmp'
+        };
+        var klass = conf['classname'] || 'JsonFile';
+		
+        var ds = self.loadDatasource(klass, conf);
+
+        if(ds != null) {
+            ds.configKeyName = name;
+        }
+
+        self._dataSources.set(name, ds);
+		
+    }else {
+        this.log("WARN","ConnectionManager.getDataSource - Non-existent data source " + name);
+    }
+    return self._dataSources.get(name);
+};
+
+
+/**
+ * Returns data source by class.<br/>
+ * <br/>
+ * This method loads and returns the data source by its class. The data source
+ * is not cached.<br/>
+ * <br/>
+ * Returns null if the data source is not found.  
+ *  
+ * @public
+ * @static
+ * @function
+ * @param {String} klass                  This is the data source name
+ * @return {GeckoJS.DataSource}           The requested data source
+ */
+GeckoJS.ConnectionManager.getDataSourceByClass = function(klass, config) {
+	
+    var self = GeckoJS.ConnectionManager.getInstance();
+    config = config || {};
+
+    var ds = null;
+	
+    ds = self.loadDatasource(klass, config);
+	
+    return ds;
+};
+
+/**
+ * Loads data source by class.<br/>
+ * <br/>
+ * This method loads and returns the data source by its class. The data source
+ * is not cached.<br/>
+ * <br/>
+ * Returns null if the data source is not found.<br/>
+ * <br/>
+ * Note: in the SDK, a data source is stored as a property of the GeckoJS object
+ * under the name "Datasource"+classname.<br/>
+ *   
+ * @public
+ * @function
+ * @param {String} klass                  This is the data source class
+ * @return {GeckoJS.DataSource}           The requested data source
+ */
+GeckoJS.ConnectionManager.prototype.loadDatasource = function(klass, config) {
+    if(typeof GeckoJS['Datasource'+klass] == 'function' /* && GeckoJS['Datasource'+klass] instanceof Datasource */) {
+        try {
+            var clazz = GeckoJS['Datasource'+klass];
+            var ds = new clazz(config);
+
+            return ds;
+
+        }catch (e) {
+            this.log("ERROR", "GeckoJS.ConnectionManager.loadDatasource can't getInstance() GeckoJS.Datasource" + klass, e);
+        }
+    }else {
+        this.log("ERROR", "GeckoJS.ConnectionManager.loadDatasource not found GeckoJS.Datasource" + klass);
+    }
+    return null;
+	
+};
+/**
+ * Defines GeckoJS.Datasource namespace
+ *
+ * @public
+ * @namespace
+ */
+GREUtils.define('GeckoJS.Datasource', GeckoJS.global);
+
+/**
+ * Creates a new GeckoJS.Datasource instance.
+ * 
+ * @class GeckoJS.Datasource is a logical interface for performing standard
+ * CRUD (Create, Read, Update, Delete) operations on data sources that is
+ * independent of the underlying storage mechanism.<br/>
+ * <br/>
+ * GeckoJS.Datasource is an interface and should be extended by sub-classes
+ * that implement the interactions with the actual storage devices.<br/>
+ *
+ * @name GeckoJS.Datasource
+ * @class
+ * @extends GeckoJS.BaseObject
+ *
+ */
+GeckoJS.Datasource = GeckoJS.BaseObject.extend('Datasource', {
+    init: function(config){
+    
+        // http://developer.mozilla.org/en/docs/wrappedJSObject
+        this.wrappedJSObject = this;
+        
+        this.config = config;
+        this.configKeyName = "default";
+	
+    }
+});
+
+
+/**
+ * Inserts data into a model using the given id as the primary key.
+ *
+ * @public
+ * @param {GeckoJS.Model} model             This is the model to insert data into
+ * @param {String|Number} id                This is the primary key
+ * @param {Object} data                     This is the data to insert
+ */
+GeckoJS.Datasource.prototype.executeInsert = function(model, id, data) {
+    
+    };
+
+/**
+ * Returns the size of the result set containing data items from model that
+ * satisfy the given query condition.<br/>
+ * <br/>
+ * If page size or page number is given, returns only the number of data items
+ * in the requested page of the result set.
+ *   
+ * @public
+ * @function
+ * @param {GeckoJS.Model} model     This is the model
+ * @param {Object} condition        This is the query condition
+ * @param {String} order            This is the sort order
+ * @param {Number} limit            This is the page size
+ * @param {Number} page             This is the page number 
+ * @return {Number}                 The number of rows in the result set
+ */
+GeckoJS.Datasource.prototype.querySelectCount = function(model, condition, order, limit, page) {
+    
+    };
+
+
+/**
+ * Retrieves from a model data items that satisfy the given query condition,
+ * sorted in the specified order.<br/>
+ * <br/>
+ * If page size or page number is given, returns only data items in the requested
+ * page of the result set.
+ *
+ * @public
+ * @param {GeckoJS.Model} model     This is the model
+ * @param {Object} condition        This is the query condition
+ * @param {String} order            This is the sort order
+ * @param {Number} limit            This is the page size
+ * @param {Number} page             This is the page number
+ * @return {Object}                  The result set
+ */
+GeckoJS.Datasource.prototype.querySelect = function(model, condition, order, limit, page) {
+    
+    };
+
+
+/**
+ * Retrieves a data item from a model based on its id.
+ *   
+ * @public
+ * @function
+ * @param {GeckoJS.Model} model     This is the model
+ * @param {String} id               This is the id of the data item to retrieve
+ * @return {Object}                  The data item
+ */
+GeckoJS.Datasource.prototype.querySelectById = function(model, id) {
+    
+    };
+
+
+/**
+ * Returns the number of data items in a model where the property indicated
+ * by the "index" parameter is equal to the "value" parameter.<br/>
+ * <br/>
+ * If page size or page number is given, returns only the number of data items
+ * in the requested page of the result set.
+ *   
+ * @public
+ * @function
+ * @param {GeckoJS.Model} model     This is the model
+ * @param {String} index            This is the index property
+ * @param {Object} value            This is the index value
+ * @param {String} order            This is the sort order
+ * @param {Number} limit            This is the page size
+ * @param {Number} page             This is the page number
+ * @return {Number}                 The number of rows in the result set
+ */
+GeckoJS.Datasource.prototype.querySelectCountByIndex = function(model, index, value, order, limit, page) {
+    
+    };
+
+
+/**
+ * Retrieves from a model data items where the property indicated by the
+ * "index" parameter is equal to the "value" parameter, sorted in the
+ * specified order.<br/>
+ * <br/>
+ * If page size or page number is given, returns only the data items in the
+ * requested page of the result set.
+ *   
+ * @public
+ * @function
+ * @param {GeckoJS.Model} model     This is the model
+ * @param {String} index            This is the index property
+ * @param {Object} value            This is the index value
+ * @param {String} order            This is the sort order
+ * @param {Number} limit            This is the page size
+ * @param {Number} page             This is the page number
+ * @return {Object}                  The result set
+ */
+GeckoJS.Datasource.prototype.querySelectByIndex = function(model, index, value, order, limit, page) {
+    
+    };
+
+
+/**
+ * Updates a data item in a model.
+ *
+ * @public
+ * @function
+ * @param {GeckoJS.Model} model              This is the model to update
+ * @param {String} id                        This is the primary key identifying the record to update
+ * @param {Object} data                      This is the data to update the model with
+ * @return {Number} rows                      Number of records updated
+ */
+GeckoJS.Datasource.prototype.executeUpdate = function(model, id, data) {
+
+    };
+
+
+
+/**
+ * Removes the data item identified by id from a model.
+ *
+ * @public
+ * @function
+ * @param {GeckoJS.Model} model             This is the model to delete data from
+ * @param {String} id                       This is the primary key identifying data to delete
+ * @return {Number} rows                     Number of records deleted
+ */
+GeckoJS.Datasource.prototype.executeDelete = function(model, id) {
+    
+    };
+    
+/**
+ * Returns the ID of the last inserted row.
+ *
+ * @public
+ * @function
+ * @return {String}  The id of the last inserted row
+ */
+GeckoJS.Datasource.prototype.getLastInsertId = function() {
+
+};
+
+/**
+ *   Opens a connection to the database.
+ *
+ * @public
+ * @function
+ * @param {Object} connParam  This is an object containing the connection options
+ */
+GeckoJS.Datasource.prototype.connect = function(connParam) {
+};
+
+/**
+ * Closes the connection to the database.
+ * 
+ * @public
+ * @function
+ * 
+ */
+GeckoJS.Datasource.prototype.disconnect = function() {
+};
+
+
+/**
+ * Begins a transaction.
+ * 
+ * @public
+ * @function
+ */
+GeckoJS.Datasource.prototype.begin = function()	{
+
+};
+
+/**
+ * Commits a transaction.
+ * 
+ * @public
+ * @function
+ */
+GeckoJS.Datasource.prototype.commit = function() {
+
+};
+
+/**
+ * Rolls back a transaction.
+ * 
+ * @public
+ * @function
+ */
+GeckoJS.Datasource.prototype.rollback = function() {
+};
+/**
+ * Defines the GeckoJS.BaseModel namespace.
+ *
+ * @public
+ * @namespace
+ */
+GREUtils.define('GeckoJS.BaseModel', GeckoJS.global);
+
+/**
+ * Creates a new GeckoJS.BaseModel instance and initializes it with the given
+ * record data and association level.
+ * 
+ * @param {Object} data                 This is the initial record data
+ * @param {Number} recursive            This indicates the association level
+ * 
+ * @class GeckoJS.BaseModel is the base Model class for the VIVIPOS APP Engine
+ * MVC Framework. A model in a Model-View-Controller design pattern represents
+ * the information (the data) of the application and the business rules used to
+ * process and manipulate the information.<br/>
+ * <br/>
+ * If a data source is not explicitly set, GeckoJS.BaseModel will use the data
+ * source named by the useDbConfig proprety (obtained through the
+ * GeckoJS.ConnectionManager.getDataSource() call.)<br/>
+ *
+ * @name GeckoJS.BaseModel
+ * @extends GeckoJS.BaseObject
+ *
+ * @property {Object} events              A list of event listeners (read-only)
+ * @property {Object} datasource          The data source providing storage for the model
+ * @property {String} name                The model name (defaults to "Model")
+ * @property {String} useDbConfig         The data source configuration (from "DATABASE_CONFIG.useDbConfig")
+ * @property {String} table               The table name used to store this model
+ * @property {String} primaryKey          Placeholder for the key that this model gets from persistent storage (the database).
+ * @property {String} id                  Placeholder for the id that this model gets from persistent storage (the database).
+ * @property {Object} data                Placeholder for the data that this model gets from persistent storage (the database).
+ * @property {Object} indexes             List of searchable keys
+ * @property {Object} belongsTo           List of Models to which this model belongs
+ * @property {Object} hasOne              List of Models with which this model has an one-to-one relationship
+ * @property {Object} hasMany             List of Models with which this model has an one-to-many relationship
+ * @property {Object} hasAndBelongsToMany List of Models with which this model has an many-to-many relationship
+ * @property {Object} behaviors           A list of Behaviors associated with this model
+ */
+GeckoJS.BaseModel = GeckoJS.BaseObject.extend('BaseModel', {
+    name: 'BaseModel',
+    
+    init: function(data, recursive){
+
+        // Name of the model.
+        this.name = this.name || "BaseModel";
+
+        recursive = recursive || 0;
+
+        /*
+        // FUEL's SessionStorage support
+        var eventKey = "GeckoJS_Model_"+this.name+"_events";
+        if (Application.storage.has(eventKey)) {
+            this._events = Application.storage.get(eventKey, (new GeckoJS.Event()) );
+        }else {
+            this._events = new GeckoJS.Event();
+            Application.storage.set(eventKey, this._events);
+        }*/
+
+        this._events = new GeckoJS.Event();
+
+        // http://developer.mozilla.org/en/docs/wrappedJSObject
+        this.wrappedJSObject = this;
+
+
+        this.useDbConfig = this.useDbConfig || GeckoJS.Configure.read('DATABASE_CONFIG.useDbConfig') || "default";
+
+        // Table name for this Model.
+        this.table = this.table || GeckoJS.Inflector.tableize(this.name);
+
+        this._datasource = null;
+
+        // The name of the ID field for this Model.
+        this.primaryKey = this.primaryKey || "id";
+
+        // Container for the id that this model gets from persistent storage (the database).
+        this.id = ""; // uuid
+        
+        // Last inserted id
+        this.__insertID = "";
+
+        // Container for the data that this model gets from persistent storage (the database).
+        this.data = data || null;
+
+        // indexes fields
+        this.indexes = this.indexes || [];
+                
+        this.belongsTo = this.belongsTo || [];
+        this.hasOne = this.hasOne || [];
+        this.hasMany = this.hasMany || [];
+        this.hasAndBelongsToMany = this.hasAndBelongsToMany || [];
+
+        // this._schema = this.schema();
+        this._schema = null;
+
+        // add events
+        this._addModelEvents();
+
+        // _addBehaviors
+        this.behaviors = this.behaviors || [];
+        this._addBehaviors();
+        
+        //
+        this._generateAssociation(recursive);
+
+    }
+});
+
+/**
+ * Registers the Model sub-class in the Class Registry.
+ *
+ * @public
+ * @static
+ * @function   
+ * @param {String} name               This is the name to register the sub-class with
+ * @param {GeckoJS.Model} klass       This is the Model sub-class to register
+ */
+GeckoJS.BaseModel.setModelClass = function(name, klass) {
+    
+    // GeckoJS.ClassRegistry.addObject(instance.name, instance);
+//    if (name == 'Model' || GeckoJS.ClassRegistry.isKeySet("ModelClass_" + name)) return ;
+    if (GeckoJS.ClassRegistry.isKeySet("ModelClass_" + name)) return ;
+
+    /*
+    // FUEL's SessionStorage support
+    var eventKey = "GeckoJS_Model_"+ name + "_events";
+    Application.storage.set(eventKey, (new GeckoJS.Event()) );
+    */
+    GeckoJS.ClassRegistry.addObject("ModelClass_" + name, klass);
+
+};
+
+/**
+ * Retrieves the Model sub-class object by name from the Class Registry.
+ *
+ * @public
+ * @static
+ * @function   
+ * @param {String} name                 This is the name of the Model sub-class to retrieve
+ * @return {GeckoJS.Model}              The Model sub-class identified by name
+ */
+GeckoJS.BaseModel.getModelClass = function(name) {
+    
+    return  GeckoJS.ClassRegistry.getObject("ModelClass_" + name);
+
+};
+
+GeckoJS.BaseModel.prototype._associations = ['belongsTo', 'hasOne', 'hasMany', 'hasAndBelongsToMany'];
+
+//events getter
+GeckoJS.BaseModel.prototype.__defineGetter__('events', function(){
+    return this._events;
+});
+
+GeckoJS.BaseModel.prototype.__defineGetter__('datasource', function(){
+    if (this._datasource == null)
+        this._datasource = GeckoJS.ConnectionManager.getDataSource(this.useDbConfig);
+    return this._datasource;
+});
+
+GeckoJS.BaseModel.prototype.__defineSetter__('datasource', function(ds){
+    if (ds != null && ds instanceof Datasource)
+        this._datasource = ds;
+});
+
+
+/**
+ * Returns the list of event listeners attached to this GeckoJS.BaseModel
+ * instance.
+ *
+ * @public
+ * @function
+ * @return {Object}                     The list of event listeners
+ */
+GeckoJS.BaseModel.prototype.getEvents = function(){
+    return this._events;
+};
+
+
+/**
+ * Instantiates a model by name.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} name           This is the name of the model to instantiate
+ * @return {GeckoJS.Model}    The new model instance, or null if the model class does not exist
+ */
+GeckoJS.BaseModel.getInstanceByName = function(name) {
+
+        var modelClass = null;
+        var modelName = name || null;
+
+        if (modelName) {
+            modelClass = GeckoJS.BaseModel.getModelClass(modelName);
+        }
+
+        if (modelClass) {
+            return new modelClass;
+        }else {
+            return null;
+        }
+
+};
+
+
+/**
+ * Adds a listener for the given event to this GeckoJS.BaseModel instance.
+ *
+ * @public
+ * @function
+ * @param {String} aEvent           This is the event name
+ * @param {Function} aListener      This is the listener to add
+ * @param {Object} thisObj          Locking its execution scope to an object specified by thisObj.
+ */
+GeckoJS.BaseModel.prototype.addEventListener = function(aEvent, aListener, thisObj){
+    try {
+        thisObj = thisObj || GeckoJS.global;
+        return this.events.addListener(aEvent, aListener, thisObj);
+    }
+    catch (e) {
+        this.log('ERROR' , this.getClassName() +'Model.addEventListener ' + aEvent , e);
+    }
+
+};
+
+
+/**
+ * Dispatches the given event to all listeners of that event.<br/>
+ * <br/>
+ * This method creates an EventItem instance from (sEvt, data, "this") to pass
+ * to the event listeners. If any of the listeners invokes the preventDefault()
+ * method on the EventItem instance, this method will return "false". Otherwise
+ * it returns "true".
+ *
+ * @public
+ * @function
+ * @param {String} sEvt             This is the event name
+ * @param {Object} data             This is the event data
+ * @return {Boolean}                 "false" if at least one of the event listeners which handled this event invoked preventDefault; "true" otherwise
+ */
+GeckoJS.BaseModel.prototype.dispatchEvent = function(sEvt, data){
+    try {
+        return this.events.dispatch(sEvt, data, this);
+    }
+    catch (e) {
+        this.log('ERROR', this.getClassName() +'Model.dispatchEvent ' + sEvt , e);
+    }
+};
+
+
+
+/**
+ * _generateAssociation
+ *
+ * @private
+ * 
+ */
+GeckoJS.BaseModel.prototype._generateAssociation =	function (recursive) {
+    
+    recursive = recursive || 0;
+    
+    if (recursive >= 1) return ;
+    
+    // ignore BaseModel or Model
+    if (this.getClassName() == 'BaseModel' || this.getClassName() == 'Model' ) return;
+    
+    
+    var self = this;
+
+    this._associations.forEach(function(type) {
+        if (self[type].length > 0) {
+            for (var i=0; i < self[type].length; i++) {
+                var name = self[type][i];
+                self[name] = self._getAssociationModel(name, ++recursive);
+            }
+        }
+    });
+    
+};
+
+
+/**
+ * _getAssociationModel
+ *
+ * @private
+ * @return {Class}
+ */
+GeckoJS.BaseModel.prototype._getAssociationModel = function(name, recursive) {
+    
+    recursive = recursive || 1;
+    
+    var model = GeckoJS.ClassRegistry.getObject("ModelAssoc_" + name);
+    var modelClass = GeckoJS.ClassRegistry.getObject("ModelClass_"+name);
+
+    if (model == null && modelClass != null){
+
+        model = new modelClass(null, recursive);
+        
+        // add Model to ClassRegistry for later use
+        GeckoJS.ClassRegistry.addObject("ModelAssoc_" + name, model);
+        
+    }
+    return model;
+};
+
+
+/**
+ * _addModelEvents
+ *
+ * @private
+ */
+GeckoJS.BaseModel.prototype._addModelEvents = function() {
+    
+    var events = this._events;
+    var self = this;
+    
+    // ignore BaseModel or Model
+    if (this.getClassName() == 'BaseModel' || this.getClassName() == 'Model' ) return;
+        
+    ['beforeSave', 'afterSave', 'beforeFind', 'afterFind', 'beforeDelete', 'afterDelete'].forEach(function(evt){
+        if(typeof self[evt] == 'undefined') return;
+
+        if (GREUtils.isFunction(self[evt])) {
+            events.addListener(evt, self[evt], self);
+        } else if (GREUtils.isObject(self[evt])) {
+            self[evt].forEach(function(fn){
+                if (typeof(fn) == 'function') {
+                    events.addListener(evt, fn, self);
+                }
+            });
+        }
+    }, self);
+    
+};
+
+
+/**
+ * _addBehaviors
+ *
+ * @private
+ */
+GeckoJS.BaseModel.prototype._addBehaviors = function() {
+    
+    var events = this._events;
+    var self = this;
+    var config = this.useDbConfig;
+    var behaviors = this.behaviors;
+
+    // ignore BaseModel or Model
+    if (this.getClassName() == 'BaseModel' || this.getClassName() == 'Model' ) return;
+
+    behaviors.forEach( function(behaviorName) {
+        var behaviorClass = GeckoJS.Behavior.getBehaviorClass(behaviorName);
+        if (behaviorClass != null) {
+            var behavior = new behaviorClass(self, config);
+            ['beforeSave', 'afterSave', 'beforeFind', 'afterFind', 'beforeDelete', 'afterDelete'].forEach( function(evt){
+                events.addListener(evt, behavior[evt], behavior);
+            }, self);
+        }
+    });
+
+};
+
+
+/**
+ * Returns the model schema.<br/>
+ * 
+ * The schema is an object with the following properties:<br/>
+ * <pre>
+ *  - name                 : model name
+ *  - table                : name of the table used to store the model
+ *  - primaryKey           : primary key
+ *  - foreignKey           : foreign key
+ *  - hasOne               : schemas of models in one-to-one relationship
+ *  - hasMany              : schemas of models in one-to-many relationship
+ *  - belongsToOne         : schemas of models in many-to-one relationship
+ *  - hasAndBelongsToMany  : schemas of models in many-to-many relationship
+ * </pre>
+ * 
+ * @public
+ * @function
+ * @param {Number} recursive        This is the recursion depth for the schema
+ * @return {Object}                 The model schema
+ */
+GeckoJS.BaseModel.prototype.schema = function (recursive) {
+    
+    recursive = recursive || 0;
+    
+    if (this._schema != null) return this._schema ;
+
+    // ignore BaseModel or Model
+    if (this.getClassName() == 'BaseModel' || this.getClassName() == 'Model' ) return {};
+    
+    var schema = {};
+    
+    schema.name = this.name;
+    schema.table = this.table;
+    schema.primaryKey = this.primaryKey;
+    schema.foreignKey = GeckoJS.Inflector.singularize(this.table) + "_" + this.primaryKey;
+    
+    /*if(this.indexes.length > 0) */ schema.indexes = this.indexes;
+
+    
+    if (recursive >= 1) return schema;
+
+    recursive++;
+
+    var self = this;
+	
+    this._associations.forEach(function(type) {
+
+        for(var i=0; i<self[type].length; i++) {
+
+            if(i==0) schema[type] = {};
+
+            var name = self[type][i];
+            var model = self._getAssociationModel(name, recursive);
+            
+            if(typeof self[name] != 'undefined' && typeof  self[name].schema == 'function') {
+                schema[type][name] = self[name].schema(recursive);
+            }else if(model != null && typeof  model.schema == 'function') {
+                schema[type][name] = model.schema(recursive);
+            }
+
+            // push foreignkey to indexes
+            if (type == 'belongsTo') {
+                schema.indexes.push(schema[type][name]['foreignKey']);
+            }
+        }
+
+    });
+    
+    this._schema = schema;
+    return this._schema;
+    
+};
+
+
+/**
+ * Returns true if the given field is defined in the Model.
+ *
+ * @param {String} name           Name of field to look for
+ * @return {Boolean}              "true" if the field is defined in the Model
+ */
+GeckoJS.BaseModel.prototype.hasField = function(name) {
+    
+    var self = this;
+    var hasField = true;
+
+    this._associations.forEach( function(type) {
+        if(GeckoJS.Array.inArray(name, self[type]) != -1) {
+            hasField = false;
+        }
+    });
+    
+    return hasField;
+
+};
+
+
+/**
+ * Initializes the model for writing a new record.<br/>
+ * <br/>
+ * Sets the model.id field to "null" to indicate that this is a new record.<br/>
+ * <br/>
+ * This method should be overridden as necessary by its descendant classes.
+ *
+ * @public
+ * @function
+ * @param {Object} data             This is the data for the new record
+ */
+GeckoJS.BaseModel.prototype.create = function(data){
+    this.id = "";
+    this.data = data || null;
+};
+
+
+/**
+ * Retrieves all records satisfying the given query condition, sorted in the
+ * specified order.<br/>
+ * <br/>
+ * If page size or page number is given, returns only records in the requested
+ * page of the result set.<br/>
+ * <br/>
+ * Dispatches a "beforeFind" event before performing the query. Performs
+ * the query and dispatches an "onFind" event only if the "beforeFind" event
+ * passes.<br/>
+ * <br/>
+ * Dispatches an "afterFind" event after performing the query.<br/>
+ * <br/>
+ * The event listeners are passed in the EventItem.data field an
+ * array whose first element is "all" and whose second element is an object
+ * with properties from the arguments to this method:<br/>
+ * <pre>
+ *  - conditions
+ *  - order
+ *  - limit
+ *  - page
+ * </pre>
+ *
+ * @public
+ * @function  
+ * @param {String} condition        This is the query condition
+ * @param {String} order            This is the sort order
+ * @param {Number} limit            This is the page size
+ * @param {Number} page             This is the page numbers
+ * @return {Object}                  The result set
+ */
+GeckoJS.BaseModel.prototype.findAll = function(condition, order, limit, page){
+
+    return this.find('all', {
+        conditions: condition,
+        order: order,
+        limit: limit,
+        page: page
+    });
+    
+};
+
+
+/**
+ * Returns the number of records satisfying the given query condition.<br/>
+ * <br/>
+ * If page size or page number is given, returns only records in the requested
+ * page of the result set.<br/>
+ * <br/>
+ * The query will automatically retrieve matching records from related
+ * models.<br/>
+ * <br/>
+ * Dispatches a "beforeFind" event before performing the query. Performs
+ * the query and dispatches an "onFind" event only if the "beforeFind"
+ * passes.<br/>
+ * <br/>
+ * Dispatches an "afterFind" event after performing the query.<br/>
+ * <br/>
+ * The event listeners are passed in the EventItem.data field an
+ * array whose first element is "count" and whose second element is an object
+ * with properties from the arguments to this method:<br/>
+ * <pre>
+ *  - conditions
+ *  - order
+ *  - limit
+ *  - page
+ * </pre>
+ *
+ * @public
+ * @function  
+ * @param {String} condition        This is the query condition
+ * @param {String} order            This is the sort order
+ * @param {Number} limit            This is the page size
+ * @param {Number} page             This is the page numbers
+ * @return {Number}                 The size of the result set
+ */
+GeckoJS.BaseModel.prototype.findCount = function(condition, order, limit, page){
+
+    return this.find('count', {
+        conditions: condition,
+        order: order,
+        limit: limit,
+        page: page
+    });
+	
+};
+
+
+/**
+ * Retrieves the first record from the result set satisfying the given query
+ * condition, sorted in the specified order.<br/>
+ * <br/>
+ * If page size or page number is given, returns the first record in the
+ * requested page of the result set.<br/>
+ * <br/>
+ * The query will automatically retrieve matching records from related
+ * models.<br/>
+ * <br/>
+ * Dispatches a "beforeFind" event before performing the query. Performs
+ * the query and dispatches an "onFind" event only if the "beforeFind"
+ * passes.<br/>
+ * <br/>
+ * Dispatches an "afterFind" event after performing the query.<br/>
+ * <br/>
+ * The event listeners are passed in the EventItem.data field an
+ * array whose first element is "first" and whose second element is an object
+ * with properties from the arguments to this method:<br/>
+ * <pre>
+ *  - conditions
+ *  - order
+ *  - limit
+ *  - page
+ * </pre>
+ *
+ * @function
+ * @public  
+ * @param {String} condition        This is the query condition
+ * @param {String} order            This is the sort order
+ * @param {Number} limit            This is the page size
+ * @param {Number} page             This is the page numbers
+ * @return {Object}                 The first record from the result set
+ */ 
+GeckoJS.BaseModel.prototype.findFirst = function(condition, order, limit, page){
+
+    return this.find('first', {
+        conditions: condition,
+        order: order,
+        limit: limit,
+        page: page
+    });
+	
+};
+
+/**
+ * Performs the requested query operation.<br/>
+ * <br/>
+ * This is a generic query-by-condition method that invokes more specialized
+ * query methods based on the requested query type.<br/>
+ * <br/>
+ * "type" is either "all", "first", "count". "first" is the default type.<br/>
+ * <br/>
+ * "params" is an object with any of the following available options as
+ *  keys:<br/>
+ * <pre>
+ *  - conditions   : query conditions    // "name='rack lin' AND age = 30"
+ *  - order        : fields to order by  // "name ASC, age DESC"
+ *  - limit        : an integer indicating the page size
+ *  - page         : an integer indicating the page number
+ *  - recursive    : relationship levels
+ * </pre>
+ * <br/>
+ * The query will automatically retrieve matching records from related
+ * models.<br/>
+ * <br/>
+ * Dispatches a "beforeFind" event before performing the query. Performs
+ * the query and dispatches an "onFind" event only if the "beforeFind"
+ * passes.<br/>
+ * <br/>
+ * Dispatches an "afterFind" event after performing the query.<br/>
+ * <br/>
+ * The event listeners are passed in the EventItem.data field an array whose
+ * first element is the parameter "type" and whose second element is the
+ * parameter "params".
+ *  
+ * @public
+ * @function  
+ * @param {String} type             This is the query type
+ * @param {Object} params           This is a list of query parameters
+ * @return{Object}                  The result of the requested query
+ */
+GeckoJS.BaseModel.prototype.find = function(type, params) {
+    type = type || 'all';
+    params = params || {};
+
+    if (typeof params == 'string') {
+        params = {
+            conditions: params
+        };
+    }
+	
+    var conditions = params.conditions || null;
+    var order = params.order || null;
+    var limit = params.limit || null;
+    var page = params.page || null;
+    var recursive = typeof params.recursive != 'undefined' ? params.recursive : 1;
+    var result = null;
+	
+    try {
+        var beforeResult = this.dispatchEvent('beforeFind', arguments);
+        
+        // if result invoke command
+        if (beforeResult) {
+            
+            var ds = GeckoJS.ConnectionManager.getDataSource(this.useDbConfig);
+
+            result = null;
+			
+            switch(type) {
+                case 'all':
+                    result = ds.querySelect(this, conditions, order, limit, page, recursive);
+                    if(result.length == 0) result = null;
+                    break;
+				
+                case 'first':
+                    result = ds.querySelect(this, conditions, order, 1, 1, recursive);
+                    if(result.length == 0) result = null;
+                    else result = result[0];
+                    break;
+				
+                case 'count':
+                    result = ds.querySelectCount(this, conditions, order, limit, page);
+                    break;
+				
+                case 'id':
+                    result = ds.querySelectById(this, conditions, recursive);
+                    break;
+            }
+
+            this.dispatchEvent('onFind', result);
+        }
+        
+        this.dispatchEvent('afterFind', result);
+		        
+        return result;
+		
+    }
+    catch (e) {
+        this.log('ERROR', this.getClassName() + 'Model.find ' , e);
+        return result;
+    }
+    
+};
+
+
+
+/**
+ * Retrieves a record by its ID.<br/>
+ * <br/>
+ * The query will automatically retrieve matching records from related
+ * models.<br/>
+ * <br/>
+ * Dispatches a "beforeFind" event before performing the query. Performs
+ * the query and dispatches an "onFind" event only if the "beforeFind" event
+ * passes.<br/>
+ * <br/>
+ * Dispatches an "afterFind" event after performing the query.<br/>
+ * <br/>
+ * The event listeners are passed in the EventItem.data field an
+ * array whose first element is "id" and second element is an object whose
+ * "condition" property is set to the record ID.
+ *
+ * @function
+ * @public  
+ * @param {String} id               This is the ID of the record to find
+ * @return {Object}                 The requested record
+ */
+GeckoJS.BaseModel.prototype.findById = function(id){
+    return this.find('id', {
+        conditions: id,
+        recursive: 1
+    });
+};
+
+
+/**
+ * This is a generic query-by-index method that invokes more specialized
+ * query methods based on the requested query type.<br/>
+ * <br/>
+ * "type" is either "all", "first", and "count". "first" is the default
+ * type.<br/>
+ * <br/>
+ * "params" is an object with any of the following available options as
+ * keys:<br/>
+ * <pre>
+ *  - "index"        : the index field (defaults to "id")
+ *  - "value"        : the index value 
+ *  - "order"        : fields to order by  // "name ASC, age DESC"
+ *  - "limit"        : an integer indicating the page size
+ *  - "page"         : an integer indicating the page number
+ * </pre>
+ * <br/>
+ * The query will automatically retrieve matching records from related
+ * models.<br/>
+ * <br/>
+ * Dispatches a "beforeFind" event before performing the query. Performs
+ * the query and dispatches an "onFind" event only if the "beforeFind" event
+ * passes.<br/>
+ * <br/>
+ * Dispatches an "afterFind" event after performing the query.<br/>
+ * <br/>
+ * The event listeners are passed in the EventItem.data an array whose first
+ * element is the parameter "type" and second element is the parameter
+ * "params".
+ *  
+ * @public
+ * @function  
+ * @param {String} type             This is the query type
+ * @param {Object} params           This is a list of query parameters
+ * @return {Object}                 The result of the requested query
+ */
+GeckoJS.BaseModel.prototype.findByIndex = function(type, params){
+
+    type = type || 'all';
+    params = params || {};
+
+    var index = params.index || "id";
+    var value = params.value || null;
+    var order = params.order || null;
+    var limit = params.limit || null;
+    var page = params.page || null;
+    var recursive = typeof params.recursive != 'undefined' ? params.recursive : 1;
+    var result = null;
+    
+    try {
+        var beforeResult = this.dispatchEvent('beforeFind', arguments);
+        
+        // if result invoke command
+        if (beforeResult) {
+            
+            var ds = GeckoJS.ConnectionManager.getDataSource(this.useDbConfig);
+
+            result = null;
+			
+            switch(type) {
+                case 'all':
+                    result = ds.querySelectByIndex(this, index, value, order, limit, page, recursive );
+                    if(result.length == 0) result = null;
+                    break;
+				
+                case 'first':
+                    result = ds.querySelectByIndex(this, index, value, order, 1, 1, recursive);
+                    if(result.length == 0) result = null;
+                    else return result[0];
+                    break;
+				
+                case 'count':
+                    result = ds.querySelectCountByIndex(this, index, value, order, limit, page);
+                    break;
+				
+            }
+
+            this.dispatchEvent('onFind', result);
+        }
+        
+        this.dispatchEvent('afterFind', result);
+		        
+        return result;
+		
+    }
+    catch (e) {
+        this.log('ERROR', this.getClassName() + 'Model.FindByIndex ' , e);
+        return result;
+    }
+	
+};
+
+
+/**
+ * Retrieves a record by its ID.<br/>
+ * <br/>
+ * The query will automatically retrieve matching records from related
+ * models.<br/>
+ * <br/>
+ * Dispatches a "beforeFind" event before performing the query. Performs
+ * the query and dispatches an "onFind" event only if the "beforeFind" event
+ * passes.<br/>
+ * <br/>
+ * Dispatches an "afterFind" event after performing the query.<br/>
+ * <br/>
+ * The event listeners are passed in the EventItem.data field an
+ * array whose first element is "id" and second element is an object whose
+ * "condition" property is set to the record ID.
+ *
+ * @function
+ * @public
+ * @param {String} id               This is the ID of the record to find
+ * @return                          The requested record
+ */
+GeckoJS.BaseModel.prototype.read = function(id){
+    this.data = this.findById(id);
+    return this.data;
+};
+
+
+/**
+ * Saves a data record to the model's backing store.<br/>
+ * <br/>
+ * Dispatches a "beforeSave" event before writing the data. Saves the
+ * data and dispatches an "onSave" event only if the "beforeSave" event
+ * passes.<br/>
+ * <br/>
+ * Dispatches an "afterSave" event regardless of the result of the
+ * "beforeSave" event.<br/>
+ * <br/>
+ * All event listeners are passed the data being saved in the EventItem data
+ * field.
+ *    
+ * @public
+ * @function  
+ * @param {Object} data             This is the data to save
+ */
+GeckoJS.BaseModel.prototype.save = function(data){
+
+    this.data = data || this.data;
+
+    if(this.data == null) {
+        return ;
+    }
+
+    var fields = [];
+    var savedata = {};
+
+    for (var field in this.data) {
+        if(this.hasField(field)) {
+            savedata[field] = this.data[field];
+            fields.push(field);
+        }
+    }
+    
+    // update data to this.data
+    this.data = savedata;
+
+    try {
+        var result = this.dispatchEvent('beforeSave', this.data);
+        
+        // if result invoke command
+        if (result) {
+            
+            var ds = GeckoJS.ConnectionManager.getDataSource(this.useDbConfig);
+
+            var created = false;
+            if (this.id.toString().length == 0) {
+
+                // insert new record
+                
+                this.create(this.data);
+
+                this.data['created'] = (new Date()).getTime();
+
+                var newId = ds.executeInsert(this, this.data);
+                this.id = newId;
+                created = true;
+                
+            }else {
+
+                // update exists record
+                
+                this.data['modified'] = (new Date()).getTime();
+                this.data['updated'] = this.data['modified'];
+                ds.executeUpdate(this, this.data);
+                created = false ;
+            }
+			
+            this.dispatchEvent('onSave', this.data);
+        }
+        
+        this.dispatchEvent('afterSave', created);
+        delete savedata;
+        delete data;
+        this.data = null;
+        
+    }
+    catch (e) {
+        this.log('ERROR', this.getClassName() + 'Model.save ' , e);
+        delete savedata;
+        delete data;
+        this.data = null;
+    }
+
+};
+
+
+/**
+ * Saves all records in a dataset to the model's backing store.<br/>
+ * <br/>
+ * Dispatches a "beforeSave" event before writing each record. Saves a
+ * record and dispatches an "onSave" event only if the "beforeSave" event
+ * passes.<br/>
+ * <br/>
+ * Dispatches an "afterSave" event regardless of the result of the
+ * "beforeSave" event.<br/>
+ * <br/>
+ * All event listeners are passed the individual data records in the EventItem
+ * data field.
+ * 
+ * @public
+ * @function  
+ * @param {Object} data              This is dataset to save
+ */
+GeckoJS.BaseModel.prototype.saveAll = function(data) {
+
+    var self = this;
+    if(typeof data == 'object' && data.constructor.name == 'Array') {
+        data.forEach(function(d) {
+            self.create(d);
+            self.save();
+        });
+    }
+
+};
+
+
+/**
+ * Deletes a record from the model by ID.<br/>
+ * <br/>
+ * Dispatches a "beforeDelete" event before deleting the record. Deletes
+ * the record and dispatches an "onDelete" event only if the "beforeDelete"
+ * event passes.<br/>
+ * <br/>
+ * Dispatches an "afterDelete" event regardless of the result of the
+ * "beforeDelete" event.<br/>
+ * <br/>
+ * The event listeners are passed the record ID in the EventItem.data field.
+ *    
+ * @function
+ * @public  
+ * @param {String} id               This is the ID of the record to delete
+ */
+GeckoJS.BaseModel.prototype.del = function(id){
+
+    if (typeof id == 'undefined') return;
+
+    try {
+        var beforeResult = this.dispatchEvent('beforeDelete', id);
+        
+        // if result invoke command
+        if (beforeResult) {
+            
+
+            var ds = GeckoJS.ConnectionManager.getDataSource(this.useDbConfig);
+
+            ds.executeDelete(this, id);
+			
+            this.dispatchEvent('onDelete', id);
+        }
+        
+        this.dispatchEvent('afterDelete', id);
+        
+    }
+    catch (e) {
+        this.log('ERROR', this.getClassName() + 'Model.del ' , e);
+    }
+    
+};
+
+/**
+ * Deletes a record from the model by ID.<br/>
+ * <br/>
+ * See del() for details.
+ *
+ * @function
+ * @name delete
+ * @public
+ * @param {String} id               This is the ID of the record to delete
+ */
+GeckoJS.BaseModel.prototype['delete'] = function(id){
+    // yuicompressor keyword
+    return this.del(id);
+};
+
+/**
+ * Deletes a record from the model by ID.<br/>
+ * <br/>
+ * See del() for details.
+ *
+ * @function
+ * @public
+ * @param {String} id               This is the ID of the record to delete
+ */
+GeckoJS.BaseModel.prototype.remove = function(id){
+    return this.del(id);
+};
+
+/**
+ * Retrieves records using a VQL SQL-like statement.
+ *
+ * @public
+ * @function
+ * @param {String} queryStatement   This is the VQL SQL-like query statement
+ * @return {Object}                  The result set
+ */
+GeckoJS.BaseModel.prototype.query = function(queryStatement) {
+    
+    var statemenet = GeckoJS.VqlParser.parseVQL.apply(GeckoJS.VqlParser, arguments);
+
+    // if only id condition , findbyid for best performance.
+    if (statemenet.where.length == 1 && statemenet.where[0].column == 'id' )  {
+        return [this.findById(statemenet.where[0].value)];
+    }
+
+    var conditions = GeckoJS.VqlParser.toWhereSQL(statemenet);
+    var order = GeckoJS.VqlParser.toSortOrderSQL(statemenet);
+
+    var limits = GeckoJS.VqlParser.toLimitSQL(statemenet);
+    var limit = limits[0];
+    var page = limits[1];
+
+
+    return this.find('all', {
+        conditions: conditions,
+        order: order,
+        limit: limit,
+        page: page
+    });    
+};
+
+/**
+ * Retrieves records using a VQL SQL-like statement.<br/>
+ * 
+ * @example
+ * GeckoJS.Model.query("SELECT * FROM User");
+ *
+ * @public
+ * @function
+ * @param {String} queryStatement   This is the VQL SQL-like query statement
+ * @return {Object}                  The result set
+ */
+GeckoJS.BaseModel.query = function(queryStatement) {
+    
+    var statemenet = GeckoJS.VqlParser.parseVQL.apply(GeckoJS.VqlParser, arguments);
+    
+    var table = statemenet.table;
+    var modelClass = GeckoJS.BaseModel.getModelClass(table);
+    if (!modelClass) return [];
+
+    var model = new modelClass();
+
+    // if only id condition , findbyid for best performance.
+    if (statemenet.where.length == 1 && statemenet.where[0].column == 'id' )  {
+        return [model.findById(statemenet.where[0].value)];
+    }
+
+    var conditions = GeckoJS.VqlParser.toWhereSQL(statemenet);
+    var order = GeckoJS.VqlParser.toSortOrderSQL(statemenet);
+
+    var limits = GeckoJS.VqlParser.toLimitSQL(statemenet);
+    var limit = limits[0];
+    var page = limits[1];
+
+
+    return model.find('all', {
+        conditions: conditions,
+        order: order,
+        limit: limit,
+        page: page
+    });    
+};
+
+
+
+/**
+ * Retrieves records using a Native SQL statement.<br/>
+ * <br/>
+ * This method is a stub and should be overridden by its descendant classes.
+ *
+ * @public
+ * @function
+ * @param {String} statement   This is the SQL query statement
+ * @return {Object}                  The result set
+ */
+GeckoJS.BaseModel.prototype.execute = function(statement){
+    return null;
+};
+
+
+
+/**
+ * Escapes the field name and prepends the model name.
+ * Escaping will be done according to the current database driver's rules.
+ *
+ * @param {String} field Field to escape (e.g: id)
+ * @param {String} alias Alias for the model (e.g: Post)
+ * @return {String} The name of the escaped field for this Model (i.e. id becomes `Post`.`id`).
+ * @access public
+ */
+	GeckoJS.BaseModel.prototype.escapeField = function(field, alias) {
+        
+        alias = alias || this.name;
+        field = field || this.primaryKey;
+
+		return alias + '.' + field;
+	};
+
+
+/**
+ * Returns the current record's ID
+ *
+ * @return {String} The ID of the current record, false if no ID
+ */
+	GeckoJS.BaseModel.prototype.getID = function() {
+
+		if (typeof this.id == 'string') {
+			return this.id;
+		}
+
+		if (typeof this.id == 'undefined' || this.id == null) {
+			return false;
+		}
+
+		return false;
+	};
+
+
+/**
+ * Returns the ID of the last record this Model inserted
+ *
+ * @return {String} Last inserted ID
+ */
+	GeckoJS.BaseModel.prototype.getLastInsertID = function() {
+		return this.getInsertID();
+	};
+
+/**
+ * Returns the ID of the last record this Model inserted
+ *
+ * @return {String} Last inserted ID
+
+ */
+	GeckoJS.BaseModel.prototype.getInsertID = function() {
+		return this.__insertID;
+	};
+
+/**
+ * Sets the ID of the last record this Model inserted
+ *
+ * @param {String} Last inserted ID
+ */
+	GeckoJS.BaseModel.prototype.setInsertID = function(id) {
+		this.__insertID = id;
+	};
+
+/**
+ * Gets the DataSource to which this model is bound.
+ *
+ * @return {GeckoJS.Model.DataSource}
+ */
+GeckoJS.BaseModel.prototype.getDataSource = function() {
+    var ds = GeckoJS.ConnectionManager.getDataSource(this.useDbConfig);
+    return ds || null;
+};
+
+
+/**
+ * Defines GeckoJS.Model namespace
+ *
+ * @public
+ * @namespace
+ */
+GREUtils.define('GeckoJS.Model', GeckoJS.global);
+
+/**
+ * Creates a new GeckoJS.Model instance and initializes it with the given
+ * record data and association level.
+ * 
+ * @param {Object} data                 This is the initial record data
+ * @param {Number} recursive            This indicates the association level
+ * 
+ * @class GeckoJS.Model inherits from GeckoJS.BaseModel and is intended to be
+ * extended by applications that require specialized model behaviors.<br/>
+ *
+ * @class GeckoJS.Model 
+ * @extends GeckoJS.BaseModel 
+ *
+ * @property {Number} cursor       a last cursor of cachedDatas
+ *
+ */
+GeckoJS.Model = GeckoJS.BaseModel.extend('Model', {
+    name: 'Model',
+
+    init: function(data, recursive) {
+        this._super(data, recursive);
+    }
+});
+
+
+// unnamed Model counter
+GeckoJS.Model.unnamedCounter = 1;
+
+/**
+ * addObject to ClassRegistry, when Model has been extended.
+ * @private
+ */
+GeckoJS.Model.extended = function(klass) {
+    
+    if (klass.prototype.name == 'Model' || klass.prototype.name == 'BaseModel') {
+        klass.prototype.name = 'Unnamed' + GeckoJS.Model.unnamedCounter++;
+    }
+
+    var name = klass.prototype.name;
+    klass.className = name;
+
+    GeckoJS.BaseModel.setModelClass(name, klass);
+    
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * Defines GeckoJS.ArrayQuery namespace
+ *
+ * @namespace
+ */
+GREUtils.define('GeckoJS.ArrayQuery', GeckoJS.global);
+
+/**
+ * Creates a new GeckoJS.ArrayQuery instance and initializes it with
+ * the given data.
+ * 
+ * @class GeckoJS.ArrayQuery provides a set of common array handling functions
+ * useful for processing and manipulating model query results.<br/>
+ * <br/>
+ * Data items may be accessed via their array indices.<br/>
+ * @name GeckoJS.ArrayQuery
+ * @extends GeckoJS.BaseObject
+ * @param {Object} data           This is an array of data items; defaults to an empty array
+ * @property {Object} data        The array used to store data items 
+ *
+ */
+GeckoJS.ArrayQuery = GeckoJS.BaseObject.extend('ArrayQuery', {
+    init: function(){
+        this._data = arguments[0] || [];
+    }
+});
+
+/**
+ * Returns a new instance of ArrayQuery.<br/>
+ * <br/>
+ * ArrayQuery does not support Singleton pattern, so calling getInstance()
+ * will always return a new instance.
+ *  
+ * @public
+ * @static 
+ * @function
+ * @return {GeckoJS.ArrayQuery}  A new ArrayQuery instance
+ */
+GeckoJS.ArrayQuery.getInstance = function(){
+    return new GeckoJS.ArrayQuery();
+};
+
+
+//data getter
+GeckoJS.ArrayQuery.prototype.__defineGetter__('data', function(){
+    return this._data;
+});
+
+//data setter
+GeckoJS.ArrayQuery.prototype.__defineSetter__('data', function(d){
+    this._data = d || [];
+});
+
+/**
+ * Constructs a function that can be used to filter the elements of an array
+ * based on the given condition.
+ *  
+ * @public
+ * @function
+ * @param {String} condition      This is the condition used to filter an array
+ * @return {Function}             A filter function
+ */
+GeckoJS.ArrayQuery.prototype.buildFilterFunction = function (condition) {
+	
+    var custO = [],localO = [];
+    var rex = /(?:'[^'\n\r]*')+|<=|>=|!=|=|<|>|:\w+|,|\*|-?\d+(?:\.\d+)?|\w+|\(|\)|\S+/ig;
+	
+    var tokens = [] ;
+    var tt = null;
+    while (tt = rex.exec(condition)) {
+        tokens.push(tt[0]);
+    }
+	
+    for(var sa =0 ; sa < tokens.length; sa+=3) {
+		
+        var condCol = tokens[sa];
+        if (condCol.match(/and/i)) {
+            sa++;
+            condCol = tokens[sa];
+        }
+        var condTest = tokens[sa+1];
+        var condVal = tokens[sa+2].replace(/^'|'$/g, '');
+		
+        custO.push({
+            'condCol': condCol,
+            'condTest': condTest,
+            'condVal': condVal
+        });
+    }
+    
+    // Return the filter function to the calling object.
+    return function (element, index, array) {
+        var returnvar = true, r1=element,r2=index,x,y;
+        
+        // loop over the custO and test each sort
+        // instruction set against records x and y to see which
+        // should appear first in the final array sort
+        for(var sa = 0; sa < custO.length; sa++) {
+            if (returnvar === true) {
+			
+                x = r1[custO[sa]["condCol"]];
+                y = custO[sa]["condVal"];
+                
+                if (custO[sa].condTest == '=')
+                {
+                    if (GREUtils.isNull(x) || !GREUtils.isDefined(x) || x != y) {
+                        returnvar = false;
+                    }
+                } else if (custO[sa].condTest == '<=') {
+                    if (GREUtils.isNull(x) || !GREUtils.isDefined(x) || x > y) {
+                        returnvar = false;
+                    }
+                }else if (custO[sa].condTest == '>=') {
+                    if (GREUtils.isNull(x) || !GREUtils.isDefined(x) || x < y) {
+                        returnvar = false;
+                    }
+                }else if (custO[sa].condTest == '!=') {
+                    if (GREUtils.isNull(x) || !GREUtils.isDefined(x) || x == y) {
+                        returnvar = false;
+                    }
+                }else if (custO[sa].condTest == '<') {
+                    if (GREUtils.isNull(x) || !GREUtils.isDefined(x) || x >= y) {
+                        returnvar = false;
+                    }
+                }else if (custO[sa].condTest == '>') {
+                    if (GREUtils.isNull(x) || !GREUtils.isDefined(x) || x <= y) {
+                        returnvar = false;
+                    }
+                }
+            }
+        }
+        return returnvar;
+    };
+};
+
+
+
+/**
+ * Constructs a function that can be used to sort the elements of an array
+ * based on the given sort order.<br/>
+ * <br/>
+ * The order is given as a string containing comma-separated element property
+ * names. The order between two elements is determined by comparing the property
+ * values in turn. Sort direction is ascending ("asc") by default. To use
+ * descending direction on a property, append the string "desc" to the property
+ * separated by a space.          
+ * 
+ * @public
+ * @function
+ * @param {String} order          This is the order used to sort an array
+ * @return {Function}             A sort function
+ */
+GeckoJS.ArrayQuery.prototype.buildSortFunction = function (order) {
+    var custO = [],localO = [];
+
+    localO = order.split(",");
+    for(var sa = 0; sa < localO.length; sa++) {
+        var sortCol = GeckoJS.String.trim(localO[sa]);
+        var sortDir = "asc";
+		
+        var localO2 = sortCol.split(/[\s]+/);
+        if (localO2.length == 2) {
+            sortCol = localO2[0];
+            sortDir = localO2[1].toLowerCase();
+        }
+        custO.push({
+            'sortCol': sortCol,
+            'sortDir': sortDir
+        });
+    }
+    
+    // Return the sort function to the calling object.
+    return function (a,b) {
+        var returnvar = 0,r1=a,r2=b,x,y;
+        
+        // loop over the custO and test each sort
+        // instruction set against records x and y to see which
+        // should appear first in the final array sort
+        for(var sa = 0; sa < custO.length; sa++) {
+            if (returnvar === 0) {
+			
+                x = r1[custO[sa]["sortCol"]];
+                y = r2[custO[sa]["sortCol"]];
+                
+                x = (GREUtils.isString(x)) ? x.toLowerCase() : x;
+                y = (GREUtils.isString(y)) ? y.toLowerCase() : y;
+    
+                if (custO[sa].sortDir == 'desc')
+                {
+                    if (GREUtils.isNull(y) || !GREUtils.isDefined(y) || y < x) {
+                        returnvar = -1;
+                    } else if (GREUtils.isNull(x) || !GREUtils.isDefined(x) || y > x){
+                        returnvar = 1;
+                    }
+                } else {
+                    if (GREUtils.isNull(x) || !GREUtils.isDefined(x) || x < y) {
+                        returnvar = -1;
+                    } else if (GREUtils.isNull(y) || !GREUtils.isDefined(y) || x > y){
+                        returnvar = 1;
+                    }
+                }
+            }
+        }
+        return returnvar;
+    };
+};
+
+/**
+ * Returns data items from this data source that satisfy the given condition.
+ *  
+ * @public
+ * @function
+ * @name GeckoJS.ArrayQuery.prototype.filter
+ * @param {String} condition      This is the condition used to filter the data source
+ * @return {Object}                An array of data items
+ */
+GeckoJS.ArrayQuery.prototype.filter = function(condition) {
+    var filterFunc = this.buildFilterFunction(condition);
+    var data = this.data.concat([]);
+    return data.filter(filterFunc);
+};
+
+
+
+/**
+ * Sorts in place the data items in the data source according to the given sort
+ * order and returns the sorted data items. 
+ *  
+ * @public
+ * @function
+ * @name GeckoJS.ArrayQuery.prototype.orderBy
+ * @param {String} condition      This is the order used to sort the data source
+ * @return {Object}                An array of data items 
+ */
+GeckoJS.ArrayQuery.prototype.orderBy = function(order) {
+    var sortFunc = this.buildSortFunction(order);
+    this.data.sort(sortFunc);
+    return this.data;
+};
+
+
+/**
+ * Returns a page of data items.  
+ *  
+ * @public
+ * @function
+ * @name GeckoJS.ArrayQuery.prototype.limit
+ * @param {Number} limit          This is the page size
+ * @param {Number} page           This is the page number (starts at 1)
+ * @return {Object}                An array of data items
+ */
+GeckoJS.ArrayQuery.prototype.limit = function(limit, page) {
+	
+    limit = limit || this.data.length;
+    limit = (limit > this.data.length || limit < 0) ? this.data.length : limit;
+
+    var totalPage = Math.floor(this.data.length / limit) ;
+
+    page = page || 1;
+    page = (page > totalPage || page <= 0) ? totalPage : page;
+	
+    var offsetStart = limit * (page-1);
+    offsetStart = (offsetStart  < 0 || offsetStart > this.data.length) ? 0 : offsetStart;
+    
+    var offsetEnd = offsetStart + limit;
+    offsetEnd = (offsetEnd > this.data.length) ? this.data.length : offsetEnd;
+
+    var resultCount = offsetEnd - offsetStart;
+    // if resultCount == data.length return right now
+    if (resultCount == this.data.length) return this.data;
+	
+    return this.data.slice(offsetStart, offsetEnd);
+	 
+};
+
+/**
+ * Defines GeckoJS.DatasourceJsonFile namespace
+ *
+ * @public
+ * @namespace
+ */
+GREUtils.define('GeckoJS.DatasourceJsonFile', GeckoJS.global);
+
+/**
+ * Creates a new GeckoJS.DatasouceJsonFile instance.
+ * 
+ * @class GeckoJS.DatasourceJsonFile implements a data source that stores data
+ * in JSON-encoded format in a file. It also maintains a write-through data
+ * cache.<br/>
+ * <br/>
+ * It is a Singleton class.<br/>
+ * <br/>
+ * Data is stored in files under the "data" sub-directory of the
+ * system tmp directory (configuration key "TmpD").<br/> 
+ *
+ * @extends GeckoJS.Datasource 
+ * @property {GeckoJS.Map} data                Data cache (read-only)
+ */
+GeckoJS.DatasourceJsonFile = GeckoJS.Datasource.extend('DatasourceJsonFile', {
+    init: function(config){
+    
+        // http://developer.mozilla.org/en/docs/wrappedJSObject
+        this.wrappedJSObject = this;
+
+        this._path = null ;
+        this._data = new GeckoJS.Map();
+
+        this.config = config;
+
+        this.lastInsertId = "";
+        
+    }
+});
+
+
+
+//dispatchData getter
+GeckoJS.DatasourceJsonFile.prototype.__defineGetter__('data', function(){
+    return this._data;
+});
+
+// path
+GeckoJS.DatasourceJsonFile.prototype.__defineGetter__('path', function() {
+    if (this._path == null) {
+        this._path = this.config.path || "/var/tmp";
+    }
+    return this._path;
+});
+
+
+/**
+ * Reads the entire content of a table from the corresponding Json file.<br/>
+ * <br/>
+ * If the table is cached, returns the cached data instead.
+ *
+ * @public
+ * @function
+ * @param {String} table              This is the name of the table to read
+ */
+GeckoJS.DatasourceJsonFile.prototype.readTableFile = function(table){
+
+    var db = null;
+    if (this.data.containsKey(table)) {
+    
+        // this.log('readTableFile From Map ' + table);
+        db = this.data.get(table);
+        
+    }
+    else {
+    
+        var tableFile = new GeckoJS.File(this.path);
+        tableFile.append(table + '.db');
+        
+        // this.log('readTableFile = ' + tableFile.path);
+        var d = GREUtils.JSON.decodeFromFile(tableFile.path);
+        if (d == null)
+            d = {};
+        
+        db = new GeckoJS.Map();
+        db.addAll(d);
+        
+        this.data.set(table, db);
+    }
+    
+    return db;
+    
+};
+
+/**
+ * Saves the entire content of a table to file.
+ *
+ * @public
+ * @function
+ * @param {String} table               This is the table name to save to
+ * @param {Object} db                  This is the table data to save
+ */
+GeckoJS.DatasourceJsonFile.prototype.saveTableFile = function(table, db){
+
+    var tableFile = new GeckoJS.File(this.path);
+    tableFile.append(table + '.db');
+    
+    // this.log('saveTableFile = ' + tableFile.path);
+    
+    GREUtils.JSON.encodeToFile(tableFile.path, db._obj);
+    
+    this.data.set(table, db);
+    
+};
+
+/**
+ * Inserts data into a model.<br/>
+ * <br/>
+ * The ID used to uniquely identify the data is taken from model.id.
+ *   
+ * @public
+ * @function
+ * @param {GeckoJS.Model} model     This is the model
+ * @param {Object} data             This is the data
+ * @return {Number}                 The ID used to insert the data
+ */
+GeckoJS.DatasourceJsonFile.prototype.executeInsert = function(model, data){
+
+    var table = model.table;
+    
+    try {
+    
+        var db = this.readTableFile(table);
+        
+        var key = GeckoJS.String.uuid();
+        
+        if (key.toString().length == 0) {
+            key = GeckoJS.String.uuid();
+        }
+
+        // auto generate schema and save to data
+        // data['__schema'] = model.schema();
+        data[model.primaryKey] = key;
+
+        db.set(key, data);
+        
+        this.saveTableFile(table, db);
+
+        this.lastInsertId = key;
+        return key;
+    }
+    catch (e) {
+        this.log("ERROR","GeckoJS.DatasourceJsonFile: An error occurred executing the insert command\n", e);
+    }
+    
+};
+
+/**
+ * Returns the size of the result set containing data items from model that
+ * satisfy the given query condition.<br/>
+ * <br/>
+ * If page size or page number is given, returns only the number of data items
+ * in the requested page of the result set.
+ *   
+ * @public
+ * @function
+ * @param {GeckoJS.Model} model     This is the model
+ * @param {Object} condition        This is the query condition
+ * @param {String} order            This is the sort order
+ * @param {Number} limit            This is the page size
+ * @param {Number} page             This is the page number 
+ * @return {Number}                 The number of rows in the result set
+ */
+GeckoJS.DatasourceJsonFile.prototype.querySelectCount = function(model, condition, order, limit, page){
+    return this.querySelect(model, condition, order, limit, page, 0).length;
+};
+
+/**
+ * Retrieves from a model data items that satisfy the given query condition,
+ * sorted in the specified order.<br/>
+ * <br/>
+ * If page size or page number is given, returns only data items in the requested
+ * page of the result set.
+ *   
+ * @public
+ * @function
+ * @param {GeckoJS.Model} model     This is the model
+ * @param {Object} condition        This is the query condition
+ * @param {String} order            This is the sort order
+ * @param {Number} limit            This is the page size
+ * @param {Number} page             This is the page number
+ * @return {Object}                  The result set
+ */
+GeckoJS.DatasourceJsonFile.prototype.querySelect = function(model, condition, order, limit, page, recursive){
+    
+    recursive = typeof recursive != 'undefined' ? recursive : 1;
+
+    var table = model.table;
+    
+    try {
+        var db = this.readTableFile(table);
+        
+        var resultSet = db.getValues();
+        var arrayDs = new GeckoJS.ArrayQuery(resultSet);
+        
+        if (condition)
+            arrayDs.data = arrayDs.filter(condition);
+        
+        if (order)
+            arrayDs.orderBy(order);
+        
+        if (limit || page)
+            arrayDs.data = arrayDs.limit(limit, page);
+        
+        var result = arrayDs.data.slice();
+        
+        delete arrayDs;
+        delete resultSet;
+        delete db;
+        
+        if (recursive == 1) {
+            return this.__queryAssociations(model, result, recursive);
+        }else {
+            return result;
+        }
+        
+        
+    }
+    catch (e) {
+        this.log("ERROR","GeckoJS.DatasourceJsonFile: An error occurred executing the selectAll (" + condition + ")command\n" , e);
+        return [];
+    }
+    
+};
+
+
+GeckoJS.DatasourceJsonFile.prototype.__queryAssociations = function(model, datas, recursive) {
+
+    recursive = typeof recursive != 'undefined' ? recursive : 1;
+
+    var self = this;
+    var results = new Array();
+    var schema = model.schema();
+
+    datas.forEach( function (d){
+
+        // shadow clone object
+        var data = GeckoJS.BaseObject.clone(d);
+        
+        // process belongsTo
+        if(typeof schema['belongsTo'] == 'object') {
+            for (var assocName in schema['belongsTo']) {
+                var assocSchema = schema['belongsTo'][assocName];
+                var foreignKey = assocSchema.foreignKey;
+                
+                var foreignValue = data[foreignKey];
+
+                if(typeof foreignValue != 'undefined') {
+                    var assocModel = model._getAssociationModel(assocName);
+                    data[assocName] = assocModel.find('id', {
+                        conditions: foreignValue,
+                        recursive: 0
+                    });
+                }
+            }
+        }
+
+        // process hasOne
+        if(typeof schema['hasOne'] == 'object') {
+            for (var assocName2 in schema['hasOne']) {
+                var foreignKey2 = schema.foreignKey;
+                var foreignValue2 = data.id;
+
+                if(typeof foreignValue2 != 'undefined') {
+                    var assocModel2 = model._getAssociationModel(assocName2);
+                    data[assocName2] = assocModel2.find('first', {
+                        conditions: foreignKey2 + " = '"+foreignValue2 + "'",
+                        recursive: 0
+                    });
+                }
+            }
+        }
+
+
+        // process hasMany
+        if(typeof schema['hasMany'] == 'object') {
+            for (var assocName3 in schema['hasMany']) {
+                var foreignKey3 = schema.foreignKey;
+                var foreignValue3 = data.id;
+
+                if(typeof foreignValue3 != 'undefined') {
+                    var assocModel3 = model._getAssociationModel(assocName3);
+                    data[assocName3] = assocModel3.find('all', {
+                        conditions: foreignKey3 + " = '"+foreignValue3 +"'",
+                        recursive: 0
+                    });
+                }
+            }
+        }
+
+        results.push(data);
+    });
+    delete datas;
+    
+    return results;
+};
+
+
+
+/**
+ * Retrieves a data item from a model based on its id.
+ *   
+ * @public
+ * @function
+ * @param {GeckoJS.Model} model     This is the model
+ * @param {String} id               This is the id of the data item to retrieve
+ * @return {Object}                  The data item
+ */
+GeckoJS.DatasourceJsonFile.prototype.querySelectById = function(model, id, recursive){
+    
+    recursive = typeof recursive != 'undefined' ? recursive : 1;
+
+    var table = model.table;
+
+    try {
+    
+        var db = this.readTableFile(table);
+
+        var resultSet = db.get(id);
+        var result = null;
+        
+        if(resultSet != null) {
+            result = GeckoJS.BaseObject.clone(resultSet);
+        }
+        delete resultSet;
+
+        if (recursive == 1) {
+            return this.__queryAssociations(model, [result], recursive)[0];
+        }else {
+            return result;
+        }
+        
+        
+    //        return resultSet;
+        
+    }
+    catch (e) {
+        this.log("ERROR","GeckoJS.DatasourceJsonFile: An error occurred executing the byId command\n" , e);
+        return null;
+    }
+    
+};
+
+
+/**
+ * Returns the number of data items in a model where the property indicated
+ * by the "index" parameter is equal to the "value" parameter.<br/>
+ * <br/>
+ * If page size or page number is given, returns only the number of data items
+ * in the requested page of the result set.
+ *   
+ * @public
+ * @function
+ * @param {GeckoJS.Model} model     This is the model
+ * @param {String} index            This is the index property
+ * @param {Object} value            This is the index value
+ * @param {String} order            This is the sort order
+ * @param {Number} limit            This is the page size
+ * @param {Number} page             This is the page number
+ * @return {Number}                 The number of rows in the result set
+ */
+GeckoJS.DatasourceJsonFile.prototype.querySelectCountByIndex = function(model, index, value, order, limit, page){
+    return this.querySelectByIndex(model, index, value, order, limit, page, 0).length;
+};
+
+
+/**
+ * Retrieves from a model data items where the property indicated by the
+ * "index" parameter is equal to the "value" parameter, sorted in the
+ * specified order.<br/>
+ * <br/>
+ * If page size or page number is given, returns only the data items in the
+ * requested page of the result set.
+ *   
+ * @public
+ * @function
+ * @param {GeckoJS.Model} model     This is the model
+ * @param {String} index            This is the index property
+ * @param {Object} value            This is the index value
+ * @param {String} order            This is the sort order
+ * @param {Number} limit            This is the page size
+ * @param {Number} page             This is the page number
+ * @return {Object}                  The result set
+ */
+GeckoJS.DatasourceJsonFile.prototype.querySelectByIndex = function(model, index, value, order, limit, page, recursive){
+
+    recursive = typeof recursive != 'undefined' ? recursive : 1;
+    
+    // sdk for json not support quick index.
+    var condition = index + " = '" + value + "'";
+    return this.querySelect(model, condition, order, limit, page, recursive);
+    
+};
+
+
+/**
+ * Replaces a data item in a model.<br/>
+ * <br/>
+ * This method replaces a data item stored in the model with the new data item.
+ * The data item to replace is identified by an internal model ID
+ * (model.id).<br/>
+ * <br/>   
+ * The operation fails and returns 0 if id does not exist in the model. 
+ *   
+ * @public
+ * @function
+ * @param {GeckoJS.Model} model     This is the model
+ * @param {Object} data             This is the new data
+ * @return {Number}                 The number of rows updated
+ */
+GeckoJS.DatasourceJsonFile.prototype.executeUpdate = function(model, data){
+
+    var table = model.table;
+    
+    try {
+    
+        var db = this.readTableFile(table);
+        
+        var key = model.id;
+        
+        if (db.containsKey(key)) {
+            
+            var dataOrg = db.get(key);
+            dataOrg = GREUtils.extend(dataOrg, data);
+            db.set(key, dataOrg);
+            this.saveTableFile(table, db);
+            return 1;
+        }
+        return 0;
+        
+    }
+    catch (e) {
+        this.log("ERROR", "GeckoJS.DatasourceJsonFile: An error occurred executing the update command\n" , e);
+        return 0;
+    }
+    
+};
+
+
+/**
+ * Removes the data item associated with an id from a model.<br/>
+ * <br/>
+ * If id is not given, then internal model ID (model.id) is used.<br/>
+ * <br/>
+ * The operation fails and returns 0 if id does not exist in the model. 
+ *   
+ * @public
+ * @function
+ * @param {GeckoJS.Model} model     This is the model
+ * @param {String} id               This is the id
+ * @return {Number}                 The number of rows deleted
+ */
+GeckoJS.DatasourceJsonFile.prototype.executeDelete = function(model, id){
+
+    var table = model.table;
+    
+    try {
+    
+        var db = this.readTableFile(table);
+        
+        //keys = db.getKeys();
+        //key = keys[id-1];
+        var key = id || model.id;
+        
+        if (db.containsKey(key)) {
+            db.remove(key);
+            this.saveTableFile(table, db);
+            return 1;
+        }
+        return 0;
+    }
+    catch (e) {
+        this.log("ERROR", "GeckoJS.DatasourceJsonFile: An error occurred executing the delete command\n", e);
+        return 0;
+    }
+    
+};
+
+
+/**
+ * Defines GeckoJS.Helper namespace
+ *
+ * @public
+ * @namespace
+ */
+GREUtils.define('GeckoJS.Helper', GeckoJS.global);
+
+/**
+ * Creates a new GeckoJS.Helper instance.
+ * 
+ * @class GeckoJS.Helper provides a means of encapsulating a set of methods that
+ * collectively work together to expand and/or supplement the functionality
+ * of a Controller.<br/>
+ * <br/>
+ * A Helper by convention focuses on UI-related processing, while a Component
+ * typically provides model-related processing.<br/>
+ * <br/>
+ * This is the base Helper class and should be extended by sub-classes that
+ * implement the actual functionalities.<br/>
+ *
+ * @name GeckoJS.Helper
+ * @extends GeckoJS.BaseObject
+ * @extends GeckoJS.Singleton 
+ *  
+ * @property {jQuery} query             The query function used to look for a document element; normally jQuery, but document.getElementById if jQuery is not available (read-only)
+ */
+
+GeckoJS.Helper = GeckoJS.BaseObject.extend('Helper', {
+    name: 'Helper'
+});
+
+// make Helper support singleton
+GeckoJS.Singleton.support(GeckoJS.Helper);
+
+// unnamed Helper counter
+GeckoJS.Helper.unnamedCounter = 1;
+
+
+/**
+ * addObject to ClassRegistry, when Helper has been extended.
+ * @private
+ */
+GeckoJS.Helper.extended = function(klass) {
+
+    if (klass.prototype.name == 'Helper') {
+        klass.prototype.name = 'Unnamed' + GeckoJS.Helper.unnamedCounter++;
+    }
+
+    var name = klass.prototype.name;
+    klass.className = name;
+
+    GeckoJS.Helper.setHelperClass(name, klass);
+    
+};
+
+/**
+ * Registers the Helper sub-class in the Class Registry.
+ *
+ * @public
+ * @static
+ * @function   
+ * @param {String} name               This is the name to register the sub-class with
+ * @param {GeckoJS.Helper} klass      This is the Helper sub-class to register
+ */
+GeckoJS.Helper.setHelperClass = function(name, klass) {
+    
+    if (GeckoJS.ClassRegistry.isKeySet("HelperClass_" + name)) return ;
+
+    GeckoJS.ClassRegistry.addObject("HelperClass_" + name, klass);
+
+};
+
+/**
+ * Retrieves the Helper sub-class object by name from the Class Registry.
+ *
+ * @public
+ * @static
+ * @function   
+ * @param {String} name                 This is the name of the Helper sub-class to retrieve
+ * @return {GeckoJS.Helper}             The Helper sub-class identified by name
+ */
+GeckoJS.Helper.getHelperClass = function(name) {
+    
+    return GeckoJS.ClassRegistry.getObject("HelperClass_" + name);
+
+};
+
+
+//domquery getter
+GeckoJS.Helper.prototype.__defineGetter__('query', function(){
+
+    var window = window || GeckoJS.global;
+    var document = document || window.document || GeckoJS.global;
+
+    var fn = window.jQuery || document.getElementById;
+    return fn;
+});
+
+
+/**
+ * Creates a DOM element of the given document type and element tag.
+ *
+ * @public
+ * @function  
+ * @param {String} type         This is the document type, which may be "xul", "html", or "xhtml"
+ * @param {String} tag          This is the element tag
+ * @return {Element}            A DOM element of the given document type and element tag
+ */
+GeckoJS.Helper.prototype.createElement = function(type, tag) {
+
+    return GeckoJS.Helper.createElement(type, tag);
+
+};
+
+/**
+ * Creates a DOM element of the given document type and element tag.
+ *
+ * @public
+ * @static 
+ * @function  
+ * @param {String} type         This is the document type, which may be "xul", "html", or "xhtml"
+ * @param {String} tag          This is the element tag
+ * @return {Element}            A DOM element of the given document type and element tag
+ */
+GeckoJS.Helper.createElement = function(type, tag) {
+
+    type = type.toUpperCase();
+
+    var window = window || GeckoJS.global;
+    var document = document || window.document || GeckoJS.global.document ||  GeckoJS.global;
+
+    switch(type) {
+        case "HTML":
+        case "XHTML":
+            return document.createElementNS("http://www.w3.org/1999/xhtml", tag)
+            break;
+
+        case "XUL":
+            return document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul", tag)
+            break;
+    }
+
+};
+
+/**
+ * Removes all children of a DOM element. 
+ *
+ * @public
+ * @function  
+ * @param {Element} el          This is the DOM element whose children are to be removed
+ */
+GeckoJS.Helper.prototype.removeAllChildren = function (el) {
+
+    GeckoJS.Helper.removeAllChildren(el);
+    
+};
+
+
+/**
+ * Removes all children of a DOM element. 
+ *
+ * @public
+ * @function  
+ * @param {Element} el          This is the DOM element whose children are to be removed
+ */
+GeckoJS.Helper.removeAllChildren = function (el) {
+
+    if(el == null || typeof el == 'undefined') return;
+
+    while (el.firstChild) {
+        el.removeChild(el.firstChild);
+    }
+
+};
+/**
+ * Defines GeckoJS.FormHelper namespace
+ *
+ */
+GREUtils.define('GeckoJS.FormHelper', GeckoJS.global);
+
+/**
+ * Creates a new GeckoJS.FormHelper instance.
+ * 
+ * @class GeckoJS.FormHelper provides a set of methods that help a Controller in
+ * parsing and retrieving data from an XUL form. <br/>
+ *
+ * @name GeckoJS.FormHelper
+ * @extends GeckoJS.Helper
+ * @extends GeckoJS.Singleton 
+ */
+GeckoJS.FormHelper = GeckoJS.Helper.extend({
+    name: 'Form'
+});
+
+// make Form support singleton
+GeckoJS.Singleton.support(GeckoJS.FormHelper);
+
+
+/**
+ * Resets all inputable fields in a form to default if the field has a
+ * 'default' attribute.
+ *
+ * @public
+ * @static
+ * @function   
+ * @param {String} form           This is the name of the DOM element with 'form' attribute. 
+ */
+GeckoJS.FormHelper.reset = function(form) {
+    return GeckoJS.FormHelper.getInstance().reset(form);
+};
+
+
+/**
+ * Resets all inputable fields in a form to default if the field has a
+ * 'default' attribute.
+ *
+ * @public
+ * @function   
+ * @param {String} form           This is the name of the DOM element with 'form' attribute. 
+ */
+GeckoJS.FormHelper.prototype.reset = function(form) {
+
+    // jQuery way
+    this.query('[form='+form+']').each(function() {
+        var n = this.name || this.getAttribute('name');
+        if (!n) return;
+        var v = this.getAttribute('default');
+        
+        if (typeof v != 'undefined') {
+            GeckoJS.FormHelper.setFieldValue(this, v);
+        }
+    });        
+};
+
+
+/**
+ * Serializes all inputable fields in a form and stores them in an Object.<br/>
+ * <br/>
+ * Each inputable field is stored in the return object as a property of the
+ * object.
+ * 
+ * @public
+ * @static
+ * @function   
+ * @param {String} form           This is the name of the DOM element with 'form' attribute. 
+ * @param {Boolean} successful    This is a flag indicating if only enabled and selected fields are to be included; defaults to "true"
+ * @return {Object}               An object containing the values of all inputable fields in the form
+ */
+GeckoJS.FormHelper.serializeToObject = function(form, successful) {
+    return GeckoJS.FormHelper.getInstance().serializeToObject(form, successful);
+};
+
+
+/**
+ * Serializes all inputable fields in a form and stores them in an Object.<br/>
+ * <br/>
+ * Each inputable field is stored in the return object as a property of the
+ * object.
+ * 
+ * @public
+ * @function   
+ * @param {String} form           This is the name of the DOM element with 'form' attribute. 
+ * @param {Boolean} successful    This is a flag indicating if only enabled and selected fields are to be included; defaults to "true"
+ * @return {Object}               An object containing the values of all inputable fields in the form
+ */
+GeckoJS.FormHelper.prototype.serializeToObject = function(form, successful) {
+
+    var a = {};
+
+    // jQuery way
+    this.query('[form='+form+']').each(function() {
+        var n = this.name || this.getAttribute('name');
+        if (!n) return;
+        var v = GeckoJS.FormHelper.getFieldValue(this, successful);
+        if (v && v.constructor.name == 'Array') {
+            //for (var i=0,max=v.length; i < max; i++) a[n] = v[i];
+            a[n] = v;
+        }
+        else if (v !== null && typeof v != 'undefined') {
+            a[n] = v;
+        }
+    });
+    
+    return a;
+        
+};
+
+
+
+/**
+ * Serializes all inputable fields in a form into an HTTP query string.
+ *  
+ * @public
+ * @static 
+ * @function   
+ * @param {String} form           This is the name of the DOM element with 'form' attribute. 
+ * @param {Boolean} successful    This is a flag indicating if only enabled and selected fields are to be included; defaults to "true"
+ * @return {String}               An HTTP query string containing the values of all inputable fields in the form
+ */
+GeckoJS.FormHelper.serialize = function(form, successful) {
+    return GeckoJS.FormHelper.getInstance().serialize(form, successful);
+};
+
+
+/**
+ * Serializes all inputable fields in a form into an HTTP query string.
+ *  
+ * @public
+ * @function   
+ * @param {String} form           This is the name of the DOM element with 'form' attribute. 
+ * @param {Boolean} successful    This is a flag indicating if only enabled and selected fields are to be included; defaults to "true"
+ * @return {String}               An HTTP query string containing the values of all inputable fields in the form
+ */
+GeckoJS.FormHelper.prototype.serialize = function(form, successful) {
+    return GeckoJS.String.httpBuildQuery(this.serializeToObject(form, successful));
+};
+
+
+/**
+ * Unserializes inputable fields from an HTTP query string.<br/>
+ * <br/>
+ * For each inputable field, if a parameter with the same name exists in the
+ * HTTP query string, the field value is set to the corresponding parameter
+ * value.
+ * 
+ * @public
+ * @static
+ * @function   
+ * @param {String} form           This is the name of the DOM element with 'form' attribute. 
+ * @param {String} data           This is the HTTP query string used as the source of the inputable field values
+ */
+GeckoJS.FormHelper.unserialize = function(form, data) {
+    return GeckoJS.FormHelper.getInstance().unserialize(form, data);
+};
+
+
+/**
+ * Unserializes inputable fields from an HTTP query string.<br/>
+ * <br/>
+ * For each inputable field, if a parameter with the same name exists in the
+ * HTTP query string, the field value is set to the corresponding parameter
+ * value.
+ * 
+ * @public
+ * @function   
+ * @param {String} form           This is the name of the DOM element with 'form' attribute. 
+ * @param {String} data           This is the HTTP query string used as the source of the inputable field values
+ */
+GeckoJS.FormHelper.prototype.unserialize = function(form, data) {
+  
+    return this.unserializeFromObject(form, GeckoJS.String.parseStr(data));
+  
+};
+
+
+
+/**
+ * Unserializes inputable fields from a JavaScript object.<br/>
+ * <br/>
+ * For each inputable field, if a property with the same name is defined in the
+ * object, the field value is set to the corresponding property value.
+ * 
+ * @public
+ * @static
+ * @function   
+ * @param {String} form           This is the name of the DOM element with 'form' attribute. 
+ * @param {Object} data           This is an object used as the source of the inputable field values
+ */
+GeckoJS.FormHelper.unserializeFromObject = function(form, data) {
+    GeckoJS.FormHelper.getInstance().unserializeFromObject(form, data);
+};
+
+
+/**
+ * Unserializes inputable fields from a JavaScript object.<br/>
+ * <br/>
+ * For each inputable field, if a property with the same name is defined in the
+ * object, the field value is set to the corresponding property value.
+ *   
+ * @public
+ * @function  
+ * @param {String} form           This is the name of the DOM element with 'form' attribute. 
+ * @param {Object} data           This is an object used as the source of the inputable field values
+ */
+GeckoJS.FormHelper.prototype.unserializeFromObject = function FormHelper_unserializeFromObject(form, data) {
+
+    if(typeof data == 'undefined' || typeof form == 'undefined') return;
+    
+    // jQuery way
+    this.query('[form='+form+']').each(function() {
+        var n = this.name || this.getAttribute('name');
+        if (!n) return;
+        var v = data[n];
+        if (typeof v != 'undefined') {
+            GeckoJS.FormHelper.setFieldValue(this, v);
+        }
+    });
+  
+};
+
+
+/**
+ * isFormModified.<br/>
+ * <br/>
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} form           This is the name of the DOM element with 'form' attribute.
+ * @return {Boolean}              Return true is form 's value != org_value
+ */
+GeckoJS.FormHelper.isFormModified = function(form) {
+    return GeckoJS.FormHelper.getInstance().isFormModified(form);
+};
+
+
+/**
+ * isFormModified.<br/>
+ * <br/>
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} form           This is the name of the DOM element with 'form' attribute.
+ * @return {Boolean}              Return true is form 's value != org_value
+ */
+GeckoJS.FormHelper.prototype.isFormModified = function FormHelper_isFormModified(form) {
+
+    if(typeof form == 'undefined') return false;
+
+    // jQuery way
+    var result = false;
+    
+    this.query('[form='+form+']').each(function() {
+        
+        var n = this.name || this.getAttribute('name');
+        if (!n) return;
+
+        var v = GeckoJS.FormHelper.getFieldValue(this);
+        var org_value = this.getAttribute('org_value');
+
+        if(typeof org_value != 'undefined' && typeof v != 'undefined' && typeof v !== null && typeof org_value !== null)  {
+
+            if (v.constructor.name == 'Array') {
+                v = v.join(',');
+            }
+            if(v != org_value) result = true;
+        }
+    });
+
+    return result;
+
+};
+
+
+/**
+ * Returns the value of an XUL inputable field.
+ *
+ * @public
+ * @static 
+ * @function  
+ * @param {Element} el            This is a DOM element representing an XUL inputable field
+ * @param {Boolean} successful    This is a flag indicating if only enabled and selected fields are to be retrieved; defaults to "true"
+ * @return {String}               The value of the inputable field
+ */
+GeckoJS.FormHelper.getFieldValue = function(el, successful) {
+    return GeckoJS.FormHelper.getInstance().getFieldValue(el, successful);
+};
+
+
+/**
+ * Returns the value of an XUL inputable field.
+ * 
+ * @public
+ * @function  
+ * @param {Element} el            This is a DOM element representing an XUL inputable field
+ * @param {Boolean} successful    This is a flag indicating if only enabled and selected fields are to be retrieved; defaults to "true"
+ * @return {String}               The value of the inputable field
+ */
+GeckoJS.FormHelper.prototype.getFieldValue = function(el, successful) {
+
+    if(el == null) return null;
+    
+    var n = el.name || el.getAttribute('name'), tag = el.tagName.toLowerCase(), t = el.type || el.getAttribute('type') || tag;
+
+    if (typeof successful == 'undefined') successful = true;
+
+    if (successful && (!n || el.disabled || t == 'reset' || t == 'button' ||
+        (t == 'checkbox' || t == 'radio') && !el.checked ||
+        (tag == 'colorpicker') && !el.color ||
+        (t == 'submit' || t == 'image') && el.form && el.form.clk != el ||
+        (tag == 'select' || tag =='listbox' || tag =='menulist') && el.selectedIndex == -1)) {
+        return null;
+    }
+
+
+    if (tag == 'select') {
+
+        var index = el.selectedIndex;
+
+        if (index < 0) return null;
+
+        var a = [], ops = el.options;
+
+        var one = (t == 'select-one');
+
+        var max = (one ? index+1 : ops.length);
+
+        for(var i=(one ? index : 0); i < max; i++) {
+
+            var op = ops[i];
+
+            if (op.selected) {
+
+                // extra pain for IE...
+
+                var v = op.value;
+
+                if (one) return v;
+
+                a.push(v);
+
+            }
+
+        }
+
+        return a;
+
+    } else if(tag == 'listbox' || tag =='menulist') {
+
+        if (el.selectedIndex < 0) return null;
+
+        var a2 = [], ops2 = [], one2 = true;
+        
+        if (tag == 'listbox') {
+            ops2 = el.selectedItems;
+            one2 = (el.selType != 'multiple');
+        }else {
+            ops2 = [el.selectedItem];
+        }
+
+        for (var j=0; j<ops2.length; j++) {
+            var v2 = ops2[j].value || ops2[j].label;
+            if(one2) return v2;
+            a2.push(v2);
+        }
+
+        return a2;
+
+    }else if (tag == 'checkbox') {
+        return el.checked;
+    }else if( tag == 'colorpicker') {
+        return el.color || "";
+    }
+    return el.value;
+    
+};
+
+
+/**
+ * Sets the value of an XUL inputable field.
+ * 
+ * @public
+ * @static 
+ * @function  
+ * @param {Element} el            This is a DOM element representing an XUL inputable field
+ * @param {String} data           This is the value to set the inputable field to
+ */
+GeckoJS.FormHelper.setFieldValue = function(el, data) {
+    return GeckoJS.FormHelper.getInstance().setFieldValue(el, data);
+};
+
+
+/**
+ * Sets the value of an XUL inputable field.
+ * 
+ * @public
+ * @function  
+ * @param {Element} el            This is a DOM element representing an XUL inputable field
+ * @param {String} data           This is the value to set the inputable field to
+ */
+GeckoJS.FormHelper.prototype.setFieldValue = function(el, data) {
+
+    if(el == null) return;
+    
+    var n = el.name || el.getAttribute('name'), tag = el.tagName.toLowerCase(), t = el.type || el.getAttribute('type') || tag;
+
+    /*
+    if ( (!n || el.disabled ||
+        (t != 'checkbox' && t != 'radio' && tag != 'radiogroup') &&
+        (tag != 'colorpicker' && tag != 'datepicker' && tag != 'timepicker' ) &&
+        (tag != 'textbox' && t != 'input' ) &&
+        (tag != 'label' && t != 'description' ) &&
+        (tag != 'select' && tag !='listbox' && tag != 'menulist') ) ) {
+        return;
+    }
+    */
+    if ( (!n) || el.disabled )  return ;
+
+    if (tag == 'select' || tag == 'listbox' || tag == 'menulist') {
+
+        var ops = [];
+        if (tag == 'select') {
+            el.selectedIndex = -1;
+            ops = el.options;
+        }else if (tag == 'listbox') {
+            el.clearSelection();
+            for (var i=0; i<el.itemCount; i++) {
+                Array.prototype.push.apply(ops, [el.getItemAtIndex( i )]);
+            }
+        }else if (tag == 'menulist') {
+            el.selectedIndex = -1;
+            for (var i=0; i<el.itemCount; i++) {
+                Array.prototype.push.apply(ops, [el.getItemAtIndex( i )]);
+            }
+        }
+
+        for (var j=0; j<ops.length; j++) {
+            var selected = false;
+            var value = ops[j].value || ops[j].label;
+
+            if (data.constructor.name == 'Array') {
+                if (GeckoJS.Array.inArray(value, data) != -1) selected = true;
+            }else {
+                if (value == data) selected = true;
+            }
+            
+            if (selected) {
+                // listbox // listitem bug? selected = true can't modify selectedItem anymore later
+                if (tag == 'listbox' ) {
+                    el.addItemToSelection( ops[j] );
+                }else if (tag == 'menulist') {
+                    el.selectedIndex = j;
+                }else {
+                    ops[j].selected = true;
+                }
+            }
+                
+        }
+
+    }else if (tag == 'checkbox') {
+        var checked = data;
+        if (typeof data == 'string') {
+            checked = (data.toLowerCase() == "true" || data.toLowerCase() == "1") ? true : false;
+        }
+        el.checked = checked;
+    }else if( tag == 'colorpicker') {
+        el.color = data;
+    }else {
+        // just set value attribute
+        el.value = data;
+    }
+
+    // keep orignal value
+    if (data){
+        if(data.constructor.name == 'Array') el.setAttribute('org_value', data.join(','));
+        else el.setAttribute('org_value', data);
+    }
+   
+
+};
+
+/**
+ * Appends items to a selection tag (select/listbox/menulist).<br/>
+ * <br/>
+ * The items are passed in as an array. Each item consists of a label and a
+ * value. If an item is given as a string, the string is used as both label
+ * and value. Otherwise, the given mapping is applied to the item to produce
+ * a label and a value. Mapping may be a function or an object. If mapping is
+ * a function, it is invoked with the item as the single parameter, and should
+ * return an object with "value" and "label" properties. If mapping is an
+ * object, it should contain "value" and "label" properties, which in turn
+ * contain the actual value and label property names of the item.        
+ * 
+ * @public
+ * @static 
+ * @function  
+ * @param {Element} el         This is a DOM element representing a selection tag
+ * @param {Object} data        This is the list of items to append
+ * @param {Object} mapping     This is a mapping function/object
+ */
+GeckoJS.FormHelper.appendItems = function(el, data, mapping) {
+    return GeckoJS.FormHelper.getInstance().appendItems(el, data, mapping);
+};
+
+
+/**
+ * Appends items to a selection tag (select/listbox/menulist).<br/>
+ * <br/>
+ * The items are passed in as an array. Each item consists of a label and a
+ * value. If an item is given as a string, the string is used as both label
+ * and value. Otherwise, the given mapping is applied to the item to produce
+ * a label and a value. Mapping may be a function or an object. If mapping is
+ * a function, it is invoked with the item as the single parameter, and should
+ * return an object with "value" and "label" properties. If mapping is an
+ * object, it should contain "value" and "label" properties, which in turn
+ * contain the actual value and label property names of the item.        
+ * 
+ * @public
+ * @function  
+ * @param {Element} el         This is a DOM element representing a selection tag
+ * @param {Object} data        This is the list of items to append
+ * @param {Object} mapping     This is a mapping function/object
+ */
+GeckoJS.FormHelper.prototype.appendItems = function(el, data, mapping) {
+  
+    if(el == null || typeof el == 'undefined') return;
+    if(data == null || typeof data == 'undefined') return;
+    mapping = mapping || {};
+    
+    var n = el.name || el.getAttribute('name'), tag = el.tagName.toLowerCase(), t = el.type || el.getAttribute('type') || tag;
+
+    if ( (tag != 'select' && tag !='listbox' && tag != 'menulist') ) {
+        return;
+    }
+
+    var ops = [];
+    
+    if (data.constructor.name == 'Array') ops = data;
+    else ops.push(data);
+
+    for (var j=0; j<ops.length; j++) {
+        var label, value, item;
+        
+        if (typeof ops[j] == 'string') {
+            label = value = ops[j];
+        }else {
+
+            if (typeof mapping == 'function') {
+                // callback it
+
+                var result = {};
+                try {
+                    result = mapping.call(ops[j]) || {};
+                }catch(e) {}
+
+                value = result.value || "";
+                label = result.label || value;
+            }else {
+                var labelProperty = mapping['label'] || "label";
+                var valueProperty = mapping['value'] || "value";
+
+                value = ops[j][valueProperty] || "";
+                label = ops[j][labelProperty] || value;
+            }
+        }
+        
+        if (tag == 'select') {
+            item = GeckoJS.Helper.createElement("html", "option");
+            item.label = label;
+            item.value = value;
+            el.appendChild(item);
+            continue;
+        }else if (tag == 'listbox') {
+            /*
+            item = GeckoJS.Helper.Form.createElement("xul", "listitem");
+            item.label = label;
+            item.value = value;
+            */
+        }else if (tag == 'menulist') {
+            /*
+            item = GeckoJS.Helper.Form.createElement("xul", "menuitem");
+            item.label = label;
+            item.value = value;
+            */
+        }
+        item = el.appendItem(label, value);
+        if (ops[j].type) item.type = ops[j].type;
+    }
+};
+
+
+/**
+ * Clears all selection entries.<br/>
+ * <br/>
+ * This method removes all children of a selection tag, which may be a "select",
+ * "listbox", or "menulist" element.    
+ *
+ * @public
+ * @static 
+ * @function  
+ * @param {Element} el         This is a DOM element representing a selection tag
+ */
+GeckoJS.FormHelper.clearItems = function(el) {
+    return GeckoJS.FormHelper.getInstance().clearItems(el);
+};
+
+
+/**
+ * Clears all selection entries.<br/>
+ * <br/>
+ * This method removes all children of a selection tag, which may be a "select",
+ * "listbox", or "menulist" element.    
+ *
+ * @public
+ * @function  
+ * @param {Element} el         This is a DOM element representing a selection tag
+ */
+GeckoJS.FormHelper.prototype.clearItems = function(el) {
+
+    if(el == null || typeof el == 'undefined') return;
+   
+    var n = el.name || el.getAttribute('name'), tag = el.tagName.toLowerCase(), t = el.type || el.getAttribute('type') || tag;
+
+    if ( (tag != 'select' && tag !='listbox' && tag != 'menulist') ) {
+        return;
+    }
+    
+    
+    if (tag == 'select') {
+        while (el.firstChild) {
+            el.removeChild(el.firstChild);
+        }
+    }else if (tag == 'listbox' || tag == 'menulist') {
+        while (el.itemCount >0) {
+            el.removeItemAt(el.itemCount-1);
+        }
+    }
+
+};
+/**
+ * Defines GeckoJS.NumberHelper namespace
+ *
+ * @public
+ * @namespace
+ */
+GREUtils.define('GeckoJS.NumberHelper', GeckoJS.global);
+
+/**
+ * Creates a new GeckoJS.NumberHelper instance.
+ * 
+ * @class GeckoJS.NumberHelper provides a set of formatting functions to make
+ * numbers more readable.<br/>
+ *
+ * @name GeckoJS.NumberHelper
+ * @extends GeckoJS.Helper
+ * @extends GeckoJS.Singleton 
+ */
+GeckoJS.NumberHelper = GeckoJS.Helper.extend({
+    name: 'Number'
+});
+
+
+// make Form support singleton
+GeckoJS.Singleton.support(GeckoJS.NumberHelper);
+
+
+/* 
+ * Rounds a number to a given precision using the indicated rounding policy.<br/>
+ * <br/>
+ * Rounding policy may be one of the following:<br/>
+ * <pre>
+ * - to-nearest-precision
+ * - to-nearest-half
+ * - to-nearest-quarter
+ * - to-nearest-nickel
+ * - to-nearest-dime
+ * - always-round-up
+ * - always-round-down
+ * - use-table
+ * </pre>
+ * If 'use-table' policy is selected, the table parameter should consist
+ * of an array of {breakpoint, value} pairs. The value is first shifted by
+ * precision, and the fractional part is then compared with each breakpoint
+ * in turn. If the fractional part is less than the breakpoint, the corresponding
+ * value is used as the result. For example, if we need to carry out the following
+ * rounding policy:<br/>
+ * <pre>
+ * 0     < val <= 0.015 rounds to 0.007
+ * 0.015 < val <= 0.030 rounds to 0.021
+ * 0.030 < val <= 0.065 rounds to 0.051
+ * 0.065 < val <= 0.080 rounds to 0.073
+ * 0.080 < val <= 0.100 rounds to 0.092
+ * </pre>
+ * then we would create the following table:<br/>
+ * <pre>
+ * [{breakpoint: 0.015, value: 0.007},
+ *  {breakpoint: 0.030, value: 0.021},
+ *  {breakpoint: 0.065, value: 0.051},
+ *  {breakpoint: 0.080, value: 0.073},
+ *  {breakpoint: 0.100, value: 0.092}]
+ * </pre>
+ * <br/>
+ * and we would invoke the function as:<br/>
+ * <br/>
+ * <pre>
+ * round(val, 1, 'use-table', table)
+ * </pre>
+ * or if we want to perform the following rounding:<br/>
+ * <pre>
+ * 0     < val <= 3000 rounds to 300
+ * 3000  < val <= 6000 rounds to 4200
+ * 6000  < val <= 8000 rounds to 7500
+ * 8000 < val <= 10000 rounds to 9000
+ * </pre>
+ * then we would create the following table:<br/>
+ * <pre>
+ * [{breakpoint: 3000, value: 1300},
+ *  {breakpoint: 6000, value: 4200},
+ *  {breakpoint: 8000, value: 7500},
+ *  {breakpoint: 10000, value: 9000}]
+ * </pre>
+ * and invoke the function as:<br/>
+ * <pre>
+ * round(val, -4, 'use-table', table);
+ * </pre>
+ * 
+ * @public
+ * @static
+ * @parameter {Float} value         this is the value to round
+ * @parameter {Number} precision    this is the precision to round the result to
+ * @parameter {Number} policy       this is the rounding policy
+ * @return {Number}                 the result after rounding
+ */
+
+GeckoJS.NumberHelper.round = function (value, precision, policy, table) {
+    if (isNaN(value) || isNaN(precision)) return value;
+    
+    var p = Math.round(precision);
+    var result = value * Math.pow(10, p);
+    
+    switch(policy) {
+        
+        case 'to-nearest-precision':
+            result = Math.round(result);
+            break;
+            
+        case 'to-nearest-half':
+            result = Math.round(result * 2) / 2;
+            break;
+            
+        case 'to-nearest-quarter':
+            result = Math.round(result * 4) / 4;
+            break;
+            
+        case 'to-nearest-nickel':
+            result = Math.round(result * 10) / 10;
+            break;
+            
+        case 'to-nearest-dime':
+            result = Math.round(result * 20) / 20;
+            break;
+            
+        case 'always-round-up':
+            result = Math.round(result + 0.5);
+            break;
+            
+        case 'always-round-down':
+            result = Math.floor(result);
+            break;
+            
+        case 'use-table':
+            var whole = Math.floor(result);
+            var fraction = (result - whole) * Math.pow(10, -p);
+            for (i = 0; i < table.length; i++) {
+                if (fraction <= table[i].breakpoint) {
+                    result = whole + table[i].value * Math.pow(10, p);
+                    break;
+                }
+            }
+            break;
+    }
+    var result2 = (result * Math.pow(10, -p));
+    return (precision>=0) ? parseFloat(result2.toFixed(precision)) : result2;
+    // return (result * Math.pow(10, -p)).toFixed(digits);
+}
+
+/* 
+ * Rounds a number to a given precision using the indicated rounding policy.<br/>
+ * <br/>
+ * Please see <pre>GeckoJS.NumberHelper.round</pre> for usage. 
+ * 
+ * @public
+ * @static
+ * @parameter {Float} value         this is the value to round
+ * @parameter {Number} precision    this is the precision to round the result to
+ * @parameter {Number} policy       this is the rounding policy
+ * @return {Number}                 the result after rounding
+ */
+
+GeckoJS.NumberHelper.prototype.round = function (value, precision, policy, table) {
+    return GeckoJS.NumberHelper.round(value, precision, policy, table);
+}
+
+/**
+ * Formats a number to a given level of precision.
+ *
+ * @public
+ * @static
+ * @function
+ * @param  {Number}	number	A floating point number.
+ * @param  {Number} precision  The precision of the returned number.
+ * @return {Number}
+ */
+GeckoJS.NumberHelper.precision = function (number, precision) {
+    number = number || 0.0;
+    precision = precision || 2;
+    return parseFloat( parseFloat(number).toFixed(precision));
+};
+
+/**
+ * Formats a number to a given level of precision.
+ *
+ * @public
+ * @function
+ * @param  {Number} number	This is a floating point number.
+ * @param  {Number} precision   This is the precision of the returned number.
+ * @return {Number}
+ */
+GeckoJS.NumberHelper.prototype.precision = function (number, precision) {
+    return GeckoJS.NumberHelper.precision(number, precision);
+};
+
+
+
+/**
+ * Returns a formatted-for-humans file size.<br/>
+ * <br/>
+ * This method formats a file size given in bytes into a more readable unit
+ * (i.e. KB, MB, GB, etc.)
+ *
+ * @public
+ * @static
+ * @function
+ * @param {Number} size          This is the file size in bytes to format
+ * @return {String}               The file size formatted for better readability
+ */
+GeckoJS.NumberHelper.toReadableSize	= function (size) {
+        size = size || 0;
+        size = parseInt(size);
+		
+        if (size == 0) {
+            return '0 Bytes';
+        }else if (size == 1) {
+            return '1 Byte';
+        }else if (size < 1024) {
+            return size + ' Bytes';
+        }else if (size < 1024 * 1024) {
+            return GeckoJS.NumberHelper.precision(size / 1024, 0) + ' KB';
+        }else if (size < 1024 * 1024 * 1024) {
+            return GeckoJS.NumberHelper.precision(size / 1024 / 1024, 2) + ' MB';
+        }else if (size < 1024 * 1024 * 1024 * 1024) {
+            return GeckoJS.NumberHelper.precision(size / 1024 / 1024 / 1024, 2) + ' GB';
+        }else  if (size < 1024 * 1024 * 1024 * 1024 * 1024) {
+            return GeckoJS.NumberHelper.precision(size / 1024 / 1024 / 1024 / 1024, 2) + ' TB';
+        }else {
+            return size + ' Bytes';
+        }
+
+};
+
+
+/**
+ * Returns a formatted-for-humans file size.<br/>
+ * <br/>
+ * This method formats a file size given in bytes into a more readable unit
+ * (i.e. KB, MB, GB, etc.)
+ *
+ * @public
+ * @static
+ * @function
+ * @param {Number} size          This is the file size in bytes to format
+ * @return {String}               The file size formatted for better readability
+ */
+GeckoJS.NumberHelper.prototype.toReadableSize = function (size) {
+    return GeckoJS.NumberHelper.toReadableSize(size);
+};
+
+
+/**
+ * Formats a number into a percentage string with a given level of precision.
+ * <br/><br/>
+ * 
+ * @param {Number} number        This is a floating point number
+ * @param {Number} precision     This is the precision of the returned number
+ * @return string                 The formatted string
+ * 
+ * @example
+ *    Gecko.NumberHelper.toPercentage(2.3234, 1) => "2.3%"
+ */
+GeckoJS.NumberHelper.toPercentage = function (number, precision) {
+    precision = precision || 2; 
+	return GeckoJS.NumberHelper.precision(number, precision) + '%';
+};
+
+
+/**
+ * Formats a number into a percentage string with a given level of precision.
+ * <br/><br/>
+ * 
+ * @param {Number} number        This is a floating point number
+ * @param {Number} precision     This is the precision of the returned number
+ * @return string                 The formatted string
+ * 
+ * @example
+ *    Gecko.NumberHelper.toPercentage(2.3234, 1) => "2.3%"
+ */
+GeckoJS.NumberHelper.prototype.toPercentage = function (number, precision) {
+    return GeckoJS.NumberHelper.toPercentage(number, precision);
+};
+
+
+/**
+ * Formats a number for better readability.<br/>
+ * <br/>
+ * By default, this method formats the number with 2 decimal places, no
+ * prefix, ',' as thousands separator, '.' as the decimal symbol, and
+ * no postfix. These default settings may be overridden with
+ * "options":<br/>
+ * <br/>
+ * When "options" is a number, it indicates the decimal places to return<br/>
+ * <br/>
+ * When "options" is a string other than ',', '.', '-', and ':', it is the
+ * the prefix symbol<br/>
+ * <br/>
+ * When "options" is an object, the formatting options are taken from its
+ * properties:<br/>
+ * <pre>
+ *  - before:     prefix symbol
+ *  - after:      postfix symbol
+ *  - zero:       string for value 0
+ *  - places:     number of decimal places
+ *  - thousands:  thousands separator
+ *  - decimals:   decimal point
+ *  - negative:   negative indicator
+ * </pre>
+ * 
+ * @public
+ * @static
+ * @function
+ * @param {Number} number        This is a floating point number
+ * @param {Object} options       This is the formatting options
+ * @return {String}               The formatted number
+ */
+GeckoJS.NumberHelper.format = function (number, options) {
+        options = options || {};
+        
+		var places = 2;
+		if (typeof options == 'number') {
+			places = options;
+		}
+
+		var separators = [',', '.', '-', ':'];
+
+		var before, after = null;
+        
+		if (typeof options == 'string' && GeckoJS.Array.inArray(options, separators) == -1) {
+			before = options;
+		}
+
+        var thousands = ',';
+		var decimals = '.';
+        
+		if (typeof options == 'object') {
+            before = options['before'] || '';
+            places = options['places'] || 0;
+            thousands = options['thousands'] || ',';
+            decimals = options['decimals'] || '.';
+            after = options['after'] || '';
+		}
+
+        var out = before + GeckoJS.String.numberFormat(number, places, decimals, thousands) + after ;
+
+		return out;
+};
+
+
+/**
+ * Formats a number for better readability.<br/>
+ * <br/>
+ * By default, this method formats the number with 2 decimal places, no
+ * prefix, ',' as thousands separator, '.' as the decimal symbol, and
+ * no postfix. These default settings may be overridden with
+ * "options":<br/>
+ * <br/>
+ * When "options" is a number, it indicates the decimal places to return<br/>
+ * <br/>
+ * When "options" is a string other than ',', '.', '-', and ':', it is the
+ * the prefix symbol<br/>
+ * <br/>
+ * When "options" is an object, the formatting options are taken from its
+ * properties:<br/>
+ * <pre>
+ *  - before:     prefix symbol
+ *  - after:      postfix symbol
+ *  - zero:       string for value 0
+ *  - places:     number of decimal places
+ *  - thousands:  thousands separator
+ *  - decimals:   decimal point
+ *  - negative:   negative indicator
+ * </pre>
+ * 
+ * @public
+ * @function
+ * @param {Number} number        This is a floating point number
+ * @param {Object} options       This is the formatting options
+ * @return {String}               The formatted number
+ */
+GeckoJS.NumberHelper.prototype.format = function (number, options) {
+    return GeckoJS.NumberHelper.format(number, options);
+};
+
+
+/**
+ * Formats a number into a currency format.<br/>
+ * <br/>
+ * By default, this method formats the number with 2 decimal places, no
+ * currency prefix, ',' as thousands separator, '.' as the decimal symbol,
+ * no currency postfix, '0' as the string for value 0, and '()' as
+ * negative indicator.<br/>
+ * <br/>
+ * If "currency" is given and is one of 'USD', 'EUR', 'GBP', or 'NTD', the
+ * default formatting for that currency will be used. If "currency" is given
+ * but is not one of the above, it is used as the prefix currency symbol.<br/>
+ * <br/>
+ * Finally, you can override individual format settings through the "options"
+ * object. The following properties are checked for formatting options:<br/>
+ * <pre>
+ *  - before:     the prefix currency symbol
+ *  - after:      the postfix currency symbol
+ *  - zero:       string for value 0
+ *  - places:     number of decimal places
+ *  - thousands:  thousands separator
+ *  - decimals:   decimal point
+ *  - negative:   negative indicator
+ * </pre>
+ * Please note that if the number is 0, and the "zero" formatting string is
+ * defined, that string is returned without applying any other formatting.
+ * 
+ * @public
+ * @static
+ * @function
+ * @param {Number} number         This is a floating point number
+ * @param {String} currency       The currency (valid values are 'USD', 'EUR', 'GBP', 'NTD')
+ * @param {Object} options        This is the formatting option
+ * @return {String}                The number formatted as a currency
+ */
+GeckoJS.NumberHelper.currency = function (number, currency, options) {
+
+    number = number || 0;
+    currency = currency || 'USD';
+    options = options || {};
+
+    var def = {
+        before: '', after:'', zero: '0', places: 2, thousands: ',',
+        decimals: '.', negative: '()'
+    };
+
+    var currencies = {
+        NTD: {
+            before:'NT$', after:'', zero: '0', places: 1, thousands: ',',
+            decimals: '.', negative: '()'
+        },
+        USD: {
+            before:'$', after:'', zero: '0', places: 2, thousands: ',',
+            decimals: '.', negative: '()'
+        },
+        GBP: {
+            before:'\u20a4', after:'', zero: '0', places: 2, thousands: ',',
+            decimals: '.', negative: '()'
+        },
+        EUR: {
+            before:'\u20ac', after:'', zero: '0', places: 2, thousands: '.',
+            decimals: ',', negative: '()'
+        }
+    };
+
+
+    if (typeof currencies[currency] != 'undefined') {
+        def = currencies[currency];
+    }else if (typeof currency == 'string') {
+        options['before'] = currency;
+    }
+
+    options = GREUtils.extend(def, options);
+
+    var result = null;
+
+    if (number == 0 ) {
+        if (options['zero'] != 0 ) {
+            return options['zero'];
+        }
+        options['after'] = null;
+    } else if (number < 1 && number > -1 ) {
+
+        var multiply = parseInt('1' + GeckoJS.String.padLeft('', options['places'], '0'));
+        number = number * multiply;
+        options['before'] = null;
+        options['places'] = null;
+    } else {
+        options['after'] = null;
+    }
+
+    var abs = Math.abs(number);
+    
+    result = GeckoJS.NumberHelper.format(abs, options);
+
+    if (number < 0 ) {
+        if(options['negative'] == '()') {
+            result = '(' + result +')';
+        } else {
+            result = options['negative'] + result;
+        }
+    }
+    return result;
+};
+
+
+/**
+ * Formats a number into a currency format.<br/>
+ * <br/>
+ * By default, this method formats the number with 2 decimal places, no
+ * currency prefix, ',' as thousands separator, '.' as the decimal symbol,
+ * no currency postfix, '0' as the string for value 0, and '()' as
+ * negative indicator.<br/>
+ * <br/>
+ * If "currency" is given and is one of 'USD', 'EUR', 'GBP', or 'NTD', the
+ * default formatting for that currency will be used. If "currency" is given
+ * but is not one of the above, it is used as the prefix currency symbol.<br/>
+ * <br/>
+ * Finally, you can override individual format settings through the "options"
+ * object. The following properties are checked for formatting options:<br/>
+ * <pre>
+ *  - before:     the prefix currency symbol
+ *  - after:      the postfix currency symbol
+ *  - zero:       string for value 0
+ *  - places:     number of decimal places
+ *  - thousands:  thousands separator
+ *  - decimals:   decimal point
+ *  - negative:   negative indicator
+ * </pre>
+ * Please note that if the number is 0, and the "zero" formatting string is
+ * defined, that string is returned without applying any other formatting.
+ *
+ * @public
+ * @function
+ * @param {Number} number         This is a floating point number
+ * @param {String} currency       The currency (valid values are 'USD', 'EUR', 'GBP', 'NTD')
+ * @param {Object} options        This is the formatting option
+ * @return {String}                The number formatted as a currency
+ */
+GeckoJS.NumberHelper.prototype.currency = function (number, currency, options) {
+    return GeckoJS.NumberHelper.prototype.currency(number, currency, options);
+};
+/**
+ * Defines GeckoJS.Behavior namespace
+ *
+ * @public
+ * @namespace
+ */
+GREUtils.define('GeckoJS.Behavior', GeckoJS.global);
+
+/**
+ * Creates a new GeckoJS.Behavior instance and initializes it with model and
+ * config.
+ * 
+ * @class GeckoJS.Behavior is a base class that may be used to associate
+ * "behaviors" with models. "Behaviors" refer to actions that occur before and
+ * after typical model activities such as "find", "save", "delete". This is
+ * useful in situations where the same set of actions need to occur after 
+ * changes have been applied to models even though the underlying models are
+ * different. These actions may be consolidated into and implemented by a
+ * single Behavior class.<br/>
+ * <br/>
+ * A Behavior instance hooks into a model through the following model
+ * events:<br/>
+ * <pre>
+ *  - beforeFind<br/>
+ *  - afterFind<br/>
+ *  - beforeSave<br/>
+ *  - afterSave<br/>
+ *  - beforeDelete<br/>
+ *  - afterDelete<br/>
+ * </pre>
+ * GeckoJS.Behavior should not be instantiated, but is designed instead to
+ * be extended with actual implementations of the various behaviors.<br/>
+ *
+ * @name GeckoJS.Behavior
+ * @extends GeckoJS.BaseObject
+ *
+ * @property {GeckoJS.Model} model       The model to apply the behavior to (read-only)
+ * @property {String} config             The database configuration identifying the data source (read-only)
+ * 
+ * @param {GeckoJS.Model} model          The model that exhibits this behavior (read-only)
+ * @param {String} config                Name of the database configuration to use
+ */
+
+GeckoJS.Behavior = GeckoJS.BaseObject.extend('Behavior', {
+    name: 'Behavior',
+
+    init: function(model, config) {
+        this._model = model || null;
+        this._config = config || {};
+    }
+});
+
+
+// unnamed Behavior counter
+GeckoJS.Behavior.unnamedCounter = 1;
+
+/**
+ * addObject to ClassRegistry, when Behavior has been extended.
+ */
+GeckoJS.Behavior.extended = function(klass) {
+
+    if (klass.prototype.name == 'Behavior') {
+        klass.prototype.name = 'Unnamed' + GeckoJS.Behavior.unnamedCounter++;
+    }
+
+    var name = klass.prototype.name;
+    klass.className = name;
+
+    GeckoJS.Behavior.setBehaviorClass(name, klass);
+    
+};
+
+/**
+ * Registers the Behavior sub-class in the Class Registry.
+ *
+ * @public
+ * @static
+ * @function   
+ * @param {String} name               This is the name to register the sub-class with
+ * @param {GeckoJS.Behavior} klass    This is the Behavior sub-class to register
+ */
+GeckoJS.Behavior.setBehaviorClass = function(name, klass) {
+    
+    if (GeckoJS.ClassRegistry.isKeySet("BehaviorClass_" + name)) return ;
+    GeckoJS.ClassRegistry.addObject("BehaviorClass_" + name, klass);
+
+};
+
+
+/**
+ * Retrieves the Behavior sub-class object by name from the Class Registry.
+ *
+ * @public
+ * @static
+ * @function   
+ * @param {String} name                 This is the name of the Behavior sub-class to retrieve
+ * @return {GeckoJS.Behavior}           The Behavior sub-class identified by name
+ */
+GeckoJS.Behavior.getBehaviorClass = function(name) {
+    
+    return GeckoJS.ClassRegistry.getObject("BehaviorClass_" + name);
+
+};
+
+
+GeckoJS.Behavior.prototype.__defineGetter__('model', function(){
+    return this._model;
+});
+
+GeckoJS.Behavior.prototype.__defineGetter__('config', function(){
+    return this._config;
+});
+
+
+/**
+ * Handles the "beforeFind" event.<br/>
+ * <br/>
+ * This method is invoked before the model carries out a find() operation.
+ * The "type" and the "params" parameters from the find() operation are passed
+ * to this event handler in the event.data field.
+ *
+ * @public
+ * @function  
+ * @param {GeckoJS.EventItem} event         This is the "beforeFind" event data containing the "type" and "params" parameters from the find() invocation
+ */
+GeckoJS.Behavior.prototype.beforeFind = function(event) {
+    //
+    };
+
+
+
+/**
+ * Handles the "afterFind" event.<br/>
+ * <br/>
+ * This method is invoked after the model carries out a find() operation.
+ * The results of the find() operation are passed to this event handler in the
+ * event.data field.<br/>
+ * <br/>
+ * This method can be used to modify the results returned by find().
+ *
+ * @public
+ * @function  
+ * @param {GeckoJS.EventItem} event         This is the "afterFind" event data containing the results from the find() invocation
+ * @access public
+ * 
+ */
+GeckoJS.Behavior.prototype.afterFind = function(event) {
+    //
+    };
+
+
+/**
+ * Handles the "beforeSave" event.<br/>
+ * <br/>
+ * This method is invoked before the model carries out a save() operation.
+ * The data to save is passed to this event handler in the event.data field.
+ * This data is identical to "this.model.data". 
+ *
+ * @public
+ * @function  
+ * @param {GeckoJS.EventItem} event         This is the "beforeSave" event data containing the data from the save() invocation
+ */
+GeckoJS.Behavior.prototype.beforeSave = function(event) {
+    //
+    };
+
+
+/**
+ * Handles the "afterSave" event.<br/>
+ * <br/>
+ * This method is invoked after the model carries out a save() operation.
+ * A boolean value is passed to this event handler in the event.data field
+ * indicating if the save() operation created a new record. 
+ *
+ * @public
+ * @function  
+ * @param {GeckoJS.EventItem} event         This is the "afterSave" event data containing a boolean flag indicating if a new record has been created by the save() invocation
+ */
+GeckoJS.Behavior.prototype.afterSave = function(event) {
+    //
+    };
+
+
+/**
+ * Handles the "beforeDelete" event.<br/>
+ * <br/>
+ * This method is invoked before the model carries out a delete() operation.
+ * The model id to delete is passed to this event handler in the event.data
+ * field.
+ *
+ * @public
+ * @function  
+ * @param {GeckoJS.EventItem} event         This is the "beforeDelete" event data containing the model id from the delete() invocation
+ */
+GeckoJS.Behavior.prototype.beforeDelete = function(event) {
+    //
+    };
+
+/**
+ * Handles the "afterDelete" event.<br/>
+ * <br/>
+ * This method is invoked after the model carries out a delete() operation.
+ * The model id to delete is passed to this event handler in the event.data
+ * field.
+ *
+ * @public
+ * @function  
+ * @param {GeckoJS.EventItem} event         This is the "afterDelete" event data containing the model id from the delete() invocation
+ */
+GeckoJS.Behavior.prototype.afterDelete = function(event) {
+    //
+    };
+
+/**
+ * Defines GeckoJS.Component namespace
+ *
+ * @public
+ * @namespace
+ */
+GREUtils.define('GeckoJS.Component', GeckoJS.global);
+
+/**
+ * Creates a new GeckoJS.Component instance and initializes with controller.
+ * 
+ * @class GeckoJS.Component provides a means of encapsulating a set of methods
+ * that collectively work together to expand and/or supplement the
+ * functionality of a Controller.<br/>
+ * <br/>
+ * This is the base Component class and should be extended by sub-classes that
+ * implement the actual functionalities.<br/>
+ *    
+ * @name GeckoJS.Component
+ * @extends GeckoJS.BaseObject
+ *
+ * @property {GeckoJS.Controller} controller       The controller to which the component is attached
+ */
+
+GeckoJS.Component = GeckoJS.BaseObject.extend('Component', {
+    name: 'Component',
+    
+    init: function(controller) {
+        this._controller = controller || null;
+    }
+});
+
+// unnamed Component counter
+GeckoJS.Component.unnamedCounter = 1;
+
+
+/**
+ * addObject to ClassRegistry, when Component has been extended.
+ * @private
+ */
+GeckoJS.Component.extended = function(klass) {
+    
+    if (klass.prototype.name == 'Component') {
+        klass.prototype.name = 'Unnamed' + GeckoJS.Component.unnamedCounter++;
+    }
+
+    var name = klass.prototype.name;
+    klass.className = name;
+
+    GeckoJS.Component.setComponentClass(name, klass);
+    
+};
+
+/**
+ * Registers the Component sub-class in the Class Registry.
+ *
+ * @public
+ * @static
+ * @function   
+ * @param {String} name               This is the name to register the sub-class with
+ * @param {GeckoJS.Component} klass   This is the Component sub-class to register
+ */
+GeckoJS.Component.setComponentClass = function(name, klass) {
+    
+    if (GeckoJS.ClassRegistry.isKeySet("ComponentClass_" + name)) return ;
+
+    GeckoJS.ClassRegistry.addObject("ComponentClass_" + name, klass);
+
+};
+
+/**
+ * Retrieves the Component sub-class object by name from the Class Registry.
+ *
+ * @public
+ * @static
+ * @function   
+ * @param {String} name                 This is the name of the Component sub-class to retrieve
+ * @return {GeckoJS.Component}          The Component sub-class identified by name
+ */
+GeckoJS.Component.getComponentClass = function(name) {
+    
+    return GeckoJS.ClassRegistry.getObject("ComponentClass_" + name);
+
+};
+
+GeckoJS.Component.prototype.__defineGetter__('controller', function(){
+    return this._controller;
+});
+
+GeckoJS.Component.prototype.__defineSetter__('controller', function(controller){
+    this._controller = controller;
+});
+/**
+ * Defines GeckoJS.AclComponent namespace
+ *
+ */
+GREUtils.define('GeckoJS.AclComponent', GeckoJS.global);
+
+
+/**
+ * Creates a new GeckoJS.AclComponent instance.
+ * 
+ * @class GeckoJS.AclComponent implements a J2EE-like access control list (ACL).
+ * In thi scheme, applications associate access privileges and authorizations
+ * with roles. Roles are arranged into groups, and each user may be a member of
+ * exactly one group. Through his group membership a user gains access
+ * privileges and authorizations assigned to the roles in that group.<br/>
+ * <br/>
+ * Internally, user authentication and authorization information are stored in
+ * the following set of models:<br/>
+ * <pre>
+ *  - AclUser,
+ *  - AclGroup,
+ *  - AclRole,
+ *  - AclGroupRole
+ * </pre>
+ *
+ * @name GeckoJS.AclComponent
+ * @extends GeckoJS.Component
+ *
+ */
+GeckoJS.AclComponent = GeckoJS.Component.extend({
+    name: 'Acl',
+
+    userModel: GeckoJS.Model.extend({
+        name: 'AclUser',
+        indexes: ['username'],
+        belongsTo: ['AclGroup']
+    }),
+    
+    groupModel: GeckoJS.Model.extend({
+        name: 'AclGroup',
+        indexes: ['name'],
+        hasMany: ['AclUser']
+    }),
+
+    roleModel: GeckoJS.Model.extend({
+        name: 'AclRole',
+        indexes: ['name']
+    }),
+
+    groupRoleModel: GeckoJS.Model.extend({
+        name: 'AclGroupRole',
+        belongsTo: ['AclRole', 'AclGroup']
+        
+    })
+
+});
+
+
+/**
+ * Logs in a user using the provided username and password.<br/>
+ * <br/>
+ * The password is first encrypted using MD5 before comparing it against the
+ * stored credential. If the username/password combination is valid, the user's
+ * group and roles are automatically loaded from the ACL models and stored in 
+ * the application Session Singleton under the key "User". The "User" object
+ * will have the following properties:<br/>
+ * <pre>
+ *   - username
+ *   - password
+ *   - description 
+ *   - Roles
+ *   - Groups
+ * </pre>
+ * 
+ * @public
+ * @function   
+ * @param {String} username           This is the user's login
+ * @param {String} password           This is the password
+ * @param {Boolean} checkOnly         This flag, if true, indicates that the user shall not be logged in
+ * @return {Boolean}                  "true" if authentication succeeds; "false" otherwise
+ */
+GeckoJS.AclComponent.prototype.securityCheck = function (username, password, checkOnly ) {
+
+    if(!username || !password) {
+        return false;
+    }
+
+    checkOnly = checkOnly || false ;
+    
+    var userModel = new this.userModel;
+    var cond = "username='"+ username+"'";
+    var someone = userModel.find('first',{conditions: cond});
+
+    if(!someone) {
+        return false;
+    }
+
+    // Compare the MD5 encrypted version of the password against recorded encrypted password.
+    if( !someone['password'] || someone['password'] != password ) {
+        return false;
+    }
+    if (checkOnly) return true;
+    
+    var groupId = someone.AclGroup.id;
+    
+    var groupRoleModel = new this.groupRoleModel;
+    
+    var groupRoles = groupRoleModel.find('all', {
+        conditions: "acl_group_id='"+groupId+"'"
+    });
+
+    if (groupRoles) {
+
+        var roles = [];
+        groupRoles.forEach(function(group_role) {
+            roles.push(group_role.AclRole.name);
+        });
+        someone['Roles'] = roles;
+
+        // just on group now
+        someone['Groups'] = [someone.AclGroup.name];
+    }
+
+    this.controller.Session.set('User', someone);
+
+    GeckoJS.Observer.notify(null, "acl-session-change", "securityCheck");
+
+    /*
+    var data = GREUtils.extend({}, someone);
+    data.wrappedJSObject = data;
+    GREUtils.XPCOM.getUsefulService("observer-service").notifyObservers(data,"acl-session-change","securityCheck");
+    */
+    return true;
+
+};
+
+/**
+ * Logs out the current user and removes his credentials from the application
+ * Session singleton. 
+ *  
+ * @public
+ * @function   
+ */
+GeckoJS.AclComponent.prototype.invalidate = function () {
+    this.controller.Session.remove('User');
+
+    GeckoJS.Observer.notify(null, "acl-session-change", "invalidate");
+    /*
+    var data = {};
+    data.wrappedJSObject = data;
+    GREUtils.XPCOM.getUsefulService("observer-service").notifyObservers(data,"acl-session-change","invalidate");
+    */
+};
+
+
+/**
+ * Returns an object containing the credentials of the current authenticated
+ * user. If the current user has not been authenticated, the method returns
+ * null.
+ *
+ * @public
+ * @function
+ * @static
+ * @return {Object}             An object containing the credentials of the user making this request; null if the user has not been authenticated
+ */
+GeckoJS.AclComponent.getUserPrincipal = function() {
+    
+    var session = GeckoJS.Session.getInstance();
+
+    if( !session.has('User') ) return null;
+    else return session.get('User');
+
+};
+
+/**
+ * Returns an object containing the credentials of the current authenticated
+ * user. If the current user has not been authenticated, the method returns
+ * null.
+ *
+ * @public
+ * @function
+ * @return {Object}             An object containing the credentials of the user making this request; null if the user has not been authenticated
+ */
+GeckoJS.AclComponent.prototype.getUserPrincipal = function() {
+
+    return GeckoJS.AclComponent.getUserPrincipal();
+
+};
+
+
+/**
+ * Returns a boolean indicating whether the current user has been assigned
+ * the specified role. Roles and role membership can be defined using
+ * deployment descriptors.<br/>
+ * <br/>
+ * If the current user has not been authenticated, the method returns false.
+ *
+ * @public
+ * @function
+ * @param {String} roleName       This is the name of the role or use ',' for multiple roles
+ * @return {Boolean}              "true" if the user making this request has been assigned the given role; "false" if the user has not been assigned the role or has not been authenticated
+ */
+GeckoJS.AclComponent.isUserInRole = function(roleName) {
+
+    roleName = roleName || null;
+
+    // no roleName parameter return false
+    if (roleName == null) return false;
+
+    // not login return false
+    var principal = GeckoJS.AclComponent.getUserPrincipal();
+
+    if(principal == null) return false;
+
+    var self = this;
+    var roles = roleName.split(',');
+    var isInRole = false;
+
+    roles.forEach(function(role){
+        if(!isInRole) {
+            isInRole = (GeckoJS.Array.inArray(role, principal.Roles) != -1);
+        }
+    });
+
+    return isInRole;
+
+};
+
+
+
+/**
+ * Returns a boolean indicating whether the current user has been assigned
+ * the specified role. Roles and role membership can be defined using
+ * deployment descriptors.<br/>
+ * <br/>
+ * If the current user has not been authenticated, the method returns false.
+ *
+ * @public
+ * @function  
+ * @param {String} roleName       This is the name of the role or use ',' for multiple roles
+ * @return {Boolean}              "true" if the user making this request has been assigned the given role; "false" if the user has not been assigned the role or has not been authenticated
+ */
+GeckoJS.AclComponent.prototype.isUserInRole = function(roleName) {
+
+    return GeckoJS.AclComponent.isUserInRole(roleName);
+
+};
+
+/**
+ * Adds an ACL user.<br/>
+ * <br/>
+ * If the ACL user is successfully created, the corresponding
+ * uuid is returned. A return value of "false" indicates that an error occurred
+ * while adding the ACL user.  
+ *
+ * @public
+ * @function  
+ * @param {String} username           The login of the user to add
+ * @param {String} password           The password of the user to add
+ * @param {String} userDescription    A string describing the user
+ * @return {Boolean|String}           The new ACL user uuid, or "false" if the user fails to be added
+ */
+GeckoJS.AclComponent.prototype.addUser = function(username, password, userDescription) {
+    
+    username = username || null;
+    password = password || null;
+    userDescription = userDescription || username;
+        
+    // no roleName parameter return false
+    if (username == null || password == null) return false;
+         
+    var userModel = new this.userModel;
+
+    var count = userModel.find("count", {
+        conditions: "username='"+username+"'"
+    });
+    if (count >0) return false;
+
+    userModel.create();
+    userModel.save({
+        username: username,
+        password: password,
+        description: userDescription
+    });
+      
+    var id = userModel.id;
+    
+    delete userModel;
+    
+    return id;
+
+
+};
+
+
+/**
+ * Removes an ACL user. If "cascade" is "true", its group membership is also
+ * removed.<br/>
+ * <br/>
+ * Returns "true" if the ACL user has been successfully removed; "false"
+ * otherwise.    
+ *
+ * @public
+ * @function  
+ * @param {String} username           This is the login of the user to add
+ * @param {Boolean} cascade           This flag indicates if the removal should cascade to group membership
+ * @return {Boolean}                  Whether the ACL user has been successfully removed
+ */
+GeckoJS.AclComponent.prototype.removeUser = function(username, cascade) {
+    
+    username = username || null;
+    cascade = cascade || false;
+        
+    // no roleName parameter return false
+    if (username == null) return false;
+         
+    var userModel = new this.userModel;
+
+    var user = userModel.find("first", {
+        conditions: "username='"+username+"'"
+    });
+    if (user == null) return false;
+
+    var userId = user.id;
+    var groupId = user.AclGroup.id;
+
+    userModel.id = userId;
+    userModel.del(userId);
+    
+    if (cascade) {
+        var groupModel = new this.groupModel;
+        var group = groupModel.findById(groupId);
+        if(group != null) {
+            if (group.AclUser.length == 1) this.removeGroup(group.name);
+        }
+    }
+    
+    delete userModel;
+    delete groupModel;
+    
+    return true;
+
+
+};
+
+
+/**
+ * Changes an ACL user's password.<br/>
+ * <br/>
+ * If the ACL user does not exist, "false" is returned.
+ *   
+ * @public
+ * @function  
+ * @param {String} username     This is the login of the user to change password for
+ * @param {String} password     This is the new password
+ * @return {Boolean}            "true" if password changed; "false" otherwise
+ */
+GeckoJS.AclComponent.prototype.changeUserPassword = function(username, password) {
+    
+    username = username || null;
+    password = password || null;
+        
+    // no roleName parameter return false
+    if (username == null || password == null) return false;
+         
+    var userModel = new this.userModel;
+
+    var user = userModel.find("first", {
+        conditions: "username='"+username+"'"
+    });
+    if (user == null) return false;
+
+    var userId = user.id;
+
+    userModel.id = userId;
+    userModel.save({
+        password: password
+    });
+      
+    delete userModel;
+    
+    return true;
+
+};
+
+
+/**
+ * Adds an ACL role.<br/>
+ * <br/>
+ * If the role does not exist, it is added and its uuid is returned.
+ * If the role already exists, it is not added again, and the
+ * method returns "false". 
+ *
+ * @public
+ * @function  
+ * @param {String} roleName         This is the name of the role to add
+ * @param {String} roleDescription  This is a description of the role
+ * @return {Boolean|String}         The new ACL role uuid, or "false" if the role fails to be added
+ */
+GeckoJS.AclComponent.prototype.addRole = function(roleName, roleDescription) {
+    
+    roleName = roleName || null;
+    roleDescription = roleDescription || roleName;
+        
+    // no roleName parameter return false
+    if (roleName == null) return false;
+         
+         
+    var roleModel = new this.roleModel;
+    var count = roleModel.find("count", {
+        conditions: "name='"+roleName+"'"
+    });
+    if (count >0) return false;
+    
+    roleModel.create();
+    roleModel.save({
+        name: roleName,
+        description: roleDescription
+    });
+   
+    var id =  roleModel.id;
+    
+    delete roleModel;
+    
+    return id;
+
+
+};
+
+
+/**
+ * Removes an ACL role. This automatically removes the role from all ACL groups
+ * to which the role has been added.<br/>
+ * <br/>
+ * If the role does not exist, "false" is returned.
+ *
+ * @public
+ * @function  
+ * @param {String} roleName         This is the name of the role to remove
+ * @return {Boolean}                "true" if the role is successfully removed; "false" otherwise
+ */
+GeckoJS.AclComponent.prototype.removeRole = function(roleName) {
+    
+    roleName = roleName || null;
+        
+    // no roleName parameter return false
+    if (roleName == null) return false;
+         
+         
+    var roleModel = new this.roleModel;
+    var role = roleModel.find("first", {
+        conditions: "name='"+roleName+"'"
+    });
+
+    if (role == null) return false;
+
+    var roleId = role.id;
+
+    // remove
+    roleModel.id = roleId;
+    roleModel.del(roleId);
+    
+    delete roleModel;
+
+    // remove cascade grouprole
+    var groupRoleModel = new this.groupRoleModel;
+
+    var cond = "acl_role_id='"+roleId+"'";
+    var groupRoles  = groupRoleModel.find('all', {
+        conditions: cond
+    });
+    
+    if (groupRoles == null || groupRoles.length == 0) return true;
+    
+    groupRoles.forEach(function(groupRole) {
+        var grId = groupRole.id;
+        groupRoleModel.id = grId;
+        groupRoleModel.del(grId);
+    });
+    
+    delete groupRoleModel;
+
+    return true;
+
+};
+
+
+/**
+ * Adds an ACL group.<br/>
+ * <br/>
+ * If the group does not exist, it is added and its uuid is returned.
+ * If the group already exists, it is not added again, and the
+ * method returns "false".
+ *
+ * @param {String} groupName          This is the name of the group to add
+ * @param {String} groupDescription   This is a description of the group
+ * @return {Boolean|String}           The new ACL group uuid, or "false" if the group fails to be added
+ */
+GeckoJS.AclComponent.prototype.addGroup = function(groupName, groupDescription) {
+    
+    groupName = groupName || null;
+    groupDescription = groupDescription || groupName;
+        
+    // no roleName parameter return false
+    if (groupName == null) return false;
+         
+    var groupModel = new this.groupModel;
+    var count = groupModel.find("count", {
+        conditions: "name='"+groupName+"'"
+    });
+    if (count >0) return false;
+    
+    groupModel.create();
+    groupModel.save({
+        name: groupName,
+        description: groupDescription
+    });
+    
+    delete groupModel;
+   
+    return groupModel.id;
+
+};
+
+
+/**
+ * Removes an ACL group.<br/>
+ * <br/>
+ * If the group does not exist, "false" is returned.
+ *
+ * @public
+ * @function  
+ * @param {String} groupName        This is the name of the group to remove
+ * @return {Boolean}                "true" if the group is successfully removed; "false" otherwise
+ */
+GeckoJS.AclComponent.prototype.removeGroup = function(groupName) {
+    
+    groupName = groupName || null;
+        
+    // no roleName parameter return false
+    if (groupName == null) return false;
+         
+    var groupModel = new this.groupModel;
+    var group = groupModel.find("first", {
+        conditions: "name='"+groupName+"'"
+    });
+    if (group == null) return false;
+    
+
+    var groupId = group.id;
+
+    // remove
+    groupModel.id = groupId;
+    groupModel.del(groupId);
+
+    delete groupModel;
+
+    // remove cascade grouprole
+    var groupRoleModel = new this.groupRoleModel;
+
+    var cond = "acl_group_id='"+groupId+"'";
+    var groupRoles  = groupRoleModel.find('all', {
+        conditions: cond
+    });
+    
+    if (groupRoles == null || groupRoles.length == 0) return true;
+    
+    groupRoles.forEach(function(groupRole) {
+        var grId = groupRole.id;
+        groupRoleModel.id = grId;
+        groupRoleModel.del(grId);
+    });
+    
+    delete groupRoleModel;
+
+    return true;
+
+};
+
+
+/**
+ * Adds an ACL user to an ACL group.<br/>
+ * <br/>
+ * No action is taken if the user is already a membership of the given group.
+ * 
+ * @public
+ * @function  
+ * @param {String} username             This is the login of the user to add to group
+ * @param {String} groupName            This is the name of the group to add the user to
+ * @return {Boolean}                    "true" if the user is successfully added to the group; "false" otherwise
+ */
+GeckoJS.AclComponent.prototype.addUserToGroup = function(username, groupName) {
+    
+    username = username || null;
+    groupName = groupName || null;
+        
+    // no roleName parameter return false
+    if (groupName == null || username == null ) return false;
+         
+    var userModel = new this.userModel;
+    var groupModel = new this.groupModel;
+
+    var user = userModel.find('first', {
+        conditions: "username='" + username + "'"
+    });
+    if (user == null) return false;
+    var userId = user.id;
+    
+    var group = groupModel.find('first', {
+        conditions: "name='" + groupName + "'"
+    });
+    var groupId = null;
+    
+    if (group == null) {
+        // auto create
+        groupId = this.addGroup(groupName);
+        if (!groupId) return false;
+    }else {
+        groupId = group.id;
+    }
+    
+    // update group id
+    userModel.id = userId;
+    userModel.save({
+        acl_group_id: groupId
+    });
+
+    delete userModel;
+    delete groupModel;
+    delete user;
+    delete group;
+
+    return true;
+
+
+};
+
+
+/**
+ * Removes an ACL user from an ACL group.
+ *
+ * @public
+ * @function  
+ * @param {String} username             This is the login of the user to remove from the group
+ * @param {String} groupName            This is the name of the group to remove the user from
+ * @return {Boolean}                    "true" if the user is successfully removed from the group; "false" otherwise
+ */
+GeckoJS.AclComponent.prototype.removeUserFromGroup = function(username, groupName) {
+    
+    username = username || null;
+    groupName = groupName || null;
+        
+    // no roleName parameter return false
+    if (groupName == null || username == null ) return false;
+         
+    var userModel = new this.userModel;
+    var groupModel = new this.groupModel;
+
+    var user = userModel.find('first', {
+        conditions: "username='" + username + "'"
+    });
+    if (user == null) return false;
+    var userId = user.id;
+    
+    var group = groupModel.find('first', {
+        conditions: "name='" + groupName + "'"
+    });
+    if (group == null) return false;
+    var groupId = group.id;
+    
+    
+    // update group id
+    userModel.id = userId;
+    userModel.save({
+        acl_group_id: ''
+    });
+
+    delete userModel;
+    delete groupModel;
+    delete user;
+    delete group;
+
+    return true;
+
+
+};
+
+
+/**
+ * Assigns an ACL role to an ACL group.<br/>
+ * <br/>
+ * If the role has already been assigned to the group, it is not assigned
+ * again, and the method returns "false".
+ *
+ * @param {String} groupName      This is the group to assign the role to
+ * @param {String} roleName       This is the role to assign to the group
+ * @return {String|Boolean}       The groupRole uuid if the role is successfully assigned; "false" otherwise
+ */
+GeckoJS.AclComponent.prototype.addRoleToGroup = function(groupName, roleName) {
+    
+    roleName = roleName || null;
+    groupName = groupName || null;
+        
+    // no roleName parameter return false
+    if (groupName == null || roleName == null ) return false;
+         
+    var roleModel = new this.roleModel;
+    var groupModel = new this.groupModel;
+
+    var role = roleModel.find('first', {
+        conditions: "name='" + roleName + "'"
+    });
+    if (role == null) return false;
+
+    var group = groupModel.find('first', {
+        conditions: "name='" + groupName + "'"
+    });
+    if (group == null) return false;
+    
+    var groupRoleModel = new this.groupRoleModel;
+    
+    var cond = "acl_group_id='"+group.id+"' AND acl_role_id='"+role.id+"'";
+    var count = groupRoleModel.find('count', {
+        conditions: cond
+    });
+    
+    if (count > 0) return false;
+
+    groupRoleModel.create();
+
+    groupRoleModel.save({
+        acl_group_id: group.id,
+        acl_role_id: role.id
+    });
+
+    var id = groupRoleModel.id;
+    
+    delete roleModel;
+    delete groupModel;
+    delete groupRoleModel;
+    
+    return id;
+
+};
+
+/**
+ * Removes an ACL role from an ACL group.
+ *
+ * @public
+ * @function  
+ * @param {String} groupName          This is the group from which to remove the role
+ * @param {String} roleName           This is the role to remove from the group
+ * @return {Boolean}                  "true" if the role is successfully removed from the group; "false" otherwise
+ */
+GeckoJS.AclComponent.prototype.removeRoleFromGroup = function(groupName, roleName) {
+    
+    roleName = roleName || null;
+    groupName = groupName || null;
+        
+    // no roleName parameter return false
+    if (groupName == null || roleName == null ) return false;
+         
+    var roleModel = new this.roleModel;
+    var groupModel = new this.groupModel;
+
+    var role = roleModel.find('first', {
+        conditions: "name='" + roleName + "'"
+    });
+    if (role == null) return false;
+
+    var group = groupModel.find('first', {
+        conditions: "name='" + groupName + "'"
+    });
+    if (group == null) return false;
+    
+    var groupRoleModel = new this.groupRoleModel;
+    
+    var cond = "acl_group_id='"+group.id+"' AND acl_role_id='"+role.id+"'";
+    var groupRoles = groupRoleModel.find('all', {
+        conditions: cond
+    });
+    
+    if (groupRoles == null || groupRoles.length == 0) return false;
+    
+    groupRoles.forEach(function(groupRole) {
+        var grId = groupRole.id;
+        groupRoleModel.id = grId;
+        groupRoleModel.del(grId);
+    });
+    
+    delete roleModel;
+    delete groupModel;
+    delete groupRoleModel;
+    
+    return true;
+
+};
+
+
+/**
+ * Retrievs the list of ACL users that satisfy the given conditions.
+ *
+ * @public
+ * @function  
+ * @param {String} conditions          This is the criteria used to filter the users
+ * @return {Object}                 An array of ACL users
+ */
+GeckoJS.AclComponent.prototype.getUserList = function(conditions) {
+
+    var params = null;
+    if(conditions) {
+        params = {conditions: conditions};
+    }    
+
+    var userModel = new this.userModel;
+
+    var users = userModel.find("all", params);
+    
+    delete userModel;
+
+    return users;
+
+};
+
+
+/**
+ * Retrieves the list of ACL users in a given group.
+ *
+ * @public
+ * @function  
+ * @param {String} groupName          This is the name of the group
+ * @return {Object}              An array of ACL users   
+ */
+GeckoJS.AclComponent.prototype.getUserListInGroup = function(groupName) {
+
+    groupName = groupName || null;
+        
+    // no groupName parameter return false
+    if (groupName == null) return this.getUserList();
+
+    var groupModel = new this.groupModel;
+
+    var group = groupModel.find('first', {
+        conditions: "name='" + groupName + "'"
+    });
+    var groupId = null;
+    if (group == null) {
+        return this.getUserList();
+    }else {
+        groupId = group.id;
+    }
+
+    var userModel = new this.userModel;
+
+    var users = userModel.find("all", {conditions: "acl_group_id='"+ groupId+"'"});
+    
+    delete userModel;
+    delete groupModel;
+
+    return users;
+
+};
+
+
+/**
+ * Retrievs the list of ACL groups that satisfy the given conditions.
+ *
+ * @public
+ * @function  
+ * @param {String} conditions          This is the criteria used to filter the groups
+ * @return {Object}                 An array of ACL groups
+ */
+GeckoJS.AclComponent.prototype.getGroupList = function(conditions) {
+    
+    var params = null;
+    if(conditions) {
+        params = {conditions: conditions};
+    }    
+
+    var groupModel = new this.groupModel;
+
+    var groups = groupModel.find("all", params);
+    
+    delete groupModel;
+
+    return groups;
+    
+    
+};
+
+
+/**
+ * Retrievs the list of ACL roles that satisfy the given conditions.
+ *
+ * @public
+ * @function  
+ * @param {String} conditions          This is the criteria used to filter the roles
+ * @return {Object}                 An array of ACL roles
+ */
+GeckoJS.AclComponent.prototype.getRoleList = function(conditions) {
+    
+    var params = null;
+    if(conditions) {
+        params = {conditions: conditions};
+    }    
+
+    var roleModel = new this.roleModel;
+
+    var roles = roleModel.find("all", params);
+    
+    delete roleModel;
+
+    return roles;
+    
+    
+};
+
+
+/**
+ * Retrieves the list of ACL roles that have been assigned to an ACL group.
+ *
+ * @public
+ * @function  
+ * @param {String} groupName         This is the name of the ACL group
+ * @return {Object}                 An array of ACL roles
+ */
+GeckoJS.AclComponent.prototype.getRoleListInGroup = function(groupName) {
+    
+    groupName = groupName || null;
+        
+    // no groupName parameter return false
+    if (groupName == null) return this.getRoleList();
+
+    var groupModel = new this.groupModel;
+
+    var group = groupModel.find('first', {
+        conditions: "name='" + groupName + "'"
+    });
+    var groupId = null;
+    if (group == null) {
+        return this.getRoleList();
+    }else {
+        groupId = group.id;
+    }
+
+    var groupRoleModel = new this.groupRoleModel;
+
+    var groupRoles = groupRoleModel.find("all", {conditions: "acl_group_id='"+ groupId+"'"});
+    
+    delete groupRoleModel;
+    delete groupModel;
+
+    return GeckoJS.Array.objectExtract(groupRoles, '{n}.AclRole');
+    
+};
+/**
+ * Defines GeckoJS.Scaffold namespace
+ *
+ * @public
+ * @namespace
+ */
+GREUtils.define('GeckoJS.Scaffold', GeckoJS.global);
+
+/**
+ * Creates a new GeckoJS.Scaffold instance and initializes it with controller,
+ * command, and data.
+ * 
+ * @param {GeckoJS.Controller} controller       This is the controller requesting scaffolding support
+ * @param {String} command                      This is the command to be handled by Scaffold
+ * @param {Object} data                         This is the data from "gDispatch()"
+ * 
+ * @class Scaffolding provides automatic support for CRUD operations on models.
+ * Controllers that only perform standard CRUD operations on models may leverage
+ * scaffolding to reduce coding effort.<br/>
+ * <br/>
+ * If a Controller declares "scaffolding" to be "true", then the global
+ * dispatcher will dispatch standard CRUD commands to the Scaffold object if
+ * these commands are not handled by the Controller.<br/>
+ * <br/>
+ * Scaffold will dispatch a "beforeScaffold" event with the command name as the
+ * event data to the controller before carrying out a command. After the command
+ * has been carried out, Scaffold will dispatch a "afterScaffold<command>"
+ * event to the controller. The event data for the "afterScaffold" event is
+ * command dependent.<br/>
+ * <br/>
+ * The set of commands Scaffold supports are:<br/>
+ * <br/>
+ * <pre>
+ * - index
+ *   this command retrieves all the records from the Model, updates the Form
+ *   with the first record, and passes all the records to the controller
+ *   through the "afterScaffoldIndex" event.
+ *     
+ * - list
+ *   identical to the "index" command 
+ *  
+ * - view 
+ *   this command updates the Form with values from the Model, using the primary
+ *   key from the Form. Before updating the form, the Scaffold dispatches a
+ *   "beforeScaffoldView" event to the controller with the Model recod id. After
+ *   updating the form, the Model record is passed to the "afterScaffoldView"
+ *   event listeners. 
+ *  
+ * - add
+ *   this command creates a new Model record using data gathered from the Form.
+ *   Before adding the record, the Scaffold first dispatches a "beforeScaffoldAdd"
+ *   event to the controller, followed by a "beforeScaffoldSave" event, both with
+ *   the Form data. After saving the record, the Form data is first passed to the
+ *   "afterScaffoldSave" event listeners, followed by the "afterScaffoldAdd"
+ *   event listeners.
+ *   
+ * - create
+ *   identical to the "add" command
+ *     
+ * - edit
+ *   this command updates a Model record using data gathered from the Form.
+ *   Before updating the record, the Scaffold first dispatches a "beforeScaffoldEdit"
+ *   event to the controller, followed by a "beforeScaffoldSave" event, both with
+ *   the Form data. After saving the record, the Form data is first passed to the
+ *   "afterScaffoldSave" event listeners, followed by the "afterScaffoldEdit"
+ *   event listeners.
+ *   
+ * - update
+ *   identical to the "edit" command
+ *  
+ * - delete
+ *   this command deletes the Model record identified by the Form data. Before
+ *   deleting the record, the Scaffold dispatches a "beforeScaffoldDelete" event
+ *   to the controller with the record id. After deleting the record, the
+ *   record deleted is passed to the "afterScaffoldDelete" event listeners.  
+ * </pre>
+ * 
+ * @name GeckoJS.Scaffold
+ * @extends GeckoJS.BaseObject
+ *
+ * @property {GeckoJS.Controller} controller       The controller requesting scaffolding support
+ * @property {String} command                      The command to be handled by Scaffold
+ * @property {Object} data                         The data from "gDispatch()"
+ */
+GeckoJS.Scaffold = GeckoJS.BaseObject.extend('Scaffold', {
+   
+    init: function(controller){
+        this._controller = controller || null;
+
+        if(this._controller) this._addControllerEvents(this._controller);
+
+        // this.scaffoldActions = ['index', 'list', 'view', 'add', 'create', 'edit', 'update', 'delete'];
+
+
+        var klass = GeckoJS.BaseObject.getClassName(this.controller);
+
+        this.modelClass = controller.modelClass || GeckoJS.Inflector.classify(klass);
+        
+        this.modelKey = GeckoJS.Inflector.underscore(this.modelClass);
+        this.formId = this.modelKey + "Form";
+
+
+        if (typeof this.controller[this.modelClass] == 'undefined' ) {
+            this.log('ERROR', 'GeckoJS.Scaffold missingModel  '+ this.modelClass);
+            return;
+        }
+        
+        this.ScaffoldModel = this.controller[this.modelClass];
+
+        this.currentData = null;
+        
+    // this._invoke(command);
+    }
+});
+
+GeckoJS.Scaffold.Actions = ['index', 'list', 'view', 'add', 'create', 'edit', 'update', 'delete'];
+
+GeckoJS.Scaffold.prototype.__defineGetter__('controller', function(){
+    return this._controller;
+});
+
+
+GeckoJS.Scaffold.prototype.__defineGetter__('command', function(){
+    return this._command;
+});
+
+GeckoJS.Scaffold.prototype.__defineGetter__('data', function(){
+    return this._data;
+});
+
+
+/**
+ * _addControllerEvents
+ *
+ * @private
+ */
+GeckoJS.Scaffold.prototype._addControllerEvents = function(controller) {
+
+    var self = controller;
+    var events = controller._events;
+
+    // ignore basecontroller or controller
+    if (controller.getClassName() == 'BaseController' || controller.getClassName() == 'Controller' ) return;
+
+    ['beforeScaffold', 'afterScaffoldIndex',
+    'beforeScaffoldView', 'afterScaffoldView', 'beforeScaffoldSave', 'afterScaffoldSave',
+    'beforeScaffoldAdd', 'afterScaffoldAdd', 'beforeScaffoldEdit', 'afterScaffoldEdit',
+    'beforeScaffoldDelete', 'afterScaffoldDelete'].forEach(function(evt){
+
+        if(typeof self[evt] == 'undefined') return;
+        
+        if (GREUtils.isFunction(self[evt])) {
+            events.addListener(evt, self[evt], self);
+        } else if (GREUtils.isObject(self[evt])) {
+            self[evt].forEach(function(fn){
+                if (typeof(fn) == 'function') {
+                    events.addListener(evt, fn, self);
+                }
+            });
+        }
+    }, self);
+
+};
+
+
+/**
+ * invoke scaffold action
+ *
+ * @private 
+ * @param {String} command
+ * @param {Object} data
+ */
+GeckoJS.Scaffold.prototype.__invoke = function(command, data) {
+    
+    this._command = command || null;
+    this._data = data || null;
+
+    if (GeckoJS.Array.inArray(command, GeckoJS.Scaffold.Actions) == -1) {
+        // error command not found
+        // this.log('ERROR', 'GeckoJS.Scaffold command not found for '+ command);
+        this.log('WARN', 'GeckoJS.dispatch command not found for '+ command);
+        return ;
+    }
+
+    switch(command) {
+        case 'index':
+            this.__scaffoldIndex();
+            break;
+        case 'view':
+            this.__scaffoldView();
+            break;
+        case 'list':
+            this.__scaffoldIndex();
+            break;
+        case 'add':
+            this.__scaffoldSave('add');
+            break;
+        case 'edit':
+            this.__scaffoldSave('edit');
+            break;
+        case 'create':
+            this.__scaffoldSave('add');
+            break;
+        case 'update':
+            this.__scaffoldSave('edit');
+            break;
+        case 'delete':
+            this.__scaffoldDelete();
+            break;
+    }
+
+};
+
+
+/*
+ * Renders a view action of scaffolded model.
+ *
+ * @private 
+ */
+GeckoJS.Scaffold.prototype.__scaffoldView = function() {
+    
+    var window = window || GeckoJS.global;
+    var document = document || window.document || GeckoJS.global.document ||  GeckoJS.global;
+
+    if (this.controller.dispatchEvent('beforeScaffold', 'view')) {
+
+        var formObj, primaryKey, modelId = null;
+
+        modelId = this.data || null;
+        
+        if (modelId == null) {
+
+            formObj = this.controller.Form.serializeToObject(this.formId);
+            primaryKey = this.controller[this.modelClass].primaryKey;
+            modelId = formObj[primaryKey];
+        }
+            
+        this.controller.dispatchEvent('beforeScaffoldView', modelId);
+        
+        if (modelId) {
+            
+            this.ScaffoldModel.id = modelId;
+            var data = this.ScaffoldModel.findById(modelId);
+
+            this.currentData = data;
+            
+            this.controller.Form.unserializeFromObject(this.formId, data);
+
+            this.controller.dispatchEvent('afterScaffoldView', data);
+        }
+    }
+
+};
+    
+/*
+ * Renders index action of scaffolded model.
+ *
+ * @private 
+ */
+GeckoJS.Scaffold.prototype.__scaffoldIndex = function() {
+
+    var window = window || GeckoJS.global;
+    var document = document || window.document || GeckoJS.global.document ||  GeckoJS.global;
+
+    if (this.controller.dispatchEvent('beforeScaffold', 'index')) {
+        var datas = this.ScaffoldModel.find('all');
+        
+        this.controller.Form.reset(this.formId);
+        this.currentData = datas[0];
+        this.controller.Form.unserializeFromObject(this.formId, datas[0]);
+        
+        this.controller.dispatchEvent('afterScaffoldIndex', datas);
+    }
+
+};
+
+  
+/*
+ * Saves or updates the scaffolded model.
+ *
+ * @private 
+ * @param {String} action add or edt
+ */
+GeckoJS.Scaffold.prototype.__scaffoldSave = function(action) {
+    
+    var window = window || GeckoJS.global;
+    var document = document || window.document || GeckoJS.global.document ||  GeckoJS.global;
+
+    action = action || 'edit';
+
+    if (this.controller.dispatchEvent('beforeScaffold', action)) {
+
+        var formObj = this.controller.Form.serializeToObject(this.formId);
+        var primaryKey = this.controller[this.modelClass].primaryKey;
+        var modelId = formObj[primaryKey];
+        formObj[primaryKey] = modelId;
+        
+        if (action == 'edit') {
+            
+            if(this.controller.dispatchEvent('beforeScaffoldEdit', formObj)) {
+                
+                var count = this.ScaffoldModel.findById(formObj[primaryKey]);
+                
+                if (count <=0) {
+                    // not exists
+                    return ;
+                }else {
+                    this.ScaffoldModel.id = formObj[primaryKey];
+
+                }
+
+                if (this.controller.dispatchEvent('beforeScaffoldSave', formObj)) {
+                    this.ScaffoldModel.save(formObj);
+                    formObj[primaryKey] = this.ScaffoldModel.id;
+                }
+                this.controller.dispatchEvent('afterScaffoldSave', formObj);
+
+            }
+            this.controller.dispatchEvent('afterScaffoldEdit', formObj)
+        }
+
+        if (action == 'add') {
+            
+            if(this.controller.dispatchEvent('beforeScaffoldAdd', formObj)){
+                this.ScaffoldModel.create();
+                
+                if (this.controller.dispatchEvent('beforeScaffoldSave', formObj)) {
+                    this.ScaffoldModel.save(formObj);
+                    formObj[primaryKey] = this.ScaffoldModel.id;
+                }
+                this.controller.dispatchEvent('afterScaffoldSave', formObj);
+
+            }
+            this.controller.dispatchEvent('afterScaffoldAdd', formObj)
+        }
+
+    }
+};
+    
+/*
+ * Performs a delete on given scaffolded Model.
+ *
+ * @private
+ */
+GeckoJS.Scaffold.prototype.__scaffoldDelete = function() {
+
+    var window = window || GeckoJS.global;
+    var document = document || window.document || GeckoJS.global.document ||  GeckoJS.global;
+
+    if (this.controller.dispatchEvent('beforeScaffold', 'delete')) {
+
+        var formObj = this.controller.Form.serializeToObject(this.formId);
+        var primaryKey = this.controller[this.modelClass].primaryKey;
+        var modelId = formObj[primaryKey];
+        formObj[primaryKey] = modelId;
+            
+        if (this.controller.dispatchEvent('beforeScaffoldDelete', formObj)) {
+            modelId = formObj[primaryKey];
+
+            if (modelId) {
+                
+                this.ScaffoldModel.id = modelId;
+                var data = this.ScaffoldModel.findById(modelId);
+                this.ScaffoldModel.del(modelId);
+                
+                this.controller.dispatchEvent('afterScaffoldDelete', data);
+            }
+        }
+    }
+
+};
+
+/**
+ * Defines the GeckoJS.NSITreeViewArray namespace.
+ *
+ * @public
+ * @namespace GeckoJS.NSITreeViewArray
+ */
+GREUtils.define('GeckoJS.NSITreeViewArray', GeckoJS.global);
+
+/**
+ * @class The nsITreeView interface is used by the tree widget to get information about what and how to display
+ * a tree widget. Implementing a nsITreeView in lieu of DOM methods for tree creation can improve performance
+ * dramatically, and removes the need to make changes to the tree manually when changes to the database occur.
+ *
+ * @see https://developer.mozilla.org/en/nsITreeView
+ *
+ * @name GeckoJS.NSITreeViewArray
+ * @extends GeckoJS.BaseObject
+ *
+ * @property {Number} rowCount
+ * @property {nsITreeSelection} selection
+ */
+GeckoJS.NSITreeViewArray = GeckoJS.BaseObject.extend('NSITreeViewArray', {
+    init: function(data){
+        this.tree = null;
+
+        this.selection = null;
+        this._data = data || [];
+    //this.keys = GeckoJS.BaseObject.getKeys(this._data[0]) || [];
+
+    }
+});
+
+GeckoJS.NSITreeViewArray.prototype.tree = null;
+GeckoJS.NSITreeViewArray.prototype.selection = null;
+GeckoJS.NSITreeViewArray.prototype._data = [];
+
+
+//data getter
+GeckoJS.NSITreeViewArray.prototype.__defineGetter__('data', function(){
+    return this._data;
+});
+//data setter
+GeckoJS.NSITreeViewArray.prototype.__defineSetter__('data', function(d){
+    this._data = d || [];
+//this.keys = GeckoJS.BaseObject.getKeys(this._data[0]) || [];
+});
+
+
+/**
+ * rowCount
+ */
+GeckoJS.NSITreeViewArray.prototype.__defineGetter__('rowCount', function() {
+    return this._data.length;
+});
+
+
+/**
+ * getCellValue    implemented nsITreeView interface
+ *
+ * The value for a given cell. This method is only called for columns of type other than text.
+ *
+ * @param {Number} row      the index of the row.
+ * @param {nsITreeColumn} col   The index of the column.
+ * @return {String}
+ */
+GeckoJS.NSITreeViewArray.prototype.getCellValue = function(row, col) {
+    var sResult;
+    var key = (typeof col == 'object') ? col.id : col;
+
+    try {
+        sResult= this.data[row][key];
+    }
+    catch (e) {
+        return "<" + row + "," + key + ">";
+    }
+    return sResult;
+};
+
+
+/**
+ * getCellText    implemented nsITreeView interface
+ *
+ * The text for a given cell. If a column consists only of an image, then the empty string is returned.
+ *
+ * @param {Number} row      the index of the row.
+ * @param {nsITreeColumn} col   The index of the column.
+ * @return {String}
+ */
+GeckoJS.NSITreeViewArray.prototype.getCellText = function(row, col) {
+
+    return this.getCellValue(row, col);
+
+};
+
+
+/**
+ * setCellValue    implemented nsITreeView interface
+ *
+ * setCellValue is called when the value of the cell has been set by the user.
+ * This method is only called for columns of type other than text. 
+ *
+ * @param {Number} row          The index of the row.
+ * @param {nsITreeColumn} col   The index of the column.
+ * @param {String} value        The text to change the cell to.
+ */
+GeckoJS.NSITreeViewArray.prototype.setCellValue = function(row, col, value) {
+    };
+
+
+/**
+ * setCellText    implemented nsITreeView interface
+ *
+ * setCellText is called when the contents of the cell have been edited by the user.
+ *
+ * @param {Number} row          The index of the row.
+ * @param {nsITreeColumn} col   The index of the column.
+ * @param {String} value        The text to change the cell to.
+ */
+GeckoJS.NSITreeViewArray.prototype.setCellText = function(row, col, value) {
+    };
+
+
+/**
+ * setTree    implemented nsITreeView interface
+ *
+ * Called during initialization to link the view to the front end box object.
+ *
+ * @see http://www.xulplanet.com/references/xpcomref/ifaces/nsITreeBoxObject.html
+ * 
+ * @param {nsITreeBoxObject} tree       The nsITreeBoxObject to attach this view to
+ */
+GeckoJS.NSITreeViewArray.prototype.setTree = function(tree) {
+    this.tree = tree;
+};
+
+
+/**
+ * isContainer    implemented nsITreeView interface
+ *
+ * @param {Number} row      the index of the row.
+ * @return {Boolean} 
+ */
+GeckoJS.NSITreeViewArray.prototype.isContainer = function(row) {
+    return false;
+};
+
+
+/**
+ * isContainerOpen    implemented nsITreeView interface
+ *
+ * @param {Number} row      the index of the row.
+ * @return {Boolean}
+ */
+GeckoJS.NSITreeViewArray.prototype.isContainerOpen = function(row) {
+    return false;
+};
+
+
+/**
+ * isContainerEmpty    implemented nsITreeView interface
+ *
+ * @param {Number} row      the index of the row.
+ * @return {Boolean} 
+ */
+GeckoJS.NSITreeViewArray.prototype.isContainerEmpty = function(row) {
+    return false;
+};
+
+
+/**
+ * isSeparator    implemented nsITreeView interface
+ *
+ * isSeparator is used to determine if the row at index is a separator.
+ * A value of true will result in the tree drawing a horizontal separator.
+ * The tree uses the ::moz-tree-separator pseudoclass to draw the separator.
+ *
+ * @param {Number} row      the index of the row.
+ * @return {Boolean} 
+ */
+GeckoJS.NSITreeViewArray.prototype.isSeparator = function(row) {
+    return false;
+};
+
+/**
+ * isSorted    implemented nsITreeView interface
+ * 
+ * @return {Boolean}
+ */
+GeckoJS.NSITreeViewArray.prototype.isSorted = function() {
+    return false;
+};
+
+
+GeckoJS.NSITreeViewArray.prototype.canDrop = function (index, orientation) {
+    return false;
+};
+
+GeckoJS.NSITreeViewArray.prototype.drop = function (index, orientation) {
+    return false;
+};
+
+
+/**
+ * isEditable    implemented nsITreeView interface
+ *
+ * isEditable is called to ask the view if the cell contents are editable.
+ * A value of true will result in the tree popping up a text field when the user tries to inline edit the cell.
+ *
+ * @param {Number} row      the index of the row.
+ * @param {nsITreeColumn} col   The index of the column.
+ * @return {Boolean} 
+ */
+GeckoJS.NSITreeViewArray.prototype.isEditable = function(row, col) {
+    return false;
+};
+
+/**
+ * isSelectable    implemented nsITreeView interface
+ *
+ * isSelectable is called to ask the view if the cell is selectable.
+ * This method is only called if the selection type is cell or text.
+ *
+ * @param {Number} row      the index of the row.
+ * @param {nsITreeColumn} col   The index of the column.
+ * @return {Boolean} 
+ */
+GeckoJS.NSITreeViewArray.prototype.isSelectable = function(row, col) {
+    return false;
+};
+
+
+
+/**
+ * cycleHeader    implemented nsITreeView interface
+ *
+ * Called on the view when a header is clicked.
+ *
+ * @param {nsITreeColumn} col           The column to cycle.
+ */
+GeckoJS.NSITreeViewArray.prototype.cycleHeader = function(col) {
+    };
+
+/**
+ * cycleCell    implemented nsITreeView interface
+ *
+ * Called on the view when a cell in a non-selectable cycling column (e.g., unread/flag/etc.) is clicked.
+ *
+ * @param {nsITreeColumn} col           The column to cycle.
+ */
+GeckoJS.NSITreeViewArray.prototype.cycleCell = function(col) {
+    };
+
+
+/**
+ * getParentIndex    implemented nsITreeView interface
+ *
+ * Methods used by the tree to draw thread lines in the tree.
+ * getParentIndex is used to obtain the index of a parent row.
+ * If there is no parent row, getParentIndex returns -1.
+ *
+ * @param {Number} row      the index of the row.
+ * @return {Number}
+ */
+GeckoJS.NSITreeViewArray.prototype.getParentIndex = function(row) {
+    if (this.isContainer(row)) return -1;
+    for (var t = row - 1; t >= 0 ; t--) {
+        if (this.isContainer(t)) return t;
+    }
+};
+
+
+/**
+ * getLevel    implemented nsITreeView interface
+ *
+ * @param {Number} row      the index of the row.
+ * @return {Number}
+ */
+GeckoJS.NSITreeViewArray.prototype.getLevel = function(row) {
+    if (this.isContainer(row)) return 0;
+    return 1;
+};
+
+/**
+ * hasNextSibling    implemented nsITreeView interface
+ *
+ * hasNextSibling is used to determine if the row at rowIndex has a nextSibling that occurs after
+ * the index specified by afterIndex. Code that is forced to march down the view looking at levels
+ * can optimize the march by starting at afterIndex+1.
+ *
+ * @param {Number} row    The index of the item.
+ * @param {Number} after  The index of the item to find siblings after.
+ * @return {Boolean} 
+ */
+GeckoJS.NSITreeViewArray.prototype.hasNextSibling = function(row, after) {
+    
+    var thisLevel = this.getLevel(row);
+    var nextLevel = this.getLevel(after);
+
+    if (nextLevel == thisLevel) return true;
+    else return false;
+    
+};
+
+
+/**
+ * toggleOpenState    implemented nsITreeView interface
+ *
+ * Called on the view when an item is opened or closed.
+ *
+ * @param {Number} row         The index of the row to toggle.
+ */
+GeckoJS.NSITreeViewArray.prototype.toggleOpenState = function(row) {
+    };
+
+/**
+ * getImageSrc    implemented nsITreeView interface
+ *
+ * The image path for a given cell. For defining an icon for a cell.
+ * If the empty string is returned, the :moz-tree-image pseudoelement will be used.
+ *
+ * @param {Number} row      the index of the row.
+ * @param {nsITreeColumn} col   The index of the column.
+ * @return {String}
+ */
+GeckoJS.NSITreeViewArray.prototype.getImageSrc = function(row, col) {
+
+    return this.getCellValue(row, col);
+
+};
+
+/**
+ * getProgressMode    implemented nsITreeView interface
+ *
+ * The progress mode for a given cell. This method is only called for columns of type progressmeter.
+ *
+ * PROGRESS_NORMAL 	1
+ * PROGRESS_UNDETERMINED 	2
+ * PROGRESS_NONE 	3
+ *
+ * @param {Number} row      the index of the row.
+ * @param {nsITreeColumn} col   The index of the column.
+ * @return {Number}
+ */
+GeckoJS.NSITreeViewArray.prototype.getProgressMode = function(row, col) {
+    return 1;
+};
+
+
+/**
+ * getRowProperties    implemented nsITreeView interface
+ *
+ */
+GeckoJS.NSITreeViewArray.prototype.getRowProperties = function(row, props) {
+    
+    };
+
+/**
+ * getCellProperties    implemented nsITreeView interface
+ *
+ */
+GeckoJS.NSITreeViewArray.prototype.getCellProperties = function(row, col, props) {
+
+    };
+
+/**
+ * getColumnProperties    implemented nsITreeView interface
+ *
+ */
+GeckoJS.NSITreeViewArray.prototype.getColumnProperties = function(col, props) {
+
+    };
+
+/**
+ * selectionChanged    implemented nsITreeView interface
+ *
+ * Should be called from a XUL onselect handler whenever the selection changes.
+ * 
+ */
+GeckoJS.NSITreeViewArray.prototype.selectionChanged = function() {
+    
+    };
+
+/**
+ * performAction    implemented nsITreeView interface
+ * 
+ * A command API that can be used to invoke commands on the selection.
+ * The tree will automatically invoke this method when certain keys are pressed.
+ * For example, when the DEL key is pressed, performAction will be called with the delete string.
+ *
+ * @param {String} action            The action to perform. 
+ */
+GeckoJS.NSITreeViewArray.prototype.performAction = function(action) {
+
+    };
+
+/**
+ * performActionOnRow    implemented nsITreeView interface
+ *
+ * A command API that can be used to invoke commands on a specific row.
+ *
+ * @param {String} action            The action to perform.
+ * @param {Number} row               The row of the cell.
+ */
+GeckoJS.NSITreeViewArray.prototype.performActionOnRow = function(action, row) {
+
+    };
+
+/**
+ * performActionOnCell    implemented nsITreeView interface
+ *
+ * A command API that can be used to invoke commands on a specific cell.
+ *
+ * @param {String} action            The action to perform.
+ * @param {Number} row               The row of the cell.
+ * @param {nsITreeColumn} col        The column of the cell.
+ */
+GeckoJS.NSITreeViewArray.prototype.performActionOnCell = function(action, row, col) {
+
+    };
+/**
+ * Defines the GeckoJS.StringBundle namespace.
+ *
+ * @public
+ * @namespace
+ */
+GREUtils.define('GeckoJS.StringBundle', GeckoJS.global);
+
+// getString
+// getFormattedString
+
+/**
+ * Creates a new GeckoJS.StringBundle instance and initializes it with an
+ * empty list of listeners and an empty set of string bundles.
+ * 
+ * @class GeckoJS.StringBundle is a Singleton used to load localized resources
+ * from property files. A property file is a list of property key-value pairs
+ * each on a separate line. The key and value are separated with an equals
+ * sign.<br/>
+ * GeckoJS.StringBundle is implemented using XPCOM nsIStringBundleService.<br/>
+ * 
+ * @name GeckoJS.StringBundle
+ * @class
+ * @extends GeckoJS.BaseObject
+ * @extends GeckoJS.Singleton
+ *
+ * @property {GeckoJS.Event} events                 A list of event listeners for updates on the string bundle (read-only)
+ * @property {GeckoJS.Map} map                      A collection of the key-value pairs in the string bundle (read-only)
+ * @property {nsIStringBundleService} bundleService A reference to the XPCOM nsIStringBundleService service {read-only}
+ */
+GeckoJS.StringBundle = GeckoJS.BaseObject.extend('StringBundle', {
+    init: function(){
+
+        if (Application.storage.has('GeckoJS_StringBundle_map')) {
+            this._map = Application.storage.get('GeckoJS_StringBundle_map',  (new GeckoJS.Map()) );
+        }else {
+            this._map = new GeckoJS.Map();
+            Application.storage.set('GeckoJS_StringBundle_map', this._map);
+        }
+
+    }
+});
+
+// make StringBundle support singleton
+GeckoJS.Singleton.support(GeckoJS.StringBundle);
+
+
+//map getter
+GeckoJS.StringBundle.prototype.__defineGetter__('map', function(){
+	return this._map;
+});
+
+
+GeckoJS.StringBundle.prototype.__defineGetter__('bundleService', function(){
+	if (this._bundleService == null) {
+		this._bundleService = GREUtils.XPCOM.getService("@mozilla.org/intl/stringbundle;1" , "nsIStringBundleService");
+	}
+	return this._bundleService;
+});
+
+
+/**
+ * Loads a string bundle from a URL.<br/>
+ * <br/>
+ * This methods loads a string bundle from the location given by URLSpec, which
+ * is normally a Chrome URL. The string bundle is then cached in memory and does
+ * not get reloaded unless the cache is flushed.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} URLspec            This is the location of the string bundle to load, given as an URL
+ * @return {nsIStringBundle}          The string bundle resource
+ */
+GeckoJS.StringBundle.createBundle = function(URLSpec) {
+	return GeckoJS.StringBundle.getInstance().createBundle(URLSpec);
+};
+
+
+/**
+ * Loads a string bundle from a URL.<br/>
+ * <br/>
+ * This methods loads a string bundle from the location given by URLSpec, which
+ * is normally a Chrome URL. The string bundle is then cached in memory and does
+ * not get reloaded unless the cache is flushed.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} URLspec            This is the location of the string bundle to load, given as an URL
+ * @return {nsIStringBundle}          The string bundle resource
+ */
+GeckoJS.StringBundle.prototype.createBundle = function(URLSpec) {
+	var md5 = GREUtils.CryptoHash.md5(URLSpec);
+
+	// if exists return nsIStringBundle
+	if (!this.map.containsKey(md5)) {
+		try {
+			this.map.add(md5, this.bundleService.createBundle(URLSpec));
+
+            var self = this;
+            // resource release guarder
+            window.addEventListener('unload', function(evt) {
+                self.map.remove(md5);
+            }, true);
+
+		}
+		catch (e) {
+		}
+	}
+	return this.map.get(md5);
+};
+
+/**
+ * Flushes the bundle cache.<br/>
+ * <br/>
+ * Flushes the string bundle cache; this is useful when the locale changes or
+ * when we need to get some extra memory back. At some point, we might want
+ * to make this flush all the bundles, because any bundles that are floating
+ * around when the locale changes will suddenly contain bad data.
+ *
+ * @public
+ * @static
+ * @function
+ */
+GeckoJS.StringBundle.flushBundles = function() {
+	GeckoJS.StringBundle.getInstance().flushBundles();
+};
+
+/**
+ * Flushes the bundle cache.<br/>
+ * <br/>
+ * Flushes the string bundle cache; this is useful when the locale changes or
+ * when we need to get some extra memory back. At some point, we might want
+ * to make this flush all the bundles, because any bundles that are floating
+ * around when the locale changes will suddenly contain bad data.
+ *
+ * @public
+ * @function
+ */
+GeckoJS.StringBundle.prototype.flushBundles = function() {
+	this.bundleService.flushBundles();
+	this.map.clear();
+};
+
+
+/**
+ * Retrieves a string from a bundle by its name.<br/>
+ * <br/>
+ * If "URLSpec" is given, this method will first load the string bundle at this
+ * location if it is not already cached before searching for the string through
+ * the cached string bundles.<br/>
+ * <br/>
+ * The first match by name is returned; null is returned if no match is found.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} name               This is the name of the string to retrieve
+ * @param {String} URLSpec            This is the location of a string bundle to add to the bundle cache; defaults to null
+ * @return {String}                   The requested string
+ */
+GeckoJS.StringBundle.getStringFromName = function(name, URLSpec){
+	return GeckoJS.StringBundle.getInstance().GetStringFromName(name, URLSpec);
+};
+
+
+/**
+ * Retrieves a string from a bundle by its name.<br/>
+ * <br/>
+ * If "URLSpec" is given, this method will first load the string bundle at this
+ * location if it is not already cached before searching for the string through
+ * the cached string bundles.<br/>
+ * <br/>
+ * The first match by name is returned; null is returned if no match is found.
+ *
+ * @public
+ * @function
+ * @param {String} name               This is the name of the string to retrieve
+ * @param {String} URLSpec            This is the location of a string bundle to add to the bundle cache; defaults to null
+ * @return {String}                   The requested string
+ */
+GeckoJS.StringBundle.prototype.getStringFromName = function(name, URLSpec) {
+
+	var str = null;
+
+	var bundles = (URLSpec) ? [].push(this.createBundle(URLSpec)) : this.map.getValues();
+
+	bundles.forEach(function(bundle){
+		try {
+			str = bundle.getStringFromName(name);
+		}catch(e){
+
+		}
+		// first match then return ?
+		if(str) return str;
+	});
+	if (str == null) {
+		str = name;
+	}
+	return str;
+};
+
+
+/**
+ * Returns a formatted string with the given key name from a string bundle,
+ * where each occurrence of %S (uppercase) is replaced by each successive element
+ * in the supplied array. You may also use other formatting codes, but can only
+ * pass Unicode strings in. The name should refer to a string in the bundle that
+ * uses %S.<br/>
+ * <br/>
+ * If "URLSpec" is given, this method will first load the string bundle at this
+ * location if it is not already cached before searching for the string through
+ * the cached string bundles.<br/>
+ * <br/>
+ * The first match by name is returned; if no match is found, the given key name
+ * is itself used as the formatting string.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} name               This is the name of the string to retrieve
+ * @param {Object} params             This is the array of strings to use as arguments to the formatting codes
+ * @param {String} URLSpec            This is the location of a string bundle to add to the bundle cache; defaults to null
+ * @return {String}                   The formatted string
+ */
+GeckoJS.StringBundle.formatStringFromName = function(name, params, URLSpec) {
+	return GeckoJS.StringBundle.getInstance().formatStringFromName(name, params, URLSpec);
+};
+
+
+
+/**
+ * Returns a formatted string with the given key name from a string bundle,
+ * where each occurrence of %S (uppercase) is replaced by each successive element
+ * in the supplied array. You may also use other formatting codes, but can only
+ * pass Unicode strings in. The name should refer to a string in the bundle that
+ * uses %S.<br/>
+ * <br/>
+ * If "URLSpec" is given, this method will first load the string bundle at this
+ * location if it is not already cached before searching for the string through
+ * the cached string bundles.<br/>
+ * <br/>
+ * The first match by name is returned; if no match is found, the given key name
+ * is itself used as the formatting string.
+ *
+ * @public
+ * @function
+ * @param {String} name               This is the name of the string to retrieve
+ * @param {Object} params             This is the array of strings to use as arguments to the formatting codes
+ * @param {String} URLSpec            This is the location of a string bundle to add to the bundle cache; defaults to null
+ * @return {String}                   The formatted string
+ */
+GeckoJS.StringBundle.prototype.formatStringFromName = function(name, params, URLSpec) {
+
+	var str = null;
+	var bundles = (URLSpec) ? [].push(this.createBundle(URLSpec)) : this.map.getValues();
+
+	bundles.forEach(function(bundle){
+		try {
+			str = bundle.formatStringFromName(name, params, params.length);
+		}catch(e){
+
+		}
+		// first match then return ?
+		if(str) return str;
+	});
+
+	if(str == null) {
+		str = name;
+		params.forEach(function(s){
+			str = str.replace(/%S/, s);
+		});
+	}
+	return str;
+
+};
+/**
+ * Defines the GeckoJS.I18n namespace.
+ *
+ * @public
+ * @namespace
+ */
+GREUtils.define('GeckoJS.I18n', GeckoJS.global);
+
+/**
+ * Creates a new GeckoJS.I18n instance.
+ * 
+ * @class GeckoJS.I18n provides internationalization support for applications running on
+ * the VIVIPOS APP Engine.<br/>
+ *
+ * @name GeckoJS.I18n
+ * @class
+ * @extends GeckoJS.BaseObject
+ * @extends GeckoJS.Singleton
+ */
+GeckoJS.I18n = GeckoJS.BaseObject.extend('I18n', {
+    init: function(){
+
+        this._stringbundle = GeckoJS.StringBundle.getInstance();
+    }
+});
+
+// make I18n support singleton
+GeckoJS.Singleton.support(GeckoJS.I18n);
+
+
+/**
+ * Translates a string.<br/>
+ * <br/>
+ * If a single argument is passed in, this method treats it as a key and returns
+ * the first matching string from the cached string bundles. If a second argument
+ * is present, then the method returns the formatted string produced by calling
+ * GeckoJS.StringBundle.formatStringFromName() on the two arguments.    
+ * 
+ * @public
+ * @function  
+ * @param {String} str                This is the string to translate
+ * @param {Array} arguments           This is an array of strings to use as arguments to the formatting codes in "str"
+ * @return {String}                   The translated string
+ */
+GeckoJS.I18n.prototype.translate = function() {
+
+	if (arguments.length == 1) {
+		return this._stringbundle.getStringFromName(arguments[0]);
+	}else {
+		return this._stringbundle.formatStringFromName(arguments[0], arguments[1]);
+	}
+
+};
+
+/**
+ * Returns the application locale for messages.
+ *
+ * @public
+ * @static
+ * @function
+ * @return {String}                   The application locale for messages
+ */
+GeckoJS.I18n.getApplicationLocale = function() {
+	try {
+		var service = GREUtils.XPCOM.getService("@mozilla.org/intl/nslocaleservice;1", "nsILocaleService");
+		return service.getApplicationLocale().getCategory("NSILOCALE_MESSAGES");
+	}catch (e) {
+		return "";
+	}
+};
+
+/**
+ * Returns the system locale for messages.
+ *
+ * @public
+ * @static
+ * @function
+ * @return {String}                   The system locale for messages
+ */
+GeckoJS.I18n.getSystemLocale = function() {
+	try {
+		var service = GREUtils.XPCOM.getService("@mozilla.org/intl/nslocaleservice;1", "nsILocaleService");
+		return service.getSystemLocale().getCategory("NSILOCALE_MESSAGES");
+	}catch (e) {
+		return "";
+	}
+};
+
+/**
+ * Returns the User Agent locale component.
+ *
+ * @public
+ * @static
+ * @function
+ * @return {String}                   The user agent locale component
+ */
+GeckoJS.I18n.getLocaleComponentForUserAgent = function() {
+	try {
+		var service = GREUtils.XPCOM.getService("@mozilla.org/intl/nslocaleservice;1", "nsILocaleService");
+		return service.getLocaleComponentForUserAgent();
+	}catch (e) {
+		return "";
+	}
+};
+
+
+/**
+ * Returns the locale for message as determined from the given accept language.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} accept_language    This is the Accept Language used to determine the locale
+ * @return {String}                   The locale for messages as determined from the Accept Language
+ */
+GeckoJS.I18n.getLocaleFromAcceptLanguage = function(accept_language) {
+	try {
+		var service = GREUtils.XPCOM.getService("@mozilla.org/intl/nslocaleservice;1", "nsILocaleService");
+		return service.getLocaleFromAcceptLanguage(accept_language).getCategory("NSILOCALE_MESSAGES");
+	}catch (e) {
+		return "";
+	}
+};
+
+GeckoJS.I18n.getSelectedLocaleForPackage = function(packageName) {
+	var selectedLocale = "";
+	try {
+		var chromeRegInstance = Components.classes["@mozilla.org/chrome/chrome-registry;1"].createInstance();
+		var xulChromeReg = chromeRegInstance.QueryInterface(Components.interfaces.nsIXULChromeRegistry);
+		selectedLocale = xulChromeReg.getSelectedLocale("localeswitchdemo");
+	}catch(err) {
+		GeckoJS.I18n.log('ERROR', "Couldn't getSelectedLocaleForPackage " + packageName +", "+ err);
+		selectedLocale = "";
+	}
+	return selectedLocale;
+};
+
+/**
+ * Returns the locales Array from the given package.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} packageName        This is the package name of chrome registry
+ * @return {Array}                    The locales for the package name
+ */
+GeckoJS.I18n.getLocalesForPackage = function(packageName) {
+	var locales = [];
+	try {
+
+		var chromeRegInstance = Components.classes["@mozilla.org/chrome/chrome-registry;1"].createInstance();
+		var toolkitChromeReg = chromeRegInstance.QueryInterface(Components.interfaces.nsIToolkitChromeRegistry);
+		
+		var availableLocales = toolkitChromeReg.getLocalesForPackage(packageName);
+		
+		while(availableLocales.hasMore()) {
+			var locale = availableLocales.getNext();
+			locales.push(locale);
+		}
+
+	}catch (err) {
+		GeckoJS.I18n.log('ERROR', "Couldn't getLocalesForPackage " + packageName +", "+ err);
+		locales = [];
+	}
+	return locales;
+};
+
+
+
+
+/**
+ * Returns the locale for message for a new Locale.
+ *
+ * @public
+ * @static
+ * @function
+ * @return {String}                   The locale for messages for a new Locale
+ */
+GeckoJS.I18n.newLocale = function() {
+	try {
+		var service = GREUtils.XPCOM.getService("@mozilla.org/intl/nslocaleservice;1", "nsILocaleService");
+		return service.newLocale().getCategory("NSILOCALE_MESSAGES");
+	}catch (e) {
+		return "";
+	}
+};
+
+/**
+ * Change to the new Locale.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {String} newLocale                   The locale for a new Locale
+ * @param {Boolean} restart                    Restart application
+ */
+GeckoJS.I18n.changeLocale = function(newLocale, restart) {
+
+	restart = restart || false;
+
+	try {
+	
+		// Write preferred locale to local user config
+		var prefs = Components.classes["@mozilla.org/preferences-service;1"].
+		    getService(Components.interfaces.nsIPrefBranch);
+		prefs.setCharPref("general.useragent.locale", newLocale);
+	
+		if (restart) {
+			// Restart application
+			var appStartup = Components.classes["@mozilla.org/toolkit/app-startup;1"]
+			     .getService(Components.interfaces.nsIAppStartup);
+
+			appStartup.quit(Components.interfaces.nsIAppStartup.eRestart |
+		 		        Components.interfaces.nsIAppStartup.eAttemptQuit);
+		}
+	
+	} catch(err) {
+
+		GeckoJS.I18n.log('ERROR', "Couldn't change locale: " + err);
+	}
+
+};
+
+/**
+ * Translates a string.<br/>
+ * <br/>
+ * If a single argument is passed in, this method treats it as a key and returns
+ * the first matching string from the cached string bundles. If a second argument
+ * is present, then the method returns the formatted string produced by calling
+ * GeckoJS.StringBundle.formatStringFromName() on the two arguments.    
+ * 
+ * @public
+ * @static 
+ * @function  
+ * @param {String} str                This is the string to translate
+ * @param {Array} arguments           This is an array of strings to use as arguments to the formatting codes in "str"
+ * @return {String}                   The translated string
+ */
+GeckoJS.I18n.translate = function() {
+	return GeckoJS.I18n.getInstance().translate.apply(GeckoJS.I18n.getInstance(), arguments);
+};
+
+
+// for jsmodules export
+var _ = function(){
+	return GeckoJS.I18n.translate.apply(null, arguments);
+};
+/**
+ * Defines the GeckoJS.HttpRequest namespace.
+ *
+ * @public
+ * @namespace
+ */
+GREUtils.define('GeckoJS.HttpRequest', GeckoJS.global);
+
+/**
+ * Creates a new GeckoJS.HttpRequest instance.
+ * 
+ * @class GeckoJS.HttpRequest provides client-side support for communication
+ * with HTTP servers. Through GeckoJS.HttpRequest, a client application can
+ * exchange XML documents with remote HTTP services without having to deal with
+ * the underlying networking details.<br/>
+ * <br/>
+ * This class is implemented using the XPCOM nsIXMLHttpRequest and
+ * nsIJSXMLHttpRequest interfaces.<br/>
+ *
+ * @name GeckoJS.HttpRequest
+ * @class
+ * @extend GeckoJS.BaseObject
+ *
+ * @property {GeckoJS.Event} events           A list of event listeners for changes on the request status (read-only)
+ * @property {XMLHttpRequest} XMLHttpRequest  The underlying nsIXMLHttpRequest component handling the networking details (read-only)
+ * @property {Object} requestSettings         A collection of request settings {read-only}
+ * @property {Number} readyState              The state of the request as a numeric code {read-only}
+ * @property {String} readyStateText          The state of the request as a descriptive string {read-only}
+ * @property {Object} responseData            Data returned in response to the request; is parsed either as text/xml or text depending on content-type in the response header {read-only}
+ * @property {Object} lastModified            A cache of If-Modified-Since request headers for individual URLs (read-only)
+ * @property {Boolean} async                  A flag, when "true", indicates that the request should be asynchronous
+ * @property {Number} timeout                 Request Timeout miliseconds, defaults to 60000
+ */
+GeckoJS.HttpRequest = GeckoJS.BaseObject.extend('HttpRequest', {
+
+    init: function(){
+
+        this._events = new GeckoJS.Event();
+        this._xhr = null;
+
+        // default request settings
+        this._requestSettings = {
+            method: "GET",
+            timeout: 60000,
+            contentType: "application/x-www-form-urlencoded",
+            processData: true,
+            async: false,
+            data: null,
+            username: null,
+            password: null
+        };
+
+        // Last-Modified header cache for next request
+        this._lastModified = {};
+
+    }
+});
+
+
+GeckoJS.HttpRequest.requestAccepts = {
+    xml: "application/xml, text/xml",
+    html: "text/html",
+    script: "text/javascript, application/javascript",
+    json: "application/json, text/javascript",
+    text: "text/plain",
+    _default: "*/*"
+};
+
+// extends getter / setter
+
+//events getter
+GeckoJS.HttpRequest.prototype.__defineGetter__('events', function(){
+    return this._events;
+});
+
+//XMLHttpRequest getter
+GeckoJS.HttpRequest.prototype.__defineGetter__('XMLHttpRequest', function(){
+
+    // lazy initialize
+    if (this._xhr == null) {
+        this._xhr = Components.classes["@mozilla.org/xmlextras/xmlhttprequest;1"].createInstance(Components.interfaces.nsIXMLHttpRequest);
+
+        // bind to event dispatch
+        var self = this;
+        this._xhr.onprogress = function(evt){
+            self.events.dispatch('progress', evt);
+        };
+        this._xhr.onload = function(evt){
+            self.events.dispatch('load', evt);
+        };
+        this._xhr.onerror = function(evt){
+            self.events.dispatch('error', evt);
+        };
+    }
+    return this._xhr;
+});
+
+// _requestSettings
+GeckoJS.HttpRequest.prototype.__defineGetter__('requestSettings', function(){
+    return this._requestSettings;
+});
+
+// _lastModified
+GeckoJS.HttpRequest.prototype.__defineGetter__('lastModified', function(){
+    return this._lastModified;
+});
+
+// _requestSettings
+GeckoJS.HttpRequest.prototype.__defineGetter__('requestSettings', function(){
+    return this._requestSettings;
+});
+
+// readyState
+GeckoJS.HttpRequest.prototype.__defineGetter__('readyState', function(){
+    return this.XMLHttpRequest.readyState;
+});
+
+
+// readyStateText
+GeckoJS.HttpRequest.prototype.__defineGetter__('readyStateText', function(){
+    var _text = "";
+    switch (this.readyState) {
+        case 0:
+            _text = "UNINITIALIZED";
+            break;
+        case 1:
+            _text = "LOADING";
+            break;
+        case 2:
+            _text = "LOADED";
+            break;
+        case 3:
+            _text = "INTERACTIVE";
+            break;
+        case 4:
+            _text = "COMPLETED";
+            break;
+    }
+    return _text;
+});
+
+
+// responseData
+GeckoJS.HttpRequest.prototype.__defineGetter__('responseData', function(){
+    var data = null;
+    var req = this.XMLHttpRequest;
+
+    if (this.readyState == 4) {
+
+        var ct = req.getResponseHeader("content-type");
+        var xml = ct && ct.indexOf("xml") >= 0;
+        data = xml ? req.responseXML : req.responseText;
+
+        if (xml && data.documentElement.tagName == "parsererror")
+            throw "parsererror";
+
+    }
+    return data;
+});
+
+
+// async
+GeckoJS.HttpRequest.prototype.__defineGetter__('async', function(){
+    return this.requestSettings.async;
+});
+GeckoJS.HttpRequest.prototype.__defineSetter__('async', function(s){
+    return this.requestSettings.async = s;
+});
+
+// timeout
+GeckoJS.HttpRequest.prototype.__defineGetter__('timeout', function(){
+    return this._requestSettings.timeout;
+});
+// timeout
+GeckoJS.HttpRequest.prototype.__defineSetter__('timeout', function(t ){
+    this._requestSettings.timeout = t;
+});
+
+
+
+/**
+ * Returns the complete list of response headers for the current request.
+ *
+ * This method returns a string containing all the response headers as
+ * name/value pairs delimited by a carriage return/line feed (CRLF) sequence.
+ * If the response has not yet been received an empty string is returned.
+ *
+ * @public
+ * @function
+ * @return {String}                           All the response headers
+ */
+GeckoJS.HttpRequest.prototype.getAllResponseHeaders = function(){
+    try {
+        return this.XMLHttpRequest.getAllResponseHeaders();
+    }
+    catch (e) {
+        return "";
+    }
+};
+
+
+/**
+ * Returns the value of a response header from the current request.<br/>
+ * <br/>
+ * If the response has not yet been received or if the header does not exist in
+ * the response, an empty string is returned.
+ *
+ * @public
+ * @function
+ * @param {String} header                     This is the name of the header to retrieve
+ * @return {String}                           All the response headers
+ */
+GeckoJS.HttpRequest.prototype.getResponseHeader = function(header){
+    try {
+        return this.XMLHttpRequest.getResponseHeader(header);
+    }
+    catch (e) {
+        return "";
+    }
+};
+
+/**
+ * Sets a HTTP request header for HTTP requests.<br/>
+ * <br/>
+ * The open() method must be called before setting the request headers.
+ *
+ * @public
+ * @function
+ * @param {String} header                     This is the name of the header to set in the request.
+ * @param {String} value                      This is the value to which to set the header
+ */
+GeckoJS.HttpRequest.prototype.setRequestHeader = function(header, value){
+    try {
+        this.XMLHttpRequest.setRequestHeader(header, value);
+    }
+    catch (e) {
+    }
+};
+
+/**
+ * Overrides the mime type returned by the server (if any).<br/>
+ * <br/>
+ * This may be used, for example, to force a stream to be treated and parsed as
+ * text/xml, even if the server does not report it as such.<br/>
+ * <br/>
+ * This must be done before the send() method is invoked.
+ *
+ * @public
+ * @function
+ * @param {String} mimetype                   This is the mimetype to use to override that returned by the server (if any)
+ */
+GeckoJS.HttpRequest.prototype.overrideMimeType = function(mimetype){
+    try {
+        this.XMLHttpRequest.overrideMimeType(mimetype);
+    }
+    catch (e) {
+    }
+};
+
+/**
+ * Sends the request.<br/>
+ * <br/>
+ * The "body" parameter specifies the request body. It is either an instance of
+ * nsIDOMDocument, nsIInputStream or a string (nsISupportsString in the native
+ * calling case). This is used to populate the body of the HTTP request if the
+ * HTTP request method is "POST".<br/>
+ * <br/>
+ * If the parameter is an nsIDOMDocument, it is serialized. If the parameter is
+ * an nsIInputStream, then it must be compatible with
+ * nsIUploadChannel.setUploadStream, and a Content-Length header will be added
+ * to the HTTP request with a value given by nsIInputStream.available. Any
+ * headers included at the top of the stream will be treated as part of the
+ * message body. The MIME type of the stream should be specified by setting the
+ * Content-Type header via the setRequestHeader method before calling send.<br/>
+ * <br/>
+ * If the request is asynchronous (i.e. the "async" property is "true"), this
+ * method returns immediately after sending the request.<br/>
+ * <br/>
+ * If the request is synchronous, this method returns only after the response
+ * has been received.<br/>
+ * <br/>
+ * All event listeners must be set before calling send().
+ * After the initial response, all event listeners will be cleared
+ *
+ * @public
+ * @function
+ * @param {Object} body                       This is the body of the request
+ */
+GeckoJS.HttpRequest.prototype.send = function(body){
+    try {
+        this.XMLHttpRequest.send(body);
+    }
+    catch (e) {
+    }
+};
+
+
+/**
+ * Sends the request with binary data as the content of a POST request.<br/>
+ * <br>
+ * This method takes a single parameter of type DOMString containing the request
+ * data to send. The DOMString will be converted to a single-byte string by
+ * truncation (i.e., the high-order byte of each character will be discarded)
+ * before it is sent.<br/>
+ * <br/>
+ * This is a variant of the send() method and behaves in an identical manner.
+ *
+ * @public
+ * @function
+ * @param {DOMString} body                    This is the binary data to send
+ */
+GeckoJS.HttpRequest.prototype.sendAsBinary = function(body){
+    try {
+        this.XMLHttpRequest.sendAsBinary(body);
+    }
+    catch (e) {
+    }
+};
+
+
+/**
+ * Aborts the request if it has been sent.
+ *
+ * @public
+ * @function
+ */
+GeckoJS.HttpRequest.prototype.abort = function(){
+    try {
+        this.XMLHttpRequest.abort();
+    }
+    catch (e) {
+    }
+
+};
+
+
+/**
+ * Initializes the request.<br/>
+ * <br/>
+ * This method initializes the HTTP request with the given method and URL, and
+ * optionally sets the async flag as well as the user name and password
+ * credentials for authentication.<br/>
+ * <br/>
+ * This method must be called before request headers can be set.<br/>
+ * <br/>
+ * If there is an "active" request (that is, if open() has been called already),
+ * this is equivalent to calling abort().
+ *
+ * @public
+ * @function
+ * @param {String} method                     This is the HTTP request method
+ * @param {String} url                        This is the URL to which to send the request
+ * @param {Boolean} async                     This flag indicates whether the request is asynchronous
+ * @param {String} user                       This is the username to use for authentication
+ * @param {String} password                   This is the password to use for authentication
+ */
+GeckoJS.HttpRequest.prototype.open = function(method, url, async, user, password){
+    try {
+        this.XMLHttpRequest.open(method, url, async, user, password);
+    }
+    catch (e) {
+    }
+};
+
+
+
+/**
+ * Sends a GET request.<br/>
+ * <br/>
+ * This is a specialized form of the request() method. It provides the
+ * appropriate request settings and options for sending an HTTP GET request.
+ *
+ * @param {String} url                        This is the URL to which to send the request
+ * @param {Object} data                       This is the request data
+ * @param {Object} callback                   This is the "success" event callback
+ * @param {String} type                       This is the requested response data type
+ * @return {Object}                           The response data
+ */
+GeckoJS.HttpRequest.prototype.get = function(url, data, callback, type){
+
+    // shift arguments if data argument was ommited
+    if (GREUtils.isFunction(data)) {
+        callback = data;
+        data = null;
+    }
+
+    return this.request({
+        method: "GET",
+        url: url,
+        data: data,
+        success: callback,
+        dataType: type
+    });
+};
+
+
+/**
+ * Sends a POST request.<br/>
+ * <br/>
+ * This is a specialized form of the request() method. It provides the
+ * appropriate request settings and options for sending an HTTP POST request.
+ *
+ * @public
+ * @function
+ * @param {String} url                        This is the URL to which to send the request
+ * @param {Object} data                       This is the request data
+ * @param {Object} callback                   This is the "success" event callback
+ * @param {String} type                       This is the requested response data type
+ * @return {Object}                           The response data
+ */
+GeckoJS.HttpRequest.prototype.post = function(url, data, callback, type){
+    if (GREUtils.isFunction(data)) {
+        callback = data;
+        data = {};
+    }
+
+    return this.request({
+        method: "POST",
+        url: url,
+        data: data,
+        success: callback,
+        dataType: type
+    });
+};
+
+
+/**
+ * Sends a PUT request.<br/>
+ * <br/>
+ * This is a specialized form of the request() method. It provides the
+ * appropriate request settings and options for sending an HTTP PUT request.
+ *
+ * @public
+ * @function
+ * @param {String} url                        This is the URL to which to send the request
+ * @param {Object} data                       This is the request data
+ * @param {Object} callback                   This is the "success" event callback
+ * @param {String} type                       This is the requested response data type
+ * @return {Object}                           The response data
+ */
+GeckoJS.HttpRequest.prototype.put = function(url, data, callback, type){
+    if (GREUtils.isFunction(data)) {
+        callback = data;
+        data = {};
+    }
+
+    return this.request({
+        method: "PUT",
+        url: url,
+        data: data,
+        success: callback,
+        dataType: type
+    });
+};
+
+
+/**
+ * Sends a DELETE request.<br/>
+ * <br/>
+ * This is a specialized form of the request() method. It provides the
+ * appropriate request settings and options for sending an HTTP DELETE request.
+ *
+ * @public
+ * @function
+ * @param {String} url                        This is the URL to which to send the request
+ * @param {Object} data                       This is the request data
+ * @param {Object} callback                   This is the "success" event callback
+ * @param {String} type                       This is the requested response data type
+ * @return {Object}                           The response data
+ */
+GeckoJS.HttpRequest.prototype.delete_ = function(url, data, callback, type){
+    if (GREUtils.isFunction(data)) {
+        callback = data;
+        data = {};
+    }
+
+    return this.request({
+        method: "DELETE",
+        url: url,
+        data: data,
+        success: callback,
+        dataType: type
+    });
+};
+// Issue the specified request.
+
+GeckoJS.HttpRequest.prototype['delete'] = GeckoJS.HttpRequest.prototype.delete_;
+
+/**
+ * Sends the request.<br/>
+ * <br/>
+ * This is a generic method for sending a request. For normal use, the
+ * specialized request methods should be used.<br/>
+ * <br/>
+ * This method constructs the request options and settings by merging and
+ * overriding the default request settings (the "requestSettings" property) with
+ * additional options and settings given in the input parameter "s", stored as
+ * properties of the object.<br/>
+ * <br/>
+ * This method dispatches a "start" event with the request settings as the event
+ * data before opening the request. A "send" event is dispatched immediately
+ * before the request is sent to the HTTP server, with event data set as an
+ * array containing the string "xml" as the first element, and the collection of
+ * request settings as the second element.<br/>
+ * <br/>
+ * If the request is successful, a "success" event is dispatched with event data
+ * set as an array containing the string "xml" as the first element, and the
+ * collection of request settings as the second element.<br/>
+ * <br/>
+ * When the request completes, a "complete" event is dispatched with event data
+ * set as an array containing the string "xml" as the first element, and the
+ * collection of request settings as the second element.<br/>
+ * <br/>
+ * This method supports callbacks on "success" and "complete" events. These
+ * callbacks are set via the "success" and "complete" request settings. The
+ * callback function will be passed the response data as the first argument and
+ * the request status as the second argument.<br/>
+ * <br/>
+ * If the request is asynchronous, the method returns immediately after sending
+ * the request. A "timeout" option may be set that causes the request to abort
+ * if it has not completed after a given amount of time (in milliseconds) has
+ * elapsed. A request that times out is considered to have completed
+ * successfully.<br/>
+ * <br/>
+ * If the request is synchronous, this method returns only after the response
+ * has been received.<br/>
+ * <br/>
+ * If the request completes successfully, this method returns the response data.
+ * The content-type header from the response headers should be examined to
+ * determine the type of the response data.
+ *
+ * @public
+ * @function
+ * @param {Object} s                          This is a collection of additional request options and settings
+ * @return {Object}                           The reponse data
+ */
+GeckoJS.HttpRequest.prototype.request = function(s){
+
+    var status, data, timeoutObj;
+
+    // Extend the settings
+    s = GREUtils.extend({}, this.requestSettings, s);
+
+    // convert data if not already a string
+    if (s.data && s.processData && typeof s.data != "string")
+        s.data = GeckoJS.String.httpBuildQuery(s.data);
+
+    if (s.dataType == "script" && s.cache == null)
+        s.cache = false;
+
+    if (s.cache === false && s.method.toLowerCase() == "get") {
+        var ts = (new Date()).getTime();
+        // try replacing _= if it is there
+        var ret = s.url.replace(/(\?|&)_=.*?(&|$)/, "$1_=" + ts + "$2");
+        // if nothing was replaced, add timestamp to the end
+        s.url = ret + ((ret == s.url) ? (s.url.match(/\?/) ? "&" : "?") + "_=" + ts : "");
+    }
+
+    // If data is available, append data to url for get requests
+    if (s.data && s.method.toLowerCase() == "get") {
+        s.url += (s.url.match(/\?/) ? "&" : "?") + s.data;
+        s.data = null;
+    }
+
+    // Watch for a new set of requests
+    // dispatch start event
+    this.events.dispatch('start', s);
+
+    var requestDone = false;
+
+    var xml = this;
+    var req = xml.XMLHttpRequest;
+
+    s.accepts = GeckoJS.HttpRequest.requestAccepts;
+
+    // Open the socket
+    xml.open(s.method, s.url, s.async, s.username, s.password);
+
+    // Need an extra try/catch for cross domain requests in Firefox 3
+    try {
+        // Set the correct header, if data is being sent
+        if (s.data)
+            xml.setRequestHeader("Content-Type", s.contentType);
+
+        // Set the If-Modified-Since header, if ifModified mode.
+        if (s.ifModified)
+            xml.setRequestHeader("If-Modified-Since", this._lastModified[s.url] || "Thu, 01 Jan 1970 00:00:00 GMT");
+
+        // Set header so the called script knows that it's an XMLHttpRequest
+        xml.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+
+        // Set the Accepts header for the server, depending on the dataType
+        xml.setRequestHeader("Accept", s.dataType && s.accepts[s.dataType] ? s.accepts[s.dataType] + ", */*" : s.accepts._default);
+
+    }
+    catch (e) {
+        this.events.dispatch('error', e);
+    }
+
+    // dispatch send event
+    this.events.dispatch('send', [xml, s]);
+
+    var onreadystatechange = function(aEvt){
+        if (!requestDone && req && (xml.readyState == 4 || aEvt == "timeout")) {
+
+            // clear Timeout Timer
+            clearTimeout(timeoutObj);
+            
+            requestDone = true;
+            status = "success";
+            data = xml.responseData;
+            data = GeckoJS.HttpRequest.httpData(data, s.dataType);
+            success();
+            complete();
+        }
+        else {
+            dump("Error loading page\n");
+        }
+    };
+
+    if (s.async) {
+        // In asynchronous usage, you get a callback when the data has been received
+        req.onreadystatechange = onreadystatechange;
+    }
+
+    // Timeout checker
+    if (s.timeout > 0)
+        timeoutObj = setTimeout(function(){
+            // Check to see if the request is still happening
+            if (xml) {
+                // Cancel the request
+                xml.abort();
+
+                if (!requestDone)
+                    onreadystatechange("timeout");
+
+                clearTimeout(timeoutObj);
+            }
+        }, s.timeout);
+
+    // Send the data
+    try {
+        xml.send(s.data);
+    }
+    catch (e) {
+        this.events.dispatch('error', e);
+    }
+
+    // gecko doesn't fire statechange for sync requests
+    if (!s.async)
+        onreadystatechange();
+
+
+    function success(){
+        // If a local callback was specified, fire it and pass it the data
+        if (s.success)
+            s.success(data, status);
+
+        // Fire the global callback
+        xml.events.dispatch('success', [xml, s]);
+    }
+
+    function complete(){
+        // Process result
+        if (s.complete)
+            s.complete(data, status);
+
+        // The request was completed
+        xml.events.dispatch('complete', [xml, s]);
+    }
+
+    // return Data.
+    return data;
+};
+
+/**
+ * Restores a JavaScript object from its JSON representation.<br/>
+ * <br/>
+ * If type given is "json", decodes the JSON data  into the corresponding
+ * object. Otherwise simply returns the data.
+ *
+ * @public
+ * @static
+ * @function
+ * @param {Object} data                       This is the data
+ * @param {String} type                       This is the data type
+ * @return {Object}                           The JavaScript object represented by the JSON
+ */
+GeckoJS.HttpRequest.httpData = function(data, type){
+
+    /*
+     // If the type is "script", eval it in global context
+     if ( type == "script" )
+     jQuery.globalEval( data );
+     */
+    // Get the JavaScript object, if JSON is used.
+    if (type == "json")
+        data = GREUtils.JSON.decode(data);
+
+    return data;
+
+};
+/**
+ * GeckoJS.Application is a namespace for application-wide Singleton objects.
+ * <br/>
+ * @namespace 
+ * @name GeckoJS.Application
+ */
+GREUtils.define('GeckoJS.Application', GeckoJS.global);
+
+/**
+ * This is the Application Session singleton.<br/>
+ * 
+ * @public
+ * @static
+ * @property {GeckoJS.Application.Session} Session
+ */ 
+GeckoJS.Application.Session = GeckoJS.Session.getInstance();
+
+/**
+ * This is the Application Configuration singleton.<br/>
+ *
+ * @public
+ * @static
+ * @property {GeckoJS.Application.Configure} Configure
+ */ 
+GeckoJS.Application.Configure = GeckoJS.Configure.getInstance();
+
+// auto load vivipos preferences to configure entry
+GeckoJS.Application.Configure.loadPreferences('vivipos');
+
+/**
+ * This is the Application ClassRegistry singleton.<br/>
+ * 
+ * @public
+ * @static
+ * @property {GeckoJS.Application.ClassRegistry} ClassRegistry
+ */
+GeckoJS.Application.ClassRegistry = GeckoJS.ClassRegistry.getInstance();
+
+// GeckoJS.Application.Dispatcher = GeckoJS.Dispatcher.getInstance();
+
+/**
+ * This is the Application StringBundle singleton.<br/>
+ *
+ * @public
+ * @static
+ * @property {GeckoJS.Application.StringBundle} StringBundle
+ */ 
+GeckoJS.Application.StringBundle = GeckoJS.StringBundle.getInstance();
+
+/**
+ * This is the Application I18n singleton.<br/>
+ * 
+ * @public
+ * @static
+ * @property {GeckoJS.Application.I18n} I18n
+ */ 
+GeckoJS.Application.I18n = GeckoJS.I18n.getInstance();
+
+/**
+ * This is the Application ConnectionManager singleton.<br/>
+ * 
+ * @public
+ * @static
+ * @property {GeckoJS.Application.I18n} ConnectionManager Application ConnectionManager Singleton
+ */ 
+GeckoJS.Application.ConnectionManager = GeckoJS.ConnectionManager.getInstance();
+
+
+/*
+ * Initial Logging System
+ */
+GeckoJS.Log.init("WARN");
+GeckoJS.Log.addAppender('console', new GeckoJS.Log.ConsoleAppender(GeckoJS.Log.WARN));
+
