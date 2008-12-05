@@ -1839,7 +1839,7 @@
 
                     // clear selection on a layout change
                     if (currentStack) {
-                        if (layout == null) layout = 'global';
+                        //if (layout == null) layout = 'global';
                         this.setSelection(false, currentStack, 'global');
                     }
                     this._selectedNode1 = null;
