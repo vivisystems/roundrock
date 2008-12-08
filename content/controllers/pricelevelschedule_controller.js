@@ -118,6 +118,24 @@
             }
         },
 
+        testJS: function() {
+            var global = this;
+            var obj = {};
+
+            // var loader = Components.classes["@mozilla.org/moz/jssubscriptloader;1"].getService(Components.interfaces.mozIJSSubScriptLoader);
+            var loader = GREUtils.XPCOM.getUsefulService("jssubscript-loader");
+            loader.loadSubScript("data:text/plain,var a=1", obj)
+            loader.loadSubScript("data:text/plain,this.b=1", obj)
+            loader.loadSubScript("data:text/plain,c=1", obj)
+            loader.loadSubScript("data:text/plain,function f(){}", obj)
+            
+            alert(obj.toSource()); // ({a:1, b:1, f:function f() {}})
+            alert("a" in global); // false
+            alert("b" in global); // false
+            alert(global.c); // 1
+
+        },
+
         updateSession: function() {
             this.load();
             GeckoJS.Session.add('pricelevelSchedule', this._listDatas);
