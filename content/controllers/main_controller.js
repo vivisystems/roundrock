@@ -198,7 +198,6 @@
                 if (userRecord && userRecord.length > 0) {
                     var userPriceLevel = parseInt(userRecord[0].default_price_level);
                     var canOverride = (GeckoJS.Array.inArray('vivipos_fec_acl_override_system_price_level', user.Roles) != -1);
-                    canOverride = true;
 
                     if (userPriceLevel && !isNaN(userPriceLevel) && userPriceLevel > 0 && userPriceLevel < 10 && canOverride) {
                         $do('change', userPriceLevel, 'Pricelevel');
@@ -209,9 +208,10 @@
                 if (!priceLevelSet) {
                     var systemDefaultPriceLevel = parseInt(GeckoJS.Configure.read('vivipos.fec.settings.DefaultPriceLevel'));
                     if (!isNaN(systemDefaultPriceLevel) && systemDefaultPriceLevel > 0 && systemDefaultPriceLevel < 10) {
-                        $do('change', systemDefaultPriceLevel, 'Pricelevel');
+                        //$do('change', systemDefaultPriceLevel, 'Pricelevel');
                         GeckoJS.Session.set('default_price_level', systemDefaultPriceLevel);
                     }
+                    $do('changeToCurrentLevel', null, 'Pricelevel');
                 }
             }
         },
