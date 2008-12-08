@@ -683,10 +683,11 @@
         var rows = this.panel.rows;
         var columns = this.panel.columns;
         var page = document.getElementById('vivifuncpanelecr_prefs_layout_page_number').value;
-     
-        //GREUtils.log('[MergeButtons]: setting up - layout <' + GeckoJS.BaseObject.dump(existingLayout) + '> page <' + page + '> extent <' +
-        //           GeckoJS.BaseObject.dump(extent) + '>');
 
+/*
+        GREUtils.log('[MergeButtons]: setting up - layout <' + GeckoJS.BaseObject.dump(existingLayout) + '> page <' + page + '> extent <' +
+                   GeckoJS.BaseObject.dump(extent) + '>');
+*/
         var layout = [];
         var c, r;
         var w = extent.column2 - extent.column1 + 1;
@@ -713,11 +714,13 @@
         }
         else {
             // overlay merged button on top of existing layout
-            // first remove all buttons whose id fall within the selection extent
+            // first remove all buttons whose extent falls completely within the selection extent
             for (var i = 0; i < existingLayout.length; i++) {
                 var entry = existingLayout[i].split(',');
                 if ((entry[0] < extent.row1) || (entry[0] > extent.row2) ||
-                    (entry[1] < extent.column1) || (entry[1] > extent.column2)) {
+                    (entry[1] < extent.column1) || (entry[1] > extent.column2) ||
+                    ((entry[0] - (- entry[2]) - 1) < extent.row1) || ((entry[0] - (- entry[2]) - 1) > extent.row2) ||
+                    ((entry[1] - (- entry[3]) - 1) < extent.column1) || ((entry[1] - (- entry[3]) - 1) > extent.column2)) {
                     layout.push(existingLayout[i]);
                 }
             }

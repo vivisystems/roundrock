@@ -104,6 +104,11 @@
     list-style-image: url(chrome://viviecr/skin/images/gtk-yes.png);
 }
 
+#leftPanel #prodscrollablepanel vivibutton[selected] {
+    list-style-image: url(chrome://viviecr/skin/images/none-existent.png);
+}
+
+
 .font-xlarge {
     font-weight: bold !important;
     font-size: 18px;
