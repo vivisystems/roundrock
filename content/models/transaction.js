@@ -904,45 +904,50 @@
 
         if (item.type == 'item') {
 
-            condiments.forEach(function(condiment){
-                var condimentItem = {
-                    id: item.id,
-                    name: condiment.name,
-                    current_subtotal: (this.getRoundedPrice(condiment.price) == 0) ? '' : this.formatPrice(this.getRoundedPrice(condiment.price))
-                };
-
-                if(item.condiments == null) item.condiments = {};
-
-                item.condiments[condiment.name] = condiment;
-
-                // up
-                var itemDisplay = this.createDisplaySeq(itemIndex, condimentItem, 'condiment');
-
-                var lastIndex = this.data.display_sequences.length - 1;
-                this.data.display_sequences.splice(lastIndex+1,0,itemDisplay);
-
-            }, this);
-
             if (condiments.length >0) {
 
-                var roundedPrice = this.getRoundedPrice(item.current_price) || 0;
-                var roundedSubtotal = this.getRoundedPrice(item.current_qty*item.current_price) || 0;
-                var roundedCondiment = 0;
+                condiments.forEach(function(condiment){
 
-                for(var cn in item.condiments) {
-                    roundedCondiment += parseFloat(item.condiments[cn].price)*item.current_qty;
-                }
+                    // this extra check is a workaround for the bug in XULRunner where an item may appear to be selected
+                    // but is actually not
+                    if (condiment) {
+                        var condimentItem = {
+                            id: item.id,
+                            name: condiment.name,
+                            current_subtotal: (this.getRoundedPrice(condiment.price) == 0) ? '' : this.formatPrice(this.getRoundedPrice(condiment.price))
+                        };
 
-                roundedCondiment = this.getRoundedPrice(roundedCondiment);
+                        if(item.condiments == null) item.condiments = {};
 
-                item.current_Condiment = roundedCondiment;
-                item.current_subtotal = roundedSubtotal + roundedCondiment;
+                        item.condiments[condiment.name] = condiment;
 
-                itemDisplay.current_subtotal = this.formatPrice(item.current_subtotal);
+                        // up
+                        var itemDisplay = this.createDisplaySeq(itemIndex, condimentItem, 'condiment');
 
-                this.calcItemsTax();
+                        var lastIndex = this.data.display_sequences.length - 1;
+                        this.data.display_sequences.splice(lastIndex+1,0,itemDisplay);
 
-                this.calcTotal();
+                        var roundedPrice = this.getRoundedPrice(item.current_price) || 0;
+                        var roundedSubtotal = this.getRoundedPrice(item.current_qty*item.current_price) || 0;
+                        var roundedCondiment = 0;
+
+                        for(var cn in item.condiments) {
+                            roundedCondiment += parseFloat(item.condiments[cn].price)*item.current_qty;
+                        }
+
+                        roundedCondiment = this.getRoundedPrice(roundedCondiment);
+
+                        item.current_Condiment = roundedCondiment;
+                        item.current_subtotal = roundedSubtotal + roundedCondiment;
+
+                        itemDisplay.current_subtotal = this.formatPrice(item.current_subtotal);
+
+                        this.calcItemsTax();
+
+                        this.calcTotal();
+                    }
+                }, this);
+
             }
 
         }
