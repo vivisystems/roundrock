@@ -84,6 +84,7 @@
                 currentLevel = (++currentLevel <= this.limit) ? (currentLevel) : 1;
                 GeckoJS.Session.set('vivipos_fec_price_level', currentLevel);
             }
+            GeckoJS.Session.set('cart_last_sell_item', null);
         },
 
         change: function(level) {
