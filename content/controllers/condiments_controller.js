@@ -108,7 +108,7 @@
                     index: "name",
                     value: inputData.name
                 });
-                if (condGroups != null) {
+                if ((condGroups != null) && (condGroups.length > 0)) {
                     alert("The Group (" + inputData.name + ") is exist..");
                     return;
                 }
@@ -221,7 +221,7 @@
                     index: "name",
                     value: inputData.name
                 });
-                if (conds != null) {
+                if ((conds != null) && (conds.length > 0)) {
                     alert("The Condiment (" + inputData.name + ") already exists..");
                     return;
                 }
