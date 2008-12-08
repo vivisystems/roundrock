@@ -1,4 +1,4 @@
-<!ENTITY    cart.item.name        "Item">
+<!ENTITY    cart.item.name        "Product Name">
 <!ENTITY    cart.item.qty         "QTY">
 <!ENTITY    cart.item.unitprice   "@">
 <!ENTITY    cart.item.subtotal    "Subtotal">
