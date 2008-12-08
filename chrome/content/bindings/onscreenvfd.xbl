@@ -12,19 +12,23 @@
         <content>
             <xul:hbox flex="1" xbl:inherits="orient,align">
                 <xul:label anonid="labelVfd" hidden="true" class="label_vfd" xbl:inherits="class=labelClass,value"></xul:label>
-
+                <hbox>
+                    <xul:label anonid="label0_0" flex="1" class="label_vfd" xbl:inherits="class=labelClass,value"></xul:label>
+                    <xul:label anonid="label0_1" class="label_vfd" xbl:inherits="class=labelClass,value"></xul:label>
+                </hbox>
                 <xul:grid flex="1">
                     <xul:columns>
                         <xul:column flex="2" />
                         <xul:column flex="1" />
                     </xul:columns>
                     <xul:rows flex="1">
-                        <xul:row flex="1">
+                        <!-- xul:row flex="1">
                             <xul:label anonid="label0_0" flex="1" class="label_vfd" xbl:inherits="class=labelClass,value"></xul:label>
-                            <xul:label anonid="label1_0" class="label_vfd" xbl:inherits="class=labelClass,value"></xul:label>
-                        </xul:row>
-                        <xul:row>
                             <xul:label anonid="label0_1" class="label_vfd" xbl:inherits="class=labelClass,value"></xul:label>
+                        </xul:row -->
+                        <xul:row>
+                            <xul:label anonid="label1_0" style="width:180px;" class="label_vfd" xbl:inherits="class=labelClass,value"></xul:label>
+                            
                             <xul:label anonid="label1_1" flex="1" class="label_vfd" xbl:inherits="class=labelClass,value"></xul:label>
                         </xul:row>
                     </xul:rows>
@@ -35,7 +39,7 @@
   
         <xbl:implementation>
 	
-            <xbl:field name="_maxlen">25</xbl:field>
+            <xbl:field name="_maxlen">13</xbl:field>
             <xbl:field name="roundPrecision">0</xbl:field>
             <field name="_label0_0">null</field>
             <field name="_label0_1">null</field>
@@ -61,7 +65,7 @@
                 this.onGetSubtotal = function(evt) {
                     var transaction = evt.data;
                     if (transaction) {
-                        self.setText0_0(_('** TOTAL **'));
+                        self.setText0_0(_('TOTAL: '));
                         self.setText0_1(transaction.getTotal(true));
                         self.setText1_1(_('REM') + ': ' + transaction.getRemainTotal(true));
                         self.setText1_0(_('PAY') + ': ' + transaction.getPaymentSubtotal(true));
@@ -100,7 +104,7 @@
                     }
 
                     self.setText0_1(total);
-                    self.setText0_0(_('** TOTAL **'));
+                    self.setText0_0(_('TOTAL: '));
                     self.setText1_1(_('REM') + ': ' + remain);
                     self.setText1_0(_('PAY') + ': ' + payment);
 
