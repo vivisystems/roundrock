@@ -1155,36 +1155,53 @@
     };
 
     Transaction.prototype.getPriceLevelPrice = function(priceLevel, item) {
-        
-        if (typeof item['price_level'+priceLevel] !='undefined'){
-            var price = parseFloat(item['price_level'+priceLevel]);
-            if (!isNaN(price)) {
-                return price;
+        var price = null;
+
+        if (typeof item['level_enabled'+priceLevel] !='undefined' && item['level_enabled'+priceLevel]){
+            if (item['price_level'+priceLevel].length > 0) {
+                price = parseFloat(item['price_level'+priceLevel]);
             }
         }
-        return parseFloat(item['price_level']);
+        if (price == null || isNaN(price)) {
+            if (typeof item['price_level1'] !='undefined'){
+                price = parseFloat(item['price_level1']);
+            }
+        }
+        return price;
 
     };
 
     Transaction.prototype.getPriceLevelHalo = function(priceLevel, item) {
         
-        if (typeof item['halo'+priceLevel] !='undefined') {
-            if(item['halo'+priceLevel].length > 0) {
-                return parseFloat(item['halo'+priceLevel]);
+        var price = null;
+        if (typeof item['level_enabled'+priceLevel] !='undefined' && item['level_enabled'+priceLevel]){
+            if (item['halo'+priceLevel].length > 0) {
+                price = parseFloat(item['halo'+priceLevel]);
             }
         }
-        return parseFloat(item['halo']);
+        if (price == null || isNaN(price)) {
+            if (typeof item['halo1'] !='undefined'){
+                price = parseFloat(item['halo1']);
+            }
+        }
+        return price;
 
     };
 
     Transaction.prototype.getPriceLevelLalo = function(priceLevel, item) {
 
-        if (typeof item['lalo'+priceLevel] !='undefined') {
-            if(item['lalo'+priceLevel].length > 0) {
-                return parseFloat(item['lalo'+priceLevel]);
+        var price = null;
+        if (typeof item['level_enabled'+priceLevel] !='undefined' && item['level_enabled'+priceLevel]){
+            if (item['lalo'+priceLevel].length > 0) {
+                price = parseFloat(item['lalo'+priceLevel]);
             }
         }
-        return parseFloat(item['lalo']);
+        if (price == null || isNaN(price)) {
+            if (typeof item['lalo1'] !='undefined'){
+                price = parseFloat(item['lalo1']);
+            }
+        }
+        return price;
 
     };
 

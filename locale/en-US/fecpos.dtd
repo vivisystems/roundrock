@@ -23,8 +23,8 @@
 <!ENTITY vivipos.fec.settings.rounding.to-nearest-dime "to nearest dime">
 <!ENTITY vivipos.fec.settings.rounding.always-round-up "always round up">
 <!ENTITY vivipos.fec.settings.rounding.always-round-down "always round down">
-<!ENTITY vivipos.fec.settings.activepricelevelschedule "Active Schedulable Price Level">
-<!ENTITY vivipos.fec.settings.pricelevelrevert "Price Level Revert to Schedule">
+<!ENTITY vivipos.fec.settings.activepricelevelschedule "Activate Price Level Schedule">
+<!ENTITY vivipos.fec.settings.pricelevelrevert "Price Level Reverts to Schedule after Each Order">
 <!ENTITY vivipos.fec.settings.changedepartmentclearbuffer "clear key buffer when change department">
 
 <!ENTITY vivipos.fec.common.ok "Ok">

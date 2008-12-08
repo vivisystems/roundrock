@@ -285,6 +285,14 @@ pref("vivipos.fec.registry.function.programmable.currencyConvert.desc", "This fu
 pref("vivipos.fec.registry.function.programmable.currencyConvert.label", "Currency Exchange");
 pref("vivipos.fec.registry.function.programmable.currencyConvert.name", "Currency Exchange");
 
+pref("vivipos.fec.registry.function.programmable.changeToCurrentLevel.access", "manager");
+pref("vivipos.fec.registry.function.programmable.changeToCurrentLevel.command", "changeToCurrentLevel");
+pref("vivipos.fec.registry.function.programmable.changeToCurrentLevel.controller", "Pricelevel");
+pref("vivipos.fec.registry.function.programmable.changeToCurrentLevel.data", "");
+pref("vivipos.fec.registry.function.programmable.changeToCurrentLevel.desc", "This function resets the current price level. If the price level schedule is active, the currently scheduled level is restored. If the price level schedule is not active, or if no schedule has been defined, the price level reverts to the system/user default. No parameter is needed.");
+pref("vivipos.fec.registry.function.programmable.changeToCurrentLevel.label", "Reset Price Level");
+pref("vivipos.fec.registry.function.programmable.changeToCurrentLevel.name", "Reset Price Level");
+
 pref('vivipos.fec.registry.comm.port1.id', 'port1');
 pref('vivipos.fec.registry.comm.port1.name', 'COM1');
 pref('vivipos.fec.registry.comm.port1.path', '/dev/ttya');

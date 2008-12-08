@@ -221,55 +221,55 @@
                                                     <label value="&vivipos.fec.plus.lalo;" />
                                                 </row>
                                                 <row>
-                                                    <checkbox id="level_enable1" value="0" label="1." form="productForm" name="level_enable1" default="0"/>
+                                                    <checkbox id="level_enabled1" value="1" label="1." form="productForm" name="level_enabled1" default="1" checked="true" disabled="true"/>
                                                     <textbox id="price_level1" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="price_level1" size="10" class="geneditbox right"/>
                                                     <textbox id="halo1" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="halo1" size="10" class="geneditbox right"/>
                                                     <textbox id="lalo1" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="lalo1" size="10"/>
                                                 </row>
                                                 <row>
-                                                    <checkbox id="level_enable2" value="0" label="2." form="productForm" name="level_enable2" default="0"/>
+                                                    <checkbox id="level_enabled2" value="0" label="2." form="productForm" name="level_enabled2" default="0"/>
                                                     <textbox id="price_level2" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="price_level2" size="10"/>
                                                     <textbox id="halo2" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="halo2" size="10"/>
                                                     <textbox id="lalo2" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="lalo2" size="10"/>
                                                 </row>
                                                 <row>
-                                                    <checkbox id="level_enable3" value="0" label="3." form="productForm" name="level_enable3" default="0"/>
+                                                    <checkbox id="level_enabled3" value="0" label="3." form="productForm" name="level_enabled3" default="0"/>
                                                     <textbox id="price_level3" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="price_level3" size="10"/>
                                                     <textbox id="halo3" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="halo3" size="10"/>
                                                     <textbox id="lalo3" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="lalo3" size="10"/>
                                                 </row>
                                                 <row>
-                                                    <checkbox id="level_enable4" value="0" label="4." form="productForm" name="level_enable4" default="0"/>
+                                                    <checkbox id="level_enabled4" value="0" label="4." form="productForm" name="level_enabled4" default="0"/>
                                                     <textbox id="price_level4" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="price_level4" size="10"/>
                                                     <textbox id="halo4" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="halo4" size="10"/>
                                                     <textbox id="lalo4" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="lalo4" size="10"/>
                                                 </row>
                                                 <row>
-                                                    <checkbox id="level_enable5" value="0" label="5." form="productForm" name="level_enable5" default="0"/>
+                                                    <checkbox id="level_enabled5" value="0" label="5." form="productForm" name="level_enabled5" default="0"/>
                                                     <textbox id="price_level5" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="price_level5" size="10"/>
                                                     <textbox id="halo5" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="halo5" size="10"/>
                                                     <textbox id="lalo5" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="lalo5" size="10"/>
                                                 </row>
                                                 <row>
-                                                    <checkbox id="level_enable6" value="0" label="6." form="productForm" name="level_enable6" default="0"/>
+                                                    <checkbox id="level_enabled6" value="0" label="6." form="productForm" name="level_enabled6" default="0"/>
                                                     <textbox id="price_level6" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="price_level6" size="10"/>
                                                     <textbox id="halo6" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="halo6" size="10"/>
                                                     <textbox id="lalo6" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="lalo6" size="10"/>
                                                 </row>
                                                 <row>
-                                                    <checkbox id="level_enable7" value="0" label="7." form="productForm" name="level_enable7" default="0"/>
+                                                    <checkbox id="level_enabled7" value="0" label="7." form="productForm" name="level_enabled7" default="0"/>
                                                     <textbox id="price_level7" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="price_level7" size="10"/>
                                                     <textbox id="halo7" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="halo7" size="10"/>
                                                     <textbox id="lalo7" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="lalo7" size="10"/>
                                                 </row>
                                                 <row>
-                                                    <checkbox id="level_enable8" value="0" label="8." form="productForm" name="level_enable8" default="0"/>
+                                                    <checkbox id="level_enabled8" value="0" label="8." form="productForm" name="level_enabled8" default="0"/>
                                                     <textbox id="price_level8" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="price_level8" size="10"/>
                                                     <textbox id="halo8" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="halo8" size="10"/>
                                                     <textbox id="lalo8" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="lalo8" size="10"/>
                                                 </row>
                                                 <row>
-                                                    <checkbox id="level_enable9" value="0" label="9." form="productForm" name="level_enable9" default="0"/>
+                                                    <checkbox id="level_enabled9" value="0" label="9." form="productForm" name="level_enabled9" default="0"/>
                                                     <textbox id="price_level9" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="price_level9" size="10"/>
                                                     <textbox id="halo9" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="halo9" size="10"/>
                                                     <textbox id="lalo9" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="lalo9" size="10"/>
