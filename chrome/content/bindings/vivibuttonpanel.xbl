@@ -371,7 +371,9 @@
             var buttons = this.buttons;
            
             for(let i=0; i < buttonCount ; i++) {
-                $(buttons[i]).css({width: btnWidth, height: btnHeight});
+		       buttons[i].style['width'] = btnWidth +'px';
+	           buttons[i].style['height'] = btnHeight +'px';
+               buttons[i].resizeLabel(btnWidth, btnHeight);
             } 
 
         ]]>  
