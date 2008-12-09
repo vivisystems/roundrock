@@ -2,7 +2,6 @@
  * Initial GREUtils and GeckoJS
  */
 (function(){
-//var loader = window.jssubscript_loader = Components.classes["@mozilla.org/moz/jssubscript-loader;1"].getService(Components.interfaces.mozIJSSubScriptLoader);
 var loader = window.jssubscript_loader = Components.classes["@firich.com.tw/jssubscript_loader;1"].getService(Components.interfaces.mozIJSSubScriptLoader);
 
 window.include = function include(src, scope) {
@@ -46,10 +45,6 @@ include("chrome://global/content/globalOverlay.js");
 var shortDispatcher = {};
 window['gDispatch'] = window['$do'] = shortDispatcher['gDispatch'] = shortDispatcher['$do'] = function(){
 
-    ///var ww = GREUtils.XPCOM.getUsefulService("window-watcher");
-
-    // ww.activeWindow = window;
-
     var args = [];
 
 	// add window context
@@ -69,10 +64,6 @@ window.goRestartApplication = function goRestartApplication()
     if (!canQuitApplication())
         return false;
 
-    //  var appStartup = Components.classes['@mozilla.org/toolkit/app-startup;1'].
-    //                     getService(Components.interfaces.nsIAppStartup);
-    //  appStartup.quit(Components.interfaces.nsIAppStartup.eRestart | Components.interfaces.nsIAppStartup.eAttemptQuit);
-
     GREUtils.restartApplication();
     return true;
 };
@@ -82,8 +73,6 @@ window.toOpenWindowByType = function toOpenWindowByType(inType, uri) {
     var winopts = "chrome,extrachrome,menubar,resizable,scrollbars,status,toolbar";
     window.open(uri, "_blank", winopts);
 };
-
-
 
 
 })();
