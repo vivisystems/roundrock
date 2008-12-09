@@ -60,14 +60,14 @@ vivibutton {
 .button-box {
   -moz-appearance: button-focus;
   border: 1px solid transparent;
-  padding-top: 1px;
-  padding-bottom: 2px;
-  -moz-padding-start: 3px;
-  -moz-padding-end: 4px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  -moz-padding-start: 0px;
+  -moz-padding-end: 0px;
 }
 
 .button-icon {
-  margin-right: 2px;
+  margin-right: 0px;
 }
 
 .button-text {
