@@ -2,43 +2,38 @@
  * Initial GREUtils and GeckoJS
  */
 (function(){
-var loader = window.jssubscript_loader = Components.classes["@mozilla.org/moz/jssubscript-loader;1"].getService(Components.interfaces.mozIJSSubScriptLoader);
+//var loader = window.jssubscript_loader = Components.classes["@mozilla.org/moz/jssubscript-loader;1"].getService(Components.interfaces.mozIJSSubScriptLoader);
+var loader = window.jssubscript_loader = Components.classes["@firich.com.tw/jssubscript_loader;1"].getService(Components.interfaces.mozIJSSubScriptLoader);
 
 window.include = function include(src, scope) {
-    scope = scope || window;
 
     try {
-
-        loader.loadSubScript(src, scope);
-
-    }catch(e) {
-        // error loadSubscript
-    }
+        if(scope) loader.loadSubScript(src, scope);
+	else loader.loadSubScript(src);
+   }catch(e) {
+//	alert(e.message);
+  }
 };
-
 
 // include jquery
 if(typeof window.jQuery == 'undefined') {
-    include("resource://app/modules/jquery-1.2.6.js");
-	include("resource://app/modules/jquery.qsa.js");
-	include("resource://app/modules/jquery.form.js");
+    include("chrome://vivipos/content/libs/jquery-1.2.6.js");
+    include("chrome://vivipos/content/libs/jquery.qsa.js");
+    include("chrome://vivipos/content/libs/jquery.form.js");
 }
 
 // include date-js
 if (typeof Date.CultureInfo == 'undefined') {
-	include("resource://app/modules/date.js");
+    include("chrome://vivipos/content/libs/date.js");
 }
 
-//Components.utils.import("resource://app/modules/GREUtils.jsm", window);
-//Components.utils.import("resource://app/modules/GeckoJS.jsm", window);
-
 if(typeof GREUtils == 'undefined') {
-    include("resource://app/modules/GREUtils.js");
+    include("chrome://vivipos/content/libs/GREUtils.js");
 //    GREUtils.global = window || this;
 }
 
 if (typeof GeckoJS == 'undefined') {
-    include("resource://app/modules/GeckoJS.js");
+      include("chrome://vivipos/content/libs/GeckoJS.jsc");
 //    GeckoJS.global = window  || this;
 }
 
