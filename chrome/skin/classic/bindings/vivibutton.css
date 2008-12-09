@@ -57,6 +57,9 @@ vivibutton {
   color: ButtonText;
 }
 
+vivibutton description {
+    margin: 0px 0px 0px 0px;
+}
 .button-box {
   -moz-appearance: button-focus;
   border: 1px solid transparent;
@@ -67,7 +70,7 @@ vivibutton {
 }
 
 .button-icon {
-  margin-right: 2px;
+  margin-right: 0px;
 }
 
 .button-text {
