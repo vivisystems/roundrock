@@ -195,9 +195,10 @@
                 });
 
                 var priceLevelSet = false;
+
                 if (userRecord && userRecord.length > 0) {
                     var userPriceLevel = parseInt(userRecord[0].default_price_level);
-                    var canOverride = (GeckoJS.Array.inArray('vivipos_fec_acl_override_system_price_level', user.Roles) != -1);
+                    var canOverride = (GeckoJS.Array.inArray('acl_user_override_default_price_level', user.Roles) != -1);
 
                     if (userPriceLevel && !isNaN(userPriceLevel) && userPriceLevel > 0 && userPriceLevel < 10 && canOverride) {
                         $do('change', userPriceLevel, 'Pricelevel');
@@ -450,73 +451,103 @@
                 this.ChangeUserDialog();
             }
         },
-        
-        signOff: function () {
+
+        quickUserSwitch: function (newUser) {
+            // check if has buffer (password)
+            var buf = this._getKeypadController().getBuffer();
+            if (buf.length>0) {
+                this._getKeypadController().clearBuffer();
+                if (this.Acl.securityCheck(newUser, buf, true)) {
+                    // sign out existing user
+
+                    this.signOff(true);
+                    this.signIn({username:newUser, password:buf});
+                    if (this.getUserPrincipal()) {
+                        this.setClerk();
+                    }
+                }
+
+            }
+        },
+
+        signOff: function (quickSignoff) {
             var autoDiscardCart = GeckoJS.Configure.read('vivipos.fec.settings.autodiscardcart');
             var autoDiscardQueue = GeckoJS.Configure.read('vivipos.fec.settings.autodiscardqueue');
             var mustEmptyQueue = GeckoJS.Configure.read('vivipos.fec.settings.mustemptyqueue');
 
+            if (quickSignoff) {
+                autoDiscardCart = false;
+                autoDiscardQueue = false;
+                mustEmptyQueue = false;
+            }
+
             var principal = this.Acl.getUserPrincipal();
             if (principal) {
-                var canQueueOrder = (GeckoJS.Array.inArray('vivipos_fec_acl_queue_order', principal.Roles) != -1);
+                var canQueueOrder = quickSignoff || (GeckoJS.Array.inArray('acl_queue_order', principal.Roles) != -1);
                 var txn = GeckoJS.Session.get('current_transaction');
 
-                var promptDiscardCart = (txn != null) && (!txn.isSubmit()) && (txn.getItemsCount() > 0) && (!autoDiscardCart);
-                var responseDiscardCart = 2;  // 0: queue, 1: discard, 2: cancel
+                if (quickSignoff) {
+                    var promptDiscardCart = (txn != null) && (!txn.isSubmit()) && (txn.getItemsCount() > 0) && (!autoDiscardCart);
+                    var responseDiscardCart = 2;  // 0: queue, 1: discard, 2: cancel
 
-                if (promptDiscardCart) {
-                    if (autoDiscardQueue || mustEmptyQueue || !canQueueOrder) {
-                        if (!GREUtils.Dialog.confirm(null, 'Sign Off', 'Discard items that have been registered?')) return;
-                        responseDiscardCart = 1;
-                    }
-                    else {
-                        var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
-                                                .getService(Components.interfaces.nsIPromptService);
-                        var check = {value: false};
+                    if (promptDiscardCart) {
+                        if (autoDiscardQueue || mustEmptyQueue || !canQueueOrder) {
+                            if (!GREUtils.Dialog.confirm(null, 'Sign Off', 'Discard items that have been registered?')) return;
+                            responseDiscardCart = 1;
+                        }
+                        else {
+                            var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+                                                    .getService(Components.interfaces.nsIPromptService);
+                            var check = {value: false};
 
-                        var flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
-                                    prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING  +
-                                    prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_CANCEL;
+                            var flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
+                                        prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING  +
+                                        prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_CANCEL;
 
-                        var responseDiscardCart = prompts.confirmEx(null, "Sign Off", "What do you want to do with the registered items?",
-                                                                    flags, "Queue", "Discard", "", null, check);
-                        if (responseDiscardCart == 2) return;
-                    }
-                }
-                else {
-                    responseDiscardCart = 1;
-                }
-                var responseDiscardQueue = 1; // 0: keep; 1: discard'
-                var cart = GeckoJS.Controller.getInstanceByName('Cart');
-                var promptDiscardQueue = !autoDiscardQueue && (responseDiscardCart != 0) && cart._hasUserQueue(principal);
-
-                if (promptDiscardQueue) {
-                    if (mustEmptyQueue) {
-                        if (GREUtils.Dialog.confirm(null, "Sign Off", "You have one or more queued orders. Discard them?") == false) {
-                            return;
+                            var responseDiscardCart = prompts.confirmEx(null, "Sign Off", "What do you want to do with the registered items?",
+                                                                        flags, "Queue", "Discard", "", null, check);
+                            if (responseDiscardCart == 2) return;
                         }
                     }
                     else {
-                        var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
-                                                .getService(Components.interfaces.nsIPromptService);
-                        var check = {value: false};
+                        responseDiscardCart = 1;
+                    }
+                    var responseDiscardQueue = 1; // 0: keep; 1: discard'
+                    var cart = GeckoJS.Controller.getInstanceByName('Cart');
+                    var promptDiscardQueue = !autoDiscardQueue && (responseDiscardCart != 0) && cart._hasUserQueue(principal);
 
-                        var flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
-                                    prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING  +
-                                    prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_CANCEL;
+                    if (promptDiscardQueue) {
+                        if (mustEmptyQueue) {
+                            if (GREUtils.Dialog.confirm(null, "Sign Off", "You have one or more queued orders. Discard them?") == false) {
+                                return;
+                            }
+                        }
+                        else {
+                            var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+                                                    .getService(Components.interfaces.nsIPromptService);
+                            var check = {value: false};
 
-                        var responseDiscardQueue = prompts.confirmEx(null, "Sign Off", "You have one or more queued orders. What do you want to do with them?",
-                                                                    flags, "Keep", "Discard", "", null, check);
-                        if (responseDiscardQueue == 2) return;
+                            var flags = prompts.BUTTON_POS_0 * prompts.BUTTON_TITLE_IS_STRING +
+                                        prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING  +
+                                        prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_CANCEL;
+
+                            var responseDiscardQueue = prompts.confirmEx(null, "Sign Off", "You have one or more queued orders. What do you want to do with them?",
+                                                                        flags, "Keep", "Discard", "", null, check);
+                            if (responseDiscardQueue == 2) return;
+                        }
+                    }
+                    else if (responseDiscardCart == 0) { // queue order
+                        responseDiscardQueue = 0;
+                    }
+
+                    if (!promptDiscardCart && !promptDiscardQueue)
+                        if (GREUtils.Dialog.confirm(null, "confirm sign-off", "Are you ready to sign off?") == false) {
+                            return;
                     }
                 }
-                else if (responseDiscardCart == 0) { // queue order
+                else {
+                    responseDiscardCart = 0;
                     responseDiscardQueue = 0;
-                }
-
-                if (!promptDiscardCart && !promptDiscardQueue)
-                    if (GREUtils.Dialog.confirm(null, "confirm sign-off", "Are you ready to sign off?") == false) {
-                        return;
                 }
 
                 if (responseDiscardCart == 1) {
@@ -538,7 +569,7 @@
                 $do('cancel', null, 'Cart');
                 $do('clear', null, 'Cart');
             }
-            this.ChangeUserDialog();
+            if (!quickSignoff) this.ChangeUserDialog();
         },
 
         dispatch: function(arg) {

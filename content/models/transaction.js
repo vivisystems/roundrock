@@ -1110,13 +1110,17 @@
 
         var priceLevel = GeckoJS.Session.get('vivipos_fec_price_level');
 
+        var user = (new GeckoJS.AclComponent()).getUserPrincipal();
+        var canOverrideHalo = (GeckoJS.Array.inArray('acl_override_halo', user.Roles) != -1);
+        var canOverrideLalo = (GeckoJS.Array.inArray('acl_override_lalo', user.Roles) != -1);
+
         var priceLevelPrice = this.getPriceLevelPrice(priceLevel, item);
         var priceLevelHalo = this.getPriceLevelHalo(priceLevel, item);
         var priceLevelLalo = this.getPriceLevelLalo(priceLevel, item);
 
         if (sellPrice == null || typeof sellPrice  == 'undefined' || isNaN(sellPrice) ) sellPrice = priceLevelPrice;
-
-        if(priceLevelHalo > 0 && sellPrice > priceLevelHalo) {
+        
+        if(priceLevelHalo > 0 && sellPrice > priceLevelHalo && !canOverrideHalo) {
 
             var obj = {
                 error: 'halo',
@@ -1133,7 +1137,7 @@
             sellPrice = obj.newPrice;
         }
 
-        if(priceLevelLalo > 0 && sellPrice < priceLevelLalo) {
+        if(priceLevelLalo > 0 && sellPrice < priceLevelLalo && !canOverrideLalo) {
 
             var obj2 = {
                 error: 'lalo',

@@ -110,13 +110,85 @@ pref("vivipos.fec.settings.controlpanels.functionpanel.path", "chrome://viviecr/
 pref("vivipos.fec.settings.controlpanels.functionpanel.icon", "chrome://viviecr/content/skin/icons/stock_add-bookmark.png");
 pref("vivipos.fec.settings.controlpanels.functionpanel.roles", "admin");
 
-pref("vivipos.fec.registry.function.programmable.pricelevelshift.access", "manager");
+pref("vivipos.fec.registry.function.programmable.pricelevelshift.access", "acl_change_price_level");
 pref("vivipos.fec.registry.function.programmable.pricelevelshift.command", "change");
 pref("vivipos.fec.registry.function.programmable.pricelevelshift.controller", "Pricelevel");
 pref("vivipos.fec.registry.function.programmable.pricelevelshift.data", "");
-pref("vivipos.fec.registry.function.programmable.pricelevelshift.desc", "This function shifts the current price level. The parameter field can be used to program a specific price level. If a preset price level is programmed, this function changes the current price level to the preset price level.");
+pref("vivipos.fec.registry.function.programmable.pricelevelshift.desc", "This function shifts the current price level up by 1. No parameter is needed.");
 pref("vivipos.fec.registry.function.programmable.pricelevelshift.label", "Price Level Shift");
 pref("vivipos.fec.registry.function.programmable.pricelevelshift.name", "Price Level Shift");
+
+pref("vivipos.fec.registry.function.programmable.pricelevel1.access", "acl_set_price_level_1");
+pref("vivipos.fec.registry.function.programmable.pricelevel1.command", "change");
+pref("vivipos.fec.registry.function.programmable.pricelevel1.controller", "Pricelevel");
+pref("vivipos.fec.registry.function.programmable.pricelevel1.data", "1");
+pref("vivipos.fec.registry.function.programmable.pricelevel1.desc", "This function sets the current price level to 1. The parameter must be 1.");
+pref("vivipos.fec.registry.function.programmable.pricelevel1.label", "Price Level 1");
+pref("vivipos.fec.registry.function.programmable.pricelevel1.name", "Price Level 1");
+
+pref("vivipos.fec.registry.function.programmable.pricelevel2.access", "acl_set_price_level_2");
+pref("vivipos.fec.registry.function.programmable.pricelevel2.command", "change");
+pref("vivipos.fec.registry.function.programmable.pricelevel2.controller", "Pricelevel");
+pref("vivipos.fec.registry.function.programmable.pricelevel2.data", "2");
+pref("vivipos.fec.registry.function.programmable.pricelevel2.desc", "This function sets the current price level to 2. The parameter must be 2.");
+pref("vivipos.fec.registry.function.programmable.pricelevel2.label", "Price Level 2");
+pref("vivipos.fec.registry.function.programmable.pricelevel2.name", "Price Level 2");
+
+pref("vivipos.fec.registry.function.programmable.pricelevel3.access", "acl_set_price_level_3");
+pref("vivipos.fec.registry.function.programmable.pricelevel3.command", "change");
+pref("vivipos.fec.registry.function.programmable.pricelevel3.controller", "Pricelevel");
+pref("vivipos.fec.registry.function.programmable.pricelevel3.data", "3");
+pref("vivipos.fec.registry.function.programmable.pricelevel3.desc", "This function sets the current price level to 3. The parameter must be 3.");
+pref("vivipos.fec.registry.function.programmable.pricelevel3.label", "Price Level 3");
+pref("vivipos.fec.registry.function.programmable.pricelevel3.name", "Price Level 3");
+
+pref("vivipos.fec.registry.function.programmable.pricelevel4.access", "acl_set_price_level_4");
+pref("vivipos.fec.registry.function.programmable.pricelevel4.command", "change");
+pref("vivipos.fec.registry.function.programmable.pricelevel4.controller", "Pricelevel");
+pref("vivipos.fec.registry.function.programmable.pricelevel4.data", "4");
+pref("vivipos.fec.registry.function.programmable.pricelevel4.desc", "This function sets the current price level to 4. The parameter must be 4.");
+pref("vivipos.fec.registry.function.programmable.pricelevel4.label", "Price Level 4");
+pref("vivipos.fec.registry.function.programmable.pricelevel4.name", "Price Level 4");
+
+pref("vivipos.fec.registry.function.programmable.pricelevel5.access", "acl_set_price_level_5");
+pref("vivipos.fec.registry.function.programmable.pricelevel5.command", "change");
+pref("vivipos.fec.registry.function.programmable.pricelevel5.controller", "Pricelevel");
+pref("vivipos.fec.registry.function.programmable.pricelevel5.data", "5");
+pref("vivipos.fec.registry.function.programmable.pricelevel5.desc", "This function sets the current price level to 5. The parameter must be 5.");
+pref("vivipos.fec.registry.function.programmable.pricelevel5.label", "Price Level 5");
+pref("vivipos.fec.registry.function.programmable.pricelevel5.name", "Price Level 5");
+
+pref("vivipos.fec.registry.function.programmable.pricelevel6.access", "acl_set_price_level_6");
+pref("vivipos.fec.registry.function.programmable.pricelevel6.command", "change");
+pref("vivipos.fec.registry.function.programmable.pricelevel6.controller", "Pricelevel");
+pref("vivipos.fec.registry.function.programmable.pricelevel6.data", "6");
+pref("vivipos.fec.registry.function.programmable.pricelevel6.desc", "This function sets the current price level to 6. The parameter must be 6.");
+pref("vivipos.fec.registry.function.programmable.pricelevel6.label", "Price Level 6");
+pref("vivipos.fec.registry.function.programmable.pricelevel6.name", "Price Level 6");
+
+pref("vivipos.fec.registry.function.programmable.pricelevel7.access", "acl_set_price_level_7");
+pref("vivipos.fec.registry.function.programmable.pricelevel7.command", "change");
+pref("vivipos.fec.registry.function.programmable.pricelevel7.controller", "Pricelevel");
+pref("vivipos.fec.registry.function.programmable.pricelevel7.data", "7");
+pref("vivipos.fec.registry.function.programmable.pricelevel7.desc", "This function sets the current price level to 7. The parameter must be 7.");
+pref("vivipos.fec.registry.function.programmable.pricelevel7.label", "Price Level 7");
+pref("vivipos.fec.registry.function.programmable.pricelevel7.name", "Price Level 7");
+
+pref("vivipos.fec.registry.function.programmable.pricelevel8.access", "acl_set_price_level_8");
+pref("vivipos.fec.registry.function.programmable.pricelevel8.command", "change");
+pref("vivipos.fec.registry.function.programmable.pricelevel8.controller", "Pricelevel");
+pref("vivipos.fec.registry.function.programmable.pricelevel8.data", "8");
+pref("vivipos.fec.registry.function.programmable.pricelevel8.desc", "This function sets the current price level to 8. The parameter must be 8.");
+pref("vivipos.fec.registry.function.programmable.pricelevel8.label", "Price Level 8");
+pref("vivipos.fec.registry.function.programmable.pricelevel8.name", "Price Level 8");
+
+pref("vivipos.fec.registry.function.programmable.pricelevel9.access", "acl_set_price_level_9");
+pref("vivipos.fec.registry.function.programmable.pricelevel9.command", "change");
+pref("vivipos.fec.registry.function.programmable.pricelevel9.controller", "Pricelevel");
+pref("vivipos.fec.registry.function.programmable.pricelevel9.data", "9");
+pref("vivipos.fec.registry.function.programmable.pricelevel9.desc", "This function sets the current price level to 9. The parameter must be 9.");
+pref("vivipos.fec.registry.function.programmable.pricelevel9.label", "Price Level 9");
+pref("vivipos.fec.registry.function.programmable.pricelevel9.name", "Price Level 9");
 
 pref("vivipos.fec.registry.function.programmable.shifttax.access", "manager");
 pref("vivipos.fec.registry.function.programmable.shifttax.command", "shiftTax");
@@ -158,7 +230,7 @@ pref("vivipos.fec.registry.function.programmable.surchargeByAmount.desc", "This 
 pref("vivipos.fec.registry.function.programmable.surchargeByAmount.label", "+");
 pref("vivipos.fec.registry.function.programmable.surchargeByAmount.name", "PLUS");
 
-pref("vivipos.fec.registry.function.programmable.cash.access", "manager");
+pref("vivipos.fec.registry.function.programmable.cash.access", "acl_open_cash");
 pref("vivipos.fec.registry.function.programmable.cash.command", "cash");
 pref("vivipos.fec.registry.function.programmable.cash.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.cash.data", "");
@@ -229,7 +301,7 @@ pref("vivipos.fec.registry.function.programmable.plusearch.desc", "This function
 pref("vivipos.fec.registry.function.programmable.plusearch.label", "PLU Search");
 pref("vivipos.fec.registry.function.programmable.plusearch.name", "PLU Search");
 
-pref("vivipos.fec.registry.function.programmable.pushqueue.access", "manager");
+pref("vivipos.fec.registry.function.programmable.pushqueue.access", "acl_queue_order");
 pref("vivipos.fec.registry.function.programmable.pushqueue.command", "pushQueue");
 pref("vivipos.fec.registry.function.programmable.pushqueue.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.pushqueue.data", "");
@@ -237,7 +309,7 @@ pref("vivipos.fec.registry.function.programmable.pushqueue.desc", "This function
 pref("vivipos.fec.registry.function.programmable.pushqueue.label", "Queue Order");
 pref("vivipos.fec.registry.function.programmable.pushqueue.name", "Queue Order");
 
-pref("vivipos.fec.registry.function.programmable.pullqueue.access", "manager");
+pref("vivipos.fec.registry.function.programmable.pullqueue.access", "acl_pull_queue");
 pref("vivipos.fec.registry.function.programmable.pullqueue.command", "pullQueue");
 pref("vivipos.fec.registry.function.programmable.pullqueue.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.pullqueue.data", "");
@@ -269,7 +341,7 @@ pref("vivipos.fec.registry.function.programmable.houseBon.desc", "This function 
 pref("vivipos.fec.registry.function.programmable.houseBon.label", "House BON");
 pref("vivipos.fec.registry.function.programmable.houseBon.name", "House BON");
 
-pref("vivipos.fec.registry.function.programmable.signOff.access", "manager");
+pref("vivipos.fec.registry.function.programmable.signOff.access", "acl_public_access");
 pref("vivipos.fec.registry.function.programmable.signOff.command", "signOff");
 pref("vivipos.fec.registry.function.programmable.signOff.controller", "Main");
 pref("vivipos.fec.registry.function.programmable.signOff.data", "");
@@ -285,13 +357,21 @@ pref("vivipos.fec.registry.function.programmable.currencyConvert.desc", "This fu
 pref("vivipos.fec.registry.function.programmable.currencyConvert.label", "Currency Exchange");
 pref("vivipos.fec.registry.function.programmable.currencyConvert.name", "Currency Exchange");
 
-pref("vivipos.fec.registry.function.programmable.changeToCurrentLevel.access", "manager");
+pref("vivipos.fec.registry.function.programmable.changeToCurrentLevel.access", "acl_revert_price_level");
 pref("vivipos.fec.registry.function.programmable.changeToCurrentLevel.command", "changeToCurrentLevel");
 pref("vivipos.fec.registry.function.programmable.changeToCurrentLevel.controller", "Pricelevel");
 pref("vivipos.fec.registry.function.programmable.changeToCurrentLevel.data", "");
 pref("vivipos.fec.registry.function.programmable.changeToCurrentLevel.desc", "This function resets the current price level. If the price level schedule is active, the currently scheduled level is restored. If the price level schedule is not active, or if no schedule has been defined, the price level reverts to the system/user default. No parameter is needed.");
 pref("vivipos.fec.registry.function.programmable.changeToCurrentLevel.label", "Reset Price Level");
 pref("vivipos.fec.registry.function.programmable.changeToCurrentLevel.name", "Reset Price Level");
+
+pref("vivipos.fec.registry.function.programmable.quicksignoff.access", "acl_public_access");
+pref("vivipos.fec.registry.function.programmable.quicksignoff.command", "quickUserSwitch");
+pref("vivipos.fec.registry.function.programmable.quicksignoff.controller", "Main");
+pref("vivipos.fec.registry.function.programmable.quicksignoff.data", "");
+pref("vivipos.fec.registry.function.programmable.quicksignoff.desc", "This function allows a quick switch to user specified in the paramter field using password from the input buffer. The parameter field should be set to the user to switch to.");
+pref("vivipos.fec.registry.function.programmable.quicksignoff.label", "Quick User Switch");
+pref("vivipos.fec.registry.function.programmable.quicksignoff.name", "Quick User Switch");
 
 pref('vivipos.fec.registry.comm.port1.id', 'port1');
 pref('vivipos.fec.registry.comm.port1.name', 'COM1');

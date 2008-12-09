@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!DOCTYPE window SYSTEM "chrome://viviecr/locale/orderstatus.dtd">
+<!DOCTYPE window SYSTEM "chrome://viviecr/locale/numberpad.dtd">
 
 <overlay id="numberpadPanelOverlay"
          xmlns:html="http://www.w3.org/1999/xhtml"
@@ -11,15 +11,11 @@
 
         <vbox flex="1">
             <hbox id="fixedbtnrow" flex="1">
-                <sendkeybutton id="clearBtn"  label="CLEAR"   keyCode="0x27" target="multinumberpad" class="systembtn"  />
-                <button id="new_order" label="NewOrder" class="systembtn" oncommand="$do('pushQueue',null,'Cart');">
-                    <label crop="center" style="max-width: none; width: 40px;" >Queue Order</label>
-                </button>
-                <button id="queue_order_list" label="QuOrder" class="systembtn" oncommand="$do('pullQueue',null,'Cart');">
-                    <label crop="center" style="max-width: none; width: 40px;" >View Queue</label>
-                </button>
-                <button id="modifyBtn" label="Modify" class="systembtn" oncommand="$do('modifyItem', null,'Cart');"/>
-                <button id="voidBtn" label="VOID" class="systembtn" oncommand="$do('voidItem', null,'Cart');" />
+                <sendkeybutton id="clearBtn"  label="&numberpad.keylabel.clear;"   keyCode="0x27" target="multinumberpad" class="systembtn"  />
+                <vivibutton id="new_order" label="&numberpad.keylabel.queue.order;" class="systembtn" oncommand="$do('pushQueue',null,'Cart');" roles="acl_queue_order" action="display"/>
+                <vivibutton id="queueOrderBtn" label="&numberpad.keylabel.pull.queue;" class="systembtn" oncommand="$do('pullQueue', null,'Cart');" roles="acl_pull_queue"/>
+                <vivibutton id="modifyBtn" label="&numberpad.keylabel.modify;" class="systembtn" oncommand="$do('modifyItem', null,'Cart');" roles="acl_modify_cart_item"/>
+                <vivibutton id="voidBtn" label="&numberpad.keylabel.void;" class="systembtn" oncommand="$do('voidItem', null,'Cart');" roles="acl_void_cart_item"/>
 
             </hbox>
 
@@ -27,25 +23,17 @@
             <hbox  id="numpad" pack="start">
 
                 <vbox>
-                    <button id="numkey7"  label="Barcode" oncommand="$do('keypress', {keyCode: 13}, 'Keypad');" class="systembtn" >
-                        <label crop="center" style="max-width: none; width: 40px;" >Barcode PLU_No</label>
-                    </button>
-                    <button id="cancelBtn"  label="CANCEL"    oncommand="$do('cancel', null, 'Cart');" class="systembtn"  />
-                    <sendkeybutton id="subtotalBtn"  label="SUB TOTAL"  keyCode="0x35" target="multinumberpad"  class="systembtn" />
-                    <button id="cashBtn"  label="CASH"    oncommand="$do('cash', null, 'Cart');" class="systembtn"  />
+                    <vivibutton id="barcodeBtn"  label="&numberpad.keylabel.barcode;" oncommand="$do('keypress', {keyCode: 13}, 'Keypad');" class="systembtn"/>
+                    <vivibutton id="cancelBtn"  label="&numberpad.keylabel.cancel;"    oncommand="$do('cancel', null, 'Cart');" class="systembtn" roles="acl_cancel_order" action="display"/>
+                    <sendkeybutton id="subtotalBtn"  label="&numberpad.keylabel.subtotal;"  keyCode="0x35" target="multinumberpad"  class="systembtn" />
+                    <vivibutton id="cashBtn"  label="&numberpad.keylabel.cash;"    oncommand="$do('cash', null, 'Cart');" class="systembtn" roles="acl_open_cash" action="display" />
 
                 </vbox>
                 <vbox>
-                    <button id="PLUBtn"  label="PLU Search"  oncommand="$do('PLUSearchDialog', null, 'Main');" class="systembtn" >
-                        <label crop="center" style="max-width: none; width: 40px;" >PLU Search</label>
-                    </button>
-                    <sendkeybutton id="xkeyBtn"  label="X"   charCode='x' target="multinumberpad" class="systembtn"  />
-                    <button id="sign_off" label="SignOff" oncommand="$do('signOff', null, 'Main');" class="systembtn">
-                        <label crop="center" style="max-width: none; width: 40px;" >Sign Off</label>
-                    </button>
-                    <button id="trayBtn" label="TRAY"    oncommand="$do('addMarker', 'tray', 'Cart');" class="systembtn">
-                        <label crop="center" style="max-width: none; width: 40px;" >TRAY</label>
-                    </button>
+                    <vivibutton id="PLUBtn" label="&numberpad.keylabel.plusearch;"  oncommand="$do('PLUSearchDialog', null, 'Main');" class="systembtn" roles="acl_plu_search" action="display"/>
+                    <sendkeybutton id="xkeyBtn"  label="&numberpad.keylabel.times;"   charCode='x' target="multinumberpad" class="systembtn"  />
+                    <vivibutton id="sign_off" label="&numberpad.keylabel.signoff;" oncommand="$do('signOff', null, 'Main');" class="systembtn"/>
+                    <vivibutton id="trayBtn" label="&numberpad.keylabel.tray;" oncommand="$do('addMarker', 'tray', 'Cart');" class="systembtn" roles="acl_tray_marker" action="display"/>
 
                 </vbox>
 
@@ -57,11 +45,10 @@
 
       <!-- begin tools -->
         <vbox id="toolbar">
-            <button id="tool1"  label=""  oncommand="$do('ClockInOutDialog', null, 'Main');"  class="systoolbtn mediumimagebtn button-fuchsia" image="chrome://viviecr/content/skin/images/aa.png" />
-                <!--button id="tool2"  label=""  onclick="extension_manager();" class="systoolbtn mediumimagebtn button-fuchsia" image="chrome://viviecr/content/skin/images/fact.png" /-->
-            <button id="tool4"  label=""  oncommand="$do('ControlPanelDialog', null, 'Main');"  class="systoolbtn mediumimagebtn button-fuchsia" image="chrome://viviecr/content/skin/images/keyboard.png" />
+            <vivibutton id="tool1"  label=""  oncommand="$do('ClockInOutDialog', null, 'Main');"  class="systoolbtn mediumimagebtn button-fuchsia" image="chrome://viviecr/content/skin/images/aa.png" />
+            <vivibutton id="tool4" roles="acl_open_control_panel" action="display" label=""  oncommand="$do('ControlPanelDialog', null, 'Main');"  class="systoolbtn mediumimagebtn button-fuchsia" image="chrome://viviecr/content/skin/images/keyboard.png" />
             <spacer flex="1"/>
-            <button id="toggleNumPad"  label=""  onclick="$do('toggleNumPad', null, 'Main');" class="systoolbtn mediumimagebtn button-blue togglenumpad" />
+            <button id="toggleNumPad"  label="" roles="acl_toggle_numpad" action="display" onclick="$do('toggleNumPad', null, 'Main');" class="systoolbtn mediumimagebtn button-blue togglenumpad" />
         </vbox>
       <!-- end tools -->
 

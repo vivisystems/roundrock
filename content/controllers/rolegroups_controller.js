@@ -120,7 +120,6 @@
 
             this._listDatas = groups;
 
-            var index = 0;
             if (data) {
                 listObj.value = data;            
             } else if (groups) {
@@ -128,8 +127,33 @@
                 listObj.selectedIndex = 0;
             };
             this.select();
-
-
+/*
+            this.Acl.addRole('acl_user_override_default_price_level');
+            this.Acl.addRole('acl_change_price_level');
+            this.Acl.addRole('acl_set_price_level_1');
+            this.Acl.addRole('acl_set_price_level_2');
+            this.Acl.addRole('acl_set_price_level_3');
+            this.Acl.addRole('acl_set_price_level_4');
+            this.Acl.addRole('acl_set_price_level_5');
+            this.Acl.addRole('acl_set_price_level_6');
+            this.Acl.addRole('acl_set_price_level_7');
+            this.Acl.addRole('acl_set_price_level_8');
+            this.Acl.addRole('acl_set_price_level_9');
+            this.Acl.addRole('acl_revert_price_level');
+            this.Acl.addRole('acl_override_halo');
+            this.Acl.addRole('acl_override_lalo');
+            this.Acl.addRole('acl_queue_order');
+            this.Acl.addRole('acl_pull_queue');
+            this.Acl.addRole('acl_open_control_panel');
+            this.Acl.addRole('acl_modify_cart_item');
+            this.Acl.addRole('acl_void_cart_item');
+            this.Acl.addRole('acl_cancel_order');
+            this.Acl.addRole('acl_plu_search');
+            this.Acl.addRole('acl_tray_marker');
+            this.Acl.addRole('acl_open_cash');
+            this.Acl.addRole('acl_toggle_numpad');
+            this.Acl.addRole('acl_public_access');
+*/
         },
 	
         select: function(){

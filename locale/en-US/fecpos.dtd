@@ -25,7 +25,7 @@
 <!ENTITY vivipos.fec.settings.rounding.always-round-down "always round down">
 <!ENTITY vivipos.fec.settings.activepricelevelschedule "Activate Price Level Schedule">
 <!ENTITY vivipos.fec.settings.pricelevelrevert "Price Level Reverts to Schedule after Each Order">
-<!ENTITY vivipos.fec.settings.changedepartmentclearbuffer "clear key buffer when change department">
+<!ENTITY vivipos.fec.settings.changedepartmentclearbuffer "Clear Input Buffer When Switching Departments">
 
 <!ENTITY vivipos.fec.common.ok "Ok">
 <!ENTITY vivipos.fec.common.cancel "Cancel">
