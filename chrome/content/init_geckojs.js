@@ -58,7 +58,6 @@ window['gDispatch'] = window['$do'] = shortDispatcher['gDispatch'] = shortDispat
 
 
 
-
 window.goRestartApplication = function goRestartApplication()
 {
     if (!canQuitApplication())
