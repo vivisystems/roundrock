@@ -112,7 +112,7 @@
                     value: inputData.name
                 });
                 if ((condGroups != null) && (condGroups.length > 0)) {
-                    alert("The Group (" + inputData.name + ") is exist..");
+                    alert("The Group (" + inputData.name + ") already exists..");
                     return;
                 }
                 
@@ -128,8 +128,8 @@
                     var condGroups = GeckoJS.Session.get('condGroups');
                     condGroups.push(groups[0]);
 
-                    alert('[ADD]: record ' + GeckoJS.BaseObject.dump(groups));
-                    alert('[ADD]: array ' + GeckoJS.BaseObject.dump(condGroups));
+                    //alert('[ADD]: record ' + GeckoJS.BaseObject.dump(groups));
+                    //alert('[ADD]: array ' + GeckoJS.BaseObject.dump(condGroups));
 
                     GeckoJS.Session.set('condGroups', condGroups);
 
@@ -143,21 +143,35 @@
         modify: function  () {
             if (this._selectedIndex == null || this._selectedIndex < 0) return;
 
-            var inputData = this.getInputData();
-            var condGroupModel = new CondimentGroupModel();
-
             if(this._selectedIndex >= 0) {
+
+                var inputData = this.getInputData();
+                var condGroupModel = new CondimentGroupModel();
 
                 var condGroups = GeckoJS.Session.get('condGroups');
                 var condGroup = condGroups[this._selectedIndex];
+
+                /// check if the name already exists and belongs to another condiment group
+                var conds = condGroupModel.findByIndex('all', {
+                    index: "name",
+                    value: inputData.name
+                });
+                if ((conds != null) && (conds.length > 0)) {
+                    for (var i = 0; i < conds.length; i++) {
+                        if (conds[i].id != condGroup.id) {
+                            alert("The Condiment Group (" + inputData.name + ") already exists..");
+                            return;
+                        }
+                    }
+                }
 
                 inputData.id = condGroup.id;
                 condGroupModel.id = condGroup.id;
                 condGroupModel.save(inputData);
 
                 GREUtils.extend(condGroups[this._selectedIndex], inputData);
-                alert('[MODIFY]: record ' + GeckoJS.BaseObject.dump(inputData));
-                alert('[MODIFY]: array ' + GeckoJS.BaseObject.dump(condGroups));
+                //alert('[MODIFY]: record ' + GeckoJS.BaseObject.dump(inputData));
+                //alert('[MODIFY]: array ' + GeckoJS.BaseObject.dump(condGroups));
                 GeckoJS.Session.set('condGroups', condGroups);
 
                 var view = this._condGroupscrollablepanel.datasource;
@@ -194,8 +208,8 @@
                     }
                     GeckoJS.Session.set('condGroups', groups);
 
-                    alert('[DELETE]: record ' + GeckoJS.BaseObject.dump(condGroup));
-                    alert('[DELETE]: array ' + GeckoJS.BaseObject.dump(groups));
+                    //alert('[DELETE]: record ' + GeckoJS.BaseObject.dump(condGroup));
+                    //alert('[DELETE]: array ' + GeckoJS.BaseObject.dump(groups));
 
                     var view = this._condGroupscrollablepanel.datasource;
                     view.data = groups;
@@ -242,19 +256,24 @@
             if (inputObj.ok && inputObj.input0 && inputObj.input1) {
 
                 var inputData = this.getInputCondData();
+                var condGroups = GeckoJS.Session.get('condGroups');
+
                 inputData.id = null;
                 inputData.name = inputObj.input0;
                 inputData.price = inputObj.input1;
                 inputData.condiment_group_id = this.query('#condiment_group_id').val();
 
                 var condModel = new CondimentModel();
-                var conds = condModel.findByIndex('all', {
-                    index: "name",
-                    value: inputData.name
-                });
+
+                // we will only make sure no duplicate names within the same group
+                var conds = condGroups[this._selectedIndex]['Condiment'];
                 if ((conds != null) && (conds.length > 0)) {
-                    alert("The Condiment (" + inputData.name + ") already exists..");
-                    return;
+                    for (var i = 0; i < conds.length; i++) {
+                        if (conds[i].name == inputData.name) {
+                            alert("The Condiment (" + inputData.name + ") already exists in this group...");
+                            return;
+                        }
+                    }
                 }
 
                 condModel.save(inputData);
@@ -265,8 +284,13 @@
                 });
                 if ((conds != null) && (conds.length > 0)) {
 
-                    var condGroups = GeckoJS.Session.get('condGroups');
-                    condGroups[this._selectedIndex]['Condiment'].push(conds[0]);
+                    // since we allow duplicate condiment names across different condiment groups, make sure
+                    // we are retrieving the right record
+                    for (var i = 0; i < conds.length; i++) {
+                        if (conds[i].condiment_group_id == inputData.condiment_group_id) {
+                            condGroups[this._selectedIndex]['Condiment'].push(conds[i]);
+                        }
+                    }
 
                     //alert('[ADD]: record ' + GeckoJS.BaseObject.dump(conds[0]));
                     //alert('[ADD]: array ' + GeckoJS.BaseObject.dump(condGroups[this._selectedIndex]));
@@ -283,13 +307,25 @@
         modifyCond: function  () {
             if (this._selectedCondIndex == null || this._selectedCondIndex < 0) return;
 
-            var inputData = this.getInputCondData();
-            var condModel = new CondimentModel();
-
             if(this._selectedCondIndex >= 0) {
 
                 var condGroups = GeckoJS.Session.get('condGroups');
                 var cond = condGroups[this._selectedIndex]['Condiment'][this._selectedCondIndex];
+
+                var inputData = this.getInputCondData();
+                var condModel = new CondimentModel();
+                
+                // we will only make sure no duplicate names within the same group
+                var conds = condGroups[this._selectedIndex]['Condiment'];
+                if ((conds != null) && (conds.length > 0)) {
+                    for (var i = 0; i < conds.length; i++) {
+                        if ((conds[i].name == inputData.name) && (i != this._selectedCondIndex)) {
+                            alert("The Condiment (" + inputData.name + ") already exists in this group...");
+                            return;
+                        }
+                    }
+                }
+
                 inputData.id = cond.id;
                 condModel.id = cond.id;
                 condModel.save(inputData);
