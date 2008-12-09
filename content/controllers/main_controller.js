@@ -455,18 +455,29 @@
         quickUserSwitch: function (newUser) {
             // check if has buffer (password)
             var buf = this._getKeypadController().getBuffer();
+            this.requestCommand('clear', null, 'Cart');
+            
+            //GREUtils.log('[SWITCH]: new user <' + newUser + '> password <' + buf + '>');
             if (buf.length>0) {
-                this._getKeypadController().clearBuffer();
                 if (this.Acl.securityCheck(newUser, buf, true)) {
+                    var aclUser = this.Acl.getUserPrincipal();
+                    var aclUsername = aclUser ? aclUser.username : '';
+                    // is newUser same as existing user?
+                    if (newUser == aclUsername) {
+                        return;
+                    }
+
                     // sign out existing user
 
                     this.signOff(true);
                     this.signIn({username:newUser, password:buf});
-                    if (this.getUserPrincipal()) {
+                    if (this.Acl.getUserPrincipal()) {
                         this.setClerk();
                     }
                 }
-
+                else {
+                    // illegal password
+                }
             }
         },
 
@@ -474,19 +485,15 @@
             var autoDiscardCart = GeckoJS.Configure.read('vivipos.fec.settings.autodiscardcart');
             var autoDiscardQueue = GeckoJS.Configure.read('vivipos.fec.settings.autodiscardqueue');
             var mustEmptyQueue = GeckoJS.Configure.read('vivipos.fec.settings.mustemptyqueue');
-
-            if (quickSignoff) {
-                autoDiscardCart = false;
-                autoDiscardQueue = false;
-                mustEmptyQueue = false;
-            }
+            var shiftReportOnSignOff = GeckoJS.Configure.read('vivipos.fec.settings.shiftreportonsignoff');
+            var shiftReportOnQuickSwitch = GeckoJS.Configure.read('vivipos.fec.settings.shiftreportonquickswitch');
 
             var principal = this.Acl.getUserPrincipal();
             if (principal) {
                 var canQueueOrder = quickSignoff || (GeckoJS.Array.inArray('acl_queue_order', principal.Roles) != -1);
                 var txn = GeckoJS.Session.get('current_transaction');
 
-                if (quickSignoff) {
+                if (!quickSignoff) {
                     var promptDiscardCart = (txn != null) && (!txn.isSubmit()) && (txn.getItemsCount() > 0) && (!autoDiscardCart);
                     var responseDiscardCart = 2;  // 0: queue, 1: discard, 2: cancel
 
@@ -546,10 +553,18 @@
                     }
                 }
                 else {
+
+                    // quick sign-off, don't prompt, just queue order
                     responseDiscardCart = 0;
                     responseDiscardQueue = 0;
                 }
 
+                // @todo
+                // print shift report
+                if ((shiftReportOnSignOff && !quickSignoff) || (shiftReportOnQuickSwitch && quickSignoff)) {
+                    alert('print shift report');
+                }
+                
                 if (responseDiscardCart == 1) {
                     $do('cancel', null, 'Cart');
                     $do('clear', null, 'Cart');
