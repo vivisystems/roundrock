@@ -97,6 +97,8 @@
             <preference id="pref_autodiscardqueue" name="vivipos.fec.settings.autodiscardqueue" type="bool"/>
             <preference id="pref_mustemptyqueue" name="vivipos.fec.settings.mustemptyqueue" type="bool"/>
             <preference id="pref_defaultlogin" name="vivipos.fec.settings.DefaultLogin" type="bool" />
+            <preference id="pref_shiftreportonquickswitch" name="vivipos.fec.settings.shiftreportonquickswitch" type="bool" />
+            <preference id="pref_shiftreportonsignoff" name="vivipos.fec.settings.shiftreportonsignoff" type="bool" />
         </preferences>
         <vbox>
         <checkbox preference="pref_defaultlogin" id="pref_defaultloginCtrl" label="&vivipos.fec.settings.defaultlogin;" />
@@ -105,6 +107,8 @@
         <checkbox id="autodiscardcart" label="&vivipos.fec.settings.login.autodiscardcart;" preference="pref_autodiscardcart"/>
         <checkbox id="autodiscardqueue" label="&vivipos.fec.settings.login.autodiscardqueue;" preference="pref_autodiscardqueue"/>
         <checkbox id="mustemptyqueue" label="&vivipos.fec.settings.login.mustemptyqueue;" preference="pref_mustemptyqueue"/>
+        <checkbox id="shiftreportonsignoff" label="&vivipos.fec.settings.login.shiftreportonsignoff;" preference="pref_shiftreportonsignoff"/>
+        <checkbox id="shiftreportonquickswitch" label="&vivipos.fec.settings.login.shiftreportonquickswitch;" preference="pref_shiftreportonquickswitch"/>
         </vbox>
     </prefpane>
 
@@ -175,15 +179,6 @@
         </hbox>
 
 	</prefpane>
-
-    <prefpane id="backupSettingsPane" label="&vivipos.fec.settings.category.backups;" image="chrome://viviecr/content/skin/icons/gnome-run.png">
-        <preferences>
-            <preference id="pref_backup" name="vivipos.fec.settings.backups" type="bool"/>
-            <preference id="pref_backupduration" name="vivipos.fec.settings.backups.duration" type="int"/>
-        </preferences>
-        <checkbox label="Automatically Save Backups" preference="pref_backup"/>
-        <textbox label="Duration:" preference="pref_backupduration"/>
-    </prefpane>
 
     <!-- prefpane id="localeSettingsPane" label="locale" image="chrome://viviecr/content/skin/icons/gnome-run.png">
         <vivilocaleslistbox package="viviecr" />
