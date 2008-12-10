@@ -14,7 +14,7 @@
                 <xul:label anonid="labelVfd" hidden="true" class="label_vfd" xbl:inherits="class=labelClass,value"></xul:label>
                 <hbox>
                     <xul:label anonid="label0_0" flex="1" class="label_vfd" xbl:inherits="class=labelClass,value"></xul:label>
-                    <xul:label anonid="label0_1" class="label_vfd" xbl:inherits="class=labelClass,value"></xul:label>
+                    <xul:label anonid="label0_1" class="label_vfd1" xbl:inherits="class=labelClass,value"></xul:label>
                 </hbox>
                 <xul:grid flex="1">
                     <xul:columns>
@@ -28,7 +28,6 @@
                         </xul:row -->
                         <xul:row>
                             <xul:label anonid="label1_0" style="width:180px;" class="label_vfd" xbl:inherits="class=labelClass,value"></xul:label>
-                            
                             <xul:label anonid="label1_1" flex="1" class="label_vfd" xbl:inherits="class=labelClass,value"></xul:label>
                         </xul:row>
                     </xul:rows>
@@ -65,7 +64,7 @@
                 this.onGetSubtotal = function(evt) {
                     var transaction = evt.data;
                     if (transaction) {
-                        self.setText0_0(_('TOTAL: '));
+                        self.setText0_0(_('TAL') + ':');
                         self.setText0_1(transaction.getTotal(true));
                         self.setText1_1(_('REM') + ': ' + transaction.getRemainTotal(true));
                         self.setText1_0(_('PAY') + ': ' + transaction.getPaymentSubtotal(true));
@@ -91,20 +90,24 @@
                     
                     if (evt) var transaction = evt.data;
                     else var transaction = null;
+
                     var total = "0";
                     var remain = "0";
                     var payment = "0";
 
-                    if (transaction != null) {
+                    
+                    if (transaction != null && !(transaction.isSubmit() || transaction.isCancel())) {
                         total = transaction.getTotal(true);
                         remain = transaction.getRemainTotal(true);
                         payment = transaction.getPaymentSubtotal(true);
                     }else {
+                        total = this.format(0);
                         remain = this.format(0);
+                        payment = this.format(0);
                     }
 
                     self.setText0_1(total);
-                    self.setText0_0(_('TOTAL: '));
+                    self.setText0_0(_('TAL') + ':');
                     self.setText1_1(_('REM') + ': ' + remain);
                     self.setText1_0(_('PAY') + ': ' + payment);
 
@@ -112,10 +115,20 @@
 
                 this.onCancel = function(evt) {
                     var transaction = evt.data;
-                    if (transaction == null || typeof transaction.data == "undefined") return;
+                    if (transaction == null || typeof transaction.data == "undefined") {
+                        total = this.format(0);
+                        remain = this.format(0);
+                        payment = this.format(0);
+
+                        self.setText0_1(total);
+                        self.setText0_0(_('TAL') + ':');
+                        self.setText1_1(_('REM') + ': ' + remain);
+                        self.setText1_0(_('PAY') + ': ' + payment);
+                    } else { //return;
                     self.setText1_0(_('CANCELED'));
                     self.setText1_1('SEQ#' + transaction.data.seq);
                     self.setText0_1(self.format(0));
+                    }
 
                 }
 

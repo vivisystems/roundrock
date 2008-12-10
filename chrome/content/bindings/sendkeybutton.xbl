@@ -5,16 +5,24 @@
           xmlns:html="http://www.w3.org/1999/xhtml"
           xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-<binding id="sendkeybutton">
-  <resources>
-  	<stylesheet src="chrome://vivipos/skin/bindings/sendkeybutton.css" />
-  </resources>
+<binding id="sendkeybutton" display="xul:button"
+           extends="chrome://global/content/bindings/button.xml#button-base">
+    <resources>
+      <stylesheet src="chrome://vivipos/skin/bindings/sendkeybutton.css" />
+    </resources>
 
   <content>
-  	<xul:button class="sendkeybutton" xbl:inherits="class,id,orient,pack,flex" anonid="sendkeybutton">
+  	<!-- xul:button class="sendkeybutton" xbl:inherits="class,id,orient,pack,flex" anonid="sendkeybutton">
   		<xul:image anonid="sendkeybuttonImage" />
   		<xul:label anonid="sendkeybuttonLabel" />
-  	</xul:button>
+  	</xul:button -->
+  	<children includes="observes|template|menupopup|tooltip"/>
+        <xul:hbox class="box-inherit button-box" xbl:inherits="align,dir,pack,orient"
+	        	align="center" pack="center" flex="1" anonid="sendkeybutton-box" style="overflow: hidden;">
+	    	<xul:image anonid="sendkeybuttonImage" class="button-icon" xbl:inherits="src=image"/>
+	    	<!-- xul:label anonid="label" crop="end" class="button-text" xbl:inherits="accesskey,crop"> </xul:label-->
+	    	<xul:description anonid="sendkeybuttonLabel" class="button-text" xbl:inherits="accesskey,crop" > </xul:description>
+        </xul:hbox>
   </content>
   
   <xbl:implementation>
@@ -50,7 +58,7 @@
 		this.target =  this.hasAttribute('target')  ? this.getAttribute('target'): "";
 //		
 
-		let buttonContainer = document.getAnonymousElementByAttribute(this, "anonid", "sendkeybutton");
+		let buttonContainer = document.getAnonymousElementByAttribute(this, "anonid", "sendkeybutton-box");
 		
 		let image= document.getAnonymousElementByAttribute(this, "anonid", "sendkeybuttonImage"); 		
 		if (this.hasAttribute('image')) {

@@ -171,17 +171,18 @@
     </method>
 
     <method name="resizeLabel">
+        <parameter name="width" />
+        <parameter name="height" />
         <body><![CDATA[
 
             var label = this.aLabel;
             var $btn = $(this.vivibuttonBox);
 
-            var width = $btn.css('width').replace('px', '');
-            var height = $btn.css('height').replace('px', '');
+            width = width || $btn.css('width').replace('px', '');
+            height = height || $btn.css('height').replace('px', '');
 
-            $(label).css({width: width, height: height, 'max-width': width, 'max-height': height});
-            //GeckoJS.BaseObject.log('label ' + width + ',' + height);
-
+   label.style['width'] = width +'px' ;
+   label.style['max-width'] = width +'px';
         ]]>  
         </body>
     </method>
