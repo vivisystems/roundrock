@@ -27,6 +27,7 @@
             <preference id="pref_activepricelevelschedule" name="vivipos.fec.settings.ActivePriceLevelSchedule" type="bool" />
             <preference id="pref_pricelevelrevert" name="vivipos.fec.settings.PriceLevelRevert" type="bool" />
             <preference id="pref_changedepartmentclearbuffer" name="vivipos.fec.settings.ChangeDepartmentClearBuffer" type="bool" />
+            <preference id="pref_allowoverstock" name="vivipos.fec.settings.AllowOverStock" type="bool" />
 
         </preferences>
         <hbox align="center">
@@ -39,6 +40,7 @@
         <checkbox preference="pref_activepricelevelschedule" id="pref_activepricelevelscheduleCtrl" label="&vivipos.fec.settings.activepricelevelschedule;" />
         <checkbox preference="pref_pricelevelrevert" id="pref_pricelevelrebackCtrl" label="&vivipos.fec.settings.pricelevelrevert;" />
         <checkbox preference="pref_changedepartmentclearbuffer" id="pref_changedepartmentclearbufferCtrl" label="&vivipos.fec.settings.changedepartmentclearbuffer;" />
+        <checkbox preference="pref_allowoverstock" id="pref_allowoverstockCtrl" label="&vivipos.fec.settings.allowoverstock;" />
 
         <hbox align="center">
             <label control="precisionprices" value="&vivipos.fec.settings.defaultpricelevel;"/>

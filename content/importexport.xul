@@ -27,9 +27,12 @@
                 </groupbox>
                 <spacer style="width:10px;" />
                 <vbox>
-
-                            <vivibutton label="Import" class="genbtns" oncommand="$do('importPlu', null, 'ImportExport');" />
-
+                    <vivibutton label="Import" class="genbtns" oncommand="$do('importPlu', null, 'ImportExport');" />
+                    <progressmeter id="importprogressmeter" mode="determined" value="0" />
+                    <spacer style="height: 10px;" />
+                    <separator class="groove-thin"/>
+                    <spacer style="height: 10px;" />
+                    <vivibutton label="Export" class="genbtns" oncommand="$do('exportPlu', null, 'ImportExport');" />
                     <progressmeter id="importprogressmeter" mode="determined" value="0" />
                 </vbox>
             </hbox>

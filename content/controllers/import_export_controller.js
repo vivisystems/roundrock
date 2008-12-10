@@ -15,6 +15,8 @@
         _productsById: null,
         _barcodesIndexes: null,
         _datas: null,
+        _importDir: null,
+        _exportDir: null,
 
         getListObj: function() {
             if(this._listObj == null) {
@@ -66,8 +68,6 @@
                     var price = parseFloat(trimQuote(dats[2])) + 0;
                     var no = cate_no + GeckoJS.String.padLeft(i, pad);
                 
-
-                    // progress = parseInt((i * 100) / nCount);
                     progmeter.value = i;
                 
                     var product = GREUtils.extend({}, productTpl);
@@ -85,7 +85,7 @@
 
                     datas.push(product);
 
-                    prodTmp.save(product);
+                    // prodTmp.save(product);
                 
                     i++;
 
@@ -104,7 +104,10 @@
         },
 
         load: function (data) {
-        // this.importPlu();
+            this._importDir = GeckoJS.Configure.read('vivipos.fec.settings.database.importdir');
+            this._exportDir = GeckoJS.Configure.read('vivipos.fec.settings.database.exportdir');
+            if (!this._importDir) this._importDir = '/media/disk/database_import/';
+            if (!this._exportDir) this._exportDir = '/media/disk/database_export/';
         },
 
         select: function(index){
@@ -116,7 +119,6 @@
             }
             */
         }
-	
     });
 
 

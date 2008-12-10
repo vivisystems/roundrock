@@ -10,7 +10,7 @@
 
   <box id="vfdPanelContainer">
     <vbox id="vfdPanel" flex="1">
-        <onscreenvfd id="onscreenvfd" maxlen="32" class="vbox_vfd" labelClass="label_vfd" value="TAL: 0" />
+        <onscreenvfd id="onscreenvfd" maxlen="17" class="vbox_vfd" labelClass="label_vfd" value="" />
         <vivisessionstatus id="vivipos_fec_order_status" flex="1"
                                class="orderstatus"
                                columns="4"
