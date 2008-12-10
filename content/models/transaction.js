@@ -52,6 +52,8 @@
 
             };
 
+            
+
 
         },
 
@@ -119,6 +121,10 @@
     Transaction.prototype.submit = function() {
         this.data.status = 1;
     // save transaction to order / orderdetail ...
+
+    // maintain stock...
+    // this.log(this.dump(this.data));
+    this.requestCommand('decStock', this.data, "Stocks");
 
     // empty ?
         

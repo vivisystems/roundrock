@@ -15,38 +15,46 @@
     <box flex="1" class="mainpanel1 pad40">
         <vbox flex="1" class="panel40">
             <vbox flex="1" class="footlogo">
-                    <groupbox flex="1">
-                        <caption label="Price Level Schedule List:" />
-                        <hbox flex="1">
-                            <vbox>
-                            <simplelistbox id="simpleListBoxSchedule" rows="16"  headers="Time, Price Level" columns="time,pricelevel"  class="prodsimplelistbox pricelevelschedule"/>
+                <groupbox flex="1">
+                    <caption label="Price Level Schedule List:" />
+                    <hbox flex="1">
+                            
+                        <groupbox flex="1">
+                            <caption label="Stocks:" />
+                                
+                            <viviscrollabletree id="schedulescrollablepanel" flex="1" rows="12" headers="Time, Price Level" fields="time,pricelevel" onclick=""
+                                                            class="prodscrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray">
+                                <spacer flex="1" />
+                            </viviscrollabletree>
                             <spacer style="height: 20px;" />
-                            <button label="Remove from Schedule" class="widebtns" oncommand="$do('remove', null, 'PriceLevelSchedule');" />
-                            </vbox>
-                            <spacer style="width: 40px;" />
-                            <separator class="groove-thin"/>
+                            <hbox flex="1">
+                                <button label="Remove from Schedule" class="widebtns" oncommand="$do('remove', null, 'PriceLevelSchedule');" />
+                            </hbox>
+                        </groupbox>
 
-                            <vbox>
-                                <hbox align="center">
-                                    <vividatetimepicker id="seltime" value="12:00" flex="1" labelClass="timepickerfont" buttonClass="timepickerbtns"/>
-                                </hbox>
+                        <spacer style="width: 40px;" />
 
-                                <separator class="groove-thin" style="height:10px;"/>
+                        <vbox>
+                            <hbox align="center">
+                                <vividatetimepicker id="seltime" value="12:00" flex="1" labelClass="timepickerfont" buttonClass="timepickerbtns"/>
+                            </hbox>
 
-                                <hbox>
-                                    <viviscrollablebuttonpanel id="pricelevelscrollablepanel" flex="1" cols="2" rows="5" hideScrollbar="true" labelField="name" oncommand=""
+                            <separator class="groove-thin" style="height:10px;"/>
+
+                            <hbox>
+                                <viviscrollablebuttonpanel id="pricelevelscrollablepanel" flex="1" cols="2" rows="5" hideScrollbar="true" labelField="name" oncommand=""
                                         class="catescrollablepanel" buttonClass="catbtn button-radius button-white font-medium" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue"/>
-                                </hbox>
+                            </hbox>
 
-                                <spacer style="height: 10px;" />
-                                <hbox>
-                                    <button label="Add to Schedule" class="widebtns" oncommand="$do('add', null, 'PriceLevelSchedule');" />
+                            <spacer style="height: 10px;" />
+                            <hbox>
+                                <button label="Add to Schedule" class="widebtns" oncommand="$do('add', null, 'PriceLevelSchedule');" />
                                     
-                                </hbox>
-                            </vbox>
+                            </hbox>
+                        </vbox>
 
-                        </hbox>
-                    </groupbox>
+                    </hbox>
+                </groupbox>
             </vbox>
         </vbox>
     </box>
