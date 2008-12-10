@@ -27,6 +27,27 @@
             var group_listscrollablepanel = document.getElementById('group_listscrollablepanel');
             var plugroupPanelView = new NSIPluGroupsView(groups);
             group_listscrollablepanel.datasource = plugroupPanelView;
+            var self = this;
+            doSetOKCancel(
+                function(){
+
+/*
+// can't be check if has the boolean fields...
+try {
+                    var isModify = self.Form.isFormModified("productForm");
+}
+catch (e) {
+    // self.log(self.dump(e));
+};
+                    alert("isModify:" + isModify);
+*/
+                    return true;
+                },
+                function(){
+                    // alert("Cancel...");
+                    return true;
+                }
+            );
         },
 
         createPluPanel: function () {

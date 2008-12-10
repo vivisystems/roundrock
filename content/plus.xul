@@ -142,6 +142,10 @@
                                                             </menupopup>
                                                         </menulist>
                                                     </row>
+                                                    <row>
+                                                        <label value="Location:"/>
+                                                        <textbox id="product_location" form="productForm" name="location"/>
+                                                    </row>
                                                 </rows>
                                             </grid>
                                         </groupbox>

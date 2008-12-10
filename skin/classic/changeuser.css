@@ -39,7 +39,7 @@
 .numberpad {
     width: 240px;
 }
-.numberpad button{
+.numberpad sendkeybutton, .numberpad button{
     min-width:80px;
     max-width:80px;
     min-height:50px;

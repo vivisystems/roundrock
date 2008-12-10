@@ -11,12 +11,20 @@
         _queuePool: null,
         _returnMode: false,
 
-
         initial: function() {
             
             if (this._cartView == null ) {
                 this._cartView = new NSICartView('cartList');
             }
+
+            self = this;
+            var keypad = GeckoJS.Controller.getInstanceByName('Keypad');
+            keypad.addEventListener("beforeAddBuffer", self.beforeAddBuffer);
+
+            this.addEventListener("beforeAddItem", self.beforeAddItem);
+
+            // var curTransaction = this._getTransaction();
+            // curTransaction.events.addListener('beforeAppendItem', obj, this);
 
             GeckoJS.Session.remove('cart_last_sell_item');
             GeckoJS.Session.remove('cart_set_price_value');
@@ -24,6 +32,82 @@
 
         },
 
+        beforeAddBuffer: function () {
+
+            self = this;
+            var cart = GeckoJS.Controller.getInstanceByName('Cart');
+            var curTransaction = cart._getTransaction();
+            if (curTransaction == null) return;
+            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
+
+                if (cart._cartView.tree) {
+                    cart.dispatchEvent('onClear', curTransaction);
+                    cart._cartView.empty();
+                }
+                return ;
+            }
+        },
+
+        beforeAddItem: function (evt) {
+            var item = evt.data;
+            var cart = GeckoJS.Controller.getInstanceByName('Cart');
+            // cart.log("Item:" + cart.dump(item));
+
+            var sellQty = null, sellPrice = null;
+
+            sellQty  = (GeckoJS.Session.get('cart_set_qty_value') != null) ? GeckoJS.Session.get('cart_set_qty_value') : sellQty;
+            if (sellQty == null) sellQty = 1;
+
+            sellPrice  = (GeckoJS.Session.get('cart_set_price_value') != null) ? GeckoJS.Session.get('cart_set_price_value') : sellPrice;
+
+            if ( !cart._returnMode && item.auto_maintain_stock) {
+                var obj = {
+                    sellPrice: sellPrice,
+                    sellQty: sellQty,
+                    item: item
+                };
+                if (sellQty > item.stock) {
+                    cart.log("***** low stock:" + sellQty + "," + item.stock);
+                    cart.dispatchEvent('onLowStock', obj);
+                    cart.clear();
+                    evt.preventDefault();
+                } else if (item.nin_stock > item.stock) {
+                    cart.log("***** lower stock:" + item.min_stock + "," + item.stock);
+                    cart.dispatchEvent('onLowerStock', obj);
+                }
+            }
+        },
+        /*
+        decStock: function (obj) {
+            this._productsById = GeckoJS.Session.get('productsById');
+            this._barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
+
+            for (o in obj.items) {
+                var ordItem = obj.items[o];
+                var item = this.Product.findById(ordItem.id);
+                if (item.auto_maintain_stock) {
+                    item.stock = item.stock - ordItem.current_qty;
+
+                    var product = new ProductModel();
+                    product.save(item);
+                    delete product;
+                    // this.Product.save(item);
+
+                    this.log("id2:" + item.id + ":" + item.name + ",,,stock:" + item.stock);
+
+                    // fire onLowStock event...
+                    if (item.min_stock > item.stock) {
+                        this.dispatchEvent('onLowStock', item);
+                    }
+
+                    this.log("this._productsById:" + this.dump(this._productsById));
+                    // update Session Data...
+                    var evt = {data:item, justUpdate: true};
+                    this.afterScaffoldEdit(evt);
+                }
+            }
+        },
+        */
         _newTransaction: function() {
             var curTransaction = new Transaction();
             curTransaction.create();
@@ -109,7 +193,8 @@
                 this._getKeypadController().clearBuffer();
             }
 
-            this.dispatchEvent('beforeAddItem', item);
+            // this.dispatchEvent('beforeAddItem', item);
+            if (this.dispatchEvent('beforeAddItem', item)) {
 
             if ( this._returnMode) {
                 var qty = 0 - (GeckoJS.Session.get('cart_set_qty_value') || 1);
@@ -132,6 +217,8 @@
                 if (plu.force_memo) {
                     this.addMemo(plu);
                 }
+            }
+
             }
 
             // fire getSubtotal Event ?????????????
@@ -368,6 +455,7 @@
             var curTransaction = this._getTransaction();
 
             if(curTransaction == null) {
+                this.clear();
                 this.dispatchEvent('onAddDiscount', null);
                 return; // fatal error ?
             }
@@ -497,6 +585,7 @@
             var curTransaction = this._getTransaction();
 
             if(curTransaction == null) {
+                this.clear();
                 this.dispatchEvent('onAddSurcharge', null);
                 return; // fatal error ?
             }
@@ -571,6 +660,7 @@
             var curTransaction = this._getTransaction();
 
             if(curTransaction == null) {
+                this.clear();
                 this.dispatchEvent('onAddMarker', null);
                 return; // fatal error ?
             }
@@ -607,6 +697,7 @@
             var curTransaction = this._getTransaction();
 
             if(curTransaction == null) {
+                this.clear();
                 this.dispatchEvent('onHouseBon', null);
                 return; // fatal error ?
             }
@@ -652,6 +743,7 @@
             var curTransaction = this._getTransaction();
 
             if(curTransaction == null) {
+                this.clear();
                 this.dispatchEvent('onAddPayment', null);
                 return; // fatal error ?
             }
@@ -806,15 +898,19 @@
                 this.dispatchEvent('onClear', null);
                 return; // fatal error ?
             }
+
             this.dispatchEvent('onClear', curTransaction);
+
+            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
+                this._cartView.empty();
+                return ;
+            }
 
         },
 	
         cancel: function() {
-            var curTransaction = this._getTransaction();
-            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
-                return ;
-            }
+
+            
 
             this._getKeypadController().clearBuffer();
 
@@ -822,10 +918,15 @@
             var curTransaction = this._getTransaction();
 
             if(curTransaction == null) {
+                
                 this.dispatchEvent('onCancel', null);
                 return; // fatal error ?
             }
 
+            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
+                this._cartView.empty();
+                return ;
+            }
 
             curTransaction.cancel();
             // @todo save oldTransaction to log ??

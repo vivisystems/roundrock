@@ -6,6 +6,7 @@
         _cartList: null,
         _transaction: null,
         _emptyArrayView: null,
+        _old_row: null,
 
         init: function(domId) {
             this._data = [];
@@ -76,6 +77,50 @@
             }
 
         },
+
+        /*
+        getCellProperties: function(row,col,props){
+
+            var data = this.getCurrentIndexData(row);
+            if (data.name == "** TRAY") {
+                var aserv=Components.classes["@mozilla.org/atom-service;1"].
+                          getService(Components.interfaces.nsIAtomService);
+                props.AppendElement(aserv.getAtom("treecellTRAY"));
+            } else if (data.name == "** SUBTOTAL") {
+                var aserv=Components.classes["@mozilla.org/atom-service;1"].
+                          getService(Components.interfaces.nsIAtomService);
+                props.AppendElement(aserv.getAtom("treecellSUBTOTAL"));
+            } else if (data.name == "** TOTAL") {
+                var aserv=Components.classes["@mozilla.org/atom-service;1"].
+                          getService(Components.interfaces.nsIAtomService);
+                props.AppendElement(aserv.getAtom("treecellTOTAL"));
+            }
+        },
+        */
+
+        getRowProperties : function(row,props){
+            if (this._old_row == row) return;
+
+            var data = this.getCurrentIndexData(row);
+            if (data.name == "** TRAY") {
+                var aserv=Components.classes["@mozilla.org/atom-service;1"].
+                          getService(Components.interfaces.nsIAtomService);
+                props.AppendElement(aserv.getAtom("treeTRAY"));
+            } else if (data.name == "** SUBTOTAL") {
+                var aserv=Components.classes["@mozilla.org/atom-service;1"].
+                          getService(Components.interfaces.nsIAtomService);
+                props.AppendElement(aserv.getAtom("treeSUBTOTAL"));
+            } else if (data.name == "** TOTAL") {
+                var aserv=Components.classes["@mozilla.org/atom-service;1"].
+                          getService(Components.interfaces.nsIAtomService);
+                props.AppendElement(aserv.getAtom("treeTOTAL"));
+            }
+            this._ord_row = row;
+        },
+
+        //getRowProperties : function(row,props){},
+        //getColumnProperties : function(column,columnElement,props){},
+        //getCellProperties : function(row,column,props){},
 
         getLevel: function(row) {
             return this.data[row].level;
