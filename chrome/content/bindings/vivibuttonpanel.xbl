@@ -360,12 +360,13 @@
 
             if ((this.getAttribute('ensureVisible').toLowerCase() == 'true') && this.selectedIndex > -1) {
                 var pageSize = parseInt(this.rows) * parseInt(this.cols);
-                var offset = Math.floor(this.selectedIndex / pageSize);
-                this._startOffset = offset * pageSize;
+                var pageOffset = Math.floor(this.selectedIndex / pageSize);
+                this._startOffset = pageOffset * pageSize;
             }
 
-            this._startOffset = (this._startOffset < 0) ? 0 : this._startOffset;
-            if (this._startOffset > this.rowCount) this._startOffset = 0;
+            //this._startOffset = (this._startOffset < 0) ? 0 : this._startOffset;
+            //if (this._startOffset > this.rowCount) this._startOffset = 0;
+            this.startOffset = this._startOffset;
             this.render();
 
         ]]>  
