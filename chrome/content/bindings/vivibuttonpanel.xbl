@@ -64,6 +64,10 @@
                 onget="return this.getAttribute('labelField')"
                 onset="this.setAttribute('labelField', val); return val;"/>
 
+    <property name="aclField"
+                onget="return this.getAttribute('aclField')"
+                onset="this.setAttribute('aclField', val); return val;"/>
+
     <property name="imageField"
                 onget="return this.getAttribute('imageField')"
                 onset="this.setAttribute('imageField', val); return val;"/>
@@ -272,14 +276,18 @@
             var buttonCount = this.buttonCount;
             var datasource = this.getDatasource();
             var labelField = this.labelField;
+            var aclField = this.aclField;
             var imageField = this.imageField;
             var buttonClass = this.buttonClass;
             var selectedItems = this.selectedItems;
 
+            var acl = new GeckoJS.AclComponent();
+            var user = acl.getUserPrincipal();
+            var hasRole = true;
+
             var rowCount = this.rowCount;
 
             var startOffset = this.startOffset;
-
 //            this.grid.childNodes[1].setAttribute('collapsed', true);
 
             for(let i=0; i < buttonCount ; i++) {
@@ -302,8 +310,17 @@
                     if (buttonClass) buttons[i].setAttribute('class', buttonClass);
 
                 }else {
+                    let role = (aclField.length > 0) ? datasource.getCellText(row, {id: aclField}) : null;
+                    if (role && role.length > 0) {
+                        if (user) {
+                            hasRole = (GeckoJS.Array.inArray(role, user.Roles) != -1);
+                        }
+                        else {
+                            hasRole = false;
+                        }
+                     }
 
-                    buttons[i].setAttribute('disabled', 'false');
+                    buttons[i].setAttribute('disabled', !hasRole);
                     if (buttonClass) buttons[i].setAttribute('class', buttonClass);
 
                     let text = datasource.getCellText(row, {id: labelField});
