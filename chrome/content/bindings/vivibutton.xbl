@@ -181,8 +181,8 @@
             width = width || $btn.css('width').replace('px', '');
             height = height || $btn.css('height').replace('px', '');
 
-   label.style['width'] = width +'px' ;
-   label.style['max-width'] = width +'px';
+	    label.style['width'] = width +'px' ;
+	    label.style['max-width'] = width +'px';
         ]]>  
         </body>
     </method>
