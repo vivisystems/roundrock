@@ -910,45 +910,50 @@
 
         if (item.type == 'item') {
 
-            condiments.forEach(function(condiment){
-                var condimentItem = {
-                    id: item.id,
-                    name: condiment.name,
-                    current_subtotal: (this.getRoundedPrice(condiment.price) == 0) ? '' : this.formatPrice(this.getRoundedPrice(condiment.price))
-                };
-
-                if(item.condiments == null) item.condiments = {};
-
-                item.condiments[condiment.name] = condiment;
-
-                // up
-                var itemDisplay = this.createDisplaySeq(itemIndex, condimentItem, 'condiment');
-
-                var lastIndex = this.data.display_sequences.length - 1;
-                this.data.display_sequences.splice(lastIndex+1,0,itemDisplay);
-
-            }, this);
-
             if (condiments.length >0) {
 
-                var roundedPrice = this.getRoundedPrice(item.current_price) || 0;
-                var roundedSubtotal = this.getRoundedPrice(item.current_qty*item.current_price) || 0;
-                var roundedCondiment = 0;
+                condiments.forEach(function(condiment){
 
-                for(var cn in item.condiments) {
-                    roundedCondiment += parseFloat(item.condiments[cn].price)*item.current_qty;
-                }
+                    // this extra check is a workaround for the bug in XULRunner where an item may appear to be selected
+                    // but is actually not
+                    if (condiment) {
+                        var condimentItem = {
+                            id: item.id,
+                            name: condiment.name,
+                            current_subtotal: (this.getRoundedPrice(condiment.price) == 0) ? '' : this.formatPrice(this.getRoundedPrice(condiment.price))
+                        };
 
-                roundedCondiment = this.getRoundedPrice(roundedCondiment);
+                        if(item.condiments == null) item.condiments = {};
 
-                item.current_Condiment = roundedCondiment;
-                item.current_subtotal = roundedSubtotal + roundedCondiment;
+                        item.condiments[condiment.name] = condiment;
 
-                itemDisplay.current_subtotal = this.formatPrice(item.current_subtotal);
+                        // up
+                        var itemDisplay = this.createDisplaySeq(itemIndex, condimentItem, 'condiment');
 
-                this.calcItemsTax();
+                        var lastIndex = this.data.display_sequences.length - 1;
+                        this.data.display_sequences.splice(lastIndex+1,0,itemDisplay);
 
-                this.calcTotal();
+                        var roundedPrice = this.getRoundedPrice(item.current_price) || 0;
+                        var roundedSubtotal = this.getRoundedPrice(item.current_qty*item.current_price) || 0;
+                        var roundedCondiment = 0;
+
+                        for(var cn in item.condiments) {
+                            roundedCondiment += parseFloat(item.condiments[cn].price)*item.current_qty;
+                        }
+
+                        roundedCondiment = this.getRoundedPrice(roundedCondiment);
+
+                        item.current_Condiment = roundedCondiment;
+                        item.current_subtotal = roundedSubtotal + roundedCondiment;
+
+                        itemDisplay.current_subtotal = this.formatPrice(item.current_subtotal);
+
+                        this.calcItemsTax();
+
+                        this.calcTotal();
+                    }
+                }, this);
+
             }
 
         }
@@ -1111,13 +1116,17 @@
 
         var priceLevel = GeckoJS.Session.get('vivipos_fec_price_level');
 
+        var user = (new GeckoJS.AclComponent()).getUserPrincipal();
+        var canOverrideHalo = (GeckoJS.Array.inArray('acl_override_halo', user.Roles) != -1);
+        var canOverrideLalo = (GeckoJS.Array.inArray('acl_override_lalo', user.Roles) != -1);
+
         var priceLevelPrice = this.getPriceLevelPrice(priceLevel, item);
         var priceLevelHalo = this.getPriceLevelHalo(priceLevel, item);
         var priceLevelLalo = this.getPriceLevelLalo(priceLevel, item);
 
         if (sellPrice == null || typeof sellPrice  == 'undefined' || isNaN(sellPrice) ) sellPrice = priceLevelPrice;
-
-        if(priceLevelHalo > 0 && sellPrice > priceLevelHalo) {
+        
+        if(priceLevelHalo > 0 && sellPrice > priceLevelHalo && !canOverrideHalo) {
 
             var obj = {
                 error: 'halo',
@@ -1134,7 +1143,7 @@
             sellPrice = obj.newPrice;
         }
 
-        if(priceLevelLalo > 0 && sellPrice < priceLevelLalo) {
+        if(priceLevelLalo > 0 && sellPrice < priceLevelLalo && !canOverrideLalo) {
 
             var obj2 = {
                 error: 'lalo',
@@ -1156,36 +1165,53 @@
     };
 
     Transaction.prototype.getPriceLevelPrice = function(priceLevel, item) {
-        
-        if (typeof item['price_level'+priceLevel] !='undefined'){
-            var price = parseFloat(item['price_level'+priceLevel]);
-            if (!isNaN(price)) {
-                return price;
+        var price = null;
+
+        if (typeof item['level_enabled'+priceLevel] !='undefined' && item['level_enabled'+priceLevel]){
+            if (item['price_level'+priceLevel].length > 0) {
+                price = parseFloat(item['price_level'+priceLevel]);
             }
         }
-        return parseFloat(item['price_level']);
+        if (price == null || isNaN(price)) {
+            if (typeof item['price_level1'] !='undefined'){
+                price = parseFloat(item['price_level1']);
+            }
+        }
+        return price;
 
     };
 
     Transaction.prototype.getPriceLevelHalo = function(priceLevel, item) {
         
-        if (typeof item['halo'+priceLevel] !='undefined') {
-            if(item['halo'+priceLevel].length > 0) {
-                return parseFloat(item['halo'+priceLevel]);
+        var price = null;
+        if (typeof item['level_enabled'+priceLevel] !='undefined' && item['level_enabled'+priceLevel]){
+            if (item['halo'+priceLevel].length > 0) {
+                price = parseFloat(item['halo'+priceLevel]);
             }
         }
-        return parseFloat(item['halo']);
+        if (price == null || isNaN(price)) {
+            if (typeof item['halo1'] !='undefined'){
+                price = parseFloat(item['halo1']);
+            }
+        }
+        return price;
 
     };
 
     Transaction.prototype.getPriceLevelLalo = function(priceLevel, item) {
 
-        if (typeof item['lalo'+priceLevel] !='undefined') {
-            if(item['lalo'+priceLevel].length > 0) {
-                return parseFloat(item['lalo'+priceLevel]);
+        var price = null;
+        if (typeof item['level_enabled'+priceLevel] !='undefined' && item['level_enabled'+priceLevel]){
+            if (item['lalo'+priceLevel].length > 0) {
+                price = parseFloat(item['lalo'+priceLevel]);
             }
         }
-        return parseFloat(item['lalo']);
+        if (price == null || isNaN(price)) {
+            if (typeof item['lalo1'] !='undefined'){
+                price = parseFloat(item['lalo1']);
+            }
+        }
+        return price;
 
     };
 

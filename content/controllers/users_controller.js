@@ -26,7 +26,6 @@
             
         },
         */
-       
         afterScaffoldSave: function(evt) {
             // maintain Acl...
             this.Acl.addUser(evt.data.username, evt.data.password, evt.data.username);
@@ -71,17 +70,15 @@
                 value: user.username
             });
 
-            if (user_name != null) {
+            if (user_name != null && user_name.length > 0) {
                 alert('Duplicate user name...' + user.username);
                 evt.preventDefault();
                 return ;
             }
-
-            $("#user_id").val('');
-            $("#user_password").val('');
-            $("#user_group").val('');
-            $("#user_group").val('');
-
+            GeckoJS.FormHelper.reset('userForm');
+            var newUser = GeckoJS.FormHelper.serializeToObject('userForm');
+            newUser.username = user.username;
+            GREUtils.extend(evt.data, newUser);
             
         },
         /*

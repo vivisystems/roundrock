@@ -1,0 +1,13 @@
+<!ENTITY    numberpad.keylabel.queue.order       "Queue Order">
+<!ENTITY    numberpad.keylabel.pull.queue        "View Queue">
+<!ENTITY    numberpad.keylabel.clear             "CLEAR">
+<!ENTITY    numberpad.keylabel.modify            "Modify">
+<!ENTITY    numberpad.keylabel.void               "VOID">
+<!ENTITY    numberpad.keylabel.barcode               "Barcode PLU">
+<!ENTITY    numberpad.keylabel.cancel               "CANCEL">
+<!ENTITY    numberpad.keylabel.cash             "CASH">
+<!ENTITY    numberpad.keylabel.subtotal             "SUB TOTAL">
+<!ENTITY    numberpad.keylabel.plusearch             "PLU Search">
+<!ENTITY    numberpad.keylabel.tray             "Tray Marker">
+<!ENTITY    numberpad.keylabel.signoff             "Sign Off">
+<!ENTITY    numberpad.keylabel.times             "X">

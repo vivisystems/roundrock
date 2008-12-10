@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE window SYSTEM "chrome://viviecr/locale/fecpos.dtd">
+<!DOCTYPE window SYSTEM "chrome://viviecr/locale/condiments.dtd">
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/vivipos.css" type="text/css"?>
@@ -14,12 +14,12 @@
 <!-- groupbox -->
     <box flex="1" class="mainpanel1 pad40">
         <vbox flex="1" class="panel40">
-            <label id="" value="Condiment Setting "  class="labeltitle"/>
+            <label id="" value="&condiments.page.title;"  class="labeltitle"/>
             <hbox flex="1" class="footlogo" style="overflow: hidden;">
                 <vbox flex="1">
-                    <!-- Begin Condiments -->
+                    <!-- Begin Condiment Groups -->
                     <groupbox>
-                        <caption label="Condiment Group:" />
+                        <caption label="&condiments.group;" />
                         <hbox>
                             <viviscrollablebuttonpanel dir="reverse" id="condimentscrollablepanel" flex="1" cols="3" rows="2" labelField="name" oncommand="$do('changeCondimentPanel',this.selectedIndex, 'Condiments');"
                               class="catescrollablepanel" buttonClass="catbtn button-radius button-white font-medium" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue">
@@ -31,28 +31,28 @@
                                     <rows>
                                         <row>
                                             <label hidden="true" form="condGroupForm" name="id" value="" />
-                                            <label value="Group Name:"/>
+                                            <label value="&condiments.group.name;"/>
                                             <textbox id="condiment_group_name" form="condGroupForm" name="name"/>
                                         </row>
                                     </rows>
                                 </grid>
                                 <spacer style="height: 10px;" />
                                 <hbox>
-                                    <button label="Add" class="editbtns" oncommand="$do('add', null, 'Condiments');" />
+                                    <button label="&button.action.add;" class="editbtns" oncommand="$do('add', null, 'Condiments');" />
                                     <spacer flex="1" />
-                                    <button label="Delete" class="editbtns" oncommand="$do('remove', null, 'Condiments');" />
-                                    <button label="Modify" class="editbtns" oncommand="$do('modify', null, 'Condiments');" />
+                                    <button label="&button.action.modify;" class="editbtns" oncommand="$do('modify', null, 'Condiments');" />
+                                    <button label="&button.action.delete;" class="editbtns" oncommand="$do('remove', null, 'Condiments');" />
                                 </hbox>
                             </vbox>
                         </hbox>
                     </groupbox>
-                    <!-- End Condiments -->
+                    <!-- End Condiment Groups -->
 
                     <separator class="groove-thin"/>
 
-                    <!-- Begin PLUs -->
+                    <!-- Begin Condiments -->
                     <groupbox>
-                        <caption label="Condiments:" />
+                        <caption label="&condiments.condiment;" />
 
                         <hbox>
                             <vbox>
@@ -62,10 +62,10 @@
                                 </viviscrollablebuttonpanel>
                                 <spacer style="height: 20px;" />
                                 <hbox>
-                                    <button label="Add" class="editbtns" oncommand="$do('addCond', null, 'Condiments');" />
+                                    <button label="&button.action.add;" class="editbtns" oncommand="$do('addCond', null, 'Condiments');" />
                                     <spacer flex="1" />
-                                    <button label="Delete" class="editbtns" oncommand="$do('removeCond', null, 'Condiments');" />
-                                    <button label="Modify" class="editbtns" oncommand="$do('modifyCond', null, 'Condiments');" />
+                                    <button label="&button.action.modify;" class="editbtns" oncommand="$do('modifyCond', null, 'Condiments');" />
+                                    <button label="&button.action.delete;" class="editbtns" oncommand="$do('removeCond', null, 'Condiments');" />
                                 </hbox>
                             </vbox>
                             <vbox style="width: 400px;">
@@ -75,19 +75,19 @@
                                             <row>
                                                 <label hidden="true" form="condimentForm" name="id" value="" />
                                                 <label id="condiment_group_id" hidden="true" form="condimentForm" name="condiment_group_id" value="" />
-                                                <label value="Name:"/>
+                                                <label value="&condiments.condiment.name;"/>
                                                 <textbox id="condiment_name" form="condimentForm" name="name"/>
                                             </row>
                                             <row>
-                                                <label value="Price:"/>
+                                                <label value="&condiments.condiment.price;"/>
                                                 <textbox id="condiment_price" form="condimentForm" name="price" default=""/>
                                             </row>
                                             <row>
-                                                <label value="Button Color:"  />
+                                                <label value="&condiments.condiment.button.color;"  />
                                                 <button_colorpicker id="condiment_button_color" buttonClass="catbtn button-radius" form="condimentForm" name="button_color" default="default"/>
                                             </row>
                                             <row>
-                                                <label value="Font Size:"  />
+                                                <label value="&condiments.condiment.font.size;"  />
                                                 <button_fontsizepicker id="condiment_font_size" buttonClass="catbtn button-white button-radius" form="condimentForm" name="font_size" default="medium"/>
                                             </row>
                                         </rows>

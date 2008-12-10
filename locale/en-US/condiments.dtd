@@ -1,0 +1,11 @@
+<!ENTITY    condiments.page.title       "Condiment Setting">
+<!ENTITY    condiments.group         "Condiment Group">
+<!ENTITY    condiments.group.name      "Group Name:">
+<!ENTITY    button.action.add   "Add">
+<!ENTITY    button.action.modify   "Modify">
+<!ENTITY    button.action.delete   "Delete">
+<!ENTITY    condiments.condiment         "Condiment">
+<!ENTITY    condiments.condiment.name      "Name:">
+<!ENTITY    condiments.condiment.price    "Price:">
+<!ENTITY    condiments.condiment.button.color    "Button Color:">
+<!ENTITY    condiments.condiment.font.size    "Font Size:">

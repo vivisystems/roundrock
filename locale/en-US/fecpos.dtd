@@ -1,4 +1,3 @@
-<!ENTITY vivipos.fec.settings.category.backups "System Backup">
 <!ENTITY vivipos.fec.settings.category.layout "Layout">
 <!ENTITY vivipos.fec.settings.category.general "General Options">
 <!ENTITY vivipos.fec.settings.category.login "Sign In/Out">
@@ -23,9 +22,9 @@
 <!ENTITY vivipos.fec.settings.rounding.to-nearest-dime "to nearest dime">
 <!ENTITY vivipos.fec.settings.rounding.always-round-up "always round up">
 <!ENTITY vivipos.fec.settings.rounding.always-round-down "always round down">
-<!ENTITY vivipos.fec.settings.activepricelevelschedule "Active Schedulable Price Level">
-<!ENTITY vivipos.fec.settings.pricelevelrevert "Price Level Revert to Schedule">
-<!ENTITY vivipos.fec.settings.changedepartmentclearbuffer "clear key buffer when change department">
+<!ENTITY vivipos.fec.settings.activepricelevelschedule "Activate Price Level Schedule">
+<!ENTITY vivipos.fec.settings.pricelevelrevert "Price Level Reverts to Schedule after Each Order">
+<!ENTITY vivipos.fec.settings.changedepartmentclearbuffer "Clear Input Buffer When Switching Departments">
 
 <!ENTITY vivipos.fec.common.ok "Ok">
 <!ENTITY vivipos.fec.common.cancel "Cancel">
@@ -47,6 +46,9 @@
 <!ENTITY vivipos.fec.settings.login.autodiscardcart "Automatically discard cart content when signing off">
 <!ENTITY vivipos.fec.settings.login.autodiscardqueue "Automatically discard queued orders when signing off">
 <!ENTITY vivipos.fec.settings.login.mustemptyqueue "Order queue must be emptied when signing off">
+<!ENTITY vivipos.fec.settings.login.shiftreportonsignoff "Print shift report when users sign off">
+<!ENTITY vivipos.fec.settings.login.shiftreportonquickswitch "Print shift report when quick-switching users">
+
 <!ENTITY vivipos.fec.settings.layout.registeratleft "Place Register Screen on the left side of screen">
 <!ENTITY vivipos.fec.settings.layout.hidenumpad "Hide numeric keypad">
 <!ENTITY vivipos.fec.settings.layout.functionpanelontop "Place Function Key Panel at the top of the screen">
@@ -57,7 +59,6 @@
 
 <!ENTITY vivipos.fec.settings.layout.cropdeptlabel "Crop Department Label (Need restart vivipos application)">
 <!ENTITY vivipos.fec.settings.layout.cropplulabel "Crop PLU Label (Need restart vivipos application)">
-
 
 <!ENTITY vivipos.fec.users.basedata "User Profile">
 <!ENTITY vivipos.fec.users.option1 "User Limits">

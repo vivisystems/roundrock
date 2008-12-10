@@ -9,6 +9,12 @@
      * Controller Startup
      */
     function startup() {
+
+        if (!('input1' in inputObj)) {
+            document.getElementById('title1').hidden = true;
+            document.getElementById('input1').hidden = true;
+        }
+        
         document.getElementById('caption0').setAttribute("label", caption0);
         document.getElementById('text0').value = text0;
         document.getElementById('title0').value = title0;
@@ -29,6 +35,7 @@
             }
             );
 
+        document.getElementById('input0').focus();
     };
 
     window.addEventListener('load', startup, false);
