@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window SYSTEM "chrome://viviecr/locale/numberpad.dtd">
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/changeuser.css" type="text/css"?>
+
+<window id="changeuser" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/changeuser.js" />
+
+    <box flex="1" class="mainpanel">
+        <vbox  id="" pack="start" class="hboxb" flex="1">
+            <hbox>
+                <vbox style="width: 420px;">
+                    <scrollablepanel increment="325" dir="reverse" class="userscrollablepanel" scrollUpClass="rightprevbtn blue" scrollDownClass="rightnextbtn blue">
+                        <hbox  id="userspad" class="hboxb" style="display: block;">
+                        </hbox>
+                    </scrollablepanel>
+                </vbox>
+                <vbox>
+                    <label id="user_name" value="" style="font-size:28px;"/>
+                    <vbox>
+                        <label value="&numberpad.keylabel.password;" />
+                        <textbox id="user_password" type="password" value="" />
+                    </vbox>
+                    <hbox>
+                        <numberpad id="multinumberpad" class="numberpad" target="user_password"/>
+                        <vbox>
+                            <vivibutton id="delBtn"  label="&numberpad.keylabel.del;" oncommand="$do('keypress', {keyCode: 0x08}, 'Keypad');" class="systembtn" />
+                            <vivibutton id="clearBtn"  label="&numberpad.keylabel.clear;" class="systembtn"/>
+                        </vbox>
+                    </hbox>
+                </vbox>
+                <spacer flex="1" />
+
+            </hbox>
+            <spacer flex="1"/>
+            <hbox pack="center">
+                <button label="&numberpad.keylabel.ok;" class="genbtn" oncommand="$do('checkUser', null, 'ChangeUser');" />
+            </hbox>
+        </vbox>
+    </box>
+</window>

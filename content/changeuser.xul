@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE window SYSTEM "chrome://viviecr/locale/fecpos.dtd">
+<!DOCTYPE window SYSTEM "chrome://viviecr/locale/numberpad.dtd">
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/changeuser.css" type="text/css"?>
 
@@ -8,35 +8,33 @@
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/changeuser.js" />
 
-    <box flex="1" class="mainpanel">
+    <box flex="1" class="signinpanel">
         <vbox  id="" pack="start" class="hboxb" flex="1">
             <hbox>
-                <vbox style="width: 420px;">
-                    <scrollablepanel increment="325" dir="reverse" class="userscrollablepanel" scrollUpClass="rightprevbtn blue" scrollDownClass="rightnextbtn blue">
-                        <hbox  id="userspad" class="hboxb" style="display: block;">
-                        </hbox>
-                    </scrollablepanel>
+                <vbox style="width: 350px;">
+                    <viviscrollablebuttonpanel id="userscrollablepanel" dir="reverse" flex="1" cols="1" rows="5" seltype="single" ensureVisible="true" labelField="username"
+                                               class="userscrollablepanel" scrollUpClass="rightprevbtn" scrollDownClass="rightnextbtn" buttonClass="userbtn"
+                                               >
+                        <spacer flex="1"/>
+                    </viviscrollablebuttonpanel>
                 </vbox>
-                <vbox>
-                    <label id="user_name" value="" style="font-size:28px;"/>
-                    <vbox>
-                        <label value="Password:" />
-                        <textbox id="user_password" type="password" value="" />
-                    </vbox>
-                    <hbox>
+                <hbox class="numpad">
                         <numberpad id="multinumberpad" class="numberpad" target="user_password"/>
                         <vbox>
-                            <sendkeybutton id="bkeyBtn"  label="DEL"   keyCode='0x08' target="user_password" class="systembtn"  />
-                            <vivibutton id="clearBtn"  label="CLEAR" class="systembtn"/>
+                            <vivibutton id="delBtn" label="&numberpad.keylabel.del;" class="systembtn" />
+                            <vivibutton id="clearBtn" label="&numberpad.keylabel.clear;" class="systembtn"/>
                         </vbox>
-                    </hbox>
-                </vbox>
+                </hbox>
                 <spacer flex="1" />
 
             </hbox>
-            <spacer flex="1"/>
-            <hbox pack="center">
-                <button label="OK" class="genbtn" oncommand="$do('checkUser', null, 'ChangeUser');" />
+            <hbox pack="center" class="PwPad">
+                <label value="&numberpad.keylabel.password;" class="pwlabel" />
+                <vbox>
+                    <textbox id="user_password" type="password" value="" class="pwBox" />
+                    <label id="user_name" value="" class="userlabel"/>
+                </vbox>
+                <button label="&numberpad.keylabel.ok;" class="genbtn" oncommand="$do('checkUser', null, 'ChangeUser');" />
             </hbox>
         </vbox>
     </box>

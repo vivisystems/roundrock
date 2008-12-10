@@ -58,7 +58,7 @@
 .numberpad {
    
 }
-.numberpad sendkeybutton{
+.numberpad button{
     min-width:64px;
     max-width:64px;
     min-height:52px;
@@ -94,7 +94,7 @@
     -moz-background-clip: border;
 	border: none;
 }
-.rightprevbtn[disabled=false]:active {
+.rightprevbtn:active {
 	background: transparent url(images/userUp_a.png) center center no-repeat;
 }
 .rightnextbtn {
@@ -108,16 +108,8 @@
     -moz-background-clip: border;
     border: none;
 }
-.rightnextbtn[disabled=false]:active {
+.rightnextbtn:active {
 	background: transparent url(images/userDown_a.png) center center no-repeat;
-}
-
-.rightprevbtn label{
-	display: none;
-}
-
-.rightnextbtn label{
-	display: none;
 }
 
 .leftprevbtn {
@@ -186,7 +178,7 @@
     color: white;
 }
 
-.userbtn[selected=true] {
+.userbtn[checked=true] {
     background: transparent url(images/selUser.gif) no-repeat center center;
     color: white;
 }
