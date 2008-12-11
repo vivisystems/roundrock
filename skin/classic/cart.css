@@ -1,0 +1,105 @@
+/* global skin ------------------------------------------------------------- */
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+@namespace html url("http://www.w3.org/1999/xhtml");
+
+.cartlistbox{
+  font-size: 14px;
+  overflow: hidden;
+  margin: 0px 0px 0px 0px;
+  padding: 0px;
+  background: transparent url(images/cart.png) bottom right no-repeat;
+}
+
+.cartlistbox listitem{
+  height: 32px;
+  border-bottom-color: #aaa;
+  -moz-box-align: center;
+}
+
+.cartlistbox .label_sell_qty, .cartlistbox .label_sell_price, .cartlistbox .label_sell_subtotal {
+  text-align: right;
+}
+
+.funcscrollablepanel {
+   max-height: 102px;
+   min-height: 102px;
+   margin-right: 3px;
+   margin-bottom: 5px;
+}
+
+.cartList{
+    font-size: 14px;
+    min-height: 200px;
+    border-bottom: 1px dotted #908c83;
+    overflow: hidden;
+    margin: 0px 0px 2px 0px;
+    padding: 0px;
+    background: transparent;
+}
+
+.cartList .scrollablepanel-scrollbar {
+    border: 1px dotted #908c83;
+}
+
+.cartList .scrollablepanel-scrollbar button {
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.cartList tree {
+    margin: 0px;
+}
+.cartList treechildren{
+    background: #f8f4eb url(images/cart.png) bottom right no-repeat;
+}
+
+.cartScrollUp {
+	border: 0px solid;
+	background: transparent url(images/chatup.png) 0 0 no-repeat;
+	max-height: 32px;
+    min-height: 32px;
+    max-width: 32px;
+    min-width: 32px;
+	height: 32px;
+	width: 32px;
+	margin: 4px;
+	-moz-user-focus: ignore;
+	-moz-appearance: none;
+}
+
+.cartScrollUp[disabled=false]:active {
+	background-position:-32px 0;
+}
+
+.cartScrollDown {
+	border: 0px solid;
+	background: transparent url(images/chatdown.png) 0 0 no-repeat;
+	max-height: 32px;
+    min-height: 32px;
+    max-width: 32px;
+    min-width: 32px;
+	height: 32px;
+	width: 32px;
+	margin: 4px;
+	-moz-user-focus: ignore;
+	-moz-appearance: none;
+}
+
+.cartScrollDown[disabled=false]:active {
+	background-position:-32px 0;
+}
+
+.cartScrollUp label, .cartScrollDown label {
+	display: none;
+}
+
+.itemplusbtn {
+     background: transparent url(chrome://viviecr/skin/images/list-add.png) center center no-repeat;
+}
+.itemminusbtn {
+     background: transparent url(chrome://viviecr/skin/images/list-remove.png) center center no-repeat;
+}
+.paymentdetailsbtn {
+     background: transparent url(chrome://viviecr/skin/images/gnucash-icon.png) center center no-repeat;
+}
