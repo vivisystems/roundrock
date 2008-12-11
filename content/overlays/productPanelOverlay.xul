@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/buttons.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/product.css" type="text/css"?>
+
 <!DOCTYPE overlay PUBLIC "-//MOZILLA//DTD XUL V1.0//EN" "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
 <overlay id="catePanelOverlay"
@@ -9,14 +12,27 @@
   <box id="productPanelContainer">
     <vbox id="productPanel" flex="1">
         <!-- Begin Catalogs -->
-        <viviscrollablebuttonpanel dir="reverse" id="catescrollablepanel" flex="1" cols="3" rows="2" labelField="name" imageField="no" oncommand="$do('changePluPanel',this.selectedIndex, 'Main');"
-          class="catescrollablepanel" buttonClass="catbtn button-radius" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue"/>
+        <viviscrollablebuttonpanel dir="reverse" id="catescrollablepanel" flex="1" cols="3" rows="2" labelField="name" imageField="no"
+                                   oncommand="$do('changePluPanel',this.selectedIndex, 'Main');"
+                                   class="catescrollablepanel"
+                                   buttonClass="catbtn"
+                                   scrollUpClass="depart_scroll_up"
+                                   scrollDownClass="depart_scroll_down">
+           <spacer flex="1"/>
+       </viviscrollablebuttonpanel>
         <!-- End Catalogs -->
 
 
         <!-- Begin PLUs -->
         <viviscrollablebuttonpanel dir="reverse" id="prodscrollablepanel" flex="1" cols="2" rows="1" labelField="name" imageField="no"
-            oncommand="$do('clickPluPanel',this.selectedIndex, 'Main');"  class="prodscrollablepanel" buttonClass="plubtn smallimagebtn button-radius" scrollUpClass="rightprevbtn button-gray" scrollDownClass="rightnextbtn button-gray" seltype="multiple" />
+                                   oncommand="$do('clickPluPanel',this.selectedIndex, 'Main');"
+                                   class="prodscrollablepanel"
+                                   buttonClass="plubtn"
+                                   scrollUpClass="depart_scroll_up"
+                                   scrollDownClass="depart_scroll_down"
+                                   seltype="multiple">
+           <spacer flex="1"/>
+       </viviscrollablebuttonpanel>
         <!-- End PLUs -->
 
     </vbox>

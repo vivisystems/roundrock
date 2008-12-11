@@ -1,8 +1,6 @@
 .vivifuncpanelecr_function_panel {
     background: transparent;
-    max-width: 344px;
-    min-width: 344px;
-    height: 500px;
+    height: 225px;
     margin: 0px 0px 0px 0px;
     padding: 0px 0px 0px 0px;
 }
@@ -24,7 +22,7 @@
 .vivifuncpanelecr_matrix_button_mapped {
     min-width: 40px;
     min-height: 40px;
-    margin: 0px 0px 0px 0px;
+    margin: 0px;
     padding: 0px;
     list-style-type: none;
     overflow: hidden;
@@ -32,14 +30,15 @@
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-background-clip: border;
-    -moz-border-radius: 0px; 
+    -moz-border-radius: 2px; 
+    border: 0px;
 }
 
 .vivifuncpanelecr_matrix_button_nomap {
     min-width: 40px;
     min-height: 40px;
     width: 40px;
-    margin: 0px 0px 0px 0px;
+    margin: 0px;
     padding: 0px;
     list-style-type: none;
     overflow: hidden;
@@ -47,14 +46,16 @@
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-background-clip: border;
-    -moz-border-radius: 0px; 
+    -moz-border-radius: 2px; 
+    border: 0px;
+    background: #e1ddd2;
 }
 
 .vivifuncpanelecr_matrix_button_configure {
     min-width: 40px;
     min-height: 40px;
     width: 40px;
-    margin: 0px 0px 0px 0px;
+    margin: 0px;
     padding: 0px;
     list-style-type: none;
     overflow: hidden;
@@ -62,47 +63,53 @@
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-background-clip: border;
-    -moz-border-radius: 0px; 
+    -moz-border-radius: 2px; 
+     border: 0px;
 }
 
 .vivifuncpanelecr_control_panel {
-    min-width: 32px;
-    max-width: 32px;
+    min-width: 34px;
+    max-width: 34px;
     margin: 0px 0px 0px 0px;
     padding: 0px 0px 0px 0px;
-    border-width: 0px;
-    border-style: solid;
     overflow: hidden;
+    border-left: 1px dotted #908c83;
+    border-right: 1px dotted #908c83;
+    -moz-box-align: center;
 }
 
 .vivifuncpanelecr_control_scroll_left {
-    min-height: 50px;
-    max-height: 50px;
-    margin: 0px 0px 0px 0px;
+    min-height: 32px;
+    max-height: 32px;
+    min-width: 32px;
+    max-width: 32px;
+    margin: 0px;
     padding: 0px 0px 0px 0px;
-    list-style-image: url(chrome://viviecr/skin/images/up.png);
-    background-image: url(chrome://viviecr/skin/images/gray.png);
-    background-position: center center;
+    background: transparent url(images/funUp.png) center center no-repeat;
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-background-clip: border;
-    -moz-border-radius-topright: 12px; 
-    -moz-border-radius-topleft: 12px;  
+    border: 0px;  
+}
+.vivifuncpanelecr_control_scroll_left[disabled=false]:active {
+	background: transparent url(images/funUp_a.png) center center no-repeat;
 }
 
 .vivifuncpanelecr_control_scroll_right {
-    min-height: 50px;
-    max-height: 50px;
-    margin: 0px 0px 0px 0px;
+    min-height: 32px;
+    max-height: 32px;
+    min-width: 32px;
+    max-width: 32px;
+    margin: 0px;
     padding: 0px 0px 0px 0px;
-    list-style-image: url(chrome://viviecr/skin/images/down.png);
-    background-image: url(chrome://viviecr/skin/images/gray.png);
-    background-position: center center;
+    background: transparent url(images/funDown.png) center center no-repeat;
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-background-clip: border;
-    -moz-border-radius-bottomright: 12px; 
-    -moz-border-radius-bottomleft: 12px;  
+    border: 0px;   
+}
+.vivifuncpanelecr_control_scroll_right[disabled=false]:active {
+	background: transparent url(images/funDown_a.png) center center no-repeat;
 }
 
 .vivifuncpanelecr_control_home {
@@ -110,21 +117,24 @@
     max-width: 32px;
     min-height: 32px;
     max-height: 32px;
-    margin: 0px 0px 0px 0px;
+    margin: 2px;
     padding: 0px 0px 0px 0px;
-    background-image: url(chrome://viviecr/skin/images/gray.png);
-    background-position: center center;
+    background: transparent url(images/funTop.png) center center no-repeat;
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-background-clip: border;
+    border: 0px; 
+}
+.vivifuncpanelecr_control_home[disabled=false]:active {
+	background: transparent url(images/funTop_a.png) center center no-repeat;
 }
 
 .vivifuncpanelecr_control_label {
-    color: #127b31;
-    margin: 0px 0px 0px 0px;
+    color: #67625c;
+    margin: 0px;
     padding: 0px 0px 0px 0px;
     text-align: center;
-    font-size: large;
+    font-size: 10.5pt;
     border-width: 1px;
     background: transparent;
     border-color: transparent;

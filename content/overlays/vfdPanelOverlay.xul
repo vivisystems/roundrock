@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet href="chrome://viviecr/skin/orderstatus.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/vfdpanel.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/orderstatus.css" type="text/css"?>
 
 <!DOCTYPE window SYSTEM "chrome://viviecr/locale/orderstatus.dtd">
 

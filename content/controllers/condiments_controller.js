@@ -316,7 +316,10 @@
                     // we are retrieving the right record
                     for (var i = 0; i < conds.length; i++) {
                         if (conds[i].condiment_group_id == inputData.condiment_group_id) {
-                            condGroups[this._selectedIndex]['Condiment'].push(conds[i]);
+                            if (condGroups[this._selectedIndex]['Condiment'])
+                                condGroups[this._selectedIndex]['Condiment'].push(conds[i]);
+                            else
+                                condGroups[this._selectedIndex]['Condiment'] = [conds[i]];
                         }
                     }
 

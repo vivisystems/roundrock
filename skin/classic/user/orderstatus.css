@@ -1,0 +1,55 @@
+.orderstatus {
+    border-width: 1px 0px 0px 0px;
+    border-style: solid;
+    border-color: #def44a;
+    border-bottom: 1px solid #ffffff;
+    background-color: #28231f;
+    max-height: 30px;
+    -moz-appearance: none;
+}
+
+.orderstatus separator {
+    width: 1px;
+}
+
+.orderstatus_field_label {
+    color: #def44a;
+    max-width: 50px;
+    margin: 0px 5px 0px 2px;
+    padding: 0px 0px 0px 0px;
+    background-color: transparent;
+    border-width: 0px;
+    font-size: x-small;
+    -moz-appearance: none;
+}
+
+.orderstatus_field_value {
+    color: #def44a;
+    margin: 0px 2px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    background-color: transparent;
+    border-width: 0px;
+    font-size: x-small;
+    -moz-appearance: none;
+}
+
+.pricelevel_tax_field_label {
+    color: #def44a;
+    max-width: 50px;
+    margin: 0px 5px 0px 2px;
+    padding: 0px 0px 0px 0px;
+    background-color: transparent;
+    border-width: 0px;
+    font-size: medium;
+    -moz-appearance: none;
+}
+
+.pricelevel_tax_field_value {
+    color: #def44a;
+    margin: 0px 2px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    background-color: transparent;
+    border-width: 0px;
+    font-size: medium;
+    -moz-appearance: none;
+}

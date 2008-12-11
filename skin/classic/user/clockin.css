@@ -59,25 +59,29 @@
 .numberpad {
     width: 240px;
 }
-.numberpad sendkeybutton, .numberpad button{
-    min-width:80px;
-    max-width:80px;
-    min-height:50px;
-    max-height:50px;
-    height: 50px;
-    width: 80px;
+.numberpad button{
+    min-width:83px;
+    max-width:83px;
+    min-height:57px;
+    max-height:57px;
+    height: 57px;
+    width: 83px;
     margin: 1px 1px 0px 0px;
     padding: 0px;
     list-style-type: none;
-    color: White;
+    color: #536583;
     font-weight: bold !important;
     font-size: 30px;
     overflow: hidden;
-    background-color:#800040;
+    background-color: transparent;
     -moz-appearance: none;
     -moz-user-focus: ignore;
-    background: url(images/btn_purple.png);
+    background: url(images/test.png);
     -moz-background-clip: border;
+    border: none;
+}
+.numberpad button:hover{
+	background: url(images/test2.png);
 }
 
 .clockinoutbtn {
