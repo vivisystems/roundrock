@@ -103,3 +103,33 @@
 .paymentdetailsbtn {
      background: transparent url(chrome://viviecr/skin/images/gnucash-icon.png) center center no-repeat;
 }
+
+treechildren::-moz-tree-row {
+  height: 28px;
+}
+
+treechildren::-moz-tree-row(selected) {background-color: #991111; }
+treechildren::-moz-tree-row(odd) {background-color: #DDDDDD;}
+treechildren::-moz-tree-row(odd, selected) {background-color: #991111; }
+treechildren::-moz-tree-cell-text(selected) {color: #FFFFFF;}
+treechildren::-moz-tree-cell-text(odd, selected) {color: #FFFFFF;}
+
+/*
+treeitem {
+  min-height: 30px;
+}
+*/
+/*
+treechildren {
+  background-position: right bottom;
+    background-repeat: no-repeat;
+    background-image: url(images/vivipos_icon1.png);
+}
+*/
+treechildren::-moz-tree-row(treeTRAY) {background-color: #AAAAFF;}
+treechildren::-moz-tree-row(treeSUBTOTAL) {background-color: #FF88FF;}
+treechildren::-moz-tree-row(treeTOTAL) {background-color: #55DD55;}
+treechildren::-moz-tree-cell-text(treecellTRAY) {color: white;}
+treechildren::-moz-tree-cell-text(treecellSUBTOTAL) {color: yellow;}
+treechildren::-moz-tree-cell-text(treecellTOTAL) {color: yellow;}
+

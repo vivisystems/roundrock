@@ -2,7 +2,6 @@
 <!DOCTYPE window SYSTEM "chrome://viviecr/locale/condiments.dtd">
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/vivipos.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -14,7 +13,6 @@
 <!-- groupbox -->
     <box flex="1" class="mainpanel1 pad40">
         <vbox flex="1" class="panel40">
-            <label id="" value="&condiments.page.title;"  class="labeltitle"/>
             <hbox flex="1" class="footlogo" style="overflow: hidden;">
                 <vbox flex="1">
                     <!-- Begin Condiment Groups -->
@@ -38,10 +36,10 @@
                                 </grid>
                                 <spacer style="height: 10px;" />
                                 <hbox>
-                                    <button label="&button.action.add;" class="editbtns" oncommand="$do('add', null, 'Condiments');" />
+                                    <button label="&condiments.button.action.add;" class="editbtns" oncommand="$do('add', null, 'Condiments');" />
                                     <spacer flex="1" />
-                                    <button label="&button.action.modify;" class="editbtns" oncommand="$do('modify', null, 'Condiments');" />
-                                    <button label="&button.action.delete;" class="editbtns" oncommand="$do('remove', null, 'Condiments');" />
+                                    <button label="&condiments.button.action.modify;" class="editbtns" oncommand="$do('modify', null, 'Condiments');" />
+                                    <button label="&condiments.button.action.delete;" class="editbtns" oncommand="$do('remove', null, 'Condiments');" />
                                 </hbox>
                             </vbox>
                         </hbox>
@@ -62,10 +60,10 @@
                                 </viviscrollablebuttonpanel>
                                 <spacer style="height: 20px;" />
                                 <hbox>
-                                    <button label="&button.action.add;" class="editbtns" oncommand="$do('addCond', null, 'Condiments');" />
+                                    <button label="&condiments.button.action.add;" class="editbtns" oncommand="$do('addCond', null, 'Condiments');" />
                                     <spacer flex="1" />
-                                    <button label="&button.action.modify;" class="editbtns" oncommand="$do('modifyCond', null, 'Condiments');" />
-                                    <button label="&button.action.delete;" class="editbtns" oncommand="$do('removeCond', null, 'Condiments');" />
+                                    <button label="&condiments.button.action.modify;" class="editbtns" oncommand="$do('modifyCond', null, 'Condiments');" />
+                                    <button label="&condiments.button.action.delete;" class="editbtns" oncommand="$do('removeCond', null, 'Condiments');" />
                                 </hbox>
                             </vbox>
                             <vbox style="width: 400px;">

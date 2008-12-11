@@ -726,7 +726,7 @@
             if (buf.length>0 && currencies && currencies.length > convertIndex) {
                 var amount = parseFloat(buf)
                 // currency convert array
-                var currency_rate = currencies[convertIndex].currency_change;
+                var currency_rate = currencies[convertIndex].currency_exchange;
                 var memo1 = currencies[convertIndex].currency + ":" + amount;
                 var memo2 = "x" + currency_rate;
                 amount = amount * currency_rate;

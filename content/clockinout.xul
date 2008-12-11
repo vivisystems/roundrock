@@ -14,10 +14,11 @@
         <vbox  id="" pack="start" class="hboxb" flex="1">
             <hbox  pack="start" flex="1">
                 <vbox style="width: 420px;" pack="start">
-                    <scrollablepanel increment="50" dir="reverse" class="clockuserscrollablepanel clockusers" scrollUpClass="rightprevbtn blue" scrollDownClass="rightnextbtn blue">
-                        <hbox  id="userspad" class="hboxb" style="display: block;">
-                        </hbox>
-                    </scrollablepanel>
+                    <viviscrollablebuttonpanel id="userscrollablepanel" dir="reverse" flex="1" cols="1" rows="5" seltype="single" ensureVisible="true" labelField="username"
+                                               class="userscrollablepanel" scrollUpClass="rightprevbtn" scrollDownClass="rightnextbtn" buttonClass="userbtn"
+                                               >
+                                               <spacer flex="1"/>
+                    </viviscrollablebuttonpanel>
                     <hbox>
                         <simplelistbox id="simpleListBoxJobs" rows="16"  headers="Job List" columns="jobname"  class="prodsimplelistbox jobs" />
                         <simplelistbox id="simpleListBoxSummary" rows="16"  headers="Time In, Time Out, Job" columns="clockin_time,clockout_time,job"  class="prodsimplelistbox jobssummary"/>

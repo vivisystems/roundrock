@@ -33,7 +33,6 @@
 
             this.resetInputData();
             this.resetInputCondData();
-
         },
 
         changeCondimentPanel: function(index) {
@@ -111,8 +110,6 @@
 
         resetInputData: function () {
 
-            // this.query('#condiment_group_no').val('');
-            // $('#condiment_group_no').val('');
             this.query('#condiment_group_name').val('');
             this.query('#condiment_group_id').val('');
 
@@ -130,7 +127,14 @@
 
             var inputObj = {input0:null};
 
-            window.openDialog(aURL, "prompt_additem", features, "New Condiment Group", "Please input:", "Name", "", inputObj);
+            window.openDialog(aURL,
+                              'prompt_additem',
+                              features,
+                              _('New Condiment Group:'),
+                              '',
+                              _('Group Name:'),
+                              '',
+                              inputObj);
 
             if (inputObj.ok && inputObj.input0) {
                 var inputData = {name: inputObj.input0};
@@ -140,7 +144,7 @@
                     value: inputData.name
                 });
                 if ((condGroups != null) && (condGroups.length > 0)) {
-                    alert("The Group (" + inputData.name + ") already exists..");
+                    alert(_('The Group (%S) already exists..', [inputData.name]));
                     return;
                 }
                 
@@ -187,7 +191,7 @@
                 if ((conds != null) && (conds.length > 0)) {
                     for (var i = 0; i < conds.length; i++) {
                         if (conds[i].id != condGroup.id) {
-                            alert("The Condiment Group (" + inputData.name + ") already exists..");
+                            alert(_('The Group (%S) already exists..', [inputData.name]));
                             return;
                         }
                     }
@@ -212,7 +216,7 @@
         remove: function() {
             if (this._selectedIndex == null || this._selectedIndex < 0) return;
 
-            if (GREUtils.Dialog.confirm(null, "confirm delete", "Are you sure?")) {
+            if (GREUtils.Dialog.confirm(null, _('confirm delete'), _('Are you sure?'))) {
                 var condGroupModel = new CondimentGroupModel();
                 if(this._selectedIndex >= 0) {
                     var condGroups = GeckoJS.Session.get('condGroups');
@@ -298,7 +302,7 @@
                 if ((conds != null) && (conds.length > 0)) {
                     for (var i = 0; i < conds.length; i++) {
                         if (conds[i].name == inputData.name) {
-                            alert("The Condiment (" + inputData.name + ") already exists in this group...");
+                            alert(_('The Condiment (%S) already exists in this group...', [inputData.name]));
                             return;
                         }
                     }
@@ -351,7 +355,7 @@
                 if ((conds != null) && (conds.length > 0)) {
                     for (var i = 0; i < conds.length; i++) {
                         if ((conds[i].name == inputData.name) && (i != this._selectedCondIndex)) {
-                            alert("The Condiment (" + inputData.name + ") already exists in this group...");
+                            alert(_('The Condiment (%S) already exists in this group...', [inputData.name]));
                             return;
                         }
                     }
@@ -376,7 +380,7 @@
         removeCond: function() {
             if (this._selectedCondIndex == null || this._selectedCondIndex < 0) return;
 
-            if (GREUtils.Dialog.confirm(null, "confirm delete", "Are you sure?")) {
+            if (GREUtils.Dialog.confirm(null, _('confirm delete'), _('Are you sure?'))) {
                 var condModel = new CondimentModel();
                 if(this._selectedCondIndex >= 0) {
                     var condGroups = GeckoJS.Session.get('condGroups');
