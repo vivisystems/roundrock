@@ -18,6 +18,9 @@
             this.screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
             this.screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
 
+            GeckoJS.Session.set('screenwidth', this.screenwidth);
+            GeckoJS.Session.set('screenheight', this.screenheight);
+            
             this.createPluPanel();
             this.requestCommand('initial', null, 'Pricelevel');
             this.requestCommand('initial', null, 'Cart');
@@ -72,7 +75,7 @@
             var width = this.screenwidth;
             var height = this.screenheight;
 
-            GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,dependent=yes,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height, "");
+            GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,dependent=no,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height, "");
         },
 
         ClockInOutDialog: function () {
@@ -421,6 +424,11 @@
             var defaultUser = GeckoJS.Configure.read('vivipos.fec.settings.DefaultUser');
             var acl = new GeckoJS.AclComponent();
 
+            // pre-create the login screen and hide it
+            //this.ChangeUserDialog();
+
+            //if (loginWindow) loginWindow.minimize();
+            
             if (defaultLogin) {
                 var userModel = new UserModel();
                 var users = userModel.findByIndex('all', {
@@ -573,7 +581,8 @@
                 $do('cancel', null, 'Cart');
                 $do('clear', null, 'Cart');
             }
-            if (!quickSignoff) this.ChangeUserDialog();
+            if (!quickSignoff) 
+                this.ChangeUserDialog();
         },
 
         dispatch: function(arg) {

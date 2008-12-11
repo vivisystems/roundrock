@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE window SYSTEM "chrome://viviecr/locale/fecpos.dtd">
+<!DOCTYPE window SYSTEM "chrome://viviecr/locale/departments.dtd">
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/vivipos.css" type="text/css"?>
@@ -18,12 +18,19 @@
 
 <!-- Begin Departments - PLUs -->
                 <vbox id="catsplus">
-                    <label id="" value="Departments" class="labeltitle" />
+                    <caption label="&departments.title;"/>
                     <hbox>
                         <hbox flex="1" pack="start">
                             <vbox pack="start" flex="1">
-                                <viviscrollablebuttonpanel dir="reverse" id="catescrollablepanel" flex="1" cols="4" rows="6" labelField="name" imageField="no" oncommand="$do('changeDepartmentPanel',this.selectedIndex, 'Departments');"
-                                    class="catescrollablepanel" buttonClass="catbtn button-radius" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue"/>
+                                <viviscrollablebuttonpanel dir="reverse" id="catescrollablepanel" flex="1" cols="4" rows="6" labelField="name" imageField="no"
+                                                           ensureVisible="true"
+                                                           oncommand="$do('changeDepartmentPanel',this.selectedIndex, 'Departments');"
+                                                           class="catescrollablepanel"
+                                                           buttonClass="catbtn button-radius"
+                                                           scrollUpClass="rightprevbtn button-blue"
+                                                           scrollDownClass="rightnextbtn button-blue">
+                                    <spacer flex="1"/>
+                                </viviscrollablebuttonpanel>
                             </vbox>
                             <spacer style="width: 20px;" />
                         </hbox>
@@ -31,40 +38,40 @@
                         <hbox>
                             <vbox>
                                 <groupbox>
-                                    <caption label="Department Details:" />
+                                    <caption label="&departments.details;" />
                                     <grid>
                                         <rows>
                                             <row>
-                                                <label style="width:10em" value="Department No:"/>
+                                                <label style="width:10em" value="&departments.number;"/>
                                                 <textbox id="category_no" readonly="true" form="depForm" name="no"/>
                                             </row>
                                             <row>
-                                                <label style="width:10em" value="Department Name:" />
+                                                <label style="width:10em" value="&departments.name;" />
                                                 <textbox id="category_name" value="" form="depForm" name="name"/>
                                             </row>
 
                                             <row>
-                                                <label value="Rate:"/>
+                                                <label value="&departments.taxrate;"/>
                                                 <textbox id="rate" value="" form="depForm" name="rate" readonly="true" onclick="$do('getRate',this.selectedIndex,'Departments');"/>
                                             </row>
 
                                             <row>
-                                                <checkbox id="category_visible" value="1" label="Visible" form="depForm" name="visible" default="1"/>
+                                                <checkbox id="category_visible" value="1" label="&departments.visible;" form="depForm" name="visible" default="1"/>
                                             </row>
 
                                             <row>
-                                                <checkbox id="category_cansale" value="0" label="Sale Department" form="depForm" name="cansale" default="0"/>
+                                                <checkbox id="category_cansale" value="0" label="&departments.sale;" form="depForm" name="cansale" default="0"/>
                                             </row>
                                         </rows>
                                     </grid>
 
                                 </groupbox>
                                 <groupbox>
-                                    <caption label="Button Color:" />
+                                    <caption label="&departments.button.color;" />
                                     <button_colorpicker id="category_button_color" form="depForm" name="button_color" buttonClass="catbtn button-radius" default="default"/>
                                 </groupbox>
                                 <groupbox>
-                                    <caption label="Font Size:" />
+                                    <caption label="&departments.font.size;" />
                                     <button_fontsizepicker id="category_font_size" form="depForm" name="font_size" buttonClass="catbtn button-white button-radius" default="medium"/>
                                 </groupbox>
                             </vbox>

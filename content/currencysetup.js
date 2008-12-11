@@ -22,7 +22,7 @@
             }
             );
 
-        $('#currency_exchange_1').focus();
+        $('#currency_1').focus();
 
     };
 

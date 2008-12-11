@@ -27,7 +27,7 @@ pref("vivipos.fec.settings.controlpanels.sysprefs.roles", "acl_public_access");
 pref("vivipos.fec.settings.controlpanels.departments.label", "Departments");
 pref("vivipos.fec.settings.controlpanels.departments.path", "chrome://viviecr/content/departments.xul");
 pref("vivipos.fec.settings.controlpanels.departments.icon", "chrome://viviecr/content/skin/icons/stock_add-bookmark.png");
-pref("vivipos.fec.settings.controlpanels.departments.roles", "acl_public_access");
+pref("vivipos.fec.settings.controlpanels.departments.roles", "acl_manage_departments");
 
 pref("vivipos.fec.settings.controlpanels.plus.label", "PLUs");
 pref("vivipos.fec.settings.controlpanels.plus.path", "chrome://viviecr/content/plus.xul");
@@ -44,7 +44,7 @@ pref("vivipos.fec.settings.controlpanels.plugroups.path", "chrome://viviecr/cont
 pref("vivipos.fec.settings.controlpanels.plugroups.icon", "chrome://viviecr/content/skin/icons/view-restore.png");
 pref("vivipos.fec.settings.controlpanels.plugroups.roles", "acl_public_access");
 
-pref("vivipos.fec.settings.controlpanels.users.label", "Employee");
+pref("vivipos.fec.settings.controlpanels.users.label", "Employees");
 pref("vivipos.fec.settings.controlpanels.users.path", "chrome://viviecr/content/users.xul");
 pref("vivipos.fec.settings.controlpanels.users.icon", "chrome://viviecr/content/skin/icons/stock_new-address-book.png");
 pref("vivipos.fec.settings.controlpanels.users.roles", "acl_public_access");
@@ -59,21 +59,20 @@ pref("vivipos.fec.settings.controlpanels.currency.path", "chrome://viviecr/conte
 pref("vivipos.fec.settings.controlpanels.currency.icon", "chrome://viviecr/content/skin/icons/reload.png");
 pref("vivipos.fec.settings.controlpanels.currency.roles", "acl_manage_currency");
 
-pref("vivipos.fec.settings.controlpanels.stocks.label", "Stocks");
+pref("vivipos.fec.settings.controlpanels.stocks.label", "Stock Control");
 pref("vivipos.fec.settings.controlpanels.stocks.path", "chrome://viviecr/content/stocks.xul");
 pref("vivipos.fec.settings.controlpanels.stocks.icon", "chrome://viviecr/content/skin/icons/gtk-paste.png");
 pref("vivipos.fec.settings.controlpanels.stocks.roles", "acl_public_access");
-
 
 pref("vivipos.fec.settings.controlpanels.reports.label", "Reports");
 pref("vivipos.fec.settings.controlpanels.reports.path", "chrome://viviecr/content/report.xul");
 pref("vivipos.fec.settings.controlpanels.reports.icon", "chrome://viviecr/content/skin/icons/gtk-copy.png");
 pref("vivipos.fec.settings.controlpanels.reports.roles", "acl_public_access");
 
-pref("vivipos.fec.settings.controlpanels.discount.label", "Discount/ Promotion");
-pref("vivipos.fec.settings.controlpanels.discount.path", "chrome://viviecr/content/promotions.xul");
-pref("vivipos.fec.settings.controlpanels.discount.icon", "chrome://viviecr/content/skin/icons/editcut.png");
-pref("vivipos.fec.settings.controlpanels.discount.roles", "acl_public_access");
+pref("vivipos.fec.settings.controlpanels.promotions.label", "Promotions");
+pref("vivipos.fec.settings.controlpanels.promotions.path", "chrome://viviecr/content/promotions.xul");
+pref("vivipos.fec.settings.controlpanels.promotions.icon", "chrome://viviecr/content/skin/icons/editcut.png");
+pref("vivipos.fec.settings.controlpanels.promotions.roles", "acl_public_access");
 
 pref("vivipos.fec.settings.controlpanels.jobs.label", "Jobs");
 pref("vivipos.fec.settings.controlpanels.jobs.path", "chrome://viviecr/content/jobs.xul");
@@ -90,7 +89,7 @@ pref("vivipos.fec.settings.controlpanels.pricelevelschedule.path", "chrome://viv
 pref("vivipos.fec.settings.controlpanels.pricelevelschedule.icon", "chrome://viviecr/content/skin/icons/appointment.png");
 pref("vivipos.fec.settings.controlpanels.pricelevelschedule.roles", "acl_public_access");
 
-pref("vivipos.fec.settings.controlpanels.importexport.label", "Import/ Export");
+pref("vivipos.fec.settings.controlpanels.importexport.label", "Data Import/ Export");
 pref("vivipos.fec.settings.controlpanels.importexport.path", "chrome://viviecr/content/importexport.xul");
 pref("vivipos.fec.settings.controlpanels.importexport.icon", "chrome://viviecr/content/skin/icons/gtk-refresh.png");
 pref("vivipos.fec.settings.controlpanels.importexport.roles", "acl_public_access");
@@ -105,7 +104,7 @@ pref("vivipos.fec.settings.controlpanels.imagemanager.path", "chrome://viviecr/c
 pref("vivipos.fec.settings.controlpanels.imagemanager.icon", "chrome://viviecr/content/skin/icons/document-save.png");
 pref("vivipos.fec.settings.controlpanels.imagemanager.roles", "acl_public_access");
 
-pref("vivipos.fec.settings.controlpanels.functionpanel.label", "Function Key Mapping");
+pref("vivipos.fec.settings.controlpanels.functionpanel.label", "Function Panel Configuration");
 pref("vivipos.fec.settings.controlpanels.functionpanel.path", "chrome://viviecr/content/funcpanelecrprefs.xul");
 pref("vivipos.fec.settings.controlpanels.functionpanel.icon", "chrome://viviecr/content/skin/icons/stock_add-bookmark.png");
 pref("vivipos.fec.settings.controlpanels.functionpanel.roles", "acl_public_access");
