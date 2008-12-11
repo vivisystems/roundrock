@@ -85,7 +85,7 @@
 
                     datas.push(product);
 
-                    // prodTmp.save(product);
+                    prodTmp.save(product);
                 
                     i++;
 

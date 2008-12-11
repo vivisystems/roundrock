@@ -113,6 +113,7 @@
                 inputData.name = inputObj.input1
 
                 if(this._checkData(inputData) == 0) {
+
                     category.save(inputData);
 
                     this.updateSession();
