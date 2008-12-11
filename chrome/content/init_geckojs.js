@@ -56,6 +56,10 @@ window['gDispatch'] = window['$do'] = shortDispatcher['gDispatch'] = shortDispat
     return shortDispatcher;
 };
 
+window['_'] = window['translate'] = function() {
+    return GeckoJS.I18n.getInstance().translate.apply(GeckoJS.I18n.getInstance(), arguments);
+};
+
 
 
 window.goRestartApplication = function goRestartApplication()
