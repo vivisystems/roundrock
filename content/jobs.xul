@@ -24,13 +24,8 @@
                         <separator class="groove-thin"/>
 
                         <vbox>
-                                <!-- hbox align="center">
-                                    <label hidden="true" form="jobForm" name="id" value="" />
-                                    <label value="Job No:"/>
-                                    <textbox id="no" form="jobForm" name="no" readonly="true"/>
-                                </hbox -->
                             <hbox align="center">
-                                <label id="job_id" hidden="true" form="jobForm" name="id" value="" />
+                                <label id="job_id" hidden="false" form="jobForm" name="id" value="" />
                                 <label value="Job Name:" />
                                 <textbox id="job_name" value="" form="jobForm" name="jobname" />
                             </hbox>

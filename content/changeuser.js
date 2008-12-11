@@ -14,9 +14,7 @@
         function getUsers() {
             var datas;
             var userModel = new UserModel();
-            users = userModel.find('all', {
-                order: "no"
-            });
+            users = userModel.find('all');
             for(var k in users) {
                 datas = users[k];
             }
