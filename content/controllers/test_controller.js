@@ -6,7 +6,24 @@
 
     GeckoJS.Controller.extend( {
         name: 'Test',
-        components: ['Tax'],
+        components: ['Tax','Acl'],
+
+        convert: function(){
+            alert(_('Test',['rack']));
+
+
+/*
+            var group = new CategoryModel();
+            group.useDbConfig = 'json';
+            var groups = group.find('all');
+
+            alert(groups.length);
+            group.useDbConfig = 'default';
+
+            group.saveAll(groups);
+*/
+
+        },
         
         createTransaction: function(id) {
             var t = new Transaction();

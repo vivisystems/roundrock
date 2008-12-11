@@ -31,6 +31,9 @@
             window.openDialog(aURL, "prompt_additem", features, "New Job", "Please input:", "Job Name", "", inputObj);
             if (inputObj.ok && inputObj.input0) {
                 $("#job_id").val('');
+                
+                this.Job.create();
+                alert('claer' + document.getElementById('job_id').value);
                 evt.data.jobname = inputObj.input0;
             } else {
                 evt.preventDefault();

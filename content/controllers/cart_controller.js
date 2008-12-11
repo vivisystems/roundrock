@@ -1035,9 +1035,7 @@
             var condGroups = GeckoJS.Session.get('condGroups');
             if (!condGroups) {
                 var condGroupModel = new CondimentGroupModel();
-                var condGroups = condGroupModel.find('all', {
-                    order: "no"
-                });
+                var condGroups = condGroupModel.find('all');
                 GeckoJS.Session.add('condGroups', condGroups);
                 condGroups = GeckoJS.Session.get('condGroups');
                 /*

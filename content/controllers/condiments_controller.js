@@ -363,6 +363,7 @@
 
                 inputData.id = cond.id;
                 condModel.id = cond.id;
+
                 condModel.save(inputData);
 
                 GREUtils.extend(condGroups[this._selectedIndex]['Condiment'][this._selectedCondIndex], inputData);
