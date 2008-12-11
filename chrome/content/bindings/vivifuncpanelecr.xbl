@@ -34,7 +34,7 @@
                                 />
 
                     <!-- Home Button -->
-                    <xul:button icon="refresh"
+                    <xul:button 
                                 flex="0"
                                 anonid="control-home"
                                 xbl:inherits="disabled,class=control_home_class"
