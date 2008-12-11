@@ -20,6 +20,7 @@
         },
 	
         addBuffer: function(s) {
+            this.dispatchEvent('beforeAddBuffer', this.buf);
             this.buf += s;
             this.dispatchEvent('onAddBuffer', this.buf);
         },
@@ -86,23 +87,27 @@
 
             switch(keyCode) {
                 // ESCAPE
-                case 0x27:
+                case 27:
+this.log("esc:");
                     this.getCartController().clear();
                     this.clearBuffer();
                     break;
 			
                 // TAB
                 case 0x09:
+this.log("tab:");
                     this.getCartController().setPrice(this.getBuffer());
                     this.clearBuffer();
                     break;
 			
                 // END
-                case 0x35:
+                case 35:
+this.log("subtotal:");
                     this.getCartController().addMarker('subtotal');
                     break;
                 // ENTER
                 case 13:
+this.log("enter:");
                     var cart = this.getCartController();
                     cart.data = this.getBuffer();
                     this.clearBuffer();

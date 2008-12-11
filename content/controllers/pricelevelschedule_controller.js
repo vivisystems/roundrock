@@ -14,7 +14,8 @@
 
         getListObj: function() {
             if(this._listObj == null) {
-                this._listObj = document.getElementById('simpleListBoxSchedule');
+                // this._listObj = document.getElementById('simpleListBoxSchedule');
+                this._listObj = document.getElementById('schedulescrollablepanel');
             }
             return this._listObj;
         },
@@ -61,7 +62,12 @@
                 pricelevelDatas.push(item);
             });
 
-            this.getListObj().loadData(pricelevelDatas);
+            // this.getListObj().loadData(pricelevelDatas);
+
+            var panelView =  new GeckoJS.NSITreeViewArray(pricelevelDatas);
+            this.getListObj().datasource = panelView;
+
+            // this._listObj.selectedIndex = this._selectedIndex;
         },
 
         add: function  () {

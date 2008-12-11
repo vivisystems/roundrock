@@ -9,40 +9,33 @@
 <window id="numpad" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/bootstrap.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/importexport.js" />
 
     <box flex="1" class="mainpanel1 pad40">
         <vbox flex="1" class="panel40">
-            <vbox flex="1" class="footlogo">
-                    <groupbox flex="1">
-                        <caption label="Import / Export:" />
+            <hbox flex="1" class="footlogo">
+                <groupbox flex="1">
+                    <caption label="Import / Export:" />
+                    <viviscrollabletree id="previewscrollablepanel" flex="1" rows="7" headers="No,Name,Stock, Min Stock" fields="no,name,stock,min_stock" onclick="$do('select',this.selectedIndex, 'ImportExport');"
+                                                        class="prodscrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray">
+                        <spacer flex="1" />
+                    </viviscrollabletree>
+                    <!-- checkbox id="show_low_stock" value="false" label="Show Low Stock" oncommand="$do('clickLowStock', null, 'Stocks');" / -->
 
-                        <!-- hbox flex="1">
-                            <viviscrollablebuttonpanel dir="reverse" id="jobscrollablepanel" flex="1" cols="3" rows="8" labelField="jobname" imageField="no" oncommand="$do('select',this.selectedIndex, 'Jobs');"
-                              class="catescrollablepanel" buttonClass="catbtn button-radius button-white font-medium" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue"/>
-                            <spacer style="width: 10px;" />
-                            <separator class="groove-thin"/>
 
-                            <vbox>
-                                <hbox align="center">
-                                    <label id="job_id" hidden="true" form="jobForm" name="id" value="" />
-                                    <label value="Job Name:" />
-                                    <textbox id="job_name" value="" form="jobForm" name="jobname" />
-                                </hbox>
-                                <spacer style="height: 10px;" />
-                                <hbox>
-                                    <button label="Add" class="editbtns" oncommand="$do('add', null, 'Jobs');" />
-                                    <button label="Delete" class="editbtns" oncommand="$do('delete', null, 'Jobs');" />
-                                    <button label="Modify" class="editbtns" oncommand="$do('update', null, 'Jobs');" />
-                                </hbox>
-                            </vbox>
+                </groupbox>
+                <spacer style="width:10px;" />
+                <vbox>
 
-                        </hbox -->
-                    </groupbox>
-            </vbox>
+                            <vivibutton label="Import" class="genbtns" oncommand="$do('importPlu', null, 'ImportExport');" />
+
+                    <progressmeter id="importprogressmeter" mode="determined" value="0" />
+                </vbox>
+            </hbox>
         </vbox>
     </box>
-  
+
     <hbox id="okCancelButtonsRight" class="dialogbtns" />
 
 </window>

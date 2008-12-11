@@ -39,6 +39,13 @@
         changeCondimentPanel: function(index) {
 
             var condGroups = GeckoJS.Session.get('condGroups');
+            if (condGroups) {
+                if (index >= condGroups.length) index = condGroups.length - 1;
+            }
+            else {
+                index = -1;
+            }
+
             var conds;
             if (condGroups && (index != null) && (index > -1) && condGroups.length > index)
                 conds = condGroups[index]['Condiment'];
@@ -49,8 +56,10 @@
             this._selectedIndex = index;
             if (index >= 0 && condGroups.length > index)
                 this.setInputData(condGroups[index]);
-            else
+            else {
                 this.resetInputData();
+                this._selectedIndex = -1;
+            }
 
             var condPanelView =  new NSICondimentsView(conds);
             this._condscrollablepanel.datasource = condPanelView;
@@ -62,14 +71,33 @@
         },
 
         clickCondimentPanel: function(index) {
+
+            var condGroups = GeckoJS.Session.get('condGroups');
+            var conds = [];
+            if (condGroups) {
+                if (this._selectedIndex >= 0 && this._selectedIndex < condGroups.length) {
+                    conds = condGroups[this._selectedIndex]['Condiment'];
+                    if (conds) {
+                        if (index > conds.length) index = conds.length - 1;
+                    }
+                    else {
+                        index = -1;
+                    }
+                }
+                else {
+                    index = -1;
+                }
+            }
+            else {
+                index = -1;
+            }
+
             this._selectedCondIndex = index;
 
             this._condscrollablepanel.selectedIndex = index;
             this._condscrollablepanel.selectedItems = [index];
 
-            var condGroups = GeckoJS.Session.get('condGroups');
             //alert('[CLICK] ' + GeckoJS.BaseObject.dump(condGroups));
-            var conds = condGroups[this._selectedIndex]['Condiment'];
             if (conds) this.setInputCondData(conds[index]);
 
             document.getElementById('condiment_name').focus();
@@ -214,8 +242,8 @@
                     var view = this._condGroupscrollablepanel.datasource;
                     view.data = groups;
 
-                    var newIndex = this._selectedIndex - 1;
-                    if ((newIndex < 0) && (groups.length > 0)) newIndex = 0;
+                    var newIndex = this._selectedIndex;
+                    if (newIndex >= groups.length) newIndex = groups.length - 1;
                     this.changeCondimentPanel(newIndex);
                 }
             }
@@ -288,7 +316,10 @@
                     // we are retrieving the right record
                     for (var i = 0; i < conds.length; i++) {
                         if (conds[i].condiment_group_id == inputData.condiment_group_id) {
-                            condGroups[this._selectedIndex]['Condiment'].push(conds[i]);
+                            if (condGroups[this._selectedIndex]['Condiment'])
+                                condGroups[this._selectedIndex]['Condiment'].push(conds[i]);
+                            else
+                                condGroups[this._selectedIndex]['Condiment'] = [conds[i]];
                         }
                     }
 
@@ -371,8 +402,8 @@
                     var view = this._condscrollablepanel.datasource;
                     view.data = conds;
 
-                    var newIndex = this._selectedCondIndex - 1;
-                    if ((newIndex < 0) && (conds.length > 0)) newIndex = 0;
+                    var newIndex = this._selectedCondIndex;
+                    if (newIndex >= conds.length) newIndex = conds.length - 1;
                     this.clickCondimentPanel(newIndex);
 
                 }

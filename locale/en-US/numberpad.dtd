@@ -2,6 +2,7 @@
 <!ENTITY    numberpad.keylabel.pull.queue        "View Queue">
 <!ENTITY    numberpad.keylabel.clear             "CLEAR">
 <!ENTITY    numberpad.keylabel.modify            "Modify">
+<!ENTITY    numberpad.keylabel.del            "DEL">
 <!ENTITY    numberpad.keylabel.void               "VOID">
 <!ENTITY    numberpad.keylabel.barcode               "Barcode PLU">
 <!ENTITY    numberpad.keylabel.cancel               "CANCEL">
@@ -11,3 +12,5 @@
 <!ENTITY    numberpad.keylabel.tray             "Tray Marker">
 <!ENTITY    numberpad.keylabel.signoff             "Sign Off">
 <!ENTITY    numberpad.keylabel.times             "X">
+<!ENTITY    numberpad.keylabel.password             "Passcode:">
+<!ENTITY    numberpad.keylabel.ok             "OK">

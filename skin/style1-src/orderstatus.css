@@ -2,12 +2,14 @@
     border-width: 0px;
     border-style: solid;
     border-color: blue;
-    background-color: green;
+    border-bottom: 1px solid #ffffff;
+    background-color: #28231f;
     max-height: 30px;
+    -moz-appearance: none;
 }
 
 .orderstatus_field_label {
-    color: white;
+    color: #def44a;
     max-width: 50px;
     margin: 0px 5px 0px 2px;
     padding: 0px 0px 0px 0px;
@@ -18,7 +20,7 @@
 }
 
 .orderstatus_field_value {
-    color: white;
+    color: #def44a;
     margin: 0px 2px 0px 0px;
     padding: 0px 0px 0px 0px;
     background-color: transparent;

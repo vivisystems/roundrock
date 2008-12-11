@@ -75,7 +75,9 @@
         },
 
         beforeScaffoldEdit: function (evt) {
-           alert( GeckoJS.FormHelper.isFormModified("productForm"));
+        // alert( GeckoJS.FormHelper.isFormModified("productForm"));
+        //evt.preventDefault();
+        //this.log("beforeScaffoldEdit: " + this.dump(evt));
         },
 
         afterScaffoldEdit: function (evt) {
@@ -85,8 +87,11 @@
             product = this._productsById[id];
             product.stock = evt.data.stock;
             product.min_stock = evt.data.min_stock;
-            //            this.log("product:" + this.dump(product));
-            this.load();
+
+            if (evt.justUpdate) {
+                //
+            } else
+                this.load();
             
         },
 
@@ -116,6 +121,7 @@
                 var id = this._barcodesIndexes[barcode];
                 product = this._productsById[id];
                 // this.log("product:" + this.dump(product));
+                GeckoJS.FormHelper.reset('productForm');
                 GeckoJS.FormHelper.unserializeFromObject('productForm', product);
             }
         },
@@ -135,6 +141,32 @@
             this.getListObj().datasource = panelView;
 
             this._listObj.selectedIndex = this._selectedIndex;
+        },
+
+        decStock: function (obj) {
+            this._productsById = GeckoJS.Session.get('productsById');
+            this._barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
+
+            for (o in obj.items) {
+                var ordItem = obj.items[o];
+                var item = this.Product.findById(ordItem.id);
+                if (item.auto_maintain_stock) {
+                    item.stock = item.stock - ordItem.current_qty;
+
+                    var product = new ProductModel();
+                    product.save(item);
+                    delete product;
+
+                    // fire onLowStock event...
+                    if (item.min_stock > item.stock) {
+                        this.dispatchEvent('onLowStock', item);
+                    }
+
+                    // update Session Data...
+                    var evt = {data:item, justUpdate: true};
+                    this.afterScaffoldEdit(evt);
+                }
+            }
         },
 
         load: function (data) {

@@ -73,6 +73,8 @@
 
             };
 
+            
+
 
         },
 
@@ -164,6 +166,10 @@
         order.saveOrder(this.data);
 
         // empty ?
+
+        // maintain stock...
+        // this.log(this.dump(this.data));
+        this.requestCommand('decStock', this.data, "Stocks");
         
     };
 
