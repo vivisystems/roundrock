@@ -137,7 +137,7 @@
 
                 var labelClass = this.getAttribute('labelClass');
                 var valueClass = this.getAttribute('valueClass');
-                var separatorClass = this.getAttribute('separator-class');
+                var separatorClass = this.getAttribute('separatorClass') || 'groove-thin';
 
                 if (isNaN(ncols) || (ncols < 1)) ncols = 1;
                 
@@ -202,9 +202,8 @@
 
                         if (useSep && (j < (ncols - 1))) {
                             var sepNode = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:separator");
-                            sepNode.setAttribute('class', 'groove-thin');
+                            sepNode.setAttribute('class', separatorClass);
                             sepNode.setAttribute('orient', 'vertical');
-                            sepNode.setAttribute('width', '1');
                             row.appendChild(sepNode);
                         }
                         rows.appendChild(row);
