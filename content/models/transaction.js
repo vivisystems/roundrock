@@ -170,7 +170,6 @@
         Transaction.worker.start();
 
         // maintain stock...
-        // this.log(this.dump(this.data));
         this.requestCommand('decStock', this.data, "Stocks");
         
     };
@@ -184,6 +183,9 @@
 
         this.view.data = this.data.display_sequences;
         this.view.rowCountChanged(prevRowCount, currentRowCount, jumpToLast);
+        
+        GeckoJS.Session.set('vivipos_fec_number_of_items', this.getItemsCount());
+        GeckoJS.Session.set('vivipos_fec_tax_total', this.data.tax_subtotal);
 
     },
 
@@ -242,6 +244,7 @@
 
         _('Trans');
         var itemDisplay = {} ;
+        var dispName;
 
         if (type == 'item') {
             itemDisplay = GREUtils.extend(itemDisplay, {
@@ -258,10 +261,10 @@
             });
         }else if (type == 'discount') {
             if (item.discount_name && item.discount_name.length > 0) {
-                var dispName = '-' + item.discount_name;
+                dispName = '-' + item.discount_name;
             }
             else {
-                var dispName = '-' + ((item.discount_type == '%') ? item.discount_rate*100 + '%' : '');
+                dispName = '-' + ((item.discount_type == '%') ? item.discount_rate*100 + '%' : '');
             }
             itemDisplay = GREUtils.extend(itemDisplay, {
                 id: item.id,
@@ -277,10 +280,10 @@
             });
         }else if (type == 'trans_discount') {
             if (item.discount_name && item.discount_name.length > 0) {
-                var dispName = '-' + item.discount_name;
+                dispName = '-' + item.discount_name;
             }
             else {
-                var dispName = '-' + ((item.discount_type == '%') ? item.discount_rate*100 + '%' : '');
+                dispName = '-' + ((item.discount_type == '%') ? item.discount_rate*100 + '%' : '');
             }
             itemDisplay = GREUtils.extend(itemDisplay, {
                 id: null,
@@ -295,7 +298,7 @@
                 level: 0
             });
         }else if (type == 'surcharge') {
-            var dispName = '+' + ((item.surcharge_type == '%') ? item.surcharge_rate*100 + '%' : '');
+            dispName = '+' + ((item.surcharge_type == '%') ? item.surcharge_rate*100 + '%' : '');
             itemDisplay = GREUtils.extend(itemDisplay, {
                 id: item.id,
                 no: item.no,
@@ -309,7 +312,7 @@
                 level: 2
             });
         }else if (type == 'trans_surcharge') {
-            var dispName = '+' + ((item.surcharge_type == '%') ? item.surcharge_rate*100 + '%' : '');
+            dispName = '+' + ((item.surcharge_type == '%') ? item.surcharge_rate*100 + '%' : '');
             itemDisplay = GREUtils.extend(itemDisplay, {
                 id: null,
                 no: item.no,
@@ -528,10 +531,10 @@
         Transaction.events.dispatch('afterModifyItem', itemModified, this);
 
         // create data object to push in items array
-        var itemDisplay = this.createDisplaySeq(itemIndex, itemModified, 'item');
+        var itemDisplay2 = this.createDisplaySeq(itemIndex, itemModified, 'item');
 
         // update
-        this.data.display_sequences[index] = itemDisplay ;
+        this.data.display_sequences[index] = itemDisplay2 ;
 
         var currentRowCount = this.data.display_sequences.length;
 
@@ -1087,7 +1090,7 @@
 
         var currentRowCount = this.data.display_sequences.length;
 
-        this.updateCartView(prevRowCount, currentRowCount);
+        this.updateCartView(prevRowCount, currentRowCount, true);
 
         this.calcTotal();
 
@@ -1129,6 +1132,11 @@
 
         return item;
         
+    };
+
+
+    Transaction.prototype.getDisplaySeqCount = function(){
+        return this.data.display_sequences.length;
     };
 
 
@@ -1391,8 +1399,6 @@
 
         Transaction.events.dispatch('afterCalcTotal', this.data, this);
 
-        GeckoJS.Session.set('vivipos_fec_number_of_items', this.getItemsCount());
-        GeckoJS.Session.set('vivipos_fec_tax_total', tax_subtotal);
         //this.log('DEBUG', "afterCalcTotal " + this.dump(this.data));
 
     };
@@ -1440,6 +1446,15 @@
         };
         // format display precision
         return Transaction.Number.format(price, options);
+    };
+
+
+    Transaction.prototype.formatTax = function(tax) {
+        var options = {
+          places: ((this.data.precision_taxes>0)?this.data.precision_taxes:0)
+        };
+        // format display precision
+        return Transaction.Number.format(tax, options);
     };
 
 

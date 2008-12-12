@@ -42,6 +42,7 @@
         },
 
         rowCountChanged: function(rc1, rc2, jumpToLast) {
+
             // lazy way ? full refresh
             var oldIndex = this._cartList.currentIndex;
             var newIndex;
