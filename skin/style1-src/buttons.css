@@ -1,0 +1,263 @@
+.button-radius {
+    -moz-border-radius: 8px; 
+}
+
+.button-default {
+    min-height: 50px;
+    background: #fcf9f4 url(images/departBtn1.png) 0 50% no-repeat;
+    -moz-appearance: none;
+}
+
+.button-gray {
+    min-height: 50px;
+    -moz-appearance: none;
+    background: #fcf9f4 url(images/departBtn2.png) 0 50% no-repeat;
+}
+
+.button-blue {
+    min-height: 50px;
+    -moz-appearance: none;
+    background: #fcf9f4 url(images/departBtn3.png) 0 50% no-repeat;
+}
+
+.button-red {
+    min-height: 50px;
+    -moz-appearance: none;
+    background: #fcf9f4 url(images/departBtn4.png) 0 50% no-repeat;
+}
+
+
+.button-orange {
+    min-height: 50px;
+    -moz-appearance: none;
+    background: #fcf9f4 url(images/departBtn5.png) 0 50% no-repeat;
+}
+
+.button-fuchsia {
+    min-height: 50px;
+    -moz-appearance: none;
+    background: #fcf9f4 url(images/departBtn6.png) 0 50% no-repeat;
+}
+
+
+.button-teal {
+    min-height: 50px;
+    -moz-appearance: none;
+    background: #fcf9f4 url(images/departBtn7.png) 0 50% no-repeat;
+}
+
+
+.button-green {
+    min-height: 50px;
+    -moz-appearance: none;
+    background: #fcf9f4 url(images/departBtn8.png) 0 50% no-repeat;
+}
+
+.button-yellow {
+    min-height: 50px;
+    -moz-appearance: none;
+    background: #fcf9f4 url(images/departBtn9.png) 0 50% no-repeat;
+ }
+
+ .button-aqua {
+     min-height: 50px;
+    -moz-appearance: none;
+    background: #fcf9f4 url(images/departBtn10.png) 0 50% no-repeat;
+ }
+
+
+.button-black {
+    min-height: 50px;
+    -moz-appearance: none;
+    background: #fcf9f4 url(images/departBtn11.png) 0 50% no-repeat;
+}
+
+.button-white {
+    min-height: 50px;
+    -moz-appearance: none;
+    background: #fcf9f4 url(images/departBtn12.png) 0 50% no-repeat;
+}
+
+
+.button-default[selected], .button-gray[selected], .button-blue[selected], .button-red[selected], .button-orange[selected], .button-teal[selected],
+.button-fuchsia[selected], .button-green[selected], .button-yellow[selected], .button-aqua[selected], .button-black[selected], .button-white[selected] {
+    list-style-image: url(chrome://viviecr/skin/images/gtk-yes.png);
+}
+
+.font-xlarge {
+    font-weight: bold !important;
+    font-size: 18px;
+}
+
+.font-large {
+    font-weight: bold !important;
+    font-size: 16px;
+}
+
+.font-small {
+    font-weight: bold !important;
+    font-size: 12px;
+}
+
+.font-medium {
+    font-weight: bold !important;
+    font-size: 14px;
+}
+
+
+.font-xlarge[selected], .font-large[selected], .font-small[selected], .font-medium[selected] {
+    list-style-image: url(chrome://viviecr/skin/images/gtk-yes.png);
+}
+
+/*-------- Function Panel Button Color ---------*/
+.FunBtn-default {
+	min-height: 50px;
+  -moz-appearance: none;
+  background: #e1ddd2;
+  color: #42422f;
+  -moz-border-radius: 4px;
+  border: 0px;
+}
+.FunBtn-Color1 {
+	min-height: 50px;
+  -moz-appearance: none;
+  background: #c5bc9d;
+  color: #42422f;
+  -moz-border-radius: 4px;
+  border: 0px;
+}
+.FunBtn-Color2 {
+	min-height: 50px;
+  -moz-appearance: none;
+  background: #564c43;
+  color: #ffffff;
+  -moz-border-radius: 4px;
+  border: 0px;
+}
+.FunBtn-Color3 {
+	min-height: 50px;
+  -moz-appearance: none;
+  background: #f2c54e;
+  color: #42422f;
+  -moz-border-radius: 4px;
+  border: 0px;
+}
+.FunBtn-Color4 {
+	min-height: 50px;
+  -moz-appearance: none;
+  background: #c5d8a8;
+  color: #42422f;
+  -moz-border-radius: 4px;
+  border: 0px;
+}
+.FunBtn-Color5 {
+	min-height: 50px;
+  -moz-appearance: none;
+  background: #7acdc8;
+  color: #42422f;
+  -moz-border-radius: 4px;
+  border: 0px;
+}
+.FunBtn-Color6 {
+	min-height: 50px;
+  -moz-appearance: none;
+  background: #8393ca;
+  color: #ffffff;
+  -moz-border-radius: 4px;
+  border: 0px;
+}
+.FunBtn-Color7 {
+	min-height: 50px;
+  -moz-appearance: none;
+  background: #a186be;
+  color: #42422f;
+  -moz-border-radius: 4px;
+  border: 0px;
+}
+.FunBtn-Color8 {
+	min-height: 50px;
+  -moz-appearance: none;
+  background: #f6989d;
+  color: #42422f;
+  -moz-border-radius: 4px;
+  border: 0px;
+}
+.FunBtn-Color9 {
+	min-height: 50px;
+  -moz-appearance: none;
+  background: #fdc689;
+  color: #ffffff;
+  -moz-border-radius: 4px;
+  border: 0px;
+}
+.FunBtn-Color10 {
+	min-height: 50px;
+  -moz-appearance: none;
+  background: #fff899;
+  color: #42422f;
+  -moz-border-radius: 4px;
+  border: 0px;
+}
+.FunBtn-Color11 {
+	min-height: 50px;
+  -moz-appearance: none;
+  background: #440e62;
+  color: #ffffff;
+  -moz-border-radius: 4px;
+  border: 0px;
+}
+/*-------- Function Panel Button Color --- End ------*/
+
+/*-------- Plu Button Color ---------*/
+.PluBtn-default {
+	min-height: 50px;
+  color: #4b443f;
+}
+.PluBtn-Color1 {
+	min-height: 50px;
+  color: #603913;
+}
+.PluBtn-Color2 {
+	min-height: 50px;
+  color: #9e0b0f;
+}
+.PluBtn-Color3 {
+	min-height: 50px;
+  color: #0054a6;
+}
+.PluBtn-Color4 {
+	min-height: 50px;
+  color: #598527;
+}
+.PluBtn-Color5 {
+	min-height: 50px;
+  color: #f26522;
+}
+.PluBtn-Color6 {
+	min-height: 50px;
+  color: #662d91;
+}
+.PluBtn-Color7 {
+	min-height: 50px;
+  color: #1cbbb4;
+}
+.PluBtn-Color8 {
+	min-height: 50px;
+  color: #005952;
+}
+.PluBtn-Color9 {
+	min-height: 50px;
+  color: #2e3192;
+}
+.PluBtn-Color10 {
+	min-height: 50px;
+  color: #ec008c;
+}
+.PluBtn-Color11 {
+	min-height: 50px;
+  color: #827b00;
+}
+/*-------- Plu Button Color --- End ------*/
+
+
+

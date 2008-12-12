@@ -21,7 +21,7 @@
                     <groupbox>
                         <caption label="&condiments.group;" />
                         <hbox>
-                            <viviscrollablebuttonpanel dir="reverse" id="condimentscrollablepanel" flex="1" cols="3" rows="2" labelField="name" oncommand="$do('changeCondimentPanel',this.selectedIndex, 'Condiments');"
+                            <viviscrollablebuttonpanel dir="reverse" ensureVisible="true" id="condimentscrollablepanel" flex="1" cols="3" rows="2" labelField="name" oncommand="$do('changeCondimentPanel',this.selectedIndex, 'Condiments');"
                               class="catescrollablepanel" buttonClass="catbtn button-radius button-white font-medium" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue">
                                   <spacer flex="1" />
                             </viviscrollablebuttonpanel>
@@ -30,7 +30,7 @@
                                 <grid>
                                     <rows>
                                         <row>
-                                            <label hidden="true" form="condGroupForm" name="id" value="" />
+                                            <label id= "condiment_group_id" hidden="true" form="condGroupForm" name="id" value="" />
                                             <label value="&condiments.group.name;"/>
                                             <textbox id="condiment_group_name" form="condGroupForm" name="name"/>
                                         </row>
@@ -56,7 +56,7 @@
 
                         <hbox>
                             <vbox>
-                                <viviscrollablebuttonpanel dir="reverse" id="detailscrollablepanel" flex="1" cols="2" rows="4" labelField="name" imageField="no"
+                                <viviscrollablebuttonpanel dir="reverse" ensureVisible="true" id="detailscrollablepanel" flex="1" cols="2" rows="4" labelField="name" imageField="no"
                                     oncommand="$do('clickCondimentPanel',this.selectedIndex, 'Condiments');"  class="prodscrollablepanel" buttonClass="plubtn smallimagebtn button-radius" scrollUpClass="rightprevbtn button-gray" scrollDownClass="rightnextbtn button-gray" >
                                       <spacer flex="1" />
                                 </viviscrollablebuttonpanel>

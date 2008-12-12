@@ -1,7 +1,7 @@
 (function(){
 
     /**
-     * Class ViviPOS.StocksController
+     * Class ViviPOS.ImportExportController
      */
 
     GeckoJS.Controller.extend( {
@@ -52,24 +52,52 @@
             var nCount = lines.length;
             var datas = [];
             var progmeter = document.getElementById("importprogressmeter");
-            var progress = 0; //parseInt(progmeter.value) + 10;
+            var progress = 0;
             progmeter.value = progress;
             progmeter.max = nCount;
+
+            var thread = new GeckoJS.Thread();
+
+            var mainRunnable = {
+                run: function() {
+
+                    progmeter.value = i;
+
+//                this._listDatas = datas;
+//                var panelView =  new GeckoJS.NSITreeViewArray(this._listDatas);
+//                this.getListObj().datasource = panelView;
+
+                },
+
+                QueryInterface: function(iid) {
+                    if (iid.equals(Components.Interfaces.nsIRunnable) || iid.equals(Components.Interfaces.nsISupports)) {
+                        return this;
+                    }
+                    throw Components.results.NS_ERROR_NO_INTERFACE;
+                }
+            };
+
+
+            var workerRunnable = {
+                run: function() {
+
 
             try {
                 var oldLimit = GREUtils.Pref.getPref('dom.max_chrome_script_run_time');
                 GREUtils.Pref.setPref('dom.max_chrome_script_run_time', 5 * 60);
 
-            
+
                 lines.forEach(function(buf) {
                     var dats = buf.split(',');
                     var barcode = trimQuote(dats[0]);
                     var name = trimQuote(GREUtils.Charset.convertToUnicode(dats[1], 'UTF-8'));
                     var price = parseFloat(trimQuote(dats[2])) + 0;
                     var no = cate_no + GeckoJS.String.padLeft(i, pad);
-                
-                    progmeter.value = i;
-                
+
+                    /// notify main
+                    thread.main.dispatch(mainRunnable, thread.main.DISPATCH_NORMAL);
+
+                    
                     var product = GREUtils.extend({}, productTpl);
                     product = GREUtils.extend(product, {
                         no: no,
@@ -86,20 +114,36 @@
                     datas.push(product);
 
                     prodTmp.save(product);
-                
+                    
                     i++;
 
                 }, this);
-            
-                this._listDatas = datas;
-                var panelView =  new GeckoJS.NSITreeViewArray(this._listDatas);
-                this.getListObj().datasource = panelView;
 
-            } 
+
+            }
             catch (e) {}
             finally {
                 GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
             }
+
+
+
+                },
+
+                QueryInterface: function(iid) {
+                    if (iid.equals(Components.Interfaces.nsIRunnable) || iid.equals(Components.Interfaces.nsISupports)) {
+                        return this;
+                    }
+                    throw Components.results.NS_ERROR_NO_INTERFACE;
+                }
+            };
+
+            thread._runnable = workerRunnable;
+            thread.start();
+
+//                this._listDatas = datas;
+//                var panelView =  new GeckoJS.NSITreeViewArray(this._listDatas);
+//                this.getListObj().datasource = panelView;
 
         },
 

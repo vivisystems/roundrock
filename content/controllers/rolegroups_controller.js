@@ -63,12 +63,10 @@
                 conditions: "group='" + group + "'"
             });
 
-            if (users) {
+            if (users && users.length > 0) {
                 var userlist = GeckoJS.Array.objectExtract(users, '{n}.username').join("\n");;
-                alert("the group:" + group + " is used by some user...\n\n" + userlist + "\n\ncan not be removed.");
-                
+                alert("the group:" + group + " is used by some user...\n\n" + userlist + "\n\ncan not be removed.");                
             } else if (GREUtils.Dialog.confirm(null, "confirm delete group:" + group, "Are you sure?")) {
-   
                 this.Acl.removeGroup(group);
                 this.load();
             }
@@ -153,6 +151,8 @@
             this.Acl.addRole('acl_open_cash');
             this.Acl.addRole('acl_toggle_numpad');
             this.Acl.addRole('acl_public_access');
+            this.Acl.addRole('acl_manage_condiments');
+            this.Acl.addRole('acl_manage_currency');
 */
         },
 	

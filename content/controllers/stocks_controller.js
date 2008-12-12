@@ -152,11 +152,12 @@
                 var item = this.Product.findById(ordItem.id);
                 if (item.auto_maintain_stock) {
                     item.stock = item.stock - ordItem.current_qty;
-
                     var product = new ProductModel();
+
+                    product.id = item.id;
                     product.save(item);
                     delete product;
-
+                    
                     // fire onLowStock event...
                     if (item.min_stock > item.stock) {
                         this.dispatchEvent('onLowStock', item);

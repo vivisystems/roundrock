@@ -1,0 +1,30 @@
+.orderstatus {
+    border-width: 0px;
+    border-style: solid;
+    border-color: blue;
+    border-bottom: 1px solid #ffffff;
+    background-color: #28231f;
+    max-height: 30px;
+    -moz-appearance: none;
+}
+
+.orderstatus_field_label {
+    color: #def44a;
+    max-width: 50px;
+    margin: 0px 5px 0px 2px;
+    padding: 0px 0px 0px 0px;
+    background-color: transparent;
+    border-width: 0px;
+    font-size: x-small;
+    -moz-appearance: none;
+}
+
+.orderstatus_field_value {
+    color: #def44a;
+    margin: 0px 2px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    background-color: transparent;
+    border-width: 0px;
+    font-size: x-small;
+    -moz-appearance: none;
+}

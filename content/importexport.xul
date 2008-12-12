@@ -21,8 +21,6 @@
                                                         class="prodscrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray">
                         <spacer flex="1" />
                     </viviscrollabletree>
-                    <!-- checkbox id="show_low_stock" value="false" label="Show Low Stock" oncommand="$do('clickLowStock', null, 'Stocks');" / -->
-
 
                 </groupbox>
                 <spacer style="width:10px;" />
