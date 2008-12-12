@@ -14,6 +14,7 @@
         $('#clearBtn')[0].addEventListener('command', clearUserPass, false);
         $('#delBtn')[0].addEventListener('command', delUserPass, false);
         $('#user_password').focus();
+
     };
 
     /**

@@ -30,16 +30,16 @@
                                         <row>
                                             <label hidden="true" form="condGroupForm" name="id" value="" />
                                             <label value="&condiments.group.name;"/>
-                                            <textbox id="condiment_group_name" form="condGroupForm" name="name"/>
+                                            <textbox id="condiment_group_name" form="condGroupForm" name="name" oninput="$do('validateForm', null, 'Condiments')"/>
                                         </row>
                                     </rows>
                                 </grid>
                                 <spacer style="height: 10px;" />
                                 <hbox>
-                                    <button label="&condiments.button.action.add;" class="editbtns" oncommand="$do('add', null, 'Condiments');" />
+                                    <button id="add-group" label="&condiments.button.action.add;" class="editbtns" oncommand="$do('add', null, 'Condiments');" />
                                     <spacer flex="1" />
-                                    <button label="&condiments.button.action.modify;" class="editbtns" oncommand="$do('modify', null, 'Condiments');" />
-                                    <button label="&condiments.button.action.delete;" class="editbtns" oncommand="$do('remove', null, 'Condiments');" />
+                                    <button id="modify-group" label="&condiments.button.action.modify;" class="editbtns" oncommand="$do('modify', null, 'Condiments');" />
+                                    <button id="delete-group" label="&condiments.button.action.delete;" class="editbtns" oncommand="$do('remove', null, 'Condiments');" />
                                 </hbox>
                             </vbox>
                         </hbox>
@@ -60,10 +60,10 @@
                                 </viviscrollablebuttonpanel>
                                 <spacer style="height: 20px;" />
                                 <hbox>
-                                    <button label="&condiments.button.action.add;" class="editbtns" oncommand="$do('addCond', null, 'Condiments');" />
+                                    <button id="add-condiment" label="&condiments.button.action.add;" class="editbtns" oncommand="$do('addCond', null, 'Condiments');" />
                                     <spacer flex="1" />
-                                    <button label="&condiments.button.action.modify;" class="editbtns" oncommand="$do('modifyCond', null, 'Condiments');" />
-                                    <button label="&condiments.button.action.delete;" class="editbtns" oncommand="$do('removeCond', null, 'Condiments');" />
+                                    <button id="modify-condiment" label="&condiments.button.action.modify;" class="editbtns" oncommand="$do('modifyCond', null, 'Condiments');" />
+                                    <button id="delete-condiment" label="&condiments.button.action.delete;" class="editbtns" oncommand="$do('removeCond', null, 'Condiments');" />
                                 </hbox>
                             </vbox>
                             <vbox style="width: 400px;">
@@ -74,11 +74,11 @@
                                                 <label hidden="true" form="condimentForm" name="id" value="" />
                                                 <label id="condiment_group_id" hidden="true" form="condimentForm" name="condiment_group_id" value="" />
                                                 <label value="&condiments.condiment.name;"/>
-                                                <textbox id="condiment_name" form="condimentForm" name="name"/>
+                                                <textbox id="condiment_name" form="condimentForm" name="name" oninput="$do('validateForm', null, 'Condiments')"/>
                                             </row>
                                             <row>
                                                 <label value="&condiments.condiment.price;"/>
-                                                <textbox id="condiment_price" form="condimentForm" name="price" default=""/>
+                                                <textbox id="condiment_price" form="condimentForm" name="price" default="" oninput="$do('validateForm', null, 'Condiments')"/>
                                             </row>
                                             <row>
                                                 <label value="&condiments.condiment.button.color;"  />
