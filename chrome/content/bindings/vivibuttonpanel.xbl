@@ -419,10 +419,10 @@
                     var preIndex = this.selectedItems[0];
 
                     if (preIndex >= this.startOffset && preIndex <= (this.startOffset+this.buttonCount)) {
-                        var btn = document.getAnonymousElementByAttribute(this, 'anonid', preIndex-this.startOffset);
+                        var btnid = preIndex%this.buttonCount;
+                        var btn = document.getAnonymousElementByAttribute(this, 'anonid', btnid);
                         btn.removeAttribute('selected');
                     }
-                    
                 }
                 this.selectedItems = [this.currentIndex];
                 this.selectedCount = 1;
