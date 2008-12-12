@@ -118,6 +118,16 @@
             </body>
         </method>
 
+
+        <method name="ensureIndexIsVisible">
+          <parameter name="index" />
+          <body>
+                this.vivibuttonpanel.ensureIndexIsVisible(index);
+                this.updateScrollBtn();
+          </body>
+        </method>
+
+
         <method name="updateScrollBtn">
             <body><![CDATA[
                 var hasPrev = this.vivibuttonpanel.startOffset > 0;

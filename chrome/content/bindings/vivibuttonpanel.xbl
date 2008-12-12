@@ -373,6 +373,18 @@
         </body>
     </method>
 
+    <method name="ensureIndexIsVisible">
+      <parameter name="index" />
+      <body>
+            var pageSize = parseInt(this.rows) * parseInt(this.cols);
+            var pageOffset = Math.floor(index / pageSize);
+            this._startOffset = pageOffset * pageSize;
+            this.startOffset = this._startOffset;
+            this.render();
+      </body>
+    </method>
+
+
     <method name="invalidate">
         <body><![CDATA[
             this.refresh();
