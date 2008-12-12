@@ -47,7 +47,7 @@
                                             </row>
                                             <row>
                                                 <label style="width:10em" value="&departments.name;" />
-                                                <textbox id="dept_name" value="" form="deptForm" name="name"/>
+                                                <textbox id="dept_name" value="" form="deptForm" name="name" oninput="$do('validateForm', null, 'Departments')"/>
                                             </row>
 
                                             <row>
@@ -77,10 +77,10 @@
                         <separator class="groove-thin"/>
                         <spacer flex="1"/>
                         <hbox>
-                            <button id="add_dept" label="Add" class="editbtns" oncommand="$do('add', null, 'Departments');" />
+                            <button id="add_dept" label="Add" disabled="false" class="editbtns" oncommand="$do('add', null, 'Departments');" />
                             <spacer flex="1" />
-                            <button id="modify_dept" label="Modify" class="editbtns" oncommand="$do('modify', null, 'Departments');" />
-                            <button id="delete_dept" label="Delete" class="editbtns" oncommand="$do('remove', null, 'Departments');" />
+                            <button id="modify_dept" label="Modify" disabled="false" class="editbtns" oncommand="$do('modify', null, 'Departments');" />
+                            <button id="delete_dept" label="Delete" disabled="false" class="editbtns" oncommand="$do('remove', null, 'Departments');" />
                         </hbox>
                             </vbox>
                         </hbox>

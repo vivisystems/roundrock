@@ -12,22 +12,32 @@ var options;
      */
     function startup() {
 
+        // hide input1?
         if (!('input1' in inputObj)) {
             document.getElementById('title1').hidden = true;
             document.getElementById('input1').hidden = true;
         }
 
+        // set input type
+        if ('type0' in inputObj) {
+            document.getElementById('input0').setAttribute('type', inputObj.type0);
+        }
+        if ('type1' in inputObj) {
+            document.getElementById('input1').setAttribute('type', inputObj.type1);
+        }
+        
         document.getElementById('caption0').setAttribute("label", caption0);
         document.getElementById('text0').value = text0;
         document.getElementById('title0').value = title0;
         document.getElementById('title1').value = title1;
         document.getElementById('input0').value = inputObj.input0;
         document.getElementById('input1').value = inputObj.input1;
+        document.getElementById('cancel').setAttribute('disabled', false);
 
         doSetOKCancel(
             function(){
-                inputObj.input0 = document.getElementById('input0').value;
-                inputObj.input1 = document.getElementById('input1').value;
+                inputObj.input0 = document.getElementById('input0').value.replace(/^\s*/g, '').replace(/\s*$/g, '');
+                inputObj.input1 = document.getElementById('input1').value.replace(/^\s*/g, '').replace(/\s*$/g, '');;
                 inputObj.ok = true;
                 return true;
             },
@@ -70,6 +80,6 @@ function validateInput() {
         ((!input1Required) || trimmed1.length > 0)) {
         validated = true;
     }
-    document.getElementById('ok').disabled = !validated;
+    document.getElementById('ok').setAttribute('disabled', !validated);
 
 }

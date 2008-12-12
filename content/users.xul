@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE window SYSTEM "chrome://viviecr/locale/fecpos.dtd">
+<!DOCTYPE window SYSTEM "chrome://viviecr/locale/users.dtd">
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/viviecr.css" type="text/css"?>
 
@@ -14,20 +14,27 @@
         <vbox flex="1" class="panel40">
             <vbox flex="1" class="footlogo">
                 <groupbox flex="1">
-                    <caption label="User List:" />
+                    <caption label="&users.title;" />
 
                     <hbox flex="1">
-                        <viviscrollablebuttonpanel dir="reverse" id="userscrollablepanel" flex="1" cols="3" rows="8" labelField="username" oncommand="$do('select',this.selectedIndex, 'Users');"
-                              class="catescrollablepanel" buttonClass="catbtn button-radius button-white font-medium" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue"/>
+                        <viviscrollablebuttonpanel dir="reverse" id="userscrollablepanel" flex="1" cols="3" rows="2" labelField="username"
+                                                   ensureVisible="true"
+                                                   oncommand="$do('select',this.selectedIndex, 'Users');"
+                                                   class="userscrollablepanel"
+                                                   buttonClass="catbtn button-radius button-white font-medium"
+                                                   scrollUpClass="rightprevbtn button-blue"
+                                                   scrollDownClass="rightnextbtn button-blue">
+                            <spacer flex="1"/>
+                        </viviscrollablebuttonpanel>
                         <spacer style="width: 10px;" />
                         <separator class="groove-thin"/>
 
                         <vbox>
-                            <tabbox  flex="1">
+                            <tabbox id="tabbox" flex="1">
                                 <tabs >
-                                    <tab label="&vivipos.fec.users.basedata;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical"        />
-                                    <tab label="&vivipos.fec.users.option1;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical"        />
-                                    <tab label="&vivipos.fec.users.option2;" image="chrome://viviecr/content/skin/icons/plugins-24.png" orient="vertical"/>
+                                    <tab id="tab1" label="&users.basedata;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical"/>
+                                    <tab id="tab2" label="&users.option1;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical"/>
+                                    <tab id="tab3" label="&users.option2;" image="chrome://viviecr/content/skin/icons/plugins-24.png" orient="vertical"/>
                                 </tabs>
 
                                 <tabpanels flex="1" >
@@ -39,27 +46,27 @@
                                                 <rows>
                                                     <row>
                                                         <label id="user_id" hidden="true" form="userForm" name="id" value="" />
-                                                        <label value="User Name:(a..z,0..9)" />
+                                                        <label value="&users.username;" />
                                                         <textbox id="user_name" value="" form="userForm" name="username" readonly="true" />
                                                     </row>
 
                                                     <row>
-                                                        <label value="Password:" />
-                                                        <textbox type="password" id="user_password" value="" form="userForm" name="password" />
+                                                        <label value="&users.password;" />
+                                                        <textbox type="password" id="user_password" value="" form="userForm" name="password" oninput="$do('validateForm', null, 'Users')"/>
                                                     </row>
 
                                                     <row>
-                                                        <label value="Display Name:" />
+                                                        <label value="&users.displayname;" />
                                                         <textbox id="display_name" value="" form="userForm" name="displayname" default="" />
                                                     </row>
 
                                                     <row>
-                                                        <label  value="Access Level:" />
+                                                        <label  value="&users.accesslevel;" />
                                                         <textbox id="user_group" value="" form="userForm" name="group" readonly="true" onclick="$do('getRoleGroup',this.selectedIndex,'Users');"/>
                                                     </row>
 
                                                     <row>
-                                                        <label value="Default Price Level:"/>
+                                                        <label value="&users.pricelevel;"/>
                                                         <textbox id="default_price_level" form="userForm" name="default_price_level" width="100px"/>
                                                     </row>
                                                 </rows>
@@ -72,47 +79,47 @@
                                             <grid>
                                                 <rows>
                                                     <row>
-                                                        <label value="Item Discount Limit:"/>
+                                                        <label value="&users.limit.item.discount;"/>
                                                         <textbox id="item_discount_limit" form="userForm" name="item_discount_limit" width="100px"/>
                                                     </row>
 
                                                     <row>
-                                                        <label value="Order Discount Limit:"/>
+                                                        <label value="&users.limit.order.discount;"/>
                                                         <textbox id="order_discount_limit" form="userForm" name="order_discount_limit" width="100px"/>
                                                     </row>
 
                                                     <row>
-                                                        <label value="Item Surcharge Limit:"/>
+                                                        <label value="&users.limit.item.surcharge;"/>
                                                         <textbox id="item_surcharge_limit" form="userForm" name="item_surcharge_limit"  width="100px"/>
                                                     </row>
 
                                                     <row>
-                                                        <label value="Order Surcharge Limit:"/>
+                                                        <label value="&users.limit.order.surcharge;"/>
                                                         <textbox id="order_surcharge_limit" form="userForm" name="order_surcharge_limit"  width="100px"/>
                                                     </row>
 
                                                     <row>
-                                                        <label value="PLU Quantity Limit:"/>
+                                                        <label value="&users.limit.plu.quantity;"/>
                                                         <textbox id="max_plu_qty" form="userForm" name="max_plu_qty" width="100px"/>
                                                     </row>
 
                                                     <row>
-                                                        <label value="PLU Price Limit:"/>
+                                                        <label value="&users.limit.plu.price;"/>
                                                         <textbox id="max_plu_price" form="userForm" name="max_plu_price" width="100px"/>
                                                     </row>
 
                                                     <row>
-                                                        <label value="Item Coupon Limit:"/>
+                                                        <label value="&users.limit.item.coupon;"/>
                                                         <textbox id="item_coupon_limit" form="userForm" name="item_coupon_limit" width="100px"/>
                                                     </row>
 
                                                     <row>
-                                                        <label value="Order Coupon Limit:"/>
+                                                        <label value="&users.limit.order.coupon;"/>
                                                         <textbox id="order_coupon_limit" form="userForm" name="order_coupon_limit" width="100px"/>
                                                     </row>
 
                                                     <row>
-                                                        <label value="Check Cashing Limit:"/>
+                                                        <label value="&users.limit.cash.check;"/>
                                                         <textbox id="max_cash_check" form="userForm" name="max_cash_check" width="100px"/>
                                                     </row>
                                                 </rows>
@@ -125,17 +132,17 @@
                                             <grid>
                                                 <rows>
                                                     <row>
-                                                        <label value="Minimum Check Number:"/>
+                                                        <label value="&users.minimum.check.number;"/>
                                                         <textbox id="min_check_no" form="userForm" name="min_check" width="100px"/>
                                                     </row>
 
                                                     <row>
-                                                        <label value="Maximum Check Number:"/>
+                                                        <label value="&users.maximum.check.number;"/>
                                                         <textbox id="max_check_no" form="userForm" name="max_check" width="100px"/>
                                                     </row>
 
                                                     <row>
-                                                        <label value="Maximum Number of Open Checks:"/>
+                                                        <label value="&users.maximum.open.checks;"/>
                                                         <textbox id="max_open_checks" form="userForm" name="max_open_checks" width="100px"/>
                                                     </row>
                                                 </rows>
@@ -147,10 +154,10 @@
                                 </tabpanels>
                             </tabbox>
                             <hbox>
-                                <button label="Add" class="editbtns" oncommand="$do('add', null, 'Users');" />
+                                <button id="add_user" label="&users.action.add;" disabled="false" class="editbtns" oncommand="$do('add', null, 'Users');" />
                                 <spacer flex="1" />
-                                <button label="Delete" class="editbtns" oncommand="$do('delete', null, 'Users');" />
-                                <button label="Modify" class="editbtns" oncommand="$do('update', null, 'Users');" />
+                                <button id="modify_user" label="&users.action.modify;" disabled="false" class="editbtns" oncommand="$do('update', null, 'Users');" />
+                                <button id="delete_user" label="&users.action.delete;" disabled="false" class="editbtns" oncommand="$do('delete', null, 'Users');" />
                             </hbox>
                         </vbox>
 

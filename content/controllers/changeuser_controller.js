@@ -17,6 +17,13 @@
             var users = userModel.find('all', {
                 order: "username"
             });
+
+            for (var i = 0; i < users.length; i++) {
+                if (users[i].displayname == null || users[i].displayname.length == 0) {
+                    users[i].displayname = users[i].username;
+                }
+            };
+            
             var userpanel = document.getElementById('userscrollablepanel');
             if (userpanel) {
                 userpanel.datasource = users;

@@ -36,10 +36,10 @@
                                 </grid>
                                 <spacer style="height: 10px;" />
                                 <hbox>
-                                    <button id="add_group" label="&condiments.button.action.add;" class="editbtns" oncommand="$do('add', null, 'Condiments');" />
+                                    <button id="add_group" label="&condiments.button.action.add;" disabled="false" class="editbtns" oncommand="$do('add', null, 'Condiments');" />
                                     <spacer flex="1" />
-                                    <button id="modify_group" label="&condiments.button.action.modify;" class="editbtns" oncommand="$do('modify', null, 'Condiments');" />
-                                    <button id="delete_group" label="&condiments.button.action.delete;" class="editbtns" oncommand="$do('remove', null, 'Condiments');" />
+                                    <button id="modify_group" label="&condiments.button.action.modify;" disabled="false" class="editbtns" oncommand="$do('modify', null, 'Condiments');" />
+                                    <button id="delete_group" label="&condiments.button.action.delete;" disabled="false" class="editbtns" oncommand="$do('remove', null, 'Condiments');" />
                                 </hbox>
                             </vbox>
                         </hbox>
@@ -60,10 +60,10 @@
                                 </viviscrollablebuttonpanel>
                                 <spacer style="height: 20px;" />
                                 <hbox>
-                                    <button id="add_condiment" label="&condiments.button.action.add;" class="editbtns" oncommand="$do('addCond', null, 'Condiments');" />
+                                    <button id="add_condiment" label="&condiments.button.action.add;" disabled="false" class="editbtns" oncommand="$do('addCond', null, 'Condiments');" />
                                     <spacer flex="1" />
-                                    <button id="modify_condiment" label="&condiments.button.action.modify;" class="editbtns" oncommand="$do('modifyCond', null, 'Condiments');" />
-                                    <button id="delete_condiment" label="&condiments.button.action.delete;" class="editbtns" oncommand="$do('removeCond', null, 'Condiments');" />
+                                    <button id="modify_condiment" label="&condiments.button.action.modify;" disabled="false" class="editbtns" oncommand="$do('modifyCond', null, 'Condiments');" />
+                                    <button id="delete_condiment" label="&condiments.button.action.delete;" disabled="false" class="editbtns" oncommand="$do('removeCond', null, 'Condiments');" />
                                 </hbox>
                             </vbox>
                             <vbox style="width: 400px;">

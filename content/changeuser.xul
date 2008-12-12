@@ -12,7 +12,7 @@
         <vbox  id="" pack="start" class="hboxb" flex="1">
             <hbox>
                 <vbox style="width: 350px;">
-                    <viviscrollablebuttonpanel id="userscrollablepanel" dir="reverse" flex="1" cols="1" rows="5" seltype="single" ensureVisible="true" labelField="username"
+                    <viviscrollablebuttonpanel id="userscrollablepanel" dir="reverse" flex="1" cols="1" rows="5" seltype="single" ensureVisible="true" labelField="displayname"
                                                class="userscrollablepanel" scrollUpClass="rightprevbtn" scrollDownClass="rightnextbtn" buttonClass="userbtn"
                                                >
                         <spacer flex="1"/>

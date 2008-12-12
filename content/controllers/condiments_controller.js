@@ -115,50 +115,50 @@
 
             // update button & text field states
             if (this._selectedIndex == null || this._selectedIndex == -1) {
-                document.getElementById('modify_group').disabled = true;
-                document.getElementById('delete_group').disabled = true;
+                document.getElementById('modify_group').setAttribute('disabled',  true);
+                document.getElementById('delete_group').setAttribute('disabled',  true);
 
-                document.getElementById('add_condiment').disabled = true;
-                document.getElementById('modify_condiment').disabled = true;
-                document.getElementById('delete_condiment').disabled = true;
+                document.getElementById('add_condiment').setAttribute('disabled',  true);
+                document.getElementById('modify_condiment').setAttribute('disabled',  true);
+                document.getElementById('delete_condiment').setAttribute('disabled',  true);
 
-                document.getElementById('condiment_group_name').disabled = true;
-                document.getElementById('condiment_name').disabled = true;
-                document.getElementById('condiment_price').disabled = true;
+                document.getElementById('condiment_group_name').setAttribute('disabled',  true);
+                document.getElementById('condiment_name').setAttribute('disabled',  true);
+                document.getElementById('condiment_price').setAttribute('disabled',  true);
             }
             else {
-                document.getElementById('condiment_group_name').disabled = false;
+                document.getElementById('condiment_group_name').setAttribute('disabled',  false);
 
                 // validate group name
                 var group_name = document.getElementById('condiment_group_name').value.replace(/^\s*/, '').replace(/\s*$/, '');
 
-                document.getElementById('modify_group').disabled = group_name.length == 0;
-                document.getElementById('delete_group').disabled = false;
+                document.getElementById('modify_group').setAttribute('disabled',  group_name.length == 0);
+                document.getElementById('delete_group').setAttribute('disabled',  false);
 
-                document.getElementById('add_condiment').disabled = false;
+                document.getElementById('add_condiment').setAttribute('disabled',  false);
 
                 if (this._selectedCondIndex == null || this._selectedCondIndex == -1) {
-                    document.getElementById('condiment_name').disabled = true;
-                    document.getElementById('condiment_price').disabled = true;
+                    document.getElementById('condiment_name').setAttribute('disabled',  true);
+                    document.getElementById('condiment_price').setAttribute('disabled',  true);
 
-                    document.getElementById('modify_condiment').disabled = true;
-                    document.getElementById('delete_condiment').disabled = true;
+                    document.getElementById('modify_condiment').setAttribute('disabled',  true);
+                    document.getElementById('delete_condiment').setAttribute('disabled',  true);
                 }
                 else {
-                    document.getElementById('condiment_name').disabled = false;
-                    document.getElementById('condiment_price').disabled = false;
+                    document.getElementById('condiment_name').setAttribute('disabled',  false);
+                    document.getElementById('condiment_price').setAttribute('disabled',  false);
 
                     // validate condiment name and price
                     var cond_name = document.getElementById('condiment_name').value.replace(/^\s*/, '').replace(/\s*$/, '');
                     var cond_price = document.getElementById('condiment_price').value.replace(/^\s*/, '').replace(/\s*$/, '');
 
                     if (cond_name.length > 0 && !isNaN(parseInt(cond_price))) {
-                        document.getElementById('modify_condiment').disabled = false;
+                        document.getElementById('modify_condiment').setAttribute('disabled',  false);
                     }
                     else {
-                        document.getElementById('modify_condiment').disabled = true;
+                        document.getElementById('modify_condiment').setAttribute('disabled',  true);
                     }
-                    document.getElementById('delete_condiment').disabled = false;
+                    document.getElementById('delete_condiment').setAttribute('disabled',  false);
                 }
             }
         },

@@ -32,6 +32,7 @@
             this._deptscrollablepanel.selectedItems = [index];
 
             if (index == -1) this.resetInputData();
+            
             this.validateForm();
         },
 
@@ -217,16 +218,17 @@
 
             // update button & text field states
             if (this._selectedIndex == null || this._selectedIndex == -1) {
-                document.getElementById('dept_name').disabled = true;
+                document.getElementById('dept_name').setAttribute('disabled', true);
 
-                document.getElementById('modify_dept').disabled = true;
-                document.getElementById('delete_dept').disabled = true;
+                document.getElementById('modify_dept').setAttribute('disabled', true);
+                document.getElementById('delete_dept').setAttribute('disabled', true);
             }
             else {
-                document.getElementById('dept_name').disabled = false;
+                var cond_name = document.getElementById('dept_name').value.replace(/^\s*/, '').replace(/\s*$/, '');
+                document.getElementById('dept_name').setAttribute('disabled', false);
 
-                document.getElementById('modify_dept').disabled = false;
-                document.getElementById('delete_dept').disabled = false;
+                document.getElementById('modify_dept').setAttribute('disabled', (cond_name.length < 1));
+                document.getElementById('delete_dept').setAttribute('disabled', false);
             }
         }
 

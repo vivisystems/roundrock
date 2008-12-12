@@ -47,7 +47,7 @@ pref("vivipos.fec.settings.controlpanels.plugroups.roles", "acl_public_access");
 pref("vivipos.fec.settings.controlpanels.users.label", "Employees");
 pref("vivipos.fec.settings.controlpanels.users.path", "chrome://viviecr/content/users.xul");
 pref("vivipos.fec.settings.controlpanels.users.icon", "chrome://viviecr/content/skin/icons/stock_new-address-book.png");
-pref("vivipos.fec.settings.controlpanels.users.roles", "acl_public_access");
+pref("vivipos.fec.settings.controlpanels.users.roles", "acl_manage_employees");
 
 pref("vivipos.fec.settings.controlpanels.roles.label", "Roles");
 pref("vivipos.fec.settings.controlpanels.roles.path", "chrome://viviecr/content/grouproles.xul");
