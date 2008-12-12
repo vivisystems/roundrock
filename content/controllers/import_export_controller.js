@@ -30,7 +30,7 @@
 
         importPlu: function(data) {
             var self = this;
-            var lines = GREUtils.File.readAllLine('/home/achang/workspace/tt2/plu-u8.csv');
+            var lines = GREUtils.File.readAllLine(this._importDir + "/products.csv");
             var products = GeckoJS.Session.get('products');
             var productTpl = GREUtils.extend({}, products[0]);
 
@@ -48,7 +48,7 @@
                 return str.substr(1, str.length-2);
             };
 
-            var prodTmp = new ProducttmpModel();
+            var prodTmp = new ProductModel();
 
             var i = 0;
             var nCount = lines.length;
@@ -56,22 +56,25 @@
             var progmeter = document.getElementById("importprogressmeter");
             var progress = 0;
             progmeter.value = progress;
-            progmeter.max = nCount;
+            // progmeter.max = nCount;
 
             var thread = new GeckoJS.Thread();
 
             var mainRunnable = {
                 run: function() {
 
-                    progmeter.value = i;
+                    progmeter.value = i * 100 / nCount;
 
-                    /*
+                    
                     if (self._finish) {
+                        
+                        alert("finish...");
                         self._listDatas = datas;
                         var panelView =  new GeckoJS.NSITreeViewArray(self._listDatas);
                         self.getListObj().datasource = panelView;
+
                     }
-                    */
+                    
 
                 },
 
@@ -118,9 +121,9 @@
                             product.id = id +"";
 
                             datas.push(product);
-
+                             prodTmp.begin();
                             prodTmp.save(product);
-                    
+                            prodTmp.commit();
                             i++;
 
                         }, this);
@@ -146,12 +149,25 @@
 
             self._finish = false;
             thread._runnable = workerRunnable;
+           
             thread.start();
 
         //                this._listDatas = datas;
         //                var panelView =  new GeckoJS.NSITreeViewArray(this._listDatas);
         //                this.getListObj().datasource = panelView;
 
+        },
+
+        exportPlu: function () {
+            //
+            var prodTmp = new ProductModel();
+            prodTmp.exportCSV(this._exportDir + "/products.csv", {
+                // fields: "no,name",
+                // fields: "id,cate_no,no,name,barcode,rate,cond_group,buy_price,stock,min_stock,memo,min_sale_qty,sale_unit,setmenu,level_enable1,price_level1,halo1,lalo1,level_enable2,price_level2,halo2,lalo2,level_enable3,price_level3,halo3,lalo3,level_enable4,price_level4,halo4,lalo4,level_enable5,price_level5,halo5,lalo5,level_enable6,price_level6,halo6,lalo6,level_enable7,price_level7,halo7,lalo7,level_enable8,price_level8,halo8,lalo8,level_enable9,price_level9,halo9,lalo9,link_group,auto_maintain_stock,return_stock,force_condiment,force_memo,single,visible,button_color,font_size,age_verification,created,modified"
+                limit:9999
+            });
+            // alert("export ok");
+            
         },
 
         load: function (data) {
