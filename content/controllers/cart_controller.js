@@ -66,48 +66,26 @@
                     sellQty: sellQty,
                     item: item
                 };
-                if (sellQty > item.stock) {
-                    cart.log("***** low stock:" + sellQty + "," + item.stock);
+                var min_stock = parseFloat(item.min_stock);
+                var stock = parseFloat(item.stock);
+
+                if (sellQty > stock) {
                     cart.dispatchEvent('onLowStock', obj);
-                    cart.clear();
-                    evt.preventDefault();
-                } else if (item.nin_stock > item.stock) {
-                    cart.log("***** lower stock:" + item.min_stock + "," + item.stock);
-                    cart.dispatchEvent('onLowerStock', obj);
-                }
-            }
-        },
-        /*
-        decStock: function (obj) {
-            this._productsById = GeckoJS.Session.get('productsById');
-            this._barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
-
-            for (o in obj.items) {
-                var ordItem = obj.items[o];
-                var item = this.Product.findById(ordItem.id);
-                if (item.auto_maintain_stock) {
-                    item.stock = item.stock - ordItem.current_qty;
-
-                    var product = new ProductModel();
-                    product.save(item);
-                    delete product;
-                    // this.Product.save(item);
-
-                    this.log("id2:" + item.id + ":" + item.name + ",,,stock:" + item.stock);
-
-                    // fire onLowStock event...
-                    if (item.min_stock > item.stock) {
-                        this.dispatchEvent('onLowStock', item);
+                    cart.dispatchEvent('onWarning', 'OVER STOCK');
+                    
+                    // allow over stock...
+                    var allowoverstock = GeckoJS.Configure.read("vivipos.fec.settings.AllowOverStock") || false;
+                    if (!allowoverstock) {
+                        cart.clear();
+                        evt.preventDefault();
                     }
-
-                    this.log("this._productsById:" + this.dump(this._productsById));
-                    // update Session Data...
-                    var evt = {data:item, justUpdate: true};
-                    this.afterScaffoldEdit(evt);
+                } else if (min_stock > (stock - sellQty)) {
+                    cart.dispatchEvent('onLowerStock', obj);
+                    cart.dispatchEvent('onWarning', 'LOW STOCK');
                 }
             }
         },
-        */
+        
         _newTransaction: function() {
             var curTransaction = new Transaction();
             curTransaction.create();
@@ -656,7 +634,7 @@
 
         addMarker: function(type) {
 
-            var index = this._cartView.getSelectedIndex();
+            //var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
 
             if(curTransaction == null) {
@@ -665,13 +643,16 @@
                 return; // fatal error ?
             }
 
-            if(index <0) return;
+            //if(index <0) return;
 
             type = type || 'subtotal';
 
             if (curTransaction.isSubmit() || curTransaction.isCancel()) return;
 
-            var itemTrans = curTransaction.getItemAt(index);
+            var dspSeqCount = curTransaction.getDisplaySeqCount();
+
+            var index = dspSeqCount-1;
+
             var itemDisplay = curTransaction.getDisplaySeqAt(index);
 
             if (itemDisplay.type == type) {

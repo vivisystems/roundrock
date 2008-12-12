@@ -31,6 +31,7 @@
             window.openDialog(aURL, "prompt_additem", features, "New Group", "Please input:", "Name", "", inputObj);
             if (inputObj.ok && inputObj.input0) {
                 $("#plugroup_id").val('');
+                evt.data.id = '';
                 evt.data.name = inputObj.input0;
             } else {
                 evt.preventDefault();

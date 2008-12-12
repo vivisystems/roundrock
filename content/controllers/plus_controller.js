@@ -21,7 +21,7 @@
         createGroupPanel: function () {
             var pluGroupModel = new PlugroupModel();
             var groups = pluGroupModel.find('all', {
-                order: "no"
+                
             });
 
             var group_listscrollablepanel = document.getElementById('group_listscrollablepanel');

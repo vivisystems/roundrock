@@ -32,8 +32,7 @@
             if (inputObj.ok && inputObj.input0) {
                 $("#job_id").val('');
                 
-                this.Job.create();
-                alert('claer' + document.getElementById('job_id').value);
+                evt.data.id = '';
                 evt.data.jobname = inputObj.input0;
             } else {
                 evt.preventDefault();

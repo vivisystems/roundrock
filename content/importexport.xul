@@ -17,21 +17,31 @@
             <hbox flex="1" class="footlogo">
                 <groupbox flex="1">
                     <caption label="Import / Export:" />
-                    <viviscrollabletree id="previewscrollablepanel" flex="1" rows="7" headers="No,Name,Stock, Min Stock" fields="no,name,stock,min_stock" onclick="$do('select',this.selectedIndex, 'ImportExport');"
+                    <!-- viviscrollabletree id="previewscrollablepanel" flex="1" rows="7" headers="No,Name,Stock, Min Stock" fields="no,name,stock,min_stock" onclick="$do('select',this.selectedIndex, 'ImportExport');"
                                                         class="prodscrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray">
                         <spacer flex="1" />
-                    </viviscrollabletree>
-                    <!-- checkbox id="show_low_stock" value="false" label="Show Low Stock" oncommand="$do('clickLowStock', null, 'Stocks');" / -->
-
+                    </viviscrollabletree -->
+                    <vbox>
+                        <vivibutton label="Import Plu" class="widebtns" oncommand="$do('importPlu', null, 'ImportExport');" />
+                        <progressmeter id="importprogressmeter" mode="determined" value="0" />
+                        <spacer style="height: 10px;" />
+                        <separator class="groove-thin"/>
+                        <spacer style="height: 10px;" />
+                        <vivibutton label="Export Plu" class="widebtns" oncommand="$do('exportPlu', null, 'ImportExport');" />
+                        <progressmeter id="importprogressmeter" mode="determined" value="0" />
+                    </vbox>
 
                 </groupbox>
-                <spacer style="width:10px;" />
+                <!-- spacer style="width:10px;" />
                 <vbox>
-
-                            <vivibutton label="Import" class="genbtns" oncommand="$do('importPlu', null, 'ImportExport');" />
-
+                    <vivibutton label="Import" class="genbtns" oncommand="$do('importPlu', null, 'ImportExport');" />
                     <progressmeter id="importprogressmeter" mode="determined" value="0" />
-                </vbox>
+                    <spacer style="height: 10px;" />
+                    <separator class="groove-thin"/>
+                    <spacer style="height: 10px;" />
+                    <vivibutton label="Export" class="genbtns" oncommand="$do('exportPlu', null, 'ImportExport');" />
+                    <progressmeter id="importprogressmeter" mode="determined" value="0" />
+                </vbox -->
             </hbox>
         </vbox>
     </box>

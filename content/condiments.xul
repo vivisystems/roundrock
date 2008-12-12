@@ -28,7 +28,7 @@
                                 <grid>
                                     <rows>
                                         <row>
-                                            <label hidden="true" form="condGroupForm" name="id" value="" />
+                                            <label id= "condiment_group_id" hidden="true" form="condGroupForm" name="id" value="" />
                                             <label value="&condiments.group.name;"/>
                                             <textbox id="condiment_group_name" form="condGroupForm" name="name" oninput="$do('validateForm', null, 'Condiments')"/>
                                         </row>
