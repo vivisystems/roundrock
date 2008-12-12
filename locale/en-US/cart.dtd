@@ -3,3 +3,6 @@
 <!ENTITY    cart.item.unitprice   "@">
 <!ENTITY    cart.item.subtotal    "Subtotal">
 <!ENTITY    cart.item.tax         "Tx">
+<!ENTITY    cart.button.plus         "+">
+<!ENTITY    cart.button.minus        "-">
+<!ENTITY    cart.button.payments     "Payments">

@@ -52,7 +52,7 @@
             GeckoJS.Session.addEventListener('change', function(evt){
                 // maybe controllPanel update categories session.
                 // just refresh view , dont prepare categories array to session.
-                if (evt.data.key == 'categiesIndexesAll') {
+                if (evt.data.key == 'categoriesIndexesAll') {
                     self.refreshView();
                 }
             });
@@ -65,9 +65,9 @@
             var departmentsIndexes;
 
             if (this.hideUnvisible) {
-                departmentsIndexes = GeckoJS.Session.get('categiesIndexes').concat(this.visiblePluGroups);
+                departmentsIndexes = GeckoJS.Session.get('categoriesIndexes').concat(this.visiblePluGroups);
             }else {
-                departmentsIndexes = GeckoJS.Session.get('categiesIndexesAll');
+                departmentsIndexes = GeckoJS.Session.get('categoriesIndexesAll');
             }
             this._data = departmentsIndexes;
 
@@ -80,7 +80,7 @@
 
         getCurrentIndexData: function (row) {
             var id = this.data[row];
-            var categories = GeckoJS.Session.get('categiesById');
+            var categories = GeckoJS.Session.get('categoriesById');
             var plugroupsById = GeckoJS.Session.get('plugroupsById');
 
             if (typeof categories[id] == 'undefined') {

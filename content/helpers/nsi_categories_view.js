@@ -5,7 +5,7 @@
         init: function(domId) {
 
             this._data = [];
-            this.hideUnvisible = this.hideUnvisible || false;
+            this.hideInvisible = this.hideInvisible || false;
 
             if (GeckoJS.Session.get('categories') == null) {
                 this.updateCategories();
@@ -55,7 +55,6 @@
                 if (categories && categories.length > 0) GeckoJS.Session.add('categories', categories);
 
             }
-
             var byId ={}, indexCate = [], indexCateAll = [];
 
             if (categories) categories.forEach(function(category) {
@@ -69,40 +68,39 @@
                 
             });
 
-            GeckoJS.Session.add('categiesById', byId);
-            GeckoJS.Session.add('categiesIndexes', indexCate);
-            GeckoJS.Session.add('categiesIndexesAll', indexCateAll);
+            GeckoJS.Session.add('categoriesById', byId);
+            GeckoJS.Session.add('categoriesIndexes', indexCate);
+            GeckoJS.Session.add('categoriesIndexesAll', indexCateAll);
 
         },
 
         refreshView: function() {
 
+            var categoriesIndexes;
 
-            var categiesIndexes;
-
-            if (this.hideUnvisible) {
-                categiesIndexes = GeckoJS.Session.get('categiesIndexes');
+            if (this.hideInvisible) {
+                categoriesIndexes = GeckoJS.Session.get('categoriesIndexes');
             }else {
-
-                categiesIndexes = GeckoJS.Session.get('categiesIndexesAll');
+                categoriesIndexes = GeckoJS.Session.get('categoriesIndexesAll');
             }
-            this._data = categiesIndexes;
+            this._data = categoriesIndexes;
 
             try {
                 this.tree.invalidate();
-            }catch(e) {}
+            }
+            catch(e) {}
 
         },
 
         toggle: function() {
-            this.hideUnvisible = !this.hideUnvisible;
+            this.hideInvisible = !this.hideInvisible;
 
             this.refreshView();
         },
 
         getCurrentIndexData: function (row) {
             var id = this.data[row];
-            var categories = GeckoJS.Session.get('categiesById');
+            var categories = GeckoJS.Session.get('categoriesById');
             
             return categories[id];
         },
@@ -110,7 +108,7 @@
         getCellValue: function(row, col) {
             
             // this.log(row +","+col);
-            var categories = GeckoJS.Session.get('categiesById');
+            var categories = GeckoJS.Session.get('categoriesById');
 
             var sResult;
             var id;
@@ -132,7 +130,7 @@
         getImageSrc: function(row, col) {
             var val = this.getCellValue(row, col);
 
-            var aImageFile = "chrome://viviecr/content/skin/cateimages" + "/" + val + ".png" /*+ "?"+ Math.random()*/;
+            var aImageFile = "chrome://viviecr/skin/cateimages" + "/" + val + ".png" /*+ "?"+ Math.random()*/;
 
             if (GREUtils.File.exists(GREUtils.File.chromeToPath(aImageFile))) {
                 return aImageFile;

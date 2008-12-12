@@ -19,10 +19,51 @@
             return this._listObj;
         },
         
-        view: function () {
-            var username = $('#user_name').val();
-            var userpass = $('#user_password').val();
+        loadUsers: function () {
+
+            var userModel = new UserModel();
+            var users = userModel.find('all', {
+                order: "username"
+            });
+            var userpanel = document.getElementById('userscrollablepanel');
+            if (userpanel) {
+                userpanel.datasource = users;
+            }
+            this.users = users;
+            this.userpanel = userpanel;
+        },
+        
+        loadJobs: function () {
+            var jobModel = new JobModel();
+            var jobs = jobModel.find('all', {
+                order: "jobname"
+            });
             
+            if (jobs)
+                jobs.sort(function(a, b) {
+                    if (a.jobname < b.jobname) return -1;
+                    else if (a.jobname > b.jobname) return 1;
+                    else return 0;
+                });
+
+            if (this._listJob == null) this._listJob = this.query("#simpleListBoxJobs")[0];
+            if (this._listJob) {
+                this._listJob.loadData(jobs);
+                this._listJobs = jobs;
+            }
+        },
+
+        view: function () {
+            var username;
+            var userpass = $('#user_password').val();
+
+            if (this.userpanel && this.users) {
+                var index = this.userpanel.selectedIndex;
+                if (index > -1 && index < this.users.length) {
+                    username = this.users[index].username;
+                }
+            }
+
             if (this.Acl.securityCheck(username, userpass, true)) {
                 this.listSummary();
                 this._lastUser = username;
@@ -134,45 +175,9 @@
             }
         },
 
-        setUser: function () {
-            var user = this.Acl.getUserPrincipal();
-            var self = this;
-
-            if (user) {
-                $('#user_name').val(user.username);
-                $('#sign_status').val(user.username + ' sign-on');
-                $('.userbtn').each(function(){
-                    if (this.id == 'user_' + user.username) {
-                        this.checked = true;
-                    }
-                });
-            }
-        },
-        
-        setJobList: function (jobs) {
-            if (this._listJob == null) this._listJob = this.query("#simpleListBoxJobs")[0];
-            if (this._listJob) {
-                this._listJob.loadData(jobs);
-                this._listJobs = jobs;
-            }
-        },
-
         cancel: function () {
                 window.close();
         },
-
-        setUsername: function (username) {
-            //alert('User: ' + username);
-            $('#user_name').val(username);
-
-            if ((this._lastUser == username) || GeckoJS.Configure.read('vivipos.fec.settings.PublicAttendance')) {
-                this.clearSummary();
-                this.listSummary();
-            }
-            else {
-                this.clearSummary();
-            }
-        }
     });
 
 })();

@@ -34,6 +34,7 @@
             this.resetInputData();
             this.resetInputCondData();
 
+            this.validateForm();
         },
 
         changeCondimentPanel: function(index) {
@@ -66,6 +67,8 @@
 
             this.resetInputCondData();
             this._selectedCondIndex = -1;
+
+            this.validateForm();
 
             document.getElementById('condiment_group_name').focus();
         },
@@ -100,7 +103,61 @@
             //alert('[CLICK] ' + GeckoJS.BaseObject.dump(condGroups));
             if (conds) this.setInputCondData(conds[index]);
 
+            this.validateForm();
+            
             document.getElementById('condiment_name').focus();
+        },
+
+        validateForm: function () {
+
+            // update button & text field states
+            if (this._selectedIndex == null || this._selectedIndex == -1) {
+                document.getElementById('modify-group').disabled = true;
+                document.getElementById('delete-group').disabled = true;
+
+                document.getElementById('add-condiment').disabled = true;
+                document.getElementById('modify-condiment').disabled = true;
+                document.getElementById('delete-condiment').disabled = true;
+
+                document.getElementById('condiment_group_name').disabled = true;
+                document.getElementById('condiment_name').disabled = true;
+                document.getElementById('condiment_price').disabled = true;
+            }
+            else {
+                document.getElementById('condiment_group_name').disabled = false;
+
+                // validate group name
+                var group_name = document.getElementById('condiment_group_name').value.replace(/^\s*/, '').replace(/\s*$/, '');
+
+                document.getElementById('modify-group').disabled = group_name.length == 0;
+                document.getElementById('delete-group').disabled = false;
+
+                document.getElementById('add-condiment').disabled = false;
+
+                if (this._selectedCondIndex == null || this._selectedCondIndex == -1) {
+                    document.getElementById('condiment_name').disabled = true;
+                    document.getElementById('condiment_price').disabled = true;
+
+                    document.getElementById('modify-condiment').disabled = true;
+                    document.getElementById('delete-condiment').disabled = true;
+                }
+                else {
+                    document.getElementById('condiment_name').disabled = false;
+                    document.getElementById('condiment_price').disabled = false;
+
+                    // validate condiment name and price
+                    var cond_name = document.getElementById('condiment_name').value.replace(/^\s*/, '').replace(/\s*$/, '');
+                    var cond_price = document.getElementById('condiment_price').value.replace(/^\s*/, '').replace(/\s*$/, '');
+
+                    if (cond_name.length > 0 && !isNaN(parseInt(cond_price))) {
+                        document.getElementById('modify-condiment').disabled = false;
+                    }
+                    else {
+                        document.getElementById('modify-condiment').disabled = true;
+                    }
+                    document.getElementById('delete-condiment').disabled = false;
+                }
+            }
         },
 
         getInputData: function () {
@@ -111,8 +168,6 @@
 
         resetInputData: function () {
 
-            // this.query('#condiment_group_no').val('');
-            // $('#condiment_group_no').val('');
             this.query('#condiment_group_name').val('');
             this.query('#condiment_group_id').val('');
 
@@ -128,9 +183,16 @@
             var aURL = "chrome://viviecr/content/prompt_additem.xul";
             var features = "chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250";
 
-            var inputObj = {input0:null};
+            var inputObj = {input0:null, require0:true};
 
-            window.openDialog(aURL, "prompt_additem", features, "New Condiment Group", "Please input:", "Name", "", inputObj);
+            window.openDialog(aURL,
+                              'prompt_additem',
+                              features,
+                              _('New Condiment Group:'),
+                              '',
+                              _('Group Name:'),
+                              '',
+                              inputObj);
 
             if (inputObj.ok && inputObj.input0) {
                 var inputData = {name: inputObj.input0};
@@ -140,7 +202,7 @@
                     value: inputData.name
                 });
                 if ((condGroups != null) && (condGroups.length > 0)) {
-                    alert("The Group (" + inputData.name + ") already exists..");
+                    alert(_('The group (%S) already exists..', [inputData.name]));
                     return;
                 }
                 
@@ -187,7 +249,7 @@
                 if ((conds != null) && (conds.length > 0)) {
                     for (var i = 0; i < conds.length; i++) {
                         if (conds[i].id != condGroup.id) {
-                            alert("The Condiment Group (" + inputData.name + ") already exists..");
+                            alert(_('The group (%S) already exists..', [inputData.name]));
                             return;
                         }
                     }
@@ -212,7 +274,7 @@
         remove: function() {
             if (this._selectedIndex == null || this._selectedIndex < 0) return;
 
-            if (GREUtils.Dialog.confirm(null, "confirm delete", "Are you sure?")) {
+            if (GREUtils.Dialog.confirm(null, _('confirm delete'), _('Are you sure?'))) {
                 var condGroupModel = new CondimentGroupModel();
                 if(this._selectedIndex >= 0) {
                     var condGroups = GeckoJS.Session.get('condGroups');
@@ -276,10 +338,10 @@
         addCond: function  () {
             if (this._selectedIndex == null || this._selectedIndex < 0) return;
 
-            var aURL = "chrome://viviecr/content/prompt_additem.xul";
-            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250";
-            var inputObj = {input0:null, input1:0};
-            window.openDialog(aURL, "prompt_additem", features, "New Condiment", "Please input:", "Name", "Price", inputObj);
+            var aURL = 'chrome://viviecr/content/prompt_additem.xul';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250';
+            var inputObj = {input0:null, input1:0, require0:true, require1:true};
+            window.openDialog(aURL, 'prompt_additem', features, _('New Condiment:'), '', _('Condiment Name'), _('Condiment Price'), inputObj);
 
             if (inputObj.ok && inputObj.input0 && inputObj.input1) {
 
@@ -298,7 +360,7 @@
                 if ((conds != null) && (conds.length > 0)) {
                     for (var i = 0; i < conds.length; i++) {
                         if (conds[i].name == inputData.name) {
-                            alert("The Condiment (" + inputData.name + ") already exists in this group...");
+                            alert(_('The condiment (%S) already exists in this group...', [inputData.name]));
                             return;
                         }
                     }
@@ -351,7 +413,7 @@
                 if ((conds != null) && (conds.length > 0)) {
                     for (var i = 0; i < conds.length; i++) {
                         if ((conds[i].name == inputData.name) && (i != this._selectedCondIndex)) {
-                            alert("The Condiment (" + inputData.name + ") already exists in this group...");
+                            alert(_('The condiment (%S) already exists in this group...', [inputData.name]));
                             return;
                         }
                     }
@@ -359,6 +421,7 @@
 
                 inputData.id = cond.id;
                 condModel.id = cond.id;
+
                 condModel.save(inputData);
 
                 GREUtils.extend(condGroups[this._selectedIndex]['Condiment'][this._selectedCondIndex], inputData);
@@ -376,7 +439,7 @@
         removeCond: function() {
             if (this._selectedCondIndex == null || this._selectedCondIndex < 0) return;
 
-            if (GREUtils.Dialog.confirm(null, "confirm delete", "Are you sure?")) {
+            if (GREUtils.Dialog.confirm(null, _('confirm delete'), _('Are you sure?'))) {
                 var condModel = new CondimentModel();
                 if(this._selectedCondIndex >= 0) {
                     var condGroups = GeckoJS.Session.get('condGroups');
@@ -393,11 +456,7 @@
                     }
                     condGroups[this._selectedIndex]['Condiment'] = conds;
                     GeckoJS.Session.set('condGroups', condGroups);
-/*
-                    alert('[DELETE]: record ' + GeckoJS.BaseObject.dump(condiment));
-                    alert('[DELETE]: condiment array ' + GeckoJS.BaseObject.dump(conds));
-                    alert('[DELETE]: group array ' + GeckoJS.BaseObject.dump(condGroups));
-*/
+
                     var view = this._condscrollablepanel.datasource;
                     view.data = conds;
 

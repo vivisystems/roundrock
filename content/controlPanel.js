@@ -19,7 +19,8 @@
 
         var prefs = GeckoJS.BaseObject.getValues(GeckoJS.Configure.read('vivipos.fec.settings.controlpanels'));
         var data = new opener.GeckoJS.ArrayQuery(prefs).orderBy("label asc");
-
+        if (data) data.forEach(function(el) {el.label = _(el.label)});
+        
         window.viewHelper = new opener.GeckoJS.NSITreeViewArray(data);
         
         document.getElementById('imagePanel').datasource = window.viewHelper ;

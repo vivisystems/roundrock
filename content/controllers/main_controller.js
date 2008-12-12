@@ -18,11 +18,12 @@
             this.screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
             this.screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
 
+            GeckoJS.Session.set('screenwidth', this.screenwidth);
+            GeckoJS.Session.set('screenheight', this.screenheight);
+            
             this.createPluPanel();
             this.requestCommand('initial', null, 'Pricelevel');
             this.requestCommand('initial', null, 'Cart');
-//            this.requestCommand('initial', null, 'Vfd');
-            this.requestCommand('initial', null, 'CurrencySetup');
 
             this.resetLayout(true);
             this.initialLogin();
@@ -74,7 +75,7 @@
             var width = this.screenwidth;
             var height = this.screenheight;
 
-            GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,dependent=yes,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height, "");
+            GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,dependent=no,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height, "");
         },
 
         ClockInOutDialog: function () {
@@ -218,56 +219,47 @@
         },
 
         toggleNumPad: function (state, initial) {
-            var registerAtLeft = GeckoJS.Configure.read('vivipos.fec.settings.RegisterAtLeft');
             var numPad = document.getElementById('numpad');
             var toolbar = document.getElementById('toolbar');
             var toggleBtn = document.getElementById('toggleNumPad');
-            var fixedbtnrow = document.getElementById('fixedbtnrow');
+            var clockinBtn = document.getElementById('clockin');
+            var optionsBtn = document.getElementById('options');
+            var spacer = document.getElementById('spacer');
             var cartSidebar = document.getElementById('cartsidebar');
-            var toolbarPanel = document.getElementById('numberpadPanelContainer');
             var isHidden = numPad.getAttribute('hidden') || 'false';
             var hideNumPad = (state == null) ? (isHidden == 'false') : state;
             var toggled = false;
 
             if (hideNumPad) {
                 if (numPad && (isHidden != 'true')) {
-                // relocate toolbar to cart
-                    if (toolbar && toolbarPanel) toolbarPanel.removeChild(toolbar);
-                    if (toolbar && cartSidebar) cartSidebar.appendChild(toolbar);
-                    if (toolbar && fixedbtnrow) {
-                        toolbar.removeChild(toggleBtn);
-                        if (registerAtLeft) {
-                            fixedbtnrow.insertBefore(toggleBtn, fixedbtnrow.firstChild);
-                        }
-                        else {
-                            fixedbtnrow.appendChild(toggleBtn);
-                        }
+                // relocate clockinBtn and optionsBtn to cartSidebar
+                    if (clockinBtn) clockinBtn.parentNode.removeChild(clockinBtn);
+                    if (optionsBtn) optionsBtn.parentNode.removeChild(optionsBtn);
+
+                    if (cartSidebar) {
+                        cartSidebar.appendChild(clockinBtn);
+                        cartSidebar.appendChild(optionsBtn);
                     }
 
                     if (numPad) numPad.setAttribute('hidden', 'true');
                     toggled = true;
-                }
-                else if (numPad) {
-                    // may need to switch position of toggleBtn if registerAtLeft has changed
-                    fixedbtnrow.removeChild(toggleBtn);
-                    if (registerAtLeft) {
-                        fixedbtnrow.insertBefore(toggleBtn, fixedbtnrow.firstChild);
-                    }
-                    else {
-                        fixedbtnrow.appendChild(toggleBtn);
-                    }
                 }
                 if (toggleBtn) toggleBtn.setAttribute('state', 'true');
             }
             else {
                 // if already visible then don't change
                 if (numPad && (isHidden == 'true')) {
-                    // relocate toolbar to toolbarPanel
-                    if (toolbar && cartSidebar) cartSidebar.removeChild(toolbar);
-                    if (toolbar && toolbarPanel) toolbarPanel.appendChild(toolbar);
-                    if (toolbar && fixedbtnrow) {
-                        fixedbtnrow.removeChild(toggleBtn);
-                        toolbar.appendChild(toggleBtn);
+                    // relocate clockinBtn and optionsBtn to toolbar
+                    if (clockinBtn) clockinBtn.parentNode.removeChild(clockinBtn);
+                    if (optionsBtn) optionsBtn.parentNode.removeChild(optionsBtn);
+
+                    if (toolbar) {
+                        if (toggleBtn) toolbar.removeChild(toggleBtn);
+                        if (spacer) toolbar.removeChild(spacer);
+                        if (clockinBtn) toolbar.appendChild(clockinBtn);
+                        if (optionsBtn) toolbar.appendChild(optionsBtn);
+                        if (spacer) toolbar.appendChild(spacer);
+                        if (toggleBtn) toolbar.appendChild(toggleBtn);
                     }
 
                     if (numPad) numPad.setAttribute('hidden', 'false');
@@ -361,7 +353,7 @@
             if (fnPanel) {
                 var totalHeight = deptPanel.boxObject.height - (- pluPanel.boxObject.height);
                 var fnWidth = this.screenwidth - rightPanel.boxObject.width - 5;
-                var fnHeight = this.screenheight - totalHeight - btmBox.boxObject.height;
+                var fnHeight = this.screenheight - totalHeight - btmBox.boxObject.height - 5;
 
                 if (fnHeight < 1) {
                     fnPanel.setAttribute('height', 0);
@@ -432,6 +424,11 @@
             var defaultUser = GeckoJS.Configure.read('vivipos.fec.settings.DefaultUser');
             var acl = new GeckoJS.AclComponent();
 
+            // pre-create the login screen and hide it
+            //this.ChangeUserDialog();
+
+            //if (loginWindow) loginWindow.minimize();
+            
             if (defaultLogin) {
                 var userModel = new UserModel();
                 var users = userModel.findByIndex('all', {
@@ -584,7 +581,8 @@
                 $do('cancel', null, 'Cart');
                 $do('clear', null, 'Cart');
             }
-            if (!quickSignoff) this.ChangeUserDialog();
+            if (!quickSignoff) 
+                this.ChangeUserDialog();
         },
 
         dispatch: function(arg) {

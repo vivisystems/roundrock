@@ -1,0 +1,8 @@
+var OrderPaymentModel = window.OrderPaymentModel =  GeckoJS.Model.extend({
+    name: 'OrderPayment',
+
+    useDbConfig: 'order',
+    
+    belongsTo: ['Order']
+    
+});

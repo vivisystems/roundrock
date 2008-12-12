@@ -18,8 +18,6 @@ GREUtils.include('chrome://viviecr/content/models/user.js');
 GREUtils.include('chrome://viviecr/content/models/category.js');
 GREUtils.include('chrome://viviecr/content/models/product.js');
 GREUtils.include('chrome://viviecr/content/models/cart.js');
-GREUtils.include('chrome://viviecr/content/models/order.js');
-GREUtils.include('chrome://viviecr/content/models/order_detail.js');
 GREUtils.include('chrome://viviecr/content/models/cash_drawer.js');
 GREUtils.include('chrome://viviecr/content/models/sequence.js');
 GeckoJS.include('chrome://viviecr/content/models/transaction.js');
@@ -28,6 +26,14 @@ GREUtils.include('chrome://viviecr/content/models/condiment.js');
 GREUtils.include('chrome://viviecr/content/models/plugroup.js');
 GREUtils.include('chrome://viviecr/content/models/job.js');
 GREUtils.include('chrome://viviecr/content/models/producttmp.js');
+
+
+include('chrome://viviecr/content/models/order.js');
+include('chrome://viviecr/content/models/order_item.js');
+include('chrome://viviecr/content/models/order_addition.js');
+include('chrome://viviecr/content/models/order_payment.js');
+include('chrome://viviecr/content/models/order_object.js');
+
 
 // include project helpers
 GREUtils.include('chrome://viviecr/content/helpers/nsi_products_view.js');
@@ -65,6 +71,12 @@ GREUtils.include('chrome://viviecr/content/controllers/pricelevelschedule_contro
 GREUtils.include('chrome://viviecr/content/controllers/plusearch_controller.js');
 GREUtils.include('chrome://viviecr/content/controllers/stocks_controller.js');
 GREUtils.include('chrome://viviecr/content/controllers/currencysetup_controller.js');
+
+include('chrome://viviecr/content/controllers/test_controller.js');
+
+
+//
+//
 // user define
 // GeckoJS.include('chrome://viviecr/content/tax.js');
 GeckoJS.include('chrome://viviecr/content/fecposutils.js');

@@ -1,0 +1,9 @@
+<!ENTITY departments.title  "Departments">
+<!ENTITY departments.details "Department Details:">
+<!ENTITY departments.number "Department Number:">
+<!ENTITY departments.name "Department Name:">
+<!ENTITY departments.taxrate "Tax Rate:">
+<!ENTITY departments.visible "Show on Menu:">
+<!ENTITY departments.sale "Sale Separtment:">
+<!ENTITY departments.button.color "Button Color:">
+<!ENTITY departments.font.size "Font Size:">

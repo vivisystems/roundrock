@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/cart.css" type="text/css"?>
 
 <!DOCTYPE window SYSTEM "chrome://viviecr/locale/cart.dtd">
 
@@ -11,18 +12,15 @@
 
             <viviscrollabletree class="cartList" id="cartList" hidecolumnpicker="true" hidevscroll="true" flex="1"
                                 headers="&cart.item.name;,&cart.item.qty;,&cart.item.unitprice;,&cart.item.subtotal;,&cart.item.tax;"
-                                fields="name,current_qty,current_price,current_subtotal,current_tax" rows="7" scrollUpClass="rightprevbtn  button-gray"
-                                scrollDownClass="rightnextbtn  button-gray" >
+                                fields="name,current_qty,current_price,current_subtotal,current_tax"
+                                rows="7" scrollUpClass="cartScrollUp" scrollDownClass="cartScrollDown" >
                 <vbox id="cartsidebar">
-                    <button id="btnPlus"  label="+"  oncommand="$do('modifyQty', 'plus', 'Cart');"  class="button-gray systoolbtn mediumimagebtn" image="chrome://viviecr/skin/images/list-add.png" />
-                    <button id="btnMinus"  label="-"  oncommand="$do('modifyQty', 'minus', 'Cart');"  class="button-gray systoolbtn mediumimagebtn" image="chrome://viviecr/skin/images/list-remove.png" />
-                    <button id="btnPayment"  label="Pay"  oncommand="$do('showPaymentStatus', null, 'Cart');"  class="button-gray systoolbtn mediumimagebtn" image="chrome://viviecr/skin/images/gnucash-icon.png" />
+                    <vivibutton id="btnPlus" label="&cart.button.plus;" oncommand="$do('modifyQty', 'plus', 'Cart');"  class="button-gray systoolbtn mediumimagebtn itemplusbtn"/>
+                    <vivibutton id="btnMinus" label="&cart.button.minus;" oncommand="$do('modifyQty', 'minus', 'Cart');"  class="button-gray systoolbtn mediumimagebtn itemminusbtn"/>
+                    <vivibutton id="btnPayment" label="&cart.button.payments;" oncommand="$do('showPaymentStatus', null, 'Cart');"  class="button-gray systoolbtn mediumimagebtn paymentdetailsbtn"/>
                 </vbox>
             </viviscrollabletree>
 
-
-
-        <!-- /vbox -->
 
     </vbox>
 </overlay>

@@ -1,5 +1,5 @@
 (function() {
-    
+
     // declare Transaction Base Object / data encapulate
     var Transaction = window.Transaction = GeckoJS.BaseObject.extend('Transaction', {
 
@@ -30,11 +30,6 @@
 
                 markers: [],
 
-                status: 0,
-
-                clerk: '',
-                member: '',
-
                 total: 0,
                 remain: 0,
                 tax_subtotal: 0,
@@ -42,13 +37,39 @@
                 discount_subtotal: 0,
                 payment_subtotal: 0,
 
-                created: '',
-                modified: '',
+                rounding_prices: 'to-nearest-precision',
+                precision_prices: 0,
+                rounding_taxes: 'to-nearest-precision',
+                precision_taxes: 0,
 
-                RoundingPrices: 'to-nearest-precision',
-                PrecisionPrices: 0,
-                RoundingTaxes: 'to-nearest-precision',
-                PrecisionTaxes: 0
+                status: 0, // transcation status 0 = process  1 = submit , -1 = canceled
+
+                service_clerk: '',
+                service_clerk_displayname: '',
+
+                proceeds_clerk: '',
+                proceeds_clerk_displayname: '',
+
+                // member id
+                member: '',
+                member_displayname: '',
+                member_email: '',
+                member_cellphone: '',
+
+                invoice_type: '',
+                invoice_title: '',
+                invoice_no: '',
+
+                destination: '',
+                table_no: '',
+                check_no: '',
+
+                no_of_customers: 0,
+
+                terminal_no: '',
+
+                created: '',
+                modified: ''
 
             };
 
@@ -71,7 +92,9 @@
 
     Transaction.Tax =  null;
 
-    // Transaction.Number =  null;
+    Transaction.Number =  null;
+
+    Transaction.worker =  null;
 
     Transaction.prototype.create = function() {
 
@@ -83,10 +106,10 @@
         var user = new GeckoJS.AclComponent().getUserPrincipal();
 
         if ( user != null ) {
-            this.data.clerk = user.username;
+            this.data.service_clerk = user.username;
         }
 
-        this.data.created = new Date().toString('hh:mm:ss');
+        this.data.created = new Date().getTime();
 
         if (Transaction.Tax == null) Transaction.Tax = new TaxComponent();
 
@@ -95,10 +118,17 @@
         if (Transaction.events == null) Transaction.events = new GeckoJS.Event();
 
         // update rounding / precision data
-        this.data.RoundingPrices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
-        this.data.RoundingTaxes = GeckoJS.Configure.read('vivipos.fec.settings.RoundingTaxes') || 'to-nearest-precision';
-        this.data.PrecisionPrices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
-        this.data.PrecisionTaxes = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionTaxes') || 0;
+        this.data.rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
+        this.data.rounding_taxes = GeckoJS.Configure.read('vivipos.fec.settings.RoundingTaxes') || 'to-nearest-precision';
+        this.data.precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
+        this.data.precision_taxes = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionTaxes') || 0;
+
+        if (Transaction.worker == null) {
+            Transaction.worker = new GeckoJS.Thread();
+        }
+        Transaction.worker._runnable = this;
+
+        // @todo 
        
     };
 
@@ -110,6 +140,13 @@
 
     Transaction.prototype.cancel = function() {
         this.data.status = -1;
+
+        // save transaction to order / orderdetail ...
+        this.data.modified = new Date().getTime();
+
+        // use background save
+        Transaction.worker.start();
+
         this.emptyView();
     };
 
@@ -120,13 +157,21 @@
 
     Transaction.prototype.submit = function() {
         this.data.status = 1;
-    // save transaction to order / orderdetail ...
 
-    // maintain stock...
-    // this.log(this.dump(this.data));
-    this.requestCommand('decStock', this.data, "Stocks");
+        // save transaction to order / orderdetail ...
+        this.data.modified = new Date().getTime();
 
-    // empty ?
+        var user = new GeckoJS.AclComponent().getUserPrincipal();
+        if ( user != null ) {
+            this.data.proceeds_clerk = user.username;
+        }
+
+        // use backgroud to save
+        Transaction.worker.start();
+
+        // maintain stock...
+        // this.log(this.dump(this.data));
+        this.requestCommand('decStock', this.data, "Stocks");
         
     };
 
@@ -152,6 +197,7 @@
             type: 'item', // item or category
             id: item.id,
             no: item.no,
+            barcode: item.barcode,
             name: item.name,
 
             index: index,
@@ -161,24 +207,24 @@
             current_subtotal: roundedSubtotal,
 
             tax_name: item.rate,
-            tax_rate: null,
-            tax_type: null,
+            tax_rate: '',
+            tax_type: '',
             current_tax: 0,
             
-            discount_name: null,
-            discount_rate: null,
-            discount_type: null,
+            discount_name: '',
+            discount_rate: '',
+            discount_type: '',
             current_discount: 0,
 
-            surcharge_name: null,
-            surcharge_rate: null,
-            surcharge_type: null,
+            surcharge_name: '',
+            surcharge_rate: '',
+            surcharge_type: '',
             current_surcharge: 0,
 
-            condiments: null,
-            current_Condiment: 0,
+            condiments: '',
+            current_condiment: 0,
 
-            memo: null,
+            memo: '',
             
             hasDiscount: false,
             hasSurcharge: false,
@@ -194,6 +240,7 @@
 
         type = type || 'item';
 
+        _('Trans');
         var itemDisplay = {} ;
 
         if (type == 'item') {
@@ -400,7 +447,8 @@
 
         this.calcPromotions();
 
-        this.calcItemsTax();
+        // only calc current item tax 
+        this.calcItemsTax(itemAdded);
 
         this.calcTotal();
 
@@ -469,7 +517,7 @@
 
             roundedCondiment = this.getRoundedPrice(roundedCondiment);
 
-            itemModified.current_Condiment = roundedCondiment;
+            itemModified.current_condiment = roundedCondiment;
             itemModified.current_subtotal = roundedSubtotal + roundedCondiment;
         }
 
@@ -489,7 +537,8 @@
 
         this.calcPromotions();
 
-        this.calcItemsTax();
+        // only calc current item tax
+        this.calcItemsTax(itemModified);
 
         this.calcTotal();
 
@@ -546,6 +595,11 @@
             // remove
             this.removeDisplaySeq(index, removeCount);
 
+            // recalc all
+            this.calcPromotions();
+            //this.calcItemsTax();
+
+
         }else {
 
             // discount or surcharge
@@ -584,7 +638,7 @@
 
                 roundedCondiment = this.getRoundedPrice(roundedCondiment);
 
-                itemTrans.current_Condiment = roundedCondiment;
+                itemTrans.current_condiment = roundedCondiment;
                 itemTrans.current_subtotal = roundedSubtotal + roundedCondiment;
 
                 var orgItemDisplay = this.getDisplaySeqByIndex(itemIndex);
@@ -593,15 +647,14 @@
             }
 
             this.removeDisplaySeq(index, 1);
+
+            // recalc all
+            // this.calcPromotions();
+            this.calcItemsTax(itemTrans);
+
         }
 
         var currentRowCount = this.data.display_sequences.length;
-
-        // recalc all
-
-        this.calcPromotions();
-
-        this.calcItemsTax();
 
         this.calcTotal();
 
@@ -653,6 +706,9 @@
 
             this.data.display_sequences.splice(index+1,0,itemDisplay);
 
+            this.calcPromotions();
+            this.calcItemsTax(item);
+
 
         }else if (itemDisplay.type == 'subtotal'){
 
@@ -685,13 +741,14 @@
 
             this.data.display_sequences.splice(index+1,0,itemDisplay);
 
+            this.calcPromotions();
+            
+            // this.calcItemsTax();
+
+
         }
 
         var currentRowCount = this.data.display_sequences.length;
-
-        this.calcPromotions();
-
-        this.calcItemsTax();
 
         this.calcTotal();
 
@@ -737,7 +794,12 @@
             var itemDisplay = this.createDisplaySeq(itemIndex, item, 'surcharge');
 
             this.data.display_sequences.splice(index+1,0,itemDisplay);
-            
+
+            //this.calcPromotions();
+
+            this.calcItemsTax(item);
+
+
         }else if (itemDisplay.type == 'subtotal'){
 
             var surchargeItem = {
@@ -766,13 +828,13 @@
 
             this.data.display_sequences.splice(index+1,0,itemDisplay);
 
+            this.calcPromotions();
+            //this.calcItemsTax();
+
+
         }
         
         var currentRowCount = this.data.display_sequences.length;
-
-        this.calcPromotions();
-
-        this.calcItemsTax();
 
         this.calcTotal();
 
@@ -830,7 +892,8 @@
         /*
         this.calcPromotions();
         */
-        this.calcItemsTax();
+        // only calc current item tax
+        this.calcItemsTax(itemModified);
 
         this.calcTotal();
 
@@ -943,19 +1006,18 @@
 
                         roundedCondiment = this.getRoundedPrice(roundedCondiment);
 
-                        item.current_Condiment = roundedCondiment;
+                        item.current_condiment = roundedCondiment;
                         item.current_subtotal = roundedSubtotal + roundedCondiment;
 
                         itemDisplay.current_subtotal = this.formatPrice(item.current_subtotal);
 
-                        this.calcItemsTax();
-
-                        this.calcTotal();
                     }
                 }, this);
 
             }
 
+            this.calcItemsTax(item);
+            this.calcTotal();
         }
 
         var currentRowCount = this.data.display_sequences.length;
@@ -1238,12 +1300,17 @@
         Transaction.events.dispatch('onCalcPromotions', obj, this);
     };
 
-    Transaction.prototype.calcItemsTax =  function() {
-        var obj = this.data;
+    Transaction.prototype.calcItemsTax =  function(calcItem) {
+
+        // for performance issue
+        var items;
+        if (calcItem) items = [calcItem];
+        else items = this.data.items;
+
 
         // item subtotal
-        for(var itemIndex in this.data.items ) {
-            var item = this.data.items[itemIndex];
+        for(var itemIndex in items ) {
+            var item = items[itemIndex];
 
             /*
             tax_name: item.rate,
@@ -1252,14 +1319,12 @@
             current_tax: 0,
             */
 
-
-
             var tax = Transaction.Tax.getTax(item.tax_name);
             if(tax) {
                 item.tax_rate = tax.rate;
                 item.tax_type = tax.type;
 
-                var toTaxCharge = item.current_subtotal - item.current_discount + item.current_surcharge;
+                var toTaxCharge = item.current_subtotal + item.current_discount + item.current_surcharge;
                 
                 var taxChargeObj = Transaction.Tax.calcTaxAmount(item.tax_name, toTaxCharge);
 
@@ -1274,15 +1339,15 @@
 
         }
 
-        this.log('DEBUG', 'dispatchEvent onCalcItemsTax ' + obj);
-        Transaction.events.dispatch('onCalcItemsTax', obj, this);
+        this.log('DEBUG', 'dispatchEvent onCalcItemsTax ' + items);
+        Transaction.events.dispatch('onCalcItemsTax', items, this);
 
     };
 
 
     Transaction.prototype.calcTotal = function() {
         
-        this.log('DEBUG', 'dispatchEvent onCalcTotal ' + this.data);
+        //this.log('DEBUG', 'dispatchEvent onCalcTotal ' + this.data);
         Transaction.events.dispatch('onCalcTotal', this.data, this);
 
         var total=0, remain=0, item_subtotal=0, tax_subtotal=0, surcharge_subtotal=0, discount_subtotal=0, payment_subtotal=0;
@@ -1326,7 +1391,9 @@
 
         Transaction.events.dispatch('afterCalcTotal', this.data, this);
 
-        this.log('DEBUG', "afterCalcTotal " + this.dump(this.data));
+        GeckoJS.Session.set('vivipos_fec_number_of_items', this.getItemsCount());
+        GeckoJS.Session.set('vivipos_fec_tax_total', tax_subtotal);
+        //this.log('DEBUG', "afterCalcTotal " + this.dump(this.data));
 
     };
 
@@ -1357,22 +1424,38 @@
 
 
     Transaction.prototype.getRoundedPrice = function(price) {
-        var roundedPrice = Transaction.Number.round(price, this.data.PrecisionPrices, this.data.RoundingPrices) || 0;
+        var roundedPrice = Transaction.Number.round(price, this.data.precision_prices, this.data.rounding_prices) || 0;
         return roundedPrice;
     };
 
 
     Transaction.prototype.getRoundedTax = function(tax) {
-        var roundedTax = Transaction.Number.round(tax, this.data.PrecisionTaxes, this.data.RoundingTaxes) || 0;
+        var roundedTax = Transaction.Number.round(tax, this.data.precision_taxes, this.data.rounding_taxes) || 0;
         return roundedTax;
     };
 
     Transaction.prototype.formatPrice = function(price) {
         var options = {
-          places: ((this.data.PrecisionPrices>0)?this.data.PrecisionPrices:0)
+          places: ((this.data.precision_prices>0)?this.data.precision_prices:0)
         };
         // format display precision
         return Transaction.Number.format(price, options);
     };
+
+
+    // nsirunnable run
+    Transaction.prototype.run = function() {
+        var order = new OrderModel();
+        order.saveOrder(this.data);
+    };
+
+    // nsirunnable run
+    Transaction.prototype.QueryInterface = function(iid) {
+        if (iid.equals(Components.Interfaces.nsIRunnable) || iid.equals(Components.Interfaces.nsISupports)) {
+            return this;
+        }
+        throw Components.results.NS_ERROR_NO_INTERFACE;
+    };
+
 
 })();

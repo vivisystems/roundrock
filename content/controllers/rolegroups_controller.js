@@ -153,6 +153,7 @@
             this.Acl.addRole('acl_public_access');
             this.Acl.addRole('acl_manage_condiments');
             this.Acl.addRole('acl_manage_currency');
+            this.Acl.addRole('acl_manage_departments');
 */
         },
 	

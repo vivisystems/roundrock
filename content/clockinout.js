@@ -14,56 +14,13 @@
         var users;
         var jobs;
 
-        function getUsers() {
-            var datas;
-            var userModel = new UserModel();
-            users = userModel.find('all', {
-                order: "no"
-            });
-            for(var k in users) {
-                datas = users[k];
-            }
-            createUsersBtn();
+        $do('loadUsers', null, 'ClockInOut');
+        $do('loadJobs', null, 'ClockInOut');
 
-        }
+        $('#clearBtn')[0].addEventListener('command', clearUserPass, false);
+        $('#delBtn')[0].addEventListener('command', delUserPass, false);
+        $('#user_password').focus();
 
-        function createUsersBtn() {
-            var userspad = document.getElementById("userspad");
-            var datas;
-
-            for(var k in users) {
-                datas = users[k];
-                var button = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:button");
-                button.setAttribute('oncommand', "$do('setUsername', '" + datas['username'] + "', 'ClockInOut')");
-                button.setAttribute('label', datas['username']);
-                button.setAttribute("image", "chrome://viviecr/content/skin/images/operator.png");
-                button.setAttribute('class', "userbtn");
-                button.setAttribute('type', "radio");
-                button.setAttribute('group', "operator");
-                // button.setAttribute('username', datas['username']);
-                button.setAttribute('id', "user_" + datas['username']);
-                userspad.appendChild(button);
-            }
-        }
-
-        function getJobs() {
-            var jobModel = new JobModel();
-
-            jobs = jobModel.find('all', {
-                order: "no"
-            });
-
-            jobs.sort(function(a, b) {
-                if (a.jobname < b.jobname) return -1;
-                else if (a.jobname > b.jobname) return 1;
-                else return 0;
-            });
-        }
-
-        getUsers();
-        getJobs();
-        $do('setJobList', jobs, 'ClockInOut');
-        
         $('#clearBtn')[0].addEventListener('command', clearUserPass, false);
         $('#user_password').focus();
     };
@@ -72,8 +29,17 @@
      * Clear User Password box
      */
     function clearUserPass() {
-
         $('#user_password').val('');
+
+    }
+
+    /**
+     * Delete one character from User Password
+     */
+    function delUserPass() {
+        var pwd = $('#user_password').val();
+        if (pwd && pwd.length > 0) pwd = pwd.substring(0, pwd.length - 1);
+        $('#user_password').val(pwd);
 
     }
     
