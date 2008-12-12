@@ -373,6 +373,18 @@
         </body>
     </method>
 
+    <method name="ensureIndexIsVisible">
+      <parameter name="index" />
+      <body>
+            var pageSize = parseInt(this.rows) * parseInt(this.cols);
+            var pageOffset = Math.floor(index / pageSize);
+            this._startOffset = pageOffset * pageSize;
+            this.startOffset = this._startOffset;
+            this.render();
+      </body>
+    </method>
+
+
     <method name="invalidate">
         <body><![CDATA[
             this.refresh();
@@ -419,10 +431,10 @@
                     var preIndex = this.selectedItems[0];
 
                     if (preIndex >= this.startOffset && preIndex <= (this.startOffset+this.buttonCount)) {
-                        var btn = document.getAnonymousElementByAttribute(this, 'anonid', preIndex-this.startOffset);
+                        var btnid = preIndex%this.buttonCount;
+                        var btn = document.getAnonymousElementByAttribute(this, 'anonid', btnid);
                         btn.removeAttribute('selected');
                     }
-                    
                 }
                 this.selectedItems = [this.currentIndex];
                 this.selectedCount = 1;
