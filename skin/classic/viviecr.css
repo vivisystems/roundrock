@@ -384,7 +384,7 @@ treechildren::-moz-tree-cell-text(treecellTOTAL) {color: yellow;}
     text-wrap: normal;
     word-wrap: break-word;
 }
-.dialogbtns button:active , .editbtns:active, .timepickerbtns:active {
+.dialogbtns button[disabled=false]:active , .editbtns[disabled=false]:active, .timepickerbtns[disabled=false]:active {
     background-position:0pt -60px;
     border: 2px solid;
     -moz-border-top-colors: #444 #222;

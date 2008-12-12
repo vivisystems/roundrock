@@ -100,8 +100,11 @@
             this._condscrollablepanel.selectedIndex = index;
             this._condscrollablepanel.selectedItems = [index];
 
-            //alert('[CLICK] ' + GeckoJS.BaseObject.dump(condGroups));
-            if (conds) this.setInputCondData(conds[index]);
+            //alert('[CLICK] ' + 'index: ' + index + ':' + GeckoJS.BaseObject.dump(condGroups));
+            //alert('[COND] ' + GeckoJS.BaseObject.dump(conds));
+            if (conds) {
+                this.setInputCondData(conds[index]);
+            }
 
             this.validateForm();
             
@@ -112,12 +115,12 @@
 
             // update button & text field states
             if (this._selectedIndex == null || this._selectedIndex == -1) {
-                document.getElementById('modify-group').disabled = true;
-                document.getElementById('delete-group').disabled = true;
+                document.getElementById('modify_group').disabled = true;
+                document.getElementById('delete_group').disabled = true;
 
-                document.getElementById('add-condiment').disabled = true;
-                document.getElementById('modify-condiment').disabled = true;
-                document.getElementById('delete-condiment').disabled = true;
+                document.getElementById('add_condiment').disabled = true;
+                document.getElementById('modify_condiment').disabled = true;
+                document.getElementById('delete_condiment').disabled = true;
 
                 document.getElementById('condiment_group_name').disabled = true;
                 document.getElementById('condiment_name').disabled = true;
@@ -129,17 +132,17 @@
                 // validate group name
                 var group_name = document.getElementById('condiment_group_name').value.replace(/^\s*/, '').replace(/\s*$/, '');
 
-                document.getElementById('modify-group').disabled = group_name.length == 0;
-                document.getElementById('delete-group').disabled = false;
+                document.getElementById('modify_group').disabled = group_name.length == 0;
+                document.getElementById('delete_group').disabled = false;
 
-                document.getElementById('add-condiment').disabled = false;
+                document.getElementById('add_condiment').disabled = false;
 
                 if (this._selectedCondIndex == null || this._selectedCondIndex == -1) {
                     document.getElementById('condiment_name').disabled = true;
                     document.getElementById('condiment_price').disabled = true;
 
-                    document.getElementById('modify-condiment').disabled = true;
-                    document.getElementById('delete-condiment').disabled = true;
+                    document.getElementById('modify_condiment').disabled = true;
+                    document.getElementById('delete_condiment').disabled = true;
                 }
                 else {
                     document.getElementById('condiment_name').disabled = false;
@@ -150,12 +153,12 @@
                     var cond_price = document.getElementById('condiment_price').value.replace(/^\s*/, '').replace(/\s*$/, '');
 
                     if (cond_name.length > 0 && !isNaN(parseInt(cond_price))) {
-                        document.getElementById('modify-condiment').disabled = false;
+                        document.getElementById('modify_condiment').disabled = false;
                     }
                     else {
-                        document.getElementById('modify-condiment').disabled = true;
+                        document.getElementById('modify_condiment').disabled = true;
                     }
-                    document.getElementById('delete-condiment').disabled = false;
+                    document.getElementById('delete_condiment').disabled = false;
                 }
             }
         },
@@ -345,6 +348,11 @@
 
             if (inputObj.ok && inputObj.input0 && inputObj.input1) {
 
+                if (isNaN(inputObj.input1)) {
+                    alert(_('Condiment Price must be a number'));
+                    return;
+                }
+
                 var inputData = this.getInputCondData();
                 var condGroups = GeckoJS.Session.get('condGroups');
 
@@ -382,17 +390,18 @@
                                 condGroups[this._selectedIndex]['Condiment'].push(conds[i]);
                             else
                                 condGroups[this._selectedIndex]['Condiment'] = [conds[i]];
+                            break;
                         }
                     }
 
                     //alert('[ADD]: record ' + GeckoJS.BaseObject.dump(conds[0]));
-                    //alert('[ADD]: array ' + GeckoJS.BaseObject.dump(condGroups[this._selectedIndex]));
+                    //alert('[ADD]: array ' + GeckoJS.BaseObject.dump(condGroups));
 
                     GeckoJS.Session.set('condGroups', condGroups);
 
                     var view = this._condscrollablepanel.datasource;
                     view.data = condGroups[this._selectedIndex]['Condiment'];
-                    this.clickCondimentPanel(condGroups[this._selectedIndex]['Condiment'].length - 1);
+                    this.clickCondimentPanel(view.data.length - 1);
                 }
             }
         },
