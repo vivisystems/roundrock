@@ -634,7 +634,7 @@
 
         addMarker: function(type) {
 
-            var index = this._cartView.getSelectedIndex();
+            //var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
 
             if(curTransaction == null) {
@@ -643,13 +643,16 @@
                 return; // fatal error ?
             }
 
-            if(index <0) return;
+            //if(index <0) return;
 
             type = type || 'subtotal';
 
             if (curTransaction.isSubmit() || curTransaction.isCancel()) return;
 
-            var itemTrans = curTransaction.getItemAt(index);
+            var dspSeqCount = curTransaction.getDisplaySeqCount();
+
+            var index = dspSeqCount-1;
+
             var itemDisplay = curTransaction.getDisplaySeqAt(index);
 
             if (itemDisplay.type == type) {

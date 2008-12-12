@@ -208,8 +208,8 @@ var OrderModel = window.OrderModel =  GeckoJS.Model.extend({
 
             orderPayment['id'] = iid;
             orderPayment['order_id'] = data.id;
-            orderPayment['order_item_count'] = data.item_count;
-            orderPayment['order_item_total'] = data.total;
+            orderPayment['order_items_count'] = data.items_count;
+            orderPayment['order_total'] = data.total;
 
             orderPayments.push(orderPayment);
 
