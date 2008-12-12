@@ -17,6 +17,7 @@
         _datas: null,
         _importDir: null,
         _exportDir: null,
+        _finish: false,
 
         getListObj: function() {
             if(this._listObj == null) {
@@ -28,6 +29,7 @@
         },
 
         importPlu: function(data) {
+            var self = this;
             var lines = GREUtils.File.readAllLine('/home/achang/workspace/tt2/plu-u8.csv');
             var products = GeckoJS.Session.get('products');
             var productTpl = GREUtils.extend({}, products[0]);
@@ -63,9 +65,13 @@
 
                     progmeter.value = i;
 
-//                this._listDatas = datas;
-//                var panelView =  new GeckoJS.NSITreeViewArray(this._listDatas);
-//                this.getListObj().datasource = panelView;
+                    /*
+                    if (self._finish) {
+                        self._listDatas = datas;
+                        var panelView =  new GeckoJS.NSITreeViewArray(self._listDatas);
+                        self.getListObj().datasource = panelView;
+                    }
+                    */
 
                 },
 
@@ -82,49 +88,49 @@
                 run: function() {
 
 
-            try {
-                var oldLimit = GREUtils.Pref.getPref('dom.max_chrome_script_run_time');
-                GREUtils.Pref.setPref('dom.max_chrome_script_run_time', 5 * 60);
+                    try {
+                        var oldLimit = GREUtils.Pref.getPref('dom.max_chrome_script_run_time');
+                        GREUtils.Pref.setPref('dom.max_chrome_script_run_time', 5 * 60);
 
 
-                lines.forEach(function(buf) {
-                    var dats = buf.split(',');
-                    var barcode = trimQuote(dats[0]);
-                    var name = trimQuote(GREUtils.Charset.convertToUnicode(dats[1], 'UTF-8'));
-                    var price = parseFloat(trimQuote(dats[2])) + 0;
-                    var no = cate_no + GeckoJS.String.padLeft(i, pad);
+                        lines.forEach(function(buf) {
+                            var dats = buf.split(',');
+                            var barcode = trimQuote(dats[0]);
+                            var name = trimQuote(GREUtils.Charset.convertToUnicode(dats[1], 'UTF-8'));
+                            var price = parseFloat(trimQuote(dats[2])) + 0;
+                            var no = cate_no + GeckoJS.String.padLeft(i, pad);
 
-                    /// notify main
-                    thread.main.dispatch(mainRunnable, thread.main.DISPATCH_NORMAL);
+                            /// notify main
+                            thread.main.dispatch(mainRunnable, thread.main.DISPATCH_NORMAL);
 
                     
-                    var product = GREUtils.extend({}, productTpl);
-                    product = GREUtils.extend(product, {
-                        no: no,
-                        cate_no: cate_no,
-                        name: name,
-                        barcode: barcode,
-                        price_level1: price,
-                        level_enable1: true
-                    });
+                            var product = GREUtils.extend({}, productTpl);
+                            product = GREUtils.extend(product, {
+                                no: no,
+                                cate_no: cate_no,
+                                name: name,
+                                barcode: barcode,
+                                price_level1: price,
+                                level_enable1: true
+                            });
 
-                    var id = GeckoJS.String.uuid() + "";
-                    product.id = id +"";
+                            var id = GeckoJS.String.uuid() + "";
+                            product.id = id +"";
 
-                    datas.push(product);
+                            datas.push(product);
 
-                    prodTmp.save(product);
+                            prodTmp.save(product);
                     
-                    i++;
+                            i++;
 
-                }, this);
+                        }, this);
 
 
-            }
-            catch (e) {}
-            finally {
-                GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
-            }
+                    }
+                    catch (e) {}
+                    finally {
+                        GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
+                    }
 
 
 
@@ -138,12 +144,13 @@
                 }
             };
 
+            self._finish = false;
             thread._runnable = workerRunnable;
             thread.start();
 
-//                this._listDatas = datas;
-//                var panelView =  new GeckoJS.NSITreeViewArray(this._listDatas);
-//                this.getListObj().datasource = panelView;
+        //                this._listDatas = datas;
+        //                var panelView =  new GeckoJS.NSITreeViewArray(this._listDatas);
+        //                this.getListObj().datasource = panelView;
 
         },
 

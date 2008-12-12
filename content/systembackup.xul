@@ -14,55 +14,33 @@
     <box flex="1" class="mainpanel1 pad40">
         <vbox flex="1" class="panel40">
             <vbox flex="1" class="footlogo">
-
-                <tabbox  flex="1">
-                    <tabs >
-                        <tab label="&systembackup.backup;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
-                        <tab label="&systembackup.restore;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
-                    </tabs>
-
-                    <tabpanels flex="1" >
-
-                        <tabpanel flex="1" >
-                            <hbox>
-                            <groupbox flex="1">
-                                <caption label="System Backup:" />
-                                <viviscrollabletree id="localscrollablepanel" flex="1" rows="7" headers="Time,Type" fields="time,type" onclick="$do('select',this.selectedIndex, 'ImportExport');"
+                <label value="&systembackup.backup; / &systembackup.restore;" />
+                <hbox flex="1">
+                    <groupbox flex="1">
+                        <caption label="&systembackup.local;" />
+                        <viviscrollabletree id="localbackupscrollablepanel" flex="1" rows="7" headers="Time" fields="time" onclick="$do('select',this.selectedIndex, 'SystemBackup');"
                                                         class="prodscrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray">
-                                    <spacer flex="1" />
-                                </viviscrollabletree>
-
-                        
-                            </groupbox>
-                            <vbox>
-                                <button label="&imagemanager.action.import;" class="widebtns" oncommand="$do('importFromDir',null, 'ImageManager');"/>
-                                <button label="&imagemanager.action.export;" class="widebtns" oncommand="$do('exportToDir',null, 'ImageManager');"/>
-                            </vbox>
-                            <groupbox flex="1">
-                                <caption label="System Backup:" />
-                                <viviscrollabletree id="localscrollablepanel" flex="1" rows="7" headers="Time,Type" fields="time,type" onclick="$do('select',this.selectedIndex, 'ImportExport');"
+                            <spacer flex="1" />
+                        </viviscrollabletree>
+                    </groupbox>
+                            
+                    <vbox flex="1" align="center">
+                        <spacer style="height:80px;" />
+                        <button label="&systembackup.backuptolocal;" class="widebtns" oncommand="$do('backupToLocal',null, 'SystemBackup');"/>
+                        <button label="&systembackup.backuptostick;" class="widebtns" oncommand="$do('backupToStick',null, 'SystemBackup');"/>
+                        <spacer style="height:50px;" />
+                        <button label="&systembackup.restorefromlocal;" class="widebtns" oncommand="$do('restoreFromLocal',null, 'SystemBackup');"/>
+                        <button label="&systembackup.restorefromstick;" class="widebtns" oncommand="$do('restoreFromStick',null, 'SystemBackup');"/>
+                    </vbox>
+                            
+                    <groupbox flex="1">
+                        <caption label="&systembackup.stick;" />
+                        <viviscrollabletree id="stickbackupscrollablepanel" flex="1" rows="7" headers="Time" fields="time" onclick="$do('select',this.selectedIndex, 'SystemBackup');"
                                                         class="prodscrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray">
-                                    <spacer flex="1" />
-                                </viviscrollabletree>
-
-
-                            </groupbox>
-                            </hbox>
-
-                        </tabpanel>
-
-                        <tabpanel flex="1" >
-
-                            <groupbox flex="1">
-                                <caption label="System restore:" />
-
-
-                            </groupbox>
-
-                        </tabpanel>
-                
-                    </tabpanels>
-                </tabbox>
+                            <spacer flex="1" />
+                        </viviscrollabletree>
+                    </groupbox>
+                </hbox>
             </vbox>
         </vbox>
     </box>
