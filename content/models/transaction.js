@@ -92,7 +92,9 @@
 
     Transaction.Tax =  null;
 
-    // Transaction.Number =  null;
+    Transaction.Number =  null;
+
+    Transaction.worker =  null;
 
     Transaction.prototype.create = function() {
 
@@ -121,10 +123,12 @@
         this.data.precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
         this.data.precision_taxes = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionTaxes') || 0;
 
+        if (Transaction.worker == null) {
+            Transaction.worker = new GeckoJS.Thread();
+        }
+        Transaction.worker._runnable = this;
 
-        // save to object for transfer ?
         // @todo 
-
        
     };
 
@@ -140,8 +144,8 @@
         // save transaction to order / orderdetail ...
         this.data.modified = new Date().getTime();
 
-        var order = new OrderModel();
-        order.saveOrder(this.data);
+        // use background save
+        Transaction.worker.start();
 
         this.emptyView();
     };
@@ -162,10 +166,8 @@
             this.data.proceeds_clerk = user.username;
         }
 
-        var order = new OrderModel();
-        order.saveOrder(this.data);
-
-        // empty ?
+        // use backgroud to save
+        Transaction.worker.start();
 
         // maintain stock...
         // this.log(this.dump(this.data));
@@ -1335,7 +1337,6 @@
             // rounding tax
             item.current_tax = this.getRoundedTax(item.current_tax);
 
-            this.log('ERROR', 'dispatchEvent onCalcItemsTax ' + this.dump(item));
         }
 
         this.log('DEBUG', 'dispatchEvent onCalcItemsTax ' + items);
@@ -1346,7 +1347,7 @@
 
     Transaction.prototype.calcTotal = function() {
         
-        this.log('DEBUG', 'dispatchEvent onCalcTotal ' + this.data);
+        //this.log('DEBUG', 'dispatchEvent onCalcTotal ' + this.data);
         Transaction.events.dispatch('onCalcTotal', this.data, this);
 
         var total=0, remain=0, item_subtotal=0, tax_subtotal=0, surcharge_subtotal=0, discount_subtotal=0, payment_subtotal=0;
@@ -1390,7 +1391,9 @@
 
         Transaction.events.dispatch('afterCalcTotal', this.data, this);
 
-        this.log('DEBUG', "afterCalcTotal " + this.dump(this.data));
+        GeckoJS.Session.set('vivipos_fec_number_of_items', this.getItemsCount());
+        GeckoJS.Session.set('vivipos_fec_tax_total', tax_subtotal);
+        //this.log('DEBUG', "afterCalcTotal " + this.dump(this.data));
 
     };
 
@@ -1438,5 +1441,21 @@
         // format display precision
         return Transaction.Number.format(price, options);
     };
+
+
+    // nsirunnable run
+    Transaction.prototype.run = function() {
+        var order = new OrderModel();
+        order.saveOrder(this.data);
+    };
+
+    // nsirunnable run
+    Transaction.prototype.QueryInterface = function(iid) {
+        if (iid.equals(Components.Interfaces.nsIRunnable) || iid.equals(Components.Interfaces.nsISupports)) {
+            return this;
+        }
+        throw Components.results.NS_ERROR_NO_INTERFACE;
+    };
+
 
 })();
