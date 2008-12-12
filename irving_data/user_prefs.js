@@ -20,7 +20,7 @@ user_pref("browser.places.smartBookmarksVersion", 0);
 user_pref("extensions.enabledItems", "inspector@mozilla.org:2.0.0,{f13b157f-b174-47e7-a34d-4815ddfdfeb8}:0.9.87.4,SQLiteManager@mrinalkant.blogspot.com:0.3.17,viviecr@firich.com.tw:0.1,receipt_epc_zh@firich.com.tw:0.1");
 user_pref("extensions.lastAppVersion", "0.2");
 user_pref("extensions.newAddons", "vividriver@firich.com.tw,SQLiteManager@mrinalkant.blogspot.com,viviecr@firich.com.tw,receipt_epc_zh@firich.com.tw");
-user_pref("extensions.sqlitemanager.mruPath.1", "/var/tmp/vivipos.sqlite,");
+user_pref("extensions.sqlitemanager.mruPath.1", "/var/tmp/vivipos.sqlite,/var/tmp/vivipos_acl.sqlite,");
 user_pref("extensions.update.notifyUser", false);
 user_pref("vivipos.fec.registry.comm.port1.inuse", true);
 user_pref("vivipos.fec.settings.ActivePriceLevelSchedule", true);
