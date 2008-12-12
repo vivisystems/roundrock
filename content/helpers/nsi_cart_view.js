@@ -20,6 +20,8 @@
             // use empty view for quick support
             this._cartList.datasource = this._emptyArrayView;
             GeckoJS.Session.set('vivipos_fec_order_sequence', '');
+            GeckoJS.Session.set('vivipos_fec_number_of_items', '');
+            GeckoJS.Session.set('vivipos_fec_tax_total', '');
 
         },
 

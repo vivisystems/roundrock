@@ -14,13 +14,16 @@ var OrderModel = window.OrderModel =  GeckoJS.Model.extend({
         this.saveOrderAdditions(data);
         this.saveOrderPayments(data);
 
+
     },
 
     saveOrderMaster: function(data) {
 
         var orderData  = this.mappingTranToOrderFields(data);
 
+        this.begin();
         this.save(orderData);
+        this.commit();
 
     },
 
@@ -29,7 +32,9 @@ var OrderModel = window.OrderModel =  GeckoJS.Model.extend({
 
         var orderItems  = this.mappingTranToOrderItemsFields(data);
 
+        this.OrderItem.begin();
         this.OrderItem.saveAll(orderItems);
+        this.OrderItem.commit();
 
     },
 
@@ -37,7 +42,9 @@ var OrderModel = window.OrderModel =  GeckoJS.Model.extend({
 
         var orderAdditions  = this.mappingTranToOrderAdditionsFields(data);
 
+        this.OrderAddition.begin();
         this.OrderAddition.saveAll(orderAdditions);
+        this.OrderAddition.commit();
 
     },
 
@@ -45,7 +52,9 @@ var OrderModel = window.OrderModel =  GeckoJS.Model.extend({
 
         var orderPayments  = this.mappingTranToOrderPaymentsFields(data);
 
+        this.OrderPayment.begin();
         this.OrderPayment.saveAll(orderPayments);
+        this.OrderPayment.commit();
 
     },
 
