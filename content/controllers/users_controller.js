@@ -24,9 +24,20 @@
             
         },
         */
+        beforeScaffoldSave: function(evt) {
+            // make sure displayname is not empty
+            var displayname = evt.data.displayname.replace(/^\s*/, '').replace(/\s*$/, '');
+            if (displayname.length == 0) displayname = evt.data.username;
+            evt.data.displayname = displayname;
+        },
+
         afterScaffoldSave: function(evt) {
+            // make sure displayname is not empty
+            var displayname = evt.data.displayname.replace(/^\s*/, '').replace(/\s*$/, '');
+            if (displayname.length == 0) displayname = evt.data.username;
+
             // maintain Acl...
-            this.Acl.addUser(evt.data.username, evt.data.password, evt.data.displayname);
+            this.Acl.addUser(evt.data.username, evt.data.password, displayname);
             this.Acl.changeUserPassword(evt.data.username, evt.data.password);
             this.Acl.addUserToGroup(evt.data.username, evt.data.group);
         },
@@ -52,6 +63,7 @@
             panel.selectedIndex = index;
             panel.selectedItems = [index];
 
+            this.validateForm();
         },
 
         beforeScaffoldAdd: function (evt) {
@@ -80,7 +92,7 @@
             });
 
             if (user_name != null && user_name.length > 0) {
-                alert(_('Duplicate user name (%S)', [user.username]));
+                alert(_('Duplicate user name (%S); user not added.', [user.username]));
                 evt.preventDefault();
                 return ;
             }
@@ -106,13 +118,26 @@
 
                 panel.selectedIndex = newIndex;
                 panel.selectedItems = [newIndex];
+                
+                this.validateForm();
+
+                document.getElementById('tabs').selectedIndex = 0;
+                document.getElementById('display_name').focus();
+                //document.getElementById('display_name').click();
             }
         },
-        /*
-        beforeScaffoldEdit: function (evt) {
+        
+        afterScaffoldEdit: function (evt) {
 
+            var panel = this.getListObj();
+            var index = panel.selectedIndex;
+            
+            this.requestCommand('list', index);
+
+            panel.selectedIndex = index;
+            panel.selectedItems = [index];
         },
-        */
+
         afterScaffoldIndex: function(evt) {
             var panelView = this.getListObj().datasource;
             if (panelView == null) {
@@ -137,7 +162,6 @@
 
             if (inputObj.ok && inputObj.rolegroup) {
                 $("#user_group").val(inputObj.rolegroup);
-
             }
         },
         
@@ -196,22 +220,50 @@
         },
 
         validateForm: function() {
+
+            // return if not in form
             var addBtn = document.getElementById('add_user');
+            if (addBtn == null) return;
+            
             var modBtn = document.getElementById('modify_user');
             var delBtn = document.getElementById('delete_user');
-            var tabbox = document.getElementById('tabbox');
+            var tabPanels = document.getElementById('tabpanels');
+            var roleTextbox = document.getElementById('user_group');
 
             var panel = this.getListObj();
             if (panel.selectedIndex > -1) {
+
                 var password = document.getElementById('user_password').value.replace(/^\s*/, '').replace(/\s*$/, '');
                 modBtn.setAttribute('disabled', password.length < 1);
-                delBtn.setAttribute('disabled', false);
-                tabbox.setAttribute('disabled', true);
+                tabPanels.selectedIndex = 0;
+
+                var textboxes = document.getElementsByTagName('textbox');
+                if (textboxes) {
+                    for (var i = 0; i < textboxes.length; i++) {
+                        textboxes[i].removeAttribute('disabled');
+                    }
+                }
+                // check for root user
+                var user = panel.datasource.data[panel.selectedIndex];
+                if (user.displayname == 'superuser') {
+                    delBtn.setAttribute('disabled', true);
+                    roleTextbox.setAttribute('disabled', true);
+                }
+                else {
+                    delBtn.setAttribute('disabled', false);
+                }
             }
             else {
                 modBtn.setAttribute('disabled', true);
                 delBtn.setAttribute('disabled', true);
-                tabbox.setAttribute('disabled', false);
+                tabPanels.selectedIndex = -1;
+
+                var textboxes = document.getElementsByTagName('textbox');
+                if (textboxes) {
+                    for (var i = 0; i < textboxes.length; i++) {
+                        textboxes[i].disabled = true;
+                    }
+                }
             }
         }
     });

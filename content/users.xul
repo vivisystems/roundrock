@@ -17,7 +17,7 @@
                     <caption label="&users.title;" />
 
                     <hbox flex="1">
-                        <viviscrollablebuttonpanel dir="reverse" id="userscrollablepanel" flex="1" cols="3" rows="2" labelField="username"
+                        <viviscrollablebuttonpanel dir="reverse" id="userscrollablepanel" flex="1" cols="3" rows="6" labelField="displayname"
                                                    ensureVisible="true"
                                                    oncommand="$do('select',this.selectedIndex, 'Users');"
                                                    class="userscrollablepanel"
@@ -31,13 +31,13 @@
 
                         <vbox>
                             <tabbox id="tabbox" flex="1">
-                                <tabs >
+                                <tabs id="tabs">
                                     <tab id="tab1" label="&users.basedata;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical"/>
                                     <tab id="tab2" label="&users.option1;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical"/>
                                     <tab id="tab3" label="&users.option2;" image="chrome://viviecr/content/skin/icons/plugins-24.png" orient="vertical"/>
                                 </tabs>
 
-                                <tabpanels flex="1" >
+                                <tabpanels id="tabpanels" flex="1" >
 
                                     <tabpanel flex="1" >
 

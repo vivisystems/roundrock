@@ -61,6 +61,4 @@
 <!ENTITY vivipos.fec.settings.layout.cropdeptlabel "Crop Department Label (Need restart vivipos application)">
 <!ENTITY vivipos.fec.settings.layout.cropplulabel "Crop PLU Label (Need restart vivipos application)">
 
-<!ENTITY vivipos.fec.users.basedata "User Profile">
-<!ENTITY vivipos.fec.users.option1 "User Limits">
-<!ENTITY vivipos.fec.users.option2 "Check Tracking">
+<!ENTITY vivipos.fec.controlpanel.loading "Loading ........">

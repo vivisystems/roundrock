@@ -54,6 +54,10 @@
     background: #f8f4eb url(images/cart.png) bottom right no-repeat;
 }
 
+.cartList scrollbar {
+    display: none;
+}
+
 .cartScrollUp {
 	border: 0px solid;
 	background: transparent url(images/chatup.png) 0 0 no-repeat;

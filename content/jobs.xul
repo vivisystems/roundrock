@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE window SYSTEM "chrome://viviecr/locale/fecpos.dtd">
+<!DOCTYPE window SYSTEM "chrome://viviecr/locale/jobs.dtd">
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/vivipos.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
-<window id="numpad" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<window id="jobs" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/jobs.js" />
@@ -15,25 +14,32 @@
         <vbox flex="1" class="panel40">
             <vbox flex="1" class="footlogo">
                 <groupbox flex="1">
-                    <caption label="Job List:" />
+                    <caption label="&jobs.title;" />
 
                     <hbox flex="1">
-                        <viviscrollablebuttonpanel dir="reverse" id="jobscrollablepanel" flex="1" cols="3" rows="8" labelField="jobname" imageField="no" oncommand="$do('select',this.selectedIndex, 'Jobs');"
-                              class="catescrollablepanel" buttonClass="catbtn button-radius button-white font-medium" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue"/>
+                        <viviscrollablebuttonpanel dir="reverse" id="jobscrollablepanel" flex="1" cols="3" rows="8" labelField="jobname" imageField="no"
+                                                   oncommand="$do('select',this.selectedIndex, 'Jobs');"
+                                                   ensureVisible="true"
+                                                   class="catescrollablepanel"
+                                                   buttonClass="catbtn button-radius button-white font-medium"
+                                                   scrollUpClass="rightprevbtn button-blue"
+                                                   scrollDownClass="rightnextbtn button-blue">
+                            <spacer flex="1"/>
+                        </viviscrollablebuttonpanel>
                         <spacer style="width: 10px;" />
                         <separator class="groove-thin"/>
 
                         <vbox>
                             <hbox align="center">
                                 <label id="job_id" hidden="true" form="jobForm" name="id" value="" />
-                                <label value="Job Name:" />
-                                <textbox id="job_name" value="" form="jobForm" name="jobname" />
+                                <label value="&jobs.name;" />
+                                <textbox id="job_name" value="" form="jobForm" name="jobname" oninput="$do('validateForm', null, 'Jobs')"/>
                             </hbox>
                             <spacer style="height: 10px;" />
                             <hbox>
-                                <button label="Add" class="editbtns" oncommand="$do('add', null, 'Jobs');" />
-                                <button label="Delete" class="editbtns" oncommand="$do('delete', null, 'Jobs');" />
-                                <button label="Modify" class="editbtns" oncommand="$do('update', null, 'Jobs');" />
+                                <button id="add_job" label="&jobs.button.action.add;" disabled="false" class="editbtns" oncommand="$do('add', null, 'Jobs');" />
+                                <button id="modify_job" label="&jobs.button.action.modify;" disabled="false" class="editbtns" oncommand="$do('update', null, 'Jobs');" />
+                                <button id="delete_job" label="&jobs.button.action.delete;" disabled="false" class="editbtns" oncommand="$do('delete', null, 'Jobs');" />
                             </hbox>
                         </vbox>
 

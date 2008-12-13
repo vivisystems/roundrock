@@ -7,3 +7,6 @@
 <!ENTITY departments.sale "Sale Separtment:">
 <!ENTITY departments.button.color "Button Color:">
 <!ENTITY departments.font.size "Font Size:">
+<!ENTITY departments.button.action.add "Add">
+<!ENTITY departments.button.action.modify "Modify">
+<!ENTITY departments.button.action.delete "Delete">

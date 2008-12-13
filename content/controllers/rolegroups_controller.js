@@ -147,7 +147,6 @@
             this.Acl.addRole('acl_void_cart_item');
             this.Acl.addRole('acl_cancel_order');
             this.Acl.addRole('acl_plu_search');
-            this.Acl.addRole('acl_tray_marker');
             this.Acl.addRole('acl_open_cash');
             this.Acl.addRole('acl_toggle_numpad');
             this.Acl.addRole('acl_public_access');
@@ -155,6 +154,22 @@
             this.Acl.addRole('acl_manage_currency');
             this.Acl.addRole('acl_manage_departments');
             this.Acl.addRole('acl_manage_employees');
+            this.Acl.addRole('acl_manage_function_panel');
+            this.Acl.addRole('acl_shift_item_tax');
+            this.Acl.addRole('acl_register_discount');
+            this.Acl.addRole('acl_register_reduction');
+            this.Acl.addRole('acl_register_surcharge');
+            this.Acl.addRole('acl_register_addition');
+            this.Acl.addRole('acl_send_keypress');
+            this.Acl.addRole('acl_register_clear');
+            this.Acl.addRole('acl_register_quantity');
+            this.Acl.addRole('acl_register_enter');
+            this.Acl.addRole('acl_register_sub_total');
+            this.Acl.addRole('acl_register_tray_marker');
+            this.Acl.addRole('acl_register_housebon');
+            this.Acl.addRole('acl_register_currency_exchange');
+            this.Acl.addRole('acl_manage_jobs');
+            this.Acl.addRole('acl_manage_plu_groups');
 */
         },
 	

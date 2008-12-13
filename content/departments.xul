@@ -77,10 +77,10 @@
                         <separator class="groove-thin"/>
                         <spacer flex="1"/>
                         <hbox>
-                            <button id="add_dept" label="Add" disabled="false" class="editbtns" oncommand="$do('add', null, 'Departments');" />
+                            <button id="add_dept" label="&departments.button.action.add;" disabled="false" class="editbtns" oncommand="$do('add', null, 'Departments');" />
                             <spacer flex="1" />
-                            <button id="modify_dept" label="Modify" disabled="false" class="editbtns" oncommand="$do('modify', null, 'Departments');" />
-                            <button id="delete_dept" label="Delete" disabled="false" class="editbtns" oncommand="$do('remove', null, 'Departments');" />
+                            <button id="modify_dept" label="&departments.button.action.modify;" disabled="false" class="editbtns" oncommand="$do('modify', null, 'Departments');" />
+                            <button id="delete_dept" label="&departments.button.action.delete;" disabled="false" class="editbtns" oncommand="$do('remove', null, 'Departments');" />
                         </hbox>
                             </vbox>
                         </hbox>

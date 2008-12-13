@@ -34,6 +34,11 @@
             if (index == -1) this.resetInputData();
             
             this.validateForm();
+
+            if (index > -1) {
+                document.getElementById('dept_name').focus();
+                document.getElementById('dept_name').click();
+            }
         },
 
         getRate: function () {
@@ -98,10 +103,10 @@
             } else {
                 if (depts) depts.forEach(function(o){
                     if (o.no == data.no) {
-                        alert(_('Duplicate Department Number (%S)', [data.no]));
+                        alert(_('Duplicate Department Number (%S); department not added.', [data.no]));
                         result = 1;
                     } else if (o.name == data.name) {
-                        alert(_('Duplicate Department Name (%S)', [data.name]))
+                        alert(_('Duplicate Department Name (%S); department not added.', [data.name]))
                         result = 2;
                     }
                 });
@@ -225,7 +230,7 @@
             }
             else {
                 var cond_name = document.getElementById('dept_name').value.replace(/^\s*/, '').replace(/\s*$/, '');
-                document.getElementById('dept_name').setAttribute('disabled', false);
+                document.getElementById('dept_name').removeAttribute('disabled');
 
                 document.getElementById('modify_dept').setAttribute('disabled', (cond_name.length < 1));
                 document.getElementById('delete_dept').setAttribute('disabled', false);

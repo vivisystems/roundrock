@@ -127,7 +127,7 @@
                 document.getElementById('condiment_price').setAttribute('disabled',  true);
             }
             else {
-                document.getElementById('condiment_group_name').setAttribute('disabled',  false);
+                document.getElementById('condiment_group_name').removeAttribute('disabled');
 
                 // validate group name
                 var group_name = document.getElementById('condiment_group_name').value.replace(/^\s*/, '').replace(/\s*$/, '');
@@ -145,20 +145,20 @@
                     document.getElementById('delete_condiment').setAttribute('disabled',  true);
                 }
                 else {
-                    document.getElementById('condiment_name').setAttribute('disabled',  false);
-                    document.getElementById('condiment_price').setAttribute('disabled',  false);
+                    document.getElementById('condiment_name').removeAttribute('disabled');
+                    document.getElementById('condiment_price').removeAttribute('disabled');
 
                     // validate condiment name and price
                     var cond_name = document.getElementById('condiment_name').value.replace(/^\s*/, '').replace(/\s*$/, '');
                     var cond_price = document.getElementById('condiment_price').value.replace(/^\s*/, '').replace(/\s*$/, '');
 
                     if (cond_name.length > 0 && !isNaN(parseInt(cond_price))) {
-                        document.getElementById('modify_condiment').setAttribute('disabled',  false);
+                        document.getElementById('modify_condiment').removeAttribute('disabled');
                     }
                     else {
                         document.getElementById('modify_condiment').setAttribute('disabled',  true);
                     }
-                    document.getElementById('delete_condiment').setAttribute('disabled',  false);
+                    document.getElementById('delete_condiment').removeAttribute('disabled');
                 }
             }
         },

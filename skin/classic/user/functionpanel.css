@@ -155,3 +155,13 @@
     max-height: 40px;
     max-width: 60px;
 }
+
+vivibutton[disabled=false]:active {
+    background-position:0pt -60px;
+    border: 2px solid;
+    -moz-border-top-colors: #444 #222;
+    -moz-border-right-colors: #444 #ddd;
+    -moz-border-bottom-colors: #444 #ddd;
+    -moz-border-left-colors: #444 #222;
+}
+

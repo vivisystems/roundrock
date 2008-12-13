@@ -33,7 +33,7 @@
             <spacer flex="1" />
         </vbox>
         <hbox id="loading" align="center" style="display: none;border: 1px soild #f00; background: white;width:320px; height:180px;" left="200px" top="200px">
-            <image src="chrome://viviecr/skin/images/loading.gif" width="55" height="55"/><label>Loading........</label>
+            <image src="chrome://viviecr/skin/images/loading.gif" width="55" height="55"/><label>&vivipos.fec.controlpanel.loading;</label>
         </hbox>
         </stack>
     </hbox>
