@@ -11,13 +11,11 @@
     function startup() {
 
         $do('load', inputObj.rolegroup, 'SelectRolegroup');
-        document.getElementById('rolegroup').value = inputObj.rolegroup;
 
         doSetOKCancel(
             function(){
                 inputObj.rolegroup = document.getElementById('rolegroup').value;
                 inputObj.ok = true;
-
                 return true;
             },
             function(){

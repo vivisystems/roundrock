@@ -1,0 +1,24 @@
+<!ENTITY users.title "Employees">
+<!ENTITY users.basedata "User Profile">
+<!ENTITY users.option1 "User Limits">
+<!ENTITY users.option2 "Check Tracking">
+<!ENTITY users.username "User Name:(a..z,0..9)">
+<!ENTITY users.password "Password:">
+<!ENTITY users.displayname "Display Name:">
+<!ENTITY users.accesslevel "Access Level:">
+<!ENTITY users.pricelevel "Default Price Level:">
+<!ENTITY users.limit.item.discount "Item Discount Limit:">
+<!ENTITY users.limit.order.discount "Order Discount Limit:">
+<!ENTITY users.limit.cash.check "Check Cashing Limit:">
+<!ENTITY users.limit.item.surcharge "Item Surcharge Limit">
+<!ENTITY users.limit.order.surcharge "Order Surcharge Limit:">
+<!ENTITY users.limit.plu.quantity "PLU Quantity Limit:">
+<!ENTITY users.limit.plu.price "PLU Price Limit:">
+<!ENTITY users.limit.item.coupon "Item Coupon Limit:">
+<!ENTITY users.limit.order.coupon "Order Coupon Limit:">
+<!ENTITY users.minimum.check.number "Minimum Check Number:">
+<!ENTITY users.maximum.check.number "Maximum Check Number:">
+<!ENTITY users.maximum.open.checks "Maximum Number of Open Checks:">
+<!ENTITY users.action.add "Add">
+<!ENTITY users.action.modify "Modify">
+<!ENTITY users.action.delete "Delete">

@@ -10,8 +10,6 @@
         scaffold: true,
 	
         _listObj: null,
-        _listDatas: null,
-        _listGroups: null,
         _selectedIndex: null,
 
         getListObj: function() {
@@ -28,36 +26,47 @@
         */
         afterScaffoldSave: function(evt) {
             // maintain Acl...
-            this.Acl.addUser(evt.data.username, evt.data.password, evt.data.username);
+            this.Acl.addUser(evt.data.username, evt.data.password, evt.data.displayname);
             this.Acl.changeUserPassword(evt.data.username, evt.data.password);
             this.Acl.addUserToGroup(evt.data.username, evt.data.group);
-
-// this.log("evt.data:" + this.dump(evt.data));
-            this.load(evt.data);
-
-            // this.load(this.getListObj().selectedIndex);
-            
         },
 
         beforeScaffoldDelete: function(evt) {
-            if (GREUtils.Dialog.confirm(null, "confirm delete", "Are you sure?") == false) {
+            if (GREUtils.Dialog.confirm(null, 'confirm delete', _('Are you sure?')) == false) {
                 evt.preventDefault();
             }
         },
 
         afterScaffoldDelete: function() {
-            this.load();
+            
+            var panel = this.getListObj();
+            var view = panel.datasource;
+            var index = panel.selectedIndex;
+
+            if (index >= view.data.length - 1) {
+                index = view.data.length - 2;
+            }
+
+            this.requestCommand('list', index);
+            
+            panel.selectedIndex = index;
+            panel.selectedItems = [index];
+
         },
 
         beforeScaffoldAdd: function (evt) {
             var user = evt.data;
-
             var aURL = "chrome://viviecr/content/prompt_additem.xul";
             var features = "chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250";
-            var inputObj = {input0:null, input1:null};
-            window.openDialog(aURL, "prompt_additem", features, "New User", "Please input:", "User Name", "", inputObj);
-            if (inputObj.ok && inputObj.input0) {
+            var inputObj = {input0:null, require0:true,
+                            input1:null, require1:true, type1:'password'};
+
+            this._userAdded = false;
+
+            window.openDialog(aURL, "prompt_additem", features, _('New Employee'), '', _('Name:'), _('Password:'), inputObj);
+            if (inputObj.ok && inputObj.input0 && inputObj.input1) {
                 user.username = inputObj.input0;
+                user.password = inputObj.input1;
             } else {
                 evt.preventDefault();
                 return ;
@@ -71,15 +80,33 @@
             });
 
             if (user_name != null && user_name.length > 0) {
-                alert('Duplicate user name...' + user.username);
+                alert(_('Duplicate user name (%S)', [user.username]));
                 evt.preventDefault();
                 return ;
             }
-            GeckoJS.FormHelper.reset('userForm');
             var newUser = GeckoJS.FormHelper.serializeToObject('userForm');
             newUser.username = user.username;
+            newUser.password = user.password;
+            newUser.displayname = '';
+            newUser.id = '';
             GREUtils.extend(evt.data, newUser);
-            
+
+            this._userAdded = true;
+        },
+
+        afterScaffoldAdd: function (evt) {
+            // if new user exists, set selectedIndex to last item
+
+            if (this._userAdded) {
+                var panel = this.getListObj();
+                var data = panel.datasource.data;
+                var newIndex = data.length;
+
+                this.requestCommand('list', newIndex);
+
+                panel.selectedIndex = newIndex;
+                panel.selectedItems = [newIndex];
+            }
         },
         /*
         beforeScaffoldEdit: function (evt) {
@@ -87,15 +114,22 @@
         },
         */
         afterScaffoldIndex: function(evt) {
-            this._listDatas = evt.data;
-            var panelView =  new GeckoJS.NSITreeViewArray(evt.data);
-            this.getListObj().datasource = panelView;
+            var panelView = this.getListObj().datasource;
+            if (panelView == null) {
+                panelView =  new GeckoJS.NSITreeViewArray(evt.data);
+                this.getListObj().datasource = panelView;
+            }
+            panelView.data = evt.data;
+
+            this.validateForm();
         },
 
         getRoleGroup: function () {
-            var rolegroup = $("#user_group").val();
-            var aURL = "chrome://viviecr/content/select_rolegroup.xul";
-            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=800,height=600";
+            var screenwidth = GeckoJS.Session.get('screenwidth') || 800;
+            var screenheight = GeckoJS.Session.get('screenheight') || 600;
+            var rolegroup = $('#user_group').val();
+            var aURL = 'chrome://viviecr/content/select_rolegroup.xul';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
             var inputObj = {
                 rolegroup: rolegroup
             };
@@ -107,63 +141,77 @@
             }
         },
         
-        load: function (data) {
-		
-            var listObj = this.getListObj();
-            this.requestCommand('list');
+        load: function () {
 
-            var index = this._selectedIndex;
+            var panel = this.getListObj();
 
-            if (data) {
-                this.requestCommand('view', data.id);
-                listObj.selectedItems = [index];
-                listObj.selectedIndex = index;
-            } else {
-                listObj.selectedItems = [0];
-                listObj.selectedIndex = 0;
-            };
+            this.requestCommand('list', -1);
 
-            
+            panel.selectedItems = [-1];
+            panel.selectedIndex = -1;
+
+            GeckoJS.FormHelper.reset('userForm');
+
+            this.validateForm();
         },
 
         select: function(){
 		
-            this.getListObj();
-            this._selectedIndex = this._listObj.selectedIndex;
+            var panel = this.getListObj();
+            var index = panel.selectedIndex;
 
-            if (this._selectedIndex >= 0) {
-                GeckoJS.FormHelper.reset('userForm');
-                var user = this._listDatas[this._selectedIndex];
-                this.requestCommand('view', user.id);
-            }
+            this.requestCommand('list', index);
 
         },
         
         setDefaultUser: function() {
-            if (this._listObj) {
-                this._selectedIndex = this._listObj.selectedIndex;
-                if (this._selectedIndex >= 0) {
-                    var user = this._listDatas[this._selectedIndex];
+            var panel = this.getListObj();
+            var view = panel.datasource;
+
+            if (panel) {
+                if (panel.selectedIndex >= 0) {
+                    var user = view.data[panel.selectedIndex];
                     if (user) {
                         GeckoJS.Configure.write('vivipos.fec.settings.DefaultUser', user.id);
                     }
                 }
             }
         },
-        
+
+        // initialize selected user to userid
         initUser: function(userid) {
             
-            var listObj = this.getListObj();
-            var users = this._listDatas;
+            var panel = this.getListObj();
+            var users = panel.datasource.data;
 
             if (users) {
                 for (var i = 0; i < users.length; i++) {
                     if (users[i].id == userid) {
-                        listObj.selectedItems = [i];
-                        listObj.selectedIndex = i;
+                        panel.selectedItems = [i];
+                        panel.selectedIndex = i;
                         break;
                     }
                 }
+            }
+        },
+
+        validateForm: function() {
+            var addBtn = document.getElementById('add_user');
+            var modBtn = document.getElementById('modify_user');
+            var delBtn = document.getElementById('delete_user');
+            var tabbox = document.getElementById('tabbox');
+
+            var panel = this.getListObj();
+            if (panel.selectedIndex > -1) {
+                var password = document.getElementById('user_password').value.replace(/^\s*/, '').replace(/\s*$/, '');
+                modBtn.setAttribute('disabled', password.length < 1);
+                delBtn.setAttribute('disabled', false);
+                tabbox.setAttribute('disabled', true);
+            }
+            else {
+                modBtn.setAttribute('disabled', true);
+                delBtn.setAttribute('disabled', true);
+                tabbox.setAttribute('disabled', false);
             }
         }
     });

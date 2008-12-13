@@ -154,6 +154,7 @@
             this.Acl.addRole('acl_manage_condiments');
             this.Acl.addRole('acl_manage_currency');
             this.Acl.addRole('acl_manage_departments');
+            this.Acl.addRole('acl_manage_employees');
 */
         },
 	

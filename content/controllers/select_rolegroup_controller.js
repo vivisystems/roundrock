@@ -37,10 +37,9 @@
         select: function(){
 		
             var listObj = this.getListObj();
-            selectedIndex = listObj.selectedIndex;
+            var selectedIndex = listObj.selectedIndex;
             var rolegroup = this._listDatas[selectedIndex];
 
-            // $("rolegroup").val(rolegroup.name);
             document.getElementById('rolegroup').value = rolegroup.name;
 
         }
