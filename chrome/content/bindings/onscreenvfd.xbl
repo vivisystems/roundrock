@@ -40,6 +40,7 @@
 	
             <xbl:field name="_maxlen">13</xbl:field>
             <xbl:field name="roundPrecision">0</xbl:field>
+            <field name="_hideInput">false</field>
             <field name="_label0_0">null</field>
             <field name="_label0_1">null</field>
             <field name="_label1_0">null</field>
@@ -58,6 +59,7 @@
 
                 this.keypadevents = GeckoJS.Controller.getInstanceByName('Keypad').events;
                 this.cartevents = GeckoJS.Controller.getInstanceByName('Cart').events;
+                this.mainevents = GeckoJS.Controller.getInstanceByName('Main').events;
 
                 var self = this;
 
@@ -79,7 +81,7 @@
                 }
 
                 this.onAddBuffer = function(evt) {
-                    self.setText1_1(_('I') + ': ' + evt.data);
+                    self.setText1_1((self.hideInput ? '' : _('I: ')) + evt.data);
                 }
 
                 this.onSetQty = function(evt) {
@@ -87,30 +89,37 @@
                 }
 
                 this.onClear = function(evt) {
-                    
-                    if (evt) var transaction = evt.data;
-                    else var transaction = null;
 
-                    var total = "0";
-                    var remain = "0";
-                    var payment = "0";
-
-                    
-                    if (transaction != null && !(transaction.isSubmit() || transaction.isCancel())) {
-                        total = transaction.getTotal(true);
-                        remain = transaction.getRemainTotal(true);
-                        payment = transaction.getPaymentSubtotal(true);
-                    }else {
-                        total = this.format(0);
-                        remain = this.format(0);
-                        payment = this.format(0);
+                    if (this.hideInput) {
+                        self.setText0_1('');
+                        self.setText0_0(_('Change Clerk'));
+                        self.setText1_1(_(''));
+                        self.setText1_0(_('Password: '));
                     }
+                    else {
+                        if (evt) var transaction = evt.data;
+                        else var transaction = null;
 
-                    self.setText0_1(total);
-                    self.setText0_0(_('TAL') + ':');
-                    self.setText1_1(_('REM') + ': ' + remain);
-                    self.setText1_0(_('PAY') + ': ' + payment);
+                        var total = "0";
+                        var remain = "0";
+                        var payment = "0";
 
+
+                        if (transaction != null && !(transaction.isSubmit() || transaction.isCancel())) {
+                            total = transaction.getTotal(true);
+                            remain = transaction.getRemainTotal(true);
+                            payment = transaction.getPaymentSubtotal(true);
+                        }else {
+                            total = this.format(0);
+                            remain = this.format(0);
+                            payment = this.format(0);
+                        }
+
+                        self.setText0_1(total);
+                        self.setText0_0(_('TAL') + ':');
+                        self.setText1_1(_('REM') + ': ' + remain);
+                        self.setText1_0(_('PAY') + ': ' + payment);
+                    }
                 }
 
                 this.onCancel = function(evt) {
@@ -151,6 +160,23 @@
                     self.setText1_1(_('CHG') + ': ' + self.format(0-transaction.getRemainTotal(true)));
                 }
 
+                this.onEnterPassword = function(evt) {
+                    self.hideInput = true;
+                    this.onClear();
+                }
+
+                this.onExitPassword = function(evt) {
+                    self.hideInput = false;
+
+                    this.onClear();
+                    if (!evt.data) {
+                        self.setText0_0(_('Password Not Found'));
+                        self.setText0_1('');
+                        self.setText1_0('');
+                        self.setText1_1('');
+                    }
+                }
+
                 this.format = function(number) {
                     self.roundPrecision = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
 
@@ -171,6 +197,9 @@
                 this.cartevents.addListener('onCancel', this.onCancel, this);
                 this.cartevents.addListener('onQueue', this.onQueue, this);
                 this.cartevents.addListener('onSubmit', this.onSubmit, this);
+
+                this.mainevents.addListener('onEnterPassword', this.onEnterPassword, this);
+                this.mainevents.addListener('onExitPassword', this.onExitPassword, this);
 
                 this.ready = function() {
                     self.roundPrecision = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
@@ -196,6 +225,9 @@
                     this.cartevents.removeListener('onCancel', this.onCancel);
                     this.cartevents.removeListener('onQueue', this.onQueue);
                     this.cartevents.removeListener('onSubmit', this.onSubmit);
+
+                    this.mainevents.removeListener('onEnterPassword', this.onEnterPassword);
+                    this.mainevents.removeListener('onExitPassword', this.onExitPassword, this);
                 }
 
                 window.removeEventListener('DOMContentLoaded', this.ready, true);
@@ -244,9 +276,16 @@
                 <xbl:body>
                 <![CDATA[
 
+                    if (this.hideInput) {
+                        var newval = '';
+                        for (var i = 0; i < val.length; i++) newval += '*';
+                        val = newval;
+                    }
+
                     if(val.length > this._maxlen) {
                         val = val.substr(0,this._maxlen-4) + "..." + val.substr(val.length-1,1);
                     }
+
                     this._label1_1.value = val;
                 ]]>
                 </xbl:body>
