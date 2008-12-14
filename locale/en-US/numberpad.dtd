@@ -4,7 +4,7 @@
 <!ENTITY    numberpad.keylabel.modify            "Modify">
 <!ENTITY    numberpad.keylabel.del            "DEL">
 <!ENTITY    numberpad.keylabel.void               "VOID">
-<!ENTITY    numberpad.keylabel.barcode               "Barcode PLU">
+<!ENTITY    numberpad.keylabel.enter               "Enter">
 <!ENTITY    numberpad.keylabel.cancel               "CANCEL">
 <!ENTITY    numberpad.keylabel.cash             "CASH">
 <!ENTITY    numberpad.keylabel.subtotal             "SUB TOTAL">

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE window SYSTEM "chrome://viviecr/locale/fecpos.dtd">
+<!DOCTYPE window SYSTEM "chrome://viviecr/locale/sysprefs.dtd">
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/viviecr.css" type="text/css"?>
 
@@ -101,11 +101,19 @@
             <preference id="pref_defaultlogin" name="vivipos.fec.settings.DefaultLogin" type="bool" />
             <preference id="pref_shiftreportonquickswitch" name="vivipos.fec.settings.shiftreportonquickswitch" type="bool" />
             <preference id="pref_shiftreportonsignoff" name="vivipos.fec.settings.shiftreportonsignoff" type="bool" />
-        </preferences>
+            <preference id="pref_allowquicklogin" name="vivipos.fec.settings.login.allowquicklogin" type="bool" />
+         </preferences>
         <vbox>
+        <checkbox id="allowquicklogin" label="&vivipos.fec.settings.login.allowquicklogin;" preference="pref_allowquicklogin"/>
         <checkbox preference="pref_defaultlogin" id="pref_defaultloginCtrl" label="&vivipos.fec.settings.defaultlogin;" />
-            <viviscrollablebuttonpanel dir="reverse" id="userscrollablepanel" flex="1" cols="8" rows="2" labelField="username" oncommand="$do('select',this.selectedIndex, 'Users');"
-                class="catescrollablepanel" buttonClass="catbtn button-radius button-white font-medium" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue"/>
+            <viviscrollablebuttonpanel dir="reverse" id="userscrollablepanel" flex="1" cols="8" rows="2" labelField="displayname"
+                                       oncommand="$do('select',this.selectedIndex, 'Users');"
+                                       class="catescrollablepanel"
+                                       buttonClass="catbtn button-radius button-white font-medium"
+                                       scrollUpClass="rightprevbtn button-blue"
+                                       scrollDownClass="rightnextbtn button-blue">
+                <spacer flex="1"/>
+            </viviscrollablebuttonpanel>
         <checkbox id="autodiscardcart" label="&vivipos.fec.settings.login.autodiscardcart;" preference="pref_autodiscardcart"/>
         <checkbox id="autodiscardqueue" label="&vivipos.fec.settings.login.autodiscardqueue;" preference="pref_autodiscardqueue"/>
         <checkbox id="mustemptyqueue" label="&vivipos.fec.settings.login.mustemptyqueue;" preference="pref_mustemptyqueue"/>
@@ -119,9 +127,13 @@
         </preferences>
         <label value="&vivipos.fec.settings.defaulttaxstatus;"/>
         <vbox flex="1">
-            <viviscrollablebuttonpanel dir="normal" id="taxscrollablepanel" flex="1" cols="8" rows="2" labelField="name" oncommand="$do('select',this.selectedIndex, 'Taxes');"
-                  class="catescrollablepanel" buttonClass="catbtn button-radius button-white font-medium" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue"
-                  >
+            <viviscrollablebuttonpanel dir="normal" id="taxscrollablepanel" flex="1" cols="8" rows="2" labelField="name"
+                                       oncommand="$do('select',this.selectedIndex, 'Taxes');"
+                                       class="catescrollablepanel"
+                                       buttonClass="catbtn button-radius button-white font-medium"
+                                       scrollUpClass="rightprevbtn button-blue"
+                                       scrollDownClass="rightnextbtn button-blue">
+                <spacer flex="1"/>
             </viviscrollablebuttonpanel>
             <spacer flex="10"/>
         </vbox>

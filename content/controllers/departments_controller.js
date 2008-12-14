@@ -37,7 +37,6 @@
 
             if (index > -1) {
                 document.getElementById('dept_name').focus();
-                document.getElementById('dept_name').click();
             }
         },
 
@@ -57,11 +56,11 @@
 
             inputObj.taxes = taxes;
 
-            window.openDialog(aURL, "select_rate", features, inputObj);
+            window.openDialog(aURL, 'select_rate', features, inputObj);
 
             if (inputObj.ok && inputObj.rate) {
                 $('#rate').val(inputObj.rate);
-
+                $('#rate_name').val(inputObj.name);
             }
         },
 
@@ -73,20 +72,42 @@
             GeckoJS.FormHelper.reset('deptForm');
 
             // make sure tax rate field is always populated
-            var rate = $("#rate").val();
+            var rate = $('#rate').val();
+            var taxes = GeckoJS.Session.get('taxes');
             if (!rate || rate == '') {
                 // set rate to system default
-                var defaultRate = GeckoJS.Configure.read('vivipos.fec.settings.DefaultTaxStatus');
-                if (!defaultRate || defaultRate == '') {
-                    var taxes = GeckoJS.Session.get('taxes');
+                var rate = GeckoJS.Configure.read('vivipos.fec.settings.DefaultTaxStatus');
+                if (!rate || rate == '') {
                     if (taxes == null) taxes = this.Tax.getTaxList();
-                    if (taxes && taxes.length > 0) defaultRate = taxes[0].no;
+                    if (taxes && taxes.length > 0) rate = taxes[0].no;
                 }
-                $("#rate").val(defaultRate);
+                $('#rate').val(rate);
             }
+            var rate_name = rate;
+            for (var i = 0; i < taxes.length; i++) {
+                if (taxes[i].no == rate) {
+                    rate_name = taxes[i].name;
+                    break;
+                }
+            }
+            $('#rate_name').val(rate_name);
+
         },
 
         setInputData: function (valObj) {
+            var rate = (valObj && 'rate' in valObj && valObj.rate) || '';
+            var rate_name = rate;
+            var taxes = GeckoJS.Session.get('taxes');
+
+            if (taxes && taxes.length > 0) {
+                for (var i = 0; i < taxes.length; i++) {
+                    if (taxes[i].no == rate) {
+                        rate_name = taxes[i].name;
+                        break;
+                    }
+                }
+            }
+            if (typeof valObj == 'object') valObj.rate_name = rate_name;
             GeckoJS.FormHelper.unserializeFromObject('deptForm', valObj);
         },
 
@@ -116,13 +137,13 @@
         },
 
         add: function  () {
-            var aURL = "chrome://viviecr/content/prompt_additem.xul";
-            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250";
+            var aURL = 'chrome://viviecr/content/prompt_additem.xul';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250';
             var inputObj = {
                 input0:null, require0:true,
                 input1:null, require1:true
             };
-            window.openDialog(aURL, "prompt_additem", features, _('New Department'), _('Please input:'), _('Department Number'), _('Department Name'), inputObj);
+            window.openDialog(aURL, 'prompt_additem', features, _('New Department'), _('Please input:'), _('Department Number'), _('Department Name'), inputObj);
             if (inputObj.ok && inputObj.input0 && inputObj.input1) {
                 var dept = new CategoryModel();
 
@@ -162,7 +183,6 @@
                 cateModel.save(inputData);
 
                 var index = this.updateSession('modify');
-
                 this.changeDepartmentPanel(index);
             }
         },

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE window SYSTEM "chrome://viviecr/locale/fecpos.dtd">
+<!DOCTYPE window SYSTEM "chrome://viviecr/locale/stocks.dtd">
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/vivipos.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -16,12 +15,15 @@
         <vbox flex="1" class="panel40">
             <hbox flex="1" class="footlogo">
                 <groupbox flex="1">
-                    <caption label="Stocks:" />
-                    <viviscrollabletree id="stockscrollablepanel" flex="1" rows="7" headers="No,Name,Stock, Min Stock" fields="no,name,stock,min_stock" onclick="$do('select',this.selectedIndex, 'Stocks');"
-                                                        class="prodscrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray">
+                    <caption label="&stocks.title;" />
+                    <viviscrollabletree id="stockscrollablepanel" flex="1" rows="7"
+                                        headers="&stocks.header.no;,&stocks.header.product;,&stocks.header.level;,&stocks.header.minimum;"
+                                        fields="no,name,stock,min_stock"
+                                        onclick="$do('select',this.selectedIndex, 'Stocks');"
+                                        class="prodscrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray">
                         <spacer flex="1" />
                     </viviscrollabletree>
-                    <checkbox id="show_low_stock" value="false" label="Show Low Stock" oncommand="$do('clickLowStock', null, 'Stocks');" />
+                    <checkbox id="show_low_stock" value="false" label="&stocks.show.low.only;" oncommand="$do('clickLowStock', null, 'Stocks');" />
                         
                         
                 </groupbox>
@@ -32,39 +34,35 @@
                         <grid>
                             <rows>
                                 <row>
-                                    <label value="No:" />
-                                    <label  form="productForm" name="no" />
+                                    <label value="&stocks.label.no;" />
+                                    <textbox readonly="true" form="productForm" name="no" />
                                 </row>
 
                                 <row>
-                                    <label value="Name:" />
-                                    <label form="productForm" name="name" />
+                                    <label value="&stocks.label.name;" />
+                                    <textbox readonly="true" form="productForm" name="name" />
                                 </row>
-                            </rows>
-                        </grid>
-                        <grid>
-                            <rows>
                                 <row>
-                                    <label value="Stock:" />
+                                    <label value="&stocks.label.stock;" />
                                     <textbox id="stock" value="" form="productForm" name="stock" size="6" maxsize="6"/>
                                 </row>
 
                                 <row>
-                                    <label value="Min Stock:" />
+                                    <label value="&stocks.label.threshold;" />
                                     <textbox id="min_stock" value="" form="productForm" name="min_stock" size="6" maxsize="6" />
                                 </row>
                             </rows>
                         </grid>
                         <spacer style="height: 10px;" />
                         <hbox>
-                            <button label="Modify" class="editbtns" oncommand="$do('update', null, 'Stocks');" />
+                            <button id="modify_stock" label="&stocks.button.action.modify;" disabled="true" class="editbtns" oncommand="$do('update', null, 'Stocks');" />
                         </hbox>
                     </vbox>
                     <spacer style="height: 10px;" />
                     <separator class="groove-thin"/>
                     <spacer style="height: 10px;" />
                     <vbox>
-                        <label value="Search Plu No or Barcode:" />
+                        <label value="&stocks.search.label;" />
                         <textbox id="plu" value="" onchange="$do('searchPlu', this.value, 'Stocks');" />
                             <!-- textbox id="plu" value=""  / -->
                         <numberpad id="multinumberpad" class="numberpad"/>
@@ -72,11 +70,9 @@
                     <spacer style="height:10px;" />
                     <vbox>
                         <hbox>
-                            <sendkeybutton id="bkeyBtn"  label="DEL"   keyCode='0x08' class="systembtn"  />
-                            <vivibutton id="clearBtn"  label="CLEAR" class="systembtn"/>
-                            <button id="ekeyBtn"  label="ENTER"   oncommand="$do('searchPlu', document.getElementById('plu').value, 'Stocks');" class="systembtn"  />
-                                <!-- sendkeybutton id="ekeyBtn"  label="ENTER"   keyCode='0x0D' target="plu" class="systembtn"  / -->
-                                <!-- button id="ekeyBtn"  label="ENTER" class="systembtn"  / -->
+                            <sendkeybutton id="bkeyBtn"  label="&stocks.button.action.del;"   keyCode='0x08' class="systembtn"  />
+                            <vivibutton id="clearBtn"  label="&stocks.button.action.clear;" class="systembtn"/>
+                            <vivibutton id="ekeyBtn"  label="&stocks.button.action.enter;"   oncommand="$do('searchPlu', document.getElementById('plu').value, 'Stocks');" class="systembtn"  />
                         </hbox>
                     </vbox>
                 </vbox>

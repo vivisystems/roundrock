@@ -42,7 +42,7 @@
     border: 1px dotted #908c83;
 }
 
-.cartList .scrollablepanel-scrollbar button {
+.cartList .scrollablepanel-scrollbar vivibutton {
     margin-left: 2px;
     margin-right: 2px;
 }
@@ -95,6 +95,10 @@
 }
 
 .cartScrollUp label, .cartScrollDown label {
+	display: none;
+}
+
+.cartScrollUp description, .cartScrollDown description {
 	display: none;
 }
 

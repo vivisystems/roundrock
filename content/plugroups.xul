@@ -19,7 +19,7 @@
 
                         <hbox flex="1">
                             <viviscrollablebuttonpanel dir="reverse" id="groupscrollablepanel" flex="1" cols="3" rows="8" labelField="name" imageField="no"
-                                                       oncommand="$do('select',this.selectedIndex, 'Plugroups');"
+                                                       oncommand="$do('select', null, 'Plugroups');"
                                                        ensureVisible="true"
                                                        class="catescrollablepanel"
                                                        buttonClass="catbtn button-radius"
@@ -33,22 +33,22 @@
                                 <hbox align="center">
                                     <label id="plugroup_id" hidden="true" form="plugroupForm" name="id" value="" />
                                     <label value="&plugroups.name;" />
-                                    <textbox id="plugroup_name" value="" form="plugroupForm" name="name" />
+                                    <textbox id="plugroup_name" value="" form="plugroupForm" name="name" oninput="$do('validateForm', null, 'Plugroups')"/>
                                 </hbox>
-                                <checkbox id="visible" value="true" label="&plugroups.visible;" form="plugroupForm" name="visible" default="false"/>
+                                <checkbox id="visible" value="true" label="&plugroups.visible;" form="plugroupForm" name="visible" default="true"/>
                                 <groupbox>
                                     <caption label="&plugroups.button.color;" />
-                                    <button_colorpicker id="group_button_color" form="plugroupForm" name="button_color" buttonClass="catbtn button-radius"/>
+                                    <button_colorpicker id="group_button_color" form="plugroupForm" name="button_color" buttonClass="catbtn button-radius" default="default"/>
                                 </groupbox>
                                 <groupbox>
                                     <caption label="&plugroups.font.size;" />
-                                    <button_fontsizepicker id="group_font_size" form="plugroupForm" name="font_size" buttonClass="catbtn button-white button-radius"/>
+                                    <button_fontsizepicker id="group_font_size" form="plugroupForm" name="font_size" buttonClass="catbtn button-white button-radius" default="medium"/>
                                 </groupbox>
                                 <spacer style="height: 10px;" />
                                 <hbox>
-                                    <button label="&plugroups.button.action.add;" disabled="false" class="editbtns" oncommand="$do('add', null, 'Plugroups');" />
-                                    <button label="&plugroups.button.action.modify;" disabled="false" class="editbtns" oncommand="$do('update', null, 'Plugroups');" />
-                                    <button label="&plugroups.button.action.delete;" disabled="false" class="editbtns" oncommand="$do('delete', null, 'Plugroups');" />
+                                    <button id="add_plugroup" label="&plugroups.button.action.add;" disabled="false" class="editbtns" oncommand="$do('add', null, 'Plugroups');" />
+                                    <button id="modify_plugroup" label="&plugroups.button.action.modify;" disabled="false" class="editbtns" oncommand="$do('update', null, 'Plugroups');" />
+                                    <button id="delete_plugroup" label="&plugroups.button.action.delete;" disabled="false" class="editbtns" oncommand="$do('delete', null, 'Plugroups');" />
                                 </hbox>
                             </vbox>
                         </hbox>

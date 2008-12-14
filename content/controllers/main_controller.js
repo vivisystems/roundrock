@@ -12,7 +12,7 @@
         maxButtonRows: 10,
         depPanelView: null,
         pluPanelView: null,
-
+    
         initial: function() {
 
             this.screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
@@ -449,9 +449,80 @@
             }
         },
 
-        quickUserSwitch: function (newUser) {
-            // check if has buffer (password)
-            var buf = this._getKeypadController().getBuffer();
+        quickUserSwitch: function (stop) {
+            if (this.suspendButton) {
+                // reset clear/enter keys
+                var enterKey = document.getElementById('key_enter');
+                var clearKey = document.getElementById('key_clear');
+                enterKey.setAttribute('oncommand', this.savedEnterCommand);
+                clearKey.setAttribute('oncommand', this.savedClearCommand);
+
+                // re-enable buttons
+                GeckoJS.Observer.notify(null, 'button-state-resume', this.target);
+                this.suspendButton = false;
+
+                // check if has buffer (password)
+                var buf = this._getKeypadController().getBuffer().replace(/^\s*/, '').replace(/\s*$/, '');
+                this.requestCommand('clear', null, 'Cart');
+
+                var success = true;
+                // success is indicated by where txn is set to current transaction
+                if (stop != 'true' && buf.length > 0) {
+
+                    // lookup user by password
+                    var userModel = new UserModel();
+                    var users = userModel.findByIndex('all', {
+                        index: 'password',
+                        value: buf
+                    });
+
+                    if (users && users.length > 0) {
+                        this.signOff(true);
+                        this.signIn({username:users[0].username, password:buf});
+
+                        if (this.Acl.getUserPrincipal()) {
+                            this.setClerk();
+                        }
+                        else {
+                            this.ChangeUserDialog();
+                        }
+                    }
+                    else {
+                        success = false;
+                    }
+                }
+                else {
+
+                }
+                this.dispatchEvent('onExitPassword', success);
+                if (success) GeckoJS.Controller.getInstanceByName('Cart').subtotal();
+            }
+            else {
+                this.requestCommand('clear', null, 'Cart');
+                
+                // remap clear/enter keys
+                var enterKey = document.getElementById('key_enter');
+                var clearKey = document.getElementById('key_clear');
+                this.savedEnterCommand = enterKey.getAttribute('oncommand');
+                this.savedClearCommand = clearKey.getAttribute('oncommand');
+
+                enterKey.removeAttribute('oncommand');
+                enterKey.setAttribute('oncommand', '$do("quickUserSwitch", null, "Main")');
+                clearKey.setAttribute('oncommand', '$do("quickUserSwitch", "true", "Main")');
+
+                // suspend all buttons
+                GeckoJS.Observer.notify(null, 'button-state-suspend', this.target);
+                this.suspendButton = true;
+
+                // generate onEnterPassword event
+                this.dispatchEvent('onEnterPassword', null);
+            }
+
+        },
+
+        silentUserSwitch: function (newUser) {
+            // check if buffer (password) is empty
+            var buf = this._getKeypadController().getBuffer().replace(/^\s*/, '').replace(/\s*$/, '');
             this.requestCommand('clear', null, 'Cart');
             
             //GREUtils.log('[SWITCH]: new user <' + newUser + '> password <' + buf + '>');
@@ -471,9 +542,12 @@
                     if (this.Acl.getUserPrincipal()) {
                         this.setClerk();
                     }
+                    else {
+                        this.ChangeUserDialog();
+                    }
                 }
                 else {
-                    // illegal password
+                    // @todo error message for login failure
                 }
             }
         },

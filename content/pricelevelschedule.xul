@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE window SYSTEM "chrome://viviecr/locale/fecpos.dtd">
+<!DOCTYPE window SYSTEM "chrome://viviecr/locale/pricelevelschedule.dtd">
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/vivipos.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -16,19 +15,21 @@
         <vbox flex="1" class="panel40">
             <vbox flex="1" class="footlogo">
                 <groupbox flex="1">
-                    <caption label="Price Level Schedule List:" />
+                    <caption label="&pricelevelschedule.title;" />
                     <hbox flex="1">
                             
                         <groupbox flex="1">
-                            <caption label="Stocks:" />
-                                
-                            <viviscrollabletree id="schedulescrollablepanel" flex="1" rows="12" headers="Time, Price Level" fields="time,pricelevel" onclick=""
-                                                            class="prodscrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray">
+                            <viviscrollabletree id="schedulescrollablepanel" flex="1" rows="12"
+                                                headers="&pricelevelschedule.header.time;, &pricelevelschedule.header.pricelevel;"
+                                                ensureVisible="true"
+                                                onselect="$do('validateForm', null, 'PriceLevelSchedule')"
+                                                fields="time,pricelevel"
+                                                class="prodscrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray">
                                 <spacer flex="1" />
                             </viviscrollabletree>
                             <spacer style="height: 20px;" />
                             <hbox flex="1">
-                                <button label="Remove from Schedule" class="widebtns" oncommand="$do('remove', null, 'PriceLevelSchedule');" />
+                                <button id="remove_schedule" label="&pricelevelschedule.button.remove;" class="editbtns" disabled="false" oncommand="$do('remove', null, 'PriceLevelSchedule');" />
                             </hbox>
                         </groupbox>
 
@@ -39,17 +40,23 @@
                                 <vividatetimepicker id="seltime" value="12:00" flex="1" labelClass="timepickerfont" buttonClass="timepickerbtns"/>
                             </hbox>
 
-                            <separator class="groove-thin" style="height:10px;"/>
+                            <separator class="groove-thin" style="margin:5px;"/>
 
                             <hbox>
-                                <viviscrollablebuttonpanel id="pricelevelscrollablepanel" flex="1" cols="2" rows="5" hideScrollbar="true" labelField="name" oncommand=""
-                                        class="catescrollablepanel" buttonClass="catbtn button-radius button-white font-medium" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue"/>
+                                <viviscrollablebuttonpanel id="pricelevelscrollablepanel" flex="1" cols="2" rows="5" hideScrollbar="true" labelField="name"
+                                                           ensureVisible="true"
+                                                           oncommand="$do('validateForm', null, 'PriceLevelSchedule')"
+                                                           class="catescrollablepanel"
+                                                           buttonClass="catbtn button-radius button-white font-medium"
+                                                           scrollUpClass="rightprevbtn button-blue"
+                                                           scrollDownClass="rightnextbtn button-blue">
+                                    <spacer flex="1"/>
+                                </viviscrollablebuttonpanel>
                             </hbox>
 
                             <spacer style="height: 10px;" />
                             <hbox>
-                                <button label="Add to Schedule" class="widebtns" oncommand="$do('add', null, 'PriceLevelSchedule');" />
-                                    
+                                <button id="add_schedule" label="&pricelevelschedule.button.add;" class="editbtns" disabled="false" oncommand="$do('add', null, 'PriceLevelSchedule');" />
                             </hbox>
                         </vbox>
 

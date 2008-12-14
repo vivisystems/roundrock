@@ -104,7 +104,11 @@
     /* list-style-image: none; */
 }
 
-.rightprevbtn label, .rightnextbtn label{
+.rightprevbtn label, .rightnextbtn label {
+	display: none;
+}
+
+.rightprevbtn description, .rightnextbtn description {
 	display: none;
 }
 
@@ -540,12 +544,7 @@ treechildren::-moz-tree-cell-text(treecellTOTAL) {color: yellow;}
   font-size: 48px;
 }
 
-/*
-checkbox {
-  list-style-image: url("chrome://viviecr/skin/images/up.png");
+.prodscrollablepanel scrollbar {
+    display: none;
 }
 
-checkbox[checked="true"] {
-  list-style-image: url("chrome://viviecr/skin/images/down.png");
-}
-*/

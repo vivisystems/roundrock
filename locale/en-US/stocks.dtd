@@ -1,0 +1,15 @@
+<!ENTITY stocks.title "Group List:">
+<!ENTITY stocks.header.no "Product No.">
+<!ENTITY stocks.header.product "Product Name">
+<!ENTITY stocks.header.level "Quantity">
+<!ENTITY stocks.header.minimum "Threshold">
+<!ENTITY stocks.show.low.only "Filter for Products below Threshold">
+<!ENTITY stocks.label.no "No.:">
+<!ENTITY stocks.label.name "Name:">
+<!ENTITY stocks.label.stock "Level:">
+<!ENTITY stocks.label.threshold "Threshold">
+<!ENTITY stocks.search.label "Enter Product or Barcode No.:">
+<!ENTITY stocks.button.action.clear "CLEAR">
+<!ENTITY stocks.button.action.del "DEL">
+<!ENTITY stocks.button.action.enter "ENTER">
+<!ENTITY stocks.button.action.modify "Modify">
