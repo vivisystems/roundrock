@@ -21,7 +21,7 @@
      */
     function clearTextBox() {
 
-        $('#plu').val('');
+        $('#plu').val('').focus();
 
     };
 

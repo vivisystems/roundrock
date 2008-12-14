@@ -7,7 +7,7 @@
     GeckoJS.Controller.extend( {
         name: 'Stocks',
         scaffold: true,
-        uses: ["Product"],
+        uses: ['Product'],
 	
         _listObj: null,
         _listDatas: null,
@@ -97,11 +97,10 @@
 
         },
 
-        searchPlu: function (barcode) {
-            // alert(barcode);
+        searchPlu: function () {
+            var barcode = document.getElementById('plu').value.replace(/^\s*/, '').replace(/\s*$/, '');
             $('#plu').val('').focus();
-            // $('#plu').focus();
-            if (barcode == "") return;
+            if (barcode == '') return;
 
             // var productsById = GeckoJS.Session.get('productsById');
             // var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
@@ -113,7 +112,6 @@
             }else {
                 var id = this._barcodesIndexes[barcode];
                 product = this._productsById[id];
-                // this.log("product:" + this.dump(product));
                 GeckoJS.FormHelper.reset('productForm');
                 GeckoJS.FormHelper.unserializeFromObject('productForm', product);
 

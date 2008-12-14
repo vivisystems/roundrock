@@ -7,6 +7,9 @@
 
 <window id="numpad" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
+    <keyset>
+        <key id="key_enter" keycode="VK_RETURN" oncommand="$do('searchPlu', null, 'Stocks');"/>
+    </keyset>
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/bootstrap.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/stocks.js" />
@@ -63,8 +66,8 @@
                     <spacer style="height: 10px;" />
                     <vbox>
                         <label value="&stocks.search.label;" />
-                        <textbox id="plu" value="" onchange="$do('searchPlu', this.value, 'Stocks');" />
-                            <!-- textbox id="plu" value=""  / -->
+                        <!--textbox id="plu" value="" onchange="$do('searchPlu', this.value, 'Stocks');" /-->
+                        <textbox id="plu" value=""/>
                         <numberpad id="multinumberpad" class="numberpad"/>
                     </vbox>
                     <spacer style="height:10px;" />
