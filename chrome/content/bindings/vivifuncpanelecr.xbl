@@ -18,7 +18,7 @@
                 <xul:vbox flex="1" xbl:inherits="class=control_panel_class" anonid="control-panel">
 
                     <!-- Left Scroll Button -->
-                    <xul:button type="button"
+                    <xul:vivibutton type="button"
                                 flex="0"
                                 anonid="control-prev"
                                 xbl:inherits="disabled,class=control_scroll_left_class"
@@ -26,7 +26,7 @@
                                 />
 
                     <!-- Screen Label -->
-                    <xul:button flex="1"
+                    <xul:vivibutton flex="1"
                                 disabled="true"
                                 orient="vertical"
                                 anonid="control-label"
@@ -34,7 +34,7 @@
                                 />
 
                     <!-- Home Button -->
-                    <xul:button 
+                    <xul:vivibutton
                                 flex="0"
                                 anonid="control-home"
                                 xbl:inherits="disabled,class=control_home_class"
@@ -42,7 +42,7 @@
                                 />
 
                     <!-- Right Scroll Button -->
-                    <xul:button type="button"
+                    <xul:vivibutton type="button"
                                 flex="0"
                                 anonid="control-next"
                                 xbl:inherits="disabled,class=control_scroll_right_class"
@@ -1323,7 +1323,7 @@
                     //GREUtils.log('[IsUserInRole] user <' + principal + '> role <' + roleName + '>');
                     if(principal == null) return false;
 
-                    //GREUtils.log('[IsUserInRole] user roles <' + principal.Roles + '>');
+                    //GREUtils.log('[IsUserInRole] <' + roleName + '> user roles <' + principal.Roles + '>');
                     if (GeckoJS.Array.inArray(roleName, principal.Roles) != -1) return true;
 
                     return false;
@@ -1626,7 +1626,6 @@
                                 else {
                                     // check ACL - relegated to vivibutton to check ACL access
                                     var hasAccess = this._isUserInRole(entry.access);
-
                                     btn.setAttribute('label', entry.label);
                                     //btn.setLabel(entry.label);
                                     var ch = document.getAnonymousElementByAttribute(btn, 'class', 'button-text');

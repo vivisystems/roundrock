@@ -28,6 +28,7 @@
     <constructor><![CDATA[
 
         var self = this;
+        var suspended = false;
 
         this.vivibuttonBox = document.getAnonymousElementByAttribute(this, "anonid", "vivibutton-box");
         this.vivibuttonImage = document.getAnonymousElementByAttribute(this, "anonid", "image");
@@ -43,9 +44,23 @@
         self.render();
 
         this.observer = GeckoJS.Observer.newInstance({
-                topics: ['acl-session-change'],
+                topics: ['acl-session-change', 'button-state-suspend', 'button-state-resume'],
                 observe: function(aSubject, aTopic, aData) {
-                    self.render();
+                    switch(aTopic) {
+                        case 'acl-session-change':
+                            self.render();
+                            break;
+
+                        case 'button-state-suspend':
+                            self.suspended = (self.getAttribute('suspendable') || 'true') == 'true';
+                            self.render();
+                            break;
+
+                        case 'button-state-resume':
+                            self.suspended = false;
+                            self.render();
+                            break;
+                    }
                 }
             }).register();
 
@@ -150,7 +165,10 @@
         var roles = this.getAttribute('roles') || '';
         var action = this.getAttribute('action') || 'display';
 
-        if (roles.length == 0) return;
+        if (roles.length == 0) {
+            this.disabled = this.suspended;
+            return;
+        }
 
         var isInRole = GeckoJS.AclComponent.isUserInRole(roles);
 
@@ -158,13 +176,13 @@
 
         if (isInRole) {
             if(action =='display') {
-            $button.show();
-            this.disabled = false;
+                $button.show();
+                this.disabled = this.suspended;
             }
-            else $button.hide();
+            else $button.show();
         }else {
             if(action =='display') this.disabled = true;
-            else $button.show();
+            else $button.hide();
         }
       ]]>
       </body>
