@@ -77,6 +77,7 @@ pref("intl.locale.matchOS", "false");
 
 /* vivipos default locale */
 pref("general.useragent.locale", "en-US");
+pref("intl.charset.default", "UTF-8");
 
 pref("vivipos.fec.mainscreen.width", 800);
 pref("vivipos.fec.mainscreen.height", 600);
