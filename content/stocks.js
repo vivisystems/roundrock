@@ -11,7 +11,7 @@
 
         $('#clearBtn')[0].addEventListener('command', clearTextBox, false);
         $('#plu').focus();
-        
+
         $do('load', null, 'Stocks');
 
     };
@@ -21,7 +21,9 @@
      */
     function clearTextBox() {
 
-        $('#plu').val('').focus();
+        // $('#plu').val('').focus();
+        var focusedElement = document.commandDispatcher.focusedElement;
+        focusedElement.value = '';
 
     };
 

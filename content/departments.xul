@@ -41,17 +41,17 @@
                                     <rows>
                                         <row>
                                             <label style="width:10em" value="&departments.number;"/>
-                                            <textbox id="dept_no" readonly="true" form="deptForm" name="no"/>
+                                            <textbox id="dept_no" readonly="true" form="deptForm" name="no" onfocus="this.select()"/>
                                         </row>
                                         <row>
-                                            <label style="width:10em" value="&departments.name;" />
-                                            <textbox id="dept_name" value="" form="deptForm" name="name" oninput="$do('validateForm', null, 'Departments')"/>
+                                            <label style="width:10em" value="&departments.name;" control="dept_name"/>
+                                            <textbox id="dept_name" value="" form="deptForm" name="name" oninput="$do('validateForm', null, 'Departments')" onfocus="this.select()"/>
                                         </row>
 
                                         <row>
                                             <label value="&departments.taxrate;"/>
                                             <label id="rate" value="" form="deptForm" name="rate" hidden="true" default=""/>
-                                            <textbox id="rate_name" value="" form="deptForm" name="rate_name" readonly="true" default="" onclick="$do('getRate',this.selectedIndex,'Departments');"/>
+                                            <textbox id="rate_name" value="" form="deptForm" name="rate_name" readonly="true" default="" onclick="$do('getRate',this.selectedIndex,'Departments');" onfocus="this.select()"/>
                                         </row>
 
                                         <row>

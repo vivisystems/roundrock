@@ -130,6 +130,9 @@
             panel.selectedIndex = index;
             panel.selectedItems = [index];
 
+            if (panel.selectedIndex == -1) {
+                GeckoJS.FormHelper.reset('jobForm');
+            }
             this.validateForm();
         },
 
@@ -161,6 +164,8 @@
 
         select: function(index){
             this.requestCommand('list', index);
+
+            document.getElementById('job_name').focus();
         },
 
         validateForm: function() {

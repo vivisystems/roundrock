@@ -24,7 +24,9 @@
                                                        class="catescrollablepanel"
                                                        buttonClass="catbtn button-radius"
                                                        scrollUpClass="rightprevbtn button-blue"
-                                                       scrollDownClass="rightnextbtn button-blue"/>
+                                                       scrollDownClass="rightnextbtn button-blue">
+                                <spacer flex="1"/>
+                            </viviscrollablebuttonpanel>
 
                             <spacer style="width: 10px;" />
                             <separator class="groove-thin"/>
@@ -32,8 +34,8 @@
                             <vbox>
                                 <hbox align="center">
                                     <label id="plugroup_id" hidden="true" form="plugroupForm" name="id" value="" />
-                                    <label value="&plugroups.name;" />
-                                    <textbox id="plugroup_name" value="" form="plugroupForm" name="name" oninput="$do('validateForm', null, 'Plugroups')"/>
+                                    <label value="&plugroups.name;" control="plugroup_name"/>
+                                    <textbox id="plugroup_name" value="" form="plugroupForm" name="name" oninput="$do('validateForm', null, 'Plugroups')" default="" onfocus="this.select()"/>
                                 </hbox>
                                 <checkbox id="visible" value="true" label="&plugroups.visible;" form="plugroupForm" name="visible" default="true"/>
                                 <groupbox>

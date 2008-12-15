@@ -130,8 +130,15 @@
 
             this.requestCommand('list', index);
 
-            panel.selectedIndex = index;
-            panel.selectedItems = [index];
+            if (index > -1) {
+                panel.selectedIndex = index;
+                panel.selectedItems = [index];
+            }
+            else {
+                panel.selectedIndex = index;
+                panel.selectedItems = [];
+                GeckoJS.FormHelper.reset('plugroupForm');
+            }
 
             this.validateForm();
         },
@@ -140,8 +147,8 @@
             var panel = this.getListObj();
             var panelView = this._listView;
 
-            if (this._listView == null) {
-                var panelView =  new GeckoJS.NSITreeViewArray(evt.data);
+            if (panelView == null) {
+                panelView =  new GeckoJS.NSITreeViewArray(evt.data);
 
                 panelView.renderButton = function(row, btn) {
                     var buttonColor = this.getCellValue(row, {
@@ -184,7 +191,14 @@
             var panel = this.getListObj();
             var index = panel.selectedIndex;
 
-            this.requestCommand('list', index);
+            if (index == -1) {
+                GeckoJS.FormHelper.reset('plugroupForm');
+            }
+            else {
+                this.requestCommand('list', index);
+            }
+
+            document.getElementById('plugroup_name').focus();
         },
 
         validateForm: function() {

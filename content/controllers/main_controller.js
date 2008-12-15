@@ -449,13 +449,28 @@
             }
         },
 
+        clear: function () {
+            this.quickUserSwitch(true);
+        },
+
+        enter: function () {
+            this.quickUserSwitch();
+        },
+
         quickUserSwitch: function (stop) {
             if (this.suspendButton) {
+                this.requestCommand('setTarget', 'Cart', 'Keypad');
                 // reset clear/enter keys
+                /*
                 var enterKey = document.getElementById('key_enter');
                 var clearKey = document.getElementById('key_clear');
                 enterKey.setAttribute('oncommand', this.savedEnterCommand);
                 clearKey.setAttribute('oncommand', this.savedClearCommand);
+                enterKey.removeAttribute('oncommand');
+                clearKey.removeAttribute('oncommand');
+                enterKey.setAttribute('oncommand', this.savedEnterCommand);
+                clearKey.setAttribute('oncommand', this.savedClearCommand);
+                */
 
                 // re-enable buttons
                 GeckoJS.Observer.notify(null, 'button-state-resume', this.target);
@@ -499,16 +514,20 @@
             }
             else {
                 this.requestCommand('clear', null, 'Cart');
+                this.requestCommand('setTarget', 'Main', 'Keypad');
                 
                 // remap clear/enter keys
+                /*
                 var enterKey = document.getElementById('key_enter');
                 var clearKey = document.getElementById('key_clear');
                 this.savedEnterCommand = enterKey.getAttribute('oncommand');
                 this.savedClearCommand = clearKey.getAttribute('oncommand');
 
-                enterKey.removeAttribute('oncommand');
                 enterKey.setAttribute('oncommand', '$do("quickUserSwitch", null, "Main")');
                 clearKey.setAttribute('oncommand', '$do("quickUserSwitch", "true", "Main")');
+               enterKey.addEventListener('oncommand', function() {alert('in enter');}, false);
+               clearKey.addEventListener('oncommand', function() {alert('in clear');}, false);
+                */
 
                 // suspend all buttons
                 GeckoJS.Observer.notify(null, 'button-state-suspend', this.target);

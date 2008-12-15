@@ -46,13 +46,13 @@
                                     <textbox readonly="true" form="productForm" name="name" />
                                 </row>
                                 <row>
-                                    <label value="&stocks.label.stock;" />
-                                    <textbox id="stock" value="" form="productForm" name="stock" size="6" maxsize="6"/>
+                                    <label value="&stocks.label.stock;" control="stock"/>
+                                    <textbox id="stock" value="" form="productForm" name="stock" size="6" maxsize="6" onfocus="this.select()"/>
                                 </row>
 
                                 <row>
-                                    <label value="&stocks.label.threshold;" />
-                                    <textbox id="min_stock" value="" form="productForm" name="min_stock" size="6" maxsize="6" />
+                                    <label value="&stocks.label.threshold;" control="min_stock"/>
+                                    <textbox id="min_stock" value="" form="productForm" name="min_stock" size="6" maxsize="6" onfocus="this.select()"/>
                                 </row>
                             </rows>
                         </grid>
@@ -65,9 +65,9 @@
                     <separator class="groove-thin"/>
                     <spacer style="height: 10px;" />
                     <vbox>
-                        <label value="&stocks.search.label;" />
+                        <label value="&stocks.search.label;" control="plu"/>
                         <!--textbox id="plu" value="" onchange="$do('searchPlu', this.value, 'Stocks');" /-->
-                        <textbox id="plu" value=""/>
+                        <textbox id="plu" value="" onfocus="this.select()"/>
                         <numberpad id="multinumberpad" class="numberpad"/>
                     </vbox>
                     <spacer style="height:10px;" />

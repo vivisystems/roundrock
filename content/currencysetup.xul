@@ -80,8 +80,10 @@
                                 </row>
                                 <row>
                                     <label value="&currencysetup.base;" />
-                                    <textbox id="currency_0" value="" size="4" maxsize="4" form="currencyForm" name="currency_0" />
-                                    <textbox id="currency_symbol_0" value="" size="4" maxsize="4" form="currencyForm" name="currency_symbol_0" />
+                                    <textbox id="currency_0" value="" size="4" maxsize="4" form="currencyForm" name="currency_0"
+                                             onfocus="select()"/>
+                                    <textbox id="currency_symbol_0" value="" size="4" maxsize="4" form="currencyForm" name="currency_symbol_0"
+                                             onfocus="select()"/>
                                     <label value="1.00" form="currencyForm" name="currency_exchange_0" />
                                     <label value=":" />
                                     <label value="1.00" />
@@ -90,53 +92,78 @@
                                 </row>
                                 <row>
                                     <label value="1." />
-                                    <textbox id="currency_1" value="" size="4" maxsize="4" form="currencyForm" name="currency_1" />
-                                    <textbox id="currency_symbol_1" value="" size="4" maxsize="4" form="currencyForm" name="currency_symbol_1" />
-                                    <textbox id="currency_exchange_1" value="" size="8" maxsize="8" form="currencyForm" name="currency_exchange_1" />
+                                    <textbox id="currency_1" value="" size="4" maxsize="4" form="currencyForm" name="currency_1"
+                                             onfocus="select()"/>
+                                    <textbox id="currency_symbol_1" value="" size="4" maxsize="4" form="currencyForm" name="currency_symbol_1"
+                                             onfocus="select()"/>
+                                    <textbox id="currency_exchange_1" value="" size="8" maxsize="8" form="currencyForm" name="currency_exchange_1"
+                                             onfocus="select()"/>
                                     <label value=":" />
-                                    <textbox id="currency_input_1" value="" size="8" maxsize="8" oninput="calCurrency('1');" />
+                                    <textbox id="currency_input_1" value="" size="8" maxsize="8" oninput="calCurrency('1');"
+                                             onfocus="select()"/>
                                     <label value="=" />
-                                    <textbox id="currency_result_1" value="" size="8" maxsize="8" readonly="true" />
+                                    <textbox id="currency_result_1" value="" size="8" maxsize="8" readonly="true"
+                                             onfocus="select()"/>
                                 </row>
                                 <row>
                                     <label value="2." />
-                                    <textbox id="currency_2" value="" size="4" maxsize="4" form="currencyForm" name="currency_2" />
-                                    <textbox id="currency_symbol_2" value="" size="4" maxsize="4" form="currencyForm" name="currency_symbol_2" />
-                                    <textbox id="currency_exchange_2" value="" size="8" maxsize="8" form="currencyForm" name="currency_exchange_2" />
+                                    <textbox id="currency_2" value="" size="4" maxsize="4" form="currencyForm" name="currency_2"
+                                             onfocus="select()"/>
+                                    <textbox id="currency_symbol_2" value="" size="4" maxsize="4" form="currencyForm" name="currency_symbol_2"
+                                             onfocus="select()"/>
+                                    <textbox id="currency_exchange_2" value="" size="8" maxsize="8" form="currencyForm" name="currency_exchange_2"
+                                             onfocus="select()"/>
                                     <label value=":" />
-                                    <textbox id="currency_input_2" value="" size="8" maxsize="8" oninput="calCurrency('2');" />
+                                    <textbox id="currency_input_2" value="" size="8" maxsize="8" oninput="calCurrency('2');"
+                                             onfocus="select()"/>
                                     <label value="=" />
-                                    <textbox id="currency_result_2" value="" size="8" maxsize="8" readonly="true" />
+                                    <textbox id="currency_result_2" value="" size="8" maxsize="8" readonly="true"
+                                             onfocus="select()"/>
                                 </row>
                                 <row>
                                     <label value="3." />
-                                    <textbox id="currency_3" value="" size="4" maxsize="4" form="currencyForm" name="currency_3" />
-                                    <textbox id="currency_symbol_3" value="" size="4" maxsize="4" form="currencyForm" name="currency_symbol_3" />
-                                    <textbox id="currency_exchange_3" value="" size="8" maxsize="8" form="currencyForm" name="currency_exchange_3" />
+                                    <textbox id="currency_3" value="" size="4" maxsize="4" form="currencyForm" name="currency_3"
+                                             onfocus="select()"/>
+                                    <textbox id="currency_symbol_3" value="" size="4" maxsize="4" form="currencyForm" name="currency_symbol_3"
+                                             onfocus="select()"/>
+                                    <textbox id="currency_exchange_3" value="" size="8" maxsize="8" form="currencyForm" name="currency_exchange_3"
+                                             onfocus="select()"/>
                                     <label value=":" />
-                                    <textbox id="currency_input_3" value="" size="8" maxsize="8" oninput="calCurrency('3');" />
+                                    <textbox id="currency_input_3" value="" size="8" maxsize="8" oninput="calCurrency('3');"
+                                             onfocus="select()"/>
                                     <label value="=" />
-                                    <textbox id="currency_result_3" value="" size="8" maxsize="8" readonly="true" />
+                                    <textbox id="currency_result_3" value="" size="8" maxsize="8" readonly="true"
+                                             onfocus="select()"/>
                                 </row>
                                 <row>
                                     <label value="4." />
-                                    <textbox id="currency_4" value="" size="4" maxsize="4" form="currencyForm" name="currency_4" />
-                                    <textbox id="currency_symbol_4" value="" size="4" maxsize="4" form="currencyForm" name="currency_symbol_4" />
-                                    <textbox id="currency_exchange_4" value="" size="8" maxsize="8" form="currencyForm" name="currency_exchange_4" />
+                                    <textbox id="currency_4" value="" size="4" maxsize="4" form="currencyForm" name="currency_4"
+                                             onfocus="select()"/>
+                                    <textbox id="currency_symbol_4" value="" size="4" maxsize="4" form="currencyForm" name="currency_symbol_4"
+                                             onfocus="select()"/>
+                                    <textbox id="currency_exchange_4" value="" size="8" maxsize="8" form="currencyForm" name="currency_exchange_4"
+                                             onfocus="select()"/>
                                     <label value=":" />
-                                    <textbox id="currency_input_4" value="" size="8" maxsize="8" oninput="calCurrency('4');" />
+                                    <textbox id="currency_input_4" value="" size="8" maxsize="8" oninput="calCurrency('4');"
+                                             onfocus="select()"/>
                                     <label value="=" />
-                                    <textbox id="currency_result_4" value="" size="8" maxsize="8" readonly="true" />
+                                    <textbox id="currency_result_4" value="" size="8" maxsize="8" readonly="true"
+                                             onfocus="select()"/>
                                 </row>
                                 <row>
                                     <label value="5." />
-                                    <textbox id="currency_5" value="" size="4" maxsize="4" form="currencyForm" name="currency_5" />
-                                    <textbox id="currency_symbol_5" value="" size="4" maxsize="4" form="currencyForm" name="currency_symbol_5" />
-                                    <textbox id="currency_exchange_5" value="" size="8" maxsize="8" form="currencyForm" name="currency_exchange_5" />
+                                    <textbox id="currency_5" value="" size="4" maxsize="4" form="currencyForm" name="currency_5"
+                                             onfocus="select()"/>
+                                    <textbox id="currency_symbol_5" value="" size="4" maxsize="4" form="currencyForm" name="currency_symbol_5"
+                                             onfocus="select()"/>
+                                    <textbox id="currency_exchange_5" value="" size="8" maxsize="8" form="currencyForm" name="currency_exchange_5"
+                                             onfocus="select()"/>
                                     <label value=":" />
-                                    <textbox id="currency_input_5" value="" size="8" maxsize="8" oninput="calCurrency('5');" />
+                                    <textbox id="currency_input_5" value="" size="8" maxsize="8" oninput="calCurrency('5');"
+                                             onfocus="select()"/>
                                     <label value="=" />
-                                    <textbox id="currency_result_5" value="" size="8" maxsize="8" readonly="true" />
+                                    <textbox id="currency_result_5" value="" size="8" maxsize="8" readonly="true"
+                                             onfocus="select()"/>
                                 </row>
                             </rows>
                         </grid>

@@ -190,6 +190,8 @@
             this.Acl.addRole('acl_register_plus');
             this.Acl.addRole('acl_manage_stock');
             this.Acl.addRole('acl_manage_system_options');
+            this.Acl.addRole('acl_manage_taxes');
+            this.Acl.addRole('acl_manage_products');
 */
         },
 	
@@ -221,8 +223,10 @@
                 deleteBtn.setAttribute('disabled', true);
             }
             else {
+                var group = $('#aclgroup_name').val();
+
                 modifyBtn.setAttribute('disabled', false);
-                deleteBtn.setAttribute('disabled', false);
+                deleteBtn.setAttribute('disabled', group == 'admin');
             }
         }
 	

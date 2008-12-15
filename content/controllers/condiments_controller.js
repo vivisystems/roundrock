@@ -71,6 +71,7 @@
             this.validateForm();
 
             document.getElementById('condiment_group_name').focus();
+            document.getElementById('condiment_group_name').select();
         },
 
         clickCondimentPanel: function(index) {
@@ -269,7 +270,6 @@
 
                 var view = this._condGroupscrollablepanel.datasource;
                 view.data = condGroups;
-
                 this.changeCondimentPanel(this._selectedIndex);
             }
         },
@@ -326,7 +326,6 @@
 
         resetInputCondData: function () {
 
-            //GeckoJS.FormHelper.reset('condimentForm');
             this.query('#condiment_name').val('');
             this.query('#condiment_price').val('');
             this.query('#condiment_button_color').val('default');
@@ -334,7 +333,6 @@
         },
 
         setInputCondData: function (valObj) {
-            GeckoJS.FormHelper.reset('condimentForm');
             GeckoJS.FormHelper.unserializeFromObject('condimentForm', valObj);
         },
 

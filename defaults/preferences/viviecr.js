@@ -37,7 +37,7 @@ pref("vivipos.fec.settings.controlpanels.plus.roles", "acl_public_access");
 pref("vivipos.fec.settings.controlpanels.taxes.label", "Taxes");
 pref("vivipos.fec.settings.controlpanels.taxes.path", "chrome://viviecr/content/taxes.xul");
 pref("vivipos.fec.settings.controlpanels.taxes.icon", "chrome://viviecr/content/skin/icons/stock_mail-send.png");
-pref("vivipos.fec.settings.controlpanels.taxes.roles", "acl_no_access");
+pref("vivipos.fec.settings.controlpanels.taxes.roles", "acl_manage_taxes");
 
 pref("vivipos.fec.settings.controlpanels.plugroups.label", "PLU Groups");
 pref("vivipos.fec.settings.controlpanels.plugroups.path", "chrome://viviecr/content/plugroups.xul");

@@ -1,4 +1,4 @@
-<!ENTITY stocks.title "Group List:">
+<!ENTITY stocks.title "Products:">
 <!ENTITY stocks.header.no "Product No.">
 <!ENTITY stocks.header.product "Product Name">
 <!ENTITY stocks.header.level "Quantity">

@@ -32,8 +32,9 @@
                         <vbox>
                             <hbox align="center">
                                 <label id="job_id" hidden="true" form="jobForm" name="id" value="" />
-                                <label value="&jobs.name;" />
-                                <textbox id="job_name" value="" form="jobForm" name="jobname" oninput="$do('validateForm', null, 'Jobs')"/>
+                                <label value="&jobs.name;" control="job_name"/>
+                                <textbox id="job_name" value="" form="jobForm" name="jobname" oninput="$do('validateForm', null, 'Jobs')"
+                                         onfocus="this.select()"/>
                             </hbox>
                             <spacer style="height: 10px;" />
                             <hbox>
