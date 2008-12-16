@@ -26,11 +26,11 @@
                             
                     <vbox flex="1" align="center">
                         <spacer style="height:80px;" />
-                        <button label="&systembackup.backuptolocal;" class="widebtns" oncommand="$do('backupToLocal',null, 'SystemBackup');"/>
-                        <button label="&systembackup.backuptostick;" class="widebtns" oncommand="$do('backupToStick',null, 'SystemBackup');"/>
+                        <vivibutton label="&systembackup.backuptolocal;" class="widebtns" oncommand="$do('backupToLocal',null, 'SystemBackup');"/>
+                        <vivibutton label="&systembackup.backuptostick;" class="widebtns" oncommand="$do('backupToStick',null, 'SystemBackup');"/>
                         <spacer style="height:50px;" />
-                        <button label="&systembackup.restorefromlocal;" class="widebtns" oncommand="$do('restoreFromLocal',null, 'SystemBackup');"/>
-                        <button label="&systembackup.restorefromstick;" class="widebtns" oncommand="$do('restoreFromStick',null, 'SystemBackup');"/>
+                        <vivibutton label="&systembackup.restorefromlocal;" class="widebtns" oncommand="$do('restoreFromLocal',null, 'SystemBackup');"/>
+                        <vivibutton label="&systembackup.restorefromstick;" class="widebtns" oncommand="$do('restoreFromStick',null, 'SystemBackup');"/>
                     </vbox>
                             
                     <groupbox flex="1">

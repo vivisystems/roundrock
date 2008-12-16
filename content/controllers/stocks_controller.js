@@ -123,6 +123,7 @@
                 // this.log("product:" + this.dump(product));
                 GeckoJS.FormHelper.reset('productForm');
                 GeckoJS.FormHelper.unserializeFromObject('productForm', product);
+
             }
         },
 

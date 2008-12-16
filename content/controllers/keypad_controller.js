@@ -88,26 +88,22 @@
             switch(keyCode) {
                 // ESCAPE
                 case 27:
-this.log("esc:");
                     this.getCartController().clear();
                     this.clearBuffer();
                     break;
 			
                 // TAB
                 case 0x09:
-this.log("tab:");
                     this.getCartController().setPrice(this.getBuffer());
                     this.clearBuffer();
                     break;
 			
                 // END
                 case 35:
-this.log("subtotal:");
                     this.getCartController().addMarker('subtotal');
                     break;
                 // ENTER
                 case 13:
-this.log("enter:");
                     var cart = this.getCartController();
                     cart.data = this.getBuffer();
                     this.clearBuffer();

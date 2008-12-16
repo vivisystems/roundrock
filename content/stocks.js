@@ -22,7 +22,9 @@
      */
     function clearTextBox() {
 
-        $('#plu').val('');
+//        $('#plu').val('');
+        var focused = document.commandDispatcher.focusedElement;
+        focused.value = '';
 
     };
 

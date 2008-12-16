@@ -78,8 +78,8 @@
 
             this._localbackupDir = GeckoJS.Configure.read('vivipos.fec.settings.backup.localbackupdir');
             this._stickbackupDir = GeckoJS.Configure.read('vivipos.fec.settings.backup.stickbackupdir');
-            if (!this._localbackupDir) this._localbackupDir = '/tmp/vivipos/system_localbackup/';
-            if (!this._stickbackupDir) this._stickbackupDir = '/tmp/vivipos/system_backup/';
+            if (!this._localbackupDir) this._localbackupDir = '/var/tmp/vivipos/system_backup/';
+            if (!this._stickbackupDir) this._stickbackupDir = '/var/tmp/vivipos/system_stick_backup/';
 
             var panelViewLocal = new BackupFilesView(this._localbackupDir);
             this.getListObjLocalBackup().datasource = panelViewLocal;

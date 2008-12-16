@@ -81,7 +81,8 @@
                     }
                 } else if (min_stock > (stock - sellQty)) {
                     cart.dispatchEvent('onLowerStock', obj);
-                    cart.dispatchEvent('onWarning', 'LOW STOCK');
+                    // cart.dispatchEvent('onWarning', 'LOW STOCK');
+                    OsdUtils.text('LOW STOCK');
                 }
             }
         },

@@ -25,7 +25,7 @@ GREUtils.include('chrome://viviecr/content/models/condiment_group.js');
 GREUtils.include('chrome://viviecr/content/models/condiment.js');
 GREUtils.include('chrome://viviecr/content/models/plugroup.js');
 GREUtils.include('chrome://viviecr/content/models/job.js');
-GREUtils.include('chrome://viviecr/content/models/producttmp.js');
+GREUtils.include('chrome://viviecr/content/models/account.js');
 
 
 include('chrome://viviecr/content/models/order.js');

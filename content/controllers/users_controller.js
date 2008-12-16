@@ -201,6 +201,8 @@
             var delBtn = document.getElementById('delete_user');
             var tabbox = document.getElementById('tabbox');
 
+            if (!(addBtn && modBtn && delBtn)) return;
+
             var panel = this.getListObj();
             if (panel.selectedIndex > -1) {
                 var password = document.getElementById('user_password').value.replace(/^\s*/, '').replace(/\s*$/, '');
