@@ -33,7 +33,7 @@
 
             this._plugroupAdded = false;
 
-            window.openDialog(aURL, 'prompt_additem', features, _('New PLU Group'), '', _('Group Name:'), '', inputObj);
+            window.openDialog(aURL, _('Add New PLU Group'), features, _('New PLU Group'), '', _('Group Name:'), '', inputObj);
             if (inputObj.ok && inputObj.input0) {
                 plugroup.id = '';
                 plugroup.name = inputObj.input0;

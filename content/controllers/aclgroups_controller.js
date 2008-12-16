@@ -44,14 +44,14 @@
             var features = "chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250";
             var inputObj = {input0:null, require0:true};
 
-            window.openDialog(aURL, "prompt_additem", features, _('New ACL Group'), '', _('Group Name:'), '', inputObj);
+            window.openDialog(aURL, _('Add New ACL Group'), features, _('New ACL Group'), '', _('Group Name'), '', inputObj);
             if (inputObj.ok && inputObj.input0) {
 
                 // check for duplicate group name
                 var group = inputObj.input0;
                 var groups = this.Acl.getGroupList('name="' + group +'"') || [];
                 if (groups.length > 0) {
-                    alert(_('The name (%S) already exists; ACL group not added.', [group]));
+                    alert(_('The name [%S] already exists; ACL group not added.', [group]));
                 }
                 else {
                     this.Acl.addGroup(group);
@@ -69,8 +69,8 @@
             if (users && users.length > 0) {
                 var userlist = GeckoJS.Array.objectExtract(users, '{n}.description').join(", ");
                 userlist = [group].concat(userlist);
-                alert(_('The group (%S) has been assigned to one or more users (%S) and cannot be removed.', userlist));
-            } else if (GREUtils.Dialog.confirm(null, 'confirm delete group:' + group, _('Are you sure?'))) {
+                alert(_('The group (%S) has been assigned to one or more users [%S] and cannot be removed.', userlist));
+            } else if (GREUtils.Dialog.confirm(null, 'confirm delete ' + group, _('Are you sure?'))) {
                 this.Acl.removeGroup(group);
                 
                 var listObj = this.getListObj();
@@ -84,6 +84,9 @@
                 listObj.selectedIndex = index;
 
                 this.select();
+
+                // @todo OSD.text to be replaced by OSD.info
+                OsdUtils.text('<span color="green" font_desc="Times 26">' + _('ACL Group [%S] removed', [group]) + '</span>', 100, -200);
             }
         },
         
@@ -102,6 +105,8 @@
                 self.Acl.addRoleToGroup(group, roles[idx].name);
             });
 
+            // @todo OSD.text to be replaced by OSD.info
+            OsdUtils.text('<span color="green" font_desc="Times 26">' + _('ACL Group [%S] modified', [group]) + '</span>', 100, -200);
         },
 
         createRoleList: function () {

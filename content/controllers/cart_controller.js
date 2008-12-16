@@ -19,9 +19,9 @@
 
             self = this;
             var keypad = GeckoJS.Controller.getInstanceByName('Keypad');
-            keypad.addEventListener("beforeAddBuffer", self.beforeAddBuffer);
+            keypad.addEventListener('beforeAddBuffer', self.beforeAddBuffer);
 
-            this.addEventListener("beforeAddItem", self.beforeAddItem);
+            this.addEventListener('beforeAddItem', self.beforeAddItem);
 
             // var curTransaction = this._getTransaction();
             // curTransaction.events.addListener('beforeAppendItem', obj, this);
@@ -51,7 +51,7 @@
         beforeAddItem: function (evt) {
             var item = evt.data;
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
-            // cart.log("Item:" + cart.dump(item));
+            // cart.log('Item:' + cart.dump(item));
 
             var sellQty = null, sellPrice = null;
 
@@ -74,7 +74,7 @@
                     cart.dispatchEvent('onWarning', 'OVER STOCK');
                     
                     // allow over stock...
-                    var allowoverstock = GeckoJS.Configure.read("vivipos.fec.settings.AllowOverStock") || false;
+                    var allowoverstock = GeckoJS.Configure.read('vivipos.fec.settings.AllowOverStock') || false;
                     if (!allowoverstock) {
                         cart.clear();
                         evt.preventDefault();
@@ -395,10 +395,10 @@
 
             if(amount === false) return;
 
-            var discountAmount = "";
+            var discountAmount = '';
 
-            if((amount+"").indexOf('$') == -1)  {
-                discountAmount = amount + "$";
+            if((amount+'').indexOf('$') == -1)  {
+                discountAmount = amount + '$';
             }
             this.addDiscount(discountAmount);
 
@@ -417,10 +417,10 @@
 
             if(amount === false) return;
 
-            var discountAmount = "";
+            var discountAmount = '';
 
-            if((amount+"").indexOf('%') == -1)  {
-                discountAmount = amount + "%";
+            if((amount+'').indexOf('%') == -1)  {
+                discountAmount = amount + '%';
             }
             this.addDiscount(discountAmount);
 
@@ -498,7 +498,7 @@
 
             var discountedItem = curTransaction.appendDiscount(index, discountItem);
 
-            this.log('afterAddDiscount ' + index + ","+ this.dump(discountItem) );
+            this.log('afterAddDiscount ' + index + ','+ this.dump(discountItem) );
             this.dispatchEvent('afterAddDiscount', discountedItem);
 
             GeckoJS.Session.remove('cart_last_sell_item');
@@ -522,10 +522,10 @@
 
             if(amount === false) return;
 
-            var surchargeAmount = "";
+            var surchargeAmount = '';
 
-            if((amount+"").indexOf('$') == -1)  {
-                surchargeAmount = amount + "$";
+            if((amount+'').indexOf('$') == -1)  {
+                surchargeAmount = amount + '$';
             }
             this.addSurcharge(surchargeAmount);
 
@@ -544,10 +544,10 @@
 
             if(amount === false) return;
             
-            var surchargeAmount = "";
+            var surchargeAmount = '';
 
-            if((amount+"").indexOf('%') == -1)  {
-                surchargeAmount = amount + "%";
+            if((amount+'').indexOf('%') == -1)  {
+                surchargeAmount = amount + '%';
             }
             this.addSurcharge(surchargeAmount);
 
@@ -708,8 +708,8 @@
                 var amount = parseFloat(buf)
                 // currency convert array
                 var currency_rate = currencies[convertIndex].currency_exchange;
-                var memo1 = currencies[convertIndex].currency + ":" + amount;
-                var memo2 = "x" + currency_rate;
+                var memo1 = currencies[convertIndex].currency + ':' + amount;
+                var memo2 = 'x' + currency_rate;
                 amount = amount * currency_rate;
                 this._getKeypadController().clearBuffer();
                 
@@ -781,13 +781,13 @@
             // if (curTransaction.isSubmit() || curTransaction.isCancel()) return;
 
             var payments = curTransaction.getPayments();
-            var statusStr = "";
+            var statusStr = '';
 
             for(var idx in payments) {
                 var payment = payments[idx];
 
                 statusStr += payment.name + '  =  ' + payment.amount + '\n';
-                statusStr += '    memo1: ' + (payment.memo1||"") + ' , memo2: ' + (payment.memo2||"") + '\n\n';
+                statusStr += '    memo1: ' + (payment.memo1||'') + ' , memo2: ' + (payment.memo2||'') + '\n\n';
             }
 
             alert(statusStr);
@@ -1040,15 +1040,15 @@
             var conds = condGroups[index]['Condiment'];
 
             var condiments = null;
-            var aURL = "chrome://viviecr/content/select_condiments.xul";
-            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=600,height=480";
+            var aURL = 'chrome://viviecr/content/select_condiments.xul';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=600,height=480';
             var inputObj = {
                 condgroup: condgroup,
                 condsData: conds,
                 condiments: condiments
             };
 
-            window.openDialog(aURL, "select_condiments", features, inputObj);
+            window.openDialog(aURL, 'select_condiments', features, inputObj);
 
             if (inputObj.ok && inputObj.condiments) {
                 return inputObj.condiments;
@@ -1059,13 +1059,13 @@
         },
 
         getMemoDialog: function (memo) {
-            var aURL = "chrome://viviecr/content/prompt_additem.xul";
-            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250";
+            var aURL = 'chrome://viviecr/content/prompt_additem.xul';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250';
             var inputObj = {
                 input0:memo,
                 input1:null
             };
-            window.openDialog(aURL, "prompt_addmemo", features, "Add Memo", "Please input:", "Memo:", "", inputObj);
+            window.openDialog(aURL, _('Add New Memo'), features, _('Add Memo'), '', _('Memo:'), '', inputObj);
 
             if (inputObj.ok && inputObj.input0) {
                 return inputObj.input0;
@@ -1149,7 +1149,7 @@
             var user = this.Acl.getUserPrincipal();
 
             var count = curTransaction.getItemsCount();
-            var key = "";
+            var key = '';
             var queuePool = this._getQueuePool();
 
             if (count > 0) {
@@ -1199,14 +1199,14 @@
                     queues.push({key: key});
                 }
             }
-            var aURL = "chrome://viviecr/content/select_queues.xul";
-            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=700,height=500";
+            var aURL = 'chrome://viviecr/content/select_queues.xul';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=700,height=500';
             var inputObj = {
                 queues: queues,
                 queuePool: queuePool
             };
 
-            window.openDialog(aURL, "select_queues", features, inputObj);
+            window.openDialog(aURL, 'select_queues', features, inputObj);
 
             if (inputObj.ok && inputObj.index) {
                 var idx = inputObj.index;

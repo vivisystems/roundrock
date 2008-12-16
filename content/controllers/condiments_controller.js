@@ -19,7 +19,7 @@
             var condGroups;
             var condGroupModel = new CondimentGroupModel();
             condGroups = condGroupModel.find('all', {
-                order: "name"
+                order: 'name'
             });
             GeckoJS.Session.add('condGroups', condGroups);
 
@@ -184,13 +184,13 @@
         },
 
         add: function  () {
-            var aURL = "chrome://viviecr/content/prompt_additem.xul";
-            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250";
+            var aURL = 'chrome://viviecr/content/prompt_additem.xul';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250';
 
             var inputObj = {input0:null, require0:true};
 
             window.openDialog(aURL,
-                              'prompt_additem',
+                              _('Add New Condiment Group'),
                               features,
                               _('New Condiment Group:'),
                               '',
@@ -202,7 +202,7 @@
                 var inputData = {name: inputObj.input0};
                 var condGroupModel = new CondimentGroupModel();
                 var condGroups = condGroupModel.findByIndex('all', {
-                    index: "name",
+                    index: 'name',
                     value: inputData.name
                 });
                 if ((condGroups != null) && (condGroups.length > 0)) {
@@ -214,7 +214,7 @@
 
                 // retrieve newly created record
                 var groups = condGroupModel.findByIndex('all', {
-                    index: "name",
+                    index: 'name',
                     value: inputData.name
                 });
                 if ((groups != null) && (groups.length > 0)) {
@@ -247,7 +247,7 @@
 
                 /// check if the name already exists and belongs to another condiment group
                 var conds = condGroupModel.findByIndex('all', {
-                    index: "name",
+                    index: 'name',
                     value: inputData.name
                 });
                 if ((conds != null) && (conds.length > 0)) {
@@ -342,7 +342,7 @@
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250';
             var inputObj = {input0:null, input1:0, require0:true, require1:true};
-            window.openDialog(aURL, 'prompt_additem', features, _('New Condiment:'), '', _('Condiment Name'), _('Condiment Price'), inputObj);
+            window.openDialog(aURL, _('Add New Condiment'), features, _('New Condiment:'), '', _('Condiment Name'), _('Condiment Price'), inputObj);
 
             if (inputObj.ok && inputObj.input0 && inputObj.input1) {
 
@@ -375,7 +375,7 @@
                 condModel.save(inputData);
                 // retrieve newly created record
                 var conds = condModel.findByIndex('all', {
-                    index: "name",
+                    index: 'name',
                     value: inputData.name
                 });
                 if ((conds != null) && (conds.length > 0)) {
