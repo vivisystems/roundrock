@@ -167,14 +167,7 @@
 
                 this.onExitPassword = function(evt) {
                     self.hideInput = false;
-
                     this.onClear();
-                    if (!evt.data) {
-                        self.setText0_0(_('Login Failed'));
-                        self.setText0_1('');
-                        self.setText1_0('');
-                        self.setText1_1('');
-                    }
                 }
 
                 this.format = function(number) {
