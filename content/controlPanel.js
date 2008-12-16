@@ -37,7 +37,8 @@
             $('#loading').hide();
         }, true);
 
-
+        // hide cancel button
+        document.getElementById('cancel').setAttribute('hidden', true);
     };
 
     window.addEventListener('load', startup, true);

@@ -77,9 +77,12 @@ function validateInput() {
     var input0Required = true;
     var input1Required = false;
     var validated = false;
+    var alphaOnly0 = false;
+    var alphaRE = /[^\w]/;
 
     if ('require0' in options) input0Required = options.require0;
     if ('require1' in options) input1Required = options.require1;
+    if ('alphaOnly0' in options) alphaOnly0 = options.alphaOnly0;
 
     var input0 = document.getElementById('input0').value;
     var input1 = document.getElementById('input1').value;
@@ -93,6 +96,9 @@ function validateInput() {
     if ((!input0Required || trimmed0.length > 0) &&
         ((!input1Required) || trimmed1.length > 0)) {
         validated = true;
+    }
+    if (alphaOnly0) {
+        validated = validated && !alphaRE.test(input0);
     }
     document.getElementById('ok').setAttribute('disabled', !validated);
 

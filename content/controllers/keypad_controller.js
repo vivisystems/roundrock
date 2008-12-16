@@ -133,7 +133,7 @@
                         this.getCartController().addItemByBarcode(cart.data);
                     }
                     else {
-                        this.getMainController().enter();s
+                        this.getMainController().enter();
                     }
                     break;
 			

@@ -210,7 +210,7 @@
 
             var setmenu = [];
             this._pluset.forEach(function(o){
-                setmenu.push(o.no + '=' + o.qty);
+                setmenu.push(encodeURI(o.no + '=' + o.qty));
             });
             $('#setmenu').val( setmenu.join('&'));
         },
@@ -226,9 +226,12 @@
 
             this._pluset = [];
             for (var key in pluset) {
+                //alert(key + ':' + decodeURI(key));
+                key = decodeURI(key);
                 if (key == '') break;
                 
                 var qty = pluset[key];
+                //alert(qty + ':' + decodeURI(qty));
                 var id = barcodesIndexes[key];
                 var name = productsById[id].name;
 
@@ -254,7 +257,7 @@
                 input1:1, require1:true
             };
 
-            window.openDialog(aURL, 'prompt_addpluset', features, _('Product Set'), '', _('Product No.or Barcode:'), _('Quantity:'), inputObj);
+            window.openDialog(aURL, _('Add New Product Set'), features, _('Product Set'), '', _('Product No.or Barcode:'), _('Quantity:'), inputObj);
 
             if (inputObj.ok && inputObj.input0 && inputObj.input1) {
                 var product = this._searchPlu(inputObj.input0);
@@ -271,12 +274,12 @@
                     this.getPluSetListObj().datasource = panelView;
                     var setmenu = [];
                     this._pluset.forEach(function(o){
-                        setmenu.push(o.no + '=' + o.qty);
+                        setmenu.push(encodeURI(o.no + '=' + o.qty));
                     });
                     $('#setmenu').val( setmenu.join('&'));
                 }
                 else {
-                    alert(_('(%S) not found.', [inputObj.input0]));
+                    alert(_('Product not found (%S).', [inputObj.input0]));
                 }
             }
 
@@ -365,10 +368,10 @@
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250';
             var inputObj = {
-                input0:null, require0:true,
+                input0:null, require0:true, alphaOnly0:true,
                 input1:null, require1:true
             };
-            window.openDialog(aURL, 'prompt_additem', features, _('New Product'), '', _('Product No.'), _('Product Name'), inputObj);
+            window.openDialog(aURL, _('Add New Product'), features, _('New Product'), '', _('Product No. [a-z,A-Z,0-9,_]:'), _('Product Name:'), inputObj);
 
             if (inputObj.ok && inputObj.input0 && inputObj.input1) {
                 var product = new ProductModel();

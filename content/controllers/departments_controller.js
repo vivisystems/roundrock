@@ -143,7 +143,7 @@
                 input0:null, require0:true,
                 input1:null, require1:true
             };
-            window.openDialog(aURL, 'prompt_additem', features, _('New Department'), _('Please input:'), _('Department Number'), _('Department Name'), inputObj);
+            window.openDialog(aURL, _('Add New Department'), features, _('New Department'), '', _('Department Number'), _('Department Name'), inputObj);
             if (inputObj.ok && inputObj.input0 && inputObj.input1) {
                 var dept = new CategoryModel();
 

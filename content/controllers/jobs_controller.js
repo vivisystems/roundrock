@@ -31,7 +31,7 @@
 
             this._jobAdded = false;
 
-            window.openDialog(aURL, 'prompt_additem', features, _('New Job'), '', _('Job Name'), '', inputObj);
+            window.openDialog(aURL, _('Add New Job'), features, _('New Job'), '', _('Job Name'), '', inputObj);
             if (inputObj.ok && inputObj.input0) {
                 evt.data.id = '';
                 evt.data.jobname = inputObj.input0;

@@ -65,10 +65,18 @@
                     window.close();
                 } else {
                     $('#user_password').val('');
-                    if (username == null && allowQuickLogin)
-                        alert(_('Authentication failed! Please make sure that the password is correct.'));
-                    else
-                        alert(_('Authentication failed! Please make sure that you have selected the right user and entered the correct password.'));
+                    if (username == null && allowQuickLogin) {
+                        // @todo OSD.text to be replaced with OSD.warn
+                        OsdUtils.text('<span color="red" font_desc="Times 20">'
+                                      +_('Authentication failed!\nPlease make sure that the password is correct.'
+                                      +'</span>'), 100, -200);
+                    }
+                    else {
+                        // @todo OSD.text to be replaced with OSD.warn
+                        OsdUtils.text('<span color="red" font_desc="Times 20">'
+                                      +_('Authentication failed!\nPlease make sure username and password are correct.'
+                                      +'</span>'), 100, -200);
+                    }
                 }
             }
         },

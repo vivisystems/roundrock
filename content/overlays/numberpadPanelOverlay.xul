@@ -12,7 +12,7 @@
 
         <vbox flex="1">
             <hbox id="fixedbtnrow" flex="1">
-                <vivibutton id="clearBtn"  label="&numberpad.keylabel.clear;" oncommand="$do('keypress', {keyCode: 27}, 'Keypad');" class="fixedbtn" />
+                <vivibutton id="clearBtn"  label="&numberpad.keylabel.clear;" oncommand="$do('keypress', {keyCode: 27}, 'Keypad');" class="fixedbtn" suspendable="false"/>
                 <vivibutton id="new_order" label="&numberpad.keylabel.queue.order;" class="fixedbtn" oncommand="$do('pushQueue',null,'Cart');" roles="acl_queue_order" action="display"/>
                 <vivibutton id="queueOrderBtn" label="&numberpad.keylabel.pull.queue;" class="fixedbtn" oncommand="$do('pullQueue', null,'Cart');" roles="acl_pull_queue"/>
                 <vivibutton id="modifyBtn" label="&numberpad.keylabel.modify;" class="fixedbtn" oncommand="$do('modifyItem', null,'Cart');" roles="acl_modify_cart_item"/>
@@ -22,7 +22,7 @@
             <hbox id="numpad" pack="start">
 
                 <vbox id="numpadCol1">
-                    <vivibutton id="enterBtn"  label="&numberpad.keylabel.enter;" oncommand="$do('keypress', {keyCode: 13}, 'Keypad');" class="fixedbtn" roles="acl_register_enter" action="display"/>
+                    <vivibutton id="enterBtn"  label="&numberpad.keylabel.enter;" oncommand="$do('keypress', {keyCode: 13}, 'Keypad');" class="fixedbtn" suspendable="false" roles="acl_register_enter" action="display"/>
                     <vivibutton id="cancelBtn"  label="&numberpad.keylabel.cancel;"    oncommand="$do('cancel', null, 'Cart');" class="fixedbtn" roles="acl_cancel_order" action="display"/>
                     <vivibutton id="subtotalBtn"  label="&numberpad.keylabel.subtotal;" oncommand="$do('keypress', {keyCode: 35}, 'Keypad');" class="fixedbtn" roles="acl_register_sub_total" action="display"/>
                     <vivibutton id="cashBtn"  label="&numberpad.keylabel.cash;"    oncommand="$do('cash', null, 'Cart');" class="fixedbtn" roles="acl_open_cash" action="display" />

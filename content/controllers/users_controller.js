@@ -28,12 +28,12 @@
             var user = evt.data;
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250';
-            var inputObj = {input0:null, require0:true,
+            var inputObj = {input0:null, require0:true, alphaOnly: true,
                             input1:null, require1:true, type1:'password'};
 
             this._userAdded = false;
 
-            window.openDialog(aURL, 'prompt_additem', features, _('New Employee'), '', _('Name:'), _('Password:'), inputObj);
+            window.openDialog(aURL, _('Add New Employee'), features, _('New Employee'), '', _('Name:'), _('Password:'), inputObj);
             if (inputObj.ok && inputObj.input0 && inputObj.input1) {
                 user.username = inputObj.input0;
                 user.password = inputObj.input1;
@@ -196,21 +196,21 @@
                 if (panel.selectedIndex >= 0) {
                     var user = view.data[panel.selectedIndex];
                     if (user) {
-                        GeckoJS.Configure.write('vivipos.fec.settings.DefaultUser', user.id);
+                        GeckoJS.Configure.write('vivipos.fec.settings.DefaultUser', user.username);
                     }
                 }
             }
         },
 
         // initialize selected user to userid
-        initUser: function(userid) {
+        initUser: function(username) {
             
             var panel = this.getListObj();
             var users = panel.datasource.data;
 
             if (users) {
                 for (var i = 0; i < users.length; i++) {
-                    if (users[i].id == userid) {
+                    if (users[i].username == username) {
                         panel.selectedItems = [i];
                         panel.selectedIndex = i;
                         break;
