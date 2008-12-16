@@ -11,8 +11,8 @@
 
 user_pref("#general.skins.selectedSkin", "style1/1.0");
 user_pref("app.update.lastUpdateTime.addon-background-update-timer", 1226036992);
-user_pref("app.update.lastUpdateTime.background-update-timer", 1229270056);
-user_pref("app.update.lastUpdateTime.blocklist-background-update-timer", 1229269456);
+user_pref("app.update.lastUpdateTime.background-update-timer", 1229357372);
+user_pref("app.update.lastUpdateTime.blocklist-background-update-timer", 1229356172);
 user_pref("browser.places.importBookmarksHTML", true);
 user_pref("browser.places.importDefaults", false);
 user_pref("browser.places.leftPaneFolderId", -1);
