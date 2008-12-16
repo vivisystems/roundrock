@@ -1,0 +1,11 @@
+.plus-button {
+    list-style-image: url(chrome://viviecr/skin/images/list-add.png);
+    max-height: 30px;
+    width: 40px;
+}
+
+.minus-button {
+    list-style-image: url(chrome://viviecr/skin/images/list-remove.png);
+    max-height: 30px;
+    width: 40px;
+}
