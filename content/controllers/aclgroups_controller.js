@@ -111,10 +111,13 @@
 
         createRoleList: function () {
 
-            var roles = this.Acl.getRoleList();
-            if (roles) {
-                roles = roles.map(function(role) {
-                    role.description = _(role.name);
+            var roleNames = this.Acl.getRoleList();
+            var roles = [];
+            if (roleNames) {
+                roles = roleNames.map(function(roleName) {
+                    var role = {};
+                    role.name = roleName;
+                    role.description = _(roleName);
                     return role;
                 });
                 roles = roles.sort(function(r1, r2) {
