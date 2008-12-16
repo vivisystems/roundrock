@@ -50,6 +50,90 @@ var OsdUtils = {
 
 	   this.worker.dispatch(runnable, this.worker.DISPATCH_NORMAL);
 
+	},
+
+
+ 	trace: function(markup, x, y, fade, display) {
+
+	    var format = "<span font_desc='Sans 40' color='green'>%MSG%</span>" ;
+	    var msg = format.replace('%MSG%', markup);
+
+	    x = (typeof x != 'undefined') ? x : -300;
+            y = (typeof y != 'undefined') ? y : -400;
+            fade = (typeof fade != 'undefined') ? fade : 200;
+            display = (typeof display != 'undefined') ? display : 1500;
+
+	    this.text(msg, x, y, fade, display, 2);
+
+	},
+
+ 	debug: function(markup, x, y, fade, display) {
+
+	    var format = "<span font_desc='Sans 40' color='green'><b>%MSG%</b></span>" ;
+	    var msg = format.replace('%MSG%', markup);
+
+	    x = (typeof x != 'undefined') ? x : -300;
+            y = (typeof y != 'undefined') ? y : -400;
+            fade = (typeof fade != 'undefined') ? fade : 200;
+            display = (typeof display != 'undefined') ? display : 1500;
+
+	    this.text(msg, x, y, fade, display, 2);
+
+	},
+
+ 	info: function(markup, x, y, fade, display) {
+
+	    var format = "<span font_desc='Sans 50' color='blue'>%MSG%</span>" ;
+	    var msg = format.replace('%MSG%', markup);
+
+	    x = (typeof x != 'undefined') ? x : -300;
+            y = (typeof y != 'undefined') ? y : -400;
+            fade = (typeof fade != 'undefined') ? fade : 200;
+            display = (typeof display != 'undefined') ? display : 1500;
+
+	    this.text(msg, x, y, fade, display, 2);
+
+	},
+
+ 	warn: function(markup, x, y, fade, display) {
+
+	    var format = "<span font_desc='Sans 50' color='blue'><b>%MSG%</b></span>" ;
+	    var msg = format.replace('%MSG%', markup);
+
+	    x = (typeof x != 'undefined') ? x : -300;
+            y = (typeof y != 'undefined') ? y : -400;
+            fade = (typeof fade != 'undefined') ? fade : 200;
+            display = (typeof display != 'undefined') ? display : 1500;
+
+	    this.text(msg, x, y, fade, display, 2);
+
+	},
+
+ 	error: function(markup, x, y, fade, display) {
+
+	    var format = "<span font_desc='Sans 60' color='red'><b>%MSG%</b></span>" ;
+	    var msg = format.replace('%MSG%', markup);
+
+	    x = (typeof x != 'undefined') ? x : -300;
+            y = (typeof y != 'undefined') ? y : -400;
+            fade = (typeof fade != 'undefined') ? fade : 200;
+            display = (typeof display != 'undefined') ? display : 1500;
+
+	    this.text(msg, x, y, fade, display, 2);
+
+	},
+
+ 	fatal: function(markup, x, y, fade, display) {
+
+	    var format = "<span font_desc='Sans 60' color='red'><b><i>%MSG%</i></b></span>" ;
+	    var msg = format.replace('%MSG%', markup);
+
+	    x = (typeof x != 'undefined') ? x : -300;
+            y = (typeof y != 'undefined') ? y : -400;
+            fade = (typeof fade != 'undefined') ? fade : 200;
+            display = (typeof display != 'undefined') ? display : 1500;
+
+	    this.text(msg, x, y, fade, display, 2);
 
 	}
 
