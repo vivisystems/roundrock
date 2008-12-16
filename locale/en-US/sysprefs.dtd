@@ -1,0 +1,51 @@
+<!ENTITY category.layout "Layout">
+<!ENTITY category.general "General Options">
+<!ENTITY category.login "Sign In/Out">
+<!ENTITY category.tax "Taxes">
+<!ENTITY terminalid "Terminal ID">
+<!ENTITY publicattendance "Individual Time-and-Attendance visible to all">
+<!ENTITY defaultlogin "Automatically log in default user:">
+<!ENTITY privatequeue "Private order queue">
+<!ENTITY defaultpricelevel "System default price level">
+<!ENTITY defaulttaxstatus "System default tax status">
+<!ENTITY dateformat "Date Format:">
+<!ENTITY timeformat "Time Format:">
+<!ENTITY precisionprices "Precision to Use for Prices">
+<!ENTITY precisiontaxes "Precision to Use for Taxes">
+<!ENTITY roundingprices "Rounding Policy to Use for Prices">
+<!ENTITY roundingtaxes "Rounding Policy to Use for Taxes">
+<!ENTITY rounding.to-nearest-precision "to nearest precision">
+<!ENTITY rounding.to-nearest-half "to nearest half">
+<!ENTITY rounding.to-nearest-quarter "to nearest quarter">
+<!ENTITY rounding.to-nearest-nickel "to nearest nickel">
+<!ENTITY rounding.to-nearest-dime "to nearest dime">
+<!ENTITY rounding.always-round-up "always round up">
+<!ENTITY rounding.always-round-down "always round down">
+<!ENTITY activepricelevelschedule "Activate Price Level Schedule">
+<!ENTITY pricelevelrevert "Price Level Reverts to Schedule after Each Order">
+<!ENTITY changedepartmentclearbuffer "Clear Input Buffer When Switching Departments">
+<!ENTITY allowoverstock "Allow Over Stock">
+<!ENTITY login.autodiscardcart "Automatically discard cart content when signing off">
+<!ENTITY login.autodiscardqueue "Automatically discard queued orders when signing off">
+<!ENTITY login.mustemptyqueue "Order queue must be emptied when signing off">
+<!ENTITY login.shiftreportonsignoff "Print shift report when users sign off">
+<!ENTITY login.shiftreportonquickswitch "Print shift report when quick-switching users">
+<!ENTITY login.allowquicklogin "Allow quick login by automatically matching user by password">
+<!ENTITY layout.registeratleft "Place Register Screen on the left side of screen">
+<!ENTITY layout.hidenumpad "Hide numeric keypad">
+<!ENTITY layout.functionpanelontop "Place Function Key Panel at the top of the screen">
+<!ENTITY layout.PLUbeforedept "Place PLU Panel before Department Panel">
+<!ENTITY layout.hidedeptscrollbar "Hide scrollbars for Department Panel">
+<!ENTITY layout.hidepluscrollbar "Hide scrollbars for PLU Panel">
+<!ENTITY layout.hidefpscrollbar "Hide scrollbars for Function Panel">
+<!ENTITY layout.cropdeptlabel "Crop Department Label (Need restart vivipos application)">
+<!ENTITY layout.cropplulabel "Crop PLU Label (Need restart vivipos application)">
+<!ENTITY layout.department.label "Department Dimension">
+<!ENTITY layout.department.rows "Rows:">
+<!ENTITY layout.department.cols "Columns:">
+<!ENTITY layout.plu.label "PLU Dimension">
+<!ENTITY layout.plu.rows "Rows:">
+<!ENTITY layout.plu.cols "Columns:">
+<!ENTITY layout.functionpanel.label "Function Panel Dimension">
+<!ENTITY layout.functionpanel.rows "Rows:">
+<!ENTITY layout.functionpanel.cols "Columns:">

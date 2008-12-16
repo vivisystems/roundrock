@@ -7,10 +7,11 @@
     GeckoJS.Controller.extend( {
         name: 'Stocks',
         scaffold: true,
-        uses: ["Product"],
+        uses: ['Product'],
 	
         _listObj: null,
         _listDatas: null,
+        _panelView: null,
         _selectedIndex: 0,
         _productsById: null,
         _barcodesIndexes: null,
@@ -29,24 +30,15 @@
 
         },
 
+        list: function() {
+            var productModel = new ProductModel();
+            var products = productModel.find('all', {
+                order: 'no'
+            });
+            this._listDatas = products;
+        },
+
         afterScaffoldIndex: function(evt) {
-
-            this._listDatas = evt.data;
-            return;
-            
-            var lowstock = document.getElementById('show_low_stock').checked;
-
-            if (lowstock) {
-                this._listDatas = evt.data.filter(function(d){
-                    return parseInt(d.stock) < parseInt(d.min_stock);
-                });
-            }else {
-                this._listDatas = evt.data;
-            }
-            var panelView =  new GeckoJS.NSITreeViewArray(this._listDatas);
-            this.getListObj().datasource = panelView;
-
-            this._listObj.selectedIndex = this._selectedIndex;
         },
 
         beforeScaffoldView: function(evt) {
@@ -59,7 +51,6 @@
         },
 
         beforeScaffoldSave: function (evt) {
-
         },
 
         afterScaffoldSave: function(evt) {
@@ -75,24 +66,26 @@
         },
 
         beforeScaffoldEdit: function (evt) {
-        // alert( GeckoJS.FormHelper.isFormModified("productForm"));
-        //evt.preventDefault();
-        //this.log("beforeScaffoldEdit: " + this.dump(evt));
+
         },
 
         afterScaffoldEdit: function (evt) {
-            var barcode = evt.data.no;
-            var product;
-            var id = this._barcodesIndexes[barcode];
-            product = this._productsById[id];
-            product.stock = evt.data.stock;
-            product.min_stock = evt.data.min_stock;
-
             if (evt.justUpdate) {
                 //
-            } else
-                this.load();
-            
+                alert('just update');
+            } 
+            else {
+                var product = this._productsById[evt.data.id];
+                product.stock = evt.data.stock;
+                product.min_stock = evt.data.min_stock;
+
+                var productModel = new ProductModel();
+                var products = productModel.find('all', {
+                    order: 'no'
+                });
+                this._listDatas = products;
+                this.updateStock();
+            }
         },
 
 
@@ -104,11 +97,10 @@
 
         },
 
-        searchPlu: function (barcode) {
-            // alert(barcode);
+        searchPlu: function () {
+            var barcode = document.getElementById('plu').value.replace(/^\s*/, '').replace(/\s*$/, '');
             $('#plu').val('').focus();
-            // $('#plu').focus();
-            if (barcode == "") return;
+            if (barcode == '') return;
 
             // var productsById = GeckoJS.Session.get('productsById');
             // var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
@@ -116,31 +108,49 @@
 
             if (!this._barcodesIndexes[barcode]) {
                 // barcode notfound
-                alert("Plu (" + barcode + ") Not Found!");
+                alert(_('Product/Barcode Number (%S) not found!', [barcode]));
             }else {
                 var id = this._barcodesIndexes[barcode];
                 product = this._productsById[id];
-                // this.log("product:" + this.dump(product));
                 GeckoJS.FormHelper.reset('productForm');
                 GeckoJS.FormHelper.unserializeFromObject('productForm', product);
+
+                this._selectedIndex = -1;
+                this._listObj.selectedIndex = -1;
+                this._listObj.vivitree.view.selection.clearSelection();
             }
+
+            this.validateForm();
         },
 
-        clickLowStock: function () {
-            // var datas = [];
+        updateStock: function (reset) {
             var lowstock = document.getElementById('show_low_stock').checked;
 
             if (lowstock) {
+                var oldlength = this._datas.length;
                 this._datas = this._listDatas.filter(function(d){
                     return parseInt(d.stock) < parseInt(d.min_stock);
                 });
-            }else {
+                if (oldlength != this._datas.length) reset = true;
+            }
+            else {
                 this._datas = this._listDatas;
             }
-            var panelView =  new GeckoJS.NSITreeViewArray(this._datas);
-            this.getListObj().datasource = panelView;
+            if (reset || this._panelView == null) {
+                this._panelView = new GeckoJS.NSITreeViewArray(this._datas);
+                this.getListObj().datasource = this._panelView;
+            }
+            else {
+                this._panelView.data = this._datas;
+            }
+            this._listObj.vivitree.refresh();
+            //this.select(this._selectedIndex);
+            this.validateForm();
+        },
 
-            this._listObj.selectedIndex = this._selectedIndex;
+        clickLowStock: function () {
+            this._selectedIndex = -1;
+            this.updateStock(true);
         },
 
         decStock: function (obj) {
@@ -152,11 +162,12 @@
                 var item = this.Product.findById(ordItem.id);
                 if (item.auto_maintain_stock) {
                     item.stock = item.stock - ordItem.current_qty;
-
                     var product = new ProductModel();
+
+                    product.id = item.id;
                     product.save(item);
                     delete product;
-
+                    
                     // fire onLowStock event...
                     if (item.min_stock > item.stock) {
                         this.dispatchEvent('onLowStock', item);
@@ -169,18 +180,45 @@
             }
         },
 
-        load: function (data) {
+        load: function () {
+
+            this._selectedIndex = -1;
             this.requestCommand('list');
-            this.clickLowStock();
+            $('#plu_id').val('');
+            this.updateStock();
         },
 
         select: function(index){
+
+           if (index >= this._datas.length) index = this._datas.length - 1;
+            this._selectedIndex = index;
+            
             if (index >= 0) {
-                // var item = this._listDatas[index];
                 var item = this._datas[index];
-                this._selectedIndex = index;
                 this.requestCommand('view', item.id);
             }
+            else {
+                // clear form only if plu_id not set
+                if ($('#plu_id').val() == '')
+                    GeckoJS.FormHelper.reset('productForm');
+            }
+
+            this.validateForm();
+        },
+
+        validateForm: function () {
+            var inputObj = GeckoJS.FormHelper.serializeToObject('productForm');
+            if (inputObj.id != null && inputObj.id != '') {
+                document.getElementById('modify_stock').setAttribute('disabled', false);
+                document.getElementById('stock').removeAttribute('disabled');
+                document.getElementById('min_stock').removeAttribute('disabled');
+            }
+            else {
+                document.getElementById('modify_stock').setAttribute('disabled', true);
+                document.getElementById('stock').setAttribute('disabled', true);
+                document.getElementById('min_stock').setAttribute('disabled', true);
+            }
+            document.getElementById('plu').focus();
         }
 	
     });

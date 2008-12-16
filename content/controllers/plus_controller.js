@@ -10,6 +10,8 @@
         screenheight: 600,
         _selectedIndex: null,
         _selCateNo: null,
+        _selCateName: null,
+        _selCateIndex: null,
         components: ['Tax'],
         
         catePanelView: null,
@@ -21,30 +23,17 @@
         createGroupPanel: function () {
             var pluGroupModel = new PlugroupModel();
             var groups = pluGroupModel.find('all', {
-                order: "no"
             });
 
             var group_listscrollablepanel = document.getElementById('group_listscrollablepanel');
             var plugroupPanelView = new NSIPluGroupsView(groups);
             group_listscrollablepanel.datasource = plugroupPanelView;
-            var self = this;
+
             doSetOKCancel(
                 function(){
-
-/*
-// can't be check if has the boolean fields...
-try {
-                    var isModify = self.Form.isFormModified("productForm");
-}
-catch (e) {
-    // self.log(self.dump(e));
-};
-                    alert("isModify:" + isModify);
-*/
                     return true;
                 },
                 function(){
-                    // alert("Cancel...");
                     return true;
                 }
             );
@@ -56,10 +45,13 @@ catch (e) {
             this.productPanelView = new NSIProductsView('prodscrollablepanel');
             
             this.productPanelView.setCatePanelView(this.catePanelView);
-            //this.productPanelView.setCatePanelIndex(0);
 
-            //this.changePluPanel(0);
+            var catpanel = document.getElementById('catescrollablepanel');
+            catpanel.selectedIndex = -1;
+            catpanel.selectedItems = [];
 
+            // initialize input field states
+            this.validateForm(true);
         },
 
         changePluPanel: function(index) {
@@ -67,80 +59,102 @@ catch (e) {
             this.productPanelView.setCatePanelIndex(index);
             var category = this.catePanelView.getCurrentIndexData(index);
 
-            this.resetInputData();
             if (category) {
                 this._selCateNo = category.no;
-                $("#cate_no").val(category.no);
-
+                this._selCateName = category.name;
+                this._selCateIndex = index;
+                $('#cate_no').val(category.no);
+                $('#cate_name').val(category.name);
                 this.clickPluPanel(-1);
             }
         },
 
         clickPluPanel: function(index) {
             var product = this.productPanelView.getCurrentIndexData(index);
+            var plupanel = document.getElementById('prodscrollablepanel');
+            var rate;
 
             this._selectedIndex = index;
+            plupanel.selectedIndex = index;
+            plupanel.selectedItems = [index];
+
             if (product) {
-                this.resetInputData();
+                product.cate_name = this._selCateName;
                 this.setInputData(product);
+                rate = product.rate;
             }
             else {
-                var plupanel = document.getElementById('prodscrollablepanel');
-                plupanel.selectedIndex = -1;
-                plupanel.selectedItems = [];
-            }
+                var valObj = this.getInputDefault();
+                valObj.cate_no = this._selCateNo;
+                valObj.cate_name = this._selCateName;
+                this.setInputData(valObj);
 
-            var rate = $("#rate").val();
+                rate = null;
+            }
+            var taxes = GeckoJS.Session.get('taxes');
+            if (taxes == null) taxes = this.Tax.getTaxList();
+
             if (!rate || rate == '') {
+                
                 // set rate to system default
                 var defaultRate = GeckoJS.Configure.read('vivipos.fec.settings.DefaultTaxStatus');
                 if (!defaultRate || defaultRate == '') {
-                    var taxes = GeckoJS.Session.get('taxes');
                     if (taxes == null) taxes = this.Tax.getTaxList();
                     if (taxes && taxes.length > 0) defaultRate = taxes[0].no;
                 }
-                $("#rate").val(defaultRate);
+                rate = defaultRate;
             }
-
-
+            // look for rate name
+            var ratename;
+            for (var i = 0; i < taxes.length; i++) {
+                if (taxes[i].no == rate) {
+                    ratename = taxes[i].name;
+                    break;
+                }
+            }
+            $('#rate').val(rate);
+            $('#rate_name').val(ratename);
+            
+            this.validateForm(index == -1);
         },
 
         getDepartment: function () {
-            var cate_no = $("#cate_no").val();
+            var cate_no = $('#cate_no').val();
             var cates_data = GeckoJS.Session.get('categories');
 
-            var aURL = "chrome://viviecr/content/select_department.xul";
-            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=800,height=600";
+            var aURL = 'chrome://viviecr/content/select_department.xul';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=800,height=600';
             var inputObj = {
                 cate_no: cate_no,
-                depsData: cates_data
+                depsData: cates_data,
+                index: this._selCateIndex
             };
-            window.openDialog(aURL, "select_department", features, inputObj);
+            window.openDialog(aURL, 'select_department', features, inputObj);
 
             if (inputObj.ok && inputObj.cate_no) {
-                $("#cate_no").val(inputObj.cate_no);
+                $('#cate_no').val(inputObj.cate_no);
+                $('#cate_name').val(inputObj.cate_name);
             }
         },
 
         getCondiment: function () {
-            var cond_group = $("#cond_group").val();
-            var aURL = "chrome://viviecr/content/select_condgroup.xul";
-            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=800,height=600";
+            var cond_group = $('#cond_group').val();
+            var aURL = 'chrome://viviecr/content/select_condgroup.xul';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=800,height=600';
             var inputObj = {
                 cond_group: cond_group
             };
-            window.openDialog(aURL, "select_cond_group", features, inputObj);
+            window.openDialog(aURL, 'select_cond_group', features, inputObj);
 
             if (inputObj.ok && inputObj.cond_group) {
-                $("#cond_group").val(inputObj.cond_group);
-
+                $('#cond_group').val(inputObj.cond_group);
             }
         },
 
         getRate: function () {
-            var rate = $("#rate").val();
-            var aURL = "chrome://viviecr/content/select_tax.xul";
-            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=800,height=600";
+            var rate = $('#rate').val();
+            var aURL = 'chrome://viviecr/content/select_tax.xul';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=800,height=600';
             var inputObj = {
                 rate: rate
             };
@@ -150,10 +164,10 @@ catch (e) {
 
             inputObj.taxes = taxes;
             
-            window.openDialog(aURL, "select_rate", features, inputObj);
+            window.openDialog(aURL, 'select_rate', features, inputObj);
 
             if (inputObj.ok && inputObj.rate) {
-                $("#rate").val(inputObj.rate);
+                $('#rate').val(inputObj.rate);
 
             }
         },
@@ -167,14 +181,11 @@ catch (e) {
 
         clickPluSetsPanel: function (index) {
             this._selectedPluSetIndex = index;
-        // this.log("clickPluSetsPanel:" + index);
         },
 
         _searchPlu: function (barcode) {
-            // alert(barcode);
             $('#plu').val('').focus();
-            // $('#plu').focus();
-            if (barcode == "") return;
+            if (barcode == '') return;
 
             var productsById = GeckoJS.Session.get('productsById');
             var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
@@ -182,7 +193,7 @@ catch (e) {
 
             if (!barcodesIndexes[barcode]) {
                 // barcode notfound
-                // alert("Plu (" + barcode + ") Not Found!");
+                // alert('Plu (' + barcode + ') Not Found!');
                 return null;
             }else {
                 var id = barcodesIndexes[barcode];
@@ -199,23 +210,23 @@ catch (e) {
 
             var setmenu = [];
             this._pluset.forEach(function(o){
-                setmenu.push(o.no + "=" + o.qty);
+                setmenu.push(o.no + '=' + o.qty);
             });
-            $("#setmenu").val( setmenu.join("&"));
+            $('#setmenu').val( setmenu.join('&'));
         },
 
         _setPluSet: function () {
             var productsById = GeckoJS.Session.get('productsById');
             var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
-            var str = $("#setmenu").val();
+            var str = $('#setmenu').val();
 
             var pluset = GeckoJS.String.parseStr(str);
 
-            // this.log("pluset:" + this.dump(pluset));
+            // this.log('pluset:' + this.dump(pluset));
 
             this._pluset = [];
             for (var key in pluset) {
-                if (key == "") break;
+                if (key == '') break;
                 
                 var qty = pluset[key];
                 var id = barcodesIndexes[key];
@@ -235,16 +246,15 @@ catch (e) {
 
 
         getPlu: function (){
-            // $do('PLUSearchDialog', null, 'Main');
 
-            var aURL = "chrome://viviecr/content/prompt_addpluset.xul";
-            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250";
+            var aURL = 'chrome://viviecr/content/prompt_addpluset.xul';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250';
             var inputObj = {
-                input0:null,
-                input1:1
+                input0:null, require0:true,
+                input1:1, require1:true
             };
 
-            window.openDialog(aURL, "prompt_addpluset", features, "Plu Set Menu", "Please input:", "Plu No or Barcode:", "Qty:", inputObj);
+            window.openDialog(aURL, 'prompt_addpluset', features, _('Product Set'), '', _('Product No.or Barcode:'), _('Quantity:'), inputObj);
 
             if (inputObj.ok && inputObj.input0 && inputObj.input1) {
                 var product = this._searchPlu(inputObj.input0);
@@ -261,12 +271,40 @@ catch (e) {
                     this.getPluSetListObj().datasource = panelView;
                     var setmenu = [];
                     this._pluset.forEach(function(o){
-                        setmenu.push(o.no + "=" + o.qty);
+                        setmenu.push(o.no + '=' + o.qty);
                     });
-                    $("#setmenu").val( setmenu.join("&"));
+                    $('#setmenu').val( setmenu.join('&'));
                 }
-
+                else {
+                    alert(_('(%S) not found.', [inputObj.input0]));
+                }
             }
+
+        },
+
+        disableInputData: function (disabled) {
+            this.query('[form=productForm]').each(function() {
+                if (this.id == 'level_enable1') return;
+                
+                if (disabled)
+                    this.setAttribute('disabled', true);
+                else
+                    this.removeAttribute('disabled');
+            });
+        },
+
+        getInputDefault: function () {
+            var valObj = {};
+            this.query('[form=productForm]').each(function() {
+                var n = this.name || this.getAttribute('name');
+                if (!n) return;
+                var v = this.getAttribute('default');
+
+                if (typeof v != 'undefined') {
+                    valObj[n] = v;
+                }
+            });
+            return valObj;
 
         },
 
@@ -279,12 +317,10 @@ catch (e) {
         },
 
         setInputData: function (valObj) {
-            // this.log("valObj:" + this.dump(valObj));
-
             GeckoJS.FormHelper.unserializeFromObject('productForm', valObj);
             this._setPluSet();
             if (valObj) {
-                document.getElementById('pluimage').setAttribute("src", "chrome://viviecr/content/skin/pluimages/" + valObj.no + ".png?" + Math.random());
+                document.getElementById('pluimage').setAttribute('src', 'chrome://viviecr/content/skin/pluimages/' + valObj.no + '.png?' + Math.random());
             }
         },
 
@@ -292,21 +328,31 @@ catch (e) {
             var prods = GeckoJS.Session.get('products');
             var result = 0;
             if (data.no.length <= 0) {
-                alert('No is empty...');
+                alert(_('Product No. must not be empty.'));
                 result = 3;
             } else if (data.name.length <= 0) {
-                alert('Name is empty...');
+                alert(_('Product Name must not be empty.'));
                 result = 4;
             } else {
-                if (prods) prods.forEach(function(o){
-                    if (o.no == data.no) {
-                        alert('Duplicate Plu No...' + data.no);
-                        result = 1;
-                    } else if (o.name == data.name) {
-                        alert('Duplicate Plu Name...' + data.name);
-                        result = 2;
+                if (prods)
+                    for (var i = 0; i < prods.length; i++) {
+                        var o = prods[i];
+                        if (o.no == data.no && data.id == null) {
+                            alert(_('The Product No. (%S) already exists. New product not added.', [data.no]));
+                            result = 1;
+                            break;
+                        } else if (o.name == data.name) {
+                            if (data.id == null) {
+                                alert(_('The Product Name (%S) already exists. New product not added.', [data.name]));
+                                result = 2;
+                            }
+                            else if (data.id != o.id) {
+                                alert(_('The Product Name (%S) already exists. Product not modified.', [data.name]));
+                                result = 2;
+                            }
+                            break;
+                        }
                     }
-                });
             }
             return result;
         },
@@ -316,25 +362,27 @@ catch (e) {
 
             var inputData = this.getInputData();
 
-            var aURL = "chrome://viviecr/content/prompt_additem.xul";
-            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250";
+            var aURL = 'chrome://viviecr/content/prompt_additem.xul';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250';
             var inputObj = {
-                input0:null,
-                input1:null
+                input0:null, require0:true,
+                input1:null, require1:true
             };
-            window.openDialog(aURL, "prompt_additem", features, "New Plu", "Please input:", "No", "Name", inputObj);
+            window.openDialog(aURL, 'prompt_additem', features, _('New Product'), '', _('Product No.'), _('Product Name'), inputObj);
 
-            GREUtils.log(GeckoJS.BaseObject.dump(inputData))
             if (inputObj.ok && inputObj.input0 && inputObj.input1) {
                 var product = new ProductModel();
                 inputData.no = inputObj.input0;
                 inputData.name = inputObj.input1;
+                inputData.id = null;
 
                 if(this._checkData(inputData) == 0) {
                     if (inputData.cate_no.length == 0) inputData.cate_no = this._selCateNo;
-                    this.resetInputData();
-                    $("#cate_no").val(inputData.cate_no);
-                    var prodData = this.getInputData(); // get product default
+
+                    // reset form to get product defaults
+                    var prodData = this.getInputDefault();
+                    var newData = this.getInputData();
+                    GREUtils.extend(prodData, newData);
 
                     prodData.id = '';
                     prodData.no = inputData.no;
@@ -345,7 +393,9 @@ catch (e) {
 
                     this.updateSession();
 
-                    this.clickPluPanel(document.getElementById('prodscrollablepanel').currentIndex);
+                    // newly added item is appended to end; jump cursor to end
+                    var index = this.productPanelView.data.length - 1;
+                    this.clickPluPanel(index);
                 }
             }
 
@@ -355,35 +405,38 @@ catch (e) {
             if (this._selectedIndex == null || this._selectedIndex == -1) return;
 
             var inputData = this.getInputData();
-            var prodModel = new ProductModel();
-            var self = this;
-
+GREUtils.log('modify <' + this._selectedIndex + '> ' + GeckoJS.BaseObject.dump(inputData));
             if(this._selectedIndex >= 0) {
 
-                prodModel.id = inputData.id;
-                prodModel.save(inputData);
+                // need to make sure product name is unique
+                if (this._checkData(inputData) == 0) {
+                    var prodModel = new ProductModel();
+                    prodModel.id = inputData.id;
+                    prodModel.save(inputData);
 
-                this.updateSession();
-                
+                    this.updateSession();
+                }
             }
         },
 
         remove: function() {
             if (this._selectedIndex == null || this._selectedIndex == -1) return;
             
-            if (GREUtils.Dialog.confirm(null, "confirm delete", "Are you sure?")) {
+            if (GREUtils.Dialog.confirm(null, _('confirm delete'), _('Are you sure?'))) {
                 var prodModel = new ProductModel();
                 var index = document.getElementById('prodscrollablepanel').selectedIndex;
 
                 var product = this.productPanelView.getCurrentIndexData(index);
                 
-                if(product) {
+                if (product) {
                     prodModel.del(product.id);
-                    this.resetInputData();
+
                     this.updateSession();
-                    
-                    this.clickPluPanel(document.getElementById('prodscrollablepanel').currentIndex);
-                    $("#cate_no").val(this._selCateNo);
+
+                    var newIndex = this._selectedIndex;
+                    if (newIndex > this.productPanelView.data.length - 1) newIndex = this.productPanelView.data.length - 1;
+
+                    this.clickPluPanel(newIndex);
                 }
             }
         },
@@ -391,9 +444,53 @@ catch (e) {
         updateSession: function() {
             var prodModel = new ProductModel();
             var products = prodModel.find('all', {
-                order: "cate_no"
+                order: 'cate_no'
             });
             GeckoJS.Session.add('products', products);
+        },
+
+        validateForm: function(resetTabs) {
+            // category selected?
+            document.getElementById('add_plu').setAttribute('disabled', (this._selCateNo == null || this._selCateNo == -1));
+
+            // reset tab panel to first tab?
+            if (resetTabs) document.getElementById('tabs').selectedIndex = 0;
+
+            // plu selected?
+            if (this._selectedIndex == null || this._selectedIndex == -1) {
+                // disable Modify, Delete buttons
+                document.getElementById('modify_plu').setAttribute('disabled', true);
+                document.getElementById('delete_plu').setAttribute('disabled', true);
+
+                // disable all tabs
+                document.getElementById('tab1').setAttribute('disabled', true);
+                document.getElementById('tab2').setAttribute('disabled', true);
+                document.getElementById('tab3').setAttribute('disabled', true);
+                document.getElementById('tab4').setAttribute('disabled', true);
+                document.getElementById('tab5').setAttribute('disabled', true);
+                document.getElementById('tab6').setAttribute('disabled', true);
+
+                // disable all fields
+                this.disableInputData(true);
+            }
+            else {
+                var productName = document.getElementById('product_name').value.replace(/^\s*/, '').replace(/\s*$/, '');
+
+                // enable all tabs
+                document.getElementById('tab1').removeAttribute('disabled');
+                document.getElementById('tab2').removeAttribute('disabled');
+                document.getElementById('tab3').removeAttribute('disabled');
+                document.getElementById('tab4').removeAttribute('disabled');
+                document.getElementById('tab5').removeAttribute('disabled');
+                document.getElementById('tab6').removeAttribute('disabled');
+
+                // enable all fields
+                this.disableInputData(false);
+
+                // conditionally enable Modify, Delete buttons
+                document.getElementById('modify_plu').setAttribute('disabled', productName.length == 0);
+                document.getElementById('delete_plu').setAttribute('disabled', false);
+            }
         }
     });
 

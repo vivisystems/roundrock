@@ -813,6 +813,9 @@
         var functionArray = [];
         
         for (var i = 0; i < keys.length; i++) {
+            fns[keys[i]].name = _(keys[i] + '.name');
+            fns[keys[i]].label = _(keys[i] + '.label');
+            fns[keys[i]].desc = _(keys[i] + '.desc');
             functionArray.push(fns[keys[i]]);
         }
         functionArray.sort(function(a, b) {

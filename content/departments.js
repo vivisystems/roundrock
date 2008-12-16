@@ -3,13 +3,20 @@
 /**
  * Controller Startup
  */
-function startup() {
+    function startup() {
 
-	$do('createDepartmentPanel', null, "Departments");
+        $do('createDepartmentPanel', null, "Departments");
 
-};
+        // set default tax rate
+        var taxes = GeckoJS.Session.get('taxes');
+        if (taxes == null) taxes = this.Tax.getTaxList();
 
-window.addEventListener('load', startup, false);
+        if (taxes.length > 0) {
+            document.getElementById('rate').setAttribute('default', taxes[0].no);
+        }
+    };
+
+    window.addEventListener('load', startup, false);
 
 
 })();

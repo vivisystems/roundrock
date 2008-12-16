@@ -17,12 +17,12 @@
             <vbox flex="1" class="footlogo">
 
 <!-- Begin Departments - PLUs -->
-                <vbox id="catsplus">
+                <vbox id="deptplus">
                     <caption label="&departments.title;"/>
                     <hbox>
                         <hbox flex="1" pack="start">
                             <vbox pack="start" flex="1">
-                                <viviscrollablebuttonpanel dir="reverse" id="catescrollablepanel" flex="1" cols="4" rows="6" labelField="name" imageField="no"
+                                <viviscrollablebuttonpanel dir="reverse" id="deptscrollablepanel" flex="1" cols="4" rows="6" labelField="name" imageField="no"
                                                            ensureVisible="true"
                                                            oncommand="$do('changeDepartmentPanel',this.selectedIndex, 'Departments');"
                                                            class="catescrollablepanel"
@@ -37,52 +37,51 @@
                         <spacer style="height: 30px;" />
                         <hbox>
                             <vbox>
-                                <groupbox>
-                                    <caption label="&departments.details;" />
-                                    <grid>
-                                        <rows>
-                                            <row>
-                                                <label style="width:10em" value="&departments.number;"/>
-                                                <textbox id="category_no" readonly="true" form="depForm" name="no"/>
-                                            </row>
-                                            <row>
-                                                <label style="width:10em" value="&departments.name;" />
-                                                <textbox id="category_name" value="" form="depForm" name="name"/>
-                                            </row>
+                                <grid>
+                                    <rows>
+                                        <row>
+                                            <label style="width:10em" value="&departments.number;"/>
+                                            <textbox id="dept_no" readonly="true" form="deptForm" name="no" onfocus="this.select()"/>
+                                        </row>
+                                        <row>
+                                            <label style="width:10em" value="&departments.name;" control="dept_name"/>
+                                            <textbox id="dept_name" value="" form="deptForm" name="name" oninput="$do('validateForm', null, 'Departments')" onfocus="this.select()"/>
+                                        </row>
 
-                                            <row>
-                                                <label value="&departments.taxrate;"/>
-                                                <textbox id="rate" value="" form="depForm" name="rate" readonly="true" onclick="$do('getRate',this.selectedIndex,'Departments');"/>
-                                            </row>
+                                        <row>
+                                            <label value="&departments.taxrate;"/>
+                                            <label id="rate" value="" form="deptForm" name="rate" hidden="true" default=""/>
+                                            <textbox id="rate_name" value="" form="deptForm" name="rate_name" readonly="true" default="" onclick="$do('getRate',this.selectedIndex,'Departments');" onfocus="this.select()"/>
+                                        </row>
 
-                                            <row>
-                                                <checkbox id="category_visible" value="1" label="&departments.visible;" form="depForm" name="visible" default="1"/>
-                                            </row>
+                                        <row>
+                                            <checkbox id="dept_visible" value="1" label="&departments.visible;" form="deptForm" name="visible" default="1"/>
+                                        </row>
 
-                                            <row>
-                                                <checkbox id="category_cansale" value="0" label="&departments.sale;" form="depForm" name="cansale" default="0"/>
-                                            </row>
-                                        </rows>
-                                    </grid>
+                                        <row>
+                                            <checkbox id="dept_cansale" value="0" label="&departments.sale;" form="deptForm" name="cansale" default="0"/>
+                                        </row>
+                                    </rows>
+                                </grid>
 
-                                </groupbox>
                                 <groupbox>
                                     <caption label="&departments.button.color;" />
-                                    <button_colorpicker id="category_button_color" form="depForm" name="button_color" buttonClass="catbtn button-radius" default="default"/>
+                                    <button_colorpicker id="dept_button_color" form="deptForm" name="button_color" buttonClass="catbtn button-radius" default="default"/>
                                 </groupbox>
                                 <groupbox>
                                     <caption label="&departments.font.size;" />
-                                    <button_fontsizepicker id="category_font_size" form="depForm" name="font_size" buttonClass="catbtn button-white button-radius" default="medium"/>
+                                    <button_fontsizepicker id="dept_font_size" form="deptForm" name="font_size" buttonClass="catbtn button-white button-radius" default="medium"/>
                                 </groupbox>
+                        <separator class="groove-thin"/>
+                        <spacer flex="1"/>
+                        <hbox>
+                            <button id="add_dept" label="&departments.button.action.add;" disabled="false" class="editbtns" oncommand="$do('add', null, 'Departments');" />
+                            <spacer flex="1" />
+                            <button id="modify_dept" label="&departments.button.action.modify;" disabled="false" class="editbtns" oncommand="$do('modify', null, 'Departments');" />
+                            <button id="delete_dept" label="&departments.button.action.delete;" disabled="false" class="editbtns" oncommand="$do('remove', null, 'Departments');" />
+                        </hbox>
                             </vbox>
                         </hbox>
-                    </hbox>
-                    <spacer style="height: 10px;" />
-                    <hbox>
-                        <button label="Add" class="editbtns" oncommand="$do('add', null, 'Departments');" />
-                        <spacer flex="1" />
-                        <button label="Delete" class="editbtns" oncommand="$do('remove', null, 'Departments');" />
-                        <button label="Modify" class="editbtns" oncommand="$do('modify', null, 'Departments');" />
                     </hbox>
                 </vbox>
 

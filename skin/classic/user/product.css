@@ -121,6 +121,9 @@
 .depart_scroll_up label {
 	display: none;
 }
+.depart_scroll_up description {
+	display: none;
+}
 .depart_scroll_down {
     min-height: 32px;
     max-height: 32px;
@@ -138,6 +141,9 @@
 	background: transparent url(images/departDown_a.png) center center no-repeat;
 }
 .depart_scroll_down label {
+	display: none;
+}
+.depart_scroll_down description {
 	display: none;
 }
 

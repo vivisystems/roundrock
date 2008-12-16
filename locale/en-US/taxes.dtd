@@ -1,0 +1,13 @@
+<!ENTITY taxes.title  "Taxes">
+<!ENTITY taxes.details "Tax Details:">
+<!ENTITY taxes.code "Tax Code:">
+<!ENTITY taxes.type "Tax Type:">
+<!ENTITY taxes.name "Tax Name:">
+<!ENTITY taxes.rate "Tax Rate:">
+<!ENTITY taxes.rate_type "Rate Type:">
+<!ENTITY taxes.rate_type.percentage "Percentage">
+<!ENTITY taxes.rate_type.fixed_amount "Fixed Amount">
+<!ENTITY taxes.threshold "Threshold:">
+<!ENTITY taxes.button.action.add "Add">
+<!ENTITY taxes.button.action.modify "Modify">
+<!ENTITY taxes.button.action.delete "Delete">

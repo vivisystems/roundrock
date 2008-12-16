@@ -10,9 +10,8 @@
     function startup() {
 
         $('#clearBtn')[0].addEventListener('command', clearTextBox, false);
-        // $('#ekeyBtn')[0].addEventListener('command', searchPlu, true);
         $('#plu').focus();
-        
+
         $do('load', null, 'Stocks');
 
     };
@@ -22,7 +21,9 @@
      */
     function clearTextBox() {
 
-        $('#plu').val('');
+        // $('#plu').val('').focus();
+        var focusedElement = document.commandDispatcher.focusedElement;
+        focusedElement.value = '';
 
     };
 

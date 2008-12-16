@@ -9,7 +9,7 @@
      */
     function startup() {
         $('#clearBtn')[0].addEventListener('command', clearTextBox, false);
-
+       
         $do('load', null, 'CurrencySetup');
 
         doSetOKCancel(
@@ -22,7 +22,7 @@
             }
             );
 
-        $('#currency_1').focus();
+        $('#currency_exchange_1').focus();
 
     };
 

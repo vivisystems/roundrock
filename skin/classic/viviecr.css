@@ -104,7 +104,11 @@
     /* list-style-image: none; */
 }
 
-.rightprevbtn label, .rightnextbtn label{
+.rightprevbtn label, .rightnextbtn label {
+	display: none;
+}
+
+.rightprevbtn description, .rightnextbtn description {
 	display: none;
 }
 
@@ -381,10 +385,61 @@ treechildren::-moz-tree-cell-text(treecellTOTAL) {color: yellow;}
   text-align: center;
     -moz-box-align:center;
     -moz-box-pack:center;
+}
+
+.dialogbtns button[disabled=false]:active , .editbtns[disabled=false]:active, .timepickerbtns[disabled=false]:active {
+    background-position:0pt -60px;
+    border: 2px solid;
+    -moz-border-top-colors: #444 #222;
+    -moz-border-right-colors: #444 #ddd;
+    -moz-border-bottom-colors: #444 #ddd;
+    -moz-border-left-colors: #444 #222;
+}
+
+.promptbtns button, .editbtns, .widebtns, .timepickerbtns {
+    min-width:100px;
+    max-width:100px;
+    min-height:45px;
+    max-height:45px;
+    height: 45px;
+    width: 100px;
+    margin: 0px 1px 1px 0px;
+    padding: 0px;
+    list-style-type: none;
+    color: white;
+    font-weight: bold !important;
+    font-size: 14px;
+    overflow: hidden;
     text-wrap: normal;
     word-wrap: break-word;
+    border: 1px solid;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-border-radius: 8px;
+    -moz-border-top-colors: #444;
+    -moz-border-right-colors: #444;
+    -moz-border-bottom-colors: #444;
+    -moz-border-left-colors: #444;
+    /* background: white; */
+    background: url(images/white.png);
+    color: black;
 }
-.dialogbtns button:active , .editbtns:active, .timepickerbtns:active {
+.promptbtns button hbox{
+  max-height: 50px;
+  height: 50px;
+}
+.promptbtns button hbox image{
+  max-height: 24px;
+  max-width: 24px;
+}
+.promptbtns button hbox label{
+  max-width: 100px;
+  width: 100px;
+  text-align: center;
+    -moz-box-align:center;
+    -moz-box-pack:center;
+}
+.promptbtns button[disabled=false]:active , .editbtns[disabled=false]:active, .timepickerbtns:active {
     background-position:0pt -60px;
     border: 2px solid;
     -moz-border-top-colors: #444 #222;
@@ -490,12 +545,7 @@ treechildren::-moz-tree-cell-text(treecellTOTAL) {color: yellow;}
   font-size: 48px;
 }
 
-/*
-checkbox {
-  list-style-image: url("chrome://viviecr/skin/images/up.png");
+.prodscrollablepanel scrollbar {
+    display: none;
 }
 
-checkbox[checked="true"] {
-  list-style-image: url("chrome://viviecr/skin/images/down.png");
-}
-*/

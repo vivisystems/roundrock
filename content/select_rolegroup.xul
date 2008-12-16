@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE window SYSTEM "chrome://viviecr/locale/fecpos.dtd">
+<!DOCTYPE window SYSTEM "chrome://viviecr/locale/select_rolegroup.dtd">
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/vivipos.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -16,11 +15,16 @@
         <vbox flex="1" class="panel40">
             <vbox flex="1" class="footlogo">
                     <groupbox>
-                    <caption label="Select Role Group:" />
+                    <caption label="&rolegroup.title;" />
                     <label id="rolegroup" hidden="true" value="" />
                     <hbox>
-                        <viviscrollablebuttonpanel dir="reverse" id="rolegroupscrollablepanel" flex="1" cols="4" rows="4" labelField="name" imageField="no" oncommand="$do('select',this.selectedIndex, 'SelectRolegroup');"
-                              class="catescrollablepanel" buttonClass="catbtn button-radius button-white font-medium" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue" />
+                        <viviscrollablebuttonpanel dir="reverse" id="rolegroupscrollablepanel" flex="1" cols="4" rows="4" labelField="name" imageField="no"
+                                                   oncommand="$do('select',this.selectedIndex, 'SelectRolegroup');"
+                                                   ensureVisible="true"
+                                                   class="catescrollablepanel"
+                                                   buttonClass="catbtn button-radius button-white font-medium"
+                                                   scrollUpClass="rightprevbtn button-blue"
+                                                   scrollDownClass="rightnextbtn button-blue" />
                     </hbox>
                 </groupbox>
             </vbox>

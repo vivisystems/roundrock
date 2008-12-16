@@ -1,0 +1,7 @@
+<!ENTITY jobs.title  "Job List:">
+<!ENTITY jobs.name "Job Name:">
+<!ENTITY jobs.button.color "Button Color:">
+<!ENTITY jobs.font.size "Font Size:">
+<!ENTITY jobs.button.action.add "Add">
+<!ENTITY jobs.button.action.modify "Modify">
+<!ENTITY jobs.button.action.delete "Delete">

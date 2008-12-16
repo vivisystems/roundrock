@@ -71,6 +71,7 @@
             this.validateForm();
 
             document.getElementById('condiment_group_name').focus();
+            document.getElementById('condiment_group_name').select();
         },
 
         clickCondimentPanel: function(index) {
@@ -100,8 +101,11 @@
             this._condscrollablepanel.selectedIndex = index;
             this._condscrollablepanel.selectedItems = [index];
 
-            //alert('[CLICK] ' + GeckoJS.BaseObject.dump(condGroups));
-            if (conds) this.setInputCondData(conds[index]);
+            //alert('[CLICK] ' + 'index: ' + index + ':' + GeckoJS.BaseObject.dump(condGroups));
+            //alert('[COND] ' + GeckoJS.BaseObject.dump(conds));
+            if (conds) {
+                this.setInputCondData(conds[index]);
+            }
 
             this.validateForm();
             
@@ -112,50 +116,50 @@
 
             // update button & text field states
             if (this._selectedIndex == null || this._selectedIndex == -1) {
-                document.getElementById('modify-group').disabled = true;
-                document.getElementById('delete-group').disabled = true;
+                document.getElementById('modify_group').setAttribute('disabled',  true);
+                document.getElementById('delete_group').setAttribute('disabled',  true);
 
-                document.getElementById('add-condiment').disabled = true;
-                document.getElementById('modify-condiment').disabled = true;
-                document.getElementById('delete-condiment').disabled = true;
+                document.getElementById('add_condiment').setAttribute('disabled',  true);
+                document.getElementById('modify_condiment').setAttribute('disabled',  true);
+                document.getElementById('delete_condiment').setAttribute('disabled',  true);
 
-                document.getElementById('condiment_group_name').disabled = true;
-                document.getElementById('condiment_name').disabled = true;
-                document.getElementById('condiment_price').disabled = true;
+                document.getElementById('condiment_group_name').setAttribute('disabled',  true);
+                document.getElementById('condiment_name').setAttribute('disabled',  true);
+                document.getElementById('condiment_price').setAttribute('disabled',  true);
             }
             else {
-                document.getElementById('condiment_group_name').disabled = false;
+                document.getElementById('condiment_group_name').removeAttribute('disabled');
 
                 // validate group name
                 var group_name = document.getElementById('condiment_group_name').value.replace(/^\s*/, '').replace(/\s*$/, '');
 
-                document.getElementById('modify-group').disabled = group_name.length == 0;
-                document.getElementById('delete-group').disabled = false;
+                document.getElementById('modify_group').setAttribute('disabled',  group_name.length == 0);
+                document.getElementById('delete_group').setAttribute('disabled',  false);
 
-                document.getElementById('add-condiment').disabled = false;
+                document.getElementById('add_condiment').setAttribute('disabled',  false);
 
                 if (this._selectedCondIndex == null || this._selectedCondIndex == -1) {
-                    document.getElementById('condiment_name').disabled = true;
-                    document.getElementById('condiment_price').disabled = true;
+                    document.getElementById('condiment_name').setAttribute('disabled',  true);
+                    document.getElementById('condiment_price').setAttribute('disabled',  true);
 
-                    document.getElementById('modify-condiment').disabled = true;
-                    document.getElementById('delete-condiment').disabled = true;
+                    document.getElementById('modify_condiment').setAttribute('disabled',  true);
+                    document.getElementById('delete_condiment').setAttribute('disabled',  true);
                 }
                 else {
-                    document.getElementById('condiment_name').disabled = false;
-                    document.getElementById('condiment_price').disabled = false;
+                    document.getElementById('condiment_name').removeAttribute('disabled');
+                    document.getElementById('condiment_price').removeAttribute('disabled');
 
                     // validate condiment name and price
                     var cond_name = document.getElementById('condiment_name').value.replace(/^\s*/, '').replace(/\s*$/, '');
                     var cond_price = document.getElementById('condiment_price').value.replace(/^\s*/, '').replace(/\s*$/, '');
 
                     if (cond_name.length > 0 && !isNaN(parseInt(cond_price))) {
-                        document.getElementById('modify-condiment').disabled = false;
+                        document.getElementById('modify_condiment').removeAttribute('disabled');
                     }
                     else {
-                        document.getElementById('modify-condiment').disabled = true;
+                        document.getElementById('modify_condiment').setAttribute('disabled',  true);
                     }
-                    document.getElementById('delete-condiment').disabled = false;
+                    document.getElementById('delete_condiment').removeAttribute('disabled');
                 }
             }
         },
@@ -266,7 +270,6 @@
 
                 var view = this._condGroupscrollablepanel.datasource;
                 view.data = condGroups;
-
                 this.changeCondimentPanel(this._selectedIndex);
             }
         },
@@ -323,7 +326,6 @@
 
         resetInputCondData: function () {
 
-            //GeckoJS.FormHelper.reset('condimentForm');
             this.query('#condiment_name').val('');
             this.query('#condiment_price').val('');
             this.query('#condiment_button_color').val('default');
@@ -331,7 +333,6 @@
         },
 
         setInputCondData: function (valObj) {
-            GeckoJS.FormHelper.reset('condimentForm');
             GeckoJS.FormHelper.unserializeFromObject('condimentForm', valObj);
         },
 
@@ -344,6 +345,11 @@
             window.openDialog(aURL, 'prompt_additem', features, _('New Condiment:'), '', _('Condiment Name'), _('Condiment Price'), inputObj);
 
             if (inputObj.ok && inputObj.input0 && inputObj.input1) {
+
+                if (isNaN(inputObj.input1)) {
+                    alert(_('Condiment Price must be a number'));
+                    return;
+                }
 
                 var inputData = this.getInputCondData();
                 var condGroups = GeckoJS.Session.get('condGroups');
@@ -382,17 +388,18 @@
                                 condGroups[this._selectedIndex]['Condiment'].push(conds[i]);
                             else
                                 condGroups[this._selectedIndex]['Condiment'] = [conds[i]];
+                            break;
                         }
                     }
 
                     //alert('[ADD]: record ' + GeckoJS.BaseObject.dump(conds[0]));
-                    //alert('[ADD]: array ' + GeckoJS.BaseObject.dump(condGroups[this._selectedIndex]));
+                    //alert('[ADD]: array ' + GeckoJS.BaseObject.dump(condGroups));
 
                     GeckoJS.Session.set('condGroups', condGroups);
 
                     var view = this._condscrollablepanel.datasource;
                     view.data = condGroups[this._selectedIndex]['Condiment'];
-                    this.clickCondimentPanel(condGroups[this._selectedIndex]['Condiment'].length - 1);
+                    this.clickCondimentPanel(view.data.length - 1);
                 }
             }
         },

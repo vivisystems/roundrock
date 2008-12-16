@@ -19,7 +19,6 @@
             var listObj = this.getListObj();
             var groups = this.Acl.getGroupList();
 
-            // var panelView =  new GeckoJS.NSITreeViewArray(groups);
             var panelView =  new NSIRoleGroupsView(groups);
             this.getListObj().datasource = panelView;
             this._listDatas = groups;
@@ -30,6 +29,7 @@
                 listObj.selectedItems = [0];
                 listObj.selectedIndex = 0;
             };
+
             this.select();
 
         },
@@ -37,12 +37,13 @@
         select: function(){
 		
             var listObj = this.getListObj();
-            selectedIndex = listObj.selectedIndex;
-            var rolegroup = this._listDatas[selectedIndex];
+            var selectedIndex = listObj.selectedIndex;
 
-            // $("rolegroup").val(rolegroup.name);
-            document.getElementById('rolegroup').value = rolegroup.name;
+            if (selectedIndex > -1) {
+                var rolegroup = this._listDatas[selectedIndex];
 
+                document.getElementById('rolegroup').value = rolegroup.name;
+            }
         }
 	
     });

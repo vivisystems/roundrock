@@ -12,36 +12,64 @@
         userpanel: null,
 
         loadUsers: function () {
+            var allowQuickLogin = GeckoJS.Configure.read('vivipos.fec.settings.login.allowquicklogin');
             
             var userModel = new UserModel();
             var users = userModel.find('all', {
-                order: "username"
+                order: 'username'
             });
+
+            for (var i = 0; i < users.length; i++) {
+                if (users[i].displayname == null || users[i].displayname.length == 0) {
+                    users[i].displayname = users[i].username;
+                }
+            };
+            
             var userpanel = document.getElementById('userscrollablepanel');
             if (userpanel) {
                 userpanel.datasource = users;
             }
             this.users = users;
             this.userpanel = userpanel;
+
+            document.getElementById('quicklogin').setAttribute('selected', allowQuickLogin ? true : false);
         },
 
         checkUser: function () {
-            
-            var username;
-            var userpass = $('#user_password').val();
 
+            var username;
+            var userpass = $('#user_password').val() || '';
+            var allowQuickLogin = GeckoJS.Configure.read('vivipos.fec.settings.login.allowquicklogin');
+
+            userpass = userpass.replace(/^\s*/, '').replace(/\s*$/, '');
+            if (userpass.length == 0) return;
+            
             if (this.userpanel && this.users) {
+
                 var index = this.userpanel.selectedIndex;
                 if (index > -1 && index < this.users.length) {
                     username = this.users[index].username;
                 }
-            }
-            if (this.Acl.securityCheck(username, userpass)) {
-                opener.$do('setClerk', null, 'Main');
-                window.close();
-            } else {
-                $('#user_password').val('');
-                alert('Please Check User <' + username + '> and Password...');
+                if (username == null && allowQuickLogin) {
+                    var userModel = new UserModel();
+                    var users = userModel.findByIndex('all', {
+                        index: 'password',
+                        value: userpass
+                    });
+
+                    if (users && users.length > 0) username = users[0].username;
+                }
+                
+                if (this.Acl.securityCheck(username, userpass)) {
+                    opener.$do('setClerk', null, 'Main');
+                    window.close();
+                } else {
+                    $('#user_password').val('');
+                    if (username == null && allowQuickLogin)
+                        alert(_('Authentication failed! Please make sure that the password is correct.'));
+                    else
+                        alert(_('Authentication failed! Please make sure that you have selected the right user and entered the correct password.'));
+                }
             }
         },
 

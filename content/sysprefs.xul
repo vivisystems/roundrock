@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE window SYSTEM "chrome://viviecr/locale/fecpos.dtd">
+<!DOCTYPE window SYSTEM "chrome://viviecr/locale/sysprefs.dtd">
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/buttons.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/sysprefs.css" type="text/css"?>
 
 <prefwindow id="sysprefs" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" width="800" height="600"
             ondialogcancel="opener.opener.$do('resetLayout', null, 'Main'); $do('setDefaultUser', null, 'Users'); $do('setDefaultTaxStatus', null, 'Taxes');"
@@ -13,7 +14,7 @@
     <!-- users.js & taxes.js must load before sysprefs.js -->
     <script type="application/x-javascript" src="chrome://viviecr/content/sysprefs.js" />
 
-    <prefpane id="generalSettingsPane" label="&vivipos.fec.settings.category.general;" image="chrome://viviecr/content/skin/icons/stock_print-setup.png">
+    <prefpane id="generalSettingsPane" label="&category.general;" image="chrome://viviecr/content/skin/icons/stock_print-setup.png">
         <preferences>
             <preference id="pref_publicattendance" name="vivipos.fec.settings.PublicAttendance" type="bool" />
             <preference id="pref_terminalid" name="vivipos.fec.settings.TerminalID" type="string" />
@@ -27,71 +28,73 @@
             <preference id="pref_activepricelevelschedule" name="vivipos.fec.settings.ActivePriceLevelSchedule" type="bool" />
             <preference id="pref_pricelevelrevert" name="vivipos.fec.settings.PriceLevelRevert" type="bool" />
             <preference id="pref_changedepartmentclearbuffer" name="vivipos.fec.settings.ChangeDepartmentClearBuffer" type="bool" />
+            <preference id="pref_allowoverstock" name="vivipos.fec.settings.AllowOverStock" type="bool" />
 
         </preferences>
         <hbox align="center">
-            <label control="terminalid" value="&vivipos.fec.settings.terminalid;"/>
+            <label control="terminalid" value="&terminalid;"/>
             <textbox preference="pref_terminalid" id="terminalid" maxlength="12"/>
         </hbox>
 
-        <checkbox preference="pref_privatequeue" id="pref_privatequeueCtrl" label="&vivipos.fec.settings.privatequeue;" />
-        <checkbox preference="pref_publicattendance" id="pref_publicAttendanceCtrl" label="&vivipos.fec.settings.publicattendance;" />
-        <checkbox preference="pref_activepricelevelschedule" id="pref_activepricelevelscheduleCtrl" label="&vivipos.fec.settings.activepricelevelschedule;" />
-        <checkbox preference="pref_pricelevelrevert" id="pref_pricelevelrebackCtrl" label="&vivipos.fec.settings.pricelevelrevert;" />
-        <checkbox preference="pref_changedepartmentclearbuffer" id="pref_changedepartmentclearbufferCtrl" label="&vivipos.fec.settings.changedepartmentclearbuffer;" />
+        <checkbox preference="pref_privatequeue" id="pref_privatequeueCtrl" label="&privatequeue;" />
+        <checkbox preference="pref_publicattendance" id="pref_publicAttendanceCtrl" label="&publicattendance;" />
+        <checkbox preference="pref_activepricelevelschedule" id="pref_activepricelevelscheduleCtrl" label="&activepricelevelschedule;" />
+        <checkbox preference="pref_pricelevelrevert" id="pref_pricelevelrebackCtrl" label="&pricelevelrevert;" />
+        <checkbox preference="pref_changedepartmentclearbuffer" id="pref_changedepartmentclearbufferCtrl" label="&changedepartmentclearbuffer;" />
+        <checkbox preference="pref_allowoverstock" id="pref_allowoverstockCtrl" label="&allowoverstock;" />
 
         <hbox align="center">
-            <label control="precisionprices" value="&vivipos.fec.settings.defaultpricelevel;"/>
+            <label control="precisionprices" value="&defaultpricelevel;"/>
             <textbox preference="pref_defaultpricelevel" id="defaultpricelevel" type="number" size="2" maxlength="1" min="1" max="9"/>
         </hbox>
         <hbox align="center">
-            <label control="precisionprices" value="&vivipos.fec.settings.precisionprices;"/>
+            <label control="precisionprices" value="&precisionprices;"/>
             <textbox preference="pref_precisionprices" id="precisionprices" type="number" size="2" maxlength="1" min="-100"/>
         </hbox>
         <hbox align="center">
-            <label control="precisiontaxes" value="&vivipos.fec.settings.precisiontaxes;"/>
+            <label control="precisiontaxes" value="&precisiontaxes;"/>
             <textbox preference="pref_precisiontaxes" id="precisiontaxes" type="number" size="2" maxlength="1" min="-100"/>
         </hbox>
         <hbox align="center">
-            <label control="roundingprices" value="&vivipos.fec.settings.roundingprices;"/>
+            <label control="roundingprices" value="&roundingprices;"/>
             <menulist id="roundingprices" oncommand="GeckoJS.Configure.write('vivipos.fec.settings.RoundingPrices', this.value)">
                 <menupopup>
-                    <menuitem label="&vivipos.fec.settings.rounding.to-nearest-precision;" value="to-nearest-precision"/>
-                    <menuitem label="&vivipos.fec.settings.rounding.to-nearest-half;" value="to-nearest-half"/>
-                    <menuitem label="&vivipos.fec.settings.rounding.to-nearest-quarter;" value="to-nearest-quarter"/>
-                    <menuitem label="&vivipos.fec.settings.rounding.to-nearest-nickel;" value="to-nearest-nickel"/>
-                    <menuitem label="&vivipos.fec.settings.rounding.to-nearest-dime;" value="to-nearest-dime"/>
-                    <menuitem label="&vivipos.fec.settings.rounding.always-round-up;" value="always-round-up"/>
-                    <menuitem label="&vivipos.fec.settings.rounding.always-round-down;" value="always-round-down"/>
+                    <menuitem label="&rounding.to-nearest-precision;" value="to-nearest-precision"/>
+                    <menuitem label="&rounding.to-nearest-half;" value="to-nearest-half"/>
+                    <menuitem label="&rounding.to-nearest-quarter;" value="to-nearest-quarter"/>
+                    <menuitem label="&rounding.to-nearest-nickel;" value="to-nearest-nickel"/>
+                    <menuitem label="&rounding.to-nearest-dime;" value="to-nearest-dime"/>
+                    <menuitem label="&rounding.always-round-up;" value="always-round-up"/>
+                    <menuitem label="&rounding.always-round-down;" value="always-round-down"/>
                 </menupopup>
             </menulist>
         </hbox>
         <hbox align="center">
-            <label control="roundingtaxes" value="&vivipos.fec.settings.roundingtaxes;"/>
+            <label control="roundingtaxes" value="&roundingtaxes;"/>
             <menulist id="roundingtaxes" oncommand="GeckoJS.Configure.write('vivipos.fec.settings.RoundingTaxes', this.value)">
                 <menupopup>
-                    <menuitem label="&vivipos.fec.settings.rounding.to-nearest-precision;" value="to-nearest-precision"/>
-                    <menuitem label="&vivipos.fec.settings.rounding.to-nearest-half;" value="to-nearest-half"/>
-                    <menuitem label="&vivipos.fec.settings.rounding.to-nearest-quarter;" value="to-nearest-quarter"/>
-                    <menuitem label="&vivipos.fec.settings.rounding.to-nearest-nickel;" value="to-nearest-nickel"/>
-                    <menuitem label="&vivipos.fec.settings.rounding.to-nearest-dime;" value="to-nearest-dime"/>
-                    <menuitem label="&vivipos.fec.settings.rounding.always-round-up;" value="always-round-up"/>
-                    <menuitem label="&vivipos.fec.settings.rounding.always-round-down;" value="always-round-down"/>
+                    <menuitem label="&rounding.to-nearest-precision;" value="to-nearest-precision"/>
+                    <menuitem label="&rounding.to-nearest-half;" value="to-nearest-half"/>
+                    <menuitem label="&rounding.to-nearest-quarter;" value="to-nearest-quarter"/>
+                    <menuitem label="&rounding.to-nearest-nickel;" value="to-nearest-nickel"/>
+                    <menuitem label="&rounding.to-nearest-dime;" value="to-nearest-dime"/>
+                    <menuitem label="&rounding.always-round-up;" value="always-round-up"/>
+                    <menuitem label="&rounding.always-round-down;" value="always-round-down"/>
                 </menupopup>
             </menulist>
         </hbox>
         
         <hbox align="center">
-            <label control="dateformatstr" value="&vivipos.fec.settings.dateformat;"/>
+            <label control="dateformatstr" value="&dateformat;"/>
             <textbox preference="pref_dateformatstr" id="dateformatstr" maxlength="12"/>
         </hbox>
         <hbox align="center">
-            <label control="timeformatstr" value="&vivipos.fec.settings.timeformat;"/>
+            <label control="timeformatstr" value="&timeformat;"/>
             <textbox preference="pref_timeformatstr" id="timeformatstr" maxlength="12"/>
         </hbox>
     </prefpane>
     
-    <prefpane id="loginSettingsPane" label="&vivipos.fec.settings.category.login;" image="chrome://viviecr/content/skin/icons/gnome-run.png">
+    <prefpane id="loginSettingsPane" label="&category.login;" image="chrome://viviecr/content/skin/icons/gnome-run.png">
         <preferences>
             <preference id="pref_autodiscardcart" name="vivipos.fec.settings.autodiscardcart" type="bool"/>
             <preference id="pref_autodiscardqueue" name="vivipos.fec.settings.autodiscardqueue" type="bool"/>
@@ -99,34 +102,48 @@
             <preference id="pref_defaultlogin" name="vivipos.fec.settings.DefaultLogin" type="bool" />
             <preference id="pref_shiftreportonquickswitch" name="vivipos.fec.settings.shiftreportonquickswitch" type="bool" />
             <preference id="pref_shiftreportonsignoff" name="vivipos.fec.settings.shiftreportonsignoff" type="bool" />
-        </preferences>
+            <preference id="pref_allowquicklogin" name="vivipos.fec.settings.login.allowquicklogin" type="bool" />
+         </preferences>
         <vbox>
-        <checkbox preference="pref_defaultlogin" id="pref_defaultloginCtrl" label="&vivipos.fec.settings.defaultlogin;" />
-            <viviscrollablebuttonpanel dir="reverse" id="userscrollablepanel" flex="1" cols="8" rows="2" labelField="username" oncommand="$do('select',this.selectedIndex, 'Users');"
-                class="catescrollablepanel" buttonClass="catbtn button-radius button-white font-medium" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue"/>
-        <checkbox id="autodiscardcart" label="&vivipos.fec.settings.login.autodiscardcart;" preference="pref_autodiscardcart"/>
-        <checkbox id="autodiscardqueue" label="&vivipos.fec.settings.login.autodiscardqueue;" preference="pref_autodiscardqueue"/>
-        <checkbox id="mustemptyqueue" label="&vivipos.fec.settings.login.mustemptyqueue;" preference="pref_mustemptyqueue"/>
-        <checkbox id="shiftreportonsignoff" label="&vivipos.fec.settings.login.shiftreportonsignoff;" preference="pref_shiftreportonsignoff"/>
-        <checkbox id="shiftreportonquickswitch" label="&vivipos.fec.settings.login.shiftreportonquickswitch;" preference="pref_shiftreportonquickswitch"/>
+        <checkbox id="allowquicklogin" label="&login.allowquicklogin;" preference="pref_allowquicklogin"/>
+        <checkbox preference="pref_defaultlogin" id="pref_defaultloginCtrl" label="&defaultlogin;" />
+        <hbox class="panelContainer" align="center">
+            <viviscrollablebuttonpanel dir="normal" id="userscrollablepanel" flex="1" cols="5" rows="3" labelField="displayname"
+                                       oncommand="$do('select',this.selectedIndex, 'Users');"
+                                       class="sysprefscrollablepanel"
+                                       buttonClass="catbtn button-radius button-white font-medium"
+                                       scrollUpClass="sysprefs_scroll_up"
+                                       scrollDownClass="sysprefs_scroll_down">
+                <spacer flex="1"/>
+            </viviscrollablebuttonpanel>
+        </hbox>
+        <checkbox id="autodiscardcart" label="&login.autodiscardcart;" preference="pref_autodiscardcart"/>
+        <checkbox id="autodiscardqueue" label="&login.autodiscardqueue;" preference="pref_autodiscardqueue"/>
+        <checkbox id="mustemptyqueue" label="&login.mustemptyqueue;" preference="pref_mustemptyqueue"/>
+        <checkbox id="shiftreportonsignoff" label="&login.shiftreportonsignoff;" preference="pref_shiftreportonsignoff"/>
+        <checkbox id="shiftreportonquickswitch" label="&login.shiftreportonquickswitch;" preference="pref_shiftreportonquickswitch"/>
         </vbox>
     </prefpane>
 
-    <prefpane id="taxSettingsPane" label="&vivipos.fec.settings.category.tax;" image="chrome://viviecr/content/skin/icons/gnome-run.png">
+    <prefpane id="taxSettingsPane" label="&category.tax;" image="chrome://viviecr/content/skin/icons/gnome-run.png">
         <preferences>
         </preferences>
-        <label value="&vivipos.fec.settings.defaulttaxstatus;"/>
-        <vbox flex="1">
-            <viviscrollablebuttonpanel dir="normal" id="taxscrollablepanel" flex="1" cols="8" rows="2" labelField="name" oncommand="$do('select',this.selectedIndex, 'Taxes');"
-                  class="catescrollablepanel" buttonClass="catbtn button-radius button-white font-medium" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue"
-                  >
+        <vbox class="panelContainer">
+            <label value="&defaulttaxstatus;"/>
+            <viviscrollablebuttonpanel dir="normal" id="taxscrollablepanel" flex="1" cols="5" rows="3" labelField="name"
+                                       oncommand="$do('select',this.selectedIndex, 'Taxes');"
+                                       class="sysprefscrollablepanel"
+                                       buttonClass="catbtn button-radius button-white font-medium"
+                                       scrollUpClass="sysprefs_scroll_up"
+                                       scrollDownClass="sysprefs_scroll_down">
+                <spacer flex="1"/>
             </viviscrollablebuttonpanel>
             <spacer flex="10"/>
         </vbox>
 
     </prefpane>
 
-    <prefpane id="displaySettingsPane" label="&vivipos.fec.settings.category.layout;" image="chrome://viviecr/content/skin/icons/stock_print-setup.png">
+    <prefpane id="displaySettingsPane" label="&category.layout;" image="chrome://viviecr/content/skin/icons/stock_print-setup.png">
         <preferences>
 			
             <preference id="pref_registeratleft" name="vivipos.fec.settings.RegisterAtLeft" type="bool"/>
@@ -148,36 +165,50 @@
 
         </preferences>
 
-        <checkbox id="registeratleft" label="&vivipos.fec.settings.layout.registeratleft;" preference="pref_registeratleft"/>
-        <checkbox id="functionpanelontop" label="&vivipos.fec.settings.layout.functionpanelontop;" preference="pref_functionpanelontop"/>
-        <checkbox id="PLUbeforedept" label="&vivipos.fec.settings.layout.PLUbeforedept;" preference="pref_plubeforedept"/>
-        <checkbox id="hideDeptScrollbar" label="&vivipos.fec.settings.layout.hidedeptscrollbar;" preference="pref_hidedeptscrollbar"/>
-        <checkbox id="hidePLUScrollbar" label="&vivipos.fec.settings.layout.hidepluscrollbar;" preference="pref_hidepluscrollbar"/>
-        <checkbox id="hideFPScrollbar" label="&vivipos.fec.settings.layout.hidefpscrollbar;" preference="pref_hidefpscrollbar"/>
+        <checkbox id="registeratleft" label="&layout.registeratleft;" preference="pref_registeratleft"/>
+        <checkbox id="functionpanelontop" label="&layout.functionpanelontop;" preference="pref_functionpanelontop"/>
+        <checkbox id="PLUbeforedept" label="&layout.PLUbeforedept;" preference="pref_plubeforedept"/>
+        <checkbox id="hideDeptScrollbar" label="&layout.hidedeptscrollbar;" preference="pref_hidedeptscrollbar"/>
+        <checkbox id="hidePLUScrollbar" label="&layout.hidepluscrollbar;" preference="pref_hidepluscrollbar"/>
+        <checkbox id="hideFPScrollbar" label="&layout.hidefpscrollbar;" preference="pref_hidefpscrollbar"/>
 
-        <checkbox id="cropDeptLabel" label="&vivipos.fec.settings.layout.cropdeptlabel;" preference="pref_crop_dept_label" />
-        <checkbox id="cropPLULabel" label="&vivipos.fec.settings.layout.cropplulabel;" preference="pref_crop_plu_label"/>
+        <checkbox id="cropDeptLabel" label="&layout.cropdeptlabel;" preference="pref_crop_dept_label" />
+        <checkbox id="cropPLULabel" label="&layout.cropplulabel;" preference="pref_crop_plu_label"/>
 
+        <separator class="groove-thin" style="margin: 4px"/>
 
-        <hbox align="center">
-            <label control="deprows" value="Department Dimension => Rows:"/>
-            <textbox preference="pref_deprows" id="deprows" type="number" size="2" maxlength="1"/>
-            <label control="depcols" value="Cols:"/>
-            <textbox preference="pref_depcols" id="depcols" type="number" size="2" maxlength="1"/>
-        </hbox>
-        <hbox align="center">
-            <label control="pref_plurows" value="PLUs Dimension => Rows:"/>
-            <textbox preference="pref_plurows" id="pref_plurows" type="number" size="2" maxlength="1"/>
-            <label control="pref_plucols" value="Cols:"/>
-            <textbox preference="pref_plucols" id="pref_plucols" type="number" size="2" maxlength="1"/>
-        </hbox>
-        <hbox align="center">
-            <label control="pref_fprows" value="Function Panel Dimension => Rows:"/>
-            <textbox preference="pref_fprows" id="pref_fprows" type="number" size="2" maxlength="1"/>
-            <label control="pref_fpcols" value="Cols:"/>
-            <textbox preference="pref_fpcols" id="pref_fpcols" type="number" size="2" maxlength="1"/>
-        </hbox>
-
+        <grid>
+            <columns>
+                <column/>
+                <column/>
+                <column/>
+                <column/>
+                <column/>
+            </columns>
+            <rows>
+                <row>
+                    <label control="deprows" value="&layout.department.label;"/>
+                    <label control="deprows" value="&layout.department.rows;"/>
+                    <textbox preference="pref_deprows" id="deprows" type="number" size="2" maxlength="1"/>
+                    <label control="depcols" value="&layout.department.cols;"/>
+                    <textbox preference="pref_depcols" id="depcols" type="number" size="2" maxlength="1"/>
+                </row>
+                <row>
+                    <label control="deprows" value="&layout.plu.label;"/>
+                    <label control="pref_plurows" value="&layout.plu.rows;"/>
+                    <textbox preference="pref_plurows" id="pref_plurows" type="number" size="2" maxlength="1"/>
+                    <label control="pref_plucols" value="&layout.plu.cols;"/>
+                    <textbox preference="pref_plucols" id="pref_plucols" type="number" size="2" maxlength="1"/>
+                </row>
+                <row>
+                    <label control="deprows" value="&layout.functionpanel.label;"/>
+                    <label control="pref_fprows" value="&layout.functionpanel.rows;"/>
+                    <textbox preference="pref_fprows" id="pref_fprows" type="number" size="2" maxlength="1"/>
+                    <label control="pref_fpcols" value="&layout.functionpanel.cols;"/>
+                    <textbox preference="pref_fpcols" id="pref_fpcols" type="number" size="2" maxlength="1"/>
+                </row>
+            </rows>
+        </grid>
 	</prefpane>
 
     <!-- prefpane id="localeSettingsPane" label="locale" image="chrome://viviecr/content/skin/icons/gnome-run.png">
