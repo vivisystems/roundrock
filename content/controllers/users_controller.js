@@ -196,21 +196,21 @@
                 if (panel.selectedIndex >= 0) {
                     var user = view.data[panel.selectedIndex];
                     if (user) {
-                        GeckoJS.Configure.write('vivipos.fec.settings.DefaultUser', user.id);
+                        GeckoJS.Configure.write('vivipos.fec.settings.DefaultUser', user.username);
                     }
                 }
             }
         },
 
         // initialize selected user to userid
-        initUser: function(userid) {
+        initUser: function(username) {
             
             var panel = this.getListObj();
             var users = panel.datasource.data;
 
             if (users) {
                 for (var i = 0; i < users.length; i++) {
-                    if (users[i].id == userid) {
+                    if (users[i].username == username) {
                         panel.selectedItems = [i];
                         panel.selectedIndex = i;
                         break;

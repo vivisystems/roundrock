@@ -25,6 +25,7 @@ var options;
         document.getElementById('cancel').setAttribute('disabled', false);
         
         document.getElementById('input0').focus();
+        
         doSetOKCancel(
             function(){
                 inputObj.input0 = document.getElementById('input0').value;

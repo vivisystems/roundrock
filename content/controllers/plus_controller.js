@@ -210,7 +210,7 @@
 
             var setmenu = [];
             this._pluset.forEach(function(o){
-                setmenu.push(o.no + '=' + o.qty);
+                setmenu.push(encodeURI(o.no + '=' + o.qty));
             });
             $('#setmenu').val( setmenu.join('&'));
         },
@@ -226,9 +226,12 @@
 
             this._pluset = [];
             for (var key in pluset) {
+                alert(key + ':' + decodeURI(key));
+                key = decodeURI(key);
                 if (key == '') break;
                 
                 var qty = pluset[key];
+                alert(qty + ':' + decodeURI(qty));
                 var id = barcodesIndexes[key];
                 var name = productsById[id].name;
 
@@ -271,12 +274,12 @@
                     this.getPluSetListObj().datasource = panelView;
                     var setmenu = [];
                     this._pluset.forEach(function(o){
-                        setmenu.push(o.no + '=' + o.qty);
+                        setmenu.push(encodeURI(o.no + '=' + o.qty));
                     });
                     $('#setmenu').val( setmenu.join('&'));
                 }
                 else {
-                    alert(_('(%S) not found.', [inputObj.input0]));
+                    alert(_('Product not found (%S).', [inputObj.input0]));
                 }
             }
 

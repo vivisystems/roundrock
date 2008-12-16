@@ -424,15 +424,13 @@
             var defaultUser = GeckoJS.Configure.read('vivipos.fec.settings.DefaultUser');
             var acl = new GeckoJS.AclComponent();
 
-            // pre-create the login screen and hide it
-            //this.ChangeUserDialog();
+            //@todo work-around Object reference bug
+            var roles= acl.getRoleList();
 
-            //if (loginWindow) loginWindow.minimize();
-            
             if (defaultLogin) {
                 var userModel = new UserModel();
                 var users = userModel.findByIndex('all', {
-                    index: "id",
+                    index: 'username',
                     value: defaultUser
                 });
                 // we will only pick the first default user if there are more than one
@@ -460,17 +458,6 @@
         quickUserSwitch: function (stop) {
             if (this.suspendButton) {
                 this.requestCommand('setTarget', 'Cart', 'Keypad');
-                // reset clear/enter keys
-                /*
-                var enterKey = document.getElementById('key_enter');
-                var clearKey = document.getElementById('key_clear');
-                enterKey.setAttribute('oncommand', this.savedEnterCommand);
-                clearKey.setAttribute('oncommand', this.savedClearCommand);
-                enterKey.removeAttribute('oncommand');
-                clearKey.removeAttribute('oncommand');
-                enterKey.setAttribute('oncommand', this.savedEnterCommand);
-                clearKey.setAttribute('oncommand', this.savedClearCommand);
-                */
 
                 // re-enable buttons
                 GeckoJS.Observer.notify(null, 'button-state-resume', this.target);
@@ -495,10 +482,16 @@
                         this.signOff(true);
                         this.signIn({username:users[0].username, password:buf});
 
-                        if (this.Acl.getUserPrincipal()) {
+                        var user = this.Acl.getUserPrincipal();
+                        if (user) {
                             this.setClerk();
+
+                            //@todo quick user switch successful
+                            OsdUtils.text('<span color="red" font_desc="Times 40">' + user.description + _(' logged in') + '</span>',
+                                          this.screenwidth/5, this.screenheight/3);
                         }
                         else {
+                            // should always succeed, but if not, pull up the change user dialog since we've already signed off
                             this.ChangeUserDialog();
                         }
                     }
@@ -506,11 +499,14 @@
                         success = false;
                     }
                 }
-                else {
-
-                }
                 this.dispatchEvent('onExitPassword', success);
-                if (success) GeckoJS.Controller.getInstanceByName('Cart').subtotal();
+                if (success)
+                    GeckoJS.Controller.getInstanceByName('Cart').subtotal();
+                else if (!stop) {
+                    //@todo quick user switch successful
+                    OsdUtils.text('<span color="red" font_desc="Times 40">' + _('Failed to authenticate user') + '</span>',
+                                  this.screenwidth/5, this.screenheight/3);
+                }
             }
             else {
                 this.requestCommand('clear', null, 'Cart');
@@ -558,8 +554,13 @@
 
                     this.signOff(true);
                     this.signIn({username:newUser, password:buf});
-                    if (this.Acl.getUserPrincipal()) {
+                    var user = this.Acl.getUserPrincipal();
+                    if (user) {
                         this.setClerk();
+
+                        //@todo silent user switch successful
+                        OsdUtils.text('<span color="red" font_desc="Times 40">' + user.description + _(' logged in') + '</span>',
+                                      this.screenwidth/5, this.screenheight/3);
                     }
                     else {
                         this.ChangeUserDialog();
@@ -567,6 +568,8 @@
                 }
                 else {
                     // @todo error message for login failure
+                    OsdUtils.text('<span color="red" font_desc="Times 40">' + _('Failed to authenticate user') + '</span>',
+                                  this.screenwidth/5, this.screenheight/3);
                 }
             }
         },

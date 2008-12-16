@@ -21,7 +21,7 @@
         document.getElementById('taxscrollablepanel').datasource = window.viewHelper ;
         document.getElementById('taxscrollablepanel').selectedIndex = selectedIndex;
         document.getElementById('taxscrollablepanel').selectedItems = [selectedIndex];
-        
+
         doSetOKCancel(
             function(){
 
