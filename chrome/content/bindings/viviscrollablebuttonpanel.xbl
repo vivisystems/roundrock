@@ -13,11 +13,11 @@
             <xul:vivibuttonpanel anonid="vivibuttonpanel" xbl:inherits="flex,class=panelClass,orient,cols,rows,labelField,imageField,aclField,buttonClass,seltype,crop,ensureVisible"/>
 
             <xul:vbox style="margin: 0px; padding:0px;" class="scrollablepanel-scrollbar" xbl:inherits="class=scrollbarClass,hidden=hideScrollbar" anonid="scrollbar" >
-                <xul:button label="UP" disabled="true" anonid="scrollbutton-up" onclick="event.stopPropagation()" oncommand="_autorepeatbuttonScroll(event);" xbl:inherits="class=scrollUpClass"></xul:button>
+                <xul:vivibutton label="UP" disabled="true" anonid="scrollbutton-up" onclick="event.stopPropagation()" oncommand="_autorepeatbuttonScroll(event);" xbl:inherits="class=scrollUpClass"></xul:vivibutton>
                 <xul:spacer />
                 <xbl:children />
                 <xul:spacer />
-                <xul:button label="DOWN" disabled="true" anonid="scrollbutton-down" onclick="event.stopPropagation()" oncommand="_autorepeatbuttonScroll(event);" xbl:inherits="class=scrollDownClass"></xul:button>
+                <xul:vivibutton label="DOWN" disabled="true" anonid="scrollbutton-down" onclick="event.stopPropagation()" oncommand="_autorepeatbuttonScroll(event);" xbl:inherits="class=scrollDownClass"></xul:vivibutton>
             </xul:vbox>
         </xul:hbox>
     </content>
