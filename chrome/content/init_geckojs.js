@@ -10,7 +10,7 @@ window.include = function include(src, scope) {
         if(scope) loader.loadSubScript(src, scope);
 	else loader.loadSubScript(src);
    }catch(e) {
-	alert(src + '\n' + e.message);
+	//alert(src + '\n' + e.message);
   }
 };
 
