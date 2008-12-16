@@ -9,6 +9,11 @@
         name: 'Keypad',
         // charpress buffer
         buf: "",
+        target: 'Cart',
+
+        setTarget: function(target) {
+            this.target = target;
+        },
 
         getBuffer: function() {
             return this.buf;
@@ -29,6 +34,10 @@
             return GeckoJS.Controller.getInstanceByName('Cart');
         },
 		
+        getMainController: function() {
+            return GeckoJS.Controller.getInstanceByName('Main');
+        },
+
         /**
          * sampleAction
          */
@@ -88,8 +97,13 @@
             switch(keyCode) {
                 // ESCAPE
                 case 27:
-                    this.getCartController().clear();
-                    this.clearBuffer();
+                    if (this.target == 'Cart') {
+                        this.getCartController().clear();
+                        this.clearBuffer();
+                    }
+                    else {
+                        this.getMainController().clear();
+                    }
                     break;
 			
                 // TAB
@@ -102,12 +116,25 @@
                 case 35:
                     this.getCartController().addMarker('subtotal');
                     break;
+                // BACKSPACE
+                case 8:
+                    if (this.buf.length > 0) {
+                        this.buf = this.buf.substring(0, this.buf.length - 1);
+                        this.addBuffer('');
+                    }
+                    break;
+
                 // ENTER
                 case 13:
-                    var cart = this.getCartController();
-                    cart.data = this.getBuffer();
-                    this.clearBuffer();
-                    this.getCartController().addItemByBarcode(cart.data);
+                    if (this.target == 'Cart') {
+                        var cart = this.getCartController();
+                        cart.data = this.getBuffer();
+                        this.clearBuffer();
+                        this.getCartController().addItemByBarcode(cart.data);
+                    }
+                    else {
+                        this.getMainController().enter();s
+                    }
                     break;
 			
             }

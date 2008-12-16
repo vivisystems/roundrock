@@ -14,7 +14,7 @@
 
         getListObj: function() {
             if(this._listObj == null) {
-                // this._listObj = this.query("#userscrollablepanel")[0];
+                // this._listObj = this.query('#userscrollablepanel')[0];
                 this._listObj = document.getElementById('userscrollablepanel');
             }
             return this._listObj;
@@ -24,46 +24,16 @@
             
         },
         */
-        afterScaffoldSave: function(evt) {
-            // maintain Acl...
-            this.Acl.addUser(evt.data.username, evt.data.password, evt.data.displayname);
-            this.Acl.changeUserPassword(evt.data.username, evt.data.password);
-            this.Acl.addUserToGroup(evt.data.username, evt.data.group);
-        },
-
-        beforeScaffoldDelete: function(evt) {
-            if (GREUtils.Dialog.confirm(null, 'confirm delete', _('Are you sure?')) == false) {
-                evt.preventDefault();
-            }
-        },
-
-        afterScaffoldDelete: function() {
-            
-            var panel = this.getListObj();
-            var view = panel.datasource;
-            var index = panel.selectedIndex;
-
-            if (index >= view.data.length - 1) {
-                index = view.data.length - 2;
-            }
-
-            this.requestCommand('list', index);
-            
-            panel.selectedIndex = index;
-            panel.selectedItems = [index];
-
-        },
-
         beforeScaffoldAdd: function (evt) {
             var user = evt.data;
-            var aURL = "chrome://viviecr/content/prompt_additem.xul";
-            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250";
+            var aURL = 'chrome://viviecr/content/prompt_additem.xul';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250';
             var inputObj = {input0:null, require0:true,
                             input1:null, require1:true, type1:'password'};
 
             this._userAdded = false;
 
-            window.openDialog(aURL, "prompt_additem", features, _('New Employee'), '', _('Name:'), _('Password:'), inputObj);
+            window.openDialog(aURL, 'prompt_additem', features, _('New Employee'), '', _('Name:'), _('Password:'), inputObj);
             if (inputObj.ok && inputObj.input0 && inputObj.input1) {
                 user.username = inputObj.input0;
                 user.password = inputObj.input1;
@@ -75,12 +45,12 @@
             var userModel = new UserModel();
 
             var user_name = userModel.findByIndex('all', {
-                index: "username",
+                index: 'username',
                 value: user.username
             });
 
             if (user_name != null && user_name.length > 0) {
-                alert(_('Duplicate user name (%S)', [user.username]));
+                alert(_('Duplicate user name (%S); user not added.', [user.username]));
                 evt.preventDefault();
                 return ;
             }
@@ -106,13 +76,68 @@
 
                 panel.selectedIndex = newIndex;
                 panel.selectedItems = [newIndex];
+
+                this.validateForm(true);
+
+                document.getElementById('display_name').focus();
+                //document.getElementById('display_name').click();
             }
         },
-        /*
-        beforeScaffoldEdit: function (evt) {
 
+        afterScaffoldEdit: function (evt) {
+
+            var panel = this.getListObj();
+            var index = panel.selectedIndex;
+
+            this.requestCommand('list', index);
+
+            panel.selectedIndex = index;
+            panel.selectedItems = [index];
         },
-        */
+
+        beforeScaffoldSave: function(evt) {
+            // make sure displayname is not empty
+            var displayname = evt.data.displayname.replace(/^\s*/, '').replace(/\s*$/, '');
+            if (displayname.length == 0) displayname = evt.data.username;
+            evt.data.displayname = displayname;
+        },
+
+        afterScaffoldSave: function(evt) {
+            // make sure displayname is not empty
+            var displayname = evt.data.displayname.replace(/^\s*/, '').replace(/\s*$/, '');
+            if (displayname.length == 0) displayname = evt.data.username;
+
+            // maintain Acl...
+            this.Acl.addUser(evt.data.username, evt.data.password, displayname);
+            this.Acl.changeUserPassword(evt.data.username, evt.data.password);
+            this.Acl.addUserToGroup(evt.data.username, evt.data.group);
+        },
+
+        beforeScaffoldDelete: function(evt) {
+            if (GREUtils.Dialog.confirm(null, 'confirm delete', _('Are you sure?')) == false) {
+                evt.preventDefault();
+            }
+        },
+
+        afterScaffoldDelete: function(evt) {
+            // maintain ACL...
+            this.Acl.removeUser(evt.data.username);
+            var panel = this.getListObj();
+            var view = panel.datasource;
+            var index = panel.selectedIndex;
+
+            if (index >= view.data.length - 1) {
+                index = view.data.length - 2;
+            }
+
+            this.requestCommand('list', index);
+            
+            panel.selectedIndex = index;
+            panel.selectedItems = [index];
+
+            this.validateForm(true);
+        },
+
         afterScaffoldIndex: function(evt) {
             var panelView = this.getListObj().datasource;
             if (panelView == null) {
@@ -121,7 +146,7 @@
             }
             panelView.data = evt.data;
 
-            this.validateForm();
+            this.validateForm(true);
         },
 
         getRoleGroup: function () {
@@ -133,11 +158,10 @@
             var inputObj = {
                 rolegroup: rolegroup
             };
-            window.openDialog(aURL, "select_rolegroup", features, inputObj);
+            window.openDialog(aURL, 'select_rolegroup', features, inputObj);
 
             if (inputObj.ok && inputObj.rolegroup) {
-                $("#user_group").val(inputObj.rolegroup);
-
+                $('#user_group').val(inputObj.rolegroup);
             }
         },
         
@@ -195,25 +219,58 @@
             }
         },
 
-        validateForm: function() {
+        validateForm: function(resetTabs) {
+
+            // return if not in form
             var addBtn = document.getElementById('add_user');
+            if (addBtn == null) return;
+            
             var modBtn = document.getElementById('modify_user');
             var delBtn = document.getElementById('delete_user');
-            var tabbox = document.getElementById('tabbox');
+            var roleTextbox = document.getElementById('user_group');
+
+            if (resetTabs) document.getElementById('tabs').selectedIndex = 0;
 
             if (!(addBtn && modBtn && delBtn)) return;
 
             var panel = this.getListObj();
-            if (panel.selectedIndex > -1) {
+            var user = panel.datasource.data[panel.selectedIndex];
+            if (user) {
+
                 var password = document.getElementById('user_password').value.replace(/^\s*/, '').replace(/\s*$/, '');
                 modBtn.setAttribute('disabled', password.length < 1);
-                delBtn.setAttribute('disabled', false);
-                tabbox.setAttribute('disabled', true);
+                document.getElementById('tab1').removeAttribute('disabled');
+                document.getElementById('tab2').removeAttribute('disabled');
+                document.getElementById('tab3').removeAttribute('disabled');
+
+                var textboxes = document.getElementsByTagName('textbox');
+                if (textboxes) {
+                    for (var i = 0; i < textboxes.length; i++) {
+                        textboxes[i].removeAttribute('disabled');
+                    }
+                }
+                // check for root user
+                if (user.displayname == 'superuser') {
+                    delBtn.setAttribute('disabled', true);
+                    roleTextbox.setAttribute('disabled', true);
+                }
+                else {
+                    delBtn.setAttribute('disabled', false);
+                }
             }
             else {
                 modBtn.setAttribute('disabled', true);
                 delBtn.setAttribute('disabled', true);
-                tabbox.setAttribute('disabled', false);
+                document.getElementById('tab1').setAttribute('disabled', true);
+                document.getElementById('tab2').setAttribute('disabled', true);
+                document.getElementById('tab3').setAttribute('disabled', true);
+
+                var textboxes = document.getElementsByTagName('textbox');
+                if (textboxes) {
+                    for (var i = 0; i < textboxes.length; i++) {
+                        textboxes[i].disabled = true;
+                    }
+                }
             }
         }
     });

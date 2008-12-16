@@ -120,28 +120,12 @@
 	display: none;
 }
 
-.leftprevbtn {
-    max-width:32px;
-    min-width:32px;
-    height: 50px;
-    width: 32px;
-    background: transparent url(images/userUp.png) center center no-repeat;
-    -moz-appearance: none;
-    -moz-user-focus: ignore;
-    -moz-background-clip: border;
-    border: none;
+.rightprevbtn description {
+	display: none;
 }
 
-.leftnextbtn {
-    max-width:32px;
-    min-width:32px;
-    height: 50px;
-    width: 32px;
-    background: transparent url(images/userDown.png) center center no-repeat;
-    -moz-appearance: none;
-    -moz-user-focus: ignore;
-    -moz-background-clip: border;
-    border: none;
+.rightnextbtn description {
+	display: none;
 }
 
 .userbtn {

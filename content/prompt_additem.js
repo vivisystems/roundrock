@@ -49,9 +49,23 @@ var options;
 
         validateInput();
 
+        var textNodes = document.getElementsByTagName('textbox');
+        if (textNodes != null && textNodes.length > 0) {
+            for (var i = 0; i < textNodes.length; i++)
+                textNodes[i].addEventListener('focus', gotFocus, false);
+        }
+        
         document.getElementById('input0').focus();
     };
 
+    function gotFocus() {
+        var focusedElement = document.commandDispatcher.focusedElement;
+        if (focusedElement.tagName == 'html:input' || focusedElement.tagName == 'textbox') {
+            focusedElement.select();
+        }
+        return true;
+    };
+    
     window.addEventListener('load', startup, false);
 
     // make inputObj globally available

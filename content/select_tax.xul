@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE window SYSTEM "chrome://viviecr/locale/fecpos.dtd">
+<!DOCTYPE window SYSTEM "chrome://viviecr/locale/select_tax.dtd">
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/vivipos.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -19,11 +18,17 @@
         <vbox flex="1" class="panel40">
             <vbox flex="1" class="footlogo">
                     <groupbox>
-                    <caption label="Select Tax:" />
+                    <caption label="&selecttax.title;" />
                     <label id="rate" hidden="true" value="" />
                     <hbox>
-                        <viviscrollablebuttonpanel dir="reverse" id="taxscrollablepanel" flex="1" cols="3" rows="7" labelField="name" oncommand="$do('select',this.selectedIndex, 'SelectTax');"
-                              class="catescrollablepanel" buttonClass="catbtn button-radius button-white font-medium" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue" />
+                        <viviscrollablebuttonpanel dir="reverse" id="taxscrollablepanel" flex="1" cols="3" rows="7" labelField="name"
+                                                   oncommand="$do('select',this.selectedIndex, 'SelectTax');"
+                                                   class="catescrollablepanel"
+                                                   buttonClass="catbtn button-radius button-white font-medium"
+                                                   scrollUpClass="rightprevbtn button-blue"
+                                                   scrollDownClass="rightnextbtn button-blue">
+                            <spacer flex="1"/>
+                        </viviscrollablebuttonpanel>
                     </hbox>
                 </groupbox>
             </vbox>

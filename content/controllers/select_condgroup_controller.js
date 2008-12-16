@@ -18,7 +18,6 @@
 
             var listObj = this.getListObj();
 
-
             var groups = GeckoJS.Session.get('condGroups');
             if (!groups) {
                 var condGroupModel = new CondimentGroupModel();
@@ -34,16 +33,16 @@
 
             this._listDatas = groups;
 
-            var index = 0;
+            var index = (groups.length > 0) ? 0 : -1;
             if (data) {
                 listObj.value = data;
                 if (listObj.selectedIndex < 0) {
-                    listObj.selectedItems = [0];
-                    listObj.selectedIndex = 0;
+                    listObj.selectedItems = [index];
+                    listObj.selectedIndex = index;
                 }
             } else {
-                listObj.selectedItems = [0];
-                listObj.selectedIndex = 0;
+                listObj.selectedItems = [index];
+                listObj.selectedIndex = index;
             };
             this.select();
 
@@ -53,7 +52,7 @@
         select: function(){
 		
             var listObj = this.getListObj();
-            selectedIndex = listObj.selectedIndex;
+            var selectedIndex = listObj.selectedIndex;
             var group = this._listDatas[selectedIndex];
 
             // $("rolegroup").val(rolegroup.name);

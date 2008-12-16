@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE window SYSTEM "chrome://viviecr/locale/numberpad.dtd">
+<!DOCTYPE window SYSTEM "chrome://viviecr/locale/changeuser.dtd">
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/changeuser.css" type="text/css"?>
 
 <window id="changeuser" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
+    <keyset id="keyset_extensions">
+    <key id="key_enter" keycode="VK_RETURN" oncommand="$do('checkUser', null, 'ChangeUser');" />
+    </keyset>
+    
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/changeuser.js" />
 
@@ -18,23 +22,30 @@
                         <spacer flex="1"/>
                     </viviscrollablebuttonpanel>
                 </vbox>
-                <hbox class="numpad">
-                        <numberpad id="multinumberpad" class="numberpad" target="user_password"/>
-                        <vbox>
-                            <vivibutton id="delBtn" label="&numberpad.keylabel.del;" class="systembtn" />
-                            <vivibutton id="clearBtn" label="&numberpad.keylabel.clear;" class="systembtn"/>
-                        </vbox>
-                </hbox>
+                <vbox>
+                    <hbox class="numpad">
+                            <numberpad id="multinumberpad" class="numberpad" target="user_password"/>
+                            <vbox>
+                                <vivibutton id="delBtn" label="&changeuser.keylabel.del;" class="systembtn" />
+                                <vivibutton id="clearBtn" label="&changeuser.keylabel.clear;" class="systembtn"/>
+                            </vbox>
+                    </hbox>
+                    <separator class="groove-thin" style="margin:5px"/>
+                    <hbox>
+                        <radio id="quicklogin" disabled="true" selected="false"/>
+                        <label value="&changeuser.label.quicklogin;"/>
+                    </hbox>
+                </vbox>
                 <spacer flex="1" />
 
             </hbox>
             <hbox pack="center" class="PwPad">
-                <label value="&numberpad.keylabel.password;" class="pwlabel" />
+                <label value="&changeuser.keylabel.password;" class="pwlabel" oninput="$do('validateForm', null, 'ChangeUser')" />
                 <vbox>
                     <textbox id="user_password" type="password" value="" class="pwBox" />
                     <label id="user_name" value="" class="userlabel"/>
                 </vbox>
-                <button label="&numberpad.keylabel.ok;" class="genbtn" oncommand="$do('checkUser', null, 'ChangeUser');" />
+                <button label="&changeuser.keylabel.ok;" class="genbtn" oncommand="$do('checkUser', null, 'ChangeUser');" />
             </hbox>
         </vbox>
     </box>

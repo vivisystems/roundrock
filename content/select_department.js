@@ -9,6 +9,8 @@
     function startup() {
 
         var depsData = inputObj.depsData;
+        var index = inputObj.index;
+        var panel = document.getElementById('departmentscrollablepanel');
 
         window.viewHelper = new opener.GeckoJS.NSITreeViewArray(depsData);
 
@@ -30,20 +32,18 @@
 
         };
 
-        document.getElementById('departmentscrollablepanel').datasource = window.viewHelper ;
-
-        /*
-        document.getElementById('condimentscrollablepanel').addEventListener('command', function(evt) {
-        }, true);
-        */
-
+        panel.datasource = window.viewHelper;
+        panel.selectedIndex = index;
+        panel.selectedItems = [index];
 
         doSetOKCancel(
             function(){
 
-                var index = document.getElementById('departmentscrollablepanel').selectedIndex;
+                var index = panel.selectedIndex;
 
                 inputObj.cate_no = depsData[index].no;
+                inputObj.cate_name = depsData[index].name;
+                inputObj.index = index;
                 inputObj.ok = true;
 
                 delete window.viewHelper;
@@ -55,12 +55,11 @@
                 delete window.viewHelper;
                 return true;
             }
-            );
+        );
 
     };
 
     window.addEventListener('load', startup, false);
 
 })();
-
 

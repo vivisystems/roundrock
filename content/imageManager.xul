@@ -19,7 +19,7 @@
     <hbox flex="1" style="border:1px solid #f00;">
         <vbox flex="2">
             <viviscrollablebuttonpanel id="imagePanel" flex="1" cols="4" rows="4" labelField="leafName" imageField="path"
-                oncommand="$do('select',this.selectedIndex, 'ImageManager');"  buttonClass="imageThumbBtn largeimagebtn" scrollUpClass="rightprevbtn button-gray" scrollDownClass="rightnextbtn button-gray" />
+                                       oncommand="$do('select',this.selectedIndex, 'ImageManager');"  buttonClass="imageThumbBtn largeimagebtn" scrollUpClass="rightprevbtn button-gray" scrollDownClass="rightnextbtn button-gray" />
             <spacer flex="1"/>
             <groupbox>
               <caption label="&imagemanager.image.caption;" />

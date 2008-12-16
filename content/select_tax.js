@@ -31,10 +31,9 @@
                     inputObj.ok = false;
                     return false;
                 }
-
                 inputObj.rate = taxes[index].no;
+                inputObj.name = taxes[index].name;
                 inputObj.ok = true;
-
                 return true;
             },
             function(){

@@ -71,6 +71,7 @@
             this.validateForm();
 
             document.getElementById('condiment_group_name').focus();
+            document.getElementById('condiment_group_name').select();
         },
 
         clickCondimentPanel: function(index) {
@@ -127,7 +128,7 @@
                 document.getElementById('condiment_price').setAttribute('disabled',  true);
             }
             else {
-                document.getElementById('condiment_group_name').setAttribute('disabled',  false);
+                document.getElementById('condiment_group_name').removeAttribute('disabled');
 
                 // validate group name
                 var group_name = document.getElementById('condiment_group_name').value.replace(/^\s*/, '').replace(/\s*$/, '');
@@ -145,20 +146,20 @@
                     document.getElementById('delete_condiment').setAttribute('disabled',  true);
                 }
                 else {
-                    document.getElementById('condiment_name').setAttribute('disabled',  false);
-                    document.getElementById('condiment_price').setAttribute('disabled',  false);
+                    document.getElementById('condiment_name').removeAttribute('disabled');
+                    document.getElementById('condiment_price').removeAttribute('disabled');
 
                     // validate condiment name and price
                     var cond_name = document.getElementById('condiment_name').value.replace(/^\s*/, '').replace(/\s*$/, '');
                     var cond_price = document.getElementById('condiment_price').value.replace(/^\s*/, '').replace(/\s*$/, '');
 
                     if (cond_name.length > 0 && !isNaN(parseInt(cond_price))) {
-                        document.getElementById('modify_condiment').setAttribute('disabled',  false);
+                        document.getElementById('modify_condiment').removeAttribute('disabled');
                     }
                     else {
                         document.getElementById('modify_condiment').setAttribute('disabled',  true);
                     }
-                    document.getElementById('delete_condiment').setAttribute('disabled',  false);
+                    document.getElementById('delete_condiment').removeAttribute('disabled');
                 }
             }
         },
@@ -269,7 +270,6 @@
 
                 var view = this._condGroupscrollablepanel.datasource;
                 view.data = condGroups;
-
                 this.changeCondimentPanel(this._selectedIndex);
             }
         },
@@ -326,7 +326,6 @@
 
         resetInputCondData: function () {
 
-            //GeckoJS.FormHelper.reset('condimentForm');
             this.query('#condiment_name').val('');
             this.query('#condiment_price').val('');
             this.query('#condiment_button_color').val('default');
@@ -334,7 +333,6 @@
         },
 
         setInputCondData: function (valObj) {
-            GeckoJS.FormHelper.reset('condimentForm');
             GeckoJS.FormHelper.unserializeFromObject('condimentForm', valObj);
         },
 

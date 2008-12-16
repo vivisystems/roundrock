@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window SYSTEM "chrome://viviecr/locale/aclgroups.dtd">
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+<window id="numpad" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/bootstrap.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/aclgroups.js" />
+
+    <box flex="1" class="mainpanel1 pad40">
+        <vbox flex="1" class="panel40">
+            <vbox flex="1" class="footlogo">
+                <groupbox>
+                    <caption label="&aclgroups.title;" />
+
+                    <hbox>
+
+                        <viviscrollablebuttonpanel dir="reverse" id="aclgroupscrollablepanel" flex="1" cols="3" rows="3" labelField="name" imageField="no"
+                                                   ensureVisible="true"
+                                                   oncommand="$do('select', this.selectedIndex, 'AclGroups');"
+                                                   class="catescrollablepanel"
+                                                   buttonClass="catbtn button-radius button-white font-medium"
+                                                   scrollUpClass="rightprevbtn button-blue"
+                                                   scrollDownClass="rightnextbtn button-blue"
+                                                   style="width: 200px;">
+                            <spacer flex="1"/>
+                        </viviscrollablebuttonpanel>
+
+                        <spacer style="width: 20px;" />
+                        <vbox>
+                            <hbox align="center">
+                                <label id="aclgroup_id" hidden="true" form="aclgroupForm" name="id" value="" />
+                                <label value="Group Name:" />
+                                <textbox id="aclgroup_name" value="" form="aclgroupForm" name="name" readonly="true"/>
+                            </hbox>
+                            
+                            <spacer style="height: 10px;" />
+                            <hbox>
+                                <button id="add_acl_group" label="&aclgroups.button.action.add;" disabled="false" class="editbtns" oncommand="$do('add', null, 'AclGroups');" />
+                                <spacer flex="1" />
+                                <button id="modify_acl_group" label="&aclgroups.button.action.modify;" disable="true" class="editbtns" oncommand="$do('modify', null, 'AclGroups');" />
+                                <button id="delete_acl_group" label="&aclgroups.button.action.delete;" disabled="true" class="editbtns" oncommand="$do('remove', null, 'AclGroups');" />
+                            </hbox>
+                        </vbox>
+
+                    </hbox>
+                </groupbox>
+                <separator class="groove-thin"/>
+                <groupbox flex="1">
+                    <caption label="Role List:" />
+                    <viviscrollablebuttonpanel id="rolelistscrollablepanel" form="aclgroupForm" name="role_group" default="" seltype="multiple" flex="1"
+                                               cols="6" rows="5" labelField="description" imageField="no"
+                                               class="catescrollablepanel"
+                                               buttonClass="catbtn button-radius button-white font-medium"
+                                               scrollUpClass="rightprevbtn button-blue"
+                                               scrollDownClass="rightnextbtn button-blue">
+                        <spacer flex="1"/>
+                    </viviscrollablebuttonpanel>
+
+                </groupbox>
+
+            </vbox>
+        </vbox>
+    </box>
+  <!-- /groupbox -->
+    <hbox id="okCancelButtonsRight" class="dialogbtns" />
+
+</window>

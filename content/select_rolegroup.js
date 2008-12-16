@@ -12,6 +12,7 @@
 
         $do('load', inputObj.rolegroup, 'SelectRolegroup');
 
+        // used in select_rolegroup
         doSetOKCancel(
             function(){
                 inputObj.rolegroup = document.getElementById('rolegroup').value;
