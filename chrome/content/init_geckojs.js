@@ -40,6 +40,7 @@ if (typeof GeckoJS == 'undefined') {
 // initial current window context to javascript code modules
 include("chrome://global/content/globalOverlay.js");
 
+Components.utils.import('resource://app/modules/osd_utils.jsm');
 
 // Dispatcher shortcut
 var shortDispatcher = {};
