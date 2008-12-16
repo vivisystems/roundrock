@@ -425,7 +425,7 @@
             var acl = new GeckoJS.AclComponent();
 
             //@todo work-around Object reference bug
-            var roles= acl.getRoleList();
+            var roles= acl.getGroupList();
 
             if (defaultLogin) {
                 var userModel = new UserModel();
