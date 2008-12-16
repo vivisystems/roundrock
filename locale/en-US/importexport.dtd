@@ -1,0 +1,14 @@
+<!ENTITY importexport.department "Department:">
+<!ENTITY importexport.plu "Plu:">
+<!ENTITY importexport.plugroup "Plu Group:">
+<!ENTITY importexport.condimentgroup "Condiment Group:">
+<!ENTITY importexport.condiment "Condiment:">
+<!ENTITY importexport.import "Import">
+<!ENTITY importexport.export "Export">
+
+<!ENTITY vivipos.fec.common.ok "Ok">
+<!ENTITY vivipos.fec.common.cancel "Cancel">
+<!ENTITY vivipos.fec.common.add "Add">
+<!ENTITY vivipos.fec.common.modify "Modify">
+<!ENTITY vivipos.fec.common.delete "Delete">
+
