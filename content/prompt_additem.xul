@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE window SYSTEM "chrome://viviecr/locale/fecpos.dtd">
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 
@@ -14,14 +13,22 @@
             <groupbox>
                 <caption id="caption0" label="" />
                 <label id="text0" value="" />
-                <hbox align="center">
-                    <label id="title0" style="width:6em" value=""/>
-                    <textbox id="input0" value="" oninput="validateInput()"/>
-                </hbox>
-                <hbox align="center">
-                    <label id="title1" style="width:6em" value="" />
-                    <textbox id="input1" value="" oninput="validateInput()"/>
-                </hbox>
+                <grid>
+                    <columns>
+                        <column/>
+                        <column/>
+                    </columns>
+                    <rows>
+                        <row>
+                            <label id="title0" style="width:6em" value="" control="input0"/>
+                            <textbox id="input0" value="" oninput="validateInput()" onfocus="this.select()"/>
+                        </row>
+                        <row>
+                            <label id="title1" style="width:6em" value="" control="input1"/>
+                            <textbox id="input1" value="" oninput="validateInput()" onfocus="this.select()"/>
+                        </row>
+                    </rows>
+                </grid>
             </groupbox>
         </vbox>
     </box>

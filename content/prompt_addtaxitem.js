@@ -22,6 +22,7 @@ var options;
         document.getElementById('type_addon').label = inputObj.addon;
         document.getElementById('type_combine').label = inputObj.combine;
         document.getElementById('type_vat_on_vat').label = inputObj.vat_on_vat;
+        document.getElementById('cancel').setAttribute('disabled', false);
         
         document.getElementById('input0').focus();
         doSetOKCancel(

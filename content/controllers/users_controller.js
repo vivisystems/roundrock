@@ -227,7 +227,6 @@
             
             var modBtn = document.getElementById('modify_user');
             var delBtn = document.getElementById('delete_user');
-            var tabPanels = document.getElementById('tabpanels');
             var roleTextbox = document.getElementById('user_group');
 
             if (resetTabs) document.getElementById('tabs').selectedIndex = 0;
@@ -238,7 +237,9 @@
 
                 var password = document.getElementById('user_password').value.replace(/^\s*/, '').replace(/\s*$/, '');
                 modBtn.setAttribute('disabled', password.length < 1);
-                tabPanels.selectedIndex = 0;
+                document.getElementById('tab1').removeAttribute('disabled');
+                document.getElementById('tab2').removeAttribute('disabled');
+                document.getElementById('tab3').removeAttribute('disabled');
 
                 var textboxes = document.getElementsByTagName('textbox');
                 if (textboxes) {
@@ -258,7 +259,9 @@
             else {
                 modBtn.setAttribute('disabled', true);
                 delBtn.setAttribute('disabled', true);
-                tabPanels.selectedIndex = -1;
+                document.getElementById('tab1').setAttribute('disabled', true);
+                document.getElementById('tab2').setAttribute('disabled', true);
+                document.getElementById('tab3').setAttribute('disabled', true);
 
                 var textboxes = document.getElementsByTagName('textbox');
                 if (textboxes) {

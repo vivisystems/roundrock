@@ -107,7 +107,7 @@
                 vat_on_vat: _('VAT & VAT'),
                 combinetax:false
             };
-            window.openDialog(aURL, 'prompt_additem', features, _('New Tax'), '', _('Tax Code:'), _('Tax Name:'), inputObj);
+            window.openDialog(aURL, 'prompt_additem', features, _('New Tax Status'), '', _('Tax Code:'), _('Tax Name:'), inputObj);
             if (inputObj.ok && inputObj.input0 && inputObj.input1) {
 
                 var tax_type = 'ADDON';
