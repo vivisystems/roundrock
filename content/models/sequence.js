@@ -1,5 +1,5 @@
-GREUtils.define('ViviPOS.SequenceModel');
-ViviPOS.SequenceModel = GeckoJS.Model.extend(
+
+var SequenceModel = window.SequenceModel = GeckoJS.Model.extend(
 {
     getSequence: function(key) {
         return (new this).getSequence(key);

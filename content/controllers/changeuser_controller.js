@@ -12,6 +12,7 @@
         userpanel: null,
 
         loadUsers: function () {
+
             var allowQuickLogin = GeckoJS.Configure.read('vivipos.fec.settings.login.allowquicklogin');
             
             var userModel = new UserModel();
