@@ -76,12 +76,12 @@
     -moz-appearance: none;
     -moz-user-focus: ignore;
     /* background: white; */
-    background: transparent url(images/numbtn.png);
+    background: transparent url(images/numbtn_tall.png);
     color: white;
 }
 
 .numberpad sendkeybutton:active{
-	background: transparent url(images/numbtn_a.png) center center no-repeat;
+	background: transparent url(images/numbtn_tall_a.png) center center no-repeat;
 }
 
 .rightprevbtn {
