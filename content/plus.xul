@@ -132,11 +132,11 @@
                                                     </row>
                                                     <row>
                                                         <label value="&plus.stock.level;" control="stock"/>
-                                                        <textbox id="stock" type="number" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="stock" default="8" onfocus="this.select()"/>
+                                                        <textbox id="stock" type="number" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="stock" default="0" onfocus="this.select()"/>
                                                     </row>
                                                     <row>
                                                         <label value="&plus.stock.threshold;" control="min_stock"/>
-                                                        <textbox id="min_stock" type="number" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="min_stock" default="6" onfocus="this.select()"/>
+                                                        <textbox id="min_stock" type="number" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="min_stock" default="0" onfocus="this.select()"/>
                                                     </row>
                                                     <row>
                                                         <label value="&plus.memo;" control="product_memo"/>
@@ -148,7 +148,7 @@
                                                     </row>
                                                     <row>
                                                         <label value="&plus.sale.unit;"/>
-                                                        <menulist id="sale_unit" form="productForm" name="sale_unit" label="Sale Unit" value="0" default="0">
+                                                        <menulist id="sale_unit" form="productForm" name="sale_unit" value="0" default="0">
                                                             <menupopup style="width: 200px;">
                                                                 <menuitem label="&plus.sale.unit.individual;" value="0"/>
                                                                 <menuitem label="&plus.sale.unit.gram;" value="1"/>
@@ -180,7 +180,7 @@
 
                                         <groupbox>
                                             <caption label="&plus.setmenu;" />
-                                            <label hidden="false" id="setmenu" form="productForm" name="setmenu" value="" />
+                                            <label hidden="true" id="setmenu" form="productForm" name="setmenu" value="" />
                                             <viviscrollabletree id="plusetscrollablepanel" flex="1" rows="7" headers="&plus.header.no;,&plus.header.name;,&plus.header.quantity;" fields="no,name,qty"
                                                                 onclick="$do('clickPluSetsPanel',this.selectedIndex, 'Plus');"
                                                                 class="prodscrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray">

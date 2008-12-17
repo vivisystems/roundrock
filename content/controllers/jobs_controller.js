@@ -124,7 +124,11 @@
         },
 
         beforeScaffoldDelete: function(evt) {
-            if (GREUtils.Dialog.confirm(null, _('confirm delete %S', [evt.data.jobname]), _('Are you sure?')) == false) {
+            var panel = this.getListObj();
+            var view = panel.datasource;
+            var jobname = view.data[panel.selectedIndex].jobname;
+
+            if (GREUtils.Dialog.confirm(null, _('confirm delete %S', [jobname]), _('Are you sure?')) == false) {
                 evt.preventDefault();
             }
         },

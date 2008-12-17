@@ -73,7 +73,19 @@
 
                                                     <row>
                                                         <label value="&users.pricelevel;" control="default_price_level"/>
-                                                        <textbox id="default_price_level" form="userForm" name="default_price_level" width="100px" onfocus="this.select()"/>
+                                                        <menulist id="default_price_level" form="userForm" name="default_price_level" value="" default="">
+                                                            <menupopup style="width: 200px;">
+                                                                <menuitem label="1" value="1"/>
+                                                                <menuitem label="2" value="2"/>
+                                                                <menuitem label="3" value="3"/>
+                                                                <menuitem label="4" value="4"/>
+                                                                <menuitem label="5" value="5"/>
+                                                                <menuitem label="6" value="6"/>
+                                                                <menuitem label="7" value="7"/>
+                                                                <menuitem label="8" value="8"/>
+                                                                <menuitem label="9" value="9"/>
+                                                            </menupopup>
+                                                        </menulist>
                                                     </row>
                                                 </rows>
                                             </grid>

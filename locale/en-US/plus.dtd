@@ -33,7 +33,7 @@
 <!ENTITY plus.stock.threshold "Minimum Threshold:">
 <!ENTITY plus.memo "Memo:">
 <!ENTITY plus.minimum.sale.quantity "Minimum Sale Qty:">
-<!ENTITY plus.sale.unit "Units of Sale:">
+<!ENTITY plus.sale.unit "Unit of Sale:">
 <!ENTITY plus.sale.unit.individual "Individually">
 <!ENTITY plus.sale.unit.gram "Gram">
 <!ENTITY plus.sale.unit.kilogram "Kilogram">

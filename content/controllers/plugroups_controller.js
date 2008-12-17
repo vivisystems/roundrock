@@ -18,6 +18,21 @@
             return this._listObj;
         },
 
+        getInputDefault: function () {
+            var valObj = {};
+            this.query('[form=plugroupForm]').each(function() {
+                var n = this.name || this.getAttribute('name');
+                if (!n) return;
+                var v = this.getAttribute('default');
+
+                if (typeof v != 'undefined') {
+                    valObj[n] = v;
+                }
+            });
+            return valObj;
+
+        },
+
         /*
         beforeScaffold: function(evt) {
             
@@ -55,7 +70,7 @@
                 evt.preventDefault();
                 return ;
             }
-            var newgroup = GeckoJS.FormHelper.serializeToObject('plugroupForm');
+            var newgroup = this.getInputDefault();
             newgroup.name = plugroup.name;
             newgroup.id = '';
             GREUtils.extend(evt.data, newgroup);
@@ -137,7 +152,11 @@
         */
 
         beforeScaffoldDelete: function(evt) {
-            if (GREUtils.Dialog.confirm(null, _('confirm delete %S', [evt.data.name]), _('Are you sure?')) == false) {
+            var panel = this.getListObj();
+            var view = panel.datasource;
+            var name = view.data[panel.selectedIndex].name;
+
+            if (GREUtils.Dialog.confirm(null, _('confirm delete %S', [name]), _('Are you sure?')) == false) {
                 evt.preventDefault();
             }
         },
