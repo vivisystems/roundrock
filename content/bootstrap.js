@@ -14,20 +14,6 @@ GeckoJS.StringBundle.createBundle("chrome://viviecr/locale/messages.properties")
 // include project libs
 
 // include project models
-<<<<<<< HEAD:content/bootstrap.js
-GREUtils.include('chrome://viviecr/content/models/user.js');
-GREUtils.include('chrome://viviecr/content/models/category.js');
-GREUtils.include('chrome://viviecr/content/models/product.js');
-GREUtils.include('chrome://viviecr/content/models/cart.js');
-GREUtils.include('chrome://viviecr/content/models/cash_drawer.js');
-GREUtils.include('chrome://viviecr/content/models/sequence.js');
-GeckoJS.include('chrome://viviecr/content/models/transaction.js');
-GREUtils.include('chrome://viviecr/content/models/condiment_group.js');
-GREUtils.include('chrome://viviecr/content/models/condiment.js');
-GREUtils.include('chrome://viviecr/content/models/plugroup.js');
-GREUtils.include('chrome://viviecr/content/models/job.js');
-GREUtils.include('chrome://viviecr/content/models/account.js');
-=======
 include('chrome://viviecr/content/models/user.js');
 include('chrome://viviecr/content/models/category.js');
 include('chrome://viviecr/content/models/product.js');
@@ -40,7 +26,6 @@ include('chrome://viviecr/content/models/condiment.js');
 include('chrome://viviecr/content/models/plugroup.js');
 include('chrome://viviecr/content/models/job.js');
 include('chrome://viviecr/content/models/producttmp.js');
->>>>>>> a37aaf934a873e9a62f235076f2058bda887faaf:content/bootstrap.js
 
 
 include('chrome://viviecr/content/models/order.js');
