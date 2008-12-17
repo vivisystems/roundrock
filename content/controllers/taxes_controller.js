@@ -71,26 +71,32 @@
 
         },
 
-        _checkData: function (data) {
+        _checkData: function (data, id) {
             var taxes = this._listDatas;
             var result = 0;
 
             if (data.no.length <= 0) {
-                alert(_('Tax code must not be empty.'));
+                // @todo OSD
+                OsdUtils.warn(_('Tax code must not be empty.'));
                 result = 3;
             } else if (data.name.length <= 0) {
-                alert(_('Tax name must not be empty.'));
+                // @todo OSD
+                OsdUtils.warn(_('Tax name must not be empty.'));
                 result = 4;
             } else {
-                taxes.forEach(function(o){
-                    if (o.no == data.no) {
-                        alert(_('Duplicate tax code (%S); tax not added', [data.no]));
-                        result = 1;
-                    } else if (o.name == data.name) {
-                        alert(_('Duplicate tax name (%S); tax not added', [data.name]));
-                        result = 2;
+                if (taxes)
+                    for (var i = 0; i < taxes.length; i++) {
+                        var o = taxes[i];
+                            if (o.no == data.no && !id) {
+                                // @todo OSD
+                                OsdUtils.warn(_('Duplicate tax code [%S]; tax not added', [data.no]));
+                                return 1;
+                            } else if (o.name == data.name && o.id != id) {
+                                // @todo OSD
+                                OsdUtils.warn(_('Duplicate tax name [%S]; tax not %S', [data.name, id ? 'modified' : 'added']));
+                                return 2;
+                            }
                     }
-                });
             }
             return result;
         },
@@ -99,7 +105,7 @@
             var aURL = 'chrome://viviecr/content/prompt_addtaxitem.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=600,height=400';
             var inputObj = {
-                input0:null, require0:true,
+                input0:null, require0:true, alphaOnly0:true,
                 input1:null, require1:true,
                 addon: _('Add-On'),
                 included: _('Included'),
@@ -107,7 +113,7 @@
                 vat_on_vat: _('VAT & VAT'),
                 combinetax:false
             };
-            window.openDialog(aURL, 'prompt_additem', features, _('New Tax Status'), '', _('Tax Code:'), _('Tax Name:'), inputObj);
+            window.openDialog(aURL, _('Add New Tax Status'), features, _('New Tax Status'), '', _('Tax Code'), _('Tax Name'), inputObj);
             if (inputObj.ok && inputObj.input0 && inputObj.input1) {
 
                 var tax_type = 'ADDON';
@@ -120,45 +126,75 @@
                 };
 
                 if (this._checkData(data) == 0) {
-                    this.Tax.setTax(data.no, data);
 
-                    this.createAddonTaxList();
+                    try {
+                        this.Tax.setTax(data.no, data);
 
-                    this.load(this._listDatas.length);
+                        this.createAddonTaxList();
+
+                        this.load(this._listDatas.length);
+
+                        // @todo OSD.text to be replaced by OSD.info
+                        OsdUtils.info(_('Tax [%S] added successfully', [data.name]));
+                    }
+                    catch (e) {
+                        // @todo OSD
+                        OsdUtils.error(_('An error occurred while adding Tax [%S]; the tax may not have been added successfully', [data.name]));
+                    }
                 }
             }
-
         },
 
-        remove: function (evt) {
-            if (GREUtils.Dialog.confirm(null, _('confirm delete'), _('Are you sure?')) == false) {
-                return;
-            }
+        remove: function () {
             var listObj = this.getListObj();
             var selectedIndex = listObj.selectedIndex;
+
+            if (selectedIndex == null || selectedIndex < 0) return;
+
             var tax = this._listDatas[selectedIndex];
 
-            this.Tax.removeTax(tax.no);
-
-            if (selectedIndex >= this._listDatas.length - 1) {
-                selectedIndex--;
+            if (GREUtils.Dialog.confirm(null, _('confirm delete %S', [tax.name]), _('Are you sure?')) == false) {
+                return;
             }
-            this.load(selectedIndex);
+            try {
+                this.Tax.removeTax(tax.no);
+
+                if (selectedIndex >= this._listDatas.length - 1) {
+                    selectedIndex--;
+                }
+                this.load(selectedIndex);
+
+                // @todo OSD.text to be replaced by OSD.info
+                OsdUtils.info(_('Tax [%S] removed successfully', [tax.name]));
+            }
+            catch (e) {
+                // @todo OSD
+                OsdUtils.error(_('An error occurred while removing Tax [%S]; the tax may not have been removed successfully', [tax.name]));
+            }
         },
 
-        update: function (evt) {
+        update: function () {
             
             var data = this.getInputData();
             
-            //alert(this.dump(data));
-
-            if (data.type == 'COMBINE' || data.type =='VAT') {
-                this.Tax.addCombineTax(data.no, data.combine_tax.split(','));
-            }
-            delete(data.combine_tax);
-            this.Tax.setTax(data.no, data);
+            if (this._checkData(data, data.id) == 0) {
+                try {
+                    if (data.type == 'COMBINE' || data.type =='VAT') {
+                        this.Tax.addCombineTax(data.no, data.combine_tax.split(','));
+                    }
+                    delete(data.combine_tax);
+                    this.Tax.setTax(data.no, data);
             
-            this.load(this.getListObj().selectedIndex);
+                    this.load(this.getListObj().selectedIndex);
+
+                    // @todo OSD
+                    OsdUtils.info(_('Tax [%S] modified successfully', [data.name]));
+                }
+                catch (e) {
+                    // @todo OSD
+                    OsdUtils.error(_('An error occurred while adding Tax [%S]; the tax may not have been added successfully', [data.name]));
+                }
+            }
             
         },
 

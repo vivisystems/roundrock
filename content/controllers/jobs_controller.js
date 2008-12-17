@@ -32,7 +32,7 @@
 
             this._jobAdded = false;
 
-            window.openDialog(aURL, 'prompt_additem', features, _('New Job'), '', _('Job Name'), '', inputObj);
+            window.openDialog(aURL, _('Add New Job'), features, _('New Job'), '', _('Job Name'), '', inputObj);
             if (inputObj.ok && inputObj.input0) {
                 evt.data.id = '';
                 evt.data.jobname = inputObj.input0;
@@ -41,6 +41,7 @@
                 return;
             }
 
+            // check for duplicate job names
             var jobModel = new JobModel();
 
             var jobs = jobModel.findByIndex('all', {
@@ -49,7 +50,7 @@
             });
 
             if (jobs != null && jobs.length > 0) {
-                alert(_('Duplicate job name (%S); job not added.', [evt.data.jobname]));
+                OsdUtils.warn(_('Duplicate job name [%S]; job not added.', [evt.data.jobname]));
                 evt.preventDefault();
                 return ;
             }
@@ -76,36 +77,47 @@
                 this.validateForm();
 
                 document.getElementById('job_name').focus();
+
+                // @todo OSD
+                OsdUtils.info(_('Job [%S] added successfully', [evt.data.jobname]));
             }
         },
 
-        afterScaffoldEdit: function (evt) {
-
-            var panel = this.getListObj();
-            var index = panel.selectedIndex;
-
-            this.requestCommand('list', index);
-
-            panel.selectedIndex = index;
-            panel.selectedItems = [index];
-        },
-
-        beforeScaffoldSave: function(evt) {
-            if (evt.data.id == null) return;    // add
+        beforeScaffoldEdit: function(evt) {
 
             // check if modified to a duplicate job name
             var jobModel = new JobModel();
 
             var jobs = jobModel.findByIndex('all', {
                 index: "jobname",
-                value: evt.data.jobname
+                value: evt.data.jobname.replace(/^\s*/, '').replace(/\s*$/, '')
             });
+
+            this._jobModified = true;
             if (jobs != null && jobs.length > 0) {
                 if ((jobs.length > 1) || (jobs[0].id != $('#job_id').val())) {
-                    alert(_('Duplicate job name (%S); job not modified.', [evt.data.jobname]));
                     evt.preventDefault();
-                    return ;
+                    this._jobModified = false;
+                    
+                    // @todo OSD
+                    OsdUtils.warn(_('Duplicate job name [%S]; job not modified.', [evt.data.jobname]));
                 }
+            }
+        },
+
+        afterScaffoldEdit: function (evt) {
+
+            if (this._jobModified) {
+                var panel = this.getListObj();
+                var index = panel.selectedIndex;
+
+                this.requestCommand('list', index);
+
+                panel.selectedIndex = index;
+                panel.selectedItems = [index];
+
+                // @todo OSD
+                OsdUtils.info(_('Job [%S] modified successfully', [evt.data.jobname]));
             }
         },
 
@@ -114,12 +126,12 @@
         },
 
         beforeScaffoldDelete: function(evt) {
-            if (GREUtils.Dialog.confirm(null, _('confirm delete'), _('Are you sure?')) == false) {
+            if (GREUtils.Dialog.confirm(null, _('confirm delete %S', [evt.data.jobname]), _('Are you sure?')) == false) {
                 evt.preventDefault();
             }
         },
 
-        afterScaffoldDelete: function() {
+        afterScaffoldDelete: function(evt) {
 
             var panel = this.getListObj();
             var view = panel.datasource;
@@ -137,6 +149,9 @@
                 GeckoJS.FormHelper.reset('jobForm');
             }
             this.validateForm();
+
+            // @todo OSD
+            OsdUtils.info(_('Job [%S] removed successfully', [evt.data.jobname]));
         },
 
 

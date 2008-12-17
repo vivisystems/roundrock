@@ -42,6 +42,6 @@
         </vbox>
     </box>
 
-    <hbox id="okCancelButtonsRight" class="dialogbtns" />
+    <hbox id="okCancelButtonsRight" class="promptbtns" />
 
 </window>

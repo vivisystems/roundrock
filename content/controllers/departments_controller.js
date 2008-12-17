@@ -111,26 +111,32 @@
             GeckoJS.FormHelper.unserializeFromObject('deptForm', valObj);
         },
 
-        _checkData: function (data) {
+        _checkData: function (data, id) {
             var depts = GeckoJS.Session.get('categories');
             var result = 0;
 
             if (data.no.length <= 0) {
-                alert(_('Department Number must not be empty'));
+                // @todo OSD
+                OsdUtisl.warn(_('Department Number must not be empty'));
                 result = 3;
             } else if (data.name.length <= 0) {
-                alert(_('Department Name must not be empty'));
+                // @todo OSD
+                OsdUtils.warn(_('Department Name must not be empty'));
                 result = 4;
             } else {
-                if (depts) depts.forEach(function(o){
-                    if (o.no == data.no) {
-                        alert(_('Duplicate Department Number (%S); department not added.', [data.no]));
-                        result = 1;
-                    } else if (o.name == data.name) {
-                        alert(_('Duplicate Department Name (%S); department not added.', [data.name]))
-                        result = 2;
+                if (depts)
+                    for (var i = 0; i < depts.length; i++) {
+                        var o = depts[i];
+                        if (o.no == data.no && !id) {
+                            // @todo OSD
+                            OsdUtils.warn(_('Duplicate Department Number (%S); department not %S.', [data.no, id ? 'modified' : 'added']));
+                            return 1;
+                        } else if (o.name == data.name && o.id != id) {
+                            // @todo OSD
+                            OsdUtils.warn(_('Duplicate Department Name (%S); department not %S.', [data.name, id ? 'modified' : 'added']))
+                            return 2;
+                        }
                     }
-                });
             }
 
             return result;
@@ -140,10 +146,10 @@
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250';
             var inputObj = {
-                input0:null, require0:true,
+                input0:null, require0:true, alphaOnly0:true,
                 input1:null, require1:true
             };
-            window.openDialog(aURL, 'prompt_additem', features, _('New Department'), _('Please input:'), _('Department Number'), _('Department Name'), inputObj);
+            window.openDialog(aURL, _('Add New Department'), features, _('New Department'), '', _('Department Number'), _('Department Name'), inputObj);
             if (inputObj.ok && inputObj.input0 && inputObj.input1) {
                 var dept = new CategoryModel();
 
@@ -152,18 +158,28 @@
                 inputData.name = inputObj.input1
 
                 if(this._checkData(inputData) == 0) {
-                    dept.save(inputData);
 
-                    // look for dept.id
-                    var cateModel = new CategoryModel();
-                    var dept = cateModel.findByIndex('all', {
-                        index: 'no',
-                        value: inputData.no
-                    });
-                    var id = (dept.length > 0) ? dept[0].id : -1;
-                    var index = this.updateSession('add', id);
+                    try {
+                        dept.save(inputData);
 
-                    this.changeDepartmentPanel(index);
+                        // look for dept.id
+                        var cateModel = new CategoryModel();
+                        var dept = cateModel.findByIndex('all', {
+                            index: 'no',
+                            value: inputData.no
+                        });
+                        var id = (dept.length > 0) ? dept[0].id : -1;
+                        var index = this.updateSession('add', id);
+
+                        this.changeDepartmentPanel(index);
+
+                        // @todo OSD
+                        OsdUtils.info(_('Department [%S] added successfully', [inputData.name]));
+                    }
+                    catch (e) {
+                        // @todo OSD
+                        OsdUtils.error(_('An error occurred while adding Department [%S]; the department may not have been added successfully', [inputData.name]));
+                    }
                 }
             }
         },
@@ -174,34 +190,49 @@
             var inputData = this.getInputData();
             var cateModel = new CategoryModel();
 
-            if(this._selectedIndex >= 0) {
+            var dept = this.deptPanelView.getCurrentIndexData(this._selectedIndex);
 
-                var dept = this.deptPanelView.getCurrentIndexData(this._selectedIndex);
+            try {
+                if (this._checkData(inputData, dept.id) == 0) {
+                    inputData.id = dept.id;
+                    cateModel.id = dept.id;
+                    cateModel.save(inputData);
 
-                inputData.id = dept.id;
-                cateModel.id = dept.id;
-                cateModel.save(inputData);
+                    var index = this.updateSession('modify');
+                    this.changeDepartmentPanel(index);
 
-                var index = this.updateSession('modify');
-                this.changeDepartmentPanel(index);
+                    // @todo OSD
+                    OsdUtils.info(_('Department [%S] modified successfully', [inputData.name]));
+                }
+            }
+            catch (e) {
+                // @todo OSD
+                OsdUtils.error(_('An error occurred while modifying Department [%S]\nThe department may not have been modified successfully', [inputData.name]));
             }
         },
 
         remove: function() {
             if (this._selectedIndex == null || this._selectedIndex == -1) return;
 
-            if (GREUtils.Dialog.confirm(null, _('confirm delete'), _('Are you sure?'))) {
+            var dept = this.deptPanelView.getCurrentIndexData(this._selectedIndex);
+
+            if (GREUtils.Dialog.confirm(null, _('confirm delete %S', [dept.name]), _('Are you sure?'))) {
                 var cateModel = new CategoryModel();
-                if(this._selectedIndex >= 0) {
 
-                    var dept = this.deptPanelView.getCurrentIndexData(this._selectedIndex);
-
+                try {
                     cateModel.del(dept.id);
 
                     this.resetInputData();
 
                     var index = this.updateSession('remove');
                     this.changeDepartmentPanel(index);
+
+                    // @todo OSD
+                    OsdUtils.info(_('Department [%S] removed successfully', [dept.name]));
+                }
+                catch (e) {
+                    // @todo OSD
+                    OsdUtils.error(_('An error occurred while removing Department [%S]\nThe department may not have been removed successfully', [dept.name]));
                 }
             }
         },
@@ -260,4 +291,3 @@
     });
 
 })();
-

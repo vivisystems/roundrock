@@ -22,8 +22,8 @@ var options = {};
 
         doSetOKCancel(
             function(){
-                inputObj.input0 = document.getElementById('input0').value;
-                inputObj.input1 = document.getElementById('input1').value;
+                inputObj.input0 = document.getElementById('input0').value.replace(/^\s*/g, '').replace(/\s*$/g, '');
+                inputObj.input1 = document.getElementById('input1').value.replace(/^\s*/g, '').replace(/\s*$/g, '');
                 inputObj.ok = true;
                 return true;
             },

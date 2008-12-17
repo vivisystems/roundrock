@@ -37,7 +37,6 @@
             $('#loading').hide();
         }, true);
 
-
     };
 
     window.addEventListener('load', startup, true);

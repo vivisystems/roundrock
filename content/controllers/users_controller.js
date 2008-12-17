@@ -12,6 +12,9 @@
         _listObj: null,
         _selectedIndex: null,
 
+        _userAdded: false,
+        _userModified: false,
+
         getListObj: function() {
             if(this._listObj == null) {
                 // this._listObj = this.query('#userscrollablepanel')[0];
@@ -28,20 +31,22 @@
             var user = evt.data;
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250';
-            var inputObj = {input0:null, require0:true,
+            var inputObj = {input0:null, require0:true, alphaOnly0: true,
                             input1:null, require1:true, type1:'password'};
 
             this._userAdded = false;
 
-            window.openDialog(aURL, 'prompt_additem', features, _('New Employee'), '', _('Name:'), _('Password:'), inputObj);
+            window.openDialog(aURL, _('Add New Employee'), features, _('New Employee'), '', _('Name'), _('Password'), inputObj);
             if (inputObj.ok && inputObj.input0 && inputObj.input1) {
                 user.username = inputObj.input0;
                 user.password = inputObj.input1;
+                user.displayname = inputObj.input0;
             } else {
                 evt.preventDefault();
                 return ;
             }
 
+            // check for duplicate username
             var userModel = new UserModel();
 
             var user_name = userModel.findByIndex('all', {
@@ -49,15 +54,30 @@
                 value: user.username
             });
 
+            // check for duplicate display name
+            var display_name = userModel.findByIndex('all', {
+                index: 'displayname',
+                value: user.displayname
+            });
+
             if (user_name != null && user_name.length > 0) {
-                alert(_('Duplicate user name (%S); user not added.', [user.username]));
+                // @todo OSD
+                OsdUtils.warn(_('Duplicate user name [%S]; user not added.', [user.username]));
                 evt.preventDefault();
                 return ;
             }
+
+            if (display_name != null && display_name.length > 0) {
+                // @todo OSD
+                OsdUtils.warn(_('Duplicate display name [%S]; user not added.', [user.displayname]));
+                evt.preventDefault();
+                return ;
+            }
+            
             var newUser = GeckoJS.FormHelper.serializeToObject('userForm');
             newUser.username = user.username;
             newUser.password = user.password;
-            newUser.displayname = '';
+            newUser.displayname = user.displayname;
             newUser.id = '';
             GREUtils.extend(evt.data, newUser);
 
@@ -80,19 +100,47 @@
                 this.validateForm(true);
 
                 document.getElementById('display_name').focus();
-                //document.getElementById('display_name').click();
+
+                // @todo OSD
+                OsdUtils.info(_('Employee [%S] added successfully', [evt.data.displayname]));
             }
+        },
+
+        beforeScaffoldEdit: function (evt) {
+            // check for duplicate display name
+            this._userModified = true;
+            var userModel = new UserModel();
+            var display_name = userModel.findByIndex('all', {
+                index: 'displayname',
+                value: evt.data.displayname.replace(/^\s*/, '').replace(/\s*$/, '')
+            });
+
+            if (display_name != null && display_name.length > 0) {
+                if ((display_name.length > 1) || (display_name[0].id != $('#user_id').val())) {
+                    evt.preventDefault();
+                    this._userModified = false;
+                        
+                    // @todo OSD
+                    OsdUtils.warn(_('Duplicate display name [%S]; user not modified.', [evt.data.displayname]));
+                }
+            }
+
         },
 
         afterScaffoldEdit: function (evt) {
 
-            var panel = this.getListObj();
-            var index = panel.selectedIndex;
+            if (this._userModified) {
+                var panel = this.getListObj();
+                var index = panel.selectedIndex;
 
-            this.requestCommand('list', index);
+                this.requestCommand('list', index);
 
-            panel.selectedIndex = index;
-            panel.selectedItems = [index];
+                panel.selectedIndex = index;
+                panel.selectedItems = [index];
+
+                // @todo OSD
+                OsdUtils.info(_('Employee [%S] modified successfully', [evt.data.displayname]));
+            }
         },
 
         beforeScaffoldSave: function(evt) {
@@ -114,7 +162,7 @@
         },
 
         beforeScaffoldDelete: function(evt) {
-            if (GREUtils.Dialog.confirm(null, 'confirm delete', _('Are you sure?')) == false) {
+            if (GREUtils.Dialog.confirm(null, _('confirm delete %S', [evt.data.username]), _('Are you sure?')) == false) {
                 evt.preventDefault();
             }
         },
@@ -136,6 +184,9 @@
             panel.selectedItems = [index];
 
             this.validateForm(true);
+
+            // @todo OSD
+            OsdUtils.info(_('Employee [%S] removed successfully', [evt.data.displayname]));
         },
 
         afterScaffoldIndex: function(evt) {
@@ -158,7 +209,7 @@
             var inputObj = {
                 rolegroup: rolegroup
             };
-            window.openDialog(aURL, 'select_rolegroup', features, inputObj);
+            window.openDialog(aURL, _('Select Access Group'), features, inputObj);
 
             if (inputObj.ok && inputObj.rolegroup) {
                 $('#user_group').val(inputObj.rolegroup);
@@ -196,21 +247,21 @@
                 if (panel.selectedIndex >= 0) {
                     var user = view.data[panel.selectedIndex];
                     if (user) {
-                        GeckoJS.Configure.write('vivipos.fec.settings.DefaultUser', user.id);
+                        GeckoJS.Configure.write('vivipos.fec.settings.DefaultUser', user.username);
                     }
                 }
             }
         },
 
         // initialize selected user to userid
-        initUser: function(userid) {
+        initUser: function(username) {
             
             var panel = this.getListObj();
             var users = panel.datasource.data;
 
             if (users) {
                 for (var i = 0; i < users.length; i++) {
-                    if (users[i].id == userid) {
+                    if (users[i].username == username) {
                         panel.selectedItems = [i];
                         panel.selectedIndex = i;
                         break;
@@ -236,7 +287,8 @@
             if (user) {
 
                 var password = document.getElementById('user_password').value.replace(/^\s*/, '').replace(/\s*$/, '');
-                modBtn.setAttribute('disabled', password.length < 1);
+                var displayname = document.getElementById('display_name').value.replace(/^\s*/, '').replace(/\s*$/, '');
+                modBtn.setAttribute('disabled', password.length < 1 || displayname.length < 1);
                 document.getElementById('tab1').removeAttribute('disabled');
                 document.getElementById('tab2').removeAttribute('disabled');
                 document.getElementById('tab3').removeAttribute('disabled');
@@ -248,7 +300,7 @@
                     }
                 }
                 // check for root user
-                if (user.displayname == 'superuser') {
+                if (user.username == 'superuser') {
                     delBtn.setAttribute('disabled', true);
                     roleTextbox.setAttribute('disabled', true);
                 }

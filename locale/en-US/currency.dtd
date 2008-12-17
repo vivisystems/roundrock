@@ -1,10 +1,11 @@
-<!ENTITY currencysetup.title "Currency Exchange Rates">
-<!ENTITY currencysetup.currency "Currency">
-<!ENTITY currencysetup.symbol "Symbol">
+<!ENTITY currencysetup.title "Exchange Rates">
+<!ENTITY currencysetup.currency "Code">
+<!ENTITY currencysetup.symbol "Sign">
 <!ENTITY currencysetup.rate "Exchange Rate">
 <!ENTITY currencysetup.convert "Amount to Convert">
 <!ENTITY currencysetup.amount "Converted Amount">
-<!ENTITY currencysetup.base "Local">
+<!ENTITY currencysetup.base "Local Currency">
+<!ENTITY currencysetup.other "Currency">
 <!ENTITY currencysetup.backspace "DEL">
 <!ENTITY currencysetup.clear "CLEAR">
 <!ENTITY currencysetup.save "SAVE">

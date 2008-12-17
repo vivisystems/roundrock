@@ -284,6 +284,16 @@ pref("vivipos.fec.registry.function.programmable.dispatch.command", "dispatch");
 pref("vivipos.fec.registry.function.programmable.dispatch.controller", "Main");
 pref("vivipos.fec.registry.function.programmable.dispatch.data", "");
 
+pref("vivipos.fec.registry.function.programmable.return.access", "acl_register_return");
+pref("vivipos.fec.registry.function.programmable.return.command", "returnItem");
+pref("vivipos.fec.registry.function.programmable.return.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.return.data", "");
+
+pref("vivipos.fec.registry.function.programmable.creditcard.access", "acl_register_credit_card");
+pref("vivipos.fec.registry.function.programmable.creditcard.command", "creditCard");
+pref("vivipos.fec.registry.function.programmable.creditcard.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.creditcard.data", "");
+
 pref('vivipos.fec.registry.comm.port1.id', 'port1');
 pref('vivipos.fec.registry.comm.port1.name', 'COM1');
 pref('vivipos.fec.registry.comm.port1.path', '/dev/ttya');
