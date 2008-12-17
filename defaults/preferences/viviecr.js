@@ -285,18 +285,6 @@ pref("vivipos.fec.registry.function.programmable.dispatch.access", "acl_public_a
 pref("vivipos.fec.registry.function.programmable.dispatch.command", "dispatch");
 pref("vivipos.fec.registry.function.programmable.dispatch.controller", "Main");
 pref("vivipos.fec.registry.function.programmable.dispatch.data", "");
-pref("vivipos.fec.registry.comm.port1.id", "port1");
-pref("vivipos.fec.registry.comm.port1.name", "COM1");
-pref("vivipos.fec.registry.comm.port1.path", "/dev/ttya");
-pref("vivipos.fec.registry.comm.port2.id", "port2");
-pref("vivipos.fec.registry.comm.port2.name", "COM2");
-pref("vivipos.fec.registry.comm.port2.path", "/dev/ttyb");
-pref("vivipos.fec.registry.comm.port3.id", "port3");
-pref("vivipos.fec.registry.comm.port3.name", "USB0");
-pref("vivipos.fec.registry.comm.port3.path", "/dev/ttyUSB0");
-pref("vivipos.fec.registry.comm.port4.id", "USB1");
-pref("vivipos.fec.registry.comm.port4.name", "USB1");
-pref("vivipos.fec.registry.comm.port4.path", "/dev/ttyUSB1");
 pref("vivipos.fec.registry.function.programmable.return.access", "acl_register_return");
 pref("vivipos.fec.registry.function.programmable.return.command", "returnItem");
 pref("vivipos.fec.registry.function.programmable.return.controller", "Cart");
@@ -306,6 +294,11 @@ pref("vivipos.fec.registry.function.programmable.creditcard.access", "acl_regist
 pref("vivipos.fec.registry.function.programmable.creditcard.command", "creditCard");
 pref("vivipos.fec.registry.function.programmable.creditcard.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.creditcard.data", "");
+
+pref("vivipos.fec.registry.function.programmable.giftcard.access", "acl_register_gift_card");
+pref("vivipos.fec.registry.function.programmable.giftcard.command", "giftCard");
+pref("vivipos.fec.registry.function.programmable.giftcard.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.giftcard.data", "");
 
 pref('vivipos.fec.registry.comm.port1.id', 'port1');
 pref('vivipos.fec.registry.comm.port1.name', 'COM1');
