@@ -1,5 +1,5 @@
 pref("toolkit.defaultChromeURI", "chrome://vivipos/content/vivipos.xul");
-// pref("toolkit.defaultChromeFeatures", "chrome,modal=no,toolbar=no,popup=no,titlebar=no,width=1024,height=768");
+//pref("toolkit.defaultChromeFeatures", "chrome,modal=no,toolbar=no,popup=no,titlebar=no,width=1024,height=768");
 
 // Prevent xulrunner from launching multiple instances.
 pref("toolkit.singletonWindowType", "Vivipos:Main");
