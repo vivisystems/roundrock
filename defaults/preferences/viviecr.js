@@ -1,16 +1,13 @@
 /* extension vivipos */
 pref("vivipos.fec.firstrun", false);
 pref("vivipos.fec.settings.DateFormatStr", "yyyy-mm-dd");
-pref("vivipos.fec.settings.Decimal", 2);
 pref("vivipos.fec.settings.DefaultLogin", true);
-pref("vivipos.fec.settings.DepartmentHeight", 4);
 pref("vivipos.fec.settings.DepartmentCols", 4);
 pref("vivipos.fec.settings.DepartmentRows", 2);
-pref("vivipos.fec.settings.FuncBtnCols", 4);
-pref("vivipos.fec.settings.FuncBtnRows", 2);
-pref("vivipos.fec.settings.PluColsHeight", 4);
 pref("vivipos.fec.settings.PluCols", 4);
-pref("vivipos.fec.settings.PluRows", 7);
+pref("vivipos.fec.settings.PluRows", 4);
+pref("vivipos.fec.settings.functionpanel.columns", 4);
+pref("vivipos.fec.settings.functionpanel.rows", 3);
 pref("vivipos.fec.settings.PrivateQueue", false);
 pref("vivipos.fec.settings.TimeformatStr", "hh:nn:ss");
 

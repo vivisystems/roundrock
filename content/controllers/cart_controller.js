@@ -144,7 +144,6 @@
         },
 
         addItem: function(plu) {
-
             var item = GREUtils.extend({}, plu);
 
             // not valid plu item.
@@ -172,14 +171,12 @@
                 this._getKeypadController().clearBuffer();
             }
 
-            // this.dispatchEvent('beforeAddItem', item);
             if (this.dispatchEvent('beforeAddItem', item)) {
 
             if ( this._returnMode) {
                 var qty = 0 - (GeckoJS.Session.get('cart_set_qty_value') || 1);
                 GeckoJS.Session.set('cart_set_qty_value', qty);
             }
-
             var addedItem = curTransaction.appendItem(item);
 
             this.dispatchEvent('afterAddItem', addedItem);
@@ -197,7 +194,6 @@
                     this.addMemo(plu);
                 }
             }
-
             }
 
             // fire getSubtotal Event ?????????????
