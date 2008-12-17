@@ -27,7 +27,11 @@
 
             // set main screen
             var mainscreenSettings = GeckoJS.Configure.read('vivipos.fec.mainscreen');
-            var mainscreenObject = document.getElementById('vivipos_mainWindow');
+
+	    var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+                    .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main");
+	    var mainscreenObject = mainWindow.document.getElementById('vivipos_mainWindow');
+
             for (var k in mainscreenSettings) {
                 mainscreenObject.setAttribute(k, mainscreenSettings[k]);
             }
