@@ -85,6 +85,9 @@
                 });
                 this._listDatas = products;
                 this.updateStock();
+
+                // @todo OSD
+                OsdUtils.info(_('Stock level for [%S] modified successfully', [evt.data.name]));
             }
         },
 
@@ -209,7 +212,10 @@
         validateForm: function () {
             var inputObj = GeckoJS.FormHelper.serializeToObject('productForm');
             if (inputObj.id != null && inputObj.id != '') {
-                document.getElementById('modify_stock').setAttribute('disabled', false);
+                var stock = inputObj.stock.replace(/^\s*/, '').replace(/\s*$/, '');
+                var min_stock = inputObj.min_stock.replace(/^\s*/, '').replace(/\s*$/, '');
+
+                document.getElementById('modify_stock').setAttribute('disabled', isNaN(stock) || isNaN(min_stock));
                 document.getElementById('stock').removeAttribute('disabled');
                 document.getElementById('min_stock').removeAttribute('disabled');
             }
@@ -218,7 +224,6 @@
                 document.getElementById('stock').setAttribute('disabled', true);
                 document.getElementById('min_stock').setAttribute('disabled', true);
             }
-            document.getElementById('plu').focus();
         }
 	
     });

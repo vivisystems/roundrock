@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE window SYSTEM "chrome://viviecr/locale/stocks.dtd">
+<!DOCTYPE overlay [
+  <!ENTITY % Overlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Overlay;
+  <!ENTITY % Stocks SYSTEM "chrome://viviecr/locale/stocks.dtd">
+  %Stocks;
+  ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 
@@ -47,12 +52,14 @@
                                 </row>
                                 <row>
                                     <label value="&stocks.label.stock;" control="stock"/>
-                                    <textbox id="stock" value="" form="productForm" name="stock" size="6" maxsize="6" onfocus="this.select()"/>
+                                    <textbox id="stock" value="" form="productForm" name="stock" size="6" maxsize="6"
+                                             oninput="$do('validateForm', null, 'Stocks')" onfocus="this.select()"/>
                                 </row>
 
                                 <row>
                                     <label value="&stocks.label.threshold;" control="min_stock"/>
-                                    <textbox id="min_stock" value="" form="productForm" name="min_stock" size="6" maxsize="6" onfocus="this.select()"/>
+                                    <textbox id="min_stock" value="" form="productForm" name="min_stock" size="6" maxsize="6"
+                                             oninput="$do('validateForm', null, 'Stocks')" onfocus="this.select()"/>
                                 </row>
                             </rows>
                         </grid>
@@ -83,6 +90,8 @@
         </vbox>
     </box>
   
-    <hbox id="okCancelButtonsRight" class="dialogbtns" />
+    <hbox id="dialogButtons" class="dialogbtns" pack="center">
+        <button class="right exit-dialog" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+    </hbox>
 
 </window>

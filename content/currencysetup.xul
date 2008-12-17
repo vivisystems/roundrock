@@ -151,7 +151,7 @@
   
     <hbox id="dialogButtons" class="dialogbtns" pack="center">
         <button class="right exit-dialog" id="ok" label="&dialog.saveButton.label;" default="true" oncommand="doOKButton();"/>
-        <button class="exit-dialog" id="cancel" label="&dialog.closeButton.label;" default="true" oncommand="doCancelButton();"/>
+        <button class="exit-dialog" id="cancel" label="&dialog.cancelButton.label;" default="true" oncommand="doCancelButton();"/>
     </hbox>
 
 </window>
