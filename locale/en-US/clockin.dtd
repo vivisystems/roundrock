@@ -1,0 +1,9 @@
+<!ENTITY    clockin.title               "User Clock In / Out">
+<!ENTITY    clockin.keylabel.clear             "CLEAR">
+<!ENTITY    clockin.keylabel.del            "DEL">
+<!ENTITY    clockin.keylabel.password             "Passcode:">
+<!ENTITY    clockin.keylabel.ok             "OK">
+<!ENTITY    clockin.keylabel.clockin             "In">
+<!ENTITY    clockin.keylabel.clockout             "Out">
+<!ENTITY    clockin.keylabel.view             "View Attendance">
+<!ENTITY    clockin.headers.joblist         "Job List">
