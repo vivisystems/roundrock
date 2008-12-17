@@ -72,7 +72,7 @@
         afterScaffoldEdit: function (evt) {
             if (evt.justUpdate) {
                 //
-                alert('just update');
+                //alert('just update');
             } 
             else {
                 var product = this._productsById[evt.data.id];
