@@ -24,9 +24,6 @@ user_pref("extensions.sqlitemanager.mruPath.1", "/var/tmp/vivipos_acl.sqlite,/va
 user_pref("extensions.sqlitemanager.searchToggler", false);
 user_pref("extensions.update.notifyUser", false);
 user_pref("vivipos.fec.registry.comm.port1.inuse", true);
-user_pref("vivipos.fec.registry.function.programmable.billcopy.desc", "billcopy.desc");
-user_pref("vivipos.fec.registry.function.programmable.billcopy.label", "billcopy.label");
-user_pref("vivipos.fec.registry.function.programmable.billcopy.name", "billcopy.name");
 user_pref("vivipos.fec.registry.function.programmable.cancel.desc", "This function cancels the current order. No parameter is needed.");
 user_pref("vivipos.fec.registry.function.programmable.cancel.label", "Cancel");
 user_pref("vivipos.fec.registry.function.programmable.cancel.name", "Cancel");
@@ -111,9 +108,6 @@ user_pref("vivipos.fec.registry.function.programmable.quantity.name", "Quantity"
 user_pref("vivipos.fec.registry.function.programmable.quicksignoff.desc", "This function allows the current user to enter a password and quickly switch to the user identified by that password. No parameter is needed.");
 user_pref("vivipos.fec.registry.function.programmable.quicksignoff.label", "Change Clerk");
 user_pref("vivipos.fec.registry.function.programmable.quicksignoff.name", "Quick User Switch");
-user_pref("vivipos.fec.registry.function.programmable.receipt.desc", "receipt.desc");
-user_pref("vivipos.fec.registry.function.programmable.receipt.label", "receipt.label");
-user_pref("vivipos.fec.registry.function.programmable.receipt.name", "receipt.name");
 user_pref("vivipos.fec.registry.function.programmable.return.desc", "This function registers a return of an item for refund. No parameter is needed.");
 user_pref("vivipos.fec.registry.function.programmable.return.label", "Refund");
 user_pref("vivipos.fec.registry.function.programmable.return.name", "Refund");
