@@ -10,7 +10,7 @@
 
     <hbox id="numberpadPanelContainer" flex="0">
 
-        <vbox flex="1">
+        <vbox flex="1" pack="start" align="center">
             <hbox id="fixedbtnrow" flex="1">
                 <vivibutton id="clearBtn"  label="&numberpad.keylabel.clear;" oncommand="$do('keypress', {keyCode: 27}, 'Keypad');" class="fixedbtn" suspendable="false"/>
                 <vivibutton id="new_order" label="&numberpad.keylabel.queue.order;" class="fixedbtn" oncommand="$do('pushQueue',null,'Cart');" roles="acl_queue_order" action="display"/>
@@ -19,7 +19,7 @@
                 <vivibutton id="voidBtn" label="&numberpad.keylabel.void;" class="fixedbtn" oncommand="$do('voidItem', null,'Cart');" roles="acl_void_cart_item"/>
             </hbox>
 
-            <hbox id="numpad" pack="start">
+            <hbox id="numpad">
 
                 <vbox id="numpadCol1">
                     <vivibutton id="enterBtn"  label="&numberpad.keylabel.enter;" oncommand="$do('keypress', {keyCode: 13}, 'Keypad');" class="fixedbtn" suspendable="false" roles="acl_register_enter" action="display"/>

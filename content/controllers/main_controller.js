@@ -172,6 +172,10 @@
 
         clickPluPanel: function(index) {
             var product = this.pluPanelView.getCurrentIndexData(index);
+            var prodpanel = document.getElementById('prodscrollablepanel');
+            prodpanel.selectedIndex = -1;
+            prodpanel.selectedItems = [];
+            
             return this.requestCommand('addItem',product,'Cart');
 
         },

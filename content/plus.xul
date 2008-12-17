@@ -3,6 +3,7 @@
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/plus.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/product_button_colors.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -97,8 +98,8 @@
                                             <grid>
                                                 <rows>
                                                     <row>
-                                                        <checkbox id="auto_maintain_stock" value="true" label="&plus.auto.maintain;" form="productForm" name="auto_maintain_stock" default="1"/>
-                                                        <checkbox id="return_stock" value="true" label="&plus.can.restock;" form="productForm" name="return_stock" default="1"/>
+                                                        <checkbox id="auto_maintain_stock" value="true" label="&plus.auto.maintain;" form="productForm" name="auto_maintain_stock" default="0"/>
+                                                        <checkbox id="return_stock" value="true" label="&plus.can.restock;" form="productForm" name="return_stock" default="0"/>
                                                     </row>
                                                     <row>
                                                         <checkbox id="force_condiment" value="false" label="&plus.require.condiment;" form="productForm" name="force_condiment" default="0"/>
@@ -213,7 +214,7 @@
 
                                         <groupbox>
                                             <caption label="&plus.button.color;" />
-                                            <button_colorpicker id="button_color" form="productForm" name="button_color" buttonClass="catbtn button-radius" default="default"/>
+                                            <button_colorpicker id="dept_button_color" form="productForm" name="button_color" buttonClass="catbtn button-radius" default="default"/>
                                         </groupbox>
 
                                         <groupbox>

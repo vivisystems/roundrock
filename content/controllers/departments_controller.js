@@ -64,6 +64,21 @@
             }
         },
 
+        getInputDefault: function () {
+            var valObj = {};
+            this.query('[form=deptForm]').each(function() {
+                var n = this.name || this.getAttribute('name');
+                if (!n) return;
+                var v = this.getAttribute('default');
+
+                if (typeof v != 'undefined') {
+                    valObj[n] = v;
+                }
+            });
+            return valObj;
+
+        },
+
         getInputData: function () {
             return GeckoJS.FormHelper.serializeToObject('deptForm', false);
         },
@@ -153,7 +168,7 @@
             if (inputObj.ok && inputObj.input0 && inputObj.input1) {
                 var dept = new CategoryModel();
 
-                var inputData = this.getInputData();
+                var inputData = this.getInputDefault();
                 inputData.no = inputObj.input0;
                 inputData.name = inputObj.input1
 

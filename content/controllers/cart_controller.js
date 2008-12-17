@@ -1146,8 +1146,7 @@
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250';
             var inputObj = {
-                input0:memo,
-                input1:null
+                input0:memo,require0:false
             };
             window.openDialog(aURL, _('Add New Memo'), features, _('Add Memo'), '', _('Memo:'), '', inputObj);
 

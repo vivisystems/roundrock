@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE overlay [
+  <!ENTITY % Overlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Overlay;
+  <!ENTITY % SelectTax SYSTEM "chrome://viviecr/locale/prompt_addtaxitem.dtd">
+  %SelectTax;
+  ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 
@@ -28,12 +34,12 @@
                             <textbox id="input1" value="" oninput="validateInput()"/>
                         </row>
                         <row>
-                            <label value="Select Tax Type:"/>
+                            <label value="&prompt.addtaxitem.title;"/>
                             <radiogroup flex="1" id="rate_type">
-                               <radio id="type_included" selected="true" value="INCLUDED"/>
-                               <radio id="type_addon" value="ADDON"/>
-                               <radio id="type_combine" value="COMBINE"/>
-                               <radio id="type_vat_on_vat" disabled="true" value="VAT" />
+                               <radio id="type_included" selected="true" value="INCLUDED" label="&prompt.addtaxitem.included;"/>
+                               <radio id="type_addon" value="ADDON" label="&prompt.addtaxitem.addon;"/>
+                               <radio id="type_combine" value="COMBINE" label="&prompt.addtaxitem.combined;"/>
+                               <radio id="type_vat_on_vat" disabled="true" value="VAT" label="&prompt.addtaxitem.vat;"/>
                             </radiogroup>
                         </row>
                     </rows>
@@ -42,6 +48,9 @@
         </vbox>
     </box>
 
-    <hbox id="okCancelButtonsRight" class="promptbtns" />
+    <hbox id="dialogButtons" class="dialogbtns" pack="center">
+        <button class="right exit-dialog" id="ok" label="&dialog.okButton.label;" default="true" oncommand="doOKButton();"/>
+        <button class="exit-dialog" id="cancel" label="&dialog.cancelButton.label;" default="true" oncommand="doCancelButton();"/>
+    </hbox>
 
 </window>
