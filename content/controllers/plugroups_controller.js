@@ -33,7 +33,7 @@
 
             this._plugroupAdded = false;
 
-            window.openDialog(aURL, _('Add New PLU Group'), features, _('New PLU Group'), '', _('Group Name:'), '', inputObj);
+            window.openDialog(aURL, _('Add New PLU Group'), features, _('New PLU Group'), '', _('Group Name'), '', inputObj);
             if (inputObj.ok && inputObj.input0) {
                 plugroup.id = '';
                 plugroup.name = inputObj.input0;
@@ -50,7 +50,8 @@
             });
 
             if (plugroups != null && plugroups.length > 0) {
-                alert(_('Duplicate PLU Group name (%S); PLU Group not added.', [plugroup.name]));
+                //@todo OSD
+                OsdUtils.warn(_('Duplicate PLU Group name [%S]; PLU Group not added.', [plugroup.name]));
                 evt.preventDefault();
                 return ;
             }
@@ -78,26 +79,49 @@
                 this.validateForm();
 
                 document.getElementById('plugroup_name').focus();
+
+                // @todo OSD
+                OsdUtils.info(_('PLU Group [%S] added successfully', [evt.data.name]));
             }
 
         },
 
         beforeScaffoldEdit: function(evt) {
-            var inputObj = GeckoJS.FormHelper.serializeToObject('plugroupForm', false);
 
-            GREUtils.extend(evt.data, inputObj);
+            // check if modified to a duplicate PLU group name
+            var plugroupModel = new PlugroupModel();
 
+            var plugroups = plugroupModel.findByIndex('all', {
+                index: "name",
+                value: evt.data.name.replace(/^\s*/, '').replace(/\s*$/, '')
+            });
+
+            this._plugroupModified = true;
+            if (plugroups != null && plugroups.length > 0) {
+                if ((plugroups.length > 1) || (plugroups[0].id != $('#plugroup_id').val())) {
+                    evt.preventDefault();
+                    this._plugroupModified = false;
+
+                    // @todo OSD
+                    OsdUtils.warn(_('Duplicate PLU Group name [%S]; PLU group not modified.', [evt.data.name]));
+                }
+            }
         },
 
         afterScaffoldEdit: function(evt) {
 
-            var panel = this.getListObj();
-            var index = panel.selectedIndex;
+            if (this._plugroupModified) {
+                var panel = this.getListObj();
+                var index = panel.selectedIndex;
 
-            this.requestCommand('list', index);
+                this.requestCommand('list', index);
 
-            panel.selectedIndex = index;
-            panel.selectedItems = [index];
+                panel.selectedIndex = index;
+                panel.selectedItems = [index];
+
+                // @todo OSD
+                OsdUtils.info(_('Job [%S] modified successfully', [evt.data.name]));
+            }
         },
 
         /*
@@ -113,12 +137,12 @@
         */
 
         beforeScaffoldDelete: function(evt) {
-            if (GREUtils.Dialog.confirm(null, _('confirm delete'), _('Are you sure?')) == false) {
+            if (GREUtils.Dialog.confirm(null, _('confirm delete %S', [evt.data.name]), _('Are you sure?')) == false) {
                 evt.preventDefault();
             }
         },
 
-        afterScaffoldDelete: function() {
+        afterScaffoldDelete: function(evt) {
 
             var panel = this.getListObj();
             var view = panel.datasource;
@@ -141,6 +165,9 @@
             }
 
             this.validateForm();
+
+            // @todo OSD
+            OsdUtils.info(_('PLU Group [%S] removed successfully', [evt.data.name]));
         },
 
         afterScaffoldIndex: function(evt) {

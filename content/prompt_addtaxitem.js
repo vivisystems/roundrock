@@ -28,9 +28,9 @@ var options;
         
         doSetOKCancel(
             function(){
-                inputObj.input0 = document.getElementById('input0').value;
-                inputObj.input1 = document.getElementById('input1').value;
-                inputObj.rate_type = document.getElementById('rate_type').value;
+                inputObj.input0 = document.getElementById('input0').value.replace(/^\s*/g, '').replace(/\s*$/g, '');
+                inputObj.input1 = document.getElementById('input1').value.replace(/^\s*/g, '').replace(/\s*$/g, '');
+                inputObj.rate_type = document.getElementById('rate_type').value.replace(/^\s*/g, '').replace(/\s*$/g, '');
                 inputObj.ok = true;
                 return true;
             },
@@ -53,9 +53,12 @@ function validateInput() {
     var input0Required = true;
     var input1Required = false;
     var validated = false;
+    var alphaOnly0 = false;
+    var alphaRE = /[^\w]/;
 
     if ('require0' in options) input0Required = options.require0;
     if ('require1' in options) input1Required = options.require1;
+    if ('alphaOnly0' in options) alphaOnly0 = options.alphaOnly0;
 
     var input0 = document.getElementById('input0').value;
     var input1 = document.getElementById('input1').value;
@@ -70,5 +73,9 @@ function validateInput() {
         ((!input1Required) || trimmed1.length > 0)) {
         validated = true;
     }
+    if (alphaOnly0) {
+        validated = validated && !alphaRE.test(trimmed0);
+    }
     document.getElementById('ok').setAttribute('disabled', !validated);
+
 }

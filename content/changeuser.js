@@ -23,6 +23,8 @@
     function clearUserPass() {
         $('#user_password').val('');
 
+        $do('validateForm', null, 'ChangeUser');
+
     }
     
     /**
@@ -33,6 +35,7 @@
         if (pwd && pwd.length > 0) pwd = pwd.substring(0, pwd.length - 1);
         $('#user_password').val(pwd);
 
+        $do('validateForm', null, 'ChangeUser');
     }
     
 

@@ -98,7 +98,7 @@ function validateInput() {
         validated = true;
     }
     if (alphaOnly0) {
-        validated = validated && !alphaRE.test(input0);
+        validated = validated && !alphaRE.test(trimmed0);
     }
     document.getElementById('ok').setAttribute('disabled', !validated);
 

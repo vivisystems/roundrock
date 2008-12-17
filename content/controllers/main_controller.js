@@ -177,10 +177,6 @@
 
         },
 
-        signIn: function(user) {
-            return this.Acl.securityCheck(user.username, user.password);
-        },
-
         setClerk: function () {
             var user = this.Acl.getUserPrincipal();
 
@@ -404,8 +400,6 @@
             if (pluPanel) pluPanel.setAttribute('dir', registerAtLeft ? 'normal' : 'reverse');
             if (fnPanel) fnPanel.setAttribute('dir', registerAtLeft ? 'reverse' : 'normal');
             if (toolbarPanel) toolbarPanel.setAttribute('dir', registerAtLeft ? 'reverse' : 'normal');
-            if (cartList) cartList.setAttribute('dir', registerAtLeft ? 'reverse': 'normal');
-            
             if (leftPanel) leftPanel.setAttribute('dir', functionPanelOnTop ? 'reverse' : 'normal');
             if (productPanel) productPanel.setAttribute('dir', PLUbeforeDept ? 'reverse' : 'normal');
 
@@ -416,30 +410,40 @@
             if (!this.toggleNumPad(hideNumPad, initial)) {
                 this.resizeLeftPanel(initial);
             }
+            if (cartList) {
+
+                // for some reason 'dir' does work, need to manually order scrollbar & cart
+                // cartList.setAttribute('dir', registerAtLeft ? 'reverse': 'normal');
+
+                var vivitree = document.getAnonymousElementByAttribute(cartList, 'anonid', 'vivitree');
+                var scrollbar = document.getAnonymousElementByAttribute(cartList, 'anonid', 'scrollbar');
+                var parent = vivitree.parentNode;
+
+                parent.removeChild(vivitree);
+                if (registerAtLeft) {
+                    parent.appendChild(vivitree);
+                }
+                else {
+                    parent.insertBefore(vivitree, scrollbar);
+                }
+            }
+
         },
         
         initialLogin: function () {
 
             var defaultLogin = GeckoJS.Configure.read('vivipos.fec.settings.DefaultLogin');
             var defaultUser = GeckoJS.Configure.read('vivipos.fec.settings.DefaultUser');
-            var acl = new GeckoJS.AclComponent();
 
             //@todo work-around Object reference bug
-            var roles= acl.getRoleList();
+            var roles= this.Acl.getGroupList();
 
-            if (defaultLogin) {
-                var userModel = new UserModel();
-                var users = userModel.findByIndex('all', {
-                    index: 'username',
-                    value: defaultUser
-                });
-                // we will only pick the first default user if there are more than one
-                if (users && (users.length > 0)) {
-                    this.signIn(users[0]);
-                }
+            if (defaultLogin && defaultUser && defaultUser.length > 0) {
+                this.Acl.securityCheck(defaultUser, 'dummy', false, true);
             }
 
-            if (acl.getUserPrincipal()) {
+            // check if default user successfully logged in
+            if (this.Acl.getUserPrincipal()) {
                 this.setClerk();
             }
             else {
@@ -471,24 +475,16 @@
                 // success is indicated by where txn is set to current transaction
                 if (stop != 'true' && buf.length > 0) {
 
-                    // lookup user by password
-                    var userModel = new UserModel();
-                    var users = userModel.findByIndex('all', {
-                        index: 'password',
-                        value: buf
-                    });
-
-                    if (users && users.length > 0) {
+                    if (this.Acl.securityCheckByPassword(buf, true)) {
                         this.signOff(true);
-                        this.signIn({username:users[0].username, password:buf});
+                        this.Acl.securityCheckByPassword(buf, false);
 
                         var user = this.Acl.getUserPrincipal();
                         if (user) {
                             this.setClerk();
 
                             //@todo quick user switch successful
-                            OsdUtils.text('<span color="red" font_desc="Times 40">' + user.description + _(' logged in') + '</span>',
-                                          this.screenwidth/5, this.screenheight/3);
+                            OsdUtils.info(user.description + _(' logged in'));
                         }
                         else {
                             // should always succeed, but if not, pull up the change user dialog since we've already signed off
@@ -500,31 +496,18 @@
                     }
                 }
                 this.dispatchEvent('onExitPassword', success);
-                if (success)
+                if (success) {
                     GeckoJS.Controller.getInstanceByName('Cart').subtotal();
+                }
                 else if (!stop) {
-                    //@todo quick user switch successful
-                    OsdUtils.text('<span color="red" font_desc="Times 40">' + _('Failed to authenticate user') + '</span>',
-                                  this.screenwidth/5, this.screenheight/3);
+                    // @todo OSD
+                    OsdUtils.error(_('Authentication failed!\nPlease make sure the password is correct.'));
                 }
             }
             else {
                 this.requestCommand('clear', null, 'Cart');
                 this.requestCommand('setTarget', 'Main', 'Keypad');
                 
-                // remap clear/enter keys
-                /*
-                var enterKey = document.getElementById('key_enter');
-                var clearKey = document.getElementById('key_clear');
-                this.savedEnterCommand = enterKey.getAttribute('oncommand');
-                this.savedClearCommand = clearKey.getAttribute('oncommand');
-
-                enterKey.setAttribute('oncommand', '$do("quickUserSwitch", null, "Main")');
-                clearKey.setAttribute('oncommand', '$do("quickUserSwitch", "true", "Main")');
-               enterKey.addEventListener('oncommand', function() {alert('in enter');}, false);
-               clearKey.addEventListener('oncommand', function() {alert('in clear');}, false);
-                */
-
                 // suspend all buttons
                 GeckoJS.Observer.notify(null, 'button-state-suspend', this.target);
                 this.suspendButton = true;
@@ -553,14 +536,14 @@
                     // sign out existing user
 
                     this.signOff(true);
-                    this.signIn({username:newUser, password:buf});
+                    this.Acl.securityCheck(newUser, buf);
+
                     var user = this.Acl.getUserPrincipal();
                     if (user) {
                         this.setClerk();
 
                         //@todo silent user switch successful
-                        OsdUtils.text('<span color="red" font_desc="Times 40">' + user.description + _(' logged in') + '</span>',
-                                      this.screenwidth/5, this.screenheight/3);
+                        OsdUtils.info(user.description + _(' logged in'));
                     }
                     else {
                         this.ChangeUserDialog();
@@ -568,8 +551,7 @@
                 }
                 else {
                     // @todo error message for login failure
-                    OsdUtils.text('<span color="red" font_desc="Times 40">' + _('Failed to authenticate user') + '</span>',
-                                  this.screenwidth/5, this.screenheight/3);
+                    OsdUtils.error(_('Failed to authenticate user'));
                 }
             }
         },

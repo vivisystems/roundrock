@@ -38,7 +38,7 @@
             GeckoJS.FormHelper.unserializeFromObject('aclgroupForm', valObj);
         },
  
-        add: function (evt) {
+        add: function () {
 
             var aURL = "chrome://viviecr/content/prompt_additem.xul";
             var features = "chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250";
@@ -51,11 +51,20 @@
                 var group = inputObj.input0;
                 var groups = this.Acl.getGroupList('name="' + group +'"') || [];
                 if (groups.length > 0) {
-                    alert(_('The name [%S] already exists; ACL group not added.', [group]));
+                    OsdUtils.warn(_('ACL Group [%S] already exists; ACL group not added.', [group]));
                 }
                 else {
-                    this.Acl.addGroup(group);
-                    this.load(group);
+                    try {
+                        this.Acl.addGroup(group);
+                        this.load(group);
+
+                        // @todo OSD
+                        OsdUtils.info(_('ACL Group [%S] added successfully', [group]));
+                    }
+                    catch (e) {
+                        // @todo OSD
+                        OsdUtils.error(_('An error occurred while adding ACL Group [%S]; the ACL group may not have been added successfully', [group]));
+                    }
                 }
             }
         },
@@ -69,44 +78,58 @@
             if (users && users.length > 0) {
                 var userlist = GeckoJS.Array.objectExtract(users, '{n}.description').join(", ");
                 userlist = [group].concat(userlist);
-                alert(_('The group (%S) has been assigned to one or more users [%S] and cannot be removed.', userlist));
-            } else if (GREUtils.Dialog.confirm(null, 'confirm delete ' + group, _('Are you sure?'))) {
-                this.Acl.removeGroup(group);
-                
-                var listObj = this.getListObj();
-                var view = listObj.datasource;
-                var index = listObj.selectedIndex;
-                var groups = this.Acl.getGroupList();
+                alert(_('The ACL group [%S] has been assigned to one or more users [%S] and cannot be removed.', userlist));
+            } else if (GREUtils.Dialog.confirm(null, _('confirm delete %S', [group]), _('Are you sure?'))) {
 
-                view.data = new GeckoJS.ArrayQuery(groups).orderBy('name asc');
-                if (index > groups.length - 1) index = groups.length - 1;
-                listObj.selectedItems = [index];
-                listObj.selectedIndex = index;
+                try {
+                    this.Acl.removeGroup(group);
 
-                this.select();
+                    var listObj = this.getListObj();
+                    var view = listObj.datasource;
+                    var index = listObj.selectedIndex;
+                    var groups = this.Acl.getGroupList();
 
-                // @todo OSD.text to be replaced by OSD.info
-                OsdUtils.text('<span color="green" font_desc="Times 26">' + _('ACL Group [%S] removed', [group]) + '</span>', 100, -200);
+                    view.data = new GeckoJS.ArrayQuery(groups).orderBy('name asc');
+                    if (index > groups.length - 1) index = groups.length - 1;
+                    listObj.selectedItems = [index];
+                    listObj.selectedIndex = index;
+
+                    this.select();
+
+                    // @todo OSD.text to be replaced by OSD.info
+                    OsdUtils.info(_('ACL Group [%S] removed successfully', [group]));
+                }
+                catch (e) {
+                    // @todo OSD
+                    OsdUtils.error(_('An error occurred while removing ACL Group [%S]; the ACL group may not have been removed successfully', [group]));
+                }
             }
         },
         
-        modify: function (evt) {
+        modify: function () {
 
             var self = this;
             var group = $('#aclgroup_name').val();
-            var roles = this.Acl.getRoleListInGroup(group);
-            roles.forEach(function(o) {
-                self.Acl.removeRoleFromGroup(group, o.name);
-            });
 
-            var selectedItems = this.getRoleListObj().selectedItems;
-            roles = this.getRoleListObj().datasource.data;
-            selectedItems.forEach(function(idx){
-                self.Acl.addRoleToGroup(group, roles[idx].name);
-            });
+            try {
+                var roles = this.Acl.getRoleListInGroup(group);
+                roles.forEach(function(o) {
+                    self.Acl.removeRoleFromGroup(group, o.name);
+                });
 
-            // @todo OSD.text to be replaced by OSD.info
-            OsdUtils.text('<span color="green" font_desc="Times 26">' + _('ACL Group [%S] modified', [group]) + '</span>', 100, -200);
+                var selectedItems = this.getRoleListObj().selectedItems;
+                roles = this.getRoleListObj().datasource.data;
+                selectedItems.forEach(function(idx){
+                    self.Acl.addRoleToGroup(group, roles[idx].name);
+                });
+
+                // @todo OSD.text to be replaced by OSD.info
+                OsdUtils.info(_('ACL Group [%S] modified successfully', [group]));
+            }
+            catch (e) {
+                // @todo OSD
+                OsdUtils.error(_('An error occurred while modifying ACL Group [%S]; the ACL group may not have been modified successfully', [group]));
+            }
         },
 
         createRoleList: function () {

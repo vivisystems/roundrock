@@ -99,25 +99,34 @@
              
             this.updateSession();
 
+            // @todo OSD
+            OsdUtils.info(_('Schedule [%S - Price Level %S] added successfully', [item.time, item.pricelevel]));
         },
 
         remove: function() {
             var index = this._listObj.selectedIndex;
             if (index < 0) return;
-            
-            if (GREUtils.Dialog.confirm(null, 'confirm remove', _('Are you sure?'))) {
 
-                if (index > 0) {
-                    this._listDatas.splice(index, 1);
-                } else if (index == 0) {
-                    this._listDatas[0].pricelevel = 0;
-                }
+            var item = this._listDatas[index];
+            var time = item.time;
+            var pricelevel = item.pricelevel ? item.pricelevel : 'default';
 
-                var datastr = GeckoJS.BaseObject.serialize(this._listDatas);
+            if (index > 0) {
+                this._listDatas.splice(index, 1);
+            } else if (index == 0) {
+                this._listDatas[0].pricelevel = 0;
+            }
+
+            var datastr = GeckoJS.BaseObject.serialize(this._listDatas);
+
+            if (GREUtils.Dialog.confirm(null, _('confirm remove %S - price level %S', [time, pricelevel]), _('Are you sure?'))) {
+
                 GeckoJS.Configure.write('vivipos.fec.settings.PriceLevelSchedule', datastr);
 
                 this.updateSession();
 
+                // @todo OSD
+                OsdUtils.info(_('Schedule [%S - Price Level %S] removed successfully', [time, pricelevel]));
             }
         },
 
