@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE window SYSTEM "chrome://viviecr/locale/taxes.dtd">
+<!DOCTYPE overlay [
+  <!ENTITY % Overlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Overlay;
+  <!ENTITY % Taxes SYSTEM "chrome://viviecr/locale/taxes.dtd">
+  %Taxes;
+  ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 
@@ -87,7 +92,7 @@
                                         <row>
                                             <label value="&taxes.threshold;" control="tax_threshold"/>
                                             <textbox id="tax_threshold" form="taxForm" name="threshold" default="0" size="10"
-                                                     onfocus="this.select()"
+                                                     type="number" decimalplaces="Infinity" hidespinbuttons="true" onfocus="this.select()"
                                             />
                                         </row>
                                     </rows>
@@ -113,7 +118,9 @@
 
 
     </box>
-<!-- /groupbox -->
-    <hbox id="okCancelButtonsRight" class="dialogbtns" />
+    
+    <hbox id="dialogButtons" class="dialogbtns" pack="center">
+        <button class="right exit-dialog" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+    </hbox>
 
 </window>

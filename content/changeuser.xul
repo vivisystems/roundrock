@@ -17,6 +17,7 @@
             <hbox>
                 <vbox style="width: 350px;">
                     <viviscrollablebuttonpanel id="userscrollablepanel" dir="reverse" flex="1" cols="1" rows="5" seltype="single" ensureVisible="true" labelField="displayname"
+                                               oncommand="$do('validateForm', null, 'ChangeUser')"
                                                class="userscrollablepanel" scrollUpClass="rightprevbtn" scrollDownClass="rightnextbtn" buttonClass="userbtn"
                                                >
                         <spacer flex="1"/>
@@ -40,12 +41,11 @@
 
             </hbox>
             <hbox pack="center" class="PwPad">
-                <label value="&changeuser.keylabel.password;" class="pwlabel" oninput="$do('validateForm', null, 'ChangeUser')" />
+                <label value="&changeuser.keylabel.password;" class="pwlabel"/>
                 <vbox>
-                    <textbox id="user_password" type="password" value="" class="pwBox" />
-                    <label id="user_name" value="" class="userlabel"/>
+                    <textbox id="user_password" type="password" value="" class="pwBox" oninput="$do('validateForm', null, 'ChangeUser')" />
                 </vbox>
-                <button label="&changeuser.keylabel.ok;" class="genbtn" oncommand="$do('checkUser', null, 'ChangeUser');" />
+                <button id="signinBtn" disabled="true" label="&changeuser.keylabel.ok;" class="genbtn" oncommand="$do('checkUser', null, 'ChangeUser');" />
             </hbox>
         </vbox>
     </box>

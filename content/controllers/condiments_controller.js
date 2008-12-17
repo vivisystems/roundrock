@@ -192,9 +192,9 @@
             window.openDialog(aURL,
                               _('Add New Condiment Group'),
                               features,
-                              _('New Condiment Group:'),
+                              _('New Condiment Group'),
                               '',
-                              _('Group Name:'),
+                              _('Group Name'),
                               '',
                               inputObj);
 
@@ -206,30 +206,39 @@
                     value: inputData.name
                 });
                 if ((condGroups != null) && (condGroups.length > 0)) {
-                    alert(_('The group (%S) already exists..', [inputData.name]));
+                    OsdUtils.warn(_('Condiment Group [%S] already exists.', [inputData.name]));
                     return;
                 }
-                
-                condGroupModel.save(inputData);
 
-                // retrieve newly created record
-                var groups = condGroupModel.findByIndex('all', {
-                    index: 'name',
-                    value: inputData.name
-                });
-                if ((groups != null) && (groups.length > 0)) {
+                try {
+                    condGroupModel.save(inputData);
 
-                    var condGroups = GeckoJS.Session.get('condGroups');
-                    condGroups.push(groups[0]);
+                    // retrieve newly created record
+                    var groups = condGroupModel.findByIndex('all', {
+                        index: 'name',
+                        value: inputData.name
+                    });
+                    if ((groups != null) && (groups.length > 0)) {
 
-                    //alert('[ADD]: record ' + GeckoJS.BaseObject.dump(groups));
-                    //alert('[ADD]: array ' + GeckoJS.BaseObject.dump(condGroups));
+                        var condGroups = GeckoJS.Session.get('condGroups');
+                        condGroups.push(groups[0]);
 
-                    GeckoJS.Session.set('condGroups', condGroups);
+                        //alert('[ADD]: record ' + GeckoJS.BaseObject.dump(groups));
+                        //alert('[ADD]: array ' + GeckoJS.BaseObject.dump(condGroups));
 
-                    var view = this._condGroupscrollablepanel.datasource;
-                    view.data = condGroups;
-                    this.changeCondimentPanel(condGroups.length - 1);
+                        GeckoJS.Session.set('condGroups', condGroups);
+
+                        var view = this._condGroupscrollablepanel.datasource;
+                        view.data = condGroups;
+                        this.changeCondimentPanel(condGroups.length - 1);
+
+                        // @todo OSD
+                        OsdUtils.info(_('Condiment Group [%S] added successfully', [inputData.name]));
+                    }
+                }
+                catch (e) {
+                    // @todo OSD
+                    OsdUtils.error(_('An error occurred while adding Condiment Group [%S]\nThe group may not have been added successfully', [inputData.name]));
                 }
             }
         },
@@ -253,36 +262,46 @@
                 if ((conds != null) && (conds.length > 0)) {
                     for (var i = 0; i < conds.length; i++) {
                         if (conds[i].id != condGroup.id) {
-                            alert(_('The group (%S) already exists..', [inputData.name]));
+                            OsdUtils.warn(_('Condiment Group [%S] already exists', [inputData.name]));
                             return;
                         }
                     }
                 }
 
-                inputData.id = condGroup.id;
-                condGroupModel.id = condGroup.id;
-                condGroupModel.save(inputData);
+                try {
+                    inputData.id = condGroup.id;
+                    condGroupModel.id = condGroup.id;
+                    condGroupModel.save(inputData);
 
-                GREUtils.extend(condGroups[this._selectedIndex], inputData);
-                //alert('[MODIFY]: record ' + GeckoJS.BaseObject.dump(inputData));
-                //alert('[MODIFY]: array ' + GeckoJS.BaseObject.dump(condGroups));
-                GeckoJS.Session.set('condGroups', condGroups);
+                    GREUtils.extend(condGroups[this._selectedIndex], inputData);
+                    //alert('[MODIFY]: record ' + GeckoJS.BaseObject.dump(inputData));
+                    //alert('[MODIFY]: array ' + GeckoJS.BaseObject.dump(condGroups));
+                    GeckoJS.Session.set('condGroups', condGroups);
 
-                var view = this._condGroupscrollablepanel.datasource;
-                view.data = condGroups;
-                this.changeCondimentPanel(this._selectedIndex);
+                    var view = this._condGroupscrollablepanel.datasource;
+                    view.data = condGroups;
+                    this.changeCondimentPanel(this._selectedIndex);
+
+                    // @todo OSD
+                    OsdUtils.info(_('Condiment Group [%S] modified successfully', [inputData.name]));
+                }
+                catch (e) {
+                    // @todo OSD
+                    OsdUtils.error(_('An error occurred while modifying Condiment Group [%S]\nThe group may not have been modified successfully', [inputData.name]));
+                }
             }
         },
 
         remove: function() {
             if (this._selectedIndex == null || this._selectedIndex < 0) return;
 
-            if (GREUtils.Dialog.confirm(null, _('confirm delete'), _('Are you sure?'))) {
-                var condGroupModel = new CondimentGroupModel();
-                if(this._selectedIndex >= 0) {
-                    var condGroups = GeckoJS.Session.get('condGroups');
-                    var condGroup = condGroups[this._selectedIndex];
+            var condGroups = GeckoJS.Session.get('condGroups');
+            var condGroup = condGroups[this._selectedIndex];
 
+            if (GREUtils.Dialog.confirm(null, _('confirm delete %S', [condGroup.name]), _('Are you sure?'))) {
+                var condGroupModel = new CondimentGroupModel();
+
+                try {
                     // cascading delete
                     condGroupModel.del(condGroup.id);
 
@@ -301,15 +320,19 @@
                     }
                     GeckoJS.Session.set('condGroups', groups);
 
-                    //alert('[DELETE]: record ' + GeckoJS.BaseObject.dump(condGroup));
-                    //alert('[DELETE]: array ' + GeckoJS.BaseObject.dump(groups));
-
                     var view = this._condGroupscrollablepanel.datasource;
                     view.data = groups;
 
                     var newIndex = this._selectedIndex;
                     if (newIndex >= groups.length) newIndex = groups.length - 1;
                     this.changeCondimentPanel(newIndex);
+                    
+                    // @todo OSD
+                    OsdUtils.info(_('Condiment Group [%S] removed successfully', [condGroup.name]));
+                }
+                catch (e) {
+                    // @todo OSD
+                    OsdUtils.error(_('An error occurred while removing Condiment Group [%S]\nThe group may not have been removed successfully', [condGroup.name]));
                 }
             }
         },
@@ -341,13 +364,15 @@
 
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250';
-            var inputObj = {input0:null, input1:0, require0:true, require1:true};
-            window.openDialog(aURL, _('Add New Condiment'), features, _('New Condiment:'), '', _('Condiment Name'), _('Condiment Price'), inputObj);
+            var inputObj = {input0:null, input1:0,
+                            require0:true, require1:true};
+            window.openDialog(aURL, _('Add New Condiment'), features, _('New Condiment'), '', _('Condiment Name'), _('Condiment Price'), inputObj);
 
             if (inputObj.ok && inputObj.input0 && inputObj.input1) {
 
                 if (isNaN(inputObj.input1)) {
-                    alert(_('Condiment Price must be a number'));
+                    // @todo OSD
+                    OsdUtils.warn(_('Condiment Price must be a number'));
                     return;
                 }
 
@@ -366,40 +391,46 @@
                 if ((conds != null) && (conds.length > 0)) {
                     for (var i = 0; i < conds.length; i++) {
                         if (conds[i].name == inputData.name) {
-                            alert(_('The condiment (%S) already exists in this group...', [inputData.name]));
+                            OsdUtils.warn(_('Condiment [%S] already exists in this group', [inputData.name]));
                             return;
                         }
                     }
                 }
 
-                condModel.save(inputData);
-                // retrieve newly created record
-                var conds = condModel.findByIndex('all', {
-                    index: 'name',
-                    value: inputData.name
-                });
-                if ((conds != null) && (conds.length > 0)) {
+                try {
+                    condModel.save(inputData);
+                    // retrieve newly created record
+                    var conds = condModel.findByIndex('all', {
+                        index: 'name',
+                        value: inputData.name
+                    });
+                    if ((conds != null) && (conds.length > 0)) {
 
-                    // since we allow duplicate condiment names across different condiment groups, make sure
-                    // we are retrieving the right record
-                    for (var i = 0; i < conds.length; i++) {
-                        if (conds[i].condiment_group_id == inputData.condiment_group_id) {
-                            if (condGroups[this._selectedIndex]['Condiment'])
-                                condGroups[this._selectedIndex]['Condiment'].push(conds[i]);
-                            else
-                                condGroups[this._selectedIndex]['Condiment'] = [conds[i]];
-                            break;
+                        // since we allow duplicate condiment names across different condiment groups, make sure
+                        // we are retrieving the right record
+
+                        for (var i = 0; i < conds.length; i++) {
+                            if (conds[i].condiment_group_id == inputData.condiment_group_id) {
+                                if (condGroups[this._selectedIndex]['Condiment'])
+                                    condGroups[this._selectedIndex]['Condiment'].push(conds[i]);
+                                else
+                                    condGroups[this._selectedIndex]['Condiment'] = [conds[i]];
+                                break;
+                            }
                         }
+
+                        GeckoJS.Session.set('condGroups', condGroups);
+
+                        var view = this._condscrollablepanel.datasource;
+                        view.data = condGroups[this._selectedIndex]['Condiment'];
+                        this.clickCondimentPanel(view.data.length - 1);
+                        // @todo OSD
+                        OsdUtils.info(_('Condiment [%S] added successfully', [inputData.name]));
                     }
-
-                    //alert('[ADD]: record ' + GeckoJS.BaseObject.dump(conds[0]));
-                    //alert('[ADD]: array ' + GeckoJS.BaseObject.dump(condGroups));
-
-                    GeckoJS.Session.set('condGroups', condGroups);
-
-                    var view = this._condscrollablepanel.datasource;
-                    view.data = condGroups[this._selectedIndex]['Condiment'];
-                    this.clickCondimentPanel(view.data.length - 1);
+                }
+                catch (e) {
+                    // @todo OSD
+                    OsdUtils.error(_('An error occurred while adding Condiment [%S]\nThe condiment may not have been added successfully', [inputData.name]));
                 }
             }
         },
@@ -407,51 +438,59 @@
         modifyCond: function  () {
             if (this._selectedCondIndex == null || this._selectedCondIndex < 0) return;
 
-            if(this._selectedCondIndex >= 0) {
+            var condGroups = GeckoJS.Session.get('condGroups');
+            var cond = condGroups[this._selectedIndex]['Condiment'][this._selectedCondIndex];
 
-                var condGroups = GeckoJS.Session.get('condGroups');
-                var cond = condGroups[this._selectedIndex]['Condiment'][this._selectedCondIndex];
+            var inputData = this.getInputCondData();
+            var condModel = new CondimentModel();
 
-                var inputData = this.getInputCondData();
-                var condModel = new CondimentModel();
-                
-                // we will only make sure no duplicate names within the same group
-                var conds = condGroups[this._selectedIndex]['Condiment'];
-                if ((conds != null) && (conds.length > 0)) {
-                    for (var i = 0; i < conds.length; i++) {
-                        if ((conds[i].name == inputData.name) && (i != this._selectedCondIndex)) {
-                            alert(_('The condiment (%S) already exists in this group...', [inputData.name]));
-                            return;
-                        }
+            // we will only make sure no duplicate names within the same group
+            var conds = condGroups[this._selectedIndex]['Condiment'];
+            if ((conds != null) && (conds.length > 0)) {
+                for (var i = 0; i < conds.length; i++) {
+                    if ((conds[i].name == inputData.name) && (i != this._selectedCondIndex)) {
+
+                        // @todo OSD
+                        OsdUtils.warn(_('Condiment [%S] already exists in this group', [inputData.name]));
+                        return;
                     }
                 }
+            }
 
-                inputData.id = cond.id;
-                condModel.id = cond.id;
+            inputData.id = cond.id;
+            condModel.id = cond.id;
 
+            try {
                 condModel.save(inputData);
 
                 GREUtils.extend(condGroups[this._selectedIndex]['Condiment'][this._selectedCondIndex], inputData);
-                //alert('[MODIFY]: record ' + GeckoJS.BaseObject.dump(inputData));
-                //alert('[MODIFY]: array ' + GeckoJS.BaseObject.dump(condGroups[this._selectedIndex]['Condiment']));
 
                 GeckoJS.Session.set('condGroups', condGroups);
 
                 var view = this._condscrollablepanel.datasource;
                 view.data = condGroups[this._selectedIndex]['Condiment'];
                 this.clickCondimentPanel(this._selectedCondIndex);
+
+                // @todo OSD
+                OsdUtils.info(_('Condiment [%S] modified successfully', [inputData.name]));
+            }
+            catch (e) {
+                // @todo OSD
+                OsdUtils.error(_('An error occurred while modifying Condiment [%S]\nThe condiment may not have been modified successfully', [inputData.name]));
             }
         },
 
         removeCond: function() {
             if (this._selectedCondIndex == null || this._selectedCondIndex < 0) return;
 
-            if (GREUtils.Dialog.confirm(null, _('confirm delete'), _('Are you sure?'))) {
+            var condGroups = GeckoJS.Session.get('condGroups');
+            var condiment = condGroups[this._selectedIndex]['Condiment'][this._selectedCondIndex];
+
+            if (GREUtils.Dialog.confirm(null, _('confirm delete %S', [condiment.name]), _('Are you sure?'))) {
+
                 var condModel = new CondimentModel();
-                if(this._selectedCondIndex >= 0) {
-                    var condGroups = GeckoJS.Session.get('condGroups');
-                    var condiment = condGroups[this._selectedIndex]['Condiment'][this._selectedCondIndex];
-                    //alert('[DELETE]: condiment id <'+ condiment.id + '>');
+
+                try {
                     condModel.del(condiment.id);
 
                     // collect remaining condiments
@@ -471,9 +510,15 @@
                     if (newIndex >= conds.length) newIndex = conds.length - 1;
                     this.clickCondimentPanel(newIndex);
 
+                    // @todo OSD
+                    OsdUtils.info(_('Condiment [%S] removed successfully', [condiment.name]));
+                }
+                catch (e) {
+                    // @todo OSD
+                    OsdUtils.error(_('An error occurred while removing Condiment [%S]\nThe condiment may not have been removed successfully', [condiment.name]));
                 }
             }
-        },
+        }
 
     });
 

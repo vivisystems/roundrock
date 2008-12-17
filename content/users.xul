@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE window SYSTEM "chrome://viviecr/locale/users.dtd">
+<!DOCTYPE overlay [
+  <!ENTITY % Overlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Overlay;
+  <!ENTITY % Users SYSTEM "chrome://viviecr/locale/users.dtd">
+  %Users;
+  ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/viviecr.css" type="text/css"?>
 
@@ -58,7 +63,7 @@
 
                                                     <row>
                                                         <label value="&users.displayname;" control="display_name"/>
-                                                        <textbox id="display_name" value="" form="userForm" name="displayname" default="" onfocus="this.select()"/>
+                                                        <textbox id="display_name" value="" form="userForm" name="displayname" default="" oninput="$do('validateForm', null, 'Users')" onfocus="this.select()"/>
                                                     </row>
 
                                                     <row>
@@ -81,47 +86,56 @@
                                                 <rows>
                                                     <row>
                                                         <label value="&users.limit.item.discount;" control="item_discount_limit"/>
-                                                        <textbox id="item_discount_limit" form="userForm" name="item_discount_limit" width="100px" onfocus="this.select()"/>
+                                                        <textbox id="item_discount_limit" form="userForm" name="item_discount_limit" width="100px" onfocus="this.select()"
+                                                                 type="number" decimalplaces="Infinity" hidespinbuttons="true"/>
                                                     </row>
 
                                                     <row>
                                                         <label value="&users.limit.order.discount;" control="order_discount_limit"/>
-                                                        <textbox id="order_discount_limit" form="userForm" name="order_discount_limit" width="100px" onfocus="this.select()"/>
+                                                        <textbox id="order_discount_limit" form="userForm" name="order_discount_limit" width="100px" onfocus="this.select()"
+                                                                 type="number" decimalplaces="Infinity" hidespinbuttons="true"/>
                                                     </row>
 
                                                     <row>
                                                         <label value="&users.limit.item.surcharge;" control="item_surcharge_limit"/>
-                                                        <textbox id="item_surcharge_limit" form="userForm" name="item_surcharge_limit"  width="100px" onfocus="this.select()"/>
+                                                        <textbox id="item_surcharge_limit" form="userForm" name="item_surcharge_limit"  width="100px" onfocus="this.select()"
+                                                                 type="number" decimalplaces="Infinity" hidespinbuttons="true"/>
                                                     </row>
 
                                                     <row>
                                                         <label value="&users.limit.order.surcharge;" control="order_surcharge_limit"/>
-                                                        <textbox id="order_surcharge_limit" form="userForm" name="order_surcharge_limit"  width="100px" onfocus="this.select()"/>
+                                                        <textbox id="order_surcharge_limit" form="userForm" name="order_surcharge_limit"  width="100px" onfocus="this.select()"
+                                                                 type="number" decimalplaces="Infinity" hidespinbuttons="true"/>
                                                     </row>
 
                                                     <row>
                                                         <label value="&users.limit.plu.quantity;" control="max_plu_qty"/>
-                                                        <textbox id="max_plu_qty" form="userForm" name="max_plu_qty" width="100px" onfocus="this.select()"/>
+                                                        <textbox id="max_plu_qty" form="userForm" name="max_plu_qty" width="100px" onfocus="this.select()"
+                                                                 type="number" decimalplaces="Infinity" hidespinbuttons="true"/>
                                                     </row>
 
                                                     <row>
                                                         <label value="&users.limit.plu.price;" control="max_plu_price"/>
-                                                        <textbox id="max_plu_price" form="userForm" name="max_plu_price" width="100px" onfocus="this.select()"/>
+                                                        <textbox id="max_plu_price" form="userForm" name="max_plu_price" width="100px" onfocus="this.select()"
+                                                                 type="number" decimalplaces="Infinity" hidespinbuttons="true"/>
                                                     </row>
 
                                                     <row>
                                                         <label value="&users.limit.item.coupon;" control="item_coupon_limit"/>
-                                                        <textbox id="item_coupon_limit" form="userForm" name="item_coupon_limit" width="100px" onfocus="this.select()"/>
+                                                        <textbox id="item_coupon_limit" form="userForm" name="item_coupon_limit" width="100px" onfocus="this.select()"
+                                                                 type="number" decimalplaces="Infinity" hidespinbuttons="true"/>
                                                     </row>
 
                                                     <row>
                                                         <label value="&users.limit.order.coupon;" control="order_coupon_limit"/>
-                                                        <textbox id="order_coupon_limit" form="userForm" name="order_coupon_limit" width="100px" onfocus="this.select()"/>
+                                                        <textbox id="order_coupon_limit" form="userForm" name="order_coupon_limit" width="100px" onfocus="this.select()"
+                                                                 type="number" decimalplaces="Infinity" hidespinbuttons="true"/>
                                                     </row>
 
                                                     <row>
                                                         <label value="&users.limit.cash.check;" control="max_cash_check"/>
-                                                        <textbox id="max_cash_check" form="userForm" name="max_cash_check" width="100px" onfocus="this.select()"/>
+                                                        <textbox id="max_cash_check" form="userForm" name="max_cash_check" width="100px" onfocus="this.select()"
+                                                                 type="number" decimalplaces="Infinity" hidespinbuttons="true"/>
                                                     </row>
                                                 </rows>
                                             </grid>
@@ -134,17 +148,20 @@
                                                 <rows>
                                                     <row>
                                                         <label value="&users.minimum.check.number;" control="min_check_no"/>
-                                                        <textbox id="min_check_no" form="userForm" name="min_check" width="100px" onfocus="this.select()"/>
+                                                        <textbox id="min_check_no" form="userForm" name="min_check" width="100px" onfocus="this.select()"
+                                                                 type="number" decimalplaces="0" hidespinbuttons="true"/>
                                                     </row>
 
                                                     <row>
                                                         <label value="&users.maximum.check.number;" control="max_check_no"/>
-                                                        <textbox id="max_check_no" form="userForm" name="max_check" width="100px" onfocus="this.select()"/>
+                                                        <textbox id="max_check_no" form="userForm" name="max_check" width="100px" onfocus="this.select()"
+                                                                 type="number" decimalplaces="0" hidespinbuttons="true"/>
                                                     </row>
 
                                                     <row>
                                                         <label value="&users.maximum.open.checks;" control="max_open_checks"/>
-                                                        <textbox id="max_open_checks" form="userForm" name="max_open_checks" width="100px" onfocus="this.select()"/>
+                                                        <textbox id="max_open_checks" form="userForm" name="max_open_checks" width="100px" onfocus="this.select()"
+                                                                 type="number" decimalplaces="0" hidespinbuttons="true"/>
                                                     </row>
                                                 </rows>
                                             </grid>
@@ -169,6 +186,8 @@
         </vbox>
     </box>
 
-    <hbox id="okCancelButtonsRight" class="dialogbtns" />
+    <hbox id="dialogButtons" class="dialogbtns" pack="center">
+        <button class="right exit-dialog" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+    </hbox>
 
 </window>

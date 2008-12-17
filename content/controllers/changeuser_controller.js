@@ -50,36 +50,51 @@
                 if (index > -1 && index < this.users.length) {
                     username = this.users[index].username;
                 }
-                if (username == null && allowQuickLogin) {
-                    var userModel = new UserModel();
-                    var users = userModel.findByIndex('all', {
-                        index: 'password',
-                        value: userpass
-                    });
 
-                    if (users && users.length > 0) username = users[0].username;
-                }
-                
-                if (this.Acl.securityCheck(username, userpass)) {
-                    opener.$do('setClerk', null, 'Main');
-                    window.close();
-                } else {
-                    $('#user_password').val('');
-                    if (username == null && allowQuickLogin) {
-                        // @todo OSD.text to be replaced with OSD.warn
-                        OsdUtils.text('<span color="red" font_desc="Times 20">'
-                                      +_('Authentication failed!\nPlease make sure that the password is correct.'
-                                      +'</span>'), 100, -200);
+                // case 1 - username is null and allowQuickLogin
+                // case 2 - username is null and not allowQuickLogin
+                // case 3 - username is not null
+                if (username == null) {
+                    if (allowQuickLogin) {
+                        if (!this.Acl.securityCheckByPassword(userpass, false)) {
+                            // @todo OSD
+                            OsdUtils.error(_('Authentication failed!\nPlease make sure the password is correct.'));
+                        }
                     }
                     else {
-                        // @todo OSD.text to be replaced with OSD.warn
-                        OsdUtils.text('<span color="red" font_desc="Times 20">'
-                                      +_('Authentication failed!\nPlease make sure username and password are correct.'
-                                      +'</span>'), 100, -200);
+                        // @todo OSD
+                        // we shouldn't be here if validateForm works correctly, but will display warning just in case
+                        OsdUtils.error(_('Authentication failed!\nPlease select a user'));
                     }
+                }
+                else {
+                    if (!this.Acl.securityCheck(username, userpass)) {
+                        // @todo OSD
+                        OsdUtils.error(_('Authentication failed!\nPlease make sure username and password are correct.'));
+                    }
+                }
+                if (this.Acl.getUserPrincipal()) {
+                    opener.$do('setClerk', null, 'Main');
+                    window.close();
+                }
+                else {
+                    $('#user_password').val('');
                 }
             }
         },
+
+        validateForm: function () {
+            var password = $('#user_password').val().replace(/^\s*/, '').replace(/\s*$/, '');
+            var allowQuickLogin = GeckoJS.Configure.read('vivipos.fec.settings.login.allowquicklogin');
+            var index = this.userpanel.selectedIndex;
+
+            if (allowQuickLogin) {
+                document.getElementById('signinBtn').setAttribute('disabled', password.length == 0);
+            }
+            else {
+                document.getElementById('signinBtn').setAttribute('disabled', password.length == 0 || index == null || index == -1);
+            }
+        }
 
     });
 

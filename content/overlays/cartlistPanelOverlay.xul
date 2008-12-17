@@ -10,7 +10,7 @@
 
     <vbox id="cartlistPanelContainer" flex="1">
 
-            <viviscrollabletree class="cartList" id="cartList" hidecolumnpicker="true" hidevscroll="true" flex="1"
+            <viviscrollabletree class="cartList" id="cartList" hidecolumnpicker="true" hidevscroll="true" flex="1" dir="normal"
                                 headers="&cart.item.name;,&cart.item.qty;,&cart.item.unitprice;,&cart.item.subtotal;,&cart.item.tax;"
                                 fields="name,current_qty,current_price,current_subtotal,current_tax"
                                 rows="7" scrollUpClass="cartScrollUp" scrollDownClass="cartScrollDown" >
