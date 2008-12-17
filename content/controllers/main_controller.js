@@ -412,9 +412,9 @@
             }
             if (cartList) {
 
+                cartList.setAttribute('dir', registerAtLeft ? 'reverse': 'normal');
                 // for some reason 'dir' does work, need to manually order scrollbar & cart
-                // cartList.setAttribute('dir', registerAtLeft ? 'reverse': 'normal');
-
+/*
                 var vivitree = document.getAnonymousElementByAttribute(cartList, 'anonid', 'vivitree');
                 var scrollbar = document.getAnonymousElementByAttribute(cartList, 'anonid', 'scrollbar');
                 var parent = vivitree.parentNode;
@@ -426,6 +426,7 @@
                 else {
                     parent.insertBefore(vivitree, scrollbar);
                 }
+*/
             }
 
         },

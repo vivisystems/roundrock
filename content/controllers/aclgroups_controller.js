@@ -256,8 +256,13 @@
             else {
                 var group = $('#aclgroup_name').val();
 
+<<<<<<< HEAD:content/controllers/aclgroups_controller.js
                 modifyBtn.setAttribute('disabled', group == 'admin2');
                 deleteBtn.setAttribute('disabled', group == 'admin');
+=======
+                modifyBtn.setAttribute('disabled', group == '#admin');
+                deleteBtn.setAttribute('disabled', group == '#admin');
+>>>>>>> a37aaf934a873e9a62f235076f2058bda887faaf:content/controllers/aclgroups_controller.js
             }
         }
 	

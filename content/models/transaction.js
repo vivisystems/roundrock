@@ -100,7 +100,7 @@
 
         this.data.id = GeckoJS.String.uuid();
 
-        this.data.seq = SequenceModel.getSequence('order');
+        this.data.seq = SequenceModel.getSequence('order_no');
         GeckoJS.Session.set('vivipos_fec_order_sequence', this.data.seq);
         
         var user = new GeckoJS.AclComponent().getUserPrincipal();
@@ -1187,8 +1187,8 @@
         var priceLevel = GeckoJS.Session.get('vivipos_fec_price_level');
 
         var user = (new GeckoJS.AclComponent()).getUserPrincipal();
-        var canOverrideHalo = (GeckoJS.Array.inArray('acl_override_halo', user.Roles) != -1);
-        var canOverrideLalo = (GeckoJS.Array.inArray('acl_override_lalo', user.Roles) != -1);
+        var canOverrideHalo = user ? (GeckoJS.Array.inArray('acl_override_halo', user.Roles) != -1) : false;
+        var canOverrideLalo = user ? (GeckoJS.Array.inArray('acl_override_lalo', user.Roles) != -1) : false;
 
         var priceLevelPrice = this.getPriceLevelPrice(priceLevel, item);
         var priceLevelHalo = this.getPriceLevelHalo(priceLevel, item);

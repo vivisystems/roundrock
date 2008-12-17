@@ -14,6 +14,7 @@ GeckoJS.StringBundle.createBundle("chrome://viviecr/locale/messages.properties")
 // include project libs
 
 // include project models
+<<<<<<< HEAD:content/bootstrap.js
 GREUtils.include('chrome://viviecr/content/models/user.js');
 GREUtils.include('chrome://viviecr/content/models/category.js');
 GREUtils.include('chrome://viviecr/content/models/product.js');
@@ -26,6 +27,20 @@ GREUtils.include('chrome://viviecr/content/models/condiment.js');
 GREUtils.include('chrome://viviecr/content/models/plugroup.js');
 GREUtils.include('chrome://viviecr/content/models/job.js');
 GREUtils.include('chrome://viviecr/content/models/account.js');
+=======
+include('chrome://viviecr/content/models/user.js');
+include('chrome://viviecr/content/models/category.js');
+include('chrome://viviecr/content/models/product.js');
+include('chrome://viviecr/content/models/cart.js');
+include('chrome://viviecr/content/models/cash_drawer.js');
+include('chrome://viviecr/content/models/sequence.js');
+include('chrome://viviecr/content/models/transaction.js');
+include('chrome://viviecr/content/models/condiment_group.js');
+include('chrome://viviecr/content/models/condiment.js');
+include('chrome://viviecr/content/models/plugroup.js');
+include('chrome://viviecr/content/models/job.js');
+include('chrome://viviecr/content/models/producttmp.js');
+>>>>>>> a37aaf934a873e9a62f235076f2058bda887faaf:content/bootstrap.js
 
 
 include('chrome://viviecr/content/models/order.js');
@@ -36,41 +51,41 @@ include('chrome://viviecr/content/models/order_object.js');
 
 
 // include project helpers
-GREUtils.include('chrome://viviecr/content/helpers/nsi_products_view.js');
-GREUtils.include('chrome://viviecr/content/helpers/nsi_plus_view.js');
-GREUtils.include('chrome://viviecr/content/helpers/nsi_categories_view.js');
-GREUtils.include('chrome://viviecr/content/helpers/nsi_departments_view.js');
-GeckoJS.include('chrome://viviecr/content/helpers/nsi_cart_view.js');
-GREUtils.include('chrome://viviecr/content/helpers/nsi_condiments_view.js');
-GREUtils.include('chrome://viviecr/content/helpers/nsi_plugroups_view.js');
-GREUtils.include('chrome://viviecr/content/helpers/nsi_rolegroups_view.js');
-GREUtils.include('chrome://viviecr/content/helpers/nsi_taxes_view.js');
+include('chrome://viviecr/content/helpers/nsi_products_view.js');
+include('chrome://viviecr/content/helpers/nsi_plus_view.js');
+include('chrome://viviecr/content/helpers/nsi_categories_view.js');
+include('chrome://viviecr/content/helpers/nsi_departments_view.js');
+include('chrome://viviecr/content/helpers/nsi_cart_view.js');
+include('chrome://viviecr/content/helpers/nsi_condiments_view.js');
+include('chrome://viviecr/content/helpers/nsi_plugroups_view.js');
+include('chrome://viviecr/content/helpers/nsi_rolegroups_view.js');
+include('chrome://viviecr/content/helpers/nsi_taxes_view.js');
 
 
 // include project components
-GeckoJS.include('chrome://viviecr/content/controllers/components/barcode.js');
-GeckoJS.include('chrome://viviecr/content/controllers/components/tax.js');
+include('chrome://viviecr/content/controllers/components/barcode.js');
+include('chrome://viviecr/content/controllers/components/tax.js');
 
 // include project controllers
-GREUtils.include('chrome://viviecr/content/controllers/main_controller.js');
-GREUtils.include('chrome://viviecr/content/controllers/cart_controller.js');
-GREUtils.include('chrome://viviecr/content/controllers/keypad_controller.js');
-// GREUtils.include('chrome://viviecr/content/controllers/vfd_controller.js');
-GREUtils.include('chrome://viviecr/content/controllers/cash_drawer_controller.js');
-GREUtils.include('chrome://viviecr/content/controllers/products_controller.js');
-GREUtils.include('chrome://viviecr/content/controllers/categories_controller.js');
-GREUtils.include('chrome://viviecr/content/controllers/taxes_controller.js');
-GREUtils.include('chrome://viviecr/content/controllers/image_manager_controller.js');
-GREUtils.include('chrome://viviecr/content/controllers/departments_controller.js');
-GREUtils.include('chrome://viviecr/content/controllers/plus_controller.js');
-GeckoJS.include('chrome://viviecr/content/controllers/pricelevel_controller.js');
-GREUtils.include('chrome://viviecr/content/controllers/plugroups_controller.js');
-GREUtils.include('chrome://viviecr/content/controllers/condiments_controller.js');
-GREUtils.include('chrome://viviecr/content/controllers/jobs_controller.js');
-GREUtils.include('chrome://viviecr/content/controllers/pricelevelschedule_controller.js');
-GREUtils.include('chrome://viviecr/content/controllers/plusearch_controller.js');
-GREUtils.include('chrome://viviecr/content/controllers/stocks_controller.js');
-GREUtils.include('chrome://viviecr/content/controllers/currencysetup_controller.js');
+include('chrome://viviecr/content/controllers/main_controller.js');
+include('chrome://viviecr/content/controllers/cart_controller.js');
+include('chrome://viviecr/content/controllers/keypad_controller.js');
+// include('chrome://viviecr/content/controllers/vfd_controller.js');
+include('chrome://viviecr/content/controllers/cash_drawer_controller.js');
+include('chrome://viviecr/content/controllers/products_controller.js');
+include('chrome://viviecr/content/controllers/categories_controller.js');
+include('chrome://viviecr/content/controllers/taxes_controller.js');
+include('chrome://viviecr/content/controllers/image_manager_controller.js');
+include('chrome://viviecr/content/controllers/departments_controller.js');
+include('chrome://viviecr/content/controllers/plus_controller.js');
+include('chrome://viviecr/content/controllers/pricelevel_controller.js');
+include('chrome://viviecr/content/controllers/plugroups_controller.js');
+include('chrome://viviecr/content/controllers/condiments_controller.js');
+include('chrome://viviecr/content/controllers/jobs_controller.js');
+include('chrome://viviecr/content/controllers/pricelevelschedule_controller.js');
+include('chrome://viviecr/content/controllers/plusearch_controller.js');
+include('chrome://viviecr/content/controllers/stocks_controller.js');
+include('chrome://viviecr/content/controllers/currencysetup_controller.js');
 
 include('chrome://viviecr/content/controllers/test_controller.js');
 
@@ -78,7 +93,7 @@ include('chrome://viviecr/content/controllers/test_controller.js');
 //
 //
 // user define
-// GeckoJS.include('chrome://viviecr/content/tax.js');
-GeckoJS.include('chrome://viviecr/content/fecposutils.js');
+// include('chrome://viviecr/content/tax.js');
+include('chrome://viviecr/content/fecposutils.js');
 
 })();

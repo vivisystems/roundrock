@@ -1,8 +1,8 @@
 (function(){
-    GeckoJS.include('chrome://viviecr/content/models/user.js');
+    include('chrome://viviecr/content/models/user.js');
 
     // include controllers  and register itself
-    GeckoJS.include('chrome://viviecr/content/controllers/changeuser_controller.js');
+    include('chrome://viviecr/content/controllers/changeuser_controller.js');
 
     /**
      * Controller Startup

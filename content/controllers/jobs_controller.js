@@ -7,6 +7,7 @@
 
     GeckoJS.Controller.extend( {
         name: 'Jobs',
+        components: ['Form', 'Acl'], 
         scaffold: true,
 	
         _listObj: null,
@@ -62,6 +63,7 @@
         afterScaffoldAdd: function (evt) {
             // if new job exists, set selectedIndex to last item
 
+            alert("afterScaffoldAdd");
             if (this._jobAdded) {
                 var panel = this.getListObj();
                 var data = panel.datasource.data;
@@ -179,6 +181,7 @@
         },
 
         select: function(index){
+
             this.requestCommand('list', index);
 
             document.getElementById('job_name').focus();

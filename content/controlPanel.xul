@@ -30,7 +30,7 @@
             <label value="Control Panel: "/>
             <spacer flex="1" />
             <vbox flex="2"  class="footlogo">
-                <viviscrollablebuttonpanel id="imagePanel" cols="4" rows="5" labelField="label" imageField="icon" aclField="roles" flex="1"
+                <viviscrollablebuttonpanel id="imagePanel" cols="4" rows="5" labelField="label" imageField="icon" aclField2="roles" flex="1"
                     buttonClass="imageThumbBtn largeimagebtn" scrollUpClass="rightprevbtn button-gray" scrollDownClass="rightnextbtn button-gray" >
                     <spacer flex="1" />
                 </viviscrollablebuttonpanel>
