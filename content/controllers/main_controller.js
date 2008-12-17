@@ -436,8 +436,8 @@
             var defaultLogin = GeckoJS.Configure.read('vivipos.fec.settings.DefaultLogin');
             var defaultUser = GeckoJS.Configure.read('vivipos.fec.settings.DefaultUser');
 
-            //@todo work-around Object reference bug
-            var roles= this.Acl.getGroupList();
+            //@todo work-around Object reference bug - fixed
+            //var roles= this.Acl.getGroupList();
 
             if (defaultLogin && defaultUser && defaultUser.length > 0) {
                 this.Acl.securityCheck(defaultUser, 'dummy', false, true);

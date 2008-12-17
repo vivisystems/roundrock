@@ -365,7 +365,7 @@
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250';
             var inputObj = {input0:null, input1:0,
-                            require0:true, require1:true};
+                            require0:true, require1:true, numberOnly1:true};
             window.openDialog(aURL, _('Add New Condiment'), features, _('New Condiment'), '', _('Condiment Name'), _('Condiment Price'), inputObj);
 
             if (inputObj.ok && inputObj.input0 && inputObj.input1) {
@@ -458,6 +458,7 @@
             }
 
             inputData.id = cond.id;
+            inputData.condiment_price = parseFloat(inputData.condiment_price);
             condModel.id = cond.id;
 
             try {

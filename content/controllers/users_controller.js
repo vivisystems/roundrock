@@ -22,6 +22,22 @@
             }
             return this._listObj;
         },
+
+        getInputDefault: function () {
+            var valObj = {};
+            this.query('[form=userForm]').each(function() {
+                var n = this.name || this.getAttribute('name');
+                if (!n) return;
+                var v = this.getAttribute('default');
+
+                if (typeof v != 'undefined') {
+                    valObj[n] = v;
+                }
+            });
+            return valObj;
+
+        },
+
         /*
         beforeScaffold: function(evt) {
             
@@ -74,7 +90,7 @@
                 return ;
             }
             
-            var newUser = GeckoJS.FormHelper.serializeToObject('userForm');
+            var newUser = this.getInputDefault();
             newUser.username = user.username;
             newUser.password = user.password;
             newUser.displayname = user.displayname;
@@ -162,7 +178,11 @@
         },
 
         beforeScaffoldDelete: function(evt) {
-            if (GREUtils.Dialog.confirm(null, _('confirm delete %S', [evt.data.username]), _('Are you sure?')) == false) {
+            var panel = this.getListObj();
+            var view = panel.datasource;
+            var displayname = view.data[panel.selectedIndex].displayname;
+
+            if (GREUtils.Dialog.confirm(null, _('confirm delete %S', [displayname]), _('Are you sure?')) == false) {
                 evt.preventDefault();
             }
         },

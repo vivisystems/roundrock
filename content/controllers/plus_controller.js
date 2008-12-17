@@ -262,7 +262,7 @@
                 input1:1, require1:true
             };
 
-            window.openDialog(aURL, _('Add New Product Set'), features, _('Product Set'), '', _('Product No.or Barcode:'), _('Quantity:'), inputObj);
+            window.openDialog(aURL, _('Add New Product Set'), features, _('Product Set'), '', _('Product No.or Barcode'), _('Quantity'), inputObj);
 
             if (inputObj.ok && inputObj.input0 && inputObj.input1) {
                 var product = this._searchPlu(inputObj.input0);
@@ -336,27 +336,27 @@
             var prods = GeckoJS.Session.get('products');
             var result = 0;
             if (data.no.length <= 0) {
-                alert(_('Product No. must not be empty.'));
+                // @todo OSD
+                OsdUtils.warn(_('Product No. must not be empty.'));
                 result = 3;
             } else if (data.name.length <= 0) {
-                alert(_('Product Name must not be empty.'));
+                OsdUtils.warn(_('Product Name must not be empty.'));
                 result = 4;
             } else {
                 if (prods)
                     for (var i = 0; i < prods.length; i++) {
                         var o = prods[i];
                         if (o.no == data.no && data.id == null) {
-                            alert(_('The Product No. (%S) already exists. New product not added.', [data.no]));
-                            result = 1;
-                            break;
+                            OsdUtils.warn(_('The Product No. [%S] already exists; product not added.', [data.no]));
+                            return 1;
                         } else if (o.name == data.name) {
                             if (data.id == null) {
-                                alert(_('The Product Name (%S) already exists. New product not added.', [data.name]));
-                                result = 2;
+                                OsdUtils.warn(_('The Product Name [%S] already exists; product not added.', [data.name]));
+                                return 2;
                             }
                             else if (data.id != o.id) {
-                                alert(_('The Product Name (%S) already exists. Product not modified.', [data.name]));
-                                result = 2;
+                                OsdUtils.warn(_('The Product Name [%S] already exists; product not modified.', [data.name]));
+                                return 2;
                             }
                             break;
                         }
@@ -376,7 +376,7 @@
                 input0:null, require0:true, alphaOnly0:true,
                 input1:null, require1:true
             };
-            window.openDialog(aURL, _('Add New Product'), features, _('New Product'), '', _('Product No. [a-z,A-Z,0-9,_]:'), _('Product Name:'), inputObj);
+            window.openDialog(aURL, _('Add New Product'), features, _('New Product'), '', _('Product No.'), _('Product Name'), inputObj);
 
             if (inputObj.ok && inputObj.input0 && inputObj.input1) {
                 var product = new ProductModel();
@@ -389,21 +389,28 @@
 
                     // reset form to get product defaults
                     var prodData = this.getInputDefault();
-                    var newData = this.getInputData();
-                    GREUtils.extend(prodData, newData);
 
-                    prodData.id = '';
-                    prodData.no = inputData.no;
-                    prodData.name = inputData.name;
-                    prodData.cate_no = inputData.cate_no;
+                    try {
+                        prodData.id = '';
+                        prodData.no = inputData.no;
+                        prodData.name = inputData.name;
+                        prodData.cate_no = inputData.cate_no;
 
-                    product.save(prodData);
+                        product.save(prodData);
 
-                    this.updateSession();
+                        this.updateSession();
 
-                    // newly added item is appended to end; jump cursor to end
-                    var index = this.productPanelView.data.length - 1;
-                    this.clickPluPanel(index);
+                        // newly added item is appended to end; jump cursor to end
+                        var index = this.productPanelView.data.length - 1;
+                        this.clickPluPanel(index);
+
+                        // @todo OSD
+                        OsdUtils.info(_('Product [%S] added successfully', [inputData.name]));
+                    }
+                    catch (e) {
+                        // @todo OSD
+                        OsdUtils.error(_('An error occurred while adding Product [%S]; the product may not have been added successfully', [inputData.name]));
+                    }
                 }
             }
 
@@ -413,38 +420,58 @@
             if (this._selectedIndex == null || this._selectedIndex == -1) return;
 
             var inputData = this.getInputData();
+            var product = this.productPanelView.getCurrentIndexData(this._selectedIndex);
 
-            if(this._selectedIndex >= 0) {
+            //GREUtils.log('modify <' + this._selectedIndex + '> ' + GeckoJS.BaseObject.dump(inputData));
 
-                // need to make sure product name is unique
-                if (this._checkData(inputData) == 0) {
-                    var prodModel = new ProductModel();
+            // need to make sure product name is unique
+            if (this._checkData(inputData) == 0) {
+                var prodModel = new ProductModel();
+
+                try {
                     prodModel.id = inputData.id;
                     prodModel.save(inputData);
 
                     this.updateSession();
+
+                    // @todo OSD
+                    OsdUtils.info(_('Product [%S] modified successfully', [product.name]));
+                }
+                catch (e) {
+                    // @todo OSD
+                    OsdUtils.error(_('An error occurred while modifying Product [%S]\nThe product may not have been modified successfully', [product.name]));
                 }
             }
         },
 
         remove: function() {
             if (this._selectedIndex == null || this._selectedIndex == -1) return;
-            
-            if (GREUtils.Dialog.confirm(null, _('confirm delete'), _('Are you sure?'))) {
-                var prodModel = new ProductModel();
-                var index = document.getElementById('prodscrollablepanel').selectedIndex;
 
-                var product = this.productPanelView.getCurrentIndexData(index);
+            var prodModel = new ProductModel();
+            var index = document.getElementById('prodscrollablepanel').selectedIndex;
+
+            var product = this.productPanelView.getCurrentIndexData(index);
+            
+            if (GREUtils.Dialog.confirm(null, _('confirm delete %S', [product.name]), _('Are you sure?'))) {
                 
                 if (product) {
-                    prodModel.del(product.id);
+                    try {
+                        prodModel.del(product.id);
 
-                    this.updateSession();
+                        this.updateSession();
 
-                    var newIndex = this._selectedIndex;
-                    if (newIndex > this.productPanelView.data.length - 1) newIndex = this.productPanelView.data.length - 1;
+                        var newIndex = this._selectedIndex;
+                        if (newIndex > this.productPanelView.data.length - 1) newIndex = this.productPanelView.data.length - 1;
 
-                    this.clickPluPanel(newIndex);
+                        this.clickPluPanel(newIndex);
+
+                        // @todo OSD
+                        OsdUtils.info(_('Product [%S] removed successfully', [product.name]));
+                    }
+                    catch (e) {
+                        // @todo OSD
+                        OsdUtils.error(_('An error occurred while removing Product [%S]\nThe product may not have been removed successfully', [product.name]));
+                    }
                 }
             }
         },
