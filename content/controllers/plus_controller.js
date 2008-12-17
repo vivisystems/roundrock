@@ -413,7 +413,7 @@
             if (this._selectedIndex == null || this._selectedIndex == -1) return;
 
             var inputData = this.getInputData();
-GREUtils.log('modify <' + this._selectedIndex + '> ' + GeckoJS.BaseObject.dump(inputData));
+
             if(this._selectedIndex >= 0) {
 
                 // need to make sure product name is unique
