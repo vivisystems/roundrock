@@ -25,9 +25,6 @@
             var index = 0;
             if (data) {
                 listObj.value = data;            
-            } else if (groups) {
-                listObj.selectedItems = [0];
-                listObj.selectedIndex = 0;
             };
 
             this.select();

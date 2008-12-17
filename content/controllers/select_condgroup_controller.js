@@ -36,13 +36,10 @@
             var index = (groups.length > 0) ? 0 : -1;
             if (data) {
                 listObj.value = data;
-                if (listObj.selectedIndex < 0) {
+                if (listObj.selectedIndex == null || listObj.selectedIndex < 0) {
                     listObj.selectedItems = [index];
                     listObj.selectedIndex = index;
                 }
-            } else {
-                listObj.selectedItems = [index];
-                listObj.selectedIndex = index;
             };
             this.select();
 
@@ -57,7 +54,6 @@
 
             // $("rolegroup").val(rolegroup.name);
             document.getElementById('cond_group').value = group.name;
-
         }
 	
     });
