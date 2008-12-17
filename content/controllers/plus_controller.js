@@ -232,14 +232,19 @@
                 
                 var qty = pluset[key];
                 //alert(qty + ':' + decodeURI(qty));
-                var id = barcodesIndexes[key];
-                var name = productsById[id].name;
-
-                this._pluset.push({
-                    no: key,
-                    name: name,
-                    qty: qty
-                });
+                try {
+                    var id = barcodesIndexes[key];
+                    var name = productsById[id].name;
+                    this._pluset.push({
+                        no: key,
+                        name: name,
+                        qty: qty
+                    });
+                } catch (e) {
+                    var id = '';
+                    var name = '';
+                }
+                
             };
 
             var panelView =  new GeckoJS.NSITreeViewArray(this._pluset);

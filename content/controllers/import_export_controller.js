@@ -177,66 +177,52 @@
 
             var total;
             var progmeter = document.getElementById("datasprogressmeter");
-            var exportprogress = function (value) {
-                //
-                // GREUtils.log('value:' + value);
-                progmeter.value = Math.floor(value / total * 100);
-            }
 
             var thread = new GeckoJS.Thread();
-
             var workerRunnable;
-            
+
+            var self = this;
+
+            var tableTmp = null;
+            var tableTpl = {};
+
             // progmeter.max = datas.length;
             progmeter.value = 0;
-            alert(datas.length);
             for(var k=0; k < datas.length; k++) {
-                GREUtils.log(k);
-                //
-//                progmeter.value = (i / datas.length) * 100;
 
                 var name = this._datas[datas[k]].name;
                 var model = this._datas[datas[k]].model;
 
                 if (model == "products") {
                     var tableTmp = new ProductModel();
-                    var fileName = this._exportDir + "/products.csv";
+                    var fileName = this._importDir + "products.csv";
                 } else if (model == "departments") {
                     var tableTmp = new CategoryModel();
-                    var fileName = this._exportDir + "/departments.csv";
+                    var fileName = this._importDir + "departments.csv";
                 } else if (model == "plugroups") {
                     var tableTmp = new PlugroupModel();
-                    var fileName = this._exportDir + "/plugroups.csv";
+                    var fileName = this._importDir + "plugroups.csv";
                 } else if (model == "condimentgroups") {
                     var tableTmp = new CondimentGroupModel();
-                    var fileName = this._exportDir + "/condimentgroups.csv";
+                    var fileName = this._importDir + "condimentgroups.csv";
                 } else if (model == "condiments") {
                     var tableTmp = new CondimentModel();
-                    var fileName = this._exportDir + "/condiments.csv";
+                    var fileName = this._importDir + "condiments.csv";
                 }
-
-            
-            // progmeter.value = 100;
 
             var trimQuote = function(str) {
 
                 return str.substr(1, str.length-2);
             };
 
-            var self = this;
-
-            var tableTmp = null;
-            var tableTpl = {};
+            
             var lines = GREUtils.File.readAllLine(fileName);
             var fields = lines[0].split(',');
             lines.splice(0,1);
 
-{
             for( var i = 0; i < fields.length; i++) {
                 fields[i] = trimQuote(fields[i]);
             }
-            
-}
 
             // update progressbar...
             var mainRunnable = {
@@ -363,54 +349,39 @@
 
             var ii = 0;
             var nCount = lines.length;
-            // var datas = [];
             var progress = 0;
             // @todo:
             if (model == 'products') {
                 tableTmp = new ProductModel();
                 // tableTpl = tableTmp.schema();
-                {
                 for (var i=0; i< fields.length; i++) {
 
                    tableTpl[fields[i]] = null;
-                }
                 }
                 tableTpl.vivible = true;
 
                 var cate_no = '999';
                 var pad = 8; // GeckoJS.String.padLeft
 
-                // var progmeter = document.getElementById("importprogressmeter");
-
                 workerRunnable = workerProducts;
 
             } else if (model == 'departments') {
                 tableTmp = new CategoryModel();
                 // tableTpl = tableTmp.schema();
-                {
                 for (var i=0; i< fields.length; i++) {
 
                    tableTpl[fields[i]] = null;
                 }
-                }
-
-
-                // var progmeter = document.getElementById("importprogressmeter");
 
                 workerRunnable = workerDatas;
 
             } else if (model == 'plugroups') {
                 tableTmp = new PlugroupModel();
                 // tableTpl = tableTmp.schema();
-                {
                 for (var i=0; i< fields.length; i++) {
 
                    tableTpl[fields[i]] = null;
                 }
-                }
-
-
-                // var progmeter = document.getElementById("importprogressmeter");
 
                 workerRunnable = workerDatas;
 
@@ -418,28 +389,20 @@
             } else if (model == 'condimentgroups') {
                 tableTmp = new CondimentGroupModel();
                 // tableTpl = tableTmp.schema();
-                {
                 for (var i=0; i< fields.length; i++) {
 
                    tableTpl[fields[i]] = null;
                 }
-                }
-                // var progmeter = document.getElementById("importprogressmeter");
 
                 workerRunnable = workerDatas;
 
             } else if (model == 'condiments') {
                 tableTmp = new CondimentModel();
                 // tableTpl = tableTmp.schema();
-                {
                 for (var i=0; i< fields.length; i++) {
 
                    tableTpl[fields[i]] = null;
                 }
-                }
-
-
-                // var progmeter = document.getElementById("importcondimentprogressmeter");
 
                 workerRunnable = workerDatas;
             }
@@ -447,9 +410,8 @@
             self._finish = false;
             // workerRunnable = workerTmp;
             thread._runnable = workerRunnable;
-GREUtils.log(model);
             // run worker...
-            // thread.start();
+            thread.start();
 
             /*
             try {
@@ -464,7 +426,7 @@ GREUtils.log(model);
             // while(!self._finish) thread._workerThread.processNextEvent(true);
 
             }
-            alert("finish...");
+GREUtils.log("finish...");
         },
 
         exportData: function (model) {
@@ -490,19 +452,19 @@ GREUtils.log(model);
 
                 if (model == "products") {
                     var tableTmp = new ProductModel();
-                    var fileName = this._exportDir + "/products.csv";
+                    var fileName = this._exportDir + "products.csv";
                 } else if (model == "departments") {
                     var tableTmp = new CategoryModel();
-                    var fileName = this._exportDir + "/departments.csv";
+                    var fileName = this._exportDir + "departments.csv";
                 } else if (model == "plugroups") {
                     var tableTmp = new PlugroupModel();
-                    var fileName = this._exportDir + "/plugroups.csv";
+                    var fileName = this._exportDir + "plugroups.csv";
                 } else if (model == "condimentgroups") {
                     var tableTmp = new CondimentGroupModel();
-                    var fileName = this._exportDir + "/condimentgroups.csv";
+                    var fileName = this._exportDir + "condimentgroups.csv";
                 } else if (model == "condiments") {
                     var tableTmp = new CondimentModel();
-                    var fileName = this._exportDir + "/condiments.csv";
+                    var fileName = this._exportDir + "condiments.csv";
                 }
 
                 total = tableTmp.exportCSV(fileName, {
@@ -524,8 +486,11 @@ GREUtils.log(model);
         load: function (data) {
             this._importDir = GeckoJS.Configure.read('vivipos.fec.settings.database.importdir');
             this._exportDir = GeckoJS.Configure.read('vivipos.fec.settings.database.exportdir');
-            if (!this._importDir) this._importDir = '/media/disk/database_import/';
-            if (!this._exportDir) this._exportDir = '/media/disk/database_export/';
+            if (!this._importDir) this._importDir = '/var/tmp/vivipos/database_import/';
+            if (!this._exportDir) this._exportDir = '/var/tmp/vivipos/database_export/';
+            // path with '/' end
+            this._importDir = (this._importDir + '/').replace(/\/+/g,'/');
+            this._exportDir = (this._exportDir + '/').replace(/\/+/g,'/');
             
             this._datas = [
                 {

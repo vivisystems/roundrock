@@ -100,7 +100,7 @@
 
         this.data.id = GeckoJS.String.uuid();
 
-        this.data.seq = ViviPOS.SequenceModel.getSequence('order');
+        this.data.seq = SequenceModel.getSequence('order');
         GeckoJS.Session.set('vivipos_fec_order_sequence', this.data.seq);
         
         var user = new GeckoJS.AclComponent().getUserPrincipal();

@@ -16,113 +16,35 @@
         <vbox flex="1" class="panel40">
             <hbox flex="1" class="footlogo">
                 <groupbox flex="1">
-                    <caption label="Import / Export:" />
+                    <caption label="&importexport.caption;" />
 
                     <hbox flex="1">
                         <vbox flex="1">
-                        <viviscrollablebuttonpanel id="datasourcescrollablepanel" default="" seltype="multiple" flex="1" cols="1" rows="7" labelField="name" oncommand=""
+                            <viviscrollablebuttonpanel id="datasourcescrollablepanel" default="" seltype="multiple" flex="1" cols="1" rows="7" labelField="name" oncommand=""
                                 class="catescrollablepanel" buttonClass="catbtn button-radius button-white font-medium" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue">
-                            <spacer flex="1" />
-                        </viviscrollablebuttonpanel>
+                                <spacer flex="1" />
+                            </viviscrollablebuttonpanel>
 
-                        <spacer style="height: 10px;" />
-                        <separator class="groove-thin"/>
-                        <spacer style="height: 10px;" />
+                            <spacer style="height: 10px;" />
+                            <separator class="groove-thin"/>
+                            <spacer style="height: 10px;" />
 
-                        <progressmeter id="datasprogressmeter" mode="determined" value="0" />
+                            <progressmeter id="datasprogressmeter" mode="determined" value="0" />
                         </vbox>
 
+                        <spacer style="width:30px;" />
+
                         <groupbox flex="1">
-                            <caption label="&importexport.department;" />
+                            <caption label="" />
                             <vivibutton label="&importexport.import;" class="widebtns" oncommand="$do('importData', 'departments', 'ImportExport');" />
-                            <progressmeter id="importprogressmeter" mode="determined" value="0" />
+
                             <spacer style="height: 10px;" />
                             <separator class="groove-thin"/>
                             <spacer style="height: 10px;" />
                             <vivibutton label="&importexport.export;" class="widebtns" oncommand="$do('exportData', 'departments', 'ImportExport');" />
-                            <progressmeter id="importprogressmeter" mode="determined" value="0" />
+
                         </groupbox>
                     </hbox>
-                    
-                    <!-- grid>
-                        <columns>
-                            <column flex="1" />
-                            <column flex="1" />
-                            <column flex="1" />
-                        </columns>
-
-                        <rows>
-                            <row>
-                                <groupbox flex="1">
-                                    <caption label="&importexport.department;" />
-                                    <vbox>
-                                        <vivibutton label="&importexport.import;" class="widebtns" oncommand="$do('importData', 'departments', 'ImportExport');" />
-                                        <progressmeter id="importprogressmeter" mode="determined" value="0" />
-                                        <spacer style="height: 10px;" />
-                                        <separator class="groove-thin"/>
-                                        <spacer style="height: 10px;" />
-                                        <vivibutton label="&importexport.export;" class="widebtns" oncommand="$do('exportData', 'departments', 'ImportExport');" />
-                                        <progressmeter id="importprogressmeter" mode="determined" value="0" />
-                                    </vbox>
-                                </groupbox>
-                                <groupbox flex="1">
-                                    <caption label="&importexport.plu;" />
-                                    <vbox>
-                                        <vivibutton label="&importexport.import;" class="widebtns" oncommand="$do('importData', 'products', 'ImportExport');" />
-                                        <progressmeter id="importprogressmeter" mode="determined" value="0" />
-                                        <spacer style="height: 10px;" />
-                                        <separator class="groove-thin"/>
-                                        <spacer style="height: 10px;" />
-                                        <vivibutton label="&importexport.export;" class="widebtns" oncommand="$do('exportData', 'products', 'ImportExport');" />
-                                        <progressmeter id="importprogressmeter" mode="determined" value="0" />
-                                    </vbox>
-                                </groupbox>
-
-                                <groupbox flex="1">
-                                    <caption label="&importexport.plugroup;" />
-                                    <vbox>
-                                        <vivibutton label="&importexport.import;" class="widebtns" oncommand="$do('importData', 'plugroups', 'ImportExport');" />
-                                        <progressmeter id="importprogressmeter" mode="determined" value="0" />
-                                        <spacer style="height: 10px;" />
-                                        <separator class="groove-thin"/>
-                                        <spacer style="height: 10px;" />
-                                        <vivibutton label="&importexport.export;" class="widebtns" oncommand="$do('exportData', 'plugroups', 'ImportExport');" />
-                                        <progressmeter id="importprogressmeter" mode="determined" value="0" />
-                                    </vbox>
-
-                                </groupbox>
-
-                            </row>
-                            <row>
-                                <groupbox flex="1">
-                                    <caption label="&importexport.condimentgroup;" />
-                                    <vbox>
-                                        <vivibutton label="&importexport.import;" class="widebtns" oncommand="$do('importPlu', null, 'ImportExport');" />
-                                        <progressmeter id="importprogressmeter" mode="determined" value="0" />
-                                        <spacer style="height: 10px;" />
-                                        <separator class="groove-thin"/>
-                                        <spacer style="height: 10px;" />
-                                        <vivibutton label="&importexport.export;" class="widebtns" oncommand="$do('exportData', 'condimentgroups', 'ImportExport');" />
-                                        <progressmeter id="importprogressmeter" mode="determined" value="0" />
-                                    </vbox>
-                                </groupbox>
-                                <groupbox flex="1">
-                                    <caption label="&importexport.condiment;" />
-                                    <vbox>
-                                        <vivibutton label="&importexport.import;" class="widebtns" oncommand="$do('importData', 'condiments', 'ImportExport');" />
-                                        <progressmeter id="importcondimentprogressmeter" mode="determined" value="0" />
-                                        <spacer style="height: 10px;" />
-                                        <separator class="groove-thin"/>
-                                        <spacer style="height: 10px;" />
-                                        <vivibutton label="&importexport.export;" class="widebtns" oncommand="$do('exportData', 'condiments', 'ImportExport');" />
-                                        <progressmeter id="exportcondimentprogressmeter" mode="determined" value="0" />
-                                    </vbox>
-                                </groupbox>
-                            </row>
-                        </rows>
-
-                    </grid -->
-
                 </groupbox>
                 
             </hbox>

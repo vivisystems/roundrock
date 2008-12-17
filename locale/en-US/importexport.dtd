@@ -1,8 +1,4 @@
-<!ENTITY importexport.department "Department:">
-<!ENTITY importexport.plu "Plu:">
-<!ENTITY importexport.plugroup "Plu Group:">
-<!ENTITY importexport.condimentgroup "Condiment Group:">
-<!ENTITY importexport.condiment "Condiment:">
+<!ENTITY importexport.caption "Database Import / Export">
 <!ENTITY importexport.import "Import">
 <!ENTITY importexport.export "Export">
 

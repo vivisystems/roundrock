@@ -718,6 +718,18 @@
             }
         },
 
+        creditCard: function(mark) {
+
+            // check if has buffer
+            var buf = this._getKeypadController().getBuffer();
+            var amount = parseFloat(buf)
+            var memo1 = mark || '';
+            var memo2 = '';
+            this.addPayment('creditcard', amount, memo1, memo2);
+            // var currencies = GeckoJS.Session.get('Currencies');
+
+        },
+
 
         addPayment: function(type, amount, memo1, memo2) {
 
