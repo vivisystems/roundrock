@@ -81,7 +81,8 @@
                     }
                 } else if (min_stock > (stock - sellQty)) {
                     cart.dispatchEvent('onLowerStock', obj);
-                    cart.dispatchEvent('onWarning', 'LOW STOCK');
+                    // cart.dispatchEvent('onWarning', 'LOW STOCK');
+                    OsdUtils.text('LOW STOCK');
                 }
             }
         },
@@ -705,7 +706,7 @@
             var currencies = GeckoJS.Session.get('Currencies');
 
             if (buf.length>0 && currencies && currencies.length > convertIndex) {
-                var amount = parseFloat(buf)
+                var amount = parseFloat(buf);
                 // currency convert array
                 var currency_rate = currencies[convertIndex].currency_exchange;
                 var memo1 = currencies[convertIndex].currency + ':' + amount;
@@ -717,6 +718,17 @@
             }
         },
 
+        creditCard: function(mark) {
+
+            // check if has buffer
+            var buf = this._getKeypadController().getBuffer();
+            var amount = parseFloat(buf);
+            var memo1 = mark || '';
+            var memo2 = '';
+            this.addPayment('creditcard', amount, memo1, memo2);
+            // var currencies = GeckoJS.Session.get('Currencies');
+
+        },
 
         addPayment: function(type, amount, memo1, memo2) {
 

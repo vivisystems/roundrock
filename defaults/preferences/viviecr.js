@@ -19,6 +19,12 @@ pref("vivipos.fec.settings.image.disklimit", 52428800);
 pref("vivipos.fec.settings.image.importdir", "/media/disk/image_import/");
 pref("vivipos.fec.settings.image.exportdir", "/media/disk/image_export/");
 
+pref("vivipos.fec.settings.database.importdir", "/var/tmp/vivipos/database_import/");
+pref("vivipos.fec.settings.database.exportdir", "/var/tmp/vivipos/database_export/");
+
+pref("vivipos.fec.settings.backup.localbackupdir", "/var/tmp/vivipos/system_backup/");
+pref("vivipos.fec.settings.backup.stickbackupdir", "/var/tmp/vivipos/system_stick_backup/");
+
 pref("vivipos.fec.settings.controlpanels.sysprefs.label", "System Options");
 pref("vivipos.fec.settings.controlpanels.sysprefs.path", "chrome://viviecr/content/sysprefs.xul");
 pref("vivipos.fec.settings.controlpanels.sysprefs.icon", "chrome://viviecr/content/skin/icons/gnome-run.png");
@@ -67,7 +73,7 @@ pref("vivipos.fec.settings.controlpanels.stocks.roles", "acl_manage_stock");
 pref("vivipos.fec.settings.controlpanels.reports.label", "Reports");
 pref("vivipos.fec.settings.controlpanels.reports.path", "chrome://viviecr/content/report.xul");
 pref("vivipos.fec.settings.controlpanels.reports.icon", "chrome://viviecr/content/skin/icons/gtk-copy.png");
-pref("vivipos.fec.settings.controlpanels.reports.roles", "acl_no_access");
+pref("vivipos.fec.settings.controlpanels.reports.roles", "acl_manage_reports");
 
 pref("vivipos.fec.settings.controlpanels.promotions.label", "Promotions");
 pref("vivipos.fec.settings.controlpanels.promotions.path", "chrome://viviecr/content/promotions.xul");
@@ -92,17 +98,17 @@ pref("vivipos.fec.settings.controlpanels.pricelevelschedule.roles", "acl_manage_
 pref("vivipos.fec.settings.controlpanels.importexport.label", "Data Import/ Export");
 pref("vivipos.fec.settings.controlpanels.importexport.path", "chrome://viviecr/content/importexport.xul");
 pref("vivipos.fec.settings.controlpanels.importexport.icon", "chrome://viviecr/content/skin/icons/gtk-refresh.png");
-pref("vivipos.fec.settings.controlpanels.importexport.roles", "acl_no_access");
+pref("vivipos.fec.settings.controlpanels.importexport.roles", "acl_manage_import_export");
 
 pref("vivipos.fec.settings.controlpanels.systembackup.label", "System Backup");
 pref("vivipos.fec.settings.controlpanels.systembackup.path", "chrome://viviecr/content/systembackup.xul");
 pref("vivipos.fec.settings.controlpanels.systembackup.icon", "chrome://viviecr/content/skin/icons/document-save.png");
-pref("vivipos.fec.settings.controlpanels.systembackup.roles", "acl_no_access");
+pref("vivipos.fec.settings.controlpanels.systembackup.roles", "acl_manage_backup");
 
 pref("vivipos.fec.settings.controlpanels.imagemanager.label", "Image Manager");
 pref("vivipos.fec.settings.controlpanels.imagemanager.path", "chrome://viviecr/content/imageManager.xul");
 pref("vivipos.fec.settings.controlpanels.imagemanager.icon", "chrome://viviecr/content/skin/icons/document-save.png");
-pref("vivipos.fec.settings.controlpanels.imagemanager.roles", "acl_no_access");
+pref("vivipos.fec.settings.controlpanels.imagemanager.roles", "acl_manage_images");
 
 pref("vivipos.fec.settings.controlpanels.functionpanel.label", "Function Panel Configuration");
 pref("vivipos.fec.settings.controlpanels.functionpanel.path", "chrome://viviecr/content/funcpanelecrprefs.xul");
@@ -284,6 +290,20 @@ pref("vivipos.fec.registry.function.programmable.dispatch.command", "dispatch");
 pref("vivipos.fec.registry.function.programmable.dispatch.controller", "Main");
 pref("vivipos.fec.registry.function.programmable.dispatch.data", "");
 
+<<<<<<< HEAD:defaults/preferences/viviecr.js
+pref("vivipos.fec.registry.comm.port1.id", "port1");
+pref("vivipos.fec.registry.comm.port1.name", "COM1");
+pref("vivipos.fec.registry.comm.port1.path", "/dev/ttya");
+pref("vivipos.fec.registry.comm.port2.id", "port2");
+pref("vivipos.fec.registry.comm.port2.name", "COM2");
+pref("vivipos.fec.registry.comm.port2.path", "/dev/ttyb");
+pref("vivipos.fec.registry.comm.port3.id", "port3");
+pref("vivipos.fec.registry.comm.port3.name", "USB0");
+pref("vivipos.fec.registry.comm.port3.path", "/dev/ttyUSB0");
+pref("vivipos.fec.registry.comm.port4.id", "USB1");
+pref("vivipos.fec.registry.comm.port4.name", "USB1");
+pref("vivipos.fec.registry.comm.port4.path", "/dev/ttyUSB1");
+=======
 pref("vivipos.fec.registry.function.programmable.return.access", "acl_register_return");
 pref("vivipos.fec.registry.function.programmable.return.command", "returnItem");
 pref("vivipos.fec.registry.function.programmable.return.controller", "Cart");
@@ -306,3 +326,4 @@ pref('vivipos.fec.registry.comm.port3.path', '/dev/ttyUSB0');
 pref('vivipos.fec.registry.comm.port4.id', 'USB1');
 pref('vivipos.fec.registry.comm.port4.name', 'USB1');
 pref('vivipos.fec.registry.comm.port4.path', '/dev/ttyUSB1');
+>>>>>>> a37aaf934a873e9a62f235076f2058bda887faaf:defaults/preferences/viviecr.js

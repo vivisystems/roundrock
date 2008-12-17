@@ -302,6 +302,8 @@
 
             if (resetTabs) document.getElementById('tabs').selectedIndex = 0;
 
+            if (!(addBtn && modBtn && delBtn)) return;
+
             var panel = this.getListObj();
             var user = panel.datasource.data[panel.selectedIndex];
             if (user) {

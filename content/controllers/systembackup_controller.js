@@ -4,26 +4,21 @@
         
         init: function(dir) {
 
-            this._dir = null;
-            this._data= [];
+            this._data = [];
             this._files = null;
             this._timedata = [];
-
-            this._dir = dir + '/';
 
             this._files = new GeckoJS.Dir.readDir(dir).sort(function(a, b) {if (a.leafName < b.leafName) return -1; else if (a.leafName > b.leafName) return 1; else return 0;});
 
             var self = this;
+            var regexp = new RegExp(dir + "|.pak","g");
             this._files.forEach(function(o){
                 var str = o.path;
-                var timestr = str.replace(self._dir, '').substr(0, 14);
-                var typestr = str.replace(self._dir, '');
-                typestr = typestr.substring(15, typestr.lastIndexOf('.pak'));
+                var timestr = str.replace(regexp, '');
+                var typestr = '';
                 self._data.push({time: timestr, type: typestr});
-            });
-            
+            });            
         }
-
     });
 
     /**
@@ -78,8 +73,12 @@
 
             this._localbackupDir = GeckoJS.Configure.read('vivipos.fec.settings.backup.localbackupdir');
             this._stickbackupDir = GeckoJS.Configure.read('vivipos.fec.settings.backup.stickbackupdir');
-            if (!this._localbackupDir) this._localbackupDir = '/tmp/vivipos/system_localbackup/';
-            if (!this._stickbackupDir) this._stickbackupDir = '/tmp/vivipos/system_backup/';
+            if (!this._localbackupDir) this._localbackupDir = '/var/tmp/vivipos/system_backup/';
+            if (!this._stickbackupDir) this._stickbackupDir = '/var/tmp/vivipos/system_stick_backup/';
+
+            // path with '/' end
+            this._localbackupDir = (this._localbackupDir + '/').replace(/\/+/g,'/');
+            this._stickbackupDir = (this._stickbackupDir + '/').replace(/\/+/g,'/');
 
             var panelViewLocal = new BackupFilesView(this._localbackupDir);
             this.getListObjLocalBackup().datasource = panelViewLocal;
