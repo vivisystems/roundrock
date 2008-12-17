@@ -2,17 +2,47 @@
  * Initial GREUtils and GeckoJS
  */
 (function(){
-var loader = window.jssubscript_loader = Components.classes["@firich.com.tw/jssubscript_loader;1"].getService(Components.interfaces.mozIJSSubScriptLoader);
+
+var hiddenWindow = Components.classes["@mozilla.org/appshell/appShellService;1"]
+         .getService(Components.interfaces.nsIAppShellService).hiddenDOMWindow;
+
+var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+         .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main");
+
 
 window.include = function include(src, scope) {
+
+    let loader = window.jssubscript_loader = window.Components.classes["@firich.com.tw/jssubscript_loader;1"].getService(Components.interfaces.mozIJSSubScriptLoader);
 
     try {
         if(scope) loader.loadSubScript(src, scope);
 	else loader.loadSubScript(src);
-   }catch(e) {
-	//alert(src + '\n' + e.message);
-  }
+   }catch(e) {}
+
 };
+
+window.includeh = function includeh(src, scope) {
+
+    let loader = hiddenWindow.jssubscript_loader = hiddenWindow.Components.classes["@firich.com.tw/jssubscript_loader;1"].getService(Components.interfaces.mozIJSSubScriptLoader);
+
+    try {
+        if(scope) loader.loadSubScript(src, scope);
+	else loader.loadSubScript(src);
+   }catch(e) {}
+
+};
+
+window.includem = function includeh(src, scope) {
+
+    let loader = mainWindow.jssubscript_loader = mainWindow.Components.classes["@firich.com.tw/jssubscript_loader;1"].getService(Components.interfaces.mozIJSSubScriptLoader);
+
+    try {
+        if(scope) loader.loadSubScript(src, scope);
+	else loader.loadSubScript(src);
+   }catch(e) { alert(e)}
+
+};
+
 
 // include jquery
 if(typeof window.jQuery == 'undefined') {
@@ -26,21 +56,49 @@ if (typeof Date.CultureInfo == 'undefined') {
     include("chrome://vivipos/content/libs/date.js");
 }
 
-if(typeof GREUtils == 'undefined') {
-    include("chrome://vivipos/content/libs/GREUtils.js");
-//    GREUtils.global = window || this;
+/*
+ * initial GREUtils library and persistent it
+ */ 
+if(typeof mainWindow.GREUtils == 'undefined') {
+    includem("chrome://vivipos/content/libs/GREUtils.js");
+}
+if(mainWindow !== window) {
+	window.GREUtils = {};
+	mainWindow.GREUtils.extend(window.GREUtils, mainWindow.GREUtils, {global: window, include: include});
+}
+//GREUtils.log("window.GREUtils.global === mainWindow.GREUtils.global " + (window.GREUtils.global === mainWindow.GREUtils.global));
+
+/*
+ * initial GeckoJS library and persistent it
+ */ 
+if (typeof mainWindow.GeckoJS == 'undefined') {
+	includem("chrome://vivipos/content/libs/GeckoJS.jsc");
+}
+if(mainWindow !== window) {
+	window.GeckoJS = {};
+	mainWindow.GREUtils.extend(window.GeckoJS, mainWindow.GeckoJS, {global: window, include: include});
+}
+// GREUtils.log("window.GeckoJS.global === mainWindow.GeckoJS.global " + (window.GeckoJS.global === mainWindow.GeckoJS.global) + ","+ GeckoJS);
+
+
+/*
+ * initial GeckoJS MVC library
+ */ 
+include("chrome://vivipos/content/libs/GeckoJS_mvc.jsc");
+
+
+// initial GeckoJS bootstrap
+if(mainWindow === window) {
+    includem("chrome://vivipos/content/libs/bootstrap.js");
 }
 
-if (typeof GeckoJS == 'undefined') {
-      include("chrome://vivipos/content/libs/GeckoJS.jsc");
-//    GeckoJS.global = window  || this;
-}
 
 // ONLY FOR jsmodules version gecko 1.9
 // initial current window context to javascript code modules
 include("chrome://global/content/globalOverlay.js");
 
-Components.utils.import('resource://app/modules/osd_utils.jsm');
+Components.utils.import('resource://app/modules/osd_utils.jsm', window);
+
 
 // Dispatcher shortcut
 var shortDispatcher = {};
