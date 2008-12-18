@@ -18,7 +18,6 @@
             function(){
                 inputObj.cond_group = document.getElementById('cond_group').value;
                 inputObj.ok = true;
-
                 return true;
             },
             function(){

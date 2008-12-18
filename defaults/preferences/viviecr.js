@@ -1,17 +1,13 @@
-
 /* extension vivipos */
 pref("vivipos.fec.firstrun", false);
 pref("vivipos.fec.settings.DateFormatStr", "yyyy-mm-dd");
-pref("vivipos.fec.settings.Decimal", 2);
 pref("vivipos.fec.settings.DefaultLogin", true);
-pref("vivipos.fec.settings.DepartmentHeight", 4);
 pref("vivipos.fec.settings.DepartmentCols", 4);
 pref("vivipos.fec.settings.DepartmentRows", 2);
-pref("vivipos.fec.settings.FuncBtnCols", 4);
-pref("vivipos.fec.settings.FuncBtnRows", 2);
-pref("vivipos.fec.settings.PluColsHeight", 4);
 pref("vivipos.fec.settings.PluCols", 4);
-pref("vivipos.fec.settings.PluRows", 7);
+pref("vivipos.fec.settings.PluRows", 4);
+pref("vivipos.fec.settings.functionpanel.columns", 4);
+pref("vivipos.fec.settings.functionpanel.rows", 3);
 pref("vivipos.fec.settings.PrivateQueue", false);
 pref("vivipos.fec.settings.TimeformatStr", "hh:nn:ss");
 
@@ -289,21 +285,6 @@ pref("vivipos.fec.registry.function.programmable.dispatch.access", "acl_public_a
 pref("vivipos.fec.registry.function.programmable.dispatch.command", "dispatch");
 pref("vivipos.fec.registry.function.programmable.dispatch.controller", "Main");
 pref("vivipos.fec.registry.function.programmable.dispatch.data", "");
-
-<<<<<<< HEAD:defaults/preferences/viviecr.js
-pref("vivipos.fec.registry.comm.port1.id", "port1");
-pref("vivipos.fec.registry.comm.port1.name", "COM1");
-pref("vivipos.fec.registry.comm.port1.path", "/dev/ttya");
-pref("vivipos.fec.registry.comm.port2.id", "port2");
-pref("vivipos.fec.registry.comm.port2.name", "COM2");
-pref("vivipos.fec.registry.comm.port2.path", "/dev/ttyb");
-pref("vivipos.fec.registry.comm.port3.id", "port3");
-pref("vivipos.fec.registry.comm.port3.name", "USB0");
-pref("vivipos.fec.registry.comm.port3.path", "/dev/ttyUSB0");
-pref("vivipos.fec.registry.comm.port4.id", "USB1");
-pref("vivipos.fec.registry.comm.port4.name", "USB1");
-pref("vivipos.fec.registry.comm.port4.path", "/dev/ttyUSB1");
-=======
 pref("vivipos.fec.registry.function.programmable.return.access", "acl_register_return");
 pref("vivipos.fec.registry.function.programmable.return.command", "returnItem");
 pref("vivipos.fec.registry.function.programmable.return.controller", "Cart");
@@ -313,6 +294,11 @@ pref("vivipos.fec.registry.function.programmable.creditcard.access", "acl_regist
 pref("vivipos.fec.registry.function.programmable.creditcard.command", "creditCard");
 pref("vivipos.fec.registry.function.programmable.creditcard.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.creditcard.data", "");
+
+pref("vivipos.fec.registry.function.programmable.giftcard.access", "acl_register_gift_card");
+pref("vivipos.fec.registry.function.programmable.giftcard.command", "giftCard");
+pref("vivipos.fec.registry.function.programmable.giftcard.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.giftcard.data", "");
 
 pref('vivipos.fec.registry.comm.port1.id', 'port1');
 pref('vivipos.fec.registry.comm.port1.name', 'COM1');
@@ -326,4 +312,3 @@ pref('vivipos.fec.registry.comm.port3.path', '/dev/ttyUSB0');
 pref('vivipos.fec.registry.comm.port4.id', 'USB1');
 pref('vivipos.fec.registry.comm.port4.name', 'USB1');
 pref('vivipos.fec.registry.comm.port4.path', '/dev/ttyUSB1');
->>>>>>> a37aaf934a873e9a62f235076f2058bda887faaf:defaults/preferences/viviecr.js

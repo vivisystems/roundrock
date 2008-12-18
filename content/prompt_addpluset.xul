@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window SYSTEM "chrome://viviecr/locale/dialog.dtd">
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 
@@ -33,6 +34,9 @@
         </vbox>
     </box>
 
-    <hbox id="okCancelButtonsRight" class="dialogbtns" />
+    <hbox id="dialogButtons" class="dialogbtns" pack="center">
+        <button class="right exit-dialog" id="ok" label="&dialog.okButton.label;" default="true" oncommand="doOKButton();"/>
+        <button class="exit-dialog" id="cancel" label="&dialog.cancelButton.label;" default="true" oncommand="doCancelButton();"/>
+    </hbox>
 
 </window>

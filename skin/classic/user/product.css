@@ -1,51 +1,14 @@
-#productPanel .button-default {
-    background: #fcf9f4 url(images/departBtn1.png) 0 50% no-repeat;
-}
+/*--------------------------------------------------------------------------
+ *
+ * DEPARTMENT PANEL
+ *
+ *--------------------------------------------------------------------------
+ */
 
-#productPanel .button-gray {
-    background: #fcf9f4 url(images/departBtn2.png) 0 50% no-repeat;
-}
-
-#productPanel .button-blue {
-    background: #fcf9f4 url(images/departBtn3.png) 0 50% no-repeat;
-}
-
-#productPanel .button-red {
-    background: #fcf9f4 url(images/departBtn4.png) 0 50% no-repeat;
-}
-
-
-#productPanel .button-orange {
-    background: #fcf9f4 url(images/departBtn5.png) 0 50% no-repeat;
-}
-
-#productPanel .button-fuchsia {
-    background: #fcf9f4 url(images/departBtn6.png) 0 50% no-repeat;
-}
-
-#productPanel .button-teal {
-    background: #fcf9f4 url(images/departBtn7.png) 0 50% no-repeat;
-}
-
-#productPanel .button-green {
-    background: #fcf9f4 url(images/departBtn8.png) 0 50% no-repeat;
-}
-
-#productPanel .button-yellow {
-    background: #fcf9f4 url(images/departBtn9.png) 0 50% no-repeat;
- }
-
- #productPanel .button-aqua {
-    background: #fcf9f4 url(images/departBtn10.png) 0 50% no-repeat;
- }
-
-#productPanel .button-black {
-    background: #fcf9f4 url(images/departBtn11.png) 0 50% no-repeat;
-}
-
-#productPanel .button-white {
-    background: #fcf9f4 url(images/departBtn12.png) 0 50% no-repeat;
-}
+/*--------------------------------------------------------------------------
+ * BUTTONS
+ *--------------------------------------------------------------------------
+ */
 
 .catbtn {
     min-height:50px;
@@ -65,6 +28,107 @@
     -moz-box-pack: center;
     -moz-user-focus: ignore;
 }
+
+.catbtn[selected] {
+    /* list-style-image: none; */
+}
+
+.catbtn:active, .plubtn:active {
+    background-position:0pt -60px;
+    border: 2px solid;
+    -moz-border-top-colors: #444 #222;
+    -moz-border-right-colors: #444 #ddd;
+    -moz-border-bottom-colors: #444 #ddd;
+    -moz-border-left-colors: #444 #222;
+}
+
+.catbtn[disabled=true] {
+    border: 0px;
+}
+
+.catbtn hbox, .plubtn hbox {
+    -moz-box-orient: vertical;
+
+}
+
+/*--------------------------------------------------------------------------
+ * SCROLLBAR
+ *--------------------------------------------------------------------------
+ */
+
+.depart_scroll_up {
+    min-height: 32px;
+    max-height: 32px;
+    min-width: 32px;
+    max-width: 32px;
+    margin: 0px;
+    padding: 0px 0px 0px 0px;
+    background: transparent url(images/departUp.png) center center no-repeat;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-background-clip: border;
+    border: 0px;
+}
+
+.depart_scroll_up[disabled=false]:active {
+	background: transparent url(images/departUp_a.png) center center no-repeat;
+}
+
+.depart_scroll_up label {
+	display: none;
+}
+
+.depart_scroll_up description {
+	display: none;
+}
+
+.depart_scroll_down {
+    min-height: 32px;
+    max-height: 32px;
+    min-width: 32px;
+    max-width: 32px;
+    margin: 0px;
+    padding: 0px 0px 0px 0px;
+    background: transparent url(images/departDown.png) center center no-repeat;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-background-clip: border;
+    border: 0px;
+}
+
+.depart_scroll_down[disabled=false]:active {
+	background: transparent url(images/departDown_a.png) center center no-repeat;
+}
+
+.depart_scroll_down label {
+	display: none;
+}
+
+.depart_scroll_down description {
+	display: none;
+}
+
+.catescrollablepanel .scrollablepanel-scrollbar {
+    border-left: 1px dotted #908c83;
+    border-right: 1px dotted #908c83;
+}
+
+.catescrollablepanel{
+    background: transparent url(images/map.png) top right no-repeat;
+}
+
+/*--------------------------------------------------------------------------
+ *
+ * PLU PANEL
+ *
+ *--------------------------------------------------------------------------
+ */
+
+/*--------------------------------------------------------------------------
+ * BUTTONS
+ *--------------------------------------------------------------------------
+ */
+
 .plubtn {
     min-height:50px;
     min-width: 50px;
@@ -79,11 +143,8 @@
     background-color: #ffffff;
 
 }
-.catbtn[selected] {
-    /* list-style-image: none; */
-}
 
-.catbtn:active, .plubtn:active {
+.plubtn:active {
     background-position:0pt -60px;
     border: 2px solid;
     -moz-border-top-colors: #444 #222;
@@ -91,60 +152,29 @@
     -moz-border-bottom-colors: #444 #ddd;
     -moz-border-left-colors: #444 #222;
 }
-.catbtn[disabled=true] {
-    border: 0px;
-}
+
 .plubtn[disabled=true] {
     background-color: #ffffff;
     border: 1px solid #c9c3b9;
 }
-.catbtn hbox, .plubtn hbox {
+
+.plubtn hbox {
     -moz-box-orient: vertical;
 
 }
-.depart_scroll_up {
-    min-height: 32px;
-    max-height: 32px;
-    min-width: 32px;
-    max-width: 32px;
-    margin: 0px;
-    padding: 0px 0px 0px 0px;
-    background: transparent url(images/departUp.png) center center no-repeat;
-    -moz-appearance: none;
-    -moz-user-focus: ignore;
-    -moz-background-clip: border;
-    border: 0px;  
+
+/*--------------------------------------------------------------------------
+ * SCROLLBAR
+ *--------------------------------------------------------------------------
+ */
+
+.prodscrollablepanel .scrollablepanel-scrollbar {
+	background: transparent url(images/plubg.gif) 50% 50% no-repeat;
 }
-.depart_scroll_up[disabled=false]:active {
-	background: transparent url(images/departUp_a.png) center center no-repeat;
-}
-.depart_scroll_up label {
-	display: none;
-}
-.depart_scroll_up description {
-	display: none;
-}
-.depart_scroll_down {
-    min-height: 32px;
-    max-height: 32px;
-    min-width: 32px;
-    max-width: 32px;
-    margin: 0px;
-    padding: 0px 0px 0px 0px;
-    background: transparent url(images/departDown.png) center center no-repeat;
-    -moz-appearance: none;
-    -moz-user-focus: ignore;
-    -moz-background-clip: border;
-    border: 0px;  
-}
-.depart_scroll_down[disabled=false]:active {
-	background: transparent url(images/departDown_a.png) center center no-repeat;
-}
-.depart_scroll_down label {
-	display: none;
-}
-.depart_scroll_down description {
-	display: none;
+
+.prodscrollablepanel image {
+	width: 32px;
+	height: 32px;
 }
 
 .prodscrollablepanel {
@@ -161,22 +191,4 @@
 	margin: 0px 0px 2px 0px;
 	background: transparent;
 	padding: 0px;
-}
-
-.prodscrollablepanel .scrollablepanel-scrollbar {
-	background: transparent url(images/plubg.gif) 50% 50% no-repeat;
-}
-
-.catescrollablepanel{
-    background: transparent url(images/map.png) top right no-repeat;
-}
-
-.catescrollablepanel .scrollablepanel-scrollbar {
-    border-left: 1px dotted #908c83;
-    border-right: 1px dotted #908c83;
-}
-
-.prodscrollablepanel image {
-	width: 32px;
-	height: 32px;
 }

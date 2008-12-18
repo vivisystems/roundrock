@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE window SYSTEM "chrome://viviecr/locale/fecpos.dtd">
+<!DOCTYPE overlay [
+  <!ENTITY % Overlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Overlay;
+  <!ENTITY % SelectQueues SYSTEM "chrome://viviecr/locale/select_queues.dtd">
+  %SelectQueues;
+  ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/vivipos.css" type="text/css"?>
@@ -20,21 +25,29 @@
         <hbox flex="1" class="panel40">
             <vbox flex="3" class="footlogo">
                     <groupbox>
-                    <caption label="Select Queues:" />
+                    <caption label="&select.queues.title;" />
                     <label id="queues" hidden="true" value="" />
                     <hbox>
                         <viviscrollablebuttonpanel id="queueScrollablepanel" flex="1" cols="2" rows="5"  seltype="single" labelField="key"
-                              class="catescrollablepanel" buttonClass="plubtn smallimagebtn button-radius button-white" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue" />
+                                                   class="catescrollablepanel"
+                                                   buttonClass="plubtn smallimagebtn button-radius button-white"
+                                                   scrollUpClass="rightprevbtn button-blue"
+                                                   scrollDownClass="rightnextbtn button-blue">
+                            <spacer flex="1"/>
+                        </viviscrollablebuttonpanel>
                     </hbox>
                 </groupbox>
             </vbox>
             <vbox>
-              <label id="" value="Item List..." />
+              <label id="" value="&select.queues.order.details;" />
               <textbox readonly="1" id="itemlist" value="" style="height: 400px; width: 150px;"/>
             </vbox>
         </hbox>
     </box>
   
-    <hbox id="okCancelButtonsRight" class="dialogbtns" />
+    <hbox id="dialogButtons" class="dialogbtns" pack="center">
+        <button class="right exit-dialog" id="ok" label="&dialog.okButton.label;" default="true" oncommand="doOKButton();"/>
+        <button class="exit-dialog" id="cancel" label="&dialog.cancelButton.label;" default="true" oncommand="doCancelButton();"/>
+    </hbox>
 
 </window>

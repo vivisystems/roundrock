@@ -14,6 +14,10 @@
         loadUsers: function () {
 
             var allowQuickLogin = GeckoJS.Configure.read('vivipos.fec.settings.login.allowquicklogin');
+
+            // turn quicklogin indicator on/off
+            var quickLogin = document.getElementById('quickLogin');
+            if (quickLogin) quickLogin.setAttribute('disabled', !allowQuickLogin);
             
             var userModel = new UserModel();
             var users = userModel.find('all', {
@@ -33,7 +37,7 @@
             this.users = users;
             this.userpanel = userpanel;
 
-            document.getElementById('quicklogin').setAttribute('selected', allowQuickLogin ? true : false);
+            this.validateForm();
         },
 
         checkUser: function () {
@@ -44,7 +48,9 @@
 
             userpass = userpass.replace(/^\s*/, '').replace(/\s*$/, '');
             if (userpass.length == 0) return;
-            
+
+            $('#user_password').val('');
+
             if (this.userpanel && this.users) {
 
                 var index = this.userpanel.selectedIndex;
@@ -74,12 +80,10 @@
                         OsdUtils.error(_('Authentication failed!\nPlease make sure username and password are correct.'));
                     }
                 }
+
                 if (this.Acl.getUserPrincipal()) {
                     opener.$do('setClerk', null, 'Main');
                     window.close();
-                }
-                else {
-                    $('#user_password').val('');
                 }
             }
         },

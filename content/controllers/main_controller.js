@@ -171,8 +171,11 @@
         },
 
         clickPluPanel: function(index) {
-
             var product = this.pluPanelView.getCurrentIndexData(index);
+            var prodpanel = document.getElementById('prodscrollablepanel');
+            prodpanel.selectedIndex = -1;
+            prodpanel.selectedItems = [];
+            
             return this.requestCommand('addItem',product,'Cart');
 
         },
@@ -277,12 +280,12 @@
             var fnPanel = document.getElementById('functionPanel');
             var btmBox = document.getElementById('vivipos-bottombox');
 
-            var departmentRows = GeckoJS.Configure.read('vivipos.fec.settings.DepartmentRows');
-            var departmentCols = GeckoJS.Configure.read('vivipos.fec.settings.DepartmentCols');
-            var pluRows = GeckoJS.Configure.read('vivipos.fec.settings.PluRows');
-            var pluCols = GeckoJS.Configure.read('vivipos.fec.settings.PluCols');
-            var fnRows = GeckoJS.Configure.read('vivipos.fec.settings.functionpanel.rows');
-            var fnCols = GeckoJS.Configure.read('vivipos.fec.settings.functionpanel.columns');
+            var departmentRows = GeckoJS.Configure.read('vivipos.fec.settings.DepartmentRows') || 3;
+            var departmentCols = GeckoJS.Configure.read('vivipos.fec.settings.DepartmentCols') || 4;
+            var pluRows = GeckoJS.Configure.read('vivipos.fec.settings.PluRows') || 4;
+            var pluCols = GeckoJS.Configure.read('vivipos.fec.settings.PluCols') || 4;
+            var fnRows = GeckoJS.Configure.read('vivipos.fec.settings.functionpanel.rows') || 3;
+            var fnCols = GeckoJS.Configure.read('vivipos.fec.settings.functionpanel.columns') || 4;
             var hideDeptScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.HideDeptScrollbar');
             var hidePLUScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.HidePLUScrollbar');
             var hideFPScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.HideFPScrollbar');
@@ -381,11 +384,11 @@
         
         resetLayout: function (initial) {
 
-            var registerAtLeft = GeckoJS.Configure.read('vivipos.fec.settings.RegisterAtLeft');
-            var functionPanelOnTop = GeckoJS.Configure.read('vivipos.fec.settings.FunctionPanelOnTop');
-            var PLUbeforeDept = GeckoJS.Configure.read('vivipos.fec.settings.DeptBeforePLU');
-            var hideNumPad = GeckoJS.Configure.read('vivipos.fec.settings.HideNumPad');
-
+            var registerAtLeft = GeckoJS.Configure.read('vivipos.fec.settings.RegisterAtLeft') || false;
+            var functionPanelOnTop = GeckoJS.Configure.read('vivipos.fec.settings.FunctionPanelOnTop') || false;
+            var PLUbeforeDept = GeckoJS.Configure.read('vivipos.fec.settings.DeptBeforePLU') || false;
+            var hideNumPad = GeckoJS.Configure.read('vivipos.fec.settings.HideNumPad') || false;
+            
             var hbox = document.getElementById('mainPanel');
             var deptPanel = document.getElementById('catescrollablepanel');
             var pluPanel = document.getElementById('prodscrollablepanel');

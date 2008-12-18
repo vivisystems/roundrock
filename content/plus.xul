@@ -3,6 +3,7 @@
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/plus.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/product_button_colors.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -84,7 +85,7 @@
                                                     </row>
                                                     <row>
                                                         <label value="&plus.product.tax.rate;"/>
-                                                        <label hidden="true" form="productForm" name="rate" default="" value=""/>
+                                                        <label id="rate" hidden="true" form="productForm" name="rate" default="" value=""/>
                                                         <textbox id="rate_name" value="" form="productForm" name="rate_name" readonly="true" onclick="$do('getRate',this.selectedIndex,'Plus');"/>
                                                     </row>
                                                     <row>
@@ -97,19 +98,19 @@
                                             <grid>
                                                 <rows>
                                                     <row>
-                                                        <checkbox id="auto_maintain_stock" value="true" label="&plus.auto.maintain;" form="productForm" name="auto_maintain_stock" default="true"/>
-                                                        <checkbox id="return_stock" value="true" label="&plus.can.restock;" form="productForm" name="return_stock" default="true"/>
+                                                        <checkbox id="auto_maintain_stock" value="true" label="&plus.auto.maintain;" form="productForm" name="auto_maintain_stock" default="0"/>
+                                                        <checkbox id="return_stock" value="true" label="&plus.can.restock;" form="productForm" name="return_stock" default="0"/>
                                                     </row>
                                                     <row>
-                                                        <checkbox id="force_condiment" value="false" label="&plus.require.condiment;" form="productForm" name="force_condiment" default="false"/>
-                                                        <checkbox id="force_memo" value="false" label="&plus.require.memo;" form="productForm" name="force_memo" default="false"/>
+                                                        <checkbox id="force_condiment" value="false" label="&plus.require.condiment;" form="productForm" name="force_condiment" default="0"/>
+                                                        <checkbox id="force_memo" value="false" label="&plus.require.memo;" form="productForm" name="force_memo" default="0"/>
                                                     </row>
                                                     <row>
-                                                        <checkbox id="singleplu" value="false" label="&plus.single.item.sale;" form="productForm" name="single" default="false"/>
-                                                        <checkbox id="visible" value="true" label="&plus.visible;" form="productForm" name="visible" default="true"/>
+                                                        <checkbox id="singleplu" value="false" label="&plus.single.item.sale;" form="productForm" name="single" default="0"/>
+                                                        <checkbox id="visible" value="true" label="&plus.visible;" form="productForm" name="visible" default="1"/>
                                                     </row>
                                                     <row>
-                                                        <checkbox id="age_verification" value="false" label="&plus.require.age.verification;" form="productForm" name="age_verification" default="false"/>
+                                                        <checkbox id="age_verification" value="false" label="&plus.require.age.verification;" form="productForm" name="age_verification" default="0"/>
                                                     </row>                                                    
                                                 </rows>
                                             </grid>
@@ -213,7 +214,7 @@
 
                                         <groupbox>
                                             <caption label="&plus.button.color;" />
-                                            <button_colorpicker id="button_color" form="productForm" name="button_color" buttonClass="catbtn button-radius" default="default"/>
+                                            <button_colorpicker id="dept_button_color" form="productForm" name="button_color" buttonClass="catbtn button-radius" default="default"/>
                                         </groupbox>
 
                                         <groupbox>
@@ -246,55 +247,55 @@
                                                     <label value="&plus.lalo;" />
                                                 </row>
                                                 <row>
-                                                    <checkbox id="level_enable1" value="1" label="1." form="productForm" name="level_enable1" default="true" checked="true" disabled="true"/>
+                                                    <checkbox id="level_enable1" value="1" label="1." form="productForm" name="level_enable1" default="1" checked="true" disabled="true"/>
                                                     <textbox id="price_level1" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="price_level1" size="10" class="geneditbox right" onfocus="this.select()"/>
                                                     <textbox id="halo1" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="halo1" size="10" class="geneditbox right" onfocus="this.select()"/>
                                                     <textbox id="lalo1" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="lalo1" size="10" onfocus="this.select()"/>
                                                 </row>
                                                 <row>
-                                                    <checkbox id="level_enable2" value="0" label="2." form="productForm" name="level_enable2" default="false"/>
+                                                    <checkbox id="level_enable2" value="0" label="2." form="productForm" name="level_enable2" default="0"/>
                                                     <textbox id="price_level2" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="price_level2" size="10" onfocus="this.select()"/>
                                                     <textbox id="halo2" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="halo2" size="10" onfocus="this.select()"/>
                                                     <textbox id="lalo2" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="lalo2" size="10" onfocus="this.select()"/>
                                                 </row>
                                                 <row>
-                                                    <checkbox id="level_enable3" value="0" label="3." form="productForm" name="level_enable3" default="false"/>
+                                                    <checkbox id="level_enable3" value="0" label="3." form="productForm" name="level_enable3" default="0"/>
                                                     <textbox id="price_level3" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="price_level3" size="10" onfocus="this.select()"/>
                                                     <textbox id="halo3" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="halo3" size="10" onfocus="this.select()"/>
                                                     <textbox id="lalo3" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="lalo3" size="10" onfocus="this.select()"/>
                                                 </row>
                                                 <row>
-                                                    <checkbox id="level_enable4" value="0" label="4." form="productForm" name="level_enable4" default="false"/>
+                                                    <checkbox id="level_enable4" value="0" label="4." form="productForm" name="level_enable4" default="0"/>
                                                     <textbox id="price_level4" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="price_level4" size="10" onfocus="this.select()"/>
                                                     <textbox id="halo4" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="halo4" size="10" onfocus="this.select()"/>
                                                     <textbox id="lalo4" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="lalo4" size="10" onfocus="this.select()"/>
                                                 </row>
                                                 <row>
-                                                    <checkbox id="level_enable5" value="0" label="5." form="productForm" name="level_enable5" default="false"/>
+                                                    <checkbox id="level_enable5" value="0" label="5." form="productForm" name="level_enable5" default="0"/>
                                                     <textbox id="price_level5" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="price_level5" size="10" onfocus="this.select()"/>
                                                     <textbox id="halo5" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="halo5" size="10" onfocus="this.select()"/>
                                                     <textbox id="lalo5" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="lalo5" size="10" onfocus="this.select()"/>
                                                 </row>
                                                 <row>
-                                                    <checkbox id="level_enable6" value="0" label="6." form="productForm" name="level_enable6" default="false"/>
+                                                    <checkbox id="level_enable6" value="0" label="6." form="productForm" name="level_enable6" default="0"/>
                                                     <textbox id="price_level6" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="price_level6" size="10" onfocus="this.select()"/>
                                                     <textbox id="halo6" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="halo6" size="10" onfocus="this.select()"/>
                                                     <textbox id="lalo6" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="lalo6" size="10" onfocus="this.select()"/>
                                                 </row>
                                                 <row>
-                                                    <checkbox id="level_enable7" value="0" label="7." form="productForm" name="level_enable7" default="false"/>
+                                                    <checkbox id="level_enable7" value="0" label="7." form="productForm" name="level_enable7" default="0"/>
                                                     <textbox id="price_level7" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="price_level7" size="10" onfocus="this.select()"/>
                                                     <textbox id="halo7" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="halo7" size="10" onfocus="this.select()"/>
                                                     <textbox id="lalo7" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="lalo7" size="10" onfocus="this.select()"/>
                                                 </row>
                                                 <row>
-                                                    <checkbox id="level_enable8" value="0" label="8." form="productForm" name="level_enable8" default="false"/>
+                                                    <checkbox id="level_enable8" value="0" label="8." form="productForm" name="level_enable8" default="0"/>
                                                     <textbox id="price_level8" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="price_level8" size="10" onfocus="this.select()"/>
                                                     <textbox id="halo8" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="halo8" size="10" onfocus="this.select()"/>
                                                     <textbox id="lalo8" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="lalo8" size="10" onfocus="this.select()"/>
                                                 </row>
                                                 <row>
-                                                    <checkbox id="level_enable9" value="0" label="9." form="productForm" name="level_enable9" default="false"/>
+                                                    <checkbox id="level_enable9" value="0" label="9." form="productForm" name="level_enable9" default="0"/>
                                                     <textbox id="price_level9" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="price_level9" size="10" onfocus="this.select()"/>
                                                     <textbox id="halo9" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="halo9" size="10" onfocus="this.select()"/>
                                                     <textbox id="lalo9" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="lalo9" size="10" onfocus="this.select()"/>

@@ -14,7 +14,7 @@
     min-height:41px;
     max-height:41px;
     height: 41px;
-    margin: 5px 0px 0px 5px;
+    margin: 3px 1px 0px 3px;
     padding: 0px;
     list-style-type: none;
     color: #42422f;
@@ -30,11 +30,11 @@
     -moz-box-pack:center;
 
     /* background: white; */
-    background: transparent url(images/funBtn1.png) center center no-repeat;
+    background: transparent url(images/funBtn2.png) center center no-repeat;
 }
 
 .fixedbtn:active {
-    background: transparent url(images/funBtn1_a.png) center center no-repeat;
+    background: transparent url(images/funBtn2_a.png) center center no-repeat;
 }
 .fixedbtn[disabled=true] {
     background: url(images/btn_gray.png);
@@ -69,7 +69,7 @@
     min-width:76px;
     max-width:76px;
     width: 76px;
-    margin: 5px 0 0 5px;
+    margin: 3px 1px 0px 3px;
     padding: 0px;
     list-style-type: none;
     font-weight: bold !important;

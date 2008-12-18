@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window SYSTEM "chrome://viviecr/locale/fecpos.dtd">
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/vivipos.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+<window id="numpad" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/giftcard_remark.js" />
+
+    <box flex="1" class="mainpanel1 pad40">
+        <vbox flex="1" class="panel40">
+            <groupbox>
+                <caption id="caption0" label="" />
+                <label id="text0" value="" />
+                <grid>
+                    <columns>
+                        <column/>
+                        <column/>
+                    </columns>
+                    <rows>
+                        <row>
+                            <label id="title0" style="width:6em" value="" control="input0"/>
+                            <textbox id="input0" value="" oninput="validateInput()" onfocus="this.select()"/>
+                        </row>
+                        <row>
+                            <label id="title1" style="width:6em" value="" control="input1"/>
+                            <textbox id="input1" value="" oninput="validateInput()" onfocus="this.select()"/>
+                        </row>
+                        <row>
+                            <label value="" />
+                            <hbox>
+                                <numberpad id="multinumberpad" class="numberpad" target="plu"/>
+                                <vbox>
+                                    <sendkeybutton id="bkeyBtn"  label="DEL"   keyCode='0x08' target="plu" class="systembtn"  />
+                                    <vivibutton id="clearBtn"  label="CLEAR" class="systembtn"/>
+                                </vbox>
+                            </hbox>
+                        </row>
+                    </rows>
+                </grid>
+            </groupbox>
+        </vbox>
+    </box>
+  
+    <hbox id="okCancelButtonsRight" class="dialogbtns" />
+
+</window>

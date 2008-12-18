@@ -13,10 +13,6 @@ function startup() {
     $('#imageBrowseBtn')[0].addEventListener('command', selectImages, false);
 	$('#imageRemoveBtn')[0].addEventListener('command', RemoveImage, false);
 
-    // set default tax rate
-    var defaultRate = GeckoJS.Configure.read('vivipos.fec.settings.DefaultTaxStatus');
-    $('rate').setAttribute('default', defaultRate);
-
 };
 
 

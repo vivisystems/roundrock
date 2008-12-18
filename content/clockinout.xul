@@ -1,62 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE window SYSTEM "chrome://viviecr/locale/fecpos.dtd">
+<!DOCTYPE window SYSTEM "chrome://viviecr/locale/clockin.dtd">
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/clockin.css" type="text/css"?>
-
-<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+<?xml-stylesheet href="chrome://viviecr/skin/viviecr1.css" type="text/css"?>
 
 <window id="clockinout" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/clockinout.js" />
 
-    <box flex="1" class="mainpanel">
+    <box flex="1" class="clockinPanel">
         <vbox  id="" pack="start" class="hboxb" flex="1">
             <hbox  pack="start" flex="1">
-                <vbox style="width: 420px;" pack="start">
-                    <viviscrollablebuttonpanel id="userscrollablepanel" dir="reverse" flex="1" cols="1" rows="5" seltype="single" ensureVisible="true" labelField="username"
-                                               class="userscrollablepanel" scrollUpClass="rightprevbtn" scrollDownClass="rightnextbtn" buttonClass="userbtn"
-                                               >
-                                               <spacer flex="1"/>
+                <vbox style="width: 250px;" pack="start">
+                    <viviscrollablebuttonpanel id="userscrollablepanel" dir="reverse" rows="6" cols="1" flex="1" seltype="single" labelField="username"
+                                               class="clockuserscrollablepanel"
+                                               buttonClass="userbtn"
+                                               scrollUpClass="rightprevbtn"
+                                               scrollDownClass="rightnextbtn">
+                        <hbox  id="userspad" class="hboxb" style="display: block;" flex="1">
+                        </hbox>
                     </viviscrollablebuttonpanel>
-                    <hbox>
-                        <simplelistbox id="simpleListBoxJobs" rows="16"  headers="Job List" columns="jobname"  class="prodsimplelistbox jobs" />
-                        <simplelistbox id="simpleListBoxSummary" rows="16"  headers="Time In, Time Out, Job" columns="clockin_time,clockout_time,job"  class="prodsimplelistbox jobssummary"/>
-                    </hbox>
                 </vbox>
                 <spacer width="10px"/>
                 <vbox>
-                    <label id="user_name" value="" style="font-size:28px;"/>
-                    <viviclock id="clock" timeNotation="24" showdate="false" style="font-size:48px"/>
-                    <vbox>
-                        <label value="Password:" />
-                        <textbox id="user_password" type="password" value="" />
-                    </vbox>
-                    <hbox>
-                        <numberpad id="multinumberpad" class="numberpad" target="user_password"/>
-                        <vbox>
-                            <sendkeybutton id="bkeyBtn"  label="DEL"   keyCode='0x08' target="user_password" class="systembtn"  />
-                            <button id="clearBtn"  label="CLR" class="systembtn"  />
-             
-                        </vbox>
+                    <label value="&clockin.title;" class="PageTitle" />
+                    <hbox class="numjobpad">
+	                    <hbox class="numpad" >
+	                        <numberpad id="multinumberpad" class="numberpad" target="user_password"/>
+	                        <vbox>
+                                <vivibutton id="delBtn" label="&clockin.keylabel.del;" class="systembtn" />
+                                <vivibutton id="clearBtn" label="&clockin.keylabel.clear;" class="systembtn"/>
+	             
+	                        </vbox>
+	                    </hbox>
+                    	<vbox>
+                    		<hbox class="jobpad">
+                    			<simplelistbox id="simpleListBoxJobs" rows="16"  headers="&clockin.headers.joblist;"
+                                               columns="jobname" class="prodsimplelistbox jobs" />
+                    		</hbox>
+                    		<hbox class="listpad">                        
+                                <simplelistbox id="simpleListBoxSummary" rows="16"  headers="Time In, Time Out, Job"
+                                               columns="clockin_time,clockout_time,job"
+                                               class="prodsimplelistbox jobssummary"/>
+                    		</hbox>
+                    	</vbox>
                     </hbox>
-                    <spacer flex="1" />
-                    <hbox>
-                        <vivibutton id="clock_view"  label="View Attendance"  oncommand="$do('view', null, 'ClockInOut');" class="clockinoutbtn"  />
-                        <button id="clock_in"  label="Clock In"  oncommand="$do('clockIn', null, 'ClockInOut');" class="clockinoutbtn"  />
-                        <button id="clock_out"  label="Clock Out"  oncommand="$do('clockOut', null, 'ClockInOut');" class="clockinoutbtn"  />
-                    </hbox>
-                    <spacer flex="1" />
                 </vbox>
                 <spacer flex="1" />
 
             </hbox>
-            <spacer flex="1"/>
-            <hbox pack="center">
-                <button label="OK" class="genbtn" oncommand="$do('cancel', null, 'ClockInOut');" />
-                <spacer width="20px"/>
-                <button label="Cancel" class="genbtn" oncommand="$do('cancel', null, 'ClockInOut');" />
+            <hbox pack="center" class="PwPad">
+                <label value="&clockin.keylabel.password;"  class="pwlabel"/>
+                <vbox>
+                        <textbox id="user_password" type="password" value="" class="pwBox" />
+                        <viviclock id="clock" timeNotation="24" showdate="false" class="clocklabel"/>
+                </vbox>
+                <vivibutton id="clock_in"  label="&clockin.keylabel.clockin;"  oncommand="$do('clockIn', null, 'ClockInOut');" class="clockinoutbtn"  />
+                <vivibutton id="clock_out"  label="&clockin.keylabel.clockout;"  oncommand="$do('clockOut', null, 'ClockInOut');" class="clockinoutbtn"  />
+                <vivibutton id="clock_view"  label="&clockin.keylabel.view;"  oncommand="$do('view', null, 'ClockInOut');" class="clockinoutbtn2"  />
             </hbox>
+            <button label="&clockin.keylabel.ok;" class="genbtn" oncommand="$do('cancel', null, 'ClockInOut');" />
         </vbox>
 
     </box>

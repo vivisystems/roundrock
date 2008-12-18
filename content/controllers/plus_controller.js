@@ -50,6 +50,15 @@
             catpanel.selectedIndex = -1;
             catpanel.selectedItems = [];
 
+            // set default tax rate
+            var defaultRate = GeckoJS.Configure.read('vivipos.fec.settings.DefaultTaxStatus');
+            var rateName = this.getRateName(defaultRate);
+            var rateNode = document.getElementById('rate');
+            var rateNameNode = document.getElementById('rate_name');
+
+            rateNode.setAttribute('default', defaultRate);
+            rateNameNode.setAttribute('default', rateName);
+
             // initialize input field states
             this.validateForm(true);
         },
@@ -67,6 +76,21 @@
                 $('#cate_name').val(category.name);
                 this.clickPluPanel(-1);
             }
+        },
+
+        getRateName: function(rate) {
+            var taxes = GeckoJS.Session.get('taxes');
+            if (taxes == null) taxes = this.Tax.getTaxList();
+
+            // look for rate name
+            var ratename = rate;
+            for (var i = 0; i < taxes.length; i++) {
+                if (taxes[i].no == rate) {
+                    ratename = taxes[i].name;
+                    break;
+                }
+            }
+            return ratename;
         },
 
         clickPluPanel: function(index) {
@@ -91,29 +115,8 @@
 
                 rate = null;
             }
-            var taxes = GeckoJS.Session.get('taxes');
-            if (taxes == null) taxes = this.Tax.getTaxList();
-
-            if (!rate || rate == '') {
-                
-                // set rate to system default
-                var defaultRate = GeckoJS.Configure.read('vivipos.fec.settings.DefaultTaxStatus');
-                if (!defaultRate || defaultRate == '') {
-                    if (taxes == null) taxes = this.Tax.getTaxList();
-                    if (taxes && taxes.length > 0) defaultRate = taxes[0].no;
-                }
-                rate = defaultRate;
-            }
-            // look for rate name
-            var ratename;
-            for (var i = 0; i < taxes.length; i++) {
-                if (taxes[i].no == rate) {
-                    ratename = taxes[i].name;
-                    break;
-                }
-            }
             $('#rate').val(rate);
-            $('#rate_name').val(ratename);
+            $('#rate_name').val(this.getRateName(rate));
             
             this.validateForm(index == -1);
         },
@@ -389,7 +392,6 @@
 
                     // reset form to get product defaults
                     var prodData = this.getInputDefault();
-
                     try {
                         prodData.id = '';
                         prodData.no = inputData.no;

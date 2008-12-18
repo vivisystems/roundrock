@@ -2,43 +2,14 @@
 @namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
 
 @namespace html url("http://www.w3.org/1999/xhtml");
-/*
-.cartlistbox{
-  font-size: 14px;
-  overflow: hidden;
-  margin: 0px 0px 0px 0px;
-  padding: 0px;
-  background: transparent url(images/cart.png) bottom right no-repeat;
-}
-
-.cartlistbox listitem{
-  height: 32px;
-  border-bottom-color: #aaa;
-  -moz-box-align: center;
-}
-
-.cartlistbox .label_sell_qty, .cartlistbox .label_sell_price, .cartlistbox .label_sell_subtotal {
-  text-align: right;
-}
-*/
-
-.funcscrollablepanel {
-   max-height: 102px;
-   min-height: 102px;
-   margin-right: 3px;
-   margin-bottom: 5px;
-}
-
 
 .cartList {
     font-size: 14px;
     min-height: 200px;
     border-bottom: 1px dotted #908c83;
-/*    overflow: hidden; */
     margin: 0px 0px 2px 0px;
     padding: 0px;
     background: transparent;
-
 }
 
 .cartList .scrollablepanel-scrollbar {

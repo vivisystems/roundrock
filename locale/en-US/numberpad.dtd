@@ -1,16 +1,16 @@
-<!ENTITY    numberpad.keylabel.queue.order       "Queue Order">
-<!ENTITY    numberpad.keylabel.pull.queue        "View Queue">
+<!ENTITY    numberpad.keylabel.queue.order       "QUEUE ORDER">
+<!ENTITY    numberpad.keylabel.pull.queue        "VIEW QUEUE">
 <!ENTITY    numberpad.keylabel.clear             "CLEAR">
-<!ENTITY    numberpad.keylabel.modify            "Modify">
+<!ENTITY    numberpad.keylabel.modify            "MODIFY">
 <!ENTITY    numberpad.keylabel.del            "DEL">
 <!ENTITY    numberpad.keylabel.void               "VOID">
-<!ENTITY    numberpad.keylabel.enter               "Enter">
+<!ENTITY    numberpad.keylabel.enter               "ENTER">
 <!ENTITY    numberpad.keylabel.cancel               "CANCEL">
 <!ENTITY    numberpad.keylabel.cash             "CASH">
 <!ENTITY    numberpad.keylabel.subtotal             "SUB TOTAL">
-<!ENTITY    numberpad.keylabel.plusearch             "PLU Search">
-<!ENTITY    numberpad.keylabel.tray             "Tray Marker">
-<!ENTITY    numberpad.keylabel.signoff             "Sign Off">
+<!ENTITY    numberpad.keylabel.plusearch             "PLU SEARCH">
+<!ENTITY    numberpad.keylabel.tray             "TRAY MARKER">
+<!ENTITY    numberpad.keylabel.signoff             "SIGN OFF">
 <!ENTITY    numberpad.keylabel.times             "X">
 <!ENTITY    numberpad.keylabel.password             "Passcode:">
 <!ENTITY    numberpad.keylabel.ok             "OK">

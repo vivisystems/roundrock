@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE window SYSTEM "chrome://viviecr/locale/fecpos.dtd">
+<!DOCTYPE overlay [
+  <!ENTITY % Overlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Overlay;
+  <!ENTITY % SelectCondiments SYSTEM "chrome://viviecr/locale/select_condiments.dtd">
+  %SelectCondiments;
+  ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/vivipos.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -19,17 +23,23 @@
         <vbox flex="1" class="panel40">
             <vbox flex="1" class="footlogo">
                     <groupbox>
-                    <caption label="Select Condiments:" />
+                    <caption label="&select.condiments.title;" />
                     <label id="condiments" hidden="true" value="" />
                     <hbox>
                         <viviscrollablebuttonpanel id="condimentscrollablepanel" flex="1" cols="4" rows="5"  seltype="multiple" labelField="name"
-                              class="catescrollablepanel" buttonClass="plubtn smallimagebtn button-radius" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue" />
+                                                   class="catescrollablepanel"
+                                                   buttonClass="plubtn smallimagebtn button-radius"
+                                                   scrollUpClass="rightprevbtn button-blue"
+                                                   scrollDownClass="rightnextbtn button-blue" />
                     </hbox>
                 </groupbox>
             </vbox>
         </vbox>
     </box>
   
-    <hbox id="okCancelButtonsRight" class="dialogbtns" />
+    <hbox id="dialogButtons" class="dialogbtns" pack="center">
+        <button class="right exit-dialog" id="ok" label="&dialog.okButton.label;" default="true" oncommand="doOKButton();"/>
+        <button class="exit-dialog" id="cancel" label="&dialog.cancelButton.label;" default="true" oncommand="doCancelButton();"/>
+    </hbox>
 
 </window>
