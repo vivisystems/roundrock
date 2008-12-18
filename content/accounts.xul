@@ -26,17 +26,17 @@
                 <spacer style="width:30px;" />
                 <vbox>
                     <vbox>
-                        <label id="plu_id" hidden="true" form="productForm" name="id" value="" />
+                        <label id="plu_id" hidden="true" form="accountForm" name="id" value="" />
                         <grid>
                             <rows>
                                 <row>
                                     <label value="No:" />
-                                    <label  form="productForm" name="no" />
+                                    <label  form="accountForm" name="no" />
                                 </row>
 
                                 <row>
                                     <label value="Name:" />
-                                    <label form="productForm" name="name" />
+                                    <label form="accountForm" name="name" />
                                 </row>
                             </rows>
                         </grid>
