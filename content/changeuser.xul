@@ -16,7 +16,7 @@
         <vbox  id="" pack="start" class="hboxb" flex="1">
             <hbox>
                 <vbox style="width: 350px;">
-                    <viviscrollablebuttonpanel id="userscrollablepanel" dir="reverse" flex="1" cols="1" rows="5" seltype="single" labelField="username"
+                    <viviscrollablebuttonpanel id="userscrollablepanel" dir="reverse" flex="1" cols="1" rows="5" seltype="single" labelField="displayname"
                                                oncommand="$do('validateForm', null, 'ChangeUser')"
                                                class="userscrollablepanel" scrollUpClass="rightprevbtn" scrollDownClass="rightnextbtn" buttonClass="userbtn"
                                                >
