@@ -1237,7 +1237,7 @@
     Transaction.prototype.getPriceLevelPrice = function(priceLevel, item) {
         var price = null;
 
-        if (typeof item['level_enabled'+priceLevel] !='undefined' && item['level_enabled'+priceLevel]){
+        if (typeof item['level_enable'+priceLevel] !='undefined' && item['level_enable'+priceLevel]){
             if (!isNaN(parseFloat(item['price_level'+priceLevel]))) {
                 price = parseFloat(item['price_level'+priceLevel]);
             }
@@ -1254,7 +1254,7 @@
     Transaction.prototype.getPriceLevelHalo = function(priceLevel, item) {
         
         var price = null;
-        if (typeof item['level_enabled'+priceLevel] !='undefined' && item['level_enabled'+priceLevel]){
+        if (typeof item['level_enable'+priceLevel] !='undefined' && item['level_enable'+priceLevel]){
             if (!isNaN(parseFloat(item['halo'+priceLevel]))) {
                 price = parseFloat(item['halo'+priceLevel]);
             }
@@ -1271,7 +1271,7 @@
     Transaction.prototype.getPriceLevelLalo = function(priceLevel, item) {
 
         var price = null;
-        if (typeof item['level_enabled'+priceLevel] !='undefined' && item['level_enabled'+priceLevel]){
+        if (typeof item['level_enable'+priceLevel] !='undefined' && item['level_enable'+priceLevel]){
             if (!isNaN(parseFloat(item['lalo'+priceLevel]))) {
                 price = parseFloat(item['lalo'+priceLevel]);
             }
