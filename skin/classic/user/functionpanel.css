@@ -31,7 +31,7 @@
     -moz-user-focus: ignore;
     -moz-background-clip: border;
     -moz-border-radius: 2px; 
-    border: 0px;
+    border: 1px solid;
 }
 
 .vivifuncpanelecr_matrix_button_nomap {
@@ -47,7 +47,7 @@
     -moz-user-focus: ignore;
     -moz-background-clip: border;
     -moz-border-radius: 2px; 
-    border: 0px;
+    border: 1px solid;
     background: #e1ddd2;
 }
 
@@ -64,7 +64,7 @@
     -moz-user-focus: ignore;
     -moz-background-clip: border;
     -moz-border-radius: 2px; 
-     border: 0px;
+     border: 1px solid;
 }
 
 .vivifuncpanelecr_control_panel {

@@ -29,8 +29,10 @@
     -moz-user-focus: ignore;
 }
 
-.catbtn[selected] {
-    /* list-style-image: none; */
+.catbtn vivibutton[selected] {
+    list-style-image: none;
+    border: 2px solid;
+    border-color: black;
 }
 
 .catbtn:active, .plubtn:active {
