@@ -29,12 +29,6 @@
     -moz-user-focus: ignore;
 }
 
-.catbtn vivibutton[selected] {
-    list-style-image: none;
-    border: 2px solid;
-    border-color: black;
-}
-
 .catbtn:active, .plubtn:active {
     background-position:0pt -60px;
     border: 2px solid;
