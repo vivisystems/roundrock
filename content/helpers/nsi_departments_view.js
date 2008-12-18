@@ -121,13 +121,17 @@
             var buttonFontSize = this.getCellValue(row,{
                 id: 'font_size'
             });
-
+            var $btn = $(btn);
             if (buttonColor && btn) {
-                $(btn).addClass('button-'+ buttonColor);
+                $btn.addClass('button-'+ buttonColor);
             }
             if (buttonFontSize && btn) {
-                $(btn).addClass('font-'+ buttonFontSize);
+                $btn.addClass('font-'+ buttonFontSize);
             }
+
+            // force no list style image at dep
+            $btn.css('list-style-image', 'none');
+
 
         }
     });
