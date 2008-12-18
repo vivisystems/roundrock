@@ -605,6 +605,10 @@
 
         }else {
 
+            if (itemDisplay.type == 'memo' ) {
+                itemTrans.memo= "";
+            }
+
             // discount or surcharge
             if (itemDisplay.type == 'discount' && !itemTrans.hasMarker) {
                 itemTrans.discount_name= null;
@@ -1061,7 +1065,7 @@
 
             var itemDisplay = this.createDisplaySeq(itemIndex, memoItem, 'memo');
 
-            var lastIndex = this.data.display_sequences.length - 1;
+            var lastIndex = this.getLastDisplaySeqByIndex(itemIndex);
             this.data.display_sequences.splice(lastIndex+1,0,itemDisplay);
 
         }
@@ -1368,8 +1372,8 @@
                 item.tax_rate = tax.rate;
                 item.tax_type = tax.type;
 
-                var toTaxCharge = item.current_subtotal + item.current_discount + item.current_surcharge + item.current_subtotal + item.current_condiment;
-                
+                var toTaxCharge = item.current_subtotal + item.current_discount + item.current_surcharge + item.current_condiment;
+
                 var taxChargeObj = Transaction.Tax.calcTaxAmount(item.tax_name, toTaxCharge);
 
                 // @todo total only or summary ?
