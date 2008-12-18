@@ -759,8 +759,6 @@
 
         creditCard: function(mark) {
 
-            this.addMemo();
-
             // check if has buffer
             var buf = this._getKeypadController().getBuffer();
             var payment = parseFloat(buf);
