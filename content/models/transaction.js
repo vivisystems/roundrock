@@ -674,6 +674,7 @@
         var item = this.getItemAt(index);
         var itemDisplay = this.getDisplaySeqAt(index); // last seq
         var itemIndex = itemDisplay.index;
+        var lastItemDispIndex = this.getLastDisplaySeqByIndex(itemIndex);
 
         var prevRowCount = this.data.display_sequences.length;
 
@@ -707,7 +708,7 @@
             // create data object to push in items array
             var itemDisplay = this.createDisplaySeq(itemIndex, item, 'discount');
 
-            this.data.display_sequences.splice(index+1,0,itemDisplay);
+            this.data.display_sequences.splice(lastItemDispIndex+1,0,itemDisplay);
 
             this.calcPromotions();
             this.calcItemsTax(item);
@@ -766,6 +767,7 @@
         var item = this.getItemAt(index);
         var itemDisplay = this.getDisplaySeqAt(index); // last seq
         var itemIndex = itemDisplay.index;
+        var lastItemDispIndex = this.getLastDisplaySeqByIndex(itemIndex);
 
 
         var prevRowCount = this.data.display_sequences.length;
@@ -796,7 +798,7 @@
             // create data object to push in items array
             var itemDisplay = this.createDisplaySeq(itemIndex, item, 'surcharge');
 
-            this.data.display_sequences.splice(index+1,0,itemDisplay);
+            this.data.display_sequences.splice(lastItemDispIndex+1,0,itemDisplay);
 
             //this.calcPromotions();
 
@@ -994,10 +996,10 @@
                         item.condiments[condiment.name] = condiment;
 
                         // up
-                        var itemDisplay = this.createDisplaySeq(itemIndex, condimentItem, 'condiment');
+                        var condimentDisplay = this.createDisplaySeq(itemIndex, condimentItem, 'condiment');
 
                         var lastIndex = this.data.display_sequences.length - 1;
-                        this.data.display_sequences.splice(lastIndex+1,0,itemDisplay);
+                        this.data.display_sequences.splice(lastIndex+1,0,condimentDisplay);
 
                         var roundedPrice = this.getRoundedPrice(item.current_price) || 0;
                         var roundedSubtotal = this.getRoundedPrice(item.current_qty*item.current_price) || 0;
@@ -1012,7 +1014,13 @@
                         item.current_condiment = roundedCondiment;
                         item.current_subtotal = roundedSubtotal + roundedCondiment;
 
+                        // update cartlist 's itemDisplay
                         itemDisplay.current_subtotal = this.formatPrice(item.current_subtotal);
+                        
+                        // item subtotal to condition ??
+                        if(false) {
+                            condimentDisplay.current_subtotal = this.formatPrice(item.current_subtotal);
+                        }
 
                     }
                 }, this);
@@ -1100,7 +1108,7 @@
         
         if (index < 0 || index >= this.data.display_sequences.length) return null;
 
-        var itemDisplay = this.data.display_sequences[index];
+        var itemDisplay = this.getDisplaySeqAt(index);
         var item = null;
         var itemIndex = itemDisplay.index;
 
@@ -1155,6 +1163,34 @@
             if (itemDisplay.index == index) return itemDisplay;
         }
         
+    };
+
+    Transaction.prototype.getLastDisplaySeqByIndex = function(index){
+
+        var lastIndex = -1;
+        for (var i =0 ; i < this.data.display_sequences.length; i++) {
+            var itemDisplay = this.data.display_sequences[i];
+            if (itemDisplay.index == index) {
+                lastIndex = i;
+            }
+        }
+
+        return lastIndex ;
+    };
+
+
+    Transaction.prototype.getItemDisplaySeqAt = function(index){
+        if (index < 0 || index >= this.data.display_sequences.length) return null;
+
+        var itemDisplay = this.data.display_sequences[index];
+
+        if(itemDisplay.type == 'item') return itemDisplay;
+
+        if (itemDisplay.index) {
+            return this.getDisplaySeqByIndex(itemDisplay.index);
+        }
+
+        return itemDisplay;
     };
 
     Transaction.prototype.calcCondimentPrice = function() {
