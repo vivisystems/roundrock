@@ -223,7 +223,7 @@
             surcharge_type: '',
             current_surcharge: 0,
 
-            condiments: '',
+            condiments: null,
             current_condiment: 0,
 
             memo: '',
@@ -253,7 +253,7 @@
                 name: item.name,
                 current_qty: item.current_qty,
                 current_price: item.current_price,
-                current_subtotal: item.current_subtotal,
+                current_subtotal: item.current_subtotal + item.current_condiment,
                 current_tax: item.tax_name,
                 type: type,
                 index: index,
@@ -1238,7 +1238,7 @@
         var price = null;
 
         if (typeof item['level_enabled'+priceLevel] !='undefined' && item['level_enabled'+priceLevel]){
-            if (item['price_level'+priceLevel].length > 0) {
+            if (!isNaN(parseFloat(item['price_level'+priceLevel]))) {
                 price = parseFloat(item['price_level'+priceLevel]);
             }
         }
@@ -1255,7 +1255,7 @@
         
         var price = null;
         if (typeof item['level_enabled'+priceLevel] !='undefined' && item['level_enabled'+priceLevel]){
-            if (item['halo'+priceLevel].length > 0) {
+            if (!isNaN(parseFloat(item['halo'+priceLevel]))) {
                 price = parseFloat(item['halo'+priceLevel]);
             }
         }
@@ -1272,7 +1272,7 @@
 
         var price = null;
         if (typeof item['level_enabled'+priceLevel] !='undefined' && item['level_enabled'+priceLevel]){
-            if (item['lalo'+priceLevel].length > 0) {
+            if (!isNaN(parseFloat(item['lalo'+priceLevel]))) {
                 price = parseFloat(item['lalo'+priceLevel]);
             }
         }
@@ -1332,7 +1332,7 @@
                 item.tax_rate = tax.rate;
                 item.tax_type = tax.type;
 
-                var toTaxCharge = item.current_subtotal + item.current_discount + item.current_surcharge;
+                var toTaxCharge = item.current_subtotal + item.current_discount + item.current_surcharge + item.current_subtotal + item.current_condiment;
                 
                 var taxChargeObj = Transaction.Tax.calcTaxAmount(item.tax_name, toTaxCharge);
 
@@ -1355,7 +1355,7 @@
 
     Transaction.prototype.calcTotal = function() {
         
-        //this.log('DEBUG', 'dispatchEvent onCalcTotal ' + this.data);
+        this.log('DEBUG', 'dispatchEvent onCalcTotal ' + this.dump(this.data));
         Transaction.events.dispatch('onCalcTotal', this.data, this);
 
         var total=0, remain=0, item_subtotal=0, tax_subtotal=0, surcharge_subtotal=0, discount_subtotal=0, payment_subtotal=0;
