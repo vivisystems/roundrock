@@ -42,9 +42,16 @@
     border: 0px;
 }
 
+.catbtn[selected] {
+    -moz-border-top-colors: #000000 #000000;
+    -moz-border-right-colors: #000000 #000000;
+    -moz-border-bottom-colors: #000000 #000000;
+    -moz-border-left-colors: #000000 #000000;
+    border-width: 2px;
+}
+
 .catbtn hbox, .plubtn hbox {
     -moz-box-orient: vertical;
-
 }
 
 /*--------------------------------------------------------------------------
