@@ -11,10 +11,10 @@
 
         <content>
             <xul:hbox flex="1" xbl:inherits="orient,align">
-                <xul:label anonid="labelVfd" hidden="true" class="label_vfd" xbl:inherits="class=labelClass,value"></xul:label>
+                <xul:label anonid="labelVfd" hidden="true" class="label_vfd" xbl:inherits="class=labelClass"></xul:label>
                 <hbox>
-                    <xul:label anonid="label0_0" flex="1" class="label_vfd" xbl:inherits="class=labelClass,value"></xul:label>
-                    <xul:label anonid="label0_1" class="label_vfd1" xbl:inherits="class=labelClass,value"></xul:label>
+                    <xul:label anonid="label0_0" style="width:200px;" class="label_vfd" xbl:inherits="class=labelClass"></xul:label>
+                    <xul:label anonid="label0_1" value="" style="color:yellow; align:right;" class="label_vfd" xbl:inherits="class=labelClass"></xul:label>
                 </hbox>
                 <xul:grid flex="1">
                     <xul:columns>
@@ -27,8 +27,8 @@
                             <xul:label anonid="label0_1" class="label_vfd" xbl:inherits="class=labelClass,value"></xul:label>
                         </xul:row -->
                         <xul:row>
-                            <xul:label anonid="label1_0" style="width:180px;" class="label_vfd" xbl:inherits="class=labelClass,value"></xul:label>
-                            <xul:label anonid="label1_1" flex="1" class="label_vfd" xbl:inherits="class=labelClass,value"></xul:label>
+                            <xul:label anonid="label1_0" style="width:200px;" class="label_vfd" xbl:inherits="class=labelClass"></xul:label>
+                            <xul:label anonid="label1_1" flex="1" class="label_vfd" xbl:inherits="class=labelClass"></xul:label>
                         </xul:row>
                     </xul:rows>
                 </xul:grid>
@@ -66,8 +66,8 @@
                 this.onGetSubtotal = function(evt) {
                     var transaction = evt.data;
                     if (transaction) {
-                        self.setText0_0(_('TAL') + ':');
-                        self.setText0_1(transaction.getTotal(true));
+                        self.setText0_0(_('TAL') + ': ' + transaction.getTotal(true));
+                        // self.setText0_1('');
                         self.setText1_1(_('REM') + ': ' + transaction.getRemainTotal(true));
                         self.setText1_0(_('PAY') + ': ' + transaction.getPaymentSubtotal(true));
                     } else {
@@ -104,7 +104,6 @@
                         var remain = "0";
                         var payment = "0";
 
-
                         if (transaction != null && !(transaction.isSubmit() || transaction.isCancel())) {
                             total = transaction.getTotal(true);
                             remain = transaction.getRemainTotal(true);
@@ -115,8 +114,8 @@
                             payment = this.format(0);
                         }
 
-                        self.setText0_1(total);
-                        self.setText0_0(_('TAL') + ':');
+                        // self.setText0_1(total);
+                        self.setText0_0(_('TAL') + ': ' + total);
                         self.setText1_1(_('REM') + ': ' + remain);
                         self.setText1_0(_('PAY') + ': ' + payment);
                     }
@@ -129,15 +128,17 @@
                         remain = this.format(0);
                         payment = this.format(0);
 
-                        self.setText0_1(total);
-                        self.setText0_0(_('TAL') + ':');
+                        // self.setText0_1('');
+                        self.setText0_0(_('TAL') + ': ' + total);
                         self.setText1_1(_('REM') + ': ' + remain);
                         self.setText1_0(_('PAY') + ': ' + payment);
                     } else { //return;
-                    self.setText1_0(_('CANCELED'));
-                    self.setText1_1('SEQ#' + transaction.data.seq);
-                    self.setText0_1(self.format(0));
+                        self.setText1_0(_('CANCELED'));
+                        self.setText1_1('SEQ#' + transaction.data.seq);
+                        // self.setText0_1(self.format(0));
+                        self.setText0_0(_('TAL') + ': ' + self.format(0));
                     }
+                    self.setText0_1('');
 
                 }
 
@@ -146,18 +147,21 @@
                     if (transaction == null) return;
                     self.setText1_0(_('QUEUED'));
                     self.setText1_1('SEQ#' + transaction.data.seq);
-
+                    self.setText0_1('');
                 }
 
                 this.onSubmit = function(evt) {
                     var transaction = evt.data;
                     if (transaction == null) {
-                        self.setText0_1(self.format(0));
+                        // self.setText0_1(self.format(0));
+                        self.setText0_0(_('TAL') + ': ' + self.format(0));
                         return;
                     }
-                    self.setText0_1(transaction.getTotal(true));
+                    // self.setText0_1(transaction.getTotal(true));
+                    self.setText0_0(_('TAL') + ': ' + transaction.getTotal(true));
                     self.setText1_0(_('PAY') + ': ' + transaction.getPaymentSubtotal(true));
                     self.setText1_1(_('CHG') + ': ' + self.format(0-transaction.getRemainTotal(true)));
+                    self.setText0_1('');
                 }
 
                 this.onEnterPassword = function(evt) {
@@ -181,6 +185,10 @@
 
                 }
 
+                this.onWarning = function(evt) {
+                    self.setText0_1(evt.data);
+                }
+
                 this.keypadevents.addListener('onAddBuffer', this.onAddBuffer, this);
 
                 this.cartevents.addListener('onGetSubtotal', this.onGetSubtotal, this);
@@ -190,6 +198,7 @@
                 this.cartevents.addListener('onCancel', this.onCancel, this);
                 this.cartevents.addListener('onQueue', this.onQueue, this);
                 this.cartevents.addListener('onSubmit', this.onSubmit, this);
+                this.cartevents.addListener('onWarning', this.onWarning, this);
 
                 this.mainevents.addListener('onEnterPassword', this.onEnterPassword, this);
                 this.mainevents.addListener('onExitPassword', this.onExitPassword, this);
@@ -218,7 +227,7 @@
                     this.cartevents.removeListener('onCancel', this.onCancel);
                     this.cartevents.removeListener('onQueue', this.onQueue);
                     this.cartevents.removeListener('onSubmit', this.onSubmit);
-
+                    this.cartevents.removeListener('onWarning', this.onWarning);
                     this.mainevents.removeListener('onEnterPassword', this.onEnterPassword);
                     this.mainevents.removeListener('onExitPassword', this.onExitPassword, this);
                 }
