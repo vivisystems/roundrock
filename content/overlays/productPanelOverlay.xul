@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/product_button_colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/buttons.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/department-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/product-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/plugroup-button-colors.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/product.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/buttons.css" type="text/css"?>
 
 <!DOCTYPE overlay PUBLIC "-//MOZILLA//DTD XUL V1.0//EN" "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 

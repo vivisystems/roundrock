@@ -6,18 +6,13 @@
      */
     GeckoJS.Controller.extend( {
         name: 'ClockInOut',
-        _listObj: null,
-        _listJob: null,
-        _listJobs: null,
-        _listDatas: null,
-        _lastUser: null,
-
-        getListObj: function() {
-            if(this._listObj == null) {
-                this._listObj = document.getElementById('simpleListBoxSummary');
-            }
-            return this._listObj;
-        },
+        userpanel: null,
+        users: null,
+        jobpanel: null,
+        jobs: null,
+        joblist: null,
+        jobtimes: null,
+        lastUser: null,
         
         loadUsers: function () {
 
@@ -39,18 +34,23 @@
                 order: "jobname"
             });
             
-            if (jobs)
+            if (jobs) {
                 jobs.sort(function(a, b) {
                     if (a.jobname < b.jobname) return -1;
                     else if (a.jobname > b.jobname) return 1;
                     else return 0;
                 });
+                this.jobs = jobs;
 
-            if (this._listJob == null) this._listJob = this.query("#simpleListBoxJobs")[0];
-            if (this._listJob) {
-                this._listJob.loadData(jobs);
-                this._listJobs = jobs;
+                if (this.jobpanel == null) {
+                    this.jobpanel = document.getElementById('jobscrollablepanel');
+                }
+                if (this.jobpanel) {
+                    this.jobpanel.datasource = jobs;
+                }
             }
+
+            this.joblist = document.getElementById('simpleListBoxSummary');
         },
 
         view: function () {
@@ -73,14 +73,23 @@
         },
 
         clockIn: function () {
-            var username = $('#user_name').val();
-            var userpass = $('#user_password').val();
+
+            var username;
+            var userpass = document.getElementById('user_password').value;
             var index = -1;
             var job;
+
+            if (this.userpanel && this.users) {
+                var index = this.userpanel.selectedIndex;
+                if (index > -1 && index < this.users.length) {
+                    username = this.users[index].username;
+                }
+            }
             
-            if (this._listJob) {
-                index = this._listJob.selectedIndex;
-                if (index > -1) job = this._listJobs[index].jobname;
+            if (this.jobpanel) {
+                index = this.jobpanel.selectedIndex;
+                if (index > -1) job = this.jobs[index].jobname;
+                alert(index);
             }
 
             if (index == -1) {
@@ -89,42 +98,32 @@
             else {
                 if (this.Acl.securityCheck(username, userpass, true)) {
 
-                    // alert('Clock In...' + username);
-                    var clockstamp = new ViviPOS.ClockStampModel();
-                    // clockstamp.saveStamp({username: username, clockin: true, clockout: false});
+                    alert('Clock In...' + username);
+                    var clockstamp = new ClockStampModel();
                     clockstamp.saveStamp('clockin', username, job);
                     this.listSummary();
-                    this._lastUser = username;
-                    // this.log(this.dump(clockstamp.find('all', {order: "created DESC"})));
+                    this.lastUser = username;
                 } else {
                     alert('Please Check Username and Password...');
                 }
             }
         },
 
-        clockBreak: function () {
-            var username = $('#user_name').val();
-            var userpass = $('#user_password').val();
-            if (this.Acl.securityCheck(username, userpass, true)) {
-
-                // alert('Clock Out...' + username);
-                var clockstamp = new ViviPOS.ClockStampModel();
-                // clockstamp.saveStamp({username: username, clockout: true, clockin:false});
-                clockstamp.saveStamp('clockbreak', username);
-                this.listSummary();
-                // this.log(this.dump(clockstamp.find('all', {order: "created DESC"})));
-            } else {
-                alert('Please Check Username and Password...');
-            }
-        },
-
         clockOut: function () {
-            var username = $('#user_name').val();
+            var username;
             var userpass = $('#user_password').val();
+
+            if (this.userpanel && this.users) {
+                var index = this.userpanel.selectedIndex;
+                if (index > -1 && index < this.users.length) {
+                    username = this.users[index].username;
+                }
+            }
+
             if (this.Acl.securityCheck(username, userpass, true)) {
                 
                 // alert('Clock Out...' + username);
-                var clockstamp = new ViviPOS.ClockStampModel();
+                var clockstamp = new ClockStampModel();
                 // clockstamp.saveStamp({username: username, clockout: true, clockin:false});
                 clockstamp.saveStamp('clockout', username);
                 this.listSummary();
@@ -135,44 +134,51 @@
         },
 
         clearSummary: function () {
-            var listObj = this.getListObj();
-            if (listObj) listObj.resetData();
-            this._listDatas = null;
+            if (this.joblist) this.joblist.resetData();
+            this.jobtimes = null;
         },
         
         listSummary: function () {
-            var listObj = this.getListObj();
-            var username = $('#user_name').val();
-            var clockstamp = new ViviPOS.ClockStampModel();
+            var username;
+            if (this.userpanel && this.users) {
+                var index = this.userpanel.selectedIndex;
+                if (index > -1 && index < this.users.length) {
+                    username = this.users[index].username;
+                }
+            }
+
+            var joblist = this.joblist;
+            var clockstamp = new ClockStampModel();
             var today = new Date();
             var stamps = clockstamp.find('all', {
                 conditions: "username='" + username + "' AND clockin_date='" + today.toString("yyyy-MM-dd") + "'",
                 order: "created"
             });
-            var oldDatas = this._listDatas;
-            this._listDatas = stamps;
+            var oldTimes = this.jobtimes;
+            this.jobtimes = stamps;
             
             if (stamps) {
                 stamps.forEach(function(o){
                     o.clockin_time = o.clockin_time ? o.clockin_time.substring(11, 19) : '--:--:--';
                     o.clockout_time = o.clockout_time ? o.clockout_time.substring(11, 19) : '--:--:--';
                 });
-                if (oldDatas) {
-                    var lastIndex = oldDatas.length - 1;
-                    listObj.updateItemAt(lastIndex, stamps[lastIndex] );
-                    if (stamps.length > oldDatas.length) {
-                        listObj.insertItemAt(lastIndex + 1, stamps[lastIndex + 1] );
+                if (oldTimes) {
+                    var lastIndex = oldTimes.length - 1;
+                    joblist.updateItemAt(lastIndex, stamps[lastIndex] );
+                    if (stamps.length > oldTimes.length) {
+                        joblist.insertItemAt(lastIndex + 1, stamps[lastIndex + 1] );
                     }
                 }
                 else {
-                    listObj.loadData(stamps);
+                    joblist.loadData(stamps);
                 }
 
-                listObj.selectedIndex = stamps.length - 1;
-                listObj.ensureIndexIsVisible(listObj.selectedIndex);
+                joblist.selectedIndex = stamps.length - 1;
+                joblist.ensureIndexIsVisible(joblist.selectedIndex);
             } else {
-                listObj.resetData();
+                joblist.resetData();
             }
+           
         },
 
         cancel: function () {

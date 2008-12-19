@@ -1,7 +1,9 @@
-/* global skin ------------------------------------------------------------- */
-@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
-
-@namespace html url("http://www.w3.org/1999/xhtml");
+/*-----------------------------------------------------------------------------
+ *
+ * SHOPPING CART
+ *
+ *-----------------------------------------------------------------------------
+ */
 
 .cartList {
     font-size: 14px;
@@ -12,6 +14,11 @@
     background: transparent;
 }
 
+/*-----------------------------------------------------------------------------
+ * SHOPPING CART scrollbar
+ *-----------------------------------------------------------------------------
+ */
+
 .cartList .scrollablepanel-scrollbar {
     border: 1px dotted #908c83;
 }
@@ -19,13 +26,6 @@
 .cartList .scrollablepanel-scrollbar vivibutton {
     margin-left: 2px;
     margin-right: 2px;
-}
-
-.cartList tree {
-    margin: 0px;
-}
-.cartList treechildren{
-    background: #f8f4eb url(images/cart.png) bottom right no-repeat;
 }
 
 .cartList scrollbar {
@@ -68,22 +68,48 @@
 	background-position:-32px 0;
 }
 
-.cartScrollUp label, .cartScrollDown label {
-	display: none;
-}
-
 .cartScrollUp description, .cartScrollDown description {
 	display: none;
 }
 
+/*-----------------------------------------------------------------------------
+ * SHOPPING CART sidepanel tool buttons
+ *-----------------------------------------------------------------------------
+ */
+
+
+#cartsidebar vivibutton description {
+    display: none;
+}
+
+#cartsidebar vivibutton {
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
 .itemplusbtn {
-     background: transparent url(chrome://viviecr/skin/images/list-add.png) center center no-repeat;
+    background-image: url(chrome://viviecr/skin/images/list-add.png);
 }
+
 .itemminusbtn {
-     background: transparent url(chrome://viviecr/skin/images/list-remove.png) center center no-repeat;
+    background-image: url(chrome://viviecr/skin/images/list-remove.png);
 }
+
 .paymentdetailsbtn {
-     background: transparent url(chrome://viviecr/skin/images/gnucash-icon.png) center center no-repeat;
+     background-image: url(chrome://viviecr/skin/images/gnucash-icon.png);
+}
+
+/*-----------------------------------------------------------------------------
+ * SHOPPING CART order details
+ *-----------------------------------------------------------------------------
+ */
+
+.cartList tree {
+    margin: 0px;
+}
+
+.cartList treechildren{
+    background: #f8f4eb url(images/cart.png) bottom right no-repeat;
 }
 
 treechildren::-moz-tree-row {
@@ -95,19 +121,6 @@ treechildren::-moz-tree-row(odd) {background-color: #DDDDDD;}
 treechildren::-moz-tree-row(odd, selected) {background-color: #991111; }
 treechildren::-moz-tree-cell-text(selected) {color: #FFFFFF;}
 treechildren::-moz-tree-cell-text(odd, selected) {color: #FFFFFF;}
-
-/*
-treeitem {
-  min-height: 30px;
-}
-*/
-/*
-treechildren {
-  background-position: right bottom;
-    background-repeat: no-repeat;
-    background-image: url(images/vivipos_icon1.png);
-}
-*/
 treechildren::-moz-tree-row(treeTRAY) {background-color: #AAAAFF;}
 treechildren::-moz-tree-row(treeSUBTOTAL) {background-color: #FF88FF;}
 treechildren::-moz-tree-row(treeTOTAL) {background-color: #55DD55;}

@@ -23,7 +23,6 @@
         },
 
         changeDepartmentPanel: function(index) {
-
             var dept = this.deptPanelView.getCurrentIndexData(index);
             this._selectedIndex = index;
             this.setInputData(dept);
@@ -260,7 +259,7 @@
             });
 
             GeckoJS.Session.set('categories');
-
+            this.deptPanelView.updateCategories();
             var data = this.deptPanelView.data;
 
             switch(mode) {

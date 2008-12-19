@@ -300,6 +300,16 @@ pref("vivipos.fec.registry.function.programmable.giftcard.command", "giftCard");
 pref("vivipos.fec.registry.function.programmable.giftcard.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.giftcard.data", "");
 
+pref("vivipos.fec.registry.function.programmable.addmemo.access", "acl_register_plus");
+pref("vivipos.fec.registry.function.programmable.addmemo.command", "addMemo");
+pref("vivipos.fec.registry.function.programmable.addmemo.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.addmemo.data", "");
+
+pref("vivipos.fec.registry.function.programmable.addCondiment.access", "acl_register_plus");
+pref("vivipos.fec.registry.function.programmable.addCondiment.command", "addCondiment");
+pref("vivipos.fec.registry.function.programmable.addCondiment.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.addCondiment.data", "");
+
 pref('vivipos.fec.registry.comm.port1.id', 'port1');
 pref('vivipos.fec.registry.comm.port1.name', 'COM1');
 pref('vivipos.fec.registry.comm.port1.path', '/dev/ttya');
@@ -312,3 +322,14 @@ pref('vivipos.fec.registry.comm.port3.path', '/dev/ttyUSB0');
 pref('vivipos.fec.registry.comm.port4.id', 'USB1');
 pref('vivipos.fec.registry.comm.port4.name', 'USB1');
 pref('vivipos.fec.registry.comm.port4.path', '/dev/ttyUSB1');
+
+pref('vivipos.fec.ui.functionpanel.button.defaultcolor', 'function-button-color-default');
+pref('vivipos.fec.ui.functionpanel.button.defaultfontsize', 'medium');
+pref('vivipos.fec.ui.department.button.defaultcolor', 'department-button-color-default');
+pref('vivipos.fec.ui.department.button.defaultfontsize', 'medium');
+pref('vivipos.fec.ui.product.button.defaultcolor', 'product-button-color-default');
+pref('vivipos.fec.ui.product.button.defaultfontsize', 'medium');
+pref('vivipos.fec.ui.condiment.button.defaultcolor', 'condiment-button-color-default');
+pref('vivipos.fec.ui.condiment.button.defaultfontsize', 'medium');
+pref('vivipos.fec.ui.plugroup.button.defaultcolor', 'plugroup-button-color-default');
+pref('vivipos.fec.ui.plugroup.button.defaultfontsize', 'medium');

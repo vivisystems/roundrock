@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="chrome://viviecr/skin/buttons.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/numberpad.css" type="text/css"?>
 
 <!DOCTYPE window SYSTEM "chrome://viviecr/locale/numberpad.dtd">
@@ -42,10 +43,13 @@
       <!-- begin tools -->
         <vbox id="toolbar">
             <spacer flex="1"/>
-            <vivibutton id="clockin" label="" oncommand="$do('ClockInOutDialog', null, 'Main');"  class="systoolbtn clockinout"/>
-            <vivibutton id="options" roles="acl_open_control_panel" action="none" label=""  oncommand="$do('ControlPanelDialog', null, 'Main');"  class="systoolbtn options"/>
+            <vivibutton id="clockin" label="" oncommand="$do('ClockInOutDialog', null, 'Main');"
+                        class="systoolbtn mediumimagebtn clockinout"/>
+            <vivibutton id="options" roles="acl_open_control_panel" action="none" label=""  oncommand="$do('ControlPanelDialog', null, 'Main');"
+                        class="systoolbtn mediumimagebtn options"/>
             <spacer id="spacer" flex="1"/>
-            <vivibutton id="toggleNumPad"  disabled="false" suspendable="false" label="" roles="acl_toggle_numpad" action="display" oncommand="$do('toggleNumPad', null, 'Main');" class="systoolbtn togglenumpad" />
+            <vivibutton id="toggleNumPad"  disabled="false" suspendable="false" label="" roles="acl_toggle_numpad" action="display" oncommand="$do('toggleNumPad', null, 'Main');"
+                        class="mediumimagebtn togglenumpad" />
         </vbox>
       <!-- end tools -->
 

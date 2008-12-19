@@ -36,11 +36,16 @@
 	                    </hbox>
                     	<vbox>
                     		<hbox class="jobpad">
-                    			<simplelistbox id="simpleListBoxJobs" rows="16"  headers="&clockin.headers.joblist;"
-                                               columns="jobname" class="prodsimplelistbox jobs" />
+                            <viviscrollablebuttonpanel id="jobscrollablepanel" dir="reverse" rows="6" cols="1" flex="1" seltype="single" labelField="jobname"
+                                                       class="jobscrollablepanel"
+                                                       buttonClass="jobBtn"
+                                                       scrollUpClass="jobupBtn"
+                                                       scrollDownClass="jobdownBtn">
+                                <spacer flex="1"/>
+                            </viviscrollablebuttonpanel>
                     		</hbox>
                     		<hbox class="listpad">                        
-                                <simplelistbox id="simpleListBoxSummary" rows="16"  headers="Time In, Time Out, Job"
+                                <simplelistbox id="simpleListBoxSummary" rows="16"  headers="&clockin.heading.timein;, &clockin.heading.timeout;, &clockin.heading.job;"
                                                columns="clockin_time,clockout_time,job"
                                                class="prodsimplelistbox jobssummary"/>
                     		</hbox>

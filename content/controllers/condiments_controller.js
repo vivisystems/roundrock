@@ -25,7 +25,7 @@
 
             // bind condiments data
             var condPanelView =  new GeckoJS.NSITreeViewArray(condGroups);
-            // var condPanelView =  new NSICondGroupsView(condGroups);
+
             this._condGroupscrollablepanel = document.getElementById('condimentscrollablepanel');
             this._condGroupscrollablepanel.datasource = condPanelView;
 
@@ -337,21 +337,31 @@
             }
         },
 
+        getInputCondDefault: function () {
+            var valObj = {};
+            this.query('[form=condimentForm]').each(function() {
+                var n = this.name || this.getAttribute('name');
+                if (!n) return;
+                var v = this.getAttribute('default');
+
+                if (typeof v != 'undefined') {
+                    valObj[n] = v;
+                }
+            });
+            return valObj;
+
+        },
+
         getInputCondData: function () {
 
-            var valObj = GeckoJS.FormHelper.serializeToObject('condimentForm');
-            /*
-            valObj.font_size  = this.query('#condiment_font_size').val();
-            valObj.button_color  = this.query('#condiment_button_color').val();
-            */
-            return valObj;
+            return valObj = GeckoJS.FormHelper.serializeToObject('condimentForm');
         },
 
         resetInputCondData: function () {
 
             this.query('#condiment_name').val('');
             this.query('#condiment_price').val('');
-            this.query('#condiment_button_color').val('default');
+            this.query('#condiment_button_color').val('condimentcolor-default');
             this.query('#condiment_font_size').val('medium');
         },
 
@@ -376,7 +386,7 @@
                     return;
                 }
 
-                var inputData = this.getInputCondData();
+                var inputData = this.getInputCondDefault();
                 var condGroups = GeckoJS.Session.get('condGroups');
 
                 inputData.id = null;

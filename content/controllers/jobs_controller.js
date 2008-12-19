@@ -63,7 +63,6 @@
         afterScaffoldAdd: function (evt) {
             // if new job exists, set selectedIndex to last item
 
-            alert("afterScaffoldAdd");
             if (this._jobAdded) {
                 var panel = this.getListObj();
                 var data = panel.datasource.data;

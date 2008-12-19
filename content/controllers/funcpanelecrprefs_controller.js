@@ -192,7 +192,7 @@
         
         var btnstyles = {};
         var colors = color.split(',');
-        color = (colors.map(function(c) {return 'button-' + c})).join(' ');
+        color = colors.join(' ');
         
         //GREUtils.log('[SelectButtonColor]: button color converted to class <' + color + '>');
         
@@ -220,7 +220,7 @@
         
         var fontsizes = {};
         var f = fontsize.split(',');
-        fontsize = (f.map(function(c) {return 'font-' + c})).join(' ');
+        fontsize = f.join(' ');
         
         //GREUtils.log('[SelectButtonFontsize]: button fontsize converted to class <' + fontsize + '>');
         for (var r = this.extent.row1; r <= this.extent.row2; r++)

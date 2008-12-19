@@ -7,7 +7,8 @@
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/product_button_colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/buttons.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/plugroup-button-colors.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -46,11 +47,16 @@
                                 <checkbox id="visible" value="true" label="&plugroups.visible;" form="plugroupForm" name="visible" default="true"/>
                                 <groupbox>
                                     <caption label="&plugroups.button.color;" />
-                                    <button_colorpicker id="dept_button_color" form="plugroupForm" name="button_color" buttonClass="catbtn button-radius" default="default"/>
+                                    <button_colorpicker id="dept_button_color" form="plugroupForm" name="button_color"
+                                                        buttonClass="catbtn button-radius"
+                                                        class-prefix="plugroup-button-color-"
+                                                        default="plugroup-button-color-default"/>
                                 </groupbox>
                                 <groupbox>
                                     <caption label="&plugroups.font.size;" />
-                                    <button_fontsizepicker id="dept_font_size" form="plugroupForm" name="font_size" buttonClass="catbtn button-white button-radius" default="medium"/>
+                                    <button_fontsizepicker id="dept_font_size" form="plugroupForm" name="font_size"
+                                                           buttonClass="catbtn button-white button-radius"
+                                                           default="medium"/>
                                 </groupbox>
                                 <spacer style="height: 10px;" />
                                 <hbox>

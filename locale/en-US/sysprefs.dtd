@@ -10,8 +10,8 @@
 <!ENTITY defaulttaxstatus "System default tax status">
 <!ENTITY dateformat "Date Format:">
 <!ENTITY timeformat "Time Format:">
-<!ENTITY precisionprices "Precision to Use for Prices">
-<!ENTITY precisiontaxes "Precision to Use for Taxes">
+<!ENTITY precisionprices "Number of Decimal Places for Prices">
+<!ENTITY precisiontaxes "Number of Decimal Places for Taxes">
 <!ENTITY roundingprices "Rounding Policy to Use for Prices">
 <!ENTITY roundingtaxes "Rounding Policy to Use for Taxes">
 <!ENTITY rounding.to-nearest-precision "to nearest precision">

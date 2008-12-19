@@ -29,7 +29,9 @@
                                                    class="catescrollablepanel"
                                                    buttonClass="catbtn button-radius button-white font-medium"
                                                    scrollUpClass="rightprevbtn button-blue"
-                                                   scrollDownClass="rightnextbtn button-blue" />
+                                                   scrollDownClass="rightnextbtn button-blue">
+                            <spacer flex="1"/>
+                        </viviscrollablebuttonpanel>
                     </hbox>
                 </groupbox>
             </vbox>

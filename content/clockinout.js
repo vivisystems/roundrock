@@ -1,10 +1,10 @@
 (function(){
-    GeckoJS.include('chrome://viviecr/content/models/user.js');
-    GeckoJS.include('chrome://viviecr/content/models/clockstamp.js');
-    GeckoJS.include('chrome://viviecr/content/models/job.js');
+    include('chrome://viviecr/content/models/user.js');
+    include('chrome://viviecr/content/models/clockstamp.js');
+    include('chrome://viviecr/content/models/job.js');
 
     // include controllers  and register itself
-    GeckoJS.include('chrome://viviecr/content/controllers/clockinout_controller.js');
+    include('chrome://viviecr/content/controllers/clockinout_controller.js');
 
     /**
      * Controller Startup

@@ -1,5 +1,4 @@
-GREUtils.define('ViviPOS.ClockStampModel');
-ViviPOS.ClockStampModel = GeckoJS.Model.extend({
+var ClockStampModel = GeckoJS.Model.extend({
     name: 'ClockStamp',
     indexes: ['username', 'job', 'created', 'clockin_date'],
 

@@ -1,0 +1,85 @@
+/*--------------------------------------------------------------------------
+ *
+ * FUNCTION BUTTON COLORS
+ *
+ *--------------------------------------------------------------------------
+ */
+
+.function-button-color-default {
+    background: #e1ddd2;
+    color: #000000;
+}
+
+.function-button-color-1 {
+    -moz-appearance: none;
+    background: #c5bc9d;
+    color: #000000;
+}
+
+.function-button-color-2 {
+    -moz-appearance: none;
+    background: #564c43;
+    color: #ffffff;
+}
+
+.function-button-color-3 {
+    -moz-appearance: none;
+    background: #f2c54e;
+    color: #000000;
+}
+
+.function-button-color-4 {
+    -moz-appearance: none;
+    background: #c5d8a8;
+    color: #000000;
+}
+
+.function-button-color-5 {
+    -moz-appearance: none;
+    background: #7acdc8;
+    color: #000000;
+}
+
+.function-button-color-6 {
+    -moz-appearance: none;
+    background: #8393ca;
+    color: #ffffff;
+}
+
+.function-button-color-7 {
+    -moz-appearance: none;
+    background: #a186be;
+    color: #000000;
+}
+
+.function-button-color-8 {
+    -moz-appearance: none;
+    background: #f6989d;
+    color: #000000;
+}
+
+.function-button-color-9 {
+    -moz-appearance: none;
+    background: #fdc689;
+    color: #000000;
+}
+
+.function-button-color-10 {
+    -moz-appearance: none;
+    background: #fff899;
+    color: #000000;
+}
+
+.function-button-color-11 {
+    -moz-appearance: none;
+    background: #440e62;
+    color: #ffffff;
+}
+
+.function-button-color-default[selected], .function-button-color-1[selected],
+.function-button-color-2[selected], .function-button-color-3[selected], .function-button-color-4[selected],
+.function-button-color-5[selected], .function-button-color-6[selected], .function-button-color-7[selected],
+.function-button-color-8[selected], .function-button-color-9[selected], .function-button-color-10[selected],
+.function-button-color-11[selected] {
+    list-style-image: url(chrome://viviecr/skin/images/gtk-yes.png);
+}

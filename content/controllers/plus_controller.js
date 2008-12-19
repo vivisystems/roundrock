@@ -24,7 +24,7 @@
             var pluGroupModel = new PlugroupModel();
             var groups = pluGroupModel.find('all', {
             });
-
+alert(GeckoJS.BaseObject.dump(groups));
             var group_listscrollablepanel = document.getElementById('group_listscrollablepanel');
             var plugroupPanelView = new NSIPluGroupsView(groups);
             group_listscrollablepanel.datasource = plugroupPanelView;

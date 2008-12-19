@@ -52,3 +52,4 @@ pref("vivipos.fec.acl.roles.acl_manage_taxes", "acl_manage_taxes");
 pref("vivipos.fec.acl.roles.acl_manage_products", "acl_manage_products");
 pref("vivipos.fec.acl.roles.acl_register_return", "acl_manage_products");
 pref("vivipos.fec.acl.roles.acl_register_credit_card", "acl_register_credit_card");
+pref("vivipos.fec.acl.roles.acl_register_gift_card", "acl_register_credit_card");

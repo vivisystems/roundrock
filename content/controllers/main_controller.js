@@ -275,6 +275,7 @@
         resizeLeftPanel: function (initial) {
             // resizing product/function panels
             var rightPanel = document.getElementById('rightPanel');
+            var panelSpacer = document.getElementById('panelSpacer');
             var deptPanel = document.getElementById('catescrollablepanel');
             var pluPanel = document.getElementById('prodscrollablepanel');
             var fnPanel = document.getElementById('functionPanel');
@@ -351,8 +352,17 @@
 
             if (fnPanel) {
                 var totalHeight = deptPanel.boxObject.height - (- pluPanel.boxObject.height);
-                var fnWidth = this.screenwidth - rightPanel.boxObject.width - 5;
+                var panelSpacerWidth = (panelSpacer) ? panelSpacer.boxObject.width : 0;
+                this.log('width: ' + this.screenwidth + ':' + rightPanel.boxObject.width + ':' + panelSpacerWidth);
+                var fnWidth = this.screenwidth - rightPanel.boxObject.width - panelSpacerWidth;
                 var fnHeight = this.screenheight - totalHeight - btmBox.boxObject.height - 5;
+
+                // @todo hack to adjust initial fn size
+                var registerAtLeft = GeckoJS.Configure.read('vivipos.fec.settings.RegisterAtLeft') || false;
+                if (initial) {
+                    if (registerAtLeft) fnWidth -= 14;
+                    else fnWidth = fnWidth -= 8;
+                }
 
                 if (fnHeight < 1) {
                     fnPanel.setAttribute('height', 0);
@@ -405,6 +415,7 @@
             if (toolbarPanel) toolbarPanel.setAttribute('dir', registerAtLeft ? 'reverse' : 'normal');
             if (leftPanel) leftPanel.setAttribute('dir', functionPanelOnTop ? 'reverse' : 'normal');
             if (productPanel) productPanel.setAttribute('dir', PLUbeforeDept ? 'reverse' : 'normal');
+            if (cartList) cartList.setAttribute('dir', registerAtLeft ? 'reverse': 'normal');
 
             // fudge to make functionPanelOnTop work even if rightPanel is taller than the screen
             leftPanel.setAttribute('pack', functionPanelOnTop ? 'end' : 'start');
@@ -412,24 +423,6 @@
             // toggleNumPad() returns true if it invoked resizeLeftPanel()
             if (!this.toggleNumPad(hideNumPad, initial)) {
                 this.resizeLeftPanel(initial);
-            }
-            if (cartList) {
-
-                cartList.setAttribute('dir', registerAtLeft ? 'reverse': 'normal');
-                // for some reason 'dir' does work, need to manually order scrollbar & cart
-/*
-                var vivitree = document.getAnonymousElementByAttribute(cartList, 'anonid', 'vivitree');
-                var scrollbar = document.getAnonymousElementByAttribute(cartList, 'anonid', 'scrollbar');
-                var parent = vivitree.parentNode;
-
-                parent.removeChild(vivitree);
-                if (registerAtLeft) {
-                    parent.appendChild(vivitree);
-                }
-                else {
-                    parent.insertBefore(vivitree, scrollbar);
-                }
-*/
             }
 
         },

@@ -82,17 +82,17 @@
     -moz-appearance: none;
     -moz-user-focus: ignore;
     /* background: white; */
-    background: transparent url(images/numbtn_tall.png);
+    background: transparent url(images/numbtn.png);
     color: white;
 }
 .numberpad sendkeybutton:hover{
-	background: transparent url(images/numbtn_tall_a.png) center center no-repeat;
+	background: transparent url(images/numbtn_a.png) center center no-repeat;
 }
 
 .clockinoutbtn {
     height: 69px;
     width: 70px;
-    margin: 0px;
+    margin: 0px 6px 0px 0px;
     padding: 0px;
     list-style-type: none;
     overflow: hidden;
@@ -120,7 +120,7 @@
 .clockinoutbtn2 {
     height: 69px;
     width: 93px;
-    margin: 0px 0px 0px 15px;
+    margin: 0px 0px 0px 0px;
     padding: 0px;
     list-style-type: none;
     overflow: hidden;
@@ -208,6 +208,7 @@
     background: transparent url(images/c_namecard_a.png) center bottom no-repeat;
     -moz-background-clip: border;
     -moz-box-orient: vertical;
+    border: none;
 }
 
 .userbtn hbox{
@@ -279,29 +280,32 @@
 
 .genbtn {
     height: 69px;
-    margin: 1px 1px 20px 20px;
+    margin: 24px 1px 20px 20px;
     padding: 0px;
     overflow: hidden;
-    background: url(images/homebtn.png) top left no-repeat;
+    background: url(images/exit_1.png) 95% top no-repeat;
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-background-clip: border;
     border: none;
 }
+.genbtn:hover {
+  background: url(images/exit_2.png) 95% top no-repeat;
+}
 .genbtn:active {
-  
+  background: url(images/exit_3.png) 95% top no-repeat;
 }
 .genbtn label {
 	display: none;
 }
 
 .numpad {
-	margin: 15px 15px; 0 21px; 
+	margin: 16px 13px 0 12px; 
 	width: 265px;
 }
 
 .PwPad {
-	margin: 34px 0 0 210px;
+	margin: 58px 0 0 225px;
 	
 }
 
@@ -316,8 +320,9 @@
 	margin-top: 9px;
 }
 .pwBox {
-	width: 170px;
+	width: 190px;
 	margin-top: 5px;
+        margin-right: 10px;
 	height: 36px;
 	border: 2px solid #b2a59a;
 	-moz-border-color: #b2a59a;
@@ -354,7 +359,7 @@
 	max-height: 209px;
 }
 	/*job button*/
-.jobscrollablepanel button{		
+.jobBtn{
 	width: 143px;
 	height: 40px;
 	max-height: 40px;
@@ -370,11 +375,11 @@
 	margin: 0px;
 	padding: 0px;
 }
-.jobscrollablepanel button:active{
+.jobBtn[disabled=false]:active{
 	color: #336489;
 	background: transparent url(images/jobsel.png) left center no-repeat;
 }
-.jobscrollablepanel button[checked=true]{
+.jobBtn[checked=true]{
 	color: #336489;
 	background: transparent url(images/jobsel.png) left center no-repeat;
 }
@@ -390,10 +395,10 @@
 	border: none;
 	-moz-appearance: none;
 }
-.jobupBtn:active {
+.jobupBtn[disabled=false]:active {
 	background: url(images/jobupbtn_a.png) center center  no-repeat;
 }
-.jobupBtn label{
+.jobupBtn description{
  display: none;
 }
 .jobdownBtn {
@@ -407,10 +412,10 @@
 	border: none;
 	-moz-appearance: none;
 }
-.jobdownBtn:active {
+.jobdownBtn[disabled=false]:active {
 	background: url(images/jobdownbtn_a.png) center center  no-repeat;
 }
-.jobdownBtn label{
+.jobdownBtn description{
  display: none;
 }
 

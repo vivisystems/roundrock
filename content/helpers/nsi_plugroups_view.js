@@ -48,18 +48,16 @@
         },
 
         renderButton: function(row, btn) {
-            /*
             var buttonColor = this.getCellValue(row,{
                 id: 'button_color'
             });
             var buttonFontSize = this.getCellValue(row,{
                 id: 'font_size'
             });
-            */
-           var buttonColor = "white";
-           var buttonFontSize = "medium";
+           //var buttonColor = "white";
+           //var buttonFontSize = "medium";
             if (buttonColor && btn) {
-                $(btn).addClass('button-'+ buttonColor);
+                $(btn).addClass(buttonColor);
             }
             if (buttonFontSize && btn) {
                 $(btn).addClass('font-'+ buttonFontSize);

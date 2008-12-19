@@ -83,3 +83,21 @@ separator {
   border-width:1px;
   max-width: 360px;
 }
+
+.buttoncolor_baseclass {
+    min-height: 50px;
+    max-height: 50px;
+    max-width: 60px;
+    -moz-appearance: none;
+    -moz-box-orient: vertical;
+    overflow: hidden;
+}
+
+.buttonfontsize_baseclass {
+    min-height: 50px;
+    max-height: 50px;
+    max-width: 70px;
+    -moz-appearance: none;
+    -moz-box-orient: vertical;
+    overflow: hidden;
+}

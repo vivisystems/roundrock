@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE window SYSTEM "chrome://viviecr/locale/fecpos.dtd">
+<!DOCTYPE overlay [
+  <!ENTITY % Overlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Overlay;
+  <!ENTITY % PLUSearch SYSTEM "chrome://viviecr/locale/plus.dtd">
+  %PLUSearch;
+  ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/vivipos.css" type="text/css"?>
@@ -21,8 +26,8 @@
             <hbox flex="1" class="footlogo">
                 <tabbox  flex="1">
                     <tabs >
-                        <tab label="&vivipos.fec.plus.basedata;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical"        />
-                        <tab label="&vivipos.fec.plus.pricelevels;" image="chrome://viviecr/content/skin/icons/comments-24.png" orient="vertical"/>
+                        <tab label="&plus.base.data;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical"        />
+                        <tab label="&plus.pricelevels;" image="chrome://viviecr/content/skin/icons/comments-24.png" orient="vertical"/>
                     </tabs>
 
                     <tabpanels flex="1" >
@@ -38,7 +43,7 @@
                                         <row>
                                             <label hidden="true" form="productForm" name="id" value="" />
                                             <label value="Department:"/>
-                                            <textbox id="cate_no" form="productForm" name="cate_no" readonly="true" onclick="$do('getDepartment',this.selectedIndex,'Plus');"/>
+                                            <textbox id="cate_no" form="productForm" name="cate_no" readonly="true"/>
                                         </row>
                                         <row>
                                             <label value="Product No:"/>
@@ -55,11 +60,11 @@
                                             
                                         <row>
                                             <label value="Rate:"/>
-                                            <textbox id="rate" value="" form="productForm" name="rate" readonly="true" onclick="$do('getRate',this.selectedIndex,'Plus');"/>
+                                            <textbox id="rate" value="" form="productForm" name="rate" readonly="true"/>
                                         </row>
                                         <row>
                                             <label value="Condiment:"/>
-                                            <textbox id="cond_group" value="" form="productForm" name="cond_group" readonly="true" onclick="$do('getCondiment',this.selectedIndex,'Plus');"/>
+                                            <textbox id="cond_group" value="" form="productForm" name="cond_group" readonly="true"/>
                                         </row>
                                         <row>
                                             <label value="Stock:"  />
@@ -75,13 +80,7 @@
                                         </row>
                                         <row>
                                             <label value="Sale Unit:"/>
-                                            <menulist id="sale_unit" form="productForm" name="sale_unit" label="Sale Unit">
-                                                <menupopup style="width: 200px;">
-                                                    <menuitem label="Number" value="0"/>
-                                                    <menuitem label="Gram" value="1"/>
-                                                    <menuitem label="Liter" value="2"/>
-                                                </menupopup>
-                                            </menulist>
+                                            <textbox id="sale_unit" form="productForm" name="sale_unit" readonly="true"/>
                                         </row>
 
                                     </rows>
@@ -105,10 +104,10 @@
 
                                     <rows>
                                         <row>
-                                            <label value="&vivipos.fec.plus.level;" />
-                                            <label value="&vivipos.fec.plus.price;" />
-                                            <label value="&vivipos.fec.plus.halo;" />
-                                            <label value="&vivipos.fec.plus.lalo;" />
+                                            <label value="&plus.level;" />
+                                            <label value="&plus.price;" />
+                                            <label value="&plus.halo;" />
+                                            <label value="&plus.lalo;" />
                                         </row>
                                         <row>
                                             <checkbox id="level_enable1" value="0" label="1." form="productForm" name="level_enable1" default="0" readonly="true"/>
@@ -195,6 +194,8 @@
         </vbox>
     </box>
   
-    <hbox id="okCancelButtonsRight" class="dialogbtns" />
+    <hbox id="dialogButtons" class="dialogbtns" pack="center">
+        <button class="right exit-dialog" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+    </hbox>
 
 </window>

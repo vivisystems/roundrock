@@ -7,6 +7,8 @@
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/buttons.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/condiment-button-colors.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -90,7 +92,9 @@
                                             </row>
                                             <row>
                                                 <label value="&condiments.condiment.button.color;"/>
-                                                <button_colorpicker id="condiment_button_color" buttonClass="catbtn button-radius" form="condimentForm" name="button_color" default="default"/>
+                                                <button_colorpicker id="condiment_button_color" buttonClass="catbtn button-radius" form="condimentForm" name="button_color"
+                                                                    class-prefix="condiment-button-color-"
+                                                                    default="condiment-button-color-default"/>
                                             </row>
                                             <row>
                                                 <label value="&condiments.condiment.font.size;"  />

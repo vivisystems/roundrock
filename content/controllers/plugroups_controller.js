@@ -204,7 +204,7 @@
                         id: 'font_size'
                     });
                     if (buttonColor && btn) {
-                        $(btn).addClass('button-' + buttonColor);
+                        $(btn).addClass(buttonColor);
                     }
                     if (buttonFontSize && btn) {
                         $(btn).addClass('font-' + buttonFontSize);

@@ -21,21 +21,21 @@
     <xul:vbox flex="1" xbl:inherits="flex,class" anonid="boxContainer">
         <xul:hbox>
             <xul:button class="button_colorpicker" xbl:inherits="disabled,class=buttonClass" label="&button-default.label;" color="default" />
-            <xul:button class="button_colorpicker" xbl:inherits="disabled,class=buttonClass" label="&button-gray.label;" color="gray" />
-            <xul:button class="button_colorpicker" xbl:inherits="disabled,class=buttonClass" label="&button-green.label;" color="green" />
-            <xul:button class="button_colorpicker" xbl:inherits="disabled,class=buttonClass" label="&button-teal.label;" color="teal" />
+            <xul:button class="button_colorpicker" xbl:inherits="disabled,class=buttonClass" label="&button-1.label;" color="1" />
+            <xul:button class="button_colorpicker" xbl:inherits="disabled,class=buttonClass" label="&button-2.label;" color="2" />
+            <xul:button class="button_colorpicker" xbl:inherits="disabled,class=buttonClass" label="&button-3.label;" color="3" />
         </xul:hbox>
         <xul:hbox>
-            <xul:button class="button_colorpicker" xbl:inherits="disabled,class=buttonClass" label="&button-yellow.label;" color="yellow" />
-            <xul:button class="button_colorpicker" xbl:inherits="disabled,class=buttonClass" label="&button-red.label;" color="red" />
-            <xul:button class="button_colorpicker" xbl:inherits="disabled,class=buttonClass" label="&button-orange.label;" color="orange" />
-            <xul:button class="button_colorpicker" xbl:inherits="disabled,class=buttonClass" label="&button-blue.label;" color="blue" />
+            <xul:button class="button_colorpicker" xbl:inherits="disabled,class=buttonClass" label="&button-4.label;" color="4" />
+            <xul:button class="button_colorpicker" xbl:inherits="disabled,class=buttonClass" label="&button-5.label;" color="5" />
+            <xul:button class="button_colorpicker" xbl:inherits="disabled,class=buttonClass" label="&button-6.label;" color="6" />
+            <xul:button class="button_colorpicker" xbl:inherits="disabled,class=buttonClass" label="&button-7.label;" color="7" />
         </xul:hbox>
         <xul:hbox>
-            <xul:button class="button_colorpicker" xbl:inherits="disabled,class=buttonClass" label="&button-fuchsia.label;" color="fuchsia" />
-            <xul:button class="button_colorpicker" xbl:inherits="disabled,class=buttonClass" label="&button-aqua.label;" color="aqua" />
-            <xul:button class="button_colorpicker" xbl:inherits="disabled,class=buttonClass" label="&button-black.label;" color="black" />
-            <xul:button class="button_colorpicker" xbl:inherits="disabled,class=buttonClass" label="&button-white.label;" color="white" />
+            <xul:button class="button_colorpicker" xbl:inherits="disabled,class=buttonClass" label="&button-8.label;" color="8" />
+            <xul:button class="button_colorpicker" xbl:inherits="disabled,class=buttonClass" label="&button-9.label;" color="9" />
+            <xul:button class="button_colorpicker" xbl:inherits="disabled,class=buttonClass" label="&button-10.label;" color="10" />
+            <xul:button class="button_colorpicker" xbl:inherits="disabled,class=buttonClass" label="&button-11.label;" color="11" />
         </xul:hbox>
   </xul:vbox>
   </content>
@@ -52,9 +52,11 @@
 
 	<xbl:constructor><![CDATA[
         var buttons = this.boxContainer.getElementsByTagNameNS('http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul', 'button');
+        var classprefix = this.getAttribute('class-prefix') || 'button-';
         for (var i = 0; i < buttons.length; i++) {
             var color = buttons[i].getAttribute('color');
-            buttons[i].className += (buttons[i].className ? " " : "") + 'button-' + color;
+            buttons[i].className += (buttons[i].className ? " " : "") + classprefix + color;
+            buttons[i].setAttribute('color', classprefix + color);
         }
 
         this.addEventListener('DOMAttrModified', this._attrmodified, true);

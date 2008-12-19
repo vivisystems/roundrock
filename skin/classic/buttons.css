@@ -1,32 +1,68 @@
+/*-----------------------------------------------------------------------------
+ *
+ * Front-Office standard buttons
+ *
+ *-----------------------------------------------------------------------------
+ */
+
 .button-radius {
-    -moz-border-radius: 8px; 
+    -moz-border-radius: 8px;
 }
 
 .button-default {
     min-height: 50px;
 }
 
+/*-----------------------------------------------------------------------------
+  *Front-Office button sizes
+ *-----------------------------------------------------------------------------
+ */
+
+.systoolbtn {
+    margin: 0px;
+    height: 53px;
+    min-width: 36px;
+    max-width: 36px;
+    border-width: 2px;
+    -moz-user-focus: ignore;
+    -moz-appearance: none;
+    -moz-border-radius: 4px;
+}
+
+.systoolbtn label {
+    display: none;
+}
+
+.systoolbtn description {
+    display: none;
+}
+
+/*-----------------------------------------------------------------------------
+  *Front-Office button colors
+ *-----------------------------------------------------------------------------
+ */
+
 .button-gray {
     min-height: 50px;
     -moz-appearance: none;
-    /* background: gray; */
-    background: url(images/gray.png);
+    background-color: #dddddd;
+    /* background: url(images/gray.png); */
     color: black;
 }
 
 .button-blue {
     min-height: 50px;
     -moz-appearance: none;
-    /* background: blue; */
-    background: url(images/blue.png);
+    background-color: blue;
+    /* background: url(images/blue.png); */
     color: white;
 }
 
 .button-red {
     min-height: 50px;
     -moz-appearance: none;
-    /* background: red; */
-    background: url(images/red.png);
+    background-color: red;
+    /* background: url(images/red.png); */
     color: white;
 }
 
@@ -34,16 +70,16 @@
 .button-orange {
     min-height: 50px;
     -moz-appearance: none;
-    /* background: orange; */
-    background: url(images/orange.png);
+    background-color: orange;
+    /* background: url(images/orange.png); */
     color: black;
 }
 
 .button-fuchsia {
     min-height: 50px;
     -moz-appearance: none;
-    /* background:fuchsia; */
-    background: url(images/fuchsia.png);
+    background-color: fuchsia;
+    /* background: url(images/fuchsia.png); */
     color: black;
 }
 
@@ -51,8 +87,8 @@
 .button-teal {
     min-height: 50px;
     -moz-appearance: none;
-    /* background:teal; */
-    background: url(images/teal.png);
+    background-color: teal;
+    /* background: url(images/teal.png); */
     color: white;
 }
 
@@ -60,24 +96,24 @@
 .button-green {
     min-height: 50px;
     -moz-appearance: none;
-    /* background: green; */
-    background: url(images/green.png);
+    background-color: green;
+    /* background: url(images/green.png); */
     color: white;
 }
 
 .button-yellow {
     min-height: 50px;
     -moz-appearance: none;
-    /* background: yellow; */
-    background: url(images/yellow.png);
+    background-color: yellow;
+    /* background: url(images/yellow.png); */
     color: black;
  }
 
  .button-aqua {
      min-height: 50px;
     -moz-appearance: none;
-    /* background: aqua; */
-    background: url(images/aqua.png);
+    background-color: aqua;
+    /* background: url(images/aqua.png); */
     color: black;
  }
 
@@ -85,29 +121,52 @@
 .button-black {
     min-height: 50px;
     -moz-appearance: none;
-    /* background: black; */
-    background: url(images/black.png);
+    background-color: black;
+    /* background: url(images/black.png); */
     color: white;
 }
 
 .button-white {
     min-height: 50px;
     -moz-appearance: none;
-    /* background: white; */
-    background: url(images/white.png);
+    background-color: white;
+    /* background: url(images/white.png); */
     color: black;
 }
-
 
 .button-default[selected], .button-gray[selected], .button-blue[selected], .button-red[selected], .button-orange[selected], .button-teal[selected],
 .button-fuchsia[selected], .button-green[selected], .button-yellow[selected], .button-aqua[selected], .button-black[selected], .button-white[selected] {
     list-style-image: url(chrome://viviecr/skin/images/gtk-yes.png);
 }
 
-#leftPanel #prodscrollablepanel vivibutton[selected] {
-    list-style-image: url(chrome://viviecr/skin/images/none-existent.png);
+/*-----------------------------------------------------------------------------
+  *Front-Office button image sizes
+ *-----------------------------------------------------------------------------
+ */
+
+.noimagebtn image {
+   display: none;
 }
 
+.smallimagebtn image {
+	width: 16px;
+	height: 16px;
+}
+
+.mediumimagebtn image {
+	width: 32px;
+	height: 32px;
+}
+
+.largeimagebtn image {
+	width: 64px;
+	height: 64px;
+}
+
+/*-----------------------------------------------------------------------------
+  *Front-Office font sizes
+ *-----------------------------------------------------------------------------
+ */
 
 .font-xlarge {
     font-weight: bold !important;
@@ -134,3 +193,81 @@
     list-style-image: url(chrome://viviecr/skin/images/gtk-yes.png);
 }
 
+/*-----------------------------------------------------------------------------
+  *Front-Office font sizes
+ *-----------------------------------------------------------------------------
+ */
+
+.catbtn, .plubtn {
+    min-height:50px;
+    min-width: 50px;
+    border: 1px solid;
+    -moz-appearance: none;
+    margin: 2px 2px 2px 2px;
+    padding: 0px;
+
+    -moz-box-pack: center;
+    -moz-user-focus: ignore;
+
+    -moz-border-top-colors: #444;
+    -moz-border-right-colors: #444;
+    -moz-border-bottom-colors: #444;
+    -moz-border-left-colors: #444;
+}
+.catbtn[selected] {
+    /* list-style-image: none; */
+}
+
+.catbtn:active, .plubtn:active {
+    background-position:0pt -60px;
+    border: 2px solid;
+    -moz-border-top-colors: #444 #222;
+    -moz-border-right-colors: #444 #ddd;
+    -moz-border-bottom-colors: #444 #ddd;
+    -moz-border-left-colors: #444 #222;
+}
+.catbtn[disabled=true], .plubtn[disabled=true] {
+    /* background: url(images/btn_gray.png);*/
+    background-position:0pt -64px;
+}
+.catbtn hbox, .plubtn hbox {
+    -moz-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.catbtn description, .plubtn description {
+    text-wrap: normal;
+    word-wrap: break-word;
+/*    white-space: nowrap;
+    text-overflow: ellipsis; */
+}
+
+
+.button_colorpicker {
+    min-height:50px;
+    border: 1px solid;
+    margin: 2px 2px 2px 2px;
+    padding: 0px;
+    -moz-appearance: none;
+    -moz-box-pack: center;
+    -moz-user-focus: ignore;
+    -moz-border-top-colors: #444;
+    -moz-border-right-colors: #444;
+    -moz-border-bottom-colors: #444;
+    -moz-border-left-colors: #444;
+}
+
+.button_fontsizepicker {
+    min-height:50px;
+    border: 1px solid;
+    margin: 2px 2px 2px 2px;
+    padding: 0px;
+    -moz-appearance: none;
+    -moz-box-pack: center;
+    -moz-user-focus: ignore;
+    -moz-border-top-colors: #444;
+    -moz-border-right-colors: #444;
+    -moz-border-bottom-colors: #444;
+    -moz-border-left-colors: #444;
+}

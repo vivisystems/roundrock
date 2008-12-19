@@ -6,6 +6,7 @@
 <!ENTITY plus.tab.pricelevels "Price Levels">
 <!ENTITY plus.tab.linkgroups "Link Groups">
 
+<!ENTITY plus.base.data  "Product Details">
 <!ENTITY plus.base.data1  "Basic Data (Page 1)">
 <!ENTITY plus.base.data2  "Basic Data (Page 2)">
 <!ENTITY plus.setmenu     "Product Set">

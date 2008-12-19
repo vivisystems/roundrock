@@ -1,0 +1,75 @@
+/*--------------------------------------------------------------------------
+ *
+ * DEPARTMENT COLORS
+ *
+ *--------------------------------------------------------------------------
+ */
+
+.department-button-color-default {
+    background: #fcf9f4 url(images/departBtn1.png) 0 50% no-repeat;
+    color: black;
+}
+
+.department-button-color-1 {
+    background: #fcf9f4 url(images/departBtn2.png) 0 50% no-repeat;
+    color: black;
+}
+
+.department-button-color-2 {
+    background: #fcf9f4 url(images/departBtn3.png) 0 50% no-repeat;
+    color: black;
+}
+
+.department-button-color-3 {
+    background: #fcf9f4 url(images/departBtn4.png) 0 50% no-repeat;
+    color: black;
+}
+
+.department-button-color-4 {
+    background: #fcf9f4 url(images/departBtn5.png) 0 50% no-repeat;
+    color: black;
+}
+
+.department-button-color-5 {
+    background: #fcf9f4 url(images/departBtn6.png) 0 50% no-repeat;
+    color: black;
+}
+
+.department-button-color-6 {
+    background: #fcf9f4 url(images/departBtn7.png) 0 50% no-repeat;
+    color: black;
+}
+
+.department-button-color-7 {
+    background: #fcf9f4 url(images/departBtn8.png) 0 50% no-repeat;
+    color: black;
+}
+
+.department-button-color-8 {
+    background: #fcf9f4 url(images/departBtn9.png) 0 50% no-repeat;
+    color: black;
+ }
+
+.department-button-color-9 {
+    background: #fcf9f4 url(images/departBtn10.png) 0 50% no-repeat;
+    color: black;
+}
+
+.department-button-color-10 {
+    background: #fcf9f4 url(images/departBtn11.png) 0 50% no-repeat;
+    color: black;
+}
+
+.department-button-color-11 {
+    background: #fcf9f4 url(images/departBtn12.png) 0 50% no-repeat;
+    color: black;
+}
+
+.department-button-color-default[selected], .department-button-color-1[selected],
+.department-button-color-2[selected], .department-button-color-3[selected],
+.department-button-color-4[selected], .department-button-color-5[selected],
+.department-button-color-6[selected], .department-button-color-7[selected],
+.department-button-color-8[selected], .department-button-color-9[selected],
+.department-button-color-10[selected], .department-button-color-11[selected] {
+    list-style-image: url(chrome://viviecr/skin/images/gtk-yes.png);
+}
