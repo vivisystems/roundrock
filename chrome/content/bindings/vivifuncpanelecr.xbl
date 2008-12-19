@@ -1539,9 +1539,6 @@
                     var btnstylemap = this.getPageButtonstyles(page);
                     var btnfontsizemap = this.getPageButtonfontsizes(page);
                     
-                    var fontsize_prefix = this.getAttribute('fontsize_prefix') || 'font-';
-                    var color_prefix = this.getAttribute('color_prefix') || 'button-';
-
                     var defaultButtonColor = GeckoJS.Configure.read('vivipos.fec.ui.functionpanel.button.defaultcolor');
                     var defaultButtonFontsize = GeckoJS.Configure.read('vivipos.fec.ui.functionpanel.button.defaultfontsize');
 <!--
@@ -1571,14 +1568,13 @@
 
                         //GREUtils.log('[KEYMAP]: looking up buttonstylemap for button <' + btnid + '>');
                         var btnstyles = (btnstylemap && (btnid in btnstylemap)) ? btnstylemap[btnid].split(',') : [];
-                        btnstyles = btnstyles.map(function(style) {return color_prefix + style;});
 
                         //GREUtils.log('[KEYMAP]: found button style entry <' + btnstyles + '> (' + btnstyles.length + ')');
                         if ((btnstyles.length == 0) && defaultButtonColor) btnstyles = defaultButtonColor.split(',');
                         
                         //GREUtils.log('[KEYMAP]: looking up buttonfontsizemap for button <' + btnid + '>');
                         var btnfontsizes = (btnfontsizemap && (btnid in btnfontsizemap)) ? btnfontsizemap[btnid].split(',') : [];
-                        btnfontsizes = btnfontsizes.map(function(size) {return fontsize_prefix + size;});
+                        btnfontsizes = btnfontsizes.map(function(size) {return 'font-' + size});
 
                         //GREUtils.log('[KEYMAP]: found button fontsize entry <' + btnfontsizes + '> (' + btnfontsizes.length + ')');
                         if ((btnfontsizes.length == 0) && defaultButtonFontsize) btnfontsizes = defaultButtonFontsize.split(',');
