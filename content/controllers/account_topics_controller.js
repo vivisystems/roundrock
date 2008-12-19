@@ -6,7 +6,7 @@
     // GeckoJS.define('ViviPOS.JobsController');
 
     GeckoJS.Controller.extend( {
-        name: 'Accounts',
+        name: 'AccountTopics',
         scaffold: true,
 
         _listObj: null,
@@ -14,7 +14,7 @@
 
         getListObj: function() {
             if(this._listObj == null) {
-                this._listObj = document.getElementById('accountscrollablepanel');
+                this._listObj = document.getElementById('topicscrollablepanel');
             }
             return this._listObj;
         },
@@ -76,13 +76,13 @@
 
         load: function(data) {
             // this.requestCommand('list', {conditions: "type='in'"});
-            this.requestCommand('list', {conditions: ""});
+            this.requestCommand('list');
         },
 
         select: function(index){
             if (index >= 0) {
-                var account = this._listDatas[index];
-                this.requestCommand('view', account.id);
+                var topic = this._listDatas[index];
+                this.requestCommand('view', topic.id);
                 this._listObj.selectedIndex = index;
             }
         }
