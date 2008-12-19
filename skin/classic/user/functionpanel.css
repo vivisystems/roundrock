@@ -67,7 +67,7 @@
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-background-clip: border;
-    border: 2px solid;
+    border: 0px solid;
     background: #e1ddd2;
 }
 
