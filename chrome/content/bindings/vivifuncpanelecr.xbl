@@ -1028,7 +1028,7 @@
                     else {
                         stack = this._layoutStackMap.get(key);
                     }
-                    // GREUtils.log('[GetLayoutStack]: layout <' + key + '>, stack <' + stack + '>');
+                    GREUtils.log('[GetLayoutStack]: layout <' + key + '>, stack <' + stack + '>');
                     return stack;
                 ]]>
                 </body>
@@ -1192,8 +1192,8 @@
                     var mode = this.getAttribute('mode');
                     var dir = this.getAttribute('dir');
 
-                    //GREUtils.log('[STANDARD]: rendering standard layout with <r=' + r + ',c=' + c + '>x<cellWidth=' + cellWidth + ',cellHeight=' + cellHeight + '>');
-                    //GREUtils.log('[STANDARD]: with mode <' + mode + '> and dir <' + dir + '>');
+                    GREUtils.log('[STANDARD]: rendering standard layout with <r=' + r + ',c=' + c + '>x<cellWidth=' + cellWidth + ',cellHeight=' + cellHeight + '>');
+                    GREUtils.log('[STANDARD]: with mode <' + mode + '> and dir <' + dir + '>');
 
                     for (var i = 0; i < r; i++) {
                         posY = i * (cellHeight + vs);
@@ -1238,8 +1238,8 @@
                     var mode = this.getAttribute('mode');
                     var dir = this.dir;
 
-                    //GREUtils.log('[CUSTOM]: rendering custom layout with <r=' + r + ',c=' + c + '>x<cellWidth=' + cellWidth + ',cellHeight=' + cellHeight + '>');
-                    //GREUtils.log('[CUSTOM]: with mode <' + mode + '> and dir <' + dir + '>');
+                    GREUtils.log('[CUSTOM]: rendering custom layout with <r=' + r + ',c=' + c + '>x<cellWidth=' + cellWidth + ',cellHeight=' + cellHeight + '>');
+                    GREUtils.log('[CUSTOM]: with mode <' + mode + '> and dir <' + dir + '>');
 
                     for (var i = 0; i < layout.length; i++) {
                         entry = layout[i].split(',');
@@ -1574,10 +1574,10 @@
                         
                         //GREUtils.log('[KEYMAP]: looking up buttonfontsizemap for button <' + btnid + '>');
                         var btnfontsizes = (btnfontsizemap && (btnid in btnfontsizemap)) ? btnfontsizemap[btnid].split(',') : [];
-                        btnfontsizes = btnfontsizes.map(function(size) {return 'font-' + size});
 
                         //GREUtils.log('[KEYMAP]: found button fontsize entry <' + btnfontsizes + '> (' + btnfontsizes.length + ')');
                         if ((btnfontsizes.length == 0) && defaultButtonFontsize) btnfontsizes = defaultButtonFontsize.split(',');
+                        btnfontsizes = btnfontsizes.map(function(size) {return 'font-' + size});
                         
                         if ((mode == 'configure') || (mode == 'noop')) {
                             if (mode == 'noop') disabledFlag = true;
