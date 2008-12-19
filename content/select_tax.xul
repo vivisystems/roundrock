@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE window SYSTEM "chrome://viviecr/locale/select_tax.dtd">
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % SelectTax SYSTEM "chrome://viviecr/locale/select_tax.dtd">
+  %SelectTax;
+  ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
-<window id="numpad" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<window title="&selecttax.title;"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
     <script type="application/x-javascript" src="chrome://vivipos/content/libs/jquery-1.2.6.js" />
     <script type="application/x-javascript">
@@ -14,27 +21,24 @@
     </script>
     <script type="application/x-javascript" src="chrome://viviecr/content/select_tax.js" />
 
-    <box flex="1" class="mainpanel1 pad40">
-        <vbox flex="1" class="panel40">
-            <vbox flex="1" class="footlogo">
-                    <groupbox>
-                    <caption label="&selecttax.title;" />
-                    <label id="rate" hidden="true" value="" />
-                    <hbox>
-                        <viviscrollablebuttonpanel dir="reverse" id="taxscrollablepanel" flex="1" cols="3" rows="7" labelField="name"
-                                                   oncommand="$do('select',this.selectedIndex, 'SelectTax');"
-                                                   class="catescrollablepanel"
-                                                   buttonClass="catbtn button-radius button-white font-medium"
-                                                   scrollUpClass="rightprevbtn button-blue"
-                                                   scrollDownClass="rightnextbtn button-blue">
-                            <spacer flex="1"/>
-                        </viviscrollablebuttonpanel>
-                    </hbox>
-                </groupbox>
-            </vbox>
-        </vbox>
-    </box>
-  
-    <hbox id="okCancelButtonsRight" class="dialogbtns" />
+    <groupbox class="main-dialog" flex="1">
+        <caption label="&selecttax.title;" />
+        <label id="rate" hidden="true" value="" />
+        <hbox>
+            <viviscrollablebuttonpanel dir="reverse" id="taxscrollablepanel" flex="1" cols="3" rows="7" labelField="name"
+                                       oncommand="$do('select',this.selectedIndex, 'SelectTax');"
+                                       class="catescrollablepanel"
+                                       buttonClass="catbtn button-radius font-medium"
+                                       scrollUpClass="rightprevbtn button-blue"
+                                       scrollDownClass="rightnextbtn button-blue">
+                <spacer flex="1"/>
+            </viviscrollablebuttonpanel>
+        </hbox>
+    </groupbox>
+
+    <hbox id="dialogButtons" class="dialogbtns" pack="center">
+        <button class="right exit-dialog" id="ok" label="&dialog.okButton.label;" default="true" oncommand="doOKButton();"/>
+        <button class="exit-dialog" id="cancel" label="&dialog.cancelButton.label;" default="false" oncommand="doCancelButton();"/>
+    </hbox>
 
 </window>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet href="chrome://viviecr/skin/button.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/cart.css" type="text/css"?>
 
 <!DOCTYPE window SYSTEM "chrome://viviecr/locale/cart.dtd">
@@ -16,8 +16,8 @@
                                 fields="name,current_qty,current_price,current_subtotal,current_tax"
                                 rows="7" scrollUpClass="cartScrollUp" scrollDownClass="cartScrollDown" >
                 <vbox id="cartsidebar">
-                    <vivibutton id="btnPlus" label="&cart.button.plus;" oncommand="$do('modifyQty', 'plus', 'Cart');"  class="systoolbtn mediumimagebtn itemplusbtn"/>
-                    <vivibutton id="btnMinus" label="&cart.button.minus;" oncommand="$do('modifyQty', 'minus', 'Cart');"  class="systoolbtn mediumimagebtn itemminusbtn"/>
+                    <vivibutton id="btnPlus" label="&cart.button.plus;" oncommand="$do('modifyQty', 'plus', 'Cart');"  class="systoolbtn mediumimagebtn plusbtn"/>
+                    <vivibutton id="btnMinus" label="&cart.button.minus;" oncommand="$do('modifyQty', 'minus', 'Cart');"  class="systoolbtn mediumimagebtn minusbtn"/>
                     <vivibutton id="btnPayment" label="&cart.button.payments;" oncommand="$do('showPaymentStatus', null, 'Cart');"  class="systoolbtn mediumimagebtn paymentdetailsbtn"/>
                 </vbox>
             </viviscrollabletree>

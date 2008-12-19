@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE overlay [
-  <!ENTITY % Overlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
-  %Overlay;
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
   <!ENTITY % Taxes SYSTEM "chrome://viviecr/locale/taxes.dtd">
   %Taxes;
   ]>
@@ -10,114 +10,111 @@
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
-<window id="pluprop" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<window  title="&taxes.title;"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/bootstrap.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/taxes.js" />
 
-    <box flex="1" class="mainpanel1 pad40">
-        <vbox flex="1" class="panel40">
-            <hbox flex="1" class="footlogo">
-                <groupbox>
-                    <caption label="&taxes.title;" />
+    <hbox flex="1" class="main-dialog">
+        <groupbox>
+            <caption label="&taxes.title;" />
 
-                    <vbox>
-                        <viviscrollablebuttonpanel dir="reverse" id="taxscrollablepanel" flex="1" cols="1" rows="7" labelField="name"
-                                                   ensureVisible="true"
-                                                   oncommand="$do('select',this.selectedIndex, 'Taxes');"
-                                                   class="catescrollablepanel"
-                                                   buttonClass="catbtn button-radius button-white font-medium" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue"
-                                                   style="width: 240px;" >
-                            <spacer flex="1" />
-                        </viviscrollablebuttonpanel>
+            <vbox>
+                <viviscrollablebuttonpanel dir="reverse" id="taxscrollablepanel" flex="1" cols="1" rows="7" labelField="name"
+                                           ensureVisible="true"
+                                           oncommand="$do('select',this.selectedIndex, 'Taxes');"
+                                           class="catescrollablepanel"
+                                           buttonClass="catbtn button-radius button-white font-medium" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue"
+                                           style="width: 240px;" >
+                    <spacer flex="1" />
+                </viviscrollablebuttonpanel>
 
-                        <spacer style="height: 10px;" />
-                        <hbox>
-                            <button id="add_tax" label="&taxes.button.action.add;" disabled="false" class="editbtns" oncommand="$do('add', null, 'Taxes');" />
-                            <spacer flex="1" />
-                            <button id="modify_tax" label="&taxes.button.action.modify;" disabled="true" class="editbtns" oncommand="$do('update', null, 'Taxes');" />
-                            <button id="delete_tax" label="&taxes.button.action.delete;" disabled="true" class="editbtns" oncommand="$do('remove', null, 'Taxes');" />
-                        </hbox>
+                <spacer style="height: 10px;" />
+                <hbox>
+                    <button id="add_tax" label="&taxes.button.action.add;" disabled="false" class="editbtns" oncommand="$do('add', null, 'Taxes');" />
+                    <spacer flex="1" />
+                    <button id="modify_tax" label="&taxes.button.action.modify;" disabled="true" class="editbtns" oncommand="$do('update', null, 'Taxes');" />
+                    <button id="delete_tax" label="&taxes.button.action.delete;" disabled="true" class="editbtns" oncommand="$do('remove', null, 'Taxes');" />
+                </hbox>
 
-                    </vbox>
-                </groupbox>
-                <spacer style="width: 30px;" />
-                <groupbox flex="1">
-                    <caption label="&taxes.details;" />
+            </vbox>
+        </groupbox>
+        <spacer style="width: 30px;" />
+        <groupbox flex="1">
+            <caption label="&taxes.details;" />
+            <vbox>
+                <grid>
+                    <rows>
+                        <row>
+                            <label id="tax_id" hidden="true" form="taxForm" name="id" value="" />
+                            <label  value="&taxes.code;"/>
+                            <textbox id="tax_no" form="taxForm" name="no" value="" default="" size="2" maxsize="2" readonly="true"/>
+                        </row>
+
+                        <row>
+                            <label  value="&taxes.type;"/>
+                            <textbox id="tax_type" form="taxForm" name="type" value="" default="ADDON" size="15" readonly="true"/>
+                        </row>
+
+                        <row>
+                            <label  value="&taxes.name;" control="tax_name"/>
+                            <textbox id="tax_name" form="taxForm" name="name" value="" default="" size="15"
+                                     onfocus="this.select()"
+                                     oninput="$do('validateForm', null, 'Taxes')"/>
+                        </row>
+
+                    </rows>
+                </grid>
+
+
+                <deck id="prop_deck">
+
                     <vbox>
                         <grid>
                             <rows>
                                 <row>
-                                    <label id="tax_id" hidden="true" form="taxForm" name="id" value="" />
-                                    <label  value="&taxes.code;"/>
-                                    <textbox id="tax_no" form="taxForm" name="no" value="" default="" size="2" maxsize="2" readonly="true"/>
-                                </row>
-
-                                <row>
-                                    <label  value="&taxes.type;"/>
-                                    <textbox id="tax_type" form="taxForm" name="type" value="" default="ADDON" size="15" readonly="true"/>
-                                </row>
-
-                                <row>
-                                    <label  value="&taxes.name;" control="tax_name"/>
-                                    <textbox id="tax_name" form="taxForm" name="name" value="" default="" size="15"
+                                    <label value="&taxes.rate;" control="tax_rate"/>
+                                    <textbox id="tax_rate" form="taxForm" name="rate" default="0" size="15"
                                              onfocus="this.select()"
                                              oninput="$do('validateForm', null, 'Taxes')"/>
                                 </row>
 
+                                <row>
+                                    <label value="&taxes.rate_type;"/>
+                                    <radiogroup id="tax_rate_type" form="taxForm" name="rate_type" default="%">
+                                        <radio id="tax_rate_type_percentage" label="&taxes.rate_type.percentage;" value="%"/>
+                                        <radio id="tax_rate_type_amount" label="&taxes.rate_type.fixed_amount;" value="$"/>
+                                    </radiogroup>
+                                </row>
+
+                                <row>
+                                    <label value="&taxes.threshold;" control="tax_threshold"/>
+                                    <textbox id="tax_threshold" form="taxForm" name="threshold" default="0" size="10"
+                                             type="number" decimalplaces="Infinity" hidespinbuttons="true" onfocus="this.select()"
+                                    />
+                                </row>
                             </rows>
                         </grid>
-
-
-                        <deck id="prop_deck">
-
-                            <vbox>
-                                <grid>
-                                    <rows>
-                                        <row>
-                                            <label value="&taxes.rate;" control="tax_rate"/>
-                                            <textbox id="tax_rate" form="taxForm" name="rate" default="0" size="15"
-                                                     onfocus="this.select()"
-                                                     oninput="$do('validateForm', null, 'Taxes')"/>
-                                        </row>
-
-                                        <row>
-                                            <label value="&taxes.rate_type;"/>
-                                            <radiogroup id="tax_rate_type" form="taxForm" name="rate_type" default="%">
-                                                <radio id="tax_rate_type_percentage" label="&taxes.rate_type.percentage;" value="%"/>
-                                                <radio id="tax_rate_type_amount" label="&taxes.rate_type.fixed_amount;" value="$"/>
-                                            </radiogroup>
-                                        </row>
-
-                                        <row>
-                                            <label value="&taxes.threshold;" control="tax_threshold"/>
-                                            <textbox id="tax_threshold" form="taxForm" name="threshold" default="0" size="10"
-                                                     type="number" decimalplaces="Infinity" hidespinbuttons="true" onfocus="this.select()"
-                                            />
-                                        </row>
-                                    </rows>
-                                </grid>
-                            </vbox>
-                            <vbox>
-                                <viviscrollablebuttonpanel id="addontaxscrollablepanel" form="taxForm" name="combine_tax" default="" seltype="multiple" flex="1" cols="1" rows="7" labelField="name"
-                                                           oncommand=""
-                                                           class="catescrollablepanel"
-                                                           buttonClass="catbtn button-radius button-white font-medium"
-                                                           scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue">
-                                    <spacer flex="1" />
-                                </viviscrollablebuttonpanel>
-                            </vbox>
-                        </deck>
-                       
-
                     </vbox>
-                </groupbox>
+                    <vbox>
+                        <viviscrollablebuttonpanel id="addontaxscrollablepanel" form="taxForm" name="combine_tax" default="" seltype="multiple" flex="1" cols="1" rows="7" labelField="name"
+                                                   oncommand=""
+                                                   class="catescrollablepanel"
+                                                   buttonClass="catbtn button-radius button-white font-medium"
+                                                   scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue">
+                            <spacer flex="1" />
+                        </viviscrollablebuttonpanel>
+                    </vbox>
+                </deck>
 
-            </hbox>
-        </vbox>
 
+            </vbox>
+        </groupbox>
 
-    </box>
+    </hbox>
     
     <hbox id="dialogButtons" class="dialogbtns" pack="center">
         <button class="right exit-dialog" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>

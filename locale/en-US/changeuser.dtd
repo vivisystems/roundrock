@@ -1,3 +1,4 @@
+<!ENTITY    changeuser.title             "User Sign In">
 <!ENTITY    changeuser.keylabel.clear             "CLEAR">
 <!ENTITY    changeuser.keylabel.del            "DEL">
 <!ENTITY    changeuser.keylabel.password             "Passcode:">

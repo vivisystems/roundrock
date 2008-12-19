@@ -59,7 +59,7 @@
 }
 
 /*-----------------------------------------------------------------------------
- * Number Pad numeric keypad
+ * Front End Number Pad numeric keypad
  *-----------------------------------------------------------------------------
  */
 
@@ -72,7 +72,7 @@
 	padding: 27px 10px 10px 5px;
 }
 
-.numberpad sendkeybutton{
+.fe-numberpad sendkeybutton{
     min-width:76px;
     max-width:76px;
     width: 76px;
@@ -90,7 +90,7 @@
     color: white;
 }
 
-.numberpad sendkeybutton:active{
+.fe-numberpad sendkeybutton:active{
 	background: transparent url(images/numbtn_a.png) center center no-repeat;
 }
 

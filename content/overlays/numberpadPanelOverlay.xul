@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet href="chrome://viviecr/skin/buttons.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/numberpad.css" type="text/css"?>
 
 <!DOCTYPE window SYSTEM "chrome://viviecr/locale/numberpad.dtd">
@@ -35,7 +35,7 @@
                     <vivibutton id="trayBtn" label="&numberpad.keylabel.tray;" oncommand="$do('addMarker', 'tray', 'Cart');" class="fixedbtn" roles="acl_register_tray_marker" action="display"/>
                 </vbox>
 
-                <numberpad id="multinumberpad" class="numberpad" target="null" onkeypress="$do('keypress', event, 'Keypad');" />
+                <numberpad id="multinumberpad" class="fe-numberpad" target="null" onkeypress="$do('keypress', event, 'Keypad');" />
             </hbox>
 
         </vbox>

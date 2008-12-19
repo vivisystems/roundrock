@@ -403,7 +403,7 @@
             var deptPanel = document.getElementById('catescrollablepanel');
             var pluPanel = document.getElementById('prodscrollablepanel');
             var fnPanel = document.getElementById('functionPanel');
-            var toolbarPanel = document.getElementById('numberpadPanelContainer');
+            var toolbarPanel = document.getElementById('fe-numberpadPanelContainer');
             var leftPanel = document.getElementById('leftPanel');
             var productPanel = document.getElementById('productPanel');
             var cartList = document.getElementById('cartList');

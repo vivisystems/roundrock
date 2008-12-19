@@ -22,7 +22,7 @@
             if (!groups) {
                 var condGroupModel = new CondimentGroupModel();
                 var condGroups = condGroupModel.find('all', {
-                    order: "no"
+                    order: "name"
                 });
                 GeckoJS.Session.add('condGroups', condGroups);
                 groups = GeckoJS.Session.get('condGroups');

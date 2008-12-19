@@ -2,7 +2,7 @@
 <!DOCTYPE window SYSTEM "chrome://viviecr/locale/fecpos.dtd">
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/vivipos.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/buttons.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 

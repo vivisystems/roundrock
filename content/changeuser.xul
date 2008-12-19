@@ -3,7 +3,9 @@
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/changeuser.css" type="text/css"?>
 
-<window id="changeuser" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<window title="&changeuser.title;"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
     <keyset id="keyset_extensions">
     <key id="key_enter" keycode="VK_RETURN" oncommand="$do('checkUser', null, 'ChangeUser');" />
@@ -12,38 +14,36 @@
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/changeuser.js" />
 
-    <box flex="1" class="signinpanel">
-        <vbox  id="" pack="start" class="hboxb" flex="1">
-            <hbox>
-                <vbox style="width: 350px;">
-                    <viviscrollablebuttonpanel id="userscrollablepanel" dir="reverse" flex="1" cols="1" rows="5" seltype="single" labelField="displayname"
-                                               oncommand="$do('validateForm', null, 'ChangeUser')"
-                                               class="userscrollablepanel" scrollUpClass="rightprevbtn" scrollDownClass="rightnextbtn" buttonClass="userbtn"
-                                               >
-                        <spacer flex="1"/>
-                    </viviscrollablebuttonpanel>
-                </vbox>
-                <vbox>
-	                <label value="User Sign in" class="PageTitle" />
-	                <hbox class="numpad">
-	                        <numberpad id="multinumberpad" class="numberpad" target="user_password"/>
-	                        <vbox>
-                                <vivibutton id="delBtn" label="&changeuser.keylabel.del;" class="systembtn" />
-                                <vivibutton id="clearBtn" label="&changeuser.keylabel.clear;" class="systembtn"/>
-	                        </vbox>
-	                </hbox>
-                </vbox>
+    <vbox id="signinpanel" pack="start" class="hboxb" flex="1">
+        <hbox>
+            <vbox style="width: 350px;">
+                <viviscrollablebuttonpanel id="userscrollablepanel" dir="reverse" flex="1" cols="1" rows="5" seltype="single" labelField="displayname"
+                                           oncommand="$do('validateForm', null, 'ChangeUser')"
+                                           class="userscrollablepanel" scrollUpClass="rightprevbtn" scrollDownClass="rightnextbtn" buttonClass="userbtn"
+                                           >
+                    <spacer flex="1"/>
+                </viviscrollablebuttonpanel>
+            </vbox>
+            <vbox>
+                <label value="&changeuser.title;" class="PageTitle" />
+                <hbox class="numpad">
+                        <numberpad id="multinumberpad" class="numberpad" target="user_password"/>
+                        <vbox>
+                            <vivibutton id="delBtn" label="&changeuser.keylabel.del;" class="systembtn" />
+                            <vivibutton id="clearBtn" label="&changeuser.keylabel.clear;" class="systembtn"/>
+                        </vbox>
+                </hbox>
+            </vbox>
 
-            </hbox>
-            <hbox pack="center" class="PwPad">
-		<hbox id="quickLogin" class="QuickLogin"></hbox>
-		<label value="&changeuser.keylabel.password;" class="pwlabel" />
+        </hbox>
+        <hbox pack="center" class="PwPad">
+            <hbox id="quickLogin" class="QuickLogin"></hbox>
+            <label value="&changeuser.keylabel.password;" class="pwlabel" />
                 <vbox>
                     <textbox id="user_password" type="password" value="" class="pwBox"  oninput="$do('validateForm', null, 'ChangeUser')"/>
                     <label id="user_name" value="" class="userlabel"/>
                 </vbox>
                 <button id="signinBtn" label="&changeuser.keylabel.ok;" class="genbtn" oncommand="$do('checkUser', null, 'ChangeUser');" />
-            </hbox>
-        </vbox>
-    </box>
+        </hbox>
+    </vbox>
 </window>

@@ -730,8 +730,8 @@
                 input0:data.type,
                 input1:null
             };
-            window.openDialog(aURL, _('Credit Card Remark'), features, _('Credit Card Remark'), _('Payment:') + data.payment,
-                _('Card Type:'), _('Card Remark:'), inputObj);
+            window.openDialog(aURL, _('Credit Card Remark'), features, _('Credit Card Remark'), _('Payment') + data.payment,
+                _('Card Type'), _('Card Remark'), inputObj);
 
             if (inputObj.ok) {
                 return inputObj;
@@ -747,8 +747,8 @@
                 input0:data.type,
                 input1:null
             };
-            window.openDialog(aURL, _('Gift Card Remark'), features, _('Gift Card Remark'), _('Payment:') + data.payment,
-                _('Card Type:'), _('Card Remark:'), inputObj);
+            window.openDialog(aURL, _('Gift Card Remark'), features, _('Gift Card Remark'), _('Payment') + data.payment,
+                _('Card Type'), _('Card Remark'), inputObj);
 
             if (inputObj.ok) {
                 return inputObj;
@@ -773,6 +773,7 @@
                 var memo2 = inputObj.input1 || '';
                 this.addPayment('creditcard', payment, memo1, memo2);
             }
+            this.clear();
 
         },
 
@@ -790,8 +791,9 @@
             if (inputObj) {
                 var memo1 = inputObj.input0 || '';
                 var memo2 = inputObj.input1 || '';
-                this.addPayment('creditcard', payment, memo1, memo2);
+                this.addPayment('giftcard', payment, memo1, memo2);
             }
+            this.clear();
 
         },
 

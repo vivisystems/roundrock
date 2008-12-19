@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE overlay [
-  <!ENTITY % Overlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
-  %Overlay;
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
   <!ENTITY % PLUGroups SYSTEM "chrome://viviecr/locale/plugroups.dtd">
   %PLUGroups;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/buttons.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/plugroup-button-colors.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
@@ -17,60 +16,52 @@
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/plugroups.js" />
 
-    <box flex="1" class="mainpanel1 pad40">
-        <vbox flex="1" class="panel40">
-            <vbox flex="1" class="footlogo">
+    <groupbox class="main-dialog" flex="1">
+        <caption label="&plugroups.title;" />
 
-                    <groupbox flex="1">
-                        <caption label="&plugroups.title;" />
+        <hbox flex="1">
+            <viviscrollablebuttonpanel dir="reverse" id="groupscrollablepanel" flex="1" cols="3" rows="8" labelField="name" imageField="no"
+                                       oncommand="$do('select', null, 'Plugroups');"
+                                       ensureVisible="true"
+                                       class="catescrollablepanel"
+                                       buttonClass="catbtn button-radius"
+                                       scrollUpClass="rightprevbtn button-blue"
+                                       scrollDownClass="rightnextbtn button-blue">
+                <spacer flex="1"/>
+            </viviscrollablebuttonpanel>
 
-                        <hbox flex="1">
-                            <viviscrollablebuttonpanel dir="reverse" id="groupscrollablepanel" flex="1" cols="3" rows="8" labelField="name" imageField="no"
-                                                       oncommand="$do('select', null, 'Plugroups');"
-                                                       ensureVisible="true"
-                                                       class="catescrollablepanel"
-                                                       buttonClass="catbtn button-radius"
-                                                       scrollUpClass="rightprevbtn button-blue"
-                                                       scrollDownClass="rightnextbtn button-blue">
-                                <spacer flex="1"/>
-                            </viviscrollablebuttonpanel>
+            <spacer style="width: 10px;" />
+            <separator class="groove-thin"/>
 
-                            <spacer style="width: 10px;" />
-                            <separator class="groove-thin"/>
-
-                            <vbox>
-                                <hbox align="center">
-                                    <label id="plugroup_id" hidden="true" form="plugroupForm" name="id" value="" />
-                                    <label value="&plugroups.name;" control="plugroup_name"/>
-                                    <textbox id="plugroup_name" value="" form="plugroupForm" name="name" oninput="$do('validateForm', null, 'Plugroups')" default="" onfocus="this.select()"/>
-                                </hbox>
-                                <checkbox id="visible" value="true" label="&plugroups.visible;" form="plugroupForm" name="visible" default="true"/>
-                                <groupbox>
-                                    <caption label="&plugroups.button.color;" />
-                                    <button_colorpicker id="dept_button_color" form="plugroupForm" name="button_color"
-                                                        buttonClass="catbtn button-radius"
-                                                        class-prefix="plugroup-button-color-"
-                                                        default="plugroup-button-color-default"/>
-                                </groupbox>
-                                <groupbox>
-                                    <caption label="&plugroups.font.size;" />
-                                    <button_fontsizepicker id="dept_font_size" form="plugroupForm" name="font_size"
-                                                           buttonClass="catbtn button-white button-radius"
-                                                           default="medium"/>
-                                </groupbox>
-                                <spacer style="height: 10px;" />
-                                <hbox>
-                                    <button id="add_plugroup" label="&plugroups.button.action.add;" disabled="false" class="editbtns" oncommand="$do('add', null, 'Plugroups');" />
-                                    <button id="modify_plugroup" label="&plugroups.button.action.modify;" disabled="false" class="editbtns" oncommand="$do('update', null, 'Plugroups');" />
-                                    <button id="delete_plugroup" label="&plugroups.button.action.delete;" disabled="false" class="editbtns" oncommand="$do('delete', null, 'Plugroups');" />
-                                </hbox>
-                            </vbox>
-                        </hbox>
-                    </groupbox>
-
+            <vbox>
+                <hbox align="center">
+                    <label id="plugroup_id" hidden="true" form="plugroupForm" name="id" value="" />
+                    <label value="&plugroups.name;" control="plugroup_name"/>
+                    <textbox id="plugroup_name" value="" form="plugroupForm" name="name" oninput="$do('validateForm', null, 'Plugroups')" default="" onfocus="this.select()"/>
+                </hbox>
+                <checkbox id="visible" value="true" label="&plugroups.visible;" form="plugroupForm" name="visible" default="true"/>
+                <groupbox>
+                    <caption label="&plugroups.button.color;" />
+                    <button_colorpicker id="dept_button_color" form="plugroupForm" name="button_color"
+                                        buttonClass="catbtn button-radius"
+                                        class-prefix="plugroup-button-color-"
+                                        default="plugroup-button-color-default"/>
+                </groupbox>
+                <groupbox>
+                    <caption label="&plugroups.font.size;" />
+                    <button_fontsizepicker id="dept_font_size" form="plugroupForm" name="font_size"
+                                           buttonClass="catbtn button-white button-radius"
+                                           default="medium"/>
+                </groupbox>
+                <spacer style="height: 10px;" />
+                <hbox>
+                    <button id="add_plugroup" label="&plugroups.button.action.add;" disabled="false" class="editbtns" oncommand="$do('add', null, 'Plugroups');" />
+                    <button id="modify_plugroup" label="&plugroups.button.action.modify;" disabled="false" class="editbtns" oncommand="$do('update', null, 'Plugroups');" />
+                    <button id="delete_plugroup" label="&plugroups.button.action.delete;" disabled="false" class="editbtns" oncommand="$do('delete', null, 'Plugroups');" />
+                </hbox>
             </vbox>
-        </vbox>
-    </box>
+        </hbox>
+    </groupbox>
 
     <hbox id="dialogButtons" class="dialogbtns" pack="center">
         <button class="right exit-dialog" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>

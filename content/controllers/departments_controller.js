@@ -257,16 +257,15 @@
             var categories = cateModel.find('all', {
                 order: 'no'
             });
-
             GeckoJS.Session.set('categories');
             this.deptPanelView.updateCategories();
-            var data = this.deptPanelView.data;
+            var data = GeckoJS.Session.get('categories');
 
             switch(mode) {
 
                 case 'add':
                     for (var i = 0; i < data.length; i++) {
-                        if (data[i] == id) {
+                        if (data[i].id == id) {
                             return i;
                         }
                     }

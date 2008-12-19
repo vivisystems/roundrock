@@ -361,7 +361,7 @@
 
             this.query('#condiment_name').val('');
             this.query('#condiment_price').val('');
-            this.query('#condiment_button_color').val('condimentcolor-default');
+            this.query('#condiment_button_color').val('condiment-button-color-default');
             this.query('#condiment_font_size').val('medium');
         },
 

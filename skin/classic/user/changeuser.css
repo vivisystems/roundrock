@@ -1,14 +1,9 @@
-/* global skin ------------------------------------------------------------- */
-@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
-
-@namespace html url("http://www.w3.org/1999/xhtml");
-
 * {
 	padding: 0px;
 	margin: 0px;
 }
 
-.signinpanel  {
+#signinpanel  {
     width: 800px;
     height: 600px;
     background: #f8f4eb url(images/Signin.jpg) top left no-repeat;

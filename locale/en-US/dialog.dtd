@@ -1,3 +1,4 @@
+<!ENTITY dialog.prompt.title "User Prompt">
 <!ENTITY dialog.okButton.label "OK">
 <!ENTITY dialog.cancelButton.label "CANCEL">
 <!ENTITY dialog.helpButton.label "HELP">

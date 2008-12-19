@@ -9,32 +9,28 @@
 
     <script type="application/x-javascript" src="chrome://viviecr/content/prompt_addpluset.js" />
 
-    <box flex="1" class="mainpanel1 pad40">
-        <vbox flex="1" class="panel40">
-            <groupbox>
-                <caption id="caption0" label="" />
-                <label id="text0" value="" />
-                <grid>
-                    <columns>
-                        <column/>
-                        <column/>
-                    </columns>
-                    <rows>
-                        <row>
-                            <label id="title0" style="width:6em" value="" control="input0"/>
-                            <textbox id="input0" value="" oninput="validateInput()" onfocus="this.select()"/>
-                        </row>
-                        <row>
-                            <label id="title1" style="width:6em" value="" control="input1"/>
-                            <textbox id="input1" value="" oninput="validateInput()" onfocus="this.select()"/>
-                        </row>
-                    </rows>
-                </grid>
-            </groupbox>
-        </vbox>
-    </box>
+    <groupbox class="main-dialog" flex="1">
+        <caption id="dialog-caption" label="" />
+        <label id="text0" value="" />
+        <grid>
+            <columns>
+                <column/>
+                <column/>
+            </columns>
+            <rows>
+                <row>
+                    <label id="title0" style="width:6em" value="" control="input0"/>
+                    <textbox id="input0" value="" oninput="validateInput()" onfocus="this.select()"/>
+                </row>
+                <row>
+                    <label id="title1" style="width:6em" value="" control="input1"/>
+                    <textbox id="input1" value="" oninput="validateInput()" onfocus="this.select()"/>
+                </row>
+            </rows>
+        </grid>
+    </groupbox>
 
-    <hbox id="dialogButtons" class="dialogbtns" pack="center">
+    <hbox id="dialogButtons" class="promptbtns" pack="center">
         <button class="right exit-dialog" id="ok" label="&dialog.okButton.label;" default="true" oncommand="doOKButton();"/>
         <button class="exit-dialog" id="cancel" label="&dialog.cancelButton.label;" default="true" oncommand="doCancelButton();"/>
     </hbox>

@@ -1,3 +1,4 @@
+<!ENTITY    vivifuncpanelecr.title                   "Function Panel Configuration">
 <!ENTITY    vivifuncpanelecr.prefs.tabpanel.general.label                   "General">
 <!ENTITY    vivifuncpanelecr.prefs.tabpanel.general.size.row.label          "Rows:">
 <!ENTITY    vivifuncpanelecr.prefs.tabpanel.general.size.column.label       "Columns:">

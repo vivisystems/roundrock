@@ -11,77 +11,75 @@
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/accounts.js" />
 
-    <box flex="1" class="mainpanel1 pad40">
-        <vbox flex="1" class="panel40">
-            <hbox flex="1" class="footlogo">
-                <groupbox flex="1">
-                    <caption label="Account:" />
-                    <viviscrollabletree id="accountscrollablepanel" flex="1" rows="7" headers="Date,Description,Type,Amount" fields="created,description,type,amount" onclick="$do('select',this.selectedIndex, 'Accounts');"
-                                                        class="prodscrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray">
-                        <spacer flex="1" />
-                    </viviscrollabletree>
+    <vbox flex="1" class="dialog-panel">
+        <hbox flex="1">
+            <groupbox flex="1">
+                <caption label="Account:" />
+                <viviscrollabletree id="accountscrollablepanel" flex="1" rows="7" headers="Date,Description,Type,Amount" fields="created,description,type,amount" onclick="$do('select',this.selectedIndex, 'Accounts');"
+                                                    class="prodscrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray">
+                    <spacer flex="1" />
+                </viviscrollabletree>
 
-                </groupbox>
+            </groupbox>
 
-                <spacer style="width:30px;" />
+            <spacer style="width:30px;" />
+            <vbox>
                 <vbox>
-                    <vbox>
-                        <label id="plu_id" hidden="true" form="productForm" name="id" value="" />
-                        <grid>
-                            <rows>
-                                <row>
-                                    <label value="No:" />
-                                    <label  form="productForm" name="no" />
-                                </row>
+                    <label id="plu_id" hidden="true" form="productForm" name="id" value="" />
+                    <grid>
+                        <rows>
+                            <row>
+                                <label value="No:" />
+                                <label  form="productForm" name="no" />
+                            </row>
 
-                                <row>
-                                    <label value="Name:" />
-                                    <label form="productForm" name="name" />
-                                </row>
-                            </rows>
-                        </grid>
-                        <grid>
-                            <rows>
-                                <row>
-                                    <label value="Stock:" />
-                                    <textbox id="stock" value="" form="productForm" name="stock" size="6" maxsize="6"/>
-                                </row>
+                            <row>
+                                <label value="Name:" />
+                                <label form="productForm" name="name" />
+                            </row>
+                        </rows>
+                    </grid>
+                    <grid>
+                        <rows>
+                            <row>
+                                <label value="Stock:" />
+                                <textbox id="stock" value="" form="productForm" name="stock" size="6" maxsize="6"/>
+                            </row>
 
-                                <row>
-                                    <label value="Min Stock:" />
-                                    <textbox id="min_stock" value="" form="productForm" name="min_stock" size="6" maxsize="6" />
-                                </row>
-                            </rows>
-                        </grid>
-                        <spacer style="height: 10px;" />
-                        <hbox>
-                            <button label="Modify" class="editbtns" oncommand="$do('update', null, 'Stocks');" />
-                        </hbox>
-                    </vbox>
+                            <row>
+                                <label value="Min Stock:" />
+                                <textbox id="min_stock" value="" form="productForm" name="min_stock" size="6" maxsize="6" />
+                            </row>
+                        </rows>
+                    </grid>
                     <spacer style="height: 10px;" />
-                    <separator class="groove-thin"/>
-                    <spacer style="height: 10px;" />
-                    <vbox>
-                        <label value="Search Plu No or Barcode:" />
-                        <textbox id="plu" value="" onchange="$do('searchPlu', this.value, 'Stocks');" />
-                            <!-- textbox id="plu" value=""  / -->
-                        <numberpad id="multinumberpad" class="numberpad"/>
-                    </vbox>
-                    <spacer style="height:10px;" />
-                    <vbox>
-                        <hbox>
-                            <sendkeybutton id="bkeyBtn"  label="DEL"   keyCode='0x08' class="systembtn"  />
-                            <vivibutton id="clearBtn"  label="CLEAR" class="systembtn"/>
-                            <button id="ekeyBtn"  label="ENTER"   oncommand="$do('searchPlu', document.getElementById('plu').value, 'Stocks');" class="systembtn"  />
-                                <!-- sendkeybutton id="ekeyBtn"  label="ENTER"   keyCode='0x0D' target="plu" class="systembtn"  / -->
-                                <!-- button id="ekeyBtn"  label="ENTER" class="systembtn"  / -->
-                        </hbox>
-                    </vbox>
+                    <hbox>
+                        <button label="Modify" class="editbtns" oncommand="$do('update', null, 'Stocks');" />
+                    </hbox>
                 </vbox>
-            </hbox>
-            
-        </vbox>
-    </box>
+                <spacer style="height: 10px;" />
+                <separator class="groove-thin"/>
+                <spacer style="height: 10px;" />
+                <vbox>
+                    <label value="Search Plu No or Barcode:" />
+                    <textbox id="plu" value="" onchange="$do('searchPlu', this.value, 'Stocks');" />
+                        <!-- textbox id="plu" value=""  / -->
+                    <numberpad id="multinumberpad" class="numberpad"/>
+                </vbox>
+                <spacer style="height:10px;" />
+                <vbox>
+                    <hbox>
+                        <sendkeybutton id="bkeyBtn"  label="DEL"   keyCode='0x08' class="systembtn"  />
+                        <vivibutton id="clearBtn"  label="CLEAR" class="systembtn"/>
+                        <button id="ekeyBtn"  label="ENTER"   oncommand="$do('searchPlu', document.getElementById('plu').value, 'Stocks');" class="systembtn"  />
+                            <!-- sendkeybutton id="ekeyBtn"  label="ENTER"   keyCode='0x0D' target="plu" class="systembtn"  / -->
+                            <!-- button id="ekeyBtn"  label="ENTER" class="systembtn"  / -->
+                    </hbox>
+                </vbox>
+            </vbox>
+        </hbox>
+
+    </vbox>
   
     <hbox id="okCancelButtonsRight" class="dialogbtns" />
 

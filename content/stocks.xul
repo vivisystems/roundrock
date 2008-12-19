@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE overlay [
-  <!ENTITY % Overlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
-  %Overlay;
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
   <!ENTITY % Stocks SYSTEM "chrome://viviecr/locale/stocks.dtd">
   %Stocks;
   ]>
@@ -19,76 +19,69 @@
     <script type="application/x-javascript" src="chrome://viviecr/content/bootstrap.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/stocks.js" />
 
-    <box flex="1" class="mainpanel1 pad40">
-        <vbox flex="1" class="panel40">
-            <hbox flex="1" class="footlogo">
-                <groupbox flex="1">
-                    <caption label="&stocks.title;" />
-                    <viviscrollabletree id="stockscrollablepanel" flex="1" rows="7"
-                                        headers="&stocks.header.no;,&stocks.header.product;,&stocks.header.level;,&stocks.header.minimum;"
-                                        fields="no,name,stock,min_stock"
-                                        onclick="$do('select',this.selectedIndex, 'Stocks');"
-                                        class="prodscrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray">
-                        <spacer flex="1" />
-                    </viviscrollabletree>
-                    <checkbox id="show_low_stock" value="false" label="&stocks.show.low.only;" oncommand="$do('clickLowStock', null, 'Stocks');" />
-                        
-                        
-                </groupbox>
-                <spacer style="width:10px;" />
-                <vbox>
-                    <vbox>
-                        <label id="plu_id" hidden="true" form="productForm" name="id" value="" />
-                        <grid>
-                            <rows>
-                                <row>
-                                    <label value="&stocks.label.no;" />
-                                    <textbox readonly="true" form="productForm" name="no" />
-                                </row>
+    <hbox flex="1" class="main-dialog">
+        <groupbox flex="1">
+            <caption label="&stocks.title;" />
+            <viviscrollabletree id="stockscrollablepanel" flex="1" rows="7"
+                                headers="&stocks.header.no;,&stocks.header.product;,&stocks.header.level;,&stocks.header.minimum;"
+                                fields="no,name,stock,min_stock"
+                                onclick="$do('select',this.selectedIndex, 'Stocks');"
+                                class="prodscrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray">
+                <spacer flex="1" />
+            </viviscrollabletree>
+            <checkbox id="show_low_stock" value="false" label="&stocks.show.low.only;" oncommand="$do('clickLowStock', null, 'Stocks');" />
 
-                                <row>
-                                    <label value="&stocks.label.name;" />
-                                    <textbox readonly="true" form="productForm" name="name" />
-                                </row>
-                                <row>
-                                    <label value="&stocks.label.stock;" control="stock"/>
-                                    <textbox id="stock" value="" form="productForm" name="stock" size="6" maxsize="6"
-                                             oninput="$do('validateForm', null, 'Stocks')" onfocus="this.select()"/>
-                                </row>
 
-                                <row>
-                                    <label value="&stocks.label.threshold;" control="min_stock"/>
-                                    <textbox id="min_stock" value="" form="productForm" name="min_stock" size="6" maxsize="6"
-                                             oninput="$do('validateForm', null, 'Stocks')" onfocus="this.select()"/>
-                                </row>
-                            </rows>
-                        </grid>
-                        <spacer style="height: 10px;" />
-                        <hbox>
-                            <button id="modify_stock" label="&stocks.button.action.modify;" disabled="true" class="editbtns" oncommand="$do('update', null, 'Stocks');" />
-                        </hbox>
-                    </vbox>
-                    <spacer style="height: 10px;" />
-                    <separator class="groove-thin"/>
-                    <spacer style="height: 10px;" />
-                    <vbox>
-                        <label value="&stocks.search.label;" control="plu"/>
-                        <!--textbox id="plu" value="" onchange="$do('searchPlu', this.value, 'Stocks');" /-->
-                        <textbox id="plu" value="" onfocus="this.select()"/>
-                        <numberpad id="multinumberpad" class="numberpad"/>
-                    </vbox>
-                    <spacer style="height:10px;" />
-                    <vbox>
-                        <hbox>
-                            <sendkeybutton id="bkeyBtn"  label="&stocks.button.action.del;"   keyCode='0x08' class="systembtn"  />
-                            <vivibutton id="clearBtn"  label="&stocks.button.action.clear;" class="systembtn"/>
-                            <vivibutton id="ekeyBtn"  label="&stocks.button.action.enter;"   oncommand="$do('searchPlu', document.getElementById('plu').value, 'Stocks');" class="systembtn"  />
-                        </hbox>
-                    </vbox>
-                </vbox>
-            </hbox>
+        </groupbox>
+        <spacer style="width:10px;" />
+        <vbox>
+            <vbox>
+                <label id="plu_id" hidden="true" form="productForm" name="id" value="" />
+                <grid>
+                    <rows>
+                        <row>
+                            <label value="&stocks.label.no;" />
+                            <textbox readonly="true" form="productForm" name="no" />
+                        </row>
+
+                        <row>
+                            <label value="&stocks.label.name;" />
+                            <textbox readonly="true" form="productForm" name="name" />
+                        </row>
+                        <row>
+                            <label value="&stocks.label.stock;" control="stock"/>
+                            <textbox id="stock" value="" form="productForm" name="stock" size="6" maxsize="6"
+                                     oninput="$do('validateForm', null, 'Stocks')" onfocus="this.select()"/>
+                        </row>
+
+                        <row>
+                            <label value="&stocks.label.threshold;" control="min_stock"/>
+                            <textbox id="min_stock" value="" form="productForm" name="min_stock" size="6" maxsize="6"
+                                     oninput="$do('validateForm', null, 'Stocks')" onfocus="this.select()"/>
+                        </row>
+                    </rows>
+                </grid>
+                <spacer style="height: 10px;" />
+                <hbox>
+                    <button id="modify_stock" label="&stocks.button.action.modify;" disabled="true" class="editbtns" oncommand="$do('update', null, 'Stocks');" />
+                </hbox>
+            </vbox>
+            <spacer style="height: 10px;" />
+            <separator class="groove-thin"/>
+            <spacer style="height: 10px;" />
+            <vbox>
+                <label value="&stocks.search.label;" control="plu"/>
+                <textbox id="plu" value="" onfocus="this.select()"/>
+                <numberpad id="multinumberpad" class="numberpad"/>
+            </vbox>
+            <spacer style="height:10px;" />
+            <hbox>
+                    <sendkeybutton id="bkeyBtn"  label="&stocks.button.action.del;"   keyCode='0x08' class="systembtn"  />
+                    <vivibutton id="clearBtn"  label="&stocks.button.action.clear;" class="systembtn"/>
+                    <vivibutton id="ekeyBtn"  label="&stocks.button.action.enter;"   oncommand="$do('searchPlu', document.getElementById('plu').value, 'Stocks');" class="systembtn"  />
+                </hbox>
         </vbox>
-    </box>
+    </hbox>
   
     <hbox id="dialogButtons" class="dialogbtns" pack="center">
         <button class="right exit-dialog" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>

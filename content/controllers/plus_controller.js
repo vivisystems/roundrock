@@ -24,7 +24,6 @@
             var pluGroupModel = new PlugroupModel();
             var groups = pluGroupModel.find('all', {
             });
-alert(GeckoJS.BaseObject.dump(groups));
             var group_listscrollablepanel = document.getElementById('group_listscrollablepanel');
             var plugroupPanelView = new NSIPluGroupsView(groups);
             group_listscrollablepanel.datasource = plugroupPanelView;
@@ -168,10 +167,9 @@ alert(GeckoJS.BaseObject.dump(groups));
             inputObj.taxes = taxes;
             
             window.openDialog(aURL, 'select_rate', features, inputObj);
-
             if (inputObj.ok && inputObj.rate) {
                 $('#rate').val(inputObj.rate);
-
+                $('#rate_name').val(inputObj.name);
             }
         },
         
@@ -261,8 +259,8 @@ alert(GeckoJS.BaseObject.dump(groups));
             var aURL = 'chrome://viviecr/content/prompt_addpluset.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250';
             var inputObj = {
-                input0:null, require0:true,
-                input1:1, require1:true
+                input0:null, require0:true, alphaOnly0:true,
+                input1:1, require1:true, numberOnly1:true
             };
 
             window.openDialog(aURL, _('Add New Product Set'), features, _('Product Set'), '', _('Product No.or Barcode'), _('Quantity'), inputObj);

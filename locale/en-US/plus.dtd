@@ -14,12 +14,12 @@
 <!ENTITY plus.pricelevels "Price Levels">
 <!ENTITY plus.linkgroups "Link Groups">
 
-<!ENTITY plus.department "Department:">
-<!ENTITY plus.product.no "Product No.:">
-<!ENTITY plus.product.name "Product Name:">
-<!ENTITY plus.product.barcode "Barcode:">
-<!ENTITY plus.product.tax.rate "Tax Rate:">
-<!ENTITY plus.product.condiments "Condiments:">
+<!ENTITY plus.department "Department">
+<!ENTITY plus.product.no "Product No.">
+<!ENTITY plus.product.name "Product Name">
+<!ENTITY plus.product.barcode "Barcode">
+<!ENTITY plus.product.tax.rate "Tax Rate">
+<!ENTITY plus.product.condiments "Condiments">
 
 <!ENTITY plus.auto.maintain "Auto-stock">
 <!ENTITY plus.can.restock "Returns can be restocked">
@@ -29,12 +29,12 @@
 <!ENTITY plus.visible "Show on Menu">
 <!ENTITY plus.require.age.verification "Age verification">
 
-<!ENTITY plus.purchase.price "Purchase Price:">
-<!ENTITY plus.stock.level "Current Stock Level:">
-<!ENTITY plus.stock.threshold "Minimum Threshold:">
-<!ENTITY plus.memo "Memo:">
-<!ENTITY plus.minimum.sale.quantity "Minimum Sale Qty:">
-<!ENTITY plus.sale.unit "Unit of Sale:">
+<!ENTITY plus.purchase.price "Purchase Price">
+<!ENTITY plus.stock.level "Current Stock Level">
+<!ENTITY plus.stock.threshold "Minimum Threshold">
+<!ENTITY plus.memo "Memo">
+<!ENTITY plus.minimum.sale.quantity "Minimum Sale Qty">
+<!ENTITY plus.sale.unit "Unit of Sale">
 <!ENTITY plus.sale.unit.individual "Individually">
 <!ENTITY plus.sale.unit.gram "Gram">
 <!ENTITY plus.sale.unit.kilogram "Kilogram">
@@ -44,15 +44,15 @@
 <!ENTITY plus.sale.unit.pint "Pint">
 <!ENTITY plus.sale.unit.quart "Quart">
 <!ENTITY plus.sale.unit.gallon "Gallon">
-<!ENTITY plus.location "Stock Location:">
+<!ENTITY plus.location "Stock Location">
 
 <!ENTITY plus.header.no "No.">
 <!ENTITY plus.header.name "Name">
 <!ENTITY plus.header.quantity "Qty">
 
-<!ENTITY plus.image "Product Icon:">
-<!ENTITY plus.button.color "Button Color:">
-<!ENTITY plus.font.size "Font Size:">
+<!ENTITY plus.image "Product Icon">
+<!ENTITY plus.button.color "Button Color">
+<!ENTITY plus.font.size "Font Size">
 
 <!ENTITY plus.level "Level">
 <!ENTITY plus.price "Price">
@@ -62,3 +62,7 @@
 <!ENTITY plus.button.action.add "Add">
 <!ENTITY plus.button.action.modify "Modify">
 <!ENTITY plus.button.action.delete "Delete">
+
+<!ENTITY plus.button.numpad.clear "CLEAR">
+<!ENTITY plus.button.numpad.del "DEL">
+<!ENTITY plus.button.numpad.enter "ENTER">

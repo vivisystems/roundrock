@@ -87,14 +87,6 @@
     background-repeat: no-repeat;
 }
 
-.itemplusbtn {
-    background-image: url(chrome://viviecr/skin/images/list-add.png);
-}
-
-.itemminusbtn {
-    background-image: url(chrome://viviecr/skin/images/list-remove.png);
-}
-
 .paymentdetailsbtn {
      background-image: url(chrome://viviecr/skin/images/gnucash-icon.png);
 }

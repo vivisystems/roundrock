@@ -7,12 +7,13 @@
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/buttons.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/condiment-button-colors.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
-<window id="numpad" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<window title="&select.condiments.title;"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
     <script type="application/x-javascript" src="chrome://vivipos/content/libs/jquery-1.2.6.js" />
     <script type="application/x-javascript">
@@ -21,25 +22,21 @@
     </script>
     <script type="application/x-javascript" src="chrome://viviecr/content/select_condiments.js" />
 
-    <box flex="1" class="mainpanel1 pad40">
-        <vbox flex="1" class="panel40">
-            <vbox flex="1" class="footlogo">
-                    <groupbox>
-                    <caption label="&select.condiments.title;" />
-                    <label id="condiments" hidden="true" value="" />
-                    <hbox>
-                        <viviscrollablebuttonpanel id="condimentscrollablepanel" flex="1" cols="4" rows="5"  seltype="multiple" labelField="name"
-                                                   class="catescrollablepanel"
-                                                   buttonClass="plubtn smallimagebtn button-radius"
-                                                   scrollUpClass="rightprevbtn button-blue"
-                                                   scrollDownClass="rightnextbtn button-blue">
-                            <spacer flex="1"/>
-                        </viviscrollablebuttonpanel>
-                    </hbox>
-                </groupbox>
-            </vbox>
-        </vbox>
-    </box>
+    <vbox flex="1" class="main-dialog">
+        <groupbox>
+            <caption label="&select.condiments.title;" />
+            <label id="condiments" hidden="true" value="" />
+            <hbox>
+                <viviscrollablebuttonpanel id="condimentscrollablepanel" flex="1" cols="4" rows="5"  seltype="multiple" labelField="name"
+                                           class="catescrollablepanel"
+                                           buttonClass="plubtn smallimagebtn button-radius"
+                                           scrollUpClass="rightprevbtn button-blue"
+                                           scrollDownClass="rightnextbtn button-blue">
+                    <spacer flex="1"/>
+                </viviscrollablebuttonpanel>
+            </hbox>
+        </groupbox>
+    </vbox>
   
     <hbox id="dialogButtons" class="dialogbtns" pack="center">
         <button class="right exit-dialog" id="ok" label="&dialog.okButton.label;" default="true" oncommand="doOKButton();"/>

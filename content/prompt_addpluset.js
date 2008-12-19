@@ -11,12 +11,13 @@ var options = {};
      * Controller Startup
      */
     function startup() {
-        document.getElementById('caption0').setAttribute("label", caption0);
+        document.getElementById('dialog-caption').setAttribute("label", caption0);
         document.getElementById('text0').value = text0;
         document.getElementById('title0').value = title0;
         document.getElementById('title1').value = title1;
         document.getElementById('input0').value = inputObj.input0;
         document.getElementById('input1').value = inputObj.input1;
+        document.getElementById('cancel').setAttribute('disabled', false);
 
         options = inputObj;
 
@@ -61,9 +62,14 @@ function validateInput() {
     var input0Required = true;
     var input1Required = false;
     var validated = false;
+    var alphaOnly0 = false;
+    var numberOnly1 = false;
+    var alphaRE = /[^\w]/;
 
     if ('require0' in options) input0Required = options.require0;
     if ('require1' in options) input1Required = options.require1;
+    if ('alphaOnly0' in options) alphaOnly0 = options.alphaOnly0;
+    if ('numberOnly1' in options) numberOnly1 = options.numberOnly1;
 
     var input0 = document.getElementById('input0').value;
     var input1 = document.getElementById('input1').value;
@@ -74,10 +80,15 @@ function validateInput() {
         var trimmed1 = input1.replace(/^\s*/g, '').replace(/\s*$/g, '');
     }
     catch (e) {}
-
     if ((!input0Required || trimmed0.length > 0) &&
         ((!input1Required) || trimmed1.length > 0)) {
-        validated = !isNaN(trimmed1);
+        validated = true;
+    }
+    if (alphaOnly0) {
+        validated = validated && !alphaRE.test(trimmed0);
+    }
+    if (numberOnly1) {
+        validated = validated && !isNaN(trimmed1);
     }
     document.getElementById('ok').setAttribute('disabled', !validated);
 

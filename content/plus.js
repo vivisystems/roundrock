@@ -22,18 +22,15 @@ function startup() {
 function selectImages() {
 	var no  = $('#product_no').val();
 
-        // var sDstDir = GREUtils.File.chromeToPath("chrome://viviecr/content/skin/icons/");
-        var sDstDir = GREUtils.File.chromeToPath("chrome://viviecr/content/skin/images/");
-        // alert(sDstDir);
+    var sDstDir = GREUtils.File.chromeToPath("chrome://viviecr/content/skin/images/");
     var aURL = "chrome://viviecr/content/imageManager.xul";
     var aName = "imagePicker";
 
     var args = {
-      pickerMode: true,
-      // directory: "/home/rack/workspace/sam4s/content/skin/icons/",
-      directory: sDstDir + "/",
-      result: false,
-      file: ""
+        pickerMode: true,
+        directory: sDstDir + "/",
+        result: false,
+        file: ""
     };
     args.wrappedJSObject = args;
     GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,dependent=yes,resize=no,width=800,height=600", args);
@@ -43,8 +40,6 @@ function selectImages() {
     }else {
         var aFile = "";
     }
-//    alert(aFile);
-	//var aFile = GREUtils.Dialog.openFilePicker(sDstDir, "Choice Image...");
 	var aSrcFile = aFile.replace("file://", "");
 
 
@@ -52,11 +47,10 @@ function selectImages() {
 	        return false;
 	var aDstFile = GREUtils.File.chromeToPath("chrome://viviecr/content/skin/pluimages/") + "/" + no + ".png";
         
-        GREUtils.File.remove(aDstFile);
+    GREUtils.File.remove(aDstFile);
 	var result = GREUtils.File.copy(aSrcFile, aDstFile);
-        // alert(result);
         
-        document.getElementById('pluimage').setAttribute("src", "chrome://viviecr/content/skin/pluimages/" + no + ".png?" + Math.random());
+    document.getElementById('pluimage').setAttribute("src", "chrome://viviecr/content/skin/pluimages/" + no + ".png?" + Math.random());
 
 	return aDstFile;
 };

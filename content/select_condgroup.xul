@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE overlay [
-  <!ENTITY % Overlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
-  %Overlay;
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
   <!ENTITY % SelectCondimentGroup SYSTEM "chrome://viviecr/locale/select_condgroup.dtd">
   %SelectCondimentGroup;
   ]>
@@ -10,32 +10,30 @@
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
-<window id="numpad" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<window title="&condgroup.title;"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/bootstrap.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/select_condgroup.js" />
 
-    <box flex="1" class="mainpanel1 pad40">
-        <vbox flex="1" class="panel40">
-            <vbox flex="1" class="footlogo">
-                    <groupbox>
-                    <caption label="&condgroup.title;" />
-                    <label id="cond_group" hidden="true" value="" />
-                    <hbox>
-                        <viviscrollablebuttonpanel dir="reverse" id="condgroupscrollablepanel" flex="1" cols="4" rows="4" labelField="name"
-                                                   oncommand="$do('select', this.selectedIndex, 'SelectCondgroup');"
-                                                   class="catescrollablepanel"
-                                                   buttonClass="catbtn button-radius button-white font-medium"
-                                                   scrollUpClass="rightprevbtn button-blue"
-                                                   scrollDownClass="rightnextbtn button-blue">
-                            <spacer flex="1"/>
-                        </viviscrollablebuttonpanel>
-                    </hbox>
-                </groupbox>
-            </vbox>
-        </vbox>
-    </box>
+    <vbox flex="1" class="main-dialog">
+        <groupbox>
+            <caption label="&condgroup.title;" />
+            <label id="cond_group" hidden="true" value="" />
+            <hbox>
+                <viviscrollablebuttonpanel dir="reverse" id="condgroupscrollablepanel" flex="1" cols="4" rows="4" labelField="name"
+                                           oncommand="$do('select', this.selectedIndex, 'SelectCondgroup');"
+                                           class="catescrollablepanel"
+                                           buttonClass="catbtn button-radius font-medium"
+                                           scrollUpClass="rightprevbtn button-blue"
+                                           scrollDownClass="rightnextbtn button-blue">
+                    <spacer flex="1"/>
+                </viviscrollablebuttonpanel>
+            </hbox>
+        </groupbox>
+    </vbox>
   
     <hbox id="dialogButtons" class="dialogbtns" pack="center">
         <button class="right exit-dialog" id="ok" label="&dialog.okButton.label;" default="true" oncommand="doOKButton();"/>

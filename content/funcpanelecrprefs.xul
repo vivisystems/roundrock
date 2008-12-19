@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/buttons.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/functionpanel.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/function-button-colors.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/funcpanelecrprefs.css" type="text/css"?>
 <!DOCTYPE window SYSTEM "chrome://viviecr/locale/funcpanelecrprefs.dtd">
 
-<window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+<window title="&vivifuncpanelecr.title;"
         xmlns:html="http://www.w3.org/1999/xhtml"
-        id="window_preference_vivifuncpanelecr">
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://vivipos/content/vivipos.js" />
     <script type="application/x-javascript" src="chrome://vivipos/content/consoleErrors.js" />
@@ -411,13 +411,13 @@
                 </tabbox>
             </hbox>
             <spacer height="10"/>
-            <hbox class="action_box" pack="end">
-                <button id="vivifuncpanelecr_prefs_save" icon="save"
-                        class="action_button"
+            <hbox class="dialogbtns" pack="center">
+                <button id="vivifuncpanelecr_prefs_save"
+                        class="ok"
                         label="&vivifuncpanelecr.prefs.save.label;"
                         oncommand="$do('savePreferences', null, 'vivifuncpanelecr_prefs')"/>
-                <button id="vivifuncpanelecr_prefs_cancel" icon="cancel"
-                        class="action_button"
+                <button id="vivifuncpanelecr_prefs_cancel"
+                        class="cancel"
                         label="&vivifuncpanelecr.prefs.cancel.label;"
                         oncommand="$do('cancelPreferences', null, 'vivifuncpanelecr_prefs')"/>
             </hbox>

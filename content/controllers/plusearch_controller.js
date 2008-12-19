@@ -1,6 +1,5 @@
 (function(){
 
-
     /**
      * Class ViviPOS.SearchPluController
      */
@@ -9,9 +8,7 @@
         name: 'PluSearch',
 
         searchPlu: function (barcode) {
-            // alert(barcode);
             $('#plu').val('').focus();
-            // $('#plu').focus();
             if (barcode == "") return;
 
             var productsById = GeckoJS.Session.get('productsById');
@@ -20,11 +17,13 @@
 
             if (!barcodesIndexes[barcode]) {
                 // barcode notfound
-                alert("Plu (" + barcode + ") Not Found!");
+                // @todo OSD?
+                alert(_('Product [%S] Not Found!', [barcode]));
             }else {
                 var id = barcodesIndexes[barcode];
                 product = productsById[id];
                 GeckoJS.FormHelper.unserializeFromObject('productForm', product);
+                document.getElementById('pluimage').setAttribute('src', 'chrome://viviecr/content/skin/pluimages/' + product.no + '.png?' + Math.random());
             }
         }
     });

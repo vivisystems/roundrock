@@ -1,21 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE window SYSTEM "chrome://viviecr/locale/plus.dtd">
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % PLUs SYSTEM "chrome://viviecr/locale/plus.dtd">
+  %PLUs;
+  ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/buttons.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/department-button-colors.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/product-button-colors.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/plugroup-button-colors.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
-<window id="pluprop" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<window title="&plus.title;"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+            
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/bootstrap.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/plus.js" />
 
-    <box flex="1" class="mainpanel1 pad40">
-        <vbox flex="1" class="panel40">
+    <vbox flex="1" class="main-dialog">
             <label id="" value="&plus.title;"  class="labeltitle"/>
             <hbox flex="1" class="footlogo" style="overflow: hidden;">
                 <vbox flex="1">
@@ -187,8 +193,8 @@
                                             <viviscrollabletree id="plusetscrollablepanel" flex="1" rows="7" headers="&plus.header.no;,&plus.header.name;,&plus.header.quantity;" fields="no,name,qty"
                                                                 onclick="$do('clickPluSetsPanel',this.selectedIndex, 'Plus');"
                                                                 class="prodscrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray">
-                                                <vivibutton id="+" class="plus-button" oncommand="$do('getPlu', null, 'Plus');" />
-                                                <vivibutton id="-" class="minus-button" oncommand="$do('removePluSet', null, 'Plus');"/>
+                                                <vivibutton id="+" class="systoolbtn mediumimagebtn plusbtn" oncommand="$do('getPlu', null, 'Plus');" />
+                                                <vivibutton id="-" class="systoolbtn mediumimagebtn minusbtn" oncommand="$do('removePluSet', null, 'Plus');"/>
                                             </viviscrollabletree>
                                         </groupbox>
 
@@ -343,8 +349,9 @@
 
             </hbox>
         </vbox>
-    </box>
 
-    <hbox id="okCancelButtonsRight" class="dialogbtns" />
+    <hbox id="dialogButtons" class="dialogbtns" pack="center">
+        <button class="right exit-dialog" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+    </hbox>
 
 </window>
