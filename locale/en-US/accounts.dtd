@@ -17,3 +17,6 @@
 <!ENTITY accounts.typeout "OUT">
 <!ENTITY accounts.topic.no "Topic No:">
 <!ENTITY accounts.topic.topic "Topic:">
+<!ENTITY accounts.showall "Show All">
+<!ENTITY accounts.showin "Just IN">
+<!ENTITY accounts.showout "Just OUT">

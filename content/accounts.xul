@@ -19,15 +19,30 @@
     <box flex="1" class="mainpanel1 pad40">
         <vbox flex="1" class="panel40">
             <hbox flex="1" class="footlogo">
-                <groupbox flex="1">
-                    <caption label="&accounts.title;" />
-                    <viviscrollabletree id="accountscrollablepanel" flex="1" rows="7" headers="Date,Topic,Description,Type,Amount" fields="created,topic,description,type,amount" onclick="$do('select',this.selectedIndex, 'Accounts');"
+                <vbox flex="1">
+                    <label value="Filter..." />
+                    <groupbox flex="1">
+                        <caption label="&accounts.title;" />
+                        <viviscrollabletree id="accountscrollablepanel" flex="1" rows="7" headers="Date,Topic,Description,Type,Amount" fields="created,topic,description,type,amount" onclick="$do('select',this.selectedIndex, 'Accounts');"
                                                         class="prodscrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray">
-                        <spacer flex="1" />
-                    </viviscrollabletree>
-                </groupbox>
+                            <spacer flex="1" />
+                        </viviscrollabletree>
 
-                <spacer style="width:30px;" />
+                        <spacer style="height:10px;" />
+                    
+                        <hbox align="center">
+                            <radiogroup flex="1" orient="horizontal" id="show_type" oncommand="$do('load', null, 'Accounts');" >
+                                <radio id="show_all" selected="true" value="ALL" flex="1" label="&accounts.showall;"/>
+                                <radio id="show_in" value="IN" flex="1" label="&accounts.showin;"/>
+                                <radio id="show_out" value="OUT" flex="1" label="&accounts.showout;"/>
+                            </radiogroup>
+                        </hbox>
+                    </groupbox>
+                
+
+                </vbox>
+
+                <spacer style="width:20px;" />
 
                 <tabbox>
                     <tabs id="tabs" >
@@ -43,8 +58,13 @@
                                     <grid>
                                         <rows>
                                             <row>
-                                                <label value="&accounts.topic;" />
-                                                <textbox id="topic" value="" form="accountForm" name="topic"/>
+                                                <label value="&accounts.topic.no;" />
+                                                <textbox id="topic" value="" form="accountForm" name="topic_no" readonly="true" />
+                                            </row>
+
+                                            <row>
+                                                <label value="&accounts.topic.topic;" />
+                                                <textbox id="topic" value="" form="accountForm" name="topic" readonly="true" />
                                             </row>
 
                                             <row>
@@ -54,9 +74,9 @@
                             
                                             <row>
                                                 <label value="&accounts.type;" />
-                                                <radiogroup flex="1" id="type" form="accountForm" name="type" >
-                                                    <radio id="type_in" selected="true" value="IN" label="&accounts.typein;"/>
-                                                    <radio id="type_out" value="OUT" label="&accounts.typeout;"/>
+                                                <radiogroup flex="1" id="type" orient="horizontal" form="accountForm" name="type" >
+                                                    <radio id="type_in" selected="true" value="IN" flex="1" label="&accounts.typein;"/>
+                                                    <radio id="type_out" value="OUT" flex="1" label="&accounts.typeout;"/>
                                                 </radiogroup>
                                             </row>
 
@@ -125,10 +145,13 @@
                         </tabpanel>
                     </tabpanels>
                 </tabbox>
-            </hbox>            
+            </hbox>
         </vbox>
     </box>
   
-    <hbox id="okCancelButtonsRight" class="dialogbtns" />
+    <!-- hbox id="okCancelButtonsRight" class="dialogbtns" / -->
+    <hbox id="dialogButtons" class="dialogbtns" pack="center">
+        <button class="right exit-dialog" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+    </hbox>
 
 </window>

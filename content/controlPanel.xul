@@ -19,7 +19,7 @@
     <script type="application/x-javascript" src="chrome://vivipos/content/libs/jquery-1.2.6.js" />
     <script type="application/x-javascript">
         window['GeckoJS'] = opener.GeckoJS;
-        window['GREutils'] = opener.GREUtils;
+        window['GREUtils'] = opener.GREUtils;
         window['_'] = opener._;
     </script>
     <script type="application/x-javascript" src="chrome://viviecr/content/controlPanel.js" />
