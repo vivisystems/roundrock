@@ -18,7 +18,7 @@
         <viviscrollablebuttonpanel dir="reverse" id="catescrollablepanel" flex="1" cols="3" rows="2" labelField="name" imageField="no"
                                    oncommand="$do('changePluPanel',this.selectedIndex, 'Main');"
                                    class="catescrollablepanel"
-                                   buttonClass="catbtn"
+                                   buttonClass="user-catbtn"
                                    scrollUpClass="depart_scroll_up"
                                    scrollDownClass="depart_scroll_down">
            <spacer flex="1"/>
@@ -30,7 +30,7 @@
         <viviscrollablebuttonpanel dir="reverse" id="prodscrollablepanel" flex="1" cols="2" rows="1" labelField="name" imageField="no"
                                    oncommand="$do('clickPluPanel',this.selectedIndex, 'Main');"
                                    class="prodscrollablepanel"
-                                   buttonClass="plubtn"
+                                   buttonClass="user-plubtn"
                                    scrollUpClass="depart_scroll_up"
                                    scrollDownClass="depart_scroll_down"
                                    seltype="multiple">

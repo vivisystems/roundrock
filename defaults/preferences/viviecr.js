@@ -305,10 +305,10 @@ pref("vivipos.fec.registry.function.programmable.addmemo.command", "addMemo");
 pref("vivipos.fec.registry.function.programmable.addmemo.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.addmemo.data", "");
 
-pref("vivipos.fec.registry.function.programmable.addCondiment.access", "acl_register_plus");
-pref("vivipos.fec.registry.function.programmable.addCondiment.command", "addCondiment");
-pref("vivipos.fec.registry.function.programmable.addCondiment.controller", "Cart");
-pref("vivipos.fec.registry.function.programmable.addCondiment.data", "");
+pref("vivipos.fec.registry.function.programmable.addcondiment.access", "acl_register_plus");
+pref("vivipos.fec.registry.function.programmable.addcondiment.command", "addCondiment");
+pref("vivipos.fec.registry.function.programmable.addcondiment.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.addcondiment.data", "");
 
 pref('vivipos.fec.registry.comm.port1.id', 'port1');
 pref('vivipos.fec.registry.comm.port1.name', 'COM1');
