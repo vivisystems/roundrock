@@ -1028,7 +1028,7 @@
                     else {
                         stack = this._layoutStackMap.get(key);
                     }
-                    // GREUtils.log('[GetLayoutStack]: layout <' + key + '>, stack <' + stack + '>');
+                    GREUtils.log('[GetLayoutStack]: layout <' + key + '>, stack <' + stack + '>');
                     return stack;
                 ]]>
                 </body>
@@ -1192,8 +1192,8 @@
                     var mode = this.getAttribute('mode');
                     var dir = this.getAttribute('dir');
 
-                    //GREUtils.log('[STANDARD]: rendering standard layout with <r=' + r + ',c=' + c + '>x<cellWidth=' + cellWidth + ',cellHeight=' + cellHeight + '>');
-                    //GREUtils.log('[STANDARD]: with mode <' + mode + '> and dir <' + dir + '>');
+                    GREUtils.log('[STANDARD]: rendering standard layout with <r=' + r + ',c=' + c + '>x<cellWidth=' + cellWidth + ',cellHeight=' + cellHeight + '>');
+                    GREUtils.log('[STANDARD]: with mode <' + mode + '> and dir <' + dir + '>');
 
                     for (var i = 0; i < r; i++) {
                         posY = i * (cellHeight + vs);
@@ -1208,6 +1208,7 @@
                             btn.setAttribute('left', posX);
                             btn.setAttribute('height', cellHeight);
                             btn.setAttribute('width', cellWidth);
+                            btn.setAttribute('disabled', true);
                             btn.setAttribute('anonid', (1 - (-i)) +'x' + (1 - (-j)));
                             
                             stack.appendChild(btn);
@@ -1237,8 +1238,8 @@
                     var mode = this.getAttribute('mode');
                     var dir = this.dir;
 
-                    //GREUtils.log('[CUSTOM]: rendering custom layout with <r=' + r + ',c=' + c + '>x<cellWidth=' + cellWidth + ',cellHeight=' + cellHeight + '>');
-                    //GREUtils.log('[CUSTOM]: with mode <' + mode + '> and dir <' + dir + '>');
+                    GREUtils.log('[CUSTOM]: rendering custom layout with <r=' + r + ',c=' + c + '>x<cellWidth=' + cellWidth + ',cellHeight=' + cellHeight + '>');
+                    GREUtils.log('[CUSTOM]: with mode <' + mode + '> and dir <' + dir + '>');
 
                     for (var i = 0; i < layout.length; i++) {
                         entry = layout[i].split(',');
@@ -1282,6 +1283,7 @@
                             btn.setAttribute('left', posX);
                             btn.setAttribute('height', posHeight);
                             btn.setAttribute('width', posWidth);
+                            btn.setAttribute('disabled', true);
                             btn.setAttribute('anonid', row + 'x' + column);
                             if (mode == 'configure') btn.setAttribute('type', 'checkbox');
                             stack.appendChild(btn);
@@ -1537,8 +1539,8 @@
                     var btnstylemap = this.getPageButtonstyles(page);
                     var btnfontsizemap = this.getPageButtonfontsizes(page);
                     
-                    var defaultButtonColor = GeckoJS.Configure.read('vivipos.fec.ui.button.defaultcolor');
-                    var defaultButtonFontsize = GeckoJS.Configure.read('vivipos.fec.ui.button.defaultfontsize');
+                    var defaultButtonColor = GeckoJS.Configure.read('vivipos.fec.ui.functionpanel.button.defaultcolor');
+                    var defaultButtonFontsize = GeckoJS.Configure.read('vivipos.fec.ui.functionpanel.button.defaultfontsize');
 <!--
                     GREUtils.log('[KEYMAP]: page <' + page + '> global keymap <' + GeckoJS.BaseObject.dump(gkeymap) + '> local keymap <' + GeckoJS.BaseObject.dump(lkeymap) + '>');
                     GREUtils.log('[KEYMAP]: page <' + page + '> button style map <' + GeckoJS.BaseObject.dump(btnstylemap) + '>');
@@ -1551,10 +1553,8 @@
 
                     var btns = stack.childNodes;
                     var entry;
-                    var disabledFlag = this.getAttribute('disabled');
-<!--
-                    GREUtils.log('[KEYMAP]: rendering on stack <' + stack.getAttribute('anonid') + '> with <' + btns.length + '> buttons with mode <' + mode + '> restrictMode <' + restrictMode + '> disabled <' + disabledFlag + '>');
--->
+                    var disabledFlag = this.getAttribute('disabled') || false;
+                    //GREUtils.log('[KEYMAP]: rendering on stack <' + stack.getAttribute('anonid') + '> with <' + btns.length + '> buttons with mode <' + mode + '> restrictMode <' + restrictMode + '> disabled <' + disabledFlag + '>');
                     // for each button, check if corresponding key assignment and button style exists
                     for (var i = 0, btn; btn = btns[i]; i++) {
                         var btnid = btn.getAttribute('anonid');
@@ -1577,6 +1577,7 @@
 
                         //GREUtils.log('[KEYMAP]: found button fontsize entry <' + btnfontsizes + '> (' + btnfontsizes.length + ')');
                         if ((btnfontsizes.length == 0) && defaultButtonFontsize) btnfontsizes = defaultButtonFontsize.split(',');
+                        btnfontsizes = btnfontsizes.map(function(size) {return 'font-' + size});
                         
                         if ((mode == 'configure') || (mode == 'noop')) {
                             if (mode == 'noop') disabledFlag = true;
@@ -1687,7 +1688,7 @@
                                     else {
                                         btn.style.visibility = 'inherit';
 
-                                        //GREUtils.log('[KEYMAP]: button <' + entry.label + '> configured <' + btn.disabled + '>');
+                                        //GREUtils.log('[KEYMAP]: button <' + entry.label + '> configured <' + btn.getAttribute('disabled') + '>');
                                     }
                                 }
                             }
@@ -1707,6 +1708,7 @@
 
                         //GREUtils.log('[KEYMAP]: merged button styles <' + btnstyles + '> with font size <' + btnfontsizes + '>');
 
+                        btn.setAttribute('inactive', btn.getAttribute('disabled'));
                     }
                     //GREUtils.log('[KEYMAP]: exiting');
                 ]]>
