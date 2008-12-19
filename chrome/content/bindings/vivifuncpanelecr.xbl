@@ -1208,6 +1208,7 @@
                             btn.setAttribute('left', posX);
                             btn.setAttribute('height', cellHeight);
                             btn.setAttribute('width', cellWidth);
+                            btn.setAttribute('disabled', true);
                             btn.setAttribute('anonid', (1 - (-i)) +'x' + (1 - (-j)));
                             
                             stack.appendChild(btn);
@@ -1282,6 +1283,7 @@
                             btn.setAttribute('left', posX);
                             btn.setAttribute('height', posHeight);
                             btn.setAttribute('width', posWidth);
+                            btn.setAttribute('disabled', true);
                             btn.setAttribute('anonid', row + 'x' + column);
                             if (mode == 'configure') btn.setAttribute('type', 'checkbox');
                             stack.appendChild(btn);
@@ -1537,8 +1539,11 @@
                     var btnstylemap = this.getPageButtonstyles(page);
                     var btnfontsizemap = this.getPageButtonfontsizes(page);
                     
-                    var defaultButtonColor = GeckoJS.Configure.read('vivipos.fec.ui.button.defaultcolor');
-                    var defaultButtonFontsize = GeckoJS.Configure.read('vivipos.fec.ui.button.defaultfontsize');
+                    var fontsize_prefix = this.getAttribute('fontsize_prefix') || 'font-';
+                    var color_prefix = this.getAttribute('color_prefix') || 'button-';
+
+                    var defaultButtonColor = GeckoJS.Configure.read('vivipos.fec.ui.functionpanel.button.defaultcolor');
+                    var defaultButtonFontsize = GeckoJS.Configure.read('vivipos.fec.ui.functionpanel.button.defaultfontsize');
 <!--
                     GREUtils.log('[KEYMAP]: page <' + page + '> global keymap <' + GeckoJS.BaseObject.dump(gkeymap) + '> local keymap <' + GeckoJS.BaseObject.dump(lkeymap) + '>');
                     GREUtils.log('[KEYMAP]: page <' + page + '> button style map <' + GeckoJS.BaseObject.dump(btnstylemap) + '>');
@@ -1551,10 +1556,8 @@
 
                     var btns = stack.childNodes;
                     var entry;
-                    var disabledFlag = this.getAttribute('disabled');
-<!--
-                    GREUtils.log('[KEYMAP]: rendering on stack <' + stack.getAttribute('anonid') + '> with <' + btns.length + '> buttons with mode <' + mode + '> restrictMode <' + restrictMode + '> disabled <' + disabledFlag + '>');
--->
+                    var disabledFlag = this.getAttribute('disabled') || false;
+                    //GREUtils.log('[KEYMAP]: rendering on stack <' + stack.getAttribute('anonid') + '> with <' + btns.length + '> buttons with mode <' + mode + '> restrictMode <' + restrictMode + '> disabled <' + disabledFlag + '>');
                     // for each button, check if corresponding key assignment and button style exists
                     for (var i = 0, btn; btn = btns[i]; i++) {
                         var btnid = btn.getAttribute('anonid');
@@ -1568,12 +1571,14 @@
 
                         //GREUtils.log('[KEYMAP]: looking up buttonstylemap for button <' + btnid + '>');
                         var btnstyles = (btnstylemap && (btnid in btnstylemap)) ? btnstylemap[btnid].split(',') : [];
+                        btnstyles = btnstyles.map(function(style) {return color_prefix + style;});
 
                         //GREUtils.log('[KEYMAP]: found button style entry <' + btnstyles + '> (' + btnstyles.length + ')');
                         if ((btnstyles.length == 0) && defaultButtonColor) btnstyles = defaultButtonColor.split(',');
                         
                         //GREUtils.log('[KEYMAP]: looking up buttonfontsizemap for button <' + btnid + '>');
                         var btnfontsizes = (btnfontsizemap && (btnid in btnfontsizemap)) ? btnfontsizemap[btnid].split(',') : [];
+                        btnfontsizes = btnfontsizes.map(function(size) {return fontsize_prefix + size;});
 
                         //GREUtils.log('[KEYMAP]: found button fontsize entry <' + btnfontsizes + '> (' + btnfontsizes.length + ')');
                         if ((btnfontsizes.length == 0) && defaultButtonFontsize) btnfontsizes = defaultButtonFontsize.split(',');
@@ -1687,7 +1692,7 @@
                                     else {
                                         btn.style.visibility = 'inherit';
 
-                                        //GREUtils.log('[KEYMAP]: button <' + entry.label + '> configured <' + btn.disabled + '>');
+                                        //GREUtils.log('[KEYMAP]: button <' + entry.label + '> configured <' + btn.getAttribute('disabled') + '>');
                                     }
                                 }
                             }
@@ -1707,6 +1712,7 @@
 
                         //GREUtils.log('[KEYMAP]: merged button styles <' + btnstyles + '> with font size <' + btnfontsizes + '>');
 
+                        btn.setAttribute('inactive', btn.getAttribute('disabled'));
                     }
                     //GREUtils.log('[KEYMAP]: exiting');
                 ]]>
