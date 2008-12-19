@@ -562,8 +562,6 @@
 
         addSurcharge: function(surchargeAmount) {
 
-
-
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
 
@@ -1062,10 +1060,25 @@
                 curTransaction = this._newTransaction();
             }
 
-            if (plu.force_condiment) {
-                var condiments = this.getCondimentsDialog(plu.cond_group);
+            var condimentItem = null;
+            
+            if (plu && plu.force_condiment) {
+                condimentItem = plu;
+            }else {
+                var productsById = GeckoJS.Session.get('productsById');
+                var cartItem = curTransaction.getItemAt(index);
+                condimentItem = GREUtils.extend({}, productsById[cartItem.id]);
+            }
 
+            if (condimentItem) {
+
+                if(!condimentItem.cond_group){
+                    OsdUtils.warn(_("NO Condiment Group related to PLU"));
+                }
+
+                var condiments = this.getCondimentsDialog(condimentItem.cond_group);
                 if (condiments) curTransaction.appendCondiment(index, condiments);
+                
             }
 
         },
@@ -1084,9 +1097,18 @@
                 curTransaction = this._newTransaction();
             }
 
-            if (plu.force_memo) {
-                var memo = this.getMemoDialog(plu.memo);
+            var memoItem = null;
+            
+            if (plu && plu.force_memo) {
+                memoItem = plu;
+            }else {
+                var productsById = GeckoJS.Session.get('productsById');
+                var cartItem = curTransaction.getItemAt(index);
+                memoItem = GREUtils.extend({}, productsById[cartItem.id]);
+            }
 
+            if (memoItem) {
+                var memo = this.getMemoDialog(memoItem.memo);
                 if (memo) curTransaction.appendMemo(index, memo);
             }
 
