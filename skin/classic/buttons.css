@@ -37,10 +37,10 @@
 }
 
 .user-catbtn[selected] {
-    /* list-style-image: none; */
+    border: 2px solid;
 }
 
-.user-catbtn:active, .user-plubtn:active {
+.user-catbtn[disabled=false]:active, .user-plubtn[disabled=false]:active {
     background-position:0pt -60px;
     border: 2px solid;
     -moz-border-top-colors: #444 #222;
@@ -85,11 +85,8 @@
     -moz-border-bottom-colors: #444;
     -moz-border-left-colors: #444;
 }
-.catbtn[selected] {
-    /* list-style-image: none; */
-}
 
-.catbtn:active, .plubtn:active {
+.catbtn[disabled=false]:active, .plubtn[disabled=false]:active {
     background-position:0pt -60px;
     border: 2px solid;
     -moz-border-top-colors: #444 #222;

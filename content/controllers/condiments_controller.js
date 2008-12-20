@@ -34,6 +34,8 @@
             this.resetInputData();
             this.resetInputCondData();
 
+            this.changeCondimentPanel(-1);
+            
             this.validateForm();
         },
 
