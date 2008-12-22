@@ -354,7 +354,16 @@
 	width: 192px;
 	min-width: 192px;
 	max-height:300px;
+    display: none;
 }
+.jobpad-visible {
+	background: transparent url(images/jobpad.png) left top no-repeat;
+	padding: 71px 0 0 11px;
+	width: 192px;
+	min-width: 192px;
+	max-height:300px;
+}
+
 .jobscrollablepanel {
 	max-height: 209px;
 }
@@ -427,6 +436,10 @@
 	display: none; /****** �o��ڥ��ð_�ӡA����аt�X�ק�  ******/
 }
 
+.listpad-visible {
+	background: transparent url(images/listpad.png) left top no-repeat;
+	display: none; /****** �o��ڥ��ð_�ӡA����аt�X�ק�  ******/
+}
 .jobsummary treechildren::-moz-tree-row {
 	border-bottom: 1px solid #789ebb;
 }

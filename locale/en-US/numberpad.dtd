@@ -8,7 +8,7 @@
 <!ENTITY    numberpad.keylabel.cancel               "CANCEL">
 <!ENTITY    numberpad.keylabel.cash             "CASH">
 <!ENTITY    numberpad.keylabel.subtotal             "SUB TOTAL">
-<!ENTITY    numberpad.keylabel.plusearch             "PLU SEARCH">
+<!ENTITY    numberpad.keylabel.plusearch             "Product SEARCH">
 <!ENTITY    numberpad.keylabel.tray             "TRAY MARKER">
 <!ENTITY    numberpad.keylabel.signoff             "SIGN OFF">
 <!ENTITY    numberpad.keylabel.times             "X">

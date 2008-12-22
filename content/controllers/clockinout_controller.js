@@ -140,6 +140,13 @@
         
         listSummary: function () {
             var username;
+
+            // bring summary list to front
+            var listpad = document.getElementById('listpad');
+            var jobpad = document.getElementById('jobpad');
+            listpad.setAttribute('class', 'listpad-visible');
+            jobpad.setAttribute('class', 'jobpad');
+            
             if (this.userpanel && this.users) {
                 var index = this.userpanel.selectedIndex;
                 if (index > -1 && index < this.users.length) {
@@ -156,12 +163,14 @@
             });
             var oldTimes = this.jobtimes;
             this.jobtimes = stamps;
-            
+
             if (stamps) {
                 stamps.forEach(function(o){
                     o.clockin_time = o.clockin_time ? o.clockin_time.substring(11, 19) : '--:--:--';
                     o.clockout_time = o.clockout_time ? o.clockout_time.substring(11, 19) : '--:--:--';
                 });
+            this.log('oldTimes: ' + GeckoJS.BaseObject.dump(oldTimes));
+            this.log(GeckoJS.BaseObject.dump(stamps));
                 if (oldTimes) {
                     var lastIndex = oldTimes.length - 1;
                     joblist.updateItemAt(lastIndex, stamps[lastIndex] );
@@ -172,7 +181,7 @@
                 else {
                     joblist.loadData(stamps);
                 }
-
+                this.log('data loaded');
                 joblist.selectedIndex = stamps.length - 1;
                 joblist.ensureIndexIsVisible(joblist.selectedIndex);
             } else {

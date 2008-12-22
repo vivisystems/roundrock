@@ -30,7 +30,7 @@
                 <tabpanel flex="1" >
 
                     <groupbox flex="1">
-                        <caption label="Plu Information:" />
+                        <caption label="&plus.base.data;" />
 
                         <grid>
                             <rows>
@@ -174,7 +174,7 @@
         <spacer style="width:10px;" />
         <vbox>
             <vbox>
-                <label value="Search Plu No or Barcode:" />
+                <label value="&plus.search.label;" />
                 <textbox id="plu" value="" onchange="$do('searchPlu', this.value, 'PluSearch');" />
                 <!-- textbox id="plu" value=""  / -->
                 <numberpad id="multinumberpad" class="numberpad" target="plu"/>

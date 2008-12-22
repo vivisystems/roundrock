@@ -35,16 +35,16 @@
 <!ENTITY layout.registeratleft "Place Register Screen on the left side of screen">
 <!ENTITY layout.hidenumpad "Hide numeric keypad">
 <!ENTITY layout.functionpanelontop "Place Function Key Panel at the top of the screen">
-<!ENTITY layout.PLUbeforedept "Place PLU Panel before Department Panel">
+<!ENTITY layout.PLUbeforedept "Place Product Panel before Department Panel">
 <!ENTITY layout.hidedeptscrollbar "Hide scrollbars for Department Panel">
-<!ENTITY layout.hidepluscrollbar "Hide scrollbars for PLU Panel">
+<!ENTITY layout.hidepluscrollbar "Hide scrollbars for Product Panel">
 <!ENTITY layout.hidefpscrollbar "Hide scrollbars for Function Panel">
 <!ENTITY layout.cropdeptlabel "Crop Department Label (Need restart vivipos application)">
-<!ENTITY layout.cropplulabel "Crop PLU Label (Need restart vivipos application)">
-<!ENTITY layout.department.label "Department Dimension">
+<!ENTITY layout.cropplulabel "Crop Product Label (Need restart vivipos application)">
+<!ENTITY layout.department.label "Department Panel Dimension">
 <!ENTITY layout.department.rows "Rows:">
 <!ENTITY layout.department.cols "Columns:">
-<!ENTITY layout.plu.label "PLU Dimension">
+<!ENTITY layout.plu.label "Product Panel Dimension">
 <!ENTITY layout.plu.rows "Rows:">
 <!ENTITY layout.plu.cols "Columns:">
 <!ENTITY layout.functionpanel.label "Function Panel Dimension">

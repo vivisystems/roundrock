@@ -48,7 +48,7 @@
 
             this._plugroupAdded = false;
 
-            window.openDialog(aURL, _('Add New PLU Group'), features, _('New PLU Group'), '', _('Group Name'), '', inputObj);
+            window.openDialog(aURL, _('Add New Product Group'), features, _('New Product Group'), '', _('Group Name'), '', inputObj);
             if (inputObj.ok && inputObj.input0) {
                 plugroup.id = '';
                 plugroup.name = inputObj.input0;
@@ -66,7 +66,7 @@
 
             if (plugroups != null && plugroups.length > 0) {
                 //@todo OSD
-                OsdUtils.warn(_('Duplicate PLU Group name [%S]; PLU Group not added.', [plugroup.name]));
+                OsdUtils.warn(_('Duplicate Product Group name [%S]; Product Group not added.', [plugroup.name]));
                 evt.preventDefault();
                 return ;
             }
@@ -79,7 +79,7 @@
         },
 
         afterScaffoldAdd: function(evt) {
-            // if new PLU group exists, set selectedIndex to last item
+            // if new Product group exists, set selectedIndex to last item
 
             if (this._plugroupAdded) {
                 var panel = this.getListObj();
@@ -96,14 +96,14 @@
                 document.getElementById('plugroup_name').focus();
 
                 // @todo OSD
-                OsdUtils.info(_('PLU Group [%S] added successfully', [evt.data.name]));
+                OsdUtils.info(_('Product Group [%S] added successfully', [evt.data.name]));
             }
 
         },
 
         beforeScaffoldEdit: function(evt) {
 
-            // check if modified to a duplicate PLU group name
+            // check if modified to a duplicate Product group name
             var plugroupModel = new PlugroupModel();
 
             var plugroups = plugroupModel.findByIndex('all', {
@@ -118,7 +118,7 @@
                     this._plugroupModified = false;
 
                     // @todo OSD
-                    OsdUtils.warn(_('Duplicate PLU Group name [%S]; PLU group not modified.', [evt.data.name]));
+                    OsdUtils.warn(_('Duplicate Product Group name [%S]; Product group not modified.', [evt.data.name]));
                 }
             }
         },
@@ -186,7 +186,7 @@
             this.validateForm();
 
             // @todo OSD
-            OsdUtils.info(_('PLU Group [%S] removed successfully', [evt.data.name]));
+            OsdUtils.info(_('Product Group [%S] removed successfully', [evt.data.name]));
         },
 
         afterScaffoldIndex: function(evt) {

@@ -1075,7 +1075,7 @@
             if (condimentItem) {
 
                 if(!condimentItem.cond_group){
-                    OsdUtils.warn(_("NO Condiment Group related to PLU"));
+                    OsdUtils.warn(_("NO Condiment Group associated with Product"));
                 }
 
                 var condiments = this.getCondimentsDialog(condimentItem.cond_group);

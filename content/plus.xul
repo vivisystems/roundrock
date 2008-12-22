@@ -22,333 +22,333 @@
     <script type="application/x-javascript" src="chrome://viviecr/content/plus.js" />
 
     <vbox flex="1" class="main-dialog">
-            <label id="" value="&plus.title;"  class="labeltitle"/>
-            <hbox flex="1" class="footlogo" style="overflow: hidden;">
-                <vbox flex="1">
-                    <!-- Begin Catalogs -->
-                    <viviscrollablebuttonpanel dir="reverse" id="catescrollablepanel" flex="1" cols="4" rows="2" labelField="name" imageField="no"
-                                               oncommand="$do('changePluPanel',this.selectedIndex, 'Plus');"
-                                               class="catescrollablepanel"
-                                               buttonClass="catbtn button-radius"
-                                               scrollUpClass="rightprevbtn button-blue"
-                                               scrollDownClass="rightnextbtn button-blue">
-                        <spacer flex="1"/>
-                    </viviscrollablebuttonpanel>
+        <label id="" value="&plus.title;"  class="labeltitle"/>
+        <hbox flex="1" class="footlogo" style="overflow: hidden;">
+            <vbox flex="1">
+                <!-- Begin Catalogs -->
+                <viviscrollablebuttonpanel dir="reverse" id="catescrollablepanel" flex="1" cols="4" rows="2" labelField="name" imageField="no"
+                                           oncommand="$do('changePluPanel',this.selectedIndex, 'Plus');"
+                                           class="catescrollablepanel"
+                                           buttonClass="catbtn button-radius"
+                                           scrollUpClass="rightprevbtn button-blue"
+                                           scrollDownClass="rightnextbtn button-blue">
+                    <spacer flex="1"/>
+                </viviscrollablebuttonpanel>
 
-                    <!-- Begin PLUs -->
-                    <viviscrollablebuttonpanel dir="reverse" id="prodscrollablepanel" flex="1" cols="2" rows="6" labelField="name" imageField="no"
-                                               ensureVisible="true"
-                                               oncommand="$do('clickPluPanel',this.selectedIndex, 'Plus');"
-                                               class="prodscrollablepanel"
-                                               buttonClass="plubtn smallimagebtn button-radius"
-                                               scrollUpClass="rightprevbtn button-gray"
-                                               scrollDownClass="rightnextbtn button-gray">
-                        <spacer flex="1"/>
-                    </viviscrollablebuttonpanel>
-                    <!-- End PLUs -->
-                    <spacer style="height: 60px;" />
-                </vbox>
+                <!-- Begin PLUs -->
+                <viviscrollablebuttonpanel dir="reverse" id="prodscrollablepanel" flex="1" cols="2" rows="6" labelField="name" imageField="no"
+                                           ensureVisible="true"
+                                           oncommand="$do('clickPluPanel',this.selectedIndex, 'Plus');"
+                                           class="prodscrollablepanel"
+                                           buttonClass="plubtn smallimagebtn button-radius"
+                                           scrollUpClass="rightprevbtn button-gray"
+                                           scrollDownClass="rightnextbtn button-gray">
+                    <spacer flex="1"/>
+                </viviscrollablebuttonpanel>
+                <!-- End PLUs -->
+                <spacer style="height: 60px;" />
+            </vbox>
 
-                <vbox id="" >
-                        
-                    <tabbox  flex="1">
-                        <tabs id="tabs" >
-                            <tab id="tab1" label="&plus.tab.base.data1;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
-                            <tab id="tab2" label="&plus.tab.base.data2;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
-                            <tab id="tab3" label="&plus.tab.setmenu;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
-                            <tab id="tab4" label="&plus.tab.appearance;" image="chrome://viviecr/content/skin/icons/plugins-24.png" orient="vertical"/>
-                            <tab id="tab5" label="&plus.tab.pricelevels;" image="chrome://viviecr/content/skin/icons/comments-24.png" orient="vertical"/>
-                            <tab id="tab6" label="&plus.tab.linkgroups;" image="chrome://viviecr/content/skin/icons/comments-24.png" orient="vertical"/>
-                        </tabs>
+            <vbox id="" >
 
-                        <tabpanels id="tabpanels" flex="1" >
+                <tabbox  flex="1">
+                    <tabs id="tabs" >
+                        <tab id="tab1" label="&plus.tab.base.data1;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
+                        <tab id="tab2" label="&plus.tab.base.data2;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
+                        <tab id="tab3" label="&plus.tab.setmenu;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
+                        <tab id="tab4" label="&plus.tab.appearance;" image="chrome://viviecr/content/skin/icons/plugins-24.png" orient="vertical"/>
+                        <tab id="tab5" label="&plus.tab.pricelevels;" image="chrome://viviecr/content/skin/icons/comments-24.png" orient="vertical"/>
+                        <tab id="tab6" label="&plus.tab.linkgroups;" image="chrome://viviecr/content/skin/icons/comments-24.png" orient="vertical"/>
+                    </tabs>
 
-                            <!-- Plu Data -->
-                            <tabpanel flex="1" >
-                                <hbox>
-                                    <vbox  style="overflow: auto" >
-                                        <groupbox>
-                                            <caption label="&plus.base.data1;" />
-                                            <grid>
-                                                <rows>
-                                                    <row>
+                    <tabpanels id="tabpanels" flex="1" >
 
-                                                        <label hidden="true" form="productForm" name="id" value="" />
-                                                        <label hidden="true" id="cate_no" form="productForm" name="cate_no" default=""/>
-
-                                                        <label value="&plus.department;"/>
-                                                        <textbox id="cate_name" form="productForm" name="cate_name" readonly="true" onclick="$do('getDepartment', null,'Plus');"/>
-                                                    </row>
-                                                    <row>
-                                                        <label value="&plus.product.no;"/>
-                                                        <textbox id="product_no" form="productForm" name="no" readonly="true"/>
-                                                    </row>
-                                                    <row>
-                                                        <label value="&plus.product.name;" control="product_name"/>
-                                                        <textbox id="product_name" form="productForm" name="name" value="" onfocus="this.select()" oninput="$do('validateForm', null, 'Plus')"/>
-                                                    </row>
-                                                    <row>
-                                                        <label  value="&plus.product.barcode;" control="barcode"/>
-                                                        <textbox id="barcode" form="productForm" name="barcode" value="" onfocus="this.select()"/>
-                                                    </row>
-                                                    <row>
-                                                        <label value="&plus.product.tax.rate;"/>
-                                                        <label id="rate" hidden="true" form="productForm" name="rate" default="" value=""/>
-                                                        <textbox id="rate_name" value="" form="productForm" name="rate_name" readonly="true" onclick="$do('getRate',this.selectedIndex,'Plus');"/>
-                                                    </row>
-                                                    <row>
-                                                        <label value="&plus.product.condiments;"/>
-                                                        <textbox id="cond_group" value="" form="productForm" name="cond_group" readonly="true" onclick="$do('getCondiment',this.selectedIndex,'Plus');"/>
-                                                    </row>
-                                                </rows>
-                                            </grid>
-
-                                            <grid>
-                                                <rows>
-                                                    <row>
-                                                        <checkbox id="auto_maintain_stock" value="true" label="&plus.auto.maintain;" form="productForm" name="auto_maintain_stock" default="0"/>
-                                                        <checkbox id="return_stock" value="true" label="&plus.can.restock;" form="productForm" name="return_stock" default="0"/>
-                                                    </row>
-                                                    <row>
-                                                        <checkbox id="force_condiment" value="false" label="&plus.require.condiment;" form="productForm" name="force_condiment" default="0"/>
-                                                        <checkbox id="force_memo" value="false" label="&plus.require.memo;" form="productForm" name="force_memo" default="0"/>
-                                                    </row>
-                                                    <row>
-                                                        <checkbox id="singleplu" value="false" label="&plus.single.item.sale;" form="productForm" name="single" default="0"/>
-                                                        <checkbox id="visible" value="true" label="&plus.visible;" form="productForm" name="visible" default="1"/>
-                                                    </row>
-                                                    <row>
-                                                        <checkbox id="age_verification" value="false" label="&plus.require.age.verification;" form="productForm" name="age_verification" default="0"/>
-                                                    </row>                                                    
-                                                </rows>
-                                            </grid>
-
-                                        </groupbox>
-                                    </vbox>
-                                </hbox>
-                            </tabpanel>
-
-                            <tabpanel flex="1" >
-                                <hbox flex="1">
-                                    <vbox  style="overflow: auto" flex="1" >
-                                        <groupbox>
-                                            <caption label="&plus.base.data2;" />
-                                            <grid>
-                                                <rows>
-                                                    <row>
-                                                        <label value="&plus.purchase.price;" control="buy_price"/>
-                                                        <textbox id="buy_price" type="number" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="buy_price" onfocus="this.select()"/>
-                                                    </row>
-                                                    <row>
-                                                        <label value="&plus.stock.level;" control="stock"/>
-                                                        <textbox id="stock" type="number" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="stock" default="0" onfocus="this.select()"/>
-                                                    </row>
-                                                    <row>
-                                                        <label value="&plus.stock.threshold;" control="min_stock"/>
-                                                        <textbox id="min_stock" type="number" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="min_stock" default="0" onfocus="this.select()"/>
-                                                    </row>
-                                                    <row>
-                                                        <label value="&plus.memo;" control="product_memo"/>
-                                                        <textbox id="product_memo" form="productForm" name="memo" onfocus="this.select()"/>
-                                                    </row>
-                                                    <row>
-                                                        <label value="&plus.minimum.sale.quantity;" control="min_sale_qty"/>
-                                                        <textbox id="min_sale_qty" type="number" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="min_sale_qty" default="0" onfocus="this.select()"/>
-                                                    </row>
-                                                    <row>
-                                                        <label value="&plus.sale.unit;"/>
-                                                        <menulist id="sale_unit" form="productForm" name="sale_unit" value="0" default="&plus.sale.unit.individual;">
-                                                            <menupopup style="width: 200px;">
-                                                                <menuitem label="&plus.sale.unit.individual;" value="&plus.sale.unit.individual;"/>
-                                                                <menuitem label="&plus.sale.unit.gram;" value="&plus.sale.unit.gram;"/>
-                                                                <menuitem label="&plus.sale.unit.kilogram;" value="&plus.sale.unit.kilogram;"/>
-                                                                <menuitem label="&plus.sale.unit.ounce;" value="&plus.sale.unit.ounce;"/>
-                                                                <menuitem label="&plus.sale.unit.pound;" value="&plus.sale.unit.pound;"/>
-                                                                <menuitem label="&plus.sale.unit.liter;" value="&plus.sale.unit.liter;"/>
-                                                                <menuitem label="&plus.sale.unit.pint;" value="&plus.sale.unit.pint;"/>
-                                                                <menuitem label="&plus.sale.unit.quart;" value="&plus.sale.unit.quart;"/>
-                                                                <menuitem label="&plus.sale.unit.gallon;" value="&plus.sale.unit.gallon;"/>
-                                                            </menupopup>
-                                                        </menulist>
-                                                    </row>
-                                                    <row>
-                                                        <label value="&plus.location;" control="product_location"/>
-                                                        <textbox id="product_location" form="productForm" name="location" default="" onfocus="this.select()"/>
-                                                    </row>
-                                                </rows>
-                                            </grid>
-                                        </groupbox>
-
-                                    </vbox>
-                                </hbox>
-                            </tabpanel>
-
-                            <tabpanel flex="1" >
-                                <hbox flex="1">
-                                    <vbox  style="overflow: auto" flex="1" >
-
-                                        <groupbox>
-                                            <caption label="&plus.setmenu;" />
-                                            <label hidden="true" id="setmenu" form="productForm" name="setmenu" value="" />
-                                            <viviscrollabletree id="plusetscrollablepanel" flex="1" rows="7" headers="&plus.header.no;,&plus.header.name;,&plus.header.quantity;" fields="no,name,qty"
-                                                                onclick="$do('clickPluSetsPanel',this.selectedIndex, 'Plus');"
-                                                                class="prodscrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray">
-                                                <vivibutton id="+" class="systoolbtn mediumimagebtn plusbtn" oncommand="$do('getPlu', null, 'Plus');" />
-                                                <vivibutton id="-" class="systoolbtn mediumimagebtn minusbtn" oncommand="$do('removePluSet', null, 'Plus');"/>
-                                            </viviscrollabletree>
-                                        </groupbox>
-
-                                    </vbox>
-                                </hbox>
-                            </tabpanel>
-
-                            <!-- Icon and Button color -->
-                            <tabpanel flex="1" >
-                                <hbox flex="1">
-                                    <vbox flex="1">
-                                        <groupbox>
-                                            <caption label="&plus.image;" />
-                                            <hbox>
-                                                <spacer style="width: 30px;" />
-                                                <image id="pluimage" pack="start" style="width:64px; height:64px;"/>
-                                                <spacer style="width: 30px;" />
-                                                <hbox>
-                                                    <button id="imageBrowseBtn" class="iconbtn button-radius image32" image="chrome://viviecr/skin/images/add.png"/>
-                                                    <button id="imageRemoveBtn" class="iconbtn button-radius image32" image="chrome://viviecr/skin/images/cancel.png"/>
-                                                    <spacer flex="1" />
-                                                </hbox>
-                                            </hbox>
-                                        </groupbox>
-
-                                        <groupbox>
-                                            <caption label="&plus.button.color;" />
-                                            <button_colorpicker id="dept_button_color" form="productForm" name="button_color" 
-                                                                buttonClass="catbtn button-radius"
-                                                                class-prefix="product-button-color-"
-                                                                default="product-button-color-default"/>
-                                        </groupbox>
-
-                                        <groupbox>
-                                            <caption label="&plus.font.size;" />
-                                            <button_fontsizepicker id="font_size" form="productForm" name="font_size"
-                                                                   buttonClass="catbtn button-white button-radius" default="medium"/>
-                                        </groupbox>
-
-                                    </vbox>
-                                </hbox>
-                            </tabpanel>
-                
-                            <!-- Sell Price Levels -->
-                            <tabpanel>
-                                <vbox>
+                        <!-- Plu Data -->
+                        <tabpanel flex="1" >
+                            <hbox>
+                                <vbox  style="overflow: auto" >
                                     <groupbox>
-                                        <caption label="&plus.pricelevels;" />
+                                        <caption label="&plus.base.data1;" />
                                         <grid>
-                                            <columns>
-                                                <column />
-                                                <column flex="1" />
-                                                <column flex="1" />
-                                                <column flex="1" />
-                                            </columns>
-
                                             <rows>
                                                 <row>
-                                                    <label value="&plus.level;" />
-                                                    <label value="&plus.price;" />
-                                                    <label value="&plus.halo;" />
-                                                    <label value="&plus.lalo;" />
+
+                                                    <label hidden="true" form="productForm" name="id" value="" />
+                                                    <label hidden="true" id="cate_no" form="productForm" name="cate_no" default=""/>
+
+                                                    <label value="&plus.department;"/>
+                                                    <textbox id="cate_name" form="productForm" name="cate_name" readonly="true" onclick="$do('getDepartment', null,'Plus');"/>
                                                 </row>
                                                 <row>
-                                                    <checkbox id="level_enable1" value="1" label="1." form="productForm" name="level_enable1" default="1" checked="true" disabled="true"/>
-                                                    <textbox id="price_level1" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="price_level1" size="10" class="geneditbox right" onfocus="this.select()"/>
-                                                    <textbox id="halo1" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="halo1" size="10" class="geneditbox right" onfocus="this.select()"/>
-                                                    <textbox id="lalo1" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="lalo1" size="10" onfocus="this.select()"/>
+                                                    <label value="&plus.product.no;"/>
+                                                    <textbox id="product_no" form="productForm" name="no" readonly="true"/>
                                                 </row>
                                                 <row>
-                                                    <checkbox id="level_enable2" value="0" label="2." form="productForm" name="level_enable2" default="0"/>
-                                                    <textbox id="price_level2" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="price_level2" size="10" onfocus="this.select()"/>
-                                                    <textbox id="halo2" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="halo2" size="10" onfocus="this.select()"/>
-                                                    <textbox id="lalo2" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="lalo2" size="10" onfocus="this.select()"/>
+                                                    <label value="&plus.product.name;" control="product_name"/>
+                                                    <textbox id="product_name" form="productForm" name="name" value="" onfocus="this.select()" oninput="$do('validateForm', null, 'Plus')"/>
                                                 </row>
                                                 <row>
-                                                    <checkbox id="level_enable3" value="0" label="3." form="productForm" name="level_enable3" default="0"/>
-                                                    <textbox id="price_level3" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="price_level3" size="10" onfocus="this.select()"/>
-                                                    <textbox id="halo3" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="halo3" size="10" onfocus="this.select()"/>
-                                                    <textbox id="lalo3" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="lalo3" size="10" onfocus="this.select()"/>
+                                                    <label  value="&plus.product.barcode;" control="barcode"/>
+                                                    <textbox id="barcode" form="productForm" name="barcode" value="" onfocus="this.select()"/>
                                                 </row>
                                                 <row>
-                                                    <checkbox id="level_enable4" value="0" label="4." form="productForm" name="level_enable4" default="0"/>
-                                                    <textbox id="price_level4" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="price_level4" size="10" onfocus="this.select()"/>
-                                                    <textbox id="halo4" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="halo4" size="10" onfocus="this.select()"/>
-                                                    <textbox id="lalo4" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="lalo4" size="10" onfocus="this.select()"/>
+                                                    <label value="&plus.product.tax.rate;"/>
+                                                    <label id="rate" hidden="true" form="productForm" name="rate" default="" value=""/>
+                                                    <textbox id="rate_name" value="" form="productForm" name="rate_name" readonly="true" onclick="$do('getRate',this.selectedIndex,'Plus');"/>
                                                 </row>
                                                 <row>
-                                                    <checkbox id="level_enable5" value="0" label="5." form="productForm" name="level_enable5" default="0"/>
-                                                    <textbox id="price_level5" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="price_level5" size="10" onfocus="this.select()"/>
-                                                    <textbox id="halo5" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="halo5" size="10" onfocus="this.select()"/>
-                                                    <textbox id="lalo5" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="lalo5" size="10" onfocus="this.select()"/>
+                                                    <label value="&plus.product.condiments;"/>
+                                                    <textbox id="cond_group" value="" form="productForm" name="cond_group" readonly="true" onclick="$do('getCondiment',this.selectedIndex,'Plus');"/>
+                                                </row>
+                                            </rows>
+                                        </grid>
+
+                                        <grid>
+                                            <rows>
+                                                <row>
+                                                    <checkbox id="auto_maintain_stock" value="true" label="&plus.auto.maintain;" form="productForm" name="auto_maintain_stock" default="0"/>
+                                                    <checkbox id="return_stock" value="true" label="&plus.can.restock;" form="productForm" name="return_stock" default="0"/>
                                                 </row>
                                                 <row>
-                                                    <checkbox id="level_enable6" value="0" label="6." form="productForm" name="level_enable6" default="0"/>
-                                                    <textbox id="price_level6" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="price_level6" size="10" onfocus="this.select()"/>
-                                                    <textbox id="halo6" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="halo6" size="10" onfocus="this.select()"/>
-                                                    <textbox id="lalo6" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="lalo6" size="10" onfocus="this.select()"/>
+                                                    <checkbox id="force_condiment" value="false" label="&plus.require.condiment;" form="productForm" name="force_condiment" default="0"/>
+                                                    <checkbox id="force_memo" value="false" label="&plus.require.memo;" form="productForm" name="force_memo" default="0"/>
                                                 </row>
                                                 <row>
-                                                    <checkbox id="level_enable7" value="0" label="7." form="productForm" name="level_enable7" default="0"/>
-                                                    <textbox id="price_level7" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="price_level7" size="10" onfocus="this.select()"/>
-                                                    <textbox id="halo7" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="halo7" size="10" onfocus="this.select()"/>
-                                                    <textbox id="lalo7" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="lalo7" size="10" onfocus="this.select()"/>
+                                                    <checkbox id="singleplu" value="false" label="&plus.single.item.sale;" form="productForm" name="single" default="0"/>
+                                                    <checkbox id="visible" value="true" label="&plus.visible;" form="productForm" name="visible" default="1"/>
                                                 </row>
                                                 <row>
-                                                    <checkbox id="level_enable8" value="0" label="8." form="productForm" name="level_enable8" default="0"/>
-                                                    <textbox id="price_level8" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="price_level8" size="10" onfocus="this.select()"/>
-                                                    <textbox id="halo8" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="halo8" size="10" onfocus="this.select()"/>
-                                                    <textbox id="lalo8" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="lalo8" size="10" onfocus="this.select()"/>
-                                                </row>
-                                                <row>
-                                                    <checkbox id="level_enable9" value="0" label="9." form="productForm" name="level_enable9" default="0"/>
-                                                    <textbox id="price_level9" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="price_level9" size="10" onfocus="this.select()"/>
-                                                    <textbox id="halo9" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="halo9" size="10" onfocus="this.select()"/>
-                                                    <textbox id="lalo9" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="lalo9" size="10" onfocus="this.select()"/>
+                                                    <checkbox id="age_verification" value="false" label="&plus.require.age.verification;" form="productForm" name="age_verification" default="0"/>
                                                 </row>
                                             </rows>
                                         </grid>
 
                                     </groupbox>
                                 </vbox>
-                            </tabpanel>
+                            </hbox>
+                        </tabpanel>
 
-                            <!-- Link Groups -->
-                            <tabpanel flex="1" >
-                                <vbox flex="1">
-                                    <groupbox flex="1">
-                                        <caption label="&plus.linkgroups;" />
-                                        <viviscrollablebuttonpanel id="group_listscrollablepanel" form="productForm" name="link_group" default="" seltype="multiple" flex="1" cols="3" rows="6" labelField="name" imageField="no"
-                                                                   oncommand=""
-                                                                   class="catescrollablepanel"
-                                                                   buttonClass="catbtn button-radius"
-                                                                   scrollUpClass="rightprevbtn button-blue"
-                                                                   scrollDownClass="rightnextbtn button-blue">
-                                            <spacer flex="1"/>
-                                        </viviscrollablebuttonpanel>
+                        <tabpanel flex="1" >
+                            <hbox flex="1">
+                                <vbox  style="overflow: auto" flex="1" >
+                                    <groupbox>
+                                        <caption label="&plus.base.data2;" />
+                                        <grid>
+                                            <rows>
+                                                <row>
+                                                    <label value="&plus.purchase.price;" control="buy_price"/>
+                                                    <textbox id="buy_price" type="number" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="buy_price" onfocus="this.select()"/>
+                                                </row>
+                                                <row>
+                                                    <label value="&plus.stock.level;" control="stock"/>
+                                                    <textbox id="stock" type="number" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="stock" default="0" onfocus="this.select()"/>
+                                                </row>
+                                                <row>
+                                                    <label value="&plus.stock.threshold;" control="min_stock"/>
+                                                    <textbox id="min_stock" type="number" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="min_stock" default="0" onfocus="this.select()"/>
+                                                </row>
+                                                <row>
+                                                    <label value="&plus.memo;" control="product_memo"/>
+                                                    <textbox id="product_memo" form="productForm" name="memo" onfocus="this.select()"/>
+                                                </row>
+                                                <row>
+                                                    <label value="&plus.minimum.sale.quantity;" control="min_sale_qty"/>
+                                                    <textbox id="min_sale_qty" type="number" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="min_sale_qty" default="0" onfocus="this.select()"/>
+                                                </row>
+                                                <row>
+                                                    <label value="&plus.sale.unit;"/>
+                                                    <menulist id="sale_unit" form="productForm" name="sale_unit" value="0" default="&plus.sale.unit.individual;">
+                                                        <menupopup style="width: 200px;">
+                                                            <menuitem label="&plus.sale.unit.individual;" value="&plus.sale.unit.individual;"/>
+                                                            <menuitem label="&plus.sale.unit.gram;" value="&plus.sale.unit.gram;"/>
+                                                            <menuitem label="&plus.sale.unit.kilogram;" value="&plus.sale.unit.kilogram;"/>
+                                                            <menuitem label="&plus.sale.unit.ounce;" value="&plus.sale.unit.ounce;"/>
+                                                            <menuitem label="&plus.sale.unit.pound;" value="&plus.sale.unit.pound;"/>
+                                                            <menuitem label="&plus.sale.unit.liter;" value="&plus.sale.unit.liter;"/>
+                                                            <menuitem label="&plus.sale.unit.pint;" value="&plus.sale.unit.pint;"/>
+                                                            <menuitem label="&plus.sale.unit.quart;" value="&plus.sale.unit.quart;"/>
+                                                            <menuitem label="&plus.sale.unit.gallon;" value="&plus.sale.unit.gallon;"/>
+                                                        </menupopup>
+                                                    </menulist>
+                                                </row>
+                                                <row>
+                                                    <label value="&plus.location;" control="product_location"/>
+                                                    <textbox id="product_location" form="productForm" name="location" default="" onfocus="this.select()"/>
+                                                </row>
+                                            </rows>
+                                        </grid>
                                     </groupbox>
-                                </vbox>
-                            </tabpanel>
-                
-                        </tabpanels>
-                    </tabbox>
-                    <hbox>
-                        <button id="add_plu" label="&plus.button.action.add;" disabled="false" class="editbtns" oncommand="$do('add', null, 'Plus');" />
-                        <spacer flex="1" />
-                        <button id="modify_plu" label="&plus.button.action.modify;" disabled="true" class="editbtns" oncommand="$do('modify', null, 'Plus');" />
-                        <button id="delete_plu" label="&plus.button.action.delete;" disabled="true" class="editbtns" oncommand="$do('remove', null, 'Plus');" />
-                    </hbox>
-                    <spacer style="height: 20px;" />
-                </vbox>
 
-            </hbox>
-        </vbox>
+                                </vbox>
+                            </hbox>
+                        </tabpanel>
+
+                        <tabpanel flex="1" >
+                            <hbox flex="1">
+                                <vbox  style="overflow: auto" flex="1" >
+
+                                    <groupbox>
+                                        <caption label="&plus.setmenu;" />
+                                        <label hidden="true" id="setmenu" form="productForm" name="setmenu" value="" />
+                                        <viviscrollabletree id="plusetscrollablepanel" flex="1" rows="7" headers="&plus.header.no;,&plus.header.name;,&plus.header.quantity;" fields="no,name,qty"
+                                                            onclick="$do('clickPluSetsPanel',this.selectedIndex, 'Plus');"
+                                                            class="prodscrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray">
+                                            <vivibutton id="+" class="systoolbtn mediumimagebtn plusbtn" oncommand="$do('getPlu', null, 'Plus');" />
+                                            <vivibutton id="-" class="systoolbtn mediumimagebtn minusbtn" oncommand="$do('removePluSet', null, 'Plus');"/>
+                                        </viviscrollabletree>
+                                    </groupbox>
+
+                                </vbox>
+                            </hbox>
+                        </tabpanel>
+
+                        <!-- Icon and Button color -->
+                        <tabpanel flex="1" >
+                            <hbox flex="1">
+                                <vbox flex="1">
+                                    <groupbox>
+                                        <caption label="&plus.image;" />
+                                        <hbox>
+                                            <spacer style="width: 30px;" />
+                                            <image id="pluimage" pack="start" style="width:64px; height:64px;"/>
+                                            <spacer style="width: 30px;" />
+                                            <hbox>
+                                                <button id="imageBrowseBtn" class="iconbtn button-radius image32" image="chrome://viviecr/skin/images/add.png"/>
+                                                <button id="imageRemoveBtn" class="iconbtn button-radius image32" image="chrome://viviecr/skin/images/cancel.png"/>
+                                                <spacer flex="1" />
+                                            </hbox>
+                                        </hbox>
+                                    </groupbox>
+
+                                    <groupbox>
+                                        <caption label="&plus.button.color;" />
+                                        <button_colorpicker id="dept_button_color" form="productForm" name="button_color"
+                                                            buttonClass="catbtn button-radius"
+                                                            class-prefix="product-button-color-"
+                                                            default="product-button-color-default"/>
+                                    </groupbox>
+
+                                    <groupbox>
+                                        <caption label="&plus.font.size;" />
+                                        <button_fontsizepicker id="font_size" form="productForm" name="font_size"
+                                                               buttonClass="catbtn button-white button-radius" default="medium"/>
+                                    </groupbox>
+
+                                </vbox>
+                            </hbox>
+                        </tabpanel>
+
+                        <!-- Sell Price Levels -->
+                        <tabpanel>
+                            <vbox>
+                                <groupbox>
+                                    <caption label="&plus.pricelevels;" />
+                                    <grid>
+                                        <columns>
+                                            <column />
+                                            <column flex="1" />
+                                            <column flex="1" />
+                                            <column flex="1" />
+                                        </columns>
+
+                                        <rows>
+                                            <row>
+                                                <label value="&plus.level;" />
+                                                <label value="&plus.price;" />
+                                                <label value="&plus.halo;" />
+                                                <label value="&plus.lalo;" />
+                                            </row>
+                                            <row>
+                                                <checkbox id="level_enable1" value="1" label="1." form="productForm" name="level_enable1" default="1" checked="true" disabled="true"/>
+                                                <textbox id="price_level1" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="price_level1" size="10" class="geneditbox right" onfocus="this.select()"/>
+                                                <textbox id="halo1" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="halo1" size="10" class="geneditbox right" onfocus="this.select()"/>
+                                                <textbox id="lalo1" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="lalo1" size="10" onfocus="this.select()"/>
+                                            </row>
+                                            <row>
+                                                <checkbox id="level_enable2" value="0" label="2." form="productForm" name="level_enable2" default="0"/>
+                                                <textbox id="price_level2" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="price_level2" size="10" onfocus="this.select()"/>
+                                                <textbox id="halo2" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="halo2" size="10" onfocus="this.select()"/>
+                                                <textbox id="lalo2" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="lalo2" size="10" onfocus="this.select()"/>
+                                            </row>
+                                            <row>
+                                                <checkbox id="level_enable3" value="0" label="3." form="productForm" name="level_enable3" default="0"/>
+                                                <textbox id="price_level3" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="price_level3" size="10" onfocus="this.select()"/>
+                                                <textbox id="halo3" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="halo3" size="10" onfocus="this.select()"/>
+                                                <textbox id="lalo3" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="lalo3" size="10" onfocus="this.select()"/>
+                                            </row>
+                                            <row>
+                                                <checkbox id="level_enable4" value="0" label="4." form="productForm" name="level_enable4" default="0"/>
+                                                <textbox id="price_level4" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="price_level4" size="10" onfocus="this.select()"/>
+                                                <textbox id="halo4" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="halo4" size="10" onfocus="this.select()"/>
+                                                <textbox id="lalo4" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="lalo4" size="10" onfocus="this.select()"/>
+                                            </row>
+                                            <row>
+                                                <checkbox id="level_enable5" value="0" label="5." form="productForm" name="level_enable5" default="0"/>
+                                                <textbox id="price_level5" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="price_level5" size="10" onfocus="this.select()"/>
+                                                <textbox id="halo5" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="halo5" size="10" onfocus="this.select()"/>
+                                                <textbox id="lalo5" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="lalo5" size="10" onfocus="this.select()"/>
+                                            </row>
+                                            <row>
+                                                <checkbox id="level_enable6" value="0" label="6." form="productForm" name="level_enable6" default="0"/>
+                                                <textbox id="price_level6" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="price_level6" size="10" onfocus="this.select()"/>
+                                                <textbox id="halo6" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="halo6" size="10" onfocus="this.select()"/>
+                                                <textbox id="lalo6" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="lalo6" size="10" onfocus="this.select()"/>
+                                            </row>
+                                            <row>
+                                                <checkbox id="level_enable7" value="0" label="7." form="productForm" name="level_enable7" default="0"/>
+                                                <textbox id="price_level7" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="price_level7" size="10" onfocus="this.select()"/>
+                                                <textbox id="halo7" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="halo7" size="10" onfocus="this.select()"/>
+                                                <textbox id="lalo7" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="lalo7" size="10" onfocus="this.select()"/>
+                                            </row>
+                                            <row>
+                                                <checkbox id="level_enable8" value="0" label="8." form="productForm" name="level_enable8" default="0"/>
+                                                <textbox id="price_level8" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="price_level8" size="10" onfocus="this.select()"/>
+                                                <textbox id="halo8" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="halo8" size="10" onfocus="this.select()"/>
+                                                <textbox id="lalo8" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="lalo8" size="10" onfocus="this.select()"/>
+                                            </row>
+                                            <row>
+                                                <checkbox id="level_enable9" value="0" label="9." form="productForm" name="level_enable9" default="0"/>
+                                                <textbox id="price_level9" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="price_level9" size="10" onfocus="this.select()"/>
+                                                <textbox id="halo9" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="halo9" size="10" onfocus="this.select()"/>
+                                                <textbox id="lalo9" type="number" value="0" default="0" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="lalo9" size="10" onfocus="this.select()"/>
+                                            </row>
+                                        </rows>
+                                    </grid>
+
+                                </groupbox>
+                            </vbox>
+                        </tabpanel>
+
+                        <!-- Link Groups -->
+                        <tabpanel flex="1" >
+                            <vbox flex="1">
+                                <groupbox flex="1">
+                                    <caption label="&plus.linkgroups;" />
+                                    <viviscrollablebuttonpanel id="group_listscrollablepanel" form="productForm" name="link_group" default="" seltype="multiple" flex="1" cols="3" rows="6" labelField="name" imageField="no"
+                                                               oncommand=""
+                                                               class="catescrollablepanel"
+                                                               buttonClass="catbtn button-radius"
+                                                               scrollUpClass="rightprevbtn button-blue"
+                                                               scrollDownClass="rightnextbtn button-blue">
+                                        <spacer flex="1"/>
+                                    </viviscrollablebuttonpanel>
+                                </groupbox>
+                            </vbox>
+                        </tabpanel>
+
+                    </tabpanels>
+                </tabbox>
+                <hbox>
+                    <button id="add_plu" label="&plus.button.action.add;" disabled="false" class="editbtns" oncommand="$do('add', null, 'Plus');" />
+                    <spacer flex="1" />
+                    <button id="modify_plu" label="&plus.button.action.modify;" disabled="true" class="editbtns" oncommand="$do('modify', null, 'Plus');" />
+                    <button id="delete_plu" label="&plus.button.action.delete;" disabled="true" class="editbtns" oncommand="$do('remove', null, 'Plus');" />
+                </hbox>
+                <spacer style="height: 20px;" />
+            </vbox>
+
+        </hbox>
+    </vbox>
 
     <hbox id="dialogButtons" class="dialogbtns" pack="center">
         <button class="right exit-dialog" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>

@@ -31,7 +31,7 @@ pref("vivipos.fec.settings.controlpanels.departments.path", "chrome://viviecr/co
 pref("vivipos.fec.settings.controlpanels.departments.icon", "chrome://viviecr/content/skin/icons/stock_add-bookmark.png");
 pref("vivipos.fec.settings.controlpanels.departments.roles", "acl_manage_departments");
 
-pref("vivipos.fec.settings.controlpanels.plus.label", "PLUs");
+pref("vivipos.fec.settings.controlpanels.plus.label", "Products");
 pref("vivipos.fec.settings.controlpanels.plus.path", "chrome://viviecr/content/plus.xul");
 pref("vivipos.fec.settings.controlpanels.plus.icon", "chrome://viviecr/content/skin/icons/help-about.png");
 pref("vivipos.fec.settings.controlpanels.plus.roles", "acl_public_access");
@@ -41,7 +41,7 @@ pref("vivipos.fec.settings.controlpanels.taxes.path", "chrome://viviecr/content/
 pref("vivipos.fec.settings.controlpanels.taxes.icon", "chrome://viviecr/content/skin/icons/stock_mail-send.png");
 pref("vivipos.fec.settings.controlpanels.taxes.roles", "acl_manage_taxes");
 
-pref("vivipos.fec.settings.controlpanels.plugroups.label", "PLU Groups");
+pref("vivipos.fec.settings.controlpanels.plugroups.label", "Product Groups");
 pref("vivipos.fec.settings.controlpanels.plugroups.path", "chrome://viviecr/content/plugroups.xul");
 pref("vivipos.fec.settings.controlpanels.plugroups.icon", "chrome://viviecr/content/skin/icons/view-restore.png");
 pref("vivipos.fec.settings.controlpanels.plugroups.roles", "acl_manage_plu_groups");

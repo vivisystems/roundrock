@@ -35,19 +35,20 @@
 	                        </vbox>
 	                    </hbox>
                     	<vbox>
-                    		<hbox class="jobpad">
-                            <viviscrollablebuttonpanel id="jobscrollablepanel" dir="reverse" rows="6" cols="1" flex="1" seltype="single" labelField="jobname"
-                                                       class="jobscrollablepanel"
-                                                       buttonClass="jobBtn"
-                                                       scrollUpClass="jobupBtn"
-                                                       scrollDownClass="jobdownBtn">
+                            <deck>
+                                <hbox id="jobpad" class="jobpad-visible">
+                                    <viviscrollablebuttonpanel id="jobscrollablepanel" dir="normal" rows="6" cols="1" flex="1" seltype="single" labelField="jobname"
+                                                               class="jobscrollablepanel"
+                                                               buttonClass="jobBtn"
+                                                               scrollUpClass="jobupBtn"
+                                                               scrollDownClass="jobdownBtn">
                                 <spacer flex="1"/>
                             </viviscrollablebuttonpanel>
                     		</hbox>
-                    		<hbox class="listpad">                        
+                    		<hbox id="listpad" class="listpad">
                                 <simplelistbox id="simpleListBoxSummary" rows="16"  headers="&clockin.heading.timein;, &clockin.heading.timeout;, &clockin.heading.job;"
                                                columns="clockin_time,clockout_time,job"
-                                               class="prodsimplelistbox jobssummary"/>
+                                               class="jobssummary1"/>
                     		</hbox>
                     	</vbox>
                     </hbox>

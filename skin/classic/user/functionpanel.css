@@ -50,6 +50,10 @@
     border: 2px solid;
 }
 
+.vivifuncpanelecr_matrix_button_mapped[disabled=true] {
+    border: 0px solid;
+}
+
 /*-----------------------------------------------------------------------------
  * Function Panel unmapped buttons
  *-----------------------------------------------------------------------------
@@ -70,6 +74,7 @@
     border: 0px solid;
     background: #e1ddd2;
 }
+
 
 /*-----------------------------------------------------------------------------
  * Function Panel configure-mode buttons

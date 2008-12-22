@@ -470,7 +470,7 @@
 
                 var success = true;
                 // success is indicated by where txn is set to current transaction
-                if (stop != 'true' && buf.length > 0) {
+                if (stop != true && stop != 'true' && buf.length > 0) {
 
                     if (this.Acl.securityCheckByPassword(buf, true)) {
                         this.signOff(true);
