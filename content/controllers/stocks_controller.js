@@ -118,9 +118,10 @@
                 GeckoJS.FormHelper.reset('productForm');
                 GeckoJS.FormHelper.unserializeFromObject('productForm', product);
 
-                this._selectedIndex = -1;
-                this._listObj.selectedIndex = -1;
-                this._listObj.vivitree.view.selection.clearSelection();
+                this._selectedIndex =  this.locateIndex(product, this._datas);
+                this._listObj.selectedIndex = this._selectedIndex;
+                this._listObj.vivitree.selection.select(this._selectedIndex);
+                this._panelView.tree.ensureRowIsVisible(this._selectedIndex);
             }
 
             this.validateForm();
@@ -154,6 +155,24 @@
         clickLowStock: function () {
             this._selectedIndex = -1;
             this.updateStock(true);
+        },
+
+        locateIndex: function (product, list) {
+
+            // locate product in list using binary search
+
+            var low = 0;
+            var N = list.length;
+            var high = N;
+            while (low < high) {
+                var mid = Math.floor((low - (- high))/2);
+                (list[mid].no < product.no) ? low = mid + 1 : high = mid;
+            }
+            // high == low, using high or low depends on taste
+            if ((low < N) && (list[low].no == product.no))
+                return low // found
+            else
+                return -1 // not found             },
         },
 
         decStock: function (obj) {
