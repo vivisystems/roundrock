@@ -221,6 +221,24 @@
             if (buttonFontSize && btn) {
                 $(btn).addClass('font-'+ buttonFontSize);
             }
+            // display icon only?
+            var prod_no = this.getCellValue(row,{
+                id: 'name'
+            });
+
+            var icon_only = this.getCellValue(row,{
+                id: 'icon_only'
+            });
+            var imageExists = (this.getImageSrc(row,{id: 'no'}) != null);
+
+            if (imageExists) {
+                if (icon_only) {
+                    $(btn).addClass('nolabelbtn largeimagebtn');
+                }
+            }
+            else {
+                $(btn).addClass('noimagebtn');
+            }
         }
 
     });

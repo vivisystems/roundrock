@@ -185,7 +185,7 @@
         this.view.rowCountChanged(prevRowCount, currentRowCount, jumpToLast);
         
         GeckoJS.Session.set('vivipos_fec_number_of_items', this.getItemsCount());
-        GeckoJS.Session.set('vivipos_fec_tax_total', this.data.tax_subtotal);
+        GeckoJS.Session.set('vivipos_fec_tax_total', this.formatTax(this.getRoundedTax(this.data.tax_subtotal)));
 
     },
 
@@ -261,7 +261,7 @@
             });
         }else if (type == 'discount') {
             if (item.discount_name && item.discount_name.length > 0) {
-                dispName = '-' + item.discount_name;
+                dispName = item.discount_name;
             }
             else {
                 dispName = '-' + ((item.discount_type == '%') ? item.discount_rate*100 + '%' : '');
@@ -280,7 +280,7 @@
             });
         }else if (type == 'trans_discount') {
             if (item.discount_name && item.discount_name.length > 0) {
-                dispName = '-' + item.discount_name;
+                dispName = item.discount_name;
             }
             else {
                 dispName = '-' + ((item.discount_type == '%') ? item.discount_rate*100 + '%' : '');
@@ -298,7 +298,12 @@
                 level: 0
             });
         }else if (type == 'surcharge') {
-            dispName = '+' + ((item.surcharge_type == '%') ? item.surcharge_rate*100 + '%' : '');
+            if (item.surcharge_name && item.surcharge_name.length > 0) {
+                dispName = item.surcharge_name;
+            }
+            else {
+                dispName = '+' + ((item.surcharge_type == '%') ? item.surcharge_rate*100 + '%' : '');
+            }
             itemDisplay = GREUtils.extend(itemDisplay, {
                 id: item.id,
                 no: item.no,
@@ -312,7 +317,12 @@
                 level: 2
             });
         }else if (type == 'trans_surcharge') {
-            dispName = '+' + ((item.surcharge_type == '%') ? item.surcharge_rate*100 + '%' : '');
+            if (item.surcharge_name && item.surcharge_name.length > 0) {
+                dispName = item.surcharge_name;
+            }
+            else {
+                dispName = '+' + ((item.surcharge_type == '%') ? item.surcharge_rate*100 + '%' : '');
+            }
             itemDisplay = GREUtils.extend(itemDisplay, {
                 id: null,
                 no: item.no,
@@ -630,9 +640,15 @@
             }
 
             if (itemDisplay.type == 'trans_discount' && !itemTrans.hasMarker ) {
+                var subtotal = this.getDisplaySeqAt(itemDisplay.subtotal_index);
+                alert(GeckoJS.BaseObject.dump(subtotal));
+                subtotal.hasDiscount = false;
                 delete this.data.trans_discounts[itemIndex];
             }
             if (itemDisplay.type == 'trans_surcharge') {
+                var subtotal = this.getDisplaySeqAt(itemDisplay.subtotal_index);
+                alert(GeckoJS.BaseObject.dump(subtotal));
+                subtotal.hasSurcharge = false;
                 delete this.data.trans_surcharges[itemIndex];
             }
             if (itemDisplay.type == 'condiment') {
@@ -687,13 +703,7 @@
 
         if (itemDisplay.type == 'item') {
 
-            if(item.hasDiscount) {
-                // already hasDiscount
-                return;
-            }
-
-            
-            item.discount_name =  discount.name || '' ;
+            item.discount_name =  discount.name;
             item.discount_rate =  discount.amount;
             item.discount_type =  discount.type;
 
@@ -724,7 +734,7 @@
         }else if (itemDisplay.type == 'subtotal'){
 
             var discountItem = {
-                discount_name: '',
+                discount_name: discount.name,
                 discount_rate: discount.amount,
                 discount_type: discount.type,
                 current_discount: 0,
@@ -747,8 +757,12 @@
             var discountIndex = GeckoJS.String.uuid();
             this.data.trans_discounts[discountIndex] = discountItem;
 
+            // mark subtotal as having surcharge applied
+            itemDisplay.hasDiscount = true;
+
             // create data object to push in items array
             var itemDisplay = this.createDisplaySeq(discountIndex, discountItem, 'trans_discount');
+            itemDisplay.subtotal_index = index;
 
             this.data.display_sequences.splice(index+1,0,itemDisplay);
 
@@ -775,19 +789,13 @@
         var itemDisplay = this.getDisplaySeqAt(index); // last seq
         var itemIndex = itemDisplay.index;
         var lastItemDispIndex = this.getLastDisplaySeqByIndex(itemIndex);
-
+        var targetDisplayItem = this.getDisplaySeqByIndex(itemIndex);   // display index of the item to add condiment to
 
         var prevRowCount = this.data.display_sequences.length;
 
+        if (item && item.type == 'item') {
 
-        if (itemDisplay.type == 'item') {
-
-            // already hasSurcharge
-            if(item.hasSurcharge) {
-
-                return ;
-            }
-            item.surcharge_name = '';
+            item.surcharge_name = surcharge.name;
             item.surcharge_rate =  surcharge.amount;
             item.surcharge_type =  surcharge.type;
             item.hasSurcharge = true;
@@ -815,7 +823,7 @@
         }else if (itemDisplay.type == 'subtotal'){
 
             var surchargeItem = {
-                surcharge_name: '',
+                surcharge_name: surcharge.name,
                 surcharge_rate: surcharge.amount,
                 surcharge_type: surcharge.type,
                 current_surcharge: 0,
@@ -835,8 +843,12 @@
             var surchargeIndex = GeckoJS.String.uuid();
             this.data.trans_surcharges[surchargeIndex] = surchargeItem;
 
+            // mark subtotal as having surcharge applied
+            itemDisplay.hasSurcharge = true;
+            
             // create data object to push in items array
             var itemDisplay = this.createDisplaySeq(surchargeIndex, surchargeItem, 'trans_surcharge');
+            itemDisplay.subtotal_index = index;
 
             this.data.display_sequences.splice(index+1,0,itemDisplay);
 

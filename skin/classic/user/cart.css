@@ -120,3 +120,55 @@ treechildren::-moz-tree-cell-text(treecellTRAY) {color: white;}
 treechildren::-moz-tree-cell-text(treecellSUBTOTAL) {color: yellow;}
 treechildren::-moz-tree-cell-text(treecellTOTAL) {color: yellow;}
 
+treechildren::-moz-tree-column(treecellProduct) {
+    text-align: left;
+    crop: none;
+    color: red;
+}
+treechildren::-moz-tree-cell-text(treecellQty) {
+    text-align: center;
+    color:blue;
+}
+treechildren::-moz-tree-column(treecellUnitPrice) {
+    text-align:right;
+}
+treechildren::-moz-tree-cell-text(treecellSubtotal) {
+}
+treechildren::-moz-tree-cell-text(treecellTax) {
+}
+
+/*-----------------------------------------------------------------------------
+ * SHOPPING CART order headings
+ *-----------------------------------------------------------------------------
+ */
+
+.cartList tree #name {
+    max-width: 150px;
+    min-width: 150px;
+}
+
+.cartList tree #current_qty {
+    max-width: 50px;
+    min-width: 50px;
+}
+
+.cartList tree #current_price {
+    max-width: 70px;
+    min-width: 70px;
+}
+
+.cartList tree #current_subtotal {
+    max-width: 90px;
+    min-width: 90px;
+}
+.cartList tree #current_tax {
+}
+
+.cartList tree label {
+    text-align: center;
+    crop: none;
+}
+
+.cartList .tree-scrollable-columns {
+    max-height: 0px;
+}

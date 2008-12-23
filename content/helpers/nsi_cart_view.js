@@ -80,6 +80,37 @@
             }
 
         },
+/*
+        getCellText: function(row, col) {
+            return 'abiowcasdsadasdasdsadasdiii';
+        },
+*/
+        getCellProperties: function(row, col, prop) {
+            var aserv=Components.classes["@mozilla.org/atom-service;1"].
+                      getService(Components.interfaces.nsIAtomService);
+
+            switch(col.id) {
+                case 'name':
+                    prop.AppendElement(aserv.getAtom('treecellProduct'));
+                    break;
+
+                case 'current_qty':
+                    prop.AppendElement(aserv.getAtom('treecellQty'));
+                    break;
+
+                case 'current_price':
+                    prop.AppendElement(aserv.getAtom('treecellUnitPrice'));
+                    break;
+
+                case 'current_subtotal':
+                    prop.AppendElement(aserv.getAtom('treecellSubtotal'));
+                    break;
+
+                case 'current_tax':
+                    prop.AppendElement(aserv.getAtom('treecellTax'));
+                    break;
+            }
+        },
 
         /*
         getCellProperties: function(row,col,props){
@@ -101,7 +132,7 @@
         },
         */
 
-        getRowProperties : function(row,props){
+        getRowProperties : function(row, props){
             if (this._old_row == row) return;
 
             var data = this.getCurrentIndexData(row);
@@ -118,7 +149,7 @@
                           getService(Components.interfaces.nsIAtomService);
                 props.AppendElement(aserv.getAtom("treeTOTAL"));
             }
-            this._ord_row = row;
+            this._old_row = row;
         },
 
         //getRowProperties : function(row,props){},

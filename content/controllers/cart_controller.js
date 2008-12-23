@@ -375,7 +375,7 @@
                 this.dispatchEvent('onVoidItem', null);
 
                 // @todo OSD
-                OsdUtils.warn(_('Nothing to VOID'));
+                OsdUtils.warn(_('Not an open order; cannot VOID'));
                 return; // fatal error ?
             }
 
@@ -428,50 +428,50 @@
 
         addDiscountByNumber: function(amount) {
             // shorcut
-            amount = amount || false;
+            var discountAmount = (amount == '') ? false : amount;
 
             // check if has buffer
             var buf = this._getKeypadController().getBuffer();
-            if (buf.length>0) {
-                amount = buf;
-                this._getKeypadController().clearBuffer();
+            this._getKeypadController().clearBuffer();
+
+            if (!discountAmount && buf.length>0) {
+                discountAmount = buf;
             }
 
-            if(amount === false) return;
-
-            var discountAmount = '';
-
-            if((amount+'').indexOf('$') == -1)  {
-                discountAmount = amount + '$';
+            if (!discountAmount) {
+                // @todo OSD
+                OsdUtils.warn(_('Please enter the discount amount first'));
+                return;
             }
-            this.addDiscount(discountAmount);
-
+            else {
+                this.addDiscount(discountAmount, '$', '-');
+            }
         },
 
         addDiscountByPercentage: function(amount) {
             // shortcut
-            amount = amount || false;
+            var discountAmount = (amount == '') ? false : amount;
 
             // check if has buffer
             var buf = this._getKeypadController().getBuffer();
-            if (buf.length>0) {
-                amount = buf;
-                this._getKeypadController().clearBuffer();
+            this._getKeypadController().clearBuffer();
+
+            if (!discountAmount && buf.length>0) {
+                discountAmount = buf;
             }
 
-            if(amount === false) return;
-
-            var discountAmount = '';
-
-            if((amount+'').indexOf('%') == -1)  {
-                discountAmount = amount + '%';
+            if (!discountAmount) {
+                // @todo OSD
+                OsdUtils.warn(_('Please enter the discount percentage first'));
+                return;
             }
-            this.addDiscount(discountAmount);
-
+            else {
+                this.addDiscount(discountAmount, '%', '-' + discountAmount + '%');
+            }
         },
 
 
-        addDiscount: function(discountAmount, discountName) {
+        addDiscount: function(discountAmount, discountType, discountName) {
 
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
@@ -479,59 +479,90 @@
             if(curTransaction == null) {
                 this.clear();
                 this.dispatchEvent('onAddDiscount', null);
+
+                // @todo OSD
+                OsdUtils.warn(_('Not an open order; cannot add discount'));
                 return; // fatal error ?
             }
 
-            if(index <0) return;
+            if(index <0) {
+                // @todo OSD
+                OsdUtils.warn(_('Please select an item first'));
+                
+                return;
+            }
 
             discountAmount = discountAmount || false;
             discountName = discountName || '';
 
-            if (curTransaction.isSubmit() || curTransaction.isCancel()) return;
+            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
+                //@todo OSD
+                OsdUtils.warn(_('Not an open order; cannot add surcharge'));
+                return;
+            }
 
             var itemTrans = curTransaction.getItemAt(index);
             var itemDisplay = curTransaction.getDisplaySeqAt(index);
 
-            if (itemDisplay.type == 'item') {
+            if (itemTrans != null && itemTrans.type == 'item') {
                 if (itemTrans.hasDiscount) {
                     this.log('already hasDiscount');
                     this.dispatchEvent('onAddDiscountError', {});
+
+                    //@todo OSD
+                    OsdUtils.warn(_('Discount has been already been registered on item [%S]', [itemTrans.name]));
+                    return;
+                }
+                if (itemTrans.hasSurcharge) {
+                    this.log('already hasSurcharge');
+                    this.dispatchEvent('onAddDiscountError', {});
+
+                    //@todo OSD
+                    OsdUtils.warn(_('Surcharge has been already been registered on item [%S]', [itemTrans.name]));
                     return;
                 }
                 if (itemTrans.hasMarker) {
                     this.log('already hasMarker');
                     this.dispatchEvent('onAddDiscountError', {});
+
+                    //@todo OSD
+                    OsdUtils.warn(_('Cannot modify an item that has been subtotaled'));
                     return;
                 }
             }
-
-            // check if has buffer
-            var buf = this._getKeypadController().getBuffer();
-            if (buf.length>0) {
-                discountAmount = buf;
-                this._getKeypadController().clearBuffer();
+            else if (itemDisplay.type == 'subtotal') {
+                if (itemDisplay.hasSurcharge) {
+                    //@todo OSD
+                    OsdUtils.warn(_('Surcharge has been already been registered on item [%S]', [itemDisplay.name]));
+                    return;
+                }
+                else if (itemDisplay.hasDiscount) {
+                    OsdUtils.warn(_('Discount has been already been registered on item [%S]', [itemDisplay.name]));
+                    return;
+                }
+            }
+            else {
+                //@todo OSD
+                OsdUtils.warn(_('Discount may not be added to [%S]', [itemDisplay.name]));
+                return;
             }
 
             if(!discountAmount) {
                 this.log('no discount value');
                 this.dispatchEvent('onAddDiscountError', {});
+
+                //@todo OSD
+                OsdUtils.warn(_('Please enter the discount amount or percentage first'));
                 return;
             }
             
-            var discountType = '%';
-            
             // check percentage or fixed number
-            if(discountAmount.indexOf('%') != -1) {
+            if(discountType == '%') {
                 // percentage
-                discountType = '%';
-
-                discountAmount = parseFloat(discountAmount.replace('%', '')) / 100;
-
+                discountAmount = parseFloat(discountAmount) / 100;
             }else {
                 // fixed number
-                discountType = '$';
-
-                discountAmount = parseFloat(discountAmount.replace('$', ''));
+                discountAmount = parseFloat(discountAmount);
 
             }
 
@@ -559,51 +590,51 @@
 
         addSurchargeByNumber: function(amount) {
             // shorcut
-            amount = amount || false;
+            var surchargeAmount = (amount == '') ? false : amount;
 
             // check if has buffer
             var buf = this._getKeypadController().getBuffer();
-            if (buf.length>0) {
-                amount = buf;
-                this._getKeypadController().clearBuffer();
+            this._getKeypadController().clearBuffer();
+
+            if (!surchargeAmount && buf.length>0) {
+                surchargeAmount = buf;
             }
 
-            if(amount === false) return;
-
-            var surchargeAmount = '';
-
-            if((amount+'').indexOf('$') == -1)  {
-                surchargeAmount = amount + '$';
+            if (!surchargeAmount) {
+                // @todo OSD
+                OsdUtils.warn(_('Please enter the surcharge amount first'));
+                return;
             }
-            this.addSurcharge(surchargeAmount);
-
+            else {
+                this.addSurcharge(surchargeAmount, '$', '+');
+            }
         },
 
         addSurchargeByPercentage: function(amount) {
             // shortcut
-            amount = amount || false;
+            var surchargeAmount = (amount == '') ? false : amount;
 
             // check if has buffer
             var buf = this._getKeypadController().getBuffer();
-            if (buf.length>0) {
-                amount = buf;
-                this._getKeypadController().clearBuffer();
+            this._getKeypadController().clearBuffer();
+
+            if (!surchargeAmount && buf.length>0) {
+                surchargeAmount = buf;
             }
 
-            if(amount === false) return;
-            
-            var surchargeAmount = '';
-
-            if((amount+'').indexOf('%') == -1)  {
-                surchargeAmount = amount + '%';
+            if (!surchargeAmount) {
+                // @todo OSD
+                OsdUtils.warn(_('Please enter the surcharge percentage first'));
+                return;
             }
-            this.addSurcharge(surchargeAmount);
-
+            else {
+                this.addSurcharge(surchargeAmount, '%', '+' + surchargeAmount + '%');
+            }
         },
 
 
 
-        addSurcharge: function(surchargeAmount) {
+        addSurcharge: function(surchargeAmount, type, name) {
 
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
@@ -611,58 +642,86 @@
             if(curTransaction == null) {
                 this.clear();
                 this.dispatchEvent('onAddSurcharge', null);
+
+                // @todo OSD
+                OsdUtils.warn(_('Not an open order; cannot add surcharge'));
                 return; // fatal error ?
             }
 
-            if(index <0) return;
+            if(index < 0) {
+                // @todo OSD
+                OsdUtils.warn(_('Please select an item first'));
+                return;
+            }
 
             surchargeAmount = surchargeAmount || false;
 
-            if (curTransaction.isSubmit() || curTransaction.isCancel()) return;
+            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
+                //@todo OSD
+                OsdUtils.warn(_('Not an open order; cannot add surcharge'));
+                return;
+            }
 
             var itemTrans = curTransaction.getItemAt(index);
-
             var itemDisplay = curTransaction.getDisplaySeqAt(index);
+            
+            if (itemTrans != null && itemTrans.type == 'item') {
 
-            if (itemDisplay.type == 'item') {
+                if (itemTrans.hasDiscount) {
+                    this.log('already hasDiscount');
+                    this.dispatchEvent('onAddSurchargeError', {});
+
+                    //@todo OSD
+                    OsdUtils.warn(_('Discount has been already been registered on item [%S]', [itemTrans.name]));
+                    return;
+                }
                 if (itemTrans.hasSurcharge) {
                     this.log('already hasSurcharge');
                     this.dispatchEvent('onAddSurchargeError', {});
+
+                    //@todo OSD
+                    OsdUtils.warn(_('Surcharge has been already been registered on item [%S]', [itemTrans.name]));
                     return;
                 }
                 if (itemTrans.hasMarker) {
                     this.log('already hasMarker');
                     this.dispatchEvent('onAddSurchargeError', {});
+
+                    //@todo OSD
+                    OsdUtils.warn(_('Cannot modify an item that has been subtotaled'));
                     return;
                 }
             }
-
-            // check if has buffer
-            var buf = this._getKeypadController().getBuffer();
-            if (buf.length>0) {
-                surchargeAmount = buf;
-                this._getKeypadController().clearBuffer();
+            else if (itemDisplay.type == 'subtotal') {
+                if (itemDisplay.hasSurcharge) {
+                    //@todo OSD
+                    OsdUtils.warn(_('Surcharge has been already been registered on item [%S]', [itemDisplay.name]));
+                    return;
+                }
+                else if (itemDisplay.hasDiscount) {
+                    OsdUtils.warn(_('Discount has been already been registered on item [%S]', [itemDisplay.name]));
+                    return;
+                }
+            }
+            else {
+                //@todo OSD
+                OsdUtils.warn(_('Surcharge may not be added to [%S]', [itemDisplay.name]));
+                return;
             }
 
-            var surchargeType = '%';
-
             // check percentage or fixed number
-            if(surchargeAmount.indexOf('%') != -1) {
+            if(type == '%') {
                 // percentage
-                surchargeType = '%';
-
-                surchargeAmount = parseFloat(surchargeAmount.replace('%', '')) / 100;
+                surchargeAmount = parseFloat(surchargeAmount) / 100;
 
             }else {
                 // fixed number
-                surchargeType = '$';
-
-                surchargeAmount = parseFloat(surchargeAmount.replace('$', ''));
+                surchargeAmount = parseFloat(surchargeAmount);
 
             }
-
             var surchargeItem = {
-                type: surchargeType,
+                name: name,
+                type: type,
                 amount: surchargeAmount
             };
 
@@ -725,24 +784,42 @@
 
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
+            
+            this._getKeypadController().clearBuffer();
 
             if(curTransaction == null) {
                 this.clear();
                 this.dispatchEvent('onHouseBon', null);
+
+                // @todo OSD
+                OsdUtils.warn(_('Not an open order; cannot register House Bon'));
                 return; // fatal error ?
             }
 
-            if(index <0) return;
+            if(index <0) {
+                // @todo OSD
+                OsdUtils.warn(_('Please select an item first'));
+                return;
+            }
 
-            if (curTransaction.isSubmit() || curTransaction.isCancel()) return;
+            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
+                //@todo OSD
+                OsdUtils.warn(_('Not an open order; cannot register House Bon'));
+                return;
+            }
 
             var itemTrans = curTransaction.getItemAt(index);
             var itemDisplay = curTransaction.getDisplaySeqAt(index);
 
-            if (itemDisplay.type == 'item') {
+            if (itemTrans != null && itemTrans.type == 'item') {
 
-                var discountAmount =  itemTrans.current_subtotal +'' + '$';
-                this.addDiscount(discountAmount, 'House Bon');
+                var discountAmount =  itemTrans.current_subtotal;
+                this.addDiscount(discountAmount, '$', 'House Bon');
+            }
+            else {
+                //@todo OSD
+                OsdUtils.warn(_('House Bon may not be applied to [%S]', [itemDisplay.name]));
+                return;
             }
 
         },
@@ -1112,6 +1189,8 @@
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
 
+            this._getKeypadController().clearBuffer();
+
             if(curTransaction == null) {
                 //@todo OSD
                 OsdUtils.warn(_('Not an open order; cannot add condiment'));
@@ -1142,6 +1221,27 @@
             }else {
                 var productsById = GeckoJS.Session.get('productsById');
                 var cartItem = curTransaction.getItemAt(index);
+                if (cartItem == null || cartItem.type != 'item') {
+                    var displayItem = curTransaction.getDisplaySeqAt(index);
+                    //@todo OSD
+                    OsdUtils.warn(_('Condiments may not be added to [%S]', [displayItem.name]));
+                    return;
+                }
+                if (cartItem.hasMarker) {
+                    //@todo OSD
+                    OsdUtils.warn(_('Cannot add condiments to an item that has been subtotaled'));
+                    return;
+                }
+                if (cartItem.hasDiscount) {
+                    //@todo OSD
+                    OsdUtils.warn(_('Please void discount on item first'));
+                    return;
+                }
+                if (cartItem.hasSurcharge) {
+                    //@todo OSD
+                    OsdUtils.warn(_('Please void surcharge on item first'));
+                    return;
+                }
                 condimentItem = GREUtils.extend({}, productsById[cartItem.id]);
             }
 
@@ -1149,7 +1249,7 @@
 
                 if(!condimentItem.cond_group){
                     //@todo OSD
-                    OsdUtils.warn(_("NO Condiment Group associated with Product"));
+                    OsdUtils.warn(_('No Condiment group associated with item [%S]', [condimentItem.name]));
                 }
                 else {
                     var condiments = this.getCondimentsDialog(condimentItem.cond_group);
