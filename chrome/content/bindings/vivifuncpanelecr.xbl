@@ -1238,8 +1238,8 @@
                     var mode = this.getAttribute('mode');
                     var dir = this.dir;
 
-                    GREUtils.log('[CUSTOM]: rendering custom layout with <r=' + r + ',c=' + c + '>x<cellWidth=' + cellWidth + ',cellHeight=' + cellHeight + '>');
-                    GREUtils.log('[CUSTOM]: with mode <' + mode + '> and dir <' + dir + '>');
+                    //GREUtils.log('[CUSTOM]: rendering custom layout with <r=' + r + ',c=' + c + '>x<cellWidth=' + cellWidth + ',cellHeight=' + cellHeight + '>');
+                    //GREUtils.log('[CUSTOM]: with mode <' + mode + '> and dir <' + dir + '>');
 
                     for (var i = 0; i < layout.length; i++) {
                         entry = layout[i].split(',');

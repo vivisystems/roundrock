@@ -143,6 +143,7 @@
         <body><![CDATA[
 
             var buttons = [];
+            var imageValidate = this.getAttribute('validate');
             // init columns
             var columnsObj = document.getAnonymousElementByAttribute(this, 'anonid', 'columns');
             columnsObj.setAttribute('hidden', "true");
@@ -177,6 +178,7 @@
                     let btn = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:vivibutton");
                     btn.setAttribute("flex", 1);
                     btn.setAttribute("anonid", i*cols+j);
+                    if (imageValidate != null) btn.setAttribute('validate', imageValidate);
 
                     if (this.buttonClass) btn.setAttribute('class', this.buttonClass);
                     if(crop) btn.setAttribute('crop', crop);
