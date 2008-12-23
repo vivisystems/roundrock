@@ -24,6 +24,7 @@
             this.createPluPanel();
             this.requestCommand('initial', null, 'Pricelevel');
             this.requestCommand('initial', null, 'Cart');
+            this.requestCommand('initial', null, 'CurrencySetup');
 
             this.resetLayout(true);
             this.initialLogin();

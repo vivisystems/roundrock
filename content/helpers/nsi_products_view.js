@@ -197,9 +197,9 @@
             var val = this.getCellValue(row, col);
             //this.log('getImageSrc = ' + row + ", " +col.id + "," + val);
 
-            var aImageFile = "chrome://viviecr/content/skin/pluimages" + "/" + val + ".png" /*+ "?"+ Math.random()*/;
+            var aImageFile = "chrome://viviecr/content/skin/pluimages" + "/" + val + ".png";
             if (GREUtils.File.exists(GREUtils.File.chromeToPath(aImageFile))) {
-                return aImageFile;
+                return aImageFile  /*+ "?"+ Math.random()*/;
 
             }else {
                 return null;

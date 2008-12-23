@@ -40,7 +40,7 @@
                                            ensureVisible="true"
                                            oncommand="$do('clickPluPanel',this.selectedIndex, 'Plus');"
                                            class="prodscrollablepanel"
-                                           buttonClass="plubtn smallimagebtn button-radius"
+                                           buttonClass="plubtn mediumimagebtn button-radius"
                                            scrollUpClass="rightprevbtn button-gray"
                                            scrollDownClass="rightnextbtn button-gray">
                     <spacer flex="1"/>
@@ -118,6 +118,7 @@
                                                     <checkbox id="visible" value="true" label="&plus.visible;" form="productForm" name="visible" default="1"/>
                                                 </row>
                                                 <row>
+                                                    <checkbox id="icon_only" value="false" label="&plus.display.icon.only;" form="productForm" name="icon_only" default="0"/>
                                                     <checkbox id="age_verification" value="false" label="&plus.require.age.verification;" form="productForm" name="age_verification" default="0"/>
                                                 </row>
                                             </rows>

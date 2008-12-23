@@ -556,8 +556,17 @@
 }
 
 .largeimagebtn image {
+	width: 48px;
+	height: 48px;
+}
+
+.xlargeimagebtn image {
 	width: 64px;
 	height: 64px;
+}
+
+.nolabelbtn description {
+   display: none;
 }
 
 /*-----------------------------------------------------------------------------

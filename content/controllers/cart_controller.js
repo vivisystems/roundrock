@@ -229,7 +229,7 @@
 
             // single item sale?
             if (plu.single && curTransaction.data.items_count == 1) {
-                cart.dispatchEvent('onWarning', _('SINGLE ITEM SALE'));
+                this.dispatchEvent('onWarning', _('SINGLE ITEM SALE'));
                 this.addPayment('cash');
             }
             else {
@@ -373,13 +373,22 @@
 
             if(curTransaction == null) {
                 this.dispatchEvent('onVoidItem', null);
+
+                // @todo OSD
+                OsdUtils.warn(_('Nothing to VOID'));
                 return; // fatal error ?
             }
 
-            if(index <0) return;
+            if(index <0) {
+                // @todo OSD
+                OsdUtils.warn(_('Please select an item first'));
+                return;
+            }
 
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 this.dispatchEvent('onVoidItemError', {});
+                // @todo OSD
+                OsdUtils.warn(_('Not an open order; cannot VOID'));
                 return;
             }
 
@@ -389,16 +398,19 @@
 
             
             if (itemDisplay.type == 'subtotal' || itemDisplay.type == 'tray') {
-                // @todo
                 this.dispatchEvent('onVoidItemError', {});
+
+                // @todo OSD
+                OsdUtils.warn(_('Cannot VOID selected item [%S]', [itemDisplay.name]));
                 return ;
             }
 
             itemTrans = curTransaction.getItemAt(index);
             if (itemTrans) {
                 if(itemTrans.hasMarker) {
-                    // @todo
+                    // @todo OSD
                     this.dispatchEvent('onVoidItemError', {});
+                    OsdUtils.warn(_('Cannot modify an item that has been subtotaled'));
                     return ;
                 }
             }
@@ -932,22 +944,36 @@
 
             if(curTransaction == null) {
                 this.dispatchEvent('onShiftTax', null);
+                //@todo OSD
+                OsdUtils.warn(_('Not an open order; cannot shift tax'));
                 return; // fatal error ?
             }
 
-            if(index <0) return;
+            if(index <0) {
+                //@todo OSD
+                OsdUtils.warn(_('Please select an item first'));
+                return;
+            }
 
-            if (curTransaction.isSubmit() || curTransaction.isCancel()) return;
+            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
+                //@todo OSD
+                OsdUtils.warn(_('Not an open order; cannot shift tax'));
+                return; // fatal error ?
+            }
 
             var itemTrans = curTransaction.getItemAt(index);
-
-            if (itemTrans.type != 'item') {
+            if (itemTrans == null || itemTrans.type != 'item') {
                 this.dispatchEvent('onShiftTaxError', {});
+                //@todo OSD
+                var displayItem = curTransaction.getDisplaySeqAt(index);
+                OsdUtils.warn(_('This operation cannot be performed on [%S]', [displayItem.name]));
                 return;
             }
 
             if (itemTrans.hasMarker) {
                 this.dispatchEvent('onShiftTaxError', {});
+                //@todo OSD
+                OsdUtils.warn(_('Cannot modify an item that has been subtotaled'));
                 return;
             }
 
@@ -965,6 +991,8 @@
                 if(taxIndex == taxes.length) {
                     // not found
                     this.dispatchEvent('onShiftTaxError', {});
+                    //@todo OSD
+                    OsdUtils.error(_('The tax status indicated does not exist [%S]', [taxNo]));
                     return;
                 }
             }
@@ -1084,13 +1112,27 @@
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
 
-            if(curTransaction == null) return; // fatal error ?
+            if(curTransaction == null) {
+                //@todo OSD
+                OsdUtils.warn(_('Not an open order; cannot add condiment'));
+                return; // fatal error ?
+            }
 
-            if(index <0) return;
+            if(index <0) {
+                //@todo OSD
+                OsdUtils.warn(_('Please select an item first'));
+                return;
+            }
 
             // transaction is submit and close success
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
-                curTransaction = this._newTransaction();
+                if (plu) {
+                    curTransaction = this._newTransaction();
+                }
+                else {
+                    //@todo OSD
+                    OsdUtils.warn(_('Not an open order; cannot add condiment'));
+                }
             }
 
             var condimentItem = null;
@@ -1106,11 +1148,13 @@
             if (condimentItem) {
 
                 if(!condimentItem.cond_group){
+                    //@todo OSD
                     OsdUtils.warn(_("NO Condiment Group associated with Product"));
                 }
-
-                var condiments = this.getCondimentsDialog(condimentItem.cond_group);
-                if (condiments) curTransaction.appendCondiment(index, condiments);
+                else {
+                    var condiments = this.getCondimentsDialog(condimentItem.cond_group);
+                    if (condiments) curTransaction.appendCondiment(index, condiments);
+                }
                 
             }
 

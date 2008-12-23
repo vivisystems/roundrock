@@ -263,7 +263,7 @@ pref("vivipos.fec.registry.function.programmable.signOff.data", "");
 
 pref("vivipos.fec.registry.function.programmable.currencyConvert.access", "acl_register_currency_exchange");
 pref("vivipos.fec.registry.function.programmable.currencyConvert.command", "currencyConvert");
-pref("vivipos.fec.registry.function.programmable.currencyConvert.controller", "Main");
+pref("vivipos.fec.registry.function.programmable.currencyConvert.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.currencyConvert.data", "");
 
 pref("vivipos.fec.registry.function.programmable.changeToCurrentLevel.access", "acl_revert_price_level");

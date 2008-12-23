@@ -26,8 +26,9 @@
 <!ENTITY plus.require.condiment "Condiments required">
 <!ENTITY plus.require.memo "Memo required">
 <!ENTITY plus.single.item.sale "Single Item Sale">
-<!ENTITY plus.visible "Show on Menu">
-<!ENTITY plus.require.age.verification "Age verification">
+<!ENTITY plus.visible "Show on menu">
+<!ENTITY plus.require.age.verification "Require age verification">
+<!ENTITY plus.display.icon.only "Display icon only">
 
 <!ENTITY plus.purchase.price "Purchase Price">
 <!ENTITY plus.stock.level "Current Stock Level">

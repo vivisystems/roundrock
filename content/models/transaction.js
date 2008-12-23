@@ -564,7 +564,6 @@
 
         if (itemDisplay.type == 'item' && !itemTrans.hasMarker) {
 
-
             var item = null;
             if(GeckoJS.Session.get('productsById')[itemTrans.id]) {
                 item = GREUtils.extend({}, GeckoJS.Session.get('productsById')[itemTrans.id]);
@@ -581,15 +580,20 @@
             this.data.items_count--;
 
             var removeCount = 1;
+            var display_sequences = this.data.display_sequences;
 
-            if (itemRemoved.hasDiscount) removeCount++;
-            if (itemRemoved.hasSurcharge) removeCount++;
-            if (itemRemoved.memo != null) removeCount++;
+            // look down display sequence to find location of next item that is
+            // not a discount, surcharge, or memo
 
-            if (itemRemoved.condiments != null) {
-                for (var cn in itemRemoved.condiments) {
+            for (var i = index + 1; i < display_sequences.length; i++) {
+                var checkItem = display_sequences[i];
+                if (checkItem.type == 'discount' ||
+                    checkItem.type =='surcharge' ||
+                    checkItem.type =='memo' ||
+                    checkItem.type == 'condiment')
                     removeCount++;
-                }
+                else
+                    break;
             }
 
             this.log('DEBUG', 'dispatchEvent afterVoidItem ' + this.dump(itemRemoved) );
@@ -604,7 +608,6 @@
 
 
         }else {
-
             if (itemDisplay.type == 'memo' ) {
                 itemTrans.memo= "";
             }
@@ -859,14 +862,16 @@
         var prevRowCount = this.data.display_sequences.length;
 
         var itemTrans = this.getItemAt(index); // item in transaction
-        var itemDisplay = this.getDisplaySeqAt(index); // item in transaction
+        var itemDisplay = this.getDisplaySeqAt(index); // display item at cursor position
         var itemIndex = itemDisplay.index;
+        var targetDisplayIndex = this.getDisplayIndexByIndex(itemIndex);   // display index of the item being shifted
 
-        if (itemDisplay.type != 'item') return ; // TODO
+        if (itemTrans == null || itemTrans.type != 'item') {
+            return ; // this should not happen as cart has already checked for this possibility
+        }
 
         this.log('DEBUG', 'dispatchEvent beforeShiftTax ' + this.dump(itemTrans) );
         Transaction.events.dispatch('beforeShiftTax', itemTrans, this);
-
 
         var taxes = GeckoJS.Session.get('taxes');
         if(taxes == null) taxes = Transaction.Tax.getTaxList();
@@ -894,7 +899,7 @@
         var itemDisplay = this.createDisplaySeq(itemIndex, itemModified, 'item');
 
         // update
-        this.data.display_sequences[index] = itemDisplay ;
+        this.data.display_sequences[targetDisplayIndex] = itemDisplay ;
 
         var currentRowCount = this.data.display_sequences.length;
 
@@ -974,9 +979,10 @@
 
     Transaction.prototype.appendCondiment = function(index, condiments){
         
-        var item = this.getItemAt(index);
-        var itemDisplay = this.getDisplaySeqAt(index);
-        var itemIndex = itemDisplay.index;
+        var item = this.getItemAt(index);                           // item to add condiment to
+        var itemDisplay = this.getDisplaySeqAt(index);              // display item at cursor position
+        var itemIndex = itemDisplay.index;                          // itemIndex of item to add condiment to
+        var targetDisplayItem = this.getDisplaySeqByIndex(itemIndex);   // display index of the item to add condiment to
 
         var prevRowCount = this.data.display_sequences.length;
 
@@ -997,35 +1003,39 @@
 
                         if(item.condiments == null) item.condiments = {};
 
-                        item.condiments[condiment.name] = condiment;
-
-                        // up
-                        var condimentDisplay = this.createDisplaySeq(itemIndex, condimentItem, 'condiment');
-
-                        var lastIndex = this.data.display_sequences.length - 1;
-                        this.data.display_sequences.splice(lastIndex+1,0,condimentDisplay);
-
-                        var roundedPrice = this.getRoundedPrice(item.current_price) || 0;
-                        var roundedSubtotal = this.getRoundedPrice(item.current_qty*item.current_price) || 0;
-                        var roundedCondiment = 0;
-
-                        for(var cn in item.condiments) {
-                            roundedCondiment += parseFloat(item.condiments[cn].price)*item.current_qty;
+                        // check for duplicate condiment;
+                        if (condiment.name in item.condiments) {
+                            //@todo OSD
+                            OsdUtils.warn(_('Condiment [%S] already added to [%S]', [condiment.name, item.name]));
                         }
+                        else {
+                            item.condiments[condiment.name] = condiment;
 
-                        roundedCondiment = this.getRoundedPrice(roundedCondiment);
+                            // up
+                            var condimentDisplay = this.createDisplaySeq(itemIndex, condimentItem, 'condiment');
+                            this.data.display_sequences.splice(index+1,0,condimentDisplay);
 
-                        item.current_condiment = roundedCondiment;
-                        item.current_subtotal = roundedSubtotal + roundedCondiment;
+                            var roundedPrice = this.getRoundedPrice(item.current_price) || 0;
+                            var roundedSubtotal = this.getRoundedPrice(item.current_qty*item.current_price) || 0;
+                            var roundedCondiment = 0;
 
-                        // update cartlist 's itemDisplay
-                        itemDisplay.current_subtotal = this.formatPrice(item.current_subtotal);
-                        
-                        // item subtotal to condition ??
-                        if(false) {
-                            condimentDisplay.current_subtotal = this.formatPrice(item.current_subtotal);
+                            for(var cn in item.condiments) {
+                                roundedCondiment += parseFloat(item.condiments[cn].price)*item.current_qty;
+                            }
+
+                            roundedCondiment = this.getRoundedPrice(roundedCondiment);
+
+                            item.current_condiment = roundedCondiment;
+                            item.current_subtotal = roundedSubtotal + roundedCondiment;
+
+                            // update cartlist 's itemDisplay
+                            targetDisplayItem.current_subtotal = this.formatPrice(item.current_subtotal);
+
+                            // item subtotal to condition ??
+                            if(false) {
+                                condimentDisplay.current_subtotal = this.formatPrice(item.current_subtotal);
+                            }
                         }
-
                     }
                 }, this);
 
@@ -1033,6 +1043,10 @@
 
             this.calcItemsTax(item);
             this.calcTotal();
+        }
+        else {
+            //@todo OSD
+            OsdUtils.warn(_("Condiment may only be added to an item"));
         }
 
         var currentRowCount = this.data.display_sequences.length;
@@ -1065,8 +1079,7 @@
 
             var itemDisplay = this.createDisplaySeq(itemIndex, memoItem, 'memo');
 
-            var lastIndex = this.getLastDisplaySeqByIndex(itemIndex);
-            this.data.display_sequences.splice(lastIndex+1,0,itemDisplay);
+            this.data.display_sequences.splice(index+1,0,itemDisplay);
 
         }
 
@@ -1151,6 +1164,11 @@
         return this.data.display_sequences.length;
     };
 
+    Transaction.prototype.getDisplayIndexByIndex = function(index) {
+        for (var i =0 ; i < this.data.display_sequences.length; i++) {
+            if (this.data.display_sequences[i].index == index) return i;
+        }
+    };
 
     Transaction.prototype.getDisplaySeqAt = function(index){
         if (index < 0 || index >= this.data.display_sequences.length) return null;

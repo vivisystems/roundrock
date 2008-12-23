@@ -71,5 +71,6 @@
 .product-button-color-6[selected], .product-button-color-7[selected],
 .product-button-color-8[selected], .product-button-color-9[selected],
 .product-button-color-10[selected], .product-button-color-11[selected] {
-    list-style-image: url(chrome://viviecr/skin/images/gtk-yes.png);
+    list-style-image: none;
+    border-width: 4px;
 }
