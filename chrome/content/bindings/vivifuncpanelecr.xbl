@@ -1028,7 +1028,7 @@
                     else {
                         stack = this._layoutStackMap.get(key);
                     }
-                    GREUtils.log('[GetLayoutStack]: layout <' + key + '>, stack <' + stack + '>');
+                    //GREUtils.log('[GetLayoutStack]: layout <' + key + '>, stack <' + stack + '>');
                     return stack;
                 ]]>
                 </body>
@@ -1192,8 +1192,8 @@
                     var mode = this.getAttribute('mode');
                     var dir = this.getAttribute('dir');
 
-                    GREUtils.log('[STANDARD]: rendering standard layout with <r=' + r + ',c=' + c + '>x<cellWidth=' + cellWidth + ',cellHeight=' + cellHeight + '>');
-                    GREUtils.log('[STANDARD]: with mode <' + mode + '> and dir <' + dir + '>');
+                    //GREUtils.log('[STANDARD]: rendering standard layout with <r=' + r + ',c=' + c + '>x<cellWidth=' + cellWidth + ',cellHeight=' + cellHeight + '>');
+                    //GREUtils.log('[STANDARD]: with mode <' + mode + '> and dir <' + dir + '>');
 
                     for (var i = 0; i < r; i++) {
                         posY = i * (cellHeight + vs);
