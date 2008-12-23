@@ -10,8 +10,8 @@
  */
 
 user_pref("app.update.lastUpdateTime.addon-background-update-timer", 1229509705);
-user_pref("app.update.lastUpdateTime.background-update-timer", 1229659183);
-user_pref("app.update.lastUpdateTime.blocklist-background-update-timer", 1229659183);
+user_pref("app.update.lastUpdateTime.background-update-timer", 1229987274);
+user_pref("app.update.lastUpdateTime.blocklist-background-update-timer", 1229987274);
 user_pref("browser.places.importDefaults", false);
 user_pref("extensions.sqlitemanager.mruPath.1", "/var/tmp/vivipos.sqlite,/var/tmp/vivipos_acl.sqlite,");
 user_pref("vivipos.fec.registry.function.programmable.addcondiment.desc", "This function registers a gift card payment. The parameter field must be empty.");
@@ -62,9 +62,9 @@ user_pref("vivipos.fec.registry.function.programmable.keypress.name", "Keypress"
 user_pref("vivipos.fec.registry.function.programmable.modifyitem.desc", "This function allows the operator to modify a registered item. No parameter is needed.");
 user_pref("vivipos.fec.registry.function.programmable.modifyitem.label", "Modify");
 user_pref("vivipos.fec.registry.function.programmable.modifyitem.name", "Modify Item");
-user_pref("vivipos.fec.registry.function.programmable.plusearch.desc", "This function allows the operator to perform a PLU search. No parameter is needed.");
-user_pref("vivipos.fec.registry.function.programmable.plusearch.label", "PLU Search");
-user_pref("vivipos.fec.registry.function.programmable.plusearch.name", "PLU Search");
+user_pref("vivipos.fec.registry.function.programmable.plusearch.desc", "This function allows the operator to perform a Product search. No parameter is needed.");
+user_pref("vivipos.fec.registry.function.programmable.plusearch.label", "Product Search");
+user_pref("vivipos.fec.registry.function.programmable.plusearch.name", "Product Search");
 user_pref("vivipos.fec.registry.function.programmable.pricelevel1.desc", "This function sets the current price level to 1. The parameter must be 1.");
 user_pref("vivipos.fec.registry.function.programmable.pricelevel1.label", "Price Level 1");
 user_pref("vivipos.fec.registry.function.programmable.pricelevel1.name", "Price Level 1");
@@ -134,11 +134,12 @@ user_pref("vivipos.fec.registry.function.programmable.traymarker.name", "Tray Ma
 user_pref("vivipos.fec.registry.function.programmable.voidItem.desc", "This function voids the last transaction. No parameter is needed.");
 user_pref("vivipos.fec.registry.function.programmable.voidItem.label", "VOID");
 user_pref("vivipos.fec.registry.function.programmable.voidItem.name", "VOID");
-user_pref("vivipos.fec.settings.Currencies", "[{\"currency\":\"NT\",\"currency_symbol\":\"NT\",\"currency_exchange\":\"1\"},{\"currency\":\"USD\",\"currency_symbol\":\"$\",\"currency_exchange\":\"33.25\"},{\"currency\":\"\",\"currency_symbol\":\"\",\"currency_exchange\":\"0\"},{\"currency\":\"\",\"currency_symbol\":\"\",\"currency_exchange\":\"0\"},{\"currency\":\"\",\"currency_symbol\":\"\",\"currency_exchange\":\"0\"},{\"currency\":\"\",\"currency_symbol\":\"\",\"currency_exchange\":\"0\"}]");
+user_pref("vivipos.fec.settings.Currencies", "[{\"currency\":\"NT\",\"currency_symbol\":\"NT\",\"currency_exchange\":\"1\"},{\"currency\":\"USD\",\"currency_symbol\":\"$\",\"currency_exchange\":\"33.25\"},{\"currency\":\"\",\"currency_symbol\":\"\",\"currency_exchange\":\"44\"},{\"currency\":\"\",\"currency_symbol\":\"\",\"currency_exchange\":\"0\"},{\"currency\":\"\",\"currency_symbol\":\"\",\"currency_exchange\":\"0\"},{\"currency\":\"\",\"currency_symbol\":\"\",\"currency_exchange\":\"0\"}]");
 user_pref("vivipos.fec.settings.DefaultTaxStatus", "-");
 user_pref("vivipos.fec.settings.DefaultUser", "superuser");
 user_pref("vivipos.fec.settings.DepartmentCols", 3);
 user_pref("vivipos.fec.settings.DepartmentRows", 3);
+user_pref("vivipos.fec.settings.FunctionPanelOnTop", false);
 user_pref("vivipos.fec.settings.HideFPScrollbar", false);
 user_pref("vivipos.fec.settings.HideNumPad", false);
 user_pref("vivipos.fec.settings.PluCols", 3);
@@ -150,7 +151,6 @@ user_pref("vivipos.fec.settings.RegisterAtLeft", false);
 user_pref("vivipos.fec.settings.TerminalID", "T001");
 user_pref("vivipos.fec.settings.controlpanels.imagemanager.label", "Image Manager (inactive)");
 user_pref("vivipos.fec.settings.controlpanels.importexport.label", "Data Import/ Export (inactive)");
-user_pref("vivipos.fec.settings.controlpanels.plus.label", "Products");
 user_pref("vivipos.fec.settings.controlpanels.promotions.label", "Promotions (inactive)");
 user_pref("vivipos.fec.settings.controlpanels.reports.label", "Reports (inactive)");
 user_pref("vivipos.fec.settings.controlpanels.systembackup.label", "System Backup (inactive)");
@@ -159,8 +159,8 @@ user_pref("vivipos.fec.settings.functionpanel.dir", "normal");
 user_pref("vivipos.fec.settings.functionpanel.homePage", 1);
 user_pref("vivipos.fec.settings.functionpanel.hspacing", 2);
 user_pref("vivipos.fec.settings.functionpanel.maxpage", 3);
-user_pref("vivipos.fec.settings.functionpanel.pageButtonfontsizeMap", "{}");
-user_pref("vivipos.fec.settings.functionpanel.pageButtonstyleMap", "{}");
+user_pref("vivipos.fec.settings.functionpanel.pageButtonfontsizeMap", "{\"1\":{\"1x1\":\"medium\",\"1x2\":\"medium\",\"1x3\":\"medium\",\"2x1\":\"medium\",\"2x2\":\"medium\",\"2x3\":\"medium\",\"3x1\":\"medium\",\"3x2\":\"medium\",\"3x3\":\"medium\",\"4x1\":\"medium\",\"4x2\":\"medium\",\"4x3\":\"medium\"}}");
+user_pref("vivipos.fec.settings.functionpanel.pageButtonstyleMap", "{\"1\":{\"1x1\":\"function-button-color-3\",\"1x2\":\"function-button-color-3\",\"1x3\":\"function-button-color-3\",\"2x1\":\"function-button-color-3\",\"2x2\":\"function-button-color-3\",\"2x3\":\"function-button-color-3\",\"3x1\":\"function-button-color-3\",\"3x2\":\"function-button-color-3\",\"3x3\":\"function-button-color-3\",\"4x1\":\"function-button-color-3\",\"4x2\":\"function-button-color-3\",\"4x3\":\"function-button-color-3\"}}");
 user_pref("vivipos.fec.settings.functionpanel.pageKeymapMap.1.1x1", "{\"row\":\"1\",\"column\":\"1\",\"name\":\"Percentage Discount\",\"label\":\"%-\",\"desc\":\"This function registers a percentage-based discount. The parameter field can be used to program a preset percentage. If no preset percentage is programmed, the discount percentage is read from the input line.\",\"access\":\"acl_register_discount\",\"command\":\"addDiscountByPercentage\",\"controller\":\"Cart\",\"data\":\"\"}");
 user_pref("vivipos.fec.settings.functionpanel.pageKeymapMap.1.1x2", "{\"row\":\"1\",\"column\":\"2\",\"name\":\"Surcharge\",\"label\":\"%+\",\"desc\":\"This function registers a percentage surcharge. The parameter field can be used to program a preset surcharge. If no preset surcharge is programmed, the surcharge percentage is read from the input line.\",\"access\":\"acl_register_surcharge\",\"command\":\"addSurchargeByPercentage\",\"controller\":\"Cart\",\"data\":\"\"}");
 user_pref("vivipos.fec.settings.functionpanel.pageKeymapMap.1.1x3", "{\"row\":\"1\",\"column\":\"3\",\"name\":\"Add Condiment\",\"label\":\"Add Condiment\",\"desc\":\"This function registers a gift card payment. The parameter field must be empty.\",\"access\":\"acl_register_plus\",\"command\":\"addCondiment\",\"controller\":\"Cart\",\"data\":\"\"}");
@@ -187,7 +187,7 @@ user_pref("vivipos.fec.settings.functionpanel.pageKeymapMap.3.2x2", "{\"row\":\"
 user_pref("vivipos.fec.settings.functionpanel.pageKeymapMap.3.3x1", "{\"row\":\"3\",\"column\":\"1\",\"name\":\"Quick User Switch\",\"label\":\"Change Clerk\",\"desc\":\"This function allows the current user to enter a password and quickly switch to the user identified by that password. No parameter is needed.\",\"access\":\"acl_public_access\",\"command\":\"quickUserSwitch\",\"controller\":\"Main\",\"data\":\"\"}");
 user_pref("vivipos.fec.settings.functionpanel.pageKeymapMap.global.4x2", "{\"row\":\"4\",\"column\":\"2\",\"name\":\"Credit Card\",\"label\":\"Credit Card\",\"desc\":\"This function registers a credit card payment. The parameter field should be set to the credit type.\",\"access\":\"acl_register_credit_card\",\"command\":\"creditCard\",\"controller\":\"Cart\",\"data\":\"\"}");
 user_pref("vivipos.fec.settings.functionpanel.pageLabelMap", "{}");
-user_pref("vivipos.fec.settings.functionpanel.pageLayoutMap", "{}");
+user_pref("vivipos.fec.settings.functionpanel.pageLayoutMap", "{\"1\":[\"1,1,1,1\",\"1,2,1,1\",\"1,3,1,1\",\"2,1,1,1\",\"2,2,1,1\",\"2,3,1,1\",\"3,1,1,1\",\"3,2,1,1\",\"3,3,1,1\",\"4,1,1,1\",\"4,2,1,1\",\"4,3,1,1\"]}");
 user_pref("vivipos.fec.settings.functionpanel.restrictMode", "disabled");
 user_pref("vivipos.fec.settings.functionpanel.rows", 4);
 user_pref("vivipos.fec.settings.functionpanel.vspacing", 2);

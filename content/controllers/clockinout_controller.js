@@ -63,12 +63,11 @@
                     username = this.users[index].username;
                 }
             }
-
             if (this.Acl.securityCheck(username, userpass, true)) {
                 this.listSummary();
                 this._lastUser = username;
             } else {
-                alert('Please Check Username and Password...');
+                OsdUtils.warn(_('Authentication Failed!\nPlease Check Username and Password.'));
             }
         },
 
@@ -93,18 +92,18 @@
             }
 
             if (index == -1) {
-                alert('Please Select a Job Function')
+                OsdUtils.warn(_('Please Select a Job'));
             }
             else {
                 if (this.Acl.securityCheck(username, userpass, true)) {
-
-                    alert('Clock In...' + username);
                     var clockstamp = new ClockStampModel();
                     clockstamp.saveStamp('clockin', username, job);
+
                     this.listSummary();
+
                     this.lastUser = username;
                 } else {
-                    alert('Please Check Username and Password...');
+                    OsdUtils.warn(_('Authentication Failed!\nPlease Check Username and Password.'));
                 }
             }
         },
@@ -122,14 +121,12 @@
 
             if (this.Acl.securityCheck(username, userpass, true)) {
                 
-                // alert('Clock Out...' + username);
                 var clockstamp = new ClockStampModel();
-                // clockstamp.saveStamp({username: username, clockout: true, clockin:false});
                 clockstamp.saveStamp('clockout', username);
+
                 this.listSummary();
-                // this.log(this.dump(clockstamp.find('all', {order: "created DESC"})));
             } else {
-                alert('Please Check Username and Password...');
+                OsdUtils.warn(_('Authentication Failed!\nPlease Check Username and Password.'));
             }
         },
 
@@ -142,10 +139,8 @@
             var username;
 
             // bring summary list to front
-            var listpad = document.getElementById('listpad');
-            var jobpad = document.getElementById('jobpad');
-            listpad.setAttribute('class', 'listpad-visible');
-            jobpad.setAttribute('class', 'jobpad');
+            var deck = document.getElementById('deck');
+            deck.selectedIndex = 1;
             
             if (this.userpanel && this.users) {
                 var index = this.userpanel.selectedIndex;
@@ -169,8 +164,8 @@
                     o.clockin_time = o.clockin_time ? o.clockin_time.substring(11, 19) : '--:--:--';
                     o.clockout_time = o.clockout_time ? o.clockout_time.substring(11, 19) : '--:--:--';
                 });
-            this.log('oldTimes: ' + GeckoJS.BaseObject.dump(oldTimes));
-            this.log(GeckoJS.BaseObject.dump(stamps));
+            //this.log('oldTimes: ' + GeckoJS.BaseObject.dump(oldTimes));
+            //this.log(GeckoJS.BaseObject.dump(stamps));
                 if (oldTimes) {
                     var lastIndex = oldTimes.length - 1;
                     joblist.updateItemAt(lastIndex, stamps[lastIndex] );
@@ -193,6 +188,10 @@
         cancel: function () {
                 window.close();
         },
+
+        validateForm: function () {
+
+        }
     });
 
 })();

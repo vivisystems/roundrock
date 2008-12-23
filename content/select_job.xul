@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % SelectJob SYSTEM "chrome://viviecr/locale/select_job.dtd">
+  %SelectJob;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+<window title="&job.title;"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+   <script type="application/x-javascript" src="chrome://vivipos/content/libs/jquery-1.2.6.js" />
+    <script type="application/x-javascript">
+        window['GeckoJS'] = opener.GeckoJS;
+        window['GREUtils'] = opener.GREUtils;
+    </script>
+    <script type="application/x-javascript" src="chrome://viviecr/content/select_job.js" />
+
+    <vbox flex="1" class="main-dialog">
+        <groupbox>
+            <caption label="&job.title;" />
+            <label id="job" hidden="true" value="" />
+            <hbox>
+                <viviscrollablebuttonpanel id="jobscrollablepanel" flex="1" cols="4" rows="5" labelField="jobname"
+                                           class="catescrollablepanel"
+                                           buttonClass="plubtn button-radius button-white font-medium"
+                                           scrollUpClass="rightprevbtn button-blue"
+                                           scrollDownClass="rightnextbtn button-blue" >
+                    <spacer flex="1"/>
+                </viviscrollablebuttonpanel>
+            </hbox>
+        </groupbox>
+    </vbox>
+  
+    <hbox id="dialogButtons" class="dialogbtns" pack="center">
+        <button class="right exit-dialog" id="ok" label="&dialog.okButton.label;" default="true" oncommand="doOKButton();"/>
+        <button class="exit-dialog" id="cancel" label="&dialog.cancelButton.label;" default="true" oncommand="doCancelButton();"/>
+    </hbox>
+
+</window>

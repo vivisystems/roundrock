@@ -52,7 +52,7 @@
                             <row>
                                 <label value="&departments.taxrate;"/>
                                 <label id="rate" value="" form="deptForm" name="rate" hidden="true" default=""/>
-                                <textbox id="rate_name" value="" form="deptForm" name="rate_name" readonly="true" default="" onclick="$do('getRate',this.selectedIndex,'Departments');" onfocus="this.select()"/>
+                                <textbox id="rate_name" value="" form="deptForm" name="rate_name" readonly="true" default="" onclick="$do('getRate', null,'Departments');" onfocus="this.select()"/>
                             </row>
 
                             <row>

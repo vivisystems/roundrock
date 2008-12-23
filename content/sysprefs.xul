@@ -32,6 +32,7 @@
             <preference id="pref_pricelevelrevert" name="vivipos.fec.settings.PriceLevelRevert" type="bool" />
             <preference id="pref_changedepartmentclearbuffer" name="vivipos.fec.settings.ChangeDepartmentClearBuffer" type="bool" />
             <preference id="pref_allowoverstock" name="vivipos.fec.settings.AllowOverStock" type="bool" />
+            <preference id="pref_ageverificationack" name="vivipos.fec.settings.AgeVerificationAck" type="bool" />
 
         </preferences>
         <hbox align="center">
@@ -45,6 +46,7 @@
         <checkbox preference="pref_pricelevelrevert" id="pref_pricelevelrebackCtrl" label="&pricelevelrevert;" />
         <checkbox preference="pref_changedepartmentclearbuffer" id="pref_changedepartmentclearbufferCtrl" label="&changedepartmentclearbuffer;" />
         <checkbox preference="pref_allowoverstock" id="pref_allowoverstockCtrl" label="&allowoverstock;" />
+        <checkbox preference="pref_ageverificationack" id="pref_ageverificationackCtrl" label="&ageverificationack;" />
 
         <hbox align="center">
             <label control="precisionprices" value="&defaultpricelevel;"/>

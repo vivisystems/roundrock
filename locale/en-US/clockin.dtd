@@ -1,6 +1,6 @@
 <!ENTITY    clockin.title               "User Clock In / Out">
-<!ENTITY    clockin.heading.timein               "Time In">
-<!ENTITY    clockin.heading.timeout               "Time Out">
+<!ENTITY    clockin.heading.timein               "In">
+<!ENTITY    clockin.heading.timeout               "Out">
 <!ENTITY    clockin.heading.job              "Job">
 <!ENTITY    clockin.title               "User Clock In / Out">
 <!ENTITY    clockin.title               "User Clock In / Out">

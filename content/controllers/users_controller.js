@@ -1,4 +1,5 @@
 (function(){
+    GeckoJS.include('chrome://viviecr/content/models/job.js');
 
     /**
      * Class ViviPOS.UsersController
@@ -236,6 +237,28 @@
             }
         },
         
+        getJob: function () {
+            var screenwidth = GeckoJS.Session.get('screenwidth') || 800;
+            var screenheight = GeckoJS.Session.get('screenheight') || 600;
+            var jobname = $('#job').val();
+            var aURL = 'chrome://viviecr/content/select_job.xul';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
+            
+            var jobModel = new JobModel();
+            var jobsData = jobModel.find('all', {
+                order: 'jobname'
+            });
+            var inputObj = {
+                jobname: jobname,
+                jobsData: jobsData
+            };
+            window.openDialog(aURL, _('Select Access Group'), features, inputObj);
+
+            if (inputObj.ok && inputObj.jobname) {
+                $('#job').val(inputObj.jobname);
+            }
+        },
+
         load: function () {
 
             var panel = this.getListObj();

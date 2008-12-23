@@ -275,6 +275,7 @@
         resizeLeftPanel: function (initial) {
             // resizing product/function panels
             var rightPanel = document.getElementById('rightPanel');
+            var leftPanel = document.getElementById('leftPanel');
             var panelSpacer = document.getElementById('panelSpacer');
             var deptPanel = document.getElementById('catescrollablepanel');
             var pluPanel = document.getElementById('prodscrollablepanel');
@@ -353,15 +354,13 @@
             if (fnPanel) {
                 var totalHeight = deptPanel.boxObject.height - (- pluPanel.boxObject.height);
                 var panelSpacerWidth = (panelSpacer) ? panelSpacer.boxObject.width : 0;
-                this.log('width: ' + this.screenwidth + ':' + rightPanel.boxObject.width + ':' + panelSpacerWidth);
                 var fnWidth = this.screenwidth - rightPanel.boxObject.width - panelSpacerWidth;
                 var fnHeight = this.screenheight - totalHeight - btmBox.boxObject.height - 5;
-
                 // @todo hack to adjust initial fn size
                 var registerAtLeft = GeckoJS.Configure.read('vivipos.fec.settings.RegisterAtLeft') || false;
                 if (initial) {
-                    if (registerAtLeft) fnWidth -= 14;
-                    else fnWidth = fnWidth -= 8;
+                    if (registerAtLeft) fnWidth -= 3;
+                    else fnWidth = fnWidth -= 0;
                 }
 
                 if (fnHeight < 1) {
@@ -403,7 +402,7 @@
             var deptPanel = document.getElementById('catescrollablepanel');
             var pluPanel = document.getElementById('prodscrollablepanel');
             var fnPanel = document.getElementById('functionPanel');
-            var toolbarPanel = document.getElementById('fe-numberpadPanelContainer');
+            var toolbarPanel = document.getElementById('numberpadPanelContainer');
             var leftPanel = document.getElementById('leftPanel');
             var productPanel = document.getElementById('productPanel');
             var cartList = document.getElementById('cartList');
@@ -470,7 +469,7 @@
 
                 var success = true;
                 // success is indicated by where txn is set to current transaction
-                if (stop != true && stop != 'true' && buf.length > 0) {
+                if (stop != true && stop != 'true' && stop != 'true' && buf.length > 0) {
 
                     if (this.Acl.securityCheckByPassword(buf, true)) {
                         this.signOff(true);

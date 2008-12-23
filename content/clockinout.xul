@@ -2,7 +2,6 @@
 <!DOCTYPE window SYSTEM "chrome://viviecr/locale/clockin.dtd">
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/clockin.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/viviecr1.css" type="text/css"?>
 
 <window id="clockinout" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
@@ -13,7 +12,7 @@
         <vbox  id="" pack="start" class="hboxb" flex="1">
             <hbox  pack="start" flex="1">
                 <vbox style="width: 250px;" pack="start">
-                    <viviscrollablebuttonpanel id="userscrollablepanel" dir="reverse" rows="6" cols="1" flex="1" seltype="single" labelField="username"
+                    <viviscrollablebuttonpanel id="userscrollablepanel" dir="reverse" rows="6" cols="1" flex="1" seltype="single" labelField="displayname"
                                                class="clockuserscrollablepanel"
                                                buttonClass="userbtn"
                                                scrollUpClass="rightprevbtn"
@@ -35,21 +34,22 @@
 	                        </vbox>
 	                    </hbox>
                     	<vbox>
-                            <deck>
-                                <hbox id="jobpad" class="jobpad-visible">
+                            <deck id="deck">
+                                <hbox id="jobpad" class="jobpad">
                                     <viviscrollablebuttonpanel id="jobscrollablepanel" dir="normal" rows="6" cols="1" flex="1" seltype="single" labelField="jobname"
                                                                class="jobscrollablepanel"
                                                                buttonClass="jobBtn"
                                                                scrollUpClass="jobupBtn"
                                                                scrollDownClass="jobdownBtn">
-                                <spacer flex="1"/>
-                            </viviscrollablebuttonpanel>
-                    		</hbox>
-                    		<hbox id="listpad" class="listpad">
-                                <simplelistbox id="simpleListBoxSummary" rows="16"  headers="&clockin.heading.timein;, &clockin.heading.timeout;, &clockin.heading.job;"
-                                               columns="clockin_time,clockout_time,job"
-                                               class="jobssummary1"/>
-                    		</hbox>
+                                    <spacer flex="1"/>
+                                    </viviscrollablebuttonpanel>
+                                </hbox>
+                                <hbox id="listpad" class="listpad">
+                                    <simplelistbox id="simpleListBoxSummary" rows="16"  headers="&clockin.heading.timein;, &clockin.heading.timeout;, &clockin.heading.job;"
+                                                   columns="clockin_time,clockout_time,job"
+                                                   class="jobssummary1"/>
+                                </hbox>
+                            </deck>
                     	</vbox>
                     </hbox>
                 </vbox>

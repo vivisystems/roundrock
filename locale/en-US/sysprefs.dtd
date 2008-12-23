@@ -26,6 +26,7 @@
 <!ENTITY pricelevelrevert "Price Level Reverts to Schedule after Each Order">
 <!ENTITY changedepartmentclearbuffer "Clear Input Buffer When Switching Departments">
 <!ENTITY allowoverstock "Allow Over Stock">
+<!ENTITY ageverificationack "Require Clerk Acknowledgement for Age Verification">
 <!ENTITY login.autodiscardcart "Automatically discard cart content when signing off">
 <!ENTITY login.autodiscardqueue "Automatically discard queued orders when signing off">
 <!ENTITY login.mustemptyqueue "Order queue must be emptied when signing off">

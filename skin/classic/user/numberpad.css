@@ -36,11 +36,11 @@
     -moz-box-align:center;
     -moz-box-pack:center;
 
-    background: transparent url(images/funBtn2.png) center center no-repeat;
+    background: transparent url(images/funBtn.png) center center no-repeat;
 }
 
 .fixedbtn:active {
-    background: transparent url(images/funBtn2_a.png) center center no-repeat;
+    background: transparent url(images/funBtn_a.png) center center no-repeat;
 }
 
 .fixedbtn[disabled=true] {
@@ -86,12 +86,12 @@
     -moz-appearance: none;
     -moz-user-focus: ignore;
     /* background: white; */
-    background: transparent url(images/numbtn.png);
+    background: transparent url(images/m_numbtn.png);
     color: white;
 }
 
 .fe-numberpad sendkeybutton:active{
-	background: transparent url(images/numbtn_a.png) center center no-repeat;
+	background: transparent url(images/m_numbtn_a.png) center center no-repeat;
 }
 
 /*-----------------------------------------------------------------------------
@@ -101,7 +101,7 @@
 
 #toolbar {
     border: 1px dotted #908c83;
-    margin-left: 2px;
+    margin-left: 0px;
 }
 
 /* Number Pad toggle button */

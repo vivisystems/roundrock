@@ -71,7 +71,9 @@
 
                 if (sellQty > stock) {
                     cart.dispatchEvent('onLowStock', obj);
-                    cart.dispatchEvent('onWarning', 'OVER STOCK');
+                    cart.dispatchEvent('onWarning', _('OUT OF STOCK'));
+                    //@todo add OSD?
+                    OsdUtils.warm(_('Product May Be Out of Stock!'));
                     
                     // allow over stock...
                     var allowoverstock = GeckoJS.Configure.read('vivipos.fec.settings.AllowOverStock') || false;
@@ -81,8 +83,30 @@
                     }
                 } else if (min_stock > (stock - sellQty)) {
                     cart.dispatchEvent('onLowerStock', obj);
-                    cart.dispatchEvent('onWarning', 'LOW STOCK');
-                    OsdUtils.text('LOW STOCK');
+                    cart.dispatchEvent('onWarning', _('STOCK LOW'));
+
+                    //@todo add OSD?
+                    OsdUtils.warn(_('Low Stock Threshold Reached!'));
+                }
+            }
+
+            // check if age verification required
+            if ( !evt._cancel) {
+                if (item.age_verification) {
+                    var obj = { item: item };
+
+                    cart.dispatchEvent('onAgeVerification', obj);
+                    cart.dispatchEvent('onWarning', _('VERIFY AGE'));
+
+                    var requireAck = GeckoJS.Configure.read('vivipos.fec.settings.AgeVerificationAck')
+
+                    if (requireAck) {
+                        alert(_('Verify Customer Age for Purchase of [%S]!', [item.name]));
+                    }
+                    else {
+                        //@todo OSD
+                        OsdUtils.warn(_('Verify Customer Age for Purchase of\n[%S]!', [item.name]));
+                    }
                 }
             }
         },
@@ -183,12 +207,12 @@
 
                 var addedItem = curTransaction.appendItem(item);
 
-                this.dispatchEvent('afterAddItem', addedItem);
+                this.dispatchEvent('onAddItem', addedItem);
 
                 GeckoJS.Session.remove('cart_set_price_value');
                 GeckoJS.Session.remove('cart_set_qty_value');
 
-                this.dispatchEvent('onAddItem', addedItem);
+                this.dispatchEvent('afterAddItem', addedItem);
 
                 if (addedItem.id == plu.id && !this._returnMode) {
                     if (plu.force_condiment) {
@@ -202,8 +226,15 @@
 
             // fire getSubtotal Event ?????????????
             this._returnMode = false;
-            this.subtotal();
 
+            // single item sale?
+            if (plu.single && curTransaction.data.items_count == 1) {
+                cart.dispatchEvent('onWarning', _('SINGLE ITEM SALE'));
+                this.addPayment('cash');
+            }
+            else {
+                this.subtotal();
+            }
             
         },
 	
