@@ -149,10 +149,15 @@ treechildren::-moz-tree-cell-text(treecellTOTAL) {color: yellow;}
 
 .cartList #name {
     text-align: left;
+    crop: none;
 }
 
-.cartList #current_qty, #current_price, #current_subtotal, #current_tax {
+.cartList #current_qty, #current_price, #current_subtotal {
     text-align: right;
+}
+
+.cartList #current_tax {
+    text-align: left;
 }
 
 /*-----------------------------------------------------------------------------
@@ -161,13 +166,13 @@ treechildren::-moz-tree-cell-text(treecellTOTAL) {color: yellow;}
  */
 
 .cartList tree #name {
-    max-width: 150px;
-    min-width: 150px;
+    max-width: 160px;
+    min-width: 160px;
 }
 
 .cartList tree #current_qty {
-    max-width: 50px;
-    min-width: 50px;
+    max-width: 40px;
+    min-width: 40px;
 }
 
 .cartList tree #current_price {
@@ -176,8 +181,8 @@ treechildren::-moz-tree-cell-text(treecellTOTAL) {color: yellow;}
 }
 
 .cartList tree #current_subtotal {
-    max-width: 90px;
-    min-width: 90px;
+    max-width: 110px;
+    min-width: 110px;
 }
 .cartList tree #current_tax {
 }

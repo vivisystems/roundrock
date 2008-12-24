@@ -1,13 +1,13 @@
-content viviecr content/ xpcnativewrappers=yes
+content viviecr /home/user/workspace/vivipos_app/content/ xpcnativewrappers=yes
 
 overlay chrome://vivipos/content/mainUIOverlay.xul chrome://viviecr/content/overlay.xul
 
-skin viviecr style1/1.0 skin/style1/
-skin viviecr style2/1.0 skin/style2/
-skin viviecr classic/1.0 skin/classic/
+skin viviecr classic/1.0 /home/user/workspace/vivipos_app/skin/classic/
+skin viviecr style1/1.0 /home/user/workspace/vivipos_app/skin/style1/
+skin viviecr style2/1.0 /home/user/workspace/vivipos_app/skin/style2/
 
 
-locale viviecr en-US locale/en-US/
-locale viviecr zh-TW locale/en-US/
+locale viviecr en-US /home/user/workspace/vivipos_app/locale/en-US/
+locale viviecr zh-TW /home/user/workspace/vivipos_app/locale/en-US/
 
 

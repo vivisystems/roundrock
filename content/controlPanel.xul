@@ -23,18 +23,59 @@
     <script type="application/x-javascript" src="chrome://viviecr/content/controlPanel.js" />
 
     <stack class="main-dialog" flex="1">
-        <vbox flex="1" class="panel40">
+        <vbox flex="1">
             <label value="&controlpanel.title;"/>
-            <spacer flex="1" />
-            <vbox flex="2">
-                <viviscrollablebuttonpanel id="imagePanel" cols="4" rows="5" labelField="label" imageField="icon" aclField="roles" flex="1"
-                                           buttonClass="imageThumbBtn largeimagebtn"
-                                           scrollUpClass="rightprevbtn button-gray"
-                                           scrollDownClass="rightnextbtn button-gray" >
-                    <spacer flex="1"/>
-                </viviscrollablebuttonpanel>
+            <vbox flex="1">
+                <hbox flex="1">
+                    <hbox id="productBox" flex="1">
+                        <viviscrollablebuttonpanel id="productPanel" cols="3" rows="3" labelField="label" imageField="icon" aclField="roles" flex="1"
+                                                   oncommand="launchControl(this)"
+                                                   buttonClass="imageThumbBtn largeimagebtn"
+                                                   scrollUpClass="rightprevbtn button-gray"
+                                                   scrollDownClass="rightnextbtn button-gray" >
+                            <spacer flex="1"/>
+                        </viviscrollablebuttonpanel>
+                    </hbox>
+                    <vbox flex="1">
+                        <hbox id="employeeBox" flex="1">
+                            <viviscrollablebuttonpanel id="employeePanel" cols="3" rows="1" labelField="label" imageField="icon" aclField="roles" flex="1"
+                                                       oncommand="launchControl(this)"
+                                                       buttonClass="imageThumbBtn largeimagebtn"
+                                                       scrollUpClass="rightprevbtn button-gray"
+                                                       scrollDownClass="rightnextbtn button-gray" >
+                                <spacer flex="1"/>
+                            </viviscrollablebuttonpanel>
+                        </hbox>
+                        <hbox id="activityBox" flex="1">
+                            <viviscrollablebuttonpanel id="activityPanel" cols="3" rows="1" labelField="label" imageField="icon" aclField="roles" flex="1"
+                                                       oncommand="launchControl(this)"
+                                                       buttonClass="imageThumbBtn largeimagebtn"
+                                                       scrollUpClass="rightprevbtn button-gray"
+                                                       scrollDownClass="rightnextbtn button-gray" >
+                                <spacer flex="1"/>
+                            </viviscrollablebuttonpanel>
+                        </hbox>
+                        <hbox id="configBox" flex="1">
+                            <viviscrollablebuttonpanel id="configPanel" cols="3" rows="1" labelField="label" imageField="icon" aclField="roles" flex="1"
+                                                       oncommand="launchControl(this)"
+                                                       buttonClass="imageThumbBtn largeimagebtn"
+                                                       scrollUpClass="rightprevbtn button-gray"
+                                                       scrollDownClass="rightnextbtn button-gray" >
+                                <spacer flex="1"/>
+                            </viviscrollablebuttonpanel>
+                        </hbox>
+                    </vbox>
+                </hbox>
+                <hbox id="systemBox" flex="0">
+                    <viviscrollablebuttonpanel id="systemPanel" cols="3" rows="1" labelField="label" imageField="icon" aclField="roles" flex="1"
+                                               oncommand="launchControl(this)"
+                                               buttonClass="imageThumbBtn largeimagebtn"
+                                               scrollUpClass="rightprevbtn button-gray"
+                                               scrollDownClass="rightnextbtn button-gray" >
+                        <spacer flex="1"/>
+                    </viviscrollablebuttonpanel>
+                </hbox>
             </vbox>
-            <spacer flex="1" />
         </vbox>
         
         <hbox id="loading" align="center" style="display: none;border: 1px soild #f00; background: white;width:320px; height:180px;" left="200px" top="200px">

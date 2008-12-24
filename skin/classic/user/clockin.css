@@ -1,9 +1,14 @@
 /*-----------------------------------------------------------------------------
  *
- * CLOCK IN/OUT CSS
+ * CLOCK IN/OUT SCREEN
  *
  *-----------------------------------------------------------------------------
  */
+
+* {
+	padding: 0px;
+	margin: 0px;
+}
 
 .clockinPanel {
 	width: 800px;
@@ -19,7 +24,7 @@
 }
 
 /*-----------------------------------------------------------------------------
- * User Scroll List
+ * USERS
  *-----------------------------------------------------------------------------
  */
 
@@ -28,15 +33,62 @@
    min-height: 336px;
    max-width: 181px;
    min-width: 181px;
-   margin: 53px 0 0 43px;
+   margin: 53px 0 0 48px;
 }
 
-.clockuserscrollablepanel .scrollablepanel-scrollbar {
+/* user buttons */
+
+.userbtn {
+    min-width:130px;
+    max-width:130px;
+    min-height:53px;
+    max-height:53px;
+    height: 53px;
+    width: 130px;
+    margin: 0px 0px 3px 12px;
+    padding: 23px 0 0 0px;
+    list-style-type: none;
+    color: #3a382f;
+    font-weight: bold !important;
+    font-size: 14px;
+    overflow: hidden;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    background: transparent url(images/c_namecard_a.png) center bottom no-repeat;
+    -moz-background-clip: border;
+    -moz-box-orient: vertical;
+    border: none;
+}
+
+.userbtn hbox{
+  max-height: 31px;
+  height: 31px;
+}
+.userbtn hbox image{
+  display: none;
+}
+
+.userbtn[disabled=false]:active {
+    padding: 14px 0 0 0px;
+    background: transparent url(images/c_namecard.png) center bottom no-repeat;
+}
+
+.userbtn[selected=true] {
+    padding: 14px 0 0 0px;
+    background: transparent url(images/c_namecard.png) center bottom no-repeat;
+}
+
+/*-----------------------------------------------------------------------------
+ * USERS scroll bar
+ *-----------------------------------------------------------------------------
+ */
+
+.clockuserscrollablepanel .scrollablepanel-scrollbar{
 	max-width: 39px;
 	min-width: 39px;
 }
 
-/* User Scroll List scroll buttons */
+/* scroll bar buttons */
 
 .rightprevbtn {
     margin-top: 30px;
@@ -80,17 +132,6 @@
 }
 
 /*-----------------------------------------------------------------------------
- * Number Pad/Job Pad Container
- *-----------------------------------------------------------------------------
- */
-
-.numjobpad {
-	background: transparent url(images/numjob.png) left 3px no-repeat;
-	margin: 65px 0 0 12px;
-
-}
-
-/*-----------------------------------------------------------------------------
  * Number Pad
  *-----------------------------------------------------------------------------
  */
@@ -98,27 +139,6 @@
 .numpad {
 	margin: 16px 13px 0 12px;
 	width: 265px;
-}
-
-.numberbtn {
-    min-width:100px;
-    max-width:100px;
-    min-height:64px;
-    max-height:64px;
-    height: 64px;
-    width: 100px;
-    margin: 1px 1px 0px 0px;
-    padding: 0px;
-    list-style-type: none;
-    color: White;
-    font-weight: bold !important;
-    font-size: 30px;
-    overflow: hidden;
-    background-color:#800040;
-    -moz-appearance: none;
-    -moz-user-focus: ignore;
-    background: url(images/btn_purple.png);
-    -moz-background-clip: border;
 }
 
 .numberpad sendkeybutton{
@@ -138,11 +158,10 @@
     -moz-appearance: none;
     -moz-user-focus: ignore;
     /* background: white; */
-    background: transparent url(images/numbtn.png);
+    background: transparent url(images/numbtn_tall.png);
     color: white;
 }
 
-/* DEL/CLEAR buttons */
 .systembtn {
     min-width:70px;
     max-width:70px;
@@ -169,16 +188,17 @@
     background: transparent url(images/funBtn4.png) center center no-repeat;
 }
 
-.systembtn:active {
+.systembtn[disabled=false]:active {
     background: transparent url(images/funBtn4_a.png) center center no-repeat;
 }
 
+
 /*-----------------------------------------------------------------------------
- * Action Buttons
+ * Action Pad
  *-----------------------------------------------------------------------------
  */
 
-/* clock in/out */
+/* clock-in/clock-out */
 
 .clockinoutbtn {
     height: 69px;
@@ -244,7 +264,7 @@
     color: #ffffff;
 }
 
-/* Exit button */
+/* exit button */
 
 .genbtn {
     height: 69px;
@@ -259,11 +279,11 @@
 }
 
 .genbtn:hover {
-  background: url(images/exit_2.png) 95% top no-repeat;
+    background: url(images/exit_2.png) 95% top no-repeat;
 }
 
 .genbtn:active {
-  background: url(images/exit_3.png) 95% top no-repeat;
+    background: url(images/exit_3.png) 95% top no-repeat;
 }
 
 .genbtn label {
@@ -271,58 +291,12 @@
 }
 
 /*-----------------------------------------------------------------------------
- * Employees - name card style
- *-----------------------------------------------------------------------------
- */
-
-.userbtn {
-    min-width:130px;
-    max-width:130px;
-    min-height:53px;
-    max-height:53px;
-    height: 53px;
-    width: 130px;
-    margin: 0px 0px 3px 12px;
-    padding: 23px 0 0 0px;
-    list-style-type: none;
-    color: #3a382f;
-    font-weight: bold !important;
-    font-size: 14px;
-    overflow: hidden;
-    -moz-appearance: none;
-    -moz-user-focus: ignore;
-    background: transparent url(images/c_namecard_a.png) center bottom no-repeat;
-    -moz-background-clip: border;
-    -moz-box-orient: vertical;
-    border: none;
-}
-
-.userbtn hbox{
-  max-height: 31px;
-  height: 31px;
-}
-
-.userbtn hbox image{
-  display: none;
-}
-
-.userbtn[disabled=false]:active {
-    padding: 14px 0 0 0px;
-    background: transparent url(images/c_namecard.png) center bottom no-repeat;
-}
-
-.userbtn[selected=true] {
-    padding: 14px 0 0 0px;
-    background: transparent url(images/c_namecard.png) center bottom no-repeat;
-}
-
-/*-----------------------------------------------------------------------------
- * Password box
+ * Password Pad
  *-----------------------------------------------------------------------------
  */
 
 .PwPad {
-	margin: 58px 0 0 225px;
+	margin: 40px 0 0 225px;
 	
 }
 
@@ -356,25 +330,31 @@
  *-----------------------------------------------------------------------------
  */
 
+.numjobpad {
+	background: transparent url(images/numjob.png) left 3px no-repeat;
+	margin: 65px 0 0 12px;
+	
+}
+
 .jobpad {
 	background: transparent url(images/jobpad.png) left top no-repeat;
-	padding: 71px 0 0 11px;
-	width: 192px;
-	min-width: 192px;
-	max-height:300px;
+	padding: 60px 0 0 14px;
+	width: 160px;
+	min-width: 160px;
+    min-height:310px;
+	max-height:310px;
 }
 
 .jobscrollablepanel {
-	max-height: 209px;
+    width: 174px;
+    max-width: 174px;
+    min-width: 174px;
+    min-height:220px;
+	max-height:220px;
+    height:220px;
 }
 
 .jobBtn {
-	width: 143px;
-	height: 40px;
-	max-height: 40px;
-	min-height: 40px;
-	max-width: 143px;
-	min-width: 143px;
 	color: #424242;
 	font-size: 14px;
 	font-weight: bold;
@@ -383,17 +363,25 @@
 	background: transparent;
 	margin: 0px;
 	padding: 0px;
+    -moz-box-pack: start;
+    -moz-box-align: baseline;
 }
 
-.jobBtn[disabled=false]:active {
+.jobBtn[disabled=false]:active{
 	color: #336489;
 	background: transparent url(images/jobsel.png) left center no-repeat;
 }
 
 .jobBtn[selected]{
 	color: #336489;
-	background: transparent url(images/jobsel.png) left center no-repeat;
+	background: transparent url(images/gtk-yes.png) left center no-repeat;
 }
+
+.jobBtn description {
+    text-align: start;
+}
+/*job scroll button*/
+
 .jobupBtn {
 	width: 32px;
 	height: 32px;
@@ -434,30 +422,46 @@
  display: none;
 }
 
+/*-----------------------------------------------------------------------------
+ * Attendance List
+ *-----------------------------------------------------------------------------
+ */
 
-
-/* Attendance �C�?���� */
 .listpad {
 	background: transparent url(images/listpad.png) left top no-repeat;
+    min-width: 228px;
+    max-width: 228px;
+    width:228px;
 }
 
-.jobsummary treechildren::-moz-tree-row {
-	border-bottom: 1px solid #789ebb;
+.jobsummary {
+    min-width: 222px;
+    max-width: 222px;
+    width:222px;
+
+    min-height: 225px;
+    max-height: 225px;
+    height:225px;
+
+    font-size: 8px;
+    margin: 23px 0px 0 1px;
 }
 
-  /*��C��e������*/
-.closelist {	
-	max-width: 33px;
-	min-width: 33px;
-	max-height: 33px;
-	min-width: 33px;
-	background: transparent url(images/va_close.png) center center no-repeat;
-	border: none;
-	-moz-appearance: none;
+listbox {
+    border: 0px solid;
+    -moz-appearance: none;
 }
-.closelist:active {
-	background: transparent url(images/va_close_a.png) center center no-repeat;
+
+listbox #clockin_time {
+    min-width: 55px;
+    max-width: 55px;
 }
+
+listbox #clockout_time {
+    min-width: 55px;
+    max-width: 55px;
+}
+
 	/* Attendance �C�� Scorll bar �W�U���� */
 .jobsummaryUpbtn {
 	max-width: 32px;

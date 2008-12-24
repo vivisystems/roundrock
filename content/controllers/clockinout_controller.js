@@ -13,6 +13,7 @@
         joblist: null,
         jobtimes: null,
         lastUser: null,
+        publicAttendance: false,
         
         loadUsers: function () {
 
@@ -26,6 +27,8 @@
             }
             this.users = users;
             this.userpanel = userpanel;
+
+            this.publicAttendance = GeckoJS.Configure.read('vivipos.fec.settings.PublicAttendance') || false;
         },
         
         loadJobs: function () {
@@ -63,11 +66,21 @@
                     username = this.users[index].username;
                 }
             }
-            if (this.Acl.securityCheck(username, userpass, true)) {
-                this.listSummary();
+            if (username == null) {
+                //@todo OSD
+                OsdUtils.warn(_('Please select a user first'));
+            }
+            else if (this.publicAttendance || this.Acl.securityCheck(username, userpass, true)) {
+                this.listSummary(username);
                 this._lastUser = username;
-            } else {
-                OsdUtils.warn(_('Authentication Failed!\nPlease Check Username and Password.'));
+            }
+            else {
+                if (userpass == '')
+                    //@todo OSD
+                    OsdUtils.warn(_('Please enter the passcode'));
+                else
+                    //@todo OSD
+                    OsdUtils.warn(_('Authentication Failed!\nPlease make sure the passcode is correct'));
             }
         },
 
@@ -75,11 +88,11 @@
 
             var username;
             var userpass = document.getElementById('user_password').value;
-            var index = -1;
             var job;
+            var index;
 
             if (this.userpanel && this.users) {
-                var index = this.userpanel.selectedIndex;
+                index = this.userpanel.selectedIndex;
                 if (index > -1 && index < this.users.length) {
                     username = this.users[index].username;
                 }
@@ -88,22 +101,36 @@
             if (this.jobpanel) {
                 index = this.jobpanel.selectedIndex;
                 if (index > -1) job = this.jobs[index].jobname;
-                alert(index);
             }
 
-            if (index == -1) {
-                OsdUtils.warn(_('Please Select a Job'));
+            if (username == null) {
+                //@todo OSD
+                OsdUtils.warn(_('Please select a user first'));
+            }
+            else if (job == null) {
+                //@todo OSD
+                OsdUtils.warn(_('Please select a job first'));
+
+                // auto-switch to Job list
+                document.getElementById('deck').selectedIndex = 0;
             }
             else {
+                document.getElementById('user_password').value = '';
+                
                 if (this.Acl.securityCheck(username, userpass, true)) {
                     var clockstamp = new ClockStampModel();
                     clockstamp.saveStamp('clockin', username, job);
 
-                    this.listSummary();
+                    this.listSummary(username);
 
                     this.lastUser = username;
                 } else {
-                    OsdUtils.warn(_('Authentication Failed!\nPlease Check Username and Password.'));
+                    if (userpass == '')
+                        //@todo OSD
+                        OsdUtils.warn(_('Please enter the passcode'));
+                    else
+                        //@todo OSD
+                        OsdUtils.warn(_('Authentication Failed!\nPlease make sure the passcode is correct'));
                 }
             }
         },
@@ -118,15 +145,35 @@
                     username = this.users[index].username;
                 }
             }
+            if (username == null) {
+                //@todo OSD
+                OsdUtils.warn(_('Please select a user first'));
+            }
+            else {
+                document.getElementById('user_password').value = '';
 
-            if (this.Acl.securityCheck(username, userpass, true)) {
+                if (this.Acl.securityCheck(username, userpass, true)) {
                 
-                var clockstamp = new ClockStampModel();
-                clockstamp.saveStamp('clockout', username);
+                    var clockstamp = new ClockStampModel();
+                    var last = clockstamp.findLastStamp(username);
 
-                this.listSummary();
-            } else {
-                OsdUtils.warn(_('Authentication Failed!\nPlease Check Username and Password.'));
+                    if (last && !last.clockout) {
+                        clockstamp.saveStamp('clockout', username);
+                    }
+                    else {
+                        //@todo OSD
+                        OsdUtils.warn(_('Not clocked in yet'));
+                    }
+                    this.listSummary(username);
+                }
+                else {
+                    if (userpass == '')
+                        //@todo OSD
+                        OsdUtils.warn(_('Please enter the passcode'));
+                    else
+                        //@todo OSD
+                        OsdUtils.warn(_('Authentication Failed!\nPlease make sure the passcode is correct'));
+                }
             }
         },
 
@@ -135,19 +182,7 @@
             this.jobtimes = null;
         },
         
-        listSummary: function () {
-            var username;
-
-            // bring summary list to front
-            var deck = document.getElementById('deck');
-            deck.selectedIndex = 1;
-            
-            if (this.userpanel && this.users) {
-                var index = this.userpanel.selectedIndex;
-                if (index > -1 && index < this.users.length) {
-                    username = this.users[index].username;
-                }
-            }
+        listSummary: function (username) {
 
             var joblist = this.joblist;
             var clockstamp = new ClockStampModel();
@@ -159,13 +194,11 @@
             var oldTimes = this.jobtimes;
             this.jobtimes = stamps;
 
-            if (stamps) {
+            if (stamps && stamps.length > 0) {
                 stamps.forEach(function(o){
                     o.clockin_time = o.clockin_time ? o.clockin_time.substring(11, 19) : '--:--:--';
                     o.clockout_time = o.clockout_time ? o.clockout_time.substring(11, 19) : '--:--:--';
                 });
-            //this.log('oldTimes: ' + GeckoJS.BaseObject.dump(oldTimes));
-            //this.log(GeckoJS.BaseObject.dump(stamps));
                 if (oldTimes) {
                     var lastIndex = oldTimes.length - 1;
                     joblist.updateItemAt(lastIndex, stamps[lastIndex] );
@@ -176,13 +209,22 @@
                 else {
                     joblist.loadData(stamps);
                 }
-                this.log('data loaded');
                 joblist.selectedIndex = stamps.length - 1;
-                joblist.ensureIndexIsVisible(joblist.selectedIndex);
-            } else {
-                joblist.resetData();
+                if (joblist.selectedIndex > -1) joblist.ensureIndexIsVisible(joblist.selectedIndex);
+            }
+            else {
+                this.clearSummary();
             }
            
+            // bring summary list to front
+            var deck = document.getElementById('deck');
+            deck.selectedIndex = 1;
+
+        },
+
+        showJobList: function () {
+            document.getElementById('deck').selectedIndex = 0;
+            document.getElementById('user_password').value = '';
         },
 
         cancel: function () {

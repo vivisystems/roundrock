@@ -3,7 +3,9 @@
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/clockin.css" type="text/css"?>
 
-<window id="clockinout" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<window title="&clockin.title;"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/clockinout.js" />
@@ -14,6 +16,7 @@
                 <vbox style="width: 250px;" pack="start">
                     <viviscrollablebuttonpanel id="userscrollablepanel" dir="reverse" rows="6" cols="1" flex="1" seltype="single" labelField="displayname"
                                                class="clockuserscrollablepanel"
+                                               oncommand="$do('showJobList', null, 'ClockInOut')"
                                                buttonClass="userbtn"
                                                scrollUpClass="rightprevbtn"
                                                scrollDownClass="rightnextbtn">
@@ -34,7 +37,7 @@
 	                        </vbox>
 	                    </hbox>
                     	<vbox>
-                            <deck id="deck">
+                            <deck id="deck" selectedIndex="0">
                                 <hbox id="jobpad" class="jobpad">
                                     <viviscrollablebuttonpanel id="jobscrollablepanel" dir="normal" rows="6" cols="1" flex="1" seltype="single" labelField="jobname"
                                                                class="jobscrollablepanel"
@@ -47,7 +50,7 @@
                                 <hbox id="listpad" class="listpad">
                                     <simplelistbox id="simpleListBoxSummary" rows="16"  headers="&clockin.heading.timein;, &clockin.heading.timeout;, &clockin.heading.job;"
                                                    columns="clockin_time,clockout_time,job"
-                                                   class="jobssummary1"/>
+                                                   class="jobsummary"/>
                                 </hbox>
                             </deck>
                     	</vbox>

@@ -77,7 +77,7 @@
                 else {
                     if (!this.Acl.securityCheck(username, userpass)) {
                         // @todo OSD
-                        OsdUtils.error(_('Authentication failed!\nPlease make sure username and password are correct.'));
+                        OsdUtils.error(_('Authentication failed!\nPlease make sure the password is correct.'));
                     }
                 }
 

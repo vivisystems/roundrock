@@ -1,7 +1,9 @@
-/* global skin ------------------------------------------------------------- */
-@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
-
-@namespace html url("http://www.w3.org/1999/xhtml");
+/*-----------------------------------------------------------------------------
+ *
+ * CLOCK IN/OUT SCREEN
+ *
+ *-----------------------------------------------------------------------------
+ */
 
 * {
 	padding: 0px;
@@ -15,19 +17,16 @@
 	border: none;
 }
 
-
-.jobssummary {
-  min-width: 186px;
-  max-width: 186px; 
-  width:186px;
-  
-  min-height: 225px;
-  max-height: 225px; 
-  height:225px;
-  
-  font-size: 8px;
-  margin: 69px 0 0 5px;
+.PageTitle {
+	font-size: 15pt;
+	color: black;
+	margin: 10px 0 0 320px;
 }
+
+/*-----------------------------------------------------------------------------
+ * USERS
+ *-----------------------------------------------------------------------------
+ */
 
 .clockuserscrollablepanel {
    max-height: 336px;
@@ -36,158 +35,8 @@
    min-width: 181px;
    margin: 53px 0 0 48px;
 }
-.clockuserscrollablepanel .scrollablepanel-scrollbar{
-	max-width: 39px;
-	min-width: 39px;
-}
 
-.numberbtn {
-    min-width:100px;
-    max-width:100px;
-    min-height:64px;
-    max-height:64px;
-    height: 64px;
-    width: 100px;
-    margin: 1px 1px 0px 0px;
-    padding: 0px;
-    list-style-type: none;
-    color: White;
-    font-weight: bold !important;
-    font-size: 30px;
-    overflow: hidden;
-    background-color:#800040;
-    -moz-appearance: none;
-    -moz-user-focus: ignore;
-    background: url(images/btn_purple.png);
-    -moz-background-clip: border;
-}
-
-.numberpad {
-    
-}
-.numberpad sendkeybutton{
-    min-width:64px;
-    max-width:64px;
-    min-height:52px;
-    max-height:52px;
-    height: 52px;
-    width: 64px;
-    margin: 5px 0 0 5px;
-    padding: 0px;
-    list-style-type: none;
-    font-weight: bold !important;
-    font-size: 30px;
-    overflow: hidden;
-    border: 0px solid;
-    -moz-appearance: none;
-    -moz-user-focus: ignore;
-    /* background: white; */
-    background: transparent url(images/numbtn.png);
-    color: white;
-}
-.numberpad sendkeybutton:hover{
-	background: transparent url(images/numbtn_a.png) center center no-repeat;
-}
-
-.clockinoutbtn {
-    height: 69px;
-    width: 70px;
-    margin: 0px 6px 0px 0px;
-    padding: 0px;
-    list-style-type: none;
-    overflow: hidden;
-    color: White;
-    font-weight: bold !important;
-    font-size: 12px;
-    overflow: hidden;
-    background: transparent url(images/clockin.gif) no-repeat center center;
-    -moz-appearance: none;
-    -moz-user-focus: ignore;
-    -moz-background-clip: border;
-    border: none;
-}
-.clockinoutbtn:active {
-	background: transparent url(images/clockin_a.gif) no-repeat center center;
-}
-.clockinoutbtn label {
-    max-height:69px;
-    max-width: 50px; 
-    text-align: center;
-    -moz-box-align:center;
-    -moz-box-pack:center;
-    color: #ffffff;
-}
-.clockinoutbtn2 {
-    height: 69px;
-    width: 93px;
-    margin: 0px 0px 0px 0px;
-    padding: 0px;
-    list-style-type: none;
-    overflow: hidden;
-    color: White;
-    font-weight: bold !important;
-    font-size: 12px;
-    overflow: hidden;
-    background: transparent url(images/viewatt.gif) no-repeat center center;
-    -moz-appearance: none;
-    -moz-user-focus: ignore;
-    -moz-background-clip: border;
-    border: none;
-}
-.clockinoutbtn2:active {
-	background: transparent url(images/viewatt_a.gif) no-repeat center center;
-}
-.clockinoutbtn2 label {
-    max-height:69px;
-    max-width: 88px; 
-    text-align: center;
-    -moz-box-align:center;
-    -moz-box-pack:center;
-    color: #ffffff;
-}
-
-.rightprevbtn {
-    margin-top: 30px;
-    max-width:39px;
-    min-width:39px;
-    height: 39px;
-    width: 39px;
-    background: url(images/c_userup.png) center center no-repeat;
-    -moz-appearance: none;
-    -moz-user-focus: ignore;
-    -moz-background-clip: border;
-    border: none;
-}
-.rightprevbtn:active {
-	background: url(images/c_userup_a.png) center center no-repeat;
-}
-.rightprevbtn label {	
-	display: none;
-}
-.rightprevbtn description {
-	display: none;
-}
-
-.rightnextbtn {
-    max-width:39px;
-    min-width:39px;
-    height: 39px;
-    width: 39px;
-    background: url(images/c_userdown.png) center center no-repeat;
-    -moz-appearance: none;
-    -moz-user-focus: ignore;
-    -moz-background-clip: border;
-    border: none;
-}
-.rightnextbtn:active {
-	background: url(images/c_userdown_a.png) center center no-repeat;
-}
-.rightnextbtn label {	
-	display: none;
-}
-.rightnextbtn description {
-	display: none;
-}
+/* user buttons */
 
 .userbtn {
     min-width:130px;
@@ -229,24 +78,88 @@
     background: transparent url(images/c_namecard.png) center bottom no-repeat;
 }
 
-.gray {
-  background: url(images/btn_gray.png);
-  background-position:0pt -64px;
+/*-----------------------------------------------------------------------------
+ * USERS scroll bar
+ *-----------------------------------------------------------------------------
+ */
+
+.clockuserscrollablepanel .scrollablepanel-scrollbar{
+	max-width: 39px;
+	min-width: 39px;
 }
 
-.blue {
-  background: url(images/btn_blue.png);
-  background-position:0pt -64px;
+/* scroll bar buttons */
+
+.rightprevbtn {
+    margin-top: 30px;
+    max-width:39px;
+    min-width:39px;
+    height: 39px;
+    width: 39px;
+    background: url(images/c_userup.png) center center no-repeat;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-background-clip: border;
+    border: none;
 }
 
-.green {
-  background: url(images/btn_green.png);
-  background-position:0pt -64px;
+.rightprevbtn[disabled=false]:active {
+	background: url(images/c_userup_a.png) center center no-repeat;
 }
 
-.purple {
-  background: url(images/btn_purple.png);
-  background-position:0pt -64px;
+.rightprevbtn description {
+	display: none;
+}
+
+.rightnextbtn {
+    max-width:39px;
+    min-width:39px;
+    height: 39px;
+    width: 39px;
+    background: url(images/c_userdown.png) center center no-repeat;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-background-clip: border;
+    border: none;
+}
+
+.rightnextbtn[disabled=false]:active {
+	background: url(images/c_userdown_a.png) center center no-repeat;
+}
+
+.rightnextbtn description {
+	display: none;
+}
+
+/*-----------------------------------------------------------------------------
+ * Number Pad
+ *-----------------------------------------------------------------------------
+ */
+
+.numpad {
+	margin: 16px 13px 0 12px;
+	width: 265px;
+}
+
+.numberpad sendkeybutton{
+    min-width:64px;
+    max-width:64px;
+    min-height:52px;
+    max-height:52px;
+    height: 52px;
+    width: 64px;
+    margin: 5px 0 0 5px;
+    padding: 0px;
+    list-style-type: none;
+    font-weight: bold !important;
+    font-size: 30px;
+    overflow: hidden;
+    border: 0px solid;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    /* background: white; */
+    background: transparent url(images/numbtn_tall.png);
+    color: white;
 }
 
 .systembtn {
@@ -274,9 +187,84 @@
     /* background: white; */
     background: transparent url(images/funBtn4.png) center center no-repeat;
 }
-.systembtn:active {
+
+.systembtn[disabled=false]:active {
     background: transparent url(images/funBtn4_a.png) center center no-repeat;
 }
+
+
+/*-----------------------------------------------------------------------------
+ * Action Pad
+ *-----------------------------------------------------------------------------
+ */
+
+/* clock-in/clock-out */
+
+.clockinoutbtn {
+    height: 69px;
+    width: 70px;
+    margin: 0px 6px 0px 0px;
+    padding: 0px;
+    list-style-type: none;
+    overflow: hidden;
+    color: White;
+    font-weight: bold !important;
+    font-size: 12px;
+    overflow: hidden;
+    background: transparent url(images/clockin.gif) no-repeat center center;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-background-clip: border;
+    border: none;
+}
+
+.clockinoutbtn[disabled=false]:active {
+	background: transparent url(images/clockin_a.gif) no-repeat center center;
+}
+
+.clockinoutbtn label {
+    max-height:69px;
+    max-width: 50px; 
+    text-align: center;
+    -moz-box-align:center;
+    -moz-box-pack:center;
+    color: #ffffff;
+}
+
+/* view attendance */
+
+.clockinoutbtn2 {
+    height: 69px;
+    width: 93px;
+    margin: 0px 0px 0px 0px;
+    padding: 0px;
+    list-style-type: none;
+    overflow: hidden;
+    color: White;
+    font-weight: bold !important;
+    font-size: 12px;
+    overflow: hidden;
+    background: transparent url(images/viewatt.gif) no-repeat center center;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-background-clip: border;
+    border: none;
+}
+
+.clockinoutbtn2[disabled=false]:active {
+	background: transparent url(images/viewatt_a.gif) no-repeat center center;
+}
+
+.clockinoutbtn2 label {
+    max-height:69px;
+    max-width: 88px; 
+    text-align: center;
+    -moz-box-align:center;
+    -moz-box-pack:center;
+    color: #ffffff;
+}
+
+/* exit button */
 
 .genbtn {
     height: 69px;
@@ -289,23 +277,26 @@
     -moz-background-clip: border;
     border: none;
 }
+
 .genbtn:hover {
-  background: url(images/exit_2.png) 95% top no-repeat;
+    background: url(images/exit_2.png) 95% top no-repeat;
 }
+
 .genbtn:active {
-  background: url(images/exit_3.png) 95% top no-repeat;
+    background: url(images/exit_3.png) 95% top no-repeat;
 }
+
 .genbtn label {
 	display: none;
 }
 
-.numpad {
-	margin: 16px 13px 0 12px; 
-	width: 265px;
-}
+/*-----------------------------------------------------------------------------
+ * Password Pad
+ *-----------------------------------------------------------------------------
+ */
 
 .PwPad {
-	margin: 58px 0 0 225px;
+	margin: 40px 0 0 225px;
 	
 }
 
@@ -314,15 +305,17 @@
 	color: white;
 	margin-top: 13px;
 }
+
 .clocklabel {
 	font-size: 11pt; 
 	color: #dcf74a;
 	margin-top: 9px;
 }
+
 .pwBox {
 	width: 190px;
 	margin-top: 5px;
-        margin-right: 10px;
+    margin-right: 10px;
 	height: 36px;
 	border: 2px solid #b2a59a;
 	-moz-border-color: #b2a59a;
@@ -331,11 +324,11 @@
 	color: #514f43;
 	font-size: 21px;
 }
-.PageTitle {
-	font-size: 15pt;
-	color: black;
-	margin: 10px 0 0 320px;
-}
+
+/*-----------------------------------------------------------------------------
+ * Job List
+ *-----------------------------------------------------------------------------
+ */
 
 .numjobpad {
 	background: transparent url(images/numjob.png) left 3px no-repeat;
@@ -343,29 +336,25 @@
 	
 }
 
-.jobs {
-	max-height: 208px;
-}
-
-/*------- Job -------*/
 .jobpad {
 	background: transparent url(images/jobpad.png) left top no-repeat;
-	padding: 71px 0 0 11px;
-	width: 192px;
-	min-width: 192px;
-	max-height:300px;
+	padding: 60px 0 0 14px;
+	width: 160px;
+	min-width: 160px;
+    min-height:310px;
+	max-height:310px;
 }
+
 .jobscrollablepanel {
-	max-height: 209px;
+    width: 174px;
+    max-width: 174px;
+    min-width: 174px;
+    min-height:220px;
+	max-height:220px;
+    height:220px;
 }
-	/*job button*/
-.jobBtn{
-	width: 143px;
-	height: 40px;
-	max-height: 40px;
-	min-height: 40px;
-	max-width: 143px;
-	min-width: 143px;
+
+.jobBtn {
 	color: #424242;
 	font-size: 14px;
 	font-weight: bold;
@@ -374,16 +363,25 @@
 	background: transparent;
 	margin: 0px;
 	padding: 0px;
+    -moz-box-pack: start;
+    -moz-box-align: baseline;
 }
+
 .jobBtn[disabled=false]:active{
 	color: #336489;
 	background: transparent url(images/jobsel.png) left center no-repeat;
 }
-.jobBtn[checked=true]{
+
+.jobBtn[selected]{
 	color: #336489;
-	background: transparent url(images/jobsel.png) left center no-repeat;
+	background: transparent url(images/gtk-yes.png) left center no-repeat;
 }
-	/*job scroll button*/
+
+.jobBtn description {
+    text-align: start;
+}
+/*job scroll button*/
+
 .jobupBtn {
 	width: 32px;
 	height: 32px;
@@ -395,12 +393,15 @@
 	border: none;
 	-moz-appearance: none;
 }
+
 .jobupBtn[disabled=false]:active {
 	background: url(images/jobupbtn_a.png) center center  no-repeat;
 }
+
 .jobupBtn description{
  display: none;
 }
+
 .jobdownBtn {
 	width: 32px;
 	height: 32px;
@@ -412,38 +413,55 @@
 	border: none;
 	-moz-appearance: none;
 }
+
 .jobdownBtn[disabled=false]:active {
 	background: url(images/jobdownbtn_a.png) center center  no-repeat;
 }
+
 .jobdownBtn description{
  display: none;
 }
 
+/*-----------------------------------------------------------------------------
+ * Attendance List
+ *-----------------------------------------------------------------------------
+ */
 
-
-/* Attendance �C�?���� */
 .listpad {
 	background: transparent url(images/listpad.png) left top no-repeat;
-	display: none; /****** �o��ڥ��ð_�ӡA����аt�X�ק�  ******/
+    min-width: 228px;
+    max-width: 228px;
+    width:228px;
 }
 
-.jobsummary treechildren::-moz-tree-row {
-	border-bottom: 1px solid #789ebb;
+.jobsummary {
+    min-width: 222px;
+    max-width: 222px;
+    width:222px;
+
+    min-height: 225px;
+    max-height: 225px;
+    height:225px;
+
+    font-size: 8px;
+    margin: 23px 0px 0 1px;
 }
 
-  /*��C��e������*/
-.closelist {	
-	max-width: 33px;
-	min-width: 33px;
-	max-height: 33px;
-	min-width: 33px;
-	background: transparent url(images/va_close.png) center center no-repeat;
-	border: none;
-	-moz-appearance: none;
+listbox {
+    border: 0px solid;
+    -moz-appearance: none;
 }
-.closelist:active {
-	background: transparent url(images/va_close_a.png) center center no-repeat;
+
+listbox #clockin_time {
+    min-width: 55px;
+    max-width: 55px;
 }
+
+listbox #clockout_time {
+    min-width: 55px;
+    max-width: 55px;
+}
+
 	/* Attendance �C�� Scorll bar �W�U���� */
 .jobsummaryUpbtn {
 	max-width: 32px;

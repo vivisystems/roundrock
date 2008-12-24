@@ -11,10 +11,9 @@ var ClockStampModel = GeckoJS.Model.extend({
         switch (type) {
             case "clockin":
                 var last = this.findLastStamp(username);
-                
                 // automatically clocks out last job if necessary
                 
-                if (last && (last['clockout'] == 0)) {
+                if (last && !last['clockout']) {
                     // clock out previous job first
                     last['clockout'] = 1;
                     last['clockout_time'] = today.toString("yyyy-MM-dd HH:mm:ss");
@@ -33,7 +32,7 @@ var ClockStampModel = GeckoJS.Model.extend({
             case "clockout":
                 var last = this.findLastStamp(username);
 
-                if (last && last['clockout'] == 0) {
+                if (last && last['clockout'] == false) {
                     data['clockin'] = 1;
                     data['clockout'] = 1;
                     this.id = last.id;
