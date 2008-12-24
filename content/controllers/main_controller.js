@@ -361,7 +361,7 @@
                 var registerAtLeft = GeckoJS.Configure.read('vivipos.fec.settings.RegisterAtLeft') || false;
                 if (initial) {
                     if (registerAtLeft) fnWidth -= 3;
-                    else fnWidth = fnWidth -= 0;
+                    else fnWidth -= 10;
                 }
 
                 if (fnHeight < 1) {

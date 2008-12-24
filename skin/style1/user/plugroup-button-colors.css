@@ -1,0 +1,87 @@
+/*--------------------------------------------------------------------------
+ *
+ * PLU GROUP COLORS
+ *
+ *--------------------------------------------------------------------------
+ */
+
+.plugroup-button-color-default {
+    background: #fcf9f4 url(images/departBtn1.png) 0 50% no-repeat;
+    color: #42422f;
+    -moz-appearance: none;
+}
+
+.plugroup-button-color-1 {
+    background: #fcf9f4 url(images/departBtn2.png) 0 50% no-repeat;
+    color: #42422f;
+    -moz-appearance: none;
+}
+
+.plugroup-button-color-2 {
+    background: #fcf9f4 url(images/departBtn3.png) 0 50% no-repeat;
+    color: #42422f;
+    -moz-appearance: none;
+}
+
+.plugroup-button-color-3 {
+    background: #fcf9f4 url(images/departBtn4.png) 0 50% no-repeat;
+    color: #42422f;
+    -moz-appearance: none;
+}
+
+.plugroup-button-color-4 {
+    background: #fcf9f4 url(images/departBtn5.png) 0 50% no-repeat;
+    color: #42422f;
+    -moz-appearance: none;
+}
+
+.plugroup-button-color-5 {
+    background: #fcf9f4 url(images/departBtn6.png) 0 50% no-repeat;
+    color: #42422f;
+    -moz-appearance: none;
+}
+
+.plugroup-button-color-6 {
+    background: #fcf9f4 url(images/departBtn7.png) 0 50% no-repeat;
+    color: #42422f;
+    -moz-appearance: none;
+}
+
+.plugroup-button-color-7 {
+    background: #fcf9f4 url(images/departBtn8.png) 0 50% no-repeat;
+    color: #42422f;
+    -moz-appearance: none;
+}
+
+.plugroup-button-color-8 {
+    background: #fcf9f4 url(images/departBtn9.png) 0 50% no-repeat;
+    color: #42422f;
+    -moz-appearance: none;
+ }
+
+.plugroup-button-color-9 {
+    background: #fcf9f4 url(images/departBtn10.png) 0 50% no-repeat;
+    color: #42422f;
+    -moz-appearance: none;
+}
+
+.plugroup-button-color-10 {
+    background: #fcf9f4 url(images/departBtn11.png) 0 50% no-repeat;
+    color: #42422f;
+    -moz-appearance: none;
+}
+
+.plugroup-button-color-11 {
+    background: #fcf9f4 url(images/departBtn12.png) 0 50% no-repeat;
+    color: #42422f;
+    -moz-appearance: none;
+}
+
+.plugroup-button-color-default[selected], .plugroup-button-color-1[selected],
+.plugroup-button-color-2[selected], .plugroup-button-color-3[selected],
+.plugroup-button-color-4[selected], .plugroup-button-color-5[selected],
+.plugroup-button-color-6[selected], .plugroup-button-color-7[selected],
+.plugroup-button-color-8[selected], .plugroup-button-color-9[selected],
+.plugroup-button-color-10[selected], .plugroup-button-color-11[selected] {
+    list-style-image: url(chrome://viviecr/skin/images/gtk-yes.png);
+}

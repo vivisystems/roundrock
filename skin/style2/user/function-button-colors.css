@@ -1,0 +1,86 @@
+/*--------------------------------------------------------------------------
+ *
+ * FUNCTION BUTTON COLORS
+ *
+ *--------------------------------------------------------------------------
+ */
+
+.function-button-color-default {
+    background: white url(images/pluBtn1.png) 3px 50% no-repeat;
+    color: #4b443f;
+    -moz-appearance: none;
+}
+
+.function-button-color-1 {
+    background: white url(images/pluBtn2.png) 3px 50% no-repeat;
+    color: #603913;
+    -moz-appearance: none;
+}
+
+.function-button-color-2 {
+    color: #9e0b0f;
+    background: white url(images/pluBtn3.png) 3px 50% no-repeat;
+    -moz-appearance: none;
+}
+
+.function-button-color-3 {
+    color: #0054a6;
+    background: white url(images/pluBtn4.png) 3px 50% no-repeat;
+    -moz-appearance: none;
+}
+
+.function-button-color-4 {
+    color: #a9ae6e;
+    background: white url(images/pluBtn5.png) 3px 50% no-repeat;
+    -moz-appearance: none;
+}
+
+.function-button-color-5 {
+    color: #f26522;
+    background: white url(images/pluBtn6.png) 3px 50% no-repeat;
+    -moz-appearance: none;
+}
+
+.function-button-color-6 {
+    color: #662d91;
+    background: white url(images/pluBtn7.png) 3px 50% no-repeat;
+    -moz-appearance: none;
+}
+
+.function-button-color-7 {
+    color: #1cbbb4;
+    background: white url(images/pluBtn8.png) 3px 50% no-repeat;
+    -moz-appearance: none;
+}
+
+.function-button-color-8 {
+    color: #005952;
+    background: white url(images/pluBtn9.png) 3px 50% no-repeat;
+    -moz-appearance: none;
+}
+
+.function-button-color-9 {
+    color: #0a374c;
+    background: white url(images/pluBtn10.png) 3px 50% no-repeat;
+    -moz-appearance: none;
+}
+
+.function-button-color-10 {
+    color: #ec008c;
+    background: white url(images/pluBtn11.png) 3px 50% no-repeat;
+    -moz-appearance: none;
+}
+
+.function-button-color-11 {
+    color: #827b00;
+    background: white url(images/pluBtn12.png) 3px 50% no-repeat;
+    -moz-appearance: none;
+}
+
+.function-button-color-default[selected], .function-button-color-1[selected],
+.function-button-color-2[selected], .function-button-color-3[selected], .function-button-color-4[selected],
+.function-button-color-5[selected], .function-button-color-6[selected], .function-button-color-7[selected],
+.function-button-color-8[selected], .function-button-color-9[selected], .function-button-color-10[selected],
+.function-button-color-11[selected] {
+    list-style-image: url(chrome://viviecr/skin/images/gtk-yes.png);
+}

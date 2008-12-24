@@ -88,7 +88,6 @@
         getCellProperties: function(row, col, prop) {
             var aserv=Components.classes["@mozilla.org/atom-service;1"].
                       getService(Components.interfaces.nsIAtomService);
-
             switch(col.id) {
                 case 'name':
                     prop.AppendElement(aserv.getAtom('treecellProduct'));

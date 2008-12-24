@@ -9,6 +9,7 @@
  * For more information, see http://www.mozilla.org/unix/customizing.html#prefs
  */
 
+user_pref("general.skins.selectedSkin", "classic/1.0");
 user_pref("app.update.lastUpdateTime.addon-background-update-timer", 1229509705);
 user_pref("app.update.lastUpdateTime.background-update-timer", 1229987274);
 user_pref("app.update.lastUpdateTime.blocklist-background-update-timer", 1229987274);

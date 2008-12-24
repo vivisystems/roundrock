@@ -481,7 +481,9 @@
         var itemDisplay = this.getDisplaySeqAt(index); // item in transaction
         var itemIndex = itemDisplay.index;
 
-        if (itemDisplay.type != 'item') return ; // TODO
+        if (itemDisplay.type != 'item') {
+            return ; // TODO - shouldn't be here since cart has intercepted illegal operations
+        }
 
         var item = null;
         if(GeckoJS.Session.get('productsById')[itemTrans.id]) {
@@ -641,13 +643,11 @@
 
             if (itemDisplay.type == 'trans_discount' && !itemTrans.hasMarker ) {
                 var subtotal = this.getDisplaySeqAt(itemDisplay.subtotal_index);
-                alert(GeckoJS.BaseObject.dump(subtotal));
                 subtotal.hasDiscount = false;
                 delete this.data.trans_discounts[itemIndex];
             }
             if (itemDisplay.type == 'trans_surcharge') {
                 var subtotal = this.getDisplaySeqAt(itemDisplay.subtotal_index);
-                alert(GeckoJS.BaseObject.dump(subtotal));
                 subtotal.hasSurcharge = false;
                 delete this.data.trans_surcharges[itemIndex];
             }
@@ -698,24 +698,30 @@
         var itemDisplay = this.getDisplaySeqAt(index); // last seq
         var itemIndex = itemDisplay.index;
         var lastItemDispIndex = this.getLastDisplaySeqByIndex(itemIndex);
+        var discount_amount;
 
         var prevRowCount = this.data.display_sequences.length;
 
-        if (itemDisplay.type == 'item') {
+        if (item && item.type == 'item') {
 
+            if (discount.type == '$') {
+                discount_amount = discount.amount;
+            }
+            else {
+                discount_amount = item.current_subtotal * discount.amount;
+            }
+            if (discount_amount > item.current_subtotal) {
+                // discount too much
+                //@todo OSD
+                OsdUtils.warn(_('Discount amount [%S] may not exceed item amout [%S]',
+                                [this.formatPrice(this.getRoundedPrice(discount_amount)),
+                                 itemDisplay.current_subtotal]));
+                return;
+            }
+            item.current_discount = 0 - discount.amount;
             item.discount_name =  discount.name;
             item.discount_rate =  discount.amount;
             item.discount_type =  discount.type;
-
-            if (item.discount_type == '$') {
-                item.current_discount = 0 - discount.amount;
-                if (discount.amount > item.current_subtotal) {
-                    // discount too much
-                    return;
-                }
-            }else {
-                item.current_discount = 0 - item.current_subtotal * item.discount_rate;
-            }
 
             item.hasDiscount = true;
 
@@ -740,19 +746,34 @@
                 current_discount: 0,
                 hasMarker: false
             };
+            // compute remaining total before any refunds
 
-            if (discountItem.discount_type == '$') {
-                discountItem.current_discount = 0 - discount.amount;
-                if (discount.amount >  this.getRemainTotal()) {
-                    // discount too much
-                    return;
-                }
-            }else {
-                discountItem.current_discount = 0 - this.getRemainTotal() * discountItem.discount_rate;
+            var checkitems = this.data.display_sequences;
+            var remainder = this.getRemainTotal();
+            for (var i = 0; i < checkitems.length; i++) {
+                var checkitem = checkitems[i];
+                if (checkitem.type == 'item' && checkitem.current_qty < 0)
+                    remainder -= checkitem.current_subtotal;
             }
-
+            //remainder -= this.data.tax_subtotal;
+            
+            if (discountItem.discount_type == '$') {
+                discount_amount = discount.amount;
+            }
+            else {
+                discount_amount = this.getRemainTotal() * discountItem.discount_rate;
+            }
+            if (discount_amount >  remainder) {
+                // discount too much
+                //@todo OSD
+                OsdUtils.warn(_('Discount amount [%S] may not exceed remaining balance before refunds [%S]',
+                                [this.formatPrice(this.getRoundedPrice(discount_amount)),
+                                 this.formatPrice(this.getRoundedPrice(remainder))]));
+                return;
+            }
+            
             // rounding discount
-            discountItem.current_discount = this.getRoundedPrice(discountItem.current_discount);
+            discountItem.current_discount = this.getRoundedPrice(0 - discount_amount);
 
             var discountIndex = GeckoJS.String.uuid();
             this.data.trans_discounts[discountIndex] = discountItem;
@@ -761,10 +782,10 @@
             itemDisplay.hasDiscount = true;
 
             // create data object to push in items array
-            var itemDisplay = this.createDisplaySeq(discountIndex, discountItem, 'trans_discount');
-            itemDisplay.subtotal_index = index;
+            var newItemDisplay = this.createDisplaySeq(discountIndex, discountItem, 'trans_discount');
+            newItemDisplay.subtotal_index = index;
 
-            this.data.display_sequences.splice(index+1,0,itemDisplay);
+            this.data.display_sequences.splice(lastItemDispIndex+1,0,newItemDisplay);
 
             this.calcPromotions();
             
@@ -789,7 +810,6 @@
         var itemDisplay = this.getDisplaySeqAt(index); // last seq
         var itemIndex = itemDisplay.index;
         var lastItemDispIndex = this.getLastDisplaySeqByIndex(itemIndex);
-        var targetDisplayItem = this.getDisplaySeqByIndex(itemIndex);   // display index of the item to add condiment to
 
         var prevRowCount = this.data.display_sequences.length;
 
@@ -807,13 +827,13 @@
             }
 
             // rounding surcharge
-            item.current_surcharge = this.getRoundedPrice(item.current_surcharge);
+            item.current_surcharge = this.getRoundedPrice(Math.abs(item.current_surcharge));
 
 
             // create data object to push in items array
-            var itemDisplay = this.createDisplaySeq(itemIndex, item, 'surcharge');
+            var newItemDisplay = this.createDisplaySeq(itemIndex, item, 'surcharge');
 
-            this.data.display_sequences.splice(lastItemDispIndex+1,0,itemDisplay);
+            this.data.display_sequences.splice(lastItemDispIndex+1,0,newItemDisplay);
 
             //this.calcPromotions();
 
@@ -847,10 +867,10 @@
             itemDisplay.hasSurcharge = true;
             
             // create data object to push in items array
-            var itemDisplay = this.createDisplaySeq(surchargeIndex, surchargeItem, 'trans_surcharge');
-            itemDisplay.subtotal_index = index;
+            var newItemDisplay = this.createDisplaySeq(surchargeIndex, surchargeItem, 'trans_surcharge');
+            newItemDisplay.subtotal_index = index;
 
-            this.data.display_sequences.splice(index+1,0,itemDisplay);
+            this.data.display_sequences.splice(index+1,0,newItemDisplay);
 
             this.calcPromotions();
             //this.calcItemsTax();

@@ -1,0 +1,103 @@
+.label_general {
+  margin-top: 10px;
+}
+
+.label_layout {
+  margin-top: 10px;
+}
+
+.label_keymap {
+  margin-top: 10px;
+}
+
+.label_argument {
+  margin-top: 10px;
+}
+
+separator {
+  margin: 2px 0px 2px 0px;
+}
+
+.textbox_general {
+    font-size: small;
+    min-height: 28px;
+    max-height: 28px;
+}
+
+.textbox_layout {
+    font-size: small;
+   min-height: 28px;
+   max-height: 28px;
+}
+
+.textbox_layout_readonly {
+    font-size: small;
+   min-height: 28px;
+   max-height: 28px;
+}
+
+.action_layout {
+    min-height: 28px;
+    max-height: 28px;
+}
+
+.textbox_keymap {
+    font-size: small;
+   min-height: 28px;
+   max-height: 28px;
+}
+
+.textbox_keymap_readonly {
+    font-size: small;
+   min-height: 28px;
+   max-height: 28px;
+}
+
+.descbox_keymap {
+    border-width: 1px;
+    border-color: black;
+    border-style: groove;
+    font-size: small;
+    height: 60px;
+    max-height: 60px;
+    overflow: auto;
+}
+
+.keymap_function_list {
+    height: 172px;
+    max-width: 415px;
+}
+
+.action_button {
+  width: 120px;
+  height: 55px;
+}
+
+.action_box {
+  margin-right: 10px;
+}
+
+.preview_box {
+  border-color: black;
+  border-style: solid;
+  border-width:1px;
+  max-width: 360px;
+}
+
+.buttoncolor_baseclass {
+    min-height: 50px;
+    max-height: 50px;
+    max-width: 60px;
+    -moz-appearance: none;
+    -moz-box-orient: vertical;
+    overflow: hidden;
+}
+
+.buttonfontsize_baseclass {
+    min-height: 50px;
+    max-height: 50px;
+    max-width: 70px;
+    -moz-appearance: none;
+    -moz-box-orient: vertical;
+    overflow: hidden;
+}

@@ -120,21 +120,12 @@ treechildren::-moz-tree-cell-text(treecellTRAY) {color: white;}
 treechildren::-moz-tree-cell-text(treecellSUBTOTAL) {color: yellow;}
 treechildren::-moz-tree-cell-text(treecellTOTAL) {color: yellow;}
 
-treechildren::-moz-tree-column(treecellProduct) {
+.cartList #name {
     text-align: left;
-    crop: none;
-    color: red;
 }
-treechildren::-moz-tree-cell-text(treecellQty) {
-    text-align: center;
-    color:blue;
-}
-treechildren::-moz-tree-column(treecellUnitPrice) {
-    text-align:right;
-}
-treechildren::-moz-tree-cell-text(treecellSubtotal) {
-}
-treechildren::-moz-tree-cell-text(treecellTax) {
+
+.cartList #current_qty, #current_price, #current_subtotal, #current_tax {
+    text-align: right;
 }
 
 /*-----------------------------------------------------------------------------

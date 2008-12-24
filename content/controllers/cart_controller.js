@@ -73,7 +73,7 @@
                     cart.dispatchEvent('onLowStock', obj);
                     cart.dispatchEvent('onWarning', _('OUT OF STOCK'));
                     //@todo add OSD?
-                    OsdUtils.warm(_('Product May Be Out of Stock!'));
+                    OsdUtils.warn(_('Product May Be Out of Stock!'));
                     
                     // allow over stock...
                     var allowoverstock = GeckoJS.Configure.read('vivipos.fec.settings.AllowOverStock') || false;
@@ -252,6 +252,9 @@
             if (!barcodesIndexes || !barcodesIndexes[barcode]) {
                 // barcode notfound
                 event.error = true;
+
+                //@todo OSD
+                OsdUtils.warn(_('Product scan code not found [%S]', [barcode]));
             }else {
                 var id = barcodesIndexes[barcode];
                 var product = productsById[id];
@@ -270,24 +273,55 @@
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
 
+            var buf = this._getKeypadController().getBuffer();
+            this._getKeypadController().clearBuffer();
+
+            this.cancelReturn();
+
             if(curTransaction == null) {
                 this.dispatchEvent('onModifyItem', null);
+
+                //@todo OSD
+                OsdUtils.warn(_('Not an open order; cannot modify'));
                 return; // fatal error ?
             }
 
-            if(index <0) return;
+            if(index <0) {
+                //@todo OSD
+                OsdUtils.warn(_('Please select an item first'));
+                return;
+            }
 
-            if (curTransaction.isSubmit() || curTransaction.isCancel()) return;
+            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
+                //@todo OSD
+                OsdUtils.warn(_('Not an open order; cannot modify'));
+                return;
+            }
 
             var itemTrans = curTransaction.getItemAt(index);
 
             if (itemTrans.type != 'item') {
                 this.dispatchEvent('onModifyItemError', {});
+
+                var itemDisplay = curTransaction.getDisplaySeqAt(index);
+                //@todo OSD
+                OsdUtils.warn(_('Cannot modify selected item [%S]', [itemDisplay.name]));
                 return;
             }
 
-            if (itemTrans.hasDiscount || itemTrans.hasSurcharge || itemTrans.hasMarker) {
+            if (itemTrans.hasDiscount || itemTrans.hasSurcharge) {
                 this.dispatchEvent('onModifyItemError', {});
+
+                //@todo OSD
+                OsdUtils.warn(_('Cannot modify; selected item [%S] has discount or surcharge applied', [itemDisplay.name]));
+                return;
+            }
+
+            if (itemTrans.hasMarker) {
+                this.dispatchEvent('onModifyItemError', {});
+
+                //@todo OSD
+                OsdUtils.warn(_('Cannot modify; selected item [%S] has been subtotaled', [itemDisplay.name]));
                 return;
             }
 
@@ -296,15 +330,16 @@
                 // @todo popup ??
                 this.log('DEBUG', 'modifyItem but no qty / price set!! plu = ' + this.dump(itemTrans) );
                 this.dispatchEvent('onModifyItemError', {});
+
+                //@todo OSD
+                OsdUtils.warn(_('Cannot modify; no price or quantity not entered'));
                 return ;
             }
 
             
             // check if has buffer
-            var buf = this._getKeypadController().getBuffer();
             if (buf.length>0) {
                 this.setPrice(buf);
-                this._getKeypadController().clearBuffer();
             }
 
             this.dispatchEvent('beforeModifyItem', itemTrans);
@@ -360,16 +395,32 @@
             
         },
 
-        returnItem: function(action) {
+        returnItem: function(cancel) {
 
-            this._returnMode = true;
+            if (cancel || this._returnMode) {
+                if (this._returnMode && !cancel) {
+                    this._getKeypadController().clearBuffer();
+                    this.subtotal();
+                }
+                this._returnMode = false;
+            }
+            else {
+                this._returnMode = true;
+                this.dispatchEvent('onReturnStatus', null);
+            }
+        },
 
+        cancelReturn: function() {
+            this.returnItem(true);
         },
 
         voidItem: function() {
 
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
+
+            this.cancelReturn();
+            this._getKeypadController().clearBuffer();
 
             if(curTransaction == null) {
                 this.dispatchEvent('onVoidItem', null);
@@ -434,6 +485,8 @@
             var buf = this._getKeypadController().getBuffer();
             this._getKeypadController().clearBuffer();
 
+            this.cancelReturn();
+
             if (!discountAmount && buf.length>0) {
                 discountAmount = buf;
             }
@@ -455,6 +508,8 @@
             // check if has buffer
             var buf = this._getKeypadController().getBuffer();
             this._getKeypadController().clearBuffer();
+
+            this.cancelReturn();
 
             if (!discountAmount && buf.length>0) {
                 discountAmount = buf;
@@ -529,6 +584,11 @@
                     OsdUtils.warn(_('Cannot modify an item that has been subtotaled'));
                     return;
                 }
+                if (itemTrans.current_qty < 0) {
+                    //@todo OSD
+                    OsdUtils.warn(_('Cannot register discount on return items'));
+                    return;
+                }
             }
             else if (itemDisplay.type == 'subtotal') {
                 if (itemDisplay.hasSurcharge) {
@@ -596,6 +656,8 @@
             var buf = this._getKeypadController().getBuffer();
             this._getKeypadController().clearBuffer();
 
+            this.cancelReturn();
+
             if (!surchargeAmount && buf.length>0) {
                 surchargeAmount = buf;
             }
@@ -617,6 +679,8 @@
             // check if has buffer
             var buf = this._getKeypadController().getBuffer();
             this._getKeypadController().clearBuffer();
+
+            this.cancelReturn();
 
             if (!surchargeAmount && buf.length>0) {
                 surchargeAmount = buf;
@@ -745,9 +809,15 @@
             //var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
 
+            this._getKeypadController().clearBuffer();
+            this.cancelReturn();
+
             if(curTransaction == null) {
                 this.clear();
                 this.dispatchEvent('onAddMarker', null);
+
+                // @todo OSD
+                OsdUtils.warn(_('Not an open order; operation invalid'));
                 return; // fatal error ?
             }
 
@@ -755,7 +825,10 @@
 
             type = type || 'subtotal';
 
-            if (curTransaction.isSubmit() || curTransaction.isCancel()) return;
+            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
+                OsdUtils.warn(_('Not an open order; operation invalid'));
+                return;
+            }
 
             var dspSeqCount = curTransaction.getDisplaySeqCount();
 
@@ -786,6 +859,7 @@
             var curTransaction = this._getTransaction();
             
             this._getKeypadController().clearBuffer();
+            this.cancelReturn();
 
             if(curTransaction == null) {
                 this.clear();
@@ -828,6 +902,10 @@
 
             // check if has buffer
             var buf = this._getKeypadController().getBuffer();
+            this._getKeypadController().clearBuffer();
+
+            this.cancelReturn();
+            
             var currencies = GeckoJS.Session.get('Currencies');
 
             if (buf.length>0 && currencies && currencies.length > convertIndex) {
@@ -840,6 +918,17 @@
                 this._getKeypadController().clearBuffer();
                 
                 this.addPayment('cash', amount, memo1, memo2);
+            }
+            else {
+                if (buf.length==0) {
+                    //@todo OSD
+                    OsdUtils.warn(_('Please enter an amount first'));
+                }
+                else if (currencies == null || currencies.length <= convertIndex) {
+                    //@todo OSD
+                    OsdUtils.warn(_('Please configure the selected currency entry first [%S]', [convertIndex]));
+                }
+
             }
         },
 
@@ -881,8 +970,34 @@
 
             // check if has buffer
             var buf = this._getKeypadController().getBuffer();
+            this._getKeypadController().clearBuffer();
+
+            this.cancelReturn();
+
+            // check if order is open
+            var curTransaction = this._getTransaction();
+
+            if(curTransaction == null) {
+                this.clear();
+                this.dispatchEvent('onAddPayment', null);
+
+                // @todo OSD
+                OsdUtils.warn(_('Not an open order; cannot register payments'));
+                return; // fatal error ?
+            }
+
+            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
+                // @todo OSD
+                OsdUtils.warn(_('Not an open order; cannot register payments'));
+                return;
+            }
+            
             var payment = parseFloat(buf);
-            if (payment == 0 || isNaN(payment)) return;
+            if (payment == 0 || isNaN(payment)) {
+                //@todo OSD
+                OsdUtils.warn(_('Please enter an amount first'));
+                return;
+            }
             var data = {
                 type: mark,
                 payment: payment
@@ -901,8 +1016,34 @@
 
             // check if has buffer
             var buf = this._getKeypadController().getBuffer();
+            this._getKeypadController().clearBuffer();
+
+            this.cancelReturn();
+
+            // check if order is open
+            var curTransaction = this._getTransaction();
+
+            if(curTransaction == null) {
+                this.clear();
+                this.dispatchEvent('onAddPayment', null);
+
+                // @todo OSD
+                OsdUtils.warn(_('Not an open order; cannot register payments'));
+                return; // fatal error ?
+            }
+
+            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
+                // @todo OSD
+                OsdUtils.warn(_('Not an open order; cannot register payments'));
+                return;
+            }
+
             var payment = parseFloat(buf);
-            if (payment == 0 || isNaN(payment)) return;
+            if (payment == 0 || isNaN(payment)) {
+                //@todo OSD
+                OsdUtils.warn(_('Please enter an amount first'));
+                return;
+            }
             var data = {
                 type: mark,
                 payment: payment
@@ -925,12 +1066,19 @@
             if(curTransaction == null) {
                 this.clear();
                 this.dispatchEvent('onAddPayment', null);
+
+                // @todo OSD
+                OsdUtils.warn(_('Not an open order; cannot register payments'));
                 return; // fatal error ?
             }
 
-            if(index <0) return;
+            //if(index <0) return;
 
-            if (curTransaction.isSubmit() || curTransaction.isCancel()) return;
+            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
+                // @todo OSD
+                OsdUtils.warn(_('Not an open order; cannot register payments'));
+                return;
+            }
 
             // check if first time payment
             var paymentsTypes = GeckoJS.BaseObject.getKeys(curTransaction.getPayments());
@@ -1092,6 +1240,7 @@
             var curTransaction = this._getTransaction();
 
             this._getKeypadController().clearBuffer();
+            this.cancelReturn();
 
             if(curTransaction == null) {
                 this.dispatchEvent('onClear', null);
@@ -1112,6 +1261,7 @@
             
 
             this._getKeypadController().clearBuffer();
+            this.cancelReturn();
 
             // cancel cart but save
             var curTransaction = this._getTransaction();
@@ -1142,6 +1292,7 @@
         subtotal: function() {
 
             var oldTransaction = this._getTransaction();
+            this.cancelReturn();
 
             this.dispatchEvent('onGetSubtotal', oldTransaction);
             
@@ -1165,6 +1316,7 @@
 
             //this.dispatchEvent('onClear', 0.00);
             this._getKeypadController().clearBuffer();
+            this.cancelReturn();
 
             this.dispatchEvent('onSubmit', oldTransaction);
 				
@@ -1175,9 +1327,11 @@
 
             // check if has buffer
             var buf = this._getKeypadController().getBuffer();
+            this._getKeypadController().clearBuffer();
+            this.cancelReturn();
+            
             if (buf.length>0) {
                 if (!amount) amount = parseFloat(buf);
-                this._getKeypadController().clearBuffer();
             }
 
             this.addPayment('cash', amount);
@@ -1190,6 +1344,7 @@
             var curTransaction = this._getTransaction();
 
             this._getKeypadController().clearBuffer();
+            this.cancelReturn();
 
             if(curTransaction == null) {
                 //@todo OSD
@@ -1265,13 +1420,23 @@
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
 
-            if(curTransaction == null) return; // fatal error ?
+            this._getKeypadController().clearBuffer();
+            this.cancelReturn();
 
-            if(index <0) return;
+            if(curTransaction == null) {
+                OsdUtils.warn(_('Not an open order; cannot add memo'));
+                return; // fatal error ?
+            }
+
+            if(index <0) {
+                OsdUtils.warn(_('Please select an item first'));
+                return;
+            }
 
             // transaction is submit and close success
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
-                curTransaction = this._newTransaction();
+                OsdUtils.warn(_('Not an open order; cannot add memo'));
+                return; // fatal error ?
             }
 
             var memoItem = null;
@@ -1424,9 +1589,16 @@
 
             var curTransaction = this._getTransaction();
 
-            if(curTransaction == null) return; // fatal error ?
+            if(curTransaction == null) {
+                    //@todo OSD
+                OsdUtils.warn(_('No open order to push'));
+                return; // fatal error ?
+            }
 
-            if (curTransaction.isSubmit() || curTransaction.isCancel()) return;
+            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
+                OsdUtils.warn(_('No open order to push'));
+                return;
+            }
 
             var user = this.Acl.getUserPrincipal();
 
@@ -1457,6 +1629,10 @@
                 GeckoJS.Session.remove('cart_set_price_value');
                 GeckoJS.Session.remove('cart_set_qty_value');
 
+            }
+            else {
+                OsdUtils.warn(_('Order is not queued because it is empty'));
+                return;
             }
         
         },

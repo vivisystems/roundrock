@@ -594,7 +594,6 @@
     font-size: 12px;
 }
 
-
 .font-xlarge[selected], .font-large[selected], .font-small[selected], .font-medium[selected] {
     list-style-image: url(chrome://viviecr/skin/images/gtk-yes.png);
 }
