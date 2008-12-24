@@ -76,7 +76,7 @@
                     }
                 }
 
-                this.onReturnItem = function(evt) {
+                this.onReturnStatus = function(evt) {
                     self.setText1_1(_('Return'));
                 }
 
@@ -192,7 +192,7 @@
                 this.keypadevents.addListener('onAddBuffer', this.onAddBuffer, this);
 
                 this.cartevents.addListener('onGetSubtotal', this.onGetSubtotal, this);
-                this.cartevents.addListener('onReturnItem', this.onReturnItem, this);
+                this.cartevents.addListener('onReturnStatus', this.onReturnStatus, this);
                 this.cartevents.addListener('onSetQty', this.onSetQty, this);
                 this.cartevents.addListener('onClear', this.onClear, this);
                 this.cartevents.addListener('onCancel', this.onCancel, this);
