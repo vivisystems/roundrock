@@ -299,11 +299,11 @@
             }
 
             var itemTrans = curTransaction.getItemAt(index);
+            var itemDisplay = curTransaction.getDisplaySeqAt(index);
 
-            if (itemTrans.type != 'item') {
+            if (itemDisplay.type != 'item') {
                 this.dispatchEvent('onModifyItemError', {});
 
-                var itemDisplay = curTransaction.getDisplaySeqAt(index);
                 //@todo OSD
                 OsdUtils.warn(_('Cannot modify selected item [%S]', [itemDisplay.name]));
                 return;
@@ -325,14 +325,13 @@
                 return;
             }
 
-
             if (GeckoJS.Session.get('cart_set_price_value') == null && GeckoJS.Session.get('cart_set_qty_value') == null && buf.length <= 0) {
                 // @todo popup ??
                 this.log('DEBUG', 'modifyItem but no qty / price set!! plu = ' + this.dump(itemTrans) );
                 this.dispatchEvent('onModifyItemError', {});
 
                 //@todo OSD
-                OsdUtils.warn(_('Cannot modify; no price or quantity not entered'));
+                OsdUtils.warn(_('Cannot modify; no price or quantity entered'));
                 return ;
             }
 
@@ -361,21 +360,46 @@
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
 
+            this._getKeypadController().clearBuffer();
+
             if(curTransaction == null) {
                 this.dispatchEvent('onModifyQty', null);
+
+                //@todo OSD
+                OsdUtils.warn(_('Not an open order; cannot modify'));
                 return; // fatal error ?
             }
 
-            if(index <0) return;
-            if (curTransaction.isSubmit() || curTransaction.isCancel()) return;
-
-            var itemTrans = curTransaction.getItemAt(index);
-
-            if (itemTrans.hasDiscount || itemTrans.hasSurcharge || itemTrans.hasMarker) {
-                this.dispatchEvent('onmodifyQtyError', {});
+            if(index <0) {
+                //@todo OSD
+                OsdUtils.warn(_('Please select an item first'));
                 return;
             }
 
+            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
+                //@todo OSD
+                OsdUtils.warn(_('Not an open order; cannot modify'));
+                return;
+            }
+
+            var itemTrans = curTransaction.getItemAt(index);
+            var itemDisplay = curTransaction.getDisplaySeqAt(index);
+
+            if (itemDisplay.type != 'item') {
+                this.dispatchEvent('onModifyItemError', {});
+
+                //@todo OSD
+                OsdUtils.warn(_('Cannot modify selected item [%S]', [itemDisplay.name]));
+                return;
+            }
+
+            if (itemTrans.hasDiscount || itemTrans.hasSurcharge || itemTrans.hasMarker) {
+                this.dispatchEvent('onmodifyQtyError', {});
+
+                //@todo OSD
+                OsdUtils.warn(_('Cannot modify; selected item [%S] has discount or surcharge applied', [itemDisplay.name]));
+                return;
+            }
 
             var qty = itemTrans.current_qty;
             var newQty = qty + 0;
@@ -391,6 +415,10 @@
             if (newQty != qty) {
                 this.setQty(newQty);
                 this.modifyItem();
+            }
+            else {
+                //@todo OSD
+                OsdUtils.warn(_('Quantity may not be less than 1'));
             }
             
         },
@@ -446,9 +474,9 @@
             var itemTrans = null;
 
             var itemDisplay = curTransaction.getDisplaySeqAt(index);
+            alert(GeckoJS.BaseObject.dump(itemDisplay));
 
-            
-            if (itemDisplay.type == 'subtotal' || itemDisplay.type == 'tray') {
+            if (itemDisplay.type == 'subtotal' || itemDisplay.type == 'tray' || itemDisplay.type == 'total') {
                 this.dispatchEvent('onVoidItemError', {});
 
                 // @todo OSD
