@@ -15,7 +15,7 @@
       <children includes="observes|template|menupopup|tooltip"/>
       <xul:hbox class="box-inherit button-box" xbl:inherits="align,dir,pack,orient"
                 align="center" pack="center" flex="1" anonid="vivibutton-box" style="overflow: hidden;">
-          <xul:image anonid="image" class="button-icon" xbl:inherits="src=image"/>
+          <xul:image anonid="image" class="button-icon" xbl:inherits="validate,src=image"/>
           <!-- xul:label anonid="label" crop="end" class="button-text" xbl:inherits="accesskey,crop"> </xul:label-->
           <xul:description anonid="label" class="button-text" xbl:inherits="accesskey,crop" > </xul:description>
       </xul:hbox>

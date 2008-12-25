@@ -7,7 +7,7 @@
 
 <binding id="vivitree">
     <content>
-      <xul:tree anonid="tree" flags="dont-build-content" flex="1" seltype="single" xbl:inherits="class,pack,orient,collapsed,hidden,flex,enableColumnDrag,flags,hidecolumnpicker,rows,seltype,align,dir,hidevscroll,hidehscroll">
+      <xul:tree anonid="tree" flags="dont-build-content" flex="1" seltype="single" xbl:inherits="class,pack,orient,collapsed,hidden,flex,enableColumnDrag,flags,hidecolumnpicker,rows,fixed,seltype,align,dir,hidevscroll,hidehscroll">
           <xul:treecols anonid="treecols" />
           <xul:treechildren anonid="treechildren" alternatingbackground="true" />
       </xul:tree>
@@ -68,6 +68,7 @@
         <body><![CDATA[
 
             var treecols = document.getAnonymousElementByAttribute(this, 'anonid', 'treecols');
+            var fixed = this.getAttribute('fixed');
             treecols.setAttribute('hidden', "true");
             GeckoJS.Helper.removeAllChildren(treecols);
 
@@ -85,12 +86,14 @@
 
                 treecols.appendChild(treecol);
 
-                let splitter = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:splitter");
-                // splitter.setAttribute("id", "splitter_" + _fields[i]);
-                splitter.setAttribute("class", "tree-splitter");        
-                splitter.setAttribute("resizebefore", "closest");
-                splitter.setAttribute("resizeafter", "grow");
-                treecols.appendChild(splitter); 
+                if (fixed != 'true') {
+                    let splitter = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:splitter");
+                    // splitter.setAttribute("id", "splitter_" + _fields[i]);
+                    splitter.setAttribute("class", "tree-splitter");
+                    splitter.setAttribute("resizebefore", "closest");
+                    splitter.setAttribute("resizeafter", "grow");
+                    treecols.appendChild(splitter);
+                }
             }
             treecols.setAttribute('hidden', "false");
         ]]>  
