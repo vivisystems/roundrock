@@ -107,17 +107,33 @@
                 //@todo OSD
                 OsdUtils.warn(_('Please select a user first'));
             }
-            else if (job == null) {
-                //@todo OSD
-                OsdUtils.warn(_('Please select a job first'));
-
-                // auto-switch to Job list
-                document.getElementById('deck').selectedIndex = 0;
-            }
             else {
                 document.getElementById('user_password').value = '';
                 
                 if (this.Acl.securityCheck(username, userpass, true)) {
+
+                    if (job == null) {
+
+                        // check if user has default job
+                        var userModel = new UserModel();
+                        var user_name = userModel.findByIndex('all', {
+                            index: 'username',
+                            value: username
+                        });
+
+                        if (user_name && user_name.length > 0) {
+                            job = user_name[0].default_job;
+                        }
+                    }
+
+                    if (job == null) {
+                        //@todo OSD
+                        OsdUtils.warn(_('Please select a job first'));
+
+                        // auto-switch to Job list
+                        document.getElementById('deck').selectedIndex = 0;
+                        return;
+                    }
                     var clockstamp = new ClockStampModel();
                     clockstamp.saveStamp('clockin', username, job);
 

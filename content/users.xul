@@ -86,7 +86,6 @@
                                                 </menupopup>
                                             </menulist>
                                         </row>
-
                                         <row>
                                             <label value="&users.job;"/>
                                             <textbox id="job" value="" form="userForm" name="default_job" readonly="true" default="" onclick="$do('getJob', null, 'Users');"/>

@@ -131,7 +131,6 @@
                 index: 'displayname',
                 value: evt.data.displayname.replace(/^\s*/, '').replace(/\s*$/, '')
             });
-
             if (display_name != null && display_name.length > 0) {
                 if ((display_name.length > 1) || (display_name[0].id != $('#user_id').val())) {
                     evt.preventDefault();
@@ -141,11 +140,9 @@
                     OsdUtils.warn(_('Duplicate display name [%S]; user not modified.', [evt.data.displayname]));
                 }
             }
-
         },
 
         afterScaffoldEdit: function (evt) {
-
             if (this._userModified) {
                 var panel = this.getListObj();
                 var index = panel.selectedIndex;

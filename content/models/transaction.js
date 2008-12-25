@@ -253,7 +253,8 @@
                 name: item.name,
                 current_qty: item.current_qty,
                 current_price: item.current_price,
-                current_subtotal: item.current_subtotal + item.current_condiment,
+                //current_subtotal: item.current_subtotal + item.current_condiment,
+                current_subtotal: item.current_subtotal,
                 current_tax: item.tax_name,
                 type: type,
                 index: index,
@@ -481,7 +482,7 @@
         var itemDisplay = this.getDisplaySeqAt(index); // item in transaction
         var itemIndex = itemDisplay.index;
 
-        if (itemDisplay.type != 'item') {
+        if (itemDisplay.type != 'item' && itemDisplay.type != 'condiment') {
             return ; // TODO - shouldn't be here since cart has intercepted illegal operations
         }
 
@@ -494,15 +495,25 @@
         
         var sellQty = itemTrans.current_qty;
         var sellPrice = itemTrans.current_price;
+        var condimentPrice = 0;
 
-        // modify Qty & Price...
-        sellQty  = (GeckoJS.Session.get('cart_set_qty_value') != null) ? GeckoJS.Session.get('cart_set_qty_value') : sellQty;
-        if (sellQty == null) sellQty = 1;
+        // modify Qty & Price...if item is being modified
+        if (itemDisplay.type == 'item') {
+            sellQty  = (GeckoJS.Session.get('cart_set_qty_value') != null) ? GeckoJS.Session.get('cart_set_qty_value') : sellQty;
+            if (sellQty == null) sellQty = 1;
 
-        sellPrice  = (GeckoJS.Session.get('cart_set_price_value') != null) ? GeckoJS.Session.get('cart_set_price_value') : sellPrice;
+            sellPrice  = (GeckoJS.Session.get('cart_set_price_value') != null) ? GeckoJS.Session.get('cart_set_price_value') : sellPrice;
 
-        sellPrice = this.calcSellPrice(sellPrice, sellQty, item);
-
+            sellPrice = this.calcSellPrice(sellPrice, sellQty, item);
+        }
+        else if (itemDisplay.type == 'condiment') {
+            condimentPrice = (GeckoJS.Session.get('cart_set_price_value') != null) ? GeckoJS.Session.get('cart_set_price_value') : itemDisplay.current_price;
+            var condimentItem = {
+                id: itemDisplay.id,
+                name: itemDisplay.name,
+                current_subtotal: (this.getRoundedPrice(condimentPrice) == 0) ? '' : this.formatPrice(this.getRoundedPrice(condimentPrice))
+            };
+        }
         var obj = {
             sellPrice: sellPrice,
             sellQty: sellQty,
@@ -518,8 +529,8 @@
         itemTrans.current_price = itemModified.current_price;
         itemTrans.current_subtotal = itemModified.current_subtotal;
         itemModified = itemTrans;
-
         var condiments = itemModified.condiments;
+
         if (condiments) {
 
             var roundedPrice = this.getRoundedPrice(itemModified.current_price) || 0;
@@ -527,6 +538,11 @@
             var roundedCondiment = 0;
 
             for(var cn in itemTrans.condiments) {
+
+                // update condiment price before recalculating subtotal if modifying condiment
+                if (itemTrans.condiments[cn].name == itemDisplay.name) {
+                    itemTrans.condiments[cn].price = condimentPrice;
+                }
                 roundedCondiment += parseFloat(itemTrans.condiments[cn].price)*itemModified.current_qty;
             }
 
@@ -542,12 +558,23 @@
         this.log('DEBUG', 'dispatchEvent afterModifyItem ' + this.dump(itemModified) );
         Transaction.events.dispatch('afterModifyItem', itemModified, this);
 
-        // create data object to push in items array
         var itemDisplay2 = this.createDisplaySeq(itemIndex, itemModified, 'item');
+        if (itemDisplay.type == 'item') {
+            // create data object to push in items array
+        
+            // update
+            this.data.display_sequences[index] = itemDisplay2 ;
+        }
+        else if (itemDisplay.type == 'condiment') {
+            var condimentItemDisplay2 = this.createDisplaySeq(itemIndex, condimentItem, 'condiment');
 
-        // update
-        this.data.display_sequences[index] = itemDisplay2 ;
+            // update condiment display
+            this.data.display_sequences[index] = condimentItemDisplay2 ;
 
+            // update item subtotal
+            var targetDisplayItem = this.getDisplaySeqByIndex(itemIndex);   // display index of the item the condiment is attached to
+            targetDisplayItem.current_subtotal = itemDisplay2.current_subtotal;
+        }
         var currentRowCount = this.data.display_sequences.length;
 
         this.calcPromotions();
@@ -671,12 +698,50 @@
                 orgItemDisplay.current_subtotal =  this.formatPrice(itemTrans.current_subtotal);
 
             }
+            if (itemDisplay.type == 'payment') {
+                // make sure payment has not been subtotalled
+                var displayItems = this.data.display_sequences;
+                for (var i = index + 1; i < displayItems.length; i++) {
+                    var itemType = displayItems[i].type;
+                    if (itemType == 'subtotal' ||
+                        itemType == 'tray' ||
+                        itemType == 'total') {
+                        //@todo OSD
+                        OsdUtils.warn(_('Cannot VOID a payment that has been subtotaled'));
+                    }
+                }
+                // remove payment record
+                delete this.data.trans_payments[itemIndex];
+            }
+            if (itemDisplay.type == 'subtotal' ||
+                itemDisplay.type == 'total' ||
+                itemDisplay.type == 'tray') {
+
+                // reset hasMarker flag on preceding items until marker is encountered
+                var displayItems = this.data.display_sequences;
+                var transItems = this.getItems();
+                for (var i = index - 1; i >= 0; i--) {
+                    var displayItem = displayItems[i];
+                    alert('checking entry [' + GeckoJS.BaseObject.dump(displayItem) + ']');
+                    if (displayItem.type == 'item') {
+                        var transItem = transItems[displayItem.index];
+                        alert('found item [' + GeckoJS.BaseObject.dump(transItem) + ']');
+                        if (transItem) transItem.hasMarker = false;
+                    }
+                    else if (displayItem.type == 'subtotal' ||
+                             displayItem.type == 'total' ||
+                             displayItem.type == 'tray') {
+                        break;
+                    }
+                }
+            }
 
             this.removeDisplaySeq(index, 1);
 
             // recalc all
             // this.calcPromotions();
             this.calcItemsTax(itemTrans);
+            this.calcTotal();
 
         }
 
@@ -1072,7 +1137,6 @@
                 }, this);
 
             }
-
             this.calcItemsTax(item);
             this.calcTotal();
         }
@@ -1109,9 +1173,9 @@
 
             item.memo = memo;
 
-            var itemDisplay = this.createDisplaySeq(itemIndex, memoItem, 'memo');
+            var newItemDisplay = this.createDisplaySeq(itemIndex, memoItem, 'memo');
 
-            this.data.display_sequences.splice(index+1,0,itemDisplay);
+            this.data.display_sequences.splice(index+1,0,newItemDisplay);
 
         }
 
@@ -1299,6 +1363,9 @@
 
             this.log('DEBUG', 'dispatchEvent onPriceLevelError ' + this.dump(obj) );
             Transaction.events.dispatch('onPriceLevelError', obj, this);
+
+            //@todo OSD
+            OsdUtils.warn(_('Price adjusted from [%S] to current HALO [%S]', [this.formatPrice(sellPrice), this.formatPrice(obj.newPrice)]));
             
             sellPrice = obj.newPrice;
         }
@@ -1316,6 +1383,9 @@
 
             this.log('DEBUG', 'dispatchEvent onPriceLevelError ' + this.dump(obj2) );
             Transaction.events.dispatch('onPriceLevelError', obj2, this);
+
+            //@todo OSD
+            OsdUtils.warn(_('Price adjusted from [%S] to current LALO [%S]', [this.formatPrice(sellPrice), this.formatPrice(obj2.newPrice)]));
 
             sellPrice = obj2.newPrice;
         }
@@ -1422,8 +1492,7 @@
                 item.tax_rate = tax.rate;
                 item.tax_type = tax.type;
 
-                var toTaxCharge = item.current_subtotal + item.current_discount + item.current_surcharge + item.current_condiment;
-
+                var toTaxCharge = item.current_subtotal + item.current_discount + item.current_surcharge;
                 var taxChargeObj = Transaction.Tax.calcTaxAmount(item.tax_name, toTaxCharge);
 
                 // @todo total only or summary ?

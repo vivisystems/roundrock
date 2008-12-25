@@ -37,7 +37,7 @@
 }
 
 .user-catbtn[selected] {
-    border: 2px solid;
+    border: 5px solid;
 }
 
 .user-catbtn[disabled=false]:active, .user-plubtn[disabled=false]:active {

@@ -91,6 +91,15 @@
                 panel.selectedIndex = newIndex;
                 panel.selectedItems = [newIndex];
 
+                // look for plugroup.id
+                var plugroupModel = new PlugroupModel();
+                var plugroup = plugroupModel.findByIndex('all', {
+                    index: 'name',
+                    value: evt.data.name
+                });
+                if (plugroup && plugroup.length > 0)
+                    this.updateSession('add', plugroup[0].id);
+
                 this.validateForm();
 
                 document.getElementById('plugroup_name').focus();
@@ -134,6 +143,8 @@
                 panel.selectedIndex = index;
                 panel.selectedItems = [index];
 
+                this.updateSession('modify', evt.data.id);
+            
                 // @todo OSD
                 OsdUtils.info(_('Job [%S] modified successfully', [evt.data.name]));
             }
@@ -182,6 +193,8 @@
                 panel.selectedItems = [];
                 GeckoJS.FormHelper.reset('plugroupForm');
             }
+
+            this.updateSession('delete', evt.data.id);
 
             this.validateForm();
 
@@ -245,6 +258,54 @@
             }
 
             document.getElementById('plugroup_name').focus();
+        },
+
+        updateSession: function(mode, id) {
+            var index = -1;
+            var plugroupModel = new PlugroupModel();
+
+            var plugroups = plugroupModel.find('all', {
+                order: 'name'
+            });
+
+            var visiblePlugroups = [];
+            plugroups.forEach(function(plugroup) {
+                if (plugroup.visible) visiblePlugroups.push(plugroup.id);
+            });
+
+            var plugroupsById = GeckoJS.Session.get('plugroupsById');
+
+            var targetPlugroup = plugroupModel.findById(id);
+
+            switch(mode) {
+
+                case 'add':
+
+                    for (var i = 0; i < plugroups.length; i++) {
+                        if (plugroups[i].id == id) {
+                            index = i;
+                            break;
+                        }
+                    }
+                    plugroupsById[id] = targetPlugroup;
+                    break;
+
+                case 'modify':
+                    plugroupsById[id] = targetPlugroup;
+                    index = this._selectedIndex;
+                    break;
+
+                case 'remove':
+                    if (this._selectedIndex >= plugroups.length) index = plugroups.length - 1;
+                    else index = this._selectedIndex;
+
+                    delete(plugroupsById[id]);
+                    
+                    break;
+            }
+            GeckoJS.Session.set('plugroupsById', plugroupsById);
+            GeckoJS.Session.set('visiblePlugroups', visiblePlugroups);
+            return index;
         },
 
         validateForm: function() {

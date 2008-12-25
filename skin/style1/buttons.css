@@ -37,6 +37,10 @@
 
 .user-catbtn[selected] {
     border: 2px solid;
+    -moz-border-top-colors: #000000 !important;
+    -moz-border-right-colors: #000000 !important;
+    -moz-border-bottom-colors: #000000 !important;
+    -moz-border-left-colors: #000000 !important;
 }
 
 .user-catbtn[disabled=false]:active, .user-plubtn[disabled=false]:active {

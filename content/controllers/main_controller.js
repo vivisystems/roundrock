@@ -199,7 +199,8 @@
 
                 if (userRecord && userRecord.length > 0) {
                     var userPriceLevel = parseInt(userRecord[0].default_price_level);
-                    var canOverride = (GeckoJS.Array.inArray('acl_user_override_default_price_level', user.Roles) != -1);
+                    //var canOverride = (GeckoJS.Array.inArray('acl_user_override_default_price_level', user.Roles) != -1);
+                    var canOverride = this.Acl.isUserInRole('acl_user_override_default_price_level');
 
                     if (userPriceLevel && !isNaN(userPriceLevel) && userPriceLevel > 0 && userPriceLevel < 10 && canOverride) {
                         $do('change', userPriceLevel, 'Pricelevel');

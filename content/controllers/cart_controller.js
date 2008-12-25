@@ -301,7 +301,7 @@
             var itemTrans = curTransaction.getItemAt(index);
             var itemDisplay = curTransaction.getDisplaySeqAt(index);
 
-            if (itemDisplay.type != 'item') {
+            if (itemDisplay.type != 'item' && itemDisplay.type != 'condiment') {
                 this.dispatchEvent('onModifyItemError', {});
 
                 //@todo OSD
@@ -325,7 +325,7 @@
                 return;
             }
 
-            if (GeckoJS.Session.get('cart_set_price_value') == null && GeckoJS.Session.get('cart_set_qty_value') == null && buf.length <= 0) {
+            if (itemDisplay.type == 'item' && GeckoJS.Session.get('cart_set_price_value') == null && GeckoJS.Session.get('cart_set_qty_value') == null && buf.length <= 0) {
                 // @todo popup ??
                 this.log('DEBUG', 'modifyItem but no qty / price set!! plu = ' + this.dump(itemTrans) );
                 this.dispatchEvent('onModifyItemError', {});
@@ -335,7 +335,16 @@
                 return ;
             }
 
-            
+            if (itemDisplay.type == 'condiment' && buf.length <= 0 ) {
+                // @todo popup ??
+                this.log('DEBUG', 'modify condiment but price set!! plu = ' + this.dump(itemTrans) );
+                this.dispatchEvent('onModifyItemError', {});
+
+                //@todo OSD
+                OsdUtils.warn(_('Cannot modify condiment; no price entered'));
+                return ;
+            }
+
             // check if has buffer
             if (buf.length>0) {
                 this.setPrice(buf);
@@ -474,14 +483,18 @@
             var itemTrans = null;
 
             var itemDisplay = curTransaction.getDisplaySeqAt(index);
-            alert(GeckoJS.BaseObject.dump(itemDisplay));
 
             if (itemDisplay.type == 'subtotal' || itemDisplay.type == 'tray' || itemDisplay.type == 'total') {
-                this.dispatchEvent('onVoidItemError', {});
 
-                // @todo OSD
-                OsdUtils.warn(_('Cannot VOID selected item [%S]', [itemDisplay.name]));
-                return ;
+                // allow voiding of markers only if they are the last item in cart
+                var cartLength = curTransaction.data.display_sequences.length;
+                if (index < cartLength - 1) {
+                    this.dispatchEvent('onVoidItemError', {});
+
+                    // @todo OSD
+                    OsdUtils.warn(_('Cannot VOID selected item [%S]', [itemDisplay.name]));
+                    return ;
+                }
             }
 
             itemTrans = curTransaction.getItemAt(index);
@@ -489,7 +502,7 @@
                 if(itemTrans.hasMarker) {
                     // @todo OSD
                     this.dispatchEvent('onVoidItemError', {});
-                    OsdUtils.warn(_('Cannot modify an item that has been subtotaled'));
+                    OsdUtils.warn(_('Cannot VOID an item that has been subtotaled'));
                     return ;
                 }
             }
@@ -1440,6 +1453,7 @@
                 }
                 
             }
+            this.subtotal();
 
         },
 
@@ -1474,7 +1488,16 @@
             }else {
                 var productsById = GeckoJS.Session.get('productsById');
                 var cartItem = curTransaction.getItemAt(index);
-                memoItem = GREUtils.extend({}, productsById[cartItem.id]);
+                if (cartItem) {
+                    memoItem = GREUtils.extend({}, productsById[cartItem.id]);
+                }
+                else {
+                    // not item
+                    var displayItem = curTransaction.getDisplaySeqAt(index);
+                    //@todo OSD
+                    OsdUtils.warn(_('Memo may only be added to products'));
+                    return;
+                }
             }
 
             if (memoItem) {
