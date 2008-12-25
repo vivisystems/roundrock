@@ -53,6 +53,10 @@
     -moz-border-radius: 2px;
 }
 
+.vivifuncpanelecr_matrix_button_mapped[disabled=true] {
+    background-color: transparent;
+}
+
 /*-----------------------------------------------------------------------------
  * Function Panel unmapped buttons
  *-----------------------------------------------------------------------------

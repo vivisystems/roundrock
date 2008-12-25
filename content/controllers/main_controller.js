@@ -552,6 +552,10 @@
                     OsdUtils.error(_('Failed to authenticate user'));
                 }
             }
+            else {
+                // @todo no password
+                OsdUtils.warn(_('Please enter passcode first'));
+            }
         },
 
         signOff: function (quickSignoff) {
