@@ -220,7 +220,7 @@
                 }
                 if (this.cartevents) {
                     this.cartevents.removeListener('onGetSubtotal', this.onGetSubtotal);
-                    this.cartevents.removeListener('onReturnItem', this.onReturnItem);
+                    this.cartevents.removeListener('onReturnStatus', this.onReturnStatus);
                     
                     this.cartevents.removeListener('onSetQty', this.onSetQty);
                     this.cartevents.removeListener('onClear', this.onClear);
