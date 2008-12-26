@@ -65,7 +65,6 @@
 
                 var availableLocales = toolkitChromeReg.getLocalesForPackage(package);
 
-
                 // Render locale menulist
                 const XUL_NS = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
 
@@ -77,7 +76,7 @@
 
                     var listitem = document.createElementNS(XUL_NS, "xul:listitem");
                     listitem.setAttribute("value", locale);
-                    listitem.setAttribute("label", locale);
+                    listitem.setAttribute("label", _(locale));
                     listitem.setAttribute("class", "listitem-iconic");
                     listitem.setAttribute("image", "chrome://vivipos/skin/flags/tb_" + locale + ".png");
 
