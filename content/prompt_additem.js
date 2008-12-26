@@ -26,7 +26,7 @@ var options;
             document.getElementById('input1').setAttribute('type', inputObj.type1);
         }
         
-        document.getElementById('caption0').setAttribute("label", caption0);
+        document.getElementById('dialog-caption').setAttribute("label", caption0);
         document.getElementById('text0').value = text0;
         document.getElementById('title0').value = title0;
         document.getElementById('title1').value = title1;
@@ -45,7 +45,7 @@ var options;
                 inputObj.ok = false;
                 return true;
             }
-            );
+        );
 
         validateInput();
 

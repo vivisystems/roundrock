@@ -112,11 +112,13 @@
             var group = $('#aclgroup_name').val();
 
             try {
+                // first remove roles
                 var roles = this.Acl.getRoleListInGroup(group);
                 roles.forEach(function(o) {
-                    self.Acl.removeRoleFromGroup(group, o.name);
+                    self.Acl.removeRoleFromGroup(group, o);
                 });
-
+                
+                // next add roles
                 var selectedItems = this.getRoleListObj().selectedItems;
                 roles = this.getRoleListObj().datasource.data;
                 selectedItems.forEach(function(idx){

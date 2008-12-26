@@ -23,7 +23,6 @@
         },
 
         changeDepartmentPanel: function(index) {
-
             var dept = this.deptPanelView.getCurrentIndexData(index);
             this._selectedIndex = index;
             this.setInputData(dept);
@@ -258,16 +257,15 @@
             var categories = cateModel.find('all', {
                 order: 'no'
             });
-
             GeckoJS.Session.set('categories');
-
-            var data = this.deptPanelView.data;
+            this.deptPanelView.updateCategories();
+            var data = GeckoJS.Session.get('categories');
 
             switch(mode) {
 
                 case 'add':
                     for (var i = 0; i < data.length; i++) {
-                        if (data[i] == id) {
+                        if (data[i].id == id) {
                             return i;
                         }
                     }

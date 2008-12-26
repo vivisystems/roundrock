@@ -1,13 +1,15 @@
 <?xml version="1.0"?>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/functionpanel.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/functionpanel.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/function-button-colors.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/funcpanelecrprefs.css" type="text/css"?>
 <!DOCTYPE window SYSTEM "chrome://viviecr/locale/funcpanelecrprefs.dtd">
 
-<window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+<window title="&vivifuncpanelecr.title;"
         xmlns:html="http://www.w3.org/1999/xhtml"
-        id="window_preference_vivifuncpanelecr">
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://vivipos/content/vivipos.js" />
     <script type="application/x-javascript" src="chrome://vivipos/content/consoleErrors.js" />
@@ -56,10 +58,10 @@
                         <tab label="&vivifuncpanelecr.prefs.tabpanel.keymap.label;"/>
                         <tab label="&vivifuncpanelecr.prefs.tabpanel.gkeymap.label;"/>
                     </tabs>
-                    <tabpanels>
+                    <tabpanels flex="1">
 
                     <!-- General Preferences -->
-                        <tabpanel id="vivifuncpanelecr_prefs_general_panel" orient="vertical" allowevents="true">
+                        <tabpanel id="vivifuncpanelecr_prefs_general_panel" flex="1" orient="vertical" allowevents="true">
                             <grid flex="1">
                                 <columns>
                                     <column flex="0"/>
@@ -222,6 +224,7 @@
                                 <button_colorpicker
                                     id="vivifuncpanelecr_prefs_layout_button_colorpicker"
                                     columns="4"
+                                    class-prefix="function-button-color-"
                                     buttonClass="buttoncolor_baseclass"
                                     flex="1"
                                     disabled="true"
@@ -230,7 +233,7 @@
                                 <button_fontsizepicker
                                     id="vivifuncpanelecr_prefs_layout_button_fontsizepicker"
                                     columns="4"
-                                    buttonClass="fontsize_baseclass"
+                                    buttonClass="buttonfontsize_baseclass"
                                     flex="1"
                                     label="&vivifuncpanelecr.prefs.tabpanel.layout.buttonstyle.fontsize.label;"
                                     disabled="true"
@@ -408,13 +411,13 @@
                 </tabbox>
             </hbox>
             <spacer height="10"/>
-            <hbox class="action_box" pack="end">
-                <button id="vivifuncpanelecr_prefs_save" icon="save"
-                        class="action_button"
+            <hbox class="dialogbtns" pack="center">
+                <button id="vivifuncpanelecr_prefs_save"
+                        class="ok"
                         label="&vivifuncpanelecr.prefs.save.label;"
                         oncommand="$do('savePreferences', null, 'vivifuncpanelecr_prefs')"/>
-                <button id="vivifuncpanelecr_prefs_cancel" icon="cancel"
-                        class="action_button"
+                <button id="vivifuncpanelecr_prefs_cancel"
+                        class="cancel"
                         label="&vivifuncpanelecr.prefs.cancel.label;"
                         oncommand="$do('cancelPreferences', null, 'vivifuncpanelecr_prefs')"/>
             </hbox>

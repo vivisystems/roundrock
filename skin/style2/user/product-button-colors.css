@@ -1,0 +1,80 @@
+/*--------------------------------------------------------------------------
+ *
+ * PRODUCT COLORS
+ *
+ *--------------------------------------------------------------------------
+ */
+
+.product-button-color-default {
+    background: #ffffff;
+    -moz-appearance: none;
+}
+
+.product-button-color-1 {
+    background: #603913;
+    -moz-appearance: none;
+}
+
+.product-button-color-2 {
+    background: #9e0b0f;
+    -moz-appearance: none;
+}
+
+.product-button-color-3 {
+    background: #0054a6;
+    -moz-appearance: none;
+}
+
+.product-button-color-4 {
+    background: #efe9c5;
+    -moz-appearance: none;
+}
+
+.product-button-color-5 {
+    background: #f8dc7a;
+    -moz-appearance: none;
+}
+
+.product-button-color-6 {
+    background: #685479;
+    -moz-appearance: none;
+}
+
+.product-button-color-7 {
+    background: #9cd1cf;
+    -moz-appearance: none;
+}
+
+.product-button-color-8 {
+    background: #5a7978; 
+    -moz-appearance: none;
+ }
+
+.product-button-color-9 {
+    background: #0a374c;
+    -moz-appearance: none;
+}
+
+.product-button-color-10 {
+    background: #ab2388;
+    -moz-appearance: none;
+}
+
+.product-button-color-11 {
+    background: #c5c32f;
+    -moz-appearance: none;
+}
+
+.product-button-color-default[selected], .product-button-color-1[selected],
+.product-button-color-2[selected], .product-button-color-3[selected],
+.product-button-color-4[selected], .product-button-color-5[selected],
+.product-button-color-6[selected], .product-button-color-7[selected],
+.product-button-color-8[selected], .product-button-color-9[selected],
+.product-button-color-10[selected], .product-button-color-11[selected] {
+    list-style-image: none;
+    border-width: 3px;
+    -moz-border-top-colors: black red;
+    -moz-border-bottom-colors: black red;
+    -moz-border-left-colors: black red;
+    -moz-border-right-colors: black red;
+}

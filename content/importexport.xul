@@ -1,56 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE window SYSTEM "chrome://viviecr/locale/importexport.dtd">
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % ImportExport SYSTEM "chrome://viviecr/locale/importexport.dtd">
+  %ImportExport;
+  ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/vivipos.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
-<window id="numpad" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<window title="&importexport.caption;"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/bootstrap.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/importexport.js" />
 
-    <box flex="1" class="mainpanel1 pad40">
-        <vbox flex="1" class="panel40">
-            <hbox flex="1" class="footlogo">
-                <groupbox flex="1">
-                    <caption label="&importexport.caption;" />
+    <groupbox class="main-dialog" flex="1">
+        <caption label="&importexport.caption;" />
 
-                    <hbox flex="1">
-                        <vbox flex="1">
-                            <viviscrollablebuttonpanel id="datasourcescrollablepanel" default="" seltype="multiple" flex="1" cols="1" rows="7" labelField="name" oncommand=""
-                                class="catescrollablepanel" buttonClass="catbtn button-radius button-white font-medium" scrollUpClass="rightprevbtn button-blue" scrollDownClass="rightnextbtn button-blue">
-                                <spacer flex="1" />
-                            </viviscrollablebuttonpanel>
+        <hbox flex="1">
+            <vbox flex="1">
+                <viviscrollablebuttonpanel id="datasourcescrollablepanel" default="" seltype="multiple" flex="1" cols="1" rows="7" labelField="name"
+                                           oncommand=""
+                                           class="catescrollablepanel"
+                                           buttonClass="catbtn button-radius font-medium"
+                                           scrollUpClass="rightprevbtn button-blue"
+                                           scrollDownClass="rightnextbtn button-blue">
+                    <spacer flex="1" />
+                </viviscrollablebuttonpanel>
 
-                            <spacer style="height: 10px;" />
-                            <separator class="groove-thin"/>
-                            <spacer style="height: 10px;" />
+                <spacer style="height: 10px;" />
+                <separator class="groove-thin"/>
+                <spacer style="height: 10px;" />
 
-                            <progressmeter id="datasprogressmeter" mode="determined" value="0" />
-                        </vbox>
+                <progressmeter id="datasprogressmeter" mode="determined" value="0" />
+            </vbox>
 
-                        <spacer style="width:30px;" />
+            <spacer style="width:30px;" />
 
-                        <groupbox flex="1">
-                            <caption label="" />
-                            <vivibutton label="&importexport.import;" class="widebtns" oncommand="$do('importData', 'departments', 'ImportExport');" />
+            <groupbox flex="1">
+                <caption label="" />
+                <vivibutton label="&importexport.import;" class="widebtns" oncommand="$do('importData', 'departments', 'ImportExport');" />
 
-                            <spacer style="height: 10px;" />
-                            <separator class="groove-thin"/>
-                            <spacer style="height: 10px;" />
-                            <vivibutton label="&importexport.export;" class="widebtns" oncommand="$do('exportData', 'departments', 'ImportExport');" />
+                <spacer style="height: 10px;" />
+                <separator class="groove-thin"/>
+                <spacer style="height: 10px;" />
+                <vivibutton label="&importexport.export;" class="widebtns" oncommand="$do('exportData', 'departments', 'ImportExport');" />
 
-                        </groupbox>
-                    </hbox>
-                </groupbox>
-                
-            </hbox>
-        </vbox>
-    </box>
+            </groupbox>
+        </hbox>
+    </groupbox>
 
-    <hbox id="okCancelButtonsRight" class="dialogbtns" />
+    <hbox id="dialogButtons" class="dialogbtns" pack="center">
+        <button class="right exit-dialog" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+    </hbox>
 
 </window>

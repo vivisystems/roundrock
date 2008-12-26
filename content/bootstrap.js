@@ -58,7 +58,7 @@ include('chrome://viviecr/content/controllers/keypad_controller.js');
 // include('chrome://viviecr/content/controllers/vfd_controller.js');
 include('chrome://viviecr/content/controllers/cash_drawer_controller.js');
 include('chrome://viviecr/content/controllers/products_controller.js');
-include('chrome://viviecr/content/controllers/categories_controller.js');
+//include('chrome://viviecr/content/controllers/categories_controller.js');
 include('chrome://viviecr/content/controllers/taxes_controller.js');
 include('chrome://viviecr/content/controllers/image_manager_controller.js');
 include('chrome://viviecr/content/controllers/departments_controller.js');

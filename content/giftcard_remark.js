@@ -11,12 +11,13 @@ var options = {};
      * Controller Startup
      */
     function startup() {
-        document.getElementById('caption0').setAttribute("label", caption0);
+        document.getElementById('dialog-caption').setAttribute("label", caption0);
         document.getElementById('text0').value = text0;
         document.getElementById('title0').value = title0;
         document.getElementById('title1').value = title1;
         document.getElementById('input0').value = inputObj.input0;
         document.getElementById('input1').value = inputObj.input1;
+        document.getElementById('cancel').setAttribute('disabled', false);
 
         options = inputObj;
 
@@ -46,7 +47,7 @@ var options = {};
                 textNodes[i].addEventListener('focus', gotFocus, false);
         }
 
-        document.getElementById('input1').focus();
+        document.getElementById('input0').focus();
 
     };
 

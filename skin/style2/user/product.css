@@ -1,0 +1,200 @@
+/*--------------------------------------------------------------------------
+ *
+ * DEPARTMENT PANEL
+ *
+ *--------------------------------------------------------------------------
+ */
+
+.catescrollablepanel{
+    background: transparent url(images/map.png) top right no-repeat;
+    margin: 3px 0px 3px 3px;
+    padding-right: 4px;
+}
+
+/*--------------------------------------------------------------------------
+ * BUTTONS
+ *--------------------------------------------------------------------------
+ */
+
+.catbtn {
+    min-height:50px;
+    min-width: 50px;
+    color: white;
+    border: none;
+    -moz-appearance: none;
+    margin: 1px 0px 0px 1px;
+    padding: 0px;
+    
+    -moz-background-clip: border;
+  
+    -moz-box-pack: center;
+    -moz-user-focus: ignore;
+}
+
+.catbtn:active, .plubtn:active {
+    background-position:0pt -60px;
+    border: 2px solid;
+    -moz-border-top-colors: #444 #222;
+    -moz-border-right-colors: #444 #ddd;
+    -moz-border-bottom-colors: #444 #ddd;
+    -moz-border-left-colors: #444 #222;
+}
+
+.catbtn[disabled=true] {
+    border: 0px;
+}
+
+.catbtn[selected] {
+    -moz-border-top-colors: #000000 #000000;
+    -moz-border-right-colors: #000000 #000000;
+    -moz-border-bottom-colors: #000000 #000000;
+    -moz-border-left-colors: #000000 #000000;
+    border-width: 2px;
+}
+
+.catbtn hbox, .plubtn hbox {
+    -moz-box-orient: vertical;
+}
+
+/*--------------------------------------------------------------------------
+ * SCROLLBAR
+ *--------------------------------------------------------------------------
+ */
+
+.depart_scroll_up {
+    min-height: 32px;
+    max-height: 32px;
+    min-width: 32px;
+    max-width: 32px;
+    margin: 2px 2px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    background: transparent url(images/chatup.png) 0 0 no-repeat;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-background-clip: border;
+    border: 0px;
+}
+
+.depart_scroll_up[disabled=false]:active {
+    background-position: -32px 0;
+}
+
+.depart_scroll_up label {
+	display: none;
+}
+
+.depart_scroll_up description {
+	display: none;
+}
+
+.depart_scroll_down {
+    min-height: 32px;
+    max-height: 32px;
+    min-width: 32px;
+    max-width: 32px;
+    margin: 0px 2px 2px 0px;
+    padding: 0px 0px 0px 0px;
+    background: transparent url(images/chatdown.png) 0 0 no-repeat;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-background-clip: border;
+    border: 0px;
+}
+
+.depart_scroll_down[disabled=false]:active {
+    background-position: -32px 0;
+}
+
+.depart_scroll_down label {
+	display: none;
+}
+
+.depart_scroll_down description {
+	display: none;
+}
+
+.catescrollablepanel .scrollablepanel-scrollbar {
+    
+}
+
+
+
+/*--------------------------------------------------------------------------
+ *
+ * PLU PANEL
+ *
+ *--------------------------------------------------------------------------
+ */
+.prodscrollablepanel {
+	-moz-appearance: none;
+	-moz-background-clip: border;
+	min-width: 339px;
+	width: 339px;
+	margin: 3px 0px 3px 3px;
+	padding: 0px;
+}
+.prodscrollablepanel .prodscrollablepanel {
+	border: none;
+	background: none;
+	margin: 0;
+}
+.prodscrollablepanel vivibuttonpanel {
+	margin: 0px;
+}
+/*--------------------------------------------------------------------------
+ * BUTTONS
+ *--------------------------------------------------------------------------
+ */
+
+.plubtn {
+    min-height:50px;
+    min-width: 50px;
+    border: 1px solid;
+    -moz-appearance: none;
+    margin: 2px;
+    padding: 0px;
+    -moz-border-top-colors: #c9c3b9;
+    -moz-border-right-colors: #c9c3b9;
+    -moz-border-bottom-colors: #c9c3b9;
+    -moz-border-left-colors: #c9c3b9;
+    -moz-box-pack: center;
+    -moz-user-focus: ignore;
+    -moz-background-clip: border;
+    background-color: #ffffff;
+
+}
+
+.plubtn:active {
+    background-position:0pt -60px;
+    border: 2px solid;
+    -moz-border-top-colors: #444 #222;
+    -moz-border-right-colors: #444 #ddd;
+    -moz-border-bottom-colors: #444 #ddd;
+    -moz-border-left-colors: #444 #222;
+}
+
+.plubtn[disabled=true] {
+    background-color: #ffffff;
+    border: 1px solid #c9c3b9;
+}
+
+.plubtn hbox {
+    -moz-box-orient: vertical;
+
+}
+
+/*--------------------------------------------------------------------------
+ * SCROLLBAR
+ *--------------------------------------------------------------------------
+ */
+
+.prodscrollablepanel .scrollablepanel-scrollbar {
+	
+}
+
+.prodscrollablepanel image {
+	width: 32px;
+	height: 32px;
+}
+
+

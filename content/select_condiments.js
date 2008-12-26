@@ -13,9 +13,6 @@
         var condgroup = inputObj.condgroup;
         var condsData = inputObj.condsData;
 
-        // $do('load', inputObj.condgroup, 'SelectCondiment');
-
-        // document.getElementById('condiments').value = inputObj.condiments;
         window.viewHelper = new opener.GeckoJS.NSITreeViewArray(condsData);
 
         window.viewHelper.renderButton= function(row, btn) {
@@ -28,7 +25,7 @@
             });
 
             if (buttonColor && btn) {
-                $(btn).addClass('button-'+ buttonColor);
+                $(btn).addClass(buttonColor);
             }
             if (buttonFontSize && btn) {
                 $(btn).addClass('font-'+ buttonFontSize);
@@ -37,12 +34,6 @@
         };
 
         document.getElementById('condimentscrollablepanel').datasource = window.viewHelper ;
-
-        /*
-        document.getElementById('condimentscrollablepanel').addEventListener('command', function(evt) {
-        }, true);
-        */
-
 
         doSetOKCancel(
             function(){
@@ -55,14 +46,13 @@
                 });
 
 
-                //inputObj.condiments = condiments.join(',');
                 inputObj.condiments = condiments;
-                // inputObj.condiments = document.getElementById('condimentscrollablepanel').value;
                 inputObj.ok = true;
 
                 delete window.viewHelper;
                 return true;
             },
+            
             function(){
                 inputObj.ok = false;
                 

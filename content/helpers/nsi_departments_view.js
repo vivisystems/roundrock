@@ -8,7 +8,7 @@
             this.hideUnvisible = true;
 
             var plugroupModel = new PlugroupModel();
-            var plugroups = plugroupModel.find('all');
+            var plugroups = plugroupModel.find('all', {order: 'name'});
 
 
             var visiblePluGroups = [], plugroupsById= {};
@@ -18,7 +18,7 @@
                 plugroupsById[plugroup.id] = plugroup;
             }, this);
             
-            this.visiblePluGroups = visiblePluGroups;
+            GeckoJS.Session.set('visiblePlugroups', visiblePluGroups);
             GeckoJS.Session.set('plugroupsById', plugroupsById);
 
             // call parent init
@@ -52,7 +52,7 @@
             GeckoJS.Session.addEventListener('change', function(evt){
                 // maybe controllPanel update categories session.
                 // just refresh view , dont prepare categories array to session.
-                if (evt.data.key == 'categoriesIndexesAll') {
+                if (evt.data.key == 'categoriesIndexesAll' || evt.data.key == 'visiblePlugroups') {
                     self.refreshView();
                 }
             });
@@ -63,14 +63,12 @@
         refreshView: function() {
 
             var departmentsIndexes;
-
             if (this.hideUnvisible) {
-                departmentsIndexes = GeckoJS.Session.get('categoriesIndexes').concat(this.visiblePluGroups);
+                departmentsIndexes = GeckoJS.Session.get('categoriesIndexes').concat(GeckoJS.Session.get('visiblePlugroups'));
             }else {
                 departmentsIndexes = GeckoJS.Session.get('categoriesIndexesAll');
             }
             this._data = departmentsIndexes;
-
             try {
                 this.tree.invalidate();
             }catch(e) {}
@@ -123,7 +121,7 @@
             });
             var $btn = $(btn);
             if (buttonColor && btn) {
-                $btn.addClass('button-'+ buttonColor);
+                $btn.addClass(buttonColor);
             }
             if (buttonFontSize && btn) {
                 $btn.addClass('font-'+ buttonFontSize);

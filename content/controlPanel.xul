@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<!DOCTYPE overlay [
-  <!ENTITY % Overlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
-  %Overlay;
-  <!ENTITY % Condiments SYSTEM "chrome://viviecr/locale/fecpos.dtd">
-  %Condiments;
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % ControlPanel SYSTEM "chrome://viviecr/locale/controlpanel.dtd">
+  %ControlPanel;
   ]>
-
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/viviecr.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
-<window title="Control Panel"
+<window title="&controlpanel.title;"
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
@@ -24,28 +22,69 @@
     </script>
     <script type="application/x-javascript" src="chrome://viviecr/content/controlPanel.js" />
 
-    <hbox flex="1" class="mainpanel1 pad40">
-        <stack flex="1">
-        <vbox flex="1" class="panel40">
-            <label value="Control Panel: "/>
-            <spacer flex="1" />
-            <vbox flex="2"  class="footlogo">
-                <viviscrollablebuttonpanel id="imagePanel" cols="4" rows="5" labelField="label" imageField="icon" aclField="roles" flex="1"
-                    buttonClass="imageThumbBtn largeimagebtn" scrollUpClass="rightprevbtn button-gray" scrollDownClass="rightnextbtn button-gray" >
-                    <spacer flex="1" />
-                </viviscrollablebuttonpanel>
+    <stack class="main-dialog" flex="1">
+        <vbox flex="1">
+            <label value="&controlpanel.title;"/>
+            <vbox flex="1">
+                <hbox flex="1">
+                    <hbox id="productBox" flex="1">
+                        <viviscrollablebuttonpanel id="productPanel" cols="3" rows="3" labelField="label" imageField="icon" aclField="roles" flex="1"
+                                                   oncommand="launchControl(this)"
+                                                   buttonClass="imageThumbBtn largeimagebtn"
+                                                   scrollUpClass="rightprevbtn button-gray"
+                                                   scrollDownClass="rightnextbtn button-gray" >
+                            <spacer flex="1"/>
+                        </viviscrollablebuttonpanel>
+                    </hbox>
+                    <vbox flex="1">
+                        <hbox id="employeeBox" flex="1">
+                            <viviscrollablebuttonpanel id="employeePanel" cols="3" rows="1" labelField="label" imageField="icon" aclField="roles" flex="1"
+                                                       oncommand="launchControl(this)"
+                                                       buttonClass="imageThumbBtn largeimagebtn"
+                                                       scrollUpClass="rightprevbtn button-gray"
+                                                       scrollDownClass="rightnextbtn button-gray" >
+                                <spacer flex="1"/>
+                            </viviscrollablebuttonpanel>
+                        </hbox>
+                        <hbox id="activityBox" flex="1">
+                            <viviscrollablebuttonpanel id="activityPanel" cols="3" rows="1" labelField="label" imageField="icon" aclField="roles" flex="1"
+                                                       oncommand="launchControl(this)"
+                                                       buttonClass="imageThumbBtn largeimagebtn"
+                                                       scrollUpClass="rightprevbtn button-gray"
+                                                       scrollDownClass="rightnextbtn button-gray" >
+                                <spacer flex="1"/>
+                            </viviscrollablebuttonpanel>
+                        </hbox>
+                        <hbox id="configBox" flex="1">
+                            <viviscrollablebuttonpanel id="configPanel" cols="3" rows="1" labelField="label" imageField="icon" aclField="roles" flex="1"
+                                                       oncommand="launchControl(this)"
+                                                       buttonClass="imageThumbBtn largeimagebtn"
+                                                       scrollUpClass="rightprevbtn button-gray"
+                                                       scrollDownClass="rightnextbtn button-gray" >
+                                <spacer flex="1"/>
+                            </viviscrollablebuttonpanel>
+                        </hbox>
+                    </vbox>
+                </hbox>
+                <hbox id="systemBox" flex="0">
+                    <viviscrollablebuttonpanel id="systemPanel" cols="5" rows="1" labelField="label" imageField="icon" aclField="roles" flex="1"
+                                               oncommand="launchControl(this)"
+                                               buttonClass="imageThumbBtn largeimagebtn"
+                                               scrollUpClass="rightprevbtn button-gray"
+                                               scrollDownClass="rightnextbtn button-gray" >
+                        <spacer flex="1"/>
+                    </viviscrollablebuttonpanel>
+                </hbox>
             </vbox>
-            <spacer flex="1" />
         </vbox>
+        
         <hbox id="loading" align="center" style="display: none;border: 1px soild #f00; background: white;width:320px; height:180px;" left="200px" top="200px">
-            <image src="chrome://viviecr/skin/images/loading.gif" width="55" height="55"/><label>&vivipos.fec.controlpanel.loading;</label>
+            <image src="chrome://viviecr/skin/images/loading.gif" width="55" height="55"/><label>&controlpanel.loading;</label>
         </hbox>
-        </stack>
-    </hbox>
+    </stack>
 
     <hbox id="dialogButtons" class="dialogbtns" pack="center">
-        <button class="right exit-dialog" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+        <button class="right exit-dialog" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="savePreferences();"/>
     </hbox>
-
 
 </window>

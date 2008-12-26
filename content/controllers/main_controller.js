@@ -24,6 +24,7 @@
             this.createPluPanel();
             this.requestCommand('initial', null, 'Pricelevel');
             this.requestCommand('initial', null, 'Cart');
+            this.requestCommand('initial', null, 'CurrencySetup');
 
             this.resetLayout(true);
             this.initialLogin();
@@ -198,7 +199,8 @@
 
                 if (userRecord && userRecord.length > 0) {
                     var userPriceLevel = parseInt(userRecord[0].default_price_level);
-                    var canOverride = (GeckoJS.Array.inArray('acl_user_override_default_price_level', user.Roles) != -1);
+                    //var canOverride = (GeckoJS.Array.inArray('acl_user_override_default_price_level', user.Roles) != -1);
+                    var canOverride = this.Acl.isUserInRole('acl_user_override_default_price_level');
 
                     if (userPriceLevel && !isNaN(userPriceLevel) && userPriceLevel > 0 && userPriceLevel < 10 && canOverride) {
                         $do('change', userPriceLevel, 'Pricelevel');
@@ -221,6 +223,8 @@
             var numPad = document.getElementById('numpad');
             var toolbar = document.getElementById('toolbar');
             var toggleBtn = document.getElementById('toggleNumPad');
+            var fixedRow = document.getElementById('fixedbtnrow');
+            var fixedRow1 = document.getElementById('fixedbtnrow1');
             var clockinBtn = document.getElementById('clockin');
             var optionsBtn = document.getElementById('options');
             var spacer = document.getElementById('spacer');
@@ -275,6 +279,8 @@
         resizeLeftPanel: function (initial) {
             // resizing product/function panels
             var rightPanel = document.getElementById('rightPanel');
+            var leftPanel = document.getElementById('leftPanel');
+            var panelSpacer = document.getElementById('panelSpacer');
             var deptPanel = document.getElementById('catescrollablepanel');
             var pluPanel = document.getElementById('prodscrollablepanel');
             var fnPanel = document.getElementById('functionPanel');
@@ -351,8 +357,15 @@
 
             if (fnPanel) {
                 var totalHeight = deptPanel.boxObject.height - (- pluPanel.boxObject.height);
-                var fnWidth = this.screenwidth - rightPanel.boxObject.width - 5;
-                var fnHeight = this.screenheight - totalHeight - btmBox.boxObject.height - 5;
+                var panelSpacerWidth = (panelSpacer) ? panelSpacer.boxObject.width : 0;
+                var fnWidth = this.screenwidth - rightPanel.boxObject.width - panelSpacerWidth;
+                var fnHeight = this.screenheight - totalHeight - btmBox.boxObject.height - 8;
+                // @todo hack to adjust initial fn size
+                var registerAtLeft = GeckoJS.Configure.read('vivipos.fec.settings.RegisterAtLeft') || false;
+                if (initial) {
+                    if (registerAtLeft) fnWidth -= 1;
+                    else fnWidth -= 3;
+                }
 
                 if (fnHeight < 1) {
                     fnPanel.setAttribute('height', 0);
@@ -405,6 +418,7 @@
             if (toolbarPanel) toolbarPanel.setAttribute('dir', registerAtLeft ? 'reverse' : 'normal');
             if (leftPanel) leftPanel.setAttribute('dir', functionPanelOnTop ? 'reverse' : 'normal');
             if (productPanel) productPanel.setAttribute('dir', PLUbeforeDept ? 'reverse' : 'normal');
+            if (cartList) cartList.setAttribute('dir', registerAtLeft ? 'reverse': 'normal');
 
             // fudge to make functionPanelOnTop work even if rightPanel is taller than the screen
             leftPanel.setAttribute('pack', functionPanelOnTop ? 'end' : 'start');
@@ -412,24 +426,6 @@
             // toggleNumPad() returns true if it invoked resizeLeftPanel()
             if (!this.toggleNumPad(hideNumPad, initial)) {
                 this.resizeLeftPanel(initial);
-            }
-            if (cartList) {
-
-                cartList.setAttribute('dir', registerAtLeft ? 'reverse': 'normal');
-                // for some reason 'dir' does work, need to manually order scrollbar & cart
-/*
-                var vivitree = document.getAnonymousElementByAttribute(cartList, 'anonid', 'vivitree');
-                var scrollbar = document.getAnonymousElementByAttribute(cartList, 'anonid', 'scrollbar');
-                var parent = vivitree.parentNode;
-
-                parent.removeChild(vivitree);
-                if (registerAtLeft) {
-                    parent.appendChild(vivitree);
-                }
-                else {
-                    parent.insertBefore(vivitree, scrollbar);
-                }
-*/
             }
 
         },
@@ -477,7 +473,7 @@
 
                 var success = true;
                 // success is indicated by where txn is set to current transaction
-                if (stop != 'true' && buf.length > 0) {
+                if (stop != true && stop != 'true' && stop != 'true' && buf.length > 0) {
 
                     if (this.Acl.securityCheckByPassword(buf, true)) {
                         this.signOff(true);
@@ -557,6 +553,10 @@
                     // @todo error message for login failure
                     OsdUtils.error(_('Failed to authenticate user'));
                 }
+            }
+            else {
+                // @todo no password
+                OsdUtils.warn(_('Please enter passcode first'));
             }
         },
 

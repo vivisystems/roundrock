@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE overlay [
-  <!ENTITY % Overlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
-  %Overlay;
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
   <!ENTITY % Jobs SYSTEM "chrome://viviecr/locale/jobs.dtd">
   %Jobs;
   ]>
@@ -10,50 +10,46 @@
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
-<window id="jobs" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<window title="&jobs.title;"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/jobs.js" />
 
-    <box flex="1" class="mainpanel1 pad40">
-        <vbox flex="1" class="panel40">
-            <vbox flex="1" class="footlogo">
-                <groupbox flex="1">
-                    <caption label="&jobs.title;" />
+    <groupbox class="main-dialog" flex="1">
+        <caption label="&jobs.title;" />
 
-                    <hbox flex="1">
-                        <viviscrollablebuttonpanel dir="reverse" id="jobscrollablepanel" flex="1" cols="3" rows="8" labelField="jobname" imageField="no"
-                                                   oncommand="$do('select',this.selectedIndex, 'Jobs');"
-                                                   ensureVisible="true"
-                                                   class="catescrollablepanel"
-                                                   buttonClass="catbtn button-radius button-white font-medium"
-                                                   scrollUpClass="rightprevbtn button-blue"
-                                                   scrollDownClass="rightnextbtn button-blue">
-                            <spacer flex="1"/>
-                        </viviscrollablebuttonpanel>
-                        <spacer style="width: 10px;" />
-                        <separator class="groove-thin"/>
+        <hbox flex="1">
+            <viviscrollablebuttonpanel dir="reverse" id="jobscrollablepanel" flex="1" cols="3" rows="8" labelField="jobname" imageField="no"
+                                       oncommand="$do('select',this.selectedIndex, 'Jobs');"
+                                       ensureVisible="true"
+                                       class="catescrollablepanel"
+                                       buttonClass="catbtn button-radius font-medium"
+                                       scrollUpClass="rightprevbtn button-blue"
+                                       scrollDownClass="rightnextbtn button-blue">
+                <spacer flex="1"/>
+            </viviscrollablebuttonpanel>
+            <spacer style="width: 10px;" />
+            <separator class="groove-thin"/>
 
-                        <vbox>
-                            <hbox align="center">
-                                <label id="job_id" hidden="true" form="jobForm" name="id" value="" />
-                                <label value="&jobs.name;" control="job_name"/>
-                                <textbox id="job_name" value="" form="jobForm" name="jobname" oninput="$do('validateForm', null, 'Jobs')"
-                                         onfocus="this.select()"/>
-                            </hbox>
-                            <spacer style="height: 10px;" />
-                            <hbox>
-                                <button id="add_job" label="&jobs.button.action.add;" disabled="false" class="editbtns" oncommand="$do('add', null, 'Jobs');" />
-                                <button id="modify_job" label="&jobs.button.action.modify;" disabled="false" class="editbtns" oncommand="$do('update', null, 'Jobs');" />
-                                <button id="delete_job" label="&jobs.button.action.delete;" disabled="false" class="editbtns" oncommand="$do('delete', null, 'Jobs');" />
-                            </hbox>
-                        </vbox>
-
-                    </hbox>
-                </groupbox>
+            <vbox>
+                <hbox align="center">
+                    <label id="job_id" hidden="true" form="jobForm" name="id" value="" />
+                    <label value="&jobs.name;" control="job_name"/>
+                    <textbox id="job_name" value="" form="jobForm" name="jobname" oninput="$do('validateForm', null, 'Jobs')"
+                             onfocus="this.select()"/>
+                </hbox>
+                <spacer style="height: 10px;" />
+                <hbox>
+                    <button id="add_job" label="&jobs.button.action.add;" disabled="false" class="editbtns" oncommand="$do('add', null, 'Jobs');" />
+                    <button id="modify_job" label="&jobs.button.action.modify;" disabled="false" class="editbtns" oncommand="$do('update', null, 'Jobs');" />
+                    <button id="delete_job" label="&jobs.button.action.delete;" disabled="false" class="editbtns" oncommand="$do('delete', null, 'Jobs');" />
+                </hbox>
             </vbox>
-        </vbox>
-    </box>
+
+        </hbox>
+    </groupbox>
   
     <hbox id="dialogButtons" class="dialogbtns" pack="center">
         <button class="right exit-dialog" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>

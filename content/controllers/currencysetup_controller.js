@@ -7,9 +7,10 @@
     GeckoJS.Controller.extend( {
         name: 'CurrencySetup',
         _currencies: [],
-        
-        load: function() {
 
+        // initialize and load currency exchange table into Session
+
+        initial: function () {this
             var currtmps = [{currency: '', currency_symbol: '', currency_exchange: 1.00}];
             var currtmp = {currency:'', currency_symbol:'', currency_exchange: 0.00};
             for (var i = 1; i < 6; i++)  currtmps.push(currtmp);
@@ -24,8 +25,15 @@
                     var currencies = currtmps;
                 GeckoJS.Session.set('Currencies', currencies);
             }
+        },
 
+        load: function() {
+
+            this.initial();
+            
+            var currencies = GeckoJS.Session.get('Currencies');
             var obj = {};
+
             for (var i = 0; i < currencies.length; i++) {
                 obj['currency_' + i] = currencies[i].currency;
                 obj['currency_symbol_' + i] = currencies[i].currency_symbol;

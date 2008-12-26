@@ -31,7 +31,7 @@
                 
             </vbox>
 
-            <spacer width="4px" flex="0"/>
+            <spacer id="panelSpacer" width="4px" flex="0"/>
 
             <vbox id="rightPanel" flex="1" class="rightPanel">
                 <box id="vfdPanelContainer" />

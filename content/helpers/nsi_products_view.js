@@ -197,9 +197,9 @@
             var val = this.getCellValue(row, col);
             //this.log('getImageSrc = ' + row + ", " +col.id + "," + val);
 
-            var aImageFile = "chrome://viviecr/content/skin/pluimages" + "/" + val + ".png" /*+ "?"+ Math.random()*/;
+            var aImageFile = "chrome://viviecr/content/skin/pluimages" + "/" + val + ".png";
             if (GREUtils.File.exists(GREUtils.File.chromeToPath(aImageFile))) {
-                return aImageFile;
+                return aImageFile  /*+ "?"+ Math.random()*/;
 
             }else {
                 return null;
@@ -216,10 +216,28 @@
             });
 
             if (buttonColor && btn) {
-                $(btn).addClass('button-'+ buttonColor);
+                $(btn).addClass(buttonColor);
             }
             if (buttonFontSize && btn) {
                 $(btn).addClass('font-'+ buttonFontSize);
+            }
+            // display icon only?
+            var prod_no = this.getCellValue(row,{
+                id: 'name'
+            });
+
+            var icon_only = this.getCellValue(row,{
+                id: 'icon_only'
+            });
+            var imageExists = (this.getImageSrc(row,{id: 'no'}) != null);
+
+            if (imageExists) {
+                if (icon_only) {
+                    $(btn).addClass('nolabelbtn largeimagebtn');
+                }
+            }
+            else {
+                $(btn).addClass('noimagebtn');
             }
         }
 

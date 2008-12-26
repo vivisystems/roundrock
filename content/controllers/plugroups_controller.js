@@ -48,7 +48,7 @@
 
             this._plugroupAdded = false;
 
-            window.openDialog(aURL, _('Add New PLU Group'), features, _('New PLU Group'), '', _('Group Name'), '', inputObj);
+            window.openDialog(aURL, _('Add New Product Group'), features, _('New Product Group'), '', _('Group Name'), '', inputObj);
             if (inputObj.ok && inputObj.input0) {
                 plugroup.id = '';
                 plugroup.name = inputObj.input0;
@@ -66,7 +66,7 @@
 
             if (plugroups != null && plugroups.length > 0) {
                 //@todo OSD
-                OsdUtils.warn(_('Duplicate PLU Group name [%S]; PLU Group not added.', [plugroup.name]));
+                OsdUtils.warn(_('Duplicate Product Group name [%S]; Product Group not added.', [plugroup.name]));
                 evt.preventDefault();
                 return ;
             }
@@ -79,7 +79,7 @@
         },
 
         afterScaffoldAdd: function(evt) {
-            // if new PLU group exists, set selectedIndex to last item
+            // if new Product group exists, set selectedIndex to last item
 
             if (this._plugroupAdded) {
                 var panel = this.getListObj();
@@ -91,19 +91,28 @@
                 panel.selectedIndex = newIndex;
                 panel.selectedItems = [newIndex];
 
+                // look for plugroup.id
+                var plugroupModel = new PlugroupModel();
+                var plugroup = plugroupModel.findByIndex('all', {
+                    index: 'name',
+                    value: evt.data.name
+                });
+                if (plugroup && plugroup.length > 0)
+                    this.updateSession('add', plugroup[0].id);
+
                 this.validateForm();
 
                 document.getElementById('plugroup_name').focus();
 
                 // @todo OSD
-                OsdUtils.info(_('PLU Group [%S] added successfully', [evt.data.name]));
+                OsdUtils.info(_('Product Group [%S] added successfully', [evt.data.name]));
             }
 
         },
 
         beforeScaffoldEdit: function(evt) {
 
-            // check if modified to a duplicate PLU group name
+            // check if modified to a duplicate Product group name
             var plugroupModel = new PlugroupModel();
 
             var plugroups = plugroupModel.findByIndex('all', {
@@ -118,7 +127,7 @@
                     this._plugroupModified = false;
 
                     // @todo OSD
-                    OsdUtils.warn(_('Duplicate PLU Group name [%S]; PLU group not modified.', [evt.data.name]));
+                    OsdUtils.warn(_('Duplicate Product Group name [%S]; Product group not modified.', [evt.data.name]));
                 }
             }
         },
@@ -134,6 +143,8 @@
                 panel.selectedIndex = index;
                 panel.selectedItems = [index];
 
+                this.updateSession('modify', evt.data.id);
+            
                 // @todo OSD
                 OsdUtils.info(_('Job [%S] modified successfully', [evt.data.name]));
             }
@@ -183,10 +194,12 @@
                 GeckoJS.FormHelper.reset('plugroupForm');
             }
 
+            this.updateSession('delete', evt.data.id);
+
             this.validateForm();
 
             // @todo OSD
-            OsdUtils.info(_('PLU Group [%S] removed successfully', [evt.data.name]));
+            OsdUtils.info(_('Product Group [%S] removed successfully', [evt.data.name]));
         },
 
         afterScaffoldIndex: function(evt) {
@@ -204,7 +217,7 @@
                         id: 'font_size'
                     });
                     if (buttonColor && btn) {
-                        $(btn).addClass('button-' + buttonColor);
+                        $(btn).addClass(buttonColor);
                     }
                     if (buttonFontSize && btn) {
                         $(btn).addClass('font-' + buttonFontSize);
@@ -245,6 +258,54 @@
             }
 
             document.getElementById('plugroup_name').focus();
+        },
+
+        updateSession: function(mode, id) {
+            var index = -1;
+            var plugroupModel = new PlugroupModel();
+
+            var plugroups = plugroupModel.find('all', {
+                order: 'name'
+            });
+
+            var visiblePlugroups = [];
+            plugroups.forEach(function(plugroup) {
+                if (plugroup.visible) visiblePlugroups.push(plugroup.id);
+            });
+
+            var plugroupsById = GeckoJS.Session.get('plugroupsById');
+
+            var targetPlugroup = plugroupModel.findById(id);
+
+            switch(mode) {
+
+                case 'add':
+
+                    for (var i = 0; i < plugroups.length; i++) {
+                        if (plugroups[i].id == id) {
+                            index = i;
+                            break;
+                        }
+                    }
+                    plugroupsById[id] = targetPlugroup;
+                    break;
+
+                case 'modify':
+                    plugroupsById[id] = targetPlugroup;
+                    index = this._selectedIndex;
+                    break;
+
+                case 'remove':
+                    if (this._selectedIndex >= plugroups.length) index = plugroups.length - 1;
+                    else index = this._selectedIndex;
+
+                    delete(plugroupsById[id]);
+                    
+                    break;
+            }
+            GeckoJS.Session.set('plugroupsById', plugroupsById);
+            GeckoJS.Session.set('visiblePlugroups', visiblePlugroups);
+            return index;
         },
 
         validateForm: function() {

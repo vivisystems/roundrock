@@ -2,9 +2,10 @@
 <!DOCTYPE window SYSTEM "chrome://viviecr/locale/clockin.dtd">
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/clockin.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/viviecr1.css" type="text/css"?>
 
-<window id="clockinout" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<window title="&clockin.title;"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/clockinout.js" />
@@ -13,8 +14,9 @@
         <vbox  id="" pack="start" class="hboxb" flex="1">
             <hbox  pack="start" flex="1">
                 <vbox style="width: 250px;" pack="start">
-                    <viviscrollablebuttonpanel id="userscrollablepanel" dir="reverse" rows="6" cols="1" flex="1" seltype="single" labelField="username"
+                    <viviscrollablebuttonpanel id="userscrollablepanel" dir="reverse" rows="6" cols="1" flex="1" seltype="single" labelField="displayname"
                                                class="clockuserscrollablepanel"
+                                               oncommand="$do('showJobList', null, 'ClockInOut')"
                                                buttonClass="userbtn"
                                                scrollUpClass="rightprevbtn"
                                                scrollDownClass="rightnextbtn">
@@ -35,15 +37,22 @@
 	                        </vbox>
 	                    </hbox>
                     	<vbox>
-                    		<hbox class="jobpad">
-                    			<simplelistbox id="simpleListBoxJobs" rows="16"  headers="&clockin.headers.joblist;"
-                                               columns="jobname" class="prodsimplelistbox jobs" />
-                    		</hbox>
-                    		<hbox class="listpad">                        
-                                <simplelistbox id="simpleListBoxSummary" rows="16"  headers="Time In, Time Out, Job"
-                                               columns="clockin_time,clockout_time,job"
-                                               class="prodsimplelistbox jobssummary"/>
-                    		</hbox>
+                            <deck id="deck" selectedIndex="0">
+                                <hbox id="jobpad" class="jobpad">    <!-- 2008/12/25 jobscrollablepanel rows 6 change to 5  -->
+                                    <viviscrollablebuttonpanel id="jobscrollablepanel" dir="normal" rows="6" cols="1" flex="1" seltype="single" labelField="jobname"
+                                                               class="jobscrollablepanel"
+                                                               buttonClass="jobBtn"
+                                                               scrollUpClass="jobupBtn"
+                                                               scrollDownClass="jobdownBtn">
+                                    <spacer flex="1"/>
+                                    </viviscrollablebuttonpanel>
+                                </hbox>
+                                <hbox id="listpad" class="listpad">
+                                    <simplelistbox id="simpleListBoxSummary" rows="16"  headers="&clockin.heading.timein;, &clockin.heading.timeout;, &clockin.heading.job;"
+                                                   columns="clockin_time,clockout_time,job"
+                                                   class="jobsummary"/>
+                                </hbox>
+                            </deck>
                     	</vbox>
                     </hbox>
                 </vbox>
@@ -54,7 +63,7 @@
                 <label value="&clockin.keylabel.password;"  class="pwlabel"/>
                 <vbox>
                         <textbox id="user_password" type="password" value="" class="pwBox" />
-                        <viviclock id="clock" timeNotation="24" showdate="false" class="clocklabel"/>
+                        <viviclock id="clock" showdate="false" class="clocklabel"/>
                 </vbox>
                 <vivibutton id="clock_in"  label="&clockin.keylabel.clockin;"  oncommand="$do('clockIn', null, 'ClockInOut');" class="clockinoutbtn"  />
                 <vivibutton id="clock_out"  label="&clockin.keylabel.clockout;"  oncommand="$do('clockOut', null, 'ClockInOut');" class="clockinoutbtn"  />

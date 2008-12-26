@@ -30,4 +30,8 @@
 
 })();
 
-
+function closePreferences() {
+    opener.opener.$do('resetLayout', null, 'Main');
+    $do('setDefaultUser', null, 'Users');
+    $do('setDefaultTaxStatus', null, 'Taxes');
+}

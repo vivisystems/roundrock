@@ -42,6 +42,8 @@ pref("vivipos.fec.acl.roles.acl_register_tray_marker", "acl_register_tray_marker
 pref("vivipos.fec.acl.roles.acl_register_housebon", "acl_register_housebon");
 pref("vivipos.fec.acl.roles.acl_register_currency_exchange", "acl_register_currency_exchange");
 pref("vivipos.fec.acl.roles.acl_manage_jobs", "acl_manage_jobs");
+pref("vivipos.fec.acl.roles.acl_manage_images", "acl_manage_images");
+pref("vivipos.fec.acl.roles.acl_manage_import_export", "acl_manage_import_export");
 pref("vivipos.fec.acl.roles.acl_manage_plu_groups", "acl_manage_plu_groups");
 pref("vivipos.fec.acl.roles.acl_manage_price_level_schedule", "acl_manage_price_level_schedule");
 pref("vivipos.fec.acl.roles.acl_manage_acl_groups", "acl_manage_acl_groups");
@@ -52,3 +54,8 @@ pref("vivipos.fec.acl.roles.acl_manage_taxes", "acl_manage_taxes");
 pref("vivipos.fec.acl.roles.acl_manage_products", "acl_manage_products");
 pref("vivipos.fec.acl.roles.acl_register_return", "acl_manage_products");
 pref("vivipos.fec.acl.roles.acl_register_credit_card", "acl_register_credit_card");
+pref("vivipos.fec.acl.roles.acl_register_gift_card", "acl_register_credit_card");
+pref("vivipos.fec.acl.roles.acl_modify_condiment_price", "acl_modify_condiment_price");
+pref("vivipos.fec.acl.roles.acl_modify_keymap_parameter", "acl_modify_keymap_parameter");
+pref("vivipos.fec.acl.roles.acl_manage_locale_keyboard", "acl_manage_locale_keyboard");
+acl_manage_locale_keyboard

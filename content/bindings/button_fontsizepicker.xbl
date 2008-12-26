@@ -39,9 +39,10 @@
 	<xbl:constructor><![CDATA[
 
         var buttons = this.boxContainer.getElementsByTagNameNS('http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul', 'button');
+        var classprefix = this.getAttribute('class-prefix') || 'font-';
         for (var i = 0; i < buttons.length; i++) {
             var fontsize = buttons[i].getAttribute('fontsize');
-            buttons[i].className += (buttons[i].className ? " " : "") + 'font-' + fontsize;
+            buttons[i].className += (buttons[i].className ? " " : "") + classprefix + fontsize;
         }
 
         this.addEventListener('DOMAttrModified', this._attrmodified, true);
