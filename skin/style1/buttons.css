@@ -14,7 +14,8 @@
 }
 
 vivibutton[disabled=true] description {
-    color: red;
+    color: gray;
+    font-style: italic;
 }
 
 viviscrollabletree scrollbar {

@@ -341,7 +341,7 @@
                 id: '',
                 name: item.name,
                 current_qty: '',
-                current_price: '',
+                current_price: item.current_tax,
                 current_subtotal: item.current_subtotal,
                 current_tax: '',
                 type: type,
@@ -381,7 +381,10 @@
         
         // format display precision
         if(itemDisplay.current_price != ''  || itemDisplay.current_price === 0 ) {
-            itemDisplay.current_price = this.formatPrice(itemDisplay.current_price);
+            if (type == 'tray' || type == 'subtotal' || type == 'total')
+                itemDisplay.current_price = this.formatTax(itemDisplay.current_price);
+            else
+                itemDisplay.current_price = this.formatPrice(itemDisplay.current_price);
         }
 
         return itemDisplay;
@@ -765,6 +768,8 @@
 
         var prevRowCount = this.data.display_sequences.length;
 
+        var displayIndex = lastItemDispIndex + 1;
+
         if (item && item.type == 'item') {
 
             if (discount.type == '$') {
@@ -794,7 +799,7 @@
             // create data object to push in items array
             var itemDisplay = this.createDisplaySeq(itemIndex, item, 'discount');
 
-            this.data.display_sequences.splice(lastItemDispIndex+1,0,itemDisplay);
+            this.data.display_sequences.splice(displayIndex,0,itemDisplay);
 
             this.calcPromotions();
             this.calcItemsTax(item);
@@ -848,7 +853,8 @@
             var newItemDisplay = this.createDisplaySeq(discountIndex, discountItem, 'trans_discount');
             newItemDisplay.subtotal_index = index;
 
-            this.data.display_sequences.splice(lastItemDispIndex+1,0,newItemDisplay);
+            displayIndex = index + 1;
+            this.data.display_sequences.splice(displayIndex,0,newItemDisplay);
 
             this.calcPromotions();
             
@@ -876,6 +882,8 @@
 
         var prevRowCount = this.data.display_sequences.length;
 
+        var displayIndex = lastItemDispIndex + 1;
+
         if (item && item.type == 'item') {
 
             item.surcharge_name = surcharge.name;
@@ -896,7 +904,7 @@
             // create data object to push in items array
             var newItemDisplay = this.createDisplaySeq(itemIndex, item, 'surcharge');
 
-            this.data.display_sequences.splice(lastItemDispIndex+1,0,newItemDisplay);
+            this.data.display_sequences.splice(displayIndex,0,newItemDisplay);
 
             //this.calcPromotions();
 
@@ -933,7 +941,8 @@
             var newItemDisplay = this.createDisplaySeq(surchargeIndex, surchargeItem, 'trans_surcharge');
             newItemDisplay.subtotal_index = index;
 
-            this.data.display_sequences.splice(index+1,0,newItemDisplay);
+            displayIndex = index + 1;
+            this.data.display_sequences.splice(displayIndex,0,newItemDisplay);
 
             this.calcPromotions();
             //this.calcItemsTax();
@@ -1038,6 +1047,7 @@
         }else {
             markerItem.current_subtotal = remain;
         }
+        markerItem.current_tax = this.data.tax_subtotal;
 
         // item hasMarker 
         for(var itemIndex in this.data.items ) {

@@ -60,10 +60,10 @@
                 // lazy way ? full refresh
                 this._cartList.datasource = this;
 
-                if (jumpToLast) newIndex = this.data.length - 1;
+                if (jumpToLast) newIndex = rc2 - 1;
                 else {
-                    if (rc2 >= rc1) newIndex = oldIndex + rc2 - rc1;
-                    else newIndex = oldIndex - 1;
+                    if (oldIndex == rc1 - 1) newIndex = rc2 - 1;
+                    else newIndex = oldIndex;
                 }
 
                 if (newIndex < 0) newIndex = (this.data.length > 0) ? 0 : -1;
