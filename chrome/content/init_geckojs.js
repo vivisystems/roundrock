@@ -3,9 +3,6 @@
  */
 (function(){
 
-var hiddenWindow = Components.classes["@mozilla.org/appshell/appShellService;1"]
-         .getService(Components.interfaces.nsIAppShellService).hiddenDOMWindow;
-
 var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"]
          .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main");
 
@@ -17,29 +14,35 @@ window.include = function include(src, scope) {
     try {
         if(scope) loader.loadSubScript(src, scope);
 	else loader.loadSubScript(src);
-   }catch(e) {}
+   }catch(e) {
+
+	if (e.name == 'NS_ERROR_FAILURE' && src.indexOf('jsc') != -1) {
+		alert('Maybe license error' );
+	}else {
+		// log  e.message
+	
+	}
+
+   }
 
 };
 
-window.includeh = function includeh(src, scope) {
-
-    let loader = hiddenWindow.jssubscript_loader = hiddenWindow.Components.classes["@firich.com.tw/jssubscript_loader;1"].getService(Components.interfaces.mozIJSSubScriptLoader);
-
-    try {
-        if(scope) loader.loadSubScript(src, scope);
-	else loader.loadSubScript(src);
-   }catch(e) {}
-
-};
-
-window.includem = function includeh(src, scope) {
+window.includem = function includem(src, scope) {
 
     let loader = mainWindow.jssubscript_loader = mainWindow.Components.classes["@firich.com.tw/jssubscript_loader;1"].getService(Components.interfaces.mozIJSSubScriptLoader);
 
     try {
         if(scope) loader.loadSubScript(src, scope);
 	else loader.loadSubScript(src);
-   }catch(e) { alert(e)}
+   }catch(e) {
+
+	if (e.name == 'NS_ERROR_FAILURE' && src.indexOf('jsc') != -1) {
+		alert('Maybe license error' );
+	}else {
+		// log  e.message
+	
+	}
+   }
 
 };
 
@@ -71,7 +74,7 @@ if(mainWindow !== window) {
 	window.GREUtils = {};
 	mainWindow.GREUtils.extend(window.GREUtils, mainWindow.GREUtils, {global: window, include: include});
 }
-//GREUtils.log("window.GREUtils.global === mainWindow.GREUtils.global " + (window.GREUtils.global === mainWindow.GREUtils.global));
+
 
 /*
  * initial GeckoJS library and persistent it
@@ -83,7 +86,6 @@ if(mainWindow !== window) {
 	window.GeckoJS = {};
 	mainWindow.GREUtils.extend(window.GeckoJS, mainWindow.GeckoJS, {global: window, include: include});
 }
-// GREUtils.log("window.GeckoJS.global === mainWindow.GeckoJS.global " + (window.GeckoJS.global === mainWindow.GeckoJS.global) + ","+ GeckoJS);
 
 
 /*

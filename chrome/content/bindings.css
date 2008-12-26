@@ -67,3 +67,11 @@ vivisessionstatus {
 viviuserlabel {
   -moz-binding: url("chrome://vivipos/content/bindings/viviuserlabel.xbl#viviuserlabel");
 }
+
+vivitimezones {
+  -moz-binding: url("chrome://vivipos/content/bindings/vivitimezones.xbl#vivitimezones");
+}
+
+vivikbmaps {
+  -moz-binding: url("chrome://vivipos/content/bindings/vivikbmaps.xbl#vivikbmaps");
+}

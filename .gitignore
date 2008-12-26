@@ -1,6 +1,9 @@
+.gitignore
 .project
 nbproject
 Project.kpf
 log/vivipos.log
 components/compreg.dat
 components/xpti.dat
+chrome/content/libs/GeckoJS.js
+chrome/content/libs/GeckoJS_mvc.js
