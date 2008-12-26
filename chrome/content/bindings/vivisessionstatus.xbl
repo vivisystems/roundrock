@@ -27,17 +27,17 @@
 
                 this.events = GeckoJS.Session.getInstance().events;
                 this.keys = [];
+                this.nodes = [];
 
                 var changeHandler = function (evt) {
                     //GREUtils.log('[CHANGE]: entering id <' + this.id + '> event <' + evt.getType() + '> + <' + GeckoJS.BaseObject.dump(evt.getData()) + '>');
-
                     var value = evt.getData().value;
                     var index = this._locateKey(evt.getData().key);
 
                     if (index != -1) {
-                        var valueNode = document.getAnonymousElementByAttribute(this, 'anonid', 'value' + index);
+                        var valueNode = this.nodes[index]; //document.getAnonymousElementByAttribute(this, 'anonid', 'value' + index);
                         if (valueNode) {
-                            valueNode.setAttribute('value', evt.getData().value);
+                            valueNode.value = value;
                         }
                     }
                 }
@@ -47,9 +47,11 @@
 
                     var index = this._locateKey(evt.getData());
                     if (index != -1) {
-                        var valueNode = document.getAnonymousElementByAttribute(this,'anonid', 'value' + index);
+                        try {
+                        var valueNode = this.nodes[index]; //document.getAnonymousElementByAttribute(this,'anonid', 'value' + index);
+                        } catch (e) {var valueNode=null;}
                         if (valueNode) {
-                            valueNode.setAttribute('value', '');
+                            valueNode.value ='';
                         }
                     }
                     //GREUtils.log('[REMOVE]: leaving');
@@ -59,9 +61,9 @@
                     //GREUtils.log('[CLEAR]: entering <' + evt.getType() + '> + <' + GeckoJS.BaseObject.dump(evt.getData()) + '>');
 
                     for (var i = 0; i < this.keys.length; i++) {
-                        var valueNode = document.getAnonymousElementByAttribute(this,'anonid', 'value' + i);
+                        var valueNode = this.nodex[i]; //document.getAnonymousElementByAttribute(this,'anonid', 'value' + i);
                         if (valueNode) {
-                            valueNode.setAttribute('value', '');
+                            valueNode.value = '';
                         }
                     }
                     //GREUtils.log('[CLEAR]: leaving');
@@ -175,6 +177,7 @@
                 //GREUtils.log('[RENDER]: #labels <' + labels.length + '> #cols <' + ncols + '> #row <' + r + '>');
                 // create rows
 
+                this.nodes = [];
                 var index = 0;
                 for (var i = 0; i < r; i++) {
                     var row = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:row");
@@ -190,13 +193,13 @@
                         }
 
                         //GREUtils.log('[RENDER]: added field label <' + labelNode.getAttribute('value') + '>');
-
                         var valueNode = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:textbox");
                         valueNode.setAttribute('class', valueClass);
                         valueNode.setAttribute('anonid', 'value' + index);
                         valueNode.setAttribute('value', GeckoJS.Session.get(this.keys[index]));
                         valueNode.setAttribute('readonly', 'true');
                         row.appendChild(valueNode);
+                        this.nodes.push(valueNode);
 
                         //GREUtils.log('[RENDER]: added field value <' + valueNode.getAttribute('value') + '>');
 

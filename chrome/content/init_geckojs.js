@@ -56,6 +56,11 @@ if (typeof Date.CultureInfo == 'undefined') {
     include("chrome://vivipos/content/libs/date.js");
 }
 
+// include template
+if (typeof TrimPath == 'undefined') {
+    include("chrome://vivipos/content/libs/template.js");
+}
+
 /*
  * initial GREUtils library and persistent it
  */ 
