@@ -51,12 +51,15 @@
             <method name="startClock">
                 <body><![CDATA[
                     var el = this._label;
+                    /*
                     el.timeNotation = this.timeNotation;
                     el.ampm = this.ampm;
+                    */
                     el.showDate = (this.getAttribute('showdate') == 'true');
                     el.setTime = function() {
 
                         var now = new Date();
+                        /*
                         var hours, minutes, seconds;
 
                         hours = now.getHours();
@@ -79,7 +82,8 @@
                         if ( el.timeNotation == '12'  && el.ampm == 'true' ) {
                          timeNow += am_pm_text;
                         }
-
+                        */
+                        var timeNow = now.toLocaleTimeString();
                         if (el.showDate) {
                             //timeNow = now.toLocaleDateString() + ' ' + timeNow;
                             timeNow = now.toLocaleDateString() + ' ' + timeNow;
