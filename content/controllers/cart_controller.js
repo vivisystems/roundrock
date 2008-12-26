@@ -638,6 +638,7 @@
                 }
             }
             else if (itemDisplay.type == 'subtotal') {
+                var cartLength = curTransaction.data.display_sequences.length;
                 if (itemDisplay.hasSurcharge) {
                     //@todo OSD
                     OsdUtils.warn(_('Surcharge has been already been registered on item [%S]', [itemDisplay.name]));
@@ -646,6 +647,13 @@
                 else if (itemDisplay.hasDiscount) {
                     OsdUtils.warn(_('Discount has been already been registered on item [%S]', [itemDisplay.name]));
                     return;
+                }
+                else if (index < cartLength - 1) {
+                    this.dispatchEvent('onAddDiscountError', {});
+
+                    // @todo OSD
+                    OsdUtils.warn(_('Cannot apply discount to [%S]\nIt is not the last registered item', [itemDisplay.name]));
+                    return ;
                 }
             }
             else {
@@ -804,6 +812,7 @@
                 }
             }
             else if (itemDisplay.type == 'subtotal') {
+                var cartLength = curTransaction.data.display_sequences.length;
                 if (itemDisplay.hasSurcharge) {
                     //@todo OSD
                     OsdUtils.warn(_('Surcharge has been already been registered on item [%S]', [itemDisplay.name]));
@@ -812,6 +821,13 @@
                 else if (itemDisplay.hasDiscount) {
                     OsdUtils.warn(_('Discount has been already been registered on item [%S]', [itemDisplay.name]));
                     return;
+                }
+                else if (index < cartLength - 1) {
+                    this.dispatchEvent('onAddSurchargeError', {});
+
+                    // @todo OSD
+                    OsdUtils.warn(_('Cannot apply surcharge to [%S]\nIt is not the last registered item', [itemDisplay.name]));
+                    return ;
                 }
             }
             else {
@@ -884,7 +900,11 @@
             var itemDisplay = curTransaction.getDisplaySeqAt(index);
 
             if (itemDisplay.type == type) {
-                this.dispatchEvent('onAddMarkerError', {});
+                if (type == 'subtotal')
+                    this.subtotal();
+                else
+                    this.dispatchEvent('onAddMarkerError', {});
+            
                 return;
             }
 
@@ -896,7 +916,6 @@
 
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
-
         },
 
 
@@ -1510,7 +1529,7 @@
             }else {
                 var productsById = GeckoJS.Session.get('productsById');
                 var cartItem = curTransaction.getItemAt(index);
-                if (cartItem) {
+                if (cartItem && cartItem.type == 'item') {
                     memoItem = GREUtils.extend({}, productsById[cartItem.id]);
                 }
             }

@@ -41,11 +41,10 @@
             return this._cartList.currentIndex;
         },
 
-        rowCountChanged: function(rc1, rc2, jumpToLast) {
+        rowCountChanged: function(rc1, rc2, newIndex) {
 
             // lazy way ? full refresh
             var oldIndex = this._cartList.currentIndex;
-            var newIndex;
 
             // standard way, update rowCountChanged event.
             /*
@@ -60,12 +59,13 @@
                 // lazy way ? full refresh
                 this._cartList.datasource = this;
 
+                /*
                 if (jumpToLast) newIndex = rc2 - 1;
                 else {
                     if (oldIndex == rc1 - 1) newIndex = rc2 - 1;
                     else newIndex = oldIndex;
                 }
-
+                */
                 if (newIndex < 0) newIndex = (this.data.length > 0) ? 0 : -1;
                 else if (newIndex >= this.data.length) newIndex = this.data.length - 1;
 

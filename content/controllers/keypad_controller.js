@@ -79,7 +79,8 @@
 				
                 case '.':
                     // skip first . and repeat .
-                    if(this.getBuffer().length >0 && this.getBuffer().indexOf('.') == -1) this.addBuffer(charPress);
+                    //if(this.getBuffer().length >0 && this.getBuffer().indexOf('.') == -1) this.addBuffer(charPress);
+                    if(this.getBuffer().indexOf('.') == -1) this.addBuffer(charPress);
                     break;
                 case '1':
                 case '2':

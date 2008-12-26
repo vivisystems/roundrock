@@ -134,8 +134,8 @@ treechildren::-moz-tree-cell-text(treecellTOTAL) {color: yellow;}
  */
 
 .cartList tree #name {
-    max-width: 150px;
-    min-width: 150px;
+    max-width: 120px;
+    min-width: 120px;
 }
 
 .cartList tree #current_qty {
@@ -153,6 +153,9 @@ treechildren::-moz-tree-cell-text(treecellTOTAL) {color: yellow;}
     min-width: 90px;
 }
 .cartList tree #current_tax {
+    max-width: 60px;
+    min-width: 60px;
+    border: 1px red solid;
 }
 
 .cartList tree label {

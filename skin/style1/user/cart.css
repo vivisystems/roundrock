@@ -132,7 +132,7 @@
 }
 
 treechildren::-moz-tree-row {
-  height: 28px;
+  height: 26px;
 }
 
 treechildren::-moz-tree-row(selected) {background-color: #991111; }
@@ -157,7 +157,7 @@ treechildren::-moz-tree-cell-text(treecellTOTAL) {color: yellow;}
 }
 
 .cartList #current_tax {
-    text-align: left;
+    text-align: right;
 }
 
 /*-----------------------------------------------------------------------------
@@ -166,13 +166,13 @@ treechildren::-moz-tree-cell-text(treecellTOTAL) {color: yellow;}
  */
 
 .cartList tree #name {
-    max-width: 160px;
-    min-width: 160px;
+    max-width: 140px;
+    min-width: 140px;
 }
 
 .cartList tree #current_qty {
-    max-width: 40px;
-    min-width: 40px;
+    max-width: 60px;
+    min-width: 60px;
 }
 
 .cartList tree #current_price {
