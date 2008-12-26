@@ -13,6 +13,14 @@
     min-height: 50px;
 }
 
+vivibutton[disabled=true] description {
+    color: red;
+}
+
+viviscrollabletree scrollbar {
+    display: none;
+}
+
 /*-----------------------------------------------------------------------------
  *  Front-end department and product buttons
  *-----------------------------------------------------------------------------

@@ -26,12 +26,14 @@
             </vbox>
             <vbox>
                 <label value="&changeuser.title;" class="PageTitle" />
-                <hbox class="numpad">
-                        <numberpad id="multinumberpad" class="numberpad" target="user_password"/>
-                        <vbox>
-                            <vivibutton id="delBtn" label="&changeuser.keylabel.del;" class="systembtn" />
-                            <vivibutton id="clearBtn" label="&changeuser.keylabel.clear;" class="systembtn"/>
-                        </vbox>
+                <hbox>
+                    <hbox class="numpad">
+                            <numberpad id="multinumberpad" class="numberpad" target="user_password"/>
+                            <vbox>
+                                <vivibutton id="delBtn" label="&changeuser.keylabel.del;" class="systembtn" />
+                                <vivibutton id="clearBtn" label="&changeuser.keylabel.clear;" class="systembtn"/>
+                            </vbox>
+                    </hbox>
                 </hbox>
             </vbox>
 

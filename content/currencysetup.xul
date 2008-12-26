@@ -51,12 +51,6 @@
                              onfocus="select()"/>
                     <textbox id="currency_symbol_0" value="" size="4" maxsize="4" form="currencyForm" name="currency_symbol_0"
                              onfocus="select()"/>
-                    <textbox id="currency_exchange_0" size="4" maxsize="4" readonly="true" value="1" form="currencyForm" name="currency_exchange_0"
-                             type="number" hidespinbuttons="true" decimalplaces="Infinity"/>
-                    <label value=":"/>
-                    <textbox id="currency_input_0" value="1" readonly="true" size="6" maxsize="8"/>
-                    <label value="=" />
-                    <textbox id="currency_result_0" value="" readonly="true" size="6" maxsize="8"/>
                 </row>
                 <row>
                     <label value="&currencysetup.other; 1" />
@@ -142,7 +136,7 @@
   
     <hbox id="dialogButtons" class="dialogbtns" pack="center">
         <button class="right exit-dialog" id="ok" label="&dialog.saveButton.label;" default="true" oncommand="doOKButton();"/>
-        <button class="exit-dialog" id="cancel" label="&dialog.cancelButton.label;" default="true" oncommand="doCancelButton();"/>
+        <button class="exit-dialog" id="cancel" label="&dialog.cancelButton.label;" default="false" oncommand="doCancelButton();"/>
     </hbox>
 
 </window>

@@ -19,8 +19,8 @@
                 <vivibutton id="modifyBtn" label="&numberpad.keylabel.modify;" class="fixedbtn" oncommand="$do('modifyItem', null,'Cart');" roles="acl_modify_cart_item"/>
                 <vivibutton id="voidBtn" label="&numberpad.keylabel.void;" class="fixedbtn" oncommand="$do('voidItem', null,'Cart');" roles="acl_void_cart_item"/>
             </hbox>
-
             <hbox id="numpad">
+
                 <hbox  class="funpad2">
                     <vbox id="numpadCol1">
                         <vivibutton id="enterBtn"  label="&numberpad.keylabel.enter;" oncommand="$do('keypress', {keyCode: 13}, 'Keypad');" class="fixedbtn" suspendable="false" roles="acl_register_enter" action="display"/>

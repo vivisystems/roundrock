@@ -67,7 +67,7 @@
                     </vbox>
                 </hbox>
                 <hbox id="systemBox" flex="0">
-                    <viviscrollablebuttonpanel id="systemPanel" cols="3" rows="1" labelField="label" imageField="icon" aclField="roles" flex="1"
+                    <viviscrollablebuttonpanel id="systemPanel" cols="5" rows="1" labelField="label" imageField="icon" aclField="roles" flex="1"
                                                oncommand="launchControl(this)"
                                                buttonClass="imageThumbBtn largeimagebtn"
                                                scrollUpClass="rightprevbtn button-gray"

@@ -36,8 +36,8 @@
 .rightPanel {
 /*    min-width: 100px;*/
     border: 0px solid green;
-    width: 448px;
-    max-width: 448px;
+    width: 435px;
+    max-width: 435px;
     -moz-background-clip: border;
 }
 

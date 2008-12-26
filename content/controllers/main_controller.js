@@ -223,6 +223,8 @@
             var numPad = document.getElementById('numpad');
             var toolbar = document.getElementById('toolbar');
             var toggleBtn = document.getElementById('toggleNumPad');
+            var fixedRow = document.getElementById('fixedbtnrow');
+            var fixedRow1 = document.getElementById('fixedbtnrow1');
             var clockinBtn = document.getElementById('clockin');
             var optionsBtn = document.getElementById('options');
             var spacer = document.getElementById('spacer');
@@ -357,12 +359,12 @@
                 var totalHeight = deptPanel.boxObject.height - (- pluPanel.boxObject.height);
                 var panelSpacerWidth = (panelSpacer) ? panelSpacer.boxObject.width : 0;
                 var fnWidth = this.screenwidth - rightPanel.boxObject.width - panelSpacerWidth;
-                var fnHeight = this.screenheight - totalHeight - btmBox.boxObject.height - 5;
+                var fnHeight = this.screenheight - totalHeight - btmBox.boxObject.height - 8;
                 // @todo hack to adjust initial fn size
                 var registerAtLeft = GeckoJS.Configure.read('vivipos.fec.settings.RegisterAtLeft') || false;
                 if (initial) {
-                    if (registerAtLeft) fnWidth -= 3;
-                    else fnWidth -= 10;
+                    if (registerAtLeft) fnWidth -= 1;
+                    else fnWidth -= 3;
                 }
 
                 if (fnHeight < 1) {

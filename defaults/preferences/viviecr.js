@@ -21,7 +21,12 @@ pref("vivipos.fec.settings.database.exportdir", "/var/tmp/vivipos/database_expor
 pref("vivipos.fec.settings.backup.localbackupdir", "/var/tmp/vivipos/system_backup/");
 pref("vivipos.fec.settings.backup.stickbackupdir", "/var/tmp/vivipos/system_stick_backup/");
 
-pref("vivipos.fec.settings.controlpanels.config.sysprefs.label", "System Options");
+pref("vivipos.fec.settings.controlpanels.system.localekeyboard.label", "Locale and Keyboard Mapping");
+pref("vivipos.fec.settings.controlpanels.system.localekeyboard.path", "chrome://viviecr/content/localekeyboard.xul");
+pref("vivipos.fec.settings.controlpanels.system.localekeyboard.icon", "chrome://viviecr/content/skin/icons/gnome-run.png");
+pref("vivipos.fec.settings.controlpanels.system.localekeyboard.roles", "acl_manage_locale_keyboard");
+
+pref("vivipos.fec.settings.controlpanels.config.sysprefs.label", "General Options");
 pref("vivipos.fec.settings.controlpanels.config.sysprefs.path", "chrome://viviecr/content/sysprefs.xul");
 pref("vivipos.fec.settings.controlpanels.config.sysprefs.icon", "chrome://viviecr/content/skin/icons/gnome-run.png");
 pref("vivipos.fec.settings.controlpanels.config.sysprefs.roles", "acl_manage_system_options");

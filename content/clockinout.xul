@@ -38,7 +38,7 @@
 	                    </hbox>
                     	<vbox>
                             <deck id="deck" selectedIndex="0">
-                                <hbox id="jobpad" class="jobpad">
+                                <hbox id="jobpad" class="jobpad">    <!-- 2008/12/25 jobscrollablepanel rows 6 change to 5  -->
                                     <viviscrollablebuttonpanel id="jobscrollablepanel" dir="normal" rows="6" cols="1" flex="1" seltype="single" labelField="jobname"
                                                                class="jobscrollablepanel"
                                                                buttonClass="jobBtn"
@@ -63,7 +63,7 @@
                 <label value="&clockin.keylabel.password;"  class="pwlabel"/>
                 <vbox>
                         <textbox id="user_password" type="password" value="" class="pwBox" />
-                        <viviclock id="clock" timeNotation="24" showdate="false" class="clocklabel"/>
+                        <viviclock id="clock" showdate="false" class="clocklabel"/>
                 </vbox>
                 <vivibutton id="clock_in"  label="&clockin.keylabel.clockin;"  oncommand="$do('clockIn', null, 'ClockInOut');" class="clockinoutbtn"  />
                 <vivibutton id="clock_out"  label="&clockin.keylabel.clockout;"  oncommand="$do('clockOut', null, 'ClockInOut');" class="clockinoutbtn"  />

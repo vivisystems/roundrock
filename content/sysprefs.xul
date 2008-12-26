@@ -25,8 +25,6 @@
             <preference id="pref_precisiontaxes" name="vivipos.fec.settings.PrecisionTaxes" type="int"/>
             <preference id="pref_defaultpricelevel" name="vivipos.fec.settings.DefaultPriceLevel" type="int" />
             <preference id="pref_privatequeue" name="vivipos.fec.settings.PrivateQueue" type="bool" />
-            <preference id="pref_dateformatstr" name="vivipos.fec.settings.DateFormatStr" type="string"/>
-            <preference id="pref_timeformatstr" name="vivipos.fec.settings.TimeformatStr" type="string"/>
 
             <preference id="pref_activepricelevelschedule" name="vivipos.fec.settings.ActivePriceLevelSchedule" type="bool" />
             <preference id="pref_pricelevelrevert" name="vivipos.fec.settings.PriceLevelRevert" type="bool" />
@@ -89,14 +87,6 @@
             </menulist>
         </hbox>
         
-        <hbox align="center">
-            <label control="dateformatstr" value="&dateformat;"/>
-            <textbox preference="pref_dateformatstr" id="dateformatstr" maxlength="12"/>
-        </hbox>
-        <hbox align="center">
-            <label control="timeformatstr" value="&timeformat;"/>
-            <textbox preference="pref_timeformatstr" id="timeformatstr" maxlength="12"/>
-        </hbox>
     </prefpane>
     
     <prefpane id="loginSettingsPane" label="&category.login;" image="chrome://viviecr/content/skin/icons/gnome-run.png">

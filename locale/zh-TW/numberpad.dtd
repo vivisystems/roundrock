@@ -1,0 +1,16 @@
+<!ENTITY    numberpad.keylabel.queue.order       "QUEUE ORDER">
+<!ENTITY    numberpad.keylabel.pull.queue        "VIEW QUEUE">
+<!ENTITY    numberpad.keylabel.clear             "CLEAR">
+<!ENTITY    numberpad.keylabel.modify            "MODIFY">
+<!ENTITY    numberpad.keylabel.del            "DEL">
+<!ENTITY    numberpad.keylabel.void               "VOID">
+<!ENTITY    numberpad.keylabel.enter               "ENTER">
+<!ENTITY    numberpad.keylabel.cancel               "清單">
+<!ENTITY    numberpad.keylabel.cash             "CASH">
+<!ENTITY    numberpad.keylabel.subtotal             "SUB TOTAL">
+<!ENTITY    numberpad.keylabel.plusearch             "Product SEARCH">
+<!ENTITY    numberpad.keylabel.tray             "TRAY MARKER">
+<!ENTITY    numberpad.keylabel.signoff             "SIGN OFF">
+<!ENTITY    numberpad.keylabel.times             "X">
+<!ENTITY    numberpad.keylabel.password             "Passcode:">
+<!ENTITY    numberpad.keylabel.ok             "OK">

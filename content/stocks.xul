@@ -24,7 +24,7 @@
     <hbox flex="1" class="main-dialog">
         <groupbox flex="1">
             <caption label="&stocks.title;" />
-            <viviscrollabletree id="stockscrollablepanel" flex="0" rows="2"
+            <viviscrollabletree id="stockscrollablepanel" flex="1" rows="2" hidevscroll="true"
                                 headers="&stocks.header.no;,&stocks.header.product;,&stocks.header.level;,&stocks.header.minimum;"
                                 fields="no,name,stock,min_stock"
                                 onclick="$do('select',this.selectedIndex, 'Stocks');"

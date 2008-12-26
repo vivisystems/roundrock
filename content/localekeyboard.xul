@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % LocaleKeyboard SYSTEM "chrome://viviecr/locale/localekeyboard.dtd">
+  %LocaleKeyboard;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+<window title="&localekeyboard.title;"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script>
+    </script>
+
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/localekeyboard.js" />
+
+    <groupbox class="main-dialog" flex="1">
+        <caption label="&localekeyboard.title;" />
+        <grid flex="1">
+            <columns>
+                <column flex="0"/>
+                <column flex="1"/>
+            </columns>
+            <rows>
+                <row flex="0">
+                    <label value="&localekeyboard.locale.title;"/>
+                    <vivilocaleslistbox id="locale" package="viviecr"/>
+                </row>
+                <separator class="groove-thin" style="margin:10px 0px 10px 0px"/>
+                <row flex="1" pack="start" align="center" style="border-width=1px; border-color=red">
+                    <label value="&localekeyboard.keyboard.title;"/>
+                    <vivikbmaps id="keyboard"/>
+                </row>
+            </rows>
+        </grid>
+    </groupbox>
+  
+    <hbox id="dialogButtons" class="dialogbtns" pack="center">
+        <button class="right exit-dialog" id="ok" label="&dialog.saveButton.label;" default="true" oncommand="doOKButton();"/>
+        <button class="exit-dialog" id="cancel" label="&dialog.cancelButton.label;" default="false" oncommand="doCancelButton();"/>
+    </hbox>
+
+</window>

@@ -648,7 +648,7 @@
 
         }else {
             if (itemDisplay.type == 'memo' ) {
-                itemTrans.memo= "";
+                if (itemTrans) itemTrans.memo= "";
             }
 
             // discount or surcharge
@@ -722,10 +722,8 @@
                 var transItems = this.getItems();
                 for (var i = index - 1; i >= 0; i--) {
                     var displayItem = displayItems[i];
-                    alert('checking entry [' + GeckoJS.BaseObject.dump(displayItem) + ']');
                     if (displayItem.type == 'item') {
                         var transItem = transItems[displayItem.index];
-                        alert('found item [' + GeckoJS.BaseObject.dump(transItem) + ']');
                         if (transItem) transItem.hasMarker = false;
                     }
                     else if (displayItem.type == 'subtotal' ||
@@ -1163,21 +1161,19 @@
 
         var prevRowCount = this.data.display_sequences.length;
 
-        if (item.type == 'item') {
+        var memoItem = {
+            id: (item) ? item.id : '',
+            name: memo,
+            current_subtotal: ''
+        };
 
-            var memoItem = {
-                id: item.id,
-                name: memo,
-                current_subtotal: ''
-            };
 
+        if (item) {
             item.memo = memo;
-
-            var newItemDisplay = this.createDisplaySeq(itemIndex, memoItem, 'memo');
-
-            this.data.display_sequences.splice(index+1,0,newItemDisplay);
-
         }
+        var newItemDisplay = this.createDisplaySeq(itemIndex, memoItem, 'memo');
+
+        this.data.display_sequences.splice(index+1,0,newItemDisplay);
 
         var currentRowCount = this.data.display_sequences.length;
 

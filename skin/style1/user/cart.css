@@ -181,8 +181,8 @@ treechildren::-moz-tree-cell-text(treecellTOTAL) {color: yellow;}
 }
 
 .cartList tree #current_subtotal {
-    max-width: 110px;
-    min-width: 110px;
+    max-width: 100px;
+    min-width: 100px;
 }
 .cartList tree #current_tax {
 }

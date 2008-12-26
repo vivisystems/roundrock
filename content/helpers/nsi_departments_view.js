@@ -18,7 +18,6 @@
                 plugroupsById[plugroup.id] = plugroup;
             }, this);
             
-            this.log(GeckoJS.BaseObject.dump(visiblePluGroups));
             GeckoJS.Session.set('visiblePlugroups', visiblePluGroups);
             GeckoJS.Session.set('plugroupsById', plugroupsById);
 

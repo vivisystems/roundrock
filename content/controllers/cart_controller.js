@@ -309,6 +309,12 @@
                 return;
             }
 
+            if (itemDisplay.type == 'condiment' && !this.Acl.isUserInRole('acl_modify_condiment_price')) {
+                //@todo OSD
+                OsdUtils.warn(_('Not authorized to modify condiment price'));
+                return;
+            }
+
             if (itemTrans.hasDiscount || itemTrans.hasSurcharge) {
                 this.dispatchEvent('onModifyItemError', {});
 
@@ -492,7 +498,7 @@
                     this.dispatchEvent('onVoidItemError', {});
 
                     // @todo OSD
-                    OsdUtils.warn(_('Cannot VOID selected item [%S]', [itemDisplay.name]));
+                    OsdUtils.warn(_('Cannot VOID the selected item [%S]\nIt is not the last registered item', [itemDisplay.name]));
                     return ;
                 }
             }
@@ -939,15 +945,31 @@
 
         },
 
-        currencyConvert: function(convertIndex) {
+        currencyConvert: function(convertCode) {
 
             // check if has buffer
             var buf = this._getKeypadController().getBuffer();
             this._getKeypadController().clearBuffer();
 
             this.cancelReturn();
-            
             var currencies = GeckoJS.Session.get('Currencies');
+            var convertIndex = -1;
+
+            // locate currency index from convertCode
+            if (currencies) {
+                for (var i = 0; i < currencies.length; i++) {
+                    if (currencies[i].currency.length > 0 && currencies[i].currency == convertCode) {
+                        convertIndex = i;
+                        break;
+                    }
+                }
+            }
+
+            if (convertIndex < 0) {
+                //@todo OSD
+                OsdUtils.warn(_('The selected currency [%S] has not been configured', [convertCode]));
+                return;
+            }
 
             if (buf.length>0 && currencies && currencies.length > convertIndex) {
                 var amount = parseFloat(buf);
@@ -1491,19 +1513,10 @@
                 if (cartItem) {
                     memoItem = GREUtils.extend({}, productsById[cartItem.id]);
                 }
-                else {
-                    // not item
-                    var displayItem = curTransaction.getDisplaySeqAt(index);
-                    //@todo OSD
-                    OsdUtils.warn(_('Memo may only be added to products'));
-                    return;
-                }
             }
 
-            if (memoItem) {
-                var memo = this.getMemoDialog(memoItem.memo);
-                if (memo) curTransaction.appendMemo(index, memo);
-            }
+            var memo = this.getMemoDialog(memoItem ? memoItem.memo : '');
+            if (memo) curTransaction.appendMemo(index, memo);
 
         },
 

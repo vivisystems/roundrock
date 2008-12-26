@@ -72,7 +72,6 @@
             }
             else if (this.publicAttendance || this.Acl.securityCheck(username, userpass, true)) {
                 this.listSummary(username);
-                this._lastUser = username;
             }
             else {
                 if (userpass == '')
@@ -108,8 +107,6 @@
                 OsdUtils.warn(_('Please select a user first'));
             }
             else {
-                document.getElementById('user_password').value = '';
-                
                 if (this.Acl.securityCheck(username, userpass, true)) {
 
                     if (job == null) {
@@ -138,8 +135,6 @@
                     clockstamp.saveStamp('clockin', username, job);
 
                     this.listSummary(username);
-
-                    this.lastUser = username;
                 } else {
                     if (userpass == '')
                         //@todo OSD
@@ -149,6 +144,7 @@
                         OsdUtils.warn(_('Authentication Failed!\nPlease make sure the passcode is correct'));
                 }
             }
+            document.getElementById('user_password').value = '';
         },
 
         clockOut: function () {
@@ -207,10 +203,14 @@
                 conditions: "username='" + username + "' AND clockin_date='" + today.toString("yyyy-MM-dd") + "'",
                 order: "created"
             });
+            if (username != this.lastUser) this.clearSummary();
+            this.lastUser = username;
+
             var oldTimes = this.jobtimes;
             this.jobtimes = stamps;
 
             if (stamps && stamps.length > 0) {
+                this.log('[' + username + ']: ' + GeckoJS.BaseObject.dump(stamps));
                 stamps.forEach(function(o){
                     o.clockin_time = o.clockin_time ? o.clockin_time.substring(11, 19) : '--:--:--';
                     o.clockout_time = o.clockout_time ? o.clockout_time.substring(11, 19) : '--:--:--';
@@ -228,9 +228,6 @@
                 joblist.selectedIndex = stamps.length - 1;
                 if (joblist.selectedIndex > -1) joblist.ensureIndexIsVisible(joblist.selectedIndex);
             }
-            else {
-                this.clearSummary();
-            }
            
             // bring summary list to front
             var deck = document.getElementById('deck');
@@ -240,7 +237,6 @@
 
         showJobList: function () {
             document.getElementById('deck').selectedIndex = 0;
-            document.getElementById('user_password').value = '';
         },
 
         cancel: function () {
