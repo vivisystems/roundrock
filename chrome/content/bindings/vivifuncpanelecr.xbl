@@ -546,7 +546,7 @@
 
                         case 'width':
                             //GREUtils.log('[ATTRIBUTE-MODIFIED]: node <' + evt.originalTarget.id + '> attribute <' + evt.attrName + '> changed to value <' + evt.newValue + '>');
-                            var offset = (this.getAttribute('hideScrollbar') == 'true') ? 0 : this.controlWidth;
+                            var offset = (this.getAttribute('hideScrollbar') == 'true') ? 0 : this.controlWidth + 2;
                             var newKeypadWidth = evt.newValue - offset;
                             if (this.keypadWidth != newKeypadWidth) {
                                 this.keypadWidth = newKeypadWidth;

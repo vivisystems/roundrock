@@ -187,7 +187,7 @@
                 </xbl:body>
             </xbl:method>
 
-            <xbl:method name="updateTimezone">
+            <xbl:method name="updateKbmap">
                 <xbl:parameter name="event"/>
                 <xbl:body><![CDATA[
 
@@ -204,7 +204,6 @@
                     // Which Kbmap did the user select?
                     var newKbmap = this.selectedKbmap;
 
-                    alert(newKbmap);
                     try {
 
                         // write Kbmap file
