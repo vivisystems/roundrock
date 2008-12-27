@@ -176,6 +176,11 @@ pref("vivipos.fec.registry.function.programmable.discountByPercentage.command", 
 pref("vivipos.fec.registry.function.programmable.discountByPercentage.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.discountByPercentage.data", "");
 
+pref("vivipos.fec.registry.function.programmable.discountPretaxByPercentage.access", "acl_register_pretax_discount");
+pref("vivipos.fec.registry.function.programmable.discountPretaxByPercentage.command", "addPretaxDiscountByPercentage");
+pref("vivipos.fec.registry.function.programmable.discountPretaxByPercentage.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.discountPretaxByPercentage.data", "");
+
 pref("vivipos.fec.registry.function.programmable.discountByAmount.access", "acl_register_reduction");
 pref("vivipos.fec.registry.function.programmable.discountByAmount.command", "addDiscountByNumber");
 pref("vivipos.fec.registry.function.programmable.discountByAmount.controller", "Cart");
@@ -185,6 +190,11 @@ pref("vivipos.fec.registry.function.programmable.surchargeByPercentage.access", 
 pref("vivipos.fec.registry.function.programmable.surchargeByPercentage.command", "addSurchargeByPercentage");
 pref("vivipos.fec.registry.function.programmable.surchargeByPercentage.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.surchargeByPercentage.data", "");
+
+pref("vivipos.fec.registry.function.programmable.surchargePretaxByPercentage.access", "acl_register_pretax_surcharge");
+pref("vivipos.fec.registry.function.programmable.surchargePretaxByPercentage.command", "addPretaxSurchargeByPercentage");
+pref("vivipos.fec.registry.function.programmable.surchargePretaxByPercentage.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.surchargePretaxByPercentage.data", "");
 
 pref("vivipos.fec.registry.function.programmable.surchargeByAmount.access", "acl_register_addition");
 pref("vivipos.fec.registry.function.programmable.surchargeByAmount.command", "addSurchargeByNumber");
@@ -290,6 +300,7 @@ pref("vivipos.fec.registry.function.programmable.dispatch.access", "acl_public_a
 pref("vivipos.fec.registry.function.programmable.dispatch.command", "dispatch");
 pref("vivipos.fec.registry.function.programmable.dispatch.controller", "Main");
 pref("vivipos.fec.registry.function.programmable.dispatch.data", "");
+
 pref("vivipos.fec.registry.function.programmable.return.access", "acl_register_return");
 pref("vivipos.fec.registry.function.programmable.return.command", "returnItem");
 pref("vivipos.fec.registry.function.programmable.return.controller", "Cart");

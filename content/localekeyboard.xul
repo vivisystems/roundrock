@@ -28,21 +28,30 @@
                 <column flex="1"/>
             </columns>
             <rows>
-                <row flex="0">
+                <row>
                     <label value="&localekeyboard.locale.title;"/>
-                    <vivilocaleslistbox id="locale" package="viviecr"/>
+                    <vivilocaleslistbox id="locale" package="viviecr" rows="6"/>
                 </row>
+
                 <separator class="groove-thin" style="margin:10px 0px 10px 0px"/>
-                <row flex="1" pack="start" align="center" style="border-width=1px; border-color=red">
+
+                <row>
                     <label value="&localekeyboard.keyboard.title;"/>
-                    <vivikbmaps id="keyboard"/>
+                    <vivikbmaps id="keyboard" flex="0"
+                            oncommand="$do('selectKeyboard', null, 'LocaleKeyboard')"
+                            />
                 </row>
             </rows>
         </grid>
+
+        <vbox flex="1" pack="start" align="left">
+            <image id="keyboard-layout" flex="1" validate="never" class="keyboard-image"
+                   src="chrome://viviecr/content/skin/kblayouts/us.png"/>
+        </vbox>
     </groupbox>
   
     <hbox id="dialogButtons" class="dialogbtns" pack="center">
-        <button class="right exit-dialog" id="ok" label="&dialog.saveButton.label;" default="true" oncommand="doOKButton();"/>
+        <button class="right exit-dialog" id="ok" label="&dialog.applyButton.label;" default="true" oncommand="doOKButton();"/>
         <button class="exit-dialog" id="cancel" label="&dialog.cancelButton.label;" default="false" oncommand="doCancelButton();"/>
     </hbox>
 

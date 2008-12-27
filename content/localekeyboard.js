@@ -2,7 +2,7 @@
 
     // include controllers  and register itself
 
-    // GeckoJS.include('chrome://viviecr/content/controllers/localekeyboard_controller.js');
+    GeckoJS.include('chrome://viviecr/content/controllers/localekeyboard_controller.js');
 
     /**
      * Controller Startup
@@ -29,7 +29,12 @@
                     keyboard.changeOSKbmap();
                 }
 
-                window.goRestartApplication();
+                alert(goRestartApplication);
+                if (!goRestartApplication()) {
+                    alert('failed to restart');
+                }
+                alert(opener.opener.goRestartApplication);
+                opener.opener.goRestartApplication();
             },
             function(){
                 return true;

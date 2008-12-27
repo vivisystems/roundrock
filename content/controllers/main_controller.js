@@ -224,7 +224,6 @@
             var toolbar = document.getElementById('toolbar');
             var toggleBtn = document.getElementById('toggleNumPad');
             var fixedRow = document.getElementById('fixedbtnrow');
-            var fixedRow1 = document.getElementById('fixedbtnrow1');
             var clockinBtn = document.getElementById('clockin');
             var optionsBtn = document.getElementById('options');
             var spacer = document.getElementById('spacer');
@@ -248,6 +247,7 @@
                     toggled = true;
                 }
                 if (toggleBtn) toggleBtn.setAttribute('state', 'true');
+                fixedRow.selectedIndex = 1;
             }
             else {
                 // if already visible then don't change
@@ -269,6 +269,7 @@
                     toggled = true;
                 }
                 if (toggleBtn) toggleBtn.setAttribute('state', 'false');
+                fixedRow.selectedIndex = 0;
             }
             GeckoJS.Configure.write('vivipos.fec.settings.HideNumPad', hideNumPad);
 
@@ -359,13 +360,7 @@
                 var totalHeight = deptPanel.boxObject.height - (- pluPanel.boxObject.height);
                 var panelSpacerWidth = (panelSpacer) ? panelSpacer.boxObject.width : 0;
                 var fnWidth = this.screenwidth - rightPanel.boxObject.width - panelSpacerWidth;
-                var fnHeight = this.screenheight - totalHeight - btmBox.boxObject.height - 8;
-                // @todo hack to adjust initial fn size
-                var registerAtLeft = GeckoJS.Configure.read('vivipos.fec.settings.RegisterAtLeft') || false;
-                if (initial) {
-                    if (registerAtLeft) fnWidth -= 1;
-                    else fnWidth -= 3;
-                }
+                var fnHeight = this.screenheight - totalHeight - btmBox.boxObject.height - 7;
 
                 if (fnHeight < 1) {
                     fnPanel.setAttribute('height', 0);

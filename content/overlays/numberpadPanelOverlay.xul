@@ -12,13 +12,22 @@
     <hbox id="numberpadPanelContainer" flex="0">
 
         <vbox flex="1" pack="start" align="center">
-            <hbox id="fixedbtnrow" flex="1" class="funpad1">
-                <vivibutton id="clearBtn"  label="&numberpad.keylabel.clear;" oncommand="$do('keypress', {keyCode: 27}, 'Keypad');" class="fixedbtn" suspendable="false"/>
-                <vivibutton id="new_order" label="&numberpad.keylabel.queue.order;" class="fixedbtn" oncommand="$do('pushQueue',null,'Cart');" roles="acl_queue_order" action="display"/>
-                <vivibutton id="queueOrderBtn" label="&numberpad.keylabel.pull.queue;" class="fixedbtn" oncommand="$do('pullQueue', null,'Cart');" roles="acl_pull_queue"/>
-                <vivibutton id="modifyBtn" label="&numberpad.keylabel.modify;" class="fixedbtn" oncommand="$do('modifyItem', null,'Cart');" roles="acl_modify_cart_item"/>
-                <vivibutton id="voidBtn" label="&numberpad.keylabel.void;" class="fixedbtn" oncommand="$do('voidItem', null,'Cart');" roles="acl_void_cart_item"/>
-            </hbox>
+            <deck id="fixedbtnrow" selectedIndex="0">
+                <hbox id="fixedbtnrow-1" flex="1" class="funpad1">
+                    <vivibutton id="clearBtn"  label="&numberpad.keylabel.clear;" oncommand="$do('keypress', {keyCode: 27}, 'Keypad');" class="fixedbtn" suspendable="false"/>
+                    <vivibutton id="new_order" label="&numberpad.keylabel.queue.order;" class="fixedbtn" oncommand="$do('pushQueue',null,'Cart');" roles="acl_queue_order" action="display"/>
+                    <vivibutton id="queueOrderBtn" label="&numberpad.keylabel.pull.queue;" class="fixedbtn" oncommand="$do('pullQueue', null,'Cart');" roles="acl_pull_queue"/>
+                    <vivibutton id="modifyBtn" label="&numberpad.keylabel.modify;" class="fixedbtn" oncommand="$do('modifyItem', null,'Cart');" roles="acl_modify_cart_item"/>
+                    <vivibutton id="voidBtn" label="&numberpad.keylabel.void;" class="fixedbtn" oncommand="$do('voidItem', null,'Cart');" roles="acl_void_cart_item"/>
+                </hbox>
+                <hbox id="fixedbtnrow-2" flex="1" class="funpad1">
+                    <vivibutton id="cashBtn"  label="&numberpad.keylabel.cash;"    oncommand="$do('cash', null, 'Cart');" class="fixedbtn" roles="acl_open_cash" action="display" />
+                    <vivibutton id="subtotalBtn"  label="&numberpad.keylabel.subtotal;" oncommand="$do('keypress', {keyCode: 35}, 'Keypad');" class="fixedbtn" roles="acl_register_sub_total" action="display"/>
+                    <vivibutton id="PLUBtn" label="&numberpad.keylabel.plusearch;"  oncommand="$do('PLUSearchDialog', null, 'Main');" class="fixedbtn" roles="acl_plu_search" action="display"/>
+                    <vivibutton id="cancelBtn"  label="&numberpad.keylabel.cancel;"    oncommand="$do('cancel', null, 'Cart');" class="fixedbtn" roles="acl_cancel_order" action="display"/>
+                    <vivibutton id="voidBtn" label="&numberpad.keylabel.void;" class="fixedbtn" oncommand="$do('voidItem', null,'Cart');" roles="acl_void_cart_item"/>
+                </hbox>
+            </deck>
             <hbox id="numpad">
 
                 <hbox  class="funpad2">

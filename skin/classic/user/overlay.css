@@ -8,8 +8,26 @@
 .mainpanel  {
     width: 800px;
     height: 600px;
-    background: #f8f4eb url(images/background.gif);
+    background: #f8f4eb url(images/background.gif) top left repeat-x;
     border: 0px solid red;
+}
+
+.leftPanel {
+    width: 361px;
+    min-width: 361px;
+    max-width: 361px;
+}
+
+.rightPanel {
+    width: 435px;
+    min-width: 435px;
+    max-width: 435px;
+}
+
+.panelSpacer {
+    width: 4px;
+    min-width: 4px;
+    max-width: 4px;
 }
 
 .productPanel {
@@ -30,14 +48,4 @@
     margin-right: 0px;
     margin-top: 2px;
     margin-bottom: 0px;
-
 }
-
-.rightPanel {
-/*    min-width: 100px;*/
-    border: 0px solid green;
-    width: 438px;
-    max-width: 438px;
-    -moz-background-clip: border;
-}
-

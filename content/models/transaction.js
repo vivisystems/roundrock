@@ -290,8 +290,8 @@
                 id: null,
                 no: item.no,
                 name: dispName,
-                current_qty: item.current_tax,
-                current_price: item.current_price,
+                current_qty: '',
+                current_price: '',
                 current_subtotal: item.current_discount,
                 current_tax: '',
                 type: type,
@@ -328,8 +328,8 @@
                 id: null,
                 no: item.no,
                 name: dispName,
-                current_qty: item.current_tax,
-                current_price: item.current_price,
+                current_qty: '',
+                current_price: '',
                 current_subtotal: item.current_surcharge,
                 current_tax: '',
                 type: type,
@@ -384,7 +384,7 @@
         }
 
         // tax amount is displayed in the current_qty field for readability
-        if (type == 'tray' || type == 'subtotal' || type == 'trans_surcharge' || type == 'trans_discount') {
+        if (type == 'tray' || type == 'subtotal') {
             if(itemDisplay.current_qty != ''  || itemDisplay.current_qty === 0 ) {
                 itemDisplay.current_qty = this.formatTax(itemDisplay.current_qty);
             }
@@ -786,7 +786,7 @@
 
         var prevRowCount = this.data.display_sequences.length;
 
-        var displayIndex = index;
+        var displayIndex = lastItemDispIndex;
 
         if (item && item.type == 'item') {
 
@@ -840,34 +840,33 @@
                         OsdUtils.warn(_('ATTENTION: return item(s) are present'));
                 }
             }
-            
+
+            var remainder = this.getRemainTotal();
             if (discountItem.discount_type == '$') {
-                discountItem.current_discount = discountItem.current_price = this.getRoundedPrice(discount.amount);
-                discountItem.current_tax = '';
+                discountItem.current_discount = this.getRoundedPrice(discount.amount);
             }
             else {
-                // percentage order surcharge is taxable by default
-                if (discount.taxable == null) discount.taxable = true;
+                //@todo
+                // percentage order surcharge is pretax?
+                if (discount.pretax == null) discount.pretax = false;
 
-                var currentTax = itemDisplay.current_qty;
-                var currentSale = itemDisplay.current_price;
-
-                discountItem.current_tax = discount.taxable ? this.getRoundedTax(currentTax * discountItem.discount_rate) : 0;
-                discountItem.current_price = this.getRoundedPrice(currentSale * discountItem.discount_rate);
-                discountItem.current_discount = this.getRoundedPrice(discountItem.current_tax + discountItem.current_price);
+                if (discount.pretax) {
+                    discountItem.current_discount = this.getRoundedPrice((remainder - this.data.tax_subtotal) * discountItem.discount_rate);
+                }
+                else {
+                    discountItem.current_discount = this.getRoundedPrice(remainder * discountItem.discount_rate);
+                }
             }
-            if (discountItem.current_discount > itemDisplay.current_subtotal) {
+            if (discountItem.current_discount > remainder) {
                 // discount too much
                 //@todo OSD
                 OsdUtils.warn(_('Discount amount [%S] may not exceed remaining balance [%S]',
                                 [this.formatPrice(this.getRoundedPrice(discountItem.current_discount)),
-                                 itemDisplay.current_subtotal]));
+                                 remainder]));
                 return;
             }
 
-            discountItem.current_discount = 0 - discountItem.current_discount;
-            discountItem.current_price = 0 - discountItem.current_price;
-            if (discountItem.current_tax != '') discountItem.current_tax = 0 - discountItem.current_tax;
+            discountItem.current_discount = this.getRoundedPrice(0 - discountItem.current_discount);
             
             var discountIndex = GeckoJS.String.uuid();
             this.data.trans_discounts[discountIndex] = discountItem;
@@ -957,19 +956,18 @@
             }
 
             if (surchargeItem.surcharge_type == '$') {
-                surchargeItem.current_surcharge = surchargeItem.current_price = this.getRoundedPrice(surcharge.amount);
-                surchargeItem.current_tax = '';
+                surchargeItem.current_surcharge = this.getRoundedPrice(surcharge.amount);
             }else {
-
-                // percentage order surcharge is taxable by default
-                if (surcharge.taxable == null) surcharge.taxable = true;
-
-                var currentTax = itemDisplay.current_qty;
-                var currentSale = itemDisplay.current_price;
-
-                surchargeItem.current_tax = surcharge.taxable ? this.getRoundedTax(currentTax * surchargeItem.surcharge_rate) : 0;
-                surchargeItem.current_price = this.getRoundedPrice(currentSale * surchargeItem.surcharge_rate);
-                surchargeItem.current_surcharge = this.getRoundedPrice(surchargeItem.current_tax + surchargeItem.current_price);
+                //@todo
+                // percentage order surcharge is pretax?
+                if (surcharge.pretax == null) surcharge.pretax = false;
+                if (surcharge.pretax) {
+                    surchargeItem.current_surcharge = this.getRoundedPrice((this.getRemainTotal() - this.data.tax_subtotal) * surchargeItem.surcharge_rate);
+                }
+                else {
+                    surchargeItem.surcharge_name += '*';
+                    surchargeItem.current_surcharge = this.getRoundedPrice(this.getRemainTotal() * surchargeItem.surcharge_rate);
+                }
             }
 
             var surchargeIndex = GeckoJS.String.uuid();
@@ -1569,13 +1567,13 @@
         this.log('DEBUG', 'dispatchEvent onCalcTotal ' + this.dump(this.data));
         Transaction.events.dispatch('onCalcTotal', this.data, this);
 
-        var total=0, remain=0, item_subtotal=0, item_tax_subtotal=0, item_surcharge_subtotal=0, item_discount_subtotal=0;
-        var trans_tax_subtotal=0, trans_surcharge_subtotal=0, trans_discount_subtotal=0, payment_subtotal=0;
+        var total=0, remain=0, item_subtotal=0, tax_subtotal=0, item_surcharge_subtotal=0, item_discount_subtotal=0;
+        var trans_surcharge_subtotal=0, trans_discount_subtotal=0, payment_subtotal=0;
 
         // item subtotal
         for(var itemIndex in this.data.items ) {
             var item = this.data.items[itemIndex];
-            item_tax_subtotal += parseFloat(item.current_tax);
+            tax_subtotal += parseFloat(item.current_tax);
             item_surcharge_subtotal += parseFloat(item.current_surcharge);
             item_discount_subtotal += parseFloat(item.current_discount);
             item_subtotal += parseFloat(item.current_subtotal);
@@ -1585,13 +1583,11 @@
         // trans subtotal
         for(var transDisIndex in this.data.trans_discounts ) {
             var disItem = this.data.trans_discounts[transDisIndex];
-            if (disItem.current_tax != '') trans_tax_subtotal += parseFloat(disItem.current_tax);
             trans_discount_subtotal += parseFloat(disItem.current_discount);
         }
 
         for(var transSurIndex in this.data.trans_surcharges ) {
             var surItem = this.data.trans_surcharges[transSurIndex];
-            if (surItem.current_tax != '') trans_tax_subtotal += parseFloat(surItem.current_tax);
             trans_surcharge_subtotal += parseFloat(surItem.current_surcharge);
         }
 
@@ -1600,12 +1596,12 @@
             payment_subtotal += parseFloat(payItem.amount);
         }
 
-        total = item_subtotal + item_tax_subtotal + item_surcharge_subtotal + item_discount_subtotal + trans_surcharge_subtotal + trans_discount_subtotal;
+        total = item_subtotal + tax_subtotal + item_surcharge_subtotal + item_discount_subtotal + trans_surcharge_subtotal + trans_discount_subtotal;
         remain = total - payment_subtotal;
 
-        this.data.total = total;
+        this.data.total = this.getRoundedPrice(total);
         this.data.remain = remain;
-        this.data.tax_subtotal = item_tax_subtotal + trans_tax_subtotal;
+        this.data.tax_subtotal = tax_subtotal;
         this.data.item_surcharge_subtotal = item_surcharge_subtotal;
         this.data.item_discount_subtotal = item_discount_subtotal;
         this.data.trans_surcharge_subtotal = trans_surcharge_subtotal;

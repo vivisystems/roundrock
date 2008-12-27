@@ -58,4 +58,5 @@ pref("vivipos.fec.acl.roles.acl_register_gift_card", "acl_register_credit_card")
 pref("vivipos.fec.acl.roles.acl_modify_condiment_price", "acl_modify_condiment_price");
 pref("vivipos.fec.acl.roles.acl_modify_keymap_parameter", "acl_modify_keymap_parameter");
 pref("vivipos.fec.acl.roles.acl_manage_locale_keyboard", "acl_manage_locale_keyboard");
-acl_manage_locale_keyboard
+pref("vivipos.fec.acl.roles.acl_register_pretax_discount", "acl_register_pretax_discount");
+pref("vivipos.fec.acl.roles.acl_register_pretax_surcharge", "acl_register_pretax_surcharge");

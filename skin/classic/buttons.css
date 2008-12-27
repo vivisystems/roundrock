@@ -13,31 +13,43 @@
     min-height: 50px;
 }
 
+vivibutton[disabled=true] description {
+    color: gray;
+    font-style: italic;
+}
+
+viviscrollabletree scrollbar {
+    display: none;
+}
+
 /*-----------------------------------------------------------------------------
  *  Front-end department and product buttons
  *-----------------------------------------------------------------------------
  */
 
-.user-catbtn, .user-plubtn {
+.user-catbtn {
     min-height:50px;
     min-width: 50px;
-    border: 0px solid;
+    border: 2px solid;
+    -moz-border-top-colors: #ddcfb4 #ffffff !important;
+    -moz-border-right-colors: #ddcfb4 #ffffff !important;
+    -moz-border-bottom-colors: #ddcfb4 #ffffff !important;
+    -moz-border-left-colors: #ddcfb4 #ffffff !important;
+    color: #42422f;
     -moz-appearance: none;
     margin: 2px 2px 2px 2px;
     padding: 0px;
-    background-color: white;
-
-    -moz-box-pack: center;
+    -moz-background-clip: border;
     -moz-user-focus: ignore;
 
-    -moz-border-top-colors: #444;
-    -moz-border-right-colors: #444;
-    -moz-border-bottom-colors: #444;
-    -moz-border-left-colors: #444;
 }
 
 .user-catbtn[selected] {
-    border: 5px solid;
+    border: 2px solid;
+    -moz-border-top-colors: #000000 !important;
+    -moz-border-right-colors: #000000 !important;
+    -moz-border-bottom-colors: #000000 !important;
+    -moz-border-left-colors: #000000 !important;
 }
 
 .user-catbtn[disabled=false]:active, .user-plubtn[disabled=false]:active {
@@ -49,19 +61,59 @@
     -moz-border-left-colors: #444 #222;
 }
 
-.user-catbtn[disabled=true], .user-plubtn[disabled=true] {
-    background-position:0pt -64px;
+.user-catbtn[disabled=true] {
+    background: white;
+    /*
+    border: none;
+    */
 }
 
-.user-catbtn hbox, .user-plubtn hbox {
+.user-catbtn hbox {
     -moz-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
+.user-catbtn .button-text{
+	text-align: left;
+	padding-left: 20px;
+}
+
 .user-catbtn description, .user-plubtn description {
     text-wrap: normal;
     word-wrap: break-word;
+}
+
+.user-plubtn {
+    min-height:50px;
+    min-width: 50px;
+    border: 1px solid;
+    -moz-appearance: none;
+    margin: 2px;
+    padding: 0px;
+    -moz-border-top-colors: #c9c3b9;
+    -moz-border-right-colors: #c9c3b9;
+    -moz-border-bottom-colors: #c9c3b9;
+    -moz-border-left-colors: #c9c3b9;
+    -moz-user-focus: ignore;
+    -moz-background-clip: border;
+    background-color: #ffffff;
+}
+
+.user-plubtn[disabled=true] {
+    
+    border: 1px solid;
+    -moz-border-top-colors: #c9c3b9 !important;
+    -moz-border-right-colors: #c9c3b9 !important;
+    -moz-border-bottom-colors: #c9c3b9 !important;
+    -moz-border-left-colors: #c9c3b9 !important;
+
+}
+
+.user-plubtn hbox {
+    -moz-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /*-----------------------------------------------------------------------------
@@ -345,15 +397,11 @@
  */
 
 .plusbtn {
-    background-image: url(chrome://viviecr/skin/images/list-add.png);
-    background-position: center center;
-    background-repeat: no-repeat;
+    background: transparent url(images/list-add.png) center center no-repeat;
 }
 
 .minusbtn {
-    background-image: url(chrome://viviecr/skin/images/list-remove.png);
-    background-position: center center;
-    background-repeat: no-repeat;
+    background: transparent url(images/list-remove.png) center center no-repeat;
 }
 
 /*-----------------------------------------------------------------------------
@@ -366,10 +414,9 @@
     height: 53px;
     min-width: 36px;
     max-width: 36px;
-    border-width: 2px;
+    border: none;
     -moz-user-focus: ignore;
     -moz-appearance: none;
-    -moz-border-radius: 4px;
 }
 
 .systoolbtn label {
@@ -568,7 +615,6 @@
 .nolabelbtn description {
    display: none;
 }
-
 /*-----------------------------------------------------------------------------
  * Standard font sizes
  *-----------------------------------------------------------------------------
@@ -593,6 +639,7 @@
     font-weight: bold !important;
     font-size: 12px;
 }
+
 
 .font-xlarge[selected], .font-large[selected], .font-small[selected], .font-medium[selected] {
     list-style-image: url(chrome://viviecr/skin/images/gtk-yes.png);
