@@ -99,8 +99,8 @@
             var aArguments = "";
             var posX = 0;
             var posY = 0;
-            var width = 800;
-            var height = 600;
+            var width = this.screenwidth;
+            var height = this.screenheight;
             //$do('load', null, 'Categories');
             GREUtils.Dialog.openDialog(window, aURL, aName, aArguments, posX, posY, width, height);
         },
@@ -110,11 +110,16 @@
             var aURL = "chrome://viviecr/content/selectqueue.xul";
             var aName = "SelectQueue";
             var aArguments = "";
+            /*
             var posX = (this.screenwidth - 640) / 2;
             var posY = (this.screenheight - 480) / 2;
             var width = 640;
             var height = 480;
-
+            */
+            var posX = 0;
+            var posY = 0;
+            var width = this.screenwidth;
+            var height = this.screenheight;
             var args = {
                 result: false,
                 data: null
@@ -519,6 +524,29 @@
             this.requestCommand('clear', null, 'Cart');
             
             //GREUtils.log('[SWITCH]: new user <' + newUser + '> password <' + buf + '>');
+
+            // we allow newUser to be either username or displayname
+            var userModel = new UserModel();
+            var users = userModel.findByIndex('all', {
+                index: 'username',
+                value: newUser
+            });
+            if (users == null || users.length == 0) {
+                // no match found by username, let's try display name
+                users = userModel.findByIndex('all', {
+                    index: 'displayname',
+                    value: newUser
+                });
+
+                if (users == null || users.length == 0) {
+                    //@todo silent user switch successful
+                    OsdUtils.error(_('[%S] does not exist!', [newUser]));
+                    return;
+                }
+                else {
+                    newUser = users[0].username;
+                }
+            }
             if (buf.length>0) {
                 if (this.Acl.securityCheck(newUser, buf, true)) {
                     var aclUser = this.Acl.getUserPrincipal();

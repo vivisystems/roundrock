@@ -8,7 +8,7 @@
 .mainpanel  {
     width: 800px;
     height: 600px;
-    background: #f8f4eb url(images/background.gif) top left repeat-x;
+    background-color: #f8f4eb;
     border: 0px solid red;
 }
 

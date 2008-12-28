@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE window SYSTEM "chrome://viviecr/locale/changeuser.dtd">
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/changeuser.css" type="text/css"?>
-
+<!--
+<?xml-stylesheet href="chrome://viviecr/skin/user/changeuser.css" type="text/css" media="all and (width:800) and (height:600)"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user-1024x768/changeuser.css" type="text/css" media="all and (width:1024) and (height:768)"?>
+-->
 <window title="&changeuser.title;"
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
@@ -13,6 +15,17 @@
 
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/changeuser.js" />
+
+    <script type="application/x-javascript">
+        var screenWidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || screen.width;
+        if (screenWidth == 1024) {
+            var pi = document.createProcessingInstruction('xml-stylesheet', 'href="chrome://viviecr/skin/user-1024x768/changeuser.css" type="text/css"');
+        }
+        else {
+            var pi = document.createProcessingInstruction('xml-stylesheet', 'href="chrome://viviecr/skin/user/changeuser.css" type="text/css"');
+        }
+        document.insertBefore(pi, document.firstChild);
+    </script>
 
     <vbox id="signinpanel" pack="start" class="hboxb" flex="1">
         <hbox>

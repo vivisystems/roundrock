@@ -91,12 +91,10 @@
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-background-clip: border;
-    border: none;
+    border-width: 2px;
     -moz-border-radius: 2px;
 }
 
-.vivifuncpanelecr_matrix_button_configure[disabled=true] {
-}
 
 /*-----------------------------------------------------------------------------
  * Function Panel control panel

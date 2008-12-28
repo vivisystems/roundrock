@@ -29,12 +29,9 @@
                     keyboard.changeOSKbmap();
                 }
 
-                alert(goRestartApplication);
-                if (!goRestartApplication()) {
-                    alert('failed to restart');
-                }
-                alert(opener.opener.goRestartApplication);
-                opener.opener.goRestartApplication();
+                GeckoJS.Observer.notify(null, 'prepare-to-restart', this);
+
+                return true;
             },
             function(){
                 return true;

@@ -48,6 +48,8 @@
             <image id="keyboard-layout" flex="1" validate="never" class="keyboard-image"
                    src="chrome://viviecr/content/skin/kblayouts/us.png"/>
         </vbox>
+
+        <spacer height="10px"/>
     </groupbox>
   
     <hbox id="dialogButtons" class="dialogbtns" pack="center">
