@@ -1401,8 +1401,6 @@
 	
         cancel: function() {
 
-            
-
             this._getKeypadController().clearBuffer();
             this.cancelReturn();
 
@@ -1412,6 +1410,8 @@
             if(curTransaction == null) {
                 
                 this.dispatchEvent('onCancel', null);
+                //@todo OSD
+                OsdUtils.warn(_('Not an open order; nothing to cancel'));
                 return; // fatal error ?
             }
 

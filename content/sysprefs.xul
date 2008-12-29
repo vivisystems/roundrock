@@ -7,7 +7,6 @@
 <prefwindow title="&preferences.title;"
             xmlns:html="http://www.w3.org/1999/xhtml"
             xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-            width="800" height="600"
             ondialogcancel="closePreferences()"
             >
 
@@ -16,6 +15,11 @@
     <script type="application/x-javascript" src="chrome://viviecr/content/bootstrap.js" />
     <!-- users.js & taxes.js must load before sysprefs.js -->
     <script type="application/x-javascript" src="chrome://viviecr/content/sysprefs.js" />
+
+    <script type="application/x-javascript">
+        alert(window.outerWidth + 'x' + window.outerHeight);
+        window.resizeTo(window.outerWidth, window.outerHeight);
+    </script>
 
     <prefpane id="generalSettingsPane" label="&category.general;" image="chrome://viviecr/content/skin/icons/stock_print-setup.png">
         <preferences>
