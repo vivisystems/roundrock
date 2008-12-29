@@ -22,6 +22,11 @@ viviscrollabletree scrollbar {
     display: none;
 }
 
+*[readonly] {
+    -moz-user-focus: ignore;
+    -moz-user-input: disabled;
+}
+
 /*-----------------------------------------------------------------------------
  *  Front-end department and product buttons
  *-----------------------------------------------------------------------------

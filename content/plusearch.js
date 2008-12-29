@@ -14,6 +14,7 @@
         // $('#ekeyBtn')[0].addEventListener('command', searchPlu, true);
         $('#plu').focus();
 
+
         doSetOKCancel(
             function(){
                 // inputObj.condiments = document.getElementById('condiments').value;

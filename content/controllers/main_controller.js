@@ -78,12 +78,12 @@
             GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,dependent=yes,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height, "");
 
             if (this.doRestart) {
-                Notify.alert('Failed to restart...');
                 try {
                     var chromeRegInstance = Components.classes["@mozilla.org/chrome/chrome-registry;1"].getService();
                     var xulChromeReg = chromeRegInstance.QueryInterface(Components.interfaces.nsIXULChromeRegistry);
+                    //alert('reloading chrome');
                     xulChromeReg.reloadChrome();
-
+                    this.log('reloaded chrome');
                 } catch(err) {
                 }
             }
