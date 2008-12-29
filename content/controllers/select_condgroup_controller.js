@@ -35,7 +35,12 @@
 
             var index = (groups.length > 0) ? 0 : -1;
             if (data) {
-                listObj.value = data;
+                for (var i = 0; i < groups.length; i++) {
+                    if (groups[i].id == data) {
+                        index = i;
+                        break;
+                    }
+                }
                 if (listObj.selectedIndex == null || listObj.selectedIndex < 0) {
                     listObj.selectedItems = [index];
                     listObj.selectedIndex = index;
@@ -52,8 +57,10 @@
             var selectedIndex = listObj.selectedIndex;
             var group = this._listDatas[selectedIndex];
 
-            // $("rolegroup").val(rolegroup.name);
-            document.getElementById('cond_group').value = group.name;
+            if (group) {
+                document.getElementById('cond_group_name').value = group.name;
+                document.getElementById('cond_group').value = group.id;
+            }
         }
 	
     });

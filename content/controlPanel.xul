@@ -84,7 +84,7 @@
     </stack>
 
     <hbox id="dialogButtons" class="dialogbtns" pack="center">
-        <button class="right exit-dialog" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="savePreferences();"/>
+        <button class="right exit-dialog" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="return savePreferences();"/>
     </hbox>
 
 </window>

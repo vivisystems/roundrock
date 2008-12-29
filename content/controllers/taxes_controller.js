@@ -77,11 +77,11 @@
 
             if (data.no.length <= 0) {
                 // @todo OSD
-                OsdUtils.warn(_('Tax code must not be empty.'));
+                NotifyUtils.warn(_('Tax code must not be empty.'));
                 result = 3;
             } else if (data.name.length <= 0) {
                 // @todo OSD
-                OsdUtils.warn(_('Tax name must not be empty.'));
+                NotifyUtils.warn(_('Tax name must not be empty.'));
                 result = 4;
             } else {
                 if (taxes)
@@ -89,11 +89,11 @@
                         var o = taxes[i];
                             if (o.no == data.no && !id) {
                                 // @todo OSD
-                                OsdUtils.warn(_('Duplicate tax code [%S]; tax not added', [data.no]));
+                                NotifyUtils.warn(_('Duplicate tax code [%S]; tax not added', [data.no]));
                                 return 1;
                             } else if (o.name == data.name && o.id != id) {
                                 // @todo OSD
-                                OsdUtils.warn(_('Duplicate tax name [%S]; tax not %S', [data.name, id ? 'modified' : 'added']));
+                                NotifyUtils.warn(_('Duplicate tax name [%S]; tax not %S', [data.name, id ? 'modified' : 'added']));
                                 return 2;
                             }
                     }
@@ -139,7 +139,7 @@
                     }
                     catch (e) {
                         // @todo OSD
-                        OsdUtils.error(_('An error occurred while adding Tax [%S]; the tax may not have been added successfully', [data.name]));
+                        NotifyUtils.error(_('An error occurred while adding Tax [%S]; the tax may not have been added successfully', [data.name]));
                     }
                 }
             }
@@ -152,6 +152,37 @@
             if (selectedIndex == null || selectedIndex < 0) return;
 
             var tax = this._listDatas[selectedIndex];
+
+            // make sure tax has not been assigned to departments
+            var deptModel = new CategoryModel();
+            var depts = deptModel.findByIndex('all', {
+                index: 'rate',
+                value: tax.no
+            });
+
+            if (depts && depts.length > 0) {
+                NotifyUtils.warn(_('[%S] has been assigned to one or more departments and may not be deleted', [tax.name]));
+                return;
+            }
+
+            // make sure tax has not been assigned to products
+            var productModel = new ProductModel();
+            var products = productModel.findByIndex('all', {
+                index: 'rate',
+                value: tax.no
+            });
+
+            if (products && products.length > 0) {
+                NotifyUtils.warn(_('[%S] has been assigned to one or more products and may not be deleted', [tax.name]));
+                return;
+            }
+
+            // check if tax is the default tax
+            var defaultTax = GeckoJS.Configure.read('vivipos.fec.settings.DefaultTaxStatus');
+            if (defaultTax == tax.id) {
+                NotifyUtils.warn(_('[%S] is the default tax and may not be deleted', [tax.name]));
+                return;
+            }
 
             if (GREUtils.Dialog.confirm(null, _('confirm delete %S', [tax.name]), _('Are you sure?')) == false) {
                 return;
@@ -169,7 +200,7 @@
             }
             catch (e) {
                 // @todo OSD
-                OsdUtils.error(_('An error occurred while removing Tax [%S]; the tax may not have been removed successfully', [tax.name]));
+                NotifyUtils.error(_('An error occurred while removing Tax [%S]; the tax may not have been removed successfully', [tax.name]));
             }
         },
 
@@ -192,7 +223,7 @@
                 }
                 catch (e) {
                     // @todo OSD
-                    OsdUtils.error(_('An error occurred while adding Tax [%S]; the tax may not have been added successfully', [data.name]));
+                    NotifyUtils.error(_('An error occurred while adding Tax [%S]; the tax may not have been added successfully', [data.name]));
                 }
             }
             
@@ -220,6 +251,7 @@
             }
             panelView.data = taxes;
             this._listDatas = taxes;
+            panelView.tree.invalidate();
 
             if (listObj.selectedIndex != index) {
                 listObj.selectedIndex = index;
@@ -292,13 +324,13 @@
                 if (this._selectedIndex >= 0) {
                     var tax = this._listDatas[this._selectedIndex];
                     if (tax) {
-                        GeckoJS.Configure.write('vivipos.fec.settings.DefaultTaxStatus', tax.no);
+                        GeckoJS.Configure.write('vivipos.fec.settings.DefaultTaxStatus', tax.id);
                     }
                 }
             }
         },
 
-        initTaxStatus: function(tax_no) {
+        initTaxStatus: function(tax_id) {
             this.load();
 
             var listObj = this.getListObj();
@@ -308,7 +340,7 @@
                 listObj.selectedItems = [];
                 listObj.selectedIndex = -1;
                 for (var i = 0; i < taxes.length; i++) {
-                    if (taxes[i].no == tax_no) {
+                    if (taxes[i].id == tax_id) {
                         listObj.selectedItems = [i];
                         listObj.selectedIndex = i;
                         break;

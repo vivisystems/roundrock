@@ -22,6 +22,7 @@
         <groupbox>
             <caption label="&condgroup.title;" />
             <label id="cond_group" hidden="true" value="" />
+            <label id="cond_group_name" hidden="true" value="" />
             <hbox>
                 <viviscrollablebuttonpanel dir="reverse" id="condgroupscrollablepanel" flex="1" cols="4" rows="4" labelField="name"
                                            oncommand="$do('select', this.selectedIndex, 'SelectCondgroup');"
@@ -37,7 +38,7 @@
   
     <hbox id="dialogButtons" class="dialogbtns" pack="center">
         <button class="right exit-dialog" id="ok" label="&dialog.okButton.label;" default="true" oncommand="doOKButton();"/>
-        <button class="exit-dialog" id="cancel" label="&dialog.cancelButton.label;" default="true" oncommand="doCancelButton();"/>
+        <button class="exit-dialog" id="cancel" label="&dialog.cancelButton.label;" default="false" oncommand="doCancelButton();"/>
     </hbox>
 
 </window>

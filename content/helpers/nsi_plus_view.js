@@ -64,7 +64,7 @@
                 if(typeof cate['no'] == 'undefined') {
                     // group
                     productsIndexesByCate = GeckoJS.Session.get('productsIndexesByLinkGroup');
-                    this._data = productsIndexesByCate[cate.name] || [];
+                    this._data = productsIndexesByCate[cate.id] || [];
                 }else {
                     productsIndexesByCate = GeckoJS.Session.get('productsIndexesByCate');
                     this._data = productsIndexesByCate[cate.no] || [];
@@ -72,7 +72,7 @@
                 
             }else {
                 productsIndexesByCate = GeckoJS.Session.get('productsIndexesByCateAll');
-                this._data = productsIndexesByCate[cate.no] || [];
+                this._data = productsIndexesByCate[cate.no] || productsIndexesByCate[cate.id] || [];
             }
 
             try {

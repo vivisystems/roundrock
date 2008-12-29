@@ -10,8 +10,8 @@
 
         // select the indicated keyboard layout
 
-        selectKeyboard: function () {
-            var selectedKbmap = $('#keyboard')[0].selectedKbmap;
+        selectKbmap: function () {
+            var selectedKbmap = $('#kbmap')[0].selectedKbmap;
 
             $('#keyboard-layout')[0].setAttribute('src', 'chrome://viviecr/content/skin/kblayouts/' + selectedKbmap + '.png');
         }

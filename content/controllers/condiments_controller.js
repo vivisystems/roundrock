@@ -300,6 +300,17 @@
             var condGroups = GeckoJS.Session.get('condGroups');
             var condGroup = condGroups[this._selectedIndex];
 
+            // check if condiment group has been assigned to products
+            var productModel = new ProductModel();
+            var products = productModel.findByIndex('all', {
+                index: 'cond_group',
+                value: condGroup.id
+            });
+            if (products && products.length > 0) {
+                NotifyUtils.warn(_('[%S] has been assigned to one or more products and may not be deleted', [condGroup.name]));
+                return;
+            }
+
             if (GREUtils.Dialog.confirm(null, _('confirm delete %S', [condGroup.name]), _('Are you sure?'))) {
                 var condGroupModel = new CondimentGroupModel();
 

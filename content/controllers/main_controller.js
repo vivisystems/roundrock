@@ -12,6 +12,7 @@
         maxButtonRows: 10,
         depPanelView: null,
         pluPanelView: null,
+        doRestart: false,
     
         initial: function() {
 
@@ -37,6 +38,17 @@
             GeckoJS.Log.getAppender('console').level = GeckoJS.Log.ERROR;
             GeckoJS.Log.defaultClassLevel = GeckoJS.Log.ERROR;
 
+            var self = this;
+            
+            // observer restart topic
+            this.observer = GeckoJS.Observer.newInstance({
+                topics: ['prepare-to-restart'],
+
+                observe: function(aSubject, aTopic, aData) {
+                    if (aTopic == 'prepare-to-restart')
+                        self.doRestart = true;
+                }
+            }).register();
         },
 
         _getKeypadController: function() {
@@ -64,6 +76,17 @@
             var width = this.screenwidth;
             var height = this.screenheight;
             GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,dependent=yes,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height, "");
+
+            if (this.doRestart) {
+                Notify.alert('Failed to restart...');
+                try {
+                    var chromeRegInstance = Components.classes["@mozilla.org/chrome/chrome-registry;1"].getService();
+                    var xulChromeReg = chromeRegInstance.QueryInterface(Components.interfaces.nsIXULChromeRegistry);
+                    xulChromeReg.reloadChrome();
+
+                } catch(err) {
+                }
+            }
         },
 
 
@@ -292,12 +315,24 @@
             var fnPanel = document.getElementById('functionPanel');
             var btmBox = document.getElementById('vivipos-bottombox');
 
-            var departmentRows = GeckoJS.Configure.read('vivipos.fec.settings.DepartmentRows') || 3;
-            var departmentCols = GeckoJS.Configure.read('vivipos.fec.settings.DepartmentCols') || 4;
-            var pluRows = GeckoJS.Configure.read('vivipos.fec.settings.PluRows') || 4;
-            var pluCols = GeckoJS.Configure.read('vivipos.fec.settings.PluCols') || 4;
-            var fnRows = GeckoJS.Configure.read('vivipos.fec.settings.functionpanel.rows') || 3;
-            var fnCols = GeckoJS.Configure.read('vivipos.fec.settings.functionpanel.columns') || 4;
+            var departmentRows = GeckoJS.Configure.read('vivipos.fec.settings.DepartmentRows');
+            if (departmentRows == null) departmentRows = 3;
+
+            var departmentCols = GeckoJS.Configure.read('vivipos.fec.settings.DepartmentCols');
+            if (departmentCols == null) departmentCols = 4;
+
+            var pluRows = GeckoJS.Configure.read('vivipos.fec.settings.PluRows');
+            if (pluRows == null) pluRows = 4;
+
+            var pluCols = GeckoJS.Configure.read('vivipos.fec.settings.PluCols');
+            if (pluCols == null) pluCols = 4;
+
+            var fnRows = GeckoJS.Configure.read('vivipos.fec.settings.functionpanel.rows');
+            if (fnRows == null) fnRows = 3;
+
+            var fnCols = GeckoJS.Configure.read('vivipos.fec.settings.functionpanel.columns');
+            if (fnCols == null) fnRows = 4;
+
             var hideDeptScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.HideDeptScrollbar');
             var hidePLUScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.HidePLUScrollbar');
             var hideFPScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.HideFPScrollbar');
@@ -433,11 +468,18 @@
         initialLogin: function () {
 
             var defaultLogin = GeckoJS.Configure.read('vivipos.fec.settings.DefaultLogin');
-            var defaultUser = GeckoJS.Configure.read('vivipos.fec.settings.DefaultUser');
+            var defaultUserID = GeckoJS.Configure.read('vivipos.fec.settings.DefaultUser');
+            var defaultUser = '';
 
             //@todo work-around Object reference bug - fixed
             //var roles= this.Acl.getGroupList();
 
+            if (defaultUserID) {
+                var userModel = new UserModel();
+                var defaultUserRecord = userModel.findById(defaultUserID);
+                if (defaultUserRecord) defaultUser = defaultUserRecord.username;
+            }
+            
             if (defaultLogin && defaultUser && defaultUser.length > 0) {
                 this.Acl.securityCheck(defaultUser, 'dummy', false, true);
             }

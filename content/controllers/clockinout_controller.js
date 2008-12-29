@@ -113,13 +113,13 @@
 
                         // check if user has default job
                         var userModel = new UserModel();
-                        var user_name = userModel.findByIndex('all', {
+                        var userByName = userModel.findByIndex('all', {
                             index: 'username',
                             value: username
                         });
 
-                        if (user_name && user_name.length > 0) {
-                            job = user_name[0].default_job;
+                        if (userByName && userByName.length > 0) {
+                            job = userByName[0].job_id;
                         }
                     }
 
@@ -132,7 +132,7 @@
                         return;
                     }
                     var clockstamp = new ClockStampModel();
-                    clockstamp.saveStamp('clockin', username, job);
+                    clockstamp.saveStamp('clockin', username, userByName[0].Job.jobname);
 
                     this.listSummary(username);
                 } else {

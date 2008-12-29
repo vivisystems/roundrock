@@ -17,6 +17,7 @@
         doSetOKCancel(
             function(){
                 inputObj.cond_group = document.getElementById('cond_group').value;
+                inputObj.cond_group_name = document.getElementById('cond_group_name').value;
                 inputObj.ok = true;
                 return true;
             },

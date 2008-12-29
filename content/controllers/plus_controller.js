@@ -21,6 +21,10 @@
 
 
         createGroupPanel: function () {
+
+            this.screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
+            this.screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
+
             var pluGroupModel = new PlugroupModel();
             var groups = pluGroupModel.find('all', {
             });
@@ -125,7 +129,7 @@
             var cates_data = GeckoJS.Session.get('categories');
 
             var aURL = 'chrome://viviecr/content/select_department.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=800,height=600';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
             var inputObj = {
                 cate_no: cate_no,
                 depsData: cates_data,
@@ -142,7 +146,7 @@
         getCondiment: function () {
             var cond_group = $('#cond_group').val();
             var aURL = 'chrome://viviecr/content/select_condgroup.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=800,height=600';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
             var inputObj = {
                 cond_group: cond_group
             };
@@ -150,13 +154,14 @@
 
             if (inputObj.ok && inputObj.cond_group) {
                 $('#cond_group').val(inputObj.cond_group);
+                $('#cond_group_name').val(inputObj.cond_group_name);
             }
         },
 
         getRate: function () {
             var rate = $('#rate').val();
             var aURL = 'chrome://viviecr/content/select_tax.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=800,height=600';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
             var inputObj = {
                 rate: rate
             };
@@ -252,7 +257,19 @@
             this.getPluSetListObj().datasource = panelView;
         },
 
+        _setCondimentGroup: function () {
+            var cond_group = document.getElementById('cond_group').value;
+            var cond_group_name = '';
 
+            if (cond_group != null) {
+                var condGroupModel = new CondimentGroupModel();
+                var condGroup = condGroupModel.findById(cond_group);
+                if (condGroup) {
+                    cond_group_name = condGroup.name;
+                }
+            }
+            document.getElementById('cond_group_name').value = cond_group_name;
+        },
 
         getPlu: function (){
 
@@ -288,6 +305,40 @@
                     alert(_('Product not found (%S).', [inputObj.input0]));
                 }
             }
+
+        },
+
+        initDefaultTax: function () {
+
+            // make sure tax rate field is always populated
+            var rate;
+            var taxes = GeckoJS.Session.get('taxes');
+            if (taxes == null) taxes = this.Tax.getTaxList();
+
+            // set rate to system default
+            var taxid = GeckoJS.Configure.read('vivipos.fec.settings.DefaultTaxStatus');
+            if (taxid == null) {
+                if (taxes && taxes.length > 0) taxid = taxes[0].id;
+            }
+
+            // go from rate ID to rate no
+            for (var i = 0; i < taxes.length; i++) {
+                if (taxes[i].id == taxid) {
+                    rate = taxes[i].no;
+                    break;
+                }
+            }
+            $('#rate')[0].setAttribute('default', rate);
+
+            // look up rate_name from rate id
+            var rate_name = rate;
+            for (var i = 0; i < taxes.length; i++) {
+                if (taxes[i].no == rate) {
+                    rate_name = taxes[i].name;
+                    break;
+                }
+            }
+            $('#rate_name')[0].setAttribute('default', rate_name);
 
         },
 
@@ -328,6 +379,7 @@
         setInputData: function (valObj) {
             GeckoJS.FormHelper.unserializeFromObject('productForm', valObj);
             this._setPluSet();
+            this._setCondimentGroup();
             if (valObj) {
                 document.getElementById('pluimage').setAttribute('src', 'chrome://viviecr/content/skin/pluimages/' + valObj.no + '.png?' + Math.random());
             }
@@ -338,25 +390,25 @@
             var result = 0;
             if (data.no.length <= 0) {
                 // @todo OSD
-                OsdUtils.warn(_('Product No. must not be empty.'));
+                NotifyUtils.warn(_('Product No. must not be empty.'));
                 result = 3;
             } else if (data.name.length <= 0) {
-                OsdUtils.warn(_('Product Name must not be empty.'));
+                NotifyUtils.warn(_('Product Name must not be empty.'));
                 result = 4;
             } else {
                 if (prods)
                     for (var i = 0; i < prods.length; i++) {
                         var o = prods[i];
                         if (o.no == data.no && data.id == null) {
-                            OsdUtils.warn(_('The Product No. [%S] already exists; product not added.', [data.no]));
+                            NotifyUtils.warn(_('The Product No. [%S] already exists; product not added.', [data.no]));
                             return 1;
                         } else if (o.name == data.name) {
                             if (data.id == null) {
-                                OsdUtils.warn(_('The Product Name [%S] already exists; product not added.', [data.name]));
+                                NotifyUtils.warn(_('The Product Name [%S] already exists; product not added.', [data.name]));
                                 return 2;
                             }
                             else if (data.id != o.id) {
-                                OsdUtils.warn(_('The Product Name [%S] already exists; product not modified.', [data.name]));
+                                NotifyUtils.warn(_('The Product Name [%S] already exists; product not modified.', [data.name]));
                                 return 2;
                             }
                             break;
@@ -409,7 +461,7 @@
                     }
                     catch (e) {
                         // @todo OSD
-                        OsdUtils.error(_('An error occurred while adding Product [%S]; the product may not have been added successfully', [inputData.name]));
+                        NotifyUtils.error(_('An error occurred while adding Product [%S]; the product may not have been added successfully', [inputData.name]));
                     }
                 }
             }
@@ -439,7 +491,7 @@
                 }
                 catch (e) {
                     // @todo OSD
-                    OsdUtils.error(_('An error occurred while modifying Product [%S]\nThe product may not have been modified successfully', [product.name]));
+                    NotifyUtils.error(_('An error occurred while modifying Product [%S]\nThe product may not have been modified successfully', [product.name]));
                 }
             }
         },
@@ -470,7 +522,7 @@
                     }
                     catch (e) {
                         // @todo OSD
-                        OsdUtils.error(_('An error occurred while removing Product [%S]\nThe product may not have been removed successfully', [product.name]));
+                        NotifyUtils.error(_('An error occurred while removing Product [%S]\nThe product may not have been removed successfully', [product.name]));
                     }
                 }
             }

@@ -1,5 +1,3 @@
-var doRestart = false;
-
 (function(){
 
  /**
@@ -35,15 +33,6 @@ var doRestart = false;
         
             document.getElementById(cn + 'Panel').datasource = window.viewHelper ;
         });
-
-        // observer restart topic
-        this.observer = GeckoJS.Observer.newInstance({
-            topics: ['prepare-to-restart'],
-
-            observe: function(aSubject, aTopic, aData) {
-                doRestart = true;
-            }
-        }).register();
     };
 
     window.addEventListener('load', startup, true);
@@ -71,9 +60,5 @@ function launchControl(panel) {
 
 function savePreferences() {
     GeckoJS.Configure.savePreferences('vivipos');
-
-    if (doRestart) {
-        GeckoJS.Observer.notify(null, 'application-restart', this);
-    }
     window.close();
 }

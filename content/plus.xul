@@ -98,7 +98,8 @@
                                                 </row>
                                                 <row>
                                                     <label value="&plus.product.condiments;"/>
-                                                    <textbox id="cond_group" value="" form="productForm" name="cond_group" readonly="true" onclick="$do('getCondiment',this.selectedIndex,'Plus');"/>
+                                                    <textbox id="cond_group_name" value="" form="productForm" name="cond_group_name" readonly="true" onclick="$do('getCondiment',this.selectedIndex,'Plus');"/>
+                                                    <label hidden="true" id="cond_group" value="" form="productForm" name="cond_group"/>
                                                 </row>
                                             </rows>
                                         </grid>

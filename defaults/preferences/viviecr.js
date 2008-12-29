@@ -39,7 +39,7 @@ pref("vivipos.fec.settings.controlpanels.product.departments.roles", "acl_manage
 pref("vivipos.fec.settings.controlpanels.product.plus.label", "Products");
 pref("vivipos.fec.settings.controlpanels.product.plus.path", "chrome://viviecr/content/plus.xul");
 pref("vivipos.fec.settings.controlpanels.product.plus.icon", "chrome://viviecr/content/skin/icons/help-about.png");
-pref("vivipos.fec.settings.controlpanels.product.plus.roles", "acl_public_access");
+pref("vivipos.fec.settings.controlpanels.product.plus.roles", "acl_manage_products");
 
 pref("vivipos.fec.settings.controlpanels.config.taxes.label", "Taxes");
 pref("vivipos.fec.settings.controlpanels.config.taxes.path", "chrome://viviecr/content/taxes.xul");
@@ -206,7 +206,7 @@ pref("vivipos.fec.registry.function.programmable.cash.command", "cash");
 pref("vivipos.fec.registry.function.programmable.cash.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.cash.data", "");
 
-pref("vivipos.fec.registry.function.programmable.keypress.access", "acl_register");
+pref("vivipos.fec.registry.function.programmable.keypress.access", "acl_send_keypress");
 pref("vivipos.fec.registry.function.programmable.keypress.command", "sendCharcode");
 pref("vivipos.fec.registry.function.programmable.keypress.controller", "Keypad");
 pref("vivipos.fec.registry.function.programmable.keypress.data", "");

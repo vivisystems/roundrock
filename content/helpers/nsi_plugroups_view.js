@@ -9,7 +9,7 @@
 
             var data = this.data;
             selectedItems.forEach(function(idx){
-                selectedItemsStr.push(data[idx].name);
+                selectedItemsStr.push(data[idx].id);
             });
 
             return selectedItemsStr.join(',');
@@ -20,10 +20,10 @@
             var selectedItemsStr = items.split(',');
             var selectedItems = [];
 
-            var dataNameIndex = GeckoJS.Array.objectExtract(this.data, '{n}.name');
+            var dataIdIndex = GeckoJS.Array.objectExtract(this.data, '{n}.id');
 
-            selectedItemsStr.forEach(function(name){
-                var index = GeckoJS.Array.inArray(name, dataNameIndex);
+            selectedItemsStr.forEach(function(id){
+                var index = GeckoJS.Array.inArray(id, dataIdIndex);
                 if (index != -1) selectedItems.push(index);
             });
             this.tree.selectedItems = selectedItems;

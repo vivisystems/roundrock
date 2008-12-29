@@ -1,5 +1,6 @@
 (function(){
     GeckoJS.include('chrome://viviecr/content/models/job.js');
+    GeckoJS.include('chrome://viviecr/content/models/user.js');
 
     // include controllers  and register itself
 

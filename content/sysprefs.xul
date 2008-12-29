@@ -16,11 +16,6 @@
     <!-- users.js & taxes.js must load before sysprefs.js -->
     <script type="application/x-javascript" src="chrome://viviecr/content/sysprefs.js" />
 
-    <script type="application/x-javascript">
-        alert(window.outerWidth + 'x' + window.outerHeight);
-        window.resizeTo(window.outerWidth, window.outerHeight);
-    </script>
-
     <prefpane id="generalSettingsPane" label="&category.general;" image="chrome://viviecr/content/skin/icons/stock_print-setup.png">
         <preferences>
             <preference id="pref_publicattendance" name="vivipos.fec.settings.PublicAttendance" type="bool" />
