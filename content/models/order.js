@@ -14,6 +14,9 @@ var OrderModel = window.OrderModel =  GeckoJS.Model.extend({
         this.saveOrderAdditions(data);
         this.saveOrderPayments(data);
 
+        // serialize to database
+        this.serializeOrder(data);
+
 
     },
 
@@ -211,6 +214,12 @@ var OrderModel = window.OrderModel =  GeckoJS.Model.extend({
             orderPayment['order_items_count'] = data.items_count;
             orderPayment['order_total'] = data.total;
 
+            orderPayment['service_clerk'] = data.service_clerk;
+            orderPayment['proceeds_clerk'] = data.proceeds_clerk;
+
+            orderPayment['service_clerk_displayname'] = data.service_clerk_displayname;
+            orderPayment['proceeds_clerk_displayname'] = data.proceeds_clerk_displayname;
+
             orderPayments.push(orderPayment);
 
         }
@@ -221,11 +230,24 @@ var OrderModel = window.OrderModel =  GeckoJS.Model.extend({
     
 
     serializeOrder: function (data) {
-        this.OrderObject.save(data);
+
+        var obj = GeckoJS.BaseObject.serialize(data);
+        var orderObj = {order_id: data.id, object: obj};
+        this.OrderObject.save(orderObj);
+
     },
 
-    unserializeOrder: function () {
+    unserializeOrder: function (order_id) {
+        try {
+            var orderObject = this.OrderObject.find('first', {conditions:"order_id='"+order_id+"'"});
+            if(orderObject) {
+                return GeckoJS.BaseObject.unserialize(orderObject.object);
+            }
+        }catch(e) {
+            
+        }
 
+        return null;
     },
 
     beforeSave: function(evt) {

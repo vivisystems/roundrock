@@ -7,6 +7,7 @@
 
 #numberpadPanelContainer {
     margin: 0px 0px 2px 0px;
+    border-left: 0px dotted #908c83;
 }
 
 /*-----------------------------------------------------------------------------
@@ -41,11 +42,6 @@
 
 .fixedbtn:active {
     background: transparent url(images/funBtn_a.png) center center no-repeat;
-}
-
-.fixedbtn[disabled=true] {
-    background: url(images/btn_gray.png);
-    background-position:0pt -64px;
 }
 
 /* adjustments to make fixed function buttons line up */
@@ -100,7 +96,8 @@
  */
 
 #toolbar {
-    border: 1px dotted #908c83;
+    border-left: 1px dotted #908c83;
+    border-right: 1px dotted #908c83;
     margin-left: 0px;
 }
 
@@ -108,7 +105,6 @@
 
 .togglenumpad {
   border: 0px solid;
-  background: transparent url(images/minimize.png) 0 0 no-repeat;
   max-height: 32px;
   min-height: 32px;
   max-width: 32px;
@@ -121,17 +117,7 @@
 }
 
 .togglenumpad[state=true] {
-  border: 0px solid;
-  background: transparent url(images/minimize.png) 0 0 no-repeat;
-  max-height: 32px;
-  min-height: 32px;
-  max-width: 32px;
-  min-width: 32px;
-  height: 32px;
-  width: 32px;
-  margin: 2px;
-  -moz-user-focus: ignore;
-  -moz-appearance: none;
+  background: transparent url(images/maximize.png) 0 0 no-repeat;
 }
 
 .togglenumpad[state=true]:active {
@@ -139,7 +125,7 @@
 }
 
 .togglenumpad[state=false] {
-    background: transparent url(images/maxm.png) 0 0 no-repeat;
+    background: transparent url(images/minimize.png) 0 0 no-repeat;
 }
 
 .togglenumpad[state=false]:active {
@@ -149,13 +135,9 @@
 /* Number Pad clockin/out button */
 
 .clockinout {
-    background-image: url(images/clock.png);
-    background-position: center center;
-    background-repeat: no-repeat;
+    background: transparent url(images/clock.png) center center no-repeat;
 }
 
 .options {
-    background-image: url(images/option.png);
-    background-position: center center;
-    background-repeat: no-repeat;
+    background: transparent url(images/option.png) center center no-repeat;
 }

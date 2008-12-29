@@ -1,15 +1,18 @@
 .orderstatus {
-    border-width: 1px 0px 0px 0px;
-    border-style: solid;
-    border-color: #def44a;
-    border-bottom: 1px solid #ffffff;
-    background-color: #28231f;
+    border-top: 1px solid #def44a;
+    border-bottom: 2px solid #ffffff;
     max-height: 30px;
     -moz-appearance: none;
+}
+.orderstatus .orderstatus {
+  border: none;
 }
 
 .orderstatus separator {
     width: 1px;
+    -moz-appearance: none;
+    background: #def44a;
+    border: none;
 }
 
 .orderstatus_field_label {

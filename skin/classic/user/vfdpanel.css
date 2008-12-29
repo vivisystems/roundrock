@@ -4,19 +4,22 @@
 
 @namespace html url("http://www.w3.org/1999/xhtml");
 
-.vbox_vfd {
+.vfdPad {
   background-color: #28231f;
-  border: 0px solid black;
   border-left: 1px solid #564e47;
+  border-right: 1px solid #564e47;
+}
+
+.vbox_vfd {
   padding: 3px;
   margin-left: 0px;
-  height: 46px;
-  }
+  height: 26px;
+}
 
 .label_vfd {
   color: #def44a;
   font-size: 15pt;
   font-family: monospace;
-  /*font-weight: bold !important;*/
-  }
+  font-weight: bold !important;
+}
 

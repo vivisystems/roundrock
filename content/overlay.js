@@ -22,6 +22,21 @@
 
         }
 
+        // observer restart topic
+        this.observer = GeckoJS.Observer.newInstance({
+            topics: ['application-restart'],
+
+            observe: function(aSubject, aTopic, aData) {
+                try {
+                    var chromeRegInstance = Components.classes["@mozilla.org/chrome/chrome-registry;1"].getService();
+                    var xulChromeReg = chromeRegInstance.QueryInterface(Components.interfaces.nsIXULChromeRegistry);
+                    xulChromeReg.reloadChrome();
+
+                } catch(err) {
+                }
+            }
+        }).register();
+
         $do('initial', null, "Main");
     };
 

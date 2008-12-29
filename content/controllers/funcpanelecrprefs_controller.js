@@ -201,7 +201,7 @@
                 btnstyles[r + 'x' + c] = color;
             }
         this.panel.setButtonstyles(this.panel.currentPage, btnstyles, true);
-        this.panel.setSelection(false);
+        //this.panel.setSelection(false);
     },
     
     // set button fontsize
@@ -228,7 +228,7 @@
                 fontsizes[r + 'x' + c] = fontsize;
             }
         this.panel.setButtonfontsizes(this.panel.currentPage, fontsizes, true);
-        this.panel.setSelection(false);
+        //this.panel.setSelection(false);
     },
     
     // update link label
@@ -776,7 +776,14 @@
         this.panel = panel;
         //GREUtils.log('[PREFS][STARTUP]: panel found <' + this.panel.tagName + '>');
 
-        // get size information
+        // get initial size
+        var parentHeight = this.panel.parentNode.boxObject.height - 20;
+        var parentWidth = this.panel.parentNode.boxObject.width - 20;
+
+        this.panel.width = parentWidth;
+        this.panel.height = parentHeight;
+
+        // get display information
         var maxpage = panel.getAttribute('maxpage');
         var rows = panel.getAttribute('rows');
         var columns = panel.getAttribute('columns');
@@ -828,7 +835,7 @@
         //GREUtils.log('[PREFS][STARTUP]: programmable functions <' + GeckoJS.BaseObject.dump(functionArray) + '>');
 
         this.selectedIndex = -1;
-        this.panel.setAttribute('mode', 'noop');
+        this.panel.setAttribute('mode', 'configure');
         
         // apply size information
         document.getElementById('vivifuncpanelecr_prefs_maxpage').value = maxpage;
@@ -868,11 +875,7 @@
         panel.addEventListener('vivifuncpanelecrSelectionChanged', function(evt) {
                                                                       self.handleSelectionChanged(evt);
                                                                    }, false);
-
-        // get size of function description label and set its width to enable text-breaks
-        //var descbox = document.getElementById('vivifuncpanelecr_prefs_keymap_function_desc');
-        //var descWidth = descbox.width * 0.95;
-        //descbox.style.width = descWidth + 'px';
+        this.panel.setAttribute('mode', 'noop');
     }
 
   });

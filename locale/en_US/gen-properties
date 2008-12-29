@@ -1,0 +1,3 @@
+#!/bin/sh
+
+msginit -i messages.pot -o messages.po -p

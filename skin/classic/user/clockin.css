@@ -162,6 +162,10 @@
     color: white;
 }
 
+.numberpad sendkeybutton:active{
+    background: transparent url(images/numbtn_tall_a.png);
+}
+
 .systembtn {
     min-width:70px;
     max-width:70px;
@@ -188,7 +192,7 @@
     background: transparent url(images/funBtn4.png) center center no-repeat;
 }
 
-.systembtn[disabled=false]:active {
+.systembtn:active {
     background: transparent url(images/funBtn4_a.png) center center no-repeat;
 }
 
@@ -218,7 +222,7 @@
     border: none;
 }
 
-.clockinoutbtn[disabled=false]:active {
+.clockinoutbtn:active {
 	background: transparent url(images/clockin_a.gif) no-repeat center center;
 }
 
@@ -251,7 +255,7 @@
     border: none;
 }
 
-.clockinoutbtn2[disabled=false]:active {
+.clockinoutbtn2:active {
 	background: transparent url(images/viewatt_a.gif) no-repeat center center;
 }
 
@@ -338,7 +342,7 @@
 
 .jobpad {
 	background: transparent url(images/jobpad.png) left top no-repeat;
-	padding: 60px 0 0 14px;
+	padding: 62px 0 0 14px;
 	width: 160px;
 	min-width: 160px;
     min-height:310px;
@@ -355,6 +359,12 @@
 }
 
 .jobBtn {
+	width: 143px;
+	height: 34px;
+	max-height: 34px;
+	min-height: 34px;
+	max-width: 143px;
+	min-width: 143px;	
 	color: #424242;
 	font-size: 14px;
 	font-weight: bold;
@@ -363,8 +373,8 @@
 	background: transparent;
 	margin: 0px;
 	padding: 0px;
-    -moz-box-pack: start;
-    -moz-box-align: baseline;
+    /*-moz-box-pack: start;
+    -moz-box-align: baseline;*/
 }
 
 .jobBtn[disabled=false]:active{
@@ -374,12 +384,17 @@
 
 .jobBtn[selected]{
 	color: #336489;
-	background: transparent url(images/gtk-yes.png) left center no-repeat;
+	background: transparent url(images/jobsel.png) left center no-repeat;
 }
 
-.jobBtn description {
+/*.jobBtn description {
     text-align: start;
+}*/
+.jobBtn .button-text{
+	text-align: left;
+	padding-left: 25px;
 }
+
 /*job scroll button*/
 
 .jobupBtn {
@@ -452,14 +467,16 @@ listbox {
     -moz-appearance: none;
 }
 
-listbox #clockin_time {
+listbox listcol {
     min-width: 55px;
     max-width: 55px;
+    width: 55px;
 }
 
-listbox #clockout_time {
-    min-width: 55px;
-    max-width: 55px;
+listbox listcol:last-child {
+    min-width: 111px;
+    max-width: 111px;
+    width: 111px;
 }
 
 	/* Attendance �C�� Scorll bar �W�U���� */
@@ -487,4 +504,3 @@ listbox #clockout_time {
 .jobsummaryDownbtn:active {
 	background: transparent url(images/jobdownbtn_a.png) center center no-repeat;
 }
-

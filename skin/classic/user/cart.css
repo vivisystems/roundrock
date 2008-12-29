@@ -14,13 +14,18 @@
     background: transparent;
 }
 
+.cartList .cartList {
+    border: none;
+}
+
 /*-----------------------------------------------------------------------------
  * SHOPPING CART scrollbar
  *-----------------------------------------------------------------------------
  */
 
 .cartList .scrollablepanel-scrollbar {
-    border: 1px dotted #908c83;
+    border-left: 1px dotted #908c83;
+    border-right: 1px dotted #908c83;
 }
 
 .cartList .scrollablepanel-scrollbar vivibutton {
@@ -33,43 +38,45 @@
 }
 
 .cartScrollUp {
-	border: 0px solid;
-	background: transparent url(images/chatup.png) 0 0 no-repeat;
-	max-height: 32px;
+    border: 0px solid;
+    background: transparent url(images/chatup.png) 0 0 no-repeat;
+    max-height: 32px;
     min-height: 32px;
     max-width: 32px;
     min-width: 32px;
-	height: 32px;
-	width: 32px;
-	margin: 4px;
-	-moz-user-focus: ignore;
-	-moz-appearance: none;
+    height: 32px;
+    width: 32px;
+    -moz-user-focus: ignore;
+    -moz-appearance: none;
+}
+.cartScrollUp[disabled=true] {
+    background-position: -64px 0;
 }
 
 .cartScrollUp[disabled=false]:active {
-	background-position:-32px 0;
+    background-position: -32px 0;
 }
 
+
 .cartScrollDown {
-	border: 0px solid;
-	background: transparent url(images/chatdown.png) 0 0 no-repeat;
-	max-height: 32px;
+    border: 0px solid;
+    background: transparent url(images/chatdown.png) 0 0 no-repeat;
+    max-height: 32px;
     min-height: 32px;
     max-width: 32px;
     min-width: 32px;
-	height: 32px;
-	width: 32px;
-	margin: 4px;
-	-moz-user-focus: ignore;
-	-moz-appearance: none;
+    height: 32px;
+    width: 32px;
+    -moz-user-focus: ignore;
+    -moz-appearance: none;
 }
 
 .cartScrollDown[disabled=false]:active {
-	background-position:-32px 0;
+    background-position:-32px 0;
 }
 
 .cartScrollUp description, .cartScrollDown description {
-	display: none;
+    display: none;
 }
 
 /*-----------------------------------------------------------------------------
@@ -88,7 +95,7 @@
 }
 
 .paymentdetailsbtn {
-     background-image: url(chrome://viviecr/skin/images/gnucash-icon.png);
+     background: transparent url(images/gnucash-icon.png) center center no-repeat;
 }
 
 /*-----------------------------------------------------------------------------
@@ -98,6 +105,26 @@
 
 .cartList tree {
     margin: 0px;
+    border: none;
+    border-left: 1px dotted #908c83;
+    -moz-appearance: none;
+}
+
+.cartList treecol {
+    background: #fdf9f6;
+    border: none;
+    border-bottom: 1px dotted #908c83;
+    border-right: 1px solid #bebebe;
+    -moz-border-right-colors: #bebebe;
+    -moz-border-bottom-colors: #908c83;
+    padding: 1px 2px; 
+    -moz-appearance: none;
+}
+
+.cartList .tree-splitter {
+    width: 1px;
+    -moz-appearance: none;
+    background: #bebebe;
 }
 
 .cartList treechildren{
@@ -105,7 +132,7 @@
 }
 
 treechildren::-moz-tree-row {
-  height: 28px;
+  height: 26px;
 }
 
 treechildren::-moz-tree-row(selected) {background-color: #991111; }
@@ -122,9 +149,14 @@ treechildren::-moz-tree-cell-text(treecellTOTAL) {color: yellow;}
 
 .cartList #name {
     text-align: left;
+    crop: none;
 }
 
-.cartList #current_qty, #current_price, #current_subtotal, #current_tax {
+.cartList #current_qty, #current_price, #current_subtotal {
+    text-align: right;
+}
+
+.cartList #current_tax {
     text-align: right;
 }
 
@@ -134,13 +166,13 @@ treechildren::-moz-tree-cell-text(treecellTOTAL) {color: yellow;}
  */
 
 .cartList tree #name {
-    max-width: 150px;
-    min-width: 150px;
+    max-width: 140px;
+    min-width: 140px;
 }
 
 .cartList tree #current_qty {
-    max-width: 50px;
-    min-width: 50px;
+    max-width: 60px;
+    min-width: 60px;
 }
 
 .cartList tree #current_price {
@@ -149,8 +181,8 @@ treechildren::-moz-tree-cell-text(treecellTOTAL) {color: yellow;}
 }
 
 .cartList tree #current_subtotal {
-    max-width: 90px;
-    min-width: 90px;
+    max-width: 100px;
+    min-width: 100px;
 }
 .cartList tree #current_tax {
 }

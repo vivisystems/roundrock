@@ -7,13 +7,12 @@
 
 .vivifuncpanelecr_function_panel {
     background: transparent;
-    height: 225px;
     margin: 0px 0px 0px 0px;
     padding: 0px 0px 0px 0px;
 }
 
 .vivifuncpanelecr_spacer {
-    min-width: 0px;
+    min-width: 2px;
     margin: 0px 0px 0px 0px;
     padding: 0px 0px 0px 0px;
 }
@@ -24,13 +23,15 @@
  */
 
 .vivifuncpanelecr_button_panel {
-    border-width: 0px;
-    border-style: solid;
-    border-color: green;
+    border: none;
     margin: 0px 0px 0px 0px;
-    padding: 0px 0px 0px 0px;
+    padding: 0px;
 }
-
+/*
+.vivifuncpanelecr_button_panel .vivifuncpanelecr_button_panel {
+    padding: 4px 8px 0px 4px;
+}
+*/
 /*-----------------------------------------------------------------------------
  * Function Panel mapped buttons
  *-----------------------------------------------------------------------------
@@ -47,11 +48,8 @@
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-background-clip: border;
-    border: 2px solid;
-}
-
-.vivifuncpanelecr_matrix_button_mapped[disabled=true] {
-    border: 0px solid;
+    border: none;
+    -moz-border-radius: 2px;
 }
 
 /*-----------------------------------------------------------------------------
@@ -71,10 +69,10 @@
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-background-clip: border;
-    border: 0px solid;
+    border: none;
+    -moz-border-radius: 2px;
     background: #e1ddd2;
 }
-
 
 /*-----------------------------------------------------------------------------
  * Function Panel configure-mode buttons
@@ -94,11 +92,9 @@
     -moz-user-focus: ignore;
     -moz-background-clip: border;
     border-width: 2px;
-    border-style: solid;
+    -moz-border-radius: 2px;
 }
 
-.vivifuncpanelecr_matrix_button_configure[disabled=true] {
-}
 
 /*-----------------------------------------------------------------------------
  * Function Panel control panel
@@ -108,7 +104,7 @@
 .vivifuncpanelecr_control_panel {
     min-width: 34px;
     max-width: 34px;
-    margin: 0px 0px 0px 0px;
+    margin: 0px 0px 2px 0px;
     padding: 0px 0px 0px 0px;
     overflow: hidden;
     border-left: 1px dotted #908c83;
@@ -134,8 +130,9 @@
     -moz-background-clip: border;
     border: 0px;  
 }
+
 .vivifuncpanelecr_control_scroll_left[disabled=false]:active {
-	background: transparent url(images/funUp_a.png) center center no-repeat;
+    background: transparent url(images/funUp_a.png) center center no-repeat;
 }
 
 .vivifuncpanelecr_control_scroll_right {

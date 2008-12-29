@@ -1,3 +1,10 @@
+/*-----------------------------------------------------------------------------
+ *
+ * Function Panel Configuration
+ *
+ *-----------------------------------------------------------------------------
+ */
+
 .label_general {
   margin-top: 10px;
 }
@@ -81,7 +88,6 @@ separator {
   border-color: black;
   border-style: solid;
   border-width:1px;
-  max-width: 360px;
 }
 
 .buttoncolor_baseclass {

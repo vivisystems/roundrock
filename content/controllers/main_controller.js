@@ -99,8 +99,8 @@
             var aArguments = "";
             var posX = 0;
             var posY = 0;
-            var width = 800;
-            var height = 600;
+            var width = this.screenwidth;
+            var height = this.screenheight;
             //$do('load', null, 'Categories');
             GREUtils.Dialog.openDialog(window, aURL, aName, aArguments, posX, posY, width, height);
         },
@@ -110,11 +110,16 @@
             var aURL = "chrome://viviecr/content/selectqueue.xul";
             var aName = "SelectQueue";
             var aArguments = "";
+            /*
             var posX = (this.screenwidth - 640) / 2;
             var posY = (this.screenheight - 480) / 2;
             var width = 640;
             var height = 480;
-
+            */
+            var posX = 0;
+            var posY = 0;
+            var width = this.screenwidth;
+            var height = this.screenheight;
             var args = {
                 result: false,
                 data: null
@@ -224,7 +229,6 @@
             var toolbar = document.getElementById('toolbar');
             var toggleBtn = document.getElementById('toggleNumPad');
             var fixedRow = document.getElementById('fixedbtnrow');
-            var fixedRow1 = document.getElementById('fixedbtnrow1');
             var clockinBtn = document.getElementById('clockin');
             var optionsBtn = document.getElementById('options');
             var spacer = document.getElementById('spacer');
@@ -248,6 +252,7 @@
                     toggled = true;
                 }
                 if (toggleBtn) toggleBtn.setAttribute('state', 'true');
+                fixedRow.selectedIndex = 1;
             }
             else {
                 // if already visible then don't change
@@ -269,6 +274,7 @@
                     toggled = true;
                 }
                 if (toggleBtn) toggleBtn.setAttribute('state', 'false');
+                fixedRow.selectedIndex = 0;
             }
             GeckoJS.Configure.write('vivipos.fec.settings.HideNumPad', hideNumPad);
 
@@ -359,13 +365,7 @@
                 var totalHeight = deptPanel.boxObject.height - (- pluPanel.boxObject.height);
                 var panelSpacerWidth = (panelSpacer) ? panelSpacer.boxObject.width : 0;
                 var fnWidth = this.screenwidth - rightPanel.boxObject.width - panelSpacerWidth;
-                var fnHeight = this.screenheight - totalHeight - btmBox.boxObject.height - 8;
-                // @todo hack to adjust initial fn size
-                var registerAtLeft = GeckoJS.Configure.read('vivipos.fec.settings.RegisterAtLeft') || false;
-                if (initial) {
-                    if (registerAtLeft) fnWidth -= 1;
-                    else fnWidth -= 3;
-                }
+                var fnHeight = this.screenheight - totalHeight - btmBox.boxObject.height - 7;
 
                 if (fnHeight < 1) {
                     fnPanel.setAttribute('height', 0);
@@ -524,6 +524,29 @@
             this.requestCommand('clear', null, 'Cart');
             
             //GREUtils.log('[SWITCH]: new user <' + newUser + '> password <' + buf + '>');
+
+            // we allow newUser to be either username or displayname
+            var userModel = new UserModel();
+            var users = userModel.findByIndex('all', {
+                index: 'username',
+                value: newUser
+            });
+            if (users == null || users.length == 0) {
+                // no match found by username, let's try display name
+                users = userModel.findByIndex('all', {
+                    index: 'displayname',
+                    value: newUser
+                });
+
+                if (users == null || users.length == 0) {
+                    //@todo silent user switch successful
+                    OsdUtils.error(_('[%S] does not exist!', [newUser]));
+                    return;
+                }
+                else {
+                    newUser = users[0].username;
+                }
+            }
             if (buf.length>0) {
                 if (this.Acl.securityCheck(newUser, buf, true)) {
                     var aclUser = this.Acl.getUserPrincipal();
@@ -566,19 +589,21 @@
             var mustEmptyQueue = GeckoJS.Configure.read('vivipos.fec.settings.mustemptyqueue');
             var shiftReportOnSignOff = GeckoJS.Configure.read('vivipos.fec.settings.shiftreportonsignoff');
             var shiftReportOnQuickSwitch = GeckoJS.Configure.read('vivipos.fec.settings.shiftreportonquickswitch');
-
+            var cart = GeckoJS.Controller.getInstanceByName('Cart');
+            var txn = GeckoJS.Session.get('current_transaction');
+            var cartEmpty = (txn == null) || (txn.isSubmit()) || (txn.getItemsCount() <= 0);
             var principal = this.Acl.getUserPrincipal();
+
             if (principal) {
                 var canQueueOrder = quickSignoff || (GeckoJS.Array.inArray('acl_queue_order', principal.Roles) != -1);
-                var txn = GeckoJS.Session.get('current_transaction');
 
                 if (!quickSignoff) {
-                    var promptDiscardCart = (txn != null) && (!txn.isSubmit()) && (txn.getItemsCount() > 0) && (!autoDiscardCart);
+                    var promptDiscardCart = !cartEmpty && (!autoDiscardCart);
                     var responseDiscardCart = 2;  // 0: queue, 1: discard, 2: cancel
 
                     if (promptDiscardCart) {
                         if (autoDiscardQueue || mustEmptyQueue || !canQueueOrder) {
-                            if (!GREUtils.Dialog.confirm(null, 'Sign Off', 'Discard items that have been registered?')) return;
+                            if (!GREUtils.Dialog.confirm(null, _('Sign Off'), _('Discard items that have been registered?'))) return;
                             responseDiscardCart = 1;
                         }
                         else {
@@ -590,8 +615,8 @@
                                         prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING  +
                                         prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_CANCEL;
 
-                            var responseDiscardCart = prompts.confirmEx(null, "Sign Off", "What do you want to do with the registered items?",
-                                                                        flags, "Queue", "Discard", "", null, check);
+                            var responseDiscardCart = prompts.confirmEx(null, _('Sign Off'), _('What do you want to do with the registered items?'),
+                                                                        flags, _('Queue'), _('Discard'), "", null, check);
                             if (responseDiscardCart == 2) return;
                         }
                     }
@@ -599,12 +624,11 @@
                         responseDiscardCart = 1;
                     }
                     var responseDiscardQueue = 1; // 0: keep; 1: discard'
-                    var cart = GeckoJS.Controller.getInstanceByName('Cart');
                     var promptDiscardQueue = !autoDiscardQueue && (responseDiscardCart != 0) && cart._hasUserQueue(principal);
 
                     if (promptDiscardQueue) {
                         if (mustEmptyQueue) {
-                            if (GREUtils.Dialog.confirm(null, "Sign Off", "You have one or more queued orders. Discard them?") == false) {
+                            if (GREUtils.Dialog.confirm(null, _('Sign Off'), _('You have one or more queued orders. Discard them?')) == false) {
                                 return;
                             }
                         }
@@ -617,8 +641,8 @@
                                         prompts.BUTTON_POS_1 * prompts.BUTTON_TITLE_IS_STRING  +
                                         prompts.BUTTON_POS_2 * prompts.BUTTON_TITLE_CANCEL;
 
-                            var responseDiscardQueue = prompts.confirmEx(null, "Sign Off", "You have one or more queued orders. What do you want to do with them?",
-                                                                        flags, "Keep", "Discard", "", null, check);
+                            var responseDiscardQueue = prompts.confirmEx(null, _('Sign Off'), _('You have one or more queued orders. What do you want to do with them?'),
+                                                                        flags, _('Keep'), _('Discard'), "", null, check);
                             if (responseDiscardQueue == 2) return;
                         }
                     }
@@ -627,15 +651,15 @@
                     }
 
                     if (!promptDiscardCart && !promptDiscardQueue)
-                        if (GREUtils.Dialog.confirm(null, "confirm sign-off", "Are you ready to sign off?") == false) {
+                        if (GREUtils.Dialog.confirm(null, _('confirm sign-off'), _('Are you ready to sign off?')) == false) {
                             return;
                     }
                 }
                 else {
 
                     // quick sign-off, don't prompt, just queue order
-                    responseDiscardCart = 0;
-                    responseDiscardQueue = 0;
+                    responseDiscardCart = (autoDiscardCart) ? 1 : 0;
+                    responseDiscardQueue = (autoDiscardQueue || mustEmptyQueue) ? 1 : 0;
                 }
 
                 // @todo
@@ -643,15 +667,16 @@
                 if ((shiftReportOnSignOff && !quickSignoff) || (shiftReportOnQuickSwitch && quickSignoff)) {
                     alert('print shift report');
                 }
-                
-                if (responseDiscardCart == 1) {
-                    $do('cancel', null, 'Cart');
-                    $do('clear', null, 'Cart');
+
+                if (!cartEmpty) {
+                    if (responseDiscardCart == 1) {
+                        $do('cancel', null, 'Cart');
+                    }
+                    else {
+                        $do('pushQueue', null, 'Cart');
+                    }
                 }
-                else {
-                    $do('pushQueue', null, 'Cart');
-                    $do('clear', null, 'Cart');
-                }
+                $do('clear', null, 'Cart');
 
                 if (responseDiscardQueue == 1) {
                     cart._removeUserQueue(principal);

@@ -19,7 +19,7 @@
             <hbox flex="1">
             <!-- vivifuncpanel -->
                 <vbox id="vivifuncpanelecr_prefs_preview_box" class="preview_box" pack="center" flex="1">
-                    <hbox pack="center" flex="0">
+                    <hbox pack="center" flex="1" align="center">
                         <spacer width="5"/>
                         <vivifuncpanelecr
                             id="vivifuncpanelecr_prefs"
@@ -30,7 +30,7 @@
                             maxpage="3"
                             wrap="0"
                             flex="1"
-                            mode="normal"
+                            mode="configure"
                             restrictMode="normal"
                             disabled="false"
                             prefix="vivipos.fec.settings.functionpanel"
