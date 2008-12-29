@@ -171,6 +171,7 @@
         },
 
         addItem: function(plu) {
+
             var item = GREUtils.extend({}, plu);
 
             // not valid plu item.
@@ -1053,6 +1054,7 @@
 
             if (buf.length>0 && currencies && currencies.length > convertIndex) {
                 var amount = parseFloat(buf);
+                var origin_amount = amount;
                 // currency convert array
                 var currency_rate = currencies[convertIndex].currency_exchange;
                 var memo1 = currencies[convertIndex].currency + ':' + amount;
@@ -1060,7 +1062,7 @@
                 amount = amount * currency_rate;
                 this._getKeypadController().clearBuffer();
                 
-                this.addPayment('cash', amount, memo1, memo2);
+                this.addPayment('cash', amount, origin_amount, memo1, memo2);
             }
             else {
                 if (buf.length==0) {
@@ -1149,7 +1151,7 @@
             if (inputObj) {
                 var memo1 = inputObj.input0 || '';
                 var memo2 = inputObj.input1 || '';
-                this.addPayment('creditcard', payment, memo1, memo2);
+                this.addPayment('creditcard', payment, payment, memo1, memo2);
             }
             this.clear();
 
@@ -1195,13 +1197,13 @@
             if (inputObj) {
                 var memo1 = inputObj.input0 || '';
                 var memo2 = inputObj.input1 || '';
-                this.addPayment('giftcard', payment, memo1, memo2);
+                this.addPayment('giftcard', payment, payment, memo1, memo2);
             }
             this.clear();
 
         },
 
-        addPayment: function(type, amount, memo1, memo2) {
+        addPayment: function(type, amount, origin_amount, memo1, memo2) {
 
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
@@ -1237,13 +1239,16 @@
                 amount = curTransaction.getRemainTotal();
             }
 
+            origin_amount = typeof origin_amount == 'undefined' ? amount : origin_amount;
+
             var paymentItem = {
                 type: type,
-                amount: amount
+                amount: amount,
+                origin_amount: origin_amount
             };
             this.dispatchEvent('beforeAddPayment', paymentItem);
 
-            var paymentedItem = curTransaction.appendPayment(type, amount, memo1, memo2);
+            var paymentedItem = curTransaction.appendPayment(type, amount, origin_amount, memo1, memo2);
 
             this.dispatchEvent('afterAddPayment', paymentedItem);
 
@@ -1846,6 +1851,18 @@
 
             var curTransaction = new Transaction();
             curTransaction.data = data ;
+            this._setTransactionToView(curTransaction);
+            curTransaction.updateCartView(-1, -1);
+            this.subtotal();
+
+        },
+
+        unserializeFromOrder: function(order_id) {
+            //
+            order_id = order_id || '04de7be5-9969-4756-8852-6f6eed2301a8';
+
+            var curTransaction = new Transaction();
+            curTransaction.unserializeFromOrder(order_id);
             this._setTransactionToView(curTransaction);
             curTransaction.updateCartView(-1, -1);
             this.subtotal();
