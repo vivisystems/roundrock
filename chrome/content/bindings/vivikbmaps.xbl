@@ -21,89 +21,83 @@
             <xul:vbox xbl:inherits="class,pack,width,height,disabled,flex">
                 <xul:menulist anonid="kbmaps-menulist" oncommand="updateKbmap(event)">
                     <xul:menupopup style="height: 300px;">
-                        <xul:menuitem label="USA" value="us" />
-                        <xul:menuitem label="Andorra" value="ad" />
-                        <xul:menuitem label="Afghanistan" value="af" />
-                        <xul:menuitem label="Arabic" value="ara" />
                         <xul:menuitem label="Albania" value="al" />
+                        <xul:menuitem label="Andorra" value="ad" />
+                        <xul:menuitem label="Arabic" value="ara" />
                         <xul:menuitem label="Armenia" value="am" />
                         <xul:menuitem label="Azerbaijan" value="az" />
+                        <xul:menuitem label="Bangladesh" value="bd" />
                         <xul:menuitem label="Belarus" value="by" />
                         <xul:menuitem label="Belgium" value="be" />
-                        <xul:menuitem label="Bangladesh" value="bd" />
-                        <xul:menuitem label="India" value="in" />
                         <xul:menuitem label="Bosnia and Herzegovina" value="ba" />
                         <xul:menuitem label="Brazil" value="br" />
                         <xul:menuitem label="Bulgaria" value="bg" />
-                        <xul:menuitem label="Morocco" value="ma" />
-                        <xul:menuitem label="Myanmar" value="mm" />
                         <xul:menuitem label="Canada" value="ca" />
-                        <xul:menuitem label="Congo, Democratic Republic of the" value="cd" />
                         <xul:menuitem label="China" value="cn" />
+                        <xul:menuitem label="Congo, Democratic Republic of the" value="cd" />
                         <xul:menuitem label="Croatia" value="hr" />
                         <xul:menuitem label="Czechia" value="cz" />
                         <xul:menuitem label="Denmark" value="dk" />
-                        <xul:menuitem label="Netherlands" value="nl" />
-                        <xul:menuitem label="Bhutan" value="bt" />
+                        <xul:menuitem label="Esperanto" value="epo" />
                         <xul:menuitem label="Estonia" value="ee" />
-                        <xul:menuitem label="Iran" value="ir" />
-                        <xul:menuitem label="Iraq" value="iq" />
+                        <xul:menuitem label="Ethiopia" value="et" />
                         <xul:menuitem label="Faroe Islands" value="fo" />
                         <xul:menuitem label="Finland" value="fi" />
                         <xul:menuitem label="France" value="fr" />
-                        <xul:menuitem label="Ghana" value="gh" />
-                        <xul:menuitem label="Guinea" value="gn" />
                         <xul:menuitem label="Georgia" value="ge" />
                         <xul:menuitem label="Germany" value="de" />
+                        <xul:menuitem label="Ghana" value="gh" />
                         <xul:menuitem label="Greece" value="gr" />
+                        <xul:menuitem label="Guinea" value="gn" />
                         <xul:menuitem label="Hungary" value="hu" />
                         <xul:menuitem label="Iceland" value="is" />
+                        <xul:menuitem label="India" value="in" />
+                        <xul:menuitem label="Iran" value="ir" />
+                        <xul:menuitem label="Iraq" value="iq" />
+                        <xul:menuitem label="Ireland" value="ie" />
                         <xul:menuitem label="Israel" value="il" />
                         <xul:menuitem label="Italy" value="it" />
                         <xul:menuitem label="Japan" value="jp" />
-                        <xul:menuitem label="Kyrgyzstan" value="kg" />
-                        <xul:menuitem label="Cambodia" value="kh" />
+                        <xul:menuitem label="Japan (PC-98xx Series)" value="nec_vndr_jp" />
                         <xul:menuitem label="Kazakhstan" value="kz" />
+                        <xul:menuitem label="Korea, Republic of" value="kr" />
+                        <xul:menuitem label="Kyrgyzstan" value="kg" />
                         <xul:menuitem label="Laos" value="la" />
                         <xul:menuitem label="Latin American" value="latam" />
                         <xul:menuitem label="Lithuania" value="lt" />
                         <xul:menuitem label="Latvia" value="lv" />
-                        <xul:menuitem label="Maori" value="mao" />
-                        <xul:menuitem label="Montenegro" value="me" />
                         <xul:menuitem label="Macedonia" value="mk" />
+                        <xul:menuitem label="Maldives" value="mv" />
                         <xul:menuitem label="Malta" value="mt" />
+                        <xul:menuitem label="Maori" value="mao" />
                         <xul:menuitem label="Mongolia" value="mn" />
+                        <xul:menuitem label="Montenegro" value="me" />
+                        <xul:menuitem label="Morocco" value="ma" />
+                        <xul:menuitem label="Nepal" value="np" />
+                        <xul:menuitem label="Netherlands" value="nl" />
+                        <xul:menuitem label="Nigeria" value="ng" />
                         <xul:menuitem label="Norway" value="no" />
+                        <xul:menuitem label="Pakistan" value="pk" />
                         <xul:menuitem label="Poland" value="pl" />
                         <xul:menuitem label="Portugal" value="pt" />
                         <xul:menuitem label="Romania" value="ro" />
                         <xul:menuitem label="Russia" value="ru" />
                         <xul:menuitem label="Serbia" value="rs" />
-                        <xul:menuitem label="Slovenia" value="si" />
                         <xul:menuitem label="Slovakia" value="sk" />
+                        <xul:menuitem label="Slovenia" value="si" />
+                        <xul:menuitem label="South Africa" value="za" />
                         <xul:menuitem label="Spain" value="es" />
                         <xul:menuitem label="Sweden" value="se" />
                         <xul:menuitem label="Switzerland" value="ch" />
                         <xul:menuitem label="Syria" value="sy" />
                         <xul:menuitem label="Tajikistan" value="tj" />
-                        <xul:menuitem label="Sri Lanka" value="lk" />
                         <xul:menuitem label="Thailand" value="th" />
                         <xul:menuitem label="Turkey" value="tr" />
                         <xul:menuitem label="Ukraine" value="ua" />
                         <xul:menuitem label="United Kingdom" value="gb" />
+                        <xul:menuitem label="USA" value="us" />
                         <xul:menuitem label="Uzbekistan" value="uz" />
                         <xul:menuitem label="Vietnam" value="vn" />
-                        <xul:menuitem label="Korea, Republic of" value="kr" />
-                        <xul:menuitem label="Japan (PC-98xx Series)" value="nec_vndr/jp" />
-                        <xul:menuitem label="Ireland" value="ie" />
-                        <xul:menuitem label="Pakistan" value="pk" />
-                        <xul:menuitem label="Maldives" value="mv" />
-                        <xul:menuitem label="South Africa" value="za" />
-                        <xul:menuitem label="Esperanto" value="epo" />
-                        <xul:menuitem label="Nepal" value="np" />
-                        <xul:menuitem label="Nigeria" value="ng" />
-                        <xul:menuitem label="Ethiopia" value="et" />
-                        <xul:menuitem label="Braille" value="braille" />
                     </xul:menupopup>
                 </xul:menulist>
 
@@ -207,7 +201,7 @@
                     try {
 
                         // write Kbmap file
-                        var kbFile = new GeckoJS.File('/tmp/kbmap', true);
+                        var kbFile = new GeckoJS.File('/etc/kbmap', true);
                         kbFile.open("w");
                         kbFile.write(newKbmap+"\n");
                         kbFile.close();

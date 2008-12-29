@@ -759,12 +759,12 @@
                         }
                         catch (e) {
                             prefs.pageLabelMap = new GeckoJS.Map();
-                            GREUtils.log('[LoadPreferences]: failed to restore page map from <' + prefs.pageLabelMap + '> exception [' + e + ']');
+                            //GREUtils.log('[LoadPreferences]: failed to restore page map from <' + prefs.pageLabelMap + '> exception [' + e + ']');
                         }
                     }
                     else {
                         prefs.pageLabelMap = new GeckoJS.Map();
-                        GREUtils.log('[LoadPreferences]: failed to restore label map from <' + prefs.pageLabelMap + '>');
+                        //GREUtils.log('[LoadPreferences]: failed to restore label map from <' + prefs.pageLabelMap + '>');
                     }
 
                     // restore page layout
@@ -776,12 +776,12 @@
                             //GREUtils.log('[LoadPreferences]: restored layout map <' + GeckoJS.BaseObject.dump(map) + '>');
                         }
                         catch (e) {
-                            GREUtils.log('[LoadPreferences]: failed to restore layout map from <' + prefs.pageLayoutMap + '> exception [' + e + ']');
+                            //GREUtils.log('[LoadPreferences]: failed to restore layout map from <' + prefs.pageLayoutMap + '> exception [' + e + ']');
                             prefs.pageLayoutMap = new GeckoJS.Map();
                         }
                     }
                     else {
-                        GREUtils.log('[LoadPreferences]: failed to restore layout map from <' + prefs.pageLayoutMap + '>');
+                        //GREUtils.log('[LoadPreferences]: failed to restore layout map from <' + prefs.pageLayoutMap + '>');
                         prefs.pageLayoutMap = new GeckoJS.Map();
                     }
 
@@ -815,12 +815,12 @@
                             //GREUtils.log('[LoadPreferences]: restored keymap map <' + GeckoJS.BaseObject.dump(map.getValues()) + '>');
                         }
                         catch (e) {
-                            GREUtils.log('[LoadPreferences]: failed to restore keymap map from <' + prefs.pageKeymapMap + '> exception [' + e + ']');
+                            //GREUtils.log('[LoadPreferences]: failed to restore keymap map from <' + prefs.pageKeymapMap + '> exception [' + e + ']');
                             prefs.pageKeymapMap = new GeckoJS.Map();
                         }
                     }
                     else {
-                        GREUtils.log('[LoadPreferences]: failed to restore keymap map from <' + prefs.pageKeymapMap + '>');
+                        //GREUtils.log('[LoadPreferences]: failed to restore keymap map from <' + prefs.pageKeymapMap + '>');
                         prefs.pageKeymapMap = new GeckoJS.Map();
                     }
 
@@ -833,12 +833,12 @@
                             //GREUtils.log('[LoadPreferences]: restored button style map <' + GeckoJS.BaseObject.dump(map) + '>');
                         }
                         catch (e) {
-                            GREUtils.log('[LoadPreferences]: failed to restore button style map from <' + prefs.pageButtonstyleMap + '> exception [' + e + ']');
+                            //GREUtils.log('[LoadPreferences]: failed to restore button style map from <' + prefs.pageButtonstyleMap + '> exception [' + e + ']');
                             prefs.pageButtonstyleMap = new GeckoJS.Map();
                         }
                     }
                     else {
-                        GREUtils.log('[LoadPreferences]: failed to restore button style map from <' + prefs.pageButtonstyleMap + '>');
+                        //GREUtils.log('[LoadPreferences]: failed to restore button style map from <' + prefs.pageButtonstyleMap + '>');
                         prefs.pageButtonstyleMap = new GeckoJS.Map();
                     }
 
@@ -851,12 +851,12 @@
                             //GREUtils.log('[LoadPreferences]: restored button fontsize map <' + GeckoJS.BaseObject.dump(map) + '>');
                         }
                         catch (e) {
-                            GREUtils.log('[LoadPreferences]: failed to restore button fontsize map from <' + prefs.pageButtonfontsizeMap + '> exception [' + e + ']');
+                            //GREUtils.log('[LoadPreferences]: failed to restore button fontsize map from <' + prefs.pageButtonfontsizeMap + '> exception [' + e + ']');
                             prefs.pageButtonfontsizeMap = new GeckoJS.Map();
                         }
                     }
                     else {
-                        GREUtils.log('[LoadPreferences]: failed to restore button fontsize map from <' + prefs.pageButtonfontsizeMap + '>');
+                        //GREUtils.log('[LoadPreferences]: failed to restore button fontsize map from <' + prefs.pageButtonfontsizeMap + '>');
                         prefs.pageButtonfontsizeMap = new GeckoJS.Map();
                     }
 
