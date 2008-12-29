@@ -100,6 +100,7 @@ if(mainWindow === window) {
 include("chrome://global/content/globalOverlay.js");
 
 Components.utils.import('resource://app/modules/osd_utils.jsm', window);
+Components.utils.import('resource://app/modules/notify_utils.jsm', window);
 Components.utils.import('resource://app/modules/vkb.jsm', window);
 
 
