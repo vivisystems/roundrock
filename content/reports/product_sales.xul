@@ -2,12 +2,11 @@
 <!DOCTYPE overlay [
   <!ENTITY % Overlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
   %Overlay;
-  <!ENTITY % suppliers SYSTEM "chrome://viviecr/locale/suppliers.dtd">
+  <!ENTITY % suppliers SYSTEM "chrome://viviecr/locale/reports/product_sales.dtd">
   %suppliers;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-
 <?xml-stylesheet href="chrome://viviecr/content/reports/tpl/product_sales.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
@@ -15,55 +14,51 @@
 
 <window id="main" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
                 xmlns:html="http://www.w3.org/1999/xhtml">
-    <LINK rel="stylesheet" type="text/css" href="tpl/product_sales.css" />
 
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/reports/product_sales.js" />
 
-    <box flex="1" class="mainpanel1 pad40">
-        <vbox flex="1" class="panel40">
-            <vbox flex="1" class="footlogo" style="overflow:none;">
-                <groupbox>
-                    <caption label="conditions;" />
-                    <hbox>
-                        <grid>
-                            <rows>
-                                <row>
-                                    <label value="Start Date:" />
-                                    <textbox id="start_date" value='1228981000000' readonly="true"/>
-                                </row>
-                                <row>
-                                    <label value="End Date:" />
-                                    <textbox id="end_date" value='1229410020000' readonly="true"/>
-                                </row>
-                                <row>
-                                    <label value="Department:" />
-                                    <textbox id="department" value='0010' readonly="true"/>
-                                </row>
-                            </rows>
-                        </grid>
-                        <hbox>
-                            <spacer style="width:30px;" />
-                            <button id="excute" label="reports.button.action.execute;" disabled="false" class="editbtns" oncommand="$do('execute', null, 'ProductSales');" />
-                            <button id="export_csv" label="reports.button.action.export;" disabled="false" class="editbtns" oncommand="$do('exportCsv', null, 'ProductSales');" />
-                        </hbox>
-                    </hbox>
-                </groupbox>
+    <vbox flex="1" class="main-dialog">
+        <caption label="title;"/>
+        <groupbox>
+            <caption label="conditions;" />
+            <hbox>
+                <grid>
+                    <rows>
+                        <row>
+                            <label value="Start Date:" />
+                            <vividatetimepicker id="start_date" value='' type="popup"/>
+                        </row>
+                        <row>
+                            <label value="End Date:" />
+                            <vividatetimepicker id="end_date" value='' type="popup"/>
+                        </row>
+                        <row>
+                            <label value="Department:" />
+                            <textbox id="department" value='' readonly="true"/>
+                        </row>
+                    </rows>
+                </grid>
+                <hbox>
+                    <spacer style="width:30px;" />
+                    <button id="execute" label="reports.button.action.execute;" disabled="false" class="editbtns" oncommand="$do('execute', null, 'ProductSales');" />
+                    <button id="export_csv" label="reports.button.action.export;" disabled="false" class="editbtns" oncommand="$do('exportCsv', null, 'ProductSales');" />
+                </hbox>
+            </hbox>
+        </groupbox>
 
-                <spacer style="height: 10px;" />
-                <separator class="groove-thin"/>
-                <spacer style="height: 10px;" />
+        <spacer style="height: 10px;" />
+        <separator class="groove-thin"/>
+        <spacer style="height: 10px;" />
 
-                <groupbox flex="1">
-                    <caption label="Preview:" />
-                    <html:div id="preview_div" style="overflow:auto;" class="report" >
+        <groupbox flex="1" style="border-width:3px;">
+            <caption label="Preview:" />
+            <html:div id="preview_div" style="overflow:auto;" class="report" >
 
-                    </html:div>
+            </html:div>
                     
-                </groupbox>
-            </vbox>
-        </vbox>
-    </box>
+        </groupbox>
+    </vbox>
   
     <!-- hbox id="okCancelButtonsRight" class="dialogbtns" / -->
     <hbox id="dialogButtons" class="dialogbtns" pack="center">

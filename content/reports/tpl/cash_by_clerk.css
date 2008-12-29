@@ -1,4 +1,15 @@
+/*
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
 
+.reportbox {
+    overflow-y:scroll;
+
+}
+
+.reportbox scrollbar {
+    orient: vertical;
+}
+*/
 @namespace url("http://www.w3.org/1999/xhtml");
 
 * {
@@ -6,15 +17,12 @@
 	margin: 10px;
 }
 
-.reportbox {
-
-}
 .report {
 	width: 400px;
-	height: 340px;
-    max-height: 300px;
+	min-height: 340px;
+    /*max-height: 340px; */
     padding: 10px;
-	margin: 10px;
+	margin: 0px;
 	background: #aaa;
 	border: solid;
     border-width: 1px;
@@ -30,7 +38,7 @@
 }
 
 #body-table {
-  width: 480px;
+/*  margin: 0px auto 0px auto; */
   font: 100% sans-serif;
   background-color: #efe;
   border-collapse: collapse;
@@ -41,10 +49,9 @@
 #body-table > caption {
   text-align: left;
   font-weight: bold;
-  font-size: 120%;
-  background-color: #efe;
+  font-size: 200%;
   border-bottom: .2em solid #4ca;
-/*  margin-bottom: .5em; */
+  margin-bottom: .5em;
   }
 
 
@@ -80,7 +87,7 @@
 /* body */
 #body-table td {
   background-color: #cef;
-  padding:.5em .5em .5em 3em; 
+  padding:.5em .5em .5em 3em;
   }
 
 #body-table tbody th:after {

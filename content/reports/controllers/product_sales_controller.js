@@ -16,8 +16,6 @@
         getListObj: function() {
             if(this._listObj == null) {
                 this._listObj = document.getElementById('datascrollablepanel');
-                // this._productsById = GeckoJS.Session.get('productsById');
-                // this._barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
             }
             return this._listObj;
         },
@@ -39,8 +37,11 @@
             var start = document.getElementById('start_date').value;
             var end = document.getElementById('end_date').value;
 
+            var start_str = document.getElementById('start_date').datetimeValue.toLocaleString();
+            var end_str = document.getElementById('end_date').datetimeValue.toLocaleString();
+
             var data = {
-                head: {title:_('Product Sales Report'), start_date: start, end_date: end},
+                head: {title:_('Product Sales Report'), start_date: start_str, end_date: end_str, department: department},
                 body: this._datas,
                 foot: {summary: 120}
             }
@@ -54,47 +55,6 @@
 
             var doc = document.getElementById('preview_div');
             doc.innerHTML = result;
-
-/*
-            var start = document.getElementById('start_date').value;
-            var end = document.getElementById('end_date').value;
-
-            var ran = Math.random();
-            var url = "chrome://viviecr/content/reports/product_sales_template.xul?start_date=2008-12&i=" + ran;
-            // var url = "chrome://viviecr/content/reports/product_sales_template.xul";
-
-            var path = "/home/achang/workspace/vivipos_app/content/reports/product_sales.xml";
-
-            var self = this;
-            var xml = '';
-            xml = '<product_sales>\n';
-            xml = xml + '<filter start_date="' + start + '" end_date="' + end + '"/>\n';
-            // self.log(self.dump(this._datas));
-            this._datas.forEach(function(o){
-                // var str = '<data product_no="' + o.product_no + '" product_name="' + o.product_name + '" qty="' + o.qty + '" total="' + o.total + '"/>\n';
-                // self.log(self.dump(o));
-                var str = '';
-                    for (key in o) {
-                        str = str + ' ' + key + '="' + o[key] + '"';
-                    }
-                str = '<data' + str + '/>\n';
-                xml = xml + str;
-            });
-
-            xml = xml + '</product_sales>';
-            // alert(xml);
-
-            var parser = new DOMParser();
-            var dom = parser.parseFromString(xml, "text/xml");
-
-            document.getElementById('preview').builder.datasource = dom;
-            document.getElementById('preview').builder.rebuild();
-
-            document.getElementById('product_sales_datas').builder.datasource = dom;
-            document.getElementById('product_sales_datas').builder.rebuild();
-            // document.getElementById('preview').setAttribute('src', url);
-            // document.getElementById('preview').setAttribute('datasources', 'product_sales.xml');
-*/
 
         },
 
@@ -104,10 +64,16 @@
 
             var start = document.getElementById('start_date').value;
             var end = document.getElementById('end_date').value;
+
+            var start_str = document.getElementById('start_date').datetimeValue.toLocaleString();
+            var end_str = document.getElementById('end_date').datetimeValue.toLocaleString();
+            //var start_str = (new Date(start)).toLocaleString();
+            //var end_str = (new Date(end)).toLocaleString();
+
             var department = document.getElementById('department').value;
 
             var data = {
-                head: {title:_('Product Sales Report'), start_date: start, end_date: end, department: department},
+                head: {title:_('Product Sales Report'), start_date: start_str, end_date: end_str, department: department},
                 body: this._datas,
                 foot: {summary: 120}
             }
@@ -118,32 +84,10 @@
             var tpl = GREUtils.File.readAllBytes(file);
             
             result = tpl.process(data);
-this.log(this.dump(result));
+
             var doc = document.getElementById('preview_div');
             doc.innerHTML = result;
 
-/*
-            var iframe = document.getElementById('preview');
-
-            // iframe = (iframe.contentWindow) ? iframe.contentWindow : (iframe.contentDocument.document) ? iframe.contentDocument.document : iframe.contentDocument;
-            iframe.contentDocument.getElementById("abody").innerHTML = result;
-//            iframe.document.open();
-//            iframe.document.write(result);
-//            iframe.document.close();
-this.log(this.dump(result));
-
-            // var aURL = "chrome://viviecr/content/jstemplate/jstemplate.xul";
-            var aURL = "chrome://viviecr/content/reports/product_sales_template.xul";
-            var aName = "testjstemplate";
-            var aArguments = "";
-            var width = 800;
-            var height = 600;
-            var posX = 0;
-            var posY = 0;
-            //var width = this.screenwidth;
-            //var height = this.screenheight;
-            GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,dependent=yes,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height, "");
-*/
         },
 
         load: function() {
@@ -174,8 +118,6 @@ this.log(this.dump(result));
             var datas = orderItem.find('all',{fields: fields, conditions: conditions, group: groupby, order: orderby});
 
             this._datas = datas;
-            //this._panelView = new GeckoJS.NSITreeViewArray(this._datas);
-            //this.getListObj().datasource = this._panelView;
         }
 	
     });

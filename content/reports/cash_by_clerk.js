@@ -4,6 +4,7 @@
     // include controllers  and register itself
 
     include('chrome://viviecr/content/reports/controllers/cash_by_clerks_controller.js');
+    include('chrome://viviecr/content/reports/template.js');
 
     /**
      * Controller Startup

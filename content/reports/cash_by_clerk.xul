@@ -2,61 +2,65 @@
 <!DOCTYPE overlay [
   <!ENTITY % Overlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
   %Overlay;
-  <!ENTITY % suppliers SYSTEM "chrome://viviecr/locale/suppliers.dtd">
+  <!ENTITY % suppliers SYSTEM "chrome://viviecr/locale/reports/cash_by_clerk.dtd">
   %suppliers;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/content/reports/tpl/cash_by_clerk.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
 
-<window id="main" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<window id="main" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+                xmlns:html="http://www.w3.org/1999/xhtml">
 
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/reports/cash_by_clerk.js" />
 
-    <box flex="1" class="mainpanel1 pad40">
-        <vbox flex="1" class="panel40">
-            <vbox flex="1" class="footlogo">
-                <groupbox>
-                    <caption label="cash_by_clerks.filter;" />
-                    <hbox>
-                    <grid>
-                        <rows>
-                            <row>
-                                <label value="Start Date:" />
-                                <textbox />
-                            </row>
-                            <row>
-                                <label value="End Date:" />
-                                <textbox />
-                            </row>
-                        </rows>
-                    </grid>
-                    <hbox>
-                        <spacer style="width:30px;" />
-                        <button id="excute" label="reports.button.action.execute;" disabled="false" class="editbtns" oncommand="" />
-                        <button id="export_csv" label="reports.button.action.export;" disabled="false" class="editbtns" oncommand="" />
-                    </hbox>
-                    </hbox>
-                </groupbox>
+    <vbox flex="1" class="main-dialog">
+        <caption label="title;"/>
+        <groupbox>
+            <caption label="cash_by_clerks.filter;" />
+            <hbox>
+                <grid>
+                    <rows>
+                        <row>
+                            <label value="Start Date:" />
+                            <vividatetimepicker id="start_date" value='' type="popup"/>
+                        </row>
+                        <row>
+                            <label value="End Date:" />
+                            <vividatetimepicker id="end_date" value='' type="popup"/>
+                        </row>
+                        <row>
+                            <label value="Clerk:" />
+                            <textbox id="clerk" value='' readonly="true"/>
+                        </row>
+                    </rows>
+                </grid>
+                <hbox>
+                    <spacer style="width:30px;" />
+                    <button id="execute" label="reports.button.action.execute;" disabled="false" class="editbtns" oncommand="$do('execute', null, 'CashByClerks');" />
+                    <button id="export_csv" label="reports.button.action.export;" disabled="false" class="editbtns" oncommand="$do('exportCsv', null, 'CashByClerks');" />
+                </hbox>
+            </hbox>
+        </groupbox>
 
-                <spacer style="height: 10px;" />
-                <separator class="groove-thin"/>
-                <spacer style="height: 10px;" />
-                
-                <groupbox flex="1">
-                    <caption label="product_sales.title;" />
-                    <viviscrollabletree id="datascrollablepanel" flex="1" rows="7" headers="Amount,Pay Type" fields="amount,name" onclick=""
-                                                        class="prodscrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray">
-                        <spacer flex="1" />
-                    </viviscrollabletree>
-                </groupbox>
+        <spacer style="height: 10px;" />
+        <separator class="groove-thin"/>
+        <spacer style="height: 10px;" />
 
-            </vbox>
-        </vbox>
-    </box>
+        <groupbox flex="1" style="border-width:3px;">
+            <caption label="Preview:" />
+            <box class="reportbox" flex="1" style="overflow-y:scroll;">
+            <html:div id="preview_div" class="report">
+
+            </html:div>
+            </box>
+        </groupbox>
+
+    </vbox>
   
     <!-- hbox id="okCancelButtonsRight" class="dialogbtns" / -->
     <hbox id="dialogButtons" class="dialogbtns" pack="center">

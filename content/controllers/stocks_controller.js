@@ -73,6 +73,12 @@
             if (evt.justUpdate) {
                 //
                 //alert('just update');
+
+                // update stock in session...
+                var productsById = GeckoJS.Session.get('productsById');
+                var product = productsById[evt.data.id];
+                product.stock = evt.data.stock;
+                product.min_stock = evt.data.min_stock;
             } 
             else {
                 var product = this._productsById[evt.data.id];
