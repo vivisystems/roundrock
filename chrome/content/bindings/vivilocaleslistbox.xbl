@@ -138,7 +138,7 @@
                         var listbox = this.listbox;
                         var newLocale = this.selectedLocale;
 
-                        var loc = newLocale.split('-');
+                        var loc = newLocale.split('_');
 
                         // ubuntu locale environment
                         var envFile = new GeckoJS.File('/etc/environment');
