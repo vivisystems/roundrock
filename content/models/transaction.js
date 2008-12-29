@@ -80,12 +80,17 @@
 
         serialize: function() {
             // @todo 
-            return "";
+            return GeckoJS.BaseObject.serialize(this.data);
         },
 
         unserialize: function(data) {
         // @todo
-            
+            this.data = GeckoJS.BaseObject.unserialize(data);
+        },
+
+        unserializeFromOrder: function(order_id) {
+            var order = new OrderModel();
+            this.data = order.unserializeOrder(order_id);
         }
 
     });
@@ -201,6 +206,7 @@
             no: item.no,
             barcode: item.barcode,
             name: item.name,
+            cate_no: item.cate_no,
 
             index: index,
             
@@ -1239,7 +1245,7 @@
     };
 
 
-    Transaction.prototype.appendPayment = function(type, amount, memo1, memo2){
+    Transaction.prototype.appendPayment = function(type, amount, origin_amount, memo1, memo2){
         
         var prevRowCount = this.data.display_sequences.length;
 
@@ -1248,6 +1254,7 @@
             id: paymentId,
             name: type,
             amount: amount,
+            origin_amount: origin_amount,
             memo1: memo1,
             memo2: memo2
         };
@@ -1570,13 +1577,26 @@
         var total=0, remain=0, item_subtotal=0, tax_subtotal=0, item_surcharge_subtotal=0, item_discount_subtotal=0;
         var trans_surcharge_subtotal=0, trans_discount_subtotal=0, payment_subtotal=0;
 
-        // item subtotal
+        // item subtotal and grouping
+        this.data.items_summary = {}; // reset summary
         for(var itemIndex in this.data.items ) {
             var item = this.data.items[itemIndex];
             tax_subtotal += parseFloat(item.current_tax);
             item_surcharge_subtotal += parseFloat(item.current_surcharge);
             item_discount_subtotal += parseFloat(item.current_discount);
             item_subtotal += parseFloat(item.current_subtotal);
+
+            // summary it
+            var item_id = item.id;
+            let sumItem = this.data.items_summary[item_id] || {id: item_id, name: item.name,
+                          qty_subtotal: 0, subtotal: 0, discount_subtotal: 0, surcharge_subtotal: 0};
+
+            sumItem.qty_subtotal += item.current_qty;
+            sumItem.subtotal += parseFloat(item.current_subtotal);
+            sumItem.discount_subtotal += parseFloat(item.current_discount);
+            sumItem.surcharge_subtotal += parseFloat(item.current_surcharge);
+
+            this.data.items_summary[item_id] = sumItem;
 
         }
 
