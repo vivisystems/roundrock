@@ -86,7 +86,8 @@
                         var timeNow = now.toLocaleTimeString();
                         if (el.showDate) {
                             //timeNow = now.toLocaleDateString() + ' ' + timeNow;
-                            timeNow = now.toLocaleDateString() + ' ' + timeNow;
+                            //timeNow = now.toLocaleDateString() + ' ' + timeNow;
+                            timeNow = now.toLocaleString();
                         }
                         
                         el.setAttribute('value', timeNow);
