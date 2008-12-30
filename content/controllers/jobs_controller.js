@@ -50,7 +50,7 @@
             });
 
             if (jobs != null && jobs.length > 0) {
-                OsdUtils.warn(_('Duplicate job name [%S]; job not added.', [evt.data.jobname]));
+                NotifyUtils.warn(_('Duplicate job name [%S]; job not added.', [evt.data.jobname]));
                 evt.preventDefault();
                 return ;
             }
@@ -99,7 +99,7 @@
                     this._jobModified = false;
                     
                     // @todo OSD
-                    OsdUtils.warn(_('Duplicate job name [%S]; job not modified.', [evt.data.jobname]));
+                    NotifyUtils.warn(_('Duplicate job name [%S]; job not modified.', [evt.data.jobname]));
                 }
             }
         },
@@ -129,7 +129,18 @@
             var view = panel.datasource;
             var jobname = view.data[panel.selectedIndex].jobname;
 
-            if (GREUtils.Dialog.confirm(null, _('confirm delete %S', [jobname]), _('Are you sure?')) == false) {
+            // make sure no user has job as his default
+            var userModel = new UserModel();
+            var users = userModel.findByIndex('all', {
+                index: 'job_id',
+                value: evt.data.id
+            });
+
+            if (users && users.length > 0) {
+                NotifyUtils.warn(_('[%S] has been assigned as the default job to one or more users and may not be deleted', [jobname]));
+                evt.preventDefault();
+            }
+            else if (GREUtils.Dialog.confirm(null, _('confirm delete %S', [jobname]), _('Are you sure?')) == false) {
                 evt.preventDefault();
             }
         },

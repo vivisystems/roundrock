@@ -73,7 +73,7 @@
                     cart.dispatchEvent('onLowStock', obj);
                     cart.dispatchEvent('onWarning', _('OUT OF STOCK'));
                     //@todo add OSD?
-                    OsdUtils.warn(_('Product May Be Out of Stock!'));
+                    NotifyUtils.warn(_('Product May Be Out of Stock!'));
                     
                     // allow over stock...
                     var allowoverstock = GeckoJS.Configure.read('vivipos.fec.settings.AllowOverStock') || false;
@@ -86,7 +86,7 @@
                     cart.dispatchEvent('onWarning', _('STOCK LOW'));
 
                     //@todo add OSD?
-                    OsdUtils.warn(_('Low Stock Threshold Reached!'));
+                    NotifyUtils.warn(_('Low Stock Threshold Reached!'));
                 }
             }
 
@@ -101,11 +101,13 @@
                     var requireAck = GeckoJS.Configure.read('vivipos.fec.settings.AgeVerificationAck')
 
                     if (requireAck) {
-                        alert(_('Verify Customer Age for Purchase of [%S]!', [item.name]));
+                        if (GREUtils.Dialog.confirm(null, _('confirm age'), _('Is customer of age for purchase of [%S]?', [item.name])) == false) {
+                            evt.preventDefault();
+                        }
                     }
                     else {
                         //@todo OSD
-                        OsdUtils.warn(_('Verify Customer Age for Purchase of\n[%S]!', [item.name]));
+                        NotifyUtils.warn(_('Verify Customer Age for Purchase of [%S]!', [item.name]));
                     }
                 }
             }
@@ -255,7 +257,7 @@
                 event.error = true;
 
                 //@todo OSD
-                OsdUtils.warn(_('Product scan code not found [%S]', [barcode]));
+                NotifyUtils.warn(_('Product scan code not found [%S]', [barcode]));
             }else {
                 var id = barcodesIndexes[barcode];
                 var product = productsById[id];
@@ -283,19 +285,19 @@
                 this.dispatchEvent('onModifyItem', null);
 
                 //@todo OSD
-                OsdUtils.warn(_('Not an open order; cannot modify'));
+                NotifyUtils.warn(_('Not an open order; cannot modify'));
                 return; // fatal error ?
             }
 
             if(index <0) {
                 //@todo OSD
-                OsdUtils.warn(_('Please select an item first'));
+                NotifyUtils.warn(_('Please select an item first'));
                 return;
             }
 
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 //@todo OSD
-                OsdUtils.warn(_('Not an open order; cannot modify'));
+                NotifyUtils.warn(_('Not an open order; cannot modify'));
                 return;
             }
 
@@ -306,13 +308,13 @@
                 this.dispatchEvent('onModifyItemError', {});
 
                 //@todo OSD
-                OsdUtils.warn(_('Cannot modify selected item [%S]', [itemDisplay.name]));
+                NotifyUtils.warn(_('Cannot modify selected item [%S]', [itemDisplay.name]));
                 return;
             }
 
             if (itemDisplay.type == 'condiment' && !this.Acl.isUserInRole('acl_modify_condiment_price')) {
                 //@todo OSD
-                OsdUtils.warn(_('Not authorized to modify condiment price'));
+                NotifyUtils.warn(_('Not authorized to modify condiment price'));
                 return;
             }
 
@@ -320,7 +322,7 @@
                 this.dispatchEvent('onModifyItemError', {});
 
                 //@todo OSD
-                OsdUtils.warn(_('Cannot modify; selected item [%S] has discount or surcharge applied', [itemDisplay.name]));
+                NotifyUtils.warn(_('Cannot modify; selected item [%S] has discount or surcharge applied', [itemDisplay.name]));
                 return;
             }
 
@@ -328,7 +330,7 @@
                 this.dispatchEvent('onModifyItemError', {});
 
                 //@todo OSD
-                OsdUtils.warn(_('Cannot modify; selected item [%S] has been subtotaled', [itemDisplay.name]));
+                NotifyUtils.warn(_('Cannot modify; selected item [%S] has been subtotaled', [itemDisplay.name]));
                 return;
             }
 
@@ -338,7 +340,7 @@
                 this.dispatchEvent('onModifyItemError', {});
 
                 //@todo OSD
-                OsdUtils.warn(_('Cannot modify; no price or quantity entered'));
+                NotifyUtils.warn(_('Cannot modify; no price or quantity entered'));
                 return ;
             }
 
@@ -348,7 +350,7 @@
                 this.dispatchEvent('onModifyItemError', {});
 
                 //@todo OSD
-                OsdUtils.warn(_('Cannot modify condiment; no price entered'));
+                NotifyUtils.warn(_('Cannot modify condiment; no price entered'));
                 return ;
             }
 
@@ -382,19 +384,19 @@
                 this.dispatchEvent('onModifyQty', null);
 
                 //@todo OSD
-                OsdUtils.warn(_('Not an open order; cannot modify'));
+                NotifyUtils.warn(_('Not an open order; cannot modify'));
                 return; // fatal error ?
             }
 
             if(index <0) {
                 //@todo OSD
-                OsdUtils.warn(_('Please select an item first'));
+                NotifyUtils.warn(_('Please select an item first'));
                 return;
             }
 
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 //@todo OSD
-                OsdUtils.warn(_('Not an open order; cannot modify'));
+                NotifyUtils.warn(_('Not an open order; cannot modify'));
                 return;
             }
 
@@ -405,7 +407,7 @@
                 this.dispatchEvent('onModifyItemError', {});
 
                 //@todo OSD
-                OsdUtils.warn(_('Cannot modify selected item [%S]', [itemDisplay.name]));
+                NotifyUtils.warn(_('Cannot modify selected item [%S]', [itemDisplay.name]));
                 return;
             }
 
@@ -413,7 +415,7 @@
                 this.dispatchEvent('onmodifyQtyError', {});
 
                 //@todo OSD
-                OsdUtils.warn(_('Cannot modify; selected item [%S] has discount or surcharge applied', [itemDisplay.name]));
+                NotifyUtils.warn(_('Cannot modify; selected item [%S] has discount or surcharge applied', [itemDisplay.name]));
                 return;
             }
 
@@ -434,7 +436,7 @@
             }
             else {
                 //@todo OSD
-                OsdUtils.warn(_('Quantity may not be less than 1'));
+                NotifyUtils.warn(_('Quantity may not be less than 1'));
             }
             
         },
@@ -470,20 +472,20 @@
                 this.dispatchEvent('onVoidItem', null);
 
                 // @todo OSD
-                OsdUtils.warn(_('Not an open order; cannot VOID'));
+                NotifyUtils.warn(_('Not an open order; cannot VOID'));
                 return; // fatal error ?
             }
 
             if(index <0) {
                 // @todo OSD
-                OsdUtils.warn(_('Please select an item first'));
+                NotifyUtils.warn(_('Please select an item first'));
                 return;
             }
 
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 this.dispatchEvent('onVoidItemError', {});
                 // @todo OSD
-                OsdUtils.warn(_('Not an open order; cannot VOID'));
+                NotifyUtils.warn(_('Not an open order; cannot VOID'));
                 return;
             }
 
@@ -499,7 +501,7 @@
                     this.dispatchEvent('onVoidItemError', {});
 
                     // @todo OSD
-                    OsdUtils.warn(_('Cannot VOID the selected item [%S]\nIt is not the last registered item', [itemDisplay.name]));
+                    NotifyUtils.warn(_('Cannot VOID the selected item [%S]. It is not the last registered item', [itemDisplay.name]));
                     return ;
                 }
             }
@@ -509,7 +511,7 @@
                 if(itemTrans.hasMarker) {
                     // @todo OSD
                     this.dispatchEvent('onVoidItemError', {});
-                    OsdUtils.warn(_('Cannot VOID an item that has been subtotaled'));
+                    NotifyUtils.warn(_('Cannot VOID an item that has been subtotaled'));
                     return ;
                 }
             }
@@ -541,7 +543,7 @@
 
             if (!discountAmount) {
                 // @todo OSD
-                OsdUtils.warn(_('Please enter the discount amount'));
+                NotifyUtils.warn(_('Please enter the discount amount'));
                 return;
             }
             else {
@@ -565,7 +567,7 @@
 
             if (!discountAmount) {
                 // @todo OSD
-                OsdUtils.warn(_('Please enter the discount percentage first'));
+                NotifyUtils.warn(_('Please enter the discount percentage first'));
                 return;
             }
             else {
@@ -590,7 +592,7 @@
 
             if (!discountAmount) {
                 // @todo OSD
-                OsdUtils.warn(_('Please enter the discount percentage'));
+                NotifyUtils.warn(_('Please enter the discount percentage'));
                 return;
             }
             else {
@@ -609,13 +611,13 @@
                 this.dispatchEvent('onAddDiscount', null);
 
                 // @todo OSD
-                OsdUtils.warn(_('Not an open order; cannot add discount'));
+                NotifyUtils.warn(_('Not an open order; cannot add discount'));
                 return; // fatal error ?
             }
 
             if(index <0) {
                 // @todo OSD
-                OsdUtils.warn(_('Please select an item'));
+                NotifyUtils.warn(_('Please select an item'));
                 
                 return;
             }
@@ -625,7 +627,7 @@
 
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 //@todo OSD
-                OsdUtils.warn(_('Not an open order; cannot add surcharge'));
+                NotifyUtils.warn(_('Not an open order; cannot add surcharge'));
                 return;
             }
 
@@ -634,7 +636,7 @@
 
             if (pretax && itemDisplay.type != 'subtotal') {
                 // @todo OSD
-                OsdUtils.warn(_('Pretax discount can only be registered against subtotals'));
+                NotifyUtils.warn(_('Pretax discount can only be registered against subtotals'));
                 return;
             }
 
@@ -644,7 +646,7 @@
                     this.dispatchEvent('onAddDiscountError', {});
 
                     //@todo OSD
-                    OsdUtils.warn(_('Discount has been already been registered on item [%S]', [itemTrans.name]));
+                    NotifyUtils.warn(_('Discount has been already been registered on item [%S]', [itemTrans.name]));
                     return;
                 }
                 if (itemTrans.hasSurcharge) {
@@ -652,7 +654,7 @@
                     this.dispatchEvent('onAddDiscountError', {});
 
                     //@todo OSD
-                    OsdUtils.warn(_('Surcharge has been already been registered on item [%S]', [itemTrans.name]));
+                    NotifyUtils.warn(_('Surcharge has been already been registered on item [%S]', [itemTrans.name]));
                     return;
                 }
                 if (itemTrans.hasMarker) {
@@ -660,12 +662,12 @@
                     this.dispatchEvent('onAddDiscountError', {});
 
                     //@todo OSD
-                    OsdUtils.warn(_('Cannot modify an item that has been subtotaled'));
+                    NotifyUtils.warn(_('Cannot modify an item that has been subtotaled'));
                     return;
                 }
                 if (itemTrans.current_qty < 0) {
                     //@todo OSD
-                    OsdUtils.warn(_('Cannot register discount on return items'));
+                    NotifyUtils.warn(_('Cannot register discount on return items'));
                     return;
                 }
             }
@@ -673,24 +675,24 @@
                 var cartLength = curTransaction.data.display_sequences.length;
                 if (itemDisplay.hasSurcharge) {
                     //@todo OSD
-                    OsdUtils.warn(_('Surcharge has been already been registered on item [%S]', [itemDisplay.name]));
+                    NotifyUtils.warn(_('Surcharge has been already been registered on item [%S]', [itemDisplay.name]));
                     return;
                 }
                 else if (itemDisplay.hasDiscount) {
-                    OsdUtils.warn(_('Discount has been already been registered on item [%S]', [itemDisplay.name]));
+                    NotifyUtils.warn(_('Discount has been already been registered on item [%S]', [itemDisplay.name]));
                     return;
                 }
                 else if (index < cartLength - 1) {
                     this.dispatchEvent('onAddDiscountError', {});
 
                     // @todo OSD
-                    OsdUtils.warn(_('Cannot apply discount to [%S]\nIt is not the last registered item', [itemDisplay.name]));
+                    NotifyUtils.warn(_('Cannot apply discount to [%S]. It is not the last registered item', [itemDisplay.name]));
                     return ;
                 }
             }
             else {
                 //@todo OSD
-                OsdUtils.warn(_('Discount may not be added to [%S]', [itemDisplay.name]));
+                NotifyUtils.warn(_('Discount may not be added to [%S]', [itemDisplay.name]));
                 return;
             }
 
@@ -698,7 +700,7 @@
                 this.dispatchEvent('onAddDiscountError', {});
 
                 //@todo OSD
-                OsdUtils.warn(_('Please enter the discount amount or percentage'));
+                NotifyUtils.warn(_('Please enter the discount amount or percentage'));
                 return;
             }
             
@@ -751,7 +753,7 @@
 
             if (!surchargeAmount) {
                 // @todo OSD
-                OsdUtils.warn(_('Please enter the surcharge amount first'));
+                NotifyUtils.warn(_('Please enter the surcharge amount first'));
                 return;
             }
             else {
@@ -775,7 +777,7 @@
 
             if (!surchargeAmount) {
                 // @todo OSD
-                OsdUtils.warn(_('Please enter the surcharge percentage'));
+                NotifyUtils.warn(_('Please enter the surcharge percentage'));
                 return;
             }
             else {
@@ -800,7 +802,7 @@
 
             if (!surchargeAmount) {
                 // @todo OSD
-                OsdUtils.warn(_('Please enter the surcharge percentage'));
+                NotifyUtils.warn(_('Please enter the surcharge percentage'));
                 return;
             }
             else {
@@ -820,13 +822,13 @@
                 this.dispatchEvent('onAddSurcharge', null);
 
                 // @todo OSD
-                OsdUtils.warn(_('Not an open order; cannot add surcharge'));
+                NotifyUtils.warn(_('Not an open order; cannot add surcharge'));
                 return; // fatal error ?
             }
 
             if(index < 0) {
                 // @todo OSD
-                OsdUtils.warn(_('Please select an item first'));
+                NotifyUtils.warn(_('Please select an item first'));
                 return;
             }
 
@@ -834,7 +836,7 @@
 
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 //@todo OSD
-                OsdUtils.warn(_('Not an open order; cannot add surcharge'));
+                NotifyUtils.warn(_('Not an open order; cannot add surcharge'));
                 return;
             }
 
@@ -843,7 +845,7 @@
             
             if (pretax && itemDisplay.type != 'subtotal') {
                 // @todo OSD
-                OsdUtils.warn(_('Pretax surcharge can only be registered against subtotals'));
+                NotifyUtils.warn(_('Pretax surcharge can only be registered against subtotals'));
                 return;
             }
             if (itemTrans != null && itemTrans.type == 'item') {
@@ -853,7 +855,7 @@
                     this.dispatchEvent('onAddSurchargeError', {});
 
                     //@todo OSD
-                    OsdUtils.warn(_('Discount has been already been registered on item [%S]', [itemTrans.name]));
+                    NotifyUtils.warn(_('Discount has been already been registered on item [%S]', [itemTrans.name]));
                     return;
                 }
                 if (itemTrans.hasSurcharge) {
@@ -861,7 +863,7 @@
                     this.dispatchEvent('onAddSurchargeError', {});
 
                     //@todo OSD
-                    OsdUtils.warn(_('Surcharge has been already been registered on item [%S]', [itemTrans.name]));
+                    NotifyUtils.warn(_('Surcharge has been already been registered on item [%S]', [itemTrans.name]));
                     return;
                 }
                 if (itemTrans.hasMarker) {
@@ -869,7 +871,7 @@
                     this.dispatchEvent('onAddSurchargeError', {});
 
                     //@todo OSD
-                    OsdUtils.warn(_('Cannot modify an item that has been subtotaled'));
+                    NotifyUtils.warn(_('Cannot modify an item that has been subtotaled'));
                     return;
                 }
             }
@@ -877,24 +879,24 @@
                 var cartLength = curTransaction.data.display_sequences.length;
                 if (itemDisplay.hasSurcharge) {
                     //@todo OSD
-                    OsdUtils.warn(_('Surcharge has been already been registered on item [%S]', [itemDisplay.name]));
+                    NotifyUtils.warn(_('Surcharge has been already been registered on item [%S]', [itemDisplay.name]));
                     return;
                 }
                 else if (itemDisplay.hasDiscount) {
-                    OsdUtils.warn(_('Discount has been already been registered on item [%S]', [itemDisplay.name]));
+                    NotifyUtils.warn(_('Discount has been already been registered on item [%S]', [itemDisplay.name]));
                     return;
                 }
                 else if (index < cartLength - 1) {
                     this.dispatchEvent('onAddSurchargeError', {});
 
                     // @todo OSD
-                    OsdUtils.warn(_('Cannot apply surcharge to [%S]\nIt is not the last registered item', [itemDisplay.name]));
+                    NotifyUtils.warn(_('Cannot apply surcharge to [%S]. It is not the last registered item', [itemDisplay.name]));
                     return ;
                 }
             }
             else {
                 //@todo OSD
-                OsdUtils.warn(_('Surcharge may not be added to [%S]', [itemDisplay.name]));
+                NotifyUtils.warn(_('Surcharge may not be added to [%S]', [itemDisplay.name]));
                 return;
             }
 
@@ -942,7 +944,7 @@
                 this.dispatchEvent('onAddMarker', null);
 
                 // @todo OSD
-                OsdUtils.warn(_('Not an open order; operation invalid'));
+                NotifyUtils.warn(_('Not an open order; operation invalid'));
                 return; // fatal error ?
             }
 
@@ -951,7 +953,12 @@
             type = type || 'subtotal';
 
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
-                OsdUtils.warn(_('Not an open order; operation invalid'));
+                NotifyUtils.warn(_('Not an open order; operation invalid'));
+                return;
+            }
+
+            if (curTransaction.getItemsCount() < 1) {
+                NotifyUtils.warn(_('Nothing has been registered yet; operation invalid'));
                 return;
             }
 
@@ -994,19 +1001,19 @@
                 this.dispatchEvent('onHouseBon', null);
 
                 // @todo OSD
-                OsdUtils.warn(_('Not an open order; cannot register House Bon'));
+                NotifyUtils.warn(_('Not an open order; cannot register House Bon'));
                 return; // fatal error ?
             }
 
             if(index <0) {
                 // @todo OSD
-                OsdUtils.warn(_('Please select an item first'));
+                NotifyUtils.warn(_('Please select an item first'));
                 return;
             }
 
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 //@todo OSD
-                OsdUtils.warn(_('Not an open order; cannot register House Bon'));
+                NotifyUtils.warn(_('Not an open order; cannot register House Bon'));
                 return;
             }
 
@@ -1020,7 +1027,7 @@
             }
             else {
                 //@todo OSD
-                OsdUtils.warn(_('House Bon may not be applied to [%S]', [itemDisplay.name]));
+                NotifyUtils.warn(_('House Bon may not be applied to [%S]', [itemDisplay.name]));
                 return;
             }
 
@@ -1048,7 +1055,7 @@
 
             if (convertIndex < 0) {
                 //@todo OSD
-                OsdUtils.warn(_('The selected currency [%S] has not been configured', [convertCode]));
+                NotifyUtils.warn(_('The selected currency [%S] has not been configured', [convertCode]));
                 return;
             }
 
@@ -1067,11 +1074,11 @@
             else {
                 if (buf.length==0) {
                     //@todo OSD
-                    OsdUtils.warn(_('Please enter an amount first'));
+                    NotifyUtils.warn(_('Please enter an amount first'));
                 }
                 else if (currencies == null || currencies.length <= convertIndex) {
                     //@todo OSD
-                    OsdUtils.warn(_('Please configure the selected currency entry first [%S]', [convertIndex]));
+                    NotifyUtils.warn(_('Please configure the selected currency entry first [%S]', [convertIndex]));
                 }
 
             }
@@ -1127,20 +1134,20 @@
                 this.dispatchEvent('onAddPayment', null);
 
                 // @todo OSD
-                OsdUtils.warn(_('Not an open order; cannot register payments'));
+                NotifyUtils.warn(_('Not an open order; cannot register payments'));
                 return; // fatal error ?
             }
 
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 // @todo OSD
-                OsdUtils.warn(_('Not an open order; cannot register payments'));
+                NotifyUtils.warn(_('Not an open order; cannot register payments'));
                 return;
             }
             
             var payment = parseFloat(buf);
             if (payment == 0 || isNaN(payment)) {
                 //@todo OSD
-                OsdUtils.warn(_('Please enter an amount first'));
+                NotifyUtils.warn(_('Please enter an amount first'));
                 return;
             }
             var data = {
@@ -1173,20 +1180,20 @@
                 this.dispatchEvent('onAddPayment', null);
 
                 // @todo OSD
-                OsdUtils.warn(_('Not an open order; cannot register payments'));
+                NotifyUtils.warn(_('Not an open order; cannot register payments'));
                 return; // fatal error ?
             }
 
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 // @todo OSD
-                OsdUtils.warn(_('Not an open order; cannot register payments'));
+                NotifyUtils.warn(_('Not an open order; cannot register payments'));
                 return;
             }
 
             var payment = parseFloat(buf);
             if (payment == 0 || isNaN(payment)) {
                 //@todo OSD
-                OsdUtils.warn(_('Please enter an amount first'));
+                NotifyUtils.warn(_('Please enter an amount first'));
                 return;
             }
             var data = {
@@ -1213,7 +1220,7 @@
                 this.dispatchEvent('onAddPayment', null);
 
                 // @todo OSD
-                OsdUtils.warn(_('Not an open order; cannot register payments'));
+                NotifyUtils.warn(_('Not an open order; cannot register payments'));
                 return; // fatal error ?
             }
 
@@ -1221,7 +1228,12 @@
 
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 // @todo OSD
-                OsdUtils.warn(_('Not an open order; cannot register payments'));
+                NotifyUtils.warn(_('Not an open order; cannot register payments'));
+                return;
+            }
+
+            if (curTransaction.getItemsCount() < 1) {
+                NotifyUtils.warn(_('Nothing has been registered yet; cannot register payments'));
                 return;
             }
 
@@ -1318,19 +1330,19 @@
             if(curTransaction == null) {
                 this.dispatchEvent('onShiftTax', null);
                 //@todo OSD
-                OsdUtils.warn(_('Not an open order; cannot shift tax'));
+                NotifyUtils.warn(_('Not an open order; cannot shift tax'));
                 return; // fatal error ?
             }
 
             if(index <0) {
                 //@todo OSD
-                OsdUtils.warn(_('Please select an item first'));
+                NotifyUtils.warn(_('Please select an item first'));
                 return;
             }
 
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 //@todo OSD
-                OsdUtils.warn(_('Not an open order; cannot shift tax'));
+                NotifyUtils.warn(_('Not an open order; cannot shift tax'));
                 return; // fatal error ?
             }
 
@@ -1339,14 +1351,14 @@
                 this.dispatchEvent('onShiftTaxError', {});
                 //@todo OSD
                 var displayItem = curTransaction.getDisplaySeqAt(index);
-                OsdUtils.warn(_('This operation cannot be performed on [%S]', [displayItem.name]));
+                NotifyUtils.warn(_('This operation cannot be performed on [%S]', [displayItem.name]));
                 return;
             }
 
             if (itemTrans.hasMarker) {
                 this.dispatchEvent('onShiftTaxError', {});
                 //@todo OSD
-                OsdUtils.warn(_('Cannot modify an item that has been subtotaled'));
+                NotifyUtils.warn(_('Cannot modify an item that has been subtotaled'));
                 return;
             }
 
@@ -1365,7 +1377,7 @@
                     // not found
                     this.dispatchEvent('onShiftTaxError', {});
                     //@todo OSD
-                    OsdUtils.error(_('The tax status indicated does not exist [%S]', [taxNo]));
+                    NotifyUtils.error(_('The tax status indicated does not exist [%S]', [taxNo]));
                     return;
                 }
             }
@@ -1416,7 +1428,7 @@
                 
                 this.dispatchEvent('onCancel', null);
                 //@todo OSD
-                OsdUtils.warn(_('Not an open order; nothing to cancel'));
+                NotifyUtils.warn(_('Not an open order; nothing to cancel'));
                 return; // fatal error ?
             }
 
@@ -1496,13 +1508,13 @@
 
             if(curTransaction == null) {
                 //@todo OSD
-                OsdUtils.warn(_('Not an open order; cannot add condiment'));
+                NotifyUtils.warn(_('Not an open order; cannot add condiment'));
                 return; // fatal error ?
             }
 
             if(index <0) {
                 //@todo OSD
-                OsdUtils.warn(_('Please select an item first'));
+                NotifyUtils.warn(_('Please select an item first'));
                 return;
             }
 
@@ -1513,7 +1525,7 @@
                 }
                 else {
                     //@todo OSD
-                    OsdUtils.warn(_('Not an open order; cannot add condiment'));
+                    NotifyUtils.warn(_('Not an open order; cannot add condiment'));
                 }
             }
 
@@ -1527,22 +1539,22 @@
                 if (cartItem == null || cartItem.type != 'item') {
                     var displayItem = curTransaction.getDisplaySeqAt(index);
                     //@todo OSD
-                    OsdUtils.warn(_('Condiments may not be added to [%S]', [displayItem.name]));
+                    NotifyUtils.warn(_('Condiments may not be added to [%S]', [displayItem.name]));
                     return;
                 }
                 if (cartItem.hasMarker) {
                     //@todo OSD
-                    OsdUtils.warn(_('Cannot add condiments to an item that has been subtotaled'));
+                    NotifyUtils.warn(_('Cannot add condiments to an item that has been subtotaled'));
                     return;
                 }
                 if (cartItem.hasDiscount) {
                     //@todo OSD
-                    OsdUtils.warn(_('Please void discount on item first'));
+                    NotifyUtils.warn(_('Please void discount on item first'));
                     return;
                 }
                 if (cartItem.hasSurcharge) {
                     //@todo OSD
-                    OsdUtils.warn(_('Please void surcharge on item first'));
+                    NotifyUtils.warn(_('Please void surcharge on item first'));
                     return;
                 }
                 condimentItem = GREUtils.extend({}, productsById[cartItem.id]);
@@ -1552,7 +1564,7 @@
 
                 if(!condimentItem.cond_group){
                     //@todo OSD
-                    OsdUtils.warn(_('No Condiment group associated with item [%S]', [condimentItem.name]));
+                    NotifyUtils.warn(_('No Condiment group associated with item [%S]', [condimentItem.name]));
                 }
                 else {
                     var condiments = this.getCondimentsDialog(condimentItem.cond_group);
@@ -1573,18 +1585,18 @@
             this.cancelReturn();
 
             if(curTransaction == null) {
-                OsdUtils.warn(_('Not an open order; cannot add memo'));
+                NotifyUtils.warn(_('Not an open order; cannot add memo'));
                 return; // fatal error ?
             }
 
             if(index <0) {
-                OsdUtils.warn(_('Please select an item first'));
+                NotifyUtils.warn(_('Please select an item first'));
                 return;
             }
 
             // transaction is submit and close success
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
-                OsdUtils.warn(_('Not an open order; cannot add memo'));
+                NotifyUtils.warn(_('Not an open order; cannot add memo'));
                 return; // fatal error ?
             }
 
@@ -1627,7 +1639,7 @@
 
             condGroups.forEach(function(o) {
                 i++;
-                if (o.name == condgroup) {
+                if (o.id == condgroup) {
                     index = i
                 }
             });
@@ -1742,12 +1754,12 @@
 
             if(curTransaction == null) {
                     //@todo OSD
-                if (warn) OsdUtils.warn(_('No open order to push'));
+                if (warn) NotifyUtils.warn(_('No open order to push'));
                 return; // fatal error ?
             }
 
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
-                if (warn) OsdUtils.warn(_('No open order to push'));
+                if (warn) NotifyUtils.warn(_('No open order to push'));
                 return;
             }
 
@@ -1782,7 +1794,7 @@
 
             }
             else {
-                if (warn) OsdUtils.warn(_('Order is not queued because it is empty'));
+                if (warn) NotifyUtils.warn(_('Order is not queued because it is empty'));
                 return;
             }
         
@@ -1793,6 +1805,8 @@
             var queuePool = this._getQueuePool();
             var queues = [];
             var confs = GeckoJS.Configure.read('vivipos.fec.settings');
+            var screenwidth = GeckoJS.Session.get('screenwidth') || '800';
+            var screenheight = GeckoJS.Session.get('screenheight') || '600';
 
             // check private queue
             if (confs.PrivateQueue) {
@@ -1813,7 +1827,7 @@
                 }
             }
             var aURL = 'chrome://viviecr/content/select_queues.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=700,height=500';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
             var inputObj = {
                 queues: queues,
                 queuePool: queuePool

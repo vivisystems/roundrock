@@ -1,0 +1,235 @@
+/*-----------------------------------------------------------------------------
+ *
+ * Function Panel
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+.vivifuncpanelecr_function_panel {
+    background: none;
+    border-width: 1px;
+    padding: 0px 0px 0px 0px;
+    background: lightgray;
+}
+
+.vivifuncpanelecr_spacer {
+    min-width: 1px;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+}
+
+/*-----------------------------------------------------------------------------
+ * Function Panel button panel
+ *-----------------------------------------------------------------------------
+ */
+
+.vivifuncpanelecr_button_panel {
+    border: none;
+    margin: 0px 0px 0px 0px;
+    padding: 0px;
+}
+
+/*-----------------------------------------------------------------------------
+ * Function Panel mapped buttons
+ *-----------------------------------------------------------------------------
+ */
+
+.vivifuncpanelecr_matrix_button_mapped {
+    min-width: 40px;
+    min-height: 40px;
+    margin: 0px;
+    padding: 0px;
+    list-style-type: none;
+    overflow: hidden;
+    text-align: center;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-background-clip: border;
+    -moz-border-radius: 4px;
+    color: #4b443f;
+    border: 1px solid;
+    -moz-border-top-colors: #afafaf;
+    -moz-border-right-colors: #afafaf;
+    -moz-border-bottom-colors: #afafaf;
+    -moz-border-left-colors: #afafaf;
+    background: #fff url(images/funColor01.gif) bottom left repeat-x;
+}
+
+.vivifuncpanelecr_matrix_button_mapped[disabled=true] {
+    min-width: 40px;
+    min-height: 40px;
+    margin: 0px;
+    padding: 0px;
+    list-style-type: none;
+    overflow: hidden;
+    text-align: center;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-background-clip: border;
+    -moz-border-radius: 4px;
+    border: 1px solid;
+    -moz-border-top-colors: #afafaf;
+    -moz-border-right-colors: #afafaf;
+    -moz-border-bottom-colors: #afafaf;
+    -moz-border-left-colors: #afafaf;
+    background: #f8f8f8 url(images/funColor01.gif) bottom left repeat-x !important;
+}
+
+/*-----------------------------------------------------------------------------
+ * Function Panel unmapped buttons
+ *-----------------------------------------------------------------------------
+ */
+
+.vivifuncpanelecr_matrix_button_nomap {
+    min-width: 40px;
+    min-height: 40px;
+    width: 40px;
+    margin: 0px;
+    padding: 0px;
+    list-style-type: none;
+    overflow: hidden;
+    text-align: center;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-background-clip: border;
+    -moz-border-radius: 4px;
+    border: 1px solid;
+    -moz-border-top-colors: #afafaf;
+    -moz-border-right-colors: #afafaf;
+    -moz-border-bottom-colors: #afafaf;
+    -moz-border-left-colors: #afafaf;
+    background-image: none;
+}
+
+
+
+/*-----------------------------------------------------------------------------
+ * Function Panel configure-mode buttons
+ *-----------------------------------------------------------------------------
+ */
+
+.vivifuncpanelecr_matrix_button_configure {
+    min-width: 40px;
+    min-height: 40px;
+    width: 40px;
+    margin: 0px;
+    padding: 0px;
+    list-style-type: none;
+    overflow: hidden;
+    text-align: center;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-background-clip: border;
+    border: none;
+    -moz-border-radius: 4px;
+}
+
+.vivifuncpanelecr_matrix_button_configure[disabled=true] {
+}
+
+/*-----------------------------------------------------------------------------
+ * Function Panel control panel
+ *-----------------------------------------------------------------------------
+ */
+
+.vivifuncpanelecr_control_panel {
+    min-width: 34px;
+    max-width: 34px;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    overflow: hidden;
+    -moz-box-align: center;
+}
+
+/*-----------------------------------------------------------------------------
+ * Function Panel scrollbar
+ *-----------------------------------------------------------------------------
+ */
+
+.vivifuncpanelecr_control_scroll_left {
+    min-height: 32px;
+    max-height: 32px;
+    min-width: 32px;
+    max-width: 32px;
+    margin: 0px;
+    padding: 0px 0px 0px 0px;
+    background: transparent url(images/departUp.png) 0 0 no-repeat;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-background-clip: border;
+    border: 0px;  
+}
+
+.vivifuncpanelecr_control_scroll_left[disabled=false]:active {
+    background-position:-32px 0;
+}
+
+.vivifuncpanelecr_control_scroll_right {
+    min-height: 32px;
+    max-height: 32px;
+    min-width: 32px;
+    max-width: 32px;
+    margin: 0px;
+    padding: 0px 0px 0px 0px;
+    background: transparent url(images/departDown.png) 0 0 no-repeat;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-background-clip: border;
+    border: 0px;   
+}
+.vivifuncpanelecr_control_scroll_right[disabled=false]:active {
+	  background-position:-32px 0;
+}
+
+.vivifuncpanelecr_control_home {
+    min-width: 32px;
+    max-width: 32px;
+    min-height: 32px;
+    max-height: 32px;
+    margin: 0px 0 2px 0;
+    padding: 0px 0px 0px 0px;
+    background: transparent url(images/funTop.png) 0 0 no-repeat;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-background-clip: border;
+    border: 0px; 
+}
+.vivifuncpanelecr_control_home[disabled=false]:active {
+	  background-position:-32px 0;
+}
+
+.vivifuncpanelecr_control_label {
+    color: #7f8893;
+    margin: 0px;
+    padding: 0px 0px 0px 0px;
+    text-align: center;
+    font-size: 10.5pt;
+    border-width: 1px;
+    background: transparent;
+    border-color: transparent;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-background-clip: border;
+    -moz-border-radius: 0px; 
+}
+.vivifuncpanelecr_control_label .button-text{
+    margin: 0px;
+    padding: 0px;
+}
+
+/*-----------------------------------------------------------------------------
+ * Function Panel buttons
+ *-----------------------------------------------------------------------------
+ */
+
+/* button active */
+
+vivifunctionpanelecr vivibutton[disabled=false]:active {
+    border: 2px solid;
+    -moz-border-top-colors: #444 #222;
+    -moz-border-right-colors: #444 #ddd;
+    -moz-border-bottom-colors: #444 #ddd;
+    -moz-border-left-colors: #444 #222;
+}
+
+/* button baseclass */

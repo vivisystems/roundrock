@@ -21,10 +21,10 @@
 
     <vbox flex="1" class="main-dialog">
         <!-- Begin Condiment Groups -->
-        <groupbox>
+        <groupbox flex="1">
             <caption label="&condiments.group;" />
-            <hbox>
-                <viviscrollablebuttonpanel dir="reverse" ensureVisible="true" id="condimentscrollablepanel" flex="1" cols="3" rows="2" labelField="name"
+            <hbox flex="1">
+                <viviscrollablebuttonpanel dir="reverse" ensureVisible="true" id="condimentscrollablepanel" flex="1" cols="3" rows="3" labelField="name"
                                            oncommand="$do('changeCondimentPanel',this.selectedIndex, 'Condiments');"
                                            class="catescrollablepanel"
                                            buttonClass="catbtn button-radius font-medium"
@@ -33,7 +33,7 @@
                       <spacer flex="1" />
                 </viviscrollablebuttonpanel>
                 <spacer style="width: 30px;" />
-                <vbox style="width: 340px;">
+                <vbox>
                     <grid>
                         <rows>
                             <row>
@@ -59,12 +59,12 @@
         <separator class="groove-thin"/>
 
         <!-- Begin Condiments -->
-        <groupbox>
+        <groupbox flex="1">
             <caption label="&condiments.condiment;" />
 
-            <hbox>
-                <vbox>
-                    <viviscrollablebuttonpanel dir="reverse" ensureVisible="true" id="detailscrollablepanel" flex="1" cols="2" rows="4" labelField="name" imageField="no"
+            <hbox flex="1">
+                <vbox flex="1">
+                    <viviscrollablebuttonpanel dir="reverse" ensureVisible="true" id="detailscrollablepanel" flex="1" cols="3" rows="4" labelField="name" imageField="no"
                                                oncommand="$do('clickCondimentPanel',this.selectedIndex, 'Condiments');"
                                                class="prodscrollablepanel"
                                                buttonClass="plubtn smallimagebtn button-radius"

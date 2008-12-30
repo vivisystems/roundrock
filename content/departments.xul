@@ -21,7 +21,7 @@
 
     <vbox class="main-dialog" flex="1">
         <caption label="&departments.title;"/>
-        <hbox>
+        <hbox flex="1">
             <hbox flex="1" pack="start">
                 <vbox pack="start" flex="1">
                     <viviscrollablebuttonpanel dir="reverse" id="deptscrollablepanel" flex="1" cols="4" rows="6" labelField="name" imageField="no"
@@ -76,13 +76,13 @@
                                                buttonClass="catbtn button-white button-radius" default="medium"/>
                     </groupbox>
             <separator class="groove-thin"/>
-            <spacer flex="1"/>
             <hbox>
                 <button id="add_dept" label="&departments.button.action.add;" disabled="false" class="editbtns" oncommand="$do('add', null, 'Departments');" />
                 <spacer flex="1" />
                 <button id="modify_dept" label="&departments.button.action.modify;" disabled="false" class="editbtns" oncommand="$do('modify', null, 'Departments');" />
                 <button id="delete_dept" label="&departments.button.action.delete;" disabled="false" class="editbtns" oncommand="$do('remove', null, 'Departments');" />
             </hbox>
+            <spacer flex="1"/>
                 </vbox>
         </hbox>
     </vbox>

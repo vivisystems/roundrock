@@ -6,6 +6,7 @@
         _listObj: null,
         _listDatas: null,
         _rolelistObj: null,
+        _lastSelection: null,
 
         getListObj: function() {
             if(this._listObj == null) {
@@ -35,7 +36,12 @@
 
             var index = (groups.length > 0) ? 0 : -1;
             if (data) {
-                listObj.value = data;
+                for (var i = 0; i < groups.length; i++) {
+                    if (groups[i].id == data) {
+                        index = i;
+                        break;
+                    }
+                }
                 if (listObj.selectedIndex == null || listObj.selectedIndex < 0) {
                     listObj.selectedItems = [index];
                     listObj.selectedIndex = index;
@@ -50,10 +56,25 @@
 		
             var listObj = this.getListObj();
             var selectedIndex = listObj.selectedIndex;
-            var group = this._listDatas[selectedIndex];
+            var group;
 
-            // $("rolegroup").val(rolegroup.name);
-            document.getElementById('cond_group').value = group.name;
+            if (selectedIndex == this._lastSelection) {
+                listObj.selectedIndex = -1;
+                listObj.selectedItems = [];
+            }
+            else {
+                this._lastSelection = selectedIndex;
+                group = this._listDatas[selectedIndex];
+            }
+
+            if (group) {
+                document.getElementById('cond_group_name').value = group.name;
+                document.getElementById('cond_group').value = group.id;
+            }
+            else {
+                document.getElementById('cond_group_name').value = '';
+                document.getElementById('cond_group').value = '';
+            }
         }
 	
     });

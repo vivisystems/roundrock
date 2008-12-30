@@ -1,3 +1,0 @@
-#!/bin/sh
-
-msginit -i messages.pot -o messages.po -p --locale=zh_TW

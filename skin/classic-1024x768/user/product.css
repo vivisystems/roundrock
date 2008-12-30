@@ -1,0 +1,215 @@
+/*--------------------------------------------------------------------------
+ *
+ * DEPARTMENT PANEL
+ *
+ *--------------------------------------------------------------------------
+ */
+
+.catescrollablepanel{
+    background: transparent;
+	min-width: 500px;
+	width: 500px;
+}
+
+/*--------------------------------------------------------------------------
+ * BUTTONS
+ *--------------------------------------------------------------------------
+ */
+
+.catbtn {
+    min-height:50px;
+    min-width: 50px;
+    border: 2px solid;
+    -moz-border-top-colors: #ddcfb4 #ffffff;
+    -moz-border-right-colors: #ddcfb4 #ffffff;
+    -moz-border-bottom-colors: #ddcfb4 #ffffff;
+    -moz-border-left-colors: #ddcfb4 #ffffff;
+    color: #42422f;
+    -moz-appearance: none;
+    margin: 2px;
+    padding: 0px;    
+    -moz-background-clip: border;
+    background: #fcf9f4 url(images/departBtn1.png) 0 50% no-repeat;
+    -moz-box-pack: center;
+    -moz-user-focus: ignore;
+}
+
+.catbtn:active, .plubtn:active {
+    background-position:0pt -60px;
+    border: 2px solid;
+    -moz-border-top-colors: #444 #222;
+    -moz-border-right-colors: #444 #ddd;
+    -moz-border-bottom-colors: #444 #ddd;
+    -moz-border-left-colors: #444 #222;
+}
+
+.catbtn[disabled=true] {
+    border: 0px;
+}
+
+.catbtn[selected] {
+    -moz-border-top-colors: #000000 #000000;
+    -moz-border-right-colors: #000000 #000000;
+    -moz-border-bottom-colors: #000000 #000000;
+    -moz-border-left-colors: #000000 #000000;
+    border-width: 2px;
+}
+
+.catbtn hbox, .plubtn hbox {
+    -moz-box-orient: vertical;
+}
+
+/*--------------------------------------------------------------------------
+ * SCROLLBAR
+ *--------------------------------------------------------------------------
+ */
+
+.depart_scroll_up {
+    max-height: 40px;
+    min-height: 40px;
+    max-width: 40px;
+    min-width: 40px;
+    height: 40px;
+    width: 40px;
+    margin: 0px;
+    padding: 0px 0px 0px 0px;
+    background: transparent url(images/departUp.png) 0 0 no-repeat;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-background-clip: border;
+    border: 0px;
+}
+
+.depart_scroll_up[disabled=false]:active {
+	  background-position:-40px 0;
+}
+
+.depart_scroll_up label {
+	display: none;
+}
+
+.depart_scroll_up description {
+	display: none;
+}
+
+.depart_scroll_down {
+    max-height: 40px;
+    min-height: 40px;
+    max-width: 40px;
+    min-width: 40px;
+    height: 40px;
+    width: 40px;
+    margin: 0px;
+    padding: 0px 0px 0px 0px;
+    background: transparent url(images/departDown.png) 0 0 no-repeat;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-background-clip: border;
+    border: 0px;
+}
+
+.depart_scroll_down[disabled=false]:active {
+	  background-position:-40px 0;
+}
+
+.depart_scroll_down label {
+	display: none;
+}
+
+.depart_scroll_down description {
+	display: none;
+}
+
+.catescrollablepanel .scrollablepanel-scrollbar {
+    border-left: 1px dotted #908c83;
+    border-right: 1px dotted #908c83;
+}
+
+
+
+/*--------------------------------------------------------------------------
+ *
+ * PLU PANEL
+ *
+ *--------------------------------------------------------------------------
+ */
+.prodscrollablepanel {
+	border-left: 1px solid #5c5751;
+	border-right: 1px solid #5c5751;
+	border-top: 1px solid #5c5751;
+	border-bottom: 1px solid #5c5751;
+	-moz-border-radius-topright: 8px;
+	-moz-border-radius-bottomright: 8px;
+	-moz-appearance: none;
+	-moz-background-clip: border;
+	min-width: 500px;
+	width: 500px;
+	margin: 3px 0px 2px 0px;
+	background: #fff;
+	padding: 0px;
+}
+.prodscrollablepanel .prodscrollablepanel {
+	border: none;
+	background: none;
+	margin: 0;
+}
+.prodscrollablepanel vivibuttonpanel {
+	margin: 4px;
+}
+/*--------------------------------------------------------------------------
+ * BUTTONS
+ *--------------------------------------------------------------------------
+ */
+
+.plubtn {
+    min-height:50px;
+    min-width: 50px;
+    border: 1px solid;
+    -moz-appearance: none;
+    margin: 2px;
+    padding: 0px;
+    -moz-border-top-colors: #c9c3b9;
+    -moz-border-right-colors: #c9c3b9;
+    -moz-border-bottom-colors: #c9c3b9;
+    -moz-border-left-colors: #c9c3b9;
+    -moz-box-pack: center;
+    -moz-user-focus: ignore;
+    -moz-background-clip: border;
+    background-color: #ffffff;
+
+}
+
+.plubtn:active {
+    background-position:0pt -60px;
+    border: 2px solid;
+    -moz-border-top-colors: #444 #222;
+    -moz-border-right-colors: #444 #ddd;
+    -moz-border-bottom-colors: #444 #ddd;
+    -moz-border-left-colors: #444 #222;
+}
+
+.plubtn[disabled=true] {
+    background-color: #ffffff;
+    border: 1px solid #c9c3b9;
+}
+
+.plubtn hbox {
+    -moz-box-orient: vertical;
+
+}
+
+/*--------------------------------------------------------------------------
+ * SCROLLBAR
+ *--------------------------------------------------------------------------
+ */
+
+.prodscrollablepanel .scrollablepanel-scrollbar {
+	background: transparent url(images/plubg.gif) top left repeat-y;
+}
+
+.prodscrollablepanel image {
+	width: 32px;
+	height: 32px;
+}
+
+

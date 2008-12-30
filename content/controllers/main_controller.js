@@ -12,6 +12,7 @@
         maxButtonRows: 10,
         depPanelView: null,
         pluPanelView: null,
+        doRestart: false,
     
         initial: function() {
 
@@ -37,7 +38,20 @@
             GeckoJS.Log.getAppender('console').level = GeckoJS.Log.ERROR;
             GeckoJS.Log.defaultClassLevel = GeckoJS.Log.ERROR;
 
-        },
+            var self = this;
+            
+            // observer restart topic
+            this.observer = GeckoJS.Observer.newInstance({
+                topics: ['prepare-to-restart'],
+
+                observe: function(aSubject, aTopic, aData) {
+                    if (aTopic == 'prepare-to-restart')
+                        self.doRestart = true;
+                }
+            }).register();
+
+            GeckoJS.Observer.notify(null, 'render', this);
+    },
 
         _getKeypadController: function() {
             return GeckoJS.Controller.getInstanceByName('Keypad');
@@ -64,6 +78,17 @@
             var width = this.screenwidth;
             var height = this.screenheight;
             GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,dependent=yes,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height, "");
+
+            if (this.doRestart) {
+                try {
+                    var chromeRegInstance = Components.classes["@mozilla.org/chrome/chrome-registry;1"].getService();
+                    var xulChromeReg = chromeRegInstance.QueryInterface(Components.interfaces.nsIXULChromeRegistry);
+                    //alert('reloading chrome');
+                    xulChromeReg.reloadChrome();
+                    this.log('reloaded chrome');
+                } catch(err) {
+                }
+            }
         },
 
 
@@ -103,35 +128,6 @@
             var height = this.screenheight;
             //$do('load', null, 'Categories');
             GREUtils.Dialog.openDialog(window, aURL, aName, aArguments, posX, posY, width, height);
-        },
-
-        SelectQueueDialog: function () {
-            
-            var aURL = "chrome://viviecr/content/selectqueue.xul";
-            var aName = "SelectQueue";
-            var aArguments = "";
-            /*
-            var posX = (this.screenwidth - 640) / 2;
-            var posY = (this.screenheight - 480) / 2;
-            var width = 640;
-            var height = 480;
-            */
-            var posX = 0;
-            var posY = 0;
-            var width = this.screenwidth;
-            var height = this.screenheight;
-            var args = {
-                result: false,
-                data: null
-            };
-            args.wrappedJSObject = args;
-            GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,dependent=yes,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height, args);
-            
-            if (args.result) {
-                this.requestCommand('pushQueue',null,'Main');
-                this.requestCommand('pullQueue',args.data, 'Cart');
-            }
-
         },
 
         WizardDialog: function () {
@@ -292,12 +288,24 @@
             var fnPanel = document.getElementById('functionPanel');
             var btmBox = document.getElementById('vivipos-bottombox');
 
-            var departmentRows = GeckoJS.Configure.read('vivipos.fec.settings.DepartmentRows') || 3;
-            var departmentCols = GeckoJS.Configure.read('vivipos.fec.settings.DepartmentCols') || 4;
-            var pluRows = GeckoJS.Configure.read('vivipos.fec.settings.PluRows') || 4;
-            var pluCols = GeckoJS.Configure.read('vivipos.fec.settings.PluCols') || 4;
-            var fnRows = GeckoJS.Configure.read('vivipos.fec.settings.functionpanel.rows') || 3;
-            var fnCols = GeckoJS.Configure.read('vivipos.fec.settings.functionpanel.columns') || 4;
+            var departmentRows = GeckoJS.Configure.read('vivipos.fec.settings.DepartmentRows');
+            if (departmentRows == null) departmentRows = 3;
+
+            var departmentCols = GeckoJS.Configure.read('vivipos.fec.settings.DepartmentCols');
+            if (departmentCols == null) departmentCols = 4;
+
+            var pluRows = GeckoJS.Configure.read('vivipos.fec.settings.PluRows');
+            if (pluRows == null) pluRows = 4;
+
+            var pluCols = GeckoJS.Configure.read('vivipos.fec.settings.PluCols');
+            if (pluCols == null) pluCols = 4;
+
+            var fnRows = GeckoJS.Configure.read('vivipos.fec.settings.functionpanel.rows');
+            if (fnRows == null) fnRows = 3;
+
+            var fnCols = GeckoJS.Configure.read('vivipos.fec.settings.functionpanel.columns');
+            if (fnCols == null) fnCols = 4;
+
             var hideDeptScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.HideDeptScrollbar');
             var hidePLUScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.HidePLUScrollbar');
             var hideFPScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.HideFPScrollbar');
@@ -361,17 +369,21 @@
                 }
             }
 
+            if (deptPanel) deptPanel.vivibuttonpanel.resizeButtons();
+            if (pluPanel) pluPanel.vivibuttonpanel.resizeButtons();
+
             if (fnPanel) {
                 var totalHeight = deptPanel.boxObject.height - (- pluPanel.boxObject.height);
                 var panelSpacerWidth = (panelSpacer) ? panelSpacer.boxObject.width : 0;
                 var fnWidth = this.screenwidth - rightPanel.boxObject.width - panelSpacerWidth;
                 var fnHeight = this.screenheight - totalHeight - btmBox.boxObject.height - 7;
 
-                if (fnHeight < 1) {
+                if (fnHeight < 1 || fnRows == 0 || fnCols == 0) {
                     fnPanel.setAttribute('height', 0);
                     fnPanel.hide();
                 }
                 else {
+                    fnPanel.show();
                     fnPanel.setAttribute('hideScrollbar', hideFPScrollbar);
 
                     // check if rows/columns have changed
@@ -387,7 +399,6 @@
                         fnPanel.setSize(fnRows, fnCols, hspacing, vspacing);
                     }
 
-                    fnPanel.show();
                     fnPanel.setAttribute('height', fnHeight);
                     fnPanel.setAttribute('width', fnWidth);
                 }
@@ -433,11 +444,18 @@
         initialLogin: function () {
 
             var defaultLogin = GeckoJS.Configure.read('vivipos.fec.settings.DefaultLogin');
-            var defaultUser = GeckoJS.Configure.read('vivipos.fec.settings.DefaultUser');
+            var defaultUserID = GeckoJS.Configure.read('vivipos.fec.settings.DefaultUser');
+            var defaultUser = '';
 
             //@todo work-around Object reference bug - fixed
             //var roles= this.Acl.getGroupList();
 
+            if (defaultUserID) {
+                var userModel = new UserModel();
+                var defaultUserRecord = userModel.findById(defaultUserID);
+                if (defaultUserRecord) defaultUser = defaultUserRecord.username;
+            }
+            
             if (defaultLogin && defaultUser && defaultUser.length > 0) {
                 this.Acl.securityCheck(defaultUser, 'dummy', false, true);
             }
@@ -501,7 +519,7 @@
                 }
                 else if (!stop) {
                     // @todo OSD
-                    OsdUtils.error(_('Authentication failed!\nPlease make sure the password is correct.'));
+                    NotifyUtils.error(_('Authentication failed!. Please make sure the password is correct.'));
                 }
             }
             else {
@@ -540,7 +558,7 @@
 
                 if (users == null || users.length == 0) {
                     //@todo silent user switch successful
-                    OsdUtils.error(_('[%S] does not exist!', [newUser]));
+                    NotifyUtils.error(_('[%S] does not exist!', [newUser]));
                     return;
                 }
                 else {
@@ -574,12 +592,12 @@
                 }
                 else {
                     // @todo error message for login failure
-                    OsdUtils.error(_('Failed to authenticate user'));
+                    NotifyUtils.error(_('Authentication failed!. Please make sure the password is correct.'));
                 }
             }
             else {
                 // @todo no password
-                OsdUtils.warn(_('Please enter passcode first'));
+                NotifyUtils.warn(_('Please enter passcode first.'));
             }
         },
 
@@ -685,7 +703,7 @@
                 this.Acl.invalidate();
             }
             else {
-                $do('cancel', null, 'Cart');
+                if (!cartEmpty) $do('cancel', null, 'Cart');
                 $do('clear', null, 'Cart');
             }
             if (!quickSignoff) 

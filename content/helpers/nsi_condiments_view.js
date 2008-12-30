@@ -88,7 +88,7 @@
 
             var data = this.data;
             selectedItems.forEach(function(idx){
-                selectedItemsStr.push(data[idx].name);
+                selectedItemsStr.push(data[idx].id);
             });
 
             return selectedItemsStr.join(',');

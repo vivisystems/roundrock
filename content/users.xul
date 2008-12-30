@@ -88,7 +88,8 @@
                                         </row>
                                         <row>
                                             <label value="&users.job;"/>
-                                            <textbox id="job" value="" form="userForm" name="default_job" readonly="true" default="" onclick="$do('getJob', null, 'Users');"/>
+                                            <textbox id="job_name" value="" form="userForm" name="default_job_name" readonly="true" default="" onclick="$do('getJob', null, 'Users');"/>
+                                            <label hidden="true" id="job_id" value="" form="userForm" name="job_id" default=""/>
                                         </row>
                                     </rows>
                                 </grid>

@@ -63,6 +63,40 @@
             }
         },
 
+        initDefaultTax: function () {
+
+            // make sure tax rate field is always populated
+            var rate;
+            var taxes = GeckoJS.Session.get('taxes');
+            if (taxes == null) taxes = this.Tax.getTaxList();
+
+            // set rate to system default
+            var taxid = GeckoJS.Configure.read('vivipos.fec.settings.DefaultTaxStatus');
+            if (taxid == null) {
+                if (taxes && taxes.length > 0) taxid = taxes[0].id;
+            }
+
+            // go from rate ID to rate no
+            for (var i = 0; i < taxes.length; i++) {
+                if (taxes[i].id == taxid) {
+                    rate = taxes[i].no;
+                    break;
+                }
+            }
+            $('#rate')[0].setAttribute('default', rate);
+
+            // look up rate_name from rate id
+            var rate_name = rate;
+            for (var i = 0; i < taxes.length; i++) {
+                if (taxes[i].no == rate) {
+                    rate_name = taxes[i].name;
+                    break;
+                }
+            }
+            $('#rate_name')[0].setAttribute('default', rate_name);
+
+        },
+
         getInputDefault: function () {
             var valObj = {};
             this.query('[form=deptForm]').each(function() {
@@ -84,28 +118,6 @@
 
         resetInputData: function () {
             GeckoJS.FormHelper.reset('deptForm');
-
-            // make sure tax rate field is always populated
-            var rate = $('#rate').val();
-            var taxes = GeckoJS.Session.get('taxes');
-            if (!rate || rate == '') {
-                // set rate to system default
-                var rate = GeckoJS.Configure.read('vivipos.fec.settings.DefaultTaxStatus');
-                if (!rate || rate == '') {
-                    if (taxes == null) taxes = this.Tax.getTaxList();
-                    if (taxes && taxes.length > 0) rate = taxes[0].no;
-                }
-                $('#rate').val(rate);
-            }
-            var rate_name = rate;
-            for (var i = 0; i < taxes.length; i++) {
-                if (taxes[i].no == rate) {
-                    rate_name = taxes[i].name;
-                    break;
-                }
-            }
-            $('#rate_name').val(rate_name);
-
         },
 
         setInputData: function (valObj) {
@@ -135,7 +147,7 @@
                 result = 3;
             } else if (data.name.length <= 0) {
                 // @todo OSD
-                OsdUtils.warn(_('Department Name must not be empty'));
+                NotifyUtils.warn(_('Department Name must not be empty'));
                 result = 4;
             } else {
                 if (depts)
@@ -143,11 +155,11 @@
                         var o = depts[i];
                         if (o.no == data.no && !id) {
                             // @todo OSD
-                            OsdUtils.warn(_('Duplicate Department Number (%S); department not %S.', [data.no, id ? 'modified' : 'added']));
+                            NotifyUtils.warn(_('Duplicate Department Number (%S); department not %S.', [data.no, id ? 'modified' : 'added']));
                             return 1;
                         } else if (o.name == data.name && o.id != id) {
                             // @todo OSD
-                            OsdUtils.warn(_('Duplicate Department Name (%S); department not %S.', [data.name, id ? 'modified' : 'added']))
+                            NotifyUtils.warn(_('Duplicate Department Name (%S); department not %S.', [data.name, id ? 'modified' : 'added']))
                             return 2;
                         }
                     }
@@ -192,7 +204,7 @@
                     }
                     catch (e) {
                         // @todo OSD
-                        OsdUtils.error(_('An error occurred while adding Department [%S]; the department may not have been added successfully', [inputData.name]));
+                        NotifyUtils.error(_('An error occurred while adding Department [%S]; the department may not have been added successfully', [inputData.name]));
                     }
                 }
             }
@@ -221,7 +233,7 @@
             }
             catch (e) {
                 // @todo OSD
-                OsdUtils.error(_('An error occurred while modifying Department [%S]\nThe department may not have been modified successfully', [inputData.name]));
+                NotifyUtils.error(_('An error occurred while modifying Department [%S]. The department may not have been modified successfully', [inputData.name]));
             }
         },
 
@@ -229,6 +241,18 @@
             if (this._selectedIndex == null || this._selectedIndex == -1) return;
 
             var dept = this.deptPanelView.getCurrentIndexData(this._selectedIndex);
+
+            // make sure department has not been assigned to products
+            var productModel = new ProductModel();
+            var products = productModel.findByIndex('all', {
+                index: 'cate_no',
+                value: dept.no
+            });
+
+            if (products && products.length > 0) {
+                NotifyUtils.warn(_('[%S] has one or more products and may not be deleted', [dept.name]));
+                return;
+            }
 
             if (GREUtils.Dialog.confirm(null, _('confirm delete %S', [dept.name]), _('Are you sure?'))) {
                 var cateModel = new CategoryModel();
@@ -246,7 +270,7 @@
                 }
                 catch (e) {
                     // @todo OSD
-                    OsdUtils.error(_('An error occurred while removing Department [%S]\nThe department may not have been removed successfully', [dept.name]));
+                    NotifyUtils.error(_('An error occurred while removing Department [%S]. The department may not have been removed successfully', [dept.name]));
                 }
             }
         },
@@ -276,8 +300,10 @@
                     break;
 
                 case 'remove':
-                    if (this._selectedIndex >= data.length) return data.length - 1;
-                    return this._selectedIndex;
+                    if (data) {
+                        if (this._selectedIndex >= data.length) return data.length - 1;
+                        return this._selectedIndex;
+                    }
                     break;
             }
             return -1;

@@ -49,7 +49,7 @@
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250';
             var inputObj = {input0:null, require0:true, alphaOnly0: true,
-                            input1:null, require1:true, type1:'password'};
+                            input1:null, require1:true, numericOnly1: true, type1:'password'};
 
             this._userAdded = false;
 
@@ -79,14 +79,14 @@
 
             if (user_name != null && user_name.length > 0) {
                 // @todo OSD
-                OsdUtils.warn(_('Duplicate user name [%S]; user not added.', [user.username]));
+                NotifyUtils.warn(_('Duplicate user name [%S]; user not added.', [user.username]));
                 evt.preventDefault();
                 return ;
             }
 
             if (display_name != null && display_name.length > 0) {
                 // @todo OSD
-                OsdUtils.warn(_('Duplicate display name [%S]; user not added.', [user.displayname]));
+                NotifyUtils.warn(_('Duplicate display name [%S]; user not added.', [user.displayname]));
                 evt.preventDefault();
                 return ;
             }
@@ -137,7 +137,7 @@
                     this._userModified = false;
                         
                     // @todo OSD
-                    OsdUtils.warn(_('Duplicate display name [%S]; user not modified.', [evt.data.displayname]));
+                    NotifyUtils.warn(_('Duplicate display name [%S]; user not modified.', [evt.data.displayname]));
                 }
             }
         },
@@ -179,8 +179,17 @@
             var panel = this.getListObj();
             var view = panel.datasource;
             var displayname = view.data[panel.selectedIndex].displayname;
+            var defaultUserID = GeckoJS.Configure.read('vivipos.fec.settings.DefaultUser');
 
-            if (GREUtils.Dialog.confirm(null, _('confirm delete %S', [displayname]), _('Are you sure?')) == false) {
+            if (defaultUserID == evt.data.id) {
+                NotifyUtils.warn(_('[%S] is the default user and may not be deleted', [displayname]));
+                evt.preventDefault();
+            }
+            else if (evt.data.username == 'superuser') {
+                NotifyUtils.warn(_('[%S] may not be deleted', [displayname]));
+                evt.preventDefault();
+            }
+            else if (GREUtils.Dialog.confirm(null, _('confirm delete %S', [displayname]), _('Are you sure?')) == false) {
                 evt.preventDefault();
             }
         },
@@ -207,6 +216,10 @@
             OsdUtils.info(_('Employee [%S] removed successfully', [evt.data.displayname]));
         },
 
+        afterScaffoldView: function(evt) {
+            evt.data.default_job_name = evt.data.Job.jobname;
+        },
+
         afterScaffoldIndex: function(evt) {
             var panelView = this.getListObj().datasource;
             if (panelView == null) {
@@ -216,6 +229,7 @@
             panelView.data = evt.data;
 
             this.validateForm(true);
+
         },
 
         getRoleGroup: function () {
@@ -237,7 +251,7 @@
         getJob: function () {
             var screenwidth = GeckoJS.Session.get('screenwidth') || 800;
             var screenheight = GeckoJS.Session.get('screenheight') || 600;
-            var jobname = $('#job').val();
+            var jobid = $('#job_id').val();
             var aURL = 'chrome://viviecr/content/select_job.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
             
@@ -246,13 +260,14 @@
                 order: 'jobname'
             });
             var inputObj = {
-                jobname: jobname,
+                jobid: jobid,
                 jobsData: jobsData
             };
-            window.openDialog(aURL, _('Select Access Group'), features, inputObj);
+            window.openDialog(aURL, _('Select Default Job'), features, inputObj);
 
-            if (inputObj.ok && inputObj.jobname) {
-                $('#job').val(inputObj.jobname);
+            if (inputObj.ok && inputObj.jobid) {
+                $('#job_name').val(inputObj.jobname);
+                $('#job_id').val(inputObj.jobid);
             }
         },
 
@@ -287,21 +302,21 @@
                 if (panel.selectedIndex >= 0) {
                     var user = view.data[panel.selectedIndex];
                     if (user) {
-                        GeckoJS.Configure.write('vivipos.fec.settings.DefaultUser', user.username);
+                        GeckoJS.Configure.write('vivipos.fec.settings.DefaultUser', user.id);
                     }
                 }
             }
         },
 
         // initialize selected user to userid
-        initUser: function(username) {
+        initUser: function(userid) {
             
             var panel = this.getListObj();
             var users = panel.datasource.data;
 
             if (users) {
                 for (var i = 0; i < users.length; i++) {
-                    if (users[i].username == username) {
+                    if (users[i].id == userid) {
                         panel.selectedItems = [i];
                         panel.selectedIndex = i;
                         break;
@@ -330,7 +345,8 @@
 
                 var password = document.getElementById('user_password').value.replace(/^\s*/, '').replace(/\s*$/, '');
                 var displayname = document.getElementById('display_name').value.replace(/^\s*/, '').replace(/\s*$/, '');
-                modBtn.setAttribute('disabled', password.length < 1 || displayname.length < 1);
+                var numeric = password.replace(/[0-9.]*/, '');
+                modBtn.setAttribute('disabled', password.length < 1 || displayname.length < 1 || numeric.length > 0);
                 document.getElementById('tab1').removeAttribute('disabled');
                 document.getElementById('tab2').removeAttribute('disabled');
                 document.getElementById('tab3').removeAttribute('disabled');

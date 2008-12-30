@@ -66,7 +66,7 @@
 
             if (plugroups != null && plugroups.length > 0) {
                 //@todo OSD
-                OsdUtils.warn(_('Duplicate Product Group name [%S]; Product Group not added.', [plugroup.name]));
+                NotifyUtils.warn(_('Duplicate Product Group name [%S]; Product Group not added.', [plugroup.name]));
                 evt.preventDefault();
                 return ;
             }
@@ -127,7 +127,7 @@
                     this._plugroupModified = false;
 
                     // @todo OSD
-                    OsdUtils.warn(_('Duplicate Product Group name [%S]; Product group not modified.', [evt.data.name]));
+                    NotifyUtils.warn(_('Duplicate Product Group name [%S]; Product group not modified.', [evt.data.name]));
                 }
             }
         },
@@ -167,7 +167,11 @@
             var view = panel.datasource;
             var name = view.data[panel.selectedIndex].name;
 
-            if (GREUtils.Dialog.confirm(null, _('confirm delete %S', [name]), _('Are you sure?')) == false) {
+            if (this.hasTaggedProducts(evt.data.id)) {
+                NotifyUtils.error(_('[%S] has one or more products and may not be deleted?', [name]));
+                evt.preventDefault();
+            }
+            else if (GREUtils.Dialog.confirm(null, _('confirm delete %S', [name]), _('Are you sure?')) == false) {
                 evt.preventDefault();
             }
         },
@@ -229,6 +233,15 @@
             panelView.data = evt.data;
 
             this.validateForm();
+        },
+
+        //
+        hasTaggedProducts: function (plugroupId) {
+            var productModel = new ProductModel();
+            var taggedProducts = productModel.find('all', {
+                conditions: 'link_group like "%' + plugroupId + '%"'
+            });
+            return (taggedProducts && taggedProducts.length > 0);
         },
 
         load: function () {
