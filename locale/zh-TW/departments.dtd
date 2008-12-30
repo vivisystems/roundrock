@@ -1,11 +1,11 @@
-<!ENTITY departments.title  "Departments">
-<!ENTITY departments.number "Department Number:">
-<!ENTITY departments.name "Department Name:">
-<!ENTITY departments.taxrate "Tax Rate:">
-<!ENTITY departments.visible "Show on Menu:">
-<!ENTITY departments.sale "Sale Department:">
-<!ENTITY departments.button.color "Button Color:">
-<!ENTITY departments.font.size "Font Size:">
-<!ENTITY departments.button.action.add "Add">
-<!ENTITY departments.button.action.modify "Modify">
-<!ENTITY departments.button.action.delete "Delete">
+<!ENTITY departments.title  "產品部門">
+<!ENTITY departments.number "部門代碼:">
+<!ENTITY departments.name "部門名稱:">
+<!ENTITY departments.taxrate "稅別:">
+<!ENTITY departments.visible "顯示於前台:">
+<!ENTITY departments.sale "可單獨銷售:">
+<!ENTITY departments.button.color "按鈕顏色:">
+<!ENTITY departments.font.size "文字大小:">
+<!ENTITY departments.button.action.add "新增">
+<!ENTITY departments.button.action.modify "修改">
+<!ENTITY departments.button.action.delete "刪除">

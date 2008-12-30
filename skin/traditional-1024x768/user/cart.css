@@ -134,7 +134,7 @@
 
 treechildren::-moz-tree-row {
   height: 28px;
-  #border-bottom: 1px solid #818085;
+  border-bottom: 1px solid #818085;
 }
 
 treechildren::-moz-tree-row(selected) {background-color: #3b556c; }
@@ -163,8 +163,8 @@ treechildren::-moz-tree-cell-text(treecellTOTAL) {color: white;}
  */
 
 .cartList tree #name {
-    max-width: 190px;
-    min-width: 190px;
+    max-width: 180px;
+    min-width: 180px;
 }
 
 .cartList tree #current_qty {

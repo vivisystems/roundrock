@@ -3,430 +3,430 @@
 # This file is distributed under the same license as the PACKAGE package.
 # user <user@ubuntu804desktop.localdomain>, 2008.
 #
-!=Project-Id-Version\: PACKAGE VERSION\nReport-Msgid-Bugs-To\: irving.hsu@firich.com.tw\nPOT-Creation-Date\: 2008-12-28 01\:44+0800\nPO-Revision-Date\: 2008-12-28 01\:48+0800\nLast-Translator\: user <user@ubuntu804desktop.localdomain>\nLanguage-Team\: English\nMIME-Version\: 1.0\nContent-Type\: text/plain; charset\=UTF-8\nContent-Transfer-Encoding\: 8bit\nPlural-Forms\: nplurals\=2; plural\=(n \!\= 1);\n
+!=Project-Id-Version\: PACKAGE VERSION\nReport-Msgid-Bugs-To\: irving.hsu@firich.com.tw\nPOT-Creation-Date\: 2008-12-28 01\:44+0800\nPO-Revision-Date\: 2008-12-30 14\:05+0800\nLast-Translator\: user <user@ubuntu804desktop.localdomain>\nLanguage-Team\: English\nMIME-Version\: 1.0\nContent-Type\: text/plain; charset\=UTF-8\nContent-Transfer-Encoding\: 8bit\nPlural-Forms\: nplurals\=2; plural\=(n \!\= 1);\n
 
-Add\ New\ ACL\ Group=Add New ACL Group
+Add New ACL Group=\u65b0\u589e\u6b0a\u9650\u7fa4\u7d44
 
-New\ ACL\ Group=New ACL Group
+New ACL Group=\u65b0\u6b0a\u9650\u7fa4\u7d44
 
-Group\ Name=Group Name
+Group Name=\u7fa4\u7d44\u540d\u7a31
 
-ACL\ Group\ [%S]\ already\ exists;\ ACL\ group\ not\ added.=ACL Group [%S] already exists; ACL group not added.
+ACL Group [%S] already exists; ACL group not added.=\u6b0a\u9650\u7fa4\u7d44 [%S] \u5df2\u5b58\u5728; \u6b0a\u9650\u7fa4\u7d44\u672a\u65b0\u589e
 
-ACL\ Group\ [%S]\ added\ successfully=ACL Group [%S] added successfully
+ACL Group [%S] added successfully=\u6b0a\u9650\u7fa4\u7d44 [%S] \u65b0\u589e\u6210\u529f
 
-An\ error\ occurred\ while\ adding\ ACL\ Group\ [%S];\ the\ ACL\ group\ may\ not\ have\ been\ added\ successfully=An error occurred while adding ACL Group [%S]; the ACL group may not have been added successfully
+An error occurred while adding ACL Group [%S]; the ACL group may not have been added successfully=\u65b0\u589e\u6b0a\u9650\u7fa4\u7d44 [%S] \u6642\u767c\u751f\u932f\u8aa4; \u8a72\u6b0a\u9650\u7fa4\u7d44\u4e26\u672a\u65b0\u589e\u6210\u529f
 
-The\ ACL\ group\ [%S]\ has\ been\ assigned\ to\ one\ or\ more\ users\ [%S]\ and\ cannot\ be\ removed.=The ACL group [%S] has been assigned to one or more users [%S] and cannot be removed.
+The ACL group [%S] has been assigned to one or more users [%S] and cannot be removed.=\u6b0a\u9650\u7fa4\u7d44 [%S] \u5df2\u88ab\u4e00\u500b\u6216\u591a\u500b\u54e1\u5de5\u8a2d\u5b9a [%S] \u4e14\u7121\u6cd5\u522a\u9664
 
-confirm\ delete\ %S=confirm delete %S
+confirm delete %S=\u78ba\u8a8d\u5df2\u522a\u9664 %S
 
-Are\ you\ sure?=Are you sure?
+Are you sure?=\u4f60\u78ba\u5b9a\u55ce?
 
-ACL\ Group\ [%S]\ removed\ successfully=ACL Group [%S] removed successfully
+ACL Group [%S] removed successfully=\u6b0a\u9650\u7fa4\u7d44 [%S] \u522a\u9664\u6210\u529f
 
-An\ error\ occurred\ while\ removing\ ACL\ Group\ [%S];\ the\ ACL\ group\ may\ not\ have\ been\ removed\ successfully=An error occurred while removing ACL Group [%S]; the ACL group may not have been removed successfully
+An error occurred while removing ACL Group [%S]; the ACL group may not have been removed successfully=\u522a\u9664\u6b0a\u9650\u7fa4\u7d44 [%S] \u6642\u767c\u751f\u932f\u8aa4; \u8a72\u6b0a\u9650\u7fa4\u7d44\u4e26\u672a\u522a\u9664\u6210\u529f
 
-ACL\ Group\ [%S]\ modified\ successfully=ACL Group [%S] modified successfully
+ACL Group [%S] modified successfully=\u6b0a\u9650\u7fa4\u7d44 [%S] \u4fee\u6539\u6210\u529f
 
-An\ error\ occurred\ while\ modifying\ ACL\ Group\ [%S];\ the\ ACL\ group\ may\ not\ have\ been\ modified\ successfully=An error occurred while modifying ACL Group [%S]; the ACL group may not have been modified successfully
+An error occurred while modifying ACL Group [%S]; the ACL group may not have been modified successfully=\u4fee\u6539\u6b0a\u9650\u7fa4\u7d44 [%S] \u6642\u767c\u751f\u932f\u8aa4; \u8a72\u6b0a\u9650\u7fa4\u7d44\u4e26\u672a\u4fee\u6539\u6210\u529f
 
-OUT\ OF\ STOCK=OUT OF STOCK
+OUT OF STOCK=\u5df2\u7121\u5eab\u5b58
 
-Product\ May\ Be\ Out\ of\ Stock\!=Product May Be Out of Stock\!
+Product May Be Out of Stock\!=\u7522\u54c1\u53ef\u80fd\u5df2\u7121\u5eab\u5b58
 
-STOCK\ LOW=STOCK LOW
+STOCK LOW=\u5eab\u5b58\u91cf\u4f4e\u65bc\u5b89\u5168\u5eab\u5b58
 
-Low\ Stock\ Threshold\ Reached\!=Low Stock Threshold Reached\!
+Low Stock Threshold Reached\!=\u5eab\u5b58\u91cf\u5df2\u9054\u5b89\u5168\u5eab\u5b58
 
-VERIFY\ AGE=VERIFY AGE
+VERIFY AGE=\u78ba\u8a8d\u5e74\u9f61
 
-Verify\ Customer\ Age\ for\ Purchase\ of\ [%S]\!=Verify Customer Age for Purchase of [%S]\!
+Verify Customer Age for Purchase of [%S]\!=\u8acb\u8207\u5ba2\u6236\u78ba\u8a8d\u5176\u5e74\u9f61\u5df2\u9054\u8cfc\u8cb7 [%S] \u4e4b\u6cd5\u5f8b\u898f\u5b9a
 
-Verify\ Customer\ Age\ for\ Purchase\ of\n[%S]\!=Verify Customer Age for Purchase of\n[%S]\!
+Verify Customer Age for Purchase of\n[%S]\!=\u8acb\u8207\u5ba2\u6236\u78ba\u8a8d\u5176\u5e74\u9f61\u5df2\u9054\u8cfc\u8cb7 [%S] \u4e4b\u6cd5\u5f8b\u898f\u5b9a
 
-SINGLE\ ITEM\ SALE=SINGLE ITEM SALE
+SINGLE ITEM SALE=\u55ae\u4e00\u7522\u54c1\u5feb\u901f\u92b7\u552e
 
-Product\ scan\ code\ not\ found\ [%S]=Product scan code not found [%S]
+Product scan code not found [%S]=\u7522\u54c1\u689d\u78bc [%S] \u4e0d\u5b58\u5728
 
-Not\ an\ open\ order;\ cannot\ modify=Not an open order; cannot modify
+Not an open order; cannot modify=\u5df2\u7d50\u55ae; \u7981\u6b62\u4fee\u6539
 
-Please\ select\ an\ item\ first=Please select an item first
+Please select an item first=\u8acb\u5148\u9078\u64c7\u4e00\u500b\u54c1\u9805
 
-Cannot\ modify\ selected\ item\ [%S]=Cannot modify selected item [%S]
+Cannot modify selected item [%S]=\u7121\u6cd5\u4fee\u6539\u9078\u53d6\u7684\u54c1\u9805 [%S]
 
-Not\ authorized\ to\ modify\ condiment\ price=Not authorized to modify condiment price
+Not authorized to modify condiment price=\u6b0a\u9650\u4e0d\u8db3; \u7981\u6b62\u4fee\u6539\u8abf\u5473\u50f9\u683c
 
-Cannot\ modify;\ selected\ item\ [%S]\ has\ discount\ or\ surcharge\ applied=Cannot modify; selected item [%S] has discount or surcharge applied
+Cannot modify; selected item [%S] has discount or surcharge applied=\u7981\u6b62\u4fee\u6539; \u9078\u53d6\u7684\u54c1\u9805 [%S] \u5df2\u5957\u7528\u6298\u6263\u6216\u9644\u52a0\u8cbb
 
-Cannot\ modify;\ selected\ item\ [%S]\ has\ been\ subtotaled=Cannot modify; selected item [%S] has been subtotaled
+Cannot modify; selected item [%S] has been subtotaled=\u7981\u6b62\u4fee\u6539; \u9078\u53d6\u7684\u54c1\u9805 [%S] \u5df2\u5217\u5165\u5c0f\u8a08
 
-Cannot\ modify;\ no\ price\ or\ quantity\ entered=Cannot modify; no price or quantity entered
+Cannot modify; no price or quantity entered=\u7981\u6b62\u4fee\u6539; \u50f9\u683c\u6216\u6578\u91cf\u672a\u8f38\u5165
 
-Cannot\ modify\ condiment;\ no\ price\ entered=Cannot modify condiment; no price entered
+Cannot modify condiment; no price entered=\u7981\u6b62\u4fee\u6539\u8abf\u5473; \u50f9\u683c\u672a\u8f38\u5165
 
-Quantity\ may\ not\ be\ less\ than\ 1=Quantity may not be less than 1
+Quantity may not be less than 1=\u6578\u91cf\u4e0d\u5f97\u5c0f\u65bc 1
 
-Not\ an\ open\ order;\ cannot\ VOID=Not an open order; cannot VOID
+Not an open order; cannot VOID=\u5df2\u7d50\u55ae; \u7981\u6b62\u522a\u9664
 
-Cannot\ VOID\ the\ selected\ item\ [%S]\nIt\ is\ not\ the\ last\ registered\ item=Cannot VOID the selected item [%S]\nIt is not the last registered item
+Cannot VOID the selected item [%S]\nIt is not the last registered item=\u7981\u6b62\u522a\u9664\u9078\u53d6\u7684\u54c1\u9805 [%S] ; \u8a72\u54c1\u9805\u4e26\u975e\u6700\u5f8c\u8f38\u5165\u4e4b\u54c1\u9805
 
-Cannot\ VOID\ an\ item\ that\ has\ been\ subtotaled=Cannot VOID an item that has been subtotaled
+Cannot VOID an item that has been subtotaled=\u5df2\u5217\u5165\u5c0f\u8a08\u4e4b\u54c1\u9805\u7981\u6b62\u522a\u9664
 
-Please\ enter\ the\ discount\ amount=Please enter the discount amount
+Please enter the discount amount=\u8acb\u8f38\u5165\u6298\u6263\u91d1\u984d
 
-Please\ enter\ the\ discount\ percentage\ first=Please enter the discount percentage first
+Please enter the discount percentage first=\u8acb\u5148\u8f38\u5165\u6298\u6263\u767e\u5206\u6bd4
 
-Please\ enter\ the\ discount\ percentage=Please enter the discount percentage
+Please enter the discount percentage=\u8acb\u8f38\u5165\u6298\u6263\u767e\u5206\u6bd4
 
-Not\ an\ open\ order;\ cannot\ add\ discount=Not an open order; cannot add discount
+Not an open order; cannot add discount=\u5df2\u7d50\u55ae; \u7981\u6b62\u65b0\u589e\u6298\u6263
 
-Please\ select\ an\ item=Please select an item
+Please select an item=\u8acb\u9078\u64c7\u4e00\u500b\u54c1\u9805
 
-Not\ an\ open\ order;\ cannot\ add\ surcharge=Not an open order; cannot add surcharge
+Not an open order; cannot add surcharge=\u5df2\u7d50\u55ae; \u7981\u6b62\u65b0\u589e\u9644\u52a0\u8cbb
 
-Pretax\ discount\ can\ only\ be\ registered\ against\ subtotals=Pretax discount can only be registered against subtotals
+Pretax discount can only be registered against subtotals=\u7a05\u524d\u6298\u6263\u53ea\u80fd\u5728\u5c0f\u8a08\u6642\u5217\u5165
 
-Discount\ has\ been\ already\ been\ registered\ on\ item\ [%S]=Discount has been already been registered on item [%S]
+Discount has been already been registered on item [%S]=\u54c1\u9805 [%S] \u4e4b\u6298\u6263\u5df2\u8a08\u5165
 
-Surcharge\ has\ been\ already\ been\ registered\ on\ item\ [%S]=Surcharge has been already been registered on item [%S]
+Surcharge has been already been registered on item [%S]=\u54c1\u9805 [%S] \u4e4b\u9644\u52a0\u8cbb\u5df2\u8a08\u5165
 
-Cannot\ modify\ an\ item\ that\ has\ been\ subtotaled=Cannot modify an item that has been subtotaled
+Cannot modify an item that has been subtotaled=\u5df2\u5217\u5165\u5c0f\u8a08\u4e4b\u54c1\u9805\u7981\u6b62\u4fee\u6539
 
-Cannot\ register\ discount\ on\ return\ items=Cannot register discount on return items
+Cannot register discount on return items=\u7981\u6b62\u9000\u8ca8\u54c1\u9805\u5217\u5165\u6298\u6263
 
-Cannot\ apply\ discount\ to\ [%S]\nIt\ is\ not\ the\ last\ registered\ item=Cannot apply discount to [%S]\nIt is not the last registered item
+Cannot apply discount to [%S]\nIt is not the last registered item=\u7981\u6b62\u63d0\u4f9b\u6298\u6263\u65bc\u9078\u53d6\u7684\u54c1\u9805 [%S] ; \u8a72\u54c1\u9805\u4e26\u975e\u6700\u5f8c\u8f38\u5165\u4e4b\u54c1\u9805
 
-Discount\ may\ not\ be\ added\ to\ [%S]=Discount may not be added to [%S]
+Discount may not be added to [%S]=\u7981\u6b62\u63d0\u4f9b\u6298\u6263\u65bc [%S]
 
-Please\ enter\ the\ discount\ amount\ or\ percentage=Please enter the discount amount or percentage
+Please enter the discount amount or percentage=\u8acb\u8f38\u5165\u6298\u6263\u91d1\u984d\u6216\u767e\u5206\u6bd4
 
-Please\ enter\ the\ surcharge\ amount\ first=Please enter the surcharge amount first
+Please enter the surcharge amount first=\u8acb\u5148\u8f38\u5165\u9644\u52a0\u8cbb\u91d1\u984d
 
-Please\ enter\ the\ surcharge\ percentage=Please enter the surcharge percentage
+Please enter the surcharge percentage=\u8acb\u8f38\u5165\u9644\u52a0\u8cbb\u767e\u5206\u6bd4
 
-Pretax\ surcharge\ can\ only\ be\ registered\ against\ subtotals=Pretax surcharge can only be registered against subtotals
+Pretax surcharge can only be registered against subtotals=\u7a05\u524d\u9644\u52a0\u8cbb\u53ea\u80fd\u5728\u5c0f\u8a08\u6642\u5217\u5165
 
-Cannot\ apply\ surcharge\ to\ [%S]\nIt\ is\ not\ the\ last\ registered\ item=Cannot apply surcharge to [%S]\nIt is not the last registered item
+Cannot apply surcharge to [%S]\nIt is not the last registered item=\u7981\u6b62\u5957\u7528\u9644\u52a0\u8cbb\u65bc\u9078\u53d6\u7684\u54c1\u9805 [%S] ; \u8a72\u54c1\u9805\u4e26\u975e\u6700\u5f8c\u8f38\u5165\u4e4b\u54c1\u9805
 
-Surcharge\ may\ not\ be\ added\ to\ [%S]=Surcharge may not be added to [%S]
+Surcharge may not be added to [%S]=\u7981\u6b62\u5957\u7528\u9644\u52a0\u8cbb\u65bc [%S]
 
-Not\ an\ open\ order;\ operation\ invalid=Not an open order; operation invalid
+Not an open order; operation invalid=\u5df2\u7d50\u55ae; \u64cd\u4f5c\u7121\u6548
 
-Not\ an\ open\ order;\ cannot\ register\ House\ Bon=Not an open order; cannot register House Bon
+Not an open order; cannot register House Bon=\u5df2\u7d50\u55ae; \u7981\u6b62\u5217\u5165\u8d08\u9001\u7522\u54c1
 
-House\ Bon\ may\ not\ be\ applied\ to\ [%S]=House Bon may not be applied to [%S]
+House Bon may not be applied to [%S]=\u54c1\u9805 [%S] \u7981\u6b62\u5217\u5165\u8d08\u9001\u7522\u54c1
 
-The\ selected\ currency\ [%S]\ has\ not\ been\ configured=The selected currency [%S] has not been configured
+The selected currency [%S] has not been configured=\u9078\u53d6\u7684\u5e63\u5225\u5c1a\u672a\u8a2d\u5b9a
 
-Please\ enter\ an\ amount\ first=Please enter an amount first
+Please enter an amount first=\u8acb\u5148\u8f38\u5165\u91d1\u984d
 
-Please\ configure\ the\ selected\ currency\ entry\ first\ [%S]=Please configure the selected currency entry first [%S]
+Please configure the selected currency entry first [%S]=\u8acb\u5148\u8a2d\u5b9a\u9078\u53d6\u7684\u5e63\u5225 [%S]
 
-Credit\ Card\ Remark=Credit Card Remark
+Credit Card Remark=\u4fe1\u7528\u5361\u8a3b\u8a18
 
-Payment=Payment
+Payment=\u4ed8\u6b3e
 
-Card\ Type=Card Type
+Card Type=\u5361\u5225
 
-Card\ Remark=Card Remark
+Card Remark=\u5361\u7247\u8a3b\u8a18
 
-Gift\ Card\ Remark=Gift Card Remark
+Gift Card Remark=\u79ae\u54c1\u5361\u8a3b\u8a18
 
-Not\ an\ open\ order;\ cannot\ register\ payments=Not an open order; cannot register payments
+Not an open order; cannot register payments=\u5df2\u7d50\u55ae; \u7981\u6b62\u5217\u5165\u4ed8\u6b3e
 
-Not\ an\ open\ order;\ cannot\ shift\ tax=Not an open order; cannot shift tax
+Not an open order; cannot shift tax=\u5df2\u7d50\u55ae; \u7981\u6b62\u5207\u63db\u7a05\u5225
 
-This\ operation\ cannot\ be\ performed\ on\ [%S]=This operation cannot be performed on [%S]
+This operation cannot be performed on [%S]=\u6b64\u4f5c\u696d\u7981\u6b62\u5728\u54c1\u9805 [%S] \u4e0a\u57f7\u884c
 
-The\ tax\ status\ indicated\ does\ not\ exist\ [%S]=The tax status indicated does not exist [%S]
+The tax status indicated does not exist [%S]=\u9078\u53d6\u7684\u7a05\u5225\u4e0d\u5b58\u5728
 
-Not\ an\ open\ order;\ cannot\ add\ condiment=Not an open order; cannot add condiment
+Not an open order; cannot add condiment=\u5df2\u7d50\u55ae; \u7981\u6b62\u65b0\u589e\u8abf\u5473
 
-Condiments\ may\ not\ be\ added\ to\ [%S]=Condiments may not be added to [%S]
+Condiments may not be added to [%S]=\u7981\u6b62\u65bc\u54c1\u9805 [%S] \u65b0\u589e\u8abf\u5473
 
-Cannot\ add\ condiments\ to\ an\ item\ that\ has\ been\ subtotaled=Cannot add condiments to an item that has been subtotaled
+Cannot add condiments to an item that has been subtotaled=\u5df2\u5217\u5165\u5c0f\u8a08\u4e4b\u54c1\u9805\u7981\u6b62\u65b0\u589e\u8abf\u5473
 
-Please\ void\ discount\ on\ item\ first=Please void discount on item first
+Please void discount on item first=\u8acb\u5148\u522a\u9664\u8a72\u54c1\u9805\u4e4b\u6298\u6263
 
-Please\ void\ surcharge\ on\ item\ first=Please void surcharge on item first
+Please void surcharge on item first=\u8acb\u5148\u522a\u9664\u8a72\u54c1\u9805\u4e4b\u9644\u52a0\u8cbb
 
-No\ Condiment\ group\ associated\ with\ item\ [%S]=No Condiment group associated with item [%S]
+No Condiment group associated with item [%S]=\u54c1\u9805 [%S] \u4e26\u672a\u8207\u4efb\u4f55\u8abf\u5473\u7fa4\u7d44\u9023\u7d50
 
-Not\ an\ open\ order;\ cannot\ add\ memo=Not an open order; cannot add memo
+Not an open order; cannot add memo=\u5df2\u7d50\u55ae; \u7981\u6b62\u65b0\u589e\u5099\u8a3b
 
-Add\ New\ Memo=Add New Memo
+Add New Memo=\u65b0\u589e\u5099\u8a3b
 
-Add\ Memo=Add Memo
+Add Memo=\u65b0\u589e\u5099\u8a3b
 
-Memo\:=Memo\:
+Memo\:=\u5099\u8a3b
 
-No\ open\ order\ to\ push=No open order to push
+No open order to push=\u7121\u958b\u653e\u8a02\u55ae\u53ef\u63d0\u4f9b
 
-Order\ is\ not\ queued\ because\ it\ is\ empty=Order is not queued because it is empty
+Order is not queued because it is empty=\u7121\u4efb\u4f55\u54c1\u9805\u6545\u7121\u6cd5\u66ab\u5b58
 
-Authentication\ failed\!\nPlease\ make\ sure\ the\ password\ is\ correct.=Authentication failed\!\nPlease make sure the password is correct.
+Authentication failed\!\nPlease make sure the password is correct.=\u767b\u5165\u5931\u6557; \u8acb\u78ba\u8a8d\u767b\u5165\u5bc6\u78bc\u662f\u5426\u6b63\u78ba
 
-Authentication\ failed\!\nPlease\ select\ a\ user=Authentication failed\!\nPlease select a user
+Authentication failed\!\nPlease select a user=\u767b\u5165\u5931\u6557; \u8acb\u9078\u64c7\u4f7f\u7528\u8005
 
-Please\ select\ a\ user\ first=Please select a user first
+Please select a user first=\u8acb\u5148\u9078\u64c7\u4f7f\u7528\u8005
 
-Please\ enter\ the\ passcode=Please enter the passcode
+Please enter the passcode=\u8acb\u8f38\u5165\u767b\u5165\u5bc6\u78bc
 
-Authentication\ Failed\!\nPlease\ make\ sure\ the\ passcode\ is\ correct=Authentication Failed\!\nPlease make sure the passcode is correct
+Authentication Failed\!\nPlease make sure the passcode is correct=\u767b\u5165\u5931\u6557; \u8acb\u78ba\u8a8d\u767b\u5165\u5bc6\u78bc\u662f\u5426\u6b63\u78ba
 
-Please\ select\ a\ job\ first=Please select a job first
+Please select a job first=\u8acb\u5148\u9078\u64c7\u5de5\u4f5c\u5167\u5bb9
 
-Not\ clocked\ in\ yet=Not clocked in yet
+Not clocked in yet=\u5c1a\u672a\u6253\u4e0a\u73ed\u5361
 
-Add\ New\ Condiment\ Group=Add New Condiment Group
+Add New Condiment Group=\u65b0\u589e\u8abf\u5473\u7fa4\u7d44
 
-New\ Condiment\ Group=New Condiment Group
+New Condiment Group=\u65b0\u8abf\u5473\u7fa4\u7d44
 
-Condiment\ Group\ [%S]\ already\ exists.=Condiment Group [%S] already exists.
+Condiment Group [%S] already exists.=\u8abf\u5473\u7fa4\u7d44 [%S] \u5df2\u5b58\u5728
 
-Condiment\ Group\ [%S]\ added\ successfully=Condiment Group [%S] added successfully
+Condiment Group [%S] added successfully=\u65b0\u589e\u8abf\u5473\u7fa4\u7d44\u6210\u529f
 
-An\ error\ occurred\ while\ adding\ Condiment\ Group\ [%S]\nThe\ group\ may\ not\ have\ been\ added\ successfully=An error occurred while adding Condiment Group [%S]\nThe group may not have been added successfully
+An error occurred while adding Condiment Group [%S]\nThe group may not have been added successfully=\u65b0\u589e\u8abf\u5473\u7fa4\u7d44 [%S] \u6642\u767c\u751f\u932f\u8aa4; \u8a72\u8abf\u5473\u7fa4\u7d44\u4e26\u672a\u65b0\u589e\u6210\u529f
 
-Condiment\ Group\ [%S]\ already\ exists=Condiment Group [%S] already exists
+Condiment Group [%S] already exists=\u8abf\u5473\u7fa4\u7d44 [%S] \u5df2\u5b58\u5728
 
-Condiment\ Group\ [%S]\ modified\ successfully=Condiment Group [%S] modified successfully
+Condiment Group [%S] modified successfully=\u8abf\u5473\u7fa4\u7d44 [%S] \u4fee\u6539\u6210\u529f
 
-An\ error\ occurred\ while\ modifying\ Condiment\ Group\ [%S]\nThe\ group\ may\ not\ have\ been\ modified\ successfully=An error occurred while modifying Condiment Group [%S]\nThe group may not have been modified successfully
+An error occurred while modifying Condiment Group [%S]\nThe group may not have been modified successfully=\u4fee\u6539\u8abf\u5473\u7fa4\u7d44 [%S] \u6642\u767c\u751f\u932f\u8aa4; \u8a72\u8abf\u5473\u7fa4\u7d44\u4e26\u672a\u4fee\u6539\u6210\u529f
 
-Condiment\ Group\ [%S]\ removed\ successfully=Condiment Group [%S] removed successfully
+Condiment Group [%S] removed successfully=\u8abf\u5473\u7fa4\u7d44 [%S] \u522a\u9664\u6210\u529f
 
-An\ error\ occurred\ while\ removing\ Condiment\ Group\ [%S]\nThe\ group\ may\ not\ have\ been\ removed\ successfully=An error occurred while removing Condiment Group [%S]\nThe group may not have been removed successfully
+An error occurred while removing Condiment Group [%S]\nThe group may not have been removed successfully=\u522a\u9664\u8abf\u5473\u7fa4\u7d44 [%S] \u6642\u767c\u751f\u932f\u8aa4; \u8a72\u8abf\u5473\u7fa4\u7d44\u4e26\u672a\u522a\u9664\u6210\u529f
 
-Add\ New\ Condiment=Add New Condiment
+Add New Condiment=\u65b0\u589e\u8abf\u5473\u7a2e\u985e
 
-New\ Condiment=New Condiment
+New Condiment=\u65b0\u8abf\u5473\u7a2e\u985e
 
-Condiment\ Name=Condiment Name
+Condiment Name=\u8abf\u5473\u540d\u7a31
 
-Condiment\ Price=Condiment Price
+Condiment Price=\u8abf\u5473\u50f9\u683c
 
-Condiment\ Price\ must\ be\ a\ number=Condiment Price must be a number
+Condiment Price must be a number=\u8abf\u5473\u50f9\u683c\u5fc5\u9808\u70ba\u6578\u5b57
 
-Condiment\ [%S]\ already\ exists\ in\ this\ group=Condiment [%S] already exists in this group
+Condiment [%S] already exists in this group=\u8abf\u5473\u540d\u7a31 [%S] \u5df2\u5b58\u5728\u65bc\u672c\u8abf\u5473\u7fa4\u7d44
 
-Condiment\ [%S]\ added\ successfully=Condiment [%S] added successfully
+Condiment [%S] added successfully=\u65b0\u589e\u8abf\u5473\u7a2e\u985e [%S] \u6210\u529f
 
-An\ error\ occurred\ while\ adding\ Condiment\ [%S]\nThe\ condiment\ may\ not\ have\ been\ added\ successfully=An error occurred while adding Condiment [%S]\nThe condiment may not have been added successfully
+An error occurred while adding Condiment [%S]\nThe condiment may not have been added successfully=\u65b0\u589e\u8abf\u5473\u7a2e\u985e [%S] \u6642\u767c\u751f\u932f\u8aa4; \u8a72\u8abf\u5473\u7a2e\u985e\u4e26\u672a\u65b0\u589e\u6210\u529f
 
-Condiment\ [%S]\ modified\ successfully=Condiment [%S] modified successfully
+Condiment [%S] modified successfully=\u4fee\u6539\u8abf\u5473\u7a2e\u985e [%S] \u6210\u529f
 
-An\ error\ occurred\ while\ modifying\ Condiment\ [%S]\nThe\ condiment\ may\ not\ have\ been\ modified\ successfully=An error occurred while modifying Condiment [%S]\nThe condiment may not have been modified successfully
+An error occurred while modifying Condiment [%S]\nThe condiment may not have been modified successfully=\u4fee\u6539\u8abf\u5473\u7a2e\u985e [%S] \u6642\u767c\u751f\u932f\u8aa4; \u8a72\u8abf\u5473\u7a2e\u985e\u4e26\u672a\u4fee\u6539\u6210\u529f
 
-Condiment\ [%S]\ removed\ successfully=Condiment [%S] removed successfully
+Condiment [%S] removed successfully=\u522a\u9664\u8abf\u5473\u7a2e\u985e [%S] \u6210\u529f
 
-An\ error\ occurred\ while\ removing\ Condiment\ [%S]\nThe\ condiment\ may\ not\ have\ been\ removed\ successfully=An error occurred while removing Condiment [%S]\nThe condiment may not have been removed successfully
+An error occurred while removing Condiment [%S]\nThe condiment may not have been removed successfully=\u522a\u9664\u8abf\u5473\u7a2e\u985e [%S] \u6642\u767c\u751f\u932f\u8aa4; \u8a72\u8abf\u5473\u7a2e\u985e\u4e26\u672a\u522a\u9664\u6210\u529f
 
-Department\ Number\ must\ not\ be\ empty=Department Number must not be empty
+Department Number must not be empty=\u90e8\u9580\u4ee3\u78bc\u4e0d\u5f97\u70ba\u7a7a\u767d
 
-Department\ Name\ must\ not\ be\ empty=Department Name must not be empty
+Department Name must not be empty=\u90e8\u9580\u540d\u7a31\u4e0d\u5f97\u70ba\u7a7a\u767d
 
-Duplicate\ Department\ Number\ (%S);\ department\ not\ %S.=Duplicate Department Number (%S); department not %S.
+Duplicate Department Number (%S); department not %S.=\u90e8\u9580\u4ee3\u78bc (%S) \u5df2\u5b58\u5728; \u8acb\u8f38\u5165\u5176\u4ed6\u4ee3\u78bc
 
-Duplicate\ Department\ Name\ (%S);\ department\ not\ %S.=Duplicate Department Name (%S); department not %S.
+Duplicate Department Name (%S); department not %S.=\u90e8\u9580\u540d\u7a31 (%S) \u5df2\u5b58\u5728; \u8acb\u8f38\u5165\u5176\u4ed6\u540d\u7a31
 
-Add\ New\ Department=Add New Department
+Add New Department=\u65b0\u589e\u7522\u54c1\u90e8\u9580
 
-New\ Department=New Department
+New Department=\u65b0\u7522\u54c1\u90e8\u9580
 
-Department\ Number=Department Number
+Department Number=\u90e8\u9580\u4ee3\u78bc
 
-Department\ Name=Department Name
+Department Name=\u90e8\u9580\u540d\u7a31
 
-Department\ [%S]\ added\ successfully=Department [%S] added successfully
+Department [%S] added successfully=\u65b0\u589e\u7522\u54c1\u90e8\u9580 [%S] \u6210\u529f
 
-An\ error\ occurred\ while\ adding\ Department\ [%S];\ the\ department\ may\ not\ have\ been\ added\ successfully=An error occurred while adding Department [%S]; the department may not have been added successfully
+An error occurred while adding Department [%S]; the department may not have been added successfully=\u65b0\u589e\u7522\u54c1\u90e8\u9580 [%S] \u6642\u767c\u751f\u932f\u8aa4; \u8a72\u7522\u54c1\u90e8\u9580\u4e26\u672a\u65b0\u589e\u6210\u529f
 
-Department\ [%S]\ modified\ successfully=Department [%S] modified successfully
+Department [%S] modified successfully=\u4fee\u6539\u7522\u54c1\u90e8\u9580 [%S] \u6210\u529f
 
-An\ error\ occurred\ while\ modifying\ Department\ [%S]\nThe\ department\ may\ not\ have\ been\ modified\ successfully=An error occurred while modifying Department [%S]\nThe department may not have been modified successfully
+An error occurred while modifying Department [%S]\nThe department may not have been modified successfully=\u4fee\u6539\u7522\u54c1\u90e8\u9580 [%S] \u6642\u767c\u751f\u932f\u8aa4; \u8a72\u7522\u54c1\u90e8\u9580\u4e26\u672a\u4fee\u6539\u6210\u529f
 
-Department\ [%S]\ removed\ successfully=Department [%S] removed successfully
+Department [%S] removed successfully=\u522a\u9664\u7522\u54c1\u90e8\u9580 [%S] \u6210\u529f
 
-An\ error\ occurred\ while\ removing\ Department\ [%S]\nThe\ department\ may\ not\ have\ been\ removed\ successfully=An error occurred while removing Department [%S]\nThe department may not have been removed successfully
+An error occurred while removing Department [%S]\nThe department may not have been removed successfully=\u522a\u9664\u7522\u54c1\u90e8\u9580 [%S] \u6642\u767c\u751f\u932f\u8aa4; \u8a72\u7522\u54c1\u90e8\u9580\u4e26\u672a\u522a\u9664\u6210\u529f
 
-.name=.name
+.name=.\u540d\u7a31
 
-.label=.label
+.label=.\u6a19\u7c64
 
-.desc=.desc
+.desc=.\u6558\u8ff0
 
-export\ plu\ finish\!=export plu finish\!
+export plu finish\!=\u7522\u54c1\u8cc7\u6599\u532f\u51fa\u5b8c\u6210\!
 
-export\ data\ finish\!=export data finish\!
+export data finish\!=\u8cc7\u6599\u532f\u51fa\u5b8c\u6210\!
 
-Add\ New\ Job=Add New Job
+Add New Job=\u65b0\u589e\u5de5\u4f5c\u5167\u5bb9
 
-New\ Job=New Job
+New Job=\u65b0\u5de5\u4f5c\u5167\u5bb9
 
-Job\ Name=Job Name
+Job Name=\u5de5\u4f5c\u540d\u7a31
 
-Duplicate\ job\ name\ [%S];\ job\ not\ added.=Duplicate job name [%S]; job not added.
+Duplicate job name [%S]; job not added.=\u5de5\u4f5c\u540d\u7a31 [%S] \u5df2\u5b58\u5728; \u7121\u6cd5\u65b0\u589e
 
-Job\ [%S]\ added\ successfully=Job [%S] added successfully
+Job [%S] added successfully=\u65b0\u589e\u5de5\u4f5c\u5167\u5bb9 [%S] \u6210\u529f
 
-Duplicate\ job\ name\ [%S];\ job\ not\ modified.=Duplicate job name [%S]; job not modified.
+Duplicate job name [%S]; job not modified.=\u5de5\u4f5c\u540d\u7a31 [%S] \u5df2\u5b58\u5728; \u7121\u6cd5\u4fee\u6539
 
-Job\ [%S]\ modified\ successfully=Job [%S] modified successfully
+Job [%S] modified successfully=\u4fee\u6539\u5de5\u4f5c\u5167\u5bb9 [%S] \u6210\u529f
 
-Job\ [%S]\ removed\ successfully=Job [%S] removed successfully
+Job [%S] removed successfully=\u522a\u9664\u5de5\u4f5c\u5167\u5bb9 [%S] \u6210\u529f
 
-\ logged\ in=\ logged in
+ logged in=\u767b\u5165
 
-Failed\ to\ authenticate\ user=Failed to authenticate user
+Failed to authenticate user=\u767b\u5165\u5931\u6557
 
-Please\ enter\ passcode\ first=Please enter passcode first
+Please enter passcode first=\u8acb\u5148\u8f38\u5165\u767b\u5165\u5bc6\u78bc
 
-Sign\ Off=Sign Off
+Sign Off=\u767b\u51fa
 
-Discard\ items\ that\ have\ been\ registered?=Discard items that have been registered?
+Discard items that have been registered?=\u522a\u9664\u5df2\u8f38\u5165\u4e4b\u4ea4\u6613?
 
-What\ do\ you\ want\ to\ do\ with\ the\ registered\ items?=What do you want to do with the registered items?
+What do you want to do with the registered items?=\u60a8\u8981\u5982\u4f55\u8655\u7406\u5df2\u8f38\u5165\u4e4b\u4ea4\u6613\u8cc7\u6599?
 
-Queue=Queue
+Queue=\u66ab\u5b58
 
-Discard=Discard
+Discard=\u522a\u9664
 
-You\ have\ one\ or\ more\ queued\ orders.\ Discard\ them?=You have one or more queued orders. Discard them?
+You have one or more queued orders. Discard them?=\u60a8\u6709\u4e00\u7b46\u6216\u591a\u7b46\u66ab\u5b58\u55ae. \u662f\u5426\u522a\u9664?
 
-You\ have\ one\ or\ more\ queued\ orders.\ What\ do\ you\ want\ to\ do\ with\ them?=You have one or more queued orders. What do you want to do with them?
+You have one or more queued orders. What do you want to do with them?=\u60a8\u6709\u4e00\u7b46\u6216\u591a\u7b46\u66ab\u5b58\u55ae. \u8acb\u554f\u60a8\u8981\u5982\u4f55\u8655\u7406?
 
-Keep=Keep
+Keep=\u4fdd\u7559
 
-confirm\ sign-off=confirm sign-off
+confirm sign-off=\u78ba\u8a8d\u767b\u51fa
 
-Are\ you\ ready\ to\ sign\ off?=Are you ready to sign off?
+Are you ready to sign off?=\u60a8\u6e96\u5099\u8981\u767b\u51fa\u55ce?
 
-Add\ New\ Product\ Group=Add New Product Group
+Add New Product Group=\u65b0\u589e\u7522\u54c1\u7fa4\u7d44
 
-New\ Product\ Group=New Product Group
+New Product Group=\u65b0\u7522\u54c1\u7fa4\u7d44
 
-Duplicate\ Product\ Group\ name\ [%S];\ Product\ Group\ not\ added.=Duplicate Product Group name [%S]; Product Group not added.
+Duplicate Product Group name [%S]; Product Group not added.=\u7522\u54c1\u7fa4\u7d44\u540d\u7a31 [%S] \u5df2\u5b58\u5728; \u7121\u6cd5\u65b0\u589e
 
-Product\ Group\ [%S]\ added\ successfully=Product Group [%S] added successfully
+Product Group [%S] added successfully=\u65b0\u589e\u7522\u54c1\u7fa4\u7d44 [%S] \u6210\u529f
 
-Duplicate\ Product\ Group\ name\ [%S];\ Product\ group\ not\ modified.=Duplicate Product Group name [%S]; Product group not modified.
+Duplicate Product Group name [%S]; Product group not modified.=\u7522\u54c1\u7fa4\u7d44\u540d\u7a31 [%S] \u5df2\u5b58\u5728; \u7121\u6cd5\u4fee\u6539
 
-Product\ Group\ [%S]\ removed\ successfully=Product Group [%S] removed successfully
+Product Group [%S] removed successfully=\u522a\u9664\u7522\u54c1\u7fa4\u7d44 [%S] \u6210\u529f
 
-Add\ New\ Product\ Set=Add New Product Set
+Add New Product Set=\u65b0\u589e\u7d44\u5408\u7522\u54c1
 
-Product\ Set=Product Set
+Product Set=\u7d44\u5408\u7522\u54c1
 
-Product\ No.or\ Barcode=Product No.or Barcode
+Product No.or Barcode=\u7522\u54c1\u7de8\u865f\u6216\u7522\u54c1\u689d\u78bc
 
-Quantity=Quantity
+Quantity=\u6578\u91cf
 
-Product\ not\ found\ (%S).=Product not found (%S).
+Product not found (%S).=\u7522\u54c1 (%S) \u4e0d\u5b58\u5728
 
-Product\ No.\ must\ not\ be\ empty.=Product No. must not be empty.
+Product No. must not be empty.=\u7522\u54c1\u7de8\u865f\u4e0d\u5f97\u70ba\u7a7a\u767d
 
-Product\ Name\ must\ not\ be\ empty.=Product Name must not be empty.
+Product Name must not be empty.=\u7522\u54c1\u540d\u7a31\u4e0d\u5f97\u70ba\u7a7a\u767d
 
-The\ Product\ No.\ [%S]\ already\ exists;\ product\ not\ added.=The Product No. [%S] already exists; product not added.
+The Product No. [%S] already exists; product not added.=\u7522\u54c1\u7de8\u865f [%S] \u5df2\u5b58\u5728; \u7121\u6cd5\u65b0\u589e
 
-The\ Product\ Name\ [%S]\ already\ exists;\ product\ not\ added.=The Product Name [%S] already exists; product not added.
+The Product Name [%S] already exists; product not added.=\u7522\u54c1\u540d\u7a31 [%S] \u5df2\u5b58\u5728; \u7121\u6cd5\u65b0\u589e
 
-The\ Product\ Name\ [%S]\ already\ exists;\ product\ not\ modified.=The Product Name [%S] already exists; product not modified.
+The Product Name [%S] already exists; product not modified.=\u7522\u54c1\u540d\u7a31 [%S] \u5df2\u5b58\u5728; \u7121\u6cd5\u4fee\u6539
 
-Add\ New\ Product=Add New Product
+Add New Product=\u65b0\u589e\u7522\u54c1
 
-New\ Product=New Product
+New Product=\u65b0\u7522\u54c1
 
-Product\ No.=Product No.
+Product No.=\u7522\u54c1\u7de8\u865f
 
-Product\ Name=Product Name
+Product Name=\u7522\u54c1\u540d\u7a31
 
-Product\ [%S]\ added\ successfully=Product [%S] added successfully
+Product [%S] added successfully=\u65b0\u589e\u7522\u54c1 [%S] \u6210\u529f
 
-An\ error\ occurred\ while\ adding\ Product\ [%S];\ the\ product\ may\ not\ have\ been\ added\ successfully=An error occurred while adding Product [%S]; the product may not have been added successfully
+An error occurred while adding Product [%S]; the product may not have been added successfully=\u65b0\u589e\u7522\u54c1 [%S] \u6642\u767c\u751f\u932f\u8aa4; \u8a72\u7522\u54c1\u4e26\u672a\u65b0\u589e\u6210\u529f
 
-Product\ [%S]\ modified\ successfully=Product [%S] modified successfully
+Product [%S] modified successfully=\u4fee\u6539\u7522\u54c1 [%S] \u6210\u529f
 
-An\ error\ occurred\ while\ modifying\ Product\ [%S]\nThe\ product\ may\ not\ have\ been\ modified\ successfully=An error occurred while modifying Product [%S]\nThe product may not have been modified successfully
+An error occurred while modifying Product [%S]\nThe product may not have been modified successfully=\u4fee\u6539\u7522\u54c1 [%S] \u6642\u767c\u751f\u932f\u8aa4; \u8a72\u7522\u54c1\u4e26\u672a\u4fee\u6539\u6210\u529f
 
-Product\ [%S]\ removed\ successfully=Product [%S] removed successfully
+Product [%S] removed successfully=\u522a\u9664\u7522\u54c1 [%S] \u6210\u529f
 
-An\ error\ occurred\ while\ removing\ Product\ [%S]\nThe\ product\ may\ not\ have\ been\ removed\ successfully=An error occurred while removing Product [%S]\nThe product may not have been removed successfully
+An error occurred while removing Product [%S]\nThe product may not have been removed successfully=\u522a\u9664\u7522\u54c1 [%S] \u6642\u767c\u751f\u932f\u8aa4; \u8a72\u7522\u54c1\u4e26\u672a\u522a\u9664\u6210\u529f
 
-Product\ [%S]\ Not\ Found\!=Product [%S] Not Found\!
+Product [%S] Not Found\!=\u7522\u54c1 [%S] \u4e0d\u5b58\u5728
 
-Price\ Level\ changed\ from\ [%S]\ to\ [%S]=Price Level changed from [%S] to [%S]
+Price Level changed from [%S] to [%S]=\u50f9\u683c\u7531\u8a2d\u5b9a [%S] \u8b8a\u66f4\u70ba\u8a2d\u5b9a [%S]
 
-Default=Default
+Default=\u9810\u8a2d
 
-Default\ Price\ Level=Default Price Level
+Default Price Level=\u9810\u8a2d\u50f9\u683c\u8a2d\u5b9a
 
-Schedule\ [%S\ -\ Price\ Level\ %S]\ added\ successfully=Schedule [%S - Price Level %S] added successfully
+Schedule [%S - Price Level %S] added successfully=\u65b0\u589e\u8b8a\u50f9\u6392\u7a0b [%S - \u50f9\u683c\u8a2d\u5b9a %S] \u6210\u529f
 
-confirm\ remove\ %S\ -\ price\ level\ %S=confirm remove %S - price level %S
+confirm remove %S - price level %S=\u78ba\u8a8d\u522a\u9664 %S - \u50f9\u683c\u8a2d\u5b9a %S
 
-Schedule\ [%S\ -\ Price\ Level\ %S]\ removed\ successfully=Schedule [%S - Price Level %S] removed successfully
+Schedule [%S - Price Level %S] removed successfully=\u522a\u9664\u8b8a\u50f9\u6392\u7a0b [%S - \u50f9\u683c\u8a2d\u5b9a %S] \u6210\u529f
 
-Stock\ level\ for\ [%S]\ modified\ successfully=Stock level for [%S] modified successfully
+Stock level for [%S] modified successfully=\u4fee\u6539\u7522\u54c1 [%S] \u5eab\u5b58\u91cf\u6210\u529f
 
-Product/Barcode\ Number\ (%S)\ not\ found\!=Product/Barcode Number (%S) not found\!
+Product/Barcode Number (%S) not found\!=\u7522\u54c1\u7de8\u865f/\u7522\u54c1\u689d\u78bc (%S) \u4e0d\u5b58\u5728
 
-Tax\ code\ must\ not\ be\ empty.=Tax code must not be empty.
+Tax code must not be empty.=\u7a05\u5225\u4ee3\u78bc\u4e0d\u5f97\u70ba\u7a7a\u767d
 
-Tax\ name\ must\ not\ be\ empty.=Tax name must not be empty.
+Tax name must not be empty.=\u7a05\u5225\u540d\u7a31\u4e0d\u5f97\u70ba\u7a7a\u767d
 
-Duplicate\ tax\ code\ [%S];\ tax\ not\ added=Duplicate tax code [%S]; tax not added
+Duplicate tax code [%S]; tax not added=\u7a05\u5225\u4ee3\u78bc [%S] \u5df2\u5b58\u5728; \u7121\u6cd5\u65b0\u589e
 
-Duplicate\ tax\ name\ [%S];\ tax\ not\ %S=Duplicate tax name [%S]; tax not %S
+Duplicate tax name [%S]; tax not %S=\u7a05\u5225\u540d\u7a31 [%S] \u5df2\u5b58\u5728; \u7121\u6cd5\u65b0\u589e
 
-Add-On=Add-On
+Add-On=\u5916\u52a0\u7a05
 
-Included=Included
+Included=\u5167\u542b\u7a05
 
-Combined=Combined
+Combined=\u5408\u4f75\u7a05
 
-VAT\ &\ VAT=VAT & VAT
+VAT & VAT=\u7a05\u4e0a\u7a05
 
-Add\ New\ Tax\ Status=Add New Tax Status
+Add New Tax Status=\u65b0\u589e\u7a05\u5225
 
-New\ Tax\ Status=New Tax Status
+New Tax Status=\u65b0\u7a05\u5225
 
-Tax\ Code=Tax Code
+Tax Code=\u7a05\u5225\u4ee3\u78bc
 
-Tax\ Name=Tax Name
+Tax Name=\u7a05\u5225\u540d\u7a31
 
-Tax\ [%S]\ added\ successfully=Tax [%S] added successfully
+Tax [%S] added successfully=\u65b0\u589e\u7a05\u5225 [%S] \u6210\u529f
 
-An\ error\ occurred\ while\ adding\ Tax\ [%S];\ the\ tax\ may\ not\ have\ been\ added\ successfully=An error occurred while adding Tax [%S]; the tax may not have been added successfully
+An error occurred while adding Tax [%S]; the tax may not have been added successfully=\u65b0\u589e\u7a05\u5225 [%S] \u6642\u767c\u751f\u932f\u8aa4; \u8a72\u7a05\u5225\u4e26\u672a\u65b0\u589e\u6210\u529f
 
-Tax\ [%S]\ removed\ successfully=Tax [%S] removed successfully
+Tax [%S] removed successfully=\u522a\u9664\u7a05\u5225 [%S] \u6210\u529f
 
-An\ error\ occurred\ while\ removing\ Tax\ [%S];\ the\ tax\ may\ not\ have\ been\ removed\ successfully=An error occurred while removing Tax [%S]; the tax may not have been removed successfully
+An error occurred while removing Tax [%S]; the tax may not have been removed successfully=\u522a\u9664\u7a05\u5225 [%S] \u6642\u767c\u751f\u932f\u8aa4; \u8a72\u7a05\u5225\u4e26\u672a\u522a\u9664\u6210\u529f
 
-Tax\ [%S]\ modified\ successfully=Tax [%S] modified successfully
+Tax [%S] modified successfully=\u4fee\u6539\u7a05\u5225 [%S] \u6210\u529f
 
-Test=Test
+Test=\u6e2c\u8a66
 
-Add\ New\ Employee=Add New Employee
+Add New Employee=\u65b0\u589e\u54e1\u5de5
 
-New\ Employee=New Employee
+New Employee=\u65b0\u54e1\u5de5
 
-Name=Name
+Name=\u54e1\u5de5\u59d3\u540d/\u4ee3\u865f
 
-Password=Password
+Password=\u767b\u5165\u5bc6\u78bc
 
-Duplicate\ user\ name\ [%S];\ user\ not\ added.=Duplicate user name [%S]; user not added.
+Duplicate user name [%S]; user not added.=\u54e1\u5de5\u59d3\u540d/\u4ee3\u865f [%S] \u5df2\u5b58\u5728; \u7121\u6cd5\u65b0\u589e
 
-Duplicate\ display\ name\ [%S];\ user\ not\ added.=Duplicate display name [%S]; user not added.
+Duplicate display name [%S]; user not added.=\u54e1\u5de5\u986f\u793a\u540d\u7a31 [%S] \u5df2\u5b58\u5728; \u7121\u6cd5\u65b0\u589e
 
-Employee\ [%S]\ added\ successfully=Employee [%S] added successfully
+Employee [%S] added successfully=\u65b0\u589e\u54e1\u5de5 [%S] \u6210\u529f
 
-Duplicate\ display\ name\ [%S];\ user\ not\ modified.=Duplicate display name [%S]; user not modified.
+Duplicate display name [%S]; user not modified.=\u54e1\u5de5\u986f\u793a\u540d\u7a31 [%S] \u5df2\u5b58\u5728; \u7121\u6cd5\u4fee\u6539
 
-Employee\ [%S]\ modified\ successfully=Employee [%S] modified successfully
+Employee [%S] modified successfully=\u4fee\u6539\u54e1\u5de5 [%S] \u6210\u529f
 
-Employee\ [%S]\ removed\ successfully=Employee [%S] removed successfully
+Employee [%S] removed successfully=\u522a\u9664\u54e1\u5de5 [%S] \u6210\u529f
 
-Select\ Access\ Group=Select Access Group
+Select Access Group=\u9078\u64c7\u6b0a\u9650\u7fa4\u7d44

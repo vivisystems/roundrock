@@ -1,71 +1,71 @@
-<!ENTITY plus.title     "Product Properties">
-<!ENTITY plus.tab.base.data1  "Basic 1">
-<!ENTITY plus.tab.base.data2  "Basic 2 ">
-<!ENTITY plus.tab.setmenu     "Sets">
-<!ENTITY plus.tab.appearance "Appearance">
-<!ENTITY plus.tab.pricelevels "Price Levels">
-<!ENTITY plus.tab.linkgroups "Link Groups">
+<!ENTITY plus.title     "產品屬性">
+<!ENTITY plus.tab.base.data1  "基本資料 1">
+<!ENTITY plus.tab.base.data2  "基本資料 2 ">
+<!ENTITY plus.tab.setmenu     "組合產品">
+<!ENTITY plus.tab.appearance "顯示設定">
+<!ENTITY plus.tab.pricelevels "價格設定">
+<!ENTITY plus.tab.linkgroups "群組連結">
 
-<!ENTITY plus.base.data  "Product Details">
-<!ENTITY plus.base.data1  "Basic Data (Page 1)">
-<!ENTITY plus.base.data2  "Basic Data (Page 2)">
-<!ENTITY plus.setmenu     "Product Set">
-<!ENTITY plus.appearance "Appearance">
-<!ENTITY plus.pricelevels "Price Levels">
-<!ENTITY plus.linkgroups "Link Groups">
+<!ENTITY plus.base.data  "產品資料">
+<!ENTITY plus.base.data1  "基本資料 (第 1 頁)">
+<!ENTITY plus.base.data2  "基本資料 (第 2 頁)">
+<!ENTITY plus.setmenu     "組合產品">
+<!ENTITY plus.appearance "顯示設定">
+<!ENTITY plus.pricelevels "價格設定">
+<!ENTITY plus.linkgroups "群組連結">
 
-<!ENTITY plus.department "Department">
-<!ENTITY plus.product.no "Product No.">
-<!ENTITY plus.product.name "Product Name">
-<!ENTITY plus.product.barcode "Barcode">
-<!ENTITY plus.product.tax.rate "Tax Rate">
-<!ENTITY plus.product.condiments "Condiments">
+<!ENTITY plus.department "部門別">
+<!ENTITY plus.product.no "產品編號">
+<!ENTITY plus.product.name "產品名稱">
+<!ENTITY plus.product.barcode "產品條碼">
+<!ENTITY plus.product.tax.rate "稅別">
+<!ENTITY plus.product.condiments "調味別">
 
-<!ENTITY plus.auto.maintain "Auto-stock">
-<!ENTITY plus.can.restock "Returns can be restocked">
-<!ENTITY plus.require.condiment "Condiments required">
-<!ENTITY plus.require.memo "Memo required">
-<!ENTITY plus.single.item.sale "Single Item Sale">
-<!ENTITY plus.visible "Show on menu">
-<!ENTITY plus.require.age.verification "Require age verification">
-<!ENTITY plus.display.icon.only "Display icon only">
+<!ENTITY plus.auto.maintain "自動扣庫存">
+<!ENTITY plus.can.restock "退貨可轉銷售">
+<!ENTITY plus.require.condiment "強制選擇調味">
+<!ENTITY plus.require.memo "強制輸入備註">
+<!ENTITY plus.single.item.sale "單一產品快速銷售">
+<!ENTITY plus.visible "顯示於前台">
+<!ENTITY plus.require.age.verification "強制查詢購買者年齡">
+<!ENTITY plus.display.icon.only "只顯示產品圖示">
 
-<!ENTITY plus.purchase.price "Purchase Price">
-<!ENTITY plus.stock.level "Current Stock Level">
-<!ENTITY plus.stock.threshold "Minimum Threshold">
-<!ENTITY plus.memo "Memo">
-<!ENTITY plus.minimum.sale.quantity "Minimum Sale Qty">
-<!ENTITY plus.sale.unit "Unit of Sale">
-<!ENTITY plus.sale.unit.individual "Individually">
-<!ENTITY plus.sale.unit.gram "Gram">
-<!ENTITY plus.sale.unit.kilogram "Kilogram">
-<!ENTITY plus.sale.unit.ounce "Ounce">
-<!ENTITY plus.sale.unit.pound "Pound">
-<!ENTITY plus.sale.unit.liter "Liter">
-<!ENTITY plus.sale.unit.pint "Pint">
-<!ENTITY plus.sale.unit.quart "Quart">
-<!ENTITY plus.sale.unit.gallon "Gallon">
-<!ENTITY plus.location "Stock Location">
+<!ENTITY plus.purchase.price "購入單位成本">
+<!ENTITY plus.stock.level "目前庫存量">
+<!ENTITY plus.stock.threshold "安全庫存量">
+<!ENTITY plus.memo "備註">
+<!ENTITY plus.minimum.sale.quantity "最小銷售數量">
+<!ENTITY plus.sale.unit "銷售單位">
+<!ENTITY plus.sale.unit.individual "個">
+<!ENTITY plus.sale.unit.gram "公克">
+<!ENTITY plus.sale.unit.kilogram "公斤">
+<!ENTITY plus.sale.unit.ounce "盎司">
+<!ENTITY plus.sale.unit.pound "磅">
+<!ENTITY plus.sale.unit.liter "公升">
+<!ENTITY plus.sale.unit.pint "品脫">
+<!ENTITY plus.sale.unit.quart "夸脫">
+<!ENTITY plus.sale.unit.gallon "加侖">
+<!ENTITY plus.location "庫存位置">
 
-<!ENTITY plus.header.no "No.">
-<!ENTITY plus.header.name "Name">
-<!ENTITY plus.header.quantity "Qty">
+<!ENTITY plus.header.no "產品編號">
+<!ENTITY plus.header.name "產品名稱">
+<!ENTITY plus.header.quantity "數量">
 
-<!ENTITY plus.image "Product Icon">
-<!ENTITY plus.button.color "Button Color">
-<!ENTITY plus.font.size "Font Size">
+<!ENTITY plus.image "產品圖示">
+<!ENTITY plus.button.color "按鈕顏色">
+<!ENTITY plus.font.size "文字大小">
 
-<!ENTITY plus.level "Level">
-<!ENTITY plus.price "Price">
-<!ENTITY plus.halo "HALO">
-<!ENTITY plus.lalo "LALO">
+<!ENTITY plus.level "設定">
+<!ENTITY plus.price "價格">
+<!ENTITY plus.halo "最高價格">
+<!ENTITY plus.lalo "最低價格">
 
-<!ENTITY plus.search.label "Search By Product No. or Barcode">
+<!ENTITY plus.search.label "產品搜尋 - 依產品編號或產品條碼">
 
-<!ENTITY plus.button.action.add "Add">
-<!ENTITY plus.button.action.modify "Modify">
-<!ENTITY plus.button.action.delete "Delete">
+<!ENTITY plus.button.action.add "新增">
+<!ENTITY plus.button.action.modify "修改">
+<!ENTITY plus.button.action.delete "刪除">
 
-<!ENTITY plus.button.numpad.clear "CLEAR">
+<!ENTITY plus.button.numpad.clear "清空">
 <!ENTITY plus.button.numpad.del "DEL">
-<!ENTITY plus.button.numpad.enter "ENTER">
+<!ENTITY plus.button.numpad.enter "輸入">

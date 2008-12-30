@@ -79,15 +79,14 @@
     -moz-appearance: none;
     margin: 0 0 4px 2px;
     padding: 0px;
-    -moz-border-top-colors: #676e77 #fff !important;
-    -moz-border-right-colors: #676e77 #fff !important;
-    -moz-border-bottom-colors: #676e77 #fff !important;
-    -moz-border-left-colors: #676e77 #fff !important;
+    -moz-border-top-colors: #676e77 #dfe1e4 !important;
+    -moz-border-right-colors: #676e77 #dfe1e4 !important;
+    -moz-border-bottom-colors: #676e77 #dfe1e4 !important;
+    -moz-border-left-colors: #676e77 #dfe1e4 !important;
     -moz-box-pack: center;
     -moz-user-focus: ignore;
     -moz-background-clip: border;
-    background-color: #dfe1e4 !important;
-    color: #3b556c;
+    background-color: transparent;
 }
 
 .user-plubtn[disabled=true] {
@@ -95,6 +94,7 @@
     -moz-border-right-colors: #676e77 #dfe1e4 !important;
     -moz-border-bottom-colors: #676e77 #dfe1e4 !important;
     -moz-border-left-colors: #676e77 #dfe1e4 !important;
+    background-color: transparent;
 }
 
 .user-plubtn[disabled=false]:active {
@@ -388,7 +388,7 @@
 }
 
 /*-----------------------------------------------------------------------------
- * +/- buttons
+ * +/- vkb buttons
  *-----------------------------------------------------------------------------
  */
 
@@ -398,6 +398,16 @@
 
 .minusbtn {
     background: transparent url(images/prod-remove.png) center center no-repeat;
+}
+
+.dialogbtns #vkb {
+    list-style-image: url(images/keyboard-48x48.png);
+    -moz-box-orient: vertical;
+}
+
+.button-vkb {
+    background: transparent url(images/keyboard-40x40.png) center center no-repeat;
+    margin-right: 0px;
 }
 
 /*-----------------------------------------------------------------------------

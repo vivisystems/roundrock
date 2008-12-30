@@ -81,11 +81,14 @@
 
             if (this.doRestart) {
                 try {
+                    GREUtils.restartApplication();
+                    /*
                     var chromeRegInstance = Components.classes["@mozilla.org/chrome/chrome-registry;1"].getService();
                     var xulChromeReg = chromeRegInstance.QueryInterface(Components.interfaces.nsIXULChromeRegistry);
                     //alert('reloading chrome');
                     xulChromeReg.reloadChrome();
                     this.log('reloaded chrome');
+                    */
                 } catch(err) {
                 }
             }
@@ -227,6 +230,7 @@
             var fixedRow = document.getElementById('fixedbtnrow');
             var clockinBtn = document.getElementById('clockin');
             var optionsBtn = document.getElementById('options');
+            var vkbBtn = document.getElementById('vkb');
             var spacer = document.getElementById('spacer');
             var cartSidebar = document.getElementById('cartsidebar');
             var isHidden = numPad.getAttribute('hidden') || 'false';
@@ -236,10 +240,12 @@
             if (hideNumPad) {
                 if (numPad && (isHidden != 'true')) {
                 // relocate clockinBtn and optionsBtn to cartSidebar
+                    if (vkbBtn) vkbBtn.parentNode.removeChild(vkbBtn);
                     if (clockinBtn) clockinBtn.parentNode.removeChild(clockinBtn);
                     if (optionsBtn) optionsBtn.parentNode.removeChild(optionsBtn);
 
                     if (cartSidebar) {
+                        cartSidebar.appendChild(vkbBtn);
                         cartSidebar.appendChild(clockinBtn);
                         cartSidebar.appendChild(optionsBtn);
                     }
@@ -254,12 +260,14 @@
                 // if already visible then don't change
                 if (numPad && (isHidden == 'true')) {
                     // relocate clockinBtn and optionsBtn to toolbar
+                    if (vkbBtn) vkbBtn.parentNode.removeChild(vkbBtn);
                     if (clockinBtn) clockinBtn.parentNode.removeChild(clockinBtn);
                     if (optionsBtn) optionsBtn.parentNode.removeChild(optionsBtn);
 
                     if (toolbar) {
                         if (toggleBtn) toolbar.removeChild(toggleBtn);
                         if (spacer) toolbar.removeChild(spacer);
+                        if (vkbBtn) toolbar.appendChild(vkbBtn);
                         if (clockinBtn) toolbar.appendChild(clockinBtn);
                         if (optionsBtn) toolbar.appendChild(optionsBtn);
                         if (spacer) toolbar.appendChild(spacer);

@@ -1,25 +1,25 @@
-<!ENTITY users.title "Employees">
-<!ENTITY users.basedata "User Profile">
-<!ENTITY users.option1 "User Limits">
-<!ENTITY users.option2 "Check Tracking">
-<!ENTITY users.username "User Name (a..z,0..9)">
-<!ENTITY users.password "Password">
-<!ENTITY users.displayname "Display Name">
-<!ENTITY users.accesslevel "Access Level">
-<!ENTITY users.pricelevel "Default Price Level">
-<!ENTITY users.job "Default Job">
-<!ENTITY users.limit.item.discount "Item Discount Limit">
-<!ENTITY users.limit.order.discount "Order Discount Limit">
-<!ENTITY users.limit.cash.check "Check Cashing Limit">
-<!ENTITY users.limit.item.surcharge "Item Surcharge Limit">
-<!ENTITY users.limit.order.surcharge "Order Surcharge Limit">
-<!ENTITY users.limit.plu.quantity "Product Quantity Limit">
-<!ENTITY users.limit.plu.price "Product Price Limit">
-<!ENTITY users.limit.item.coupon "Item Coupon Limit">
-<!ENTITY users.limit.order.coupon "Order Coupon Limit">
-<!ENTITY users.minimum.check.number "Minimum Check Number">
-<!ENTITY users.maximum.check.number "Maximum Check Number">
-<!ENTITY users.maximum.open.checks "Maximum Number of Open Checks">
-<!ENTITY users.action.add "Add">
-<!ENTITY users.action.modify "Modify">
-<!ENTITY users.action.delete "Delete">
+<!ENTITY users.title "員工管理">
+<!ENTITY users.basedata "員工基本資料">
+<!ENTITY users.option1 "員工額度限制">
+<!ENTITY users.option2 "員工開單限制">
+<!ENTITY users.username "員工姓名/代號 (a..z,0..9)">
+<!ENTITY users.password "登入密碼">
+<!ENTITY users.displayname "顯示名稱">
+<!ENTITY users.accesslevel "權限群組">
+<!ENTITY users.pricelevel "預設價格設定">
+<!ENTITY users.job "預設工作內容">
+<!ENTITY users.limit.item.discount "單品折扣限額">
+<!ENTITY users.limit.order.discount "單張折扣限額">
+<!ENTITY users.limit.cash.check "支票付款限額">
+<!ENTITY users.limit.item.surcharge "單品附加費限額">
+<!ENTITY users.limit.order.surcharge "單張附加費限額">
+<!ENTITY users.limit.plu.quantity "產品數量限額">
+<!ENTITY users.limit.plu.price "產品價格限額">
+<!ENTITY users.limit.item.coupon "單品折價券限額">
+<!ENTITY users.limit.order.coupon "單張折價券限額">
+<!ENTITY users.minimum.check.number "最低開單數量">
+<!ENTITY users.maximum.check.number "最高開單數量">
+<!ENTITY users.maximum.open.checks "最高未結單數量">
+<!ENTITY users.action.add "新增">
+<!ENTITY users.action.modify "修改">
+<!ENTITY users.action.delete "刪除">

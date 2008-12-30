@@ -17,690 +17,690 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "Add New ACL Group"
-msgstr ""
+msgstr "新增權限群組"
 
 msgid "New ACL Group"
-msgstr ""
+msgstr "新權限群組"
 
 msgid "Group Name"
-msgstr ""
+msgstr "群組名稱"
 
 msgid "ACL Group [%S] already exists; ACL group not added."
-msgstr ""
+msgstr "權限群組 [%S] 已存在; 權限群組未新增"
 
 msgid "ACL Group [%S] added successfully"
-msgstr ""
+msgstr "權限群組 [%S] 新增成功"
 
 msgid ""
 "An error occurred while adding ACL Group [%S]; the ACL group may not have "
 "been added successfully"
-msgstr ""
+msgstr "新增權限群組 [%S] 時發生錯誤; 該權限群組並未新增成功"
 
 msgid ""
 "The ACL group [%S] has been assigned to one or more users [%S] and cannot be "
 "removed."
-msgstr ""
+msgstr "權限群組 [%S] 已被一個或多個員工設定 [%S] 且無法刪除"
 
 msgid "confirm delete %S"
-msgstr ""
+msgstr "確認已刪除 %S"
 
 msgid "Are you sure?"
-msgstr ""
+msgstr "你確定嗎?"
 
 msgid "ACL Group [%S] removed successfully"
-msgstr ""
+msgstr "權限群組 [%S] 刪除成功"
 
 msgid ""
 "An error occurred while removing ACL Group [%S]; the ACL group may not have "
 "been removed successfully"
-msgstr ""
+msgstr "刪除權限群組 [%S] 時發生錯誤; 該權限群組並未刪除成功"
 
 msgid "ACL Group [%S] modified successfully"
-msgstr ""
+msgstr "權限群組 [%S] 修改成功"
 
 msgid ""
 "An error occurred while modifying ACL Group [%S]; the ACL group may not have "
 "been modified successfully"
-msgstr ""
+msgstr "修改權限群組 [%S] 時發生錯誤; 該權限群組並未修改成功"
 
 msgid "OUT OF STOCK"
-msgstr ""
+msgstr "已無庫存"
 
 msgid "Product May Be Out of Stock!"
-msgstr ""
+msgstr "產品可能已無庫存"
 
 msgid "STOCK LOW"
-msgstr ""
+msgstr "庫存量低於安全庫存"
 
 msgid "Low Stock Threshold Reached!"
-msgstr ""
+msgstr "庫存量已達安全庫存"
 
 msgid "VERIFY AGE"
-msgstr ""
+msgstr "確認年齡"
 
 msgid "Verify Customer Age for Purchase of [%S]!"
-msgstr ""
+msgstr "請與客戶確認其年齡已達購買 [%S] 之法律規定"
 
 msgid ""
 "Verify Customer Age for Purchase of\n"
 "[%S]!"
-msgstr ""
+msgstr "請與客戶確認其年齡已達購買 [%S] 之法律規定"
 
 msgid "SINGLE ITEM SALE"
-msgstr ""
+msgstr "單一產品快速銷售"
 
 msgid "Product scan code not found [%S]"
-msgstr ""
+msgstr "產品條碼 [%S] 不存在"
 
 msgid "Not an open order; cannot modify"
-msgstr ""
+msgstr "已結單; 禁止修改"
 
 msgid "Please select an item first"
-msgstr ""
+msgstr "請先選擇一個品項"
 
 msgid "Cannot modify selected item [%S]"
-msgstr ""
+msgstr "無法修改選取的品項 [%S]"
 
 msgid "Not authorized to modify condiment price"
-msgstr ""
+msgstr "權限不足; 禁止修改調味價格"
 
 msgid "Cannot modify; selected item [%S] has discount or surcharge applied"
-msgstr ""
+msgstr "禁止修改; 選取的品項 [%S] 已套用折扣或附加費"
 
 msgid "Cannot modify; selected item [%S] has been subtotaled"
-msgstr ""
+msgstr "禁止修改; 選取的品項 [%S] 已列入小計"
 
 msgid "Cannot modify; no price or quantity entered"
-msgstr ""
+msgstr "禁止修改; 價格或數量未輸入"
 
 msgid "Cannot modify condiment; no price entered"
-msgstr ""
+msgstr "禁止修改調味; 價格未輸入"
 
 msgid "Quantity may not be less than 1"
-msgstr ""
+msgstr "數量不得小於 1"
 
 msgid "Not an open order; cannot VOID"
-msgstr ""
+msgstr "已結單; 禁止刪除"
 
 msgid ""
 "Cannot VOID the selected item [%S]\n"
 "It is not the last registered item"
-msgstr ""
+msgstr "禁止刪除選取的品項 [%S] ; 該品項並非最後輸入之品項"
 
 msgid "Cannot VOID an item that has been subtotaled"
-msgstr ""
+msgstr "已列入小計之品項禁止刪除"
 
 msgid "Please enter the discount amount"
-msgstr ""
+msgstr "請輸入折扣金額"
 
 msgid "Please enter the discount percentage first"
-msgstr ""
+msgstr "請先輸入折扣百分比"
 
 msgid "Please enter the discount percentage"
-msgstr ""
+msgstr "請輸入折扣百分比"
 
 msgid "Not an open order; cannot add discount"
-msgstr ""
+msgstr "已結單; 禁止新增折扣"
 
 msgid "Please select an item"
-msgstr ""
+msgstr "請選擇一個品項"
 
 msgid "Not an open order; cannot add surcharge"
-msgstr ""
+msgstr "已結單; 禁止新增附加費"
 
 msgid "Pretax discount can only be registered against subtotals"
-msgstr ""
+msgstr "稅前折扣只能在小計時列入"
 
 msgid "Discount has been already been registered on item [%S]"
-msgstr ""
+msgstr "品項 [%S] 之折扣已計入"
 
 msgid "Surcharge has been already been registered on item [%S]"
-msgstr ""
+msgstr "品項 [%S] 之附加費已計入"
 
 msgid "Cannot modify an item that has been subtotaled"
-msgstr ""
+msgstr "已列入小計之品項禁止修改"
 
 msgid "Cannot register discount on return items"
-msgstr ""
+msgstr "禁止退貨品項列入折扣"
 
 msgid ""
 "Cannot apply discount to [%S]\n"
 "It is not the last registered item"
-msgstr ""
+msgstr "禁止提供折扣於選取的品項 [%S] ; 該品項並非最後輸入之品項"
 
 msgid "Discount may not be added to [%S]"
-msgstr ""
+msgstr "禁止提供折扣於 [%S]"
 
 msgid "Please enter the discount amount or percentage"
-msgstr ""
+msgstr "請輸入折扣金額或百分比"
 
 msgid "Please enter the surcharge amount first"
-msgstr ""
+msgstr "請先輸入附加費金額"
 
 msgid "Please enter the surcharge percentage"
-msgstr ""
+msgstr "請輸入附加費百分比"
 
 msgid "Pretax surcharge can only be registered against subtotals"
-msgstr ""
+msgstr "稅前附加費只能在小計時列入"
 
 msgid ""
 "Cannot apply surcharge to [%S]\n"
 "It is not the last registered item"
-msgstr ""
+msgstr "禁止套用附加費於選取的品項 [%S] ; 該品項並非最後輸入之品項"
 
 msgid "Surcharge may not be added to [%S]"
-msgstr ""
+msgstr "禁止套用附加費於 [%S]"
 
 msgid "Not an open order; operation invalid"
-msgstr ""
+msgstr "已結單; 操作無效"
 
 msgid "Not an open order; cannot register House Bon"
-msgstr ""
+msgstr "已結單; 禁止列入贈送產品"
 
 msgid "House Bon may not be applied to [%S]"
-msgstr ""
+msgstr "品項 [%S] 禁止列入贈送產品"
 
 msgid "The selected currency [%S] has not been configured"
-msgstr ""
+msgstr "選取的幣別尚未設定"
 
 msgid "Please enter an amount first"
-msgstr ""
+msgstr "請先輸入金額"
 
 msgid "Please configure the selected currency entry first [%S]"
-msgstr ""
+msgstr "請先設定選取的幣別 [%S]"
 
 msgid "Credit Card Remark"
-msgstr ""
+msgstr "信用卡註記"
 
 msgid "Payment"
-msgstr ""
+msgstr "付款"
 
 msgid "Card Type"
-msgstr ""
+msgstr "卡別"
 
 msgid "Card Remark"
-msgstr ""
+msgstr "卡片註記"
 
 msgid "Gift Card Remark"
-msgstr ""
+msgstr "禮品卡註記"
 
 msgid "Not an open order; cannot register payments"
-msgstr ""
+msgstr "已結單; 禁止列入付款"
 
 msgid "Not an open order; cannot shift tax"
-msgstr ""
+msgstr "已結單; 禁止切換稅別"
 
 msgid "This operation cannot be performed on [%S]"
-msgstr ""
+msgstr "此作業禁止在品項 [%S] 上執行"
 
 msgid "The tax status indicated does not exist [%S]"
-msgstr ""
+msgstr "選取的稅別不存在"
 
 msgid "Not an open order; cannot add condiment"
-msgstr ""
+msgstr "已結單; 禁止新增調味"
 
 msgid "Condiments may not be added to [%S]"
-msgstr ""
+msgstr "禁止於品項 [%S] 新增調味"
 
 msgid "Cannot add condiments to an item that has been subtotaled"
-msgstr ""
+msgstr "已列入小計之品項禁止新增調味"
 
 msgid "Please void discount on item first"
-msgstr ""
+msgstr "請先刪除該品項之折扣"
 
 msgid "Please void surcharge on item first"
-msgstr ""
+msgstr "請先刪除該品項之附加費"
 
 msgid "No Condiment group associated with item [%S]"
-msgstr ""
+msgstr "品項 [%S] 並未與任何調味群組連結"
 
 msgid "Not an open order; cannot add memo"
-msgstr ""
+msgstr "已結單; 禁止新增備註"
 
 msgid "Add New Memo"
-msgstr ""
+msgstr "新增備註"
 
 msgid "Add Memo"
-msgstr ""
+msgstr "新增備註"
 
 msgid "Memo:"
-msgstr ""
+msgstr "備註"
 
 msgid "No open order to push"
-msgstr ""
+msgstr "無開放訂單可提供"
 
 msgid "Order is not queued because it is empty"
-msgstr ""
+msgstr "無任何品項故無法暫存"
 
 msgid ""
 "Authentication failed!\n"
 "Please make sure the password is correct."
-msgstr ""
+msgstr "登入失敗; 請確認登入密碼是否正確"
 
 msgid ""
 "Authentication failed!\n"
 "Please select a user"
-msgstr ""
+msgstr "登入失敗; 請選擇使用者"
 
 msgid "Please select a user first"
-msgstr ""
+msgstr "請先選擇使用者"
 
 msgid "Please enter the passcode"
-msgstr ""
+msgstr "請輸入登入密碼"
 
 msgid ""
 "Authentication Failed!\n"
 "Please make sure the passcode is correct"
-msgstr ""
+msgstr "登入失敗; 請確認登入密碼是否正確"
 
 msgid "Please select a job first"
-msgstr ""
+msgstr "請先選擇工作內容"
 
 msgid "Not clocked in yet"
-msgstr ""
+msgstr "尚未打上班卡"
 
 msgid "Add New Condiment Group"
-msgstr ""
+msgstr "新增調味群組"
 
 msgid "New Condiment Group"
-msgstr ""
+msgstr "新調味群組"
 
 msgid "Condiment Group [%S] already exists."
-msgstr ""
+msgstr "調味群組 [%S] 已存在"
 
 msgid "Condiment Group [%S] added successfully"
-msgstr ""
+msgstr "新增調味群組成功"
 
 msgid ""
 "An error occurred while adding Condiment Group [%S]\n"
 "The group may not have been added successfully"
-msgstr ""
+msgstr "新增調味群組 [%S] 時發生錯誤; 該調味群組並未新增成功"
 
 msgid "Condiment Group [%S] already exists"
-msgstr ""
+msgstr "調味群組 [%S] 已存在"
 
 msgid "Condiment Group [%S] modified successfully"
-msgstr ""
+msgstr "調味群組 [%S] 修改成功"
 
 msgid ""
 "An error occurred while modifying Condiment Group [%S]\n"
 "The group may not have been modified successfully"
-msgstr ""
+msgstr "修改調味群組 [%S] 時發生錯誤; 該調味群組並未修改成功"
 
 msgid "Condiment Group [%S] removed successfully"
-msgstr ""
+msgstr "調味群組 [%S] 刪除成功"
 
 msgid ""
 "An error occurred while removing Condiment Group [%S]\n"
 "The group may not have been removed successfully"
-msgstr ""
+msgstr "刪除調味群組 [%S] 時發生錯誤; 該調味群組並未刪除成功"
 
 msgid "Add New Condiment"
-msgstr ""
+msgstr "新增調味種類"
 
 msgid "New Condiment"
-msgstr ""
+msgstr "新調味種類"
 
 msgid "Condiment Name"
-msgstr ""
+msgstr "調味名稱"
 
 msgid "Condiment Price"
-msgstr ""
+msgstr "調味價格"
 
 msgid "Condiment Price must be a number"
-msgstr ""
+msgstr "調味價格必須為數字"
 
 msgid "Condiment [%S] already exists in this group"
-msgstr ""
+msgstr "調味名稱 [%S] 已存在於本調味群組"
 
 msgid "Condiment [%S] added successfully"
-msgstr ""
+msgstr "新增調味種類 [%S] 成功"
 
 msgid ""
 "An error occurred while adding Condiment [%S]\n"
 "The condiment may not have been added successfully"
-msgstr ""
+msgstr "新增調味種類 [%S] 時發生錯誤; 該調味種類並未新增成功"
 
 msgid "Condiment [%S] modified successfully"
-msgstr ""
+msgstr "修改調味種類 [%S] 成功"
 
 msgid ""
 "An error occurred while modifying Condiment [%S]\n"
 "The condiment may not have been modified successfully"
-msgstr ""
+msgstr "修改調味種類 [%S] 時發生錯誤; 該調味種類並未修改成功"
 
 msgid "Condiment [%S] removed successfully"
-msgstr ""
+msgstr "刪除調味種類 [%S] 成功"
 
 msgid ""
 "An error occurred while removing Condiment [%S]\n"
 "The condiment may not have been removed successfully"
-msgstr ""
+msgstr "刪除調味種類 [%S] 時發生錯誤; 該調味種類並未刪除成功"
 
 msgid "Department Number must not be empty"
-msgstr ""
+msgstr "部門代碼不得為空白"
 
 msgid "Department Name must not be empty"
-msgstr ""
+msgstr "部門名稱不得為空白"
 
 msgid "Duplicate Department Number (%S); department not %S."
-msgstr ""
+msgstr "部門代碼 (%S) 已存在; 請輸入其他代碼"
 
 msgid "Duplicate Department Name (%S); department not %S."
-msgstr ""
+msgstr "部門名稱 (%S) 已存在; 請輸入其他名稱"
 
 msgid "Add New Department"
-msgstr ""
+msgstr "新增產品部門"
 
 msgid "New Department"
-msgstr ""
+msgstr "新產品部門"
 
 msgid "Department Number"
-msgstr ""
+msgstr "部門代碼"
 
 msgid "Department Name"
-msgstr ""
+msgstr "部門名稱"
 
 msgid "Department [%S] added successfully"
-msgstr ""
+msgstr "新增產品部門 [%S] 成功"
 
 msgid ""
 "An error occurred while adding Department [%S]; the department may not have "
 "been added successfully"
-msgstr ""
+msgstr "新增產品部門 [%S] 時發生錯誤; 該產品部門並未新增成功"
 
 msgid "Department [%S] modified successfully"
-msgstr ""
+msgstr "修改產品部門 [%S] 成功"
 
 msgid ""
 "An error occurred while modifying Department [%S]\n"
 "The department may not have been modified successfully"
-msgstr ""
+msgstr "修改產品部門 [%S] 時發生錯誤; 該產品部門並未修改成功"
 
 msgid "Department [%S] removed successfully"
-msgstr ""
+msgstr "刪除產品部門 [%S] 成功"
 
 msgid ""
 "An error occurred while removing Department [%S]\n"
 "The department may not have been removed successfully"
-msgstr ""
+msgstr "刪除產品部門 [%S] 時發生錯誤; 該產品部門並未刪除成功"
 
 msgid ".name"
-msgstr ""
+msgstr ".名稱"
 
 msgid ".label"
-msgstr ""
+msgstr ".標籤"
 
 msgid ".desc"
-msgstr ""
+msgstr ".敘述"
 
 msgid "export plu finish!"
-msgstr ""
+msgstr "產品資料匯出完成!"
 
 msgid "export data finish!"
-msgstr ""
+msgstr "資料匯出完成!"
 
 msgid "Add New Job"
-msgstr ""
+msgstr "新增工作內容"
 
 msgid "New Job"
-msgstr ""
+msgstr "新工作內容"
 
 msgid "Job Name"
-msgstr ""
+msgstr "工作名稱"
 
 msgid "Duplicate job name [%S]; job not added."
-msgstr ""
+msgstr "工作名稱 [%S] 已存在; 無法新增"
 
 msgid "Job [%S] added successfully"
-msgstr ""
+msgstr "新增工作內容 [%S] 成功"
 
 msgid "Duplicate job name [%S]; job not modified."
-msgstr ""
+msgstr "工作名稱 [%S] 已存在; 無法修改"
 
 msgid "Job [%S] modified successfully"
-msgstr ""
+msgstr "修改工作內容 [%S] 成功"
 
 msgid "Job [%S] removed successfully"
-msgstr ""
+msgstr "刪除工作內容 [%S] 成功"
 
 msgid " logged in"
-msgstr ""
+msgstr "登入"
 
 msgid "Failed to authenticate user"
-msgstr ""
+msgstr "登入失敗"
 
 msgid "Please enter passcode first"
-msgstr ""
+msgstr "請先輸入登入密碼"
 
 msgid "Sign Off"
-msgstr ""
+msgstr "登出"
 
 msgid "Discard items that have been registered?"
-msgstr ""
+msgstr "刪除已輸入之交易?"
 
 msgid "What do you want to do with the registered items?"
-msgstr ""
+msgstr "您要如何處理已輸入之交易資料?"
 
 msgid "Queue"
-msgstr ""
+msgstr "暫存"
 
 msgid "Discard"
-msgstr ""
+msgstr "刪除"
 
 msgid "You have one or more queued orders. Discard them?"
-msgstr ""
+msgstr "您有一筆或多筆暫存單. 是否刪除?"
 
 msgid "You have one or more queued orders. What do you want to do with them?"
-msgstr ""
+msgstr "您有一筆或多筆暫存單. 請問您要如何處理?"
 
 msgid "Keep"
-msgstr ""
+msgstr "保留"
 
 msgid "confirm sign-off"
-msgstr ""
+msgstr "確認登出"
 
 msgid "Are you ready to sign off?"
-msgstr ""
+msgstr "您準備要登出嗎?"
 
 msgid "Add New Product Group"
-msgstr ""
+msgstr "新增產品群組"
 
 msgid "New Product Group"
-msgstr ""
+msgstr "新產品群組"
 
 msgid "Duplicate Product Group name [%S]; Product Group not added."
-msgstr ""
+msgstr "產品群組名稱 [%S] 已存在; 無法新增"
 
 msgid "Product Group [%S] added successfully"
-msgstr ""
+msgstr "新增產品群組 [%S] 成功"
 
 msgid "Duplicate Product Group name [%S]; Product group not modified."
-msgstr ""
+msgstr "產品群組名稱 [%S] 已存在; 無法修改"
 
 msgid "Product Group [%S] removed successfully"
-msgstr ""
+msgstr "刪除產品群組 [%S] 成功"
 
 msgid "Add New Product Set"
-msgstr ""
+msgstr "新增組合產品"
 
 msgid "Product Set"
-msgstr ""
+msgstr "組合產品"
 
 msgid "Product No.or Barcode"
-msgstr ""
+msgstr "產品編號或產品條碼"
 
 msgid "Quantity"
-msgstr ""
+msgstr "數量"
 
 msgid "Product not found (%S)."
-msgstr ""
+msgstr "產品 (%S) 不存在"
 
 msgid "Product No. must not be empty."
-msgstr ""
+msgstr "產品編號不得為空白"
 
 msgid "Product Name must not be empty."
-msgstr ""
+msgstr "產品名稱不得為空白"
 
 msgid "The Product No. [%S] already exists; product not added."
-msgstr ""
+msgstr "產品編號 [%S] 已存在; 無法新增"
 
 msgid "The Product Name [%S] already exists; product not added."
-msgstr ""
+msgstr "產品名稱 [%S] 已存在; 無法新增"
 
 msgid "The Product Name [%S] already exists; product not modified."
-msgstr ""
+msgstr "產品名稱 [%S] 已存在; 無法修改"
 
 msgid "Add New Product"
-msgstr ""
+msgstr "新增產品"
 
 msgid "New Product"
-msgstr ""
+msgstr "新產品"
 
 msgid "Product No."
-msgstr ""
+msgstr "產品編號"
 
 msgid "Product Name"
-msgstr ""
+msgstr "產品名稱"
 
 msgid "Product [%S] added successfully"
-msgstr ""
+msgstr "新增產品 [%S] 成功"
 
 msgid ""
 "An error occurred while adding Product [%S]; the product may not have been "
 "added successfully"
-msgstr ""
+msgstr "新增產品 [%S] 時發生錯誤; 該產品並未新增成功"
 
 msgid "Product [%S] modified successfully"
-msgstr ""
+msgstr "修改產品 [%S] 成功"
 
 msgid ""
 "An error occurred while modifying Product [%S]\n"
 "The product may not have been modified successfully"
-msgstr ""
+msgstr "修改產品 [%S] 時發生錯誤; 該產品並未修改成功"
 
 msgid "Product [%S] removed successfully"
-msgstr ""
+msgstr "刪除產品 [%S] 成功"
 
 msgid ""
 "An error occurred while removing Product [%S]\n"
 "The product may not have been removed successfully"
-msgstr ""
+msgstr "刪除產品 [%S] 時發生錯誤; 該產品並未刪除成功"
 
 msgid "Product [%S] Not Found!"
-msgstr ""
+msgstr "產品 [%S] 不存在"
 
 msgid "Price Level changed from [%S] to [%S]"
-msgstr ""
+msgstr "價格由設定 [%S] 變更為設定 [%S]"
 
 msgid "Default"
-msgstr ""
+msgstr "預設"
 
 msgid "Default Price Level"
-msgstr ""
+msgstr "預設價格設定"
 
 msgid "Schedule [%S - Price Level %S] added successfully"
-msgstr ""
+msgstr "新增變價排程 [%S - 價格設定 %S] 成功"
 
 msgid "confirm remove %S - price level %S"
-msgstr ""
+msgstr "確認刪除 %S - 價格設定 %S"
 
 msgid "Schedule [%S - Price Level %S] removed successfully"
-msgstr ""
+msgstr "刪除變價排程 [%S - 價格設定 %S] 成功"
 
 msgid "Stock level for [%S] modified successfully"
-msgstr ""
+msgstr "修改產品 [%S] 庫存量成功"
 
 msgid "Product/Barcode Number (%S) not found!"
-msgstr ""
+msgstr "產品編號/產品條碼 (%S) 不存在"
 
 msgid "Tax code must not be empty."
-msgstr ""
+msgstr "稅別代碼不得為空白"
 
 msgid "Tax name must not be empty."
-msgstr ""
+msgstr "稅別名稱不得為空白"
 
 msgid "Duplicate tax code [%S]; tax not added"
-msgstr ""
+msgstr "稅別代碼 [%S] 已存在; 無法新增"
 
 msgid "Duplicate tax name [%S]; tax not %S"
-msgstr ""
+msgstr "稅別名稱 [%S] 已存在; 無法新增"
 
 msgid "Add-On"
-msgstr ""
+msgstr "外加稅"
 
 msgid "Included"
-msgstr ""
+msgstr "內含稅"
 
 msgid "Combined"
-msgstr ""
+msgstr "合併稅"
 
 msgid "VAT & VAT"
-msgstr ""
+msgstr "稅上稅"
 
 msgid "Add New Tax Status"
-msgstr ""
+msgstr "新增稅別"
 
 msgid "New Tax Status"
-msgstr ""
+msgstr "新稅別"
 
 msgid "Tax Code"
-msgstr ""
+msgstr "稅別代碼"
 
 msgid "Tax Name"
-msgstr ""
+msgstr "稅別名稱"
 
 msgid "Tax [%S] added successfully"
-msgstr ""
+msgstr "新增稅別 [%S] 成功"
 
 msgid ""
 "An error occurred while adding Tax [%S]; the tax may not have been added "
 "successfully"
-msgstr ""
+msgstr "新增稅別 [%S] 時發生錯誤; 該稅別並未新增成功"
 
 msgid "Tax [%S] removed successfully"
-msgstr ""
+msgstr "刪除稅別 [%S] 成功"
 
 msgid ""
 "An error occurred while removing Tax [%S]; the tax may not have been removed "
 "successfully"
-msgstr ""
+msgstr "刪除稅別 [%S] 時發生錯誤; 該稅別並未刪除成功"
 
 msgid "Tax [%S] modified successfully"
-msgstr ""
+msgstr "修改稅別 [%S] 成功"
 
 msgid "Test"
-msgstr ""
+msgstr "測試"
 
 msgid "Add New Employee"
-msgstr ""
+msgstr "新增員工"
 
 msgid "New Employee"
-msgstr ""
+msgstr "新員工"
 
 msgid "Name"
-msgstr ""
+msgstr "員工姓名/代號"
 
 msgid "Password"
-msgstr ""
+msgstr "登入密碼"
 
 msgid "Duplicate user name [%S]; user not added."
-msgstr ""
+msgstr "員工姓名/代號 [%S] 已存在; 無法新增"
 
 msgid "Duplicate display name [%S]; user not added."
-msgstr ""
+msgstr "員工顯示名稱 [%S] 已存在; 無法新增"
 
 msgid "Employee [%S] added successfully"
-msgstr ""
+msgstr "新增員工 [%S] 成功"
 
 msgid "Duplicate display name [%S]; user not modified."
-msgstr ""
+msgstr "員工顯示名稱 [%S] 已存在; 無法修改"
 
 msgid "Employee [%S] modified successfully"
-msgstr ""
+msgstr "修改員工 [%S] 成功"
 
 msgid "Employee [%S] removed successfully"
-msgstr ""
+msgstr "刪除員工 [%S] 成功"
 
 msgid "Select Access Group"
-msgstr ""
+msgstr "選擇權限群組"

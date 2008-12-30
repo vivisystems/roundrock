@@ -63,9 +63,9 @@
                 listObj.selectedItems = [];
             }
             else {
-                this._lastSelection = selectedIndex;
                 group = this._listDatas[selectedIndex];
             }
+            this._lastSelection = listObj.selectedIndex;
 
             if (group) {
                 document.getElementById('cond_group_name').value = group.name;

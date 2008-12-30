@@ -7,8 +7,9 @@
 
 .catescrollablepanel{
     background: none;
-    min-width: 357px;
-    width: 357px;
+    min-width: 358px;
+    max-width: 358px;
+    width: 358px;
     margin: 0px;
 }
 
@@ -132,19 +133,15 @@
 .prodscrollablepanel {
 	-moz-appearance: none;
 	-moz-background-clip: border;
-	min-width: 357px;
-	width: 357px;
 	margin: 2px 2px 1px 0px;
 	background: #7f8893;
 	padding: 0px 0 0 2px;
 }
-.prodscrollablepanel .prodscrollablepanel {
-	border: none;
-	background: none;
-	margin: 0;
-}
+
 .prodscrollablepanel vivibuttonpanel {
 	margin-top: 2px;
+	margin-right: 4px;
+	margin-bottom: 0px;
 }
 /*--------------------------------------------------------------------------
  * BUTTONS

@@ -52,12 +52,14 @@
       <!-- begin tools -->
         <vbox id="toolbar">
             <spacer flex="1"/>
+            <vivibutton id="vkb" label=""  oncommand="VirtualKeyboard.show();"
+                        class="systoolbtn button-vkb"/>
             <vivibutton id="clockin" label="" oncommand="$do('ClockInOutDialog', null, 'Main');"
                         class="systoolbtn clockinout"/>
             <vivibutton id="options" roles="acl_open_control_panel" action="none" label=""  oncommand="$do('ControlPanelDialog', null, 'Main');"
                         class="systoolbtn options"/>
             <spacer id="spacer" flex="1"/>
-            <vivibutton id="toggleNumPad"  disabled="false" suspendable="false" label="" roles="acl_toggle_numpad" action="display" oncommand="$do('toggleNumPad', null, 'Main');"
+            <vivibutton id="toggleNumPad"  disabled="false" suspendable="false" label="" action="display" oncommand="$do('toggleNumPad', null, 'Main');"
                         class="togglenumpad" />
         </vbox>
       <!-- end tools -->

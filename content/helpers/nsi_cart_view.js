@@ -69,9 +69,9 @@
                 if (newIndex < 0) newIndex = (this.data.length > 0) ? 0 : -1;
                 else if (newIndex >= this.data.length) newIndex = this.data.length - 1;
 
-                this.tree.ensureRowIsVisible(newIndex);
                 this.tree.view.selection.currentIndex = newIndex;
                 this.tree.view.selection.select(newIndex);
+                this.tree.ensureRowIsVisible(newIndex);
             }else {
                 this.tree.invalidate();
                 //this.tree.ensureRowIsVisible(oldIndex);
