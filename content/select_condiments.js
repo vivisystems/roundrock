@@ -61,6 +61,8 @@
             }
             );
 
+         centerWindowOnScreen();
+
     };
 
     window.addEventListener('load', startup, false);
