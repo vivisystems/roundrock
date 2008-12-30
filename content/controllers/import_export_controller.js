@@ -10,15 +10,9 @@
         uses: ["Product"],
 	
         _listObj: null,
-        _listDatas: null,
-        _selectedIndex: 0,
-        _productsById: null,
-        _barcodesIndexes: null,
-        _datas: null,
         _importDir: null,
         _exportDir: null,
         _finish: false,
-        _datas: null,
 
         getListObj: function() {
             if(this._listObj == null) {
@@ -26,6 +20,110 @@
             }
             return this._listObj;
         },
+
+        checkBackupDevices: function() {
+
+            var osLastMedia = new GeckoJS.File('/tmp/last_media');
+
+            var last_media = "";
+            var deviceNode = "";
+
+            var deviceMount = "/media/";
+
+            var hasMounted = false;
+
+            if (osLastMedia.exists()) {
+                osLastMedia.open("r");
+                last_media = osLastMedia.readLine();
+                osLastMedia.close();
+            }
+
+            if (last_media) {
+
+                var tmp = last_media.split('/');
+                deviceNode = tmp[tmp.length-1];
+                deviceMount +=  deviceNode;
+
+                var mountDir = new GeckoJS.File(deviceMount);
+               
+                if (mountDir.exists() && mountDir.isDir()) {
+
+                    // mount dir exists
+                    // autocreate backup_dir and restore dir
+                    
+                    var importDir = new GeckoJS.Dir(deviceMount+'/import', true);
+                    var exportDir = new GeckoJS.Dir(deviceMount+'/export', true);
+
+                    if (importDir.exists() && exportDir.exists()) {
+
+                        this._importDir = importDir.path;
+                        this._exportDir = exportDir.path;
+
+                        this.log(this._importDir + ",," + this._exportDir);
+
+                        $('#importBtn').attr('disabled', false);
+                        $('#exportBtn').attr('disabled', false);
+
+                        $('#lastMedia').attr('value', deviceMount);
+
+
+                    }
+
+                }
+            }
+
+          //importBtn, exportBtn;
+
+        },
+
+        exportData: function (model) {
+            //
+            var datas = this.getListObj().value.split(',');
+
+            var total;
+            var progmeter = document.getElementById("datasprogressmeter");
+            var exportprogress = function (value) {
+                //
+                // GREUtils.log('value:' + value);
+                progmeter.value = Math.floor(value / total * 100);
+            }
+
+            // progmeter.max = datas.length;
+            progmeter.value = 0;
+            for(var i=0; i < datas.length; i++) {
+                //
+                progmeter.value = (i / datas.length) * 100;
+
+                var name = this._datas[datas[i]].name;
+                var model = this._datas[datas[i]].model;
+
+                if (model == "products") {
+                    var tableTmp = new ProductModel();
+                    var fileName = this._exportDir + "/products.csv";
+                } else if (model == "departments") {
+                    var tableTmp = new CategoryModel();
+                    var fileName = this._exportDir + "/departments.csv";
+                } else if (model == "plugroups") {
+                    var tableTmp = new PlugroupModel();
+                    var fileName = this._exportDir + "/plugroups.csv";
+                } else if (model == "condimentgroups") {
+                    var tableTmp = new CondimentGroupModel();
+                    var fileName = this._exportDir + "/condimentgroups.csv";
+                } else if (model == "condiments") {
+                    var tableTmp = new CondimentModel();
+                    var fileName = this._exportDir + "/condiments.csv";
+                }
+
+                total = tableTmp.exportCSV(fileName, {
+
+                    limit:9999
+                });
+            }
+            progmeter.value = 100;
+            NotifyUtils.info('Export To CSV ('+ fileName + ') Finish!!');
+
+        },
+
 
         importPlu: function(data) {
             var self = this;
@@ -64,9 +162,9 @@
 
                     progmeter.value = i * 100 / nCount;
 
-                    
+
                     if (self._finish) {
-                        
+
                         alert("finish...");
                         self._listDatas = datas;
 
@@ -74,7 +172,7 @@
                         // self.getListObj().datasource = panelView;
 
                     }
-                    
+
 
                 },
 
@@ -106,7 +204,7 @@
                             /// notify main
                             thread.main.dispatch(mainRunnable, thread.main.DISPATCH_NORMAL);
 
-                    
+
                             var product = GREUtils.extend({}, productTpl);
                             product = GREUtils.extend(product, {
                                 no: no,
@@ -150,25 +248,13 @@
 
             self._finish = false;
             thread._runnable = workerRunnable;
-           
+
             thread.start();
 
         //                this._listDatas = datas;
         //                var panelView =  new GeckoJS.NSITreeViewArray(this._listDatas);
         //                this.getListObj().datasource = panelView;
 
-        },
-
-        exportPlu: function () {
-            //
-            var prodTmp = new ProductModel();
-            prodTmp.exportCSV(this._exportDir + "/products.csv", {
-                // fields: "no,name",
-                // fields: "id,cate_no,no,name,barcode,rate,cond_group,buy_price,stock,min_stock,memo,min_sale_qty,sale_unit,setmenu,level_enable1,price_level1,halo1,lalo1,level_enable2,price_level2,halo2,lalo2,level_enable3,price_level3,halo3,lalo3,level_enable4,price_level4,halo4,lalo4,level_enable5,price_level5,halo5,lalo5,level_enable6,price_level6,halo6,lalo6,level_enable7,price_level7,halo7,lalo7,level_enable8,price_level8,halo8,lalo8,level_enable9,price_level9,halo9,lalo9,link_group,auto_maintain_stock,return_stock,force_condiment,force_memo,single,visible,button_color,font_size,age_verification,created,modified"
-                limit:9999
-            });
-            alert(_("export plu finish!"));
-            
         },
 
         importData: function(model) {
@@ -426,72 +512,14 @@
             // while(!self._finish) thread._workerThread.processNextEvent(true);
 
             }
-GREUtils.log("finish...");
+            GREUtils.log("finish...");
         },
 
-        exportData: function (model) {
-            //
-            var datas = this.getListObj().value.split(',');
-
-            var total;
-            var progmeter = document.getElementById("datasprogressmeter");
-            var exportprogress = function (value) {
-                //
-                // GREUtils.log('value:' + value);
-                progmeter.value = Math.floor(value / total * 100);
-            }
-
-            // progmeter.max = datas.length;
-            progmeter.value = 0;
-            for(var i=0; i < datas.length; i++) {
-                //
-                progmeter.value = (i / datas.length) * 100;
-                
-                var name = this._datas[datas[i]].name;
-                var model = this._datas[datas[i]].model;
-
-                if (model == "products") {
-                    var tableTmp = new ProductModel();
-                    var fileName = this._exportDir + "products.csv";
-                } else if (model == "departments") {
-                    var tableTmp = new CategoryModel();
-                    var fileName = this._exportDir + "departments.csv";
-                } else if (model == "plugroups") {
-                    var tableTmp = new PlugroupModel();
-                    var fileName = this._exportDir + "plugroups.csv";
-                } else if (model == "condimentgroups") {
-                    var tableTmp = new CondimentGroupModel();
-                    var fileName = this._exportDir + "condimentgroups.csv";
-                } else if (model == "condiments") {
-                    var tableTmp = new CondimentModel();
-                    var fileName = this._exportDir + "condiments.csv";
-                }
-
-                total = tableTmp.exportCSV(fileName, {
-
-                    limit:9999
-                }/*, exportprogress */);
-                /*
-                try {
-                    while(GeckoJS.Model._workerThread.hasPendingEvents()) GeckoJS.Model._workerThread.processNextEvent(true);
-                }
-                catch (e) {}
-                */
-            }
-            progmeter.value = 100;
-            alert(_("export data finish!"));
-
-        },
 
         load: function (data) {
-            this._importDir = GeckoJS.Configure.read('vivipos.fec.settings.database.importdir');
-            this._exportDir = GeckoJS.Configure.read('vivipos.fec.settings.database.exportdir');
-            if (!this._importDir) this._importDir = '/var/tmp/vivipos/database_import/';
-            if (!this._exportDir) this._exportDir = '/var/tmp/vivipos/database_export/';
-            // path with '/' end
-            this._importDir = (this._importDir + '/').replace(/\/+/g,'/');
-            this._exportDir = (this._exportDir + '/').replace(/\/+/g,'/');
-            
+
+            this.checkBackupDevices();
+
             this._datas = [
                 {
                     name: 'Department',
@@ -517,16 +545,6 @@ GREUtils.log("finish...");
             
             var panelView = new GeckoJS.NSITreeViewArray(this._datas);
             this.getListObj().datasource = panelView;
-        },
-
-        select: function(index){
-        /*
-            if (index >= 0) {
-                // var item = this._listDatas[index];
-                var item = this._datas[index];
-                this._selectedIndex = index;
-            }
-            */
         }
     });
 

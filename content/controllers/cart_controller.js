@@ -1594,7 +1594,9 @@
                     NotifyUtils.warn(_('Please void surcharge on item first'));
                     return;
                 }
-                condimentItem = GREUtils.extend({}, productsById[cartItem.id]);
+                // xxxx why clone it ??
+                //condimentItem = GREUtils.extend({}, productsById[cartItem.id]);
+                condimentItem = productsById[cartItem.id];
             }
 
             if (condimentItem) {
@@ -1645,7 +1647,9 @@
                 var productsById = GeckoJS.Session.get('productsById');
                 var cartItem = curTransaction.getItemAt(index);
                 if (cartItem && cartItem.type == 'item') {
-                    memoItem = GREUtils.extend({}, productsById[cartItem.id]);
+                    //xxxx why clone it?
+                    //memoItem = GREUtils.extend({}, productsById[cartItem.id]);
+                    memoItem = productsById[cartItem.id];
                 }
             }
 
@@ -1674,12 +1678,14 @@
             var i = -1;
             var index = -1;
 
-            condGroups.forEach(function(o) {
+            for each (var o in condGroups) {
+            //condGroups.forEach(function(o) {
                 i++;
                 if (o.id == condgroup) {
                     index = i
+                    break;
                 }
-            });
+            }
 
             if (typeof condGroups[index] == 'undefined') return null;
             
@@ -1687,7 +1693,7 @@
 
             var condiments = null;
             var aURL = 'chrome://viviecr/content/select_condiments.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=600,height=480';
+            var features = 'chrome,modal,width=600,height=480';
             var inputObj = {
                 condgroup: condgroup,
                 condsData: conds,
@@ -1706,7 +1712,8 @@
 
         getMemoDialog: function (memo) {
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250';
+            //var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250';
+            var features = 'chrome,modal,width=500,height=380';
             var inputObj = {
                 input0:memo,require0:false
             };
