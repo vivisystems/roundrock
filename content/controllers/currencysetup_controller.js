@@ -49,6 +49,10 @@
             // this.log(this.dump(obj));
 
             for (var i = 0; i < 6; i++) {
+                if (obj['currency_' + i] == '') {
+                    obj['currency_symbol_' + i] = obj['currency_exchange_' + i] = '';
+                }
+
                 currencies.push({
                     currency: obj['currency_' + i],
                     currency_symbol: obj['currency_symbol_' + i],

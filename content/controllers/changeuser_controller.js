@@ -65,19 +65,19 @@
                     if (allowQuickLogin) {
                         if (!this.Acl.securityCheckByPassword(userpass, false)) {
                             // @todo OSD
-                            OsdUtils.error(_('Authentication failed!\nPlease make sure the password is correct.'));
+                            NotifyUtils.error(_('Authentication failed!. Please make sure the password is correct.'));
                         }
                     }
                     else {
                         // @todo OSD
                         // we shouldn't be here if validateForm works correctly, but will display warning just in case
-                        OsdUtils.error(_('Authentication failed!\nPlease select a user'));
+                        NotifyUtils.error(_('Authentication failed!. Please select a user'));
                     }
                 }
                 else {
                     if (!this.Acl.securityCheck(username, userpass)) {
                         // @todo OSD
-                        OsdUtils.error(_('Authentication failed!\nPlease make sure the password is correct.'));
+                        NotifyUtils.error(_('Authentication failed!. Please make sure the password is correct.'));
                     }
                 }
 

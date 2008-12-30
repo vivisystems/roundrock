@@ -1,0 +1,80 @@
+/*--------------------------------------------------------------------------
+ *
+ * PRODUCT COLORS
+ *
+ *--------------------------------------------------------------------------
+ */
+
+.product-button-color-default {
+    background: transparent url(images/pluBtn1.png) center center repeat-x !important;
+    color: #3b556c !important;
+}
+
+.product-button-color-1 {
+    background: transparent url(images/pluBtn2.png) center center repeat-x !important;
+    color: #fff !important;
+}
+
+.product-button-color-2 {
+    background: transparent url(images/pluBtn3.png) center center repeat-x !important;
+    color: #534741 !important;
+}
+
+.product-button-color-3 {
+    background: transparent url(images/pluBtn4.png) center center repeat-x !important;
+    color: #fff !important;
+}
+
+.product-button-color-4 {
+    background: transparent url(images/pluBtn5.png) center center repeat-x !important;
+    color: #004a80 !important;
+}
+
+.product-button-color-5 {
+    background: transparent url(images/pluBtn6.png) center center repeat-x !important;
+    color: #534741 !important;
+}
+
+.product-button-color-6 {
+    background: transparent url(images/pluBtn7.png) center center repeat-x !important;
+    color: #fff !important;
+}
+
+.product-button-color-7 {
+    background: transparent url(images/pluBtn8.png) center center repeat-x !important;
+    color: #fff !important;
+}
+
+.product-button-color-8 {
+    background: transparent url(images/pluBtn9.png) center center repeat-x !important;
+    color: #440e62 !important;
+ }
+
+.product-button-color-9 {
+    background: transparent url(images/pluBtn10.png) center center repeat-x !important;
+    color: #fff !important;
+}
+
+.product-button-color-10 {
+    background: transparent url(images/pluBtn11.png) center center repeat-x !important;
+    color: #fff !important;
+}
+
+.product-button-color-11 {
+    background: transparent url(images/pluBtn12.png) center center repeat-x !important;
+    color: #252525 !important;
+}
+
+.product-button-color-default[selected], .product-button-color-1[selected],
+.product-button-color-2[selected], .product-button-color-3[selected],
+.product-button-color-4[selected], .product-button-color-5[selected],
+.product-button-color-6[selected], .product-button-color-7[selected],
+.product-button-color-8[selected], .product-button-color-9[selected],
+.product-button-color-10[selected], .product-button-color-11[selected] {
+    list-style-image: none;
+    border-width: 3px;
+    -moz-border-top-colors: black red;
+    -moz-border-bottom-colors: black red;
+    -moz-border-left-colors: black red;
+    -moz-border-right-colors: black red;
+}

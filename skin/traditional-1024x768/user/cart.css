@@ -1,0 +1,194 @@
+/*-----------------------------------------------------------------------------
+ *
+ * SHOPPING CART
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+.cartList {
+    font-size: 14px;
+    min-height: 200px;
+    border: 2px solid ;
+    -moz-border-top-colors: #f3faff #f3faff;
+    -moz-border-right-colors: #f3faff #f2f2f2;
+    -moz-border-bottom-colors: #e4e4e4 #f7f7f7;
+    -moz-border-left-colors: #f6f6f6 #fff;
+    margin: 0px 0px 2px 0px;
+    padding: 0px;
+    background: transparent;
+}
+
+.cartList .cartList {
+    border: none;
+}
+
+/*-----------------------------------------------------------------------------
+ * SHOPPING CART scrollbar
+ *-----------------------------------------------------------------------------
+ */
+
+.cartList .scrollablepanel-scrollbar {
+    width: 50px;
+}
+
+.cartList scrollbar {
+    display: none;
+}
+
+.cartScrollUp {
+    margin: 0px;
+    border: 0px solid;
+    background: transparent url(images/chatup.png) 0 0 no-repeat;
+    max-height: 40px;
+    min-height: 40px;
+    width: 40px;
+    max-width: 40px;
+    min-width: 40px;
+    -moz-user-focus: ignore;
+    -moz-appearance: none;
+}
+.cartScrollUp[disabled=true] {
+    background-position: -80px 0;
+}
+
+.cartScrollUp[disabled=false]:active {
+    background-position: -40px 0;
+}
+
+
+.cartScrollDown {
+    margin: 0px;
+    border: 0px solid;
+    background: transparent url(images/chatdown.png) 0 0 no-repeat;
+    max-height: 40px;
+    min-height: 40px;
+    width: 40px;
+    max-width: 40px;
+    min-width: 40px;
+    -moz-user-focus: ignore;
+    -moz-appearance: none;
+}
+
+.cartScrollDown[disabled=false]:active {
+    background-position: -40px 0;
+}
+
+.cartScrollUp description, .cartScrollDown description {
+    display: none;
+}
+
+/*-----------------------------------------------------------------------------
+ * SHOPPING CART sidepanel tool buttons
+ *-----------------------------------------------------------------------------
+ */
+
+#cartsidebar {
+    margin: 0px;
+}
+
+#cartsidebar vivibutton description {
+    display: none;
+}
+
+#cartsidebar vivibutton {
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.paymentdetailsbtn {
+     background: transparent url(images/gnucash.png) center center no-repeat;
+}
+
+/*-----------------------------------------------------------------------------
+ * SHOPPING CART order details
+ *-----------------------------------------------------------------------------
+ */
+
+.cartList tree {
+    margin: 0px;
+    border: none;
+    background: #f3faff;
+    -moz-appearance: none;
+}
+
+.cartList treecol {
+    background: #fdf9f6;
+    border: none;
+    border-bottom: 1px dotted #908c83;
+    border-right: 1px solid #bebebe;
+    -moz-border-right-colors: #bebebe;
+    -moz-border-bottom-colors: #908c83;
+    padding: 1px 2px; 
+    -moz-appearance: none;
+}
+
+.cartList .tree-splitter {
+    width: 1px;
+    -moz-appearance: none;
+    background: #bebebe;
+}
+
+.cartList treechildren{
+    background: #f3faff;
+}
+
+treechildren::-moz-tree-row {
+  height: 28px;
+  #border-bottom: 1px solid #818085;
+}
+
+treechildren::-moz-tree-row(selected) {background-color: #3b556c; }
+/*treechildren::-moz-tree-row(odd) {background-color: #e3ddcf;}*/
+treechildren::-moz-tree-row(odd, selected) {background-color: #3b556c; }
+treechildren::-moz-tree-cell-text(selected) {color: #FFFFFF;}
+treechildren::-moz-tree-cell-text(odd, selected) {color: #FFFFFF;}
+treechildren::-moz-tree-row(treeTRAY) {background-color: #8e9d90;}
+treechildren::-moz-tree-row(treeSUBTOTAL) {background-color: #71a5d0;}
+treechildren::-moz-tree-row(treeTOTAL) {background-color: #da7f12;}
+treechildren::-moz-tree-cell-text(treecellTRAY) {color: white;}
+treechildren::-moz-tree-cell-text(treecellSUBTOTAL) {color: #3d5470;}
+treechildren::-moz-tree-cell-text(treecellTOTAL) {color: white;}
+
+.cartList #name {
+    text-align: left;
+}
+
+.cartList #current_qty, #current_price, #current_subtotal, #current_tax {
+    text-align: right;
+}
+
+/*-----------------------------------------------------------------------------
+ * SHOPPING CART order headings
+ *-----------------------------------------------------------------------------
+ */
+
+.cartList tree #name {
+    max-width: 190px;
+    min-width: 190px;
+}
+
+.cartList tree #current_qty {
+    max-width: 60px;
+    min-width: 60px;
+}
+
+.cartList tree #current_price {
+    max-width: 90px;
+    min-width: 90px;
+}
+
+.cartList tree #current_subtotal {
+    max-width: 110px;
+    min-width: 110px;
+}
+.cartList tree #current_tax {
+}
+
+.cartList tree label {
+    text-align: center;
+    crop: none;
+}
+
+.cartList .tree-scrollable-columns {
+    max-height: 0px;
+}

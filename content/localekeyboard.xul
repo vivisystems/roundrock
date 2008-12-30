@@ -37,8 +37,8 @@
 
                 <row>
                     <label value="&localekeyboard.keyboard.title;"/>
-                    <vivikbmaps id="keyboard" flex="0"
-                            oncommand="$do('selectKeyboard', null, 'LocaleKeyboard')"
+                    <vivikbmaps id="kbmap" flex="0"
+                            oncommand="$do('selectKbmap', null, 'LocaleKeyboard')"
                             />
                 </row>
             </rows>

@@ -1,5 +1,3 @@
-var doRestart = false;
-
 (function(){
 
  /**
@@ -18,9 +16,7 @@ var doRestart = false;
 
 
         var prefs = GeckoJS.Configure.read('vivipos.fec.settings.controlpanels');
-
         var categories = GeckoJS.BaseObject.getKeys(prefs) || [];
-
         categories.forEach(function(cn) {
             var data = new GeckoJS.ArrayQuery(GeckoJS.BaseObject.getValues(prefs[cn])).orderBy("label asc");
             //if (data) data.forEach(function(el) {el.label = _(el.label)});
@@ -35,20 +31,12 @@ var doRestart = false;
         
             document.getElementById(cn + 'Panel').datasource = window.viewHelper ;
         });
-
-        // observer restart topic
-        this.observer = GeckoJS.Observer.newInstance({
-            topics: ['prepare-to-restart'],
-
-            observe: function(aSubject, aTopic, aData) {
-                doRestart = true;
-            }
-        }).register();
     };
 
     window.addEventListener('load', startup, true);
 
 })();
+
 
 function launchControl(panel) {
     var data = panel.datasource.data;
@@ -71,9 +59,5 @@ function launchControl(panel) {
 
 function savePreferences() {
     GeckoJS.Configure.savePreferences('vivipos');
-
-    if (doRestart) {
-        GeckoJS.Observer.notify(null, 'application-restart', this);
-    }
     window.close();
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE window [
-  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  <!ENTITY % Overlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
   %Overlay;
   <!ENTITY % SelectDepartment SYSTEM "chrome://viviecr/locale/select_department.dtd">
   %SelectDepartment;
@@ -8,7 +8,7 @@
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 
-<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul"?>
 
 <window title="&departments.title;"
         xmlns:html="http://www.w3.org/1999/xhtml"
@@ -17,7 +17,7 @@
    <script type="application/x-javascript" src="chrome://vivipos/content/libs/jquery-1.2.6.js" />
     <script type="application/x-javascript">
         window['GeckoJS'] = opener.GeckoJS;
-        window['GREutils'] = opener.GREUtils;
+        window['GREUtils'] = opener.GREUtils;
     </script>
     <script type="application/x-javascript" src="chrome://viviecr/content/select_department.js" />
 

@@ -1,4 +1,6 @@
 var UserModel = window.UserModel = GeckoJS.Model.extend({
-    name: 'User'	
+    name: 'User',
+
+    belongsTo: ['Job']
     
 });

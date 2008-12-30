@@ -1,0 +1,7 @@
+<!ENTITY    controlpanel.title       "Control Panel">
+<!ENTITY    controlpanel.loading       "Loading...">
+<!ENTITY    controlpanel.products.label       "Products">
+<!ENTITY    controlpanel.activities.label       "Activities">
+<!ENTITY    controlpanel.employees.label       "Employees">
+<!ENTITY    controlpanel.tools.label       "Tools">
+

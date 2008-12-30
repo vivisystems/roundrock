@@ -208,7 +208,7 @@
                     value: inputData.name
                 });
                 if ((condGroups != null) && (condGroups.length > 0)) {
-                    OsdUtils.warn(_('Condiment Group [%S] already exists.', [inputData.name]));
+                    NotifyUtils.warn(_('Condiment Group [%S] already exists.', [inputData.name]));
                     return;
                 }
 
@@ -240,7 +240,7 @@
                 }
                 catch (e) {
                     // @todo OSD
-                    OsdUtils.error(_('An error occurred while adding Condiment Group [%S]\nThe group may not have been added successfully', [inputData.name]));
+                    NotifyUtils.error(_('An error occurred while adding Condiment Group [%S]. The group may not have been added successfully', [inputData.name]));
                 }
             }
         },
@@ -264,7 +264,7 @@
                 if ((conds != null) && (conds.length > 0)) {
                     for (var i = 0; i < conds.length; i++) {
                         if (conds[i].id != condGroup.id) {
-                            OsdUtils.warn(_('Condiment Group [%S] already exists', [inputData.name]));
+                            NotifyUtils.warn(_('Condiment Group [%S] already exists', [inputData.name]));
                             return;
                         }
                     }
@@ -289,7 +289,7 @@
                 }
                 catch (e) {
                     // @todo OSD
-                    OsdUtils.error(_('An error occurred while modifying Condiment Group [%S]\nThe group may not have been modified successfully', [inputData.name]));
+                    NotifyUtils.error(_('An error occurred while modifying Condiment Group [%S]. The group may not have been modified successfully', [inputData.name]));
                 }
             }
         },
@@ -299,6 +299,17 @@
 
             var condGroups = GeckoJS.Session.get('condGroups');
             var condGroup = condGroups[this._selectedIndex];
+
+            // check if condiment group has been assigned to products
+            var productModel = new ProductModel();
+            var products = productModel.findByIndex('all', {
+                index: 'cond_group',
+                value: condGroup.id
+            });
+            if (products && products.length > 0) {
+                NotifyUtils.warn(_('[%S] has been assigned to one or more products and may not be deleted', [condGroup.name]));
+                return;
+            }
 
             if (GREUtils.Dialog.confirm(null, _('confirm delete %S', [condGroup.name]), _('Are you sure?'))) {
                 var condGroupModel = new CondimentGroupModel();
@@ -334,7 +345,7 @@
                 }
                 catch (e) {
                     // @todo OSD
-                    OsdUtils.error(_('An error occurred while removing Condiment Group [%S]\nThe group may not have been removed successfully', [condGroup.name]));
+                    NotifyUtils.error(_('An error occurred while removing Condiment Group [%S]. The group may not have been removed successfully', [condGroup.name]));
                 }
             }
         },
@@ -384,7 +395,7 @@
 
                 if (isNaN(inputObj.input1)) {
                     // @todo OSD
-                    OsdUtils.warn(_('Condiment Price must be a number'));
+                    NotifyUtils.warn(_('Condiment Price must be a number'));
                     return;
                 }
 
@@ -403,7 +414,7 @@
                 if ((conds != null) && (conds.length > 0)) {
                     for (var i = 0; i < conds.length; i++) {
                         if (conds[i].name == inputData.name) {
-                            OsdUtils.warn(_('Condiment [%S] already exists in this group', [inputData.name]));
+                            NotifyUtils.warn(_('Condiment [%S] already exists in this group', [inputData.name]));
                             return;
                         }
                     }
@@ -442,7 +453,7 @@
                 }
                 catch (e) {
                     // @todo OSD
-                    OsdUtils.error(_('An error occurred while adding Condiment [%S]\nThe condiment may not have been added successfully', [inputData.name]));
+                    NotifyUtils.error(_('An error occurred while adding Condiment [%S]. The condiment may not have been added successfully', [inputData.name]));
                 }
             }
         },
@@ -463,7 +474,7 @@
                     if ((conds[i].name == inputData.name) && (i != this._selectedCondIndex)) {
 
                         // @todo OSD
-                        OsdUtils.warn(_('Condiment [%S] already exists in this group', [inputData.name]));
+                        NotifyUtils.warn(_('Condiment [%S] already exists in this group', [inputData.name]));
                         return;
                     }
                 }
@@ -489,7 +500,7 @@
             }
             catch (e) {
                 // @todo OSD
-                OsdUtils.error(_('An error occurred while modifying Condiment [%S]\nThe condiment may not have been modified successfully', [inputData.name]));
+                NotifyUtils.error(_('An error occurred while modifying Condiment [%S]. The condiment may not have been modified successfully', [inputData.name]));
             }
         },
 
@@ -528,7 +539,7 @@
                 }
                 catch (e) {
                     // @todo OSD
-                    OsdUtils.error(_('An error occurred while removing Condiment [%S]\nThe condiment may not have been removed successfully', [condiment.name]));
+                    NotifyUtils.error(_('An error occurred while removing Condiment [%S]. The condiment may not have been removed successfully', [condiment.name]));
                 }
             }
         }
