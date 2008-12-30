@@ -13,7 +13,7 @@
 
   <content>
       <children includes="observes|template|menupopup|tooltip"/>
-      <xul:hbox class="box-inherit button-box" xbl:inherits="align,dir,pack,orient"
+      <xul:hbox class="box-inherit button-box" xbl:inherits="align,dir,pack,orient,disabled"
                 align="center" pack="center" flex="1" anonid="vivibutton-box" style="overflow: hidden;">
           <xul:image anonid="image" class="button-icon" xbl:inherits="validate,src=image"/>
           <!-- xul:label anonid="label" crop="end" class="button-text" xbl:inherits="accesskey,crop"> </xul:label-->
@@ -35,6 +35,9 @@
        	// this.aLabel = this.vivibuttonBox.childNodes[1];
         this.aLabel = document.getAnonymousElementByAttribute(this, "anonid", "label");
 
+        this.roles = this.getAttribute('roles') || '';
+        this.action = this.getAttribute('action') || 'display';
+
         var value = this.getAttribute('label') || '';
         if(this.aLabel.getAttribute('crop')) {
             this.aLabel.removeChild(this.aLabel.firstChild);
@@ -43,35 +46,37 @@
 
         self.render();
 
-        this.observer = GeckoJS.Observer.newInstance({
-                topics: ['acl-session-change', 'button-state-suspend', 'button-state-resume'],
-                observe: function(aSubject, aTopic, aData) {
-                    switch(aTopic) {
-                        case 'acl-session-change':
-                            self.render();
-                            break;
+        if (this.roles.length >0 ) {
 
-                        case 'button-state-suspend':
-                            self.suspended = (self.getAttribute('suspendable') || 'true') == 'true';
-                            self.render();
-                            break;
+            this.observer = GeckoJS.Observer.newInstance({
+                    topics: ['acl-session-change', 'button-state-suspend', 'button-state-resume'],
+                    observe: function(aSubject, aTopic, aData) {
+                        switch(aTopic) {
+                            case 'acl-session-change':
+                                self.render();
+                                break;
 
-                        case 'button-state-resume':
-                            self.suspended = false;
-                            self.render();
-                            break;
+                            case 'button-state-suspend':
+                                self.suspended = (self.getAttribute('suspendable') || 'true') == 'true';
+                                self.render();
+                                break;
+
+                            case 'button-state-resume':
+                                self.suspended = false;
+                                self.render();
+                                break;
+                        }
                     }
-                }
-            }).register();
+                }).register();
 
-
+        }
         this.addEventListener('DOMAttrModified', this._attrmodified, true);
 
         this.ready = function() {
             self.resizeLabel();
         };
-        // add treecols and children
-        window.addEventListener('DOMContentLoaded', this.ready, true);
+        
+        window.addEventListener('load', this.ready, true);
 
 
         ]]>
@@ -80,8 +85,8 @@
         <destructor><![CDATA[
 
         this.removeEventListener('DOMAttrModified', this._attrmodified, true);
-        window.removeEventListener('DOMContentLoaded', this.ready, true);
-        this.observer.unregister();
+        window.removeEventListener('load', this.ready, true);
+        if (this.roles.length >0 ) this.observer.unregister();
 
         ]]>
         </destructor>
@@ -162,12 +167,18 @@
     <method name="render">
       <body><![CDATA[
 
-        var roles = this.getAttribute('roles') || '';
-        var action = this.getAttribute('action') || 'display';
+        var roles = this.roles; 
+        var action = this.action;
 
         if (roles.length == 0) {
             this.disabled = this.suspended;
             return;
+        }
+
+        if(this.suspended) {
+            // alway disable
+            this.disabled = true;
+            return ;
         }
 
         var isInRole = GeckoJS.AclComponent.isUserInRole(roles);

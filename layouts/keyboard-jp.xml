@@ -64,7 +64,7 @@
     </key>
     <key>
 	  <default display="^" />
-	  <shifted display="‾" />
+	  <shifted display="ˉ" />
     </key>
     <key>
 	  <default display="¥" />
@@ -337,7 +337,7 @@
 	  <shifted display="々" />
     </key>
     <key>
-	  <default display="ｰ" />
+	  <default display="ー" />
 	  <shifted display="¬" />
     </key>
     <key fill="true">
@@ -384,12 +384,12 @@
 	  <shifted display="『" />
     </key>
     <key>
-	  <default display="ﾞ" />
+	  <default display="゛" />
 	  <shifted display="¢" />
     </key>
     <key>
-	  <default display="ﾟ" />
-	  <shifted display="｢" />
+	  <default display="゜" />
+	  <shifted display="「" />
     </key>
     <key fill="true">
 	  <default display="" />
@@ -438,7 +438,7 @@
     </key>
     <key>
 	  <default display="ム" action="]"/>
-	  <shifted display="｣" />
+	  <shifted display="」" />
     </key>
     <key fill="true">
 	  <default display="Enter" action="return"/>
@@ -474,15 +474,15 @@
     </key>
     <key>
 	  <default display="ネ" action=","/>
-	  <shifted display="､" />
+	  <shifted display="、" />
     </key>	
     <key>
 	  <default display="ル" action="."/>
-	  <shifted display="｡" />
+	  <shifted display="。" />
     </key>	
     <key>
 	  <default display="メ" action="/"/>
-	  <shifted display="･" />
+	  <shifted display="・" />
     </key>
     <key>
 	  <default display="ロ" action="\"/>
@@ -584,7 +584,7 @@
 	  <shifted display="々" />
     </key>
     <key>
-	  <default display="ｰ" />
+	  <default display="ー" />
 	  <shifted display="¬" />
     </key>
     <key fill="true">
@@ -631,12 +631,12 @@
 	  <shifted display="『" />
     </key>
     <key>
-	  <default display="ﾞ" />
+	  <default display="゛" />
 	  <shifted display="¢" />
     </key>
     <key>
-	  <default display="ﾟ" />
-	  <shifted display="｢" />
+	  <default display="゜" />
+	  <shifted display="「" />
     </key>
     <key fill="true">
 	  <default display="" />
@@ -685,7 +685,7 @@
     </key>
     <key>
 	  <default display="む" action="]"/>
-	  <shifted display="｣" />
+	  <shifted display="」" />
     </key>
     <key fill="true">
 	  <default display="Enter" action="return"/>
@@ -721,15 +721,15 @@
     </key>
     <key>
 	  <default display="ね" action=","/>
-	  <shifted display="､" />
+	  <shifted display="、" />
     </key>	
     <key>
 	  <default display="る" action="."/>
-	  <shifted display="｡" />
+	  <shifted display="。" />
     </key>	
     <key>
 	  <default display="め" action="/"/>
-	  <shifted display="･" />
+	  <shifted display="・" />
     </key>
     <key>
 	  <default display="ろ" action="\"/>
