@@ -71,6 +71,8 @@
 .fe-numberpad sendkeybutton{
     min-width:76px;
     max-width:76px;
+    min-height:41px;
+    max-height:41px;
     width: 76px;
     margin: 3px 1px 0px 3px;
     padding: 0px;

@@ -1,15 +1,16 @@
+@namespace xul url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+@namespace html url(""http://www.w3.org/1999/xhtml"");
 
-@namespace url("http://www.w3.org/1999/xhtml");
-
-* {
-	padding: 10px;
-	margin: 10px;
+/******** for xul ********/
+.reportbox {
+    overflow-y:scroll;
 }
 
+
+/******** for html ********/
 .report {
 	width: 400px;
-	height: 340px;
-    max-height: 340px;
+	min-height: 340px;
     padding: 10px;
 	margin: 10px;
 	background: #aaa;
@@ -19,7 +20,9 @@
 
 .paper {
 	width: 500px;
-	height: 600px;
+	min-height: 340px;
+    padding: 10px;
+	margin: 10px;
 	background: #fff;
 	border: solid;
     border-width: 1px;
@@ -27,18 +30,19 @@
 }
 
 #body-table {
+
   font: 100% sans-serif;
-  background-color: #efe;
+  background-color: #def;
   border-collapse: collapse;
   empty-cells: show;
-  border: 1px solid #7a7;
+  border: 1px solid #4ca;
   }
 
 #body-table > caption {
   text-align: left;
   font-weight: bold;
-  font-size: 200%;
-  border-bottom: .2em solid #4ca;
+  font-size: 120%;
+  border-bottom: .2em solid #7a7;
   margin-bottom: .5em;
   }
 
@@ -74,8 +78,8 @@
 
 /* body */
 #body-table td {
-  background-color: #cef;
-  padding:.5em .5em .5em 3em;
+  background-color: #eef;
+  padding:.2em .5em .2em .5em;
   }
 
 #body-table tbody th:after {

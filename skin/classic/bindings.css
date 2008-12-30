@@ -28,7 +28,7 @@ vividatetimepicker[type="popup"] {
   -moz-binding: url('chrome://viviecr/content/bindings/vividatetimepicker.xbl#vividatetimepicker-popup');
 }
 
-vividatetimepicker[type="grid2"] {
+vividatetimepicker[type="grid"] {
   -moz-binding: url('chrome://viviecr/content/bindings/vividatetimepicker.xbl#vividatetimepicker-grid');
 }
 

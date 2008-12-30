@@ -1,9 +1,9 @@
 <html:div class="paper">
 <html:img src="chrome://viviecr/content/skin/images/logo.png" /><html:br />
-Date:<html:br />
-{i18n startdate}:${head.start_date}<html:br />
-{i18n enddate}:${head.end_date}<html:br />
-{i18n department}:${head.department}
+
+Start:${head.start_date}<html:br />
+End  :${head.end_date}<html:br />
+<!-- Department:${head.department} -->
 
         <html:table id="body-table">
             <html:caption>${head.title}</html:caption>
@@ -19,7 +19,7 @@ Date:<html:br />
 {for item in body}
                 <html:tr>
                     <html:td>${item.product_no}</html:td>
-                    <html:td>${item.product_name}</html:td>
+                    <html:td align="left">${item.product_name}</html:td>
                     <html:td>${item.qty}</html:td>
                     <html:td>${item.total}</html:td>
                 </html:tr>
@@ -27,7 +27,9 @@ Date:<html:br />
             </html:tbody>
             <html:tfoot>
                 <html:tr>
-                <html:td colspan="4">{i18n summary}:${foot.summary}</html:td>
+                <html:td colspan="2">Summary:</html:td>
+                <html:td>${foot.qty}</html:td>
+                <html:td>${foot.summary}</html:td>
                 </html:tr>
             </html:tfoot>
         </html:table>

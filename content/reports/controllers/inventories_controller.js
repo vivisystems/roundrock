@@ -104,10 +104,13 @@
 
             var start = document.getElementById('start_date').value;
             var end = document.getElementById('end_date').value;
+            var start_str = document.getElementById('start_date').datetimeValue.toLocaleString();
+            var end_str = document.getElementById('end_date').datetimeValue.toLocaleString();
+            
             var department = document.getElementById('department').value;
 
             var data = {
-                head: {title:_('Inventories Report'), start_date: start, end_date: end, department: department},
+                head: {title:_('Inventories Report'), start_date: start_str, end_date: end_str, department: department},
                 body: this._datas,
                 foot: {summary: 120}
             }

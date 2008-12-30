@@ -18,8 +18,22 @@
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/reports/cash_by_clerk.js" />
 
+    <script>
+        /*
+        function toggleSize() {
+        // alert('toggleSize');
+        var splitter = document.getElementById('splitter_zoom');
+        if (splitter.getAttribute("state") == "collapsed") {
+            splitter.setAttribute("state", "open");
+        } else {
+            splitter.setAttribute("state", "collapsed");
+        }
+        // alert(splitter.getAttribute("state"));
+        }
+        */
+    </script>
+
     <vbox flex="1" class="main-dialog">
-        <caption label="title;"/>
         <groupbox>
             <caption label="cash_by_clerks.filter;" />
             <hbox>
@@ -47,16 +61,16 @@
             </hbox>
         </groupbox>
 
-        <spacer style="height: 10px;" />
+        <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
+            <!-- grippy/ -->
+        </splitter>
         <separator class="groove-thin"/>
-        <spacer style="height: 10px;" />
 
         <groupbox flex="1" style="border-width:3px;">
-            <caption label="Preview:" />
-            <box class="reportbox" flex="1" style="overflow-y:scroll;">
-            <html:div id="preview_div" class="report">
+            <box class="reportbox" flex="1">
+                <html:div xmlns:html="http://www.w3.org/1999/xhtml" id="preview_div" class="report">
 
-            </html:div>
+                </html:div>
             </box>
         </groupbox>
 
@@ -65,6 +79,10 @@
     <!-- hbox id="okCancelButtonsRight" class="dialogbtns" / -->
     <hbox id="dialogButtons" class="dialogbtns" pack="center">
         <button class="right exit-dialog" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+        <!-- button class="right exit-dialog" id="togglesize" label="&dialog.okButton.label;" default="true" align="center" oncommand="toggleSize();"/ -->
+
+        <button id="togglesize" label="Toggle Zoom" class="dialogbtns" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png"/>
     </hbox>
+
 
 </window>

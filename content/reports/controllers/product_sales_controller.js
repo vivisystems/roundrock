@@ -31,7 +31,7 @@
         },
 
         execute: function() {
-            //
+            
             this.load();
 
             var start = document.getElementById('start_date').value;
@@ -40,10 +40,12 @@
             var start_str = document.getElementById('start_date').datetimeValue.toLocaleString();
             var end_str = document.getElementById('end_date').datetimeValue.toLocaleString();
 
+            // var department = document.getElementById('department').value;
+
             var data = {
                 head: {title:_('Product Sales Report'), start_date: start_str, end_date: end_str, department: department},
                 body: this._datas,
-                foot: {summary: 120}
+                foot: {qty: this._datas.qty ,summary: this._datas.summary}
             }
 
             var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/product_sales.tpl");
@@ -75,7 +77,7 @@
             var data = {
                 head: {title:_('Product Sales Report'), start_date: start_str, end_date: end_str, department: department},
                 body: this._datas,
-                foot: {summary: 120}
+                foot: {qty: this._datas.qty ,summary: this._datas.summary}
             }
 
             var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/product_sales.tpl");
@@ -95,9 +97,10 @@
 
             var start = document.getElementById('start_date').value;
             var end = document.getElementById('end_date').value;
-            var department = document.getElementById('department').value;
+            // var department = document.getElementById('department').value;
             department = '';
             var orderItem = new OrderItemModel();
+
             var fields = ['order_items.created',
                             'order_items.product_no',
                             'order_items.product_name',
@@ -118,6 +121,16 @@
             var datas = orderItem.find('all',{fields: fields, conditions: conditions, group: groupby, order: orderby});
 
             this._datas = datas;
+            
+            var qty = 0;
+            var summary = 0;
+            datas.forEach(function(o){
+                qty = qty + o.qty;
+                summary = summary + o.total;
+            });
+
+            datas.qty = qty;
+            datas.summary = summary;
         }
 	
     });

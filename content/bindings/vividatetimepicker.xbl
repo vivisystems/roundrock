@@ -591,9 +591,13 @@
             </field>
 
             <xbl:constructor>
+                
                 var timeStr = this.getAttribute('value');
-                this._timelabel.setAttribute('value', timeStr);
+                //this._timelabel.setAttribute('value', timeStr);
                 // this._timepicker.value = timeStr;
+                this._dateValue.value = timeStr;
+                this._setValueOnChange();
+                
             </xbl:constructor>
 
             <xbl:destructor>
@@ -616,7 +620,7 @@
                 </setter>
             </property -->
 
-            <!-- property name="hideSeconds">
+            <property name="hideSeconds">
                 <getter>
                   return (this.getAttribute("hideseconds") == "true");
                 </getter>
@@ -627,7 +631,7 @@
                     this.removeAttribute("hideseconds");
                   return val;
                 </setter>
-              </property -->
+              </property>
 
       <property name="hour" onget="return this._dateValue.getHours();">
         <setter>
@@ -733,9 +737,15 @@
                 
                 var hour = this.hour;
                 var minute = this.minute;
+                var second = this.second;
                 if (hour < 10) hour = "0" + hour;
                 if (minute < 10) minute = "0" + minute;
-                var timeStr = hour + ":" + minute
+                if (second < 10) second = "0" + second;
+                if (this.hideSeconds) {
+                    var timeStr = hour + ":" + minute;
+                } else {
+                    var timeStr = hour + ":" + minute + ":" + second;
+                }
                 
                 //var timeStr = this.hour + ":" + this.minute + ":" + this.second;
                 this._timelabel.setAttribute('value', timeStr);
@@ -769,6 +779,7 @@
             }
             */
             this._setValueNoSync('2008-12-25 11:22:33');
+
           ]]>
         </body>
       </method>
@@ -1129,7 +1140,7 @@
       <vbox class="datepicker-mainbox"
             xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
         <hbox>
-            <xul:button class="button_vividatetimepicker" xbl:inherits="disabled,class=buttonClass" label="+Year" type="repeat" oncommand="document.getBindingParent(this)._increaseOrDecreaseMonth(1);"/>
+            <xul:button class="button_vividatetimepicker" xbl:inherits="disabled,class=buttonClass" label="+Year" type="repeat" oncommand="document.getBindingParent(this)._increaseOrDecreaseMonth(12);"/>
             <xul:button class="button_vividatetimepicker" xbl:inherits="disabled,class=buttonClass" label="+Month" type="repeat" oncommand="document.getBindingParent(this)._increaseOrDecreaseMonth(1);"/>
             <xul:button class="button_vividatetimepicker" xbl:inherits="disabled,class=buttonClass" label="+Day" oncommand="document.getBindingParent(this)._increaseOrDecreaseDay(1);"/>
         </hbox>
@@ -1235,7 +1246,7 @@
           </rows>
         </grid>
         <xul:hbox>
-            <xul:button class="button_vividatetimepicker" xbl:inherits="disabled,class=buttonClass" label="-Year" type="repeat" oncommand="document.getBindingParent(this)._increaseOrDecreaseMonth(-1);"/>
+            <xul:button class="button_vividatetimepicker" xbl:inherits="disabled,class=buttonClass" label="-Year" type="repeat" oncommand="document.getBindingParent(this)._increaseOrDecreaseMonth(-12);"/>
             <xul:button class="button_vividatetimepicker" xbl:inherits="disabled,class=buttonClass" label="-Month" type="repeat" oncommand="document.getBindingParent(this)._increaseOrDecreaseMonth(-1);"/>
             <xul:button class="button_vividatetimepicker" xbl:inherits="disabled,class=buttonClass" label="-Day" oncommand="document.getBindingParent(this)._increaseOrDecreaseDay(-1);"/>
         </xul:hbox>

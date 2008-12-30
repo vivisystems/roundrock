@@ -1,28 +1,18 @@
-/*
-@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+@namespace xul url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+@namespace html url(""http://www.w3.org/1999/xhtml"");
 
+/******** for xul ********/
 .reportbox {
     overflow-y:scroll;
-
 }
 
-.reportbox scrollbar {
-    orient: vertical;
-}
-*/
-@namespace url("http://www.w3.org/1999/xhtml");
 
-* {
-	padding: 10px;
-	margin: 10px;
-}
-
+/******** for html ********/
 .report {
 	width: 400px;
 	min-height: 340px;
-    /*max-height: 340px; */
     padding: 10px;
-	margin: 0px;
+	margin: 10px;
 	background: #aaa;
 	border: solid;
     border-width: 1px;
@@ -30,7 +20,9 @@
 
 .paper {
 	width: 500px;
-	min-height: 600px;
+	min-height: 340px;
+    padding: 10px;
+	margin: 10px;
 	background: #fff;
 	border: solid;
     border-width: 1px;
@@ -38,7 +30,7 @@
 }
 
 #body-table {
-/*  margin: 0px auto 0px auto; */
+
   font: 100% sans-serif;
   background-color: #efe;
   border-collapse: collapse;
