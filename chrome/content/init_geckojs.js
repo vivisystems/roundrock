@@ -23,7 +23,6 @@ window.loadScript = function loadScript(src, scope) {
 	}
 
    }
-
 };
 
 
@@ -45,7 +44,6 @@ window.loadScriptInMainWindow = function loadScriptInMainWindow(src, scope) {
    }
 
 };
-
 
 
 
@@ -85,7 +83,6 @@ if(mainWindow !== window) {
 	mainWindow.GREUtils.extend(window.GREUtils, mainWindow.GREUtils, {global: window, include: include});
 }
 
-alert(typeof(jQuery));
 /*
  * initial GeckoJS library and persistent it
  */ 
