@@ -14,7 +14,7 @@
             <viviscrollabletree class="cartList" id="cartList" hidecolumnpicker="true" hidevscroll="true" flex="1" dir="normal" fixed="true"
                                 headers="&cart.item.name;,&cart.item.qty;,&cart.item.unitprice;,&cart.item.subtotal;,&cart.item.tax;"
                                 fields="name,current_qty,current_price,current_subtotal,current_tax"
-                                rows="10" scrollUpClass="cartScrollUp" scrollDownClass="cartScrollDown" >
+                                rows="1" scrollUpClass="cartScrollUp" scrollDownClass="cartScrollDown" >
                 <vbox id="cartsidebar">
                     <vivibutton id="btnPlus" label="&cart.button.plus;" oncommand="$do('modifyQty', 'plus', 'Cart');"  class="systoolbtn mediumimagebtn plusbtn"/>
                     <vivibutton id="btnMinus" label="&cart.button.minus;" oncommand="$do('modifyQty', 'minus', 'Cart');"  class="systoolbtn mediumimagebtn minusbtn"/>

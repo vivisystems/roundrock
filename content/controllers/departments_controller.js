@@ -233,7 +233,7 @@
             }
             catch (e) {
                 // @todo OSD
-                NotifyUtils.error(_('An error occurred while modifying Department [%S]\nThe department may not have been modified successfully', [inputData.name]));
+                NotifyUtils.error(_('An error occurred while modifying Department [%S]. The department may not have been modified successfully', [inputData.name]));
             }
         },
 
@@ -270,7 +270,7 @@
                 }
                 catch (e) {
                     // @todo OSD
-                    NotifyUtils.error(_('An error occurred while removing Department [%S]\nThe department may not have been removed successfully', [dept.name]));
+                    NotifyUtils.error(_('An error occurred while removing Department [%S]. The department may not have been removed successfully', [dept.name]));
                 }
             }
         },

@@ -50,7 +50,7 @@
             });
 
             if (jobs != null && jobs.length > 0) {
-                OsdUtils.warn(_('Duplicate job name [%S]; job not added.', [evt.data.jobname]));
+                NotifyUtils.warn(_('Duplicate job name [%S]; job not added.', [evt.data.jobname]));
                 evt.preventDefault();
                 return ;
             }
@@ -99,7 +99,7 @@
                     this._jobModified = false;
                     
                     // @todo OSD
-                    OsdUtils.warn(_('Duplicate job name [%S]; job not modified.', [evt.data.jobname]));
+                    NotifyUtils.warn(_('Duplicate job name [%S]; job not modified.', [evt.data.jobname]));
                 }
             }
         },
@@ -143,7 +143,6 @@
             else if (GREUtils.Dialog.confirm(null, _('confirm delete %S', [jobname]), _('Are you sure?')) == false) {
                 evt.preventDefault();
             }
-                evt.preventDefault();
         },
 
         afterScaffoldDelete: function(evt) {

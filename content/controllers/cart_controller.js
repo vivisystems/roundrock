@@ -101,11 +101,13 @@
                     var requireAck = GeckoJS.Configure.read('vivipos.fec.settings.AgeVerificationAck')
 
                     if (requireAck) {
-                        alert(_('Verify Customer Age for Purchase of [%S]!', [item.name]));
+                        if (GREUtils.Dialog.confirm(null, _('confirm age'), _('Is customer of age for purchase of [%S]?', [item.name])) == false) {
+                            evt.preventDefault();
+                        }
                     }
                     else {
                         //@todo OSD
-                        NotifyUtils.warn(_('Verify Customer Age for Purchase of\n[%S]!', [item.name]));
+                        NotifyUtils.warn(_('Verify Customer Age for Purchase of [%S]!', [item.name]));
                     }
                 }
             }
@@ -499,7 +501,7 @@
                     this.dispatchEvent('onVoidItemError', {});
 
                     // @todo OSD
-                    NotifyUtils.warn(_('Cannot VOID the selected item [%S]\nIt is not the last registered item', [itemDisplay.name]));
+                    NotifyUtils.warn(_('Cannot VOID the selected item [%S]. It is not the last registered item', [itemDisplay.name]));
                     return ;
                 }
             }
@@ -684,7 +686,7 @@
                     this.dispatchEvent('onAddDiscountError', {});
 
                     // @todo OSD
-                    NotifyUtils.warn(_('Cannot apply discount to [%S]\nIt is not the last registered item', [itemDisplay.name]));
+                    NotifyUtils.warn(_('Cannot apply discount to [%S]. It is not the last registered item', [itemDisplay.name]));
                     return ;
                 }
             }
@@ -888,7 +890,7 @@
                     this.dispatchEvent('onAddSurchargeError', {});
 
                     // @todo OSD
-                    NotifyUtils.warn(_('Cannot apply surcharge to [%S]\nIt is not the last registered item', [itemDisplay.name]));
+                    NotifyUtils.warn(_('Cannot apply surcharge to [%S]. It is not the last registered item', [itemDisplay.name]));
                     return ;
                 }
             }
@@ -952,6 +954,11 @@
 
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 NotifyUtils.warn(_('Not an open order; operation invalid'));
+                return;
+            }
+
+            if (curTransaction.getItemsCount() < 1) {
+                NotifyUtils.warn(_('Nothing has been registered yet; operation invalid'));
                 return;
             }
 
@@ -1222,6 +1229,11 @@
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot register payments'));
+                return;
+            }
+
+            if (curTransaction.getItemsCount() < 1) {
+                NotifyUtils.warn(_('Nothing has been registered yet; cannot register payments'));
                 return;
             }
 
@@ -1621,10 +1633,6 @@
                 });
                 */
             }
-            else {
-                NotifyUtils.warn(_('Verify Customer Age for Purchase of\n[%S]!', [item.name]));
-                return null;
-            }
 
             var i = -1;
             var index = -1;
@@ -1797,6 +1805,8 @@
             var queuePool = this._getQueuePool();
             var queues = [];
             var confs = GeckoJS.Configure.read('vivipos.fec.settings');
+            var screenwidth = GeckoJS.Session.get('screenwidth') || '800';
+            var screenheight = GeckoJS.Session.get('screenheight') || '600';
 
             // check private queue
             if (confs.PrivateQueue) {
@@ -1817,7 +1827,7 @@
                 }
             }
             var aURL = 'chrome://viviecr/content/select_queues.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=700,height=500';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
             var inputObj = {
                 queues: queues,
                 queuePool: queuePool

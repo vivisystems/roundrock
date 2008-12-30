@@ -5,7 +5,7 @@
 <!ENTITY    numberpad.keylabel.del            "DEL">
 <!ENTITY    numberpad.keylabel.void               "VOID">
 <!ENTITY    numberpad.keylabel.enter               "ENTER">
-<!ENTITY    numberpad.keylabel.cancel               "取消全單">
+<!ENTITY    numberpad.keylabel.cancel               "CANCEL">
 <!ENTITY    numberpad.keylabel.cash             "CASH">
 <!ENTITY    numberpad.keylabel.subtotal             "SUB TOTAL">
 <!ENTITY    numberpad.keylabel.plusearch             "Product SEARCH">

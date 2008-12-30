@@ -51,7 +51,7 @@
                 var group = inputObj.input0;
                 var groups = this.Acl.getGroupList('name="' + group +'"') || [];
                 if (groups.length > 0) {
-                    OsdUtils.warn(_('ACL Group [%S] already exists; ACL group not added.', [group]));
+                    NotifyUtils.warn(_('ACL Group [%S] already exists; ACL group not added.', [group]));
                 }
                 else {
                     try {
@@ -63,7 +63,7 @@
                     }
                     catch (e) {
                         // @todo OSD
-                        OsdUtils.error(_('An error occurred while adding ACL Group [%S]; the ACL group may not have been added successfully', [group]));
+                        NotifyUtils.error(_('An error occurred while adding ACL Group [%S]; the ACL group may not have been added successfully', [group]));
                     }
                 }
             }
@@ -101,7 +101,7 @@
                 }
                 catch (e) {
                     // @todo OSD
-                    OsdUtils.error(_('An error occurred while removing ACL Group [%S]; the ACL group may not have been removed successfully', [group]));
+                    NotifyUtils.error(_('An error occurred while removing ACL Group [%S]; the ACL group may not have been removed successfully', [group]));
                 }
             }
         },
@@ -130,7 +130,7 @@
             }
             catch (e) {
                 // @todo OSD
-                OsdUtils.error(_('An error occurred while modifying ACL Group [%S]; the ACL group may not have been modified successfully', [group]));
+                NotifyUtils.error(_('An error occurred while modifying ACL Group [%S]; the ACL group may not have been modified successfully', [group]));
             }
         },
 
@@ -258,8 +258,8 @@
             else {
                 var group = $('#aclgroup_name').val();
 
-                modifyBtn.setAttribute('disabled', group == '#admin');
-                deleteBtn.setAttribute('disabled', group == '#admin');
+                modifyBtn.setAttribute('disabled', group == 'admin');
+                deleteBtn.setAttribute('disabled', group == 'admin');
             }
         }
 	

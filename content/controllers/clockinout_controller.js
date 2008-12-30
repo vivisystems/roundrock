@@ -68,18 +68,20 @@
             }
             if (username == null) {
                 //@todo OSD
-                OsdUtils.warn(_('Please select a user first'));
+                NotifyUtils.warn(_('Please select a user first.'));
             }
             else if (this.publicAttendance || this.Acl.securityCheck(username, userpass, true)) {
                 this.listSummary(username);
+                $('#user_password').val('');
             }
             else {
                 if (userpass == '')
                     //@todo OSD
-                    OsdUtils.warn(_('Please enter the passcode'));
+                    NotifyUtils.warn(_('Please enter the passcode.'));
                 else
                     //@todo OSD
-                    OsdUtils.warn(_('Authentication Failed!\nPlease make sure the passcode is correct'));
+                    NotifyUtils.warn(_('Authentication Failed!. Please make sure the passcode is correct.'));
+                    $('#user_password').val('');
             }
         },
 
@@ -87,7 +89,7 @@
 
             var username;
             var userpass = document.getElementById('user_password').value;
-            var job;
+            var jobname;
             var index;
 
             if (this.userpanel && this.users) {
@@ -99,17 +101,17 @@
             
             if (this.jobpanel) {
                 index = this.jobpanel.selectedIndex;
-                if (index > -1) job = this.jobs[index].jobname;
+                if (index > -1) jobname = this.jobs[index].jobname;
             }
 
             if (username == null) {
                 //@todo OSD
-                OsdUtils.warn(_('Please select a user first'));
+                NotifyUtils.warn(_('Please select a user first.'));
             }
             else {
                 if (this.Acl.securityCheck(username, userpass, true)) {
 
-                    if (job == null) {
+                    if (jobname == null) {
 
                         // check if user has default job
                         var userModel = new UserModel();
@@ -119,29 +121,31 @@
                         });
 
                         if (userByName && userByName.length > 0) {
-                            job = userByName[0].job_id;
+                            jobname = userByName[0].Job.jobname;
                         }
                     }
 
-                    if (job == null) {
+                    if (jobname == null) {
                         //@todo OSD
-                        OsdUtils.warn(_('Please select a job first'));
+                        NotifyUtils.warn(_('Please select a job first.'));
 
                         // auto-switch to Job list
                         document.getElementById('deck').selectedIndex = 0;
                         return;
                     }
                     var clockstamp = new ClockStampModel();
-                    clockstamp.saveStamp('clockin', username, userByName[0].Job.jobname);
+                    clockstamp.saveStamp('clockin', username, jobname);
 
                     this.listSummary(username);
+                    $('#user_password').val('');
                 } else {
                     if (userpass == '')
                         //@todo OSD
-                        OsdUtils.warn(_('Please enter the passcode'));
+                        NotifyUtils.warn(_('Please enter the passcode.'));
                     else
                         //@todo OSD
-                        OsdUtils.warn(_('Authentication Failed!\nPlease make sure the passcode is correct'));
+                        NotifyUtils.warn(_('Authentication Failed!. Please make sure the passcode is correct.'));
+                        $('#user_password').val('');
                 }
             }
             document.getElementById('user_password').value = '';
@@ -159,7 +163,7 @@
             }
             if (username == null) {
                 //@todo OSD
-                OsdUtils.warn(_('Please select a user first'));
+                NotifyUtils.warn(_('Please select a user first.'));
             }
             else {
                 document.getElementById('user_password').value = '';
@@ -174,17 +178,19 @@
                     }
                     else {
                         //@todo OSD
-                        OsdUtils.warn(_('Not clocked in yet'));
+                        NotifyUtils.warn(_('Not clocked in yet.'));
                     }
                     this.listSummary(username);
+                    $('#user_password').val('');
                 }
                 else {
                     if (userpass == '')
                         //@todo OSD
-                        OsdUtils.warn(_('Please enter the passcode'));
+                        NotifyUtils.warn(_('Please enter the passcode.'));
                     else
                         //@todo OSD
-                        OsdUtils.warn(_('Authentication Failed!\nPlease make sure the passcode is correct'));
+                        NotifyUtils.warn(_('Authentication Failed!. Please make sure the passcode is correct.'));
+                        $('#user_password').val('');
                 }
             }
         },
@@ -210,7 +216,6 @@
             this.jobtimes = stamps;
 
             if (stamps && stamps.length > 0) {
-                this.log('[' + username + ']: ' + GeckoJS.BaseObject.dump(stamps));
                 stamps.forEach(function(o){
                     o.clockin_time = o.clockin_time ? o.clockin_time.substring(11, 19) : '--:--:--';
                     o.clockout_time = o.clockout_time ? o.clockout_time.substring(11, 19) : '--:--:--';

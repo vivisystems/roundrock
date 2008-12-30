@@ -314,6 +314,7 @@
                                                 headers="Function,Label"
                                                 fields="name,label"
                                                 seltype="single"
+                                                flex="1"
                                                 hidevscroll="true"
                                                 onselect="$do('selectFunction', this, 'vivifuncpanelecr_prefs')"/>
                             <textbox class="descbox_keymap" id="vivifuncpanelecr_prefs_keymap_function_desc" wrap="true"
@@ -397,6 +398,7 @@
                                                 headers="Function,Label"
                                                 fields="name,label"
                                                 seltype="single"
+                                                flex="1"
                                                 hidevscroll="true"
                                                 onselect="$do('selectFunction', this, 'vivifuncpanelecr_prefs')"/>
                             <textbox class="descbox_keymap" id="vivifuncpanelecr_prefs_gkeymap_function_desc" wrap="true"

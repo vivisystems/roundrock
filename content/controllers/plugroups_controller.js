@@ -66,7 +66,7 @@
 
             if (plugroups != null && plugroups.length > 0) {
                 //@todo OSD
-                OsdUtils.warn(_('Duplicate Product Group name [%S]; Product Group not added.', [plugroup.name]));
+                NotifyUtils.warn(_('Duplicate Product Group name [%S]; Product Group not added.', [plugroup.name]));
                 evt.preventDefault();
                 return ;
             }

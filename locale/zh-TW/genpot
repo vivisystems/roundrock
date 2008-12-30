@@ -1,3 +1,6 @@
 #!/bin/sh
-
-xgettext -o messages.pot  -j --no-location -Lpython -k_ /home/user/workspace/vivipos_app/content/*.js /home/user/workspace/vivipos_app/content/controllers/*.js
+flag=
+if [ -f messages.pot ]; then
+   flag=-j
+fi
+xgettext -o messages.pot --msgid-bugs-address=irving.hsu@firich.com.tw $flag --no-location -Lpython -k_ /home/user/workspace/vivipos_app/content/*.js /home/user/workspace/vivipos_app/content/controllers/*.js

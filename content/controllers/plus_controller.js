@@ -152,7 +152,7 @@
             };
             window.openDialog(aURL, 'select_cond_group', features, inputObj);
 
-            if (inputObj.ok && inputObj.cond_group) {
+            if (inputObj.ok) {
                 $('#cond_group').val(inputObj.cond_group);
                 $('#cond_group_name').val(inputObj.cond_group_name);
             }
@@ -302,7 +302,7 @@
                     $('#setmenu').val( setmenu.join('&'));
                 }
                 else {
-                    alert(_('Product not found (%S).', [inputObj.input0]));
+                    alert(_('Product not found [%S].', [inputObj.input0]));
                 }
             }
 
@@ -396,7 +396,7 @@
                 NotifyUtils.warn(_('Product Name must not be empty.'));
                 result = 4;
             } else {
-                if (prods)
+                if (prods) {
                     for (var i = 0; i < prods.length; i++) {
                         var o = prods[i];
                         if (o.no == data.no && data.id == null) {
@@ -414,6 +414,12 @@
                             break;
                         }
                     }
+                }
+                // if condiment is required, make sure a condiment group has been selected
+                if (data.force_condiment && !data.cond_group) {
+                    NotifyUtils.warn(_('Condiment is required but no condiment group selected; product not modified.'));
+                    return 5;
+                }
             }
             return result;
         },
@@ -491,7 +497,7 @@
                 }
                 catch (e) {
                     // @todo OSD
-                    NotifyUtils.error(_('An error occurred while modifying Product [%S]\nThe product may not have been modified successfully', [product.name]));
+                    NotifyUtils.error(_('An error occurred while modifying Product [%S]. The product may not have been modified successfully', [product.name]));
                 }
             }
         },
@@ -522,7 +528,7 @@
                     }
                     catch (e) {
                         // @todo OSD
-                        NotifyUtils.error(_('An error occurred while removing Product [%S]\nThe product may not have been removed successfully', [product.name]));
+                        NotifyUtils.error(_('An error occurred while removing Product [%S]. The product may not have been removed successfully', [product.name]));
                     }
                 }
             }

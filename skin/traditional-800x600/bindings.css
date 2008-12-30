@@ -1,0 +1,14 @@
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+button_colorpicker {
+  -moz-binding: url("chrome://viviecr/content/bindings/button_colorpicker.xbl#button_colorpicker");
+}
+
+button_fontsizepicker {
+  -moz-binding: url("chrome://viviecr/content/bindings/button_fontsizepicker.xbl#button_fontsizepicker");
+}
+
+vividatetimepicker {
+  -moz-binding: url("chrome://viviecr/content/bindings/vividatetimepicker.xbl#vividatetimepicker");
+}
+
