@@ -3,18 +3,19 @@
 
 /******** for xul ********/
 .reportbox {
-    overflow-y:scroll;
+    overflow-y:auto;
 }
 
 
 /******** for html ********/
 .report {
-	width: 400px;
-	min-height: 340px;
+	width: 1px;
+    height: 1px;
+	min-height: 1px;
     padding: 10px;
-	margin: 10px;
+	margin: 0px;
 	background: #aaa;
-	border: solid;
+	border: dot;
     border-width: 1px;
 }
 
@@ -27,11 +28,14 @@
 	border: solid;
     border-width: 1px;
     font-size:16px;
+    border-right-width: 3px;
+    border-bottom-width: 3px;
 }
 
 #body-table {
-
-  font: 100% sans-serif;
+  width: 95%;
+  margin: 0px auto 0px auto;
+/*  font: 100% sans-serif; */
   background-color: #def;
   border-collapse: collapse;
   empty-cells: show;
@@ -51,7 +55,8 @@
 #body-table th,
 #body-table td {
   text-align: right;
-  padding-right: .5em;
+  padding-right: .3em;
+  border-bottom: 1px dotted #bbb;
   }
 
 #body-table th {
@@ -79,7 +84,7 @@
 /* body */
 #body-table td {
   background-color: #eef;
-  padding:.2em .5em .2em .5em;
+  padding:.1em .5em .1em .5em;
   }
 
 #body-table tbody th:after {
@@ -106,5 +111,6 @@
 
 #body-table > tfoot > tr:first-child td {
   border-top: .2em solid #7a7;
+  padding:.1em .5em .5em .5em;
   }
 

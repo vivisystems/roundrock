@@ -48,6 +48,59 @@
             }
         },
 
+        checkStock: function(action, qty, item) {
+            var obj = {
+                    item: item
+                };
+                var diff = qty;
+                var cart = GeckoJS.Controller.getInstanceByName('Cart');
+                var min_stock = parseFloat(item.min_stock);
+                var stock = parseFloat(item.stock);
+                var auto_maintain_stock = item.auto_maintain_stock;
+
+                if (action != "addItem") {
+                    var productsById = GeckoJS.Session.get('productsById');
+                    var product = productsById[item.id];
+                    stock = parseFloat(product.stock);
+                    min_stock = parseFloat(product.min_stock);
+                    auto_maintain_stock = product.auto_maintain_stock;
+                    diff = qty - item.current_qty;
+                }
+
+                if (!auto_maintain_stock) return true;
+
+                var item_count = 0;
+                var curTransaction = cart._getTransaction(true);
+                try {
+                    item_count = (curTransaction.data.items_summary[item.id]).qty_subtotal;
+                } catch (e) {};
+
+                if ((diff + item_count) > stock) {
+                    cart.dispatchEvent('onLowStock', obj);
+                    cart.dispatchEvent('onWarning', _('OUT OF STOCK'));
+                    //@todo add OSD?
+                    NotifyUtils.warn(_('Product May Be Out of Stock!'));
+
+                    // allow over stock...
+                    var allowoverstock = GeckoJS.Configure.read('vivipos.fec.settings.AllowOverStock') || false;
+                    if (!allowoverstock) {
+                        cart.clear();
+                        return false;
+                    }
+                } else if (min_stock > (stock - (diff + item_count))) {
+                    cart.dispatchEvent('onLowerStock', obj);
+                    cart.dispatchEvent('onWarning', _('STOCK LOW'));
+
+                    //@todo add OSD?
+                    NotifyUtils.warn(_('Low Stock Threshold Reached!'));
+                } else {
+                    // normal
+                    cart.dispatchEvent('onWarning', '');
+                }
+                return true;
+
+        },
+
         beforeAddItem: function (evt) {
             var item = evt.data;
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
@@ -60,34 +113,9 @@
 
             sellPrice  = (GeckoJS.Session.get('cart_set_price_value') != null) ? GeckoJS.Session.get('cart_set_price_value') : sellPrice;
 
-            if ( !cart._returnMode && item.auto_maintain_stock) {
-                var obj = {
-                    sellPrice: sellPrice,
-                    sellQty: sellQty,
-                    item: item
-                };
-                var min_stock = parseFloat(item.min_stock);
-                var stock = parseFloat(item.stock);
-
-                if (sellQty > stock) {
-                    cart.dispatchEvent('onLowStock', obj);
-                    cart.dispatchEvent('onWarning', _('OUT OF STOCK'));
-                    //@todo add OSD?
-                    NotifyUtils.warn(_('Product May Be Out of Stock!'));
-                    
-                    // allow over stock...
-                    var allowoverstock = GeckoJS.Configure.read('vivipos.fec.settings.AllowOverStock') || false;
-                    if (!allowoverstock) {
-                        cart.clear();
-                        evt.preventDefault();
-                    }
-                } else if (min_stock > (stock - sellQty)) {
-                    cart.dispatchEvent('onLowerStock', obj);
-                    cart.dispatchEvent('onWarning', _('STOCK LOW'));
-
-                    //@todo add OSD?
-                    NotifyUtils.warn(_('Low Stock Threshold Reached!'));
-                }
+            // check stock status...
+            if ( !cart._returnMode) {
+                if (!cart.checkStock("addItem", sellQty, item)) evt.preventDefault();
             }
 
             // check if age verification required
@@ -357,6 +385,15 @@
             // check if has buffer
             if (buf.length>0) {
                 this.setPrice(buf);
+            }
+
+            // check if stock is lower or over
+            if (itemDisplay.type == 'item') {
+                var qty = null;
+                qty  = (GeckoJS.Session.get('cart_set_qty_value') != null) ? GeckoJS.Session.get('cart_set_qty_value') : qty;
+                if (!this.checkStock("modifyItem", qty, itemTrans)) {
+                    return ;
+                }
             }
 
             this.dispatchEvent('beforeModifyItem', itemTrans);

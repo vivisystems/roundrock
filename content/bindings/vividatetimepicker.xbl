@@ -29,7 +29,7 @@
                 xbl:inherits="context">
         <xul:hbox class="textbox-input-box datetimepicker-input-subbox" align="center">
           <html:input class="datetimepicker-input textbox-input" anonid="input-one"
-                      size="2" maxlength="2" flex="1" chromedir="&locale.dir;"
+                      size="2" maxlength="2" width="300" flex="1" chromedir="&locale.dir;"
                       xbl:inherits="disabled,readonly"/>
         </xul:hbox>
         <xul:label anonid="sep-first" class="datetimepicker-separator" value=":"/>
@@ -1534,10 +1534,10 @@
   <binding id="vividatetimepicker-popup" display="xul:menu"
            extends="vividatetimepicker.xbl#vividatetimepicker-date">
     <content align="center">
-      <xul:hbox class="textbox-input-box datetimepicker-input-box" align="center"
+      <xul:hbox class="textbox-input-box datetimepicker-input-box" align="center" flex="1"
                 allowevents="true" xbl:inherits="context">
         <!-- xul:label anonid="datetimelabel" value="TestDateTime" / -->
-        <html:input class="datetimepicker-input textbox-input" anonid="datetimelabel"
+        <html:input class="datetimepicker-input textbox-input" anonid="datetimelabel" align="left"
                       flex="1" xbl:inherits="disabled" readonly="true"/>
       </xul:hbox>
       <xul:hbox class="textbox-input-box datetimepicker-input-box" align="center" hidden="true"
@@ -1644,6 +1644,193 @@
         this.datepad = datepad;
         this.timepad = timepad;
         this.datetimelabel = datetimelabel;
+      </constructor>
+      <property name="datetimeValue" onget="return new Date(this.value);">
+        <!-- setter>
+          <![CDATA[
+            if (!(val instanceof Date))
+              throw "Invalid Date";
+
+            this._setValueNoSync(val);
+            if (this.attachedControl)
+              this.attachedControl._setValueNoSync(val);
+            return val;
+          ]]>
+        </setter -->
+      </property>
+      <property name="open" onget="return this.hasAttribute('open');">
+        <setter>
+          <![CDATA[
+            if (this.boxObject instanceof Components.interfaces.nsIMenuBoxObject)
+              this.boxObject.openMenu(val);
+            return val;
+          ]]>
+        </setter>
+      </property>
+      <method name="_setValueOnChange">
+        <parameter name="aField"/>
+        <body>
+          <![CDATA[
+            // this.datetimelabel.value = this.datepad.value + " " + this.timepad.value;
+
+            var y = this.datepad.dateValue.getFullYear();
+            var m = this.datepad.dateValue.getMonth();
+            var d = this.datepad.dateValue.getDate();
+            var h = this.timepad.dateValue.getHours();
+            var n = this.timepad.dateValue.getMinutes();
+            var s = this.timepad.dateValue.getSeconds();
+            var ss = 0;
+            var dt = new Date(y,m,d,h,n,s);
+            this.datetimelabel.value = dt.toLocaleString();
+
+            /*
+            if (!this._hasEntry)
+              return;
+
+            if (aField == this._fieldOne ||
+                aField == this._fieldTwo ||
+                aField == this._fieldThree) {
+              var value = Number(aField.value);
+              if (isNaN(value))
+                value = 0;
+
+              value = this._constrainValue(aField, value, true);
+              this._setFieldValue(aField, value);
+            }
+            */
+          ]]>
+        </body>
+      </method>
+    </implementation>
+    <handlers>
+      <handler event="change">
+        // alert("change");
+        this._setValueOnChange(event.originalTarget);
+      </handler>
+    </handlers>
+  </binding>
+
+  <binding id="vividatetimepicker-embed"
+           extends="vividatetimepicker.xbl#vividatetimepicker-date">
+    <content align="center">
+      <xul:vbox class="textbox-input-box datetimepicker-input-box" align="center" flex="1"
+                allowevents="true" xbl:inherits="context">
+        <xul:label anonid="datetimelabel" value="" />
+        <!-- html:input class="datetimepicker-input textbox-input" anonid="datetimelabel"
+                      flex="1" xbl:inherits="disabled" readonly="true"/ -->
+        <xul:hbox>
+        <xul:vividatetimepicker-datepad anonid="datepad" class="datepicker-popupgrid"
+                        xbl:inherits="disabled,readonly,firstdayofweek"/>
+        <xul:vividatetimepicker-timepad anonid="timepad" class="datepicker-popupgrid"
+                        xbl:inherits="disabled,readonly"/>
+        </xul:hbox>
+      </xul:vbox>
+      <xul:hbox class="textbox-input-box datetimepicker-input-box" align="center" hidden="true"
+                allowevents="true" xbl:inherits="context">
+        <xul:hbox class="datetimepicker-input-subbox" align="baseline">
+          <html:input class="datetimepicker-input textbox-input" anonid="input-one"
+                      size="2" maxlength="2" flex="1" chromedir="&locale.dir;"
+                      xbl:inherits="disabled,readonly"/>
+        </xul:hbox>
+        <xul:label anonid="sep-first" class="datetimepicker-separator" value=":"/>
+        <xul:hbox class="datetimepicker-input-subbox" align="baseline">
+          <html:input class="datetimepicker-input textbox-input" anonid="input-two"
+                      size="2" maxlength="2" flex="1" chromedir="&locale.dir;"
+                      xbl:inherits="disabled,readonly"/>
+        </xul:hbox>
+        <xul:label anonid="sep-second" class="datetimepicker-separator" value=":"/>
+        <xul:hbox class="datetimepicker-input-subbox" align="center">
+          <html:input class="datetimepicker-input textbox-input" anonid="input-three"
+                      size="2" maxlength="2" flex="1" chromedir="&locale.dir;"
+                      xbl:inherits="disabled,readonly"/>
+        </xul:hbox>
+        <xul:hbox class="datetimepicker-input-subbox" align="center">
+          <html:input class="datetimepicker-input textbox-input" anonid="input-ampm"
+                      size="2" maxlength="2" flex="1" chromedir="&locale.dir;"
+                      xbl:inherits="disabled,readonly"/>
+        </xul:hbox>
+      </xul:hbox>
+      <!-- xul:spinbuttons anonid="buttons" xbl:inherits="disabled" allowevents="true"
+                       onup="this.parentNode._increaseOrDecrease(1);"
+                       ondown="this.parentNode._increaseOrDecrease(-1);"/ -->
+      <!-- xul:dropmarker class="datepicker-dropmarker" xbl:inherits="disabled"/>
+      <xul:panel onpopupshown="this.firstChild.focus();">
+        <xul:hbox>
+        <xul:vividatetimepicker-datepad anonid="datepad" class="datepicker-popupgrid"
+                        xbl:inherits="disabled,readonly,firstdayofweek"/>
+        <xul:vividatetimepicker-timepad anonid="timepad" class="datepicker-popupgrid"
+                        xbl:inherits="disabled,readonly"/>
+        </xul:hbox>
+      </xul:panel -->
+    </content>
+    <implementation>
+      <field name="datepad">null</field>
+      <field name="timepad">null</field>
+      <field name="datetimelabel">null</field>
+      <!-- field name="_dateValue">null</field -->
+      <property name="value">
+        <getter>
+          <![CDATA[
+            /*
+            var minute = this._dateValue.getMinutes();
+            if (minute < 10)
+              minute = "0" + minute;
+
+            var second = this._dateValue.getSeconds();
+            if (second < 10)
+              second = "0" + second;
+            return this._dateValue.getHours() + ":" + minute + ":" + second;
+            */
+            // return this.year + "-" + this.datepad.month + "===" + this.timepad.hour + this.timepad.minute;
+            // return this.datepad.value + "==" + this.timepad.value;
+
+            // var dt = this.datepad.dateValue; // + this.timepad.datevalue;
+            // var dt = this.timepad.dateValue;
+            // var dt = this.datepad.dateValue.; // + this.timepad.datevalue;
+            var y = this.datepad.dateValue.getFullYear();
+            var m = this.datepad.dateValue.getMonth();
+            var d = this.datepad.dateValue.getDate();
+            var h = this.timepad.dateValue.getHours();
+            var n = this.timepad.dateValue.getMinutes();
+            var s = this.timepad.dateValue.getSeconds();
+            var ss = 0;
+            var dt = new Date(y,m,d,h,n,s);
+            return dt.getTime();
+
+          ]]>
+        </getter>
+        <setter>
+          <![CDATA[
+
+            var dt = new Date(val);
+            // this.datepad.dateValue.setTime(val);
+            this.datepad.dateValue = dt;
+
+            // this.timepad.dateValue.setTime(val);
+            this.timepad._dateValue = dt;
+
+            this.datepad._fireEvent("change", this);
+            this.timepad._fireEvent("change", this);
+            this._setValueOnChange();
+            return val;
+
+          ]]>
+        </setter>
+      </property>
+      <constructor>
+        var datepad = document.getAnonymousElementByAttribute(this, "anonid", "datepad");
+        var timepad = document.getAnonymousElementByAttribute(this, "anonid", "timepad");
+        var datetimelabel = document.getAnonymousElementByAttribute(this, "anonid", "datetimelabel");
+
+        this.attachedControl = datepad;
+        datepad.attachedControl = this;
+        datepad._setValueNoSync(this._dateValue);
+
+        this.datepad = datepad;
+        this.timepad = timepad;
+        this.datetimelabel = datetimelabel;
+
+        this._setValueOnChange();
       </constructor>
       <property name="datetimeValue" onget="return new Date(this.value);">
         <!-- setter>

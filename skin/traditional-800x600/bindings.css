@@ -28,6 +28,10 @@ vividatetimepicker[type="popup"] {
   -moz-binding: url('chrome://viviecr/content/bindings/vividatetimepicker.xbl#vividatetimepicker-popup');
 }
 
+vividatetimepicker[type="embed"] {
+  -moz-binding: url('chrome://viviecr/content/bindings/vividatetimepicker.xbl#vividatetimepicker-embed');
+}
+
 vividatetimepicker[type="grid"] {
   -moz-binding: url('chrome://viviecr/content/bindings/vividatetimepicker.xbl#vividatetimepicker-grid');
 }

@@ -45,7 +45,8 @@
             var data = {
                 head: {title:_('Product Sales Report'), start_date: start_str, end_date: end_str, department: department},
                 body: this._datas,
-                foot: {qty: this._datas.qty ,summary: this._datas.summary}
+                foot: {qty: this.qty ,summary: this.summary},
+                printedtime: (new Date()).toLocaleString()
             }
 
             var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/product_sales.tpl");
@@ -77,7 +78,8 @@
             var data = {
                 head: {title:_('Product Sales Report'), start_date: start_str, end_date: end_str, department: department},
                 body: this._datas,
-                foot: {qty: this._datas.qty ,summary: this._datas.summary}
+                foot: {qty: this._datas.qty ,summary: this._datas.summary},
+                printedtime: now().toLocaleString()
             }
 
             var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/product_sales.tpl");
@@ -97,6 +99,12 @@
 
             var start = document.getElementById('start_date').value;
             var end = document.getElementById('end_date').value;
+            document.getElementById('start_date').value = start;
+            document.getElementById('end_date').value = end;
+
+            var start_str = document.getElementById('start_date').datetimeValue.toLocaleString();
+            var end_str = document.getElementById('end_date').datetimeValue.toLocaleString();
+
             // var department = document.getElementById('department').value;
             department = '';
             var orderItem = new OrderItemModel();
@@ -129,8 +137,8 @@
                 summary = summary + o.total;
             });
 
-            datas.qty = qty;
-            datas.summary = summary;
+            this.qty = qty;
+            this.summary = summary;
         }
 	
     });

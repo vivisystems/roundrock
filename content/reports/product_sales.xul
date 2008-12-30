@@ -27,7 +27,7 @@
                     <rows>
                         <row>
                             <label value="Start Date:" />
-                            <vividatetimepicker id="start_date" value='' type="popup"/>
+                            <vividatetimepicker id="start_date" value='' type="popup" width="300"/>
                         </row>
                         <row>
                             <label value="End Date:" />
@@ -35,7 +35,7 @@
                         </row>
                         <!-- row>
                             <label value="Department:" />
-                            <textbox id="department" value='' readonly="true"/>
+                            <textbox id="department" value='' readonly="true" width="300"/>
                         </row -->
                     </rows>
                 </grid>
