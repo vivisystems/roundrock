@@ -19,18 +19,18 @@
     <script type="application/x-javascript" src="chrome://viviecr/content/reports/product_sales.js" />
 
     <vbox flex="1" class="main-dialog">
-        <caption label="Product Sales Report"/>
+        <caption label="&productsales.title;"/>
         <groupbox>
-            <caption label="Conditions" />
+            <caption label="&productsales.conditions;" />
             <hbox>
                 <grid>
                     <rows>
                         <row>
-                            <label value="Start Date:" />
-                            <vividatetimepicker id="start_date" value='' type="popup" width="300"/>
+                            <label value="&productsales.startdate;" />
+                            <vividatetimepicker id="start_date" value='' type="popup" width="320"/>
                         </row>
                         <row>
-                            <label value="End Date:" />
+                            <label value="&productsales.enddate;" />
                             <vividatetimepicker id="end_date" value='' type="popup"/>
                         </row>
                         <!-- row>
@@ -41,8 +41,8 @@
                 </grid>
                 <hbox>
                     <spacer style="width:60px;" />
-                    <button id="execute" label="Execute" disabled="false" class="editbtns" oncommand="$do('execute', null, 'ProductSales');" />
-                    <button id="export_csv" label="Export CSV" disabled="true" class="editbtns" oncommand="$do('exportCsv', null, 'ProductSales');"/>
+                    <button id="execute" label="&productsales.execute;" disabled="false" class="editbtns" oncommand="$do('execute', null, 'ProductSales');" />
+                    <button id="export_csv" label="&productsales.exportcsv;" disabled="true" class="editbtns" oncommand="$do('exportCsv', null, 'ProductSales');"/>
                 </hbox>
             </hbox>
         </groupbox>
@@ -65,7 +65,9 @@
     <!-- hbox id="okCancelButtonsRight" class="dialogbtns" / -->
     <hbox id="dialogButtons" class="dialogbtns" pack="center">
         <button class="right exit-dialog" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
-        <button id="togglesize" label="Toggle Zoom" class="dialogbtns" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png"/>
+        <button id="togglesize" class="dialogbtns" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png">
+            <label>&productsales.togglezoom;</label>
+        </button>
     </hbox>
 
 </window>

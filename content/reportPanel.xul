@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE overlay [
+  <!ENTITY % Overlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Overlay;
+  <!ENTITY % Condiments SYSTEM "chrome://viviecr/locale/fecpos.dtd">
+  %Condiments;
+  ]>
+
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/viviecr.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+<window title="Reports Panel"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script type="application/x-javascript" src="chrome://vivipos/content/libs/jquery-1.2.6.js" />
+    <script type="application/x-javascript">
+        window['GeckoJS'] = opener.GeckoJS;
+        window['GREUtils'] = opener.GREUtils;
+        window['_'] = opener._;
+    </script>
+    <script type="application/x-javascript" src="chrome://viviecr/content/reportPanel.js" />
+
+    <vbox flex="1" class="main-dialog">
+        <!-- caption label="Report Panel: "/ -->
+        <stack flex="1">
+                <viviscrollablebuttonpanel id="imagePanel" cols="4" rows="5" labelField="label" imageField="icon" aclField="roles" flex="1"
+                    buttonClass="imageThumbBtn largeimagebtn" scrollUpClass="rightprevbtn button-gray" scrollDownClass="rightnextbtn button-gray" >
+                    <spacer flex="1" />
+                </viviscrollablebuttonpanel>
+        <hbox id="loading" align="center" style="display: none;border: 1px soild #f00; background: white;width:320px; height:180px;" left="200px" top="200px">
+            <image src="chrome://viviecr/skin/images/loading.gif" width="55" height="55"/><label>&vivipos.fec.controlpanel.loading;</label>
+        </hbox>
+        </stack>
+    </vbox>
+
+    <hbox id="dialogButtons" class="dialogbtns" pack="center">
+        <button class="right exit-dialog" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+    </hbox>
+
+
+</window>

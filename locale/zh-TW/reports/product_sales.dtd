@@ -1,0 +1,8 @@
+<!ENTITY productsales.title "銷售報表">
+<!ENTITY productsales.conditions "過濾條件:">
+<!ENTITY productsales.startdate "起始時間:">
+<!ENTITY productsales.enddate "結束時間:">
+<!ENTITY productsales.execute "執行">
+<!ENTITY productsales.exportcsv "匯出CSV檔">
+<!ENTITY productsales.togglezoom "縮放">
+
