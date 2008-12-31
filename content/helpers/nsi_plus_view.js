@@ -105,10 +105,10 @@
             var prod_no = this.getCellValue(row,{
                 id: 'name'
             });
+
             var icon_only = this.getCellValue(row,{
                 id: 'icon_only'
             });
-            
             var imageExists = (this.getImageSrc(row,{id: 'no'}) != null);
 
             if (imageExists) {

@@ -94,10 +94,6 @@
 .vivifuncpanelecr_matrix_button_configure[disabled=true] {
 }
 
-.vivifuncpanelecr_matrix_button_configure[checked=true] {
-    border: red 2px solid;
-}
-
 /*-----------------------------------------------------------------------------
  * Function Panel control panel
  *-----------------------------------------------------------------------------

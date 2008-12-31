@@ -1,9 +1,0 @@
-<!ENTITY prompt.addaccount.title  "Add new account:">
-<!ENTITY prompt.addaccount.topic "Topic:">
-<!ENTITY prompt.addaccount.description "Description:">
-<!ENTITY prompt.addaccount.type "Type:">
-<!ENTITY prompt.addaccount.amount "Amount:">
-<!ENTITY prompt.addaccount.typein "IN">
-<!ENTITY prompt.addaccount.typeout "OUT">
-<!ENTITY prompt.addaccount.topic.no "Topic No:">
-<!ENTITY prompt.addaccount.topic.topic "Topic:">

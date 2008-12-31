@@ -68,15 +68,8 @@
         },
 
         add: function  () {
-            // let seltime = $('#seltime').val();
+            let seltime = $('#seltime').val();
             var pricelevel = this.getPriceLevelObj().value;
-            var seltimeObj = document.getElementById('seltime');
-            var h = seltimeObj.hour;
-            var n = seltimeObj.minute;
-            h = GeckoJS.String.padLeft(h, 2, "0");
-            n = GeckoJS.String.padLeft(n, 2, "0");
-            var seltime = h + ":" + n;
-            
             let item = {time: seltime, pricelevel: pricelevel};
 
             var addedDefault = false;

@@ -400,7 +400,7 @@
     background: transparent url(images/prod-remove.png) center center no-repeat;
 }
 
-.dialogbtns,.promptbtns #vkb {
+.dialogbtns #vkb {
     list-style-image: url(images/keyboard-48x48.png);
     -moz-box-orient: vertical;
 }
