@@ -24,24 +24,20 @@
     </script>
     <script type="application/x-javascript" src="chrome://viviecr/content/reportPanel.js" />
 
-    <hbox flex="1" class="mainpanel1 pad40">
+    <vbox flex="1" class="main-dialog">
+        <caption label="Report Panel: "/>
         <stack flex="1">
-        <vbox flex="1" class="panel40">
-            <label value="Report Panel: "/>
-            <spacer flex="1" />
             <vbox flex="2"  class="footlogo">
                 <viviscrollablebuttonpanel id="imagePanel" cols="4" rows="5" labelField="label" imageField="icon" aclField="roles" flex="1"
                     buttonClass="imageThumbBtn largeimagebtn" scrollUpClass="rightprevbtn button-gray" scrollDownClass="rightnextbtn button-gray" >
                     <spacer flex="1" />
                 </viviscrollablebuttonpanel>
             </vbox>
-            <spacer flex="1" />
-        </vbox>
         <hbox id="loading" align="center" style="display: none;border: 1px soild #f00; background: white;width:320px; height:180px;" left="200px" top="200px">
             <image src="chrome://viviecr/skin/images/loading.gif" width="55" height="55"/><label>&vivipos.fec.controlpanel.loading;</label>
         </hbox>
         </stack>
-    </hbox>
+    </vbox>
 
     <hbox id="dialogButtons" class="dialogbtns" pack="center">
         <button class="right exit-dialog" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
