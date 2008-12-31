@@ -1,0 +1,13 @@
+#!/bin/sh
+
+#
+# vivipos launcher
+# 
+
+RETVAL=127;
+
+while [ $RETVAL != 0 ]; do
+    ./vivipos
+    RETVAL=$?
+done
+
