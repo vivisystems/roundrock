@@ -134,11 +134,14 @@
                 <xbl:body><![CDATA[
 
                     try {
+
                         // Which locale did the user select?
                         var listbox = this.listbox;
                         var newLocale = this.selectedLocale;
 
                         var loc = newLocale.split('-');
+
+                        var langENV = loc[0] + '_' + loc[1] + '.UTF-8';
 
                         // ubuntu locale environment
                         var envFile = new GeckoJS.File('/etc/environment');
@@ -158,8 +161,7 @@
                                                  loc[0] + ':en_US:en"';
                                 newEnvs.push(languageString);
                             }else if(envBuf.match(/^LANG=/)) {
-                                var langString = 'LANG="' +
-                                                 loc[0] + '_' + loc[1] + '.UTF-8"';
+                                var langString = 'LANG="'+langENV+'"';
                                 newEnvs.push(langString);
                             }else {
                                 newEnvs.push(envBuf);
@@ -169,14 +171,34 @@
                         var newEnvString = newEnvs.join("\n") + "\n";
 
                         // write environment file
-                        var envFile2 = new GeckoJS.File('/etc/environment', true);
-                        envFile2.open("w");
-                        envFile2.write(newEnvString);
-                        envFile2.close();
-                        
-                        delete envFile2;
+                        try {
+                            var envFile2 = new GeckoJS.File('/etc/environment', true);
+                            envFile2.open("w");
+                            envFile2.write(newEnvString);
+                            envFile2.close();
+
+                            delete envFile2;
+                            
+                        }catch(e) {};
+
+
+                        // set environment
+                        try {
+                            var envSvc = Components.classes["@mozilla.org/process/environment;1"]
+                                      .getService(Components.interfaces.nsIEnvironment);
+
+                            envSvc.set('LANG', langENV);
+                            envSvc.set('LC_TIME', langENV);
+                            envSvc.set('LC_MESSAGES', langENV);
+                            envSvc.set('LC_NUMERIC', langENV);
+                            envSvc.set('LC_MONETARY', langENV);
+                            envSvc.set('LC_ALL', langENV);
+
+                        }catch(e) {
+                        }
 
                         return true;
+
                     } catch(err) {
                     }
                     return false;
