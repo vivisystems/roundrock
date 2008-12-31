@@ -134,7 +134,7 @@
             var summary = 0;
             var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
             var options = {
-                places: ((precision_prices>0)?this.data.precision_prices:0)
+                places: ((precision_prices>0)?precision_prices:0)
             };
 
             datas.forEach(function(o){

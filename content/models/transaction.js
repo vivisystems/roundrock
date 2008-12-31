@@ -196,7 +196,7 @@
 
     Transaction.prototype.createItemDataObj = function(index, item, sellQty, sellPrice) {
 
-        var roundedPrice = this.getRoundedPrice(sellPrice) || 0;
+        var roundedPrice = sellPrice || 0;
         var roundedSubtotal = this.getRoundedPrice(sellQty*sellPrice) || 0;
         
         // name,current_qty,current_price,current_subtotal
@@ -385,9 +385,11 @@
         }
         
         // format display precision
+        /* don't format current price
         if(itemDisplay.current_price != ''  || itemDisplay.current_price === 0 ) {
             itemDisplay.current_price = this.formatPrice(itemDisplay.current_price);
         }
+        */
 
         // tax amount is displayed in the current_qty field for readability
         if (type == 'total' || type == 'subtotal') {
@@ -544,7 +546,6 @@
 
         if (condiments) {
 
-            var roundedPrice = this.getRoundedPrice(itemModified.current_price) || 0;
             var roundedSubtotal = this.getRoundedPrice(itemModified.current_qty*itemModified.current_price) || 0;
             var roundedCondiment = 0;
 
@@ -692,7 +693,6 @@
             if (itemDisplay.type == 'condiment') {
                 delete itemTrans.condiments[itemDisplay.name];
 
-                var roundedPrice = this.getRoundedPrice(itemTrans.current_price) || 0;
                 var roundedSubtotal = this.getRoundedPrice(itemTrans.current_qty * itemTrans.current_price) || 0;
                 var roundedCondiment = 0;
 
@@ -1168,25 +1168,22 @@
                             var condimentDisplay = this.createDisplaySeq(itemIndex, condimentItem, 'condiment');
                             this.data.display_sequences.splice(index+1,0,condimentDisplay);
 
-                            var roundedPrice = this.getRoundedPrice(item.current_price) || 0;
-                            var roundedSubtotal = this.getRoundedPrice(item.current_qty*item.current_price) || 0;
+                            var roundedSubtotal = item.current_qty*item.current_price || 0;
                             var roundedCondiment = 0;
 
                             for(var cn in item.condiments) {
                                 roundedCondiment += parseFloat(item.condiments[cn].price)*item.current_qty;
                             }
 
-                            roundedCondiment = this.getRoundedPrice(roundedCondiment);
-
                             item.current_condiment = roundedCondiment;
                             item.current_subtotal = roundedSubtotal + roundedCondiment;
 
                             // update cartlist 's itemDisplay
-                            targetDisplayItem.current_subtotal = this.formatPrice(item.current_subtotal);
+                            targetDisplayItem.current_subtotal = this.formatPrice(this.getRoundedPrice(item.current_subtotal));
 
                             // item subtotal to condition ??
                             if(false) {
-                                condimentDisplay.current_subtotal = this.formatPrice(item.current_subtotal);
+                                condimentDisplay.current_subtotal = this.formatPrice(this.getRoundedPrice(item.current_subtotal));
                             }
 
                             displayIndex++;
@@ -1446,7 +1443,6 @@
 
             sellPrice = obj2.newPrice;
         }
-
         return sellPrice;
 
     };

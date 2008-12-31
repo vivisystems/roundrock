@@ -33,6 +33,8 @@
     <hbox id="dialogButtons" class="promptbtns" pack="center">
         <button class="right exit-dialog" id="ok" label="&dialog.okButton.label;" default="true" oncommand="doOKButton();"/>
         <button class="exit-dialog" id="cancel" label="&dialog.cancelButton.label;" default="true" oncommand="doCancelButton();"/>
+        <spacer flex="1"/>
+        <button id="vkb" label=""  oncommand="opener.VirtualKeyboard.show()" class="vkb"/>
     </hbox>
 
 </window>

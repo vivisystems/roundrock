@@ -108,7 +108,7 @@ pref("vivipos.fec.settings.controlpanels.system.systembackup.roles", "acl_manage
 
 pref("vivipos.fec.settings.controlpanels.product.imagemanager.label", "Image Manager");
 pref("vivipos.fec.settings.controlpanels.product.imagemanager.path", "chrome://viviecr/content/imageManager.xul");
-pref("vivipos.fec.settings.controlpanels.product.imagemanager.icon", "chrome://viviecr/skin/icons/icon_generic.png");
+pref("vivipos.fec.settings.controlpanels.product.imagemanager.icon", "chrome://viviecr/skin/icons/icon_imgmanager.png");
 pref("vivipos.fec.settings.controlpanels.product.imagemanager.roles", "acl_manage_images_inactive");
 
 pref("vivipos.fec.settings.controlpanels.config.functionpanel.label", "Function Panel Configuration");
