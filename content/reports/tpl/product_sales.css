@@ -1,0 +1,110 @@
+@namespace xul url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+@namespace html url(""http://www.w3.org/1999/xhtml"");
+
+/******** for xul ********/
+.reportbox {
+    overflow-y:scroll;
+}
+
+
+/******** for html ********/
+.report {
+	width: 400px;
+	min-height: 340px;
+    padding: 10px;
+	margin: 10px;
+	background: #aaa;
+	border: solid;
+    border-width: 1px;
+}
+
+.paper {
+	width: 500px;
+	min-height: 340px;
+    padding: 10px;
+	margin: 10px;
+	background: #fff;
+	border: solid;
+    border-width: 1px;
+    font-size:16px;
+}
+
+#body-table {
+
+  font: 100% sans-serif;
+  background-color: #def;
+  border-collapse: collapse;
+  empty-cells: show;
+  border: 1px solid #4ca;
+  }
+
+#body-table > caption {
+  text-align: left;
+  font-weight: bold;
+  font-size: 120%;
+  border-bottom: .2em solid #7a7;
+  margin-bottom: .5em;
+  }
+
+
+/* basic shared rules */
+#body-table th,
+#body-table td {
+  text-align: right;
+  padding-right: .5em;
+  }
+
+#body-table th {
+  font-weight: bold;
+  padding-left: .5em;
+  }
+
+
+/* header */
+#body-table > thead > tr:first-child > th {
+  text-align: center;
+  color: blue;
+  }
+
+#body-table > thead > tr + tr > th {
+  font-style: italic;
+  color: gray;
+  }
+
+/* fix size of superscript */
+#body-table sup {
+  font-size: 75%;
+  }
+
+/* body */
+#body-table td {
+  background-color: #eef;
+  padding:.2em .5em .2em .5em;
+  }
+
+#body-table tbody th:after {
+  content: ":";
+  }
+
+
+/* footer */
+#body-table tfoot {
+  font-weight: bold;
+  }
+
+#body-table tfoot th {
+  color: blue;
+  }
+
+#body-table tfoot th:after {
+  content: ":";
+  }
+
+#body-table > tfoot td {
+  background-color: #cee;
+  }
+
+#body-table > tfoot > tr:first-child td {
+  border-top: .2em solid #7a7;
+  }
+

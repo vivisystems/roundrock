@@ -414,7 +414,7 @@ textbox:not([onclick]) *[readonly] {
     background: transparent url(images/prod-remove.png) center center no-repeat;
 }
 
-.dialogbtns .vkb {
+.dialogbtns,.promptbtns #vkb {
     list-style-image: url(images/keyboard-48x48.png);
     margin: 2px;
     -moz-box-orient: vertical;

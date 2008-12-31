@@ -1,3 +1,4 @@
 var AccountModel = window.AccountModel = GeckoJS.Model.extend({
-    name: 'Account'
+    name: 'Account',
+    useDbConfig: 'order'
 });
