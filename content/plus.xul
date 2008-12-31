@@ -23,8 +23,8 @@
 
     <vbox flex="1" class="main-dialog">
         <label id="" value="&plus.title;"  class="labeltitle"/>
-        <hbox flex="1" class="footlogo" style="overflow: hidden;">
-            <vbox flex="1">
+        <hbox flex="1" style="overflow: hidden;">
+            <vbox class="productContainer" flex="1" >
                 <!-- Begin Catalogs -->
                 <viviscrollablebuttonpanel dir="reverse" id="catescrollablepanel" flex="1" cols="4" rows="2" labelField="name" imageField="no"
                                            oncommand="$do('changePluPanel',this.selectedIndex, 'Plus');"

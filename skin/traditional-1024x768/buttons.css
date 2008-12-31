@@ -26,7 +26,6 @@
     -moz-border-right-colors: #848388 #bebebe !important;
     -moz-border-bottom-colors: #848388 #bebebe !important;
     -moz-border-left-colors: #848388 #bebebe !important;
-    color: #fff;
     -moz-appearance: none;
     margin: 2px 2px 2px 2px;
     padding: 0px;
@@ -400,7 +399,12 @@
     background: transparent url(images/prod-remove.png) center center no-repeat;
 }
 
-.dialogbtns #vkb {
+.dialogbtns .vkb {
+    list-style-image: url(images/keyboard-48x48.png);
+    -moz-box-orient: vertical;
+}
+
+.promptbtns .vkb {
     list-style-image: url(images/keyboard-48x48.png);
     -moz-box-orient: vertical;
 }

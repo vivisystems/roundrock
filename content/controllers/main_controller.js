@@ -527,7 +527,7 @@
                 }
                 else if (!stop) {
                     // @todo OSD
-                    NotifyUtils.error(_('Authentication failed!. Please make sure the password is correct.'));
+                    NotifyUtils.error(_('Authentication failed! Please make sure the password is correct.'));
                 }
             }
             else {
@@ -566,7 +566,7 @@
 
                 if (users == null || users.length == 0) {
                     //@todo silent user switch successful
-                    NotifyUtils.error(_('[%S] does not exist!', [newUser]));
+                    NotifyUtils.error(_('User [%S] does not exist!', [newUser]));
                     return;
                 }
                 else {
@@ -600,7 +600,7 @@
                 }
                 else {
                     // @todo error message for login failure
-                    NotifyUtils.error(_('Authentication failed!. Please make sure the password is correct.'));
+                    NotifyUtils.error(_('Authentication failed! Please make sure the password is correct.'));
                 }
             }
             else {

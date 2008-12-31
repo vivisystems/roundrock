@@ -47,3 +47,17 @@
 .timepickerfont {
   font-size: 48px;
 }
+
+/*-----------------------------------------------------------------------------
+ * PRODUCT CONTAINER
+ *-----------------------------------------------------------------------------
+ *
+ *@todo
+ * hack to prevent control panel image from shifting when loading product panel
+ */
+
+.productContainer {
+    width: 570px;
+    max-width: 570px;
+    min-width: 570px;
+}

@@ -71,10 +71,10 @@ pref("vivipos.fec.settings.controlpanels.product.stocks.path", "chrome://viviecr
 pref("vivipos.fec.settings.controlpanels.product.stocks.icon", "chrome://viviecr/skin/icons/icon_stocks.png");
 pref("vivipos.fec.settings.controlpanels.product.stocks.roles", "acl_manage_stock");
 
-pref("vivipos.fec.settings.controlpanels.activity.reports.label", "Reports");
-pref("vivipos.fec.settings.controlpanels.activity.reports.path", "chrome://viviecr/content/report.xul");
-pref("vivipos.fec.settings.controlpanels.activity.reports.icon", "chrome://viviecr/skin/icons/icon_reports.png");
-pref("vivipos.fec.settings.controlpanels.activity.reports.roles", "acl_manage_reports");
+pref("vivipos.fec.settings.controlpanels.product.reports.label", "Reports");
+pref("vivipos.fec.settings.controlpanels.product.reports.path", "chrome://viviecr/content/report.xul");
+pref("vivipos.fec.settings.controlpanels.product.reports.icon", "chrome://viviecr/skin/icons/icon_reports.png");
+pref("vivipos.fec.settings.controlpanels.product.reports.roles", "acl_manage_reports");
 
 pref("vivipos.fec.settings.controlpanels.activity.promotions.label", "Promotions");
 pref("vivipos.fec.settings.controlpanels.activity.promotions.path", "chrome://viviecr/content/promotions.xul");
@@ -106,10 +106,10 @@ pref("vivipos.fec.settings.controlpanels.system.systembackup.path", "chrome://vi
 pref("vivipos.fec.settings.controlpanels.system.systembackup.icon", "chrome://viviecr/skin/icons/icon_generic.png");
 pref("vivipos.fec.settings.controlpanels.system.systembackup.roles", "acl_manage_backup");
 
-pref("vivipos.fec.settings.controlpanels.system.imagemanager.label", "Image Manager");
-pref("vivipos.fec.settings.controlpanels.system.imagemanager.path", "chrome://viviecr/content/imageManager.xul");
-pref("vivipos.fec.settings.controlpanels.system.imagemanager.icon", "chrome://viviecr/skin/icons/icon_generic.png");
-pref("vivipos.fec.settings.controlpanels.system.imagemanager.roles", "acl_manage_images_inactive");
+pref("vivipos.fec.settings.controlpanels.product.imagemanager.label", "Image Manager");
+pref("vivipos.fec.settings.controlpanels.product.imagemanager.path", "chrome://viviecr/content/imageManager.xul");
+pref("vivipos.fec.settings.controlpanels.product.imagemanager.icon", "chrome://viviecr/skin/icons/icon_generic.png");
+pref("vivipos.fec.settings.controlpanels.product.imagemanager.roles", "acl_manage_images_inactive");
 
 pref("vivipos.fec.settings.controlpanels.config.functionpanel.label", "Function Panel Configuration");
 pref("vivipos.fec.settings.controlpanels.config.functionpanel.path", "chrome://viviecr/content/funcpanelecrprefs.xul");

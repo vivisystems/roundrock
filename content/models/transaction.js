@@ -268,7 +268,7 @@
             });
         }else if (type == 'discount') {
             if (item.discount_name && item.discount_name.length > 0) {
-                dispName = item.discount_name;
+                dispName = _(item.discount_name);
             }
             else {
                 dispName = '-' + ((item.discount_type == '%') ? item.discount_rate*100 + '%' : '');
@@ -287,7 +287,7 @@
             });
         }else if (type == 'trans_discount') {
             if (item.discount_name && item.discount_name.length > 0) {
-                dispName = item.discount_name;
+                dispName = _(item.discount_name);
             }
             else {
                 dispName = '-' + ((item.discount_type == '%') ? item.discount_rate*100 + '%' : '');
@@ -306,7 +306,7 @@
             });
         }else if (type == 'surcharge') {
             if (item.surcharge_name && item.surcharge_name.length > 0) {
-                dispName = item.surcharge_name;
+                dispName = _(item.surcharge_name);
             }
             else {
                 dispName = '+' + ((item.surcharge_type == '%') ? item.surcharge_rate*100 + '%' : '');
@@ -325,7 +325,7 @@
             });
         }else if (type == 'trans_surcharge') {
             if (item.surcharge_name && item.surcharge_name.length > 0) {
-                dispName = item.surcharge_name;
+                dispName = _(item.surcharge_name);
             }
             else {
                 dispName = '+' + ((item.surcharge_type == '%') ? item.surcharge_rate*100 + '%' : '');
@@ -345,7 +345,7 @@
         }else if (type == 'tray' || type == 'subtotal' || type == 'total') {
             itemDisplay = GREUtils.extend(itemDisplay, {
                 id: '',
-                name: item.name,
+                name: _(item.name),
                 current_qty: item.current_tax,
                 current_price: item.current_price,
                 current_subtotal: item.current_subtotal,
@@ -369,7 +369,7 @@
         }else if(type =='payment') {
             itemDisplay = GREUtils.extend(itemDisplay, {
                 id: '',
-                name: item.name.toUpperCase(),
+                name: _(item.name.toUpperCase()),
                 current_qty: '',
                 current_price: '',
                 current_subtotal: item.amount,
@@ -390,9 +390,9 @@
         }
 
         // tax amount is displayed in the current_qty field for readability
-        if (type == 'tray' || type == 'subtotal') {
+        if (type == 'total' || type == 'subtotal') {
             if(itemDisplay.current_qty != ''  || itemDisplay.current_qty === 0 ) {
-                itemDisplay.current_qty = this.formatTax(itemDisplay.current_qty);
+                itemDisplay.current_qty = '<'  + this.formatTax(itemDisplay.current_qty) + '>';
             }
         }
         return itemDisplay;

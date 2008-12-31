@@ -3,430 +3,869 @@
 # This file is distributed under the same license as the PACKAGE package.
 # user <user@ubuntu804desktop.localdomain>, 2008.
 #
-!=Project-Id-Version\: PACKAGE VERSION\nReport-Msgid-Bugs-To\: irving.hsu@firich.com.tw\nPOT-Creation-Date\: 2008-12-28 01\:44+0800\nPO-Revision-Date\: 2008-12-30 14\:05+0800\nLast-Translator\: user <user@ubuntu804desktop.localdomain>\nLanguage-Team\: English\nMIME-Version\: 1.0\nContent-Type\: text/plain; charset\=UTF-8\nContent-Transfer-Encoding\: 8bit\nPlural-Forms\: nplurals\=2; plural\=(n \!\= 1);\n
+#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:96
+!=Project-Id-Version: PACKAGE VERSION\nReport-Msgid-Bugs-To: irving.hsu@firich.com.tw\nPOT-Creation-Date: 2008-12-31 10:56+0800\nPO-Revision-Date: 2008-12-31 13:15+0800\nLast-Translator: user <user@ubuntu804desktop.localdomain>\nLanguage-Team: English\nMIME-Version: 1.0\nContent-Type: text/plain; charset\=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals\=2; plural\=(n !\= 1);\n
 
+#: /home/user/workspace/vivipos_app/content/controllers/aclgroups_controller.js:47
 Add New ACL Group=\u65b0\u589e\u6b0a\u9650\u7fa4\u7d44
 
+#: /home/user/workspace/vivipos_app/content/controllers/aclgroups_controller.js:47
 New ACL Group=\u65b0\u6b0a\u9650\u7fa4\u7d44
 
+#: /home/user/workspace/vivipos_app/content/controllers/aclgroups_controller.js:47
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:199
+#: /home/user/workspace/vivipos_app/content/controllers/plugroups_controller.js:51
 Group Name=\u7fa4\u7d44\u540d\u7a31
 
+#: /home/user/workspace/vivipos_app/content/controllers/aclgroups_controller.js:54
 ACL Group [%S] already exists; ACL group not added.=\u6b0a\u9650\u7fa4\u7d44 [%S] \u5df2\u5b58\u5728; \u6b0a\u9650\u7fa4\u7d44\u672a\u65b0\u589e
 
+#: /home/user/workspace/vivipos_app/content/controllers/aclgroups_controller.js:62
 ACL Group [%S] added successfully=\u6b0a\u9650\u7fa4\u7d44 [%S] \u65b0\u589e\u6210\u529f
 
+#: /home/user/workspace/vivipos_app/content/controllers/aclgroups_controller.js:66
 An error occurred while adding ACL Group [%S]; the ACL group may not have been added successfully=\u65b0\u589e\u6b0a\u9650\u7fa4\u7d44 [%S] \u6642\u767c\u751f\u932f\u8aa4; \u8a72\u6b0a\u9650\u7fa4\u7d44\u4e26\u672a\u65b0\u589e\u6210\u529f
 
+#: /home/user/workspace/vivipos_app/content/controllers/aclgroups_controller.js:81
 The ACL group [%S] has been assigned to one or more users [%S] and cannot be removed.=\u6b0a\u9650\u7fa4\u7d44 [%S] \u5df2\u88ab\u4e00\u500b\u6216\u591a\u500b\u54e1\u5de5\u8a2d\u5b9a [%S] \u4e14\u7121\u6cd5\u522a\u9664
 
+#: /home/user/workspace/vivipos_app/content/controllers/aclgroups_controller.js:82
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:314
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:513
+#: /home/user/workspace/vivipos_app/content/controllers/departments_controller.js:257
+#: /home/user/workspace/vivipos_app/content/controllers/jobs_controller.js:143
+#: /home/user/workspace/vivipos_app/content/controllers/plugroups_controller.js:174
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:513
+#: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:187
+#: /home/user/workspace/vivipos_app/content/controllers/users_controller.js:192
 confirm delete %S=\u78ba\u8a8d\u5df2\u522a\u9664 %S
 
+#: /home/user/workspace/vivipos_app/content/controllers/aclgroups_controller.js:82
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:314
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:513
+#: /home/user/workspace/vivipos_app/content/controllers/departments_controller.js:257
+#: /home/user/workspace/vivipos_app/content/controllers/jobs_controller.js:143
+#: /home/user/workspace/vivipos_app/content/controllers/plugroups_controller.js:174
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:513
+#: /home/user/workspace/vivipos_app/content/controllers/pricelevelschedule_controller.js:122
+#: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:187
+#: /home/user/workspace/vivipos_app/content/controllers/users_controller.js:192
 Are you sure?=\u4f60\u78ba\u5b9a\u55ce?
 
+#: /home/user/workspace/vivipos_app/content/controllers/aclgroups_controller.js:100
 ACL Group [%S] removed successfully=\u6b0a\u9650\u7fa4\u7d44 [%S] \u522a\u9664\u6210\u529f
 
+#: /home/user/workspace/vivipos_app/content/controllers/aclgroups_controller.js:104
 An error occurred while removing ACL Group [%S]; the ACL group may not have been removed successfully=\u522a\u9664\u6b0a\u9650\u7fa4\u7d44 [%S] \u6642\u767c\u751f\u932f\u8aa4; \u8a72\u6b0a\u9650\u7fa4\u7d44\u4e26\u672a\u522a\u9664\u6210\u529f
 
+#: /home/user/workspace/vivipos_app/content/controllers/aclgroups_controller.js:129
 ACL Group [%S] modified successfully=\u6b0a\u9650\u7fa4\u7d44 [%S] \u4fee\u6539\u6210\u529f
 
+#: /home/user/workspace/vivipos_app/content/controllers/aclgroups_controller.js:133
 An error occurred while modifying ACL Group [%S]; the ACL group may not have been modified successfully=\u4fee\u6539\u6b0a\u9650\u7fa4\u7d44 [%S] \u6642\u767c\u751f\u932f\u8aa4; \u8a72\u6b0a\u9650\u7fa4\u7d44\u4e26\u672a\u4fee\u6539\u6210\u529f
 
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:80
 OUT OF STOCK=\u5df2\u7121\u5eab\u5b58
 
-Product May Be Out of Stock\!=\u7522\u54c1\u53ef\u80fd\u5df2\u7121\u5eab\u5b58
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:82
+Product May Be Out of Stock!=\u7522\u54c1\u53ef\u80fd\u5df2\u7121\u5eab\u5b58
 
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:92
 STOCK LOW=\u5eab\u5b58\u91cf\u4f4e\u65bc\u5b89\u5168\u5eab\u5b58
 
-Low Stock Threshold Reached\!=\u5eab\u5b58\u91cf\u5df2\u9054\u5b89\u5168\u5eab\u5b58
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:95
+Low Stock Threshold Reached!=\u5eab\u5b58\u91cf\u5df2\u9054\u5b89\u5168\u5eab\u5b58
 
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:127
 VERIFY AGE=\u78ba\u8a8d\u5e74\u9f61
 
-Verify Customer Age for Purchase of [%S]\!=\u8acb\u8207\u5ba2\u6236\u78ba\u8a8d\u5176\u5e74\u9f61\u5df2\u9054\u8cfc\u8cb7 [%S] \u4e4b\u6cd5\u5f8b\u898f\u5b9a
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:138
+Verify Customer Age for Purchase of [%S]!=\u8acb\u8207\u5ba2\u6236\u78ba\u8a8d\u5176\u5e74\u9f61\u5df2\u9054\u8cfc\u8cb7 [%S] \u4e4b\u6cd5\u5f8b\u898f\u5b9a
 
-Verify Customer Age for Purchase of\n[%S]\!=\u8acb\u8207\u5ba2\u6236\u78ba\u8a8d\u5176\u5e74\u9f61\u5df2\u9054\u8cfc\u8cb7 [%S] \u4e4b\u6cd5\u5f8b\u898f\u5b9a
+Verify Customer Age for Purchase of\n[%S]!=\u8acb\u8207\u5ba2\u6236\u78ba\u8a8d\u5176\u5e74\u9f61\u5df2\u9054\u8cfc\u8cb7 [%S] \u4e4b\u6cd5\u5f8b\u898f\u5b9a
 
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:263
 SINGLE ITEM SALE=\u55ae\u4e00\u7522\u54c1\u5feb\u901f\u92b7\u552e
 
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:288
 Product scan code not found [%S]=\u7522\u54c1\u689d\u78bc [%S] \u4e0d\u5b58\u5728
 
-Not an open order; cannot modify=\u5df2\u7d50\u55ae; \u7981\u6b62\u4fee\u6539
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:316
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:328
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:424
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:436
+Not an open order; cannot modify=\u5df2\u7d50\u55ae\u6216\u672a\u958b\u55ae; \u7981\u6b62\u4fee\u6539
 
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:322
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:430
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:518
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:868
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1047
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1376
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1554
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1632
 Please select an item first=\u8acb\u5148\u9078\u64c7\u4e00\u500b\u54c1\u9805
 
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:339
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:447
 Cannot modify selected item [%S]=\u7121\u6cd5\u4fee\u6539\u9078\u53d6\u7684\u54c1\u9805 [%S]
 
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:345
 Not authorized to modify condiment price=\u6b0a\u9650\u4e0d\u8db3; \u7981\u6b62\u4fee\u6539\u8abf\u5473\u50f9\u683c
 
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:353
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:455
 Cannot modify; selected item [%S] has discount or surcharge applied=\u7981\u6b62\u4fee\u6539; \u9078\u53d6\u7684\u54c1\u9805 [%S] \u5df2\u5957\u7528\u6298\u6263\u6216\u9644\u52a0\u8cbb
 
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:361
 Cannot modify; selected item [%S] has been subtotaled=\u7981\u6b62\u4fee\u6539; \u9078\u53d6\u7684\u54c1\u9805 [%S] \u5df2\u5217\u5165\u5c0f\u8a08
 
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:371
 Cannot modify; no price or quantity entered=\u7981\u6b62\u4fee\u6539; \u50f9\u683c\u6216\u6578\u91cf\u672a\u8f38\u5165
 
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:381
 Cannot modify condiment; no price entered=\u7981\u6b62\u4fee\u6539\u8abf\u5473; \u50f9\u683c\u672a\u8f38\u5165
 
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:476
 Quantity may not be less than 1=\u6578\u91cf\u4e0d\u5f97\u5c0f\u65bc 1
 
-Not an open order; cannot VOID=\u5df2\u7d50\u55ae; \u7981\u6b62\u522a\u9664
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:512
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:525
+Not an open order; cannot VOID=\u5df2\u7d50\u55ae\u6216\u672a\u958b\u55ae; \u7981\u6b62\u522a\u9664
 
 Cannot VOID the selected item [%S]\nIt is not the last registered item=\u7981\u6b62\u522a\u9664\u9078\u53d6\u7684\u54c1\u9805 [%S] ; \u8a72\u54c1\u9805\u4e26\u975e\u6700\u5f8c\u8f38\u5165\u4e4b\u54c1\u9805
 
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:551
 Cannot VOID an item that has been subtotaled=\u5df2\u5217\u5165\u5c0f\u8a08\u4e4b\u54c1\u9805\u7981\u6b62\u522a\u9664
 
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:583
 Please enter the discount amount=\u8acb\u8f38\u5165\u6298\u6263\u91d1\u984d
 
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:607
 Please enter the discount percentage first=\u8acb\u5148\u8f38\u5165\u6298\u6263\u767e\u5206\u6bd4
 
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:632
 Please enter the discount percentage=\u8acb\u8f38\u5165\u6298\u6263\u767e\u5206\u6bd4
 
-Not an open order; cannot add discount=\u5df2\u7d50\u55ae; \u7981\u6b62\u65b0\u589e\u6298\u6263
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:651
+Not an open order; cannot add discount=\u5df2\u7d50\u55ae\u6216\u672a\u958b\u55ae; \u7981\u6b62\u65b0\u589e\u6298\u6263
 
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:657
 Please select an item=\u8acb\u9078\u64c7\u4e00\u500b\u54c1\u9805
 
-Not an open order; cannot add surcharge=\u5df2\u7d50\u55ae; \u7981\u6b62\u65b0\u589e\u9644\u52a0\u8cbb
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:667
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:862
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:876
+Not an open order; cannot add surcharge=\u5df2\u7d50\u55ae\u6216\u672a\u958b\u55ae; \u7981\u6b62\u65b0\u589e\u9644\u52a0\u8cbb
 
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:676
 Pretax discount can only be registered against subtotals=\u7a05\u524d\u6298\u6263\u53ea\u80fd\u5728\u5c0f\u8a08\u6642\u5217\u5165
 
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:686
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:719
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:895
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:923
 Discount has been already been registered on item [%S]=\u54c1\u9805 [%S] \u4e4b\u6298\u6263\u5df2\u8a08\u5165
 
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:694
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:715
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:903
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:919
 Surcharge has been already been registered on item [%S]=\u54c1\u9805 [%S] \u4e4b\u9644\u52a0\u8cbb\u5df2\u8a08\u5165
 
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:702
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:911
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1398
 Cannot modify an item that has been subtotaled=\u5df2\u5217\u5165\u5c0f\u8a08\u4e4b\u54c1\u9805\u7981\u6b62\u4fee\u6539
 
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:707
 Cannot register discount on return items=\u7981\u6b62\u9000\u8ca8\u54c1\u9805\u5217\u5165\u6298\u6263
 
 Cannot apply discount to [%S]\nIt is not the last registered item=\u7981\u6b62\u63d0\u4f9b\u6298\u6263\u65bc\u9078\u53d6\u7684\u54c1\u9805 [%S] ; \u8a72\u54c1\u9805\u4e26\u975e\u6700\u5f8c\u8f38\u5165\u4e4b\u54c1\u9805
 
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:732
 Discount may not be added to [%S]=\u7981\u6b62\u63d0\u4f9b\u6298\u6263\u65bc [%S]
 
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:740
 Please enter the discount amount or percentage=\u8acb\u8f38\u5165\u6298\u6263\u91d1\u984d\u6216\u767e\u5206\u6bd4
 
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:793
 Please enter the surcharge amount first=\u8acb\u5148\u8f38\u5165\u9644\u52a0\u8cbb\u91d1\u984d
 
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:817
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:842
 Please enter the surcharge percentage=\u8acb\u8f38\u5165\u9644\u52a0\u8cbb\u767e\u5206\u6bd4
 
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:885
 Pretax surcharge can only be registered against subtotals=\u7a05\u524d\u9644\u52a0\u8cbb\u53ea\u80fd\u5728\u5c0f\u8a08\u6642\u5217\u5165
 
 Cannot apply surcharge to [%S]\nIt is not the last registered item=\u7981\u6b62\u5957\u7528\u9644\u52a0\u8cbb\u65bc\u9078\u53d6\u7684\u54c1\u9805 [%S] ; \u8a72\u54c1\u9805\u4e26\u975e\u6700\u5f8c\u8f38\u5165\u4e4b\u54c1\u9805
 
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:936
 Surcharge may not be added to [%S]=\u7981\u6b62\u5957\u7528\u9644\u52a0\u8cbb\u65bc [%S]
 
-Not an open order; operation invalid=\u5df2\u7d50\u55ae; \u64cd\u4f5c\u7121\u6548
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:984
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:993
+Not an open order; operation invalid=\u5df2\u7d50\u55ae\u6216\u672a\u958b\u55ae; \u64cd\u4f5c\u7121\u6548
 
-Not an open order; cannot register House Bon=\u5df2\u7d50\u55ae; \u7981\u6b62\u5217\u5165\u8d08\u9001\u7522\u54c1
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1041
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1053
+Not an open order; cannot register House Bon=\u5df2\u7d50\u55ae\u6216\u672a\u958b\u55ae; \u7981\u6b62\u767b\u9304\u8d08\u9001\u7522\u54c1
 
-House Bon may not be applied to [%S]=\u54c1\u9805 [%S] \u7981\u6b62\u5217\u5165\u8d08\u9001\u7522\u54c1
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1067
+House Bon may not be applied to [%S]=\u54c1\u9805 [%S] \u7981\u6b62\u767b\u9304\u70ba\u8d08\u9001\u7522\u54c1
 
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1095
 The selected currency [%S] has not been configured=\u9078\u53d6\u7684\u5e63\u5225\u5c1a\u672a\u8a2d\u5b9a
 
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1114
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1187
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1233
 Please enter an amount first=\u8acb\u5148\u8f38\u5165\u91d1\u984d
 
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1118
 Please configure the selected currency entry first [%S]=\u8acb\u5148\u8a2d\u5b9a\u9078\u53d6\u7684\u5e63\u5225 [%S]
 
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1131
 Credit Card Remark=\u4fe1\u7528\u5361\u8a3b\u8a18
 
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1131
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1148
 Payment=\u4ed8\u6b3e
 
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1132
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1149
 Card Type=\u5361\u5225
 
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1132
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1149
 Card Remark=\u5361\u7247\u8a3b\u8a18
 
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1148
 Gift Card Remark=\u79ae\u54c1\u5361\u8a3b\u8a18
 
-Not an open order; cannot register payments=\u5df2\u7d50\u55ae; \u7981\u6b62\u5217\u5165\u4ed8\u6b3e
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1174
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1180
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1220
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1226
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1260
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1268
+Not an open order; cannot register payments=\u5df2\u7d50\u55ae\u6216\u672a\u958b\u55ae; \u7981\u6b62\u767b\u9304\u4ed8\u6b3e\u91d1\u984d
 
-Not an open order; cannot shift tax=\u5df2\u7d50\u55ae; \u7981\u6b62\u5207\u63db\u7a05\u5225
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1370
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1382
+Not an open order; cannot shift tax=\u5df2\u7d50\u55ae\u6216\u672a\u958b\u55ae; \u7981\u6b62\u5207\u63db\u7a05\u5225
 
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1391
 This operation cannot be performed on [%S]=\u6b64\u4f5c\u696d\u7981\u6b62\u5728\u54c1\u9805 [%S] \u4e0a\u57f7\u884c
 
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1417
 The tax status indicated does not exist [%S]=\u9078\u53d6\u7684\u7a05\u5225\u4e0d\u5b58\u5728
 
-Not an open order; cannot add condiment=\u5df2\u7d50\u55ae; \u7981\u6b62\u65b0\u589e\u8abf\u5473
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1548
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1565
+Not an open order; cannot add condiment=\u5df2\u7d50\u55ae\u6216\u672a\u958b\u55ae; \u7981\u6b62\u65b0\u589e\u8abf\u5473
 
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1579
 Condiments may not be added to [%S]=\u7981\u6b62\u65bc\u54c1\u9805 [%S] \u65b0\u589e\u8abf\u5473
 
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1584
 Cannot add condiments to an item that has been subtotaled=\u5df2\u5217\u5165\u5c0f\u8a08\u4e4b\u54c1\u9805\u7981\u6b62\u65b0\u589e\u8abf\u5473
 
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1589
 Please void discount on item first=\u8acb\u5148\u522a\u9664\u8a72\u54c1\u9805\u4e4b\u6298\u6263
 
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1594
 Please void surcharge on item first=\u8acb\u5148\u522a\u9664\u8a72\u54c1\u9805\u4e4b\u9644\u52a0\u8cbb
 
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1606
 No Condiment group associated with item [%S]=\u54c1\u9805 [%S] \u4e26\u672a\u8207\u4efb\u4f55\u8abf\u5473\u7fa4\u7d44\u9023\u7d50
 
-Not an open order; cannot add memo=\u5df2\u7d50\u55ae; \u7981\u6b62\u65b0\u589e\u5099\u8a3b
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1627
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1638
+Not an open order; cannot add memo=\u5df2\u7d50\u55ae\u6216\u672a\u958b\u55ae; \u7981\u6b62\u65b0\u589e\u5099\u8a3b
 
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1720
 Add New Memo=\u65b0\u589e\u5099\u8a3b
 
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1720
 Add Memo=\u65b0\u589e\u5099\u8a3b
 
-Memo\:=\u5099\u8a3b
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1720
+Memo:=\u5099\u8a3b
 
-No open order to push=\u7121\u958b\u653e\u8a02\u55ae\u53ef\u63d0\u4f9b
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1801
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1806
+No open order to push=\u5df2\u7d50\u55ae\u6216\u672a\u958b\u55ae
 
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1841
 Order is not queued because it is empty=\u7121\u4efb\u4f55\u54c1\u9805\u6545\u7121\u6cd5\u66ab\u5b58
 
-Authentication failed\!\nPlease make sure the password is correct.=\u767b\u5165\u5931\u6557; \u8acb\u78ba\u8a8d\u767b\u5165\u5bc6\u78bc\u662f\u5426\u6b63\u78ba
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:530
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:603
+Authentication failed! Please make sure the password is correct.=\u767b\u5165\u5931\u6557! \u8acb\u78ba\u8a8d\u767b\u5165\u5bc6\u78bc\u662f\u5426\u6b63\u78ba.
 
-Authentication failed\!\nPlease select a user=\u767b\u5165\u5931\u6557; \u8acb\u9078\u64c7\u4f7f\u7528\u8005
+Authentication failed! Please select a user=\u767b\u5165\u5931\u6557! \u8acb\u9078\u64c7\u4f7f\u7528\u8005
 
 Please select a user first=\u8acb\u5148\u9078\u64c7\u4f7f\u7528\u8005
 
 Please enter the passcode=\u8acb\u8f38\u5165\u767b\u5165\u5bc6\u78bc
 
-Authentication Failed\!\nPlease make sure the passcode is correct=\u767b\u5165\u5931\u6557; \u8acb\u78ba\u8a8d\u767b\u5165\u5bc6\u78bc\u662f\u5426\u6b63\u78ba
+Authentication Failed! Please make sure the passcode is correct=\u767b\u5165\u5931\u6557! \u8acb\u78ba\u8a8d\u767b\u5165\u5bc6\u78bc\u662f\u5426\u6b63\u78ba
 
 Please select a job first=\u8acb\u5148\u9078\u64c7\u5de5\u4f5c\u5167\u5bb9
 
 Not clocked in yet=\u5c1a\u672a\u6253\u4e0a\u73ed\u5361
 
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:195
 Add New Condiment Group=\u65b0\u589e\u8abf\u5473\u7fa4\u7d44
 
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:197
 New Condiment Group=\u65b0\u8abf\u5473\u7fa4\u7d44
 
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:211
 Condiment Group [%S] already exists.=\u8abf\u5473\u7fa4\u7d44 [%S] \u5df2\u5b58\u5728
 
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:238
 Condiment Group [%S] added successfully=\u65b0\u589e\u8abf\u5473\u7fa4\u7d44\u6210\u529f
 
 An error occurred while adding Condiment Group [%S]\nThe group may not have been added successfully=\u65b0\u589e\u8abf\u5473\u7fa4\u7d44 [%S] \u6642\u767c\u751f\u932f\u8aa4; \u8a72\u8abf\u5473\u7fa4\u7d44\u4e26\u672a\u65b0\u589e\u6210\u529f
 
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:267
 Condiment Group [%S] already exists=\u8abf\u5473\u7fa4\u7d44 [%S] \u5df2\u5b58\u5728
 
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:288
 Condiment Group [%S] modified successfully=\u8abf\u5473\u7fa4\u7d44 [%S] \u4fee\u6539\u6210\u529f
 
 An error occurred while modifying Condiment Group [%S]\nThe group may not have been modified successfully=\u4fee\u6539\u8abf\u5473\u7fa4\u7d44 [%S] \u6642\u767c\u751f\u932f\u8aa4; \u8a72\u8abf\u5473\u7fa4\u7d44\u4e26\u672a\u4fee\u6539\u6210\u529f
 
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:344
 Condiment Group [%S] removed successfully=\u8abf\u5473\u7fa4\u7d44 [%S] \u522a\u9664\u6210\u529f
 
 An error occurred while removing Condiment Group [%S]\nThe group may not have been removed successfully=\u522a\u9664\u8abf\u5473\u7fa4\u7d44 [%S] \u6642\u767c\u751f\u932f\u8aa4; \u8a72\u8abf\u5473\u7fa4\u7d44\u4e26\u672a\u522a\u9664\u6210\u529f
 
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:392
 Add New Condiment=\u65b0\u589e\u8abf\u5473\u7a2e\u985e
 
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:392
 New Condiment=\u65b0\u8abf\u5473\u7a2e\u985e
 
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:392
 Condiment Name=\u8abf\u5473\u540d\u7a31
 
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:392
 Condiment Price=\u8abf\u5473\u50f9\u683c
 
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:398
 Condiment Price must be a number=\u8abf\u5473\u50f9\u683c\u5fc5\u9808\u70ba\u6578\u5b57
 
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:417
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:477
 Condiment [%S] already exists in this group=\u8abf\u5473\u540d\u7a31 [%S] \u5df2\u5b58\u5728\u65bc\u672c\u8abf\u5473\u7fa4\u7d44
 
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:451
 Condiment [%S] added successfully=\u65b0\u589e\u8abf\u5473\u7a2e\u985e [%S] \u6210\u529f
 
 An error occurred while adding Condiment [%S]\nThe condiment may not have been added successfully=\u65b0\u589e\u8abf\u5473\u7a2e\u985e [%S] \u6642\u767c\u751f\u932f\u8aa4; \u8a72\u8abf\u5473\u7a2e\u985e\u4e26\u672a\u65b0\u589e\u6210\u529f
 
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:499
 Condiment [%S] modified successfully=\u4fee\u6539\u8abf\u5473\u7a2e\u985e [%S] \u6210\u529f
 
 An error occurred while modifying Condiment [%S]\nThe condiment may not have been modified successfully=\u4fee\u6539\u8abf\u5473\u7a2e\u985e [%S] \u6642\u767c\u751f\u932f\u8aa4; \u8a72\u8abf\u5473\u7a2e\u985e\u4e26\u672a\u4fee\u6539\u6210\u529f
 
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:538
 Condiment [%S] removed successfully=\u522a\u9664\u8abf\u5473\u7a2e\u985e [%S] \u6210\u529f
 
 An error occurred while removing Condiment [%S]\nThe condiment may not have been removed successfully=\u522a\u9664\u8abf\u5473\u7a2e\u985e [%S] \u6642\u767c\u751f\u932f\u8aa4; \u8a72\u8abf\u5473\u7a2e\u985e\u4e26\u672a\u522a\u9664\u6210\u529f
 
+#: /home/user/workspace/vivipos_app/content/controllers/departments_controller.js:146
 Department Number must not be empty=\u90e8\u9580\u4ee3\u78bc\u4e0d\u5f97\u70ba\u7a7a\u767d
 
+#: /home/user/workspace/vivipos_app/content/controllers/departments_controller.js:150
 Department Name must not be empty=\u90e8\u9580\u540d\u7a31\u4e0d\u5f97\u70ba\u7a7a\u767d
 
+#: /home/user/workspace/vivipos_app/content/controllers/departments_controller.js:158
 Duplicate Department Number (%S); department not %S.=\u90e8\u9580\u4ee3\u78bc (%S) \u5df2\u5b58\u5728; \u8acb\u8f38\u5165\u5176\u4ed6\u4ee3\u78bc
 
+#: /home/user/workspace/vivipos_app/content/controllers/departments_controller.js:162
 Duplicate Department Name (%S); department not %S.=\u90e8\u9580\u540d\u7a31 (%S) \u5df2\u5b58\u5728; \u8acb\u8f38\u5165\u5176\u4ed6\u540d\u7a31
 
+#: /home/user/workspace/vivipos_app/content/controllers/departments_controller.js:178
 Add New Department=\u65b0\u589e\u7522\u54c1\u90e8\u9580
 
+#: /home/user/workspace/vivipos_app/content/controllers/departments_controller.js:178
 New Department=\u65b0\u7522\u54c1\u90e8\u9580
 
+#: /home/user/workspace/vivipos_app/content/controllers/departments_controller.js:178
 Department Number=\u90e8\u9580\u4ee3\u78bc
 
+#: /home/user/workspace/vivipos_app/content/controllers/departments_controller.js:178
 Department Name=\u90e8\u9580\u540d\u7a31
 
+#: /home/user/workspace/vivipos_app/content/controllers/departments_controller.js:203
 Department [%S] added successfully=\u65b0\u589e\u7522\u54c1\u90e8\u9580 [%S] \u6210\u529f
 
+#: /home/user/workspace/vivipos_app/content/controllers/departments_controller.js:207
 An error occurred while adding Department [%S]; the department may not have been added successfully=\u65b0\u589e\u7522\u54c1\u90e8\u9580 [%S] \u6642\u767c\u751f\u932f\u8aa4; \u8a72\u7522\u54c1\u90e8\u9580\u4e26\u672a\u65b0\u589e\u6210\u529f
 
+#: /home/user/workspace/vivipos_app/content/controllers/departments_controller.js:231
 Department [%S] modified successfully=\u4fee\u6539\u7522\u54c1\u90e8\u9580 [%S] \u6210\u529f
 
 An error occurred while modifying Department [%S]\nThe department may not have been modified successfully=\u4fee\u6539\u7522\u54c1\u90e8\u9580 [%S] \u6642\u767c\u751f\u932f\u8aa4; \u8a72\u7522\u54c1\u90e8\u9580\u4e26\u672a\u4fee\u6539\u6210\u529f
 
+#: /home/user/workspace/vivipos_app/content/controllers/departments_controller.js:269
 Department [%S] removed successfully=\u522a\u9664\u7522\u54c1\u90e8\u9580 [%S] \u6210\u529f
 
 An error occurred while removing Department [%S]\nThe department may not have been removed successfully=\u522a\u9664\u7522\u54c1\u90e8\u9580 [%S] \u6642\u767c\u751f\u932f\u8aa4; \u8a72\u7522\u54c1\u90e8\u9580\u4e26\u672a\u522a\u9664\u6210\u529f
 
+#: /home/user/workspace/vivipos_app/content/controllers/funcpanelecrprefs_controller.js:823
 .name=.\u540d\u7a31
 
+#: /home/user/workspace/vivipos_app/content/controllers/funcpanelecrprefs_controller.js:824
 .label=.\u6a19\u7c64
 
+#: /home/user/workspace/vivipos_app/content/controllers/funcpanelecrprefs_controller.js:825
 .desc=.\u6558\u8ff0
 
-export plu finish\!=\u7522\u54c1\u8cc7\u6599\u532f\u51fa\u5b8c\u6210\!
+export plu finish!=\u7522\u54c1\u8cc7\u6599\u532f\u51fa\u5b8c\u6210!
 
-export data finish\!=\u8cc7\u6599\u532f\u51fa\u5b8c\u6210\!
+export data finish!=\u8cc7\u6599\u532f\u51fa\u5b8c\u6210!
 
+#: /home/user/workspace/vivipos_app/content/controllers/jobs_controller.js:35
 Add New Job=\u65b0\u589e\u5de5\u4f5c\u5167\u5bb9
 
+#: /home/user/workspace/vivipos_app/content/controllers/jobs_controller.js:35
 New Job=\u65b0\u5de5\u4f5c\u5167\u5bb9
 
+#: /home/user/workspace/vivipos_app/content/controllers/jobs_controller.js:35
 Job Name=\u5de5\u4f5c\u540d\u7a31
 
+#: /home/user/workspace/vivipos_app/content/controllers/jobs_controller.js:53
 Duplicate job name [%S]; job not added.=\u5de5\u4f5c\u540d\u7a31 [%S] \u5df2\u5b58\u5728; \u7121\u6cd5\u65b0\u589e
 
+#: /home/user/workspace/vivipos_app/content/controllers/jobs_controller.js:81
 Job [%S] added successfully=\u65b0\u589e\u5de5\u4f5c\u5167\u5bb9 [%S] \u6210\u529f
 
+#: /home/user/workspace/vivipos_app/content/controllers/jobs_controller.js:102
 Duplicate job name [%S]; job not modified.=\u5de5\u4f5c\u540d\u7a31 [%S] \u5df2\u5b58\u5728; \u7121\u6cd5\u4fee\u6539
 
+#: /home/user/workspace/vivipos_app/content/controllers/jobs_controller.js:119
+#: /home/user/workspace/vivipos_app/content/controllers/plugroups_controller.js:149
 Job [%S] modified successfully=\u4fee\u6539\u5de5\u4f5c\u5167\u5bb9 [%S] \u6210\u529f
 
+#: /home/user/workspace/vivipos_app/content/controllers/jobs_controller.js:168
 Job [%S] removed successfully=\u522a\u9664\u5de5\u4f5c\u5167\u5bb9 [%S] \u6210\u529f
 
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:513
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:595
  logged in=\u767b\u5165
 
 Failed to authenticate user=\u767b\u5165\u5931\u6557
 
-Please enter passcode first=\u8acb\u5148\u8f38\u5165\u767b\u5165\u5bc6\u78bc
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:608
+Please enter passcode first.=\u8acb\u5148\u8f38\u5165\u767b\u5165\u5bc6\u78bc
 
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:632
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:644
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:657
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:670
 Sign Off=\u767b\u51fa
 
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:632
 Discard items that have been registered?=\u522a\u9664\u5df2\u8f38\u5165\u4e4b\u4ea4\u6613?
 
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:644
 What do you want to do with the registered items?=\u60a8\u8981\u5982\u4f55\u8655\u7406\u5df2\u8f38\u5165\u4e4b\u4ea4\u6613\u8cc7\u6599?
 
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:645
 Queue=\u66ab\u5b58
 
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:645
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:671
 Discard=\u522a\u9664
 
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:657
 You have one or more queued orders. Discard them?=\u60a8\u6709\u4e00\u7b46\u6216\u591a\u7b46\u66ab\u5b58\u55ae. \u662f\u5426\u522a\u9664?
 
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:670
 You have one or more queued orders. What do you want to do with them?=\u60a8\u6709\u4e00\u7b46\u6216\u591a\u7b46\u66ab\u5b58\u55ae. \u8acb\u554f\u60a8\u8981\u5982\u4f55\u8655\u7406?
 
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:671
 Keep=\u4fdd\u7559
 
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:680
 confirm sign-off=\u78ba\u8a8d\u767b\u51fa
 
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:680
 Are you ready to sign off?=\u60a8\u6e96\u5099\u8981\u767b\u51fa\u55ce?
 
+#: /home/user/workspace/vivipos_app/content/controllers/plugroups_controller.js:51
 Add New Product Group=\u65b0\u589e\u7522\u54c1\u7fa4\u7d44
 
+#: /home/user/workspace/vivipos_app/content/controllers/plugroups_controller.js:51
 New Product Group=\u65b0\u7522\u54c1\u7fa4\u7d44
 
+#: /home/user/workspace/vivipos_app/content/controllers/plugroups_controller.js:69
 Duplicate Product Group name [%S]; Product Group not added.=\u7522\u54c1\u7fa4\u7d44\u540d\u7a31 [%S] \u5df2\u5b58\u5728; \u7121\u6cd5\u65b0\u589e
 
+#: /home/user/workspace/vivipos_app/content/controllers/plugroups_controller.js:108
 Product Group [%S] added successfully=\u65b0\u589e\u7522\u54c1\u7fa4\u7d44 [%S] \u6210\u529f
 
+#: /home/user/workspace/vivipos_app/content/controllers/plugroups_controller.js:130
 Duplicate Product Group name [%S]; Product group not modified.=\u7522\u54c1\u7fa4\u7d44\u540d\u7a31 [%S] \u5df2\u5b58\u5728; \u7121\u6cd5\u4fee\u6539
 
+#: /home/user/workspace/vivipos_app/content/controllers/plugroups_controller.js:206
 Product Group [%S] removed successfully=\u522a\u9664\u7522\u54c1\u7fa4\u7d44 [%S] \u6210\u529f
 
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:283
 Add New Product Set=\u65b0\u589e\u7d44\u5408\u7522\u54c1
 
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:283
 Product Set=\u7d44\u5408\u7522\u54c1
 
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:283
 Product No.or Barcode=\u7522\u54c1\u7de8\u865f\u6216\u7522\u54c1\u689d\u78bc
 
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:283
 Quantity=\u6578\u91cf
 
 Product not found (%S).=\u7522\u54c1 (%S) \u4e0d\u5b58\u5728
 
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:393
 Product No. must not be empty.=\u7522\u54c1\u7de8\u865f\u4e0d\u5f97\u70ba\u7a7a\u767d
 
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:396
 Product Name must not be empty.=\u7522\u54c1\u540d\u7a31\u4e0d\u5f97\u70ba\u7a7a\u767d
 
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:403
 The Product No. [%S] already exists; product not added.=\u7522\u54c1\u7de8\u865f [%S] \u5df2\u5b58\u5728; \u7121\u6cd5\u65b0\u589e
 
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:407
 The Product Name [%S] already exists; product not added.=\u7522\u54c1\u540d\u7a31 [%S] \u5df2\u5b58\u5728; \u7121\u6cd5\u65b0\u589e
 
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:411
 The Product Name [%S] already exists; product not modified.=\u7522\u54c1\u540d\u7a31 [%S] \u5df2\u5b58\u5728; \u7121\u6cd5\u4fee\u6539
 
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:438
 Add New Product=\u65b0\u589e\u7522\u54c1
 
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:438
 New Product=\u65b0\u7522\u54c1
 
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:438
 Product No.=\u7522\u54c1\u7de8\u865f
 
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:438
 Product Name=\u7522\u54c1\u540d\u7a31
 
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:466
 Product [%S] added successfully=\u65b0\u589e\u7522\u54c1 [%S] \u6210\u529f
 
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:470
 An error occurred while adding Product [%S]; the product may not have been added successfully=\u65b0\u589e\u7522\u54c1 [%S] \u6642\u767c\u751f\u932f\u8aa4; \u8a72\u7522\u54c1\u4e26\u672a\u65b0\u589e\u6210\u529f
 
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:496
 Product [%S] modified successfully=\u4fee\u6539\u7522\u54c1 [%S] \u6210\u529f
 
 An error occurred while modifying Product [%S]\nThe product may not have been modified successfully=\u4fee\u6539\u7522\u54c1 [%S] \u6642\u767c\u751f\u932f\u8aa4; \u8a72\u7522\u54c1\u4e26\u672a\u4fee\u6539\u6210\u529f
 
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:527
 Product [%S] removed successfully=\u522a\u9664\u7522\u54c1 [%S] \u6210\u529f
 
 An error occurred while removing Product [%S]\nThe product may not have been removed successfully=\u522a\u9664\u7522\u54c1 [%S] \u6642\u767c\u751f\u932f\u8aa4; \u8a72\u7522\u54c1\u4e26\u672a\u522a\u9664\u6210\u529f
 
-Product [%S] Not Found\!=\u7522\u54c1 [%S] \u4e0d\u5b58\u5728
+#: /home/user/workspace/vivipos_app/content/controllers/plusearch_controller.js:21
+Product [%S] Not Found!=\u7522\u54c1 [%S] \u4e0d\u5b58\u5728
 
+#: /home/user/workspace/vivipos_app/content/controllers/pricelevel_controller.js:53
 Price Level changed from [%S] to [%S]=\u50f9\u683c\u7531\u8a2d\u5b9a [%S] \u8b8a\u66f4\u70ba\u8a2d\u5b9a [%S]
 
+#: /home/user/workspace/vivipos_app/content/controllers/pricelevelschedule_controller.js:42
 Default=\u9810\u8a2d
 
+#: /home/user/workspace/vivipos_app/content/controllers/pricelevelschedule_controller.js:59
 Default Price Level=\u9810\u8a2d\u50f9\u683c\u8a2d\u5b9a
 
+#: /home/user/workspace/vivipos_app/content/controllers/pricelevelschedule_controller.js:103
 Schedule [%S - Price Level %S] added successfully=\u65b0\u589e\u8b8a\u50f9\u6392\u7a0b [%S - \u50f9\u683c\u8a2d\u5b9a %S] \u6210\u529f
 
+#: /home/user/workspace/vivipos_app/content/controllers/pricelevelschedule_controller.js:122
 confirm remove %S - price level %S=\u78ba\u8a8d\u522a\u9664 %S - \u50f9\u683c\u8a2d\u5b9a %S
 
+#: /home/user/workspace/vivipos_app/content/controllers/pricelevelschedule_controller.js:129
 Schedule [%S - Price Level %S] removed successfully=\u522a\u9664\u8b8a\u50f9\u6392\u7a0b [%S - \u50f9\u683c\u8a2d\u5b9a %S] \u6210\u529f
 
+#: /home/user/workspace/vivipos_app/content/controllers/stocks_controller.js:90
 Stock level for [%S] modified successfully=\u4fee\u6539\u7522\u54c1 [%S] \u5eab\u5b58\u91cf\u6210\u529f
 
-Product/Barcode Number (%S) not found\!=\u7522\u54c1\u7de8\u865f/\u7522\u54c1\u689d\u78bc (%S) \u4e0d\u5b58\u5728
+#: /home/user/workspace/vivipos_app/content/controllers/stocks_controller.js:114
+Product/Barcode Number (%S) not found!=\u7522\u54c1\u7de8\u865f/\u7522\u54c1\u689d\u78bc (%S) \u4e0d\u5b58\u5728
 
+#: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:80
 Tax code must not be empty.=\u7a05\u5225\u4ee3\u78bc\u4e0d\u5f97\u70ba\u7a7a\u767d
 
+#: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:84
 Tax name must not be empty.=\u7a05\u5225\u540d\u7a31\u4e0d\u5f97\u70ba\u7a7a\u767d
 
+#: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:92
 Duplicate tax code [%S]; tax not added=\u7a05\u5225\u4ee3\u78bc [%S] \u5df2\u5b58\u5728; \u7121\u6cd5\u65b0\u589e
 
+#: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:96
 Duplicate tax name [%S]; tax not %S=\u7a05\u5225\u540d\u7a31 [%S] \u5df2\u5b58\u5728; \u7121\u6cd5\u65b0\u589e
 
+#: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:110
 Add-On=\u5916\u52a0\u7a05
 
+#: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:111
 Included=\u5167\u542b\u7a05
 
+#: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:112
 Combined=\u5408\u4f75\u7a05
 
+#: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:113
 VAT & VAT=\u7a05\u4e0a\u7a05
 
+#: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:116
 Add New Tax Status=\u65b0\u589e\u7a05\u5225
 
+#: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:116
 New Tax Status=\u65b0\u7a05\u5225
 
+#: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:116
 Tax Code=\u7a05\u5225\u4ee3\u78bc
 
+#: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:116
 Tax Name=\u7a05\u5225\u540d\u7a31
 
+#: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:138
 Tax [%S] added successfully=\u65b0\u589e\u7a05\u5225 [%S] \u6210\u529f
 
+#: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:142
+#: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:226
 An error occurred while adding Tax [%S]; the tax may not have been added successfully=\u65b0\u589e\u7a05\u5225 [%S] \u6642\u767c\u751f\u932f\u8aa4; \u8a72\u7a05\u5225\u4e26\u672a\u65b0\u589e\u6210\u529f
 
+#: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:199
 Tax [%S] removed successfully=\u522a\u9664\u7a05\u5225 [%S] \u6210\u529f
 
+#: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:203
 An error occurred while removing Tax [%S]; the tax may not have been removed successfully=\u522a\u9664\u7a05\u5225 [%S] \u6642\u767c\u751f\u932f\u8aa4; \u8a72\u7a05\u5225\u4e26\u672a\u522a\u9664\u6210\u529f
 
+#: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:222
 Tax [%S] modified successfully=\u4fee\u6539\u7a05\u5225 [%S] \u6210\u529f
 
+#: /home/user/workspace/vivipos_app/content/controllers/test_controller.js:12
 Test=\u6e2c\u8a66
 
+#: /home/user/workspace/vivipos_app/content/controllers/users_controller.js:56
 Add New Employee=\u65b0\u589e\u54e1\u5de5
 
+#: /home/user/workspace/vivipos_app/content/controllers/users_controller.js:56
 New Employee=\u65b0\u54e1\u5de5
 
+#: /home/user/workspace/vivipos_app/content/controllers/users_controller.js:56
 Name=\u54e1\u5de5\u59d3\u540d/\u4ee3\u865f
 
+#: /home/user/workspace/vivipos_app/content/controllers/users_controller.js:56
 Password=\u767b\u5165\u5bc6\u78bc
 
+#: /home/user/workspace/vivipos_app/content/controllers/users_controller.js:82
 Duplicate user name [%S]; user not added.=\u54e1\u5de5\u59d3\u540d/\u4ee3\u865f [%S] \u5df2\u5b58\u5728; \u7121\u6cd5\u65b0\u589e
 
+#: /home/user/workspace/vivipos_app/content/controllers/users_controller.js:89
 Duplicate display name [%S]; user not added.=\u54e1\u5de5\u986f\u793a\u540d\u7a31 [%S] \u5df2\u5b58\u5728; \u7121\u6cd5\u65b0\u589e
 
+#: /home/user/workspace/vivipos_app/content/controllers/users_controller.js:122
 Employee [%S] added successfully=\u65b0\u589e\u54e1\u5de5 [%S] \u6210\u529f
 
+#: /home/user/workspace/vivipos_app/content/controllers/users_controller.js:140
 Duplicate display name [%S]; user not modified.=\u54e1\u5de5\u986f\u793a\u540d\u7a31 [%S] \u5df2\u5b58\u5728; \u7121\u6cd5\u4fee\u6539
 
+#: /home/user/workspace/vivipos_app/content/controllers/users_controller.js:156
 Employee [%S] modified successfully=\u4fee\u6539\u54e1\u5de5 [%S] \u6210\u529f
 
+#: /home/user/workspace/vivipos_app/content/controllers/users_controller.js:216
 Employee [%S] removed successfully=\u522a\u9664\u54e1\u5de5 [%S] \u6210\u529f
 
+#: /home/user/workspace/vivipos_app/content/controllers/users_controller.js:244
 Select Access Group=\u9078\u64c7\u6b0a\u9650\u7fa4\u7d44
+
+#: /home/user/workspace/vivipos_app/content/localekeyboard.js:41
+confirm language and keyboard mapping change=\u78ba\u8a8d\u4fee\u6539\u8a9e\u7cfb\u8207\u9375\u76e4\u8a2d\u5b9a
+
+#: /home/user/workspace/vivipos_app/content/localekeyboard.js:42
+Language and Keyboard mapping changes required system restart to take effect. If you save the changes now, the system will restart automatically after you return to the Main Screen. Do you want to save your changes?=\u8a9e\u7cfb\u8207\u9375\u76e4\u8a2d\u5b9a\u4fee\u6539\u9700\u91cd\u65b0\u555f\u52d5\u7a0b\u5f0f\u5f8c\u624d\u6703\u751f\u6548. \u5982\u679c\u60a8\u6309\u4e0b\u5132\u5b58\u9375, \u7a0b\u5f0f\u5c07\u5728\u8fd4\u56de\u4e3b\u9801\u9762\u4e4b\u5f8c\u91cd\u65b0\u555f\u52d5. \u60a8\u78ba\u5b9a\u8981\u5132\u5b58\u4fee\u6539?
+
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:132
+confirm age=\u78ba\u8a8d\u5e74\u9f61
+
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:132
+Is customer of age for purchase of [%S]?=\u5ba2\u6236\u5e74\u9f61\u662f\u5426\u5df2\u9054\u8cfc\u8cb7 [%S] \u4e4b\u6cd5\u5f8b\u898f\u5b9a?
+
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:541
+Cannot VOID the selected item [%S]. It is not the last registered item=\u7981\u6b62\u522a\u9664\u9078\u53d6\u7684\u54c1\u9805 [%S] ; \u8a72\u54c1\u9805\u4e26\u975e\u6700\u5f8c\u8f38\u5165\u4e4b\u54c1\u9805
+
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:726
+Cannot apply discount to [%S]. It is not the last registered item=\u7981\u6b62\u63d0\u4f9b\u6298\u6263\u65bc\u9078\u53d6\u7684\u54c1\u9805 [%S] ; \u8a72\u54c1\u9805\u4e26\u975e\u6700\u5f8c\u8f38\u5165\u4e4b\u54c1\u9805
+
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:930
+Cannot apply surcharge to [%S]. It is not the last registered item=\u7981\u6b62\u5957\u7528\u9644\u52a0\u8cbb\u65bc\u9078\u53d6\u7684\u54c1\u9805 [%S] ; \u8a72\u54c1\u9805\u4e26\u975e\u6700\u5f8c\u8f38\u5165\u4e4b\u54c1\u9805
+
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:998
+Nothing has been registered yet; operation invalid=\u672a\u767b\u9304\u4efb\u4f55\u54c1\u9805; \u64cd\u4f5c\u7121\u6548
+
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1273
+Nothing has been registered yet; cannot register payments=\u672a\u767b\u9304\u4efb\u4f55\u54c1\u9805; \u7981\u6b62\u8f38\u5165\u4ed8\u6b3e\u91d1\u984d
+
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1468
+Not an open order; nothing to cancel=\u5df2\u7d50\u55ae\u6216\u672a\u958b\u55ae; \u7981\u6b62\u522a\u9664
+
+#: /home/user/workspace/vivipos_app/content/controllers/changeuser_controller.js:68
+#: /home/user/workspace/vivipos_app/content/controllers/changeuser_controller.js:80
+Authentication failed!. Please make sure the password is correct.=\u767b\u5165\u5931\u6557!. \u8acb\u78ba\u8a8d\u767b\u5165\u5bc6\u78bc\u662f\u5426\u6b63\u78ba.
+
+#: /home/user/workspace/vivipos_app/content/controllers/changeuser_controller.js:74
+Authentication failed!. Please select a user=\u767b\u5165\u5931\u6557!. \u8acb\u9078\u64c7\u4f7f\u7528\u8005
+
+#: /home/user/workspace/vivipos_app/content/controllers/clockinout_controller.js:71
+#: /home/user/workspace/vivipos_app/content/controllers/clockinout_controller.js:109
+#: /home/user/workspace/vivipos_app/content/controllers/clockinout_controller.js:166
+Please select a user first.=\u8acb\u5148\u9078\u64c7\u4f7f\u7528\u8005.
+
+#: /home/user/workspace/vivipos_app/content/controllers/clockinout_controller.js:80
+#: /home/user/workspace/vivipos_app/content/controllers/clockinout_controller.js:144
+#: /home/user/workspace/vivipos_app/content/controllers/clockinout_controller.js:189
+Please enter the passcode.=\u8acb\u8f38\u5165\u767b\u5165\u5bc6\u78bc.
+
+#: /home/user/workspace/vivipos_app/content/controllers/clockinout_controller.js:83
+#: /home/user/workspace/vivipos_app/content/controllers/clockinout_controller.js:147
+#: /home/user/workspace/vivipos_app/content/controllers/clockinout_controller.js:192
+Authentication Failed!. Please make sure the passcode is correct.=\u767b\u5165\u5931\u6557!. \u8acb\u78ba\u8a8d\u767b\u5165\u5bc6\u78bc\u662f\u5426\u6b63\u78ba.
+
+#: /home/user/workspace/vivipos_app/content/controllers/clockinout_controller.js:130
+Please select a job first.=\u8acb\u5148\u9078\u64c7\u5de5\u4f5c\u5167\u5bb9.
+
+#: /home/user/workspace/vivipos_app/content/controllers/clockinout_controller.js:181
+Not clocked in yet.=\u5c1a\u672a\u6253\u4e0a\u73ed\u5361.
+
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:243
+An error occurred while adding Condiment Group [%S]. The group may not have been added successfully=\u65b0\u589e\u8abf\u5473\u7fa4\u7d44 [%S] \u6642\u767c\u751f\u932f\u8aa4; \u8a72\u8abf\u5473\u7fa4\u7d44\u4e26\u672a\u65b0\u589e\u6210\u529f
+
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:292
+An error occurred while modifying Condiment Group [%S]. The group may not have been modified successfully=\u4fee\u6539\u8abf\u5473\u7fa4\u7d44 [%S] \u6642\u767c\u751f\u932f\u8aa4; \u8a72\u8abf\u5473\u7fa4\u7d44\u4e26\u672a\u65b0\u589e\u6210\u529f
+
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:310
+#: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:176
+[%S] has been assigned to one or more products and may not be deleted=[%S] \u5df2\u88ab\u6307\u6d3e\u81f3\u4e00\u500b\u6216\u591a\u500b\u7522\u54c1, \u6545\u7121\u6cd5\u522a\u9664
+
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:348
+An error occurred while removing Condiment Group [%S]. The group may not have been removed successfully=\u522a\u9664\u8abf\u5473\u7fa4\u7d44 [%S] \u6642\u767c\u751f\u932f\u8aa4; \u8a72\u8abf\u5473\u7fa4\u7d44\u4e26\u672a\u522a\u9664\u6210\u529f
+
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:456
+An error occurred while adding Condiment [%S]. The condiment may not have been added successfully=\u65b0\u589e\u8abf\u5473 [%S] \u6642\u767c\u751f\u932f\u8aa4; \u8a72\u8abf\u5473\u4e26\u672a\u65b0\u589e\u6210\u529f
+
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:503
+An error occurred while modifying Condiment [%S]. The condiment may not have been modified successfully=\u4fee\u6539\u8abf\u5473 [%S] \u6642\u767c\u751f\u932f\u8aa4; \u8a72\u8abf\u5473\u4e26\u672a\u65b0\u589e\u6210\u529f
+
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:542
+An error occurred while removing Condiment [%S]. The condiment may not have been removed successfully=\u522a\u9664\u8abf\u5473 [%S] \u6642\u767c\u751f\u932f\u8aa4; \u8a72\u8abf\u5473\u4e26\u672a\u522a\u9664\u6210\u529f
+
+#: /home/user/workspace/vivipos_app/content/controllers/departments_controller.js:236
+An error occurred while modifying Department [%S]. The department may not have been modified successfully=\u4fee\u6539\u7522\u54c1\u90e8\u9580 [%S] \u6642\u767c\u751f\u932f\u8aa4; \u8a72\u7522\u54c1\u90e8\u9580\u4e26\u672a\u4fee\u6539\u6210\u529f
+
+#: /home/user/workspace/vivipos_app/content/controllers/departments_controller.js:253
+[%S] has one or more products and may not be deleted=[%S] \u9084\u5b58\u5728\u4e00\u500b\u6216\u591a\u500b\u7522\u54c1, \u6545\u7121\u6cd5\u522a\u9664
+
+#: /home/user/workspace/vivipos_app/content/controllers/departments_controller.js:273
+An error occurred while removing Department [%S]. The department may not have been removed successfully=\u522a\u9664\u7522\u54c1\u90e8\u9580 [%S] \u6642\u767c\u751f\u932f\u8aa4; \u8a72\u7522\u54c1\u90e8\u9580\u4e26\u672a\u522a\u9664\u6210\u529f
+
+#: /home/user/workspace/vivipos_app/content/controllers/jobs_controller.js:140
+[%S] has been assigned as the default job to one or more users and may not be deleted=[%S] \u5df2\u88ab\u4e00\u500b\u6216\u591a\u500b\u54e1\u5de5\u8a2d\u70ba\u9810\u8a2d\u5de5\u4f5c\u5167\u5bb9, \u6545\u7121\u6cd5\u522a\u9664
+
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:569
+[%S] does not exist!=[%S] \u4e0d\u5b58\u5728
+
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:305
+Product not found [%S].=\u7522\u54c1 [%S] \u4e0d\u5b58\u5728.
+
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:420
+Condiment is required but no condiment group selected; product not modified.=\u5df2\u52fe\u9078\u5f37\u5236\u9078\u64c7\u8abf\u5473, \u4f46\u672a\u9078\u64c7\u8abf\u5473\u7fa4\u7d44; \u7522\u54c1\u7121\u6cd5\u4fee\u6539.
+
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:500
+An error occurred while modifying Product [%S]. The product may not have been modified successfully=\u4fee\u6539\u7522\u54c1 [%S] \u6642\u767c\u751f\u932f\u8aa4; \u8a72\u7522\u54c1\u4e26\u672a\u4fee\u6539\u6210\u529f
+
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:531
+An error occurred while removing Product [%S]. The product may not have been removed successfully=\u522a\u9664\u7522\u54c1 [%S] \u6642\u767c\u751f\u932f\u8aa4; \u8a72\u7522\u54c1\u4e26\u672a\u522a\u9664\u6210\u529f
+
+#: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:164
+[%S] has been assigned to one or more departments and may not be deleted=[%S] \u5df2\u88ab\u6307\u6d3e\u81f3\u4e00\u500b\u6216\u591a\u500b\u7522\u54c1\u90e8\u9580, \u6545\u7121\u6cd5\u522a\u9664
+
+#: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:183
+[%S] is the default tax and may not be deleted=[%S] \u5df2\u88ab\u8a2d\u70ba\u9810\u8a2d\u7a05\u7a2e, \u6545\u7121\u6cd5\u522a\u9664
+
+#: /home/user/workspace/vivipos_app/content/controllers/users_controller.js:185
+[%S] is the default user and may not be deleted=[%S] \u5df2\u88ab\u8a2d\u70ba\u9810\u8a2d\u4f7f\u7528\u8005, \u6545\u7121\u6cd5\u522a\u9664
+
+#: /home/user/workspace/vivipos_app/content/controllers/users_controller.js:189
+[%S] may not be deleted=[%S] \u7121\u6cd5\u522a\u9664
+
+#: /home/user/workspace/vivipos_app/content/controllers/users_controller.js:266
+Select Default Job=\u9078\u64c7\u9810\u8a2d\u5de5\u4f5c\u5167\u5bb9
+
+#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:69
+#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:118
+#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:132
+#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:139
+#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:157
+#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:161
+TAL=\u7e3d\u8a08
+
+#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:71
+#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:119
+#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:133
+REM=\u672a\u4ed8\u6b3e
+
+#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:72
+#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:120
+#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:134
+#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:162
+PAY=\u5df2\u4ed8\u6b3e
+
+#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:80
+Return=\u9000\u8ca8
+
+#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:84
+I: =I: 
+
+#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:88
+QTY=\u6578\u91cf
+
+#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:95
+Change Clerk=\u8b8a\u66f4\u6536\u9280\u54e1
+
+#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:97
+Password: =\u767b\u5165\u5bc6\u78bc
+
+#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:136
+\u5df2\u522a\u55ae=\u5df2\u522a\u55ae
+
+#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:148
+QUEUED=\u5df2\u66ab\u5b58
+
+#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:163
+CHG=\u627e\u96f6
+
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:569
+User [%S] does not exist!=\u4f7f\u7528\u8005 [%S] \u4e0d\u5b58\u5728!
+
+#: /home/user/workspace/vivipos_app/content/controllers/models/transaction.js:
+** TRAY=\u6a19\u8a18
+
+** TOTAL=\u7e3d\u8a08
+
+** SUBTOTAL=\u5c0f\u8a08
+
+GIFTCARD=\u79ae\u5377
+
+CREDITCARD=\u4fe1\u7528\u5361
+
+CASH=\u73fe\u91d1

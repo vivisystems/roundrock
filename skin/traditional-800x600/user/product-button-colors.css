@@ -72,9 +72,19 @@
 .product-button-color-8[selected], .product-button-color-9[selected],
 .product-button-color-10[selected], .product-button-color-11[selected] {
     list-style-image: none;
-    border-width: 3px;
+    border-width: 3px !important;
     -moz-border-top-colors: black red;
     -moz-border-bottom-colors: black red;
     -moz-border-left-colors: black red;
     -moz-border-right-colors: black red;
+}
+
+button_colorpicker .product-button-color-default[selected],.product-button-color-1[selected],
+.product-button-color-2[selected], .product-button-color-3[selected],
+.product-button-color-4[selected], .product-button-color-5[selected],
+.product-button-color-6[selected], .product-button-color-7[selected],
+.product-button-color-8[selected], .product-button-color-9[selected],
+.product-button-color-10[selected], .product-button-color-11[selected] {
+    list-style-image: url(chrome://viviecr/skin/images/gtk-yes.png);
+    border-width: 1px;
 }

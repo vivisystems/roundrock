@@ -117,14 +117,19 @@
     list-style-type: none;
     overflow: hidden;
     text-align: center;
+    border-width: 1px;
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-background-clip: border;
-    border: none;
     -moz-border-radius: 4px;
 }
 
-.vivifuncpanelecr_matrix_button_configure[disabled=true] {
+.vivifuncpanelecr_matrix_button_configure[checked=true] {
+    border-width: 3px;
+    -moz-border-top-colors: black red;
+    -moz-border-bottom-colors: black red;
+    -moz-border-left-colors: black red;
+    -moz-border-right-colors: black red;
 }
 
 /*-----------------------------------------------------------------------------
