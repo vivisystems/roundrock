@@ -47,6 +47,7 @@ pref("vivipos.fec.acl.roles.acl_manage_import_export", "acl_manage_import_export
 pref("vivipos.fec.acl.roles.acl_manage_plu_groups", "acl_manage_plu_groups");
 pref("vivipos.fec.acl.roles.acl_manage_price_level_schedule", "acl_manage_price_level_schedule");
 pref("vivipos.fec.acl.roles.acl_manage_acl_groups", "acl_manage_acl_groups");
+pref("vivipos.fec.acl.roles.acl_manage_reports", "acl_manage_reports");
 pref("vivipos.fec.acl.roles.acl_register_plus", "acl_register_plus");
 pref("vivipos.fec.acl.roles.acl_manage_stock", "acl_manage_stock");
 pref("vivipos.fec.acl.roles.acl_manage_system_options", "acl_manage_system_options");

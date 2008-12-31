@@ -1,20 +1,20 @@
 <?xml version="1.0"?>
 
 <!DOCTYPE bindings [
+  <!ENTITY % datetimepickerDTD SYSTEM "chrome://global/locale/datetimepicker.dtd">
+  %datetimepickerDTD;
   <!ENTITY % globalDTD SYSTEM "chrome://global/locale/global.dtd">
   %globalDTD;
   <!ENTITY % bindingsDTD SYSTEM "chrome://viviecr/locale/bindings.dtd">
   %bindingsDTD;
 ]>
 
-<bindings xmlns="http://www.mozilla.org/xbl"
-          xmlns:xbl="http://www.mozilla.org/xbl"
-          xmlns:html="http://www.w3.org/1999/xhtml"
-          xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<bindings id="timepickerBindings"
+   xmlns="http://www.mozilla.org/xbl"
+   xmlns:html="http://www.w3.org/1999/xhtml"
+   xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+   xmlns:xbl="http://www.mozilla.org/xbl">
 
-<<<<<<< HEAD:content/bindings/vividatetimepicker.xbl
-    <binding id="vividatetimepicker">
-=======
   <binding id="vividatetimepicker-base"
            extends="chrome://global/content/bindings/general.xml#basecontrol">
 
@@ -542,25 +542,24 @@
 
   <binding id="vividatetimepicker-timepad"
            extends="vividatetimepicker.xbl#vividatetimepicker-time">
->>>>>>> a63e221dc2d76863d18b19d2f5061f6e0aacc9cf:content/bindings/vividatetimepicker.xbl
         <resources>
             <stylesheet src="chrome://vivipos/skin/bindings/vividatetimepicker.css" />
         </resources>
 
         <content align="center">
-            <xul:box>
-                <xul:vbox align="center">
+            <xul:box flex="1">
+                <xul:vbox align="center" flex="1">
                     <xul:hbox>
                         <xul:button class="button_vividatetimepicker" xbl:inherits="disabled,class=buttonClass" label="+1:00" type="repeat" oncommand="document.getBindingParent(this)._increaseOrDecreaseHour(1);"/>
                         <xul:button class="button_vividatetimepicker" xbl:inherits="disabled,class=buttonClass" label="+0:15" type="repeat" oncommand="document.getBindingParent(this)._increaseOrDecreaseMinute(15);"/>
                         <xul:button class="button_vividatetimepicker" xbl:inherits="disabled,class=buttonClass" label="+0:01" type="repeat" oncommand="document.getBindingParent(this)._increaseOrDecreaseMinute(1);"/>
                         <!-- xul:button class="button_vividatetimepicker" xbl:inherits="disabled,class=buttonClass" label="S+" type="repeat" oncommand="document.getBindingParent(this)._increaseOrDecreaseSecond(1);"/ -->
                     </xul:hbox>
+                    <xul:spacer flex="1"/>
                     <xul:hbox align="center">
-                        <xul:label value="" anonid="time_label" flex="1" xbl:inherits="class=labelClass,flex,align,dir,pack,orient,style" />
-                        <xul:datepicker anonid="hidden_datepicker" inherits="class=labelClass,flex,align,dir,pack,orient,style,hideseconds" style="display:none;"/>
-                        <xul:timepicker anonid="hidden_timepicker" inherits="class,flex,align,dir,pack,orient,style,hideseconds" style="display:none;"/>
+                        <xul:label value="" anonid="timelabel" flex="1" xbl:inherits="class,flex,align,dir,pack,orient,style" />
                     </xul:hbox>
+                    <xul:spacer flex="1"/>
                     <xul:hbox>
                         <xul:button class="button_vividatetimepicker" xbl:inherits="disabled,class=buttonClass" label="-1:00" type="repeat" oncommand="document.getBindingParent(this)._increaseOrDecreaseHour(-1);"/>
                         <xul:button class="button_vividatetimepicker" xbl:inherits="disabled,class=buttonClass" label="-0:15" type="repeat" oncommand="document.getBindingParent(this)._increaseOrDecreaseMinute(-15);"/>
@@ -572,30 +571,44 @@
         </content>
 
         <xbl:implementation>
+           <!-- field name="is24HourClock" readonly="true">false</field>
+          <field name="hourLeadingZero" readonly="true">false</field>
+          <field name="minuteLeadingZero" readonly="true">true</field>
+          <field name="secondLeadingZero" readonly="true">true</field>
+          <field name="amIndicator" readonly="true">"AM"</field>
+          <field name="pmIndicator" readonly="true">"PM"</field>
 
-            <field name="_timepicker">
+          <field name="hourField">null</field>
+          <field name="minuteField">null</field>
+          <field name="secondField">null</field -->
+
+            <!-- field name="_timepicker">
                 document.getAnonymousElementByAttribute(this, "anonid", "hidden_timepicker");
-            </field>
-            
+            </field -->
+
             <field name="_timelabel">
-                document.getAnonymousElementByAttribute(this, "anonid", "time_label");
+                document.getAnonymousElementByAttribute(this, "anonid", "timelabel");
             </field>
 
             <xbl:constructor>
+                
                 var timeStr = this.getAttribute('value');
-                this._timelabel.setAttribute('value', timeStr);
-                this._timepicker.value = timeStr;
+                //this._timelabel.setAttribute('value', timeStr);
+                // this._timepicker.value = timeStr;
+                this._dateValue.value = timeStr;
+                this._setValueOnChange();
+                
             </xbl:constructor>
 
             <xbl:destructor>
-                // 
+                //
             </xbl:destructor>
-	
-            <property name="hour" onget="return this._timepicker.hour;" onset="this._timepicker.hour=val" />
-            <property name="minute" onget="return this._timepicker.minute;" onset="this._timepicker.minute=val" />
-            <property name="second" onget="return this._timepicker.second;" onset="this._timepicker.second=val" />
-            <property name="timevalue" onget="return this._timepicker.value;" onset="this._timepicker.value=val" />
-            <property name="value" onget="return this._timelabel.getAttribute('value');">
+
+            <!-- property name="hour" onget="return this._timepicker.hour;" onset="this._timepicker.hour=val" / -->
+            <!-- property name="minute" onget="return this._timepicker.minute;" onset="this._timepicker.minute=val" / -->
+            <!-- property name="second" onget="return this._timepicker.second;" onset="this._timepicker.second=val" / -->
+            <!-- property name="timevalue" onget="return this._timepicker.value;" onset="this._timepicker.value=val" / -->
+            <!-- property name="value" onget="return this._timelabel.getAttribute('value');">
                 <setter>
                     <![CDATA[
                         var items = val.match(/^([0-9]{1,2})\:([0-9]{1,2})\:?([0-9]{1,2})?$/);
@@ -605,7 +618,7 @@
                         return val;
                       ]]>
                 </setter>
-            </property>
+            </property -->
 
             <property name="hideSeconds">
                 <getter>
@@ -619,6 +632,61 @@
                   return val;
                 </setter>
               </property>
+
+      <property name="hour" onget="return this._dateValue.getHours();">
+        <setter>
+          <![CDATA[
+            var valnum = Number(val);
+            if (isNaN(valnum) || valnum < 0 || valnum > 23)
+              throw "Invalid Hour";
+            // this._setFieldValue(this.hourField, valnum);
+            this._setFieldValue("hour", valnum);
+            return val;
+          ]]>
+        </setter>
+      </property>
+      <property name="minute" onget="return this._dateValue.getMinutes();">
+        <setter>
+          <![CDATA[
+            var valnum = Number(val);
+            if (isNaN(valnum) || valnum < 0 || valnum > 59)
+              throw "Invalid Minute";
+            // this._setFieldValue(this.minuteField, valnum);
+            this._setFieldValue("minute", valnum);
+            return val;
+          ]]>
+        </setter>
+      </property>
+      <property name="second" onget="return this._dateValue.getSeconds();">
+        <setter>
+          <![CDATA[
+            var valnum = Number(val);
+            if (isNaN(valnum) || valnum < 0 || valnum > 59)
+              throw "Invalid Second";
+            // this._setFieldValue(this.secondField, valnum);
+            this._setFieldValue("second", valnum);
+            return val;
+          ]]>
+        </setter>
+      </property>
+      <property name="isPM">
+        <getter>
+          <![CDATA[
+            return (this.hour >= 12);
+          ]]>
+        </getter>
+        <setter>
+          <![CDATA[
+            if (val) {
+              if (this.hour < 12)
+                this.hour += 12;
+            }
+            else if (this.hour >= 12)
+              this.hour -= 12;
+            return val;
+          ]]>
+        </setter>
+      </property>
 
             <method name="_increaseOrDecreaseHour">
                 <parameter name="aDir"/>
@@ -666,25 +734,135 @@
                 // var timeStr = this.timevalue;
 
                 //if (this.hour < 10) timeStr = "0" + timeStr;
-
+                
                 var hour = this.hour;
                 var minute = this.minute;
+                var second = this.second;
                 if (hour < 10) hour = "0" + hour;
                 if (minute < 10) minute = "0" + minute;
-                var timeStr = hour + ":" + minute
-
+                if (second < 10) second = "0" + second;
+                if (this.hideSeconds) {
+                    var timeStr = hour + ":" + minute;
+                } else {
+                    var timeStr = hour + ":" + minute + ":" + second;
+                }
+                
+                //var timeStr = this.hour + ":" + this.minute + ":" + this.second;
                 this._timelabel.setAttribute('value', timeStr);
 
               ]]>
                 </body>
             </method>
 
+      <method name="_init">
+        <body>
+          <![CDATA[
+            /*
+            var monthLabel = this.monthField.firstChild;
+            var tempDate = new Date(2005, 0, 1);
+            for (var month = 0; month < 12; month++) {
+              tempDate.setMonth(month);
+              monthLabel.setAttribute("value", tempDate.toLocaleFormat("%B"));
+              monthLabel = monthLabel.nextSibling;
+            }
+
+            var fdow = Number(this.getAttribute("firstdayofweek"));
+            if (!isNaN(fdow) && fdow >= 0 && fdow <= 6)
+              this._weekStart = fdow;
+
+            var weekbox = document.getAnonymousElementByAttribute(this, "anonid", "dayofweekbox").childNodes;
+            var date = new Date();
+            date.setDate(date.getDate() - (date.getDay() - this._weekStart));
+            for (var i = 0; i < weekbox.length; i++) {
+              weekbox[i].value = date.toLocaleFormat("%a").charAt(0);
+              date.setDate(date.getDate() + 1);
+            }
+            */
+            this._setValueNoSync('2008-12-25 11:22:33');
+
+          ]]>
+        </body>
+      </method>
+      <method name="_setValueNoSync">
+        <parameter name="aValue"/>
+        <body>
+          <![CDATA[
+            var dt = new Date(aValue);
+            if (!isNaN(dt)) {
+              this._dateValue = dt;
+              this.setAttribute("value", this.value);
+              this._updateUI(this.hourField, this.hour);
+              this._updateUI(this.minuteField, this.minute);
+              this._updateUI(this.secondField, this.second);
+            }
+          ]]>
+        </body>
+      </method>
+      <method name="_setFieldValue">
+        <parameter name="aField"/>
+        <parameter name="aValue"/>
+        <body>
+          <![CDATA[
+            if (aField == "hour")
+              this._dateValue.setHours(aValue);
+            else if (aField == "minute")
+              this._dateValue.setMinutes(aValue);
+            else if (aField == "second")
+              this._dateValue.setSeconds(aValue);
+
+            this.setAttribute("value", this.value);
+            this._updateUI(aField, aValue);
+            this._fireEvent("change", this);
+
+            if (this.attachedControl)
+              this.attachedControl._setValueNoSync(this._dateValue);
+          ]]>
+        </body>
+      </method>
+      <method name="_updateUI">
+        <parameter name="aField"/>
+        <parameter name="aValue"/>
+        <body>
+          <![CDATA[
+            this._valueEntered = false;
+
+            var prependZero = false;
+            if (aField == "hour") {
+              prependZero = this.hourLeadingZero;
+              /*
+              if (!this.is24HourClock) {
+                if (aValue >= 12) {
+                  if (aValue > 12)
+                    aValue -= 12;
+                  this._fieldAMPM.value = this.pmIndicator;
+                }
+                else {
+                  if (aValue == 0)
+                    aValue = 12;
+                  this._fieldAMPM.value = this.amIndicator;
+                }
+              }
+              */
+            }
+            else if (aField == "minute") {
+              prependZero = this.minuteLeadingZero;
+            }
+            else if (aField == "second") {
+              prependZero = this.secondLeadingZero;
+            }
+
+            if (prependZero && aValue < 10)
+              aField.value = "0" + aValue;
+            else
+              aField.value = aValue;
+          ]]>
+        </body>
+      </method>
+
         </xbl:implementation>
 
     </binding>
 
-<<<<<<< HEAD:content/bindings/vividatetimepicker.xbl
-=======
   <binding id="vividatetimepicker-date"
            extends="vividatetimepicker.xbl#vividatetimepicker-base">
 
@@ -1719,5 +1897,4 @@
     </handlers>
   </binding>
 
->>>>>>> a63e221dc2d76863d18b19d2f5061f6e0aacc9cf:content/bindings/vividatetimepicker.xbl
 </bindings>

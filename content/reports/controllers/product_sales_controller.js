@@ -132,13 +132,19 @@
             
             var qty = 0;
             var summary = 0;
+            var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
+            var options = {
+                places: ((precision_prices>0)?this.data.precision_prices:0)
+            };
+
             datas.forEach(function(o){
                 qty = qty + o.qty;
                 summary = summary + o.total;
+                o.total = GeckoJS.NumberHelper.format(o.total, options);
             });
 
             this.qty = qty;
-            this.summary = summary;
+            this.summary = GeckoJS.NumberHelper.format(summary, options);
         }
 	
     });
