@@ -3,14 +3,18 @@
 (function(){
 
 
-    var vivipos = {
+    var vivipos = window.vivipos = {
 
         initialized: false,
         version: '0.2',
 
+        suspendSavePreference: false,
+
+        closeObserve: null,
+
         _handleWindowClose: function(event){
             // handler for clicking on the 'x' to close the window
-            return this.shutdownQuery();
+            return this.shutdown();
         },
     
     
@@ -28,9 +32,9 @@
             // set main screen
             var mainscreenSettings = GeckoJS.Configure.read('vivipos.fec.mainscreen');
 
-	    var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"]
-                    .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main");
-	    var mainscreenObject = mainWindow.document.getElementById('vivipos_mainWindow');
+            var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+                        .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main");
+            var mainscreenObject = mainWindow.document.getElementById('vivipos_mainWindow');
 
             for (var k in mainscreenSettings) {
                 mainscreenObject.setAttribute(k, mainscreenSettings[k]);
@@ -38,18 +42,14 @@
 
             this.updateStatusPanel();
 
-            var closeObserve = GeckoJS.Observer.newInstance({
+            var self = this;
+            
+            this.closeObserve = GeckoJS.Observer.newInstance({
                 
                 topics: ['quit-applicatio-requested','quit-application-granted', 'quit-application', 'xpcom-shutdown'],
                 observe: function(aSubject, aTopic, aData) {
 
-                    this.unregister();
-
-                    // save vivipos Preferences
-                    GeckoJS.Configure.savePreferences('vivipos');
-
-                    // log close
-                    GeckoJS.Log.getLoggerForClass('VIVIPOS').info('VIVIPOS CLOSE');
+                    self.shutdown();
                     
                 }
             }).register();
@@ -59,13 +59,27 @@
         },
     
         shutdown: function(){
-            consoleErrors.shutdown();
+            
+            this.closeObserve.unregister();
+
+            // save vivipos Preferences
+            if (!this.suspendSavePreference) GeckoJS.Configure.savePreferences('vivipos');
+
+            // shutdown console log
+            if(consoleErrors) consoleErrors.shutdown();
+
+            // log close
+            GeckoJS.Log.getLoggerForClass('VIVIPOS').info('VIVIPOS CLOSE');
+
         },
     
         shutdownQuery: function() {
+
+            // broadcast vivipos shutdown
+
             return true;
         },
-	
+
         hasErrors: function(errors){
             var errorImg = document.getElementById("img_jsconsole");
             if(!errorImg) {
@@ -129,15 +143,16 @@
         vivipos.startup();
     }, true)
 
-
+/*
     window.addEventListener("load", function (){
 
     }, false);
 
+
     window.addEventListener("unload", function (){
         vivipos.shutdown();
     }, false);
-
+*/
     // add window close handler
     window.addEventListener("close", function(event){
         vivipos._handleWindowClose(event);

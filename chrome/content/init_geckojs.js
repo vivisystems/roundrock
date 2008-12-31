@@ -6,8 +6,7 @@
 var mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"]
          .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main");
 
-
-window.include = function include(src, scope) {
+window.loadScript = function loadScript(src, scope) {
 
     let loader = window.jssubscript_loader = window.Components.classes["@firich.com.tw/jssubscript_loader;1"].getService(Components.interfaces.mozIJSSubScriptLoader);
 
@@ -20,14 +19,14 @@ window.include = function include(src, scope) {
 		alert('Maybe license error' );
 	}else {
 		// log  e.message
-	
+
 	}
 
    }
-
 };
 
-window.includem = function includem(src, scope) {
+
+window.loadScriptInMainWindow = function loadScriptInMainWindow(src, scope) {
 
     let loader = mainWindow.jssubscript_loader = mainWindow.Components.classes["@firich.com.tw/jssubscript_loader;1"].getService(Components.interfaces.mozIJSSubScriptLoader);
 
@@ -40,12 +39,26 @@ window.includem = function includem(src, scope) {
 		alert('Maybe license error' );
 	}else {
 		// log  e.message
-	
+
 	}
    }
 
 };
 
+
+
+window.include = loadScript ;/*function include(src, scope) {
+
+ // use addscript 
+
+ let jsScript = document.createElement('script');
+ jsScript.setAttribute('type', 'application/x-javascript');
+ jsScript.setAttribute('src', src);
+
+//alert(jsScript);
+ document.documentElement.appendChild(jsScript);
+
+};*/
 
 // include jquery
 if(typeof window.jQuery == 'undefined') {
@@ -63,19 +76,18 @@ if (typeof Date.CultureInfo == 'undefined') {
  * initial GREUtils library and persistent it
  */ 
 if(typeof mainWindow.GREUtils == 'undefined') {
-    includem("chrome://vivipos/content/libs/GREUtils.js");
+    loadScriptInMainWindow("chrome://vivipos/content/libs/GREUtils.js");
 }
 if(mainWindow !== window) {
 	window.GREUtils = {};
 	mainWindow.GREUtils.extend(window.GREUtils, mainWindow.GREUtils, {global: window, include: include});
 }
 
-
 /*
  * initial GeckoJS library and persistent it
  */ 
 if (typeof mainWindow.GeckoJS == 'undefined') {
-	includem("chrome://vivipos/content/libs/GeckoJS.jsc");
+	loadScriptInMainWindow("chrome://vivipos/content/libs/GeckoJS.jsc");
 }
 if(mainWindow !== window) {
 	window.GeckoJS = {};
@@ -86,12 +98,12 @@ if(mainWindow !== window) {
 /*
  * initial GeckoJS MVC library
  */ 
-include("chrome://vivipos/content/libs/GeckoJS_mvc.jsc");
+loadScript("chrome://vivipos/content/libs/GeckoJS_mvc.jsc");
 
 
 // initial GeckoJS bootstrap
 if(mainWindow === window) {
-    includem("chrome://vivipos/content/libs/bootstrap.js");
+    loadScriptInMainWindow("chrome://vivipos/content/libs/bootstrap.js");
 }
 
 
