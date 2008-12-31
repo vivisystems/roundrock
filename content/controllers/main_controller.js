@@ -384,8 +384,10 @@
                 var totalHeight = deptPanel.boxObject.height - (- pluPanel.boxObject.height);
                 var panelSpacerWidth = (panelSpacer) ? panelSpacer.boxObject.width : 0;
                 var fnWidth = this.screenwidth - rightPanel.boxObject.width - panelSpacerWidth;
-                var fnHeight = this.screenheight - totalHeight - btmBox.boxObject.height - 7;
+                var fnTop = $(fnPanel).css('margin-top');
+                var fnBottom = $(fnPanel).css('margin-bottom');
 
+                var fnHeight = this.screenheight - totalHeight - btmBox.boxObject.height - 6;
                 if (fnHeight < 1 || fnRows == 0 || fnCols == 0) {
                     fnPanel.setAttribute('height', 0);
                     fnPanel.hide();

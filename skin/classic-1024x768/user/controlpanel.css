@@ -468,19 +468,16 @@
 
 /*  Loading  */
 .loading {
-    background: transparent url(images/loading.png) top left no-repeat;
     border: none;
     color: #514e48;
     font-size: 18pt;
     font-family: monospace;
     font-weight: bold !important;
-    vertical-align: middle;
     -moz-box-pack: center;
-    max-width: 415px;
-    min-width: 415px;
-    max-height: 121px;
-    min-height: 121px;
-    top: 350px;
-    left: 320px;
+    -moz-appearance: none;
+    background-color: transparent;
+    background-image: url(images/loading.png);
+    background-position: center center;
+    background-repeat: no-repeat;
 }
 

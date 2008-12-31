@@ -1,5 +1,3 @@
-pref("vivipos.fec.acl.roles.cart", "cart");
-pref("vivipos.fec.acl.roles.report", "report");
 pref("vivipos.fec.acl.roles.acl_override_default_price_level", "acl_override_default_price_level");
 pref("vivipos.fec.acl.roles.acl_change_price_level", "acl_change_price_level");
 pref("vivipos.fec.acl.roles.acl_set_price_level_1", "acl_set_price_level_1");

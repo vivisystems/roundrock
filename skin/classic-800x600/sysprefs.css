@@ -42,7 +42,7 @@
     max-width: 32px;
     margin: 0px;
     padding: 0px 0px 0px 0px;
-    background: transparent url(images/departUp.png) center center no-repeat;
+    background: transparent url(images/departUp.png) top left no-repeat;
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-background-clip: border;
@@ -50,7 +50,7 @@
 }
 
 .sysprefs_scroll_up[disabled=false]:active {
-	background: transparent url(images/departUp_a.png) center center no-repeat;
+	background: transparent url(images/departUp_a.png) top left no-repeat;
 }
 
 .sysprefs_scroll_up label {
@@ -68,7 +68,7 @@
     max-width: 32px;
     margin: 0px;
     padding: 0px 0px 0px 0px;
-    background: transparent url(images/departDown.png) center center no-repeat;
+    background: transparent url(images/departDown.png) top left no-repeat;
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-background-clip: border;
@@ -76,7 +76,7 @@
 }
 
 .sysprefs_scroll_down[disabled=false]:active {
-	background: transparent url(images/departDown_a.png) center center no-repeat;
+	background: transparent url(images/departDown_a.png) top left no-repeat;
 }
 
 .sysprefs_scroll_down label {

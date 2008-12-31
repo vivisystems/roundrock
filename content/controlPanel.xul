@@ -83,9 +83,9 @@
             </vbox>
         </vbox>
         
-        <hbox id="loading" class="loading" align="center" style="display: none;">
-            <label>&controlpanel.loading;</label>
-        </hbox>
+        <!--hbox id="loading" class="loading" align="center" style="display: none;"-->
+            <button id="loading" class="loading" style="display: none;" label="&controlpanel.loading;"/>
+        <!--/hbox-->
     </stack>
 
 </window>

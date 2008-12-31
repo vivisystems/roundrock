@@ -80,8 +80,8 @@
 }
 
 #toolbar {
-    border: 1px dotted #908c83;
     margin-left: 2px;
+    margin-right: 2px;
 }
 
 .togglenumpad {

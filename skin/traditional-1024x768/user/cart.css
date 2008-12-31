@@ -128,17 +128,11 @@
     background: #bebebe;
 }
 
-.cartList treechildren{
-    background: #f3faff;
-}
-
 treechildren::-moz-tree-row {
   height: 28px;
   border-bottom: 1px solid #818085;
 }
-
 treechildren::-moz-tree-row(selected) {background-color: #3b556c; }
-/*treechildren::-moz-tree-row(odd) {background-color: #e3ddcf;}*/
 treechildren::-moz-tree-row(odd, selected) {background-color: #3b556c; }
 treechildren::-moz-tree-cell-text(selected) {color: #FFFFFF;}
 treechildren::-moz-tree-cell-text(odd, selected) {color: #FFFFFF;}
@@ -155,6 +149,10 @@ treechildren::-moz-tree-cell-text(treecellTOTAL) {color: white;}
 
 .cartList #current_qty, #current_price, #current_subtotal, #current_tax {
     text-align: right;
+}
+
+.cartList .tree-scrollable-columns {
+    max-height: 0px;
 }
 
 /*-----------------------------------------------------------------------------
@@ -182,13 +180,4 @@ treechildren::-moz-tree-cell-text(treecellTOTAL) {color: white;}
     min-width: 110px;
 }
 .cartList tree #current_tax {
-}
-
-.cartList tree label {
-    text-align: center;
-    crop: none;
-}
-
-.cartList .tree-scrollable-columns {
-    max-height: 0px;
 }
