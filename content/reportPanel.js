@@ -13,14 +13,19 @@
             return window.openDialog(url, name, features, args);
         };
     
-        // var args = window.args = window.arguments[0].wrappedJSObject;
         centerWindowOnScreen();
 
-
         var prefs = GeckoJS.BaseObject.getValues(GeckoJS.Configure.read('vivipos.fec.reportpanels'));
-// alert(GeckoJS.BaseObject.dump(prefs));
         var data = new opener.GeckoJS.ArrayQuery(prefs).orderBy("label asc");
-        if (data) data.forEach(function(el) {el.label = _(el.label)});
+        // if (data) data.forEach(function(el) {el.label = _(el.label)});
+
+        if (data) data = data.map(function(el) {
+                var entry = {icon: el.icon,
+                             path: el.path,
+                             roles: el.roles,
+                             label: _(el.label)}
+                return entry;
+            })
 
         window.viewHelper = new opener.GeckoJS.NSITreeViewArray(data);
 
