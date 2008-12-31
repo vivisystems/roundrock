@@ -48,6 +48,59 @@
             }
         },
 
+        checkStock: function(action, qty, item) {
+            var obj = {
+                    item: item
+                };
+                var diff = qty;
+                var cart = GeckoJS.Controller.getInstanceByName('Cart');
+                var min_stock = parseFloat(item.min_stock);
+                var stock = parseFloat(item.stock);
+                var auto_maintain_stock = item.auto_maintain_stock;
+
+                if (action != "addItem") {
+                    var productsById = GeckoJS.Session.get('productsById');
+                    var product = productsById[item.id];
+                    stock = parseFloat(product.stock);
+                    min_stock = parseFloat(product.min_stock);
+                    auto_maintain_stock = product.auto_maintain_stock;
+                    diff = qty - item.current_qty;
+                }
+
+                if (!auto_maintain_stock) return true;
+
+                var item_count = 0;
+                var curTransaction = cart._getTransaction(true);
+                try {
+                    item_count = (curTransaction.data.items_summary[item.id]).qty_subtotal;
+                } catch (e) {};
+
+                if ((diff + item_count) > stock) {
+                    cart.dispatchEvent('onLowStock', obj);
+                    cart.dispatchEvent('onWarning', _('OUT OF STOCK'));
+                    //@todo add OSD?
+                    NotifyUtils.warn(_('Product May Be Out of Stock!'));
+
+                    // allow over stock...
+                    var allowoverstock = GeckoJS.Configure.read('vivipos.fec.settings.AllowOverStock') || false;
+                    if (!allowoverstock) {
+                        cart.clear();
+                        return false;
+                    }
+                } else if (min_stock > (stock - (diff + item_count))) {
+                    cart.dispatchEvent('onLowerStock', obj);
+                    cart.dispatchEvent('onWarning', _('STOCK LOW'));
+
+                    //@todo add OSD?
+                    NotifyUtils.warn(_('Low Stock Threshold Reached!'));
+                } else {
+                    // normal
+                    cart.dispatchEvent('onWarning', '');
+                }
+                return true;
+
+        },
+
         beforeAddItem: function (evt) {
             var item = evt.data;
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
@@ -60,34 +113,9 @@
 
             sellPrice  = (GeckoJS.Session.get('cart_set_price_value') != null) ? GeckoJS.Session.get('cart_set_price_value') : sellPrice;
 
-            if ( !cart._returnMode && item.auto_maintain_stock) {
-                var obj = {
-                    sellPrice: sellPrice,
-                    sellQty: sellQty,
-                    item: item
-                };
-                var min_stock = parseFloat(item.min_stock);
-                var stock = parseFloat(item.stock);
-
-                if (sellQty > stock) {
-                    cart.dispatchEvent('onLowStock', obj);
-                    cart.dispatchEvent('onWarning', _('OUT OF STOCK'));
-                    //@todo add OSD?
-                    NotifyUtils.warn(_('Product May Be Out of Stock!'));
-                    
-                    // allow over stock...
-                    var allowoverstock = GeckoJS.Configure.read('vivipos.fec.settings.AllowOverStock') || false;
-                    if (!allowoverstock) {
-                        cart.clear();
-                        evt.preventDefault();
-                    }
-                } else if (min_stock > (stock - sellQty)) {
-                    cart.dispatchEvent('onLowerStock', obj);
-                    cart.dispatchEvent('onWarning', _('STOCK LOW'));
-
-                    //@todo add OSD?
-                    NotifyUtils.warn(_('Low Stock Threshold Reached!'));
-                }
+            // check stock status...
+            if ( !cart._returnMode) {
+                if (!cart.checkStock("addItem", sellQty, item)) evt.preventDefault();
             }
 
             // check if age verification required
@@ -357,6 +385,15 @@
             // check if has buffer
             if (buf.length>0) {
                 this.setPrice(buf);
+            }
+
+            // check if stock is lower or over
+            if (itemDisplay.type == 'item') {
+                var qty = null;
+                qty  = (GeckoJS.Session.get('cart_set_qty_value') != null) ? GeckoJS.Session.get('cart_set_qty_value') : qty;
+                if (!this.checkStock("modifyItem", qty, itemTrans)) {
+                    return ;
+                }
             }
 
             this.dispatchEvent('beforeModifyItem', itemTrans);
@@ -1557,7 +1594,9 @@
                     NotifyUtils.warn(_('Please void surcharge on item first'));
                     return;
                 }
-                condimentItem = GREUtils.extend({}, productsById[cartItem.id]);
+                // xxxx why clone it ??
+                //condimentItem = GREUtils.extend({}, productsById[cartItem.id]);
+                condimentItem = productsById[cartItem.id];
             }
 
             if (condimentItem) {
@@ -1608,7 +1647,9 @@
                 var productsById = GeckoJS.Session.get('productsById');
                 var cartItem = curTransaction.getItemAt(index);
                 if (cartItem && cartItem.type == 'item') {
-                    memoItem = GREUtils.extend({}, productsById[cartItem.id]);
+                    //xxxx why clone it?
+                    //memoItem = GREUtils.extend({}, productsById[cartItem.id]);
+                    memoItem = productsById[cartItem.id];
                 }
             }
 
@@ -1637,12 +1678,14 @@
             var i = -1;
             var index = -1;
 
-            condGroups.forEach(function(o) {
+            for each (var o in condGroups) {
+            //condGroups.forEach(function(o) {
                 i++;
                 if (o.id == condgroup) {
                     index = i
+                    break;
                 }
-            });
+            }
 
             if (typeof condGroups[index] == 'undefined') return null;
             
@@ -1650,7 +1693,7 @@
 
             var condiments = null;
             var aURL = 'chrome://viviecr/content/select_condiments.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=600,height=480';
+            var features = 'chrome,modal,width=600,height=480';
             var inputObj = {
                 condgroup: condgroup,
                 condsData: conds,
@@ -1669,7 +1712,8 @@
 
         getMemoDialog: function (memo) {
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250';
+            //var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250';
+            var features = 'chrome,modal,width=500,height=380';
             var inputObj = {
                 input0:memo,require0:false
             };

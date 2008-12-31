@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE overlay [
+  <!ENTITY % Overlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Overlay;
+  <!ENTITY % suppliers SYSTEM "chrome://viviecr/locale/reports/product_sales.dtd">
+  %suppliers;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/content/reports/tpl/product_sales.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+
+<window id="main" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+                xmlns:html="http://www.w3.org/1999/xhtml">
+
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/product_sales.js" />
+
+    <vbox flex="1" class="main-dialog">
+        <caption label="Product Sales Report"/>
+        <groupbox>
+            <caption label="Conditions" />
+            <hbox>
+                <grid>
+                    <rows>
+                        <row>
+                            <label value="Start Date:" />
+                            <vividatetimepicker id="start_date" value='' type="popup" width="300"/>
+                        </row>
+                        <row>
+                            <label value="End Date:" />
+                            <vividatetimepicker id="end_date" value='' type="popup"/>
+                        </row>
+                        <!-- row>
+                            <label value="Department:" />
+                            <textbox id="department" value='' readonly="true" width="300"/>
+                        </row -->
+                    </rows>
+                </grid>
+                <hbox>
+                    <spacer style="width:60px;" />
+                    <button id="execute" label="Execute" disabled="false" class="editbtns" oncommand="$do('execute', null, 'ProductSales');" />
+                    <button id="export_csv" label="Export CSV" disabled="true" class="editbtns" oncommand="$do('exportCsv', null, 'ProductSales');"/>
+                </hbox>
+            </hbox>
+        </groupbox>
+
+        <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
+            <!-- grippy/ -->
+        </splitter>
+        <separator class="groove-thin"/>
+
+        <groupbox flex="1" style="border-width:3px;">
+            <box class="reportbox" flex="1">
+                <html:div id="preview_div" class="report" >
+
+                </html:div>
+            </box>
+                    
+        </groupbox>
+    </vbox>
+  
+    <!-- hbox id="okCancelButtonsRight" class="dialogbtns" / -->
+    <hbox id="dialogButtons" class="dialogbtns" pack="center">
+        <button class="right exit-dialog" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+        <button id="togglesize" label="Toggle Zoom" class="dialogbtns" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png"/>
+    </hbox>
+
+</window>

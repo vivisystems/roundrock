@@ -20,10 +20,14 @@
 
     <groupbox class="main-dialog" flex="1">
         <caption label="&importexport.caption;" />
-
+        
+        <hbox>
+        Media:   <label id="lastMedia" value="NOT FOUND" /> <button label="Refresh" oncommand="$do('checkBackupDevices','', 'ImportExport')" />
+        </hbox>
+        <spacer style="height: 20px;" />
         <hbox flex="1">
             <vbox flex="1">
-                <viviscrollablebuttonpanel id="datasourcescrollablepanel" default="" seltype="multiple" flex="1" cols="1" rows="7" labelField="name"
+                <viviscrollablebuttonpanel id="datasourcescrollablepanel" default="" seltype="single" flex="1" cols="1" rows="7" labelField="name"
                                            oncommand=""
                                            class="catescrollablepanel"
                                            buttonClass="catbtn button-radius font-medium"
@@ -43,12 +47,13 @@
 
             <groupbox flex="1">
                 <caption label="" />
-                <vivibutton label="&importexport.import;" class="widebtns" oncommand="$do('importData', 'departments', 'ImportExport');" />
+                <button id="importBtn" disabled="true" label="&importexport.import;" class="widebtns" oncommand="$do('importData', 'departments', 'ImportExport');" />
 
                 <spacer style="height: 10px;" />
                 <separator class="groove-thin"/>
                 <spacer style="height: 10px;" />
-                <vivibutton label="&importexport.export;" class="widebtns" oncommand="$do('exportData', 'departments', 'ImportExport');" />
+
+                <button id="exportBtn" disabled="true" label="&importexport.export;" class="widebtns" oncommand="$do('exportData', 'departments', 'ImportExport');" />
 
             </groupbox>
         </hbox>
