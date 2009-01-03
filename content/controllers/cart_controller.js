@@ -1563,6 +1563,7 @@
                 else {
                     //@todo OSD
                     NotifyUtils.warn(_('Not an open order; cannot add condiment'));
+                    return;
                 }
             }
 
@@ -1600,7 +1601,6 @@
             }
 
             if (condimentItem) {
-
                 if(!condimentItem.cond_group){
                     //@todo OSD
                     NotifyUtils.warn(_('No Condiment group associated with item [%S]', [condimentItem.name]));

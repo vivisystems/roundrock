@@ -384,17 +384,18 @@
             itemDisplay.current_subtotal = this.formatPrice(itemDisplay.current_subtotal)
         }
         
-        // format display precision
-        /* don't format current price
+        // format display precision - don't round unit price
         if(itemDisplay.current_price != ''  || itemDisplay.current_price === 0 ) {
-            itemDisplay.current_price = this.formatPrice(itemDisplay.current_price);
+            itemDisplay.current_price = this.formatUnitPrice(itemDisplay.current_price);
         }
-        */
-
+        
         // tax amount is displayed in the current_qty field for readability
-        if (type == 'total' || type == 'subtotal') {
-            if(itemDisplay.current_qty != ''  || itemDisplay.current_qty === 0 ) {
-                itemDisplay.current_qty = '<'  + this.formatTax(itemDisplay.current_qty) + '>';
+        if(itemDisplay.current_qty != ''  || itemDisplay.current_qty === 0 ) {
+            if (type == 'total' || type == 'subtotal') {
+                itemDisplay.current_qty = this.formatTax(itemDisplay.current_qty) + 'T';
+            }
+            else if (type == 'item') {
+                itemDisplay.current_qty += 'X';
             }
         }
         return itemDisplay;
@@ -1675,6 +1676,19 @@
         return Transaction.Number.format(price, options);
     };
 
+    Transaction.prototype.formatUnitPrice = function(price) {
+        var priceStr = price + '';
+        var dpIndex = priceStr.lastIndexOf('.');
+        var places = 0;
+        if (dpIndex > -1) {
+            places = priceStr.length - dpIndex - 1;
+        }
+        var options = {
+          places: Math.max(places, ((this.data.precision_prices>0)?this.data.precision_prices:0))
+        };
+        // format display precision
+        return Transaction.Number.format(price, options);
+    };
 
     Transaction.prototype.formatTax = function(tax) {
         var options = {

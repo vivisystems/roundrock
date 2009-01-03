@@ -424,7 +424,7 @@
                         label="&vivifuncpanelecr.prefs.cancel.label;"
                         oncommand="$do('cancelPreferences', null, 'vivifuncpanelecr_prefs')"/>
                 <spacer flex="1"/>
-                <button id="vkb" label=""  oncommand="VirtualKeyboard.show();" class="vkb"/>
+                <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="vkb"/>
             </hbox>
         </vbox>
     </box>

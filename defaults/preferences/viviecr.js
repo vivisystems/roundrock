@@ -226,7 +226,7 @@ pref("vivipos.fec.registry.function.programmable.enter.command", "sendKeycode");
 pref("vivipos.fec.registry.function.programmable.enter.controller", "Keypad");
 pref("vivipos.fec.registry.function.programmable.enter.data", "13");
 
-pref("vivipos.fec.registry.function.programmable.subtotal.access", "acl_register_subtotal");
+pref("vivipos.fec.registry.function.programmable.subtotal.access", "acl_register_sub_total");
 pref("vivipos.fec.registry.function.programmable.subtotal.command", "addMarker");
 pref("vivipos.fec.registry.function.programmable.subtotal.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.subtotal.data", "subtotal");

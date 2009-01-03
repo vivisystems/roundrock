@@ -194,7 +194,7 @@
         <spacer flex="1"/>
         <button class="right exit-dialog" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
         <spacer flex="1"/>
-        <button id="vkb" label=""  oncommand="VirtualKeyboard.show();" class="vkb"/>
+        <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="vkb"/>
     </hbox>
 
 </window>

@@ -398,7 +398,8 @@
     display: none;
 }
 .SysBtn[disabled=false]:active {
-    padding: 39px 91px 10px 11px;
+    padding-top: 39px;
+    padding-left: 13px;
     background: transparent url(images/cp_mbtn_a.png) top left no-repeat;    
 }
 .SysBtn[disabled=true] {

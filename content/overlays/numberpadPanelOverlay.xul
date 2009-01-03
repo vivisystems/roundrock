@@ -52,7 +52,7 @@
       <!-- begin tools -->
         <vbox id="toolbar">
             <spacer flex="1"/>
-            <vivibutton id="vkb" label=""  oncommand="VirtualKeyboard.show();"
+            <vivibutton id="vkb" label=""  oncommand="VirtualKeyboard.toggle();"
                         class="systoolbtn button-vkb"/>
             <vivibutton id="clockin" label="" oncommand="$do('ClockInOutDialog', null, 'Main');"
                         class="systoolbtn clockinout"/>
