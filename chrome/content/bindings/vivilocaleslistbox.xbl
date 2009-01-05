@@ -139,7 +139,7 @@
                         var listbox = this.listbox;
                         var newLocale = this.selectedLocale;
 
-                        var loc = newLocale.split('-');
+                        var loc = newLocale.split('_');
 
                         var langENV = loc[0] + '_' + loc[1] + '.UTF-8';
 

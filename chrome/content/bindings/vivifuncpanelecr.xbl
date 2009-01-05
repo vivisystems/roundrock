@@ -739,7 +739,7 @@
                     prefs.wrap = GeckoJS.Configure.read(prefix + '.wrap');
                     prefs.restrictMode = GeckoJS.Configure.read(prefix + '.restrictMode');
 
-                    prefs.pageLabelMap = GeckoJS.Configure.read(prefix + '.pageLabelMap');
+                    prefs.pageLabelMap = window.unescape(GeckoJS.Configure.read(prefix + '.pageLabelMap'));
                     prefs.pageLayoutMap = GeckoJS.Configure.read(prefix + '.pageLayoutMap');
                     prefs.pageKeymapMap = GeckoJS.Configure.read(prefix + '.pageKeymapMap');
                     prefs.pageButtonstyleMap = GeckoJS.Configure.read(prefix + '.pageButtonstyleMap');
@@ -802,7 +802,7 @@
                                     //GREUtils.log('[LoadPreferences]: restoring mapping <' + GeckoJS.BaseObject.dump(rawEntry) + '> for btnid <' + btnid + '>');
 
                                     if (rawEntry) {
-                                        var entry = GeckoJS.BaseObject.unserialize(prefs.pageKeymapMap[page][btnid]);
+                                        var entry = GeckoJS.BaseObject.unserialize(window.unescape(prefs.pageKeymapMap[page][btnid]));
                                         keymap.set(btnid, entry);
                                     }
                                 });
