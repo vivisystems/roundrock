@@ -753,7 +753,7 @@
                     if (prefs.pageLabelMap) {
                         try {
                             var map = new GeckoJS.Map();
-                            map.unserialize(prefs.pageLabelMap);
+                            map.unserialize(window.unescape(prefs.pageLabelMap));
                             prefs.pageLabelMap = map;
                             //GREUtils.log('[LoadPreferences]: restored page map <' + GeckoJS.BaseObject.dump(map) + '>');
                         }

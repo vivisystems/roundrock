@@ -160,7 +160,7 @@
                     // self.setText0_1(transaction.getTotal(true));
                     self.setText0_0(_('TAL') + ': ' + transaction.getTotal(true));
                     self.setText1_0(_('PAY') + ': ' + transaction.getPaymentSubtotal(true));
-                    self.setText1_1(_('CHG') + ': ' + self.format(0-transaction.getRemainTotal(true)));
+                    self.setText1_1(_('CHG') + ': ' + self.format(0-transaction.getRemainTotal(false)));
                     self.setText0_1('');
                 }
 
