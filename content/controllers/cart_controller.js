@@ -374,7 +374,7 @@
 
             if (itemDisplay.type == 'condiment' && buf.length <= 0 ) {
                 // @todo popup ??
-                this.log('DEBUG', 'modify condiment but price set!! plu = ' + this.dump(itemTrans) );
+                this.log('DEBUG', 'modify condiment but price not set!! plu = ' + this.dump(itemTrans) );
                 this.dispatchEvent('onModifyItemError', {});
 
                 //@todo OSD

@@ -386,7 +386,12 @@
         
         // format display precision - don't round unit price
         if(itemDisplay.current_price != ''  || itemDisplay.current_price === 0 ) {
-            itemDisplay.current_price = this.formatUnitPrice(itemDisplay.current_price);
+            if (type == 'total' || type == 'subtotal') {
+                itemDisplay.current_price = this.formatPrice(itemDisplay.current_price);
+            }
+            else {
+                itemDisplay.current_price = this.formatUnitPrice(itemDisplay.current_price);
+            }
         }
         
         // tax amount is displayed in the current_qty field for readability
@@ -525,7 +530,7 @@
             var condimentItem = {
                 id: itemDisplay.id,
                 name: itemDisplay.name,
-                current_subtotal: (this.getRoundedPrice(condimentPrice) == 0) ? '' : this.formatPrice(this.getRoundedPrice(condimentPrice))
+                current_subtotal: condimentPrice == 0 ? '' : condimentPrice
             };
         }
         var obj = {
@@ -547,7 +552,7 @@
 
         if (condiments) {
 
-            var roundedSubtotal = this.getRoundedPrice(itemModified.current_qty*itemModified.current_price) || 0;
+            var roundedSubtotal = itemModified.current_qty*itemModified.current_price || 0;
             var roundedCondiment = 0;
 
             for(var cn in itemTrans.condiments) {
@@ -558,8 +563,6 @@
                 }
                 roundedCondiment += parseFloat(itemTrans.condiments[cn].price)*itemModified.current_qty;
             }
-
-            roundedCondiment = this.getRoundedPrice(roundedCondiment);
 
             itemModified.current_condiment = roundedCondiment;
             itemModified.current_subtotal = roundedSubtotal + roundedCondiment;
@@ -1145,14 +1148,13 @@
             if (condiments.length >0) {
 
                 condiments.forEach(function(condiment){
-
                     // this extra check is a workaround for the bug in XULRunner where an item may appear to be selected
                     // but is actually not
                     if (condiment) {
                         var condimentItem = {
                             id: item.id,
                             name: condiment.name,
-                            current_subtotal: (this.getRoundedPrice(condiment.price) == 0) ? '' : this.formatPrice(this.getRoundedPrice(condiment.price))
+                            current_subtotal: condiment.price == 0 ? '' : condiment.price
                         };
 
                         if(item.condiments == null) item.condiments = {};
@@ -1163,7 +1165,8 @@
                             OsdUtils.warn(_('Condiment [%S] already added to [%S]', [condiment.name, item.name]));
                         }
                         else {
-                            item.condiments[condiment.name] = condiment;
+                            var newCondiment = GeckoJS.BaseObject.extend(condiment, {});
+                            item.condiments[condiment.name] = newCondiment;
 
                             // up
                             var condimentDisplay = this.createDisplaySeq(itemIndex, condimentItem, 'condiment');
@@ -1181,11 +1184,6 @@
 
                             // update cartlist 's itemDisplay
                             targetDisplayItem.current_subtotal = this.formatPrice(this.getRoundedPrice(item.current_subtotal));
-
-                            // item subtotal to condition ??
-                            if(false) {
-                                condimentDisplay.current_subtotal = this.formatPrice(this.getRoundedPrice(item.current_subtotal));
-                            }
 
                             displayIndex++;
                         }

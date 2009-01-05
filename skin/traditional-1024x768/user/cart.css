@@ -161,13 +161,13 @@ treechildren::-moz-tree-cell-text(treecellTOTAL) {color: white;}
  */
 
 .cartList tree #name {
-    max-width: 175px;
-    min-width: 175px;
+    max-width: 180px;
+    min-width: 180px;
 }
 
 .cartList tree #current_qty {
-    max-width: 85px;
-    min-width: 85px;
+    max-width: 80px;
+    min-width: 80px;
 }
 
 .cartList tree #current_price {
