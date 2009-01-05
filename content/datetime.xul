@@ -2,15 +2,15 @@
 <!DOCTYPE window [
   <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
   %Dialog;
-  <!ENTITY % LocaleKeyboard SYSTEM "chrome://viviecr/locale/localekeyboard.dtd">
-  %LocaleKeyboard;
+  <!ENTITY % DateTime SYSTEM "chrome://viviecr/locale/datetime.dtd">
+  %DateTime;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
-<window title="&localekeyboard.title;"
+<window title="&datetime.title;"
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
@@ -18,10 +18,10 @@
     </script>
 
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/localekeyboard.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/datetime.js" />
 
     <groupbox class="main-dialog" flex="1">
-        <caption label="&localekeyboard.title;" />
+        <caption label="&datetime.title;" />
         <grid flex="1">
             <columns>
                 <column flex="0"/>
@@ -29,25 +29,19 @@
             </columns>
             <rows>
                 <row>
-                    <label value="&localekeyboard.locale.title;"/>
-                    <vivilocaleslistbox id="locale" package="viviecr" rows="6"/>
+                    <label value="&datetime.timezone.title;"/>
+                    <vivitimezones id="timezones" flex="1"/>
                 </row>
 
                 <separator class="groove-thin" style="margin:10px 0px 10px 0px"/>
 
                 <row>
-                    <label value="&localekeyboard.keyboard.title;"/>
-                    <vivikbmaps id="kbmap" flex="0"
-                            oncommand="$do('selectKbmap', null, 'LocaleKeyboard')"
+                    <label value="&datetime.datetime.title;"/>
+                    <vividatetimepicker id="datetime" flex="1" type="embed"
                             />
                 </row>
             </rows>
         </grid>
-
-        <vbox flex="1" pack="start" align="left">
-            <image id="keyboard-layout" flex="1" validate="never" class="keyboard-image"
-                   src="chrome://viviecr/content/skin/kblayouts/us.png"/>
-        </vbox>
 
         <spacer height="10px"/>
     </groupbox>

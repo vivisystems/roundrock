@@ -209,6 +209,7 @@
             cate_no: item.cate_no,
 
             index: index,
+            stock_status: item.stock_status,
             
             current_qty: sellQty,
             current_price: roundedPrice,
@@ -251,7 +252,7 @@
         _('Trans');
         var itemDisplay = {} ;
         var dispName;
-
+        
         if (type == 'item') {
             itemDisplay = GREUtils.extend(itemDisplay, {
                 id: item.id,
@@ -264,6 +265,7 @@
                 current_tax: item.tax_name,
                 type: type,
                 index: index,
+                stock_status: item.stock_status,
                 level: 0
             });
         }else if (type == 'discount') {

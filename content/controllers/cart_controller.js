@@ -87,15 +87,20 @@
                         cart.clear();
                         return false;
                     }
+                    else {
+                        item.stock_status = -1;
+                    }
                 } else if (min_stock > (stock - (diff + item_count))) {
                     cart.dispatchEvent('onLowerStock', obj);
                     cart.dispatchEvent('onWarning', _('STOCK LOW'));
 
                     //@todo add OSD?
                     NotifyUtils.warn(_('[%S] low stock threshold reached!', [item.name]));
+                    item.stock_status = 0;
                 } else {
                     // normal
                     cart.dispatchEvent('onWarning', '');
+                    item.stock_status = 1;
                 }
                 return true;
 
@@ -230,7 +235,6 @@
             }
 
             if (this.dispatchEvent('beforeAddItem', item)) {
-
                 if ( this._returnMode) {
                     var qty = 0 - (GeckoJS.Session.get('cart_set_qty_value') || 1);
                     GeckoJS.Session.set('cart_set_qty_value', qty);

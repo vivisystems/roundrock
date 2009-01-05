@@ -6,7 +6,6 @@
 
     GeckoJS.Controller.extend( {
         name: 'LocaleKeyboard',
-        _currencies: [],
 
         // select the indicated keyboard layout
 

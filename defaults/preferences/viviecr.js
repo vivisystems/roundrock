@@ -106,6 +106,11 @@ pref("vivipos.fec.settings.controlpanels.system.systembackup.path", "chrome://vi
 pref("vivipos.fec.settings.controlpanels.system.systembackup.icon", "chrome://viviecr/skin/icons/icon_generic.png");
 pref("vivipos.fec.settings.controlpanels.system.systembackup.roles", "acl_manage_backup");
 
+pref("vivipos.fec.settings.controlpanels.system.datetime.label", "Date and Time");
+pref("vivipos.fec.settings.controlpanels.system.datetime.path", "chrome://viviecr/content/datetime.xul");
+pref("vivipos.fec.settings.controlpanels.system.datetime.icon", "chrome://viviecr/skin/icons/icon_generic.png");
+pref("vivipos.fec.settings.controlpanels.system.datetime.roles", "acl_manage_date_time");
+
 pref("vivipos.fec.settings.controlpanels.product.imagemanager.label", "Image Manager");
 pref("vivipos.fec.settings.controlpanels.product.imagemanager.path", "chrome://viviecr/content/imageManager.xul");
 pref("vivipos.fec.settings.controlpanels.product.imagemanager.icon", "chrome://viviecr/skin/icons/icon_imgmanager.png");

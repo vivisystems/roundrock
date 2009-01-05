@@ -12,9 +12,6 @@
         var locale = $('#locale')[0];
         var kbmap = $('#kbmap')[0];
 
-        this.oldLocale = (locale) ? locale.currentLocale : null;
-        this.oldKbmap = (kbmap) ? kbmap.currentKbmap : null;
-
         doSetOKCancel(
             function(){
                 var changed = false;
@@ -27,14 +24,14 @@
                     locale.changeOSLocale();
                     locale.changeLocale();
 
-                    changed = (locale.currentLocale != this.oldLocale)
+                    changed = (locale.currentLocale != locale.selectedLocale)
                 }
 
                 if (kbmap) {
                     // change keyboard mapping
                     kbmap.changeOSKbmap();
 
-                    changed = changed || kbmap.currentKbmap != this.oldKbmap;
+                    changed = changed || kbmap.currentKbmap != kbmap.selectedKbmap;
                 }
 
                 if (changed) {
