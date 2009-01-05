@@ -79,7 +79,7 @@
                     cart.dispatchEvent('onLowStock', obj);
                     cart.dispatchEvent('onWarning', _('OUT OF STOCK'));
                     //@todo add OSD?
-                    NotifyUtils.warn(_('Product May Be Out of Stock!'));
+                    NotifyUtils.warn(_('[%S] may be out of stock!', [item.name]));
 
                     // allow over stock...
                     var allowoverstock = GeckoJS.Configure.read('vivipos.fec.settings.AllowOverStock') || false;
@@ -92,7 +92,7 @@
                     cart.dispatchEvent('onWarning', _('STOCK LOW'));
 
                     //@todo add OSD?
-                    NotifyUtils.warn(_('Low Stock Threshold Reached!'));
+                    NotifyUtils.warn(_('[%S] low stock threshold reached!', [item.name]));
                 } else {
                     // normal
                     cart.dispatchEvent('onWarning', '');
@@ -513,16 +513,16 @@
                 return; // fatal error ?
             }
 
-            if(index <0) {
-                // @todo OSD
-                NotifyUtils.warn(_('Please select an item first'));
-                return;
-            }
-
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 this.dispatchEvent('onVoidItemError', {});
                 // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot VOID'));
+                return;
+            }
+
+            if(index <0) {
+                // @todo OSD
+                NotifyUtils.warn(_('Please select an item first'));
                 return;
             }
 
@@ -1105,7 +1105,6 @@
                 var memo2 = 'x' + currency_rate;
                 amount = amount * currency_rate;
                 this._getKeypadController().clearBuffer();
-                
                 this.addPayment('cash', amount, origin_amount, memo1, memo2);
             }
             else {
@@ -1128,7 +1127,7 @@
                 input0:data.type,
                 input1:null
             };
-            window.openDialog(aURL, _('Credit Card Remark'), features, _('Credit Card Remark'), _('Payment') + data.payment,
+            window.openDialog(aURL, _('Credit Card Remark'), features, _('Credit Card Remark'), _('Payment') + ' [' + data.payment + ']',
                 _('Card Type'), _('Card Remark'), inputObj);
 
             if (inputObj.ok) {
@@ -1145,7 +1144,7 @@
                 input0:data.type,
                 input1:null
             };
-            window.openDialog(aURL, _('Gift Card Remark'), features, _('Gift Card Remark'), _('Payment') + data.payment,
+            window.openDialog(aURL, _('Gift Card Remark'), features, _('Gift Card Remark'), _('Payment') + ' [' + data.payment + ']',
                 _('Card Type'), _('Card Remark'), inputObj);
 
             if (inputObj.ok) {
@@ -1184,8 +1183,9 @@
             var payment = parseFloat(buf);
             if (payment == 0 || isNaN(payment)) {
                 //@todo OSD
-                NotifyUtils.warn(_('Please enter an amount first'));
-                return;
+                //NotifyUtils.warn(_('Please enter an amount first'));
+                //return;
+                payment = curTransaction.getRemainTotal(true);
             }
             var data = {
                 type: mark,
@@ -1197,7 +1197,7 @@
                 var memo2 = inputObj.input1 || '';
                 this.addPayment('creditcard', payment, payment, memo1, memo2);
             }
-            this.clear();
+            //this.clear();
 
         },
 
@@ -1230,8 +1230,9 @@
             var payment = parseFloat(buf);
             if (payment == 0 || isNaN(payment)) {
                 //@todo OSD
-                NotifyUtils.warn(_('Please enter an amount first'));
-                return;
+                //NotifyUtils.warn(_('Please enter an amount first'));
+                //return;
+                payment = curTransaction.getRemainTotal(true);
             }
             var data = {
                 type: mark,
@@ -1243,7 +1244,7 @@
                 var memo2 = inputObj.input1 || '';
                 this.addPayment('giftcard', payment, payment, memo1, memo2);
             }
-            this.clear();
+            //this.clear();
 
         },
 
@@ -1296,7 +1297,6 @@
                 origin_amount: origin_amount
             };
             this.dispatchEvent('beforeAddPayment', paymentItem);
-
             var paymentedItem = curTransaction.appendPayment(type, amount, origin_amount, memo1, memo2);
 
             this.dispatchEvent('afterAddPayment', paymentedItem);
@@ -1604,6 +1604,7 @@
                 if(!condimentItem.cond_group){
                     //@todo OSD
                     NotifyUtils.warn(_('No Condiment group associated with item [%S]', [condimentItem.name]));
+                    return;
                 }
                 else {
                     var condiments = this.getCondimentsDialog(condimentItem.cond_group);

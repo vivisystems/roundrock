@@ -101,16 +101,16 @@ msgid "OUT OF STOCK"
 msgstr "已無庫存"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:82
-msgid "Product May Be Out of Stock!"
-msgstr "產品可能已無庫存"
+msgid "[%S] may be out of stock!"
+msgstr "產品[%S]可能已無庫存"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:92
 msgid "STOCK LOW"
 msgstr "庫存量低於安全庫存"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:95
-msgid "Low Stock Threshold Reached!"
-msgstr "庫存量已達安全庫存"
+msgid "[%S] low stock threshold reached!"
+msgstr "[%S]庫存量已達安全庫存"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:127
 msgid "VERIFY AGE"
