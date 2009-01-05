@@ -396,7 +396,7 @@ msgid "Add Memo"
 msgstr "新增備註"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1720
-msgid "Memo:"
+msgid "Memo"
 msgstr "備註"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1801

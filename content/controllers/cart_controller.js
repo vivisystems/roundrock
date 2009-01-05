@@ -1718,7 +1718,7 @@
             var inputObj = {
                 input0:memo,require0:false
             };
-            window.openDialog(aURL, _('Add New Memo'), features, _('Add Memo'), '', _('Memo:'), '', inputObj);
+            window.openDialog(aURL, _('Add New Memo'), features, _('Add Memo'), '', _('Memo'), '', inputObj);
 
             if (inputObj.ok && inputObj.input0) {
                 return inputObj.input0;
