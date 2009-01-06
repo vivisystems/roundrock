@@ -81,7 +81,7 @@
                 }
 
                 this.onAddBuffer = function(evt) {
-                    self.setText1_1((self.hideInput ? '' : _('I: ')) + evt.data);
+                    self.setText1_1((self.hideInput ? '' : _('I') + ': ') + evt.data);
                 }
 
                 this.onSetQty = function(evt) {
@@ -94,7 +94,7 @@
                         self.setText0_1('');
                         self.setText0_0(_('Change Clerk'));
                         self.setText1_1(_(''));
-                        self.setText1_0(_('Password: '));
+                        self.setText1_0(_('Password') + ': ');
                     }
                     else {
                         if (evt) var transaction = evt.data;

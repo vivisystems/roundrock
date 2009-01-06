@@ -3,12 +3,12 @@
 #
 # vivipos launcher
 # 
-
+. /etc/environment
 RETVAL=127;
 
 while [ $RETVAL != 0 ]; do
     /usr/bin/aosd_cat -d 8000 "Starting VIVIPOS ......" &
-    ./vivipos
+    sudo ./vivipos
     RETVAL=$?
 done
 
