@@ -1,0 +1,5 @@
+#!/bin/sh
+date -s "$1";
+
+mv -f /etc/localtime /etc/localtime.save
+ln -s "/usr/share/zoneinfo/$2" /etc/localtime
