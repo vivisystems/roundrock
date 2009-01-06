@@ -3,6 +3,7 @@
 #
 # vivipos launcher
 # 
+. /etc/environment
 
 RETVAL=127;
 
