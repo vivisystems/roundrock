@@ -13,6 +13,7 @@
         depPanelView: null,
         pluPanelView: null,
         doRestart: false,
+        restartClock: false,
     
         initial: function() {
 
@@ -42,12 +43,14 @@
             
             // observer restart topic
             this.observer = GeckoJS.Observer.newInstance({
-                topics: ['prepare-to-restart'],
+                topics: ['prepare-to-restart', 'restart-clock'],
 
                 observe: function(aSubject, aTopic, aData) {
                     if (aTopic == 'prepare-to-restart')
                         self.doRestart = true;
 
+                    else if (aTopic == 'restart-clock')
+                        self.restartClock = true;
                 }
             }).register();
 
@@ -90,6 +93,13 @@
                     xulChromeReg.reloadChrome();
                     this.log('reloaded chrome');
                     */
+                } catch(err) {
+                }
+            }
+            if (this.restartClock) {
+                try {
+                    $('#clock')[0].stopClock();
+                    $('#clock')[0].startClock();
                 } catch(err) {
                 }
             }

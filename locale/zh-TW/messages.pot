@@ -1449,16 +1449,16 @@ msgid "CANCELED"
 msgstr "已刪單"
 
 #: /home/user/workspace/vivipos_app/content/datetime.js:29
-msgid "confirm date/time/timezone change"
-msgstr "確認修改日期與時間設定"
+msgid "confirm timezone change"
+msgstr "確認修改時區設定"
 
 #: /home/user/workspace/vivipos_app/content/datetime.js:30
 msgid ""
-"Date/Time/Timezone changes require system restart to take effect. If you "
+"Timezone change requires system restart to take effect. If you "
 "save the changes now, the system will restart automatically after you return "
 "to the Main Screen. Do you want to save your changes?"
 msgstr ""
-"日期與時間設定修改需重新啟動程式後才會生效. 如果您按下儲存鍵, 程式將在返回主"
+"時區設定修改需重新啟動程式後才會生效. 如果您按下儲存鍵, 程式將在返回主"
 "頁面之後重新啟動. 您確定要儲存修改?"
 
 #: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:84
