@@ -580,6 +580,15 @@
                         // Which locale did the user select?
                         var newTimezone = this.selectedTimezone;
 
+                        // set environment
+                        try {
+                            var envSvc = Components.classes["@mozilla.org/process/environment;1"]
+                                      .getService(Components.interfaces.nsIEnvironment);
+
+                            envSvc.set('TZ', newTimezone);
+
+                        }catch(e) {
+                        }
                         
                         try {
                         
@@ -594,6 +603,7 @@
                             var srcFile = "/usr/share/zoneinfo/" + newTimezone;
                             var descFile = "/etc/localtime";
 
+                            GREUtils.File.remove(descFile);
                             var result = GeckoJS.File.copy(srcFile, descFile);
 
                             return result;
