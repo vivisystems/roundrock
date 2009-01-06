@@ -26,29 +26,21 @@
     </keyset>
     
     <groupbox class="main-dialog" flex="1">
-        <caption label="&datetime.title;" />
-        <grid flex="1">
-            <columns>
-                <column flex="0"/>
-                <column flex="1"/>
-            </columns>
-            <rows>
-                <row>
-                    <label value="&datetime.timezone.title;"/>
+        <tabbox>
+            <tabs>
+                <tab id="tab1" label="&datetime.timezone.title;"/>
+                <tab id="tab2" label="&datetime.datetime.title;"/>
+            </tabs>
+            <tabpanels>
+                <tabpanel flex="1">
                     <vivitimezones id="timezones" flex="1"/>
-                </row>
-
-                <separator class="groove-thin" style="margin:10px 0px 10px 0px"/>
-
-                <row>
-                    <label value="&datetime.datetime.title;"/>
+                </tabpanel>
+                <tabpanel flex="1">
                     <vividatetimepicker id="datetime" flex="1" type="embed"
                             />
-                </row>
-            </rows>
-        </grid>
-
-        <spacer height="10px"/>
+                </tabpanel>
+            </tabpanels>
+        </tabbox>
     </groupbox>
   
     <hbox id="dialogButtons" class="dialogbtns" pack="center">
