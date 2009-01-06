@@ -33,11 +33,11 @@
             </tabs>
             <tabpanels>
                 <tabpanel flex="1">
-                    <vivitimezones id="timezones" flex="1"/>
-                </tabpanel>
-                <tabpanel flex="1">
                     <vividatetimepicker id="datetime" flex="1" type="embed"
                             />
+                </tabpanel>
+                <tabpanel flex="1">
+                    <vivitimezones id="timezones" flex="1"/>
                 </tabpanel>
             </tabpanels>
         </tabbox>
