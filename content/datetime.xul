@@ -28,8 +28,8 @@
     <groupbox class="main-dialog" flex="1">
         <tabbox>
             <tabs>
-                <tab id="tab1" label="&datetime.timezone.title;"/>
-                <tab id="tab2" label="&datetime.datetime.title;"/>
+                <tab id="tab1" label="&datetime.datetime.title;"/>
+                <tab id="tab2" label="&datetime.timezone.title;"/>
             </tabs>
             <tabpanels>
                 <tabpanel flex="1">

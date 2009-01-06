@@ -168,7 +168,7 @@
             var name = view.data[panel.selectedIndex].name;
 
             if (this.hasTaggedProducts(evt.data.id)) {
-                NotifyUtils.error(_('[%S] has one or more products and may not be deleted?', [name]));
+                NotifyUtils.error(_('[%S] has one or more products and may not be deleted', [name]));
                 evt.preventDefault();
             }
             else if (GREUtils.Dialog.confirm(null, _('confirm delete %S', [name]), _('Are you sure?')) == false) {

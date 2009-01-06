@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2008-12-31 10:56+0800\n"
+"POT-Creation-Date: 2009-01-07 03:23+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -60,6 +60,7 @@ msgstr "權限群組 [%S] 已被一個或多個員工設定 [%S] 且無法刪除
 #: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:513
 #: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:187
 #: /home/user/workspace/vivipos_app/content/controllers/users_controller.js:192
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:515
 msgid "confirm delete %S"
 msgstr "確認已刪除 %S"
 
@@ -73,6 +74,7 @@ msgstr "確認已刪除 %S"
 #: /home/user/workspace/vivipos_app/content/controllers/pricelevelschedule_controller.js:122
 #: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:187
 #: /home/user/workspace/vivipos_app/content/controllers/users_controller.js:192
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:515
 msgid "Are you sure?"
 msgstr "你確定嗎?"
 
@@ -97,39 +99,50 @@ msgid ""
 msgstr "修改權限群組 [%S] 時發生錯誤; 該權限群組並未修改成功"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:80
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:82
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:90
 msgid "OUT OF STOCK"
 msgstr "已無庫存"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:82
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:84
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:92
 msgid "[%S] may be out of stock!"
 msgstr "產品[%S]可能已無庫存"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:92
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:97
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:105
 msgid "STOCK LOW"
 msgstr "庫存量低於安全庫存"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:95
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:100
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:108
 msgid "[%S] low stock threshold reached!"
 msgstr "[%S]庫存量已達安全庫存"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:127
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:139
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:147
 msgid "VERIFY AGE"
 msgstr "確認年齡"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:138
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:150
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:158
 msgid "Verify Customer Age for Purchase of [%S]!"
 msgstr "請與客戶確認其年齡已達購買 [%S] 之法律規定"
 
-msgid ""
-"Verify Customer Age for Purchase of\n"
-"[%S]!"
-msgstr "請與客戶確認其年齡已達購買 [%S] 之法律規定"
-
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:263
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:280
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:290
 msgid "SINGLE ITEM SALE"
 msgstr "單一產品快速銷售"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:288
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:305
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:315
 msgid "Product scan code not found [%S]"
 msgstr "產品條碼 [%S] 不存在"
 
@@ -137,6 +150,14 @@ msgstr "產品條碼 [%S] 不存在"
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:328
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:424
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:436
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:333
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:345
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:441
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:453
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:343
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:355
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:451
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:463
 msgid "Not an open order; cannot modify"
 msgstr "已結單或未開單; 禁止修改"
 
@@ -148,80 +169,133 @@ msgstr "已結單或未開單; 禁止修改"
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1376
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1554
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1632
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:339
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:447
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:542
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:885
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1064
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1393
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1571
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1650
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:349
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:457
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:552
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:895
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1074
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1404
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1582
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1661
 msgid "Please select an item first"
 msgstr "請先選擇一個品項"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:339
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:447
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:356
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:464
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:366
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:474
 msgid "Cannot modify selected item [%S]"
 msgstr "無法修改選取的品項 [%S]"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:345
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:362
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:372
 msgid "Not authorized to modify condiment price"
 msgstr "權限不足; 禁止修改調味價格"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:353
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:455
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:370
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:472
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:380
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:482
 msgid "Cannot modify; selected item [%S] has discount or surcharge applied"
 msgstr "禁止修改; 選取的品項 [%S] 已套用折扣或附加費"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:361
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:378
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:388
 msgid "Cannot modify; selected item [%S] has been subtotaled"
 msgstr "禁止修改; 選取的品項 [%S] 已列入小計"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:371
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:388
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:398
 msgid "Cannot modify; no price or quantity entered"
 msgstr "禁止修改; 價格或數量未輸入"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:381
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:398
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:408
 msgid "Cannot modify condiment; no price entered"
 msgstr "禁止修改調味; 價格未輸入"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:476
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:493
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:503
 msgid "Quantity may not be less than 1"
 msgstr "數量不得小於 1"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:512
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:525
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:529
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:536
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:539
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:546
 msgid "Not an open order; cannot VOID"
 msgstr "已結單或未開單; 禁止刪除"
 
-msgid ""
-"Cannot VOID the selected item [%S]\n"
-"It is not the last registered item"
-msgstr "禁止刪除選取的品項 [%S] ; 該品項並非最後輸入之品項"
-
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:551
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:568
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:578
 msgid "Cannot VOID an item that has been subtotaled"
 msgstr "已列入小計之品項禁止刪除"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:583
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:600
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:610
 msgid "Please enter the discount amount"
 msgstr "請輸入折扣金額"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:607
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:624
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:634
 msgid "Please enter the discount percentage first"
 msgstr "請先輸入折扣百分比"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:632
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:649
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:659
 msgid "Please enter the discount percentage"
 msgstr "請輸入折扣百分比"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:651
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:668
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:678
 msgid "Not an open order; cannot add discount"
 msgstr "已結單或未開單; 禁止新增折扣"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:657
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:674
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:684
 msgid "Please select an item"
 msgstr "請選擇一個品項"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:667
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:862
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:876
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:684
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:879
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:893
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:694
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:889
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:903
 msgid "Not an open order; cannot add surcharge"
 msgstr "已結單或未開單; 禁止新增附加費"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:676
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:693
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:703
 msgid "Pretax discount can only be registered against subtotals"
 msgstr "稅前折扣只能在小計時列入"
 
@@ -229,6 +303,14 @@ msgstr "稅前折扣只能在小計時列入"
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:719
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:895
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:923
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:703
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:736
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:912
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:940
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:713
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:746
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:922
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:950
 msgid "Discount has been already been registered on item [%S]"
 msgstr "品項 [%S] 之折扣已計入"
 
@@ -236,102 +318,158 @@ msgstr "品項 [%S] 之折扣已計入"
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:715
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:903
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:919
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:711
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:732
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:920
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:936
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:721
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:742
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:930
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:946
 msgid "Surcharge has been already been registered on item [%S]"
 msgstr "品項 [%S] 之附加費已計入"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:702
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:911
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1398
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:719
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:928
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1415
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:729
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:938
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1426
 msgid "Cannot modify an item that has been subtotaled"
 msgstr "已列入小計之品項禁止修改"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:707
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:724
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:734
 msgid "Cannot register discount on return items"
 msgstr "禁止退貨品項列入折扣"
 
-msgid ""
-"Cannot apply discount to [%S]\n"
-"It is not the last registered item"
-msgstr "禁止提供折扣於選取的品項 [%S] ; 該品項並非最後輸入之品項"
-
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:732
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:749
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:759
 msgid "Discount may not be added to [%S]"
 msgstr "禁止提供折扣於 [%S]"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:740
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:757
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:767
 msgid "Please enter the discount amount or percentage"
 msgstr "請輸入折扣金額或百分比"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:793
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:810
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:820
 msgid "Please enter the surcharge amount first"
 msgstr "請先輸入附加費金額"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:817
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:842
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:834
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:859
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:844
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:869
 msgid "Please enter the surcharge percentage"
 msgstr "請輸入附加費百分比"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:885
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:902
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:912
 msgid "Pretax surcharge can only be registered against subtotals"
 msgstr "稅前附加費只能在小計時列入"
 
-msgid ""
-"Cannot apply surcharge to [%S]\n"
-"It is not the last registered item"
-msgstr "禁止套用附加費於選取的品項 [%S] ; 該品項並非最後輸入之品項"
-
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:936
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:953
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:963
 msgid "Surcharge may not be added to [%S]"
 msgstr "禁止套用附加費於 [%S]"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:984
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:993
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1001
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1010
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1011
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1020
 msgid "Not an open order; operation invalid"
 msgstr "已結單或未開單; 操作無效"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1041
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1053
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1058
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1070
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1068
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1080
 msgid "Not an open order; cannot register House Bon"
 msgstr "已結單或未開單; 禁止登錄贈送產品"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1067
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1084
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1094
 msgid "House Bon may not be applied to [%S]"
 msgstr "品項 [%S] 禁止登錄為贈送產品"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1095
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1112
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1122
 msgid "The selected currency [%S] has not been configured"
 msgstr "選取的幣別尚未設定"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1114
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1187
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1233
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1130
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1203
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1250
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1140
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1213
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1260
 msgid "Please enter an amount first"
 msgstr "請先輸入金額"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1118
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1134
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1144
 msgid "Please configure the selected currency entry first [%S]"
 msgstr "請先設定選取的幣別 [%S]"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1131
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1147
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1157
 msgid "Credit Card Remark"
 msgstr "信用卡註記"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1131
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1148
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1147
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1164
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1157
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1174
 msgid "Payment"
 msgstr "付款"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1132
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1149
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1148
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1165
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1158
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1175
 msgid "Card Type"
 msgstr "卡別"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1132
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1149
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1148
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1165
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1158
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1175
 msgid "Card Remark"
 msgstr "卡片註記"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1148
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1164
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1174
 msgid "Gift Card Remark"
 msgstr "禮品卡註記"
 
@@ -341,75 +479,127 @@ msgstr "禮品卡註記"
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1226
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1260
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1268
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1190
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1196
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1237
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1243
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1278
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1286
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1200
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1206
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1247
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1253
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1288
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1296
 msgid "Not an open order; cannot register payments"
 msgstr "已結單或未開單; 禁止登錄付款金額"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1370
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1382
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1387
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1399
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1398
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1410
 msgid "Not an open order; cannot shift tax"
 msgstr "已結單或未開單; 禁止切換稅別"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1391
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1408
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1419
 msgid "This operation cannot be performed on [%S]"
 msgstr "此作業禁止在品項 [%S] 上執行"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1417
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1434
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1445
 msgid "The tax status indicated does not exist [%S]"
 msgstr "選取的稅別不存在"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1548
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1565
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1582
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1576
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1593
 msgid "Not an open order; cannot add condiment"
 msgstr "已結單或未開單; 禁止新增調味"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1579
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1597
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1608
 msgid "Condiments may not be added to [%S]"
 msgstr "禁止於品項 [%S] 新增調味"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1584
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1602
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1613
 msgid "Cannot add condiments to an item that has been subtotaled"
 msgstr "已列入小計之品項禁止新增調味"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1589
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1607
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1618
 msgid "Please void discount on item first"
 msgstr "請先刪除該品項之折扣"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1594
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1612
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1623
 msgid "Please void surcharge on item first"
 msgstr "請先刪除該品項之附加費"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1606
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1623
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1634
 msgid "No Condiment group associated with item [%S]"
 msgstr "品項 [%S] 並未與任何調味群組連結"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1627
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1638
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1645
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1656
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1667
 msgid "Not an open order; cannot add memo"
 msgstr "已結單或未開單; 禁止新增備註"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1720
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1738
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1749
 msgid "Add New Memo"
 msgstr "新增備註"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1720
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1738
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1749
 msgid "Add Memo"
 msgstr "新增備註"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1720
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1738
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1749
 msgid "Memo"
 msgstr "備註"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1801
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1806
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1819
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1824
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1830
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1835
 msgid "No open order to push"
 msgstr "已結單或未開單"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1841
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1859
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1870
 msgid "Order is not queued because it is empty"
 msgstr "無任何品項故無法暫存"
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:530
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:603
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:532
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:605
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:537
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:613
 msgid "Authentication failed! Please make sure the password is correct."
 msgstr "登入失敗! 請確認登入密碼是否正確."
 
@@ -447,11 +637,6 @@ msgstr "調味群組 [%S] 已存在"
 msgid "Condiment Group [%S] added successfully"
 msgstr "新增調味群組成功"
 
-msgid ""
-"An error occurred while adding Condiment Group [%S]\n"
-"The group may not have been added successfully"
-msgstr "新增調味群組 [%S] 時發生錯誤; 該調味群組並未新增成功"
-
 #: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:267
 msgid "Condiment Group [%S] already exists"
 msgstr "調味群組 [%S] 已存在"
@@ -460,19 +645,9 @@ msgstr "調味群組 [%S] 已存在"
 msgid "Condiment Group [%S] modified successfully"
 msgstr "調味群組 [%S] 修改成功"
 
-msgid ""
-"An error occurred while modifying Condiment Group [%S]\n"
-"The group may not have been modified successfully"
-msgstr "修改調味群組 [%S] 時發生錯誤; 該調味群組並未修改成功"
-
 #: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:344
 msgid "Condiment Group [%S] removed successfully"
 msgstr "調味群組 [%S] 刪除成功"
-
-msgid ""
-"An error occurred while removing Condiment Group [%S]\n"
-"The group may not have been removed successfully"
-msgstr "刪除調味群組 [%S] 時發生錯誤; 該調味群組並未刪除成功"
 
 #: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:392
 msgid "Add New Condiment"
@@ -503,28 +678,13 @@ msgstr "調味名稱 [%S] 已存在於本調味群組"
 msgid "Condiment [%S] added successfully"
 msgstr "新增調味種類 [%S] 成功"
 
-msgid ""
-"An error occurred while adding Condiment [%S]\n"
-"The condiment may not have been added successfully"
-msgstr "新增調味種類 [%S] 時發生錯誤; 該調味種類並未新增成功"
-
 #: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:499
 msgid "Condiment [%S] modified successfully"
 msgstr "修改調味種類 [%S] 成功"
 
-msgid ""
-"An error occurred while modifying Condiment [%S]\n"
-"The condiment may not have been modified successfully"
-msgstr "修改調味種類 [%S] 時發生錯誤; 該調味種類並未修改成功"
-
 #: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:538
 msgid "Condiment [%S] removed successfully"
 msgstr "刪除調味種類 [%S] 成功"
-
-msgid ""
-"An error occurred while removing Condiment [%S]\n"
-"The condiment may not have been removed successfully"
-msgstr "刪除調味種類 [%S] 時發生錯誤; 該調味種類並未刪除成功"
 
 #: /home/user/workspace/vivipos_app/content/controllers/departments_controller.js:146
 msgid "Department Number must not be empty"
@@ -572,29 +732,22 @@ msgstr "新增產品部門 [%S] 時發生錯誤; 該產品部門並未新增成�
 msgid "Department [%S] modified successfully"
 msgstr "修改產品部門 [%S] 成功"
 
-msgid ""
-"An error occurred while modifying Department [%S]\n"
-"The department may not have been modified successfully"
-msgstr "修改產品部門 [%S] 時發生錯誤; 該產品部門並未修改成功"
-
 #: /home/user/workspace/vivipos_app/content/controllers/departments_controller.js:269
 msgid "Department [%S] removed successfully"
 msgstr "刪除產品部門 [%S] 成功"
 
-msgid ""
-"An error occurred while removing Department [%S]\n"
-"The department may not have been removed successfully"
-msgstr "刪除產品部門 [%S] 時發生錯誤; 該產品部門並未刪除成功"
-
 #: /home/user/workspace/vivipos_app/content/controllers/funcpanelecrprefs_controller.js:823
+#: /home/user/workspace/vivipos_app/content/controllers/funcpanelecrprefs_controller.js:824
 msgid ".name"
 msgstr ".名稱"
 
 #: /home/user/workspace/vivipos_app/content/controllers/funcpanelecrprefs_controller.js:824
+#: /home/user/workspace/vivipos_app/content/controllers/funcpanelecrprefs_controller.js:825
 msgid ".label"
 msgstr ".標籤"
 
 #: /home/user/workspace/vivipos_app/content/controllers/funcpanelecrprefs_controller.js:825
+#: /home/user/workspace/vivipos_app/content/controllers/funcpanelecrprefs_controller.js:826
 msgid ".desc"
 msgstr ".敘述"
 
@@ -639,6 +792,10 @@ msgstr "刪除工作內容 [%S] 成功"
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:513
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:595
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:515
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:597
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:520
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:605
 msgid " logged in"
 msgstr "登入"
 
@@ -646,6 +803,8 @@ msgid "Failed to authenticate user"
 msgstr "登入失敗"
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:608
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:610
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:618
 msgid "Please enter passcode first."
 msgstr "請先輸入登入密碼"
 
@@ -653,43 +812,71 @@ msgstr "請先輸入登入密碼"
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:644
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:657
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:670
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:634
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:646
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:659
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:672
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:642
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:654
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:667
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:680
 msgid "Sign Off"
 msgstr "登出"
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:632
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:634
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:642
 msgid "Discard items that have been registered?"
 msgstr "刪除已輸入之交易?"
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:644
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:646
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:654
 msgid "What do you want to do with the registered items?"
 msgstr "您要如何處理已輸入之交易資料?"
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:645
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:647
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:655
 msgid "Queue"
 msgstr "暫存"
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:645
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:671
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:647
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:673
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:655
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:681
 msgid "Discard"
 msgstr "刪除"
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:657
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:659
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:667
 msgid "You have one or more queued orders. Discard them?"
 msgstr "您有一筆或多筆暫存單. 是否刪除?"
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:670
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:672
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:680
 msgid "You have one or more queued orders. What do you want to do with them?"
 msgstr "您有一筆或多筆暫存單. 請問您要如何處理?"
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:671
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:673
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:681
 msgid "Keep"
 msgstr "保留"
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:680
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:682
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:690
 msgid "confirm sign-off"
 msgstr "確認登出"
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:680
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:682
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:690
 msgid "Are you ready to sign off?"
 msgstr "您準備要登出嗎?"
 
@@ -718,18 +905,22 @@ msgid "Product Group [%S] removed successfully"
 msgstr "刪除產品群組 [%S] 成功"
 
 #: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:283
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:285
 msgid "Add New Product Set"
 msgstr "新增組合產品"
 
 #: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:283
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:285
 msgid "Product Set"
 msgstr "組合產品"
 
 #: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:283
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:285
 msgid "Product No.or Barcode"
 msgstr "產品編號或產品條碼"
 
 #: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:283
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:285
 msgid "Quantity"
 msgstr "數量"
 
@@ -737,68 +928,71 @@ msgid "Product not found (%S)."
 msgstr "產品 (%S) 不存在"
 
 #: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:393
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:395
 msgid "Product No. must not be empty."
 msgstr "產品編號不得為空白"
 
 #: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:396
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:398
 msgid "Product Name must not be empty."
 msgstr "產品名稱不得為空白"
 
 #: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:403
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:405
 msgid "The Product No. [%S] already exists; product not added."
 msgstr "產品編號 [%S] 已存在; 無法新增"
 
 #: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:407
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:409
 msgid "The Product Name [%S] already exists; product not added."
 msgstr "產品名稱 [%S] 已存在; 無法新增"
 
 #: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:411
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:413
 msgid "The Product Name [%S] already exists; product not modified."
 msgstr "產品名稱 [%S] 已存在; 無法修改"
 
 #: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:438
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:440
 msgid "Add New Product"
 msgstr "新增產品"
 
 #: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:438
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:440
 msgid "New Product"
 msgstr "新產品"
 
 #: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:438
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:440
 msgid "Product No."
 msgstr "產品編號"
 
 #: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:438
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:440
 msgid "Product Name"
 msgstr "產品名稱"
 
 #: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:466
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:468
 msgid "Product [%S] added successfully"
 msgstr "新增產品 [%S] 成功"
 
 #: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:470
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:472
 msgid ""
 "An error occurred while adding Product [%S]; the product may not have been "
 "added successfully"
 msgstr "新增產品 [%S] 時發生錯誤; 該產品並未新增成功"
 
 #: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:496
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:498
 msgid "Product [%S] modified successfully"
 msgstr "修改產品 [%S] 成功"
 
-msgid ""
-"An error occurred while modifying Product [%S]\n"
-"The product may not have been modified successfully"
-msgstr "修改產品 [%S] 時發生錯誤; 該產品並未修改成功"
-
 #: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:527
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:529
 msgid "Product [%S] removed successfully"
 msgstr "刪除產品 [%S] 成功"
-
-msgid ""
-"An error occurred while removing Product [%S]\n"
-"The product may not have been removed successfully"
-msgstr "刪除產品 [%S] 時發生錯誤; 該產品並未刪除成功"
 
 #: /home/user/workspace/vivipos_app/content/controllers/plusearch_controller.js:21
 msgid "Product [%S] Not Found!"
@@ -926,6 +1120,7 @@ msgid "Name"
 msgstr "員工姓名/代號"
 
 #: /home/user/workspace/vivipos_app/content/controllers/users_controller.js:56
+#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:97
 msgid "Password"
 msgstr "登入密碼"
 
@@ -958,45 +1153,65 @@ msgid "Select Access Group"
 msgstr "選擇權限群組"
 
 #: /home/user/workspace/vivipos_app/content/localekeyboard.js:41
+#: /home/user/workspace/vivipos_app/content/localekeyboard.js:38
 msgid "confirm language and keyboard mapping change"
 msgstr "確認修改語系與鍵盤設定"
 
 #: /home/user/workspace/vivipos_app/content/localekeyboard.js:42
+#: /home/user/workspace/vivipos_app/content/localekeyboard.js:39
 msgid ""
-"Language and Keyboard mapping changes required system restart to take effect. "
+"Language and Keyboard mapping changes require system restart to take effect. "
 "If you save the changes now, the system will restart automatically after you "
 "return to the Main Screen. Do you want to save your changes?"
-msgstr "語系與鍵盤設定修改需重新啟動程式後才會生效. 如果您按下儲存鍵, 程式將在返回主頁面之後重新啟動. 您確定要儲存修改?"
+msgstr ""
+"語系與鍵盤設定修改需重新啟動程式後才會生效. 如果您按下儲存鍵, 程式將在返回主"
+"頁面之後重新啟動. 您確定要儲存修改?"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:132
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:144
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:152
 msgid "confirm age"
 msgstr "確認年齡"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:132
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:144
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:152
 msgid "Is customer of age for purchase of [%S]?"
 msgstr "客戶年齡是否已達購買 [%S] 之法律規定?"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:541
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:558
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:568
 msgid "Cannot VOID the selected item [%S]. It is not the last registered item"
 msgstr "禁止刪除選取的品項 [%S] ; 該品項並非最後輸入之品項"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:726
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:743
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:753
 msgid "Cannot apply discount to [%S]. It is not the last registered item"
 msgstr "禁止提供折扣於選取的品項 [%S] ; 該品項並非最後輸入之品項"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:930
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:947
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:957
 msgid "Cannot apply surcharge to [%S]. It is not the last registered item"
 msgstr "禁止套用附加費於選取的品項 [%S] ; 該品項並非最後輸入之品項"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:998
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1015
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1025
 msgid "Nothing has been registered yet; operation invalid"
 msgstr "未登錄任何品項; 操作無效"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1273
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1291
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1301
 msgid "Nothing has been registered yet; cannot register payments"
 msgstr "未登錄任何品項; 禁止輸入付款金額"
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1468
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1485
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1496
 msgid "Not an open order; nothing to cancel"
 msgstr "已結單或未開單; 禁止刪除"
 
@@ -1083,6 +1298,7 @@ msgid ""
 msgstr "修改產品部門 [%S] 時發生錯誤; 該產品部門並未修改成功"
 
 #: /home/user/workspace/vivipos_app/content/controllers/departments_controller.js:253
+#: /home/user/workspace/vivipos_app/content/controllers/plugroups_controller.js:171
 msgid "[%S] has one or more products and may not be deleted"
 msgstr "[%S] 還存在一個或多個產品, 故無法刪除"
 
@@ -1103,21 +1319,25 @@ msgid "[%S] does not exist!"
 msgstr "[%S] 不存在"
 
 #: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:305
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:307
 msgid "Product not found [%S]."
 msgstr "產品 [%S] 不存在."
 
 #: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:420
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:422
 msgid ""
 "Condiment is required but no condiment group selected; product not modified."
 msgstr "已勾選強制選擇調味, 但未選擇調味群組; 產品無法修改."
 
 #: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:500
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:502
 msgid ""
 "An error occurred while modifying Product [%S]. The product may not have "
 "been modified successfully"
 msgstr "修改產品 [%S] 時發生錯誤; 該產品並未修改成功"
 
 #: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:531
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:533
 msgid ""
 "An error occurred while removing Product [%S]. The product may not have been "
 "removed successfully"
@@ -1170,10 +1390,6 @@ msgstr "已付款"
 msgid "Return"
 msgstr "退貨"
 
-#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:84
-msgid "I: "
-msgstr "I: "
-
 #: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:88
 msgid "QTY"
 msgstr "數量"
@@ -1181,10 +1397,6 @@ msgstr "數量"
 #: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:95
 msgid "Change Clerk"
 msgstr "變更收銀員"
-
-#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:97
-msgid "Password: "
-msgstr "登入密碼"
 
 #: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:136
 msgid "已刪單"
@@ -1199,6 +1411,8 @@ msgid "CHG"
 msgstr "找零"
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:569
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:571
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:579
 msgid "User [%S] does not exist!"
 msgstr "使用者 [%S] 不存在!"
 
@@ -1220,3 +1434,33 @@ msgstr "信用卡"
 
 msgid "CASH"
 msgstr "現金"
+
+#: /home/user/workspace/vivipos_app/content/datetime.js:44
+#: /home/user/workspace/vivipos_app/content/datetime.js:54
+msgid "Failed to setting date/time"
+msgstr "設定日期與時間時發生錯誤"
+
+#: /home/user/workspace/vivipos_app/content/controllers/users_controller.js:56
+msgid "Passcode"
+msgstr "登入密碼"
+
+#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:136
+msgid "CANCELED"
+msgstr "已刪單"
+
+#: /home/user/workspace/vivipos_app/content/datetime.js:29
+msgid "confirm date/time/timezone change"
+msgstr "確認修改日期與時間設定"
+
+#: /home/user/workspace/vivipos_app/content/datetime.js:30
+msgid ""
+"Date/Time/Timezone changes require system restart to take effect. If you "
+"save the changes now, the system will restart automatically after you return "
+"to the Main Screen. Do you want to save your changes?"
+msgstr ""
+"日期與時間設定修改需重新啟動程式後才會生效. 如果您按下儲存鍵, 程式將在返回主"
+"頁面之後重新啟動. 您確定要儲存修改?"
+
+#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:84
+msgid "I"
+msgstr "I"

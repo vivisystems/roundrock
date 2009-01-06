@@ -47,6 +47,7 @@
                 observe: function(aSubject, aTopic, aData) {
                     if (aTopic == 'prepare-to-restart')
                         self.doRestart = true;
+
                 }
             }).register();
 
@@ -92,6 +93,7 @@
                 } catch(err) {
                 }
             }
+
         },
 
 
@@ -495,13 +497,16 @@
                 GeckoJS.Observer.notify(null, 'button-state-resume', this.target);
                 this.suspendButton = false;
 
+                // resume cart
+                this.requestCommand('resume', null, 'Cart');
+
                 // check if has buffer (password)
                 var buf = this._getKeypadController().getBuffer().replace(/^\s*/, '').replace(/\s*$/, '');
                 this.requestCommand('clear', null, 'Cart');
 
                 var success = true;
                 // success is indicated by where txn is set to current transaction
-                if (stop != true && stop != 'true' && stop != 'true' && buf.length > 0) {
+                if (stop != true && stop != 'true' && buf.length > 0) {
 
                     if (this.Acl.securityCheckByPassword(buf, true)) {
                         this.signOff(true);
@@ -527,7 +532,7 @@
                 if (success) {
                     GeckoJS.Controller.getInstanceByName('Cart').subtotal();
                 }
-                else if (!stop) {
+                else if (!stop && buf.length > 0) {
                     // @todo OSD
                     NotifyUtils.error(_('Authentication failed! Please make sure the password is correct.'));
                 }
@@ -535,7 +540,10 @@
             else {
                 this.requestCommand('clear', null, 'Cart');
                 this.requestCommand('setTarget', 'Main', 'Keypad');
-                
+
+                // suspend cart
+                this.requestCommand('suspend', null, 'Cart');
+
                 // suspend all buttons
                 GeckoJS.Observer.notify(null, 'button-state-suspend', this.target);
                 this.suspendButton = true;
@@ -716,8 +724,11 @@
                 if (!cartEmpty) $do('cancel', null, 'Cart');
                 $do('clear', null, 'Cart');
             }
-            if (!quickSignoff) 
+
+            if (!quickSignoff) {
+                this.clear();
                 this.ChangeUserDialog();
+            }
         },
 
         dispatch: function(arg) {

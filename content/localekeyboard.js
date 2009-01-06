@@ -36,7 +36,7 @@
 
                 if (changed) {
                     if (GREUtils.Dialog.confirm(null, _('confirm language and keyboard mapping change'),
-                                                      _('Language and Keyboard mapping changes required system restart to take effect. If you save the changes now, the system will restart automatically after you return to the Main Screen. Do you want to save your changes?')
+                                                      _('Language and Keyboard mapping changes require system restart to take effect. If you save the changes now, the system will restart automatically after you return to the Main Screen. Do you want to save your changes?')
                                                       )) {
                         GeckoJS.Observer.notify(null, 'prepare-to-restart', this);
                     }

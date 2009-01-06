@@ -34,6 +34,14 @@
 
         },
 
+        suspend: function () {
+            this._suspended = true;
+        },
+
+        resume: function () {
+            this._suspended = false;
+        },
+
         beforeAddBuffer: function () {
 
             self = this;
@@ -220,6 +228,8 @@
 
         addItem: function(plu) {
 
+            if (this._suspended) return;
+            
             var item = GREUtils.extend({}, plu);
 
             // not valid plu item.
@@ -1304,6 +1314,7 @@
             if(!amount) {
                 // @todo default totalamount ?
                 amount = curTransaction.getRemainTotal();
+                if (amount < 0) amount = 0;
             }
 
             origin_amount = typeof origin_amount == 'undefined' ? amount : origin_amount;
