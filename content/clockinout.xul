@@ -9,6 +9,10 @@
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/clockinout.js" />
     
+    <keyset id="keyset_extensions">
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('cancel').click()" />
+    </keyset>
+
     <box flex="1" class="clockinPanel">
         <vbox  id="" pack="start" class="hboxb" flex="1">
             <hbox  pack="start" flex="1">
@@ -68,7 +72,7 @@
                 <vivibutton id="clock_out"  label="&clockin.keylabel.clockout;"  oncommand="$do('clockOut', null, 'ClockInOut');" class="clockinoutbtn"  />
                 <vivibutton id="clock_view"  label="&clockin.keylabel.view;"  oncommand="$do('view', null, 'ClockInOut');" class="clockinoutbtn2"  />
             </hbox>
-            <button label="&clockin.keylabel.ok;" class="genbtn" oncommand="$do('cancel', null, 'ClockInOut');" />
+            <button id="cancel" label="&clockin.keylabel.ok;" class="genbtn" oncommand="$do('cancel', null, 'ClockInOut');" />
         </vbox>
 
     </box>

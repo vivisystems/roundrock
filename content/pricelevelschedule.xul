@@ -41,7 +41,7 @@
 
             <vbox>
                 <hbox align="center">
-                    <vividatetimepicker id="seltime" value="12:00" flex="1" labelClass="timepickerfont" buttonClass="timepickerbtns"/>
+                    <vividatetimepicker-timepad id="seltime" value="12:00" flex="1" labelClass="timepickerfont" buttonClass="timepickerbtns"/>
                 </hbox>
 
                 <separator class="groove-thin" style="margin:5px;"/>

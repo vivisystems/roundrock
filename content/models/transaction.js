@@ -210,6 +210,7 @@
 
             index: index,
             stock_status: item.stock_status,
+            age_verification: item.age_verification,
             
             current_qty: sellQty,
             current_price: roundedPrice,
@@ -266,6 +267,7 @@
                 type: type,
                 index: index,
                 stock_status: item.stock_status,
+                age_verification: item.age_verification,
                 level: 0
             });
         }else if (type == 'discount') {

@@ -22,6 +22,8 @@
             keypad.addEventListener('beforeAddBuffer', self.beforeAddBuffer);
 
             this.addEventListener('beforeAddItem', self.beforeAddItem);
+            this.addEventListener('beforeVoidItem', self.clearWarning);
+            this.addEventListener('beforeModifyItem', self.clearWarning);
 
             // var curTransaction = this._getTransaction();
             // curTransaction.events.addListener('beforeAppendItem', obj, this);
@@ -106,6 +108,11 @@
 
         },
 
+        clearWarning: function (evt) {
+            var cart = GeckoJS.Controller.getInstanceByName('Cart');
+            cart.dispatchEvent('onWarning', '');
+        },
+
         beforeAddItem: function (evt) {
             var item = evt.data;
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
@@ -141,6 +148,12 @@
                     else {
                         //@todo OSD
                         NotifyUtils.warn(_('Verify Customer Age for Purchase of [%S]!', [item.name]));
+                    }
+                }
+                else {
+                    // clear warning if no stock warning
+                    if (item.stock_status == null || item.stock_status == 1) {
+                        cart.dispatchEvent('onWarning', '');
                     }
                 }
             }

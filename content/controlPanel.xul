@@ -22,6 +22,10 @@
     </script>
     <script type="application/x-javascript" src="chrome://viviecr/content/controlPanel.js" />
 
+    <keyset id="keyset_extensions">
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()" />
+    </keyset>
+
     <stack class="ControlPanel" flex="1">
         <vbox >
             <label style="display: none;" value="&controlpanel.title;"/>

@@ -53,7 +53,7 @@
 
             this._userAdded = false;
 
-            window.openDialog(aURL, _('Add New Employee'), features, _('New Employee'), '', _('Name'), _('Password'), inputObj);
+            window.openDialog(aURL, _('Add New Employee'), features, _('New Employee'), '', _('Name'), _('Passcode'), inputObj);
             if (inputObj.ok && inputObj.input0 && inputObj.input1) {
                 user.username = inputObj.input0;
                 user.password = inputObj.input1;
