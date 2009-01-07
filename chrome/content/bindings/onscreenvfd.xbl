@@ -77,7 +77,7 @@
                 }
 
                 this.onReturnStatus = function(evt) {
-                    self.setText1_1(_('Return'));
+                    self.setText0_1(_('Return'));
                 }
 
                 this.onAddBuffer = function(evt) {
