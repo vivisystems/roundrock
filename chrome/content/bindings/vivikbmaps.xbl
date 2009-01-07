@@ -211,6 +211,17 @@
                         // maybe permision deny
                     }
 
+                    // restart virtual keyboard
+                    try {
+                        var resetKeyboardScript = new GeckoJS.File('/data/scripts/reset_keyboard.sh');
+                        if (resetKeyboardScript.exists()) {
+	                    resetKeyboardScript.run([], true); // no arguments and blocking.
+                        }
+                        delete resetKeyboardScript;
+                        resetKeyboardScript = null;
+                    }catch(e) {
+                    }
+
                     return false;
                 ]]>
                 </xbl:body>
