@@ -19,7 +19,7 @@
 
     <hbox flex="1" class="main-dialog">
         <vbox flex="1">
-            <viviscrollabletree id="pluscrollablepanel" flex="1"
+            <viviscrollabletree id="plusearchscrollablepanel" flex="1"
                                 headers="&plus.product.no;,&plus.product.name;,&plus.stock.level;"
                                 fields="no,name,stock"
                                 onclick="$do('select',this.selectedIndex, 'PluSearch');"
@@ -195,7 +195,7 @@
                 </hbox>
             </vbox>
             <groupbox id="advance_search">
-                <caption label="Advance Search:" />
+                <caption label="&plus.search.advancesearch;:" />
                 <vbox>
                     <grid>
                         <rows id="rows_filter">

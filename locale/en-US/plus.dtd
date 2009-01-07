@@ -6,6 +6,9 @@
 <!ENTITY plus.tab.pricelevels "Price Levels">
 <!ENTITY plus.tab.linkgroups "Link Groups">
 
+<!ENTITY plus.tab.normalmode "Normal Mode">
+<!ENTITY plus.tab.filtermode "Filter Mode">
+
 <!ENTITY plus.base.data  "Product Details">
 <!ENTITY plus.base.data1  "Basic Data (Page 1)">
 <!ENTITY plus.base.data2  "Basic Data (Page 2)">
@@ -61,6 +64,7 @@
 <!ENTITY plus.lalo "LALO">
 
 <!ENTITY plus.search.label "Search By Product No. or Barcode">
+<!ENTITY plus.search.advancesearch "Acvance Search">
 
 <!ENTITY plus.button.action.add "Add">
 <!ENTITY plus.button.action.modify "Modify">

@@ -1,6 +1,8 @@
 (function(){
 
-GeckoJS.include('chrome://viviecr/content/models/plugroup.js');
+include('chrome://viviecr/content/models/plugroup.js');
+
+include('chrome://viviecr/content/controllers/plusearch_controller.js');
 
 /**
  * Controller Startup
@@ -10,6 +12,8 @@ function startup() {
     $do('createGroupPanel', null, "Plus");
 	$do('createPluPanel', null, "Plus");
     $do('initDefaultTax', null, 'Plus');
+
+    $do('createFilterRows', null, 'PluSearch');
 
     $('#imageBrowseBtn')[0].addEventListener('command', selectImages, false);
 	$('#imageRemoveBtn')[0].addEventListener('command', RemoveImage, false);

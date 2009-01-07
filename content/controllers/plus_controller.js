@@ -544,6 +544,40 @@
             GeckoJS.Session.add('products', products);
         },
 
+        locateIndex: function (elem, list, path) {
+
+            // locate elem in list using binary search
+            var low = 0;
+            var N = list.length;
+            var high = N;
+            while (low < high) {
+                var mid = Math.floor((low - (- high))/2);
+                (list[mid][path] < elem) ? low = mid + 1 : high = mid;
+            }
+            // high == low, using high or low depends on taste
+            if ((low < N) && (list[low][path] == elem))
+                return low // found
+            else
+                return -1 // not found             },
+        },
+
+        selectPlu: function(index) {
+
+            var plusearchListObj = document.getElementById('plusearchscrollablepanel');
+            var datas = plusearchListObj.datasource._data;
+
+            var plu = datas[index];
+
+            var categories = GeckoJS.Session.get('categories');
+            var catIndex = this.locateIndex(plu.cate_no, categories, "no");
+            this.changePluPanel(catIndex);
+
+            var plus = this.productPanelView.tree.datasource.data;
+            var pluIndex = plus.indexOf(plu.id);
+            this.clickPluPanel(pluIndex);
+
+        },
+
         validateForm: function(resetTabs) {
             // category selected?
             document.getElementById('add_plu').setAttribute('disabled', (this._selCateNo == null || this._selCateNo == -1));
