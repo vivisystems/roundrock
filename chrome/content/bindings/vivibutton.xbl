@@ -175,12 +175,13 @@
             return;
         }
 
+/*
         if(this.suspended) {
             // alway disable
             this.disabled = true;
             return ;
         }
-
+*/
         var isInRole = GeckoJS.AclComponent.isUserInRole(roles);
 
         var $button =  jQuery(this);
