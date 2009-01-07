@@ -1,0 +1,6 @@
+#!/bin/sh
+
+cp /media/sdb1/getSystemLicense /tmp
+chmod +x /tmp/getSystemLicense
+/data/vivipos_sdk/getSystemLicenseStub | /tmp/getSystemLicense > /etc/vivipos.lic
+rm /tmp/getSystemLicense

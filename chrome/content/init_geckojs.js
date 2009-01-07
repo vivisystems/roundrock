@@ -152,6 +152,10 @@ window.toOpenWindowByType = function toOpenWindowByType(inType, uri) {
     window.open(uri, "_blank", winopts);
 };
 
+window.getMostRecentWindow =function getMostRecentWindow (type) {
+    return Components.classes["@mozilla.org/appshell/window-mediator;1"]
+         .getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow(type);
+}
 
 })();
 
