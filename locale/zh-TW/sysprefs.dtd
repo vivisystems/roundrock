@@ -3,6 +3,7 @@
 <!ENTITY category.general "一般設定">
 <!ENTITY category.login "登入登出設定">
 <!ENTITY category.tax "稅別設定">
+<!ENTITY category.plufilter "產品查詢條件設定">
 <!ENTITY terminalid "本機編號">
 <!ENTITY publicattendance "所有員工都可檢視其他員工之出勤紀錄">
 <!ENTITY defaultlogin "自動以下列勾選之員工身分登入本機:">
@@ -49,3 +50,10 @@
 <!ENTITY layout.functionpanel.label "功能面板大小">
 <!ENTITY layout.functionpanel.rows "行數">
 <!ENTITY layout.functionpanel.cols "列數">
+<!ENTITY plufilter.title "產品查詢條件定義">
+<!ENTITY plufilter.filtername "條件名稱">
+<!ENTITY plufilter.index "起始位置">
+<!ENTITY plufilter.length "長度">
+<!ENTITY plufilter.add "新增條件">
+<!ENTITY plufilter.remove "移除條件">
+
