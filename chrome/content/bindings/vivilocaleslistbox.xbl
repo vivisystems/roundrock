@@ -140,7 +140,6 @@
                         var newLocale = this.selectedLocale;
 
                         var loc = newLocale.split('-');
-
                         var langENV = loc[0] + '_' + loc[1] + '.UTF-8';
 
                         // ubuntu locale environment

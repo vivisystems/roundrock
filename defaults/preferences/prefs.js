@@ -56,7 +56,7 @@ pref("general.autoScroll", true);
 pref("general.smoothScroll", false);
 pref("extensions.ignoreMTimeChanges", false);
 pref("extensions.logging.enabled", false);
-pref("general.skins.selectedSkin", "classic/1.0");
+pref("general.skins.selectedSkin", "traditional-800x600/1.0");
 
 // NB these point at AMO
 // pref("extensions.update.url", "chrome://mozapps/locale/extensions/extensions.properties");

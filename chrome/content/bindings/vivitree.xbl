@@ -7,7 +7,7 @@
 
 <binding id="vivitree">
     <content>
-      <xul:tree anonid="tree" flags="dont-build-content" flex="1" seltype="single" xbl:inherits="class,pack,orient,collapsed,hidden,flex,enableColumnDrag,flags,hidecolumnpicker,rows,fixed,seltype,align,dir,hidevscroll,hidehscroll">
+      <xul:tree anonid="tree" flags="dont-build-content" flex="1" seltype="single" xbl:inherits="class,pack,orient,collapsed,hidden,flex,enableColumnDrag,flags,hidecolumnpicker,rows,fixed,seltype,align,dir,hidevscroll,hidehscroll,disableKeyNavigation">
           <xul:treecols anonid="treecols" />
           <xul:treechildren anonid="treechildren" alternatingbackground="true" />
       </xul:tree>
