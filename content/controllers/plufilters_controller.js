@@ -42,6 +42,9 @@
 
             document.getElementById('pref_plufilters').value = datastr;
 
+            // @todo OSD
+            OsdUtils.info(_('Filter [%S] added successfully', [filterName]));
+
             this.load();
         },
 
@@ -53,6 +56,9 @@
                 var datastr = GeckoJS.String.urlEncode(GeckoJS.BaseObject.serialize(datas));
 
                 document.getElementById('pref_plufilters').value = datastr;
+
+                // @todo OSD
+                OsdUtils.info(_('Filter removed successfully', []));
 
                 this.load();
             }

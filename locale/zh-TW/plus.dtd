@@ -69,3 +69,6 @@
 <!ENTITY plus.button.numpad.clear "清空">
 <!ENTITY plus.button.numpad.del "DEL">
 <!ENTITY plus.button.numpad.enter "輸入">
+<!ENTITY plus.button.numpad.advsearch "查詢">
+<!ENTITY plus.button.numpad.advclear "清除條件">
+
