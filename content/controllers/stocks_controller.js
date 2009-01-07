@@ -189,7 +189,8 @@
                 var ordItem = obj.items[o];
                 var item = this.Product.findById(ordItem.id);
                 if (item.auto_maintain_stock) {
-                    item.stock = item.stock - ordItem.current_qty;
+                    if (ordItem.current_qty > 0 || item.return_stock)
+                        item.stock = item.stock - ordItem.current_qty;
                     var product = new ProductModel();
 
                     product.id = item.id;
