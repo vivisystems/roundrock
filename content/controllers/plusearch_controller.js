@@ -12,7 +12,7 @@
 
         getListObj: function() {
             if(this._listObj == null) {
-                this._listObj = document.getElementById('pluscrollablepanel');
+                this._listObj = document.getElementById('plusearchscrollablepanel');
             }
             return this._listObj;
         },

@@ -14,6 +14,7 @@
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
 <window title="&plus.title;"
+        hidechrome="true"
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
             
@@ -27,9 +28,9 @@
         <hbox flex="1" class="footlogo" style="overflow: hidden;">
             <vbox flex="1">
                 <tabbox  flex="1">
-                    <tabpanels id="tabpanels" flex="1" >
+                    <tabpanels id="tabpanels" flex="1" style="padding:0px;">
                         <tabpanel flex="1" >
-                            <vbox>
+                            <vbox flex="1">
                 <!-- Begin Catalogs -->
                                 <viviscrollablebuttonpanel dir="reverse" id="catescrollablepanel" flex="1" cols="4" rows="2" labelField="name" imageField="no"
                                            oncommand="$do('changePluPanel',this.selectedIndex, 'Plus');"
@@ -55,18 +56,54 @@
                         </tabpanel>
 
                         <tabpanel flex="1" >
-                            <vbox>
-                                <label value="Test Search..." />
+                            <vbox flex="1">
+                                <vbox flex="1">
+                                    <label value="&plus.search.label;" />
+                                    <textbox id="plu" value="" onchange="$do('searchPlu', this.value, 'PluSearch');" />
+                                    <!-- spacer style="height:10px;" />
+                                    <numberpad id="multinumberpad" class="numberpad"/ -->
+                                    <viviscrollabletree id="plusearchscrollablepanel" flex="1"
+                                                        headers="&plus.product.no;,&plus.product.name;"
+                                                        fields="no,name"
+                                                        onclick="$do('selectPlu',this.selectedIndex, 'Plus');"
+                                                        class="prodscrollablepanel"
+                                                        scrollUpClass="rightprevbtn gray"
+                                                        scrollDownClass="rightnextbtn gray">
+                                        <spacer flex="1" />
+                                    </viviscrollabletree>
+                                </vbox>
+                                <spacer style="height:10px;" />
+                                <vbox>
+                                    <hbox>
+                                        <!-- sendkeybutton id="bkeyBtn"  label="&plus.button.numpad.del;" keyCode='0x08' class="systembtn"  />
+                                        <sendkeybutton id="clearBtn" label="&plus.button.numpad.clear;" class="systembtn"/ -->
+                                        <vivibutton id="ekeyBtn"  label="&plus.button.numpad.advsearch;" oncommand="$do('searchPlu', document.getElementById('plu').value, 'PluSearch');" class="systembtn"  />
+                                    </hbox>
+                                </vbox>
+                                <groupbox id="advance_search">
+                                    <caption label="&plus.search.advancesearch;:" />
+                                    <vbox>
+                                        <grid>
+                                            <rows id="rows_filter">
+
+                                            </rows>
+                                        </grid>
+                                        <hbox>
+                                            <vivibutton id="advSearchBtn"  label="&plus.button.numpad.advsearch;" oncommand="$do('advSearch', null, 'PluSearch');" class="systembtn"  />
+                                            <vivibutton id="advClearBtn"  label="&plus.button.numpad.advclear;" oncommand="$do('advClear', null, 'PluSearch');" class="systembtn"  />
+                                        </hbox>
+                                    </vbox>
+                                </groupbox>
                             </vbox>
                         </tabpanel>
 
                     </tabpanels>
-                    <tabs id="tabs" >
-                        <tab id="tab_normalmode" label="&plus.tab.base.data1;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" class="tab-bottom" />
-                        <tab id="tab_filtermode" label="&plus.tab.base.data2;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" class="tab-bottom" />
+                    <tabs id="mode_tabs" >
+                        <tab id="tab_normalmode" label="&plus.tab.normalmode;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" class="tab-bottom" />
+                        <tab id="tab_filtermode" label="&plus.tab.filtermode;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" class="tab-bottom" />
                     </tabs>
                 </tabbox>
-                <spacer style="height: 60px;" />
+
             </vbox>
 
             <vbox id="" >

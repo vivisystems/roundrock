@@ -6,6 +6,9 @@
 <!ENTITY plus.tab.pricelevels "價格設定">
 <!ENTITY plus.tab.linkgroups "群組連結">
 
+<!ENTITY plus.tab.normalmode "一般">
+<!ENTITY plus.tab.filtermode "查詢模式">
+
 <!ENTITY plus.base.data  "產品資料">
 <!ENTITY plus.base.data1  "基本資料 (第 1 頁)">
 <!ENTITY plus.base.data2  "基本資料 (第 2 頁)">
@@ -61,6 +64,7 @@
 <!ENTITY plus.lalo "最低價格">
 
 <!ENTITY plus.search.label "產品搜尋 - 依產品編號或產品條碼">
+<!ENTITY plus.search.advancesearch "進階查詢">
 
 <!ENTITY plus.button.action.add "新增">
 <!ENTITY plus.button.action.modify "修改">
