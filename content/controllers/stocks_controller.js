@@ -8,7 +8,7 @@
         name: 'Stocks',
         scaffold: true,
         uses: ['Product'],
-	
+
         _listObj: null,
         _listDatas: null,
         _panelView: null,
@@ -73,7 +73,13 @@
             if (evt.justUpdate) {
                 //
                 //alert('just update');
-            } 
+
+                // update stock in session...
+                var productsById = GeckoJS.Session.get('productsById');
+                var product = productsById[evt.data.id];
+                product.stock = evt.data.stock;
+                product.min_stock = evt.data.min_stock;
+            }
             else {
                 var product = this._productsById[evt.data.id];
                 product.stock = evt.data.stock;
@@ -183,14 +189,13 @@
                 var ordItem = obj.items[o];
                 var item = this.Product.findById(ordItem.id);
                 if (item.auto_maintain_stock) {
-                    if (ordItem.current_qty > 0 || item.return_stock)
-                        item.stock = item.stock - ordItem.current_qty;
+                    item.stock = item.stock - ordItem.current_qty;
                     var product = new ProductModel();
 
                     product.id = item.id;
                     product.save(item);
                     delete product;
-                    
+
                     // fire onLowStock event...
                     if (item.min_stock > item.stock) {
                         this.dispatchEvent('onLowStock', item);
@@ -215,7 +220,7 @@
 
            if (index >= this._datas.length) index = this._datas.length - 1;
             this._selectedIndex = index;
-            
+
             if (index >= 0) {
                 var item = this._datas[index];
                 this.requestCommand('view', item.id);
@@ -245,9 +250,8 @@
                 document.getElementById('min_stock').setAttribute('disabled', true);
             }
         }
-	
+
     });
 
 
 })();
-
