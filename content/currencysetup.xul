@@ -20,6 +20,11 @@
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/currencysetup.js" />
 
+    <keyset id="keyset_extensions">
+        <key id="key_enter" keycode="VK_RETURN" oncommand="document.getElementById('ok').click()"/>
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('cancel').click()" />
+    </keyset>
+    
     <groupbox class="main-dialog" flex="1">
         <caption label="&currencysetup.title;" />
         <grid>
@@ -59,7 +64,7 @@
                     <textbox id="currency_symbol_1" value="" size="4" maxsize="4" form="currencyForm" name="currency_symbol_1"
                              onfocus="select()"/>
                     <textbox id="currency_exchange_1" value="" size="8" maxsize="8" form="currencyForm" name="currency_exchange_1"
-                             type="number" hidespinbuttons="true" decimalplaces="Infinity" oninput="calCurrency('1')" onblur="calCurrency('1')" onfocus="this.select()"/>
+                             type="number" hidespinbuttons="true" decimalplaces="Infinity" onchange="calCurrency('1')" onblur="calCurrency('1')"/>
                     <label value=":" />
                     <textbox id="currency_input_1" value="" size="6" maxsize="8" oninput="calCurrency('1');" onfocus="this.select()"/>
                     <label value="=" />
@@ -72,7 +77,7 @@
                     <textbox id="currency_symbol_2" value="" size="4" maxsize="4" form="currencyForm" name="currency_symbol_2"
                              onfocus="select()"/>
                     <textbox id="currency_exchange_2" value="" size="8" maxsize="8" form="currencyForm" name="currency_exchange_2"
-                             type="number" hidespinbuttons="true" decimalplaces="Infinity" oninput="calCurrency('2')" onblur="calCurrency('2')" onfocus="this.select()"/>
+                             type="number" hidespinbuttons="true" decimalplaces="Infinity" onchange="calCurrency('2')" onblur="calCurrency('2')"/>
                     <label value=":" />
                     <textbox id="currency_input_2" value="" size="6" maxsize="8" oninput="calCurrency('2');" onfocus="this.select()"/>
                     <label value="=" />
@@ -85,7 +90,7 @@
                     <textbox id="currency_symbol_3" value="" size="4" maxsize="4" form="currencyForm" name="currency_symbol_3"
                              onfocus="select()"/>
                     <textbox id="currency_exchange_3" value="" size="8" maxsize="8" form="currencyForm" name="currency_exchange_3"
-                             type="number" hidespinbuttons="true" decimalplaces="Infinity" oninput="calCurrency('3')" onblur="calCurrency('3')" onfocus="this.select()"/>
+                             type="number" hidespinbuttons="true" decimalplaces="Infinity" onchange="calCurrency('3')" onblur="calCurrency('3')"/>
                     <label value=":" />
                     <textbox id="currency_input_3" value="" size="6" maxsize="8" oninput="calCurrency('3');" onfocus="this.select()"/>
                     <label value="=" />
@@ -98,7 +103,7 @@
                     <textbox id="currency_symbol_4" value="" size="4" maxsize="4" form="currencyForm" name="currency_symbol_4"
                              onfocus="select()"/>
                     <textbox id="currency_exchange_4" value="" size="8" maxsize="8" form="currencyForm" name="currency_exchange_4"
-                             type="number" hidespinbuttons="true" decimalplaces="Infinity" oninput="calCurrency('4')" onblur="calCurrency('4')" onfocus="this.select()"/>
+                             type="number" hidespinbuttons="true" decimalplaces="Infinity" onchange="calCurrency('4')" onblur="calCurrency('4')"/>
                     <label value=":" />
                     <textbox id="currency_input_4" value="" size="6" maxsize="8" oninput="calCurrency('4');" onfocus="this.select()"/>
                     <label value="=" />
@@ -111,7 +116,7 @@
                     <textbox id="currency_symbol_5" value="" size="4" maxsize="4" form="currencyForm" name="currency_symbol_5"
                              onfocus="select()"/>
                     <textbox id="currency_exchange_5" value="" size="8" maxsize="8" form="currencyForm" name="currency_exchange_5"
-                             type="number" hidespinbuttons="true" decimalplaces="Infinity" oninput="calCurrency('5')" onblur="calCurrency('5')" onfocus="this.select()"/>
+                             type="number" hidespinbuttons="true" decimalplaces="Infinity" onchange="calCurrency('5')" onblur="calCurrency('5')"/>
                     <label value=":" />
                     <textbox id="currency_input_5" value="" size="6" maxsize="8" oninput="calCurrency('5');" onfocus="this.select()"/>
                     <label value="=" />
@@ -135,8 +140,11 @@
     </groupbox>
   
     <hbox id="dialogButtons" class="dialogbtns" pack="center">
+        <spacer flex="1"/>
         <button class="right exit-dialog" id="ok" label="&dialog.saveButton.label;" default="true" oncommand="doOKButton();"/>
         <button class="exit-dialog" id="cancel" label="&dialog.cancelButton.label;" default="false" oncommand="doCancelButton();"/>
+        <spacer flex="1"/>
+        <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="vkb"/>
     </hbox>
 
 </window>

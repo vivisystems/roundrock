@@ -117,12 +117,6 @@
 	display: none;
 }
 
-.catescrollablepanel .scrollablepanel-scrollbar {
-    
-}
-
-
-
 /*--------------------------------------------------------------------------
  *
  * PLU PANEL
@@ -132,14 +126,15 @@
 .prodscrollablepanel {
 	-moz-appearance: none;
 	-moz-background-clip: border;
-	margin: 3px 2px 1px 0px;
+	margin: 1px 2px 1px 0px;
 	background: #7f8893;
 	padding: 0px 0 0 2px;
 }
 
 .prodscrollablepanel vivibuttonpanel {
-	margin: 4px;
+	margin: 4px 4px 0px 0px;
 }
+
 /*--------------------------------------------------------------------------
  * BUTTONS
  *--------------------------------------------------------------------------
@@ -195,5 +190,3 @@
 	width: 32px;
 	height: 32px;
 }
-
-

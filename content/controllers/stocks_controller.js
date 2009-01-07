@@ -73,12 +73,6 @@
             if (evt.justUpdate) {
                 //
                 //alert('just update');
-
-                // update stock in session...
-                var productsById = GeckoJS.Session.get('productsById');
-                var product = productsById[evt.data.id];
-                product.stock = evt.data.stock;
-                product.min_stock = evt.data.min_stock;
             } 
             else {
                 var product = this._productsById[evt.data.id];
@@ -189,7 +183,8 @@
                 var ordItem = obj.items[o];
                 var item = this.Product.findById(ordItem.id);
                 if (item.auto_maintain_stock) {
-                    item.stock = item.stock - ordItem.current_qty;
+                    if (ordItem.current_qty > 0 || item.return_stock)
+                        item.stock = item.stock - ordItem.current_qty;
                     var product = new ProductModel();
 
                     product.id = item.id;

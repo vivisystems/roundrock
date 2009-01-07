@@ -47,7 +47,10 @@ var options = {};
                 textNodes[i].addEventListener('focus', gotFocus, false);
         }
 
-        document.getElementById('input0').focus();
+        if (inputObj.input0 != '')
+            document.getElementById('input1').focus();
+        else
+            document.getElementById('input0').focus();
 
     };
 

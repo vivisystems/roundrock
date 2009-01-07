@@ -1,6 +1,6 @@
-<!ENTITY    changeuser.title             "User Sign In">
-<!ENTITY    changeuser.keylabel.clear             "CLEAR">
-<!ENTITY    changeuser.keylabel.del            "DEL">
-<!ENTITY    changeuser.keylabel.password             "Passcode:">
-<!ENTITY    changeuser.keylabel.ok             "OK">
-<!ENTITY    changeuser.label.quicklogin        "Quick Login:">
+<!ENTITY    changeuser.title             "使用者登入">
+<!ENTITY    changeuser.keylabel.clear             "清空">
+<!ENTITY    changeuser.keylabel.del            "刪除">
+<!ENTITY    changeuser.keylabel.password             "登入密碼:">
+<!ENTITY    changeuser.keylabel.ok             "登入">
+<!ENTITY    changeuser.label.quicklogin        "快速登入:">

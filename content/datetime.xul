@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % DateTime SYSTEM "chrome://viviecr/locale/datetime.dtd">
+  %DateTime;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+<window title="&datetime.title;"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script>
+    </script>
+
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/datetime.js" />
+
+    <keyset id="keyset_extensions">
+        <key id="key_enter" keycode="VK_RETURN" oncommand="document.getElementById('ok').click()"/>
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('cancel').click()" />
+    </keyset>
+    
+    <groupbox class="main-dialog" flex="1">
+        <tabbox>
+            <tabs>
+                <tab id="tab1" label="&datetime.datetime.title;"/>
+                <tab id="tab2" label="&datetime.timezone.title;"/>
+            </tabs>
+            <tabpanels>
+                <tabpanel flex="1">
+                    <vividatetimepicker id="datetime" flex="1" type="embed"
+                            />
+                </tabpanel>
+                <tabpanel flex="1">
+                    <vivitimezones id="timezones" flex="1"/>
+                </tabpanel>
+            </tabpanels>
+        </tabbox>
+    </groupbox>
+  
+    <hbox id="dialogButtons" class="dialogbtns" pack="center">
+        <button class="right exit-dialog" id="ok" label="&dialog.applyButton.label;" default="true" oncommand="doOKButton();"/>
+        <button class="exit-dialog" id="cancel" label="&dialog.cancelButton.label;" default="false" oncommand="doCancelButton();"/>
+    </hbox>
+
+</window>

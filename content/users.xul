@@ -27,13 +27,14 @@
                                        class="userscrollablepanel"
                                        buttonClass="catbtn button-radius button-white font-medium"
                                        scrollUpClass="rightprevbtn button-blue"
-                                       scrollDownClass="rightnextbtn button-blue">
+                                       scrollDownClass="rightnextbtn button-blue"
+                                       style="min-width:392px; max-width:392px; width=392px;">
                 <spacer flex="1"/>
             </viviscrollablebuttonpanel>
             <spacer style="width: 10px;" />
             <separator class="groove-thin"/>
 
-            <vbox>
+            <vbox flex="1">
                 <tabbox id="tabbox" flex="1">
                     <tabs id="tabs">
                         <tab id="tab1" label="&users.basedata;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical"/>
@@ -199,7 +200,10 @@
     </groupbox>
 
     <hbox id="dialogButtons" class="dialogbtns" pack="center">
+        <spacer flex="1"/>
         <button class="right exit-dialog" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+        <spacer flex="1"/>
+        <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="vkb"/>
     </hbox>
 
 </window>

@@ -1,6 +1,27 @@
-@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+/*-----------------------------------------------------------------------------
+ *
+ * System Options
+ *
+ *-----------------------------------------------------------------------------
+ */
 
-@namespace html url("http://www.w3.org/1999/xhtml");
+/*-----------------------------------------------------------------------------
+ * Dialog button box
+ *-----------------------------------------------------------------------------
+ */
+
+.prefWindow-dlgbuttons {
+    -moz-box-pack: center;
+}
+
+.prefWindow-dlgbuttons spacer {
+    display: none;
+}
+
+/*-----------------------------------------------------------------------------
+ * Container for user & tax panels
+ *-----------------------------------------------------------------------------
+ */
 
 .panelContainer {
     border: 2px groove;
@@ -9,51 +30,67 @@
     -moz-border-radius: 8px;
 }
 
+/*-----------------------------------------------------------------------------
+ * Scrollbar buttons for user & tax panels
+ *-----------------------------------------------------------------------------
+ */
+
 .sysprefs_scroll_up {
-    min-height: 32px;
-    max-height: 32px;
-    min-width: 32px;
-    max-width: 32px;
+    min-height: 40px;
+    max-height: 40px;
+    min-width: 40px;
+    max-width: 40px;
     margin: 0px;
     padding: 0px 0px 0px 0px;
-    background: transparent url(images/departUp.png) center center no-repeat;
+    background: transparent url(images/departUp.png) top left no-repeat;
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-background-clip: border;
     border: 0px;
 }
+
 .sysprefs_scroll_up[disabled=false]:active {
-	background: transparent url(images/departUp_a.png) center center no-repeat;
+	background: transparent url(images/departUp_a.png) top left no-repeat;
 }
+
 .sysprefs_scroll_up label {
 	display: none;
 }
+
 .sysprefs_scroll_up description {
 	display: none;
 }
+
 .sysprefs_scroll_down {
-    min-height: 32px;
-    max-height: 32px;
-    min-width: 32px;
-    max-width: 32px;
+    min-height: 40px;
+    max-height: 40px;
+    min-width: 40px;
+    max-width: 40px;
     margin: 0px;
     padding: 0px 0px 0px 0px;
-    background: transparent url(images/departDown.png) center center no-repeat;
+    background: transparent url(images/departDown.png) top left no-repeat;
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-background-clip: border;
     border: 0px;
 }
+
 .sysprefs_scroll_down[disabled=false]:active {
-	background: transparent url(images/departDown_a.png) center center no-repeat;
+	background: transparent url(images/departDown_a.png) top left no-repeat;
 }
+
 .sysprefs_scroll_down label {
 	display: none;
 }
+
 .sysprefs_scroll_down description {
 	display: none;
 }
 
+/*-----------------------------------------------------------------------------
+ * Dialog button
+ *-----------------------------------------------------------------------------
+ */
 
 .dialog-button {
     min-width:100px;
@@ -83,14 +120,17 @@
     background: url(images/white.png);
     color: black;
 }
+
 .dialog-button hbox{
   max-height: 50px;
   height: 50px;
 }
+
 .dialog-button hbox image{
   max-height: 24px;
   max-width: 24px;
 }
+
 .dialog-button hbox label{
   max-width: 100px;
   width: 100px;
@@ -98,6 +138,7 @@
     -moz-box-align:center;
     -moz-box-pack:center;
 }
+
 .dialog-button:active {
     background-position:0pt -60px;
     border: 2px solid;
@@ -106,9 +147,16 @@
     -moz-border-bottom-colors: #444 #ddd;
     -moz-border-left-colors: #444 #222;
 }
+
 .dialog-button image {
     display: none
 }
+
+
+/*-----------------------------------------------------------------------------
+ * Button for user & tax
+ *-----------------------------------------------------------------------------
+ */
 
 .catbtn {
     min-height:50px;
@@ -139,18 +187,16 @@
     -moz-border-bottom-colors: #444 #ddd;
     -moz-border-left-colors: #444 #222;
 }
-.catbtn[disabled=true], .plubtn[disabled=true] {
+
+.catbtn[disabled=true] {
     /* background: url(images/btn_gray.png);*/
     background-position:0pt -64px;
 }
+
 .catbtn hbox {
     -moz-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-}
-.catbtn label {
-    text-wrap: normal;
-    word-wrap: break-word;
 }
 
 .catbtn description {

@@ -137,3 +137,7 @@
 .options {
     background: url(images/option.png) center center no-repeat;
 }
+
+.vkb {
+    background: transparent url(images/keyboard.png) center center no-repeat;
+}

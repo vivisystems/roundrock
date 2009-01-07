@@ -41,7 +41,7 @@
 
             <vbox>
                 <hbox align="center">
-                    <vividatetimepicker-timepad id="seltime" hideseconds="true" value="12:00" flex="1" labelClass="timepickerfont" buttonClass="timepickerbtns"/>
+                    <vividatetimepicker-timepad id="seltime" value="12:00" flex="1" labelClass="timepickerfont" buttonClass="timepickerbtns"/>
                 </hbox>
 
                 <separator class="groove-thin" style="margin:5px;"/>
@@ -68,7 +68,10 @@
     </groupbox>
   
     <hbox id="dialogButtons" class="dialogbtns" pack="center">
+        <spacer flex="1"/>
         <button class="right exit-dialog" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+        <spacer flex="1"/>
+        <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="vkb"/>
     </hbox>
 
 </window>

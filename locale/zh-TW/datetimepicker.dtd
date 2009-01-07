@@ -1,0 +1,4 @@
+<!ENTITY firstdayofweek.default "0">
+<!ENTITY datetimepicker.year "年">
+<!ENTITY datetimepicker.month "月">
+<!ENTITY datetimepicker.day "日">

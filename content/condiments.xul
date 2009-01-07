@@ -19,6 +19,10 @@
     <script type="application/x-javascript" src="chrome://viviecr/content/bootstrap.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/condiments.js" />
 
+    <keyset id="keyset_extensions">
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()" />
+    </keyset>
+    
     <vbox flex="1" class="main-dialog">
         <!-- Begin Condiment Groups -->
         <groupbox flex="1">
@@ -116,7 +120,10 @@
     </vbox>
 
     <hbox id="dialogButtons" class="dialogbtns" pack="center">
+        <spacer flex="1"/>
         <button class="right exit-dialog" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+        <spacer flex="1"/>
+        <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="vkb"/>
     </hbox>
 
 </window>

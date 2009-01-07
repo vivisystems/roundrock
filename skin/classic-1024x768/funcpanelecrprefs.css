@@ -81,6 +81,9 @@ separator {
   border-color: black;
   border-style: solid;
   border-width:1px;
+  width: 580px;
+  max-width: 580px;
+  min-width: 580px;
 }
 
 .buttoncolor_baseclass {

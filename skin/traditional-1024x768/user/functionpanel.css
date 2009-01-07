@@ -7,8 +7,9 @@
 
 .vivifuncpanelecr_function_panel {
     background: none;
-    margin: 1px;
-    padding: 0px 6px 0px 0px;
+    border-width: 1px;
+    padding: 0px 0px 0px 0px;
+    background: lightgray;
 }
 
 .vivifuncpanelecr_spacer {
@@ -27,13 +28,7 @@
     margin: 0px 0px 0px 0px;
     padding: 0px;
 }
-.vivifuncpanelecr_button_panel .vivifuncpanelecr_button_panel {
-    padding: 0px 12px 0px 0px;
-}
 
-.vivifuncpanelecr_function_panel .button-text{
-    
-}
 /*-----------------------------------------------------------------------------
  * Function Panel mapped buttons
  *-----------------------------------------------------------------------------
@@ -60,24 +55,8 @@
     background: #fff url(images/funColor01.gif) bottom left repeat-x;
 }
 
-.vivifuncpanelecr_matrix_button_mapped[disabled=true] {
-    min-width: 40px;
-    min-height: 40px;
-    margin: 0px;
-    padding: 0px;
-    list-style-type: none;
-    overflow: hidden;
-    text-align: center;
-    -moz-appearance: none;
-    -moz-user-focus: ignore;
-    -moz-background-clip: border;
-    -moz-border-radius: 4px;
-    border: 1px solid;
-    -moz-border-top-colors: #afafaf;
-    -moz-border-right-colors: #afafaf;
-    -moz-border-bottom-colors: #afafaf;
-    -moz-border-left-colors: #afafaf;
-    background: #f8f8f8 url(images/funColor01.gif) bottom left repeat-x !important;
+.vivifuncpanelecr_matrix_button_mapped[disabled=true] description {
+    display: none;
 }
 
 /*-----------------------------------------------------------------------------
@@ -97,17 +76,13 @@
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-background-clip: border;
-    border: none;
     -moz-border-radius: 4px;
     border: 1px solid;
     -moz-border-top-colors: #afafaf;
     -moz-border-right-colors: #afafaf;
     -moz-border-bottom-colors: #afafaf;
     -moz-border-left-colors: #afafaf;
-    background: none;
 }
-
-
 
 /*-----------------------------------------------------------------------------
  * Function Panel configure-mode buttons
@@ -123,14 +98,19 @@
     list-style-type: none;
     overflow: hidden;
     text-align: center;
+    border-width: 1px;
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-background-clip: border;
-    border: none;
     -moz-border-radius: 4px;
 }
 
-.vivifuncpanelecr_matrix_button_configure[disabled=true] {
+.vivifuncpanelecr_matrix_button_configure[checked=true] {
+    border-width: 3px;
+    -moz-border-top-colors: black red;
+    -moz-border-bottom-colors: black red;
+    -moz-border-left-colors: black red;
+    -moz-border-right-colors: black red;
 }
 
 /*-----------------------------------------------------------------------------
@@ -153,10 +133,10 @@
  */
 
 .vivifuncpanelecr_control_scroll_left {
-    max-height: 40px;
     min-height: 40px;
-    max-width: 40px;
+    max-height: 40px;
     min-width: 40px;
+    max-width: 40px;
     margin: 0px;
     padding: 0px 0px 0px 0px;
     background: transparent url(images/departUp.png) 0 0 no-repeat;
@@ -167,14 +147,14 @@
 }
 
 .vivifuncpanelecr_control_scroll_left[disabled=false]:active {
-    background-position: -40px 0;
+    background-position:-40px 0;
 }
 
 .vivifuncpanelecr_control_scroll_right {
-    max-height: 40px;
     min-height: 40px;
-    max-width: 40px;
+    max-height: 40px;
     min-width: 40px;
+    max-width: 40px;
     margin: 0px;
     padding: 0px 0px 0px 0px;
     background: transparent url(images/departDown.png) 0 0 no-repeat;
@@ -184,14 +164,14 @@
     border: 0px;   
 }
 .vivifuncpanelecr_control_scroll_right[disabled=false]:active {
-	  background-position: -40px 0;
+	  background-position:-40px 0;
 }
 
 .vivifuncpanelecr_control_home {
-    max-height: 40px;
-    min-height: 40px;
-    max-width: 40px;
     min-width: 40px;
+    max-width: 40px;
+    min-height: 40px;
+    max-height: 40px;
     margin: 0px 0 2px 0;
     padding: 0px 0px 0px 0px;
     background: transparent url(images/funTop.png) 0 0 no-repeat;
@@ -201,7 +181,7 @@
     border: 0px; 
 }
 .vivifuncpanelecr_control_home[disabled=false]:active {
-	  background-position: -40px 0;
+	  background-position:-40px 0;
 }
 
 .vivifuncpanelecr_control_label {
@@ -209,7 +189,7 @@
     margin: 0px;
     padding: 0px 0px 0px 0px;
     text-align: center;
-    font-size: 12pt;
+    font-size: 10.5pt;
     border-width: 1px;
     background: transparent;
     border-color: transparent;

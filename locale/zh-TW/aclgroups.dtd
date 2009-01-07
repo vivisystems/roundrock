@@ -1,4 +1,4 @@
-<!ENTITY aclgroups.title  "Access Groups">
-<!ENTITY aclgroups.button.action.add  "Add">
-<!ENTITY aclgroups.button.action.modify  "Modify">
-<!ENTITY aclgroups.button.action.delete  "Delete">
+<!ENTITY aclgroups.title  "權限群組">
+<!ENTITY aclgroups.button.action.add  "新增">
+<!ENTITY aclgroups.button.action.modify  "修改">
+<!ENTITY aclgroups.button.action.delete  "刪除">

@@ -22,6 +22,7 @@
     <key id="key_num7" key="7" oncommand="$do('keypress', {charCode: 55}, 'Keypad');"/>
     <key id="key_num8" key="8" oncommand="$do('keypress', {charCode: 56}, 'Keypad');"/>
     <key id="key_num9" key="9" oncommand="$do('keypress', {charCode: 57}, 'Keypad');"/>
+    <key id="key_dot" key="." oncommand="$do('keypress', {charCode: 46}, 'Keypad');"/>
   </keyset>
 
 </overlay>

@@ -13,6 +13,7 @@
         depPanelView: null,
         pluPanelView: null,
         doRestart: false,
+        restartClock: false,
     
         initial: function() {
 
@@ -42,11 +43,14 @@
             
             // observer restart topic
             this.observer = GeckoJS.Observer.newInstance({
-                topics: ['prepare-to-restart'],
+                topics: ['prepare-to-restart', 'restart-clock'],
 
                 observe: function(aSubject, aTopic, aData) {
                     if (aTopic == 'prepare-to-restart')
                         self.doRestart = true;
+
+                    else if (aTopic == 'restart-clock')
+                        self.restartClock = true;
                 }
             }).register();
 
@@ -81,14 +85,25 @@
 
             if (this.doRestart) {
                 try {
+                    GREUtils.restartApplication();
+                    /*
                     var chromeRegInstance = Components.classes["@mozilla.org/chrome/chrome-registry;1"].getService();
                     var xulChromeReg = chromeRegInstance.QueryInterface(Components.interfaces.nsIXULChromeRegistry);
                     //alert('reloading chrome');
                     xulChromeReg.reloadChrome();
                     this.log('reloaded chrome');
+                    */
                 } catch(err) {
                 }
             }
+            if (this.restartClock) {
+                try {
+                    $('#clock')[0].stopClock();
+                    $('#clock')[0].startClock();
+                } catch(err) {
+                }
+            }
+
         },
 
 
@@ -227,6 +242,7 @@
             var fixedRow = document.getElementById('fixedbtnrow');
             var clockinBtn = document.getElementById('clockin');
             var optionsBtn = document.getElementById('options');
+            var vkbBtn = document.getElementById('vkb');
             var spacer = document.getElementById('spacer');
             var cartSidebar = document.getElementById('cartsidebar');
             var isHidden = numPad.getAttribute('hidden') || 'false';
@@ -236,10 +252,12 @@
             if (hideNumPad) {
                 if (numPad && (isHidden != 'true')) {
                 // relocate clockinBtn and optionsBtn to cartSidebar
+                    if (vkbBtn) vkbBtn.parentNode.removeChild(vkbBtn);
                     if (clockinBtn) clockinBtn.parentNode.removeChild(clockinBtn);
                     if (optionsBtn) optionsBtn.parentNode.removeChild(optionsBtn);
 
                     if (cartSidebar) {
+                        cartSidebar.appendChild(vkbBtn);
                         cartSidebar.appendChild(clockinBtn);
                         cartSidebar.appendChild(optionsBtn);
                     }
@@ -254,12 +272,14 @@
                 // if already visible then don't change
                 if (numPad && (isHidden == 'true')) {
                     // relocate clockinBtn and optionsBtn to toolbar
+                    if (vkbBtn) vkbBtn.parentNode.removeChild(vkbBtn);
                     if (clockinBtn) clockinBtn.parentNode.removeChild(clockinBtn);
                     if (optionsBtn) optionsBtn.parentNode.removeChild(optionsBtn);
 
                     if (toolbar) {
                         if (toggleBtn) toolbar.removeChild(toggleBtn);
                         if (spacer) toolbar.removeChild(spacer);
+                        if (vkbBtn) toolbar.appendChild(vkbBtn);
                         if (clockinBtn) toolbar.appendChild(clockinBtn);
                         if (optionsBtn) toolbar.appendChild(optionsBtn);
                         if (spacer) toolbar.appendChild(spacer);
@@ -376,8 +396,10 @@
                 var totalHeight = deptPanel.boxObject.height - (- pluPanel.boxObject.height);
                 var panelSpacerWidth = (panelSpacer) ? panelSpacer.boxObject.width : 0;
                 var fnWidth = this.screenwidth - rightPanel.boxObject.width - panelSpacerWidth;
-                var fnHeight = this.screenheight - totalHeight - btmBox.boxObject.height - 7;
+                var fnTop = $(fnPanel).css('margin-top');
+                var fnBottom = $(fnPanel).css('margin-bottom');
 
+                var fnHeight = this.screenheight - totalHeight - btmBox.boxObject.height - 6;
                 if (fnHeight < 1 || fnRows == 0 || fnCols == 0) {
                     fnPanel.setAttribute('height', 0);
                     fnPanel.hide();
@@ -485,13 +507,16 @@
                 GeckoJS.Observer.notify(null, 'button-state-resume', this.target);
                 this.suspendButton = false;
 
+                // resume cart
+                this.requestCommand('resume', null, 'Cart');
+
                 // check if has buffer (password)
                 var buf = this._getKeypadController().getBuffer().replace(/^\s*/, '').replace(/\s*$/, '');
                 this.requestCommand('clear', null, 'Cart');
 
                 var success = true;
                 // success is indicated by where txn is set to current transaction
-                if (stop != true && stop != 'true' && stop != 'true' && buf.length > 0) {
+                if (stop != true && stop != 'true' && buf.length > 0) {
 
                     if (this.Acl.securityCheckByPassword(buf, true)) {
                         this.signOff(true);
@@ -517,15 +542,18 @@
                 if (success) {
                     GeckoJS.Controller.getInstanceByName('Cart').subtotal();
                 }
-                else if (!stop) {
+                else if (!stop && buf.length > 0) {
                     // @todo OSD
-                    NotifyUtils.error(_('Authentication failed!. Please make sure the password is correct.'));
+                    NotifyUtils.error(_('Authentication failed! Please make sure the password is correct.'));
                 }
             }
             else {
                 this.requestCommand('clear', null, 'Cart');
                 this.requestCommand('setTarget', 'Main', 'Keypad');
-                
+
+                // suspend cart
+                this.requestCommand('suspend', null, 'Cart');
+
                 // suspend all buttons
                 GeckoJS.Observer.notify(null, 'button-state-suspend', this.target);
                 this.suspendButton = true;
@@ -558,7 +586,7 @@
 
                 if (users == null || users.length == 0) {
                     //@todo silent user switch successful
-                    NotifyUtils.error(_('[%S] does not exist!', [newUser]));
+                    NotifyUtils.error(_('User [%S] does not exist!', [newUser]));
                     return;
                 }
                 else {
@@ -592,7 +620,7 @@
                 }
                 else {
                     // @todo error message for login failure
-                    NotifyUtils.error(_('Authentication failed!. Please make sure the password is correct.'));
+                    NotifyUtils.error(_('Authentication failed! Please make sure the password is correct.'));
                 }
             }
             else {
@@ -706,8 +734,11 @@
                 if (!cartEmpty) $do('cancel', null, 'Cart');
                 $do('clear', null, 'Cart');
             }
-            if (!quickSignoff) 
+
+            if (!quickSignoff) {
+                this.clear();
                 this.ChangeUserDialog();
+            }
         },
 
         dispatch: function(arg) {

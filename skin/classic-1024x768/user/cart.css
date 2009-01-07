@@ -147,6 +147,9 @@ treechildren::-moz-tree-cell-text(odd, selected) {color: #FFFFFF;}
 treechildren::-moz-tree-row(treeTRAY) {background-color: #AAAAFF;}
 treechildren::-moz-tree-row(treeSUBTOTAL) {background-color: #FF88FF;}
 treechildren::-moz-tree-row(treeTOTAL) {background-color: #55DD55;}
+treechildren::-moz-tree-row(treeLowStock) {background-color: orange;}
+treechildren::-moz-tree-row(treeOutofStock) {background-color: red;}
+treechildren::-moz-tree-row(treeVerifyAge) {background-color: steelblue;}
 treechildren::-moz-tree-cell-text(treecellTRAY) {color: white;}
 treechildren::-moz-tree-cell-text(treecellSUBTOTAL) {color: yellow;}
 treechildren::-moz-tree-cell-text(treecellTOTAL) {color: yellow;}
@@ -165,13 +168,13 @@ treechildren::-moz-tree-cell-text(treecellTOTAL) {color: yellow;}
  */
 
 .cartList tree #name {
-    max-width: 190px;
-    min-width: 190px;
+    max-width: 175px;
+    min-width: 175px;
 }
 
 .cartList tree #current_qty {
-    max-width: 60px;
-    min-width: 60px;
+    max-width: 85px;
+    min-width: 85px;
 }
 
 .cartList tree #current_price {
@@ -180,9 +183,10 @@ treechildren::-moz-tree-cell-text(treecellTOTAL) {color: yellow;}
 }
 
 .cartList tree #current_subtotal {
-    max-width: 110px;
-    min-width: 110px;
+    max-width: 90px;
+    min-width: 90px;
 }
+
 .cartList tree #current_tax {
 }
 

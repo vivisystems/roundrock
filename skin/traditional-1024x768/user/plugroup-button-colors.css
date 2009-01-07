@@ -12,6 +12,7 @@
     -moz-border-bottom-colors: #848388 #bebebe !important;
     -moz-border-left-colors: #848388 #bebebe !important;
     -moz-appearance: none;
+    color: #ffffff;
 }
 
 .plugroup-button-color-1 {
@@ -21,6 +22,7 @@
     -moz-border-bottom-colors: #354f66 #bebebe !important;
     -moz-border-left-colors: #354f66 #bebebe !important;
     -moz-appearance: none;
+    color: #ffffff;
 }
 
 .plugroup-button-color-2 {
@@ -30,6 +32,7 @@
     -moz-border-bottom-colors: #a2a70f #bebebe !important;
     -moz-border-left-colors: #a2a70f #bebebe !important;
     -moz-appearance: none;
+    color: #ffffff;
 }
 
 .plugroup-button-color-3 {
@@ -39,6 +42,7 @@
     -moz-border-bottom-colors: #790000 #bebebe !important;
     -moz-border-left-colors: #790000 #bebebe !important;
     -moz-appearance: none;
+    color: #ffffff;
 }
 
 .plugroup-button-color-4 {
@@ -48,6 +52,7 @@
     -moz-border-bottom-colors: #555940 #bebebe !important;
     -moz-border-left-colors: #555940 #bebebe !important;
     -moz-appearance: none;
+    color: #ffffff;
 }
 
 .plugroup-button-color-5 {
@@ -57,6 +62,7 @@
     -moz-border-bottom-colors: #603913 #bebebe !important;
     -moz-border-left-colors: #603913 #bebebe !important;
     -moz-appearance: none;
+    color: #ffffff;
 }
 
 .plugroup-button-color-6 {
@@ -66,6 +72,7 @@
     -moz-border-bottom-colors: #ad355c #bebebe !important;
     -moz-border-left-colors: #ad355c #bebebe !important;
     -moz-appearance: none;
+    color: #ffffff;
 }
 
 .plugroup-button-color-7 {
@@ -75,6 +82,7 @@
     -moz-border-bottom-colors: #a3620a #bebebe !important;
     -moz-border-left-colors: #a3620a #bebebe !important;
     -moz-appearance: none;
+    color: #ffffff;
 }
 
 .plugroup-button-color-8 {
@@ -84,6 +92,7 @@
     -moz-border-bottom-colors: #5c2f75 #bebebe !important;
     -moz-border-left-colors: #5c2f75 #bebebe !important;
     -moz-appearance: none;
+    color: #ffffff;
  }
 
 .plugroup-button-color-9 {
@@ -93,24 +102,27 @@
     -moz-border-bottom-colors: #213b6b #bebebe !important;
     -moz-border-left-colors: #213b6b #bebebe !important;
     -moz-appearance: none;
+    color: #ffffff;
 }
 
 .plugroup-button-color-10 {
-    background: #213b6b url(images/departBtn11.png) top left repeat-x !important;
+    background: #534741 url(images/departBtn11.png) top left repeat-x !important;
     -moz-border-top-colors: #534741 #bebebe !important;
     -moz-border-right-colors: #534741 #bebebe !important;
     -moz-border-bottom-colors: #534741 #bebebe !important;
     -moz-border-left-colors: #534741 #bebebe !important;
     -moz-appearance: none;
+    color: #ffffff;
 }
 
 .plugroup-button-color-11 {
-    background: #213b6b url(images/departBtn12.png) top left repeat-x !important;
+    background: #294e39 url(images/departBtn12.png) top left repeat-x !important;
     -moz-border-top-colors: #294e39 #bebebe !important;
     -moz-border-right-colors: #294e39 #bebebe !important;
     -moz-border-bottom-colors: #294e39 #bebebe !important;
     -moz-border-left-colors: #294e39 #bebebe !important;
     -moz-appearance: none;
+    color: #ffffff;
 }
 
 .plugroup-button-color-default[selected], .plugroup-button-color-1[selected],
@@ -120,8 +132,9 @@
 .plugroup-button-color-8[selected], .plugroup-button-color-9[selected],
 .plugroup-button-color-10[selected], .plugroup-button-color-11[selected] {
     border: 2px solid;
-    -moz-border-top-colors: #fff #fff;
-    -moz-border-right-colors: #fff #fff;
-    -moz-border-bottom-colors: #fff #fff;
-    -moz-border-left-colors: #fff #fff;
+    -moz-border-top-colors: #f39a1c #f39a1c !important;
+    -moz-border-right-colors: #f39a1c #f39a1c !important;
+    -moz-border-bottom-colors: #f39a1c #f39a1c !important;
+    -moz-border-left-colors: #f39a1c #f39a1c !important;
+    list-style-image: url(chrome://viviecr/skin/images/gtk-yes.png);
 }

@@ -38,8 +38,11 @@
     </vbox>
   
     <hbox id="dialogButtons" class="dialogbtns" pack="center">
+        <spacer flex="1"/>
         <button class="right exit-dialog" id="ok" label="&dialog.okButton.label;" default="true" oncommand="doOKButton();"/>
         <button class="exit-dialog" id="cancel" label="&dialog.cancelButton.label;" default="false" oncommand="doCancelButton();"/>
+        <spacer flex="1"/>
+        <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="vkb"/>
     </hbox>
 
 </window>

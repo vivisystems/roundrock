@@ -11,8 +11,10 @@
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
-<window id="numpad" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
-
+<window title="&plugroups.title;"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+            
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/plugroups.js" />
 
@@ -64,7 +66,10 @@
     </groupbox>
 
     <hbox id="dialogButtons" class="dialogbtns" pack="center">
+        <spacer flex="1"/>
         <button class="right exit-dialog" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+        <spacer flex="1"/>
+        <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="vkb"/>
     </hbox>
 
 </window>
