@@ -196,18 +196,20 @@
             </vbox>
             <groupbox id="advance_search">
                 <caption label="Advance Search:" />
-                <grid>
-                    <rows id="rows_filter">
+                <vbox>
+                    <grid>
+                        <rows id="rows_filter">
 
-                    </rows>
-                </grid>
+                        </rows>
+                    </grid>
+                    <hbox>
+                        <vivibutton id="advSearchBtn"  label="&plus.button.numpad.advsearch;" oncommand="$do('advSearch', null, 'PluSearch');" class="systembtn"  />
+                        <vivibutton id="advClearBtn"  label="&plus.button.numpad.advclear;" oncommand="$do('advClear', null, 'PluSearch');" class="systembtn"  />
+                    </hbox>
+                </vbox>
             </groupbox>
-            <vbox>
-                <hbox>
-                    <vivibutton id="advSearchBtn"  label="&plus.button.numpad.advsearch;" oncommand="$do('advSearch', null, 'PluSearch');" class="systembtn"  />
-                    <vivibutton id="advClearBtn"  label="&plus.button.numpad.advclear;" oncommand="$do('advClear', null, 'PluSearch');" class="systembtn"  />
-                </hbox>
-            </vbox>
+            
+                
         </vbox>
     </hbox>
   

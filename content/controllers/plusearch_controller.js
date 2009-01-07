@@ -23,6 +23,14 @@
             var rows_filter = document.getElementById('rows_filter');
             var filterstr = GeckoJS.Configure.read("vivipos.fec.settings.PluFilters") || "[]";
             this._filterDatas = GeckoJS.BaseObject.unserialize(GeckoJS.String.urlDecode(filterstr));
+
+            if (this._filterDatas.length <= 0) {
+
+                var advance_search = document.getElementById('advance_search');
+                advance_search.setAttribute('hidden', true);
+                return ;
+            }
+
             this._filterDatas.forEach(function(o){
                 var index = parseInt(o.index);
                 var len = parseInt(o.length);
