@@ -140,7 +140,7 @@
 
             // check if age verification required
             if ( !evt._cancel) {
-                if (item.age_verification) {
+                if (!cart._returnMode && item.age_verification) {
                     var obj = { item: item };
 
                     cart.dispatchEvent('onAgeVerification', obj);
@@ -418,7 +418,7 @@
             if (itemDisplay.type == 'item') {
                 var qty = null;
                 qty  = (GeckoJS.Session.get('cart_set_qty_value') != null) ? GeckoJS.Session.get('cart_set_qty_value') : qty;
-                if (!this.checkStock("modifyItem", qty, itemTrans)) {
+                if (qty > 0 && !this.checkStock("modifyItem", qty, itemTrans)) {
                     return ;
                 }
             }
@@ -484,16 +484,16 @@
             }
 
             var qty = itemTrans.current_qty;
-            var newQty = qty + 0;
-            
+            var newQty = Math.abs(qty + 0);
             switch(action) {
                 case 'plus':
-                    newQty = (qty+1);
+                    newQty = newQty+1;
                     break;
                 case 'minus':
-                    newQty = ((qty-1) >0) ? (qty-1) : qty;
+                    newQty = (newQty - 1 > 0) ? (newQty - 1) : newQty;
                     break;
             }
+            if (qty < 0) newQty = 0 - newQty;
             if (newQty != qty) {
                 this.setQty(newQty);
                 this.modifyItem();
@@ -1606,6 +1606,12 @@
                     var displayItem = curTransaction.getDisplaySeqAt(index);
                     //@todo OSD
                     NotifyUtils.warn(_('Condiments may not be added to [%S]', [displayItem.name]));
+                    return;
+                }
+                if (cartItem.current_qty < 0) {
+                    var displayItem = curTransaction.getDisplaySeqAt(index);
+                    //@todo OSD
+                    NotifyUtils.warn(_('Condiments may not be added to a return item [%S]', [displayItem.name]));
                     return;
                 }
                 if (cartItem.hasMarker) {

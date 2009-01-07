@@ -525,6 +525,8 @@
             sellQty  = (GeckoJS.Session.get('cart_set_qty_value') != null) ? GeckoJS.Session.get('cart_set_qty_value') : sellQty;
             if (sellQty == null) sellQty = 1;
 
+            if (itemTrans.current_qty < 0 && sellQty > 0) sellQty = 0 - sellQty;
+
             sellPrice  = (GeckoJS.Session.get('cart_set_price_value') != null) ? GeckoJS.Session.get('cart_set_price_value') : sellPrice;
 
             sellPrice = this.calcSellPrice(sellPrice, sellQty, item);
@@ -1096,7 +1098,7 @@
             markerItem.current_tax = '';
             markerItem.current_price = '';
 
-            this.data.markers.push(markerItem.current_subtotal-0);
+            this.data.markers.push(remain);
         }else {
             markerItem.current_tax = this.data.tax_subtotal;
             markerItem.current_subtotal = remain;

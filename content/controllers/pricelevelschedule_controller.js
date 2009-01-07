@@ -118,15 +118,15 @@
             var time = item.time;
             var pricelevel = item.pricelevel ? item.pricelevel : 'default';
 
-            if (index > 0) {
-                this._listDatas.splice(index, 1);
-            } else if (index == 0) {
-                this._listDatas[0].pricelevel = 0;
-            }
-
-            var datastr = GeckoJS.BaseObject.serialize(this._listDatas);
-
             if (GREUtils.Dialog.confirm(null, _('confirm remove %S - price level %S', [time, pricelevel]), _('Are you sure?'))) {
+
+                if (index > 0) {
+                    this._listDatas.splice(index, 1);
+                } else if (index == 0) {
+                    this._listDatas[0].pricelevel = 0;
+                }
+
+                var datastr = GeckoJS.BaseObject.serialize(this._listDatas);
 
                 GeckoJS.Configure.write('vivipos.fec.settings.PriceLevelSchedule', datastr);
 
