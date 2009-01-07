@@ -25,33 +25,52 @@
         <label id="" value="&plus.title;"  class="labeltitle"/>
         <hbox flex="1" class="footlogo" style="overflow: hidden;">
             <vbox flex="1">
+                <tabbox  flex="1">
+                    <tabpanels id="tabpanels" flex="1" >
+                        <tabpanel flex="1" >
+                            <vbox>
                 <!-- Begin Catalogs -->
-                <viviscrollablebuttonpanel dir="reverse" id="catescrollablepanel" flex="1" cols="4" rows="2" labelField="name" imageField="no"
+                                <viviscrollablebuttonpanel dir="reverse" id="catescrollablepanel" flex="1" cols="4" rows="2" labelField="name" imageField="no"
                                            oncommand="$do('changePluPanel',this.selectedIndex, 'Plus');"
                                            class="catescrollablepanel"
                                            buttonClass="catbtn button-radius"
                                            scrollUpClass="rightprevbtn button-blue"
                                            scrollDownClass="rightnextbtn button-blue">
-                    <spacer flex="1"/>
-                </viviscrollablebuttonpanel>
+                                    <spacer flex="1"/>
+                                </viviscrollablebuttonpanel>
 
                 <!-- Begin PLUs -->
-                <viviscrollablebuttonpanel dir="reverse" id="prodscrollablepanel" flex="1" cols="2" rows="6" labelField="name" imageField="no"
+                                <viviscrollablebuttonpanel dir="reverse" id="prodscrollablepanel" flex="1" cols="2" rows="6" labelField="name" imageField="no"
                                            ensureVisible="true"
                                            oncommand="$do('clickPluPanel',this.selectedIndex, 'Plus');"
                                            class="prodscrollablepanel"
                                            buttonClass="plubtn mediumimagebtn button-radius"
                                            scrollUpClass="rightprevbtn button-gray"
                                            scrollDownClass="rightnextbtn button-gray">
-                    <spacer flex="1"/>
-                </viviscrollablebuttonpanel>
+                                    <spacer flex="1"/>
+                                </viviscrollablebuttonpanel>
                 <!-- End PLUs -->
+                            </vbox>
+                        </tabpanel>
+
+                        <tabpanel flex="1" >
+                            <vbox>
+                                <label value="Test Search..." />
+                            </vbox>
+                        </tabpanel>
+
+                    </tabpanels>
+                    <tabs id="tabs" >
+                        <tab id="tab_normalmode" label="&plus.tab.base.data1;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" class="tab-bottom" />
+                        <tab id="tab_filtermode" label="&plus.tab.base.data2;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" class="tab-bottom" />
+                    </tabs>
+                </tabbox>
                 <spacer style="height: 60px;" />
             </vbox>
 
             <vbox id="" >
 
-                <tabbox  flex="1">
+                <tabbox  flex="1" crop="right">
                     <tabs id="tabs" >
                         <tab id="tab1" label="&plus.tab.base.data1;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
                         <tab id="tab2" label="&plus.tab.base.data2;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />

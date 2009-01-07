@@ -18,173 +18,194 @@
     <script type="application/x-javascript" src="chrome://viviecr/content/plusearch.js" />
 
     <hbox flex="1" class="main-dialog">
-        <tabbox  flex="1">
-            <tabs >
-                <tab label="&plus.base.data;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical"        />
-                <tab label="&plus.pricelevels;" image="chrome://viviecr/content/skin/icons/comments-24.png" orient="vertical"/>
-            </tabs>
+        <vbox flex="1">
+            <viviscrollabletree id="pluscrollablepanel" flex="1"
+                                headers="&plus.product.no;,&plus.product.name;,&plus.stock.level;"
+                                fields="no,name,stock"
+                                onclick="$do('select',this.selectedIndex, 'PluSearch');"
+                                class="prodscrollablepanel" 
+                                scrollUpClass="rightprevbtn gray"
+                                scrollDownClass="rightnextbtn gray">
+                <spacer flex="1" />
+            </viviscrollabletree>
+            <tabbox  flex="1">
+                <tabs >
+                    <tab label="&plus.base.data;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical"        />
+                    <tab label="&plus.pricelevels;" image="chrome://viviecr/content/skin/icons/comments-24.png" orient="vertical"/>
+                </tabs>
 
-            <tabpanels flex="1" >
+                <tabpanels flex="1" >
 
                 <!-- Plu Data -->
-                <tabpanel flex="1" >
+                    <tabpanel flex="1" >
 
-                    <groupbox flex="1">
-                        <caption label="&plus.base.data;" />
+                        <groupbox flex="1">
+                            <caption label="&plus.base.data;" />
 
-                        <grid>
-                            <rows>
-                                <row>
-                                    <label hidden="true" form="productForm" name="id" value="" />
-                                    <label value="&plus.department;"/>
-                                    <textbox id="cate_no" form="productForm" name="cate_no" readonly="true"/>
-                                </row>
-                                <row>
-                                    <label value="&plus.product.no;"/>
-                                    <textbox id="product_no" form="productForm" name="no" readonly="true"/>
-                                </row>
-                                <row>
-                                    <label value="&plus.product.name;" />
-                                    <textbox id="product_name" form="productForm" name="name" value="" readonly="true"/>
-                                </row>
-                                <row>
-                                    <label  value="&plus.product.barcode;" />
-                                    <textbox id="barcode" form="productForm" name="barcode" value="" readonly="true"/>
-                                </row>
+                            <grid>
+                                <rows>
+                                    <row>
+                                        <label hidden="true" form="productForm" name="id" value="" />
+                                        <label value="&plus.department;"/>
+                                        <textbox id="cate_no" form="productForm" name="cate_no" readonly="true"/>
+                                    </row>
+                                    <row>
+                                        <label value="&plus.product.no;"/>
+                                        <textbox id="product_no" form="productForm" name="no" readonly="true"/>
+                                    </row>
+                                    <row>
+                                        <label value="&plus.product.name;" />
+                                        <textbox id="product_name" form="productForm" name="name" value="" readonly="true"/>
+                                    </row>
+                                    <row>
+                                        <label  value="&plus.product.barcode;" />
+                                        <textbox id="barcode" form="productForm" name="barcode" value="" readonly="true"/>
+                                    </row>
 
-                                <row>
-                                    <label value="&plus.product.tax.rate;"/>
-                                    <textbox id="rate" value="" form="productForm" name="rate" readonly="true"/>
-                                </row>
-                                <row>
-                                    <label value="&plus.product.condiments;"/>
-                                    <textbox id="cond_group" value="" form="productForm" name="cond_group" readonly="true"/>
-                                </row>
-                                <row>
-                                    <label value="&plus.stock.level;"  />
-                                    <textbox id="other_stock" form="productForm" name="stock" default="8" readonly="true"/>
-                                </row>
-                                <row>
-                                    <label value="&plus.memo;"/>
-                                    <textbox id="product_memo" form="productForm" name="memo" readonly="true"/>
-                                </row>
-                                <row>
-                                    <label value="&plus.minimum.sale.quantity;"  />
-                                    <textbox id="min_sale_qty" form="productForm" name="min_sale_qty" default="6" readonly="true"/>
-                                </row>
-                                <row>
-                                    <label value="&plus.sale.unit;"/>
-                                    <textbox id="sale_unit" form="productForm" name="sale_unit" readonly="true"/>
-                                </row>
+                                    <row>
+                                        <label value="&plus.product.tax.rate;"/>
+                                        <textbox id="rate" value="" form="productForm" name="rate" readonly="true"/>
+                                    </row>
+                                    <row>
+                                        <label value="&plus.stock.level;"  />
+                                        <textbox id="other_stock" form="productForm" name="stock" default="8" readonly="true"/>
+                                    </row>
+                                    <row>
+                                        <label value="&plus.memo;"/>
+                                        <textbox id="product_memo" form="productForm" name="memo" readonly="true"/>
+                                    </row>
+                                    <row>
+                                        <label value="&plus.minimum.sale.quantity;"  />
+                                        <textbox id="min_sale_qty" form="productForm" name="min_sale_qty" default="6" readonly="true"/>
+                                    </row>
+                                    <row>
+                                        <label value="&plus.sale.unit;"/>
+                                        <textbox id="sale_unit" form="productForm" name="sale_unit" readonly="true"/>
+                                    </row>
 
-                            </rows>
-                        </grid>
-                        <spacer style="height:20px"/>
+                                </rows>
+                            </grid>
+                        <!-- spacer style="height:20px"/>
                         <hbox>
                             <label value="&plus.image;"/>
                             <spacer width="20px"/>
                             <image id="pluimage" pack="start" style="width:64px; height:64px"/>
                             <spacer flex="1"/>
-                        </hbox>
-                    </groupbox>
+                        </hbox -->
+                        </groupbox>
 
-                </tabpanel>
+                    </tabpanel>
 
                 <!-- Sell Price Levels -->
-                <tabpanel>
+                    <tabpanel>
 
-                    <groupbox>
-                        <caption label="&plus.tab.pricelevels;" />
-                        <grid>
-                            <columns>
-                                <column />
-                                <column flex="1" />
-                                <column flex="1" />
-                                <column flex="1" />
-                            </columns>
+                        <groupbox>
+                            <caption label="&plus.tab.pricelevels;" />
+                            <grid>
+                                <columns>
+                                    <column />
+                                    <column flex="1" />
+                                    <column flex="1" />
+                                    <column flex="1" />
+                                </columns>
 
-                            <rows>
-                                <row>
-                                    <label value="&plus.level;" />
-                                    <label value="&plus.price;" />
-                                    <label value="&plus.halo;" />
-                                    <label value="&plus.lalo;" />
-                                </row>
-                                <row>
-                                    <checkbox id="level_enable1" value="0" label="1." form="productForm" name="level_enable1" default="0" readonly="true"/>
-                                    <textbox id="price_level1" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="price_level1" size="10" class="geneditbox right" readonly="true"/>
-                                    <textbox id="halo1" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="halo1" size="10" class="geneditbox right" readonly="true"/>
-                                    <textbox id="lalo1" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="lalo1" size="10" readonly="true"/>
-                                </row>
-                                <row>
-                                    <checkbox id="level_enable2" value="0" label="2." form="productForm" name="level_enable2" default="0" readonly="true"/>
-                                    <textbox id="price_level2" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="price_level2" size="10" readonly="true"/>
-                                    <textbox id="halo2" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="halo2" size="10" readonly="true"/>
-                                    <textbox id="lalo2" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="lalo2" size="10" readonly="true"/>
-                                </row>
-                                <row>
-                                    <checkbox id="level_enable3" value="0" label="3." form="productForm" name="level_enable3" default="0" readonly="true"/>
-                                    <textbox id="price_level3" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="price_level3" size="10" readonly="true"/>
-                                    <textbox id="halo3" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="halo3" size="10" readonly="true"/>
-                                    <textbox id="lalo3" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="lalo3" size="10" readonly="true"/>
-                                </row>
-                                <row>
-                                    <checkbox id="level_enable4" value="0" label="4." form="productForm" name="level_enable4" default="0" readonly="true"/>
-                                    <textbox id="price_level4" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="price_level4" size="10" readonly="true"/>
-                                    <textbox id="halo4" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="halo4" size="10" readonly="true"/>
-                                    <textbox id="lalo4" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="lalo4" size="10" readonly="true"/>
-                                </row>
-                                <row>
-                                    <checkbox id="level_enable5" value="0" label="5." form="productForm" name="level_enable5" default="0" readonly="true"/>
-                                    <textbox id="price_level5" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="price_level5" size="10" readonly="true"/>
-                                    <textbox id="halo5" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="halo5" size="10" readonly="true"/>
-                                    <textbox id="lalo5" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="lalo5" size="10" readonly="true"/>
-                                </row>
-                                <row>
-                                    <checkbox id="level_enable6" value="0" label="6." form="productForm" name="level_enable6" default="0" readonly="true"/>
-                                    <textbox id="price_level6" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="price_level6" size="10" readonly="true"/>
-                                    <textbox id="halo6" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="halo6" size="10" readonly="true"/>
-                                    <textbox id="lalo6" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="lalo6" size="10" readonly="true"/>
-                                </row>
-                                <row>
-                                    <checkbox id="level_enable7" value="0" label="7." form="productForm" name="level_enable7" default="0" readonly="true"/>
-                                    <textbox id="price_level7" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="price_level7" size="10" readonly="true"/>
-                                    <textbox id="halo7" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="halo7" size="10" readonly="true"/>
-                                    <textbox id="lalo7" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="lalo7" size="10" readonly="true"/>
-                                </row>
-                                <row>
-                                    <checkbox id="level_enable8" value="0" label="8." form="productForm" name="level_enable8" default="0" readonly="true"/>
-                                    <textbox id="price_level8" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="price_level8" size="10" readonly="true"/>
-                                    <textbox id="halo8" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="halo8" size="10" readonly="true"/>
-                                    <textbox id="lalo8" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="lalo8" size="10" readonly="true"/>
-                                </row>
-                                <row>
-                                    <checkbox id="level_enable9" value="0" label="9." form="productForm" name="level_enable9" default="0" readonly="true"/>
-                                    <textbox id="price_level9" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="price_level9" size="10" readonly="true"/>
-                                    <textbox id="halo9" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="halo9" size="10" readonly="true"/>
-                                    <textbox id="lalo9" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="lalo9" size="10" readonly="true"/>
-                                </row>
-                            </rows>
-                        </grid>
-                    </groupbox>
+                                <rows>
+                                    <row>
+                                        <label value="&plus.level;" />
+                                        <label value="&plus.price;" />
+                                        <label value="&plus.halo;" />
+                                        <label value="&plus.lalo;" />
+                                    </row>
+                                    <row>
+                                        <checkbox id="level_enable1" value="0" label="1." form="productForm" name="level_enable1" default="0" readonly="true"/>
+                                        <textbox id="price_level1" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="price_level1" size="10" class="geneditbox right" readonly="true"/>
+                                        <textbox id="halo1" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="halo1" size="10" class="geneditbox right" readonly="true"/>
+                                        <textbox id="lalo1" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="lalo1" size="10" readonly="true"/>
+                                    </row>
+                                    <row>
+                                        <checkbox id="level_enable2" value="0" label="2." form="productForm" name="level_enable2" default="0" readonly="true"/>
+                                        <textbox id="price_level2" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="price_level2" size="10" readonly="true"/>
+                                        <textbox id="halo2" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="halo2" size="10" readonly="true"/>
+                                        <textbox id="lalo2" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="lalo2" size="10" readonly="true"/>
+                                    </row>
+                                    <row>
+                                        <checkbox id="level_enable3" value="0" label="3." form="productForm" name="level_enable3" default="0" readonly="true"/>
+                                        <textbox id="price_level3" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="price_level3" size="10" readonly="true"/>
+                                        <textbox id="halo3" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="halo3" size="10" readonly="true"/>
+                                        <textbox id="lalo3" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="lalo3" size="10" readonly="true"/>
+                                    </row>
+                                    <row>
+                                        <checkbox id="level_enable4" value="0" label="4." form="productForm" name="level_enable4" default="0" readonly="true"/>
+                                        <textbox id="price_level4" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="price_level4" size="10" readonly="true"/>
+                                        <textbox id="halo4" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="halo4" size="10" readonly="true"/>
+                                        <textbox id="lalo4" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="lalo4" size="10" readonly="true"/>
+                                    </row>
+                                    <row>
+                                        <checkbox id="level_enable5" value="0" label="5." form="productForm" name="level_enable5" default="0" readonly="true"/>
+                                        <textbox id="price_level5" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="price_level5" size="10" readonly="true"/>
+                                        <textbox id="halo5" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="halo5" size="10" readonly="true"/>
+                                        <textbox id="lalo5" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="lalo5" size="10" readonly="true"/>
+                                    </row>
+                                    <row>
+                                        <checkbox id="level_enable6" value="0" label="6." form="productForm" name="level_enable6" default="0" readonly="true"/>
+                                        <textbox id="price_level6" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="price_level6" size="10" readonly="true"/>
+                                        <textbox id="halo6" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="halo6" size="10" readonly="true"/>
+                                        <textbox id="lalo6" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="lalo6" size="10" readonly="true"/>
+                                    </row>
+                                    <row>
+                                        <checkbox id="level_enable7" value="0" label="7." form="productForm" name="level_enable7" default="0" readonly="true"/>
+                                        <textbox id="price_level7" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="price_level7" size="10" readonly="true"/>
+                                        <textbox id="halo7" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="halo7" size="10" readonly="true"/>
+                                        <textbox id="lalo7" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="lalo7" size="10" readonly="true"/>
+                                    </row>
+                                    <row>
+                                        <checkbox id="level_enable8" value="0" label="8." form="productForm" name="level_enable8" default="0" readonly="true"/>
+                                        <textbox id="price_level8" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="price_level8" size="10" readonly="true"/>
+                                        <textbox id="halo8" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="halo8" size="10" readonly="true"/>
+                                        <textbox id="lalo8" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="lalo8" size="10" readonly="true"/>
+                                    </row>
+                                    <row>
+                                        <checkbox id="level_enable9" value="0" label="9." form="productForm" name="level_enable9" default="0" readonly="true"/>
+                                        <textbox id="price_level9" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="price_level9" size="10" readonly="true"/>
+                                        <textbox id="halo9" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="halo9" size="10" readonly="true"/>
+                                        <textbox id="lalo9" type="number" value="0" default="0" decimalplaces="2" hidespinbuttons="true" form="productForm" name="lalo9" size="10" readonly="true"/>
+                                    </row>
+                                </rows>
+                            </grid>
+                        </groupbox>
 
-                </tabpanel>
-            </tabpanels>
-        </tabbox>
+                    </tabpanel>
+                </tabpanels>
+            </tabbox>
+        </vbox>
         <spacer style="width:10px;" />
         <vbox>
             <vbox>
                 <label value="&plus.search.label;" />
                 <textbox id="plu" value="" onchange="$do('searchPlu', this.value, 'PluSearch');" />
-                <!-- textbox id="plu" value=""  / -->
-                <numberpad id="multinumberpad" class="numberpad" target="plu"/>
+                <spacer style="height:10px;" />
+                <numberpad id="multinumberpad" class="numberpad"/>
             </vbox>
             <spacer style="height:10px;" />
             <vbox>
                 <hbox>
-                    <sendkeybutton id="bkeyBtn"  label="&plus.button.numpad.del;" keyCode='0x08' target="plu" class="systembtn"  />
+                    <sendkeybutton id="bkeyBtn"  label="&plus.button.numpad.del;" keyCode='0x08' class="systembtn"  />
                     <sendkeybutton id="clearBtn" label="&plus.button.numpad.clear;" class="systembtn"/>
-                    <sendkeybutton id="ekeyBtn"  label="&plus.button.numpad.enter;" oncommand="$do('searchPlu', document.getElementById('plu').value, 'PluSearch');" class="systembtn"  />
+                    <vivibutton id="ekeyBtn"  label="&plus.button.numpad.enter;" oncommand="$do('searchPlu', document.getElementById('plu').value, 'PluSearch');" class="systembtn"  />
+                </hbox>
+            </vbox>
+            <groupbox id="advance_search">
+                <caption label="Advance Search:" />
+                <grid>
+                    <rows id="rows_filter">
+
+                    </rows>
+                </grid>
+            </groupbox>
+            <vbox>
+                <hbox>
+                    <vivibutton id="advSearchBtn"  label="&plus.button.numpad.advsearch;" oncommand="$do('advSearch', null, 'PluSearch');" class="systembtn"  />
+                    <vivibutton id="advClearBtn"  label="&plus.button.numpad.advclear;" oncommand="$do('advClear', null, 'PluSearch');" class="systembtn"  />
                 </hbox>
             </vbox>
         </vbox>

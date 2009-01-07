@@ -1,7 +1,7 @@
 (function(){
    
     // include controllers  and register itself
-    // GeckoJS.include('chrome://viviecr/content/controllers/sysprefs_controller.js');
+    include('chrome://viviecr/content/controllers/plufilters_controller.js');
 
     /**
      * Controller Startup
@@ -22,6 +22,8 @@
         
         $do('initUser', defaultUser, 'Users');
         $do('initTaxStatus', defaultTaxStatus, 'Taxes');
+
+        $do('load', null, 'Plufilters');
 
     };
     

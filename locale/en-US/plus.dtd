@@ -69,3 +69,6 @@
 <!ENTITY plus.button.numpad.clear "CLEAR">
 <!ENTITY plus.button.numpad.del "DEL">
 <!ENTITY plus.button.numpad.enter "ENTER">
+<!ENTITY plus.button.numpad.advsearch "SEARCH">
+<!ENTITY plus.button.numpad.advclear "CLEAR">
+

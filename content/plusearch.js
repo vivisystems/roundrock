@@ -1,7 +1,8 @@
 (function(){
 
+    include('chrome://viviecr/content/models/product.js');
     // include controllers  and register itself
-    GeckoJS.include('chrome://viviecr/content/controllers/plusearch_controller.js');
+    include('chrome://viviecr/content/controllers/plusearch_controller.js');
 
     /**
      * Controller Startup
@@ -14,6 +15,7 @@
         // $('#ekeyBtn')[0].addEventListener('command', searchPlu, true);
         $('#plu').focus();
 
+        $do('createFilterRows', null, 'PluSearch');
 
         doSetOKCancel(
             function(){
@@ -36,11 +38,13 @@
      */
     function clearTextBox() {
 
-        $('#plu').val('');
+        // $('#plu').val('');
+        var focusedElement = document.commandDispatcher.focusedElement;
+        focusedElement.value = '';
 
     };
 
-    function searchPlu () {
+    function searchPlu2 () {
             var barcode = $('#plu').val();
             $('#plu').val('').focus();
 

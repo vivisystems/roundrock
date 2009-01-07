@@ -98,25 +98,25 @@
             <preference id="pref_shiftreportonquickswitch" name="vivipos.fec.settings.shiftreportonquickswitch" type="bool" />
             <preference id="pref_shiftreportonsignoff" name="vivipos.fec.settings.shiftreportonsignoff" type="bool" />
             <preference id="pref_allowquicklogin" name="vivipos.fec.settings.login.allowquicklogin" type="bool" />
-         </preferences>
+        </preferences>
         <vbox>
-        <checkbox id="allowquicklogin" label="&login.allowquicklogin;" preference="pref_allowquicklogin"/>
-        <checkbox preference="pref_defaultlogin" id="pref_defaultloginCtrl" label="&defaultlogin;" />
-        <hbox class="panelContainer" align="center">
-            <viviscrollablebuttonpanel dir="normal" id="userscrollablepanel" flex="1" cols="5" rows="3" labelField="displayname"
+            <checkbox id="allowquicklogin" label="&login.allowquicklogin;" preference="pref_allowquicklogin"/>
+            <checkbox preference="pref_defaultlogin" id="pref_defaultloginCtrl" label="&defaultlogin;" />
+            <hbox class="panelContainer" align="center">
+                <viviscrollablebuttonpanel dir="normal" id="userscrollablepanel" flex="1" cols="5" rows="3" labelField="displayname"
                                        oncommand="$do('select',this.selectedIndex, 'Users');"
                                        class="sysprefscrollablepanel"
                                        buttonClass="catbtn button-radius button-white font-medium"
                                        scrollUpClass="sysprefs_scroll_up"
                                        scrollDownClass="sysprefs_scroll_down">
-                <spacer flex="1"/>
-            </viviscrollablebuttonpanel>
-        </hbox>
-        <checkbox id="autodiscardcart" label="&login.autodiscardcart;" preference="pref_autodiscardcart"/>
-        <checkbox id="autodiscardqueue" label="&login.autodiscardqueue;" preference="pref_autodiscardqueue"/>
-        <checkbox id="mustemptyqueue" label="&login.mustemptyqueue;" preference="pref_mustemptyqueue"/>
-        <checkbox id="shiftreportonsignoff" label="&login.shiftreportonsignoff;" preference="pref_shiftreportonsignoff"/>
-        <checkbox id="shiftreportonquickswitch" label="&login.shiftreportonquickswitch;" preference="pref_shiftreportonquickswitch"/>
+                    <spacer flex="1"/>
+                </viviscrollablebuttonpanel>
+            </hbox>
+            <checkbox id="autodiscardcart" label="&login.autodiscardcart;" preference="pref_autodiscardcart"/>
+            <checkbox id="autodiscardqueue" label="&login.autodiscardqueue;" preference="pref_autodiscardqueue"/>
+            <checkbox id="mustemptyqueue" label="&login.mustemptyqueue;" preference="pref_mustemptyqueue"/>
+            <checkbox id="shiftreportonsignoff" label="&login.shiftreportonsignoff;" preference="pref_shiftreportonsignoff"/>
+            <checkbox id="shiftreportonquickswitch" label="&login.shiftreportonquickswitch;" preference="pref_shiftreportonquickswitch"/>
         </vbox>
     </prefpane>
 
@@ -204,7 +204,58 @@
                 </row>
             </rows>
         </grid>
-	</prefpane>
+    </prefpane>
+
+    <prefpane id="pluFilterSettingsPane" label="&category.plufilter;" image="chrome://viviecr/content/skin/icons/gnome-run.png">
+        <preferences>
+            <preference id="pref_plufilters" name="vivipos.fec.settings.PluFilters" type="string" />
+        </preferences>
+        <vbox class="panelContainer" flex="1">
+            <label value="&plufilter.title;"/>
+            <hbox flex="1">
+                <viviscrollabletree id="plufilterscrollablepanel" flex="1"
+                                headers="&plufilter.filtername;,&plufilter.index;,&plufilter.length;"
+                                fields="filtername,index,length"
+                                onclick="$do('select',this.selectedIndex, 'Plufilters');"
+                                class="prodscrollablepanel"
+                                scrollUpClass="rightprevbtn gray"
+                                scrollDownClass="rightnextbtn gray">
+                    <spacer flex="1" />
+                </viviscrollabletree>
+                <spacer style="width:30px;"/>
+                <vbox style="width:350px;">
+                    <grid>
+                        <rows>
+                            <row>
+                                <label control="filter_name" value="&plufilter.filtername;:"/>
+                                <textbox id="filter_name"
+                                        oninput="$do('validateForm', null, 'Plufilters')"/>
+                            </row>
+                            <row>
+                                <label control="filter_index" value="&plufilter.index;:"/>
+                                <textbox id="filter_index" type="number" size="3" maxlength="2" min="0" max="16"
+                                        oninput="$do('validateForm', null, 'Plufilters')"/>
+                            </row>
+                            <row>
+                                <label control="filter_length" value="&plufilter.length;:"/>
+                                <textbox id="filter_length" type="number" size="3" maxlength="2" min="0" max="16"
+                                        oninput="$do('validateForm', null, 'Plufilters')"/>
+                            </row>
+
+                        </rows>
+
+                    </grid>
+                    <spacer style="height:30px;" />
+                    <hbox>
+                        <vivibutton id="add_filter"  label="&plufilter.add;" oncommand="$do('addFilter', null, 'Plufilters');" class="systembtn"  />
+                        <spacer style="width:30px;" />
+                        <vivibutton id="remove_filter"  label="&plufilter.remove;" oncommand="$do('removeFilter', null, 'Plufilters');" class="systembtn"  />
+                    </hbox>
+                </vbox>
+            </hbox>
+        </vbox>
+
+    </prefpane>
 
     <!-- prefpane id="localeSettingsPane" label="locale" image="chrome://viviecr/content/skin/icons/gnome-run.png">
         <vivilocaleslistbox package="viviecr" />

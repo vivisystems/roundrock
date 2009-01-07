@@ -3,6 +3,7 @@
 <!ENTITY category.general "General Options">
 <!ENTITY category.login "Sign In/Out">
 <!ENTITY category.tax "Taxes">
+<!ENTITY category.plufilter "Plu Filter">
 <!ENTITY terminalid "Terminal ID">
 <!ENTITY publicattendance "Individual Time-and-Attendance visible to all">
 <!ENTITY defaultlogin "Automatically log in default user:">
@@ -49,3 +50,10 @@
 <!ENTITY layout.functionpanel.label "Function panel dimensions">
 <!ENTITY layout.functionpanel.rows "rows">
 <!ENTITY layout.functionpanel.cols "columns">
+<!ENTITY plufilter.title "Plu Filter definition">
+<!ENTITY plufilter.filtername "Filter Name">
+<!ENTITY plufilter.index "Index">
+<!ENTITY plufilter.length "Length">
+<!ENTITY plufilter.add "Add Filter">
+<!ENTITY plufilter.remove "Remove Filter">
+
