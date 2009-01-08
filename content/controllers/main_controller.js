@@ -236,6 +236,9 @@
                     }
                     $do('changeToCurrentLevel', null, 'Pricelevel');
                 }
+
+                var fnPanel = document.getElementById('functionPanel');
+                if (fnPanel) fnPanel.home();
             }
         },
 
@@ -298,7 +301,7 @@
             }
             GeckoJS.Configure.write('vivipos.fec.settings.HideNumPad', hideNumPad);
 
-            if (toggled) this.resizeLeftPanel(initial);
+            if (initial) this.resizeLeftPanel(initial);
             return toggled;
         },
 
@@ -366,6 +369,7 @@
                 else {
                     deptPanel.setAttribute('hidden', true);
                 }
+                document.getElementById('pluAndCondimentDeck').style.height = '100px';
             }
 
             if (pluRows > rowsLeft) {
@@ -373,8 +377,6 @@
             }
             rowsLeft -= pluRows;
 
-            document.getElementById('pluAndCondimentDeck').style.height = '0px';
-            
             if (initial ||
                 (pluPanel.getAttribute('rows') != pluRows) ||
                 (pluPanel.getAttribute('cols') != pluCols) ||

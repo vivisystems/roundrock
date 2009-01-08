@@ -38,7 +38,7 @@
 
             this.addEventListener('beforeAddItem', self.beforeAddItem);
             this.addEventListener('beforeVoidItem', self.clearWarning);
-            this.addEventListener('beforeModifyItem', self.clearWarning);
+            this.addEventListener('beforeModifyItem', self.beforeModifyItem);
 
             // var curTransaction = this._getTransaction();
             // curTransaction.events.addListener('beforeAppendItem', obj, this);
@@ -73,38 +73,41 @@
             }
         },
 
-        checkStock: function(action, qty, item) {
+        checkStock: function(action, qty, item, clearWarning) {
+            if (clearWarning == null) clearWarning = true;
             var obj = {
                     item: item
                 };
-                var diff = qty;
-                var cart = GeckoJS.Controller.getInstanceByName('Cart');
-                var min_stock = parseFloat(item.min_stock);
-                var stock = parseFloat(item.stock);
-                var auto_maintain_stock = item.auto_maintain_stock;
+            var diff = qty;
+            var cart = GeckoJS.Controller.getInstanceByName('Cart');
+            var min_stock = parseFloat(item.min_stock);
+            var stock = parseFloat(item.stock);
+            var auto_maintain_stock = item.auto_maintain_stock;
 
-                if (action != "addItem") {
-                    var productsById = GeckoJS.Session.get('productsById');
-                    var product = productsById[item.id];
-                    stock = parseFloat(product.stock);
-                    min_stock = parseFloat(product.min_stock);
-                    auto_maintain_stock = product.auto_maintain_stock;
-                    diff = qty - item.current_qty;
-                }
-
-                if (!auto_maintain_stock) return true;
+            if (action != "addItem") {
+                var productsById = GeckoJS.Session.get('productsById');
+                var product = productsById[item.id];
+                stock = parseFloat(product.stock);
+                min_stock = parseFloat(product.min_stock);
+                auto_maintain_stock = product.auto_maintain_stock;
+                diff = qty - item.current_qty;
+            }
+            if (auto_maintain_stock) {
 
                 var item_count = 0;
                 var curTransaction = cart._getTransaction(true);
+                var qtyIncreased = (diff > 0);
                 try {
                     item_count = (curTransaction.data.items_summary[item.id]).qty_subtotal;
                 } catch (e) {};
                 if ((diff + item_count) > stock) {
-                    cart.dispatchEvent('onLowStock', obj);
-                    cart.dispatchEvent('onWarning', _('OUT OF STOCK'));
-                    //@todo add OSD?
-                    NotifyUtils.warn(_('[%S] may be out of stock!', [item.name]));
-
+                    if (true || qtyIncreased) { // always display warning
+                        cart.dispatchEvent('onLowStock', obj);
+                        cart.dispatchEvent('onWarning', _('OUT OF STOCK'));
+                        //@todo add OSD?
+                        NotifyUtils.warn(_('[%S] may be out of stock!', [item.name]));
+                    }
+                    
                     // allow over stock...
                     var allowoverstock = GeckoJS.Configure.read('vivipos.fec.settings.AllowOverStock') || false;
                     if (!allowoverstock) {
@@ -115,18 +118,24 @@
                         item.stock_status = -1;
                     }
                 } else if (min_stock > (stock - (diff + item_count))) {
-                    cart.dispatchEvent('onLowerStock', obj);
-                    cart.dispatchEvent('onWarning', _('STOCK LOW'));
+                    if (true || qtyIncreased) { // always display warning
+                        cart.dispatchEvent('onLowerStock', obj);
+                        cart.dispatchEvent('onWarning', _('STOCK LOW'));
 
-                    //@todo add OSD?
-                    NotifyUtils.warn(_('[%S] low stock threshold reached!', [item.name]));
+                        //@todo add OSD?
+                        NotifyUtils.warn(_('[%S] low stock threshold reached!', [item.name]));
+                    }
                     item.stock_status = 0;
                 } else {
                     // normal
-                    cart.dispatchEvent('onWarning', '');
+                    if (clearWarning != false) cart.dispatchEvent('onWarning', '');
                     item.stock_status = 1;
                 }
-                return true;
+            }
+            else {
+                if (clearWarning != false) cart.dispatchEvent('onWarning', '');
+            }
+            return true;
 
         },
 
@@ -139,6 +148,7 @@
             var item = evt.data;
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             var productsById = GeckoJS.Session.get('productsById');
+            var setItemsStockStatus = 1;
 
             // cart.log('Item:' + cart.dump(item));
 
@@ -150,10 +160,10 @@
             sellPrice  = (GeckoJS.Session.get('cart_set_price_value') != null) ? GeckoJS.Session.get('cart_set_price_value') : sellPrice;
 
             // retrieve set menu items only if setmenu is set
-            var setmenus = [];
+            var setItems = [];
             if (item.setmenu != null && item.setmenu.length > 0) {
                 // invoke Product controller to get
-                setmenus = GeckoJS.Controller.getInstanceByName('Plus')._setMenuFromString(item);
+                setItems = GeckoJS.Controller.getInstanceByName('Plus')._setMenuFromString(item);
             }
             // check stock status...
             if ( !cart._returnMode) {
@@ -161,20 +171,23 @@
                 if (!cart.checkStock("addItem", sellQty, item)) evt.preventDefault();
                 
                 // if set items are present, check each one individually
-                setmenus.forEach(function(setitem) {
+                setItems.forEach(function(setitem) {
                     var product = productsById[setitem.item_id];
-                    if (product)
-                        if (!cart.checkStock('addItem', sellQty * setitem.quantity, product)) {
+                    if (product) {
+                        if (!cart.checkStock('addItem', sellQty * setitem.quantity, product, false)) {
                             evt.preventDefault();
                             return;
                         }
+                        if (product.stock_status != null && product.stock_status != 1)
+                            setItemsStockStatus = product.stock_status;
+                    }
                 });
             }
             else {
                 // we don't allow return of set menus'
-                if (setmenus.length > 0 ) {
+                if (setItems.length > 0 ) {
                     //@todo OSD
-                    NotifyUtils.warn(_('Return of set menu items (%S) not allowed!', [item.name]));
+                    NotifyUtils.warn(_('Return of product sets (%S) not allowed!', [item.name]));
                     evt.preventDefault();
                 }
             }
@@ -201,13 +214,43 @@
                 }
                 else {
                     // clear warning if no stock warning
-                    if (item.stock_status == null || item.stock_status == 1) {
+                    if ((item.stock_status == null || item.stock_status == 1) && setItemsStockStatus == 1) {
                         cart.dispatchEvent('onWarning', '');
                     }
                 }
             }
         },
-        
+
+        beforeModifyItem: function(evt) {
+
+            var itemDisplay = evt.data.itemDisplay;
+            var itemTrans = evt.data.item;
+            var cart = GeckoJS.Controller.getInstanceByName('Cart');
+            var curTransaction = cart.transaction;
+
+            // check if stock is lower or over
+            if (itemDisplay.type == 'item') {
+                var qty = null;
+                qty  = (GeckoJS.Session.get('cart_set_qty_value') != null) ? GeckoJS.Session.get('cart_set_qty_value') : qty;
+                if (qty > 0 && !cart.checkStock("modifyItem", qty, itemTrans)) {
+                    evt.preventDefault();
+                    return false;
+                }
+
+                // need to retrieve set items and check stock level individually
+                var setItems = cart._getTransaction().getSetItemsByIndex(itemTrans.index);
+                var oldQty = itemTrans.current_qty;
+
+                setItems.forEach(function(setitem) {
+                    if (!cart.checkStock('modifyItem', qty * setitem.current_qty / oldQty, setitem, false)) {
+                        evt.preventDefault();
+                        return;
+                    }
+                });
+            }
+
+        },
+
         _newTransaction: function() {
             var curTransaction = new Transaction();
             curTransaction.create();
@@ -321,11 +364,14 @@
                         this.addMemo(plu);
                     }
                 }
-            }
-            // single item sale?
-            if (plu.single && curTransaction.data.items_count == 1) {
-                this.dispatchEvent('onWarning', _('SINGLE ITEM SALE'));
-                this.addPayment('cash');
+                // single item sale?
+                if (plu.single && curTransaction.data.items_count == 1) {
+                    this.dispatchEvent('onWarning', _('SINGLE ITEM SALE'));
+                    this.addPayment('cash');
+                }
+                else {
+                    this.subtotal();
+                }
             }
             else {
                 this.subtotal();
@@ -379,7 +425,7 @@
             this.cancelReturn();
 
             if(curTransaction == null) {
-                this.dispatchEvent('onModifyItem', null);
+                this.dispatchEvent('onModifyItemError', null);
 
                 //@todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot modify'));
@@ -456,25 +502,11 @@
                 this.setPrice(buf);
             }
 
-            // check if stock is lower or over
-            if (itemDisplay.type == 'item') {
-                var qty = null;
-                qty  = (GeckoJS.Session.get('cart_set_qty_value') != null) ? GeckoJS.Session.get('cart_set_qty_value') : qty;
-                if (qty > 0 && !this.checkStock("modifyItem", qty, itemTrans)) {
-                    return ;
-                }
+            if (this.dispatchEvent('beforeModifyItem', {item: itemTrans, itemDisplay: itemDisplay})) {
+                var modifiedItem = curTransaction.modifyItemAt(index);
 
-                // need to retrieve set items and check stock level individually
-                var setItems = curTransaction.getSetItemsByIndex(itemTrans.index);
-                GREUtils.log(GeckoJS.BaseObject.dump(setItems));
+                this.dispatchEvent('afterModifyItem', modifiedItem);
             }
-
-            this.dispatchEvent('beforeModifyItem', itemTrans);
-
-            var modifiedItem = curTransaction.modifyItemAt(index);
-
-            this.dispatchEvent('afterModifyItem', modifiedItem);
-
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
 
@@ -620,17 +652,31 @@
             }
             else if (itemDisplay.type == 'setitem') {
                 // @todo OSD
-                NotifyUtils.warn(_('The select item [%S] is part of a set menu and cannot be VOIDed', [itemDisplay.name]));
+                NotifyUtils.warn(_('The select item [%S] is a member of a product set and cannot be VOIDed individually', [itemDisplay.name]));
                 return ;
             }
 
             itemTrans = curTransaction.getItemAt(index);
             if (itemTrans) {
+
+                // has item been marked?
                 if(itemTrans.hasMarker) {
                     // @todo OSD
                     this.dispatchEvent('onVoidItemError', {});
-                    NotifyUtils.warn(_('Cannot VOID an item that has been subtotaled'));
+                    NotifyUtils.warn(_('Cannot VOID an entry that has been subtotaled'));
                     return ;
+                }
+
+                // if voiding condiment, make sure item does not have discounts applied
+                if(itemDisplay.type == 'condiment' && parseFloat(itemDisplay.current_price) > 0) {
+                    if (itemTrans.hasDiscount) {
+                        NotifyUtils.warn(_('Please void discount on item [%S] first', [itemTrans.name]));
+                        return;
+                    }
+                    else if (itemTrans.hasSurcharge) {
+                        NotifyUtils.warn(_('Please void surcharge on item [%S] first', [itemTrans.name]));
+                        return;
+                    }
                 }
             }
 
@@ -659,14 +705,7 @@
                 discountAmount = buf;
             }
 
-            if (!discountAmount) {
-                // @todo OSD
-                NotifyUtils.warn(_('Please enter the discount amount'));
-                return;
-            }
-            else {
-                this.addDiscount(discountAmount, '$', '-');
-            }
+            this.addDiscount(discountAmount, '$', '-');
         },
 
         addDiscountByPercentage: function(amount) {
@@ -683,14 +722,7 @@
                 discountAmount = buf;
             }
 
-            if (!discountAmount) {
-                // @todo OSD
-                NotifyUtils.warn(_('Please enter the discount percentage first'));
-                return;
-            }
-            else {
-                this.addDiscount(discountAmount, '%', '-' + discountAmount + '%', false);
-            }
+            this.addDiscount(discountAmount, '%', '-' + discountAmount + '%', false);
         },
 
 
@@ -708,14 +740,7 @@
                 discountAmount = buf;
             }
 
-            if (!discountAmount) {
-                // @todo OSD
-                NotifyUtils.warn(_('Please enter the discount percentage'));
-                return;
-            }
-            else {
-                this.addDiscount(discountAmount, '%', '-' + discountAmount + '%', true);
-            }
+            this.addDiscount(discountAmount, '%', '-' + discountAmount + '%', true);
         },
 
 
@@ -745,7 +770,7 @@
 
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 //@todo OSD
-                NotifyUtils.warn(_('Not an open order; cannot add surcharge'));
+                NotifyUtils.warn(_('Not an open order; cannot add discount'));
                 return;
             }
 
@@ -816,11 +841,17 @@
                 return;
             }
 
-            if(!discountAmount) {
+            if (discountAmount == null || isNaN(discountAmount)) {
+                if (discountType == '$') {
+                    // @todo OSD
+                    NotifyUtils.warn(_('Please enter the discount amount'));
+                }
+                else {
+                    NotifyUtils.warn(_('Please enter the discount percentage'));
+                }
+
                 this.dispatchEvent('onAddDiscountError', {});
 
-                //@todo OSD
-                NotifyUtils.warn(_('Please enter the discount amount or percentage'));
                 return;
             }
             
@@ -871,14 +902,7 @@
                 surchargeAmount = buf;
             }
 
-            if (!surchargeAmount) {
-                // @todo OSD
-                NotifyUtils.warn(_('Please enter the surcharge amount first'));
-                return;
-            }
-            else {
-                this.addSurcharge(surchargeAmount, '$', '+', false);
-            }
+            this.addSurcharge(surchargeAmount, '$', '+', false);
         },
 
         addSurchargeByPercentage: function(amount) {
@@ -895,14 +919,7 @@
                 surchargeAmount = buf;
             }
 
-            if (!surchargeAmount) {
-                // @todo OSD
-                NotifyUtils.warn(_('Please enter the surcharge percentage'));
-                return;
-            }
-            else {
-                this.addSurcharge(surchargeAmount, '%', '+' + surchargeAmount + '%', false);
-            }
+            this.addSurcharge(surchargeAmount, '%', '+' + surchargeAmount + '%', false);
         },
 
 
@@ -920,14 +937,7 @@
                 surchargeAmount = buf;
             }
 
-            if (!surchargeAmount) {
-                // @todo OSD
-                NotifyUtils.warn(_('Please enter the surcharge percentage'));
-                return;
-            }
-            else {
-                this.addSurcharge(surchargeAmount, '%', '+' + surchargeAmount + '%', true);
-            }
+            this.addSurcharge(surchargeAmount, '%', '+' + surchargeAmount + '%', true);
         },
 
 
@@ -1017,6 +1027,20 @@
             else {
                 //@todo OSD
                 NotifyUtils.warn(_('Surcharge may not be added to [%S]', [itemDisplay.name]));
+                return;
+            }
+
+            if (surchargeAmount == null || isNaN(surchargeAmount)) {
+                if (surchargeType == '$') {
+                    // @todo OSD
+                    NotifyUtils.warn(_('Please enter the surcharge amount'));
+                }
+                else {
+                    NotifyUtils.warn(_('Please enter the surcharge percentage'));
+                }
+
+                this.dispatchEvent('onAddSurchargeError', {});
+
                 return;
             }
 
@@ -1160,6 +1184,7 @@
             this._getKeypadController().clearBuffer();
 
             this.cancelReturn();
+
             var currencies = GeckoJS.Session.get('Currencies');
             var convertIndex = -1;
 
@@ -1179,6 +1204,24 @@
                 return;
             }
 
+            // check if order is open
+            var curTransaction = this._getTransaction();
+
+            if(curTransaction == null) {
+                this.clear();
+                this.dispatchEvent('onAddPayment', null);
+
+                // @todo OSD
+                NotifyUtils.warn(_('Not an open order; cannot register payments'));
+                return; // fatal error ?
+            }
+
+            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
+                // @todo OSD
+                NotifyUtils.warn(_('Not an open order; cannot register payments'));
+                return;
+            }
+            
             if (buf.length>0 && currencies && currencies.length > convertIndex) {
                 var amount = parseFloat(buf);
                 var origin_amount = amount;
@@ -1660,7 +1703,8 @@
             }else {
                 var productsById = GeckoJS.Session.get('productsById');
                 var cartItem = curTransaction.getItemAt(index);
-                if (cartItem == null || cartItem.type != 'item') {
+                var setItem = curTransaction.getItemAt(index, true);
+                if (cartItem == null || (cartItem.type != 'item' && cartItem.type != 'setitem')) {
                     var displayItem = curTransaction.getDisplaySeqAt(index);
                     //@todo OSD
                     NotifyUtils.warn(_('Condiments may not be added to [%S]', [displayItem.name]));
@@ -1679,17 +1723,17 @@
                 }
                 if (cartItem.hasDiscount) {
                     //@todo OSD
-                    NotifyUtils.warn(_('Please void discount on item first'));
+                    NotifyUtils.warn(_('Please void discount on item [%S] first', [cartItem.name]));
                     return;
                 }
                 if (cartItem.hasSurcharge) {
                     //@todo OSD
-                    NotifyUtils.warn(_('Please void surcharge on item first'));
+                    NotifyUtils.warn(_('Please void surcharge on item [%S] first', [cartItem.name]));
                     return;
                 }
                 // xxxx why clone it ??
                 //condimentItem = GREUtils.extend({}, productsById[cartItem.id]);
-                condimentItem = productsById[cartItem.id];
+                condimentItem = productsById[setItem.id];
             }
 
             if (condimentItem) {
@@ -1843,7 +1887,7 @@
             }else {
                 var productsById = GeckoJS.Session.get('productsById');
                 var cartItem = curTransaction.getItemAt(index);
-                if (cartItem && cartItem.type == 'item') {
+                if (cartItem != null && cartItem.type == 'item') {
                     //xxxx why clone it?
                     //memoItem = GREUtils.extend({}, productsById[cartItem.id]);
                     memoItem = productsById[cartItem.id];

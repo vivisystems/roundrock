@@ -99,7 +99,7 @@ pref("vivipos.fec.settings.controlpanels.activity.pricelevelschedule.roles", "ac
 pref("vivipos.fec.settings.controlpanels.system.importexport.label", "Data Import/ Export");
 pref("vivipos.fec.settings.controlpanels.system.importexport.path", "chrome://viviecr/content/importexport.xul");
 pref("vivipos.fec.settings.controlpanels.system.importexport.icon", "chrome://viviecr/skin/icons/icon_import.png");
-pref("vivipos.fec.settings.controlpanels.system.importexport.roles", "acl_manage_import_export_inactive");
+pref("vivipos.fec.settings.controlpanels.system.importexport.roles", "acl_manage_import_export");
 
 pref("vivipos.fec.settings.controlpanels.system.systembackup.label", "System Backup");
 pref("vivipos.fec.settings.controlpanels.system.systembackup.path", "chrome://viviecr/content/systembackup.xul");

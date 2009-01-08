@@ -96,7 +96,7 @@
 
             var index = this.getListObj().selectedIndex;
             if (index < 0) {
-                NotifyUtils.info(_('Please select a item to export...'));
+                NotifyUtils.warn(_('Please select a data category to export'));
                 return;
             }
 
@@ -123,10 +123,10 @@
                 limit:9999
             });
 
-            this._datas[index].exported = _('Yes') + _(' (%S)',[this._datas[index].filename]);
+            this._datas[index].exported = _('Yes') + this._datas[index].filename;
             this.getListObj().vivitree.refresh();
 
-            NotifyUtils.info(_('Export To CSV (%S) Finish!!', [this._datas[index].filename]));
+            NotifyUtils.info(_('Data export to CSV file [%S] finished!', [this._datas[index].filename]));
 
         },
 
@@ -137,7 +137,7 @@
 
             var index = this.getListObj().selectedIndex;
             if (index < 0) {
-                NotifyUtils.info(_('Please select a item to import...'));
+                NotifyUtils.warn(_('Please select a data category to import'));
                 return;
             }
 
@@ -158,7 +158,7 @@
             var model = this._datas[index].model;
             var fileName = this._importDir + "/" + this._datas[index].filename;
             if (!GREUtils.File.exists(fileName)) {
-                NotifyUtils.info(_('The CSV file (%S) does not exist!!', [this._datas[index].filename]));
+                NotifyUtils.error(_('The specified CSV file [%S] does not exist!', [this._datas[index].filename]));
                 return;
             }
 
@@ -198,7 +198,7 @@
             }
             catch (e) {
                 this._busy = false;
-                NotifyUtils.info(_('Open CSV file (%S) error!!', [this._datas[index].filename]));
+                NotifyUtils.error(_('Unable to open the specified CSV file [%S]!', [this._datas[index].filename]));
                 return;
             }
             finally {
@@ -218,7 +218,7 @@
                 // valid the import fields
                 if (!tpl[fields[i]]) {
                     bad = true;
-                    NotifyUtils.info(_('Import Format Error: Field (%S) not exist!!', [fields[i]]));
+                    NotifyUtils.error(_('Import format error: field [%S] not exist!', [fields[i]]));
                 }
             }
 
@@ -264,7 +264,7 @@
                 //tableTmp.commit();
             }
             catch (e) {
-                NotifyUtils.info(_('Import CSV datas (%S) Format error!! Please Check...', [this._datas[index].filename]));
+                NotifyUtils.error(_('Format error detected in import CSV file [%S]!', [this._datas[index].filename]));
             }
             finally {
                 // reset max script run time...
@@ -280,7 +280,7 @@
             this._datas[index].imported = _('Yes') + _(' (%S)',[this._datas[index].filename]);
             this.getListObj().vivitree.refresh();
 
-            NotifyUtils.info(_('Import From CSV (%S) Finish!!', [this._datas[index].filename]));
+            NotifyUtils.info(_('Data import from CSV file [%S] finished!', [this._datas[index].filename]));
 
             return;
 // ************************
@@ -309,7 +309,7 @@
                     exported: ''
                 },
                 {
-                    name: _('Plu Group'),
+                    name: _('Product Group'),
                     model: 'plugroups',
                     filename: 'plugroups.csv',
                     imported: '',

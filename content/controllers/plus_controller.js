@@ -297,13 +297,32 @@
             if (inputObj.ok && inputObj.input0 && inputObj.input1) {
                 var product = this._searchPlu(inputObj.input0);
                 if (product) {
+                    // validate product - must not be a product set itself, must not be this product set
+                    var formData = this.getInputData();
+                    if (product.no == formData.no) {
+                        //@todo OSD?
+                        alert(_('[%S] (%S) may not be a member of its own product set.', [product.name, inputObj.input0]));
+                        return;
+                    }
+
+                    if (product.setmenu != null && product.setmenu.length > 0) {
+                        alert(_('[%S] (%S) is a product set and may not be a member of another product set.', [product.name, inputObj.input0]));
+                        return;
+                    }
+
                     var inputData = {
                         no: product.no,
                         name: product.name,
                         qty: inputObj.input1
                     };
 
-                    this._pluset.push(inputData);
+                    var index = this.getPluSetListObj().currentIndex;
+
+                    if (index < 0)
+                        this._pluset.push(inputData);
+                    else {
+                        this._pluset.splice(index, 0, inputData);
+                    }
 
                     var panelView =  new GeckoJS.NSITreeViewArray(this._pluset);
                     this.getPluSetListObj().datasource = panelView;
@@ -580,7 +599,7 @@
                     value: product.id
                 });
                 if (setMenu != null) {
-                    NotifyUtils.warn(_('Product [%S] is part of set menu [%S] and may not be removed', [product.name, setMenu.Product.name]));
+                    NotifyUtils.warn(_('Product [%S] is part of a product set [%S] and may not be removed', [product.name, setMenu.Product.name]));
                     return;
                 }
 

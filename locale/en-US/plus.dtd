@@ -1,4 +1,6 @@
 <!ENTITY plus.title     "Product Properties">
+<!ENTITY plusearch.title     "Product Search">
+
 <!ENTITY plus.tab.base.data1  "Basic 1">
 <!ENTITY plus.tab.base.data2  "Basic 2 ">
 <!ENTITY plus.tab.setmenu     "Sets">
@@ -63,8 +65,8 @@
 <!ENTITY plus.halo "HALO">
 <!ENTITY plus.lalo "LALO">
 
-<!ENTITY plus.search.label "Search By Product No. or Barcode">
-<!ENTITY plus.search.advancesearch "Acvance Search">
+<!ENTITY plus.search.label "Search By Product No./Barcode">
+<!ENTITY plus.search.advancesearch "Advanced Search">
 
 <!ENTITY plus.button.action.add "Add">
 <!ENTITY plus.button.action.modify "Modify">
@@ -76,3 +78,4 @@
 <!ENTITY plus.button.numpad.advsearch "SEARCH">
 <!ENTITY plus.button.numpad.advclear "CLEAR">
 
+<!ENTITY plusearch.title     "Product Search">

@@ -17,7 +17,7 @@
 
             if (this._listDatas.length <= 0) {
                 var datas = document.getElementById('pref_plufilters').value;
-                this._listDatas = GeckoJS.BaseObject.unserialize(GeckoJS.String.urlDecode(datas));
+                if (datas != null) this._listDatas = GeckoJS.BaseObject.unserialize(GeckoJS.String.urlDecode(datas));
                 if (this._listDatas.length <= 0) this._listDatas = [];
             }
 
@@ -51,6 +51,7 @@
         removeFilter: function(){
             var index = this.getListObj().selectedIndex;
             if (index >= 0) {
+                var filterName = this._listDatas[index].filtername;
                 this._listDatas.splice(index, 1);
                 var datas = new GeckoJS.ArrayQuery(this._listDatas).orderBy('index asc');
                 var datastr = GeckoJS.String.urlEncode(GeckoJS.BaseObject.serialize(datas));
@@ -58,7 +59,7 @@
                 document.getElementById('pref_plufilters').value = datastr;
 
                 // @todo OSD
-                OsdUtils.info(_('Filter removed successfully', []));
+                OsdUtils.info(_('Filter [%S] removed successfully', [filterName]));
 
                 this.load();
             }
@@ -80,7 +81,7 @@
                 removeBtn.setAttribute('disabled', true);
             }
 
-            if (filterName.length > 0 && filterIndex > 0 && filterLength > 0) {
+            if (filterName.length > 0 && filterIndex > 0 && filterLength > 0 && filterIndex == Math.floor(filterIndex) && filterLength == Math.floor(filterLength)) {
                 addBtn.setAttribute('disabled', false);
             } else {
                 addBtn.setAttribute('disabled', true);

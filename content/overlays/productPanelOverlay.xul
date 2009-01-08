@@ -52,11 +52,9 @@
                 </viviscrollablebuttonpanel>
 
                 <hbox id="condimenstBtnContainer" pack="center">
-                    <spacer flex="1"/>
                     <button flex="10" class="user-plubtn" id="ok" label="&dialog.okButton.label;" oncommand="$do('addCondimentCallback', true, 'Cart');"/>
                     
                     <button flex="10" class="user-plubtn" id="cancel" label="&dialog.cancelButton.label;" oncommand="$do('addCondimentCallback', false, 'Cart');"/>
-                    <spacer flex="1"/>
                 </hbox>
                 </vbox>
 
