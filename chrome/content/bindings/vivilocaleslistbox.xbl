@@ -193,6 +193,18 @@
                             envSvc.set('LC_MONETARY', langENV);
                             envSvc.set('LC_ALL', langENV);
 
+
+                        }catch(e) {
+                        }
+
+                        // locale gen
+                        try {
+                            var localeGenScript = new GeckoJS.File('/data/scripts/locale_gen.sh');
+                            if (localeGenScript.exists()) {
+				localeGenScript.run([], true); // no arguments and blocking.
+                            }
+                            delete localeGenScript;
+                            localeGenScript = null;
                         }catch(e) {
                         }
 
