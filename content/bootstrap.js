@@ -25,6 +25,7 @@ include('chrome://viviecr/content/models/condiment_group.js');
 include('chrome://viviecr/content/models/condiment.js');
 include('chrome://viviecr/content/models/plugroup.js');
 include('chrome://viviecr/content/models/job.js');
+include('chrome://viviecr/content/models/setitem.js');
 include('chrome://viviecr/content/models/producttmp.js');
 
 
