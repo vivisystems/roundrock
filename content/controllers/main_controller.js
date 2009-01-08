@@ -12,6 +12,7 @@
         maxButtonRows: 10,
         depPanelView: null,
         pluPanelView: null,
+        condimentPanel: null,
         doRestart: false,
         restartClock: false,
     
@@ -163,6 +164,9 @@
             this.pluPanelView.setCatePanelView(this.depPanelView);
             this.pluPanelView.setCatePanelIndex(0);
 
+            this.condimentPanel = document.getElementById('condimentscrollablepanel');
+            this.condimentPanel.datasource = new NSICondimentsView();
+
         },
 
         changePluPanel: function(index) {
@@ -305,6 +309,7 @@
             var panelSpacer = document.getElementById('panelSpacer');
             var deptPanel = document.getElementById('catescrollablepanel');
             var pluPanel = document.getElementById('prodscrollablepanel');
+            var condimentPanel = document.getElementById('condimentscrollablepanel');
             var fnPanel = document.getElementById('functionPanel');
             var btmBox = document.getElementById('vivipos-bottombox');
 
@@ -368,6 +373,8 @@
             }
             rowsLeft -= pluRows;
 
+            document.getElementById('pluAndCondimentDeck').style.height = '0px';
+            
             if (initial ||
                 (pluPanel.getAttribute('rows') != pluRows) ||
                 (pluPanel.getAttribute('cols') != pluCols) ||
@@ -376,6 +383,12 @@
                 (pluPanel.getAttribute('hideScrollbar') != hidePLUScrollbar)) {
                 pluPanel.setAttribute('rows', pluRows);
                 pluPanel.setAttribute('cols', pluCols);
+
+                // condimentPanel
+                var condRows =  (parseInt(pluRows)-1) > 0 ? (parseInt(pluRows)-1) : 0 ;
+                condimentPanel.setAttribute('rows', condRows);
+                condimentPanel.setAttribute('cols', pluCols);
+
                 if (cropPLULabel) pluPanel.setAttribute('crop', 'end');
                 else pluPanel.removeAttribute('crop');
                 if ((pluRows > 0) && (pluCols > 0)) {
@@ -387,6 +400,18 @@
                 else {
                     pluPanel.setAttribute('hidden', true);
                 }
+
+                if ((condRows > 0) && (pluCols > 0)) {
+                    condimentPanel.setAttribute('hideScrollbar', hidePLUScrollbar);
+                    condimentPanel.setAttribute('hidden', false);
+                    document.getElementById('condimenstBtnContainer').setAttribute('hidden', false);
+                    condimentPanel.initGrid();
+                    condimentPanel.vivibuttonpanel.refresh();
+                }else {
+                    condimentPanel.setAttribute('hidden', true);
+                    document.getElementById('condimenstBtnContainer').setAttribute('hidden', true);
+                }
+
             }
 
             if (deptPanel) deptPanel.vivibuttonpanel.resizeButtons();
@@ -438,6 +463,7 @@
             var hbox = document.getElementById('mainPanel');
             var deptPanel = document.getElementById('catescrollablepanel');
             var pluPanel = document.getElementById('prodscrollablepanel');
+            var condimentPanel = document.getElementById('condimentscrollablepanel');
             var fnPanel = document.getElementById('functionPanel');
             var toolbarPanel = document.getElementById('numberpadPanelContainer');
             var leftPanel = document.getElementById('leftPanel');
@@ -447,6 +473,7 @@
             if (hbox) hbox.setAttribute('dir', registerAtLeft ? 'reverse' : 'normal');
             if (deptPanel) deptPanel.setAttribute('dir', registerAtLeft ? 'normal' : 'reverse');
             if (pluPanel) pluPanel.setAttribute('dir', registerAtLeft ? 'normal' : 'reverse');
+            if (condimentPanel) condimentPanel.setAttribute('dir', registerAtLeft ? 'normal' : 'reverse');
             if (fnPanel) fnPanel.setAttribute('dir', registerAtLeft ? 'reverse' : 'normal');
             if (toolbarPanel) toolbarPanel.setAttribute('dir', registerAtLeft ? 'reverse' : 'normal');
             if (leftPanel) leftPanel.setAttribute('dir', functionPanelOnTop ? 'reverse' : 'normal');

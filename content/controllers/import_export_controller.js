@@ -1,7 +1,7 @@
 (function(){
 
     /**
-     * Class ViviPOS.ImportExportController
+     * Class ImportExportController
      */
 
     GeckoJS.Controller.extend( {
@@ -13,6 +13,7 @@
         _importDir: null,
         _exportDir: null,
         _finish: false,
+        _busy: false,
 
         getListObj: function() {
             if(this._listObj == null) {
@@ -21,14 +22,22 @@
             return this._listObj;
         },
 
+        setButtonDisable: function(disabled) {
+            //
+            $('#importBtn').attr('disabled', disabled);
+            $('#exportBtn').attr('disabled', disabled);
+        },
+
         checkBackupDevices: function() {
 
-            var osLastMedia = new GeckoJS.File('/tmp/last_media');
+            // var osLastMedia = new GeckoJS.File('/tmp/last_media');
+            var osLastMedia = new GeckoJS.File('/var/tmp/vivipos/last_media');
 
             var last_media = "";
             var deviceNode = "";
 
-            var deviceMount = "/media/";
+            // var deviceMount = "/media/";
+            var deviceMount = "/var/tmp/";
 
             var hasMounted = false;
 
@@ -37,6 +46,12 @@
                 last_media = osLastMedia.readLine();
                 osLastMedia.close();
             }
+
+            // $('#importBtn').attr('disabled', true);
+            // $('#exportBtn').attr('disabled', true);
+            this.setButtonDisable(true);
+
+            $('#lastMedia').attr('value', '');
 
             if (last_media) {
 
@@ -51,18 +66,19 @@
                     // mount dir exists
                     // autocreate backup_dir and restore dir
                     
-                    var importDir = new GeckoJS.Dir(deviceMount+'/import', true);
-                    var exportDir = new GeckoJS.Dir(deviceMount+'/export', true);
+                    var importDir = new GeckoJS.Dir(deviceMount+'/database_import', true);
+                    var exportDir = new GeckoJS.Dir(deviceMount+'/database_export', true);
 
                     if (importDir.exists() && exportDir.exists()) {
 
                         this._importDir = importDir.path;
                         this._exportDir = exportDir.path;
 
-                        this.log(this._importDir + ",," + this._exportDir);
+                        // this.log(this._importDir + ",," + this._exportDir);
 
-                        $('#importBtn').attr('disabled', false);
-                        $('#exportBtn').attr('disabled', false);
+                        // $('#importBtn').attr('disabled', false);
+                        // $('#exportBtn').attr('disabled', false);
+                        this.setButtonDisable(false);
 
                         $('#lastMedia').attr('value', deviceMount);
 
@@ -77,441 +93,198 @@
         },
 
         exportData: function (model) {
-            //
-            var datas = this.getListObj().value.split(',');
+
+            var index = this.getListObj().selectedIndex;
+            if (index < 0) {
+                NotifyUtils.info(_('Please select a item to export...'));
+                return;
+            }
 
             var total;
-            var progmeter = document.getElementById("datasprogressmeter");
-            var exportprogress = function (value) {
-                //
-                // GREUtils.log('value:' + value);
-                progmeter.value = Math.floor(value / total * 100);
+
+            var name = this._datas[index].name;
+            var model = this._datas[index].model;
+            var fileName = this._exportDir + "/" + this._datas[index].filename;
+
+            if (model == "products") {
+                var tableTmp = new ProductModel();
+            } else if (model == "departments") {
+                var tableTmp = new CategoryModel();
+            } else if (model == "plugroups") {
+                var tableTmp = new PlugroupModel();
+            } else if (model == "condimentgroups") {
+                var tableTmp = new CondimentGroupModel();
+            } else if (model == "condiments") {
+                var tableTmp = new CondimentModel();
             }
 
-            // progmeter.max = datas.length;
-            progmeter.value = 0;
-            for(var i=0; i < datas.length; i++) {
-                //
-                progmeter.value = (i / datas.length) * 100;
+            total = tableTmp.exportCSV(fileName, {
 
-                var name = this._datas[datas[i]].name;
-                var model = this._datas[datas[i]].model;
+                limit:9999
+            });
 
-                if (model == "products") {
-                    var tableTmp = new ProductModel();
-                    var fileName = this._exportDir + "/products.csv";
-                } else if (model == "departments") {
-                    var tableTmp = new CategoryModel();
-                    var fileName = this._exportDir + "/departments.csv";
-                } else if (model == "plugroups") {
-                    var tableTmp = new PlugroupModel();
-                    var fileName = this._exportDir + "/plugroups.csv";
-                } else if (model == "condimentgroups") {
-                    var tableTmp = new CondimentGroupModel();
-                    var fileName = this._exportDir + "/condimentgroups.csv";
-                } else if (model == "condiments") {
-                    var tableTmp = new CondimentModel();
-                    var fileName = this._exportDir + "/condiments.csv";
-                }
+            this._datas[index].exported = _('Yes') + _(' (%S)',[this._datas[index].filename]);
+            this.getListObj().vivitree.refresh();
 
-                total = tableTmp.exportCSV(fileName, {
-
-                    limit:9999
-                });
-            }
-            progmeter.value = 100;
-            NotifyUtils.info('Export To CSV ('+ fileName + ') Finish!!');
-
-        },
-
-
-        importPlu: function(data) {
-            var self = this;
-            var lines = GREUtils.File.readAllLine(this._importDir + "/products_steven.csv");
-            var products = GeckoJS.Session.get('products');
-            var productTpl = GREUtils.extend({}, products[0]);
-
-            delete productTpl.id;
-            delete productTpl.created;
-            productTpl.visible = true;
-            productTpl.halo1 = 0;
-            productTpl.lalo1 = 0;
-
-            var cate_no = '999';
-            var pad = 8; // GeckoJS.String.padLeft
-
-            var trimQuote = function(str) {
-
-                return str.substr(1, str.length-2);
-            };
-
-            var prodTmp = new ProductModel();
-
-            var i = 0;
-            var nCount = lines.length;
-            var datas = [];
-            var progmeter = document.getElementById("datasprogressmeter");
-            var progress = 0;
-            progmeter.value = progress;
-            // progmeter.max = nCount;
-
-            var thread = new GeckoJS.Thread();
-
-            var mainRunnable = {
-                run: function() {
-
-                    progmeter.value = i * 100 / nCount;
-
-
-                    if (self._finish) {
-
-                        alert("finish...");
-                        self._listDatas = datas;
-
-                        // var panelView =  new GeckoJS.NSITreeViewArray(self._listDatas);
-                        // self.getListObj().datasource = panelView;
-
-                    }
-
-
-                },
-
-                QueryInterface: function(iid) {
-                    if (iid.equals(Components.Interfaces.nsIRunnable) || iid.equals(Components.Interfaces.nsISupports)) {
-                        return this;
-                    }
-                    throw Components.results.NS_ERROR_NO_INTERFACE;
-                }
-            };
-
-
-            var workerRunnable = {
-                run: function() {
-
-
-                    try {
-                        var oldLimit = GREUtils.Pref.getPref('dom.max_chrome_script_run_time');
-                        GREUtils.Pref.setPref('dom.max_chrome_script_run_time', 5 * 60);
-
-
-                        lines.forEach(function(buf) {
-                            var dats = buf.split(',');
-                            var barcode = trimQuote(dats[0]);
-                            var name = trimQuote(GREUtils.Charset.convertToUnicode(dats[1], 'UTF-8'));
-                            var price = parseFloat(trimQuote(dats[2])) + 0;
-                            var no = cate_no + GeckoJS.String.padLeft(i, pad);
-
-                            /// notify main
-                            thread.main.dispatch(mainRunnable, thread.main.DISPATCH_NORMAL);
-
-
-                            var product = GREUtils.extend({}, productTpl);
-                            product = GREUtils.extend(product, {
-                                no: no,
-                                cate_no: cate_no,
-                                name: name,
-                                barcode: barcode,
-                                price_level1: price,
-                                level_enable1: true
-                            });
-
-                            var id = GeckoJS.String.uuid() + "";
-                            product.id = id +"";
-
-                            datas.push(product);
-                            prodTmp.begin();
-                            prodTmp.save(product);
-                            prodTmp.commit();
-                            i++;
-
-                        }, this);
-
-                        self._finish = true;
-                        thread.main.dispatch(mainRunnable, thread.main.DISPATCH_NORMAL);
-                    }
-                    catch (e) {}
-                    finally {
-                        GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
-                    }
-
-
-
-                },
-
-                QueryInterface: function(iid) {
-                    if (iid.equals(Components.Interfaces.nsIRunnable) || iid.equals(Components.Interfaces.nsISupports)) {
-                        return this;
-                    }
-                    throw Components.results.NS_ERROR_NO_INTERFACE;
-                }
-            };
-
-            self._finish = false;
-            thread._runnable = workerRunnable;
-
-            thread.start();
-
-        //                this._listDatas = datas;
-        //                var panelView =  new GeckoJS.NSITreeViewArray(this._listDatas);
-        //                this.getListObj().datasource = panelView;
+            NotifyUtils.info(_('Export To CSV (%S) Finish!!', [this._datas[index].filename]));
 
         },
 
         importData: function(model) {
-//
-            var datas = this.getListObj().value.split(',');
+            // return if inporting...
+            if (this._busy) return;
+            
+
+            var index = this.getListObj().selectedIndex;
+            if (index < 0) {
+                NotifyUtils.info(_('Please select a item to import...'));
+                return;
+            }
 
             var total;
             var progmeter = document.getElementById("datasprogressmeter");
 
-            var thread = new GeckoJS.Thread();
-            var workerRunnable;
+            var waitPanel = document.getElementById("import_wait_panel");
+            // waitPanel.noautohide = true;
+            var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
+            var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
+            waitPanel.sizeTo(360, 240);
+            waitPanel.openPopupAtScreen(200,400);
+            waitPanel.moveTo((width - 360) / 2, (height - 240) / 2);
+            
+            this.sleep(1000);
+
+            var name = this._datas[index].name;
+            var model = this._datas[index].model;
+            var fileName = this._importDir + "/" + this._datas[index].filename;
+            if (!GREUtils.File.exists(fileName)) {
+                NotifyUtils.info(_('The CSV file (%S) does not exist!!', [this._datas[index].filename]));
+                return;
+            }
 
             var self = this;
-
+            this._busy = true;
+            
             var tableTmp = null;
             var tableTpl = {};
 
-            // progmeter.max = datas.length;
-            progmeter.value = 0;
-            for(var k=0; k < datas.length; k++) {
+            // new model
+            if (model == "products") {
+                tableTmp = new ProductModel();
+            } else if (model == "departments") {
+                tableTmp = new CategoryModel();
+            } else if (model == "plugroups") {
+                tableTmp = new PlugroupModel();
+            } else if (model == "condimentgroups") {
+                tableTmp = new CondimentGroupModel();
+            } else if (model == "condiments") {
+                tableTmp = new CondimentModel();
+            }
 
-                var name = this._datas[datas[k]].name;
-                var model = this._datas[datas[k]].model;
-
-                if (model == "products") {
-                    var tableTmp = new ProductModel();
-                    var fileName = this._importDir + "products.csv";
-                } else if (model == "departments") {
-                    var tableTmp = new CategoryModel();
-                    var fileName = this._importDir + "departments.csv";
-                } else if (model == "plugroups") {
-                    var tableTmp = new PlugroupModel();
-                    var fileName = this._importDir + "plugroups.csv";
-                } else if (model == "condimentgroups") {
-                    var tableTmp = new CondimentGroupModel();
-                    var fileName = this._importDir + "condimentgroups.csv";
-                } else if (model == "condiments") {
-                    var tableTmp = new CondimentModel();
-                    var fileName = this._importDir + "condiments.csv";
-                }
+            // get fields from model
+            var tpl = new Array();
+            for (var v in tableTmp.schema().fields) {
+                tpl[v] = true;
+            }
 
             var trimQuote = function(str) {
-
                 return str.substr(1, str.length-2);
             };
 
-            
-            var lines = GREUtils.File.readAllLine(fileName);
+            try {
+                // read csv file
+                var lines = GREUtils.File.readAllLine(fileName);
+                if (lines.length <= 0) return;
+            }
+            catch (e) {
+                this._busy = false;
+                NotifyUtils.info(_('Open CSV file (%S) error!!', [this._datas[index].filename]));
+                return;
+            }
+            finally {
+                this._busy = false;
+            }
+            total = lines.length;
+
+            // get field name
             var fields = lines[0].split(',');
             lines.splice(0,1);
 
+            var bad = false;
             for( var i = 0; i < fields.length; i++) {
                 fields[i] = trimQuote(fields[i]);
+                tableTpl[fields[i]] = null;
+
+                // valid the import fields
+                if (!tpl[fields[i]]) {
+                    bad = true;
+                    NotifyUtils.info(_('Import Format Error: Field (%S) not exist!!', [fields[i]]));
+                }
             }
 
-            // update progressbar...
-            var mainRunnable = {
-                run: function() {
-                    progmeter.value = ii * 100 / nCount;
+            if (bad) return;
 
-                    if (self._finish) {
-                        // alert("finish...");
-                        // self._listDatas = datas;
-                    }
-                },
-
-                QueryInterface: function(iid) {
-                    if (iid.equals(Components.Interfaces.nsIRunnable) || iid.equals(Components.Interfaces.nsISupports)) {
-                        return this;
-                    }
-                    throw Components.results.NS_ERROR_NO_INTERFACE;
-                }
-            };
-
-            var workerProducts = {
-                run: function() {
-                    /*
-                    var currentThread = Components.classes["@mozilla.org/thread-manager;1"].getService().currentThread;
-                    try {
-                            while(currentThread.hasPendingEvents()) currentThread.processNextEvent(true);
-                    }
-                    catch (e) {}
-                    */
-                    try {
-                        //var oldLimit = GREUtils.Pref.getPref('dom.max_chrome_script_run_time');
-                        //GREUtils.Pref.setPref('dom.max_chrome_script_run_time', 5 * 60);
-
-                        lines.forEach(function(buf) {
-
-                            var datas = buf.split(',');
-                            var rowdata = GREUtils.extend({}, tableTpl);
-                            for (var i=0; i < fields.length; i++) {
-                                rowdata[fields[i]] = trimQuote(GREUtils.Charset.convertToUnicode(datas[i], 'UTF-8'));
-                            }
-
-                            /// notify main
-                            thread.main.dispatch(mainRunnable, thread.main.DISPATCH_NORMAL);
-
-                            tableTmp.id = rowdata.id
-                            tableTmp.begin();
-                            tableTmp.save(rowdata);
-                            tableTmp.commit();
-                            ii++;
-
-                        }, this);
-                        self._finish = true;
-                        thread.main.dispatch(mainRunnable, thread.main.DISPATCH_NORMAL);
-                    }
-                    catch (e) {}
-                    finally {
-                        //GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
-                    }
-
-
-
-                },
-
-                QueryInterface: function(iid) {
-                    if (iid.equals(Components.Interfaces.nsIRunnable) || iid.equals(Components.Interfaces.nsISupports)) {
-                        return this;
-                    }
-                    throw Components.results.NS_ERROR_NO_INTERFACE;
-                }
-            };
-
-            // Datas
-            var workerDatas = {
-                run: function() {
-                    /*
-                    var currentThread = Components.classes["@mozilla.org/thread-manager;1"].getService().currentThread;
-                    try {
-                            while(currentThread.hasPendingEvents()) currentThread.processNextEvent(true);
-                    }
-                    catch (e) {}
-                    */
-                    try {
-                        //var oldLimit = GREUtils.Pref.getPref('dom.max_chrome_script_run_time');
-                        //GREUtils.Pref.setPref('dom.max_chrome_script_run_time', 5 * 60);
-
-                        lines.forEach(function(buf) {
-
-                            var datas = buf.split(',');
-                            var rowdata = GREUtils.extend({}, tableTpl);
-                            for (var i=0; i < fields.length; i++) {
-                                rowdata[fields[i]] = trimQuote(datas[i]);
-                            }
-
-                            /// notify main
-                            thread.main.dispatch(mainRunnable, thread.main.DISPATCH_NORMAL);
-
-                            tableTmp.id = rowdata.id
-                            tableTmp.begin();
-                            tableTmp.save(rowdata);
-                            tableTmp.commit();
-                            ii++;
-
-                        }, this);
-                        self._finish = true;
-                        thread.main.dispatch(mainRunnable, thread.main.DISPATCH_NORMAL);
-                        
-                    }
-                    catch (e) {}
-                    finally {
-                        //GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
-                    }
-
-
-
-                },
-
-                QueryInterface: function(iid) {
-                    if (iid.equals(Components.Interfaces.nsIRunnable) || iid.equals(Components.Interfaces.nsISupports)) {
-                        return this;
-                    }
-                    throw Components.results.NS_ERROR_NO_INTERFACE;
-                }
-            };
-
-            var ii = 0;
-            var nCount = lines.length;
-            var progress = 0;
-            // @todo:
-            if (model == 'products') {
-                tableTmp = new ProductModel();
-                // tableTpl = tableTmp.schema();
-                for (var i=0; i< fields.length; i++) {
-
-                   tableTpl[fields[i]] = null;
-                }
-                tableTpl.vivible = true;
-
-                var cate_no = '999';
-                var pad = 8; // GeckoJS.String.padLeft
-
-                workerRunnable = workerProducts;
-
-            } else if (model == 'departments') {
-                tableTmp = new CategoryModel();
-                // tableTpl = tableTmp.schema();
-                for (var i=0; i< fields.length; i++) {
-
-                   tableTpl[fields[i]] = null;
-                }
-
-                workerRunnable = workerDatas;
-
-            } else if (model == 'plugroups') {
-                tableTmp = new PlugroupModel();
-                // tableTpl = tableTmp.schema();
-                for (var i=0; i< fields.length; i++) {
-
-                   tableTpl[fields[i]] = null;
-                }
-
-                workerRunnable = workerDatas;
-
-
-            } else if (model == 'condimentgroups') {
-                tableTmp = new CondimentGroupModel();
-                // tableTpl = tableTmp.schema();
-                for (var i=0; i< fields.length; i++) {
-
-                   tableTpl[fields[i]] = null;
-                }
-
-                workerRunnable = workerDatas;
-
-            } else if (model == 'condiments') {
-                tableTmp = new CondimentModel();
-                // tableTpl = tableTmp.schema();
-                for (var i=0; i< fields.length; i++) {
-
-                   tableTpl[fields[i]] = null;
-                }
-
-                workerRunnable = workerDatas;
-            }
-
-            self._finish = false;
-            // workerRunnable = workerTmp;
-            thread._runnable = workerRunnable;
-            // run worker...
-            thread.start();
-
-            /*
             try {
-                    while(thread._workerThread.hasPendingEvents()) thread._workerThread.processNextEvent(true);
-            }
-            catch (e) {}
+                // set max script run time...
+                var oldLimit = GREUtils.Pref.getPref('dom.max_chrome_script_run_time');
+                GREUtils.Pref.setPref('dom.max_chrome_script_run_time', 5 * 60);
 
-            
-            */
-            // alert("finish...");
-            
-            // while(!self._finish) thread._workerThread.processNextEvent(true);
+                var query = 'DELETE FROM "main"."' + model + '"';
+                tableTmp.execute(query);
+                // alert(tableTmp.table);
+                // tableTmp.getDataSource().truncate('"main"."' + tableTmp.table + '"');
 
+                progmeter.value = 0;
+
+                var ii = 0;
+
+                this.setButtonDisable(true);
+
+                tableTmp.begin();
+                lines.forEach(function(buf) {
+                    var datas = buf.split(',');
+                    var rowdata = GREUtils.extend({}, tableTpl);
+                    for (var i=0; i < fields.length; i++) {
+                        // rowdata[fields[i]] = trimQuote(datas[i]);
+                        rowdata[fields[i]] = trimQuote(GREUtils.Charset.convertToUnicode(datas[i], 'UTF-8'));
+                    }
+
+                    tableTmp.id = rowdata.id
+                    // tableTmp.begin();
+                    tableTmp.save(rowdata);
+                    // tableTmp.commit();
+
+                    progmeter.value = ii * 100 / total;
+                    if ( (ii % 100) == 0 )
+                        this.sleep(100);
+
+                    ii++;
+
+                }, this);
+                //tableTmp.commit();
             }
+            catch (e) {
+                NotifyUtils.info(_('Import CSV datas (%S) Format error!! Please Check...', [this._datas[index].filename]));
+            }
+            finally {
+                // reset max script run time...
+                this._busy = false;
+                tableTmp.commit();
+                progmeter.value = 100;
+                GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
+                // progmeter.value = 0;
+                this.setButtonDisable(false);
+                waitPanel.hidePopup();
+            }
+
+            this._datas[index].imported = _('Yes') + _(' (%S)',[this._datas[index].filename]);
+            this.getListObj().vivitree.refresh();
+
+            NotifyUtils.info(_('Import From CSV (%S) Finish!!', [this._datas[index].filename]));
+
+            return;
+// ************************
+            
             GREUtils.log("finish...");
         },
 
@@ -522,24 +295,39 @@
 
             this._datas = [
                 {
-                    name: 'Department',
-                    model: 'departments'
+                    name: _('Department'),
+                    model: 'departments',
+                    filename: 'departments.csv',
+                    imported: '',
+                    exported: ''
                 },
                 {
-                    name: 'Plu',
-                    model: 'products'
+                    name: _('Product'),
+                    model: 'products',
+                    filename: 'products.csv',
+                    imported: '',
+                    exported: ''
                 },
                 {
-                    name: 'Plu Group',
-                    model: 'plugroups'
+                    name: _('Plu Group'),
+                    model: 'plugroups',
+                    filename: 'plugroups.csv',
+                    imported: '',
+                    exported: ''
                 },
                 {
-                    name: 'Condiment Group',
-                    model: 'condimentgroups'
+                    name: _('Condiment Group'),
+                    model: 'condimentgroups',
+                    filename: 'condimentgroups.csv',
+                    imported: '',
+                    exported: ''
                 },
                 {
-                    name: 'Condiment',
-                    model: 'condiments'
+                    name: _('Condiment'),
+                    model: 'condiments',
+                    filename: 'condiments.csv',
+                    imported: '',
+                    exported: ''
                 }
             ]
             

@@ -655,6 +655,10 @@
             var categories = GeckoJS.Session.get('categories');
             var catIndex = this.locateIndex(plu.cate_no, categories, "no");
             this.changePluPanel(catIndex);
+            
+            var catepanel = document.getElementById('catescrollablepanel');
+            catepanel.selectedIndex = catIndex;
+            catepanel.selectedItems = [catIndex];
 
             var plus = this.productPanelView.tree.datasource.data;
             var pluIndex = plus.indexOf(plu.id);
