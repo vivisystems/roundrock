@@ -122,6 +122,7 @@
 
                 if (index > 0) {
                     this._listDatas.splice(index, 1);
+                    this.getListObj().vivitree.refresh();
                 } else if (index == 0) {
                     this._listDatas[0].pricelevel = 0;
                 }

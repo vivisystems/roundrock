@@ -269,6 +269,13 @@
                     for (var i=0; i < fields.length; i++) {
                         // rowdata[fields[i]] = trimQuote(datas[i]);
                         rowdata[fields[i]] = trimQuote(GREUtils.Charset.convertToUnicode(datas[i], 'UTF-8'));
+                        if (model == "products") {
+                            try {
+                                if (rowdata['cate_no'].length <= 0) rowdata['cate_no'] = '999';
+                            } catch (e) {
+                                rowdata['cate_no'] = '999';
+                            }
+                        }
                     }
 
                     tableTmp.id = rowdata.id
