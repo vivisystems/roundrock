@@ -10,11 +10,26 @@
         _cartView: null,
         _queuePool: null,
         _returnMode: false,
+        _pluPanel: null,
+        _condimentPanel: null,
+        _pluAndCondimentDeck: null,
 
         initial: function() {
             
             if (this._cartView == null ) {
                 this._cartView = new NSICartView('cartList');
+            }
+
+            if (this._pluPanel == null) {
+                this._pluPanel = document.getElementById('prodscrollablepanel');
+            }
+
+            if (this._pluAndCondimentDeck == null) {
+                this._pluAndCondimentDeck = document.getElementById('pluAndCondimentDeck');
+            }
+
+            if (this._condimentPanel == null) {
+                this._condimentPanel = document.getElementById('condimentscrollablepanel');
             }
 
             self = this;
@@ -1651,13 +1666,117 @@
                     return;
                 }
                 else {
-                    var condiments = this.getCondimentsDialog(condimentItem.cond_group);
-                    if (condiments) curTransaction.appendCondiment(index, condiments);
+                    //var condiments = this.getCondimentsDialog(condimentItem.cond_group);
+                    //if (condiments) curTransaction.appendCondiment(index, condiments);
+                    this.getCondimentsDialog(condimentItem.cond_group);
                 }
                 
             }
             this.subtotal();
 
+        },
+
+        getCondimentsDialog: function (condgroup) {
+
+            var condGroups = GeckoJS.Session.get('condGroups');
+            if (!condGroups) {
+                var condGroupModel = new CondimentGroupModel();
+                var condGroups = condGroupModel.find('all');
+                GeckoJS.Session.add('condGroups', condGroups);
+                condGroups = GeckoJS.Session.get('condGroups');
+            }
+
+            var i = -1;
+            var index = -1;
+
+            for each (var o in condGroups) {
+            //condGroups.forEach(function(o) {
+                i++;
+                if (o.id == condgroup) {
+                    index = i
+                    break;
+                }
+            }
+
+            if (typeof condGroups[index] == 'undefined') return null;
+
+            var conds = condGroups[index]['Condiment'];
+
+            var colsRows = parseInt(this._condimentPanel.getAttribute('cols')) * parseInt(this._condimentPanel.getAttribute('rows'));
+
+            if (colsRows == 0) {
+                var condiments = null;
+                
+                var aURL = 'chrome://viviecr/content/select_condiments.xul';
+                var features = 'chrome,modal,width=600,height=480';
+                var inputObj = {
+                    condgroup: condgroup,
+                    condsData: conds,
+                    condiments: condiments
+                };
+               
+                window.openDialog(aURL, 'select_condiments', features, inputObj);
+
+                if (inputObj.ok && inputObj.condiments) {
+
+                    var index = this._cartView.getSelectedIndex();
+                    var curTransaction = this._getTransaction();
+
+                    if(curTransaction != null && index >=0) curTransaction.appendCondiment(index, inputObj.condiments);
+                    
+                    this.subtotal();
+                }
+                
+            }else {
+
+                this._condimentPanel.datasource.data = conds;
+                this._condimentPanel.vivibuttonpanel.invalidate();
+
+                this._pluAndCondimentDeck.selectedIndex = 1;
+            }
+
+        },
+
+        addCondimentCallback: function(ok) {
+
+            this._pluAndCondimentDeck.selectedIndex = 0;
+            if (!ok) {
+                this._condimentPanel.selectedItems = [];
+                this._condimentPanel.selectedIndex = -1;
+                return ;
+            }
+            
+            var index = this._cartView.getSelectedIndex();
+            var curTransaction = this._getTransaction();
+
+            if(curTransaction == null) {
+                //@todo OSD
+                NotifyUtils.warn(_('Not an open order; cannot add condiment'));
+                return; // fatal error ?
+            }
+
+            if(index <0) {
+                //@todo OSD
+                NotifyUtils.warn(_('Please select an item first'));
+                return;
+            }
+
+            var condsData = this._condimentPanel.datasource.data;
+            var indexes = this._condimentPanel.selectedItems;
+            var condiments = [];
+            indexes.forEach(function(index) {
+                // condiments.push(condsData[index].name);
+                condiments.push(condsData[index]);
+            });
+
+            this._condimentPanel.selectedItems = [];
+            this._condimentPanel.selectedIndex = -1;
+            if (condiments.length > 0) {
+                curTransaction.appendCondiment(index, condiments);
+                this.subtotal();
+            }
+            
+            this._pluAndCondimentDeck.selectedIndex = 0;
         },
 
         addMemo: function(plu) {
@@ -1704,56 +1823,6 @@
         },
 
 
-        getCondimentsDialog: function (condgroup) {
-
-            var condGroups = GeckoJS.Session.get('condGroups');
-            if (!condGroups) {
-                var condGroupModel = new CondimentGroupModel();
-                var condGroups = condGroupModel.find('all');
-                GeckoJS.Session.add('condGroups', condGroups);
-                condGroups = GeckoJS.Session.get('condGroups');
-            /*
-                var idx = 0;
-                condGroups.forEach(function(o) {
-                    o
-                });
-                */
-            }
-
-            var i = -1;
-            var index = -1;
-
-            for each (var o in condGroups) {
-            //condGroups.forEach(function(o) {
-                i++;
-                if (o.id == condgroup) {
-                    index = i
-                    break;
-                }
-            }
-
-            if (typeof condGroups[index] == 'undefined') return null;
-            
-            var conds = condGroups[index]['Condiment'];
-
-            var condiments = null;
-            var aURL = 'chrome://viviecr/content/select_condiments.xul';
-            var features = 'chrome,modal,width=600,height=480';
-            var inputObj = {
-                condgroup: condgroup,
-                condsData: conds,
-                condiments: condiments
-            };
-
-            window.openDialog(aURL, 'select_condiments', features, inputObj);
-
-            if (inputObj.ok && inputObj.condiments) {
-                return inputObj.condiments;
-            }else {
-                return null;
-            }
-            
-        },
 
         getMemoDialog: function (memo) {
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
