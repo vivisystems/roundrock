@@ -525,6 +525,8 @@
             sellQty  = (GeckoJS.Session.get('cart_set_qty_value') != null) ? GeckoJS.Session.get('cart_set_qty_value') : sellQty;
             if (sellQty == null) sellQty = 1;
 
+            if (itemTrans.current_qty < 0 && sellQty > 0) sellQty = 0 - sellQty;
+
             sellPrice  = (GeckoJS.Session.get('cart_set_price_value') != null) ? GeckoJS.Session.get('cart_set_price_value') : sellPrice;
 
             sellPrice = this.calcSellPrice(sellPrice, sellQty, item);
@@ -726,7 +728,7 @@
                         itemType == 'tray' ||
                         itemType == 'total') {
                         //@todo OSD
-                        OsdUtils.warn(_('Cannot VOID a payment that has been subtotaled'));
+                        NotifyUtils.warn(_('Cannot VOID a payment that has been subtotaled'));
 
                         return;
                     }
@@ -810,11 +812,11 @@
             else {
                 discount_amount = item.current_subtotal * discount.amount;
             }
-            if (discount_amount > item.current_subtotal) {
+            if (discount_amount > item.current_subtotal && item.current_subtotal > 0) {
                 // discount too much
                 //@todo OSD
-                OsdUtils.warn(_('Discount amount [%S] may not exceed item amout [%S]',
-                                [this.formatPrice(this.getRoundedPrice(discount_amount)),
+                NotifyUtils.warn(_('Discount amount [%S] may not exceed item amout [%S]',
+                                 [this.formatPrice(this.getRoundedPrice(discount_amount)),
                                  item.current_subtotal]));
                 return;
             }
@@ -846,18 +848,18 @@
             };
             // warn if refunds are present
 
-            var checkitems = this.data.display_sequences;
+            var checkitems = this.data.items;
             for (var i = 0; i < checkitems.length; i++) {
                 var checkitem = checkitems[i];
                 if (checkitem.type == 'item' && checkitem.current_qty < 0) {
                     //@todo OSD
-                        OsdUtils.warn(_('ATTENTION: return item(s) are present'));
+                    NotifyUtils.warn(_('ATTENTION: return item(s) are present'));
                 }
             }
 
             var remainder = this.getRemainTotal();
             if (discountItem.discount_type == '$') {
-                discountItem.current_discount = this.getRoundedPrice(discount.amount);
+                discountItem.current_discount = discount.amount;
             }
             else {
                 //@todo
@@ -865,21 +867,21 @@
                 if (discount.pretax == null) discount.pretax = false;
 
                 if (discount.pretax) {
-                    discountItem.current_discount = this.getRoundedPrice((remainder - this.data.tax_subtotal) * discountItem.discount_rate);
+                    discountItem.current_discount = (remainder - this.data.tax_subtotal) * discountItem.discount_rate;
                 }
                 else {
-                    discountItem.current_discount = this.getRoundedPrice(remainder * discountItem.discount_rate);
+                    discountItem.discount_name += '*';
+                    discountItem.current_discount = remainder * discountItem.discount_rate;
                 }
             }
-            if (discountItem.current_discount > remainder) {
+            if (discountItem.current_discount > remainder && discountItem.current_discount > 0) {
                 // discount too much
                 //@todo OSD
-                OsdUtils.warn(_('Discount amount [%S] may not exceed remaining balance [%S]',
-                                [this.formatPrice(this.getRoundedPrice(discountItem.current_discount)),
+                NotifyUtils.warn(_('Discount amount [%S] may not exceed remaining balance [%S]',
+                                   [this.formatPrice(this.getRoundedPrice(discountItem.current_discount)),
                                  remainder]));
                 return;
             }
-
             discountItem.current_discount = this.getRoundedPrice(0 - discountItem.current_discount);
             
             var discountIndex = GeckoJS.String.uuid();
@@ -936,7 +938,7 @@
             }
 
             // rounding surcharge
-            item.current_surcharge = this.getRoundedPrice(Math.abs(item.current_surcharge));
+            item.current_surcharge = this.getRoundedPrice(item.current_surcharge);
 
 
             // create data object to push in items array
@@ -960,12 +962,12 @@
 
             // warn if refunds are present
 
-            var checkitems = this.data.display_sequences;
+            var checkitems = this.data.items;
             for (var i = 0; i < checkitems.length; i++) {
                 var checkitem = checkitems[i];
                 if (checkitem.type == 'item' && checkitem.current_qty < 0) {
                     //@todo OSD
-                    OsdUtils.warn(_('ATTENTION: return item(s) are present'));
+                    NotifyUtils.warn(_('ATTENTION: return item(s) are present'));
                 }
             }
 
@@ -1096,7 +1098,7 @@
             markerItem.current_tax = '';
             markerItem.current_price = '';
 
-            this.data.markers.push(markerItem.current_subtotal-0);
+            this.data.markers.push(remain);
         }else {
             markerItem.current_tax = this.data.tax_subtotal;
             markerItem.current_subtotal = remain;
@@ -1166,7 +1168,7 @@
                         // check for duplicate condiment;
                         if (condiment.name in item.condiments) {
                             //@todo OSD
-                            OsdUtils.warn(_('Condiment [%S] already added to [%S]', [condiment.name, item.name]));
+                            NotifyUtils.warn(_('Condiment [%S] already added to [%S]', [condiment.name, item.name]));
                         }
                         else {
                             var newCondiment = GeckoJS.BaseObject.extend(condiment, {});
@@ -1200,7 +1202,7 @@
         }
         else {
             //@todo OSD
-            OsdUtils.warn(_("Condiment may only be added to an item"));
+            NotifyUtils.warn(_("Condiment may only be added to an item"));
         }
 
         var currentRowCount = this.data.display_sequences.length;
@@ -1422,7 +1424,7 @@
             Transaction.events.dispatch('onPriceLevelError', obj, this);
 
             //@todo OSD
-            OsdUtils.warn(_('Price adjusted from [%S] to current HALO [%S]', [this.formatPrice(sellPrice), this.formatPrice(obj.newPrice)]));
+            NotifyUtils.warn(_('Price adjusted from [%S] to current HALO [%S]', [this.formatPrice(sellPrice), this.formatPrice(obj.newPrice)]));
             
             sellPrice = obj.newPrice;
         }
@@ -1442,7 +1444,7 @@
             Transaction.events.dispatch('onPriceLevelError', obj2, this);
 
             //@todo OSD
-            OsdUtils.warn(_('Price adjusted from [%S] to current LALO [%S]', [this.formatPrice(sellPrice), this.formatPrice(obj2.newPrice)]));
+            NotifyUtils.warn(_('Price adjusted from [%S] to current LALO [%S]', [this.formatPrice(sellPrice), this.formatPrice(obj2.newPrice)]));
 
             sellPrice = obj2.newPrice;
         }
@@ -1549,7 +1551,7 @@
                 item.tax_type = tax.type;
 
                 var toTaxCharge = item.current_subtotal + item.current_discount + item.current_surcharge;
-                var taxChargeObj = Transaction.Tax.calcTaxAmount(item.tax_name, toTaxCharge);
+                var taxChargeObj = Transaction.Tax.calcTaxAmount(item.tax_name, Math.abs(toTaxCharge));
 
                 // @todo total only or summary ?
                 item.current_tax =  taxChargeObj[item.tax_name].charge;
@@ -1559,6 +1561,7 @@
 
             // rounding tax
             item.current_tax = this.getRoundedTax(item.current_tax);
+            if (toTaxCharge < 0) item.current_tax = 0 - item.current_tax;
 
         }
 
@@ -1660,13 +1663,15 @@
 
 
     Transaction.prototype.getRoundedPrice = function(price) {
-        var roundedPrice = Transaction.Number.round(price, this.data.precision_prices, this.data.rounding_prices) || 0;
+        var roundedPrice = Transaction.Number.round(Math.abs(price), this.data.precision_prices, this.data.rounding_prices) || 0;
+        if (price < 0) roundedPrice = 0 - roundedPrice;
         return roundedPrice;
     };
 
 
     Transaction.prototype.getRoundedTax = function(tax) {
-        var roundedTax = Transaction.Number.round(tax, this.data.precision_taxes, this.data.rounding_taxes) || 0;
+        var roundedTax = Transaction.Number.round(Math.abs(tax), this.data.precision_taxes, this.data.rounding_taxes) || 0;
+        if (tax < 0) roundedTax = 0 - roundedTax;
         return roundedTax;
     };
 

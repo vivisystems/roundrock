@@ -20,17 +20,10 @@
                 var kbmap = $('#kbmap')[0];
 
                 if (locale) {
-                    // change both XUL and OS locales
-                    locale.changeOSLocale();
-                    locale.changeLocale();
-
                     changed = (locale.currentLocale != locale.selectedLocale)
                 }
 
                 if (kbmap) {
-                    // change keyboard mapping
-                    kbmap.changeOSKbmap();
-
                     changed = changed || kbmap.currentKbmap != kbmap.selectedKbmap;
                 }
 
@@ -38,7 +31,15 @@
                     if (GREUtils.Dialog.confirm(null, _('confirm language and keyboard mapping change'),
                                                       _('Language and Keyboard mapping changes require system restart to take effect. If you save the changes now, the system will restart automatically after you return to the Main Screen. Do you want to save your changes?')
                                                       )) {
+                        // change both XUL and OS locales
+                        locale.changeOSLocale();
+                        locale.changeLocale();
+
+                        // change keyboard mapping
+                        kbmap.changeOSKbmap();
+
                         GeckoJS.Observer.notify(null, 'prepare-to-restart', this);
+
                     }
                     else {
                         return false;

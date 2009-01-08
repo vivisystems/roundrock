@@ -146,6 +146,10 @@
                 var aserv=Components.classes['@mozilla.org/atom-service;1'].
                           getService(Components.interfaces.nsIAtomService);
                 props.AppendElement(aserv.getAtom('treeTOTAL'));
+            } else if (parseFloat(data.current_qty.replace('X', '')) < 0) {
+                var aserv=Components.classes['@mozilla.org/atom-service;1'].
+                          getService(Components.interfaces.nsIAtomService);
+                props.AppendElement(aserv.getAtom('treeReturnItem'));
             } else if (data.stock_status == '0') {
                 var aserv=Components.classes['@mozilla.org/atom-service;1'].
                           getService(Components.interfaces.nsIAtomService);
@@ -154,8 +158,7 @@
                 var aserv=Components.classes['@mozilla.org/atom-service;1'].
                           getService(Components.interfaces.nsIAtomService);
                 props.AppendElement(aserv.getAtom('treeOutofStock'));
-            }
-            if (data.age_verification == '1') {
+            } else if (data.age_verification == '1') {
                 var aserv=Components.classes['@mozilla.org/atom-service;1'].
                           getService(Components.interfaces.nsIAtomService);
                 props.AppendElement(aserv.getAtom('treeVerifyAge'));

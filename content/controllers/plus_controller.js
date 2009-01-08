@@ -54,8 +54,8 @@
             catpanel.selectedItems = [];
 
             // set default tax rate
-            var defaultRate = GeckoJS.Configure.read('vivipos.fec.settings.DefaultTaxStatus') || '';
-            var rateName = (defaultRate == '') ? '' : this.getRateName(defaultRate);
+            var defaultRate = this.getDefaultRate();
+            var rateName = (defaultRate == null) ? '' : this.getRateName(defaultRate);
             var rateNode = document.getElementById('rate');
             var rateNameNode = document.getElementById('rate_name');
 
@@ -79,6 +79,16 @@
                 $('#cate_name').val(category.name);
                 this.clickPluPanel(-1);
             }
+        },
+
+        getDefaultRate: function() {
+            var defaultRate = GeckoJS.Configure.read('vivipos.fec.settings.DefaultTaxStatus');
+            if (defaultRate != null) return defaultRate;
+
+            var taxes = GeckoJS.Session.get('taxes');
+            if (taxes == null) taxes = this.Tax.getTaxList();
+            if (taxes != null) return taxes[0].id;
+            return null;
         },
 
         getRateName: function(rate) {
