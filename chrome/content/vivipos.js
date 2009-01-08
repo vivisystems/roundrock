@@ -143,16 +143,14 @@
         vivipos.startup();
     }, true)
 
-/*
     window.addEventListener("load", function (){
 
     }, false);
 
-
     window.addEventListener("unload", function (){
         vivipos.shutdown();
     }, false);
-*/
+
     // add window close handler
     window.addEventListener("close", function(event){
         vivipos._handleWindowClose(event);
