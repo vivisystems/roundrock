@@ -27,7 +27,7 @@
        </viviscrollablebuttonpanel>
         <!-- End Catalogs -->
 
-        <deck id="pluAndCondimentDeck" flex="1" selectedIndex="0" >
+        <deck id="pluAndCondimentDeck" selectedIndex="0" flex="1">
             <!-- Begin PLUs -->
             <viviscrollablebuttonpanel dir="reverse" id="prodscrollablepanel" flex="1" cols="2" rows="1" labelField="name" imageField="no"
                                        oncommand="$do('clickPluPanel',this.selectedIndex, 'Main');"
@@ -38,10 +38,11 @@
                                        scrollDownClass="depart_scroll_down"
                                        seltype="single" >
                <spacer flex="1"/>
+
            </viviscrollablebuttonpanel>
             <!-- End PLUs -->
                 <vbox flex="1">
-                <viviscrollablebuttonpanel id="condimentscrollablepanel" flex="1" cols="4" rows="4"  labelField="name"
+                <viviscrollablebuttonpanel id="condimentscrollablepanel" flex="1" cols="2" rows="1"  labelField="name"
                                        class="catescrollablepanel"
                                        buttonClass="user-plubtn"
                                        scrollUpClass="depart_scroll_up"
@@ -50,11 +51,13 @@
                     <spacer flex="1"/>
                 </viviscrollablebuttonpanel>
 
-                <hbox  flex="1">
-                    <button flex="1" class="user-plubtn" id="ok" label="&dialog.okButton.label;" oncommand="$do('addCondimentCallback', true, 'Cart');"/>
-                    <button flex="1" class="user-plubtn" id="cancel" label="&dialog.cancelButton.label;" oncommand="$do('addCondimentCallback', false, 'Cart');"/>
+                <hbox id="condimenstBtnContainer" pack="center">
+                    <spacer flex="1"/>
+                    <button flex="10" class="user-plubtn" id="ok" label="&dialog.okButton.label;" oncommand="$do('addCondimentCallback', true, 'Cart');"/>
+                    
+                    <button flex="10" class="user-plubtn" id="cancel" label="&dialog.cancelButton.label;" oncommand="$do('addCondimentCallback', false, 'Cart');"/>
+                    <spacer flex="1"/>
                 </hbox>
-
                 </vbox>
 
         </deck>

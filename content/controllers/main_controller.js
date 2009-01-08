@@ -373,6 +373,8 @@
             }
             rowsLeft -= pluRows;
 
+            document.getElementById('pluAndCondimentDeck').style.height = '0px';
+            
             if (initial ||
                 (pluPanel.getAttribute('rows') != pluRows) ||
                 (pluPanel.getAttribute('cols') != pluCols) ||
@@ -402,10 +404,12 @@
                 if ((condRows > 0) && (pluCols > 0)) {
                     condimentPanel.setAttribute('hideScrollbar', hidePLUScrollbar);
                     condimentPanel.setAttribute('hidden', false);
+                    document.getElementById('condimenstBtnContainer').setAttribute('hidden', false);
                     condimentPanel.initGrid();
                     condimentPanel.vivibuttonpanel.refresh();
                 }else {
                     condimentPanel.setAttribute('hidden', true);
+                    document.getElementById('condimenstBtnContainer').setAttribute('hidden', true);
                 }
 
             }
