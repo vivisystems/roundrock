@@ -26,6 +26,7 @@
             //
             $('#importBtn').attr('disabled', disabled);
             $('#exportBtn').attr('disabled', disabled);
+            $('#ok').attr('disabled', disabled);
         },
 
         checkBackupDevices: function() {
@@ -101,11 +102,23 @@
             }
 
             var total;
+            var progmeter = document.getElementById("exportprogressmeter");
+
+            var waitPanel = document.getElementById("export_wait_panel");
+            var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
+            var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
+            waitPanel.sizeTo(360, 120);
+            var x = (width - 360) / 2;
+            var y = (height - 240) / 2;
+            waitPanel.openPopupAtScreen(x, y);
+
+            this.sleep(200);
 
             var name = this._datas[index].name;
             var model = this._datas[index].model;
             var fileName = this._exportDir + "/" + this._datas[index].filename;
 
+            try {
             if (model == "products") {
                 var tableTmp = new ProductModel();
             } else if (model == "departments") {
@@ -122,6 +135,12 @@
 
                 limit:9999
             });
+
+            }
+            catch (e) {}
+            finally {
+                waitPanel.hidePopup();
+            }
 
             this._datas[index].exported = _('Yes') + _(' (%S)',[this._datas[index].filename]);
             this.getListObj().vivitree.refresh();
@@ -142,17 +161,17 @@
             }
 
             var total;
-            var progmeter = document.getElementById("datasprogressmeter");
+            var progmeter = document.getElementById("importprogressmeter");
 
             var waitPanel = document.getElementById("import_wait_panel");
-            // waitPanel.noautohide = true;
             var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
             var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
-            waitPanel.sizeTo(360, 240);
-            waitPanel.openPopupAtScreen(200,400);
-            waitPanel.moveTo((width - 360) / 2, (height - 240) / 2);
+            waitPanel.sizeTo(360, 120);
+            var x = (width - 360) / 2;
+            var y = (height - 240) / 2;
+            waitPanel.openPopupAtScreen(x, y);
             
-            this.sleep(1000);
+            this.sleep(50);
 
             var name = this._datas[index].name;
             var model = this._datas[index].model;
@@ -237,6 +256,9 @@
                 progmeter.value = 0;
 
                 var ii = 0;
+                var dd = 1;
+                if (total > 500) dd = 100;
+                else if (total > 100) dd = 10;
 
                 this.setButtonDisable(true);
 
@@ -255,8 +277,8 @@
                     // tableTmp.commit();
 
                     progmeter.value = ii * 100 / total;
-                    if ( (ii % 100) == 0 )
-                        this.sleep(100);
+                    if ( (ii % dd) == 0 )
+                        this.sleep(50);
 
                     ii++;
 
@@ -271,6 +293,7 @@
                 this._busy = false;
                 tableTmp.commit();
                 progmeter.value = 100;
+                this.sleep(200);
                 GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
                 // progmeter.value = 0;
                 this.setButtonDisable(false);
@@ -281,11 +304,6 @@
             this.getListObj().vivitree.refresh();
 
             NotifyUtils.info(_('Import From CSV (%S) Finish!!', [this._datas[index].filename]));
-
-            return;
-// ************************
-            
-            GREUtils.log("finish...");
         },
 
 

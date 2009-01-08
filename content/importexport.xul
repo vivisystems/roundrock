@@ -20,6 +20,9 @@
     <script type="application/x-javascript" src="chrome://viviecr/content/bootstrap.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/importexport.js" />
 
+    <vbox flex="1" class="main-dialog">
+        <!--label id="" value="&importexport.caption;"  class="labeltitle"/ -->
+
     <groupbox class="main-dialog" flex="1">
         <caption label="&importexport.caption;" />
         <spacer style="height: 10px;" />
@@ -50,9 +53,7 @@
                 </viviscrollabletree>
 
                 <spacer style="height: 10px;" />
-                <separator class="groove-thin"/>
-                <spacer style="height: 10px;" />
-
+                
                 <!-- progressmeter id="datasprogressmeter" mode="determined" value="0" /-->
             </vbox>
 
@@ -77,16 +78,28 @@
             </groupbox>
         </hbox>
     </groupbox>
+    </vbox>
 
-    <panel id="import_wait_panel" position="overlap" noautohide="true">
-        <groupbox>
+    <panel id="import_wait_panel" position="overlap" noautohide="true" style="padding:30px;">
+        <vbox flex="1">
+        <groupbox flex="1">
             <caption label="&importexport.importwait;"/>
-            <spacer style="height: 10px;" />
-            <progressmeter id="datasprogressmeter" mode="determined" value="0" />
-            <spacer style="height: 10px;" />
-            <!-- button id="loading" class="loading" label="controlpanel.loading;"/>
-            <textbox id="search" value="test"/ -->
+            <spacer style="height: 20px;" />
+            <progressmeter id="importprogressmeter" mode="determined" value="0" />
+            <spacer style="height: 20px;" />
         </groupbox>
+        </vbox>
+    </panel>
+
+    <panel id="export_wait_panel" position="overlap" noautohide="true" style="padding:30px;">
+        <vbox flex="1">
+        <groupbox flex="1">
+            <caption label="&importexport.exportwait;"/>
+            <spacer style="height: 20px;" />
+            <progressmeter id="exportprogressmeter" mode="undetermined" value="0" />
+            <spacer style="height: 20px;" />
+        </groupbox>
+        </vbox>
     </panel>
 
 
