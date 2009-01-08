@@ -297,6 +297,8 @@
         },
 	
         addItemByBarcode: function(barcode) {
+
+            if (barcode == null || barcode.length == 0) return;
             
             var productsById = GeckoJS.Session.get('productsById');
             var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
@@ -322,6 +324,9 @@
             
             if (!event.error) {
                 this.addItem(product);
+            }
+            else {
+                this.subtotal();
             }
             this.dispatchEvent('afterItemByBarcode', event);
         },
@@ -512,7 +517,10 @@
                     this._getKeypadController().clearBuffer();
                     this.subtotal();
                 }
-                this._returnMode = false;
+                if (this._returnMode) {
+                    this._returnMode = false;
+                    this.clearWarning();
+                }
             }
             else {
                 this._returnMode = true;
@@ -729,11 +737,13 @@
                     NotifyUtils.warn(_('Cannot modify an item that has been subtotaled'));
                     return;
                 }
+                /*
                 if (itemTrans.current_qty < 0) {
                     //@todo OSD
                     NotifyUtils.warn(_('Cannot register discount on return items'));
                     return;
                 }
+                */
             }
             else if (itemDisplay.type == 'subtotal') {
                 var cartLength = curTransaction.data.display_sequences.length;
