@@ -486,6 +486,33 @@
 
         },
 
+        _setMenuFromString: function (plu) {
+            //GREUtils.log('setMenuStr: ' + setMenuStr);
+            var entries = plu.setmenu.split('&');
+            var setitems = [];
+            //GREUtils.log('entries: ' + GeckoJS.BaseObject.dump(entries));
+            if (entries.length > 0) {
+                for (var i = 0; i < entries.length; i++) {
+                    var entry = entries[i].split('=');
+                    var plucode = entry[0];
+                    var pluqty = entry[1];
+
+                    //GREUtils.log('entry: ' + GeckoJS.BaseObject.dump(entry));
+                    var product = this._searchPlu(plucode);
+
+                    if (product != null) {
+                        //GREUtils.log('product: ' + GeckoJS.BaseObject.dump(product));
+                        var setitem = {product_id: plu.id,
+                                       item_id: product.id,
+                                       quantity: pluqty};
+                        setitems.push(setitem);
+                        //GREUtils.log('setitem: ' + GeckoJS.BaseObject.dump(setitem));
+                    }
+                }
+            }
+            return setitems;
+        },
+
         modify: function  () {
             if (this._selectedIndex == null || this._selectedIndex == -1) return;
 
@@ -499,9 +526,32 @@
                 var prodModel = new ProductModel();
 
                 try {
+                    var setitems = this._setMenuFromString(inputData);
+                    
                     prodModel.id = inputData.id;
                     prodModel.save(inputData);
 
+                    // update set items
+
+                    var setItemModel = new SetItemModel();
+
+                    // first we delete old items
+                    var oldSetItems = setItemModel.findByIndex('all', {
+                        index: 'product_id',
+                        value: prodModel.id
+                    });
+
+                    oldSetItems.forEach(function(item) {
+                        setItemModel.del(item.id);
+                    })
+
+                    // then we add new set items
+
+                    setitems.forEach(function(item) {
+                        item.id = '';
+                        setItemModel.save(item);
+                    })
+                    
                     this.updateSession();
 
                     // @todo OSD
@@ -522,11 +572,35 @@
 
             var product = this.productPanelView.getCurrentIndexData(index);
             
-            if (GREUtils.Dialog.confirm(null, _('confirm delete %S', [product.name]), _('Are you sure?'))) {
+            if (product) {
+                // check if product is included in set menu; if it is, don't allow removal
+                var setItemModel = new SetItemModel();
+                var setMenu = setItemModel.findByIndex('first', {
+                    index: 'item_id',
+                    value: product.id
+                });
+                if (setMenu != null) {
+                    NotifyUtils.warn(_('Product [%S] is part of set menu [%S] and may not be removed', [product.name, setMenu.Product.name]));
+                    return;
+                }
+
+                if (GREUtils.Dialog.confirm(null, _('confirm delete %S', [product.name]), _('Are you sure?'))) {
                 
-                if (product) {
                     try {
                         prodModel.del(product.id);
+
+                        // cascade delete set items
+
+                        var setItemModel = new SetItemModel();
+
+                        var oldSetItems = setItemModel.findByIndex('all', {
+                            index: 'product_id',
+                            value: product.id
+                        });
+
+                        oldSetItems.forEach(function(item) {
+                            setItemModel.del(item.id);
+                        })
 
                         this.updateSession();
 

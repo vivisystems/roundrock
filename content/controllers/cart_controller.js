@@ -99,7 +99,6 @@
                 try {
                     item_count = (curTransaction.data.items_summary[item.id]).qty_subtotal;
                 } catch (e) {};
-
                 if ((diff + item_count) > stock) {
                     cart.dispatchEvent('onLowStock', obj);
                     cart.dispatchEvent('onWarning', _('OUT OF STOCK'));
@@ -139,6 +138,8 @@
         beforeAddItem: function (evt) {
             var item = evt.data;
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
+            var productsById = GeckoJS.Session.get('productsById');
+
             // cart.log('Item:' + cart.dump(item));
 
             var sellQty = null, sellPrice = null;
@@ -148,9 +149,34 @@
 
             sellPrice  = (GeckoJS.Session.get('cart_set_price_value') != null) ? GeckoJS.Session.get('cart_set_price_value') : sellPrice;
 
+            // retrieve set menu items only if setmenu is set
+            var setmenus = [];
+            if (item.setmenu != null && item.setmenu.length > 0) {
+                // invoke Product controller to get
+                setmenus = GeckoJS.Controller.getInstanceByName('Plus')._setMenuFromString(item);
+            }
             // check stock status...
             if ( !cart._returnMode) {
+                // first check main item
                 if (!cart.checkStock("addItem", sellQty, item)) evt.preventDefault();
+                
+                // if set items are present, check each one individually
+                setmenus.forEach(function(setitem) {
+                    var product = productsById[setitem.item_id];
+                    if (product)
+                        if (!cart.checkStock('addItem', sellQty * setitem.quantity, product)) {
+                            evt.preventDefault();
+                            return;
+                        }
+                });
+            }
+            else {
+                // we don't allow return of set menus'
+                if (setmenus.length > 0 ) {
+                    //@todo OSD
+                    NotifyUtils.warn(_('Return of set menu items (%S) not allowed!', [item.name]));
+                    evt.preventDefault();
+                }
             }
 
             // check if age verification required
@@ -296,10 +322,6 @@
                     }
                 }
             }
-
-            // fire getSubtotal Event ?????????????
-            this._returnMode = false;
-
             // single item sale?
             if (plu.single && curTransaction.data.items_count == 1) {
                 this.dispatchEvent('onWarning', _('SINGLE ITEM SALE'));
@@ -441,6 +463,10 @@
                 if (qty > 0 && !this.checkStock("modifyItem", qty, itemTrans)) {
                     return ;
                 }
+
+                // need to retrieve set items and check stock level individually
+                var setItems = curTransaction.getSetItemsByIndex(itemTrans.index);
+                GREUtils.log(GeckoJS.BaseObject.dump(setItems));
             }
 
             this.dispatchEvent('beforeModifyItem', itemTrans);
@@ -591,6 +617,11 @@
                     NotifyUtils.warn(_('Cannot VOID the selected item [%S]. It is not the last registered item', [itemDisplay.name]));
                     return ;
                 }
+            }
+            else if (itemDisplay.type == 'setitem') {
+                // @todo OSD
+                NotifyUtils.warn(_('The select item [%S] is part of a set menu and cannot be VOIDed', [itemDisplay.name]));
+                return ;
             }
 
             itemTrans = curTransaction.getItemAt(index);
@@ -1241,7 +1272,7 @@
             }
             var data = {
                 type: mark,
-                payment: payment
+                payment: curTransaction.formatPrice(payment)
             };
             var inputObj = this.getCreditCardDialog(data);
             if (inputObj) {
@@ -1288,7 +1319,7 @@
             }
             var data = {
                 type: mark,
-                payment: payment
+                payment: curTransaction.formatPrice(payment)
             };
             var inputObj = this.getGiftCardDialog(data);
             if (inputObj) {
@@ -1305,6 +1336,8 @@
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
 
+            this.cancelReturn();
+            
             if(curTransaction == null) {
                 this.clear();
                 this.dispatchEvent('onAddPayment', null);

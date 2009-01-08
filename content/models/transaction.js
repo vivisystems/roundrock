@@ -194,7 +194,7 @@
 
     },
 
-    Transaction.prototype.createItemDataObj = function(index, item, sellQty, sellPrice) {
+    Transaction.prototype.createItemDataObj = function(index, item, sellQty, sellPrice, parent_index) {
 
         var roundedPrice = sellPrice || 0;
         var roundedSubtotal = this.getRoundedPrice(sellQty*sellPrice) || 0;
@@ -211,6 +211,7 @@
             index: index,
             stock_status: item.stock_status,
             age_verification: item.age_verification,
+            parent_index: parent_index,
             
             current_qty: sellQty,
             current_price: roundedPrice,
@@ -269,6 +270,22 @@
                 stock_status: item.stock_status,
                 age_verification: item.age_verification,
                 level: 0
+            });
+        }else if (type == 'setitem') {
+            itemDisplay = GREUtils.extend(itemDisplay, {
+                id: item.id,
+                no: item.no,
+                name: item.name,
+                current_qty: item.current_qty,
+                current_price: '',
+                //current_subtotal: item.current_subtotal + item.current_condiment,
+                current_subtotal: '',
+                current_tax: '',
+                type: type,
+                index: index,
+                stock_status: item.stock_status,
+                age_verification: item.age_verification,
+                level: 1
             });
         }else if (type == 'discount') {
             if (item.discount_name && item.discount_name.length > 0) {
@@ -403,7 +420,7 @@
             if (type == 'total' || type == 'subtotal') {
                 itemDisplay.current_qty = this.formatTax(itemDisplay.current_qty) + 'T';
             }
-            else if (type == 'item') {
+            else if (type == 'item' || type == 'setitem') {
                 itemDisplay.current_qty += 'X';
             }
         }
@@ -435,6 +452,7 @@
 
     Transaction.prototype.appendItem = function(item){
 
+        var productsById = GeckoJS.Session.get('productsById');
         var prevRowCount = this.data.display_sequences.length;
 
         var sellQty = null, sellPrice = null;
@@ -472,13 +490,34 @@
         this.data.items[itemIndex] = itemAdded;
         this.data.items_count++;
 
-        this.log('DEBUG', 'dispatchEvent afterAppendItem ' + this.dump(itemAdded));
-        Transaction.events.dispatch('afterAppendItem', itemAdded, this);
-
-        // create data object to push in items array
         var itemDisplay = this.createDisplaySeq(itemIndex, itemAdded, 'item');
         
         this.data.display_sequences.push(itemDisplay);
+
+        // if set menu, append individual items into transaction
+        // create data object to push in items array
+        var setmenus = [];
+        if (item.setmenu != null && item.setmenu.length > 0) {
+            // invoke Product controller to get
+            setmenus = GeckoJS.Controller.getInstanceByName('Plus')._setMenuFromString(item);
+        }
+
+        var self = this;
+        setmenus.forEach(function(setitem) {
+            var setItemProduct = productsById[setitem.item_id];
+            var setItemQty = setitem.quantity * sellQty;
+            var setItemIndex = GeckoJS.String.uuid();
+            var setItemAdded = self.createItemDataObj(setItemIndex, setItemProduct, setItemQty, 0, itemIndex);
+
+            self.data.items[setItemIndex] = setItemAdded;
+
+            var setItemDisplay = self.createDisplaySeq(setItemIndex, setItemAdded, 'setitem');
+
+            self.data.display_sequences.push(setItemDisplay);
+        });
+
+        this.log('DEBUG', 'dispatchEvent afterAppendItem ' + this.dump(itemAdded));
+        Transaction.events.dispatch('afterAppendItem', itemAdded, this);
 
         var currentRowCount = this.data.display_sequences.length;
 
@@ -847,10 +886,8 @@
                 hasMarker: false
             };
             // warn if refunds are present
-
-            var checkitems = this.data.items;
-            for (var i = 0; i < checkitems.length; i++) {
-                var checkitem = checkitems[i];
+            for (var checkItemIndex in this.data.items ) {
+                var checkitem = this.data.items[checkItemIndex];
                 if (checkitem.type == 'item' && checkitem.current_qty < 0) {
                     //@todo OSD
                     NotifyUtils.warn(_('ATTENTION: return item(s) are present'));
@@ -874,7 +911,7 @@
                     discountItem.current_discount = remainder * discountItem.discount_rate;
                 }
             }
-            if (discountItem.current_discount > remainder && discountItem.current_discount > 0) {
+            if (discountItem.current_discount > remainder && remainder > 0) {
                 // discount too much
                 //@todo OSD
                 NotifyUtils.warn(_('Discount amount [%S] may not exceed remaining balance [%S]',
@@ -962,9 +999,8 @@
 
             // warn if refunds are present
 
-            var checkitems = this.data.items;
-            for (var i = 0; i < checkitems.length; i++) {
-                var checkitem = checkitems[i];
+            for (var checkItemIndex in this.data.items ) {
+                var checkitem = this.data.items[checkItemIndex];
                 if (checkitem.type == 'item' && checkitem.current_qty < 0) {
                     //@todo OSD
                     NotifyUtils.warn(_('ATTENTION: return item(s) are present'));
@@ -1368,6 +1404,17 @@
         }
 
         return itemDisplay;
+    };
+
+    Transaction.prototype.getSetItemsByIndex = function(parent_index) {
+        var setItems = [];
+        for (var itemIndex in this.data.items) {
+            var item = this.data.items[itemIndex];
+
+            if (item.parent_index == parent_index)
+                setItems.push(item);
+        }
+        return setItems;
     };
 
     Transaction.prototype.calcCondimentPrice = function() {
