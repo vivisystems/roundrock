@@ -7,8 +7,10 @@
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/controlpanel.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
 
 <window title="&importexport.caption;"
         xmlns:html="http://www.w3.org/1999/xhtml"
@@ -20,33 +22,50 @@
 
     <groupbox class="main-dialog" flex="1">
         <caption label="&importexport.caption;" />
-        
+        <spacer style="height: 10px;" />
         <hbox>
-        Media:   <label id="lastMedia" value="NOT FOUND" /> <button label="Refresh" oncommand="$do('checkBackupDevices','', 'ImportExport')" />
+            <label value="&importexport.media;:" />
+            <label id="lastMedia" value="" />
         </hbox>
-        <spacer style="height: 20px;" />
+        <spacer style="height: 10px;" />
         <hbox flex="1">
             <vbox flex="1">
-                <viviscrollablebuttonpanel id="datasourcescrollablepanel" default="" seltype="single" flex="1" cols="1" rows="7" labelField="name"
+                <!-- viviscrollablebuttonpanel id="datasourcescrollablepanel" default="" seltype="single" flex="1" cols="1" rows="7" labelField="name"
                                            oncommand=""
                                            class="catescrollablepanel"
                                            buttonClass="catbtn button-radius font-medium"
                                            scrollUpClass="rightprevbtn button-blue"
                                            scrollDownClass="rightnextbtn button-blue">
                     <spacer flex="1" />
-                </viviscrollablebuttonpanel>
+                </viviscrollablebuttonpanel -->
+
+                <viviscrollabletree id="datasourcescrollablepanel" flex="1"
+                                    headers="&importexport.tablename;,&importexport.import;,&importexport.export;"
+                                    fields="name,imported,exported"
+                                    onclick="$do('select',this.selectedIndex, 'ImportExport');"
+                                    class="prodscrollablepanel"
+                                    scrollUpClass="rightprevbtn gray"
+                                    scrollDownClass="rightnextbtn gray">
+                    <spacer flex="1" />
+                </viviscrollabletree>
 
                 <spacer style="height: 10px;" />
                 <separator class="groove-thin"/>
                 <spacer style="height: 10px;" />
 
-                <progressmeter id="datasprogressmeter" mode="determined" value="0" />
+                <!-- progressmeter id="datasprogressmeter" mode="determined" value="0" /-->
             </vbox>
 
             <spacer style="width:30px;" />
 
             <groupbox flex="1">
                 <caption label="" />
+                <button label="&importexport.checkmedia;" class="widebtns" oncommand="$do('checkBackupDevices','', 'ImportExport')" />
+
+                <spacer style="height: 10px;" />
+                <separator class="groove-thin"/>
+                <spacer style="height: 10px;" />
+
                 <button id="importBtn" disabled="true" label="&importexport.import;" class="widebtns" oncommand="$do('importData', 'departments', 'ImportExport');" />
 
                 <spacer style="height: 10px;" />
@@ -58,6 +77,18 @@
             </groupbox>
         </hbox>
     </groupbox>
+
+    <panel id="import_wait_panel" position="overlap" noautohide="true">
+        <groupbox>
+            <caption label="&importexport.importwait;"/>
+            <spacer style="height: 10px;" />
+            <progressmeter id="datasprogressmeter" mode="determined" value="0" />
+            <spacer style="height: 10px;" />
+            <!-- button id="loading" class="loading" label="controlpanel.loading;"/>
+            <textbox id="search" value="test"/ -->
+        </groupbox>
+    </panel>
+
 
     <hbox id="dialogButtons" class="dialogbtns" pack="center">
         <button class="right exit-dialog" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
