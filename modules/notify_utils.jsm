@@ -20,30 +20,25 @@ var NotifyUtils = {
             total_display_ms = total_display_ms || 5000;
 	    urgency = (typeof urgency != 'undefined') ? urgency : 1;
 
-	    if(!this.worker) {
-                this.worker = Components.classes["@mozilla.org/thread-manager;1"].getService(Components.interfaces.nsIThreadManager).newThread(0);
-            }
-
-	    if(!this.nofityService) {
-                this.nofityService = Components.classes["@firich.com.tw/notify;1"].getService(Components.interfaces.mozIFECNotify);
-            }
-
 	    var nofityService = this.nofityService;
 
 	    var runnable = {
 		    run: function() {
 		        try {
-			    nofityService.notify (summary, body, icon, total_display_ms, urgency);
-			}catch(e) {
-			}
+                    nofityService.notify (summary, body, icon, total_display_ms, urgency);
+                    // use shell
+
+
+                }catch(e) {
+                }
 		    },
 
 		    QueryInterface: function(iid) {
-			if (iid.equals(Components.Interfaces.nsIRunnable) || iid.equals(Components.Interfaces.nsISupports)) {
-			    return this;
-			}
-			throw Components.results.NS_ERROR_NO_INTERFACE;
-		    }
+                if (iid.equals(Components.Interfaces.nsIRunnable) || iid.equals(Components.Interfaces.nsISupports)) {
+                    return this;
+                }
+                throw Components.results.NS_ERROR_NO_INTERFACE;
+            }
 		};
 
 	   this.worker.dispatch(runnable, this.worker.DISPATCH_NORMAL);
@@ -53,14 +48,14 @@ var NotifyUtils = {
  	trace: function(summary, body, icon) {
 
 	    icon = icon || "";
-	    this.notify(summary, body, icon, null, 0);
+	    this.notify(summary, body, icon, null, 1);
 
 	},
 
  	debug: function(summary, body, icon) {
 
 	    icon = icon || "";
-	    this.notify(summary, body, icon, null, 0);
+	    this.notify(summary, body, icon, null, 1);
 
 	},
 
@@ -81,7 +76,7 @@ var NotifyUtils = {
  	error: function(summary, body, icon) {
 
 	    icon = icon || "dialog-error";
-	    this.notify(summary, body, icon, null, 2);
+	    this.notify(summary, body, icon, null, 1);
 
 	},
 
@@ -89,8 +84,20 @@ var NotifyUtils = {
  	fatal: function(summary, body, icon) {
 
 	    icon = icon || "dialog-error";
-	    this.notify(summary, body, icon, null, 2);
+	    this.notify(summary, body, icon, null, 1);
 	}
 
 };
 
+// create
+try {
+if(!NotifyUtils.worker) {
+        NotifyUtils.worker = Components.classes["@mozilla.org/thread-manager;1"].getService(Components.interfaces.nsIThreadManager).newThread(0);
+    }
+
+if(!NotifyUtils.nofityService) {
+        NotifyUtils.nofityService = Components.classes["@firich.com.tw/notify;1"].getService(Components.interfaces.mozIFECNotify);
+    }
+
+}catch(e) {
+}
