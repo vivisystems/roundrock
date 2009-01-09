@@ -96,7 +96,7 @@
         <groupbox flex="1">
             <caption label="&importexport.exportwait;"/>
             <spacer style="height: 20px;" />
-            <progressmeter id="exportprogressmeter" mode="undetermined" value="0" />
+            <progressmeter id="exportprogressmeter" mode="determined" value="0" />
             <spacer style="height: 20px;" />
         </groupbox>
         </vbox>

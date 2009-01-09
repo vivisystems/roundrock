@@ -26,7 +26,8 @@
             //
             $('#importBtn').attr('disabled', disabled);
             $('#exportBtn').attr('disabled', disabled);
-            $('#ok').attr('disabled', disabled);
+
+            $('#ok').attr('disabled', this._busy);
         },
 
         checkBackupDevices: function() {
@@ -36,6 +37,7 @@
 
             var last_media = "";
             var deviceNode = "";
+            var deviceReady = false;
 
             // var deviceMount = "/media/";
             var deviceMount = "/var/tmp/";
@@ -48,8 +50,6 @@
                 osLastMedia.close();
             }
 
-            // $('#importBtn').attr('disabled', true);
-            // $('#exportBtn').attr('disabled', true);
             this.setButtonDisable(true);
 
             $('#lastMedia').attr('value', '');
@@ -75,25 +75,24 @@
                         this._importDir = importDir.path;
                         this._exportDir = exportDir.path;
 
-                        // this.log(this._importDir + ",," + this._exportDir);
-
-                        // $('#importBtn').attr('disabled', false);
-                        // $('#exportBtn').attr('disabled', false);
                         this.setButtonDisable(false);
+                        deviceReady = true;
 
                         $('#lastMedia').attr('value', deviceMount);
 
-
                     }
-
                 }
             }
 
-          //importBtn, exportBtn;
+            return deviceReady ;
 
         },
 
         exportData: function (model) {
+            // return if importing...
+            if (this._busy) return;
+
+            if (!this.checkBackupDevices()) return;
 
             var index = this.getListObj().selectedIndex;
             if (index < 0) {
@@ -111,6 +110,7 @@
             var x = (width - 360) / 2;
             var y = (height - 240) / 2;
             waitPanel.openPopupAtScreen(x, y);
+            this._busy = true;
 
             this.sleep(200);
 
@@ -118,7 +118,7 @@
             var model = this._datas[index].model;
             var fileName = this._exportDir + "/" + this._datas[index].filename;
 
-            try {
+            
             if (model == "products") {
                 var tableTmp = new ProductModel();
             } else if (model == "departments") {
@@ -131,14 +131,46 @@
                 var tableTmp = new CondimentModel();
             }
 
-            total = tableTmp.exportCSV(fileName, {
+            var dist = 1;
+            if (total > 500) dist = 100;
+            else if (total > 100) dist = 10;
 
-                limit:9999
-            });
+            progmeter.value = 0;
+
+            var updateProgress = function(index, total) {
+                //
+                progmeter.value = index * 100 / total;
+                if ( (index % dist) == 0 )
+                    this.sleep(50);
+            };
+
+            try {
+
+                // set max script run time...
+                var oldLimit = GREUtils.Pref.getPref('dom.max_chrome_script_run_time');
+                GREUtils.Pref.setPref('dom.max_chrome_script_run_time', 5 * 60);
+
+                this.setButtonDisable(true);
+
+                total = tableTmp.exportCSV(fileName, {
+
+                    limit:9999
+                }, updateProgress);
 
             }
-            catch (e) {}
+            catch (e) {
+                NotifyUtils.info(_('Export To CSV (%S) Error!!', [this._datas[index].filename]));
+            }
             finally {
+                
+                this._busy = false;
+                tableTmp.commit();
+                progmeter.value = 100;
+                this.sleep(200);
+                // reset max script run time...
+                GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
+                // progmeter.value = 0;
+                this.setButtonDisable(false);
                 waitPanel.hidePopup();
             }
 
@@ -150,9 +182,10 @@
         },
 
         importData: function(model) {
-            // return if inporting...
+            // return if importing...
             if (this._busy) return;
-            
+
+            if (!this.checkBackupDevices()) return;
 
             var index = this.getListObj().selectedIndex;
             if (index < 0) {
@@ -256,9 +289,9 @@
                 progmeter.value = 0;
 
                 var ii = 0;
-                var dd = 1;
-                if (total > 500) dd = 100;
-                else if (total > 100) dd = 10;
+                var dist = 1;
+                if (total > 500) dist = 100;
+                else if (total > 100) dist = 10;
 
                 this.setButtonDisable(true);
 
@@ -284,7 +317,7 @@
                     // tableTmp.commit();
 
                     progmeter.value = ii * 100 / total;
-                    if ( (ii % dd) == 0 )
+                    if ( (ii % dist) == 0 )
                         this.sleep(50);
 
                     ii++;
@@ -311,6 +344,9 @@
             this.getListObj().vivitree.refresh();
 
             NotifyUtils.info(_('Import From CSV (%S) Finish!!', [this._datas[index].filename]));
+
+            // restart vivipos
+            GeckoJS.Observer.notify(null, 'prepare-to-restart', this);
         },
 
 

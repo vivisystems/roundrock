@@ -45,8 +45,77 @@ var ImageFilesView = window.ImageFilesView = GeckoJS.NSITreeViewArray.extend({
         _selectedFile: null,
         _selectedIndex: -1,
         _disklimit: 1 * 1024 * 1024, // 50 MB
+        _pluDir: null,
         _importDir: null,
         _exportDir: null,
+
+        setButtonDisable: function(disabled) {
+            //
+            $('#importBtn').attr('disabled', disabled);
+            $('#exportBtn').attr('disabled', disabled);
+            $('#deleteBtn').attr('disabled', disabled);
+            $('#renameBtn').attr('disabled', disabled);
+
+            $('#ok').attr('disabled', this._busy);
+        },
+
+        checkBackupDevices: function() {
+
+            // var osLastMedia = new GeckoJS.File('/tmp/last_media');
+            var osLastMedia = new GeckoJS.File('/var/tmp/vivipos/last_media');
+
+            var last_media = "";
+            var deviceNode = "";
+            var deviceReady = false;
+
+            // var deviceMount = "/media/";
+            var deviceMount = "/var/tmp/";
+
+            var hasMounted = false;
+
+            if (osLastMedia.exists()) {
+                osLastMedia.open("r");
+                last_media = osLastMedia.readLine();
+                osLastMedia.close();
+            }
+
+            this.setButtonDisable(true);
+
+            $('#lastMedia').attr('value', '');
+
+            if (last_media) {
+
+                var tmp = last_media.split('/');
+                deviceNode = tmp[tmp.length-1];
+                deviceMount +=  deviceNode;
+
+                var mountDir = new GeckoJS.File(deviceMount);
+
+                if (mountDir.exists() && mountDir.isDir()) {
+
+                    // mount dir exists
+                    // autocreate backup_dir and restore dir
+
+                    var importDir = new GeckoJS.Dir(deviceMount+'/image_import', true);
+                    var exportDir = new GeckoJS.Dir(deviceMount+'/image_export', true);
+
+                    if (importDir.exists() && exportDir.exists()) {
+
+                        this._importDir = importDir.path;
+                        this._exportDir = exportDir.path;
+
+                        this.setButtonDisable(false);
+                        deviceReady = true;
+
+                        $('#lastMedia').attr('value', deviceMount);
+
+                    }
+                }
+            }
+
+            return deviceReady ;
+
+        },
 
         loadImage: function(dir) {
 
@@ -59,10 +128,13 @@ var ImageFilesView = window.ImageFilesView = GeckoJS.NSITreeViewArray.extend({
             var limitSetting = GeckoJS.Configure.read('vivipos.fec.settings.image.disklimit');
             if (limitSetting > this._disklimit) this._disklimit = limitSetting;
 
+            /*
+            this._pluDir = GeckoJS.Configure.read('vivipos.fec.settings.image.pludir');
             this._importDir = GeckoJS.Configure.read('vivipos.fec.settings.image.importdir');
             this._exportDir = GeckoJS.Configure.read('vivipos.fec.settings.image.exportdir');
             if (!this._importDir) this._importDir = '/media/disk/image_import/';
             if (!this._exportDir) this._exportDir = '/media/disk/image_export/';
+            */
 
             this.query('#imagePanel')[0].datasource = this.imagefilesView;
 
@@ -100,7 +172,13 @@ var ImageFilesView = window.ImageFilesView = GeckoJS.NSITreeViewArray.extend({
         },
 
         importFromDir: function(importDir) {
+            // return if importing...
+            if (this._busy) return;
+
+            if (!this.checkBackupDevices()) return;
+
             if (!importDir || (importDir.length == 0)) importDir = this._importDir;
+
             var files = new GeckoJS.Dir.readDir(importDir);
 
             var orgDir = GREUtils.File.getFile(this._dir);
@@ -123,9 +201,30 @@ var ImageFilesView = window.ImageFilesView = GeckoJS.NSITreeViewArray.extend({
                                                               "Please attach the USB thumb drive containing the images to import and press OK to start the import.");
 
             if (!result) return;
-            
+
+            var total;
+            var progmeter = document.getElementById("importprogressmeter");
+
+            var waitPanel = document.getElementById("export_wait_panel");
+            var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
+            var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
+            waitPanel.sizeTo(360, 120);
+            var x = (width - 360) / 2;
+            var y = (height - 240) / 2;
+            waitPanel.openPopupAtScreen(x, y);
+
+            progmeter.value = 0;
+            this._busy = true;
+            this.setButtonDisable(true);
+
+            total = files.length;
             $importStatus.val('in progress');
             try {
+                // set max script run time...
+                var oldLimit = GREUtils.Pref.getPref('dom.max_chrome_script_run_time');
+                GREUtils.Pref.setPref('dom.max_chrome_script_run_time', 5 * 60);
+                this._busy = true;
+
                 files.forEach(function(file) {
                     if (this.imagefilesView._totalSize <= this._disklimit) {
 
@@ -150,13 +249,30 @@ var ImageFilesView = window.ImageFilesView = GeckoJS.NSITreeViewArray.extend({
 
                         importUsage += file.fileSize;
                         importFiles++;
+
+                        progmeter.value = importFiles * 100 / total;
+                        this.sleep(50);
                     }
                 }, this);
                 $importStatus.val('import done');
             }
             catch (e) {
                 $importStatus.val('error');
+                NotifyUtils.info(_('Import Images Error!!'));
             }
+            finally {
+
+                this._busy = false;
+                progmeter.value = 100;
+                this.sleep(200);
+                // reset max script run time...
+                GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
+                // progmeter.value = 0;
+                this.setButtonDisable(false);
+                waitPanel.hidePopup();
+            }
+
+            NotifyUtils.info(_('Import Images Done!!'));
 
             $importUsage.val(this.Number.toReadableSize(importUsage));
             $importFiles.val(this.Number.format(importFiles));
@@ -166,9 +282,14 @@ var ImageFilesView = window.ImageFilesView = GeckoJS.NSITreeViewArray.extend({
         },
 
         exportToDir: function(exportDir) {
+            // return if importing...
+            if (this._busy) return;
+
+            if (!this.checkBackupDevices()) return;
+
             if (!exportDir || (exportDir.length == 0)) exportDir = this._exportDir;
 
-            alert(this._dir + ':' + exportDir);
+            // alert(this._dir + ':' + exportDir);
             
             var result = GREUtils.Dialog.confirm(this.window, "Confirm Export",
                                                               "Please attach the USB thumb drive to export images to and press OK to start the export.");
@@ -185,13 +306,37 @@ var ImageFilesView = window.ImageFilesView = GeckoJS.NSITreeViewArray.extend({
             var exportFiles = 0;
 
             if (!exportDir || (exportDir.length == 0)) exportDir = this._exportDir;
+
+            var total;
+            var progmeter = document.getElementById("exportprogressmeter");
+
+            var waitPanel = document.getElementById("export_wait_panel");
+            var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
+            var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
+            waitPanel.sizeTo(360, 120);
+            var x = (width - 360) / 2;
+            var y = (height - 240) / 2;
+            waitPanel.openPopupAtScreen(x, y);
+
+            progmeter.value = 0;
+            this._busy = true;
+            this.setButtonDisable(true);
+
+
             $exportStatus.val('in progress');
             try {
                 var files = new GeckoJS.Dir.readDir(this._dir);
+                total = files.length;
+                var self = this;
 
                 if (!GREUtils.File.isDir(exportDir) || !GREUtils.File.isWritable(exportDir)) {
                     throw new Exception();
                 }
+
+                // set max script run time...
+                var oldLimit = GREUtils.Pref.getPref('dom.max_chrome_script_run_time');
+                GREUtils.Pref.setPref('dom.max_chrome_script_run_time', 5 * 60);
+                
 
                 var destDir = GREUtils.File.getFile(exportDir);
 
@@ -199,12 +344,29 @@ var ImageFilesView = window.ImageFilesView = GeckoJS.NSITreeViewArray.extend({
                     file.copyTo(destDir, "");
                     exportUsage += file.fileSize;
                     exportFiles++;
+
+                    progmeter.value = exportFiles * 100 / total;
+                    self.sleep(50);
                 }, this);
                 $exportStatus.val('export done');
             }
             catch (e) {
                 $exportStatus.val('error');
+                NotifyUtils.info(_('Export Images Error!!'));
             }
+            finally {
+                this._busy = false;
+                progmeter.value = 100;
+                this.sleep(200);
+                // reset max script run time...
+                GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
+                // progmeter.value = 0;
+                this.setButtonDisable(false);
+                waitPanel.hidePopup();
+            }
+
+            NotifyUtils.info(_('Export Images Done!!'));
+
             $exportUsage.val(this.Number.toReadableSize(exportUsage));
             $exportFiles.val(this.Number.format(exportFiles));
         },
@@ -217,6 +379,9 @@ var ImageFilesView = window.ImageFilesView = GeckoJS.NSITreeViewArray.extend({
                 // unlink
                 // GeckoJS.File.remove(this._selectedFile.path) ;
                 this._selectedFile.remove(false);
+
+                NotifyUtils.info(_('Delete Image (%S) is Done!!', [this._selectedFile.leafName]));
+
                 // refresh
                 this.loadImage(this._dir);
             }
@@ -230,16 +395,27 @@ var ImageFilesView = window.ImageFilesView = GeckoJS.NSITreeViewArray.extend({
             var result = GREUtils.Dialog.prompt(this.window, "Rename image", "Original image: '" + this._selectedFile.leafName, input);
 
             if (result) {
-                // moveto
-                this._selectedFile.moveTo(this._selectedFile.parent, input.value);
-                // refresh
-                //this.loadImage(this._dir);
-                var imagePanel = this.query('#imagePanel')[0];
-                if(this._selectedIndex > -1) {
-                    var btnIndex =  this._selectedIndex % imagePanel.buttonCount;
-                    imagePanel.buttons[btnIndex].label = input.value;
-                    this.query('#lblName').val(input.value);
-                    this._selectedFile.leafName = input.value;
+                try {
+                    // moveto
+                    this._selectedFile.moveTo(this._selectedFile.parent, input.value);
+
+                    NotifyUtils.info(_('Rename Image Name (%S) to (%S)!!', [this._selectedFile.leafName, input.value]));
+                    // refresh
+                    //this.loadImage(this._dir);
+                    var imagePanel = this.query('#imagePanel')[0];
+                    if(this._selectedIndex > -1) {
+                        var btnIndex =  this._selectedIndex % imagePanel.buttonCount;
+                        imagePanel.buttons[btnIndex].label = input.value;
+                        this.query('#lblName').val(input.value);
+                        this._selectedFile.leafName = input.value;
+                    }
+                }
+                catch (e) {
+                    //
+                    NotifyUtils.info(_('Rename Image (%S) Error!!'));
+                }
+                finally {
+                    //
                 }
 
             }
