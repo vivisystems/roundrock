@@ -203,7 +203,6 @@
 
         setClerk: function () {
             var user = this.Acl.getUserPrincipal();
-
             if (user) {
                 // perform user login initialization
                 // -> set price level
@@ -528,7 +527,7 @@
         },
 
         quickUserSwitch: function (stop) {
-            if (this.suspendButton) {
+            if (stop || this.suspendButton) {
                 this.requestCommand('setTarget', 'Cart', 'Keypad');
 
                 // re-enable buttons
@@ -568,7 +567,7 @@
                 }
                 this.dispatchEvent('onExitPassword', success);
                 if (success) {
-                    GeckoJS.Controller.getInstanceByName('Cart').subtotal();
+                    //GeckoJS.Controller.getInstanceByName('Cart').subtotal();
                 }
                 else if (!stop && buf.length > 0) {
                     // @todo OSD
@@ -739,7 +738,7 @@
                 // @todo
                 // print shift report
                 if ((shiftReportOnSignOff && !quickSignoff) || (shiftReportOnQuickSwitch && quickSignoff)) {
-                    alert('print shift report');
+                    //alert('print shift report');
                 }
 
                 if (!cartEmpty) {
@@ -759,8 +758,8 @@
                 this.Acl.invalidate();
             }
             else {
-                if (!cartEmpty) $do('cancel', null, 'Cart');
                 $do('clear', null, 'Cart');
+                if (!cartEmpty) $do('cancel', null, 'Cart');
             }
 
             if (!quickSignoff) {

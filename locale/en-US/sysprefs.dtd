@@ -50,7 +50,7 @@
 <!ENTITY layout.functionpanel.label "Function panel dimensions">
 <!ENTITY layout.functionpanel.rows "rows">
 <!ENTITY layout.functionpanel.cols "columns">
-<!ENTITY plufilter.title "Plu Filter Definition">
+<!ENTITY plufilter.title "Product Filter Definition">
 <!ENTITY plufilter.filtername "Filter Name">
 <!ENTITY plufilter.index "Index">
 <!ENTITY plufilter.length "Length">
