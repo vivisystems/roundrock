@@ -22,29 +22,21 @@ var OsdUtils = {
             display = (typeof display != 'undefined') ? display : 1500;
 	    composite = (typeof composite != 'undefined') ? composite : 2;
 
-	    if(!this.worker) {
-                this.worker = Components.classes["@mozilla.org/thread-manager;1"].getService(Components.interfaces.nsIThreadManager).newThread(0);
-            }
-
-	    if(!this.osdService) {
-                this.osdService = Components.classes["@firich.com.tw/aosd;1"].getService(Components.interfaces.mozIFECAosd);
-            }
-
 	    var osdService = this.osdService;
 
 	    var runnable = {
 		    run: function() {
 		        try {
-			    osdService.osdText (markup,x, y, fade,display,composite);
-			}catch(e) {
-			}
+    			    osdService.osdText (markup,x, y, fade,display,composite);
+                }catch(e) {
+                }
 		    },
 
 		    QueryInterface: function(iid) {
-			if (iid.equals(Components.Interfaces.nsIRunnable) || iid.equals(Components.Interfaces.nsISupports)) {
-			    return this;
-			}
-			throw Components.results.NS_ERROR_NO_INTERFACE;
+                if (iid.equals(Components.Interfaces.nsIRunnable) || iid.equals(Components.Interfaces.nsISupports)) {
+                    return this;
+                }
+                throw Components.results.NS_ERROR_NO_INTERFACE;
 		    }
 		};
 
@@ -139,3 +131,11 @@ var OsdUtils = {
 
 };
 
+// create worker thread
+if(!OsdUtils.worker) {
+        OsdUtils.worker = Components.classes["@mozilla.org/thread-manager;1"].getService(Components.interfaces.nsIThreadManager).newThread(0);
+}
+
+if(!OsdUtils.osdService) {
+        OsdUtils.osdService = Components.classes["@firich.com.tw/aosd;1"].getService(Components.interfaces.mozIFECAosd);
+}
