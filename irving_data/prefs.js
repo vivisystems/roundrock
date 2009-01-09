@@ -15,7 +15,6 @@ user_pref("app.update.lastUpdateTime.blocklist-background-update-timer", 1231424
 user_pref("browser.places.importDefaults", false);
 user_pref("extensions.sqlitemanager.mruPath.1", "/var/tmp/vivipos.sqlite,/var/tmp/vivipos_order.sqlite,/var/tmp/vivipos_acl.sqlite,");
 user_pref("extensions.sqlitemanager.promptForLastDb", false);
-user_pref("general.useragent.locale", "zh-TW");
 user_pref("vivipos.fec.settings.AllowOverStock", false);
 user_pref("vivipos.fec.settings.Currencies", "[{\"currency\":\"NT\",\"currency_symbol\":\"NT\"},{\"currency\":\"USD\",\"currency_symbol\":\"$\",\"currency_exchange\":\"33.25\"},{\"currency\":\"\",\"currency_symbol\":\"\",\"currency_exchange\":\"\"},{\"currency\":\"\",\"currency_symbol\":\"\",\"currency_exchange\":\"\"},{\"currency\":\"\",\"currency_symbol\":\"\",\"currency_exchange\":\"\"},{\"currency\":\"\",\"currency_symbol\":\"\",\"currency_exchange\":\"\"}]");
 user_pref("vivipos.fec.settings.DefaultUser", "8a4d088b-8159-453c-b404-1baaa3aaa6f1");
