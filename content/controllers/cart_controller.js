@@ -785,7 +785,7 @@
 
             if (itemTrans != null && itemTrans.type == 'item') {
                 if (itemTrans.hasDiscount) {
-                    this.log('already hasDiscount');
+                    this.log('DEBUG', 'already hasDiscount');
                     this.dispatchEvent('onAddDiscountError', {});
 
                     //@todo OSD
@@ -793,7 +793,7 @@
                     return;
                 }
                 if (itemTrans.hasSurcharge) {
-                    this.log('already hasSurcharge');
+                    this.log('DEBUG', 'already hasSurcharge');
                     this.dispatchEvent('onAddDiscountError', {});
 
                     //@todo OSD
@@ -801,7 +801,7 @@
                     return;
                 }
                 if (itemTrans.hasMarker) {
-                    this.log('already hasMarker');
+                    this.log('DEBUG', 'already hasMarker');
                     this.dispatchEvent('onAddDiscountError', {});
 
                     //@todo OSD
@@ -841,7 +841,7 @@
                 return;
             }
 
-            if (discountAmount == null || isNaN(discountAmount)) {
+            if (discountAmount == null || isNaN(discountAmount) || !discountAmount) {
                 if (discountType == '$') {
                     // @todo OSD
                     NotifyUtils.warn(_('Please enter the discount amount'));
@@ -872,12 +872,12 @@
                 pretax: (pretax == null) ? false : pretax
             };
 
-            this.log('beforeAddDiscount ' + this.dump(discountItem) );
+            this.log('DEBUG', 'beforeAddDiscount ' + this.dump(discountItem) );
             this.dispatchEvent('beforeAddDiscount', discountItem);
 
             var discountedItem = curTransaction.appendDiscount(index, discountItem);
 
-            this.log('afterAddDiscount ' + index + ','+ this.dump(discountItem) );
+            this.log('DEBUG', 'afterAddDiscount ' + index + ','+ this.dump(discountItem) );
             this.dispatchEvent('afterAddDiscount', discountedItem);
 
             GeckoJS.Session.remove('cart_last_sell_item');
@@ -942,7 +942,7 @@
 
 
 
-        addSurcharge: function(surchargeAmount, type, name, pretax) {
+        addSurcharge: function(surchargeAmount, surchargeType, name, pretax) {
 
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
@@ -981,7 +981,7 @@
             if (itemTrans != null && itemTrans.type == 'item') {
 
                 if (itemTrans.hasDiscount) {
-                    this.log('already hasDiscount');
+                    this.log('DEBUG', 'already hasDiscount');
                     this.dispatchEvent('onAddSurchargeError', {});
 
                     //@todo OSD
@@ -989,7 +989,7 @@
                     return;
                 }
                 if (itemTrans.hasSurcharge) {
-                    this.log('already hasSurcharge');
+                    this.log('DEBUG', 'already hasSurcharge');
                     this.dispatchEvent('onAddSurchargeError', {});
 
                     //@todo OSD
@@ -997,7 +997,7 @@
                     return;
                 }
                 if (itemTrans.hasMarker) {
-                    this.log('already hasMarker');
+                    this.log('DEBUG', 'already hasMarker');
                     this.dispatchEvent('onAddSurchargeError', {});
 
                     //@todo OSD
@@ -1030,7 +1030,7 @@
                 return;
             }
 
-            if (surchargeAmount == null || isNaN(surchargeAmount)) {
+            if (surchargeAmount == null || isNaN(surchargeAmount) || !surchargeAmount) {
                 if (surchargeType == '$') {
                     // @todo OSD
                     NotifyUtils.warn(_('Please enter the surcharge amount'));
@@ -1045,7 +1045,7 @@
             }
 
             // check percentage or fixed number
-            if(type == '%') {
+            if(surchargeType == '%') {
                 // percentage
                 surchargeAmount = parseFloat(surchargeAmount) / 100;
 
@@ -1056,7 +1056,7 @@
             }
             var surchargeItem = {
                 name: name,
-                type: type,
+                type: surchargeType,
                 amount: surchargeAmount,
                 pretax: (pretax == null) ? false : pretax
             };

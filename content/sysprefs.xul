@@ -4,7 +4,7 @@
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/sysprefs.css" type="text/css"?>
 
-<prefwindow title="&preferences.title;"
+<prefwindow title="&preferences.title;" id="prefwin"
             xmlns:html="http://www.w3.org/1999/xhtml"
             xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
             ondialogcancel="closePreferences()"

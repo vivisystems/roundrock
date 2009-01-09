@@ -14,7 +14,6 @@
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
 <window title="&plus.title;"
-        hidechrome="true"
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
             
@@ -151,7 +150,7 @@
                                                 <row>
                                                     <label value="&plus.product.tax.rate;"/>
                                                     <label id="rate" hidden="true" form="productForm" name="rate" default="" value=""/>
-                                                    <textbox id="rate_name" value="" form="productForm" name="rate_name" readonly="true" onclick="$do('getRate',this.selectedIndex,'Plus');"/>
+                                                    <textbox id="rate_name" value="" form="productForm" name="rate_name" default="" readonly="true" onclick="$do('getRate',this.selectedIndex,'Plus');"/>
                                                 </row>
                                                 <row>
                                                     <label value="&plus.product.condiments;"/>

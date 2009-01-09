@@ -43,10 +43,13 @@
         },
 
         createPluPanel: function () {
-
-            this.catePanelView =  new NSICategoriesView('catescrollablepanel');
+            this.catePanelView =  new NSIDepartmentsView('catescrollablepanel');
             this.productPanelView = new NSIProductsView('prodscrollablepanel');
-            
+
+            this.catePanelView.hideInvisible = false;
+            this.productPanelView.hideInvisible = false;
+            this.productPanelView.updateProducts();
+
             this.productPanelView.setCatePanelView(this.catePanelView);
 
             var catpanel = document.getElementById('catescrollablepanel');
@@ -111,7 +114,6 @@
         clickPluPanel: function(index) {
             var product = this.productPanelView.getCurrentIndexData(index);
             var plupanel = document.getElementById('prodscrollablepanel');
-            var rate;
 
             this._selectedIndex = index;
             plupanel.selectedIndex = index;
@@ -120,18 +122,17 @@
             if (product) {
                 product.cate_name = this._selCateName;
                 this.setInputData(product);
-                rate = product.rate;
+
+                var rate = product.rate;
+                $('#rate').val(rate);
+                $('#rate_name').val(this.getRateName(rate));
             }
             else {
                 var valObj = this.getInputDefault();
                 valObj.cate_no = this._selCateNo;
                 valObj.cate_name = this._selCateName;
                 this.setInputData(valObj);
-
-                rate = null;
             }
-            $('#rate').val(rate);
-            $('#rate_name').val(this.getRateName(rate));
             
             this.validateForm(index == -1);
         },
@@ -342,7 +343,7 @@
         initDefaultTax: function () {
 
             // make sure tax rate field is always populated
-            var rate;
+            var rate = '';
             var taxes = GeckoJS.Session.get('taxes');
             if (taxes == null) taxes = this.Tax.getTaxList();
 
@@ -390,7 +391,6 @@
                 var n = this.name || this.getAttribute('name');
                 if (!n) return;
                 var v = this.getAttribute('default');
-
                 if (typeof v != 'undefined') {
                     valObj[n] = v;
                 }
@@ -543,7 +543,6 @@
             // need to make sure product name is unique
             if (this._checkData(inputData) == 0) {
                 var prodModel = new ProductModel();
-
                 try {
                     var setitems = this._setMenuFromString(inputData);
                     

@@ -589,41 +589,23 @@
 
         this.log('DEBUG', 'dispatchEvent beforeModifyItem ' + this.dump(obj) );
         Transaction.events.dispatch('beforeModifyItem', obj, this);
-
-        // create data object to push in items array
-        var itemModified = this.createItemDataObj(itemIndex, item, sellQty, sellPrice);
-        itemTrans.current_qty = itemModified.current_qty;
-        itemTrans.current_price = itemModified.current_price;
-        itemTrans.current_subtotal = itemModified.current_subtotal;
-        itemModified = itemTrans;
-        var condiments = itemModified.condiments;
-
-        if (condiments) {
-
-            var current_subtotal = itemModified.current_qty*itemModified.current_price || 0;
-            var current_condiment = 0;
-
-            for(var cn in itemTrans.condiments) {
-
-                // update condiment price before recalculating subtotal if modifying condiment
-                if (itemTrans.condiments[cn].name == itemDisplay.name) {
-                    itemTrans.condiments[cn].price = condimentPrice;
-                }
-                current_condiment += parseFloat(itemTrans.condiments[cn].price)*itemModified.current_qty;
-            }
-
-            itemModified.current_condiment = current_condiment;
-            itemModified.current_subtotal = current_subtotal + current_condiment;
-        }
-
-        // update to items array
-        this.data.items[itemIndex]  = itemModified;
-
-        this.log('DEBUG', 'dispatchEvent afterModifyItem ' + this.dump(itemModified) );
-        Transaction.events.dispatch('afterModifyItem', itemModified, this);
-
-        var itemDisplay2 = this.createDisplaySeq(itemIndex, itemModified, 'item');
+        // case 1: modifying top level item
         if (itemDisplay.type == 'item') {
+            // create data object to push in items array
+            var itemModified = this.createItemDataObj(itemIndex, item, sellQty, sellPrice);
+            itemTrans.current_qty = itemModified.current_qty;
+            itemTrans.current_price = itemModified.current_price;
+            itemTrans.current_subtotal = itemModified.current_subtotal;
+            itemModified = itemTrans;
+
+            // update to items array
+            this.data.items[itemIndex]  = itemModified;
+
+            this.log('DEBUG', 'dispatchEvent afterModifyItem ' + this.dump(itemModified) );
+            Transaction.events.dispatch('afterModifyItem', itemModified, this);
+
+            var itemDisplay2 = this.createDisplaySeq(itemIndex, itemModified, 'item');
+
             // create data object to push in items array
         
             // update display
@@ -653,14 +635,59 @@
             }
         }
         else if (itemDisplay.type == 'condiment') {
-            var condimentItemDisplay2 = this.createDisplaySeq(itemIndex, condimentItem, 'condiment');
+            var targetItem = this.data.items[itemIndex];
+            // case 2: modifying top level condiment
+            if (targetItem.parent_index == null) {
 
-            // update condiment display
-            this.data.display_sequences[index] = condimentItemDisplay2 ;
+                var condiments = itemTrans.condiments;
 
-            // update item condiment subtotal
-            var targetDisplayItem = this.getDisplaySeqByIndex(itemIndex);   // display index of the item the condiment is attached to
-            targetDisplayItem.current_subtotal = itemDisplay2.current_subtotal;
+                if (condiments) {
+                    for(var cn in itemTrans.condiments) {
+                        // update condiment price before recalculating subtotal if modifying condiment
+                        if (itemTrans.condiments[cn].name == itemDisplay.name) {
+                            itemTrans.condiments[cn].price = condimentPrice;
+                        }
+                    }
+
+                    var condimentItemDisplay2 = this.createDisplaySeq(itemIndex, condimentItem, 'condiment');
+
+                    // update condiment display
+                    this.data.display_sequences[index] = condimentItemDisplay2 ;
+
+                    // update item condiment subtotal
+                    //var targetDisplayItem = this.getDisplaySeqByIndex(itemIndex);   // display index of the item the condiment is attached to
+                    //targetDisplayItem.current_subtotal = itemDisplay2.current_subtotal;
+                    var itemModified = itemTrans;
+                }
+            }
+            // case 3: modifying set item condiment
+            else {
+                if (targetItem.condiments) {
+                    for(var cn in targetItem.condiments) {
+                        // update condiment price before recalculating subtotal if modifying condiment
+                        if (targetItem.condiments[cn].name == itemDisplay.name) {
+                            targetItem.condiments[cn].price = condimentPrice;
+                        }
+                    }
+                    // sum condiments
+                    var condiment_subtotal = 0;
+                    for(var cn in targetItem.condiments) {
+                        condiment_subtotal += parseFloat(targetItem.condiments[cn].price) * targetItem.current_qty;
+                    }
+
+                    targetItem.current_condiment = condiment_subtotal;
+
+                    var condimentItemDisplay2 = this.createDisplaySeq(itemIndex, condimentItem, 'condiment', 2);
+
+                    // update condiment display
+                    this.data.display_sequences[index] = condimentItemDisplay2 ;
+
+                    // update item condiment subtotal
+                    //var targetDisplayItem = this.getDisplaySeqByIndex(itemIndex);   // display index of the item the condiment is attached to
+                    //targetDisplayItem.current_subtotal = itemDisplay2.current_subtotal;
+                    itemModified = itemTrans;
+                }
+            }
         }
         var currentRowCount = this.data.display_sequences.length;
 
@@ -1456,12 +1483,9 @@
 
     Transaction.prototype.getLastDisplaySeqByIndex = function(index){
 
-GREUtils.log(index);
         var lastIndex = -1;
         for (var i =0 ; i < this.data.display_sequences.length; i++) {
             var itemDisplay = this.data.display_sequences[i];
-GREUtils.log(GeckoJS.BaseObject.dump(itemDisplay));
-GREUtils.log(GeckoJS.BaseObject.dump(this.data.items[itemDisplay.index]));
             if (itemDisplay.index == index) {
                 lastIndex = i;
             }

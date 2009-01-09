@@ -5,7 +5,7 @@
         init: function(domId) {
 
             this._data = [];
-            this.hideUnvisible = true;
+            this.hideInvisible = true;
 
             var plugroupModel = new PlugroupModel();
             var plugroups = plugroupModel.find('all', {order: 'name'});
@@ -63,7 +63,7 @@
         refreshView: function() {
 
             var departmentsIndexes;
-            if (this.hideUnvisible) {
+            if (this.hideInvisible) {
                 departmentsIndexes = GeckoJS.Session.get('categoriesIndexes').concat(GeckoJS.Session.get('visiblePlugroups'));
             }else {
                 departmentsIndexes = GeckoJS.Session.get('categoriesIndexesAll');

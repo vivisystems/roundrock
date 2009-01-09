@@ -8,7 +8,7 @@
         init: function(domId) {
 
             this._data = [];
-            this.hideUnvisible = true;
+            this.hideInvisible = true;
             this._cateView = false;
             this._currentCateIndex = 0;
 
@@ -60,7 +60,7 @@
 
             var productsIndexesByCate;
 
-            if (this.hideUnvisible) {
+            if (this.hideInvisible) {
                 if(typeof cate['no'] == 'undefined') {
                     // group
                     productsIndexesByCate = GeckoJS.Session.get('productsIndexesByLinkGroup');

@@ -64,7 +64,7 @@
 <!ENTITY plus.halo "最高價格">
 <!ENTITY plus.lalo "最低價格">
 
-<!ENTITY plus.search.label "產品搜尋 - 依產品編號或產品條碼">
+<!ENTITY plus.search.label "輸入產品編號、條碼、或名稱">
 <!ENTITY plus.search.advancesearch "進階查詢">
 
 <!ENTITY plus.button.action.add "新增">

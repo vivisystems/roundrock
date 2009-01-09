@@ -50,11 +50,16 @@ function launchControl(panel) {
         var pref = data[index];
 
         var aArguments = "";
-        var features = "chrome,titlebar,toolbar,centerscreen,modal,width=" + width + ",height=" + height;
+        var features = "chrome,popup=yes,titlebar=no,toolbar,centerscreen,modal,width=" + width + ",height=" + height;
 
-        $('#loading').show();
-        window.openDialog(pref['path'], pref['label'], features, aArguments);
-        $('#loading').hide();
+        try {
+            $('#loading').show();
+            window.openDialog(pref['path'], pref['label'], features, aArguments);
+        }
+        catch (e) {}
+        finally {
+            $('#loading').hide();
+        }
     }
 }
 

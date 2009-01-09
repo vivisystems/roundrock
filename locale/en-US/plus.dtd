@@ -65,7 +65,7 @@
 <!ENTITY plus.halo "HALO">
 <!ENTITY plus.lalo "LALO">
 
-<!ENTITY plus.search.label "Search By Product No./Barcode">
+<!ENTITY plus.search.label "Enter Product No., Barcode, or Name">
 <!ENTITY plus.search.advancesearch "Advanced Search">
 
 <!ENTITY plus.button.action.add "Add">
