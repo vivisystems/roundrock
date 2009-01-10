@@ -7,7 +7,7 @@
         init: function(domId) {
 
             this._data = [];
-            this.hideUnvisible = this.hideUnvisible || false;
+            this.hideInvisible = this.hideInvisible || false;
             this._cateView = false;
             this._currentCateIndex = 0;
 
@@ -112,14 +112,14 @@
             GeckoJS.Session.add('productsIndexesByLinkGroup', indexLinkGroup);
             GeckoJS.Session.add('productsIndexesByLinkGroupAll', indexLinkGroupAll);
 
-        /*
+            /*
             this.log(this.dump(GeckoJS.Session.get('productsById')));
             this.log(this.dump(GeckoJS.Session.get('productsIndexesByCate')));
             this.log(this.dump(GeckoJS.Session.get('productsIndexesByCateAll')));
             this.log(this.dump(GeckoJS.Session.get('barcodesIndexes')));
             this.log(this.dump(GeckoJS.Session.get('productsIndexesByLinkGroup')));
             this.log(this.dump(GeckoJS.Session.get('productsIndexesByLinkGroupAll')));
-         */
+            */
         },
 
         setCatePanelView: function(cateView) {
@@ -135,14 +135,40 @@
             if(! cate) return;
             
             var productsIndexesByCate;
-
-            if (this.hideUnvisible) {
+            /*
+            if (this.hideInvisible) {
                 productsIndexesByCate = GeckoJS.Session.get('productsIndexesByCate');
             }else {
                 productsIndexesByCate = GeckoJS.Session.get('productsIndexesByCateAll');
             }
             
             this._data = productsIndexesByCate[cate.no] || [];
+            */
+           
+            if (this.hideInvisible) {
+                if(typeof cate['no'] == 'undefined') {
+                    // group
+                    productsIndexesByCate = GeckoJS.Session.get('productsIndexesByLinkGroup');
+                    this._data = productsIndexesByCate[cate.id] || [];
+                }else {
+                    productsIndexesByCate = GeckoJS.Session.get('productsIndexesByCate');
+                    this._data = productsIndexesByCate[cate.no] || [];
+                }
+
+            }else {
+                if(typeof cate['no'] == 'undefined') {
+                    // group
+                    productsIndexesByCate = GeckoJS.Session.get('productsIndexesByLinkGroupAll');
+                    this._data = productsIndexesByCate[cate.id] || [];
+                }else {
+                    productsIndexesByCate = GeckoJS.Session.get('productsIndexesByCateAll');
+                    this._data = productsIndexesByCate[cate.no] || [];
+                }
+                /*
+                productsIndexesByCate = GeckoJS.Session.get('productsIndexesByCateAll');
+                this._data = productsIndexesByCate[cate.no] || productsIndexesByCate[cate.id] || [];
+                */
+            }
 
             try {
                 this.tree.invalidate();
@@ -155,7 +181,7 @@
         },
 
         toggle: function() {
-            this.hideUnvisible = !this.hideUnvisible;
+            this.hideInvisible = !this.hideInvisible;
             this.setCatePanelIndex(this._currentCateIndex);
         },
 

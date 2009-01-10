@@ -7,9 +7,9 @@
 
 .catescrollablepanel{
     background: none;
-    min-width: 358px;
-    max-width: 358px;
-    width: 358px;
+    min-width: 356px;
+    max-width: 356px;
+    width: 356px;
     margin: 0px;
 }
 
@@ -116,10 +116,6 @@
 
 .depart_scroll_down description {
 	display: none;
-}
-
-.catescrollablepanel .scrollablepanel-scrollbar {
-    
 }
 
 

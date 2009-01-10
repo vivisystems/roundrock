@@ -43,10 +43,13 @@
         },
 
         createPluPanel: function () {
-
-            this.catePanelView =  new NSICategoriesView('catescrollablepanel');
+            this.catePanelView =  new NSIDepartmentsView('catescrollablepanel');
             this.productPanelView = new NSIProductsView('prodscrollablepanel');
-            
+
+            this.catePanelView.hideInvisible = false;
+            this.productPanelView.hideInvisible = false;
+            this.productPanelView.updateProducts();
+
             this.productPanelView.setCatePanelView(this.catePanelView);
 
             var catpanel = document.getElementById('catescrollablepanel');
@@ -111,7 +114,6 @@
         clickPluPanel: function(index) {
             var product = this.productPanelView.getCurrentIndexData(index);
             var plupanel = document.getElementById('prodscrollablepanel');
-            var rate;
 
             this._selectedIndex = index;
             plupanel.selectedIndex = index;
@@ -120,18 +122,17 @@
             if (product) {
                 product.cate_name = this._selCateName;
                 this.setInputData(product);
-                rate = product.rate;
+
+                var rate = product.rate;
+                $('#rate').val(rate);
+                $('#rate_name').val(this.getRateName(rate));
             }
             else {
                 var valObj = this.getInputDefault();
                 valObj.cate_no = this._selCateNo;
                 valObj.cate_name = this._selCateName;
                 this.setInputData(valObj);
-
-                rate = null;
             }
-            $('#rate').val(rate);
-            $('#rate_name').val(this.getRateName(rate));
             
             this.validateForm(index == -1);
         },
@@ -297,13 +298,32 @@
             if (inputObj.ok && inputObj.input0 && inputObj.input1) {
                 var product = this._searchPlu(inputObj.input0);
                 if (product) {
+                    // validate product - must not be a product set itself, must not be this product set
+                    var formData = this.getInputData();
+                    if (product.no == formData.no) {
+                        //@todo OSD?
+                        alert(_('[%S] (%S) may not be a member of its own product set.', [product.name, inputObj.input0]));
+                        return;
+                    }
+
+                    if (product.setmenu != null && product.setmenu.length > 0) {
+                        alert(_('[%S] (%S) is a product set and may not be a member of another product set.', [product.name, inputObj.input0]));
+                        return;
+                    }
+
                     var inputData = {
                         no: product.no,
                         name: product.name,
                         qty: inputObj.input1
                     };
 
-                    this._pluset.push(inputData);
+                    var index = this.getPluSetListObj().currentIndex;
+
+                    if (index < 0)
+                        this._pluset.push(inputData);
+                    else {
+                        this._pluset.splice(index, 0, inputData);
+                    }
 
                     var panelView =  new GeckoJS.NSITreeViewArray(this._pluset);
                     this.getPluSetListObj().datasource = panelView;
@@ -323,7 +343,7 @@
         initDefaultTax: function () {
 
             // make sure tax rate field is always populated
-            var rate;
+            var rate = '';
             var taxes = GeckoJS.Session.get('taxes');
             if (taxes == null) taxes = this.Tax.getTaxList();
 
@@ -371,7 +391,6 @@
                 var n = this.name || this.getAttribute('name');
                 if (!n) return;
                 var v = this.getAttribute('default');
-
                 if (typeof v != 'undefined') {
                     valObj[n] = v;
                 }
@@ -524,7 +543,6 @@
             // need to make sure product name is unique
             if (this._checkData(inputData) == 0) {
                 var prodModel = new ProductModel();
-
                 try {
                     var setitems = this._setMenuFromString(inputData);
                     
@@ -580,7 +598,7 @@
                     value: product.id
                 });
                 if (setMenu != null) {
-                    NotifyUtils.warn(_('Product [%S] is part of set menu [%S] and may not be removed', [product.name, setMenu.Product.name]));
+                    NotifyUtils.warn(_('Product [%S] is part of a product set [%S] and may not be removed', [product.name, setMenu.Product.name]));
                     return;
                 }
 

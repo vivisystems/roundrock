@@ -237,12 +237,12 @@
                             </row>
                             <row>
                                 <label control="filter_index" value="&plufilter.index;:"/>
-                                <textbox id="filter_index" type="number" size="3" maxlength="2" min="0" max="16"
+                                <textbox id="filter_index" size="3" maxlength="2" min="0" max="16"
                                         oninput="$do('validateForm', null, 'Plufilters')"/>
                             </row>
                             <row>
                                 <label control="filter_length" value="&plufilter.length;:"/>
-                                <textbox id="filter_length" type="number" size="3" maxlength="2" min="0" max="16"
+                                <textbox id="filter_length" size="3" maxlength="2" min="0" max="16"
                                         oninput="$do('validateForm', null, 'Plufilters')"/>
                             </row>
 

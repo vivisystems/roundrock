@@ -84,7 +84,6 @@
                 categoriesIndexes = GeckoJS.Session.get('categoriesIndexesAll');
             }
             this._data = categoriesIndexes;
-
             try {
                 this.tree.invalidate();
             }
