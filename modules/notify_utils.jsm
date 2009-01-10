@@ -16,19 +16,15 @@ var NotifyUtils = {
 
 	notify: function(summary, body, icon, total_display_ms, urgency) {
 
-	    icon = icon || null;
+	    icon = icon || "";
             total_display_ms = total_display_ms || 5000;
-	    urgency = (typeof urgency != 'undefined') ? urgency : 1;
-
-	    var nofityService = this.nofityService;
+	    //urgency = (typeof urgency != 'undefined') ? urgency : 1;
 
 	    var runnable = {
 		    run: function() {
 		        try {
-                    nofityService.notify (summary, body, icon, total_display_ms, urgency);
+                    if(NotifyUtils.nofityService) NotifyUtils.nofityService.doCall(["vivipos", 0, icon, summary, body, [], {}, total_display_ms],8);
                     // use shell
-
-
                 }catch(e) {
                 }
 		    },
@@ -91,12 +87,13 @@ var NotifyUtils = {
 
 // create
 try {
-if(!NotifyUtils.worker) {
+    if(!NotifyUtils.worker) {
         NotifyUtils.worker = Components.classes["@mozilla.org/thread-manager;1"].getService(Components.interfaces.nsIThreadManager).newThread(0);
     }
 
-if(!NotifyUtils.nofityService) {
-        NotifyUtils.nofityService = Components.classes["@firich.com.tw/notify;1"].getService(Components.interfaces.mozIFECNotify);
+    if(!NotifyUtils.nofityService) {
+        var dbus = Components.classes["@movial.fi/dbus/service;1"].getService().QueryInterface(Components.interfaces.IDBusService);
+        NotifyUtils.nofityService = dbus.getMethod(dbus.SESSION, 'org.freedesktop.Notifications', '/org/freedesktop/Notifications', 'Notify', 'org.freedesktop.Notifications', "susssasa{sv}i", null);
     }
 
 }catch(e) {
