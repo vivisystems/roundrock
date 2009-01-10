@@ -17,3 +17,7 @@
 <!ENTITY imagemanager.action.usage "總計大小: ">
 <!ENTITY imagemanager.action.files "總檔案數量: ">
 <!ENTITY imagemanager.action.status "狀態:">
+
+<!ENTITY importexport.importwait "匯入圖檔中, 請稍候...">
+<!ENTITY importexport.exportwait "匯出圖檔中, 請稍候...">
+

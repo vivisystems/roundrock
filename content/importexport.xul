@@ -61,11 +61,11 @@
 
             <groupbox flex="1">
                 <caption label="" />
-                <button label="&importexport.checkmedia;" class="widebtns" oncommand="$do('checkBackupDevices','', 'ImportExport')" />
+                <!-- button label="&importexport.checkmedia;" class="widebtns" oncommand="$do('checkBackupDevices','', 'ImportExport')" />
 
                 <spacer style="height: 10px;" />
                 <separator class="groove-thin"/>
-                <spacer style="height: 10px;" />
+                <spacer style="height: 10px;" / -->
 
                 <button id="importBtn" disabled="true" label="&importexport.import;" class="widebtns" oncommand="$do('importData', 'departments', 'ImportExport');" />
 
@@ -96,7 +96,7 @@
         <groupbox flex="1">
             <caption label="&importexport.exportwait;"/>
             <spacer style="height: 20px;" />
-            <progressmeter id="exportprogressmeter" mode="undetermined" value="0" />
+            <progressmeter id="exportprogressmeter" mode="determined" value="0" />
             <spacer style="height: 20px;" />
         </groupbox>
         </vbox>
