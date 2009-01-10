@@ -42,7 +42,8 @@
             var deviceNode = "";
             var deviceReady = false;
 
-            var deviceMount = "/media/";
+            //var deviceMount = "/media/";
+            var deviceMount = GeckoJS.Configure.read('vivipos.fec.settings.device.mount.path') || '/media';
             // var deviceMount = "/var/tmp/";
 
             var hasMounted = false;
@@ -229,7 +230,7 @@
             // new model
             if (model == "products") {
                 tableTmp = new ProductModel();
-            } else if (model == "departments") {
+            } else if (model == "categories") {
                 tableTmp = new CategoryModel();
             } else if (model == "plugroups") {
                 tableTmp = new PlugroupModel();
@@ -269,8 +270,9 @@
                 // fields[i] = trimQuote(fields[i]);
                 tableTpl[fields[i]] = null;
 
-                // valid the import fields
-                if (!tpl[fields[i]]) {
+                // validate the import fields
+	        //@todo disabling field validation for now
+                if (false && !tpl[fields[i]]) {
                     bad = true;
                     NotifyUtils.error(_('Import format error: field [%S] not exist!', [fields[i]]));
                 }
@@ -362,7 +364,7 @@
             this._datas = [
                 {
                     name: _('Department'),
-                    model: 'departments',
+                    model: 'categories',
                     filename: 'departments.csv',
                     imported: '',
                     exported: ''

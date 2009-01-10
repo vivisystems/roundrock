@@ -80,7 +80,7 @@ function validateInput() {
     var alphaOnly0 = false;
     var numberOnly1 = false;
     var numericOnly1 = false;
-    var alphaRE = /[^\w]/;
+    var alphaRE = /[^-\w]/;
 
     if ('require0' in options) input0Required = options.require0;
     if ('require1' in options) input1Required = options.require1;
