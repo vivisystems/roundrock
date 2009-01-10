@@ -187,7 +187,12 @@
             if(clearBuf) this.requestCommand('clear',null,'Cart');
             
             this.pluPanelView.setCatePanelIndex(index);
-            
+
+            // display first item in pluview panel
+            var prodpanel = document.getElementById('prodscrollablepanel');
+            prodpanel.selectedIndex = -1;
+            prodpanel.selectedItems = [];
+            prodpanel.ensureIndexIsVisible(0);
 
         },
 

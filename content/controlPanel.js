@@ -54,6 +54,8 @@ function launchControl(panel) {
 
         try {
             $('#loading').show();
+	    // @hack sleep to make sure the loading panel is rendered
+	    GeckoJS.BaseObject.sleep(50);
             window.openDialog(pref['path'], pref['label'], features, aArguments);
         }
         catch (e) {}
