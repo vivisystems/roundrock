@@ -6,7 +6,6 @@ var ImageFilesView = window.ImageFilesView = GeckoJS.NSITreeViewArray.extend({
             this.data = new GeckoJS.Dir.readDir(dir).sort(function(a, b) {if (a.leafName < b.leafName) return -1; else if (a.leafName > b.leafName) return 1; else return 0;});
             var totalSize = 0;
             this.fileCount = this.data.length;
-
             this.data.forEach(function(file) {
                 totalSize += file.fileSize;
             });
@@ -289,8 +288,6 @@ var ImageFilesView = window.ImageFilesView = GeckoJS.NSITreeViewArray.extend({
 
             if (!exportDir || (exportDir.length == 0)) exportDir = this._exportDir;
 
-            // alert(this._dir + ':' + exportDir);
-            
             var result = GREUtils.Dialog.confirm(this.window, "Confirm Export",
                                                               "Please attach the USB thumb drive to export images to and press OK to start the export.");
 

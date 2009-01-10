@@ -61,11 +61,11 @@
 
             <groupbox flex="1">
                 <caption label="" />
-                <button label="&importexport.checkmedia;" class="widebtns" oncommand="$do('checkBackupDevices','', 'ImportExport')" />
+                <!-- button label="&importexport.checkmedia;" class="widebtns" oncommand="$do('checkBackupDevices','', 'ImportExport')" />
 
                 <spacer style="height: 10px;" />
                 <separator class="groove-thin"/>
-                <spacer style="height: 10px;" />
+                <spacer style="height: 10px;" / -->
 
                 <button id="importBtn" disabled="true" label="&importexport.import;" class="widebtns" oncommand="$do('importData', 'departments', 'ImportExport');" />
 

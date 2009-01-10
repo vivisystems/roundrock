@@ -24,23 +24,26 @@
 
         setButtonDisable: function(disabled) {
             //
-            $('#importBtn').attr('disabled', disabled);
-            $('#exportBtn').attr('disabled', disabled);
+            //$('#importBtn').attr('disabled', disabled);
+            //$('#exportBtn').attr('disabled', disabled);
+
+            $('#importBtn').attr('disabled', this._busy);
+            $('#exportBtn').attr('disabled', this._busy);
 
             $('#ok').attr('disabled', this._busy);
         },
 
         checkBackupDevices: function() {
 
-            // var osLastMedia = new GeckoJS.File('/tmp/last_media');
-            var osLastMedia = new GeckoJS.File('/var/tmp/vivipos/last_media');
+            var osLastMedia = new GeckoJS.File('/tmp/last_media');
+            // var osLastMedia = new GeckoJS.File('/var/tmp/vivipos/last_media');
 
             var last_media = "";
             var deviceNode = "";
             var deviceReady = false;
 
-            // var deviceMount = "/media/";
-            var deviceMount = "/var/tmp/";
+            var deviceMount = "/media/";
+            // var deviceMount = "/var/tmp/";
 
             var hasMounted = false;
 
@@ -82,6 +85,9 @@
 
                     }
                 }
+            } else {
+                $('#lastMedia').attr('value', _('Media Not Found!'));
+                NotifyUtils.info(_('Please attach the USB thumb drive...'));
             }
 
             return deviceReady ;
@@ -239,10 +245,6 @@
                 tpl[v] = true;
             }
 
-            var trimQuote = function(str) {
-                return str.substr(1, str.length-2);
-            };
-
             try {
                 // read csv file
                 var lines = GREUtils.File.readAllLine(fileName);
@@ -259,12 +261,12 @@
             total = lines.length;
 
             // get field name
-            var fields = lines[0].split(',');
+            var fields = GeckoJS.String.parseCSV(lines[0])[0];
             lines.splice(0,1);
 
             var bad = false;
             for( var i = 0; i < fields.length; i++) {
-                fields[i] = trimQuote(fields[i]);
+                // fields[i] = trimQuote(fields[i]);
                 tableTpl[fields[i]] = null;
 
                 // valid the import fields
@@ -297,17 +299,19 @@
 
                 tableTmp.begin();
                 lines.forEach(function(buf) {
-                    var datas = buf.split(',');
+                    var datas = GeckoJS.String.parseCSV(buf)[0];
+
                     var rowdata = GREUtils.extend({}, tableTpl);
                     for (var i=0; i < fields.length; i++) {
-                        // rowdata[fields[i]] = trimQuote(datas[i]);
-                        rowdata[fields[i]] = trimQuote(GREUtils.Charset.convertToUnicode(datas[i], 'UTF-8'));
-                        if (model == "products") {
-                            try {
-                                if (rowdata['cate_no'].length <= 0) rowdata['cate_no'] = '999';
-                            } catch (e) {
-                                rowdata['cate_no'] = '999';
-                            }
+                        rowdata[fields[i]] = GREUtils.Charset.convertToUnicode(datas[i], 'UTF-8');
+                    }
+
+                    if (model == "products") {
+                        try {
+                            if (!rowdata['cate_no'] || rowdata['cate_no'].length <= 0) rowdata['cate_no'] = '999';
+                        } catch (e) {
+                            // self.log("error..." + ii);
+                            rowdata['cate_no'] = '888';
                         }
                     }
 
@@ -329,11 +333,12 @@
                 NotifyUtils.info(_('Import CSV datas (%S) Format error!! Please Check...', [this._datas[index].filename]));
             }
             finally {
-                // reset max script run time...
+                
                 this._busy = false;
                 tableTmp.commit();
                 progmeter.value = 100;
                 this.sleep(200);
+                // reset max script run time...
                 GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
                 // progmeter.value = 0;
                 this.setButtonDisable(false);
@@ -346,7 +351,7 @@
             NotifyUtils.info(_('Import From CSV (%S) Finish!!', [this._datas[index].filename]));
 
             // restart vivipos
-            GeckoJS.Observer.notify(null, 'prepare-to-restart', this);
+            // GeckoJS.Observer.notify(null, 'prepare-to-restart', this);
         },
 
 
