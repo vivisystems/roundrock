@@ -13,7 +13,10 @@
 
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/users.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/bootstrap.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/controllers/components/tax.js"/>
+    <script type="application/x-javascript" src="chrome://viviecr/content/helpers/nsi_taxes_view.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/taxes.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/controllers/sound_controller.js" />
     <!-- users.js & taxes.js must load before sysprefs.js -->
     <script type="application/x-javascript" src="chrome://viviecr/content/sysprefs.js" />
 
@@ -208,6 +211,41 @@
                 </row>
             </rows>
         </grid>
+    </prefpane>
+
+    <prefpane id="soundSettingsPane" label="&category.sound;" image="chrome://viviecr/content/skin/icons/stock_print-setup.png">
+        <preferences>
+            <preference id="pref_beepOnItemAdd" name="vivipos.fec.settings.beepOnItemAdd" type="bool"/>
+            <preference id="pref_beepOnScanningError" name="vivipos.fec.settings.beepOnScanningError" type="bool"/>
+            <preference id="pref_beepOnModify" name="vivipos.fec.settings.beepOnModify" type="bool"/>
+            <preference id="pref_beepOnDiscountSurcharge" name="vivipos.fec.settings.beepOnDiscountSurcharge" type="bool"/>
+            <preference id="pref_beepOnPayment" name="vivipos.fec.settings.beepOnPayment" type="bool"/>
+            <preference id="pref_beepOnTaxStatusShift" name="vivipos.fec.settings.beepOnTaxStatusShift" type="bool"/>
+            <preference id="pref_beepOnVOID" name="vivipos.fec.settings.beepOnVOID" type="bool"/>
+            <preference id="pref_beepOnCANCEL" name="vivipos.fec.settings.beepOnCANCEL" type="bool"/>
+            <preference id="pref_beepOnSubtotal" name="vivipos.fec.settings.beepOnSubtotal" type="bool"/>
+            <preference id="pref_beepOnTotal" name="vivipos.fec.settings.beepOnTotal" type="bool"/>
+            <preference id="pref_beepOnTrayMarker" name="vivipos.fec.settings.beepOnTrayMarker" type="bool"/>
+
+        </preferences>
+
+        <checkbox id="beepOnItemAdd" label="&sound.beepOnItemAdd;" preference="pref_beepOnItemAdd"/>
+        <checkbox id="beepOnScanningError" label="&sound.beepOnScanningError;" preference="pref_beepOnScanningError"/>
+        <checkbox id="beepOnModify" label="&sound.beepOnModify;" preference="pref_beepOnModify"/>
+        <checkbox id="beepOnDiscountSurcharge" label="&sound.beepOnDiscountSurcharge;" preference="pref_beepOnDiscountSurcharge"/>
+        <checkbox id="beepOnPayment" label="&sound.beepOnPayment;" preference="pref_beepOnPayment"/>
+        <checkbox id="beepOnTaxStatusShift" label="&sound.beepOnTaxStatusShift;" preference="pref_beepOnTaxStatusShift"/>
+        <checkbox id="beepOnVOID" label="&sound.beepOnVOID;" preference="pref_beepOnVOID"/>
+        <checkbox id="beepOnCANCEL" label="&sound.beepOnCANCEL;" preference="pref_beepOnCANCEL"/>
+        <checkbox id="beepOnSubtotal" label="&sound.beepOnSubtotal;" preference="pref_beepOnSubtotal"/>
+        <checkbox id="beepOnTotal" label="&sound.beepOnTotal;" preference="pref_beepOnTotal"/>
+        <checkbox id="beepOnTrayMarker" label="&sound.beepOnTrayMarker;" preference="pref_beepOnTrayMarker"/>
+        <separator width="2" flex="0"/>
+        <hbox class="panelContainer">
+            <label value="&sound.volume.label;"/>
+            <scale id="volume-scale" min="0" max="63" flex="1" onchange="setVolume(this.value)"/>
+        </hbox>
+
     </prefpane>
 
     <prefpane id="pluFilterSettingsPane" label="&category.plufilter;" image="chrome://viviecr/content/skin/icons/gnome-run.png">

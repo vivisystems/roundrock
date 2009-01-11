@@ -40,6 +40,17 @@
             this.addEventListener('beforeVoidItem', self.clearWarning);
             this.addEventListener('beforeModifyItem', self.beforeModifyItem);
 
+            this.addEventListener('afterAddItem', self.playBeep);
+            this.addEventListener('afterModifyItem', self.playBeep);
+            this.addEventListener('afterVoidItem', self.playBeep);
+            this.addEventListener('afterAddDiscount', self.playBeep);
+            this.addEventListener('afterAddSurcharge', self.playBeep);
+            this.addEventListener('afterAddMarker', self.playBeep);
+            this.addEventListener('afterCancel', self.playBeep);
+            this.addEventListener('afterAddPayment', self.playBeep);
+            this.addEventListener('afterShiftTax', self.playBeep);
+            this.addEventListener('afterItemByBarcode', self.playBeep);
+
             // var curTransaction = this._getTransaction();
             // curTransaction.events.addListener('beforeAppendItem', obj, this);
 
@@ -55,6 +66,121 @@
 
         resume: function () {
             this._suspended = false;
+        },
+
+        playBeep: function (evt) {
+            if (evt.data == null) {
+                return;
+            }
+            
+            if (evt.data.error) {
+                switch(evt.type) {
+                    case 'afterItemByBarcode':
+                        if (GeckoJS.Configure.read('vivipos.fec.settings.beepOnScanningError')) {
+                            //alert(evt.type);
+                            GREUtils.Sound.play('chrome://viviecr/content/sound/beep-warning.wav');
+                        }
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+            else {
+                switch(evt.type) {
+                    case 'afterAddItem':
+                        if (GeckoJS.Configure.read('vivipos.fec.settings.beepOnItemAdd')) {
+                            //alert(evt.type);
+                            GREUtils.Sound.play('chrome://viviecr/content/sound/beep.wav');
+                        }
+                        break;
+
+                    case 'afterModifyItem':
+                        if (GeckoJS.Configure.read('vivipos.fec.settings.beepOnModify')) {
+                            //alert(evt.type);
+                            GREUtils.Sound.play('chrome://viviecr/content/sound/beep.wav');
+                        }
+                        break;
+
+                    case 'afterVoidItem':
+                        if (GeckoJS.Configure.read('vivipos.fec.settings.beepOnVOID')) {
+                            //alert(evt.type);
+                            GREUtils.Sound.play('chrome://viviecr/content/sound/beep.wav');
+                        }
+                        break;
+
+                    case 'afterShiftTax':
+                        if (GeckoJS.Configure.read('vivipos.fec.settings.beepOnTaxStatusShift')) {
+                            //alert(evt.type);
+                            GREUtils.Sound.play('chrome://viviecr/content/sound/beep.wav');
+                        }
+                        break;
+
+                    case 'afterAddDiscount':
+                        if (GeckoJS.Configure.read('vivipos.fec.settings.beepOnDiscountSurcharge')) {
+                            //alert(evt.type);
+                            GREUtils.Sound.play('chrome://viviecr/content/sound/beep.wav');
+                        }
+                        break;
+
+                    case 'afterAddSurcharge':
+                        if (GeckoJS.Configure.read('vivipos.fec.settings.beepOnDiscountSurcharge')) {
+                            //alert(evt.type);
+                            GREUtils.Sound.play('chrome://viviecr/content/sound/beep.wav');
+                        }
+                        break;
+
+                    case 'afterAddMarker':
+                        switch(evt.data.type) {
+                            case 'subtotal':
+                                if (GeckoJS.Configure.read('vivipos.fec.settings.beepOnSubtotal')) {
+                                    //alert(evt.data.type);
+                                    GREUtils.Sound.play('chrome://viviecr/content/sound/beep.wav');
+                                }
+                                break;
+
+                            case 'total':
+                                if (GeckoJS.Configure.read('vivipos.fec.settings.beepOnTotal')) {
+                                    //alert(evt.data.type);
+                                    GREUtils.Sound.play('chrome://viviecr/content/sound/beep.wav');
+                                }
+                                break;
+
+                            case 'tray':
+                                if (GeckoJS.Configure.read('vivipos.fec.settings.beepOnTrayMarker')) {
+                                    //alert(evt.data.type);
+                                    GREUtils.Sound.play('chrome://viviecr/content/sound/beep.wav');
+                                }
+                                break;
+                        }
+                        break;
+
+                    case 'afterAddPayment':
+                        if (GeckoJS.Configure.read('vivipos.fec.settings.beepOnPayment')) {
+                            //alert(evt.type);
+                            GREUtils.Sound.play('chrome://viviecr/content/sound/beep.wav');
+                        }
+                        break;
+
+                    case 'afterCancel':
+                        if (GeckoJS.Configure.read('vivipos.fec.settings.beepOnCANCEL')) {
+                            //alert(evt.type);
+                            GREUtils.Sound.play('chrome://viviecr/content/sound/beep.wav');
+                        }
+                        break;
+
+                    case 'afterTaxShift':
+                        if (GeckoJS.Configure.read('vivipos.fec.settings.beepOnTaxStatusShift')) {
+                            //alert(evt.type);
+                            GREUtils.Sound.play('chrome://viviecr/content/sound/beep.wav');
+                        }
+                        break;
+
+                    default:
+                        break;
+
+                }
+            }
         },
 
         beforeAddBuffer: function () {
@@ -149,6 +275,7 @@
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             var productsById = GeckoJS.Session.get('productsById');
             var setItemsStockStatus = 1;
+            var setItemsAgeVerificationRequired = 0;
 
             // cart.log('Item:' + cart.dump(item));
 
@@ -164,6 +291,13 @@
             if (item.setmenu != null && item.setmenu.length > 0) {
                 // invoke Product controller to get
                 setItems = GeckoJS.Controller.getInstanceByName('Plus')._setMenuFromString(item);
+                for (var i = 0; i < setItems.length; i++) {
+                    var product = productsById[setItems[i].item_id];
+                    if (product && product.age_verification) {
+                        setItemsAgeVerificationRequired = 1;
+                        break;
+                    }
+                }
             }
             // check stock status...
             if ( !cart._returnMode) {
@@ -194,7 +328,7 @@
 
             // check if age verification required
             if ( !evt._cancel) {
-                if (!cart._returnMode && item.age_verification) {
+                if (!cart._returnMode && (item.age_verification || setItemsAgeVerificationRequired)) {
                     var obj = { item: item };
 
                     cart.dispatchEvent('onAgeVerification', obj);
@@ -364,6 +498,7 @@
                         this.addMemo(plu);
                     }
                 }
+
                 // single item sale?
                 if (plu.single && curTransaction.data.items_count == 1) {
                     this.dispatchEvent('onWarning', _('SINGLE ITEM SALE'));
@@ -376,7 +511,6 @@
             else {
                 this.subtotal();
             }
-            
         },
 	
         addItemByBarcode: function(barcode) {
@@ -683,7 +817,6 @@
             this.dispatchEvent('beforeVoidItem', itemTrans);
 
             var voidedItem = curTransaction.voidItemAt(index);
-
             this.dispatchEvent('afterVoidItem', voidedItem);
 
             this.subtotal();
@@ -1124,7 +1257,7 @@
             this.dispatchEvent('beforeAddMarker', type);
 
             var markerItem = curTransaction.appendMarker(index, type);
-
+            
             this.dispatchEvent('afterAddMarker', markerItem);
 
             GeckoJS.Session.remove('cart_set_price_value');
@@ -1598,6 +1731,8 @@
                 return; // fatal error ?
             }
 
+            this.dispatchEvent('beforeCancel', curTransaction);
+
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 this._cartView.empty();
                 return ;
@@ -1611,7 +1746,7 @@
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
 
-            this.dispatchEvent('onCancel', curTransaction);
+            this.dispatchEvent('afterCancel', curTransaction);
             
         },
 	

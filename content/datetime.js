@@ -48,7 +48,7 @@
                 catch (e) {
                     //@todo OSD
 
-                    NotifyUtils.warn(_('Failed to setting date/time'));
+                    NotifyUtils.warn(_('Failed to set date/time'));
                 }
                 return true;
             },

@@ -231,12 +231,13 @@
 
         createAddonTaxList: function () {
 
-            var taxes = this.Tax.getTaxList('ADDON');
-            var panelView =  new NSIAddonTaxesView(taxes);
-            this.getAddonListObj().datasource = panelView;
+            if (this.getAddonListObj() != null) {
+                var taxes = this.Tax.getTaxList('ADDON');
+                var panelView =  new NSIAddonTaxesView(taxes);
+                this.getAddonListObj().datasource = panelView;
 
-            this._listAddonDatas = taxes;
-
+                this._listAddonDatas = taxes;
+            }
         },
 
         load: function (index) {
