@@ -14,6 +14,7 @@
 
         doSetOKCancel(
             function(){
+                $do('save', null, 'Devices');
                 return true;
             },
             function(){

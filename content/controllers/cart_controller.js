@@ -276,6 +276,7 @@
             var productsById = GeckoJS.Session.get('productsById');
             var setItemsStockStatus = 1;
             var setItemsAgeVerificationRequired = 0;
+            var allowZeroPresetPrice = GeckoJS.Configure.read('vivipos.fec.settings.AllowZeroPresetPrice');
 
             // cart.log('Item:' + cart.dump(item));
 
@@ -285,6 +286,9 @@
             if (sellQty == null) sellQty = 1;
 
             sellPrice  = (GeckoJS.Session.get('cart_set_price_value') != null) ? GeckoJS.Session.get('cart_set_price_value') : sellPrice;
+
+            // check if zero preset price is allowed
+            // @todo
 
             // retrieve set menu items only if setmenu is set
             var setItems = [];
@@ -501,8 +505,8 @@
 
                 // single item sale?
                 if (plu.single && curTransaction.data.items_count == 1) {
-                    this.dispatchEvent('onWarning', _('SINGLE ITEM SALE'));
                     this.addPayment('cash');
+                    this.dispatchEvent('onWarning', _('SINGLE ITEM SALE'));
                 }
                 else {
                     this.subtotal();

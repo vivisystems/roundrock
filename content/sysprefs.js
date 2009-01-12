@@ -45,5 +45,5 @@ function closePreferences() {
 
 function setVolume(volume, silent) {
     if (silent == null) silent = true;
-    opener.opener.$do('setVolume', [volume, silent], 'Sound');
+    $do('setVolume', [volume * 10, silent], 'Sound');
 }

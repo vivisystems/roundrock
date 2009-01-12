@@ -32,8 +32,8 @@
         <!-- Receipt configuration -->
         <tabpanels>
             <tabpanel id="receipt-panel" orient="vertical">
+                <checkbox label="Receipt Printer 1" name="receipt-1-enabled" value="false" default="false" form="deviceForm"/>
                 <vbox class="panelContainer">
-                    <label value="Receipt Printer 1"/>
                     <grid>
                         <columns>
                             <column flex="0"/>
@@ -65,7 +65,8 @@
                             </row>
                             <row>
                                 <label value="Device Model"/>
-                                <menulist id="receipt-1-devicemodel" name="receipt-1-devicemodel" form="deviceForm">
+                                <menulist id="receipt-1-devicemodel" name="receipt-1-devicemodel" form="deviceForm"
+                                          oncommand="$do('updateEncodings', [this, document.getElementById('receipt-1-encoding')], 'Devices')">
                                     <menupopup id="receipt-1-devicemodel-popup">
                                     </menupopup>
                                 </menulist>
@@ -82,8 +83,10 @@
                     <checkbox id="receipt-1-autoprint" label="Print receipt automatically" value="false" name="receipt-1-autoprint" form="deviceForm"/>
                 </vbox>
 
+                <spacer height="15px"/>
+                
+                <checkbox label="Receipt Printer 2" name="receipt-2-enabled" value="false" default="false" form="deviceForm"/>
                 <vbox class="panelContainer">
-                    <label value="Receipt Printer 2"/>
                     <grid>
                         <columns>
                             <column flex="0"/>
@@ -115,7 +118,8 @@
                             </row>
                             <row>
                                 <label value="Device Model"/>
-                                <menulist id="receipt-2-devicemodel" name="receipt-2-devicemodel" form="deviceForm">
+                                <menulist id="receipt-2-devicemodel" name="receipt-2-devicemodel" form="deviceForm"
+                                          oncommand="$do('updateEncodings', [this, document.getElementById('receipt-2-encoding')], 'Devices')">
                                     <menupopup id="receipt-2-devicemodel-popup">
                                     </menupopup>
                                 </menulist>
@@ -134,10 +138,305 @@
             </tabpanel>
 
         <!-- Guest Check configuration -->
+            <tabpanel id="guestcheck-panel" orient="vertical">
+                <checkbox label="Guest Check Printer 1" name="guestcheck-1-enabled" value="false" default="false" form="deviceForm"/>
+                <vbox class="panelContainer">
+                    <grid>
+                        <columns>
+                            <column flex="0"/>
+                            <column flex="1"/>
+                            <column flex="0"/>
+                            <column flex="1"/>
+                        </columns>
+                        <rows>
+                            <row>
+                                <label value="Template"/>
+                                <menulist id="guestcheck-1-template" name="guestcheck-1-template" form="deviceForm">
+                                    <menupopup id="guestcheck-1-template-popup">
+                                    </menupopup>
+                                </menulist>
+                            </row>
+                            <row>
+                                <label value="Device Port"/>
+                                <menulist id="guestcheck-1-port" name="guestcheck-1-port" form="deviceForm">
+                                    <menupopup id="guestcheck-1-port-popup">
+                                    </menupopup>
+                                </menulist>
+                            </row>
+                            <row>
+                                <label value="Port Speed"/>
+                                <menulist id="guestcheck-1-portspeed" name="guestcheck-1-portspeed" form="deviceForm">
+                                    <menupopup id="guestcheck-1-portspeed-popup">
+                                    </menupopup>
+                                </menulist>
+                            </row>
+                            <row>
+                                <label value="Device Model"/>
+                                <menulist id="guestcheck-1-devicemodel" name="guestcheck-1-devicemodel" form="deviceForm"
+                                          oncommand="$do('updateEncodings', [this, document.getElementById('guestcheck-1-encoding')], 'Devices')">
+                                    <menupopup id="guestcheck-1-devicemodel-popup">
+                                    </menupopup>
+                                </menulist>
+                            </row>
+                            <row>
+                                <label value="Encoding"/>
+                                <menulist id="guestcheck-1-encoding" name="guestcheck-1-encoding" form="deviceForm">
+                                    <menupopup id="guestcheck-1-encoding-popup">
+                                    </menupopup>
+                                </menulist>
+                            </row>
+                        </rows>
+                    </grid>
+                </vbox>
 
-        <!-- Guest Check configuration -->
+                <spacer height="15px"/>
 
-        <!-- Guest Check configuration -->
+                <checkbox label="Guest Check Printer 2" name="guestcheck-2-enabled" value="false" default="false" form="deviceForm"/>
+                <grid class="panelContainer">
+                    <columns>
+                        <column flex="0"/>
+                        <column flex="1"/>
+                        <column flex="0"/>
+                        <column flex="1"/>
+                    </columns>
+                    <rows>
+                        <row>
+                            <label value="Template"/>
+                            <menulist id="guestcheck-2-template" name="guestcheck-2-template" form="deviceForm">
+                                <menupopup id="guestcheck-2-template-popup">
+                                </menupopup>
+                            </menulist>
+                        </row>
+                        <row>
+                            <label value="Device Port"/>
+                            <menulist id="guestcheck-2-port" name="guestcheck-2-port" form="deviceForm">
+                                <menupopup id="guestcheck-2-port-popup">
+                                </menupopup>
+                            </menulist>
+                        </row>
+                        <row>
+                            <label value="Port Speed"/>
+                            <menulist id="guestcheck-2-portspeed" name="guestcheck-2-portspeed" form="deviceForm">
+                                <menupopup id="guestcheck-2-portspeed-popup">
+                                </menupopup>
+                            </menulist>
+                        </row>
+                        <row>
+                            <label value="Device Model"/>
+                            <menulist id="guestcheck-2-devicemodel" name="guestcheck-2-devicemodel" form="deviceForm"
+                                      oncommand="$do('updateEncodings', [this, document.getElementById('guestcheck-2-encoding')], 'Devices')">
+                                <menupopup id="guestcheck-2-devicemodel-popup">
+                                </menupopup>
+                            </menulist>
+                        </row>
+                        <row>
+                            <label value="Encoding"/>
+                            <menulist id="guestcheck-2-encoding" name="guestcheck-2-encoding" form="deviceForm">
+                                <menupopup id="guestcheck-2-encoding-popup">
+                                </menupopup>
+                            </menulist>
+                        </row>
+                    </rows>
+                </grid>
+            </tabpanel>
+
+        <!-- VFD configuration -->
+            <tabpanel id="vfd-panel" orient="vertical">
+                <checkbox label="VFD 1" name="vfd-1-enabled" value="false" default="false" form="deviceForm"/>
+                <vbox class="panelContainer">
+                    <grid>
+                        <columns>
+                            <column flex="0"/>
+                            <column flex="1"/>
+                            <column flex="0"/>
+                            <column flex="1"/>
+                        </columns>
+                        <rows>
+                            <row>
+                                <label value="Template"/>
+                                <menulist id="vfd-1-template" name="vfd-1-template" form="deviceForm">
+                                    <menupopup id="vfd-1-template-popup">
+                                    </menupopup>
+                                </menulist>
+                            </row>
+                            <row>
+                                <label value="Device Port"/>
+                                <menulist id="vfd-1-port" name="vfd-1-port" form="deviceForm">
+                                    <menupopup id="vfd-1-port-popup">
+                                    </menupopup>
+                                </menulist>
+                            </row>
+                            <row>
+                                <label value="Port Speed"/>
+                                <menulist id="vfd-1-portspeed" name="vfd-1-portspeed" form="deviceForm">
+                                    <menupopup id="vfd-1-portspeed-popup">
+                                    </menupopup>
+                                </menulist>
+                            </row>
+                            <row>
+                                <label value="Device Model"/>
+                                <menulist id="vfd-1-devicemodel" name="vfd-1-devicemodel" form="deviceForm"
+                                          oncommand="$do('updateEncodings', [this, document.getElementById('vfd-1-encoding')], 'Devices')">
+                                    <menupopup id="vfd-1-devicemodel-popup">
+                                    </menupopup>
+                                </menulist>
+                            </row>
+                            <row>
+                                <label value="Encoding"/>
+                                <menulist id="vfd-1-encoding" name="vfd-1-encoding" form="deviceForm">
+                                    <menupopup id="vfd-1-encoding-popup">
+                                    </menupopup>
+                                </menulist>
+                            </row>
+                        </rows>
+                    </grid>
+                </vbox>
+
+                <spacer height="15px"/>
+
+                <checkbox label="VFD 2" name="vfd-2-enabled" value="false" default="false" form="deviceForm"/>
+                <grid class="panelContainer">
+                    <columns>
+                        <column flex="0"/>
+                        <column flex="1"/>
+                        <column flex="0"/>
+                        <column flex="1"/>
+                    </columns>
+                    <rows>
+                        <row>
+                            <label value="Template"/>
+                            <menulist id="vfd-2-template" name="vfd-2-template" form="deviceForm">
+                                <menupopup id="vfd-2-template-popup">
+                                </menupopup>
+                            </menulist>
+                        </row>
+                        <row>
+                            <label value="Device Port"/>
+                            <menulist id="vfd-2-port" name="vfd-2-port" form="deviceForm">
+                                <menupopup id="vfd-2-port-popup">
+                                </menupopup>
+                            </menulist>
+                        </row>
+                        <row>
+                            <label value="Port Speed"/>
+                            <menulist id="vfd-2-portspeed" name="vfd-2-portspeed" form="deviceForm">
+                                <menupopup id="vfd-2-portspeed-popup">
+                                </menupopup>
+                            </menulist>
+                        </row>
+                        <row>
+                            <label value="Device Model"/>
+                            <menulist id="vfd-2-devicemodel" name="vfd-2-devicemodel" form="deviceForm"
+                                      oncommand="$do('updateEncodings', [this, document.getElementById('vfd-2-encoding')], 'Devices')">
+                                <menupopup id="vfd-2-devicemodel-popup">
+                                </menupopup>
+                            </menulist>
+                        </row>
+                        <row>
+                            <label value="Encoding"/>
+                            <menulist id="vfd-2-encoding" name="vfd-2-encoding" form="deviceForm">
+                                <menupopup id="vfd-2-encoding-popup">
+                                </menupopup>
+                            </menulist>
+                        </row>
+                    </rows>
+                </grid>
+            </tabpanel>
+
+        <!-- Cash Drawer configuration -->
+            <tabpanel id="cashdrawer-panel" orient="vertical">
+                <checkbox label="Cash Drawer 1" name="cashdrawer-1-enabled" value="false" default="false" form="deviceForm"/>
+                <vbox class="panelContainer">
+                    <grid>
+                        <columns>
+                            <column flex="0"/>
+                            <column flex="1"/>
+                            <column flex="0"/>
+                            <column flex="1"/>
+                        </columns>
+                        <rows>
+                            <row>
+                                <label value="Type"/>
+                                <menulist id="cashdrawer-1-type" name="cashdrawer-1-type" form="deviceForm"
+                                          oncommand="$do('updateCashdrawerType', [this, document.getElementById('cashdrawer-1-devicemodel')], 'Devices')">
+                                    <menupopup id="cashdrawer-1-template-popup">
+                                        <menuitem label="GPIO" value="gpio"/>
+                                        <menuitem label="Printer" value="printer"/>
+                                    </menupopup>
+                                </menulist>
+                            </row>
+                            <row>
+                                <label value="Device Port"/>
+                                <menulist id="cashdrawer-1-port" name="cashdrawer-1-port" form="deviceForm">
+                                    <menupopup id="cashdrawer-1-port-popup">
+                                    </menupopup>
+                                </menulist>
+                            </row>
+                            <row>
+                                <label value="Port Speed"/>
+                                <menulist id="cashdrawer-1-portspeed" name="cashdrawer-1-portspeed" form="deviceForm">
+                                    <menupopup id="cashdrawer-1-portspeed-popup">
+                                    </menupopup>
+                                </menulist>
+                            </row>
+                            <row>
+                                <label value="Device Model"/>
+                                <menulist id="cashdrawer-1-devicemodel" name="cashdrawer-1-devicemodel" form="deviceForm">
+                                    <menupopup id="cashdrawer-1-devicemodel-popup">
+                                    </menupopup>
+                                </menulist>
+                            </row>
+                        </rows>
+                    </grid>
+                </vbox>
+
+                <spacer height="15px"/>
+
+                <checkbox label="Cash Drawer 2" name="cashdrawer-2-enabled" value="false" default="false" form="deviceForm"/>
+                <vbox class="panelContainer">
+                    <grid>
+                        <columns>
+                            <column flex="0"/>
+                            <column flex="1"/>
+                            <column flex="0"/>
+                            <column flex="1"/>
+                        </columns>
+                        <rows>
+                            <row>
+                                <label value="Type"/>
+                                <menulist id="cashdrawer-2-type" name="cashdrawer-2-type" form="deviceForm"
+                                          oncommand="$do('updateCashdrawerType', [this, document.getElementById('cashdrawer-2-devicemodel')], 'Devices')">
+                                    <menupopup id="cashdrawer-2-template-popup">
+                                        <menuitem label="GPIO" value="gpio"/>
+                                        <menuitem label="Printer" value="printer"/>
+                                    </menupopup>
+                                </menulist>
+                            </row>
+                            <row>
+                                <label value="Device Port"/>
+                                <menulist id="cashdrawer-2-port" name="cashdrawer-2-port" form="deviceForm">
+                                    <menupopup id="cashdrawer-2-port-popup">
+                                    </menupopup>
+                                </menulist>
+                            </row>
+                            <row>
+                                <label value="Port Speed"/>
+                                <menulist id="cashdrawer-2-portspeed" name="cashdrawer-2-portspeed" form="deviceForm">
+                                    <menupopup id="cashdrawer-2-portspeed-popup">
+                                    </menupopup>
+                                </menulist>
+                            </row>
+                            <row>
+                                <label value="Device Model"/>
+                                <menulist id="cashdrawer-2-devicemodel" name="cashdrawer-2-devicemodel" form="deviceForm">
+                                    <menupopup id="cashdrawer-2-devicemodel-popup">
+                                    </menupopup>
+                                </menulist>
+                            </row>
+                        </rows>
+                    </grid>
+                </vbox>
+            </tabpanel>
 
         </tabpanels>
     </tabbox>

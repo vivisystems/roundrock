@@ -32,6 +32,7 @@
             <preference id="pref_changedepartmentclearbuffer" name="vivipos.fec.settings.ChangeDepartmentClearBuffer" type="bool" />
             <preference id="pref_allowoverstock" name="vivipos.fec.settings.AllowOverStock" type="bool" />
             <preference id="pref_ageverificationack" name="vivipos.fec.settings.AgeVerificationAck" type="bool" />
+            <preference id="pref_allowzeropresetprice" name="vivipos.fec.settings.AllowZeroPresetPrice" type="bool" />
 
         </preferences>
         <hbox align="center">
@@ -46,6 +47,7 @@
         <checkbox preference="pref_changedepartmentclearbuffer" id="pref_changedepartmentclearbufferCtrl" label="&changedepartmentclearbuffer;" />
         <checkbox preference="pref_allowoverstock" id="pref_allowoverstockCtrl" label="&allowoverstock;" />
         <checkbox preference="pref_ageverificationack" id="pref_ageverificationackCtrl" label="&ageverificationack;" />
+        <checkbox preference="pref_allowzeropresetprice" id="pref_allowzeropresetpriceCtrl" label="&allowzeropresetrice;" />
 
         <hbox align="center">
             <label control="precisionprices" value="&defaultpricelevel;"/>

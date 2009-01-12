@@ -29,6 +29,7 @@
             this.requestCommand('initial', null, 'Cart');
             this.requestCommand('initial', null, 'CurrencySetup');
             this.requestCommand('initial', null, 'Sound');
+            this.requestCommand('initial', null, 'Devices');
 
             this.resetLayout(true);
             this.initialLogin();
