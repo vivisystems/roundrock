@@ -43,7 +43,7 @@ function closePreferences() {
     $do('setDefaultTaxStatus', null, 'Taxes');
 }
 
-function setVolume(volume) {
-    opener.opener.$do('setVolume', volume, 'Sound');
-    GREUtils.Sound.play('chrome://viviecr/content/sound/beep.wav');
+function setVolume(volume, silent) {
+    if (silent == null) silent = true;
+    opener.opener.$do('setVolume', [volume, silent], 'Sound');
 }

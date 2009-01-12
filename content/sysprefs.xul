@@ -13,8 +13,6 @@
 
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/users.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/controllers/components/tax.js"/>
-    <script type="application/x-javascript" src="chrome://viviecr/content/helpers/nsi_taxes_view.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/taxes.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/controllers/sound_controller.js" />
     <!-- users.js & taxes.js must load before sysprefs.js -->
@@ -243,7 +241,7 @@
         <separator width="2" flex="0"/>
         <hbox class="panelContainer">
             <label value="&sound.volume.label;"/>
-            <scale id="volume-scale" min="0" max="63" flex="1" onchange="setVolume(this.value)"/>
+            <scale id="volume-scale" min="0" max="100" flex="1"/>
         </hbox>
 
     </prefpane>
