@@ -61,3 +61,17 @@
     max-width: 350px;
     min-width: 350px;
 }
+
+/*-----------------------------------------------------------------------------
+ * GENERIC PANEL CONTAINER
+ *-----------------------------------------------------------------------------
+ *
+ */
+
+.panelContainer {
+    border: 2px groove;
+    padding: 5px;
+    margin: 5px;
+    -moz-border-radius: 8px;
+}
+

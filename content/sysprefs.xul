@@ -241,7 +241,7 @@
         <separator width="2" flex="0"/>
         <hbox class="panelContainer">
             <label value="&sound.volume.label;"/>
-            <scale id="volume-scale" min="0" max="100" flex="1"/>
+            <scale id="volume-scale" min="0" max="10" pageincrement="1" flex="1"/>
         </hbox>
 
     </prefpane>

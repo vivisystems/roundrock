@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % Devices SYSTEM "chrome://viviecr/locale/devices.dtd">
+  %Devices;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+<window title="&devices.title;"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script>
+    </script>
+
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/devices.js" />
+
+    <tabbox class="main-dialog" flex="1">
+
+        <tabs>
+            <tab id="receipt-tab" label="Receipt"/>
+            <tab id="guestcheck-tab" label="Guest Check"/>
+            <tab id="vfd-tab" label="VFD"/>
+            <tab id="cashdrawer-tab" label="Cash Drawer"/>
+        </tabs>
+
+        <!-- Receipt configuration -->
+        <tabpanels>
+            <tabpanel id="receipt-panel" orient="vertical">
+                <vbox class="panelContainer">
+                    <label value="Receipt Printer 1"/>
+                    <grid>
+                        <columns>
+                            <column flex="0"/>
+                            <column flex="1"/>
+                            <column flex="0"/>
+                            <column flex="1"/>
+                        </columns>
+                        <rows>
+                            <row>
+                                <label value="Template"/>
+                                <menulist id="receipt-1-template" name="receipt-1-template" form="deviceForm">
+                                    <menupopup id="receipt-1-template-popup">
+                                    </menupopup>
+                                </menulist>
+                            </row>
+                            <row>
+                                <label value="Device Port"/>
+                                <menulist id="receipt-1-port" name="receipt-1-port" form="deviceForm">
+                                    <menupopup id="receipt-1-port-popup">
+                                    </menupopup>
+                                </menulist>
+                            </row>
+                            <row>
+                                <label value="Port Speed"/>
+                                <menulist id="receipt-1-portspeed" name="receipt-1-portspeed" form="deviceForm">
+                                    <menupopup id="receipt-1-portspeed-popup">
+                                    </menupopup>
+                                </menulist>
+                            </row>
+                            <row>
+                                <label value="Device Model"/>
+                                <menulist id="receipt-1-devicemodel" name="receipt-1-devicemodel" form="deviceForm">
+                                    <menupopup id="receipt-1-devicemodel-popup">
+                                    </menupopup>
+                                </menulist>
+                            </row>
+                            <row>
+                                <label value="Encoding"/>
+                                <menulist id="receipt-1-encoding" name="receipt-1-encoding" form="deviceForm">
+                                    <menupopup id="receipt-1-encoding-popup">
+                                    </menupopup>
+                                </menulist>
+                            </row>
+                        </rows>
+                    </grid>
+                    <checkbox id="receipt-1-autoprint" label="Print receipt automatically" value="false" name="receipt-1-autoprint" form="deviceForm"/>
+                </vbox>
+
+                <vbox class="panelContainer">
+                    <label value="Receipt Printer 2"/>
+                    <grid>
+                        <columns>
+                            <column flex="0"/>
+                            <column flex="1"/>
+                            <column flex="0"/>
+                            <column flex="1"/>
+                        </columns>
+                        <rows>
+                            <row>
+                                <label value="Template"/>
+                                <menulist id="receipt-2-template" name="receipt-2-template" form="deviceForm">
+                                    <menupopup id="receipt-2-template-popup">
+                                    </menupopup>
+                                </menulist>
+                            </row>
+                            <row>
+                                <label value="Device Port"/>
+                                <menulist id="receipt-2-port" name="receipt-2-port" form="deviceForm">
+                                    <menupopup id="receipt-2-port-popup">
+                                    </menupopup>
+                                </menulist>
+                            </row>
+                            <row>
+                                <label value="Port Speed"/>
+                                <menulist id="receipt-2-portspeed" name="receipt-2-portspeed" form="deviceForm">
+                                    <menupopup id="receipt-2-portspeed-popup">
+                                    </menupopup>
+                                </menulist>
+                            </row>
+                            <row>
+                                <label value="Device Model"/>
+                                <menulist id="receipt-2-devicemodel" name="receipt-2-devicemodel" form="deviceForm">
+                                    <menupopup id="receipt-2-devicemodel-popup">
+                                    </menupopup>
+                                </menulist>
+                            </row>
+                            <row>
+                                <label value="Encoding"/>
+                                <menulist id="receipt-2-encoding" name="receipt-2-encoding" form="deviceForm">
+                                    <menupopup id="receipt-2-encoding-popup">
+                                    </menupopup>
+                                </menulist>
+                            </row>
+                        </rows>
+                    </grid>
+                    <checkbox id="receipt-2-autoprint" label="Print receipt automatically" value="false" name="receipt-2-autoprint" form="deviceForm"/>
+                </vbox>
+            </tabpanel>
+
+        <!-- Guest Check configuration -->
+
+        <!-- Guest Check configuration -->
+
+        <!-- Guest Check configuration -->
+
+        </tabpanels>
+    </tabbox>
+  
+    <hbox id="dialogButtons" class="dialogbtns" pack="center">
+        <button class="right exit-dialog" id="ok" label="&dialog.applyButton.label;" default="true" oncommand="doOKButton();"/>
+        <button class="exit-dialog" id="cancel" label="&dialog.cancelButton.label;" default="false" oncommand="doCancelButton();"/>
+    </hbox>
+
+</window>
