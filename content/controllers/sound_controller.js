@@ -20,6 +20,14 @@
             if (scale) scale.value = GeckoJS.Configure.read('vivipos.fec.settings.sound.volume');
         },
 
+        beep: function () {
+            GREUtils.Sound.play('chrome://viviecr/content/sounds/beep.wav');
+        },
+
+        warn: function () {
+            GREUtils.Sound.play('chrome://viviecr/content/sounds/warn.wav');
+        },
+
         // set alsamixer volume - called from sysprefs.js
         setVolume: function(volume) {
             GeckoJS.Configure.write('vivipos.fec.settings.sound.volume', volume);
