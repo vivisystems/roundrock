@@ -72,6 +72,8 @@ include('chrome://viviecr/content/controllers/pricelevelschedule_controller.js')
 include('chrome://viviecr/content/controllers/plusearch_controller.js');
 include('chrome://viviecr/content/controllers/stocks_controller.js');
 include('chrome://viviecr/content/controllers/currencysetup_controller.js');
+include('chrome://viviecr/content/controllers/sound_controller.js');
+include('chrome://viviecr/content/controllers/devices_controller.js');
 
 include('chrome://viviecr/content/controllers/test_controller.js');
 

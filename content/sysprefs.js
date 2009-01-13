@@ -24,6 +24,7 @@
         $do('initTaxStatus', defaultTaxStatus, 'Taxes');
 
         $do('load', null, 'Plufilters');
+        $do('load', null, 'Sound');
 
         var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
         var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
@@ -40,4 +41,9 @@ function closePreferences() {
     opener.opener.$do('resetLayout', null, 'Main');
     $do('setDefaultUser', null, 'Users');
     $do('setDefaultTaxStatus', null, 'Taxes');
+}
+
+function setVolume(volume, silent) {
+    if (silent == null) silent = true;
+    $do('setVolume', [volume * 10, silent], 'Sound');
 }

@@ -258,7 +258,7 @@
             else {
                 var group = $('#aclgroup_name').val();
 
-                modifyBtn.setAttribute('disabled', group == 'admin');
+                modifyBtn.setAttribute('disabled', false && group == 'admin');
                 deleteBtn.setAttribute('disabled', group == 'admin');
             }
         }

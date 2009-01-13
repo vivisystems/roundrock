@@ -56,4 +56,17 @@
 <!ENTITY plufilter.length "長度">
 <!ENTITY plufilter.add "新增條件">
 <!ENTITY plufilter.remove "移除條件">
+<!ENTITY category.sound "Sound">
+<!ENTITY sound.beepOnItemAdd "Beep on item registrations">
+<!ENTITY sound.beepOnScanningError "Beep on scanning errors">
+<!ENTITY sound.beepOnModify "Beep on modifications">
+<!ENTITY sound.beepOnDiscountSurcharge "Beep on discounts and surcharges">
+<!ENTITY sound.beepOnPayment "Beep on payments">
+<!ENTITY sound.beepOnTaxStatusShift "Beep on tax status shifts">
+<!ENTITY sound.beepOnVOID "Beep on VOID">
+<!ENTITY sound.beepOnCANCEL "Beep on CANCEL">
+<!ENTITY sound.beepOnSubtotal "Beep on Subtotal">
+<!ENTITY sound.beepOnTotal "Beep on Total">
+<!ENTITY sound.beepOnTrayMarker "Beep on Tray Marker">
+<!ENTITY sound.volume.label "Volume">
 

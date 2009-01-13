@@ -50,10 +50,23 @@
 <!ENTITY layout.functionpanel.label "Function panel dimensions">
 <!ENTITY layout.functionpanel.rows "rows">
 <!ENTITY layout.functionpanel.cols "columns">
-<!ENTITY plufilter.title "Plu Filter Definition">
+<!ENTITY plufilter.title "Product Filter Definition">
 <!ENTITY plufilter.filtername "Filter Name">
 <!ENTITY plufilter.index "Index">
 <!ENTITY plufilter.length "Length">
 <!ENTITY plufilter.add "Add Filter">
 <!ENTITY plufilter.remove "Remove Filter">
-
+<!ENTITY category.sound "Sound">
+<!ENTITY sound.beepOnItemAdd "Beep on item registrations">
+<!ENTITY sound.beepOnScanningError "Beep on scanning errors">
+<!ENTITY sound.beepOnModify "Beep on modifications">
+<!ENTITY sound.beepOnDiscountSurcharge "Beep on discounts and surcharges">
+<!ENTITY sound.beepOnPayment "Beep on payments">
+<!ENTITY sound.beepOnTaxStatusShift "Beep on tax status shifts">
+<!ENTITY sound.beepOnVOID "Beep on VOID">
+<!ENTITY sound.beepOnCANCEL "Beep on CANCEL">
+<!ENTITY sound.beepOnSubtotal "Beep on Subtotal">
+<!ENTITY sound.beepOnTotal "Beep on Total">
+<!ENTITY sound.beepOnTrayMarker "Beep on Tray Marker">
+<!ENTITY sound.volume.label "Volume">
+<!ENTITY allowzeropresetprice "Allow registration of items with preset price of zero">

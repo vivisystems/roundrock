@@ -28,8 +28,8 @@ var options = {};
 
         doSetOKCancel(
             function(){
-                inputObj.input0 = document.getElementById('input0').value.replace(/^\s*/g, '').replace(/\s*$/g, '');
-                inputObj.input1 = document.getElementById('input1').value.replace(/^\s*/g, '').replace(/\s*$/g, '');
+                inputObj.input0 = GeckoJS.String.trim(document.getElementById('input0').value);
+                inputObj.input1 = GeckoJS.String.trim(document.getElementById('input1').value);
                 inputObj.ok = true;
                 return true;
             },
@@ -86,8 +86,8 @@ function validateInput() {
     var trimmed0 = '';
     var trimmed1 = '';
     try {
-        var trimmed0 = input0.replace(/^\s*/g, '').replace(/\s*$/g, '');
-        var trimmed1 = input1.replace(/^\s*/g, '').replace(/\s*$/g, '');
+        var trimmed0 = GeckoJS.String.trim(input0);
+        var trimmed1 = GeckoJS.String.trim(input1);
     }
     catch (e) {}
 

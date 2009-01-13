@@ -60,3 +60,4 @@ pref("vivipos.fec.acl.roles.acl_manage_locale_keyboard", "acl_manage_locale_keyb
 pref("vivipos.fec.acl.roles.acl_register_pretax_discount", "acl_register_pretax_discount");
 pref("vivipos.fec.acl.roles.acl_register_pretax_surcharge", "acl_register_pretax_surcharge");
 pref("vivipos.fec.acl.roles.acl_manage_date_time", "acl_manage_date_time");
+pref("vivipos.fec.acl.roles.acl_manage_devices", "acl_manage_devices");

@@ -1209,7 +1209,8 @@
 
         // create data object to push in items array
         var markerItem = {
-            name: '** ' + type.toUpperCase()
+            name: '** ' + type.toUpperCase(),
+            type: type
         };
         
         var remain = this.getRemainTotal();
@@ -1256,7 +1257,7 @@
 
         this.updateCartView(prevRowCount, currentRowCount, currentRowCount - 1);
 
-        return item;
+        return markerItem;
 
     
     };
@@ -1402,6 +1403,7 @@
 
         this.calcTotal();
 
+        return paymentItem;
     };
 
     Transaction.prototype.getItemAt = function(index, inclusive){
