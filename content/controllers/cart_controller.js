@@ -1472,7 +1472,7 @@
 
         setQty: function(qty) {
 
-            var qty0 = parseInt(qty);
+            var qty0 = parseInt(qty, 10);
             GeckoJS.Session.set('cart_set_qty_value', qty0);
             this.dispatchEvent('onSetQty', qty0);
 		

@@ -7,6 +7,8 @@
 <!ENTITY systembackup.backuptolocal "備份至本機">
 <!ENTITY systembackup.restorefromstick "從外接式大姆碟回復系統">
 <!ENTITY systembackup.restorefromlocal "從本機備份回復系統">
+<!ENTITY systembackup.backupwait "備份資料中, 請稍候...">
+<!ENTITY systembackup.restorewait "回復資料中, 請稍候...">
 
 <!ENTITY vivipos.fec.common.ok "完成">
 <!ENTITY vivipos.fec.common.cancel "取消">

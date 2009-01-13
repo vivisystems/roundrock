@@ -7,6 +7,9 @@
 <!ENTITY systembackup.backuptolocal "Backup to Local">
 <!ENTITY systembackup.restorefromstick "Restore from Stick">
 <!ENTITY systembackup.restorefromlocal "Resotre from Local">
+<!ENTITY systembackup.backupwait "Waitting for Backup Data...">
+<!ENTITY systembackup.restorewait "Waitting for Restore Data...">
+
 
 <!ENTITY vivipos.fec.common.ok "Ok">
 <!ENTITY vivipos.fec.common.cancel "Cancel">

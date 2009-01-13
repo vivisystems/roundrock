@@ -110,6 +110,9 @@ var ImageFilesView = window.ImageFilesView = GeckoJS.NSITreeViewArray.extend({
 
                     }
                 }
+            } else {
+                $('#lastMedia').attr('value', _('Media Not Found!'));
+                NotifyUtils.info(_('Please attach the USB thumb drive...'));
             }
 
             return deviceReady ;
@@ -204,7 +207,7 @@ var ImageFilesView = window.ImageFilesView = GeckoJS.NSITreeViewArray.extend({
             var total;
             var progmeter = document.getElementById("importprogressmeter");
 
-            var waitPanel = document.getElementById("export_wait_panel");
+            var waitPanel = document.getElementById("import_wait_panel");
             var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
             var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
             waitPanel.sizeTo(360, 120);
