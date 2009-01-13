@@ -67,16 +67,16 @@
 
         checkBackupDevices: function() {
 
-            // var osLastMedia = new GeckoJS.File('/tmp/last_media');
-            var osLastMedia = new GeckoJS.File('/var/tmp/vivipos/last_media');
+            var osLastMedia = new GeckoJS.File('/tmp/last_media');
+            // var osLastMedia = new GeckoJS.File('/var/tmp/vivipos/last_media');
 
             var last_media = "";
             var deviceNode = "";
             var deviceReady = false;
             this._backupDir = null;
 
-            // var deviceMount = "/media/";
-            var deviceMount = "/var/tmp/";
+            var deviceMount = "/media/";
+            // var deviceMount = "/var/tmp/";
 
             var hasMounted = false;
 
