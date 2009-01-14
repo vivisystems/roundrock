@@ -18,6 +18,7 @@
     
         initial: function() {
 
+
             this.screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
             this.screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
 
@@ -28,7 +29,6 @@
             this.requestCommand('initial', null, 'Pricelevel');
             this.requestCommand('initial', null, 'Cart');
             this.requestCommand('initial', null, 'CurrencySetup');
-            this.requestCommand('initial', null, 'Sound');
             this.requestCommand('initial', null, 'Devices');
 
             this.resetLayout(true);
@@ -58,7 +58,7 @@
             }).register();
 
             GeckoJS.Observer.notify(null, 'render', this);
-    },
+        },
 
         _getKeypadController: function() {
             return GeckoJS.Controller.getInstanceByName('Keypad');

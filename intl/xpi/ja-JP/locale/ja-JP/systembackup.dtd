@@ -1,0 +1,19 @@
+
+<!ENTITY systembackup.backup "機能バックアップ">
+<!ENTITY systembackup.restore "機能回復">
+<!ENTITY systembackup.local "本体バックアップ">
+<!ENTITY systembackup.stick "スティック">
+<!ENTITY systembackup.backuptostick "Copy Local to Stick >>>">
+<!ENTITY systembackup.backuptolocal "本体にバックアップ">
+<!ENTITY systembackup.restorefromstick "Restore from Stick">
+<!ENTITY systembackup.restorefromlocal "本体から回復">
+<!ENTITY systembackup.backupwait "Waitting for Backup Data...">
+<!ENTITY systembackup.restorewait "Waitting for Restore Data...">
+
+
+<!ENTITY vivipos.fec.common.ok "OK">
+<!ENTITY vivipos.fec.common.cancel "キャンセル">
+<!ENTITY vivipos.fec.common.add "新規・追加">
+<!ENTITY vivipos.fec.common.modify "修正">
+<!ENTITY vivipos.fec.common.delete "削除">
+

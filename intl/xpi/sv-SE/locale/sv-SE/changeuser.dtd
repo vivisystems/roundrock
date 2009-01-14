@@ -1,0 +1,6 @@
+<!ENTITY changeuser.title "Användar Logg In">
+<!ENTITY changeuser.keylabel.clear "RENSA">
+<!ENTITY changeuser.keylabel.del "DEL">
+<!ENTITY changeuser.keylabel.password "Lösenord:">
+<!ENTITY changeuser.keylabel.ok "OK">
+<!ENTITY changeuser.label.quicklogin "Snabb Login:">

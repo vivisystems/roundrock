@@ -1,0 +1,16 @@
+<!ENTITY numberpad.keylabel.queue.order "Köa Order">
+<!ENTITY numberpad.keylabel.pull.queue "Visa Kö">
+<!ENTITY numberpad.keylabel.clear "RENSA">
+<!ENTITY numberpad.keylabel.modify "MODIFIERA">
+<!ENTITY numberpad.keylabel.del "DEL">
+<!ENTITY numberpad.keylabel.void "RÄTTA">
+<!ENTITY numberpad.keylabel.enter "ENTER">
+<!ENTITY numberpad.keylabel.cancel "AVBRYT">
+<!ENTITY numberpad.keylabel.cash "KONTANT">
+<!ENTITY numberpad.keylabel.subtotal "SUB TOTAL">
+<!ENTITY numberpad.keylabel.plusearch "PRODUCT SEARCH">
+<!ENTITY numberpad.keylabel.tray "TRAY MARKER">
+<!ENTITY numberpad.keylabel.signoff "Logga UT">
+<!ENTITY numberpad.keylabel.times "X">
+<!ENTITY numberpad.keylabel.password "Lösenord:">
+<!ENTITY numberpad.keylabel.ok "OK">

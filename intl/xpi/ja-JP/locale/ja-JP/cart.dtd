@@ -1,0 +1,8 @@
+<!ENTITY cart.item.name "品名">
+<!ENTITY cart.item.qty "数量">
+<!ENTITY cart.item.unitprice "単価">
+<!ENTITY cart.item.subtotal "小計">
+<!ENTITY cart.item.tax "税別">
+<!ENTITY cart.button.plus "＋">
+<!ENTITY cart.button.minus "―">
+<!ENTITY cart.button.payments "支払い">

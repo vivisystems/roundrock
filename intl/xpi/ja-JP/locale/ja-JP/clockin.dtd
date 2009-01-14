@@ -1,0 +1,14 @@
+<!ENTITY clockin.title "User Clock In / Out">
+<!ENTITY clockin.heading.timein "出勤　">
+<!ENTITY clockin.heading.timeout "退勤">
+<!ENTITY clockin.heading.job "仕事">
+<!ENTITY clockin.title "User Clock In / Out">
+<!ENTITY clockin.title "出勤・退勤">
+<!ENTITY clockin.keylabel.clear "クリアー">
+<!ENTITY clockin.keylabel.del "削除">
+<!ENTITY clockin.keylabel.password "パスワード">
+<!ENTITY clockin.keylabel.ok "OK">
+<!ENTITY clockin.keylabel.clockin "出勤　">
+<!ENTITY clockin.keylabel.clockout "退勤">
+<!ENTITY clockin.keylabel.view "出勤記録">
+<!ENTITY clockin.headers.joblist "仕事内容">

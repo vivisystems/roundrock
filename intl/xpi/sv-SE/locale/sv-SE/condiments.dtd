@@ -1,0 +1,10 @@
+<!ENTITY condiments.group "Kondiment Grupp">
+<!ENTITY condiments.group.name "Grupp Namn:">
+<!ENTITY condiments.button.action.add "Lägg till">
+<!ENTITY condiments.button.action.modify "Modifiera">
+<!ENTITY condiments.button.action.delete "Tabort">
+<!ENTITY condiments.condiment "Kondiment">
+<!ENTITY condiments.condiment.name "Namn:">
+<!ENTITY condiments.condiment.price "Pris:">
+<!ENTITY condiments.condiment.button.color "Knapp Färg:">
+<!ENTITY condiments.condiment.font.size "Font Storlek:">

@@ -1,0 +1,10 @@
+<!ENTITY condiments.group "调味群组">
+<!ENTITY condiments.group.name "群组名称">
+<!ENTITY condiments.button.action.add "新增">
+<!ENTITY condiments.button.action.modify "修改">
+<!ENTITY condiments.button.action.delete "删除">
+<!ENTITY condiments.condiment "调味种类">
+<!ENTITY condiments.condiment.name "调味名称">
+<!ENTITY condiments.condiment.price "调味价格">
+<!ENTITY condiments.condiment.button.color "按钮颜色">
+<!ENTITY condiments.condiment.font.size "文字大小">

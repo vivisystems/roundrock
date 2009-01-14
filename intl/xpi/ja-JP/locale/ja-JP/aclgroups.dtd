@@ -1,0 +1,4 @@
+<!ENTITY aclgroups.title "Access Groups">
+<!ENTITY aclgroups.button.action.add "新規・追加">
+<!ENTITY aclgroups.button.action.modify "変更">
+<!ENTITY aclgroups.button.action.delete "削除">

@@ -1,0 +1,42 @@
+#. extracted from ../locale/en-US/reports/product_sales.dtd, ../locale/zh-TW/reports/product_sales.dtd
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-13 16:41+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.1.1\n"
+
+#: productsales.title
+msgid "Product Sales Report"
+msgstr "銷售報表"
+
+#: productsales.conditions
+msgid "Conditions:"
+msgstr "過濾條件:"
+
+#: productsales.startdate
+msgid "Start Date:"
+msgstr "起始時間:"
+
+#: productsales.enddate
+msgid "End Date:"
+msgstr "結束時間:"
+
+#: productsales.execute
+msgid "Execute"
+msgstr "執行"
+
+#: productsales.exportcsv
+msgid "Export to CSV"
+msgstr "匯出CSV檔"
+
+#: productsales.togglezoom
+msgid "Toggle Zoom"
+msgstr "縮放"
