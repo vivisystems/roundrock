@@ -1,0 +1,45 @@
+ESC ( C=
+ESC ( c=
+ESC C=
+ESC C NUL=
+ESC N=
+ESC O=
+ESC Q=
+ESC I=
+CR=
+LF=
+FF=
+ESC $=
+ESC \=
+ESC ( V=
+ESC ( v=
+ESC J=
+HT=
+VT=
+ESC f=
+BS=
+ESC ( U=
+ESC 0=
+ESC 1=
+ESC 2=
+ESC 3=
+ESC +=
+ESC A=
+ESC 1=
+ESC D=
+ESC B=
+ESC b=
+ESC /
+ESC e=
+ESC ( t=
+ESC t
+ESC R=
+ESC &
+ESC :=
+ESC %=
+ESC x=
+ESC k=
+ESC X=
+ESC c=
+ESC P=
+ESC M=
