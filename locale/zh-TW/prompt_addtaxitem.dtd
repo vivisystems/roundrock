@@ -1,5 +1,0 @@
-<!ENTITY prompt.addtaxitem.title  "選擇稅種:">
-<!ENTITY prompt.addtaxitem.included  "內含稅">
-<!ENTITY prompt.addtaxitem.addon  "外加稅">
-<!ENTITY prompt.addtaxitem.combined  "合併稅">
-<!ENTITY prompt.addtaxitem.vat  "稅上稅">

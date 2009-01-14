@@ -1,0 +1,4 @@
+1. EDIT SUPPORTS for supported language
+2. run make_pofiles.sh to make pofiles.
+3. run make_locales.sh to make locale from pofiles.
+4. run make_xpis.sh to make langpack-xx-XX.xpi files.

@@ -1,0 +1,66 @@
+#. extracted from ../locale/en-US/taxes.dtd, ./locale/sv-SE/taxes.dtd
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-15 00:38+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.1.1\n"
+
+#: taxes.title
+msgid "Taxes"
+msgstr "Momser"
+
+#: taxes.details
+msgid "Tax Details:"
+msgstr "Moms Detaljer:"
+
+#: taxes.code
+msgid "Tax Code:"
+msgstr "Moms Kod:"
+
+#: taxes.type
+msgid "Tax Type:"
+msgstr "Moms Typ:"
+
+#: taxes.name
+msgid "Tax Name:"
+msgstr "Moms Namn:"
+
+#: taxes.rate
+msgid "Tax Rate:"
+msgstr "Moms Kurs:"
+
+#: taxes.rate_type
+msgid "Rate Type:"
+msgstr "Kurs Typ:"
+
+#: taxes.rate_type.percentage
+msgid "Percentage"
+msgstr "Procent"
+
+#: taxes.rate_type.fixed_amount
+msgid "Fixed Amount"
+msgstr "Fixerat Värde"
+
+#: taxes.threshold
+msgid "Threshold:"
+msgstr "Gräns:"
+
+#: taxes.button.action.add
+msgid "Add"
+msgstr "Lägg till"
+
+#: taxes.button.action.modify
+msgid "Modify"
+msgstr "Modifiera"
+
+#: taxes.button.action.delete
+msgid "Delete"
+msgstr "Tabort"

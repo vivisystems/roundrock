@@ -1,0 +1,292 @@
+#. extracted from ../locale/en-US/funcpanelecrprefs.dtd, ./locale/zh-CN/funcpanelecrprefs.dtd
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-15 00:38+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.1.1\n"
+
+#: vivifuncpanelecr.title
+msgid "Function Panel Configuration"
+msgstr "功能面板设定"
+
+#: vivifuncpanelecr.prefs.tabpanel.general.label
+msgid "General"
+msgstr "一般设定:"
+
+#: vivifuncpanelecr.prefs.tabpanel.general.size.row.label
+msgid "Rows:"
+msgstr "行数:"
+
+#: vivifuncpanelecr.prefs.tabpanel.general.size.column.label
+msgid "Columns:"
+msgstr "列数:"
+
+#: vivifuncpanelecr.prefs.tabpanel.general.size.hspacing.label
+msgid "Horizontal spacing:"
+msgstr "水平间距:"
+
+#: vivifuncpanelecr.prefs.tabpanel.general.size.vspacing.label
+msgid "Vertical spacing"
+msgstr "垂直间距:"
+
+#: vivifuncpanelecr.prefs.tabpanel.general.size.apply
+msgid "Change size"
+msgstr "套用"
+
+#: vivifuncpanelecr.prefs.tabpanel.general.orientation.label
+msgid "Change orientation:"
+msgstr "滚动条位置:"
+
+#: vivifuncpanelecr.prefs.tabpanel.general.resize.label
+msgid "Panel resizable?"
+msgstr "面板大小可调整?"
+
+#: vivifuncpanelecr.prefs.tabpanel.general.wrap.label
+msgid "Wrap-around scrolling?"
+msgstr "循环面板?"
+
+#: vivifuncpanelecr.prefs.tabpanel.general.restrict.label
+msgid "Hide when restricted?"
+msgstr "功能被限制时隐藏?"
+
+#: vivifuncpanelecr.prefs.tabpanel.general.maxpage.label
+msgid "Number of panels:"
+msgstr "面板页数:"
+
+#: vivifuncpanelecr.prefs.tabpanel.general.maxpage.apply.label
+msgctxt "vivifuncpanelecr.prefs.tabpanel.general.maxpage.apply.label"
+msgid "Set"
+msgstr "套用"
+
+#: vivifuncpanelecr.prefs.tabpanel.general.defaultpage.label
+msgid "Start with panel:"
+msgstr "起始页面:"
+
+#: vivifuncpanelecr.prefs.tabpanel.general.defaultpage.apply.label
+msgctxt "vivifuncpanelecr.prefs.tabpanel.general.defaultpage.apply.label"
+msgid "Set"
+msgstr "套用"
+
+#: vivifuncpanelecr.prefs.tabpanel.layout.label
+msgid "Page layout"
+msgstr "页面设定"
+
+#: vivifuncpanelecr.prefs.tabpanel.layout.page.number.label
+msgctxt "vivifuncpanelecr.prefs.tabpanel.layout.page.number.label"
+msgid "Page number:"
+msgstr "页码:"
+
+#: vivifuncpanelecr.prefs.tabpanel.layout.label.page.label
+msgid "Page label:"
+msgstr "自订页面名称:"
+
+#: vivifuncpanelecr.prefs.tabpanel.layout.label.page.apply.label
+msgctxt "vivifuncpanelecr.prefs.tabpanel.layout.label.page.apply.label"
+msgid "Set"
+msgstr "套用"
+
+#: vivifuncpanelecr.prefs.tabpanel.layout.label.page.reset.label
+msgctxt "vivifuncpanelecr.prefs.tabpanel.layout.label.page.reset.label"
+msgid "Reset"
+msgstr "重设"
+
+#: vivifuncpanelecr.prefs.tabpanel.layout.label.global.label
+msgid "Global page label:"
+msgstr "预设页面名称:"
+
+#: vivifuncpanelecr.prefs.tabpanel.layout.label.global.apply.label
+msgctxt "vivifuncpanelecr.prefs.tabpanel.layout.label.global.apply.label"
+msgid "Set"
+msgstr "套用"
+
+#: vivifuncpanelecr.prefs.tabpanel.layout.label.global.reset.label
+msgctxt "vivifuncpanelecr.prefs.tabpanel.layout.label.global.reset.label"
+msgid "Reset"
+msgstr "重设"
+
+#: vivifuncpanelecr.prefs.tabpanel.layout.global.label
+msgid "Set as default?"
+msgstr "设为默认值?"
+
+#: vivifuncpanelecr.prefs.tabpanel.layout.global.apply.label
+msgctxt "vivifuncpanelecr.prefs.tabpanel.layout.global.apply.label"
+msgid "Set"
+msgstr "套用"
+
+#: vivifuncpanelecr.prefs.tabpanel.layout.global.load.label
+msgid "Use default?"
+msgstr "使用默认值?"
+
+#: vivifuncpanelecr.prefs.tabpanel.layout.global.load.apply.label
+msgctxt "vivifuncpanelecr.prefs.tabpanel.layout.global.load.apply.label"
+msgid "Apply"
+msgstr "套用"
+
+#: vivifuncpanelecr.prefs.tabpanel.layout.selection.label
+msgid "Selected cells:"
+msgstr "Selected cells:"
+
+#: vivifuncpanelecr.prefs.tabpanel.layout.merge.label
+msgid "Merge"
+msgstr "合并"
+
+#: vivifuncpanelecr.prefs.tabpanel.layout.remove.label
+msgid "Remove"
+msgstr "移除"
+
+#: vivifuncpanelecr.prefs.tabpanel.layout.reset.label
+msgid "Use standard?"
+msgstr "使用标准功能按键?"
+
+#: vivifuncpanelecr.prefs.tabpanel.layout.reset.apply.label
+msgctxt "vivifuncpanelecr.prefs.tabpanel.layout.reset.apply.label"
+msgid "Apply"
+msgstr "套用"
+
+#: vivifuncpanelecr.prefs.tabpanel.layout.buttonstyle.fontsize.label
+msgid "Size"
+msgstr "字体大小"
+
+#: vivifuncpanelecr.prefs.tabpanel.keymap.label
+msgid "Key Mapping "
+msgstr "Key Mapping "
+
+#: vivifuncpanelecr.prefs.tabpanel.keymap.page.number.label
+msgctxt "vivifuncpanelecr.prefs.tabpanel.keymap.page.number.label"
+msgid "Page number:"
+msgstr "页码:"
+
+#: vivifuncpanelecr.prefs.tabpanel.keymap.unlink-all.label
+msgctxt "vivifuncpanelecr.prefs.tabpanel.keymap.unlink-all.label"
+msgid "Unlink All"
+msgstr "移除所有连结"
+
+#: vivifuncpanelecr.prefs.tabpanel.keymap.selection.label
+msgctxt "vivifuncpanelecr.prefs.tabpanel.keymap.selection.label"
+msgid "Selected button:"
+msgstr "选择功能按键:"
+
+#: vivifuncpanelecr.prefs.tabpanel.keymap.linked.label
+msgctxt "vivifuncpanelecr.prefs.tabpanel.keymap.linked.label"
+msgid "Linked to function:"
+msgstr "连结功能至:"
+
+#: vivifuncpanelecr.prefs.tabpanel.keymap.linked.unlink.label
+msgctxt "vivifuncpanelecr.prefs.tabpanel.keymap.linked.unlink.label"
+msgid "Unlink"
+msgstr "移除连结"
+
+#: vivifuncpanelecr.prefs.tabpanel.keymap.function.label
+msgctxt "vivifuncpanelecr.prefs.tabpanel.keymap.function.label"
+msgid "Function label:"
+msgstr "功能卷标:"
+
+#: vivifuncpanelecr.prefs.tabpanel.keymap.function.label.apply.label
+msgctxt "vivifuncpanelecr.prefs.tabpanel.keymap.function.label.apply.label"
+msgid "Update"
+msgstr "套用"
+
+#: vivifuncpanelecr.prefs.tabpanel.keymap.function.label.reset.label
+msgctxt "vivifuncpanelecr.prefs.tabpanel.keymap.function.label.reset.label"
+msgid "Reset"
+msgstr "重设"
+
+#: vivifuncpanelecr.prefs.tabpanel.keymap.function.data.label
+msgctxt "vivifuncpanelecr.prefs.tabpanel.keymap.function.data.label"
+msgid "Parameter:"
+msgstr "参数值:"
+
+#: vivifuncpanelecr.prefs.tabpanel.keymap.function.data.apply.label
+msgctxt "vivifuncpanelecr.prefs.tabpanel.keymap.function.data.apply.label"
+msgid "Update"
+msgstr "套用"
+
+#: vivifuncpanelecr.prefs.tabpanel.keymap.function.data.reset.label
+msgctxt "vivifuncpanelecr.prefs.tabpanel.keymap.function.data.reset.label"
+msgid "Reset"
+msgstr "重设"
+
+#: vivifuncpanelecr.prefs.tabpanel.keymap.link.label
+msgctxt "vivifuncpanelecr.prefs.tabpanel.keymap.link.label"
+msgid "Link"
+msgstr "连结"
+
+#: vivifuncpanelecr.prefs.tabpanel.gkeymap.label
+msgid "Global Key Mapping "
+msgstr "Global Key Mapping "
+
+#: vivifuncpanelecr.prefs.tabpanel.gkeymap.page.number.label
+msgctxt "vivifuncpanelecr.prefs.tabpanel.gkeymap.page.number.label"
+msgid "Page number:"
+msgstr "页码:"
+
+#: vivifuncpanelecr.prefs.tabpanel.gkeymap.unlink-all.label
+msgctxt "vivifuncpanelecr.prefs.tabpanel.gkeymap.unlink-all.label"
+msgid "Unlink All"
+msgstr "移除所有连结"
+
+#: vivifuncpanelecr.prefs.tabpanel.gkeymap.selection.label
+msgctxt "vivifuncpanelecr.prefs.tabpanel.gkeymap.selection.label"
+msgid "Selected button:"
+msgstr "选择功能按键:"
+
+#: vivifuncpanelecr.prefs.tabpanel.gkeymap.linked.label
+msgctxt "vivifuncpanelecr.prefs.tabpanel.gkeymap.linked.label"
+msgid "Linked to function:"
+msgstr "连结功能至:"
+
+#: vivifuncpanelecr.prefs.tabpanel.gkeymap.linked.unlink.label
+msgctxt "vivifuncpanelecr.prefs.tabpanel.gkeymap.linked.unlink.label"
+msgid "Unlink"
+msgstr "移除连结"
+
+#: vivifuncpanelecr.prefs.tabpanel.gkeymap.function.label
+msgctxt "vivifuncpanelecr.prefs.tabpanel.gkeymap.function.label"
+msgid "Function label:"
+msgstr "功能卷标:"
+
+#: vivifuncpanelecr.prefs.tabpanel.gkeymap.function.label.apply.label
+msgctxt "vivifuncpanelecr.prefs.tabpanel.gkeymap.function.label.apply.label"
+msgid "Update"
+msgstr "套用"
+
+#: vivifuncpanelecr.prefs.tabpanel.gkeymap.function.label.reset.label
+msgctxt "vivifuncpanelecr.prefs.tabpanel.gkeymap.function.label.reset.label"
+msgid "Reset"
+msgstr "重设"
+
+#: vivifuncpanelecr.prefs.tabpanel.gkeymap.function.data.label
+msgctxt "vivifuncpanelecr.prefs.tabpanel.gkeymap.function.data.label"
+msgid "Parameter:"
+msgstr "参数值:"
+
+#: vivifuncpanelecr.prefs.tabpanel.gkeymap.function.data.apply.label
+msgctxt "vivifuncpanelecr.prefs.tabpanel.gkeymap.function.data.apply.label"
+msgid "Update"
+msgstr "套用"
+
+#: vivifuncpanelecr.prefs.tabpanel.gkeymap.function.data.reset.label
+msgctxt "vivifuncpanelecr.prefs.tabpanel.gkeymap.function.data.reset.label"
+msgid "Reset"
+msgstr "重设"
+
+#: vivifuncpanelecr.prefs.tabpanel.gkeymap.link.label
+msgctxt "vivifuncpanelecr.prefs.tabpanel.gkeymap.link.label"
+msgid "Link"
+msgstr "连结"
+
+#: vivifuncpanelecr.prefs.save.label
+msgid "Save"
+msgstr "储存设定"
+
+#: vivifuncpanelecr.prefs.cancel.label
+msgid "Cancel"
+msgstr "取消"

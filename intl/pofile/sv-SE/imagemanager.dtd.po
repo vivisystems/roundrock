@@ -1,0 +1,87 @@
+#. extracted from ../locale/en-US/imagemanager.dtd, ./locale/sv-SE/imagemanager.dtd
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-15 00:38+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.1.1\n"
+
+#: imagemanager.window.title
+msgid "Image Manager"
+msgstr "Bild Manager"
+
+#: imagemanager.image.caption
+msgid "Image File:"
+msgstr "Bild Fil:"
+
+#: imagemanager.image.name
+msgid "name: "
+msgstr "name: "
+
+#. Do not translate this.  Only change the numeric values if you need this dialogue box to appear bigger
+#: imagemanager.image.size
+msgid "size: "
+msgstr "size: "
+
+#: imagemanager.action.import
+msgid "Import"
+msgstr "Import"
+
+#: imagemanager.action.export
+msgid "Export"
+msgstr "Export"
+
+#: imagemanager.action.delete
+msgid "Delete"
+msgstr "Tabort"
+
+#: imagemanager.action.rename
+msgid "Rename"
+msgstr "Döp om"
+
+#: imagemanager.status.disklimit
+msgid "Disk Usage Limit:"
+msgstr "Disk Användningsbegränsning:"
+
+#: imagemanager.status.total
+msgid "Total: "
+msgstr "Total: "
+
+#: imagemanager.status.usage
+msgid "Used: "
+msgstr "Used: "
+
+#: imagemanager.status.files
+msgid "Files: "
+msgstr "Files: "
+
+#: imagemanager.action.caption
+msgid "Import/Export:"
+msgstr "Import/Export:"
+
+#: imagemanager.action.usage
+msgid "total size: "
+msgstr "total size: "
+
+#: imagemanager.action.files
+msgid "total files: "
+msgstr "total files: "
+
+#: imagemanager.action.status
+msgid "status:"
+msgstr "Status:"
+
+#: imagemanager.importwait
+msgid "Waitting for Import Images..."
+msgstr "Waitting for Import Images..."
+
+#: imagemanager.exportwait
+msgid "Waitting for Export Images..."
+msgstr "Waitting for Export Images..."

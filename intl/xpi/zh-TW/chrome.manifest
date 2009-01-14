@@ -1,0 +1,17 @@
+locale viviecr zh-TW jar:chrome/zh-TW.jar!/locale/zh-TW/
+
+locale necko zh-TW jar:chrome/xulrunner-zh-TW.jar!/locale/zh-TW/necko/
+locale help zh-TW jar:chrome/xulrunner-zh-TW.jar!/locale/zh-TW/help/
+locale global-region zh-TW jar:chrome/xulrunner-zh-TW.jar!/locale/zh-TW/global-region/
+locale global-platform zh-TW jar:chrome/xulrunner-zh-TW.jar!/locale/zh-TW/global-platform/
+locale global zh-TW jar:chrome/xulrunner-zh-TW.jar!/locale/zh-TW/global/
+locale alerts zh-TW jar:chrome/xulrunner-zh-TW.jar!/locale/zh-TW/alerts/
+locale passwordmgr zh-TW jar:chrome/xulrunner-zh-TW.jar!/locale/zh-TW/passwordmgr/
+locale places zh-TW jar:chrome/xulrunner-zh-TW.jar!/locale/zh-TW/places/
+locale mozapps zh-TW jar:chrome/xulrunner-zh-TW.jar!/locale/zh-TW/mozapps/
+locale cookie zh-TW jar:chrome/xulrunner-zh-TW.jar!/locale/zh-TW/cookie/
+locale autoconfig zh-TW jar:chrome/xulrunner-zh-TW.jar!/locale/zh-TW/autoconfig/
+locale pipnss zh-TW jar:chrome/xulrunner-zh-TW.jar!/locale/zh-TW/pipnss/
+locale pippki zh-TW jar:chrome/xulrunner-zh-TW.jar!/locale/zh-TW/pippki/
+locale reporter zh-TW jar:chrome/xulrunner-zh-TW.jar!/locale/zh-TW/reporter/
+
