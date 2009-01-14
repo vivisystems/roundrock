@@ -266,7 +266,6 @@
 
         _newTransaction: function() {
             var curTransaction = new Transaction();
-            curTransaction.create();
             this._setTransactionToView(curTransaction);
 
             // check pricelevel schedule
