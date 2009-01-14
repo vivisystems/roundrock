@@ -825,4 +825,13 @@
 
     });
 
+    // register onload
+    window.addEventListener('load', function() {
+        var main = GeckoJS.Controller.getInstanceByName('Main');
+        if(main) main.addEventListener('onInitial', function() {
+                                            main.requestCommand('initial', null, 'Devices');
+                                      });
+
+    }, false);
+
 })();

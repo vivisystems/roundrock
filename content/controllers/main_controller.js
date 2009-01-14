@@ -30,22 +30,6 @@
             this.requestCommand('initial', null, 'Cart');
             this.requestCommand('initial', null, 'CurrencySetup');
 
-            var prefs = GREUtils.Pref.getPrefService();
-            // Example 1: getting Unicode value
-            var value = prefs.getComplexValue("vivipos.fec.test",
-                  Components.interfaces.nsISupportsString).data;
-                  alert(value);
-
-        // Example 2: setting Unicode value
-        var str = Components.classes["@mozilla.org/supports-string;1"]
-              .createInstance(Components.interfaces.nsISupportsString);
-        str.data = value;
-        prefs.setComplexValue("vivipos.fec.test2",
-              Components.interfaces.nsISupportsString, str);
-
-
-            alert(GREUtils.Pref.getPref('vivipos.fec.test'));
-
             this.resetLayout(true);
             this.initialLogin();
 

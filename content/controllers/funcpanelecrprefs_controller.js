@@ -131,7 +131,7 @@
         GeckoJS.Configure.write(prefix + '.wrap', data.wrap);
         GeckoJS.Configure.write(prefix + '.dir', data.dir);
         GeckoJS.Configure.write(prefix + '.restrictMode', data.restrictMode);
-        GeckoJS.Configure.write(prefix + '.pageLabelMap', window.escape(data.pageLabelMap.serialize()));
+        GeckoJS.Configure.write(prefix + '.pageLabelMap', data.pageLabelMap.serialize());
         GeckoJS.Configure.write(prefix + '.pageLayoutMap', data.pageLayoutMap.serialize());
         GeckoJS.Configure.write(prefix + '.pageButtonstyleMap', data.pageButtonstyleMap.serialize());
         GeckoJS.Configure.write(prefix + '.pageButtonfontsizeMap', data.pageButtonfontsizeMap.serialize());
@@ -157,7 +157,7 @@
                 var map = data.pageKeymapMap.get(page);
                 map.getKeys().forEach(function(btnid) {
                         var entry = map.get(btnid);
-                        GeckoJS.Configure.write(prefix + '.pageKeymapMap.' + page + '.' + btnid, window.escape(GeckoJS.BaseObject.serialize(entry)));
+                        GeckoJS.Configure.write(prefix + '.pageKeymapMap.' + page + '.' + btnid, GeckoJS.BaseObject.serialize(entry));
                         //GREUtils.log('[PREFS][SavePreferences]: adding keymap page <' + page + '> key <' + btnid + '>');
                     }
                 )

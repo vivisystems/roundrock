@@ -1,0 +1,187 @@
+(function(){
+
+    /**
+     * Print Controller
+     */
+
+    GeckoJS.Controller.extend( {
+        name: 'Print',
+
+        _templates: null,
+        _ports: null,
+        _portspeeds: null,
+        _devicemodels: null,
+        _deviceCommands: null,
+        _selectedDevices: null,
+        _sortedDevicemodels: null,
+        _portControlService: null,
+
+        // load device configuration and selections
+        initial: function () {
+
+            // load templates
+            this.getTemplates();
+
+            // load device ports
+            this.getPorts();
+
+            // load port speeds
+            this.getPortSpeeds();
+
+            // load device models
+            this.getDeviceModels();
+
+            // device selections and device commands are dynamic data and are loaded
+            // from session during each print event
+
+            // add event listener for onSubmit events
+            var cart = GeckoJS.Controller.getInstanceByName('Cart');
+            if(cart) cart.addEventListener('onSubmit', this.onSubmit, this);
+
+        },
+
+        // get cache devices
+        getSelectedDevices: function () {
+            return GeckoJS.Session.get('deviceCommands') || {};
+        },
+
+        // get cache device commands
+        getDeviceCommands: function () {
+            return GeckoJS.Session.get('deviceCommands') || {};
+        },
+
+        // open serial port for writing
+        openSerialPort: function (path, speed) {
+            var portControl = this.getSerialPortControlService();
+            if (portControl != null) {
+                try {
+                    portControl.openPort(path, speed + ',n,8,1,h');
+                    return true;
+                }
+                catch(e) {
+                    return false;
+                }
+            }
+            else {
+                return false;
+            }
+        },
+
+        // close serial port
+        closeSerialPort: function (path) {
+            var portControl = this.getSerialPortControlService();
+            if (portControl != null) {
+                try {
+                    portControl.closePort(path);
+                    return true;
+                }
+                catch(e) {
+                    return false;
+                }
+            }
+            else {
+                return false;
+            }
+        },
+
+        // return port control service object
+        getSerialPortControlService: function() {
+            if (this._portControlService == null) {
+                this._portControlService = GREUtils.XPCOM.getService("@firich.com.tw/serial_port_control_unix;1", "nsISerialPortControlUnix");
+            }
+            return this._portControlService;
+        },
+
+        // return template registry objects
+        getTemplates: function () {
+            if (this._templates == null) {
+                this._templates = GeckoJS.Configure.read('vivipos.fec.registry.templates');
+            }
+            return this._templates;
+        },
+
+        // return port registry objects
+        getPorts: function () {
+            if (this._ports == null) {
+                this._ports = GeckoJS.Configure.read('vivipos.fec.registry.ports');
+            }
+            return this._ports;
+        },
+
+        // return list of port speeds
+        getPortSpeeds: function () {
+            if (this._portspeeds == null) {
+                this._portspeeds = GeckoJS.Configure.read('vivipos.fec.registry.portspeeds');
+                if (this._portspeeds != null) this._portspeeds = this._portspeeds.split(',');
+            }
+            return this._portspeeds;
+        },
+
+        // return device model registry objects
+        getDeviceModels: function () {
+            if (this._devicemodels == null) {
+                this._devicemodels = GeckoJS.Configure.read('vivipos.fec.registry.devicemodels');
+            }
+            return this._devicemodels;
+        },
+
+        getDeviceModelEncodings: function(devicemodel) {
+            var encodings = [];
+            if (devicemodel != null && devicemodel.encodings != null) {
+                var entries = devicemodel.encodings.split(',');
+                entries.forEach(function(entry) {
+                   if (entry != null && entry.length > 0) {
+                       var encoding = entry.split('=');
+                       encodings.push({label: encoding[0], charset: encoding[1]});
+                   }
+                });
+            }
+            return encodings;
+        },
+
+        onSubmit: function(evt) {
+            this.log(GeckoJS.BaseObject.dump(evt.data.data));
+
+            // for each enabled printer device, check if autoprint is on
+            var selectedDevices = this.getSelectedDevices();
+
+            if (selectedDevices != null) {
+                if (selectedDevices['receipt-1-enabled'] && selectedDevices['receipt-1-autoprint']) {
+                    var template = selectedDevices['receipt-1-template'];
+                    var port = selectedDevices['receipt-1-port'];
+                    var speed = selectedDevices['receipt-1-speed'];
+                    var devicemodel = selectedDevices['receipt-1-devicemodel'];
+                    this.printCheck(evt.data.data, template, port, speed, devicemodel);
+                }
+
+                if (selectedDevices['receipt-2-enabled'] && selectedDevices['receipt-2-autoprint']) {
+                    var template = selectedDevices['receipt-2-template'];
+                    var port = selectedDevices['receipt-2-port'];
+                    var speed = selectedDevices['receipt-2-speed'];
+                    var devicemodel = selectedDevices['receipt-2-devicemodel'];
+                    this.printCheck(evt.data.data, template, port, speed, devicemodel);
+                }
+            }
+        },
+
+        printCheck: function(order, template, port, speed, devicemodel) {
+            alert('Printing check: \n\n' +
+                  '   template [' + template + ']\n' +
+                  '   port [' + port + ']\n' +
+                  '   speed [' + speed + ']\n' +
+                  '   model [' + devicemodel + ']');
+        }
+
+    });
+
+    // register onload
+    window.addEventListener('load', function() {
+        var main = GeckoJS.Controller.getInstanceByName('Main');
+        if(main) main.addEventListener('onInitial', function() {
+                                            main.requestCommand('initial', null, 'Print');
+                                      });
+
+    }, false);
+
+
+})();
