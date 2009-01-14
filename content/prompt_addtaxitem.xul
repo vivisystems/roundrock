@@ -20,6 +20,10 @@
     </keyset>
 
     <script type="application/x-javascript" src="chrome://viviecr/content/prompt_addtaxitem.js" />
+    <script type="application/x-javascript">
+        var GeckoJS = opener.GeckoJS;
+        var GREUtils = opener.GREUtils;
+    </script>
 
     <vbox flex="1" class="main-dialog">
         <groupbox>

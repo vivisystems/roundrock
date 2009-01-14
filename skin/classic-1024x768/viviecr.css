@@ -63,7 +63,7 @@
 }
 
 /*-----------------------------------------------------------------------------
- * GENERIC PANEL CONTAINER
+ * GENERIC PANEL CONTAINERS
  *-----------------------------------------------------------------------------
  *
  */
@@ -75,3 +75,8 @@
     -moz-border-radius: 8px;
 }
 
+.squarePanelContainer {
+    border: 2px ridge;
+    padding: 5px;
+    margin: 5px;
+}

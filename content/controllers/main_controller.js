@@ -29,7 +29,6 @@
             this.requestCommand('initial', null, 'Cart');
             this.requestCommand('initial', null, 'CurrencySetup');
             this.requestCommand('initial', null, 'Sound');
-            this.requestCommand('initial', null, 'Devices');
 
             this.resetLayout(true);
             this.initialLogin();
@@ -130,7 +129,7 @@
             var posY = 0;
             var width = this.screenwidth;
             var height = this.screenheight;
-
+            
             GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,dependent=yes,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height, "");
         },
 

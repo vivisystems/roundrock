@@ -479,7 +479,7 @@
 
                     // reset form to get product defaults
                     var prodData = this.getInputDefault();
-                    try {
+                    //try {
                         prodData.id = '';
                         prodData.no = inputData.no;
                         prodData.name = inputData.name;
@@ -487,19 +487,27 @@
 
                         product.save(prodData);
 
-                        this.updateSession();
-
+                        // need to retrieve product id
+                        var newProduct = product.findByIndex('first', {
+                            index: 'no',
+                            value: prodData.no
+                        });
+                        this.log(GeckoJS.BaseObject.dump(newProduct));
+                        if (newProduct != null) {
+                            this.updateSession('add', newProduct);
+                        }
+                        
                         // newly added item is appended to end; jump cursor to end
                         var index = this.productPanelView.data.length - 1;
                         this.clickPluPanel(index);
 
                         // @todo OSD
                         OsdUtils.info(_('Product [%S] added successfully', [inputData.name]));
-                    }
-                    catch (e) {
+                   // }
+                    //catch (e) {
                         // @todo OSD
-                        NotifyUtils.error(_('An error occurred while adding Product [%S]; the product may not have been added successfully', [inputData.name]));
-                    }
+                        //NotifyUtils.error(_('An error occurred while adding Product [%S]; the product may not have been added successfully', [inputData.name]));
+                    //}
                 }
             }
 
@@ -543,12 +551,13 @@
             // need to make sure product name is unique
             if (this._checkData(inputData) == 0) {
                 var prodModel = new ProductModel();
-                try {
+                //try {
                     var setitems = this._setMenuFromString(inputData);
                     
                     prodModel.id = inputData.id;
+                    this.log(GeckoJS.BaseObject.dump(inputData));
                     prodModel.save(inputData);
-
+                    
                     // update set items
 
                     var setItemModel = new SetItemModel();
@@ -570,15 +579,22 @@
                         setItemModel.save(item);
                     })
                     
-                    this.updateSession();
+                    this.updateSession('modify', inputData, product);
+                    
+                    var newIndex = this._selectedIndex;
+                    if (newIndex > this.productPanelView.data.length - 1) newIndex = this.productPanelView.data.length - 1;
+
+                    this.clickPluPanel(newIndex);
 
                     // @todo OSD
                     OsdUtils.info(_('Product [%S] modified successfully', [product.name]));
+                    /*
                 }
                 catch (e) {
                     // @todo OSD
                     NotifyUtils.error(_('An error occurred while modifying Product [%S]. The product may not have been modified successfully', [product.name]));
                 }
+                    */
             }
         },
 
@@ -620,7 +636,7 @@
                             setItemModel.del(item.id);
                         })
 
-                        this.updateSession();
+                        this.updateSession('remove', product);
 
                         var newIndex = this._selectedIndex;
                         if (newIndex > this.productPanelView.data.length - 1) newIndex = this.productPanelView.data.length - 1;
@@ -638,12 +654,278 @@
             }
         },
 
-        updateSession: function() {
+        updateSession: function(action, data, oldData) {
+            /*
             var prodModel = new ProductModel();
             var products = prodModel.find('all', {
                 order: 'cate_no'
             });
             GeckoJS.Session.add('products', products);
+            */
+this.log('action = [' + action + '], data = [' + GeckoJS.BaseObject.dump(data) + ']');
+            switch(action) {
+                case 'add':
+                    var products = GeckoJS.Session.get('products');
+                    products.push(data);
+
+                    var byId = GeckoJS.Session.get('productsById');
+                    byId[data.id] = data;
+                    
+                    if (data.barcode.length > 0) {
+                        var indexBarcode = GeckoJS.Session.get('barcodesIndexes');
+                        indexBarcode[data.barcode] = data.id;
+                    }
+                    
+                    if (data.no.length > 0) {
+                        var indexBarcode = GeckoJS.Session.get('barcodesIndexes');
+                        indexBarcode[data.no] = data.id;
+                    }
+                    
+                    if (data.cate_no.length > 0) {
+                        var indexCate = GeckoJS.Session.get('productsIndexesByCate');
+                        var indexCateAll = GeckoJS.Session.get('productsIndexesByCateAll');
+                        if (typeof indexCate[data.cate_no] == 'undefined') {
+                            indexCate[data.cate_no] = [];
+                            indexCateAll[data.cate_no] = [];
+                        }
+                        indexCateAll[(data.cate_no+"")].push((data.id+""));
+                        if(GeckoJS.String.parseBoolean(data.visible)) indexCate[(data.cate_no+"")].push((data.id+""));
+                    }
+                    
+                    if (data.link_group && data.link_group.length > 0) {
+                        var indexLinkGroup = GeckoJS.Session.get('productsIndexesByLinkGroup');
+                        var indexLinkGroupAll = GeckoJS.Session.get('productsIndexesByLinkGroupAll');
+                        var groups = data.link_group.split(',');
+
+                        groups.forEach(function(group) {
+
+                            if (typeof indexLinkGroup[group] == 'undefined') {
+                                indexLinkGroup[group] = [];
+                                indexLinkGroupAll[group] = [];
+                            }
+                            indexLinkGroupAll[(group+"")].push((data.id+""));
+                            if(GeckoJS.String.parseBoolean(data.visible)) indexLinkGroup[(group+"")].push((data.id+""));
+
+                        });
+                    }
+                    break;
+
+                case 'modify':
+                    // remove old barcode
+                    var indexBarcode = GeckoJS.Session.get('barcodesIndexes');
+                    if (oldData.barcode.length > 0) {
+                        delete indexBarcode[oldData.barcode];
+                    }
+
+                    // add new barcode
+                    if (data.barcode.length > 0) {
+                        indexBarcode[data.barcode] = data.id;
+                    }
+
+                    var indexCate = GeckoJS.Session.get('productsIndexesByCate');
+                    var indexCateAll = GeckoJS.Session.get('productsIndexesByCateAll');
+                    if (oldData.cate_no != data.cate_no) {
+
+                        // remove old category
+
+                        var indexCateAllArray = indexCateAll[(oldData.cate_no+"")];
+                        var indexCateArray = indexCate[(oldData.cate_no+"")];
+
+                        var index = -1;
+                        for (var i = 0; i < indexCateAllArray.length; i++) {
+                            if (indexCateAllArray[i] == oldData.id) {
+                                index = i;
+                                break;
+                            }
+                        }
+                        if (index > -1)
+                            indexCateAllArray.splice(index, 1);
+
+                        var index = -1;
+                        for (var i = 0; i < indexCateArray.length; i++) {
+                            if (indexCateArray[i] == oldData.id) {
+                                index = i;
+                                break;
+                            }
+                        }
+                        if (index > -1)
+                            indexCateArray.splice(index, 1);
+
+                        // add new category
+                        if (data.cate_no.length > 0) {
+                            if (typeof indexCate[data.cate_no] == 'undefined') {
+                                indexCate[data.cate_no] = [];
+                                indexCateAll[data.cate_no] = [];
+                            }
+                            indexCateAll[(data.cate_no+"")].push((data.id+""));
+                            if(GeckoJS.String.parseBoolean(data.visible)) indexCate[(data.cate_no+"")].push((data.id+""));
+                        }
+                    }
+
+                    // always remove old product group(s) first
+                    var indexLinkGroup = GeckoJS.Session.get('productsIndexesByLinkGroup');
+                    var indexLinkGroupAll = GeckoJS.Session.get('productsIndexesByLinkGroupAll');
+                    if (oldData.link_group && oldData.link_group.length > 0) {
+
+                        var groups = oldData.link_group.split(',');
+
+                        groups.forEach(function(group) {
+
+                            var indexLinkGroupArray = indexLinkGroup[(group+"")];
+                            var indexLinkGroupAllArray = indexLinkGroupAll[(group+"")];
+
+                            var index = -1;
+                            for (var i = 0; i < indexLinkGroupAllArray.length; i++) {
+                                if (indexLinkGroupAllArray[i] == oldData.id) {
+                                    index = i;
+                                    break;
+                                }
+                            }
+                            if (index > -1)
+                                indexLinkGroupAllArray.splice(index, 1);
+
+                            var index = -1;
+                            for (var i = 0; i < indexLinkGroupArray.length; i++) {
+                                if (indexLinkGroupArray[i] == oldData.id) {
+                                    index = i;
+                                    break;
+                                }
+                            }
+                            if (index > -1)
+                                indexLinkGroupArray.splice(index, 1);
+                            });
+                    }
+
+                    // add new product group(s) if any
+                    if (data.link_group && data.link_group.length > 0) {
+                        var indexLinkGroup = GeckoJS.Session.get('productsIndexesByLinkGroup');
+                        var indexLinkGroupAll = GeckoJS.Session.get('productsIndexesByLinkGroupAll');
+                        var groups = data.link_group.split(',');
+
+                        groups.forEach(function(group) {
+
+                            if (typeof indexLinkGroup[group] == 'undefined') {
+                                indexLinkGroup[group] = [];
+                                indexLinkGroupAll[group] = [];
+                            }
+                            indexLinkGroupAll[(group+"")].push((data.id+""));
+                            if(GeckoJS.String.parseBoolean(data.visible)) indexLinkGroup[(group+"")].push((data.id+""));
+
+                        });
+                    }
+
+                    var products = GeckoJS.Session.get('products');
+                    // for now, let's loop
+                    var index = -1;
+                    for (var i = 0; i < products.length; i++) {
+                        if (products[i].id == data.id) {
+                            GREUtils.extend(products[i], data);
+                            index = i;
+                            break
+                        }
+                    }
+
+                    break;
+
+                case 'remove':
+
+                    // update product cache
+                    var products = GeckoJS.Session.get('products');
+                    // for now, let's loop
+                    var index = -1;
+                    for (var i = 0; i < products.length; i++) {
+                        if (products[i].id == data.id) {
+                            index = i;
+                            break
+                        }
+                    }
+                    if (index > -1)
+                        products.splice(index, 1);
+
+                    // update products ID cache
+                    var byId = GeckoJS.Session.get('productsById');
+                    delete byId[data.id];
+
+                    // update barcode cache
+                    if (data.barcode.length > 0) {
+                        var indexBarcode = GeckoJS.Session.get('barcodesIndexes');
+                        delete indexBarcode[data.barcode];
+                    }
+
+                    if (data.no.length > 0) {
+                        var indexBarcode = GeckoJS.Session.get('barcodesIndexes');
+                        delete indexBarcode[data.no];
+                    }
+
+                    // update department cache
+                    if (data.cate_no.length > 0) {
+                        var indexCate = GeckoJS.Session.get('productsIndexesByCate');
+                        var indexCateAll = GeckoJS.Session.get('productsIndexesByCateAll');
+
+                        var indexCateAllArray = indexCateAll[(data.cate_no+"")];
+                        var indexCateArray = indexCate[(data.cate_no+"")];
+
+                        var index = -1;
+                        for (var i = 0; i < indexCateAllArray.length; i++) {
+                            if (indexCateAllArray[i] == data.id) {
+                                index = i;
+                                break;
+                            }
+                        }
+                        if (index > -1)
+                            indexCateAllArray.splice(index, 1);
+
+                        var index = -1;
+                        for (var i = 0; i < indexCateArray.length; i++) {
+                            if (indexCateArray[i] == data.id) {
+                                index = i;
+                                break;
+                            }
+                        }
+                        if (index > -1)
+                            indexCateArray.splice(index, 1);
+                    }
+                    // update product group cache
+
+                    if (data.link_group && data.link_group.length > 0) {
+                        var indexLinkGroup = GeckoJS.Session.get('productsIndexesByLinkGroup');
+                        var indexLinkGroupAll = GeckoJS.Session.get('productsIndexesByLinkGroupAll');
+
+                        var groups = data.link_group.split(',');
+
+                        groups.forEach(function(group) {
+
+                            var indexLinkGroupArray = indexLinkGroup[(group+"")];
+                            var indexLinkGroupAllArray = indexLinkGroupAll[(group+"")];
+
+                            var index = -1;
+                            for (var i = 0; i < indexLinkGroupAllArray.length; i++) {
+                                if (indexLinkGroupAllArray[i] == data.id) {
+                                    index = i;
+                                    break;
+                                }
+                            }
+                            if (index > -1)
+                                indexLinkGroupAllArray.splice(index, 1);
+
+                            var index = -1;
+                            for (var i = 0; i < indexLinkGroupArray.length; i++) {
+                                if (indexLinkGroupArray[i] == data.id) {
+                                    index = i;
+                                    break;
+                                }
+                            }
+                            if (index > -1)
+                                indexLinkGroupArray.splice(index, 1);
+                            });
+                    }
+                    break;
+
+            }
+
+            // @hack to make front end update itself
+            var indexCateAll = GeckoJS.Session.get('productsIndexesByCateAll');
+            GeckoJS.Session.add('productsIndexesByCateAll', indexCateAll);
         },
 
         locateIndex: function (elem, list, path) {

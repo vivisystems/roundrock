@@ -336,19 +336,6 @@ pref("vivipos.fec.registry.function.programmable.addcondiment.command", "addCond
 pref("vivipos.fec.registry.function.programmable.addcondiment.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.addcondiment.data", "");
 
-pref('vivipos.fec.registry.comm.port1.id', 'port1');
-pref('vivipos.fec.registry.comm.port1.name', 'COM1');
-pref('vivipos.fec.registry.comm.port1.path', '/dev/ttya');
-pref('vivipos.fec.registry.comm.port2.id', 'port2');
-pref('vivipos.fec.registry.comm.port2.name', 'COM2');
-pref('vivipos.fec.registry.comm.port2.path', '/dev/ttyb');
-pref('vivipos.fec.registry.comm.port3.id', 'port3');
-pref('vivipos.fec.registry.comm.port3.name', 'USB0');
-pref('vivipos.fec.registry.comm.port3.path', '/dev/ttyUSB0');
-pref('vivipos.fec.registry.comm.port4.id', 'USB1');
-pref('vivipos.fec.registry.comm.port4.name', 'USB1');
-pref('vivipos.fec.registry.comm.port4.path', '/dev/ttyUSB1');
-
 pref('vivipos.fec.ui.functionpanel.button.defaultcolor', 'function-button-color-default');
 pref('vivipos.fec.ui.functionpanel.button.defaultfontsize', 'medium');
 pref('vivipos.fec.ui.department.button.defaultcolor', 'department-button-color-default');
@@ -428,35 +415,35 @@ pref("vivipos.fec.registry.templates.vfd2.path", "chrome://viviecr/content/devic
 
 pref("vivipos.fec.registry.ports.com1.label", "COM 1");
 pref("vivipos.fec.registry.ports.com1.type", "serial");
-pref("vivipos.fec.registry.ports.com1.path", "/dev/tty1");
+pref("vivipos.fec.registry.ports.com1.path", "/dev/ttyS0");
 
 pref("vivipos.fec.registry.ports.com2.label", "COM 2");
 pref("vivipos.fec.registry.ports.com2.type", "serial");
-pref("vivipos.fec.registry.ports.com2.path", "/dev/tty2");
+pref("vivipos.fec.registry.ports.com2.path", "/dev/ttyS1");
 
 pref("vivipos.fec.registry.ports.com3.label", "COM 3");
 pref("vivipos.fec.registry.ports.com3.type", "serial");
-pref("vivipos.fec.registry.ports.com3.path", "/dev/tty3");
+pref("vivipos.fec.registry.ports.com3.path", "/dev/ttyS2");
 
 pref("vivipos.fec.registry.ports.com4.label", "COM 4");
 pref("vivipos.fec.registry.ports.com4.type", "serial");
-pref("vivipos.fec.registry.ports.com4.path", "/dev/tty4");
+pref("vivipos.fec.registry.ports.com4.path", "/dev/ttyS3");
 
 pref("vivipos.fec.registry.ports.usb1.label", "USB 1");
 pref("vivipos.fec.registry.ports.usb1.type", "usb");
-pref("vivipos.fec.registry.ports.usb1.path", "/dev/ttyUSB1");
+pref("vivipos.fec.registry.ports.usb1.path", "/dev/ttyUSB0");
 
 pref("vivipos.fec.registry.ports.usb2.label", "USB 2");
 pref("vivipos.fec.registry.ports.usb2.type", "usb");
-pref("vivipos.fec.registry.ports.usb2.path", "/dev/ttyUSB2");
+pref("vivipos.fec.registry.ports.usb2.path", "/dev/ttyUSB1");
 
 pref("vivipos.fec.registry.ports.usb3.label", "USB 3");
 pref("vivipos.fec.registry.ports.usb3.type", "usb");
-pref("vivipos.fec.registry.ports.usb3.path", "/dev/ttyUSB3");
+pref("vivipos.fec.registry.ports.usb3.path", "/dev/ttyUSB2");
 
 pref("vivipos.fec.registry.ports.usb4.label", "USB 4");
 pref("vivipos.fec.registry.ports.usb4.type", "usb");
-pref("vivipos.fec.registry.ports.usb4.path", "/dev/ttyUSB4");
+pref("vivipos.fec.registry.ports.usb4.path", "/dev/ttyUSB3");
 
 pref("vivipos.fec.registry.ports.gpio1.label", "GPIO 1");
 pref("vivipos.fec.registry.ports.gpio1.type", "gpio");
@@ -466,21 +453,21 @@ pref("vivipos.fec.registry.portspeeds", "2400, 4800, 9600, 19200, 38400, 57600, 
 
 pref("vivipos.fec.registry.devicemodels.escpos.label", "Generic ESC/POS");
 pref("vivipos.fec.registry.devicemodels.escpos.type", "receipt,guestcheck");
-pref("vivipos.fec.registry.devicemodels.escpos.path", "chrome://viviecr/content/device/commands/escpos.cmd");
+pref("vivipos.fec.registry.devicemodels.escpos.path", "chrome://viviecr/content/devices/commands/escpos.cmd");
 pref("vivipos.fec.registry.devicemodels.escpos.encodings", "English=US-ASCII");
 
 pref("vivipos.fec.registry.devicemodels.epsontm-t88iv.label", "Epson TM-T88IV");
 pref("vivipos.fec.registry.devicemodels.epsontm-t88iv.type", "receipt,guestcheck,cashdrawer");
-pref("vivipos.fec.registry.devicemodels.epsontm-t88iv.path", "chrome://viviecr/content/device/commands/escpos.cmd");
+pref("vivipos.fec.registry.devicemodels.epsontm-t88iv.path", "chrome://viviecr/content/devices/commands/escpos.cmd");
 pref("vivipos.fec.registry.devicemodels.epsontm-t88iv.encodings", "English=US-ASCII,Western=ISO-8859-1,Simplified Chinese=GB18030,Traditional Chinese=Big5,Japanese=Shift_JIS");
 
 pref("vivipos.fec.registry.devicemodels.vfdfec.label", "Firich VFD");
 pref("vivipos.fec.registry.devicemodels.vfdfec.type", "vfd");
-pref("vivipos.fec.registry.devicemodels.vfdfec.path", "chrome://viviecr/content/device/commands/vfdfec.cmd");
+pref("vivipos.fec.registry.devicemodels.vfdfec.path", "chrome://viviecr/content/devices/commands/vfdfec.cmd");
 pref("vivipos.fec.registry.devicemodels.vfdfec.encodings", "English=US-ASCII,Western=ISO-8859-1,Simplified Chinese=GB18030,Traditional Chinese=Big5,Japanese=Shift_JIS");
 
 pref("vivipos.fec.registry.devicemodels.vfdgeneric.label", "Generic VFD");
 pref("vivipos.fec.registry.devicemodels.vfdgeneric.type", "vfd");
-pref("vivipos.fec.registry.devicemodels.vfdgeneric.path", "chrome://viviecr/content/device/commands/vfdgeneric.cmd");
+pref("vivipos.fec.registry.devicemodels.vfdgeneric.path", "chrome://viviecr/content/devices/commands/vfdgeneric.cmd");
 pref("vivipos.fec.registry.devicemodels.vfdgeneric.encodings", "English=US-ASCII");
 

@@ -23,8 +23,7 @@ var options = {};
 
         centerWindowOnScreen();
 
-        $('#clearBtn')[0].addEventListener('command', clearTextBox, false);
-        
+        document.getElementById('clearBtn').addEventListener('command', clearTextBox, false);
 
         doSetOKCancel(
             function(){
@@ -46,7 +45,6 @@ var options = {};
             for (var i = 0; i < textNodes.length; i++)
                 textNodes[i].addEventListener('focus', gotFocus, false);
         }
-
         if (inputObj.input0 != '')
             document.getElementById('input1').focus();
         else
@@ -83,20 +81,14 @@ function validateInput() {
 
     var input0 = document.getElementById('input0').value;
     var input1 = document.getElementById('input1').value;
-    var trimmed0 = '';
-    var trimmed1 = '';
-    try {
-        var trimmed0 = GeckoJS.String.trim(input0);
-        var trimmed1 = GeckoJS.String.trim(input1);
-    }
-    catch (e) {}
+
+    var trimmed0 = GeckoJS.String.trim(input0);
+    var trimmed1 = GeckoJS.String.trim(input1);
 
     if ((!input0Required || trimmed0.length > 0) &&
         ((!input1Required) || trimmed1.length > 0)) {
-        validated = !isNaN(trimmed1);
+        validated = true;
     }
     document.getElementById('ok').setAttribute('disabled', !validated);
 
 }
-
-
