@@ -1,0 +1,7 @@
+<!ENTITY controlpanel.title "コントロールパネル">
+<!ENTITY controlpanel.loading "読み込み中">
+<!ENTITY controlpanel.products.label "Products">
+<!ENTITY controlpanel.activities.label "Activities">
+<!ENTITY controlpanel.employees.label "Employees">
+<!ENTITY controlpanel.tools.label "Tools">
+

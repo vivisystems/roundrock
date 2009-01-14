@@ -1,0 +1,8 @@
+<!ENTITY plugroups.title "商品グループ">
+<!ENTITY plugroups.name "グループ名">
+<!ENTITY plugroups.visible "メニュー表示">
+<!ENTITY plugroups.button.color "ボタンカラー">
+<!ENTITY plugroups.font.size "文字サイズ">
+<!ENTITY plugroups.button.action.add "新規・追加">
+<!ENTITY plugroups.button.action.modify "修正">
+<!ENTITY plugroups.button.action.delete "削除">

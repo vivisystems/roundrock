@@ -1,0 +1,19 @@
+<!ENTITY importexport.caption "Database Import / Export">
+<!ENTITY importexport.media "Media">
+<!ENTITY importexport.checkmedia "Check Media">
+<!ENTITY importexport.import "Import">
+<!ENTITY importexport.export "Export">
+<!ENTITY importexport.tablename "Name">
+<!ENTITY importexport.importfilename "Import File">
+<!ENTITY importexport.exportfilename "Export File">
+<!ENTITY importexport.importwait "Waitting for Import Data...">
+<!ENTITY importexport.exportwait "Waitting for Export Data...">
+
+<!ENTITY vivipos.fec.common.ok "Ok">
+<!ENTITY vivipos.fec.common.cancel "Avbryt">
+<!ENTITY vivipos.fec.common.add "Lägg till">
+<!ENTITY vivipos.fec.common.modify "Modifiera">
+<!ENTITY vivipos.fec.common.delete "Tabort">
+<!ENTITY vivipos.fec.common.yes "Yes">
+<!ENTITY vivipos.fec.common.no "No">
+

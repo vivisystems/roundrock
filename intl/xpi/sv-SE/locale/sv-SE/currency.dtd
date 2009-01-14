@@ -1,0 +1,11 @@
+<!ENTITY currencysetup.title "Växlings Kurser">
+<!ENTITY currencysetup.currency "Kod">
+<!ENTITY currencysetup.symbol "Signatur">
+<!ENTITY currencysetup.rate "Växlingskurs">
+<!ENTITY currencysetup.convert "Belopp att Växla">
+<!ENTITY currencysetup.amount "Växlat Belopp">
+<!ENTITY currencysetup.base "Lokal Valuta">
+<!ENTITY currencysetup.other "Valuta">
+<!ENTITY currencysetup.backspace "DEL">
+<!ENTITY currencysetup.clear "RENSA">
+<!ENTITY currencysetup.save "SPARA">

@@ -1,0 +1,310 @@
+#. extracted from ../locale/en-US/sysprefs.dtd, ../locale/en-US/sysprefs.dtd
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-13 16:39+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.1.1\n"
+
+#: preferences.title
+msgctxt "preferences.title"
+msgid "General Options"
+msgstr "General Options"
+
+#: category.layout
+msgid "Layout"
+msgstr "Layout"
+
+#: category.general
+msgctxt "category.general"
+msgid "General Options"
+msgstr "General Options"
+
+#: category.login
+msgid "Sign In/Out"
+msgstr "Sign In/Out"
+
+#: category.tax
+msgid "Taxes"
+msgstr "Taxes"
+
+#: category.plufilter
+msgid "Product Filter"
+msgstr "Product Filter"
+
+#: terminalid
+msgid "Terminal ID"
+msgstr "Terminal ID"
+
+#: publicattendance
+msgid "Individual Time-and-Attendance visible to all"
+msgstr "Individual Time-and-Attendance visible to all"
+
+#: defaultlogin
+msgid "Automatically log in default user:"
+msgstr "Automatically log in default user:"
+
+#: privatequeue
+msgid "Private order queue"
+msgstr "Private order queue"
+
+#: defaultpricelevel
+msgid "System default price level"
+msgstr "System default price level"
+
+#: defaulttaxstatus
+msgid "System default tax status"
+msgstr "System default tax status"
+
+#: precisionprices
+msgid "Number of decimal places for Prices"
+msgstr "Number of decimal places for Prices"
+
+#: precisiontaxes
+msgid "Number of decimal places for Taxes"
+msgstr "Number of decimal places for Taxes"
+
+#: roundingprices
+msgid "Rounding policy to use for Prices"
+msgstr "Rounding policy to use for Prices"
+
+#: roundingtaxes
+msgid "Rounding policy to use for Taxes"
+msgstr "Rounding policy to use for Taxes"
+
+#: rounding.to-nearest-precision
+msgid "to nearest precision"
+msgstr "to nearest precision"
+
+#: rounding.to-nearest-half
+msgid "to nearest half"
+msgstr "to nearest half"
+
+#: rounding.to-nearest-quarter
+msgid "to nearest quarter"
+msgstr "to nearest quarter"
+
+#: rounding.to-nearest-nickel
+msgid "to nearest nickel"
+msgstr "to nearest nickel"
+
+#: rounding.to-nearest-dime
+msgid "to nearest dime"
+msgstr "to nearest dime"
+
+#: rounding.always-round-up
+msgid "always round up"
+msgstr "always round up"
+
+#: rounding.always-round-down
+msgid "always round down"
+msgstr "always round down"
+
+#: activepricelevelschedule
+msgid "Activate price level schedule"
+msgstr "Activate price level schedule"
+
+#: pricelevelrevert
+msgid "Price level reverts to schedule after each order"
+msgstr "Price level reverts to schedule after each order"
+
+#: changedepartmentclearbuffer
+msgid "Clear input buffer when switching departments"
+msgstr "Clear input buffer when switching departments"
+
+#: allowoverstock
+msgid "Allow negative stock"
+msgstr "Allow negative stock"
+
+#: ageverificationack
+msgid "Require clerk acknowledgement for age verification"
+msgstr "Require clerk acknowledgement for age verification"
+
+#: login.autodiscardcart
+msgid "Automatically discard cart content when signing off"
+msgstr "Automatically discard cart content when signing off"
+
+#: login.autodiscardqueue
+msgid "Automatically discard queued orders when signing off"
+msgstr "Automatically discard queued orders when signing off"
+
+#: login.mustemptyqueue
+msgid "Order queue must be emptied when signing off"
+msgstr "Order queue must be emptied when signing off"
+
+#: login.shiftreportonsignoff
+msgid "Print shift report when users sign off"
+msgstr "Print shift report when users sign off"
+
+#: login.shiftreportonquickswitch
+msgid "Print shift report when quick-switching users"
+msgstr "Print shift report when quick-switching users"
+
+#: login.allowquicklogin
+msgid "Allow quick login by automatically matching user by password"
+msgstr "Allow quick login by automatically matching user by password"
+
+#: layout.registeratleft
+msgid "Place register screen on the left side of screen"
+msgstr "Place register screen on the left side of screen"
+
+#: layout.hidenumpad
+msgid "Hide numeric keypad"
+msgstr "Hide numeric keypad"
+
+#: layout.functionpanelontop
+msgid "Place function key panel at the top of the screen"
+msgstr "Place function key panel at the top of the screen"
+
+#: layout.PLUbeforedept
+msgid "Place product panel before department panel"
+msgstr "Place product panel before department panel"
+
+#: layout.hidedeptscrollbar
+msgid "Hide scrollbars for department panel"
+msgstr "Hide scrollbars for department panel"
+
+#: layout.hidepluscrollbar
+msgid "Hide scrollbars for product panel"
+msgstr "Hide scrollbars for product panel"
+
+#: layout.hidefpscrollbar
+msgid "Hide scrollbars for function panel"
+msgstr "Hide scrollbars for function panel"
+
+#: layout.cropdeptlabel
+msgid "Crop department label"
+msgstr "Crop department label"
+
+#: layout.cropplulabel
+msgid "Crop product label"
+msgstr "Crop product label"
+
+#: layout.department.label
+msgid "Department panel dimensions"
+msgstr "Department panel dimensions"
+
+#: layout.department.rows
+msgctxt "layout.department.rows"
+msgid "rows"
+msgstr "rows"
+
+#: layout.department.cols
+msgctxt "layout.department.cols"
+msgid "columns"
+msgstr "columns"
+
+#: layout.plu.label
+msgid "Product panel dimensions"
+msgstr "Product panel dimensions"
+
+#: layout.plu.rows
+msgctxt "layout.plu.rows"
+msgid "rows"
+msgstr "rows"
+
+#: layout.plu.cols
+msgctxt "layout.plu.cols"
+msgid "columns"
+msgstr "columns"
+
+#: layout.functionpanel.label
+msgid "Function panel dimensions"
+msgstr "Function panel dimensions"
+
+#: layout.functionpanel.rows
+msgctxt "layout.functionpanel.rows"
+msgid "rows"
+msgstr "rows"
+
+#: layout.functionpanel.cols
+msgctxt "layout.functionpanel.cols"
+msgid "columns"
+msgstr "columns"
+
+#: plufilter.title
+msgid "Product Filter Definition"
+msgstr "Product Filter Definition"
+
+#: plufilter.filtername
+msgid "Filter Name"
+msgstr "Filter Name"
+
+#: plufilter.index
+msgid "Index"
+msgstr "Index"
+
+#: plufilter.length
+msgid "Length"
+msgstr "Length"
+
+#: plufilter.add
+msgid "Add Filter"
+msgstr "Add Filter"
+
+#: plufilter.remove
+msgid "Remove Filter"
+msgstr "Remove Filter"
+
+#: category.sound
+msgid "Sound"
+msgstr "Sound"
+
+#: sound.beepOnItemAdd
+msgid "Beep on item registrations"
+msgstr "Beep on item registrations"
+
+#: sound.beepOnScanningError
+msgid "Beep on scanning errors"
+msgstr "Beep on scanning errors"
+
+#: sound.beepOnModify
+msgid "Beep on modifications"
+msgstr "Beep on modifications"
+
+#: sound.beepOnDiscountSurcharge
+msgid "Beep on discounts and surcharges"
+msgstr "Beep on discounts and surcharges"
+
+#: sound.beepOnPayment
+msgid "Beep on payments"
+msgstr "Beep on payments"
+
+#: sound.beepOnTaxStatusShift
+msgid "Beep on tax status shifts"
+msgstr "Beep on tax status shifts"
+
+#: sound.beepOnVOID
+msgid "Beep on VOID"
+msgstr "Beep on VOID"
+
+#: sound.beepOnCANCEL
+msgid "Beep on CANCEL"
+msgstr "Beep on CANCEL"
+
+#: sound.beepOnSubtotal
+msgid "Beep on Subtotal"
+msgstr "Beep on Subtotal"
+
+#: sound.beepOnTotal
+msgid "Beep on Total"
+msgstr "Beep on Total"
+
+#: sound.beepOnTrayMarker
+msgid "Beep on Tray Marker"
+msgstr "Beep on Tray Marker"
+
+#: sound.volume.label
+msgid "Volume"
+msgstr "Volume"
+
+#: allowzeropresetprice
+msgid "Allow registration of items with preset price of zero"
+msgstr "Allow registration of items with preset price of zero"

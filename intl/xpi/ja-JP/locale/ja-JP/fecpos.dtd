@@ -1,0 +1,19 @@
+<!ENTITY vivipos.fec.common.name "名前">
+<!ENTITY vivipos.fec.common.ok "OK">
+<!ENTITY vivipos.fec.common.cancel "取消">
+<!ENTITY vivipos.fec.common.add "新規">
+<!ENTITY vivipos.fec.common.modify "変更">
+<!ENTITY vivipos.fec.common.delete "削除">
+
+<!ENTITY vivipos.fec.plus.basedata "データ">
+<!ENTITY vivipos.fec.plus.basedata2 "データ　2">
+<!ENTITY vivipos.fec.plus.sets "セット">
+<!ENTITY vivipos.fec.plus.face "アイコン・色">
+<!ENTITY vivipos.fec.plus.pricelevels "価格設定">
+<!ENTITY vivipos.fec.plus.groups "グループへリンク">
+<!ENTITY vivipos.fec.plus.level "設定">
+<!ENTITY vivipos.fec.plus.price "価格　">
+<!ENTITY vivipos.fec.plus.halo "最高価格">
+<!ENTITY vivipos.fec.plus.lalo "最低価格">
+
+<!ENTITY vivipos.fec.controlpanel.loading "読み込み中">

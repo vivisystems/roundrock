@@ -1,0 +1,15 @@
+<!ENTITY stocks.title "Produkter">
+<!ENTITY stocks.header.no "Produkt Nr">
+<!ENTITY stocks.header.product "Produkt Namn">
+<!ENTITY stocks.header.level "Antal">
+<!ENTITY stocks.header.minimum "Gräns">
+<!ENTITY stocks.show.low.only "Filter för Produkter under Gräns">
+<!ENTITY stocks.label.no "Nr">
+<!ENTITY stocks.label.name "Namn">
+<!ENTITY stocks.label.stock "Nivå">
+<!ENTITY stocks.label.threshold "Gräns">
+<!ENTITY stocks.search.label "Lägg in Produkt eller Streckkods Nr">
+<!ENTITY stocks.button.action.clear "RENSA">
+<!ENTITY stocks.button.action.del "DEL">
+<!ENTITY stocks.button.action.enter "ENTER">
+<!ENTITY stocks.button.action.modify "Modifiera">

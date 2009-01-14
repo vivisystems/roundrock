@@ -1,0 +1,16 @@
+<!ENTITY numberpad.keylabel.queue.order "待ちオーダー">
+<!ENTITY numberpad.keylabel.pull.queue "待ちリストを見る">
+<!ENTITY numberpad.keylabel.clear "クリアー">
+<!ENTITY numberpad.keylabel.modify "修正">
+<!ENTITY numberpad.keylabel.del "削除">
+<!ENTITY numberpad.keylabel.void "削除">
+<!ENTITY numberpad.keylabel.enter "入力">
+<!ENTITY numberpad.keylabel.cancel "キャンセル">
+<!ENTITY numberpad.keylabel.cash "現金">
+<!ENTITY numberpad.keylabel.subtotal "小計">
+<!ENTITY numberpad.keylabel.plusearch "PRODUCT SEARCH">
+<!ENTITY numberpad.keylabel.tray "標記">
+<!ENTITY numberpad.keylabel.signoff "ログアウト">
+<!ENTITY numberpad.keylabel.times "X">
+<!ENTITY numberpad.keylabel.password "パスコード">
+<!ENTITY numberpad.keylabel.ok "OK">

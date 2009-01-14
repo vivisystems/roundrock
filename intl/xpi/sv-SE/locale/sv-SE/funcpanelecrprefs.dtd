@@ -1,0 +1,61 @@
+<!ENTITY vivifuncpanelecr.title "Konfigurera Funktionspanel">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.general.label "Allmänt">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.general.size.row.label "Rader:">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.general.size.column.label "Kolumner:">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.general.size.hspacing.label "Horisontellt Radavstånd:">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.general.size.vspacing.label "Vertikalt Radavstånd:">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.general.size.apply "Ändra Storlek">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.general.orientation.label "Ändra Placering:">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.general.resize.label "Panel resizable?">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.general.wrap.label "Wrap-around scrolling?">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.general.restrict.label "Hide when restricted?">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.general.maxpage.label "Antal Paneler:">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.general.maxpage.apply.label "Verkställ">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.general.defaultpage.label "Start with panel:">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.general.defaultpage.apply.label "Verkställ">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.layout.label "Sid Layout">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.layout.page.number.label "Sid Nummer:">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.layout.label.page.label "Sid Namn:">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.layout.label.page.apply.label "Verkställ">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.layout.label.page.reset.label "Reset">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.layout.label.global.label "Globalt Sid Namn:">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.layout.label.global.apply.label "Verkställ">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.layout.label.global.reset.label "Reset">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.layout.global.label "Set som Default?">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.layout.global.apply.label "Verkställ">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.layout.global.load.label "Använd som Standard?">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.layout.global.load.apply.label "Använd">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.layout.selection.label "Selected cells:">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.layout.merge.label "Merge">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.layout.remove.label "Tabort">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.layout.reset.label "Använd Standard?">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.layout.reset.apply.label "Använd">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.layout.buttonstyle.fontsize.label "Storlek">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.keymap.label "Key Mapping ">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.keymap.page.number.label "Sid Nummer:">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.keymap.unlink-all.label "Frigör Alla">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.keymap.selection.label "Vald Knapp:">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.keymap.linked.label "Länkad till Funktion:">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.keymap.linked.unlink.label "Frigör">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.keymap.function.label "Funktions etikett:">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.keymap.function.label.apply.label "Uppdatera">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.keymap.function.label.reset.label "Reset">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.keymap.function.data.label "Parameter:">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.keymap.function.data.apply.label "Uppdatera">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.keymap.function.data.reset.label "Reset">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.keymap.link.label "Länka">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.gkeymap.label "Global Key Mapping ">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.gkeymap.page.number.label "Sid Nummer:">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.gkeymap.unlink-all.label "Frigör Alla">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.gkeymap.selection.label "Vald Knapp:">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.gkeymap.linked.label "Länkad till Funktion:">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.gkeymap.linked.unlink.label "Frigör">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.gkeymap.function.label "Funktions etikett:">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.gkeymap.function.label.apply.label "Uppdatera">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.gkeymap.function.label.reset.label "Reset">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.gkeymap.function.data.label "Parameter:">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.gkeymap.function.data.apply.label "Uppdatera">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.gkeymap.function.data.reset.label "Reset">
+<!ENTITY vivifuncpanelecr.prefs.tabpanel.gkeymap.link.label "Länka">
+<!ENTITY vivifuncpanelecr.prefs.save.label "Spara">
+<!ENTITY vivifuncpanelecr.prefs.cancel.label "Avbryt">

@@ -1,0 +1,5 @@
+<!ENTITY jobs.title "Arbetslista">
+<!ENTITY jobs.name "Arbetsnamn">
+<!ENTITY jobs.button.action.add "Lägg till">
+<!ENTITY jobs.button.action.modify "Modifiera">
+<!ENTITY jobs.button.action.delete "Tabort">

@@ -1,0 +1,23 @@
+<!ENTITY imagemanager.window.title "画像管理">
+<!ENTITY imagemanager.image.caption "イメージファイル">
+<!ENTITY imagemanager.image.name "name: ">
+<!ENTITY imagemanager.image.size "size: ">
+
+<!ENTITY imagemanager.action.import "とり込む">
+<!ENTITY imagemanager.action.export "転送する">
+<!ENTITY imagemanager.action.delete "削除">
+<!ENTITY imagemanager.action.rename "再度名前をつける">
+
+<!ENTITY imagemanager.status.disklimit "ディスクの空間">
+<!ENTITY imagemanager.status.total "Total: ">
+<!ENTITY imagemanager.status.usage "Used: ">
+<!ENTITY imagemanager.status.files "Files: ">
+
+<!ENTITY imagemanager.action.caption "とり込む／転送する">
+<!ENTITY imagemanager.action.usage "total size: ">
+<!ENTITY imagemanager.action.files "total files: ">
+<!ENTITY imagemanager.action.status "状態">
+
+<!ENTITY imagemanager.importwait "Waitting for Import Images...">
+<!ENTITY imagemanager.exportwait "Waitting for Export Images...">
+
