@@ -34,14 +34,25 @@
             // device selections and device commands are dynamic data and are loaded
             // from session during each print event
 
-            // add event listener for onSubmit events
+            // add event listener for beforeSubmit events
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
-            if(cart) cart.addEventListener('onSubmit', this.onSubmit, this);
+            if(cart) {
+                cart.addEventListener('beforeSubmit', this.beforeSubmit, this);
+            }
         },
 
         // get cache devices
         getSelectedDevices: function () {
-            return GeckoJS.Session.get('deviceCommands') || {};
+            var selectedDevices = GeckoJS.Configure.read('vivipos.fec.settings.selectedDevices') || '';
+            if (selectedDevices != null && selectedDevices.length > 0) {
+                try {
+                    selectedDevices = GeckoJS.BaseObject.unserialize(selectedDevices);
+                }
+                catch(e) {
+                    selectedDevices = '';
+                }
+            }
+            return selectedDevices;
         },
 
         // get cache device commands
@@ -125,28 +136,35 @@
         },
 
         // handle order submit events
-        onSubmit: function(evt) {
-            this.log(GeckoJS.BaseObject.dump(evt.data.data));
+        beforeSubmit: function(evt) {
+            this.log('B4 SUBMIT: ' + GeckoJS.BaseObject.dump(evt.data.data));
 
             // for each enabled printer device, check if autoprint is on
             var selectedDevices = this.getSelectedDevices();
+            this.log('B4 SUBMIT: ' + GeckoJS.BaseObject.dump(selectedDevices));
 
-            if (selectedDevices != null) {
-                if (selectedDevices['receipt-1-enabled'] && selectedDevices['receipt-1-autoprint']) {
-                    var template = selectedDevices['receipt-1-template'];
-                    var port = selectedDevices['receipt-1-port'];
-                    var speed = selectedDevices['receipt-1-speed'];
-                    var devicemodel = selectedDevices['receipt-1-devicemodel'];
-                    this.printCheck(evt.data.data, template, port, speed, devicemodel);
-                }
+            // check if receipt already printed
+            if (evt.data.data['receipt_printed'] == null) {
+                if (selectedDevices != null) {
+                    if (selectedDevices['receipt-1-enabled'] && selectedDevices['receipt-1-autoprint']) {
+                        var template = selectedDevices['receipt-1-template'];
+                        var port = selectedDevices['receipt-1-port'];
+                        var speed = selectedDevices['receipt-1-portspeed'];
+                        var devicemodel = selectedDevices['receipt-1-devicemodel'];
+                        this.printCheck(evt.data.data, template, port, speed, devicemodel);
+                    }
 
-                if (selectedDevices['receipt-2-enabled'] && selectedDevices['receipt-2-autoprint']) {
-                    var template = selectedDevices['receipt-2-template'];
-                    var port = selectedDevices['receipt-2-port'];
-                    var speed = selectedDevices['receipt-2-speed'];
-                    var devicemodel = selectedDevices['receipt-2-devicemodel'];
-                    this.printCheck(evt.data.data, template, port, speed, devicemodel);
+                    if (selectedDevices['receipt-2-enabled'] && selectedDevices['receipt-2-autoprint']) {
+                        var template = selectedDevices['receipt-2-template'];
+                        var port = selectedDevices['receipt-2-port'];
+                        var speed = selectedDevices['receipt-2-portspeed'];
+                        var devicemodel = selectedDevices['receipt-2-devicemodel'];
+                        this.printCheck(evt.data.data, template, port, speed, devicemodel);
+                    }
                 }
+                var now = (new Date()).getTime();
+                evt.data.data['receipt_printed'] = (new Date()).getTime();
+                this.log('B4 SUBMIT [' + now + ']: ' + GeckoJS.BaseObject.dump(evt.data.data));
             }
         },
 
