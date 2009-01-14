@@ -21,7 +21,7 @@
     <prefpane id="generalSettingsPane" label="&category.general;" image="chrome://viviecr/content/skin/icons/stock_print-setup.png">
         <preferences>
             <preference id="pref_publicattendance" name="vivipos.fec.settings.PublicAttendance" type="bool" />
-            <preference id="pref_terminalid" name="vivipos.fec.settings.TerminalID" type="string" />
+            <preference id="pref_terminalid" name="vivipos.fec.settings.TerminalID" type="unichar" />
             <preference id="pref_precisionprices" name="vivipos.fec.settings.PrecisionPrices" type="int"/>
             <preference id="pref_precisiontaxes" name="vivipos.fec.settings.PrecisionTaxes" type="int"/>
             <preference id="pref_defaultpricelevel" name="vivipos.fec.settings.DefaultPriceLevel" type="int" />

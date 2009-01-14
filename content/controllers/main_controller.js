@@ -30,8 +30,6 @@
             this.requestCommand('initial', null, 'Cart');
             this.requestCommand('initial', null, 'CurrencySetup');
 
-            var prefs = GREUtils.Pref.getPrefService();
-            
             this.resetLayout(true);
             this.initialLogin();
 
