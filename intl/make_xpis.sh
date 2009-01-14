@@ -28,7 +28,7 @@ for LOCALE  in $SUPPORTS ; do
   #popd
   cd $CUR_DIR
 
-
+  echo ""
   echo ""
 done
 

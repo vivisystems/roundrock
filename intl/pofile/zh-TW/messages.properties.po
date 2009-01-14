@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-15 00:38+0800\n"
+"POT-Creation-Date: 2009-01-15 01:34+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,7 +21,7 @@ msgstr "調味設定"
 msgctxt "Currency Exchange"
 "Currency Exchange"
 msgid "Currency Exchange"
-msgstr "匯率設定"
+msgstr "Currency Exchange"
 
 #: Departments
 msgid "Departments"
@@ -37,11 +37,11 @@ msgstr "員工管理"
 
 #: Function Panel Configuration
 msgid "Function Panel Configuration"
-msgstr "功能面板設定"
+msgstr "Function Panel Configuration"
 
 #: Data Import/ Export
 msgid "Data Import/ Export"
-msgstr "資料匯入/匯出"
+msgstr "Data Import/ Export"
 
 #: Jobs
 msgid "Jobs"
@@ -49,15 +49,15 @@ msgstr "工作內容設定"
 
 #: Image Manager
 msgid "Image Manager (inactive)"
-msgstr "圖像管理 (未啟用)"
+msgstr "Image Manager (inactive)"
 
 #: Locale and Keyboard Mapping
 msgid "Language and Keyboard Mapping"
-msgstr "語系與鍵盤設定"
+msgstr "Language and Keyboard Mapping"
 
 #: Product Groups
 msgid "Product Groups"
-msgstr "產品群組設定"
+msgstr "Product Groups"
 
 #: Products
 msgid "Products"
@@ -65,7 +65,7 @@ msgstr "產品管理"
 
 #: Price Level Schedule
 msgid "Price Level Schedule"
-msgstr "變價排程設定"
+msgstr "Price Level Schedule"
 
 #: Reports
 msgid "Reports"
@@ -77,23 +77,23 @@ msgstr "權限管理"
 
 #: Stock Control
 msgid "Stock Control"
-msgstr "庫存管理"
+msgstr "Stock Control"
 
 #: System Backup
 msgid "System Backup (inactive)"
-msgstr "系統備份 (未啟用)"
+msgstr "System Backup (inactive)"
 
 #: General Options
 msgid "General Options"
-msgstr "系統設定"
+msgstr "General Options"
 
 #: Taxes
 msgid "Taxes"
-msgstr "稅別設定"
+msgstr "Taxes Report"
 
 #: Date and Time
 msgid "Date & Time"
-msgstr "時間與日期設定"
+msgstr "Date & Time"
 
 #: aaareports
 msgid "aaareports"
@@ -101,43 +101,43 @@ msgstr "aaareports"
 
 #: Accounting Report
 msgid "Accounting Report"
-msgstr "日記帳報表"
+msgstr "Accounting Report"
 
 #: Attendance Record
 msgid "Attendance Record"
-msgstr "出勤紀錄"
+msgstr "Attendance Record"
 
 #: Cash by Clerk
 msgid "Cash Report"
-msgstr "櫃員現金帳"
+msgstr "Cash Report"
 
 #: Department List
 msgid "Department List"
-msgstr "部門列表"
+msgstr "Department List"
 
 #: Inventory Report
 msgid "Stock Report"
-msgstr "庫存報表"
+msgstr "Stock Report"
 
 #: Print Label
 msgid "Print Label"
-msgstr "列印價格標籖"
+msgstr "Print Label"
 
 #: Product List
 msgid "Product List"
-msgstr "產品列表"
+msgstr "Product List"
 
 #: Product Sales
 msgid "Sales Report"
-msgstr "銷售報表"
+msgstr "Sales Report"
 
 #: Taxes Report
 msgid "Taxes Report"
-msgstr "稅金報表"
+msgstr "Taxes Report"
 
 #: User List
 msgid "User List"
-msgstr "使用者列表"
+msgstr "User List"
 
 #: pricelevelshift.desc
 msgid ""
@@ -1064,4 +1064,4 @@ msgstr "設定日期與時間"
 
 #: acl_manage_devices
 msgid "Manage Devices"
-msgstr ""
+msgstr "Manage Devices"

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-15 00:38+0800\n"
+"POT-Creation-Date: 2009-01-15 01:34+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -80,8 +80,8 @@ msgstr "狀態:"
 
 #: imagemanager.importwait
 msgid "Waitting for Import Images..."
-msgstr ""
+msgstr "Waitting for Import Images..."
 
 #: imagemanager.exportwait
 msgid "Waitting for Export Images..."
-msgstr ""
+msgstr "Waitting for Export Images..."

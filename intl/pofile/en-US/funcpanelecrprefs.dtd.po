@@ -1,10 +1,10 @@
-#. extracted from ../locale/en-US/funcpanelecrprefs.dtd, ../locale/en-US/funcpanelecrprefs.dtd
+#. extracted from ../locale/en-US/funcpanelecrprefs.dtd
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-13 16:39+0800\n"
+"POT-Creation-Date: 2009-01-15 01:34+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12,281 +12,282 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Translate Toolkit 1.1.1\n"
+"X-Accelerator-Marker: &\n"
 
 #: vivifuncpanelecr.title
 msgid "Function Panel Configuration"
-msgstr "Function Panel Configuration"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.general.label
 msgid "General"
-msgstr "General"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.general.size.row.label
 msgid "Rows:"
-msgstr "Rows:"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.general.size.column.label
 msgid "Columns:"
-msgstr "Columns:"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.general.size.hspacing.label
 msgid "Horizontal spacing:"
-msgstr "Horizontal spacing:"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.general.size.vspacing.label
 msgid "Vertical spacing"
-msgstr "Vertical spacing"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.general.size.apply
 msgid "Change size"
-msgstr "Change size"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.general.orientation.label
 msgid "Change orientation:"
-msgstr "Change orientation:"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.general.resize.label
 msgid "Panel resizable?"
-msgstr "Panel resizable?"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.general.wrap.label
 msgid "Wrap-around scrolling?"
-msgstr "Wrap-around scrolling?"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.general.restrict.label
 msgid "Hide when restricted?"
-msgstr "Hide when restricted?"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.general.maxpage.label
 msgid "Number of panels:"
-msgstr "Number of panels:"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.general.maxpage.apply.label
 msgctxt "vivifuncpanelecr.prefs.tabpanel.general.maxpage.apply.label"
 msgid "Set"
-msgstr "Set"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.general.defaultpage.label
 msgid "Start with panel:"
-msgstr "Start with panel:"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.general.defaultpage.apply.label
 msgctxt "vivifuncpanelecr.prefs.tabpanel.general.defaultpage.apply.label"
 msgid "Set"
-msgstr "Set"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.layout.label
 msgid "Page layout"
-msgstr "Page layout"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.layout.page.number.label
 msgctxt "vivifuncpanelecr.prefs.tabpanel.layout.page.number.label"
 msgid "Page number:"
-msgstr "Page number:"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.layout.label.page.label
 msgid "Page label:"
-msgstr "Page label:"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.layout.label.page.apply.label
 msgctxt "vivifuncpanelecr.prefs.tabpanel.layout.label.page.apply.label"
 msgid "Set"
-msgstr "Set"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.layout.label.page.reset.label
 msgctxt "vivifuncpanelecr.prefs.tabpanel.layout.label.page.reset.label"
 msgid "Reset"
-msgstr "Reset"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.layout.label.global.label
 msgid "Global page label:"
-msgstr "Global page label:"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.layout.label.global.apply.label
 msgctxt "vivifuncpanelecr.prefs.tabpanel.layout.label.global.apply.label"
 msgid "Set"
-msgstr "Set"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.layout.label.global.reset.label
 msgctxt "vivifuncpanelecr.prefs.tabpanel.layout.label.global.reset.label"
 msgid "Reset"
-msgstr "Reset"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.layout.global.label
 msgid "Set as default?"
-msgstr "Set as default?"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.layout.global.apply.label
 msgctxt "vivifuncpanelecr.prefs.tabpanel.layout.global.apply.label"
 msgid "Set"
-msgstr "Set"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.layout.global.load.label
 msgid "Use default?"
-msgstr "Use default?"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.layout.global.load.apply.label
 msgctxt "vivifuncpanelecr.prefs.tabpanel.layout.global.load.apply.label"
 msgid "Apply"
-msgstr "Apply"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.layout.selection.label
 msgid "Selected cells:"
-msgstr "Selected cells:"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.layout.merge.label
 msgid "Merge"
-msgstr "Merge"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.layout.remove.label
 msgid "Remove"
-msgstr "Remove"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.layout.reset.label
 msgid "Use standard?"
-msgstr "Use standard?"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.layout.reset.apply.label
 msgctxt "vivifuncpanelecr.prefs.tabpanel.layout.reset.apply.label"
 msgid "Apply"
-msgstr "Apply"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.layout.buttonstyle.fontsize.label
 msgid "Size"
-msgstr "Size"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.keymap.label
 msgid "Key Mapping "
-msgstr "Key Mapping "
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.keymap.page.number.label
 msgctxt "vivifuncpanelecr.prefs.tabpanel.keymap.page.number.label"
 msgid "Page number:"
-msgstr "Page number:"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.keymap.unlink-all.label
 msgctxt "vivifuncpanelecr.prefs.tabpanel.keymap.unlink-all.label"
 msgid "Unlink All"
-msgstr "Unlink All"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.keymap.selection.label
 msgctxt "vivifuncpanelecr.prefs.tabpanel.keymap.selection.label"
 msgid "Selected button:"
-msgstr "Selected button:"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.keymap.linked.label
 msgctxt "vivifuncpanelecr.prefs.tabpanel.keymap.linked.label"
 msgid "Linked to function:"
-msgstr "Linked to function:"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.keymap.linked.unlink.label
 msgctxt "vivifuncpanelecr.prefs.tabpanel.keymap.linked.unlink.label"
 msgid "Unlink"
-msgstr "Unlink"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.keymap.function.label
 msgctxt "vivifuncpanelecr.prefs.tabpanel.keymap.function.label"
 msgid "Function label:"
-msgstr "Function label:"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.keymap.function.label.apply.label
 msgctxt "vivifuncpanelecr.prefs.tabpanel.keymap.function.label.apply.label"
 msgid "Update"
-msgstr "Update"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.keymap.function.label.reset.label
 msgctxt "vivifuncpanelecr.prefs.tabpanel.keymap.function.label.reset.label"
 msgid "Reset"
-msgstr "Reset"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.keymap.function.data.label
 msgctxt "vivifuncpanelecr.prefs.tabpanel.keymap.function.data.label"
 msgid "Parameter:"
-msgstr "Parameter:"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.keymap.function.data.apply.label
 msgctxt "vivifuncpanelecr.prefs.tabpanel.keymap.function.data.apply.label"
 msgid "Update"
-msgstr "Update"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.keymap.function.data.reset.label
 msgctxt "vivifuncpanelecr.prefs.tabpanel.keymap.function.data.reset.label"
 msgid "Reset"
-msgstr "Reset"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.keymap.link.label
 msgctxt "vivifuncpanelecr.prefs.tabpanel.keymap.link.label"
 msgid "Link"
-msgstr "Link"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.gkeymap.label
 msgid "Global Key Mapping "
-msgstr "Global Key Mapping "
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.gkeymap.page.number.label
 msgctxt "vivifuncpanelecr.prefs.tabpanel.gkeymap.page.number.label"
 msgid "Page number:"
-msgstr "Page number:"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.gkeymap.unlink-all.label
 msgctxt "vivifuncpanelecr.prefs.tabpanel.gkeymap.unlink-all.label"
 msgid "Unlink All"
-msgstr "Unlink All"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.gkeymap.selection.label
 msgctxt "vivifuncpanelecr.prefs.tabpanel.gkeymap.selection.label"
 msgid "Selected button:"
-msgstr "Selected button:"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.gkeymap.linked.label
 msgctxt "vivifuncpanelecr.prefs.tabpanel.gkeymap.linked.label"
 msgid "Linked to function:"
-msgstr "Linked to function:"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.gkeymap.linked.unlink.label
 msgctxt "vivifuncpanelecr.prefs.tabpanel.gkeymap.linked.unlink.label"
 msgid "Unlink"
-msgstr "Unlink"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.gkeymap.function.label
 msgctxt "vivifuncpanelecr.prefs.tabpanel.gkeymap.function.label"
 msgid "Function label:"
-msgstr "Function label:"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.gkeymap.function.label.apply.label
 msgctxt "vivifuncpanelecr.prefs.tabpanel.gkeymap.function.label.apply.label"
 msgid "Update"
-msgstr "Update"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.gkeymap.function.label.reset.label
 msgctxt "vivifuncpanelecr.prefs.tabpanel.gkeymap.function.label.reset.label"
 msgid "Reset"
-msgstr "Reset"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.gkeymap.function.data.label
 msgctxt "vivifuncpanelecr.prefs.tabpanel.gkeymap.function.data.label"
 msgid "Parameter:"
-msgstr "Parameter:"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.gkeymap.function.data.apply.label
 msgctxt "vivifuncpanelecr.prefs.tabpanel.gkeymap.function.data.apply.label"
 msgid "Update"
-msgstr "Update"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.gkeymap.function.data.reset.label
 msgctxt "vivifuncpanelecr.prefs.tabpanel.gkeymap.function.data.reset.label"
 msgid "Reset"
-msgstr "Reset"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.tabpanel.gkeymap.link.label
 msgctxt "vivifuncpanelecr.prefs.tabpanel.gkeymap.link.label"
 msgid "Link"
-msgstr "Link"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.save.label
 msgid "Save"
-msgstr "Save"
+msgstr ""
 
 #: vivifuncpanelecr.prefs.cancel.label
 msgid "Cancel"
-msgstr "Cancel"
+msgstr ""

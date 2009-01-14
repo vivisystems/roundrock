@@ -1,10 +1,10 @@
-#. extracted from ../locale/en-US/currency.dtd, ../locale/en-US/currency.dtd
+#. extracted from ../locale/en-US/currency.dtd
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-13 16:39+0800\n"
+"POT-Creation-Date: 2009-01-15 01:34+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12,47 +12,48 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Translate Toolkit 1.1.1\n"
+"X-Accelerator-Marker: &\n"
 
 #: currencysetup.title
 msgid "Exchange Rates"
-msgstr "Exchange Rates"
+msgstr ""
 
 #: currencysetup.currency
 msgid "Code"
-msgstr "Code"
+msgstr ""
 
 #: currencysetup.symbol
 msgid "Sign"
-msgstr "Sign"
+msgstr ""
 
 #: currencysetup.rate
 msgid "Exchange Rate"
-msgstr "Exchange Rate"
+msgstr ""
 
 #: currencysetup.convert
 msgid "Amount to Convert"
-msgstr "Amount to Convert"
+msgstr ""
 
 #: currencysetup.amount
 msgid "Converted Amount"
-msgstr "Converted Amount"
+msgstr ""
 
 #: currencysetup.base
 msgid "Local Currency"
-msgstr "Local Currency"
+msgstr ""
 
 #: currencysetup.other
 msgid "Currency"
-msgstr "Currency"
+msgstr ""
 
 #: currencysetup.backspace
 msgid "DEL"
-msgstr "DEL"
+msgstr ""
 
 #: currencysetup.clear
 msgid "CLEAR"
-msgstr "CLEAR"
+msgstr ""
 
 #: currencysetup.save
 msgid "SAVE"
-msgstr "SAVE"
+msgstr ""

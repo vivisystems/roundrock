@@ -1,10 +1,10 @@
-#. extracted from ../locale/en-US/taxes.dtd, ../locale/en-US/taxes.dtd
+#. extracted from ../locale/en-US/taxes.dtd
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-13 16:39+0800\n"
+"POT-Creation-Date: 2009-01-15 01:34+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12,55 +12,56 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Translate Toolkit 1.1.1\n"
+"X-Accelerator-Marker: &\n"
 
 #: taxes.title
 msgid "Taxes"
-msgstr "Taxes"
+msgstr ""
 
 #: taxes.details
 msgid "Tax Details:"
-msgstr "Tax Details:"
+msgstr ""
 
 #: taxes.code
 msgid "Tax Code:"
-msgstr "Tax Code:"
+msgstr ""
 
 #: taxes.type
 msgid "Tax Type:"
-msgstr "Tax Type:"
+msgstr ""
 
 #: taxes.name
 msgid "Tax Name:"
-msgstr "Tax Name:"
+msgstr ""
 
 #: taxes.rate
 msgid "Tax Rate:"
-msgstr "Tax Rate:"
+msgstr ""
 
 #: taxes.rate_type
 msgid "Rate Type:"
-msgstr "Rate Type:"
+msgstr ""
 
 #: taxes.rate_type.percentage
 msgid "Percentage"
-msgstr "Percentage"
+msgstr ""
 
 #: taxes.rate_type.fixed_amount
 msgid "Fixed Amount"
-msgstr "Fixed Amount"
+msgstr ""
 
 #: taxes.threshold
 msgid "Threshold:"
-msgstr "Threshold:"
+msgstr ""
 
 #: taxes.button.action.add
 msgid "Add"
-msgstr "Add"
+msgstr ""
 
 #: taxes.button.action.modify
 msgid "Modify"
-msgstr "Modify"
+msgstr ""
 
 #: taxes.button.action.delete
 msgid "Delete"
-msgstr "Delete"
+msgstr ""

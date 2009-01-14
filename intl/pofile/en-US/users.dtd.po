@@ -1,10 +1,10 @@
-#. extracted from ../locale/en-US/users.dtd, ../locale/en-US/users.dtd
+#. extracted from ../locale/en-US/users.dtd
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-13 16:39+0800\n"
+"POT-Creation-Date: 2009-01-15 01:34+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12,103 +12,104 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Translate Toolkit 1.1.1\n"
+"X-Accelerator-Marker: &\n"
 
 #: users.title
 msgid "Employees"
-msgstr "Employees"
+msgstr ""
 
 #: users.basedata
 msgid "User Profile"
-msgstr "User Profile"
+msgstr ""
 
 #: users.option1
 msgid "User Limits"
-msgstr "User Limits"
+msgstr ""
 
 #: users.option2
 msgid "Check Tracking"
-msgstr "Check Tracking"
+msgstr ""
 
 #: users.username
 msgid "User Name (a..z,0..9)"
-msgstr "User Name (a..z,0..9)"
+msgstr ""
 
 #: users.password
 msgid "Password"
-msgstr "Password"
+msgstr ""
 
 #: users.displayname
 msgid "Display Name"
-msgstr "Display Name"
+msgstr ""
 
 #: users.accesslevel
 msgid "Access Level"
-msgstr "Access Level"
+msgstr ""
 
 #: users.pricelevel
 msgid "Default Price Level"
-msgstr "Default Price Level"
+msgstr ""
 
 #: users.job
 msgid "Default Job"
-msgstr "Default Job"
+msgstr ""
 
 #: users.limit.item.discount
 msgid "Item Discount Limit"
-msgstr "Item Discount Limit"
+msgstr ""
 
 #: users.limit.order.discount
 msgid "Order Discount Limit"
-msgstr "Order Discount Limit"
+msgstr ""
 
 #: users.limit.cash.check
 msgid "Check Cashing Limit"
-msgstr "Check Cashing Limit"
+msgstr ""
 
 #: users.limit.item.surcharge
 msgid "Item Surcharge Limit"
-msgstr "Item Surcharge Limit"
+msgstr ""
 
 #: users.limit.order.surcharge
 msgid "Order Surcharge Limit"
-msgstr "Order Surcharge Limit"
+msgstr ""
 
 #: users.limit.plu.quantity
 msgid "Product Quantity Limit"
-msgstr "Product Quantity Limit"
+msgstr ""
 
 #: users.limit.plu.price
 msgid "Product Price Limit"
-msgstr "Product Price Limit"
+msgstr ""
 
 #: users.limit.item.coupon
 msgid "Item Coupon Limit"
-msgstr "Item Coupon Limit"
+msgstr ""
 
 #: users.limit.order.coupon
 msgid "Order Coupon Limit"
-msgstr "Order Coupon Limit"
+msgstr ""
 
 #: users.minimum.check.number
 msgid "Minimum Check Number"
-msgstr "Minimum Check Number"
+msgstr ""
 
 #: users.maximum.check.number
 msgid "Maximum Check Number"
-msgstr "Maximum Check Number"
+msgstr ""
 
 #: users.maximum.open.checks
 msgid "Maximum Number of Open Checks"
-msgstr "Maximum Number of Open Checks"
+msgstr ""
 
 #: users.action.add
 msgid "Add"
-msgstr "Add"
+msgstr ""
 
 #: users.action.modify
 msgid "Modify"
-msgstr "Modify"
+msgstr ""
 
 #: users.action.delete
 msgid "Delete"
-msgstr "Delete"
+msgstr ""

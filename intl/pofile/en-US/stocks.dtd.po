@@ -1,10 +1,10 @@
-#. extracted from ../locale/en-US/stocks.dtd, ../locale/en-US/stocks.dtd
+#. extracted from ../locale/en-US/stocks.dtd
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-13 16:39+0800\n"
+"POT-Creation-Date: 2009-01-15 01:34+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12,65 +12,66 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Translate Toolkit 1.1.1\n"
+"X-Accelerator-Marker: &\n"
 
 #: stocks.title
 msgid "Products"
-msgstr "Products"
+msgstr ""
 
 #: stocks.header.no
 msgid "Product No."
-msgstr "Product No."
+msgstr ""
 
 #: stocks.header.product
 msgid "Product Name"
-msgstr "Product Name"
+msgstr ""
 
 #: stocks.header.level
 msgid "Quantity"
-msgstr "Quantity"
+msgstr ""
 
 #: stocks.header.minimum
 msgctxt "stocks.header.minimum"
 msgid "Threshold"
-msgstr "Threshold"
+msgstr ""
 
 #: stocks.show.low.only
 msgid "Filter for Products below Threshold"
-msgstr "Filter for Products below Threshold"
+msgstr ""
 
 #: stocks.label.no
 msgid "No."
-msgstr "No."
+msgstr ""
 
 #: stocks.label.name
 msgid "Name"
-msgstr "Name"
+msgstr ""
 
 #: stocks.label.stock
 msgid "Level"
-msgstr "Level"
+msgstr ""
 
 #: stocks.label.threshold
 msgctxt "stocks.label.threshold"
 msgid "Threshold"
-msgstr "Threshold"
+msgstr ""
 
 #: stocks.search.label
 msgid "Enter Product or Barcode No."
-msgstr "Enter Product or Barcode No."
+msgstr ""
 
 #: stocks.button.action.clear
 msgid "CLEAR"
-msgstr "CLEAR"
+msgstr ""
 
 #: stocks.button.action.del
 msgid "DEL"
-msgstr "DEL"
+msgstr ""
 
 #: stocks.button.action.enter
 msgid "ENTER"
-msgstr "ENTER"
+msgstr ""
 
 #: stocks.button.action.modify
 msgid "Modify"
-msgstr "Modify"
+msgstr ""

@@ -1,10 +1,10 @@
-#. extracted from ../locale/en-US/orderstatus.dtd, ../locale/en-US/orderstatus.dtd
+#. extracted from ../locale/en-US/orderstatus.dtd
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-13 16:39+0800\n"
+"POT-Creation-Date: 2009-01-15 01:34+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12,35 +12,36 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Translate Toolkit 1.1.1\n"
+"X-Accelerator-Marker: &\n"
 
 #: viviorderstatus.pricelevel.label
 msgid "PL@"
-msgstr "PL@"
+msgstr ""
 
 #: viviorderstatus.taxtotal.label
 msgid "TX"
-msgstr "TX"
+msgstr ""
 
 #: viviorderstatus.numberitems.label
 msgid "#ITEM"
-msgstr "#ITEM"
+msgstr ""
 
 #: viviorderstatus.ordersequence.label
 msgid "SEQ#"
-msgstr "SEQ#"
+msgstr ""
 
 #: viviorderstatus.destination.label
 msgid "DEST"
-msgstr "DEST"
+msgstr ""
 
 #: viviorderstatus.numbercustomer.label
 msgid "#CST"
-msgstr "#CST"
+msgstr ""
 
 #: viviorderstatus.checknumber.label
 msgid "CHK#"
-msgstr "CHK#"
+msgstr ""
 
 #: viviorderstatus.tablenumber.label
 msgid "TBL#"
-msgstr "TBL#"
+msgstr ""

@@ -1,10 +1,10 @@
-#. extracted from ../locale/en-US/clockin.dtd, ../locale/en-US/clockin.dtd
+#. extracted from ../locale/en-US/clockin.dtd
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-13 16:39+0800\n"
+"POT-Creation-Date: 2009-01-15 01:34+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12,66 +12,67 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Translate Toolkit 1.1.1\n"
+"X-Accelerator-Marker: &\n"
 
 #: clockin.title
 msgctxt "clockin.title"
 msgid "User Clock In / Out"
-msgstr "User Clock In / Out"
+msgstr ""
 
 #: clockin.heading.timein
 msgctxt "clockin.heading.timein"
 msgid "In"
-msgstr "In"
+msgstr ""
 
 #: clockin.heading.timeout
 msgctxt "clockin.heading.timeout"
 msgid "Out"
-msgstr "Out"
+msgstr ""
 
 #: clockin.heading.job
 msgid "Job"
-msgstr "Job"
+msgstr ""
 
 #: clockin.title
 msgctxt "clockin.title"
 msgid "User Clock In / Out"
-msgstr "User Clock In / Out"
+msgstr ""
 
 #: clockin.title
 msgctxt "clockin.title"
 msgid "User Clock In / Out"
-msgstr "User Clock In / Out"
+msgstr ""
 
 #: clockin.keylabel.clear
 msgid "CLEAR"
-msgstr "CLEAR"
+msgstr ""
 
 #: clockin.keylabel.del
 msgid "DEL"
-msgstr "DEL"
+msgstr ""
 
 #: clockin.keylabel.password
 msgid "Passcode:"
-msgstr "Passcode:"
+msgstr ""
 
 #: clockin.keylabel.ok
 msgid "OK"
-msgstr "OK"
+msgstr ""
 
 #: clockin.keylabel.clockin
 msgctxt "clockin.keylabel.clockin"
 msgid "In"
-msgstr "In"
+msgstr ""
 
 #: clockin.keylabel.clockout
 msgctxt "clockin.keylabel.clockout"
 msgid "Out"
-msgstr "Out"
+msgstr ""
 
 #: clockin.keylabel.view
 msgid "View Attendance"
-msgstr "View Attendance"
+msgstr ""
 
 #: clockin.headers.joblist
 msgid "Job List"
-msgstr "Job List"
+msgstr ""

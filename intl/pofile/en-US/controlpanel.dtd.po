@@ -1,10 +1,10 @@
-#. extracted from ../locale/en-US/controlpanel.dtd, ../locale/en-US/controlpanel.dtd
+#. extracted from ../locale/en-US/controlpanel.dtd
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-13 16:39+0800\n"
+"POT-Creation-Date: 2009-01-15 01:34+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12,27 +12,28 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Translate Toolkit 1.1.1\n"
+"X-Accelerator-Marker: &\n"
 
 #: controlpanel.title
 msgid "Control Panel"
-msgstr "Control Panel"
+msgstr ""
 
 #: controlpanel.loading
 msgid "Loading..."
-msgstr "Loading..."
+msgstr ""
 
 #: controlpanel.products.label
 msgid "Products"
-msgstr "Products"
+msgstr ""
 
 #: controlpanel.activities.label
 msgid "Activities"
-msgstr "Activities"
+msgstr ""
 
 #: controlpanel.employees.label
 msgid "Employees"
-msgstr "Employees"
+msgstr ""
 
 #: controlpanel.tools.label
 msgid "Tools"
-msgstr "Tools"
+msgstr ""

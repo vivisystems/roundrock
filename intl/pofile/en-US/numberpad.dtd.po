@@ -1,10 +1,10 @@
-#. extracted from ../locale/en-US/numberpad.dtd, ../locale/en-US/numberpad.dtd
+#. extracted from ../locale/en-US/numberpad.dtd
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-13 16:39+0800\n"
+"POT-Creation-Date: 2009-01-15 01:34+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12,67 +12,68 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Translate Toolkit 1.1.1\n"
+"X-Accelerator-Marker: &\n"
 
 #: numberpad.keylabel.queue.order
 msgid "QUEUE ORDER"
-msgstr "QUEUE ORDER"
+msgstr ""
 
 #: numberpad.keylabel.pull.queue
 msgid "VIEW QUEUE"
-msgstr "VIEW QUEUE"
+msgstr ""
 
 #: numberpad.keylabel.clear
 msgid "CLEAR"
-msgstr "CLEAR"
+msgstr ""
 
 #: numberpad.keylabel.modify
 msgid "MODIFY"
-msgstr "MODIFY"
+msgstr ""
 
 #: numberpad.keylabel.del
 msgid "DEL"
-msgstr "DEL"
+msgstr ""
 
 #: numberpad.keylabel.void
 msgid "VOID"
-msgstr "VOID"
+msgstr ""
 
 #: numberpad.keylabel.enter
 msgid "ENTER"
-msgstr "ENTER"
+msgstr ""
 
 #: numberpad.keylabel.cancel
 msgid "CANCEL"
-msgstr "CANCEL"
+msgstr ""
 
 #: numberpad.keylabel.cash
 msgid "CASH"
-msgstr "CASH"
+msgstr ""
 
 #: numberpad.keylabel.subtotal
 msgid "SUB TOTAL"
-msgstr "SUB TOTAL"
+msgstr ""
 
 #: numberpad.keylabel.plusearch
 msgid "PRODUCT SEARCH"
-msgstr "PRODUCT SEARCH"
+msgstr ""
 
 #: numberpad.keylabel.tray
 msgid "TRAY MARKER"
-msgstr "TRAY MARKER"
+msgstr ""
 
 #: numberpad.keylabel.signoff
 msgid "SIGN OFF"
-msgstr "SIGN OFF"
+msgstr ""
 
 #: numberpad.keylabel.times
 msgid "X"
-msgstr "X"
+msgstr ""
 
 #: numberpad.keylabel.password
 msgid "Passcode:"
-msgstr "Passcode:"
+msgstr ""
 
 #: numberpad.keylabel.ok
 msgid "OK"
-msgstr "OK"
+msgstr ""

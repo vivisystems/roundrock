@@ -1,10 +1,10 @@
-#. extracted from ../locale/en-US/importexport.dtd, ../locale/en-US/importexport.dtd
+#. extracted from ../locale/en-US/importexport.dtd
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-13 16:39+0800\n"
+"POT-Creation-Date: 2009-01-15 01:34+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12,71 +12,72 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Translate Toolkit 1.1.1\n"
+"X-Accelerator-Marker: &\n"
 
 #: importexport.caption
 msgid "Database Import / Export"
-msgstr "Database Import / Export"
+msgstr ""
 
 #: importexport.media
 msgid "Media"
-msgstr "Media"
+msgstr ""
 
 #: importexport.checkmedia
 msgid "Check Media"
-msgstr "Check Media"
+msgstr ""
 
 #: importexport.import
 msgid "Import"
-msgstr "Import"
+msgstr ""
 
 #: importexport.export
 msgid "Export"
-msgstr "Export"
+msgstr ""
 
 #: importexport.tablename
 msgid "Name"
-msgstr "Name"
+msgstr ""
 
 #: importexport.importfilename
 msgid "Import File"
-msgstr "Import File"
+msgstr ""
 
 #: importexport.exportfilename
 msgid "Export File"
-msgstr "Export File"
+msgstr ""
 
 #: importexport.importwait
 msgid "Waitting for Import Data..."
-msgstr "Waitting for Import Data..."
+msgstr ""
 
 #: importexport.exportwait
 msgid "Waitting for Export Data..."
-msgstr "Waitting for Export Data..."
+msgstr ""
 
 #: vivipos.fec.common.ok
 msgid "Ok"
-msgstr "Ok"
+msgstr ""
 
 #: vivipos.fec.common.cancel
 msgid "Cancel"
-msgstr "Cancel"
+msgstr ""
 
 #: vivipos.fec.common.add
 msgid "Add"
-msgstr "Add"
+msgstr ""
 
 #: vivipos.fec.common.modify
 msgid "Modify"
-msgstr "Modify"
+msgstr ""
 
 #: vivipos.fec.common.delete
 msgid "Delete"
-msgstr "Delete"
+msgstr ""
 
 #: vivipos.fec.common.yes
 msgid "Yes"
-msgstr "Yes"
+msgstr ""
 
 #: vivipos.fec.common.no
 msgid "No"
-msgstr "No"
+msgstr ""

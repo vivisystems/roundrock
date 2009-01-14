@@ -1,10 +1,10 @@
-#. extracted from ../locale/en-US/cart.dtd, ../locale/en-US/cart.dtd
+#. extracted from ../locale/en-US/cart.dtd
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-13 16:39+0800\n"
+"POT-Creation-Date: 2009-01-15 01:34+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12,35 +12,36 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Translate Toolkit 1.1.1\n"
+"X-Accelerator-Marker: &\n"
 
 #: cart.item.name
 msgid "Product Name"
-msgstr "Product Name"
+msgstr ""
 
 #: cart.item.qty
 msgid "#"
-msgstr "#"
+msgstr ""
 
 #: cart.item.unitprice
 msgid "@"
-msgstr "@"
+msgstr ""
 
 #: cart.item.subtotal
 msgid "Subtotal"
-msgstr "Subtotal"
+msgstr ""
 
 #: cart.item.tax
 msgid "Tx"
-msgstr "Tx"
+msgstr ""
 
 #: cart.button.plus
 msgid "+"
-msgstr "+"
+msgstr ""
 
 #: cart.button.minus
 msgid "-"
-msgstr "-"
+msgstr ""
 
 #: cart.button.payments
 msgid "Payments"
-msgstr "Payments"
+msgstr ""

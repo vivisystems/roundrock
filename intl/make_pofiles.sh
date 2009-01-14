@@ -11,6 +11,12 @@ XPIS_DIR=$BASEDIR/xpi
 
 SUPPORTS=`cat $BASEDIR/SUPPORTS`
 
+echo "process $TEMPLATE pofiles as template"
+moz2po $BASE_LOCALEDIR/$TEMPLATE $POFILES_DIR/$TEMPLATE
+echo ""
+echo ""
+
+
 for LOCALE  in $SUPPORTS ; do
   echo "process $LOCALE with template ($TEMPLATE)"
   moz2po -t $BASE_LOCALEDIR/$TEMPLATE $LOCALES_DIR/$LOCALE $POFILES_DIR/$LOCALE

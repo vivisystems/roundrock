@@ -1,10 +1,10 @@
-#. extracted from ../locale/en-US/messages.properties, ../locale/en-US/messages.properties
+#. extracted from ../locale/en-US/messages.properties
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-13 16:39+0800\n"
+"POT-Creation-Date: 2009-01-15 01:34+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12,293 +12,283 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Translate Toolkit 1.1.1\n"
+"X-Accelerator-Marker: &\n"
 
 #: Condiments
 msgid "Condiments"
-msgstr "Condiments"
+msgstr ""
 
 #: Currency Exchange
 msgctxt "Currency Exchange"
 msgid "Currency Exchange"
-msgstr "Currency Exchange"
+msgstr ""
 
 #: Departments
 msgid "Departments"
-msgstr "Departments"
+msgstr ""
 
 #: Promotions
 msgid "Promotions (inactive)"
-msgstr "Promotions (inactive)"
+msgstr ""
 
 #: Employees
 msgid "Employees"
-msgstr "Employees"
+msgstr ""
 
 #: Function Panel Configuration
 msgid "Function Panel Configuration"
-msgstr "Function Panel Configuration"
+msgstr ""
 
 #: Data Import/ Export
 msgid "Data Import/ Export"
-msgstr "Data Import/ Export"
+msgstr ""
 
 #: Jobs
 msgid "Jobs"
-msgstr "Jobs"
+msgstr ""
 
 #: Image Manager
 msgid "Image Manager (inactive)"
-msgstr "Image Manager (inactive)"
+msgstr ""
 
 #: Locale and Keyboard Mapping
 msgid "Language and Keyboard Mapping"
-msgstr "Language and Keyboard Mapping"
+msgstr ""
 
 #: Product Groups
 msgid "Product Groups"
-msgstr "Product Groups"
+msgstr ""
 
 #: Products
 msgid "Products"
-msgstr "Products"
+msgstr ""
 
 #: Price Level Schedule
 msgid "Price Level Schedule"
-msgstr "Price Level Schedule"
+msgstr ""
 
 #: Reports
 msgid "Reports"
-msgstr "Reports"
+msgstr ""
 
 #: Roles
 msgid "Roles"
-msgstr "Roles"
+msgstr ""
 
 #: Stock Control
 msgid "Stock Control"
-msgstr "Stock Control"
+msgstr ""
 
 #: System Backup
 msgid "System Backup (inactive)"
-msgstr "System Backup (inactive)"
+msgstr ""
 
 #: General Options
 msgid "General Options"
-msgstr "General Options"
+msgstr ""
 
 #: Taxes
 msgid "Taxes"
-msgstr "Taxes"
+msgstr ""
 
 #: Date and Time
 msgid "Date & Time"
-msgstr "Date & Time"
+msgstr ""
 
 #: aaareports
 msgid "aaareports"
-msgstr "aaareports"
+msgstr ""
 
 #: Accounting Report
 msgid "Accounting Report"
-msgstr "Accounting Report"
+msgstr ""
 
 #: Attendance Record
 msgid "Attendance Record"
-msgstr "Attendance Record"
+msgstr ""
 
 #: Cash by Clerk
 msgid "Cash Report"
-msgstr "Cash Report"
+msgstr ""
 
 #: Department List
 msgid "Department List"
-msgstr "Department List"
+msgstr ""
 
 #: Inventory Report
 msgid "Stock Report"
-msgstr "Stock Report"
+msgstr ""
 
 #: Print Label
 msgid "Print Label"
-msgstr "Print Label"
+msgstr ""
 
 #: Product List
 msgid "Product List"
-msgstr "Product List"
+msgstr ""
 
 #: Product Sales
 msgid "Sales Report"
-msgstr "Sales Report"
+msgstr ""
 
 #: Taxes Report
 msgid "Taxes Report"
-msgstr "Taxes Report"
+msgstr ""
 
 #: User List
 msgid "User List"
-msgstr "User List"
+msgstr ""
 
 #: pricelevelshift.desc
 msgid ""
 "This function shifts the current price level up by 1. No parameter is "
 "needed."
 msgstr ""
-"This function shifts the current price level up by 1. No parameter is "
-"needed."
 
 #: pricelevelshift.label
 msgctxt "pricelevelshift.label"
 msgid "Price Level Shift"
-msgstr "Price Level Shift"
+msgstr ""
 
 #: pricelevelshift.name
 msgctxt "pricelevelshift.name"
 msgid "Price Level Shift"
-msgstr "Price Level Shift"
+msgstr ""
 
 #: pricelevel1.desc
 msgid ""
 "This function sets the current price level to 1. The parameter must be 1."
 msgstr ""
-"This function sets the current price level to 1. The parameter must be 1."
 
 #: pricelevel1.label
 msgctxt "pricelevel1.label"
 msgid "Price Level 1"
-msgstr "Price Level 1"
+msgstr ""
 
 #: pricelevel1.name
 msgctxt "pricelevel1.name"
 msgid "Price Level 1"
-msgstr "Price Level 1"
+msgstr ""
 
 #: pricelevel2.desc
 msgid ""
 "This function sets the current price level to 2. The parameter must be 2."
 msgstr ""
-"This function sets the current price level to 2. The parameter must be 2."
 
 #: pricelevel2.label
 msgctxt "pricelevel2.label"
 msgid "Price Level 2"
-msgstr "Price Level 2"
+msgstr ""
 
 #: pricelevel2.name
 msgctxt "pricelevel2.name"
 msgid "Price Level 2"
-msgstr "Price Level 2"
+msgstr ""
 
 #: pricelevel3.desc
 msgid ""
 "This function sets the current price level to 3. The parameter must be 3."
 msgstr ""
-"This function sets the current price level to 3. The parameter must be 3."
 
 #: pricelevel3.label
 msgctxt "pricelevel3.label"
 msgid "Price Level 3"
-msgstr "Price Level 3"
+msgstr ""
 
 #: pricelevel3.name
 msgctxt "pricelevel3.name"
 msgid "Price Level 3"
-msgstr "Price Level 3"
+msgstr ""
 
 #: pricelevel4.desc
 msgid ""
 "This function sets the current price level to 4. The parameter must be 4."
 msgstr ""
-"This function sets the current price level to 4. The parameter must be 4."
 
 #: pricelevel4.label
 msgctxt "pricelevel4.label"
 msgid "Price Level 4"
-msgstr "Price Level 4"
+msgstr ""
 
 #: pricelevel4.name
 msgctxt "pricelevel4.name"
 msgid "Price Level 4"
-msgstr "Price Level 4"
+msgstr ""
 
 #: pricelevel5.desc
 msgid ""
 "This function sets the current price level to 5. The parameter must be 5."
 msgstr ""
-"This function sets the current price level to 5. The parameter must be 5."
 
 #: pricelevel5.label
 msgctxt "pricelevel5.label"
 msgid "Price Level 5"
-msgstr "Price Level 5"
+msgstr ""
 
 #: pricelevel5.name
 msgctxt "pricelevel5.name"
 msgid "Price Level 5"
-msgstr "Price Level 5"
+msgstr ""
 
 #: pricelevel6.desc
 msgid ""
 "This function sets the current price level to 6. The parameter must be 6."
 msgstr ""
-"This function sets the current price level to 6. The parameter must be 6."
 
 #: pricelevel6.label
 msgctxt "pricelevel6.label"
 msgid "Price Level 6"
-msgstr "Price Level 6"
+msgstr ""
 
 #: pricelevel6.name
 msgctxt "pricelevel6.name"
 msgid "Price Level 6"
-msgstr "Price Level 6"
+msgstr ""
 
 #: pricelevel7.desc
 msgid ""
 "This function sets the current price level to 7. The parameter must be 7."
 msgstr ""
-"This function sets the current price level to 7. The parameter must be 7."
 
 #: pricelevel7.label
 msgctxt "pricelevel7.label"
 msgid "Price Level 7"
-msgstr "Price Level 7"
+msgstr ""
 
 #: pricelevel7.name
 msgctxt "pricelevel7.name"
 msgid "Price Level 7"
-msgstr "Price Level 7"
+msgstr ""
 
 #: pricelevel8.desc
 msgid ""
 "This function sets the current price level to 8. The parameter must be 8."
 msgstr ""
-"This function sets the current price level to 8. The parameter must be 8."
 
 #: pricelevel8.label
 msgctxt "pricelevel8.label"
 msgid "Price Level 8"
-msgstr "Price Level 8"
+msgstr ""
 
 #: pricelevel8.name
 msgctxt "pricelevel8.name"
 msgid "Price Level 8"
-msgstr "Price Level 8"
+msgstr ""
 
 #: pricelevel9.desc
 msgid ""
 "This function sets the current price level to 9. The parameter must be 9."
 msgstr ""
-"This function sets the current price level to 9. The parameter must be 9."
 
 #: pricelevel9.label
 msgctxt "pricelevel9.label"
 msgid "Price Level 9"
-msgstr "Price Level 9"
+msgstr ""
 
 #: pricelevel9.name
 msgctxt "pricelevel9.name"
 msgid "Price Level 9"
-msgstr "Price Level 9"
+msgstr ""
 
 #: shifttax.desc
 msgid ""
@@ -307,20 +297,16 @@ msgid ""
 "this function changes the current item to the preset tax status; otherwise, "
 "it shifts the item to the next tax status."
 msgstr ""
-"This function shifts current item's tax status. The parameter field can be "
-"used to program a specific tax status. If a preset tax status is programmed, "
-"this function changes the current item to the preset tax status; otherwise, "
-"it shifts the item to the next tax status."
 
 #: shifttax.label
 msgctxt "shifttax.label"
 msgid "Shift Tax"
-msgstr "Shift Tax"
+msgstr ""
 
 #: shifttax.name
 msgctxt "shifttax.name"
 msgid "Shift Tax"
-msgstr "Shift Tax"
+msgstr ""
 
 #: discountByPercentage.desc
 msgid ""
@@ -328,17 +314,14 @@ msgid ""
 "be used to program a preset percentage. If no preset percentage is "
 "programmed, the discount percentage is read from the input line."
 msgstr ""
-"This function registers a percentage-based discount. The parameter field can "
-"be used to program a preset percentage. If no preset percentage is "
-"programmed, the discount percentage is read from the input line."
 
 #: discountByPercentage.label
 msgid "%-"
-msgstr "%-"
+msgstr ""
 
 #: discountByPercentage.name
 msgid "Percentage Discount"
-msgstr "Percentage Discount"
+msgstr ""
 
 #: discountByAmount.desc
 msgid ""
@@ -346,17 +329,14 @@ msgid ""
 "program a preset reduction amount. If no preset amount is programmed, the "
 "discount amount is read from the input line."
 msgstr ""
-"This function registers a reduction. The parameter field can be used to "
-"program a preset reduction amount. If no preset amount is programmed, the "
-"discount amount is read from the input line."
 
 #: discountByAmount.label
 msgid "-"
-msgstr "-"
+msgstr ""
 
 #: discountByAmount.name
 msgid "Reduction"
-msgstr "Reduction"
+msgstr ""
 
 #: surchargeByPercentage.desc
 msgid ""
@@ -364,17 +344,14 @@ msgid ""
 "used to program a preset surcharge. If no preset surcharge is programmed, "
 "the surcharge percentage is read from the input line."
 msgstr ""
-"This function registers a percentage surcharge. The parameter field can be "
-"used to program a preset surcharge. If no preset surcharge is programmed, "
-"the surcharge percentage is read from the input line."
 
 #: surchargeByPercentage.label
 msgid "%+"
-msgstr "%+"
+msgstr ""
 
 #: surchargeByPercentage.name
 msgid "Surcharge"
-msgstr "Surcharge"
+msgstr ""
 
 #: surchargeByAmount.desc
 msgid ""
@@ -382,17 +359,14 @@ msgid ""
 "program a preset addition amount. If no preset amount is programmed, the "
 "amount is read from the input line."
 msgstr ""
-"This function registers an addition. The parameter field can be used to "
-"program a preset addition amount. If no preset amount is programmed, the "
-"amount is read from the input line."
 
 #: surchargeByAmount.label
 msgid "+"
-msgstr "+"
+msgstr ""
 
 #: surchargeByAmount.name
 msgid "PLUS"
-msgstr "PLUS"
+msgstr ""
 
 #: cash.desc
 msgid ""
@@ -401,266 +375,240 @@ msgid ""
 "payment amount is read from the input line  If the input line is also blank, "
 "a quick cash payment is registered."
 msgstr ""
-"This function registers a cash payment. The parameter field can be used to "
-"program a preset cash apayment amount. If no preset is programmed, the "
-"payment amount is read from the input line  If the input line is also blank, "
-"a quick cash payment is registered."
 
 #: cash.label
 msgctxt "cash.label"
 msgid "Cash"
-msgstr "Cash"
+msgstr ""
 
 #: cash.name
 msgctxt "cash.name"
 msgid "Cash"
-msgstr "Cash"
+msgstr ""
 
 #: keypress.desc
 msgid ""
 "This function simulates a series of key presses. The parameter field "
 "contains the string of key characters to press."
 msgstr ""
-"This function simulates a series of key presses. The parameter field "
-"contains the string of key characters to press."
 
 #: keypress.label
 msgid "Key"
-msgstr "Key"
+msgstr ""
 
 #: keypress.name
 msgid "Keypress"
-msgstr "Keypress"
+msgstr ""
 
 #: clear.desc
 msgid ""
 "This function clears the input line. The parameter field must not be altered"
 msgstr ""
-"This function clears the input line. The parameter field must not be altered"
 
 #: clear.label
 msgctxt "clear.label"
 msgid "Clear"
-msgstr "Clear"
+msgstr ""
 
 #: clear.name
 msgctxt "clear.name"
 msgid "Clear"
-msgstr "Clear"
+msgstr ""
 
 #: enter.desc
 msgid ""
 "This function simulates pressing the 'Enter' key. The parameter field must "
 "not be altered"
 msgstr ""
-"This function simulates pressing the 'Enter' key. The parameter field must "
-"not be altered"
 
 #: enter.label
 msgctxt "enter.label"
 msgid "Enter"
-msgstr "Enter"
+msgstr ""
 
 #: enter.name
 msgctxt "enter.name"
 msgid "Enter"
-msgstr "Enter"
+msgstr ""
 
 #: quantity.desc
 msgid ""
 "This function sets the quantity to the value entered on the input line. The "
 "parameter field must not be altered"
 msgstr ""
-"This function sets the quantity to the value entered on the input line. The "
-"parameter field must not be altered"
 
 #: quantity.label
 msgid "X"
-msgstr "X"
+msgstr ""
 
 #: quantity.name
 msgid "Quantity"
-msgstr "Quantity"
+msgstr ""
 
 #: subtotal.desc
 msgid ""
 "This function registers a subtotal. The parameter field must not be altered"
 msgstr ""
-"This function registers a subtotal. The parameter field must not be altered"
 
 #: subtotal.label
 msgid "SUB TOTAL"
-msgstr "SUB TOTAL"
+msgstr ""
 
 #: subtotal.name
 msgid "Sub Total"
-msgstr "Sub Total"
+msgstr ""
 
 #: traymarker.desc
 msgid ""
 "This function registers a tray marker. The parameter field must not be "
 "altered"
 msgstr ""
-"This function registers a tray marker. The parameter field must not be "
-"altered"
 
 #: traymarker.label
 msgctxt "traymarker.label"
 msgid "Tray Marker"
-msgstr "Tray Marker"
+msgstr ""
 
 #: traymarker.name
 msgctxt "traymarker.name"
 msgid "Tray Marker"
-msgstr "Tray Marker"
+msgstr ""
 
 #: cancel.desc
 msgid "This function cancels the current order. No parameter is needed."
-msgstr "This function cancels the current order. No parameter is needed."
+msgstr ""
 
 #: cancel.label
 msgctxt "cancel.label"
 msgid "Cancel"
-msgstr "Cancel"
+msgstr ""
 
 #: cancel.name
 msgctxt "cancel.name"
 msgid "Cancel"
-msgstr "Cancel"
+msgstr ""
 
 #: plusearch.desc
 msgid ""
 "This function allows the operator to perform a Product search. No parameter "
 "is needed."
 msgstr ""
-"This function allows the operator to perform a Product search. No parameter "
-"is needed."
 
 #: plusearch.label
 msgctxt "plusearch.label"
 msgid "Product Search"
-msgstr "Product Search"
+msgstr ""
 
 #: plusearch.name
 msgctxt "plusearch.name"
 msgid "Product Search"
-msgstr "Product Search"
+msgstr ""
 
 #: pushqueue.desc
 msgid ""
 "This function queues the current order and readies the register for a new "
 "order. No parameter is needed."
 msgstr ""
-"This function queues the current order and readies the register for a new "
-"order. No parameter is needed."
 
 #: pushqueue.label
 msgctxt "pushqueue.label"
 msgid "Queue Order"
-msgstr "Queue Order"
+msgstr ""
 
 #: pushqueue.name
 msgctxt "pushqueue.name"
 msgid "Queue Order"
-msgstr "Queue Order"
+msgstr ""
 
 #: pullqueue.desc
 msgid ""
 "This function allows the operator to recall a queued order. No parameter is "
 "needed."
 msgstr ""
-"This function allows the operator to recall a queued order. No parameter is "
-"needed."
 
 #: pullqueue.label
 msgctxt "pullqueue.label"
 msgid "View Queue"
-msgstr "View Queue"
+msgstr ""
 
 #: pullqueue.name
 msgctxt "pullqueue.name"
 msgid "View Queue"
-msgstr "View Queue"
+msgstr ""
 
 #: modifyitem.desc
 msgid ""
 "This function allows the operator to modify a registered item. No parameter "
 "is needed."
 msgstr ""
-"This function allows the operator to modify a registered item. No parameter "
-"is needed."
 
 #: modifyitem.label
 msgid "Modify"
-msgstr "Modify"
+msgstr ""
 
 #: modifyitem.name
 msgid "Modify Item"
-msgstr "Modify Item"
+msgstr ""
 
 #: voidItem.desc
 msgid "This function voids the last transaction. No parameter is needed."
-msgstr "This function voids the last transaction. No parameter is needed."
+msgstr ""
 
 #: voidItem.label
 msgctxt "voidItem.label"
 msgid "VOID"
-msgstr "VOID"
+msgstr ""
 
 #: voidItem.name
 msgctxt "voidItem.name"
 msgid "VOID"
-msgstr "VOID"
+msgstr ""
 
 #: houseBon.desc
 msgid ""
 "This function marks the current item as 'on-the-house'. No parameter is "
 "needed."
 msgstr ""
-"This function marks the current item as 'on-the-house'. No parameter is "
-"needed."
 
 #: houseBon.label
 msgctxt "houseBon.label"
 msgid "House BON"
-msgstr "House BON"
+msgstr ""
 
 #: houseBon.name
 msgctxt "houseBon.name"
 msgid "House BON"
-msgstr "House BON"
+msgstr ""
 
 #: signOff.desc
 msgid "This function signs off the current operator. No parameter is needed."
-msgstr "This function signs off the current operator. No parameter is needed."
+msgstr ""
 
 #: signOff.label
 msgctxt "signOff.label"
 msgid "Sign Off"
-msgstr "Sign Off"
+msgstr ""
 
 #: signOff.name
 msgctxt "signOff.name"
 msgid "Sign Off"
-msgstr "Sign Off"
+msgstr ""
 
 #: currencyConvert.desc
 msgid ""
 "This function registers a currency conversion. The parameter indicates the "
 "currency code to convert from and must be filled."
 msgstr ""
-"This function registers a currency conversion. The parameter indicates the "
-"currency code to convert from and must be filled."
 
 #: currencyConvert.label
 msgctxt "currencyConvert.label"
 msgid "Currency Exchange"
-msgstr "Currency Exchange"
+msgstr ""
 
 #: currencyConvert.name
 msgctxt "currencyConvert.name"
 msgid "Currency Exchange"
-msgstr "Currency Exchange"
+msgstr ""
 
 #: changeToCurrentLevel.desc
 msgid ""
@@ -669,20 +617,16 @@ msgid ""
 "schedule is not active, or if no schedule has been defined, the price level "
 "reverts to the system/user default. No parameter is needed."
 msgstr ""
-"This function resets the current price level. If the price level schedule is "
-"active, the currently scheduled level is restored. If the price level "
-"schedule is not active, or if no schedule has been defined, the price level "
-"reverts to the system/user default. No parameter is needed."
 
 #: changeToCurrentLevel.label
 msgctxt "changeToCurrentLevel.label"
 msgid "Reset Price Level"
-msgstr "Reset Price Level"
+msgstr ""
 
 #: changeToCurrentLevel.name
 msgctxt "changeToCurrentLevel.name"
 msgid "Reset Price Level"
-msgstr "Reset Price Level"
+msgstr ""
 
 #: silentsignoff.desc
 msgid ""
@@ -690,35 +634,30 @@ msgid ""
 "field using password from the input buffer. The parameter field must be set "
 "to the username of the user to switch to."
 msgstr ""
-"This function allows a silent switch to the user specified in the paramter "
-"field using password from the input buffer. The parameter field must be set "
-"to the username of the user to switch to."
 
 #: silentsignoff.label
 msgctxt "silentsignoff.label"
 msgid "Silent User Switch"
-msgstr "Silent User Switch"
+msgstr ""
 
 #: silentsignoff.name
 msgctxt "silentsignoff.name"
 msgid "Silent User Switch"
-msgstr "Silent User Switch"
+msgstr ""
 
 #: quicksignoff.desc
 msgid ""
 "This function allows the current user to enter a password and quickly switch "
 "to the user identified by that password. No parameter is needed."
 msgstr ""
-"This function allows the current user to enter a password and quickly switch "
-"to the user identified by that password. No parameter is needed."
 
 #: quicksignoff.label
 msgid "Change Clerk"
-msgstr "Change Clerk"
+msgstr ""
 
 #: quicksignoff.name
 msgid "Quick User Switch"
-msgstr "Quick User Switch"
+msgstr ""
 
 #: dispatch.desc
 msgid ""
@@ -727,110 +666,96 @@ msgid ""
 "the command name, the second argument the data to pass to the command, and "
 "the third argument the controller handling the command."
 msgstr ""
-"This function dispatches a command to a controller. The parameter field "
-"should be a comma-separated list of arguments, with the first argument being "
-"the command name, the second argument the data to pass to the command, and "
-"the third argument the controller handling the command."
 
 #: dispatch.label
 msgctxt "dispatch.label"
 msgid "Dispatch"
-msgstr "Dispatch"
+msgstr ""
 
 #: dispatch.name
 msgctxt "dispatch.name"
 msgid "Dispatch"
-msgstr "Dispatch"
+msgstr ""
 
 #: return.desc
 msgid ""
 "This function registers a return of an item for refund. No parameter is "
 "needed."
 msgstr ""
-"This function registers a return of an item for refund. No parameter is "
-"needed."
 
 #: return.label
 msgctxt "return.label"
 msgid "Refund"
-msgstr "Refund"
+msgstr ""
 
 #: return.name
 msgctxt "return.name"
 msgid "Refund"
-msgstr "Refund"
+msgstr ""
 
 #: creditcard.desc
 msgid ""
 "This function registers a credit card payment. The parameter field should be "
 "set to the credit type."
 msgstr ""
-"This function registers a credit card payment. The parameter field should be "
-"set to the credit type."
 
 #: creditcard.label
 msgctxt "creditcard.label"
 msgid "Credit Card"
-msgstr "Credit Card"
+msgstr ""
 
 #: creditcard.name
 msgctxt "creditcard.name"
 msgid "Credit Card"
-msgstr "Credit Card"
+msgstr ""
 
 #: giftcard.desc
 msgid ""
 "This function registers a gift card payment. The parameter field should be "
 "set to the gift card type."
 msgstr ""
-"This function registers a gift card payment. The parameter field should be "
-"set to the gift card type."
 
 #: giftcard.label
 msgctxt "giftcard.label"
 msgid "Gift Card"
-msgstr "Gift Card"
+msgstr ""
 
 #: giftcard.name
 msgctxt "giftcard.name"
 msgid "Gift Card"
-msgstr "Gift Card"
+msgstr ""
 
 #: addmemo.desc
 msgid ""
 "This function adds an open memo to an item in the cart. The parameter field "
 "must be empty."
 msgstr ""
-"This function adds an open memo to an item in the cart. The parameter field "
-"must be empty."
 
 #: addmemo.label
 msgctxt "addmemo.label"
 msgid "Add Memo"
-msgstr "Add Memo"
+msgstr ""
 
 #: addmemo.name
 msgctxt "addmemo.name"
 msgid "Add Memo"
-msgstr "Add Memo"
+msgstr ""
 
 #: addcondiment.desc
 msgid ""
 "This function registers a gift card payment. The parameter field must be "
 "empty."
 msgstr ""
-"This function registers a gift card payment. The parameter field must be "
-"empty."
 
 #: addcondiment.label
 msgctxt "addcondiment.label"
 msgid "Add Condiment"
-msgstr "Add Condiment"
+msgstr ""
 
 #: addcondiment.name
 msgctxt "addcondiment.name"
 msgid "Add Condiment"
-msgstr "Add Condiment"
+msgstr ""
 
 #: surchargePretaxByPercentage.desc
 msgid ""
@@ -839,20 +764,16 @@ msgid ""
 "percentage is programmed, the surcharge percentage is read from the input "
 "line."
 msgstr ""
-"This function registers a pretax order surcharge by percentage. The "
-"parameter field can be used to program a preset percentage. If no preset "
-"percentage is programmed, the surcharge percentage is read from the input "
-"line."
 
 #: surchargePretaxByPercentage.label
 msgctxt "surchargePretaxByPercentage.label"
 msgid "Pretax Order Surcharge"
-msgstr "Pretax Order Surcharge"
+msgstr ""
 
 #: surchargePretaxByPercentage.name
 msgctxt "surchargePretaxByPercentage.name"
 msgid "Pretax Order Surcharge"
-msgstr "Pretax Order Surcharge"
+msgstr ""
 
 #: discountPretaxByPercentage.desc
 msgid ""
@@ -860,274 +781,271 @@ msgid ""
 "field can be used to program a preset percentage. If no preset percentage "
 "is programmed, the discount percentage is read from the input line."
 msgstr ""
-"This function registers a pretax order discount by percentage. The parameter "
-"field can be used to program a preset percentage. If no preset percentage "
-"is programmed, the discount percentage is read from the input line."
 
 #: discountPretaxByPercentage.label
 msgctxt "discountPretaxByPercentage.label"
 msgid "Pretax Order Discount"
-msgstr "Pretax Order Discount"
+msgstr ""
 
 #: discountPretaxByPercentage.name
 msgctxt "discountPretaxByPercentage.name"
 msgid "Pretax Order Discount"
-msgstr "Pretax Order Discount"
+msgstr ""
 
 #: acl_user_dummy
 msgid "dummy"
-msgstr "dummy"
+msgstr ""
 
 #: acl_override_default_price_level
 msgid "Override Default Price Level"
-msgstr "Override Default Price Level"
+msgstr ""
 
 #: acl_change_price_level
 msgid "Change Price Level"
-msgstr "Change Price Level"
+msgstr ""
 
 #: acl_set_price_level_1
 msgid "Set Price Level 1"
-msgstr "Set Price Level 1"
+msgstr ""
 
 #: acl_set_price_level_2
 msgid "Set Price Level 2"
-msgstr "Set Price Level 2"
+msgstr ""
 
 #: acl_set_price_level_3
 msgid "Set Price Level 3"
-msgstr "Set Price Level 3"
+msgstr ""
 
 #: acl_set_price_level_4
 msgid "Set Price Level 4"
-msgstr "Set Price Level 4"
+msgstr ""
 
 #: acl_set_price_level_5
 msgid "Set Price Level 5"
-msgstr "Set Price Level 5"
+msgstr ""
 
 #: acl_set_price_level_6
 msgid "Set Price Level 6"
-msgstr "Set Price Level 6"
+msgstr ""
 
 #: acl_set_price_level_7
 msgid "Set Price Level 7"
-msgstr "Set Price Level 7"
+msgstr ""
 
 #: acl_set_price_level_8
 msgid "Set Price Level 8"
-msgstr "Set Price Level 8"
+msgstr ""
 
 #: acl_set_price_level_9
 msgid "Set Price Level 9"
-msgstr "Set Price Level 9"
+msgstr ""
 
 #: acl_revert_price_level
 msgid "Revert Price Level"
-msgstr "Revert Price Level"
+msgstr ""
 
 #: acl_override_halo
 msgid "Override HALO"
-msgstr "Override HALO"
+msgstr ""
 
 #: acl_override_lalo
 msgid "Override LALO"
-msgstr "Override LALO"
+msgstr ""
 
 #: acl_queue_order
 msgctxt "acl_queue_order"
 msgid "Queue Order"
-msgstr "Queue Order"
+msgstr ""
 
 #: acl_pull_queue
 msgid "Pull Order from Queue"
-msgstr "Pull Order from Queue"
+msgstr ""
 
 #: acl_open_control_panel
 msgid "Access Control Panel"
-msgstr "Access Control Panel"
+msgstr ""
 
 #: acl_modify_cart_item
 msgid "Modify Cart Items"
-msgstr "Modify Cart Items"
+msgstr ""
 
 #: acl_void_cart_item
 msgid "VOID Cart Items"
-msgstr "VOID Cart Items"
+msgstr ""
 
 #: acl_cancel_order
 msgid "Cancel Order"
-msgstr "Cancel Order"
+msgstr ""
 
 #: acl_plu_search
 msgctxt "acl_plu_search"
 msgid "Product Search"
-msgstr "Product Search"
+msgstr ""
 
 #: acl_open_cash
 msgid "Register Cash Payment"
-msgstr "Register Cash Payment"
+msgstr ""
 
 #: acl_toggle_numpad
 msgid "Toggle Number Pad"
-msgstr "Toggle Number Pad"
+msgstr ""
 
 #: acl_public_access
 msgid "Public Access"
-msgstr "Public Access"
+msgstr ""
 
 #: acl_manage_condiments
 msgid "Manage Condiments"
-msgstr "Manage Condiments"
+msgstr ""
 
 #: acl_manage_currency
 msgid "Manage Currency Exchange"
-msgstr "Manage Currency Exchange"
+msgstr ""
 
 #: acl_manage_departments
 msgid "Manage Departments"
-msgstr "Manage Departments"
+msgstr ""
 
 #: acl_manage_employees
 msgid "Manage Employees"
-msgstr "Manage Employees"
+msgstr ""
 
 #: acl_manage_function_panel
 msgid "Manage Function Panel"
-msgstr "Manage Function Panel"
+msgstr ""
 
 #: acl_shift_item_tax
 msgid "Shift Item Tax"
-msgstr "Shift Item Tax"
+msgstr ""
 
 #: acl_register_discount
 msgid "Register Discounts"
-msgstr "Register Discounts"
+msgstr ""
 
 #: acl_register_reduction
 msgid "Register Reductions"
-msgstr "Register Reductions"
+msgstr ""
 
 #: acl_register_surcharge
 msgid "Register Surcharges"
-msgstr "Register Surcharges"
+msgstr ""
 
 #: acl_register_addition
 msgid "Register Additions"
-msgstr "Register Additions"
+msgstr ""
 
 #: acl_send_keypress
 msgid "Send Keypresses"
-msgstr "Send Keypresses"
+msgstr ""
 
 #: acl_register_plus
 msgid "Register Products"
-msgstr "Register Products"
+msgstr ""
 
 #: acl_register_enter
 msgid "Register ENTER"
-msgstr "Register ENTER"
+msgstr ""
 
 #: acl_register_quantity
 msgid "Register Quantity"
-msgstr "Register Quantity"
+msgstr ""
 
 #: acl_register_sub_total
 msgid "Register Subtotal"
-msgstr "Register Subtotal"
+msgstr ""
 
 #: acl_register_tray_marker
 msgid "Register Tray Marker"
-msgstr "Register Tray Marker"
+msgstr ""
 
 #: acl_register_housebon
 msgid "Register House BON"
-msgstr "Register House BON"
+msgstr ""
 
 #: acl_register_currency_exchange
 msgid "Register Currency Exchange"
-msgstr "Register Currency Exchange"
+msgstr ""
 
 #: acl_manage_jobs
 msgid "Manage Jobs"
-msgstr "Manage Jobs"
+msgstr ""
 
 #: acl_manage_plu_groups
 msgid "Manage Product Groups"
-msgstr "Manage Product Groups"
+msgstr ""
 
 #: acl_manage_import_export
 msgid "Import/Export Data"
-msgstr "Import/Export Data"
+msgstr ""
 
 #: acl_manage_price_level_schedule
 msgid "Manage Price Level Schedule"
-msgstr "Manage Price Level Schedule"
+msgstr ""
 
 #: acl_manage_acl_groups
 msgid "Manage Access Groups"
-msgstr "Manage Access Groups"
+msgstr ""
 
 #: acl_manage_stock
 msgid "Manage Stock"
-msgstr "Manage Stock"
+msgstr ""
 
 #: acl_manage_system_options
 msgid "Manage System Options"
-msgstr "Manage System Options"
+msgstr ""
 
 #: acl_manage_taxes
 msgid "Manage Taxes"
-msgstr "Manage Taxes"
+msgstr ""
 
 #: acl_manage_products
 msgid "Manage Products"
-msgstr "Manage Products"
+msgstr ""
 
 #: acl_register_return
 msgid "Register Item Return"
-msgstr "Register Item Return"
+msgstr ""
 
 #: acl_register_credit_card
 msgid "Register Credit Card Payment"
-msgstr "Register Credit Card Payment"
+msgstr ""
 
 #: acl_register_gift_card
 msgid "Register Gift Card Payment"
-msgstr "Register Gift Card Payment"
+msgstr ""
 
 #: acl_manage_images
 msgid "Manage Images"
-msgstr "Manage Images"
+msgstr ""
 
 #: acl_modify_keymap_parameter
 msgid "Modify Keymap Parameter"
-msgstr "Modify Keymap Parameter"
+msgstr ""
 
 #: acl_modify_condiment_price
 msgid "Modify Condiment Price"
-msgstr "Modify Condiment Price"
+msgstr ""
 
 #: acl_manage_locale_keyboard
 msgid "Change Language and Keyboard Mapping"
-msgstr "Change Language and Keyboard Mapping"
+msgstr ""
 
 #: acl_register_pretax_discount
 msgid "Register Order Discounts Pretax"
-msgstr "Register Order Discounts Pretax"
+msgstr ""
 
 #: acl_register_pretax_surcharge
 msgid "Register Order Surcharges Pretax"
-msgstr "Register Order Surcharges Pretax"
+msgstr ""
 
 #: acl_manage_reports
 msgid "Run Reports"
-msgstr "Run Reports"
+msgstr ""
 
 #: acl_manage_date_time
 msgid "Set Date and Time"
-msgstr "Set Date and Time"
+msgstr ""
 
 #: acl_manage_devices
 msgid "Manage Devices"
-msgstr "Manage Devices"
+msgstr ""
