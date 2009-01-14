@@ -29,12 +29,12 @@ ESC 1=
 ESC D=
 ESC B=
 ESC b=
-ESC /
+ESC /=
 ESC e=
 ESC ( t=
-ESC t
+ESC t=
 ESC R=
-ESC &
+ESC &=
 ESC :=
 ESC %=
 ESC x=

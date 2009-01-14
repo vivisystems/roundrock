@@ -78,7 +78,9 @@
             if (users && users.length > 0) {
                 var userlist = GeckoJS.Array.objectExtract(users, '{n}.description').join(", ");
                 userlist = [group].concat(userlist);
-                alert(_('The ACL group [%S] has been assigned to one or more users [%S] and cannot be removed.', userlist));
+                GREUtils.Dialog.alert(window,
+                                      _('Remove User'),
+                                      _('The ACL group [%S] has been assigned to one or more users [%S] and cannot be removed.', userlist));
             } else if (GREUtils.Dialog.confirm(null, _('confirm delete %S', [group]), _('Are you sure?'))) {
 
                 try {

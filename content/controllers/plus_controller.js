@@ -212,7 +212,6 @@
 
             if (!barcodesIndexes[barcode]) {
                 // barcode notfound
-                // alert('Plu (' + barcode + ') Not Found!');
                 return null;
             }else {
                 var id = barcodesIndexes[barcode];
@@ -245,12 +244,10 @@
 
             this._pluset = [];
             for (var key in pluset) {
-                //alert(key + ':' + decodeURI(key));
                 key = decodeURI(key);
                 if (key == '') break;
                 
                 var qty = pluset[key];
-                //alert(qty + ':' + decodeURI(qty));
                 try {
                     var id = barcodesIndexes[key];
                     var name = productsById[id].name;
@@ -302,12 +299,16 @@
                     var formData = this.getInputData();
                     if (product.no == formData.no) {
                         //@todo OSD?
-                        alert(_('[%S] (%S) may not be a member of its own product set.', [product.name, inputObj.input0]));
+                        GREUtils.Dialog.alert(window,
+                                              _('Product Set'),
+                                              _('[%S] (%S) may not be a member of its own product set.', [product.name, inputObj.input0]));
                         return;
                     }
 
                     if (product.setmenu != null && product.setmenu.length > 0) {
-                        alert(_('[%S] (%S) is a product set and may not be a member of another product set.', [product.name, inputObj.input0]));
+                        GREUtils.Dialog.alert(window,
+                                              _('Product Set'),
+                                              _('[%S] (%S) is a product set and may not be a member of another product set.', [product.name, inputObj.input0]));
                         return;
                     }
 
@@ -334,7 +335,9 @@
                     $('#setmenu').val( setmenu.join('&'));
                 }
                 else {
-                    alert(_('Product not found [%S].', [inputObj.input0]));
+                    GREUtils.Dialog.alert(window,
+                                          _('Product Set'),
+                                          _('Product not found [%S].', [inputObj.input0]));
                 }
             }
 

@@ -71,9 +71,6 @@
 
         afterScaffoldEdit: function (evt) {
             if (evt.justUpdate) {
-                //
-                //alert('just update');
-
                 // update stock in session...
                 var productsById = GeckoJS.Session.get('productsById');
                 var product = productsById[evt.data.id];
@@ -117,7 +114,9 @@
 
             if (!this._barcodesIndexes[barcode]) {
                 // barcode notfound
-                alert(_('Product/Barcode Number (%S) not found!', [barcode]));
+                GREUtils.Dialog.alert(window,
+                                      _('Product Search'),
+                                      _('Product/Barcode Number (%S) not found!', [barcode]));
             }else {
                 var id = this._barcodesIndexes[barcode];
                 product = this._productsById[id];

@@ -1503,7 +1503,7 @@
                 statusStr += '    memo1: ' + (payment.memo1||'') + ' , memo2: ' + (payment.memo2||'') + '\n\n';
             }
 
-            alert(statusStr);
+            GREUtils.Dialog.alert(window, _('Payment Details'), statusStr);
         },
 
 

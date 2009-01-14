@@ -1,16 +1,17 @@
 (function(){
 
     /**
-     * Devices Controller
+     * Print Controller
      */
 
     GeckoJS.Controller.extend( {
-        name: 'Devices',
+        name: 'Print',
 
         _templates: null,
         _ports: null,
         _portspeeds: null,
         _devicemodels: null,
+        _deviceCommands: null,
         _selectedDevices: null,
         _sortedDevicemodels: null,
         _portControlService: null,
@@ -32,31 +33,8 @@
             // load device models
             this._devicemodels = GeckoJS.Configure.read('vivipos.fec.registry.devicemodels');
 
-            // load device selections
-            this._selectedDevices = GeckoJS.Configure.read('vivipos.fec.settings.selectedDevices');
-            if (this._selectedDevices != null)
-                this._selectedDevices = GeckoJS.BaseObject.unserialize(GeckoJS.String.urlDecode(this._selectedDevices));
-
-            // load command files
-            GeckoJS.Session.set('deviceCommands', this.loadDeviceCommands(this._selectedDevices));
-
-            // warn if one or more enabled devices are off-line
-            var statusResult = this.checkStatusAll();
-
-            if (statusResult.status == 0) {
-                var statusStr = '';
-
-                // generate list of devices that may not be ready
-                var statuses = statusResult.statuses
-                //this.log(GeckoJS.BaseObject.dump(statuses));
-                statuses.forEach(function(status) {
-                    if (status[2] == 0)
-                        statusStr += '\n   ' + _('Device') + ' [' + status[0] + ']: ' + _('Port') + ' [' + status[1] + ']';
-                });
-
-                GREUtils.Dialog.alert(window, _('Device Status'),
-                                              _('The following enabled devices appear to be offline, please ensure that they are functioning correctly: \n%S', [statusStr]));
-            }
+            // device selections and device commands are dynamic data and are loaded
+            // from session during each print event
 
             // add event listener for onSubmit events
 
@@ -135,7 +113,7 @@
                     }
                 }
             }
-            return deviceCommands;
+            GeckoJS.Session.set('deviceCommands', deviceCommands);
         },
 
         loadDeviceCommandFile: function(path) {
@@ -838,11 +816,8 @@
                     return;
                 }
             }
-            // update device session data
-            
-            GeckoJS.Configure.write('vivipos.fec.settings.selectedDevices', GeckoJS.String.urlEncode(GeckoJS.BaseObject.serialize(formObj)));
-            GeckoJS.Session.set('deviceCommands', this.loadDeviceCommands(this._selectedDevices));
 
+            GeckoJS.Configure.write('vivipos.fec.settings.selectedDevices', GeckoJS.String.urlEncode(GeckoJS.BaseObject.serialize(formObj)));
             return;
         }
 
@@ -852,7 +827,7 @@
     window.addEventListener('load', function() {
         var main = GeckoJS.Controller.getInstanceByName('Main');
         if(main) main.addEventListener('onInitial', function() {
-                                            main.requestCommand('initial', null, 'Devices');
+                                            main.requestCommand('initial', null, 'Print');
                                       });
 
     }, false);
