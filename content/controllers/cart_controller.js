@@ -6,7 +6,7 @@
 
     GeckoJS.Controller.extend( {
         name: 'Cart',
-        components: ['Tax'],
+        components: ['Tax', 'GuestCheck'],
         _cartView: null,
         _queuePool: null,
         _returnMode: false,
@@ -1695,7 +1695,7 @@
         },
 
         clear: function() {
-
+            
             GeckoJS.Session.remove('cart_last_sell_item');
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
@@ -2251,9 +2251,89 @@
             curTransaction.updateCartView(-1, -1);
             this.subtotal();
 
-        }
-	
-	
-    });
+        },
 
+        guestCheck: function(action) {
+this.log("guestCheck: " + action);
+            // check if has buffer
+            var buf = this._getKeypadController().getBuffer();
+            this._getKeypadController().clearBuffer();
+
+            this.cancelReturn();
+
+            // check if order is open
+            var curTransaction = this._getTransaction();
+
+            if(curTransaction == null) {
+                this.clear();
+                // @todo OSD
+                NotifyUtils.warn(_('Not an open order; cannot register payments'));
+                return; // fatal error ?
+            }
+
+            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
+                // @todo OSD
+                NotifyUtils.warn(_('Not an open order; cannot register payments'));
+                return;
+            }
+
+            var no = parseInt(buf, 10);
+            if (no == 0 || isNaN(no)) {
+                no = 99;
+            }
+            var r = 0;
+
+            switch(action) {
+                case 'newCheck':
+                    this.log('newCheck...');
+                    if (buf.length == 0) {
+                        r = this.GuestCheck.getNewCheckNo();
+                    } else {
+                        r = this.GuestCheck.check(no);
+                    }
+
+                    if (r >= 0) {
+                        curTransaction.data.check_no = no;
+                    } else {
+                        NotifyUtils.warn(_('Check# %S is exist!!', [no]));
+                    }
+                    break;
+                case 'releaseCheck':
+                    this.log('releaseCheck...');
+                        r = this.GuestCheck.releaseCheckNo(no);
+                    break;
+                case 'newTable':
+                    this.log('newTable...');
+                    if (buf.length == 0) {
+                        r = this.GuestCheck.getNewTableNo();
+                    } else {
+                        r = this.GuestCheck.table(no);
+                    }
+
+                    if (r >= 0) {
+                        curTransaction.data.table_no = no;
+                    } else {
+                        NotifyUtils.warn(_('Table# %S is exist!!', [no]));
+                    }
+                    break;
+                case 'guest':
+                    this.log('guest...');
+                        r = this.GuestCheck.guest(no);
+                        curTransaction.data.no_of_customers = no;
+                    break;
+                case 'recallCheck':
+                    this.log('recallCheck...');
+                        r = this.GuestCheck.recallByCheckNo(no);
+                    break;
+                case 'recallTable':
+                    this.log('recallTable...');
+                        r = this.GuestCheck.recallByTableNo(no);
+                    break;
+            }
+
+            
+
+            return;
+        }
+    });
 })();

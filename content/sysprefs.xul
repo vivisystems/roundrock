@@ -47,7 +47,7 @@
         <checkbox preference="pref_changedepartmentclearbuffer" id="pref_changedepartmentclearbufferCtrl" label="&changedepartmentclearbuffer;" />
         <checkbox preference="pref_allowoverstock" id="pref_allowoverstockCtrl" label="&allowoverstock;" />
         <checkbox preference="pref_ageverificationack" id="pref_ageverificationackCtrl" label="&ageverificationack;" />
-        <checkbox preference="pref_allowzeropresetprice" id="pref_allowzeropresetpriceCtrl" label="&allowzeropresetrice;" />
+        <checkbox preference="pref_allowzeropresetprice" id="pref_allowzeropresetpriceCtrl" label="allowzeropresetrice;" />
 
         <hbox align="center">
             <label control="precisionprices" value="&defaultpricelevel;"/>

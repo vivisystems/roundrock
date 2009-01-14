@@ -43,7 +43,7 @@
             var deviceReady = false;
 
             //var deviceMount = "/media/";
-            var deviceMount = GeckoJS.Configure.read('vivipos.fec.settings.device.mount.path') || '/media';
+            var deviceMount = GeckoJS.Configure.read('vivipos.fec.settings.device.mount.path') || '/media/';
             // var deviceMount = "/var/tmp/";
 
             var hasMounted = false;
@@ -167,6 +167,11 @@
             }
             catch (e) {
                 NotifyUtils.info(_('Export To CSV (%S) Error!!', [this._datas[index].filename]));
+                this._busy = false;
+                GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
+                // progmeter.value = 0;
+                this.setButtonDisable(false);
+                waitPanel.hidePopup();
             }
             finally {
                 

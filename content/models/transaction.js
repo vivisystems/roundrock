@@ -106,6 +106,8 @@
         this.data.id = GeckoJS.String.uuid();
 
         this.data.seq = SequenceModel.getSequence('order_no');
+        // this.data.check_no = SequenceModel.getSequence('check_no');
+
         GeckoJS.Session.set('vivipos_fec_order_sequence', this.data.seq);
         
         var user = new GeckoJS.AclComponent().getUserPrincipal();
@@ -142,15 +144,21 @@
         this.view.empty();
     };
 
-
-    Transaction.prototype.cancel = function() {
-        this.data.status = -1;
+    // set order status, -1:canceled 0:process 1:submit
+    Transaction.prototype.process = function(status) {
+        this.data.status = status;
 
         // save transaction to order / orderdetail ...
         this.data.modified = new Date().getTime();
 
         // use background save
         Transaction.worker.start();
+    };
+
+    Transaction.prototype.cancel = function() {
+
+        // set status = -1
+        this.process(-1);
 
         this.emptyView();
     };
@@ -161,18 +169,14 @@
 
 
     Transaction.prototype.submit = function() {
-        this.data.status = 1;
-
-        // save transaction to order / orderdetail ...
-        this.data.modified = new Date().getTime();
 
         var user = new GeckoJS.AclComponent().getUserPrincipal();
         if ( user != null ) {
             this.data.proceeds_clerk = user.username;
         }
 
-        // use backgroud to save
-        Transaction.worker.start();
+        // set status = 1
+        this.process(1);
 
         // maintain stock...
         this.requestCommand('decStock', this.data, "Stocks");
