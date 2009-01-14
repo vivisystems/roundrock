@@ -1,0 +1,74 @@
+#. extracted from ../locale/en-US/systembackup.dtd, ../locale/en-US/systembackup.dtd
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-13 16:39+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.1.1\n"
+
+#: systembackup.backup
+msgid "System Backup"
+msgstr "System Backup"
+
+#: systembackup.restore
+msgid "System Resotre"
+msgstr "System Resotre"
+
+#: systembackup.local
+msgid "Local Backup:"
+msgstr "Local Backup:"
+
+#: systembackup.stick
+msgid "Stick:"
+msgstr "Stick:"
+
+#: systembackup.backuptostick
+msgid "Copy Local to Stick >>>"
+msgstr "Copy Local to Stick >>>"
+
+#: systembackup.backuptolocal
+msgid "Backup to Local"
+msgstr "Backup to Local"
+
+#: systembackup.restorefromstick
+msgid "Restore from Stick"
+msgstr "Restore from Stick"
+
+#: systembackup.restorefromlocal
+msgid "Resotre from Local"
+msgstr "Resotre from Local"
+
+#: systembackup.backupwait
+msgid "Waitting for Backup Data..."
+msgstr "Waitting for Backup Data..."
+
+#: systembackup.restorewait
+msgid "Waitting for Restore Data..."
+msgstr "Waitting for Restore Data..."
+
+#: vivipos.fec.common.ok
+msgid "Ok"
+msgstr "Ok"
+
+#: vivipos.fec.common.cancel
+msgid "Cancel"
+msgstr "Cancel"
+
+#: vivipos.fec.common.add
+msgid "Add"
+msgstr "Add"
+
+#: vivipos.fec.common.modify
+msgid "Modify"
+msgstr "Modify"
+
+#: vivipos.fec.common.delete
+msgid "Delete"
+msgstr "Delete"

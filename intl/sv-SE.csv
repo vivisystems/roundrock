@@ -1,0 +1,1017 @@
+"aclgroups.dtd:","aclgroups.dtd:","aclgroups.dtd:"
+"Access Groups","權限群組","Åtkomst Grupper"
+"Add","新增","Lägg till"
+"Modify","修改","Modifiera"
+"Delete","刪除","Tabort"
+,,
+"bindings.dtd:","bindings.dtd:","bindings.dtd:"
+"Font","文字","Font"
+"Font","文字","Font"
+"Font","文字","Font"
+"Font","文字","Font"
+"Font","文字","Font"
+"Font","文字","Font"
+"Font","文字","Font"
+"Font","文字","Font"
+"Font","文字","Font"
+"Font","文字","Font"
+"Font","文字","Font"
+"Font","文字","Font"
+"X-Large","超大","X-Large"
+"Large","較大","Large"
+"Medium","適中","Medium"
+"Small","較小","Small"
+,,
+"cart.dtd:","cart.dtd:","cart.dtd:"
+"Product Name","品名","Produkt Namn"
+"#","數量","#"
+"@","單價","@"
+"Subtotal","小計","Subtotal"
+"Tx","稅別","Tx"
+"+","+","+"
+"-","-","-"
+"Payments","付款","Betalmedel"
+,,
+"changeuser.dtd:","changeuser.dtd:","changeuser.dtd:"
+"User Sign In","使用者登入","Användar Logg In"
+"CLEAR","清空","RENSA"
+"DEL","刪除","DEL"
+"Passcode:","登入密碼","Lösenord:"
+"OK","登入","OK"
+"Quick Login:","快速登入","Snabb Login:"
+,,
+"clockin.dtd:","clockin.dtd:","clockin.dtd:"
+"User Clock In / Out","上下班打卡","Stämpelklocka In / Ut"
+"In","上班","In"
+"Out","下班","Ut"
+"Job","工作內容","Job"
+"User Clock In / Out","上下班打卡","Stämpelklocka In / Ut"
+"User Clock In / Out","上下班打卡","Stämpelklocka In / Ut"
+"CLEAR","清空","RENSA"
+"DEL","刪除","DEL"
+"Passcode:","登入密碼","Lösenord:"
+"OK","OK","OK"
+"In","上班","In"
+"Out","下班","Ut"
+"View Attendance","檢視出勤紀錄","Visa Närvarande"
+"Job List","工作內容","Arbetslista"
+,,
+"condiments.dtd:","condiments.dtd:","condiments.dtd:"
+"Condiment Group","調味群組","Kondiment Grupp"
+"Group Name:","群組名稱","Grupp Namn:"
+"Add","新增","Lägg till"
+"Modify","修改","Modifiera"
+"Delete","刪除","Tabort"
+"Condiment","調味種類","Kondiment"
+"Name:","調味名稱","Namn:"
+"Price:","調味價格","Pris:"
+"Button Color:","按鈕顏色","Knapp Färg:"
+"Font Size:","文字大小","Font Storlek:"
+,,
+"controlpanel.dtd:","controlpanel.dtd:","controlpanel.dtd:"
+"Control Panel","控制面板","Kontrolpanel"
+"Loading...","載入中…","Laddar…"
+,,
+"creditcard.dtd:","creditcard.dtd:","creditcard.dtd:"
+"Payment By Credit Card","信用卡付款","Kontokortsbetalning"
+"CLEAR","清空","RENSA"
+"DEL","刪除","DEL"
+,,
+"currency.dtd:","currency.dtd:","currency.dtd:"
+"Exchange Rates","匯率設定","Växlings Kurser"
+"Code","貨幣名稱","Kod"
+"Sign","貨幣符號","Signatur"
+"Exchange Rate","匯率","Växlingskurs"
+"Amount to Convert","外幣金額","Belopp att Växla"
+"Converted Amount","轉換為本國幣金額","Växlat Belopp"
+"Local Currency","本國貨幣","Lokal Valuta"
+"Currency","外幣","Valuta"
+"DEL","刪除","DEL"
+"CLEAR","清空","RENSA"
+"SAVE","儲存設定","SPARA"
+,,
+"departments.dtd:","departments.dtd:","departments.dtd:"
+"Departments","產品部門","Avdelningar"
+"Department Number:","部門代碼:","Avdelningsnummer:"
+"Department Name:","部門名稱:","Avdelningsnamn:"
+"Tax Rate:","稅別:","Moms Kurs:"
+"Show on Menu:","顯示於前台:","Visa i Meny:"
+"Sale Department","可單獨銷售:","Försäljningsavdelning:"
+"Button Color:","按鈕顏色:","Knapp Färg:"
+"Font Size:","文字大小:","Font Storlek:"
+"Add","新增","Lägg till"
+"Modify","修改","Modifiera"
+"Delete","刪除","Tabort"
+,,
+"dialog.dtd:","dialog.dtd:","dialog.dtd:"
+"User Prompt","資料輸入對話框",
+"OK","完成","OK"
+"CANCEL","取消","AVBRYT"
+"HELP","幫助","HJÄLP"
+"CLOSE","關閉","STÄNG"
+"SAVE","儲存設定","SPARA"
+"APPLY","套用","UTFÖR"
+,,
+"fecpos.dtd:","fecpos.dtd:","fecpos.dtd:"
+"Name","名稱","Namn"
+"Ok","完成","Ok"
+"Cancel","取消","Avbryt"
+"Add","新增","Lägg till"
+"Modify","修改","Modifiera"
+"Delete","刪除","Tabort"
+"Data","資料","Data"
+"Data 2","資料 2","Data 2"
+"Sets","組合產品",
+"Icon and Color","圖示與顏色","Ikoner och Färger"
+"Price Levels","價格設定","Pris Nivåer"
+"Link Groups","群組連結","Länka Grupper"
+"Level","設定","Nivå"
+"Price","價格","Pris"
+"HALO","最高價格","HALO"
+"LALO","最低價格","LALO"
+"Loading ........","載入中………","Laddar ……."
+,,
+"funcpanelecrprefs.dtd:","funcpanelecrprefs.dtd:","funcpanelecrprefs.dtd:"
+"Function Panel Configuration","功能面板設定","Konfigurera Funktionspanel"
+"General","一般設定:","Allmänt"
+"Rows:","行數:","Rader:"
+"Columns:","列數:","Kolumner:"
+"Horizontal spacing:","水平間距:","Horisontellt Radavstånd:"
+"Vertical spacing","垂直間距:","Vertikalt Radavstånd:"
+"Change size","套用","Ändra Storlek"
+"Change orientation:","捲軸位置:","Ändra Placering:"
+"Panel resizable?","面板大小可調整?",
+"Wrap-around scrolling?","循環面板?",
+"Hide when restricted?","功能被限制時隱藏?",
+"Number of panels:","面板頁數:","Antal Paneler:"
+"Set","套用","Verkställ"
+"Start with panel:","起始頁面:",
+"Set","套用","Verkställ"
+"Page layout","頁面設定","Sid Layout"
+"Page number:","頁碼:","Sid Nummer:"
+"Page label:","自訂頁面名稱:","Sid Namn:"
+"Set","套用","Verkställ"
+"Reset","重設","Reset"
+"Global page label:","預設頁面名稱:","Globalt Sid Namn:"
+"Set","套用","Verkställ"
+"Reset","重設","Reset"
+"Set as default?","設為預設值?","Set som Default?"
+"Set","套用","Verkställ"
+"Use default?","使用預設值?","Använd som Standard?"
+"Apply","套用","Använd"
+"Selected cells","選擇功能按鍵:","Välj Celler"
+"Merge","合併","Merge"
+"Remove","移除","Tabort"
+"Use standard?","使用標準功能按鍵?","Använd Standard?"
+"Apply","套用","Använd"
+"Size","字體大小","Storlek"
+"Key Mapping","功能按鍵設定",
+"Page number:","頁碼:","Sid Nummer:"
+"Unlink All","移除所有連結","Frigör Alla"
+"Selected button:","選擇功能按鍵:","Vald Knapp:"
+"Linked to function:","連結功能至:","Länkad till Funktion:"
+"Unlink","移除連結","Frigör"
+"Function label:","功能標籤:","Funktions etikett:"
+"Update","套用","Uppdatera"
+"Reset","重設","Reset"
+"Parameter:","參數值:","Parameter:"
+"Update","套用","Uppdatera"
+"Reset","重設","Reset"
+"Link","連結","Länka"
+"Global Key Mapping","固定功能鍵設定",
+"Page number:","頁碼:","Sid Nummer:"
+"Unlink All","移除所有連結","Frigör Alla"
+"Selected button:","選擇功能按鍵:","Vald Knapp:"
+"Linked to function:","連結功能至:","Länkad till Funktion:"
+"Unlink","移除連結","Frigör"
+"Function label:","功能標籤:","Funktions etikett:"
+"Update","套用","Uppdatera"
+"Reset","重設","Reset"
+"Parameter:","參數值:","Parameter:"
+"Update","套用","Uppdatera"
+"Reset","重設","Reset"
+"Link","連結","Länka"
+"Save","儲存設定","Spara"
+"Cancel","取消","Avbryt"
+,,
+"giftcard.dtd:","giftcard.dtd:","giftcard.dtd:"
+"Payment By Gift Card","禮品卡付款","Betalt med Presentkort"
+"CLEAR","清空","RENSA"
+"DEL","刪除","DEL"
+,,
+"imagemanager.dtd:","imagemanager.dtd:","imagemanager.dtd:"
+"Image Manager","圖像管理","Bild Manager"
+"Image File:","圖檔:","Bild Fil:"
+"name:","檔名:","Namn:"
+"size:","檔案大小:","Storlek:"
+"Import","匯入","Import"
+"Export","匯出","Export"
+"Delete","刪除","Tabort"
+"Rename","重新命名","Döp om"
+"Disk Usage Limit:","磁碟空間:","Disk Användningsbegränsning:"
+"Total:","總計:","Total:"
+"Used:","已使用:","Använt:"
+"Files:","檔案數量:","Filer:"
+"Import/Export:","匯入/匯出:","Import/Export:"
+"total size:","總計大小:","Total Storlek:"
+"total files:","總檔案數量:","Antal Filer:"
+"status:","狀態:","Status:"
+,,
+"importexport.dtd:","importexport.dtd:","importexport.dtd:"
+"Database Import / Export","資料匯入/匯出","Database Import / Export"
+"Import","匯入","Import"
+"Export","匯出","Export"
+"Ok","完成","Ok"
+"Cancel","取消","Avbryt"
+"Add","新增","Lägg till"
+"Modify","修改","Modifiera"
+"Delete","刪除","Tabort"
+,,
+"jobs.dtd:","jobs.dtd:","jobs.dtd:"
+"Job List","工作內容","Arbetslista"
+"Job Name","工作名稱","Arbetsnamn"
+"Add","新增","Lägg till"
+"Modify","修改","Modifiera"
+"Delete","刪除","Tabort"
+,,
+"licensecheck.dtd:","licensecheck.dtd:","licensecheck.dtd:"
+"License check error. Please contact your agent or reseller for assistance.","產品序號錯誤. 請聯繫您的經銷商並尋求協助.","Licens kontroll error. Kontakta din återförsäljare för hjälp."
+,,
+"localekeyboard.dtd:","localekeyboard.dtd:","localekeyboard.dtd:"
+"Locale and Keyboard Mapping","語系與鍵盤設定",
+"Locale","語系",
+"Keyboard Mapping","鍵盤設定",
+,,
+"messages.pot:","messages.pot:","messages.pot:"
+"Add New ACL Group","新增權限群組","Lägg till Ny ACL Grupp"
+"New ACL Group","新權限群組","Ny ACL Grupp"
+"Group Name","群組名稱","Grupp Namn"
+"ACL Group [%S] already exists; ACL group not added.","權限群組 [%S] 已存在; 權限群組未新增","ACL Grupp [%S] finns redan; ACL grupp inte tillagd."
+"ACL Group [%S] added successfully","權限群組 [%S] 新增成功","ACL Grupp [%S] tillagd"
+"An error occurred while adding ACL Group [%S]; the ACL group may not have been added successfully","新增權限群組 [%S] 時發生錯誤; 該權限群組並未新增成功","Ett fel uppstod vid tillägg av ACL Grupp [%S]; ACL gruppen har kanske inte lagts till ordentligt"
+"The ACL group [%S] has been assigned to one or more users [%S] and cannot be removed.","權限群組 [%S] 已被一個或多個員工設定 [%S] 且無法刪除","ACL gruppen [%S] har tilldelats en eller flera användare [%S] och kan inte tas bort."
+"confirm delete %S","確認已刪除 %S","Verifiera radera %S"
+"Are you sure?","你確定嗎?","Är du säker?"
+"ACL Group [%S] removed successfully","權限群組 [%S] 刪除成功","ACL Gruppen [%S] har tagits bort"
+"An error occurred while removing ACL Group [%S]; the ACL group may not have been removed successfully","刪除權限群組 [%S] 時發生錯誤; 該權限群組並未刪除成功","Ett fel uppstod vid borttag av ACL Grupp [%S]; ACL gruppen har kanske inte tagits bort till ordentligt"
+"ACL Group [%S] modified successfully","權限群組 [%S] 修改成功","ACL Gruppen [%S] modifierad"
+"An error occurred while modifying ACL Group [%S]; the ACL group may not have been modified successfully","修改權限群組 [%S] 時發生錯誤; 該權限群組並未修改成功","Ett fel uppstod vid modifiering av ACL Gruppen [%S]; ACL gruppen har kanske inte modifierats ordentligt"
+"OUT OF STOCK","已無庫存","SLUT I LAGER"
+"Product May Be Out of Stock!","產品可能已無庫存","Produkten kan vara slut i lager!"
+"STOCK LOW","庫存量低於安全庫存","LAGER LÅGT"
+"Low Stock Threshold Reached!","庫存量已達安全庫存","Lågt lagervärde uppnått!"
+"VERIFY AGE","確認年齡","VERIFIERA ÅLDER"
+"Verify Customer Age for Purchase of [%S]!","請與客戶確認其年齡已達購買 [%S] 之法律規定","Verifiera köparens ålder vid köp av [%S]!"
+"Verify Customer Age for Purchase of [%S]!","請與客戶確認其年齡已達購買 [%S] 之法律規定","Verifiera köparens ålder vid köp av [%S]!"
+"SINGLE ITEM SALE","單一產品快速銷售","ENKEL ARTIKEL FÖRSÄLJNING"
+"Product scan code not found [%S]","產品條碼 [%S] 不存在","Produktens scannerkod saknas [%S]"
+"Not an open order; cannot modify","已結單或未開單; 禁止修改","Ej öppen order; kan inte ändra"
+"Please select an item first","請先選擇一個品項","Välj artikel först"
+"Cannot modify selected item [%S]","無法修改選取的品項 [%S]","Kan inte ändra vald artikel [%S]"
+"Not authorized to modify condiment price","權限不足; 禁止修改調味價格","Ej rättighet att modifiera kondiment pris"
+"Cannot modify; selected item [%S] has discount or surcharge applied","禁止修改; 選取的品項 [%S] 已套用折扣或附加費","Kan inte modifiera; vald artikel [%S] har rabatt eller extra avgift kopplad"
+"Cannot modify; selected item [%S] has been subtotaled","禁止修改; 選取的品項 [%S] 已列入小計","Kan inte modifiera; vald artikel [%S] har subtotalats"
+"Cannot modify; no price or quantity entered","禁止修改; 價格或數量未輸入","Kan inte modifiera; inget pris eller antal har valts"
+"Cannot modify condiment; no price entered","禁止修改調味; 價格未輸入","Kan inte modifiera kondiment; inget pris valt"
+"Quantity may not be less than 1","數量不得小於 1","Antal kan inte vara mindre än 1"
+"Not an open order; cannot VOID","已結單或未開單; 禁止刪除","Ingen öppen order; kan inte RÄTTA"
+"Cannot VOID the selected item [%S]\n ; It is not the last registered item","禁止刪除選取的品項 [%S] ; 該品項並非最後輸入之品項","Kan inte RÄTTA vald artikel [%S]\n ; Det är inte den senast registrerade artikeln"
+"Cannot VOID an item that has been subtotaled","已列入小計之品項禁止刪除","Kan inte RÄTTA artiklar som har subtotalats"
+"Please enter the discount amount","請輸入折扣金額","Mata in rabatt belopp"
+"Please enter the discount percentage first","請先輸入折扣百分比","Mat in rabatt procenten först"
+"Please enter the discount percentage","請輸入折扣百分比","Mata in rabatt procent"
+"Not an open order; cannot add discount","已結單或未開單; 禁止新增折扣","Ingen öppen order; kan inte lägga till rabatt"
+"Please select an item","請選擇一個品項","Välj en artikel"
+"Not an open order; cannot add surcharge","已結單或未開單; 禁止新增附加費","Ingen öppen order; kan inte lägga till extra avgift"
+"Pretax discount can only be registered against subtotals","稅前折扣只能在小計時列入",
+"Discount has been already been registered on item [%S]","品項 [%S] 之折扣已計入","Rabatt har redan registrerats på artikeln [%S]"
+"Surcharge has been already been registered on item [%S]","品項 [%S] 之附加費已計入","Extra avgift har redan registrerats på artikeln [%S]"
+"Cannot modify an item that has been subtotaled","已列入小計之品項禁止修改","Kan inte modifiera en artikel som har subtotalats"
+"Cannot register discount on return items","禁止退貨品項列入折扣","Kan inte registrera rabatt på returnerade artiklar"
+"Cannot apply discount to [%S]\n ; It is not the last registered item","禁止提供折扣於選取的品項 [%S] ; 該品項並非最後輸入之品項","Kan inte läggat till rabatt på [%S]\n ; Det är inte den senast registrerade artikeln"
+"Discount may not be added to [%S]","禁止提供折扣於 [%S]","Rabatt kan inte läggas till på [%S]"
+"Please enter the discount amount or percentage","請輸入折扣金額或百分比","Mata in rabatt belopp eller procent"
+"Please enter the surcharge amount first","請先輸入附加費金額","Mata in extra avgifts beloppet först"
+"Please enter the surcharge percentage","請輸入附加費百分比","Mata in extra avgifts procenten"
+"Pretax surcharge can only be registered against subtotals","稅前附加費只能在小計時列入",
+"Cannot apply surcharge to [%S]\n ; It is not the last registered item","禁止套用附加費於選取的品項 [%S] ; 該品項並非最後輸入之品項","Kan inte lägga till extra avgift på [%S]\n ; Det är inte den senast registrerade artikeln"
+"Surcharge may not be added to [%S]","禁止套用附加費於 [%S]","Extra avgift kan inte läggas till på [%S]"
+"Not an open order; operation invalid","已結單或未開單; 操作無效","Ingen oppen order; funktionen ogiltig"
+"Not an open order; cannot register House Bon","已結單或未開單; 禁止登錄贈送產品",
+"House Bon may not be applied to [%S]","品項 [%S] 禁止登錄為贈送產品",
+"The selected currency [%S] has not been configured","選取的幣別尚未設定","Valda valutan [%S] har inte konfigurerats"
+"Please enter an amount first","請先輸入金額","Mata in ett värde först"
+"Please configure the selected currency entry first [%S]","請先設定選取的幣別 [%S]",
+"Credit Card Remark","信用卡註記","Kontokorts Notering"
+"Payment","付款","Betalmedel"
+"Card Type","卡別","Kort Typ"
+"Card Remark","卡片註記","Kort Notering"
+"Gift Card Remark","禮品卡註計","Presentkort Notering"
+"Not an open order; cannot register payments","已結單或未開單; 禁止登錄付款金額","Ingen öppen order; kan inte registrera betalmedel"
+"Not an open order; cannot shift tax","已結單或未開單; 禁止切換稅別","Ingen öppen order; kan inte ändra moms"
+"This operation cannot be performed on [%S]","此作業禁止在品項 [%S] 上執行","Denna funktion kan inte utföras på [%S]"
+"The tax status indicated does not exist [%S]","選取的稅別不存在",
+"Not an open order; cannot add condiment","已結單或未開單; 禁止新增調味","Ingen öppen order; kan inte lägga till kondiment"
+"Condiments may not be added to [%S]","禁止於品項 [%S] 新增調味","Kondiment kan inte läggas till på [%S]"
+"Cannot add condiments to an item that has been subtotaled","已列入小計之品項禁止新增調味","Kan inte lägga till kondiment på artiklar som har subtotalats"
+"Please void discount on item first","請先刪除該品項之折扣","Rätta rabatten på artikeln först"
+"Please void surcharge on item first","請先刪除該品項之附加費","Rätta extra avgiften på artikeln först"
+"No Condiment group associated with item [%S]","品項 [%S] 並未與任何調味群組連結","Ingen Kondiment grupp assosierad med artikeln [%S]"
+"Not an open order; cannot add memo","已結單或未開單; 禁止新增備註","Ingen öppen order; kan inte lägga till memo"
+"Add New Memo","新增備註","Lägg till Nytt Memo"
+"Add Memo","新增備註","Lägg till Memo"
+"Memo:","備註","Memo:"
+"No open order to push","已結單或未開單",
+"Order is not queued because it is empty","無任何品項故無法暫存","Ordern är köad därför att den är tom"
+"Authentication failed! ; Please make sure the password is correct.","登入失敗! 請確認登入密碼是否正確.","Verifieringsfel! ; Kontrollera att lösenordet är rätt."
+"Authentication failed! ; Please select a user","登入失敗! 請選擇使用者","Verifieringsfel! ; Välj användare"
+"Please select a user first","請先選擇使用者","Välj användare först"
+"Please enter the passcode","請輸入登入密碼","Mata in lösenord"
+"Authentication Failed! ; Please make sure the passcode is correct","登入失敗! 請確認登入密碼是否正確","Verifieringsfel! ; Kontrollera att lösenordet är rätt."
+"Please select a job first","請先選擇工作內容","Välj jobb först"
+"Not clocked in yet","尚未打上班卡","Inte inloggad än"
+"Add New Condiment Group","新增調味群組","Lägg till Ny Kondiment Grupp"
+"New Condiment Group","新調味群組","Ny Kondiment Grupp"
+"Condiment Group [%S] already exists.","調味群組 [%S] 已存在","Kondiment Gruppen [%S] finns redan"
+"Condiment Group [%S] added successfully","新增調味群組成功","Kondiment Gruppen [%S] tillagd"
+"An error occurred while adding Condiment Group [%S]\n ; The group may not have been added successfully","新增調味群組 [%S] 時發生錯誤; 該調味群組並未新增成功","Ett fel har uppstått vid tillägg av Kondiment Grupp [%S]\n ; Gruppen har kanske inte lagts till ordentligt"
+"Condiment Group [%S] already exists","調味群組 [%S] 已存在","Kondiment Gruppen [%S] finns redan"
+"Condiment Group [%S] modified successfully","調味群組 [%S] 修改成功","Kondiment Gruppen [%S] tillagd"
+"An error occurred while modifying Condiment Group [%S]\n ; The group may not have been modified successfully","修改調味群組 [%S] 時發生錯誤; 該調味群組並未修改成功","Ett fel har uppstått vid modifiering av Kondiment Grupp [%S]\n ; Gruppen har kanske inte modifierats ordentligt"
+"Condiment Group [%S] removed successfully","調味群組 [%S] 刪除成功","Kondiment Gruppen [%S] borttagen"
+"An error occurred while removing Condiment Group [%S]\n ; The group may not have been removed successfully","刪除調味群組 [%S] 時發生錯誤; 該調味群組並未刪除成功","Ett fel har uppstått vid borttag av Kondiment Grupp [%S]\n ; Gruppen har kanske inte tagits bort ordentligt"
+"Add New Condiment","新增調味種類","Lägg till Nytt Kondiment"
+"New Condiment","新調味種類","Nytt Kondiment"
+"Condiment Name","調味名稱","Kondiment Namn"
+"Condiment Price","調味價格","Kondiment Pris"
+"Condiment Price must be a number","調味價格必須為數字","Kondiment Pris måste vara siffror"
+"Condiment [%S] already exists in this group","調味名稱 [%S] 已存在於本調味群組","Kondiment [%S] finns redan i denna grupp"
+"Condiment [%S] added successfully","新增調味種類 [%S] 成功","Kondiment [%S] tillagt"
+"An error occurred while adding Condiment [%S]\n ; The condiment may not have been added successfully","新增調味種類 [%S] 時發生錯誤; 該調味種類並未新增成功","Ett fel har uppstått vid tillägg av Kondiment [%S]\n ; Kondimentet har kanske inte lagts till ordentligt"
+"Condiment [%S] modified successfully","修改調味種類 [%S] 成功","Kondiment [%S] modifierat"
+"An error occurred while modifying Condiment [%S] ; The condiment may not have been modified successfully","修改調味種類 [%S] 時發生錯誤; 該調味種類並未修改成功","Ett fel har uppstått vid modifiering av Kondiment [%S] ; Kondimentet har kanske inte modifierats ordentligt"
+"Condiment [%S] removed successfully","刪除調味種類 [%S] 成功","Kondiment [%S] borttaget"
+"An error occurred while removing Condiment [%S]\n ; The condiment may not have been removed successfully","刪除調味種類 [%S] 時發生錯誤; 該調味種類並未刪除成功","Ett fel har uppstått vid borttag av Kondiment [%S]\n ; Kondimentet har kanske inte tagits bort ordentligt"
+"Department Number must not be empty","部門代碼不得為空白","Avdelningsnummer kan inte vara tomt"
+"Department Name must not be empty","部門名稱不得為空白","Avdelningsnamn kan inte vara tomt"
+"Duplicate Department Number (%S); department not %S.","部門代碼 (%S) 已存在; 請輸入其他代碼","Kopiera Avdelningsnummer (%S); avdelningen är inte %S."
+"Duplicate Department Name (%S); department not %S.","部門名稱 (%S) 已存在; 請輸入其他名稱","Kopiera Avdelningsnamn (%S); avdelningen är inte %S."
+"Add New Department","新增產品部門","Lägg till Ny Avdelning"
+"New Department","新產品部門","Ny Avdelning"
+"Department Number","部門代碼","Avdelningsnummer"
+"Department Name","部門名稱","Avdelningsnamn"
+"Department [%S] added successfully","新增產品部門 [%S] 成功","Avdelning [%S] tillagt"
+"An error occurred while adding Department [%S] ; The department may not have been added successfully","新增產品部門 [%S] 時發生錯誤; 該產品部門並未新增成功","Ett fel har uppstått vid tillägg av Avdelning [%S] ; Avdelningen har kanske inte lagts till  ordentligt"
+"Department [%S] modified successfully","修改產品部門 [%S] 成功","Avdelningen [%S] modifierat"
+"An error occurred while modifying Department [%S]\n ; The department may not have been modified successfully","修改產品部門 [%S] 時發生錯誤; 該產品部門並未修改成功","Ett fel har uppstått vid modifiering av Avdelning [%S]\n ; Avdelningen har kanske inte modifierats ordentligt"
+"Department [%S] removed successfully","刪除產品部門 [%S] 成功","Avdelning [%S] borttagen"
+"An error occurred while removing Department [%S]\n"" ; The department may not have been removed successfully","刪除產品部門 [%S] 時發生錯誤; 該產品部門並未刪除成功","Ett fel har uppstått vid borttag av Avdelning [%S]\n ; Avdelningen har kanske inte tagits bort ordentligt"
+".name",".名稱",".namn"
+".label",".標籤",".etikett"
+".desc",".敘述",".beskrivning"
+"export plu finish!","產品資料匯出完成!","export plu klart!"
+"export data finish!","資料匯出完成!","export data klart!"
+"Add New Job","新增工作內容","Lägg till Nytt Arbete"
+"New Job","新工作內容","Nytt Arbete"
+"Job Name","工作名稱","Arbets Namn"
+"Duplicate job name [%S]; job not added.","工作名稱 [%S] 已存在; 無法新增","Kopiera arbets namn [%S]; arbete är inte tillagt"
+"Job [%S] added successfully","新增工作內容 [%S] 成功","Arbete [%S] tillagt"
+"Duplicate job name [%S]; job not modified.","工作名稱 [%S] 已存在; 無法修改","Kopiera arbets namn [%S]; arbete är inte modifierat"
+"Job [%S] modified successfully","修改工作內容 [%S] 成功","Arbete [%S] modifierat"
+"Job [%S] removed successfully","刪除工作內容 [%S] 成功","Arbete [%S] borttaget"
+"logged in","登入","Inloggad"
+"Failed to authenticate user","登入失敗","Fel vid verifiering av användare"
+"Please enter passcode first","請先輸入登入密碼","Mata in lösenord först"
+"Sign Off","登出","Logga ut"
+"Discard items that have been registered?","刪除已輸入之交易?","Ta bort artiklar som har registrerats?"
+"What do you want to do with the registered items?","您要如何處理已輸入之交易資料?","Vad vill du göra med den registrerade artikeln?"
+"Queue","暫存","Köad"
+"Discard","刪除","Ta bort"
+"You have one or more queued orders. Discard them?","您有一筆或多筆暫存單. 是否刪除?","Du har en eller flera köade ordrar. Ta bort dom?"
+"You have one or more queued orders. What do you want to do with them?","您有一筆或多筆暫存單. 請問您要如何處理?","Du har en eller flera köade ordrar. Vad vill du göra med dom?"
+"Keep","保留","Behålla"
+"confirm sign-off","確認登出","Verifiera logga ut"
+"Are you ready to sign off?","您準備要登出嗎?","Är du redan utloggad?"
+"Add New Product Group","新增產品群組","Lägg till Ny Produkt Grupp"
+"New Product Group","新產品群組","Ny Produkt Grupp"
+"Duplicate Product Group name [%S]; Product Group not added.","產品群組名稱 [%S] 已存在; 無法新增","Kopiera Produkt Grupp Namn [%S]; Produkt Gruppen är inte tillagt"
+"Product Group [%S] added successfully","新增產品群組 [%S] 成功","Produkt Grupp [%S] tillagt"
+"Duplicate Product Group name [%S]; Product group not modified.","產品群組名稱 [%S] 已存在; 無法修改","Kopiera Produkt Grupp Namn [%S]; Produkt Gruppen är inte modifierad"
+"Product Group [%S] removed successfully","刪除產品群組 [%S] 成功","Produkt Grupp [%S] borttagen"
+"Add New Product Set","新增組合產品",
+"Product Set","組合產品",
+"Product No.or Barcode","產品編號或產品條碼","Produkt Nr eller Streckkod"
+"Quantity","數量","Antal"
+"Product not found (%S).","產品 (%S) 不存在","Produkt finns inte (%S)."
+"Product No. must not be empty.","產品編號不得為空白","Produkt Nr får inte var tomt."
+"Product Name must not be empty.","產品名稱不得為空白","Produkt Namn får inte vara tomt."
+"The Product No. [%S] already exists; product not added.","產品編號 [%S] 已存在; 無法新增","Produkt Nr [%S] finns redan; produkt inte tillagd."
+"The Product Name [%S] already exists; product not added.","產品名稱 [%S] 已存在; 無法新增","Produkt Namn [%S] finns redan; produkt inte tillagd."
+"The Product Name [%S] already exists; product not modified.","產品名稱 [%S] 已存在; 無法修改","Produkt Namn [%S] finns redan; produkt inte modifierad."
+"Add New Product","新增產品","Lägg till Ny Produkt"
+"New Product","新產品","Ny Produkt"
+"Product No.","產品編號","Produkt Nr"
+"Product Name","產品名稱","Produkt Namn"
+"Product [%S] added successfully","新增產品 [%S] 成功","Produkt [%S] tillagd"
+"An error occurred while adding Product [%S]; the product may not have been added successfully","新增產品 [%S] 時發生錯誤; 該產品並未新增成功","Ett fel har uppstått vid tillägg av Produkt [%S] ; Produkten har kanske inte lagts till  ordentligt"
+"Product [%S] modified successfully","修改產品 [%S] 成功","Produkt [%S] modifierad"
+"An error occurred while modifying Product [%S]\n ; The product may not have been modified successfully","修改產品 [%S] 時發生錯誤; 該產品並未修改成功","Ett fel har uppstått vid modifiering av Produkt [%S]\n ; Produkten har kanske inte modifierats ordentligt"
+"Product [%S] removed successfully","刪除產品 [%S] 成功","Produkt [%S] borttagen"
+"An error occurred while removing Product [%S]\n ; The product may not have been removed successfully","刪除產品 [%S] 時發生錯誤; 該產品並未刪除成功","Ett fel har uppstått vid borttag av Produkt [%S]\n ; Produkten har kanske inte tagits bort ordentligt"
+"Product [%S] Not Found!","產品 [%S] 不存在","Produkt [%S] Finns inte!"
+"Price Level changed from [%S] to [%S]","價格由設定 [%S] 變更為設定 [%S]","Pris Nivå ändrad från [%S] till [%S]"
+"Default","預設","Standard"
+"Default Price Level","預設價格設定","Std Pris Nivå"
+"Schedule [%S - Price Level %S] added successfully","新增變價排程 [%S - 價格設定 %S] 成功","Schema [%S - Pris Nivå %S] tillagd"
+"confirm remove %S - price level %S","確認刪除 %S - 價格設定 %S","bekräfta borttag %S - pris nivå %S"
+"Schedule [%S - Price Level %S] removed successfully","刪除變價排程 [%S - 價格設定 %S] 成功","Schema [%S - Pris Nivå %S] borttagen"
+"Stock level for [%S] modified successfully","修改產品 [%S] 庫存量成功","Lager nivå för [%S] modifierad"
+"Product/Barcode Number (%S) not found!","產品編號/產品條碼 (%S) 不存在","Produkt/Streckkod Nummer [%S] finns inte!"
+"Tax code must not be empty.","稅別代碼不得為空白","Moms kod får inte vara tomt."
+"Tax name must not be empty.","稅別名稱不得為空白","Moms namn får inte vara tomt."
+"Duplicate tax code [%S]; tax not added","稅別代碼 [%S] 已存在; 無法新增","Kopiera moms kod [%S]; moms inte tillagd"
+"Duplicate tax name [%S]; tax not %S","稅別名稱 [%S] 已存在; 無法新增","Kopiera moms namn [%S]; moms inte %S"
+"Add-On","外加稅","Add-On"
+"Included","內含稅","Inkluderad"
+"Combined","合併稅","Kombinerad"
+"VAT & VAT","稅上稅","Moms & Moms"
+"Add New Tax Status","新增稅別","Lägg till Ny Moms Status"
+"New Tax Status","新稅別","Ny Moms Status"
+"Tax Code","稅別代碼","Moms Kod"
+"Tax Name","稅別名稱","Moms Namn"
+"Tax [%S] added successfully","新增稅別 [%S] 成功","Moms [%S] tillagd"
+"An error occurred while adding Tax [%S]; the tax may not have been added successfully","新增稅別 [%S] 時發生錯誤; 該稅別並未新增成功","Ett fel har uppstått vid tillägg av Moms [%S] ; Momsen har kanske inte lagts till  ordentligt"
+"Tax [%S] removed successfully","刪除稅別 [%S] 成功","Moms [%S] borttagen"
+"An error occurred while removing Tax [%S]; the tax may not have been removed successfully","刪除稅別 [%S] 時發生錯誤; 該稅別並未刪除成功","Ett fel har uppstått vid borttag av Moms [%S] ; Momsen har kanske inte tagits bort ordentligt"
+"Tax [%S] modified successfully","修改稅別 [%S] 成功","Moms [%S] modifierad"
+"Test","測試","Test"
+"Add New Employee","新增員工","Lägg till Ny Anställd"
+"New Employee","新員工","Ny Anställd"
+"Name","員工姓名/代號","Namn"
+"Password","登入密碼","Lösenord"
+"Duplicate user name [%S]; user not added.","員工姓名/代號 [%S] 已存在; 無法新增","Kopiera användarnamn [%S]; användare inte tillagd"
+"Duplicate display name [%S]; user not added.","員工顯示名稱 [%S] 已存在; 無法新增","Kopiera Display Namn [%S]; användare inte tillagd"
+"Employee [%S] added successfully","新增員工 [%S] 成功","Anställd [%S] tillagd"
+"Duplicate display name [%S]; user not modified.","員工顯示名稱 [%S] 已存在; 無法修改","Kopiera Display Namn [%S]; användare inte modifierad"
+"Employee [%S] modified successfully","修改員工 [%S] 成功","Anställd [%S] modifierad"
+"Employee [%S] removed successfully","刪除員工 [%S] 成功","Anställd [%S] borttagen"
+"Select Access Group","選擇權限群組","Välj Åtkomst Grupp"
+"confirm locale and keyboard mapping change","確認修改語系與鍵盤設定",
+"Locale and Keyboard mapping changes required system restart to take effect. If you save the changes now, the system will restart automatically after you return to the Main Screen. Do you want to save your changes?","語系與鍵盤設定修改需重新啟動程式後才會生效. 如果您按下儲存鍵, 程式將在返回主頁面之後重新啟動. 您確定要儲存修改?",
+"confirm age","確認年齡","Verifiera Ålder"
+"Is customer of age for purchase of [%S]?","客戶年齡是否已達購買 [%S] 之法律規定?","Har kunden åldern inne för att handla [%S]"
+"Cannot VOID the selected item [%S]. It is not the last registered item","禁止刪除選取的品項 [%S] ; 該品項並非最後輸入之品項","Kan inte RÄTTA vald artikel [%S]. Det är inte den senast registrerade artikeln"
+"Cannot apply discount to [%S]. It is not the last registered item","禁止提供折扣於選取的品項 [%S] ; 該品項並非最後輸入之品項","Kan inte lägga till rabatt på [%S]. Det är inte den senast registrerade artikeln"
+"Cannot apply surcharge to [%S]. It is not the last registered item","禁止套用附加費於選取的品項 [%S] ; 該品項並非最後輸入之品項","Kan inte lägga till extra avgift på [%S]. Det är inte den senast registrerade artikeln"
+"Nothing has been registered yet; operation invalid","未登錄任何品項; 操作無效","Ingenting har registrerats än; funktion ogiltig"
+"Nothing has been registered yet; cannot register payments","未登錄任何品項; 禁止輸入付款金額","Ingenting har registrerats än; kan inte registrera betalning"
+"Not an open order; nothing to cancel","已結單或未開單; 禁止刪除","Ingen öppen order; ingenting att avbryta"
+"Authentication failed!. Please make sure the password is correct.","登入失敗!. 請確認登入密碼是否正確.","Verifierings fel!. Kontrollera att lösenordet stämmer."
+"Authentication failed!. Please select a user","登入失敗!. 請選擇使用者","Verifierings fel!. Välj en användare"
+"Please select a user first.","請先選擇使用者","Välj en användare först."
+"Please enter the passcode.","請輸入登入密碼.","Mata in lösenord."
+"Authentication Failed!. Please make sure the passcode is correct.","登入失敗!. 請確認登入密碼是否正確.","Verifierings fel!. Kontrollera att lösenordet stämmer."
+"Please select a job first.","請先選擇工作內容.","Välj ett arbete först."
+"Not clocked in yet.","尚未打上班卡.","Inte inloggad än"
+"An error occurred while adding Condiment Group [%S]. The group may not have been added successfully","新增調味群組 [%S] 時發生錯誤; 該調味群組並未新增成功","Ett fel har uppstått vid tillägg av Kondiment Grupp [%S]. Gruppen har kanske inte lagts till  ordentligt"
+"An error occurred while modifying Condiment Group [%S]. The group may not have been modified successfully","修改調味群組 [%S] 時發生錯誤; 該調味群組並未新增成功","Ett fel har uppstått vid modifiering av Kondiment Grupp [%S]. Gruppen har kanske inte modifierats ordentligt"
+"[%S] has been assigned to one or more products and may not be deleted","[%S] 已被指派至一個或多個產品, 故無法刪除","[%S] har tilldelats en eller flera produkter och kan inte raderas"
+"An error occurred while removing Condiment Group [%S]. The group may not have been removed successfully","刪除調味群組 [%S] 時發生錯誤; 該調味群組並未刪除成功","Ett fel har uppstått vid borttag av Kondiment Grupp [%S]. Gruppen har kanske inte tagits bort ordentligt"
+"An error occurred while adding Condiment [%S]. The condiment may not have been added successfully","新增調味 [%S] 時發生錯誤; 該調味並未新增成功","Ett fel har uppstått vid tillägg av Kondiment [%S]. Kondimentet har kanske inte lagts till  ordentligt"
+"An error occurred while modifying Condiment [%S]. The condiment may not have been modified successfully","修改調味 [%S] 時發生錯誤; 該調味並未修改成功","Ett fel har uppstått vid modifiering av Kondiment [%S]. Kondimentet har kanske inte modifierats ordentligt"
+"An error occurred while removing Condiment [%S]. The condiment may not have been removed successfully","刪除調味 [%S] 時發生錯誤; 該調味並未刪除成功","Ett fel har uppstått vid borttag av Kondiment [%S]. Kondimentet har kanske inte tagits bort ordentligt"
+"An error occurred while modifying Department [%S]. The department may not have been modified successfully","修改產品部門 [%S] 時發生錯誤; 該產品部門並未修改成功","Ett fel har uppstått vid modifiering av Avdelning [%S]. Avdelningen har kanske inte modifierats ordentligt"
+"[%S] has one or more products and may not be deleted","[%S] 還存在一個或多個產品, 故無法刪除","[%S] har en eller flera produkter och kan inte raderas"
+"An error occurred while removing Department [%S]. The department may not have been removed successfully","刪除產品部門 [%S] 時發生錯誤; 該產品部門並未刪除成功","Ett fel har uppstått vid borttag av Avdelning [%S]. Avdelningen har kanske inte tagits bort ordentligt"
+"[%S] has been assigned as the default job to one or more users and may not be deleted","[%S] 已被一個或多個員工設為預設工作內容, 故無法刪除","[%S] har tilldelats som standard arbete till en eller flera användare och kan inte raderas"
+"[%S] does not exist!","[%S] 不存在","[%S] finns inte!"
+"[%S] has one or more products and may not be deleted?","[%S] 還存在一個或多個產品, 故無法刪除","[%S] har en eller flera produkter och kan inte raderas"
+"Product not found [%S].","產品 [%S] 不存在.","Produkt finns inte [%S]."
+"Condiment is required but no condiment group selected; product not modified.","已勾選強制選擇調味, 但未選擇調味群組; 產品無法修改.","Kondiment krävs men ingen kondiment grupp är vald; produkten är inte modifierad."
+"An error occurred while modifying Product [%S]. The product may not have been modified successfully","修改產品 [%S] 時發生錯誤; 該產品並未修改成功","Ett fel har uppstått vid modifiering av Produkt [%S]. Produkten har kanske inte modifierats ordentligt"
+"An error occurred while removing Product [%S]. The product may not have been removed successfully","刪除產品 [%S] 時發生錯誤; 該產品並未刪除成功","Ett fel har uppstått vid borttag av Produkt [%S]. Produkten har kanske inte tagits bort ordentligt"
+"[%S] has been assigned to one or more departments and may not be deleted","[%S] 已被指派至一個或多個產品部門, 故無法刪除","[%S] har tilldelats en eller flera avdelningar och kan inte raderas"
+"[%S] is the default tax and may not be deleted","[%S] 已被設為預設稅別, 故無法刪除","[%S] är standard moms och kan inte raderas"
+"[%S] is the default user and may not be deleted","[%S] 已被設為預設使用者, 故無法刪除","[%S] är standard användare och kan inte raderas"
+"[%S] may not be deleted","[%S] 無法刪除","[%S] kan inte raderas"
+"Select Default Job","選擇預設工作內容","Välj Standard Arbete"
+"TAL","總計","TAL"
+"REM","未付款","REM"
+"PAY","已付款","PAY"
+"Return","退貨","Return"
+"I:","I:","I:"
+"QTY","數量","QTY"
+"Change Clerk","變更收銀員","Byte Servis"
+"Password:","登入密碼","Lösenord:"
+"CANCELED","已刪單","AVBRUTEN"
+"QUEUED","已暫存","KÖAD"
+"CHG","找零","CHG"
+"User [%S] does not exist!","使用者 [%S] 不存在!","User [%S] finns inte!"
+"** TRAY","標記",
+"** TOTAL","總計",
+"** SUBTOTAL","小計",
+"GIFTCARD","禮券",
+"CREDITCARD","信用卡",
+"CASH","現金",
+"Failed to setting date/time","設定日期與時間時發生錯誤",
+"Passcode","登入密碼",
+"CANCELED","已刪單",
+"confirm timezone change","確認修改時區設定",
+"Timezone change requires system restart to take effect. If you save the changes now, the system will restart automatically after you return to the Main Screen. Do you want to save your changes?","時區設定修改需重新啟動程式後才會生效. 如果您按下儲存鍵, 程式將在返回主頁面之後重新啟動. 您確定要儲存修改?",
+"I","I",
+"Condiments may not be added to a return item [%S]","禁止於退貨品項 [%S] 新增調味",
+"Return of product sets (%S) not allowed!","組合產品 (%S) 禁止退貨",
+"The select item [%S] is a member of a product set and cannot be VOIDed individually","選取的品項 [%S] 已被列入組合產品內, 禁止單獨刪除",
+"Please enter the surcharge amount","請輸入附加費金額",
+"Please select a data category to export","請選擇要匯出的資料種類",
+"Yes","完成",
+"Data export to CSV file [%S] finished!","資料匯出為 CSV 檔完成!",
+"Please select a data category to import","請選擇要匯入的資料種類",
+"The specified CSV file [%S] does not exist!","指定的 CSV 檔 [%S] 不存在",
+"Unable to open the specified CSV file [%S]!","無法開啟指定的 CSV 檔 [%S]!",
+"Import format error: field [%S] not exist!","匯入格式錯誤: 欄位 [%S] 不存在!",
+"Format error detected in import CSV file [%S]!","匯入的 CSV 檔 [%S] 格式錯誤!",
+" (%S)",,
+"Data import from CSV file [%S] finished!","從 CSV 檔匯入資料完成!",
+"Department","產品部門",
+"Product","產品",
+"Product Group","產品群組",
+"Condiment Group","調味群組",
+"Condiment","調味",
+"Filter [%S] added successfully","查詢條件 [%S] 新增成功",
+"Filter [%S] removed successfully","查詢條件 [%S] 刪除成功",
+"[%S] (%S) may not be a member of its own product set.","[%S] (%S) 已經是組合產品, 無法列入同名組合產品內.",
+"[%S] (%S) is a product set and may not be a member of another product set.","[%S] (%S) 已經是組合產品, 禁止列入其他組合產品內.",
+"Product [%S] is part of a product set [%S] and may not be removed","產品 [%S] 已被列入組合產品 [%S] 內, 禁止刪除",
+,,
+"messages.properties:","messages.properties:","messages.properties:"
+"Condiments","調味設定","Kondiment"
+"Currency Exchange","匯率設定","Valuta Växling"
+"Departments","產品部門設定","Avdelningar"
+"Promotions (inactive)","促銷管理 (未啟用)",
+"Employees","員工管理","Aställda"
+"Function Panel Configuration","功能面板設定","Konfigurera Funktions Panel"
+"Data Import/ Export (inactive)","資料匯入/匯出 (未啟用)","Data Import/ Export (inactive)"
+"Jobs","工作內容設定","Arbeten"
+"Image Manager (inactive)","圖像管理 (未啟用)","Bild Manager (inaktiv)"
+"Locale and Keyboard Mapping","語系與鍵盤設定",
+"Product Groups","產品群組設定","Produkt Grupper"
+"Products","產品管理","Produkter"
+"Price Level Schedule","變價排程設定","Pris Nivå Schema"
+"Reports (inactive)","報表功能 (未啟用)","Raporter (inaktiv)"
+"Roles","權限管理","Uppgift"
+"Stock Control","庫存管理","Lager Kontroll"
+"System Backup (inactive)","系統備份 (未啟用)","System Backup (inaktiv)"
+"General Options","系統設定","Allmänna Val"
+"Taxes","稅別設定","Momser"
+"This function shifts the current price level up by 1. No parameter is needed.","此功能可將目前的價格切換至下一個價格設定. 不需輸入任何參數值.","Denna funktion shiftar nuvarande pris nivå till 1. Inga parametrar behövs."
+"Price Level Shift","Price Level Shift","Pris Nivå Shift"
+"Price Level Shift","價格設定切換","Pris Nivå Shift"
+"This function sets the current price level to 1. The parameter must be 1.","此功能可將目前的價格強制變更為設定 1. 參數值必須是 1.","Denna funktion sätter nuvarande pris nivå till 1. Parameter måste vara 1."
+"Price Level 1","Price Level 1","Pris Nivå 1"
+"Price Level 1","價格設定 1","Pris Nivå 1"
+"This function sets the current price level to 2. The parameter must be 2.","此功能可將目前的價格強制變更為設定 2. 參數值必須是 2.","Denna funktion sätter nuvarande pris nivå till 2. Parameter måste vara 2."
+"Price Level 2","Price Level 2","Pris Nivå 2"
+"Price Level 2","價格設定 2","Pris Nivå 2"
+"This function sets the current price level to 3. The parameter must be 3.","此功能可將目前的價格強制變更為設定 3. 參數值必須是 3.","Denna funktion sätter nuvarande pris nivå till 3. Parameter måste vara 3."
+"Price Level 3","Price Level 3","Pris Nivå 3"
+"Price Level 3","價格設定 3","Pris Nivå 3"
+"This function sets the current price level to 4. The parameter must be 4.","此功能可將目前的價格強制變更為設定 4. 參數值必須是 4.","Denna funktion sätter nuvarande pris nivå till 4. Parameter måste vara 4."
+"Price Level 4","Price Level 4","Pris Nivå 4"
+"Price Level 4","價格設定 4","Pris Nivå 4"
+"This function sets the current price level to 5. The parameter must be 5.","此功能可將目前的價格強制變更為設定 5. 參數值必須是 5.","Denna funktion sätter nuvarande pris nivå till 5. Parameter måste vara 5."
+"Price Level 5","Price Level 5","Pris Nivå 5"
+"Price Level 5","價格設定 5","Pris Nivå 5"
+"This function sets the current price level to 6. The parameter must be 6.","此功能可將目前的價格強制變更為設定 6. 參數值必須是 6.","Denna funktion sätter nuvarande pris nivå till 6. Parameter måste vara 6."
+"Price Level 6","Price Level 6","Pris Nivå 6"
+"Price Level 6","價格設定 6","Pris Nivå 6"
+"This function sets the current price level to 7. The parameter must be 7.","此功能可將目前的價格強制變更為設定 7. 參數值必須是 7.","Denna funktion sätter nuvarande pris nivå till 7. Parameter måste vara 7."
+"Price Level 7","Price Level 7","Pris Nivå 7"
+"Price Level 7","價格設定 7","Pris Nivå 7"
+"This function sets the current price level to 8. The parameter must be 8.","此功能可將目前的價格強制變更為設定 8. 參數值必須是 8.","Denna funktion sätter nuvarande pris nivå till 8. Parameter måste vara 8."
+"Price Level 8","Price Level 8","Pris Nivå 8"
+"Price Level 8","價格設定 8","Pris Nivå 8"
+"This function sets the current price level to 9. The parameter must be 9.","此功能可將目前的價格強制變更為設定 9. 參數值必須是 9.","Denna funktion sätter nuvarande pris nivå till 9. Parameter måste vara 9."
+"Price Level 9","Price Level 9","Pris Nivå 9"
+"Price Level 9","價格設定 9","Pris Nivå 9"
+"This function shifts current item's tax status. The parameter field can be used to program a specific tax status. If a preset tax status is programmed, this function changes the current item to the preset tax status; otherwise, it shifts the item to the next tax status.","此功能為切換品項之稅別. 參數值可自行設定為特定稅別代碼. 如參數值為空白, 按下此功能鍵將強制切換至系統預設之稅別, 再按一次此功能鍵時, 則切換至下一個稅別.",
+"Shift Tax","Shift Tax","Moms Shift"
+"Shift Tax","稅別切換","Moms Shift"
+"This function registers a percentage-based discount. The parameter field can be used to program a preset percentage. If no preset percentage is programmed, the discount percentage is read from the input line.","此功能為設定折扣百分比. 參數值可自行設定為某一固定百分比. 如參數值為空白, 此功能會自動擷取按下此功能鍵之前一個輸入之數字作為折扣百分比.",
+"%-","%-","%-"
+"Percentage Discount","折扣百分比","Rabatt Procent"
+"This function registers a reduction. The parameter field can be used to program a preset reduction amount. If no preset amount is programmed, the discount amount is read from the input line.","此功能為設定折扣金額. 參數值可自行設定為某一固定折扣金額. 如參數值為空白, 此功能會自動擷取按下此功能鍵之前一個輸入之數字作為折扣金額.",
+"-","-","-"
+"Reduction","折扣金額","Avdrag"
+"This function registers a percentage surcharge. The parameter field can be used to program a preset surcharge. If no preset surcharge is programmed, the surcharge percentage is read from the input line.","此功能為設定附加費百分比. 參數值可自行設定為某一固定百分比. 如參數值為空白, 此功能會自動擷取按下此功能鍵之前一個輸入之數字作為附加費百分比.",
+"%+","%+","%+"
+"Surcharge","附加費百分比","Extra Avgift"
+"This function registers an addition. The parameter field can be used to program a preset addition amount. If no preset amount is programmed, the amount is read from the input line.","此功能為設定附加費金額. 參數值可自行設定為某一固定附加費金額. 如參數值為空白, 此功能會自動擷取按下此功能鍵之前一個輸入之數字作為附加費金額.",
+"+","+","+"
+"PLUS","附加費金額","PLUS"
+"This function registers a cash payment. The parameter field can be used to program a preset cash apayment amount. If no preset is programmed, the payment amount is read from the input line  If the input line is also blank, a quick cash payment is registered.","此功能為設定現金付款之金額. 參數值可自行設定為某一固定金額. 如參數值為空白, 此功能會自動擷取按下此功能鍵之前一個輸入之數字作為現金付款金額, 如未輸入任何數字即按下此功能鍵, 則視同免找零錢之現金付款交易.",
+"Cash","Cash","Kontant"
+"Cash","現金付款","Kontant"
+"This function simulates a series of key presses. The parameter field contains the string of key characters to press.","此功能為模擬輸入字串. 參數值可自行設定一個或一組文字或數字.",
+"Key","Key","Tangent"
+"Keypress","鍵入字串","Tangent Tryck"
+"This function clears the input line. The parameter field must not be altered","此功能為清除輸入字串. 預設的參數值不得修改.",
+"Clear","Clear","Rensa"
+"Clear","清除鍵","Rensa"
+"This function simulates pressing the 'Enter' key. The parameter field must not be altered","此功能為模擬 Enter 鍵. 預設的參數值不得修改.",
+"Enter","Enter","Enter"
+"Enter","輸入鍵","Enter"
+"This function sets the quantity to the value entered on the input line. The parameter field must not be altered","此功能為模擬乘號鍵 - X. 預設的參數值不得修改.",
+"X","X","X"
+"Quantity","乘號鍵","Antal"
+"This function registers a subtotal. The parameter field must not be altered","此功能為模擬小計鍵 - SUB TOTAL. 預設的參數值不得修改.",
+"SUB TOTAL","SUB TOTAL","SUB TOTAL"
+"SUB TOTAL","小計鍵","SUB TOTAL"
+"This function registers a tray marker. The parameter field must not be altered","此功能為模擬標記鍵 - Tray Marker. 預設的參數值不得修改.",
+"Tray Marker","Tray Marker",
+"Tray Marker","標記鍵",
+"This function cancels the current order. No parameter is needed.","此功能為模擬刪除鍵 - Cancel. 不需輸入任何參數值.",
+"Cancel","Cancel","Avbryt"
+"Cancel","刪除鍵","Avbryt"
+"This function allows the operator to perform a Product search. No parameter is needed.","此功能提供收銀員產品搜尋之功能. 不需輸入任何參數值.",
+"Product Search","Product Search","Produkt Sök"
+"Product Search","產品搜尋","Produkt Sök"
+"This function queues the current order and readies the register for a new order. No parameter is needed.","此功能為模擬暫存鍵 - Queue Order. 不需輸入任何參數值.",
+"Queue Order","Queue Order","Köa Order"
+"Queue Order","暫存鍵","Köa Order"
+"This function allows the operator to recall a queued order. No parameter is needed.","此功能為模擬檢視暫存鍵 - View Order. 不需輸入任何參數值.",
+"View Queue","View Queue","Visa Kö"
+"View Queue","檢視暫存鍵","Visa Kö"
+"This function allows the operator to modify a registered item. No parameter is needed.","此功能為模擬修改鍵 - Modify. 不需輸入任何參數值.",
+"Modify","Modify","Modifiera"
+"Modify Item","修改鍵","Modifiera Artikel"
+"This function voids the last transaction. No parameter is needed.","此功能為模擬刪除鍵 - VOID. 不需輸入任何參數值.",
+"VOID","VOID","RÄTTELSE"
+"VOID","刪除鍵","RÄTTELSE"
+"This function marks the current item as 'on-the-house'. No parameter is needed.","此功能可將目前交易之品項設為 '贈送品'. 不需輸入任何參數值.",
+"House BON","House BON",
+"House BON","贈送品",
+"This function signs off the current operator. No parameter is needed.","此功能為模擬登出鍵 - Sign Off. 不需輸入任何參數值.",
+"Sign Off","Sign Off","Logga Ut"
+"Sign Off","登出鍵","Logga Ut"
+"This function registers a currency conversion. The parameter indicates the currency code to convert from and must be filled.","此功能提供收銀員匯率轉換之功能. 參數值必須輸入欲轉換幣別之貨幣代碼.",
+"Currency Exchange","Currency Exchange","Valuta Växling"
+"Currency Exchange","匯率轉換","Valuta Växling"
+"This function resets the current price level. If the price level schedule is active, the currently scheduled level is restored. If the price level schedule is not active, or if no schedule has been defined, the price level reverts to the system/user default. No parameter is needed.","此功能將重設 '價格設定'. 如變價排程功能已啟動, 按下此功能鍵將依照目前變價排程排定之價格設定重設之. 如變價排程功能未啟動或是未設定, 按下此功能鍵將依照系統預設之價格設定重設之. 不需輸入任何參數值.",
+"Reset Price Level","Reset Price Level","Återställ Pris Nivå"
+"Reset Price Level","重設價格設定","Återställ Pris Nivå"
+"This function allows a silent switch to the user specified in the paramter field using password from the input buffer. The parameter field must be set to the username of the user to switch to.","此功能提供 '安靜切換員工模式' 之功能. 參數值必須輸入欲切換員工之 '員工姓名/代號'.",
+"Silent User Switch","Silent User Switch",
+"Silent User Switch","安靜切換員工模式",
+"This function allows the current user to enter a password and quickly switch to the user identified by that password. No parameter is needed.","此功能提供 '快速切換員工模式' 之功能. 不需輸入任何參數值.",
+"Change Clerk","Change Clerk","Byte Servis"
+"Quick User Switch","快速切換員工模式","Snabbt Servis Byte"
+"This function dispatches a command to a controller. The parameter field should be a comma-separated list of arguments, with the first argument being the command name, the second argument the data to pass to the command, and the third argument the controller handling the command.","不需翻譯本段文字. (本功能將會移除)   ==> No need to translate this paragraph.",
+"Dispatch","Dispatch",
+"Dispatch","Dispatch",
+"This function registers a return of an item for refund. No parameter is needed.","此功能模擬銷貨退回鍵 - Refund. 不需輸入任何參數值.",
+"Refund","Refund","Återbetalning"
+"Refund","銷貨退回鍵","Återbetalning"
+"This function registers a credit card payment. The parameter field should be set to the credit type.","此功能模擬信用卡付款鍵 - Credit Card. 參數值必須輸入信用卡種類.",
+"Credit Card","Credit Card","Kontokort"
+"Credit Card","信用卡付款鍵","Kontokort"
+"This function registers a gift card payment. The parameter field should be set to the gift card type.","此功能模擬禮品卡付款鍵 - Gift Card. 參數值必須輸入禮品卡種類.",
+"Gift Card","Gift Card","Presentkort"
+"Gift Card","禮品卡付款鍵","Presentkort"
+"This function adds an open memo to an item in the cart. The parameter field must be empty.","此功能模擬備註鍵 - Add Memo. 參數值必須為空白.",
+"Add Memo","Add Memo","Lägg till Memo"
+"Add Memo","備註鍵","Lägg till Memo"
+"This function registers a gift card payment. The parameter field must be empty.","此功能模擬調味鍵 - Add Condiment. 參數值必須為空白.",
+"Add Condiment","Add Condiment","Lägg till Kondiment"
+"Add Condiment","調味鍵","Lägg till Kondiment"
+"This function registers a pretax order surcharge by percentage. The parameter field can be used to program a preset percentage. If no preset percentage is programmed, the surcharge percentage is read from the input line.","此功能為設定稅前附加費百分比. 參數值可自行設定為某一固定百分比. 如參數值為空白, 此功能會自動擷取按下此功能鍵之前一個輸入之數字作為稅前附加費百分比.",
+"Pretax Order Surcharge","Pretax Order Surcharge",
+"Pretax Order Surcharge","稅前附加費百分比",
+"This function registers a pretax order discount by percentage. The parameter field can be used to program a preset percentage. If no preset percentage is programmed, the discount percentage is read from the input line.","此功能為設定稅前折扣百分比. 參數值可自行設定為某一固定百分比. 如參數值為空白, 此功能會自動擷取按下此功能鍵之前一個輸入之數字作為稅前折扣百分比.",
+"Pretax Order Discount","Pretax Order Discount",
+"Pretax Order Discount","稅前折扣百分比",
+"dummy","樣本資料","dummy"
+"Override Default Price Level","不受 '預設價格設定' 之限制","Överskrid Std Pris Nivå"
+"Change Price Level","變更價格設定","Ändra Pris Nivå"
+"Set Price Level 1","設為價格設定 1","Set Pris Nivå 1"
+"Set Price Level 2","設為價格設定 2","Set Pris Nivå 2"
+"Set Price Level 3","設為價格設定 3","Set Pris Nivå 3"
+"Set Price Level 4","設為價格設定 4","Set Pris Nivå 4"
+"Set Price Level 5","設為價格設定 5","Set Pris Nivå 5"
+"Set Price Level 6","設為價格設定 6","Set Pris Nivå 6"
+"Set Price Level 7","設為價格設定 7","Set Pris Nivå 7"
+"Set Price Level 8","設為價格設定 8","Set Pris Nivå 8"
+"Set Price Level 9","設為價格設定 9","Set Pris Nivå 9"
+"Revert Price Level","回復價格設定",
+"Override HALO","不受 '最高產品價格' 之限制","Överskrid HALO"
+"Override LALO","不受 '最低產品價格' 之限制","Överskrid LALO"
+"Queue Order","暫存單","Köa Order"
+"Pull Order from Queue","擷取暫存單","Hämta Order från Kö"
+"Access Control Panel","權限管理面板",
+"Modify Cart Items","修改購物車品項",
+"VOID Cart Items","刪除購物車品項",
+"Cancel Order","刪單","Avbryt Order"
+"Product Search","產品搜尋","Produkt Sökning"
+"Register Cash Payment","現金付款","Registrera Kontant Betalning"
+"Toggle Number Pad","數字鍵盤開關",
+"Public Access","開放存取",
+"Manage Condiments","調味管理","Hantera Kondiment"
+"Manage Currency Exchange","匯率管理","Hantera Valuta Växling"
+"Manage Departments","部門管理","Hantera Avdelningar"
+"Manage Employees","員工管理","Hantera Anställda"
+"Manage Function Panel","功能面板管理","Hantera Funktionspanel"
+"Shift Item Tax","切換稅別",
+"Register Discounts","登錄折扣","Registrera Rabatter"
+"Register Reductions","登錄折價","Registrera Avdrag"
+"Register Surcharges","登錄附加費","Registrera Extra Avgift"
+"Register Additions","登錄加價",
+"Send Keypresses","送出鍵入字串","Skicka Tangent Tryck"
+"Register Products","登錄產品","Registrera Produkter"
+"Register ENTER","登錄 ENTER","Registrera ENTER"
+"Register Quantity","登錄數量","Registrera Antal"
+"Register Subtotal","登錄小計","Registrera Subtotal"
+"Register Tray Marker","登錄標記",
+"Register House BON","登錄贈送品",
+"Register Currency Exchange","登錄匯率","Registrera Valuta Växling"
+"Manage Jobs","工作內容管理","Hantera Arbeten"
+"Manage Product Groups","產品群組管理","Hantera Produkt Grupper"
+"Import Export Data","資料匯入匯出","Import Export Data"
+"Manage Price Level Schedule","變價排程管理","Hantera Pris Nivå Schema"
+"Manage Access Groups","權限群組管理","Hantera Tillträdes Grupper"
+"Manage Stock","庫存管理","Hantera Lager"
+"Manage System Options","系統設定管理","Hantera System Options"
+"Manage Taxes","稅別管理","Hantera Momser"
+"Manage Products","產品管理","Hantera Produkter"
+"Register Item Return","登錄退貨品項","Registrera Artikel Returer"
+"Register Credit Card Payment","登錄信用卡付款","Registrera Kontokort Betalningar"
+"Register Gift Card Payment","登錄禮品卡付款","Registrera Presentkort Betalning"
+"Manage Images","圖像管理","Hantera Bilder"
+"Modify Keymap Parameter","修改功能鍵參數值",
+"Modify Condiment Price","修改調味價格","Hantera Kondiment Priser"
+"Change Locale and Keyboard Mapping","變更語系與鍵盤設定",
+"Register Order Discounts Pretax","登錄稅前折扣",
+"Register Order Surcharges Pretax","登錄稅前附加費",
+,,
+"numberpad.dtd:","numberpad.dtd:","numberpad.dtd:"
+"QUEUE ORDER","暫存","Köa Order"
+"VIEW QUEUE","檢視暫存","Visa Kö"
+"CLEAR","清空","RENSA"
+"MODIFY","修改","MODIFIERA"
+"DEL","DEL","DEL"
+"VOID","刪除","RÄTTA"
+"ENTER","輸入","ENTER"
+"CANCEL","刪單","AVBRYT"
+"CASH","現金","KONTANT"
+"SUB TOTAL","小計","SUB TOTAL"
+"Product SEARCH","搜尋","Produkt SÖK"
+"TRAY MARKER","標記",
+"SIGN OFF","登出","Logga UT"
+"X","X","X"
+"Passcode:","密碼","Lösenord:"
+"OK","完成","OK"
+,,
+"orderstatus.dtd:","orderstatus.dtd:","orderstatus.dtd:"
+"PL@","價設@","PL@"
+"TX","稅額","TX"
+"#ITEM","項數","#ITEM"
+"SEQ#","流單#","SEQ#"
+"DEST","內外","DEST"
+"#CST","客數#","#CST"
+"CHK#","單號#","CHK#"
+"TBL#","桌號#","TBL#"
+,,
+"plugroups.dtd:","plugroups.dtd:","plugroups.dtd:"
+"Product Groups","產品群組","Produkt Grupp"
+"Group Name","群組名稱","Grupp Namn"
+"Show on Menu","顯示於前台","Visa i Meny"
+"Button Color","按鈕顏色","Knapp Färg"
+"Font Size","文字大小","Font Storlek"
+"Add","新增","Lägg till"
+"Modify","修改","Modifiera"
+"Delete","刪除","Tabort"
+,,
+"plus.dtd:","plus.dtd:","plus.dtd:"
+"Product Properties","產品屬性","Produkt Egenskaper"
+"Basic 1","基本資料 1","Basic 1"
+"Basic 2","基本資料 2","Basic 2"
+"Sets","組合產品",
+"Appearance","顯示設定","Utseende"
+"Price Levels","價格設定","Pris Nivåer"
+"Link Groups","群組連結","Koppla Grupper"
+"Product Details","產品資料","Produkt Detaljer"
+"Basic Data (Page 1)","基本資料 (第 1 頁)","Basic Data (Sida 1)"
+"Basic Data (Page 2)","基本資料 (第 2 頁)","Basic Data (Sida 2)"
+"Product Set","組合產品",
+"Appearance","顯示設定","Utseende"
+"Price Levels","價格設定","Pris Nivåer"
+"Link Groups","群組連結","Koppla Grupper"
+"Department","部門別","Avdelningar"
+"Product No.","產品編號","Produkt Nr"
+"Product Name","產品名稱","Produkt Namn"
+"Barcode","產品條碼","Streckkod"
+"Tax Rate","稅別","Moms Sats"
+"Condiments","調味別","Kondiment"
+"Auto-stock","自動扣庫存","Auto-Lager"
+"Returns can be restocked","退貨可轉銷售","Returer kan återföras till lager"
+"Condiments required","強制選擇調味","Kondiment Krävs"
+"Memo required","強制輸入備註","Memo Krävs"
+"Single Item Sale","單一產品快速銷售","Enkel Artikel Försäljning"
+"Show on menu","顯示於前台","Visa i Meny"
+"Require age verification","強制查詢購買者年齡","Krävs Ålders Verifiering"
+"Display icon only","只顯示產品圖示","Visa Iconer Endast"
+"Purchase Price","購入單位成本","Öppet Pris"
+"Current Stock Level","目前庫存量","Nuvarande Lager Nivå"
+"Minimum Threshold","安全庫存量","Minimi Nivå"
+"Memo","備註","Meddelande"
+"Minimum Sale Qty","最小銷售數量","Minimum Försäljningsantal"
+"Unit of Sale","銷售單位","Försäljningsenhet"
+"Individually","個","Individuellt"
+"Gram","公克","Gr"
+"Kilogram","公斤","KG"
+"Ounce","盎司","Ounce"
+"Pound","磅","Pound"
+"Liter","公升","Liter"
+"Pint","品脫","Pint"
+"Quart","夸脫","Quart"
+"Gallon","加侖","Gallon"
+"Stock Location","庫存位置","Lagerplats"
+"No.","產品編號","Nr"
+"Name","產品名稱","Namn"
+"Qty","數量","Antal"
+"Product Icon","產品圖示","Produkt Icon"
+"Button Color","按鈕顏色","Knapp Färg"
+"Font Size","文字大小","Font Storlek"
+"Level","設定","Nivå"
+"Price","價格","Pris"
+"HALO","最高價格","HALO"
+"LALO","最低價格","LALO"
+"Search By Product No. or Barcode","產品搜尋 - 依產品編號或產品條碼","Sök Produkt Nr eller Streckkod"
+"Add","新增","Lägg till"
+"Modify","修改","Modifiera"
+"Delete","刪除","Tabort"
+"CLEAR","清空","RENSA"
+"DEL","DEL","DEL"
+"ENTER","輸入","ENTER"
+,,
+"pricelevelschedule.dtd:","pricelevelschedule.dtd:","pricelevelschedule.dtd:"
+"Price Level Schedule","變價排程","Pris Nivå Schema"
+"Start Time","使始時間","Start Tid"
+"Price Level","價格設定","Start Nivå"
+"Remove","移除","Tabort"
+"Add","新增","Lägg till"
+,,
+"prompt_addtaxitem.dtd:","prompt_addtaxitem.dtd:","prompt_addtaxitem.dtd:"
+"Select Tax Type:","選擇稅種:","Välj Moms Typ:"
+"Included","內含稅","Inkluderad"
+"Add-On","外加稅","Add-On"
+"Combined","合併稅","Kombinerad"
+"VAT + VAT","稅上稅","Moms + Moms"
+,,
+"select_condgroup.dtd:","select_condgroup.dtd:","select_condgroup.dtd:"
+"Select Condiment Group","選擇調味群組","Välj Kondiment Grupp"
+,,
+"select_condiments.dtd:","select_condiments.dtd:","select_condiments.dtd:"
+"Select Condiments","選擇調味種類","Välj Kondiment"
+,,
+"select_department.dtd:","select_department.dtd:","select_department.dtd:"
+"Select Department","選擇產品部門","Välj Avdelning"
+,,
+"select_job.dtd:","select_job.dtd:","select_job.dtd:"
+"Select Job","選擇工作內容","Välj Job"
+,,
+"select_queues.dtd:","select_queues.dtd:","select_queues.dtd:"
+"Select Queued Order","選擇暫存單","Välj Köad Order"
+"Order Details","暫存單詳細內容","Order Detaljer"
+,,
+"select_rolegroup.dtd:","select_rolegroup.dtd:","select_rolegroup.dtd:"
+"Select Access Group","選擇權限群組","Välj Rättighetsgrupp"
+,,
+"select_tax.dtd:","select_tax.dtd:","select_tax.dtd:"
+"Select a Tax","選擇稅別","Välj Moms"
+,,
+"stocks.dtd:","stocks.dtd:","stocks.dtd:"
+"Products","產品","Produkter"
+"Product No.","產品編號","Produkt Nr"
+"Product Name","產品名稱","Produkt Namn"
+"Quantity","庫存量","Antal"
+"Threshold","安全庫存量","Gräns"
+"Filter for Products below Threshold","只列出低於安全庫存量之產品","Filter för Produkter under Gräns"
+"No.","產品編號","Nr"
+"Name","產品名稱","Namn"
+"Level","庫存量","Nivå"
+"Threshold","安全庫存量","Gräns"
+"Enter Product or Barcode No.","產品搜尋 - 輸入產品編號或產品條碼","Lägg in Produkt eller Streckkods Nr"
+"CLEAR","清空","RENSA"
+"DEL","DEL","DEL"
+"ENTER","輸入","ENTER"
+"Modify","修改","Modifiera"
+,,
+"sysprefs.dtd:","sysprefs.dtd:","sysprefs.dtd:"
+"General Options","系統設定","Allmäna Val"
+"Layout","版面設定","Utseende"
+"General Options","一般設定","Allmäna Val"
+"Sign In/Out","登入登出設定","Logga In/Ut"
+"Taxes","稅別設定","Momser"
+"Terminal ID","本機編號","Terminal ID"
+"Individual Time-and-Attendance visible to all","所有員工都可檢視其他員工之出勤紀錄",
+"Automatically log in default user:","自動以下列勾選之員工身分登入本機:","Automatisk logg in  standard användare:"
+"Private order queue","暫存單不分享","Privat order kö"
+"System default price level","系統預設價格設定為:","System standard pris nivå"
+"System default tax status","系統預設稅別為:",
+"Number of decimal places for Prices","價格計算至小數點後幾位數?",
+"Number of decimal places for Taxes","稅金計算至小數點後幾位數?",
+"Rounding policy to use for Prices","價格計算進位規則",
+"Rounding policy to use for Taxes","稅金計算進位規則",
+"to nearest precision","精準進位",
+"to nearest half","進位至 0.5",
+"to nearest quarter","進位至 0.25",
+"to nearest nickel","進位至 0.05",
+"to nearest dime","進位至 0.1",
+"always round up","無條件進位",
+"always round down","無條件捨去",
+"Activate price level schedule","啟用變價排程功能",
+"Price level reverts to schedule after each order","結單後價格設定依循變價排程之設定",
+"Clear input buffer when switching departments","切換產品部門時清除前筆已結單之資料",
+"Allow negative stock","允許庫存數量為負值",
+"Require clerk acknowledgement for age verification","查詢購買者年齡之訊息出現時強制員工確認",
+"Automatically discard cart content when signing off","登出時自動放棄正在結帳之交易資料",
+"Automatically discard queued orders when signing off","登出時自動放棄已暫存單",
+"Order queue must be emptied when signing off","登出時強制清空暫存單",
+"Print shift report when users sign off","登出時列印交班報表",
+"Print shift report when quick-switching users","快速切換員工時列印交班報表",
+"Allow quick login by automatically matching user by password","快速登入 - 自動依登入密碼辨別員工",
+"Place register screen on the left side of screen","購物車置於畫面左方",
+"Hide numeric keypad","隱藏數字鍵盤",
+"Place function key panel at the top of the screen","功能面板置於畫面最上方",
+"Place product panel before department panel","產品面板置於部門面板上方",
+"Hide scrollbars for department panel","隱藏部門面板捲軸",
+"Hide scrollbars for product panel","隱藏產品面板捲軸",
+"Hide scrollbars for function panel","隱藏功能面板捲軸",
+"Crop department label","部門名稱不換行",
+"Crop product label","產品名稱不換行",
+"Department panel dimensions","部門面板大小",
+"rows","行數","rader"
+"columns","列數","kolumner"
+"Product panel dimensions","產品面板大小",
+"rows","行數","rader"
+"columns","列數","kolumner"
+"Function panel dimensions","功能面板大小",
+"rows","行數","rader"
+"columns","列數","kolumner"
+,,
+"systembackup.dtd:","systembackup.dtd:","systembackup.dtd:"
+"System Backup","系統備份","System Backup"
+"System Resotre","系統回復","System Återställning"
+"Local Backup:","本機備份:","Lokal Backup:"
+"Stick:","外接式大姆碟:","USB:"
+"Copy Local to Stick >>>","複製本機至外接式大姆碟 >>>","Kopiera Lokalt till USB >>>"
+"Backup to Local","備份至本機","Backup till Lokalt"
+"Restore from Stick","從外接式大姆碟回復系統","Återställ från USB"
+"Resotre from Local","從本機備份回復系統","Återställ från Lokalt"
+"Ok","完成","Ok"
+"Cancel","取消","Avbryt"
+"Add","新增","Lägg till"
+"Modify","修改","Modifiera"
+"Delete","刪除","Tabort"
+,,
+"taxes.dtd:","taxes.dtd:","taxes.dtd:"
+"Taxes","稅別","Momser"
+"Tax Details:","稅別詳細資料","Moms Detaljer:"
+"Tax Code:","稅別代碼:","Moms Kod:"
+"Tax Type:","稅種:","Moms Typ:"
+"Tax Name:","稅別名稱:","Moms Namn:"
+"Tax Rate:","稅率/稅金:","Moms Kurs:"
+"Rate Type:","課稅方式:","Kurs Typ:"
+"Percentage","依百分比課稅","Procent"
+"Fixed Amount","依固定金額課稅","Fixerat Värde"
+"Threshold:","最低課稅基準(產品價格)","Gräns:"
+"Add","新增","Lägg till"
+"Modify","修改","Modifiera"
+"Delete","刪除","Tabort"
+,,
+"users.dtd:","users.dtd:","users.dtd:"
+"Employees","員工管理","Anställda"
+"User Profile","員工基本資料","Användar Profil"
+"User Limits","員工額度限制","Användar Begränsning"
+"Check Tracking","員工開單限制",
+"User Name (a..z,0..9)","員工姓名/代號 (a..z,0..9)","Användar Namn"
+"Password","登入密碼","Lösenord"
+"Display Name","顯示名稱","Display Namn"
+"Access Level","權限群組","Åtkomst Nivå"
+"Default Price Level","預設價格設定","Std Pris Nivå"
+"Default Job","預設工作內容","Std "
+"Item Discount Limit","單品折扣限額","Artikel Rabatt Begränsning"
+"Order Discount Limit","單張折扣限額","Order Rabatt Begränsning"
+"Check Cashing Limit","支票付款限額",
+"Item Surcharge Limit","單品附加費限額",
+"Order Surcharge Limit","單張附加費限額",
+"Product Quantity Limit","產品數量限額","Produkt Antal Begränsning"
+"Product Price Limit","產品價格限額","Produkt Pris Begränsning"
+"Item Coupon Limit","單品折價券限額",
+"Order Coupon Limit","單張折價券限額",
+"Minimum Check Number","最低開單數量",
+"Maximum Check Number","最高開單數量",
+"Maximum Number of Open Checks","最高未結單數量",
+"Add","新增","Lägg till"
+"Modify","修改","Modifiera"
+"Delete","刪除","Tabort"

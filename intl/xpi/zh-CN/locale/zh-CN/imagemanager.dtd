@@ -1,0 +1,23 @@
+<!ENTITY imagemanager.window.title "图像管理">
+<!ENTITY imagemanager.image.caption "图档:">
+<!ENTITY imagemanager.image.name "name: ">
+<!ENTITY imagemanager.image.size "size: ">
+
+<!ENTITY imagemanager.action.import "汇入">
+<!ENTITY imagemanager.action.export "汇出">
+<!ENTITY imagemanager.action.delete "删除">
+<!ENTITY imagemanager.action.rename "重新命名">
+
+<!ENTITY imagemanager.status.disklimit "磁盘空间:">
+<!ENTITY imagemanager.status.total "Total: ">
+<!ENTITY imagemanager.status.usage "Used: ">
+<!ENTITY imagemanager.status.files "Files: ">
+
+<!ENTITY imagemanager.action.caption "汇入/汇出:">
+<!ENTITY imagemanager.action.usage "total size: ">
+<!ENTITY imagemanager.action.files "total files: ">
+<!ENTITY imagemanager.action.status "状态:">
+
+<!ENTITY imagemanager.importwait "Waitting for Import Images...">
+<!ENTITY imagemanager.exportwait "Waitting for Export Images...">
+

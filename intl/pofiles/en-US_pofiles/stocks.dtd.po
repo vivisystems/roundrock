@@ -1,0 +1,76 @@
+#. extracted from ../locale/en-US/stocks.dtd, ../locale/en-US/stocks.dtd
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-13 16:39+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.1.1\n"
+
+#: stocks.title
+msgid "Products"
+msgstr "Products"
+
+#: stocks.header.no
+msgid "Product No."
+msgstr "Product No."
+
+#: stocks.header.product
+msgid "Product Name"
+msgstr "Product Name"
+
+#: stocks.header.level
+msgid "Quantity"
+msgstr "Quantity"
+
+#: stocks.header.minimum
+msgctxt "stocks.header.minimum"
+msgid "Threshold"
+msgstr "Threshold"
+
+#: stocks.show.low.only
+msgid "Filter for Products below Threshold"
+msgstr "Filter for Products below Threshold"
+
+#: stocks.label.no
+msgid "No."
+msgstr "No."
+
+#: stocks.label.name
+msgid "Name"
+msgstr "Name"
+
+#: stocks.label.stock
+msgid "Level"
+msgstr "Level"
+
+#: stocks.label.threshold
+msgctxt "stocks.label.threshold"
+msgid "Threshold"
+msgstr "Threshold"
+
+#: stocks.search.label
+msgid "Enter Product or Barcode No."
+msgstr "Enter Product or Barcode No."
+
+#: stocks.button.action.clear
+msgid "CLEAR"
+msgstr "CLEAR"
+
+#: stocks.button.action.del
+msgid "DEL"
+msgstr "DEL"
+
+#: stocks.button.action.enter
+msgid "ENTER"
+msgstr "ENTER"
+
+#: stocks.button.action.modify
+msgid "Modify"
+msgstr "Modify"

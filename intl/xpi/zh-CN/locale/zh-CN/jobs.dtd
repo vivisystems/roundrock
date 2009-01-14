@@ -1,0 +1,5 @@
+<!ENTITY jobs.title "工作内容">
+<!ENTITY jobs.name "工作名称">
+<!ENTITY jobs.button.action.add "新增">
+<!ENTITY jobs.button.action.modify "修改">
+<!ENTITY jobs.button.action.delete "删除">

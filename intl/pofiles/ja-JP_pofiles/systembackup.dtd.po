@@ -1,0 +1,74 @@
+#. extracted from ../locale/en-US/systembackup.dtd, ../locale/en-US/systembackup.dtd
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-13 16:39+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.1.1\n"
+
+#: systembackup.backup
+msgid "System Backup"
+msgstr "機能バックアップ"
+
+#: systembackup.restore
+msgid "System Resotre"
+msgstr "機能回復"
+
+#: systembackup.local
+msgid "Local Backup:"
+msgstr "本体バックアップ"
+
+#: systembackup.stick
+msgid "Stick:"
+msgstr "スティック"
+
+#: systembackup.backuptostick
+msgid "Copy Local to Stick >>>"
+msgstr ""
+
+#: systembackup.backuptolocal
+msgid "Backup to Local"
+msgstr "本体にバックアップ"
+
+#: systembackup.restorefromstick
+msgid "Restore from Stick"
+msgstr ""
+
+#: systembackup.restorefromlocal
+msgid "Resotre from Local"
+msgstr "本体から回復"
+
+#: systembackup.backupwait
+msgid "Waitting for Backup Data..."
+msgstr "Waitting for Backup Data..."
+
+#: systembackup.restorewait
+msgid "Waitting for Restore Data..."
+msgstr "Waitting for Restore Data..."
+
+#: vivipos.fec.common.ok
+msgid "Ok"
+msgstr "OK"
+
+#: vivipos.fec.common.cancel
+msgid "Cancel"
+msgstr "キャンセル"
+
+#: vivipos.fec.common.add
+msgid "Add"
+msgstr "新規・追加"
+
+#: vivipos.fec.common.modify
+msgid "Modify"
+msgstr "修正"
+
+#: vivipos.fec.common.delete
+msgid "Delete"
+msgstr "削除"

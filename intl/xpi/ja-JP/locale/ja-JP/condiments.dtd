@@ -1,0 +1,10 @@
+<!ENTITY condiments.group "調味料グループ">
+<!ENTITY condiments.group.name "グループ名">
+<!ENTITY condiments.button.action.add "新規">
+<!ENTITY condiments.button.action.modify "変更">
+<!ENTITY condiments.button.action.delete "削除">
+<!ENTITY condiments.condiment "調味料　">
+<!ENTITY condiments.condiment.name "名前">
+<!ENTITY condiments.condiment.price "値段">
+<!ENTITY condiments.condiment.button.color "ボタンカラー">
+<!ENTITY condiments.condiment.font.size "文字サイズ">

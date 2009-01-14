@@ -1,0 +1,5 @@
+<!ENTITY pricelevelschedule.title "Pris Nivå Schema">
+<!ENTITY pricelevelschedule.header.time "Start Tid">
+<!ENTITY pricelevelschedule.header.pricelevel "Start Nivå">
+<!ENTITY pricelevelschedule.button.remove "Tabort">
+<!ENTITY pricelevelschedule.button.add "Lägg till">
