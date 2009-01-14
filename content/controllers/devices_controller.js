@@ -16,8 +16,10 @@
         _portControlService: null,
 
         // load device configuration and selections
-        initial: function () {
+        initial: function (warn) {
 
+            if (warn == null) warn = true;
+            
             // load templates
             this._templates = GeckoJS.Configure.read('vivipos.fec.registry.templates');
 
@@ -35,107 +37,148 @@
             // load device selections
             this._selectedDevices = GeckoJS.Configure.read('vivipos.fec.settings.selectedDevices');
             if (this._selectedDevices != null)
-                this._selectedDevices = GeckoJS.BaseObject.unserialize(GeckoJS.String.urlDecode(this._selectedDevices));
+                this._selectedDevices = GeckoJS.BaseObject.unserialize(this._selectedDevices);
 
-            // load command files
-            GeckoJS.Session.set('deviceCommands', this.loadDeviceCommands(this._selectedDevices));
+            // load templates and command files
+            this.loadEnabledDevices(this._selectedDevices);
 
             // warn if one or more enabled devices are off-line
-            var statusResult = this.checkStatusAll();
+            if (warn) {
+                var statusResult = this.checkStatusAll();
 
-            if (statusResult.status == 0) {
-                var statusStr = '';
+                if (statusResult.status == 0) {
+                    var statusStr = '';
 
-                // generate list of devices that may not be ready
-                var statuses = statusResult.statuses
-                //this.log(GeckoJS.BaseObject.dump(statuses));
-                statuses.forEach(function(status) {
-                    if (status[2] == 0)
-                        statusStr += '\n   ' + _('Device') + ' [' + status[0] + ']: ' + _('Port') + ' [' + status[1] + ']';
-                });
+                    // generate list of devices that may not be ready
+                    var statuses = statusResult.statuses
+                    //this.log(GeckoJS.BaseObject.dump(statuses));
+                    statuses.forEach(function(status) {
+                        if (status[2] == 0)
+                            statusStr += '\n   ' + _('Device') + ' [' + status[0] + ']: ' + _('Port') + ' [' + status[1] + ']';
+                    });
 
-                GREUtils.Dialog.alert(window, _('Device Status'),
-                                              _('The following enabled devices appear to be offline, please ensure that they are functioning correctly: \n%S', [statusStr]));
+                    GREUtils.Dialog.alert(window, _('Device Status'),
+                                                  _('The following enabled devices appear to be offline, please ensure that they are functioning correctly: \n%S', [statusStr]));
+                }
             }
 
-            // add event listener for onSubmit events
-
+            // log enabled devices and cached data
+            this.log('Devices [settings]: ' + GeckoJS.BaseObject.dump(this._selectedDevices));
+            this.log('Devices [commands]: ' + GeckoJS.BaseObject.dump(GeckoJS.Session.get('deviceCommands')));
+            this.log('Devices [templates]: ' + GeckoJS.BaseObject.dump(GeckoJS.Session.get('deviceTemplates')));
         },
 
-        // load and cache device commands
-        loadDeviceCommands: function (devices) {
+        // load and cache device templates and commands
+        loadEnabledDevices: function (enabledDevices) {
 
             var deviceCommands = {};
+            var deviceTemplates = {};
             var devicemodels = this.getDeviceModels();
+            var templates = this.getTemplates();
 
-            // collect all enabled device models
-            if (devices != null) {
+            // collect all enabled templates device models
+            if (enabledDevices != null) {
 
-                if (devices['receipt-1-enabled']) {
+                if (enabledDevices['receipt-1-enabled']) {
+                    // check if template already loaded
+                    var template = enabledDevices['receipt-1-template'];
+                    if (template != null && !(template in deviceTemplates)) {
+                        deviceTemplates[template] = this.loadTemplateFile(templates[template].path);
+                    }
+
                     // check if device already loaded
-                    var device = devices['receipt-1-devicemodel'];
-                    if (!(device in deviceCommands)) {
+                    var device = enabledDevices['receipt-1-devicemodel'];
+                    if (device != null && device != null && !(device in deviceCommands)) {
                         deviceCommands[device] = this.loadDeviceCommandFile(devicemodels[device].path)
                     }
                 }
 
-                if (devices['receipt-2-enabled']) {
+                if (enabledDevices['receipt-2-enabled']) {
+                    // check if template already loaded
+                    var template = enabledDevices['receipt-2-template'];
+                    if (template != null && !(template in deviceTemplates)) {
+                        deviceTemplates[template] = this.loadTemplateFile(templates[template].path);
+                    }
+
                     // check if device already loaded
-                    var device = devices['receipt-2-devicemodel'];
-                    if (!(device in deviceCommands)) {
+                    var device = enabledDevices['receipt-2-devicemodel'];
+                    if (device != null && !(device in deviceCommands)) {
                         deviceCommands[device] = this.loadDeviceCommandFile(devicemodels[device].path)
                     }
                 }
 
-                if (devices['guestcheck-1-enabled']) {
+                if (enabledDevices['guestcheck-1-enabled']) {
+                    // check if template already loaded
+                    var template = templates['guestcheck-1-template'];
+                    if (template != null && !(template in deviceTemplates)) {
+                        deviceTemplates[template] = this.loadTemplateFile(templates[template].path);
+                    }
+
                     // check if device already loaded
-                    var device = devices['guestcheck-1-devicemodel'];
-                    if (!(device in deviceCommands)) {
+                    var device = enabledDevices['guestcheck-1-devicemodel'];
+                    if (device != null && !(device in deviceCommands)) {
                         deviceCommands[device] = this.loadDeviceCommandFile(devicemodels[device].path)
                     }
                 }
 
-                if (devices['guestcheck-2-enabled']) {
+                if (enabledDevices['guestcheck-2-enabled']) {
+                    var template = templates['guestcheck-2-template'];
+                    if (template != null && !(template in deviceTemplates)) {
+                        deviceTemplates[template] = this.loadTemplateFile(templates[template].path);
+                    }
+
                     // check if device already loaded
-                    var device = devices['guestcheck-2-devicemodel'];
-                    if (!(device in deviceCommands)) {
+                    var device = enabledDevices['guestcheck-2-devicemodel'];
+                    if (device != null && !(device in deviceCommands)) {
                         deviceCommands[device] = this.loadDeviceCommandFile(devicemodels[device].path)
                     }
                 }
 
-                if (devices['vfd-1-enabled']) {
+                if (enabledDevices['vfd-1-enabled']) {
+                    var template = templates['vfd-1-template'];
+                    if (template != null && !(template in deviceTemplates)) {
+                        deviceTemplates[template] = this.loadTemplateFile(templates[template].path);
+                    }
+
                     // check if device already loaded
-                    var device = devices['vfd-1-devicemodel'];
-                    if (!(device in deviceCommands)) {
+                    var device = enabledDevices['vfd-1-devicemodel'];
+                    if (device != null && !(device in deviceCommands)) {
                         deviceCommands[device] = this.loadDeviceCommandFile(devicemodels[device].path)
                     }
                 }
 
-                if (devices['vfd-2-enabled']) {
+                if (enabledDevices['vfd-2-enabled']) {
+                    var template = templates['vfd-2-template'];
+                    if (template != null && !(template in deviceTemplates)) {
+                        deviceTemplates[template] = this.loadTemplateFile(templates[template].path);
+                    }
+
                     // check if device already loaded
-                    var device = devices['vfd-2-devicemodel'];
-                    if (!(device in deviceCommands)) {
+                    var device = enabledDevices['vfd-2-devicemodel'];
+                    if (device != null && !(device in deviceCommands)) {
                         deviceCommands[device] = this.loadDeviceCommandFile(devicemodels[device].path)
                     }
                 }
 
-                if (devices['cashdrawer-1-enabled'] && (devices['cashdrawer-1-type'] == 'printer')) {
+                if (enabledDevices['cashdrawer-1-enabled'] && (enabledDevices['cashdrawer-1-type'] == 'printer')) {
                     // check if device already loaded
-                    var device = devices['cashdrawer-1-devicemodel'];
-                    if (!(device in deviceCommands)) {
+                    var device = enabledDevices['cashdrawer-1-devicemodel'];
+                    if (device != null && !(device in deviceCommands)) {
                         deviceCommands[device] = this.loadDeviceCommandFile(devicemodels[device].path)
                     }
                 }
 
-                if (devices['cashdrawer-2-enabled'] && (devices['cashdrawer-2-type'] == 'printer')) {
+                if (enabledDevices['cashdrawer-2-enabled'] && (enabledDevices['cashdrawer-2-type'] == 'printer')) {
                     // check if device already loaded
-                    var device = devices['cashdrawer-2-devicemodel'];
-                    if (!(device in deviceCommands)) {
+                    var device = enabledDevices['cashdrawer-2-devicemodel'];
+                    if (device != null && !(device in deviceCommands)) {
                         deviceCommands[device] = this.loadDeviceCommandFile(devicemodels[device].path)
                     }
                 }
             }
-            return deviceCommands;
+            GeckoJS.Session.set('deviceCommands', deviceCommands);
+            GeckoJS.Session.set('deviceTemplates', deviceTemplates);
+
         },
 
         loadDeviceCommandFile: function(path) {
@@ -154,6 +197,18 @@
                 this.log('Error reading from device command file [' + path + ']');
             }
             return commands;
+        },
+
+        loadTemplateFile: function(path) {
+            var lines = '';
+            try {
+                lines = GREUtils.File.readAllBytes(GREUtils.File.chromeToPath(path)) || '';
+            }
+            catch (e) {
+                this.log('Error reading from template file [' + path + ']');
+                lines = '';
+            }
+            return lines;
         },
 
         // check status of enabled devices
@@ -177,7 +232,7 @@
                                 status = this.checkSerialPort(ports[port].path);
                                 break;
                         }
-                        statuses.push([_('Receipt Printer %S', [1]), ports[port].label, status]);
+                        statuses.push([_('Receipt Printer %S', [1]), ports[port].label + ' (' + ports[port].path + ')', status]);
                     }
                     overallStatus &= status;
                 }
@@ -193,7 +248,7 @@
                                 status = this.checkSerialPort(ports[port].path);
                                 break;
                         }
-                        statuses.push([_('Receipt Printer %S', [2]), ports[port].label, status]);
+                        statuses.push([_('Receipt Printer %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
                     }
                     overallStatus &= status;
                 }
@@ -209,7 +264,7 @@
                                 status = this.checkSerialPort(ports[port].path);
                                 break;
                         }
-                        statuses.push([_('Guest Check Printer %S', [1]), ports[port].label, status]);
+                        statuses.push([_('Guest Check Printer %S', [1]), ports[port].label + ' (' + ports[port].path + ')', status]);
                     }
                     overallStatus &= status;
                 }
@@ -225,7 +280,7 @@
                                 status = this.checkSerialPort(ports[port].path);
                                 break;
                         }
-                        statuses.push([_('Guest Check Printer %S', [2]), ports[port].label, status]);
+                        statuses.push([_('Guest Check Printer %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
                     }
                     overallStatus &= status;
                 }
@@ -241,7 +296,7 @@
                                 status = this.checkSerialPort(ports[port].path);
                                 break;
                         }
-                        statuses.push([_('VFD %S', [1]), ports[port].label, status]);
+                        statuses.push([_('VFD %S', [1]), ports[port].label + ' (' + ports[port].path + ')', status]);
                     }
                     overallStatus &= status;
                 }
@@ -257,7 +312,7 @@
                                 status = this.checkSerialPort(ports[port].path);
                                 break;
                         }
-                        statuses.push([_('VFD %S', [2]), ports[port].label, status]);
+                        statuses.push([_('VFD %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
                     }
                     overallStatus &= status;
                 }
@@ -277,7 +332,7 @@
                                     status = this.checkSerialPort(ports[port].path);
                                     break;
                             }
-                            statuses.push([_('Cash Drawer %S', [1]), ports[port].label, status]);
+                            statuses.push([_('Cash Drawer %S', [1]), ports[port].label + ' (' + ports[port].path + ')', status]);
                         }
                     }
                     overallStatus &= status;
@@ -298,7 +353,7 @@
                                     status = this.checkSerialPort(ports[port].path);
                                     break;
                             }
-                            statuses.push([_('Cash Drawer %S', [2]), ports[port].label, status]);
+                            statuses.push([_('Cash Drawer %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
                         }
                     }
                     overallStatus &= status;
@@ -329,10 +384,6 @@
                 }
             }
             return status;
-        },
-
-        checkVFDPort: function (path) {
-            return this.checkSerialPort(path);
         },
 
         checkGPIOPort: function() {
@@ -400,7 +451,7 @@
                 var selectedDevices = GeckoJS.Configure.read('vivipos.fec.settings.selectedDevices');
                 if (selectedDevices != null && selectedDevices.length > 0) {
                     try {
-                        this._selectedDevices = GeckoJS.BaseObject.unserialize(GeckoJS.String.urlDecode(selectedDevices));
+                        this._selectedDevices = GeckoJS.BaseObject.unserialize(selectedDevices);
                     }
                     catch(e) {}
                 }
@@ -444,6 +495,21 @@
         // initialize UI forms
         load: function() {
 
+            // prepare device ports
+
+            var ports = this.getPorts();
+            var sortedPorts = [];
+
+            for (var port in ports) {
+                var newPort = GREUtils.extend({}, ports[port]);
+                newPort.name = port;
+                sortedPorts.push(newPort);
+            }
+            sortedPorts = new GeckoJS.ArrayQuery(sortedPorts).orderBy('label asc');
+
+            // prepare portspeeds
+            var portspeeds = this.getPortSpeeds();
+
             /*
              * populate receipt panel
              *
@@ -463,9 +529,10 @@
 
                 var sortedTemplates = [];
                 for (var tmpl in templates) {
-                    if (templates[tmpl].type.indexOf('receipt') > -1) {
-                        templates[tmpl].name = tmpl;
-                        sortedTemplates.push(templates[tmpl]);
+                    if (templates[tmpl].type != null && templates[tmpl].type.indexOf('receipt') > -1) {
+                        var newTemplate = GREUtils.extend({}, templates[tmpl]);
+                        newTemplate.name = tmpl;
+                        sortedTemplates.push(newTemplate);
                     }
                 }
                 sortedTemplates = new GeckoJS.ArrayQuery(sortedTemplates).orderBy('label asc');
@@ -481,15 +548,6 @@
 
                 var portmenu1 = document.getElementById('receipt-1-port');
                 var portmenu2 = document.getElementById('receipt-2-port');
-                var ports = this.getPorts();
-
-                var sortedPorts = [];
-                for (var port in ports) {
-                    ports[port].name = port;
-                    sortedPorts.push(ports[port]);
-                }
-                sortedPorts = new GeckoJS.ArrayQuery(sortedPorts).orderBy('label asc');
-
                 for (var i in sortedPorts) {
                     var portName = sortedPorts[i].name;
                     portmenu1.appendItem(sortedPorts[i].label, portName, '');
@@ -501,7 +559,6 @@
 
                 var portspeedmenu1 = document.getElementById('receipt-1-portspeed');
                 var portspeedmenu2 = document.getElementById('receipt-2-portspeed');
-                var portspeeds = this.getPortSpeeds();
                 
                 for (var i in portspeeds) {
                     var portspeed = portspeeds[i];
@@ -518,9 +575,10 @@
 
                 var sortedDevicemodels = [];
                 for (var devicemodel in devicemodels) {
-                    if (devicemodels[devicemodel].type.indexOf('receipt') > -1) {
-                        devicemodels[devicemodel].name = devicemodel;
-                        sortedDevicemodels.push(devicemodels[devicemodel]);
+                    if (devicemodels[devicemodel].type != null && devicemodels[devicemodel].type.indexOf('receipt') > -1) {
+                        var newDevicemodel = GREUtils.extend({}, devicemodels[devicemodel]);
+                        newDevicemodel.name = devicemodel;
+                        sortedDevicemodels.push(newDevicemodel);
                     }
                 }
                 this._sortedDevicemodels = sortedDevicemodels = new GeckoJS.ArrayQuery(sortedDevicemodels).orderBy('label asc');
@@ -556,9 +614,10 @@
 
                 var sortedTemplates = [];
                 for (var tmpl in templates) {
-                    if (templates[tmpl].type.indexOf('guestcheck') > -1) {
-                        templates[tmpl].name = tmpl;
-                        sortedTemplates.push(templates[tmpl]);
+                    if (templates[tmpl].type != null && templates[tmpl].type.indexOf('guestcheck') > -1) {
+                        var newTemplate = GREUtils.extend({}, templates[tmpl]);
+                        newTemplate.name = tmpl;
+                        sortedTemplates.push(newTemplate);
                     }
                 }
                 sortedTemplates = new GeckoJS.ArrayQuery(sortedTemplates).orderBy('label asc');
@@ -574,14 +633,6 @@
 
                 var portmenu1 = document.getElementById('guestcheck-1-port');
                 var portmenu2 = document.getElementById('guestcheck-2-port');
-                var ports = this.getPorts();
-
-                var sortedPorts = [];
-                for (var port in ports) {
-                    ports[port].name = port;
-                    sortedPorts.push(ports[port]);
-                }
-                sortedPorts = new GeckoJS.ArrayQuery(sortedPorts).orderBy('label asc');
 
                 for (var i in sortedPorts) {
                     var portName = sortedPorts[i].name;
@@ -594,7 +645,6 @@
 
                 var portspeedmenu1 = document.getElementById('guestcheck-1-portspeed');
                 var portspeedmenu2 = document.getElementById('guestcheck-2-portspeed');
-                var portspeeds = this.getPortSpeeds();
 
                 for (var i in portspeeds) {
                     var portspeed = portspeeds[i];
@@ -611,9 +661,10 @@
 
                 var sortedDevicemodels = [];
                 for (var devicemodel in devicemodels) {
-                    if (devicemodels[devicemodel].type.indexOf('guestcheck') > -1) {
-                        devicemodels[devicemodel].name = devicemodel;
-                        sortedDevicemodels.push(devicemodels[devicemodel]);
+                    if (devicemodels[devicemodel].type != null && devicemodels[devicemodel].type.indexOf('guestcheck') > -1) {
+                        var newDevicemodel = GREUtils.extend({}, devicemodels[devicemodel]);
+                        newDevicemodel.name = devicemodel;
+                        sortedDevicemodels.push(newDevicemodel);
                     }
                 }
                 this._sortedDevicemodels = sortedDevicemodels = new GeckoJS.ArrayQuery(sortedDevicemodels).orderBy('label asc');
@@ -649,9 +700,10 @@
 
                 var sortedTemplates = [];
                 for (var tmpl in templates) {
-                    if (templates[tmpl].type.indexOf('vfd') > -1) {
-                        templates[tmpl].name = tmpl;
-                        sortedTemplates.push(templates[tmpl]);
+                    if (templates[tmpl].type != null && templates[tmpl].type.indexOf('vfd') > -1) {
+                        var newTemplate = GREUtils.extend({}, templates[tmpl]);
+                        newTemplate.name = tmpl;
+                        sortedTemplates.push(newTemplate);
                     }
                 }
                 sortedTemplates = new GeckoJS.ArrayQuery(sortedTemplates).orderBy('label asc');
@@ -667,14 +719,6 @@
 
                 var portmenu1 = document.getElementById('vfd-1-port');
                 var portmenu2 = document.getElementById('vfd-2-port');
-                var ports = this.getPorts();
-
-                var sortedPorts = [];
-                for (var port in ports) {
-                    ports[port].name = port;
-                    sortedPorts.push(ports[port]);
-                }
-                sortedPorts = new GeckoJS.ArrayQuery(sortedPorts).orderBy('label asc');
 
                 for (var i in sortedPorts) {
                     var portName = sortedPorts[i].name;
@@ -687,7 +731,6 @@
 
                 var portspeedmenu1 = document.getElementById('vfd-1-portspeed');
                 var portspeedmenu2 = document.getElementById('vfd-2-portspeed');
-                var portspeeds = this.getPortSpeeds();
 
                 for (var i in portspeeds) {
                     var portspeed = portspeeds[i];
@@ -704,9 +747,10 @@
 
                 var sortedDevicemodels = [];
                 for (var devicemodel in devicemodels) {
-                    if (devicemodels[devicemodel].type.indexOf('vfd') > -1) {
-                        devicemodels[devicemodel].name = devicemodel;
-                        sortedDevicemodels.push(devicemodels[devicemodel]);
+                    if (devicemodels[devicemodel].type != null && devicemodels[devicemodel].type.indexOf('vfd') > -1) {
+                        var newDevicemodel = GREUtils.extend({}, devicemodels[devicemodel]);
+                        newDevicemodel.name = devicemodel;
+                        sortedDevicemodels.push(newDevicemodel);
                     }
                 }
                 this._sortedDevicemodels = sortedDevicemodels = new GeckoJS.ArrayQuery(sortedDevicemodels).orderBy('label asc');
@@ -738,15 +782,6 @@
 
                 var portmenu1 = document.getElementById('cashdrawer-1-port');
                 var portmenu2 = document.getElementById('cashdrawer-2-port');
-                //var portmenu3 = document.getElementById('cashdrawer-3-port');
-                var ports = this.getPorts();
-
-                var sortedPorts = [];
-                for (var port in ports) {
-                    ports[port].name = port;
-                    sortedPorts.push(ports[port]);
-                }
-                sortedPorts = new GeckoJS.ArrayQuery(sortedPorts).orderBy('label asc');
 
                 for (var i in sortedPorts) {
                     var portName = sortedPorts[i].name;
@@ -755,36 +790,31 @@
                     //portmenu3.appendItem(sortedPorts[i].label, portName, '');
                 }
                 portmenu1.selectedIndex = portmenu2.selectedIndex = 0;
-                //portmenu3.selectedIndex = 0;
 
                 /* populate device portspeeds */
 
                 var portspeedmenu1 = document.getElementById('cashdrawer-1-portspeed');
                 var portspeedmenu2 = document.getElementById('cashdrawer-2-portspeed');
-                //var portspeedmenu3 = document.getElementById('cashdrawer-3-portspeed');
-                var portspeeds = this.getPortSpeeds();
 
                 for (var i in portspeeds) {
                     var portspeed = portspeeds[i];
                     portspeedmenu1.appendItem(portspeed, portspeed, '');
                     portspeedmenu2.appendItem(portspeed, portspeed, '');
-                    //portspeedmenu3.appendItem(portspeed, portspeed, '');
                 }
                 portspeedmenu1.selectedIndex = portspeedmenu2.selectedIndex = 0;
-                //portspeedmenu3.selectedIndex = 0;
 
                 /* populate device models */
 
                 var devicemodelmenu1 = document.getElementById('cashdrawer-1-devicemodel');
                 var devicemodelmenu2 = document.getElementById('cashdrawer-2-devicemodel');
-                //var devicemodelmenu3 = document.getElementById('cashdrawer-3-devicemodel');
                 var devicemodels = this.getDeviceModels();
 
                 var sortedDevicemodels = [];
                 for (var devicemodel in devicemodels) {
-                    if (devicemodels[devicemodel].type.indexOf('cashdrawer') > -1) {
-                        devicemodels[devicemodel].name = devicemodel;
-                        sortedDevicemodels.push(devicemodels[devicemodel]);
+                    if (devicemodels[devicemodel].type != null && devicemodels[devicemodel].type.indexOf('cashdrawer') > -1) {
+                        var newDevicemodel = GREUtils.extend({}, devicemodels[devicemodel]);
+                        newDevicemodel.name = devicemodel;
+                        sortedDevicemodels.push(newDevicemodel);
                     }
                 }
                 this._sortedDevicemodels = sortedDevicemodels = new GeckoJS.ArrayQuery(sortedDevicemodels).orderBy('label asc');
@@ -838,7 +868,7 @@
                 });
                 
                 if (GREUtils.Dialog.confirm(null, _('Device Status'),
-                                            _('The following devices may not be ready, do you want to save the new configuration?\n%S', [statusStr])) == false) {
+                                            _('The following enabled devices appear to be offline, do you still want to save the new configuration?\n%S', [statusStr])) == false) {
                     if (data != null) data.cancel = true;
                     return;
                 }
@@ -846,7 +876,7 @@
             // update device session data
             
             GeckoJS.Configure.write('vivipos.fec.settings.selectedDevices', GeckoJS.BaseObject.serialize(formObj));
-            GeckoJS.Session.set('deviceCommands', this.loadDeviceCommands(this._selectedDevices));
+            this.loadEnabledDevices(this._selectedDevices);
 
             return;
         }

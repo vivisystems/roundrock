@@ -1,5 +1,7 @@
 (function(){
 
+    GeckoJS.include('chrome://viviecr/content/devices/deviceTemplate.js');
+
     /**
      * Print Controller
      */
@@ -65,8 +67,22 @@
             var portControl = this.getSerialPortControlService();
             if (portControl != null) {
                 try {
-                    portControl.openPort(path, speed + ',n,8,1,h');
-                    return true;
+                    return (portControl.openPort(path, speed + ',n,8,1,h') != -1);
+                }
+                catch(e) {
+                    return false;
+                }
+            }
+            else {
+                return false;
+            }
+        },
+
+        writeSerialPort: function (path, buf) {
+            var portControl = this.getSerialPortControlService();
+            if (portControl != null) {
+                try {
+                    return (portControl.writePort(path, buf, buf.length) != -1);
                 }
                 catch(e) {
                     return false;
@@ -137,21 +153,78 @@
 
         // handle order submit events
         beforeSubmit: function(evt) {
-            this.log('B4 SUBMIT: ' + GeckoJS.BaseObject.dump(evt.data.data));
 
             // for each enabled printer device, check if autoprint is on
             var selectedDevices = this.getSelectedDevices();
-            this.log('B4 SUBMIT: ' + GeckoJS.BaseObject.dump(selectedDevices));
+            var printed = false;
+            var order = evt.data.data;
 
             // check if receipt already printed
-            if (evt.data.data['receipt_printed'] == null) {
+            if (order['receipt_printed'] == null) {
+
+                /*
+                 *
+                 * add support attributes to order object:
+                 *
+                 * - create_date: Date object created from the created attribute
+                 * - print_date: Date object representing current time
+                 * - proceeds_clerk
+                 * - proceeds_clerk_displayname
+                 *
+                 * - store details:
+                 *   - store name
+                 *   - store contact
+                 *   - telephone1
+                 *   - telephone2
+                 *   - address1
+                 *   - address2
+                 *   - city
+                 *   - county
+                 *   - province
+                 *   - state
+                 *   - country
+                 *   - zip
+                 *   - fax
+                 *   - email
+                 *   - note
+                 */
+                var now = new Date();
+                order.create_date = new Date(order.created);
+                order.print_date = new Date();
+                
+                // order.store = GeckoJS.Session.get('storeDetails');
+                order.store = {
+                    name: 'VIVIPOS Store',
+                    contact: 'VIVIPOS Team',
+                    telephone1: '+886 2 2698-1446',
+                    telephone2: '+886 930 858 972',
+                    address1: '10F, No. 75, Sec 1',
+                    address2: 'Sin Tai Wu Road',
+                    city: 'Sijhih City',
+                    county: 'Taipei County',
+                    zip: '221',
+                    country: 'Taiwan, R.O.C.',
+                    fax: '+886 2 2698-3573',
+                    email: 'sales@vivipos.com',
+                    note: 'Vivid You POS!'
+                }
+
+                var user = new GeckoJS.AclComponent().getUserPrincipal();
+                if ( user != null ) {
+                    order.proceeds_clerk = user.username;
+                    order.proceeds_clerk_displayname = user.description;
+                }
+                order._MODIFIERS = this._MODIFIERS;
+
+                this.log(this.dump(order));
                 if (selectedDevices != null) {
                     if (selectedDevices['receipt-1-enabled'] && selectedDevices['receipt-1-autoprint']) {
                         var template = selectedDevices['receipt-1-template'];
                         var port = selectedDevices['receipt-1-port'];
                         var speed = selectedDevices['receipt-1-portspeed'];
                         var devicemodel = selectedDevices['receipt-1-devicemodel'];
-                        this.printCheck(evt.data.data, template, port, speed, devicemodel);
+                        var encoding = selectedDevices['receipt-1-encoding'];
+                        printed = this.printCheck(order, template, port, speed, devicemodel, encoding);
                     }
 
                     if (selectedDevices['receipt-2-enabled'] && selectedDevices['receipt-2-autoprint']) {
@@ -159,22 +232,149 @@
                         var port = selectedDevices['receipt-2-port'];
                         var speed = selectedDevices['receipt-2-portspeed'];
                         var devicemodel = selectedDevices['receipt-2-devicemodel'];
-                        this.printCheck(evt.data.data, template, port, speed, devicemodel);
+                        var encoding = selectedDevices['receipt-2-encoding'];
+                        if (this.printCheck(order, template, port, speed, devicemodel, encoding)) {
+                            printed = true;
+                        }
                     }
                 }
-                var now = (new Date()).getTime();
-                evt.data.data['receipt_printed'] = (new Date()).getTime();
-                this.log('B4 SUBMIT [' + now + ']: ' + GeckoJS.BaseObject.dump(evt.data.data));
+                if (printed) evt.data.data['receipt_printed'] = (new Date()).getTime();
+            }
+            return true;
+        },
+
+        getTemplateData: function(template, path, useCache) {
+            var tpl;
+
+            if (useCache) {
+                var cachedTemplates = GeckoJS.Session.get('deviceTemplates');
+            
+                if (cachedTemplates != null) {
+                    tpl = cachedTemplates[template];
+                }
+            }
+
+            if (tpl == null || tpl.length == 0) {
+                try {
+                    var file = GREUtils.File.getFile(path);
+                    tpl = GREUtils.File.readAllBytes(file);
+                }
+                catch(e) {};
+            }
+            return tpl;
+        },
+
+        _MODIFIERS: {
+            center: function(str, width) {
+                if (width == null || isNaN(width) || width < 0) return str;
+
+                width = Math.floor(Math.abs(width));
+                var len = (str == null) ? 0 : str.length;
+
+                if (width < len) {
+                    str = str.substr(0, width);
+                    len = width;
+                }
+                var leftPaddingWidth = Math.floor((width - len) / 2);
+                return GeckoJS.String.padRight(GeckoJS.String.padLeft(str, leftPaddingWidth - (- len) , ' '), width, ' ');
+            },
+
+            left: function(str, width) {
+                if (width == null || isNaN(width)) return str;
+
+                width = Math.floor(Math.abs(width));
+                var len = (str == null) ? 0 : str.length;
+
+                if (width < len) {
+                    return str.substr(0, width);
+                }
+                else {
+                    return GeckoJS.String.padRight(str, width, ' ');
+                }
+            },
+
+            right: function(str, width) {
+                if (width == null || isNaN(width)) return str;
+
+                width = Math.floor(Math.abs(width));
+                var len = (str == null) ? 0 : str.length;
+
+                if (width < len) {
+                    return str.substr(0, width);
+                }
+
+                return GeckoJS.String.padLeft(str, width, ' ');
+            },
+
+            truncate: function(str, width) {
+                if (width == null || isNaN(width)) return str;
+
+                width = Math.floor(Math.abs(width));
+                var len = (str == null) ? 0 : str.length;
+
+                if (width >= len) return str;
+
+                return str.substr(0, width);
             }
         },
 
         // print check using the given parameters
-        printCheck: function(order, template, port, speed, devicemodel) {
+        printCheck: function(order, template, port, speed, devicemodel, encoding) {
+
+            var templates = this.getTemplates();
+            var ports = this.getPorts();
+
+            var templateChromePath = (template == null || templates == null) ? null : templates[template].path;
+            var portPath = (port == null || ports == null) ? null : ports[port].path;
+            var templatePath = GREUtils.File.chromeToPath(templateChromePath);
+            //
+            // get file system path to template file
+            //var file = GREUtils.File.getFile(templatePath);
+            //var tpl = GREUtils.File.readAllBytes(file);
+
+            var tpl = this.getTemplateData(template, templatePath, false);
+
             alert('Printing check: \n\n' +
-                  '   template [' + template + ']\n' +
-                  '   port [' + port + ']\n' +
+                  '   template [' + template + ' (' + templatePath + ')]\n' +
+                  '   port [' + port + ' (' + portPath + ')]\n' +
                   '   speed [' + speed + ']\n' +
-                  '   model [' + devicemodel + ']');
+                  '   model [' + devicemodel + ']\n' +
+                  '   encoding [' + encoding + ']\n' +
+                  '   template content: ' + this.dump(tpl));
+
+            
+            var result = tpl.process(order);
+
+            // get encoding
+            var encodedResult = GREUtils.Charset.convertFromUnicode(result, encoding);
+            this.log('\n' + encodedResult);
+            
+            // translate printer commands into actual command codes
+
+            // send to output device
+            var printed = false;
+            if (this.openSerialPort(portPath, speed)) {
+                if (this.writeSerialPort(portPath, encodedResult)) {
+                    printed = true;
+                }
+                this.closeSerialPort(portPath);
+            }
+            else {
+                printed = false;
+            }
+            
+            if (!printed) {
+                var devicemodels = this.getDeviceModels();
+                var devicemodelName = (devicemodels == null) ? 'unknown' : devicemodels[devicemodel].label;
+                var portName = (ports == null) ? 'unknown' : ports[port].label;
+
+                if (devicemodelName == null) devicemodelName = 'unknown';
+                if (portName == null) portName = 'unknown';
+
+                //@todo OSD
+                NotifyUtils.error(_('Unable to print to device [%S] at port [%S]', [devicemodelName, portName]));
+            }
+            return printed;
         }
 
     });
