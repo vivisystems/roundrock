@@ -107,23 +107,23 @@
         },
 
         recallByOrderNo: function(no) {
-            this.log("GuestCheck recall by order_no...");
+            this.log("GuestCheck recall by order_no..." + no);
             this.recall('OrderNo', no);
         },
 
         recallByCheckNo: function(no) {
-            this.log("GuestCheck recall by check_no...");
+            this.log("GuestCheck recall by check_no..." + no);
             this.recall('CheckNo', no);
         },
 
         recallByTableNo: function(no) {
-            this.log("GuestCheck recall by table_no...");
+            this.log("GuestCheck recall by table_no..." + no);
             this.recall('TableNo', no);
         },
 
         recall: function(key, no) {
             //
-            this.log("GuestCheck recall...");
+            this.log("GuestCheck recall...key:" + key + ",  no:" + no);
         }
     });
 
