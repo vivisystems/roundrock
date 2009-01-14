@@ -100,7 +100,9 @@
             if (!barcodesIndexes[barcode]) {
                 // barcode notfound
                 // @todo OSD?
-                alert(_('Product [%S] Not Found!', [barcode]));
+                GREUtils.Dialog.alert(window,
+                                      _('Product Search'),
+                                      _('Product [%S] Not Found!', [barcode]));
             }else {
                 var id = barcodesIndexes[barcode];
                 product = productsById[id];
@@ -120,7 +122,9 @@
             if (this._listDatas.length <= 0) {
                 // barcode notfound
                 // @todo OSD?
-                alert(_('Product [%S] Not Found!', [barcode]));
+                GREUtils.Dialog.alert(window,
+                                      _('Product Search'),
+                                      _('Product [%S] Not Found!', [barcode]));
             } else if (this._listDatas.length == 1) {
                 var product = this._listDatas[0];
                 GeckoJS.FormHelper.unserializeFromObject('productForm', product);

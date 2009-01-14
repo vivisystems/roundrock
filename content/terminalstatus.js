@@ -8,7 +8,8 @@
         var tID = GeckoJS.Configure.read('vivipos.fec.settings.TerminalID');
         var tIDNode = document.getElementById('terminal_id');
 
-        tIDNode.value = GREUtils.Charset.convertToUnicode(tID, 'UTF-8');
+        //tIDNode.value = GREUtils.Charset.convertToUnicode(tID, 'UTF-8');
+        tIDNode.value = tID;
 
         this.eventHandler = function(evt) {
             //GREUtils.log('[CHANGE]: entering <' + evt.getType() + '> + <' + GeckoJS.BaseObject.dump(evt.getData()) + '>');
@@ -20,7 +21,8 @@
                     var key = evt.getData().key;
 
                     if (key == 'vivipos.fec.settings.TerminalID') {
-                        tIDNode.value = GREUtils.Charset.convertToUnicode(value, 'UTF-8');
+                        //tIDNode.value = GREUtils.Charset.convertToUnicode(value, 'UTF-8');
+                        tIDNode.value = value;
                     }
                     break;
 

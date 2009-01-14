@@ -151,7 +151,7 @@
             var productsById = GeckoJS.Session.get('productsById');
             var setItemsStockStatus = 1;
             var setItemsAgeVerificationRequired = 0;
-            var allowZeroPresetPrice = GeckoJS.Configure.read('vivipos.fec.settings.AllowZeroPresetPrice');
+            var positivePriceRequired = GeckoJS.Configure.read('vivipos.fec.settings.PositivePriceRequired');
 
             // cart.log('Item:' + cart.dump(item));
 
@@ -164,6 +164,14 @@
 
             // check if zero preset price is allowed
             // @todo
+            var txn = cart._getTransaction();
+            if (positivePriceRequired && txn != null) {
+                if (txn.checkSellPrice(item) <= 0) {
+                    NotifyUtils.warn(_('Product [%S] may not be registered with a price of [%S]!', [item.name, txn.formatPrice(0)]));
+                    evt.preventDefault();
+                    return;
+                }
+            }
 
             // retrieve set menu items only if setmenu is set
             var setItems = [];
@@ -200,7 +208,7 @@
                 // we don't allow return of set menus'
                 if (setItems.length > 0 ) {
                     //@todo OSD
-                    NotifyUtils.warn(_('Return of product sets (%S) not allowed!', [item.name]));
+                    NotifyUtils.warn(_('Return of product sets [%S] not allowed!', [item.name]));
                     evt.preventDefault();
                 }
             }
@@ -387,6 +395,9 @@
                 }
             }
             else {
+                GeckoJS.Session.remove('cart_set_price_value');
+                GeckoJS.Session.remove('cart_set_qty_value');
+                
                 this.subtotal();
             }
         },
@@ -506,12 +517,26 @@
 
                 //@todo OSD
                 NotifyUtils.warn(_('Cannot modify condiment; no price entered'));
+                GeckoJS.Session.remove('cart_set_qty_value');
                 return ;
             }
 
             // check if has buffer
             if (buf.length>0) {
                 this.setPrice(buf);
+            }
+
+            // check if zero preset price is allowed
+            // @todo
+            var positivePriceRequired = GeckoJS.Configure.read('vivipos.fec.settings.PositivePriceRequired');
+
+            if (positivePriceRequired && curTransaction != null) {
+                if (curTransaction.checkSellPrice(itemTrans) <= 0) {
+                    NotifyUtils.warn(_('Product [%S] may not be modified with a price of [%S]!', [itemTrans.name, curTransaction.formatPrice(0)]));
+                    GeckoJS.Session.remove('cart_set_price_value');
+                    GeckoJS.Session.remove('cart_set_qty_value');
+                    return;
+                }
             }
 
             if (this.dispatchEvent('beforeModifyItem', {item: itemTrans, itemDisplay: itemDisplay})) {
@@ -1477,7 +1502,7 @@
                 statusStr += '    memo1: ' + (payment.memo1||'') + ' , memo2: ' + (payment.memo2||'') + '\n\n';
             }
 
-            alert(statusStr);
+            GREUtils.Dialog.alert(window, _('Payment Details'), statusStr);
         },
 
 
@@ -1625,7 +1650,7 @@
             GeckoJS.Session.remove('cart_set_qty_value');
 
             this.dispatchEvent('afterCancel', curTransaction);
-            
+            this.dispatchEvent('onCancel', curTransaction);
         },
 	
         subtotal: function() {
@@ -1646,8 +1671,13 @@
             if(oldTransaction == null) return; // fatal error ?
 
             if (oldTransaction.getRemainTotal() > 0) return;
+
+            this.dispatchEvent('beforeSubmit', oldTransaction);
+
             oldTransaction.submit();
 
+            this.dispatchEvent('afterSubmit', oldTransaction);
+            
             // GeckoJS.Session.remove('current_transaction');
             GeckoJS.Session.remove('cart_last_sell_item');
             GeckoJS.Session.remove('cart_set_price_value');
@@ -2111,6 +2141,7 @@
             curTransaction.data = data ;
             this._setTransactionToView(curTransaction);
             curTransaction.updateCartView(-1, -1);
+
             this.subtotal();
 
         },

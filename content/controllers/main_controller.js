@@ -29,7 +29,6 @@
             this.requestCommand('initial', null, 'Pricelevel');
             this.requestCommand('initial', null, 'Cart');
             this.requestCommand('initial', null, 'CurrencySetup');
-            this.requestCommand('initial', null, 'Devices');
 
             this.resetLayout(true);
             this.initialLogin();
@@ -89,13 +88,6 @@
             if (this.doRestart) {
                 try {
                     GREUtils.restartApplication();
-                    /*
-                    var chromeRegInstance = Components.classes["@mozilla.org/chrome/chrome-registry;1"].getService();
-                    var xulChromeReg = chromeRegInstance.QueryInterface(Components.interfaces.nsIXULChromeRegistry);
-                    //alert('reloading chrome');
-                    xulChromeReg.reloadChrome();
-                    this.log('reloaded chrome');
-                    */
                 } catch(err) {
                 }
             }
@@ -130,7 +122,7 @@
             var posY = 0;
             var width = this.screenwidth;
             var height = this.screenheight;
-
+            
             GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,dependent=yes,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height, "");
         },
 
@@ -745,7 +737,6 @@
                 // @todo
                 // print shift report
                 if ((shiftReportOnSignOff && !quickSignoff) || (shiftReportOnQuickSwitch && quickSignoff)) {
-                    //alert('print shift report');
                 }
 
                 if (!cartEmpty) {

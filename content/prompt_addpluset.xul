@@ -13,6 +13,10 @@
     </keyset>
 
     <script type="application/x-javascript" src="chrome://viviecr/content/prompt_addpluset.js" />
+    <script type="application/x-javascript">
+        var GeckoJS = opener.GeckoJS;
+        var GREUtils = opener.GREUtils;
+    </script>
 
     <groupbox class="main-dialog" flex="1">
         <caption id="dialog-caption" label="" />

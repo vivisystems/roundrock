@@ -449,6 +449,25 @@
 
     };
 
+    Transaction.prototype.checkSellPrice = function(item) {
+        var sellQty = null, sellPrice = null;
+
+        var lastSellItem = GeckoJS.Session.get('cart_last_sell_item');
+        if (lastSellItem != null) {
+            if (lastSellItem.id == item.id) {
+                // sellQty = lastSellItem.sellQty;
+                sellPrice = lastSellItem.sellPrice;
+            }
+        }
+        // modify Qty & Price...
+        sellQty  = (GeckoJS.Session.get('cart_set_qty_value') != null) ? GeckoJS.Session.get('cart_set_qty_value') : sellQty;
+        if (sellQty == null) sellQty = 1;
+
+        sellPrice  = (GeckoJS.Session.get('cart_set_price_value') != null) ? GeckoJS.Session.get('cart_set_price_value') : sellPrice;
+
+        sellPrice = this.getSellPriceByPriceLevel(sellPrice, sellQty, item, false);
+        return sellPrice;
+    };
 
     Transaction.prototype.appendItem = function(item){
 
@@ -1555,13 +1574,18 @@
         
     };
 
-    Transaction.prototype.getSellPriceByPriceLevel = function(sellPrice, sellQty, item) {
+    Transaction.prototype.getSellPriceByPriceLevel = function(sellPrice, sellQty, item, notify) {
+
+        if (notify == null) notify = true;
 
         var priceLevel = GeckoJS.Session.get('vivipos_fec_price_level');
 
-        var user = (new GeckoJS.AclComponent()).getUserPrincipal();
-        var canOverrideHalo = user ? (GeckoJS.Array.inArray('acl_override_halo', user.Roles) != -1) : false;
-        var canOverrideLalo = user ? (GeckoJS.Array.inArray('acl_override_lalo', user.Roles) != -1) : false;
+        //var user = (new GeckoJS.AclComponent()).getUserPrincipal();
+        //var canOverrideHalo = user ? (GeckoJS.Array.inArray('acl_override_halo', user.Roles) != -1) : false;
+        //var canOverrideLalo = user ? (GeckoJS.Array.inArray('acl_override_lalo', user.Roles) != -1) : false;
+        var mainController = GeckoJS.Controller.getInstanceByName('Main');
+        var canOverrideHalo = mainController.Acl.isUserInRole('acl_override_halo');
+        var canOverrideLalo = mainController.Acl.isUserInRole('acl_override_lalo');
 
         var priceLevelPrice = this.getPriceLevelPrice(priceLevel, item);
         var priceLevelHalo = this.getPriceLevelHalo(priceLevel, item);
@@ -1572,7 +1596,7 @@
         if(priceLevelHalo > 0 && sellPrice > priceLevelHalo) {
 
             if (canOverrideHalo) {
-                NotifyUtils.warn(_('Price HALO [%S] overridden on [%S]', [this.formatPrice(priceLevelHalo), item.name]));
+                if (notify) NotifyUtils.warn(_('Price HALO [%S] overridden on [%S]', [this.formatPrice(priceLevelHalo), item.name]));
             }
             else {
                 var obj = {
@@ -1588,7 +1612,7 @@
                 Transaction.events.dispatch('onPriceLevelError', obj, this);
 
                 //@todo OSD
-                NotifyUtils.warn(_('Price adjusted from [%S] to current HALO [%S]', [this.formatPrice(sellPrice), this.formatPrice(obj.newPrice)]));
+                if (notify) NotifyUtils.warn(_('Price adjusted from [%S] to current HALO [%S]', [this.formatPrice(sellPrice), this.formatPrice(obj.newPrice)]));
 
                 sellPrice = obj.newPrice;
             }
@@ -1597,7 +1621,7 @@
         if(priceLevelLalo > 0 && sellPrice < priceLevelLalo) {
 
             if (canOverrideLalo) {
-                NotifyUtils.warn(_('Price LALO [%S] overridden on [%S]', [this.formatPrice(priceLevelLalo), item.name]));
+                if (notify) NotifyUtils.warn(_('Price LALO [%S] overridden on [%S]', [this.formatPrice(priceLevelLalo), item.name]));
             }
             else {
                 var obj2 = {
@@ -1613,7 +1637,7 @@
                 Transaction.events.dispatch('onPriceLevelError', obj2, this);
 
                 //@todo OSD
-                NotifyUtils.warn(_('Price adjusted from [%S] to current LALO [%S]', [this.formatPrice(sellPrice), this.formatPrice(obj2.newPrice)]));
+                if (notify) NotifyUtils.warn(_('Price adjusted from [%S] to current LALO [%S]', [this.formatPrice(sellPrice), this.formatPrice(obj2.newPrice)]));
 
                 sellPrice = obj2.newPrice;
             }

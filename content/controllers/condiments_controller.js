@@ -103,8 +103,6 @@
             this._condscrollablepanel.selectedIndex = index;
             this._condscrollablepanel.selectedItems = [index];
 
-            //alert('[CLICK] ' + 'index: ' + index + ':' + GeckoJS.BaseObject.dump(condGroups));
-            //alert('[COND] ' + GeckoJS.BaseObject.dump(conds));
             if (conds) {
                 this.setInputCondData(conds[index]);
             }
@@ -225,9 +223,6 @@
                         var condGroups = GeckoJS.Session.get('condGroups');
                         condGroups.push(groups[0]);
 
-                        //alert('[ADD]: record ' + GeckoJS.BaseObject.dump(groups));
-                        //alert('[ADD]: array ' + GeckoJS.BaseObject.dump(condGroups));
-
                         GeckoJS.Session.set('condGroups', condGroups);
 
                         var view = this._condGroupscrollablepanel.datasource;
@@ -276,8 +271,6 @@
                     condGroupModel.save(inputData);
 
                     GREUtils.extend(condGroups[this._selectedIndex], inputData);
-                    //alert('[MODIFY]: record ' + GeckoJS.BaseObject.dump(inputData));
-                    //alert('[MODIFY]: array ' + GeckoJS.BaseObject.dump(condGroups));
                     GeckoJS.Session.set('condGroups', condGroups);
 
                     var view = this._condGroupscrollablepanel.datasource;
