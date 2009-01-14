@@ -1,3 +1,7 @@
+FOR ubuntu: install translate-toolkit first!
+  $ sudo apt-get install translate-toolkit
+
+
 1. EDIT SUPPORTS for supported language
 2. run make_pofiles.sh to make pofiles.
 3. run make_locales.sh to make locale from pofiles.
