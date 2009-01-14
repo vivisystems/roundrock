@@ -1,0 +1,8 @@
+<!ENTITY plugroups.title "Produkt Grupp">
+<!ENTITY plugroups.name "Grupp Namn">
+<!ENTITY plugroups.visible "Visa i Meny">
+<!ENTITY plugroups.button.color "Knapp Färg">
+<!ENTITY plugroups.font.size "Font Storlek">
+<!ENTITY plugroups.button.action.add "Lägg till">
+<!ENTITY plugroups.button.action.modify "Modifiera">
+<!ENTITY plugroups.button.action.delete "Tabort">

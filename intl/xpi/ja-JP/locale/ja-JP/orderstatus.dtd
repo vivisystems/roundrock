@@ -1,0 +1,8 @@
+<!ENTITY viviorderstatus.pricelevel.label "価格＠">
+<!ENTITY viviorderstatus.taxtotal.label "税額">
+<!ENTITY viviorderstatus.numberitems.label "品目">
+<!ENTITY viviorderstatus.ordersequence.label "流伝票">
+<!ENTITY viviorderstatus.destination.label "内外">
+<!ENTITY viviorderstatus.numbercustomer.label "客数＃">
+<!ENTITY viviorderstatus.checknumber.label "伝票＃">
+<!ENTITY viviorderstatus.tablenumber.label "テーブル番号＃">

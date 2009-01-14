@@ -1,0 +1,19 @@
+<!ENTITY vivipos.fec.common.name "Namn">
+<!ENTITY vivipos.fec.common.ok "Ok">
+<!ENTITY vivipos.fec.common.cancel "Avbryt">
+<!ENTITY vivipos.fec.common.add "Lägg till">
+<!ENTITY vivipos.fec.common.modify "Modifiera">
+<!ENTITY vivipos.fec.common.delete "Tabort">
+
+<!ENTITY vivipos.fec.plus.basedata "Data">
+<!ENTITY vivipos.fec.plus.basedata2 "Data 2">
+<!ENTITY vivipos.fec.plus.sets "Sets">
+<!ENTITY vivipos.fec.plus.face "Ikoner och Färger">
+<!ENTITY vivipos.fec.plus.pricelevels "Pris Nivåer">
+<!ENTITY vivipos.fec.plus.groups "Länka Grupper">
+<!ENTITY vivipos.fec.plus.level "Nivå">
+<!ENTITY vivipos.fec.plus.price "Pris">
+<!ENTITY vivipos.fec.plus.halo "HALO">
+<!ENTITY vivipos.fec.plus.lalo "LALO">
+
+<!ENTITY vivipos.fec.controlpanel.loading "Laddar …….">

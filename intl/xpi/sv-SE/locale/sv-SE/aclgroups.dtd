@@ -1,0 +1,4 @@
+<!ENTITY aclgroups.title "Åtkomst Grupper">
+<!ENTITY aclgroups.button.action.add "Lägg till">
+<!ENTITY aclgroups.button.action.modify "Modifiera">
+<!ENTITY aclgroups.button.action.delete "Tabort">

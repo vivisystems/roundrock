@@ -1,0 +1,13 @@
+<!ENTITY taxes.title "Momser">
+<!ENTITY taxes.details "Moms Detaljer:">
+<!ENTITY taxes.code "Moms Kod:">
+<!ENTITY taxes.type "Moms Typ:">
+<!ENTITY taxes.name "Moms Namn:">
+<!ENTITY taxes.rate "Moms Kurs:">
+<!ENTITY taxes.rate_type "Kurs Typ:">
+<!ENTITY taxes.rate_type.percentage "Procent">
+<!ENTITY taxes.rate_type.fixed_amount "Fixerat Värde">
+<!ENTITY taxes.threshold "Gräns:">
+<!ENTITY taxes.button.action.add "Lägg till">
+<!ENTITY taxes.button.action.modify "Modifiera">
+<!ENTITY taxes.button.action.delete "Tabort">

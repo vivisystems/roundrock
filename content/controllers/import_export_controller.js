@@ -128,7 +128,7 @@
             
             if (model == "products") {
                 var tableTmp = new ProductModel();
-            } else if (model == "departments") {
+            } else if (model == "categories") {
                 var tableTmp = new CategoryModel();
             } else if (model == "plugroups") {
                 var tableTmp = new PlugroupModel();
@@ -266,6 +266,7 @@
             lines.splice(0,1);
 
             var bad = false;
+            /*
             for( var i = 0; i < fields.length; i++) {
                 // fields[i] = trimQuote(fields[i]);
                 tableTpl[fields[i]] = null;
@@ -277,7 +278,7 @@
                     NotifyUtils.error(_('Import format error: field [%S] not exist!', [fields[i]]));
                 }
             }
-
+            */
             if (bad) return;
 
             try {

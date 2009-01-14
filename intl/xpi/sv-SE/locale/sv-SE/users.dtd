@@ -1,0 +1,25 @@
+<!ENTITY users.title "Anställda">
+<!ENTITY users.basedata "Användar Profil">
+<!ENTITY users.option1 "Användar Begränsning">
+<!ENTITY users.option2 "Check Tracking">
+<!ENTITY users.username "Användar Namn">
+<!ENTITY users.password "Lösenord">
+<!ENTITY users.displayname "Display Namn">
+<!ENTITY users.accesslevel "Åtkomst Nivå">
+<!ENTITY users.pricelevel "Std Pris Nivå">
+<!ENTITY users.job "Std ">
+<!ENTITY users.limit.item.discount "Artikel Rabatt Begränsning">
+<!ENTITY users.limit.order.discount "Order Rabatt Begränsning">
+<!ENTITY users.limit.cash.check "Check Cashing Limit">
+<!ENTITY users.limit.item.surcharge "Item Surcharge Limit">
+<!ENTITY users.limit.order.surcharge "Order Surcharge Limit">
+<!ENTITY users.limit.plu.quantity "Produkt Antal Begränsning">
+<!ENTITY users.limit.plu.price "Produkt Pris Begränsning">
+<!ENTITY users.limit.item.coupon "Item Coupon Limit">
+<!ENTITY users.limit.order.coupon "Order Coupon Limit">
+<!ENTITY users.minimum.check.number "Minimum Check Number">
+<!ENTITY users.maximum.check.number "Maximum Check Number">
+<!ENTITY users.maximum.open.checks "Maximum Number of Open Checks">
+<!ENTITY users.action.add "Lägg till">
+<!ENTITY users.action.modify "Modifiera">
+<!ENTITY users.action.delete "Tabort">

@@ -1,0 +1,4 @@
+<!ENTITY aclgroups.title "权限群组">
+<!ENTITY aclgroups.button.action.add "新增">
+<!ENTITY aclgroups.button.action.modify "修改">
+<!ENTITY aclgroups.button.action.delete "删除">

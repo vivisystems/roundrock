@@ -67,6 +67,7 @@
                 case 'X':
                 case '*':
                     if (this.getBuffer().length > 0 ) {
+
                     this.getCartController().setQty(this.getBuffer());
                     this.clearBuffer();
                     }

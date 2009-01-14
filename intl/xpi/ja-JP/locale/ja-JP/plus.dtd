@@ -1,0 +1,81 @@
+<!ENTITY plus.title "商品属性">
+<!ENTITY plusearch.title "Product Search">
+
+<!ENTITY plus.tab.base.data1 "基本１">
+<!ENTITY plus.tab.base.data2 "Basic 2 ">
+<!ENTITY plus.tab.setmenu "セット">
+<!ENTITY plus.tab.appearance "画面">
+<!ENTITY plus.tab.pricelevels "価格">
+<!ENTITY plus.tab.linkgroups "グループリンク">
+
+<!ENTITY plus.tab.normalmode "Browse">
+<!ENTITY plus.tab.filtermode "Search">
+
+<!ENTITY plus.base.data "商品項目">
+<!ENTITY plus.base.data1 "基本データ（ページ１）">
+<!ENTITY plus.base.data2 "基本データ（ページ２）">
+<!ENTITY plus.setmenu "商品セット">
+<!ENTITY plus.appearance "画面">
+<!ENTITY plus.pricelevels "価格">
+<!ENTITY plus.linkgroups "グループリンク">
+
+<!ENTITY plus.department "部門">
+<!ENTITY plus.product.no "商品ナンバー">
+<!ENTITY plus.product.name "商品名">
+<!ENTITY plus.product.barcode "バーコード">
+<!ENTITY plus.product.tax.rate "税率">
+<!ENTITY plus.product.condiments "調味">
+
+<!ENTITY plus.auto.maintain "自動在庫">
+<!ENTITY plus.can.restock "返品は再び在庫になります">
+<!ENTITY plus.require.condiment "必要な調味">
+<!ENTITY plus.require.memo "必要なメモ">
+<!ENTITY plus.single.item.sale "単品セール">
+<!ENTITY plus.visible "メニューに表示">
+<!ENTITY plus.require.age.verification "年齢確認が必要">
+<!ENTITY plus.display.icon.only "アイコンのみ表示">
+
+<!ENTITY plus.purchase.price "購入金額">
+<!ENTITY plus.stock.level "現在の在庫状況">
+<!ENTITY plus.stock.threshold "最小の在庫">
+<!ENTITY plus.memo "メモ">
+<!ENTITY plus.minimum.sale.quantity "最小の販売数量">
+<!ENTITY plus.sale.unit "単品販売">
+<!ENTITY plus.sale.unit.individual "単品">
+<!ENTITY plus.sale.unit.gram "グラム">
+<!ENTITY plus.sale.unit.kilogram "キログラム">
+<!ENTITY plus.sale.unit.ounce "オンス">
+<!ENTITY plus.sale.unit.pound "パウンド">
+<!ENTITY plus.sale.unit.liter "リッター">
+<!ENTITY plus.sale.unit.pint "パイント">
+<!ENTITY plus.sale.unit.quart "クォート">
+<!ENTITY plus.sale.unit.gallon "ガロン">
+<!ENTITY plus.location "在庫位置">
+
+<!ENTITY plus.header.no "ナンバー">
+<!ENTITY plus.header.name "名前">
+<!ENTITY plus.header.quantity "数量">
+
+<!ENTITY plus.image "商品アイコン">
+<!ENTITY plus.button.color "ボタンカラー">
+<!ENTITY plus.font.size "文字サイズ">
+
+<!ENTITY plus.level "設定">
+<!ENTITY plus.price "価格">
+<!ENTITY plus.halo "最高価格">
+<!ENTITY plus.lalo "最低価格">
+
+<!ENTITY plus.search.label "Enter Product No., Barcode, or Name">
+<!ENTITY plus.search.advancesearch "Advanced Search">
+
+<!ENTITY plus.button.action.add "新規・追加">
+<!ENTITY plus.button.action.modify "修正">
+<!ENTITY plus.button.action.delete "削除">
+
+<!ENTITY plus.button.numpad.clear "クリアー">
+<!ENTITY plus.button.numpad.del "削除">
+<!ENTITY plus.button.numpad.enter "入力">
+<!ENTITY plus.button.numpad.advsearch "SEARCH">
+<!ENTITY plus.button.numpad.advclear "クリアー">
+
+<!ENTITY plusearch.title "Product Search">

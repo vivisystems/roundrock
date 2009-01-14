@@ -18,6 +18,7 @@
     
         initial: function() {
 
+
             this.screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
             this.screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
 
@@ -28,7 +29,22 @@
             this.requestCommand('initial', null, 'Pricelevel');
             this.requestCommand('initial', null, 'Cart');
             this.requestCommand('initial', null, 'CurrencySetup');
-            this.requestCommand('initial', null, 'Sound');
+
+            var prefs = GREUtils.Pref.getPrefService();
+            // Example 1: getting Unicode value
+            var value = prefs.getComplexValue("vivipos.fec.test",
+                  Components.interfaces.nsISupportsString).data;
+                  alert(value);
+
+        // Example 2: setting Unicode value
+        var str = Components.classes["@mozilla.org/supports-string;1"]
+              .createInstance(Components.interfaces.nsISupportsString);
+        str.data = value;
+        prefs.setComplexValue("vivipos.fec.test2",
+              Components.interfaces.nsISupportsString, str);
+
+
+            alert(GREUtils.Pref.getPref('vivipos.fec.test'));
 
             this.resetLayout(true);
             this.initialLogin();
@@ -57,7 +73,7 @@
             }).register();
 
             GeckoJS.Observer.notify(null, 'render', this);
-    },
+        },
 
         _getKeypadController: function() {
             return GeckoJS.Controller.getInstanceByName('Keypad');

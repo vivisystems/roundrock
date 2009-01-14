@@ -2,7 +2,8 @@
 
     // include controllers  and register itself
 
-    GeckoJS.include('chrome://viviecr/content/controllers/systembackup_controller.js');
+    include('chrome://viviecr/content/fecposutils.js');
+    include('chrome://viviecr/content/controllers/systembackup_controller.js');
 
     /**
      * Controller Startup

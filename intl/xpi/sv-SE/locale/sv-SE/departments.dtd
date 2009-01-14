@@ -1,0 +1,11 @@
+<!ENTITY departments.title "Avdelningar">
+<!ENTITY departments.number "Avdelningsnummer:">
+<!ENTITY departments.name "Avdelningsnamn:">
+<!ENTITY departments.taxrate "Moms Kurs:">
+<!ENTITY departments.visible "Visa i Meny:">
+<!ENTITY departments.sale "Sale Department:">
+<!ENTITY departments.button.color "Knapp Färg:">
+<!ENTITY departments.font.size "Font Storlek:">
+<!ENTITY departments.button.action.add "Lägg till">
+<!ENTITY departments.button.action.modify "Modifiera">
+<!ENTITY departments.button.action.delete "Tabort">

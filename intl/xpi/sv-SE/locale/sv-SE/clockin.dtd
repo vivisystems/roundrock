@@ -1,0 +1,14 @@
+<!ENTITY clockin.title "User Clock In / Out">
+<!ENTITY clockin.heading.timein "In">
+<!ENTITY clockin.heading.timeout "Ut">
+<!ENTITY clockin.heading.job "Job">
+<!ENTITY clockin.title "User Clock In / Out">
+<!ENTITY clockin.title "Stämpelklocka In / Ut">
+<!ENTITY clockin.keylabel.clear "RENSA">
+<!ENTITY clockin.keylabel.del "DEL">
+<!ENTITY clockin.keylabel.password "Lösenord:">
+<!ENTITY clockin.keylabel.ok "OK">
+<!ENTITY clockin.keylabel.clockin "In">
+<!ENTITY clockin.keylabel.clockout "Ut">
+<!ENTITY clockin.keylabel.view "Visa Närvarande">
+<!ENTITY clockin.headers.joblist "Arbetslista">

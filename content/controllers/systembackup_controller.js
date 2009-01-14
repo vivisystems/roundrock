@@ -7,16 +7,18 @@
             this._data = [];
             this._files = null;
             this._timedata = [];
-
-            this._files = new GeckoJS.Dir.readDir(dir).sort(function(a, b) {if (a.leafName < b.leafName) return -1; else if (a.leafName > b.leafName) return 1; else return 0;});
+            this._files = new GeckoJS.Dir.readDir(dir, {type: "d"}).sort(function(a, b) {if (a.leafName < b.leafName) return -1; else if (a.leafName > b.leafName) return 1; else return 0;});
 
             var self = this;
-            var regexp = new RegExp(dir + "|.pak","g");
+
             this._files.forEach(function(o){
-                var str = o.path;
-                var timestr = str.replace(regexp, '');
+                var str = o.leafName;
+
+                var dt = Date.parseExact(str, "yyyyMd");
+                var timestr = dt.toLocaleDateString();
                 var typestr = '';
-                self._data.push({time: timestr, type: typestr});
+                self._data.push({time: timestr, type: typestr, dir: str});
+                
             });            
         }
     });
@@ -33,7 +35,11 @@
         _listObjStickBackup: null,
         _listDatas: null,
         _selectedIndex: 0,
+        _dataPath: null,
+        _scriptDir: null,
         _localbackupDir: null,
+        _backupDir: null,
+        _busy: false,
 
         getListObjLocalBackup: function() {
             if(this._listObjLocalBackup == null) {
@@ -49,36 +55,221 @@
             return this._listObjStickBackup;
         },
 
-        backupToLocal: function () {
+        setButtonState: function() {
             //
-            alert("backupToLocal");
+            $('#backuptolocal').attr('disabled', this._busy);
+            $('#backuptostick').attr('disabled', this._busy);
+            $('#restorefromlocal').attr('disabled', this._busy);
+            $('#restorefromstick').attr('disabled', this._busy);
+
+            $('#ok').attr('disabled', this._busy);
         },
 
-        backupToStick: function () {
-            //
-            alert("backupToStick");
+        checkBackupDevices: function() {
+
+            var osLastMedia = new GeckoJS.File('/tmp/last_media');
+            // var osLastMedia = new GeckoJS.File('/var/tmp/vivipos/last_media');
+
+            var last_media = "";
+            var deviceNode = "";
+            var deviceReady = false;
+            this._backupDir = null;
+
+            var deviceMount = "/media/";
+            // var deviceMount = "/var/tmp/";
+
+            var hasMounted = false;
+
+            if (osLastMedia.exists()) {
+                osLastMedia.open("r");
+                last_media = osLastMedia.readLine();
+                osLastMedia.close();
+            }
+
+            if (last_media) {
+
+                var tmp = last_media.split('/');
+                deviceNode = tmp[tmp.length-1];
+                deviceMount +=  deviceNode + '/';
+
+
+
+                var mountDir = new GeckoJS.File(deviceMount);
+
+                if (mountDir.exists() && mountDir.isDir()) {
+
+                    // mount dir exists
+                    // autocreate backup_dir and restore dir
+                    var backupDir = new GeckoJS.Dir(deviceMount + 'system_backup', true);
+
+                    if (backupDir.exists()) {
+
+                        this._backupDir = backupDir.path;
+
+                        deviceReady = true;
+
+                    }
+                }
+            }
+
+            return deviceReady ;
+
         },
 
-        restoreFromLocal: function () {
-            //
-            alert("restoreFromLocal");
+        execute: function(cmd, param) {
+            try {
+                var exec = new GeckoJS.File(cmd);
+                var r = exec.run(param, true);
+                // this.log("ERROR", "Ret:" + r + "  cmd:" + cmd + "  param:" + param);
+                exec.close();
+                return true;
+            }
+            catch (e) {
+                NotifyUtils.warn(_('Failed to execute command (%S).', [cmd + ' ' + param]));
+                return false;
+            }
         },
 
-        restoreFromStick: function () {
-            //
-            alert("restoreFromStick");
+        _restart: function() {
+            // restart vivipos
+            return;
+            opener.opener.vivipos.suspendSavePreference = true;
+            GeckoJS.Observer.notify(null, 'prepare-to-restart', this);
         },
 
-        load: function (data) {
+        _showWaitPanel: function(panel) {
+            var waitPanel = document.getElementById(panel);
+            var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
+            var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
+            waitPanel.sizeTo(360, 120);
+            var x = (width - 360) / 2;
+            var y = (height - 240) / 2;
+            waitPanel.openPopupAtScreen(x, y);
 
-            this._localbackupDir = GeckoJS.Configure.read('vivipos.fec.settings.backup.localbackupdir');
-            this._stickbackupDir = GeckoJS.Configure.read('vivipos.fec.settings.backup.stickbackupdir');
-            if (!this._localbackupDir) this._localbackupDir = '/var/tmp/vivipos/system_backup/';
-            if (!this._stickbackupDir) this._stickbackupDir = '/var/tmp/vivipos/system_stick_backup/';
+            // release CPU for progressbar ...
+            this.sleep(1500);
+            return waitPanel;
+        },
 
-            // path with '/' end
-            this._localbackupDir = (this._localbackupDir + '/').replace(/\/+/g,'/');
-            this._stickbackupDir = (this._stickbackupDir + '/').replace(/\/+/g,'/');
+        backupToLocal: function() {
+            if (this._busy) return;
+            this._busy = true;
+            var waitPanel = this._showWaitPanel('backup_wait_panel');
+            this.setButtonState();
+
+            if (this.execute(this._scriptPath + "backup.sh", ''))
+                NotifyUtils.info(_('<Backup to Local> is done!!'));
+
+            this.load();
+            this._busy = false;
+            this.setButtonState();
+            waitPanel.hidePopup();
+        },
+
+        backupToStick: function() {
+            if (this._busy) return;
+            if (!this.checkBackupDevices()){
+                NotifyUtils.info(_('Media not found!! Please attach the USB thumb drive...'));
+                return;
+            }
+            this._busy = true;
+            var waitPanel = this._showWaitPanel('backup_wait_panel');
+            this.setButtonState();
+
+            var localObj = this.getListObjLocalBackup();
+            var index = localObj.selectedIndex;
+            var datas = localObj.datasource._data;
+
+            if (index >= 0) {
+                var dir = datas[index].dir;
+                // do copy from local to stick
+                // var param = "-fr " + this._localbackupDir + dir + " " + this._stickbackupDir + dir;
+                var param = ["-fr", this._localbackupDir + dir, this._stickbackupDir];
+
+                if (this.execute("/bin/cp", param))
+                    NotifyUtils.info(_('<Copy Backup to Stick> is done!!'));
+            } else {
+                NotifyUtils.info(_('Must select a item from local backup list.'));
+            }
+
+            this.load();
+            this._busy = false;
+            this.setButtonState();
+            waitPanel.hidePopup();
+        },
+
+        restoreFromLocal: function() {
+            if (this._busy) return;
+            this._busy = true;
+            var waitPanel = this._showWaitPanel('restore_wait_panel');
+            this.setButtonState();
+
+            var localObj = this.getListObjLocalBackup();
+            var index = localObj.selectedIndex;
+            var datas = localObj.datasource._data;
+
+            if (index >= 0) {
+                var dir = datas[index].dir;
+
+                if (GREUtils.Dialog.confirm(this.window, _("Confirm Restore"),
+                        _("Do you want to restore (%S) from local backup?", [datas[index].time]))) {
+                    if (this.execute(this._scriptPath + "restore.sh", [this._localbackupDir + dir])) {
+                        this._restart();
+                        NotifyUtils.info(_('<Restore from Local backup> is done!!'));
+                    }
+                }
+            } else {
+                NotifyUtils.info(_('Must select a item from local backup list.'));
+            }
+
+            this._busy = false;
+            this.setButtonState();
+            waitPanel.hidePopup();
+        },
+
+        restoreFromStick: function() {
+            if (this._busy) return;
+            if (!this.checkBackupDevices()){
+                NotifyUtils.info(_('Media not found!! Please attach the USB thumb drive...'));
+                return;
+            }
+
+            this._busy = true;
+            var waitPanel = this._showWaitPanel('restore_wait_panel');
+            this.setButtonState();
+
+            var stickObj = this.getListObjStickBackup();
+            var index = stickObj.selectedIndex;
+            var datas = stickObj.datasource._data;
+
+            if (index >= 0) {
+                var dir = datas[index].dir;
+
+                if (GREUtils.Dialog.confirm(this.window, _("Confirm Restore"),
+                        _("Do you want to restore (%S) from stick?", [datas[index].time]))) {
+
+                    if (this.execute(this._scriptPath + "restore.sh", [this._stickbackupDir + dir])){
+                        this._restart();
+                        NotifyUtils.info(_('<Restore from Stick> is done!!'));
+                    }
+                }
+            } else {
+                NotifyUtils.info(_('Must select a item from stick list.'));
+            }
+
+            this._busy = false;
+            this.setButtonState();
+            waitPanel.hidePopup();
+        },
+
+        load: function() {
+            if (this._dataPath == null) {
+                this.checkBackupDevices();
+                this._dataPath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/') + '/data/';
+            }
+            this._scriptPath = this._dataPath + "scripts/"
+            this._localbackupDir = this._dataPath + "backups/";
+            this._stickbackupDir = this._backupDir + "/";
 
             var panelViewLocal = new BackupFilesView(this._localbackupDir);
             this.getListObjLocalBackup().datasource = panelViewLocal;
