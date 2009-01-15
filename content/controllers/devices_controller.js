@@ -63,9 +63,11 @@
             }
 
             // log enabled devices and cached data
+            /*
             this.log('Devices [settings]: ' + GeckoJS.BaseObject.dump(this._selectedDevices));
             this.log('Devices [commands]: ' + GeckoJS.BaseObject.dump(GeckoJS.Session.get('deviceCommands')));
             this.log('Devices [templates]: ' + GeckoJS.BaseObject.dump(GeckoJS.Session.get('deviceTemplates')));
+            */
         },
 
         // load and cache device templates and commands
@@ -182,7 +184,7 @@
         },
 
         loadDeviceCommandFile: function(path) {
-            var commands = new Object();
+            var commands = new Object;
             try {
                 var lines = GREUtils.File.readAllLine(GREUtils.File.chromeToPath(path)) || [];
                 lines.forEach(function(line) {
@@ -372,7 +374,7 @@
                 portControl.openPort(path, '9600,n,8,1,h');
                 status = portControl.statusPort(path);
                 portControl.closePort(path);
-                this.log(path + ':' + status);
+                //this.log(path + ':' + status);
 
                 if (status == -1) {
                     status = 0;

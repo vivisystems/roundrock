@@ -154,93 +154,101 @@
         // handle order submit events
         beforeSubmit: function(evt) {
 
-            // for each enabled printer device, check if autoprint is on
-            var selectedDevices = this.getSelectedDevices();
             var printed = false;
             var order = evt.data.data;
 
             // check if receipt already printed
             if (order['receipt_printed'] == null) {
-
-                /*
-                 *
-                 * add support attributes to order object:
-                 *
-                 * - create_date: Date object created from the created attribute
-                 * - print_date: Date object representing current time
-                 * - proceeds_clerk
-                 * - proceeds_clerk_displayname
-                 *
-                 * - store details:
-                 *   - store name
-                 *   - store contact
-                 *   - telephone1
-                 *   - telephone2
-                 *   - address1
-                 *   - address2
-                 *   - city
-                 *   - county
-                 *   - province
-                 *   - state
-                 *   - country
-                 *   - zip
-                 *   - fax
-                 *   - email
-                 *   - note
-                 */
-                var now = new Date();
-                order.create_date = new Date(order.created);
-                order.print_date = new Date();
-                
-                // order.store = GeckoJS.Session.get('storeDetails');
-                order.store = {
-                    name: 'VIVIPOS Store',
-                    contact: 'VIVIPOS Team',
-                    telephone1: '+886 2 2698-1446',
-                    telephone2: '+886 930 858 972',
-                    address1: '10F, No. 75, Sec 1',
-                    address2: 'Sin Tai Wu Road',
-                    city: 'Sijhih City',
-                    county: 'Taipei County',
-                    zip: '221',
-                    country: 'Taiwan, R.O.C.',
-                    fax: '+886 2 2698-3573',
-                    email: 'sales@vivipos.com',
-                    note: 'Vivid You POS!'
-                }
-
-                var user = new GeckoJS.AclComponent().getUserPrincipal();
-                if ( user != null ) {
-                    order.proceeds_clerk = user.username;
-                    order.proceeds_clerk_displayname = user.description;
-                }
-                order._MODIFIERS = this._MODIFIERS;
-
-                this.log(this.dump(order));
-                if (selectedDevices != null) {
-                    if (selectedDevices['receipt-1-enabled'] && selectedDevices['receipt-1-autoprint']) {
-                        var template = selectedDevices['receipt-1-template'];
-                        var port = selectedDevices['receipt-1-port'];
-                        var speed = selectedDevices['receipt-1-portspeed'];
-                        var devicemodel = selectedDevices['receipt-1-devicemodel'];
-                        var encoding = selectedDevices['receipt-1-encoding'];
-                        printed = this.printCheck(order, template, port, speed, devicemodel, encoding);
-                    }
-
-                    if (selectedDevices['receipt-2-enabled'] && selectedDevices['receipt-2-autoprint']) {
-                        var template = selectedDevices['receipt-2-template'];
-                        var port = selectedDevices['receipt-2-port'];
-                        var speed = selectedDevices['receipt-2-portspeed'];
-                        var devicemodel = selectedDevices['receipt-2-devicemodel'];
-                        var encoding = selectedDevices['receipt-2-encoding'];
-                        if (this.printCheck(order, template, port, speed, devicemodel, encoding)) {
-                            printed = true;
-                        }
-                    }
-                }
+                printed = this.printChecks(evt.data);
                 if (printed) evt.data.data['receipt_printed'] = (new Date()).getTime();
             }
-            return true;
+        },
+
+        printChecks: function(txn) {
+
+            var selectedDevices = this.getSelectedDevices();
+            var printed = false;
+            /*
+             *
+             * add support attributes to order object:
+             *
+             * - create_date: Date object created from the created attribute
+             * - print_date: Date object representing current time
+             * - proceeds_clerk
+             * - proceeds_clerk_displayname
+             *
+             * - store details:
+             *   - store name
+             *   - store contact
+             *   - telephone1
+             *   - telephone2
+             *   - address1
+             *   - address2
+             *   - city
+             *   - county
+             *   - province
+             *   - state
+             *   - country
+             *   - zip
+             *   - fax
+             *   - email
+             *   - note
+             */
+            var now = new Date();
+            var order = txn.data;
+            order.create_date = new Date(order.created);
+            order.print_date = new Date();
+
+            // order.store = GeckoJS.Session.get('storeDetails');
+            order.store = {
+                name: 'VIVISHOP',
+                contact: 'VIVIPOS Team',
+                telephone1: '+886 2 2698-1446',
+                telephone2: '+886 930 858 972',
+                address1: '10F, No. 75, Sec 1',
+                address2: 'Sin Tai Wu Road',
+                city: 'Sijhih City',
+                county: 'Taipei County',
+                zip: '221',
+                country: 'Taiwan, R.O.C.',
+                fax: '+886 2 2698-3573',
+                email: 'sales@vivipos.com',
+                note: 'Vivid You POS!'
+            }
+
+            var user = new GeckoJS.AclComponent().getUserPrincipal();
+            if ( user != null ) {
+                order.proceeds_clerk = user.username;
+                order.proceeds_clerk_displayname = user.description;
+            }
+            txn._MODIFIERS = this._MODIFIERS;
+
+            //this.log(this.dump(selectedDevices));
+            //this.log(this.dump(txn));
+
+            // for each enabled printer device, check if autoprint is on
+            if (selectedDevices != null) {
+                if (selectedDevices['receipt-1-enabled'] && selectedDevices['receipt-1-autoprint']) {
+                    var template = selectedDevices['receipt-1-template'];
+                    var port = selectedDevices['receipt-1-port'];
+                    var speed = selectedDevices['receipt-1-portspeed'];
+                    var devicemodel = selectedDevices['receipt-1-devicemodel'];
+                    var encoding = selectedDevices['receipt-1-encoding'];
+                    printed = this.printCheck(txn, template, port, speed, devicemodel, encoding);
+                }
+
+                if (selectedDevices['receipt-2-enabled'] && selectedDevices['receipt-2-autoprint']) {
+                    var template = selectedDevices['receipt-2-template'];
+                    var port = selectedDevices['receipt-2-port'];
+                    var speed = selectedDevices['receipt-2-portspeed'];
+                    var devicemodel = selectedDevices['receipt-2-devicemodel'];
+                    var encoding = selectedDevices['receipt-2-encoding'];
+                    if (this.printCheck(txn, template, port, speed, devicemodel, encoding)) {
+                        printed = true;
+                    }
+                }
+            }
+            return printed;
         },
 
         getTemplateData: function(template, path, useCache) {
@@ -319,21 +327,35 @@
         },
 
         // print check using the given parameters
-        printCheck: function(order, template, port, speed, devicemodel, encoding) {
+        printCheck: function(txn, template, port, speed, devicemodel, encoding) {
 
             var templates = this.getTemplates();
             var ports = this.getPorts();
+            var order = txn.data;
+            var templateChromePath;
+            var templatePath;
+            var portPath;
 
-            var templateChromePath = (template == null || templates == null) ? null : templates[template].path;
-            var portPath = (port == null || ports == null) ? null : ports[port].path;
-            var templatePath = GREUtils.File.chromeToPath(templateChromePath);
-            //
-            // get file system path to template file
-            //var file = GREUtils.File.getFile(templatePath);
-            //var tpl = GREUtils.File.readAllBytes(file);
+            // make sure required paths all exist
+            try {
+                templateChromePath = (template == null || templates == null) ? null : templates[template].path;
+                templatePath = GREUtils.File.chromeToPath(templateChromePath);
+            }
+            catch(e) {
+            }
+
+            portPath = (port == null || ports == null) ? null : ports[port].path;
+            if (portPath == null || portPath == '') {
+                NotifyUtils.error(_('Specified device port [%S] does not exist!', [port]));
+                return false;
+            }
 
             var tpl = this.getTemplateData(template, templatePath, false);
-
+            if (tpl == null || tpl == '') {
+                NotifyUtils.error(_('Specified receipt/guest check template [%S] is empty or does not exist!', [template]));
+                return false;
+            }
+/*
             alert('Printing check: \n\n' +
                   '   template [' + template + ' (' + templatePath + ')]\n' +
                   '   port [' + port + ' (' + portPath + ')]\n' +
@@ -341,13 +363,13 @@
                   '   model [' + devicemodel + ']\n' +
                   '   encoding [' + encoding + ']\n' +
                   '   template content: ' + this.dump(tpl));
-
+*/
             
-            var result = tpl.process(order);
+            var result = tpl.process(txn);
 
             // get encoding
             var encodedResult = GREUtils.Charset.convertFromUnicode(result, encoding);
-            this.log('\n' + encodedResult);
+            //this.log('\n' + encodedResult);
             
             // translate printer commands into actual command codes
 

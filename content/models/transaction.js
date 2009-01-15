@@ -452,7 +452,7 @@
     };
 
     Transaction.prototype.checkSellPrice = function(item) {
-        var sellQty = null, sellPrice = null;
+        var sellQty = item.current_qty, sellPrice = item.current_price;
 
         var lastSellItem = GeckoJS.Session.get('cart_last_sell_item');
         if (lastSellItem != null) {

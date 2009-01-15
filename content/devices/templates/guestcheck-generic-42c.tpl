@@ -1,4 +1,5 @@
 123456789012345678901234567890123456789012
+               GUEST CHECK
 ${store.name|center:42}
 ${store.telephone1|center:42}
 Opened:   ${create_date.toLocaleFormat('%Y-%m-%d %H:%M:%S')}

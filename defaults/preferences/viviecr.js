@@ -397,13 +397,13 @@ pref("vivipos.fec.reportpanels.taxesreport.path", "chrome://viviecr/content/repo
 pref("vivipos.fec.reportpanels.taxesreport.icon", "chrome://viviecr/content/skin/icons/editcopy.png");
 pref("vivipos.fec.reportpanels.taxesreport.roles", "acl_public_access_inactive");
 
-pref("vivipos.fec.registry.templates.receipt-generic.label", "Generic Receipt Template");
+pref("vivipos.fec.registry.templates.receipt-generic.label", "Generic Receipt Template (42 columns)");
 pref("vivipos.fec.registry.templates.receipt-generic.type", "receipt,guestcheck");
-pref("vivipos.fec.registry.templates.receipt-generic.path", "chrome://viviecr/content/devices/templates/receipt-generic.tpl");
+pref("vivipos.fec.registry.templates.receipt-generic.path", "chrome://viviecr/content/devices/templates/receipt-generic-42c.tpl");
 
-pref("vivipos.fec.registry.templates.guestcheck-generic.label", "Generic Guest Check Template");
+pref("vivipos.fec.registry.templates.guestcheck-generic.label", "Generic Guest Check Template (42 columns)");
 pref("vivipos.fec.registry.templates.guestcheck-generic.type", "receipt,guestcheck");
-pref("vivipos.fec.registry.templates.guestcheck-generic.path", "chrome://viviecr/content/devices/templates/guestcheck-generic.tpl");
+pref("vivipos.fec.registry.templates.guestcheck-generic.path", "chrome://viviecr/content/devices/templates/guestcheck-generic-42c.tpl");
 
 pref("vivipos.fec.registry.templates.test.label", "Test Template");
 pref("vivipos.fec.registry.templates.test.type", "receipt,guestcheck");
