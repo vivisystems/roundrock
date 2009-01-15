@@ -1,0 +1,58 @@
+#. extracted from ../locale/en-US/currency.dtd, ./locale/sv-SE/currency.dtd
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-15 11:11+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.1.1\n"
+
+#: currencysetup.title
+msgid "Exchange Rates"
+msgstr "Växlings Kurser"
+
+#: currencysetup.currency
+msgid "Code"
+msgstr "Kod"
+
+#: currencysetup.symbol
+msgid "Sign"
+msgstr "Signatur"
+
+#: currencysetup.rate
+msgid "Exchange Rate"
+msgstr "Växlingskurs"
+
+#: currencysetup.convert
+msgid "Amount to Convert"
+msgstr "Belopp att Växla"
+
+#: currencysetup.amount
+msgid "Converted Amount"
+msgstr "Växlat Belopp"
+
+#: currencysetup.base
+msgid "Local Currency"
+msgstr "Lokal Valuta"
+
+#: currencysetup.other
+msgid "Currency"
+msgstr "Valuta"
+
+#: currencysetup.backspace
+msgid "DEL"
+msgstr "DEL"
+
+#: currencysetup.clear
+msgid "CLEAR"
+msgstr "RENSA"
+
+#: currencysetup.save
+msgid "SAVE"
+msgstr "SPARA"

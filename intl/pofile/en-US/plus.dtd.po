@@ -1,0 +1,298 @@
+#. extracted from ../locale/en-US/plus.dtd
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-15 11:11+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.1.1\n"
+"X-Accelerator-Marker: &\n"
+
+#: plus.title
+msgid "Product Properties"
+msgstr ""
+
+#: plusearch.title
+msgctxt "plusearch.title"
+msgid "Product Search"
+msgstr ""
+
+#: plus.tab.base.data1
+msgid "Basic 1"
+msgstr ""
+
+#: plus.tab.base.data2
+msgid "Basic 2 "
+msgstr ""
+
+#: plus.tab.setmenu
+msgid "Sets"
+msgstr ""
+
+#: plus.tab.appearance
+msgctxt "plus.tab.appearance"
+msgid "Appearance"
+msgstr ""
+
+#: plus.tab.pricelevels
+msgctxt "plus.tab.pricelevels"
+msgid "Price Levels"
+msgstr ""
+
+#: plus.tab.linkgroups
+msgctxt "plus.tab.linkgroups"
+msgid "Link Groups"
+msgstr ""
+
+#: plus.tab.normalmode
+msgid "Browse"
+msgstr ""
+
+#: plus.tab.filtermode
+msgid "Search"
+msgstr ""
+
+#: plus.base.data
+msgid "Product Details"
+msgstr ""
+
+#: plus.base.data1
+msgid "Basic Data (Page 1)"
+msgstr ""
+
+#: plus.base.data2
+msgid "Basic Data (Page 2)"
+msgstr ""
+
+#: plus.setmenu
+msgid "Product Set"
+msgstr ""
+
+#: plus.appearance
+msgctxt "plus.appearance"
+msgid "Appearance"
+msgstr ""
+
+#: plus.pricelevels
+msgctxt "plus.pricelevels"
+msgid "Price Levels"
+msgstr ""
+
+#: plus.linkgroups
+msgctxt "plus.linkgroups"
+msgid "Link Groups"
+msgstr ""
+
+#: plus.department
+msgid "Department"
+msgstr ""
+
+#: plus.product.no
+msgid "Product No."
+msgstr ""
+
+#: plus.product.name
+msgid "Product Name"
+msgstr ""
+
+#: plus.product.barcode
+msgid "Barcode"
+msgstr ""
+
+#: plus.product.tax.rate
+msgid "Tax Rate"
+msgstr ""
+
+#: plus.product.condiments
+msgid "Condiments"
+msgstr ""
+
+#: plus.auto.maintain
+msgid "Auto-stock"
+msgstr ""
+
+#: plus.can.restock
+msgid "Returns can be restocked"
+msgstr ""
+
+#: plus.require.condiment
+msgid "Condiments required"
+msgstr ""
+
+#: plus.require.memo
+msgid "Memo required"
+msgstr ""
+
+#: plus.single.item.sale
+msgid "Single Item Sale"
+msgstr ""
+
+#: plus.visible
+msgid "Show on menu"
+msgstr ""
+
+#: plus.require.age.verification
+msgid "Require age verification"
+msgstr ""
+
+#: plus.display.icon.only
+msgid "Display icon only"
+msgstr ""
+
+#: plus.purchase.price
+msgid "Purchase Price"
+msgstr ""
+
+#: plus.stock.level
+msgid "Current Stock Level"
+msgstr ""
+
+#: plus.stock.threshold
+msgid "Minimum Threshold"
+msgstr ""
+
+#: plus.memo
+msgid "Memo"
+msgstr ""
+
+#: plus.minimum.sale.quantity
+msgid "Minimum Sale Qty"
+msgstr ""
+
+#: plus.sale.unit
+msgid "Unit of Sale"
+msgstr ""
+
+#: plus.sale.unit.individual
+msgid "Individually"
+msgstr ""
+
+#: plus.sale.unit.gram
+msgid "Gram"
+msgstr ""
+
+#: plus.sale.unit.kilogram
+msgid "Kilogram"
+msgstr ""
+
+#: plus.sale.unit.ounce
+msgid "Ounce"
+msgstr ""
+
+#: plus.sale.unit.pound
+msgid "Pound"
+msgstr ""
+
+#: plus.sale.unit.liter
+msgid "Liter"
+msgstr ""
+
+#: plus.sale.unit.pint
+msgid "Pint"
+msgstr ""
+
+#: plus.sale.unit.quart
+msgid "Quart"
+msgstr ""
+
+#: plus.sale.unit.gallon
+msgid "Gallon"
+msgstr ""
+
+#: plus.location
+msgid "Stock Location"
+msgstr ""
+
+#: plus.header.no
+msgid "No."
+msgstr ""
+
+#: plus.header.name
+msgid "Name"
+msgstr ""
+
+#: plus.header.quantity
+msgid "Qty"
+msgstr ""
+
+#: plus.image
+msgid "Product Icon"
+msgstr ""
+
+#: plus.button.color
+msgid "Button Color"
+msgstr ""
+
+#. Do not translate this.  Only change the numeric values if you need this dialogue box to appear bigger
+#: plus.font.size
+msgid "Font Size"
+msgstr ""
+
+#: plus.level
+msgid "Level"
+msgstr ""
+
+#: plus.price
+msgid "Price"
+msgstr ""
+
+#: plus.halo
+msgid "HALO"
+msgstr ""
+
+#: plus.lalo
+msgid "LALO"
+msgstr ""
+
+#: plus.search.label
+msgid "Enter Product No., Barcode, or Name"
+msgstr ""
+
+#: plus.search.advancesearch
+msgid "Advanced Search"
+msgstr ""
+
+#: plus.button.action.add
+msgid "Add"
+msgstr ""
+
+#: plus.button.action.modify
+msgid "Modify"
+msgstr ""
+
+#: plus.button.action.delete
+msgid "Delete"
+msgstr ""
+
+#: plus.button.numpad.clear
+msgctxt "plus.button.numpad.clear"
+msgid "CLEAR"
+msgstr ""
+
+#: plus.button.numpad.del
+msgid "DEL"
+msgstr ""
+
+#: plus.button.numpad.enter
+msgid "ENTER"
+msgstr ""
+
+#: plus.button.numpad.advsearch
+msgid "SEARCH"
+msgstr ""
+
+#: plus.button.numpad.advclear
+msgctxt "plus.button.numpad.advclear"
+msgid "CLEAR"
+msgstr ""
+
+#: plusearch.title
+msgctxt "plusearch.title"
+msgid "Product Search"
+msgstr ""

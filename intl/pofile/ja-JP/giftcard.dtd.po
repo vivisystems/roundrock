@@ -1,0 +1,26 @@
+#. extracted from ../locale/en-US/giftcard.dtd, ./locale/ja-JP/giftcard.dtd
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-15 11:11+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.1.1\n"
+
+#: giftcard.title
+msgid "Payment By Gift Card"
+msgstr "ギフトカード払い"
+
+#: giftcard.button.action.clear
+msgid "CLEAR"
+msgstr "クリアー"
+
+#: giftcard.button.action.del
+msgid "DEL"
+msgstr "削除"

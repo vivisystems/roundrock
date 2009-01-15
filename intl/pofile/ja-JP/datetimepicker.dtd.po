@@ -1,0 +1,32 @@
+#. extracted from ../locale/en-US/datetimepicker.dtd, ./locale/ja-JP/datetimepicker.dtd
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-15 11:11+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.1.1\n"
+
+#. first day of week to display in datepicker, a value from 0 to 6,
+#. 0 = Sunday, 1 = Monday, etc.
+#: firstdayofweek.default
+msgid "0"
+msgstr "0"
+
+#: datetimepicker.year
+msgid "Year"
+msgstr "Year"
+
+#: datetimepicker.month
+msgid "Month"
+msgstr "Month"
+
+#: datetimepicker.day
+msgid "Day"
+msgstr "Day"

@@ -1,0 +1,297 @@
+#. extracted from ../locale/en-US/plus.dtd, ./locale/sv-SE/plus.dtd
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-15 11:11+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.1.1\n"
+
+#: plus.title
+msgid "Product Properties"
+msgstr "Produkt Egenskaper"
+
+#: plusearch.title
+msgctxt "plusearch.title"
+msgid "Product Search"
+msgstr "Product Search"
+
+#: plus.tab.base.data1
+msgid "Basic 1"
+msgstr "Basic 1"
+
+#: plus.tab.base.data2
+msgid "Basic 2 "
+msgstr "Basic 2 "
+
+#: plus.tab.setmenu
+msgid "Sets"
+msgstr "Sets"
+
+#: plus.tab.appearance
+msgctxt "plus.tab.appearance"
+msgid "Appearance"
+msgstr "Utseende"
+
+#: plus.tab.pricelevels
+msgctxt "plus.tab.pricelevels"
+msgid "Price Levels"
+msgstr "Pris Nivåer"
+
+#: plus.tab.linkgroups
+msgctxt "plus.tab.linkgroups"
+msgid "Link Groups"
+msgstr "Koppla Grupper"
+
+#: plus.tab.normalmode
+msgid "Browse"
+msgstr "Browse"
+
+#: plus.tab.filtermode
+msgid "Search"
+msgstr "Search"
+
+#: plus.base.data
+msgid "Product Details"
+msgstr "Produkt Detaljer"
+
+#: plus.base.data1
+msgid "Basic Data (Page 1)"
+msgstr "Basic Data (Sida 1)"
+
+#: plus.base.data2
+msgid "Basic Data (Page 2)"
+msgstr "Basic Data (Sida 2)"
+
+#: plus.setmenu
+msgid "Product Set"
+msgstr "Product Set"
+
+#: plus.appearance
+msgctxt "plus.appearance"
+msgid "Appearance"
+msgstr "Utseende"
+
+#: plus.pricelevels
+msgctxt "plus.pricelevels"
+msgid "Price Levels"
+msgstr "Pris Nivåer"
+
+#: plus.linkgroups
+msgctxt "plus.linkgroups"
+msgid "Link Groups"
+msgstr "Koppla Grupper"
+
+#: plus.department
+msgid "Department"
+msgstr "Avdelningar"
+
+#: plus.product.no
+msgid "Product No."
+msgstr "Produkt Nr"
+
+#: plus.product.name
+msgid "Product Name"
+msgstr "Produkt Namn"
+
+#: plus.product.barcode
+msgid "Barcode"
+msgstr "Streckkod"
+
+#: plus.product.tax.rate
+msgid "Tax Rate"
+msgstr "Moms Sats"
+
+#: plus.product.condiments
+msgid "Condiments"
+msgstr "Kondiment"
+
+#: plus.auto.maintain
+msgid "Auto-stock"
+msgstr "Auto-Lager"
+
+#: plus.can.restock
+msgid "Returns can be restocked"
+msgstr "Returer kan återföras till lager"
+
+#: plus.require.condiment
+msgid "Condiments required"
+msgstr "Kondiment Krävs"
+
+#: plus.require.memo
+msgid "Memo required"
+msgstr "Memo Krävs"
+
+#: plus.single.item.sale
+msgid "Single Item Sale"
+msgstr "Enkel Artikel Försäljning"
+
+#: plus.visible
+msgid "Show on menu"
+msgstr "Visa i Meny"
+
+#: plus.require.age.verification
+msgid "Require age verification"
+msgstr "Krävs Ålders Verifiering"
+
+#: plus.display.icon.only
+msgid "Display icon only"
+msgstr "Visa Iconer Endast"
+
+#: plus.purchase.price
+msgid "Purchase Price"
+msgstr "Öppet Pris"
+
+#: plus.stock.level
+msgid "Current Stock Level"
+msgstr "Nuvarande Lager Nivå"
+
+#: plus.stock.threshold
+msgid "Minimum Threshold"
+msgstr "Minimi Nivå"
+
+#: plus.memo
+msgid "Memo"
+msgstr "Meddelande"
+
+#: plus.minimum.sale.quantity
+msgid "Minimum Sale Qty"
+msgstr "Minimum Försäljningsantal"
+
+#: plus.sale.unit
+msgid "Unit of Sale"
+msgstr "Försäljningsenhet"
+
+#: plus.sale.unit.individual
+msgid "Individually"
+msgstr "Individuellt"
+
+#: plus.sale.unit.gram
+msgid "Gram"
+msgstr "Gr"
+
+#: plus.sale.unit.kilogram
+msgid "Kilogram"
+msgstr "KG"
+
+#: plus.sale.unit.ounce
+msgid "Ounce"
+msgstr "Ounce"
+
+#: plus.sale.unit.pound
+msgid "Pound"
+msgstr "Pound"
+
+#: plus.sale.unit.liter
+msgid "Liter"
+msgstr "Liter"
+
+#: plus.sale.unit.pint
+msgid "Pint"
+msgstr "Pint"
+
+#: plus.sale.unit.quart
+msgid "Quart"
+msgstr "Quart"
+
+#: plus.sale.unit.gallon
+msgid "Gallon"
+msgstr "Gallon"
+
+#: plus.location
+msgid "Stock Location"
+msgstr "Lagerplats"
+
+#: plus.header.no
+msgid "No."
+msgstr "Nr"
+
+#: plus.header.name
+msgid "Name"
+msgstr "Namn"
+
+#: plus.header.quantity
+msgid "Qty"
+msgstr "Antal"
+
+#: plus.image
+msgid "Product Icon"
+msgstr "Produkt Icon"
+
+#: plus.button.color
+msgid "Button Color"
+msgstr "Knapp Färg"
+
+#. Do not translate this.  Only change the numeric values if you need this dialogue box to appear bigger
+#: plus.font.size
+msgid "Font Size"
+msgstr "Font Storlek"
+
+#: plus.level
+msgid "Level"
+msgstr "Nivå"
+
+#: plus.price
+msgid "Price"
+msgstr "Pris"
+
+#: plus.halo
+msgid "HALO"
+msgstr "HALO"
+
+#: plus.lalo
+msgid "LALO"
+msgstr "LALO"
+
+#: plus.search.label
+msgid "Enter Product No., Barcode, or Name"
+msgstr "Enter Product No., Barcode, or Name"
+
+#: plus.search.advancesearch
+msgid "Advanced Search"
+msgstr "Advanced Search"
+
+#: plus.button.action.add
+msgid "Add"
+msgstr "Lägg till"
+
+#: plus.button.action.modify
+msgid "Modify"
+msgstr "Modifiera"
+
+#: plus.button.action.delete
+msgid "Delete"
+msgstr "Tabort"
+
+#: plus.button.numpad.clear
+msgctxt "plus.button.numpad.clear"
+msgid "CLEAR"
+msgstr "RENSA"
+
+#: plus.button.numpad.del
+msgid "DEL"
+msgstr "DEL"
+
+#: plus.button.numpad.enter
+msgid "ENTER"
+msgstr "ENTER"
+
+#: plus.button.numpad.advsearch
+msgid "SEARCH"
+msgstr "SEARCH"
+
+#: plus.button.numpad.advclear
+msgctxt "plus.button.numpad.advclear"
+msgid "CLEAR"
+msgstr "RENSA"
+
+#: plusearch.title
+msgctxt "plusearch.title"
+msgid "Product Search"
+msgstr "Product Search"

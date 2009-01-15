@@ -1,0 +1,66 @@
+#. extracted from ../locale/en-US/taxes.dtd, ./locale/ja-JP/taxes.dtd
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-15 11:11+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.1.1\n"
+
+#: taxes.title
+msgid "Taxes"
+msgstr "税金"
+
+#: taxes.details
+msgid "Tax Details:"
+msgstr "税金詳細"
+
+#: taxes.code
+msgid "Tax Code:"
+msgstr "税法"
+
+#: taxes.type
+msgid "Tax Type:"
+msgstr "税金タイプ"
+
+#: taxes.name
+msgid "Tax Name:"
+msgstr "税金名"
+
+#: taxes.rate
+msgid "Tax Rate:"
+msgstr "税率"
+
+#: taxes.rate_type
+msgid "Rate Type:"
+msgstr "レートタイプ"
+
+#: taxes.rate_type.percentage
+msgid "Percentage"
+msgstr "パーセンテージ"
+
+#: taxes.rate_type.fixed_amount
+msgid "Fixed Amount"
+msgstr "定額"
+
+#: taxes.threshold
+msgid "Threshold:"
+msgstr "最低課税基準"
+
+#: taxes.button.action.add
+msgid "Add"
+msgstr "新規・追加"
+
+#: taxes.button.action.modify
+msgid "Modify"
+msgstr "修正"
+
+#: taxes.button.action.delete
+msgid "Delete"
+msgstr "削除"

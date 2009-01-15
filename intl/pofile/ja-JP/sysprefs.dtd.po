@@ -1,0 +1,310 @@
+#. extracted from ../locale/en-US/sysprefs.dtd, ./locale/ja-JP/sysprefs.dtd
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-15 11:11+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.1.1\n"
+
+#: preferences.title
+msgctxt "preferences.title"
+msgid "General Options"
+msgstr "基本機能"
+
+#: category.layout
+msgid "Layout"
+msgstr "レイアウト"
+
+#: category.general
+msgctxt "category.general"
+msgid "General Options"
+msgstr "基本機能"
+
+#: category.login
+msgid "Sign In/Out"
+msgstr "ログイン／ログアウト"
+
+#: category.tax
+msgid "Taxes"
+msgstr "税金"
+
+#: category.plufilter
+msgid "Product Filter"
+msgstr "Product Filter"
+
+#: terminalid
+msgid "Terminal ID"
+msgstr "末端ID"
+
+#: publicattendance
+msgid "Individual Time-and-Attendance visible to all"
+msgstr "全ての従業員の出勤記録を表示"
+
+#: defaultlogin
+msgid "Automatically log in default user:"
+msgstr "欠勤従業員に自動的にログイン"
+
+#: privatequeue
+msgid "Private order queue"
+msgstr "プライベート待ちオーダー"
+
+#: defaultpricelevel
+msgid "System default price level"
+msgstr "システムデフォルト価格設定"
+
+#: defaulttaxstatus
+msgid "System default tax status"
+msgstr "システムデフォルト税"
+
+#: precisionprices
+msgid "Number of decimal places for Prices"
+msgstr "価格の小数点"
+
+#: precisiontaxes
+msgid "Number of decimal places for Taxes"
+msgstr "税金の小数点"
+
+#: roundingprices
+msgid "Rounding policy to use for Prices"
+msgstr "価格計算の規則"
+
+#: roundingtaxes
+msgid "Rounding policy to use for Taxes"
+msgstr "税金計算の規則"
+
+#: rounding.to-nearest-precision
+msgid "to nearest precision"
+msgstr "to nearest precision"
+
+#: rounding.to-nearest-half
+msgid "to nearest half"
+msgstr "0.5まで繰り上げる"
+
+#: rounding.to-nearest-quarter
+msgid "to nearest quarter"
+msgstr "0.25まで繰り上げる"
+
+#: rounding.to-nearest-nickel
+msgid "to nearest nickel"
+msgstr "0.05まで繰り上げる"
+
+#: rounding.to-nearest-dime
+msgid "to nearest dime"
+msgstr "0.1まで繰り上げる"
+
+#: rounding.always-round-up
+msgid "always round up"
+msgstr "常に切り上げる"
+
+#: rounding.always-round-down
+msgid "always round down"
+msgstr "常に切り下げる"
+
+#: activepricelevelschedule
+msgid "Activate price level schedule"
+msgstr "価格表を起動する"
+
+#: pricelevelrevert
+msgid "Price level reverts to schedule after each order"
+msgstr "Price level reverts to schedule after each order"
+
+#: changedepartmentclearbuffer
+msgid "Clear input buffer when switching departments"
+msgstr "部門を切り替える時にインプットバッファをクリアーする"
+
+#: allowoverstock
+msgid "Allow negative stock"
+msgstr "マイナス在庫を許可する"
+
+#: ageverificationack
+msgid "Require clerk acknowledgement for age verification"
+msgstr "年齢証明のため店員の承認が必要"
+
+#: login.autodiscardcart
+msgid "Automatically discard cart content when signing off"
+msgstr "サインアウトした際、自動的にカートの内容が放棄される"
+
+#: login.autodiscardqueue
+msgid "Automatically discard queued orders when signing off"
+msgstr "サインアウトした際、自動的に待ちオーダーが放棄される"
+
+#: login.mustemptyqueue
+msgid "Order queue must be emptied when signing off"
+msgstr "サインアウトの時、待ちオーダーはなしの必要がある"
+
+#: login.shiftreportonsignoff
+msgid "Print shift report when users sign off"
+msgstr "使用者がサインアウトする際、シフト表をプリントアウトする"
+
+#: login.shiftreportonquickswitch
+msgid "Print shift report when quick-switching users"
+msgstr "使用者を交代する際、シフト表はプリントアウトする"
+
+#: login.allowquicklogin
+msgid "Allow quick login by automatically matching user by password"
+msgstr "使用者のパスワードが合っていれば自動的にクイックログインする"
+
+#: layout.registeratleft
+msgid "Place register screen on the left side of screen"
+msgstr "登録画面は画面の左側に配置する"
+
+#: layout.hidenumpad
+msgid "Hide numeric keypad"
+msgstr "数字のキーパッドは隠す"
+
+#: layout.functionpanelontop
+msgid "Place function key panel at the top of the screen"
+msgstr "機能キーパネルは画面の上に配置する"
+
+#: layout.PLUbeforedept
+msgid "Place product panel before department panel"
+msgstr "商品パネルは部門パネルの前に配置する"
+
+#: layout.hidedeptscrollbar
+msgid "Hide scrollbars for department panel"
+msgstr "部門パネルのスクロールバーは隠す"
+
+#: layout.hidepluscrollbar
+msgid "Hide scrollbars for product panel"
+msgstr "商品パネルのスクロールバーは隠す"
+
+#: layout.hidefpscrollbar
+msgid "Hide scrollbars for function panel"
+msgstr "機能パネルのスクロールバーは隠す"
+
+#: layout.cropdeptlabel
+msgid "Crop department label"
+msgstr "部門ラベルを切り取る"
+
+#: layout.cropplulabel
+msgid "Crop product label"
+msgstr "商品ラベルを切り取る"
+
+#: layout.department.label
+msgid "Department panel dimensions"
+msgstr "部門パネルサイズ"
+
+#: layout.department.rows
+msgctxt "layout.department.rows"
+msgid "rows"
+msgstr "横の列"
+
+#: layout.department.cols
+msgctxt "layout.department.cols"
+msgid "columns"
+msgstr "縦の列"
+
+#: layout.plu.label
+msgid "Product panel dimensions"
+msgstr "商品パネルサイズ"
+
+#: layout.plu.rows
+msgctxt "layout.plu.rows"
+msgid "rows"
+msgstr "横の列"
+
+#: layout.plu.cols
+msgctxt "layout.plu.cols"
+msgid "columns"
+msgstr "縦の列"
+
+#: layout.functionpanel.label
+msgid "Function panel dimensions"
+msgstr "機能パネルサイズ"
+
+#: layout.functionpanel.rows
+msgctxt "layout.functionpanel.rows"
+msgid "rows"
+msgstr "横の列"
+
+#: layout.functionpanel.cols
+msgctxt "layout.functionpanel.cols"
+msgid "columns"
+msgstr "縦の列"
+
+#: plufilter.title
+msgid "Product Filter Definition"
+msgstr "Product Filter Definition"
+
+#: plufilter.filtername
+msgid "Filter Name"
+msgstr "Filter Name"
+
+#: plufilter.index
+msgid "Index"
+msgstr "Index"
+
+#: plufilter.length
+msgid "Length"
+msgstr "Length"
+
+#: plufilter.add
+msgid "Add Filter"
+msgstr "Add Filter"
+
+#: plufilter.remove
+msgid "Remove Filter"
+msgstr "Remove Filter"
+
+#: category.sound
+msgid "Sound"
+msgstr "Sound"
+
+#: sound.beepOnItemAdd
+msgid "Beep on item registrations"
+msgstr "Beep on item registrations"
+
+#: sound.beepOnScanningError
+msgid "Beep on scanning errors"
+msgstr "Beep on scanning errors"
+
+#: sound.beepOnModify
+msgid "Beep on modifications"
+msgstr "Beep on modifications"
+
+#: sound.beepOnDiscountSurcharge
+msgid "Beep on discounts and surcharges"
+msgstr "Beep on discounts and surcharges"
+
+#: sound.beepOnPayment
+msgid "Beep on payments"
+msgstr "Beep on payments"
+
+#: sound.beepOnTaxStatusShift
+msgid "Beep on tax status shifts"
+msgstr "Beep on tax status shifts"
+
+#: sound.beepOnVOID
+msgid "Beep on VOID"
+msgstr "Beep on VOID"
+
+#: sound.beepOnCANCEL
+msgid "Beep on CANCEL"
+msgstr "Beep on CANCEL"
+
+#: sound.beepOnSubtotal
+msgid "Beep on Subtotal"
+msgstr "Beep on Subtotal"
+
+#: sound.beepOnTotal
+msgid "Beep on Total"
+msgstr "Beep on Total"
+
+#: sound.beepOnTrayMarker
+msgid "Beep on Tray Marker"
+msgstr "Beep on Tray Marker"
+
+#: sound.volume.label
+msgid "Volume"
+msgstr "Volume"
+
+#: positivepricerequired
+msgid "Items must be registered with positive prices"
+msgstr "Items must be registered with positive prices"

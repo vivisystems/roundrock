@@ -1,0 +1,72 @@
+<!ENTITY preferences.title "系統設定">
+<!ENTITY category.layout "版面設定">
+<!ENTITY category.general "一般設定">
+<!ENTITY category.login "登入登出設定">
+<!ENTITY category.tax "稅別設定">
+<!ENTITY category.plufilter "產品查詢條件設定">
+<!ENTITY terminalid "本機編號">
+<!ENTITY publicattendance "所有員工都可檢視其他員工之出勤紀錄">
+<!ENTITY defaultlogin "自動以下列勾選之員工身分登入本機:">
+<!ENTITY privatequeue "暫存單不分享">
+<!ENTITY defaultpricelevel "系統預設價格設定為:">
+<!ENTITY defaulttaxstatus "系統預設稅別為:">
+<!ENTITY precisionprices "價格計算至小數點後幾位數?">
+<!ENTITY precisiontaxes "稅金計算至小數點後幾位數?">
+<!ENTITY roundingprices "價格計算進位規則">
+<!ENTITY roundingtaxes "稅金計算進位規則">
+<!ENTITY rounding.to-nearest-precision "精準進位">
+<!ENTITY rounding.to-nearest-half "進位至 0.5">
+<!ENTITY rounding.to-nearest-quarter "進位至 0.25">
+<!ENTITY rounding.to-nearest-nickel "進位至 0.05">
+<!ENTITY rounding.to-nearest-dime "進位至 0.1">
+<!ENTITY rounding.always-round-up "無條件進位">
+<!ENTITY rounding.always-round-down "無條件捨去">
+<!ENTITY activepricelevelschedule "啟用變價排程功能">
+<!ENTITY pricelevelrevert "結單後價格設定依循變價排程之設定">
+<!ENTITY changedepartmentclearbuffer "切換產品部門時清除前筆已結單之資料">
+<!ENTITY allowoverstock "允許庫存數量為負值">
+<!ENTITY ageverificationack "查詢購買者年齡之訊息出現時強制員工確認">
+<!ENTITY login.autodiscardcart "登出時自動放棄正在結帳之交易資料">
+<!ENTITY login.autodiscardqueue "登出時自動放棄已暫存單">
+<!ENTITY login.mustemptyqueue "登出時強制清空暫存單">
+<!ENTITY login.shiftreportonsignoff "登出時列印交班報表">
+<!ENTITY login.shiftreportonquickswitch "快速切換員工時列印交班報表">
+<!ENTITY login.allowquicklogin "快速登入 - 自動依登入密碼辨別員工">
+<!ENTITY layout.registeratleft "購物車置於畫面左方">
+<!ENTITY layout.hidenumpad "隱藏數字鍵盤">
+<!ENTITY layout.functionpanelontop "功能面板置於畫面最上方">
+<!ENTITY layout.PLUbeforedept "產品面板置於部門面板上方">
+<!ENTITY layout.hidedeptscrollbar "隱藏部門面板捲軸">
+<!ENTITY layout.hidepluscrollbar "隱藏產品面板捲軸">
+<!ENTITY layout.hidefpscrollbar "隱藏功能面板捲軸">
+<!ENTITY layout.cropdeptlabel "部門名稱不換行">
+<!ENTITY layout.cropplulabel "產品名稱不換行">
+<!ENTITY layout.department.label "部門面板大小">
+<!ENTITY layout.department.rows "行數">
+<!ENTITY layout.department.cols "列數">
+<!ENTITY layout.plu.label "產品面板大小">
+<!ENTITY layout.plu.rows "行數">
+<!ENTITY layout.plu.cols "列數">
+<!ENTITY layout.functionpanel.label "功能面板大小">
+<!ENTITY layout.functionpanel.rows "行數">
+<!ENTITY layout.functionpanel.cols "列數">
+<!ENTITY plufilter.title "產品查詢條件定義">
+<!ENTITY plufilter.filtername "條件名稱">
+<!ENTITY plufilter.index "起始位置">
+<!ENTITY plufilter.length "長度">
+<!ENTITY plufilter.add "新增條件">
+<!ENTITY plufilter.remove "移除條件">
+<!ENTITY category.sound "Sound">
+<!ENTITY sound.beepOnItemAdd "Beep on item registrations">
+<!ENTITY sound.beepOnScanningError "Beep on scanning errors">
+<!ENTITY sound.beepOnModify "Beep on modifications">
+<!ENTITY sound.beepOnDiscountSurcharge "Beep on discounts and surcharges">
+<!ENTITY sound.beepOnPayment "Beep on payments">
+<!ENTITY sound.beepOnTaxStatusShift "Beep on tax status shifts">
+<!ENTITY sound.beepOnVOID "Beep on VOID">
+<!ENTITY sound.beepOnCANCEL "Beep on CANCEL">
+<!ENTITY sound.beepOnSubtotal "Beep on Subtotal">
+<!ENTITY sound.beepOnTotal "Beep on Total">
+<!ENTITY sound.beepOnTrayMarker "Beep on Tray Marker">
+<!ENTITY sound.volume.label "Volume">
+<!ENTITY positivepricerequired "Items must be registered with positive prices">

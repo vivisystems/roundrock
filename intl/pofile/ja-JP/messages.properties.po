@@ -1,0 +1,1134 @@
+#. extracted from ../locale/en-US/messages.properties, ./locale/ja-JP/messages.properties
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-15 11:11+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.1.1\n"
+
+#: Condiments
+msgid "Condiments"
+msgstr "調味"
+
+#: Currency Exchange
+msgctxt "Currency Exchange"
+"Currency Exchange"
+msgid "Currency Exchange"
+msgstr "Currency Exchange"
+
+#: Departments
+msgid "Departments"
+msgstr "部門設定"
+
+#: Promotions
+msgid "Promotions (inactive)"
+msgstr "プロモーション（停止中）"
+
+#: Employees
+msgid "Employees"
+msgstr "従業員"
+
+#: Function Panel Configuration
+msgid "Function Panel Configuration"
+msgstr "Function Panel Configuration"
+
+#: Data Import/ Export
+msgid "Data Import/ Export"
+msgstr "Data Import/ Export"
+
+#: Jobs
+msgid "Jobs"
+msgstr "仕事内容"
+
+#: Image Manager
+msgid "Image Manager (inactive)"
+msgstr "Image Manager (inactive)"
+
+#: Locale and Keyboard Mapping
+msgid "Language and Keyboard Mapping"
+msgstr "Language and Keyboard Mapping"
+
+#: Product Groups
+msgid "Product Groups"
+msgstr "Product Groups"
+
+#: Products
+msgid "Products"
+msgstr "商品"
+
+#: Price Level Schedule
+msgid "Price Level Schedule"
+msgstr "Price Level Schedule"
+
+#: Reports
+msgid "Reports"
+msgstr "Reports"
+
+#: Roles
+msgid "Roles"
+msgstr "役割"
+
+#: Stock Control
+msgid "Stock Control"
+msgstr "Stock Control"
+
+#: System Backup
+msgid "System Backup (inactive)"
+msgstr "System Backup (inactive)"
+
+#: General Options
+msgid "General Options"
+msgstr "General Options"
+
+#: Taxes
+msgid "Taxes"
+msgstr "Taxes Report"
+
+#: Date and Time
+msgid "Date & Time"
+msgstr "Date & Time"
+
+#: aaareports
+msgid "aaareports"
+msgstr "aaareports"
+
+#: Accounting Report
+msgid "Accounting Report"
+msgstr "Accounting Report"
+
+#: Attendance Record
+msgid "Attendance Record"
+msgstr "Attendance Record"
+
+#: Cash by Clerk
+msgid "Cash Report"
+msgstr "Cash Report"
+
+#: Department List
+msgid "Department List"
+msgstr "Department List"
+
+#: Inventory Report
+msgid "Stock Report"
+msgstr "Stock Report"
+
+#: Print Label
+msgid "Print Label"
+msgstr "Print Label"
+
+#: Product List
+msgid "Product List"
+msgstr "Product List"
+
+#: Product Sales
+msgid "Sales Report"
+msgstr "Sales Report"
+
+#: Taxes Report
+msgid "Taxes Report"
+msgstr "Taxes Report"
+
+#: User List
+msgid "User List"
+msgstr "User List"
+
+#: pricelevelshift.desc
+msgid ""
+"This function shifts the current price level up by 1. No parameter is "
+"needed."
+msgstr ""
+"This function shifts the current price level up by 1. No parameter is "
+"needed."
+
+#: pricelevelshift.label
+msgctxt "pricelevelshift.label"
+msgid "Price Level Shift"
+msgstr "価格設定切換"
+
+#: pricelevelshift.name
+msgctxt "pricelevelshift.name"
+msgid "Price Level Shift"
+msgstr "価格設定切換"
+
+#: pricelevel1.desc
+msgid ""
+"This function sets the current price level to 1. The parameter must be 1."
+msgstr ""
+"This function sets the current price level to 1. The parameter must be 1."
+
+#: pricelevel1.label
+msgctxt "pricelevel1.label"
+msgid "Price Level 1"
+msgstr "価格設定１"
+
+#: pricelevel1.name
+msgctxt "pricelevel1.name"
+msgid "Price Level 1"
+msgstr "価格設定１"
+
+#: pricelevel2.desc
+msgid ""
+"This function sets the current price level to 2. The parameter must be 2."
+msgstr ""
+"This function sets the current price level to 2. The parameter must be 2."
+
+#: pricelevel2.label
+msgctxt "pricelevel2.label"
+msgid "Price Level 2"
+msgstr "価格設定２"
+
+#: pricelevel2.name
+msgctxt "pricelevel2.name"
+msgid "Price Level 2"
+msgstr "価格設定２"
+
+#: pricelevel3.desc
+msgid ""
+"This function sets the current price level to 3. The parameter must be 3."
+msgstr ""
+"This function sets the current price level to 3. The parameter must be 3."
+
+#: pricelevel3.label
+msgctxt "pricelevel3.label"
+msgid "Price Level 3"
+msgstr "価格設定３"
+
+#: pricelevel3.name
+msgctxt "pricelevel3.name"
+msgid "Price Level 3"
+msgstr "価格設定３"
+
+#: pricelevel4.desc
+msgid ""
+"This function sets the current price level to 4. The parameter must be 4."
+msgstr ""
+"This function sets the current price level to 4. The parameter must be 4."
+
+#: pricelevel4.label
+msgctxt "pricelevel4.label"
+msgid "Price Level 4"
+msgstr "価格設定４"
+
+#: pricelevel4.name
+msgctxt "pricelevel4.name"
+msgid "Price Level 4"
+msgstr "価格設定４"
+
+#: pricelevel5.desc
+msgid ""
+"This function sets the current price level to 5. The parameter must be 5."
+msgstr ""
+"This function sets the current price level to 5. The parameter must be 5."
+
+#: pricelevel5.label
+msgctxt "pricelevel5.label"
+msgid "Price Level 5"
+msgstr "価格設定５"
+
+#: pricelevel5.name
+msgctxt "pricelevel5.name"
+msgid "Price Level 5"
+msgstr "価格設定５"
+
+#: pricelevel6.desc
+msgid ""
+"This function sets the current price level to 6. The parameter must be 6."
+msgstr ""
+"This function sets the current price level to 6. The parameter must be 6."
+
+#: pricelevel6.label
+msgctxt "pricelevel6.label"
+msgid "Price Level 6"
+msgstr "価格設定６"
+
+#: pricelevel6.name
+msgctxt "pricelevel6.name"
+msgid "Price Level 6"
+msgstr "価格設定６"
+
+#: pricelevel7.desc
+msgid ""
+"This function sets the current price level to 7. The parameter must be 7."
+msgstr ""
+"This function sets the current price level to 7. The parameter must be 7."
+
+#: pricelevel7.label
+msgctxt "pricelevel7.label"
+msgid "Price Level 7"
+msgstr "価格設定７"
+
+#: pricelevel7.name
+msgctxt "pricelevel7.name"
+msgid "Price Level 7"
+msgstr "価格設定７"
+
+#: pricelevel8.desc
+msgid ""
+"This function sets the current price level to 8. The parameter must be 8."
+msgstr ""
+"This function sets the current price level to 8. The parameter must be 8."
+
+#: pricelevel8.label
+msgctxt "pricelevel8.label"
+msgid "Price Level 8"
+msgstr "価格設定８"
+
+#: pricelevel8.name
+msgctxt "pricelevel8.name"
+msgid "Price Level 8"
+msgstr "価格設定８"
+
+#: pricelevel9.desc
+msgid ""
+"This function sets the current price level to 9. The parameter must be 9."
+msgstr ""
+"This function sets the current price level to 9. The parameter must be 9."
+
+#: pricelevel9.label
+msgctxt "pricelevel9.label"
+msgid "Price Level 9"
+msgstr "価格設定９"
+
+#: pricelevel9.name
+msgctxt "pricelevel9.name"
+msgid "Price Level 9"
+msgstr "価格設定９"
+
+#: shifttax.desc
+msgid ""
+"This function shifts current item's tax status. The parameter field can be "
+"used to program a specific tax status. If a preset tax status is programmed, "
+"this function changes the current item to the preset tax status; otherwise, "
+"it shifts the item to the next tax status."
+msgstr ""
+"This function shifts current item's tax status. The parameter field can be "
+"used to program a specific tax status. If a preset tax status is programmed, "
+"this function changes the current item to the preset tax status; otherwise, "
+"it shifts the item to the next tax status."
+
+#: shifttax.label
+msgctxt "shifttax.label"
+msgid "Shift Tax"
+msgstr "税金切換"
+
+#: shifttax.name
+msgctxt "shifttax.name"
+msgid "Shift Tax"
+msgstr "税金切換"
+
+#: discountByPercentage.desc
+msgid ""
+"This function registers a percentage-based discount. The parameter field can "
+"be used to program a preset percentage. If no preset percentage is "
+"programmed, the discount percentage is read from the input line."
+msgstr ""
+"This function registers a percentage-based discount. The parameter field can "
+"be used to program a preset percentage. If no preset percentage is "
+"programmed, the discount percentage is read from the input line."
+
+#: discountByPercentage.label
+msgid "%-"
+msgstr "%-"
+
+#: discountByPercentage.name
+msgid "Percentage Discount"
+msgstr "割引の割合"
+
+#: discountByAmount.desc
+msgid ""
+"This function registers a reduction. The parameter field can be used to "
+"program a preset reduction amount. If no preset amount is programmed, the "
+"discount amount is read from the input line."
+msgstr ""
+"This function registers a reduction. The parameter field can be used to "
+"program a preset reduction amount. If no preset amount is programmed, the "
+"discount amount is read from the input line."
+
+#: discountByAmount.label
+msgid "-"
+msgstr "-"
+
+#: discountByAmount.name
+msgid "Reduction"
+msgstr "割引"
+
+#: surchargeByPercentage.desc
+msgid ""
+"This function registers a percentage surcharge. The parameter field can be "
+"used to program a preset surcharge. If no preset surcharge is programmed, "
+"the surcharge percentage is read from the input line."
+msgstr ""
+"This function registers a percentage surcharge. The parameter field can be "
+"used to program a preset surcharge. If no preset surcharge is programmed, "
+"the surcharge percentage is read from the input line."
+
+#: surchargeByPercentage.label
+msgid "%+"
+msgstr "%+"
+
+#: surchargeByPercentage.name
+msgid "Surcharge"
+msgstr "割増"
+
+#: surchargeByAmount.desc
+msgid ""
+"This function registers an addition. The parameter field can be used to "
+"program a preset addition amount. If no preset amount is programmed, the "
+"amount is read from the input line."
+msgstr ""
+"This function registers an addition. The parameter field can be used to "
+"program a preset addition amount. If no preset amount is programmed, the "
+"amount is read from the input line."
+
+#: surchargeByAmount.label
+msgid "+"
+msgstr "+"
+
+#: surchargeByAmount.name
+msgid "PLUS"
+msgstr "追加金額"
+
+#: cash.desc
+msgid ""
+"This function registers a cash payment. The parameter field can be used to "
+"program a preset cash apayment amount. If no preset is programmed, the "
+"payment amount is read from the input line  If the input line is also blank, "
+"a quick cash payment is registered."
+msgstr ""
+"This function registers a cash payment. The parameter field can be used to "
+"program a preset cash apayment amount. If no preset is programmed, the "
+"payment amount is read from the input line  If the input line is also blank, "
+"a quick cash payment is registered."
+
+#: cash.label
+msgctxt "cash.label"
+msgid "Cash"
+msgstr "現金　"
+
+#: cash.name
+msgctxt "cash.name"
+msgid "Cash"
+msgstr "現金　"
+
+#: keypress.desc
+msgid ""
+"This function simulates a series of key presses. The parameter field "
+"contains the string of key characters to press."
+msgstr ""
+"This function simulates a series of key presses. The parameter field "
+"contains the string of key characters to press."
+
+#: keypress.label
+msgid "Key"
+msgstr "キー"
+
+#: keypress.name
+msgid "Keypress"
+msgstr "キー"
+
+#: clear.desc
+msgid ""
+"This function clears the input line. The parameter field must not be altered"
+msgstr ""
+"This function clears the input line. The parameter field must not be altered"
+
+#: clear.label
+msgctxt "clear.label"
+msgid "Clear"
+msgstr "クリアー"
+
+#: clear.name
+msgctxt "clear.name"
+msgid "Clear"
+msgstr "クリアー"
+
+#: enter.desc
+msgid ""
+"This function simulates pressing the 'Enter' key. The parameter field must "
+"not be altered"
+msgstr ""
+"This function simulates pressing the 'Enter' key. The parameter field must "
+"not be altered"
+
+#: enter.label
+msgctxt "enter.label"
+msgid "Enter"
+msgstr "入力"
+
+#: enter.name
+msgctxt "enter.name"
+msgid "Enter"
+msgstr "入力"
+
+#: quantity.desc
+msgid ""
+"This function sets the quantity to the value entered on the input line. The "
+"parameter field must not be altered"
+msgstr ""
+"This function sets the quantity to the value entered on the input line. The "
+"parameter field must not be altered"
+
+#: quantity.label
+msgid "X"
+msgstr "X"
+
+#: quantity.name
+msgid "Quantity"
+msgstr "数量　"
+
+#: subtotal.desc
+msgid ""
+"This function registers a subtotal. The parameter field must not be altered"
+msgstr ""
+"This function registers a subtotal. The parameter field must not be altered"
+
+#: subtotal.label
+msgid "SUB TOTAL"
+msgstr "小計　"
+
+#: subtotal.name
+msgid "Sub Total"
+msgstr "Sub Total"
+
+#: traymarker.desc
+msgid ""
+"This function registers a tray marker. The parameter field must not be "
+"altered"
+msgstr ""
+"This function registers a tray marker. The parameter field must not be "
+"altered"
+
+#: traymarker.label
+msgctxt "traymarker.label"
+msgid "Tray Marker"
+msgstr "標記　"
+
+#: traymarker.name
+msgctxt "traymarker.name"
+msgid "Tray Marker"
+msgstr "標記　"
+
+#: cancel.desc
+msgid "This function cancels the current order. No parameter is needed."
+msgstr "この機能は今の注文をキャンセルします。パラメーターは必要ありません。"
+
+#: cancel.label
+msgctxt "cancel.label"
+msgid "Cancel"
+msgstr "キャンセル"
+
+#: cancel.name
+msgctxt "cancel.name"
+msgid "Cancel"
+msgstr "キャンセル"
+
+#: plusearch.desc
+msgid ""
+"This function allows the operator to perform a Product search. No parameter "
+"is needed."
+msgstr ""
+"This function allows the operator to perform a Product search. No parameter "
+"is needed."
+
+#: plusearch.label
+msgctxt "plusearch.label"
+msgid "Product Search"
+msgstr "商品検索"
+
+#: plusearch.name
+msgctxt "plusearch.name"
+msgid "Product Search"
+msgstr "商品検索"
+
+#: pushqueue.desc
+msgid ""
+"This function queues the current order and readies the register for a new "
+"order. No parameter is needed."
+msgstr ""
+"This function queues the current order and readies the register for a new "
+"order. No parameter is needed."
+
+#: pushqueue.label
+msgctxt "pushqueue.label"
+msgid "Queue Order"
+msgstr "待ちオーダー"
+
+#: pushqueue.name
+msgctxt "pushqueue.name"
+msgid "Queue Order"
+msgstr "待ちオーダー"
+
+#: pullqueue.desc
+msgid ""
+"This function allows the operator to recall a queued order. No parameter is "
+"needed."
+msgstr ""
+"This function allows the operator to recall a queued order. No parameter is "
+"needed."
+
+#: pullqueue.label
+msgctxt "pullqueue.label"
+msgid "View Queue"
+msgstr "待ちオーダーを見る"
+
+#: pullqueue.name
+msgctxt "pullqueue.name"
+msgid "View Queue"
+msgstr "待ちオーダーを見る"
+
+#: modifyitem.desc
+msgid ""
+"This function allows the operator to modify a registered item. No parameter "
+"is needed."
+msgstr ""
+"This function allows the operator to modify a registered item. No parameter "
+"is needed."
+
+#: modifyitem.label
+msgid "Modify"
+msgstr "修正"
+
+#: modifyitem.name
+msgid "Modify Item"
+msgstr "修正"
+
+#: voidItem.desc
+msgid "This function voids the last transaction. No parameter is needed."
+msgstr "この機能は最後の処理を取り消します。パラメーターは必要ありません。"
+
+#: voidItem.label
+msgctxt "voidItem.label"
+msgid "VOID"
+msgstr "取消"
+
+#: voidItem.name
+msgctxt "voidItem.name"
+msgid "VOID"
+msgstr "取消"
+
+#: houseBon.desc
+msgid ""
+"This function marks the current item as 'on-the-house'. No parameter is "
+"needed."
+msgstr ""
+"This function marks the current item as 'on-the-house'. No parameter is "
+"needed."
+
+#: houseBon.label
+msgctxt "houseBon.label"
+msgid "House BON"
+msgstr "ギフト"
+
+#: houseBon.name
+msgctxt "houseBon.name"
+msgid "House BON"
+msgstr "ギフト"
+
+#: signOff.desc
+msgid "This function signs off the current operator. No parameter is needed."
+msgstr "この機能は現在のオペレーターをログアウトさせます。パラメーターは必要ありません。"
+
+#: signOff.label
+msgctxt "signOff.label"
+msgid "Sign Off"
+msgstr "ログアウト"
+
+#: signOff.name
+msgctxt "signOff.name"
+msgid "Sign Off"
+msgstr "ログアウト"
+
+#: currencyConvert.desc
+msgid ""
+"This function registers a currency conversion. The parameter indicates the "
+"currency code to convert from and must be filled."
+msgstr ""
+"This function registers a currency conversion. The parameter indicates the "
+"currency code to convert from and must be filled."
+
+#: currencyConvert.label
+msgctxt "currencyConvert.label"
+msgid "Currency Exchange"
+msgstr "両替"
+
+#: currencyConvert.name
+msgctxt "currencyConvert.name"
+msgid "Currency Exchange"
+msgstr "両替"
+
+#: changeToCurrentLevel.desc
+msgid ""
+"This function resets the current price level. If the price level schedule is "
+"active, the currently scheduled level is restored. If the price level "
+"schedule is not active, or if no schedule has been defined, the price level "
+"reverts to the system/user default. No parameter is needed."
+msgstr ""
+"This function resets the current price level. If the price level schedule is "
+"active, the currently scheduled level is restored. If the price level "
+"schedule is not active, or if no schedule has been defined, the price level "
+"reverts to the system/user default. No parameter is needed."
+
+#: changeToCurrentLevel.label
+msgctxt "changeToCurrentLevel.label"
+msgid "Reset Price Level"
+msgstr "価格設定を再設定"
+
+#: changeToCurrentLevel.name
+msgctxt "changeToCurrentLevel.name"
+msgid "Reset Price Level"
+msgstr "価格設定を再設定"
+
+#: silentsignoff.desc
+msgid ""
+"This function allows a silent switch to the user specified in the paramter "
+"field using password from the input buffer. The parameter field must be set "
+"to the username of the user to switch to."
+msgstr ""
+"This function allows a silent switch to the user specified in the paramter "
+"field using password from the input buffer. The parameter field must be set "
+"to the username of the user to switch to."
+
+#: silentsignoff.label
+msgctxt "silentsignoff.label"
+msgid "Silent User Switch"
+msgstr "サイレントユーザースイッチ"
+
+#: silentsignoff.name
+msgctxt "silentsignoff.name"
+msgid "Silent User Switch"
+msgstr "サイレントユーザースイッチ"
+
+#: quicksignoff.desc
+msgid ""
+"This function allows the current user to enter a password and quickly switch "
+"to the user identified by that password. No parameter is needed."
+msgstr ""
+"This function allows the current user to enter a password and quickly switch "
+"to the user identified by that password. No parameter is needed."
+
+#: quicksignoff.label
+msgid "Change Clerk"
+msgstr "従業員を交換"
+
+#: quicksignoff.name
+msgid "Quick User Switch"
+msgstr "従業員を即交換"
+
+#: dispatch.desc
+msgid ""
+"This function dispatches a command to a controller. The parameter field "
+"should be a comma-separated list of arguments, with the first argument being "
+"the command name, the second argument the data to pass to the command, and "
+"the third argument the controller handling the command."
+msgstr ""
+"This function dispatches a command to a controller. The parameter field "
+"should be a comma-separated list of arguments, with the first argument being "
+"the command name, the second argument the data to pass to the command, and "
+"the third argument the controller handling the command."
+
+#: dispatch.label
+msgctxt "dispatch.label"
+msgid "Dispatch"
+msgstr "派遣"
+
+#: dispatch.name
+msgctxt "dispatch.name"
+msgid "Dispatch"
+msgstr "派遣"
+
+#: return.desc
+msgid ""
+"This function registers a return of an item for refund. No parameter is "
+"needed."
+msgstr ""
+"This function registers a return of an item for refund. No parameter is "
+"needed."
+
+#: return.label
+msgctxt "return.label"
+msgid "Refund"
+msgstr "返品　"
+
+#: return.name
+msgctxt "return.name"
+msgid "Refund"
+msgstr "返品　"
+
+#: creditcard.desc
+msgid ""
+"This function registers a credit card payment. The parameter field should be "
+"set to the credit type."
+msgstr ""
+"This function registers a credit card payment. The parameter field should be "
+"set to the credit type."
+
+#: creditcard.label
+msgctxt "creditcard.label"
+msgid "Credit Card"
+msgstr "クレジットカード　"
+
+#: creditcard.name
+msgctxt "creditcard.name"
+msgid "Credit Card"
+msgstr "クレジットカード　"
+
+#: giftcard.desc
+msgid ""
+"This function registers a gift card payment. The parameter field should be "
+"set to the gift card type."
+msgstr ""
+"This function registers a gift card payment. The parameter field should be "
+"set to the gift card type."
+
+#: giftcard.label
+msgctxt "giftcard.label"
+msgid "Gift Card"
+msgstr "ギフトカード　"
+
+#: giftcard.name
+msgctxt "giftcard.name"
+msgid "Gift Card"
+msgstr "ギフトカード　"
+
+#: addmemo.desc
+msgid ""
+"This function adds an open memo to an item in the cart. The parameter field "
+"must be empty."
+msgstr ""
+"This function adds an open memo to an item in the cart. The parameter field "
+"must be empty."
+
+#: addmemo.label
+msgctxt "addmemo.label"
+msgid "Add Memo"
+msgstr "メモを追加"
+
+#: addmemo.name
+msgctxt "addmemo.name"
+msgid "Add Memo"
+msgstr "メモを追加"
+
+#: addcondiment.desc
+msgid ""
+"This function registers a gift card payment. The parameter field must be "
+"empty."
+msgstr ""
+"This function registers a gift card payment. The parameter field must be "
+"empty."
+
+#: addcondiment.label
+msgctxt "addcondiment.label"
+msgid "Add Condiment"
+msgstr "調味を追加"
+
+#: addcondiment.name
+msgctxt "addcondiment.name"
+msgid "Add Condiment"
+msgstr "調味を追加"
+
+#: surchargePretaxByPercentage.desc
+msgid ""
+"This function registers a pretax order surcharge by percentage. The "
+"parameter field can be used to program a preset percentage. If no preset "
+"percentage is programmed, the surcharge percentage is read from the input "
+"line."
+msgstr ""
+"This function registers a pretax order surcharge by percentage. The "
+"parameter field can be used to program a preset percentage. If no preset "
+"percentage is programmed, the surcharge percentage is read from the input "
+"line."
+
+#: surchargePretaxByPercentage.label
+msgctxt "surchargePretaxByPercentage.label"
+msgid "Pretax Order Surcharge"
+msgstr "税込み割増オーダー"
+
+#: surchargePretaxByPercentage.name
+msgctxt "surchargePretaxByPercentage.name"
+msgid "Pretax Order Surcharge"
+msgstr "税込み割増オーダー"
+
+#: discountPretaxByPercentage.desc
+msgid ""
+"This function registers a pretax order discount by percentage. The parameter "
+"field can be used to program a preset percentage. If no preset percentage "
+"is programmed, the discount percentage is read from the input line."
+msgstr ""
+"This function registers a pretax order discount by percentage. The parameter "
+"field can be used to program a preset percentage. If no preset percentage "
+"is programmed, the discount percentage is read from the input line."
+
+#: discountPretaxByPercentage.label
+msgctxt "discountPretaxByPercentage.label"
+msgid "Pretax Order Discount"
+msgstr "税込み割引オーダー"
+
+#: discountPretaxByPercentage.name
+msgctxt "discountPretaxByPercentage.name"
+msgid "Pretax Order Discount"
+msgstr "税込み割引オーダー"
+
+#: acl_user_dummy
+msgid "dummy"
+msgstr "ダミー"
+
+#: acl_override_default_price_level
+msgid "Override Default Price Level"
+msgstr "初期価格の手数料"
+
+#: acl_change_price_level
+msgid "Change Price Level"
+msgstr "価格変更"
+
+#: acl_set_price_level_1
+msgid "Set Price Level 1"
+msgstr "セット価格１"
+
+#: acl_set_price_level_2
+msgid "Set Price Level 2"
+msgstr "セット価格２"
+
+#: acl_set_price_level_3
+msgid "Set Price Level 3"
+msgstr "セット価格３"
+
+#: acl_set_price_level_4
+msgid "Set Price Level 4"
+msgstr "セット価格４"
+
+#: acl_set_price_level_5
+msgid "Set Price Level 5"
+msgstr "セット価格５"
+
+#: acl_set_price_level_6
+msgid "Set Price Level 6"
+msgstr "セット価格６"
+
+#: acl_set_price_level_7
+msgid "Set Price Level 7"
+msgstr "セット価格７"
+
+#: acl_set_price_level_8
+msgid "Set Price Level 8"
+msgstr "セット価格８"
+
+#: acl_set_price_level_9
+msgid "Set Price Level 9"
+msgstr "セット価格９"
+
+#: acl_revert_price_level
+msgid "Revert Price Level"
+msgstr "復帰価格"
+
+#: acl_override_halo
+msgid "Override HALO"
+msgstr "最高価格の手数料"
+
+#: acl_override_lalo
+msgid "Override LALO"
+msgstr "最低価格の手数料"
+
+#: acl_queue_order
+msgctxt "acl_queue_order"
+msgid "Queue Order"
+msgstr "待ちオーダー"
+
+#: acl_pull_queue
+msgid "Pull Order from Queue"
+msgstr "待ちから注文を出す"
+
+#: acl_open_control_panel
+msgid "Access Control Panel"
+msgstr "コントロールパネル"
+
+#: acl_modify_cart_item
+msgid "Modify Cart Items"
+msgstr "カートの品目を変更する"
+
+#: acl_void_cart_item
+msgid "VOID Cart Items"
+msgstr "カートの品目を削除する"
+
+#: acl_cancel_order
+msgid "Cancel Order"
+msgstr "注文をキャンセル"
+
+#: acl_plu_search
+msgctxt "acl_plu_search"
+msgid "Product Search"
+msgstr "商品検索"
+
+#: acl_open_cash
+msgid "Register Cash Payment"
+msgstr "現金払い"
+
+#: acl_toggle_numpad
+msgid "Toggle Number Pad"
+msgstr "トグルナンバーパット"
+
+#: acl_public_access
+msgid "Public Access"
+msgstr "公開アクセス"
+
+#: acl_manage_condiments
+msgid "Manage Condiments"
+msgstr "調味管理"
+
+#: acl_manage_currency
+msgid "Manage Currency Exchange"
+msgstr "両替管理"
+
+#: acl_manage_departments
+msgid "Manage Departments"
+msgstr "部門管理"
+
+#: acl_manage_employees
+msgid "Manage Employees"
+msgstr "従業員管理"
+
+#: acl_manage_function_panel
+msgid "Manage Function Panel"
+msgstr "機能パネル管理"
+
+#: acl_shift_item_tax
+msgid "Shift Item Tax"
+msgstr "税込みに切り替え"
+
+#: acl_register_discount
+msgid "Register Discounts"
+msgstr "割引登録"
+
+#: acl_register_reduction
+msgid "Register Reductions"
+msgstr "割引登録"
+
+#: acl_register_surcharge
+msgid "Register Surcharges"
+msgstr "割増登録"
+
+#: acl_register_addition
+msgid "Register Additions"
+msgstr "追加料金登録"
+
+#: acl_send_keypress
+msgid "Send Keypresses"
+msgstr "Keypressを送信"
+
+#: acl_register_plus
+msgid "Register Products"
+msgstr "商品登録"
+
+#: acl_register_enter
+msgid "Register ENTER"
+msgstr "Enter登録"
+
+#: acl_register_quantity
+msgid "Register Quantity"
+msgstr "数量登録"
+
+#: acl_register_sub_total
+msgid "Register Subtotal"
+msgstr "小計登録"
+
+#: acl_register_tray_marker
+msgid "Register Tray Marker"
+msgstr "標記登録"
+
+#: acl_register_housebon
+msgid "Register House BON"
+msgstr "ギフト登録"
+
+#: acl_register_currency_exchange
+msgid "Register Currency Exchange"
+msgstr "両替登録"
+
+#: acl_manage_jobs
+msgid "Manage Jobs"
+msgstr "仕事登録"
+
+#: acl_manage_plu_groups
+msgid "Manage Product Groups"
+msgstr "商品グループ登録"
+
+#: acl_manage_import_export
+msgid "Import/Export Data"
+msgstr "Import/Export Data"
+
+#: acl_manage_price_level_schedule
+msgid "Manage Price Level Schedule"
+msgstr "価格表登録"
+
+#: acl_manage_acl_groups
+msgid "Manage Access Groups"
+msgstr "アクセルグループ管理"
+
+#: acl_manage_stock
+msgid "Manage Stock"
+msgstr "在庫管理"
+
+#: acl_manage_system_options
+msgid "Manage System Options"
+msgstr "システム選択管理"
+
+#: acl_manage_taxes
+msgid "Manage Taxes"
+msgstr "税金管理"
+
+#: acl_manage_products
+msgid "Manage Products"
+msgstr "商品管理"
+
+#: acl_register_return
+msgid "Register Item Return"
+msgstr "返品管理"
+
+#: acl_register_credit_card
+msgid "Register Credit Card Payment"
+msgstr "クレジットカード払い"
+
+#: acl_register_gift_card
+msgid "Register Gift Card Payment"
+msgstr "ギフトカード払い"
+
+#: acl_manage_images
+msgid "Manage Images"
+msgstr "イメージ管理　"
+
+#: acl_modify_keymap_parameter
+msgid "Modify Keymap Parameter"
+msgstr "Keymapパラメーターの変更"
+
+#: acl_modify_condiment_price
+msgid "Modify Condiment Price"
+msgstr "調味価格の変更"
+
+#: acl_manage_locale_keyboard
+msgid "Change Language and Keyboard Mapping"
+msgstr "Change Language and Keyboard Mapping"
+
+#: acl_register_pretax_discount
+msgid "Register Order Discounts Pretax"
+msgstr "税込み注文の割引登録"
+
+#: acl_register_pretax_surcharge
+msgid "Register Order Surcharges Pretax"
+msgstr "税込み注文の割増登録"
+
+#: acl_manage_reports
+msgid "Run Reports"
+msgstr "Run Reports"
+
+#: acl_manage_date_time
+msgid "Set Date and Time"
+msgstr "Set Date and Time"
+
+#: acl_manage_devices
+msgid "Manage Devices"
+msgstr "Manage Devices"
