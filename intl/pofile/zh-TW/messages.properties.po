@@ -1,0 +1,1067 @@
+#. extracted from ../locale/en-US/messages.properties, ./locale/zh-TW/messages.properties
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-15 01:34+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.1.1\n"
+
+#: Condiments
+msgid "Condiments"
+msgstr "調味設定"
+
+#: Currency Exchange
+msgctxt "Currency Exchange"
+"Currency Exchange"
+msgid "Currency Exchange"
+msgstr "Currency Exchange"
+
+#: Departments
+msgid "Departments"
+msgstr "產品部門設定"
+
+#: Promotions
+msgid "Promotions (inactive)"
+msgstr "促銷管理 (未啟用)"
+
+#: Employees
+msgid "Employees"
+msgstr "員工管理"
+
+#: Function Panel Configuration
+msgid "Function Panel Configuration"
+msgstr "Function Panel Configuration"
+
+#: Data Import/ Export
+msgid "Data Import/ Export"
+msgstr "Data Import/ Export"
+
+#: Jobs
+msgid "Jobs"
+msgstr "工作內容設定"
+
+#: Image Manager
+msgid "Image Manager (inactive)"
+msgstr "Image Manager (inactive)"
+
+#: Locale and Keyboard Mapping
+msgid "Language and Keyboard Mapping"
+msgstr "Language and Keyboard Mapping"
+
+#: Product Groups
+msgid "Product Groups"
+msgstr "Product Groups"
+
+#: Products
+msgid "Products"
+msgstr "產品管理"
+
+#: Price Level Schedule
+msgid "Price Level Schedule"
+msgstr "Price Level Schedule"
+
+#: Reports
+msgid "Reports"
+msgstr "報表功能"
+
+#: Roles
+msgid "Roles"
+msgstr "權限管理"
+
+#: Stock Control
+msgid "Stock Control"
+msgstr "Stock Control"
+
+#: System Backup
+msgid "System Backup (inactive)"
+msgstr "System Backup (inactive)"
+
+#: General Options
+msgid "General Options"
+msgstr "General Options"
+
+#: Taxes
+msgid "Taxes"
+msgstr "Taxes Report"
+
+#: Date and Time
+msgid "Date & Time"
+msgstr "Date & Time"
+
+#: aaareports
+msgid "aaareports"
+msgstr "aaareports"
+
+#: Accounting Report
+msgid "Accounting Report"
+msgstr "Accounting Report"
+
+#: Attendance Record
+msgid "Attendance Record"
+msgstr "Attendance Record"
+
+#: Cash by Clerk
+msgid "Cash Report"
+msgstr "Cash Report"
+
+#: Department List
+msgid "Department List"
+msgstr "Department List"
+
+#: Inventory Report
+msgid "Stock Report"
+msgstr "Stock Report"
+
+#: Print Label
+msgid "Print Label"
+msgstr "Print Label"
+
+#: Product List
+msgid "Product List"
+msgstr "Product List"
+
+#: Product Sales
+msgid "Sales Report"
+msgstr "Sales Report"
+
+#: Taxes Report
+msgid "Taxes Report"
+msgstr "Taxes Report"
+
+#: User List
+msgid "User List"
+msgstr "User List"
+
+#: pricelevelshift.desc
+msgid ""
+"This function shifts the current price level up by 1. No parameter is "
+"needed."
+msgstr "此功能可將目前的價格切換至下一個價格設定. 不需輸入任何參數值."
+
+#: pricelevelshift.label
+msgctxt "pricelevelshift.label"
+msgid "Price Level Shift"
+msgstr "價設切換"
+
+#: pricelevelshift.name
+msgctxt "pricelevelshift.name"
+msgid "Price Level Shift"
+msgstr "價格設定切換"
+
+#: pricelevel1.desc
+msgid ""
+"This function sets the current price level to 1. The parameter must be 1."
+msgstr "此功能可將目前的價格強制變更為設定 1. 參數值必須是 1."
+
+#: pricelevel1.label
+msgctxt "pricelevel1.label"
+msgid "Price Level 1"
+msgstr "價設 1"
+
+#: pricelevel1.name
+msgctxt "pricelevel1.name"
+msgid "Price Level 1"
+msgstr "價格設定 1"
+
+#: pricelevel2.desc
+msgid ""
+"This function sets the current price level to 2. The parameter must be 2."
+msgstr "此功能可將目前的價格強制變更為設定 2. 參數值必須是 2."
+
+#: pricelevel2.label
+msgctxt "pricelevel2.label"
+msgid "Price Level 2"
+msgstr "價設 2"
+
+#: pricelevel2.name
+msgctxt "pricelevel2.name"
+msgid "Price Level 2"
+msgstr "價格設定 2"
+
+#: pricelevel3.desc
+msgid ""
+"This function sets the current price level to 3. The parameter must be 3."
+msgstr "此功能可將目前的價格強制變更為設定 3. 參數值必須是 3."
+
+#: pricelevel3.label
+msgctxt "pricelevel3.label"
+msgid "Price Level 3"
+msgstr "價設 3"
+
+#: pricelevel3.name
+msgctxt "pricelevel3.name"
+msgid "Price Level 3"
+msgstr "價格設定 3"
+
+#: pricelevel4.desc
+msgid ""
+"This function sets the current price level to 4. The parameter must be 4."
+msgstr "此功能可將目前的價格強制變更為設定 4. 參數值必須是 4."
+
+#: pricelevel4.label
+msgctxt "pricelevel4.label"
+msgid "Price Level 4"
+msgstr "價設 4"
+
+#: pricelevel4.name
+msgctxt "pricelevel4.name"
+msgid "Price Level 4"
+msgstr "價格設定 4"
+
+#: pricelevel5.desc
+msgid ""
+"This function sets the current price level to 5. The parameter must be 5."
+msgstr "此功能可將目前的價格強制變更為設定 5. 參數值必須是 5."
+
+#: pricelevel5.label
+msgctxt "pricelevel5.label"
+msgid "Price Level 5"
+msgstr "價設 5"
+
+#: pricelevel5.name
+msgctxt "pricelevel5.name"
+msgid "Price Level 5"
+msgstr "價格設定 5"
+
+#: pricelevel6.desc
+msgid ""
+"This function sets the current price level to 6. The parameter must be 6."
+msgstr "此功能可將目前的價格強制變更為設定 6. 參數值必須是 6."
+
+#: pricelevel6.label
+msgctxt "pricelevel6.label"
+msgid "Price Level 6"
+msgstr "價設 6"
+
+#: pricelevel6.name
+msgctxt "pricelevel6.name"
+msgid "Price Level 6"
+msgstr "價格設定 6"
+
+#: pricelevel7.desc
+msgid ""
+"This function sets the current price level to 7. The parameter must be 7."
+msgstr "此功能可將目前的價格強制變更為設定 7. 參數值必須是 7."
+
+#: pricelevel7.label
+msgctxt "pricelevel7.label"
+msgid "Price Level 7"
+msgstr "價設 7"
+
+#: pricelevel7.name
+msgctxt "pricelevel7.name"
+msgid "Price Level 7"
+msgstr "價格設定 7"
+
+#: pricelevel8.desc
+msgid ""
+"This function sets the current price level to 8. The parameter must be 8."
+msgstr "此功能可將目前的價格強制變更為設定 8. 參數值必須是 8."
+
+#: pricelevel8.label
+msgctxt "pricelevel8.label"
+msgid "Price Level 8"
+msgstr "價設 8"
+
+#: pricelevel8.name
+msgctxt "pricelevel8.name"
+msgid "Price Level 8"
+msgstr "價格設定 8"
+
+#: pricelevel9.desc
+msgid ""
+"This function sets the current price level to 9. The parameter must be 9."
+msgstr "此功能可將目前的價格強制變更為設定 9. 參數值必須是 9."
+
+#: pricelevel9.label
+msgctxt "pricelevel9.label"
+msgid "Price Level 9"
+msgstr "價設 9"
+
+#: pricelevel9.name
+msgctxt "pricelevel9.name"
+msgid "Price Level 9"
+msgstr "價格設定 9"
+
+#: shifttax.desc
+msgid ""
+"This function shifts current item's tax status. The parameter field can be "
+"used to program a specific tax status. If a preset tax status is programmed, "
+"this function changes the current item to the preset tax status; otherwise, "
+"it shifts the item to the next tax status."
+msgstr ""
+"此功能為切換品項之稅別. 參數值可自行設定為特定稅別代碼. 如參數值為空白, 按下此功能鍵將強制切換至系統預設之稅別, 再按一次此功能鍵時, "
+"則切換至下一個稅別."
+
+#: shifttax.label
+msgctxt "shifttax.label"
+msgid "Shift Tax"
+msgstr "稅別切換"
+
+#: shifttax.name
+msgctxt "shifttax.name"
+msgid "Shift Tax"
+msgstr "稅別切換"
+
+#: discountByPercentage.desc
+msgid ""
+"This function registers a percentage-based discount. The parameter field can "
+"be used to program a preset percentage. If no preset percentage is "
+"programmed, the discount percentage is read from the input line."
+msgstr "此功能為設定折扣百分比. 參數值可自行設定為某一固定百分比. 如參數值為空白, 此功能會自動擷取按下此功能鍵之前一個輸入之數字作為折扣百分比."
+
+#: discountByPercentage.label
+msgid "%-"
+msgstr "%-"
+
+#: discountByPercentage.name
+msgid "Percentage Discount"
+msgstr "折扣百分比"
+
+#: discountByAmount.desc
+msgid ""
+"This function registers a reduction. The parameter field can be used to "
+"program a preset reduction amount. If no preset amount is programmed, the "
+"discount amount is read from the input line."
+msgstr "此功能為設定折扣金額. 參數值可自行設定為某一固定折扣金額. 如參數值為空白, 此功能會自動擷取按下此功能鍵之前一個輸入之數字作為折扣金額."
+
+#: discountByAmount.label
+msgid "-"
+msgstr "-"
+
+#: discountByAmount.name
+msgid "Reduction"
+msgstr "折扣金額"
+
+#: surchargeByPercentage.desc
+msgid ""
+"This function registers a percentage surcharge. The parameter field can be "
+"used to program a preset surcharge. If no preset surcharge is programmed, "
+"the surcharge percentage is read from the input line."
+msgstr ""
+"此功能為設定附加費百分比. 參數值可自行設定為某一固定百分比. 如參數值為空白, 此功能會自動擷取按下此功能鍵之前一個輸入之數字作為附加費百分比."
+
+#: surchargeByPercentage.label
+msgid "%+"
+msgstr "%+"
+
+#: surchargeByPercentage.name
+msgid "Surcharge"
+msgstr "附加費百分比"
+
+#: surchargeByAmount.desc
+msgid ""
+"This function registers an addition. The parameter field can be used to "
+"program a preset addition amount. If no preset amount is programmed, the "
+"amount is read from the input line."
+msgstr ""
+"此功能為設定附加費金額. 參數值可自行設定為某一固定附加費金額. 如參數值為空白, 此功能會自動擷取按下此功能鍵之前一個輸入之數字作為附加費金額."
+
+#: surchargeByAmount.label
+msgid "+"
+msgstr "+"
+
+#: surchargeByAmount.name
+msgid "PLUS"
+msgstr "附加費金額"
+
+#: cash.desc
+msgid ""
+"This function registers a cash payment. The parameter field can be used to "
+"program a preset cash apayment amount. If no preset is programmed, the "
+"payment amount is read from the input line  If the input line is also blank, "
+"a quick cash payment is registered."
+msgstr ""
+"此功能為設定現金付款之金額. 參數值可自行設定為某一固定金額. 如參數值為空白, 此功能會自動擷取按下此功能鍵之前一個輸入之數字作為現金付款金額, "
+"如未輸入任何數字即按下此功能鍵, 則視同免找零錢之現金付款交易."
+
+#: cash.label
+msgctxt "cash.label"
+msgid "Cash"
+msgstr "現金"
+
+#: cash.name
+msgctxt "cash.name"
+msgid "Cash"
+msgstr "現金付款"
+
+#: keypress.desc
+msgid ""
+"This function simulates a series of key presses. The parameter field "
+"contains the string of key characters to press."
+msgstr "此功能為模擬輸入字串. 參數值可自行設定一個或一組文字或數字."
+
+#: keypress.label
+msgid "Key"
+msgstr "鍵入字串"
+
+#: keypress.name
+msgid "Keypress"
+msgstr "鍵入字串"
+
+#: clear.desc
+msgid ""
+"This function clears the input line. The parameter field must not be altered"
+msgstr "此功能為清除輸入字串. 預設的參數值不得修改."
+
+#: clear.label
+msgctxt "clear.label"
+msgid "Clear"
+msgstr "清除"
+
+#: clear.name
+msgctxt "clear.name"
+msgid "Clear"
+msgstr "清除鍵"
+
+#: enter.desc
+msgid ""
+"This function simulates pressing the 'Enter' key. The parameter field must "
+"not be altered"
+msgstr "此功能為模擬 Enter 鍵. 預設的參數值不得修改."
+
+#: enter.label
+msgctxt "enter.label"
+msgid "Enter"
+msgstr "Enter"
+
+#: enter.name
+msgctxt "enter.name"
+msgid "Enter"
+msgstr "輸入鍵"
+
+#: quantity.desc
+msgid ""
+"This function sets the quantity to the value entered on the input line. The "
+"parameter field must not be altered"
+msgstr "此功能為模擬乘號鍵 - X. 預設的參數值不得修改."
+
+#: quantity.label
+msgid "X"
+msgstr "X"
+
+#: quantity.name
+msgid "Quantity"
+msgstr "乘號鍵"
+
+#: subtotal.desc
+msgid ""
+"This function registers a subtotal. The parameter field must not be altered"
+msgstr "此功能為模擬小計鍵 - SUB TOTAL. 預設的參數值不得修改."
+
+#: subtotal.label
+msgid "SUB TOTAL"
+msgstr "小計"
+
+#: subtotal.name
+msgid "Sub Total"
+msgstr "小計鍵"
+
+#: traymarker.desc
+msgid ""
+"This function registers a tray marker. The parameter field must not be "
+"altered"
+msgstr "此功能為模擬標記鍵 - Tray Marker. 預設的參數值不得修改."
+
+#: traymarker.label
+msgctxt "traymarker.label"
+msgid "Tray Marker"
+msgstr "標記"
+
+#: traymarker.name
+msgctxt "traymarker.name"
+msgid "Tray Marker"
+msgstr "標記鍵"
+
+#: cancel.desc
+msgid "This function cancels the current order. No parameter is needed."
+msgstr "此功能為模擬刪除鍵 - Cancel. 不需輸入任何參數值."
+
+#: cancel.label
+msgctxt "cancel.label"
+msgid "Cancel"
+msgstr "刪單"
+
+#: cancel.name
+msgctxt "cancel.name"
+msgid "Cancel"
+msgstr "刪除鍵"
+
+#: plusearch.desc
+msgid ""
+"This function allows the operator to perform a Product search. No parameter "
+"is needed."
+msgstr "此功能提供收銀員產品搜尋之功能. 不需輸入任何參數值."
+
+#: plusearch.label
+msgctxt "plusearch.label"
+msgid "Product Search"
+msgstr "產品搜尋"
+
+#: plusearch.name
+msgctxt "plusearch.name"
+msgid "Product Search"
+msgstr "產品搜尋"
+
+#: pushqueue.desc
+msgid ""
+"This function queues the current order and readies the register for a new "
+"order. No parameter is needed."
+msgstr "此功能為模擬暫存鍵 - Queue Order. 不需輸入任何參數值."
+
+#: pushqueue.label
+msgctxt "pushqueue.label"
+"pushqueue.label"
+msgid "Queue Order"
+msgstr "暫存"
+
+#: pushqueue.name
+msgctxt "pushqueue.name"
+msgid "Queue Order"
+msgstr "暫存鍵"
+
+#: pullqueue.desc
+msgid ""
+"This function allows the operator to recall a queued order. No parameter is "
+"needed."
+msgstr "此功能為模擬檢視暫存鍵 - View Order. 不需輸入任何參數值."
+
+#: pullqueue.label
+msgctxt "pullqueue.label"
+msgid "View Queue"
+msgstr "檢視暫存"
+
+#: pullqueue.name
+msgctxt "pullqueue.name"
+msgid "View Queue"
+msgstr "檢視暫存鍵"
+
+#: modifyitem.desc
+msgid ""
+"This function allows the operator to modify a registered item. No parameter "
+"is needed."
+msgstr "此功能為模擬修改鍵 - Modify. 不需輸入任何參數值."
+
+#: modifyitem.label
+msgid "Modify"
+msgstr "修改"
+
+#: modifyitem.name
+msgid "Modify Item"
+msgstr "修改鍵"
+
+#: voidItem.desc
+msgid "This function voids the last transaction. No parameter is needed."
+msgstr "此功能為模擬刪除鍵 - VOID. 不需輸入任何參數值."
+
+#: voidItem.label
+msgctxt "voidItem.label"
+msgid "VOID"
+msgstr "刪除"
+
+#: voidItem.name
+msgctxt "voidItem.name"
+msgid "VOID"
+msgstr "刪除鍵"
+
+#: houseBon.desc
+msgid ""
+"This function marks the current item as 'on-the-house'. No parameter is "
+"needed."
+msgstr "此功能可將目前交易之品項設為 '贈送品'. 不需輸入任何參數值."
+
+#: houseBon.label
+msgctxt "houseBon.label"
+msgid "House BON"
+msgstr "贈送品"
+
+#: houseBon.name
+msgctxt "houseBon.name"
+msgid "House BON"
+msgstr "贈送品"
+
+#: signOff.desc
+msgid "This function signs off the current operator. No parameter is needed."
+msgstr "此功能為模擬登出鍵 - Sign Off. 不需輸入任何參數值."
+
+#: signOff.label
+msgctxt "signOff.label"
+msgid "Sign Off"
+msgstr "登出"
+
+#: signOff.name
+msgctxt "signOff.name"
+msgid "Sign Off"
+msgstr "登出鍵"
+
+#: currencyConvert.desc
+msgid ""
+"This function registers a currency conversion. The parameter indicates the "
+"currency code to convert from and must be filled."
+msgstr "此功能提供收銀員匯率轉換之功能. 參數值必須輸入欲轉換幣別之貨幣代碼."
+
+#: currencyConvert.label
+msgctxt "currencyConvert.label"
+msgid "Currency Exchange"
+msgstr "匯率轉換"
+
+#: currencyConvert.name
+msgctxt "currencyConvert.name"
+msgid "Currency Exchange"
+msgstr "匯率轉換"
+
+#: changeToCurrentLevel.desc
+msgid ""
+"This function resets the current price level. If the price level schedule is "
+"active, the currently scheduled level is restored. If the price level "
+"schedule is not active, or if no schedule has been defined, the price level "
+"reverts to the system/user default. No parameter is needed."
+msgstr ""
+"此功能將重設 '價格設定'. 如變價排程功能已啟動, 按下此功能鍵將依照目前變價排程排定之價格設定重設之. 如變價排程功能未啟動或是未設定, "
+"按下此功能鍵將依照系統預設之價格設定重設之. 不需輸入任何參數值."
+
+#: changeToCurrentLevel.label
+msgctxt "changeToCurrentLevel.label"
+msgid "Reset Price Level"
+msgstr "重設價格"
+
+#: changeToCurrentLevel.name
+msgctxt "changeToCurrentLevel.name"
+msgid "Reset Price Level"
+msgstr "重設價格設定"
+
+#: silentsignoff.desc
+msgid ""
+"This function allows a silent switch to the user specified in the paramter "
+"field using password from the input buffer. The parameter field must be set "
+"to the username of the user to switch to."
+msgstr "此功能提供 '安靜切換員工模式' 之功能. 參數值必須輸入欲切換員工之 '員工姓名/代號'."
+
+#: silentsignoff.label
+msgctxt "silentsignoff.label"
+msgid "Silent User Switch"
+msgstr "安靜切換"
+
+#: silentsignoff.name
+msgctxt "silentsignoff.name"
+msgid "Silent User Switch"
+msgstr "安靜切換員工模式"
+
+#: quicksignoff.desc
+msgid ""
+"This function allows the current user to enter a password and quickly switch "
+"to the user identified by that password. No parameter is needed."
+msgstr "此功能提供 '快速切換員工模式' 之功能. 不需輸入任何參數值."
+
+#: quicksignoff.label
+msgid "Change Clerk"
+msgstr "快速切換"
+
+#: quicksignoff.name
+msgid "Quick User Switch"
+msgstr "快速切換員工模式"
+
+#: dispatch.desc
+msgid ""
+"This function dispatches a command to a controller. The parameter field "
+"should be a comma-separated list of arguments, with the first argument being "
+"the command name, the second argument the data to pass to the command, and "
+"the third argument the controller handling the command."
+msgstr ""
+"This function dispatches a command to a controller. The parameter field "
+"should be a comma-separated list of arguments, with the first argument being "
+"the command name, the second argument the data to pass to the command, and "
+"the third argument the controller handling the command."
+
+#: dispatch.label
+msgctxt "dispatch.label"
+msgid "Dispatch"
+msgstr "Dispatch"
+
+#: dispatch.name
+msgctxt "dispatch.name"
+msgid "Dispatch"
+msgstr "Dispatch"
+
+#: return.desc
+msgid ""
+"This function registers a return of an item for refund. No parameter is "
+"needed."
+msgstr "此功能模擬銷貨退回鍵 - Refund. 不需輸入任何參數值."
+
+#: return.label
+msgctxt "return.label"
+msgid "Refund"
+msgstr "退貨"
+
+#: return.name
+msgctxt "return.name"
+msgid "Refund"
+msgstr "銷貨退回鍵"
+
+#: creditcard.desc
+msgid ""
+"This function registers a credit card payment. The parameter field should be "
+"set to the credit type."
+msgstr "此功能模擬信用卡付款鍵 - Credit Card. 參數值必須輸入信用卡種類."
+
+#: creditcard.label
+msgctxt "creditcard.label"
+msgid "Credit Card"
+msgstr "信用卡"
+
+#: creditcard.name
+msgctxt "creditcard.name"
+msgid "Credit Card"
+msgstr "信用卡付款鍵"
+
+#: giftcard.desc
+msgid ""
+"This function registers a gift card payment. The parameter field should be "
+"set to the gift card type."
+msgstr "此功能模擬禮品卡付款鍵 - Gift Card. 參數值必須輸入禮品卡種類."
+
+#: giftcard.label
+msgctxt "giftcard.label"
+msgid "Gift Card"
+msgstr "禮品卡"
+
+#: giftcard.name
+msgctxt "giftcard.name"
+msgid "Gift Card"
+msgstr "禮品卡付款鍵"
+
+#: addmemo.desc
+msgid ""
+"This function adds an open memo to an item in the cart. The parameter field "
+"must be empty."
+msgstr "此功能模擬備註鍵 - Add Memo. 參數值必須為空白."
+
+#: addmemo.label
+msgctxt "addmemo.label"
+msgid "Add Memo"
+msgstr "備註"
+
+#: addmemo.name
+msgctxt "addmemo.name"
+msgid "Add Memo"
+msgstr "備註鍵"
+
+#: addcondiment.desc
+msgid ""
+"This function registers a gift card payment. The parameter field must be "
+"empty."
+msgstr "此功能模擬調味鍵 - Add Condiment. 參數值必須為空白."
+
+#: addcondiment.label
+msgctxt "addcondiment.label"
+msgid "Add Condiment"
+msgstr "調味"
+
+#: addcondiment.name
+msgctxt "addcondiment.name"
+msgid "Add Condiment"
+msgstr "調味鍵"
+
+#: surchargePretaxByPercentage.desc
+msgid ""
+"This function registers a pretax order surcharge by percentage. The "
+"parameter field can be used to program a preset percentage. If no preset "
+"percentage is programmed, the surcharge percentage is read from the input "
+"line."
+msgstr ""
+"此功能為設定稅前附加費百分比. 參數值可自行設定為某一固定百分比. 如參數值為空白, "
+"此功能會自動擷取按下此功能鍵之前一個輸入之數字作為稅前附加費百分比."
+
+#: surchargePretaxByPercentage.label
+msgctxt "surchargePretaxByPercentage.label"
+msgid "Pretax Order Surcharge"
+msgstr "稅前附加費%"
+
+#: surchargePretaxByPercentage.name
+msgctxt "surchargePretaxByPercentage.name"
+msgid "Pretax Order Surcharge"
+msgstr "稅前附加費百分比"
+
+#: discountPretaxByPercentage.desc
+msgid ""
+"This function registers a pretax order discount by percentage. The parameter "
+"field can be used to program a preset percentage. If no preset percentage "
+"is programmed, the discount percentage is read from the input line."
+msgstr ""
+"此功能為設定稅前折扣百分比. 參數值可自行設定為某一固定百分比. 如參數值為空白, 此功能會自動擷取按下此功能鍵之前一個輸入之數字作為稅前折扣百分比."
+
+#: discountPretaxByPercentage.label
+msgctxt "discountPretaxByPercentage.label"
+msgid "Pretax Order Discount"
+msgstr "稅前折扣%"
+
+#: discountPretaxByPercentage.name
+msgctxt "discountPretaxByPercentage.name"
+msgid "Pretax Order Discount"
+msgstr "稅前折扣百分比"
+
+#: acl_user_dummy
+msgid "dummy"
+msgstr "樣本資料"
+
+#: acl_override_default_price_level
+msgid "Override Default Price Level"
+msgstr "不受 '預設價格設定' 之限制"
+
+#: acl_change_price_level
+msgid "Change Price Level"
+msgstr "變更價格設定"
+
+#: acl_set_price_level_1
+msgid "Set Price Level 1"
+msgstr "設為價格設定 1"
+
+#: acl_set_price_level_2
+msgid "Set Price Level 2"
+msgstr "設為價格設定 2"
+
+#: acl_set_price_level_3
+msgid "Set Price Level 3"
+msgstr "設為價格設定 3"
+
+#: acl_set_price_level_4
+msgid "Set Price Level 4"
+msgstr "設為價格設定 4"
+
+#: acl_set_price_level_5
+msgid "Set Price Level 5"
+msgstr "設為價格設定 5"
+
+#: acl_set_price_level_6
+msgid "Set Price Level 6"
+msgstr "設為價格設定 6"
+
+#: acl_set_price_level_7
+msgid "Set Price Level 7"
+msgstr "設為價格設定 7"
+
+#: acl_set_price_level_8
+msgid "Set Price Level 8"
+msgstr "設為價格設定 8"
+
+#: acl_set_price_level_9
+msgid "Set Price Level 9"
+msgstr "設為價格設定 9"
+
+#: acl_revert_price_level
+msgid "Revert Price Level"
+msgstr "回復價格設定"
+
+#: acl_override_halo
+msgid "Override HALO"
+msgstr "不受 '最高產品價格' 之限制"
+
+#: acl_override_lalo
+msgid "Override LALO"
+msgstr "不受 '最低產品價格' 之限制"
+
+#: acl_queue_order
+msgctxt "acl_queue_order"
+msgid "Queue Order"
+msgstr "暫存單"
+
+#: acl_pull_queue
+msgid "Pull Order from Queue"
+msgstr "擷取暫存單"
+
+#: acl_open_control_panel
+msgid "Access Control Panel"
+msgstr "權限管理面板"
+
+#: acl_modify_cart_item
+msgid "Modify Cart Items"
+msgstr "修改購物車品項"
+
+#: acl_void_cart_item
+msgid "VOID Cart Items"
+msgstr "刪除購物車品項"
+
+#: acl_cancel_order
+msgid "Cancel Order"
+msgstr "刪單"
+
+#: acl_plu_search
+msgctxt "acl_plu_search"
+msgid "Product Search"
+msgstr "產品搜尋"
+
+#: acl_open_cash
+msgid "Register Cash Payment"
+msgstr "現金付款"
+
+#: acl_toggle_numpad
+msgid "Toggle Number Pad"
+msgstr "數字鍵盤開關"
+
+#: acl_public_access
+msgid "Public Access"
+msgstr "開放存取"
+
+#: acl_manage_condiments
+msgid "Manage Condiments"
+msgstr "調味管理"
+
+#: acl_manage_currency
+msgid "Manage Currency Exchange"
+msgstr "匯率管理"
+
+#: acl_manage_departments
+msgid "Manage Departments"
+msgstr "部門管理"
+
+#: acl_manage_employees
+msgid "Manage Employees"
+msgstr "員工管理"
+
+#: acl_manage_function_panel
+msgid "Manage Function Panel"
+msgstr "功能面板管理"
+
+#: acl_shift_item_tax
+msgid "Shift Item Tax"
+msgstr "切換稅別"
+
+#: acl_register_discount
+msgid "Register Discounts"
+msgstr "登錄折扣"
+
+#: acl_register_reduction
+msgid "Register Reductions"
+msgstr "登錄折價"
+
+#: acl_register_surcharge
+msgid "Register Surcharges"
+msgstr "登錄附加費"
+
+#: acl_register_addition
+msgid "Register Additions"
+msgstr "登錄加價"
+
+#: acl_send_keypress
+msgid "Send Keypresses"
+msgstr "送出鍵入字串"
+
+#: acl_register_plus
+msgid "Register Products"
+msgstr "登錄產品"
+
+#: acl_register_enter
+msgid "Register ENTER"
+msgstr "登錄 ENTER"
+
+#: acl_register_quantity
+msgid "Register Quantity"
+msgstr "登錄數量"
+
+#: acl_register_sub_total
+msgid "Register Subtotal"
+msgstr "登錄小計"
+
+#: acl_register_tray_marker
+msgid "Register Tray Marker"
+msgstr "登錄標記"
+
+#: acl_register_housebon
+msgid "Register House BON"
+msgstr "登錄贈送品"
+
+#: acl_register_currency_exchange
+msgid "Register Currency Exchange"
+msgstr "登錄匯率"
+
+#: acl_manage_jobs
+msgid "Manage Jobs"
+msgstr "工作內容管理"
+
+#: acl_manage_plu_groups
+msgid "Manage Product Groups"
+msgstr "產品群組管理"
+
+#: acl_manage_import_export
+msgid "Import/Export Data"
+msgstr "資料匯入匯出"
+
+#: acl_manage_price_level_schedule
+msgid "Manage Price Level Schedule"
+msgstr "變價排程管理"
+
+#: acl_manage_acl_groups
+msgid "Manage Access Groups"
+msgstr "權限群組管理"
+
+#: acl_manage_stock
+msgid "Manage Stock"
+msgstr "庫存管理"
+
+#: acl_manage_system_options
+msgid "Manage System Options"
+msgstr "系統設定管理"
+
+#: acl_manage_taxes
+msgid "Manage Taxes"
+msgstr "稅別管理"
+
+#: acl_manage_products
+msgid "Manage Products"
+msgstr "產品管理"
+
+#: acl_register_return
+msgid "Register Item Return"
+msgstr "登錄退貨品項"
+
+#: acl_register_credit_card
+msgid "Register Credit Card Payment"
+msgstr "登錄信用卡付款"
+
+#: acl_register_gift_card
+msgid "Register Gift Card Payment"
+msgstr "登錄禮品卡付款"
+
+#: acl_manage_images
+msgid "Manage Images"
+msgstr "圖像管理"
+
+#: acl_modify_keymap_parameter
+msgid "Modify Keymap Parameter"
+msgstr "修改功能鍵參數值"
+
+#: acl_modify_condiment_price
+msgid "Modify Condiment Price"
+msgstr "修改調味價格"
+
+#: acl_manage_locale_keyboard
+msgid "Change Language and Keyboard Mapping"
+msgstr "變更語系與鍵盤設定"
+
+#: acl_register_pretax_discount
+msgid "Register Order Discounts Pretax"
+msgstr "登錄稅前折扣"
+
+#: acl_register_pretax_surcharge
+msgid "Register Order Surcharges Pretax"
+msgstr "登錄稅前附加費"
+
+#: acl_manage_reports
+msgid "Run Reports"
+msgstr "報表查看"
+
+#: acl_manage_date_time
+msgid "Set Date and Time"
+msgstr "設定日期與時間"
+
+#: acl_manage_devices
+msgid "Manage Devices"
+msgstr "Manage Devices"

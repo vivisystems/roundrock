@@ -1,0 +1,83 @@
+#. extracted from ../locale/en-US/fecpos.dtd
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-15 01:34+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.1.1\n"
+"X-Accelerator-Marker: &\n"
+
+#: vivipos.fec.common.name
+msgid "Name"
+msgstr ""
+
+#: vivipos.fec.common.ok
+msgid "Ok"
+msgstr ""
+
+#: vivipos.fec.common.cancel
+msgid "Cancel"
+msgstr ""
+
+#: vivipos.fec.common.add
+msgid "Add"
+msgstr ""
+
+#: vivipos.fec.common.modify
+msgid "Modify"
+msgstr ""
+
+#: vivipos.fec.common.delete
+msgid "Delete"
+msgstr ""
+
+#: vivipos.fec.plus.basedata
+msgid "Data"
+msgstr ""
+
+#: vivipos.fec.plus.basedata2
+msgid "Data 2"
+msgstr ""
+
+#: vivipos.fec.plus.sets
+msgid "Sets"
+msgstr ""
+
+#: vivipos.fec.plus.face
+msgid "Icon and Color"
+msgstr ""
+
+#: vivipos.fec.plus.pricelevels
+msgid "Price Levels"
+msgstr ""
+
+#: vivipos.fec.plus.groups
+msgid "Link Groups"
+msgstr ""
+
+#: vivipos.fec.plus.level
+msgid "Level"
+msgstr ""
+
+#: vivipos.fec.plus.price
+msgid "Price"
+msgstr ""
+
+#: vivipos.fec.plus.halo
+msgid "HALO"
+msgstr ""
+
+#: vivipos.fec.plus.lalo
+msgid "LALO"
+msgstr ""
+
+#: vivipos.fec.controlpanel.loading
+msgid "Loading ........"
+msgstr ""

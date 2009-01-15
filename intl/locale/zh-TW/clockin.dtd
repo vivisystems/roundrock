@@ -1,0 +1,14 @@
+<!ENTITY clockin.title "User Clock In / Out">
+<!ENTITY clockin.heading.timein "上班">
+<!ENTITY clockin.heading.timeout "下班">
+<!ENTITY clockin.heading.job "工作內容">
+<!ENTITY clockin.title "User Clock In / Out">
+<!ENTITY clockin.title "上下班打卡">
+<!ENTITY clockin.keylabel.clear "清空">
+<!ENTITY clockin.keylabel.del "刪除">
+<!ENTITY clockin.keylabel.password "登入密碼:">
+<!ENTITY clockin.keylabel.ok "OK">
+<!ENTITY clockin.keylabel.clockin "上班">
+<!ENTITY clockin.keylabel.clockout "下班">
+<!ENTITY clockin.keylabel.view "檢視出勤紀錄">
+<!ENTITY clockin.headers.joblist "工作內容">

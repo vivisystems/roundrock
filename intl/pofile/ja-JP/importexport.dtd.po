@@ -1,0 +1,82 @@
+#. extracted from ../locale/en-US/importexport.dtd, ./locale/ja-JP/importexport.dtd
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-15 01:34+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.1.1\n"
+
+#: importexport.caption
+msgid "Database Import / Export"
+msgstr "データベースをとり込む／転送する"
+
+#: importexport.media
+msgid "Media"
+msgstr "Media"
+
+#: importexport.checkmedia
+msgid "Check Media"
+msgstr "Check Media"
+
+#: importexport.import
+msgid "Import"
+msgstr "とり込む"
+
+#: importexport.export
+msgid "Export"
+msgstr "転送する"
+
+#: importexport.tablename
+msgid "Name"
+msgstr "Name"
+
+#: importexport.importfilename
+msgid "Import File"
+msgstr "Import File"
+
+#: importexport.exportfilename
+msgid "Export File"
+msgstr "Export File"
+
+#: importexport.importwait
+msgid "Waitting for Import Data..."
+msgstr "Waitting for Import Data..."
+
+#: importexport.exportwait
+msgid "Waitting for Export Data..."
+msgstr "Waitting for Export Data..."
+
+#: vivipos.fec.common.ok
+msgid "Ok"
+msgstr "OK"
+
+#: vivipos.fec.common.cancel
+msgid "Cancel"
+msgstr "取消"
+
+#: vivipos.fec.common.add
+msgid "Add"
+msgstr "新規・追加"
+
+#: vivipos.fec.common.modify
+msgid "Modify"
+msgstr "変更"
+
+#: vivipos.fec.common.delete
+msgid "Delete"
+msgstr "削除"
+
+#: vivipos.fec.common.yes
+msgid "Yes"
+msgstr "Yes"
+
+#: vivipos.fec.common.no
+msgid "No"
+msgstr "No"

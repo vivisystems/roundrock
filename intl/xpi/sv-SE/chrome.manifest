@@ -1,1 +1,17 @@
-locale viviecr sv-SE locale/sv-SE/
+locale viviecr sv-SE jar:chrome/sv-SE.jar!/locale/sv-SE/
+
+locale necko sv-SE jar:chrome/xulrunner-sv-SE.jar!/locale/sv-SE/necko/
+locale help sv-SE jar:chrome/xulrunner-sv-SE.jar!/locale/sv-SE/help/
+locale global-region sv-SE jar:chrome/xulrunner-sv-SE.jar!/locale/sv-SE/global-region/
+locale global-platform sv-SE jar:chrome/xulrunner-sv-SE.jar!/locale/sv-SE/global-platform/
+locale global sv-SE jar:chrome/xulrunner-sv-SE.jar!/locale/sv-SE/global/
+locale alerts sv-SE jar:chrome/xulrunner-sv-SE.jar!/locale/sv-SE/alerts/
+locale passwordmgr sv-SE jar:chrome/xulrunner-sv-SE.jar!/locale/sv-SE/passwordmgr/
+locale places sv-SE jar:chrome/xulrunner-sv-SE.jar!/locale/sv-SE/places/
+locale mozapps sv-SE jar:chrome/xulrunner-sv-SE.jar!/locale/sv-SE/mozapps/
+locale cookie sv-SE jar:chrome/xulrunner-sv-SE.jar!/locale/sv-SE/cookie/
+locale autoconfig sv-SE jar:chrome/xulrunner-sv-SE.jar!/locale/sv-SE/autoconfig/
+locale pipnss sv-SE jar:chrome/xulrunner-sv-SE.jar!/locale/sv-SE/pipnss/
+locale pippki sv-SE jar:chrome/xulrunner-sv-SE.jar!/locale/sv-SE/pippki/
+locale reporter sv-SE jar:chrome/xulrunner-sv-SE.jar!/locale/sv-SE/reporter/
+

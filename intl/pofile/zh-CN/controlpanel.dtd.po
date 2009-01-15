@@ -1,0 +1,38 @@
+#. extracted from ../locale/en-US/controlpanel.dtd, ./locale/zh-CN/controlpanel.dtd
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-15 01:34+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.1.1\n"
+
+#: controlpanel.title
+msgid "Control Panel"
+msgstr "控制面板"
+
+#: controlpanel.loading
+msgid "Loading..."
+msgstr "载入中…"
+
+#: controlpanel.products.label
+msgid "Products"
+msgstr "Products"
+
+#: controlpanel.activities.label
+msgid "Activities"
+msgstr "Activities"
+
+#: controlpanel.employees.label
+msgid "Employees"
+msgstr "Employees"
+
+#: controlpanel.tools.label
+msgid "Tools"
+msgstr "Tools"

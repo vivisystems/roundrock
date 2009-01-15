@@ -1,0 +1,114 @@
+#. extracted from ../locale/en-US/users.dtd, ./locale/zh-CN/users.dtd
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-15 01:34+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.1.1\n"
+
+#: users.title
+msgid "Employees"
+msgstr "员工管理"
+
+#: users.basedata
+msgid "User Profile"
+msgstr "员工基本数据"
+
+#: users.option1
+msgid "User Limits"
+msgstr "员工额度限制"
+
+#: users.option2
+msgid "Check Tracking"
+msgstr "员工开单限制"
+
+#: users.username
+msgid "User Name (a..z,0..9)"
+msgstr "员工姓名/代号 (a..z,0..9)"
+
+#: users.password
+msgid "Password"
+msgstr "登入密码"
+
+#: users.displayname
+msgid "Display Name"
+msgstr "显示名称"
+
+#: users.accesslevel
+msgid "Access Level"
+msgstr "权限群组"
+
+#: users.pricelevel
+msgid "Default Price Level"
+msgstr "预设价格设定"
+
+#: users.job
+msgid "Default Job"
+msgstr "预设工作内容"
+
+#: users.limit.item.discount
+msgid "Item Discount Limit"
+msgstr "单品折扣限额"
+
+#: users.limit.order.discount
+msgid "Order Discount Limit"
+msgstr "单张折扣限额"
+
+#: users.limit.cash.check
+msgid "Check Cashing Limit"
+msgstr "支票付款限额"
+
+#: users.limit.item.surcharge
+msgid "Item Surcharge Limit"
+msgstr "单品附加费限额"
+
+#: users.limit.order.surcharge
+msgid "Order Surcharge Limit"
+msgstr "单张附加费限额"
+
+#: users.limit.plu.quantity
+msgid "Product Quantity Limit"
+msgstr "产品数量限额"
+
+#: users.limit.plu.price
+msgid "Product Price Limit"
+msgstr "产品价格限额"
+
+#: users.limit.item.coupon
+msgid "Item Coupon Limit"
+msgstr "单品折价券限额"
+
+#: users.limit.order.coupon
+msgid "Order Coupon Limit"
+msgstr "单张折价券限额"
+
+#: users.minimum.check.number
+msgid "Minimum Check Number"
+msgstr "最低开单数量"
+
+#: users.maximum.check.number
+msgid "Maximum Check Number"
+msgstr "最高开单数量"
+
+#: users.maximum.open.checks
+msgid "Maximum Number of Open Checks"
+msgstr "最高未结单数量"
+
+#: users.action.add
+msgid "Add"
+msgstr "新增"
+
+#: users.action.modify
+msgid "Modify"
+msgstr "修改"
+
+#: users.action.delete
+msgid "Delete"
+msgstr "删除"

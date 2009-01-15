@@ -3,7 +3,7 @@
      xmlns:em="http://www.mozilla.org/2004/em-rdf#">
     <Description about="urn:mozilla:install-manifest">
         <em:id>langpack-ja-JP@firich.com.tw</em:id>
-        <em:name>langpack-ja-JP</em:name>
+        <em:name>VIVIECR (ja-JP)</em:name>
         <em:version>0.1</em:version>
         <em:description></em:description>
         <em:creator>Rack Achang</em:creator>

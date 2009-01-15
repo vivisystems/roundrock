@@ -1,0 +1,59 @@
+#. extracted from ../locale/en-US/departments.dtd, ./locale/sv-SE/departments.dtd
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-15 01:34+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.1.1\n"
+
+#: departments.title
+msgid "Departments"
+msgstr "Avdelningar"
+
+#: departments.number
+msgid "Department Number:"
+msgstr "Avdelningsnummer:"
+
+#: departments.name
+msgid "Department Name:"
+msgstr "Avdelningsnamn:"
+
+#: departments.taxrate
+msgid "Tax Rate:"
+msgstr "Moms Kurs:"
+
+#: departments.visible
+msgid "Show on Menu:"
+msgstr "Visa i Meny:"
+
+#: departments.sale
+msgid "Sale Department:"
+msgstr "Sale Department:"
+
+#: departments.button.color
+msgid "Button Color:"
+msgstr "Knapp Färg:"
+
+#. Do not translate this.  Only change the numeric values if you need this dialogue box to appear bigger
+#: departments.font.size
+msgid "Font Size:"
+msgstr "Font Storlek:"
+
+#: departments.button.action.add
+msgid "Add"
+msgstr "Lägg till"
+
+#: departments.button.action.modify
+msgid "Modify"
+msgstr "Modifiera"
+
+#: departments.button.action.delete
+msgid "Delete"
+msgstr "Tabort"

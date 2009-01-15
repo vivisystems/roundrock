@@ -1,0 +1,19 @@
+<!ENTITY importexport.caption "資料匯入/匯出">
+<!ENTITY importexport.media "儲存媒體">
+<!ENTITY importexport.checkmedia "檢查行動碟">
+<!ENTITY importexport.import "匯入">
+<!ENTITY importexport.export "匯出">
+<!ENTITY importexport.tablename "名稱">
+<!ENTITY importexport.importfilename "匯入檔名">
+<!ENTITY importexport.exportfilename "匯出檔名">
+<!ENTITY importexport.importwait "匯入資料中, 請稍候...">
+<!ENTITY importexport.exportwait "匯出資料中, 請稍候...">
+
+<!ENTITY vivipos.fec.common.ok "完成">
+<!ENTITY vivipos.fec.common.cancel "取消">
+<!ENTITY vivipos.fec.common.add "新增">
+<!ENTITY vivipos.fec.common.modify "修改">
+<!ENTITY vivipos.fec.common.delete "刪除">
+<!ENTITY vivipos.fec.common.yes "是">
+<!ENTITY vivipos.fec.common.no "否">
+

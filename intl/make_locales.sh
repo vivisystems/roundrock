@@ -1,0 +1,19 @@
+#!/bin/sh
+
+BASEDIR=`dirname $0`
+
+BASE_LOCALEDIR=../locale
+TEMPLATE=en-US
+
+LOCALES_DIR=$BASEDIR/locale
+POFILES_DIR=$BASEDIR/pofile
+XPIS_DIR=$BASEDIR/xpi
+
+SUPPORTS=`cat $BASEDIR/SUPPORTS`
+
+for LOCALE  in $SUPPORTS ; do
+  echo "process $LOCALE with template ($TEMPLATE)"
+  po2moz -t $BASE_LOCALEDIR/$TEMPLATE $POFILES_DIR/$LOCALE $LOCALES_DIR/$LOCALE
+  echo ""
+done
+

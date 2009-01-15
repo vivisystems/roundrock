@@ -1,1 +1,16 @@
-locale viviecr ja-JP locale/ja-JP/
+locale viviecr ja-JP jar:chrome/ja-JP.jar!/locale/ja-JP/
+
+locale necko ja jar:chrome/xulrunner-ja.jar!/locale/ja/necko/
+locale help ja jar:chrome/xulrunner-ja.jar!/locale/ja/help/
+locale global-platform ja jar:chrome/xulrunner-ja.jar!/locale/ja/global-platform/
+locale global-region ja jar:chrome/xulrunner-ja.jar!/locale/ja/global-region/
+locale global ja jar:chrome/xulrunner-ja.jar!/locale/ja/global/
+locale alerts ja jar:chrome/xulrunner-ja.jar!/locale/ja/alerts/
+locale passwordmgr ja jar:chrome/xulrunner-ja.jar!/locale/ja/passwordmgr/
+locale places ja jar:chrome/xulrunner-ja.jar!/locale/ja/places/
+locale mozapps ja jar:chrome/xulrunner-ja.jar!/locale/ja/mozapps/
+locale cookie ja jar:chrome/xulrunner-ja.jar!/locale/ja/cookie/
+locale autoconfig ja jar:chrome/xulrunner-ja.jar!/locale/ja/autoconfig/
+locale pipnss ja jar:chrome/xulrunner-ja.jar!/locale/ja/pipnss/
+locale pippki ja jar:chrome/xulrunner-ja.jar!/locale/ja/pippki/
+locale reporter ja jar:chrome/xulrunner-ja.jar!/locale/ja/reporter/

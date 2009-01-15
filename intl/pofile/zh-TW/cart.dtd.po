@@ -1,0 +1,46 @@
+#. extracted from ../locale/en-US/cart.dtd, ./locale/zh-TW/cart.dtd
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-15 01:34+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.1.1\n"
+
+#: cart.item.name
+msgid "Product Name"
+msgstr "品名"
+
+#: cart.item.qty
+msgid "#"
+msgstr "數量"
+
+#: cart.item.unitprice
+msgid "@"
+msgstr "單價"
+
+#: cart.item.subtotal
+msgid "Subtotal"
+msgstr "小計"
+
+#: cart.item.tax
+msgid "Tx"
+msgstr "稅別"
+
+#: cart.button.plus
+msgid "+"
+msgstr "+"
+
+#: cart.button.minus
+msgid "-"
+msgstr "-"
+
+#: cart.button.payments
+msgid "Payments"
+msgstr "付款"
