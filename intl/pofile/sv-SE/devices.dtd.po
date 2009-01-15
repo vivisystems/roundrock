@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-15 01:34+0800\n"
+"POT-Creation-Date: 2009-01-15 11:11+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,3 +16,67 @@ msgstr ""
 #: devices.title
 msgid "Device Configuration"
 msgstr "Device Configuration"
+
+#: devices.receipt.printer.1.label
+msgid "Receipt Printer 1"
+msgstr "Receipt Printer 1"
+
+#: devices.receipt.printer.2.label
+msgid "Receipt Printer 2"
+msgstr "Receipt Printer 2"
+
+#: devices.template.label
+msgid "Template"
+msgstr "Template"
+
+#: devices.port.label
+msgid "Port"
+msgstr "Port"
+
+#: devices.portspeed.label
+msgid "Port Speed"
+msgstr "Port Speed"
+
+#: devices.devicemodel.label
+msgid "Device Model"
+msgstr "Device Model"
+
+#: devices.deviceencoding.label
+msgid "Encoding"
+msgstr "Encoding"
+
+#: devices.receipt.autoprint.label
+msgid "Print receipt automatically"
+msgstr "Print receipt automatically"
+
+#: devices.guestcheck.printer.1.label
+msgid "Guest Check Printer 1"
+msgstr "Guest Check Printer 1"
+
+#: devices.guestcheck.printer.2.label
+msgid "Guest Check Printer 2"
+msgstr "Guest Check Printer 2"
+
+#: devices.vfd.1.label
+msgid "VFD 1"
+msgstr "VFD 1"
+
+#: devices.vfd.2.label
+msgid "VFD 2"
+msgstr "VFD 2"
+
+#: devices.cashdrawer.1.label
+msgid "Cash Drawer 1"
+msgstr "Cash Drawer 1"
+
+#: devices.cashdrawer.2.label
+msgid "Cash Drawer 2"
+msgstr "Cash Drawer 2"
+
+#: devices.cashdrawer.type.gpio
+msgid "GPIO"
+msgstr "GPIO"
+
+#: devices.cashdrawer.type.printer
+msgid "Printer"
+msgstr "Printer"

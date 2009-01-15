@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-15 01:34+0800\n"
+"POT-Creation-Date: 2009-01-15 11:11+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -306,6 +306,6 @@ msgstr ""
 msgid "Volume"
 msgstr ""
 
-#: allowzeropresetprice
-msgid "Allow registration of items with preset price of zero"
+#: positivepricerequired
+msgid "Items must be registered with positive prices"
 msgstr ""

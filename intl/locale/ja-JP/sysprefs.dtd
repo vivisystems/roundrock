@@ -69,4 +69,4 @@
 <!ENTITY sound.beepOnTotal "Beep on Total">
 <!ENTITY sound.beepOnTrayMarker "Beep on Tray Marker">
 <!ENTITY sound.volume.label "Volume">
-<!ENTITY allowzeropresetprice "Allow registration of items with preset price of zero">
+<!ENTITY positivepricerequired "Items must be registered with positive prices">
