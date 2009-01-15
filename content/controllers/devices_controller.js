@@ -46,17 +46,24 @@
             if (warn) {
                 var statusResult = this.checkStatusAll();
 
-                if (statusResult.status == 0) {
-                    var statusStr = '';
+                if (!statusResult.printerEnabled) {
+                    GREUtils.Dialog.alert(window, _('Device Status'),
+                                                  _('No device has been selected for receipt and/or guest check printing!'));
+                }
 
-                    // generate list of devices that may not be ready
-                    var statuses = statusResult.statuses
-                    //this.log(GeckoJS.BaseObject.dump(statuses));
-                    statuses.forEach(function(status) {
-                        if (status[2] == 0)
-                            statusStr += '\n   ' + _('Device') + ' [' + status[0] + ']: ' + _('Port') + ' [' + status[1] + ']';
-                    });
+                var statusStr = '';
 
+                // generate list of devices that may not be ready
+                var statuses = statusResult.statuses || [];
+                var offline = false;
+                statuses.forEach(function(status) {
+                    if (status[2] == 0) {
+                        statusStr += '\n   ' + _('Device') + ' [' + status[0] + ']: ' + _('Port') + ' [' + status[1] + ']';
+                        offline = true;
+                    }
+                });
+
+                if (offline) {
                     GREUtils.Dialog.alert(window, _('Device Status'),
                                                   _('The following enabled devices appear to be offline, please ensure that they are functioning correctly: \n%S', [statusStr]));
                 }
@@ -77,7 +84,6 @@
             var deviceTemplates = {};
             var devicemodels = this.getDeviceModels();
             var templates = this.getTemplates();
-
             // collect all enabled templates device models
             if (enabledDevices != null) {
 
@@ -202,25 +208,29 @@
         },
 
         loadTemplateFile: function(path) {
-            var lines = '';
+            var bytes = '';
             try {
-                lines = GREUtils.File.readAllBytes(GREUtils.File.chromeToPath(path)) || '';
+                bytes = GREUtils.File.readAllBytes(GREUtils.File.chromeToPath(path)) || '';
             }
             catch (e) {
                 this.log('Error reading from template file [' + path + ']');
-                lines = '';
+                bytes = '';
             }
-            return lines;
+            return bytes;
         },
 
         // check status of enabled devices
+        // returns
+        //  0: offline
+        //  1: online
+        //  2: no enabled devices
         checkStatusAll: function () {
             // for each enabled device, check its status and return a list of devices not in ready status
             var statuses = [];
             var selectedDevices = this.getSelectedDevices();
             var ports = this.getPorts();
             var status;
-            var overallStatus = 1;
+            var printerEnabled = false;
 
             // receipt printer 1
             if (selectedDevices != null) {
@@ -236,7 +246,13 @@
                         }
                         statuses.push([_('Receipt Printer %S', [1]), ports[port].label + ' (' + ports[port].path + ')', status]);
                     }
-                    overallStatus &= status;
+                    else {
+                        if (port!= null) 
+                            statuses.push([_('Receipt Printer %S', [1]), ports[port].label + ' (' + ports[port].path + ')', status]);
+                        else
+                            statuses.push([_('Receipt Printer %S', [1]), 'unknown', status]);
+                    }
+                    printerEnabled = true;
                 }
 
                 // receipt printer 2
@@ -252,7 +268,13 @@
                         }
                         statuses.push([_('Receipt Printer %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
                     }
-                    overallStatus &= status;
+                    else {
+                        if (port!= null)
+                            statuses.push([_('Receipt Printer %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
+                        else
+                            statuses.push([_('Receipt Printer %S', [2]), 'unknown', status]);
+                    }
+                    printerEnabled = true;
                 }
 
                 // guest check printer 1
@@ -268,7 +290,13 @@
                         }
                         statuses.push([_('Guest Check Printer %S', [1]), ports[port].label + ' (' + ports[port].path + ')', status]);
                     }
-                    overallStatus &= status;
+                    else {
+                        if (port!= null)
+                            statuses.push([_('Guest Check Printer %S', [1]), ports[port].label + ' (' + ports[port].path + ')', status]);
+                        else
+                            statuses.push([_('Guest Check Printer %S', [1]), 'unknown', status]);
+                    }
+                    printerEnabled = true;
                 }
 
                 // guest check printer 2
@@ -284,7 +312,13 @@
                         }
                         statuses.push([_('Guest Check Printer %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
                     }
-                    overallStatus &= status;
+                    else {
+                        if (port!= null)
+                            statuses.push([_('Guest Check Printer %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
+                        else
+                            statuses.push([_('Guest Check Printer %S', [2]), 'unknown', status]);
+                    }
+                    printerEnabled = true;
                 }
 
                 // VFD 1
@@ -300,7 +334,12 @@
                         }
                         statuses.push([_('VFD %S', [1]), ports[port].label + ' (' + ports[port].path + ')', status]);
                     }
-                    overallStatus &= status;
+                    else {
+                        if (port!= null)
+                            statuses.push([_('VFD %S', [1]), ports[port].label + ' (' + ports[port].path + ')', status]);
+                        else
+                            statuses.push([_('VFD %S', [1]), 'unknown', status]);
+                    }
                 }
 
                 // VFD 2
@@ -316,7 +355,12 @@
                         }
                         statuses.push([_('VFD %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
                     }
-                    overallStatus &= status;
+                    else {
+                        if (port!= null)
+                            statuses.push([_('VFD %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
+                        else
+                            statuses.push([_('VFD %S', [2]), 'unknown', status]);
+                    }
                 }
 
                 // Cashdrawer 1
@@ -337,7 +381,12 @@
                             statuses.push([_('Cash Drawer %S', [1]), ports[port].label + ' (' + ports[port].path + ')', status]);
                         }
                     }
-                    overallStatus &= status;
+                    else {
+                        if (port!= null)
+                            statuses.push([_('Cash Drawer %S', [1]), ports[port].label + ' (' + ports[port].path + ')', status]);
+                        else
+                            statuses.push([_('Cash Drawer %S', [1]), 'unknown', status]);
+                    }
                 }
 
                 // Cashdrawer 2
@@ -358,13 +407,15 @@
                             statuses.push([_('Cash Drawer %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
                         }
                     }
-                    overallStatus &= status;
+                    else {
+                        if (port!= null)
+                            statuses.push([_('Cash Drawer %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
+                        else
+                            statuses.push([_('Cash Drawer %S', [2]), 'unknown', status]);
+                    }
                 }
             }
-            else {
-                overallStatus = 0;
-            }
-            return {status: overallStatus, statuses: statuses};
+            return {printerEnabled: printerEnabled, statuses: statuses};
         },
 
         checkSerialPort: function (path) {
@@ -541,8 +592,8 @@
 
                 for (var i in sortedTemplates) {
                     var tmplName = sortedTemplates[i].name;
-                    tmplmenu1.appendItem(sortedTemplates[i].label, tmplName, '');
-                    tmplmenu2.appendItem(sortedTemplates[i].label, tmplName, '');
+                    tmplmenu1.appendItem(_(sortedTemplates[i].label), tmplName, '');
+                    tmplmenu2.appendItem(_(sortedTemplates[i].label), tmplName, '');
                 }
                 tmplmenu1.selectedIndex = tmplmenu2.selectedIndex = 0;
 
@@ -552,8 +603,8 @@
                 var portmenu2 = document.getElementById('receipt-2-port');
                 for (var i in sortedPorts) {
                     var portName = sortedPorts[i].name;
-                    portmenu1.appendItem(sortedPorts[i].label, portName, '');
-                    portmenu2.appendItem(sortedPorts[i].label, portName, '');
+                    portmenu1.appendItem(_(sortedPorts[i].label), portName, '');
+                    portmenu2.appendItem(_(sortedPorts[i].label), portName, '');
                 }
                 portmenu1.selectedIndex = portmenu2.selectedIndex = 0;
 
@@ -587,8 +638,8 @@
 
                 for (var i in sortedDevicemodels) {
                     var devicemodelName = sortedDevicemodels[i].name;
-                    devicemodelmenu1.appendItem(sortedDevicemodels[i].label, devicemodelName, '');
-                    devicemodelmenu2.appendItem(sortedDevicemodels[i].label, devicemodelName, '');
+                    devicemodelmenu1.appendItem(_(sortedDevicemodels[i].label), devicemodelName, '');
+                    devicemodelmenu2.appendItem(_(sortedDevicemodels[i].label), devicemodelName, '');
                 }
                 devicemodelmenu1.selectedIndex = devicemodelmenu2.selectedIndex = 0;
 
@@ -626,8 +677,8 @@
 
                 for (var i in sortedTemplates) {
                     var tmplName = sortedTemplates[i].name;
-                    tmplmenu1.appendItem(sortedTemplates[i].label, tmplName, '');
-                    tmplmenu2.appendItem(sortedTemplates[i].label, tmplName, '');
+                    tmplmenu1.appendItem(_(sortedTemplates[i].label), tmplName, '');
+                    tmplmenu2.appendItem(_(sortedTemplates[i].label), tmplName, '');
                 }
                 tmplmenu1.selectedIndex = tmplmenu2.selectedIndex = 0;
 
@@ -638,8 +689,8 @@
 
                 for (var i in sortedPorts) {
                     var portName = sortedPorts[i].name;
-                    portmenu1.appendItem(sortedPorts[i].label, portName, '');
-                    portmenu2.appendItem(sortedPorts[i].label, portName, '');
+                    portmenu1.appendItem(_(sortedPorts[i].label), portName, '');
+                    portmenu2.appendItem(_(sortedPorts[i].label), portName, '');
                 }
                 portmenu1.selectedIndex = portmenu2.selectedIndex = 0;
 
@@ -673,8 +724,8 @@
 
                 for (var i in sortedDevicemodels) {
                     var devicemodelName = sortedDevicemodels[i].name;
-                    devicemodelmenu1.appendItem(sortedDevicemodels[i].label, devicemodelName, '');
-                    devicemodelmenu2.appendItem(sortedDevicemodels[i].label, devicemodelName, '');
+                    devicemodelmenu1.appendItem(_(sortedDevicemodels[i].label), devicemodelName, '');
+                    devicemodelmenu2.appendItem(_(sortedDevicemodels[i].label), devicemodelName, '');
                 }
                 devicemodelmenu1.selectedIndex = devicemodelmenu2.selectedIndex = 0;
 
@@ -712,8 +763,8 @@
 
                 for (var i in sortedTemplates) {
                     var tmplName = sortedTemplates[i].name;
-                    tmplmenu1.appendItem(sortedTemplates[i].label, tmplName, '');
-                    tmplmenu2.appendItem(sortedTemplates[i].label, tmplName, '');
+                    tmplmenu1.appendItem(_(sortedTemplates[i].label), tmplName, '');
+                    tmplmenu2.appendItem(_(sortedTemplates[i].label), tmplName, '');
                 }
                 tmplmenu1.selectedIndex = tmplmenu2.selectedIndex = 0;
 
@@ -724,8 +775,8 @@
 
                 for (var i in sortedPorts) {
                     var portName = sortedPorts[i].name;
-                    portmenu1.appendItem(sortedPorts[i].label, portName, '');
-                    portmenu2.appendItem(sortedPorts[i].label, portName, '');
+                    portmenu1.appendItem(_(sortedPorts[i].label), portName, '');
+                    portmenu2.appendItem(_(sortedPorts[i].label), portName, '');
                 }
                 portmenu1.selectedIndex = portmenu2.selectedIndex = 0;
 
@@ -759,8 +810,8 @@
 
                 for (var i in sortedDevicemodels) {
                     var devicemodelName = sortedDevicemodels[i].name;
-                    devicemodelmenu1.appendItem(sortedDevicemodels[i].label, devicemodelName, '');
-                    devicemodelmenu2.appendItem(sortedDevicemodels[i].label, devicemodelName, '');
+                    devicemodelmenu1.appendItem(_(sortedDevicemodels[i].label), devicemodelName, '');
+                    devicemodelmenu2.appendItem(_(sortedDevicemodels[i].label), devicemodelName, '');
                 }
                 devicemodelmenu1.selectedIndex = devicemodelmenu2.selectedIndex = 0;
 
@@ -787,9 +838,8 @@
 
                 for (var i in sortedPorts) {
                     var portName = sortedPorts[i].name;
-                    portmenu1.appendItem(sortedPorts[i].label, portName, '');
-                    portmenu2.appendItem(sortedPorts[i].label, portName, '');
-                    //portmenu3.appendItem(sortedPorts[i].label, portName, '');
+                    portmenu1.appendItem(_(sortedPorts[i].label), portName, '');
+                    portmenu2.appendItem(_(sortedPorts[i].label), portName, '');
                 }
                 portmenu1.selectedIndex = portmenu2.selectedIndex = 0;
 
@@ -823,9 +873,8 @@
 
                 for (var i in sortedDevicemodels) {
                     var devicemodelName = sortedDevicemodels[i].name;
-                    devicemodelmenu1.appendItem(sortedDevicemodels[i].label, devicemodelName, '');
-                    devicemodelmenu2.appendItem(sortedDevicemodels[i].label, devicemodelName, '');
-                    //devicemodelmenu3.appendItem(sortedDevicemodels[i].label, devicemodelName, '');
+                    devicemodelmenu1.appendItem(_(sortedDevicemodels[i].label), devicemodelName, '');
+                    devicemodelmenu2.appendItem(_(sortedDevicemodels[i].label), devicemodelName, '');
                 }
                 devicemodelmenu1.selectedIndex = devicemodelmenu2.selectedIndex = 0;
                 //devicemodelmenu3.selectedIndex = 0;
@@ -845,7 +894,7 @@
 
             menulist.removeAllItems();
             for (var i in sortedEncodings) {
-                menulist.appendItem(sortedEncodings[i].label + ' (' + sortedEncodings[i].charset + ')', sortedEncodings[i].charset, '');
+                menulist.appendItem(_(sortedEncodings[i].label) + ' (' + sortedEncodings[i].charset + ')', sortedEncodings[i].charset, '');
             }
             menulist.selectedIndex = 0;
         },

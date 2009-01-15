@@ -1,5 +1,5 @@
 123456789012345678901234567890123456789012
-${data.store.name|center:42}
+[&ESC W]1${data.store.name|center:21}[&ESC W]0
 ${data.store.telephone1|center:42}
 Opened:   ${data.create_date.toLocaleFormat('%Y-%m-%d %H:%M:%S')}
 Closed:   ${data.create_date.toLocaleFormat('%Y-%m-%d %H:%M:%S')}
@@ -20,6 +20,6 @@ Total:     ${formatPrice(data.total)|right:30}
 
 Received:  ${formatPrice(data.payment_subtotal)|right:30}
 CHANGE:    ${formatPrice(0 - data.remain)|right:30}
--------------------------------------------
+------------------------------------------
 
 ${'Thank you for shopping at ' + data.store.name +'!'|center:42}

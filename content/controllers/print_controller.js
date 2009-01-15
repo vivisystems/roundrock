@@ -251,25 +251,40 @@
             return printed;
         },
 
-        getTemplateData: function(template, path, useCache) {
+        getTemplateData: function(template, templates, useCache) {
             var tpl;
+            var cachedTemplates = GeckoJS.Session.get('deviceTemplates');
 
             if (useCache) {
-                var cachedTemplates = GeckoJS.Session.get('deviceTemplates');
             
                 if (cachedTemplates != null) {
                     tpl = cachedTemplates[template];
                 }
             }
 
-            if (tpl == null || tpl.length == 0) {
-                try {
-                    var file = GREUtils.File.getFile(path);
-                    tpl = GREUtils.File.readAllBytes(file);
-                }
-                catch(e) {};
+            if ((tpl == null || tpl.length == 0) && templates != null) {
+                var deviceController = GeckoJS.Controller.getInstanceByName('Devices');
+                tpl = deviceController.loadTemplateFile(templates[template].path);
+                cachedTemplates[template] = tpl;
             }
             return tpl;
+        },
+
+        getDeviceCommandCodes: function(devicemodel, devicemodels, useCache) {
+            var codes;
+            var cachedCommands = GeckoJS.Session.get('deviceCommands');
+            if (useCache) {
+                if (cachedCommands != null) {
+                    codes = cachedCommands[devicemodel];
+                }
+            }
+
+            if (codes == null && devicemodels != null) {
+                var deviceController = GeckoJS.Controller.getInstanceByName('Devices');
+                codes = deviceController.loadDeviceCommandFile(devicemodels[devicemodel].path);
+                cachedCommands[devicemodel] = codes;
+            }
+            return codes;
         },
 
         _MODIFIERS: {
@@ -330,49 +345,60 @@
         printCheck: function(txn, template, port, speed, devicemodel, encoding) {
 
             var templates = this.getTemplates();
+            var devicemodels = this.getDeviceModels();
             var ports = this.getPorts();
             var order = txn.data;
-            var templateChromePath;
-            var templatePath;
             var portPath;
-
-            // make sure required paths all exist
-            try {
-                templateChromePath = (template == null || templates == null) ? null : templates[template].path;
-                templatePath = GREUtils.File.chromeToPath(templateChromePath);
-            }
-            catch(e) {
-            }
-
+            var commands = {};
+            
             portPath = (port == null || ports == null) ? null : ports[port].path;
             if (portPath == null || portPath == '') {
                 NotifyUtils.error(_('Specified device port [%S] does not exist!', [port]));
                 return false;
             }
 
-            var tpl = this.getTemplateData(template, templatePath, false);
+            var tpl = this.getTemplateData(template, templates, false);
             if (tpl == null || tpl == '') {
                 NotifyUtils.error(_('Specified receipt/guest check template [%S] is empty or does not exist!', [template]));
                 return false;
             }
+
+            commands = this.getDeviceCommandCodes(devicemodel, devicemodels, false);
 /*
             alert('Printing check: \n\n' +
-                  '   template [' + template + ' (' + templatePath + ')]\n' +
+                  '   template [' + template + ']\n' +
                   '   port [' + port + ' (' + portPath + ')]\n' +
                   '   speed [' + speed + ']\n' +
                   '   model [' + devicemodel + ']\n' +
                   '   encoding [' + encoding + ']\n' +
                   '   template content: ' + this.dump(tpl));
+            alert('Device commands: \n\n' +
+                  '   commands: ' + this.dump(commands));
 */
-            
             var result = tpl.process(txn);
 
+            // map each command code into corresponding
+            if (commands) {
+                for (var key in commands) {
+                    var value = commands[key];
+
+                    // replace all occurrences of key with value in tpl
+                    var re = new RegExp('\\[\\&' + key + '\\]', 'g');
+                    result = result.replace(re, value);
+                }
+            }
+            //alert(this.dump(result));
+            // translate embedded hex codes into actual hex values
+            var replacer = function(str, p1, offset, s) {
+                return String.fromCharCode(new Number(p1));
+            }
+            result = result.replace(/\[(0x[0-9,A-F][0-9,A-F])\]/g, function(str, p1, offset, s) {return String.fromCharCode(new Number(p1));});
+            //alert(this.dump(result));
+            
             // get encoding
             var encodedResult = GREUtils.Charset.convertFromUnicode(result, encoding);
-            //this.log('\n' + encodedResult);
+            //alert('\n' + encodedResult);
             
-            // translate printer commands into actual command codes
-
             // send to output device
             var printed = false;
             if (this.openSerialPort(portPath, speed)) {

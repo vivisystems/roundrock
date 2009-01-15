@@ -50,7 +50,7 @@ function launchControl(panel) {
         var pref = data[index];
 
         var aArguments = "";
-        var features = "chrome,popup=yes,titlebar=no,toolbar,centerscreen,modal,width=" + width + ",height=" + height;
+        var features = "chrome,popup=no,titlebar=no,toolbar,centerscreen,modal,width=" + width + ",height=" + height;
 
         try {
             $('#loading').show();
