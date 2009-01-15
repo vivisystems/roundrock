@@ -151,112 +151,12 @@
             return this._devicemodels;
         },
 
-        // handle order submit events
-        beforeSubmit: function(evt) {
-
-            var printed = false;
-            var order = evt.data.data;
-
-            // check if receipt already printed
-            if (order['receipt_printed'] == null) {
-                printed = this.printChecks(evt.data);
-                if (printed) evt.data.data['receipt_printed'] = (new Date()).getTime();
-            }
-        },
-
-        printChecks: function(txn) {
-
-            var selectedDevices = this.getSelectedDevices();
-            var printed = false;
-            /*
-             *
-             * add support attributes to order object:
-             *
-             * - create_date: Date object created from the created attribute
-             * - print_date: Date object representing current time
-             * - proceeds_clerk
-             * - proceeds_clerk_displayname
-             *
-             * - store details:
-             *   - store name
-             *   - store contact
-             *   - telephone1
-             *   - telephone2
-             *   - address1
-             *   - address2
-             *   - city
-             *   - county
-             *   - province
-             *   - state
-             *   - country
-             *   - zip
-             *   - fax
-             *   - email
-             *   - note
-             */
-            var now = new Date();
-            var order = txn.data;
-            order.create_date = new Date(order.created);
-            order.print_date = new Date();
-
-            // order.store = GeckoJS.Session.get('storeDetails');
-            order.store = {
-                name: 'VIVISHOP',
-                contact: 'VIVIPOS Team',
-                telephone1: '+886 2 2698-1446',
-                telephone2: '+886 930 858 972',
-                address1: '10F, No. 75, Sec 1',
-                address2: 'Sin Tai Wu Road',
-                city: 'Sijhih City',
-                county: 'Taipei County',
-                zip: '221',
-                country: 'Taiwan, R.O.C.',
-                fax: '+886 2 2698-3573',
-                email: 'sales@vivipos.com',
-                note: 'Vivid You POS!'
-            }
-
-            var user = new GeckoJS.AclComponent().getUserPrincipal();
-            if ( user != null ) {
-                order.proceeds_clerk = user.username;
-                order.proceeds_clerk_displayname = user.description;
-            }
-            txn._MODIFIERS = this._MODIFIERS;
-
-            //this.log(this.dump(selectedDevices));
-            //this.log(this.dump(txn));
-
-            // for each enabled printer device, check if autoprint is on
-            if (selectedDevices != null) {
-                if (selectedDevices['receipt-1-enabled'] && selectedDevices['receipt-1-autoprint']) {
-                    var template = selectedDevices['receipt-1-template'];
-                    var port = selectedDevices['receipt-1-port'];
-                    var speed = selectedDevices['receipt-1-portspeed'];
-                    var devicemodel = selectedDevices['receipt-1-devicemodel'];
-                    var encoding = selectedDevices['receipt-1-encoding'];
-                    printed = this.printCheck(txn, template, port, speed, devicemodel, encoding);
-                }
-
-                if (selectedDevices['receipt-2-enabled'] && selectedDevices['receipt-2-autoprint']) {
-                    var template = selectedDevices['receipt-2-template'];
-                    var port = selectedDevices['receipt-2-port'];
-                    var speed = selectedDevices['receipt-2-portspeed'];
-                    var devicemodel = selectedDevices['receipt-2-devicemodel'];
-                    var encoding = selectedDevices['receipt-2-encoding'];
-                    if (this.printCheck(txn, template, port, speed, devicemodel, encoding)) {
-                        printed = true;
-                    }
-                }
-            }
-            return printed;
-        },
-
         getTemplateData: function(template, templates, useCache) {
             var tpl;
             var cachedTemplates = GeckoJS.Session.get('deviceTemplates');
 
             if (useCache) {
-            
+
                 if (cachedTemplates != null) {
                     tpl = cachedTemplates[template];
                 }
@@ -341,6 +241,322 @@
             }
         },
 
+        // handle order submit events
+        beforeSubmit: function(evt) {
+
+            var printed = false;
+            var order = evt.data.data;
+
+            // check if receipt already printed
+            if (order['receipt_printed'] == null) {
+                printed = this.printReceipts(evt.data);
+                if (printed) evt.data.data['receipt_printed'] = (new Date()).getTime();
+            }
+        },
+
+        // handles user initiated receipt requests
+        issueReceipt: function(printer) {
+            // check transaction status
+            var cart = GeckoJS.Controller.getInstanceByName('Cart');
+            var txn = cart._getTransaction();
+            if (txn == null) {
+                // @todo OSD
+                NotifyUtils.warn(_('Not an open order; cannot issue receipt'));
+                return; // fatal error ?
+            }
+
+            if (!txn.isSubmit()) {
+                // @todo OSD
+                NotifyUtils.warn(_('The order has not been finalized; cannot issue receipt'));
+                return; // fatal error ?
+            }
+
+            if (txn.data['receipt_printed'] != null) {
+                var datetime = new Date(txn.data['receipt_printed']).toLocaleString();
+                NotifyUtils.warn(_('A receipt has already been issued for this order at [%S]', [datetime]));
+                return;
+            }
+            // check device settings
+            if ((printer != null) && (printer != '') && (printer != 1) && (printer != 2)) {
+                NotifyUtils.warn(_('The intended printer [%S] does not exist', [printer]));
+                return;
+            }
+
+            var selectedDevices = this.getSelectedDevices();
+            if (printer == 1) {
+                if (!selectedDevices['receipt-1-enabled']) {
+                    NotifyUtils.warn(_('The intended printer [%S] is not enabled', [printer]));
+                    return;
+                }
+            }
+            else if (printer == 2) {
+                if (!selectedDevices['receipt-2-enabled']) {
+                    NotifyUtils.warn(_('The intended printer [%S] is not enabled', [printer]));
+                    return;
+                }
+            }
+            else if (!selectedDevices['receipt-1-enabled'] && !selectedDevices['receipt-2-enabled']) {
+                NotifyUtils.warn(_('All receipt printers are disabled'));
+                return;
+            }
+
+            if (printer == null || printer == '') printer = 0;
+
+            var printed = this.printReceipts(txn, printer);
+            if (printed) {
+                var now = (new Date()).getTime();
+                txn.data['receipt_printed'] = now;
+
+                var orderModel = new OrderModel();
+                var order = orderModel.findByIndex('first', {
+                    index: 'sequence',
+                    value: txn.data.seq
+                });
+                if (order != null) {
+                    order['receipt_printed'] = now;
+                    orderModel.saveOrderMaster(order);
+                }
+
+            }
+        },
+
+        // print on all enabled receipt printers
+        printReceipts: function(txn, printer) {
+
+            var selectedDevices = this.getSelectedDevices();
+            var printed = false;
+
+            /*
+             *
+             * add support attributes to order object:
+             *
+             * - create_date: Date object created from the created attribute
+             * - print_date: Date object representing current time
+             * - proceeds_clerk
+             * - proceeds_clerk_displayname
+             *
+             * - store details:
+             *   - store name
+             *   - store contact
+             *   - telephone1
+             *   - telephone2
+             *   - address1
+             *   - address2
+             *   - city
+             *   - county
+             *   - province
+             *   - state
+             *   - country
+             *   - zip
+             *   - fax
+             *   - email
+             *   - note
+             */
+            var now = new Date();
+            var order = txn.data;
+            order.create_date = new Date(order.created);
+            order.print_date = new Date();
+
+            // order.store = GeckoJS.Session.get('storeDetails');
+            order.store = {
+                name: 'VIVISHOP',
+                contact: 'VIVIPOS Team',
+                telephone1: '+886 2 2698-1446',
+                telephone2: '+886 930 858 972',
+                address1: '10F, No. 75, Sec 1',
+                address2: 'Sin Tai Wu Road',
+                city: 'Sijhih City',
+                county: 'Taipei County',
+                zip: '221',
+                country: 'Taiwan, R.O.C.',
+                fax: '+886 2 2698-3573',
+                email: 'sales@vivipos.com',
+                note: 'Vivid You POS!'
+            }
+
+            if (order.proceeds_clerk == null || order.proceeds_clerk == '') {
+                var user = new GeckoJS.AclComponent().getUserPrincipal();
+                if ( user != null ) {
+                    order.proceeds_clerk = user.username;
+                    order.proceeds_clerk_displayname = user.description;
+                }
+            }
+            txn._MODIFIERS = this._MODIFIERS;
+/*
+            this.log(this.dump(selectedDevices));
+            this.log(this.dump(txn));
+*/
+            // for each enabled printer device, print if autoprint is on or if force is true
+            if (selectedDevices != null) {
+                if (selectedDevices['receipt-1-enabled'] &&
+                    ((printer == 0) ||
+                     (printer == 1) ||
+                     (printed == null && selectedDevices['receipt-1-autoprint']))) {
+                    var template = selectedDevices['receipt-1-template'];
+                    var port = selectedDevices['receipt-1-port'];
+                    var speed = selectedDevices['receipt-1-portspeed'];
+                    var devicemodel = selectedDevices['receipt-1-devicemodel'];
+                    var encoding = selectedDevices['receipt-1-encoding'];
+                    printed = this.printCheck(txn, template, port, speed, devicemodel, encoding);
+                }
+
+                if (selectedDevices['receipt-2-enabled'] &&
+                    ((printer == 0) ||
+                     (printer == 2) ||
+                     (printed == null && selectedDevices['receipt-2-autoprint']))) {
+                    var template = selectedDevices['receipt-2-template'];
+                    var port = selectedDevices['receipt-2-port'];
+                    var speed = selectedDevices['receipt-2-portspeed'];
+                    var devicemodel = selectedDevices['receipt-2-devicemodel'];
+                    var encoding = selectedDevices['receipt-2-encoding'];
+                    if (this.printCheck(txn, template, port, speed, devicemodel, encoding)) {
+                        printed = true;
+                    }
+                }
+            }
+            return printed;
+        },
+
+        // handles user initiated guest check requests
+        issueGuestCheck: function(printer) {
+            // check transaction status
+            var cart = GeckoJS.Controller.getInstanceByName('Cart');
+            var txn = cart._getTransaction();
+            if (txn == null) {
+                // @todo OSD
+                NotifyUtils.warn(_('Not an open order; cannot issue guest check'));
+                return; // fatal error ?
+            }
+
+            if (txn.isSubmit() || txn.isCancel()) {
+                // @todo OSD
+                NotifyUtils.warn(_('Not an open order; cannot issue guest check'));
+                return; // fatal error ?
+            }
+
+            // check device settings
+            if ((printer != null) && (printer != '') && (printer != 1) && (printer != 2)) {
+                NotifyUtils.warn(_('The intended printer [%S] does not exist', [printer]));
+                return;
+            }
+
+            var selectedDevices = this.getSelectedDevices();
+            if (printer == 1) {
+                if (!selectedDevices['guestcheck-1-enabled']) {
+                    NotifyUtils.warn(_('The intended printer [%S] is not enabled', [printer]));
+                    return;
+                }
+            }
+            else if (printer == 2) {
+                if (!selectedDevices['guestcheck-2-enabled']) {
+                    NotifyUtils.warn(_('The intended printer [%S] is not enabled', [printer]));
+                    return;
+                }
+            }
+            else if (!selectedDevices['guestcheck-1-enabled'] && !selectedDevices['guestcheck-2-enabled']) {
+                NotifyUtils.warn(_('All guest check printers are disabled'));
+                return;
+            }
+
+            if (printer == null || printer == '') printer = 0;
+
+            var printed = this.printGuestChecks(txn, printer);
+        },
+
+        // print on all enabled receipt printers
+        printGuestChecks: function(txn, printer) {
+
+            var selectedDevices = this.getSelectedDevices();
+            var printed = false;
+
+            /*
+             *
+             * add support attributes to order object:
+             *
+             * - create_date: Date object created from the created attribute
+             * - print_date: Date object representing current time
+             * - proceeds_clerk
+             * - proceeds_clerk_displayname
+             *
+             * - store details:
+             *   - store name
+             *   - store contact
+             *   - telephone1
+             *   - telephone2
+             *   - address1
+             *   - address2
+             *   - city
+             *   - county
+             *   - province
+             *   - state
+             *   - country
+             *   - zip
+             *   - fax
+             *   - email
+             *   - note
+             */
+            var now = new Date();
+            var order = txn.data;
+            order.create_date = new Date(order.created);
+            order.print_date = new Date();
+
+            // order.store = GeckoJS.Session.get('storeDetails');
+            order.store = {
+                name: 'VIVISHOP',
+                contact: 'VIVIPOS Team',
+                telephone1: '+886 2 2698-1446',
+                telephone2: '+886 930 858 972',
+                address1: '10F, No. 75, Sec 1',
+                address2: 'Sin Tai Wu Road',
+                city: 'Sijhih City',
+                county: 'Taipei County',
+                zip: '221',
+                country: 'Taiwan, R.O.C.',
+                fax: '+886 2 2698-3573',
+                email: 'sales@vivipos.com',
+                note: 'Vivid You POS!'
+            }
+
+            if (order.proceeds_clerk == null || order.proceeds_clerk == '') {
+                var user = new GeckoJS.AclComponent().getUserPrincipal();
+                if ( user != null ) {
+                    order.proceeds_clerk = user.username;
+                    order.proceeds_clerk_displayname = user.description;
+                }
+            }
+            txn._MODIFIERS = this._MODIFIERS;
+/*
+            this.log(this.dump(selectedDevices));
+            this.log(this.dump(txn));
+*/
+            // for each enabled printer device, print if autoprint is on or if force is true
+            if (selectedDevices != null) {
+                if (selectedDevices['guestcheck-1-enabled'] &&
+                    ((printer == 0) || (printer == 1))) {
+                    var template = selectedDevices['guestcheck-1-template'];
+                    var port = selectedDevices['guestcheck-1-port'];
+                    var speed = selectedDevices['guestcheck-1-portspeed'];
+                    var devicemodel = selectedDevices['guestcheck-1-devicemodel'];
+                    var encoding = selectedDevices['guestcheck-1-encoding'];
+                    printed = this.printCheck(txn, template, port, speed, devicemodel, encoding);
+                }
+
+                if (selectedDevices['guestcheck-2-enabled'] &&
+                    ((printer == 0) || (printer == 2))) {
+                    var template = selectedDevices['guestcheck-2-template'];
+                    var port = selectedDevices['guestcheck-2-port'];
+                    var speed = selectedDevices['guestcheck-2-portspeed'];
+                    var devicemodel = selectedDevices['guestcheck-2-devicemodel'];
+                    var encoding = selectedDevices['guestcheck-2-encoding'];
+                    if (this.printCheck(txn, template, port, speed, devicemodel, encoding)) {
+                        printed = true;
+                    }
+                }
+            }
+            return printed;
+        },
+
+
         // print check using the given parameters
         printCheck: function(txn, template, port, speed, devicemodel, encoding) {
 
@@ -388,6 +604,7 @@
                 }
             }
             //alert(this.dump(result));
+            //
             // translate embedded hex codes into actual hex values
             var replacer = function(str, p1, offset, s) {
                 return String.fromCharCode(new Number(p1));
@@ -397,7 +614,7 @@
             
             // get encoding
             var encodedResult = GREUtils.Charset.convertFromUnicode(result, encoding);
-            //alert('\n' + encodedResult);
+            this.log('\n' + encodedResult);
             
             // send to output device
             var printed = false;

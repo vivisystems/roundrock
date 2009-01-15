@@ -1,8 +1,7 @@
-123456789012345678901234567890123456789012
-[&ESC W]1${data.store.name|center:21}[&ESC W]0
+[&ESC !][0x28]${data.store.name|center:21}[&ESC !][0x01]
 ${data.store.telephone1|center:42}
 Opened:   ${data.create_date.toLocaleFormat('%Y-%m-%d %H:%M:%S')}
-Closed:   ${data.create_date.toLocaleFormat('%Y-%m-%d %H:%M:%S')}
+Closed:   ${data.print_date.toLocaleFormat('%Y-%m-%d %H:%M:%S')}
 Terminal: ${data.terminal_no|left:10} Clerk: ${data.proceeds_clerk_displayname|left:14}
 ------------------------------------------
 {for item in data.items_summary}

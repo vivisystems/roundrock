@@ -126,6 +126,16 @@ pref("vivipos.fec.settings.controlpanels.config.functionpanel.path", "chrome://v
 pref("vivipos.fec.settings.controlpanels.config.functionpanel.icon", "chrome://viviecr/skin/icons/icon_generic.png");
 pref("vivipos.fec.settings.controlpanels.config.functionpanel.roles", "acl_manage_function_panel");
 
+pref("vivipos.fec.registry.function.programmable.receipt.access", "acl_issue_post_receipt");
+pref("vivipos.fec.registry.function.programmable.receipt.command", "issueReceipt");
+pref("vivipos.fec.registry.function.programmable.receipt.controller", "Print");
+pref("vivipos.fec.registry.function.programmable.receipt.data", "");
+
+pref("vivipos.fec.registry.function.programmable.guestcheck.access", "acl_issue_guest_check");
+pref("vivipos.fec.registry.function.programmable.guestcheck.command", "issueGuestCheck");
+pref("vivipos.fec.registry.function.programmable.guestcheck.controller", "Print");
+pref("vivipos.fec.registry.function.programmable.guestcheck.data", "");
+
 pref("vivipos.fec.registry.function.programmable.pricelevelshift.access", "acl_change_price_level");
 pref("vivipos.fec.registry.function.programmable.pricelevelshift.command", "change");
 pref("vivipos.fec.registry.function.programmable.pricelevelshift.controller", "Pricelevel");
