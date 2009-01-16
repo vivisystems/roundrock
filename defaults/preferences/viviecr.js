@@ -416,6 +416,10 @@ pref("vivipos.fec.registry.templates.receipt-sample-condensed.label", "Sample Re
 pref("vivipos.fec.registry.templates.receipt-sample-condensed.type", "receipt");
 pref("vivipos.fec.registry.templates.receipt-sample-condensed.path", "chrome://viviecr/content/devices/templates/receipt-sample-condensed-42c.tpl");
 
+pref("vivipos.fec.registry.templates.receipt-sample-expanded.label", "Sample Receipt Template (expanded, 42 columns)");
+pref("vivipos.fec.registry.templates.receipt-sample-expanded.type", "receipt");
+pref("vivipos.fec.registry.templates.receipt-sample-expanded.path", "chrome://viviecr/content/devices/templates/receipt-sample-expanded-42c.tpl");
+
 pref("vivipos.fec.registry.templates.guestcheck-sample-condensed.label", "Sample Guest Check Template (condensed, 42 columns)");
 pref("vivipos.fec.registry.templates.guestcheck-sample-condensed.type", "guestcheck");
 pref("vivipos.fec.registry.templates.guestcheck-sample-condensed.path", "chrome://viviecr/content/devices/templates/guestcheck-sample-condensed-42c.tpl");

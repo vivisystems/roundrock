@@ -1,5 +1,5 @@
 <!ENTITY storecontact.title "Store Contact">
-<!ENTITY storecontact.store "Store Name">
+<!ENTITY storecontact.name "Store Name">
 <!ENTITY storecontact.branch "Branch">
 <!ENTITY storecontact.contact "Contact Person">
 <!ENTITY storecontact.telephone1 "Telephone 1">
@@ -15,3 +15,4 @@
 <!ENTITY storecontact.email "Email">
 <!ENTITY storecontact.note "Note">
 <!ENTITY storecontact.terminal_no "Terminal ID">
+<!ENTITY storecontact.requiredNotice "* required fields">

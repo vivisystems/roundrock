@@ -1925,7 +1925,7 @@
 
             var memoItem = null;
             
-            if (plu && plu.force_memo) {
+            if (typeof plu == 'object' && plu.force_memo) {
                 memoItem = plu;
             }else {
                 var productsById = GeckoJS.Session.get('productsById');
@@ -1935,6 +1935,7 @@
                     //memoItem = GREUtils.extend({}, productsById[cartItem.id]);
                     memoItem = productsById[cartItem.id];
                 }
+                if (memoItem) memoItem.memo = plu;
             }
 
             var memo = this.getMemoDialog(memoItem ? memoItem.memo : '');

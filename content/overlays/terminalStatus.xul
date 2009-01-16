@@ -3,12 +3,17 @@
 
 <overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" id="overlay_test">
 
-    <script type="application/x-javascript" src="chrome://viviecr/content/terminalstatus.js" />
-
     <box id="vivipos-bottombox">
         <statusbar id="status-bar">
             <statusbarpanel id="statusbar-display" pack="left">
-                <textbox id="terminal_id" class="terminal_id" inserbefore="receipt" readonly="true"/>
+                <vivisessionstatus id="terminal_id" flex="1"
+                                   class="terminal_id"
+                                   columns="1"
+                                   crop="end"
+                                   nolabels="true"
+                                   keys="terminal_id"
+                                   valueClass="console_message_value"
+                                   />
                 <viviuserlabel id="current_user" class="current_user"/>
                 <vivisessionstatus id="console_message" flex="1"
                                    class="console_message"

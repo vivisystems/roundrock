@@ -13,41 +13,53 @@
 
         // load store contact from database into session cache
         initial: function() {
+            var storeContactModel = new StoreContactModel();
+            var contact = storeContactModel.findFirst();
+
+            GeckoJS.Session.set('storeContact', contact);
+            GeckoJS.Session.set('terminal_id', contact == null ? '' : contact.terminal_no);
         },
 
         update: function () {
             var formObj = GeckoJS.FormHelper.serializeToObject('storecontactForm');
 
-            alert(this.dump(formObj));
-            
             if (formObj == null) {
                 NotifyUtils.error(_('Unable to save store contact!'));
                 return false;
             }
             else {
-                var store = (formObj.store == null) ? '' : GeckoJS.String.trim(formObj.store);
+                var name = (formObj.name == null) ? '' : GeckoJS.String.trim(formObj.name);
                 var terminal_no = (formObj.terminal_no == null) ? '' : GeckoJS.String.trim(formObj.terminal_no);
 
-                if (store.length == 0 || terminal_no == 0) {
-                    NotifyUtils.warn(_('Store and/or terminal ID must not be blank!'));
+                if (name.length == 0 || terminal_no == 0) {
+                    NotifyUtils.warn(_('Store name and terminal ID must not be blank!'));
                     return false;
                 }
             }
-            alert(this.dump(formObj));
-
-            var storeContactModel = new StoreContactModel();
-            storeContactModel.save(formObj);
+            formObj.name = name;
+            formObj.terminal_no = terminal_no;
             
+            var storeContactModel = new StoreContactModel();
+            storeContactModel.id = formObj.id;
+            storeContactModel.save(formObj);
+
+            GeckoJS.Session.set('storeContact', formObj);
+            GeckoJS.Session.set('terminal_id', terminal_no);
+
             return true;
         },
         
         load: function () {
+
             var storeContactModel = new StoreContactModel();
             var formObj = storeContactModel.findFirst();
 
-            alert(this.dump(formObj));
-
-            GeckoJS.FormHelper.unserializeFromObject('storecontactForm', formObj);
+            if (formObj != null) {
+                GeckoJS.FormHelper.unserializeFromObject('storecontactForm', formObj);
+            }
+            else {
+                GeckoJS.FormHelper.reset('storecontactForm');
+            }
         },
 
         validateForm: function() {

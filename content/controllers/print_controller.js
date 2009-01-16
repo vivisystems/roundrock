@@ -358,24 +358,7 @@
             order.create_date = new Date(order.created);
             order.print_date = new Date();
 
-            // order.store = GeckoJS.Session.get('storeDetails');
-            order.store = {
-                store: 'VIVISHOP',
-                branch: 'Headquarters',
-                contact: 'VIVIPOS Team',
-                telephone1: '+886 2 2698-1446',
-                telephone2: '+886 930 858 972',
-                address1: '10F, No. 75, Sec 1',
-                address2: 'Sin Tai Wu Road',
-                city: 'Sijhih City',
-                county: 'Taipei County',
-                state: '',
-                zip: '221',
-                country: 'Taiwan, R.O.C.',
-                fax: '+886 2 2698-3573',
-                email: 'sales@vivipos.com',
-                note: 'Vivid You POS!'
-            }
+            order.store = GeckoJS.Session.get('storeContact');
 
             if (order.proceeds_clerk == null || order.proceeds_clerk == '') {
                 var user = new GeckoJS.AclComponent().getUserPrincipal();
@@ -387,7 +370,7 @@
             txn._MODIFIERS = this._MODIFIERS;
 
             //this.log(this.dump(selectedDevices));
-            //this.log(this.dump(txn));
+            this.log(this.dump(txn));
             
             // for each enabled printer device, print if autoprint is on or if force is true
             if (selectedDevices != null) {
@@ -503,23 +486,8 @@
             order.create_date = new Date(order.created);
             order.print_date = new Date();
 
-            // order.store = GeckoJS.Session.get('storeDetails');
-            order.store = {
-                name: 'VIVISHOP',
-                contact: 'VIVIPOS Team',
-                telephone1: '+886 2 2698-1446',
-                telephone2: '+886 930 858 972',
-                address1: '10F, No. 75, Sec 1',
-                address2: 'Sin Tai Wu Road',
-                city: 'Sijhih City',
-                county: 'Taipei County',
-                zip: '221',
-                country: 'Taiwan, R.O.C.',
-                fax: '+886 2 2698-3573',
-                email: 'sales@vivipos.com',
-                note: 'Vivid You POS!'
-            }
-
+            order.store = GeckoJS.Session.get('storeContact');
+            
             if (order.proceeds_clerk == null || order.proceeds_clerk == '') {
                 var user = new GeckoJS.AclComponent().getUserPrincipal();
                 if ( user != null ) {
