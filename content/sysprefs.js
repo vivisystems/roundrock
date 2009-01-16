@@ -30,6 +30,7 @@
         var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
         document.getElementById('prefwin').width=width;
         document.getElementById('prefwin').height=height;
+        document.getElementById('prefwin').dlgbuttons="accept,help";
     };
     
 
