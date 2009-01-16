@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % StoreContact SYSTEM "chrome://viviecr/locale/storecontact.dtd">
+  %StoreContact;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+<window title="&storecontact.title;"
+	hidechrome="true"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script>
+    </script>
+
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/storecontact.js" />
+
+    <keyset id="keyset_extensions">
+        <key id="key_enter" keycode="VK_RETURN" oncommand="document.getElementById('ok').click()"/>
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('cancel').click()" />
+    </keyset>
+    
+    <groupbox class="main-dialog" flex="1">
+        <caption label="&storecontact.title;" />
+        <textbox id="id" value="" form="storecontactForm" name="id" hidden="true" readonly="true"/>
+        <grid>
+            <columns>
+                <column />
+                <column flex="1" />
+                <column />
+                <column flex="1" />
+            </columns>
+
+            <rows>
+                <row>
+                    <label value="&storecontact.store;" />
+                    <textbox id="store" value="" form="storecontactForm" name="store"/>
+                </row>
+                <row>
+                    <label value="&storecontact.branch;" />
+                    <textbox id="branch" value="" form="storecontactForm" name="branch"/>
+                </row>
+                <row>
+                    <label value="&storecontact.contact;" />
+                    <textbox id="contact" value="" form="storecontactForm" name="contact"/>
+                </row>
+                <row>
+                    <label value="&storecontact.terminal_id;" />
+                    <textbox id="contact" value="" form="storecontactForm" name="terminal_id"/>
+                </row>
+                <row>
+                    <label value="&storecontact.telephone1;" />
+                    <textbox id="telephone1" value="" form="storecontactForm" name="telephone1"/>
+                </row>
+                <row>
+                    <label value="&storecontact.telephone2;" />
+                    <textbox id="telephone2" value="" form="storecontactForm" name="telephone2"/>
+                </row>
+                <row>
+                    <label value="&storecontact.address1;" />
+                    <textbox id="address1" value="" form="storecontactForm" name="address1"/>
+                </row>
+                <row>
+                    <label value="&storecontact.address2;" />
+                    <textbox id="address2" value="" form="storecontactForm" name="address2"/>
+                </row>
+                <row>
+                    <label value="&storecontact.city;" />
+                    <textbox id="city" value="" form="storecontactForm" name="city"/>
+                </row>
+                <row>
+                    <label value="&storecontact.county;" />
+                    <textbox id="county" value="" form="storecontactForm" name="county"/>
+                </row>
+                <row>
+                    <label value="&storecontact.state;" />
+                    <textbox id="state" value="" form="storecontactForm" name="state"/>
+                </row>
+                <row>
+                    <label value="&storecontact.zip;" />
+                    <textbox id="zip" value="" form="storecontactForm" name="zip"/>
+                </row>
+                <row>
+                    <label value="&storecontact.country;" />
+                    <textbox id="country" value="" form="storecontactForm" name="country"/>
+                </row>
+                <row>
+                    <label value="&storecontact.fax;" />
+                    <textbox id="contact" value="" form="storecontactForm" name="fax"/>
+                </row>
+                <row>
+                    <label value="&storecontact.email;" />
+                    <textbox id="email" value="" form="storecontactForm" name="email"/>
+                </row>
+                <row>
+                    <label value="&storecontact.note;" />
+                    <textbox id="note" value="" form="storecontactForm" name="note"/>
+                </row>
+            </rows>
+        </grid>
+    </groupbox>
+  
+    <hbox id="dialogButtons" class="dialogbtns" pack="center">
+        <spacer flex="1"/>
+        <button class="right exit-dialog" id="ok" label="&dialog.saveButton.label;" default="true" oncommand="doOKButton();"/>
+        <button class="exit-dialog" id="cancel" label="&dialog.cancelButton.label;" default="false" oncommand="doCancelButton();"/>
+        <spacer flex="1"/>
+        <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="vkb"/>
+    </hbox>
+
+</window>

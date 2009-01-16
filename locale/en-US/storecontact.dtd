@@ -1,0 +1,17 @@
+<!ENTITY storecontact.title "Store Contact">
+<!ENTITY storecontact.store "Store Name">
+<!ENTITY storecontact.branch "Branch">
+<!ENTITY storecontact.contact "Contact Person">
+<!ENTITY storecontact.telephone1 "Telephone 1">
+<!ENTITY storecontact.telephone2 "Telephone 2">
+<!ENTITY storecontact.address1 "Address 1">
+<!ENTITY storecontact.address2 "Address 2">
+<!ENTITY storecontact.city "City">
+<!ENTITY storecontact.county "County">
+<!ENTITY storecontact.state "State">
+<!ENTITY storecontact.zip "ZIP">
+<!ENTITY storecontact.country "Country">
+<!ENTITY storecontact.fax "FAX">
+<!ENTITY storecontact.email "Email">
+<!ENTITY storecontact.note "Note">
+<!ENTITY storecontact.terminal_id "Terminal ID">

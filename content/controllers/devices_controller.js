@@ -86,17 +86,16 @@
             var templates = this.getTemplates();
             // collect all enabled templates device models
             if (enabledDevices != null) {
-
                 if (enabledDevices['receipt-1-enabled']) {
                     // check if template already loaded
                     var template = enabledDevices['receipt-1-template'];
-                    if (template != null && !(template in deviceTemplates)) {
-                        deviceTemplates[template] = this.loadTemplateFile(templates[template].path);
+                    if (template != null && !(template in deviceTemplates) && templates[template] != null) {
+                            deviceTemplates[template] = this.loadTemplateFile(templates[template].path);
                     }
 
                     // check if device already loaded
                     var device = enabledDevices['receipt-1-devicemodel'];
-                    if (device != null && device != null && !(device in deviceCommands)) {
+                    if (device != null && device != null && !(device in deviceCommands) && devicemodels[device] != null) {
                         deviceCommands[device] = this.loadDeviceCommandFile(devicemodels[device].path)
                     }
                 }
@@ -104,13 +103,13 @@
                 if (enabledDevices['receipt-2-enabled']) {
                     // check if template already loaded
                     var template = enabledDevices['receipt-2-template'];
-                    if (template != null && !(template in deviceTemplates)) {
+                    if (template != null && !(template in deviceTemplates) && templates[template] != null) {
                         deviceTemplates[template] = this.loadTemplateFile(templates[template].path);
                     }
 
                     // check if device already loaded
                     var device = enabledDevices['receipt-2-devicemodel'];
-                    if (device != null && !(device in deviceCommands)) {
+                    if (device != null && !(device in deviceCommands) && devicemodels[device] != null) {
                         deviceCommands[device] = this.loadDeviceCommandFile(devicemodels[device].path)
                     }
                 }
@@ -118,52 +117,52 @@
                 if (enabledDevices['guestcheck-1-enabled']) {
                     // check if template already loaded
                     var template = templates['guestcheck-1-template'];
-                    if (template != null && !(template in deviceTemplates)) {
+                    if (template != null && !(template in deviceTemplates) && templates[template] != null) {
                         deviceTemplates[template] = this.loadTemplateFile(templates[template].path);
                     }
 
                     // check if device already loaded
                     var device = enabledDevices['guestcheck-1-devicemodel'];
-                    if (device != null && !(device in deviceCommands)) {
+                    if (device != null && !(device in deviceCommands) && devicemodels[device] != null) {
                         deviceCommands[device] = this.loadDeviceCommandFile(devicemodels[device].path)
                     }
                 }
 
                 if (enabledDevices['guestcheck-2-enabled']) {
                     var template = templates['guestcheck-2-template'];
-                    if (template != null && !(template in deviceTemplates)) {
+                    if (template != null && !(template in deviceTemplates) && templates[template] != null) {
                         deviceTemplates[template] = this.loadTemplateFile(templates[template].path);
                     }
 
                     // check if device already loaded
                     var device = enabledDevices['guestcheck-2-devicemodel'];
-                    if (device != null && !(device in deviceCommands)) {
+                    if (device != null && !(device in deviceCommands) && devicemodels[device] != null) {
                         deviceCommands[device] = this.loadDeviceCommandFile(devicemodels[device].path)
                     }
                 }
 
                 if (enabledDevices['vfd-1-enabled']) {
                     var template = templates['vfd-1-template'];
-                    if (template != null && !(template in deviceTemplates)) {
+                    if (template != null && !(template in deviceTemplates) && templates[template] != null) {
                         deviceTemplates[template] = this.loadTemplateFile(templates[template].path);
                     }
 
                     // check if device already loaded
                     var device = enabledDevices['vfd-1-devicemodel'];
-                    if (device != null && !(device in deviceCommands)) {
+                    if (device != null && !(device in deviceCommands) && devicemodels[device] != null) {
                         deviceCommands[device] = this.loadDeviceCommandFile(devicemodels[device].path)
                     }
                 }
 
                 if (enabledDevices['vfd-2-enabled']) {
                     var template = templates['vfd-2-template'];
-                    if (template != null && !(template in deviceTemplates)) {
+                    if (template != null && !(template in deviceTemplates) && templates[template] != null) {
                         deviceTemplates[template] = this.loadTemplateFile(templates[template].path);
                     }
 
                     // check if device already loaded
                     var device = enabledDevices['vfd-2-devicemodel'];
-                    if (device != null && !(device in deviceCommands)) {
+                    if (device != null && !(device in deviceCommands) && devicemodels[device] != null) {
                         deviceCommands[device] = this.loadDeviceCommandFile(devicemodels[device].path)
                     }
                 }
@@ -171,7 +170,7 @@
                 if (enabledDevices['cashdrawer-1-enabled'] && (enabledDevices['cashdrawer-1-type'] == 'printer')) {
                     // check if device already loaded
                     var device = enabledDevices['cashdrawer-1-devicemodel'];
-                    if (device != null && !(device in deviceCommands)) {
+                    if (device != null && !(device in deviceCommands) && devicemodels[device] != null) {
                         deviceCommands[device] = this.loadDeviceCommandFile(devicemodels[device].path)
                     }
                 }
@@ -179,7 +178,7 @@
                 if (enabledDevices['cashdrawer-2-enabled'] && (enabledDevices['cashdrawer-2-type'] == 'printer')) {
                     // check if device already loaded
                     var device = enabledDevices['cashdrawer-2-devicemodel'];
-                    if (device != null && !(device in deviceCommands)) {
+                    if (device != null && !(device in deviceCommands) && devicemodels[device] != null) {
                         deviceCommands[device] = this.loadDeviceCommandFile(devicemodels[device].path)
                     }
                 }
@@ -237,7 +236,7 @@
                 if (selectedDevices['receipt-1-enabled']) {
                     var port = selectedDevices['receipt-1-port'];
                     status = 0;
-                    if (port != null && ports[port] != null && ports[port].path != null) {
+                    if (ports != null && port != null && ports[port] != null && ports[port].path != null) {
                         switch(ports[port].type) {
                             case 'serial':
                             case 'usb':
@@ -247,7 +246,7 @@
                         statuses.push([_('Receipt Printer %S', [1]), ports[port].label + ' (' + ports[port].path + ')', status]);
                     }
                     else {
-                        if (port!= null) 
+                        if (ports != null && port!= null && ports[port] != null)
                             statuses.push([_('Receipt Printer %S', [1]), ports[port].label + ' (' + ports[port].path + ')', status]);
                         else
                             statuses.push([_('Receipt Printer %S', [1]), 'unknown', status]);
@@ -259,7 +258,7 @@
                 if (selectedDevices['receipt-2-enabled']) {
                     var port = selectedDevices['receipt-2-port'];
                     status = 0;
-                    if (port != null && ports[port] != null && ports[port].path != null) {
+                    if (ports != null && port != null && ports[port] != null && ports[port].path != null) {
                         switch(ports[port].type) {
                             case 'serial':
                             case 'usb':
@@ -269,7 +268,7 @@
                         statuses.push([_('Receipt Printer %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
                     }
                     else {
-                        if (port!= null)
+                        if (ports != null && port!= null && ports[port] != null)
                             statuses.push([_('Receipt Printer %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
                         else
                             statuses.push([_('Receipt Printer %S', [2]), 'unknown', status]);
@@ -281,7 +280,7 @@
                 if (selectedDevices['guestcheck-1-enabled']) {
                     var port = selectedDevices['guestcheck-1-port'];
                     status = 0;
-                    if (port != null && ports[port] != null && ports[port].path != null) {
+                    if (ports != null && port != null && ports[port] != null && ports[port].path != null) {
                         switch(ports[port].type) {
                             case 'serial':
                             case 'usb':
@@ -291,7 +290,7 @@
                         statuses.push([_('Guest Check Printer %S', [1]), ports[port].label + ' (' + ports[port].path + ')', status]);
                     }
                     else {
-                        if (port!= null)
+                        if (ports != null && port!= null && ports[port] != null)
                             statuses.push([_('Guest Check Printer %S', [1]), ports[port].label + ' (' + ports[port].path + ')', status]);
                         else
                             statuses.push([_('Guest Check Printer %S', [1]), 'unknown', status]);
@@ -303,7 +302,7 @@
                 if (selectedDevices['guestcheck-2-enabled']) {
                     var port = selectedDevices['guestcheck-2-port'];
                     status = 0;
-                    if (port != null && ports[port] != null && ports[port].path != null) {
+                    if (ports != null && port != null && ports[port] != null && ports[port].path != null) {
                         switch(ports[port].type) {
                             case 'serial':
                             case 'usb':
@@ -313,7 +312,7 @@
                         statuses.push([_('Guest Check Printer %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
                     }
                     else {
-                        if (port!= null)
+                        if (ports != null && port!= null && ports[port] != null)
                             statuses.push([_('Guest Check Printer %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
                         else
                             statuses.push([_('Guest Check Printer %S', [2]), 'unknown', status]);
@@ -325,7 +324,7 @@
                 if (selectedDevices['vfd-1-enabled']) {
                     var port = selectedDevices['vfd-1-port'];
                     status = 0;
-                    if (port != null && ports[port] != null && ports[port].path != null) {
+                    if (ports != null && port != null && ports[port] != null && ports[port].path != null) {
                         switch(ports[port].type) {
                             case 'serial':
                             case 'usb':
@@ -335,7 +334,7 @@
                         statuses.push([_('VFD %S', [1]), ports[port].label + ' (' + ports[port].path + ')', status]);
                     }
                     else {
-                        if (port!= null)
+                        if (ports != null && port!= null && ports[port] != null)
                             statuses.push([_('VFD %S', [1]), ports[port].label + ' (' + ports[port].path + ')', status]);
                         else
                             statuses.push([_('VFD %S', [1]), 'unknown', status]);
@@ -346,7 +345,7 @@
                 if (selectedDevices['vfd-2-enabled']) {
                     var port = selectedDevices['vfd-2-port'];
                     status = 0;
-                    if (port != null && ports[port] != null && ports[port].path != null) {
+                    if (ports != null && port != null && ports[port] != null && ports[port].path != null) {
                         switch(ports[port].type) {
                             case 'serial':
                             case 'usb':
@@ -356,7 +355,7 @@
                         statuses.push([_('VFD %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
                     }
                     else {
-                        if (port!= null)
+                        if (ports != null && port!= null && ports[port] != null)
                             statuses.push([_('VFD %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
                         else
                             statuses.push([_('VFD %S', [2]), 'unknown', status]);
@@ -367,7 +366,7 @@
                 if (selectedDevices['cashdrawer-1-enabled']) {
                     var port = selectedDevices['cashdrawer-1-port'];
                     status = 0;
-                    if (port != null && ports[port] != null) {
+                    if (ports != null &&  port != null && ports[port] != null) {
                         if (ports[port].type == 'gpio') {
                             status = this.checkGPIOPort();
                         }
@@ -382,7 +381,7 @@
                         }
                     }
                     else {
-                        if (port!= null)
+                        if (ports != null && port!= null && ports[port] != null)
                             statuses.push([_('Cash Drawer %S', [1]), ports[port].label + ' (' + ports[port].path + ')', status]);
                         else
                             statuses.push([_('Cash Drawer %S', [1]), 'unknown', status]);
@@ -393,7 +392,7 @@
                 if (selectedDevices['cashdrawer-2-enabled']) {
                     var port = selectedDevices['cashdrawer-2-port'];
                     status = 0;
-                    if (port != null && ports[port] != null) {
+                    if (ports != null &&  port != null && ports[port] != null) {
                         if (ports[port].type == 'gpio') {
                             status = this.checkGPIOPort();
                         }
@@ -408,7 +407,7 @@
                         }
                     }
                     else {
-                        if (port!= null)
+                        if (ports != null && port!= null && ports[port] != null)
                             statuses.push([_('Cash Drawer %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
                         else
                             statuses.push([_('Cash Drawer %S', [2]), 'unknown', status]);
