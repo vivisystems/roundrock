@@ -126,6 +126,16 @@ pref("vivipos.fec.settings.controlpanels.config.functionpanel.path", "chrome://v
 pref("vivipos.fec.settings.controlpanels.config.functionpanel.icon", "chrome://viviecr/skin/icons/icon_generic.png");
 pref("vivipos.fec.settings.controlpanels.config.functionpanel.roles", "acl_manage_function_panel");
 
+pref("vivipos.fec.registry.function.programmable.receipt.access", "acl_issue_post_receipt");
+pref("vivipos.fec.registry.function.programmable.receipt.command", "issueReceipt");
+pref("vivipos.fec.registry.function.programmable.receipt.controller", "Print");
+pref("vivipos.fec.registry.function.programmable.receipt.data", "");
+
+pref("vivipos.fec.registry.function.programmable.guestcheck.access", "acl_issue_guest_check");
+pref("vivipos.fec.registry.function.programmable.guestcheck.command", "issueGuestCheck");
+pref("vivipos.fec.registry.function.programmable.guestcheck.controller", "Print");
+pref("vivipos.fec.registry.function.programmable.guestcheck.data", "");
+
 pref("vivipos.fec.registry.function.programmable.pricelevelshift.access", "acl_change_price_level");
 pref("vivipos.fec.registry.function.programmable.pricelevelshift.command", "change");
 pref("vivipos.fec.registry.function.programmable.pricelevelshift.controller", "Pricelevel");
@@ -397,17 +407,21 @@ pref("vivipos.fec.reportpanels.taxesreport.path", "chrome://viviecr/content/repo
 pref("vivipos.fec.reportpanels.taxesreport.icon", "chrome://viviecr/content/skin/icons/editcopy.png");
 pref("vivipos.fec.reportpanels.taxesreport.roles", "acl_public_access_inactive");
 
-pref("vivipos.fec.registry.templates.default.label", "Default Receipt/Guest Check Template");
-pref("vivipos.fec.registry.templates.default.type", "receipt,guestcheck");
-pref("vivipos.fec.registry.templates.default.path", "chrome://viviecr/content/device/templates/default.tpl");
+pref("vivipos.fec.registry.templates.receipt-generic.label", "Generic Receipt Template (42 columns)");
+pref("vivipos.fec.registry.templates.receipt-generic.type", "receipt,guestcheck");
+pref("vivipos.fec.registry.templates.receipt-generic.path", "chrome://viviecr/content/devices/templates/receipt-generic-42c.tpl");
+
+pref("vivipos.fec.registry.templates.guestcheck-generic.label", "Generic Guest Check Template (42 columns)");
+pref("vivipos.fec.registry.templates.guestcheck-generic.type", "receipt,guestcheck");
+pref("vivipos.fec.registry.templates.guestcheck-generic.path", "chrome://viviecr/content/devices/templates/guestcheck-generic-42c.tpl");
 
 pref("vivipos.fec.registry.templates.test.label", "Test Template");
 pref("vivipos.fec.registry.templates.test.type", "receipt,guestcheck");
-pref("vivipos.fec.registry.templates.test.path", "chrome://viviecr/content/device/templates/test.tpl");
+pref("vivipos.fec.registry.templates.test.path", "chrome://viviecr/content/devices/templates/test.tpl");
 
 pref("vivipos.fec.registry.templates.vfd1.label", "VFD Template 1");
 pref("vivipos.fec.registry.templates.vfd1.type", "vfd");
-pref("vivipos.fec.registry.templates.vfd1.path", "chrome://viviecr/content/device/templates/vfd1.tpl");
+pref("vivipos.fec.registry.templates.vfd1.path", "chrome://viviecr/content/devices/templates/vfd1.tpl");
 
 pref("vivipos.fec.registry.templates.vfd2.label", "VFD Template 2");
 pref("vivipos.fec.registry.templates.vfd2.type", "vfd");
@@ -459,12 +473,12 @@ pref("vivipos.fec.registry.devicemodels.escpos.encodings", "English=US-ASCII");
 pref("vivipos.fec.registry.devicemodels.epsontm-t88iv.label", "Epson TM-T88IV");
 pref("vivipos.fec.registry.devicemodels.epsontm-t88iv.type", "receipt,guestcheck,cashdrawer");
 pref("vivipos.fec.registry.devicemodels.epsontm-t88iv.path", "chrome://viviecr/content/devices/commands/escpos.cmd");
-pref("vivipos.fec.registry.devicemodels.epsontm-t88iv.encodings", "English=US-ASCII,Western=ISO-8859-1,Simplified Chinese=GB18030,Traditional Chinese=Big5,Japanese=Shift_JIS");
+pref("vivipos.fec.registry.devicemodels.epsontm-t88iv.encodings", "English=US-ASCII,Western=ISO-8859-1,Simplified Chinese=GB18030,Traditional Chinese=Big5,Japanese=Shift_JIS,UTF-8=UTF-8");
 
 pref("vivipos.fec.registry.devicemodels.vfdfec.label", "Firich VFD");
 pref("vivipos.fec.registry.devicemodels.vfdfec.type", "vfd");
 pref("vivipos.fec.registry.devicemodels.vfdfec.path", "chrome://viviecr/content/devices/commands/vfdfec.cmd");
-pref("vivipos.fec.registry.devicemodels.vfdfec.encodings", "English=US-ASCII,Western=ISO-8859-1,Simplified Chinese=GB18030,Traditional Chinese=Big5,Japanese=Shift_JIS");
+pref("vivipos.fec.registry.devicemodels.vfdfec.encodings", "English=US-ASCII,Western=ISO-8859-1,Simplified Chinese=GB18030,Traditional Chinese=Big5,Japanese=Shift_JIS,UTF-8=UTF-8");
 
 pref("vivipos.fec.registry.devicemodels.vfdgeneric.label", "Generic VFD");
 pref("vivipos.fec.registry.devicemodels.vfdgeneric.type", "vfd");

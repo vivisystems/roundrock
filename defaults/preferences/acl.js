@@ -61,3 +61,5 @@ pref("vivipos.fec.acl.roles.acl_register_pretax_discount", "acl_register_pretax_
 pref("vivipos.fec.acl.roles.acl_register_pretax_surcharge", "acl_register_pretax_surcharge");
 pref("vivipos.fec.acl.roles.acl_manage_date_time", "acl_manage_date_time");
 pref("vivipos.fec.acl.roles.acl_manage_devices", "acl_manage_devices");
+pref("vivipos.fec.acl.roles.acl_issue_post_receipts", "acl_issue_post_receipts");
+pref("vivipos.fec.acl.roles.acl_issue_guest_checks", "acl_issue_guest_checks");

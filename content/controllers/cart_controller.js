@@ -1650,7 +1650,7 @@
             GeckoJS.Session.remove('cart_set_qty_value');
 
             this.dispatchEvent('afterCancel', curTransaction);
-            
+            this.dispatchEvent('onCancel', curTransaction);
         },
 	
         subtotal: function() {
@@ -1671,8 +1671,13 @@
             if(oldTransaction == null) return; // fatal error ?
 
             if (oldTransaction.getRemainTotal() > 0) return;
+
+            this.dispatchEvent('beforeSubmit', oldTransaction);
+
             oldTransaction.submit();
 
+            this.dispatchEvent('afterSubmit', oldTransaction);
+            
             // GeckoJS.Session.remove('current_transaction');
             GeckoJS.Session.remove('cart_last_sell_item');
             GeckoJS.Session.remove('cart_set_price_value');
