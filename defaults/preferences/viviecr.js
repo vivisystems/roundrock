@@ -21,6 +21,11 @@ pref("vivipos.fec.settings.database.exportdir", "/var/tmp/vivipos/database_expor
 pref("vivipos.fec.settings.backup.localbackupdir", "/var/tmp/vivipos/system_backup/");
 pref("vivipos.fec.settings.backup.stickbackupdir", "/var/tmp/vivipos/system_stick_backup/");
 
+pref("vivipos.fec.settings.controlpanels.employee.storecontact.label", "Store Contact");
+pref("vivipos.fec.settings.controlpanels.employee.storecontact.path", "chrome://viviecr/content/storecontact.xul");
+pref("vivipos.fec.settings.controlpanels.employee.storecontact.icon", "chrome://viviecr/skin/icons/icon_generic.png");
+pref("vivipos.fec.settings.controlpanels.employee.storecontact.roles", "acl_manage_storecontact");
+
 pref("vivipos.fec.settings.controlpanels.system.localekeyboard.label", "Locale and Keyboard Mapping");
 pref("vivipos.fec.settings.controlpanels.system.localekeyboard.path", "chrome://viviecr/content/localekeyboard.xul");
 pref("vivipos.fec.settings.controlpanels.system.localekeyboard.icon", "chrome://viviecr/skin/icons/icon_generic.png");
@@ -46,10 +51,10 @@ pref("vivipos.fec.settings.controlpanels.product.plus.path", "chrome://viviecr/c
 pref("vivipos.fec.settings.controlpanels.product.plus.icon", "chrome://viviecr/skin/icons/icon_plus.png");
 pref("vivipos.fec.settings.controlpanels.product.plus.roles", "acl_manage_products");
 
-pref("vivipos.fec.settings.controlpanels.config.taxes.label", "Taxes");
-pref("vivipos.fec.settings.controlpanels.config.taxes.path", "chrome://viviecr/content/taxes.xul");
-pref("vivipos.fec.settings.controlpanels.config.taxes.icon", "chrome://viviecr/skin/icons/icon_taxes.png");
-pref("vivipos.fec.settings.controlpanels.config.taxes.roles", "acl_manage_taxes");
+pref("vivipos.fec.settings.controlpanels.product.taxes.label", "Taxes");
+pref("vivipos.fec.settings.controlpanels.product.taxes.path", "chrome://viviecr/content/taxes.xul");
+pref("vivipos.fec.settings.controlpanels.product.taxes.icon", "chrome://viviecr/skin/icons/icon_taxes.png");
+pref("vivipos.fec.settings.controlpanels.product.taxes.roles", "acl_manage_taxes");
 
 pref("vivipos.fec.settings.controlpanels.product.plugroups.label", "Product Groups");
 pref("vivipos.fec.settings.controlpanels.product.plugroups.path", "chrome://viviecr/content/plugroups.xul");
@@ -407,13 +412,13 @@ pref("vivipos.fec.reportpanels.taxesreport.path", "chrome://viviecr/content/repo
 pref("vivipos.fec.reportpanels.taxesreport.icon", "chrome://viviecr/content/skin/icons/editcopy.png");
 pref("vivipos.fec.reportpanels.taxesreport.roles", "acl_public_access_inactive");
 
-pref("vivipos.fec.registry.templates.receipt-generic.label", "Generic Receipt Template (42 columns)");
-pref("vivipos.fec.registry.templates.receipt-generic.type", "receipt,guestcheck");
-pref("vivipos.fec.registry.templates.receipt-generic.path", "chrome://viviecr/content/devices/templates/receipt-generic-42c.tpl");
+pref("vivipos.fec.registry.templates.receipt-sample-condensed.label", "Sample Receipt Template (condensed, 42 columns)");
+pref("vivipos.fec.registry.templates.receipt-sample-condensed.type", "receipt");
+pref("vivipos.fec.registry.templates.receipt-sample-condensed.path", "chrome://viviecr/content/devices/templates/receipt-sample-condensed-42c.tpl");
 
-pref("vivipos.fec.registry.templates.guestcheck-generic.label", "Generic Guest Check Template (42 columns)");
-pref("vivipos.fec.registry.templates.guestcheck-generic.type", "receipt,guestcheck");
-pref("vivipos.fec.registry.templates.guestcheck-generic.path", "chrome://viviecr/content/devices/templates/guestcheck-generic-42c.tpl");
+pref("vivipos.fec.registry.templates.guestcheck-sample-condensed.label", "Sample Guest Check Template (condensed, 42 columns)");
+pref("vivipos.fec.registry.templates.guestcheck-sample-condensed.type", "guestcheck");
+pref("vivipos.fec.registry.templates.guestcheck-sample-condensed.path", "chrome://viviecr/content/devices/templates/guestcheck-sample-condensed-42c.tpl");
 
 pref("vivipos.fec.registry.templates.test.label", "Test Template");
 pref("vivipos.fec.registry.templates.test.type", "receipt,guestcheck");

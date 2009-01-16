@@ -162,7 +162,7 @@
                 }
             }
 
-            if ((tpl == null || tpl.length == 0) && templates != null) {
+            if ((tpl == null || tpl.length == 0) && templates != null && templates[template] != null) {
                 var deviceController = GeckoJS.Controller.getInstanceByName('Devices');
                 tpl = deviceController.loadTemplateFile(templates[template].path);
                 cachedTemplates[template] = tpl;
@@ -179,7 +179,7 @@
                 }
             }
 
-            if (codes == null && devicemodels != null) {
+            if (codes == null && devicemodels != null && devicemodels[devicemodel] != null) {
                 var deviceController = GeckoJS.Controller.getInstanceByName('Devices');
                 codes = deviceController.loadDeviceCommandFile(devicemodels[devicemodel].path);
                 cachedCommands[devicemodel] = codes;
@@ -338,6 +338,7 @@
              * - store details:
              *   - store name
              *   - store contact
+             *   - branch
              *   - telephone1
              *   - telephone2
              *   - address1
@@ -359,7 +360,8 @@
 
             // order.store = GeckoJS.Session.get('storeDetails');
             order.store = {
-                name: 'VIVISHOP',
+                store: 'VIVISHOP',
+                branch: 'Headquarters',
                 contact: 'VIVIPOS Team',
                 telephone1: '+886 2 2698-1446',
                 telephone2: '+886 930 858 972',
@@ -367,6 +369,7 @@
                 address2: 'Sin Tai Wu Road',
                 city: 'Sijhih City',
                 county: 'Taipei County',
+                state: '',
                 zip: '221',
                 country: 'Taiwan, R.O.C.',
                 fax: '+886 2 2698-3573',
@@ -382,16 +385,16 @@
                 }
             }
             txn._MODIFIERS = this._MODIFIERS;
-/*
-            this.log(this.dump(selectedDevices));
-            this.log(this.dump(txn));
-*/
+
+            //this.log(this.dump(selectedDevices));
+            //this.log(this.dump(txn));
+            
             // for each enabled printer device, print if autoprint is on or if force is true
             if (selectedDevices != null) {
                 if (selectedDevices['receipt-1-enabled'] &&
                     ((printer == 0) ||
                      (printer == 1) ||
-                     (printed == null && selectedDevices['receipt-1-autoprint']))) {
+                     (printer == null && selectedDevices['receipt-1-autoprint']))) {
                     var template = selectedDevices['receipt-1-template'];
                     var port = selectedDevices['receipt-1-port'];
                     var speed = selectedDevices['receipt-1-portspeed'];
@@ -403,7 +406,7 @@
                 if (selectedDevices['receipt-2-enabled'] &&
                     ((printer == 0) ||
                      (printer == 2) ||
-                     (printed == null && selectedDevices['receipt-2-autoprint']))) {
+                     (printer == null && selectedDevices['receipt-2-autoprint']))) {
                     var template = selectedDevices['receipt-2-template'];
                     var port = selectedDevices['receipt-2-port'];
                     var speed = selectedDevices['receipt-2-portspeed'];
@@ -559,20 +562,17 @@
 
         // print check using the given parameters
         printCheck: function(txn, template, port, speed, devicemodel, encoding) {
-
             var templates = this.getTemplates();
             var devicemodels = this.getDeviceModels();
             var ports = this.getPorts();
-            var order = txn.data;
             var portPath;
             var commands = {};
             
-            portPath = (port == null || ports == null) ? null : ports[port].path;
+            portPath = (port == null || ports == null || ports[port] == null) ? null : ports[port].path;
             if (portPath == null || portPath == '') {
                 NotifyUtils.error(_('Specified device port [%S] does not exist!', [port]));
                 return false;
             }
-
             var tpl = this.getTemplateData(template, templates, false);
             if (tpl == null || tpl == '') {
                 NotifyUtils.error(_('Specified receipt/guest check template [%S] is empty or does not exist!', [template]));

@@ -27,6 +27,7 @@ include('chrome://viviecr/content/models/plugroup.js');
 include('chrome://viviecr/content/models/job.js');
 include('chrome://viviecr/content/models/setitem.js');
 include('chrome://viviecr/content/models/producttmp.js');
+include('chrome://viviecr/content/models/stprecpmtact.js');
 
 
 include('chrome://viviecr/content/models/order.js');
@@ -75,6 +76,7 @@ include('chrome://viviecr/content/controllers/currencysetup_controller.js');
 include('chrome://viviecr/content/controllers/sound_controller.js');
 include('chrome://viviecr/content/controllers/devices_controller.js');
 include('chrome://viviecr/content/controllers/print_controller.js');
+include('chrome://viviecr/content/controllers/storecontact_controller.js');
 
 include('chrome://viviecr/content/controllers/test_controller.js');
 
