@@ -27,6 +27,7 @@ include('chrome://viviecr/content/models/plugroup.js');
 include('chrome://viviecr/content/models/job.js');
 include('chrome://viviecr/content/models/setitem.js');
 include('chrome://viviecr/content/models/producttmp.js');
+include('chrome://viviecr/content/models/stprecpmtact.js');
 
 
 include('chrome://viviecr/content/models/order.js');

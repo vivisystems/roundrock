@@ -12,8 +12,8 @@
 
         doSetOKCancel(
             function(){
-                $do('save', null, 'StoreContact');
-                return true;
+                var controller = GeckoJS.Controller.getInstanceByName('StoreContact');
+                return controller.update();
             },
             function(){
                 return true;

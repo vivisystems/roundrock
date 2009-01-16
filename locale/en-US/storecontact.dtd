@@ -14,4 +14,4 @@
 <!ENTITY storecontact.fax "FAX">
 <!ENTITY storecontact.email "Email">
 <!ENTITY storecontact.note "Note">
-<!ENTITY storecontact.terminal_id "Terminal ID">
+<!ENTITY storecontact.terminal_no "Terminal ID">

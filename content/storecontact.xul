@@ -51,8 +51,8 @@
                     <textbox id="contact" value="" form="storecontactForm" name="contact"/>
                 </row>
                 <row>
-                    <label value="&storecontact.terminal_id;" />
-                    <textbox id="contact" value="" form="storecontactForm" name="terminal_id"/>
+                    <label value="&storecontact.terminal_no;" />
+                    <textbox id="contact" value="" form="storecontactForm" name="terminal_no"/>
                 </row>
                 <row>
                     <label value="&storecontact.telephone1;" />
