@@ -11,10 +11,11 @@
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul"?>
 
 <window title="&departments.title;"
+	hidechrome="true"
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-   <script type="application/x-javascript" src="chrome://vivipos/content/libs/jquery-1.2.6.js" />
+   <script type="application/x-javascript" src="chrome://vivipos/content/libs/jquery.js" />
     <script type="application/x-javascript">
         window['GeckoJS'] = opener.GeckoJS;
         window['GREUtils'] = opener.GREUtils;

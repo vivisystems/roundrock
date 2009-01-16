@@ -6,7 +6,9 @@
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
-<window id="numpad" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<window id="report"
+	hidechrome="true"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/promotions.js" />

@@ -66,7 +66,7 @@
 
                 no_of_customers: 0,
 
-                terminal_no: '',
+                terminal_no: GeckoJS.Configure.read('vivipos.fec.settings.TerminalID'),
 
                 created: '',
                 modified: ''
@@ -112,6 +112,7 @@
 
         if ( user != null ) {
             this.data.service_clerk = user.username;
+            this.data.service_clerk_displayname = user.description;
         }
 
         this.data.created = new Date().getTime();
@@ -172,6 +173,7 @@
         var user = new GeckoJS.AclComponent().getUserPrincipal();
         if ( user != null ) {
             this.data.proceeds_clerk = user.username;
+            this.data.proceeds_clerk_displayname = user.description;
         }
 
         // use backgroud to save
@@ -454,7 +456,7 @@
     };
 
     Transaction.prototype.checkSellPrice = function(item) {
-        var sellQty = null, sellPrice = null;
+        var sellQty = item.current_qty, sellPrice = item.current_price;
 
         var lastSellItem = GeckoJS.Session.get('cart_last_sell_item');
         if (lastSellItem != null) {

@@ -9,7 +9,7 @@
      */
     function startup() {
 
-        $do('initial', null, 'Devices');
+        $do('initial', false, 'Devices');
         $do('load', null, 'Devices');
 
         doSetOKCancel(
