@@ -1,3 +1,4 @@
+[&ESC !][0x28]${'GUEST CHECK'|center:21}[&ESC !][0x01]
 [&ESC !][0x28]${data.store.name|center:21}[&ESC !][0x01]
 [&ESC !][0x28]${data.store.branch|center:21}[&ESC !][0x01]
 ${data.store.telephone1|center:42}

@@ -63,11 +63,12 @@
         },
 
         // open serial port for writing
-        openSerialPort: function (path, speed) {
+        openSerialPort: function (path, speed, handshakingDisabled) {
             var portControl = this.getSerialPortControlService();
+            var handshake = (handshakingDisabled == true) ? 'n' : 'h';
             if (portControl != null) {
                 try {
-                    return (portControl.openPort(path, speed + ',n,8,1,h') != -1);
+                    return (portControl.openPort(path, speed + ',n,8,1,' + handshake) != -1);
                 }
                 catch(e) {
                     return false;
@@ -80,17 +81,15 @@
 
         writeSerialPort: function (path, buf) {
             var portControl = this.getSerialPortControlService();
+            var len = -1;
             if (portControl != null) {
                 try {
-                    return (portControl.writePort(path, buf, buf.length) != -1);
+                    return (portControl.writePort(path, buf, buf.length));
                 }
                 catch(e) {
-                    return false;
                 }
             }
-            else {
-                return false;
-            }
+            return len;
         },
 
         // close serial port
@@ -241,17 +240,45 @@
             }
         },
 
+        // check if receipts have already been printed
+        isReceiptPrinted: function(txn) {
+            var orderReceiptModel = new OrderReceiptModel();
+            var receipts = orderReceiptModel.findByIndex('all', {
+                index: 'order_id',
+                value: txn.data.id
+            });
+            if (receipts == null || receipts.length == 0)
+                return null
+            else
+                return receipts;
+        },
+
+        // add a receipt print timestamp
+        receiptPrinted: function(txn) {
+            var orderReceiptModel = new OrderReceiptModel();
+            var orderReceipt = {
+                order_id: txn.data.id,
+                printed: new Date().getTime(),
+                sequence: txn.data.seq
+            };
+
+            orderReceiptModel.save(orderReceipt);
+        },
+
         // handle order submit events
         beforeSubmit: function(evt) {
 
-            var printed = false;
-            var order = evt.data.data;
-
+            // @todo
             // check if receipt already printed
-            if (order['receipt_printed'] == null) {
-                printed = this.printReceipts(evt.data);
-                if (printed) evt.data.data['receipt_printed'] = (new Date()).getTime();
+            var receipts = this.isReceiptPrinted(evt.data);
+            if (receipts == null) {
+                this.printReceipts(evt.data);
             }
+            else {
+                NotifyUtils.warn(_('A receipt has already been issued for this order at [%S]'));
+            }
+
+            this.printGuestChecks(evt.data);
         },
 
         // handles user initiated receipt requests
@@ -271,11 +298,12 @@
                 return; // fatal error ?
             }
 
-            if (txn.data['receipt_printed'] != null) {
-                var datetime = new Date(txn.data['receipt_printed']).toLocaleString();
-                NotifyUtils.warn(_('A receipt has already been issued for this order at [%S]', [datetime]));
+            var receipts = this.isReceiptPrinted(txn);
+            if (receipts != null) {
+                NotifyUtils.warn(_('A receipt has already been issued for this order'));
                 return;
             }
+
             // check device settings
             if ((printer != null) && (printer != '') && (printer != 1) && (printer != 2)) {
                 NotifyUtils.warn(_('The intended printer [%S] does not exist', [printer]));
@@ -302,22 +330,7 @@
 
             if (printer == null || printer == '') printer = 0;
 
-            var printed = this.printReceipts(txn, printer);
-            if (printed) {
-                var now = (new Date()).getTime();
-                txn.data['receipt_printed'] = now;
-
-                var orderModel = new OrderModel();
-                var order = orderModel.findByIndex('first', {
-                    index: 'sequence',
-                    value: txn.data.seq
-                });
-                if (order != null) {
-                    order['receipt_printed'] = now;
-                    orderModel.saveOrderMaster(order);
-                }
-
-            }
+            this.printReceipts(txn, printer);
         },
 
         // print on all enabled receipt printers
@@ -355,6 +368,7 @@
              */
             var now = new Date();
             var order = txn.data;
+            
             order.create_date = new Date(order.created);
             order.print_date = new Date();
 
@@ -381,9 +395,15 @@
                     var template = selectedDevices['receipt-1-template'];
                     var port = selectedDevices['receipt-1-port'];
                     var speed = selectedDevices['receipt-1-portspeed'];
+                    var handshakeDisabled = selectedDevices['receipt-1-disable-handshake'];
                     var devicemodel = selectedDevices['receipt-1-devicemodel'];
                     var encoding = selectedDevices['receipt-1-encoding'];
-                    printed = this.printCheck(txn, template, port, speed, devicemodel, encoding);
+                    printed = this.printCheck(txn, template, port, speed, handshakeDisabled, devicemodel, encoding);
+
+                    if (printed) {
+                        this.receiptPrinted(txn);
+                    }
+
                 }
 
                 if (selectedDevices['receipt-2-enabled'] &&
@@ -393,9 +413,11 @@
                     var template = selectedDevices['receipt-2-template'];
                     var port = selectedDevices['receipt-2-port'];
                     var speed = selectedDevices['receipt-2-portspeed'];
+                    var handshakeDisabled = selectedDevices['receipt-2-disable-handshake'];
                     var devicemodel = selectedDevices['receipt-2-devicemodel'];
                     var encoding = selectedDevices['receipt-2-encoding'];
-                    if (this.printCheck(txn, template, port, speed, devicemodel, encoding)) {
+                    if (this.printCheck(txn, template, port, speed, handshakeDisabled, devicemodel, encoding)) {
+                        this.receiptPrinted(txn);
                         printed = true;
                     }
                 }
@@ -410,13 +432,13 @@
             var txn = cart._getTransaction();
             if (txn == null) {
                 // @todo OSD
-                NotifyUtils.warn(_('Not an open order; cannot issue guest check'));
+                NotifyUtils.warn(_('Cannot issue guest check on an empty order'));
                 return; // fatal error ?
             }
 
-            if (txn.isSubmit() || txn.isCancel()) {
+            if (txn.isCancel()) {
                 // @todo OSD
-                NotifyUtils.warn(_('Not an open order; cannot issue guest check'));
+                NotifyUtils.warn(_('Cannot issue guest check on a canceled order'));
                 return; // fatal error ?
             }
 
@@ -446,7 +468,7 @@
 
             if (printer == null || printer == '') printer = 0;
 
-            var printed = this.printGuestChecks(txn, printer);
+            this.printGuestChecks(txn, printer);
         },
 
         // print on all enabled receipt printers
@@ -503,23 +525,29 @@
             // for each enabled printer device, print if autoprint is on or if force is true
             if (selectedDevices != null) {
                 if (selectedDevices['guestcheck-1-enabled'] &&
-                    ((printer == 0) || (printer == 1))) {
+                    ((printer == 0) ||
+                     (printer == 1) ||
+                     (printer == null && selectedDevices['guestcheck-1-autoprint']))) {
                     var template = selectedDevices['guestcheck-1-template'];
                     var port = selectedDevices['guestcheck-1-port'];
                     var speed = selectedDevices['guestcheck-1-portspeed'];
+                    var handshakeDisabled = selectedDevices['guestcheck-1-disable-handshake'];
                     var devicemodel = selectedDevices['guestcheck-1-devicemodel'];
                     var encoding = selectedDevices['guestcheck-1-encoding'];
-                    printed = this.printCheck(txn, template, port, speed, devicemodel, encoding);
+                    printed = this.printCheck(txn, template, port, speed, handshakeDisabled, devicemodel, encoding);
                 }
 
                 if (selectedDevices['guestcheck-2-enabled'] &&
-                    ((printer == 0) || (printer == 2))) {
+                    ((printer == 0) ||
+                     (printer == 2) ||
+                     (printer == null && selectedDevices['guestcheck-2-autoprint']))) {
                     var template = selectedDevices['guestcheck-2-template'];
                     var port = selectedDevices['guestcheck-2-port'];
                     var speed = selectedDevices['guestcheck-2-portspeed'];
+                    var handshakeDisabled = selectedDevices['guestcheck-2-disable-handshake'];
                     var devicemodel = selectedDevices['guestcheck-2-devicemodel'];
                     var encoding = selectedDevices['guestcheck-2-encoding'];
-                    if (this.printCheck(txn, template, port, speed, devicemodel, encoding)) {
+                    if (this.printCheck(txn, template, port, speed, handshakeDisabled, devicemodel, encoding)) {
                         printed = true;
                     }
                 }
@@ -529,7 +557,7 @@
 
 
         // print check using the given parameters
-        printCheck: function(txn, template, port, speed, devicemodel, encoding) {
+        printCheck: function(txn, template, port, speed, handshakeDisabled, devicemodel, encoding) {
             var templates = this.getTemplates();
             var devicemodels = this.getDeviceModels();
             var ports = this.getPorts();
@@ -586,8 +614,9 @@
             
             // send to output device
             var printed = false;
-            if (this.openSerialPort(portPath, speed)) {
-                if (this.writeSerialPort(portPath, encodedResult)) {
+            if (this.openSerialPort(portPath, speed, handshakeDisabled)) {
+                var len = this.writeSerialPort(portPath, encodedResult);
+                if (len == encodedResult.length) {
                     printed = true;
                 }
                 this.closeSerialPort(portPath);
@@ -605,7 +634,7 @@
                 if (portName == null) portName = 'unknown';
 
                 //@todo OSD
-                NotifyUtils.error(_('Unable to print to device [%S] at port [%S]', [devicemodelName, portName]));
+                NotifyUtils.error(_('Error detected when printing to device [%S] at port [%S]', [devicemodelName, portName]));
             }
             return printed;
         }

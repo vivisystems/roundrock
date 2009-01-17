@@ -35,6 +35,7 @@ include('chrome://viviecr/content/models/order_item.js');
 include('chrome://viviecr/content/models/order_addition.js');
 include('chrome://viviecr/content/models/order_payment.js');
 include('chrome://viviecr/content/models/order_object.js');
+include('chrome://viviecr/content/models/order_receipt.js');
 
 
 // include project helpers
