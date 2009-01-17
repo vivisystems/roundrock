@@ -5,11 +5,13 @@
 <?xml-stylesheet href="chrome://viviecr/skin/sysprefs.css" type="text/css"?>
 
 <prefwindow title="&preferences.title;" id="prefwin"
-	    hidechrome="true"
+            hidechrome="true"
             xmlns:html="http://www.w3.org/1999/xhtml"
             xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
             ondialogcancel="closePreferences()"
             width="800" height="600"
+            dlgbuttons="help"
+            closebuttonlabel="&button.close.label;"
             >
 
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />

@@ -27,6 +27,7 @@ include('chrome://viviecr/content/models/plugroup.js');
 include('chrome://viviecr/content/models/job.js');
 include('chrome://viviecr/content/models/setitem.js');
 include('chrome://viviecr/content/models/producttmp.js');
+include('chrome://viviecr/content/models/stprecpmtact.js');
 
 
 include('chrome://viviecr/content/models/order.js');
@@ -34,6 +35,7 @@ include('chrome://viviecr/content/models/order_item.js');
 include('chrome://viviecr/content/models/order_addition.js');
 include('chrome://viviecr/content/models/order_payment.js');
 include('chrome://viviecr/content/models/order_object.js');
+include('chrome://viviecr/content/models/order_receipt.js');
 
 
 // include project helpers

@@ -39,8 +39,12 @@
 
             <rows>
                 <row>
-                    <label value="&storecontact.store;" />
-                    <textbox id="store" value="" form="storecontactForm" name="store"/>
+                    <label value="* &storecontact.terminal_no;" />
+                    <textbox id="contact" value="" form="storecontactForm" name="terminal_no"/>
+                </row>
+                <row>
+                    <label value="* &storecontact.name;" />
+                    <textbox id="name" value="" form="storecontactForm" name="name"/>
                 </row>
                 <row>
                     <label value="&storecontact.branch;" />
@@ -49,10 +53,6 @@
                 <row>
                     <label value="&storecontact.contact;" />
                     <textbox id="contact" value="" form="storecontactForm" name="contact"/>
-                </row>
-                <row>
-                    <label value="&storecontact.terminal_id;" />
-                    <textbox id="contact" value="" form="storecontactForm" name="terminal_id"/>
                 </row>
                 <row>
                     <label value="&storecontact.telephone1;" />
@@ -101,6 +101,9 @@
                 <row>
                     <label value="&storecontact.note;" />
                     <textbox id="note" value="" form="storecontactForm" name="note"/>
+                </row>
+                <row>
+                    <label value="&storecontact.requiredNotice;"/>
                 </row>
             </rows>
         </grid>

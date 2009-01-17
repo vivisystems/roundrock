@@ -40,7 +40,6 @@
                             <column flex="0"/>
                             <column flex="1"/>
                             <column flex="0"/>
-                            <column flex="1"/>
                         </columns>
                         <rows>
                             <row>
@@ -63,6 +62,7 @@
                                     <menupopup id="receipt-1-portspeed-popup">
                                     </menupopup>
                                 </menulist>
+                                <checkbox id="receipt-1-disable-handshake" label="&devices.disable.handshake.label;" checked="false" name="receipt-1-disable-handshake" form="deviceForm"/>
                             </row>
                             <row>
                                 <label value="&devices.devicemodel.label;"/>
@@ -116,6 +116,7 @@
                                     <menupopup id="receipt-2-portspeed-popup">
                                     </menupopup>
                                 </menulist>
+                                <checkbox id="receipt-2-disable-handshake" label="&devices.disable.handshake.label;" checked="false" name="receipt-2-disable-handshake" form="deviceForm"/>
                             </row>
                             <row>
                                 <label value="&devices.devicemodel.label;"/>
@@ -147,7 +148,6 @@
                             <column flex="0"/>
                             <column flex="1"/>
                             <column flex="0"/>
-                            <column flex="1"/>
                         </columns>
                         <rows>
                             <row>
@@ -170,6 +170,7 @@
                                     <menupopup id="guestcheck-1-portspeed-popup">
                                     </menupopup>
                                 </menulist>
+                                <checkbox id="guestcheck-1-disable-handshake" label="&devices.disable.handshake.label;" checked="false" name="guestcheck-1-disable-handshake" form="deviceForm"/>
                             </row>
                             <row>
                                 <label value="&devices.devicemodel.label;"/>
@@ -188,57 +189,62 @@
                             </row>
                         </rows>
                     </grid>
+                    <checkbox id="guestcheck-1-autoprint" label="&devices.guestcheck.autoprint.label;" value="false" name="guestcheck-1-autoprint" form="deviceForm"/>
                 </vbox>
 
                 <spacer height="15px"/>
 
                 <checkbox label="&devices.guestcheck.printer.2.label;" name="guestcheck-2-enabled" value="false" default="false" form="deviceForm"/>
-                <grid class="squarePanelContainer">
-                    <columns>
-                        <column flex="0"/>
-                        <column flex="1"/>
-                        <column flex="0"/>
-                        <column flex="1"/>
-                    </columns>
-                    <rows>
-                        <row>
-                            <label value="&devices.template.label;"/>
-                            <menulist id="guestcheck-2-template" name="guestcheck-2-template" form="deviceForm">
-                                <menupopup id="guestcheck-2-template-popup">
-                                </menupopup>
-                            </menulist>
-                        </row>
-                        <row>
-                            <label value="&devices.port.label;"/>
-                            <menulist id="guestcheck-2-port" name="guestcheck-2-port" form="deviceForm">
-                                <menupopup id="guestcheck-2-port-popup">
-                                </menupopup>
-                            </menulist>
-                        </row>
-                        <row>
-                            <label value="&devices.portspeed.label;"/>
-                            <menulist id="guestcheck-2-portspeed" name="guestcheck-2-portspeed" form="deviceForm">
-                                <menupopup id="guestcheck-2-portspeed-popup">
-                                </menupopup>
-                            </menulist>
-                        </row>
-                        <row>
-                            <label value="&devices.devicemodel.label;"/>
-                            <menulist id="guestcheck-2-devicemodel" name="guestcheck-2-devicemodel" form="deviceForm"
-                                      oncommand="$do('updateEncodings', [this, document.getElementById('guestcheck-2-encoding')], 'Devices')">
-                                <menupopup id="guestcheck-2-devicemodel-popup">
-                                </menupopup>
-                            </menulist>
-                        </row>
-                        <row>
-                            <label value="&devices.deviceencoding.label;"/>
-                            <menulist id="guestcheck-2-encoding" name="guestcheck-2-encoding" form="deviceForm">
-                                <menupopup id="guestcheck-2-encoding-popup">
-                                </menupopup>
-                            </menulist>
-                        </row>
-                    </rows>
-                </grid>
+                <vbox class="squarePanelContainer">
+                    <grid class="squarePanelContainer">
+                        <columns>
+                            <column flex="0"/>
+                            <column flex="1"/>
+                            <column flex="0"/>
+                            <column flex="1"/>
+                        </columns>
+                        <rows>
+                            <row>
+                                <label value="&devices.template.label;"/>
+                                <menulist id="guestcheck-2-template" name="guestcheck-2-template" form="deviceForm">
+                                    <menupopup id="guestcheck-2-template-popup">
+                                    </menupopup>
+                                </menulist>
+                            </row>
+                            <row>
+                                <label value="&devices.port.label;"/>
+                                <menulist id="guestcheck-2-port" name="guestcheck-2-port" form="deviceForm">
+                                    <menupopup id="guestcheck-2-port-popup">
+                                    </menupopup>
+                                </menulist>
+                            </row>
+                            <row>
+                                <label value="&devices.portspeed.label;"/>
+                                <menulist id="guestcheck-2-portspeed" name="guestcheck-2-portspeed" form="deviceForm">
+                                    <menupopup id="guestcheck-2-portspeed-popup">
+                                    </menupopup>
+                                </menulist>
+                                <checkbox id="guestcheck-2-disable-handshake" label="&devices.disable.handshake.label;" checked="false" name="guestcheck-2-disable-handshake" form="deviceForm"/>
+                            </row>
+                            <row>
+                                <label value="&devices.devicemodel.label;"/>
+                                <menulist id="guestcheck-2-devicemodel" name="guestcheck-2-devicemodel" form="deviceForm"
+                                          oncommand="$do('updateEncodings', [this, document.getElementById('guestcheck-2-encoding')], 'Devices')">
+                                    <menupopup id="guestcheck-2-devicemodel-popup">
+                                    </menupopup>
+                                </menulist>
+                            </row>
+                            <row>
+                                <label value="&devices.deviceencoding.label;"/>
+                                <menulist id="guestcheck-2-encoding" name="guestcheck-2-encoding" form="deviceForm">
+                                    <menupopup id="guestcheck-2-encoding-popup">
+                                    </menupopup>
+                                </menulist>
+                            </row>
+                        </rows>
+                    </grid>
+                    <checkbox id="guestcheck-2-autoprint" label="&devices.guestcheck.autoprint.label;" value="false" name="guestcheck-2-autoprint" form="deviceForm"/>
+                </vbox>
             </tabpanel>
 
         <!-- VFD configuration -->
@@ -273,6 +279,7 @@
                                     <menupopup id="vfd-1-portspeed-popup">
                                     </menupopup>
                                 </menulist>
+                                <checkbox id="vfd-1-disable-handshake" label="&devices.disable.handshake.label;" checked="false" name="vfd-1-disable-handshake" form="deviceForm"/>
                             </row>
                             <row>
                                 <label value="&devices.devicemodel.label;"/>
@@ -324,6 +331,7 @@
                                 <menupopup id="vfd-2-portspeed-popup">
                                 </menupopup>
                             </menulist>
+                            <checkbox id="vfd-2-disable-handshake" label="&devices.disable.handshake.label;" checked="false" name="vfd-2-disable-handshake" form="deviceForm"/>
                         </row>
                         <row>
                             <label value="&devices.devicemodel.label;"/>
@@ -359,7 +367,7 @@
                             <row>
                                 <label value="Type"/>
                                 <menulist id="cashdrawer-1-type" name="cashdrawer-1-type" form="deviceForm"
-                                          oncommand="$do('updateCashdrawerType', [this, document.getElementById('cashdrawer-1-devicemodel')], 'Devices')">
+                                          oncommand="$do('updateCashdrawerType', [this, 1], 'Devices')">
                                     <menupopup id="cashdrawer-1-template-popup">
                                         <menuitem label="&devices.cashdrawer.type.gpio;" value="gpio"/>
                                         <menuitem label="&devices.cashdrawer.type.printer;" value="printer"/>
@@ -379,6 +387,7 @@
                                     <menupopup id="cashdrawer-1-portspeed-popup">
                                     </menupopup>
                                 </menulist>
+                                <checkbox id="cashdrawer-1-disable-handshake" label="&devices.disable.handshake.label;" checked="false" name="cashdrawer-1-disable-handshake" form="deviceForm"/>
                             </row>
                             <row>
                                 <label value="&devices.devicemodel.label;"/>
@@ -406,7 +415,7 @@
                             <row>
                                 <label value="Type"/>
                                 <menulist id="cashdrawer-2-type" name="cashdrawer-2-type" form="deviceForm"
-                                          oncommand="$do('updateCashdrawerType', [this, document.getElementById('cashdrawer-2-devicemodel')], 'Devices')">
+                                          oncommand="$do('updateCashdrawerType', [this, 2], 'Devices')">
                                     <menupopup id="cashdrawer-2-template-popup">
                                         <menuitem label="&devices.cashdrawer.type.gpio;" value="gpio"/>
                                         <menuitem label="&devices.cashdrawer.type.printer;" value="printer"/>
@@ -426,6 +435,7 @@
                                     <menupopup id="cashdrawer-2-portspeed-popup">
                                     </menupopup>
                                 </menulist>
+                                <checkbox id="cashdrawer-2-disable-handshake" label="&devices.disable.handshake.label;" checked="false" name="cashdrawer-2-disable-handshake" form="deviceForm"/>
                             </row>
                             <row>
                                 <label value="&devices.devicemodel.label;"/>

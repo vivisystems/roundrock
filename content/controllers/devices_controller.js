@@ -530,16 +530,26 @@
 
         updateCashdrawerType: function(data) {
             var typemenu = data[0];
-            var devicemenu = data[1];
+            var drawer_no = data[1];
 
+            var portmenu = document.getElementById('cashdrawer-' + drawer_no + '-port')
+            var speedmenu = document.getElementById('cashdrawer-' + drawer_no + '-portspeed')
+            var handshakebox = document.getElementById('cashdrawer-' + drawer_no + '-disable-handshake')
+            var devicemenu = document.getElementById('cashdrawer-' + drawer_no + '-devicemodel')
+            
             if (typemenu == null || devicemenu == null) return;
 
             var selectedType = typemenu.selectedItem;
             if (selectedType == null) {
-                devicemenu.setAttribute('disabled', true);
+                portmenu.setAttribute('disabled', true);
+                speedmenu.setAttribute('disabled', true);
+                handshakebox.setAttribute('disabled', true);
                 devicemenu.selectedIndex = 0;
             }
             else {
+                portmenu.setAttribute('disabled', selectedType.value == 'gpio');
+                speedmenu.setAttribute('disabled', selectedType.value == 'gpio');
+                handshakebox.setAttribute('disabled', selectedType.value == 'gpio');
                 devicemenu.setAttribute('disabled', selectedType.value == 'gpio');
             }
         },
@@ -878,8 +888,8 @@
                 devicemodelmenu1.selectedIndex = devicemodelmenu2.selectedIndex = 0;
                 //devicemodelmenu3.selectedIndex = 0;
 
-                this.updateCashdrawerType([document.getElementById('cashdrawer-1-type'), devicemodelmenu1]);
-                this.updateCashdrawerType([document.getElementById('cashdrawer-2-type'), devicemodelmenu2]);
+                this.updateCashdrawerType([document.getElementById('cashdrawer-1-type'), '1']);
+                this.updateCashdrawerType([document.getElementById('cashdrawer-2-type'), '2']);
             }
 
             /* apply device selections */

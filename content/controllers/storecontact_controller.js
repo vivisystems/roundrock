@@ -1,49 +1,65 @@
 (function(){
 
+    GeckoJS.include('chrome://viviecr/content/models/storecontact.js');
+
     /**
      * Contact Info Controller
      */
 
     GeckoJS.Controller.extend( {
         name: 'StoreContact',
-        components: ['Form', 'Acl'], 
-        scaffold: true,
+        components: ['Form'],
 
 
         // load store contact from database into session cache
         initial: function() {
+            var storeContactModel = new StoreContactModel();
+            var contact = storeContactModel.findFirst();
 
+            GeckoJS.Session.set('storeContact', contact);
+            GeckoJS.Session.set('terminal_id', contact == null ? '' : contact.terminal_no);
         },
 
-        beforeScaffoldAdd: function(evt) {
+        update: function () {
+            var formObj = GeckoJS.FormHelper.serializeToObject('storecontactForm');
+
+            if (formObj == null) {
+                NotifyUtils.error(_('Unable to save store contact!'));
+                return false;
+            }
+            else {
+                var name = (formObj.name == null) ? '' : GeckoJS.String.trim(formObj.name);
+                var terminal_no = (formObj.terminal_no == null) ? '' : GeckoJS.String.trim(formObj.terminal_no);
+
+                if (name.length == 0 || terminal_no == 0) {
+                    NotifyUtils.warn(_('Store name and terminal ID must not be blank!'));
+                    return false;
+                }
+            }
+            formObj.name = name;
+            formObj.terminal_no = terminal_no;
+            
+            var storeContactModel = new StoreContactModel();
+            storeContactModel.id = formObj.id;
+            storeContactModel.save(formObj);
+
+            GeckoJS.Session.set('storeContact', formObj);
+            GeckoJS.Session.set('terminal_id', terminal_no);
+
+            return true;
         },
-
-        afterScaffoldAdd: function (evt) {
-        },
-
-        beforeScaffoldEdit: function(evt) {
-        },
-
-        afterScaffoldEdit: function (evt) {
-        },
-
-        afterScaffoldSave: function(evt) {
-        },
-
-        beforeScaffoldDelete: function(evt) {
-        },
-
-        afterScaffoldDelete: function(evt) {
-        },
-
-
-        afterScaffoldIndex: function(evt) {
-        },
-
+        
         load: function () {
-        },
 
-        select: function(index){
+            var storeContactModel = new StoreContactModel();
+            var formObj = storeContactModel.findFirst();
+
+            if (formObj != null) {
+                GeckoJS.FormHelper.unserializeFromObject('storecontactForm', formObj);
+            }
+            else {
+                GeckoJS.FormHelper.reset('storecontactForm');
+            }
         },
 
         validateForm: function() {
