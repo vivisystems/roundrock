@@ -42,4 +42,7 @@
 .ToolBar {
     margin-left: 4px;
 }
-
+.ImportList {
+    background: #f4f3ee;
+    margin: 8px;
+}

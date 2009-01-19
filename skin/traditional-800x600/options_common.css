@@ -302,3 +302,22 @@ checkbox:hover, radio:hover {
     margin-left: 0px;
 }
 
+.NoticeMark {
+    font-weight: bold;
+    color: #cc6300;
+}
+
+.ListPnl {
+    margin: 8px;
+}
+.ListPnl vivibutton {
+    margin: 0 4px;
+}
+
+treechildren::-moz-tree-row {
+  height: 32px;
+}
+treechildren::-moz-tree-row(selected) {background-color: #92856a; }
+treechildren::-moz-tree-row(odd, selected) {background-color: #92856a; }
+treechildren::-moz-tree-cell-text(selected) {color: #FFFFFF;}
+treechildren::-moz-tree-cell-text(odd, selected) {color: #FFFFFF;}
