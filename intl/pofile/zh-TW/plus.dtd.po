@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-15 18:34+0800\n"
+"POT-Creation-Date: 2009-01-19 17:32+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,264 +15,264 @@ msgstr ""
 
 #: plus.title
 msgid "Product Properties"
-msgstr "產品屬性"
+msgstr "Product Properties"
 
 #: plusearch.title
 msgctxt "plusearch.title"
 msgid "Product Search"
-msgstr "產品查詢"
+msgstr "Product Search"
 
 #: plus.tab.base.data1
 msgid "Basic 1"
-msgstr "基本資料 1"
+msgstr "Basic 1"
 
 #: plus.tab.base.data2
 msgid "Basic 2 "
-msgstr "基本資料 2 "
+msgstr "Basic 2 "
 
 #: plus.tab.setmenu
 msgid "Sets"
-msgstr "組合產品"
+msgstr "Sets"
 
 #: plus.tab.appearance
 msgctxt "plus.tab.appearance"
 msgid "Appearance"
-msgstr "顯示設定"
+msgstr "Appearance"
 
 #: plus.tab.pricelevels
 msgctxt "plus.tab.pricelevels"
 msgid "Price Levels"
-msgstr "價格設定"
+msgstr "Price Levels"
 
 #: plus.tab.linkgroups
 msgctxt "plus.tab.linkgroups"
 msgid "Link Groups"
-msgstr "群組連結"
+msgstr "Link Groups"
 
 #: plus.tab.normalmode
 msgid "Browse"
-msgstr "一般"
+msgstr "Browse"
 
 #: plus.tab.filtermode
 msgid "Search"
-msgstr "查詢模式"
+msgstr "Search"
 
 #: plus.base.data
 msgid "Product Details"
-msgstr "產品資料"
+msgstr "Product Details"
 
 #: plus.base.data1
 msgid "Basic Data (Page 1)"
-msgstr "基本資料 (第 1 頁)"
+msgstr "Basic Data (Page 1)"
 
 #: plus.base.data2
 msgid "Basic Data (Page 2)"
-msgstr "基本資料 (第 2 頁)"
+msgstr "Basic Data (Page 2)"
 
 #: plus.setmenu
 msgid "Product Set"
-msgstr "組合產品"
+msgstr "Product Set"
 
 #: plus.appearance
 msgctxt "plus.appearance"
 msgid "Appearance"
-msgstr "顯示設定"
+msgstr "Appearance"
 
 #: plus.pricelevels
 msgctxt "plus.pricelevels"
 msgid "Price Levels"
-msgstr "價格設定"
+msgstr "Price Levels"
 
 #: plus.linkgroups
 msgctxt "plus.linkgroups"
 msgid "Link Groups"
-msgstr "群組連結"
+msgstr "Link Groups"
 
 #: plus.department
 msgid "Department"
-msgstr "部門別"
+msgstr "Department"
 
 #: plus.product.no
 msgid "Product No."
-msgstr "產品編號"
+msgstr "Product No."
 
 #: plus.product.name
 msgid "Product Name"
-msgstr "產品名稱"
+msgstr "Product Name"
 
 #: plus.product.barcode
 msgid "Barcode"
-msgstr "產品條碼"
+msgstr "Barcode"
 
 #: plus.product.tax.rate
 msgid "Tax Rate"
-msgstr "稅別"
+msgstr "Tax Rate"
 
 #: plus.product.condiments
 msgid "Condiments"
-msgstr "調味別"
+msgstr "Condiments"
 
 #: plus.auto.maintain
 msgid "Auto-stock"
-msgstr "自動扣庫存"
+msgstr "Auto-stock"
 
 #: plus.can.restock
 msgid "Returns can be restocked"
-msgstr "退貨可轉銷售"
+msgstr "Returns can be restocked"
 
 #: plus.require.condiment
 msgid "Condiments required"
-msgstr "強制選擇調味"
+msgstr "Condiments required"
 
 #: plus.require.memo
 msgid "Memo required"
-msgstr "強制輸入備註"
+msgstr "Memo required"
 
 #: plus.single.item.sale
 msgid "Single Item Sale"
-msgstr "單一產品快速銷售"
+msgstr "Single Item Sale"
 
 #: plus.visible
 msgid "Show on menu"
-msgstr "顯示於前台"
+msgstr "Show on menu"
 
 #: plus.require.age.verification
 msgid "Require age verification"
-msgstr "強制查詢購買者年齡"
+msgstr "Require age verification"
 
 #: plus.display.icon.only
 msgid "Display icon only"
-msgstr "只顯示產品圖示"
+msgstr "Display icon only"
 
 #: plus.purchase.price
 msgid "Purchase Price"
-msgstr "購入單位成本"
+msgstr "Purchase Price"
 
 #: plus.stock.level
 msgid "Current Stock Level"
-msgstr "目前庫存量"
+msgstr "Current Stock Level"
 
 #: plus.stock.threshold
 msgid "Minimum Threshold"
-msgstr "安全庫存量"
+msgstr "Minimum Threshold"
 
 #: plus.memo
 msgid "Memo"
-msgstr "備註"
+msgstr "Memo"
 
 #: plus.minimum.sale.quantity
 msgid "Minimum Sale Qty"
-msgstr "最小銷售數量"
+msgstr "Minimum Sale Qty"
 
 #: plus.sale.unit
 msgid "Unit of Sale"
-msgstr "銷售單位"
+msgstr "Unit of Sale"
 
 #: plus.sale.unit.individual
 msgid "Individually"
-msgstr "個"
+msgstr "Individually"
 
 #: plus.sale.unit.gram
 msgid "Gram"
-msgstr "公克"
+msgstr "Gram"
 
 #: plus.sale.unit.kilogram
 msgid "Kilogram"
-msgstr "公斤"
+msgstr "Kilogram"
 
 #: plus.sale.unit.ounce
 msgid "Ounce"
-msgstr "盎司"
+msgstr "Ounce"
 
 #: plus.sale.unit.pound
 msgid "Pound"
-msgstr "磅"
+msgstr "Pound"
 
 #: plus.sale.unit.liter
 msgid "Liter"
-msgstr "公升"
+msgstr "Liter"
 
 #: plus.sale.unit.pint
 msgid "Pint"
-msgstr "品脫"
+msgstr "Pint"
 
 #: plus.sale.unit.quart
 msgid "Quart"
-msgstr "夸脫"
+msgstr "Quart"
 
 #: plus.sale.unit.gallon
 msgid "Gallon"
-msgstr "加侖"
+msgstr "Gallon"
 
 #: plus.location
 msgid "Stock Location"
-msgstr "庫存位置"
+msgstr "Stock Location"
 
 #: plus.header.no
 msgid "No."
-msgstr "產品編號"
+msgstr "No."
 
 #: plus.header.name
 msgid "Name"
-msgstr "產品名稱"
+msgstr "Name"
 
 #: plus.header.quantity
 msgid "Qty"
-msgstr "數量"
+msgstr "Qty"
 
 #: plus.image
 msgid "Product Icon"
-msgstr "產品圖示"
+msgstr "Product Icon"
 
 #: plus.button.color
 msgid "Button Color"
-msgstr "按鈕顏色"
+msgstr "Button Color"
 
 #. Do not translate this.  Only change the numeric values if you need this dialogue box to appear bigger
 #: plus.font.size
 msgid "Font Size"
-msgstr "文字大小"
+msgstr "Font Size"
 
 #: plus.level
 msgid "Level"
-msgstr "設定"
+msgstr "Level"
 
 #: plus.price
 msgid "Price"
-msgstr "價格"
+msgstr "Price"
 
 #: plus.halo
 msgid "HALO"
-msgstr "最高價格"
+msgstr "HALO"
 
 #: plus.lalo
 msgid "LALO"
-msgstr "最低價格"
+msgstr "LALO"
 
 #: plus.search.label
 msgid "Enter Product No., Barcode, or Name"
-msgstr "輸入產品編號、條碼、或名稱"
+msgstr "Enter Product No., Barcode, or Name"
 
 #: plus.search.advancesearch
 msgid "Advanced Search"
-msgstr "進階查詢"
+msgstr "Advanced Search"
 
 #: plus.button.action.add
 msgid "Add"
-msgstr "新增"
+msgstr "Add"
 
 #: plus.button.action.modify
 msgid "Modify"
-msgstr "修改"
+msgstr "Modify"
 
 #: plus.button.action.delete
 msgid "Delete"
-msgstr "刪除"
+msgstr "Delete"
 
 #: plus.button.numpad.clear
 msgctxt "plus.button.numpad.clear"
 msgid "CLEAR"
-msgstr "清空"
+msgstr "CLEAR"
 
 #: plus.button.numpad.del
 msgid "DEL"
@@ -280,18 +280,18 @@ msgstr "DEL"
 
 #: plus.button.numpad.enter
 msgid "ENTER"
-msgstr "輸入"
+msgstr "ENTER"
 
 #: plus.button.numpad.advsearch
 msgid "SEARCH"
-msgstr "查詢"
+msgstr "SEARCH"
 
 #: plus.button.numpad.advclear
 msgctxt "plus.button.numpad.advclear"
 msgid "CLEAR"
-msgstr "清除條件"
+msgstr "CLEAR"
 
 #: plusearch.title
 msgctxt "plusearch.title"
 msgid "Product Search"
-msgstr "產品查詢"
+msgstr "Product Search"

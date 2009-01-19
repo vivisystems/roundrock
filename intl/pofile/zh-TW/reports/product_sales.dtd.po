@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-15 18:34+0800\n"
+"POT-Creation-Date: 2009-01-19 17:32+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,28 +15,28 @@ msgstr ""
 
 #: productsales.title
 msgid "Product Sales Report"
-msgstr "銷售報表"
+msgstr "Product Sales Report"
 
 #: productsales.conditions
 msgid "Conditions:"
-msgstr "過濾條件:"
+msgstr "Conditions:"
 
 #: productsales.startdate
 msgid "Start Date:"
-msgstr "起始時間:"
+msgstr "Start Date:"
 
 #: productsales.enddate
 msgid "End Date:"
-msgstr "結束時間:"
+msgstr "End Date:"
 
 #: productsales.execute
 msgid "Execute"
-msgstr "執行"
+msgstr "Execute"
 
 #: productsales.exportcsv
 msgid "Export to CSV"
-msgstr "匯出CSV檔"
+msgstr "Export to CSV"
 
 #: productsales.togglezoom
 msgid "Toggle Zoom"
-msgstr "縮放"
+msgstr "Toggle Zoom"

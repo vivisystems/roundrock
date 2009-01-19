@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-15 18:34+0800\n"
+"POT-Creation-Date: 2009-01-19 17:32+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,75 +16,75 @@ msgstr ""
 #: button-default.label
 msgctxt "button-default.label"
 msgid "Font"
-msgstr "文字"
+msgstr "Font"
 
 #: button-1.label
 msgctxt "button-1.label"
 msgid "Font"
-msgstr "文字"
+msgstr "Font"
 
 #: button-2.label
 msgctxt "button-2.label"
 msgid "Font"
-msgstr "文字"
+msgstr "Font"
 
 #: button-3.label
 msgctxt "button-3.label"
 msgid "Font"
-msgstr "文字"
+msgstr "Font"
 
 #: button-4.label
 msgctxt "button-4.label"
 msgid "Font"
-msgstr "文字"
+msgstr "Font"
 
 #: button-5.label
 msgctxt "button-5.label"
 msgid "Font"
-msgstr "文字"
+msgstr "Font"
 
 #: button-6.label
 msgctxt "button-6.label"
 msgid "Font"
-msgstr "文字"
+msgstr "Font"
 
 #: button-7.label
 msgctxt "button-7.label"
 msgid "Font"
-msgstr "文字"
+msgstr "Font"
 
 #: button-8.label
 msgctxt "button-8.label"
 msgid "Font"
-msgstr "文字"
+msgstr "Font"
 
 #: button-9.label
 msgctxt "button-9.label"
 msgid "Font"
-msgstr "文字"
+msgstr "Font"
 
 #: button-10.label
 msgctxt "button-10.label"
 msgid "Font"
-msgstr "文字"
+msgstr "Font"
 
 #: button-11.label
 msgctxt "button-11.label"
 msgid "Font"
-msgstr "文字"
+msgstr "Font"
 
 #: button-fontsize-xlarge.label
 msgid "X-Large"
-msgstr "超大"
+msgstr "X-Large"
 
 #: button-fontsize-large.label
 msgid "Large"
-msgstr "較大"
+msgstr "Large"
 
 #: button-fontsize-medium.label
 msgid "Medium"
-msgstr "適中"
+msgstr "Medium"
 
 #: button-fontsize-small.label
 msgid "Small"
-msgstr "較小"
+msgstr "Small"

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-15 18:34+0800\n"
+"POT-Creation-Date: 2009-01-19 17:32+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 
 #: select.queues.title
 msgid "Select Queued Order"
-msgstr "選擇暫存單"
+msgstr "Select Queued Order"
 
 #: select.queues.order.details
 msgid "Order Details"
-msgstr "暫存單詳細內容"
+msgstr "Order Details"

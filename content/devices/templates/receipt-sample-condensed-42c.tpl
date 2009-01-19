@@ -1,30 +1,30 @@
-[&ESC !][0x28]${data.store.name|center:21}[&ESC !][0x01]
-[&ESC !][0x28]${data.store.branch|center:21}[&ESC !][0x01]
-${data.store.telephone1|center:42}
-Opened:   ${data.create_date.toLocaleFormat('%Y-%m-%d %H:%M:%S')}
-Closed:   ${data.print_date.toLocaleFormat('%Y-%m-%d %H:%M:%S')}
-Terminal: ${data.terminal_no|left:10} Clerk: ${data.proceeds_clerk_displayname|left:14}
+[&ESC !][0x28]${store.name|center:21}[&ESC !][0x00]
+[&ESC !][0x28]${store.branch|center:21}[&ESC !][0x00]
+${store.telephone1|center:42}
+Opened:   ${order.create_date.toLocaleFormat('%Y-%m-%d %H:%M:%S')}
+Closed:   ${order.print_date.toLocaleFormat('%Y-%m-%d %H:%M:%S')}
+Terminal: ${order.terminal_no|left:10} Clerk: ${order.proceeds_clerk_displayname|left:14}
 ------------------------------------------
-{for item in data.items_summary}
- ${item.qty_subtotal|right:3} X ${item.name|left:23} ${formatPrice(item.subtotal)|right:10}
-{if item.discount_subtotal != 0}${formatPrice(item.discount_subtotal)|right:41}
+{for item in order.items_summary}
+ ${item.qty_subtotal|right:3} X ${item.name|left:23} ${txn.formatPrice(item.subtotal)|right:10}
+{if item.discount_subtotal != 0}${txn.formatPrice(item.discount_subtotal)|right:41}
 {/if}
-{if item.surcharge_subtotal != 0}${'+' + formatPrice(item.surcharge_subtotal)|right:41}
+{if item.surcharge_subtotal != 0}${'+' + txn.formatPrice(item.surcharge_subtotal)|right:41}
 {/if}
 {/for}
 ------------------------------------------
-{if data.trans_discount_subtotal != 0}Order Discount:  ${formatPrice(data.trans_discount_subtotal)|right:24}
+{if order.trans_discount_subtotal != 0}Order Discount:  ${txn.formatPrice(order.trans_discount_subtotal)|right:24}
 {/if}
-{if data.trans_surcharge_subtotal != 0}Order Surcharge: ${formatPrice(data.trans_surcharge_subtotal)|right:24}
+{if order.trans_surcharge_subtotal != 0}Order Surcharge: ${txn.formatPrice(order.trans_surcharge_subtotal)|right:24}
 {/if}
-Tax:       ${formatPrice(data.tax_subtotal)|right:30}
-Total:     ${formatPrice(data.total)|right:30}
+Tax:       ${txn.formatPrice(order.tax_subtotal)|right:30}
+Total:     ${txn.formatPrice(order.total)|right:30}
 
-Received:  ${formatPrice(data.payment_subtotal)|right:30}
-CHANGE:    ${formatPrice(0 - data.remain)|right:30}
+Received:  ${txn.formatPrice(order.payment_subtotal)|right:30}
+CHANGE:    ${txn.formatPrice(0 - order.remain)|right:30}
 ------------------------------------------
 
-${'Thank you for shopping at ' + data.store.name +'!'|center:42}
+${'Thank you for shopping at ' + store.name +'!'|center:42}
 
 
 

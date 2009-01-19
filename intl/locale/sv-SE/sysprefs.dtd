@@ -70,3 +70,4 @@
 <!ENTITY sound.beepOnTrayMarker "Beep on Tray Marker">
 <!ENTITY sound.volume.label "Volume">
 <!ENTITY positivepricerequired "Items must be registered with positive prices">
+<!ENTITY button.close.label "Close">

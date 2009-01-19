@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-15 18:34+0800\n"
+"POT-Creation-Date: 2009-01-19 17:32+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,24 +15,24 @@ msgstr ""
 
 #: controlpanel.title
 msgid "Control Panel"
-msgstr "控制面板"
+msgstr "Control Panel"
 
 #: controlpanel.loading
 msgid "Loading..."
-msgstr "載入中..."
+msgstr "Loading..."
 
 #: controlpanel.products.label
 msgid "Products"
-msgstr "產品管理"
+msgstr "Products"
 
 #: controlpanel.activities.label
 msgid "Activities"
-msgstr "行銷"
+msgstr "Activities"
 
 #: controlpanel.employees.label
 msgid "Employees"
-msgstr "員工管理"
+msgstr "Employees"
 
 #: controlpanel.tools.label
 msgid "Tools"
-msgstr "工具"
+msgstr "Tools"

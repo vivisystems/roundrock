@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-15 18:34+0800\n"
+"POT-Creation-Date: 2009-01-19 17:32+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,16 +15,16 @@ msgstr ""
 
 #: aclgroups.title
 msgid "Access Groups"
-msgstr "權限群組"
+msgstr "Access Groups"
 
 #: aclgroups.button.action.add
 msgid "Add"
-msgstr "新增"
+msgstr "Add"
 
 #: aclgroups.button.action.modify
 msgid "Modify"
-msgstr "修改"
+msgstr "Modify"
 
 #: aclgroups.button.action.delete
 msgid "Delete"
-msgstr "刪除"
+msgstr "Delete"

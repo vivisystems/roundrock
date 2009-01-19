@@ -542,7 +542,7 @@
             if (this.dispatchEvent('beforeModifyItem', {item: itemTrans, itemDisplay: itemDisplay})) {
                 var modifiedItem = curTransaction.modifyItemAt(index);
 
-                this.dispatchEvent('afterModifyItem', modifiedItem);
+                this.dispatchEvent('afterModifyItem', [modifiedItem, itemDisplay]);
             }
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
@@ -720,7 +720,8 @@
             this.dispatchEvent('beforeVoidItem', itemTrans);
 
             var voidedItem = curTransaction.voidItemAt(index);
-            this.dispatchEvent('afterVoidItem', voidedItem);
+
+            this.dispatchEvent('afterVoidItem', [voidedItem, itemDisplay]);
 
             this.subtotal();
 
@@ -1948,7 +1949,7 @@
         getMemoDialog: function (memo) {
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
             //var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250';
-            var features = 'chrome,modal,width=500,height=380';
+            var features = 'chrome,modal,width=500,height=380,centerscreen';
             var inputObj = {
                 input0:memo,require0:false
             };

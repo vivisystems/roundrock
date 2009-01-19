@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-15 18:34+0800\n"
+"POT-Creation-Date: 2009-01-19 17:32+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,20 +15,20 @@ msgstr ""
 
 #: pricelevelschedule.title
 msgid "Price Level Schedule"
-msgstr "變價排程"
+msgstr "Price Level Schedule"
 
 #: pricelevelschedule.header.time
 msgid "Start Time"
-msgstr "起始時間"
+msgstr "Start Time"
 
 #: pricelevelschedule.header.pricelevel
 msgid "Price Level"
-msgstr "價格設定"
+msgstr "Price Level"
 
 #: pricelevelschedule.button.remove
 msgid "Remove"
-msgstr "移除"
+msgstr "Remove"
 
 #: pricelevelschedule.button.add
 msgid "Add"
-msgstr "新增"
+msgstr "Add"

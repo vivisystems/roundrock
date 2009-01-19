@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-15 18:34+0800\n"
+"POT-Creation-Date: 2009-01-19 17:32+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,242 +16,242 @@ msgstr ""
 #: preferences.title
 msgctxt "preferences.title"
 msgid "General Options"
-msgstr "系統設定"
+msgstr "General Options"
 
 #: category.layout
 msgid "Layout"
-msgstr "版面設定"
+msgstr "Layout"
 
 #: category.general
 msgctxt "category.general"
 msgid "General Options"
-msgstr "一般設定"
+msgstr "General Options"
 
 #: category.login
 msgid "Sign In/Out"
-msgstr "登入登出設定"
+msgstr "Sign In/Out"
 
 #: category.tax
 msgid "Taxes"
-msgstr "稅別設定"
+msgstr "Taxes"
 
 #: category.plufilter
 msgid "Product Filter"
-msgstr "產品查詢條件設定"
+msgstr "Product Filter"
 
 #: terminalid
 msgid "Terminal ID"
-msgstr "本機編號"
+msgstr "Terminal ID"
 
 #: publicattendance
 msgid "Individual Time-and-Attendance visible to all"
-msgstr "所有員工都可檢視其他員工之出勤紀錄"
+msgstr "Individual Time-and-Attendance visible to all"
 
 #: defaultlogin
 msgid "Automatically log in default user:"
-msgstr "自動以下列勾選之員工身分登入本機:"
+msgstr "Automatically log in default user:"
 
 #: privatequeue
 msgid "Private order queue"
-msgstr "暫存單不分享"
+msgstr "Private order queue"
 
 #: defaultpricelevel
 msgid "System default price level"
-msgstr "系統預設價格設定為:"
+msgstr "System default price level"
 
 #: defaulttaxstatus
 msgid "System default tax status"
-msgstr "系統預設稅別為:"
+msgstr "System default tax status"
 
 #: precisionprices
 msgid "Number of decimal places for Prices"
-msgstr "價格計算至小數點後幾位數?"
+msgstr "Number of decimal places for Prices"
 
 #: precisiontaxes
 msgid "Number of decimal places for Taxes"
-msgstr "稅金計算至小數點後幾位數?"
+msgstr "Number of decimal places for Taxes"
 
 #: roundingprices
 msgid "Rounding policy to use for Prices"
-msgstr "價格計算進位規則"
+msgstr "Rounding policy to use for Prices"
 
 #: roundingtaxes
 msgid "Rounding policy to use for Taxes"
-msgstr "稅金計算進位規則"
+msgstr "Rounding policy to use for Taxes"
 
 #: rounding.to-nearest-precision
 msgid "to nearest precision"
-msgstr "精準進位"
+msgstr "to nearest precision"
 
 #: rounding.to-nearest-half
 msgid "to nearest half"
-msgstr "進位至 0.5"
+msgstr "to nearest half"
 
 #: rounding.to-nearest-quarter
 msgid "to nearest quarter"
-msgstr "進位至 0.25"
+msgstr "to nearest quarter"
 
 #: rounding.to-nearest-nickel
 msgid "to nearest nickel"
-msgstr "進位至 0.05"
+msgstr "to nearest nickel"
 
 #: rounding.to-nearest-dime
 msgid "to nearest dime"
-msgstr "進位至 0.1"
+msgstr "to nearest dime"
 
 #: rounding.always-round-up
 msgid "always round up"
-msgstr "無條件進位"
+msgstr "always round up"
 
 #: rounding.always-round-down
 msgid "always round down"
-msgstr "無條件捨去"
+msgstr "always round down"
 
 #: activepricelevelschedule
 msgid "Activate price level schedule"
-msgstr "啟用變價排程功能"
+msgstr "Activate price level schedule"
 
 #: pricelevelrevert
 msgid "Price level reverts to schedule after each order"
-msgstr "結單後價格設定依循變價排程之設定"
+msgstr "Price level reverts to schedule after each order"
 
 #: changedepartmentclearbuffer
 msgid "Clear input buffer when switching departments"
-msgstr "切換產品部門時清除前筆已結單之資料"
+msgstr "Clear input buffer when switching departments"
 
 #: allowoverstock
 msgid "Allow negative stock"
-msgstr "允許庫存數量為負值"
+msgstr "Allow negative stock"
 
 #: ageverificationack
 msgid "Require clerk acknowledgement for age verification"
-msgstr "查詢購買者年齡之訊息出現時強制員工確認"
+msgstr "Require clerk acknowledgement for age verification"
 
 #: login.autodiscardcart
 msgid "Automatically discard cart content when signing off"
-msgstr "登出時自動放棄正在結帳之交易資料"
+msgstr "Automatically discard cart content when signing off"
 
 #: login.autodiscardqueue
 msgid "Automatically discard queued orders when signing off"
-msgstr "登出時自動放棄已暫存單"
+msgstr "Automatically discard queued orders when signing off"
 
 #: login.mustemptyqueue
 msgid "Order queue must be emptied when signing off"
-msgstr "登出時強制清空暫存單"
+msgstr "Order queue must be emptied when signing off"
 
 #: login.shiftreportonsignoff
 msgid "Print shift report when users sign off"
-msgstr "登出時列印交班報表"
+msgstr "Print shift report when users sign off"
 
 #: login.shiftreportonquickswitch
 msgid "Print shift report when quick-switching users"
-msgstr "快速切換員工時列印交班報表"
+msgstr "Print shift report when quick-switching users"
 
 #: login.allowquicklogin
 msgid "Allow quick login by automatically matching user by password"
-msgstr "快速登入 - 自動依登入密碼辨別員工"
+msgstr "Allow quick login by automatically matching user by password"
 
 #: layout.registeratleft
 msgid "Place register screen on the left side of screen"
-msgstr "購物車置於畫面左方"
+msgstr "Place register screen on the left side of screen"
 
 #: layout.hidenumpad
 msgid "Hide numeric keypad"
-msgstr "隱藏數字鍵盤"
+msgstr "Hide numeric keypad"
 
 #: layout.functionpanelontop
 msgid "Place function key panel at the top of the screen"
-msgstr "功能面板置於畫面最上方"
+msgstr "Place function key panel at the top of the screen"
 
 #: layout.PLUbeforedept
 msgid "Place product panel before department panel"
-msgstr "產品面板置於部門面板上方"
+msgstr "Place product panel before department panel"
 
 #: layout.hidedeptscrollbar
 msgid "Hide scrollbars for department panel"
-msgstr "隱藏部門面板捲軸"
+msgstr "Hide scrollbars for department panel"
 
 #: layout.hidepluscrollbar
 msgid "Hide scrollbars for product panel"
-msgstr "隱藏產品面板捲軸"
+msgstr "Hide scrollbars for product panel"
 
 #: layout.hidefpscrollbar
 msgid "Hide scrollbars for function panel"
-msgstr "隱藏功能面板捲軸"
+msgstr "Hide scrollbars for function panel"
 
 #: layout.cropdeptlabel
 msgid "Crop department label"
-msgstr "部門名稱不換行"
+msgstr "Crop department label"
 
 #: layout.cropplulabel
 msgid "Crop product label"
-msgstr "產品名稱不換行"
+msgstr "Crop product label"
 
 #: layout.department.label
 msgid "Department panel dimensions"
-msgstr "部門面板大小"
+msgstr "Department panel dimensions"
 
 #: layout.department.rows
 msgctxt "layout.department.rows"
 msgid "rows"
-msgstr "行數"
+msgstr "rows"
 
 #: layout.department.cols
 msgctxt "layout.department.cols"
 msgid "columns"
-msgstr "列數"
+msgstr "columns"
 
 #: layout.plu.label
 msgid "Product panel dimensions"
-msgstr "產品面板大小"
+msgstr "Product panel dimensions"
 
 #: layout.plu.rows
 msgctxt "layout.plu.rows"
 msgid "rows"
-msgstr "行數"
+msgstr "rows"
 
 #: layout.plu.cols
 msgctxt "layout.plu.cols"
 msgid "columns"
-msgstr "列數"
+msgstr "columns"
 
 #: layout.functionpanel.label
 msgid "Function panel dimensions"
-msgstr "功能面板大小"
+msgstr "Function panel dimensions"
 
 #: layout.functionpanel.rows
 msgctxt "layout.functionpanel.rows"
 msgid "rows"
-msgstr "行數"
+msgstr "rows"
 
 #: layout.functionpanel.cols
 msgctxt "layout.functionpanel.cols"
 msgid "columns"
-msgstr "列數"
+msgstr "columns"
 
 #: plufilter.title
 msgid "Product Filter Definition"
-msgstr "產品查詢條件定義"
+msgstr "Product Filter Definition"
 
 #: plufilter.filtername
 msgid "Filter Name"
-msgstr "條件名稱"
+msgstr "Filter Name"
 
 #: plufilter.index
 msgid "Index"
-msgstr "起始位置"
+msgstr "Index"
 
 #: plufilter.length
 msgid "Length"
-msgstr "長度"
+msgstr "Length"
 
 #: plufilter.add
 msgid "Add Filter"
-msgstr "新增條件"
+msgstr "Add Filter"
 
 #: plufilter.remove
 msgid "Remove Filter"
-msgstr "移除條件"
+msgstr "Remove Filter"
 
 #: category.sound
 msgid "Sound"
@@ -308,3 +308,7 @@ msgstr "Volume"
 #: positivepricerequired
 msgid "Items must be registered with positive prices"
 msgstr "Items must be registered with positive prices"
+
+#: button.close.label
+msgid "Close"
+msgstr "Close"

@@ -66,7 +66,7 @@
 
                 no_of_customers: 0,
 
-                terminal_no: GeckoJS.Configure.read('vivipos.fec.settings.TerminalID'),
+                terminal_no: GeckoJS.Session.get('terminal_id'),
 
                 created: '',
                 modified: ''

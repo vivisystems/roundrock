@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-15 18:34+0800\n"
+"POT-Creation-Date: 2009-01-19 17:32+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,32 +15,32 @@ msgstr ""
 
 #: viviorderstatus.pricelevel.label
 msgid "PL@"
-msgstr "價設@"
+msgstr "PL@"
 
 #: viviorderstatus.taxtotal.label
 msgid "TX"
-msgstr "稅額"
+msgstr "TX"
 
 #: viviorderstatus.numberitems.label
 msgid "#ITEM"
-msgstr "項數"
+msgstr "#ITEM"
 
 #: viviorderstatus.ordersequence.label
 msgid "SEQ#"
-msgstr "流單#"
+msgstr "SEQ#"
 
 #: viviorderstatus.destination.label
 msgid "DEST"
-msgstr "內外"
+msgstr "DEST"
 
 #: viviorderstatus.numbercustomer.label
 msgid "#CST"
-msgstr "客數#"
+msgstr "#CST"
 
 #: viviorderstatus.checknumber.label
 msgid "CHK#"
-msgstr "單號#"
+msgstr "CHK#"
 
 #: viviorderstatus.tablenumber.label
 msgid "TBL#"
-msgstr "桌號#"
+msgstr "TBL#"

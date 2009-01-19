@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-15 18:34+0800\n"
+"POT-Creation-Date: 2009-01-19 17:32+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,33 +15,33 @@ msgstr ""
 
 #: plugroups.title
 msgid "Product Groups"
-msgstr "產品群組"
+msgstr "Product Groups"
 
 #: plugroups.name
 msgid "Group Name"
-msgstr "群組名稱"
+msgstr "Group Name"
 
 #: plugroups.visible
 msgid "Show on Menu"
-msgstr "顯示於前台"
+msgstr "Show on Menu"
 
 #: plugroups.button.color
 msgid "Button Color"
-msgstr "按鈕顏色"
+msgstr "Button Color"
 
 #. Do not translate this.  Only change the numeric values if you need this dialogue box to appear bigger
 #: plugroups.font.size
 msgid "Font Size"
-msgstr "文字大小"
+msgstr "Font Size"
 
 #: plugroups.button.action.add
 msgid "Add"
-msgstr "新增"
+msgstr "Add"
 
 #: plugroups.button.action.modify
 msgid "Modify"
-msgstr "修改"
+msgstr "Modify"
 
 #: plugroups.button.action.delete
 msgid "Delete"
-msgstr "刪除"
+msgstr "Delete"

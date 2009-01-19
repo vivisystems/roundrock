@@ -16,6 +16,26 @@
             var storeContactModel = new StoreContactModel();
             var contact = storeContactModel.findFirst();
 
+            if (contact == null) {
+                contact = {
+                    name: '',
+                    branch: '',
+                    contact: '',
+                    telephone1: '',
+                    telephone2: '',
+                    address1: '',
+                    address2: '',
+                    city: '',
+                    county: '',
+                    state: '',
+                    zip: '',
+                    country: '',
+                    fax: '',
+                    email: '',
+                    note: '',
+                    terminal_no: ''
+                };
+            }
             GeckoJS.Session.set('storeContact', contact);
             GeckoJS.Session.set('terminal_id', contact == null ? '' : contact.terminal_no);
         },

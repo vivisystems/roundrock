@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-15 18:34+0800\n"
+"POT-Creation-Date: 2009-01-19 17:32+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,28 +15,28 @@ msgstr ""
 
 #: dialog.prompt.title
 msgid "User Prompt"
-msgstr "資料輸入對話框"
+msgstr "User Prompt"
 
 #: dialog.okButton.label
 msgid "OK"
-msgstr "完成"
+msgstr "OK"
 
 #: dialog.cancelButton.label
 msgid "CANCEL"
-msgstr "取消"
+msgstr "CANCEL"
 
 #: dialog.helpButton.label
 msgid "HELP"
-msgstr "幫助"
+msgstr "HELP"
 
 #: dialog.closeButton.label
 msgid "CLOSE"
-msgstr "關閉"
+msgstr "CLOSE"
 
 #: dialog.saveButton.label
 msgid "SAVE"
-msgstr "儲存設定"
+msgstr "SAVE"
 
 #: dialog.applyButton.label
 msgid "APPLY"
-msgstr "套用"
+msgstr "APPLY"

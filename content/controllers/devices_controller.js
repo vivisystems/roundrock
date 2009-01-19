@@ -48,7 +48,7 @@
 
                 if (!statusResult.printerEnabled) {
                     GREUtils.Dialog.alert(window, _('Device Status'),
-                                                  _('No device has been selected for receipt and/or guest check printing!'));
+                                                  _('No device has been enabled for receipt and/or guest check printing!'));
                 }
 
                 var statusStr = '';
@@ -68,6 +68,21 @@
                                                   _('The following enabled devices appear to be offline, please ensure that they are functioning correctly: \n%S', [statusStr]));
                 }
             }
+            // observer device-refresh topic
+            var self = this;
+            this.observer = GeckoJS.Observer.newInstance({
+                topics: ['device-refresh'],
+
+                observe: function(aSubject, aTopic, aData) {
+                    if (aTopic == 'device-refresh') {
+                        self._selectedDevices = GeckoJS.Configure.read('vivipos.fec.settings.selectedDevices');
+                        if (self._selectedDevices != null)
+                            self._selectedDevices = GeckoJS.BaseObject.unserialize(self._selectedDevices);
+                        self.loadEnabledDevices(self._selectedDevices);
+                    }
+                }
+            }).register();
+
 
             // log enabled devices and cached data
             /*
@@ -216,6 +231,52 @@
                 bytes = '';
             }
             return bytes;
+        },
+
+        // open serial port for writing
+        openSerialPort: function (path, speed, handshakingDisabled) {
+            var portControl = this.getSerialPortControlService();
+            var handshake = (handshakingDisabled == true) ? 'n' : 'h';
+            if (portControl != null) {
+                try {
+                    return (portControl.openPort(path, speed + ',n,8,1,' + handshake) != -1);
+                }
+                catch(e) {
+                    return false;
+                }
+            }
+            else {
+                return false;
+            }
+        },
+
+        writeSerialPort: function (path, buf) {
+            var portControl = this.getSerialPortControlService();
+            var len = -1;
+            if (portControl != null) {
+                try {
+                    len = portControl.writePort(path, buf, buf.length);
+                }
+                catch(e) {
+                }
+            }
+            return len;
+        },
+
+        // close serial port
+        closeSerialPort: function (path) {
+            var portControl = this.getSerialPortControlService();
+            if (portControl != null) {
+                try {
+                    return (portControl.closePort(path) != -1);
+                }
+                catch(e) {
+                    return false;
+                }
+            }
+            else {
+                return false;
+            }
         },
 
         // check status of enabled devices
@@ -420,6 +481,7 @@
         checkSerialPort: function (path) {
             var portControl = this.getSerialPortControlService();
             var status = 0;
+
             if (portControl != null) {
                 portControl.openPort(path, '9600,n,8,1,h');
                 status = portControl.statusPort(path);
@@ -498,6 +560,43 @@
             return encodings;
         },
 
+        getTemplateData: function(template, useCache) {
+            var tpl;
+            var templates = this.getTemplates();
+            var cachedTemplates = GeckoJS.Session.get('deviceTemplates');
+
+            if (useCache) {
+
+                if (cachedTemplates != null) {
+                    tpl = cachedTemplates[template];
+                }
+            }
+
+            if ((tpl == null || tpl.length == 0) && templates != null && templates[template] != null) {
+                tpl = this.loadTemplateFile(templates[template].path);
+                cachedTemplates[template] = tpl;
+            }
+            return tpl;
+        },
+
+        getDeviceCommandCodes: function(devicemodel, useCache) {
+            var codes;
+            var devicemodels = this.getDeviceModels();
+            var cachedCommands = GeckoJS.Session.get('deviceCommands');
+            if (useCache) {
+                if (cachedCommands != null) {
+                    codes = cachedCommands[devicemodel];
+                }
+            }
+
+            if (codes == null && devicemodels != null && devicemodels[devicemodel] != null) {
+                var deviceController = GeckoJS.Controller.getInstanceByName('Devices');
+                codes = deviceController.loadDeviceCommandFile(devicemodels[devicemodel].path);
+                cachedCommands[devicemodel] = codes;
+            }
+            return codes;
+        },
+
         getSelectedDevices: function () {
             if (this._selectedDevices == null) {
                 var selectedDevices = GeckoJS.Configure.read('vivipos.fec.settings.selectedDevices');
@@ -511,6 +610,70 @@
             return this._selectedDevices;
         },
 
+        // check if the device of the given type [receipt, guestcheck, vfd, cashdrawer] and number is enabled
+        // returns:
+        // -2: no devices have been configured
+        // -1: printer number is invalid
+        // 0: indicated printer is not enabled
+        // 1: indicated printer is enabled
+        isDeviceEnabled: function (type, number) {
+            var selectedDevices = this.getSelectedDevices();
+            if (selectedDevices != null) {
+                if (number != null) {
+                    if (typeof selectedDevices[type + '-' + number + '-enabled'] != 'undefined') {
+                        return selectedDevices[type + '-' + number + '-enabled'] ? 1 : 0;
+                    }
+                    else {
+                        return -1;
+                    }
+                }
+                else {
+                    if (selectedDevices[type + '-1-enabled'] || selectedDevices[type + '-2-enabled']) {
+                        return 1;
+                    }
+                    else {
+                        return 0;
+                    }
+                }
+            }
+            else {
+                return -2;
+            }
+        },
+
+        getEnabledDevices: function(type) {
+            var enabledDevices = [];
+            var selectedDevices = this.getSelectedDevices();
+            if (selectedDevices != null) {
+                if (selectedDevices[type + '-1-enabled']) {
+                    enabledDevices.push({
+                        template: selectedDevices[type + '-1-template'],
+                        port: selectedDevices[type + '-1-port'],
+                        portspeed: selectedDevices[type + '-1-portspeed'],
+                        disableHandshake: selectedDevices[type + '-1-disable-handshake'],
+                        devicemodel: selectedDevices[type + '-1-devicemodel'],
+                        encoding: selectedDevices[type + '-1-encoding'],
+                        autoprint: selectedDevices[type + '-1-autoprint'],
+                        number: 1
+                    });
+                }
+                if (selectedDevices[type + '-2-enabled']) {
+                    enabledDevices.push({
+                        template: selectedDevices[type + '-2-template'],
+                        port: selectedDevices[type + '-2-port'],
+                        portspeed: selectedDevices[type + '-2-portspeed'],
+                        disableHandshake: selectedDevices[type + '-2-disable-handshake'],
+                        devicemodel: selectedDevices[type + '-2-devicemodel'],
+                        encoding: selectedDevices[type + '-2-encoding'],
+                        autoprint: selectedDevices[type + '-2-autoprint'],
+                        number: 2
+                    });
+                }
+            }
+            return enabledDevices;
+        },
+
+        
         updateEncodings: function(data) {
             var devicemenu = data[0];
             var encodingmenu = data[1];
@@ -911,32 +1074,41 @@
         // save configurations
         save: function (data) {
             var formObj = GeckoJS.FormHelper.serializeToObject('deviceForm');
-
+            
             // check status of selected devices
             this._selectedDevices = formObj;
             var statusResult = this.checkStatusAll();
-            
-            if (statusResult.status == 0) {
-                var statusStr = '';
 
-                // generate list of devices that may not be ready
-                var statuses = statusResult.statuses
-                //this.log(GeckoJS.BaseObject.dump(statuses));
-                statuses.forEach(function(status) {
-                    if (status[2] == 0)
-                        statusStr += '\n   ' + _('Device') + ' [' + status[0] + ']: ' + _('Port') + ' [' + status[1] + ']';
-                });
-                
+            if (!statusResult.printerEnabled) {
+                GREUtils.Dialog.alert(window, _('Device Status'),
+                                              _('No device has been enabled for receipt and/or guest check printing!'));
+            }
+            
+            var statusStr = '';
+
+            // generate list of devices that may not be ready
+            var statuses = statusResult.statuses
+            var offline = false;
+            statuses.forEach(function(status) {
+                if (status[2] == 0) {
+                    statusStr += '\n   ' + _('Device') + ' [' + status[0] + ']: ' + _('Port') + ' [' + status[1] + ']';
+                    offline = true;
+                }
+            });
+
+            if (offline) {
                 if (GREUtils.Dialog.confirm(null, _('Device Status'),
                                             _('The following enabled devices appear to be offline, do you still want to save the new configuration?\n%S', [statusStr])) == false) {
-                    if (data != null) data.cancel = true;
-                    return;
+                        if (data != null) data.cancel = true;
+                        return;
                 }
             }
+
             // update device session data
             
             GeckoJS.Configure.write('vivipos.fec.settings.selectedDevices', GeckoJS.BaseObject.serialize(formObj));
-            this.loadEnabledDevices(this._selectedDevices);
+
+            GeckoJS.Observer.notify(null, 'device-refresh', this);
 
             return;
         }

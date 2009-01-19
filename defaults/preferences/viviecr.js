@@ -428,13 +428,9 @@ pref("vivipos.fec.registry.templates.test.label", "Test Template");
 pref("vivipos.fec.registry.templates.test.type", "receipt,guestcheck");
 pref("vivipos.fec.registry.templates.test.path", "chrome://viviecr/content/devices/templates/test.tpl");
 
-pref("vivipos.fec.registry.templates.vfd1.label", "VFD Template 1");
-pref("vivipos.fec.registry.templates.vfd1.type", "vfd");
-pref("vivipos.fec.registry.templates.vfd1.path", "chrome://viviecr/content/devices/templates/vfd1.tpl");
-
-pref("vivipos.fec.registry.templates.vfd2.label", "VFD Template 2");
-pref("vivipos.fec.registry.templates.vfd2.type", "vfd");
-pref("vivipos.fec.registry.templates.vfd2.path", "chrome://viviecr/content/device/templates/vfd2.tpl");
+pref("vivipos.fec.registry.templates.vfd-internal.label", "Internal VFD Template");
+pref("vivipos.fec.registry.templates.vfd-internal.type", "vfd");
+pref("vivipos.fec.registry.templates.vfd-internal.path", "chrome://viviecr/content/devices/templates/vfd-internal.tpl");
 
 pref("vivipos.fec.registry.ports.com1.label", "COM 1");
 pref("vivipos.fec.registry.ports.com1.type", "serial");

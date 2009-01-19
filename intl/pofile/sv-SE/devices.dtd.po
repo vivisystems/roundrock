@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-15 18:34+0800\n"
+"POT-Creation-Date: 2009-01-19 17:32+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,6 +37,10 @@ msgstr "Port"
 msgid "Port Speed"
 msgstr "Port Speed"
 
+#: devices.disable.handshake.label
+msgid "Disable hardware handshake"
+msgstr "Disable hardware handshake"
+
 #: devices.devicemodel.label
 msgid "Device Model"
 msgstr "Device Model"
@@ -56,6 +60,10 @@ msgstr "Guest Check Printer 1"
 #: devices.guestcheck.printer.2.label
 msgid "Guest Check Printer 2"
 msgstr "Guest Check Printer 2"
+
+#: devices.guestcheck.autoprint.label
+msgid "Print guest check automatically upon finalization"
+msgstr "Print guest check automatically upon finalization"
 
 #: devices.vfd.1.label
 msgid "VFD 1"
