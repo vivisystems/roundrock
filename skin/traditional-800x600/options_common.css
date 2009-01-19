@@ -272,6 +272,7 @@ textbox[readonly="true"] {
 
 checkbox {
     cursor: pointer;
+    min-height: 40px;
 }
 
 .ItemScrollablepanel vivibutton {

@@ -41,6 +41,11 @@
     margin: 0px 12px 6px 12px;
 }
 
+.FontSizeSetHeight button{
+    height: 50px;
+}
+
 .ToolBar {
     margin-left: 4px;
 }
+
