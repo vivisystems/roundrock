@@ -28,6 +28,13 @@
   font-weight: bold;
 }
 
+.SubTitle {
+  font-size: 10pt;
+  color: #736357;
+  margin: 8px;
+}
+
+
 /* ���䪩���϶� */
 .LeftPnl {
   background: #f2f1eb;
@@ -273,6 +280,18 @@ textbox[readonly="true"] {
 checkbox {
     cursor: pointer;
     min-height: 40px;
+    padding: 5px;
+}
+
+radio {
+    min-height: 40px;
+    cursor: pointer;
+    padding: 5px;
+}
+
+checkbox:hover, radio:hover {
+    background: white !important;
+    -moz-appearance: none;
 }
 
 .ItemScrollablepanel vivibutton {
