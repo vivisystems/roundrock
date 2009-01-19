@@ -3,7 +3,7 @@
   margin: 0px;
 }
 
-.main-dialog{
+.main-dialog {
     background: white url(images/optionsbg.gif) center center no-repeat;
 }
 
@@ -50,7 +50,6 @@
 .DataForm column{
 	border-right: 2px solid white;
 	padding: 8px;
-    width: 50%;
 }
 
 /* �k��U���϶� */
