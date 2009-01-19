@@ -57,8 +57,6 @@
 
             GeckoJS.Observer.notify(null, 'render', this);
 
-            // this may block, so let's manually dispatch initial events here'
-            this.dispatchEvent('onInitial', this);
             this.initialLogin();
         },
 

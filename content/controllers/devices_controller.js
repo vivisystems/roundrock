@@ -17,7 +17,6 @@
 
         // load device configuration and selections
         initial: function (warn) {
-
             if (warn == null) warn = true;
             
             // load templates

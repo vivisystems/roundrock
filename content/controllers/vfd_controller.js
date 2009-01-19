@@ -33,8 +33,21 @@
                 cart.addEventListener('onPullQueue', this.displayOnVFD, this);
             }
 
+            var self = this;
+            this.observer = GeckoJS.Observer.newInstance({
+                    topics: ['acl-session-change'],
+                    observe: function(aSubject, aTopic, aData) {
+                        switch(aTopic) {
+                            case 'acl-session-change':
+                                self.displayOnVFD();
+                                break;
+
+                        }
+                    }
+                }).register();
+
             // initialize display
-            this.displayOnVFD(null);
+            this.displayOnVFD();
         },
 
         getDeviceController: function () {

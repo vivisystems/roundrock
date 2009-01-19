@@ -18,7 +18,7 @@
             // get handle to Devices controller
             this._device = GeckoJS.Controller.getInstanceByName('Devices');
 
-            // add event listener for afterSubmit events
+            // add event listener for onSubmit events
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             if(cart) {
                 cart.addEventListener('onSubmit', this.submitOrder, this);
