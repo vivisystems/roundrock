@@ -128,6 +128,8 @@
         this.data.rounding_taxes = GeckoJS.Configure.read('vivipos.fec.settings.RoundingTaxes') || 'to-nearest-precision';
         this.data.precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
         this.data.precision_taxes = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionTaxes') || 0;
+        this.data.decimals = GeckoJS.Configure.read('vivipos.fec.settings.DecimalPoint') || '.';
+        this.data.thousands = GeckoJS.Configure.read('vivipos.fec.settings.ThousandsDelimiter') || ',';
 
         if (Transaction.worker == null) {
           //  Transaction.worker = new GeckoJS.Thread();
@@ -514,7 +516,6 @@
         // push to items array
         this.data.items[itemIndex] = itemAdded;
         this.data.items_count++;
-
         var itemDisplay = this.createDisplaySeq(itemIndex, itemAdded, 'item');
         
         this.data.display_sequences.push(itemDisplay);
@@ -1876,6 +1877,8 @@
 
     Transaction.prototype.formatPrice = function(price) {
         var options = {
+          decimals: this.data.decimals,
+          thousands: this.data.thousands,
           places: ((this.data.precision_prices>0)?this.data.precision_prices:0)
         };
         // format display precision
@@ -1890,6 +1893,8 @@
             places = priceStr.length - dpIndex - 1;
         }
         var options = {
+          decimals: this.data.decimals,
+          thousands: this.data.thousands,
           places: Math.max(places, ((this.data.precision_prices>0)?this.data.precision_prices:0))
         };
         // format display precision
@@ -1898,6 +1903,8 @@
 
     Transaction.prototype.formatTax = function(tax) {
         var options = {
+          decimals: this.data.decimals,
+          thousands: this.data.thousands,
           places: ((this.data.precision_taxes>0)?this.data.precision_taxes:0)
         };
         // format display precision

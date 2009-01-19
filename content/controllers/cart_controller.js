@@ -1348,7 +1348,7 @@
                 //@todo OSD
                 //NotifyUtils.warn(_('Please enter an amount first'));
                 //return;
-                payment = curTransaction.getRemainTotal(true);
+                payment = curTransaction.getRemainTotal();
             }
             var data = {
                 type: mark,
@@ -1395,7 +1395,7 @@
                 //@todo OSD
                 //NotifyUtils.warn(_('Please enter an amount first'));
                 //return;
-                payment = curTransaction.getRemainTotal(true);
+                payment = curTransaction.getRemainTotal();
             }
             var data = {
                 type: mark,
@@ -1477,8 +1477,6 @@
                 this.subtotal();
             }
 
-
-
         },
 
 
@@ -1494,16 +1492,14 @@
             // if (curTransaction.isSubmit() || curTransaction.isCancel()) return;
 
             var payments = curTransaction.getPayments();
-            var statusStr = '';
-
-            for(var idx in payments) {
-                var payment = payments[idx];
-
-                statusStr += payment.name + '  =  ' + payment.amount + '\n';
-                statusStr += '    memo1: ' + (payment.memo1||'') + ' , memo2: ' + (payment.memo2||'') + '\n\n';
+            for (var key in payments) {
+                var payment = payments[key];
+                payment.amount = curTransaction.formatPrice(payment.amount);
             }
-
-            GREUtils.Dialog.alert(window, _('Payment Details'), statusStr);
+            
+            var aURL = 'chrome://viviecr/content/payment_details.xul';
+            var features = 'chrome,modal,width=500,height=280,centerscreen';
+            window.openDialog(aURL, _('Payment Details'), features, _('Payment Details'), payments);
         },
 
 

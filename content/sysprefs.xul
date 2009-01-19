@@ -24,7 +24,8 @@
     <prefpane id="generalSettingsPane" label="&category.general;" image="chrome://viviecr/content/skin/icons/stock_print-setup.png">
         <preferences>
             <preference id="pref_publicattendance" name="vivipos.fec.settings.PublicAttendance" type="bool" />
-            <preference id="pref_terminalid" name="vivipos.fec.settings.TerminalID" type="unichar" />
+            <preference id="pref_decimalpoint" name="vivipos.fec.settings.DecimalPoint" type="unichar"/>
+            <preference id="pref_thousandsdelimiter" name="vivipos.fec.settings.ThousandsDelimiter" type="unichar"/>
             <preference id="pref_precisionprices" name="vivipos.fec.settings.PrecisionPrices" type="int"/>
             <preference id="pref_precisiontaxes" name="vivipos.fec.settings.PrecisionTaxes" type="int"/>
             <preference id="pref_defaultpricelevel" name="vivipos.fec.settings.DefaultPriceLevel" type="int" />
@@ -38,11 +39,6 @@
             <preference id="pref_positivepricerequired" name="vivipos.fec.settings.PositivePriceRequired" type="bool" />
 
         </preferences>
-        <hbox align="center">
-            <label control="terminalid" value="&terminalid;"/>
-            <textbox preference="pref_terminalid" id="terminalid" maxlength="12"/>
-        </hbox>
-
         <checkbox preference="pref_privatequeue" id="pref_privatequeueCtrl" label="&privatequeue;" />
         <checkbox preference="pref_publicattendance" id="pref_publicAttendanceCtrl" label="&publicattendance;" />
         <checkbox preference="pref_activepricelevelschedule" id="pref_activepricelevelscheduleCtrl" label="&activepricelevelschedule;" />
@@ -57,12 +53,20 @@
             <textbox preference="pref_defaultpricelevel" id="defaultpricelevel" type="number" size="2" maxlength="1" min="1" max="9"/>
         </hbox>
         <hbox align="center">
+            <label control="decimalpoint" value="&decimalpoint;"/>
+            <textbox preference="pref_decimalpoint" id="decimalpoint" size="1" maxlength="1" default="."/>
+        </hbox>
+        <hbox align="center">
+            <label control="thousandsdelimiter" value="&thousandsdelimiter;"/>
+            <textbox preference="pref_thousandsdelimiter" id="thousandsdelimiter" size="1" maxlength="1" default=","/>
+        </hbox>
+        <hbox align="center">
             <label control="precisionprices" value="&precisionprices;"/>
-            <textbox preference="pref_precisionprices" id="precisionprices" type="number" size="2" maxlength="1" min="-100"/>
+            <textbox preference="pref_precisionprices" id="precisionprices" type="number" size="2" maxlength="1" min="-8" max="8"/>
         </hbox>
         <hbox align="center">
             <label control="precisiontaxes" value="&precisiontaxes;"/>
-            <textbox preference="pref_precisiontaxes" id="precisiontaxes" type="number" size="2" maxlength="1" min="-100"/>
+            <textbox preference="pref_precisiontaxes" id="precisiontaxes" type="number" size="2" maxlength="1" min="-8" max="8"/>
         </hbox>
         <hbox align="center">
             <label control="roundingprices" value="&roundingprices;"/>

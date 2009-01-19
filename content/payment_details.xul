@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % PaymentDetails SYSTEM "chrome://viviecr/locale/payment_details.dtd">
+  %PaymentDetails;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/payment_details.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+<window title="&paymentdetails.title;"
+	hidechrome="true"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/payment_details.js" />
+
+    <groupbox class="main-dialog" flex="1">
+        <caption id="title"/>
+        <viviscrollabletree id="paymentscrollablepanel" flex="1" headers="&paymentdetails.amount;,&paymentdetails.type;,&paymentdetails.note1;,&paymentdetails.note2;"
+                            fields="amount,name,memo1,memo2" hidecolumnpicker="true"
+                            class="paymentscrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray">
+            <spacer flex="1" />
+        </viviscrollabletree>
+    </groupbox>
+    
+    <hbox id="dialogButtons" class="dialogbtns" pack="center">
+        <spacer flex="1"/>
+        <button class="right exit-dialog" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+        <spacer flex="1"/>
+    </hbox>
+
+</window>
