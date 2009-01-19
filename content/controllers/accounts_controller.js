@@ -26,7 +26,7 @@
         */
         beforeScaffoldAdd: function(evt) {
             var aURL = "chrome://viviecr/content/prompt_additem.xul";
-            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250";
+            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300";
             var inputObj = {input0:null, input1:null};
             window.openDialog(aURL, "prompt_additem", features, "New Job", "Please input:", "Job Name", "", inputObj);
             if (inputObj.ok && inputObj.input0) {
