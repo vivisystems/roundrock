@@ -156,7 +156,9 @@ textbox:not([onclick]) *[readonly] {
     -moz-border-left-colors: #444 #222;
 }
 .catbtn[disabled=true], .plubtn[disabled=true] {
-    background-position:0pt -64px;
+    -moz-appearance: none;
+    border: none;
+    background: #e1dfdb;
 }
 
 .catbtn hbox, .plubtn hbox {

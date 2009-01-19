@@ -130,9 +130,11 @@
         this.data.precision_taxes = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionTaxes') || 0;
 
         if (Transaction.worker == null) {
-            Transaction.worker = new GeckoJS.Thread();
+          //  Transaction.worker = new GeckoJS.Thread();
+
+          Transaction.worker = GREUtils.Thread.getMainThread();
         }
-        Transaction.worker._runnable = this;
+        //Transaction.worker._runnable = this;
 
         // @todo 
        
@@ -151,7 +153,8 @@
         this.data.modified = new Date().getTime();
 
         // use background save
-        Transaction.worker.start();
+        //Transaction.worker.start();
+        Transaction.worker.dispatch(this, Transaction.worker.DISPATCH_NORMAL);
 
         this.emptyView();
     };
@@ -174,7 +177,8 @@
         }
 
         // use backgroud to save
-        Transaction.worker.start();
+        //Transaction.worker.start();
+        Transaction.worker.dispatch(this, Transaction.worker.DISPATCH_NORMAL);
 
         // maintain stock...
         this.requestCommand('decStock', this.data, "Stocks");

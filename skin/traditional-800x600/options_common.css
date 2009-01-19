@@ -1,0 +1,323 @@
+* {
+  padding: 0px;
+  margin: 0px;
+}
+
+.main-dialog {
+    background: white url(images/optionsbg.gif) center center no-repeat;
+}
+
+.pop-dialog {
+    background: white;
+    padding: 6px;
+}
+
+/* �D�� */
+.MainPnl {
+  border: 3px solid #c1ab8e;
+  background: white;
+  -moz-border-radius: 8px;
+  padding: 4px;
+}
+
+/* �������D */
+.PageTitle {
+  font-size: 11pt;
+  color: #534741;
+  margin: 5px 8px;
+  font-weight: bold;
+}
+
+.SubTitle {
+  font-size: 10pt;
+  color: #736357;
+  margin: 8px;
+}
+
+
+/* ���䪩���϶� */
+.LeftPnl {
+  background: #f2f1eb;
+  -moz-border-radius: 8px;
+  padding: 10px;
+  margin: 5px;
+}
+
+/* �k��W���϶� */
+.DataForm row{
+	border-bottom: 2px solid white;
+	font-size: 10pt;
+	padding: 8px;
+}
+.DataForm {
+	border-right: 2px solid white;
+	background: #f4f3ee;
+    margin: 0 10px 10px 10px;
+}
+.DataForm column{
+	border-right: 2px solid white;
+	padding: 8px;
+}
+
+/* �k��U���϶� */
+.RightPnlB {
+  
+}
+
+
+/* �ϰ���D */
+.DataForm label {
+  font-size: 10pt;
+  color: #736357;
+}
+
+/* �@�q�� texbox ���� */
+textbox {
+  border: 3px solid;
+  -moz-border-top-colors: #b8b8b8 #cfcfcf #e1e1e1;
+  -moz-border-right-colors: #ececec #f9f9f9 #fefefe;
+  -moz-border-bottom-colors: #ececec #f9f9f9 #fefefe;
+  -moz-border-left-colors: #b8b8b8 #cfcfcf #e1e1e1;
+  background: white url(images/tboxbg.png) left center repeat-x;
+  -moz-appearance: none;
+  min-height: 36px;
+  font-size: 12pt;
+  padding: 3px 4px;
+
+}
+textbox[readonly="true"] {
+  border: 1px solid #d0cfcb;
+  -moz-border-top-colors: #d0cfcb;
+  -moz-border-left-colors: #d0cfcb;
+  -moz-border-right-colors: #d0cfcb;
+  -moz-border-bottom-colors: #d0cfcb;
+  background: white url(images/tboxbg_readonly.png) left center repeat-x;
+  -moz-appearance: none;
+  min-height: 36px;
+}
+
+/* ��ϥΪ̫� textbox �� �ﶵ����s(�D�\���s) */
+/* A ����Υk��W���� �F B ��k��U���� ; ��ӥu�O�C�⤣�P�Ӥw */
+.ItemButtonA, .ItemButtonA[readonly=true] {
+  border: 3px solid;
+  -moz-border-top-colors: #f4f3ee #eeede8 #e2e1dc;
+  -moz-border-right-colors: #e2e1dc #d0cfcb #b7b6b2;
+  -moz-border-bottom-colors: #e2e1dc #d0cfcb #b7b6b2;
+  -moz-border-left-colors: #f4f3ee #eeede8 #e2e1dc;
+  background: white url(images/tboxbg_readonly.png) left center repeat-x;
+  -moz-appearance: none;
+  min-height: 36px;
+  color: #534741;
+}
+.ItemButtonA[selected] {
+  border: 2px solid;
+  -moz-border-top-colors: #ee9400 #ee9400;
+  -moz-border-right-colors: #ee9400 #ee9400;
+  -moz-border-bottom-colors: #ee9400 #ee9400;
+  -moz-border-left-colors: #ee9400 #ee9400;
+  background: white url(images/itembtnA_sel.png) left center repeat-x;
+  -moz-appearance: none;
+  color: #603913;
+}
+.ItemButtonA[disabled="true"], .ItemButtonB[disabled="true"] {
+  -moz-appearance: none;
+  border: none;
+  background: #e1dfdb;
+}
+
+.ItemButtonB {
+  border: 3px solid;
+  -moz-border-top-colors: #f8f5f1 #f2efeb #e6e3df;
+  -moz-border-right-colors: #e6e3df #d3d0cd #bab8b5;
+  -moz-border-bottom-colors: #e6e3df #d3d0cd #bab8b5;
+  -moz-border-left-colors: #f8f5f1 #f2efeb #e6e3df;
+  background: white url(images/tboxbg_readonly.png) left center repeat-x;
+  -moz-appearance: none;
+  min-height: 36px;
+  color: #736357;
+}
+.ItemButtonB[selected] {
+  border: 2px solid;
+  -moz-border-top-colors: #00a99d #00a99d;
+  -moz-border-right-colors: #00a99d #00a99d;
+  -moz-border-bottom-colors: #00a99d #00a99d;
+  -moz-border-left-colors: #00a99d #00a99d;
+  background: white url(images/itembtnB_sel.png) left center repeat-x;
+  -moz-appearance: none;
+  color: #32787a;
+}
+
+/* Scroll bar button */
+.ScrollUp {
+    min-height: 32px;
+    max-height: 32px;
+    min-width: 32px;
+    max-width: 32px;
+    margin: 0px;
+    padding: 0px 0px 0px 0px;
+    background: transparent url(images/optionsUp.png) 0 0 no-repeat;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-background-clip: border;
+    border: 0px;
+}
+.ScrollDown {
+    min-height: 32px;
+    max-height: 32px;
+    min-width: 32px;
+    max-width: 32px;
+    margin: 0px;
+    padding: 0px 0px 0px 0px;
+    background: transparent url(images/optionsDown.png) 0 0 no-repeat;
+    -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-background-clip: border;
+    border: 0px;
+}
+.ScrollUp[disabled=false]:active, .ScrollDown[disabled=false]:active {
+  background-position:-32px 0;
+}
+.ScrollUp description, .ScrollDown description {
+    display: none;
+}
+
+/* �\��ϰ�P��s �ק�B�R���B�s�W�K�� */
+.ToolBar {
+  background: #efe7dc;
+  -moz-border-radius: 8px;
+  padding: 10px 5px;
+  height: 60px;
+  max-height: 60px;
+  min-height: 60px;
+  margin: 0px 2px 2px 2px;
+}
+.ToolBar button {
+  background-color: white ;
+  background-image: none;
+  border: 1px solid !important;
+  -moz-border-top-colors: #b2aca1;
+  -moz-border-left-colors: #b2aca1;
+  -moz-border-right-colors: #b2aca1;
+  -moz-border-bottom-colors: #b2aca1;
+  -moz-appearance: none;
+  color: #6c6050;
+  font-size: 12pt;
+  margin: 0 5px;
+  -moz-border-radius: 6px;
+  min-width: 70px;
+  padding: 0 8px;
+}
+.ToolBar button[disabled=true] {
+  background-color: #f8f5f1 ;
+}
+.ToolBar button[disabled=false]:active {
+    color: #362f2d;
+    text-decoration: underline;
+
+}
+
+.BtnDel {
+  list-style-image: url(images/icon_del.png);
+}
+.BtnMod {
+  list-style-image: url(images/icon_mod.png);
+}
+.BtnAdd {
+  list-style-image: url(images/icon_add.png);
+}
+
+/* �����D��s�P�϶� ��}�B�x�s�B��L�K�� */
+.dialogbtns {
+  background: #f2ede7;
+  -moz-border-radius: 8px;
+  padding: 5px 8px;
+  height: 60px;
+  max-height: 60px;
+  min-height: 60px;
+  margin: 0px 0px 2px 2px;
+}
+.dialogbtns button {
+  max-height: 50px;
+  max-width: 60px;
+  min-height: 50px;
+  min-width: 60px;
+  height: 50px;
+  width: 60px;
+  -moz-appearance: none;
+  background: none;
+  border: none;
+}
+.dialogbtns button:active {
+    -moz-appearance: none;
+    background-color: white !important;
+    border: none;
+}
+.ExitBtn {
+  background: transparent url(images/ExitBtn.png) center center no-repeat !important;
+}
+.SaveBtn {
+  background: transparent url(images/SaveBtn.png) center center no-repeat !important;
+}
+.VkbBtn {
+  background: transparent url(images/VkbBtn.png) center center no-repeat !important;
+}
+.ExitBtn label, .SaveBtn label, .VkbBtn label {
+  display: none;
+}
+
+.FontSizeSet hbox{
+    -moz-box-orient: vertical;
+}
+
+.FontSizeSet button {
+    min-height: 42px;
+    margin: 2px;
+}
+.FontSizeSet button[selected] {
+    list-style-image: none;
+}
+
+checkbox {
+    cursor: pointer;
+    min-height: 40px;
+    padding: 5px;
+}
+
+radio {
+    min-height: 40px;
+    cursor: pointer;
+    padding: 5px;
+}
+
+checkbox:hover, radio:hover {
+    background: white !important;
+    -moz-appearance: none;
+}
+
+.ItemScrollablepanel vivibutton {
+    margin: 3px;
+}
+.ItemScrollablepanel vbox vivibutton {
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+.NoticeMark {
+    font-weight: bold;
+    color: #cc6300;
+}
+
+.ListPnl {
+    margin: 8px;
+}
+.ListPnl vivibutton {
+    margin: 0 4px;
+}
+
+treechildren::-moz-tree-row {
+  height: 32px;
+}
+treechildren::-moz-tree-row(selected) {background-color: #92856a; }
+treechildren::-moz-tree-row(odd, selected) {background-color: #92856a; }
+treechildren::-moz-tree-cell-text(selected) {color: #FFFFFF;}
+treechildren::-moz-tree-cell-text(odd, selected) {color: #FFFFFF;}
