@@ -14,7 +14,6 @@
         // var args = window.args = window.arguments[0].wrappedJSObject;
         centerWindowOnScreen();
 
-
         var prefs = GeckoJS.Configure.read('vivipos.fec.settings.controlpanels');
 
         var categories = GeckoJS.BaseObject.getKeys(prefs) || [];
@@ -50,13 +49,15 @@ function launchControl(panel) {
         var pref = data[index];
 
         var aArguments = "";
-        var features = "chrome,popup=yes,titlebar=no,toolbar,centerscreen,modal,width=" + width + ",height=" + height;
+        var features = "chrome,popup=no,titlebar=no,toolbar,centerscreen,modal,width=" + width + ",height=" + height;
 
         try {
             $('#loading').show();
 	    // @hack sleep to make sure the loading panel is rendered
 	    GeckoJS.BaseObject.sleep(50);
-            window.openDialog(pref['path'], pref['label'], features, aArguments);
+            win = window.openDialog(pref['path'], pref['label'], features, aArguments);
+            //alert(win);
+            //win.getElementByName("window").setAttribute('hidechrome', true);
         }
         catch (e) {}
         finally {

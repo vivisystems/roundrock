@@ -1637,15 +1637,15 @@
         },
 
 
-        submit: function() {
+        submit: function(status) {
 
             // cancel cart but save
             var oldTransaction = this._getTransaction();
             
             if(oldTransaction == null) return; // fatal error ?
 
-            if (oldTransaction.getRemainTotal() > 0) return;
-            oldTransaction.submit();
+            if (status == 1 && oldTransaction.getRemainTotal() > 0) return;
+            oldTransaction.submit(status);
 
             // GeckoJS.Session.remove('current_transaction');
             GeckoJS.Session.remove('cart_last_sell_item');
@@ -1656,7 +1656,13 @@
             this._getKeypadController().clearBuffer();
             this.cancelReturn();
 
-            this.dispatchEvent('onSubmit', oldTransaction);
+            if (status != 2) {
+
+                this.dispatchEvent('onWarning', '');
+                this.dispatchEvent('onSubmit', oldTransaction);
+            }
+            else
+                this.dispatchEvent('onGetSubtotal', oldTransaction);
 				
         },
 
@@ -2010,6 +2016,11 @@
                 return;
             }
 
+            if (curTransaction.data.recall == 2) {
+                if (warn) NotifyUtils.warn(_('Can not queue the recall order!!'));
+                return;
+            }
+
             var user = this.Acl.getUserPrincipal();
 
             var count = curTransaction.getItemsCount();
@@ -2120,6 +2131,14 @@
 
             var curTransaction = new Transaction();
             curTransaction.unserializeFromOrder(order_id);
+
+            if (curTransaction.data.status == 2) {
+                // set order status to process (0)
+                curTransaction.data.status = 0;
+
+                curTransaction.data.recall = 2;
+            }
+
             this._setTransactionToView(curTransaction);
             curTransaction.updateCartView(-1, -1);
             this.subtotal();
@@ -2127,34 +2146,35 @@
         },
 
         guestCheck: function(action) {
-this.log("guestCheck: " + action);
             // check if has buffer
             var buf = this._getKeypadController().getBuffer();
             this._getKeypadController().clearBuffer();
 
             this.cancelReturn();
 
-            // check if order is open
-            var curTransaction = this._getTransaction();
+            var curTransaction = this._getTransaction(true);
 
             if(curTransaction == null) {
-                this.clear();
-                // @todo OSD
-                NotifyUtils.warn(_('Not an open order; cannot register payments'));
+                // this.dispatchEvent('onAddItem', null);
+                NotifyUtils.warn(_('fatal error!!'));
                 return; // fatal error ?
             }
 
+            // transaction is submit and close success
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
-                // @todo OSD
-                NotifyUtils.warn(_('Not an open order; cannot register payments'));
-                return;
+                curTransaction = this._newTransaction();
             }
 
-            var no = parseInt(buf, 10);
-            if (no == 0 || isNaN(no)) {
-                no = 99;
-            }
-            var r = 0;
+            var param = action.split('|');
+            var action = param[0];
+            var param2 = param[1];
+
+            var no = buf;
+            //if (!no || no.length == 0) {
+            //    no = '999';
+            //}
+
+            var r = -1;
 
             switch(action) {
                 case 'newCheck':
@@ -2166,7 +2186,7 @@ this.log("guestCheck: " + action);
                     }
 
                     if (r >= 0) {
-                        curTransaction.data.check_no = no;
+                        curTransaction.data.check_no = r;
                     } else {
                         NotifyUtils.warn(_('Check# %S is exist!!', [no]));
                     }
@@ -2183,8 +2203,9 @@ this.log("guestCheck: " + action);
                         r = this.GuestCheck.table(no);
                     }
 
-                    if (r >= 0) {
-                        curTransaction.data.table_no = no;
+                    var allowDupTableNo = true; // @todo for test...
+                    if (r >= 0 || allowDupTableNo) {
+                        curTransaction.data.table_no = r;
                     } else {
                         NotifyUtils.warn(_('Table# %S is exist!!', [no]));
                     }
@@ -2193,6 +2214,19 @@ this.log("guestCheck: " + action);
                     this.log('guest...');
                         r = this.GuestCheck.guest(no);
                         curTransaction.data.no_of_customers = no;
+                    break;
+                case 'destination':
+                    this.log('destination...' + no + 'param2:' + param2);
+                        r = this.GuestCheck.destination(param2);
+                        curTransaction.data.destination = param2;
+                    break;
+                case 'store':
+                    this.log('store...');
+                        if (curTransaction.data.status == 1) {
+                            NotifyUtils.warn(_('This order has been submited!!', [no]));
+                        } else {
+                            r = this.GuestCheck.store(no);
+                        }
                     break;
                 case 'recallCheck':
                     this.log('recallCheck...');
@@ -2203,9 +2237,6 @@ this.log("guestCheck: " + action);
                         r = this.GuestCheck.recallByTableNo(no);
                     break;
             }
-
-            
-
             return;
         }
     });

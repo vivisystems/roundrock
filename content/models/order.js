@@ -6,58 +6,80 @@ var OrderModel = window.OrderModel =  GeckoJS.Model.extend({
     hasMany: ['OrderItem', 'OrderAddition', 'OrderPayment'],
     hasOne: ['OrderObject'],
 
+    removeOldOrder: function(iid) {
+        //
+        this.del(iid);
+
+        var cond = "order_id='" + iid + "'";
+
+        this.OrderItem.delAll(cond);
+        this.OrderAddition.delAll(cond);
+        this.OrderPayment.delAll(cond);
+        this.OrderObject.delAll(cond);
+    },
+
     saveOrder: function(data) {
         if(!data) return;
 
-        this.saveOrderMaster(data);
-        this.saveOrderItems(data);
-        this.saveOrderAdditions(data);
-        this.saveOrderPayments(data);
+        // remove old order data if exist...
+        this.removeOldOrder(data.id);
 
+        var r;
+        r = this.saveOrderMaster(data);
+        r = this.saveOrderItems(data);
+        r = this.saveOrderAdditions(data);
+        r = this.saveOrderPayments(data);
         // serialize to database
-        this.serializeOrder(data);
-
+        r = this.serializeOrder(data);
 
     },
 
     saveOrderMaster: function(data) {
 
         var orderData  = this.mappingTranToOrderFields(data);
+        var r;
 
+        this.id = orderData.id;
         this.begin();
-        this.save(orderData);
+        r = this.save(orderData);
         this.commit();
-
+        return r;
     },
 
 
     saveOrderItems: function(data) {
 
         var orderItems  = this.mappingTranToOrderItemsFields(data);
+        var r;
 
         this.OrderItem.begin();
-        this.OrderItem.saveAll(orderItems);
+        r = this.OrderItem.saveAll(orderItems);
         this.OrderItem.commit();
+        return r;
 
     },
 
     saveOrderAdditions: function(data) {
 
         var orderAdditions  = this.mappingTranToOrderAdditionsFields(data);
+        var r;
 
         this.OrderAddition.begin();
-        this.OrderAddition.saveAll(orderAdditions);
+        r = this.OrderAddition.saveAll(orderAdditions);
         this.OrderAddition.commit();
+        return r;
 
     },
 
     saveOrderPayments: function(data) {
 
         var orderPayments  = this.mappingTranToOrderPaymentsFields(data);
+        var r;
 
         this.OrderPayment.begin();
-        this.OrderPayment.saveAll(orderPayments);
+        r = this.OrderPayment.saveAll(orderPayments);
         this.OrderPayment.commit();
+        return r;
 
     },
 
@@ -233,6 +255,7 @@ var OrderModel = window.OrderModel =  GeckoJS.Model.extend({
 
         var obj = GeckoJS.BaseObject.serialize(data);
         var orderObj = {order_id: data.id, object: obj};
+        this.OrderObject.id = '';
         this.OrderObject.save(orderObj);
 
     },

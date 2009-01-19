@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % SelectQueues SYSTEM "chrome://viviecr/locale/select_queues.dtd">
+  %SelectQueues;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+<window title="select.checks.title;"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script type="application/x-javascript" src="chrome://vivipos/content/libs/jquery-1.2.6.js" />
+    <script type="application/x-javascript">
+        window['GeckoJS'] = opener.GeckoJS;
+        window['GREUtils'] = opener.GREUtils;
+    </script>
+    <script type="application/x-javascript" src="chrome://viviecr/content/select_checks.js" />
+
+    <hbox flex="1" class="main-dialog">
+        <vbox flex="3" class="footlogo">
+            <groupbox>
+                <caption label="select.checks.title;" />
+                <label id="queues" hidden="true" value="" />
+                <hbox>
+                    <viviscrollablebuttonpanel id="checkScrollablepanel" flex="1" cols="4" rows="5"  seltype="single" labelField="check_no"
+                                               class="catescrollablepanel"
+                                               buttonClass="plubtn smallimagebtn button-radius button-white"
+                                               scrollUpClass="rightprevbtn button-blue"
+                                               scrollDownClass="rightnextbtn button-blue">
+                        <spacer flex="1"/>
+                    </viviscrollablebuttonpanel>
+                </hbox>
+            </groupbox>
+        </vbox>
+        <vbox>
+          <label id="" value="&select.queues.order.details;" />
+          <textbox readonly="1" id="itemlist" value="" style="height: 400px; width: 150px;"/>
+        </vbox>
+    </hbox>
+  
+    <hbox id="dialogButtons" class="dialogbtns" pack="center">
+        <spacer flex="1"/>
+        <button class="right exit-dialog" id="ok" label="&dialog.okButton.label;" default="true" oncommand="doOKButton();"/>
+        <button class="exit-dialog" id="cancel" label="&dialog.cancelButton.label;" default="false" oncommand="doCancelButton();"/>
+        <spacer flex="1"/>
+    </hbox>
+
+</window>

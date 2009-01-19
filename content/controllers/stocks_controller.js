@@ -188,9 +188,12 @@
             for (o in obj.items) {
                 var ordItem = obj.items[o];
                 var item = this.Product.findById(ordItem.id);
-                if (item.auto_maintain_stock) {
+                if (item.auto_maintain_stock && !ordItem.stock_maintained) {
                     if (ordItem.current_qty > 0 || item.return_stock)
                         item.stock = item.stock - ordItem.current_qty;
+                    // stock had maintained
+                    ordItem.stock_maintained = true;
+
                     var product = new ProductModel();
 
                     product.id = item.id;
