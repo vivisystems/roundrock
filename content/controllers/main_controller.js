@@ -31,7 +31,6 @@
             this.requestCommand('initial', null, 'CurrencySetup');
 
             this.resetLayout(true);
-            this.initialLogin();
 
             var deptNode = document.getElementById('catescrollablepanel');
             deptNode.selectedIndex = 0;
@@ -57,6 +56,11 @@
             }).register();
 
             GeckoJS.Observer.notify(null, 'render', this);
+
+            this.dispatchEvent('onInitial', this);
+            
+            // this may block, so let's manually dispatch initial events here'
+            this.initialLogin();
         },
 
         _getKeypadController: function() {
