@@ -7,7 +7,9 @@
 
   # Aaaand back to the way it was
   $dir = dirname(__FILE__);
-  $locale_podir = "$dir/$locale"."_pofiles";
+  $locale_podir = "$dir/../pofile/$locale";
+
+  echo "Dir = $locale_podir \n";
 
   $handle = fopen($locale.".csv", "r");
   if (!$handle) {

@@ -1,0 +1,17 @@
+locale viviecr pt-BR jar:chrome/pt-BR.jar!/locale/pt-BR/
+
+locale necko pt-BR jar:chrome/xulrunner-pt-BR.jar!/locale/pt-BR/necko/
+locale help pt-BR jar:chrome/xulrunner-pt-BR.jar!/locale/pt-BR/help/
+locale global pt-BR jar:chrome/xulrunner-pt-BR.jar!/locale/pt-BR/global/
+locale global-region pt-BR jar:chrome/xulrunner-pt-BR.jar!/locale/pt-BR/global-region/
+locale global-platform pt-BR jar:chrome/xulrunner-pt-BR.jar!/locale/pt-BR/global-platform/
+locale alerts pt-BR jar:chrome/xulrunner-pt-BR.jar!/locale/pt-BR/alerts/
+locale passwordmgr pt-BR jar:chrome/xulrunner-pt-BR.jar!/locale/pt-BR/passwordmgr/
+locale places pt-BR jar:chrome/xulrunner-pt-BR.jar!/locale/pt-BR/places/
+locale mozapps pt-BR jar:chrome/xulrunner-pt-BR.jar!/locale/pt-BR/mozapps/
+locale cookie pt-BR jar:chrome/xulrunner-pt-BR.jar!/locale/pt-BR/cookie/
+locale autoconfig pt-BR jar:chrome/xulrunner-pt-BR.jar!/locale/pt-BR/autoconfig/
+locale pipnss pt-BR jar:chrome/xulrunner-pt-BR.jar!/locale/pt-BR/pipnss/
+locale pippki pt-BR jar:chrome/xulrunner-pt-BR.jar!/locale/pt-BR/pippki/
+locale reporter pt-BR jar:chrome/xulrunner-pt-BR.jar!/locale/pt-BR/reporter/
+

@@ -1,0 +1,19 @@
+
+<!ENTITY systembackup.backup "Cópia de Segurança do Sistema">
+<!ENTITY systembackup.restore "Restauro do Sistema">
+<!ENTITY systembackup.local "Cópia Local:">
+<!ENTITY systembackup.stick "Pen:">
+<!ENTITY systembackup.backuptostick "Copiar Pen para Local >>>">
+<!ENTITY systembackup.backuptolocal "Cópia de Segurança para Local">
+<!ENTITY systembackup.restorefromstick "Restaurar de Pen">
+<!ENTITY systembackup.restorefromlocal "Restaurar de Local">
+<!ENTITY systembackup.backupwait "Waitting for Backup Data...">
+<!ENTITY systembackup.restorewait "Waitting for Restore Data...">
+
+
+<!ENTITY vivipos.fec.common.ok "Ok">
+<!ENTITY vivipos.fec.common.cancel "Cancelar">
+<!ENTITY vivipos.fec.common.add "Adicionar">
+<!ENTITY vivipos.fec.common.modify "Modificar">
+<!ENTITY vivipos.fec.common.delete "Apagar">
+

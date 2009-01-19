@@ -1,0 +1,14 @@
+<!ENTITY clockin.title "User Clock In / Out">
+<!ENTITY clockin.heading.timein "Entrada">
+<!ENTITY clockin.heading.timeout "Saída">
+<!ENTITY clockin.heading.job "Trabalho">
+<!ENTITY clockin.title "User Clock In / Out">
+<!ENTITY clockin.title "Entrada/Saída Utilizador">
+<!ENTITY clockin.keylabel.clear "LIMPAR">
+<!ENTITY clockin.keylabel.del "APAGAR">
+<!ENTITY clockin.keylabel.password "Chave:">
+<!ENTITY clockin.keylabel.ok "OK">
+<!ENTITY clockin.keylabel.clockin "Entrada">
+<!ENTITY clockin.keylabel.clockout "Saída">
+<!ENTITY clockin.keylabel.view "Visualizar Atendimento">
+<!ENTITY clockin.headers.joblist "Lista Funções">

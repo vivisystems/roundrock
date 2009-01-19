@@ -1,0 +1,11 @@
+<!ENTITY currencysetup.title "Taxas de Câmbio">
+<!ENTITY currencysetup.currency "Código">
+<!ENTITY currencysetup.symbol "Assinar">
+<!ENTITY currencysetup.rate "Taxas de Câmbio">
+<!ENTITY currencysetup.convert "Quantia a Converter">
+<!ENTITY currencysetup.amount "Quantia Convertida">
+<!ENTITY currencysetup.base "Moeda Local">
+<!ENTITY currencysetup.other "Moeda">
+<!ENTITY currencysetup.backspace "APAGAR">
+<!ENTITY currencysetup.clear "LIMPAR">
+<!ENTITY currencysetup.save "GUARDAR">
