@@ -1,0 +1,77 @@
+.MainPnl {
+    margin: 18px;
+}
+
+.ExeBtn {
+    -moz-appearance: none;
+    color: #6c6050;
+    font-size: 12pt;
+    margin: 0 5px;
+    -moz-border-radius: 6px;
+    border: 3px solid;
+    -moz-border-top-colors: #f4f3ee #eeede8 #e2e1dc;
+    -moz-border-right-colors: #e2e1dc #d0cfcb #b7b6b2;
+    -moz-border-bottom-colors: #e2e1dc #d0cfcb #b7b6b2;
+    -moz-border-left-colors: #f4f3ee #eeede8 #e2e1dc;
+    background: white url(../images/tboxbg_readonly.png) left center repeat-x;
+    max-height: 80px;
+}
+
+.ExeBtn:active {
+    border: 2px solid;
+  -moz-border-top-colors: #ee9400 #ee9400;
+  -moz-border-right-colors: #ee9400 #ee9400;
+  -moz-border-bottom-colors: #ee9400 #ee9400;
+  -moz-border-left-colors: #ee9400 #ee9400;
+  -moz-appearance: none;
+  color: #603913;
+}
+
+.TopPnl {
+    border-bottom: 1px solid #c1ab8e;
+    padding-bottom: 8px;
+}
+
+.dialogbtns {
+    margin-left: 5px;
+}
+
+.BarHeight {
+    min-height: 350px;
+    margin: 5px 0 5px 5px;
+}
+.BarHeight button {
+    min-height: 50px;
+    margin: 5px;
+}
+
+vividatetimepicker .datetimepicker-input-box{
+    min-width: 250px;
+    border: 1px solid #d0cfcb;
+    -moz-border-top-colors: #d0cfcb;
+    -moz-border-left-colors: #d0cfcb;
+    -moz-border-right-colors: #d0cfcb;
+    -moz-border-bottom-colors: #d0cfcb;
+    background: white url(../images/tboxbg_readonly.png) left center repeat-x;
+    -moz-appearance: none;
+    min-height: 36px;
+    padding-right: 4px;
+}
+vividatetimepicker .datetimepicker-input-box input {
+    background: none;
+    -moz-appearance: none;
+}
+vividatetimepicker dropmarker {
+    border: 3px solid;
+    -moz-border-top-colors: #f4f3ee #eeede8 #e2e1dc;
+    -moz-border-right-colors: #e2e1dc #d0cfcb #b7b6b2;
+    -moz-border-bottom-colors: #e2e1dc #d0cfcb #b7b6b2;
+    -moz-border-left-colors: #f4f3ee #eeede8 #e2e1dc;
+    background: white url(../images/tboxbg_readonly.png) left center repeat-x;
+    -moz-appearance: none;
+    min-height: 36px;
+    width: 36px;
+    color: #534741;
+    list-style-image: url(../images/dropdown.png);
+}
+

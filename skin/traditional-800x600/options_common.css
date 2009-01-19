@@ -307,6 +307,12 @@ checkbox:hover, radio:hover {
     color: #cc6300;
 }
 
+scrollbarbutton {
+  min-width: 32px;
+  min-height: 32px;
+}
+
+
 .ListPnl {
     margin: 8px;
 }
