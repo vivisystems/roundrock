@@ -1,6 +1,7 @@
 (function(){
 
     GeckoJS.include('chrome://viviecr/content/devices/deviceTemplate.js');
+    GeckoJS.include('chrome://viviecr/content/devices/deviceTemplateUtils.js');
 
     /**
      * Print Controller
@@ -187,6 +188,8 @@
             var receipts = this.isReceiptPrinted(evt.data);
             if (receipts == null) {
 
+                //@hack sleep to allow UI events to catch up
+                this.sleep(100);
                 // autoprint receipts
                 this.printReceipts(evt.data);
             }
@@ -299,64 +302,6 @@
              *   - note
              */
 
-            var self = this;
-            var _MODIFIERS = {
-                center: function(str, width) {
-
-                    var encoding = self._MODIFIERS_encoding;
-                    
-                    if (width == null || isNaN(width) || width < 0) return str;
-
-                    width = Math.floor(Math.abs(width));
-                    var len = (str == null) ? 0 : str.length;
-
-                    if (width < len) {
-                        str = str.substr(0, width);
-                        len = width;
-                    }
-                    var leftPaddingWidth = Math.floor((width - len) / 2);
-                    return GeckoJS.String.padRight(GeckoJS.String.padLeft(str, leftPaddingWidth - (- len) , ' '), width, ' ');
-                },
-
-                left: function(str, width) {
-                    if (width == null || isNaN(width)) return str;
-
-                    width = Math.floor(Math.abs(width));
-                    var len = (str == null) ? 0 : str.length;
-
-                    if (width < len) {
-                        return str.substr(0, width);
-                    }
-                    else {
-                        return GeckoJS.String.padRight(str, width, ' ');
-                    }
-                },
-
-                right: function(str, width) {
-                    if (width == null || isNaN(width)) return str;
-
-                    width = Math.floor(Math.abs(width));
-                    var len = (str == null) ? 0 : str.length;
-
-                    if (width < len) {
-                        return str.substr(0, width);
-                    }
-
-                    return GeckoJS.String.padLeft(str, width, ' ');
-                },
-
-                truncate: function(str, width) {
-                    if (width == null || isNaN(width)) return str;
-
-                    width = Math.floor(Math.abs(width));
-                    var len = (str == null) ? 0 : str.length;
-
-                    if (width >= len) return str;
-
-                    return str.substr(0, width);
-                }
-            };
-
             var order = txn.data;
             
             order.create_date = new Date(order.created);
@@ -366,7 +311,6 @@
                 txn: txn,
                 store: GeckoJS.Session.get('storeContact'),
                 order: order,
-                _MODIFIERS: _MODIFIERS
             };
 
             if (order.proceeds_clerk == null || order.proceeds_clerk == '') {
@@ -392,7 +336,7 @@
                         var handshakeDisabled = device.handshakeDisabled;
                         var devicemodel = device.devicemodel;
                         var encoding = device.encoding;
-                        self._MODIFIERS_encoding = encoding;
+                        data._MODIFIERS = _templateModifiers(encoding);
                         printed = self.printCheck(data, template, port, portspeed, handshakeDisabled, devicemodel, encoding);
 
                         if (printed) {
@@ -507,8 +451,7 @@
             var data = {
                 txn: txn,
                 store: GeckoJS.Session.get('storeContact'),
-                order: order,
-                _MODIFIERS: this._MODIFIERS
+                order: order
             };
 
             if (order.proceeds_clerk == null || order.proceeds_clerk == '') {
@@ -533,7 +476,7 @@
                         var handshakeDisabled = device.handshakeDisabled;
                         var devicemodel = device.devicemodel;
                         var encoding = device.encoding;
-                        self._MODIFIERS_encoding = encoding;
+                        data._MODIFIERS = _templateModifiers(encoding);
                         self.printCheck(data, template, port, portspeed, handshakeDisabled, devicemodel, encoding);
                     }
                 });
@@ -544,7 +487,7 @@
         printCheck: function(data, template, port, portspeed, handshakeDisabled, devicemodel, encoding) {
             var portPath = this.getPortPath(port);
             var commands = {};
-
+            
             if (portPath == null || portPath == '') {
                 NotifyUtils.error(_('Specified device port [%S] does not exist!', [port]));
                 return false;
