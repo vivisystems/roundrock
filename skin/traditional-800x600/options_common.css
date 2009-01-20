@@ -213,7 +213,7 @@ textbox[readonly="true"] {
 .ToolBar button[disabled=false]:active {
     color: #362f2d;
     text-decoration: underline;
-
+    -moz-appearance: none;
 }
 
 .BtnDel {
@@ -306,6 +306,68 @@ checkbox:hover, radio:hover {
     font-weight: bold;
     color: #cc6300;
 }
+
+/* Tabbox @ Right Panel */
+.RightTabbox {
+    margin: 1px 0px 4px 4px;
+}
+.RightTabbox tab {
+    -moz-appearance: none;
+    padding: 16px 8px;
+    background: white url(images/sep.png) center right no-repeat;
+    border:none;
+    color: #4b4b4b;
+    margin-bottom: 5px;
+}
+.RightTabbox tab[selected=true] {
+    -moz-user-focus: ignore;
+    background-color: #92856a;
+    background-image: none;
+    color: white;
+    font-weight: bold;
+}
+.RightTabbox tabpanel {
+    border-top: 1px solid #c1ab8e;
+    padding: 10px 5px;
+}
+.RightTabbox tabpanels {
+    -moz-appearance: none;
+    background: none;
+    border: none;
+}
+.RightTabbox .numberbox-input-box{
+    background: none;
+    border: none;
+    -moz-appearance: none;
+    padding-right: 5px;
+}
+
+/* menulist **/
+menuitem {
+    min-height: 32px;
+}
+menulist {
+    -moz-appearance: none;
+    border: 3px solid;
+    -moz-border-top-colors: #f4f3ee #eeede8 #e2e1dc;
+    -moz-border-right-colors: #e2e1dc #d0cfcb #b7b6b2;
+    -moz-border-bottom-colors: #e2e1dc #d0cfcb #b7b6b2;
+    -moz-border-left-colors: #f4f3ee #eeede8 #e2e1dc;
+    background: white url(images/tboxbg_readonly.png) left center repeat-x;
+    min-height: 38px;
+    list-style-image: url(images/dropdown.png);
+}
+menulist hbox {
+    -moz-box-direction: reverse;
+}
+menulist hbox label {
+    -moz-appearance: none;
+    background: none;
+    border-right: 1px solid ;
+    -moz-border-right-colors: #a1a1ba;
+    padding: 0 5px;
+}
+
 
 scrollbarbutton {
   min-width: 32px;

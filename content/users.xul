@@ -7,6 +7,8 @@
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/users.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -18,25 +20,27 @@
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/users.js" />
 
-    <groupbox class="main-dialog" flex="1">
-        <caption label="&users.title;" />
-
-        <hbox flex="1">
-            <viviscrollablebuttonpanel dir="reverse" id="userscrollablepanel" flex="1" cols="3" rows="6" labelField="displayname"
-                                       ensureVisible="true"
-                                       oncommand="$do('select',this.selectedIndex, 'Users');"
-                                       class="userscrollablepanel"
-                                       buttonClass="catbtn button-radius button-white font-medium"
-                                       scrollUpClass="rightprevbtn button-blue"
-                                       scrollDownClass="rightnextbtn button-blue"
-                                       style="min-width:392px; max-width:392px; width=392px;">
-                <spacer flex="1"/>
-            </viviscrollablebuttonpanel>
-            <spacer style="width: 10px;" />
-            <separator class="groove-thin"/>
-
+    <vbox class="main-dialog" flex="1">
+        <hbox flex="1" class="MainPnl">
+            <!-- Left Panel  -->
+            <vbox flex="1" pack="start" class="MainL">
+                <caption label="&users.title;" class="PageTitle" />
+                <hbox flex="1" class="LeftPnl" >
+                    <viviscrollablebuttonpanel dir="reverse" id="userscrollablepanel" flex="1" cols="2" rows="7" labelField="displayname"
+                                               ensureVisible="true"
+                                               oncommand="$do('select',this.selectedIndex, 'Users');"
+                                               class="ItemScrollablepanel"
+                                               buttonClass="ItemButtonA"
+                                               scrollUpClass="ScrollUp"
+                                               scrollDownClass="ScrollDown">
+                        <spacer flex="1"/>
+                    </viviscrollablebuttonpanel>
+                </hbox>
+            </vbox>
+            
+            <!-- Right Panel  -->
             <vbox flex="1">
-                <tabbox id="tabbox" flex="1">
+                <tabbox id="tabbox" flex="1" class="RightTabbox">
                     <tabs id="tabs">
                         <tab id="tab1" label="&users.basedata;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical"/>
                         <tab id="tab2" label="&users.option1;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical"/>
@@ -46,9 +50,11 @@
                     <tabpanels id="tabpanels" flex="1" >
 
                         <tabpanel flex="1" >
-
-                            <vbox>
-                                <grid>
+                            <vbox flex="1">
+                                <grid class="DataForm">
+                                    <columns>
+                                        <column flex="1" />
+                                    </columns>
                                     <rows>
                                         <row>
                                             <label id="user_id" hidden="true" form="userForm" name="id" value="" />
@@ -69,7 +75,7 @@
 
                                         <row>
                                             <label  value="&users.accesslevel;"/>
-                                            <textbox id="user_group" value="" form="userForm" name="group" readonly="true" onclick="$do('getRoleGroup', null,'Users');"/>
+                                            <textbox id="user_group" class="ItemButtonA" value="" form="userForm" name="group" readonly="true" onclick="$do('getRoleGroup', null,'Users');"/>
                                         </row>
 
                                         <row>
@@ -90,7 +96,7 @@
                                         </row>
                                         <row>
                                             <label value="&users.job;"/>
-                                            <textbox id="job_name" value="" form="userForm" name="default_job_name" readonly="true" default="" onclick="$do('getJob', null, 'Users');"/>
+                                            <textbox id="job_name" class="ItemButtonA" value="" form="userForm" name="default_job_name" readonly="true" default="" onclick="$do('getJob', null, 'Users');"/>
                                             <label hidden="true" id="job_id" value="" form="userForm" name="job_id" default=""/>
                                         </row>
                                     </rows>
@@ -99,61 +105,71 @@
                         </tabpanel>
 
                         <tabpanel flex="1" >
-                            <vbox>
-                                <grid>
+                            <vbox flex="1">
+                                <grid class="DataForm">
+                                    <columns>
+                                        <column flex="1" /><column flex="1" />
+                                    </columns>
                                     <rows>
                                         <row>
-                                            <label value="&users.limit.item.discount;" control="item_discount_limit"/>
-                                            <textbox id="item_discount_limit" form="userForm" name="item_discount_limit" width="100px" onfocus="this.select()"
+                                            <vbox>
+                                                <label value="&users.limit.item.discount;" control="item_discount_limit"/>
+                                                <textbox id="item_discount_limit" form="userForm" name="item_discount_limit" width="100px" onfocus="this.select()"
                                                      type="number" decimalplaces="Infinity" hidespinbuttons="true"/>
+                                            </vbox>
+                                            <vbox>
+                                                <label value="&users.limit.order.discount;" control="order_discount_limit"/>
+                                                <textbox id="order_discount_limit" form="userForm" name="order_discount_limit" width="100px" onfocus="this.select()"
+                                                     type="number" decimalplaces="Infinity" hidespinbuttons="true"/>
+                                            </vbox>
                                         </row>
 
                                         <row>
-                                            <label value="&users.limit.order.discount;" control="order_discount_limit"/>
-                                            <textbox id="order_discount_limit" form="userForm" name="order_discount_limit" width="100px" onfocus="this.select()"
+                                            <vbox>
+                                                <label value="&users.limit.item.surcharge;" control="item_surcharge_limit"/>
+                                                <textbox id="item_surcharge_limit" form="userForm" name="item_surcharge_limit"  width="100px" onfocus="this.select()"
                                                      type="number" decimalplaces="Infinity" hidespinbuttons="true"/>
+                                            </vbox>
+                                            <vbox>
+                                                <label value="&users.limit.order.surcharge;" control="order_surcharge_limit"/>
+                                                <textbox id="order_surcharge_limit" form="userForm" name="order_surcharge_limit"  width="100px" onfocus="this.select()"
+                                                     type="number" decimalplaces="Infinity" hidespinbuttons="true"/>
+                                            </vbox>
                                         </row>
 
                                         <row>
-                                            <label value="&users.limit.item.surcharge;" control="item_surcharge_limit"/>
-                                            <textbox id="item_surcharge_limit" form="userForm" name="item_surcharge_limit"  width="100px" onfocus="this.select()"
+                                            <vbox>
+                                                <label value="&users.limit.plu.quantity;" control="max_plu_qty"/>
+                                                <textbox id="max_plu_qty" form="userForm" name="max_plu_qty" width="100px" onfocus="this.select()"
                                                      type="number" decimalplaces="Infinity" hidespinbuttons="true"/>
+                                            </vbox>
+                                            <vbox>
+                                                <label value="&users.limit.plu.price;" control="max_plu_price"/>
+                                                <textbox id="max_plu_price" form="userForm" name="max_plu_price" width="100px" onfocus="this.select()"
+                                                     type="number" decimalplaces="Infinity" hidespinbuttons="true"/>
+                                            </vbox>
                                         </row>
 
                                         <row>
-                                            <label value="&users.limit.order.surcharge;" control="order_surcharge_limit"/>
-                                            <textbox id="order_surcharge_limit" form="userForm" name="order_surcharge_limit"  width="100px" onfocus="this.select()"
+                                            <vbox>
+                                                <label value="&users.limit.item.coupon;" control="item_coupon_limit"/>
+                                                <textbox id="item_coupon_limit" form="userForm" name="item_coupon_limit" width="100px" onfocus="this.select()"
                                                      type="number" decimalplaces="Infinity" hidespinbuttons="true"/>
+                                            </vbox>
+                                            <vbox>
+                                                <label value="&users.limit.order.coupon;" control="order_coupon_limit"/>
+                                                <textbox id="order_coupon_limit" form="userForm" name="order_coupon_limit" width="100px" onfocus="this.select()"
+                                                     type="number" decimalplaces="Infinity" hidespinbuttons="true"/>
+                                            </vbox>
                                         </row>
 
                                         <row>
-                                            <label value="&users.limit.plu.quantity;" control="max_plu_qty"/>
-                                            <textbox id="max_plu_qty" form="userForm" name="max_plu_qty" width="100px" onfocus="this.select()"
+                                            <vbox>
+                                                <label value="&users.limit.cash.check;" control="max_cash_check"/>
+                                                <textbox id="max_cash_check" form="userForm" name="max_cash_check" width="100px" onfocus="this.select()"
                                                      type="number" decimalplaces="Infinity" hidespinbuttons="true"/>
-                                        </row>
-
-                                        <row>
-                                            <label value="&users.limit.plu.price;" control="max_plu_price"/>
-                                            <textbox id="max_plu_price" form="userForm" name="max_plu_price" width="100px" onfocus="this.select()"
-                                                     type="number" decimalplaces="Infinity" hidespinbuttons="true"/>
-                                        </row>
-
-                                        <row>
-                                            <label value="&users.limit.item.coupon;" control="item_coupon_limit"/>
-                                            <textbox id="item_coupon_limit" form="userForm" name="item_coupon_limit" width="100px" onfocus="this.select()"
-                                                     type="number" decimalplaces="Infinity" hidespinbuttons="true"/>
-                                        </row>
-
-                                        <row>
-                                            <label value="&users.limit.order.coupon;" control="order_coupon_limit"/>
-                                            <textbox id="order_coupon_limit" form="userForm" name="order_coupon_limit" width="100px" onfocus="this.select()"
-                                                     type="number" decimalplaces="Infinity" hidespinbuttons="true"/>
-                                        </row>
-
-                                        <row>
-                                            <label value="&users.limit.cash.check;" control="max_cash_check"/>
-                                            <textbox id="max_cash_check" form="userForm" name="max_cash_check" width="100px" onfocus="this.select()"
-                                                     type="number" decimalplaces="Infinity" hidespinbuttons="true"/>
+                                            </vbox>
+                                            <vbox></vbox>
                                         </row>
                                     </rows>
                                 </grid>
@@ -161,25 +177,34 @@
                         </tabpanel>
 
                         <tabpanel flex="1" >
-                            <vbox>
-                                <grid>
+                            <vbox flex="1" >
+                                <grid class="DataForm">
+                                    <columns>
+                                        <column flex="1" />
+                                    </columns>
                                     <rows>
                                         <row>
-                                            <label value="&users.minimum.check.number;" control="min_check_no"/>
-                                            <textbox id="min_check_no" form="userForm" name="min_check" width="100px" onfocus="this.select()"
+                                            <vbox>
+                                                <label value="&users.minimum.check.number;" control="min_check_no"/>
+                                                <textbox id="min_check_no" form="userForm" name="min_check" width="100px" onfocus="this.select()"
                                                      type="number" decimalplaces="0" hidespinbuttons="true"/>
+                                            </vbox>
                                         </row>
 
                                         <row>
-                                            <label value="&users.maximum.check.number;" control="max_check_no"/>
-                                            <textbox id="max_check_no" form="userForm" name="max_check" width="100px" onfocus="this.select()"
+                                            <vbox>
+                                                <label value="&users.maximum.check.number;" control="max_check_no"/>
+                                                <textbox id="max_check_no" form="userForm" name="max_check" width="100px" onfocus="this.select()"
                                                      type="number" decimalplaces="0" hidespinbuttons="true"/>
+                                            </vbox>
                                         </row>
 
                                         <row>
-                                            <label value="&users.maximum.open.checks;" control="max_open_checks"/>
-                                            <textbox id="max_open_checks" form="userForm" name="max_open_checks" width="100px" onfocus="this.select()"
+                                            <vbox>
+                                                <label value="&users.maximum.open.checks;" control="max_open_checks"/>
+                                                <textbox id="max_open_checks" form="userForm" name="max_open_checks" width="100px" onfocus="this.select()"
                                                      type="number" decimalplaces="0" hidespinbuttons="true"/>
+                                            </vbox>
                                         </row>
                                     </rows>
                                 </grid>
@@ -190,21 +215,21 @@
                     </tabpanels>
                 </tabbox>
                 <hbox>
-                    <button id="add_user" label="&users.action.add;" disabled="false" class="editbtns" oncommand="$do('add', null, 'Users');" />
-                    <spacer flex="1" />
-                    <button id="modify_user" label="&users.action.modify;" disabled="false" class="editbtns" oncommand="$do('update', null, 'Users');" />
-                    <button id="delete_user" label="&users.action.delete;" disabled="false" class="editbtns" oncommand="$do('delete', null, 'Users');" />
+                    <hbox class="ToolBar" flex="1">
+                        <button id="add_user" label="&users.action.add;" disabled="false" class="BtnAdd" oncommand="$do('add', null, 'Users');" />
+                        <button id="modify_user" label="&users.action.modify;" disabled="false" class="BtnMod" oncommand="$do('update', null, 'Users');" />
+                        <button id="delete_user" label="&users.action.delete;" disabled="false" class="BtnDel" oncommand="$do('delete', null, 'Users');" />
+                    </hbox>
+                    <hbox id="dialogButtons" class="dialogbtns" pack="center">
+                        <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
+                        <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                    </hbox>
                 </hbox>
             </vbox>
 
         </hbox>
-    </groupbox>
+    </vbox>
 
-    <hbox id="dialogButtons" class="dialogbtns" pack="center">
-        <spacer flex="1"/>
-        <button class="right exit-dialog" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
-        <spacer flex="1"/>
-        <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="vkb"/>
-    </hbox>
+    
 
 </window>
