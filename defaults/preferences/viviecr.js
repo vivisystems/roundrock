@@ -470,14 +470,14 @@ pref("vivipos.fec.registry.ports.gpio1.path", "/dev/ttyGPIO1");
 
 pref("vivipos.fec.registry.portspeeds", "2400, 4800, 9600, 19200, 38400, 57600, 115200");
 
-pref("vivipos.fec.registry.devicemodels.escpos.label", "Generic ESC/POS");
-pref("vivipos.fec.registry.devicemodels.escpos.type", "receipt,guestcheck");
-pref("vivipos.fec.registry.devicemodels.escpos.path", "chrome://viviecr/content/devices/commands/escpos.cmd");
-pref("vivipos.fec.registry.devicemodels.escpos.encodings", "English=US-ASCII");
+pref("vivipos.fec.registry.devicemodels.fecf632.label", "FEC F632");
+pref("vivipos.fec.registry.devicemodels.fecf632.type", "receipt,guestcheck");
+pref("vivipos.fec.registry.devicemodels.fecf632.path", "chrome://viviecr/content/devices/commands/fecf632.cmd");
+pref("vivipos.fec.registry.devicemodels.fecf632.encodings", "English=US-ASCII,Western=ISO-8859-1,Simplified Chinese=GB18030,Traditional Chinese=Big5,Japanese=Shift_JIS,UTF-8=UTF-8");
 
 pref("vivipos.fec.registry.devicemodels.epsontm-t88iv.label", "Epson TM-T88IV");
 pref("vivipos.fec.registry.devicemodels.epsontm-t88iv.type", "receipt,guestcheck,cashdrawer");
-pref("vivipos.fec.registry.devicemodels.epsontm-t88iv.path", "chrome://viviecr/content/devices/commands/escpos.cmd");
+pref("vivipos.fec.registry.devicemodels.epsontm-t88iv.path", "chrome://viviecr/content/devices/commands/epson-tm88iv.cmd");
 pref("vivipos.fec.registry.devicemodels.epsontm-t88iv.encodings", "English=US-ASCII,Western=ISO-8859-1,Simplified Chinese=GB18030,Traditional Chinese=Big5,Japanese=Shift_JIS,UTF-8=UTF-8");
 
 pref("vivipos.fec.registry.devicemodels.vfdfec.label", "Firich VFD");

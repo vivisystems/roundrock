@@ -1839,7 +1839,10 @@
                     var index = this._cartView.getSelectedIndex();
                     var curTransaction = this._getTransaction();
 
-                    if(curTransaction != null && index >=0) curTransaction.appendCondiment(index, inputObj.condiments);
+                    if(curTransaction != null && index >=0) {
+                        curTransaction.appendCondiment(index, inputObj.condiments);
+                        this.dispatchEvent('afterAddCondiment', inputObj.condiments);
+                    }
                     
                     this.subtotal();
                 }
@@ -1890,6 +1893,7 @@
             this._condimentPanel.selectedIndex = -1;
             if (condiments.length > 0) {
                 curTransaction.appendCondiment(index, condiments);
+                this.dispatchEvent('afterAddCondiment', condiments);
                 this.subtotal();
             }
             

@@ -40,6 +40,7 @@
                             <column flex="0"/>
                             <column flex="1"/>
                             <column flex="0"/>
+                            <column flex="0"/>
                         </columns>
                         <rows>
                             <row>
@@ -62,7 +63,14 @@
                                     <menupopup id="receipt-1-portspeed-popup">
                                     </menupopup>
                                 </menulist>
-                                <checkbox id="receipt-1-disable-handshake" label="&devices.disable.handshake.label;" checked="false" name="receipt-1-disable-handshake" form="deviceForm"/>
+                                <label value="&devices.handshaking.label;"/>
+                                <menulist id="receipt-1-handshaking" name="receipt-1-handshaking" form="deviceForm">
+                                    <menupopup id="receipt-1-handshaking-popup">
+                                        <menuitem label="&devices.handshaking.hardware;" value="h"/>
+                                        <menuitem label="&devices.handshaking.xonxoff;" value="x"/>
+                                        <menuitem label="&devices.handshaking.none;" value="n"/>
+                                    </menupopup>
+                                </menulist>
                             </row>
                             <row>
                                 <label value="&devices.devicemodel.label;"/>
@@ -116,7 +124,14 @@
                                     <menupopup id="receipt-2-portspeed-popup">
                                     </menupopup>
                                 </menulist>
-                                <checkbox id="receipt-2-disable-handshake" label="&devices.disable.handshake.label;" checked="false" name="receipt-2-disable-handshake" form="deviceForm"/>
+                                <label value="&devices.handshaking.label;"/>
+                                <menulist id="receipt-2-handshaking" name="receipt-2-handshaking" form="deviceForm">
+                                    <menupopup id="receipt-2-handshaking-popup">
+                                        <menuitem label="&devices.handshaking.hardware;" value="h"/>
+                                        <menuitem label="&devices.handshaking.xonxoff;" value="x"/>
+                                        <menuitem label="&devices.handshaking.none;" value="n"/>
+                                    </menupopup>
+                                </menulist>
                             </row>
                             <row>
                                 <label value="&devices.devicemodel.label;"/>
@@ -170,7 +185,14 @@
                                     <menupopup id="guestcheck-1-portspeed-popup">
                                     </menupopup>
                                 </menulist>
-                                <checkbox id="guestcheck-1-disable-handshake" label="&devices.disable.handshake.label;" checked="false" name="guestcheck-1-disable-handshake" form="deviceForm"/>
+                                <label value="&devices.handshaking.label;"/>
+                                <menulist id="guestcheck-1-handshaking" name="guestcheck-1-handshaking" form="deviceForm">
+                                    <menupopup id="guestcheck-1-handshaking-popup">
+                                        <menuitem label="&devices.handshaking.hardware;" value="h"/>
+                                        <menuitem label="&devices.handshaking.xonxoff;" value="x"/>
+                                        <menuitem label="&devices.handshaking.none;" value="n"/>
+                                    </menupopup>
+                                </menulist>
                             </row>
                             <row>
                                 <label value="&devices.devicemodel.label;"/>
@@ -224,7 +246,14 @@
                                     <menupopup id="guestcheck-2-portspeed-popup">
                                     </menupopup>
                                 </menulist>
-                                <checkbox id="guestcheck-2-disable-handshake" label="&devices.disable.handshake.label;" checked="false" name="guestcheck-2-disable-handshake" form="deviceForm"/>
+                                <label value="&devices.handshaking.label;"/>
+                                <menulist id="guestcheck-2-handshaking" name="guestcheck-2-handshaking" form="deviceForm">
+                                    <menupopup id="guestcheck-2-handshaking-popup">
+                                        <menuitem label="&devices.handshaking.hardware;" value="h"/>
+                                        <menuitem label="&devices.handshaking.xonxoff;" value="x"/>
+                                        <menuitem label="&devices.handshaking.none;" value="n"/>
+                                    </menupopup>
+                                </menulist>
                             </row>
                             <row>
                                 <label value="&devices.devicemodel.label;"/>
@@ -279,7 +308,14 @@
                                     <menupopup id="vfd-1-portspeed-popup">
                                     </menupopup>
                                 </menulist>
-                                <checkbox id="vfd-1-disable-handshake" label="&devices.disable.handshake.label;" checked="false" name="vfd-1-disable-handshake" form="deviceForm"/>
+                                <label value="&devices.handshaking.label;"/>
+                                <menulist id="vfd-1-handshaking" name="vfd-1-handshaking" form="deviceForm">
+                                    <menupopup id="vfd-1-handshaking-popup">
+                                        <menuitem label="&devices.handshaking.hardware;" value="h"/>
+                                        <menuitem label="&devices.handshaking.xonxoff;" value="x"/>
+                                        <menuitem  label="&devices.handshaking.none;" value="n"/>
+                                    </menupopup>
+                                </menulist>
                             </row>
                             <row>
                                 <label value="&devices.devicemodel.label;"/>
@@ -331,7 +367,14 @@
                                 <menupopup id="vfd-2-portspeed-popup">
                                 </menupopup>
                             </menulist>
-                            <checkbox id="vfd-2-disable-handshake" label="&devices.disable.handshake.label;" checked="false" name="vfd-2-disable-handshake" form="deviceForm"/>
+                                <label value="&devices.handshaking.label;"/>
+                                <menulist id="vfd-2-handshaking" name="vfd-2-handshaking" form="deviceForm">
+                                    <menupopup id="vfd-2-handshaking-popup">
+                                        <menuitem label="&devices.handshaking.hardware;" value="h"/>
+                                        <menuitem label="&devices.handshaking.xonxoff;" value="x"/>
+                                        <menuitem  label="&devices.handshaking.none;" value="n"/>
+                                    </menupopup>
+                                </menulist>
                         </row>
                         <row>
                             <label value="&devices.devicemodel.label;"/>
@@ -387,7 +430,14 @@
                                     <menupopup id="cashdrawer-1-portspeed-popup">
                                     </menupopup>
                                 </menulist>
-                                <checkbox id="cashdrawer-1-disable-handshake" label="&devices.disable.handshake.label;" checked="false" name="cashdrawer-1-disable-handshake" form="deviceForm"/>
+                                <label value="&devices.handshaking.label;"/>
+                                <menulist id="cashdrawer-1-handshaking" name="cashdrawer-1-handshaking" form="deviceForm">
+                                    <menupopup id="cashdrawer-1-handshaking-popup">
+                                        <menuitem label="&devices.handshaking.hardware;" value="h"/>
+                                        <menuitem label="&devices.handshaking.xonxoff;" value="x"/>
+                                        <menuitem  label="&devices.handshaking.none;" value="n"/>
+                                    </menupopup>
+                                </menulist>
                             </row>
                             <row>
                                 <label value="&devices.devicemodel.label;"/>
@@ -435,7 +485,14 @@
                                     <menupopup id="cashdrawer-2-portspeed-popup">
                                     </menupopup>
                                 </menulist>
-                                <checkbox id="cashdrawer-2-disable-handshake" label="&devices.disable.handshake.label;" checked="false" name="cashdrawer-2-disable-handshake" form="deviceForm"/>
+                                <label value="&devices.handshaking.label;"/>
+                                <menulist id="cashdrawer-2-handshaking" name="cashdrawer-2-handshaking" form="deviceForm">
+                                    <menupopup id="cashdrawer-2-handshaking-popup">
+                                        <menuitem label="&devices.handshaking.hardware;" value="h"/>
+                                        <menuitem label="&devices.handshaking.xonxoff;" value="x"/>
+                                        <menuitem  label="&devices.handshaking.none;" value="n"/>
+                                    </menupopup>
+                                </menulist>
                             </row>
                             <row>
                                 <label value="&devices.devicemodel.label;"/>

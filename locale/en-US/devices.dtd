@@ -4,7 +4,10 @@
 <!ENTITY devices.template.label "Template">
 <!ENTITY devices.port.label "Port">
 <!ENTITY devices.portspeed.label "Port Speed">
-<!ENTITY devices.disable.handshake.label "Disable hardware handshake">
+<!ENTITY devices.handshaking.label "Handshaking">
+<!ENTITY devices.handshaking.hardware "Hardware">
+<!ENTITY devices.handshaking.xonxoff "XON/XOFF">
+<!ENTITY devices.handshaking.none "None">
 <!ENTITY devices.devicemodel.label "Device Model">
 <!ENTITY devices.deviceencoding.label "Encoding">
 <!ENTITY devices.receipt.autoprint.label "Print receipt automatically">

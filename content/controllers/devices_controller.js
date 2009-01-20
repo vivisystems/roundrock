@@ -233,12 +233,11 @@
         },
 
         // open serial port for writing
-        openSerialPort: function (path, speed, handshakingDisabled) {
+        openSerialPort: function (path, speed, handshaking) {
             var portControl = this.getSerialPortControlService();
-            var handshake = (handshakingDisabled == true) ? 'n' : 'h';
             if (portControl != null) {
                 try {
-                    return (portControl.openPort(path, speed + ',n,8,1,' + handshake) != -1);
+                    return (portControl.openPort(path, speed + ',n,8,1,' + handshaking) != -1);
                 }
                 catch(e) {
                     return false;
@@ -649,7 +648,7 @@
                         template: selectedDevices[type + '-1-template'],
                         port: selectedDevices[type + '-1-port'],
                         portspeed: selectedDevices[type + '-1-portspeed'],
-                        disableHandshake: selectedDevices[type + '-1-disable-handshake'],
+                        handshaking: selectedDevices[type + '-1-handshaking'],
                         devicemodel: selectedDevices[type + '-1-devicemodel'],
                         encoding: selectedDevices[type + '-1-encoding'],
                         autoprint: selectedDevices[type + '-1-autoprint'],
@@ -661,7 +660,7 @@
                         template: selectedDevices[type + '-2-template'],
                         port: selectedDevices[type + '-2-port'],
                         portspeed: selectedDevices[type + '-2-portspeed'],
-                        disableHandshake: selectedDevices[type + '-2-disable-handshake'],
+                        handshaking: selectedDevices[type + '-2-handshaking'],
                         devicemodel: selectedDevices[type + '-2-devicemodel'],
                         encoding: selectedDevices[type + '-2-encoding'],
                         autoprint: selectedDevices[type + '-2-autoprint'],
@@ -696,7 +695,7 @@
 
             var portmenu = document.getElementById('cashdrawer-' + drawer_no + '-port')
             var speedmenu = document.getElementById('cashdrawer-' + drawer_no + '-portspeed')
-            var handshakebox = document.getElementById('cashdrawer-' + drawer_no + '-disable-handshake')
+            var handshakebox = document.getElementById('cashdrawer-' + drawer_no + '-handshaking')
             var devicemenu = document.getElementById('cashdrawer-' + drawer_no + '-devicemodel')
             
             if (typemenu == null || devicemenu == null) return;
@@ -1048,15 +1047,15 @@
                     devicemodelmenu2.appendItem(_(sortedDevicemodels[i].label), devicemodelName, '');
                 }
                 devicemodelmenu1.selectedIndex = devicemodelmenu2.selectedIndex = 0;
-                //devicemodelmenu3.selectedIndex = 0;
-
-                this.updateCashdrawerType([document.getElementById('cashdrawer-1-type'), '1']);
-                this.updateCashdrawerType([document.getElementById('cashdrawer-2-type'), '2']);
             }
 
             /* apply device selections */
             GeckoJS.FormHelper.unserializeFromObject('deviceForm', selectedDevices);
 
+            if (document.getElementById('cashdrawer-panel') != null) {
+                this.updateCashdrawerType([document.getElementById('cashdrawer-1-type'), '1']);
+                this.updateCashdrawerType([document.getElementById('cashdrawer-2-type'), '2']);
+            }
         },
 
         populateEncodings: function (menulist, devicemodel) {

@@ -27,6 +27,7 @@
                 cart.addEventListener('afterAddPayment', this.displayOnVFD, this);
                 cart.addEventListener('afterAddDiscount', this.displayOnVFD, this);
                 cart.addEventListener('afterAddSurcharge', this.displayOnVFD, this);
+                cart.addEventListener('afterAddCondiment', this.displayOnVFD, this);
                 cart.addEventListener('afterCancel', this.displayOnVFD, this);
 
                 cart.addEventListener('onQueue', this.displayOnVFD, this);
@@ -48,6 +49,9 @@
 
             // initialize display
             this.displayOnVFD();
+
+            // sleep to allow OS events to catch up
+            this.sleep(10);
         },
 
         getDeviceController: function () {
@@ -69,10 +73,10 @@
         },
 
         // invoke openSerialPort on device controller
-        openSerialPort: function (path, portspeed, handshakingDisabled) {
+        openSerialPort: function (path, portspeed, handshaking) {
             var device = this.getDeviceController();
             if (device != null) {
-                return device.openSerialPort(path, portspeed, handshakingDisabled);
+                return device.openSerialPort(path, portspeed, handshaking);
             }
             else {
                 return false;
@@ -239,18 +243,18 @@
                     var template = device.template;
                     var port = device.port;
                     var portspeed = device.portspeed;
-                    var handshakeDisabled = device.handshakeDisabled;
+                    var handshaking = device.handshaking;
                     var devicemodel = device.devicemodel;
                     var encoding = device.encoding;
                     data._MODIFIERS = _templateModifiers(encoding);
-                    self.sendToVFD(data, template, port, portspeed, handshakeDisabled, devicemodel, encoding);
+                    self.sendToVFD(data, template, port, portspeed, handshaking, devicemodel, encoding);
 
                     });
             }
         },
 
         // print check using the given parameters
-        sendToVFD: function(data, template, port, speed, handshakeDisabled, devicemodel, encoding) {
+        sendToVFD: function(data, template, port, speed, handshaking, devicemodel, encoding) {
 
             var portPath = this.getPortPath(port);
             var commands = {};
@@ -306,7 +310,7 @@
             
             // send to output device
             var printed = false;
-            if (this.openSerialPort(portPath, speed, handshakeDisabled)) {
+            if (this.openSerialPort(portPath, speed, handshaking)) {
                 var len = this.writeSerialPort(portPath, encodedResult);
                 if (len == encodedResult.length) {
                     printed = true;
