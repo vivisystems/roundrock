@@ -336,10 +336,10 @@ pref("vivipos.fec.registry.function.programmable.creditcard.command", "creditCar
 pref("vivipos.fec.registry.function.programmable.creditcard.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.creditcard.data", "");
 
-pref("vivipos.fec.registry.function.programmable.giftcard.access", "acl_register_gift_card");
-pref("vivipos.fec.registry.function.programmable.giftcard.command", "giftCard");
-pref("vivipos.fec.registry.function.programmable.giftcard.controller", "Cart");
-pref("vivipos.fec.registry.function.programmable.giftcard.data", "");
+pref("vivipos.fec.registry.function.programmable.coupon.access", "acl_register_coupon");
+pref("vivipos.fec.registry.function.programmable.coupon.command", "coupon");
+pref("vivipos.fec.registry.function.programmable.coupon.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.coupon.data", "");
 
 pref("vivipos.fec.registry.function.programmable.addmemo.access", "acl_register_plus");
 pref("vivipos.fec.registry.function.programmable.addmemo.command", "addMemo");
@@ -350,6 +350,16 @@ pref("vivipos.fec.registry.function.programmable.addcondiment.access", "acl_regi
 pref("vivipos.fec.registry.function.programmable.addcondiment.command", "addCondiment");
 pref("vivipos.fec.registry.function.programmable.addcondiment.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.addcondiment.data", "");
+
+pref("vivipos.fec.registry.function.programmable.opendrawer1.access", "acl_open_cashdrawer_1");
+pref("vivipos.fec.registry.function.programmable.opendrawer1.command", "opendrawer1");
+pref("vivipos.fec.registry.function.programmable.opendrawer1.controller", "CashDrawer");
+pref("vivipos.fec.registry.function.programmable.opendrawer1.data", "");
+
+pref("vivipos.fec.registry.function.programmable.opendrawer2.access", "acl_open_cashdrawer_2");
+pref("vivipos.fec.registry.function.programmable.opendrawer2.command", "opendrawer2");
+pref("vivipos.fec.registry.function.programmable.opendrawer2.controller", "CashDrawer");
+pref("vivipos.fec.registry.function.programmable.opendrawer2.data", "");
 
 pref('vivipos.fec.ui.functionpanel.button.defaultcolor', 'function-button-color-default');
 pref('vivipos.fec.ui.functionpanel.button.defaultfontsize', 'medium');

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-19 17:32+0800\n"
+"POT-Creation-Date: 2009-01-21 01:13+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,10 +38,6 @@ msgstr "Momser"
 #: category.plufilter
 msgid "Product Filter"
 msgstr "Product Filter"
-
-#: terminalid
-msgid "Terminal ID"
-msgstr "Terminal ID"
 
 #: publicattendance
 msgid "Individual Time-and-Attendance visible to all"
@@ -78,6 +74,14 @@ msgstr "Rounding policy to use for Prices"
 #: roundingtaxes
 msgid "Rounding policy to use for Taxes"
 msgstr "Rounding policy to use for Taxes"
+
+#: decimalpoint
+msgid "Decimal Point"
+msgstr ""
+
+#: thousandsdelimiter
+msgid "Thousands Delimiter"
+msgstr ""
 
 #: rounding.to-nearest-precision
 msgid "to nearest precision"

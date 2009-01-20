@@ -4,7 +4,7 @@
     GeckoJS.include('chrome://viviecr/content/devices/deviceTemplateUtils.js');
 
     /**
-     * Print Controller
+     * VFD Controller
      */
 
     GeckoJS.Controller.extend( {
@@ -40,7 +40,12 @@
                     observe: function(aSubject, aTopic, aData) {
                         switch(aTopic) {
                             case 'acl-session-change':
-                                self.displayOnVFD();
+
+                                var user = new GeckoJS.AclComponent().getUserPrincipal();
+                                if (user == null) {
+                                    // signed out
+                                    self.displayOnVFD();
+                                }
                                 break;
 
                         }
@@ -186,7 +191,7 @@
 
         // handles VFD events
         displayOnVFD: function(evt) {
-
+            
             //alert(GeckoJS.BaseObject.dump(evt.data));
             var device = this.getDeviceController();
             if (device == null) {
@@ -327,7 +332,7 @@
             if (!printed) {
                 var devicemodels = this.getDeviceModels();
                 var devicemodelName = (devicemodels == null) ? 'unknown' : devicemodels[devicemodel].label;
-                var portName = (ports == null) ? 'unknown' : ports[port].label;
+                var portName = this.getPortName(port);
 
                 if (devicemodelName == null) devicemodelName = 'unknown';
                 if (portName == null) portName = 'unknown';

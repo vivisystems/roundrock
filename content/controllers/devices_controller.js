@@ -499,7 +499,17 @@
         },
 
         checkGPIOPort: function() {
-            return 0;
+            var gpio = GeckoJS.Controller.getInstanceByName('GPIO');
+
+            if (gpio) return gpio.checkPortStatus();
+            else return 0;
+        },
+
+        triggerGPIO: function() {
+            var gpio = GeckoJS.Controller.getInstanceByName('GPIO');
+
+            if (gpio) return gpio.trigger();
+            else return 0;
         },
 
 
@@ -645,6 +655,7 @@
             if (selectedDevices != null) {
                 if (selectedDevices[type + '-1-enabled']) {
                     enabledDevices.push({
+                        type: selectedDevices[type + '-1-type'],
                         template: selectedDevices[type + '-1-template'],
                         port: selectedDevices[type + '-1-port'],
                         portspeed: selectedDevices[type + '-1-portspeed'],
@@ -657,6 +668,7 @@
                 }
                 if (selectedDevices[type + '-2-enabled']) {
                     enabledDevices.push({
+                        type: selectedDevices[type + '-2-type'],
                         template: selectedDevices[type + '-2-template'],
                         port: selectedDevices[type + '-2-port'],
                         portspeed: selectedDevices[type + '-2-portspeed'],

@@ -1300,15 +1300,15 @@
             }
         },
 
-        getGiftCardDialog: function (data) {
-            var aURL = 'chrome://viviecr/content/giftcard_remark.xul';
+        getCouponDialog: function (data) {
+            var aURL = 'chrome://viviecr/content/coupon_remark.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=400';
             var inputObj = {
                 input0:data.type,
                 input1:null
             };
-            window.openDialog(aURL, _('Gift Card Remark'), features, _('Gift Card Remark'), _('Payment') + ' [' + data.payment + ']',
-                _('Card Type'), _('Card Remark'), inputObj);
+            window.openDialog(aURL, _('Coupon Remark'), features, _('Coupon Remark'), _('Payment') + ' [' + data.payment + ']',
+                _('Coupon Type'), _('Coupon Remark'), inputObj);
 
             if (inputObj.ok) {
                 return inputObj;
@@ -1364,7 +1364,7 @@
 
         },
 
-        giftCard: function(mark) {
+        coupon: function(mark) {
 
             // check if has buffer
             var buf = this._getKeypadController().getBuffer();
@@ -1401,11 +1401,11 @@
                 type: mark,
                 payment: curTransaction.formatPrice(payment)
             };
-            var inputObj = this.getGiftCardDialog(data);
+            var inputObj = this.getCouponDialog(data);
             if (inputObj) {
                 var memo1 = inputObj.input0 || '';
                 var memo2 = inputObj.input1 || '';
-                this.addPayment('giftcard', payment, payment, memo1, memo2);
+                this.addPayment('coupon', payment, payment, memo1, memo2);
             }
             //this.clear();
 
@@ -1929,17 +1929,24 @@
             if (typeof plu == 'object' && plu.force_memo) {
                 memoItem = plu;
             }else {
+                if (plu != null) plu = GeckoJS.String.trim(plu);
                 var productsById = GeckoJS.Session.get('productsById');
                 var cartItem = curTransaction.getItemAt(index);
                 if (cartItem != null && cartItem.type == 'item') {
-                    //xxxx why clone it?
-                    //memoItem = GREUtils.extend({}, productsById[cartItem.id]);
-                    memoItem = productsById[cartItem.id];
+                    //xxxx why clone it? so we don't change the default memo
+                    memoItem = GREUtils.extend({}, productsById[cartItem.id]);
+                    //memoItem = productsById[cartItem.id];
                 }
-                if (memoItem) memoItem.memo = plu;
+                if (memoItem && plu != null && plu != '') memoItem.memo = plu;
             }
 
-            var memo = this.getMemoDialog(memoItem ? memoItem.memo : '');
+            var memo;
+            if (typeof plu == 'object' || plu == null || plu == '') {
+                memo = this.getMemoDialog(memoItem ? memoItem.memo : '');
+            }
+            else {
+                memo = GeckoJS.String.trim(plu);
+            }
             if (memo) curTransaction.appendMemo(index, memo);
 
         },

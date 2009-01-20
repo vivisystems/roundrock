@@ -173,6 +173,43 @@
             this.Acl.addUser(evt.data.username, evt.data.password, displayname);
             this.Acl.changeUserPassword(evt.data.username, evt.data.password);
             this.Acl.addUserToGroup(evt.data.username, evt.data.group);
+
+            // check if assigned drawer, if any, is enabled
+            var device = opener.opener.GeckoJS.Controller.getInstanceByName('Devices');
+            alert(device);
+            var drawer = evt.data.drawer;
+            if (drawer != null) {
+                drawer = GeckoJS.String.trim(drawer);
+                if (drawer != '') {
+                    var warn = true;
+                    if (device) {
+                        var selectedDevices = device.getSelectedDevices();
+                        if (!('cashdrawer-' + drawer + '-enabled' in selectedDevices)) {
+                            NotifyUtils.warn(_('NOTE: the assigned drawer [%S] does not exist!', [drawer]));
+                        }
+                        else {
+                            var enabledDrawers = device.getEnabledDevices('cashdrawer');
+                            if (enabledDrawers == null || enabledDrawers.length == 0) {
+                                warn = true;
+                            }
+                            else {
+                                enabledDrawers.forEach(function(d) {
+                                   if (d.number == drawer) {
+                                       warn = false;
+                                   }
+                                });
+                            }
+                            if (warn) {
+                                NotifyUtils.warn(_('WARN: the assigned drawer [%S] is not yet enabled!', [drawer]));
+                            }
+                        }
+                    }
+                    else {
+                        NotifyUtils.error(_('Error detected in device manager; unable to verify cash drawer configuration'));
+                        this.log('Devices controller returns null instance when checking user cash drawer assignment');
+                    }
+                }
+            }
         },
 
         beforeScaffoldDelete: function(evt) {
