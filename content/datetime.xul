@@ -7,6 +7,8 @@
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/departments.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -26,27 +28,31 @@
         <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('cancel').click()" />
     </keyset>
     
-    <groupbox class="main-dialog" flex="1">
-        <tabbox>
-            <tabs>
-                <tab id="tab1" label="&datetime.datetime.title;"/>
-                <tab id="tab2" label="&datetime.timezone.title;"/>
-            </tabs>
-            <tabpanels>
-                <tabpanel flex="1">
-                    <vividatetimepicker id="datetime" flex="1" type="embed"
-                            />
-                </tabpanel>
-                <tabpanel flex="1">
-                    <vivitimezones id="timezones" flex="1"/>
-                </tabpanel>
-            </tabpanels>
-        </tabbox>
-    </groupbox>
+     <vbox class="main-dialog" flex="1">
+        <vbox flex="1" class="MainPnl">
+            <tabbox class="RightTabbox">
+                <tabs>
+                    <tab id="tab1" label="&datetime.datetime.title;"/>
+                    <tab id="tab2" label="&datetime.timezone.title;"/>
+                </tabs>
+                <tabpanels>
+                    <tabpanel flex="1">
+                        <vividatetimepicker id="datetime" flex="1" type="embed" class="DateTime"
+                                />
+                    </tabpanel>
+                    <tabpanel flex="1">
+                        <vivitimezones id="timezones" flex="1" class="TimeZone"/>
+                    </tabpanel>
+                </tabpanels>
+            </tabbox>
+            <spacer flex="1" />
+            <hbox id="dialogButtons" class="dialogbtns" pack="end">
+                <button class="SaveBtn" id="ok" label="&dialog.applyButton.label;" default="true" oncommand="doOKButton();"/>
+                <button class="ExitBtn" id="cancel" label="&dialog.cancelButton.label;" default="false" oncommand="doCancelButton();"/>
+            </hbox>
+        </vbox>
+    </vbox>
   
-    <hbox id="dialogButtons" class="dialogbtns" pack="center">
-        <button class="right exit-dialog" id="ok" label="&dialog.applyButton.label;" default="true" oncommand="doOKButton();"/>
-        <button class="exit-dialog" id="cancel" label="&dialog.cancelButton.label;" default="false" oncommand="doCancelButton();"/>
-    </hbox>
+    
 
 </window>

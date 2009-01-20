@@ -284,7 +284,7 @@
         getPlu: function (){
 
             var aURL = 'chrome://viviecr/content/prompt_addpluset.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
             var inputObj = {
                 input0:null, require0:true, alphaOnly0:true,
                 input1:1, require1:true, numberOnly1:true

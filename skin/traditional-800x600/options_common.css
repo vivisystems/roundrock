@@ -368,6 +368,12 @@ menulist hbox label {
     padding: 0 5px;
 }
 
+.TimeLabelBox label {
+    font-size: 12pt;
+    margin: 5px;
+    font-weight: bold;
+    color: #534741;
+}
 
 scrollbarbutton {
   min-width: 32px;

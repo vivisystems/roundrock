@@ -66,10 +66,10 @@
         </vbox>
     </vbox>
 
-    <panel id="import_wait_panel" position="overlap" noautohide="true" style="padding:30px;">
+    <panel id="import_wait_panel" position="overlap" noautohide="true" class="ImportWaitPnl">
         <vbox flex="1">
         <groupbox flex="1">
-            <caption label="&importexport.importwait;"/>
+            <caption label="&importexport.importwait;" class="PageTitle"/>
             <spacer style="height: 20px;" />
             <progressmeter id="importprogressmeter" mode="determined" value="0" />
             <spacer style="height: 20px;" />
@@ -77,10 +77,10 @@
         </vbox>
     </panel>
 
-    <panel id="export_wait_panel" position="overlap" noautohide="true" style="padding:30px;">
+    <panel id="export_wait_panel" position="overlap" noautohide="true" class="ImportWaitPnl">
         <vbox flex="1">
         <groupbox flex="1">
-            <caption label="&importexport.exportwait;"/>
+            <caption label="&importexport.exportwait;" class="PageTitle"/>
             <spacer style="height: 20px;" />
             <progressmeter id="exportprogressmeter" mode="determined" value="0" />
             <spacer style="height: 20px;" />
