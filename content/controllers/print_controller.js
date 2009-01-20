@@ -357,7 +357,7 @@
             var txn = cart._getTransaction();
             if (txn == null) {
                 // @todo OSD
-                NotifyUtils.warn(_('Cannot issue guest check on an empty order'));
+                NotifyUtils.warn(_('No order has been opened; cannot issue guest check'));
                 return; // fatal error ?
             }
 
