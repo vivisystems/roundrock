@@ -497,6 +497,14 @@
             }
             return status;
         },
+        
+        deviceExists: function(type, number) {
+            var selectedDevices = this.getSelectedDevices();
+
+            if (selectedDevices == null) return false;
+
+            return (type + '-' + number + '-enabled' in selectedDevices);
+        },
 
         checkGPIOPort: function() {
             var gpio = GeckoJS.Controller.getInstanceByName('GPIO');

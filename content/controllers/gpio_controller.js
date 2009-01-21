@@ -43,7 +43,8 @@
             ioService.usleep(200000);
             ioService.outb(0x2f,0x00);
 
-            return ((ioService.inb(0x2f) & 0x10) >> 4);
+            var status = ((ioService.inb(0x2f) & 0x10) >> 4);
+            return status;
         }
 
 

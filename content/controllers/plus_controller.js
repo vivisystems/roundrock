@@ -739,7 +739,7 @@ this.log('action = [' + action + '], data = [' + GeckoJS.BaseObject.dump(data) +
 
                     var indexCate = GeckoJS.Session.get('productsIndexesByCate');
                     var indexCateAll = GeckoJS.Session.get('productsIndexesByCateAll');
-                    if (oldData.cate_no != data.cate_no) {
+                    if (oldData.cate_no != data.cate_no || oldData.visible != data.visible) {
 
                         // remove old category
 
@@ -773,7 +773,10 @@ this.log('action = [' + action + '], data = [' + GeckoJS.BaseObject.dump(data) +
                                 indexCateAll[data.cate_no] = [];
                             }
                             indexCateAll[(data.cate_no+"")].push((data.id+""));
-                            if(GeckoJS.String.parseBoolean(data.visible)) indexCate[(data.cate_no+"")].push((data.id+""));
+                            if(GeckoJS.String.parseBoolean(data.visible)) {
+                                indexCate[(data.cate_no+"")].push((data.id+""));
+                                this.log(data.name + ' is ' + data.visible);
+                            }
                         }
                     }
 

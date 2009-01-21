@@ -80,6 +80,7 @@ include('chrome://viviecr/content/controllers/print_controller.js');
 include('chrome://viviecr/content/controllers/storecontact_controller.js');
 include('chrome://viviecr/content/controllers/vfd_controller.js');
 include('chrome://viviecr/content/controllers/gpio_controller.js');
+include('chrome://viviecr/content/controllers/cashdrawer_controller.js');
 
 include('chrome://viviecr/content/controllers/test_controller.js');
 

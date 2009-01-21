@@ -1626,8 +1626,8 @@
             if(curTransaction == null) {
                 
                 this.dispatchEvent('onCancel', null);
-                //@todo OSD
-                NotifyUtils.warn(_('Not an open order; nothing to cancel'));
+                //@todo OSD - don't notify'
+                //NotifyUtils.warn(_('Not an open order; nothing to cancel'));
                 return; // fatal error ?
             }
 
