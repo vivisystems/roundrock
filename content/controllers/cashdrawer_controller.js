@@ -156,8 +156,10 @@
                     value: user.username
                 });
                 if (userRecord) {
-                    drawerNo = GeckoJS.String.trim(userRecord.drawer);
-                    if (drawerNo == '') drawerNo = null;
+                    if (userRecord.drawer != null) {
+                        drawerNo = GeckoJS.String.trim(userRecord.drawer);
+                        if (drawerNo == '') drawerNo = null;
+                    }
                 }
             }
 

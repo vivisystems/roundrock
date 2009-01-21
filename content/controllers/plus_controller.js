@@ -446,15 +446,15 @@
                     for (var i = 0; i < prods.length; i++) {
                         var o = prods[i];
                         if (o.no == data.no && data.id == null) {
-                            NotifyUtils.warn(_('The Product No. [%S] already exists; product not added.', [data.no]));
+                            NotifyUtils.warn(_('The Product No. [%S] already exists; product not added', [data.no]));
                             return 1;
                         } else if (o.name == data.name) {
                             if (data.id == null) {
-                                NotifyUtils.warn(_('The Product Name [%S] already exists; product not added.', [data.name]));
+                                NotifyUtils.warn(_('The Product Name [%S] already exists; product not added', [data.name]));
                                 return 2;
                             }
                             else if (data.id != o.id) {
-                                NotifyUtils.warn(_('The Product Name [%S] already exists; product not modified.', [data.name]));
+                                NotifyUtils.warn(_('The Product Name [%S] already exists; product not modified', [data.name]));
                                 return 2;
                             }
                             break;
@@ -463,8 +463,27 @@
                 }
                 // if condiment is required, make sure a condiment group has been selected
                 if (data.force_condiment && !data.cond_group) {
-                    NotifyUtils.warn(_('Condiment is required but no condiment group selected; product not modified.'));
+                    NotifyUtils.warn(_('Condiment is required but no condiment group selected; product not modified'));
                     return 5;
+                }
+
+                // make sure prices are between LALO and HALO
+                for (var i = 1; i < 10; i++) {
+                    var price = parseFloat(data['price_level' + i]);
+                    var enabled = data['level_enable' + i];
+                    var halo = parseFloat(data['halo' + i]);
+                    var lalo = parseFloat(data['lalo' + i]);
+
+                    if (enabled) {
+                        if (halo > 0 && halo < price) {
+                            NotifyUtils.warn(_('Price level %S preset price [%S] is larger than HALO [%S]; product not modified', [i, price, halo]));
+                            return 6;
+                        }
+                        else if (lalo > 0 && lalo > price) {
+                            NotifyUtils.warn(_('Price level %S preset price [%S] is less than LALO [%S]; product not modified', [i, price, lalo]));
+                            return 7;
+                        }
+                    }
                 }
             }
             return result;
