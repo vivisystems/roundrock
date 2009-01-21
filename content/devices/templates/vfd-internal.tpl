@@ -3,9 +3,9 @@
 [&ESC QB]TAL: ${txn.formatPrice(order.total)|right:15}[&CR]
 {elseif type == 'afterVoidItem'}
 {if item == null}
-[&ESC @][&ESC QA]VOIDED ${itemDisplay.type|right:13}[&CR]
+[&ESC @][&ESC QA]VOIDED ${itemDisplay.name|right:13}[&CR]
 {else}
-[&ESC @][&ESC QA]VOIDED ${item.no|right:13}[&CR]
+[&ESC @][&ESC QA]VOIDED ${item.name|right:13}[&CR]
 {/if}
 [&ESC QB]TAL: ${txn.formatPrice(order.total)|right:15}[&CR]
 {elseif type == 'afterModifyItem'}
@@ -22,10 +22,10 @@
 [&ESC @][&ESC QA]PAY: ${txn.formatPrice(order.payment_subtotal)|right:15}[&CR]
 [&ESC QB]CHG: ${txn.formatPrice(0-order.remain)|right:15}[&CR]
 {elseif type == 'afterAddDiscount'}
-[&ESC @][&ESC QA]-:   ${txn.formatPrice(item.current_discount)|right:15}[&CR]
+[&ESC @][&ESC QA]${item.discount_name|left:9} ${txn.formatPrice(item.current_discount)|right:10}[&CR]
 [&ESC QB]TAL: ${txn.formatPrice(order.total)|right:15}[&CR]
 {elseif type == 'afterAddSurcharge'}
-[&ESC @][&ESC QA]+:   ${txn.formatPrice(item.current_surcharge)|right:15}[&CR]
+[&ESC @][&ESC QA]${item.surcharge_name|left:9} ${txn.formatPrice(item.current_surcharge)|right:10}[&CR]
 [&ESC QB]TAL: ${txn.formatPrice(order.total)|right:15}[&CR]
 {elseif type == 'afterAddCondiment'}
 [&ESC @][&ESC QA]Add: ${'Condiment'|right:15}[&CR]

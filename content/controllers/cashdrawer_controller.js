@@ -147,7 +147,6 @@
             // 1. get user's assigned drawer (or null)
             // 2. pass drawer number to openDrawer()
 
-            alert('cashdrawer handling event: ' + evt.getType());
             var drawerNo = null;
             var user = this.Acl.getUserPrincipal();
             if (user) {
@@ -156,11 +155,21 @@
                     index: 'username',
                     value: user.username
                 });
-                if (userRecord)
-                    drawerNo = userRecord.drawer;
+                if (userRecord) {
+                    drawerNo = GeckoJS.String.trim(userRecord.drawer);
+                    if (drawerNo == '') drawerNo = null;
+                }
             }
 
             this.openDrawer(drawerNo);
+        },
+
+        openDrawer1: function() {
+            this.openDrawer(1);
+        },
+
+        openDrawer2: function() {
+            this.openDrawer(2);
         },
 
         openDrawer: function(drawerNo) {
@@ -170,7 +179,6 @@
             // 3. if drawer != null, use specified drawer; if the specified drawer does not exist, warn and exit
             // 4. if the specified drawer is not enabled, warn and exit
             // 5. check drawer type; invoke appropriate driver to trigger the drawer
-            alert('cashdrawer open: ' + drawerNo);
             var device = this.getDeviceController();
             if (device == null) {
                 NotifyUtils.error(_('Error in device manager! Please check your device configuration'));
@@ -180,7 +188,9 @@
             // get list of enabled drawers
             var enabledDevices = device.getEnabledDevices('cashdrawer');
             if (enabledDevices == null || enabledDevices.length == 0) {
-                alert('no cashdrawer enabled');
+                // warn only if a specific drawer has been requested
+                if (drawerNo != null)
+                    NotifyUtils.error(_('Cash drawer [%S] is not enabled! Please check your device configuration', [drawerNo]));
                 return;
             }
 
@@ -189,23 +199,24 @@
                 drawer = enabledDevices[0];
             }
             else {
-                enabledDevices.forEach(function(d) {
-                    if (d.number == drawerNo) {
-                        drawer = d;
-                    }
-                });
-                if (drawer == null) {
-                    NotifyUtils.error(_('The assigned cash drawer [%S] is not enabled! Please check your device configuration', [drawerNo]));
+                if (!device.isDeviceEnabled('cashdrawer', drawerNo)) {
+                    NotifyUtils.error(_('Cash drawer [%S] is not enabled! Please check your device configuration', [drawerNo]));
+                    return;
                 }
+                enabledDevices.forEach(function(d) {
+                   if (d.number == drawerNo) drawer = d; 
+                });
             }
-
-            alert(this.dump(drawer));
 
             switch (drawer.type) {
                 
                 case 'gpio':
-                    alert('trigger GPIO');
-                    //alert('device triggered: ' + device.triggerGPIO());
+                    if (device.triggerGPIO() == 0) {
+                        // try again
+                        if (device.triggerGPIO() == 0) {
+                            NotifyUtils.error(_('Error detected while opening cash drawer [%S]; please check if cash drawer is connected and powered up', [drawerNo]));
+                        }
+                    }
                     break;
 
                 case 'printer':
@@ -273,7 +284,7 @@
                     printed = true;
                 }
                 else {
-                    this.log('VFD display length: [' + encodedResult.length + '], printed length: [' + len + ']');
+                    this.log('CASHDRAWER command length: [' + encodedResult.length + '], printed length: [' + len + ']');
                 }
                 this.closeSerialPort(portPath);
             }

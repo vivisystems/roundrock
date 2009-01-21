@@ -352,12 +352,12 @@ pref("vivipos.fec.registry.function.programmable.addcondiment.controller", "Cart
 pref("vivipos.fec.registry.function.programmable.addcondiment.data", "");
 
 pref("vivipos.fec.registry.function.programmable.opendrawer1.access", "acl_open_cashdrawer_1");
-pref("vivipos.fec.registry.function.programmable.opendrawer1.command", "opendrawer1");
+pref("vivipos.fec.registry.function.programmable.opendrawer1.command", "openDrawer1");
 pref("vivipos.fec.registry.function.programmable.opendrawer1.controller", "CashDrawer");
 pref("vivipos.fec.registry.function.programmable.opendrawer1.data", "");
 
 pref("vivipos.fec.registry.function.programmable.opendrawer2.access", "acl_open_cashdrawer_2");
-pref("vivipos.fec.registry.function.programmable.opendrawer2.command", "opendrawer2");
+pref("vivipos.fec.registry.function.programmable.opendrawer2.command", "openDrawer2");
 pref("vivipos.fec.registry.function.programmable.opendrawer2.controller", "CashDrawer");
 pref("vivipos.fec.registry.function.programmable.opendrawer2.data", "");
 
@@ -422,17 +422,21 @@ pref("vivipos.fec.reportpanels.taxesreport.path", "chrome://viviecr/content/repo
 pref("vivipos.fec.reportpanels.taxesreport.icon", "chrome://viviecr/content/skin/icons/editcopy.png");
 pref("vivipos.fec.reportpanels.taxesreport.roles", "acl_public_access_inactive");
 
-pref("vivipos.fec.registry.templates.receipt-sample-condensed.label", "Sample Receipt Template (condensed, 42 columns)");
-pref("vivipos.fec.registry.templates.receipt-sample-condensed.type", "receipt");
-pref("vivipos.fec.registry.templates.receipt-sample-condensed.path", "chrome://viviecr/content/devices/templates/receipt-sample-condensed-42c.tpl");
+pref("vivipos.fec.registry.templates.receipt-sample-condensed-42c.label", "Sample Receipt Template (condensed, 42 columns)");
+pref("vivipos.fec.registry.templates.receipt-sample-condensed-42c.type", "receipt");
+pref("vivipos.fec.registry.templates.receipt-sample-condensed-42c.path", "chrome://viviecr/content/devices/templates/receipt-sample-condensed-42c.tpl");
 
-pref("vivipos.fec.registry.templates.receipt-sample-expanded.label", "Sample Receipt Template (expanded, 42 columns)");
-pref("vivipos.fec.registry.templates.receipt-sample-expanded.type", "receipt");
-pref("vivipos.fec.registry.templates.receipt-sample-expanded.path", "chrome://viviecr/content/devices/templates/receipt-sample-expanded-42c.tpl");
+pref("vivipos.fec.registry.templates.receipt-sample-expanded-42c.label", "Sample Receipt Template (expanded, 42 columns)");
+pref("vivipos.fec.registry.templates.receipt-sample-expanded-42c.type", "receipt");
+pref("vivipos.fec.registry.templates.receipt-sample-expanded-42c.path", "chrome://viviecr/content/devices/templates/receipt-sample-expanded-42c.tpl");
 
-pref("vivipos.fec.registry.templates.guestcheck-sample-condensed.label", "Sample Guest Check Template (condensed, 42 columns)");
-pref("vivipos.fec.registry.templates.guestcheck-sample-condensed.type", "guestcheck");
-pref("vivipos.fec.registry.templates.guestcheck-sample-condensed.path", "chrome://viviecr/content/devices/templates/guestcheck-sample-condensed-42c.tpl");
+pref("vivipos.fec.registry.templates.guestcheck-sample-condensed-42c.label", "Sample Guest Check Template (condensed, 42 columns)");
+pref("vivipos.fec.registry.templates.guestcheck-sample-condensed-42c.type", "guestcheck");
+pref("vivipos.fec.registry.templates.guestcheck-sample-condensed-42c.path", "chrome://viviecr/content/devices/templates/guestcheck-sample-condensed-42c.tpl");
+
+pref("vivipos.fec.registry.templates.receipt-sample-condensed-24c.label", "Sample Receipt Template (condensed, 24 columns)");
+pref("vivipos.fec.registry.templates.receipt-sample-condensed-24c.type", "receipt");
+pref("vivipos.fec.registry.templates.receipt-sample-condensed-24c.path", "chrome://viviecr/content/devices/templates/receipt-sample-condensed-24c.tpl");
 
 pref("vivipos.fec.registry.templates.test.label", "Test Template");
 pref("vivipos.fec.registry.templates.test.type", "receipt,guestcheck");

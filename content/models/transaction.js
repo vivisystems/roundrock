@@ -947,6 +947,7 @@
         var itemIndex = itemDisplay.index;
         var lastItemDispIndex;
         var discount_amount;
+        var resultItem;
 
         var prevRowCount = this.data.display_sequences.length;
 
@@ -986,6 +987,7 @@
             this.calcPromotions();
             this.calcItemsTax(item);
 
+            resultItem = item;
 
         }else if (itemDisplay.type == 'subtotal'){
 
@@ -1050,7 +1052,7 @@
             
             // this.calcItemsTax();
 
-
+            resultItem = discountItem;
         }
 
         var currentRowCount = this.data.display_sequences.length;
@@ -1059,7 +1061,7 @@
 
         this.updateCartView(prevRowCount, currentRowCount, lastItemDispIndex);
 
-        return item;
+        return resultItem;
 
     };
 
@@ -1069,6 +1071,7 @@
         var itemDisplay = this.getDisplaySeqAt(index); // last seq
         var itemIndex = itemDisplay.index;
         var lastItemDispIndex = this.getLastDisplaySeqByIndex(itemIndex);
+        var resultItem;
 
         var prevRowCount = this.data.display_sequences.length;
 
@@ -1100,6 +1103,7 @@
 
             this.calcItemsTax(item);
 
+            resultItem = item;
 
         }else if (itemDisplay.type == 'subtotal'){
 
@@ -1150,7 +1154,7 @@
             this.calcPromotions();
             //this.calcItemsTax();
 
-
+            resultItem = surchargeItem;
         }
         
         var currentRowCount = this.data.display_sequences.length;
@@ -1159,7 +1163,7 @@
 
         this.updateCartView(prevRowCount, currentRowCount, displayIndex);
 
-        return item;
+        return resultItem;
 
     };
 
@@ -1464,7 +1468,7 @@
             case 'condiment':
             case 'memo':
                 item = this.data.items[itemIndex];
-                if (!inclusive && item.parent_index != null) {
+                if (!inclusive && item != null && item.parent_index != null) {
                     item = this.data.items[item.parent_index];
                 }
                 break;
