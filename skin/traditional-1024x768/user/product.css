@@ -10,55 +10,9 @@
     width: 510px;
     max-width: 510px;
     min-width: 510px;
+    margin: 0px;
 }
 
-/*--------------------------------------------------------------------------
- * BUTTONS
- *--------------------------------------------------------------------------
- */
-
-.catbtn {
-    min-height:50px;
-    min-width: 50px;
-    border: 2px solid;
-    -moz-border-top-colors: #ddcfb4 #ffffff;
-    -moz-border-right-colors: #ddcfb4 #ffffff;
-    -moz-border-bottom-colors: #ddcfb4 #ffffff;
-    -moz-border-left-colors: #ddcfb4 #ffffff;
-    color: #42422f;
-    -moz-appearance: none;
-    margin: 2px;
-    padding: 0px;    
-    -moz-background-clip: border;
-    background: #fcf9f4 url(images/departBtn1.png) 0 50% no-repeat;
-    -moz-box-pack: center;
-    -moz-user-focus: ignore;
-}
-
-.catbtn:active, .plubtn:active {
-    background-position:0pt -60px;
-    border: 2px solid;
-    -moz-border-top-colors: #444 #222;
-    -moz-border-right-colors: #444 #ddd;
-    -moz-border-bottom-colors: #444 #ddd;
-    -moz-border-left-colors: #444 #222;
-}
-
-.catbtn[disabled=true] {
-    border: 2px solid !important;
-}
-
-.catbtn[selected] {
-    -moz-border-top-colors: #000000 #000000;
-    -moz-border-right-colors: #000000 #000000;
-    -moz-border-bottom-colors: #000000 #000000;
-    -moz-border-left-colors: #000000 #000000;
-    border-width: 2px;
-}
-
-.catbtn hbox, .plubtn hbox {
-    -moz-box-orient: vertical;
-}
 
 /*--------------------------------------------------------------------------
  * SCROLLBAR

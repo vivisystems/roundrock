@@ -1,6 +1,6 @@
-[&ESC !][0x28]${'GUEST CHECK'|center:21}[&ESC !][0x00]
-[&ESC !][0x28]${store.name|center:21}[&ESC !][0x00]
-[&ESC !][0x28]${store.branch|center:21}[&ESC !][0x00]
+[&REVON][&QSON]${'GUEST CHECK'|center:21}[&QSOFF][&REVOFF]
+[&QSON]${store.name|center:21}[&QSOFF]
+[&DWON]${store.branch|center:21}[&DWOFF]
 ${store.telephone1|center:42}
 Opened:   ${order.create_date.toLocaleFormat('%Y-%m-%d %H:%M:%S')}
 Closed:   ${order.print_date.toLocaleFormat('%Y-%m-%d %H:%M:%S')}
@@ -35,4 +35,4 @@ ${'Thank you for shopping at ' + store.name +'!'|center:42}
 
 
 
-[&GS V][0x01]
+[&PC]

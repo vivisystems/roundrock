@@ -282,8 +282,10 @@
             });
 
             var visiblePlugroups = [];
+            var allPlugroups = [];
             plugroups.forEach(function(plugroup) {
                 if (plugroup.visible) visiblePlugroups.push(plugroup.id);
+                allPlugroups.push(plugroup.id);
             });
 
             var plugroupsById = GeckoJS.Session.get('plugroupsById');
@@ -318,6 +320,7 @@
             }
             GeckoJS.Session.set('plugroupsById', plugroupsById);
             GeckoJS.Session.set('visiblePlugroups', visiblePlugroups);
+            GeckoJS.Session.set('allPlugroups', allPlugroups);
             return index;
         },
 

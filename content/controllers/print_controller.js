@@ -44,10 +44,10 @@
         },
 
         // invoke openSerialPort on device controller
-        openSerialPort: function (path, portspeed, handshakingDisabled) {
+        openSerialPort: function (path, portspeed, handshaking) {
             var device = this.getDeviceController();
             if (device != null) {
-                return device.openSerialPort(path, portspeed, handshakingDisabled);
+                return device.openSerialPort(path, portspeed, handshaking);
             }
             else {
                 return false;
@@ -189,9 +189,9 @@
             if (receipts == null) {
 
                 //@hack sleep to allow UI events to catch up
-                this.sleep(100);
                 // autoprint receipts
                 this.printReceipts(evt.data);
+                this.sleep(100);
             }
             else {
                 NotifyUtils.warn(_('A receipt has already been issued for this order at [%S]'));
@@ -333,11 +333,11 @@
                         var template = device.template;
                         var port = device.port;
                         var portspeed = device.portspeed;
-                        var handshakeDisabled = device.handshakeDisabled;
+                        var handshaking = device.handshaking;
                         var devicemodel = device.devicemodel;
                         var encoding = device.encoding;
                         data._MODIFIERS = _templateModifiers(encoding);
-                        printed = self.printCheck(data, template, port, portspeed, handshakeDisabled, devicemodel, encoding);
+                        printed = self.printCheck(data, template, port, portspeed, handshaking, devicemodel, encoding);
 
                         if (printed) {
                             self.receiptPrinted(txn);
@@ -357,7 +357,7 @@
             var txn = cart._getTransaction();
             if (txn == null) {
                 // @todo OSD
-                NotifyUtils.warn(_('Cannot issue guest check on an empty order'));
+                NotifyUtils.warn(_('No order has been opened; cannot issue guest check'));
                 return; // fatal error ?
             }
 
@@ -473,18 +473,18 @@
                         var template = device.template;
                         var port = device.port;
                         var portspeed = device.portspeed;
-                        var handshakeDisabled = device.handshakeDisabled;
+                        var handshaking = device.handshaking;
                         var devicemodel = device.devicemodel;
                         var encoding = device.encoding;
                         data._MODIFIERS = _templateModifiers(encoding);
-                        self.printCheck(data, template, port, portspeed, handshakeDisabled, devicemodel, encoding);
+                        self.printCheck(data, template, port, portspeed, handshaking, devicemodel, encoding);
                     }
                 });
             }
         },
 
         // print check using the given parameters
-        printCheck: function(data, template, port, portspeed, handshakeDisabled, devicemodel, encoding) {
+        printCheck: function(data, template, port, portspeed, handshaking, devicemodel, encoding) {
             var portPath = this.getPortPath(port);
             var commands = {};
             
@@ -538,7 +538,7 @@
 
             // send to output device
             var printed = false;
-            if (this.openSerialPort(portPath, portspeed, handshakeDisabled)) {
+            if (this.openSerialPort(portPath, portspeed, handshaking)) {
                 var len = this.writeSerialPort(portPath, encodedResult);
                 if (len == encodedResult.length) {
                     printed = true;

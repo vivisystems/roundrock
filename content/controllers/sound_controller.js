@@ -35,11 +35,14 @@
         },
 
         beep: function () {
-            if (this.volume > 0) GREUtils.Sound.play('chrome://viviecr/content/sounds/beep.wav');
+            //if (this.volume > 0) GREUtils.Sound.play('chrome://viviecr/content/sounds/beep.wav');
+            GREUtils.Sound.beep();
         },
 
         warn: function () {
-            if (this.volume > 0) GREUtils.Sound.play('chrome://viviecr/content/sounds/warn.wav');
+            //if (this.volume > 0) GREUtils.Sound.play('chrome://viviecr/content/sounds/warn.wav');
+            GREUtils.Sound.beep();
+            GREUtils.Sound.beep();
         },
 
         // set alsamixer volume - called from sysprefs.js

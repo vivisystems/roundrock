@@ -43,16 +43,28 @@
         },
 
         createPluPanel: function () {
+            // NSIDepartmentsView use rows and columns from preferences, so let's
+            // save rows and columns attribute values here and restore them later
+            var catpanel = document.getElementById('catescrollablepanel');
+            var rows = catpanel.getAttribute('rows');
+            var cols = catpanel.getAttribute('cols');
+
             this.catePanelView =  new NSIDepartmentsView('catescrollablepanel');
             this.productPanelView = new NSIProductsView('prodscrollablepanel');
 
+            // restore rows and columns here
+            catpanel.setAttribute('rows', rows);
+            catpanel.setAttribute('cols', cols);
+            catpanel.initGrid();
+
             this.catePanelView.hideInvisible = false;
+            this.catePanelView.refreshView();
+
             this.productPanelView.hideInvisible = false;
             this.productPanelView.updateProducts();
 
             this.productPanelView.setCatePanelView(this.catePanelView);
 
-            var catpanel = document.getElementById('catescrollablepanel');
             catpanel.selectedIndex = -1;
             catpanel.selectedItems = [];
 
@@ -955,18 +967,19 @@ this.log('action = [' + action + '], data = [' + GeckoJS.BaseObject.dump(data) +
 
             var plu = datas[index];
 
-            var categories = GeckoJS.Session.get('categories');
-            var catIndex = this.locateIndex(plu.cate_no, categories, "no");
-            this.changePluPanel(catIndex);
-            
-            var catepanel = document.getElementById('catescrollablepanel');
-            catepanel.selectedIndex = catIndex;
-            catepanel.selectedItems = [catIndex];
+            if (plu != null) {
+                var categories = GeckoJS.Session.get('categories');
+                var catIndex = this.locateIndex(plu.cate_no, categories, "no");
+                this.changePluPanel(catIndex);
 
-            var plus = this.productPanelView.tree.datasource.data;
-            var pluIndex = plus.indexOf(plu.id);
-            this.clickPluPanel(pluIndex);
+                var catepanel = document.getElementById('catescrollablepanel');
+                catepanel.selectedIndex = catIndex;
+                catepanel.selectedItems = [catIndex];
 
+                var plus = this.productPanelView.tree.datasource.data;
+                var pluIndex = plus.indexOf(plu.id);
+                this.clickPluPanel(pluIndex);
+            }
         },
 
         validateForm: function(resetTabs) {

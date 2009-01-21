@@ -57,6 +57,10 @@
 
             GeckoJS.Observer.notify(null, 'render', this);
 
+            // since initialLogin may potentially block, let's invoke onInitial to initialize controllers
+            // ourselves
+
+            this.dispatchEvent('onInitial', null);
             this.initialLogin();
         },
 
