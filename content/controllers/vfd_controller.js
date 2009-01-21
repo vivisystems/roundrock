@@ -260,13 +260,13 @@
                 NotifyUtils.error(_('Specified device port [%S] does not exist!', [port]));
                 return false;
             }
-            var tpl = this.getTemplateData(template, false);
+            var tpl = this.getTemplateData(template, true);
             if (tpl == null || tpl == '') {
                 NotifyUtils.error(_('Specified receipt/guest check template [%S] is empty or does not exist!', [template]));
                 return false;
             }
 
-            commands = this.getDeviceCommandCodes(devicemodel, false);
+            commands = this.getDeviceCommandCodes(devicemodel, true);
 
 /*
             alert('Printing check: \n\n' +
@@ -302,7 +302,7 @@
             // get encoding
             var encodedResult = GREUtils.Charset.convertFromUnicode(result, encoding);
             //this.log(GeckoJS.BaseObject.dump(data.order));
-            this.log('VFD:\n' + encodedResult);
+            //this.log('VFD:\n' + encodedResult);
             //alert('VFD:\n' + encodedResult);
             
             // send to output device using worker thread
