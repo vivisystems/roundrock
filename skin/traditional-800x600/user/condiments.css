@@ -29,7 +29,7 @@
 }
 
 .RightPnlB {
-    margin: 4px 4px 8px 10px;
+    margin: 4px 5px 8px 9px;
 }
 
 .RightPnlB vbox {
@@ -49,6 +49,10 @@
 
 .BtnColors {
     margin: 8px 25px 3px 23px;
+}
+
+.BtnColors button {
+    min-width: 50px;
 }
 
 .ToolBar {

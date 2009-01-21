@@ -7,6 +7,7 @@
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/payment_details.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
@@ -19,19 +20,21 @@
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/payment_details.js" />
 
-    <groupbox class="main-dialog" flex="1">
-        <caption id="title"/>
-        <viviscrollabletree id="paymentscrollablepanel" flex="1" headers="&paymentdetails.amount;,&paymentdetails.type;,&paymentdetails.note1;,&paymentdetails.note2;"
-                            fields="amount,name,memo1,memo2" hidecolumnpicker="true"
-                            class="paymentscrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray">
-            <spacer flex="1" />
-        </viviscrollabletree>
-    </groupbox>
-    
-    <hbox id="dialogButtons" class="dialogbtns" pack="center">
-        <spacer flex="1"/>
-        <button class="right exit-dialog" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
-        <spacer flex="1"/>
-    </hbox>
+    <vbox class="main-dialog" flex="1">
+        <vbox flex="1" class="MainPnl">
+            <caption id="title" class="PageTitle" />
+            <viviscrollabletree id="paymentscrollablepanel" flex="1" headers="&paymentdetails.amount;,&paymentdetails.type;,&paymentdetails.note1;,&paymentdetails.note2;"
+                                fields="amount,name,memo1,memo2" hidecolumnpicker="true"
+                                class="paymentscrollablepanel" scrollUpClass="ScrollUp" scrollDownClass="ScrollDown">
+                <spacer flex="1" />
+            </viviscrollabletree>
+
+            <spacer height="10px" />
+            
+            <hbox id="dialogButtons" class="dialogbtns" pack="end">
+                <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+            </hbox>
+        </vbox>
+    </vbox>
 
 </window>

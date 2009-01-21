@@ -16,3 +16,12 @@
 .paymentscrollabelpanel #current_price, #current_subtotal, #current_tax {
     text-align: left;
 }
+
+.paymentscrollablepanel vivibutton {
+    margin: 0 4px;
+}
+
+.MainPnl {
+    margin: 18px;
+}
+

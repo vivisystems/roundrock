@@ -7,6 +7,8 @@
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/departments.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -21,41 +23,43 @@
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/localekeyboard.js" />
 
-    <groupbox class="main-dialog" flex="1">
-        <caption label="&localekeyboard.title;" />
-        <grid flex="1">
-            <columns>
-                <column flex="0"/>
-                <column flex="1"/>
-            </columns>
-            <rows>
-                <row>
-                    <label value="&localekeyboard.locale.title;"/>
-                    <vivilocaleslistbox id="locale" package="viviecr" rows="6"/>
-                </row>
+    <vbox class="main-dialog" flex="1">
+        <vbox flex="1" class="MainPnl">
+            <!--caption label="&localekeyboard.title;" class="PageTitle" /-->
+            <tabbox class="RightTabbox">
+                <tabs>
+                    <tab id="tab1" label="&localekeyboard.locale.title;"/>
+                    <tab id="tab2" label="&localekeyboard.keyboard.title;"/>
+                </tabs>
+                <tabpanels>
+                    <tabpanel flex="1">
+                        <label value="&localekeyboard.locale.title;" class="SubTitle"/>
+                        <vivilocaleslistbox id="locale" package="viviecr" rows="6" flex="1"/>
+                    </tabpanel>
+                          
+                    <tabpanel flex="1">
+                        <vbox flex="1" pack="start">
+                            <hbox flex="1">
+                                <label value="&localekeyboard.keyboard.title;" class="SubTitle"/>
+                                <vivikbmaps id="kbmap" flex="1"
+                                    oncommand="$do('selectKbmap', null, 'LocaleKeyboard')" />
+                                <spacer width="10px"/>
+                            </hbox>
+                            <image id="keyboard-layout" flex="1" validate="never" class="keyboard-image"
+                                   src="chrome://viviecr/content/skin/kblayouts/us.png"/>
+                        </vbox>         
+                    </tabpanel>
 
-                <separator class="groove-thin" style="margin:10px 0px 10px 0px"/>
+                </tabpanels>
+            </tabbox>
 
-                <row>
-                    <label value="&localekeyboard.keyboard.title;"/>
-                    <vivikbmaps id="kbmap" flex="0"
-                            oncommand="$do('selectKbmap', null, 'LocaleKeyboard')"
-                            />
-                </row>
-            </rows>
-        </grid>
-
-        <vbox flex="1" pack="start" align="left">
-            <image id="keyboard-layout" flex="1" validate="never" class="keyboard-image"
-                   src="chrome://viviecr/content/skin/kblayouts/us.png"/>
+            <spacer height="7px"/>
+        
+            <hbox id="dialogButtons" class="dialogbtns" pack="end">
+                <button class="SaveBtn" id="ok" label="&dialog.applyButton.label;" default="true" oncommand="doOKButton();"/>
+                <button class="ExitBtn" id="cancel" label="&dialog.cancelButton.label;" default="false" oncommand="doCancelButton();"/>
+            </hbox>
         </vbox>
-
-        <spacer height="10px"/>
-    </groupbox>
-  
-    <hbox id="dialogButtons" class="dialogbtns" pack="center">
-        <button class="right exit-dialog" id="ok" label="&dialog.applyButton.label;" default="true" oncommand="doOKButton();"/>
-        <button class="exit-dialog" id="cancel" label="&dialog.cancelButton.label;" default="false" oncommand="doCancelButton();"/>
-    </hbox>
-
+    </vbox>
+    
 </window>

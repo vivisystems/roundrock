@@ -342,6 +342,14 @@ checkbox:hover, radio:hover {
     padding-right: 5px;
 }
 
+listitem {
+    min-height: 36px;
+}
+listitem[selected=true] {
+    background-color: #92856a;
+    color: white;
+}
+
 /* menulist **/
 menuitem {
     min-height: 32px;
@@ -375,18 +383,19 @@ menulist hbox label {
     color: #534741;
 }
 
-scrollbarbutton {
-  min-width: 32px;
-  min-height: 32px;
-}
-
-
 .ListPnl {
     margin: 8px;
 }
 .ListPnl vivibutton {
     margin: 0 4px;
 }
+
+scrollbarbutton {
+  min-width: 32px;
+  min-height: 32px;
+}
+
+
 
 treechildren::-moz-tree-row {
   height: 32px;

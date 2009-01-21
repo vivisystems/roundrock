@@ -133,3 +133,76 @@ vividatetimepicker-timepad {
 .RightTabbox {
     margin: 1px 0 4px 0;
 }
+
+/* for system backup use*/
+.BakBtn {
+    -moz-appearance: none;
+    color: #6c6050;
+    font-size: 12pt;
+    margin: 0 5px;
+    -moz-border-radius: 6px;
+    border: 3px solid;
+    -moz-border-top-colors: #f4f3ee #eeede8 #e2e1dc;
+    -moz-border-right-colors: #e2e1dc #d0cfcb #b7b6b2;
+    -moz-border-bottom-colors: #e2e1dc #d0cfcb #b7b6b2;
+    -moz-border-left-colors: #f4f3ee #eeede8 #e2e1dc;
+    background: white url(../images/tboxbg_readonly.png) left center repeat-x;
+    max-height: 80px;
+}
+
+.BakBtn:active {
+    border: 2px solid;
+    -moz-border-top-colors: #ee9400 #ee9400;
+    -moz-border-right-colors: #ee9400 #ee9400;
+    -moz-border-bottom-colors: #ee9400 #ee9400;
+    -moz-border-left-colors: #ee9400 #ee9400;
+    -moz-appearance: none;
+    color: #603913;
+}
+
+/* for keyboard use*/
+.keyboard-image {
+    max-height: 340px;
+    margin-top: 10px;
+}
+
+/* image manager**/
+.ImgList {
+    background: #f4f3ee;
+    margin: 8px 0 0 0;
+    padding: 8px 4px;
+}
+.ImgList vivibutton{
+    margin: 0 4px;
+}
+
+.ImgThumb {
+    -moz-appearance: none;
+     border: 3px solid;
+    -moz-border-top-colors: #f4f3ee #f4f3ee #dacece;
+    -moz-border-right-colors: #f4f3ee #f4f3ee #dacece;
+    -moz-border-bottom-colors: #f4f3ee #f4f3ee #dacece;
+    -moz-border-left-colors: #f4f3ee #f4f3ee #dacece;
+    background: white;
+    margin: 3px;
+}
+.ImgThumb[selected=true] {
+    border: 3px solid;
+    -moz-border-top-colors: #ee9400 #ee9400 #ee9400;
+    -moz-border-right-colors: #ee9400 #ee9400 #ee9400;
+    -moz-border-bottom-colors: #ee9400 #ee9400 #ee9400;
+    -moz-border-left-colors: #ee9400 #ee9400 #ee9400;
+    -moz-appearance: none;
+    color: #603913;
+}
+
+.ImgInfo {
+    margin: 8px;
+    font-size: 10pt;
+    color: #736357;
+    font-weight: bold;
+}
+
+.ImgTool button {
+    margin: 4px;
+}
