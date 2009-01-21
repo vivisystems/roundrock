@@ -11,12 +11,22 @@
         name: 'VFD',
 
         _device: null,
+        
+        _worker: null,
 
         // load device configuration and selections
         initial: function () {
 
-            this._device = GeckoJS.Controller.getInstanceByName('Devices');
-            
+            this._device = this.getDeviceController();
+
+            // initialize worker thread
+            try {
+                if(!this._worker) {
+                    this._worker = Components.classes["@mozilla.org/thread-manager;1"].getService(Components.interfaces.nsIThreadManager).newThread(0);
+                }
+            }catch(e) {
+            }
+
             // add event listener for beforeSubmit events
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             if(cart) {
@@ -60,21 +70,10 @@
         },
 
         getDeviceController: function () {
-            if (this._device != null) {
+            if (this._device == null) {
                 this._device = GeckoJS.Controller.getInstanceByName('Devices');
             }
             return this._device;
-        },
-
-        // get cache devices from device controller
-        getSelectedDevices: function () {
-            var device = this.getDeviceController();
-            if (device != null) {
-                return device.getSelectedDevices();
-            }
-            else {
-                return null;
-            }
         },
 
         // invoke openSerialPort on device controller
@@ -107,17 +106,6 @@
             }
             else {
                 return false;
-            }
-        },
-
-        // invoke getTemplates on device controller to retrieve registered templates
-        getTemplates: function () {
-            var device = this.getDeviceController();
-            if (device != null) {
-                return device.getTemplates();
-            }
-            else {
-                return null;
             }
         },
 
@@ -199,6 +187,11 @@
                 return;
             }
 
+            if (this._worker == null) {
+                NotifyUtils.error(_('Error in VFD controller: no worker thread available!'));
+                return;
+            }
+
             var enabledDevices = device.getEnabledDevices('vfd');
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             var txn = cart._getTransaction();
@@ -253,8 +246,7 @@
                     var encoding = device.encoding;
                     data._MODIFIERS = _templateModifiers(encoding);
                     self.sendToVFD(data, template, port, portspeed, handshaking, devicemodel, encoding);
-
-                    });
+                });
             }
         },
 
@@ -313,34 +305,52 @@
             this.log('VFD:\n' + encodedResult);
             //alert('VFD:\n' + encodedResult);
             
-            // send to output device
-            var printed = false;
-            if (this.openSerialPort(portPath, speed, handshaking)) {
-                var len = this.writeSerialPort(portPath, encodedResult);
-                if (len == encodedResult.length) {
-                    printed = true;
-                }
-                else {
-                    this.log('VFD display length: [' + encodedResult.length + '], printed length: [' + len + ']');
-                }
-                this.closeSerialPort(portPath);
-            }
-            else {
-                printed = false;
-            }
-            
-            if (!printed) {
-                var devicemodels = this.getDeviceModels();
-                var devicemodelName = (devicemodels == null) ? 'unknown' : devicemodels[devicemodel].label;
-                var portName = this.getPortName(port);
+            // send to output device using worker thread
+            var runnable = {
+                run: function() {
+                    try {
 
-                if (devicemodelName == null) devicemodelName = 'unknown';
-                if (portName == null) portName = 'unknown';
+                        var printed = false;
+                        if (this.openSerialPort(portPath, speed, handshaking)) {
+                            var len = this.writeSerialPort(portPath, encodedResult);
+                            if (len == encodedResult.length) {
+                                printed = true;
+                            }
+                            else {
+                                this.log('VFD display length: [' + encodedResult.length + '], printed length: [' + len + ']');
+                            }
+                            this.closeSerialPort(portPath);
+                        }
+                        else {
+                            printed = false;
+                        }
 
-                //@todo OSD
-                NotifyUtils.error(_('Error detected when outputing to device [%S] at port [%S]', [devicemodelName, portName]));
-            }
-            return printed;
+                        if (!printed) {
+                            var devicemodels = this.getDeviceModels();
+                            var devicemodelName = (devicemodels == null) ? 'unknown' : devicemodels[devicemodel].label;
+                            var portName = this.getPortName(port);
+
+                            if (devicemodelName == null) devicemodelName = 'unknown';
+                            if (portName == null) portName = 'unknown';
+
+                            //@todo OSD
+                            NotifyUtils.error(_('Error detected when outputing to device [%S] at port [%S]', [devicemodelName, portName]));
+                        }
+                        return printed;
+                    }catch(e) {
+                        return false;
+                    }
+                },
+
+                QueryInterface: function(iid) {
+                    if (iid.equals(Components.Interfaces.nsIRunnable) || iid.equals(Components.Interfaces.nsISupports)) {
+                        return this;
+                    }
+                    throw Components.results.NS_ERROR_NO_INTERFACE;
+                }
+            };
+
+            this._worker.dispatch(runnable, this._worker.DISPATCH_NORMAL);
         }
 
     });

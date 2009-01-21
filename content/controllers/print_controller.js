@@ -12,11 +12,21 @@
 
         _device: null,
 
+        _worker: null,
+
         // load device configuration and selections
         initial: function () {
 
             // get handle to Devices controller
-            this._device = GeckoJS.Controller.getInstanceByName('Devices');
+            this._device = this.getDeviceController();
+
+            // initialize worker thread
+            try {
+                if(!this._worker) {
+                    this._worker = Components.classes["@mozilla.org/thread-manager;1"].getService(Components.interfaces.nsIThreadManager).newThread(0);
+                }
+            }catch(e) {
+            }
 
             // add event listener for onSubmit events
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
@@ -26,7 +36,7 @@
         },
 
         getDeviceController: function () {
-            if (this._device != null) {
+            if (this._device == null) {
                 this._device = GeckoJS.Controller.getInstanceByName('Devices');
             }
             return this._device;
@@ -485,6 +495,12 @@
 
         // print check using the given parameters
         printCheck: function(data, template, port, portspeed, handshaking, devicemodel, encoding) {
+            
+            if (this._worker == null) {
+                NotifyUtils.error(_('Error in Print controller: no worker thread available!'));
+                return;
+            }
+
             var portPath = this.getPortPath(port);
             var commands = {};
             
@@ -536,33 +552,50 @@
             var encodedResult = GREUtils.Charset.convertFromUnicode(result, encoding);
             this.log('RECEIPT/GUEST CHECK\n' + encodedResult);
 
-            // send to output device
-            var printed = false;
-            if (this.openSerialPort(portPath, portspeed, handshaking)) {
-                var len = this.writeSerialPort(portPath, encodedResult);
-                if (len == encodedResult.length) {
-                    printed = true;
+            // send to output device using worker thread
+            var runnable = {
+                run: function() {
+                    try {
+                        var printed = false;
+                        if (this.openSerialPort(portPath, portspeed, handshaking)) {
+                            var len = this.writeSerialPort(portPath, encodedResult);
+                            if (len == encodedResult.length) {
+                                printed = true;
+                            }
+                            else {
+                                this.log('Check length: [' + encodedResult.length + '], printed length: [' + len + ']');
+                            }
+                            this.closeSerialPort(portPath);
+                        }
+                        else {
+                            printed = false;
+                        }
+
+                        if (!printed) {
+                            var devicemodelName = this.getDeviceModelName(devicemodel);
+                            var portName = this.getPortName(port);
+
+                            if (devicemodelName == null) devicemodelName = 'unknown';
+                            if (portName == null) portName = 'unknown';
+
+                            //@todo OSD
+                            NotifyUtils.error(_('Error detected when outputing to device [%S] at port [%S]', [devicemodelName, portName]));
+                        }
+                        return printed;
+                    }catch(e) {
+                        return false;
+                    }
+                },
+
+                QueryInterface: function(iid) {
+                    if (iid.equals(Components.Interfaces.nsIRunnable) || iid.equals(Components.Interfaces.nsISupports)) {
+                        return this;
+                    }
+                    throw Components.results.NS_ERROR_NO_INTERFACE;
                 }
-                else {
-                    this.log('Check length: [' + encodedResult.length + '], printed length: [' + len + ']');
-                }
-                this.closeSerialPort(portPath);
-            }
-            else {
-                printed = false;
-            }
+            };
 
-            if (!printed) {
-                var devicemodelName = this.getDeviceModelName(devicemodel);
-                var portName = this.getPortName(port);
-
-                if (devicemodelName == null) devicemodelName = 'unknown';
-                if (portName == null) portName = 'unknown';
-
-                //@todo OSD
-                NotifyUtils.error(_('Error detected when outputing to device [%S] at port [%S]', [devicemodelName, portName]));
-            }
-            return printed;
+            this._worker.dispatch(runnable, this._worker.DISPATCH_NORMAL);
         }
 
     });
