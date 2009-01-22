@@ -125,8 +125,8 @@ textbox:not([onclick]) *[readonly] {
  */
 
 .catbtn, .plubtn {
-    min-height:50px;
-    min-width: 50px;
+    min-height:40px;
+    min-width: 40px;
     border: 1px solid;
     -moz-appearance: none;
     margin: 2px 2px 2px 2px;

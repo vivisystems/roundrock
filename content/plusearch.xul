@@ -7,6 +7,8 @@
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/stocks.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -19,17 +21,52 @@
     <script type="application/x-javascript" src="chrome://viviecr/content/plusearch.js" />
 
     <hbox flex="1" class="main-dialog">
-        <vbox flex="1">
-            <viviscrollabletree id="plusearchscrollablepanel" flex="1"
-                                headers="&plus.product.no;,&plus.product.name;,&plus.stock.level;"
-                                fields="no,name,stock"
-                                onclick="$do('select',this.selectedIndex, 'PluSearch');"
-                                class="prodscrollablepanel" 
-                                scrollUpClass="rightprevbtn gray"
-                                scrollDownClass="rightnextbtn gray">
-                <spacer flex="1" />
-            </viviscrollabletree>
-            <tabbox  flex="1">
+        <hbox flex="1" class="MainPnl">
+            <!-- Left side -->
+            <vbox flex="1"  class="MainL">
+                <caption label="&plus.title;" class="PageTitle"/>
+                <vbox flex="1" pack="start" class="LeftPnl">
+                    <label value="&plus.search.label;" class="SubTitle" />
+                    <textbox id="plu" value="" onchange="$do('searchPlu', this.value, 'PluSearch');" />
+                    <spacer style="height:5px;" />
+                    <hbox pack="center">
+                        <numberpad id="multinumberpad" class="numpad"/>
+                        <vbox>
+                            <sendkeybutton id="bkeyBtn"  label="&plus.button.numpad.del;" keyCode='0x08' class="fixedbtn"  />
+                            <sendkeybutton id="clearBtn" label="&plus.button.numpad.clear;" class="fixedbtn"/>
+                            <vivibutton id="ekeyBtn"  label="&plus.button.numpad.enter;" oncommand="$do('searchPlu', document.getElementById('plu').value, 'PluSearch');" class="fixedbtn" />
+                        </vbox>
+                    </hbox>
+                    <groupbox id="advance_search">
+                        <caption label="&plus.search.advancesearch;:" />
+                        <vbox>
+                            <grid>
+                                <rows id="rows_filter">
+
+                                </rows>
+                            </grid>
+                            <hbox>
+                                <vivibutton id="advSearchBtn"  label="&plus.button.numpad.advsearch;" oncommand="$do('advSearch', null, 'PluSearch');" class="fixedbtn"  />
+                                <vivibutton id="advClearBtn"  label="&plus.button.numpad.advclear;" oncommand="$do('advClear', null, 'PluSearch');" class="fixedbtn"  />
+                            </hbox>
+                        </vbox>
+                    </groupbox>
+                    <spacer style="height:5px;" />
+                    <viviscrollabletree id="plusearchscrollablepanel" flex="1"
+                                        headers="&plus.product.no;,&plus.product.name;,&plus.stock.level;"
+                                        fields="no,name,stock"
+                                        onclick="$do('select',this.selectedIndex, 'PluSearch');"
+                                        class="plupnl" dir="reverse"
+                                        scrollUpClass="ScrollUp"
+                                        scrollDownClass="ScrollDown">
+                        <spacer flex="1" />
+                    </viviscrollabletree>
+                </vbox>
+            </vbox> 
+            
+            <!-- Right side -->
+            <vbox>
+            <tabbox class="RightTabbox" flex="1">
                 <tabs >
                     <tab label="&plus.base.data;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical"        />
                     <tab label="&plus.pricelevels;" image="chrome://viviecr/content/skin/icons/comments-24.png" orient="vertical"/>
@@ -41,49 +78,64 @@
                     <tabpanel flex="1" >
 
                         <groupbox flex="1">
-                            <caption label="&plus.base.data;" />
+                            <!--caption label="&plus.base.data;" /-->
 
-                            <grid>
+                            <grid class="DataForm">
+                                <columns>
+                                    <column flex="1" /><column flex="1" />
+                                </columns>
                                 <rows>
                                     <row>
-                                        <label hidden="true" form="productForm" name="id" value="" />
-                                        <label value="&plus.department;"/>
-                                        <textbox id="cate_no" form="productForm" name="cate_no" readonly="true"/>
+                                        <vbox>
+                                            <label hidden="true" form="productForm" name="id" value="" />
+                                            <label value="&plus.department;"/>
+                                            <textbox id="cate_no" form="productForm" name="cate_no" readonly="true"/>    
+                                        </vbox>
+                                        <vbox>
+                                            <label value="&plus.product.no;"/>
+                                            <textbox id="product_no" form="productForm" name="no" readonly="true"/>    
+                                        </vbox>
                                     </row>
                                     <row>
-                                        <label value="&plus.product.no;"/>
-                                        <textbox id="product_no" form="productForm" name="no" readonly="true"/>
+                                        <vbox>
+                                            <label value="&plus.product.name;" />
+                                            <textbox id="product_name" form="productForm" name="name" value="" readonly="true"/>    
+                                        </vbox>
+                                        <vbox>
+                                            <label  value="&plus.product.barcode;" />
+                                            <textbox id="barcode" form="productForm" name="barcode" value="" readonly="true"/>    
+                                        </vbox>
                                     </row>
                                     <row>
-                                        <label value="&plus.product.name;" />
-                                        <textbox id="product_name" form="productForm" name="name" value="" readonly="true"/>
+                                        <vbox>
+                                            <label value="&plus.product.tax.rate;"/>
+                                            <textbox id="rate" value="" form="productForm" name="rate" readonly="true"/>    
+                                        </vbox>
+                                        <vbox>
+                                            <label value="&plus.stock.level;"  />
+                                            <textbox id="other_stock" form="productForm" name="stock" default="8" readonly="true"/>    
+                                        </vbox>
                                     </row>
                                     <row>
-                                        <label  value="&plus.product.barcode;" />
-                                        <textbox id="barcode" form="productForm" name="barcode" value="" readonly="true"/>
+                                        <vbox>
+                                            <label value="&plus.memo;"/>
+                                            <textbox id="product_memo" form="productForm" name="memo" readonly="true"/>    
+                                        </vbox>
+                                        <vbox>
+                                            <label value="&plus.minimum.sale.quantity;"  />
+                                            <textbox id="min_sale_qty" form="productForm" name="min_sale_qty" default="6" readonly="true"/>    
+                                        </vbox>
                                     </row>
 
                                     <row>
-                                        <label value="&plus.product.tax.rate;"/>
-                                        <textbox id="rate" value="" form="productForm" name="rate" readonly="true"/>
+                                        <vbox>
+                                            <label value="&plus.sale.unit;"/>
+                                            <textbox id="sale_unit" form="productForm" name="sale_unit" readonly="true"/>    
+                                        </vbox>
+                                        <vbox>
+                                            
+                                        </vbox>
                                     </row>
-                                    <row>
-                                        <label value="&plus.stock.level;"  />
-                                        <textbox id="other_stock" form="productForm" name="stock" default="8" readonly="true"/>
-                                    </row>
-                                    <row>
-                                        <label value="&plus.memo;"/>
-                                        <textbox id="product_memo" form="productForm" name="memo" readonly="true"/>
-                                    </row>
-                                    <row>
-                                        <label value="&plus.minimum.sale.quantity;"  />
-                                        <textbox id="min_sale_qty" form="productForm" name="min_sale_qty" default="6" readonly="true"/>
-                                    </row>
-                                    <row>
-                                        <label value="&plus.sale.unit;"/>
-                                        <textbox id="sale_unit" form="productForm" name="sale_unit" readonly="true"/>
-                                    </row>
-
                                 </rows>
                             </grid>
                         <!-- spacer style="height:20px"/>
@@ -101,8 +153,8 @@
                     <tabpanel>
 
                         <groupbox>
-                            <caption label="&plus.tab.pricelevels;" />
-                            <grid>
+                            <caption label="&plus.tab.pricelevels;" class="SubTitle"/>
+                            <grid class="PLTable">
                                 <columns>
                                     <column />
                                     <column flex="1" />
@@ -178,47 +230,14 @@
                     </tabpanel>
                 </tabpanels>
             </tabbox>
+            <hbox id="dialogButtons" class="dialogbtns" pack="end">
+                <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
+                <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+            </hbox>            
         </vbox>
-        <spacer style="width:10px;" />
-        <vbox>
-            <vbox>
-                <label value="&plus.search.label;" />
-                <textbox id="plu" value="" onchange="$do('searchPlu', this.value, 'PluSearch');" />
-                <spacer style="height:10px;" />
-                <numberpad id="multinumberpad" class="numberpad"/>
-            </vbox>
-            <spacer style="height:10px;" />
-            <vbox>
-                <hbox>
-                    <sendkeybutton id="bkeyBtn"  label="&plus.button.numpad.del;" keyCode='0x08' class="systembtn"  />
-                    <sendkeybutton id="clearBtn" label="&plus.button.numpad.clear;" class="systembtn"/>
-                    <vivibutton id="ekeyBtn"  label="&plus.button.numpad.enter;" oncommand="$do('searchPlu', document.getElementById('plu').value, 'PluSearch');" class="systembtn"  />
-                </hbox>
-            </vbox>
-            <groupbox id="advance_search">
-                <caption label="&plus.search.advancesearch;:" />
-                <vbox>
-                    <grid>
-                        <rows id="rows_filter">
-
-                        </rows>
-                    </grid>
-                    <hbox>
-                        <vivibutton id="advSearchBtn"  label="&plus.button.numpad.advsearch;" oncommand="$do('advSearch', null, 'PluSearch');" class="systembtn"  />
-                        <vivibutton id="advClearBtn"  label="&plus.button.numpad.advclear;" oncommand="$do('advClear', null, 'PluSearch');" class="systembtn"  />
-                    </hbox>
-                </vbox>
-            </groupbox>
-            
-                
-        </vbox>
+        </hbox>
     </hbox>
   
-    <hbox id="dialogButtons" class="dialogbtns" pack="center">
-        <spacer flex="1"/>
-        <button class="right exit-dialog" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
-        <spacer flex="1"/>
-        <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="vkb"/>
-    </hbox>
+    
 
 </window>

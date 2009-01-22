@@ -3,6 +3,8 @@
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/sysprefs.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/sysprefs.css" type="text/css"?>
 
 <prefwindow title="&preferences.title;" id="prefwin"
             hidechrome="true"
@@ -20,8 +22,9 @@
     <!--script type="application/x-javascript" src="chrome://viviecr/content/controllers/sound_controller.js" /-->
     <!-- users.js & taxes.js must load before sysprefs.js -->
     <script type="application/x-javascript" src="chrome://viviecr/content/sysprefs.js" />
-
-    <prefpane id="generalSettingsPane" label="&category.general;" image="chrome://viviecr/content/skin/icons/stock_print-setup.png">
+    
+    
+    <prefpane id="generalSettingsPane" label="&category.general;" >
         <preferences>
             <preference id="pref_publicattendance" name="vivipos.fec.settings.PublicAttendance" type="bool" />
             <preference id="pref_decimalpoint" name="vivipos.fec.settings.DecimalPoint" type="unichar"/>
@@ -39,71 +42,108 @@
             <preference id="pref_positivepricerequired" name="vivipos.fec.settings.PositivePriceRequired" type="bool" />
 
         </preferences>
-        <checkbox preference="pref_privatequeue" id="pref_privatequeueCtrl" label="&privatequeue;" />
-        <checkbox preference="pref_publicattendance" id="pref_publicAttendanceCtrl" label="&publicattendance;" />
-        <checkbox preference="pref_activepricelevelschedule" id="pref_activepricelevelscheduleCtrl" label="&activepricelevelschedule;" />
-        <checkbox preference="pref_pricelevelrevert" id="pref_pricelevelrebackCtrl" label="&pricelevelrevert;" />
-        <checkbox preference="pref_changedepartmentclearbuffer" id="pref_changedepartmentclearbufferCtrl" label="&changedepartmentclearbuffer;" />
-        <checkbox preference="pref_allowoverstock" id="pref_allowoverstockCtrl" label="&allowoverstock;" />
-        <checkbox preference="pref_ageverificationack" id="pref_ageverificationackCtrl" label="&ageverificationack;" />
-        <checkbox preference="pref_positivepricerequired" id="pref_positivepricerequiredCtrl" label="&positivepricerequired;" />
-
-        <hbox align="center">
-            <label control="precisionprices" value="&defaultpricelevel;"/>
-            <textbox preference="pref_defaultpricelevel" id="defaultpricelevel" type="number" size="2" maxlength="1" min="1" max="9"/>
-        </hbox>
-        <hbox align="center">
-            <label control="decimalpoint" value="&decimalpoint;"/>
-            <textbox preference="pref_decimalpoint" id="decimalpoint" size="1" maxlength="1" default="."/>
-        </hbox>
-        <hbox align="center">
-            <label control="thousandsdelimiter" value="&thousandsdelimiter;"/>
-            <textbox preference="pref_thousandsdelimiter" id="thousandsdelimiter" size="1" maxlength="1" default=","/>
-        </hbox>
-        <hbox align="center">
-            <label control="precisionprices" value="&precisionprices;"/>
-            <textbox preference="pref_precisionprices" id="precisionprices" type="number" size="2" maxlength="1" min="-8" max="8"/>
-        </hbox>
-        <hbox align="center">
-            <label control="precisiontaxes" value="&precisiontaxes;"/>
-            <textbox preference="pref_precisiontaxes" id="precisiontaxes" type="number" size="2" maxlength="1" min="-8" max="8"/>
-        </hbox>
-        <hbox align="center">
-            <label control="roundingprices" value="&roundingprices;"/>
-            <menulist id="roundingprices" oncommand="GeckoJS.Configure.write('vivipos.fec.settings.RoundingPrices', this.value)">
-                <menupopup>
-                    <menuitem label="&rounding.to-nearest-precision;" value="to-nearest-precision"/>
-                    <!--
-                    <menuitem label="&rounding.to-nearest-half;" value="to-nearest-half"/>
-                    <menuitem label="&rounding.to-nearest-quarter;" value="to-nearest-quarter"/>
-                    <menuitem label="&rounding.to-nearest-nickel;" value="to-nearest-nickel"/>
-                    <menuitem label="&rounding.to-nearest-dime;" value="to-nearest-dime"/>
-                    -->
-                    <menuitem label="&rounding.always-round-up;" value="always-round-up"/>
-                    <menuitem label="&rounding.always-round-down;" value="always-round-down"/>
-                </menupopup>
-            </menulist>
-        </hbox>
-        <hbox align="center">
-            <label control="roundingtaxes" value="&roundingtaxes;"/>
-            <menulist id="roundingtaxes" oncommand="GeckoJS.Configure.write('vivipos.fec.settings.RoundingTaxes', this.value)">
-                <menupopup>
-                    <menuitem label="&rounding.to-nearest-precision;" value="to-nearest-precision"/>
-                    <!--
-                    <menuitem label="&rounding.to-nearest-half;" value="to-nearest-half"/>
-                    <menuitem label="&rounding.to-nearest-quarter;" value="to-nearest-quarter"/>
-                    <menuitem label="&rounding.to-nearest-nickel;" value="to-nearest-nickel"/>
-                    <menuitem label="&rounding.to-nearest-dime;" value="to-nearest-dime"/>
-                    -->
-                    <menuitem label="&rounding.always-round-up;" value="always-round-up"/>
-                    <menuitem label="&rounding.always-round-down;" value="always-round-down"/>
-                </menupopup>
-            </menulist>
-        </hbox>
+        <grid class="DataForm">
+            <columns>
+                <column flex="1" /><column flex="1" />
+            </columns>
+            <rows>
+                <row>
+                    <checkbox preference="pref_privatequeue" id="pref_privatequeueCtrl" label="&privatequeue;" />
+                    <checkbox preference="pref_publicattendance" id="pref_publicAttendanceCtrl" label="&publicattendance;" />
+                </row>
+                <row>
+                    <checkbox preference="pref_activepricelevelschedule" id="pref_activepricelevelscheduleCtrl" label="&activepricelevelschedule;" />
+                    <checkbox preference="pref_pricelevelrevert" id="pref_pricelevelrebackCtrl" label="&pricelevelrevert;" />
+                </row>
+                <row>
+                    <checkbox preference="pref_changedepartmentclearbuffer" id="pref_changedepartmentclearbufferCtrl" label="&changedepartmentclearbuffer;" />
+                    <checkbox preference="pref_allowoverstock" id="pref_allowoverstockCtrl" label="&allowoverstock;" />
+                </row>
+                <row>
+                    <checkbox preference="pref_ageverificationack" id="pref_ageverificationackCtrl" label="&ageverificationack;" />
+                    <checkbox preference="pref_positivepricerequired" id="pref_positivepricerequiredCtrl" label="&positivepricerequired;" />
+                </row>
+            </rows>
+        </grid>
+        
+        <vbox>
+            <grid class="DataFormB" >
+                <columns>
+                    <column flex="1"/><column flex="1" /><column flex="1" />
+                </columns>
+                <rows>
+                    <row>
+                        <vbox>
+                            <label control="precisionprices" value="&defaultpricelevel;"/>
+                            <textbox preference="pref_defaultpricelevel" id="defaultpricelevel" type="number" size="2" maxlength="1" min="1" max="9"/>    
+                        </vbox>
+                        <vbox>
+                            <label control="precisiontaxes" value="&precisiontaxes;"/>
+                            <textbox preference="pref_precisiontaxes" id="precisiontaxes" type="number" size="2" maxlength="1" min="-8" max="8"/>    
+                        </vbox>
+                        <vbox>
+                            <label control="precisionprices" value="&precisionprices;"/>
+                            <textbox preference="pref_precisionprices" id="precisionprices" type="number" size="2" maxlength="1" min="-8" max="8"/>    
+                        </vbox>
+                    </row>
+                </rows>
+            </grid>
+            <grid class="DataFormD" >
+                <columns>
+                    <column flex="1" /><column flex="1" />
+                </columns>
+                <rows>
+                    <row>
+                        <hbox flex="1">
+                            <label control="roundingtaxes" value="&roundingtaxes;"/>
+                            <menulist id="roundingtaxes" flex="1" oncommand="GeckoJS.Configure.write('vivipos.fec.settings.RoundingTaxes', this.value)">
+                                <menupopup>
+                                    <menuitem label="&rounding.to-nearest-precision;" value="to-nearest-precision"/>
+                                    <!--
+                                    <menuitem label="&rounding.to-nearest-half;" value="to-nearest-half"/>
+                                    <menuitem label="&rounding.to-nearest-quarter;" value="to-nearest-quarter"/>
+                                    <menuitem label="&rounding.to-nearest-nickel;" value="to-nearest-nickel"/>
+                                    <menuitem label="&rounding.to-nearest-dime;" value="to-nearest-dime"/>
+                                    -->
+                                    <menuitem label="&rounding.always-round-up;" value="always-round-up"/>
+                                    <menuitem label="&rounding.always-round-down;" value="always-round-down"/>
+                                </menupopup>
+                            </menulist>
+                        </hbox>
+                        <hbox flex="1" pack="end">
+                            <label control="decimalpoint" value="&decimalpoint;"/>
+                            <textbox preference="pref_decimalpoint" id="decimalpoint" size="1" maxlength="1" default="."/>
+                        </hbox>
+                    </row>
+                    <row>
+                        <hbox flex="1">
+                            <label control="roundingprices" value="&roundingprices;"/>
+                            <menulist id="roundingprices" flex="1" oncommand="GeckoJS.Configure.write('vivipos.fec.settings.RoundingPrices', this.value)">
+                                <menupopup>
+                                    <menuitem label="&rounding.to-nearest-precision;" value="to-nearest-precision"/>
+                                    <!--
+                                    <menuitem label="&rounding.to-nearest-half;" value="to-nearest-half"/>
+                                    <menuitem label="&rounding.to-nearest-quarter;" value="to-nearest-quarter"/>
+                                    <menuitem label="&rounding.to-nearest-nickel;" value="to-nearest-nickel"/>
+                                    <menuitem label="&rounding.to-nearest-dime;" value="to-nearest-dime"/>
+                                    -->
+                                    <menuitem label="&rounding.always-round-up;" value="always-round-up"/>
+                                    <menuitem label="&rounding.always-round-down;" value="always-round-down"/>
+                                </menupopup>
+                            </menulist>   
+                        </hbox>
+                        <hbox flex="1" pack="end">
+                            <label control="thousandsdelimiter" value="&thousandsdelimiter;"/>
+                            <textbox preference="pref_thousandsdelimiter" id="thousandsdelimiter" size="1" maxlength="1" default=","/>
+                        </hbox>
+                    </row>
+                </rows>
+            </grid>
+        </vbox>
         
     </prefpane>
     
-    <prefpane id="loginSettingsPane" label="&category.login;" image="chrome://viviecr/content/skin/icons/gnome-run.png">
+    <prefpane id="loginSettingsPane" label="&category.login;" >
         <preferences>
             <preference id="pref_autodiscardcart" name="vivipos.fec.settings.autodiscardcart" type="bool"/>
             <preference id="pref_autodiscardqueue" name="vivipos.fec.settings.autodiscardqueue" type="bool"/>
@@ -114,37 +154,62 @@
             <preference id="pref_allowquicklogin" name="vivipos.fec.settings.login.allowquicklogin" type="bool" />
         </preferences>
         <vbox>
-            <checkbox id="allowquicklogin" label="&login.allowquicklogin;" preference="pref_allowquicklogin"/>
-            <checkbox preference="pref_defaultlogin" id="pref_defaultloginCtrl" label="&defaultlogin;" />
-            <hbox class="panelContainer" align="center">
-                <viviscrollablebuttonpanel dir="normal" id="userscrollablepanel" flex="1" cols="5" rows="3" labelField="displayname"
-                                       oncommand="$do('select',this.selectedIndex, 'Users');"
-                                       class="sysprefscrollablepanel"
-                                       buttonClass="catbtn button-radius button-white font-medium"
-                                       scrollUpClass="sysprefs_scroll_up"
-                                       scrollDownClass="sysprefs_scroll_down">
-                    <spacer flex="1"/>
-                </viviscrollablebuttonpanel>
-            </hbox>
-            <checkbox id="autodiscardcart" label="&login.autodiscardcart;" preference="pref_autodiscardcart"/>
-            <checkbox id="autodiscardqueue" label="&login.autodiscardqueue;" preference="pref_autodiscardqueue"/>
-            <checkbox id="mustemptyqueue" label="&login.mustemptyqueue;" preference="pref_mustemptyqueue"/>
-            <checkbox id="shiftreportonsignoff" label="&login.shiftreportonsignoff;" preference="pref_shiftreportonsignoff"/>
-            <checkbox id="shiftreportonquickswitch" label="&login.shiftreportonquickswitch;" preference="pref_shiftreportonquickswitch"/>
+            <grid class="DataForm">
+            <columns>
+                <column flex="1" />
+            </columns>
+            <rows>
+                <row>
+                    <checkbox id="allowquicklogin" label="&login.allowquicklogin;" preference="pref_allowquicklogin"/>
+                </row>
+                <row>
+                    <vbox>
+                        <checkbox preference="pref_defaultlogin" id="pref_defaultloginCtrl" label="&defaultlogin;" />
+                        <viviscrollablebuttonpanel dir="normal" id="userscrollablepanel" flex="1" cols="5" rows="2" labelField="displayname"
+                                               oncommand="$do('select',this.selectedIndex, 'Users');"
+                                               class="ItemScrollablepanel WidthSet"
+                                               buttonClass="ItemButtonA"
+                                               scrollUpClass="ScrollUp"
+                                               scrollDownClass="ScrollDown">
+                            <spacer flex="1"/>
+                        </viviscrollablebuttonpanel>
+                    </vbox>
+                </row>
+            </rows>
+            </grid>
+
+            <grid class="DataFormB">
+                <columns>
+                    <column flex="1" /><column flex="1" />
+                </columns>
+                <rows>
+                    <row>
+                        <checkbox id="autodiscardcart" label="&login.autodiscardcart;" preference="pref_autodiscardcart"/>
+                        <checkbox id="autodiscardqueue" label="&login.autodiscardqueue;" preference="pref_autodiscardqueue"/>
+                    </row>
+                    <row>
+                        <checkbox id="mustemptyqueue" label="&login.mustemptyqueue;" preference="pref_mustemptyqueue"/>
+                        <checkbox id="shiftreportonsignoff" label="&login.shiftreportonsignoff;" preference="pref_shiftreportonsignoff"/>
+                    </row>
+                    <row>
+                        <checkbox id="shiftreportonquickswitch" label="&login.shiftreportonquickswitch;" preference="pref_shiftreportonquickswitch"/>
+                    </row>
+                </rows>
+            </grid>
         </vbox>
     </prefpane>
 
-    <prefpane id="taxSettingsPane" label="&category.tax;" image="chrome://viviecr/content/skin/icons/gnome-run.png">
+    <prefpane id="taxSettingsPane" label="&category.tax;" >
         <preferences>
         </preferences>
-        <vbox class="panelContainer">
-            <label value="&defaulttaxstatus;"/>
-            <viviscrollablebuttonpanel dir="normal" id="taxscrollablepanel" flex="1" cols="5" rows="3" labelField="name"
+        <vbox class="TopArea">
+            <label value="&defaulttaxstatus;" class="SubTitle"/>
+            <viviscrollablebuttonpanel dir="normal" id="taxscrollablepanel" flex="1" cols="5" rows="6" labelField="name"
                                        oncommand="$do('select',this.selectedIndex, 'Taxes');"
-                                       class="sysprefscrollablepanel"
-                                       buttonClass="catbtn button-radius button-white font-medium"
-                                       scrollUpClass="sysprefs_scroll_up"
-                                       scrollDownClass="sysprefs_scroll_down">
+                                       class="ItemScrollablepanel"
+                                       buttonClass="ItemButtonA"
+                                       scrollUpClass="ScrollUp"
+                                       scrollDownClass="ScrollDown">
                 <spacer flex="1"/>
             </viviscrollablebuttonpanel>
             <spacer flex="10"/>
@@ -152,7 +217,7 @@
 
     </prefpane>
 
-    <prefpane id="displaySettingsPane" label="&category.layout;" image="chrome://viviecr/content/skin/icons/stock_print-setup.png">
+    <prefpane id="displaySettingsPane" label="&category.layout;" >
         <preferences>
 			
             <preference id="pref_registeratleft" name="vivipos.fec.settings.RegisterAtLeft" type="bool"/>
@@ -173,20 +238,31 @@
             <preference id="pref_fpcols" name="vivipos.fec.settings.functionpanel.columns" type="int"/>
 
         </preferences>
-
-        <checkbox id="registeratleft" label="&layout.registeratleft;" preference="pref_registeratleft"/>
-        <checkbox id="functionpanelontop" label="&layout.functionpanelontop;" preference="pref_functionpanelontop"/>
-        <checkbox id="PLUbeforedept" label="&layout.PLUbeforedept;" preference="pref_plubeforedept"/>
-        <checkbox id="hideDeptScrollbar" label="&layout.hidedeptscrollbar;" preference="pref_hidedeptscrollbar"/>
-        <checkbox id="hidePLUScrollbar" label="&layout.hidepluscrollbar;" preference="pref_hidepluscrollbar"/>
-        <checkbox id="hideFPScrollbar" label="&layout.hidefpscrollbar;" preference="pref_hidefpscrollbar"/>
-
-        <checkbox id="cropDeptLabel" label="&layout.cropdeptlabel;" preference="pref_crop_dept_label" />
-        <checkbox id="cropPLULabel" label="&layout.cropplulabel;" preference="pref_crop_plu_label"/>
-
-        <separator class="groove-thin" style="margin: 4px"/>
-
-        <grid>
+        <grid class="DataForm">
+            <columns>
+                <column flex="1" /><column flex="1" />
+            </columns>
+            <rows>
+                <row>
+                    <checkbox id="registeratleft" label="&layout.registeratleft;" preference="pref_registeratleft"/>
+                    <checkbox id="functionpanelontop" label="&layout.functionpanelontop;" preference="pref_functionpanelontop"/>           
+                </row>
+                <row>
+                    <checkbox id="PLUbeforedept" label="&layout.PLUbeforedept;" preference="pref_plubeforedept"/>
+                    <checkbox id="hideDeptScrollbar" label="&layout.hidedeptscrollbar;" preference="pref_hidedeptscrollbar"/>            
+                </row>
+                <row>
+                    <checkbox id="hidePLUScrollbar" label="&layout.hidepluscrollbar;" preference="pref_hidepluscrollbar"/>
+                    <checkbox id="hideFPScrollbar" label="&layout.hidefpscrollbar;" preference="pref_hidefpscrollbar"/>            
+                </row>
+                <row>
+                    <checkbox id="cropDeptLabel" label="&layout.cropdeptlabel;" preference="pref_crop_dept_label" />
+                    <checkbox id="cropPLULabel" label="&layout.cropplulabel;" preference="pref_crop_plu_label"/>
+                </row>
+            </rows>
+        </grid>
+        
+        <grid class="DataFormC">
             <columns>
                 <column/>
                 <column/>
@@ -219,8 +295,9 @@
             </rows>
         </grid>
     </prefpane>
+
 <!--
-    <prefpane id="soundSettingsPane" label="&category.sound;" image="chrome://viviecr/content/skin/icons/stock_print-setup.png">
+    <prefpane id="soundSettingsPane" label="&category.sound;" >
         <preferences>
             <preference id="pref_beepOnItemAdd" name="vivipos.fec.settings.beepOnItemAdd" type="bool"/>
             <preference id="pref_beepOnScanningError" name="vivipos.fec.settings.beepOnScanningError" type="bool"/>
@@ -235,76 +312,105 @@
             <preference id="pref_beepOnTrayMarker" name="vivipos.fec.settings.beepOnTrayMarker" type="bool"/>
 
         </preferences>
-
-        <checkbox id="beepOnItemAdd" label="&sound.beepOnItemAdd;" preference="pref_beepOnItemAdd"/>
-        <checkbox id="beepOnScanningError" label="&sound.beepOnScanningError;" preference="pref_beepOnScanningError"/>
-        <checkbox id="beepOnModify" label="&sound.beepOnModify;" preference="pref_beepOnModify"/>
-        <checkbox id="beepOnDiscountSurcharge" label="&sound.beepOnDiscountSurcharge;" preference="pref_beepOnDiscountSurcharge"/>
-        <checkbox id="beepOnPayment" label="&sound.beepOnPayment;" preference="pref_beepOnPayment"/>
-        <checkbox id="beepOnTaxStatusShift" label="&sound.beepOnTaxStatusShift;" preference="pref_beepOnTaxStatusShift"/>
-        <checkbox id="beepOnVOID" label="&sound.beepOnVOID;" preference="pref_beepOnVOID"/>
-        <checkbox id="beepOnCANCEL" label="&sound.beepOnCANCEL;" preference="pref_beepOnCANCEL"/>
-        <checkbox id="beepOnSubtotal" label="&sound.beepOnSubtotal;" preference="pref_beepOnSubtotal"/>
-        <checkbox id="beepOnTotal" label="&sound.beepOnTotal;" preference="pref_beepOnTotal"/>
-        <checkbox id="beepOnTrayMarker" label="&sound.beepOnTrayMarker;" preference="pref_beepOnTrayMarker"/>
-        <separator width="2" flex="0"/>
-        <hbox class="panelContainer">
+        <grid class="DataForm">
+            <columns>
+                <column flex="1" /><column flex="1" />
+            </columns>
+            <rows>
+                <row>
+                    <checkbox id="beepOnItemAdd" label="&sound.beepOnItemAdd;" preference="pref_beepOnItemAdd"/>
+                    <checkbox id="beepOnScanningError" label="&sound.beepOnScanningError;" preference="pref_beepOnScanningError"/>            
+                </row>
+                <row>
+                    <checkbox id="beepOnModify" label="&sound.beepOnModify;" preference="pref_beepOnModify"/>
+                    <checkbox id="beepOnDiscountSurcharge" label="&sound.beepOnDiscountSurcharge;" preference="pref_beepOnDiscountSurcharge"/>           
+                </row>
+                <row>
+                    <checkbox id="beepOnPayment" label="&sound.beepOnPayment;" preference="pref_beepOnPayment"/>
+                    <checkbox id="beepOnTaxStatusShift" label="&sound.beepOnTaxStatusShift;" preference="pref_beepOnTaxStatusShift"/>            
+                </row>
+                <row>
+                    <checkbox id="beepOnVOID" label="&sound.beepOnVOID;" preference="pref_beepOnVOID"/>
+                    <checkbox id="beepOnCANCEL" label="&sound.beepOnCANCEL;" preference="pref_beepOnCANCEL"/>           
+                </row>
+                <row>
+                    <checkbox id="beepOnSubtotal" label="&sound.beepOnSubtotal;" preference="pref_beepOnSubtotal"/>
+                    <checkbox id="beepOnTotal" label="&sound.beepOnTotal;" preference="pref_beepOnTotal"/>            
+                </row>
+                <row>
+                    <checkbox id="beepOnTrayMarker" label="&sound.beepOnTrayMarker;" preference="pref_beepOnTrayMarker"/>
+                </row>
+            </rows>
+        </grid>
+        <hbox class="RightPnlB">
             <label value="&sound.volume.label;"/>
             <scale id="volume-scale" min="0" max="10" pageincrement="1" flex="1"/>
         </hbox>
 
     </prefpane>
 -->
-    <prefpane id="pluFilterSettingsPane" label="&category.plufilter;" image="chrome://viviecr/content/skin/icons/gnome-run.png">
+
+    <prefpane id="pluFilterSettingsPane" label="&category.plufilter;" >
         <preferences>
             <preference id="pref_plufilters" name="vivipos.fec.settings.PluFilters" type="string" />
         </preferences>
-        <vbox class="panelContainer" flex="1">
-            <label value="&plufilter.title;"/>
-            <hbox flex="1">
-                <viviscrollabletree id="plufilterscrollablepanel" flex="1"
-                                headers="&plufilter.filtername;,&plufilter.index;,&plufilter.length;"
-                                fields="filtername,index,length"
-                                onclick="$do('select',this.selectedIndex, 'Plufilters');"
-                                class="prodscrollablepanel"
-                                scrollUpClass="rightprevbtn gray"
-                                scrollDownClass="rightnextbtn gray">
-                    <spacer flex="1" />
-                </viviscrollabletree>
-                <spacer style="width:30px;"/>
-                <vbox style="width:350px;">
-                    <grid>
-                        <rows>
-                            <row>
+        <hbox flex="1">
+            <vbox class="MainL" flex="1">
+                <label value="&plufilter.title;" class="SubTitle"/>
+                <vbox pack="start" flex="1" class="LeftPnl">
+                    <viviscrollabletree id="plufilterscrollablepanel" flex="1"
+                                    headers="&plufilter.filtername;,&plufilter.index;,&plufilter.length;"
+                                    fields="filtername,index,length"
+                                    onclick="$do('select',this.selectedIndex, 'Plufilters');"
+                                    class="ListPnl"
+                                    scrollUpClass="ScrollUp" dir="reverse"
+                                    scrollDownClass="ScrollDown">
+                        <spacer flex="1" />
+                    </viviscrollabletree>
+                </vbox>
+            </vbox>
+            
+            <vbox >
+                <grid class="DataForm">
+                    <columns>
+                        <column flex="1" />
+                    </columns>
+                    <rows>
+                        <row>
+                            <vbox>
                                 <label control="filter_name" value="&plufilter.filtername;:"/>
                                 <textbox id="filter_name"
                                         oninput="$do('validateForm', null, 'Plufilters')"/>
-                            </row>
-                            <row>
+                            </vbox>
+                        </row>
+                        <row>
+                            <vbox>
                                 <label control="filter_index" value="&plufilter.index;:"/>
                                 <textbox id="filter_index" size="3" maxlength="2" min="0" max="16"
                                         oninput="$do('validateForm', null, 'Plufilters')"/>
-                            </row>
-                            <row>
+                            </vbox>
+                        </row>
+                        <row>
+                            <vbox>
                                 <label control="filter_length" value="&plufilter.length;:"/>
                                 <textbox id="filter_length" size="3" maxlength="2" min="0" max="16"
                                         oninput="$do('validateForm', null, 'Plufilters')"/>
-                            </row>
+                            </vbox>
+                        </row>
 
-                        </rows>
+                    </rows>
 
-                    </grid>
-                    <spacer style="height:30px;" />
-                    <hbox>
-                        <vivibutton id="add_filter"  label="&plufilter.add;" oncommand="$do('addFilter', null, 'Plufilters');" class="systembtn"  />
-                        <spacer style="width:30px;" />
-                        <vivibutton id="remove_filter"  label="&plufilter.remove;" oncommand="$do('removeFilter', null, 'Plufilters');" class="systembtn"  />
-                    </hbox>
-                </vbox>
-            </hbox>
-        </vbox>
+                </grid>
+                <spacer flex="1" />
+                <hbox class="ToolBar" flex="1">
+                    <vivibutton id="add_filter"  label="&plufilter.add;" oncommand="$do('addFilter', null, 'Plufilters');"   />
+                    <vivibutton id="remove_filter"  label="&plufilter.remove;" oncommand="$do('removeFilter', null, 'Plufilters');"   />
+                </hbox>
+            </vbox>
+        </hbox>
 
     </prefpane>
+
 
     <!-- prefpane id="localeSettingsPane" label="locale" image="chrome://viviecr/content/skin/icons/gnome-run.png">
         <vivilocaleslistbox package="viviecr" />
