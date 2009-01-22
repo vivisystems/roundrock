@@ -1,5 +1,0 @@
-<!ENTITY prompt.addtaxitem.title "Välj Moms Typ:">
-<!ENTITY prompt.addtaxitem.included "Inkluderad">
-<!ENTITY prompt.addtaxitem.addon "Add-On">
-<!ENTITY prompt.addtaxitem.combined "Kombinerad">
-<!ENTITY prompt.addtaxitem.vat "Moms + Moms">

@@ -4,7 +4,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
+<<<<<<< HEAD:intl/pofile/sv-SE/numberpad.dtd.po
 "POT-Creation-Date: 2009-01-21 01:13+0800\n"
+=======
+"POT-Creation-Date: 2009-01-19 17:02+0800\n"
+>>>>>>> 75661814e2869f7c84779e792c95bb3089a4028a:intl/pofile/sv-SE/numberpad.dtd.po
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"

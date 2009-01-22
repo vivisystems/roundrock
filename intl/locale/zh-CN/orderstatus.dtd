@@ -1,8 +1,0 @@
-<!ENTITY viviorderstatus.pricelevel.label "价设@">
-<!ENTITY viviorderstatus.taxtotal.label "税额">
-<!ENTITY viviorderstatus.numberitems.label "项数">
-<!ENTITY viviorderstatus.ordersequence.label "流单#">
-<!ENTITY viviorderstatus.destination.label "内外">
-<!ENTITY viviorderstatus.numbercustomer.label "客数#">
-<!ENTITY viviorderstatus.checknumber.label "单号#">
-<!ENTITY viviorderstatus.tablenumber.label "桌号#">

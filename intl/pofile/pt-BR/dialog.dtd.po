@@ -1,0 +1,42 @@
+#. extracted from ../locale/en-US/dialog.dtd, ./locale/pt-BR/dialog.dtd
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-19 17:02+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.1.1\n"
+
+#: dialog.prompt.title
+msgid "User Prompt"
+msgstr "Entrada Utilizador"
+
+#: dialog.okButton.label
+msgid "OK"
+msgstr "OK"
+
+#: dialog.cancelButton.label
+msgid "CANCEL"
+msgstr "CANCELAR"
+
+#: dialog.helpButton.label
+msgid "HELP"
+msgstr "AJUDA"
+
+#: dialog.closeButton.label
+msgid "CLOSE"
+msgstr "FECHAR"
+
+#: dialog.saveButton.label
+msgid "SAVE"
+msgstr "GUARDAR"
+
+#: dialog.applyButton.label
+msgid "APPLY"
+msgstr "APLICAR"
