@@ -24,7 +24,7 @@
         $do('initTaxStatus', defaultTaxStatus, 'Taxes');
 
         $do('load', null, 'Plufilters');
-        $do('load', null, 'Sound');
+        //$do('load', null, 'Sound');
 
         var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
         var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
