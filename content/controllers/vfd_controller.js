@@ -20,12 +20,7 @@
             this._device = this.getDeviceController();
 
             // initialize worker thread
-            try {
-                if(!this._worker) {
-                    this._worker = Components.classes["@mozilla.org/thread-manager;1"].getService(Components.interfaces.nsIThreadManager).newThread(0);
-                }
-            }catch(e) {
-            }
+            this._worker = GREUtils.Thread.getWorkerThread();
 
             // add event listener for beforeSubmit events
             var cart = GeckoJS.Controller.getInstanceByName('Cart');

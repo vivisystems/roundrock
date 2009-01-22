@@ -21,12 +21,7 @@
             this._device = this.getDeviceController();
 
             // initialize worker thread
-            try {
-                if(!this._worker) {
-                    this._worker = Components.classes["@mozilla.org/thread-manager;1"].getService(Components.interfaces.nsIThreadManager).newThread(0);
-                }
-            }catch(e) {
-            }
+            this._worker = GREUtils.Thread.getWorkerThread();
 
             // add event listener for onSubmit events
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
@@ -201,7 +196,7 @@
                 //@hack sleep to allow UI events to catch up
                 // autoprint receipts
                 this.printReceipts(evt.data);
-                this.sleep(100);
+                this.sleep(50);
             }
             else {
                 NotifyUtils.warn(_('A receipt has already been issued for this order at [%S]'));
@@ -347,12 +342,12 @@
                         var devicemodel = device.devicemodel;
                         var encoding = device.encoding;
                         data._MODIFIERS = _templateModifiers(encoding);
-                        printed = self.printCheck(data, template, port, portspeed, handshaking, devicemodel, encoding);
-
+                        self.printCheck(data, template, port, portspeed, handshaking, devicemodel, encoding, true);
+/*
                         if (printed) {
                             self.receiptPrinted(txn);
                         }
-
+*/
                     }
                 });
             }

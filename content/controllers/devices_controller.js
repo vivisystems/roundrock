@@ -519,6 +519,13 @@
             else return 0;
         },
 
+        isGPIODrawerOpen: function() {
+            var gpio = GeckoJS.Controller.getInstanceByName('GPIO');
+
+            if (gpio) return false;
+            else return gpio.isDrawerOpen();
+        },
+
         triggerGPIO: function() {
             var gpio = GeckoJS.Controller.getInstanceByName('GPIO');
 

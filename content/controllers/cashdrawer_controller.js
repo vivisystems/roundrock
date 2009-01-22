@@ -213,10 +213,12 @@
             switch (drawer.type) {
                 
                 case 'gpio':
-                    if (device.triggerGPIO() == 0) {
-                        // try again
+                    if (device.isGPIODrawerOpen() == 0) {
                         if (device.triggerGPIO() == 0) {
-                            NotifyUtils.error(_('Error detected while opening cash drawer [%S]; please check if cash drawer is connected and powered up', [drawerNo]));
+                            // try again
+                            if (device.triggerGPIO() == 0) {
+                                NotifyUtils.error(_('Error detected while opening cash drawer [%S]; please check if cash drawer is connected and powered up', [drawerNo]));
+                            }
                         }
                     }
                     break;

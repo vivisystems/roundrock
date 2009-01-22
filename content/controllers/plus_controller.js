@@ -474,7 +474,7 @@
                     var halo = parseFloat(data['halo' + i]);
                     var lalo = parseFloat(data['lalo' + i]);
 
-                    if (enabled) {
+                    if (enabled || i == 1) {
                         if (halo > 0 && halo < price) {
                             NotifyUtils.warn(_('Price level %S preset price [%S] is larger than HALO [%S]; product not modified', [i, price, halo]));
                             return 6;

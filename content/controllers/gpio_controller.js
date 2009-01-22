@@ -21,6 +21,13 @@
             return (this._ioService != null);
         },
 
+        // returns 1 if drawer is open, 0 otherwise
+        isDrawerOpen: function () {
+            var ioService = this._ioService;
+            if (ioService == null) return 0;
+            return ((ioService.inb(0x2f) & 0x10) >> 4);
+        },
+
         trigger: function () {
             var ioService = this._ioService;
             if (ioService == null) return 0;

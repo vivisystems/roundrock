@@ -134,7 +134,7 @@
         if (Transaction.worker == null) {
           //  Transaction.worker = new GeckoJS.Thread();
 
-          Transaction.worker = GREUtils.Thread.getMainThread();
+          Transaction.worker = GREUtils.Thread.getWorkerThread();
         }
         //Transaction.worker._runnable = this;
 
