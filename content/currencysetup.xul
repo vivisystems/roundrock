@@ -43,19 +43,20 @@
                     </hbox>
                 </vbox>
                 <hbox class="FieldTitle" >
+                    <spacer class="SpaceA" />
                     <label value="&currencysetup.currency;" />
-                    <spacer width="38px" />
+                    <spacer class="SpaceB" />
                     <label value="&currencysetup.symbol;" />
-                    <spacer width="25px" />
+                    <spacer class="SpaceC" />
                     <label value="&currencysetup.rate;" />
-                    <spacer width="9px" />
+                    <spacer class="SpaceD" />
                     <label value="&currencysetup.convert;" />
-                    <spacer width="5px" />
+                    <spacer class="SpaceE" />
                     <label value="&currencysetup.amount;" />
                 </hbox>
                 <vbox class="DataRow">
                     <label value="&currencysetup.other; 1" />
-                    <hbox>
+                    <hbox align="center">
                         <textbox id="currency_1" value="" size="4" maxsize="4" form="currencyForm" name="currency_1"
                                  onfocus="select()"/>
                         <textbox id="currency_symbol_1" value="" size="4" maxsize="4" form="currencyForm" name="currency_symbol_1"
@@ -63,29 +64,29 @@
                         <textbox id="currency_exchange_1" value="" size="8" maxsize="8" form="currencyForm" name="currency_exchange_1"
                                  type="number" hidespinbuttons="true" decimalplaces="Infinity" onchange="calCurrency('1')" onblur="calCurrency('1')"/>
                         <label value=":" />
-                        <textbox id="currency_input_1" value="" size="6" maxsize="8" oninput="calCurrency('1');" onfocus="this.select()"/>
+                        <textbox id="currency_input_1" value="" size="6" maxsize="8" oninput="calCurrency('1');" onfocus="this.select()" class="FieldWidth"/>
                         <label value="=" />
-                        <textbox id="currency_result_1" value="" size="8" maxsize="8" readonly="true"/>
+                        <textbox id="currency_result_1" value="" size="8" maxsize="8" readonly="true" class="FieldWidth"/>
                     </hbox>
                 </vbox>
                 <vbox class="DataRow">
                     <label value="&currencysetup.other; 2" />
-                    <hbox>
+                    <hbox align="center">
                         <textbox id="currency_2" value="" size="4" maxsize="4" form="currencyForm" name="currency_2"
                                  onfocus="select()"/>
                         <textbox id="currency_symbol_2" value="" size="4" maxsize="4" form="currencyForm" name="currency_symbol_2"
                                  onfocus="select()"/>
                         <textbox id="currency_exchange_2" value="" size="8" maxsize="8" form="currencyForm" name="currency_exchange_2"
-                                 type="number" hidespinbuttons="true" decimalplaces="Infinity" onchange="calCurrency('2')" onblur="calCurrency('2')"/>
+                                 type="number" hidespinbuttons="true" decimalplaces="Infinity" onchange="calCurrency('2')" onblur="calCurrency('2')" />
                         <label value=":" />
-                        <textbox id="currency_input_2" value="" size="6" maxsize="8" oninput="calCurrency('2');" onfocus="this.select()"/>
+                        <textbox id="currency_input_2" value="" size="6" maxsize="8" oninput="calCurrency('2');" onfocus="this.select()" class="FieldWidth"/>
                         <label value="=" />
-                        <textbox id="currency_result_2" value="" size="8" maxsize="8" readonly="true"/>
+                        <textbox id="currency_result_2" value="" size="8" maxsize="8" readonly="true" class="FieldWidth"/>
                     </hbox>
                 </vbox>
                 <vbox class="DataRow">
                     <label value="&currencysetup.other; 3" />
-                    <hbox>
+                    <hbox align="center">
                         <textbox id="currency_3" value="" size="4" maxsize="4" form="currencyForm" name="currency_3"
                                  onfocus="select()"/>
                         <textbox id="currency_symbol_3" value="" size="4" maxsize="4" form="currencyForm" name="currency_symbol_3"
@@ -93,14 +94,14 @@
                         <textbox id="currency_exchange_3" value="" size="8" maxsize="8" form="currencyForm" name="currency_exchange_3"
                                  type="number" hidespinbuttons="true" decimalplaces="Infinity" onchange="calCurrency('3')" onblur="calCurrency('3')"/>
                         <label value=":" />
-                        <textbox id="currency_input_3" value="" size="6" maxsize="8" oninput="calCurrency('3');" onfocus="this.select()"/>
+                        <textbox id="currency_input_3" value="" size="6" maxsize="8" oninput="calCurrency('3');" onfocus="this.select()" class="FieldWidth"/>
                         <label value="=" />
-                        <textbox id="currency_result_3" value="" size="8" maxsize="8" readonly="true"/>
+                        <textbox id="currency_result_3" value="" size="8" maxsize="8" readonly="true" class="FieldWidth"/>
                     </hbox>
                 </vbox>
                 <vbox class="DataRow">
                     <label value="&currencysetup.other; 4" />
-                    <hbox>
+                    <hbox align="center">
                         <textbox id="currency_4" value="" size="4" maxsize="4" form="currencyForm" name="currency_4"
                                  onfocus="select()"/>
                         <textbox id="currency_symbol_4" value="" size="4" maxsize="4" form="currencyForm" name="currency_symbol_4"
@@ -108,14 +109,14 @@
                         <textbox id="currency_exchange_4" value="" size="8" maxsize="8" form="currencyForm" name="currency_exchange_4"
                                  type="number" hidespinbuttons="true" decimalplaces="Infinity" onchange="calCurrency('4')" onblur="calCurrency('4')"/>
                         <label value=":" />
-                        <textbox id="currency_input_4" value="" size="6" maxsize="8" oninput="calCurrency('4');" onfocus="this.select()"/>
+                        <textbox id="currency_input_4" value="" size="6" maxsize="8" oninput="calCurrency('4');" onfocus="this.select()" class="FieldWidth"/>
                         <label value="=" />
-                        <textbox id="currency_result_4" value="" size="8" maxsize="8" readonly="true"/>
+                        <textbox id="currency_result_4" value="" size="8" maxsize="8" readonly="true" class="FieldWidth"/>
                     </hbox>
                 </vbox>
                 <vbox class="DataRow">
                     <label value="&currencysetup.other; 5" />
-                    <hbox>
+                    <hbox align="center">
                         <textbox id="currency_5" value="" size="4" maxsize="4" form="currencyForm" name="currency_5"
                                  onfocus="select()"/>
                         <textbox id="currency_symbol_5" value="" size="4" maxsize="4" form="currencyForm" name="currency_symbol_5"
@@ -123,9 +124,9 @@
                         <textbox id="currency_exchange_5" value="" size="8" maxsize="8" form="currencyForm" name="currency_exchange_5"
                                  type="number" hidespinbuttons="true" decimalplaces="Infinity" onchange="calCurrency('5')" onblur="calCurrency('5')"/>
                         <label value=":" />
-                        <textbox id="currency_input_5" value="" size="6" maxsize="8" oninput="calCurrency('5');" onfocus="this.select()"/>
+                        <textbox id="currency_input_5" value="" size="6" maxsize="8" oninput="calCurrency('5');" onfocus="this.select()" class="FieldWidth"/>
                         <label value="=" />
-                        <textbox id="currency_result_5" value="" size="8" maxsize="8" readonly="true"/>
+                        <textbox id="currency_result_5" value="" size="8" maxsize="8" readonly="true" class="FieldWidth"/>
                     </hbox>
                 </vbox>
                 
@@ -137,7 +138,7 @@
                 <spacer height="40px" />
                 <vbox>
                     <numberpad id="multinumberpad" class="numpad"/>
-                    <hbox>
+                    <hbox class="numpadfun">
                         <sendkeybutton id="bkeyBtn"  label="&currencysetup.backspace;"   keyCode='0x08' class="fixedbtn"  />
                         <sendkeybutton id="clearBtn"  label="&currencysetup.clear;" class="fixedbtn"/>
                     </hbox>

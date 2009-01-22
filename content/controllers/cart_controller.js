@@ -1498,7 +1498,7 @@
             }
             
             var aURL = 'chrome://viviecr/content/payment_details.xul';
-            var features = 'chrome,modal,width=500,height=280,centerscreen';
+            var features = 'chrome,modal,width=500,height=450,centerscreen';
             window.openDialog(aURL, _('Payment Details'), features, _('Payment Details'), payments);
         },
 

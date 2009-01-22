@@ -25,7 +25,7 @@
         <hbox flex="1" class="MainPnl">
             <vbox flex="1" pack="start" class="MainL">
                 <caption label="&taxes.title;"  class="PageTitle"/>
-                <vbox class="LeftPnl">
+                <vbox flex="1" class="LeftPnl">
                     <viviscrollablebuttonpanel dir="reverse" id="taxscrollablepanel" flex="1" cols="1" rows="8" labelField="name"
                                                ensureVisible="true"
                                                oncommand="$do('select',this.selectedIndex, 'Taxes');"
@@ -67,7 +67,7 @@
                     </rows>
                 </grid>
 
-                <deck id="prop_deck">
+                <deck id="prop_deck"  flex="1">
                     <vbox class="RightPnlC">
                         <hbox>
                             <vbox flex="1" class="DataB">
@@ -90,7 +90,7 @@
                             </radiogroup>
                         </vbox>
                     </vbox>
-                    <vbox class="RightPnlB">
+                    <vbox class="RightPnlB" flex="1">
                         <viviscrollablebuttonpanel id="addontaxscrollablepanel" form="taxForm" name="combine_tax" default="" seltype="multiple" flex="1" cols="2" rows="5" labelField="name"
                                                    oncommand=""
                                                    class="ItemScrollablepanel"
@@ -100,6 +100,7 @@
                         </viviscrollablebuttonpanel>
                     </vbox>
                 </deck>
+                <spacer flex="1" />
                 <hbox>
                     <hbox class="ToolBar" flex="1">
                         <button id="add_tax" label="&taxes.button.action.add;" disabled="false" class="BtnAdd" oncommand="$do('add', null, 'Taxes');" />

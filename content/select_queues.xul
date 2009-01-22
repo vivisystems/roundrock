@@ -29,7 +29,7 @@
             <vbox flex="1" class="MainL">
                 <caption label="&select.queues.title;"  class="PageTitle"/>
                 <label id="queues" hidden="true" value="" />
-                <hbox class="LeftPnl">
+                <hbox class="LeftPnl" flex="1">
                     <viviscrollablebuttonpanel id="queueScrollablepanel" flex="1" cols="2" rows="7"  seltype="single" labelField="key"
                                                class="ItemScrollablepanel"  dir="reverse"
                                                buttonClass="ItemButtonA"
@@ -43,6 +43,7 @@
                 <label id="" value="&select.queues.order.details;"  class="PageTitle"/>
                 <hbox class="sline"></hbox>
                 <textbox class="QueueList" readonly="1" id="itemlist" value="" />
+
                 <hbox  id="dialogButtons"  flex="1">
                     <hbox class="ToolBar" flex="1">
                         <button id="ok" label="&dialog.okButton.label;" default="true" oncommand="doOKButton();"/>

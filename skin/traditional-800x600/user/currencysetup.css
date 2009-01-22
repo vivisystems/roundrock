@@ -42,6 +42,21 @@
     margin-right: 8px;
     -moz-box-pack: end;
 }
+.SpaceA {
+    width: 20px;
+}
+.SpaceB {
+    width: 38px;
+}
+.SpaceC {
+    width: 25px;
+}
+.SpaceD {
+    width: 9px;
+}
+.SpaceE {
+    width: 5px;
+}
 
 textbox {
     max-width: 100px;

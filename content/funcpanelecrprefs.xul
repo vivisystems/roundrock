@@ -182,8 +182,8 @@
                             <grid flex="1" class="DataFormB2">
                                 <columns>
                                     <column flex="1"/>
-                                    <column flex="0"/>
-                                    <column flex="0"/>
+                                    <column flex="1"/>
+                                    <column flex="1"/>
                                 </columns>
                                 <rows>        
                                     <row>
@@ -263,18 +263,20 @@
                             <spacer height="5px" />
                             
                     <!-- button style -->
-                            <hbox flex="1" class="RightPnlB">
-                                <vbox align="center">
-                                    <button_colorpicker
-                                        id="vivifuncpanelecr_prefs_layout_button_colorpicker"
-                                        columns="4"
-                                        class-prefix="function-button-color-"
-                                        flex="1" class="BtnColors"
-                                        disabled="true"
-                                        onselect="$do('selectButtonColor', this.color, 'vivifuncpanelecr_prefs')"
-                                    />
+                            <hbox class="RightPnlB">
+                                <vbox flex="1">
+                                    <hbox flex="1" align="center" pack="center">
+                                        <button_colorpicker
+                                            id="vivifuncpanelecr_prefs_layout_button_colorpicker"
+                                            columns="4"
+                                            class-prefix="function-button-color-"
+                                            flex="1" class="BtnColors"
+                                            disabled="true"
+                                            onselect="$do('selectButtonColor', this.color, 'vivifuncpanelecr_prefs')"
+                                        />
+                                    </hbox>
                                 </vbox>
-                                <vbox>
+                                <vbox flex="1">
                                     <button_fontsizepicker
                                         id="vivifuncpanelecr_prefs_layout_button_fontsizepicker"
                                         buttonClass="ItemButtonB"

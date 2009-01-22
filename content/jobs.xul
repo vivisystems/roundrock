@@ -38,13 +38,13 @@
             </vbox>
 
             <vbox>
-                <vbox class="JobForm" flex="1">
+                <vbox class="JobForm">
                     <label id="job_id" hidden="true" form="jobForm" name="id" value="" />
                     <label value="&jobs.name;" control="job_name" class="SubTitle"/>
                     <textbox id="job_name" value="" form="jobForm" name="jobname" oninput="$do('validateForm', null, 'Jobs')"
                              onfocus="this.select()"/>
                 </vbox>
-                <spacer style="height: 350px;" />
+                <spacer flex="1"/>
                 <hbox>
                     <hbox class="ToolBar" flex="1">
                         <button id="add_job" label="&jobs.button.action.add;" disabled="false" class="BtnAdd" oncommand="$do('add', null, 'Jobs');" />

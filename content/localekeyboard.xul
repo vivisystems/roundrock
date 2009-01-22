@@ -53,7 +53,7 @@
                 </tabpanels>
             </tabbox>
 
-            <spacer height="7px"/>
+            <spacer flex="1"/>
         
             <hbox id="dialogButtons" class="dialogbtns" pack="end">
                 <button class="SaveBtn" id="ok" label="&dialog.applyButton.label;" default="true" oncommand="doOKButton();"/>

@@ -37,7 +37,7 @@
                     </viviscrollablebuttonpanel>
                 </hbox>
             </vbox>
-            <vbox>
+            <vbox flex="1">
                 <spacer style="height: 25px;" />
                 <grid class="DataForm">
                     <columns>
@@ -58,23 +58,24 @@
                 </grid>
                 <spacer style="height: 5px;" />
                 <hbox class="RightPnlB">
-                    <vbox>
+                    <vbox flex="1">
                         <label value="&plugroups.button.color;"  class="SubTitle"/>
-                        <spacer style="height: 20px;" />
-                        <button_colorpicker id="dept_button_color" form="plugroupForm" name="button_color"
+                        <hbox pack="center" align="center" flex="1">
+                            <button_colorpicker id="dept_button_color" form="plugroupForm" name="button_color"
                                         buttonClass="catbtn" class="BtnColors"
                                         class-prefix="plugroup-button-color-"
                                         default="plugroup-button-color-default"/>
-                    </vbox>
-                    <vbox>
+                        </hbox>                
+                    </vbox >
+                    <vbox flex="1">
                         <label value="&plugroups.font.size;"  class="SubTitle"/>
                         <button_fontsizepicker id="dept_font_size" form="plugroupForm" name="font_size"
                                            buttonClass="ItemButtonB"  class="FontSizeSet FontSizeSetHeight"
                                            default="medium"/>
                     </vbox>
                 </hbox>
-                <spacer style="height: 15px;" />
-                <hbox>
+                <spacer flex="1" />
+                <hbox flex="1">
                     <hbox class="ToolBar" flex="1">
                         <button id="add_plugroup" label="&plugroups.button.action.add;" disabled="false" class="BtnAdd" oncommand="$do('add', null, 'Plugroups');" />
                         <button id="modify_plugroup" label="&plugroups.button.action.modify;" disabled="false" class="BtnMod" oncommand="$do('update', null, 'Plugroups');" />

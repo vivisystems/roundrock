@@ -1,0 +1,194 @@
+.MainPnl {
+    margin: 18px;
+}
+
+.ExeBtn {
+    -moz-appearance: none;
+    color: #6c6050;
+    font-size: 12pt;
+    margin: 0 5px;
+    -moz-border-radius: 6px;
+    border: 3px solid;
+    -moz-border-top-colors: #f4f3ee #eeede8 #e2e1dc;
+    -moz-border-right-colors: #e2e1dc #d0cfcb #b7b6b2;
+    -moz-border-bottom-colors: #e2e1dc #d0cfcb #b7b6b2;
+    -moz-border-left-colors: #f4f3ee #eeede8 #e2e1dc;
+    background: white url(../images/tboxbg_readonly.png) left center repeat-x;
+    max-height: 90px;
+}
+
+.ExeBtn:active {
+    border: 2px solid;
+  -moz-border-top-colors: #ee9400 #ee9400;
+  -moz-border-right-colors: #ee9400 #ee9400;
+  -moz-border-bottom-colors: #ee9400 #ee9400;
+  -moz-border-left-colors: #ee9400 #ee9400;
+  -moz-appearance: none;
+  color: #603913;
+}
+
+.TopPnl {
+    border-bottom: 1px solid #c1ab8e;
+    padding-bottom: 8px;
+}
+
+.dialogbtns {
+    margin-left: 5px;
+}
+
+.BarHeight {
+    min-height: 500px;
+    margin: 5px 0 5px 5px;
+}
+.BarHeight button {
+    min-height: 50px;
+    margin: 5px;
+}
+
+vividatetimepicker .datetimepicker-input-box{
+    min-width: 300px;
+    border: 1px solid #d0cfcb;
+    -moz-border-top-colors: #d0cfcb;
+    -moz-border-left-colors: #d0cfcb;
+    -moz-border-right-colors: #d0cfcb;
+    -moz-border-bottom-colors: #d0cfcb;
+    background: white url(../images/tboxbg_readonly.png) left center repeat-x;
+    -moz-appearance: none;
+    min-height: 40px;
+    padding-right: 4px;
+}
+vividatetimepicker .datetimepicker-input-box input {
+    background: none;
+    -moz-appearance: none;
+}
+vividatetimepicker dropmarker {
+    border: 3px solid;
+    -moz-border-top-colors: #f4f3ee #eeede8 #e2e1dc;
+    -moz-border-right-colors: #e2e1dc #d0cfcb #b7b6b2;
+    -moz-border-bottom-colors: #e2e1dc #d0cfcb #b7b6b2;
+    -moz-border-left-colors: #f4f3ee #eeede8 #e2e1dc;
+    background: white url(../images/tboxbg_readonly.png) left center repeat-x;
+    -moz-appearance: none;
+    min-height: 40px;
+    width: 40px;
+    color: #534741;
+    list-style-image: url(../images/dropdown.png);
+}
+
+.LoadingPnl {
+    border: 10px solid;
+    -moz-border-top-colors: white white white white white white white #c1ab8e #c1ab8e #c1ab8e;
+    -moz-border-left-colors: white white white white white white white #c1ab8e #c1ab8e #c1ab8e;
+    -moz-border-right-colors: white white white white white white white #c1ab8e #c1ab8e #c1ab8e;
+    -moz-border-bottom-colors: white white white white white white white #c1ab8e #c1ab8e #c1ab8e;
+    background: white;
+    -moz-border-radius: 8px;
+    padding: 30px;
+    width:450px;
+    height:160px;
+    -moz-box-align: center;
+}
+
+.LoadingPnl label {
+    font-size: 14pt;
+    color: #534741;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.ItemScrollablepanel {
+    margin: 10px;
+}
+.ReportButton image {
+    
+}
+.ReportButton hbox {
+    -moz-box-orient: vertical;
+}
+.ReportButton {
+    font-size: 11pt;
+    border: 3px solid;
+    -moz-border-top-colors: #f4f3ee #eeede8 #e2e1dc;
+    -moz-border-right-colors: #e2e1dc #d0cfcb #b7b6b2;
+    -moz-border-bottom-colors: #e2e1dc #d0cfcb #b7b6b2;
+    -moz-border-left-colors: #f4f3ee #eeede8 #e2e1dc;
+    background: white url(images/tboxbg_readonly.png) left center repeat-x;
+    -moz-appearance: none;
+    min-height: 36px;
+    color: #534741;
+}
+.ReportButton[disabled="true"] {
+  -moz-appearance: none;
+  border: none;
+  background: #ececec;
+}
+.ReportButton:active {
+    border: 2px solid;
+    -moz-border-top-colors: #ee9400 #ee9400 !important;
+    -moz-border-right-colors: #ee9400 #ee9400 !important;
+    -moz-border-bottom-colors: #ee9400 #ee9400 !important;
+    -moz-border-left-colors: #ee9400 #ee9400 !important;
+    -moz-appearance: none;
+    color: #603913 !important;
+}
+.ReportButton[disabled="false"]:hover {
+    border: 3px solid;
+    -moz-border-top-colors: #f4f3ee #eeede8 #5eb3ad;
+    -moz-border-right-colors: #e2e1dc #d0cfcb #5eb3ad;
+    -moz-border-bottom-colors: #e2e1dc #d0cfcb #5eb3ad;
+    -moz-border-left-colors: #f4f3ee #eeede8 #5eb3ad;
+    background: white url(images/tboxbg_readonly.png) left center repeat-x;
+    -moz-appearance: none;
+}
+
+/*Date Time*/
+.datepicker-mainbox {
+    /*background: ;*/
+    font-size: 12pt;
+    margin: 4px;
+}
+.datepicker-monthbox {
+    font-size: 13pt;
+    background: #f8f5f1;
+    padding: 5px;
+    margin-top: 5px;
+}
+.datepicker-mainbox grid row {
+    padding: 5px;
+    border: 1px solid #f8f5f1;
+}
+.datepicker-mainbox grid column {
+    padding: 5px;
+    border: 1px solid #f8f5f1;
+}
+vividatetimepicker button {
+    border: 3px solid;
+    -moz-border-top-colors: #f8f5f1 #f2efeb #e6e3df;
+    -moz-border-right-colors: #e6e3df #d3d0cd #bab8b5;
+    -moz-border-bottom-colors: #e6e3df #d3d0cd #bab8b5;
+    -moz-border-left-colors: #f8f5f1 #f2efeb #e6e3df;
+    background: white url(../images/tboxbg_readonly.png) left center repeat-x;
+    -moz-appearance: none;
+    min-height: 45px;
+    color: #736357;
+    margin: 3px;
+    cursor: pointer;
+    -moz-border-radius: 6px;
+}
+vividatetimepicker button:active {
+    border: 2px solid;
+    -moz-border-top-colors: #00a99d #00a99d;
+    -moz-border-right-colors: #00a99d #00a99d;
+    -moz-border-bottom-colors: #00a99d #00a99d;
+    -moz-border-left-colors: #00a99d #00a99d;
+    background: white url(../images/itembtnB_sel.png) left center repeat-x;
+    -moz-appearance: none;
+    color: #32787a;
+}
+
+vividatetimepicker panel {
+    -moz-appearance: none;
+    background: white;
+    border: 1px solid #999;
+    padding: 4px;
+}

@@ -29,7 +29,7 @@
             <vbox flex="1" class="MainL">
                 <label id="" value="&plus.title;"  class="PageTitle"/>
                 <tabbox  flex="1" class="PLUTabbox">
-                    <tabs id="mode_tabs" flex="1">
+                    <tabs id="mode_tabs">
                         <tab id="tab_normalmode" label="&plus.tab.normalmode;" flex="1"/>
                         <tab id="tab_filtermode" label="&plus.tab.filtermode;" flex="1"/>
                     </tabs>
@@ -37,7 +37,7 @@
                         <tabpanel flex="1" >
                             <vbox flex="1">
                 <!-- Begin Catalogs -->
-                                <vbox class="DepartBox">
+                                <vbox class="DepartBox" flex="1">
                                 <viviscrollablebuttonpanel dir="reverse" id="catescrollablepanel" flex="1" cols="2" rows="3" labelField="name" imageField="no"
                                            oncommand="$do('changePluPanel',this.selectedIndex, 'Plus');"
                                            class="catescrollablepanel"
@@ -65,7 +65,7 @@
                             <vbox flex="1">
                                 <vbox flex="1">
                                     <label value="&plus.search.label;" class="SubTitle"/>
-                                    <hbox>
+                                    <hbox flex="1">
                                         <textbox id="plu" value="" onchange="$do('searchPlu', this.value, 'PluSearch');" class="fixWidth"/>
                                         <!-- sendkeybutton id="bkeyBtn"  label="&plus.button.numpad.del;" keyCode='0x08' class="systembtn"  />
                                         <sendkeybutton id="clearBtn" label="&plus.button.numpad.clear;" class="systembtn"/ -->
@@ -104,7 +104,7 @@
                 </tabbox>
             </vbox>
 
-            <vbox id="" >
+            <vbox id=""  flex="1">
 
                 <tabbox  flex="1" crop="right" class="RightTabbox">
                     <tabs id="tabs" >
@@ -272,9 +272,9 @@
                         <tabpanel flex="1" >
                             <hbox flex="1">
                                 <vbox flex="1">
-                                    <vbox class="ImgPnl" flex="1">
+                                    <vbox class="ImgPnl" >
                                         <label value="&plus.image;" class="SubTitle" />
-                                        <hbox>
+                                        <hbox  flex="1">
                                             <hbox class="IconArea">
                                                 <image id="pluimage" pack="start" style="width:64px; height:64px;"/>
                                             </hbox>
@@ -287,13 +287,15 @@
                                             <spacer style="width: 20px;" />
                                         </hbox>
                                     </vbox>
-                                    <hbox class="RightPnlB" flex="1">
+                                    <hbox class="RightPnlB">
                                         <vbox flex="1">
                                             <label value="&plus.button.color;" class="SubTitle"/>
-                                            <button_colorpicker id="dept_button_color" form="productForm" name="button_color"
+                                            <hbox pack="center" align="center" flex="1">
+                                                <button_colorpicker id="dept_button_color" form="productForm" name="button_color"
                                                                 buttonClass="catbtn" class="BtnColors"
                                                                 class-prefix="product-button-color-"
                                                                 default="product-button-color-default"/>
+                                            </hbox>
                                         </vbox>
                                         <vbox flex="1">
                                             <label value="&plus.font.size;" class="SubTitle"/>
@@ -308,10 +310,9 @@
                         </tabpanel>
 
                         <!-- Sell Price Levels -->
-                        <tabpanel>
-                            <vbox>
-                                <groupbox>
-                                    <!--caption label="&plus.pricelevels;" /-->
+                        <tabpanel  flex="1">
+                            <vbox flex="1">
+                                <!--caption label="&plus.pricelevels;" /-->
                                     <grid class="PLTable">
                                         <columns>
                                             <column />
@@ -384,7 +385,6 @@
                                         </rows>
                                     </grid>
 
-                                </groupbox>
                             </vbox>
                         </tabpanel>
 
@@ -408,7 +408,7 @@
                     </tabpanels>
                 </tabbox>
                 
-                <hbox>
+                <hbox flex="1">
                     <hbox class="ToolBar" flex="1">
                         <button id="add_plu" label="&plus.button.action.add;" disabled="false" class="BtnAdd" oncommand="$do('add', null, 'Plus');" />
                         <button id="modify_plu" label="&plus.button.action.modify;" disabled="true" class="BtnMod" oncommand="$do('modify', null, 'Plus');" />
