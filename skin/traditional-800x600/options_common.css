@@ -83,6 +83,7 @@ textbox {
   min-height: 36px;
   font-size: 12pt;
   padding: 3px 4px;
+  color: #444;
 
 }
 textbox[readonly="true"] {
@@ -109,12 +110,13 @@ textbox[readonly="true"] {
   min-height: 36px;
   color: #534741;
 }
-.ItemButtonA[selected] {
+.ItemButtonA[selected], .ItemButtonA[checked],
+.ItemButtonA[disabled="fales"]:active {
   border: 2px solid;
-  -moz-border-top-colors: #ee9400 #ee9400;
-  -moz-border-right-colors: #ee9400 #ee9400;
-  -moz-border-bottom-colors: #ee9400 #ee9400;
-  -moz-border-left-colors: #ee9400 #ee9400;
+  -moz-border-top-colors: #ee9400 #ee9400 !important;
+  -moz-border-right-colors: #ee9400 #ee9400 !important;
+  -moz-border-bottom-colors: #ee9400 #ee9400 !important;
+  -moz-border-left-colors: #ee9400 #ee9400 !important;
   background: white url(images/itembtnA_sel.png) left center repeat-x;
   -moz-appearance: none;
   color: #603913;
@@ -136,12 +138,13 @@ textbox[readonly="true"] {
   min-height: 36px;
   color: #736357;
 }
-.ItemButtonB[selected] {
+.ItemButtonB[selected], .ItemButtonB[checked],
+.ItemButtonB[disabled=false]:active {
   border: 2px solid;
-  -moz-border-top-colors: #00a99d #00a99d;
-  -moz-border-right-colors: #00a99d #00a99d;
-  -moz-border-bottom-colors: #00a99d #00a99d;
-  -moz-border-left-colors: #00a99d #00a99d;
+  -moz-border-top-colors: #00a99d #00a99d !important;
+  -moz-border-right-colors: #00a99d #00a99d !important;
+  -moz-border-bottom-colors: #00a99d #00a99d !important;
+  -moz-border-left-colors: #00a99d #00a99d !important;
   background: white url(images/itembtnB_sel.png) left center repeat-x;
   -moz-appearance: none;
   color: #32787a;
@@ -174,8 +177,8 @@ textbox[readonly="true"] {
     -moz-background-clip: border;
     border: 0px;
 }
-.ScrollUp[disabled=false]:active, .ScrollDown[disabled=false]:active {
-  background-position:-32px 0;
+.ScrollUp[disabled=false]:active , .ScrollDown[disabled=false]:active {
+    background-position:-32px 0;
 }
 .ScrollUp description, .ScrollDown description {
     display: none;
@@ -387,6 +390,71 @@ menulist hbox label {
     padding: 0 5px;
 }
 
+spinbuttons {
+    -moz-appearance: none;
+    border: none;
+    background: none;
+}
+.spinbuttons-box{
+	-moz-box-orient: horizontal;
+    margin-left: 3px;
+
+}
+
+.spinbuttons-button{
+    min-width: 32px;
+    border: 2px solid ;
+    -moz-border-top-colors: #b6b6b6 #fff;
+    -moz-border-right-colors: #b6b6b6 #fff;
+    -moz-border-bottom-colors: #b6b6b6 #fff;
+    -moz-border-left-colors: #b6b6b6 #fff;
+    -moz-appearance: none;
+    background: white url(images/tboxbg_readonly.png) left center repeat-x;
+    cursor: pointer;
+}
+.spinbuttons-button[disabled=true] {
+    border: 2px solid ;
+    -moz-border-top-colors: #bababa #bababa !important;
+    -moz-border-right-colors: #bababa #bababa !important;
+    -moz-border-bottom-colors: #bababa #bababa !important;
+    -moz-border-left-colors: #bababa #bababa !important;
+    -moz-appearance: none;
+    background: #ddd;
+}
+.spinbuttons-button:hover {
+    border: 2px solid ;
+    -moz-border-top-colors: #5eb3ad #fff;
+    -moz-border-right-colors: #5eb3ad #fff;
+    -moz-border-bottom-colors: #5eb3ad #fff;
+    -moz-border-left-colors: #5eb3ad #fff;
+}
+.spinbuttons-button:active {
+    border: 2px solid ;
+    -moz-border-top-colors: #00a99d #00a99d;
+    -moz-border-right-colors: #00a99d #00a99d;
+    -moz-border-bottom-colors: #00a99d #00a99d;
+    -moz-border-left-colors: #00a99d #00a99d;
+}
+.spinbuttons-button hbox{
+  -moz-box-pack: center;
+}
+
+.spinbuttons-button label{
+    display: none;
+}
+.spinbuttons-button image {
+    margin-left: -10px;
+}
+
+.spinbuttons-up{
+    list-style-image: url(images/spinup.png);
+}
+
+.spinbuttons-down{
+	list-style-image: url(images/spindown.png);
+
+}
+
 .TimeLabelBox label {
     font-size: 12pt;
     margin: 5px;
@@ -404,6 +472,10 @@ menulist hbox label {
 scrollbarbutton {
   min-width: 32px;
   min-height: 32px;
+}
+
+scrollbar {
+    min-width: 34px;
 }
 
 

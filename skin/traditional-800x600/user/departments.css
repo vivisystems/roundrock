@@ -3,10 +3,14 @@
 }
 
 .BtnColors {
-    margin: 8px 20px 10px 20px;
+    margin: 12px 20px 8px 20px;
 }
 .BtnColors label{
     color: white;
+}
+.BtnColors button {
+    min-height: 45px;
+    min-width: 45px;
 }
 
 .LeftPnl {
