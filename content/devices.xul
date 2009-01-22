@@ -101,7 +101,7 @@
                             <column flex="0"/>
                             <column flex="1"/>
                             <column flex="0"/>
-                            <column flex="1"/>
+                            <column flex="0"/>
                         </columns>
                         <rows>
                             <row>
@@ -163,6 +163,7 @@
                             <column flex="0"/>
                             <column flex="1"/>
                             <column flex="0"/>
+                            <column flex="0"/>
                         </columns>
                         <rows>
                             <row>
@@ -223,7 +224,7 @@
                             <column flex="0"/>
                             <column flex="1"/>
                             <column flex="0"/>
-                            <column flex="1"/>
+                            <column flex="0"/>
                         </columns>
                         <rows>
                             <row>
@@ -285,7 +286,7 @@
                             <column flex="0"/>
                             <column flex="1"/>
                             <column flex="0"/>
-                            <column flex="1"/>
+                            <column flex="0"/>
                         </columns>
                         <rows>
                             <row>
@@ -344,7 +345,7 @@
                         <column flex="0"/>
                         <column flex="1"/>
                         <column flex="0"/>
-                        <column flex="1"/>
+                        <column flex="0"/>
                     </columns>
                     <rows>
                         <row>
@@ -404,7 +405,7 @@
                             <column flex="0"/>
                             <column flex="1"/>
                             <column flex="0"/>
-                            <column flex="1"/>
+                            <column flex="0"/>
                         </columns>
                         <rows>
                             <row>
@@ -416,11 +417,23 @@
                                         <menuitem label="&devices.cashdrawer.type.printer;" value="printer"/>
                                     </menupopup>
                                 </menulist>
+                                <label/>
+                                <checkbox id="cashdrawer-1-supports-status" label="&devices.cashdrawer.supports.status;" name="cashdrawer-1-supports-status"
+                                          value="false" default="false" form="deviceForm"/>
                             </row>
                             <row>
                                 <label value="&devices.port.label;"/>
                                 <menulist id="cashdrawer-1-port" name="cashdrawer-1-port" form="deviceForm">
                                     <menupopup id="cashdrawer-1-port-popup">
+                                    </menupopup>
+                                </menulist>
+                                <label value="&devices.cashdrawer.gpio.pulses;"/>
+                                <menulist id="cashdrawer-1-gpio-pulses" name="cashdrawer-1-gpio-pulses" default="1" form="deviceForm">
+                                    <menupopup id="cashdrawer-1-gpio-pulses-popup">
+                                        <menuitem label="1" value="1"/>
+                                        <menuitem label="2" value="2"/>
+                                        <menuitem label="3" value="3"/>
+                                        <menuitem label="4" value="4"/>
                                     </menupopup>
                                 </menulist>
                             </row>
@@ -459,7 +472,7 @@
                             <column flex="0"/>
                             <column flex="1"/>
                             <column flex="0"/>
-                            <column flex="1"/>
+                            <column flex="0"/>
                         </columns>
                         <rows>
                             <row>
@@ -471,11 +484,23 @@
                                         <menuitem label="&devices.cashdrawer.type.printer;" value="printer"/>
                                     </menupopup>
                                 </menulist>
+                                <label/>
+                                <checkbox id="cashdrawer-2-supports-status" label="&devices.cashdrawer.supports.status;" name="cashdrawer-2-supports-status"
+                                          value="false" default="false" form="deviceForm"/>
                             </row>
                             <row>
                                 <label value="&devices.port.label;"/>
                                 <menulist id="cashdrawer-2-port" name="cashdrawer-2-port" form="deviceForm">
                                     <menupopup id="cashdrawer-2-port-popup">
+                                    </menupopup>
+                                </menulist>
+                                <label value="&devices.cashdrawer.gpio.pulses;"/>
+                                <menulist id="cashdrawer-2-gpio-pulses" name="cashdrawer-2-gpio-pulses" default="1" form="deviceForm">
+                                    <menupopup id="cashdrawer-2-gpio-pulses-popup">
+                                        <menuitem label="1" value="1"/>
+                                        <menuitem label="2" value="2"/>
+                                        <menuitem label="3" value="3"/>
+                                        <menuitem label="4" value="4"/>
                                     </menupopup>
                                 </menulist>
                             </row>
@@ -490,7 +515,7 @@
                                     <menupopup id="cashdrawer-2-handshaking-popup">
                                         <menuitem label="&devices.handshaking.hardware;" value="h"/>
                                         <menuitem label="&devices.handshaking.xonxoff;" value="x"/>
-                                        <menuitem  label="&devices.handshaking.none;" value="n"/>
+                                        <menuitem label="&devices.handshaking.none;" value="n"/>
                                     </menupopup>
                                 </menulist>
                             </row>

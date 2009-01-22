@@ -343,11 +343,6 @@
                         var encoding = device.encoding;
                         data._MODIFIERS = _templateModifiers(encoding);
                         self.printCheck(data, template, port, portspeed, handshaking, devicemodel, encoding, true);
-/*
-                        if (printed) {
-                            self.receiptPrinted(txn);
-                        }
-*/
                     }
                 });
             }
@@ -482,14 +477,14 @@
                         var devicemodel = device.devicemodel;
                         var encoding = device.encoding;
                         data._MODIFIERS = _templateModifiers(encoding);
-                        self.printCheck(data, template, port, portspeed, handshaking, devicemodel, encoding);
+                        self.printCheck(data, template, port, portspeed, handshaking, devicemodel, encoding, false);
                     }
                 });
             }
         },
 
         // print check using the given parameters
-        printCheck: function(data, template, port, portspeed, handshaking, devicemodel, encoding) {
+        printCheck: function(data, template, port, portspeed, handshaking, devicemodel, encoding, recordReceipt) {
             
             if (this._worker == null) {
                 NotifyUtils.error(_('Error in Print controller: no worker thread available!'));
@@ -515,7 +510,7 @@
             alert('Printing check: \n\n' +
                   '   template [' + template + ']\n' +
                   '   port [' + port + ' (' + portPath + ')]\n' +
-                  '   portspeed [' + portspeed + ']\n' +
+                  '   speed [' + speed + ']\n' +
                   '   model [' + devicemodel + ']\n' +
                   '   encoding [' + encoding + ']\n' +
                   '   template content: ' + this.dump(tpl));
@@ -549,25 +544,18 @@
 
             // send to output device using worker thread
             var self = this;
-/*
+
             var runnable = {
                 run: function() {
                     try {
-*/
                         var printed = false;
                         if (self.openSerialPort(portPath, portspeed, handshaking)) {
                             var len = self.writeSerialPort(portPath, encodedResult);
                             if (len == encodedResult.length) {
                                 printed = true;
                             }
-                            else {
-                                //GREUtils.log('Check length: [' + encodedResult.length + '], printed length: [' + len + ']');
-                            }
-                            GREUtils.log('In Worker thread: print length: [' + encodedResult.length + '], printed length: [' + len + ']');
+                            self.log('DEBUG', 'In Worker thread: print length: [' + encodedResult.length + '], printed length: [' + len + ']');
                             self.closeSerialPort(portPath);
-                        }
-                        else {
-                            printed = false;
                         }
 
                         if (!printed) {
@@ -580,8 +568,9 @@
                             //@todo OSD
                             NotifyUtils.error(_('Error detected when outputing to device [%S] at port [%S]', [devicemodelName, portName]));
                         }
-                        return printed;
-/*
+                        if (printed) {
+                            self.receiptPrinted(data.txn);
+                        }
                     }catch(e) {
                         return false;
                     }
@@ -596,7 +585,6 @@
             };
 
             this._worker.dispatch(runnable, this._worker.DISPATCH_NORMAL);
-*/s
         }
 
     });

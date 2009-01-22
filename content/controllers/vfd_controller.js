@@ -264,7 +264,7 @@
             commands = this.getDeviceCommandCodes(devicemodel, true);
 
 /*
-            alert('Printing check: \n\n' +
+            alert('Displaying to VFD: \n\n' +
                   '   template [' + template + ']\n' +
                   '   port [' + port + ' (' + portPath + ')]\n' +
                   '   portspeed [' + portspeed + ']\n' +
@@ -292,12 +292,11 @@
                 return String.fromCharCode(new Number(p1));
             }
             result = result.replace(/\[(0x[0-9,A-F][0-9,A-F])\]/g, function(str, p1, offset, s) {return String.fromCharCode(new Number(p1));});
-            //GREUtils.log(this.dump(result));
+            //this.log('DEBUG', GREUtils.log.dump(result));
             
             // get encoding
             var encodedResult = GREUtils.Charset.convertFromUnicode(result, encoding);
-            //this.log(GeckoJS.BaseObject.dump(data.order));
-            this.log('VFD:\n' + encodedResult);
+            //this.log('VFD:\n' + encodedResult);
             //alert('VFD:\n' + encodedResult);
             
             // send to output device using worker thread
@@ -316,7 +315,7 @@
                             else {
                                 //self.log('VFD display length: [' + encodedResult.length + '], printed length: [' + len + ']');
                             }
-                            GREUtils.log('In Worker thread: VFD display length: [' + encodedResult.length + '], displayed length: [' + len + ']');
+                            self.log('DEBUG', 'In Worker thread: VFD display length: [' + encodedResult.length + '], displayed length: [' + len + ']');
                             self.closeSerialPort(portPath);
 
                         }

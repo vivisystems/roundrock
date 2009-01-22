@@ -20,3 +20,5 @@
 <!ENTITY devices.cashdrawer.2.label "Cash Drawer 2">
 <!ENTITY devices.cashdrawer.type.gpio "GPIO">
 <!ENTITY devices.cashdrawer.type.printer "Printer">
+<!ENTITY devices.cashdrawer.supports.status "Supports status command">
+<!ENTITY devices.cashdrawer.gpio.pulses "Pulses to send">
