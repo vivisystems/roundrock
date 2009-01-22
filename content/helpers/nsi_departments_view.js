@@ -8,7 +8,7 @@
             this.hideInvisible = true;
 
             var plugroupModel = new PlugroupModel();
-            var plugroups = plugroupModel.find('all', {order: 'name'});
+            var plugroups = plugroupModel.find('all', {order: 'display_order, name'});
 
 
             var visiblePlugroups = [], allPlugroups = [], plugroupsById= {};
