@@ -1802,13 +1802,13 @@
 
             var dt = new Date(val);
             // this.datepad.dateValue.setTime(val);
-            this.datepad.dateValue = dt;
+            //@irv don't set datepad's dateValue
+            //this.datepad.dateValue = dt;
 
             // this.timepad.dateValue.setTime(val);
             this.timepad.dateValue = dt;
-
-            this.datepad._fireEvent("change", this);
-            this.timepad._fireEvent("change", this);
+            //this.datepad._fireEvent("change", this);
+            //this.timepad._fireEvent("change", this);
             this._setValueOnChange();
             return val;
 

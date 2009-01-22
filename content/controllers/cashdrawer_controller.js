@@ -1,10 +1,7 @@
 (function(){
 
-    GeckoJS.include('chrome://viviecr/content/devices/deviceTemplate.js');
-    GeckoJS.include('chrome://viviecr/content/devices/deviceTemplateUtils.js');
-
     /**
-     * Print Controller
+     * Cash Drawer Controller
      */
 
     GeckoJS.Controller.extend( {
@@ -22,8 +19,8 @@
             // add event listener for beforeSubmit events
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             if(cart) {
-                cart.addEventListener('afterSubmit', this.openDrawer, this);
-                cart.addEventListener('afterAddPayment', this.openDrawer, this);
+                cart.addEventListener('afterSubmit', this.handleOpenDrawerEvent, this);
+                cart.addEventListener('afterAddPayment', this.handleOpenDrawerEvent, this);
             }
         },
 
@@ -78,17 +75,6 @@
             }
         },
 
-        // invoke getTemplates on device controller to retrieve registered templates
-        getTemplates: function () {
-            var device = this.getDeviceController();
-            if (device != null) {
-                return device.getTemplates();
-            }
-            else {
-                return null;
-            }
-        },
-
         // invoke getPorts on device controller to retrieve registered ports
         getPorts: function () {
             var device = this.getDeviceController();
@@ -105,17 +91,6 @@
             var device = this.getDeviceController();
             if (device != null) {
                 return device.getDeviceModels();
-            }
-            else {
-                return null;
-            }
-        },
-
-        // invoke getTemplateData on device controller to retrieve the content of a specific template
-        getTemplateData: function(template, useCache) {
-            var device = this.getDeviceController();
-            if (device != null) {
-                return device.getTemplateData(template, useCache);
             }
             else {
                 return null;
@@ -168,76 +143,97 @@
         },
 
         // handles payment events
-        openDrawer: function(evt) {
-            
-            //alert(GeckoJS.BaseObject.dump(evt.data));
+        handleOpenDrawerEvent: function(evt) {
+            // 1. get user's assigned drawer (or null)
+            // 2. pass drawer number to openDrawer()
+
+            var drawerNo = null;
+            var user = this.Acl.getUserPrincipal();
+            if (user) {
+                var userModel = new UserModel();
+                var userRecord = userModel.findByIndex('first', {
+                    index: 'username',
+                    value: user.username
+                });
+                if (userRecord) {
+                    if (userRecord.drawer != null) {
+                        drawerNo = GeckoJS.String.trim(userRecord.drawer);
+                        if (drawerNo == '') drawerNo = null;
+                    }
+                }
+            }
+
+            this.openDrawer(drawerNo);
+        },
+
+        openDrawer1: function() {
+            this.openDrawer(1);
+        },
+
+        openDrawer2: function() {
+            this.openDrawer(2);
+        },
+
+        openDrawer: function(drawerNo) {
+
+            // 1. get list of enabled drawers; if no drawer is enabled, simply exit
+            // 2. if drawer == null, use first enabled drawer
+            // 3. if drawer != null, use specified drawer; if the specified drawer does not exist, warn and exit
+            // 4. if the specified drawer is not enabled, warn and exit
+            // 5. check drawer type; invoke appropriate driver to trigger the drawer
             var device = this.getDeviceController();
             if (device == null) {
                 NotifyUtils.error(_('Error in device manager! Please check your device configuration'));
                 return;
             }
 
-            var enabledDevices = device.getEnabledDevices('vfd');
-            var cart = GeckoJS.Controller.getInstanceByName('Cart');
-            var txn = cart._getTransaction();
-            var item;
-            var itemDisplay;
-            var self = this;
-            var type = evt ? evt.getType() : 'initial';
-
-            switch (type) {
-                
-                case 'afterVoidItem':
-                case 'afterModifyItem':
-                    item = evt.data[0];
-                    itemDisplay = evt.data[1];
-                    break;
-
-                case 'afterCancel':
-                    txn = evt.data;
-                    break;
-
-                case 'onQueue':
-                    txn = evt.data;
-                    break;
-
-                case 'initial':
-                   break;
-
-                default:
-                    item = evt.data;
+            // get list of enabled drawers
+            var enabledDevices = device.getEnabledDevices('cashdrawer');
+            if (enabledDevices == null || enabledDevices.length == 0) {
+                // warn only if a specific drawer has been requested
+                if (drawerNo != null)
+                    NotifyUtils.error(_('Cash drawer [%S] is not enabled! Please check your device configuration', [drawerNo]));
+                return;
             }
 
-            var data = {
-                type: type,
-                txn: txn,
-                store: GeckoJS.Session.get('storeContact'),
-                order: (txn == null) ? null : txn.data,
-                item: item,
-                itemDisplay: itemDisplay
-            };
+            var drawer;
+            if (drawerNo == null) {
+                drawer = enabledDevices[0];
+            }
+            else {
+                if (!device.isDeviceEnabled('cashdrawer', drawerNo)) {
+                    NotifyUtils.error(_('Cash drawer [%S] is not enabled! Please check your device configuration', [drawerNo]));
+                    return;
+                }
+                enabledDevices.forEach(function(d) {
+                   if (d.number == drawerNo) drawer = d; 
+                });
+            }
 
-            //this.log(this.dump(selectedDevices));
-            //this.log(this.dump(data));
-            
-            // send output to each enabled VFD device
-            if (enabledDevices != null) {
-                enabledDevices.forEach(function(device) {
-                    var template = device.template;
-                    var port = device.port;
-                    var portspeed = device.portspeed;
-                    var handshaking = device.handshaking;
-                    var devicemodel = device.devicemodel;
-                    var encoding = device.encoding;
-                    data._MODIFIERS = _templateModifiers(encoding);
-                    self.sendToVFD(data, template, port, portspeed, handshaking, devicemodel, encoding);
+            switch (drawer.type) {
+                
+                case 'gpio':
+                    if (device.triggerGPIO() == 0) {
+                        // try again
+                        if (device.triggerGPIO() == 0) {
+                            NotifyUtils.error(_('Error detected while opening cash drawer [%S]; please check if cash drawer is connected and powered up', [drawerNo]));
+                        }
+                    }
+                    break;
 
-                    });
+                case 'printer':
+                    var port = drawer.port;
+                    var portspeed = drawer.portspeed;
+                    var handshaking = drawer.handshaking;
+                    var devicemodel = drawer.devicemodel;
+                    this.sendToPrinter(port, portspeed, handshaking, devicemodel);
+
+                    break;
             }
         },
 
-        // print check using the given parameters
-        sendToVFD: function(data, template, port, speed, handshaking, devicemodel, encoding) {
+        // send open drawer commands to printer using the given parameters
+        sendToPrinter: function(port, speed, handshaking, devicemodel) {
 
             var portPath = this.getPortPath(port);
             var commands = {};
@@ -246,28 +242,20 @@
                 NotifyUtils.error(_('Specified device port [%S] does not exist!', [port]));
                 return false;
             }
-            var tpl = this.getTemplateData(template, false);
-            if (tpl == null || tpl == '') {
-                NotifyUtils.error(_('Specified receipt/guest check template [%S] is empty or does not exist!', [template]));
-                return false;
-            }
+            var result = '[&OPENDRAWER]';
 
             commands = this.getDeviceCommandCodes(devicemodel, false);
 
 /*
-            alert('Printing check: \n\n' +
-                  '   template [' + template + ']\n' +
+            alert('Open cashdrawer via printer: \n\n' +
                   '   port [' + port + ' (' + portPath + ')]\n' +
                   '   portspeed [' + portspeed + ']\n' +
                   '   model [' + devicemodel + ']\n' +
-                  '   encoding [' + encoding + ']\n' +
                   '   template content: ' + this.dump(tpl));
             alert('Device commands: \n\n' +
                   '   commands: ' + this.dump(commands));
 */
-            var result = tpl.process(data);
-
-            // map each command code into corresponding
+            // map each command code into corresponding hex code
             if (commands) {
                 for (var key in commands) {
                     var value = commands[key];
@@ -286,10 +274,9 @@
             //GREUtils.log(this.dump(result));
             
             // get encoding
-            var encodedResult = GREUtils.Charset.convertFromUnicode(result, encoding);
-            //this.log(GeckoJS.BaseObject.dump(data.order));
-            this.log('VFD:\n' + encodedResult);
-            //alert('VFD:\n' + encodedResult);
+            var encodedResult = GREUtils.Charset.convertFromUnicode(result, 'US-ASCII');
+            this.log('CASHDRAWER:\n' + encodedResult);
+            //alert('CASHDRAWER:\n' + encodedResult);
             
             // send to output device
             var printed = false;
@@ -299,7 +286,7 @@
                     printed = true;
                 }
                 else {
-                    this.log('VFD display length: [' + encodedResult.length + '], printed length: [' + len + ']');
+                    this.log('CASHDRAWER command length: [' + encodedResult.length + '], printed length: [' + len + ']');
                 }
                 this.closeSerialPort(portPath);
             }

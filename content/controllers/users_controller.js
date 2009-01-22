@@ -175,16 +175,20 @@
             this.Acl.addUserToGroup(evt.data.username, evt.data.group);
 
             // check if assigned drawer, if any, is enabled
-            var device = opener.opener.GeckoJS.Controller.getInstanceByName('Devices');
-            alert(device);
+            var device;
+            // use try just in case opener or opener.opener no longer exists
+            try {
+                device = opener.opener.GeckoJS.Controller.getInstanceByName('Devices');
+            }
+            catch(e) {}
+            
             var drawer = evt.data.drawer;
             if (drawer != null) {
                 drawer = GeckoJS.String.trim(drawer);
                 if (drawer != '') {
                     var warn = true;
                     if (device) {
-                        var selectedDevices = device.getSelectedDevices();
-                        if (!('cashdrawer-' + drawer + '-enabled' in selectedDevices)) {
+                        if (!(device.deviceExists('cashdrawer', drawer))) {
                             NotifyUtils.warn(_('NOTE: the assigned drawer [%S] does not exist!', [drawer]));
                         }
                         else {

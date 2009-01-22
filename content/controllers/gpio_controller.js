@@ -14,18 +14,14 @@
 
         initial: function () {
             this._ioService = GREUtils.XPCOM.getService("@firich.com.tw/io_port_control_unix;1", "nsIIOPortControlUnix");
-
-            this.log('GPIO driver initialized [' + this._ioService + ']');
         },
 
         // return GPIO port status
         checkPortStatus: function () {
-            this.log('checking GPIO status');
             return (this._ioService != null);
         },
 
         trigger: function () {
-            this.log('triggering GPIO');
             var ioService = this._ioService;
             if (ioService == null) return 0;
 
@@ -43,7 +39,8 @@
             ioService.usleep(200000);
             ioService.outb(0x2f,0x00);
 
-            return ((ioService.inb(0x2f) & 0x10) >> 4);
+            var status = ((ioService.inb(0x2f) & 0x10) >> 4);
+            return status;
         }
 
 

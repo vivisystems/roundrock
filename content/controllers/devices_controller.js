@@ -423,53 +423,59 @@
 
                 // Cashdrawer 1
                 if (selectedDevices['cashdrawer-1-enabled']) {
-                    var port = selectedDevices['cashdrawer-1-port'];
+                    var type = selectedDevices['cashdrawer-1-type'];
                     status = 0;
-                    if (ports != null &&  port != null && ports[port] != null) {
-                        if (ports[port].type == 'gpio') {
+                    if (type == 'gpio') {
                             status = this.checkGPIOPort();
-                        }
-                        else if (ports[port].path != null) {
-                            switch(ports[port].type) {
-                                case 'serial':
-                                case 'usb':
-                                    status = this.checkSerialPort(ports[port].path);
-                                    break;
-                            }
-                            statuses.push([_('Cash Drawer %S', [1]), ports[port].label + ' (' + ports[port].path + ')', status]);
-                        }
                     }
                     else {
-                        if (ports != null && port!= null && ports[port] != null)
-                            statuses.push([_('Cash Drawer %S', [1]), ports[port].label + ' (' + ports[port].path + ')', status]);
-                        else
-                            statuses.push([_('Cash Drawer %S', [1]), 'unknown', status]);
+                        var port = selectedDevices['cashdrawer-1-port'];
+                        if (ports != null &&  port != null && ports[port] != null) {
+                            if (ports[port].path != null) {
+                                switch(ports[port].type) {
+                                    case 'serial':
+                                    case 'usb':
+                                        status = this.checkSerialPort(ports[port].path);
+                                        break;
+                                }
+                                statuses.push([_('Cash Drawer %S', [1]), ports[port].label + ' (' + ports[port].path + ')', status]);
+                            }
+                        }
+                        else {
+                            if (ports != null && port!= null && ports[port] != null)
+                                statuses.push([_('Cash Drawer %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
+                            else
+                                statuses.push([_('Cash Drawer %S', [2]), 'unknown', status]);
+                        }
                     }
                 }
 
                 // Cashdrawer 2
                 if (selectedDevices['cashdrawer-2-enabled']) {
-                    var port = selectedDevices['cashdrawer-2-port'];
+                    var type = selectedDevices['cashdrawer-2-type'];
                     status = 0;
-                    if (ports != null &&  port != null && ports[port] != null) {
-                        if (ports[port].type == 'gpio') {
+                    if (type == 'gpio') {
                             status = this.checkGPIOPort();
-                        }
-                        else if (ports[port].path != null) {
-                            switch(ports[port].type) {
-                                case 'serial':
-                                case 'usb':
-                                    status = this.checkSerialPort(ports[port].path);
-                                    break;
-                            }
-                            statuses.push([_('Cash Drawer %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
-                        }
                     }
                     else {
-                        if (ports != null && port!= null && ports[port] != null)
-                            statuses.push([_('Cash Drawer %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
-                        else
-                            statuses.push([_('Cash Drawer %S', [2]), 'unknown', status]);
+                        var port = selectedDevices['cashdrawer-2-port'];
+                        if (ports != null &&  port != null && ports[port] != null) {
+                            if (ports[port].path != null) {
+                                switch(ports[port].type) {
+                                    case 'serial':
+                                    case 'usb':
+                                        status = this.checkSerialPort(ports[port].path);
+                                        break;
+                                }
+                                statuses.push([_('Cash Drawer %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
+                            }
+                        }
+                        else {
+                            if (ports != null && port!= null && ports[port] != null)
+                                statuses.push([_('Cash Drawer %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
+                            else
+                                statuses.push([_('Cash Drawer %S', [2]), 'unknown', status]);
+                        }
                     }
                 }
             }
@@ -496,6 +502,14 @@
                 }
             }
             return status;
+        },
+        
+        deviceExists: function(type, number) {
+            var selectedDevices = this.getSelectedDevices();
+
+            if (selectedDevices == null) return false;
+
+            return (type + '-' + number + '-enabled' in selectedDevices);
         },
 
         checkGPIOPort: function() {

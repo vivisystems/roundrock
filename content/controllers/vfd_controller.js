@@ -224,7 +224,7 @@
                     break;
 
                 case 'initial':
-                   break;
+                    break;
 
                 default:
                     item = evt.data;
