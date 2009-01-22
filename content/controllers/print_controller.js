@@ -553,27 +553,31 @@
             //this.log('RECEIPT/GUEST CHECK\n' + encodedResult);
 
             // send to output device using worker thread
+            var self = this;
+/*
             var runnable = {
                 run: function() {
                     try {
+*/
                         var printed = false;
-                        if (this.openSerialPort(portPath, portspeed, handshaking)) {
-                            var len = this.writeSerialPort(portPath, encodedResult);
+                        if (self.openSerialPort(portPath, portspeed, handshaking)) {
+                            var len = self.writeSerialPort(portPath, encodedResult);
                             if (len == encodedResult.length) {
                                 printed = true;
                             }
                             else {
-                                this.log('Check length: [' + encodedResult.length + '], printed length: [' + len + ']');
+                                //GREUtils.log('Check length: [' + encodedResult.length + '], printed length: [' + len + ']');
                             }
-                            this.closeSerialPort(portPath);
+                            GREUtils.log('In Worker thread: print length: [' + encodedResult.length + '], printed length: [' + len + ']');
+                            self.closeSerialPort(portPath);
                         }
                         else {
                             printed = false;
                         }
 
                         if (!printed) {
-                            var devicemodelName = this.getDeviceModelName(devicemodel);
-                            var portName = this.getPortName(port);
+                            var devicemodelName = self.getDeviceModelName(devicemodel);
+                            var portName = self.getPortName(port);
 
                             if (devicemodelName == null) devicemodelName = 'unknown';
                             if (portName == null) portName = 'unknown';
@@ -582,6 +586,7 @@
                             NotifyUtils.error(_('Error detected when outputing to device [%S] at port [%S]', [devicemodelName, portName]));
                         }
                         return printed;
+/*
                     }catch(e) {
                         return false;
                     }
@@ -596,6 +601,7 @@
             };
 
             this._worker.dispatch(runnable, this._worker.DISPATCH_NORMAL);
+*/s
         }
 
     });

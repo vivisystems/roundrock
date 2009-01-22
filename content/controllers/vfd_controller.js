@@ -302,33 +302,37 @@
             // get encoding
             var encodedResult = GREUtils.Charset.convertFromUnicode(result, encoding);
             //this.log(GeckoJS.BaseObject.dump(data.order));
-            //this.log('VFD:\n' + encodedResult);
+            this.log('VFD:\n' + encodedResult);
             //alert('VFD:\n' + encodedResult);
             
             // send to output device using worker thread
+            var self = this;
             var runnable = {
                 run: function() {
                     try {
 
                         var printed = false;
-                        if (this.openSerialPort(portPath, speed, handshaking)) {
-                            var len = this.writeSerialPort(portPath, encodedResult);
+                        if (self.openSerialPort(portPath, speed, handshaking)) {
+
+                            var len = self.writeSerialPort(portPath, encodedResult);
                             if (len == encodedResult.length) {
                                 printed = true;
                             }
                             else {
-                                this.log('VFD display length: [' + encodedResult.length + '], printed length: [' + len + ']');
+                                //self.log('VFD display length: [' + encodedResult.length + '], printed length: [' + len + ']');
                             }
-                            this.closeSerialPort(portPath);
+                            GREUtils.log('In Worker thread: VFD display length: [' + encodedResult.length + '], displayed length: [' + len + ']');
+                            self.closeSerialPort(portPath);
+
                         }
                         else {
                             printed = false;
                         }
 
                         if (!printed) {
-                            var devicemodels = this.getDeviceModels();
+                            var devicemodels = self.getDeviceModels();
                             var devicemodelName = (devicemodels == null) ? 'unknown' : devicemodels[devicemodel].label;
-                            var portName = this.getPortName(port);
+                            var portName = self.getPortName(port);
 
                             if (devicemodelName == null) devicemodelName = 'unknown';
                             if (portName == null) portName = 'unknown';
@@ -349,7 +353,6 @@
                     throw Components.results.NS_ERROR_NO_INTERFACE;
                 }
             };
-
             this._worker.dispatch(runnable, this._worker.DISPATCH_NORMAL);
         }
 

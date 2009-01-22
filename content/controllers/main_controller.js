@@ -302,7 +302,6 @@
                 if (toggleBtn) toggleBtn.setAttribute('state', 'false');
                 fixedRow.selectedIndex = 0;
             }
-            GeckoJS.Configure.write('vivipos.fec.settings.HideNumPad', hideNumPad);
 
             if (initial) this.resizeLeftPanel(initial);
             return toggled;
@@ -462,7 +461,7 @@
             var registerAtLeft = GeckoJS.Configure.read('vivipos.fec.settings.RegisterAtLeft') || false;
             var functionPanelOnTop = GeckoJS.Configure.read('vivipos.fec.settings.FunctionPanelOnTop') || false;
             var PLUbeforeDept = GeckoJS.Configure.read('vivipos.fec.settings.DeptBeforePLU') || false;
-            var hideNumPad = GeckoJS.Configure.read('vivipos.fec.settings.HideNumPad') || false;
+            var hideNumPad = false;
             
             var hbox = document.getElementById('mainPanel');
             var deptPanel = document.getElementById('catescrollablepanel');

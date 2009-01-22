@@ -1685,7 +1685,6 @@
             this.cancelReturn();
 
             this.dispatchEvent('onSubmit', oldTransaction);
-				
         },
 
 
