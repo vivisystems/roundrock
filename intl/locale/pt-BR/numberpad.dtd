@@ -1,0 +1,16 @@
+<!ENTITY numberpad.keylabel.queue.order "PEDIDOS PENDENTES">
+<!ENTITY numberpad.keylabel.pull.queue "VISUALIZAR PENDENTES">
+<!ENTITY numberpad.keylabel.clear "LIMPAR">
+<!ENTITY numberpad.keylabel.modify "MODIFICAR">
+<!ENTITY numberpad.keylabel.del "APAGAR">
+<!ENTITY numberpad.keylabel.void "ANULAR">
+<!ENTITY numberpad.keylabel.enter "ENTRAR">
+<!ENTITY numberpad.keylabel.cancel "CANCELAR">
+<!ENTITY numberpad.keylabel.cash "CAIXA">
+<!ENTITY numberpad.keylabel.subtotal "SUB TOTAL">
+<!ENTITY numberpad.keylabel.plusearch "PRODUCT SEARCH">
+<!ENTITY numberpad.keylabel.tray "MARCADOR BANDEJA">
+<!ENTITY numberpad.keylabel.signoff "SAIR">
+<!ENTITY numberpad.keylabel.times "X">
+<!ENTITY numberpad.keylabel.password "Código:">
+<!ENTITY numberpad.keylabel.ok "OK">

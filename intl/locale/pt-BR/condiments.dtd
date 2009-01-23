@@ -1,0 +1,10 @@
+<!ENTITY condiments.group "Grupo de Condimentos">
+<!ENTITY condiments.group.name "Nome do Grupo:">
+<!ENTITY condiments.button.action.add "Adicionar">
+<!ENTITY condiments.button.action.modify "Modificar">
+<!ENTITY condiments.button.action.delete "Apagar">
+<!ENTITY condiments.condiment "Condimento">
+<!ENTITY condiments.condiment.name "Nome:">
+<!ENTITY condiments.condiment.price "Preço:">
+<!ENTITY condiments.condiment.button.color "Côr do Botão:">
+<!ENTITY condiments.condiment.font.size "Tamanho Letra:">
