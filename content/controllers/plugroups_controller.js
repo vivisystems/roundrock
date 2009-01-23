@@ -86,7 +86,7 @@
                 var data = panel.datasource.data;
                 var newIndex = data.length;
 
-                this.requestCommand('list', newIndex);
+                this.requestCommand('list', {index: newIndex, order: 'display_order, name'});
 
                 panel.selectedIndex = newIndex;
                 panel.selectedItems = [newIndex];
@@ -136,15 +136,14 @@
 
             if (this._plugroupModified) {
                 var panel = this.getListObj();
-                var index = panel.selectedIndex;
 
-                this.requestCommand('list', index);
+                var index = this.updateSession('modify', evt.data.id);
+            
+                this.requestCommand('list', {index: index, order: 'display_order, name'});
 
                 panel.selectedIndex = index;
                 panel.selectedItems = [index];
 
-                this.updateSession('modify', evt.data.id);
-            
                 // @todo OSD
                 OsdUtils.info(_('Job [%S] modified successfully', [evt.data.name]));
             }
@@ -186,7 +185,7 @@
                 index = view.data.length - 2;
             }
 
-            this.requestCommand('list', index);
+            this.requestCommand('list', {index: index, order: 'display_order, name'});
 
             if (index > -1) {
                 panel.selectedIndex = index;
@@ -247,7 +246,7 @@
         load: function () {
             var panel = this.getListObj();
 
-            this.requestCommand('list', -1);
+            this.requestCommand('list', {index: -1, order: 'display_order, name'});
 
             panel.selectedItems = [-1];
             panel.selectedIndex = -1;
@@ -266,7 +265,7 @@
                 GeckoJS.FormHelper.reset('plugroupForm');
             }
             else {
-                this.requestCommand('list', index);
+            this.requestCommand('list', {index: index, order: 'display_order, name'});
             }
 
             document.getElementById('plugroup_name').focus();

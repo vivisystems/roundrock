@@ -1675,6 +1675,9 @@
             oldTransaction.submit();
 
             this.dispatchEvent('afterSubmit', oldTransaction);
+
+            // sleep to allow UI events to update
+            this.sleep(100);
             
             // GeckoJS.Session.remove('current_transaction');
             GeckoJS.Session.remove('cart_last_sell_item');
