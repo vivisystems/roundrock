@@ -27,7 +27,7 @@
                 <caption label="select.checks.title;" />
                 <label id="queues" hidden="true" value="" />
                 <hbox>
-                    <viviscrollablebuttonpanel id="checkScrollablepanel" flex="1" cols="4" rows="5"  seltype="single" labelField="check_no"
+                    <viviscrollablebuttonpanel id="checkScrollablepanel" pre="true" flex="1" cols="4" rows="5"  seltype="single" labelField="check_no"
                                                class="catescrollablepanel"
                                                buttonClass="plubtn button-radius button-white"
                                                scrollUpClass="rightprevbtn button-blue"

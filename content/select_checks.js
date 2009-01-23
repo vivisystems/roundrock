@@ -27,13 +27,13 @@
 
         window.viewHelper.getCellValue= function(row, col) {
             // var text = row + ":" + col.check_no;
-            var seq = GeckoJS.String.padLeft(this.data[row].sequence, 8, '.') + '.. ';
-            var check_no = GeckoJS.String.padLeft(this.data[row].check_no, 5, '.') + '.. ';
-            var table_no = GeckoJS.String.padLeft(this.data[row].table_no, 5, '.') + '.. ';
+            var seq = this.data[row].sequence;
+            var check_no = this.data[row].check_no;
+            var table_no = this.data[row].table_no;
             var book_time = '';
             var text = "Seq:" + seq +
-                       "Check# " + check_no +
-                       "Table# " + table_no +
+                       "\nCheck# " + check_no +
+                       "\nTable# " + table_no +
                        // "Book:" + book_time + "";
                        "";
             return text;

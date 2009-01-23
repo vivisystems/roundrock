@@ -23,8 +23,6 @@
 
         shiftChange: function() {
             //
-            this.log('shiftChange...');
-
             var shiftChangeModel = new ShiftChangeModel();
             var lastChange = shiftChangeModel.find('first', {
                 order: 'starttime desc'
@@ -59,8 +57,6 @@
                 fields: ['SUM("order_payments"."amount" - "order_payments"."change") as "OrderPayment.amount"'],
                 conditions: conditions,
             });
-
-            this.log(amount[0].amount);
 
             var amount = amount[0].amount;
 
