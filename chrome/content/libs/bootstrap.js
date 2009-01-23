@@ -74,6 +74,8 @@ GeckoJS.ConnectionManager.getInstance();
 /*
  * Initial Logging System
  */
-GeckoJS.Log.init("WARN");
-GeckoJS.Log.addAppender('console', new GeckoJS.Log.ConsoleAppender(GeckoJS.Log['WARN']));
+if(!GeckoJS.Log['TRACE']) {
+    GeckoJS.Log.init("ERROR");
+    GeckoJS.Log.addAppender('console', new GeckoJS.Log.ConsoleAppender(GeckoJS.Log['ERROR']));
+}
 

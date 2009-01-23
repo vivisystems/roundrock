@@ -330,7 +330,7 @@
     <key>
 	  <default display="5" />
 	  <shifted display="%" />
-	    <mod1 display="¢" />
+	  	<mod1 display=" " />
     </key>
     <key>
 	  <default display="6" />
@@ -360,7 +360,7 @@
     <key>
 	  <default display="-" />
 	  <shifted display="_" />
-		<mod1 display="¬" />
+	  	<mod1 display=" " />
     </key>
     <key>
 	  <default display="=" />
@@ -381,12 +381,12 @@
     <key obey-caps='true'>
 	  <default display="q" />
 	  <shifted display="Q" />
-	    <mod1 display="₪" />
+	  	<mod1 display=" " />
     </key>
     <key obey-caps='true'>
 	  <default display="w" />
 	  <shifted display="W" />
-	    <mod1 display="₩" />
+	  	<mod1 display=" " />
     </key>
     <key obey-caps='true'>
 	  <default display="e" />
@@ -406,7 +406,7 @@
     <key obey-caps='true'>
 	  <default display="y" />
 	  <shifted display="Y" />
-	  	<mod1 display="¥" />
+	  	<mod1 display=" " />
     </key>
     <key obey-caps='true'>
 	  <default display="u" />
@@ -431,14 +431,17 @@
     <key>
 	  <default display="[" />
 	  <shifted display="{" />
+	  	<mod1 display=" " />
     </key>
     <key>
 	  <default display="]" />
 	  <shifted display="}" />
+	  	<mod1 display=" " />
     </key>
     <key fill="true">
 	  <default display="\" />
 	  <shifted display="|" />
+	  	<mod1 display=" " />
     </key>
 
   </row>
@@ -450,7 +453,7 @@
     <key obey-caps='true'>
 	  <default display="a" />
 	  <shifted display="A" />
-		<mod1 display="ä" />
+	  	<mod1 display=" " />
     </key>
     <key obey-caps='true'>
 	  <default display="s" />
@@ -465,7 +468,7 @@
     <key obey-caps='true'>
 	  <default display="f" />
 	  <shifted display="F" />
-	  	<mod1 display="ƒ" />
+	  	<mod1 display=" " />
     </key>
     <key obey-caps='true'>
 	  <default display="g" />
@@ -485,20 +488,22 @@
     <key obey-caps='true'>
 	  <default display="k" />
 	  <shifted display="K" />
-		<mod1 display="ķ" />
+	  	<mod1 display=" " />
     </key>
     <key obey-caps='true'>
 	  <default display="l" />
 	  <shifted display="L" />
-	  	<mod1 display="£" />
+	  	<mod1 display=" " />
     </key>
     <key>
 	  <default display=";" />
 	  <shifted display=":" />
+	  	<mod1 display=" " />
     </key>
     <key>
 	  <default display="'" />
 	  <shifted display='"' />
+	  	<mod1 display=" " />
     </key>
     <key fill="true">
 	  <default display="Enter" action="return"/>
@@ -513,7 +518,7 @@
     <key obey-caps='true'>
 	  <default display="z" />
 	  <shifted display="Z" />
-		<mod1 display="ż" />
+	  	<mod1 display=" " />
     </key>
     <key obey-caps='true'>
 	  <default display="x" />
@@ -528,7 +533,7 @@
     <key obey-caps='true'>
 	  <default display="v" />
 	  <shifted display="V" />
-		<mod1 display="©" />
+	  	<mod1 display=" " />
     </key>
     <key obey-caps='true'>
 	  <default display="b" />
@@ -543,19 +548,22 @@
     <key obey-caps='true'>
 	  <default display="m" />
 	  <shifted display="M" />
-		<mod1 display="µ" />
+	  	<mod1 display=" " />
     </key>
     <key>
 	  <default display="," />
 	  <shifted display="&lt;" />
+	  	<mod1 display=" " />
     </key>
     <key>
 	  <default display="." />
 	  <shifted display="&gt;" />
+	  	<mod1 display=" " />
     </key>
     <key>
 	  <default display="/" />
 	  <shifted display="?" />
+	  	<mod1 display=" " />
     </key>
     <key fill="true">
 	  <default display="Shift" action="modifier:shift"/>

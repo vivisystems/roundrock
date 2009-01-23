@@ -1326,9 +1326,13 @@
                     if(principal == null) return false;
 
                     //GREUtils.log('[IsUserInRole] <' + roleName + '> user roles <' + principal.Roles + '>');
+		    return GeckoJS.AclComponent.isUserInRole(roleName);
+
+/*
                     if (GeckoJS.Array.inArray(roleName, principal.Roles) != -1) return true;
 
                     return false;
+*/
                 ]]>
                 </body>
             </method>

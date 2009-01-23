@@ -25,7 +25,7 @@
             this.initialized = true;
 
             // addAppender for vivipos.log file.
-            GeckoJS.Log.addAppender('vivipos', new GeckoJS.Log.FileAppender(GeckoJS.Log.INFO, GeckoJS.Configure.read('CurProcD')+"/log/vivipos.log"));
+            GeckoJS.Log.addAppender('vivipos', new GeckoJS.Log.FileAppender(GeckoJS.Log.FATAL, GeckoJS.Configure.read('CurProcD')+"/log/vivipos.log"));
 
             GeckoJS.Configure.loadPreferences('vivipos');
 
@@ -54,7 +54,7 @@
                 }
             }).register();
 
-            GeckoJS.Log.getLoggerForClass('VIVIPOS').setLevel(GeckoJS.Log.INFO).info('VIVIPOS STARTUP');
+            GeckoJS.Log.getLoggerForClass('VIVIPOS').setLevel(GeckoJS.Log.ERROR).info('VIVIPOS STARTUP');
 
         },
     
