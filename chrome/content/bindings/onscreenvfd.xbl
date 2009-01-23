@@ -226,7 +226,7 @@
                     this.cartevents.removeListener('onClear', this.onClear);
                     this.cartevents.removeListener('onCancel', this.onCancel);
                     this.cartevents.removeListener('onQueue', this.onQueue);
-                    this.cartevents.removeListener('onSubmit', this.onSubmit);
+                    this.cartevents.removeListener('afterSubmit', this.afterSubmit);
                     this.cartevents.removeListener('onWarning', this.onWarning);
                     this.mainevents.removeListener('onEnterPassword', this.onEnterPassword);
                     this.mainevents.removeListener('onExitPassword', this.onExitPassword, this);

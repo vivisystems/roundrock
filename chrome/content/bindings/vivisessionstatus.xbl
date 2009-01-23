@@ -37,7 +37,7 @@
                     if (index != -1) {
                         var valueNode = document.getAnonymousElementByAttribute(this, 'anonid', 'value' + index);
                         if (valueNode) {
-                            valueNode.setAttribute('value', evt.getData().value);
+                            valueNode.value = value;
                         }
                     }
                 }
@@ -49,7 +49,7 @@
                     if (index != -1) {
                         var valueNode = document.getAnonymousElementByAttribute(this,'anonid', 'value' + index);
                         if (valueNode) {
-                            valueNode.setAttribute('value', '');
+                            valueNode.value = '';
                         }
                     }
                     //GREUtils.log('[REMOVE]: leaving');
@@ -61,7 +61,7 @@
                     for (var i = 0; i < this.keys.length; i++) {
                         var valueNode = document.getAnonymousElementByAttribute(this,'anonid', 'value' + i);
                         if (valueNode) {
-                            valueNode.setAttribute('value', '');
+                            valueNode.value = '';
                         }
                     }
                     //GREUtils.log('[CLEAR]: leaving');
