@@ -37,6 +37,11 @@ include('chrome://viviecr/content/models/order_payment.js');
 include('chrome://viviecr/content/models/order_object.js');
 include('chrome://viviecr/content/models/order_receipt.js');
 
+include('chrome://viviecr/content/models/account.js');
+include('chrome://viviecr/content/models/account_topic.js');
+include('chrome://viviecr/content/models/shift_change.js');
+include('chrome://viviecr/content/models/shift_change_detail.js');
+
 
 // include project helpers
 include('chrome://viviecr/content/helpers/nsi_products_view.js');
@@ -82,6 +87,7 @@ include('chrome://viviecr/content/controllers/storecontact_controller.js');
 include('chrome://viviecr/content/controllers/vfd_controller.js');
 include('chrome://viviecr/content/controllers/gpio_controller.js');
 include('chrome://viviecr/content/controllers/cashdrawer_controller.js');
+include('chrome://viviecr/content/controllers/shift_changes_controller.js');
 
 include('chrome://viviecr/content/controllers/test_controller.js');
 

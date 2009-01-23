@@ -156,6 +156,9 @@
         // save transaction to order / orderdetail ...
         this.data.modified = new Date().getTime();
 
+        // maintain stock...
+        this.requestCommand('decStock', this.data, "Stocks");
+
         // use background save
         // Transaction.worker.start();
         Transaction.worker.dispatch(this, Transaction.worker.DISPATCH_NORMAL);
@@ -174,24 +177,26 @@
     };
 
 
-    Transaction.prototype.submit = function() {
+    Transaction.prototype.submit = function(status) {
+        if (typeof(status) == 'undefined') status = 1;
 
-        var user = new GeckoJS.AclComponent().getUserPrincipal();
-        if ( user != null ) {
-            this.data.proceeds_clerk = user.username;
-            this.data.proceeds_clerk_displayname = user.description;
+        // set proceeds_cherk when submit to status == 1
+        if (status == 1) {
+            var user = new GeckoJS.AclComponent().getUserPrincipal();
+            if ( user != null ) {
+                this.data.proceeds_clerk = user.username;
+                this.data.proceeds_clerk_displayname = user.description;
+            }
         }
 
         // set status = 1
-        this.process(1);
-
-        // maintain stock...
-        this.requestCommand('decStock', this.data, "Stocks");
+        this.process(status);
         
     };
 
     Transaction.prototype.isSubmit = function() {
-        return (this.data.status == 1);
+        // return (this.data.status == 1);
+        return (this.data.status > 0);
     };
 
 
@@ -250,7 +255,9 @@
             
             hasDiscount: false,
             hasSurcharge: false,
-            hasMarker: false
+            hasMarker: false,
+
+            stock_maintained: false
 
         };
 

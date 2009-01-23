@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE overlay [
+  <!ENTITY % Overlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Overlay;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+
+<window id="main" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/shift_changes.js" />
+
+    <box flex="1" class="mainpanel1 pad40">
+        <vbox flex="1" class="panel40">
+            <hbox flex="1" class="footlogo">
+                <groupbox flex="1">
+                    <caption label="shiftchange.title;" />
+                    
+                </groupbox>
+
+            </hbox>
+        </vbox>
+    </box>
+  
+    <!-- hbox id="okCancelButtonsRight" class="dialogbtns" / -->
+    <hbox id="dialogButtons" class="dialogbtns" pack="center">
+        <button class="right exit-dialog" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+    </hbox>
+
+</window>

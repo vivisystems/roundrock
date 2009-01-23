@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE window SYSTEM "chrome://viviecr/locale/fecpos.dtd">
+<!DOCTYPE overlay [
+  <!ENTITY % Overlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Overlay;
+  <!ENTITY % Accounts SYSTEM "chrome://viviecr/locale/accounts.dtd">
+  %Accounts;
+  ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/vivipos.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
 
 <window id="accounts"
 	hidechrome="true"
@@ -13,76 +18,138 @@
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/accounts.js" />
 
-    <vbox flex="1" class="dialog-panel">
-        <hbox flex="1">
+    <hbox flex="1" class="main-dialog">
+        <vbox flex="1">
+            <label value="Filter..." />
             <groupbox flex="1">
-                <caption label="Account:" />
-                <viviscrollabletree id="accountscrollablepanel" flex="1" rows="7" headers="Date,Description,Type,Amount" fields="created,description,type,amount" onclick="$do('select',this.selectedIndex, 'Accounts');"
-                                                    class="prodscrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray">
+                <caption label="&accounts.title;" />
+                <viviscrollabletree id="accountscrollablepanel" flex="1" rows="7" headers="Date,Topic,Description,Type,Amount" fields="created,topic,description,type,amount" onclick="$do('select',this.selectedIndex, 'Accounts');"
+                                                        class="prodscrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray">
                     <spacer flex="1" />
                 </viviscrollabletree>
 
-            </groupbox>
-
-            <spacer style="width:30px;" />
-            <vbox>
-                <vbox>
-                    <label id="plu_id" hidden="true" form="productForm" name="id" value="" />
-                    <grid>
-                        <rows>
-                            <row>
-                                <label value="No:" />
-                                <label  form="productForm" name="no" />
-                            </row>
-
-                            <row>
-                                <label value="Name:" />
-                                <label form="productForm" name="name" />
-                            </row>
-                        </rows>
-                    </grid>
-                    <grid>
-                        <rows>
-                            <row>
-                                <label value="Stock:" />
-                                <textbox id="stock" value="" form="productForm" name="stock" size="6" maxsize="6"/>
-                            </row>
-
-                            <row>
-                                <label value="Min Stock:" />
-                                <textbox id="min_stock" value="" form="productForm" name="min_stock" size="6" maxsize="6" />
-                            </row>
-                        </rows>
-                    </grid>
-                    <spacer style="height: 10px;" />
-                    <hbox>
-                        <button label="Modify" class="editbtns" oncommand="$do('update', null, 'Stocks');" />
-                    </hbox>
-                </vbox>
-                <spacer style="height: 10px;" />
-                <separator class="groove-thin"/>
-                <spacer style="height: 10px;" />
-                <vbox>
-                    <label value="Search Plu No or Barcode:" />
-                    <textbox id="plu" value="" onchange="$do('searchPlu', this.value, 'Stocks');" />
-                        <!-- textbox id="plu" value=""  / -->
-                    <numberpad id="multinumberpad" class="numberpad"/>
-                </vbox>
                 <spacer style="height:10px;" />
-                <vbox>
-                    <hbox>
-                        <sendkeybutton id="bkeyBtn"  label="DEL"   keyCode='0x08' class="systembtn"  />
-                        <vivibutton id="clearBtn"  label="CLEAR" class="systembtn"/>
-                        <button id="ekeyBtn"  label="ENTER"   oncommand="$do('searchPlu', document.getElementById('plu').value, 'Stocks');" class="systembtn"  />
-                            <!-- sendkeybutton id="ekeyBtn"  label="ENTER"   keyCode='0x0D' target="plu" class="systembtn"  / -->
-                            <!-- button id="ekeyBtn"  label="ENTER" class="systembtn"  / -->
-                    </hbox>
-                </vbox>
-            </vbox>
-        </hbox>
+                    
+                <hbox align="center">
+                    <radiogroup flex="1" orient="horizontal" id="show_type" oncommand="$do('load', null, 'Accounts');" >
+                        <radio id="show_all" selected="true" value="ALL" flex="1" label="&accounts.showall;"/>
+                        <radio id="show_in" value="IN" flex="1" label="&accounts.showin;"/>
+                        <radio id="show_out" value="OUT" flex="1" label="&accounts.showout;"/>
+                    </radiogroup>
+                </hbox>
+            </groupbox>
+                
 
-    </vbox>
+        </vbox>
+
+        <spacer style="width:20px;" />
+
+        <tabbox>
+            <tabs id="tabs" >
+                <tab id="tab1" label="&accounts.tab.accounts;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
+                <tab id="tab2" label="&accounts.tab.topics;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
+            </tabs>
+
+            <tabpanels id="tabpanels" >
+                <tabpanel>
+                    <vbox flex="1">
+                        <vbox>
+                            <label id="accounts_id" hidden="true" form="accountForm" name="id" value="" />
+                            <grid>
+                                <rows>
+                                    <row>
+                                        <label value="&accounts.topic.no;" />
+                                        <textbox id="topic" value="" form="accountForm" name="topic_no" readonly="true" />
+                                    </row>
+
+                                    <row>
+                                        <label value="&accounts.topic.topic;" />
+                                        <textbox id="topic" value="" form="accountForm" name="topic" readonly="true" />
+                                    </row>
+
+                                    <row>
+                                        <label value="&accounts.description;" />
+                                        <textbox id="description" value="" form="accountForm" name="description"/>
+                                    </row>
+                            
+                                    <row>
+                                        <label value="&accounts.type;" />
+                                        <radiogroup flex="1" id="type" orient="horizontal" form="accountForm" name="type" >
+                                            <radio id="type_in" selected="true" value="IN" flex="1" label="&accounts.typein;"/>
+                                            <radio id="type_out" value="OUT" flex="1" label="&accounts.typeout;"/>
+                                        </radiogroup>
+                                    </row>
+
+                                    <row>
+                                        <label value="&accounts.amount;" />
+                                        <textbox id="amount" value="" form="accountForm" name="amount" size="12" maxsize="12" />
+                                    </row>
+                                </rows>
+                            </grid>
+                            <spacer style="height: 10px;" />
+                            <hbox>
+                                <button id="add_account" label="&accounts.button.action.add;" disabled="false" class="editbtns" oncommand="$do('add', null, 'Accounts');" />
+                                <spacer flex="1" />
+                                <button id="modify_account" label="&accounts.button.action.modify;" disabled="false" class="editbtns" oncommand="$do('update', null, 'Accounts');" />
+                                <button id="delete_account" label="&accounts.button.action.delete;" disabled="false" class="editbtns" oncommand="$do('delete', null, 'Accounts');" />
+                            </hbox>
+                        </vbox>
+                        <spacer style="height: 10px;" />
+                        <separator class="groove-thin"/>
+                        <spacer style="height: 10px;" />
+                        <vbox>
+                            <numberpad id="multinumberpad" class="numberpad"/>
+                        </vbox>
+                        <spacer style="height:10px;" />
+                        <vbox>
+                            <hbox>
+                                <sendkeybutton id="bkeyBtn"  label="DEL"   keyCode='0x08' class="systembtn"  />
+                                <vivibutton id="clearBtn"  label="CLEAR" class="systembtn"/>
+                            </hbox>
+                        </vbox>
+                    </vbox>
+
+                </tabpanel>
+
+                <tabpanel >
+                    <vbox flex="1">
+                        <label id="topics_id" hidden="true" form="account_topicForm" name="id" value="" />
+                        <grid>
+                            <rows>
+                                <row>
+                                    <label value="&accounts.topic.no;" />
+                                    <textbox id="topic_no" value="" form="account_topicForm" name="no"/>
+                                </row>
+
+                                <row>
+                                    <label value="&accounts.topic.topic;" />
+                                    <textbox id="topic_name" value="" form="account_topicForm" name="topic"/>
+                                </row>
+                            </rows>
+                        </grid>
+
+                        <spacer style="height: 10px;" />
+
+                        <viviscrollabletree id="topicscrollablepanel" flex="1" rows="7" headers="No,Topic" fields="no,topic" onclick="$do('select',this.selectedIndex, 'AccountTopics');"
+                                                        class="prodscrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray">
+                            <spacer flex="1" />
+                        </viviscrollabletree>
+                        <spacer style="height: 10px;" />
+                        <hbox>
+                            <button id="add_topic" label="&accounts.button.action.add;" disabled="false" class="editbtns" oncommand="$do('add', null, 'AccountTopics');" />
+                            <spacer flex="1" />
+                            <button id="modify_topic" label="&accounts.button.action.modify;" disabled="false" class="editbtns" oncommand="$do('update', null, 'AccountTopics');" />
+                            <button id="delete_topic" label="&accounts.button.action.delete;" disabled="false" class="editbtns" oncommand="$do('delete', null, 'AccountTopics');" />
+                        </hbox>
+                    </vbox>
+                </tabpanel>
+            </tabpanels>
+        </tabbox>
+    </hbox>
   
-    <hbox id="okCancelButtonsRight" class="dialogbtns" />
+    <!-- hbox id="okCancelButtonsRight" class="dialogbtns" / -->
+    <hbox id="dialogButtons" class="dialogbtns" pack="center">
+        <button class="right exit-dialog" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+    </hbox>
 
 </window>
