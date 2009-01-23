@@ -35,7 +35,7 @@
                 buttonClass="ReportButton" scrollUpClass="ScrollUp" scrollDownClass="ScrollDown" class="ItemScrollablepanel">
                 <spacer flex="1" />
             </viviscrollablebuttonpanel>
-            <hbox id="loading" align="center" style="display: none;" class="LoadingPnl" left="120px" top="200px">
+            <hbox id="loading" align="center" style="display: none;" class="LoadingPnl">
                 <image src="chrome://viviecr/skin/images/loading.gif" width="55" height="55"/><label>&vivipos.fec.controlpanel.loading;</label>
             </hbox>
         </stack>

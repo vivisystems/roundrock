@@ -87,6 +87,8 @@ vividatetimepicker dropmarker {
     width:450px;
     height:160px;
     -moz-box-align: center;
+    left: 260px;
+    top: 240px;
 }
 
 .LoadingPnl label {
