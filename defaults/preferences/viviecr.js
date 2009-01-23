@@ -438,10 +438,6 @@ pref("vivipos.fec.registry.templates.receipt-sample-condensed-24c.label", "Sampl
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-24c.type", "receipt");
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-24c.path", "chrome://viviecr/content/devices/templates/receipt-sample-condensed-24c.tpl");
 
-pref("vivipos.fec.registry.templates.test.label", "Test Template");
-pref("vivipos.fec.registry.templates.test.type", "receipt,guestcheck");
-pref("vivipos.fec.registry.templates.test.path", "chrome://viviecr/content/devices/templates/test.tpl");
-
 pref("vivipos.fec.registry.templates.vfd-internal.label", "Internal VFD Template");
 pref("vivipos.fec.registry.templates.vfd-internal.type", "vfd");
 pref("vivipos.fec.registry.templates.vfd-internal.path", "chrome://viviecr/content/devices/templates/vfd-internal.tpl");
