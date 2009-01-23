@@ -51,7 +51,7 @@
                         var valueNode = this.nodes[index]; //document.getAnonymousElementByAttribute(this,'anonid', 'value' + index);
                         } catch (e) {var valueNode=null;}
                         if (valueNode) {
-                            valueNode.value ='';
+                            valueNode.value = '';
                         }
                     }
                     //GREUtils.log('[REMOVE]: leaving');
