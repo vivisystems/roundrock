@@ -114,7 +114,7 @@
                             payment = this.format(0);
                         }
 
-                        // self.setText0_1(total);
+                        self.setText0_1('');
                         self.setText0_0(_('TAL') + ': ' + total);
                         self.setText1_1(_('REM') + ': ' + remain);
                         self.setText1_0(_('PAY') + ': ' + payment);
