@@ -10,11 +10,11 @@ pref("browser.preferences.animateFadeIn", "false");
 pref("browser.preferences.instantApply", "false");
 
 /* debugging prefs */
-pref("browser.dom.window.dump.enabled", false);
+pref("browser.dom.window.dump.enabled", true);
 pref("javascript.options.showInConsole", false);
 pref("javascript.options.strict", false);
-pref("nglayout.debug.disable_xul_cache", true);
-pref("nglayout.debug.disable_xul_fastload", true);
+pref("nglayout.debug.disable_xul_cache", false);
+pref("nglayout.debug.disable_xul_fastload", false);
 
 //
 // Advanced DOM JavaScript preferences
@@ -37,7 +37,7 @@ pref("network.protocol-handler.expose.http", false);
 pref("network.protocol-handler.warn-external.http", false);
 
 /* extension prefs - turn off extension updating for now */
-pref("extensions.update.enabled", true);
+pref("extensions.update.enabled", false);
 pref("extensions.update.interval", 86400);
 
 // pref("xpinstall.dialog.confirm", "chrome://vivipos/content/xpinstall/xpinstallConfirm.xul");
@@ -88,8 +88,4 @@ pref("vivipos.fec.debug.disable_extension_manager", false);
 pref("vivipos.fec.debug.disable_jsconsole", false);
 pref("vivipos.fec.debug.disable_inspector", false);
 pref("vivipos.fec.debug.disable_debugger", false);
-
-
-
-
 
