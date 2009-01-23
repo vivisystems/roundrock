@@ -63,7 +63,6 @@ window.include = loadScript ;/*function include(src, scope) {
 // include jquery
 if(typeof window.jQuery == 'undefined') {
     include("chrome://vivipos/content/libs/jquery.js");
-    include("chrome://vivipos/content/libs/jquery.qsa.js");
     include("chrome://vivipos/content/libs/jquery.form.js");
 }
 
