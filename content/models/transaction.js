@@ -155,7 +155,8 @@
         this.requestCommand('decStock', this.data, "Stocks");
 
         // use background save
-        Transaction.worker.start();
+        // Transaction.worker.start();
+        this.run();
     };
 
     Transaction.prototype.cancel = function() {

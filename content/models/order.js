@@ -14,7 +14,7 @@ var OrderModel = window.OrderModel =  GeckoJS.Model.extend({
 
         this.OrderItem.delAll(cond);
         this.OrderAddition.delAll(cond);
-        this.OrderPayment.delAll(cond);
+        // this.OrderPayment.delAll(cond);
         this.OrderObject.delAll(cond);
     },
 
@@ -224,9 +224,11 @@ var OrderModel = window.OrderModel =  GeckoJS.Model.extend({
     mappingTranToOrderPaymentsFields: function(data) {
 
         var orderPayments = [];
-
+        var i = 0;
+        var len = data.order_items;
+        var len = GeckoJS.BaseObject.getKeys(data.trans_payments).length;
         for (var iid in data.trans_payments) {
-
+            i++;
             var payment = data.trans_payments[iid];
 
             var orderPayment = GREUtils.extend({}, payment);
@@ -241,6 +243,12 @@ var OrderModel = window.OrderModel =  GeckoJS.Model.extend({
 
             orderPayment['service_clerk_displayname'] = data.service_clerk_displayname;
             orderPayment['proceeds_clerk_displayname'] = data.proceeds_clerk_displayname;
+
+            if (i == len) {
+                orderPayment['change'] = Math.abs(data.remain);
+            } else {
+                orderPayment['change'] = 0;
+            }
 
             orderPayments.push(orderPayment);
 
@@ -271,6 +279,24 @@ var OrderModel = window.OrderModel =  GeckoJS.Model.extend({
         }
 
         return null;
+    },
+
+    saveAccounting: function(data) {
+        //
+        var r;
+        
+        this.id = '';
+        this.begin();
+        r = this.save(data);
+        this.commit();
+        
+        this.OrderPayment.id = '';
+        data.accountPayment['order_id'] = this.id;
+        this.OrderPayment.begin();
+        r = this.OrderPayment.save(data.accountPayment);
+        this.OrderPayment.commit();
+        return r;
+        
     },
 
     beforeSave: function(evt) {

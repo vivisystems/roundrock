@@ -13,8 +13,39 @@
         // var queuePool = inputObj.queuePool;
 
         // var itemlistObj = document.getElementById('itemlist');
+        var self = this;
 
         window.viewHelper = new opener.GeckoJS.NSITreeViewArray(checks);
+        window.viewHelper.getCurrentIndexData= function(row) {
+            // var text = row + ":" + col.check_no;
+            // GREUtils.log(GeckoJS.BaseObject.dump(row))
+            GREUtils.log(row);
+
+            return this.data[row];
+
+        };
+
+        window.viewHelper.getCellValue= function(row, col) {
+            // var text = row + ":" + col.check_no;
+            var seq = GeckoJS.String.padLeft(this.data[row].sequence, 8, '.') + '.. ';
+            var check_no = GeckoJS.String.padLeft(this.data[row].check_no, 5, '.') + '.. ';
+            var table_no = GeckoJS.String.padLeft(this.data[row].table_no, 5, '.') + '.. ';
+            var book_time = '';
+            var text = "Seq:" + seq +
+                       "Check# " + check_no +
+                       "Table# " + table_no +
+                       // "Book:" + book_time + "";
+                       "";
+            return text;
+
+        };
+        /*
+        getCellValue
+        getCurrentIndexData: function (row) {
+            return this.data[row];
+        }
+        */
+
         document.getElementById('checkScrollablepanel').datasource = window.viewHelper ;
 
         /*

@@ -7,6 +7,7 @@
      */
 
             /*
+            // Session
             vivipos_fec_price_level,
             vivipos_fec_tax_total,
             vivipos_fec_number_of_items,
@@ -43,31 +44,52 @@
         getNewTableNo: function() {
             var i = 1;
             var ar = this.getCheckList('AllCheck', null);
-            while (i <= 200) {
-                if (!this._tableNoArray[i] || this._tableNoArray[i] == 0) {
-                    this._tableNoArray[i] = 1;
-                    break;
-                }
-                i++;
+
+            var tables = [];
+            for(var k=1; k <= 100; k++) {
+                let o = {};
+                o.table_no = k;
+                tables.push(o);
             }
+
+            ar.forEach(function(o) {
+                if (o.table_no) {
+                    if (tables[o.table_no - 1].sequence) {
+                        tables[o.table_no - 1].sequence = tables[o.table_no - 1].sequence + ", " + o.sequence;
+                        tables[o.table_no - 1].check_no = tables[o.table_no - 1].check_no + ", " + o.check_no;
+                    } else {
+                        tables[o.table_no - 1].sequence = o.sequence;
+                        tables[o.table_no - 1].check_no = o.check_no;
+                    }
+                }
+            });
+
+            var screenwidth = GeckoJS.Session.get('screenwidth') || '800';
+            var screenheight = GeckoJS.Session.get('screenheight') || '600';
+
+            var aURL = 'chrome://viviecr/content/select_table.xul';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
+            var inputObj = {
+                tables: tables
+            };
+
+            window.openDialog(aURL, 'select_table', features, inputObj);
+
+            if (inputObj.ok && inputObj.index) {
+                var idx = inputObj.index;
+                i = tables[idx].table_no;
+            }else {
+                while (i <= 200) {
+                    if (!this._tableNoArray[i] || this._tableNoArray[i] == 0) {
+                        this._tableNoArray[i] = 1;
+                        break;
+                    }
+                    i++;
+                }
+            }
+
             GeckoJS.Session.set('vivipos_fec_table_number', i);
             return "" + i;
-        },
-
-        releaseCheckNo: function(check_no) {
-            // not use
-            if (!this._checkNoArray[check_no] || this._checkNoArray[check_no] == 1) {
-                this._checkNoArray[check_no] = 0;
-                // this.log("GuestCheck releaseCheckNo..." + check_no);
-            }
-        },
-
-        releaseTableNo: function(table_no) {
-            // not use
-            if (!this._checkNoArray[table_no] || this._checkNoArray[table_no] == 1) {
-                this._checkNoArray[table_no] = 0;
-                // this.log("GuestCheck releaseTableNo..." + table_no);
-            }
         },
 
         load: function () {
@@ -86,19 +108,20 @@
 
         table: function(table_no) {
             // this.log("GuestCheck table..." + table_no);
-            if (!this._tableNoArray[table_no] || this._tableNoArray[table_no] == 0) {
+            this.getCheckList('AllCheck', null);
+            var allowDupTableNo = true; // @todo for test...
+            if (!this._tableNoArray[table_no] || this._tableNoArray[table_no] == 0 || allowDupTableNo) {
                 this._tableNoArray[table_no] = 1;
                 GeckoJS.Session.set('vivipos_fec_table_number', table_no);
                 return table_no;
             } else {
                 return -1;
             }
-
-            GeckoJS.Session.set('vivipos_fec_table_number', table_no);
         },
 
         check: function(check_no) {
             // this.log("GuestCheck check..." + check_no);
+            this.getCheckList('AllCheck', null);
             if (!this._checkNoArray[check_no] || this._checkNoArray[check_no] == 0) {
                 this._checkNoArray[check_no] = 1;
                 GeckoJS.Session.set('vivipos_fec_check_number', check_no);
@@ -144,24 +167,23 @@
                 }
             });
 
-            // var ar = GeckoJS.Array.objectExtract(ord, '{n}.check_no');
-            // this.log(this.dump(ord));
-            // this.log(this.dump(ar));
-            this.log(this.dump(this._checkNoArray));
-            this.log(this.dump(this._tableNoArray));
-
             return ord;
         },
 
-        store: function(no) {
-            // this.log("GuestCheck store..." + no);
-            this._controller.addMarker('subtotal');
-            this._controller.submit(2);
+        store: function(count) {
+            if (count > 0) {
+                // this.log("GuestCheck store..." + no);
+                this._controller.addMarker('subtotal');
+                this._controller.submit(2);
 
-            this._controller.dispatchEvent('onWarning', _('STORED'));
+                this._controller.dispatchEvent('onWarning', _('STORED'));
 
-            // @todo OSD
-            NotifyUtils.warn(_('This order has been stored!!'));
+                // @todo OSD
+                NotifyUtils.warn(_('This order has been stored!!'));
+            } else {
+                // @todo OSD
+                NotifyUtils.warn(_('This order is empty!!'));
+            }
         },
 
         recallByOrderNo: function(no) {

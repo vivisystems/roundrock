@@ -1237,8 +1237,8 @@
                 var origin_amount = amount;
                 // currency convert array
                 var currency_rate = currencies[convertIndex].currency_exchange;
-                var memo1 = currencies[convertIndex].currency + ':' + amount;
-                var memo2 = 'x' + currency_rate;
+                var memo1 = currencies[convertIndex].currency;
+                var memo2 = currency_rate;
                 amount = amount * currency_rate;
                 this._getKeypadController().clearBuffer();
                 this.addPayment('cash', amount, origin_amount, memo1, memo2);
@@ -1382,6 +1382,63 @@
             }
             //this.clear();
 
+        },
+
+        accounting: function(inputObj) {
+            // @todo Accounting IN/OUT
+
+            var data = {};
+            data.accountPayment = {};
+
+            if (!inputObj) {
+                var aURL = "chrome://viviecr/content/prompt_addaccount.xul";
+                var features = "chrome,titlebar,toolbar,centerscreen,modal,width=500,height=450";
+                var inputObj = {
+                    input0:null,
+                    input1:null,
+                    topics:null
+                };
+
+                var accountTopic = new AccountTopicModel();
+                inputObj.topics = accountTopic.find('all');
+
+                window.openDialog(aURL, "prompt_addaccount", features, inputObj);
+            }
+
+            if (!inputObj.ok) {
+                return;
+            }
+
+            if (inputObj.type == "IN") {
+                data.total = inputObj.amount;
+                data.status = 101; // Accounting IN
+            } else {
+                data.total = inputObj.amount * (-1);
+                data.status = 102; // Accounting OUT
+            }
+            
+            var user = new GeckoJS.AclComponent().getUserPrincipal();
+            if ( user != null ) {
+                data.service_clerk = user.username;
+            }
+
+            data.accountPayment['order_items_count'] = 1;
+            data.accountPayment['order_total'] = data.total;
+            data.accountPayment['amount'] = data.total;
+            data.accountPayment['name'] = 'accounting'; // + payment type
+            data.accountPayment['memo1'] = inputObj.topic; // + topic + topic type
+            data.accountPayment['memo2'] = inputObj.description; // description
+            data.accountPayment['change'] = 0;
+
+            data.accountPayment['service_clerk'] = data.service_clerk;
+            // data.orderPayment['proceeds_clerk'] = data.proceeds_clerk;
+            // data.orderPayment['service_clerk_displayname'] = data.service_clerk_displayname;
+            // data.orderPayment['proceeds_clerk_displayname'] = data.proceeds_clerk_displayname;
+
+            var order = new OrderModel();
+            order.saveAccounting(data);
+
+            return data;
         },
 
         addPayment: function(type, amount, origin_amount, memo1, memo2) {
@@ -2170,9 +2227,6 @@
             var param2 = param[1];
 
             var no = buf;
-            //if (!no || no.length == 0) {
-            //    no = '999';
-            //}
 
             var r = -1;
 
@@ -2203,8 +2257,7 @@
                         r = this.GuestCheck.table(no);
                     }
 
-                    var allowDupTableNo = true; // @todo for test...
-                    if (r >= 0 || allowDupTableNo) {
+                    if (r >= 0) {
                         curTransaction.data.table_no = r;
                     } else {
                         NotifyUtils.warn(_('Table# %S is exist!!', [no]));
@@ -2221,11 +2274,11 @@
                         curTransaction.data.destination = param2;
                     break;
                 case 'store':
-                    this.log('store...');
+                    this.log('store...' + curTransaction.data.items_count);
                         if (curTransaction.data.status == 1) {
-                            NotifyUtils.warn(_('This order has been submited!!', [no]));
+                            NotifyUtils.warn(_('This order has been submited!!'));
                         } else {
-                            r = this.GuestCheck.store(no);
+                            r = this.GuestCheck.store(curTransaction.data.items_count);
                         }
                     break;
                 case 'recallCheck':

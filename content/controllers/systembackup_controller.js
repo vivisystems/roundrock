@@ -132,7 +132,7 @@
 
         _restart: function() {
             // restart vivipos
-            return;
+            // return;
             opener.opener.vivipos.suspendSavePreference = true;
             GeckoJS.Observer.notify(null, 'prepare-to-restart', this);
         },

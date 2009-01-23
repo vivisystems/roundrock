@@ -3,18 +3,18 @@
     /**
      * Class ViviPOS.JobsController
      */
+    // GeckoJS.define('ViviPOS.JobsController');
 
     GeckoJS.Controller.extend( {
-        name: 'Accounts',
+        name: 'AccountTopics',
         scaffold: true,
-        uses: ['AccountTopic'],
 
         _listObj: null,
         _listDatas: null,
 
         getListObj: function() {
             if(this._listObj == null) {
-                this._listObj = document.getElementById('accountscrollablepanel');
+                this._listObj = document.getElementById('topicscrollablepanel');
             }
             return this._listObj;
         },
@@ -25,33 +25,22 @@
         },
         */
         beforeScaffoldAdd: function(evt) {
-            // evt.preventDefault();
 
-            var aURL = "chrome://viviecr/content/prompt_addaccount.xul";
-            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=500,height=450";
-            var inputObj = {
-                input0:null,
-                input1:null,
-                topics:null
-            };
-            inputObj.topics = this.AccountTopic.find('all');
-
-            window.openDialog(aURL, "prompt_addaccount", features, inputObj);
-
-            if (inputObj.ok) {
+            /*
+            var aURL = "chrome://viviecr/content/prompt_additem.xul";
+            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250";
+            var inputObj = {input0:null, input1:null};
+            window.openDialog(aURL, "prompt_additem", features, "New Job", "Please input:", "Job Name", "", inputObj);
+            if (inputObj.ok && inputObj.input0) {
                 $("#account_id").val('');
                 
                 evt.data.id = '';
-                evt.data.topic_no = inputObj.topic_no;
-                evt.data.topic = inputObj.topic;
-                evt.data.description = inputObj.description;
-                evt.data.type = inputObj.type;
-                evt.data.amount = inputObj.amount;
+                evt.data.jobname = inputObj.input0;
             } else {
                 evt.preventDefault();
             }
-            
-            
+            evt.preventDefault();
+            */
         },
 
         /*
@@ -61,7 +50,7 @@
         */
 
         beforeScaffoldSave: function(evt) {
-        // this.log(this.dump(evt));
+            // this.log(this.dump(evt));
 
         },
 
@@ -87,20 +76,14 @@
         },
 
         load: function(data) {
-            var showtype = document.getElementById('show_type').value;
-            var filter = "";
-            if (showtype == 'IN') filter = "type='IN'";
-            else if (showtype == 'OUT') filter = "type='OUT'";
-                
-            this.requestCommand('list', {
-                conditions: filter
-            });
+            // this.requestCommand('list', {conditions: "type='in'"});
+            this.requestCommand('list');
         },
 
         select: function(index){
             if (index >= 0) {
-                var account = this._listDatas[index];
-                this.requestCommand('view', account.id);
+                var topic = this._listDatas[index];
+                this.requestCommand('view', topic.id);
                 this._listObj.selectedIndex = index;
             }
         }

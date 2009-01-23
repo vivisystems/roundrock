@@ -1,0 +1,22 @@
+<!ENTITY accounts.title  "Accounts List:">
+<!ENTITY accounts.name "Account Name:">
+<!ENTITY accounts.button.color "Button Color:">
+<!ENTITY accounts.font.size "Font Size:">
+<!ENTITY accounts.button.action.add "Add">
+<!ENTITY accounts.button.action.modify "Modify">
+<!ENTITY accounts.button.action.delete "Delete">
+<!ENTITY accounts.button.action.edittopics "Edit Topics">
+
+<!ENTITY accounts.tab.accounts "Accounts">
+<!ENTITY accounts.tab.topics "Topics Setup">
+<!ENTITY accounts.topic "Topic:">
+<!ENTITY accounts.description "Description:">
+<!ENTITY accounts.type "Type:">
+<!ENTITY accounts.amount "Amount:">
+<!ENTITY accounts.typein "IN">
+<!ENTITY accounts.typeout "OUT">
+<!ENTITY accounts.topic.no "Topic No:">
+<!ENTITY accounts.topic.topic "Topic:">
+<!ENTITY accounts.showall "Show All">
+<!ENTITY accounts.showin "Just IN">
+<!ENTITY accounts.showout "Just OUT">

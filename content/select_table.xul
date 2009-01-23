@@ -19,15 +19,15 @@
         window['GeckoJS'] = opener.GeckoJS;
         window['GREUtils'] = opener.GREUtils;
     </script>
-    <script type="application/x-javascript" src="chrome://viviecr/content/select_checks.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/select_table.js" />
 
     <hbox flex="1" class="main-dialog">
         <vbox flex="3" class="footlogo">
             <groupbox>
-                <caption label="select.checks.title;" />
+                <caption label="select.table.title;" />
                 <label id="queues" hidden="true" value="" />
                 <hbox>
-                    <viviscrollablebuttonpanel id="checkScrollablepanel" flex="1" cols="4" rows="5"  seltype="single" labelField="check_no"
+                    <viviscrollablebuttonpanel id="tableScrollablepanel" pre="true" flex="1" cols="4" rows="5"  seltype="single" labelField="table_no"
                                                class="catescrollablepanel"
                                                buttonClass="plubtn button-radius button-white"
                                                scrollUpClass="rightprevbtn button-blue"
