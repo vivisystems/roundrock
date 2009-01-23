@@ -150,6 +150,7 @@
             GeckoJS.Helper.removeAllChildren(columnsObj);
 
             var crop = this.getAttribute('crop');
+            var pre = this.getAttribute('pre');
 
             var cols = parseInt(this.cols) || 0;
 
@@ -182,6 +183,7 @@
 
                     if (this.buttonClass) btn.setAttribute('class', this.buttonClass);
                     if(crop) btn.setAttribute('crop', crop);
+                    if(pre) btn.setAttribute('pre', pre);
                     btn.setAttribute('disabled', 'true');
                     buttons.push(btn);
                     row.appendChild(btn);

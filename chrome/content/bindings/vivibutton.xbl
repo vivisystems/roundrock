@@ -17,7 +17,7 @@
                 align="center" pack="center" flex="1" anonid="vivibutton-box" style="overflow: hidden;">
           <xul:image anonid="image" class="button-icon" xbl:inherits="validate,src=image"/>
           <!-- xul:label anonid="label" crop="end" class="button-text" xbl:inherits="accesskey,crop"> </xul:label-->
-          <xul:description anonid="label" class="button-text" xbl:inherits="accesskey,crop" > </xul:description>
+          <xul:description anonid="label" class="button-text" xbl:inherits="accesskey,crop,pre" > </xul:description>
       </xul:hbox>
   </content>
 
@@ -42,6 +42,11 @@
         if(this.aLabel.getAttribute('crop')) {
             this.aLabel.removeChild(this.aLabel.firstChild);
         }
+
+        if (this.getAttribute('pre')) {
+            this.aLabel.setAttribute('style', 'white-space: pre;');
+        }
+
         this.setLabel(value);
 
         self.render();
@@ -210,9 +215,9 @@
 
             width = width || $btn.css('width').replace('px', '');
             height = height || $btn.css('height').replace('px', '');
-
 	    label.style['width'] = width +'px' ;
 	    label.style['max-width'] = width +'px';
+
         ]]>  
         </body>
     </method>
