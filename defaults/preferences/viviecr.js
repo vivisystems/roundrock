@@ -23,7 +23,7 @@ pref("vivipos.fec.settings.backup.stickbackupdir", "/var/tmp/vivipos/system_stic
 
 pref("vivipos.fec.settings.controlpanels.employee.storecontact.label", "Store Contact");
 pref("vivipos.fec.settings.controlpanels.employee.storecontact.path", "chrome://viviecr/content/storecontact.xul");
-pref("vivipos.fec.settings.controlpanels.employee.storecontact.icon", "chrome://viviecr/skin/icons/icon_generic.png");
+pref("vivipos.fec.settings.controlpanels.employee.storecontact.icon", "chrome://viviecr/skin/icons/icon_store.png");
 pref("vivipos.fec.settings.controlpanels.employee.storecontact.roles", "acl_manage_storecontact");
 
 pref("vivipos.fec.settings.controlpanels.system.localekeyboard.label", "Locale and Keyboard Mapping");
@@ -33,12 +33,12 @@ pref("vivipos.fec.settings.controlpanels.system.localekeyboard.roles", "acl_mana
 
 pref("vivipos.fec.settings.controlpanels.config.sysprefs.label", "General Options");
 pref("vivipos.fec.settings.controlpanels.config.sysprefs.path", "chrome://viviecr/content/sysprefs.xul");
-pref("vivipos.fec.settings.controlpanels.config.sysprefs.icon", "chrome://viviecr/skin/icons/icon_generic.png");
+pref("vivipos.fec.settings.controlpanels.config.sysprefs.icon", "chrome://viviecr/skin/icons/icon_generaloptions.png");
 pref("vivipos.fec.settings.controlpanels.config.sysprefs.roles", "acl_manage_system_options");
 
 pref("vivipos.fec.settings.controlpanels.config.devices.label", "Devices");
 pref("vivipos.fec.settings.controlpanels.config.devices.path", "chrome://viviecr/content/devices.xul");
-pref("vivipos.fec.settings.controlpanels.config.devices.icon", "chrome://viviecr/skin/icons/fileprint.png");
+pref("vivipos.fec.settings.controlpanels.config.devices.icon", "chrome://viviecr/skin/icons/icon_devices.png");
 pref("vivipos.fec.settings.controlpanels.config.devices.roles", "acl_manage_devices");
 
 pref("vivipos.fec.settings.controlpanels.product.departments.label", "Departments");
@@ -128,7 +128,7 @@ pref("vivipos.fec.settings.controlpanels.product.imagemanager.roles", "acl_manag
 
 pref("vivipos.fec.settings.controlpanels.config.functionpanel.label", "Function Panel Configuration");
 pref("vivipos.fec.settings.controlpanels.config.functionpanel.path", "chrome://viviecr/content/funcpanelecrprefs.xul");
-pref("vivipos.fec.settings.controlpanels.config.functionpanel.icon", "chrome://viviecr/skin/icons/icon_generic.png");
+pref("vivipos.fec.settings.controlpanels.config.functionpanel.icon", "chrome://viviecr/skin/icons/icon_functionpnl.png");
 pref("vivipos.fec.settings.controlpanels.config.functionpanel.roles", "acl_manage_function_panel");
 
 pref("vivipos.fec.registry.function.programmable.receipt.access", "acl_issue_post_receipt");

@@ -19,7 +19,7 @@
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/users.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/taxes.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/controllers/sound_controller.js" />
+    <!--script type="application/x-javascript" src="chrome://viviecr/content/controllers/sound_controller.js" /-->
     <!-- users.js & taxes.js must load before sysprefs.js -->
     <script type="application/x-javascript" src="chrome://viviecr/content/sysprefs.js" />
     
@@ -296,6 +296,7 @@
         </grid>
     </prefpane>
 
+<!--
     <prefpane id="soundSettingsPane" label="&category.sound;" >
         <preferences>
             <preference id="pref_beepOnItemAdd" name="vivipos.fec.settings.beepOnItemAdd" type="bool"/>
@@ -347,6 +348,7 @@
         </hbox>
 
     </prefpane>
+-->
 
     <prefpane id="pluFilterSettingsPane" label="&category.plufilter;" >
         <preferences>

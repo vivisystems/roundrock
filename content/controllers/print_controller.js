@@ -12,11 +12,16 @@
 
         _device: null,
 
+        _worker: null,
+
         // load device configuration and selections
         initial: function () {
 
             // get handle to Devices controller
-            this._device = GeckoJS.Controller.getInstanceByName('Devices');
+            this._device = this.getDeviceController();
+
+            // initialize worker thread
+            this._worker = GREUtils.Thread.getWorkerThread();
 
             // add event listener for onSubmit events
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
@@ -26,7 +31,7 @@
         },
 
         getDeviceController: function () {
-            if (this._device != null) {
+            if (this._device == null) {
                 this._device = GeckoJS.Controller.getInstanceByName('Devices');
             }
             return this._device;
@@ -191,7 +196,7 @@
                 //@hack sleep to allow UI events to catch up
                 // autoprint receipts
                 this.printReceipts(evt.data);
-                this.sleep(100);
+                this.sleep(50);
             }
             else {
                 NotifyUtils.warn(_('A receipt has already been issued for this order at [%S]'));
@@ -337,12 +342,7 @@
                         var devicemodel = device.devicemodel;
                         var encoding = device.encoding;
                         data._MODIFIERS = _templateModifiers(encoding);
-                        printed = self.printCheck(data, template, port, portspeed, handshaking, devicemodel, encoding);
-
-                        if (printed) {
-                            self.receiptPrinted(txn);
-                        }
-
+                        self.printCheck(data, template, port, portspeed, handshaking, devicemodel, encoding, true);
                     }
                 });
             }
@@ -477,14 +477,20 @@
                         var devicemodel = device.devicemodel;
                         var encoding = device.encoding;
                         data._MODIFIERS = _templateModifiers(encoding);
-                        self.printCheck(data, template, port, portspeed, handshaking, devicemodel, encoding);
+                        self.printCheck(data, template, port, portspeed, handshaking, devicemodel, encoding, false);
                     }
                 });
             }
         },
 
         // print check using the given parameters
-        printCheck: function(data, template, port, portspeed, handshaking, devicemodel, encoding) {
+        printCheck: function(data, template, port, portspeed, handshaking, devicemodel, encoding, recordReceipt) {
+            
+            if (this._worker == null) {
+                NotifyUtils.error(_('Error in Print controller: no worker thread available!'));
+                return;
+            }
+
             var portPath = this.getPortPath(port);
             var commands = {};
             
@@ -492,19 +498,19 @@
                 NotifyUtils.error(_('Specified device port [%S] does not exist!', [port]));
                 return false;
             }
-            var tpl = this.getTemplateData(template, false);
+            var tpl = this.getTemplateData(template, true);
             if (tpl == null || tpl == '') {
                 NotifyUtils.error(_('Specified receipt/guest check template [%S] is empty or does not exist!', [template]));
                 return false;
             }
 
-            commands = this.getDeviceCommandCodes(devicemodel, false);
+            commands = this.getDeviceCommandCodes(devicemodel, true);
 
 /*
             alert('Printing check: \n\n' +
                   '   template [' + template + ']\n' +
                   '   port [' + port + ' (' + portPath + ')]\n' +
-                  '   portspeed [' + portspeed + ']\n' +
+                  '   speed [' + speed + ']\n' +
                   '   model [' + devicemodel + ']\n' +
                   '   encoding [' + encoding + ']\n' +
                   '   template content: ' + this.dump(tpl));
@@ -534,35 +540,51 @@
 
             // get encoding
             var encodedResult = GREUtils.Charset.convertFromUnicode(result, encoding);
-            this.log('RECEIPT/GUEST CHECK\n' + encodedResult);
+            //this.log('RECEIPT/GUEST CHECK\n' + encodedResult);
 
-            // send to output device
-            var printed = false;
-            if (this.openSerialPort(portPath, portspeed, handshaking)) {
-                var len = this.writeSerialPort(portPath, encodedResult);
-                if (len == encodedResult.length) {
-                    printed = true;
+            // send to output device using worker thread
+            var self = this;
+
+            var runnable = {
+                run: function() {
+                    try {
+                        var printed = false;
+                        if (self.openSerialPort(portPath, portspeed, handshaking)) {
+                            var len = self.writeSerialPort(portPath, encodedResult);
+                            if (len == encodedResult.length) {
+                                printed = true;
+                            }
+                            self.log('DEBUG', 'In Worker thread: print length: [' + encodedResult.length + '], printed length: [' + len + ']');
+                            self.closeSerialPort(portPath);
+                        }
+
+                        if (!printed) {
+                            var devicemodelName = self.getDeviceModelName(devicemodel);
+                            var portName = self.getPortName(port);
+
+                            if (devicemodelName == null) devicemodelName = 'unknown';
+                            if (portName == null) portName = 'unknown';
+
+                            //@todo OSD
+                            NotifyUtils.error(_('Error detected when outputing to device [%S] at port [%S]', [devicemodelName, portName]));
+                        }
+                        if (printed) {
+                            self.receiptPrinted(data.txn);
+                        }
+                    }catch(e) {
+                        return false;
+                    }
+                },
+
+                QueryInterface: function(iid) {
+                    if (iid.equals(Components.Interfaces.nsIRunnable) || iid.equals(Components.Interfaces.nsISupports)) {
+                        return this;
+                    }
+                    throw Components.results.NS_ERROR_NO_INTERFACE;
                 }
-                else {
-                    this.log('Check length: [' + encodedResult.length + '], printed length: [' + len + ']');
-                }
-                this.closeSerialPort(portPath);
-            }
-            else {
-                printed = false;
-            }
+            };
 
-            if (!printed) {
-                var devicemodelName = this.getDeviceModelName(devicemodel);
-                var portName = this.getPortName(port);
-
-                if (devicemodelName == null) devicemodelName = 'unknown';
-                if (portName == null) portName = 'unknown';
-
-                //@todo OSD
-                NotifyUtils.error(_('Error detected when outputing to device [%S] at port [%S]', [devicemodelName, portName]));
-            }
-            return printed;
+            this._worker.dispatch(runnable, this._worker.DISPATCH_NORMAL);
         }
 
     });

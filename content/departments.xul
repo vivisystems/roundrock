@@ -60,10 +60,14 @@
                         </row>
 
                         <row>
-                            <vbox>
+                            <vbox flex="2">
                                 <label value="&departments.taxrate;"/>
                                 <label id="rate" value="" form="deptForm" name="rate" hidden="true" default=""/>
                                 <textbox class="ItemButtonA" id="rate_name" value="" form="deptForm" name="rate_name" readonly="true" default="" onclick="$do('getRate', null,'Departments');" onfocus="this.select()"/>
+                            </vbox>
+                            <vbox flex="0">
+                                <label style="width:10em" value="&departments.display_order;" control="display_order"/>
+                                <textbox id="display_order" default="" size="2" form="deptForm" name="display_order" onfocus="this.select()"/>
                             </vbox>
                        </row>
                     </rows>

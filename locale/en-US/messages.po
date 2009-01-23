@@ -1,255 +1,255 @@
 # English translations for PACKAGE package.
-# Copyright (C) 2008 THE PACKAGE'S COPYRIGHT HOLDER
+# Copyright (C) 2009 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# user <user@ubuntu804desktop.localdomain>, 2008.
+# user <hsu.irving@firich.com.tw>, 2009.
 #
-!=Project-Id-Version\: PACKAGE VERSION\nReport-Msgid-Bugs-To\: irving.hsu@firich.com.tw\nPOT-Creation-Date\: 2008-12-28 01\:44+0800\nPO-Revision-Date\: 2008-12-28 01\:48+0800\nLast-Translator\: user <user@ubuntu804desktop.localdomain>\nLanguage-Team\: English\nMIME-Version\: 1.0\nContent-Type\: text/plain; charset\=UTF-8\nContent-Transfer-Encoding\: 8bit\nPlural-Forms\: nplurals\=2; plural\=(n \!\= 1);\n
+!=Project-Id-Version\: PACKAGE VERSION\nReport-Msgid-Bugs-To\: irving.hsu@firich.com.tw\nPOT-Creation-Date\: 2009-01-22 12\:42+0800\nPO-Revision-Date\: 2009-01-22 12\:43+0800\nLast-Translator\: user <hsu.irving@firich.com.tw>\nLanguage-Team\: English\nMIME-Version\: 1.0\nContent-Type\: text/plain; charset\=UTF-8\nContent-Transfer-Encoding\: 8bit\nPlural-Forms\: nplurals\=2; plural\=(n !\= 1);\n
 
-Add\ New\ ACL\ Group=Add New ACL Group
+Add New ACL Group=Add New ACL Group
 
-New\ ACL\ Group=New ACL Group
+New ACL Group=New ACL Group
 
-Group\ Name=Group Name
+Group Name=Group Name
 
-ACL\ Group\ [%S]\ already\ exists;\ ACL\ group\ not\ added.=ACL Group [%S] already exists; ACL group not added.
+ACL Group [%S] already exists; ACL group not added.=ACL Group [%S] already exists; ACL group not added.
 
-ACL\ Group\ [%S]\ added\ successfully=ACL Group [%S] added successfully
+ACL Group [%S] added successfully=ACL Group [%S] added successfully
 
-An\ error\ occurred\ while\ adding\ ACL\ Group\ [%S];\ the\ ACL\ group\ may\ not\ have\ been\ added\ successfully=An error occurred while adding ACL Group [%S]; the ACL group may not have been added successfully
+An error occurred while adding ACL Group [%S]; the ACL group may not have been added successfully=An error occurred while adding ACL Group [%S]; the ACL group may not have been added successfully
 
-The\ ACL\ group\ [%S]\ has\ been\ assigned\ to\ one\ or\ more\ users\ [%S]\ and\ cannot\ be\ removed.=The ACL group [%S] has been assigned to one or more users [%S] and cannot be removed.
+The ACL group [%S] has been assigned to one or more users [%S] and cannot be removed.=The ACL group [%S] has been assigned to one or more users [%S] and cannot be removed.
 
-confirm\ delete\ %S=confirm delete %S
+confirm delete %S=confirm delete %S
 
-Are\ you\ sure?=Are you sure?
+Are you sure?=Are you sure?
 
-ACL\ Group\ [%S]\ removed\ successfully=ACL Group [%S] removed successfully
+ACL Group [%S] removed successfully=ACL Group [%S] removed successfully
 
-An\ error\ occurred\ while\ removing\ ACL\ Group\ [%S];\ the\ ACL\ group\ may\ not\ have\ been\ removed\ successfully=An error occurred while removing ACL Group [%S]; the ACL group may not have been removed successfully
+An error occurred while removing ACL Group [%S]; the ACL group may not have been removed successfully=An error occurred while removing ACL Group [%S]; the ACL group may not have been removed successfully
 
-ACL\ Group\ [%S]\ modified\ successfully=ACL Group [%S] modified successfully
+ACL Group [%S] modified successfully=ACL Group [%S] modified successfully
 
-An\ error\ occurred\ while\ modifying\ ACL\ Group\ [%S];\ the\ ACL\ group\ may\ not\ have\ been\ modified\ successfully=An error occurred while modifying ACL Group [%S]; the ACL group may not have been modified successfully
+An error occurred while modifying ACL Group [%S]; the ACL group may not have been modified successfully=An error occurred while modifying ACL Group [%S]; the ACL group may not have been modified successfully
 
-OUT\ OF\ STOCK=OUT OF STOCK
+OUT OF STOCK=OUT OF STOCK
 
-Product\ May\ Be\ Out\ of\ Stock\!=Product May Be Out of Stock\!
+Product May Be Out of Stock!=Product May Be Out of Stock!
 
-STOCK\ LOW=STOCK LOW
+STOCK LOW=STOCK LOW
 
-Low\ Stock\ Threshold\ Reached\!=Low Stock Threshold Reached\!
+Low Stock Threshold Reached!=Low Stock Threshold Reached!
 
-VERIFY\ AGE=VERIFY AGE
+VERIFY AGE=VERIFY AGE
 
-Verify\ Customer\ Age\ for\ Purchase\ of\ [%S]\!=Verify Customer Age for Purchase of [%S]\!
+Verify Customer Age for Purchase of [%S]!=Verify Customer Age for Purchase of [%S]!
 
-Verify\ Customer\ Age\ for\ Purchase\ of\n[%S]\!=Verify Customer Age for Purchase of\n[%S]\!
+Verify Customer Age for Purchase of\n[%S]!=Verify Customer Age for Purchase of\n[%S]!
 
-SINGLE\ ITEM\ SALE=SINGLE ITEM SALE
+SINGLE ITEM SALE=SINGLE ITEM SALE
 
-Product\ scan\ code\ not\ found\ [%S]=Product scan code not found [%S]
+Product scan code not found [%S]=Product scan code not found [%S]
 
-Not\ an\ open\ order;\ cannot\ modify=Not an open order; cannot modify
+Not an open order; cannot modify=Not an open order; cannot modify
 
-Please\ select\ an\ item\ first=Please select an item first
+Please select an item first=Please select an item first
 
-Cannot\ modify\ selected\ item\ [%S]=Cannot modify selected item [%S]
+Cannot modify selected item [%S]=Cannot modify selected item [%S]
 
-Not\ authorized\ to\ modify\ condiment\ price=Not authorized to modify condiment price
+Not authorized to modify condiment price=Not authorized to modify condiment price
 
-Cannot\ modify;\ selected\ item\ [%S]\ has\ discount\ or\ surcharge\ applied=Cannot modify; selected item [%S] has discount or surcharge applied
+Cannot modify; selected item [%S] has discount or surcharge applied=Cannot modify; selected item [%S] has discount or surcharge applied
 
-Cannot\ modify;\ selected\ item\ [%S]\ has\ been\ subtotaled=Cannot modify; selected item [%S] has been subtotaled
+Cannot modify; selected item [%S] has been subtotaled=Cannot modify; selected item [%S] has been subtotaled
 
-Cannot\ modify;\ no\ price\ or\ quantity\ entered=Cannot modify; no price or quantity entered
+Cannot modify; no price or quantity entered=Cannot modify; no price or quantity entered
 
-Cannot\ modify\ condiment;\ no\ price\ entered=Cannot modify condiment; no price entered
+Cannot modify condiment; no price entered=Cannot modify condiment; no price entered
 
-Quantity\ may\ not\ be\ less\ than\ 1=Quantity may not be less than 1
+Quantity may not be less than 1=Quantity may not be less than 1
 
-Not\ an\ open\ order;\ cannot\ VOID=Not an open order; cannot VOID
+Not an open order; cannot VOID=Not an open order; cannot VOID
 
-Cannot\ VOID\ the\ selected\ item\ [%S]\nIt\ is\ not\ the\ last\ registered\ item=Cannot VOID the selected item [%S]\nIt is not the last registered item
+Cannot VOID the selected item [%S]\nIt is not the last registered item=Cannot VOID the selected item [%S]\nIt is not the last registered item
 
-Cannot\ VOID\ an\ item\ that\ has\ been\ subtotaled=Cannot VOID an item that has been subtotaled
+Cannot VOID an item that has been subtotaled=Cannot VOID an item that has been subtotaled
 
-Please\ enter\ the\ discount\ amount=Please enter the discount amount
+Please enter the discount amount=Please enter the discount amount
 
-Please\ enter\ the\ discount\ percentage\ first=Please enter the discount percentage first
+Please enter the discount percentage first=Please enter the discount percentage first
 
-Please\ enter\ the\ discount\ percentage=Please enter the discount percentage
+Please enter the discount percentage=Please enter the discount percentage
 
-Not\ an\ open\ order;\ cannot\ add\ discount=Not an open order; cannot add discount
+Not an open order; cannot add discount=Not an open order; cannot add discount
 
-Please\ select\ an\ item=Please select an item
+Please select an item=Please select an item
 
-Not\ an\ open\ order;\ cannot\ add\ surcharge=Not an open order; cannot add surcharge
+Not an open order; cannot add surcharge=Not an open order; cannot add surcharge
 
-Pretax\ discount\ can\ only\ be\ registered\ against\ subtotals=Pretax discount can only be registered against subtotals
+Pretax discount can only be registered against subtotals=Pretax discount can only be registered against subtotals
 
-Discount\ has\ been\ already\ been\ registered\ on\ item\ [%S]=Discount has been already been registered on item [%S]
+Discount has been already been registered on item [%S]=Discount has been already been registered on item [%S]
 
-Surcharge\ has\ been\ already\ been\ registered\ on\ item\ [%S]=Surcharge has been already been registered on item [%S]
+Surcharge has been already been registered on item [%S]=Surcharge has been already been registered on item [%S]
 
-Cannot\ modify\ an\ item\ that\ has\ been\ subtotaled=Cannot modify an item that has been subtotaled
+Cannot modify an item that has been subtotaled=Cannot modify an item that has been subtotaled
 
-Cannot\ register\ discount\ on\ return\ items=Cannot register discount on return items
+Cannot register discount on return items=Cannot register discount on return items
 
-Cannot\ apply\ discount\ to\ [%S]\nIt\ is\ not\ the\ last\ registered\ item=Cannot apply discount to [%S]\nIt is not the last registered item
+Cannot apply discount to [%S]\nIt is not the last registered item=Cannot apply discount to [%S]\nIt is not the last registered item
 
-Discount\ may\ not\ be\ added\ to\ [%S]=Discount may not be added to [%S]
+Discount may not be added to [%S]=Discount may not be added to [%S]
 
-Please\ enter\ the\ discount\ amount\ or\ percentage=Please enter the discount amount or percentage
+Please enter the discount amount or percentage=Please enter the discount amount or percentage
 
-Please\ enter\ the\ surcharge\ amount\ first=Please enter the surcharge amount first
+Please enter the surcharge amount first=Please enter the surcharge amount first
 
-Please\ enter\ the\ surcharge\ percentage=Please enter the surcharge percentage
+Please enter the surcharge percentage=Please enter the surcharge percentage
 
-Pretax\ surcharge\ can\ only\ be\ registered\ against\ subtotals=Pretax surcharge can only be registered against subtotals
+Pretax surcharge can only be registered against subtotals=Pretax surcharge can only be registered against subtotals
 
-Cannot\ apply\ surcharge\ to\ [%S]\nIt\ is\ not\ the\ last\ registered\ item=Cannot apply surcharge to [%S]\nIt is not the last registered item
+Cannot apply surcharge to [%S]\nIt is not the last registered item=Cannot apply surcharge to [%S]\nIt is not the last registered item
 
-Surcharge\ may\ not\ be\ added\ to\ [%S]=Surcharge may not be added to [%S]
+Surcharge may not be added to [%S]=Surcharge may not be added to [%S]
 
-Not\ an\ open\ order;\ operation\ invalid=Not an open order; operation invalid
+Not an open order; operation invalid=Not an open order; operation invalid
 
-Not\ an\ open\ order;\ cannot\ register\ House\ Bon=Not an open order; cannot register House Bon
+Not an open order; cannot register House Bon=Not an open order; cannot register House Bon
 
-House\ Bon\ may\ not\ be\ applied\ to\ [%S]=House Bon may not be applied to [%S]
+House Bon may not be applied to [%S]=House Bon may not be applied to [%S]
 
-The\ selected\ currency\ [%S]\ has\ not\ been\ configured=The selected currency [%S] has not been configured
+The selected currency [%S] has not been configured=The selected currency [%S] has not been configured
 
-Please\ enter\ an\ amount\ first=Please enter an amount first
+Please enter an amount first=Please enter an amount first
 
-Please\ configure\ the\ selected\ currency\ entry\ first\ [%S]=Please configure the selected currency entry first [%S]
+Please configure the selected currency entry first [%S]=Please configure the selected currency entry first [%S]
 
-Credit\ Card\ Remark=Credit Card Remark
+Credit Card Remark=Credit Card Remark
 
 Payment=Payment
 
-Card\ Type=Card Type
+Card Type=Card Type
 
-Card\ Remark=Card Remark
+Card Remark=Card Remark
 
-Gift\ Card\ Remark=Gift Card Remark
+Gift Card Remark=Gift Card Remark
 
-Not\ an\ open\ order;\ cannot\ register\ payments=Not an open order; cannot register payments
+Not an open order; cannot register payments=Not an open order; cannot register payments
 
-Not\ an\ open\ order;\ cannot\ shift\ tax=Not an open order; cannot shift tax
+Not an open order; cannot shift tax=Not an open order; cannot shift tax
 
-This\ operation\ cannot\ be\ performed\ on\ [%S]=This operation cannot be performed on [%S]
+This operation cannot be performed on [%S]=This operation cannot be performed on [%S]
 
-The\ tax\ status\ indicated\ does\ not\ exist\ [%S]=The tax status indicated does not exist [%S]
+The tax status indicated does not exist [%S]=The tax status indicated does not exist [%S]
 
-Not\ an\ open\ order;\ cannot\ add\ condiment=Not an open order; cannot add condiment
+Not an open order; cannot add condiment=Not an open order; cannot add condiment
 
-Condiments\ may\ not\ be\ added\ to\ [%S]=Condiments may not be added to [%S]
+Condiments may not be added to [%S]=Condiments may not be added to [%S]
 
-Cannot\ add\ condiments\ to\ an\ item\ that\ has\ been\ subtotaled=Cannot add condiments to an item that has been subtotaled
+Cannot add condiments to an item that has been subtotaled=Cannot add condiments to an item that has been subtotaled
 
-Please\ void\ discount\ on\ item\ first=Please void discount on item first
+Please void discount on item first=Please void discount on item first
 
-Please\ void\ surcharge\ on\ item\ first=Please void surcharge on item first
+Please void surcharge on item first=Please void surcharge on item first
 
-No\ Condiment\ group\ associated\ with\ item\ [%S]=No Condiment group associated with item [%S]
+No Condiment group associated with item [%S]=No Condiment group associated with item [%S]
 
-Not\ an\ open\ order;\ cannot\ add\ memo=Not an open order; cannot add memo
+Not an open order; cannot add memo=Not an open order; cannot add memo
 
-Add\ New\ Memo=Add New Memo
+Add New Memo=Add New Memo
 
-Add\ Memo=Add Memo
+Add Memo=Add Memo
 
-Memo\:=Memo\:
+Memo:=Memo:
 
-No\ open\ order\ to\ push=No open order to push
+No open order to push=No open order to push
 
-Order\ is\ not\ queued\ because\ it\ is\ empty=Order is not queued because it is empty
+Order is not queued because it is empty=Order is not queued because it is empty
 
-Authentication\ failed\!\nPlease\ make\ sure\ the\ password\ is\ correct.=Authentication failed\!\nPlease make sure the password is correct.
+Authentication failed!\nPlease make sure the password is correct.=Authentication failed!\nPlease make sure the password is correct.
 
-Authentication\ failed\!\nPlease\ select\ a\ user=Authentication failed\!\nPlease select a user
+Authentication failed!\nPlease select a user=Authentication failed!\nPlease select a user
 
-Please\ select\ a\ user\ first=Please select a user first
+Please select a user first=Please select a user first
 
-Please\ enter\ the\ passcode=Please enter the passcode
+Please enter the passcode=Please enter the passcode
 
-Authentication\ Failed\!\nPlease\ make\ sure\ the\ passcode\ is\ correct=Authentication Failed\!\nPlease make sure the passcode is correct
+Authentication Failed!\nPlease make sure the passcode is correct=Authentication Failed!\nPlease make sure the passcode is correct
 
-Please\ select\ a\ job\ first=Please select a job first
+Please select a job first=Please select a job first
 
-Not\ clocked\ in\ yet=Not clocked in yet
+Not clocked in yet=Not clocked in yet
 
-Add\ New\ Condiment\ Group=Add New Condiment Group
+Add New Condiment Group=Add New Condiment Group
 
-New\ Condiment\ Group=New Condiment Group
+New Condiment Group=New Condiment Group
 
-Condiment\ Group\ [%S]\ already\ exists.=Condiment Group [%S] already exists.
+Condiment Group [%S] already exists.=Condiment Group [%S] already exists.
 
-Condiment\ Group\ [%S]\ added\ successfully=Condiment Group [%S] added successfully
+Condiment Group [%S] added successfully=Condiment Group [%S] added successfully
 
-An\ error\ occurred\ while\ adding\ Condiment\ Group\ [%S]\nThe\ group\ may\ not\ have\ been\ added\ successfully=An error occurred while adding Condiment Group [%S]\nThe group may not have been added successfully
+An error occurred while adding Condiment Group [%S]\nThe group may not have been added successfully=An error occurred while adding Condiment Group [%S]\nThe group may not have been added successfully
 
-Condiment\ Group\ [%S]\ already\ exists=Condiment Group [%S] already exists
+Condiment Group [%S] already exists=Condiment Group [%S] already exists
 
-Condiment\ Group\ [%S]\ modified\ successfully=Condiment Group [%S] modified successfully
+Condiment Group [%S] modified successfully=Condiment Group [%S] modified successfully
 
-An\ error\ occurred\ while\ modifying\ Condiment\ Group\ [%S]\nThe\ group\ may\ not\ have\ been\ modified\ successfully=An error occurred while modifying Condiment Group [%S]\nThe group may not have been modified successfully
+An error occurred while modifying Condiment Group [%S]\nThe group may not have been modified successfully=An error occurred while modifying Condiment Group [%S]\nThe group may not have been modified successfully
 
-Condiment\ Group\ [%S]\ removed\ successfully=Condiment Group [%S] removed successfully
+Condiment Group [%S] removed successfully=Condiment Group [%S] removed successfully
 
-An\ error\ occurred\ while\ removing\ Condiment\ Group\ [%S]\nThe\ group\ may\ not\ have\ been\ removed\ successfully=An error occurred while removing Condiment Group [%S]\nThe group may not have been removed successfully
+An error occurred while removing Condiment Group [%S]\nThe group may not have been removed successfully=An error occurred while removing Condiment Group [%S]\nThe group may not have been removed successfully
 
-Add\ New\ Condiment=Add New Condiment
+Add New Condiment=Add New Condiment
 
-New\ Condiment=New Condiment
+New Condiment=New Condiment
 
-Condiment\ Name=Condiment Name
+Condiment Name=Condiment Name
 
-Condiment\ Price=Condiment Price
+Condiment Price=Condiment Price
 
-Condiment\ Price\ must\ be\ a\ number=Condiment Price must be a number
+Condiment Price must be a number=Condiment Price must be a number
 
-Condiment\ [%S]\ already\ exists\ in\ this\ group=Condiment [%S] already exists in this group
+Condiment [%S] already exists in this group=Condiment [%S] already exists in this group
 
-Condiment\ [%S]\ added\ successfully=Condiment [%S] added successfully
+Condiment [%S] added successfully=Condiment [%S] added successfully
 
-An\ error\ occurred\ while\ adding\ Condiment\ [%S]\nThe\ condiment\ may\ not\ have\ been\ added\ successfully=An error occurred while adding Condiment [%S]\nThe condiment may not have been added successfully
+An error occurred while adding Condiment [%S]\nThe condiment may not have been added successfully=An error occurred while adding Condiment [%S]\nThe condiment may not have been added successfully
 
-Condiment\ [%S]\ modified\ successfully=Condiment [%S] modified successfully
+Condiment [%S] modified successfully=Condiment [%S] modified successfully
 
-An\ error\ occurred\ while\ modifying\ Condiment\ [%S]\nThe\ condiment\ may\ not\ have\ been\ modified\ successfully=An error occurred while modifying Condiment [%S]\nThe condiment may not have been modified successfully
+An error occurred while modifying Condiment [%S]\nThe condiment may not have been modified successfully=An error occurred while modifying Condiment [%S]\nThe condiment may not have been modified successfully
 
-Condiment\ [%S]\ removed\ successfully=Condiment [%S] removed successfully
+Condiment [%S] removed successfully=Condiment [%S] removed successfully
 
-An\ error\ occurred\ while\ removing\ Condiment\ [%S]\nThe\ condiment\ may\ not\ have\ been\ removed\ successfully=An error occurred while removing Condiment [%S]\nThe condiment may not have been removed successfully
+An error occurred while removing Condiment [%S]\nThe condiment may not have been removed successfully=An error occurred while removing Condiment [%S]\nThe condiment may not have been removed successfully
 
-Department\ Number\ must\ not\ be\ empty=Department Number must not be empty
+Department Number must not be empty=Department Number must not be empty
 
-Department\ Name\ must\ not\ be\ empty=Department Name must not be empty
+Department Name must not be empty=Department Name must not be empty
 
-Duplicate\ Department\ Number\ (%S);\ department\ not\ %S.=Duplicate Department Number (%S); department not %S.
+Duplicate Department Number (%S); department not %S.=Duplicate Department Number (%S); department not %S.
 
-Duplicate\ Department\ Name\ (%S);\ department\ not\ %S.=Duplicate Department Name (%S); department not %S.
+Duplicate Department Name (%S); department not %S.=Duplicate Department Name (%S); department not %S.
 
-Add\ New\ Department=Add New Department
+Add New Department=Add New Department
 
-New\ Department=New Department
+New Department=New Department
 
-Department\ Number=Department Number
+Department Number=Department Number
 
-Department\ Name=Department Name
+Department Name=Department Name
 
-Department\ [%S]\ added\ successfully=Department [%S] added successfully
+Department [%S] added successfully=Department [%S] added successfully
 
-An\ error\ occurred\ while\ adding\ Department\ [%S];\ the\ department\ may\ not\ have\ been\ added\ successfully=An error occurred while adding Department [%S]; the department may not have been added successfully
+An error occurred while adding Department [%S]; the department may not have been added successfully=An error occurred while adding Department [%S]; the department may not have been added successfully
 
-Department\ [%S]\ modified\ successfully=Department [%S] modified successfully
+Department [%S] modified successfully=Department [%S] modified successfully
 
-An\ error\ occurred\ while\ modifying\ Department\ [%S]\nThe\ department\ may\ not\ have\ been\ modified\ successfully=An error occurred while modifying Department [%S]\nThe department may not have been modified successfully
+An error occurred while modifying Department [%S]\nThe department may not have been modified successfully=An error occurred while modifying Department [%S]\nThe department may not have been modified successfully
 
-Department\ [%S]\ removed\ successfully=Department [%S] removed successfully
+Department [%S] removed successfully=Department [%S] removed successfully
 
-An\ error\ occurred\ while\ removing\ Department\ [%S]\nThe\ department\ may\ not\ have\ been\ removed\ successfully=An error occurred while removing Department [%S]\nThe department may not have been removed successfully
+An error occurred while removing Department [%S]\nThe department may not have been removed successfully=An error occurred while removing Department [%S]\nThe department may not have been removed successfully
 
 .name=.name
 
@@ -257,129 +257,129 @@ An\ error\ occurred\ while\ removing\ Department\ [%S]\nThe\ department\ may\ no
 
 .desc=.desc
 
-export\ plu\ finish\!=export plu finish\!
+export plu finish!=export plu finish!
 
-export\ data\ finish\!=export data finish\!
+export data finish!=export data finish!
 
-Add\ New\ Job=Add New Job
+Add New Job=Add New Job
 
-New\ Job=New Job
+New Job=New Job
 
-Job\ Name=Job Name
+Job Name=Job Name
 
-Duplicate\ job\ name\ [%S];\ job\ not\ added.=Duplicate job name [%S]; job not added.
+Duplicate job name [%S]; job not added.=Duplicate job name [%S]; job not added.
 
-Job\ [%S]\ added\ successfully=Job [%S] added successfully
+Job [%S] added successfully=Job [%S] added successfully
 
-Duplicate\ job\ name\ [%S];\ job\ not\ modified.=Duplicate job name [%S]; job not modified.
+Duplicate job name [%S]; job not modified.=Duplicate job name [%S]; job not modified.
 
-Job\ [%S]\ modified\ successfully=Job [%S] modified successfully
+Job [%S] modified successfully=Job [%S] modified successfully
 
-Job\ [%S]\ removed\ successfully=Job [%S] removed successfully
+Job [%S] removed successfully=Job [%S] removed successfully
 
-\ logged\ in=\ logged in
+ logged in= logged in
 
-Failed\ to\ authenticate\ user=Failed to authenticate user
+Failed to authenticate user=Failed to authenticate user
 
-Please\ enter\ passcode\ first=Please enter passcode first
+Please enter passcode first=Please enter passcode first
 
-Sign\ Off=Sign Off
+Sign Off=Sign Off
 
-Discard\ items\ that\ have\ been\ registered?=Discard items that have been registered?
+Discard items that have been registered?=Discard items that have been registered?
 
-What\ do\ you\ want\ to\ do\ with\ the\ registered\ items?=What do you want to do with the registered items?
+What do you want to do with the registered items?=What do you want to do with the registered items?
 
 Queue=Queue
 
 Discard=Discard
 
-You\ have\ one\ or\ more\ queued\ orders.\ Discard\ them?=You have one or more queued orders. Discard them?
+You have one or more queued orders. Discard them?=You have one or more queued orders. Discard them?
 
-You\ have\ one\ or\ more\ queued\ orders.\ What\ do\ you\ want\ to\ do\ with\ them?=You have one or more queued orders. What do you want to do with them?
+You have one or more queued orders. What do you want to do with them?=You have one or more queued orders. What do you want to do with them?
 
 Keep=Keep
 
-confirm\ sign-off=confirm sign-off
+confirm sign-off=confirm sign-off
 
-Are\ you\ ready\ to\ sign\ off?=Are you ready to sign off?
+Are you ready to sign off?=Are you ready to sign off?
 
-Add\ New\ Product\ Group=Add New Product Group
+Add New Product Group=Add New Product Group
 
-New\ Product\ Group=New Product Group
+New Product Group=New Product Group
 
-Duplicate\ Product\ Group\ name\ [%S];\ Product\ Group\ not\ added.=Duplicate Product Group name [%S]; Product Group not added.
+Duplicate Product Group name [%S]; Product Group not added.=Duplicate Product Group name [%S]; Product Group not added.
 
-Product\ Group\ [%S]\ added\ successfully=Product Group [%S] added successfully
+Product Group [%S] added successfully=Product Group [%S] added successfully
 
-Duplicate\ Product\ Group\ name\ [%S];\ Product\ group\ not\ modified.=Duplicate Product Group name [%S]; Product group not modified.
+Duplicate Product Group name [%S]; Product group not modified.=Duplicate Product Group name [%S]; Product group not modified.
 
-Product\ Group\ [%S]\ removed\ successfully=Product Group [%S] removed successfully
+Product Group [%S] removed successfully=Product Group [%S] removed successfully
 
-Add\ New\ Product\ Set=Add New Product Set
+Add New Product Set=Add New Product Set
 
-Product\ Set=Product Set
+Product Set=Product Set
 
-Product\ No.or\ Barcode=Product No.or Barcode
+Product No.or Barcode=Product No.or Barcode
 
 Quantity=Quantity
 
-Product\ not\ found\ (%S).=Product not found (%S).
+Product not found (%S).=Product not found (%S).
 
-Product\ No.\ must\ not\ be\ empty.=Product No. must not be empty.
+Product No. must not be empty.=Product No. must not be empty.
 
-Product\ Name\ must\ not\ be\ empty.=Product Name must not be empty.
+Product Name must not be empty.=Product Name must not be empty.
 
-The\ Product\ No.\ [%S]\ already\ exists;\ product\ not\ added.=The Product No. [%S] already exists; product not added.
+The Product No. [%S] already exists; product not added.=The Product No. [%S] already exists; product not added.
 
-The\ Product\ Name\ [%S]\ already\ exists;\ product\ not\ added.=The Product Name [%S] already exists; product not added.
+The Product Name [%S] already exists; product not added.=The Product Name [%S] already exists; product not added.
 
-The\ Product\ Name\ [%S]\ already\ exists;\ product\ not\ modified.=The Product Name [%S] already exists; product not modified.
+The Product Name [%S] already exists; product not modified.=The Product Name [%S] already exists; product not modified.
 
-Add\ New\ Product=Add New Product
+Add New Product=Add New Product
 
-New\ Product=New Product
+New Product=New Product
 
-Product\ No.=Product No.
+Product No.=Product No.
 
-Product\ Name=Product Name
+Product Name=Product Name
 
-Product\ [%S]\ added\ successfully=Product [%S] added successfully
+Product [%S] added successfully=Product [%S] added successfully
 
-An\ error\ occurred\ while\ adding\ Product\ [%S];\ the\ product\ may\ not\ have\ been\ added\ successfully=An error occurred while adding Product [%S]; the product may not have been added successfully
+An error occurred while adding Product [%S]; the product may not have been added successfully=An error occurred while adding Product [%S]; the product may not have been added successfully
 
-Product\ [%S]\ modified\ successfully=Product [%S] modified successfully
+Product [%S] modified successfully=Product [%S] modified successfully
 
-An\ error\ occurred\ while\ modifying\ Product\ [%S]\nThe\ product\ may\ not\ have\ been\ modified\ successfully=An error occurred while modifying Product [%S]\nThe product may not have been modified successfully
+An error occurred while modifying Product [%S]\nThe product may not have been modified successfully=An error occurred while modifying Product [%S]\nThe product may not have been modified successfully
 
-Product\ [%S]\ removed\ successfully=Product [%S] removed successfully
+Product [%S] removed successfully=Product [%S] removed successfully
 
-An\ error\ occurred\ while\ removing\ Product\ [%S]\nThe\ product\ may\ not\ have\ been\ removed\ successfully=An error occurred while removing Product [%S]\nThe product may not have been removed successfully
+An error occurred while removing Product [%S]\nThe product may not have been removed successfully=An error occurred while removing Product [%S]\nThe product may not have been removed successfully
 
-Product\ [%S]\ Not\ Found\!=Product [%S] Not Found\!
+Product [%S] Not Found!=Product [%S] Not Found!
 
-Price\ Level\ changed\ from\ [%S]\ to\ [%S]=Price Level changed from [%S] to [%S]
+Price Level changed from [%S] to [%S]=Price Level changed from [%S] to [%S]
 
 Default=Default
 
-Default\ Price\ Level=Default Price Level
+Default Price Level=Default Price Level
 
-Schedule\ [%S\ -\ Price\ Level\ %S]\ added\ successfully=Schedule [%S - Price Level %S] added successfully
+Schedule [%S - Price Level %S] added successfully=Schedule [%S - Price Level %S] added successfully
 
-confirm\ remove\ %S\ -\ price\ level\ %S=confirm remove %S - price level %S
+confirm remove %S - price level %S=confirm remove %S - price level %S
 
-Schedule\ [%S\ -\ Price\ Level\ %S]\ removed\ successfully=Schedule [%S - Price Level %S] removed successfully
+Schedule [%S - Price Level %S] removed successfully=Schedule [%S - Price Level %S] removed successfully
 
-Stock\ level\ for\ [%S]\ modified\ successfully=Stock level for [%S] modified successfully
+Stock level for [%S] modified successfully=Stock level for [%S] modified successfully
 
-Product/Barcode\ Number\ (%S)\ not\ found\!=Product/Barcode Number (%S) not found\!
+Product/Barcode Number (%S) not found!=Product/Barcode Number (%S) not found!
 
-Tax\ code\ must\ not\ be\ empty.=Tax code must not be empty.
+Tax code must not be empty.=Tax code must not be empty.
 
-Tax\ name\ must\ not\ be\ empty.=Tax name must not be empty.
+Tax name must not be empty.=Tax name must not be empty.
 
-Duplicate\ tax\ code\ [%S];\ tax\ not\ added=Duplicate tax code [%S]; tax not added
+Duplicate tax code [%S]; tax not added=Duplicate tax code [%S]; tax not added
 
-Duplicate\ tax\ name\ [%S];\ tax\ not\ %S=Duplicate tax name [%S]; tax not %S
+Duplicate tax name [%S]; tax not %S=Duplicate tax name [%S]; tax not %S
 
 Add-On=Add-On
 
@@ -387,46 +387,338 @@ Included=Included
 
 Combined=Combined
 
-VAT\ &\ VAT=VAT & VAT
+VAT & VAT=VAT & VAT
 
-Add\ New\ Tax\ Status=Add New Tax Status
+Add New Tax Status=Add New Tax Status
 
-New\ Tax\ Status=New Tax Status
+New Tax Status=New Tax Status
 
-Tax\ Code=Tax Code
+Tax Code=Tax Code
 
-Tax\ Name=Tax Name
+Tax Name=Tax Name
 
-Tax\ [%S]\ added\ successfully=Tax [%S] added successfully
+Tax [%S] added successfully=Tax [%S] added successfully
 
-An\ error\ occurred\ while\ adding\ Tax\ [%S];\ the\ tax\ may\ not\ have\ been\ added\ successfully=An error occurred while adding Tax [%S]; the tax may not have been added successfully
+An error occurred while adding Tax [%S]; the tax may not have been added successfully=An error occurred while adding Tax [%S]; the tax may not have been added successfully
 
-Tax\ [%S]\ removed\ successfully=Tax [%S] removed successfully
+Tax [%S] removed successfully=Tax [%S] removed successfully
 
-An\ error\ occurred\ while\ removing\ Tax\ [%S];\ the\ tax\ may\ not\ have\ been\ removed\ successfully=An error occurred while removing Tax [%S]; the tax may not have been removed successfully
+An error occurred while removing Tax [%S]; the tax may not have been removed successfully=An error occurred while removing Tax [%S]; the tax may not have been removed successfully
 
-Tax\ [%S]\ modified\ successfully=Tax [%S] modified successfully
+Tax [%S] modified successfully=Tax [%S] modified successfully
 
 Test=Test
 
-Add\ New\ Employee=Add New Employee
+Add New Employee=Add New Employee
 
-New\ Employee=New Employee
+New Employee=New Employee
 
 Name=Name
 
 Password=Password
 
-Duplicate\ user\ name\ [%S];\ user\ not\ added.=Duplicate user name [%S]; user not added.
+Duplicate user name [%S]; user not added.=Duplicate user name [%S]; user not added.
 
-Duplicate\ display\ name\ [%S];\ user\ not\ added.=Duplicate display name [%S]; user not added.
+Duplicate display name [%S]; user not added.=Duplicate display name [%S]; user not added.
 
-Employee\ [%S]\ added\ successfully=Employee [%S] added successfully
+Employee [%S] added successfully=Employee [%S] added successfully
 
-Duplicate\ display\ name\ [%S];\ user\ not\ modified.=Duplicate display name [%S]; user not modified.
+Duplicate display name [%S]; user not modified.=Duplicate display name [%S]; user not modified.
 
-Employee\ [%S]\ modified\ successfully=Employee [%S] modified successfully
+Employee [%S] modified successfully=Employee [%S] modified successfully
 
-Employee\ [%S]\ removed\ successfully=Employee [%S] removed successfully
+Employee [%S] removed successfully=Employee [%S] removed successfully
 
-Select\ Access\ Group=Select Access Group
+Select Access Group=Select Access Group
+
+confirm timezone change=confirm timezone change
+
+Timezone change requires system restart to take effect. If you save the changes now, the system will restart automatically after you return to the Main Screen. Do you want to save your changes?=Timezone change requires system restart to take effect. If you save the changes now, the system will restart automatically after you return to the Main Screen. Do you want to save your changes?
+
+Failed to set date/time=Failed to set date/time
+
+confirm language and keyboard mapping change=confirm language and keyboard mapping change
+
+Language and Keyboard mapping changes require system restart to take effect. If you save the changes now, the system will restart automatically after you return to the Main Screen. Do you want to save your changes?=Language and Keyboard mapping changes require system restart to take effect. If you save the changes now, the system will restart automatically after you return to the Main Screen. Do you want to save your changes?
+
+Remove User=Remove User
+
+[%S] may be out of stock!=[%S] may be out of stock!
+
+[%S] low stock threshold reached!=[%S] low stock threshold reached!
+
+Product [%S] may not be registered with a price of [%S]!=Product [%S] may not be registered with a price of [%S]!
+
+Return of product sets [%S] not allowed!=Return of product sets [%S] not allowed!
+
+confirm age=confirm age
+
+Is customer of age for purchase of [%S]?=Is customer of age for purchase of [%S]?
+
+Product [%S] may not be modified with a price of [%S]!=Product [%S] may not be modified with a price of [%S]!
+
+Cannot VOID the selected item [%S]. It is not the last registered item=Cannot VOID the selected item [%S]. It is not the last registered item
+
+The select item [%S] is a member of a product set and cannot be VOIDed individually=The select item [%S] is a member of a product set and cannot be VOIDed individually
+
+Cannot VOID an entry that has been subtotaled=Cannot VOID an entry that has been subtotaled
+
+Please void discount on item [%S] first=Please void discount on item [%S] first
+
+Please void surcharge on item [%S] first=Please void surcharge on item [%S] first
+
+Cannot apply discount to [%S]. It is not the last registered item=Cannot apply discount to [%S]. It is not the last registered item
+
+Cannot apply surcharge to [%S]. It is not the last registered item=Cannot apply surcharge to [%S]. It is not the last registered item
+
+Please enter the surcharge amount=Please enter the surcharge amount
+
+Nothing has been registered yet; operation invalid=Nothing has been registered yet; operation invalid
+
+Coupon Remark=Coupon Remark
+
+Coupon Type=Coupon Type
+
+Nothing has been registered yet; cannot register payments=Nothing has been registered yet; cannot register payments
+
+Payment Details=Payment Details
+
+Not an open order; nothing to cancel=Not an open order; nothing to cancel
+
+Condiments may not be added to a return item [%S]=Condiments may not be added to a return item [%S]
+
+Memo=Memo
+
+Error in device manager! Please check your device configuration=Error in device manager! Please check your device configuration
+
+Cash drawer [%S] is not enabled! Please check your device configuration=Cash drawer [%S] is not enabled! Please check your device configuration
+
+Error detected while opening cash drawer [%S]; please check if cash drawer is connected and powered up=Error detected while opening cash drawer [%S]; please check if cash drawer is connected and powered up
+
+Specified device port [%S] does not exist!=Specified device port [%S] does not exist!
+
+Error detected when outputing to device [%S] at port [%S]=Error detected when outputing to device [%S] at port [%S]
+
+Authentication failed!. Please make sure the password is correct.=Authentication failed!. Please make sure the password is correct.
+
+Authentication failed!. Please select a user=Authentication failed!. Please select a user
+
+Please select a user first.=Please select a user first.
+
+Please enter the passcode.=Please enter the passcode.
+
+Authentication Failed!. Please make sure the passcode is correct.=Authentication Failed!. Please make sure the passcode is correct.
+
+Please select a job first.=Please select a job first.
+
+Not clocked in yet.=Not clocked in yet.
+
+An error occurred while adding Condiment Group [%S]. The group may not have been added successfully=An error occurred while adding Condiment Group [%S]. The group may not have been added successfully
+
+An error occurred while modifying Condiment Group [%S]. The group may not have been modified successfully=An error occurred while modifying Condiment Group [%S]. The group may not have been modified successfully
+
+[%S] has been assigned to one or more products and may not be deleted=[%S] has been assigned to one or more products and may not be deleted
+
+An error occurred while removing Condiment Group [%S]. The group may not have been removed successfully=An error occurred while removing Condiment Group [%S]. The group may not have been removed successfully
+
+An error occurred while adding Condiment [%S]. The condiment may not have been added successfully=An error occurred while adding Condiment [%S]. The condiment may not have been added successfully
+
+An error occurred while modifying Condiment [%S]. The condiment may not have been modified successfully=An error occurred while modifying Condiment [%S]. The condiment may not have been modified successfully
+
+An error occurred while removing Condiment [%S]. The condiment may not have been removed successfully=An error occurred while removing Condiment [%S]. The condiment may not have been removed successfully
+
+An error occurred while modifying Department [%S]. The department may not have been modified successfully=An error occurred while modifying Department [%S]. The department may not have been modified successfully
+
+[%S] has one or more products and may not be deleted=[%S] has one or more products and may not be deleted
+
+An error occurred while removing Department [%S]. The department may not have been removed successfully=An error occurred while removing Department [%S]. The department may not have been removed successfully
+
+Device Status=Device Status
+
+No device has been enabled for receipt and/or guest check printing!=No device has been enabled for receipt and/or guest check printing!
+
+Device=Device
+
+Port=Port
+
+The following enabled devices appear to be offline, please ensure that they are functioning correctly: \n%S=The following enabled devices appear to be offline, please ensure that they are functioning correctly: \n%S
+
+Receipt Printer %S=Receipt Printer %S
+
+Guest Check Printer %S=Guest Check Printer %S
+
+VFD %S=VFD %S
+
+Cash Drawer %S=Cash Drawer %S
+
+The following enabled devices appear to be offline, do you still want to save the new configuration?\n%S=The following enabled devices appear to be offline, do you still want to save the new configuration?\n%S
+
+Media Not Found!=Media Not Found!
+
+Please attach the USB thumb drive...=Please attach the USB thumb drive...
+
+Import Images Error!!=Import Images Error!!
+
+Import Images Done!!=Import Images Done!!
+
+Export Images Error!!=Export Images Error!!
+
+Export Images Done!!=Export Images Done!!
+
+Delete Image (%S) is Done!!=Delete Image (%S) is Done!!
+
+Rename Image Name (%S) to (%S)!!=Rename Image Name (%S) to (%S)!!
+
+Rename Image (%S) Error!!=Rename Image (%S) Error!!
+
+Please select a data category to export=Please select a data category to export
+
+Export To CSV (%S) Error!!=Export To CSV (%S) Error!!
+
+Yes=Yes
+
+ (%S)= (%S)
+
+Data export to CSV file [%S] finished!=Data export to CSV file [%S] finished!
+
+Please select a data category to import=Please select a data category to import
+
+The specified CSV file [%S] does not exist!=The specified CSV file [%S] does not exist!
+
+Unable to open the specified CSV file [%S]!=Unable to open the specified CSV file [%S]!
+
+Import format error: field [%S] not exist!=Import format error: field [%S] not exist!
+
+Format error detected in import CSV file [%S]!=Format error detected in import CSV file [%S]!
+
+Data import from CSV file [%S] finished!=Data import from CSV file [%S] finished!
+
+Department=Department
+
+Product=Product
+
+Product Group=Product Group
+
+Condiment Group=Condiment Group
+
+Condiment=Condiment
+
+[%S] has been assigned as the default job to one or more users and may not be deleted=[%S] has been assigned as the default job to one or more users and may not be deleted
+
+Authentication failed! Please make sure the password is correct.=Authentication failed! Please make sure the password is correct.
+
+User [%S] does not exist!=User [%S] does not exist!
+
+Please enter passcode first.=Please enter passcode first.
+
+Filter [%S] added successfully=Filter [%S] added successfully
+
+Filter [%S] removed successfully=Filter [%S] removed successfully
+
+[%S] (%S) may not be a member of its own product set.=[%S] (%S) may not be a member of its own product set.
+
+[%S] (%S) is a product set and may not be a member of another product set.=[%S] (%S) is a product set and may not be a member of another product set.
+
+Product not found [%S].=Product not found [%S].
+
+The Product No. [%S] already exists; product not added=The Product No. [%S] already exists; product not added
+
+The Product Name [%S] already exists; product not added=The Product Name [%S] already exists; product not added
+
+The Product Name [%S] already exists; product not modified=The Product Name [%S] already exists; product not modified
+
+Condiment is required but no condiment group selected; product not modified=Condiment is required but no condiment group selected; product not modified
+
+Price level %S preset price [%S] is larger than HALO [%S]; product not modified=Price level %S preset price [%S] is larger than HALO [%S]; product not modified
+
+Price level %S preset price [%S] is less than LALO [%S]; product not modified=Price level %S preset price [%S] is less than LALO [%S]; product not modified
+
+An error occurred while modifying Product [%S]. The product may not have been modified successfully=An error occurred while modifying Product [%S]. The product may not have been modified successfully
+
+Product [%S] is part of a product set [%S] and may not be removed=Product [%S] is part of a product set [%S] and may not be removed
+
+An error occurred while removing Product [%S]. The product may not have been removed successfully=An error occurred while removing Product [%S]. The product may not have been removed successfully
+
+Product Search=Product Search
+
+A receipt has already been issued for this order at [%S]=A receipt has already been issued for this order at [%S]
+
+Not an open order; cannot issue receipt=Not an open order; cannot issue receipt
+
+The order has not been finalized; cannot issue receipt=The order has not been finalized; cannot issue receipt
+
+A receipt has already been issued for this order=A receipt has already been issued for this order
+
+You have not configured any receipt printers=You have not configured any receipt printers
+
+All receipt printers are disabled=All receipt printers are disabled
+
+The specified receipt printer [%S] is not configured=The specified receipt printer [%S] is not configured
+
+Invalid receipt printer [%S]=Invalid receipt printer [%S]
+
+The specified receipt printer [%S] is not enabled=The specified receipt printer [%S] is not enabled
+
+No order has been opened; cannot issue guest check=No order has been opened; cannot issue guest check
+
+Cannot issue guest check on a canceled order=Cannot issue guest check on a canceled order
+
+You have not configured any guest check printers=You have not configured any guest check printers
+
+All guest check printers are disabled=All guest check printers are disabled
+
+Invalid guest check printer [%S]=Invalid guest check printer [%S]
+
+The specified guest check printer [%S] is not enabled=The specified guest check printer [%S] is not enabled
+
+Error in Print controller: no worker thread available!=Error in Print controller: no worker thread available!
+
+Specified receipt/guest check template [%S] is empty or does not exist!=Specified receipt/guest check template [%S] is empty or does not exist!
+
+Failed to set volume=Failed to set volume
+
+Unable to save store contact!=Unable to save store contact!
+
+Store name and terminal ID must not be blank!=Store name and terminal ID must not be blank!
+
+Failed to execute command (%S).=Failed to execute command (%S).
+
+<Backup to Local> is done!!=<Backup to Local> is done!!
+
+Media not found!! Please attach the USB thumb drive...=Media not found!! Please attach the USB thumb drive...
+
+<Copy Backup to Stick> is done!!=<Copy Backup to Stick> is done!!
+
+Must select a item from local backup list.=Must select a item from local backup list.
+
+Confirm Restore=Confirm Restore
+
+Do you want to restore (%S) from local backup?=Do you want to restore (%S) from local backup?
+
+<Restore from Local backup> is done!!=<Restore from Local backup> is done!!
+
+Do you want to restore (%S) from stick?=Do you want to restore (%S) from stick?
+
+<Restore from Stick> is done!!=<Restore from Stick> is done!!
+
+Must select a item from stick list.=Must select a item from stick list.
+
+[%S] has been assigned to one or more departments and may not be deleted=[%S] has been assigned to one or more departments and may not be deleted
+
+[%S] is the default tax and may not be deleted=[%S] is the default tax and may not be deleted
+
+Passcode=Passcode
+
+NOTE: the assigned drawer [%S] does not exist!=NOTE: the assigned drawer [%S] does not exist!
+
+WARN: the assigned drawer [%S] is not yet enabled!=WARN: the assigned drawer [%S] is not yet enabled!
+
+Error detected in device manager; unable to verify cash drawer configuration=Error detected in device manager; unable to verify cash drawer configuration
+
+[%S] is the default user and may not be deleted=[%S] is the default user and may not be deleted
+
+[%S] may not be deleted=[%S] may not be deleted
+
+Select Default Job=Select Default Job
+
+Error in VFD controller: no worker thread available!=Error in VFD controller: no worker thread available!

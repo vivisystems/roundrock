@@ -31,6 +31,25 @@
             alert('ok');
         },
 
+        generateTransactions: function(count) {
+alert('generateTransactions [' + count + ']');
+            if (isNaN(count) || count < 0) {
+                alert(count + ' is not a positive number');
+            }
+            count = Math.floor(count);
+            var cart = GeckoJS.Controller.getInstanceByName('Cart');
+            cart.clear();
+
+            NotifyUtils.info('preparing to generate ' + count + ' transactions');
+            for (var i = 0; i < count; i++) {
+                cart.addItemByBarcode('PS00011');
+                cart.addItemByBarcode('PS00064');
+                cart.addItemByBarcode('PS00083');
+                cart.cash();
+            }
+            NotifyUtils.info(count + ' transactions created');
+        },
+
         importPlu: function(data) {
             var lines = GREUtils.File.readAllLine('/home/rack/workspace/dbf/plu-u8.csv');
             var products = GeckoJS.Session.get('products');

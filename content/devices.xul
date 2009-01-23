@@ -352,7 +352,6 @@
                                 </grid>
                             </vbox> 
                         </vbox>
-
                         <spacer width="10px"/>
 
                         <vbox class="SetArea" flex="1">
@@ -439,6 +438,22 @@
                                             </menulist>
                                         </row>
                                         <row>
+                                            <label value="&devices.cashdrawer.supports.status;"/>
+                                            <checkbox id="cashdrawer-1-supports-status" label="" name="cashdrawer-1-supports-status"
+                                                      value="false" default="false" form="deviceForm"/>
+                                        </row>
+                                        <row>
+                                            <label value="&devices.cashdrawer.gpio.pulses;"/>
+                                            <menulist id="cashdrawer-1-gpio-pulses" name="cashdrawer-1-gpio-pulses" default="1" form="deviceForm">
+                                                <menupopup id="cashdrawer-1-gpio-pulses-popup">
+                                                    <menuitem label="1" value="1"/>
+                                                    <menuitem label="2" value="2"/>
+                                                    <menuitem label="3" value="3"/>
+                                                    <menuitem label="4" value="4"/>
+                                                </menupopup>
+                                            </menulist>
+                                        </row>
+                                        <row>
                                             <label value="&devices.port.label;"/>
                                             <menulist id="cashdrawer-1-port" name="cashdrawer-1-port" form="deviceForm">
                                                 <menupopup id="cashdrawer-1-port-popup">
@@ -492,6 +507,22 @@
                                                 <menupopup id="cashdrawer-2-template-popup">
                                                     <menuitem label="&devices.cashdrawer.type.gpio;" value="gpio"/>
                                                     <menuitem label="&devices.cashdrawer.type.printer;" value="printer"/>
+                                                </menupopup>
+                                            </menulist>
+                                        </row>
+                                        <row>
+                                            <label value="&devices.cashdrawer.supports.status;"/>
+                                            <checkbox id="cashdrawer-2-supports-status" label="" name="cashdrawer-2-supports-status"
+                                                      value="false" default="false" form="deviceForm"/>
+                                        </row>
+                                        <row>
+                                            <label value="&devices.cashdrawer.gpio.pulses;"/>
+                                            <menulist id="cashdrawer-2-gpio-pulses" name="cashdrawer-2-gpio-pulses" default="1" form="deviceForm">
+                                                <menupopup id="cashdrawer-2-gpio-pulses-popup">
+                                                    <menuitem label="1" value="1"/>
+                                                    <menuitem label="2" value="2"/>
+                                                    <menuitem label="3" value="3"/>
+                                                    <menuitem label="4" value="4"/>
                                                 </menupopup>
                                             </menulist>
                                         </row>

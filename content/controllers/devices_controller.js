@@ -519,10 +519,17 @@
             else return 0;
         },
 
-        triggerGPIO: function() {
+        isGPIODrawerOpen: function() {
             var gpio = GeckoJS.Controller.getInstanceByName('GPIO');
 
-            if (gpio) return gpio.trigger();
+            if (gpio) return gpio.isDrawerOpen();
+            else return false;
+        },
+
+        triggerGPIO: function(pulses) {
+            var gpio = GeckoJS.Controller.getInstanceByName('GPIO');
+
+            if (gpio) return gpio.trigger(pulses);
             else return 0;
         },
 
@@ -677,6 +684,8 @@
                         devicemodel: selectedDevices[type + '-1-devicemodel'],
                         encoding: selectedDevices[type + '-1-encoding'],
                         autoprint: selectedDevices[type + '-1-autoprint'],
+                        supportsstatus: selectedDevices[type + '-1-supports-status'],
+                        gpiopulses: selectedDevices[type + '-1-gpio-pulses'],
                         number: 1
                     });
                 }
@@ -690,6 +699,8 @@
                         devicemodel: selectedDevices[type + '-2-devicemodel'],
                         encoding: selectedDevices[type + '-2-encoding'],
                         autoprint: selectedDevices[type + '-2-autoprint'],
+                        supportsstatus: selectedDevices[type + '-2-supports-status'],
+                        gpiopulses: selectedDevices[type + '-2-gpio-pulses'],
                         number: 2
                     });
                 }
@@ -723,6 +734,8 @@
             var speedmenu = document.getElementById('cashdrawer-' + drawer_no + '-portspeed')
             var handshakebox = document.getElementById('cashdrawer-' + drawer_no + '-handshaking')
             var devicemenu = document.getElementById('cashdrawer-' + drawer_no + '-devicemodel')
+            var pulsemenu = document.getElementById('cashdrawer-' + drawer_no + '-gpio-pulses')
+            var statusbox = document.getElementById('cashdrawer-' + drawer_no + '-supports-status')
             
             if (typemenu == null || devicemenu == null) return;
 
@@ -731,6 +744,8 @@
                 portmenu.setAttribute('disabled', true);
                 speedmenu.setAttribute('disabled', true);
                 handshakebox.setAttribute('disabled', true);
+                pulsemenu.setAttribute('disabled', true);
+                statusbox.setAttribute('disabled', true);
                 devicemenu.selectedIndex = 0;
             }
             else {
@@ -738,6 +753,8 @@
                 speedmenu.setAttribute('disabled', selectedType.value == 'gpio');
                 handshakebox.setAttribute('disabled', selectedType.value == 'gpio');
                 devicemenu.setAttribute('disabled', selectedType.value == 'gpio');
+                pulsemenu.setAttribute('disabled', selectedType.value != 'gpio');
+                statusbox.setAttribute('disabled', selectedType.value != 'gpio');
             }
         },
         

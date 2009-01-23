@@ -132,10 +132,10 @@
             return deviceModels[devicemodel].label;
         },
 
-        triggerGPIO: function () {
+        triggerGPIO: function (pulses) {
             var device = this.getDeviceController();
             if (device != null) {
-                return device.triggerGPIO();
+                return device.triggerGPIO(pulses);
             }
             else {
                 return null;
@@ -144,6 +144,21 @@
 
         // handles payment events
         handleOpenDrawerEvent: function(evt) {
+
+            // on payment events, check if a submit event is coming
+            if (evt.getType() == 'afterAddPayment') {
+                var cart= GeckoJS.Controller.getInstanceByName('Cart');
+                if (cart == null) return;
+
+                var txn = cart._getTransaction();
+                if (txn == null) return;
+
+                if (txn.getRemainTotal() <= 0) {
+                    // don't open drawer; wait for afterSubmit event
+                    return;
+                }
+            }
+
             // 1. get user's assigned drawer (or null)
             // 2. pass drawer number to openDrawer()
 
@@ -199,6 +214,7 @@
             var drawer;
             if (drawerNo == null) {
                 drawer = enabledDevices[0];
+                drawerNo = 0;
             }
             else {
                 if (!device.isDeviceEnabled('cashdrawer', drawerNo)) {
@@ -209,13 +225,11 @@
                    if (d.number == drawerNo) drawer = d; 
                 });
             }
-
             switch (drawer.type) {
                 
                 case 'gpio':
-                    if (device.triggerGPIO() == 0) {
-                        // try again
-                        if (device.triggerGPIO() == 0) {
+                    if (!drawer.supportsstatus || !device.isGPIODrawerOpen()) {
+                        if (device.triggerGPIO(drawer.gpiopulses) == 0) {
                             NotifyUtils.error(_('Error detected while opening cash drawer [%S]; please check if cash drawer is connected and powered up', [drawerNo]));
                         }
                     }

@@ -45,11 +45,17 @@
                     </columns>
                     <rows>
                         <row>
-                            <vbox>
+                            <hbox>
+                            <vbox flex="2">
                                 <label id="plugroup_id" hidden="true" form="plugroupForm" name="id" value="" />
                                 <label value="&plugroups.name;" control="plugroup_name"/>
                                 <textbox id="plugroup_name" value="" form="plugroupForm" name="name" oninput="$do('validateForm', null, 'Plugroups')" default="" onfocus="this.select()"/>
                             </vbox>
+                            <vbox flex="0">
+                                <label style="width:10em" value="&plugroups.display_order;" control="display_order"/>
+                                <textbox id="display_order" default="" size="2" form="plugroupForm" name="display_order" onfocus="this.select()"/>
+                            </vbox>
+                            </hbox>
                         </row>
                         <row>
                             <checkbox id="visible" style="height: 50px;" value="true" label="&plugroups.visible;" form="plugroupForm" name="visible" default="true"/>

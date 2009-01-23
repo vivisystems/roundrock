@@ -367,6 +367,7 @@
                     GeckoJS.Session.set('cart_set_qty_value', qty);
                 }
 
+                var doSIS = plu.single && curTransaction.data.items_count == 1;
                 var addedItem = curTransaction.appendItem(item);
 
                 this.dispatchEvent('onAddItem', addedItem);
@@ -378,7 +379,7 @@
 
                 if (addedItem.id == plu.id && !this._returnMode) {
                     if (plu.force_condiment) {
-                        this.addCondiment(plu);
+                        this.addCondiment(plu, doSIS);
                     }
                     if (plu.force_memo) {
                         this.addMemo(plu);
@@ -386,7 +387,7 @@
                 }
 
                 // single item sale?
-                if (plu.single && curTransaction.data.items_count == 1) {
+                if (doSIS) {
                     this.addPayment('cash');
                     this.dispatchEvent('onWarning', _('SINGLE ITEM SALE'));
                 }
@@ -1285,7 +1286,7 @@
 
         getCreditCardDialog: function (data) {
             var aURL = 'chrome://viviecr/content/creditcard_remark.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=400';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=550';
             var inputObj = {
                 input0:data.type,
                 input1:null
@@ -1302,7 +1303,7 @@
 
         getCouponDialog: function (data) {
             var aURL = 'chrome://viviecr/content/coupon_remark.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=400';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=550';
             var inputObj = {
                 input0:data.type,
                 input1:null
@@ -1685,7 +1686,6 @@
             this.cancelReturn();
 
             this.dispatchEvent('onSubmit', oldTransaction);
-				
         },
 
 
@@ -1704,7 +1704,7 @@
 
         },
 
-        addCondiment: function(plu) {
+        addCondiment: function(plu, forceModal) {
 
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
@@ -1785,7 +1785,7 @@
                 else {
                     //var condiments = this.getCondimentsDialog(condimentItem.cond_group);
                     //if (condiments) curTransaction.appendCondiment(index, condiments);
-                    this.getCondimentsDialog(condimentItem.cond_group);
+                    this.getCondimentsDialog(condimentItem.cond_group, forceModal);
                 }
                 
             }
@@ -1793,7 +1793,7 @@
 
         },
 
-        getCondimentsDialog: function (condgroup) {
+        getCondimentsDialog: function (condgroup, forceModal) {
 
             var condGroups = GeckoJS.Session.get('condGroups');
             if (!condGroups) {
@@ -1821,7 +1821,7 @@
 
             var colsRows = parseInt(this._condimentPanel.getAttribute('cols')) * parseInt(this._condimentPanel.getAttribute('rows'));
 
-            if (colsRows == 0) {
+            if (forceModal || colsRows == 0) {
                 var condiments = null;
                 
                 var aURL = 'chrome://viviecr/content/select_condiments.xul';

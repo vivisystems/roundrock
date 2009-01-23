@@ -474,7 +474,7 @@
                     var halo = parseFloat(data['halo' + i]);
                     var lalo = parseFloat(data['lalo' + i]);
 
-                    if (enabled) {
+                    if (enabled || i == 1) {
                         if (halo > 0 && halo < price) {
                             NotifyUtils.warn(_('Price level %S preset price [%S] is larger than HALO [%S]; product not modified', [i, price, halo]));
                             return 6;
@@ -526,7 +526,6 @@
                             index: 'no',
                             value: prodData.no
                         });
-                        this.log(GeckoJS.BaseObject.dump(newProduct));
                         if (newProduct != null) {
                             this.updateSession('add', newProduct);
                         }
@@ -589,7 +588,6 @@
                     var setitems = this._setMenuFromString(inputData);
                     
                     prodModel.id = inputData.id;
-                    this.log(GeckoJS.BaseObject.dump(inputData));
                     prodModel.save(inputData);
                     
                     // update set items
@@ -696,7 +694,6 @@
             });
             GeckoJS.Session.add('products', products);
             */
-this.log('action = [' + action + '], data = [' + GeckoJS.BaseObject.dump(data) + ']');
             switch(action) {
                 case 'add':
                     var products = GeckoJS.Session.get('products');
@@ -794,7 +791,6 @@ this.log('action = [' + action + '], data = [' + GeckoJS.BaseObject.dump(data) +
                             indexCateAll[(data.cate_no+"")].push((data.id+""));
                             if(GeckoJS.String.parseBoolean(data.visible)) {
                                 indexCate[(data.cate_no+"")].push((data.id+""));
-                                this.log(data.name + ' is ' + data.visible);
                             }
                         }
                     }

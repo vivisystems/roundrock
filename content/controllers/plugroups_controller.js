@@ -33,11 +33,11 @@
 
         },
 
-        /*
         beforeScaffold: function(evt) {
-            
+            if (evt.data == 'index') {
+                this.Scaffold.params = {order: 'display_order, name'};
+            }
         },
-        */
 
         beforeScaffoldAdd: function(evt) {
 
@@ -245,7 +245,6 @@
         },
 
         load: function () {
-
             var panel = this.getListObj();
 
             this.requestCommand('list', -1);
@@ -278,7 +277,7 @@
             var plugroupModel = new PlugroupModel();
 
             var plugroups = plugroupModel.find('all', {
-                order: 'name'
+                order: 'display_order, name'
             });
 
             var visiblePlugroups = [];
@@ -295,6 +294,7 @@
             switch(mode) {
 
                 case 'add':
+                case 'modify':
 
                     for (var i = 0; i < plugroups.length; i++) {
                         if (plugroups[i].id == id) {
@@ -303,11 +303,6 @@
                         }
                     }
                     plugroupsById[id] = targetPlugroup;
-                    break;
-
-                case 'modify':
-                    plugroupsById[id] = targetPlugroup;
-                    index = this._selectedIndex;
                     break;
 
                 case 'remove':
