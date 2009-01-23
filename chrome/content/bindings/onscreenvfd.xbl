@@ -150,7 +150,7 @@
                     self.setText0_1('');
                 }
 
-                this.onSubmit = function(evt) {
+                this.afterSubmit = function(evt) {
                     var transaction = evt.data;
                     if (transaction == null) {
                         // self.setText0_1(self.format(0));
@@ -197,7 +197,7 @@
                 this.cartevents.addListener('onClear', this.onClear, this);
                 this.cartevents.addListener('onCancel', this.onCancel, this);
                 this.cartevents.addListener('onQueue', this.onQueue, this);
-                this.cartevents.addListener('onSubmit', this.onSubmit, this);
+                this.cartevents.addListener('afterSubmit', this.afterSubmit, this);
                 this.cartevents.addListener('onWarning', this.onWarning, this);
 
                 this.mainevents.addListener('onEnterPassword', this.onEnterPassword, this);
