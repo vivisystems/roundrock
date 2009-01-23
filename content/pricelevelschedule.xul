@@ -57,7 +57,7 @@
                 
                 <button id="add_schedule" label="&pricelevelschedule.button.add;" class="BtnAdd" disabled="false" oncommand="$do('add', null, 'PriceLevelSchedule');" />
 
-                <spacer style="height: 10px;" />
+                <spacer flex="1" />
                  
                 <hbox>
                     <hbox class="ToolBar" flex="1">

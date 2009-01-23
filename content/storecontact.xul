@@ -119,6 +119,7 @@
                 </row>
             </rows>
         </grid>
+        <spacer flex="1" />
         <hbox id="dialogButtons" class="dialogbtns" pack="center" flex="1">
             <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
             <spacer flex="1" />

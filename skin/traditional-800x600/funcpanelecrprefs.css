@@ -1,3 +1,105 @@
+.MainPnl {
+    margin: 10px;
+}
+
+.MainL {
+    border-right: 1px solid #c1ab8e;
+}
+
+.FontSizeSet button{
+    height: 45px;
+    max-width: 150px;
+}
+
+.FontSizeSet {
+    margin: 0 6px;
+}
+
+.BtnColors button {
+    min-height: 50px;
+    min-width: 50px;
+}
+.BtnColors button hbox {
+    -moz-box-orient: vertical;
+}
+
+.PageNumPnl {
+    padding: 4px 8px;
+}
+.PageNumPnl label {
+    font-size: 10pt;
+    color: #736357;
+}
+.PageNumPnl textbox {
+    max-width: 100px;
+    margin: 0 2px;
+}
+.PageNumPnl button {
+    margin: 0 2px;
+}
+
+.DataFormA row{
+	border-bottom: 2px solid white;
+	font-size: 10pt;
+	padding: 4px;
+    -moz-box-align: center;
+    background: #f4f3ee;
+}
+.DataFormA {
+    margin: 0 6px 3px 6px;
+}
+.DataFormB column, .DataFormA column{
+	padding: 4px;
+}
+.DataFormB label, .DataFormB2 label,
+.DataFormA2 label, .DataFormA label {
+  font-size: 10pt;
+  color: #736357;
+}
+.TboxWidth {
+    min-width: 100px;
+}
+
+.DataFormA2 {
+	background: #f4f3ee;
+    margin: 3px 6px 6px 6px;
+    padding: 4px 8px;
+}
+
+.DataFormB row{
+	font-size: 10pt;
+	padding: 3px;
+    -moz-box-align: center;
+    background: #f8f5f1;
+}
+.DataFormB2, .DataFormB {
+	margin: 0 6px 2px 6px;
+}
+
+.DataFormB2 row{
+	font-size: 10pt;
+	padding: 4px;
+    -moz-box-align: center;
+    border-bottom: 2px solid white;
+    background: #f8f5f1;
+}
+
+.RightPnlB {
+    margin: 0px 6px 0px 6px;
+}
+
+.RightPnlB vbox {
+    margin: 1px;
+    background: #f8f5f1;
+    -moz-box-align: center;
+    padding: 8px 10px;
+}
+
+.dialogbtns {
+    margin-left: 4px;
+}
+
+/** ori style**/
 .label_general {
   margin-top: 10px;
 }
@@ -57,15 +159,15 @@ separator {
     border-width: 1px;
     border-color: black;
     border-style: groove;
-    font-size: small;
-    height: 110px;
+    font-size: 8pt;
+    height: 80px;
     max-height: 110px;
     overflow: auto;
 }
 
 .keymap_function_list {
-    height: 172px;
-    max-width: 415px;
+    height: 130px;
+    max-width: 440px;
 }
 
 .action_button {
@@ -89,10 +191,11 @@ separator {
 .buttoncolor_baseclass {
     min-height: 50px;
     max-height: 50px;
-    max-width: 60px;
+    max-width: 50px;
     -moz-appearance: none;
     -moz-box-orient: vertical;
     overflow: hidden;
+    margin: 2px;
 }
 
 .buttonfontsize_baseclass {
