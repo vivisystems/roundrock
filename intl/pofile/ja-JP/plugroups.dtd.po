@@ -1,0 +1,51 @@
+#. extracted from ../locale/en-US/plugroups.dtd, ./locale/ja-JP/plugroups.dtd
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+<<<<<<< HEAD:intl/pofile/ja-JP/plugroups.dtd.po
+"POT-Creation-Date: 2009-01-21 01:13+0800\n"
+=======
+"POT-Creation-Date: 2009-01-19 17:02+0800\n"
+>>>>>>> f087ea22d683ef5c6f044fa13f96a705f4918799:intl/pofile/ja-JP/plugroups.dtd.po
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.1.1\n"
+
+#: plugroups.title
+msgid "Product Groups"
+msgstr "商品グループ"
+
+#: plugroups.name
+msgid "Group Name"
+msgstr "グループ名"
+
+#: plugroups.visible
+msgid "Show on Menu"
+msgstr "メニュー表示"
+
+#: plugroups.button.color
+msgid "Button Color"
+msgstr "ボタンカラー"
+
+#. Do not translate this.  Only change the numeric values if you need this dialogue box to appear bigger
+#: plugroups.font.size
+msgid "Font Size"
+msgstr "文字サイズ"
+
+#: plugroups.button.action.add
+msgid "Add"
+msgstr "新規・追加"
+
+#: plugroups.button.action.modify
+msgid "Modify"
+msgstr "修正"
+
+#: plugroups.button.action.delete
+msgid "Delete"
+msgstr "削除"

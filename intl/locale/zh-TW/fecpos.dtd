@@ -1,0 +1,19 @@
+<!ENTITY vivipos.fec.common.name "Name">
+<!ENTITY vivipos.fec.common.ok "Ok">
+<!ENTITY vivipos.fec.common.cancel "Cancel">
+<!ENTITY vivipos.fec.common.add "Add">
+<!ENTITY vivipos.fec.common.modify "Modify">
+<!ENTITY vivipos.fec.common.delete "Delete">
+
+<!ENTITY vivipos.fec.plus.basedata "Data">
+<!ENTITY vivipos.fec.plus.basedata2 "Data 2">
+<!ENTITY vivipos.fec.plus.sets "Sets">
+<!ENTITY vivipos.fec.plus.face "Icon and Color">
+<!ENTITY vivipos.fec.plus.pricelevels "Price Levels">
+<!ENTITY vivipos.fec.plus.groups "Link Groups">
+<!ENTITY vivipos.fec.plus.level "Level">
+<!ENTITY vivipos.fec.plus.price "Price">
+<!ENTITY vivipos.fec.plus.halo "HALO">
+<!ENTITY vivipos.fec.plus.lalo "LALO">
+
+<!ENTITY vivipos.fec.controlpanel.loading "Loading ........">

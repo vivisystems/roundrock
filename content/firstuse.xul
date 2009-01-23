@@ -4,7 +4,9 @@
 <?xml-stylesheet href="chrome://viviecr/content/skin/firstuse.css" type="text/css"?>
 
 
-<wizard id="theWizard" title="Secret Code Wizard" onwizardfinish="finishConfig();" onwizardcancel="cancelWizard();"
+<wizard id="theWizard"
+	title="Secret Code Wizard" onwizardfinish="finishConfig();" onwizardcancel="cancelWizard();"
+	hidechrome="true"
   xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
   xmlns:html="http://www.w3.org/1999/xhtml">
 

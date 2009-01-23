@@ -7,10 +7,12 @@
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
 <window title="&creditcard.title;"
+	hidechrome="true"
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
@@ -19,46 +21,54 @@
         <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('cancel').click()" />
     </keyset>
 
-    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <!--script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" /-->
     <script type="application/x-javascript" src="chrome://viviecr/content/creditcard_remark.js" />
+    <script type="application/x-javascript">
+        var GeckoJS = opener.GeckoJS;
+        var GREUtils = opener.GREUtils;
+    </script>
 
-    <groupbox class="main-dialog">
-        <caption id="dialog-caption" label="" />
-        <label id="text0" value="" />
-        <grid>
-            <columns>
-                <column/>
-                <column/>
-            </columns>
-            <rows>
-                <row>
-                    <label id="title0" style="width:6em" value="" control="input0"/>
-                    <textbox id="input0" value="" oninput="validateInput()" onfocus="this.select()"/>
-                </row>
-                <row>
-                    <label id="title1" style="width:6em" value="" control="input1"/>
-                    <textbox id="input1" value="" oninput="validateInput()" onfocus="this.select()"/>
-                </row>
-                <row>
-                    <label value="" />
-                    <hbox>
-                        <numberpad id="multinumberpad" class="numberpad" target="plu"/>
+    <vbox class="pop-dialog" flex="1">
+        <vbox class="MainPnl" flex="1">
+            <caption id="dialog-caption" label="" class="PageTitle" />
+            <label id="text0" value="" class="SubTitle" />
+            <grid class="DataForm">
+                <columns>
+                    <column flex="1"/>
+                </columns>
+                <rows>
+                    <row>
                         <vbox>
-                            <sendkeybutton id="bkeyBtn"  label="&creditcard.button.action.del;" keyCode='0x08' target="plu" class="systembtn"  />
-                            <sendkeybutton id="clearBtn"  label="&creditcard.button.action.clear;" class="systembtn"/>
+                            <label id="title0" style="width:6em" value="" control="input0"/>
+                            <textbox id="input0" value="" oninput="validateInput()" onfocus="this.select()"/>    
                         </vbox>
-                    </hbox>
-                </row>
-            </rows>
-        </grid>
-    </groupbox>
-  
-    <hbox id="dialogButtons" class="promptbtns" pack="center">
-        <spacer flex="1"/>
-        <button class="right exit-dialog" id="ok" label="&dialog.okButton.label;" default="true" oncommand="doOKButton();"/>
-        <button class="exit-dialog" id="cancel" label="&dialog.cancelButton.label;" default="false" oncommand="doCancelButton();"/>
-        <spacer flex="1"/>
-        <button id="vkb" label=""  oncommand="opener.VirtualKeyboard.toggle()" class="vkb"/>
-    </hbox>
+                    </row>
+                    <row>
+                        <vbox>
+                            <label id="title1" style="width:6em" value="" control="input1"/>
+                            <textbox id="input1" value="" oninput="validateInput()" onfocus="this.select()"/>
+                        </vbox>
+                    </row>
+                </rows>
+            </grid>
+            <hbox pack="center">
+                <numberpad id="multinumberpad" class="numpad" target="plu"/>
+                <vbox>
+                    <sendkeybutton id="bkeyBtn"  label="&creditcard.button.action.del;" keyCode='0x08' target="plu" class="fixedbtn"  />
+                    <sendkeybutton id="clearBtn"  label="&creditcard.button.action.clear;" class="fixedbtn"/>
+                </vbox>
+            </hbox>
+            <spacer flex="1"/>
+            <hbox id="dialogButtons">
+                <hbox class="ToolBar" flex="1">
+                    <button id="ok" label="&dialog.okButton.label;" default="true" oncommand="doOKButton();"/>
+                    <button id="cancel" label="&dialog.cancelButton.label;" default="false" oncommand="doCancelButton();"/>
+                </hbox>
+                <hbox class="dialogbtns" pack="center">
+                    <button id="vkb" label=""  oncommand="opener.VirtualKeyboard.toggle()" class="VkbBtn"/>
+                </hbox>
+            </hbox>
+        </vbox>
+    </vbox>
 
 </window>

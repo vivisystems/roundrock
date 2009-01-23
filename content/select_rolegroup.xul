@@ -7,10 +7,13 @@
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/selectBox.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
 <window title="&rolegroup.title;"
+	hidechrome="true"
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
@@ -18,28 +21,31 @@
     <script type="application/x-javascript" src="chrome://viviecr/content/bootstrap.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/select_rolegroup.js" />
 
-    <groupbox class="main-dialog" flex="1">
-        <caption label="&rolegroup.title;" />
-        <label id="rolegroup" hidden="true" value="" />
-        <hbox>
-            <viviscrollablebuttonpanel dir="reverse" id="rolegroupscrollablepanel" flex="1" cols="4" rows="4" labelField="name" imageField="no"
-                                       oncommand="$do('select',this.selectedIndex, 'SelectRolegroup');"
-                                       ensureVisible="true"
-                                       class="catescrollablepanel"
-                                       buttonClass="catbtn button-radius button-white font-medium"
-                                       scrollUpClass="rightprevbtn button-blue"
-                                       scrollDownClass="rightnextbtn button-blue">
-                <spacer flex="1"/>
-            </viviscrollablebuttonpanel>
-        </hbox>
-    </groupbox>
-  
-    <hbox id="dialogButtons" class="dialogbtns" pack="center">
-        <spacer flex="1"/>
-        <button class="right exit-dialog" id="ok" label="&dialog.okButton.label;" default="true" oncommand="doOKButton();"/>
-        <button class="exit-dialog" id="cancel" label="&dialog.cancelButton.label;" default="false" oncommand="doCancelButton();"/>
-        <spacer flex="1"/>
-        <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="vkb"/>
-    </hbox>
-
+    <vbox flex="1" class="main-dialog">
+        <vbox flex="1" class="MainPnl">
+            <caption label="&rolegroup.title;" class="PageTitle" />
+            <label id="rolegroup" hidden="true" value="" />
+            <hbox class="SelectBox">
+                <viviscrollablebuttonpanel id="rolegroupscrollablepanel" flex="1" cols="4" rows="7" labelField="name" imageField="no"
+                                           oncommand="$do('select',this.selectedIndex, 'SelectRolegroup');"
+                                           ensureVisible="true"
+                                           class="ItemScrollablepanel"
+                                           buttonClass="ItemButtonA"
+                                           scrollUpClass="ScrollUp"
+                                           scrollDownClass="ScrollDown">
+                    <spacer flex="1"/>
+                </viviscrollablebuttonpanel>
+            </hbox>
+            <spacer style="height: 10px;" />
+            <hbox>
+                <hbox class="ToolBar" flex="1">
+                    <button id="ok" label="&dialog.okButton.label;" default="true" oncommand="doOKButton();"/>
+                    <button id="cancel" label="&dialog.cancelButton.label;" default="false" oncommand="doCancelButton();"/>
+                </hbox>
+                <hbox id="dialogButtons" class="dialogbtns" pack="center">
+                    <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
+                </hbox>
+            </hbox>
+        </vbox>
+    </vbox>
 </window>

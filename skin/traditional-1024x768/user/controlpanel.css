@@ -47,6 +47,11 @@
     border: none;
     -moz-background-clip: border;
 }
+.ProductBtn[disabled=true] {
+    background: none;
+    border: none;
+    -moz-appearance: none;
+}
 .ProductBtn hbox {
     -moz-box-orient: vertical;
 }
@@ -149,6 +154,11 @@
 .EmployeeBtn description{
     background: #c4bdac;
 }
+.EmployeeBtn[disabled=true] {
+    -moz-appearance: none;
+    border: 1px solid #c4bdac !important;
+    background: none;
+}
 .EmployeeBtn[disabled=false]:active {
     border: 11px solid #e4dcc9 !important;
     -moz-border-top-colors: #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 #e4dcc9 !important;
@@ -226,6 +236,11 @@
     background: white;
     border: 1px solid white;
     -moz-background-clip: border;
+}
+.ActivityBtn[disabled=true] {
+    background: none;
+    border: none;
+    -moz-appearance: none;
 }
 .ActivityBtn hbox {
     -moz-box-orient: vertical;
@@ -320,7 +335,7 @@
     -moz-box-orient: vertical;
 }
 .ToolsBtn image{
-    width: 112px;
+    width: 88px;
     height: 88px;
 }
 .ToolsBtn .button-text{

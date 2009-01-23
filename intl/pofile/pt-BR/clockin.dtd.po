@@ -1,0 +1,77 @@
+#. extracted from ../locale/en-US/clockin.dtd, ./locale/pt-BR/clockin.dtd
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-19 17:02+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.1.1\n"
+
+#: clockin.title
+msgctxt "clockin.title"
+msgid "User Clock In / Out"
+msgstr "Entrada/Saída Utilizador"
+
+#: clockin.heading.timein
+msgctxt "clockin.heading.timein"
+msgid "In"
+msgstr "Entrada"
+
+#: clockin.heading.timeout
+msgctxt "clockin.heading.timeout"
+msgid "Out"
+msgstr "Saída"
+
+#: clockin.heading.job
+msgid "Job"
+msgstr "Trabalho"
+
+#: clockin.title
+msgctxt "clockin.title"
+msgid "User Clock In / Out"
+msgstr "Entrada/Saída Utilizador"
+
+#: clockin.title
+msgctxt "clockin.title"
+msgid "User Clock In / Out"
+msgstr "Entrada/Saída Utilizador"
+
+#: clockin.keylabel.clear
+msgid "CLEAR"
+msgstr "LIMPAR"
+
+#: clockin.keylabel.del
+msgid "DEL"
+msgstr "APAGAR"
+
+#: clockin.keylabel.password
+msgid "Passcode:"
+msgstr "Chave:"
+
+#: clockin.keylabel.ok
+msgid "OK"
+msgstr "OK"
+
+#: clockin.keylabel.clockin
+msgctxt "clockin.keylabel.clockin"
+msgid "In"
+msgstr "Entrada"
+
+#: clockin.keylabel.clockout
+msgctxt "clockin.keylabel.clockout"
+msgid "Out"
+msgstr "Saída"
+
+#: clockin.keylabel.view
+msgid "View Attendance"
+msgstr "Visualizar Atendimento"
+
+#: clockin.headers.joblist
+msgid "Job List"
+msgstr "Lista Funções"

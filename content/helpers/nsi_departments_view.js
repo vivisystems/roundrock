@@ -8,17 +8,19 @@
             this.hideInvisible = true;
 
             var plugroupModel = new PlugroupModel();
-            var plugroups = plugroupModel.find('all', {order: 'name'});
+            var plugroups = plugroupModel.find('all', {order: 'display_order, name'});
 
 
-            var visiblePluGroups = [], plugroupsById= {};
+            var visiblePlugroups = [], allPlugroups = [], plugroupsById= {};
             if (plugroups) plugroups.forEach(function(plugroup) {
-                if(GeckoJS.String.parseBoolean(plugroup.visible)) visiblePluGroups.push(plugroup.id);
+                if(GeckoJS.String.parseBoolean(plugroup.visible)) visiblePlugroups.push(plugroup.id);
+                allPlugroups.push(plugroup.id);
 
                 plugroupsById[plugroup.id] = plugroup;
             }, this);
             
-            GeckoJS.Session.set('visiblePlugroups', visiblePluGroups);
+            GeckoJS.Session.set('visiblePlugroups', visiblePlugroups);
+            GeckoJS.Session.set('allPlugroups', allPlugroups);
             GeckoJS.Session.set('plugroupsById', plugroupsById);
 
             // call parent init
@@ -52,7 +54,7 @@
             GeckoJS.Session.addEventListener('change', function(evt){
                 // maybe controllPanel update categories session.
                 // just refresh view , dont prepare categories array to session.
-                if (evt.data.key == 'categoriesIndexesAll' || evt.data.key == 'visiblePlugroups') {
+                if (evt.data.key == 'categoriesIndexesAll' || evt.data.key == 'visiblePlugroups' || evt.data.key == 'allPlugroups') {
                     self.refreshView();
                 }
             });
@@ -66,7 +68,7 @@
             if (this.hideInvisible) {
                 departmentsIndexes = GeckoJS.Session.get('categoriesIndexes').concat(GeckoJS.Session.get('visiblePlugroups'));
             }else {
-                departmentsIndexes = GeckoJS.Session.get('categoriesIndexesAll');
+                departmentsIndexes = GeckoJS.Session.get('categoriesIndexesAll').concat(GeckoJS.Session.get('allPlugroups'));
             }
             this._data = departmentsIndexes;
             try {

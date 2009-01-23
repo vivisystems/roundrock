@@ -43,16 +43,28 @@
         },
 
         createPluPanel: function () {
+            // NSIDepartmentsView use rows and columns from preferences, so let's
+            // save rows and columns attribute values here and restore them later
+            var catpanel = document.getElementById('catescrollablepanel');
+            var rows = catpanel.getAttribute('rows');
+            var cols = catpanel.getAttribute('cols');
+
             this.catePanelView =  new NSIDepartmentsView('catescrollablepanel');
             this.productPanelView = new NSIProductsView('prodscrollablepanel');
 
+            // restore rows and columns here
+            catpanel.setAttribute('rows', rows);
+            catpanel.setAttribute('cols', cols);
+            catpanel.initGrid();
+
             this.catePanelView.hideInvisible = false;
+            this.catePanelView.refreshView();
+
             this.productPanelView.hideInvisible = false;
             this.productPanelView.updateProducts();
 
             this.productPanelView.setCatePanelView(this.catePanelView);
 
-            var catpanel = document.getElementById('catescrollablepanel');
             catpanel.selectedIndex = -1;
             catpanel.selectedItems = [];
 
@@ -212,7 +224,6 @@
 
             if (!barcodesIndexes[barcode]) {
                 // barcode notfound
-                // alert('Plu (' + barcode + ') Not Found!');
                 return null;
             }else {
                 var id = barcodesIndexes[barcode];
@@ -245,12 +256,10 @@
 
             this._pluset = [];
             for (var key in pluset) {
-                //alert(key + ':' + decodeURI(key));
                 key = decodeURI(key);
                 if (key == '') break;
                 
                 var qty = pluset[key];
-                //alert(qty + ':' + decodeURI(qty));
                 try {
                     var id = barcodesIndexes[key];
                     var name = productsById[id].name;
@@ -287,7 +296,7 @@
         getPlu: function (){
 
             var aURL = 'chrome://viviecr/content/prompt_addpluset.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
             var inputObj = {
                 input0:null, require0:true, alphaOnly0:true,
                 input1:1, require1:true, numberOnly1:true
@@ -302,12 +311,16 @@
                     var formData = this.getInputData();
                     if (product.no == formData.no) {
                         //@todo OSD?
-                        alert(_('[%S] (%S) may not be a member of its own product set.', [product.name, inputObj.input0]));
+                        GREUtils.Dialog.alert(window,
+                                              _('Product Set'),
+                                              _('[%S] (%S) may not be a member of its own product set.', [product.name, inputObj.input0]));
                         return;
                     }
 
                     if (product.setmenu != null && product.setmenu.length > 0) {
-                        alert(_('[%S] (%S) is a product set and may not be a member of another product set.', [product.name, inputObj.input0]));
+                        GREUtils.Dialog.alert(window,
+                                              _('Product Set'),
+                                              _('[%S] (%S) is a product set and may not be a member of another product set.', [product.name, inputObj.input0]));
                         return;
                     }
 
@@ -334,7 +347,9 @@
                     $('#setmenu').val( setmenu.join('&'));
                 }
                 else {
-                    alert(_('Product not found [%S].', [inputObj.input0]));
+                    GREUtils.Dialog.alert(window,
+                                          _('Product Set'),
+                                          _('Product not found [%S].', [inputObj.input0]));
                 }
             }
 
@@ -431,15 +446,15 @@
                     for (var i = 0; i < prods.length; i++) {
                         var o = prods[i];
                         if (o.no == data.no && data.id == null) {
-                            NotifyUtils.warn(_('The Product No. [%S] already exists; product not added.', [data.no]));
+                            NotifyUtils.warn(_('The Product No. [%S] already exists; product not added', [data.no]));
                             return 1;
                         } else if (o.name == data.name) {
                             if (data.id == null) {
-                                NotifyUtils.warn(_('The Product Name [%S] already exists; product not added.', [data.name]));
+                                NotifyUtils.warn(_('The Product Name [%S] already exists; product not added', [data.name]));
                                 return 2;
                             }
                             else if (data.id != o.id) {
-                                NotifyUtils.warn(_('The Product Name [%S] already exists; product not modified.', [data.name]));
+                                NotifyUtils.warn(_('The Product Name [%S] already exists; product not modified', [data.name]));
                                 return 2;
                             }
                             break;
@@ -448,8 +463,27 @@
                 }
                 // if condiment is required, make sure a condiment group has been selected
                 if (data.force_condiment && !data.cond_group) {
-                    NotifyUtils.warn(_('Condiment is required but no condiment group selected; product not modified.'));
+                    NotifyUtils.warn(_('Condiment is required but no condiment group selected; product not modified'));
                     return 5;
+                }
+
+                // make sure prices are between LALO and HALO
+                for (var i = 1; i < 10; i++) {
+                    var price = parseFloat(data['price_level' + i]);
+                    var enabled = data['level_enable' + i];
+                    var halo = parseFloat(data['halo' + i]);
+                    var lalo = parseFloat(data['lalo' + i]);
+
+                    if (enabled || i == 1) {
+                        if (halo > 0 && halo < price) {
+                            NotifyUtils.warn(_('Price level %S preset price [%S] is larger than HALO [%S]; product not modified', [i, price, halo]));
+                            return 6;
+                        }
+                        else if (lalo > 0 && lalo > price) {
+                            NotifyUtils.warn(_('Price level %S preset price [%S] is less than LALO [%S]; product not modified', [i, price, lalo]));
+                            return 7;
+                        }
+                    }
                 }
             }
             return result;
@@ -461,7 +495,7 @@
             var inputData = this.getInputData();
 
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
             var inputObj = {
                 input0:null, require0:true, alphaOnly0:true,
                 input1:null, require1:true
@@ -479,7 +513,7 @@
 
                     // reset form to get product defaults
                     var prodData = this.getInputDefault();
-                    try {
+                    //try {
                         prodData.id = '';
                         prodData.no = inputData.no;
                         prodData.name = inputData.name;
@@ -487,19 +521,26 @@
 
                         product.save(prodData);
 
-                        this.updateSession();
-
+                        // need to retrieve product id
+                        var newProduct = product.findByIndex('first', {
+                            index: 'no',
+                            value: prodData.no
+                        });
+                        if (newProduct != null) {
+                            this.updateSession('add', newProduct);
+                        }
+                        
                         // newly added item is appended to end; jump cursor to end
                         var index = this.productPanelView.data.length - 1;
                         this.clickPluPanel(index);
 
                         // @todo OSD
                         OsdUtils.info(_('Product [%S] added successfully', [inputData.name]));
-                    }
-                    catch (e) {
+                   // }
+                    //catch (e) {
                         // @todo OSD
-                        NotifyUtils.error(_('An error occurred while adding Product [%S]; the product may not have been added successfully', [inputData.name]));
-                    }
+                        //NotifyUtils.error(_('An error occurred while adding Product [%S]; the product may not have been added successfully', [inputData.name]));
+                    //}
                 }
             }
 
@@ -543,12 +584,12 @@
             // need to make sure product name is unique
             if (this._checkData(inputData) == 0) {
                 var prodModel = new ProductModel();
-                try {
+                //try {
                     var setitems = this._setMenuFromString(inputData);
                     
                     prodModel.id = inputData.id;
                     prodModel.save(inputData);
-
+                    
                     // update set items
 
                     var setItemModel = new SetItemModel();
@@ -570,15 +611,22 @@
                         setItemModel.save(item);
                     })
                     
-                    this.updateSession();
+                    this.updateSession('modify', inputData, product);
+                    
+                    var newIndex = this._selectedIndex;
+                    if (newIndex > this.productPanelView.data.length - 1) newIndex = this.productPanelView.data.length - 1;
+
+                    this.clickPluPanel(newIndex);
 
                     // @todo OSD
                     OsdUtils.info(_('Product [%S] modified successfully', [product.name]));
+                    /*
                 }
                 catch (e) {
                     // @todo OSD
                     NotifyUtils.error(_('An error occurred while modifying Product [%S]. The product may not have been modified successfully', [product.name]));
                 }
+                    */
             }
         },
 
@@ -620,7 +668,7 @@
                             setItemModel.del(item.id);
                         })
 
-                        this.updateSession();
+                        this.updateSession('remove', product);
 
                         var newIndex = this._selectedIndex;
                         if (newIndex > this.productPanelView.data.length - 1) newIndex = this.productPanelView.data.length - 1;
@@ -638,14 +686,282 @@
             }
         },
 
-        updateSession: function() {
+        updateSession: function(action, data, oldData) {
+            /*
             var prodModel = new ProductModel();
             var products = prodModel.find('all', {
                 order: 'cate_no'
             });
             GeckoJS.Session.add('products', products);
+            */
+            switch(action) {
+                case 'add':
+                    var products = GeckoJS.Session.get('products');
+                    products.push(data);
+
+                    var byId = GeckoJS.Session.get('productsById');
+                    byId[data.id] = data;
+                    
+                    if (data.barcode.length > 0) {
+                        var indexBarcode = GeckoJS.Session.get('barcodesIndexes');
+                        indexBarcode[data.barcode] = data.id;
+                    }
+                    
+                    if (data.no.length > 0) {
+                        var indexBarcode = GeckoJS.Session.get('barcodesIndexes');
+                        indexBarcode[data.no] = data.id;
+                    }
+                    
+                    if (data.cate_no.length > 0) {
+                        var indexCate = GeckoJS.Session.get('productsIndexesByCate');
+                        var indexCateAll = GeckoJS.Session.get('productsIndexesByCateAll');
+                        if (typeof indexCate[data.cate_no] == 'undefined') {
+                            indexCate[data.cate_no] = [];
+                            indexCateAll[data.cate_no] = [];
+                        }
+                        indexCateAll[(data.cate_no+"")].push((data.id+""));
+                        if(GeckoJS.String.parseBoolean(data.visible)) indexCate[(data.cate_no+"")].push((data.id+""));
+                    }
+                    
+                    if (data.link_group && data.link_group.length > 0) {
+                        var indexLinkGroup = GeckoJS.Session.get('productsIndexesByLinkGroup');
+                        var indexLinkGroupAll = GeckoJS.Session.get('productsIndexesByLinkGroupAll');
+                        var groups = data.link_group.split(',');
+
+                        groups.forEach(function(group) {
+
+                            if (typeof indexLinkGroup[group] == 'undefined') {
+                                indexLinkGroup[group] = [];
+                                indexLinkGroupAll[group] = [];
+                            }
+                            indexLinkGroupAll[(group+"")].push((data.id+""));
+                            if(GeckoJS.String.parseBoolean(data.visible)) indexLinkGroup[(group+"")].push((data.id+""));
+
+                        });
+                    }
+                    break;
+
+                case 'modify':
+                    // remove old barcode
+                    var indexBarcode = GeckoJS.Session.get('barcodesIndexes');
+                    if (oldData.barcode.length > 0) {
+                        delete indexBarcode[oldData.barcode];
+                    }
+
+                    // add new barcode
+                    if (data.barcode.length > 0) {
+                        indexBarcode[data.barcode] = data.id;
+                    }
+
+                    var indexCate = GeckoJS.Session.get('productsIndexesByCate');
+                    var indexCateAll = GeckoJS.Session.get('productsIndexesByCateAll');
+                    if (oldData.cate_no != data.cate_no || oldData.visible != data.visible) {
+
+                        // remove old category
+
+                        var indexCateAllArray = indexCateAll[(oldData.cate_no+"")];
+                        var indexCateArray = indexCate[(oldData.cate_no+"")];
+
+                        var index = -1;
+                        for (var i = 0; i < indexCateAllArray.length; i++) {
+                            if (indexCateAllArray[i] == oldData.id) {
+                                index = i;
+                                break;
+                            }
+                        }
+                        if (index > -1)
+                            indexCateAllArray.splice(index, 1);
+
+                        var index = -1;
+                        for (var i = 0; i < indexCateArray.length; i++) {
+                            if (indexCateArray[i] == oldData.id) {
+                                index = i;
+                                break;
+                            }
+                        }
+                        if (index > -1)
+                            indexCateArray.splice(index, 1);
+
+                        // add new category
+                        if (data.cate_no.length > 0) {
+                            if (typeof indexCate[data.cate_no] == 'undefined') {
+                                indexCate[data.cate_no] = [];
+                                indexCateAll[data.cate_no] = [];
+                            }
+                            indexCateAll[(data.cate_no+"")].push((data.id+""));
+                            if(GeckoJS.String.parseBoolean(data.visible)) {
+                                indexCate[(data.cate_no+"")].push((data.id+""));
+                            }
+                        }
+                    }
+
+                    // always remove old product group(s) first
+                    var indexLinkGroup = GeckoJS.Session.get('productsIndexesByLinkGroup');
+                    var indexLinkGroupAll = GeckoJS.Session.get('productsIndexesByLinkGroupAll');
+                    if (oldData.link_group && oldData.link_group.length > 0) {
+
+                        var groups = oldData.link_group.split(',');
+
+                        groups.forEach(function(group) {
+
+                            var indexLinkGroupArray = indexLinkGroup[(group+"")];
+                            var indexLinkGroupAllArray = indexLinkGroupAll[(group+"")];
+
+                            var index = -1;
+                            for (var i = 0; i < indexLinkGroupAllArray.length; i++) {
+                                if (indexLinkGroupAllArray[i] == oldData.id) {
+                                    index = i;
+                                    break;
+                                }
+                            }
+                            if (index > -1)
+                                indexLinkGroupAllArray.splice(index, 1);
+
+                            var index = -1;
+                            for (var i = 0; i < indexLinkGroupArray.length; i++) {
+                                if (indexLinkGroupArray[i] == oldData.id) {
+                                    index = i;
+                                    break;
+                                }
+                            }
+                            if (index > -1)
+                                indexLinkGroupArray.splice(index, 1);
+                            });
+                    }
+
+                    // add new product group(s) if any
+                    if (data.link_group && data.link_group.length > 0) {
+                        var indexLinkGroup = GeckoJS.Session.get('productsIndexesByLinkGroup');
+                        var indexLinkGroupAll = GeckoJS.Session.get('productsIndexesByLinkGroupAll');
+                        var groups = data.link_group.split(',');
+
+                        groups.forEach(function(group) {
+
+                            if (typeof indexLinkGroup[group] == 'undefined') {
+                                indexLinkGroup[group] = [];
+                                indexLinkGroupAll[group] = [];
+                            }
+                            indexLinkGroupAll[(group+"")].push((data.id+""));
+                            if(GeckoJS.String.parseBoolean(data.visible)) indexLinkGroup[(group+"")].push((data.id+""));
+
+                        });
+                    }
+
+                    var products = GeckoJS.Session.get('products');
+                    // for now, let's loop
+                    var index = -1;
+                    for (var i = 0; i < products.length; i++) {
+                        if (products[i].id == data.id) {
+                            GREUtils.extend(products[i], data);
+                            index = i;
+                            break
+                        }
+                    }
+
+                    break;
+
+                case 'remove':
+
+                    // update product cache
+                    var products = GeckoJS.Session.get('products');
+                    // for now, let's loop
+                    var index = -1;
+                    for (var i = 0; i < products.length; i++) {
+                        if (products[i].id == data.id) {
+                            index = i;
+                            break
+                        }
+                    }
+                    if (index > -1)
+                        products.splice(index, 1);
+
+                    // update products ID cache
+                    var byId = GeckoJS.Session.get('productsById');
+                    delete byId[data.id];
+
+                    // update barcode cache
+                    if (data.barcode.length > 0) {
+                        var indexBarcode = GeckoJS.Session.get('barcodesIndexes');
+                        delete indexBarcode[data.barcode];
+                    }
+
+                    if (data.no.length > 0) {
+                        var indexBarcode = GeckoJS.Session.get('barcodesIndexes');
+                        delete indexBarcode[data.no];
+                    }
+
+                    // update department cache
+                    if (data.cate_no.length > 0) {
+                        var indexCate = GeckoJS.Session.get('productsIndexesByCate');
+                        var indexCateAll = GeckoJS.Session.get('productsIndexesByCateAll');
+
+                        var indexCateAllArray = indexCateAll[(data.cate_no+"")];
+                        var indexCateArray = indexCate[(data.cate_no+"")];
+
+                        var index = -1;
+                        for (var i = 0; i < indexCateAllArray.length; i++) {
+                            if (indexCateAllArray[i] == data.id) {
+                                index = i;
+                                break;
+                            }
+                        }
+                        if (index > -1)
+                            indexCateAllArray.splice(index, 1);
+
+                        var index = -1;
+                        for (var i = 0; i < indexCateArray.length; i++) {
+                            if (indexCateArray[i] == data.id) {
+                                index = i;
+                                break;
+                            }
+                        }
+                        if (index > -1)
+                            indexCateArray.splice(index, 1);
+                    }
+                    // update product group cache
+
+                    if (data.link_group && data.link_group.length > 0) {
+                        var indexLinkGroup = GeckoJS.Session.get('productsIndexesByLinkGroup');
+                        var indexLinkGroupAll = GeckoJS.Session.get('productsIndexesByLinkGroupAll');
+
+                        var groups = data.link_group.split(',');
+
+                        groups.forEach(function(group) {
+
+                            var indexLinkGroupArray = indexLinkGroup[(group+"")];
+                            var indexLinkGroupAllArray = indexLinkGroupAll[(group+"")];
+
+                            var index = -1;
+                            for (var i = 0; i < indexLinkGroupAllArray.length; i++) {
+                                if (indexLinkGroupAllArray[i] == data.id) {
+                                    index = i;
+                                    break;
+                                }
+                            }
+                            if (index > -1)
+                                indexLinkGroupAllArray.splice(index, 1);
+
+                            var index = -1;
+                            for (var i = 0; i < indexLinkGroupArray.length; i++) {
+                                if (indexLinkGroupArray[i] == data.id) {
+                                    index = i;
+                                    break;
+                                }
+                            }
+                            if (index > -1)
+                                indexLinkGroupArray.splice(index, 1);
+                            });
+                    }
+                    break;
+
+            }
+
+            // @hack to make front end update itself
+            var indexCateAll = GeckoJS.Session.get('productsIndexesByCateAll');
+            GeckoJS.Session.add('productsIndexesByCateAll', indexCateAll);
         },
 
+        // modified to handle the case where
         locateIndex: function (elem, list, path) {
 
             // locate elem in list using binary search
@@ -664,24 +980,34 @@
         },
 
         selectPlu: function(index) {
-
             var plusearchListObj = document.getElementById('plusearchscrollablepanel');
             var datas = plusearchListObj.datasource._data;
 
             var plu = datas[index];
+            if (plu != null) {
+                var categories = GeckoJS.Session.get('categories');
 
-            var categories = GeckoJS.Session.get('categories');
-            var catIndex = this.locateIndex(plu.cate_no, categories, "no");
-            this.changePluPanel(catIndex);
-            
-            var catepanel = document.getElementById('catescrollablepanel');
-            catepanel.selectedIndex = catIndex;
-            catepanel.selectedItems = [catIndex];
+                // @todo optimize search
+                // categories are now sorted by display_order, which aren't unique and may be null, so
+                // for now we use simple linear search
+                var catIndex = -1;
+                for (var i = 0; i < categories.length; i++) {
+                    if (categories[i].no == plu.cate_no) {
+                        catIndex = i;
+                        break;
+                    }
+                }
+                this.changePluPanel(catIndex);
 
-            var plus = this.productPanelView.tree.datasource.data;
-            var pluIndex = plus.indexOf(plu.id);
-            this.clickPluPanel(pluIndex);
+                var catepanel = document.getElementById('catescrollablepanel');
+                catepanel.selectedIndex = catIndex;
+                catepanel.selectedItems = [catIndex];
 
+                var plus = this.productPanelView.tree.datasource.data;
+                var pluIndex = plus.indexOf(plu.id);
+                
+                this.clickPluPanel(pluIndex);
+            }
         },
 
         validateForm: function(resetTabs) {

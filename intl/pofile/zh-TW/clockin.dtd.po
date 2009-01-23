@@ -1,0 +1,81 @@
+#. extracted from ../locale/en-US/clockin.dtd, ./locale/zh-TW/clockin.dtd
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+<<<<<<< HEAD:intl/pofile/zh-TW/clockin.dtd.po
+"POT-Creation-Date: 2009-01-21 01:13+0800\n"
+=======
+"POT-Creation-Date: 2009-01-19 17:02+0800\n"
+>>>>>>> f087ea22d683ef5c6f044fa13f96a705f4918799:intl/pofile/zh-TW/clockin.dtd.po
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.1.1\n"
+
+#: clockin.title
+msgctxt "clockin.title"
+msgid "User Clock In / Out"
+msgstr "User Clock In / Out"
+
+#: clockin.heading.timein
+msgctxt "clockin.heading.timein"
+msgid "In"
+msgstr "In"
+
+#: clockin.heading.timeout
+msgctxt "clockin.heading.timeout"
+msgid "Out"
+msgstr "Out"
+
+#: clockin.heading.job
+msgid "Job"
+msgstr "Job"
+
+#: clockin.title
+msgctxt "clockin.title"
+msgid "User Clock In / Out"
+msgstr "User Clock In / Out"
+
+#: clockin.title
+msgctxt "clockin.title"
+msgid "User Clock In / Out"
+msgstr "User Clock In / Out"
+
+#: clockin.keylabel.clear
+msgid "CLEAR"
+msgstr "CLEAR"
+
+#: clockin.keylabel.del
+msgid "DEL"
+msgstr "DEL"
+
+#: clockin.keylabel.password
+msgid "Passcode:"
+msgstr "Passcode:"
+
+#: clockin.keylabel.ok
+msgid "OK"
+msgstr "OK"
+
+#: clockin.keylabel.clockin
+msgctxt "clockin.keylabel.clockin"
+msgid "In"
+msgstr "In"
+
+#: clockin.keylabel.clockout
+msgctxt "clockin.keylabel.clockout"
+msgid "Out"
+msgstr "Out"
+
+#: clockin.keylabel.view
+msgid "View Attendance"
+msgstr "View Attendance"
+
+#: clockin.headers.joblist
+msgid "Job List"
+msgstr "Job List"

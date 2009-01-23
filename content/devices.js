@@ -9,13 +9,14 @@
      */
     function startup() {
 
-        $do('initial', null, 'Devices');
+        $do('initial', false, 'Devices');
         $do('load', null, 'Devices');
 
         doSetOKCancel(
             function(){
-                $do('save', null, 'Devices');
-                return true;
+                var data = {cancel: false};
+                $do('save', data, 'Devices');
+                return !data.cancel;
             },
             function(){
                 return true;

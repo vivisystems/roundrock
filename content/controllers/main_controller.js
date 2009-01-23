@@ -29,10 +29,8 @@
             this.requestCommand('initial', null, 'Pricelevel');
             this.requestCommand('initial', null, 'Cart');
             this.requestCommand('initial', null, 'CurrencySetup');
-            this.requestCommand('initial', null, 'Devices');
 
             this.resetLayout(true);
-            this.initialLogin();
 
             var deptNode = document.getElementById('catescrollablepanel');
             deptNode.selectedIndex = 0;
@@ -58,6 +56,12 @@
             }).register();
 
             GeckoJS.Observer.notify(null, 'render', this);
+
+            // since initialLogin may potentially block, let's invoke onInitial to initialize controllers
+            // ourselves
+
+            this.dispatchEvent('onInitial', null);
+            this.initialLogin();
         },
 
         _getKeypadController: function() {
@@ -89,13 +93,6 @@
             if (this.doRestart) {
                 try {
                     GREUtils.restartApplication();
-                    /*
-                    var chromeRegInstance = Components.classes["@mozilla.org/chrome/chrome-registry;1"].getService();
-                    var xulChromeReg = chromeRegInstance.QueryInterface(Components.interfaces.nsIXULChromeRegistry);
-                    //alert('reloading chrome');
-                    xulChromeReg.reloadChrome();
-                    this.log('reloaded chrome');
-                    */
                 } catch(err) {
                 }
             }
@@ -130,7 +127,7 @@
             var posY = 0;
             var width = this.screenwidth;
             var height = this.screenheight;
-
+            
             GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,dependent=yes,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height, "");
         },
 
@@ -305,7 +302,6 @@
                 if (toggleBtn) toggleBtn.setAttribute('state', 'false');
                 fixedRow.selectedIndex = 0;
             }
-            GeckoJS.Configure.write('vivipos.fec.settings.HideNumPad', hideNumPad);
 
             if (initial) this.resizeLeftPanel(initial);
             return toggled;
@@ -465,7 +461,7 @@
             var registerAtLeft = GeckoJS.Configure.read('vivipos.fec.settings.RegisterAtLeft') || false;
             var functionPanelOnTop = GeckoJS.Configure.read('vivipos.fec.settings.FunctionPanelOnTop') || false;
             var PLUbeforeDept = GeckoJS.Configure.read('vivipos.fec.settings.DeptBeforePLU') || false;
-            var hideNumPad = GeckoJS.Configure.read('vivipos.fec.settings.HideNumPad') || false;
+            var hideNumPad = false;
             
             var hbox = document.getElementById('mainPanel');
             var deptPanel = document.getElementById('catescrollablepanel');
@@ -745,7 +741,6 @@
                 // @todo
                 // print shift report
                 if ((shiftReportOnSignOff && !quickSignoff) || (shiftReportOnQuickSwitch && quickSignoff)) {
-                    //alert('print shift report');
                 }
 
                 if (!cartEmpty) {

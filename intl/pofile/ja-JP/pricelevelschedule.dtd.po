@@ -1,0 +1,38 @@
+#. extracted from ../locale/en-US/pricelevelschedule.dtd, ./locale/ja-JP/pricelevelschedule.dtd
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+<<<<<<< HEAD:intl/pofile/ja-JP/pricelevelschedule.dtd.po
+"POT-Creation-Date: 2009-01-21 01:13+0800\n"
+=======
+"POT-Creation-Date: 2009-01-19 17:02+0800\n"
+>>>>>>> f087ea22d683ef5c6f044fa13f96a705f4918799:intl/pofile/ja-JP/pricelevelschedule.dtd.po
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.1.1\n"
+
+#: pricelevelschedule.title
+msgid "Price Level Schedule"
+msgstr "価格表"
+
+#: pricelevelschedule.header.time
+msgid "Start Time"
+msgstr "開始時間"
+
+#: pricelevelschedule.header.pricelevel
+msgid "Price Level"
+msgstr "価格設定"
+
+#: pricelevelschedule.button.remove
+msgid "Remove"
+msgstr "削除"
+
+#: pricelevelschedule.button.add
+msgid "Add"
+msgstr "新規・追加"

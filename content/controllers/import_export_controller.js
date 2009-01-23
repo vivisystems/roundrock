@@ -293,7 +293,6 @@
 
                 var query = 'DELETE FROM "main"."' + model + '"';
                 tableTmp.execute(query);
-                // alert(tableTmp.table);
                 // tableTmp.getDataSource().truncate('"main"."' + tableTmp.table + '"');
 
                 progmeter.value = 0;

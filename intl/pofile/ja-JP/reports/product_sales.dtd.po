@@ -1,0 +1,46 @@
+#. extracted from ../locale/en-US/reports/product_sales.dtd, ./locale/ja-JP/reports/product_sales.dtd
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+<<<<<<< HEAD:intl/pofile/ja-JP/reports/product_sales.dtd.po
+"POT-Creation-Date: 2009-01-21 01:13+0800\n"
+=======
+"POT-Creation-Date: 2009-01-19 17:02+0800\n"
+>>>>>>> f087ea22d683ef5c6f044fa13f96a705f4918799:intl/pofile/ja-JP/reports/product_sales.dtd.po
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.1.1\n"
+
+#: productsales.title
+msgid "Product Sales Report"
+msgstr "Product Sales Report"
+
+#: productsales.conditions
+msgid "Conditions:"
+msgstr "Conditions:"
+
+#: productsales.startdate
+msgid "Start Date:"
+msgstr "Start Date:"
+
+#: productsales.enddate
+msgid "End Date:"
+msgstr "End Date:"
+
+#: productsales.execute
+msgid "Execute"
+msgstr "Execute"
+
+#: productsales.exportcsv
+msgid "Export to CSV"
+msgstr "Export to CSV"
+
+#: productsales.togglezoom
+msgid "Toggle Zoom"
+msgstr "Toggle Zoom"

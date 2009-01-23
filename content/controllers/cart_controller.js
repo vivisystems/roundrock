@@ -150,7 +150,7 @@
             var productsById = GeckoJS.Session.get('productsById');
             var setItemsStockStatus = 1;
             var setItemsAgeVerificationRequired = 0;
-            var allowZeroPresetPrice = GeckoJS.Configure.read('vivipos.fec.settings.AllowZeroPresetPrice');
+            var positivePriceRequired = GeckoJS.Configure.read('vivipos.fec.settings.PositivePriceRequired');
 
             // cart.log('Item:' + cart.dump(item));
 
@@ -163,6 +163,14 @@
 
             // check if zero preset price is allowed
             // @todo
+            var txn = cart._getTransaction();
+            if (positivePriceRequired && txn != null) {
+                if (txn.checkSellPrice(item) <= 0) {
+                    NotifyUtils.warn(_('Product [%S] may not be registered with a price of [%S]!', [item.name, txn.formatPrice(0)]));
+                    evt.preventDefault();
+                    return;
+                }
+            }
 
             // retrieve set menu items only if setmenu is set
             var setItems = [];
@@ -199,7 +207,7 @@
                 // we don't allow return of set menus'
                 if (setItems.length > 0 ) {
                     //@todo OSD
-                    NotifyUtils.warn(_('Return of product sets (%S) not allowed!', [item.name]));
+                    NotifyUtils.warn(_('Return of product sets [%S] not allowed!', [item.name]));
                     evt.preventDefault();
                 }
             }
@@ -358,6 +366,7 @@
                     GeckoJS.Session.set('cart_set_qty_value', qty);
                 }
 
+                var doSIS = plu.single && curTransaction.data.items_count == 1;
                 var addedItem = curTransaction.appendItem(item);
 
                 this.dispatchEvent('onAddItem', addedItem);
@@ -369,7 +378,7 @@
 
                 if (addedItem.id == plu.id && !this._returnMode) {
                     if (plu.force_condiment) {
-                        this.addCondiment(plu);
+                        this.addCondiment(plu, doSIS);
                     }
                     if (plu.force_memo) {
                         this.addMemo(plu);
@@ -377,7 +386,7 @@
                 }
 
                 // single item sale?
-                if (plu.single && curTransaction.data.items_count == 1) {
+                if (doSIS) {
                     this.addPayment('cash');
                     this.dispatchEvent('onWarning', _('SINGLE ITEM SALE'));
                 }
@@ -386,6 +395,9 @@
                 }
             }
             else {
+                GeckoJS.Session.remove('cart_set_price_value');
+                GeckoJS.Session.remove('cart_set_qty_value');
+                
                 this.subtotal();
             }
         },
@@ -505,6 +517,7 @@
 
                 //@todo OSD
                 NotifyUtils.warn(_('Cannot modify condiment; no price entered'));
+                GeckoJS.Session.remove('cart_set_qty_value');
                 return ;
             }
 
@@ -513,10 +526,23 @@
                 this.setPrice(buf);
             }
 
+            // check if zero preset price is allowed
+            // @todo
+            var positivePriceRequired = GeckoJS.Configure.read('vivipos.fec.settings.PositivePriceRequired');
+
+            if (positivePriceRequired && curTransaction != null) {
+                if (curTransaction.checkSellPrice(itemTrans) <= 0) {
+                    NotifyUtils.warn(_('Product [%S] may not be modified with a price of [%S]!', [itemTrans.name, curTransaction.formatPrice(0)]));
+                    GeckoJS.Session.remove('cart_set_price_value');
+                    GeckoJS.Session.remove('cart_set_qty_value');
+                    return;
+                }
+            }
+
             if (this.dispatchEvent('beforeModifyItem', {item: itemTrans, itemDisplay: itemDisplay})) {
                 var modifiedItem = curTransaction.modifyItemAt(index);
 
-                this.dispatchEvent('afterModifyItem', modifiedItem);
+                this.dispatchEvent('afterModifyItem', [modifiedItem, itemDisplay]);
             }
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
@@ -694,7 +720,8 @@
             this.dispatchEvent('beforeVoidItem', itemTrans);
 
             var voidedItem = curTransaction.voidItemAt(index);
-            this.dispatchEvent('afterVoidItem', voidedItem);
+
+            this.dispatchEvent('afterVoidItem', [voidedItem, itemDisplay]);
 
             this.subtotal();
 
@@ -1258,7 +1285,7 @@
 
         getCreditCardDialog: function (data) {
             var aURL = 'chrome://viviecr/content/creditcard_remark.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=400';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=550';
             var inputObj = {
                 input0:data.type,
                 input1:null
@@ -1273,15 +1300,15 @@
             }
         },
 
-        getGiftCardDialog: function (data) {
-            var aURL = 'chrome://viviecr/content/giftcard_remark.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=400';
+        getCouponDialog: function (data) {
+            var aURL = 'chrome://viviecr/content/coupon_remark.xul';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=550';
             var inputObj = {
                 input0:data.type,
                 input1:null
             };
-            window.openDialog(aURL, _('Gift Card Remark'), features, _('Gift Card Remark'), _('Payment') + ' [' + data.payment + ']',
-                _('Card Type'), _('Card Remark'), inputObj);
+            window.openDialog(aURL, _('Coupon Remark'), features, _('Coupon Remark'), _('Payment') + ' [' + data.payment + ']',
+                _('Coupon Type'), _('Coupon Remark'), inputObj);
 
             if (inputObj.ok) {
                 return inputObj;
@@ -1321,7 +1348,7 @@
                 //@todo OSD
                 //NotifyUtils.warn(_('Please enter an amount first'));
                 //return;
-                payment = curTransaction.getRemainTotal(true);
+                payment = curTransaction.getRemainTotal();
             }
             var data = {
                 type: mark,
@@ -1337,7 +1364,7 @@
 
         },
 
-        giftCard: function(mark) {
+        coupon: function(mark) {
 
             // check if has buffer
             var buf = this._getKeypadController().getBuffer();
@@ -1368,17 +1395,17 @@
                 //@todo OSD
                 //NotifyUtils.warn(_('Please enter an amount first'));
                 //return;
-                payment = curTransaction.getRemainTotal(true);
+                payment = curTransaction.getRemainTotal();
             }
             var data = {
                 type: mark,
                 payment: curTransaction.formatPrice(payment)
             };
-            var inputObj = this.getGiftCardDialog(data);
+            var inputObj = this.getCouponDialog(data);
             if (inputObj) {
                 var memo1 = inputObj.input0 || '';
                 var memo2 = inputObj.input1 || '';
-                this.addPayment('giftcard', payment, payment, memo1, memo2);
+                this.addPayment('coupon', payment, payment, memo1, memo2);
             }
             //this.clear();
 
@@ -1450,8 +1477,6 @@
                 this.subtotal();
             }
 
-
-
         },
 
 
@@ -1467,16 +1492,14 @@
             // if (curTransaction.isSubmit() || curTransaction.isCancel()) return;
 
             var payments = curTransaction.getPayments();
-            var statusStr = '';
-
-            for(var idx in payments) {
-                var payment = payments[idx];
-
-                statusStr += payment.name + '  =  ' + payment.amount + '\n';
-                statusStr += '    memo1: ' + (payment.memo1||'') + ' , memo2: ' + (payment.memo2||'') + '\n\n';
+            for (var key in payments) {
+                var payment = payments[key];
+                payment.amount = curTransaction.formatPrice(payment.amount);
             }
-
-            alert(statusStr);
+            
+            var aURL = 'chrome://viviecr/content/payment_details.xul';
+            var features = 'chrome,modal,width=500,height=450,centerscreen';
+            window.openDialog(aURL, _('Payment Details'), features, _('Payment Details'), payments);
         },
 
 
@@ -1603,8 +1626,8 @@
             if(curTransaction == null) {
                 
                 this.dispatchEvent('onCancel', null);
-                //@todo OSD
-                NotifyUtils.warn(_('Not an open order; nothing to cancel'));
+                //@todo OSD - don't notify'
+                //NotifyUtils.warn(_('Not an open order; nothing to cancel'));
                 return; // fatal error ?
             }
 
@@ -1624,7 +1647,7 @@
             GeckoJS.Session.remove('cart_set_qty_value');
 
             this.dispatchEvent('afterCancel', curTransaction);
-            
+            this.dispatchEvent('onCancel', curTransaction);
         },
 	
         subtotal: function() {
@@ -1645,8 +1668,16 @@
             if(oldTransaction == null) return; // fatal error ?
 
             if (oldTransaction.getRemainTotal() > 0) return;
+
+            this.dispatchEvent('beforeSubmit', oldTransaction);
+
             oldTransaction.submit();
 
+            this.dispatchEvent('afterSubmit', oldTransaction);
+
+            // sleep to allow UI events to update
+            this.sleep(100);
+            
             // GeckoJS.Session.remove('current_transaction');
             GeckoJS.Session.remove('cart_last_sell_item');
             GeckoJS.Session.remove('cart_set_price_value');
@@ -1657,7 +1688,6 @@
             this.cancelReturn();
 
             this.dispatchEvent('onSubmit', oldTransaction);
-				
         },
 
 
@@ -1676,7 +1706,7 @@
 
         },
 
-        addCondiment: function(plu) {
+        addCondiment: function(plu, forceModal) {
 
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
@@ -1757,7 +1787,7 @@
                 else {
                     //var condiments = this.getCondimentsDialog(condimentItem.cond_group);
                     //if (condiments) curTransaction.appendCondiment(index, condiments);
-                    this.getCondimentsDialog(condimentItem.cond_group);
+                    this.getCondimentsDialog(condimentItem.cond_group, forceModal);
                 }
                 
             }
@@ -1765,7 +1795,7 @@
 
         },
 
-        getCondimentsDialog: function (condgroup) {
+        getCondimentsDialog: function (condgroup, forceModal) {
 
             var condGroups = GeckoJS.Session.get('condGroups');
             if (!condGroups) {
@@ -1793,7 +1823,7 @@
 
             var colsRows = parseInt(this._condimentPanel.getAttribute('cols')) * parseInt(this._condimentPanel.getAttribute('rows'));
 
-            if (colsRows == 0) {
+            if (forceModal || colsRows == 0) {
                 var condiments = null;
                 
                 var aURL = 'chrome://viviecr/content/select_condiments.xul';
@@ -1811,7 +1841,10 @@
                     var index = this._cartView.getSelectedIndex();
                     var curTransaction = this._getTransaction();
 
-                    if(curTransaction != null && index >=0) curTransaction.appendCondiment(index, inputObj.condiments);
+                    if(curTransaction != null && index >=0) {
+                        curTransaction.appendCondiment(index, inputObj.condiments);
+                        this.dispatchEvent('afterAddCondiment', inputObj.condiments);
+                    }
                     
                     this.subtotal();
                 }
@@ -1862,6 +1895,7 @@
             this._condimentPanel.selectedIndex = -1;
             if (condiments.length > 0) {
                 curTransaction.appendCondiment(index, condiments);
+                this.dispatchEvent('afterAddCondiment', condiments);
                 this.subtotal();
             }
             
@@ -1894,19 +1928,27 @@
 
             var memoItem = null;
             
-            if (plu && plu.force_memo) {
+            if (typeof plu == 'object' && plu.force_memo) {
                 memoItem = plu;
             }else {
+                if (plu != null) plu = GeckoJS.String.trim(plu);
                 var productsById = GeckoJS.Session.get('productsById');
                 var cartItem = curTransaction.getItemAt(index);
                 if (cartItem != null && cartItem.type == 'item') {
-                    //xxxx why clone it?
-                    //memoItem = GREUtils.extend({}, productsById[cartItem.id]);
-                    memoItem = productsById[cartItem.id];
+                    //xxxx why clone it? so we don't change the default memo
+                    memoItem = GREUtils.extend({}, productsById[cartItem.id]);
+                    //memoItem = productsById[cartItem.id];
                 }
+                if (memoItem && plu != null && plu != '') memoItem.memo = plu;
             }
 
-            var memo = this.getMemoDialog(memoItem ? memoItem.memo : '');
+            var memo;
+            if (typeof plu == 'object' || plu == null || plu == '') {
+                memo = this.getMemoDialog(memoItem ? memoItem.memo : '');
+            }
+            else {
+                memo = GeckoJS.String.trim(plu);
+            }
             if (memo) curTransaction.appendMemo(index, memo);
 
         },
@@ -1916,7 +1958,7 @@
         getMemoDialog: function (memo) {
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
             //var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250';
-            var features = 'chrome,modal,width=500,height=380';
+            var features = 'chrome,modal,width=500,height=380,centerscreen';
             var inputObj = {
                 input0:memo,require0:false
             };
@@ -2110,6 +2152,7 @@
             curTransaction.data = data ;
             this._setTransactionToView(curTransaction);
             curTransaction.updateCartView(-1, -1);
+
             this.subtotal();
 
         },

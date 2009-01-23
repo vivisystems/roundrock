@@ -35,11 +35,14 @@
         },
 
         beep: function () {
-            if (this.volume > 0) GREUtils.Sound.play('chrome://viviecr/content/sounds/beep.wav');
+            //if (this.volume > 0) GREUtils.Sound.play('chrome://viviecr/content/sounds/beep.wav');
+            GREUtils.Sound.beep();
         },
 
         warn: function () {
-            if (this.volume > 0) GREUtils.Sound.play('chrome://viviecr/content/sounds/warn.wav');
+            //if (this.volume > 0) GREUtils.Sound.play('chrome://viviecr/content/sounds/warn.wav');
+            GREUtils.Sound.beep();
+            GREUtils.Sound.beep();
         },
 
         // set alsamixer volume - called from sysprefs.js
@@ -84,7 +87,6 @@
                 switch(evt.type) {
                     case 'afterItemByBarcode':
                         if (GeckoJS.Configure.read('vivipos.fec.settings.beepOnScanningError')) {
-                            //alert(evt.type);
                             this.warn();
                         }
                         break;
@@ -97,42 +99,36 @@
                 switch(evt.type) {
                     case 'afterAddItem':
                         if (GeckoJS.Configure.read('vivipos.fec.settings.beepOnItemAdd')) {
-                            //alert(evt.type);
                             this.beep();
                         }
                         break;
 
                     case 'afterModifyItem':
                         if (GeckoJS.Configure.read('vivipos.fec.settings.beepOnModify')) {
-                            //alert(evt.type);
                             this.beep();
                         }
                         break;
 
                     case 'afterVoidItem':
                         if (GeckoJS.Configure.read('vivipos.fec.settings.beepOnVOID')) {
-                            //alert(evt.type);
                             this.beep();
                         }
                         break;
 
                     case 'afterShiftTax':
                         if (GeckoJS.Configure.read('vivipos.fec.settings.beepOnTaxStatusShift')) {
-                            //alert(evt.type);
                             GREUtils.Sound.play('chrome://viviecr/content/sound/beep.wav');
                         }
                         break;
 
                     case 'afterAddDiscount':
                         if (GeckoJS.Configure.read('vivipos.fec.settings.beepOnDiscountSurcharge')) {
-                            //alert(evt.type);
                             this.beep();
                         }
                         break;
 
                     case 'afterAddSurcharge':
                         if (GeckoJS.Configure.read('vivipos.fec.settings.beepOnDiscountSurcharge')) {
-                            //alert(evt.type);
                             this.beep();
                         }
                         break;
@@ -141,21 +137,18 @@
                         switch(evt.data.type) {
                             case 'subtotal':
                                 if (GeckoJS.Configure.read('vivipos.fec.settings.beepOnSubtotal')) {
-                                    //alert(evt.data.type);
                                     this.beep();
                                 }
                                 break;
 
                             case 'total':
                                 if (GeckoJS.Configure.read('vivipos.fec.settings.beepOnTotal')) {
-                                    //alert(evt.data.type);
                                     this.beep();
                                 }
                                 break;
 
                             case 'tray':
                                 if (GeckoJS.Configure.read('vivipos.fec.settings.beepOnTrayMarker')) {
-                                    //alert(evt.data.type);
                                     this.beep();
                                 }
                                 break;
@@ -164,21 +157,18 @@
 
                     case 'afterAddPayment':
                         if (GeckoJS.Configure.read('vivipos.fec.settings.beepOnPayment')) {
-                            //alert(evt.type);
                             this.beep();
                         }
                         break;
 
                     case 'afterCancel':
                         if (GeckoJS.Configure.read('vivipos.fec.settings.beepOnCANCEL')) {
-                            //alert(evt.type);
                             this.beep();
                         }
                         break;
 
                     case 'afterTaxShift':
                         if (GeckoJS.Configure.read('vivipos.fec.settings.beepOnTaxStatusShift')) {
-                            //alert(evt.type);
                             this.beep();
                         }
                         break;

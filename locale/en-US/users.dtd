@@ -8,6 +8,7 @@
 <!ENTITY users.accesslevel "Access Level">
 <!ENTITY users.pricelevel "Default Price Level">
 <!ENTITY users.job "Default Job">
+<!ENTITY users.drawer "Assigned Drawer">
 <!ENTITY users.limit.item.discount "Item Discount Limit">
 <!ENTITY users.limit.order.discount "Order Discount Limit">
 <!ENTITY users.limit.cash.check "Check Cashing Limit">

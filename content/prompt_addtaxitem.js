@@ -62,13 +62,9 @@ function validateInput() {
 
     var input0 = document.getElementById('input0').value;
     var input1 = document.getElementById('input1').value;
-    var trimmed0 = '';
-    var trimmed1 = '';
-    try {
-        var trimmed0 = GeckoJS.String.trim(input0);
-        var trimmed1 = GeckoJS.String.trim(input1);
-    }
-    catch (e) {}
+    var trimmed0 = GeckoJS.String.trim(input0);
+    var trimmed1 = GeckoJS.String.trim(input1);
+    
     if ((!input0Required || trimmed0.length > 0) &&
         ((!input1Required) || trimmed1.length > 0)) {
         validated = true;

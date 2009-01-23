@@ -1,8 +1,0 @@
-<!ENTITY plugroups.title "產品群組">
-<!ENTITY plugroups.name "群組名稱">
-<!ENTITY plugroups.visible "顯示於前台">
-<!ENTITY plugroups.button.color "按鈕顏色">
-<!ENTITY plugroups.font.size "文字大小">
-<!ENTITY plugroups.button.action.add "新增">
-<!ENTITY plugroups.button.action.modify "修改">
-<!ENTITY plugroups.button.action.delete "刪除">

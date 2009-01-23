@@ -1,0 +1,5 @@
+<!ENTITY prompt.addtaxitem.title "Seleccione o Tipo de Taxa:">
+<!ENTITY prompt.addtaxitem.included "Incluída">
+<!ENTITY prompt.addtaxitem.addon "Adicionada">
+<!ENTITY prompt.addtaxitem.combined "Combinada">
+<!ENTITY prompt.addtaxitem.vat "VAT + VAT">

@@ -1,0 +1,8 @@
+<!ENTITY cart.item.name "Nome do Produto">
+<!ENTITY cart.item.qty "#">
+<!ENTITY cart.item.unitprice "@">
+<!ENTITY cart.item.subtotal "Sub-total">
+<!ENTITY cart.item.tax "Tx">
+<!ENTITY cart.button.plus "+">
+<!ENTITY cart.button.minus "-">
+<!ENTITY cart.button.payments "Pagamentos">

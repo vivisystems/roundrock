@@ -103,8 +103,6 @@
             this._condscrollablepanel.selectedIndex = index;
             this._condscrollablepanel.selectedItems = [index];
 
-            //alert('[CLICK] ' + 'index: ' + index + ':' + GeckoJS.BaseObject.dump(condGroups));
-            //alert('[COND] ' + GeckoJS.BaseObject.dump(conds));
             if (conds) {
                 this.setInputCondData(conds[index]);
             }
@@ -225,9 +223,6 @@
                         var condGroups = GeckoJS.Session.get('condGroups');
                         condGroups.push(groups[0]);
 
-                        //alert('[ADD]: record ' + GeckoJS.BaseObject.dump(groups));
-                        //alert('[ADD]: array ' + GeckoJS.BaseObject.dump(condGroups));
-
                         GeckoJS.Session.set('condGroups', condGroups);
 
                         var view = this._condGroupscrollablepanel.datasource;
@@ -276,8 +271,6 @@
                     condGroupModel.save(inputData);
 
                     GREUtils.extend(condGroups[this._selectedIndex], inputData);
-                    //alert('[MODIFY]: record ' + GeckoJS.BaseObject.dump(inputData));
-                    //alert('[MODIFY]: array ' + GeckoJS.BaseObject.dump(condGroups));
                     GeckoJS.Session.set('condGroups', condGroups);
 
                     var view = this._condGroupscrollablepanel.datasource;
@@ -386,7 +379,7 @@
             if (this._selectedIndex == null || this._selectedIndex < 0) return;
 
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
             var inputObj = {input0:null, input1:0,
                             require0:true, require1:true, numberOnly1:true};
             window.openDialog(aURL, _('Add New Condiment'), features, _('New Condiment'), '', _('Condiment Name'), _('Condiment Price'), inputObj);

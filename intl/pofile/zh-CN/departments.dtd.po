@@ -1,0 +1,63 @@
+#. extracted from ../locale/en-US/departments.dtd, ./locale/zh-CN/departments.dtd
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+<<<<<<< HEAD:intl/pofile/zh-CN/departments.dtd.po
+"POT-Creation-Date: 2009-01-21 01:13+0800\n"
+=======
+"POT-Creation-Date: 2009-01-19 17:02+0800\n"
+>>>>>>> f087ea22d683ef5c6f044fa13f96a705f4918799:intl/pofile/zh-CN/departments.dtd.po
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.1.1\n"
+
+#: departments.title
+msgid "Departments"
+msgstr "产品部门"
+
+#: departments.number
+msgid "Department Number:"
+msgstr "部门代码:"
+
+#: departments.name
+msgid "Department Name:"
+msgstr "部门名称:"
+
+#: departments.taxrate
+msgid "Tax Rate:"
+msgstr "税别:"
+
+#: departments.visible
+msgid "Show on Menu"
+msgstr "显示于前台:"
+
+#: departments.sale
+msgid "Sale Department"
+msgstr "Sale Department:"
+
+#: departments.button.color
+msgid "Button Color:"
+msgstr "按钮颜色:"
+
+#. Do not translate this.  Only change the numeric values if you need this dialogue box to appear bigger
+#: departments.font.size
+msgid "Font Size:"
+msgstr "文字大小:"
+
+#: departments.button.action.add
+msgid "Add"
+msgstr "新增"
+
+#: departments.button.action.modify
+msgid "Modify"
+msgstr "修改"
+
+#: departments.button.action.delete
+msgid "Delete"
+msgstr "删除"

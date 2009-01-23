@@ -1,0 +1,80 @@
+#. extracted from ../locale/en-US/stocks.dtd, ./locale/ja-JP/stocks.dtd
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+<<<<<<< HEAD:intl/pofile/ja-JP/stocks.dtd.po
+"POT-Creation-Date: 2009-01-21 01:13+0800\n"
+=======
+"POT-Creation-Date: 2009-01-19 17:02+0800\n"
+>>>>>>> f087ea22d683ef5c6f044fa13f96a705f4918799:intl/pofile/ja-JP/stocks.dtd.po
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.1.1\n"
+
+#: stocks.title
+msgid "Products"
+msgstr "商品"
+
+#: stocks.header.no
+msgid "Product No."
+msgstr "商品ナンバー"
+
+#: stocks.header.product
+msgid "Product Name"
+msgstr "商品名"
+
+#: stocks.header.level
+msgid "Quantity"
+msgstr "数量"
+
+#: stocks.header.minimum
+msgctxt "stocks.header.minimum"
+msgid "Threshold"
+msgstr "在庫量"
+
+#: stocks.show.low.only
+msgid "Filter for Products below Threshold"
+msgstr "Filter for Products below Threshold"
+
+#: stocks.label.no
+msgid "No."
+msgstr "ナンバー"
+
+#: stocks.label.name
+msgid "Name"
+msgstr "名前"
+
+#: stocks.label.stock
+msgid "Level"
+msgstr "在庫量"
+
+#: stocks.label.threshold
+msgctxt "stocks.label.threshold"
+msgid "Threshold"
+msgstr "在庫量"
+
+#: stocks.search.label
+msgid "Enter Product or Barcode No."
+msgstr "商品、バーコードナンバーを入力してください"
+
+#: stocks.button.action.clear
+msgid "CLEAR"
+msgstr "クリアー"
+
+#: stocks.button.action.del
+msgid "DEL"
+msgstr "削除"
+
+#: stocks.button.action.enter
+msgid "ENTER"
+msgstr "入力"
+
+#: stocks.button.action.modify
+msgid "Modify"
+msgstr "修正"

@@ -1,0 +1,33 @@
+.MainPnl {
+    margin: 18px;
+}
+
+.SetArea {
+   background: #f4f3ee;
+   -moz-border-radius: 8px;
+   padding: 8px;
+}
+
+.SubArea {
+    background: white;
+}
+
+.RightTabbox row {
+	border-bottom: 2px solid white;
+	font-size: 10pt;
+	padding: 4px;
+    -moz-box-align: center;
+}
+
+.RightTabbox column{
+	
+	padding: 4px;
+}
+
+grid {
+    
+}
+
+menuitem {
+    max-width: 220px;
+}

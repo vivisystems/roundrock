@@ -40,7 +40,7 @@
             var self = this;
             GeckoJS.Session.addEventListener('change', function(evt){
                 if (evt.data.key == 'products') {
-                    self.updateProducts();
+                    //self.updateProducts();
                     if(self._cateView) self.setCatePanelIndex(self._currentCateIndex);
                 }
             });

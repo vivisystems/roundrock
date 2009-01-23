@@ -66,7 +66,7 @@
 
                 no_of_customers: 0,
 
-                terminal_no: '',
+                terminal_no: GeckoJS.Session.get('terminal_id'),
 
                 created: '',
                 modified: ''
@@ -114,6 +114,7 @@
 
         if ( user != null ) {
             this.data.service_clerk = user.username;
+            this.data.service_clerk_displayname = user.description;
         }
 
         this.data.created = new Date().getTime();
@@ -129,11 +130,15 @@
         this.data.rounding_taxes = GeckoJS.Configure.read('vivipos.fec.settings.RoundingTaxes') || 'to-nearest-precision';
         this.data.precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
         this.data.precision_taxes = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionTaxes') || 0;
+        this.data.decimals = GeckoJS.Configure.read('vivipos.fec.settings.DecimalPoint') || '.';
+        this.data.thousands = GeckoJS.Configure.read('vivipos.fec.settings.ThousandsDelimiter') || ',';
 
         if (Transaction.worker == null) {
-            Transaction.worker = new GeckoJS.Thread();
+          //  Transaction.worker = new GeckoJS.Thread();
+
+          Transaction.worker = GREUtils.Thread.getWorkerThread();
         }
-        Transaction.worker._runnable = this;
+        //Transaction.worker._runnable = this;
 
         // @todo 
        
@@ -152,7 +157,8 @@
         this.data.modified = new Date().getTime();
 
         // use background save
-        Transaction.worker.start();
+        // Transaction.worker.start();
+        Transaction.worker.dispatch(this, Transaction.worker.DISPATCH_NORMAL);
     };
 
     Transaction.prototype.cancel = function() {
@@ -173,6 +179,7 @@
         var user = new GeckoJS.AclComponent().getUserPrincipal();
         if ( user != null ) {
             this.data.proceeds_clerk = user.username;
+            this.data.proceeds_clerk_displayname = user.description;
         }
 
         // set status = 1
@@ -453,6 +460,25 @@
 
     };
 
+    Transaction.prototype.checkSellPrice = function(item) {
+        var sellQty = item.current_qty, sellPrice = item.current_price;
+
+        var lastSellItem = GeckoJS.Session.get('cart_last_sell_item');
+        if (lastSellItem != null) {
+            if (lastSellItem.id == item.id) {
+                // sellQty = lastSellItem.sellQty;
+                sellPrice = lastSellItem.sellPrice;
+            }
+        }
+        // modify Qty & Price...
+        sellQty  = (GeckoJS.Session.get('cart_set_qty_value') != null) ? GeckoJS.Session.get('cart_set_qty_value') : sellQty;
+        if (sellQty == null) sellQty = 1;
+
+        sellPrice  = (GeckoJS.Session.get('cart_set_price_value') != null) ? GeckoJS.Session.get('cart_set_price_value') : sellPrice;
+
+        sellPrice = this.getSellPriceByPriceLevel(sellPrice, sellQty, item, false);
+        return sellPrice;
+    };
 
     Transaction.prototype.appendItem = function(item){
 
@@ -493,7 +519,6 @@
         // push to items array
         this.data.items[itemIndex] = itemAdded;
         this.data.items_count++;
-
         var itemDisplay = this.createDisplaySeq(itemIndex, itemAdded, 'item');
         
         this.data.display_sequences.push(itemDisplay);
@@ -925,6 +950,7 @@
         var itemIndex = itemDisplay.index;
         var lastItemDispIndex;
         var discount_amount;
+        var resultItem;
 
         var prevRowCount = this.data.display_sequences.length;
 
@@ -964,6 +990,7 @@
             this.calcPromotions();
             this.calcItemsTax(item);
 
+            resultItem = item;
 
         }else if (itemDisplay.type == 'subtotal'){
 
@@ -1028,7 +1055,7 @@
             
             // this.calcItemsTax();
 
-
+            resultItem = discountItem;
         }
 
         var currentRowCount = this.data.display_sequences.length;
@@ -1037,7 +1064,7 @@
 
         this.updateCartView(prevRowCount, currentRowCount, lastItemDispIndex);
 
-        return item;
+        return resultItem;
 
     };
 
@@ -1047,6 +1074,7 @@
         var itemDisplay = this.getDisplaySeqAt(index); // last seq
         var itemIndex = itemDisplay.index;
         var lastItemDispIndex = this.getLastDisplaySeqByIndex(itemIndex);
+        var resultItem;
 
         var prevRowCount = this.data.display_sequences.length;
 
@@ -1078,6 +1106,7 @@
 
             this.calcItemsTax(item);
 
+            resultItem = item;
 
         }else if (itemDisplay.type == 'subtotal'){
 
@@ -1128,7 +1157,7 @@
             this.calcPromotions();
             //this.calcItemsTax();
 
-
+            resultItem = surchargeItem;
         }
         
         var currentRowCount = this.data.display_sequences.length;
@@ -1137,7 +1166,7 @@
 
         this.updateCartView(prevRowCount, currentRowCount, displayIndex);
 
-        return item;
+        return resultItem;
 
     };
 
@@ -1442,7 +1471,7 @@
             case 'condiment':
             case 'memo':
                 item = this.data.items[itemIndex];
-                if (!inclusive && item.parent_index != null) {
+                if (!inclusive && item != null && item.parent_index != null) {
                     item = this.data.items[item.parent_index];
                 }
                 break;
@@ -1559,13 +1588,18 @@
         
     };
 
-    Transaction.prototype.getSellPriceByPriceLevel = function(sellPrice, sellQty, item) {
+    Transaction.prototype.getSellPriceByPriceLevel = function(sellPrice, sellQty, item, notify) {
+
+        if (notify == null) notify = true;
 
         var priceLevel = GeckoJS.Session.get('vivipos_fec_price_level');
 
-        var user = (new GeckoJS.AclComponent()).getUserPrincipal();
-        var canOverrideHalo = user ? (GeckoJS.Array.inArray('acl_override_halo', user.Roles) != -1) : false;
-        var canOverrideLalo = user ? (GeckoJS.Array.inArray('acl_override_lalo', user.Roles) != -1) : false;
+        //var user = (new GeckoJS.AclComponent()).getUserPrincipal();
+        //var canOverrideHalo = user ? (GeckoJS.Array.inArray('acl_override_halo', user.Roles) != -1) : false;
+        //var canOverrideLalo = user ? (GeckoJS.Array.inArray('acl_override_lalo', user.Roles) != -1) : false;
+        var mainController = GeckoJS.Controller.getInstanceByName('Main');
+        var canOverrideHalo = mainController.Acl.isUserInRole('acl_override_halo');
+        var canOverrideLalo = mainController.Acl.isUserInRole('acl_override_lalo');
 
         var priceLevelPrice = this.getPriceLevelPrice(priceLevel, item);
         var priceLevelHalo = this.getPriceLevelHalo(priceLevel, item);
@@ -1576,7 +1610,7 @@
         if(priceLevelHalo > 0 && sellPrice > priceLevelHalo) {
 
             if (canOverrideHalo) {
-                NotifyUtils.warn(_('Price HALO [%S] overridden on [%S]', [this.formatPrice(priceLevelHalo), item.name]));
+                if (notify) NotifyUtils.warn(_('Price HALO [%S] overridden on [%S]', [this.formatPrice(priceLevelHalo), item.name]));
             }
             else {
                 var obj = {
@@ -1592,7 +1626,7 @@
                 Transaction.events.dispatch('onPriceLevelError', obj, this);
 
                 //@todo OSD
-                NotifyUtils.warn(_('Price adjusted from [%S] to current HALO [%S]', [this.formatPrice(sellPrice), this.formatPrice(obj.newPrice)]));
+                if (notify) NotifyUtils.warn(_('Price adjusted from [%S] to current HALO [%S]', [this.formatPrice(sellPrice), this.formatPrice(obj.newPrice)]));
 
                 sellPrice = obj.newPrice;
             }
@@ -1601,7 +1635,7 @@
         if(priceLevelLalo > 0 && sellPrice < priceLevelLalo) {
 
             if (canOverrideLalo) {
-                NotifyUtils.warn(_('Price LALO [%S] overridden on [%S]', [this.formatPrice(priceLevelLalo), item.name]));
+                if (notify) NotifyUtils.warn(_('Price LALO [%S] overridden on [%S]', [this.formatPrice(priceLevelLalo), item.name]));
             }
             else {
                 var obj2 = {
@@ -1617,7 +1651,7 @@
                 Transaction.events.dispatch('onPriceLevelError', obj2, this);
 
                 //@todo OSD
-                NotifyUtils.warn(_('Price adjusted from [%S] to current LALO [%S]', [this.formatPrice(sellPrice), this.formatPrice(obj2.newPrice)]));
+                if (notify) NotifyUtils.warn(_('Price adjusted from [%S] to current LALO [%S]', [this.formatPrice(sellPrice), this.formatPrice(obj2.newPrice)]));
 
                 sellPrice = obj2.newPrice;
             }
@@ -1850,6 +1884,8 @@
 
     Transaction.prototype.formatPrice = function(price) {
         var options = {
+          decimals: this.data.decimals,
+          thousands: this.data.thousands,
           places: ((this.data.precision_prices>0)?this.data.precision_prices:0)
         };
         // format display precision
@@ -1864,6 +1900,8 @@
             places = priceStr.length - dpIndex - 1;
         }
         var options = {
+          decimals: this.data.decimals,
+          thousands: this.data.thousands,
           places: Math.max(places, ((this.data.precision_prices>0)?this.data.precision_prices:0))
         };
         // format display precision
@@ -1872,6 +1910,8 @@
 
     Transaction.prototype.formatTax = function(tax) {
         var options = {
+          decimals: this.data.decimals,
+          thousands: this.data.thousands,
           places: ((this.data.precision_taxes>0)?this.data.precision_taxes:0)
         };
         // format display precision

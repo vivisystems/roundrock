@@ -3,7 +3,7 @@
      xmlns:em="http://www.mozilla.org/2004/em-rdf#">
     <Description about="urn:mozilla:install-manifest">
         <em:id>langpack-sv-SE@firich.com.tw</em:id>
-        <em:name>langpack-sv-SE</em:name>
+        <em:name>VIVIECR (sv-SE)</em:name>
         <em:version>0.1</em:version>
         <em:description></em:description>
         <em:creator>Rack Achang</em:creator>

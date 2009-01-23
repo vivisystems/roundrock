@@ -1,1 +1,24 @@
 <!ENTITY devices.title "Device Configuration">
+<!ENTITY devices.receipt.printer.1.label "Receipt Printer 1">
+<!ENTITY devices.receipt.printer.2.label "Receipt Printer 2">
+<!ENTITY devices.template.label "Template">
+<!ENTITY devices.port.label "Port">
+<!ENTITY devices.portspeed.label "Port Speed">
+<!ENTITY devices.handshaking.label "Handshaking">
+<!ENTITY devices.handshaking.hardware "Hardware">
+<!ENTITY devices.handshaking.xonxoff "XON/XOFF">
+<!ENTITY devices.handshaking.none "None">
+<!ENTITY devices.devicemodel.label "Device Model">
+<!ENTITY devices.deviceencoding.label "Encoding">
+<!ENTITY devices.receipt.autoprint.label "Print receipt automatically">
+<!ENTITY devices.guestcheck.printer.1.label "Guest Check Printer 1">
+<!ENTITY devices.guestcheck.printer.2.label "Guest Check Printer 2">
+<!ENTITY devices.guestcheck.autoprint.label "Print guest check automatically upon finalization">
+<!ENTITY devices.vfd.1.label "VFD 1">
+<!ENTITY devices.vfd.2.label "VFD 2">
+<!ENTITY devices.cashdrawer.1.label "Cash Drawer 1">
+<!ENTITY devices.cashdrawer.2.label "Cash Drawer 2">
+<!ENTITY devices.cashdrawer.type.gpio "GPIO">
+<!ENTITY devices.cashdrawer.type.printer "Printer">
+<!ENTITY devices.cashdrawer.supports.status "Supports status command">
+<!ENTITY devices.cashdrawer.gpio.pulses "Pulses to send">

@@ -3,7 +3,7 @@
      xmlns:em="http://www.mozilla.org/2004/em-rdf#">
     <Description about="urn:mozilla:install-manifest">
         <em:id>langpack-zh-CN@firich.com.tw</em:id>
-        <em:name>langpack-zh-CN</em:name>
+        <em:name>VIVIECR (zh-CN)</em:name>
         <em:version>0.1</em:version>
         <em:description></em:description>
         <em:creator>Rack Achang</em:creator>
