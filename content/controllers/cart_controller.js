@@ -1286,7 +1286,7 @@
 
         getCreditCardDialog: function (data) {
             var aURL = 'chrome://viviecr/content/creditcard_remark.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=400';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=550';
             var inputObj = {
                 input0:data.type,
                 input1:null
@@ -1303,7 +1303,7 @@
 
         getCouponDialog: function (data) {
             var aURL = 'chrome://viviecr/content/coupon_remark.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=400';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=550';
             var inputObj = {
                 input0:data.type,
                 input1:null
@@ -1499,7 +1499,7 @@
             }
             
             var aURL = 'chrome://viviecr/content/payment_details.xul';
-            var features = 'chrome,modal,width=500,height=280,centerscreen';
+            var features = 'chrome,modal,width=500,height=450,centerscreen';
             window.openDialog(aURL, _('Payment Details'), features, _('Payment Details'), payments);
         },
 
@@ -1675,6 +1675,9 @@
             oldTransaction.submit();
 
             this.dispatchEvent('afterSubmit', oldTransaction);
+
+            // sleep to allow UI events to update
+            this.sleep(100);
             
             // GeckoJS.Session.remove('current_transaction');
             GeckoJS.Session.remove('cart_last_sell_item');

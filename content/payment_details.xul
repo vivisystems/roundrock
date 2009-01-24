@@ -20,7 +20,7 @@
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/payment_details.js" />
 
-    <vbox class="main-dialog" flex="1">
+    <vbox class="pop-dialog" flex="1">
         <vbox flex="1" class="MainPnl">
             <caption id="title" class="PageTitle" />
             <viviscrollabletree id="paymentscrollablepanel" flex="1" headers="&paymentdetails.amount;,&paymentdetails.type;,&paymentdetails.note1;,&paymentdetails.note2;"

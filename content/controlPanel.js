@@ -26,6 +26,7 @@
                 var entry = {icon: el.icon,
                              path: el.path,
                              roles: el.roles,
+                             type:  (el.type || 'uri'),
                              label: _(el.label)}
                 return entry;
             })
@@ -54,11 +55,25 @@ function launchControl(panel) {
 
         try {
             $('#loading').show();
-	    // @hack sleep to make sure the loading panel is rendered
-	    GeckoJS.BaseObject.sleep(50);
-            window.openDialog(pref['path'], pref['label'], features, aArguments);
+            // @hack sleep to make sure the loading panel is rendered
+            GeckoJS.BaseObject.sleep(50);
+            if (pref['type'] == 'uri') {
+
+                window.openDialog(pref['path'], pref['label'], features, aArguments);
+
+            }else {
+
+                var paths = pref['path'].split(' ');
+                var launchAp = paths[0];
+                var args = paths.slice(1);
+
+                var fileAp = new GeckoJS.File(launchAp);
+                fileAp.run(args, true);
+
+            }
+            
         }
-        catch (e) {}
+        catch (e) {alert(e);}
         finally {
             $('#loading').hide();
         }

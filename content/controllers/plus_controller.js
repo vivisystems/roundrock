@@ -961,6 +961,7 @@
             GeckoJS.Session.add('productsIndexesByCateAll', indexCateAll);
         },
 
+        // modified to handle the case where
         locateIndex: function (elem, list, path) {
 
             // locate elem in list using binary search
@@ -979,15 +980,23 @@
         },
 
         selectPlu: function(index) {
-
             var plusearchListObj = document.getElementById('plusearchscrollablepanel');
             var datas = plusearchListObj.datasource._data;
 
             var plu = datas[index];
-
             if (plu != null) {
                 var categories = GeckoJS.Session.get('categories');
-                var catIndex = this.locateIndex(plu.cate_no, categories, "no");
+
+                // @todo optimize search
+                // categories are now sorted by display_order, which aren't unique and may be null, so
+                // for now we use simple linear search
+                var catIndex = -1;
+                for (var i = 0; i < categories.length; i++) {
+                    if (categories[i].no == plu.cate_no) {
+                        catIndex = i;
+                        break;
+                    }
+                }
                 this.changePluPanel(catIndex);
 
                 var catepanel = document.getElementById('catescrollablepanel');
@@ -996,6 +1005,7 @@
 
                 var plus = this.productPanelView.tree.datasource.data;
                 var pluIndex = plus.indexOf(plu.id);
+                
                 this.clickPluPanel(pluIndex);
             }
         },

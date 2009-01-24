@@ -107,5 +107,5 @@
 .function-button-color-5[selected], .function-button-color-6[selected], .function-button-color-7[selected],
 .function-button-color-8[selected], .function-button-color-9[selected], .function-button-color-10[selected],
 .function-button-color-11[selected] {
-    list-style-image: url(chrome://viviecr/skin/images/gtk-yes.png);
+    list-style-image: url(images/con_sel.png);
 }

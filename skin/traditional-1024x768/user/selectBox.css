@@ -1,0 +1,20 @@
+.MainPnl {
+    margin: 18px;
+}
+
+
+
+.SelectBox {
+    background: #f4f3ee;
+    margin: 8px;
+    padding: 8px;
+    -moz-box-flex: 1;
+}
+
+.ItemButtonA {
+    min-height: 46px;
+}
+
+.catbtn {
+    min-height: 50px;
+}

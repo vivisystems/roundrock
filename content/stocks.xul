@@ -44,9 +44,9 @@
             <vbox>
                 <vbox>
                     <label id="plu_id" hidden="true" form="productForm" name="id" value="" />
-                    <grid class="DataForm">
+                    <grid class="DataForm"  flex="1">
                         <columns>
-                            <column  /><column />
+                            <column  flex="1" /><column flex="1" />
                         </columns>
                         <rows>
                             <row>
@@ -91,8 +91,9 @@
                             <vivibutton id="ekeyBtn"  label="&stocks.button.action.enter;"   oncommand="$do('searchPlu', document.getElementById('plu').value, 'Stocks');" class="fixedbtn"  />
                         </vbox>
                     </hbox>
-                    <spacer style="height: 4px;" />
+                    
                 </vbox>
+                <spacer  flex="1"/>
                 <hbox flex="1" id="dialogButtons" class="dialogbtns" pack="end">
                     <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
                     <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>

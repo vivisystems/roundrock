@@ -19,7 +19,7 @@
             // add event listener for beforeSubmit events
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             if(cart) {
-                cart.addEventListener('afterSubmit', this.handleOpenDrawerEvent, this);
+                cart.addEventListener('onSubmit', this.handleOpenDrawerEvent, this);
                 cart.addEventListener('afterAddPayment', this.handleOpenDrawerEvent, this);
             }
         },

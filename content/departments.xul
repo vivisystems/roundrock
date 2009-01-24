@@ -37,10 +37,8 @@
                         <spacer flex="1"/>
                     </viviscrollablebuttonpanel>
                 </vbox>
-                <spacer style="width: 20px;" />
             </vbox>
-            <spacer style="height: 30px;" />
-            <vbox>
+            <vbox flex="1">
                 <grid class="DataForm">
                     <columns>
                         <column flex="1" /><column flex="1" />
@@ -75,19 +73,22 @@
                     </rows>
                 </grid>
                 <hbox class="RightPnlB">
-                    <vbox>
+                    <vbox flex="1">
                         <label value="&departments.button.color;" class="SubTitle"/>
-                        <button_colorpicker id="dept_button_color" form="deptForm" name="button_color"
-                                            buttonClass="catbtn" class="BtnColors"
+                        <hbox pack="center" align="center" flex="1">
+                            <button_colorpicker id="dept_button_color" form="deptForm" name="button_color"
+                                            buttonClass="catbtn" class="BtnColors" 
                                             class-prefix="department-button-color-" default="department-button-color-default"/>
+                        </hbox>                    
                     </vbox>
-                    <vbox>
+                    <vbox flex="1">
                         <label value="&departments.font.size;" class="SubTitle"/>
                         <button_fontsizepicker id="dept_font_size" form="deptForm" name="font_size" class="FontSizeSet"
                                                buttonClass="ItemButtonB" default="medium"/>
                     </vbox>
                 </hbox>
-                <hbox>
+                <spacer  flex="1" />
+                <hbox flex="1">
                     <hbox class="ToolBar" flex="1">
                         <button id="add_dept" label="&departments.button.action.add;" disabled="false" class="BtnAdd" oncommand="$do('add', null, 'Departments');" />
                         <button id="modify_dept" label="&departments.button.action.modify;" disabled="false" class="BtnMod" oncommand="$do('modify', null, 'Departments');" />

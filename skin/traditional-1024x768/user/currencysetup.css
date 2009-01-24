@@ -1,0 +1,80 @@
+.MainPnl {
+    margin: 18px;
+}
+
+.MainL {
+    border-right: 1px solid #c1ab8e;
+}
+
+.dialogbtns {
+    margin-left: 4px;
+}
+
+.numberbox-input-box{
+    background: none;
+    border: none;
+    -moz-appearance: none;
+    padding-right: 5px;
+}
+
+.DataRowA {
+    background: #f4f3ee;
+    margin: 5px 8px 1px 4px;
+    padding: 8px;
+}
+
+.DataRow {
+    background: #f8f5f1;
+    margin: 1px 8px 1px 4px;
+    padding: 8px;
+}
+.DataRowA label, .DataRow label {
+    font-size: 10pt;
+    color: #736357;
+}
+.DataRow hbox {
+    -mox-box-align: center;
+}
+.DataRow textbox, .DataRowA textbox {
+    margin: 5px;
+}
+
+.FieldTitle {
+    font-size: 9pt;
+    color: #736357;
+    margin-right: 8px;
+    -moz-box-pack: start;
+}
+.SpaceA {
+    width: 40px;
+}
+.SpaceB {
+    width: 40px;
+}
+.SpaceC {
+    width: 35px;
+}
+.SpaceD {
+    width: 40px;
+}
+.SpaceE {
+    width: 40px;
+}
+
+.FieldWidth {
+    min-width: 100px;
+    width: 140px;
+}
+
+textbox {
+    max-width: 150px;
+}
+
+.numpadfun {
+    margin: 0px 8px;
+}
+
+.numpad {
+    margin: 0px 4px;
+}
+
