@@ -367,8 +367,8 @@
                     GeckoJS.Session.set('cart_set_qty_value', qty);
                 }
 
-                var doSIS = plu.single && curTransaction.data.items_count == 1;
                 var addedItem = curTransaction.appendItem(item);
+                var doSIS = plu.single && curTransaction.data.items_count == 1;
 
                 this.dispatchEvent('onAddItem', addedItem);
 
@@ -1496,6 +1496,7 @@
             for (var key in payments) {
                 var payment = payments[key];
                 payment.amount = curTransaction.formatPrice(payment.amount);
+                payment.name = _(payment.name);
             }
             
             var aURL = 'chrome://viviecr/content/payment_details.xul';

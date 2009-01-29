@@ -22,6 +22,7 @@
 
             // initialize worker thread
             this._worker = GREUtils.Thread.getWorkerThread();
+            //this._worker = GREUtils.Thread.getMainThread();
 
             // add event listener for onSubmit events
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
