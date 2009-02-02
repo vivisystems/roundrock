@@ -1,19 +1,19 @@
 
-<!ENTITY systembackup.backup "系統備份">
-<!ENTITY systembackup.restore "系統回復">
-<!ENTITY systembackup.local "本機備份:">
-<!ENTITY systembackup.stick "外接式大姆碟:">
-<!ENTITY systembackup.backuptostick "複製本機至外接式大姆碟 >>>">
-<!ENTITY systembackup.backuptolocal "備份至本機">
-<!ENTITY systembackup.restorefromstick "從外接式大姆碟回復系統">
-<!ENTITY systembackup.restorefromlocal "從本機備份回復系統">
-<!ENTITY systembackup.backupwait "備份資料中, 請稍候...">
-<!ENTITY systembackup.restorewait "回復資料中, 請稍候...">
+<!ENTITY systembackup.backup "System Backup">
+<!ENTITY systembackup.restore "System Resotre">
+<!ENTITY systembackup.local "Local Backup:">
+<!ENTITY systembackup.stick "Stick:">
+<!ENTITY systembackup.backuptostick "Copy Local to Stick >>>">
+<!ENTITY systembackup.backuptolocal "Backup to Local">
+<!ENTITY systembackup.restorefromstick "Restore from Stick">
+<!ENTITY systembackup.restorefromlocal "Resotre from Local">
+<!ENTITY systembackup.backupwait "Waitting for Backup Data...">
+<!ENTITY systembackup.restorewait "Waitting for Restore Data...">
 
 
-<!ENTITY vivipos.fec.common.ok "完成">
-<!ENTITY vivipos.fec.common.cancel "取消">
-<!ENTITY vivipos.fec.common.add "新增">
-<!ENTITY vivipos.fec.common.modify "修改">
-<!ENTITY vivipos.fec.common.delete "刪除">
+<!ENTITY vivipos.fec.common.ok "Ok">
+<!ENTITY vivipos.fec.common.cancel "Cancel">
+<!ENTITY vivipos.fec.common.add "Add">
+<!ENTITY vivipos.fec.common.modify "Modify">
+<!ENTITY vivipos.fec.common.delete "Delete">
 

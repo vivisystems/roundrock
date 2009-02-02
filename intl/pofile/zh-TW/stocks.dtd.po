@@ -4,7 +4,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
+<<<<<<< HEAD:intl/pofile/zh-TW/stocks.dtd.po
+"POT-Creation-Date: 2009-01-21 01:13+0800\n"
+=======
 "POT-Creation-Date: 2009-01-19 17:02+0800\n"
+>>>>>>> f087ea22d683ef5c6f044fa13f96a705f4918799:intl/pofile/zh-TW/stocks.dtd.po
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,53 +19,53 @@ msgstr ""
 
 #: stocks.title
 msgid "Products"
-msgstr "產品"
+msgstr "Products"
 
 #: stocks.header.no
 msgid "Product No."
-msgstr "產品編號"
+msgstr "Product No."
 
 #: stocks.header.product
 msgid "Product Name"
-msgstr "產品名稱"
+msgstr "Product Name"
 
 #: stocks.header.level
 msgid "Quantity"
-msgstr "庫存量"
+msgstr "Quantity"
 
 #: stocks.header.minimum
 msgctxt "stocks.header.minimum"
 msgid "Threshold"
-msgstr "安全庫存量"
+msgstr "Threshold"
 
 #: stocks.show.low.only
 msgid "Filter for Products below Threshold"
-msgstr "只列出低於安全庫存量之產品"
+msgstr "Filter for Products below Threshold"
 
 #: stocks.label.no
 msgid "No."
-msgstr "產品編號"
+msgstr "No."
 
 #: stocks.label.name
 msgid "Name"
-msgstr "產品名稱"
+msgstr "Name"
 
 #: stocks.label.stock
 msgid "Level"
-msgstr "庫存量"
+msgstr "Level"
 
 #: stocks.label.threshold
 msgctxt "stocks.label.threshold"
 msgid "Threshold"
-msgstr "安全庫存量"
+msgstr "Threshold"
 
 #: stocks.search.label
 msgid "Enter Product or Barcode No."
-msgstr "產品搜尋 - 輸入產品編號或產品條碼"
+msgstr "Enter Product or Barcode No."
 
 #: stocks.button.action.clear
 msgid "CLEAR"
-msgstr "清空"
+msgstr "CLEAR"
 
 #: stocks.button.action.del
 msgid "DEL"
@@ -69,8 +73,8 @@ msgstr "DEL"
 
 #: stocks.button.action.enter
 msgid "ENTER"
-msgstr "輸入"
+msgstr "ENTER"
 
 #: stocks.button.action.modify
 msgid "Modify"
-msgstr "修改"
+msgstr "Modify"

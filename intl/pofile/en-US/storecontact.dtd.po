@@ -1,0 +1,87 @@
+#. extracted from ../locale/en-US/storecontact.dtd
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-21 01:13+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.1.1\n"
+"X-Accelerator-Marker: &\n"
+
+#: storecontact.title
+msgid "Store Contact"
+msgstr ""
+
+#: storecontact.name
+msgid "Store Name"
+msgstr ""
+
+#: storecontact.branch
+msgid "Branch"
+msgstr ""
+
+#: storecontact.contact
+msgid "Contact Person"
+msgstr ""
+
+#: storecontact.telephone1
+msgid "Telephone 1"
+msgstr ""
+
+#: storecontact.telephone2
+msgid "Telephone 2"
+msgstr ""
+
+#: storecontact.address1
+msgid "Address 1"
+msgstr ""
+
+#: storecontact.address2
+msgid "Address 2"
+msgstr ""
+
+#: storecontact.city
+msgid "City"
+msgstr ""
+
+#: storecontact.county
+msgid "County"
+msgstr ""
+
+#: storecontact.state
+msgid "State"
+msgstr ""
+
+#: storecontact.zip
+msgid "ZIP"
+msgstr ""
+
+#: storecontact.country
+msgid "Country"
+msgstr ""
+
+#: storecontact.fax
+msgid "FAX"
+msgstr ""
+
+#: storecontact.email
+msgid "Email"
+msgstr ""
+
+#: storecontact.note
+msgid "Note"
+msgstr ""
+
+#: storecontact.terminal_no
+msgid "Terminal ID"
+msgstr ""
+
+#: storecontact.requiredNotice
+msgid "* required fields"
+msgstr ""

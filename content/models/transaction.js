@@ -66,7 +66,7 @@
 
                 no_of_customers: 0,
 
-                terminal_no: '',
+                terminal_no: GeckoJS.Session.get('terminal_id'),
 
                 created: '',
                 modified: ''
@@ -112,6 +112,7 @@
 
         if ( user != null ) {
             this.data.service_clerk = user.username;
+            this.data.service_clerk_displayname = user.description;
         }
 
         this.data.created = new Date().getTime();
@@ -127,11 +128,13 @@
         this.data.rounding_taxes = GeckoJS.Configure.read('vivipos.fec.settings.RoundingTaxes') || 'to-nearest-precision';
         this.data.precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
         this.data.precision_taxes = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionTaxes') || 0;
+        this.data.decimals = GeckoJS.Configure.read('vivipos.fec.settings.DecimalPoint') || '.';
+        this.data.thousands = GeckoJS.Configure.read('vivipos.fec.settings.ThousandsDelimiter') || ',';
 
         if (Transaction.worker == null) {
           //  Transaction.worker = new GeckoJS.Thread();
 
-          Transaction.worker = GREUtils.Thread.getMainThread();
+          Transaction.worker = GREUtils.Thread.getWorkerThread();
         }
         //Transaction.worker._runnable = this;
 
@@ -172,6 +175,7 @@
         var user = new GeckoJS.AclComponent().getUserPrincipal();
         if ( user != null ) {
             this.data.proceeds_clerk = user.username;
+            this.data.proceeds_clerk_displayname = user.description;
         }
 
         // use backgroud to save
@@ -454,7 +458,7 @@
     };
 
     Transaction.prototype.checkSellPrice = function(item) {
-        var sellQty = null, sellPrice = null;
+        var sellQty = item.current_qty, sellPrice = item.current_price;
 
         var lastSellItem = GeckoJS.Session.get('cart_last_sell_item');
         if (lastSellItem != null) {
@@ -512,7 +516,6 @@
         // push to items array
         this.data.items[itemIndex] = itemAdded;
         this.data.items_count++;
-
         var itemDisplay = this.createDisplaySeq(itemIndex, itemAdded, 'item');
         
         this.data.display_sequences.push(itemDisplay);
@@ -944,6 +947,7 @@
         var itemIndex = itemDisplay.index;
         var lastItemDispIndex;
         var discount_amount;
+        var resultItem;
 
         var prevRowCount = this.data.display_sequences.length;
 
@@ -983,6 +987,7 @@
             this.calcPromotions();
             this.calcItemsTax(item);
 
+            resultItem = item;
 
         }else if (itemDisplay.type == 'subtotal'){
 
@@ -1047,7 +1052,7 @@
             
             // this.calcItemsTax();
 
-
+            resultItem = discountItem;
         }
 
         var currentRowCount = this.data.display_sequences.length;
@@ -1056,7 +1061,7 @@
 
         this.updateCartView(prevRowCount, currentRowCount, lastItemDispIndex);
 
-        return item;
+        return resultItem;
 
     };
 
@@ -1066,6 +1071,7 @@
         var itemDisplay = this.getDisplaySeqAt(index); // last seq
         var itemIndex = itemDisplay.index;
         var lastItemDispIndex = this.getLastDisplaySeqByIndex(itemIndex);
+        var resultItem;
 
         var prevRowCount = this.data.display_sequences.length;
 
@@ -1097,6 +1103,7 @@
 
             this.calcItemsTax(item);
 
+            resultItem = item;
 
         }else if (itemDisplay.type == 'subtotal'){
 
@@ -1147,7 +1154,7 @@
             this.calcPromotions();
             //this.calcItemsTax();
 
-
+            resultItem = surchargeItem;
         }
         
         var currentRowCount = this.data.display_sequences.length;
@@ -1156,7 +1163,7 @@
 
         this.updateCartView(prevRowCount, currentRowCount, displayIndex);
 
-        return item;
+        return resultItem;
 
     };
 
@@ -1461,7 +1468,7 @@
             case 'condiment':
             case 'memo':
                 item = this.data.items[itemIndex];
-                if (!inclusive && item.parent_index != null) {
+                if (!inclusive && item != null && item.parent_index != null) {
                     item = this.data.items[item.parent_index];
                 }
                 break;
@@ -1874,6 +1881,8 @@
 
     Transaction.prototype.formatPrice = function(price) {
         var options = {
+          decimals: this.data.decimals,
+          thousands: this.data.thousands,
           places: ((this.data.precision_prices>0)?this.data.precision_prices:0)
         };
         // format display precision
@@ -1888,6 +1897,8 @@
             places = priceStr.length - dpIndex - 1;
         }
         var options = {
+          decimals: this.data.decimals,
+          thousands: this.data.thousands,
           places: Math.max(places, ((this.data.precision_prices>0)?this.data.precision_prices:0))
         };
         // format display precision
@@ -1896,6 +1907,8 @@
 
     Transaction.prototype.formatTax = function(tax) {
         var options = {
+          decimals: this.data.decimals,
+          thousands: this.data.thousands,
           places: ((this.data.precision_taxes>0)?this.data.precision_taxes:0)
         };
         // format display precision

@@ -4,7 +4,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
+<<<<<<< HEAD:intl/pofile/zh-TW/currency.dtd.po
+"POT-Creation-Date: 2009-01-21 01:13+0800\n"
+=======
 "POT-Creation-Date: 2009-01-19 17:02+0800\n"
+>>>>>>> f087ea22d683ef5c6f044fa13f96a705f4918799:intl/pofile/zh-TW/currency.dtd.po
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,44 +19,44 @@ msgstr ""
 
 #: currencysetup.title
 msgid "Exchange Rates"
-msgstr "匯率設定"
+msgstr "Exchange Rates"
 
 #: currencysetup.currency
 msgid "Code"
-msgstr "貨幣名稱"
+msgstr "Code"
 
 #: currencysetup.symbol
 msgid "Sign"
-msgstr "貨幣符號"
+msgstr "Sign"
 
 #: currencysetup.rate
 msgid "Exchange Rate"
-msgstr "匯率"
+msgstr "Exchange Rate"
 
 #: currencysetup.convert
 msgid "Amount to Convert"
-msgstr "外幣金額"
+msgstr "Amount to Convert"
 
 #: currencysetup.amount
 msgid "Converted Amount"
-msgstr "轉換為本國幣金額"
+msgstr "Converted Amount"
 
 #: currencysetup.base
 msgid "Local Currency"
-msgstr "本國貨幣"
+msgstr "Local Currency"
 
 #: currencysetup.other
 msgid "Currency"
-msgstr "外幣"
+msgstr "Currency"
 
 #: currencysetup.backspace
 msgid "DEL"
-msgstr "刪除"
+msgstr "DEL"
 
 #: currencysetup.clear
 msgid "CLEAR"
-msgstr "清空"
+msgstr "CLEAR"
 
 #: currencysetup.save
 msgid "SAVE"
-msgstr "儲存設定"
+msgstr "SAVE"

@@ -4,7 +4,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
+<<<<<<< HEAD:intl/pofile/ja-JP/sysprefs.dtd.po
+"POT-Creation-Date: 2009-01-21 01:13+0800\n"
+=======
 "POT-Creation-Date: 2009-01-19 17:02+0800\n"
+>>>>>>> f087ea22d683ef5c6f044fa13f96a705f4918799:intl/pofile/ja-JP/sysprefs.dtd.po
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,10 +42,6 @@ msgstr "税金"
 #: category.plufilter
 msgid "Product Filter"
 msgstr "Product Filter"
-
-#: terminalid
-msgid "Terminal ID"
-msgstr "末端ID"
 
 #: publicattendance
 msgid "Individual Time-and-Attendance visible to all"
@@ -78,6 +78,14 @@ msgstr "価格計算の規則"
 #: roundingtaxes
 msgid "Rounding policy to use for Taxes"
 msgstr "税金計算の規則"
+
+#: decimalpoint
+msgid "Decimal Point"
+msgstr ""
+
+#: thousandsdelimiter
+msgid "Thousands Delimiter"
+msgstr ""
 
 #: rounding.to-nearest-precision
 msgid "to nearest precision"
@@ -308,3 +316,7 @@ msgstr "Volume"
 #: positivepricerequired
 msgid "Items must be registered with positive prices"
 msgstr "Items must be registered with positive prices"
+
+#: button.close.label
+msgid "Close"
+msgstr "Close"

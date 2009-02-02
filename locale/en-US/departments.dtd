@@ -2,8 +2,9 @@
 <!ENTITY departments.number "Department Number:">
 <!ENTITY departments.name "Department Name:">
 <!ENTITY departments.taxrate "Tax Rate:">
-<!ENTITY departments.visible "Show on Menu:">
-<!ENTITY departments.sale "Sale Department:">
+<!ENTITY departments.visible "Show on Menu">
+<!ENTITY departments.sale "Sale Department">
+<!ENTITY departments.display_order "Display Order:">
 <!ENTITY departments.button.color "Button Color:">
 <!ENTITY departments.font.size "Font Size:">
 <!ENTITY departments.button.action.add "Add">

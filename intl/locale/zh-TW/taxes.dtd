@@ -1,13 +1,13 @@
-<!ENTITY taxes.title "稅別">
-<!ENTITY taxes.details "稅別詳細資料">
-<!ENTITY taxes.code "稅別代碼:">
-<!ENTITY taxes.type "稅種:">
-<!ENTITY taxes.name "稅別名稱:">
-<!ENTITY taxes.rate "稅率/稅金:">
-<!ENTITY taxes.rate_type "課稅方式:">
-<!ENTITY taxes.rate_type.percentage "依百分比課稅">
-<!ENTITY taxes.rate_type.fixed_amount "依固定金額課稅">
-<!ENTITY taxes.threshold "最低課稅基準(產品價格):">
-<!ENTITY taxes.button.action.add "新增">
-<!ENTITY taxes.button.action.modify "修改">
-<!ENTITY taxes.button.action.delete "刪除">
+<!ENTITY taxes.title "Taxes">
+<!ENTITY taxes.details "Tax Details:">
+<!ENTITY taxes.code "Tax Code:">
+<!ENTITY taxes.type "Tax Type:">
+<!ENTITY taxes.name "Tax Name:">
+<!ENTITY taxes.rate "Tax Rate:">
+<!ENTITY taxes.rate_type "Rate Type:">
+<!ENTITY taxes.rate_type.percentage "Percentage">
+<!ENTITY taxes.rate_type.fixed_amount "Fixed Amount">
+<!ENTITY taxes.threshold "Threshold:">
+<!ENTITY taxes.button.action.add "Add">
+<!ENTITY taxes.button.action.modify "Modify">
+<!ENTITY taxes.button.action.delete "Delete">

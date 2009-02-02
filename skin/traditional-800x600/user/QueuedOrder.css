@@ -1,0 +1,29 @@
+.MainPnl {
+    margin: 18px;
+}
+
+.MainL {
+    border-right: 1px solid #c1ab8e;
+}
+
+.ToolBar {
+    margin-left: 4px;
+}
+
+.QueueList {
+    -moz-appearance: none;
+    border: none;
+    background: none;
+    margin: 20px;
+    min-height: 410px;
+    min-width: 300px;
+}
+
+.sline{
+    border-bottom: 1px solid #c1ab8e;
+    margin-left: 4px;
+}
+
+.ItemScrollablepanel {
+    min-height: 430px;
+}

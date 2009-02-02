@@ -170,7 +170,7 @@
 
         add: function  () {
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
             var inputObj = {
                 input0:null, require0:true, alphaOnly0:true,
                 input1:null, require1:true
@@ -195,6 +195,7 @@
                             value: inputData.no
                         });
                         var id = (dept.length > 0) ? dept[0].id : -1;
+
                         var index = this.updateSession('add', id);
 
                         this.changeDepartmentPanel(index);
@@ -224,7 +225,7 @@
                     cateModel.id = dept.id;
                     cateModel.save(inputData);
 
-                    var index = this.updateSession('modify');
+                    var index = this.updateSession('modify', dept.id);
                     this.changeDepartmentPanel(index);
 
                     // @todo OSD
@@ -288,15 +289,12 @@
             switch(mode) {
 
                 case 'add':
+                case 'modify':
                     for (var i = 0; i < data.length; i++) {
                         if (data[i].id == id) {
                             return i;
                         }
                     }
-                    break;
-
-                case 'modify':
-                    return this._selectedIndex;
                     break;
 
                 case 'remove':

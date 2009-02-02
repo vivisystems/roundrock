@@ -4,7 +4,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
+<<<<<<< HEAD:intl/pofile/sv-SE/departments.dtd.po
+"POT-Creation-Date: 2009-01-21 01:13+0800\n"
+=======
 "POT-Creation-Date: 2009-01-19 17:02+0800\n"
+>>>>>>> f087ea22d683ef5c6f044fa13f96a705f4918799:intl/pofile/sv-SE/departments.dtd.po
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,11 +34,11 @@ msgid "Tax Rate:"
 msgstr "Moms Kurs:"
 
 #: departments.visible
-msgid "Show on Menu:"
+msgid "Show on Menu"
 msgstr "Visa i Meny:"
 
 #: departments.sale
-msgid "Sale Department:"
+msgid "Sale Department"
 msgstr "Sale Department:"
 
 #: departments.button.color

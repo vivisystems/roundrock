@@ -4,7 +4,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
+<<<<<<< HEAD:intl/pofile/zh-TW/numberpad.dtd.po
+"POT-Creation-Date: 2009-01-21 01:13+0800\n"
+=======
 "POT-Creation-Date: 2009-01-19 17:02+0800\n"
+>>>>>>> f087ea22d683ef5c6f044fa13f96a705f4918799:intl/pofile/zh-TW/numberpad.dtd.po
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,19 +19,19 @@ msgstr ""
 
 #: numberpad.keylabel.queue.order
 msgid "QUEUE ORDER"
-msgstr "暫存"
+msgstr "QUEUE ORDER"
 
 #: numberpad.keylabel.pull.queue
 msgid "VIEW QUEUE"
-msgstr "檢視暫存"
+msgstr "VIEW QUEUE"
 
 #: numberpad.keylabel.clear
 msgid "CLEAR"
-msgstr "清空"
+msgstr "CLEAR"
 
 #: numberpad.keylabel.modify
 msgid "MODIFY"
-msgstr "修改"
+msgstr "MODIFY"
 
 #: numberpad.keylabel.del
 msgid "DEL"
@@ -35,35 +39,35 @@ msgstr "DEL"
 
 #: numberpad.keylabel.void
 msgid "VOID"
-msgstr "刪除"
+msgstr "VOID"
 
 #: numberpad.keylabel.enter
 msgid "ENTER"
-msgstr "輸入"
+msgstr "ENTER"
 
 #: numberpad.keylabel.cancel
 msgid "CANCEL"
-msgstr "刪單"
+msgstr "CANCEL"
 
 #: numberpad.keylabel.cash
 msgid "CASH"
-msgstr "現金"
+msgstr "CASH"
 
 #: numberpad.keylabel.subtotal
 msgid "SUB TOTAL"
-msgstr "小計"
+msgstr "SUB TOTAL"
 
 #: numberpad.keylabel.plusearch
 msgid "PRODUCT SEARCH"
-msgstr "搜尋"
+msgstr "PRODUCT SEARCH"
 
 #: numberpad.keylabel.tray
 msgid "TRAY MARKER"
-msgstr "標記"
+msgstr "TRAY MARKER"
 
 #: numberpad.keylabel.signoff
 msgid "SIGN OFF"
-msgstr "登出"
+msgstr "SIGN OFF"
 
 #: numberpad.keylabel.times
 msgid "X"
@@ -71,8 +75,8 @@ msgstr "X"
 
 #: numberpad.keylabel.password
 msgid "Passcode:"
-msgstr "密碼"
+msgstr "Passcode:"
 
 #: numberpad.keylabel.ok
 msgid "OK"
-msgstr "完成"
+msgstr "OK"

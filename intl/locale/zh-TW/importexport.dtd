@@ -1,19 +1,19 @@
-<!ENTITY importexport.caption "資料匯入/匯出">
-<!ENTITY importexport.media "儲存媒體">
-<!ENTITY importexport.checkmedia "檢查行動碟">
-<!ENTITY importexport.import "匯入">
-<!ENTITY importexport.export "匯出">
-<!ENTITY importexport.tablename "名稱">
-<!ENTITY importexport.importfilename "匯入檔名">
-<!ENTITY importexport.exportfilename "匯出檔名">
-<!ENTITY importexport.importwait "匯入資料中, 請稍候...">
-<!ENTITY importexport.exportwait "匯出資料中, 請稍候...">
+<!ENTITY importexport.caption "Database Import / Export">
+<!ENTITY importexport.media "Media">
+<!ENTITY importexport.checkmedia "Check Media">
+<!ENTITY importexport.import "Import">
+<!ENTITY importexport.export "Export">
+<!ENTITY importexport.tablename "Name">
+<!ENTITY importexport.importfilename "Import File">
+<!ENTITY importexport.exportfilename "Export File">
+<!ENTITY importexport.importwait "Waitting for Import Data...">
+<!ENTITY importexport.exportwait "Waitting for Export Data...">
 
-<!ENTITY vivipos.fec.common.ok "完成">
-<!ENTITY vivipos.fec.common.cancel "取消">
-<!ENTITY vivipos.fec.common.add "新增">
-<!ENTITY vivipos.fec.common.modify "修改">
-<!ENTITY vivipos.fec.common.delete "刪除">
-<!ENTITY vivipos.fec.common.yes "是">
-<!ENTITY vivipos.fec.common.no "否">
+<!ENTITY vivipos.fec.common.ok "Ok">
+<!ENTITY vivipos.fec.common.cancel "Cancel">
+<!ENTITY vivipos.fec.common.add "Add">
+<!ENTITY vivipos.fec.common.modify "Modify">
+<!ENTITY vivipos.fec.common.delete "Delete">
+<!ENTITY vivipos.fec.common.yes "Yes">
+<!ENTITY vivipos.fec.common.no "No">
 

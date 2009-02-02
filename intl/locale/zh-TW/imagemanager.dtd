@@ -1,22 +1,22 @@
-<!ENTITY imagemanager.window.title "圖像管理">
-<!ENTITY imagemanager.image.caption "圖檔:">
-<!ENTITY imagemanager.image.name "檔名: ">
-<!ENTITY imagemanager.image.size "檔案大小: ">
+<!ENTITY imagemanager.window.title "Image Manager">
+<!ENTITY imagemanager.image.caption "Image File:">
+<!ENTITY imagemanager.image.name "name: ">
+<!ENTITY imagemanager.image.size "size: ">
 
-<!ENTITY imagemanager.action.import "匯入">
-<!ENTITY imagemanager.action.export "匯出">
-<!ENTITY imagemanager.action.delete "刪除">
-<!ENTITY imagemanager.action.rename "重新命名">
+<!ENTITY imagemanager.action.import "Import">
+<!ENTITY imagemanager.action.export "Export">
+<!ENTITY imagemanager.action.delete "Delete">
+<!ENTITY imagemanager.action.rename "Rename">
 
-<!ENTITY imagemanager.status.disklimit "磁碟空間:">
-<!ENTITY imagemanager.status.total "總計: ">
-<!ENTITY imagemanager.status.usage "已使用: ">
-<!ENTITY imagemanager.status.files "檔案數量: ">
+<!ENTITY imagemanager.status.disklimit "Disk Usage Limit:">
+<!ENTITY imagemanager.status.total "Total: ">
+<!ENTITY imagemanager.status.usage "Used: ">
+<!ENTITY imagemanager.status.files "Files: ">
 
-<!ENTITY imagemanager.action.caption "匯入/匯出:">
-<!ENTITY imagemanager.action.usage "總計大小: ">
-<!ENTITY imagemanager.action.files "總檔案數量: ">
-<!ENTITY imagemanager.action.status "狀態:">
+<!ENTITY imagemanager.action.caption "Import/Export:">
+<!ENTITY imagemanager.action.usage "total size: ">
+<!ENTITY imagemanager.action.files "total files: ">
+<!ENTITY imagemanager.action.status "status:">
 
 <!ENTITY imagemanager.importwait "Waitting for Import Images...">
 <!ENTITY imagemanager.exportwait "Waitting for Export Images...">

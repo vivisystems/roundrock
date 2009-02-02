@@ -35,25 +35,17 @@ textbox:not([onclick]) *[readonly] {
 .user-catbtn {
     min-height:50px;
     min-width: 50px;
-    border: 2px solid !important;
-    -moz-border-top-colors: #848388 #bebebe !important;
-    -moz-border-right-colors: #848388 #bebebe !important;
-    -moz-border-bottom-colors: #848388 #bebebe !important;
-    -moz-border-left-colors: #848388 #bebebe !important;
+    border: 2px solid;
+    -moz-border-top-colors: #848388 #bebebe;
+    -moz-border-right-colors: #848388 #bebebe;
+    -moz-border-bottom-colors: #848388 #bebebe;
+    -moz-border-left-colors: #848388 #bebebe;
     -moz-appearance: none;
     margin: 2px 2px 2px 2px;
     padding: 0px;
     -moz-background-clip: border;
     -moz-user-focus: ignore;
     background: #848388 url(images/departBtn1.png) top left repeat-x;
-}
-
-.user-catbtn[selected] {
-    border: 2px solid;
-    -moz-border-top-colors: #f39a1c #f39a1c !important;
-    -moz-border-right-colors: #f39a1c #f39a1c !important;
-    -moz-border-bottom-colors: #f39a1c #f39a1c !important;
-    -moz-border-left-colors: #f39a1c #f39a1c !important;
 }
 
 .user-catbtn[disabled=false]:active {
@@ -66,8 +58,10 @@ textbox:not([onclick]) *[readonly] {
 }
 
 .user-catbtn[disabled=true] {
-    background: none;
-    border: none;
+    -moz-border-top-colors: #848388 #bebebe !important;
+    -moz-border-right-colors: #848388 #bebebe !important;
+    -moz-border-bottom-colors: #848388 #bebebe !important;
+    -moz-border-left-colors: #848388 #bebebe !important;
 }
 
 .user-catbtn hbox {
@@ -131,8 +125,8 @@ textbox:not([onclick]) *[readonly] {
  */
 
 .catbtn, .plubtn {
-    min-height:50px;
-    min-width: 50px;
+    min-height:40px;
+    min-width: 40px;
     border: 1px solid;
     -moz-appearance: none;
     margin: 2px 2px 2px 2px;
@@ -156,7 +150,9 @@ textbox:not([onclick]) *[readonly] {
     -moz-border-left-colors: #444 #222;
 }
 .catbtn[disabled=true], .plubtn[disabled=true] {
-    background-position:0pt -64px;
+    -moz-appearance: none;
+    border: none;
+    background: #e1dfdb;
 }
 
 .catbtn hbox, .plubtn hbox {

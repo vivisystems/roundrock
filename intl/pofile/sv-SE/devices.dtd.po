@@ -4,7 +4,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
+<<<<<<< HEAD:intl/pofile/sv-SE/devices.dtd.po
+"POT-Creation-Date: 2009-01-21 01:13+0800\n"
+=======
 "POT-Creation-Date: 2009-01-19 17:02+0800\n"
+>>>>>>> f087ea22d683ef5c6f044fa13f96a705f4918799:intl/pofile/sv-SE/devices.dtd.po
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,6 +41,22 @@ msgstr "Port"
 msgid "Port Speed"
 msgstr "Port Speed"
 
+#: devices.handshaking.label
+msgid "Handshaking"
+msgstr ""
+
+#: devices.handshaking.hardware
+msgid "Hardware"
+msgstr ""
+
+#: devices.handshaking.xonxoff
+msgid "XON/XOFF"
+msgstr ""
+
+#: devices.handshaking.none
+msgid "None"
+msgstr ""
+
 #: devices.devicemodel.label
 msgid "Device Model"
 msgstr "Device Model"
@@ -56,6 +76,10 @@ msgstr "Guest Check Printer 1"
 #: devices.guestcheck.printer.2.label
 msgid "Guest Check Printer 2"
 msgstr "Guest Check Printer 2"
+
+#: devices.guestcheck.autoprint.label
+msgid "Print guest check automatically upon finalization"
+msgstr "Print guest check automatically upon finalization"
 
 #: devices.vfd.1.label
 msgid "VFD 1"

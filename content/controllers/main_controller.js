@@ -31,7 +31,6 @@
             this.requestCommand('initial', null, 'CurrencySetup');
 
             this.resetLayout(true);
-            this.initialLogin();
 
             var deptNode = document.getElementById('catescrollablepanel');
             deptNode.selectedIndex = 0;
@@ -57,6 +56,12 @@
             }).register();
 
             GeckoJS.Observer.notify(null, 'render', this);
+
+            // since initialLogin may potentially block, let's invoke onInitial to initialize controllers
+            // ourselves
+
+            this.dispatchEvent('onInitial', null);
+            this.initialLogin();
         },
 
         _getKeypadController: function() {
@@ -297,7 +302,6 @@
                 if (toggleBtn) toggleBtn.setAttribute('state', 'false');
                 fixedRow.selectedIndex = 0;
             }
-            GeckoJS.Configure.write('vivipos.fec.settings.HideNumPad', hideNumPad);
 
             if (initial) this.resizeLeftPanel(initial);
             return toggled;
@@ -457,7 +461,7 @@
             var registerAtLeft = GeckoJS.Configure.read('vivipos.fec.settings.RegisterAtLeft') || false;
             var functionPanelOnTop = GeckoJS.Configure.read('vivipos.fec.settings.FunctionPanelOnTop') || false;
             var PLUbeforeDept = GeckoJS.Configure.read('vivipos.fec.settings.DeptBeforePLU') || false;
-            var hideNumPad = GeckoJS.Configure.read('vivipos.fec.settings.HideNumPad') || false;
+            var hideNumPad = false;
             
             var hbox = document.getElementById('mainPanel');
             var deptPanel = document.getElementById('catescrollablepanel');

@@ -47,7 +47,7 @@
         beforeScaffoldAdd: function (evt) {
             var user = evt.data;
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
             var inputObj = {input0:null, require0:true, alphaOnly0: true,
                             input1:null, require1:true, numericOnly1: true, type1:'password'};
 
@@ -173,6 +173,47 @@
             this.Acl.addUser(evt.data.username, evt.data.password, displayname);
             this.Acl.changeUserPassword(evt.data.username, evt.data.password);
             this.Acl.addUserToGroup(evt.data.username, evt.data.group);
+
+            // check if assigned drawer, if any, is enabled
+            var device;
+            // use try just in case opener or opener.opener no longer exists
+            try {
+                device = opener.opener.GeckoJS.Controller.getInstanceByName('Devices');
+            }
+            catch(e) {}
+            
+            var drawer = evt.data.drawer;
+            if (drawer != null) {
+                drawer = GeckoJS.String.trim(drawer);
+                if (drawer != '') {
+                    var warn = true;
+                    if (device) {
+                        if (!(device.deviceExists('cashdrawer', drawer))) {
+                            NotifyUtils.warn(_('NOTE: the assigned drawer [%S] does not exist!', [drawer]));
+                        }
+                        else {
+                            var enabledDrawers = device.getEnabledDevices('cashdrawer');
+                            if (enabledDrawers == null || enabledDrawers.length == 0) {
+                                warn = true;
+                            }
+                            else {
+                                enabledDrawers.forEach(function(d) {
+                                   if (d.number == drawer) {
+                                       warn = false;
+                                   }
+                                });
+                            }
+                            if (warn) {
+                                NotifyUtils.warn(_('WARN: the assigned drawer [%S] is not yet enabled!', [drawer]));
+                            }
+                        }
+                    }
+                    else {
+                        NotifyUtils.error(_('Error detected in device manager; unable to verify cash drawer configuration'));
+                        this.log('Devices controller returns null instance when checking user cash drawer assignment');
+                    }
+                }
+            }
         },
 
         beforeScaffoldDelete: function(evt) {

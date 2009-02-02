@@ -4,7 +4,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
+<<<<<<< HEAD:intl/pofile/zh-TW/fecpos.dtd.po
+"POT-Creation-Date: 2009-01-21 01:13+0800\n"
+=======
 "POT-Creation-Date: 2009-01-19 17:02+0800\n"
+>>>>>>> f087ea22d683ef5c6f044fa13f96a705f4918799:intl/pofile/zh-TW/fecpos.dtd.po
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,68 +19,68 @@ msgstr ""
 
 #: vivipos.fec.common.name
 msgid "Name"
-msgstr "名稱"
+msgstr "Name"
 
 #: vivipos.fec.common.ok
 msgid "Ok"
-msgstr "完成"
+msgstr "Ok"
 
 #: vivipos.fec.common.cancel
 msgid "Cancel"
-msgstr "取消"
+msgstr "Cancel"
 
 #: vivipos.fec.common.add
 msgid "Add"
-msgstr "新增"
+msgstr "Add"
 
 #: vivipos.fec.common.modify
 msgid "Modify"
-msgstr "修改"
+msgstr "Modify"
 
 #: vivipos.fec.common.delete
 msgid "Delete"
-msgstr "刪除"
+msgstr "Delete"
 
 #: vivipos.fec.plus.basedata
 msgid "Data"
-msgstr "資料"
+msgstr "Data"
 
 #: vivipos.fec.plus.basedata2
 msgid "Data 2"
-msgstr "資料 2"
+msgstr "Data 2"
 
 #: vivipos.fec.plus.sets
 msgid "Sets"
-msgstr "組合產品"
+msgstr "Sets"
 
 #: vivipos.fec.plus.face
 msgid "Icon and Color"
-msgstr "圖示與顏色"
+msgstr "Icon and Color"
 
 #: vivipos.fec.plus.pricelevels
 msgid "Price Levels"
-msgstr "價格設定"
+msgstr "Price Levels"
 
 #: vivipos.fec.plus.groups
 msgid "Link Groups"
-msgstr "群組連結"
+msgstr "Link Groups"
 
 #: vivipos.fec.plus.level
 msgid "Level"
-msgstr "設定"
+msgstr "Level"
 
 #: vivipos.fec.plus.price
 msgid "Price"
-msgstr "價格"
+msgstr "Price"
 
 #: vivipos.fec.plus.halo
 msgid "HALO"
-msgstr "最高價格"
+msgstr "HALO"
 
 #: vivipos.fec.plus.lalo
 msgid "LALO"
-msgstr "最低價格"
+msgstr "LALO"
 
 #: vivipos.fec.controlpanel.loading
 msgid "Loading ........"
-msgstr "載入中........"
+msgstr "Loading ........"

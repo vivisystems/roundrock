@@ -1,10 +1,10 @@
-<!ENTITY condiments.group "調味群組">
-<!ENTITY condiments.group.name "群組名稱:">
-<!ENTITY condiments.button.action.add "新增">
-<!ENTITY condiments.button.action.modify "修改">
-<!ENTITY condiments.button.action.delete "刪除">
-<!ENTITY condiments.condiment "調味種類">
-<!ENTITY condiments.condiment.name "調味名稱:">
-<!ENTITY condiments.condiment.price "調味價格:">
-<!ENTITY condiments.condiment.button.color "按鈕顏色:">
-<!ENTITY condiments.condiment.font.size "文字大小:">
+<!ENTITY condiments.group "Condiment Group">
+<!ENTITY condiments.group.name "Group Name:">
+<!ENTITY condiments.button.action.add "Add">
+<!ENTITY condiments.button.action.modify "Modify">
+<!ENTITY condiments.button.action.delete "Delete">
+<!ENTITY condiments.condiment "Condiment">
+<!ENTITY condiments.condiment.name "Name:">
+<!ENTITY condiments.condiment.price "Price:">
+<!ENTITY condiments.condiment.button.color "Button Color:">
+<!ENTITY condiments.condiment.font.size "Font Size:">

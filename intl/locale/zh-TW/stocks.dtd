@@ -1,15 +1,15 @@
-<!ENTITY stocks.title "產品">
-<!ENTITY stocks.header.no "產品編號">
-<!ENTITY stocks.header.product "產品名稱">
-<!ENTITY stocks.header.level "庫存量">
-<!ENTITY stocks.header.minimum "安全庫存量">
-<!ENTITY stocks.show.low.only "只列出低於安全庫存量之產品">
-<!ENTITY stocks.label.no "產品編號">
-<!ENTITY stocks.label.name "產品名稱">
-<!ENTITY stocks.label.stock "庫存量">
-<!ENTITY stocks.label.threshold "安全庫存量">
-<!ENTITY stocks.search.label "產品搜尋 - 輸入產品編號或產品條碼">
-<!ENTITY stocks.button.action.clear "清空">
+<!ENTITY stocks.title "Products">
+<!ENTITY stocks.header.no "Product No.">
+<!ENTITY stocks.header.product "Product Name">
+<!ENTITY stocks.header.level "Quantity">
+<!ENTITY stocks.header.minimum "Threshold">
+<!ENTITY stocks.show.low.only "Filter for Products below Threshold">
+<!ENTITY stocks.label.no "No.">
+<!ENTITY stocks.label.name "Name">
+<!ENTITY stocks.label.stock "Level">
+<!ENTITY stocks.label.threshold "Threshold">
+<!ENTITY stocks.search.label "Enter Product or Barcode No.">
+<!ENTITY stocks.button.action.clear "CLEAR">
 <!ENTITY stocks.button.action.del "DEL">
-<!ENTITY stocks.button.action.enter "輸入">
-<!ENTITY stocks.button.action.modify "修改">
+<!ENTITY stocks.button.action.enter "ENTER">
+<!ENTITY stocks.button.action.modify "Modify">

@@ -4,7 +4,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
+<<<<<<< HEAD:intl/pofile/en-US/messages.properties.po
+"POT-Creation-Date: 2009-01-21 01:13+0800\n"
+=======
 "POT-Creation-Date: 2009-01-19 17:02+0800\n"
+>>>>>>> f087ea22d683ef5c6f044fa13f96a705f4918799:intl/pofile/en-US/messages.properties.po
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -95,6 +99,14 @@ msgstr ""
 msgid "Date & Time"
 msgstr ""
 
+#: Store Contact
+msgid "Store Contact"
+msgstr ""
+
+#: Devices
+msgid "Devices"
+msgstr ""
+
 #: aaareports
 msgid "aaareports"
 msgstr ""
@@ -137,6 +149,40 @@ msgstr ""
 
 #: User List
 msgid "User List"
+msgstr ""
+
+#: receipt.desc
+msgid ""
+"This function issues a post-finalization receipt. The parameter should be 1 "
+"or 2, indicating the printer to issue the receipt on. If no parameter is "
+"given, the receipt will be printed on all enabled receipt printers."
+msgstr ""
+
+#: receipt.label
+msgctxt "receipt.label"
+msgid "Issue Receipt"
+msgstr ""
+
+#: receipt.name
+msgctxt "receipt.name"
+msgid "Issue Receipt"
+msgstr ""
+
+#: guestcheck.desc
+msgid ""
+"This function issues a guest check. The parameter should be 1 or 2, "
+"indicating the printer to issue the guest check on. If no parameter is "
+"given, the guest check will be printed on all enabled guest check printers."
+msgstr ""
+
+#: guestcheck.label
+msgctxt "guestcheck.label"
+msgid "Issue Guest Check"
+msgstr ""
+
+#: guestcheck.name
+msgctxt "guestcheck.name"
+msgid "Issue Guest Check"
 msgstr ""
 
 #: pricelevelshift.desc
@@ -1048,4 +1094,16 @@ msgstr ""
 
 #: acl_manage_devices
 msgid "Manage Devices"
+msgstr ""
+
+#: acl_issue_post_receipts
+msgid "Issue Post-finalization Receipts"
+msgstr ""
+
+#: acl_issue_guest_checks
+msgid "Issue Guest Checks"
+msgstr ""
+
+#: acl_manage_storecontact
+msgid "Manage Store Contact"
 msgstr ""

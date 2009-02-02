@@ -1,0 +1,23 @@
+/*-----------------------------------------------------------------------------
+ *
+ * PAYMENT DETAILS
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+.paymentscrollablepanel #name {
+    text-align: center;
+}
+
+.paymentscrollablepanel #amount {
+    text-align: right;
+}
+
+.paymentscrollabelpanel #current_price, #current_subtotal, #current_tax {
+    text-align: left;
+}
+
+.paymentscrollablepanel vivibutton {
+    margin: 0 4px;
+}
+

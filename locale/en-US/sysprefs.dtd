@@ -4,7 +4,6 @@
 <!ENTITY category.login "Sign In/Out">
 <!ENTITY category.tax "Taxes">
 <!ENTITY category.plufilter "Product Filter">
-<!ENTITY terminalid "Terminal ID">
 <!ENTITY publicattendance "Individual Time-and-Attendance visible to all">
 <!ENTITY defaultlogin "Automatically log in default user:">
 <!ENTITY privatequeue "Private order queue">
@@ -14,6 +13,8 @@
 <!ENTITY precisiontaxes "Number of decimal places for Taxes">
 <!ENTITY roundingprices "Rounding policy to use for Prices">
 <!ENTITY roundingtaxes "Rounding policy to use for Taxes">
+<!ENTITY decimalpoint "Decimal Point">
+<!ENTITY thousandsdelimiter "Thousands Delimiter">
 <!ENTITY rounding.to-nearest-precision "to nearest precision">
 <!ENTITY rounding.to-nearest-half "to nearest half">
 <!ENTITY rounding.to-nearest-quarter "to nearest quarter">
@@ -70,3 +71,4 @@
 <!ENTITY sound.beepOnTrayMarker "Beep on Tray Marker">
 <!ENTITY sound.volume.label "Volume">
 <!ENTITY positivepricerequired "Items must be registered with positive prices">
+<!ENTITY button.close.label "Close">
