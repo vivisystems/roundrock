@@ -1,0 +1,83 @@
+#. extracted from ../locale/en-US/devices.dtd
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-23 14:37+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.1.1\n"
+"X-Accelerator-Marker: &\n"
+
+#: devices.title
+msgid "Device Configuration"
+msgstr ""
+
+#: devices.receipt.printer.1.label
+msgid "Receipt Printer 1"
+msgstr ""
+
+#: devices.receipt.printer.2.label
+msgid "Receipt Printer 2"
+msgstr ""
+
+#: devices.template.label
+msgid "Template"
+msgstr ""
+
+#: devices.port.label
+msgid "Port"
+msgstr ""
+
+#: devices.portspeed.label
+msgid "Port Speed"
+msgstr ""
+
+#: devices.devicemodel.label
+msgid "Device Model"
+msgstr ""
+
+#: devices.deviceencoding.label
+msgid "Encoding"
+msgstr ""
+
+#: devices.receipt.autoprint.label
+msgid "Print receipt automatically"
+msgstr ""
+
+#: devices.guestcheck.printer.1.label
+msgid "Guest Check Printer 1"
+msgstr ""
+
+#: devices.guestcheck.printer.2.label
+msgid "Guest Check Printer 2"
+msgstr ""
+
+#: devices.vfd.1.label
+msgid "VFD 1"
+msgstr ""
+
+#: devices.vfd.2.label
+msgid "VFD 2"
+msgstr ""
+
+#: devices.cashdrawer.1.label
+msgid "Cash Drawer 1"
+msgstr ""
+
+#: devices.cashdrawer.2.label
+msgid "Cash Drawer 2"
+msgstr ""
+
+#: devices.cashdrawer.type.gpio
+msgid "GPIO"
+msgstr ""
+
+#: devices.cashdrawer.type.printer
+msgid "Printer"
+msgstr ""

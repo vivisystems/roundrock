@@ -1,0 +1,9 @@
+.receipt-status[status=on] {
+    list-style-image: url(chrome://receipt_epc_zh/skin/images/receipt_on.png);
+    max-height: 20px;
+}
+
+.receipt-status[status=off] {
+    list-style-image: url(chrome://receipt_epc_zh/skin/images/receipt_off.png);
+    max-height: 20px;
+}

@@ -1,0 +1,33 @@
+.plus-button {
+    list-style-image: url(chrome://viviecr/skin/images/list-add.png);
+    max-height: 30px;
+    width: 40px;
+}
+
+.minus-button {
+    list-style-image: url(chrome://viviecr/skin/images/list-remove.png);
+    max-height: 30px;
+    width: 40px;
+}
+
+.textentry {
+    min-width: 80px;
+    max-width: 80px;
+    font-size: small;
+    height: 20px;
+}
+
+.receiptEditbox {
+    font-family: monospace;
+    margin-bottom: 10px;
+}
+
+.receiptSample {
+    font-family: monospace;
+    margin-top: 10px;
+}
+
+.portscrollablepanel {
+    max-height: 80px;
+    margin-bottom: 10px;
+}
