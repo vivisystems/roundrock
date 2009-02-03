@@ -144,6 +144,8 @@
 
             var buttons = [];
             var imageValidate = this.getAttribute('validate');
+            var buttonHeight = this.getAttribute('buttonHeight');
+
             // init columns
             var columnsObj = document.getAnonymousElementByAttribute(this, 'anonid', 'columns');
             columnsObj.setAttribute('hidden', "true");
@@ -184,6 +186,7 @@
                     if (this.buttonClass) btn.setAttribute('class', this.buttonClass);
                     if(crop) btn.setAttribute('crop', crop);
                     if(pre) btn.setAttribute('pre', pre);
+                    if(buttonHeight) $(btn).css('min-height', buttonHeight + 'px');
                     btn.setAttribute('disabled', 'true');
                     buttons.push(btn);
                     row.appendChild(btn);

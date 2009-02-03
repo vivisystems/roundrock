@@ -19,7 +19,7 @@
 
         <content>
             <xul:vbox xbl:inherits="class,pack,width,height,disabled,flex">
-                <xul:menulist anonid="kbmaps-menulist" oncommand="updateKbmap(event)" onclick="alert('click')">
+                <xul:menulist anonid="kbmaps-menulist" oncommand="updateKbmap(event)">
                     <xul:menupopup style="height: 300px;">
                         <xul:menuitem label="Albania" value="al" />
                         <xul:menuitem label="Andorra" value="ad" />
