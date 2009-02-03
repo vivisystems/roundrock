@@ -115,7 +115,6 @@
             else {
                 $(btn).addClass('noimagebtn');
             }
-            //$(btn).css('min-height', '70px');
         }
 
     });

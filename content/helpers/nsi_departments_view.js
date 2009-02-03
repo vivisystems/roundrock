@@ -6,7 +6,6 @@
 
             this._data = [];
             this.hideInvisible = true;
-            this.buttonHeight = GeckoJS.Configure.read('vivipos.fec.settings.Department.Button.Height') || 50;
 
             var plugroupModel = new PlugroupModel();
             var plugroups = plugroupModel.find('all', {order: 'display_order, name'});
@@ -132,10 +131,6 @@
 
             // force no list style image at dep
             $btn.css('list-style-image', 'none');
-
-            // set department button height
-            var h = this.buttonHeight;
-            $btn.css('height', h + 'px');
 
         }
     });

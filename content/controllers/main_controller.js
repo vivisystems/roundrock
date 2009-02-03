@@ -335,7 +335,6 @@
 
             var pluButtonHeight = GeckoJS.Configure.read('vivipos.fec.settings.Plu.Button.Height');
             if (pluButtonHeight == null) pluButtonHeight = 50;
-
             var fnRows = GeckoJS.Configure.read('vivipos.fec.settings.functionpanel.rows');
             if (fnRows == null) fnRows = 3;
 
@@ -361,13 +360,13 @@
             if (initial ||
                 (deptPanel.getAttribute('rows') != departmentRows) ||
                 (deptPanel.getAttribute('cols') != departmentCols) ||
-                (this.depPanelView.buttonHeight != departmentButtonHeight) ||
+                (deptPanel.getAttribute('buttonHeight') != departmentButtonHeight) ||
                 (cropDeptLabel && (deptPanel.getAttribute('crop') != 'end')) ||
                 (!cropDeptLabel && (deptPanel.getAttribute('crop') == 'end')) ||
                 (deptPanel.getAttribute('hideScrollbar') != hideDeptScrollbar)) {
                 deptPanel.setAttribute('rows', departmentRows);
                 deptPanel.setAttribute('cols', departmentCols);
-                this.depPanelView.buttonHeight = departmentButtonHeight;
+                deptPanel.setAttribute('buttonHeight', departmentButtonHeight);
                 if (cropDeptLabel) deptPanel.setAttribute('crop', 'end');
                 else deptPanel.removeAttribute('crop');
                 if ((departmentRows > 0) && (departmentCols > 0)) {
@@ -402,6 +401,9 @@
                 var condRows =  (parseInt(pluRows)-1) > 0 ? (parseInt(pluRows)-1) : 0 ;
                 condimentPanel.setAttribute('rows', condRows);
                 condimentPanel.setAttribute('cols', pluCols);
+                condimentPanel.setAttribute('buttonHeight', pluButtonHeight);
+                document.getElementById('ok').style.height = pluButtonHeight + 'px';
+                document.getElementById('cancel').style.height = pluButtonHeight + 'px';
 
                 if (cropPLULabel) pluPanel.setAttribute('crop', 'end');
                 else pluPanel.removeAttribute('crop');
@@ -433,9 +435,9 @@
             if (fnPanel) {
                 var totalHeight = deptPanel.boxObject.height - (- pluPanel.boxObject.height);
                 var panelSpacerWidth = (panelSpacer) ? panelSpacer.boxObject.width : 0;
-                var fnWidth = this.screenwidth - rightPanel.boxObject.width - panelSpacerWidth - 2;
+                var fnWidth = this.screenwidth - rightPanel.boxObject.width - panelSpacerWidth - 0;
 
-                var fnHeight = this.screenheight - totalHeight - btmBox.boxObject.height - (initial ? -8 : 4);
+                var fnHeight = this.screenheight - totalHeight - btmBox.boxObject.height - 6;
                 if (fnHeight < 1 || fnRows == 0 || fnCols == 0) {
                     fnPanel.setAttribute('height', 0);
                     fnPanel.hide();
