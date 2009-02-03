@@ -324,11 +324,17 @@
             var departmentCols = GeckoJS.Configure.read('vivipos.fec.settings.DepartmentCols');
             if (departmentCols == null) departmentCols = 4;
 
+            var departmentButtonHeight = GeckoJS.Configure.read('vivipos.fec.settings.Department.Button.Height');
+            if (departmentButtonHeight == null) departmentButtonHeight = 50;
+
             var pluRows = GeckoJS.Configure.read('vivipos.fec.settings.PluRows');
             if (pluRows == null) pluRows = 4;
 
             var pluCols = GeckoJS.Configure.read('vivipos.fec.settings.PluCols');
             if (pluCols == null) pluCols = 4;
+
+            var pluButtonHeight = GeckoJS.Configure.read('vivipos.fec.settings.Plu.Button.Height');
+            if (pluButtonHeight == null) pluButtonHeight = 50;
 
             var fnRows = GeckoJS.Configure.read('vivipos.fec.settings.functionpanel.rows');
             if (fnRows == null) fnRows = 3;
@@ -355,11 +361,13 @@
             if (initial ||
                 (deptPanel.getAttribute('rows') != departmentRows) ||
                 (deptPanel.getAttribute('cols') != departmentCols) ||
+                (this.depPanelView.buttonHeight != departmentButtonHeight) ||
                 (cropDeptLabel && (deptPanel.getAttribute('crop') != 'end')) ||
                 (!cropDeptLabel && (deptPanel.getAttribute('crop') == 'end')) ||
                 (deptPanel.getAttribute('hideScrollbar') != hideDeptScrollbar)) {
                 deptPanel.setAttribute('rows', departmentRows);
                 deptPanel.setAttribute('cols', departmentCols);
+                this.depPanelView.buttonHeight = departmentButtonHeight;
                 if (cropDeptLabel) deptPanel.setAttribute('crop', 'end');
                 else deptPanel.removeAttribute('crop');
                 if ((departmentRows > 0) && (departmentCols > 0)) {
@@ -382,11 +390,13 @@
             if (initial ||
                 (pluPanel.getAttribute('rows') != pluRows) ||
                 (pluPanel.getAttribute('cols') != pluCols) ||
+                (pluPanel.getAttribute('buttonHeight') != pluButtonHeight) ||
                 (cropPLULabel && (pluPanel.getAttribute('crop') != 'end')) ||
                 (!cropPLULabel && (pluPanel.getAttribute('crop') == 'end')) ||
                 (pluPanel.getAttribute('hideScrollbar') != hidePLUScrollbar)) {
                 pluPanel.setAttribute('rows', pluRows);
                 pluPanel.setAttribute('cols', pluCols);
+                pluPanel.setAttribute('buttonHeight', pluButtonHeight);
 
                 // condimentPanel
                 var condRows =  (parseInt(pluRows)-1) > 0 ? (parseInt(pluRows)-1) : 0 ;
@@ -423,11 +433,9 @@
             if (fnPanel) {
                 var totalHeight = deptPanel.boxObject.height - (- pluPanel.boxObject.height);
                 var panelSpacerWidth = (panelSpacer) ? panelSpacer.boxObject.width : 0;
-                var fnWidth = this.screenwidth - rightPanel.boxObject.width - panelSpacerWidth;
-                var fnTop = $(fnPanel).css('margin-top');
-                var fnBottom = $(fnPanel).css('margin-bottom');
+                var fnWidth = this.screenwidth - rightPanel.boxObject.width - panelSpacerWidth - 2;
 
-                var fnHeight = this.screenheight - totalHeight - btmBox.boxObject.height - 6;
+                var fnHeight = this.screenheight - totalHeight - btmBox.boxObject.height - (initial ? -8 : 4);
                 if (fnHeight < 1 || fnRows == 0 || fnCols == 0) {
                     fnPanel.setAttribute('height', 0);
                     fnPanel.hide();

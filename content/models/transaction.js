@@ -1070,7 +1070,7 @@
         var item = this.getItemAt(index);
         var itemDisplay = this.getDisplaySeqAt(index); // last seq
         var itemIndex = itemDisplay.index;
-        var lastItemDispIndex = this.getLastDisplaySeqByIndex(itemIndex);
+        var lastItemDispIndex;
         var resultItem;
 
         var prevRowCount = this.data.display_sequences.length;
@@ -1097,7 +1097,10 @@
             // create data object to push in items array
             var newItemDisplay = this.createDisplaySeq(item.index, item, 'surcharge');
 
-            this.data.display_sequences.splice(++displayIndex,0,newItemDisplay);
+            // find the display index of the last entry associated with the item
+            lastItemDispIndex = this.getLastDisplaySeqByIndex(item.index)
+
+            this.data.display_sequences.splice(++lastItemDispIndex,0,newItemDisplay);
 
             //this.calcPromotions();
 
@@ -1149,7 +1152,10 @@
             var newItemDisplay = this.createDisplaySeq(surchargeIndex, surchargeItem, 'trans_surcharge');
             newItemDisplay.subtotal_index = index;
 
-            this.data.display_sequences.splice(++displayIndex,0,newItemDisplay);
+            // find the display index of the last entry associated with the item
+            lastItemDispIndex = this.getLastDisplaySeqByIndex(itemIndex)
+
+            this.data.display_sequences.splice(++lastItemDispIndex,0,newItemDisplay);
 
             this.calcPromotions();
             //this.calcItemsTax();
@@ -1161,7 +1167,7 @@
 
         this.calcTotal();
 
-        this.updateCartView(prevRowCount, currentRowCount, displayIndex);
+        this.updateCartView(prevRowCount, currentRowCount, lastItemDispIndex);
 
         return resultItem;
 
@@ -1756,7 +1762,7 @@
                     item.tax_type = tax.type;
 
                     var toTaxCharge = item.current_subtotal + item.current_discount + item.current_surcharge;
-                    var taxChargeObj = Transaction.Tax.calcTaxAmount(item.tax_name, Math.abs(toTaxCharge));
+                    var taxChargeObj = Transaction.Tax.calcTaxAmount(item.tax_name, Math.abs(toTaxCharge), item.current_price, item.current_qty);
 
                     // @todo total only or summary ?
                     item.current_tax =  taxChargeObj[item.tax_name].charge;

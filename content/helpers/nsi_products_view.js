@@ -248,10 +248,6 @@
                 $(btn).addClass('font-'+ buttonFontSize);
             }
             // display icon only?
-            var prod_no = this.getCellValue(row,{
-                id: 'name'
-            });
-
             var icon_only = this.getCellValue(row,{
                 id: 'icon_only'
             });

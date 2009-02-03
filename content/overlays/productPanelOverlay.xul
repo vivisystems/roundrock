@@ -33,6 +33,7 @@
                                        oncommand="$do('clickPluPanel',this.selectedIndex, 'Main');"
                                        class="prodscrollablepanel"
                                        validate="always"
+                                       buttonHeight="50"
                                        buttonClass="user-plubtn"
                                        scrollUpClass="depart_scroll_up"
                                        scrollDownClass="depart_scroll_down"

@@ -162,11 +162,10 @@
         },
 
         // check if receipts have already been printed on any printer
-        isReceiptPrinted: function(txn) {
+        isReceiptPrinted: function(orderid, device) {
             var orderReceiptModel = new OrderReceiptModel();
-            var receipts = orderReceiptModel.findByIndex('all', {
-                index: 'order_id',
-                value: txn.data.id
+            var receipts = orderReceiptModel.find('all', {
+                conditions: 'order_id = "' + orderid + '" AND device = "' + device + '"'
             });
             if (receipts == null || receipts.length == 0)
                 return null;
@@ -175,12 +174,13 @@
         },
 
         // add a receipt print timestamp
-        receiptPrinted: function(txn) {
+        receiptPrinted: function(orderid, orderseq, device) {
             var orderReceiptModel = new OrderReceiptModel();
             var orderReceipt = {
-                order_id: txn.data.id,
+                order_id: orderid,
                 printed: new Date().getTime(),
-                sequence: txn.data.seq
+                sequence: orderseq,
+                device: device
             };
 
             orderReceiptModel.save(orderReceipt);
@@ -191,20 +191,22 @@
 
             // @todo
             // check if receipt already printed
-            var receipts = this.isReceiptPrinted(evt.data);
-            if (receipts == null) {
+            // moved to within worker thread
+            //var receipts = this.isReceiptPrinted(evt.data.id);
+            //if (receipts == null) {
 
                 //@hack sleep to allow UI events to catch up
                 // autoprint receipts
                 this.printReceipts(evt.data);
                 this.sleep(50);
-            }
+            //}
+            /*
             else {
                 NotifyUtils.warn(_('A receipt has already been issued for this order at [%S]'));
             }
-
+            */
             // auto print guest checks
-            this.printGuestChecks(evt.data);
+            //this.printGuestChecks(evt.data.id, evt.data.seq);
         },
 
         // handles user initiated receipt requests
@@ -226,11 +228,16 @@
                 return; // fatal error ?
             }
 
+            /*
+             *@todo
+             *moved to worker thread
+             *
             var receipts = this.isReceiptPrinted(txn);
             if (receipts != null) {
                 NotifyUtils.warn(_('A receipt has already been issued for this order'));
                 return;
             }
+            */
 
             if (device == null) {
                 NotifyUtils.error(_('Error in device manager! Please check your device configuration'));
@@ -271,6 +278,11 @@
         },
 
         // print on all enabled receipt printers
+        // printer = 0: print on all enabled printers
+        // printer = 1: first printer
+        // printer = 2: second printer
+        // printer = null: print on all auto-print enabled printers
+
         printReceipts: function(txn, printer) {
 
             var device = this.getDeviceController();
@@ -343,7 +355,7 @@
                         var devicemodel = device.devicemodel;
                         var encoding = device.encoding;
                         data._MODIFIERS = _templateModifiers(encoding);
-                        self.printCheck(data, template, port, portspeed, handshaking, devicemodel, encoding, true);
+                        self.printCheck(data, template, port, portspeed, handshaking, devicemodel, encoding, device.number);
                     }
                 });
             }
@@ -478,14 +490,14 @@
                         var devicemodel = device.devicemodel;
                         var encoding = device.encoding;
                         data._MODIFIERS = _templateModifiers(encoding);
-                        self.printCheck(data, template, port, portspeed, handshaking, devicemodel, encoding, false);
+                        self.printCheck(data, template, port, portspeed, handshaking, devicemodel, encoding, 0);
                     }
                 });
             }
         },
 
         // print check using the given parameters
-        printCheck: function(data, template, port, portspeed, handshaking, devicemodel, encoding, recordReceipt) {
+        printCheck: function(data, template, port, portspeed, handshaking, devicemodel, encoding, device) {
             
             if (this._worker == null) {
                 NotifyUtils.error(_('Error in Print controller: no worker thread available!'));
@@ -531,6 +543,7 @@
                 }
             }
             //alert(this.dump(result));
+            //alert(this.dump(data.order));
             //
             // translate embedded hex codes into actual hex values
             var replacer = function(str, p1, offset, s) {
@@ -549,6 +562,15 @@
             var runnable = {
                 run: function() {
                     try {
+                        // if recordReceipt is true, check if record already exists
+                        if (device > 0) {
+                            var receipts = self.isReceiptPrinted(data.order.id, device);
+                            if (receipts != null) {
+                                NotifyUtils.warn(_('A receipt has already been issued for this order on printer [%S]', [device]));
+                                return;
+                            }
+                        }
+
                         var printed = false;
                         if (self.openSerialPort(portPath, portspeed, handshaking)) {
                             var len = self.writeSerialPort(portPath, encodedResult);
@@ -569,8 +591,8 @@
                             //@todo OSD
                             NotifyUtils.error(_('Error detected when outputing to device [%S] at port [%S]', [devicemodelName, portName]));
                         }
-                        if (printed) {
-                            self.receiptPrinted(data.txn);
+                        if (printed && device > 0) {
+                            self.receiptPrinted(data.order.id, data.order.seq, device);
                         }
                     }catch(e) {
                         return false;
