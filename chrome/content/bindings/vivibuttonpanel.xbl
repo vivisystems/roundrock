@@ -186,7 +186,11 @@
                     if (this.buttonClass) btn.setAttribute('class', this.buttonClass);
                     if(crop) btn.setAttribute('crop', crop);
                     if(pre) btn.setAttribute('pre', pre);
-                    if(buttonHeight) $(btn).css('min-height', buttonHeight + 'px');
+                    if(buttonHeight) {
+                        $(btn).css('max-height', buttonHeight + 'px');
+                        $(btn).css('height', buttonHeight + 'px');
+                        $(btn).css('min-height', buttonHeight + 'px');
+                    }
                     btn.setAttribute('disabled', 'true');
                     buttons.push(btn);
                     row.appendChild(btn);
