@@ -1,0 +1,23 @@
+**** 原已可進入 VIVIPOS 之 CF 卡開機  ****
+1. 開機進入 VIVIPOS 主畫面後, 插入 USB Stick 
+2. 畫面出現 media inserted /media/sdb1 時代表 USB Stick 已找到.
+3. 按 Ctrl+Q 離開 VIVIPOS 程式.
+4. 按 Ctrl+Alt+x 開啟  工程模式(Terminal).
+5. 將原 license 拷貝出來.
+   cp /etc/vivipos.lic /media/sdb1
+   sync;
+6. 拿出 USB
+
+**** 放入新  VIVIPOS 之 CF 卡開機  ****
+1. 開機進入 VIVIPOS 主畫面後, 插入 USB Stick 
+2. 畫面出現 media inserted /media/sdb1 時代表 USB Stick 已找到.
+3. 按 Ctrl+Q 離開 VIVIPOS 程式.
+4. 按 Ctrl+Alt+x 開啟  工程模式(Terminal).
+5. 將原 license 拷貝進去.
+   cp /media/sdb1/vivipos.lic /etc/
+   sync;
+6. 拿出 USB,
+7. 打 reboot 或按電源重開機.
+
+Let's ALL.
+
