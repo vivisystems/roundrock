@@ -63,7 +63,7 @@
             this.closeObserve.unregister();
 
             // save vivipos Preferences
-            if (!this.suspendSavePreference) GeckoJS.Configure.savePreferences('vivipos');
+	    // if (!this.suspendSavePreference) GeckoJS.Configure.savePreferences('vivipos');
 
             // shutdown console log
             if(consoleErrors) consoleErrors.shutdown();
