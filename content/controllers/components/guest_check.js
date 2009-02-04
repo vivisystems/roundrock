@@ -23,7 +23,6 @@
         _tableNoArray: [],
 
         initial: function () {
-            this.log("GuestCheck initial...");
             // @todo : check orders first and set _checkNoArray, _tableNoArray...
         },
 

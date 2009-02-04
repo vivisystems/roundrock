@@ -2,8 +2,6 @@
 <!DOCTYPE overlay [
   <!ENTITY % Overlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
   %Overlay;
-  <!ENTITY % suppliers SYSTEM "chrome://viviecr/locale/suppliers.dtd">
-  %suppliers;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>

@@ -124,13 +124,14 @@
                                 <row>
                                     <label value="&accounts.topic.topic;" />
                                     <textbox id="topic_name" value="" form="account_topicForm" name="topic"/>
+                                    <label id="topic_builtin" value="" form="account_topicForm" name="builtin" hidden="true"/>
                                 </row>
                             </rows>
                         </grid>
 
                         <spacer style="height: 10px;" />
 
-                        <viviscrollabletree id="topicscrollablepanel" flex="1" rows="7" headers="No,Topic" fields="no,topic" onclick="$do('select',this.selectedIndex, 'AccountTopics');"
+                        <viviscrollabletree id="topicscrollablepanel" flex="1" rows="7" headers="No,Topic,Builtin" fields="no,topic,builtin" onclick="$do('select',this.selectedIndex, 'AccountTopics');"
                                                         class="prodscrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray">
                             <spacer flex="1" />
                         </viviscrollabletree>

@@ -92,9 +92,26 @@
             var amt = parseFloat(inputObj.amount);
             if (inputObj.ok) {
                 data.note = inputObj.description;
-                shiftChangeModel.saveShiftChange(data);
-                if ( amt != 0)
+
+                if ( amt != 0) {
+                    inputObj.type = "OUT";
                     this.requestCommand('accounting', inputObj, 'Cart');
+
+                    data.amount = data.amount - amt;
+                    data.endtime = (new Date()).getTime();
+                    data.detail.push({name:inputObj.topic, memo1: 'OUT', amount: amt * (-1)});
+
+                    // @todo ugly wait...
+                    this.sleep(100);
+
+                    inputObj.type = "IN";
+                    this.requestCommand('accounting', inputObj, 'Cart');
+
+                    
+                }
+
+                shiftChangeModel.saveShiftChange(data);
+
                 NotifyUtils.warn(_('shift change has been finished!'));
             }
         },

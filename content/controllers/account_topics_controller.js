@@ -59,6 +59,11 @@
         },
 
         beforeScaffoldDelete: function(evt) {
+            if (evt.data.builtin) {
+                NotifyUtils.warn(_('Can not delete built-in topic item!!'));
+                evt.preventDefault();
+                return;
+            }
             if (GREUtils.Dialog.confirm(null, "confirm delete", "Are you sure?") == false) {
                 evt.preventDefault();
             }
@@ -68,7 +73,6 @@
             this.load();
         },
 
-
         afterScaffoldIndex: function(evt) {
             this._listDatas = evt.data;
             var panelView =  new GeckoJS.NSITreeViewArray(evt.data);
@@ -76,8 +80,9 @@
         },
 
         load: function(data) {
+
             // this.requestCommand('list', {conditions: "type='in'"});
-            this.requestCommand('list');
+            this.requestCommand('list', {});
         },
 
         select: function(index){

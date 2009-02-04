@@ -1453,7 +1453,7 @@
             data.accountPayment['order_total'] = data.total;
             data.accountPayment['amount'] = data.total;
             data.accountPayment['name'] = 'accounting'; // + payment type
-            data.accountPayment['memo1'] = inputObj.topic; // + topic + topic type
+            data.accountPayment['memo1'] = inputObj.topic + "-" + _(inputObj.type); // + topic + topic type
             data.accountPayment['memo2'] = inputObj.description; // description
             data.accountPayment['change'] = 0;
 
@@ -2276,7 +2276,6 @@
 
             switch(action) {
                 case 'newCheck':
-                    this.log('newCheck...');
                     if (buf.length == 0) {
                         r = this.GuestCheck.getNewCheckNo();
                     } else {
@@ -2290,11 +2289,9 @@
                     }
                     break;
                 case 'releaseCheck':
-                    this.log('releaseCheck...');
                         r = this.GuestCheck.releaseCheckNo(no);
                     break;
                 case 'newTable':
-                    this.log('newTable...');
                     if (buf.length == 0) {
                         r = this.GuestCheck.getNewTableNo();
                     } else {
@@ -2308,17 +2305,14 @@
                     }
                     break;
                 case 'guest':
-                    this.log('guest...');
                         r = this.GuestCheck.guest(no);
                         curTransaction.data.no_of_customers = no;
                     break;
                 case 'destination':
-                    this.log('destination...' + no + 'param2:' + param2);
                         r = this.GuestCheck.destination(param2);
                         curTransaction.data.destination = param2;
                     break;
                 case 'store':
-                    this.log('store...' + curTransaction.data.items_count);
                         if (curTransaction.data.status == 1) {
                             NotifyUtils.warn(_('This order has been submited!!'));
                         } else {
@@ -2326,14 +2320,15 @@
                         }
                     break;
                 case 'recallCheck':
-                    this.log('recallCheck...');
                         r = this.GuestCheck.recallByCheckNo(no);
                     break;
                 case 'recallTable':
-                    this.log('recallTable...');
                         r = this.GuestCheck.recallByTableNo(no);
                     break;
             }
+
+            this.subtotal();
+            
             return;
         }
     });

@@ -23,7 +23,18 @@
                                             class="prodscrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray">
                     <spacer flex="1" />
                 </viviscrollabletree>
+
+                <hbox align="rigth">
+                    <label value="&prompt.shiftchange.total;" />
+                    <textbox id="total" value="" readonly="true"/>
+                </hbox>
+
+
             </groupbox>
+
+            <spacer style="height: 10px;" />
+            <separator class="groove-thin"/>
+            <spacer style="height: 10px;" />
 
             <groupbox flex="1">
                 <caption label="&prompt.shiftchange.account;" />
@@ -33,30 +44,30 @@
                         <column flex="1"/>
                     </columns>
                     <rows>
-                        <row>
+                        <!-- row>
                             <label id="" value="&prompt.shiftchange.topic;"/>
                             <viviscrollabletree id="topicscrollablepanel" flex="1" rows="7" headers="No,Topic" fields="no,topic" onclick=""
                                                         class="prodscrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray">
                                 <spacer flex="1" />
                             </viviscrollabletree>
-                        </row>
+                        </row -->
 
                         <row>
                             <label value="&prompt.shiftchange.description;" />
                             <textbox id="description" value="" />
                         </row>
 
-                        <row>
+                        <!-- row>
                             <label value="&prompt.shiftchange.type;" />
                             <radiogroup flex="1" id="type" orient="horizontal" >
                                 <radio id="type_in" selected="true" value="IN" flex="1" label="&prompt.shiftchange.typein;"/>
                                 <radio id="type_out" value="OUT" flex="1" label="&prompt.shiftchange.typeout;"/>
                             </radiogroup>
-                        </row>
+                        </row -->
 
                         <row>
                             <label value="&prompt.shiftchange.amount;" />
-                            <textbox id="amount" value="" size="12" maxsize="12" />
+                            <textbox id="amount" value="0" size="9" maxsize="9" />
                         </row>
                     </rows>
                 </grid>

@@ -1,10 +1,10 @@
 (function(){
-    // include('chrome://viviecr/content/models/order.js');
-    include('chrome://viviecr/content/models/order_item.js');
+    include('chrome://viviecr/content/models/shift_change.js');
+    include('chrome://viviecr/content/models/shift_change_detail.js');
 
     // include controllers  and register itself
 
-    include('chrome://viviecr/content/reports/controllers/product_sales_controller.js');
+    include('chrome://viviecr/content/reports/controllers/rpt_cash_by_clerk_controller.js');
     include('chrome://viviecr/content/reports/template.js');
 
     /**
@@ -13,7 +13,7 @@
     function startup() {
 
         $('#togglesize')[0].addEventListener('command', toggleSize, false);
-        $do('load', null, 'ProductSales');
+        $do('load', null, 'RptCashByClerk');
 
     };
 

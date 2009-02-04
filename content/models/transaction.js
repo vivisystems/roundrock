@@ -64,7 +64,7 @@
                 table_no: '',
                 check_no: '',
 
-                no_of_customers: 0,
+                no_of_customers: 1,
 
                 terminal_no: GeckoJS.Session.get('terminal_id'),
 
@@ -109,6 +109,7 @@
         // this.data.check_no = SequenceModel.getSequence('check_no');
 
         GeckoJS.Session.set('vivipos_fec_order_sequence', this.data.seq);
+        GeckoJS.Session.set('vivipos_fec_number_of_customers', this.no_of_customers);
         
         var user = new GeckoJS.AclComponent().getUserPrincipal();
 

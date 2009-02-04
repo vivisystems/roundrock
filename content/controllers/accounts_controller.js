@@ -85,6 +85,22 @@
         afterScaffoldIndex: function(evt) {
             this._listDatas = evt.data;
             var panelView =  new GeckoJS.NSITreeViewArray(evt.data);
+            panelView.getCellValue= function(row, col) {
+
+                var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
+                var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
+                var text;
+                if (col.id == "amount") {
+
+                    // text = this.data[row].amount;
+                    text = GeckoJS.NumberHelper.round(this.data[row].amount, precision_prices, rounding_prices) || 0;
+
+                } else {
+                    text = this.data[row][col.id];
+                }
+                return text;
+            };
+
             this.getListObj().datasource = panelView;
         },
 
