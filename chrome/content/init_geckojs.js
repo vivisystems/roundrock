@@ -110,6 +110,10 @@ if(mainWindow === window) {
     loadScriptInMainWindow("chrome://vivipos/content/libs/bootstrap.js");
 }
 
+// Sync behaviors
+include('chrome://vivipos/content/models/sync.js');
+include('chrome://vivipos/content/models/sync_setting.js');
+include('chrome://vivipos/content/behaviors/sync.js');
 
 // ONLY FOR jsmodules version gecko 1.9
 // initial current window context to javascript code modules
