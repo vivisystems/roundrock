@@ -6,6 +6,6 @@
 <!ENTITY    condiments.condiment         "Condiment">
 <!ENTITY    condiments.condiment.name      "Name">
 <!ENTITY    condiments.condiment.price    "Price">
-<!ENTITY    condiments.condiment.selected    "Preset">
+<!ENTITY    condiments.condiment.preset    "Preset">
 <!ENTITY    condiments.condiment.button.color    "Button Color">
 <!ENTITY    condiments.condiment.font.size    "Font Size">

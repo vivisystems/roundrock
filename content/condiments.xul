@@ -105,8 +105,8 @@
                                              onfocus="select()"/>
                                     </vbox>
                                     <vbox align="center">
-                                        <label value="&condiments.condiment.selected;" control="condiment_selected"/>
-                                        <checkbox id="condiment_selected" form="condimentForm" name="selected" value="false" default="0"
+                                        <label value="&condiments.condiment.preset;" control="condiment_preset"/>
+                                        <checkbox id="condiment_preset" form="condimentForm" name="preset" value="false" default="0"
                                              onfocus="select()"/>
                                     </vbox>
                                 </row>

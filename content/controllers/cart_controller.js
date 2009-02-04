@@ -1826,7 +1826,7 @@
 
             if (conds != null) {
                 for (var i = 0; i < conds.length; i++) {
-                    if (conds[i].selected) selectedItems.push(i);
+                    if (conds[i].preset) selectedItems.push(i);
                 }
             }
             var colsRows = parseInt(this._condimentPanel.getAttribute('cols')) * parseInt(this._condimentPanel.getAttribute('rows'));
