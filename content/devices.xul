@@ -28,10 +28,10 @@
             <tabbox class="RightTabbox" flex="1">
 
                 <tabs>
-                    <tab id="receipt-tab" label="Receipt"/>
-                    <tab id="guestcheck-tab" label="Guest Check"/>
-                    <tab id="vfd-tab" label="VFD"/>
-                    <tab id="cashdrawer-tab" label="Cash Drawer"/>
+                    <tab id="receipt-tab" label="&devices.tab.receipt.label;"/>
+                    <tab id="guestcheck-tab" label="&devices.tab.guestcheck.label;"/>
+                    <tab id="vfd-tab" label="&devices.tab.vfd.label;"/>
+                    <tab id="cashdrawer-tab" label="&devices.tab.cashdrawer.label;"/>
                 </tabs>
 
                 <!-- Receipt configuration -->
