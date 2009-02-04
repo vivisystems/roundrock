@@ -437,7 +437,7 @@
                 var panelSpacerWidth = (panelSpacer) ? panelSpacer.boxObject.width : 0;
                 var fnWidth = this.screenwidth - rightPanel.boxObject.width - panelSpacerWidth - 0;
 
-                var fnHeight = this.screenheight - totalHeight - btmBox.boxObject.height - 6;
+                var fnHeight = this.screenheight - totalHeight - btmBox.boxObject.height - 4;
                 if (fnHeight < 1 || fnRows == 0 || fnCols == 0) {
                     fnPanel.setAttribute('height', 0);
                     fnPanel.hide();

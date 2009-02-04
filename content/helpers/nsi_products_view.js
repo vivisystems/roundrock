@@ -241,11 +241,15 @@
                 id: 'font_size'
             });
 
+            var classStr = '';
+
             if (buttonColor && btn) {
-                $(btn).addClass(buttonColor);
+                classStr = buttonColor;
+                //$(btn).addClass(buttonColor);
             }
             if (buttonFontSize && btn) {
-                $(btn).addClass('font-'+ buttonFontSize);
+                classStr += ((classStr.length > 0) ? ' ' : '') + 'font-' + buttonFontSize;
+                //$(btn).addClass('font-'+ buttonFontSize);
             }
             // display icon only?
             var icon_only = this.getCellValue(row,{
@@ -255,11 +259,16 @@
 
             if (imageExists) {
                 if (icon_only) {
-                    $(btn).addClass('nolabelbtn largeimagebtn');
+                    classStr += ((classStr.length > 0) ? ' ' : '') + 'nolabelbtn largeimagebtn';
+                    //$(btn).addClass('nolabelbtn largeimagebtn');
                 }
             }
             else {
-                $(btn).addClass('noimagebtn');
+                classStr += ((classStr.length > 0) ? ' ' : '') + 'noimagebtn';
+                //$(btn).addClass('noimagebtn');
+            }
+            if (classStr.length > 0) {
+                $(btn).addClass(classStr);
             }
         }
 

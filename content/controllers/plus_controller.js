@@ -532,6 +532,15 @@
                         
                         // newly added item is appended to end; jump cursor to end
                         var index = this.productPanelView.data.length - 1;
+
+                        // index < 0 indicates that this category was previously empty
+                        // we need to manually select it again to make the panel display
+                        // the newly added product
+                        if (index < 0) {
+                            var catepanel = document.getElementById('catescrollablepanel');
+                            this.changePluPanel(catepanel.selectedIndex);
+                            index = 0;
+                        }
                         this.clickPluPanel(index);
 
                         // @todo OSD
