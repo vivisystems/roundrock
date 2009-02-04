@@ -1195,24 +1195,54 @@
                     //GREUtils.log('[STANDARD]: rendering standard layout with <r=' + r + ',c=' + c + '>x<cellWidth=' + cellWidth + ',cellHeight=' + cellHeight + '>');
                     //GREUtils.log('[STANDARD]: with mode <' + mode + '> and dir <' + dir + '>');
 
+                    var adjustXIndex = w - c * (cellWidth + hs);
+                    var adjustYIndex = h - r * (cellHeight + vs);
+
+                    var lastX = 0;
+                    var lastY = 0;
+                    var lastW = 0;
+                    var lastH = 0;
+                    var adjustX = 0;
+                    var adjustY = 0;
+
                     for (var i = 0; i < r; i++) {
-                        posY = i * (cellHeight + vs);
+                        posY = lastY + lastH
+                        adjustY = (i < adjustYIndex) ? -1 : 0;
+
+                        // use lastH here as height for current row
+                        lastH = cellHeight - adjustY;
+
+                        lastX = 0;
+                        lastW = 0;
+
                         for (var j = 0; j < c; j++) {
                             if (dir == 'reverse')
-                                posX = w - (- hs) - (c - j) * (cellWidth - (- hs));
+                                posX = w - lastX - lastW;
                             else
-                                posX = j * (cellWidth + hs);
+                                posX = lastX + lastW;
                             var btn = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:vivibutton");
+
+                            adjustX = (j < adjustXIndex) ? -1 : 0;
+
+                            // use lastW as width for current button
+                            lastW = cellWidth - adjustX;
+
                             btn.setAttribute('flex', 0);
                             btn.setAttribute('top', posY);
                             btn.setAttribute('left', posX);
-                            btn.setAttribute('height', cellHeight);
-                            btn.setAttribute('width', cellWidth);
+                            btn.setAttribute('height', lastH);
+                            btn.setAttribute('width', lastW);
                             btn.setAttribute('disabled', true);
                             btn.setAttribute('anonid', (1 - (-i)) +'x' + (1 - (-j)));
                             
                             stack.appendChild(btn);
+
+                            lastW -= -hs;
+                            lastX = posX;
                         }
+                        // set lastH to the total height
+                        lastH -= -vs;
+                        lastY = posY;
                     }
                 ]]>
                 </body>
@@ -1285,7 +1315,6 @@
                             btn.setAttribute('width', posWidth);
                             btn.setAttribute('disabled', true);
                             btn.setAttribute('anonid', row + 'x' + column);
-                            if (mode == 'configure') btn.setAttribute('type', 'checkbox');
                             stack.appendChild(btn);
 
                             //GREUtils.log('[CUSTOM]: custom button created at <' + posX + ',' + posY + '>x<' + posWidth + ',' + posHeight + '>');
@@ -1326,13 +1355,8 @@
                     if(principal == null) return false;
 
                     //GREUtils.log('[IsUserInRole] <' + roleName + '> user roles <' + principal.Roles + '>');
-		    return GeckoJS.AclComponent.isUserInRole(roleName);
+                    return GeckoJS.AclComponent.isUserInRole(roleName);
 
-/*
-                    if (GeckoJS.Array.inArray(roleName, principal.Roles) != -1) return true;
-
-                    return false;
-*/
                 ]]>
                 </body>
             </method>
