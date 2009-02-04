@@ -126,6 +126,7 @@
                 document.getElementById('condiment_group_name').setAttribute('disabled',  true);
                 document.getElementById('condiment_name').setAttribute('disabled',  true);
                 document.getElementById('condiment_price').setAttribute('disabled',  true);
+                document.getElementById('condiment_selected').setAttribute('disabled',  true);
             }
             else {
                 document.getElementById('condiment_group_name').removeAttribute('disabled');
@@ -141,6 +142,7 @@
                 if (this._selectedCondIndex == null || this._selectedCondIndex == -1) {
                     document.getElementById('condiment_name').setAttribute('disabled',  true);
                     document.getElementById('condiment_price').setAttribute('disabled',  true);
+                    document.getElementById('condiment_selected').setAttribute('disabled',  true);
 
                     document.getElementById('modify_condiment').setAttribute('disabled',  true);
                     document.getElementById('delete_condiment').setAttribute('disabled',  true);
@@ -148,6 +150,7 @@
                 else {
                     document.getElementById('condiment_name').removeAttribute('disabled');
                     document.getElementById('condiment_price').removeAttribute('disabled');
+                    document.getElementById('condiment_selected').removeAttribute('disabled');
 
                     // validate condiment name and price
                     var cond_name = document.getElementById('condiment_name').value.replace(/^\s*/, '').replace(/\s*$/, '');

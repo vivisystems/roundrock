@@ -189,24 +189,12 @@
         // handle order submit events
         submitOrder: function(evt) {
 
-            // @todo
-            // check if receipt already printed
-            // moved to within worker thread
-            //var receipts = this.isReceiptPrinted(evt.data.id);
-            //if (receipts == null) {
+            this.printReceipts(evt.data);
+            this.printGuestChecks(evt.data);
 
-                //@hack sleep to allow UI events to catch up
-                // autoprint receipts
-                this.printReceipts(evt.data);
-                this.sleep(50);
-            //}
-            /*
-            else {
-                NotifyUtils.warn(_('A receipt has already been issued for this order at [%S]'));
-            }
-            */
-            // auto print guest checks
-            //this.printGuestChecks(evt.data.id, evt.data.seq);
+            // @hack
+            // sleep to allow UI to catch up
+            this.sleep(50);
         },
 
         // handles user initiated receipt requests
@@ -227,17 +215,6 @@
                 NotifyUtils.warn(_('The order has not been finalized; cannot issue receipt'));
                 return; // fatal error ?
             }
-
-            /*
-             *@todo
-             *moved to worker thread
-             *
-            var receipts = this.isReceiptPrinted(txn);
-            if (receipts != null) {
-                NotifyUtils.warn(_('A receipt has already been issued for this order'));
-                return;
-            }
-            */
 
             if (device == null) {
                 NotifyUtils.error(_('Error in device manager! Please check your device configuration'));
@@ -328,7 +305,7 @@
             var data = {
                 txn: txn,
                 store: GeckoJS.Session.get('storeContact'),
-                order: order,
+                order: order
             };
 
             if (order.proceeds_clerk == null || order.proceeds_clerk == '') {
@@ -370,7 +347,7 @@
             var txn = cart._getTransaction();
             if (txn == null) {
                 // @todo OSD
-                NotifyUtils.warn(_('No order has been opened; cannot issue guest check'));
+                NotifyUtils.warn(_('Not an open order; cannot issue guest check'));
                 return; // fatal error ?
             }
 
@@ -378,6 +355,11 @@
                 // @todo OSD
                 NotifyUtils.warn(_('Cannot issue guest check on a canceled order'));
                 return; // fatal error ?
+            }
+
+            if (txn.getItemsCount() < 1) {
+                NotifyUtils.warn(_('Nothing has been registered yet; cannot issue guest check'));
+                return;
             }
 
             if (device == null) {
@@ -419,7 +401,13 @@
         },
 
 
-        // print on all enabled receipt printers
+        // print on all enabled guestcheck printers
+        //
+        // printer = 0: print on all enabled printers
+        // printer = 1: first printer
+        // printer = 2: second printer
+        // printer = null: print on all auto-print enabled printers
+
         printGuestChecks: function(txn, printer) {
 
             var device = this.getDeviceController();
@@ -577,7 +565,6 @@
                             if (len == encodedResult.length) {
                                 printed = true;
                             }
-                            self.log('DEBUG', 'In Worker thread: print length: [' + encodedResult.length + '], printed length: [' + len + ']');
                             self.closeSerialPort(portPath);
                         }
 

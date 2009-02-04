@@ -1822,7 +1822,13 @@
             if (typeof condGroups[index] == 'undefined') return null;
 
             var conds = condGroups[index]['Condiment'];
+            var selectedItems = [];
 
+            if (conds != null) {
+                for (var i = 0; i < conds.length; i++) {
+                    if (conds[i].selected) selectedItems.push(i);
+                }
+            }
             var colsRows = parseInt(this._condimentPanel.getAttribute('cols')) * parseInt(this._condimentPanel.getAttribute('rows'));
 
             if (forceModal || colsRows == 0) {
@@ -1833,7 +1839,8 @@
                 var inputObj = {
                     condgroup: condgroup,
                     condsData: conds,
-                    condiments: condiments
+                    condiments: condiments,
+                    selectedItems: selectedItems
                 };
                
                 window.openDialog(aURL, 'select_condiments', features, inputObj);
@@ -1856,6 +1863,7 @@
                 this._condimentPanel.datasource.data = conds;
                 this._condimentPanel.vivibuttonpanel.invalidate();
 
+                this._condimentPanel.selectedItems = selectedItems;
                 this._pluAndCondimentDeck.selectedIndex = 1;
             }
 

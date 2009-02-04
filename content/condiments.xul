@@ -93,7 +93,7 @@
                             <rows>
                                 <row>
                                     <vbox>
-                                         <label id="condiment_id" hidden="true" form="condimentForm" name="id" value=""/>
+                                        <label id="condiment_id" hidden="true" form="condimentForm" name="id" value=""/>
                                         <label id="condiment_group_id" hidden="true" form="condimentForm" name="condiment_group_id" value="" />
                                         <label value="&condiments.condiment.name;" control="condiment_name"/>
                                         <textbox id="condiment_name" form="condimentForm" name="name" oninput="$do('validateForm', null, 'Condiments')"
@@ -102,6 +102,11 @@
                                     <vbox>
                                         <label value="&condiments.condiment.price;" control="condiment_price"/>
                                         <textbox id="condiment_price" form="condimentForm" name="price" default="" oninput="$do('validateForm', null, 'Condiments')"
+                                             onfocus="select()"/>
+                                    </vbox>
+                                    <vbox align="center">
+                                        <label value="&condiments.condiment.selected;" control="condiment_selected"/>
+                                        <checkbox id="condiment_selected" form="condimentForm" name="selected" value="false" default="0"
                                              onfocus="select()"/>
                                     </vbox>
                                 </row>
