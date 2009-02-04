@@ -3,6 +3,8 @@ var OrderAdditionModel = window.OrderAdditionModel =  GeckoJS.Model.extend({
 
     useDbConfig: 'order',
 
-    belongsTo: ['Order']
+    belongsTo: ['Order'],
+
+    behaviors: ['Sync']
     
 });

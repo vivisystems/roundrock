@@ -81,6 +81,6 @@ function launchControl(panel) {
 }
 
 function savePreferences() {
-    GeckoJS.Configure.savePreferences('vivipos');
+    // GeckoJS.Configure.savePreferences('vivipos');
     window.close();
 }

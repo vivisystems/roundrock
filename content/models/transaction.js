@@ -1414,7 +1414,7 @@
         var paymentItem = {
             id: paymentId,
             name: type,
-            amount: amount,
+            amount: this.getRoundedPrice(amount),
             origin_amount: origin_amount,
             memo1: memo1,
             memo2: memo2
@@ -1826,13 +1826,13 @@
         remain = total - payment_subtotal;
 
         this.data.total = this.getRoundedPrice(total);
-        this.data.remain = remain;
-        this.data.tax_subtotal = tax_subtotal;
-        this.data.item_surcharge_subtotal = item_surcharge_subtotal;
-        this.data.item_discount_subtotal = item_discount_subtotal;
-        this.data.trans_surcharge_subtotal = trans_surcharge_subtotal;
-        this.data.trans_discount_subtotal = trans_discount_subtotal ;
-        this.data.payment_subtotal = payment_subtotal;
+        this.data.remain = this.getRoundedPrice(remain);
+        this.data.tax_subtotal = this.getRoundedTax(tax_subtotal);
+        this.data.item_surcharge_subtotal = this.getRoundedPrice(item_surcharge_subtotal);
+        this.data.item_discount_subtotal = this.getRoundedPrice(item_discount_subtotal);
+        this.data.trans_surcharge_subtotal = this.getRoundedPrice(trans_surcharge_subtotal);
+        this.data.trans_discount_subtotal = this.getRoundedPrice(trans_discount_subtotal);
+        this.data.payment_subtotal = this.getRoundedPrice(payment_subtotal);
 
         Transaction.events.dispatch('afterCalcTotal', this.data, this);
 

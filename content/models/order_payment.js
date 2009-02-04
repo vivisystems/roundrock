@@ -3,6 +3,8 @@ var OrderPaymentModel = window.OrderPaymentModel =  GeckoJS.Model.extend({
 
     useDbConfig: 'order',
     
-    belongsTo: ['Order']
+    belongsTo: ['Order'],
+
+    behaviors: ['Sync']
     
 });
