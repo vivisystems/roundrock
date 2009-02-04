@@ -1,0 +1,8 @@
+<!ENTITY rptdepartments.title "Department List">
+<!ENTITY rptdepartments.startdate "Start Date:">
+<!ENTITY rptdepartments.enddate "End Date:">
+<!ENTITY rptdepartments.execute "Execute">
+<!ENTITY rptdepartments.exportpdf "Export to PDF">
+<!ENTITY rptdepartments.exportcsv "Export to CSV">
+<!ENTITY rptdepartments.togglezoom "Toggle Zoom">
+

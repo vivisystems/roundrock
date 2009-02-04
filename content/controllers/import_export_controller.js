@@ -33,18 +33,32 @@
             $('#ok').attr('disabled', this._busy);
         },
 
+        execute: function(cmd, param) {
+            try {
+                var exec = new GeckoJS.File(cmd);
+                var r = exec.run(param, true);
+                // this.log("ERROR", "Ret:" + r + "  cmd:" + cmd + "  param:" + param);
+                exec.close();
+                return true;
+            }
+            catch (e) {
+                NotifyUtils.warn(_('Failed to execute command (%S).', [cmd + ' ' + param]));
+                return false;
+            }
+        },
+
         checkBackupDevices: function() {
 
-            var osLastMedia = new GeckoJS.File('/tmp/last_media');
-            // var osLastMedia = new GeckoJS.File('/var/tmp/vivipos/last_media');
+            // var osLastMedia = new GeckoJS.File('/tmp/last_media');
+            var osLastMedia = new GeckoJS.File('/var/tmp/vivipos/last_media');
 
             var last_media = "";
             var deviceNode = "";
             var deviceReady = false;
 
             //var deviceMount = "/media/";
-            var deviceMount = GeckoJS.Configure.read('vivipos.fec.settings.device.mount.path') || '/media';
-            // var deviceMount = "/var/tmp/";
+            // var deviceMount = GeckoJS.Configure.read('vivipos.fec.settings.device.mount.path') || '/media/';
+            var deviceMount = "/var/tmp/";
 
             var hasMounted = false;
 
@@ -164,9 +178,17 @@
                     limit:9999
                 }, updateProgress);
 
+                // sync to media...
+                this.execute("/bin/sync", [])
+
             }
             catch (e) {
                 NotifyUtils.info(_('Export To CSV (%S) Error!!', [this._datas[index].filename]));
+                this._busy = false;
+                GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
+                // progmeter.value = 0;
+                this.setButtonDisable(false);
+                waitPanel.hidePopup();
             }
             finally {
                 
@@ -286,9 +308,9 @@
                 var oldLimit = GREUtils.Pref.getPref('dom.max_chrome_script_run_time');
                 GREUtils.Pref.setPref('dom.max_chrome_script_run_time', 5 * 60);
 
-                var query = 'DELETE FROM "main"."' + model + '"';
-                tableTmp.execute(query);
-                // tableTmp.getDataSource().truncate('"main"."' + tableTmp.table + '"');
+                // var query = 'DELETE FROM "main"."' + model + '"';
+                // tableTmp.execute(query);
+                tableTmp.truncate();
 
                 progmeter.value = 0;
 
@@ -302,7 +324,7 @@
                 tableTmp.begin();
                 lines.forEach(function(buf) {
                     var datas = GeckoJS.String.parseCSV(buf)[0];
-
+// this.log(this.dump(datas));
                     var rowdata = GREUtils.extend({}, tableTpl);
                     for (var i=0; i < fields.length; i++) {
                         rowdata[fields[i]] = GREUtils.Charset.convertToUnicode(datas[i], 'UTF-8');
@@ -317,7 +339,7 @@
                         }
                     }
 
-                    tableTmp.id = rowdata.id
+                    tableTmp.id = rowdata.id;
                     // tableTmp.begin();
                     tableTmp.save(rowdata);
                     // tableTmp.commit();

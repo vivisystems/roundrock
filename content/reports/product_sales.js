@@ -7,8 +7,6 @@
     include('chrome://viviecr/content/reports/controllers/product_sales_controller.js');
     include('chrome://viviecr/content/reports/template.js');
 
-    // include('chrome://viviecr/content/seethrough_js/seethrough.js');
-
     /**
      * Controller Startup
      */

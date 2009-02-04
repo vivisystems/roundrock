@@ -6,7 +6,7 @@
 
     GeckoJS.Controller.extend( {
         name: 'Cart',
-        components: ['Tax'],
+        components: ['Tax', 'GuestCheck'],
         _cartView: null,
         _queuePool: null,
         _returnMode: false,
@@ -43,7 +43,6 @@
 
             // var curTransaction = this._getTransaction();
             // curTransaction.events.addListener('beforeAppendItem', obj, this);
-
             GeckoJS.Session.remove('cart_last_sell_item');
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
@@ -1265,8 +1264,8 @@
                 var origin_amount = amount;
                 // currency convert array
                 var currency_rate = currencies[convertIndex].currency_exchange;
-                var memo1 = currencies[convertIndex].currency + ':' + amount;
-                var memo2 = 'x' + currency_rate;
+                var memo1 = currencies[convertIndex].currency;
+                var memo2 = currency_rate;
                 amount = amount * currency_rate;
                 this._getKeypadController().clearBuffer();
                 this.addPayment('cash', amount, origin_amount, memo1, memo2);
@@ -1410,6 +1409,63 @@
             }
             //this.clear();
 
+        },
+
+        accounting: function(inputObj) {
+            // @todo Accounting IN/OUT
+
+            var data = {};
+            data.accountPayment = {};
+
+            if (!inputObj) {
+                var aURL = "chrome://viviecr/content/prompt_addaccount.xul";
+                var features = "chrome,titlebar,toolbar,centerscreen,modal,width=500,height=450";
+                var inputObj = {
+                    input0:null,
+                    input1:null,
+                    topics:null
+                };
+
+                var accountTopic = new AccountTopicModel();
+                inputObj.topics = accountTopic.find('all');
+
+                window.openDialog(aURL, "prompt_addaccount", features, inputObj);
+            }
+
+            if (!inputObj.ok) {
+                return;
+            }
+
+            if (inputObj.type == "IN") {
+                data.total = inputObj.amount;
+                data.status = 101; // Accounting IN
+            } else {
+                data.total = inputObj.amount * (-1);
+                data.status = 102; // Accounting OUT
+            }
+            
+            var user = new GeckoJS.AclComponent().getUserPrincipal();
+            if ( user != null ) {
+                data.service_clerk = user.username;
+            }
+
+            data.accountPayment['order_items_count'] = 1;
+            data.accountPayment['order_total'] = data.total;
+            data.accountPayment['amount'] = data.total;
+            data.accountPayment['name'] = 'accounting'; // + payment type
+            data.accountPayment['memo1'] = inputObj.topic + "-" + _(inputObj.type); // + topic + topic type
+            data.accountPayment['memo2'] = inputObj.description; // description
+            data.accountPayment['change'] = 0;
+
+            data.accountPayment['service_clerk'] = data.service_clerk;
+            // data.orderPayment['proceeds_clerk'] = data.proceeds_clerk;
+            // data.orderPayment['service_clerk_displayname'] = data.service_clerk_displayname;
+            // data.orderPayment['proceeds_clerk_displayname'] = data.proceeds_clerk_displayname;
+
+            var order = new OrderModel();
+            order.saveAccounting(data);
+
+            return data;
         },
 
         addPayment: function(type, amount, origin_amount, memo1, memo2) {
@@ -1592,7 +1648,7 @@
         },
 
         clear: function() {
-
+            
             GeckoJS.Session.remove('cart_last_sell_item');
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
@@ -1661,18 +1717,18 @@
         },
 
 
-        submit: function() {
+        submit: function(status) {
 
             // cancel cart but save
             var oldTransaction = this._getTransaction();
             
             if(oldTransaction == null) return; // fatal error ?
 
-            if (oldTransaction.getRemainTotal() > 0) return;
+            if (status == 1 && oldTransaction.getRemainTotal() > 0) return;
 
             this.dispatchEvent('beforeSubmit', oldTransaction);
 
-            oldTransaction.submit();
+            oldTransaction.submit(status);
 
             this.dispatchEvent('afterSubmit', oldTransaction);
 
@@ -1688,7 +1744,14 @@
             this._getKeypadController().clearBuffer();
             this.cancelReturn();
 
-            this.dispatchEvent('onSubmit', oldTransaction);
+            if (status != 2) {
+
+                this.dispatchEvent('onWarning', '');
+                this.dispatchEvent('onSubmit', oldTransaction);
+            }
+            else
+                this.dispatchEvent('onGetSubtotal', oldTransaction);
+				
         },
 
 
@@ -2053,6 +2116,11 @@
                 return;
             }
 
+            if (curTransaction.data.recall == 2) {
+                if (warn) NotifyUtils.warn(_('Can not queue the recall order!!'));
+                return;
+            }
+
             var user = this.Acl.getUserPrincipal();
 
             var count = curTransaction.getItemsCount();
@@ -2164,13 +2232,104 @@
 
             var curTransaction = new Transaction();
             curTransaction.unserializeFromOrder(order_id);
+
+            if (curTransaction.data.status == 2) {
+                // set order status to process (0)
+                curTransaction.data.status = 0;
+
+                curTransaction.data.recall = 2;
+            }
+
             this._setTransactionToView(curTransaction);
             curTransaction.updateCartView(-1, -1);
             this.subtotal();
 
-        }
-	
-	
-    });
+        },
 
+        guestCheck: function(action) {
+            // check if has buffer
+            var buf = this._getKeypadController().getBuffer();
+            this._getKeypadController().clearBuffer();
+
+            this.cancelReturn();
+
+            var curTransaction = this._getTransaction(true);
+
+            if(curTransaction == null) {
+                // this.dispatchEvent('onAddItem', null);
+                NotifyUtils.warn(_('fatal error!!'));
+                return; // fatal error ?
+            }
+
+            // transaction is submit and close success
+            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
+                curTransaction = this._newTransaction();
+            }
+
+            var param = action.split('|');
+            var action = param[0];
+            var param2 = param[1];
+
+            var no = buf;
+
+            var r = -1;
+
+            switch(action) {
+                case 'newCheck':
+                    if (buf.length == 0) {
+                        r = this.GuestCheck.getNewCheckNo();
+                    } else {
+                        r = this.GuestCheck.check(no);
+                    }
+
+                    if (r >= 0) {
+                        curTransaction.data.check_no = r;
+                    } else {
+                        NotifyUtils.warn(_('Check# %S is exist!!', [no]));
+                    }
+                    break;
+                case 'releaseCheck':
+                        r = this.GuestCheck.releaseCheckNo(no);
+                    break;
+                case 'newTable':
+                    if (buf.length == 0) {
+                        r = this.GuestCheck.getNewTableNo();
+                    } else {
+                        r = this.GuestCheck.table(no);
+                    }
+
+                    if (r >= 0) {
+                        curTransaction.data.table_no = r;
+                    } else {
+                        NotifyUtils.warn(_('Table# %S is exist!!', [no]));
+                    }
+                    break;
+                case 'guest':
+                        r = this.GuestCheck.guest(no);
+                        curTransaction.data.no_of_customers = no;
+                    break;
+                case 'destination':
+                        r = this.GuestCheck.destination(param2);
+                        curTransaction.data.destination = param2;
+                    break;
+                case 'store':
+                        if (curTransaction.data.status == 1) {
+                            NotifyUtils.warn(_('This order has been submited!!'));
+                        } else {
+                            r = this.GuestCheck.store(curTransaction.data.items_count);
+                        }
+                    break;
+                case 'recallCheck':
+                        r = this.GuestCheck.recallByCheckNo(no);
+                    break;
+                case 'recallTable':
+                        r = this.GuestCheck.recallByTableNo(no);
+                    break;
+            }
+
+            this.subtotal();
+            
+            return;
+        }
+    });
 })();

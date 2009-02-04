@@ -3,7 +3,14 @@
 var ImageFilesView = window.ImageFilesView = GeckoJS.NSITreeViewArray.extend({
         init: function(dir) {
             this._dir = dir;
-            this.data = new GeckoJS.Dir.readDir(dir).sort(function(a, b) {if (a.leafName < b.leafName) return -1; else if (a.leafName > b.leafName) return 1; else return 0;});
+
+            // only .png supported.
+            this.data = new GeckoJS.Dir.readDir(dir, {type: "f", name: /.png$/i}).sort(function(a, b) {
+                if (a.leafName < b.leafName) return -1; 
+                else if (a.leafName > b.leafName) return 1; 
+                else return 0;
+            });
+
             var totalSize = 0;
             this.fileCount = this.data.length;
             this.data.forEach(function(file) {
@@ -129,14 +136,6 @@ var ImageFilesView = window.ImageFilesView = GeckoJS.NSITreeViewArray.extend({
 
             var limitSetting = GeckoJS.Configure.read('vivipos.fec.settings.image.disklimit');
             if (limitSetting > this._disklimit) this._disklimit = limitSetting;
-
-            /*
-            this._pluDir = GeckoJS.Configure.read('vivipos.fec.settings.image.pludir');
-            this._importDir = GeckoJS.Configure.read('vivipos.fec.settings.image.importdir');
-            this._exportDir = GeckoJS.Configure.read('vivipos.fec.settings.image.exportdir');
-            if (!this._importDir) this._importDir = '/media/disk/image_import/';
-            if (!this._exportDir) this._exportDir = '/media/disk/image_export/';
-            */
 
             this.query('#imagePanel')[0].datasource = this.imagefilesView;
 

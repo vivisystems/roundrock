@@ -427,7 +427,14 @@
             this._setPluSet();
             this._setCondimentGroup();
             if (valObj) {
-                document.getElementById('pluimage').setAttribute('src', 'chrome://viviecr/content/skin/pluimages/' + valObj.no + '.png?' + Math.random());
+                var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/') + '/data';
+                var sPluDir = datapath + "/images/pluimages/";
+                if (!sPluDir) sPluDir = '/data/images/pluimages/';
+                sPluDir = (sPluDir + '/').replace(/\/+/g,'/');
+                var aDstFile = sPluDir + valObj.no + ".png";
+
+                // document.getElementById('pluimage').setAttribute('src', 'chrome://viviecr/content/skin/pluimages/' + valObj.no + '.png?' + Math.random());
+                document.getElementById('pluimage').setAttribute("src", "file://" + aDstFile + "?" + Math.random());
             }
         },
 
@@ -630,6 +637,21 @@
             }
         },
 
+        RemoveImage: function(no) {
+            // var no  = $('#product_no').val();
+
+            var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/') + '/data';
+            var sPluDir = datapath + "/images/pluimages/";
+            if (!sPluDir) sPluDir = '/data/images/pluimages/';
+            sPluDir = (sPluDir + '/').replace(/\/+/g,'/');
+            var aDstFile = sPluDir + no + ".png";
+
+            GREUtils.File.remove(aDstFile);
+                document.getElementById('pluimage').setAttribute("src", "");
+
+            return aDstFile;
+        },
+
         remove: function() {
             if (this._selectedIndex == null || this._selectedIndex == -1) return;
 
@@ -666,8 +688,11 @@
 
                         oldSetItems.forEach(function(item) {
                             setItemModel.del(item.id);
+                            try {
+                                this.RemoveImage(item.no);
+                            } catch (e) {}
                         })
-
+                        
                         this.updateSession('remove', product);
 
                         var newIndex = this._selectedIndex;
