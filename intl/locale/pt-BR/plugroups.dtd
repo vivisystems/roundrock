@@ -1,0 +1,8 @@
+<!ENTITY plugroups.title "Grupo de Produtos">
+<!ENTITY plugroups.name "Nome do Grupo">
+<!ENTITY plugroups.visible "Mostrar no Menú">
+<!ENTITY plugroups.button.color "Côr do Botão">
+<!ENTITY plugroups.font.size "Tamanho da Letra">
+<!ENTITY plugroups.button.action.add "Adicionar">
+<!ENTITY plugroups.button.action.modify "Modificar">
+<!ENTITY plugroups.button.action.delete "Apagar">

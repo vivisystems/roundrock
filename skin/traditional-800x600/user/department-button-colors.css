@@ -131,10 +131,5 @@
 .department-button-color-6[selected], .department-button-color-7[selected],
 .department-button-color-8[selected], .department-button-color-9[selected],
 .department-button-color-10[selected], .department-button-color-11[selected] {
-    border: 2px solid;
-    -moz-border-top-colors: #f39a1c #f39a1c !important;
-    -moz-border-right-colors: #f39a1c #f39a1c !important;
-    -moz-border-bottom-colors: #f39a1c #f39a1c !important;
-    -moz-border-left-colors: #f39a1c #f39a1c !important;
-    list-style-image: url(chrome://viviecr/skin/images/gtk-yes.png);
+    list-style-image: url(chrome://viviecr/skin/images/con_sel.png) !important;
 }

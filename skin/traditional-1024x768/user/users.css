@@ -1,0 +1,15 @@
+.MainPnl {
+    margin: 18px;
+}
+
+.MainL {
+    border-right: 1px solid #c1ab8e;
+}
+
+.ToolBar {
+    margin-left: 4px;
+}
+
+.ItemScrollablepanel {
+    min-width: 220px;
+}

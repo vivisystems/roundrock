@@ -4,7 +4,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-15 18:34+0800\n"
+<<<<<<< HEAD:intl/pofile/zh-TW/localekeyboard.dtd.po
+"POT-Creation-Date: 2009-01-21 01:13+0800\n"
+=======
+"POT-Creation-Date: 2009-01-19 17:02+0800\n"
+>>>>>>> f087ea22d683ef5c6f044fa13f96a705f4918799:intl/pofile/zh-TW/localekeyboard.dtd.po
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,12 +19,12 @@ msgstr ""
 
 #: localekeyboard.title
 msgid "Language and Keyboard Mapping"
-msgstr "語系與鍵盤設定"
+msgstr "Language and Keyboard Mapping"
 
 #: localekeyboard.locale.title
 msgid "Language"
-msgstr "語系"
+msgstr "Language"
 
 #: localekeyboard.keyboard.title
 msgid "Keyboard Mapping"
-msgstr "鍵盤設定"
+msgstr "Keyboard Mapping"

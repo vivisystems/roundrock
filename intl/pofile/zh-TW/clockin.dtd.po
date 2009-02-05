@@ -4,7 +4,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-15 18:34+0800\n"
+<<<<<<< HEAD:intl/pofile/zh-TW/clockin.dtd.po
+"POT-Creation-Date: 2009-01-21 01:13+0800\n"
+=======
+"POT-Creation-Date: 2009-01-19 17:02+0800\n"
+>>>>>>> f087ea22d683ef5c6f044fa13f96a705f4918799:intl/pofile/zh-TW/clockin.dtd.po
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,43 +20,43 @@ msgstr ""
 #: clockin.title
 msgctxt "clockin.title"
 msgid "User Clock In / Out"
-msgstr "上下班打卡"
+msgstr "User Clock In / Out"
 
 #: clockin.heading.timein
 msgctxt "clockin.heading.timein"
 msgid "In"
-msgstr "上班"
+msgstr "In"
 
 #: clockin.heading.timeout
 msgctxt "clockin.heading.timeout"
 msgid "Out"
-msgstr "下班"
+msgstr "Out"
 
 #: clockin.heading.job
 msgid "Job"
-msgstr "工作內容"
+msgstr "Job"
 
 #: clockin.title
 msgctxt "clockin.title"
 msgid "User Clock In / Out"
-msgstr "上下班打卡"
+msgstr "User Clock In / Out"
 
 #: clockin.title
 msgctxt "clockin.title"
 msgid "User Clock In / Out"
-msgstr "上下班打卡"
+msgstr "User Clock In / Out"
 
 #: clockin.keylabel.clear
 msgid "CLEAR"
-msgstr "清空"
+msgstr "CLEAR"
 
 #: clockin.keylabel.del
 msgid "DEL"
-msgstr "刪除"
+msgstr "DEL"
 
 #: clockin.keylabel.password
 msgid "Passcode:"
-msgstr "登入密碼:"
+msgstr "Passcode:"
 
 #: clockin.keylabel.ok
 msgid "OK"
@@ -61,17 +65,17 @@ msgstr "OK"
 #: clockin.keylabel.clockin
 msgctxt "clockin.keylabel.clockin"
 msgid "In"
-msgstr "上班"
+msgstr "In"
 
 #: clockin.keylabel.clockout
 msgctxt "clockin.keylabel.clockout"
 msgid "Out"
-msgstr "下班"
+msgstr "Out"
 
 #: clockin.keylabel.view
 msgid "View Attendance"
-msgstr "檢視出勤紀錄"
+msgstr "View Attendance"
 
 #: clockin.headers.joblist
 msgid "Job List"
-msgstr "工作內容"
+msgstr "Job List"

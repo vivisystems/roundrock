@@ -4,7 +4,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-15 18:34+0800\n"
+<<<<<<< HEAD:intl/pofile/zh-TW/jobs.dtd.po
+"POT-Creation-Date: 2009-01-21 01:13+0800\n"
+=======
+"POT-Creation-Date: 2009-01-19 17:02+0800\n"
+>>>>>>> f087ea22d683ef5c6f044fa13f96a705f4918799:intl/pofile/zh-TW/jobs.dtd.po
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,20 +19,20 @@ msgstr ""
 
 #: jobs.title
 msgid "Job List"
-msgstr "工作內容"
+msgstr "Job List"
 
 #: jobs.name
 msgid "Job Name"
-msgstr "工作名稱"
+msgstr "Job Name"
 
 #: jobs.button.action.add
 msgid "Add"
-msgstr "新增"
+msgstr "Add"
 
 #: jobs.button.action.modify
 msgid "Modify"
-msgstr "修改"
+msgstr "Modify"
 
 #: jobs.button.action.delete
 msgid "Delete"
-msgstr "刪除"
+msgstr "Delete"

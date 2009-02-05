@@ -4,7 +4,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-15 18:34+0800\n"
+<<<<<<< HEAD:intl/pofile/zh-TW/importexport.dtd.po
+"POT-Creation-Date: 2009-01-21 01:13+0800\n"
+=======
+"POT-Creation-Date: 2009-01-19 17:02+0800\n"
+>>>>>>> f087ea22d683ef5c6f044fa13f96a705f4918799:intl/pofile/zh-TW/importexport.dtd.po
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,68 +19,68 @@ msgstr ""
 
 #: importexport.caption
 msgid "Database Import / Export"
-msgstr "資料匯入/匯出"
+msgstr "Database Import / Export"
 
 #: importexport.media
 msgid "Media"
-msgstr "儲存媒體"
+msgstr "Media"
 
 #: importexport.checkmedia
 msgid "Check Media"
-msgstr "檢查行動碟"
+msgstr "Check Media"
 
 #: importexport.import
 msgid "Import"
-msgstr "匯入"
+msgstr "Import"
 
 #: importexport.export
 msgid "Export"
-msgstr "匯出"
+msgstr "Export"
 
 #: importexport.tablename
 msgid "Name"
-msgstr "名稱"
+msgstr "Name"
 
 #: importexport.importfilename
 msgid "Import File"
-msgstr "匯入檔名"
+msgstr "Import File"
 
 #: importexport.exportfilename
 msgid "Export File"
-msgstr "匯出檔名"
+msgstr "Export File"
 
 #: importexport.importwait
 msgid "Waitting for Import Data..."
-msgstr "匯入資料中, 請稍候..."
+msgstr "Waitting for Import Data..."
 
 #: importexport.exportwait
 msgid "Waitting for Export Data..."
-msgstr "匯出資料中, 請稍候..."
+msgstr "Waitting for Export Data..."
 
 #: vivipos.fec.common.ok
 msgid "Ok"
-msgstr "完成"
+msgstr "Ok"
 
 #: vivipos.fec.common.cancel
 msgid "Cancel"
-msgstr "取消"
+msgstr "Cancel"
 
 #: vivipos.fec.common.add
 msgid "Add"
-msgstr "新增"
+msgstr "Add"
 
 #: vivipos.fec.common.modify
 msgid "Modify"
-msgstr "修改"
+msgstr "Modify"
 
 #: vivipos.fec.common.delete
 msgid "Delete"
-msgstr "刪除"
+msgstr "Delete"
 
 #: vivipos.fec.common.yes
 msgid "Yes"
-msgstr "是"
+msgstr "Yes"
 
 #: vivipos.fec.common.no
 msgid "No"
-msgstr "否"
+msgstr "No"

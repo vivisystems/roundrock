@@ -4,7 +4,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-15 18:34+0800\n"
+<<<<<<< HEAD:intl/pofile/zh-TW/imagemanager.dtd.po
+"POT-Creation-Date: 2009-01-21 01:13+0800\n"
+=======
+"POT-Creation-Date: 2009-01-19 17:02+0800\n"
+>>>>>>> f087ea22d683ef5c6f044fa13f96a705f4918799:intl/pofile/zh-TW/imagemanager.dtd.po
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,68 +19,68 @@ msgstr ""
 
 #: imagemanager.window.title
 msgid "Image Manager"
-msgstr "圖像管理"
+msgstr "Image Manager"
 
 #: imagemanager.image.caption
 msgid "Image File:"
-msgstr "圖檔:"
+msgstr "Image File:"
 
 #: imagemanager.image.name
 msgid "name: "
-msgstr "檔名: "
+msgstr "name: "
 
 #. Do not translate this.  Only change the numeric values if you need this dialogue box to appear bigger
 #: imagemanager.image.size
 msgid "size: "
-msgstr "檔案大小: "
+msgstr "size: "
 
 #: imagemanager.action.import
 msgid "Import"
-msgstr "匯入"
+msgstr "Import"
 
 #: imagemanager.action.export
 msgid "Export"
-msgstr "匯出"
+msgstr "Export"
 
 #: imagemanager.action.delete
 msgid "Delete"
-msgstr "刪除"
+msgstr "Delete"
 
 #: imagemanager.action.rename
 msgid "Rename"
-msgstr "重新命名"
+msgstr "Rename"
 
 #: imagemanager.status.disklimit
 msgid "Disk Usage Limit:"
-msgstr "磁碟空間:"
+msgstr "Disk Usage Limit:"
 
 #: imagemanager.status.total
 msgid "Total: "
-msgstr "總計: "
+msgstr "Total: "
 
 #: imagemanager.status.usage
 msgid "Used: "
-msgstr "已使用: "
+msgstr "Used: "
 
 #: imagemanager.status.files
 msgid "Files: "
-msgstr "檔案數量: "
+msgstr "Files: "
 
 #: imagemanager.action.caption
 msgid "Import/Export:"
-msgstr "匯入/匯出:"
+msgstr "Import/Export:"
 
 #: imagemanager.action.usage
 msgid "total size: "
-msgstr "總計大小: "
+msgstr "total size: "
 
 #: imagemanager.action.files
 msgid "total files: "
-msgstr "總檔案數量: "
+msgstr "total files: "
 
 #: imagemanager.action.status
 msgid "status:"
-msgstr "狀態:"
+msgstr "status:"
 
 #: imagemanager.importwait
 msgid "Waitting for Import Images..."

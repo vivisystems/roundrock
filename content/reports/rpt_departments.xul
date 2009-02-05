@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE overlay [
+  <!ENTITY % Overlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Overlay;
+  <!ENTITY % rpt_departments SYSTEM "chrome://viviecr/locale/reports/rpt_departments.dtd">
+  %rpt_departments;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/content/reports/tpl/rpt_departments.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/reports.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+
+<window id="main" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+                xmlns:html="http://www.w3.org/1999/xhtml">
+    <LINK rel="stylesheet" type="text/css" href="tpl/rpt_departments.css" />
+
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/rpt_departments.js" />
+
+    <vbox flex="1" class="main-dialog">
+        <vbox flex="1" class="MainPnl">
+            <caption label="&rptdepartments.title;"  class="PageTitle"/>
+            <!--caption label="&productsales.conditions;" / -->
+            <hbox class="TopPnl">
+                <grid class="DataForm">
+                    <columns>
+                        <column  flex="1"/><column flex="1" />
+                    </columns>
+                    <rows>
+                        <!-- row>
+                            <vbox>
+                                <label value="&productsales.startdate;" />
+                                <vividatetimepicker id="start_date" value='' type="popup" />
+                            </vbox>
+                            <vbox>
+                                <label value="&productsales.enddate;" />
+                                <vividatetimepicker id="end_date" value='' type="popup"/>
+                            </vbox>
+                        </row -->
+                        <!-- row>
+                            <vbox>
+                                <label value="Department:" />
+                                <textbox id="department" value='0010' readonly="true"/>
+                            </vbox>
+                        </row -->
+                    </rows>
+                </grid>
+                <button id="execute" label="&rptdepartments.execute;" disabled="false" class="editbtns" oncommand="$do('execute', null, 'RptDepartments');" />
+            </hbox>
+
+            <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
+                <!-- grippy/ -->
+            </splitter>
+
+            <hbox flex="1">
+                <groupbox flex="1">
+                    <box class="reportbox" flex="1">
+                        <browser type="content" id="preview_frame" src="rpt_template1.html" flex="1"/>
+                    </box>
+
+                </groupbox>
+                <vbox>
+                    <vbox class="ToolBar BarHeight">
+
+                        <vivibutton id="export_pdf" label="&rptdepartments.exportpdf;" disabled="false" class="editbtns" oncommand="$do('exportPdf', null, 'RptDepartments');" />
+                        <vivibutton id="export_csv" label="&rptdepartments.exportcsv;" disabled="true" class="editbtns" oncommand="$do('exportCsv', null, 'RptDepartments');" />
+
+                        <vivibutton id="togglesize" label="&rptdepartments.togglezoom;" disabled="false" class="editbtns" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
+                        <spacer flex="1" />
+                    </vbox>
+                    <hbox id="dialogButtons" class="dialogbtns" pack="end">
+                        <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                    </hbox>
+                </vbox>
+            </hbox>
+        </vbox>
+    </vbox>
+
+</window>

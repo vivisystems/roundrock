@@ -3,6 +3,7 @@
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/functionpanel.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/function-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/funcpanelecrprefs.css" type="text/css"?>
 <!DOCTYPE window SYSTEM "chrome://viviecr/locale/funcpanelecrprefs.dtd">
 
@@ -15,299 +16,332 @@
     <script type="application/x-javascript" src="chrome://vivipos/content/vivipos.js" />
     <script type="application/x-javascript" src="chrome://vivipos/content/consoleErrors.js" />
     <script src="chrome://viviecr/content/controllers/funcpanelecrprefs_controller.js" type="text/javascript"/>
-    <box id="preference-container" flex="1">
-        <vbox flex="1">
-            <hbox flex="1">
+    
+    <box id="preference-container"  class="main-dialog" flex="1">
+        <hbox flex="1" class="MainPnl" >
             <!-- vivifuncpanel -->
-                <vbox id="vivifuncpanelecr_prefs_preview_box" class="preview_box" pack="center" flex="1">
-                    <hbox pack="center" flex="1" align="center">
-                        <spacer width="5"/>
-                        <vivifuncpanelecr
-                            id="vivifuncpanelecr_prefs"
-                            class="vivifuncpanelecr_function_panel"
-                            label="%d/%m"
-                            rows="4" columns="2" hspacing="1" vspacing="1"
-                            homePage="1"
-                            maxpage="3"
-                            wrap="0"
-                            flex="1"
-                            mode="configure"
-                            restrictMode="normal"
-                            disabled="false"
-                            prefix="vivipos.fec.settings.functionpanel"
-                            panel_spacer_class="vivifuncpanelecr_spacer"
-                            control_panel_class="vivifuncpanelecr_control_panel"
-                            control_scroll_left_class="vivifuncpanelecr_control_scroll_left"
-                            control_scroll_right_class="vivifuncpanelecr_control_scroll_right"
-                            control_label_class="vivifuncpanelecr_control_label"
-                            control_home_class="vivifuncpanelecr_control_home"
-                            button_panel_class="vivifuncpanelecr_button_panel"
-                            matrix_button_nomap_class="vivifuncpanelecr_matrix_button_nomap"
-                            matrix_button_configure_class="vivifuncpanelecr_matrix_button_configure"
-                            matrix_button_mapped_class="vivifuncpanelecr_matrix_button_mapped"
-                            />
-                        <spacer width="5"/>
+            <vbox  class="MainL">    
+                <vbox id="vivifuncpanelecr_prefs_preview_box" class="LeftPnl" pack="center" flex="1">
+                    <vivifuncpanelecr
+                        id="vivifuncpanelecr_prefs"
+                        class="vivifuncpanelecr_function_panel"
+                        label="%d/%m"
+                        rows="4" columns="2" hspacing="1" vspacing="1"
+                        homePage="1"
+                        maxpage="3"
+                        wrap="0"
+                        flex="1"
+                        mode="configure"
+                        restrictMode="normal"
+                        disabled="false"
+                        prefix="vivipos.fec.settings.functionpanel"
+                        panel_spacer_class="vivifuncpanelecr_spacer"
+                        control_panel_class="vivifuncpanelecr_control_panel"
+                        control_scroll_left_class="vivifuncpanelecr_control_scroll_left"
+                        control_scroll_right_class="vivifuncpanelecr_control_scroll_right"
+                        control_label_class="vivifuncpanelecr_control_label"
+                        control_home_class="vivifuncpanelecr_control_home"
+                        button_panel_class="vivifuncpanelecr_button_panel"
+                        matrix_button_nomap_class="vivifuncpanelecr_matrix_button_nomap"
+                        matrix_button_configure_class="vivifuncpanelecr_matrix_button_configure"
+                        matrix_button_mapped_class="vivifuncpanelecr_matrix_button_mapped" />
+                </vbox>
+                <!-- hide this page number -->
+                <hbox style="display: none;"> 
+                    <label class="label_layout" value="&vivifuncpanelecr.prefs.tabpanel.layout.page.number.label;"/>
+                    <textbox class="textbox_layout_readonly" id="vivifuncpanelecr_prefs_layout_page_number" readonly="true" size="3" value="1"/>
+                </hbox>
+
+                <hbox class="PageNumPnl" align="center">
+                    <label value="&vivifuncpanelecr.prefs.tabpanel.keymap.page.number.label;"/>
+                    <textbox id="vivifuncpanelecr_prefs_keymap_page_number" readonly="true" size="3" value="1"/>
+                    <button id="vivifuncpanelecr_prefs_keymap_unlink_all" class="ItemButtonA"
+                            label="&vivifuncpanelecr.prefs.tabpanel.keymap.unlink-all.label;"
+                            disabled="true"
+                            oncommand="$do('removeAllLinks', null, 'vivifuncpanelecr_prefs')"/>
+                </hbox>
+
+                <vbox class="PageNumPnl">
+                    <label value="&vivifuncpanelecr.prefs.tabpanel.layout.label.page.label;" control="vivifuncpanelecr_prefs_layout_label_page"/>
+                    <hbox>
+                        <textbox id="vivifuncpanelecr_prefs_layout_label_page"/>
+                        <button id="vivifuncpanelecr_prefs_layout_label_page_apply" icon="apply" class="ItemButtonA"
+                                label="&vivifuncpanelecr.prefs.tabpanel.layout.label.page.apply.label;"
+                                oncommand="$do('setLabel', 'false', 'vivifuncpanelecr_prefs')"/>
+                        <button id="vivifuncpanelecr_prefs_layout_label_page_reset" icon="clear" class="ItemButtonA"
+                                label="&vivifuncpanelecr.prefs.tabpanel.layout.label.page.reset.label;"
+                                oncommand="$do('resetLabel', 'false', 'vivifuncpanelecr_prefs')"/>
                     </hbox>
                 </vbox>
-                
-                <spacer width="5"/>
+
+
+                <vbox class="PageNumPnl">
+                    <label value="&vivifuncpanelecr.prefs.tabpanel.layout.label.global.label;" control="vivifuncpanelecr_prefs_layout_label_global"/>
+                    <hbox>
+                        <textbox id="vivifuncpanelecr_prefs_layout_label_global"/>
+                        <button id="vivifuncpanelecr_prefs_layout_label_global_apply" icon="apply" class="ItemButtonA"
+                                label="&vivifuncpanelecr.prefs.tabpanel.layout.label.global.apply.label;"
+                                oncommand="$do('setLabel', 'true', 'vivifuncpanelecr_prefs')"/>
+                        <button id="vivifuncpanelecr_prefs_layout_label_global_reset" icon="clear" class="ItemButtonA"
+                                label="&vivifuncpanelecr.prefs.tabpanel.layout.label.global.reset.label;"
+                                oncommand="$do('resetLabel', 'true', 'vivifuncpanelecr_prefs')"/>
+                    </hbox>
+
+                </vbox>
+
+                <!-- hide globe page number -->
+                <hbox  style="display: none;"> 
+                    <label class="label_keymap" value="&vivifuncpanelecr.prefs.tabpanel.gkeymap.page.number.label;"/>
+                    <textbox class="textbox_keymap_readonly" id="vivifuncpanelecr_prefs_gkeymap_page_number" readonly="true" size="3" value="1"/>
+                    <spacer/>
+                    <button id="vivifuncpanelecr_prefs_gkeymap_unlink_all" icon="remove"
+                            label="&vivifuncpanelecr.prefs.tabpanel.gkeymap.unlink-all.label;"
+                            disabled="true"
+                            oncommand="$do('removeAllLinks', null, 'vivifuncpanelecr_prefs')"/>
+                </hbox>
+            </vbox>    
+            <vbox flex="1">
                 <!-- preference panel -->
-                <tabbox id="vivifuncpanelecr_prefs_tabbox" flex="1" selectedIndex="0">
+                <tabbox id="vivifuncpanelecr_prefs_tabbox" flex="1" selectedIndex="0" class="RightTabbox">
                     <tabs onselect="$do('switchTab', this.parentNode.selectedIndex, 'vivifuncpanelecr_prefs')">
                         <tab label="&vivifuncpanelecr.prefs.tabpanel.general.label;"/>
                         <tab label="&vivifuncpanelecr.prefs.tabpanel.layout.label;"/>
                         <tab label="&vivifuncpanelecr.prefs.tabpanel.keymap.label;"/>
                         <tab label="&vivifuncpanelecr.prefs.tabpanel.gkeymap.label;"/>
                     </tabs>
-                    <tabpanels flex="1">
+                    <tabpanels>
 
                     <!-- General Preferences -->
-                        <tabpanel id="vivifuncpanelecr_prefs_general_panel" flex="1" orient="vertical" allowevents="true">
-                            <grid flex="1">
+                        <tabpanel id="vivifuncpanelecr_prefs_general_panel" flex="1" orient="horizontal" allowevents="true">
+                            <vbox flex="1">
+                            <grid flex="1" class="DataFormA">
                                 <columns>
                                     <column flex="0"/>
                                     <column flex="1"/>
-                                    <column flex="0"/>
                                 </columns>
                                 <rows>
-                                    <separator class="groove-thin"/>
                                     <row>
-                                        <label class="label_general" value="&vivifuncpanelecr.prefs.tabpanel.general.maxpage.label;" control="vivifuncpanelecr_prefs_maxpage"/>
-                                        <textbox class="textbox_general" id="vivifuncpanelecr_prefs_maxpage" type="number" size="3" value="5"/>
-                                        <button label="&vivifuncpanelecr.prefs.tabpanel.general.maxpage.apply.label;" icon="apply"
+                                        <label value="&vivifuncpanelecr.prefs.tabpanel.general.maxpage.label;" control="vivifuncpanelecr_prefs_maxpage"/>
+                                        <textbox id="vivifuncpanelecr_prefs_maxpage" type="number" size="3" value="5"/>
+                                        <button label="&vivifuncpanelecr.prefs.tabpanel.general.maxpage.apply.label;" icon="apply" class="ItemButtonA"
                                                 oncommand="$do('setMaxPage', null, 'vivifuncpanelecr_prefs')"/>
                                     </row>
                                     <row>
-                                        <label class="label_general" value="&vivifuncpanelecr.prefs.tabpanel.general.defaultpage.label;" control="vivifuncpanelecr_prefs_defaultpage"/>
-                                        <textbox class="textbox_general" id="vivifuncpanelecr_prefs_defaultpage" type="number" size="3" value="5"/>
-                                        <button label="&vivifuncpanelecr.prefs.tabpanel.general.defaultpage.apply.label;" icon="apply"
+                                        <label value="&vivifuncpanelecr.prefs.tabpanel.general.defaultpage.label;" control="vivifuncpanelecr_prefs_defaultpage"/>
+                                        <textbox id="vivifuncpanelecr_prefs_defaultpage" type="number" size="3" value="5"/>
+                                        <button label="&vivifuncpanelecr.prefs.tabpanel.general.defaultpage.apply.label;" icon="apply" class="ItemButtonA"
                                                 oncommand="$do('setDefaultPage', null, 'vivifuncpanelecr_prefs')"/>
                                     </row>
-                                    <separator class="groove-thin"/>
+                                 </rows>
+                            </grid> 
+                            
+                            <grid flex="1" class="DataFormB">
+                                <columns>
+                                    <column flex="1"/><column flex="1"/>
+                                </columns>
+                                <rows>
                                     <row>
-                                        <label class="label_general" value="&vivifuncpanelecr.prefs.tabpanel.general.size.row.label;" control="vivifuncpanelecr_prefs_size_rows"/>
-                                        <textbox class="textbox_general" id="vivifuncpanelecr_prefs_size_rows" type="number" size="3" value="5"/>
+                                        <vbox>
+                                            <label value="&vivifuncpanelecr.prefs.tabpanel.general.size.row.label;" control="vivifuncpanelecr_prefs_size_rows"/>
+                                            <textbox id="vivifuncpanelecr_prefs_size_rows" type="number" size="3" value="5"/>    
+                                        </vbox>
+                                        <vbox>
+                                            <label value="&vivifuncpanelecr.prefs.tabpanel.general.size.column.label;" control="vivifuncpanelecr_prefs_size_columns"/>
+                                            <textbox id="vivifuncpanelecr_prefs_size_columns" type="number" size="3" value="5"/>
+                                        </vbox> 
                                     </row>
                                     <row>
-                                        <label class="label_general" value="&vivifuncpanelecr.prefs.tabpanel.general.size.column.label;" control="vivifuncpanelecr_prefs_size_columns"/>
-                                        <textbox class="textbox_general" id="vivifuncpanelecr_prefs_size_columns" type="number" size="3" value="5"/>
-                                        <button label="&vivifuncpanelecr.prefs.tabpanel.general.size.apply;" icon="apply" flex="1"
+                                        <vbox>
+                                            <label value="&vivifuncpanelecr.prefs.tabpanel.general.size.hspacing.label;" control="vivifuncpanelecr_prefs_size_hspacing"/>
+                                            <textbox id="vivifuncpanelecr_prefs_size_hspacing" type="number" size="3" value="5"/>
+                                        </vbox>
+                                        <vbox>
+                                            <label value="&vivifuncpanelecr.prefs.tabpanel.general.size.vspacing.label;" control="vivifuncpanelecr_prefs_size_vspacing"/>
+                                            <textbox id="vivifuncpanelecr_prefs_size_vspacing" type="number" size="3" value="5"/>
+                                        </vbox>
+                                    </row>
+                                    <row>
+                                        <hbox></hbox>
+                                        <button label="&vivifuncpanelecr.prefs.tabpanel.general.size.apply;" icon="apply" flex="1" class="ItemButtonB"
                                                 oncommand="$do('setSize', null, 'vivifuncpanelecr_prefs')"/>
                                     </row>
-                                    <row>
-                                        <label class="label_general" value="&vivifuncpanelecr.prefs.tabpanel.general.size.hspacing.label;" control="vivifuncpanelecr_prefs_size_hspacing"/>
-                                        <textbox class="textbox_general" id="vivifuncpanelecr_prefs_size_hspacing" type="number" size="3" value="5"/>
-                                    </row>
-                                    <row>
-                                        <label class="label_general" value="&vivifuncpanelecr.prefs.tabpanel.general.size.vspacing.label;" control="vivifuncpanelecr_prefs_size_vspacing"/>
-                                        <textbox class="textbox_general" id="vivifuncpanelecr_prefs_size_vspacing" type="number" size="3" value="5"/>
-                                    </row>
-                                    <separator class="groove-thin"/>
-                                    <row>
-                                        <label class="label_general" value="&vivifuncpanelecr.prefs.tabpanel.general.orientation.label;" control="vivifuncpanelecr_prefs_orientation"/>
-                                        <menulist rows="1" id="vivifuncpanelecr_prefs_orientation"
-                                              oncommand="$do('setOrientation', this.value, 'vivifuncpanelecr_prefs')"
-                                              >
+                                 </rows>
+                            </grid> 
+                            
+                                    <hbox flex="1" class="DataFormA2">
+                                        <label value="&vivifuncpanelecr.prefs.tabpanel.general.orientation.label;" control="vivifuncpanelecr_prefs_orientation"/>
+                                        <menulist rows="1" flex="1" id="vivifuncpanelecr_prefs_orientation"
+                                              oncommand="$do('setOrientation', this.value, 'vivifuncpanelecr_prefs')">
                                             <menupopup>
                                                 <menuitem label="normal" value="normal"/>
                                                 <menuitem label="reverse" value="reverse"/>
                                             </menupopup>
                                         </menulist>
-                                    </row>
-                                    <separator class="groove-thin"/>
+                                    </hbox>
+                            
+                            <grid flex="1" class="DataFormB2">
+                                <columns>
+                                    <column flex="1"/>
+                                    <column flex="1"/>
+                                    <column flex="1"/>
+                                </columns>
+                                <rows>        
                                     <row>
-                                        <label class="label_general" value="&vivifuncpanelecr.prefs.tabpanel.general.wrap.label;"/>
+                                        <label value="&vivifuncpanelecr.prefs.tabpanel.general.wrap.label;"/>
                                         <button id="vivifuncpanelecr_prefs_wrap_yes" type="radio" group="vivifuncpanelecr_prefs_wrap"
-                                            icon="yes"
+                                            icon="yes" class="ItemButtonB"
                                             oncommand="$do('setWrap', '1', 'vivifuncpanelecr_prefs')"/>
                                         <button id="vivifuncpanelecr_prefs_wrap_no" type="radio" group="vivifuncpanelecr_prefs_wrap"
-                                            icon="cancel"
+                                            icon="cancel" class="ItemButtonB"
                                             oncommand="$do('setWrap', '0', 'vivifuncpanelecr_prefs')"/>
                                     </row>
                                     <row>
-                                        <label class="label_general" value="&vivifuncpanelecr.prefs.tabpanel.general.restrict.label;"/>
+                                        <label value="&vivifuncpanelecr.prefs.tabpanel.general.restrict.label;"/>
                                         <button id="vivifuncpanelecr_prefs_restrict_hidden_yes" type="radio" group="vivifuncpanelecr_prefs_restrict"
-                                                icon="yes"
+                                                icon="yes" class="ItemButtonB"
                                                 oncommand="$do('setRestrictMode', 'hidden', 'vivifuncpanelecr_prefs')"/>
                                         <button id="vivifuncpanelecr_prefs_restrict_hidden_no" type="radio" group="vivifuncpanelecr_prefs_restrict"
-                                                icon="cancel"
+                                                icon="cancel" class="ItemButtonB"
                                                 oncommand="$do('setRestrictMode', 'disabled', 'vivifuncpanelecr_prefs')"/>
                                     </row>
                                 </rows>
                             </grid>
+                            </vbox>
                         </tabpanel>
 
                         <!-- Page Layout -->
-                        <tabpanel id="vivifuncpanelecr_prefs_layout_panel" orient="vertical" allowevents="true">
-                            <grid flex="1">
+                        <tabpanel id="vivifuncpanelecr_prefs_layout_panel" flex="1" orient="horizontal" allowevents="true">
+                            <vbox flex="1">
+                            <grid flex="1" class="DataFormA">
                                 <columns>
-                                    <column flex="0" width="60"/>
                                     <column flex="1"/>
-                                    <column flex="0" width="50"/>
-                                    <column flex="0" width="50"/>
+                                    <column flex="1"/>
+                                    <column flex="1"/>
+                                    <column flex="1"/>
                                 </columns>
                                 <rows>
-                                    <separator class="groove-thin"/>
-                                <!-- page number -->
-                                    <row>
-                                        <label class="label_layout" value="&vivifuncpanelecr.prefs.tabpanel.layout.page.number.label;"/>
-                                        <textbox class="textbox_layout_readonly" id="vivifuncpanelecr_prefs_layout_page_number" readonly="true" size="3" value="1"/>
-                                    </row>
-                                    <separator class="groove-thin"/>
-
-                                <!-- page label -->
-                                    <row>
-                                        <label class="label_layout" value="&vivifuncpanelecr.prefs.tabpanel.layout.label.page.label;" control="vivifuncpanelecr_prefs_layout_label_page"/>
-                                        <textbox class="textbox_layout" id="vivifuncpanelecr_prefs_layout_label_page" flex="1"/>
-                                        <button id="vivifuncpanelecr_prefs_layout_label_page_apply" icon="apply"
-                                                label="&vivifuncpanelecr.prefs.tabpanel.layout.label.page.apply.label;"
-                                                oncommand="$do('setLabel', 'false', 'vivifuncpanelecr_prefs')"/>
-                                        <button id="vivifuncpanelecr_prefs_layout_label_page_reset" icon="clear"
-                                                label="&vivifuncpanelecr.prefs.tabpanel.layout.label.page.reset.label;"
-                                                oncommand="$do('resetLabel', 'false', 'vivifuncpanelecr_prefs')"/>
-                                    </row>
-                                    <row>
-                                        <label class="label_layout" value="&vivifuncpanelecr.prefs.tabpanel.layout.label.global.label;" control="vivifuncpanelecr_prefs_layout_label_global"/>
-                                        <textbox class="textbox_layout" id="vivifuncpanelecr_prefs_layout_label_global" flex="1"/>
-                                        <button id="vivifuncpanelecr_prefs_layout_label_global_apply" icon="apply"
-                                                label="&vivifuncpanelecr.prefs.tabpanel.layout.label.global.apply.label;"
-                                                oncommand="$do('setLabel', 'true', 'vivifuncpanelecr_prefs')"/>
-                                        <button id="vivifuncpanelecr_prefs_layout_label_global_reset" icon="clear"
-                                                label="&vivifuncpanelecr.prefs.tabpanel.layout.label.global.reset.label;"
-                                                oncommand="$do('resetLabel', 'true', 'vivifuncpanelecr_prefs')"/>
-                                    </row>
-                                    <separator class="groove-thin"/>
-
                                 <!-- layout selection -->
                                     <row>
-                                        <label class="label_layout" value="&vivifuncpanelecr.prefs.tabpanel.layout.selection.label;"/>
-                                        <textbox class="textbox_layout_readonly" id="vivifuncpanelecr_prefs_layout_selection" readonly="true" size="3" value=""/>
-                                        <button class="action_layout" id="vivifuncpanelecr_prefs_layout_merge" icon="add"
+                                        <label value="&vivifuncpanelecr.prefs.tabpanel.layout.selection.label;"/>
+                                        <textbox id="vivifuncpanelecr_prefs_layout_selection" readonly="true" size="7" value=""/>
+                                        <button id="vivifuncpanelecr_prefs_layout_merge" icon="add"
                                                 label="&vivifuncpanelecr.prefs.tabpanel.layout.merge.label;"
-                                                disabled="true"
+                                                disabled="true" class="ItemButtonA"
                                                 oncommand="$do('mergeButtons', null, 'vivifuncpanelecr_prefs')"/>
-                                        <button class="action_layout" id="vivifuncpanelecr_prefs_layout_remove" icon="remove"
+                                        <button id="vivifuncpanelecr_prefs_layout_remove" icon="remove"
                                                 label="&vivifuncpanelecr.prefs.tabpanel.layout.remove.label;"
-                                                disabled="true"
+                                                disabled="true" class="ItemButtonA"
                                                 oncommand="$do('removeButtons', null, 'vivifuncpanelecr_prefs')"/>
                                     </row>
                                     <row>
-                                        <label class="label_layout" value="&vivifuncpanelecr.prefs.tabpanel.layout.reset.label;"/>
+                                        <label value="&vivifuncpanelecr.prefs.tabpanel.layout.reset.label;"/>
                                         <spacer/>
-                                        <button class="action_layout" id="vivifuncpanelecr_prefs_layout_reset" icon="apply"
+                                        <button id="vivifuncpanelecr_prefs_layout_reset" icon="apply" class="ItemButtonA"
                                                 label="&vivifuncpanelecr.prefs.tabpanel.layout.reset.apply.label;"
                                                 oncommand="$do('resetLayout', null, 'vivifuncpanelecr_prefs')"/>
                                     </row>
-                                    <separator class="groove-thin"/>
 
-                                <!-- global layout -->
+                                 <!-- global layout -->
                                     <row>
-                                        <label class="label_layout" value="&vivifuncpanelecr.prefs.tabpanel.layout.global.label;"/>
+                                        <label value="&vivifuncpanelecr.prefs.tabpanel.layout.global.label;"/>
                                         <spacer/>
-                                        <button class="action_layout" id="vivifuncpanelecr_prefs_layout_global" icon="apply"
+                                        <button class="ItemButtonA" id="vivifuncpanelecr_prefs_layout_global" icon="apply"
                                                 label="&vivifuncpanelecr.prefs.tabpanel.layout.global.apply.label;"
                                                 oncommand="$do('setAsGlobalLayout', null, 'vivifuncpanelecr_prefs')"
                                     />
                                     </row>
                                     <row>
-                                        <label class="label_layout" value="&vivifuncpanelecr.prefs.tabpanel.layout.global.load.label;"/>
+                                        <label value="&vivifuncpanelecr.prefs.tabpanel.layout.global.load.label;"/>
                                         <spacer/>
-                                        <button class="action_layout" id="vivifuncpanelecr_prefs_layout_global.load" icon="apply"
+                                        <button class="ItemButtonA" id="vivifuncpanelecr_prefs_layout_global.load" icon="apply"
                                                 label="&vivifuncpanelecr.prefs.tabpanel.layout.global.load.apply.label;"
                                                 oncommand="$do('loadGlobalLayout', null, 'vivifuncpanelecr_prefs')"/>
                                     </row>
                                 </rows>
                             </grid>
-                            <separator class="groove-thin"/>
-
+                            
+                            <spacer height="5px" />
+                            
                     <!-- button style -->
-                            <vbox flex="1">
-                                <button_colorpicker
-                                    id="vivifuncpanelecr_prefs_layout_button_colorpicker"
-                                    columns="4"
-                                    class-prefix="function-button-color-"
-                                    buttonClass="buttoncolor_baseclass"
-                                    flex="1"
-                                    disabled="true"
-                                    onselect="$do('selectButtonColor', this.color, 'vivifuncpanelecr_prefs')"
-                                />
-                                <button_fontsizepicker
-                                    id="vivifuncpanelecr_prefs_layout_button_fontsizepicker"
-                                    columns="4"
-                                    buttonClass="buttonfontsize_baseclass"
-                                    flex="1"
-                                    label="&vivifuncpanelecr.prefs.tabpanel.layout.buttonstyle.fontsize.label;"
-                                    disabled="true"
-                                    onselect="return $do('selectButtonFontsize', this.size, 'vivifuncpanelecr_prefs')"
-                                />
+                            <hbox class="RightPnlB">
+                                <vbox flex="1">
+                                    <hbox flex="1" align="center" pack="center">
+                                        <button_colorpicker
+                                            id="vivifuncpanelecr_prefs_layout_button_colorpicker"
+                                            columns="4"
+                                            class-prefix="function-button-color-"
+                                            flex="1" class="BtnColors"
+                                            disabled="true"
+                                            onselect="$do('selectButtonColor', this.color, 'vivifuncpanelecr_prefs')"
+                                        />
+                                    </hbox>
+                                </vbox>
+                                <vbox flex="1">
+                                    <button_fontsizepicker
+                                        id="vivifuncpanelecr_prefs_layout_button_fontsizepicker"
+                                        buttonClass="ItemButtonB"
+                                        flex="1" class="FontSizeSet"
+                                        label="&vivifuncpanelecr.prefs.tabpanel.layout.buttonstyle.fontsize.label;"
+                                        disabled="true"
+                                        onselect="return $do('selectButtonFontsize', this.size, 'vivifuncpanelecr_prefs')"
+                                    />
+                                </vbox>
+                            </hbox>
                             </vbox>
                         </tabpanel>
 
                     <!-- Key Map -->
-                        <tabpanel id="vivifuncpanelecr_prefs_keymap_panel" orient="vertical" allowevents="true">
-                            <grid flex="0">
+                        <tabpanel id="vivifuncpanelecr_prefs_keymap_panel" flex="1" orient="horizontal" allowevents="true">
+                            <vbox flex="1">
+                            <grid class="DataFormA">
                                 <columns>
-                                    <column flex="0" width="50"/>
-                                    <column flex="1" width="150"/>
-                                    <column flex="0" width="100"/>
-                                    <column flex="0" width="100"/>
+                                    <column flex="1"/>
+                                    <column flex="1"/>
+                                    <column flex="1"/>
+                                    <column flex="1"/>
                                 </columns>
                                 <rows>
-                                    <separator class="groove-thin"/>
-                                <!-- page number -->
+                                    <!-- button selection -->
                                     <row>
-                                        <label class="label_keymap" value="&vivifuncpanelecr.prefs.tabpanel.keymap.page.number.label;"/>
-                                        <textbox class="textbox_keymap_readonly" id="vivifuncpanelecr_prefs_keymap_page_number" readonly="true" size="3" value="1"/>
-                                        <spacer/>
-                                        <button id="vivifuncpanelecr_prefs_keymap_unlink_all" icon="remove"
-                                                label="&vivifuncpanelecr.prefs.tabpanel.keymap.unlink-all.label;"
-                                                disabled="true"
-                                                oncommand="$do('removeAllLinks', null, 'vivifuncpanelecr_prefs')"/>
-                                    </row>
-                                    <separator class="groove-thin"/>
-
-                                <!-- button selection -->
-                                    <row>
-                                        <label class="label_keymap" value="&vivifuncpanelecr.prefs.tabpanel.keymap.selection.label;"/>
-                                        <textbox class="textbox_keymap_readonly" id="vivifuncpanelecr_prefs_keymap_selection" readonly="true" size="3" value=""/>
+                                        <label value="&vivifuncpanelecr.prefs.tabpanel.keymap.selection.label;"/>
+                                        <textbox id="vivifuncpanelecr_prefs_keymap_selection" readonly="true" size="3" value="" />
                                     </row>
 
                                 <!-- function link -->
                                     <row>
-                                        <label class="label_keymap" value="&vivifuncpanelecr.prefs.tabpanel.keymap.linked.label;"/>
-                                        <textbox class="textbox_keymap_readonly" readonly="true" id="vivifuncpanelecr_prefs_keymap_linked" value=""/>
+                                        <label value="&vivifuncpanelecr.prefs.tabpanel.keymap.linked.label;"/>
+                                        <textbox readonly="true" id="vivifuncpanelecr_prefs_keymap_linked" value=""/>
                                         <button id="vivifuncpanelecr_prefs_keymap_linked_unlink" icon="remove"
                                                 label="&vivifuncpanelecr.prefs.tabpanel.keymap.linked.unlink.label;"
-                                                disabled="true"
+                                                disabled="true" class="ItemButtonA"
                                                 oncommand="$do('removeLink', null, 'vivifuncpanelecr_prefs')"/>
                                     </row>
 
                                 <!-- function label -->
                                     <row>
-                                        <label class="label_keymap" value="&vivifuncpanelecr.prefs.tabpanel.keymap.function.label;"/>
-                                        <textbox class="textbox_keymap" id="vivifuncpanelecr_prefs_keymap_function_label" value=""/>
+                                        <label value="&vivifuncpanelecr.prefs.tabpanel.keymap.function.label;"/>
+                                        <textbox id="vivifuncpanelecr_prefs_keymap_function_label" value=""/>
                                         <button id="vivifuncpanelecr_prefs_keymap_function_label_apply" icon="apply"
                                                 label="&vivifuncpanelecr.prefs.tabpanel.keymap.function.label.apply.label;"
-                                                disabled="true"
+                                                disabled="true" class="ItemButtonA"
                                                 oncommand="$do('updateLinkLabel', null, 'vivifuncpanelecr_prefs')"/>
                                         <button id="vivifuncpanelecr_prefs_keymap_function_label_reset" icon="clear"
                                                 label="&vivifuncpanelecr.prefs.tabpanel.keymap.function.label.reset.label;"
-                                                disabled="true"
+                                                disabled="true" class="ItemButtonA"
                                                 oncommand="$do('resetLinkLabel', null, 'vivifuncpanelecr_prefs')"/>
                                     </row>
                                     <row>
-                                        <label class="label_argument" value="&vivifuncpanelecr.prefs.tabpanel.keymap.function.data.label;"/>
-                                        <textbox class="textbox_keymap" id="vivifuncpanelecr_prefs_keymap_function_data" value=""/>
+                                        <label value="&vivifuncpanelecr.prefs.tabpanel.keymap.function.data.label;"/>
+                                        <textbox id="vivifuncpanelecr_prefs_keymap_function_data" value=""/>
                                         <button id="vivifuncpanelecr_prefs_keymap_function_data_apply" icon="apply"
                                                 label="&vivifuncpanelecr.prefs.tabpanel.keymap.function.data.apply.label;"
-                                                disabled="true"
+                                                disabled="true" class="ItemButtonA"
                                                 oncommand="$do('updateLinkData', null, 'vivifuncpanelecr_prefs')"/>
                                         <button id="vivifuncpanelecr_prefs_keymap_function_data_reset" icon="clear"
                                                 label="&vivifuncpanelecr.prefs.tabpanel.keymap.function.data.reset.label;"
-                                                disabled="true"
+                                                disabled="true" class="ItemButtonA"
                                                 oncommand="$do('resetLinkData', null, 'vivifuncpanelecr_prefs')"/>
                                     </row>
-                                    <spacer flex="1"/>
                                 </rows>
                             </grid>
                             <vivitree id="vivifuncpanelecr_prefs_keymap_function_tree"
@@ -318,80 +352,72 @@
                                                 flex="1"
                                                 hidevscroll="true"
                                                 onselect="$do('selectFunction', this, 'vivifuncpanelecr_prefs')"/>
-                            <textbox class="descbox_keymap" id="vivifuncpanelecr_prefs_keymap_function_desc" wrap="true"
-                                     readonly="true" multiline="true">
-                            </textbox>
-                            <button id="vivifuncpanelecr_prefs_keymap_link" icon="apply"
-                                    label="&vivifuncpanelecr.prefs.tabpanel.keymap.link.label;"
-                                    disabled="true"
-                                    oncommand="$do('linkFunction', null, 'vivifuncpanelecr_prefs')"/>
+                            <spacer height="3px" />
+                            <hbox>
+                                <textbox class="descbox_keymap" id="vivifuncpanelecr_prefs_keymap_function_desc" wrap="true"
+                                         readonly="true" multiline="true" flex="1">
+                                </textbox>
+                                <spacer width="3px" />
+                                <button id="vivifuncpanelecr_prefs_keymap_link" icon="apply"
+                                        label="&vivifuncpanelecr.prefs.tabpanel.keymap.link.label;"
+                                        disabled="true" class="ItemButtonB"
+                                        oncommand="$do('linkFunction', null, 'vivifuncpanelecr_prefs')"/>
+                            </hbox>
+                            </vbox> 
                         </tabpanel>
 
                     <!-- Global Key Map -->
-                        <tabpanel id="vivifuncpanelecr_prefs_gkeymap_panel" orient="vertical" allowevents="true">
-                            <grid flex="0">
+                        <tabpanel id="vivifuncpanelecr_prefs_gkeymap_panel" flex="1" orient="horizontal" allowevents="true">
+                            <vbox flex="1">
+                            <grid class="DataFormA">
                                 <columns>
-                                    <column flex="0" width="50"/>
-                                    <column flex="1" width="150"/>
-                                    <column flex="0" width="100"/>
-                                    <column flex="0" width="100"/>
+                                    <column flex="1"/>
+                                    <column flex="1"/>
+                                    <column flex="1"/>
+                                    <column flex="1"/>
                                 </columns>
                                 <rows>
-                                    <separator class="groove-thin"/>
-                                <!-- page number -->
-                                    <row>
-                                        <label class="label_keymap" value="&vivifuncpanelecr.prefs.tabpanel.gkeymap.page.number.label;"/>
-                                        <textbox class="textbox_keymap_readonly" id="vivifuncpanelecr_prefs_gkeymap_page_number" readonly="true" size="3" value="1"/>
-                                        <spacer/>
-                                        <button id="vivifuncpanelecr_prefs_gkeymap_unlink_all" icon="remove"
-                                                label="&vivifuncpanelecr.prefs.tabpanel.gkeymap.unlink-all.label;"
-                                                disabled="true"
-                                                oncommand="$do('removeAllLinks', null, 'vivifuncpanelecr_prefs')"/>
-                                    </row>
-                                    <separator class="groove-thin"/>
-
                                 <!-- button selection -->
                                     <row>
-                                        <label class="label_keymap" value="&vivifuncpanelecr.prefs.tabpanel.gkeymap.selection.label;"/>
-                                        <textbox class="textbox_keymap_readonly" id="vivifuncpanelecr_prefs_gkeymap_selection" readonly="true" size="3" value=""/>
+                                        <label value="&vivifuncpanelecr.prefs.tabpanel.gkeymap.selection.label;"/>
+                                        <textbox id="vivifuncpanelecr_prefs_gkeymap_selection" readonly="true" size="3" value=""/>
                                     </row>
 
                                 <!-- function link -->
                                     <row>
-                                        <label class="label_keymap" value="&vivifuncpanelecr.prefs.tabpanel.gkeymap.linked.label;"/>
-                                        <textbox class="textbox_keymap_readonly" readonly="true" id="vivifuncpanelecr_prefs_gkeymap_linked" value=""/>
+                                        <label value="&vivifuncpanelecr.prefs.tabpanel.gkeymap.linked.label;"/>
+                                        <textbox readonly="true" id="vivifuncpanelecr_prefs_gkeymap_linked" value=""/>
                                         <button id="vivifuncpanelecr_prefs_gkeymap_linked_unlink" icon="remove"
                                                 label="&vivifuncpanelecr.prefs.tabpanel.gkeymap.linked.unlink.label;"
-                                                disabled="true"
+                                                disabled="true" class="ItemButtonA"
                                                 oncommand="$do('removeLink', null, 'vivifuncpanelecr_prefs')"/>
                                     </row>
 
                                 <!-- function label -->
                                     <row>
-                                        <label class="label_keymap" value="&vivifuncpanelecr.prefs.tabpanel.gkeymap.function.label;"/>
-                                        <textbox class="textbox_keymap" id="vivifuncpanelecr_prefs_gkeymap_function_label" value=""/>
+                                        <label value="&vivifuncpanelecr.prefs.tabpanel.gkeymap.function.label;"/>
+                                        <textbox id="vivifuncpanelecr_prefs_gkeymap_function_label" value=""/>
                                         <button id="vivifuncpanelecr_prefs_gkeymap_function_label_apply" icon="apply"
                                                 label="&vivifuncpanelecr.prefs.tabpanel.gkeymap.function.label.apply.label;"
-                                                disabled="true"
+                                                disabled="true" class="ItemButtonA"
                                                 oncommand="$do('updateLinkLabel', null, 'vivifuncpanelecr_prefs')"/>
                                         <button id="vivifuncpanelecr_prefs_gkeymap_function_label_reset" icon="clear"
                                                 label="&vivifuncpanelecr.prefs.tabpanel.gkeymap.function.label.reset.label;"
-                                                disabled="true"
+                                                disabled="true" class="ItemButtonA"
                                                 oncommand="$do('resetLinkLabel', null, 'vivifuncpanelecr_prefs')"/>
                                     </row>
                                     <row>
-                                        <label class="label_argument" value="&vivifuncpanelecr.prefs.tabpanel.gkeymap.function.data.label;"/>
-                                        <textbox class="textbox_keymap" id="vivifuncpanelecr_prefs_gkeymap_function_data" value=""/>
+                                        <label value="&vivifuncpanelecr.prefs.tabpanel.gkeymap.function.data.label;"/>
+                                        <textbox id="vivifuncpanelecr_prefs_gkeymap_function_data" value=""/>
                                         <button id="vivifuncpanelecr_prefs_gkeymap_function_data_apply" icon="apply"
                                                 label="&vivifuncpanelecr.prefs.tabpanel.gkeymap.function.data.apply.label;"
-                                                disabled="true"
+                                                disabled="true" class="ItemButtonA"
                                                 oncommand="$do('updateLinkData', null, 'vivifuncpanelecr_prefs')"/>
                                         <button id="vivifuncpanelecr_prefs_gkeymap_function_data_reset" icon="clear"
                                                 label="&vivifuncpanelecr.prefs.tabpanel.gkeymap.function.data.reset.label;"
-                                                disabled="true"
+                                                disabled="true" class="ItemButtonA"
                                                 oncommand="$do('resetLinkData', null, 'vivifuncpanelecr_prefs')"/>
                                     </row>
-                                    <spacer flex="1"/>
                                 </rows>
                             </grid>
                             <vivitree id="vivifuncpanelecr_prefs_gkeymap_function_tree"
@@ -402,31 +428,36 @@
                                                 flex="1"
                                                 hidevscroll="true"
                                                 onselect="$do('selectFunction', this, 'vivifuncpanelecr_prefs')"/>
-                            <textbox class="descbox_keymap" id="vivifuncpanelecr_prefs_gkeymap_function_desc" wrap="true"
-                                     readonly="true" multiline="true">
-                            </textbox>
-                            <button id="vivifuncpanelecr_prefs_gkeymap_link" icon="apply"
-                                    label="&vivifuncpanelecr.prefs.tabpanel.gkeymap.link.label;"
-                                    disabled="true"
-                                    oncommand="$do('linkFunction', null, 'vivifuncpanelecr_prefs')"/>
+                            <spacer height="3px" />
+                            <hbox>
+                                <textbox class="descbox_keymap" id="vivifuncpanelecr_prefs_gkeymap_function_desc" wrap="true"
+                                         readonly="true" multiline="true" flex="1">
+                                </textbox>
+                                <spacer width="3px" />
+                                <button id="vivifuncpanelecr_prefs_gkeymap_link" icon="apply"
+                                        label="&vivifuncpanelecr.prefs.tabpanel.gkeymap.link.label;"
+                                        disabled="true" class="ItemButtonB"
+                                        oncommand="$do('linkFunction', null, 'vivifuncpanelecr_prefs')"/>
+                            </hbox>
+                            
+                            </vbox>
                         </tabpanel>
                     </tabpanels>
                 </tabbox>
-            </hbox>
-            <spacer height="10"/>
-            <hbox class="dialogbtns" pack="center">
-                <spacer flex="1"/>
-                <button id="vivifuncpanelecr_prefs_save"
-                        class="ok"
-                        label="&vivifuncpanelecr.prefs.save.label;"
-                        oncommand="$do('savePreferences', null, 'vivifuncpanelecr_prefs')"/>
-                <button id="vivifuncpanelecr_prefs_cancel"
-                        class="cancel"
-                        label="&vivifuncpanelecr.prefs.cancel.label;"
-                        oncommand="$do('cancelPreferences', null, 'vivifuncpanelecr_prefs')"/>
-                <spacer flex="1"/>
-                <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="vkb"/>
-            </hbox>
-        </vbox>
+                <hbox class="dialogbtns" pack="center"  flex="1">
+                    <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
+                    <spacer flex="1"/>
+                    <button id="vivifuncpanelecr_prefs_save"
+                            class="SaveBtn"
+                            label="&vivifuncpanelecr.prefs.save.label;"
+                            oncommand="$do('savePreferences', null, 'vivifuncpanelecr_prefs')"/>
+                    <button id="vivifuncpanelecr_prefs_cancel"
+                            class="ExitBtn"
+                            label="&vivifuncpanelecr.prefs.cancel.label;"
+                            oncommand="$do('cancelPreferences', null, 'vivifuncpanelecr_prefs')"/>
+                </hbox>
+            </vbox>
+        </hbox>
+            
     </box>
 </window>

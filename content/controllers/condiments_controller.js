@@ -126,6 +126,7 @@
                 document.getElementById('condiment_group_name').setAttribute('disabled',  true);
                 document.getElementById('condiment_name').setAttribute('disabled',  true);
                 document.getElementById('condiment_price').setAttribute('disabled',  true);
+                document.getElementById('condiment_preset').setAttribute('disabled',  true);
             }
             else {
                 document.getElementById('condiment_group_name').removeAttribute('disabled');
@@ -141,6 +142,7 @@
                 if (this._selectedCondIndex == null || this._selectedCondIndex == -1) {
                     document.getElementById('condiment_name').setAttribute('disabled',  true);
                     document.getElementById('condiment_price').setAttribute('disabled',  true);
+                    document.getElementById('condiment_preset').setAttribute('disabled',  true);
 
                     document.getElementById('modify_condiment').setAttribute('disabled',  true);
                     document.getElementById('delete_condiment').setAttribute('disabled',  true);
@@ -148,6 +150,7 @@
                 else {
                     document.getElementById('condiment_name').removeAttribute('disabled');
                     document.getElementById('condiment_price').removeAttribute('disabled');
+                    document.getElementById('condiment_preset').removeAttribute('disabled');
 
                     // validate condiment name and price
                     var cond_name = document.getElementById('condiment_name').value.replace(/^\s*/, '').replace(/\s*$/, '');
@@ -379,7 +382,7 @@
             if (this._selectedIndex == null || this._selectedIndex < 0) return;
 
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
             var inputObj = {input0:null, input1:0,
                             require0:true, require1:true, numberOnly1:true};
             window.openDialog(aURL, _('Add New Condiment'), features, _('New Condiment'), '', _('Condiment Name'), _('Condiment Price'), inputObj);

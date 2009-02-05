@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % SyncSettings SYSTEM "chrome://viviecr/locale/sync_settings.dtd">
+  %SyncSettings;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/sync_settings.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+<window title="&sync_settings.title;"
+	hidechrome="true"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/controllers/sync_settings_controller.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/sync_settings.js" />
+
+    <vbox class="main-dialog" flex="1">
+        <vbox flex="1" class="MainPnl">
+
+            <tabbox class="RightTabbox" flex="1">
+
+                <tabs>
+                    <tab id="basic-tab" label="Basic"/>
+                    <tab id="advanced-tab" label="Advanced"/>
+                </tabs>
+
+                <tabpanels>
+                    <tabpanel id="basic-panel" orient="horizontal">
+			<vbox class="SetArea" flex="1">
+			    <checkbox form="syncSettingForm" name="active" label="&sync_settings.label.active;" />	        
+		            <grid class="BasicForm" flex="1">
+		                <columns>
+		                    <column  flex="1" /><column flex="2" />
+		                </columns>
+		                <rows>
+
+		                    <row>
+		                        <label value="&sync_settings.label.hostname;" />
+		                        <textbox form="syncSettingForm" name="hostname" value="localhost"/>
+		                    </row>
+
+		                    <row>
+		                        <label value="&sync_settings.label.machine_id;" />
+		                        <textbox form="syncSettingForm" name="machine_id" />
+		                    </row>
+
+		                    <row>
+		                        <label value="&sync_settings.label.password;" />
+		                        <textbox form="syncSettingForm" name="password" />
+		                    </row>
+
+		                    <row>
+		                        <label value="&sync_settings.label.interval;" />
+		                        <textbox form="syncSettingForm" name="interval" type="number" value="60" />
+		                    </row>
+
+		                    <row>
+		                        <label value="&sync_settings.label.start_hour;" />
+		                        <textbox form="syncSettingForm" name="start_hour" value="08" />
+		                    </row>
+
+		                    <row>
+		                        <label value="&sync_settings.label.end_hour;" />
+		                        <textbox form="syncSettingForm" name="end_hour" value="20" />
+		                    </row>
+
+		                    <row>
+		                        <spacer />
+		                        <checkbox form="syncSettingForm" name="notify_pull" label="&sync_settings.label.notify_pull;"/>
+		                    </row>
+
+		                    <row>
+		                        <spacer />
+		                        <checkbox form="syncSettingForm" name="notify_push" label="&sync_settings.label.notify_push;"/>
+		                    </row>
+
+		                </rows>
+		            </grid>
+			</vbox>
+                    </tabpanel>
+                    <tabpanel id="advanced-panel" orient="horizontal">
+	        
+		            <grid class="AdvancedForm" flex="1">
+		                <columns>
+		                    <column  flex="1" /><column flex="2" />
+		                </columns>
+		                <rows>
+		                    <row>
+		                        <label value="&sync_settings.label.protocol;" />
+				            <menulist id="protocol" flex="1" form="syncSettingForm" name="protocol" >
+				                <menupopup>
+				                    <menuitem label="http" value="http"/>
+				                </menupopup>
+				            </menulist>
+		                    </row>
+
+		                    <row>
+		                        <label value="&sync_settings.label.port;" />
+		                        <textbox form="produsyncSettingFormctForm" name="port" type="number" size="2" value="80" />
+		                    </row>
+
+		                    <row>
+		                        <label value="&sync_settings.label.batch_limit;" />
+		                        <textbox form="syncSettingForm" name="batch_limit" type="number" value="500" />
+		                    </row>
+
+		                    <row>
+		                        <label value="&sync_settings.label.error_retry;" />
+		                        <textbox form="syncSettingForm" name="error_retry" type="number" value="5" />
+		                    </row>
+
+		                    <row>
+		                        <label value="&sync_settings.label.timeout;" />
+		                        <textbox form="syncSettingForm" name="timeout" type="number" value="300" />
+		                    </row>
+
+		                </rows>
+		            </grid>
+
+                    </tabpanel>
+                </tabpanels>
+            </tabbox>
+
+            <hbox id="dialogButtons" class="dialogbtns" pack="end">
+                <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
+                <button class="SaveBtn" id="ok" label="&dialog.applyButton.label;" default="true" oncommand="doOKButton();"/>
+                <button class="ExitBtn" id="cancel" label="&dialog.cancelButton.label;" default="false" oncommand="doCancelButton();"/>
+            </hbox>
+  
+        </vbox>
+    </vbox>
+</window>

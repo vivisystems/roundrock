@@ -8,6 +8,8 @@
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/plugroup-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/departments.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -19,58 +21,79 @@
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/plugroups.js" />
 
-    <groupbox class="main-dialog" flex="1">
-        <caption label="&plugroups.title;" />
-
-        <hbox flex="1">
-            <viviscrollablebuttonpanel dir="reverse" id="groupscrollablepanel" flex="1" cols="3" rows="8" labelField="name" imageField="no"
-                                       oncommand="$do('select', null, 'Plugroups');"
-                                       ensureVisible="true"
-                                       class="catescrollablepanel"
-                                       buttonClass="catbtn button-radius"
-                                       scrollUpClass="rightprevbtn button-blue"
-                                       scrollDownClass="rightnextbtn button-blue">
-                <spacer flex="1"/>
-            </viviscrollablebuttonpanel>
-
-            <spacer style="width: 10px;" />
-            <separator class="groove-thin"/>
-
-            <vbox>
-                <hbox align="center">
-                    <label id="plugroup_id" hidden="true" form="plugroupForm" name="id" value="" />
-                    <label value="&plugroups.name;" control="plugroup_name"/>
-                    <textbox id="plugroup_name" value="" form="plugroupForm" name="name" oninput="$do('validateForm', null, 'Plugroups')" default="" onfocus="this.select()"/>
+    <vbox class="main-dialog" flex="1">
+        <hbox flex="1" class="MainPnl">
+            <vbox flex="1" pack="start" class="MainL">
+                <caption label="&plugroups.title;" class="PageTitle" />
+                <hbox flex="1" class="LeftPnl">
+                    <viviscrollablebuttonpanel dir="reverse" id="groupscrollablepanel" flex="1" cols="2" rows="9" labelField="name" imageField="no"
+                                               oncommand="$do('select', null, 'Plugroups');"
+                                               ensureVisible="true"
+                                               class="catescrollablepanel"
+                                               buttonClass="catbtn"
+                                               scrollUpClass="ScrollUp"
+                                               scrollDownClass="ScrollDown">
+                        <spacer flex="1"/>
+                    </viviscrollablebuttonpanel>
                 </hbox>
-                <checkbox id="visible" value="true" label="&plugroups.visible;" form="plugroupForm" name="visible" default="true"/>
-                <groupbox>
-                    <caption label="&plugroups.button.color;" />
-                    <button_colorpicker id="dept_button_color" form="plugroupForm" name="button_color"
-                                        buttonClass="catbtn button-radius"
+            </vbox>
+            <vbox flex="1">
+                <spacer style="height: 25px;" />
+                <grid class="DataForm">
+                    <columns>
+                        <column flex="1" />
+                    </columns>
+                    <rows>
+                        <row>
+                            <hbox>
+                            <vbox flex="2">
+                                <label id="plugroup_id" hidden="true" form="plugroupForm" name="id" value="" />
+                                <label value="&plugroups.name;" control="plugroup_name"/>
+                                <textbox id="plugroup_name" value="" form="plugroupForm" name="name" oninput="$do('validateForm', null, 'Plugroups')" default="" onfocus="this.select()"/>
+                            </vbox>
+                            <vbox flex="0">
+                                <label style="width:10em" value="&plugroups.display_order;" control="display_order"/>
+                                <textbox id="display_order" default="" size="2" form="plugroupForm" name="display_order" onfocus="this.select()"/>
+                            </vbox>
+                            </hbox>
+                        </row>
+                        <row>
+                            <checkbox id="visible" style="height: 50px;" value="true" label="&plugroups.visible;" form="plugroupForm" name="visible" default="true"/>
+                        </row>
+                    </rows>
+                </grid>
+                <spacer style="height: 5px;" />
+                <hbox class="RightPnlB">
+                    <vbox flex="1">
+                        <label value="&plugroups.button.color;"  class="SubTitle"/>
+                        <hbox pack="center" align="center" flex="1">
+                            <button_colorpicker id="dept_button_color" form="plugroupForm" name="button_color"
+                                        buttonClass="catbtn" class="BtnColors"
                                         class-prefix="plugroup-button-color-"
                                         default="plugroup-button-color-default"/>
-                </groupbox>
-                <groupbox>
-                    <caption label="&plugroups.font.size;" />
-                    <button_fontsizepicker id="dept_font_size" form="plugroupForm" name="font_size"
-                                           buttonClass="catbtn button-white button-radius"
+                        </hbox>                
+                    </vbox >
+                    <vbox flex="1">
+                        <label value="&plugroups.font.size;"  class="SubTitle"/>
+                        <button_fontsizepicker id="dept_font_size" form="plugroupForm" name="font_size"
+                                           buttonClass="ItemButtonB"  class="FontSizeSet FontSizeSetHeight"
                                            default="medium"/>
-                </groupbox>
-                <spacer style="height: 10px;" />
-                <hbox>
-                    <button id="add_plugroup" label="&plugroups.button.action.add;" disabled="false" class="editbtns" oncommand="$do('add', null, 'Plugroups');" />
-                    <button id="modify_plugroup" label="&plugroups.button.action.modify;" disabled="false" class="editbtns" oncommand="$do('update', null, 'Plugroups');" />
-                    <button id="delete_plugroup" label="&plugroups.button.action.delete;" disabled="false" class="editbtns" oncommand="$do('delete', null, 'Plugroups');" />
+                    </vbox>
+                </hbox>
+                <spacer flex="1" />
+                <hbox flex="1">
+                    <hbox class="ToolBar" flex="1">
+                        <button id="add_plugroup" label="&plugroups.button.action.add;" disabled="false" class="BtnAdd" oncommand="$do('add', null, 'Plugroups');" />
+                        <button id="modify_plugroup" label="&plugroups.button.action.modify;" disabled="false" class="BtnMod" oncommand="$do('update', null, 'Plugroups');" />
+                        <button id="delete_plugroup" label="&plugroups.button.action.delete;" disabled="false" class="BtnDel" oncommand="$do('delete', null, 'Plugroups');" />
+                    </hbox>
+                    <hbox id="dialogButtons" class="dialogbtns" pack="center">
+                        <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
+                        <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>                        
+                    </hbox>
                 </hbox>
             </vbox>
         </hbox>
-    </groupbox>
-
-    <hbox id="dialogButtons" class="dialogbtns" pack="center">
-        <spacer flex="1"/>
-        <button class="right exit-dialog" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
-        <spacer flex="1"/>
-        <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="vkb"/>
-    </hbox>
+    </vbox>
 
 </window>

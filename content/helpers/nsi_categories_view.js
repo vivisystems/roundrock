@@ -50,7 +50,7 @@
                 // find all categories and update session.
                 var cateModel = new CategoryModel();
                 categories = cateModel.find('all', {
-                    order: "no"
+                    order: "display_order, name"
                 });
                 if (categories && categories.length > 0) GeckoJS.Session.add('categories', categories);
 
@@ -148,11 +148,17 @@
                 id: 'font_size'
             });
 
+            var classStr = '';
             if (buttonColor && btn) {
-                $(btn).addClass(buttonColor);
+                classStr = buttonColor;
+                //$(btn).addClass(buttonColor);
             }
             if (buttonFontSize && btn) {
-                $(btn).addClass('font-'+ buttonFontSize);
+                classStr += ((classStr.length > 0) ? ' ' : '') + 'font-' + buttonFontSize;
+                //$(btn).addClass('font-'+ buttonFontSize);
+            }
+            if (classStr.length > 0) {
+                $(btn).addClass(classStr);
             }
 
         }

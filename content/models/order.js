@@ -3,61 +3,85 @@ var OrderModel = window.OrderModel =  GeckoJS.Model.extend({
 
     useDbConfig: 'order',
 
-    hasMany: ['OrderItem', 'OrderAddition', 'OrderPayment'],
+    hasMany: ['OrderItem', 'OrderAddition', 'OrderPayment', 'OrderReceipt'],
     hasOne: ['OrderObject'],
+
+    behaviors: ['Sync'],
+
+    removeOldOrder: function(iid) {
+        //
+        this.del(iid);
+
+        var cond = "order_id='" + iid + "'";
+
+        this.OrderItem.delAll(cond);
+        this.OrderAddition.delAll(cond);
+        // this.OrderPayment.delAll(cond);
+        this.OrderObject.delAll(cond);
+    },
 
     saveOrder: function(data) {
         if(!data) return;
 
-        this.saveOrderMaster(data);
-        this.saveOrderItems(data);
-        this.saveOrderAdditions(data);
-        this.saveOrderPayments(data);
+        // remove old order data if exist...
+        this.removeOldOrder(data.id);
 
+        var r;
+        r = this.saveOrderMaster(data);
+        r = this.saveOrderItems(data);
+        r = this.saveOrderAdditions(data);
+        r = this.saveOrderPayments(data);
         // serialize to database
-        this.serializeOrder(data);
-
+        r = this.serializeOrder(data);
 
     },
 
     saveOrderMaster: function(data) {
 
         var orderData  = this.mappingTranToOrderFields(data);
+        var r;
 
+        this.id = orderData.id;
         this.begin();
-        this.save(orderData);
+        r = this.save(orderData);
         this.commit();
-
+        return r;
     },
 
 
     saveOrderItems: function(data) {
 
         var orderItems  = this.mappingTranToOrderItemsFields(data);
+        var r;
 
         this.OrderItem.begin();
-        this.OrderItem.saveAll(orderItems);
+        r = this.OrderItem.saveAll(orderItems);
         this.OrderItem.commit();
+        return r;
 
     },
 
     saveOrderAdditions: function(data) {
 
         var orderAdditions  = this.mappingTranToOrderAdditionsFields(data);
+        var r;
 
         this.OrderAddition.begin();
-        this.OrderAddition.saveAll(orderAdditions);
+        r = this.OrderAddition.saveAll(orderAdditions);
         this.OrderAddition.commit();
+        return r;
 
     },
 
     saveOrderPayments: function(data) {
 
         var orderPayments  = this.mappingTranToOrderPaymentsFields(data);
+        var r;
 
         this.OrderPayment.begin();
-        this.OrderPayment.saveAll(orderPayments);
+        r = this.OrderPayment.saveAll(orderPayments);
         this.OrderPayment.commit();
+        return r;
 
     },
 
@@ -202,9 +226,11 @@ var OrderModel = window.OrderModel =  GeckoJS.Model.extend({
     mappingTranToOrderPaymentsFields: function(data) {
 
         var orderPayments = [];
-
+        var i = 0;
+        var len = data.order_items;
+        var len = GeckoJS.BaseObject.getKeys(data.trans_payments).length;
         for (var iid in data.trans_payments) {
-
+            i++;
             var payment = data.trans_payments[iid];
 
             var orderPayment = GREUtils.extend({}, payment);
@@ -220,6 +246,12 @@ var OrderModel = window.OrderModel =  GeckoJS.Model.extend({
             orderPayment['service_clerk_displayname'] = data.service_clerk_displayname;
             orderPayment['proceeds_clerk_displayname'] = data.proceeds_clerk_displayname;
 
+            if (i == len) {
+                orderPayment['change'] = Math.abs(data.remain);
+            } else {
+                orderPayment['change'] = 0;
+            }
+
             orderPayments.push(orderPayment);
 
         }
@@ -233,6 +265,7 @@ var OrderModel = window.OrderModel =  GeckoJS.Model.extend({
 
         var obj = GeckoJS.BaseObject.serialize(data);
         var orderObj = {order_id: data.id, object: obj};
+        this.OrderObject.id = '';
         this.OrderObject.save(orderObj);
 
     },
@@ -248,6 +281,24 @@ var OrderModel = window.OrderModel =  GeckoJS.Model.extend({
         }
 
         return null;
+    },
+
+    saveAccounting: function(data) {
+        //
+        var r;
+        
+        this.id = '';
+        this.begin();
+        r = this.save(data);
+        this.commit();
+        
+        this.OrderPayment.id = '';
+        data.accountPayment['order_id'] = this.id;
+        this.OrderPayment.begin();
+        r = this.OrderPayment.save(data.accountPayment);
+        this.OrderPayment.commit();
+        return r;
+        
     },
 
     beforeSave: function(evt) {

@@ -1,0 +1,7 @@
+<!ENTITY dialog.prompt.title "Entrada Utilizador">
+<!ENTITY dialog.okButton.label "OK">
+<!ENTITY dialog.cancelButton.label "CANCELAR">
+<!ENTITY dialog.helpButton.label "AJUDA">
+<!ENTITY dialog.closeButton.label "FECHAR">
+<!ENTITY dialog.saveButton.label "GUARDAR">
+<!ENTITY dialog.applyButton.label "APLICAR">

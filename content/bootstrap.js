@@ -27,6 +27,7 @@ include('chrome://viviecr/content/models/plugroup.js');
 include('chrome://viviecr/content/models/job.js');
 include('chrome://viviecr/content/models/setitem.js');
 include('chrome://viviecr/content/models/producttmp.js');
+include('chrome://viviecr/content/models/stprecpmtact.js');
 
 
 include('chrome://viviecr/content/models/order.js');
@@ -34,6 +35,12 @@ include('chrome://viviecr/content/models/order_item.js');
 include('chrome://viviecr/content/models/order_addition.js');
 include('chrome://viviecr/content/models/order_payment.js');
 include('chrome://viviecr/content/models/order_object.js');
+include('chrome://viviecr/content/models/order_receipt.js');
+
+include('chrome://viviecr/content/models/account.js');
+include('chrome://viviecr/content/models/account_topic.js');
+include('chrome://viviecr/content/models/shift_change.js');
+include('chrome://viviecr/content/models/shift_change_detail.js');
 
 
 // include project helpers
@@ -51,6 +58,7 @@ include('chrome://viviecr/content/helpers/nsi_taxes_view.js');
 // include project components
 include('chrome://viviecr/content/controllers/components/barcode.js');
 include('chrome://viviecr/content/controllers/components/tax.js');
+include('chrome://viviecr/content/controllers/components/guest_check.js');
 
 // include project controllers
 include('chrome://viviecr/content/controllers/main_controller.js');
@@ -72,9 +80,14 @@ include('chrome://viviecr/content/controllers/pricelevelschedule_controller.js')
 include('chrome://viviecr/content/controllers/plusearch_controller.js');
 include('chrome://viviecr/content/controllers/stocks_controller.js');
 include('chrome://viviecr/content/controllers/currencysetup_controller.js');
-include('chrome://viviecr/content/controllers/sound_controller.js');
+//include('chrome://viviecr/content/controllers/sound_controller.js');
 include('chrome://viviecr/content/controllers/devices_controller.js');
 include('chrome://viviecr/content/controllers/print_controller.js');
+include('chrome://viviecr/content/controllers/storecontact_controller.js');
+include('chrome://viviecr/content/controllers/vfd_controller.js');
+include('chrome://viviecr/content/controllers/gpio_controller.js');
+include('chrome://viviecr/content/controllers/cashdrawer_controller.js');
+include('chrome://viviecr/content/controllers/shift_changes_controller.js');
 
 include('chrome://viviecr/content/controllers/test_controller.js');
 

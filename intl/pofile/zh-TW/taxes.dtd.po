@@ -4,7 +4,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-15 18:34+0800\n"
+<<<<<<< HEAD:intl/pofile/zh-TW/taxes.dtd.po
+"POT-Creation-Date: 2009-01-21 01:13+0800\n"
+=======
+"POT-Creation-Date: 2009-01-19 17:02+0800\n"
+>>>>>>> f087ea22d683ef5c6f044fa13f96a705f4918799:intl/pofile/zh-TW/taxes.dtd.po
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,52 +19,52 @@ msgstr ""
 
 #: taxes.title
 msgid "Taxes"
-msgstr "稅別"
+msgstr "Taxes"
 
 #: taxes.details
 msgid "Tax Details:"
-msgstr "稅別詳細資料"
+msgstr "Tax Details:"
 
 #: taxes.code
 msgid "Tax Code:"
-msgstr "稅別代碼:"
+msgstr "Tax Code:"
 
 #: taxes.type
 msgid "Tax Type:"
-msgstr "稅種:"
+msgstr "Tax Type:"
 
 #: taxes.name
 msgid "Tax Name:"
-msgstr "稅別名稱:"
+msgstr "Tax Name:"
 
 #: taxes.rate
 msgid "Tax Rate:"
-msgstr "稅率/稅金:"
+msgstr "Tax Rate:"
 
 #: taxes.rate_type
 msgid "Rate Type:"
-msgstr "課稅方式:"
+msgstr "Rate Type:"
 
 #: taxes.rate_type.percentage
 msgid "Percentage"
-msgstr "依百分比課稅"
+msgstr "Percentage"
 
 #: taxes.rate_type.fixed_amount
 msgid "Fixed Amount"
-msgstr "依固定金額課稅"
+msgstr "Fixed Amount"
 
 #: taxes.threshold
 msgid "Threshold:"
-msgstr "最低課稅基準(產品價格):"
+msgstr "Threshold:"
 
 #: taxes.button.action.add
 msgid "Add"
-msgstr "新增"
+msgstr "Add"
 
 #: taxes.button.action.modify
 msgid "Modify"
-msgstr "修改"
+msgstr "Modify"
 
 #: taxes.button.action.delete
 msgid "Delete"
-msgstr "刪除"
+msgstr "Delete"

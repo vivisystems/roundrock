@@ -4,7 +4,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-15 18:34+0800\n"
+<<<<<<< HEAD:intl/pofile/zh-TW/prompt_addtaxitem.dtd.po
+"POT-Creation-Date: 2009-01-21 01:13+0800\n"
+=======
+"POT-Creation-Date: 2009-01-19 17:02+0800\n"
+>>>>>>> f087ea22d683ef5c6f044fa13f96a705f4918799:intl/pofile/zh-TW/prompt_addtaxitem.dtd.po
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,20 +19,20 @@ msgstr ""
 
 #: prompt.addtaxitem.title
 msgid "Select Tax Type:"
-msgstr "選擇稅種:"
+msgstr "Select Tax Type:"
 
 #: prompt.addtaxitem.included
 msgid "Included"
-msgstr "內含稅"
+msgstr "Included"
 
 #: prompt.addtaxitem.addon
 msgid "Add-On"
-msgstr "外加稅"
+msgstr "Add-On"
 
 #: prompt.addtaxitem.combined
 msgid "Combined"
-msgstr "合併稅"
+msgstr "Combined"
 
 #: prompt.addtaxitem.vat
 msgid "VAT + VAT"
-msgstr "稅上稅"
+msgstr "VAT + VAT"

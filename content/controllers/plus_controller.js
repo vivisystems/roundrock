@@ -43,16 +43,28 @@
         },
 
         createPluPanel: function () {
+            // NSIDepartmentsView use rows and columns from preferences, so let's
+            // save rows and columns attribute values here and restore them later
+            var catpanel = document.getElementById('catescrollablepanel');
+            var rows = catpanel.getAttribute('rows');
+            var cols = catpanel.getAttribute('cols');
+
             this.catePanelView =  new NSIDepartmentsView('catescrollablepanel');
             this.productPanelView = new NSIProductsView('prodscrollablepanel');
 
+            // restore rows and columns here
+            catpanel.setAttribute('rows', rows);
+            catpanel.setAttribute('cols', cols);
+            catpanel.initGrid();
+
             this.catePanelView.hideInvisible = false;
+            this.catePanelView.refreshView();
+
             this.productPanelView.hideInvisible = false;
             this.productPanelView.updateProducts();
 
             this.productPanelView.setCatePanelView(this.catePanelView);
 
-            var catpanel = document.getElementById('catescrollablepanel');
             catpanel.selectedIndex = -1;
             catpanel.selectedItems = [];
 
@@ -284,7 +296,7 @@
         getPlu: function (){
 
             var aURL = 'chrome://viviecr/content/prompt_addpluset.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
             var inputObj = {
                 input0:null, require0:true, alphaOnly0:true,
                 input1:1, require1:true, numberOnly1:true
@@ -415,7 +427,14 @@
             this._setPluSet();
             this._setCondimentGroup();
             if (valObj) {
-                document.getElementById('pluimage').setAttribute('src', 'chrome://viviecr/content/skin/pluimages/' + valObj.no + '.png?' + Math.random());
+                var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/') + '/data';
+                var sPluDir = datapath + "/images/pluimages/";
+                if (!sPluDir) sPluDir = '/data/images/pluimages/';
+                sPluDir = (sPluDir + '/').replace(/\/+/g,'/');
+                var aDstFile = sPluDir + valObj.no + ".png";
+
+                // document.getElementById('pluimage').setAttribute('src', 'chrome://viviecr/content/skin/pluimages/' + valObj.no + '.png?' + Math.random());
+                document.getElementById('pluimage').setAttribute("src", "file://" + aDstFile + "?" + Math.random());
             }
         },
 
@@ -434,15 +453,15 @@
                     for (var i = 0; i < prods.length; i++) {
                         var o = prods[i];
                         if (o.no == data.no && data.id == null) {
-                            NotifyUtils.warn(_('The Product No. [%S] already exists; product not added.', [data.no]));
+                            NotifyUtils.warn(_('The Product No. [%S] already exists; product not added', [data.no]));
                             return 1;
-                        } else if (o.name == data.name) {
+                        } else if (o.name == data.name && o.cate_no == data.cate_no) {
                             if (data.id == null) {
-                                NotifyUtils.warn(_('The Product Name [%S] already exists; product not added.', [data.name]));
+                                NotifyUtils.warn(_('The Product Name [%S] already exists in department [%S]; product not added', [data.name, data.cate_name]));
                                 return 2;
                             }
                             else if (data.id != o.id) {
-                                NotifyUtils.warn(_('The Product Name [%S] already exists; product not modified.', [data.name]));
+                                NotifyUtils.warn(_('The Product Name [%S] already exists in department [%S]; product not modified', [data.name, data.cate_name]));
                                 return 2;
                             }
                             break;
@@ -451,8 +470,27 @@
                 }
                 // if condiment is required, make sure a condiment group has been selected
                 if (data.force_condiment && !data.cond_group) {
-                    NotifyUtils.warn(_('Condiment is required but no condiment group selected; product not modified.'));
+                    NotifyUtils.warn(_('Condiment is required but no condiment group selected; product not modified'));
                     return 5;
+                }
+
+                // make sure prices are between LALO and HALO
+                for (var i = 1; i < 10; i++) {
+                    var price = parseFloat(data['price_level' + i]);
+                    var enabled = data['level_enable' + i];
+                    var halo = parseFloat(data['halo' + i]);
+                    var lalo = parseFloat(data['lalo' + i]);
+
+                    if (enabled || i == 1) {
+                        if (halo > 0 && halo < price) {
+                            NotifyUtils.warn(_('Price level %S preset price [%S] is larger than HALO [%S]; product not modified', [i, price, halo]));
+                            return 6;
+                        }
+                        else if (lalo > 0 && lalo > price) {
+                            NotifyUtils.warn(_('Price level %S preset price [%S] is less than LALO [%S]; product not modified', [i, price, lalo]));
+                            return 7;
+                        }
+                    }
                 }
             }
             return result;
@@ -464,7 +502,7 @@
             var inputData = this.getInputData();
 
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
             var inputObj = {
                 input0:null, require0:true, alphaOnly0:true,
                 input1:null, require1:true
@@ -495,13 +533,21 @@
                             index: 'no',
                             value: prodData.no
                         });
-                        this.log(GeckoJS.BaseObject.dump(newProduct));
                         if (newProduct != null) {
                             this.updateSession('add', newProduct);
                         }
                         
                         // newly added item is appended to end; jump cursor to end
                         var index = this.productPanelView.data.length - 1;
+
+                        // index < 0 indicates that this category was previously empty
+                        // we need to manually select it again to make the panel display
+                        // the newly added product
+                        if (index < 0) {
+                            var catepanel = document.getElementById('catescrollablepanel');
+                            this.changePluPanel(catepanel.selectedIndex);
+                            index = 0;
+                        }
                         this.clickPluPanel(index);
 
                         // @todo OSD
@@ -558,7 +604,6 @@
                     var setitems = this._setMenuFromString(inputData);
                     
                     prodModel.id = inputData.id;
-                    this.log(GeckoJS.BaseObject.dump(inputData));
                     prodModel.save(inputData);
                     
                     // update set items
@@ -601,6 +646,21 @@
             }
         },
 
+        RemoveImage: function(no) {
+            // var no  = $('#product_no').val();
+
+            var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/') + '/data';
+            var sPluDir = datapath + "/images/pluimages/";
+            if (!sPluDir) sPluDir = '/data/images/pluimages/';
+            sPluDir = (sPluDir + '/').replace(/\/+/g,'/');
+            var aDstFile = sPluDir + no + ".png";
+
+            GREUtils.File.remove(aDstFile);
+                document.getElementById('pluimage').setAttribute("src", "");
+
+            return aDstFile;
+        },
+
         remove: function() {
             if (this._selectedIndex == null || this._selectedIndex == -1) return;
 
@@ -637,8 +697,11 @@
 
                         oldSetItems.forEach(function(item) {
                             setItemModel.del(item.id);
+                            try {
+                                this.RemoveImage(item.no);
+                            } catch (e) {}
                         })
-
+                        
                         this.updateSession('remove', product);
 
                         var newIndex = this._selectedIndex;
@@ -665,7 +728,6 @@
             });
             GeckoJS.Session.add('products', products);
             */
-this.log('action = [' + action + '], data = [' + GeckoJS.BaseObject.dump(data) + ']');
             switch(action) {
                 case 'add':
                     var products = GeckoJS.Session.get('products');
@@ -727,7 +789,7 @@ this.log('action = [' + action + '], data = [' + GeckoJS.BaseObject.dump(data) +
 
                     var indexCate = GeckoJS.Session.get('productsIndexesByCate');
                     var indexCateAll = GeckoJS.Session.get('productsIndexesByCateAll');
-                    if (oldData.cate_no != data.cate_no) {
+                    if (oldData.cate_no != data.cate_no || oldData.visible != data.visible) {
 
                         // remove old category
 
@@ -761,7 +823,9 @@ this.log('action = [' + action + '], data = [' + GeckoJS.BaseObject.dump(data) +
                                 indexCateAll[data.cate_no] = [];
                             }
                             indexCateAll[(data.cate_no+"")].push((data.id+""));
-                            if(GeckoJS.String.parseBoolean(data.visible)) indexCate[(data.cate_no+"")].push((data.id+""));
+                            if(GeckoJS.String.parseBoolean(data.visible)) {
+                                indexCate[(data.cate_no+"")].push((data.id+""));
+                            }
                         }
                     }
 
@@ -931,6 +995,7 @@ this.log('action = [' + action + '], data = [' + GeckoJS.BaseObject.dump(data) +
             GeckoJS.Session.add('productsIndexesByCateAll', indexCateAll);
         },
 
+        // modified to handle the case where
         locateIndex: function (elem, list, path) {
 
             // locate elem in list using binary search
@@ -949,24 +1014,34 @@ this.log('action = [' + action + '], data = [' + GeckoJS.BaseObject.dump(data) +
         },
 
         selectPlu: function(index) {
-
             var plusearchListObj = document.getElementById('plusearchscrollablepanel');
             var datas = plusearchListObj.datasource._data;
 
             var plu = datas[index];
+            if (plu != null) {
+                var categories = GeckoJS.Session.get('categories');
 
-            var categories = GeckoJS.Session.get('categories');
-            var catIndex = this.locateIndex(plu.cate_no, categories, "no");
-            this.changePluPanel(catIndex);
-            
-            var catepanel = document.getElementById('catescrollablepanel');
-            catepanel.selectedIndex = catIndex;
-            catepanel.selectedItems = [catIndex];
+                // @todo optimize search
+                // categories are now sorted by display_order, which aren't unique and may be null, so
+                // for now we use simple linear search
+                var catIndex = -1;
+                for (var i = 0; i < categories.length; i++) {
+                    if (categories[i].no == plu.cate_no) {
+                        catIndex = i;
+                        break;
+                    }
+                }
+                this.changePluPanel(catIndex);
 
-            var plus = this.productPanelView.tree.datasource.data;
-            var pluIndex = plus.indexOf(plu.id);
-            this.clickPluPanel(pluIndex);
+                var catepanel = document.getElementById('catescrollablepanel');
+                catepanel.selectedIndex = catIndex;
+                catepanel.selectedItems = [catIndex];
 
+                var plus = this.productPanelView.tree.datasource.data;
+                var pluIndex = plus.indexOf(plu.id);
+                
+                this.clickPluPanel(pluIndex);
+            }
         },
 
         validateForm: function(resetTabs) {

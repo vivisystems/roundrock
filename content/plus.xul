@@ -10,6 +10,8 @@
 <?xml-stylesheet href="chrome://viviecr/skin/user/department-button-colors.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/product-button-colors.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/plugroup-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/plus.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -23,32 +25,36 @@
     <script type="application/x-javascript" src="chrome://viviecr/content/plus.js" />
 
     <vbox flex="1" class="main-dialog">
-        <label id="" value="&plus.title;"  class="labeltitle"/>
-
-        <hbox flex="1" class="footlogo" style="overflow: hidden;">
-            <vbox flex="1">
-                <tabbox  flex="1">
-                    <tabpanels id="tabpanels" flex="1" style="padding:0px;">
+        <hbox flex="1" class="MainPnl">
+            <vbox flex="1" class="MainL">
+                <label id="" value="&plus.title;"  class="PageTitle"/>
+                <tabbox  flex="1" class="PLUTabbox">
+                    <tabs id="mode_tabs">
+                        <tab id="tab_normalmode" label="&plus.tab.normalmode;" flex="1"/>
+                        <tab id="tab_filtermode" label="&plus.tab.filtermode;" flex="1"/>
+                    </tabs>
+                    <tabpanels id="tabpanels" flex="1" >
                         <tabpanel flex="1" >
                             <vbox flex="1">
                 <!-- Begin Catalogs -->
-                                <viviscrollablebuttonpanel dir="reverse" id="catescrollablepanel" flex="1" cols="4" rows="2" labelField="name" imageField="no"
+                                <vbox class="DepartBox" flex="1">
+                                <viviscrollablebuttonpanel dir="reverse" id="catescrollablepanel" flex="1" cols="2" rows="3" labelField="name" imageField="no"
                                            oncommand="$do('changePluPanel',this.selectedIndex, 'Plus');"
                                            class="catescrollablepanel"
-                                           buttonClass="catbtn button-radius"
-                                           scrollUpClass="rightprevbtn button-blue"
-                                           scrollDownClass="rightnextbtn button-blue">
+                                           buttonClass="catbtn"
+                                           scrollUpClass="ScrollUp"
+                                           scrollDownClass="ScrollDown">
                                     <spacer flex="1"/>
                                 </viviscrollablebuttonpanel>
-
+                                </vbox>
                 <!-- Begin PLUs -->
-                                <viviscrollablebuttonpanel dir="reverse" id="prodscrollablepanel" flex="1" cols="2" rows="6" labelField="name" imageField="no"
+                                <viviscrollablebuttonpanel dir="reverse" id="prodscrollablepanel" flex="1" cols="2" rows="5" labelField="name" imageField="no"
                                            ensureVisible="true"
                                            oncommand="$do('clickPluPanel',this.selectedIndex, 'Plus');"
                                            class="prodscrollablepanel"
-                                           buttonClass="plubtn mediumimagebtn button-radius"
-                                           scrollUpClass="rightprevbtn button-gray"
-                                           scrollDownClass="rightnextbtn button-gray">
+                                           buttonClass="plubtn mediumimagebtn"
+                                           scrollUpClass="ScrollUp"
+                                           scrollDownClass="ScrollDown">
                                     <spacer flex="1"/>
                                 </viviscrollablebuttonpanel>
                 <!-- End PLUs -->
@@ -58,27 +64,25 @@
                         <tabpanel flex="1" >
                             <vbox flex="1">
                                 <vbox flex="1">
-                                    <label value="&plus.search.label;" />
-                                    <textbox id="plu" value="" onchange="$do('searchPlu', this.value, 'PluSearch');" />
-                                    <!-- spacer style="height:10px;" />
-                                    <numberpad id="multinumberpad" class="numberpad"/ -->
+                                    <label value="&plus.search.label;" class="SubTitle"/>
+                                    <hbox flex="1">
+                                        <textbox id="plu" value="" onchange="$do('searchPlu', this.value, 'PluSearch');" class="fixWidth"/>
+                                        <!-- sendkeybutton id="bkeyBtn"  label="&plus.button.numpad.del;" keyCode='0x08' class="systembtn"  />
+                                        <sendkeybutton id="clearBtn" label="&plus.button.numpad.clear;" class="systembtn"/ -->
+                                        <vivibutton id="ekeyBtn"  label="&plus.button.numpad.advsearch;" oncommand="$do('searchPlu', document.getElementById('plu').value, 'PluSearch');" class="SearchBtn"  />
+                                    </hbox>
+                                    
+                                    <spacer style="height:8px;" />
+                                    <!-- numberpad id="multinumberpad" class="numberpad"/ -->
                                     <viviscrollabletree id="plusearchscrollablepanel" flex="1"
                                                         headers="&plus.product.no;,&plus.product.name;"
                                                         fields="no,name"
                                                         onclick="$do('selectPlu',this.selectedIndex, 'Plus');"
-                                                        class="prodscrollablepanel"
-                                                        scrollUpClass="rightprevbtn gray"
-                                                        scrollDownClass="rightnextbtn gray">
+                                                        class="plupnl"  dir="reverse"
+                                                        scrollUpClass="ScrollUp"
+                                                        scrollDownClass="ScrollDown">
                                         <spacer flex="1" />
                                     </viviscrollabletree>
-                                </vbox>
-                                <spacer style="height:10px;" />
-                                <vbox>
-                                    <hbox>
-                                        <!-- sendkeybutton id="bkeyBtn"  label="&plus.button.numpad.del;" keyCode='0x08' class="systembtn"  />
-                                        <sendkeybutton id="clearBtn" label="&plus.button.numpad.clear;" class="systembtn"/ -->
-                                        <vivibutton id="ekeyBtn"  label="&plus.button.numpad.advsearch;" oncommand="$do('searchPlu', document.getElementById('plu').value, 'PluSearch');" class="systembtn"  />
-                                    </hbox>
                                 </vbox>
                                 <groupbox id="advance_search">
                                     <caption label="&plus.search.advancesearch;:" />
@@ -96,19 +100,13 @@
                                 </groupbox>
                             </vbox>
                         </tabpanel>
-
                     </tabpanels>
-                    <tabs id="mode_tabs" >
-                        <tab id="tab_normalmode" label="&plus.tab.normalmode;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" class="tab-bottom" />
-                        <tab id="tab_filtermode" label="&plus.tab.filtermode;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" class="tab-bottom" />
-                    </tabs>
                 </tabbox>
-
             </vbox>
 
-            <vbox id="" >
+            <vbox id=""  flex="1">
 
-                <tabbox  flex="1" crop="right">
+                <tabbox  flex="1" crop="right" class="RightTabbox">
                     <tabs id="tabs" >
                         <tab id="tab1" label="&plus.tab.base.data1;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
                         <tab id="tab2" label="&plus.tab.base.data2;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
@@ -121,188 +119,201 @@
                     <tabpanels id="tabpanels" flex="1" >
 
                         <!-- Plu Data -->
-                        <tabpanel flex="1" >
-                            <hbox>
-                                <vbox  style="overflow: auto" >
-                                    <groupbox>
-                                        <caption label="&plus.base.data1;" />
-                                        <grid>
-                                            <rows>
-                                                <row>
+                        <tabpanel flex="1" >                            
+                            <vbox flex="1">
+                                <!--label value="&plus.base.data1;" /-->
+                                <grid class="DataForm">
+                                    <columns>
+                                        <column flex="1" /><column flex="1" />
+                                    </columns>
+                                    <rows>
+                                        <row>
+                                            <vbox>
+                                                <label hidden="true" form="productForm" name="id" value="" />
+                                                <label hidden="true" id="cate_no" form="productForm" name="cate_no" default=""/>
 
-                                                    <label hidden="true" form="productForm" name="id" value="" />
-                                                    <label hidden="true" id="cate_no" form="productForm" name="cate_no" default=""/>
+                                                <label value="&plus.department;"/>
+                                                <textbox id="cate_name" class="ItemButtonA" form="productForm" name="cate_name" readonly="true" onclick="$do('getDepartment', null,'Plus');"/>
+                                            </vbox>
+                                            <vbox>
+                                                <label value="&plus.product.no;"/>
+                                                <textbox id="product_no" form="productForm" name="no" readonly="true"/>
+                                            </vbox>
+                                        </row>
+                                        <row>
+                                            <vbox>
+                                                <label value="&plus.product.name;" control="product_name"/>
+                                                <textbox id="product_name" form="productForm" name="name" value="" onfocus="this.select()" oninput="$do('validateForm', null, 'Plus')"/>
+                                            </vbox>
+                                            <vbox>
+                                                <label  value="&plus.product.barcode;" control="barcode"/>
+                                                <textbox id="barcode" form="productForm" name="barcode" value="" onfocus="this.select()"/>
+                                            </vbox>
+                                        </row>
+                                        <row>
+                                            <vbox>
+                                                <label value="&plus.product.tax.rate;"/>
+                                                <label id="rate" hidden="true" form="productForm" name="rate" default="" value=""/>
+                                                <textbox id="rate_name" class="ItemButtonA" value="" form="productForm" name="rate_name" default="" readonly="true" onclick="$do('getRate',this.selectedIndex,'Plus');"/>
+                                            </vbox>
+                                            <vbox>
+                                                <label value="&plus.product.condiments;"/>
+                                                <textbox id="cond_group_name" class="ItemButtonA" value="" form="productForm" name="cond_group_name" readonly="true" onclick="$do('getCondiment',this.selectedIndex,'Plus');"/>
+                                                <label hidden="true" id="cond_group" value="" form="productForm" name="cond_group"/>
+                                            </vbox>
+                                        </row>
+                                    </rows>
+                                </grid>
 
-                                                    <label value="&plus.department;"/>
-                                                    <textbox id="cate_name" form="productForm" name="cate_name" readonly="true" onclick="$do('getDepartment', null,'Plus');"/>
-                                                </row>
-                                                <row>
-                                                    <label value="&plus.product.no;"/>
-                                                    <textbox id="product_no" form="productForm" name="no" readonly="true"/>
-                                                </row>
-                                                <row>
-                                                    <label value="&plus.product.name;" control="product_name"/>
-                                                    <textbox id="product_name" form="productForm" name="name" value="" onfocus="this.select()" oninput="$do('validateForm', null, 'Plus')"/>
-                                                </row>
-                                                <row>
-                                                    <label  value="&plus.product.barcode;" control="barcode"/>
-                                                    <textbox id="barcode" form="productForm" name="barcode" value="" onfocus="this.select()"/>
-                                                </row>
-                                                <row>
-                                                    <label value="&plus.product.tax.rate;"/>
-                                                    <label id="rate" hidden="true" form="productForm" name="rate" default="" value=""/>
-                                                    <textbox id="rate_name" value="" form="productForm" name="rate_name" default="" readonly="true" onclick="$do('getRate',this.selectedIndex,'Plus');"/>
-                                                </row>
-                                                <row>
-                                                    <label value="&plus.product.condiments;"/>
-                                                    <textbox id="cond_group_name" value="" form="productForm" name="cond_group_name" readonly="true" onclick="$do('getCondiment',this.selectedIndex,'Plus');"/>
-                                                    <label hidden="true" id="cond_group" value="" form="productForm" name="cond_group"/>
-                                                </row>
-                                            </rows>
-                                        </grid>
-
-                                        <grid>
-                                            <rows>
-                                                <row>
-                                                    <checkbox id="auto_maintain_stock" value="true" label="&plus.auto.maintain;" form="productForm" name="auto_maintain_stock" default="0"/>
-                                                    <checkbox id="return_stock" value="true" label="&plus.can.restock;" form="productForm" name="return_stock" default="0"/>
-                                                </row>
-                                                <row>
-                                                    <checkbox id="force_condiment" value="false" label="&plus.require.condiment;" form="productForm" name="force_condiment" default="0"/>
-                                                    <checkbox id="force_memo" value="false" label="&plus.require.memo;" form="productForm" name="force_memo" default="0"/>
-                                                </row>
-                                                <row>
-                                                    <checkbox id="singleplu" value="false" label="&plus.single.item.sale;" form="productForm" name="single" default="0"/>
-                                                    <checkbox id="visible" value="true" label="&plus.visible;" form="productForm" name="visible" default="1"/>
-                                                </row>
-                                                <row>
-                                                    <checkbox id="icon_only" value="false" label="&plus.display.icon.only;" form="productForm" name="icon_only" default="0"/>
-                                                    <checkbox id="age_verification" value="false" label="&plus.require.age.verification;" form="productForm" name="age_verification" default="0"/>
-                                                </row>
-                                            </rows>
-                                        </grid>
-
-                                    </groupbox>
-                                </vbox>
-                            </hbox>
+                                <grid class="DataFormB">
+                                    <columns>
+                                        <column flex="1" /><column flex="1" />
+                                    </columns>
+                                    <rows>
+                                        <row>
+                                            <checkbox id="auto_maintain_stock" value="true" label="&plus.auto.maintain;" form="productForm" name="auto_maintain_stock" default="0"/>
+                                            <checkbox id="return_stock" value="true" label="&plus.can.restock;" form="productForm" name="return_stock" default="0"/>
+                                        </row>
+                                        <row>
+                                            <checkbox id="force_condiment" value="false" label="&plus.require.condiment;" form="productForm" name="force_condiment" default="0"/>
+                                            <checkbox id="force_memo" value="false" label="&plus.require.memo;" form="productForm" name="force_memo" default="0"/>
+                                        </row>
+                                        <row>
+                                            <checkbox id="singleplu" value="false" label="&plus.single.item.sale;" form="productForm" name="single" default="0"/>
+                                            <checkbox id="visible" value="true" label="&plus.visible;" form="productForm" name="visible" default="1"/>
+                                        </row>
+                                        <row>
+                                            <checkbox id="icon_only" value="false" label="&plus.display.icon.only;" form="productForm" name="icon_only" default="0"/>
+                                            <checkbox id="age_verification" value="false" label="&plus.require.age.verification;" form="productForm" name="age_verification" default="0"/>
+                                        </row>
+                                    </rows>
+                                </grid>
+                            </vbox>
                         </tabpanel>
 
                         <tabpanel flex="1" >
-                            <hbox flex="1">
-                                <vbox  style="overflow: auto" flex="1" >
-                                    <groupbox>
-                                        <caption label="&plus.base.data2;" />
-                                        <grid>
-                                            <rows>
-                                                <row>
-                                                    <label value="&plus.purchase.price;" control="buy_price"/>
-                                                    <textbox id="buy_price" type="number" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="buy_price" onfocus="this.select()"/>
-                                                </row>
-                                                <row>
-                                                    <label value="&plus.stock.level;" control="stock"/>
-                                                    <textbox id="stock" type="number" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="stock" default="0" onfocus="this.select()"/>
-                                                </row>
-                                                <row>
-                                                    <label value="&plus.stock.threshold;" control="min_stock"/>
-                                                    <textbox id="min_stock" type="number" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="min_stock" default="0" onfocus="this.select()"/>
-                                                </row>
-                                                <row>
-                                                    <label value="&plus.memo;" control="product_memo"/>
-                                                    <textbox id="product_memo" form="productForm" name="memo" onfocus="this.select()"/>
-                                                </row>
-                                                <row>
-                                                    <label value="&plus.minimum.sale.quantity;" control="min_sale_qty"/>
-                                                    <textbox id="min_sale_qty" type="number" decimalplaces="Infinity" hidespinbuttons="true" form="productForm" name="min_sale_qty" default="0" onfocus="this.select()"/>
-                                                </row>
-                                                <row>
-                                                    <label value="&plus.sale.unit;"/>
-                                                    <menulist id="sale_unit" form="productForm" name="sale_unit" value="0" default="&plus.sale.unit.individual;">
-                                                        <menupopup style="width: 200px;">
-                                                            <menuitem label="&plus.sale.unit.individual;" value="&plus.sale.unit.individual;"/>
-                                                            <menuitem label="&plus.sale.unit.gram;" value="&plus.sale.unit.gram;"/>
-                                                            <menuitem label="&plus.sale.unit.kilogram;" value="&plus.sale.unit.kilogram;"/>
-                                                            <menuitem label="&plus.sale.unit.ounce;" value="&plus.sale.unit.ounce;"/>
-                                                            <menuitem label="&plus.sale.unit.pound;" value="&plus.sale.unit.pound;"/>
-                                                            <menuitem label="&plus.sale.unit.liter;" value="&plus.sale.unit.liter;"/>
-                                                            <menuitem label="&plus.sale.unit.pint;" value="&plus.sale.unit.pint;"/>
-                                                            <menuitem label="&plus.sale.unit.quart;" value="&plus.sale.unit.quart;"/>
-                                                            <menuitem label="&plus.sale.unit.gallon;" value="&plus.sale.unit.gallon;"/>
-                                                        </menupopup>
-                                                    </menulist>
-                                                </row>
-                                                <row>
-                                                    <label value="&plus.location;" control="product_location"/>
-                                                    <textbox id="product_location" form="productForm" name="location" default="" onfocus="this.select()"/>
-                                                </row>
-                                            </rows>
-                                        </grid>
-                                    </groupbox>
-
-                                </vbox>
-                            </hbox>
+                            <vbox  style="overflow: auto" flex="1" >
+                                <!--label value="&plus.base.data2;" /-->
+                                <grid class="DataForm">
+                                    <columns>
+                                        <column flex="1" /><column flex="1" />
+                                    </columns>
+                                    <rows>
+                                        <row>
+                                            <vbox>
+                                                <label value="&plus.purchase.price;" control="buy_price"/>
+                                                <textbox id="buy_price" type="number" decimalplaces="Infinity" min="-Infinity" max="Infinity" hidespinbuttons="true" form="productForm" name="buy_price" onfocus="this.select()"/>
+                                            </vbox>
+                                            <vbox>
+                                                <label value="&plus.stock.level;" control="stock"/>
+                                                <textbox id="stock" type="number" decimalplaces="Infinity" min="-Infinity" max="Infinity" hidespinbuttons="true" form="productForm" name="stock" default="0" onfocus="this.select()"/>
+                                            </vbox>
+                                        </row>
+                                        <row>
+                                            <vbox>
+                                                <label value="&plus.stock.threshold;" control="min_stock"/>
+                                                <textbox id="min_stock" type="number" decimalplaces="Infinity" min="-Infinity" max="Infinity" hidespinbuttons="true" form="productForm" name="min_stock" default="0" onfocus="this.select()"/>
+                                            </vbox>
+                                            <vbox>
+                                                <label value="&plus.memo;" control="product_memo"/>
+                                                <textbox id="product_memo" form="productForm" name="memo" onfocus="this.select()"/>
+                                            </vbox>
+                                        </row>
+                                        <row>
+                                            <vbox>
+                                                <label value="&plus.minimum.sale.quantity;" control="min_sale_qty"/>
+                                                <textbox id="min_sale_qty" type="number" decimalplaces="Infinity" min="-Infinity" max="Infinity" hidespinbuttons="true" form="productForm" name="min_sale_qty" default="0" onfocus="this.select()"/>
+                                            </vbox>
+                                            <vbox>
+                                                <label value="&plus.sale.unit;"/>
+                                                <menulist id="sale_unit" form="productForm" name="sale_unit" value="0" default="&plus.sale.unit.individual;">
+                                                    <menupopup style="width: 200px;">
+                                                        <menuitem label="&plus.sale.unit.individual;" value="&plus.sale.unit.individual;"/>
+                                                        <menuitem label="&plus.sale.unit.gram;" value="&plus.sale.unit.gram;"/>
+                                                        <menuitem label="&plus.sale.unit.kilogram;" value="&plus.sale.unit.kilogram;"/>
+                                                        <menuitem label="&plus.sale.unit.ounce;" value="&plus.sale.unit.ounce;"/>
+                                                        <menuitem label="&plus.sale.unit.pound;" value="&plus.sale.unit.pound;"/>
+                                                        <menuitem label="&plus.sale.unit.liter;" value="&plus.sale.unit.liter;"/>
+                                                        <menuitem label="&plus.sale.unit.pint;" value="&plus.sale.unit.pint;"/>
+                                                        <menuitem label="&plus.sale.unit.quart;" value="&plus.sale.unit.quart;"/>
+                                                        <menuitem label="&plus.sale.unit.gallon;" value="&plus.sale.unit.gallon;"/>
+                                                    </menupopup>
+                                                </menulist>
+                                            </vbox>
+                                        </row>
+                                        <row>
+                                            <vbox>
+                                                <label value="&plus.location;" control="product_location"/>
+                                                <textbox id="product_location" form="productForm" name="location" default="" onfocus="this.select()"/>
+                                            </vbox>
+                                            <vbox>
+                                                
+                                            </vbox>
+                                        </row>
+                                    </rows>
+                                </grid>
+                            </vbox>
                         </tabpanel>
 
                         <tabpanel flex="1" >
-                            <hbox flex="1">
-                                <vbox  style="overflow: auto" flex="1" >
-
-                                    <groupbox>
-                                        <caption label="&plus.setmenu;" />
-                                        <label hidden="true" id="setmenu" form="productForm" name="setmenu" value="" />
-                                        <viviscrollabletree id="plusetscrollablepanel" flex="1" rows="7" headers="&plus.header.no;,&plus.header.name;,&plus.header.quantity;" fields="no,name,qty"
-                                                            onclick="$do('clickPluSetsPanel',this.selectedIndex, 'Plus');"
-                                                            class="prodscrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray">
-                                            <vivibutton id="+" class="systoolbtn mediumimagebtn plusbtn" oncommand="$do('getPlu', null, 'Plus');" />
-                                            <vivibutton id="-" class="systoolbtn mediumimagebtn minusbtn" oncommand="$do('removePluSet', null, 'Plus');"/>
-                                        </viviscrollabletree>
-                                    </groupbox>
-
-                                </vbox>
-                            </hbox>
+                            <vbox  style="overflow: auto" flex="1" >
+                                <label value="&plus.setmenu;" class="SubTitle"/>
+                                <label hidden="true" id="setmenu" form="productForm" name="setmenu" value="" />
+                                <viviscrollabletree id="plusetscrollablepanel" flex="1" rows="7" headers="&plus.header.no;,&plus.header.name;,&plus.header.quantity;" fields="no,name,qty"
+                                                    onclick="$do('clickPluSetsPanel',this.selectedIndex, 'Plus');"
+                                                    class="Listpnl" scrollUpClass="ScrollUp" scrollDownClass="ScrollDown">
+                                    <vivibutton id="+" class="systoolbtn mediumimagebtn plusbtn" oncommand="$do('getPlu', null, 'Plus');" />
+                                    <vivibutton id="-" class="systoolbtn mediumimagebtn minusbtn" oncommand="$do('removePluSet', null, 'Plus');"/>
+                                </viviscrollabletree>
+                            </vbox>
                         </tabpanel>
 
                         <!-- Icon and Button color -->
                         <tabpanel flex="1" >
                             <hbox flex="1">
                                 <vbox flex="1">
-                                    <groupbox>
-                                        <caption label="&plus.image;" />
-                                        <hbox>
-                                            <spacer style="width: 30px;" />
-                                            <image id="pluimage" pack="start" style="width:64px; height:64px;"/>
-                                            <spacer style="width: 30px;" />
-                                            <hbox>
-                                                <button id="imageBrowseBtn" class="iconbtn button-radius image32" image="chrome://viviecr/skin/images/add.png"/>
-                                                <button id="imageRemoveBtn" class="iconbtn button-radius image32" image="chrome://viviecr/skin/images/cancel.png"/>
-                                                <spacer flex="1" />
+                                    <vbox class="ImgPnl" >
+                                        <label value="&plus.image;" class="SubTitle" />
+                                        <hbox  flex="1">
+                                            <hbox class="IconArea">
+                                                <image id="pluimage" pack="start" style="width:64px; height:64px;"/>
                                             </hbox>
+                                            <spacer style="width: 10px;" />
+                                            <vbox flex="1">
+                                                <button id="imageBrowseBtn" class="ItemButtonA" label="Add Icon" image="chrome://viviecr/skin/images/add.png"/>
+                                                <spacer style="height: 4px;" />
+                                                <button id="imageRemoveBtn" class="ItemButtonA" label="Remove Icon" image="chrome://viviecr/skin/images/cancel.png"/>
+                                            </vbox>
+                                            <spacer style="width: 20px;" />
                                         </hbox>
-                                    </groupbox>
-
-                                    <groupbox>
-                                        <caption label="&plus.button.color;" />
-                                        <button_colorpicker id="dept_button_color" form="productForm" name="button_color"
-                                                            buttonClass="catbtn button-radius"
-                                                            class-prefix="product-button-color-"
-                                                            default="product-button-color-default"/>
-                                    </groupbox>
-
-                                    <groupbox>
-                                        <caption label="&plus.font.size;" />
-                                        <button_fontsizepicker id="font_size" form="productForm" name="font_size"
-                                                               buttonClass="catbtn button-white button-radius" default="medium"/>
-                                    </groupbox>
+                                    </vbox>
+                                    <hbox class="RightPnlB">
+                                        <vbox flex="1">
+                                            <label value="&plus.button.color;" class="SubTitle"/>
+                                            <hbox pack="center" align="center" flex="1">
+                                                <button_colorpicker id="dept_button_color" form="productForm" name="button_color"
+                                                                buttonClass="catbtn" class="BtnColors"
+                                                                class-prefix="product-button-color-"
+                                                                default="product-button-color-default"/>
+                                            </hbox>
+                                        </vbox>
+                                        <vbox flex="1">
+                                            <label value="&plus.font.size;" class="SubTitle"/>
+                                            <button_fontsizepicker id="font_size" form="productForm" name="font_size" class="FontSizeSet"
+                                                                   buttonClass="ItemButtonB" default="medium"/>
+                                        </vbox>
+                                    </hbox>
+                                   
 
                                 </vbox>
                             </hbox>
                         </tabpanel>
 
                         <!-- Sell Price Levels -->
-                        <tabpanel>
-                            <vbox>
-                                <groupbox>
-                                    <caption label="&plus.pricelevels;" />
-                                    <grid>
+                        <tabpanel  flex="1">
+                            <vbox flex="1">
+                                <!--caption label="&plus.pricelevels;" /-->
+                                    <grid class="PLTable">
                                         <columns>
                                             <column />
                                             <column flex="1" />
@@ -374,7 +385,6 @@
                                         </rows>
                                     </grid>
 
-                                </groupbox>
                             </vbox>
                         </tabpanel>
 
@@ -382,13 +392,13 @@
                         <tabpanel flex="1" >
                             <vbox flex="1">
                                 <groupbox flex="1">
-                                    <caption label="&plus.linkgroups;" />
+                                    <!--caption label="&plus.linkgroups;" /-->
                                     <viviscrollablebuttonpanel id="group_listscrollablepanel" form="productForm" name="link_group" default="" seltype="multiple" flex="1" cols="3" rows="6" labelField="name" imageField="no"
                                                                oncommand=""
                                                                class="catescrollablepanel"
-                                                               buttonClass="catbtn button-radius"
-                                                               scrollUpClass="rightprevbtn button-blue"
-                                                               scrollDownClass="rightnextbtn button-blue">
+                                                               buttonClass="catbtn"
+                                                               scrollUpClass="ScrollUp"
+                                                               scrollDownClass="ScrollDown">
                                         <spacer flex="1"/>
                                     </viviscrollablebuttonpanel>
                                 </groupbox>
@@ -397,23 +407,24 @@
 
                     </tabpanels>
                 </tabbox>
-                <hbox>
-                    <button id="add_plu" label="&plus.button.action.add;" disabled="false" class="editbtns" oncommand="$do('add', null, 'Plus');" />
-                    <spacer flex="1" />
-                    <button id="modify_plu" label="&plus.button.action.modify;" disabled="true" class="editbtns" oncommand="$do('modify', null, 'Plus');" />
-                    <button id="delete_plu" label="&plus.button.action.delete;" disabled="true" class="editbtns" oncommand="$do('remove', null, 'Plus');" />
+                
+                <hbox flex="1">
+                    <hbox class="ToolBar" flex="1">
+                        <button id="add_plu" label="&plus.button.action.add;" disabled="false" class="BtnAdd" oncommand="$do('add', null, 'Plus');" />
+                        <button id="modify_plu" label="&plus.button.action.modify;" disabled="true" class="BtnMod" oncommand="$do('modify', null, 'Plus');" />
+                        <button id="delete_plu" label="&plus.button.action.delete;" disabled="true" class="BtnDel" oncommand="$do('remove', null, 'Plus');" />
+                    </hbox>
+                    <hbox id="dialogButtons" class="dialogbtns" pack="center">
+                        <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
+                        <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                    </hbox>    
                 </hbox>
-                <spacer style="height: 20px;" />
+                
             </vbox>
 
         </hbox>
     </vbox>
 
-    <hbox id="dialogButtons" class="dialogbtns" pack="center">
-        <spacer flex="1"/>
-        <button class="right exit-dialog" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
-        <spacer flex="1"/>
-        <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="vkb"/>
-    </hbox>
+    
 
 </window>

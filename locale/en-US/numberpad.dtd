@@ -12,5 +12,4 @@
 <!ENTITY    numberpad.keylabel.tray             "TRAY MARKER">
 <!ENTITY    numberpad.keylabel.signoff             "SIGN OFF">
 <!ENTITY    numberpad.keylabel.times             "X">
-<!ENTITY    numberpad.keylabel.password             "Passcode:">
 <!ENTITY    numberpad.keylabel.ok             "OK">

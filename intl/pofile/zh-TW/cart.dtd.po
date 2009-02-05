@@ -4,7 +4,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-15 18:34+0800\n"
+<<<<<<< HEAD:intl/pofile/zh-TW/cart.dtd.po
+"POT-Creation-Date: 2009-01-21 01:13+0800\n"
+=======
+"POT-Creation-Date: 2009-01-19 17:02+0800\n"
+>>>>>>> f087ea22d683ef5c6f044fa13f96a705f4918799:intl/pofile/zh-TW/cart.dtd.po
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,23 +19,23 @@ msgstr ""
 
 #: cart.item.name
 msgid "Product Name"
-msgstr "品名"
+msgstr "Product Name"
 
 #: cart.item.qty
 msgid "#"
-msgstr "數量"
+msgstr "#"
 
 #: cart.item.unitprice
 msgid "@"
-msgstr "單價"
+msgstr "@"
 
 #: cart.item.subtotal
 msgid "Subtotal"
-msgstr "小計"
+msgstr "Subtotal"
 
 #: cart.item.tax
 msgid "Tx"
-msgstr "稅別"
+msgstr "Tx"
 
 #: cart.button.plus
 msgid "+"
@@ -43,4 +47,4 @@ msgstr "-"
 
 #: cart.button.payments
 msgid "Payments"
-msgstr "付款"
+msgstr "Payments"

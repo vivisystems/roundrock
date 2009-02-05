@@ -7,6 +7,8 @@
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/departments.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -18,39 +20,44 @@
     <script type="application/x-javascript" src="chrome://viviecr/content/systembackup.js" />
 
     <vbox flex="1" class="main-dialog">
-        <label value="&systembackup.backup; / &systembackup.restore;" />
-        <hbox flex="1">
-            <groupbox flex="1">
-                <caption label="&systembackup.local;" />
-                <viviscrollabletree id="localbackupscrollablepanel" flex="1" rows="7" headers="Time" fields="time" onclick="$do('select',this.selectedIndex, 'SystemBackup');"
-                                                        class="prodscrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray">
-                    <spacer flex="1" />
-                </viviscrollabletree>
-            </groupbox>
-                            
-            <vbox flex="1" align="center">
-                <spacer style="height:80px;" />
-                <vivibutton id="backuptolocal" label="&systembackup.backuptolocal;" class="widebtns" oncommand="$do('backupToLocal',null, 'SystemBackup');"/>
-                <vivibutton id="backuptostick" label="&systembackup.backuptostick;" class="widebtns" oncommand="$do('backupToStick',null, 'SystemBackup');"/>
-                <spacer style="height:50px;" />
-                <vivibutton id="restorefromlocal" label="&systembackup.restorefromlocal;" class="widebtns" oncommand="$do('restoreFromLocal',null, 'SystemBackup');"/>
-                <vivibutton id="restorefromstick" label="&systembackup.restorefromstick;" class="widebtns" oncommand="$do('restoreFromStick',null, 'SystemBackup');"/>
-            </vbox>
-                            
-            <groupbox flex="1">
-                <caption label="&systembackup.stick;" />
-                <viviscrollabletree id="stickbackupscrollablepanel" flex="1" rows="7" headers="Time" fields="time" onclick="$do('select',this.selectedIndex, 'SystemBackup');"
-                                                        class="prodscrollablepanel" scrollUpClass="rightprevbtn gray" scrollDownClass="rightnextbtn gray">
-                    <spacer flex="1" />
-                </viviscrollabletree>
-            </groupbox>
-        </hbox>
+        <vbox flex="1" class="MainPnl">
+            <label value="&systembackup.backup; / &systembackup.restore;" class="PageTitle" />
+            <hbox flex="1">
+                <vbox flex="1">
+                    <label value="&systembackup.local;" class="SubTitle"/>
+                    <viviscrollabletree id="localbackupscrollablepanel" flex="1" rows="7" headers="Time" fields="time" onclick="$do('select',this.selectedIndex, 'SystemBackup');"
+                                                 dir="reverse" class="ListPnl" scrollUpClass="ScrollUp" scrollDownClass="ScrollDown">
+                        <spacer flex="1" />
+                    </viviscrollabletree>
+                </vbox>
+
+                <vbox flex="1" align="center">
+                    <spacer style="height:80px;" />
+                    <vivibutton id="backuptolocal" label="&systembackup.backuptolocal;" class="BakBtn" oncommand="$do('backupToLocal',null, 'SystemBackup');"/>
+                    <vivibutton id="backuptostick" label="&systembackup.backuptostick;" class="BakBtn" oncommand="$do('backupToStick',null, 'SystemBackup');"/>
+                    <spacer style="height:50px;" />
+                    <vivibutton id="restorefromlocal" label="&systembackup.restorefromlocal;" class="BakBtn" oncommand="$do('restoreFromLocal',null, 'SystemBackup');"/>
+                    <vivibutton id="restorefromstick" label="&systembackup.restorefromstick;" class="BakBtn" oncommand="$do('restoreFromStick',null, 'SystemBackup');"/>
+                </vbox>
+
+                <vbox flex="1">
+                    <label value="&systembackup.stick;" class="SubTitle"/>
+                    <viviscrollabletree id="stickbackupscrollablepanel" flex="1" rows="7" headers="Time" fields="time" onclick="$do('select',this.selectedIndex, 'SystemBackup');"
+                                                            class="ListPnl" scrollUpClass="ScrollUp" scrollDownClass="ScrollDown">
+                        <spacer flex="1" />
+                    </viviscrollabletree>
+                </vbox>
+            </hbox>
+            <hbox id="dialogButtons" class="dialogbtns" pack="center">
+                <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+            </hbox>
+        </vbox>
     </vbox>
 
-    <panel id="backup_wait_panel" position="overlap" noautohide="true" style="padding:30px;">
+    <panel id="backup_wait_panel" position="overlap" noautohide="true" class="ImportWaitPnl">
         <vbox flex="1">
         <groupbox flex="1">
-            <caption label="&systembackup.backupwait;"/>
+            <caption label="&systembackup.backupwait;" class="PageTitle"/>
             <spacer style="height: 20px;" />
             <progressmeter id="backupprogressmeter" mode="undetermined" value="0" />
             <spacer style="height: 20px;" />
@@ -58,19 +65,15 @@
         </vbox>
     </panel>
 
-    <panel id="restore_wait_panel" position="overlap" noautohide="true" style="padding:30px;">
+    <panel id="restore_wait_panel" position="overlap" noautohide="true" class="ImportWaitPnl">
         <vbox flex="1">
         <groupbox flex="1">
-            <caption label="&systembackup.restorewait;"/>
+            <caption label="&systembackup.restorewait;" class="PageTitle"/>
             <spacer style="height: 20px;" />
             <progressmeter id="restoreprogressmeter" mode="undetermined" value="0" />
             <spacer style="height: 20px;" />
         </groupbox>
         </vbox>
     </panel>
-
-    <hbox id="dialogButtons" class="dialogbtns" pack="center">
-        <button class="right exit-dialog" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
-    </hbox>
 
 </window>

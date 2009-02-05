@@ -1,19 +1,19 @@
-<!ENTITY vivipos.fec.common.name "名稱">
-<!ENTITY vivipos.fec.common.ok "完成">
-<!ENTITY vivipos.fec.common.cancel "取消">
-<!ENTITY vivipos.fec.common.add "新增">
-<!ENTITY vivipos.fec.common.modify "修改">
-<!ENTITY vivipos.fec.common.delete "刪除">
+<!ENTITY vivipos.fec.common.name "Name">
+<!ENTITY vivipos.fec.common.ok "Ok">
+<!ENTITY vivipos.fec.common.cancel "Cancel">
+<!ENTITY vivipos.fec.common.add "Add">
+<!ENTITY vivipos.fec.common.modify "Modify">
+<!ENTITY vivipos.fec.common.delete "Delete">
 
-<!ENTITY vivipos.fec.plus.basedata "資料">
-<!ENTITY vivipos.fec.plus.basedata2 "資料 2">
-<!ENTITY vivipos.fec.plus.sets "組合產品">
-<!ENTITY vivipos.fec.plus.face "圖示與顏色">
-<!ENTITY vivipos.fec.plus.pricelevels "價格設定">
-<!ENTITY vivipos.fec.plus.groups "群組連結">
-<!ENTITY vivipos.fec.plus.level "設定">
-<!ENTITY vivipos.fec.plus.price "價格">
-<!ENTITY vivipos.fec.plus.halo "最高價格">
-<!ENTITY vivipos.fec.plus.lalo "最低價格">
+<!ENTITY vivipos.fec.plus.basedata "Data">
+<!ENTITY vivipos.fec.plus.basedata2 "Data 2">
+<!ENTITY vivipos.fec.plus.sets "Sets">
+<!ENTITY vivipos.fec.plus.face "Icon and Color">
+<!ENTITY vivipos.fec.plus.pricelevels "Price Levels">
+<!ENTITY vivipos.fec.plus.groups "Link Groups">
+<!ENTITY vivipos.fec.plus.level "Level">
+<!ENTITY vivipos.fec.plus.price "Price">
+<!ENTITY vivipos.fec.plus.halo "HALO">
+<!ENTITY vivipos.fec.plus.lalo "LALO">
 
-<!ENTITY vivipos.fec.controlpanel.loading "載入中........">
+<!ENTITY vivipos.fec.controlpanel.loading "Loading ........">

@@ -1,6 +1,7 @@
 (function(){
 
     GeckoJS.include('chrome://viviecr/content/devices/deviceTemplate.js');
+    GeckoJS.include('chrome://viviecr/content/devices/deviceTemplateUtils.js');
 
     /**
      * Print Controller
@@ -9,255 +10,199 @@
     GeckoJS.Controller.extend( {
         name: 'Print',
 
-        _templates: null,
-        _ports: null,
-        _portspeeds: null,
-        _devicemodels: null,
-        _deviceCommands: null,
-        _selectedDevices: null,
-        _sortedDevicemodels: null,
-        _portControlService: null,
+        _device: null,
+
+        _worker: null,
 
         // load device configuration and selections
         initial: function () {
 
-            // load templates
-            this.getTemplates();
+            // get handle to Devices controller
+            this._device = this.getDeviceController();
 
-            // load device ports
-            this.getPorts();
+            // initialize worker thread
+            this._worker = GREUtils.Thread.getWorkerThread();
+            //this._worker = GREUtils.Thread.getMainThread();
 
-            // load port speeds
-            this.getPortSpeeds();
-
-            // load device models
-            this.getDeviceModels();
-
-            // device selections and device commands are dynamic data and are loaded
-            // from session during each print event
-
-            // add event listener for beforeSubmit events
+            // add event listener for onSubmit events
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             if(cart) {
-                cart.addEventListener('beforeSubmit', this.beforeSubmit, this);
+                cart.addEventListener('onSubmit', this.submitOrder, this);
             }
         },
 
-        // get cache devices
+        getDeviceController: function () {
+            if (this._device == null) {
+                this._device = GeckoJS.Controller.getInstanceByName('Devices');
+            }
+            return this._device;
+        },
+
+        // get cache devices from device controller
         getSelectedDevices: function () {
-            var selectedDevices = GeckoJS.Configure.read('vivipos.fec.settings.selectedDevices') || '';
-            if (selectedDevices != null && selectedDevices.length > 0) {
-                try {
-                    selectedDevices = GeckoJS.BaseObject.unserialize(selectedDevices);
-                }
-                catch(e) {
-                    selectedDevices = '';
-                }
+            var device = this.getDeviceController();
+            if (device != null) {
+                return device.getSelectedDevices();
             }
-            return selectedDevices;
+            else {
+                return null;
+            }
         },
 
-        // get cache device commands
-        getDeviceCommands: function () {
-            return GeckoJS.Session.get('deviceCommands') || {};
-        },
-
-        // open serial port for writing
-        openSerialPort: function (path, speed) {
-            var portControl = this.getSerialPortControlService();
-            if (portControl != null) {
-                try {
-                    return (portControl.openPort(path, speed + ',n,8,1,h') != -1);
-                }
-                catch(e) {
-                    return false;
-                }
+        // invoke openSerialPort on device controller
+        openSerialPort: function (path, portspeed, handshaking) {
+            var device = this.getDeviceController();
+            if (device != null) {
+                return device.openSerialPort(path, portspeed, handshaking);
             }
             else {
                 return false;
             }
         },
 
+        // invoke writeSerialPort on device controller
         writeSerialPort: function (path, buf) {
-            var portControl = this.getSerialPortControlService();
-            if (portControl != null) {
-                try {
-                    return (portControl.writePort(path, buf, buf.length) != -1);
-                }
-                catch(e) {
-                    return false;
-                }
+            var device = this.getDeviceController();
+            if (device != null) {
+                return device.writeSerialPort(path, buf);
             }
             else {
-                return false;
+                return -1;
             }
         },
 
-        // close serial port
+        // invoke closeSerialPort on device controller
         closeSerialPort: function (path) {
-            var portControl = this.getSerialPortControlService();
-            if (portControl != null) {
-                try {
-                    portControl.closePort(path);
-                    return true;
-                }
-                catch(e) {
-                    return false;
-                }
+            var device = this.getDeviceController();
+            if (device != null) {
+                return device.closeSerialPort(path);
             }
             else {
                 return false;
             }
         },
 
-        // return port control service object
-        getSerialPortControlService: function() {
-            if (this._portControlService == null) {
-                this._portControlService = GREUtils.XPCOM.getService("@firich.com.tw/serial_port_control_unix;1", "nsISerialPortControlUnix");
-            }
-            return this._portControlService;
-        },
-
-        // return template registry objects
+        // invoke getTemplates on device controller to retrieve registered templates
         getTemplates: function () {
-            if (this._templates == null) {
-                this._templates = GeckoJS.Configure.read('vivipos.fec.registry.templates');
+            var device = this.getDeviceController();
+            if (device != null) {
+                return device.getTemplates();
             }
-            return this._templates;
+            else {
+                return null;
+            }
         },
 
-        // return port registry objects
+        // invoke getPorts on device controller to retrieve registered ports
         getPorts: function () {
-            if (this._ports == null) {
-                this._ports = GeckoJS.Configure.read('vivipos.fec.registry.ports');
+            var device = this.getDeviceController();
+            if (device != null) {
+                return device.getPorts();
             }
-            return this._ports;
+            else {
+                return null;
+            }
         },
 
-        // return list of port speeds
-        getPortSpeeds: function () {
-            if (this._portspeeds == null) {
-                this._portspeeds = GeckoJS.Configure.read('vivipos.fec.registry.portspeeds');
-                if (this._portspeeds != null) this._portspeeds = this._portspeeds.split(',');
-            }
-            return this._portspeeds;
-        },
-
-        // return device model registry objects
+        // invoke getDeviceModels on device controller to retrieve registered device models
         getDeviceModels: function () {
-            if (this._devicemodels == null) {
-                this._devicemodels = GeckoJS.Configure.read('vivipos.fec.registry.devicemodels');
+            var device = this.getDeviceController();
+            if (device != null) {
+                return device.getDeviceModels();
             }
-            return this._devicemodels;
+            else {
+                return null;
+            }
         },
 
-        getTemplateData: function(template, templates, useCache) {
-            var tpl;
-            var cachedTemplates = GeckoJS.Session.get('deviceTemplates');
-
-            if (useCache) {
-
-                if (cachedTemplates != null) {
-                    tpl = cachedTemplates[template];
-                }
+        // invoke getTemplateData on device controller to retrieve the content of a specific template
+        getTemplateData: function(template, useCache) {
+            var device = this.getDeviceController();
+            if (device != null) {
+                return device.getTemplateData(template, useCache);
             }
-
-            if ((tpl == null || tpl.length == 0) && templates != null) {
-                var deviceController = GeckoJS.Controller.getInstanceByName('Devices');
-                tpl = deviceController.loadTemplateFile(templates[template].path);
-                cachedTemplates[template] = tpl;
+            else {
+                return null;
             }
-            return tpl;
         },
 
-        getDeviceCommandCodes: function(devicemodel, devicemodels, useCache) {
-            var codes;
-            var cachedCommands = GeckoJS.Session.get('deviceCommands');
-            if (useCache) {
-                if (cachedCommands != null) {
-                    codes = cachedCommands[devicemodel];
-                }
+        // invoke getDeviceCommandCodes on device controller to retrieve the command code mapping for a specific device model
+        getDeviceCommandCodes: function(devicemodel, useCache) {
+            var device = this.getDeviceController();
+            if (device != null) {
+                return device.getDeviceCommandCodes(devicemodel, useCache);
             }
-
-            if (codes == null && devicemodels != null) {
-                var deviceController = GeckoJS.Controller.getInstanceByName('Devices');
-                codes = deviceController.loadDeviceCommandFile(devicemodels[devicemodel].path);
-                cachedCommands[devicemodel] = codes;
+            else {
+                return null;
             }
-            return codes;
         },
 
-        _MODIFIERS: {
-            center: function(str, width) {
-                if (width == null || isNaN(width) || width < 0) return str;
+        // return the actual file system path of a port
+        getPortPath: function (port) {
+            var ports = this.getPorts();
+            if (ports == null || ports[port] == null) return null;
 
-                width = Math.floor(Math.abs(width));
-                var len = (str == null) ? 0 : str.length;
+            return ports[port].path;
+        },
 
-                if (width < len) {
-                    str = str.substr(0, width);
-                    len = width;
-                }
-                var leftPaddingWidth = Math.floor((width - len) / 2);
-                return GeckoJS.String.padRight(GeckoJS.String.padLeft(str, leftPaddingWidth - (- len) , ' '), width, ' ');
-            },
+        // return the name of a port
+        getPortName: function (port) {
+            var ports = this.getPorts();
+            if (ports == null || ports[port] == null) return null;
 
-            left: function(str, width) {
-                if (width == null || isNaN(width)) return str;
+            return ports[port].label;
+        },
 
-                width = Math.floor(Math.abs(width));
-                var len = (str == null) ? 0 : str.length;
+        // invoke getDeviceModels on device controller to retrieve registered device models
+        getDeviceModelName: function (devicemodel) {
+            var deviceModels = this.getDeviceModels();
+            if (deviceModels == null || deviceModels[devicemodel] == null)  return null;
 
-                if (width < len) {
-                    return str.substr(0, width);
-                }
-                else {
-                    return GeckoJS.String.padRight(str, width, ' ');
-                }
-            },
+            return deviceModels[devicemodel].label;
+        },
 
-            right: function(str, width) {
-                if (width == null || isNaN(width)) return str;
+        // check if receipts have already been printed on any printer
+        isReceiptPrinted: function(orderid, device) {
+            var orderReceiptModel = new OrderReceiptModel();
+            var receipts = orderReceiptModel.find('all', {
+                conditions: 'order_id = "' + orderid + '" AND device = "' + device + '"'
+            });
+            if (receipts == null || receipts.length == 0)
+                return null;
+            else
+                return receipts;
+        },
 
-                width = Math.floor(Math.abs(width));
-                var len = (str == null) ? 0 : str.length;
+        // add a receipt print timestamp
+        receiptPrinted: function(orderid, orderseq, device) {
+            var orderReceiptModel = new OrderReceiptModel();
+            var orderReceipt = {
+                order_id: orderid,
+                printed: new Date().getTime(),
+                sequence: orderseq,
+                device: device
+            };
 
-                if (width < len) {
-                    return str.substr(0, width);
-                }
-
-                return GeckoJS.String.padLeft(str, width, ' ');
-            },
-
-            truncate: function(str, width) {
-                if (width == null || isNaN(width)) return str;
-
-                width = Math.floor(Math.abs(width));
-                var len = (str == null) ? 0 : str.length;
-
-                if (width >= len) return str;
-
-                return str.substr(0, width);
-            }
+            orderReceiptModel.save(orderReceipt);
         },
 
         // handle order submit events
-        beforeSubmit: function(evt) {
+        submitOrder: function(evt) {
 
-            var printed = false;
-            var order = evt.data.data;
+            this.printReceipts(evt.data);
+            this.printGuestChecks(evt.data);
 
-            // check if receipt already printed
-            if (order['receipt_printed'] == null) {
-                printed = this.printReceipts(evt.data);
-                if (printed) evt.data.data['receipt_printed'] = (new Date()).getTime();
-            }
+            // @hack
+            // sleep to allow UI to catch up
+            this.sleep(50);
         },
 
         // handles user initiated receipt requests
         issueReceipt: function(printer) {
-            // check transaction status
+            var device = this.getDeviceController();
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
+
+            // check transaction status
             var txn = cart._getTransaction();
             if (txn == null) {
                 // @todo OSD
@@ -271,61 +216,59 @@
                 return; // fatal error ?
             }
 
-            if (txn.data['receipt_printed'] != null) {
-                var datetime = new Date(txn.data['receipt_printed']).toLocaleString();
-                NotifyUtils.warn(_('A receipt has already been issued for this order at [%S]', [datetime]));
+            if (device == null) {
+                NotifyUtils.error(_('Error in device manager! Please check your device configuration'));
                 return;
             }
+
             // check device settings
-            if ((printer != null) && (printer != '') && (printer != 1) && (printer != 2)) {
-                NotifyUtils.warn(_('The intended printer [%S] does not exist', [printer]));
-                return;
-            }
+            printer = GeckoJS.String.trim(printer);
+            if (printer == null || printer == '') {
+                switch (device.isDeviceEnabled('receipt', null)) {
+                    case -2:
+                        NotifyUtils.warn(_('You have not configured any receipt printers'));
+                        return;
 
-            var selectedDevices = this.getSelectedDevices();
-            if (printer == 1) {
-                if (!selectedDevices['receipt-1-enabled']) {
-                    NotifyUtils.warn(_('The intended printer [%S] is not enabled', [printer]));
-                    return;
+                    case -1: // invalid device
+                    case 0: // device not enabled
+                        NotifyUtils.warn(_('All receipt printers are disabled'));
+                        return;
                 }
             }
-            else if (printer == 2) {
-                if (!selectedDevices['receipt-2-enabled']) {
-                    NotifyUtils.warn(_('The intended printer [%S] is not enabled', [printer]));
-                    return;
+            else {
+                switch (device.isDeviceEnabled('receipt', printer)) {
+                    case -2:
+                        NotifyUtils.warn(_('The specified receipt printer [%S] is not configured', [printer]));
+                        return;
+
+                    case -1:
+                        NotifyUtils.warn(_('Invalid receipt printer [%S]', [printer]));
+                        return;
+
+                    case 0:
+                        NotifyUtils.warn(_('The specified receipt printer [%S] is not enabled', [printer]));
+                        return;
                 }
             }
-            else if (!selectedDevices['receipt-1-enabled'] && !selectedDevices['receipt-2-enabled']) {
-                NotifyUtils.warn(_('All receipt printers are disabled'));
-                return;
-            }
-
-            if (printer == null || printer == '') printer = 0;
-
-            var printed = this.printReceipts(txn, printer);
-            if (printed) {
-                var now = (new Date()).getTime();
-                txn.data['receipt_printed'] = now;
-
-                var orderModel = new OrderModel();
-                var order = orderModel.findByIndex('first', {
-                    index: 'sequence',
-                    value: txn.data.seq
-                });
-                if (order != null) {
-                    order['receipt_printed'] = now;
-                    orderModel.saveOrderMaster(order);
-                }
-
-            }
+            if (printer == null) printer = 0;
+            this.printReceipts(txn, printer);
         },
 
         // print on all enabled receipt printers
+        // printer = 0: print on all enabled printers
+        // printer = 1: first printer
+        // printer = 2: second printer
+        // printer = null: print on all auto-print enabled printers
+
         printReceipts: function(txn, printer) {
 
-            var selectedDevices = this.getSelectedDevices();
-            var printed = false;
+            var device = this.getDeviceController();
+            if (device == null) {
+                NotifyUtils.error(_('Error in device manager! Please check your device configuration'));
+                return;
+            }
 
+            var enabledDevices = device.getEnabledDevices('receipt');
             /*
              *
              * add support attributes to order object:
@@ -338,6 +281,7 @@
              * - store details:
              *   - store name
              *   - store contact
+             *   - branch
              *   - telephone1
              *   - telephone2
              *   - address1
@@ -352,27 +296,17 @@
              *   - email
              *   - note
              */
-            var now = new Date();
+
             var order = txn.data;
+            
             order.create_date = new Date(order.created);
             order.print_date = new Date();
 
-            // order.store = GeckoJS.Session.get('storeDetails');
-            order.store = {
-                name: 'VIVISHOP',
-                contact: 'VIVIPOS Team',
-                telephone1: '+886 2 2698-1446',
-                telephone2: '+886 930 858 972',
-                address1: '10F, No. 75, Sec 1',
-                address2: 'Sin Tai Wu Road',
-                city: 'Sijhih City',
-                county: 'Taipei County',
-                zip: '221',
-                country: 'Taiwan, R.O.C.',
-                fax: '+886 2 2698-3573',
-                email: 'sales@vivipos.com',
-                note: 'Vivid You POS!'
-            }
+            var data = {
+                txn: txn,
+                store: GeckoJS.Session.get('storeContact'),
+                order: order
+            };
 
             if (order.proceeds_clerk == null || order.proceeds_clerk == '') {
                 var user = new GeckoJS.AclComponent().getUserPrincipal();
@@ -381,46 +315,36 @@
                     order.proceeds_clerk_displayname = user.description;
                 }
             }
-            txn._MODIFIERS = this._MODIFIERS;
-/*
-            this.log(this.dump(selectedDevices));
-            this.log(this.dump(txn));
-*/
-            // for each enabled printer device, print if autoprint is on or if force is true
-            if (selectedDevices != null) {
-                if (selectedDevices['receipt-1-enabled'] &&
-                    ((printer == 0) ||
-                     (printer == 1) ||
-                     (printed == null && selectedDevices['receipt-1-autoprint']))) {
-                    var template = selectedDevices['receipt-1-template'];
-                    var port = selectedDevices['receipt-1-port'];
-                    var speed = selectedDevices['receipt-1-portspeed'];
-                    var devicemodel = selectedDevices['receipt-1-devicemodel'];
-                    var encoding = selectedDevices['receipt-1-encoding'];
-                    printed = this.printCheck(txn, template, port, speed, devicemodel, encoding);
-                }
 
-                if (selectedDevices['receipt-2-enabled'] &&
-                    ((printer == 0) ||
-                     (printer == 2) ||
-                     (printed == null && selectedDevices['receipt-2-autoprint']))) {
-                    var template = selectedDevices['receipt-2-template'];
-                    var port = selectedDevices['receipt-2-port'];
-                    var speed = selectedDevices['receipt-2-portspeed'];
-                    var devicemodel = selectedDevices['receipt-2-devicemodel'];
-                    var encoding = selectedDevices['receipt-2-encoding'];
-                    if (this.printCheck(txn, template, port, speed, devicemodel, encoding)) {
-                        printed = true;
+            //this.log('Enabled Devices:\n' + GeckoJS.BaseObject.dump(enabledDevices));
+            //this.log('Data:\n' + GeckoJS.BaseObject.dump(data));
+            //this.log('Order:\n' + GeckoJS.BaseObject.dump(data.order));
+            //this.log('Store:\n' + GeckoJS.BaseObject.dump(data.store));
+            
+            // for each enabled printer device, print if autoprint is on or if force is true
+            var self = this;
+            if (enabledDevices != null) {
+                enabledDevices.forEach(function(device) {
+                    if ((printer == null && device.autoprint) || printer == device.number || printer == 0) {
+                        var template = device.template;
+                        var port = device.port;
+                        var portspeed = device.portspeed;
+                        var handshaking = device.handshaking;
+                        var devicemodel = device.devicemodel;
+                        var encoding = device.encoding;
+                        data._MODIFIERS = _templateModifiers(encoding);
+                        self.printCheck(data, template, port, portspeed, handshaking, devicemodel, encoding, device.number);
                     }
-                }
+                });
             }
-            return printed;
         },
 
         // handles user initiated guest check requests
         issueGuestCheck: function(printer) {
-            // check transaction status
+            var device = this.getDeviceController();
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
+
+            // check transaction status
             var txn = cart._getTransaction();
             if (txn == null) {
                 // @todo OSD
@@ -428,46 +352,72 @@
                 return; // fatal error ?
             }
 
-            if (txn.isSubmit() || txn.isCancel()) {
+            if (txn.isCancel()) {
                 // @todo OSD
-                NotifyUtils.warn(_('Not an open order; cannot issue guest check'));
+                NotifyUtils.warn(_('Cannot issue guest check on a canceled order'));
                 return; // fatal error ?
             }
 
+            if (txn.getItemsCount() < 1) {
+                NotifyUtils.warn(_('Nothing has been registered yet; cannot issue guest check'));
+                return;
+            }
+
+            if (device == null) {
+                NotifyUtils.error(_('Error in device manager! Please check your device configuration'));
+                return;
+            }
+
             // check device settings
-            if ((printer != null) && (printer != '') && (printer != 1) && (printer != 2)) {
-                NotifyUtils.warn(_('The intended printer [%S] does not exist', [printer]));
-                return;
-            }
+            printer = GeckoJS.String.trim(printer);
+            if (printer == null || printer == '') {
+                switch (device.isDeviceEnabled('guestcheck', null)) {
+                    case -2:
+                        NotifyUtils.warn(_('You have not configured any guest check printers'));
+                        return;
 
-            var selectedDevices = this.getSelectedDevices();
-            if (printer == 1) {
-                if (!selectedDevices['guestcheck-1-enabled']) {
-                    NotifyUtils.warn(_('The intended printer [%S] is not enabled', [printer]));
-                    return;
+                    case -1: // invalid device
+                    case 0: // device not enabled
+                        NotifyUtils.warn(_('All guest check printers are disabled'));
+                        return;
                 }
             }
-            else if (printer == 2) {
-                if (!selectedDevices['guestcheck-2-enabled']) {
-                    NotifyUtils.warn(_('The intended printer [%S] is not enabled', [printer]));
-                    return;
+            else {
+                switch (device.isDeviceEnabled('guestcheck', printer)) {
+                    case -2:
+                        NotifyUtils.warn(_('You have not configured any guest check printers'));
+                        return;
+
+                    case -1:
+                        NotifyUtils.warn(_('Invalid guest check printer [%S]', [printer]));
+                        return;
+
+                    case 0:
+                        NotifyUtils.warn(_('The specified guest check printer [%S] is not enabled', [printer]));
+                        return;
                 }
             }
-            else if (!selectedDevices['guestcheck-1-enabled'] && !selectedDevices['guestcheck-2-enabled']) {
-                NotifyUtils.warn(_('All guest check printers are disabled'));
-                return;
-            }
-
-            if (printer == null || printer == '') printer = 0;
-
-            var printed = this.printGuestChecks(txn, printer);
+            if (printer == null) printer = 0;
+            this.printGuestChecks(txn, printer);
         },
 
-        // print on all enabled receipt printers
+
+        // print on all enabled guestcheck printers
+        //
+        // printer = 0: print on all enabled printers
+        // printer = 1: first printer
+        // printer = 2: second printer
+        // printer = null: print on all auto-print enabled printers
+
         printGuestChecks: function(txn, printer) {
 
-            var selectedDevices = this.getSelectedDevices();
-            var printed = false;
+            var device = this.getDeviceController();
+            if (device == null) {
+                NotifyUtils.error(_('Error in device manager! Please check your device configuration'));
+                return;
+            }
+
+            var enabledDevices = device.getEnabledDevices('guestcheck');
 
             /*
              *
@@ -500,22 +450,11 @@
             order.create_date = new Date(order.created);
             order.print_date = new Date();
 
-            // order.store = GeckoJS.Session.get('storeDetails');
-            order.store = {
-                name: 'VIVISHOP',
-                contact: 'VIVIPOS Team',
-                telephone1: '+886 2 2698-1446',
-                telephone2: '+886 930 858 972',
-                address1: '10F, No. 75, Sec 1',
-                address2: 'Sin Tai Wu Road',
-                city: 'Sijhih City',
-                county: 'Taipei County',
-                zip: '221',
-                country: 'Taiwan, R.O.C.',
-                fax: '+886 2 2698-3573',
-                email: 'sales@vivipos.com',
-                note: 'Vivid You POS!'
-            }
+            var data = {
+                txn: txn,
+                store: GeckoJS.Session.get('storeContact'),
+                order: order
+            };
 
             if (order.proceeds_clerk == null || order.proceeds_clerk == '') {
                 var user = new GeckoJS.AclComponent().getUserPrincipal();
@@ -524,62 +463,53 @@
                     order.proceeds_clerk_displayname = user.description;
                 }
             }
-            txn._MODIFIERS = this._MODIFIERS;
 /*
-            this.log(this.dump(selectedDevices));
-            this.log(this.dump(txn));
+            //this.log('Enabled Devices:\n' + GeckoJS.BaseObject.dump(enabledDevices));
+            //this.log('Data:\n' + GeckoJS.BaseObject.dump(data));
+            //this.log('Order:\n' + GeckoJS.BaseObject.dump(data.order));
+            //this.log('Store:\n' + GeckoJS.BaseObject.dump(data.store));
 */
             // for each enabled printer device, print if autoprint is on or if force is true
-            if (selectedDevices != null) {
-                if (selectedDevices['guestcheck-1-enabled'] &&
-                    ((printer == 0) || (printer == 1))) {
-                    var template = selectedDevices['guestcheck-1-template'];
-                    var port = selectedDevices['guestcheck-1-port'];
-                    var speed = selectedDevices['guestcheck-1-portspeed'];
-                    var devicemodel = selectedDevices['guestcheck-1-devicemodel'];
-                    var encoding = selectedDevices['guestcheck-1-encoding'];
-                    printed = this.printCheck(txn, template, port, speed, devicemodel, encoding);
-                }
-
-                if (selectedDevices['guestcheck-2-enabled'] &&
-                    ((printer == 0) || (printer == 2))) {
-                    var template = selectedDevices['guestcheck-2-template'];
-                    var port = selectedDevices['guestcheck-2-port'];
-                    var speed = selectedDevices['guestcheck-2-portspeed'];
-                    var devicemodel = selectedDevices['guestcheck-2-devicemodel'];
-                    var encoding = selectedDevices['guestcheck-2-encoding'];
-                    if (this.printCheck(txn, template, port, speed, devicemodel, encoding)) {
-                        printed = true;
+            var self = this;
+            if (enabledDevices != null) {
+                enabledDevices.forEach(function(device) {
+                    if ((printer == null && device.autoprint) || printer == device.number || printer == 0) {
+                        var template = device.template;
+                        var port = device.port;
+                        var portspeed = device.portspeed;
+                        var handshaking = device.handshaking;
+                        var devicemodel = device.devicemodel;
+                        var encoding = device.encoding;
+                        data._MODIFIERS = _templateModifiers(encoding);
+                        self.printCheck(data, template, port, portspeed, handshaking, devicemodel, encoding, 0);
                     }
-                }
+                });
             }
-            return printed;
         },
 
-
         // print check using the given parameters
-        printCheck: function(txn, template, port, speed, devicemodel, encoding) {
+        printCheck: function(data, template, port, portspeed, handshaking, devicemodel, encoding, device) {
+            
+            if (this._worker == null) {
+                NotifyUtils.error(_('Error in Print controller: no worker thread available!'));
+                return;
+            }
 
-            var templates = this.getTemplates();
-            var devicemodels = this.getDeviceModels();
-            var ports = this.getPorts();
-            var order = txn.data;
-            var portPath;
+            var portPath = this.getPortPath(port);
             var commands = {};
             
-            portPath = (port == null || ports == null) ? null : ports[port].path;
             if (portPath == null || portPath == '') {
                 NotifyUtils.error(_('Specified device port [%S] does not exist!', [port]));
                 return false;
             }
-
-            var tpl = this.getTemplateData(template, templates, false);
+            var tpl = this.getTemplateData(template, true);
             if (tpl == null || tpl == '') {
                 NotifyUtils.error(_('Specified receipt/guest check template [%S] is empty or does not exist!', [template]));
                 return false;
             }
 
-            commands = this.getDeviceCommandCodes(devicemodel, devicemodels, false);
+            commands = this.getDeviceCommandCodes(devicemodel, true);
+
 /*
             alert('Printing check: \n\n' +
                   '   template [' + template + ']\n' +
@@ -591,7 +521,7 @@
             alert('Device commands: \n\n' +
                   '   commands: ' + this.dump(commands));
 */
-            var result = tpl.process(txn);
+            var result = tpl.process(data);
 
             // map each command code into corresponding
             if (commands) {
@@ -604,6 +534,7 @@
                 }
             }
             //alert(this.dump(result));
+            //alert(this.dump(data.order));
             //
             // translate embedded hex codes into actual hex values
             var replacer = function(str, p1, offset, s) {
@@ -611,35 +542,62 @@
             }
             result = result.replace(/\[(0x[0-9,A-F][0-9,A-F])\]/g, function(str, p1, offset, s) {return String.fromCharCode(new Number(p1));});
             //alert(this.dump(result));
-            
+
             // get encoding
             var encodedResult = GREUtils.Charset.convertFromUnicode(result, encoding);
-            this.log('\n' + encodedResult);
-            
-            // send to output device
-            var printed = false;
-            if (this.openSerialPort(portPath, speed)) {
-                if (this.writeSerialPort(portPath, encodedResult)) {
-                    printed = true;
+            //this.log('RECEIPT/GUEST CHECK\n' + encodedResult);
+
+            // send to output device using worker thread
+            var self = this;
+
+            var runnable = {
+                run: function() {
+                    try {
+                        // if recordReceipt is true, check if record already exists
+                        if (device > 0) {
+                            var receipts = self.isReceiptPrinted(data.order.id, device);
+                            if (receipts != null) {
+                                NotifyUtils.warn(_('A receipt has already been issued for this order on printer [%S]', [device]));
+                                return;
+                            }
+                        }
+
+                        var printed = false;
+                        if (self.openSerialPort(portPath, portspeed, handshaking)) {
+                            var len = self.writeSerialPort(portPath, encodedResult);
+                            if (len == encodedResult.length) {
+                                printed = true;
+                            }
+                            self.closeSerialPort(portPath);
+                        }
+
+                        if (!printed) {
+                            var devicemodelName = self.getDeviceModelName(devicemodel);
+                            var portName = self.getPortName(port);
+
+                            if (devicemodelName == null) devicemodelName = 'unknown';
+                            if (portName == null) portName = 'unknown';
+
+                            //@todo OSD
+                            NotifyUtils.error(_('Error detected when outputing to device [%S] at port [%S]', [devicemodelName, portName]));
+                        }
+                        if (printed && device > 0) {
+                            self.receiptPrinted(data.order.id, data.order.seq, device);
+                        }
+                    }catch(e) {
+                        return false;
+                    }
+                },
+
+                QueryInterface: function(iid) {
+                    if (iid.equals(Components.Interfaces.nsIRunnable) || iid.equals(Components.Interfaces.nsISupports)) {
+                        return this;
+                    }
+                    throw Components.results.NS_ERROR_NO_INTERFACE;
                 }
-                this.closeSerialPort(portPath);
-            }
-            else {
-                printed = false;
-            }
-            
-            if (!printed) {
-                var devicemodels = this.getDeviceModels();
-                var devicemodelName = (devicemodels == null) ? 'unknown' : devicemodels[devicemodel].label;
-                var portName = (ports == null) ? 'unknown' : ports[port].label;
+            };
 
-                if (devicemodelName == null) devicemodelName = 'unknown';
-                if (portName == null) portName = 'unknown';
-
-                //@todo OSD
-                NotifyUtils.error(_('Unable to print to device [%S] at port [%S]', [devicemodelName, portName]));
-            }
-            return printed;
+            this._worker.dispatch(runnable, this._worker.DISPATCH_NORMAL);
         }
 
     });

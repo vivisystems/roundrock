@@ -1,5 +1,5 @@
 .terminal_id {
-    max-width: 50px;
+    max-width: 90px;
     margin: 0px 5px 0px 2px;
     padding: 0px 0px 0px 0px;
     background-color: transparent;
@@ -16,6 +16,7 @@
     background-color: transparent;
     border-width: 1px;
     font-size: x-small;
+    text-align: center;
 }
 
 .console_message {

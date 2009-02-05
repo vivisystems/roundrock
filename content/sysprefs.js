@@ -24,12 +24,13 @@
         $do('initTaxStatus', defaultTaxStatus, 'Taxes');
 
         $do('load', null, 'Plufilters');
-        $do('load', null, 'Sound');
+        //$do('load', null, 'Sound');
 
         var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
         var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
         document.getElementById('prefwin').width=width;
         document.getElementById('prefwin').height=height;
+        document.getElementById('prefwin').dlgbuttons="accept,help";
     };
     
 
@@ -38,9 +39,13 @@
 })();
 
 function closePreferences() {
-    opener.opener.$do('resetLayout', null, 'Main');
-    $do('setDefaultUser', null, 'Users');
-    $do('setDefaultTaxStatus', null, 'Taxes');
+    try {
+        // change button height
+        opener.opener.$do('resetLayout', null, 'Main');
+        $do('setDefaultUser', null, 'Users');
+        $do('setDefaultTaxStatus', null, 'Taxes');
+    }
+    catch(e) {};
 }
 
 function setVolume(volume, silent) {

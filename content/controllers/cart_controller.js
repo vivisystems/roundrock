@@ -6,7 +6,7 @@
 
     GeckoJS.Controller.extend( {
         name: 'Cart',
-        components: ['Tax'],
+        components: ['Tax', 'GuestCheck'],
         _cartView: null,
         _queuePool: null,
         _returnMode: false,
@@ -43,7 +43,6 @@
 
             // var curTransaction = this._getTransaction();
             // curTransaction.events.addListener('beforeAppendItem', obj, this);
-
             GeckoJS.Session.remove('cart_last_sell_item');
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
@@ -368,6 +367,7 @@
                 }
 
                 var addedItem = curTransaction.appendItem(item);
+                var doSIS = plu.single && curTransaction.data.items_count == 1;
 
                 this.dispatchEvent('onAddItem', addedItem);
 
@@ -378,7 +378,7 @@
 
                 if (addedItem.id == plu.id && !this._returnMode) {
                     if (plu.force_condiment) {
-                        this.addCondiment(plu);
+                        this.addCondiment(plu, doSIS);
                     }
                     if (plu.force_memo) {
                         this.addMemo(plu);
@@ -386,7 +386,7 @@
                 }
 
                 // single item sale?
-                if (plu.single && curTransaction.data.items_count == 1) {
+                if (doSIS) {
                     this.addPayment('cash');
                     this.dispatchEvent('onWarning', _('SINGLE ITEM SALE'));
                 }
@@ -542,7 +542,7 @@
             if (this.dispatchEvent('beforeModifyItem', {item: itemTrans, itemDisplay: itemDisplay})) {
                 var modifiedItem = curTransaction.modifyItemAt(index);
 
-                this.dispatchEvent('afterModifyItem', modifiedItem);
+                this.dispatchEvent('afterModifyItem', [modifiedItem, itemDisplay]);
             }
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
@@ -720,7 +720,8 @@
             this.dispatchEvent('beforeVoidItem', itemTrans);
 
             var voidedItem = curTransaction.voidItemAt(index);
-            this.dispatchEvent('afterVoidItem', voidedItem);
+
+            this.dispatchEvent('afterVoidItem', [voidedItem, itemDisplay]);
 
             this.subtotal();
 
@@ -1263,8 +1264,8 @@
                 var origin_amount = amount;
                 // currency convert array
                 var currency_rate = currencies[convertIndex].currency_exchange;
-                var memo1 = currencies[convertIndex].currency + ':' + amount;
-                var memo2 = 'x' + currency_rate;
+                var memo1 = currencies[convertIndex].currency;
+                var memo2 = currency_rate;
                 amount = amount * currency_rate;
                 this._getKeypadController().clearBuffer();
                 this.addPayment('cash', amount, origin_amount, memo1, memo2);
@@ -1284,7 +1285,7 @@
 
         getCreditCardDialog: function (data) {
             var aURL = 'chrome://viviecr/content/creditcard_remark.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=400';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=550';
             var inputObj = {
                 input0:data.type,
                 input1:null
@@ -1299,15 +1300,15 @@
             }
         },
 
-        getGiftCardDialog: function (data) {
-            var aURL = 'chrome://viviecr/content/giftcard_remark.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=400';
+        getCouponDialog: function (data) {
+            var aURL = 'chrome://viviecr/content/coupon_remark.xul';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=550';
             var inputObj = {
                 input0:data.type,
                 input1:null
             };
-            window.openDialog(aURL, _('Gift Card Remark'), features, _('Gift Card Remark'), _('Payment') + ' [' + data.payment + ']',
-                _('Card Type'), _('Card Remark'), inputObj);
+            window.openDialog(aURL, _('Coupon Remark'), features, _('Coupon Remark'), _('Payment') + ' [' + data.payment + ']',
+                _('Coupon Type'), _('Coupon Remark'), inputObj);
 
             if (inputObj.ok) {
                 return inputObj;
@@ -1347,7 +1348,7 @@
                 //@todo OSD
                 //NotifyUtils.warn(_('Please enter an amount first'));
                 //return;
-                payment = curTransaction.getRemainTotal(true);
+                payment = curTransaction.getRemainTotal();
             }
             var data = {
                 type: mark,
@@ -1363,7 +1364,7 @@
 
         },
 
-        giftCard: function(mark) {
+        coupon: function(mark) {
 
             // check if has buffer
             var buf = this._getKeypadController().getBuffer();
@@ -1394,20 +1395,77 @@
                 //@todo OSD
                 //NotifyUtils.warn(_('Please enter an amount first'));
                 //return;
-                payment = curTransaction.getRemainTotal(true);
+                payment = curTransaction.getRemainTotal();
             }
             var data = {
                 type: mark,
                 payment: curTransaction.formatPrice(payment)
             };
-            var inputObj = this.getGiftCardDialog(data);
+            var inputObj = this.getCouponDialog(data);
             if (inputObj) {
                 var memo1 = inputObj.input0 || '';
                 var memo2 = inputObj.input1 || '';
-                this.addPayment('giftcard', payment, payment, memo1, memo2);
+                this.addPayment('coupon', payment, payment, memo1, memo2);
             }
             //this.clear();
 
+        },
+
+        accounting: function(inputObj) {
+            // @todo Accounting IN/OUT
+
+            var data = {};
+            data.accountPayment = {};
+
+            if (!inputObj) {
+                var aURL = "chrome://viviecr/content/prompt_addaccount.xul";
+                var features = "chrome,titlebar,toolbar,centerscreen,modal,width=500,height=450";
+                var inputObj = {
+                    input0:null,
+                    input1:null,
+                    topics:null
+                };
+
+                var accountTopic = new AccountTopicModel();
+                inputObj.topics = accountTopic.find('all');
+
+                window.openDialog(aURL, "prompt_addaccount", features, inputObj);
+            }
+
+            if (!inputObj.ok) {
+                return;
+            }
+
+            if (inputObj.type == "IN") {
+                data.total = inputObj.amount;
+                data.status = 101; // Accounting IN
+            } else {
+                data.total = inputObj.amount * (-1);
+                data.status = 102; // Accounting OUT
+            }
+            
+            var user = new GeckoJS.AclComponent().getUserPrincipal();
+            if ( user != null ) {
+                data.service_clerk = user.username;
+            }
+
+            data.accountPayment['order_items_count'] = 1;
+            data.accountPayment['order_total'] = data.total;
+            data.accountPayment['amount'] = data.total;
+            data.accountPayment['name'] = 'accounting'; // + payment type
+            data.accountPayment['memo1'] = inputObj.topic + "-" + _(inputObj.type); // + topic + topic type
+            data.accountPayment['memo2'] = inputObj.description; // description
+            data.accountPayment['change'] = 0;
+
+            data.accountPayment['service_clerk'] = data.service_clerk;
+            // data.orderPayment['proceeds_clerk'] = data.proceeds_clerk;
+            // data.orderPayment['service_clerk_displayname'] = data.service_clerk_displayname;
+            // data.orderPayment['proceeds_clerk_displayname'] = data.proceeds_clerk_displayname;
+
+            var order = new OrderModel();
+            order.saveAccounting(data);
+
+            return data;
         },
 
         addPayment: function(type, amount, origin_amount, memo1, memo2) {
@@ -1476,8 +1534,6 @@
                 this.subtotal();
             }
 
-
-
         },
 
 
@@ -1493,16 +1549,15 @@
             // if (curTransaction.isSubmit() || curTransaction.isCancel()) return;
 
             var payments = curTransaction.getPayments();
-            var statusStr = '';
-
-            for(var idx in payments) {
-                var payment = payments[idx];
-
-                statusStr += payment.name + '  =  ' + payment.amount + '\n';
-                statusStr += '    memo1: ' + (payment.memo1||'') + ' , memo2: ' + (payment.memo2||'') + '\n\n';
+            for (var key in payments) {
+                var payment = payments[key];
+                payment.amount = curTransaction.formatPrice(payment.amount);
+                payment.name = _(payment.name);
             }
-
-            GREUtils.Dialog.alert(window, _('Payment Details'), statusStr);
+            
+            var aURL = 'chrome://viviecr/content/payment_details.xul';
+            var features = 'chrome,modal,width=500,height=450,centerscreen';
+            window.openDialog(aURL, _('Payment Details'), features, _('Payment Details'), payments);
         },
 
 
@@ -1594,7 +1649,7 @@
         },
 
         clear: function() {
-
+            
             GeckoJS.Session.remove('cart_last_sell_item');
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
@@ -1629,8 +1684,8 @@
             if(curTransaction == null) {
                 
                 this.dispatchEvent('onCancel', null);
-                //@todo OSD
-                NotifyUtils.warn(_('Not an open order; nothing to cancel'));
+                //@todo OSD - don't notify'
+                //NotifyUtils.warn(_('Not an open order; nothing to cancel'));
                 return; // fatal error ?
             }
 
@@ -1663,20 +1718,23 @@
         },
 
 
-        submit: function() {
+        submit: function(status) {
 
             // cancel cart but save
             var oldTransaction = this._getTransaction();
             
             if(oldTransaction == null) return; // fatal error ?
 
-            if (oldTransaction.getRemainTotal() > 0) return;
+            if (status == 1 && oldTransaction.getRemainTotal() > 0) return;
 
             this.dispatchEvent('beforeSubmit', oldTransaction);
 
-            oldTransaction.submit();
+            oldTransaction.submit(status);
 
             this.dispatchEvent('afterSubmit', oldTransaction);
+
+            // sleep to allow UI events to update
+            this.sleep(100);
             
             // GeckoJS.Session.remove('current_transaction');
             GeckoJS.Session.remove('cart_last_sell_item');
@@ -1687,7 +1745,13 @@
             this._getKeypadController().clearBuffer();
             this.cancelReturn();
 
-            this.dispatchEvent('onSubmit', oldTransaction);
+            if (status != 2) {
+
+                this.dispatchEvent('onWarning', '');
+                this.dispatchEvent('onSubmit', oldTransaction);
+            }
+            else
+                this.dispatchEvent('onGetSubtotal', oldTransaction);
 				
         },
 
@@ -1707,7 +1771,7 @@
 
         },
 
-        addCondiment: function(plu) {
+        addCondiment: function(plu, forceModal) {
 
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
@@ -1788,7 +1852,7 @@
                 else {
                     //var condiments = this.getCondimentsDialog(condimentItem.cond_group);
                     //if (condiments) curTransaction.appendCondiment(index, condiments);
-                    this.getCondimentsDialog(condimentItem.cond_group);
+                    this.getCondimentsDialog(condimentItem.cond_group, forceModal);
                 }
                 
             }
@@ -1796,7 +1860,7 @@
 
         },
 
-        getCondimentsDialog: function (condgroup) {
+        getCondimentsDialog: function (condgroup, forceModal) {
 
             var condGroups = GeckoJS.Session.get('condGroups');
             if (!condGroups) {
@@ -1821,10 +1885,16 @@
             if (typeof condGroups[index] == 'undefined') return null;
 
             var conds = condGroups[index]['Condiment'];
+            var selectedItems = [];
 
+            if (conds != null) {
+                for (var i = 0; i < conds.length; i++) {
+                    if (conds[i].preset) selectedItems.push(i);
+                }
+            }
             var colsRows = parseInt(this._condimentPanel.getAttribute('cols')) * parseInt(this._condimentPanel.getAttribute('rows'));
 
-            if (colsRows == 0) {
+            if (forceModal || colsRows == 0) {
                 var condiments = null;
                 
                 var aURL = 'chrome://viviecr/content/select_condiments.xul';
@@ -1832,7 +1902,8 @@
                 var inputObj = {
                     condgroup: condgroup,
                     condsData: conds,
-                    condiments: condiments
+                    condiments: condiments,
+                    selectedItems: selectedItems
                 };
                
                 window.openDialog(aURL, 'select_condiments', features, inputObj);
@@ -1842,7 +1913,10 @@
                     var index = this._cartView.getSelectedIndex();
                     var curTransaction = this._getTransaction();
 
-                    if(curTransaction != null && index >=0) curTransaction.appendCondiment(index, inputObj.condiments);
+                    if(curTransaction != null && index >=0) {
+                        curTransaction.appendCondiment(index, inputObj.condiments);
+                        this.dispatchEvent('afterAddCondiment', inputObj.condiments);
+                    }
                     
                     this.subtotal();
                 }
@@ -1852,6 +1926,8 @@
                 this._condimentPanel.datasource.data = conds;
                 this._condimentPanel.vivibuttonpanel.invalidate();
 
+                this._condimentPanel.selectedItems = selectedItems;
+                this._condimentPanel.scrollToRow(0);
                 this._pluAndCondimentDeck.selectedIndex = 1;
             }
 
@@ -1893,6 +1969,7 @@
             this._condimentPanel.selectedIndex = -1;
             if (condiments.length > 0) {
                 curTransaction.appendCondiment(index, condiments);
+                this.dispatchEvent('afterAddCondiment', condiments);
                 this.subtotal();
             }
             
@@ -1925,19 +2002,27 @@
 
             var memoItem = null;
             
-            if (plu && plu.force_memo) {
+            if (typeof plu == 'object' && plu.force_memo) {
                 memoItem = plu;
             }else {
+                if (plu != null) plu = GeckoJS.String.trim(plu);
                 var productsById = GeckoJS.Session.get('productsById');
                 var cartItem = curTransaction.getItemAt(index);
                 if (cartItem != null && cartItem.type == 'item') {
-                    //xxxx why clone it?
-                    //memoItem = GREUtils.extend({}, productsById[cartItem.id]);
-                    memoItem = productsById[cartItem.id];
+                    //xxxx why clone it? so we don't change the default memo
+                    memoItem = GREUtils.extend({}, productsById[cartItem.id]);
+                    //memoItem = productsById[cartItem.id];
                 }
+                if (memoItem && plu != null && plu != '') memoItem.memo = plu;
             }
 
-            var memo = this.getMemoDialog(memoItem ? memoItem.memo : '');
+            var memo;
+            if (typeof plu == 'object' || plu == null || plu == '') {
+                memo = this.getMemoDialog(memoItem ? memoItem.memo : '');
+            }
+            else {
+                memo = GeckoJS.String.trim(plu);
+            }
             if (memo) curTransaction.appendMemo(index, memo);
 
         },
@@ -1947,7 +2032,7 @@
         getMemoDialog: function (memo) {
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
             //var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250';
-            var features = 'chrome,modal,width=500,height=380';
+            var features = 'chrome,modal,width=500,height=380,centerscreen';
             var inputObj = {
                 input0:memo,require0:false
             };
@@ -2038,6 +2123,11 @@
 
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 if (warn) NotifyUtils.warn(_('No open order to push'));
+                return;
+            }
+
+            if (curTransaction.data.recall == 2) {
+                if (warn) NotifyUtils.warn(_('Can not queue the recall order!!'));
                 return;
             }
 
@@ -2152,13 +2242,104 @@
 
             var curTransaction = new Transaction();
             curTransaction.unserializeFromOrder(order_id);
+
+            if (curTransaction.data.status == 2) {
+                // set order status to process (0)
+                curTransaction.data.status = 0;
+
+                curTransaction.data.recall = 2;
+            }
+
             this._setTransactionToView(curTransaction);
             curTransaction.updateCartView(-1, -1);
             this.subtotal();
 
-        }
-	
-	
-    });
+        },
 
+        guestCheck: function(action) {
+            // check if has buffer
+            var buf = this._getKeypadController().getBuffer();
+            this._getKeypadController().clearBuffer();
+
+            this.cancelReturn();
+
+            var curTransaction = this._getTransaction(true);
+
+            if(curTransaction == null) {
+                // this.dispatchEvent('onAddItem', null);
+                NotifyUtils.warn(_('fatal error!!'));
+                return; // fatal error ?
+            }
+
+            // transaction is submit and close success
+            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
+                curTransaction = this._newTransaction();
+            }
+
+            var param = action.split('|');
+            var action = param[0];
+            var param2 = param[1];
+
+            var no = buf;
+
+            var r = -1;
+
+            switch(action) {
+                case 'newCheck':
+                    if (buf.length == 0) {
+                        r = this.GuestCheck.getNewCheckNo();
+                    } else {
+                        r = this.GuestCheck.check(no);
+                    }
+
+                    if (r >= 0) {
+                        curTransaction.data.check_no = r;
+                    } else {
+                        NotifyUtils.warn(_('Check# %S is exist!!', [no]));
+                    }
+                    break;
+                case 'releaseCheck':
+                        r = this.GuestCheck.releaseCheckNo(no);
+                    break;
+                case 'newTable':
+                    if (buf.length == 0) {
+                        r = this.GuestCheck.getNewTableNo();
+                    } else {
+                        r = this.GuestCheck.table(no);
+                    }
+
+                    if (r >= 0) {
+                        curTransaction.data.table_no = r;
+                    } else {
+                        NotifyUtils.warn(_('Table# %S is exist!!', [no]));
+                    }
+                    break;
+                case 'guest':
+                        r = this.GuestCheck.guest(no);
+                        curTransaction.data.no_of_customers = no;
+                    break;
+                case 'destination':
+                        r = this.GuestCheck.destination(param2);
+                        curTransaction.data.destination = param2;
+                    break;
+                case 'store':
+                        if (curTransaction.data.status == 1) {
+                            NotifyUtils.warn(_('This order has been submited!!'));
+                        } else {
+                            r = this.GuestCheck.store(curTransaction.data.items_count);
+                        }
+                    break;
+                case 'recallCheck':
+                        r = this.GuestCheck.recallByCheckNo(no);
+                    break;
+                case 'recallTable':
+                        r = this.GuestCheck.recallByTableNo(no);
+                    break;
+            }
+
+            this.subtotal();
+            
+            return;
+        }
+    });
 })();

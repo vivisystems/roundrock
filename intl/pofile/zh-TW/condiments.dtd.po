@@ -4,7 +4,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-15 18:34+0800\n"
+<<<<<<< HEAD:intl/pofile/zh-TW/condiments.dtd.po
+"POT-Creation-Date: 2009-01-21 01:13+0800\n"
+=======
+"POT-Creation-Date: 2009-01-19 17:02+0800\n"
+>>>>>>> f087ea22d683ef5c6f044fa13f96a705f4918799:intl/pofile/zh-TW/condiments.dtd.po
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,41 +19,41 @@ msgstr ""
 
 #: condiments.group
 msgid "Condiment Group"
-msgstr "調味群組"
+msgstr "Condiment Group"
 
 #: condiments.group.name
 msgid "Group Name:"
-msgstr "群組名稱:"
+msgstr "Group Name:"
 
 #: condiments.button.action.add
 msgid "Add"
-msgstr "新增"
+msgstr "Add"
 
 #: condiments.button.action.modify
 msgid "Modify"
-msgstr "修改"
+msgstr "Modify"
 
 #: condiments.button.action.delete
 msgid "Delete"
-msgstr "刪除"
+msgstr "Delete"
 
 #: condiments.condiment
 msgid "Condiment"
-msgstr "調味種類"
+msgstr "Condiment"
 
 #: condiments.condiment.name
 msgid "Name:"
-msgstr "調味名稱:"
+msgstr "Name:"
 
 #: condiments.condiment.price
 msgid "Price:"
-msgstr "調味價格:"
+msgstr "Price:"
 
 #: condiments.condiment.button.color
 msgid "Button Color:"
-msgstr "按鈕顏色:"
+msgstr "Button Color:"
 
 #. Do not translate this.  Only change the numeric values if you need this dialogue box to appear bigger
 #: condiments.condiment.font.size
 msgid "Font Size:"
-msgstr "文字大小:"
+msgstr "Font Size:"

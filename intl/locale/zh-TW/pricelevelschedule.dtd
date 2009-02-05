@@ -1,5 +1,5 @@
-<!ENTITY pricelevelschedule.title "變價排程">
-<!ENTITY pricelevelschedule.header.time "起始時間">
-<!ENTITY pricelevelschedule.header.pricelevel "價格設定">
-<!ENTITY pricelevelschedule.button.remove "移除">
-<!ENTITY pricelevelschedule.button.add "新增">
+<!ENTITY pricelevelschedule.title "Price Level Schedule">
+<!ENTITY pricelevelschedule.header.time "Start Time">
+<!ENTITY pricelevelschedule.header.pricelevel "Price Level">
+<!ENTITY pricelevelschedule.button.remove "Remove">
+<!ENTITY pricelevelschedule.button.add "Add">

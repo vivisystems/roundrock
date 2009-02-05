@@ -12,7 +12,7 @@
             var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/') + '/data';
             // var sDstDir = GREUtils.File.chromeToPath("chrome://viviecr/content/skin/images/");
             // var sDstDir = GeckoJS.Configure.read('vivipos.fec.settings.image.originaldir');
-            var sDstDir = datapath + "images/original/";
+            var sDstDir = datapath + "/images/original/";
             if (!sDstDir) sDstDir = '/data/images/original/';
 
             sDstDir = (sDstDir + '/').replace(/\/+/g,'/');

@@ -1,0 +1,21 @@
+<!ENTITY    receipt.label.caption                     "Printer Port">
+<!ENTITY    receipt.label.baudrate                    "Baud rate">
+<!ENTITY    receipt.label.databits                    "Data bits">
+<!ENTITY    receipt.label.parity                      "Parity">
+<!ENTITY    receipt.label.stopbits                    "Stop bits">
+<!ENTITY    receipt.label.pagewidth                   "Page Width">
+<!ENTITY    receipt.label.leftmargin                  "Left Margin">
+<!ENTITY    receipt.label.rightmargin                 "Right Margin">
+<!ENTITY    receipt.label.pagesize                    "Lines per Page">
+<!ENTITY    receipt.label.maxheader                   "Max Header Lines">
+<!ENTITY    receipt.label.maxfooter                   "Max Footer Lines">
+<!ENTITY    receipt.label.linefeed                    "Line Feeds at end">
+<!ENTITY    receipt.label.autoprint                   "Print Receipt Automatically">
+<!ENTITY    receipt.label.cutpaper                    "Cut Paper Automatically">
+<!ENTITY    receipt.label.ignoreerror                 "Ignore Printer Error">
+<!ENTITY    receipt.label.sortalphabetical            "Print Items in Alphabetical Order">
+<!ENTITY    receipt.label.crop                        "Crop If Line Too Long">
+<!ENTITY    receipt.label.discountflag                "Discount Flag">
+<!ENTITY    receipt.label.surchargeflag               "Surcharge Flag">
+<!ENTITY    receipt.label.preview                     "Preview">
+<!ENTITY    receipt.label.print                       "Print Sample Page">

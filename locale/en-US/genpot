@@ -1,0 +1,6 @@
+#!/bin/sh
+flag=
+if [ -f messages.pot ]; then
+   flag=-j
+fi
+xgettext -o messages.pot --msgid-bugs-address=irving.hsu@firich.com.tw $flag -Lpython -k_ /home/user/workspace/vivipos_app/content/*.js /home/user/workspace/vivipos_app/content/controllers/*.js

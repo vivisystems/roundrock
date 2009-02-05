@@ -8,6 +8,8 @@
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/content/reports/tpl/product_sales.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/reports.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -19,19 +21,24 @@
     <script type="application/x-javascript" src="chrome://viviecr/content/reports/product_sales.js" />
 
     <vbox flex="1" class="main-dialog">
-        <caption label="&productsales.title;"/>
-        <groupbox>
-            <caption label="&productsales.conditions;" />
-            <hbox>
-                <grid>
+        <vbox flex="1" class="MainPnl">
+            <caption label="&productsales.title;"  class="PageTitle"/>
+            <!--caption label="&productsales.conditions;" / -->
+            <hbox class="TopPnl">
+                <grid class="DataForm">
+                    <columns>
+                        <column  flex="1"/><column flex="1" />
+                    </columns>
                     <rows>
                         <row>
-                            <label value="&productsales.startdate;" />
-                            <vividatetimepicker id="start_date" value='' type="popup" width="320"/>
-                        </row>
-                        <row>
-                            <label value="&productsales.enddate;" />
-                            <vividatetimepicker id="end_date" value='' type="popup"/>
+                            <vbox>
+                                <label value="&productsales.startdate;" />
+                                <vividatetimepicker id="start_date" value='' type="popup" />  
+                            </vbox>
+                            <vbox>
+                                <label value="&productsales.enddate;" />
+                                <vividatetimepicker id="end_date" value='' type="popup"/>
+                            </vbox>
                         </row>
                         <!-- row>
                             <label value="Department:" />
@@ -39,35 +46,39 @@
                         </row -->
                     </rows>
                 </grid>
-                <hbox>
-                    <spacer style="width:60px;" />
-                    <button id="execute" label="&productsales.execute;" disabled="false" class="editbtns" oncommand="$do('execute', null, 'ProductSales');" />
-                    <button id="export_csv" label="&productsales.exportcsv;" disabled="true" class="editbtns" oncommand="$do('exportCsv', null, 'ProductSales');"/>
-                </hbox>
+                <button id="execute" label="&productsales.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'ProductSales');" />
             </hbox>
-        </groupbox>
 
-        <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
-            <!-- grippy/ -->
-        </splitter>
-        <separator class="groove-thin"/>
+            <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
+                <!-- grippy/ -->
+            </splitter>
 
-        <groupbox flex="1" style="border-width:3px;">
-            <box class="reportbox" flex="1">
-                <html:div id="preview_div" class="report" >
+            <hbox flex="1">
+                <groupbox flex="1">
+                    <box class="reportbox" flex="1">
+                        <html:div id="preview_div" class="report" >
 
-                </html:div>
-            </box>
-                    
-        </groupbox>
+                        </html:div>
+                    </box>
+
+                </groupbox>
+                <vbox>
+                    <vbox class="ToolBar BarHeight">
+                        <button id="export_csv" label="&productsales.exportcsv;" disabled="true" oncommand="$do('exportCsv', null, 'ProductSales');"/>
+                        <button id="togglesize" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png">
+                            <label>&productsales.togglezoom;</label>
+                        </button>
+                        <spacer flex="1" />
+                    </vbox>
+                    <hbox id="dialogButtons" class="dialogbtns" pack="end">
+                        <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                    </hbox>
+                </vbox>
+            </hbox>
+        </vbox>
     </vbox>
   
     <!-- hbox id="okCancelButtonsRight" class="dialogbtns" / -->
-    <hbox id="dialogButtons" class="dialogbtns" pack="center">
-        <button class="right exit-dialog" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
-        <button id="togglesize" class="dialogbtns" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png">
-            <label>&productsales.togglezoom;</label>
-        </button>
-    </hbox>
+    
 
 </window>

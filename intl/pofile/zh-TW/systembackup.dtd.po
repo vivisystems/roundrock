@@ -4,7 +4,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-15 18:34+0800\n"
+<<<<<<< HEAD:intl/pofile/zh-TW/systembackup.dtd.po
+"POT-Creation-Date: 2009-01-21 01:13+0800\n"
+=======
+"POT-Creation-Date: 2009-01-19 17:02+0800\n"
+>>>>>>> f087ea22d683ef5c6f044fa13f96a705f4918799:intl/pofile/zh-TW/systembackup.dtd.po
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,60 +19,60 @@ msgstr ""
 
 #: systembackup.backup
 msgid "System Backup"
-msgstr "系統備份"
+msgstr "System Backup"
 
 #: systembackup.restore
 msgid "System Resotre"
-msgstr "系統回復"
+msgstr "System Resotre"
 
 #: systembackup.local
 msgid "Local Backup:"
-msgstr "本機備份:"
+msgstr "Local Backup:"
 
 #: systembackup.stick
 msgid "Stick:"
-msgstr "外接式大姆碟:"
+msgstr "Stick:"
 
 #: systembackup.backuptostick
 msgid "Copy Local to Stick >>>"
-msgstr "複製本機至外接式大姆碟 >>>"
+msgstr "Copy Local to Stick >>>"
 
 #: systembackup.backuptolocal
 msgid "Backup to Local"
-msgstr "備份至本機"
+msgstr "Backup to Local"
 
 #: systembackup.restorefromstick
 msgid "Restore from Stick"
-msgstr "從外接式大姆碟回復系統"
+msgstr "Restore from Stick"
 
 #: systembackup.restorefromlocal
 msgid "Resotre from Local"
-msgstr "從本機備份回復系統"
+msgstr "Resotre from Local"
 
 #: systembackup.backupwait
 msgid "Waitting for Backup Data..."
-msgstr "備份資料中, 請稍候..."
+msgstr "Waitting for Backup Data..."
 
 #: systembackup.restorewait
 msgid "Waitting for Restore Data..."
-msgstr "回復資料中, 請稍候..."
+msgstr "Waitting for Restore Data..."
 
 #: vivipos.fec.common.ok
 msgid "Ok"
-msgstr "完成"
+msgstr "Ok"
 
 #: vivipos.fec.common.cancel
 msgid "Cancel"
-msgstr "取消"
+msgstr "Cancel"
 
 #: vivipos.fec.common.add
 msgid "Add"
-msgstr "新增"
+msgstr "Add"
 
 #: vivipos.fec.common.modify
 msgid "Modify"
-msgstr "修改"
+msgstr "Modify"
 
 #: vivipos.fec.common.delete
 msgid "Delete"
-msgstr "刪除"
+msgstr "Delete"
