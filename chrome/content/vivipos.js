@@ -24,6 +24,9 @@
                 return;
             this.initialized = true;
 
+            // preload SyncSetting
+            (new SyncSetting()).read();
+
             // addAppender for vivipos.log file.
             GeckoJS.Log.addAppender('vivipos', new GeckoJS.Log.FileAppender(GeckoJS.Log.FATAL, GeckoJS.Configure.read('CurProcD')+"/log/vivipos.log"));
 
