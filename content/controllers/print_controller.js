@@ -318,9 +318,10 @@
 
             //this.log('Enabled Devices:\n' + GeckoJS.BaseObject.dump(enabledDevices));
             //this.log('Data:\n' + GeckoJS.BaseObject.dump(data));
+            //this.log('Order:\n' + GeckoJS.BaseObject.dump(data.order));
+            //this.log('Store:\n' + GeckoJS.BaseObject.dump(data.store));
             
             // for each enabled printer device, print if autoprint is on or if force is true
-            var printed;
             var self = this;
             if (enabledDevices != null) {
                 enabledDevices.forEach(function(device) {
@@ -463,8 +464,10 @@
                 }
             }
 /*
-            this.log(this.dump(selectedDevices));
-            this.log(this.dump(txn));
+            //this.log('Enabled Devices:\n' + GeckoJS.BaseObject.dump(enabledDevices));
+            //this.log('Data:\n' + GeckoJS.BaseObject.dump(data));
+            //this.log('Order:\n' + GeckoJS.BaseObject.dump(data.order));
+            //this.log('Store:\n' + GeckoJS.BaseObject.dump(data.store));
 */
             // for each enabled printer device, print if autoprint is on or if force is true
             var self = this;

@@ -1927,6 +1927,7 @@
                 this._condimentPanel.vivibuttonpanel.invalidate();
 
                 this._condimentPanel.selectedItems = selectedItems;
+                this._condimentPanel.scrollToRow(0);
                 this._pluAndCondimentDeck.selectedIndex = 1;
             }
 

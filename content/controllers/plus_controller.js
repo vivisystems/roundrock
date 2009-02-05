@@ -455,13 +455,13 @@
                         if (o.no == data.no && data.id == null) {
                             NotifyUtils.warn(_('The Product No. [%S] already exists; product not added', [data.no]));
                             return 1;
-                        } else if (o.name == data.name) {
+                        } else if (o.name == data.name && o.cate_no == data.cate_no) {
                             if (data.id == null) {
-                                NotifyUtils.warn(_('The Product Name [%S] already exists; product not added', [data.name]));
+                                NotifyUtils.warn(_('The Product Name [%S] already exists in department [%S]; product not added', [data.name, data.cate_name]));
                                 return 2;
                             }
                             else if (data.id != o.id) {
-                                NotifyUtils.warn(_('The Product Name [%S] already exists; product not modified', [data.name]));
+                                NotifyUtils.warn(_('The Product Name [%S] already exists in department [%S]; product not modified', [data.name, data.cate_name]));
                                 return 2;
                             }
                             break;
