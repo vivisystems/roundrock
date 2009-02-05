@@ -1,7 +1,7 @@
 <!ENTITY plugroups.title "Product Groups">
 <!ENTITY plugroups.name "Group Name">
 <!ENTITY plugroups.visible "Show on Menu">
-<!ENTITY plugroups.display_order "Display Order:">
+<!ENTITY plugroups.display_order "Display Order">
 <!ENTITY plugroups.button.color "Button Color">
 <!ENTITY plugroups.font.size "Font Size">
 <!ENTITY plugroups.button.action.add "Add">

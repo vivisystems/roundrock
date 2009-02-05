@@ -8,13 +8,34 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-01-23 14:02+0800\n"
+"POT-Creation-Date: 2009-02-03 18:41+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+msgid "confirm timezone change"
+msgstr ""
+
+msgid ""
+"Timezone change requires system restart to take effect. If you save the "
+"changes now, the system will restart automatically after you return to the "
+"Main Screen. Do you want to save your changes?"
+msgstr ""
+
+msgid "Failed to set date/time"
+msgstr ""
+
+msgid "confirm language and keyboard mapping change"
+msgstr ""
+
+msgid ""
+"Language and Keyboard mapping changes require system restart to take effect. "
+"If you save the changes now, the system will restart automatically after you "
+"return to the Main Screen. Do you want to save your changes?"
+msgstr ""
 
 msgid "Add New ACL Group"
 msgstr ""
@@ -34,6 +55,9 @@ msgstr ""
 msgid ""
 "An error occurred while adding ACL Group [%S]; the ACL group may not have "
 "been added successfully"
+msgstr ""
+
+msgid "Remove User"
 msgstr ""
 
 msgid ""
@@ -66,24 +90,31 @@ msgstr ""
 msgid "OUT OF STOCK"
 msgstr ""
 
-msgid "Product May Be Out of Stock!"
+msgid "[%S] may be out of stock!"
 msgstr ""
 
 msgid "STOCK LOW"
 msgstr ""
 
-msgid "Low Stock Threshold Reached!"
+msgid "[%S] low stock threshold reached!"
+msgstr ""
+
+msgid "Product [%S] may not be registered with a price of [%S]!"
+msgstr ""
+
+msgid "Return of product sets [%S] not allowed!"
 msgstr ""
 
 msgid "VERIFY AGE"
 msgstr ""
 
-msgid "Verify Customer Age for Purchase of [%S]!"
+msgid "confirm age"
 msgstr ""
 
-msgid ""
-"Verify Customer Age for Purchase of\n"
-"[%S]!"
+msgid "Is customer of age for purchase of [%S]?"
+msgstr ""
+
+msgid "Verify Customer Age for Purchase of [%S]!"
 msgstr ""
 
 msgid "SINGLE ITEM SALE"
@@ -116,36 +147,36 @@ msgstr ""
 msgid "Cannot modify condiment; no price entered"
 msgstr ""
 
+msgid "Product [%S] may not be modified with a price of [%S]!"
+msgstr ""
+
 msgid "Quantity may not be less than 1"
 msgstr ""
 
 msgid "Not an open order; cannot VOID"
 msgstr ""
 
+msgid "Cannot VOID the selected item [%S]. It is not the last registered item"
+msgstr ""
+
 msgid ""
-"Cannot VOID the selected item [%S]\n"
-"It is not the last registered item"
+"The select item [%S] is a member of a product set and cannot be VOIDed "
+"individually"
 msgstr ""
 
-msgid "Cannot VOID an item that has been subtotaled"
+msgid "Cannot VOID an entry that has been subtotaled"
 msgstr ""
 
-msgid "Please enter the discount amount"
+msgid "Please void discount on item [%S] first"
 msgstr ""
 
-msgid "Please enter the discount percentage first"
-msgstr ""
-
-msgid "Please enter the discount percentage"
+msgid "Please void surcharge on item [%S] first"
 msgstr ""
 
 msgid "Not an open order; cannot add discount"
 msgstr ""
 
 msgid "Please select an item"
-msgstr ""
-
-msgid "Not an open order; cannot add surcharge"
 msgstr ""
 
 msgid "Pretax discount can only be registered against subtotals"
@@ -163,35 +194,40 @@ msgstr ""
 msgid "Cannot register discount on return items"
 msgstr ""
 
-msgid ""
-"Cannot apply discount to [%S]\n"
-"It is not the last registered item"
+msgid "Cannot apply discount to [%S]. It is not the last registered item"
 msgstr ""
 
 msgid "Discount may not be added to [%S]"
 msgstr ""
 
-msgid "Please enter the discount amount or percentage"
+msgid "Please enter the discount amount"
 msgstr ""
 
-msgid "Please enter the surcharge amount first"
+msgid "Please enter the discount percentage"
 msgstr ""
 
-msgid "Please enter the surcharge percentage"
+msgid "Not an open order; cannot add surcharge"
 msgstr ""
 
 msgid "Pretax surcharge can only be registered against subtotals"
 msgstr ""
 
-msgid ""
-"Cannot apply surcharge to [%S]\n"
-"It is not the last registered item"
+msgid "Cannot apply surcharge to [%S]. It is not the last registered item"
 msgstr ""
 
 msgid "Surcharge may not be added to [%S]"
 msgstr ""
 
+msgid "Please enter the surcharge amount"
+msgstr ""
+
+msgid "Please enter the surcharge percentage"
+msgstr ""
+
 msgid "Not an open order; operation invalid"
+msgstr ""
+
+msgid "Nothing has been registered yet; operation invalid"
 msgstr ""
 
 msgid "Not an open order; cannot register House Bon"
@@ -201,6 +237,9 @@ msgid "House Bon may not be applied to [%S]"
 msgstr ""
 
 msgid "The selected currency [%S] has not been configured"
+msgstr ""
+
+msgid "Not an open order; cannot register payments"
 msgstr ""
 
 msgid "Please enter an amount first"
@@ -221,10 +260,16 @@ msgstr ""
 msgid "Card Remark"
 msgstr ""
 
-msgid "Gift Card Remark"
+msgid "Coupon Remark"
 msgstr ""
 
-msgid "Not an open order; cannot register payments"
+msgid "Coupon Type"
+msgstr ""
+
+msgid "Nothing has been registered yet; cannot register payments"
+msgstr ""
+
+msgid "Payment Details"
 msgstr ""
 
 msgid "Not an open order; cannot shift tax"
@@ -236,19 +281,19 @@ msgstr ""
 msgid "The tax status indicated does not exist [%S]"
 msgstr ""
 
+msgid "Not an open order; nothing to cancel"
+msgstr ""
+
 msgid "Not an open order; cannot add condiment"
 msgstr ""
 
 msgid "Condiments may not be added to [%S]"
 msgstr ""
 
+msgid "Condiments may not be added to a return item [%S]"
+msgstr ""
+
 msgid "Cannot add condiments to an item that has been subtotaled"
-msgstr ""
-
-msgid "Please void discount on item first"
-msgstr ""
-
-msgid "Please void surcharge on item first"
 msgstr ""
 
 msgid "No Condiment group associated with item [%S]"
@@ -263,541 +308,13 @@ msgstr ""
 msgid "Add Memo"
 msgstr ""
 
-msgid "Memo:"
+msgid "Memo"
 msgstr ""
 
 msgid "No open order to push"
 msgstr ""
 
 msgid "Order is not queued because it is empty"
-msgstr ""
-
-msgid ""
-"Authentication failed!\n"
-"Please make sure the password is correct."
-msgstr ""
-
-msgid ""
-"Authentication failed!\n"
-"Please select a user"
-msgstr ""
-
-msgid "Please select a user first"
-msgstr ""
-
-msgid "Please enter the passcode"
-msgstr ""
-
-msgid ""
-"Authentication Failed!\n"
-"Please make sure the passcode is correct"
-msgstr ""
-
-msgid "Please select a job first"
-msgstr ""
-
-msgid "Not clocked in yet"
-msgstr ""
-
-msgid "Add New Condiment Group"
-msgstr ""
-
-msgid "New Condiment Group"
-msgstr ""
-
-msgid "Condiment Group [%S] already exists."
-msgstr ""
-
-msgid "Condiment Group [%S] added successfully"
-msgstr ""
-
-msgid ""
-"An error occurred while adding Condiment Group [%S]\n"
-"The group may not have been added successfully"
-msgstr ""
-
-msgid "Condiment Group [%S] already exists"
-msgstr ""
-
-msgid "Condiment Group [%S] modified successfully"
-msgstr ""
-
-msgid ""
-"An error occurred while modifying Condiment Group [%S]\n"
-"The group may not have been modified successfully"
-msgstr ""
-
-msgid "Condiment Group [%S] removed successfully"
-msgstr ""
-
-msgid ""
-"An error occurred while removing Condiment Group [%S]\n"
-"The group may not have been removed successfully"
-msgstr ""
-
-msgid "Add New Condiment"
-msgstr ""
-
-msgid "New Condiment"
-msgstr ""
-
-msgid "Condiment Name"
-msgstr ""
-
-msgid "Condiment Price"
-msgstr ""
-
-msgid "Condiment Price must be a number"
-msgstr ""
-
-msgid "Condiment [%S] already exists in this group"
-msgstr ""
-
-msgid "Condiment [%S] added successfully"
-msgstr ""
-
-msgid ""
-"An error occurred while adding Condiment [%S]\n"
-"The condiment may not have been added successfully"
-msgstr ""
-
-msgid "Condiment [%S] modified successfully"
-msgstr ""
-
-msgid ""
-"An error occurred while modifying Condiment [%S]\n"
-"The condiment may not have been modified successfully"
-msgstr ""
-
-msgid "Condiment [%S] removed successfully"
-msgstr ""
-
-msgid ""
-"An error occurred while removing Condiment [%S]\n"
-"The condiment may not have been removed successfully"
-msgstr ""
-
-msgid "Department Number must not be empty"
-msgstr ""
-
-msgid "Department Name must not be empty"
-msgstr ""
-
-msgid "Duplicate Department Number (%S); department not %S."
-msgstr ""
-
-msgid "Duplicate Department Name (%S); department not %S."
-msgstr ""
-
-msgid "Add New Department"
-msgstr ""
-
-msgid "New Department"
-msgstr ""
-
-msgid "Department Number"
-msgstr ""
-
-msgid "Department Name"
-msgstr ""
-
-msgid "Department [%S] added successfully"
-msgstr ""
-
-msgid ""
-"An error occurred while adding Department [%S]; the department may not have "
-"been added successfully"
-msgstr ""
-
-msgid "Department [%S] modified successfully"
-msgstr ""
-
-msgid ""
-"An error occurred while modifying Department [%S]\n"
-"The department may not have been modified successfully"
-msgstr ""
-
-msgid "Department [%S] removed successfully"
-msgstr ""
-
-msgid ""
-"An error occurred while removing Department [%S]\n"
-"The department may not have been removed successfully"
-msgstr ""
-
-msgid ".name"
-msgstr ""
-
-msgid ".label"
-msgstr ""
-
-msgid ".desc"
-msgstr ""
-
-msgid "export plu finish!"
-msgstr ""
-
-msgid "export data finish!"
-msgstr ""
-
-msgid "Add New Job"
-msgstr ""
-
-msgid "New Job"
-msgstr ""
-
-msgid "Job Name"
-msgstr ""
-
-msgid "Duplicate job name [%S]; job not added."
-msgstr ""
-
-msgid "Job [%S] added successfully"
-msgstr ""
-
-msgid "Duplicate job name [%S]; job not modified."
-msgstr ""
-
-msgid "Job [%S] modified successfully"
-msgstr ""
-
-msgid "Job [%S] removed successfully"
-msgstr ""
-
-msgid " logged in"
-msgstr ""
-
-msgid "Failed to authenticate user"
-msgstr ""
-
-msgid "Please enter passcode first"
-msgstr ""
-
-msgid "Sign Off"
-msgstr ""
-
-msgid "Discard items that have been registered?"
-msgstr ""
-
-msgid "What do you want to do with the registered items?"
-msgstr ""
-
-msgid "Queue"
-msgstr ""
-
-msgid "Discard"
-msgstr ""
-
-msgid "You have one or more queued orders. Discard them?"
-msgstr ""
-
-msgid "You have one or more queued orders. What do you want to do with them?"
-msgstr ""
-
-msgid "Keep"
-msgstr ""
-
-msgid "confirm sign-off"
-msgstr ""
-
-msgid "Are you ready to sign off?"
-msgstr ""
-
-msgid "Add New Product Group"
-msgstr ""
-
-msgid "New Product Group"
-msgstr ""
-
-msgid "Duplicate Product Group name [%S]; Product Group not added."
-msgstr ""
-
-msgid "Product Group [%S] added successfully"
-msgstr ""
-
-msgid "Duplicate Product Group name [%S]; Product group not modified."
-msgstr ""
-
-msgid "Product Group [%S] removed successfully"
-msgstr ""
-
-msgid "Add New Product Set"
-msgstr ""
-
-msgid "Product Set"
-msgstr ""
-
-msgid "Product No.or Barcode"
-msgstr ""
-
-msgid "Quantity"
-msgstr ""
-
-msgid "Product not found (%S)."
-msgstr ""
-
-msgid "Product No. must not be empty."
-msgstr ""
-
-msgid "Product Name must not be empty."
-msgstr ""
-
-msgid "The Product No. [%S] already exists; product not added."
-msgstr ""
-
-msgid "The Product Name [%S] already exists; product not added."
-msgstr ""
-
-msgid "The Product Name [%S] already exists; product not modified."
-msgstr ""
-
-msgid "Add New Product"
-msgstr ""
-
-msgid "New Product"
-msgstr ""
-
-msgid "Product No."
-msgstr ""
-
-msgid "Product Name"
-msgstr ""
-
-msgid "Product [%S] added successfully"
-msgstr ""
-
-msgid ""
-"An error occurred while adding Product [%S]; the product may not have been "
-"added successfully"
-msgstr ""
-
-msgid "Product [%S] modified successfully"
-msgstr ""
-
-msgid ""
-"An error occurred while modifying Product [%S]\n"
-"The product may not have been modified successfully"
-msgstr ""
-
-msgid "Product [%S] removed successfully"
-msgstr ""
-
-msgid ""
-"An error occurred while removing Product [%S]\n"
-"The product may not have been removed successfully"
-msgstr ""
-
-msgid "Product [%S] Not Found!"
-msgstr ""
-
-msgid "Price Level changed from [%S] to [%S]"
-msgstr ""
-
-msgid "Default"
-msgstr ""
-
-msgid "Default Price Level"
-msgstr ""
-
-msgid "Schedule [%S - Price Level %S] added successfully"
-msgstr ""
-
-msgid "confirm remove %S - price level %S"
-msgstr ""
-
-msgid "Schedule [%S - Price Level %S] removed successfully"
-msgstr ""
-
-msgid "Stock level for [%S] modified successfully"
-msgstr ""
-
-msgid "Product/Barcode Number (%S) not found!"
-msgstr ""
-
-msgid "Tax code must not be empty."
-msgstr ""
-
-msgid "Tax name must not be empty."
-msgstr ""
-
-msgid "Duplicate tax code [%S]; tax not added"
-msgstr ""
-
-msgid "Duplicate tax name [%S]; tax not %S"
-msgstr ""
-
-msgid "Add-On"
-msgstr ""
-
-msgid "Included"
-msgstr ""
-
-msgid "Combined"
-msgstr ""
-
-msgid "VAT & VAT"
-msgstr ""
-
-msgid "Add New Tax Status"
-msgstr ""
-
-msgid "New Tax Status"
-msgstr ""
-
-msgid "Tax Code"
-msgstr ""
-
-msgid "Tax Name"
-msgstr ""
-
-msgid "Tax [%S] added successfully"
-msgstr ""
-
-msgid ""
-"An error occurred while adding Tax [%S]; the tax may not have been added "
-"successfully"
-msgstr ""
-
-msgid "Tax [%S] removed successfully"
-msgstr ""
-
-msgid ""
-"An error occurred while removing Tax [%S]; the tax may not have been removed "
-"successfully"
-msgstr ""
-
-msgid "Tax [%S] modified successfully"
-msgstr ""
-
-msgid "Test"
-msgstr ""
-
-msgid "Add New Employee"
-msgstr ""
-
-msgid "New Employee"
-msgstr ""
-
-msgid "Name"
-msgstr ""
-
-msgid "Password"
-msgstr ""
-
-msgid "Duplicate user name [%S]; user not added."
-msgstr ""
-
-msgid "Duplicate display name [%S]; user not added."
-msgstr ""
-
-msgid "Employee [%S] added successfully"
-msgstr ""
-
-msgid "Duplicate display name [%S]; user not modified."
-msgstr ""
-
-msgid "Employee [%S] modified successfully"
-msgstr ""
-
-msgid "Employee [%S] removed successfully"
-msgstr ""
-
-msgid "Select Access Group"
-msgstr ""
-
-msgid "confirm timezone change"
-msgstr ""
-
-msgid ""
-"Timezone change requires system restart to take effect. If you save the "
-"changes now, the system will restart automatically after you return to the "
-"Main Screen. Do you want to save your changes?"
-msgstr ""
-
-msgid "Failed to set date/time"
-msgstr ""
-
-msgid "confirm language and keyboard mapping change"
-msgstr ""
-
-msgid ""
-"Language and Keyboard mapping changes require system restart to take effect. "
-"If you save the changes now, the system will restart automatically after you "
-"return to the Main Screen. Do you want to save your changes?"
-msgstr ""
-
-msgid "Remove User"
-msgstr ""
-
-msgid "[%S] may be out of stock!"
-msgstr ""
-
-msgid "[%S] low stock threshold reached!"
-msgstr ""
-
-msgid "Product [%S] may not be registered with a price of [%S]!"
-msgstr ""
-
-msgid "Return of product sets [%S] not allowed!"
-msgstr ""
-
-msgid "confirm age"
-msgstr ""
-
-msgid "Is customer of age for purchase of [%S]?"
-msgstr ""
-
-msgid "Product [%S] may not be modified with a price of [%S]!"
-msgstr ""
-
-msgid "Cannot VOID the selected item [%S]. It is not the last registered item"
-msgstr ""
-
-msgid ""
-"The select item [%S] is a member of a product set and cannot be VOIDed "
-"individually"
-msgstr ""
-
-msgid "Cannot VOID an entry that has been subtotaled"
-msgstr ""
-
-msgid "Please void discount on item [%S] first"
-msgstr ""
-
-msgid "Please void surcharge on item [%S] first"
-msgstr ""
-
-msgid "Cannot apply discount to [%S]. It is not the last registered item"
-msgstr ""
-
-msgid "Cannot apply surcharge to [%S]. It is not the last registered item"
-msgstr ""
-
-msgid "Please enter the surcharge amount"
-msgstr ""
-
-msgid "Nothing has been registered yet; operation invalid"
-msgstr ""
-
-msgid "Coupon Remark"
-msgstr ""
-
-msgid "Coupon Type"
-msgstr ""
-
-msgid "Nothing has been registered yet; cannot register payments"
-msgstr ""
-
-msgid "Payment Details"
-msgstr ""
-
-msgid "Not an open order; nothing to cancel"
-msgstr ""
-
-msgid "Condiments may not be added to a return item [%S]"
-msgstr ""
-
-msgid "Memo"
 msgstr ""
 
 msgid "Error in device manager! Please check your device configuration"
@@ -838,9 +355,27 @@ msgstr ""
 msgid "Not clocked in yet."
 msgstr ""
 
+msgid "Add New Condiment Group"
+msgstr ""
+
+msgid "New Condiment Group"
+msgstr ""
+
+msgid "Condiment Group [%S] already exists."
+msgstr ""
+
+msgid "Condiment Group [%S] added successfully"
+msgstr ""
+
 msgid ""
 "An error occurred while adding Condiment Group [%S]. The group may not have "
 "been added successfully"
+msgstr ""
+
+msgid "Condiment Group [%S] already exists"
+msgstr ""
+
+msgid "Condiment Group [%S] modified successfully"
 msgstr ""
 
 msgid ""
@@ -851,9 +386,33 @@ msgstr ""
 msgid "[%S] has been assigned to one or more products and may not be deleted"
 msgstr ""
 
+msgid "Condiment Group [%S] removed successfully"
+msgstr ""
+
 msgid ""
 "An error occurred while removing Condiment Group [%S]. The group may not "
 "have been removed successfully"
+msgstr ""
+
+msgid "Add New Condiment"
+msgstr ""
+
+msgid "New Condiment"
+msgstr ""
+
+msgid "Condiment Name"
+msgstr ""
+
+msgid "Condiment Price"
+msgstr ""
+
+msgid "Condiment Price must be a number"
+msgstr ""
+
+msgid "Condiment [%S] already exists in this group"
+msgstr ""
+
+msgid "Condiment [%S] added successfully"
 msgstr ""
 
 msgid ""
@@ -861,14 +420,55 @@ msgid ""
 "been added successfully"
 msgstr ""
 
+msgid "Condiment [%S] modified successfully"
+msgstr ""
+
 msgid ""
 "An error occurred while modifying Condiment [%S]. The condiment may not have "
 "been modified successfully"
 msgstr ""
 
+msgid "Condiment [%S] removed successfully"
+msgstr ""
+
 msgid ""
 "An error occurred while removing Condiment [%S]. The condiment may not have "
 "been removed successfully"
+msgstr ""
+
+msgid "Department Number must not be empty"
+msgstr ""
+
+msgid "Department Name must not be empty"
+msgstr ""
+
+msgid "Duplicate Department Number (%S); department not %S."
+msgstr ""
+
+msgid "Duplicate Department Name (%S); department not %S."
+msgstr ""
+
+msgid "Add New Department"
+msgstr ""
+
+msgid "New Department"
+msgstr ""
+
+msgid "Department Number"
+msgstr ""
+
+msgid "Department Name"
+msgstr ""
+
+msgid "Department [%S] added successfully"
+msgstr ""
+
+msgid ""
+"An error occurred while adding Department [%S]; the department may not have "
+"been added successfully"
+msgstr ""
+
+msgid "Department [%S] modified successfully"
 msgstr ""
 
 msgid ""
@@ -877,6 +477,9 @@ msgid ""
 msgstr ""
 
 msgid "[%S] has one or more products and may not be deleted"
+msgstr ""
+
+msgid "Department [%S] removed successfully"
 msgstr ""
 
 msgid ""
@@ -918,6 +521,15 @@ msgid ""
 "The following enabled devices appear to be offline, do you still want to "
 "save the new configuration?\n"
 "%S"
+msgstr ""
+
+msgid ".name"
+msgstr ""
+
+msgid ".label"
+msgstr ""
+
+msgid ".desc"
 msgstr ""
 
 msgid "Media Not Found!"
@@ -995,9 +607,36 @@ msgstr ""
 msgid "Condiment"
 msgstr ""
 
+msgid "Add New Job"
+msgstr ""
+
+msgid "New Job"
+msgstr ""
+
+msgid "Job Name"
+msgstr ""
+
+msgid "Duplicate job name [%S]; job not added."
+msgstr ""
+
+msgid "Job [%S] added successfully"
+msgstr ""
+
+msgid "Duplicate job name [%S]; job not modified."
+msgstr ""
+
+msgid "Job [%S] modified successfully"
+msgstr ""
+
 msgid ""
 "[%S] has been assigned as the default job to one or more users and may not "
 "be deleted"
+msgstr ""
+
+msgid "Job [%S] removed successfully"
+msgstr ""
+
+msgid " logged in"
 msgstr ""
 
 msgid "Authentication failed! Please make sure the password is correct."
@@ -1009,10 +648,70 @@ msgstr ""
 msgid "Please enter passcode first."
 msgstr ""
 
+msgid "Sign Off"
+msgstr ""
+
+msgid "Discard items that have been registered?"
+msgstr ""
+
+msgid "What do you want to do with the registered items?"
+msgstr ""
+
+msgid "Queue"
+msgstr ""
+
+msgid "Discard"
+msgstr ""
+
+msgid "You have one or more queued orders. Discard them?"
+msgstr ""
+
+msgid "You have one or more queued orders. What do you want to do with them?"
+msgstr ""
+
+msgid "Keep"
+msgstr ""
+
+msgid "confirm sign-off"
+msgstr ""
+
+msgid "Are you ready to sign off?"
+msgstr ""
+
 msgid "Filter [%S] added successfully"
 msgstr ""
 
 msgid "Filter [%S] removed successfully"
+msgstr ""
+
+msgid "Add New Product Group"
+msgstr ""
+
+msgid "New Product Group"
+msgstr ""
+
+msgid "Duplicate Product Group name [%S]; Product Group not added."
+msgstr ""
+
+msgid "Product Group [%S] added successfully"
+msgstr ""
+
+msgid "Duplicate Product Group name [%S]; Product group not modified."
+msgstr ""
+
+msgid "Product Group [%S] removed successfully"
+msgstr ""
+
+msgid "Add New Product Set"
+msgstr ""
+
+msgid "Product Set"
+msgstr ""
+
+msgid "Product No.or Barcode"
+msgstr ""
+
+msgid "Quantity"
 msgstr ""
 
 msgid "[%S] (%S) may not be a member of its own product set."
@@ -1023,6 +722,12 @@ msgid ""
 msgstr ""
 
 msgid "Product not found [%S]."
+msgstr ""
+
+msgid "Product No. must not be empty."
+msgstr ""
+
+msgid "Product Name must not be empty."
 msgstr ""
 
 msgid "The Product No. [%S] already exists; product not added"
@@ -1047,6 +752,29 @@ msgid ""
 "Price level %S preset price [%S] is less than LALO [%S]; product not modified"
 msgstr ""
 
+msgid "Add New Product"
+msgstr ""
+
+msgid "New Product"
+msgstr ""
+
+msgid "Product No."
+msgstr ""
+
+msgid "Product Name"
+msgstr ""
+
+msgid "Product [%S] added successfully"
+msgstr ""
+
+msgid ""
+"An error occurred while adding Product [%S]; the product may not have been "
+"added successfully"
+msgstr ""
+
+msgid "Product [%S] modified successfully"
+msgstr ""
+
 msgid ""
 "An error occurred while modifying Product [%S]. The product may not have "
 "been modified successfully"
@@ -1055,12 +783,36 @@ msgstr ""
 msgid "Product [%S] is part of a product set [%S] and may not be removed"
 msgstr ""
 
+msgid "Product [%S] removed successfully"
+msgstr ""
+
 msgid ""
 "An error occurred while removing Product [%S]. The product may not have been "
 "removed successfully"
 msgstr ""
 
 msgid "Product Search"
+msgstr ""
+
+msgid "Product [%S] Not Found!"
+msgstr ""
+
+msgid "Price Level changed from [%S] to [%S]"
+msgstr ""
+
+msgid "Default"
+msgstr ""
+
+msgid "Default Price Level"
+msgstr ""
+
+msgid "Schedule [%S - Price Level %S] added successfully"
+msgstr ""
+
+msgid "confirm remove %S - price level %S"
+msgstr ""
+
+msgid "Schedule [%S - Price Level %S] removed successfully"
 msgstr ""
 
 msgid "A receipt has already been issued for this order at [%S]"
@@ -1114,7 +866,16 @@ msgstr ""
 msgid "Specified receipt/guest check template [%S] is empty or does not exist!"
 msgstr ""
 
+msgid "A receipt has already been issued for this order on printer [%S]"
+msgstr ""
+
 msgid "Failed to set volume"
+msgstr ""
+
+msgid "Stock level for [%S] modified successfully"
+msgstr ""
+
+msgid "Product/Barcode Number (%S) not found!"
 msgstr ""
 
 msgid "Unable to save store contact!"
@@ -1156,6 +917,50 @@ msgstr ""
 msgid "Must select a item from stick list."
 msgstr ""
 
+msgid "Tax code must not be empty."
+msgstr ""
+
+msgid "Tax name must not be empty."
+msgstr ""
+
+msgid "Duplicate tax code [%S]; tax not added"
+msgstr ""
+
+msgid "Duplicate tax name [%S]; tax not %S"
+msgstr ""
+
+msgid "Add-On"
+msgstr ""
+
+msgid "Included"
+msgstr ""
+
+msgid "Combined"
+msgstr ""
+
+msgid "VAT & VAT"
+msgstr ""
+
+msgid "Add New Tax Status"
+msgstr ""
+
+msgid "New Tax Status"
+msgstr ""
+
+msgid "Tax Code"
+msgstr ""
+
+msgid "Tax Name"
+msgstr ""
+
+msgid "Tax [%S] added successfully"
+msgstr ""
+
+msgid ""
+"An error occurred while adding Tax [%S]; the tax may not have been added "
+"successfully"
+msgstr ""
+
 msgid ""
 "[%S] has been assigned to one or more departments and may not be deleted"
 msgstr ""
@@ -1163,7 +968,45 @@ msgstr ""
 msgid "[%S] is the default tax and may not be deleted"
 msgstr ""
 
+msgid "Tax [%S] removed successfully"
+msgstr ""
+
+msgid ""
+"An error occurred while removing Tax [%S]; the tax may not have been removed "
+"successfully"
+msgstr ""
+
+msgid "Tax [%S] modified successfully"
+msgstr ""
+
+msgid "Test"
+msgstr ""
+
+msgid "Add New Employee"
+msgstr ""
+
+msgid "New Employee"
+msgstr ""
+
+msgid "Name"
+msgstr ""
+
 msgid "Passcode"
+msgstr ""
+
+msgid "Duplicate user name [%S]; user not added."
+msgstr ""
+
+msgid "Duplicate display name [%S]; user not added."
+msgstr ""
+
+msgid "Employee [%S] added successfully"
+msgstr ""
+
+msgid "Duplicate display name [%S]; user not modified."
+msgstr ""
+
+msgid "Employee [%S] modified successfully"
 msgstr ""
 
 msgid "NOTE: the assigned drawer [%S] does not exist!"
@@ -1182,8 +1025,47 @@ msgstr ""
 msgid "[%S] may not be deleted"
 msgstr ""
 
+msgid "Employee [%S] removed successfully"
+msgstr ""
+
+msgid "Select Access Group"
+msgstr ""
+
 msgid "Select Default Job"
 msgstr ""
 
 msgid "Error in VFD controller: no worker thread available!"
+msgstr ""
+
+msgid "TAL"
+msgstr ""
+
+msgid "REM"
+msgstr ""
+
+msgid "PAY"
+msgstr ""
+
+msgid "Return"
+msgstr ""
+
+msgid "I"
+msgstr ""
+
+msgid "QTY"
+msgstr ""
+
+msgid "Change Clerk"
+msgstr ""
+
+msgid "Password"
+msgstr ""
+
+msgid "CANCELED"
+msgstr ""
+
+msgid "QUEUED"
+msgstr ""
+
+msgid "CHG"
 msgstr ""

@@ -2,11 +2,9 @@
 <!ENTITY    clockin.heading.timein               "In">
 <!ENTITY    clockin.heading.timeout               "Out">
 <!ENTITY    clockin.heading.job              "Job">
-<!ENTITY    clockin.title               "User Clock In / Out">
-<!ENTITY    clockin.title               "User Clock In / Out">
 <!ENTITY    clockin.keylabel.clear             "CLEAR">
 <!ENTITY    clockin.keylabel.del            "DEL">
-<!ENTITY    clockin.keylabel.password             "Passcode:">
+<!ENTITY    clockin.keylabel.password             "Passcode">
 <!ENTITY    clockin.keylabel.ok             "OK">
 <!ENTITY    clockin.keylabel.clockin             "In">
 <!ENTITY    clockin.keylabel.clockout             "Out">

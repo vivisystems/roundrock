@@ -148,11 +148,17 @@
                 id: 'font_size'
             });
 
+            var classStr = '';
             if (buttonColor && btn) {
-                $(btn).addClass(buttonColor);
+                classStr = buttonColor;
+                //$(btn).addClass(buttonColor);
             }
             if (buttonFontSize && btn) {
-                $(btn).addClass('font-'+ buttonFontSize);
+                classStr += ((classStr.length > 0) ? ' ' : '') + 'font-' + buttonFontSize;
+                //$(btn).addClass('font-'+ buttonFontSize);
+            }
+            if (classStr.length > 0) {
+                $(btn).addClass(classStr);
             }
 
         }

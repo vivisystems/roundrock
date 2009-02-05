@@ -5,7 +5,7 @@
 <!ENTITY category.tax "Taxes">
 <!ENTITY category.plufilter "Product Filter">
 <!ENTITY publicattendance "Individual Time-and-Attendance visible to all">
-<!ENTITY defaultlogin "Automatically log in default user:">
+<!ENTITY defaultlogin "Automatically log in default user">
 <!ENTITY privatequeue "Private order queue">
 <!ENTITY defaultpricelevel "System default price level">
 <!ENTITY defaulttaxstatus "System default tax status">
