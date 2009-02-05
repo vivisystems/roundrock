@@ -128,10 +128,10 @@ pref("vivipos.fec.registry.function.programmable.receipt.command", "issueReceipt
 pref("vivipos.fec.registry.function.programmable.receipt.controller", "Print");
 pref("vivipos.fec.registry.function.programmable.receipt.data", "");
 
-pref("vivipos.fec.registry.function.programmable.guestcheck.access", "acl_issue_guest_check");
-pref("vivipos.fec.registry.function.programmable.guestcheck.command", "issueGuestCheck");
-pref("vivipos.fec.registry.function.programmable.guestcheck.controller", "Print");
-pref("vivipos.fec.registry.function.programmable.guestcheck.data", "");
+pref("vivipos.fec.registry.function.programmable.printcheck.access", "acl_issue_guest_check");
+pref("vivipos.fec.registry.function.programmable.printcheck.command", "issueGuestCheck");
+pref("vivipos.fec.registry.function.programmable.printcheck.controller", "Print");
+pref("vivipos.fec.registry.function.programmable.printcheck.data", "");
 
 pref("vivipos.fec.registry.function.programmable.pricelevelshift.access", "acl_change_price_level");
 pref("vivipos.fec.registry.function.programmable.pricelevelshift.command", "change");
