@@ -134,11 +134,11 @@
         this.data.decimals = GeckoJS.Configure.read('vivipos.fec.settings.DecimalPoint') || '.';
         this.data.thousands = GeckoJS.Configure.read('vivipos.fec.settings.ThousandsDelimiter') || ',';
 
-        if (Transaction.worker == null) {
+//        if (Transaction.worker == null) {
           //  Transaction.worker = new GeckoJS.Thread();
 
-          Transaction.worker = GREUtils.Thread.getWorkerThread();
-        }
+          // Transaction.worker = GREUtils.Thread.getWorkerThread();
+//        }
         //Transaction.worker._runnable = this;
 
         // @todo 
@@ -158,11 +158,20 @@
         this.data.modified = new Date().getTime();
 
         // maintain stock...
-        this.requestCommand('decStock', this.data, "Stocks");
+//        this.requestCommand('decStock', this.data, "Stocks");
 
         // use background save
         // Transaction.worker.start();
-        Transaction.worker.dispatch(this, Transaction.worker.DISPATCH_NORMAL);
+        //Transaction.worker.dispatch(this, Transaction.worker.DISPATCH_NORMAL);
+
+        var self = this;
+        Transaction.worker = setTimeout(function() {
+            // maintain stock...
+            self.requestCommand('decStock', self.data, "Stocks");
+
+            self.run();
+        }, 100);
+
     };
 
     Transaction.prototype.cancel = function() {
@@ -1931,6 +1940,7 @@
     Transaction.prototype.run = function() {
         var order = new OrderModel();
         order.saveOrder(this.data);
+        clearTimeout(Transaction.worker);
     };
 
     // nsirunnable run

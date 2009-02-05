@@ -8,7 +8,7 @@
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/stocks.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/sync_settings.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -37,7 +37,7 @@
 			    <checkbox form="syncSettingForm" name="active" label="&sync_settings.label.active;" />	        
 		            <grid class="BasicForm" flex="1">
 		                <columns>
-		                    <column  flex="1" /><column flex="5" />
+		                    <column  flex="1" /><column flex="2" />
 		                </columns>
 		                <rows>
 
@@ -89,7 +89,7 @@
 	        
 		            <grid class="AdvancedForm" flex="1">
 		                <columns>
-		                    <column  flex="1" /><column flex="5" />
+		                    <column  flex="1" /><column flex="2" />
 		                </columns>
 		                <rows>
 		                    <row>
@@ -129,6 +129,7 @@
             </tabbox>
 
             <hbox id="dialogButtons" class="dialogbtns" pack="end">
+                <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
                 <button class="SaveBtn" id="ok" label="&dialog.applyButton.label;" default="true" oncommand="doOKButton();"/>
                 <button class="ExitBtn" id="cancel" label="&dialog.cancelButton.label;" default="false" oncommand="doCancelButton();"/>
             </hbox>

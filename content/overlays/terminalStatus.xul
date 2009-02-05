@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="chrome://viviecr/skin/bindings.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/terminalstatus.css" type="text/css"?>
 
 <overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" id="overlay_test">
@@ -24,6 +25,8 @@
                                    valueClass="console_message_value"
                                  />
                 <viviclock id="clock" class="clock" showdate="true"/>
+
+                <sync_status id="syncStatus" />
             </statusbarpanel>
         </statusbar>
     </box>

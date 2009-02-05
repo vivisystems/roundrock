@@ -24,7 +24,7 @@
 
             GeckoJS.Session.set('screenwidth', this.screenwidth);
             GeckoJS.Session.set('screenheight', this.screenheight);
-            
+
             this.createPluPanel();
             this.requestCommand('initial', null, 'Pricelevel');
             this.requestCommand('initial', null, 'Cart');
@@ -40,10 +40,15 @@
             GeckoJS.Log.getAppender('console').level = GeckoJS.Log.ERROR;
             GeckoJS.Log.defaultClassLevel = GeckoJS.Log.ERROR;
 
-//            GeckoJS.Log.getAppender('console').level = GeckoJS.Log.TRACE;
+            GeckoJS.Log.getAppender('console').level = GeckoJS.Log.TRACE;
 //            GeckoJS.Log.defaultClassLevel = GeckoJS.Log.TRACE;
 //
-//            GeckoJS.Log.getLoggerForClass('DatasourceSQLite').level = GeckoJS.Log.TRACE;
+            GeckoJS.Log.getLoggerForClass('DatasourceSQLite').level = GeckoJS.Log.TRACE;
+
+            var cg = new CondimentGroupModel();
+            var datas = cg.find('all');
+            this.log(this.dump(datas));
+
 
             var self = this;
             
