@@ -3,12 +3,12 @@
     /**
      * Class ViviPOS.JobsController
      */
-    // GeckoJS.define('ViviPOS.JobsController');
 
     GeckoJS.Controller.extend( {
         name: 'Accounts',
         scaffold: true,
-	
+        uses: ['AccountTopic'],
+
         _listObj: null,
         _listDatas: null,
 
@@ -25,19 +25,35 @@
         },
         */
         beforeScaffoldAdd: function(evt) {
-            var aURL = "chrome://viviecr/content/prompt_additem.xul";
-            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300";
-            var inputObj = {input0:null, input1:null};
-            window.openDialog(aURL, "prompt_additem", features, "New Job", "Please input:", "Job Name", "", inputObj);
-            if (inputObj.ok && inputObj.input0) {
+
+            // evt.preventDefault();
+
+            var aURL = "chrome://viviecr/content/prompt_addaccount.xul";
+            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=500,height=450";
+            var inputObj = {
+                input0:null,
+                input1:null,
+                topics:null
+            };
+            inputObj.topics = this.AccountTopic.find('all');
+
+            window.openDialog(aURL, "prompt_addaccount", features, inputObj);
+
+            if (inputObj.ok) {
+
                 $("#account_id").val('');
                 
                 evt.data.id = '';
-                evt.data.jobname = inputObj.input0;
+                evt.data.topic_no = inputObj.topic_no;
+                evt.data.topic = inputObj.topic;
+                evt.data.description = inputObj.description;
+                evt.data.type = inputObj.type;
+                evt.data.amount = inputObj.amount;
             } else {
                 evt.preventDefault();
             }
-            evt.preventDefault();
+            
+            
         },
 
         /*
@@ -47,7 +63,7 @@
         */
 
         beforeScaffoldSave: function(evt) {
-            // this.log(this.dump(evt));
+        // this.log(this.dump(evt));
 
         },
 
@@ -69,11 +85,34 @@
         afterScaffoldIndex: function(evt) {
             this._listDatas = evt.data;
             var panelView =  new GeckoJS.NSITreeViewArray(evt.data);
+            panelView.getCellValue= function(row, col) {
+
+                var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
+                var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
+                var text;
+                if (col.id == "amount") {
+
+                    // text = this.data[row].amount;
+                    text = GeckoJS.NumberHelper.round(this.data[row].amount, precision_prices, rounding_prices) || 0;
+
+                } else {
+                    text = this.data[row][col.id];
+                }
+                return text;
+            };
+
             this.getListObj().datasource = panelView;
         },
 
-        load: function (data) {
-            this.requestCommand('list');
+        load: function(data) {
+            var showtype = document.getElementById('show_type').value;
+            var filter = "";
+            if (showtype == 'IN') filter = "type='IN'";
+            else if (showtype == 'OUT') filter = "type='OUT'";
+                
+            this.requestCommand('list', {
+                conditions: filter
+            });
         },
 
         select: function(index){

@@ -7,9 +7,14 @@
             this._data = [];
             this._files = null;
             this._timedata = [];
-            this._files = new GeckoJS.Dir.readDir(dir, {type: "d"}).sort(function(a, b) {if (a.leafName < b.leafName) return -1; else if (a.leafName > b.leafName) return 1; else return 0;});
-
             var self = this;
+            
+            if (dir == null) {
+                self._data = [];
+                return;
+            }
+
+            this._files = new GeckoJS.Dir.readDir(dir, {type: "d"}).sort(function(a, b) {if (a.leafName < b.leafName) return -1; else if (a.leafName > b.leafName) return 1; else return 0;});
 
             this._files.forEach(function(o){
                 var str = o.leafName;
@@ -24,7 +29,7 @@
     });
 
     /**
-     * Class ViviPOS.SystemBackupController
+     * SystemBackup Controller
      */
 
     GeckoJS.Controller.extend( {
@@ -132,9 +137,10 @@
 
         _restart: function() {
             // restart vivipos
-            return;
-            opener.opener.vivipos.suspendSavePreference = true;
-            GeckoJS.Observer.notify(null, 'prepare-to-restart', this);
+            // return;
+            // opener.opener.vivipos.suspendSavePreference = true;
+            // GeckoJS.Observer.notify(null, 'prepare-to-restart', this);
+            GeckoJS.Observer.notify(null, 'prepare-to-quit', this);
         },
 
         _showWaitPanel: function(panel) {
@@ -212,7 +218,7 @@
                 var dir = datas[index].dir;
 
                 if (GREUtils.Dialog.confirm(this.window, _("Confirm Restore"),
-                        _("Do you want to restore (%S) from local backup?", [datas[index].time]))) {
+                        _("Do you want to restore (%S) from local backup?\nIf you execute restore now, the system will restart automatically after you return to the Main Screen.", [datas[index].time]))) {
                     if (this.execute(this._scriptPath + "restore.sh", [this._localbackupDir + dir])) {
                         this._restart();
                         NotifyUtils.info(_('<Restore from Local backup> is done!!'));
@@ -246,7 +252,7 @@
                 var dir = datas[index].dir;
 
                 if (GREUtils.Dialog.confirm(this.window, _("Confirm Restore"),
-                        _("Do you want to restore (%S) from stick?", [datas[index].time]))) {
+                        _("Do you want to restore (%S) from stick?\nIf you execute restore now, the system will restart automatically after you return to the Main Screen.", [datas[index].time]))) {
 
                     if (this.execute(this._scriptPath + "restore.sh", [this._stickbackupDir + dir])){
                         this._restart();
@@ -263,13 +269,17 @@
         },
 
         load: function() {
+            
             if (this._dataPath == null) {
                 this.checkBackupDevices();
                 this._dataPath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/') + '/data/';
             }
             this._scriptPath = this._dataPath + "scripts/"
             this._localbackupDir = this._dataPath + "backups/";
-            this._stickbackupDir = this._backupDir + "/";
+            if (this._backupDir)
+                this._stickbackupDir = this._backupDir + "/";
+            else
+                this._stickbackupDir = null;
 
             var panelViewLocal = new BackupFilesView(this._localbackupDir);
             this.getListObjLocalBackup().datasource = panelViewLocal;
@@ -282,7 +292,6 @@
             //
         }
     });
-
 
 })();
 

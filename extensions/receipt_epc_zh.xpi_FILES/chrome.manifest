@@ -1,0 +1,5 @@
+content receipt_epc_zh		chrome/content/ xpcnativewrappers=no
+locale	receipt_epc_zh	en-US   chrome/locale/en-US/
+skin	receipt_epc_zh	ECR	chrome/skin/
+
+overlay chrome://viviecr/content/overlay.xul                  chrome://receipt_epc_zh/content/receipt_overlay.xul

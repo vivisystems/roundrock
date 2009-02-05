@@ -42,6 +42,7 @@
             <preference id="pref_positivepricerequired" name="vivipos.fec.settings.PositivePriceRequired" type="bool" />
 
         </preferences>
+
         <grid class="DataForm">
             <columns>
                 <column flex="1" /><column flex="1" />

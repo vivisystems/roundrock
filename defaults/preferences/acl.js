@@ -66,3 +66,4 @@ pref("vivipos.fec.acl.roles.acl_issue_guest_checks", "acl_issue_guest_checks");
 pref("vivipos.fec.acl.roles.acl_manage_storecontact", "acl_manage_storecontact");
 pref("vivipos.fec.acl.roles.acl_open_cashdrawer_1", "acl_open_cashdrawer_1");
 pref("vivipos.fec.acl.roles.acl_open_cashdrawer_2", "acl_open_cashdrawer_2");
+pref("vivipos.fec.acl.roles.acl_manage_sync_settings", "acl_manage_sync_settings");

@@ -64,7 +64,7 @@
                 table_no: '',
                 check_no: '',
 
-                no_of_customers: 0,
+                no_of_customers: 1,
 
                 terminal_no: GeckoJS.Session.get('terminal_id'),
 
@@ -106,7 +106,10 @@
         this.data.id = GeckoJS.String.uuid();
 
         this.data.seq = SequenceModel.getSequence('order_no');
+        // this.data.check_no = SequenceModel.getSequence('check_no');
+
         GeckoJS.Session.set('vivipos_fec_order_sequence', this.data.seq);
+        GeckoJS.Session.set('vivipos_fec_number_of_customers', this.no_of_customers);
         
         var user = new GeckoJS.AclComponent().getUserPrincipal();
 
@@ -147,16 +150,25 @@
         this.view.empty();
     };
 
-
-    Transaction.prototype.cancel = function() {
-        this.data.status = -1;
+    // set order status, -1:canceled 0:process 1:submit
+    Transaction.prototype.process = function(status) {
+        this.data.status = status;
 
         // save transaction to order / orderdetail ...
         this.data.modified = new Date().getTime();
 
+        // maintain stock...
+        this.requestCommand('decStock', this.data, "Stocks");
+
         // use background save
-        //Transaction.worker.start();
+        // Transaction.worker.start();
         Transaction.worker.dispatch(this, Transaction.worker.DISPATCH_NORMAL);
+    };
+
+    Transaction.prototype.cancel = function() {
+
+        // set status = -1
+        this.process(-1);
 
         this.emptyView();
     };
@@ -166,29 +178,26 @@
     };
 
 
-    Transaction.prototype.submit = function() {
-        this.data.status = 1;
+    Transaction.prototype.submit = function(status) {
+        if (typeof(status) == 'undefined') status = 1;
 
-        // save transaction to order / orderdetail ...
-        this.data.modified = new Date().getTime();
-
-        var user = new GeckoJS.AclComponent().getUserPrincipal();
-        if ( user != null ) {
-            this.data.proceeds_clerk = user.username;
-            this.data.proceeds_clerk_displayname = user.description;
+        // set proceeds_cherk when submit to status == 1
+        if (status == 1) {
+            var user = new GeckoJS.AclComponent().getUserPrincipal();
+            if ( user != null ) {
+                this.data.proceeds_clerk = user.username;
+                this.data.proceeds_clerk_displayname = user.description;
+            }
         }
 
-        // use backgroud to save
-        //Transaction.worker.start();
-        Transaction.worker.dispatch(this, Transaction.worker.DISPATCH_NORMAL);
-
-        // maintain stock...
-        this.requestCommand('decStock', this.data, "Stocks");
+        // set status = 1
+        this.process(status);
         
     };
 
     Transaction.prototype.isSubmit = function() {
-        return (this.data.status == 1);
+        // return (this.data.status == 1);
+        return (this.data.status > 0);
     };
 
 
@@ -247,7 +256,9 @@
             
             hasDiscount: false,
             hasSurcharge: false,
-            hasMarker: false
+            hasMarker: false,
+
+            stock_maintained: false
 
         };
 
@@ -1414,7 +1425,7 @@
         var paymentItem = {
             id: paymentId,
             name: type,
-            amount: amount,
+            amount: this.getRoundedPrice(amount),
             origin_amount: origin_amount,
             memo1: memo1,
             memo2: memo2
@@ -1826,13 +1837,13 @@
         remain = total - payment_subtotal;
 
         this.data.total = this.getRoundedPrice(total);
-        this.data.remain = remain;
-        this.data.tax_subtotal = tax_subtotal;
-        this.data.item_surcharge_subtotal = item_surcharge_subtotal;
-        this.data.item_discount_subtotal = item_discount_subtotal;
-        this.data.trans_surcharge_subtotal = trans_surcharge_subtotal;
-        this.data.trans_discount_subtotal = trans_discount_subtotal ;
-        this.data.payment_subtotal = payment_subtotal;
+        this.data.remain = this.getRoundedPrice(remain);
+        this.data.tax_subtotal = this.getRoundedTax(tax_subtotal);
+        this.data.item_surcharge_subtotal = this.getRoundedPrice(item_surcharge_subtotal);
+        this.data.item_discount_subtotal = this.getRoundedPrice(item_discount_subtotal);
+        this.data.trans_surcharge_subtotal = this.getRoundedPrice(trans_surcharge_subtotal);
+        this.data.trans_discount_subtotal = this.getRoundedPrice(trans_discount_subtotal);
+        this.data.payment_subtotal = this.getRoundedPrice(payment_subtotal);
 
         Transaction.events.dispatch('afterCalcTotal', this.data, this);
 
