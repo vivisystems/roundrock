@@ -42,94 +42,89 @@
                                  onfocus="select()"/>
                     </hbox>
                 </vbox>
-                <hbox class="FieldTitle" >
-                    <spacer class="SpaceA" />
-                    <label value="&currencysetup.currency;" />
-                    <spacer class="SpaceB" />
-                    <label value="&currencysetup.symbol;" />
-                    <spacer class="SpaceC" />
-                    <label value="&currencysetup.rate;" />
-                    <spacer class="SpaceD" />
-                    <label value="&currencysetup.convert;" />
-                    <spacer class="SpaceE" />
-                    <label value="&currencysetup.amount;" />
-                </hbox>
-                <vbox class="DataRow">
-                    <label value="&currencysetup.other; 1" />
-                    <hbox align="center">
-                        <textbox id="currency_1" value="" size="4" maxsize="4" form="currencyForm" name="currency_1"
-                                 onfocus="select()"/>
-                        <textbox id="currency_symbol_1" value="" size="4" maxsize="4" form="currencyForm" name="currency_symbol_1"
-                                 onfocus="select()"/>
-                        <textbox id="currency_exchange_1" value="" size="8" maxsize="8" form="currencyForm" name="currency_exchange_1"
-                                 type="number" hidespinbuttons="true" decimalplaces="Infinity" onchange="calCurrency('1')" onblur="calCurrency('1')"/>
-                        <label value=":" />
-                        <textbox id="currency_input_1" value="" size="6" maxsize="8" oninput="calCurrency('1');" onfocus="this.select()" class="FieldWidth"/>
-                        <label value="=" />
-                        <textbox id="currency_result_1" value="" size="8" maxsize="8" readonly="true" class="FieldWidth"/>
-                    </hbox>
-                </vbox>
-                <vbox class="DataRow">
-                    <label value="&currencysetup.other; 2" />
-                    <hbox align="center">
-                        <textbox id="currency_2" value="" size="4" maxsize="4" form="currencyForm" name="currency_2"
-                                 onfocus="select()"/>
-                        <textbox id="currency_symbol_2" value="" size="4" maxsize="4" form="currencyForm" name="currency_symbol_2"
-                                 onfocus="select()"/>
-                        <textbox id="currency_exchange_2" value="" size="8" maxsize="8" form="currencyForm" name="currency_exchange_2"
-                                 type="number" hidespinbuttons="true" decimalplaces="Infinity" onchange="calCurrency('2')" onblur="calCurrency('2')" />
-                        <label value=":" />
-                        <textbox id="currency_input_2" value="" size="6" maxsize="8" oninput="calCurrency('2');" onfocus="this.select()" class="FieldWidth"/>
-                        <label value="=" />
-                        <textbox id="currency_result_2" value="" size="8" maxsize="8" readonly="true" class="FieldWidth"/>
-                    </hbox>
-                </vbox>
-                <vbox class="DataRow">
-                    <label value="&currencysetup.other; 3" />
-                    <hbox align="center">
-                        <textbox id="currency_3" value="" size="4" maxsize="4" form="currencyForm" name="currency_3"
-                                 onfocus="select()"/>
-                        <textbox id="currency_symbol_3" value="" size="4" maxsize="4" form="currencyForm" name="currency_symbol_3"
-                                 onfocus="select()"/>
-                        <textbox id="currency_exchange_3" value="" size="8" maxsize="8" form="currencyForm" name="currency_exchange_3"
-                                 type="number" hidespinbuttons="true" decimalplaces="Infinity" onchange="calCurrency('3')" onblur="calCurrency('3')"/>
-                        <label value=":" />
-                        <textbox id="currency_input_3" value="" size="6" maxsize="8" oninput="calCurrency('3');" onfocus="this.select()" class="FieldWidth"/>
-                        <label value="=" />
-                        <textbox id="currency_result_3" value="" size="8" maxsize="8" readonly="true" class="FieldWidth"/>
-                    </hbox>
-                </vbox>
-                <vbox class="DataRow">
-                    <label value="&currencysetup.other; 4" />
-                    <hbox align="center">
-                        <textbox id="currency_4" value="" size="4" maxsize="4" form="currencyForm" name="currency_4"
-                                 onfocus="select()"/>
-                        <textbox id="currency_symbol_4" value="" size="4" maxsize="4" form="currencyForm" name="currency_symbol_4"
-                                 onfocus="select()"/>
-                        <textbox id="currency_exchange_4" value="" size="8" maxsize="8" form="currencyForm" name="currency_exchange_4"
-                                 type="number" hidespinbuttons="true" decimalplaces="Infinity" onchange="calCurrency('4')" onblur="calCurrency('4')"/>
-                        <label value=":" />
-                        <textbox id="currency_input_4" value="" size="6" maxsize="8" oninput="calCurrency('4');" onfocus="this.select()" class="FieldWidth"/>
-                        <label value="=" />
-                        <textbox id="currency_result_4" value="" size="8" maxsize="8" readonly="true" class="FieldWidth"/>
-                    </hbox>
-                </vbox>
-                <vbox class="DataRow">
-                    <label value="&currencysetup.other; 5" />
-                    <hbox align="center">
-                        <textbox id="currency_5" value="" size="4" maxsize="4" form="currencyForm" name="currency_5"
-                                 onfocus="select()"/>
-                        <textbox id="currency_symbol_5" value="" size="4" maxsize="4" form="currencyForm" name="currency_symbol_5"
-                                 onfocus="select()"/>
-                        <textbox id="currency_exchange_5" value="" size="8" maxsize="8" form="currencyForm" name="currency_exchange_5"
-                                 type="number" hidespinbuttons="true" decimalplaces="Infinity" onchange="calCurrency('5')" onblur="calCurrency('5')"/>
-                        <label value=":" />
-                        <textbox id="currency_input_5" value="" size="6" maxsize="8" oninput="calCurrency('5');" onfocus="this.select()" class="FieldWidth"/>
-                        <label value="=" />
-                        <textbox id="currency_result_5" value="" size="8" maxsize="8" readonly="true" class="FieldWidth"/>
-                    </hbox>
-                </vbox>
-                
+                <grid>
+                    <columns>
+                        <column/>
+                        <column/>
+                        <column/>
+                        <column/>
+                        <column/>
+                        <column/>
+                        <column/>
+                        <column/>
+                    </columns>
+                    <rows>
+                        <row class="FieldTitle" >
+                            <hbox pack="center">&currencysetup.currency;</hbox>
+                            <hbox pack="center">&currencysetup.symbol;</hbox>
+                            <hbox pack="center">&currencysetup.rate;</hbox>
+                            <description/>
+                            <hbox pack="center">&currencysetup.convert;</hbox>
+                            <description/>
+                            <hbox pack="center">&currencysetup.amount;</hbox>
+                        </row>
+                        <row class="DataRow">
+                                <textbox id="currency_1" value="" size="4" maxsize="4" form="currencyForm" name="currency_1"
+                                         onfocus="select()"/>
+                                <textbox id="currency_symbol_1" value="" size="4" maxsize="4" form="currencyForm" name="currency_symbol_1"
+                                         onfocus="select()"/>
+                                <textbox id="currency_exchange_1" value="" size="8" maxsize="8" form="currencyForm" name="currency_exchange_1"
+                                         type="number" hidespinbuttons="true" decimalplaces="Infinity" onchange="calCurrency('1')" onblur="calCurrency('1')"/>
+                                <label value=":" />
+                                <textbox id="currency_input_1" value="" size="6" maxsize="8" oninput="calCurrency('1');" onfocus="this.select()" class="FieldWidth"/>
+                                <label value="=" />
+                                <textbox id="currency_result_1" value="" size="8" maxsize="8" readonly="true" class="FieldWidth"/>
+                        </row>
+                        <row class="DataRow">
+                                <textbox id="currency_2" value="" size="4" maxsize="4" form="currencyForm" name="currency_2"
+                                         onfocus="select()"/>
+                                <textbox id="currency_symbol_2" value="" size="4" maxsize="4" form="currencyForm" name="currency_symbol_2"
+                                         onfocus="select()"/>
+                                <textbox id="currency_exchange_2" value="" size="8" maxsize="8" form="currencyForm" name="currency_exchange_2"
+                                         type="number" hidespinbuttons="true" decimalplaces="Infinity" onchange="calCurrency('2')" onblur="calCurrency('2')" />
+                                <label value=":" />
+                                <textbox id="currency_input_2" value="" size="6" maxsize="8" oninput="calCurrency('2');" onfocus="this.select()" class="FieldWidth"/>
+                                <label value="=" />
+                                <textbox id="currency_result_2" value="" size="8" maxsize="8" readonly="true" class="FieldWidth"/>
+                        </row>
+                        <row class="DataRow">
+                                <textbox id="currency_3" value="" size="4" maxsize="4" form="currencyForm" name="currency_3"
+                                         onfocus="select()"/>
+                                <textbox id="currency_symbol_3" value="" size="4" maxsize="4" form="currencyForm" name="currency_symbol_3"
+                                         onfocus="select()"/>
+                                <textbox id="currency_exchange_3" value="" size="8" maxsize="8" form="currencyForm" name="currency_exchange_3"
+                                         type="number" hidespinbuttons="true" decimalplaces="Infinity" onchange="calCurrency('3')" onblur="calCurrency('3')"/>
+                                <label value=":" />
+                                <textbox id="currency_input_3" value="" size="6" maxsize="8" oninput="calCurrency('3');" onfocus="this.select()" class="FieldWidth"/>
+                                <label value="=" />
+                                <textbox id="currency_result_3" value="" size="8" maxsize="8" readonly="true" class="FieldWidth"/>
+                        </row>
+                        <row class="DataRow">
+                                <textbox id="currency_4" value="" size="4" maxsize="4" form="currencyForm" name="currency_4"
+                                         onfocus="select()"/>
+                                <textbox id="currency_symbol_4" value="" size="4" maxsize="4" form="currencyForm" name="currency_symbol_4"
+                                         onfocus="select()"/>
+                                <textbox id="currency_exchange_4" value="" size="8" maxsize="8" form="currencyForm" name="currency_exchange_4"
+                                         type="number" hidespinbuttons="true" decimalplaces="Infinity" onchange="calCurrency('4')" onblur="calCurrency('4')"/>
+                                <label value=":" />
+                                <textbox id="currency_input_4" value="" size="6" maxsize="8" oninput="calCurrency('4');" onfocus="this.select()" class="FieldWidth"/>
+                                <label value="=" />
+                                <textbox id="currency_result_4" value="" size="8" maxsize="8" readonly="true" class="FieldWidth"/>
+                        </row>
+                        <row class="DataRow">
+                                <textbox id="currency_5" value="" size="4" maxsize="4" form="currencyForm" name="currency_5"
+                                         onfocus="select()"/>
+                                <textbox id="currency_symbol_5" value="" size="4" maxsize="4" form="currencyForm" name="currency_symbol_5"
+                                         onfocus="select()"/>
+                                <textbox id="currency_exchange_5" value="" size="8" maxsize="8" form="currencyForm" name="currency_exchange_5"
+                                         type="number" hidespinbuttons="true" decimalplaces="Infinity" onchange="calCurrency('5')" onblur="calCurrency('5')"/>
+                                <label value=":" />
+                                <textbox id="currency_input_5" value="" size="6" maxsize="8" oninput="calCurrency('5');" onfocus="this.select()" class="FieldWidth"/>
+                                <label value="=" />
+                                <textbox id="currency_result_5" value="" size="8" maxsize="8" readonly="true" class="FieldWidth"/>
+                        </row>
+                    </rows>
+                </grid>
                 
             </vbox>
 

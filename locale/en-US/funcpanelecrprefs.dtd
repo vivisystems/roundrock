@@ -1,59 +1,59 @@
 <!ENTITY    vivifuncpanelecr.title                   "Function Panel Configuration">
 <!ENTITY    vivifuncpanelecr.prefs.tabpanel.general.label                   "General">
-<!ENTITY    vivifuncpanelecr.prefs.tabpanel.general.size.row.label          "Rows:">
-<!ENTITY    vivifuncpanelecr.prefs.tabpanel.general.size.column.label       "Columns:">
-<!ENTITY    vivifuncpanelecr.prefs.tabpanel.general.size.hspacing.label     "Horizontal spacing:">
+<!ENTITY    vivifuncpanelecr.prefs.tabpanel.general.size.row.label          "Rows">
+<!ENTITY    vivifuncpanelecr.prefs.tabpanel.general.size.column.label       "Columns">
+<!ENTITY    vivifuncpanelecr.prefs.tabpanel.general.size.hspacing.label     "Horizontal spacing">
 <!ENTITY    vivifuncpanelecr.prefs.tabpanel.general.size.vspacing.label     "Vertical spacing">
 <!ENTITY    vivifuncpanelecr.prefs.tabpanel.general.size.apply              "Change size">
-<!ENTITY    vivifuncpanelecr.prefs.tabpanel.general.orientation.label       "Change orientation:">
+<!ENTITY    vivifuncpanelecr.prefs.tabpanel.general.orientation.label       "Change orientation">
 <!ENTITY    vivifuncpanelecr.prefs.tabpanel.general.resize.label            "Panel resizable?">
-<!ENTITY    vivifuncpanelecr.prefs.tabpanel.general.wrap.label              "Wrap-around scrolling?">
-<!ENTITY    vivifuncpanelecr.prefs.tabpanel.general.restrict.label          "Hide when restricted?">
-<!ENTITY    vivifuncpanelecr.prefs.tabpanel.general.maxpage.label           "Number of panels:">
+<!ENTITY    vivifuncpanelecr.prefs.tabpanel.general.wrap.label              "Wrap-around scrolling">
+<!ENTITY    vivifuncpanelecr.prefs.tabpanel.general.restrict.label          "Hide when restricted">
+<!ENTITY    vivifuncpanelecr.prefs.tabpanel.general.maxpage.label           "Number of panels">
 <!ENTITY    vivifuncpanelecr.prefs.tabpanel.general.maxpage.apply.label     "Set">
-<!ENTITY    vivifuncpanelecr.prefs.tabpanel.general.defaultpage.label       "Start with panel:">
+<!ENTITY    vivifuncpanelecr.prefs.tabpanel.general.defaultpage.label       "Start with panel">
 <!ENTITY    vivifuncpanelecr.prefs.tabpanel.general.defaultpage.apply.label "Set">
 <!ENTITY    vivifuncpanelecr.prefs.tabpanel.layout.label                    "Page layout">
-<!ENTITY    vivifuncpanelecr.prefs.tabpanel.layout.page.number.label        "Page number:">
-<!ENTITY    vivifuncpanelecr.prefs.tabpanel.layout.label.page.label         "Page label:">
+<!ENTITY    vivifuncpanelecr.prefs.tabpanel.layout.page.number.label        "Page number">
+<!ENTITY    vivifuncpanelecr.prefs.tabpanel.layout.label.page.label         "Page label">
 <!ENTITY    vivifuncpanelecr.prefs.tabpanel.layout.label.page.apply.label   "Set">
 <!ENTITY    vivifuncpanelecr.prefs.tabpanel.layout.label.page.reset.label   "Reset">
-<!ENTITY    vivifuncpanelecr.prefs.tabpanel.layout.label.global.label       "Global page label:">
+<!ENTITY    vivifuncpanelecr.prefs.tabpanel.layout.label.global.label       "Global page label">
 <!ENTITY    vivifuncpanelecr.prefs.tabpanel.layout.label.global.apply.label "Set">
 <!ENTITY    vivifuncpanelecr.prefs.tabpanel.layout.label.global.reset.label "Reset">
 <!ENTITY    vivifuncpanelecr.prefs.tabpanel.layout.global.label             "Set as default?">
 <!ENTITY    vivifuncpanelecr.prefs.tabpanel.layout.global.apply.label       "Set">
 <!ENTITY    vivifuncpanelecr.prefs.tabpanel.layout.global.load.label        "Use default?">
 <!ENTITY    vivifuncpanelecr.prefs.tabpanel.layout.global.load.apply.label  "Apply">
-<!ENTITY    vivifuncpanelecr.prefs.tabpanel.layout.selection.label          "Selected cells:">
+<!ENTITY    vivifuncpanelecr.prefs.tabpanel.layout.selection.label          "Selected cells">
 <!ENTITY    vivifuncpanelecr.prefs.tabpanel.layout.merge.label              "Merge">
 <!ENTITY    vivifuncpanelecr.prefs.tabpanel.layout.remove.label             "Remove">
 <!ENTITY    vivifuncpanelecr.prefs.tabpanel.layout.reset.label              "Use standard?">
 <!ENTITY    vivifuncpanelecr.prefs.tabpanel.layout.reset.apply.label        "Apply">
 <!ENTITY    vivifuncpanelecr.prefs.tabpanel.layout.buttonstyle.fontsize.label  "Size">
 <!ENTITY    vivifuncpanelecr.prefs.tabpanel.keymap.label                    "Key Mapping ">
-<!ENTITY    vivifuncpanelecr.prefs.tabpanel.keymap.page.number.label        "Page number:">
+<!ENTITY    vivifuncpanelecr.prefs.tabpanel.keymap.page.number.label        "Page number">
 <!ENTITY    vivifuncpanelecr.prefs.tabpanel.keymap.unlink-all.label         "Unlink All">
-<!ENTITY    vivifuncpanelecr.prefs.tabpanel.keymap.selection.label          "Selected button:">
-<!ENTITY    vivifuncpanelecr.prefs.tabpanel.keymap.linked.label             "Linked to function:">
+<!ENTITY    vivifuncpanelecr.prefs.tabpanel.keymap.selection.label          "Selected button">
+<!ENTITY    vivifuncpanelecr.prefs.tabpanel.keymap.linked.label             "Linked to function">
 <!ENTITY    vivifuncpanelecr.prefs.tabpanel.keymap.linked.unlink.label      "Unlink">
-<!ENTITY    vivifuncpanelecr.prefs.tabpanel.keymap.function.label           "Function label:">
+<!ENTITY    vivifuncpanelecr.prefs.tabpanel.keymap.function.label           "Function label">
 <!ENTITY    vivifuncpanelecr.prefs.tabpanel.keymap.function.label.apply.label     "Update">
 <!ENTITY    vivifuncpanelecr.prefs.tabpanel.keymap.function.label.reset.label     "Reset">
-<!ENTITY    vivifuncpanelecr.prefs.tabpanel.keymap.function.data.label      "Parameter:">
+<!ENTITY    vivifuncpanelecr.prefs.tabpanel.keymap.function.data.label      "Parameter">
 <!ENTITY    vivifuncpanelecr.prefs.tabpanel.keymap.function.data.apply.label     "Update">
 <!ENTITY    vivifuncpanelecr.prefs.tabpanel.keymap.function.data.reset.label     "Reset">
 <!ENTITY    vivifuncpanelecr.prefs.tabpanel.keymap.link.label               "Link">
 <!ENTITY    vivifuncpanelecr.prefs.tabpanel.gkeymap.label                    "Global Key Mapping ">
-<!ENTITY    vivifuncpanelecr.prefs.tabpanel.gkeymap.page.number.label        "Page number:">
+<!ENTITY    vivifuncpanelecr.prefs.tabpanel.gkeymap.page.number.label        "Page number">
 <!ENTITY    vivifuncpanelecr.prefs.tabpanel.gkeymap.unlink-all.label         "Unlink All">
-<!ENTITY    vivifuncpanelecr.prefs.tabpanel.gkeymap.selection.label          "Selected button:">
-<!ENTITY    vivifuncpanelecr.prefs.tabpanel.gkeymap.linked.label             "Linked to function:">
+<!ENTITY    vivifuncpanelecr.prefs.tabpanel.gkeymap.selection.label          "Selected button">
+<!ENTITY    vivifuncpanelecr.prefs.tabpanel.gkeymap.linked.label             "Linked to function">
 <!ENTITY    vivifuncpanelecr.prefs.tabpanel.gkeymap.linked.unlink.label      "Unlink">
-<!ENTITY    vivifuncpanelecr.prefs.tabpanel.gkeymap.function.label           "Function label:">
+<!ENTITY    vivifuncpanelecr.prefs.tabpanel.gkeymap.function.label           "Function label">
 <!ENTITY    vivifuncpanelecr.prefs.tabpanel.gkeymap.function.label.apply.label     "Update">
 <!ENTITY    vivifuncpanelecr.prefs.tabpanel.gkeymap.function.label.reset.label     "Reset">
-<!ENTITY    vivifuncpanelecr.prefs.tabpanel.gkeymap.function.data.label      "Parameter:">
+<!ENTITY    vivifuncpanelecr.prefs.tabpanel.gkeymap.function.data.label      "Parameter">
 <!ENTITY    vivifuncpanelecr.prefs.tabpanel.gkeymap.function.data.apply.label     "Update">
 <!ENTITY    vivifuncpanelecr.prefs.tabpanel.gkeymap.function.data.reset.label     "Reset">
 <!ENTITY    vivifuncpanelecr.prefs.tabpanel.gkeymap.link.label               "Link">

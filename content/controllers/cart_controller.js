@@ -366,8 +366,8 @@
                     GeckoJS.Session.set('cart_set_qty_value', qty);
                 }
 
-                var doSIS = plu.single && curTransaction.data.items_count == 1;
                 var addedItem = curTransaction.appendItem(item);
+                var doSIS = plu.single && curTransaction.data.items_count == 1;
 
                 this.dispatchEvent('onAddItem', addedItem);
 
@@ -1552,6 +1552,7 @@
             for (var key in payments) {
                 var payment = payments[key];
                 payment.amount = curTransaction.formatPrice(payment.amount);
+                payment.name = _(payment.name);
             }
             
             var aURL = 'chrome://viviecr/content/payment_details.xul';
@@ -1884,7 +1885,13 @@
             if (typeof condGroups[index] == 'undefined') return null;
 
             var conds = condGroups[index]['Condiment'];
+            var selectedItems = [];
 
+            if (conds != null) {
+                for (var i = 0; i < conds.length; i++) {
+                    if (conds[i].preset) selectedItems.push(i);
+                }
+            }
             var colsRows = parseInt(this._condimentPanel.getAttribute('cols')) * parseInt(this._condimentPanel.getAttribute('rows'));
 
             if (forceModal || colsRows == 0) {
@@ -1895,7 +1902,8 @@
                 var inputObj = {
                     condgroup: condgroup,
                     condsData: conds,
-                    condiments: condiments
+                    condiments: condiments,
+                    selectedItems: selectedItems
                 };
                
                 window.openDialog(aURL, 'select_condiments', features, inputObj);
@@ -1918,6 +1926,8 @@
                 this._condimentPanel.datasource.data = conds;
                 this._condimentPanel.vivibuttonpanel.invalidate();
 
+                this._condimentPanel.selectedItems = selectedItems;
+                this._condimentPanel.scrollToRow(0);
                 this._pluAndCondimentDeck.selectedIndex = 1;
             }
 
