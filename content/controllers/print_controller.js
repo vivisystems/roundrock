@@ -584,6 +584,20 @@
                         if (printed && device > 0) {
                             self.receiptPrinted(data.order.id, data.order.seq, device);
                         }
+
+                        // dispatch receiptPrinted event
+
+                        //@todo OSD
+                        /*
+                        NotifyUtils.info('Dispatching onReceiptPrinted event');
+
+                        self.dispatchEvent('onReceiptPrinted', {result: result,
+                                                                encodedResult: encodedResult,
+                                                                device: device});
+
+                        //@todo OSD
+                        NotifyUtils.info('onReceiptPrinted event dispatched');
+                        */
                     }catch(e) {
                         return false;
                     }
