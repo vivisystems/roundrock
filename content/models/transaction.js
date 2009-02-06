@@ -416,7 +416,6 @@
                 level: (level == null) ? 1 : level
             });           
         }else if(type =='payment') {
-            alert(GeckoJS.BaseObject.dump(item));
             var dispName;
             var current_price = '';
             var current_qty = '';
@@ -437,6 +436,8 @@
                         current_qty = item.origin_amount + 'X';
                         current_price = item.memo2;
                     }
+                    else
+                        dispName = _(item.name.toUpperCase());
                     break;
 
                 default:
