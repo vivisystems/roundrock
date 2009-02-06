@@ -1,9 +1,9 @@
 # English translations for PACKAGE package.
 # Copyright (C) 2009 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# user <vivipos@firich.com.tw>, 2009.
+# user <hsu.irving@gmail.com>, 2009.
 #
-!=Project-Id-Version\: PACKAGE VERSION\nReport-Msgid-Bugs-To\: irving.hsu@firich.com.tw\nPOT-Creation-Date\: 2009-02-05 15\:26+0800\nPO-Revision-Date\: 2009-02-05 15\:27+0800\nLast-Translator\: user <vivipos@firich.com.tw>\nLanguage-Team\: English\nMIME-Version\: 1.0\nContent-Type\: text/plain; charset\=UTF-8\nContent-Transfer-Encoding\: 8bit\nPlural-Forms\: nplurals\=2; plural\=(n \!\= 1);\n
+!=Project-Id-Version\: PACKAGE VERSION\nReport-Msgid-Bugs-To\: irving.hsu@firich.com.tw\nPOT-Creation-Date\: 2009-02-06 13\:42+0800\nPO-Revision-Date\: 2009-02-06 13\:42+0800\nLast-Translator\: user <hsu.irving@gmail.com>\nLanguage-Team\: English\nMIME-Version\: 1.0\nContent-Type\: text/plain; charset\=UTF-8\nContent-Transfer-Encoding\: 8bit\nPlural-Forms\: nplurals\=2; plural\=(n \!\= 1);\n
 
 #: /home/user/workspace/vivipos_app/content/datetime.js:27
 confirm\ timezone\ change=confirm timezone change
@@ -590,10 +590,12 @@ The\ following\ enabled\ devices\ appear\ to\ be\ offline,\ do\ you\ still\ want
 
 #: /home/user/workspace/vivipos_app/content/controllers/image_manager_controller.js:121
 #: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:104
+#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:101
 Media\ Not\ Found\!=Media Not Found\!
 
 #: /home/user/workspace/vivipos_app/content/controllers/image_manager_controller.js:122
 #: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:105
+#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:102
 Please\ attach\ the\ USB\ thumb\ drive...=Please attach the USB thumb drive...
 
 #: /home/user/workspace/vivipos_app/content/controllers/image_manager_controller.js:262
@@ -618,53 +620,71 @@ Rename\ Image\ Name\ (%S)\ to\ (%S)\!\!=Rename Image Name (%S) to (%S)\!\!
 Rename\ Image\ (%S)\ Error\!\!=Rename Image (%S) Error\!\!
 
 #: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:120
+#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:117
 Please\ select\ a\ data\ category\ to\ export=Please select a data category to export
 
 #: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:186
+#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:183
 Export\ To\ CSV\ (%S)\ Error\!\!=Export To CSV (%S) Error\!\!
 
 #: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:206
 #: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:372
+#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:203
+#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:369
 Yes=Yes
 
 #: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:206
 #: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:372
+#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:203
+#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:369
 \ (%S)=\ (%S)
 
 #: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:209
+#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:206
 Data\ export\ to\ CSV\ file\ [%S]\ finished\!=Data export to CSV file [%S] finished\!
 
 #: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:221
+#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:218
 Please\ select\ a\ data\ category\ to\ import=Please select a data category to import
 
 #: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:242
+#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:239
 The\ specified\ CSV\ file\ [%S]\ does\ not\ exist\!=The specified CSV file [%S] does not exist\!
 
 #: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:278
+#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:275
 Unable\ to\ open\ the\ specified\ CSV\ file\ [%S]\!=Unable to open the specified CSV file [%S]\!
 
 #: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:300
+#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:297
 Import\ format\ error\:\ field\ [%S]\ not\ exist\!=Import format error\: field [%S] not exist\!
 
 #: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:357
+#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:354
 Format\ error\ detected\ in\ import\ CSV\ file\ [%S]\!=Format error detected in import CSV file [%S]\!
 
 #: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:375
+#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:372
 Data\ import\ from\ CSV\ file\ [%S]\ finished\!=Data import from CSV file [%S] finished\!
 
 #: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:388
+#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:385
 Department=Department
 
 #: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:395
+#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:392
 Product=Product
 
 #: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:402
+#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:399
 Product\ Group=Product Group
 
 #: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:409
+#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:406
 Condiment\ Group=Condiment Group
 
 #: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:416
+#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:413
 Condiment=Condiment
 
 #: /home/user/workspace/vivipos_app/content/controllers/jobs_controller.js:35
@@ -697,50 +717,70 @@ Job\ [%S]\ removed\ successfully=Job [%S] removed successfully
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:575
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:660
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:580
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:665
 \ logged\ in=\ logged in
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:592
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:668
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:597
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:673
 Authentication\ failed\!\ Please\ make\ sure\ the\ password\ is\ correct.=Authentication failed\! Please make sure the password is correct.
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:634
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:639
 User\ [%S]\ does\ not\ exist\!=User [%S] does not exist\!
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:673
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:678
 Please\ enter\ passcode\ first.=Please enter passcode first.
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:697
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:709
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:722
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:735
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:702
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:714
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:727
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:740
 Sign\ Off=Sign Off
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:697
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:702
 Discard\ items\ that\ have\ been\ registered?=Discard items that have been registered?
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:709
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:714
 What\ do\ you\ want\ to\ do\ with\ the\ registered\ items?=What do you want to do with the registered items?
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:710
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:715
 Queue=Queue
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:710
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:736
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:715
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:741
 Discard=Discard
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:722
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:727
 You\ have\ one\ or\ more\ queued\ orders.\ Discard\ them?=You have one or more queued orders. Discard them?
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:735
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:740
 You\ have\ one\ or\ more\ queued\ orders.\ What\ do\ you\ want\ to\ do\ with\ them?=You have one or more queued orders. What do you want to do with them?
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:736
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:741
 Keep=Keep
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:745
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:750
 confirm\ sign-off=confirm sign-off
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:745
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:750
 Are\ you\ ready\ to\ sign\ off?=Are you ready to sign off?
 
 #: /home/user/workspace/vivipos_app/content/controllers/plufilters_controller.js:46

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-02-05 15:26+0800\n"
+"POT-Creation-Date: 2009-02-06 13:42+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -801,11 +801,13 @@ msgstr ""
 
 #: /home/user/workspace/vivipos_app/content/controllers/image_manager_controller.js:121
 #: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:104
+#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:101
 msgid "Media Not Found!"
 msgstr ""
 
 #: /home/user/workspace/vivipos_app/content/controllers/image_manager_controller.js:122
 #: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:105
+#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:102
 msgid "Please attach the USB thumb drive..."
 msgstr ""
 
@@ -838,68 +840,86 @@ msgid "Rename Image (%S) Error!!"
 msgstr ""
 
 #: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:120
+#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:117
 msgid "Please select a data category to export"
 msgstr ""
 
 #: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:186
+#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:183
 msgid "Export To CSV (%S) Error!!"
 msgstr ""
 
 #: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:206
 #: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:372
+#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:203
+#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:369
 msgid "Yes"
 msgstr ""
 
 #: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:206
 #: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:372
+#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:203
+#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:369
 msgid " (%S)"
 msgstr ""
 
 #: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:209
+#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:206
 msgid "Data export to CSV file [%S] finished!"
 msgstr ""
 
 #: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:221
+#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:218
 msgid "Please select a data category to import"
 msgstr ""
 
 #: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:242
+#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:239
 msgid "The specified CSV file [%S] does not exist!"
 msgstr ""
 
 #: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:278
+#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:275
 msgid "Unable to open the specified CSV file [%S]!"
 msgstr ""
 
 #: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:300
+#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:297
 msgid "Import format error: field [%S] not exist!"
 msgstr ""
 
 #: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:357
+#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:354
 msgid "Format error detected in import CSV file [%S]!"
 msgstr ""
 
 #: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:375
+#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:372
 msgid "Data import from CSV file [%S] finished!"
 msgstr ""
 
 #: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:388
+#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:385
 msgid "Department"
 msgstr ""
 
 #: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:395
+#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:392
 msgid "Product"
 msgstr ""
 
 #: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:402
+#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:399
 msgid "Product Group"
 msgstr ""
 
 #: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:409
+#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:406
 msgid "Condiment Group"
 msgstr ""
 
 #: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:416
+#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:413
 msgid "Condiment"
 msgstr ""
 
@@ -944,19 +964,25 @@ msgstr ""
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:575
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:660
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:580
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:665
 msgid " logged in"
 msgstr ""
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:592
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:668
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:597
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:673
 msgid "Authentication failed! Please make sure the password is correct."
 msgstr ""
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:634
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:639
 msgid "User [%S] does not exist!"
 msgstr ""
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:673
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:678
 msgid "Please enter passcode first."
 msgstr ""
 
@@ -964,43 +990,57 @@ msgstr ""
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:709
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:722
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:735
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:702
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:714
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:727
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:740
 msgid "Sign Off"
 msgstr ""
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:697
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:702
 msgid "Discard items that have been registered?"
 msgstr ""
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:709
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:714
 msgid "What do you want to do with the registered items?"
 msgstr ""
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:710
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:715
 msgid "Queue"
 msgstr ""
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:710
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:736
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:715
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:741
 msgid "Discard"
 msgstr ""
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:722
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:727
 msgid "You have one or more queued orders. Discard them?"
 msgstr ""
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:735
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:740
 msgid "You have one or more queued orders. What do you want to do with them?"
 msgstr ""
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:736
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:741
 msgid "Keep"
 msgstr ""
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:745
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:750
 msgid "confirm sign-off"
 msgstr ""
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:745
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:750
 msgid "Are you ready to sign off?"
 msgstr ""
 

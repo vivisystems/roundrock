@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE bindings [
+  <!ENTITY % globalDTD SYSTEM "chrome://global/locale/global.dtd">
+  %globalDTD;
+  <!ENTITY % bindingsDTD SYSTEM "chrome://viviecr/locale/bindings.dtd">
+  %bindingsDTD;
+]>
+
+<bindings xmlns="http://www.mozilla.org/xbl"
+          xmlns:xbl="http://www.mozilla.org/xbl"
+          xmlns:html="http://www.w3.org/1999/xhtml"
+          xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<binding id="sync_status">
+  <content>
+
+    <xul:image xbl:inherits="class" anonid="image" src="chrome://viviecr/skin/icons/sync_disabled.png" />
+    
+  </content>
+
+  <xbl:implementation>
+
+    <property name="image" onget="return document.getAnonymousElementByAttribute(this, 'anonid', 'image');" readonly="true"/>
+
+	<xbl:constructor>
+
+        this.syncSettings = (new SyncSetting()).read();
+
+        if (this.syncSettings.active == 1) {
+            this.startTimer();
+        }
+	</xbl:constructor>
+
+    <xbl:destructor>
+        this.stopTimer();
+    </xbl:destructor>
+    
+    <method name="startTimer">
+        <body>
+            <![CDATA[
+
+        var self = this;
+        var onTimer = function() {
+            self.onTimer();
+        };
+
+        this.intervalId = setInterval(onTimer, 60000);
+        self.onTimer();
+
+        ]]>
+        </body>
+    </method>
+
+            <method name="onTimer">
+                <body><![CDATA[
+
+                    var isOnline = false;
+
+/**
+var req = new XMLHttpRequest();
+
+var requestTimer = setTimeout(function(){
+   clearTimeout(requestTimer);
+
+   alert(req.status);
+   req.abort();
+   alert('tttt');
+
+   alert(req.status);
+}, 1000);
+
+req.open('GET', 'http://192.168.111.11/', true);
+
+// set Authorization
+// req.setRequestHeader('Authorization', 'Basic' + ' ' + 'vivipos' + ':' + passwd);
+# req.onreadystatechange = function (aEvt) {
+#   if (req.readyState == 4) {
+#      if(req.status == 200)
+#       dump(req.responseText);
+#      else
+#       dump("Error loading page\n");
+#   }
+# };  
+req.send(null);
+alert('test');
+*/
+
+        this.setStatus(isOnline);
+
+          ]]>
+                </body>
+            </method>
+
+
+            <method name="stopTimer">
+                <body><![CDATA[
+                    try {
+                        clearInterval(this.intervalId);
+                    } catch(e) {}
+
+          ]]>
+                </body>
+            </method>
+
+            <method name="setStatus">
+                <parameter name="isOnline" />
+                <body><![CDATA[
+
+                    var image = this.image ;
+
+                    if (isOnline) {
+                        if (image.src != 'chrome://viviecr/skin/icons/sync_online.png') {
+                            image.src = "chrome://viviecr/skin/icons/sync_online.png";
+                        }
+                    }else {
+                        if (image.src != 'chrome://viviecr/skin/icons/sync_offline.png') {
+                            image.src = "chrome://viviecr/skin/icons/sync_offline.png";
+                        }
+                    }
+
+          ]]>
+                </body>
+            </method>
+
+
+  </xbl:implementation>
+
+</binding>
+
+</bindings>

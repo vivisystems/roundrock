@@ -47,3 +47,7 @@ vividatetimepicker-datepad {
 vividatetimepicker-popup {
   -moz-binding: url("chrome://viviecr/content/bindings/vividatetimepicker.xbl#vividatetimepicker-popup");
 }
+
+sync_status {
+  -moz-binding: url("chrome://viviecr/content/bindings/sync_status.xbl#sync_status");
+}
