@@ -12,100 +12,102 @@
           xmlns:html="http://www.w3.org/1999/xhtml"
           xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-<binding id="sync_status">
-  <content>
+    <binding id="sync_status">
+        <content>
 
-    <xul:image xbl:inherits="class" anonid="image" src="chrome://viviecr/skin/icons/sync_disabled.png" />
+            <xul:image xbl:inherits="class" anonid="image" src="chrome://viviecr/skin/icons/sync_disabled.png" />
     
-  </content>
+        </content>
 
-  <xbl:implementation>
+        <xbl:implementation>
 
-    <property name="image" onget="return document.getAnonymousElementByAttribute(this, 'anonid', 'image');" readonly="true"/>
+            <property name="image" onget="return document.getAnonymousElementByAttribute(this, 'anonid', 'image');" readonly="true"/>
 
-	<xbl:constructor>
+            <xbl:constructor>
+                <![CDATA[
 
-        this.syncSettings = (new SyncSetting()).read();
+                    this.syncSettings = (new SyncSetting()).read();
 
-        if (this.syncSettings.active == 1) {
-            this.startTimer();
-        }
-	</xbl:constructor>
+                    if (this.syncSettings && this.syncSettings.active == 1) {
 
-    <xbl:destructor>
-        this.stopTimer();
-    </xbl:destructor>
-    
-    <method name="startTimer">
-        <body>
-            <![CDATA[
+                        // check connection status
+                        this.url = this.syncSettings.protocol + '://' +
+                                    this.syncSettings.hostname + ':' +
+                                    this.syncSettings.port + '/' +
+                                    'syncs/auth/' + 
+                                    this.syncSettings.machine_id ;
 
-        var self = this;
-        var onTimer = function() {
-            self.onTimer();
-        };
+                        this.username = 'vivipos';
+                        this.password = this.syncSettings.password ;
 
-        this.intervalId = setInterval(onTimer, 60000);
-        self.onTimer();
+                        this.setStatus(false); // set offline default
+                        this._onTimer();
+                    }
 
-        ]]>
-        </body>
-    </method>
+                ]]>
+            </xbl:constructor>
 
-            <method name="onTimer">
-                <body><![CDATA[
+            <xbl:destructor>
+                <![CDATA[
+                if(this.timerId) clearTimeout(this.timerId);
+                ]]>
+            </xbl:destructor>
 
-                    var isOnline = false;
+            <method name="checkStatus">
+                <body>
+                    <![CDATA[
 
-/**
-var req = new XMLHttpRequest();
+                     var self = this;
+                     this.timerId = setTimeout(function() {
+                        self._onTimer();
+                     }, 60000);
 
-var requestTimer = setTimeout(function(){
-   clearTimeout(requestTimer);
-
-   alert(req.status);
-   req.abort();
-   alert('tttt');
-
-   alert(req.status);
-}, 1000);
-
-req.open('GET', 'http://192.168.111.11/', true);
-
-// set Authorization
-// req.setRequestHeader('Authorization', 'Basic' + ' ' + 'vivipos' + ':' + passwd);
-# req.onreadystatechange = function (aEvt) {
-#   if (req.readyState == 4) {
-#      if(req.status == 200)
-#       dump(req.responseText);
-#      else
-#       dump("Error loading page\n");
-#   }
-# };  
-req.send(null);
-alert('test');
-*/
-
-        this.setStatus(isOnline);
-
-          ]]>
+                    ]]>
                 </body>
             </method>
 
 
-            <method name="stopTimer">
-                <body><![CDATA[
-                    try {
-                        clearInterval(this.intervalId);
-                    } catch(e) {}
+            <method name="_onTimer">
+                <body>
+                    <![CDATA[
+                    var self = this;
 
-          ]]>
+                    if(this.timerId) clearTimeout(this.timerId);
+                    
+                    var url = this.url;
+                    var username = this.username ;
+                    var password = this.password ;
+
+                    var req = new XMLHttpRequest();
+                    req.mozBackgroundRequest = true;
+
+                    req.open('GET', url, true, username, password);
+                    req.onreadystatechange = function (aEvt) {
+
+                        if (req.readyState == 4) {
+                            if(req.status == 200) {
+                                var server_machine_id = req.responseText;
+                                if(server_machine_id) {
+                                    self.setStatus(true);
+                                }else {
+                                    self.setStatus(false);
+                                }
+                            }else {
+                                self.setStatus(false);
+                            }
+                            self.checkStatus(); // register again
+                        }
+                    };
+                    req.send(null);
+
+                    ]]>
                 </body>
             </method>
 
             <method name="setStatus">
                 <parameter name="isOnline" />
-                <body><![CDATA[
+                <body>
+                    <![CDATA[
 
                     var image = this.image ;
 
@@ -119,13 +121,11 @@ alert('test');
                         }
                     }
 
-          ]]>
+                    ]]>
                 </body>
             </method>
 
+        </xbl:implementation>
 
-  </xbl:implementation>
-
-</binding>
-
+    </binding>
 </bindings>
