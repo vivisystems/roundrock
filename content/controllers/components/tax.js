@@ -494,6 +494,7 @@
 
         var taxAmount = {}; taxAmount[no] = {
             charge: 0,
+            addon: 0,
             tax: taxObject
         };
 

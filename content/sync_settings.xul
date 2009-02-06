@@ -103,7 +103,7 @@
 
 		                    <row>
 		                        <label value="&sync_settings.label.port;" />
-		                        <textbox form="produsyncSettingFormctForm" name="port" type="number" size="2" value="80" />
+		                        <textbox form="syncSettingForm" name="port" type="number" size="2" value="80" />
 		                    </row>
 
 		                    <row>
