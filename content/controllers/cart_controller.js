@@ -360,6 +360,37 @@
                 this._getKeypadController().clearBuffer();
             }
 
+            // check if new item is the same as current item. if they are the same,
+            // collapse it into the current item if no surcharge/discount/marker has
+            // been applied to the current item and price/tax status are the same
+            var collapseSameItem = GeckoJS.Configure.read('') || false;
+            
+            if (curTransaction) {
+                var index = this._cartView.getSelectedIndex();
+                var currentItem = curTransaction.getItemAt(index);
+                var currentItemDisplay = curTransaction.getDisplaySeqAt(index);
+
+                var price = GeckoJS.Session.get('cart_set_price_value');
+                var qty = GeckoJS.Session.get('cart_set_qty_value');
+
+                if (qty == null) qty = 1;
+
+                if (currentItemDisplay && currentItemDisplay.type == 'item') {
+                    this.log(GeckoJS.BaseObject.dump(plu));
+                    this.log(GeckoJS.BaseObject.dump(currentItem));
+                    if (currentItem.no == plu.no &&
+                        !currentItem.hasDiscount &&
+                        !currentItem.hasSurcharge &&
+                        !currentItem.hasMarker &&
+                        ((price == null) || (currentItem.current_price == price)) &&
+                        currentItem.tax_name == plu.rate) {
+
+                        this.modifyQty('plus', qty);
+                        return;
+                    }
+                }
+            }
+
             if (this.dispatchEvent('beforeAddItem', item)) {
                 if ( this._returnMode) {
                     var qty = 0 - (GeckoJS.Session.get('cart_set_qty_value') || 1);
@@ -552,7 +583,7 @@
         },
 	
 
-        modifyQty: function(action) {
+        modifyQty: function(action, delta) {
 
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
@@ -600,12 +631,15 @@
 
             var qty = itemTrans.current_qty;
             var newQty = Math.abs(qty + 0);
+            if (delta == null || isNaN(delta)) {
+                delta = 1;
+            }
             switch(action) {
                 case 'plus':
-                    newQty = newQty+1;
+                    newQty = newQty+delta;
                     break;
                 case 'minus':
-                    newQty = (newQty - 1 > 0) ? (newQty - 1) : newQty;
+                    newQty = (newQty - delta > 0) ? (newQty - delta) : newQty;
                     break;
             }
             if (qty < 0) newQty = 0 - newQty;
@@ -1865,7 +1899,7 @@
             var condGroups = GeckoJS.Session.get('condGroups');
             if (!condGroups) {
                 var condGroupModel = new CondimentGroupModel();
-                var condGroups = condGroupModel.find('all');
+                var condGroups = condGroupModel.find('all', {recursive: 2});
                 GeckoJS.Session.add('condGroups', condGroups);
                 condGroups = GeckoJS.Session.get('condGroups');
             }

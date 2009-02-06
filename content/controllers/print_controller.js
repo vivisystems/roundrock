@@ -554,8 +554,8 @@
             var sendEvent = function(device, result, encodedResult, printed) {
                 this.eventData = {printed: printed,
                                   device: device,
-                                  result: result,
-                                  encodedResult: encodedResult
+                                  receipt: result,
+                                  encodedReceipt: encodedResult
                                  };
             }
 
@@ -618,7 +618,6 @@
                         // dispatch receiptPrinted event indirectly through the main thread
                         
                         if (self._main) {
-                            NotifyUtils.info('Scheduled main thread sendEvent job');
                             self._main.dispatch(new sendEvent(device, result,encodedResult, printed), self._worker.DISPATCH_NORMAL);
                         }
 

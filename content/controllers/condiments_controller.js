@@ -19,7 +19,8 @@
             var condGroups;
             var condGroupModel = new CondimentGroupModel();
             condGroups = condGroupModel.find('all', {
-                order: 'name'
+                order: 'name',
+                recursive: 2
             });
             GeckoJS.Session.add('condGroups', condGroups);
 

@@ -416,11 +416,40 @@
                 level: (level == null) ? 1 : level
             });           
         }else if(type =='payment') {
+            alert(GeckoJS.BaseObject.dump(item));
+            var dispName;
+            var current_price = '';
+            var current_qty = '';
+
+            switch (item.name.toUpperCase()) {
+                
+                case 'CREDITCARD':
+                    dispName = _(item.memo1);
+                    break;
+                    
+                case 'COUPON':
+                    dispName = _(item.memo1);
+                    break;
+
+                case 'CASH':
+                    if (item.memo1 != null && item.origin_amount != null) {
+                        dispName = _(item.memo1);
+                        current_qty = item.origin_amount + 'X';
+                        current_price = item.memo2;
+                    }
+                    break;
+
+                default:
+                    dispName = _(item.name.toUpperCase());
+                    break;
+                    
+            }
+
             itemDisplay = GREUtils.extend(itemDisplay, {
                 id: '',
-                name: _(item.name.toUpperCase()),
-                current_qty: '',
-                current_price: '',
+                name: dispName,
+                current_qty: current_qty,
+                current_price: current_price,
                 current_subtotal: item.amount,
                 current_tax: '',
                 type: type,
