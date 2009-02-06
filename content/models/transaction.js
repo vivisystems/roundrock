@@ -118,7 +118,7 @@
             this.data.service_clerk_displayname = user.description;
         }
 
-        this.data.created = new Date().getTime();
+        this.data.created = Math.round(new Date().getTime());
 
         if (Transaction.Tax == null) Transaction.Tax = new TaxComponent();
 
@@ -155,7 +155,7 @@
         this.data.status = status;
 
         // save transaction to order / orderdetail ...
-        this.data.modified = new Date().getTime();
+        this.data.modified = Math.round(new Date().getTime());
 
         // maintain stock...
 //        this.requestCommand('decStock', this.data, "Stocks");
