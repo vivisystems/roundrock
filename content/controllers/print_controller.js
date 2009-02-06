@@ -24,6 +24,9 @@
             this._worker = GREUtils.Thread.getWorkerThread();
             //this._worker = GREUtils.Thread.getMainThread();
 
+            // initialize main thread
+            this._main = GREUtils.Thread.getMainThread();
+
             // add event listener for onSubmit events
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             if(cart) {
@@ -547,9 +550,36 @@
             var encodedResult = GREUtils.Charset.convertFromUnicode(result, encoding);
             //this.log('RECEIPT/GUEST CHECK\n' + encodedResult);
 
+            // set up main thread callback to dispatch event
+            var sendEvent = function(device, result, encodedResult, printed) {
+                this.eventData = {printed: printed,
+                                  device: device,
+                                  result: result,
+                                  encodedResult: encodedResult
+                                 };
+            }
+
             // send to output device using worker thread
             var self = this;
 
+            sendEvent.prototype = {
+                run: function() {
+                    try {
+                        self.dispatchEvent('onReceiptPrinted', this.eventData);
+                    }
+                    catch (e) {
+                        this.log('WARN', 'failed to dispatch onReceiptPrinted event');
+                    }
+                },
+
+                QueryInterface: function(iid) {
+                    if (iid.equals(Components.Interfaces.nsIRunnable) || iid.equals(Components.Interfaces.nsISupports)) {
+                        return this;
+                    }
+                    throw Components.results.NS_ERROR_NO_INTERFACE;
+                }
+            }
+            
             var runnable = {
                 run: function() {
                     try {
@@ -585,19 +615,14 @@
                             self.receiptPrinted(data.order.id, data.order.seq, device);
                         }
 
-                        // dispatch receiptPrinted event
+                        // dispatch receiptPrinted event indirectly through the main thread
+                        
+                        if (self._main) {
+                            NotifyUtils.info('Scheduled main thread sendEvent job');
+                            self._main.dispatch(new sendEvent(device, result,encodedResult, printed), self._worker.DISPATCH_NORMAL);
+                        }
 
-                        //@todo OSD
-                        /*
-                        NotifyUtils.info('Dispatching onReceiptPrinted event');
-
-                        self.dispatchEvent('onReceiptPrinted', {result: result,
-                                                                encodedResult: encodedResult,
-                                                                device: device});
-
-                        //@todo OSD
-                        NotifyUtils.info('onReceiptPrinted event dispatched');
-                        */
+                        
                     }catch(e) {
                         return false;
                     }
