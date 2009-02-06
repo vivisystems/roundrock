@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+
+<overlay id="overlay_jsconsole_toolbar" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <toolbar id="ToolbarMode">
+    <toolbarseparator appendAfter="Console:clear" />
+    <toolbarbutton id="Console:close" oncommand="self.close();" label="Close" />
+  </toolbar>
+
+</overlay>
