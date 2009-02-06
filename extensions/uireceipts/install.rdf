@@ -2,10 +2,10 @@
 <RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:em="http://www.mozilla.org/2004/em-rdf#">
     <Description about="urn:mozilla:install-manifest">
-        <em:id>receipt_epc_zh@firich.com.tw</em:id>
-        <em:name>VIVIPOS EPC Compatible Receipt Printer</em:name>
+        <em:id>vivipos@firich.com.tw</em:id>
+        <em:name>VIVIPOS 發票管理</em:name>
         <em:version>0.1</em:version>
-        <em:description>This is a traditional-Chinese enabled extension for generating page-mode receipts on EPC-compatible printer</em:description>
+        <em:description>發票管理</em:description>
         <em:creator>Irving Hsu</em:creator>
         <em:homepageURL>http://www.vivipos.com.tw</em:homepageURL>
         <em:type>2</em:type> <!-- type=extension -->
