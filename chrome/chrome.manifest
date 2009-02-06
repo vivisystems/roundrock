@@ -16,3 +16,4 @@ overlay  chrome://vivipos/content/vivipos.xul chrome://vivipos/content/overlays/
 
 # moz extension manager
 overlay chrome://mozapps/content/extensions/extensions.xul  chrome://vivipos/content/overlays/extensions.xul
+overlay chrome://global/content/console.xul  chrome://vivipos/content/overlays/jsconsole_toolbar.xul
