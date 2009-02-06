@@ -513,6 +513,9 @@
 
             commands = this.getDeviceCommandCodes(devicemodel, true);
 
+            // dispatch beforePrintCheck event to allow extensions to add to the template data object
+            this.dispatchEvent('beforePrintCheck', data);
+            
 /*
             alert('Printing check: \n\n' +
                   '   template [' + template + ']\n' +

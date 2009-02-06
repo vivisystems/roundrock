@@ -1066,7 +1066,7 @@
                 if (discount.pretax == null) discount.pretax = false;
 
                 if (discount.pretax) {
-                    discountItem.current_discount = (remainder - this.data.tax_subtotal) * discountItem.discount_rate;
+                    discountItem.current_discount = parseFloat(itemDisplay.current_price) * discountItem.discount_rate;
                 }
                 else {
                     discountItem.discount_name += '*';
@@ -1184,7 +1184,7 @@
                 // percentage order surcharge is pretax?
                 if (surcharge.pretax == null) surcharge.pretax = false;
                 if (surcharge.pretax) {
-                    surchargeItem.current_surcharge = this.getRoundedPrice((this.getRemainTotal() - this.data.tax_subtotal) * surchargeItem.surcharge_rate);
+                    surchargeItem.current_surcharge = this.getRoundedPrice(parseFloat(itemDisplay.current_price) * surchargeItem.surcharge_rate);
                 }
                 else {
                     surchargeItem.surcharge_name += '*';
@@ -1582,9 +1582,10 @@
                 lastIndex = i;
             }
             else if ((itemDisplay.type == 'condiment' || itemDisplay.type == 'memo') &&
-                     (this.data.items[itemDisplay.index].parent_index == index)) {
+                     (itemDisplay.index != null && this.data.items[itemDisplay.index] != null && this.data.items[itemDisplay.index].parent_index == index)) {
                 lastIndex = i;
             }
+
         }
 
         return lastIndex ;

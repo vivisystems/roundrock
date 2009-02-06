@@ -363,7 +363,6 @@
             // check if new item is the same as current item. if they are the same,
             // collapse it into the current item if no surcharge/discount/marker has
             // been applied to the current item and price/tax status are the same
-            var collapseSameItem = GeckoJS.Configure.read('') || false;
             
             if (curTransaction) {
                 var index = this._cartView.getSelectedIndex();
@@ -376,8 +375,6 @@
                 if (qty == null) qty = 1;
 
                 if (currentItemDisplay && currentItemDisplay.type == 'item') {
-                    this.log(GeckoJS.BaseObject.dump(plu));
-                    this.log(GeckoJS.BaseObject.dump(currentItem));
                     if (currentItem.no == plu.no &&
                         !currentItem.hasDiscount &&
                         !currentItem.hasSurcharge &&
@@ -483,18 +480,24 @@
 
                 //@todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot modify'));
-                return; // fatal error ?
+
+                this.subtotal();
+                return;
             }
 
             if(index <0) {
                 //@todo OSD
                 NotifyUtils.warn(_('Please select an item first'));
+
+                this.subtotal();
                 return;
             }
 
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 //@todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot modify'));
+
+                this.subtotal();
                 return;
             }
 
@@ -506,12 +509,16 @@
 
                 //@todo OSD
                 NotifyUtils.warn(_('Cannot modify selected item [%S]', [itemDisplay.name]));
+
+                this.subtotal();
                 return;
             }
 
             if (itemDisplay.type == 'condiment' && !this.Acl.isUserInRole('acl_modify_condiment_price')) {
                 //@todo OSD
                 NotifyUtils.warn(_('Not authorized to modify condiment price'));
+
+                this.subtotal();
                 return;
             }
 
@@ -520,6 +527,8 @@
 
                 //@todo OSD
                 NotifyUtils.warn(_('Cannot modify; selected item [%S] has discount or surcharge applied', [itemDisplay.name]));
+
+                this.subtotal();
                 return;
             }
 
@@ -528,6 +537,8 @@
 
                 //@todo OSD
                 NotifyUtils.warn(_('Cannot modify; selected item [%S] has been subtotaled', [itemDisplay.name]));
+
+                this.subtotal();
                 return;
             }
 
@@ -549,6 +560,8 @@
                 //@todo OSD
                 NotifyUtils.warn(_('Cannot modify condiment; no price entered'));
                 GeckoJS.Session.remove('cart_set_qty_value');
+
+                this.subtotal();
                 return ;
             }
 
@@ -559,13 +572,15 @@
 
             // check if zero preset price is allowed
             // @todo
-            var positivePriceRequired = GeckoJS.Configure.read('vivipos.fec.settings.PositivePriceRequired');
+            var positivePriceRequired = GeckoJS.Configure.read('vivipos.fec.settings.PositivePriceRequired') || false;
 
             if (positivePriceRequired && curTransaction != null) {
                 if (curTransaction.checkSellPrice(itemTrans) <= 0) {
                     NotifyUtils.warn(_('Product [%S] may not be modified with a price of [%S]!', [itemTrans.name, curTransaction.formatPrice(0)]));
                     GeckoJS.Session.remove('cart_set_price_value');
                     GeckoJS.Session.remove('cart_set_qty_value');
+
+                    this.subtotal();
                     return;
                 }
             }
@@ -595,18 +610,23 @@
 
                 //@todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot modify'));
-                return; // fatal error ?
-            }
+
+                this.subtotal();
+                }
 
             if(index <0) {
                 //@todo OSD
                 NotifyUtils.warn(_('Please select an item first'));
+
+                this.subtotal();
                 return;
             }
 
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 //@todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot modify'));
+
+                this.subtotal();
                 return;
             }
 
@@ -618,6 +638,8 @@
 
                 //@todo OSD
                 NotifyUtils.warn(_('Cannot modify selected item [%S]', [itemDisplay.name]));
+
+                this.subtotal();
                 return;
             }
 
@@ -626,6 +648,8 @@
 
                 //@todo OSD
                 NotifyUtils.warn(_('Cannot modify; selected item [%S] has discount or surcharge applied', [itemDisplay.name]));
+
+                this.subtotal();
                 return;
             }
 
@@ -650,6 +674,9 @@
             else {
                 //@todo OSD
                 NotifyUtils.warn(_('Quantity may not be less than 1'));
+
+                this.subtotal();
+                return;
             }
             
         },
@@ -689,19 +716,25 @@
 
                 // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot VOID'));
-                return; // fatal error ?
+
+                this.subtotal();
+                return;
             }
 
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 this.dispatchEvent('onVoidItemError', {});
                 // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot VOID'));
+
+                this.subtotal();
                 return;
             }
 
             if(index <0) {
                 // @todo OSD
                 NotifyUtils.warn(_('Please select an item first'));
+
+                this.subtotal();
                 return;
             }
 
@@ -718,13 +751,17 @@
 
                     // @todo OSD
                     NotifyUtils.warn(_('Cannot VOID the selected item [%S]. It is not the last registered item', [itemDisplay.name]));
-                    return ;
+
+                    this.subtotal();
+                    return;
                 }
             }
             else if (itemDisplay.type == 'setitem') {
                 // @todo OSD
                 NotifyUtils.warn(_('The select item [%S] is a member of a product set and cannot be VOIDed individually', [itemDisplay.name]));
-                return ;
+
+                this.subtotal();
+                return;
             }
 
             itemTrans = curTransaction.getItemAt(index);
@@ -735,17 +772,23 @@
                     // @todo OSD
                     this.dispatchEvent('onVoidItemError', {});
                     NotifyUtils.warn(_('Cannot VOID an entry that has been subtotaled'));
-                    return ;
+
+                    this.subtotal();
+                    return;
                 }
 
                 // if voiding condiment, make sure item does not have discounts applied
                 if(itemDisplay.type == 'condiment' && parseFloat(itemDisplay.current_price) > 0) {
                     if (itemTrans.hasDiscount) {
                         NotifyUtils.warn(_('Please void discount on item [%S] first', [itemTrans.name]));
+
+                        this.subtotal();
                         return;
                     }
                     else if (itemTrans.hasSurcharge) {
                         NotifyUtils.warn(_('Please void surcharge on item [%S] first', [itemTrans.name]));
+
+                        this.subtotal();
                         return;
                     }
                 }
@@ -826,13 +869,16 @@
 
                 // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot add discount'));
-                return; // fatal error ?
+
+                this.subtotal();
+                return;
             }
 
             if(index <0) {
                 // @todo OSD
                 NotifyUtils.warn(_('Please select an item'));
                 
+                this.subtotal();
                 return;
             }
 
@@ -842,6 +888,8 @@
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 //@todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot add discount'));
+
+                this.subtotal();
                 return;
             }
 
@@ -851,6 +899,8 @@
             if (pretax && itemDisplay.type != 'subtotal') {
                 // @todo OSD
                 NotifyUtils.warn(_('Pretax discount can only be registered against subtotals'));
+
+                this.subtotal();
                 return;
             }
 
@@ -861,6 +911,8 @@
 
                     //@todo OSD
                     NotifyUtils.warn(_('Discount has been already been registered on item [%S]', [itemTrans.name]));
+
+                    this.subtotal();
                     return;
                 }
                 if (itemTrans.hasSurcharge) {
@@ -869,6 +921,8 @@
 
                     //@todo OSD
                     NotifyUtils.warn(_('Surcharge has been already been registered on item [%S]', [itemTrans.name]));
+
+                    this.subtotal();
                     return;
                 }
                 if (itemTrans.hasMarker) {
@@ -877,6 +931,8 @@
 
                     //@todo OSD
                     NotifyUtils.warn(_('Cannot modify an item that has been subtotaled'));
+
+                    this.subtotal();
                     return;
                 }
                 /*
@@ -892,10 +948,14 @@
                 if (itemDisplay.hasSurcharge) {
                     //@todo OSD
                     NotifyUtils.warn(_('Surcharge has been already been registered on item [%S]', [itemDisplay.name]));
+
+                    this.subtotal();
                     return;
                 }
                 else if (itemDisplay.hasDiscount) {
                     NotifyUtils.warn(_('Discount has been already been registered on item [%S]', [itemDisplay.name]));
+
+                    this.subtotal();
                     return;
                 }
                 else if (index < cartLength - 1) {
@@ -903,12 +963,16 @@
 
                     // @todo OSD
                     NotifyUtils.warn(_('Cannot apply discount to [%S]. It is not the last registered item', [itemDisplay.name]));
-                    return ;
+
+                    this.subtotal();
+                    return;
                 }
             }
             else {
                 //@todo OSD
-                NotifyUtils.warn(_('Discount may not be added to [%S]', [itemDisplay.name]));
+                NotifyUtils.warn(_('Discount may not be applied to [%S]', [itemDisplay.name]));
+
+                this.subtotal();
                 return;
             }
 
@@ -923,6 +987,7 @@
 
                 this.dispatchEvent('onAddDiscountError', {});
 
+                this.subtotal();
                 return;
             }
             
@@ -1024,12 +1089,16 @@
 
                 // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot add surcharge'));
-                return; // fatal error ?
+
+                this.subtotal();
+                return;
             }
 
             if(index < 0) {
                 // @todo OSD
                 NotifyUtils.warn(_('Please select an item first'));
+
+                this.subtotal();
                 return;
             }
 
@@ -1038,6 +1107,8 @@
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 //@todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot add surcharge'));
+
+                this.subtotal();
                 return;
             }
 
@@ -1047,6 +1118,8 @@
             if (pretax && itemDisplay.type != 'subtotal') {
                 // @todo OSD
                 NotifyUtils.warn(_('Pretax surcharge can only be registered against subtotals'));
+
+                this.subtotal();
                 return;
             }
             if (itemTrans != null && itemTrans.type == 'item') {
@@ -1057,6 +1130,8 @@
 
                     //@todo OSD
                     NotifyUtils.warn(_('Discount has been already been registered on item [%S]', [itemTrans.name]));
+
+                    this.subtotal();
                     return;
                 }
                 if (itemTrans.hasSurcharge) {
@@ -1065,6 +1140,8 @@
 
                     //@todo OSD
                     NotifyUtils.warn(_('Surcharge has been already been registered on item [%S]', [itemTrans.name]));
+
+                    this.subtotal();
                     return;
                 }
                 if (itemTrans.hasMarker) {
@@ -1073,6 +1150,8 @@
 
                     //@todo OSD
                     NotifyUtils.warn(_('Cannot modify an item that has been subtotaled'));
+
+                    this.subtotal();
                     return;
                 }
             }
@@ -1081,10 +1160,14 @@
                 if (itemDisplay.hasSurcharge) {
                     //@todo OSD
                     NotifyUtils.warn(_('Surcharge has been already been registered on item [%S]', [itemDisplay.name]));
+
+                    this.subtotal();
                     return;
                 }
                 else if (itemDisplay.hasDiscount) {
                     NotifyUtils.warn(_('Discount has been already been registered on item [%S]', [itemDisplay.name]));
+
+                    this.subtotal();
                     return;
                 }
                 else if (index < cartLength - 1) {
@@ -1092,12 +1175,16 @@
 
                     // @todo OSD
                     NotifyUtils.warn(_('Cannot apply surcharge to [%S]. It is not the last registered item', [itemDisplay.name]));
-                    return ;
+
+                    this.subtotal();
+                    return;
                 }
             }
             else {
                 //@todo OSD
-                NotifyUtils.warn(_('Surcharge may not be added to [%S]', [itemDisplay.name]));
+                NotifyUtils.warn(_('Surcharge may not be applied to [%S]', [itemDisplay.name]));
+
+                this.subtotal();
                 return;
             }
 
@@ -1112,6 +1199,7 @@
 
                 this.dispatchEvent('onAddSurchargeError', {});
 
+                this.subtotal();
                 return;
             }
 
@@ -1160,7 +1248,9 @@
 
                 // @todo OSD
                 NotifyUtils.warn(_('Not an open order; operation invalid'));
-                return; // fatal error ?
+
+                this.subtotal();
+                return;
             }
 
             //if(index <0) return;
@@ -1169,11 +1259,15 @@
 
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 NotifyUtils.warn(_('Not an open order; operation invalid'));
+
+                this.subtotal();
                 return;
             }
 
             if (curTransaction.getItemsCount() < 1) {
                 NotifyUtils.warn(_('Nothing has been registered yet; operation invalid'));
+
+                this.subtotal();
                 return;
             }
 
@@ -1200,6 +1294,8 @@
 
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
+
+            this.subtotal();
         },
 
 
@@ -1217,18 +1313,24 @@
 
                 // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot register House Bon'));
-                return; // fatal error ?
+
+                this.subtotal();
+                return;
             }
 
             if(index <0) {
                 // @todo OSD
                 NotifyUtils.warn(_('Please select an item first'));
+
+                this.subtotal();
                 return;
             }
 
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 //@todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot register House Bon'));
+
+                this.subtotal();
                 return;
             }
 
@@ -1243,6 +1345,8 @@
             else {
                 //@todo OSD
                 NotifyUtils.warn(_('House Bon may not be applied to [%S]', [itemDisplay.name]));
+
+                this.subtotal();
                 return;
             }
 
@@ -1272,6 +1376,10 @@
             if (convertIndex < 0) {
                 //@todo OSD
                 NotifyUtils.warn(_('The selected currency [%S] has not been configured', [convertCode]));
+                GeckoJS.Session.remove('cart_set_price_value');
+                GeckoJS.Session.remove('cart_set_qty_value');
+
+                this.subtotal();
                 return;
             }
 
@@ -1284,12 +1392,20 @@
 
                 // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot register payments'));
+                GeckoJS.Session.remove('cart_set_price_value');
+                GeckoJS.Session.remove('cart_set_qty_value');
+
+                this.subtotal();
                 return; // fatal error ?
             }
 
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot register payments'));
+                GeckoJS.Session.remove('cart_set_price_value');
+                GeckoJS.Session.remove('cart_set_qty_value');
+
+                this.subtotal();
                 return;
             }
             
@@ -1313,7 +1429,11 @@
                     //@todo OSD
                     NotifyUtils.warn(_('Please configure the selected currency entry first [%S]', [convertIndex]));
                 }
+                GeckoJS.Session.remove('cart_set_price_value');
+                GeckoJS.Session.remove('cart_set_qty_value');
 
+                this.subtotal();
+                return;
             }
         },
 
@@ -1351,6 +1471,23 @@
             }
         },
 
+        getCheckDialog: function (data) {
+            var aURL = 'chrome://viviecr/content/coupon_remark.xul';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=550';
+            var inputObj = {
+                input0:data.type,
+                input1:null
+            };
+            window.openDialog(aURL, _('Check Remark'), features, _('Check Remark'), _('Payment') + ' [' + data.payment + ']',
+                _('Check Type'), _('Check Remark'), inputObj);
+
+            if (inputObj.ok) {
+                return inputObj;
+            }else {
+                return null;
+            }
+        },
+
         creditCard: function(mark) {
 
             // check if has buffer
@@ -1368,13 +1505,21 @@
 
                 // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot register payments'));
+                GeckoJS.Session.remove('cart_set_price_value');
+                GeckoJS.Session.remove('cart_set_qty_value');
+
+                this.subtotal();
                 return; // fatal error ?
             }
 
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot register payments'));
-                return;
+                GeckoJS.Session.remove('cart_set_price_value');
+                GeckoJS.Session.remove('cart_set_qty_value');
+
+                this.subtotal();
+                return; // fatal error ?
             }
             
             var payment = parseFloat(buf);
@@ -1398,7 +1543,7 @@
 
         },
 
-        coupon: function(mark) {
+        coupon: function(type) {
 
             // check if has buffer
             var buf = this._getKeypadController().getBuffer();
@@ -1415,13 +1560,21 @@
 
                 // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot register payments'));
+                GeckoJS.Session.remove('cart_set_price_value');
+                GeckoJS.Session.remove('cart_set_qty_value');
+
+                this.subtotal();
                 return; // fatal error ?
             }
 
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot register payments'));
-                return;
+                GeckoJS.Session.remove('cart_set_price_value');
+                GeckoJS.Session.remove('cart_set_qty_value');
+
+                this.subtotal();
+                return; // fatal error ?
             }
 
             var payment = parseFloat(buf);
@@ -1432,7 +1585,7 @@
                 payment = curTransaction.getRemainTotal();
             }
             var data = {
-                type: mark,
+                type: type,
                 payment: curTransaction.formatPrice(payment)
             };
             var inputObj = this.getCouponDialog(data);
@@ -1440,6 +1593,60 @@
                 var memo1 = inputObj.input0 || '';
                 var memo2 = inputObj.input1 || '';
                 this.addPayment('coupon', payment, payment, memo1, memo2);
+            }
+
+        },
+
+        check: function(type) {
+
+            // check if has buffer
+            var buf = this._getKeypadController().getBuffer();
+            this._getKeypadController().clearBuffer();
+
+            this.cancelReturn();
+
+            // check if order is open
+            var curTransaction = this._getTransaction();
+
+            if(curTransaction == null) {
+                this.clear();
+                this.dispatchEvent('onAddPayment', null);
+
+                // @todo OSD
+                NotifyUtils.warn(_('Not an open order; cannot register payments'));
+                GeckoJS.Session.remove('cart_set_price_value');
+                GeckoJS.Session.remove('cart_set_qty_value');
+
+                this.subtotal();
+                return; // fatal error ?
+            }
+
+            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
+                // @todo OSD
+                NotifyUtils.warn(_('Not an open order; cannot register payments'));
+                GeckoJS.Session.remove('cart_set_price_value');
+                GeckoJS.Session.remove('cart_set_qty_value');
+
+                this.subtotal();
+                return; // fatal error ?
+            }
+
+            var payment = parseFloat(buf);
+            if (payment == 0 || isNaN(payment)) {
+                //@todo OSD
+                //NotifyUtils.warn(_('Please enter an amount first'));
+                //return;
+                payment = curTransaction.getRemainTotal();
+            }
+            var data = {
+                type: type,
+                payment: curTransaction.formatPrice(payment)
+            };
+            var inputObj = this.getCheckDialog(data);
+            if (inputObj) {
+                var memo1 = inputObj.input0 || '';
+                var memo2 = inputObj.input1 || '';
+                this.addPayment('check', payment, payment, memo1, memo2);
             }
             //this.clear();
 
@@ -1515,6 +1722,10 @@
 
                 // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot register payments'));
+                GeckoJS.Session.remove('cart_set_price_value');
+                GeckoJS.Session.remove('cart_set_qty_value');
+
+                this.subtotal();
                 return; // fatal error ?
             }
 
@@ -1523,12 +1734,20 @@
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot register payments'));
-                return;
+                GeckoJS.Session.remove('cart_set_price_value');
+                GeckoJS.Session.remove('cart_set_qty_value');
+
+                this.subtotal();
+                return; // fatal error ?
             }
 
             if (curTransaction.getItemsCount() < 1) {
                 NotifyUtils.warn(_('Nothing has been registered yet; cannot register payments'));
-                return;
+                GeckoJS.Session.remove('cart_set_price_value');
+                GeckoJS.Session.remove('cart_set_qty_value');
+
+                this.subtotal();
+                return; // fatal error ?
             }
 
             // check if first time payment
@@ -1544,6 +1763,10 @@
                 // @todo default totalamount ?
                 amount = curTransaction.getRemainTotal();
                 if (amount < 0) amount = 0;
+            }
+            else if (type == 'check') {
+                // @todo
+                // make sure user's check cashing limit isn't exceeded
             }
 
             origin_amount = typeof origin_amount == 'undefined' ? amount : origin_amount;
@@ -1622,18 +1845,24 @@
                 this.dispatchEvent('onShiftTax', null);
                 //@todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot shift tax'));
+
+                this.subtotal();
                 return; // fatal error ?
             }
 
             if(index <0) {
                 //@todo OSD
                 NotifyUtils.warn(_('Please select an item first'));
-                return;
+
+                this.subtotal();
+                return; // fatal error ?
             }
 
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 //@todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot shift tax'));
+
+                this.subtotal();
                 return; // fatal error ?
             }
 
@@ -1643,14 +1872,18 @@
                 //@todo OSD
                 var displayItem = curTransaction.getDisplaySeqAt(index);
                 NotifyUtils.warn(_('This operation cannot be performed on [%S]', [displayItem.name]));
-                return;
+
+                this.subtotal();
+                return; // fatal error ?
             }
 
             if (itemTrans.hasMarker) {
                 this.dispatchEvent('onShiftTaxError', {});
                 //@todo OSD
                 NotifyUtils.warn(_('Cannot modify an item that has been subtotaled'));
-                return;
+
+                this.subtotal();
+                return; // fatal error ?
             }
 
             this.dispatchEvent('beforeShiftTax', itemTrans);
@@ -1669,7 +1902,9 @@
                     this.dispatchEvent('onShiftTaxError', {});
                     //@todo OSD
                     NotifyUtils.error(_('The tax status indicated does not exist [%S]', [taxNo]));
-                    return;
+
+                    this.subtotal();
+                    return; // fatal error ?
                 }
             }
 
