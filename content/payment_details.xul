@@ -13,7 +13,7 @@
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
 <window title="&paymentdetails.title;"
-	hidechrome="true"
+        hidechrome="true"
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
@@ -23,8 +23,8 @@
     <vbox class="pop-dialog" flex="1">
         <vbox flex="1" class="MainPnl">
             <caption id="title" class="PageTitle" />
-            <viviscrollabletree id="paymentscrollablepanel" flex="1" headers="&paymentdetails.amount;,&paymentdetails.type;,&paymentdetails.note1;,&paymentdetails.note2;"
-                                fields="amount,name,memo1,memo2" hidecolumnpicker="true"
+            <viviscrollabletree id="paymentscrollablepanel" flex="1" headers="&paymentdetails.amount;,&paymentdetails.origin_amount;,&paymentdetails.type;,&paymentdetails.note1;,&paymentdetails.note2;"
+                                fields="amount,origin_amount,name,memo1,memo2" hidecolumnpicker="true"
                                 class="paymentscrollablepanel" scrollUpClass="ScrollUp" scrollDownClass="ScrollDown">
                 <spacer flex="1" />
             </viviscrollabletree>

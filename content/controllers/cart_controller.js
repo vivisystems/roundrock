@@ -1471,6 +1471,23 @@
             }
         },
 
+        getGiftcardDialog: function (data) {
+            var aURL = 'chrome://viviecr/content/coupon_remark.xul';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=550';
+            var inputObj = {
+                input0:data.type,
+                input1:null
+            };
+            window.openDialog(aURL, _('Giftcard Remark'), features, _('Giftcard Remark'), _('Payment') + ' [' + data.payment + ']',
+                _('Giftcard Type'), _('Giftcard Remark'), inputObj);
+
+            if (inputObj.ok) {
+                return inputObj;
+            }else {
+                return null;
+            }
+        },
+
         getCheckDialog: function (data) {
             var aURL = 'chrome://viviecr/content/coupon_remark.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=550';
@@ -1500,8 +1517,6 @@
             var curTransaction = this._getTransaction();
 
             if(curTransaction == null) {
-                this.clear();
-                this.dispatchEvent('onAddPayment', null);
 
                 // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot register payments'));
@@ -1523,12 +1538,26 @@
             }
             
             var payment = parseFloat(buf);
+            var balance = curTransaction.getRemainTotal();
             if (payment == 0 || isNaN(payment)) {
                 //@todo OSD
                 //NotifyUtils.warn(_('Please enter an amount first'));
                 //return;
-                payment = curTransaction.getRemainTotal();
+                payment = balance;
             }
+
+            if (payment > balance) {
+                // @todo OSD
+                GREUtils.Dialog.alert(window,
+                                      _('Credit Card Payment Error'),
+                                      _('Credit card payment may not exceed remaining balance'));
+                GeckoJS.Session.remove('cart_set_price_value');
+                GeckoJS.Session.remove('cart_set_qty_value');
+
+                this.subtotal();
+                return; // fatal error ?
+            }
+
             var data = {
                 type: mark,
                 payment: curTransaction.formatPrice(payment)
@@ -1555,8 +1584,6 @@
             var curTransaction = this._getTransaction();
 
             if(curTransaction == null) {
-                this.clear();
-                this.dispatchEvent('onAddPayment', null);
 
                 // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot register payments'));
@@ -1597,7 +1624,7 @@
 
         },
 
-        check: function(type) {
+        giftcard: function(type) {
 
             // check if has buffer
             var buf = this._getKeypadController().getBuffer();
@@ -1609,8 +1636,6 @@
             var curTransaction = this._getTransaction();
 
             if(curTransaction == null) {
-                this.clear();
-                this.dispatchEvent('onAddPayment', null);
 
                 // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot register payments'));
@@ -1632,12 +1657,107 @@
             }
 
             var payment = parseFloat(buf);
+            var balance = curTransaction.getRemainTotal();
             if (payment == 0 || isNaN(payment)) {
                 //@todo OSD
                 //NotifyUtils.warn(_('Please enter an amount first'));
                 //return;
-                payment = curTransaction.getRemainTotal();
+                payment = balance;
             }
+
+            if (payment > balance) {
+                if (GREUtils.Dialog.confirm(null,
+                                            _('confirm giftcard payment'),
+                                            _('Change of [%S] will NOT be given for this type of payment. Proceed?',
+                                            [curTransaction.formatPrice(payment - balance)])) == false) {
+                    GeckoJS.Session.remove('cart_set_price_value');
+                    GeckoJS.Session.remove('cart_set_qty_value');
+
+                    this.subtotal();
+                    return; // fatal error ?
+                }
+            }
+
+            var data = {
+                type: type,
+                payment: curTransaction.formatPrice(payment)
+            };
+            var inputObj = this.getGiftcardDialog(data);
+
+            if (inputObj) {
+                var memo1 = inputObj.input0 || '';
+                var memo2 = inputObj.input1 || '';
+
+
+                this.addPayment('giftcard', balance, payment, memo1, memo2);
+            }
+
+        },
+
+        check: function(type) {
+
+            // check if has buffer
+            var buf = this._getKeypadController().getBuffer();
+            this._getKeypadController().clearBuffer();
+
+            this.cancelReturn();
+
+            // check if order is open
+            var curTransaction = this._getTransaction();
+
+            if(curTransaction == null) {
+
+                // @todo OSD
+                NotifyUtils.warn(_('Not an open order; cannot register payments'));
+                GeckoJS.Session.remove('cart_set_price_value');
+                GeckoJS.Session.remove('cart_set_qty_value');
+
+                this.subtotal();
+                return; // fatal error ?
+            }
+
+            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
+                // @todo OSD
+                NotifyUtils.warn(_('Not an open order; cannot register payments'));
+                GeckoJS.Session.remove('cart_set_price_value');
+                GeckoJS.Session.remove('cart_set_qty_value');
+
+                this.subtotal();
+                return; // fatal error ?
+            }
+
+            var payment = parseFloat(buf);
+            var balance = curTransaction.getRemainTotal();
+            if (payment == 0 || isNaN(payment)) {
+                //@todo OSD
+                //NotifyUtils.warn(_('Please enter an amount first'));
+                //return;
+                payment = balance;
+            }
+
+            if (payment > balance) {
+
+                // check user's check cashing limit
+                var user = GeckoJS.Session.get('user');
+                var limit = 0;
+                if (user) {
+                    limit = user.max_cash_check;
+                }
+                if (isNaN(limit)) limit = 0;
+
+                if (payment - balance > limit) {
+                    // @todo OSD
+                    GREUtils.Dialog.alert(window,
+                                          _('Check Payment Error'),
+                                          _('Check Cashing limit of [%S] exceeded', [curTransaction.formatPrice(limit)]));
+                    GeckoJS.Session.remove('cart_set_price_value');
+                    GeckoJS.Session.remove('cart_set_qty_value');
+
+                    this.subtotal();
+                    return; // fatal error ?
+                }
+            }
+
             var data = {
                 type: type,
                 payment: curTransaction.formatPrice(payment)
@@ -1809,11 +1929,12 @@
             for (var key in payments) {
                 var payment = payments[key];
                 payment.amount = curTransaction.formatPrice(payment.amount);
-                payment.name = _(payment.name);
+                payment.name = _(payment.name.toUpperCase());
+                payment.origin_amount = curTransaction.formatPrice(payment.origin_amount);
             }
             
             var aURL = 'chrome://viviecr/content/payment_details.xul';
-            var features = 'chrome,modal,width=500,height=450,centerscreen';
+            var features = 'chrome,modal,width=700,height=450,centerscreen';
             window.openDialog(aURL, _('Payment Details'), features, _('Payment Details'), payments);
         },
 

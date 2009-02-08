@@ -430,6 +430,10 @@
                     dispName = _(item.memo1);
                     break;
 
+                case 'GIFTCARD':
+                    dispName = _(item.memo1);
+                    break;
+
                 case 'CASH':
                     if (item.memo1 != null && item.origin_amount != null) {
                         dispName = _(item.memo1);

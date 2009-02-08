@@ -338,6 +338,11 @@ pref("vivipos.fec.registry.function.programmable.coupon.command", "coupon");
 pref("vivipos.fec.registry.function.programmable.coupon.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.coupon.data", "");
  
+pref("vivipos.fec.registry.function.programmable.giftcard.access", "acl_register_giftcard");
+pref("vivipos.fec.registry.function.programmable.giftcard.command", "giftcard");
+pref("vivipos.fec.registry.function.programmable.giftcard.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.giftcard.data", "");
+
 pref("vivipos.fec.registry.function.programmable.check.access", "acl_register_check");
 pref("vivipos.fec.registry.function.programmable.check.command", "check");
 pref("vivipos.fec.registry.function.programmable.check.controller", "Cart");

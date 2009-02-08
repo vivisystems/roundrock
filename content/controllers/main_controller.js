@@ -221,15 +221,19 @@
                 //    - if user has role 'vivipos_fec_acl_override_system_price_level', use user default price level
                 var userModel = new UserModel();
 
-                var userRecord = userModel.findByIndex('all', {
+                var userRecord = userModel.findByIndex('first', {
                     index: "username",
                     value: user.username
                 });
 
                 var priceLevelSet = false;
 
-                if (userRecord && userRecord.length > 0) {
-                    var userPriceLevel = parseInt(userRecord[0].default_price_level);
+                if (userRecord) {
+                    // first, store user data in session
+
+                    GeckoJS.Session.set('user', userRecord);
+                    
+                    var userPriceLevel = parseInt(userRecord.default_price_level);
                     //var canOverride = (GeckoJS.Array.inArray('acl_user_override_default_price_level', user.Roles) != -1);
                     var canOverride = this.Acl.isUserInRole('acl_user_override_default_price_level');
 
@@ -250,6 +254,9 @@
 
                 var fnPanel = document.getElementById('functionPanel');
                 if (fnPanel) fnPanel.home();
+            }
+            else {
+                GeckoJS.Session.clear('user');
             }
         },
 
