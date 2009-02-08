@@ -16,7 +16,7 @@
 
 	    if (settings == null) {
                 settings = {};
-                settings.machine_id = GeckoJS.Session.get('terminal_id');
+                settings.machine_id = GeckoJS.Session.get('terminal_no');
             }
 		
             this.Form.unserializeFromObject('syncSettingForm', settings);

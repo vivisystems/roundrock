@@ -37,7 +37,7 @@
                 };
             }
             GeckoJS.Session.set('storeContact', contact);
-            GeckoJS.Session.set('terminal_id', contact == null ? '' : contact.terminal_no);
+            GeckoJS.Session.set('terminal_no', contact == null ? '' : contact.terminal_no);
         },
 
         update: function () {
@@ -64,7 +64,7 @@
             storeContactModel.save(formObj);
 
             GeckoJS.Session.set('storeContact', formObj);
-            GeckoJS.Session.set('terminal_id', terminal_no);
+            GeckoJS.Session.set('terminal_no', terminal_no);
 
             return true;
         },

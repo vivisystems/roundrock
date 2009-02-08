@@ -81,12 +81,17 @@ function validateInput() {
     var numberOnly1 = false;
     var numericOnly1 = false;
     var alphaRE = /[^-\w]/;
+    var fixedLength0 = 0;
+    var fixedLength1 = 0;
 
     if ('require0' in options) input0Required = options.require0;
     if ('require1' in options) input1Required = options.require1;
     if ('alphaOnly0' in options) alphaOnly0 = options.alphaOnly0;
     if ('numberOnly1' in options) numberOnly1 = options.numberOnly1;
     if ('numericOnly1' in options) numericOnly1 = options.numericOnly1;
+    if ('digitOnly1' in options) digitOnly1 = options.numericOnly1;
+    if ('fixedLength0' in options) fixedLength0 = options.fixedLength0;
+    if ('fixedLength1' in options) fixedLength1 = options.fixedLength1;
 
     var input0 = document.getElementById('input0').value;
     var input1 = document.getElementById('input1').value;
@@ -104,8 +109,17 @@ function validateInput() {
     if (numericOnly1) {
         validated = validated && trimmed1.replace(/[0-9.]*/, '').length == 0;
     }
+    if (numericOnly1) {
+        validated = validated && trimmed1.replace(/[0-9]*/, '').length == 0;
+    }
     if (numberOnly1) {
         validated = validated && !isNaN(trimmed1);
+    }
+    if (fixedLength0 > 0) {
+        validated = validated && trimmed0.length == fixedLength0;
+    }
+    if (fixedLength1 > 1) {
+        validated = validated && trimmed1.length == fixedLength1;
     }
     document.getElementById('ok').setAttribute('disabled', !validated);
 

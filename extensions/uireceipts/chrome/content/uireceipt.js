@@ -1,9 +1,14 @@
 (function(){
 
-// include project locale properties
+// include extension locale properties
 GeckoJS.StringBundle.createBundle("chrome://uireceipts/locale/messages.properties");
 
-// include project controller
+// include extension models
+
+GeckoJS.include('chrome://uireceipts/content/models/unified_invoice.js');
+GeckoJS.include('chrome://uireceipts/content/models/unified_invoice_marker.js');
+
+// include extension controller
 GeckoJS.include('chrome://uireceipts/content/uireceipt_controller.js');
 
 /**

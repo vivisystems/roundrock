@@ -1,122 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://receipt_epc_zh/skin/receipt.css" type="text/css"?>
-<!DOCTYPE window SYSTEM "chrome://receipt_epc_zh/locale/receipt.dtd">
+<!DOCTYPE window SYSTEM "chrome://uireceipts/locale/uireceipt.dtd">
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
-<window id="receiptControlPanel" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<overlay id="UnifiedInvoiceOverlay"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+    <prefwindow id="prefwin">
+        <script type="application/x-javascript">
 
-    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
-    <script type="application/x-javascript" src="chrome://receipt_epc_zh/content/receipt.js" />
+            function uireceipt_pref_init() {
+                var deviceNode = document.getElementById('device');
+                deviceNode.value = GeckoJS.Configure.read('vivipos.fec.settings.unified.invoice.Device');
+            };
 
-    <box flex="1" class="mainpanel1 pad40">
-        <vbox flex="1" class="panel40">
-            <vbox flex="1" class="footlogo">
-                    <groupbox flex="1" orient="horizontal">
-                        <caption label="&receipt.label.caption;" />
+            window.addEventListener('load', uireceipt_pref_init, false);
 
-                        <vbox>
-                            <viviscrollablebuttonpanel dir="reverse" id="comportscrollablepanel" flex="1" cols="3" rows="2"
-                                                       labelField="name" imageField="no"
-                                                       class="portscrollablepanel"
-                                                       hideScrollbar="false"
-                                                       oncommand="$do('portChanged', null, 'Receipt_EPC_ZH')"
-                                                       buttonClass="catbtn button-radius button-white font-medium"
-                                                       scrollUpClass="rightprevbtn button-blue"
-                                                       scrollDownClass="rightnextbtn button-blue"/>
-                            <grid>
-                                <columns>
-                                    <column flex="0"/>
-                                    <column class="textentry" flex="1"/>
-                                    <column flex="0"/>
-                                    <column class="textentry" flex="1"/>
-                                </columns>
-                                <rows>
-                                    <row>
-                                        <label id="baudrate-label" control="baudrate" value="&receipt.label.baudrate;"/>
-                                        <textbox id="baudrate" form="receiptForm" name="baudrate" readonly="true"/>
-                                        <label id="databits-label" control="databits" value="&receipt.label.databits;"/>
-                                        <textbox id="databits" form="receiptForm" name="databits" readonly="true"/>
-                                    </row>
-                                    <row>
-                                        <label id="parity-label" control="parity" value="&receipt.label.parity;"/>
-                                        <textbox id="parity" form="receiptForm" name="parity" readonly="true"/>
-                                        <label id="stopbits-label" control="stopbits" value="&receipt.label.stopbits;"/>
-                                        <textbox id="stopbits" form="receiptForm" name="stopbits" readonly="true"/>
-                                    </row>
-                                </rows>
-                            </grid>
-                            <spacer style="height: 6px;" />
-                            <separator class="groove-thin"/>
-                            <spacer style="height: 6px;" />
-                            <grid>
-                                <columns>
-                                    <column flex="0"/>
-                                    <column class="textentry" flex="1"/>
-                                    <column flex="0" style="max-width: 50px"/>
-                                    <column flex="0"/>
-                                </columns>
-                                <rows>
-                                     <row>
-                                        <label id="leftmargin-label" control="leftmargin" value="&receipt.label.leftmargin;"/>
-                                        <textbox id="leftmargin" form="receiptForm" name="leftmargin" type="number" hidespinbuttons="true" min="0" />
-                                        <vivibutton id="+" class="plus-button" oncommand="$do('plus', 'leftmargin', 'Receipt_EPC_ZH')"/>
-                                        <vivibutton id="-" class="minus-button" oncommand="$do('minus', 'leftmargin', 'Receipt_EPC_ZH')"/>
-                                    </row>
-                                    <row>
-                                        <label id="rightmargin-label" control="rightmargin" value="&receipt.label.rightmargin;"/>
-                                        <textbox id="rightmargin" form="receiptForm" name="rightmargin" type="number" hidespinbuttons="true" min="0" />
-                                        <vivibutton id="+" class="plus-button" oncommand="$do('plus', 'rightmargin', 'Receipt_EPC_ZH')"/>
-                                        <vivibutton id="-" class="minus-button" oncommand="$do('minus', 'rightmargin', 'Receipt_EPC_ZH')"/>
-                                    </row>
-                                    <row>
-                                        <label id="pagesize-label" control="pagesize" value="&receipt.label.pagesize;"/>
-                                        <textbox id="pagesize" form="receiptForm" name="pagesize" type="number" hidespinbuttons="true" min="0" />
-                                        <vivibutton id="+" class="plus-button" oncommand="$do('plus', 'pagesize', 'Receipt_EPC_ZH')"/>
-                                        <vivibutton id="-" class="minus-button" oncommand="$do('minus', 'pagesize', 'Receipt_EPC_ZH')"/>
-                                    </row>
-                                    <row>
-                                        <label id="linefeed-label" control="linefeed" value="&receipt.label.linefeed;"/>
-                                        <textbox id="linefeed" form="receiptForm" name="linefeed" type="number" hidespinbuttons="true" min="0" />
-                                        <vivibutton id="+" class="plus-button" oncommand="$do('plus', 'linefeed', 'Receipt_EPC_ZH')"/>
-                                        <vivibutton id="-" class="minus-button" oncommand="$do('minus', 'linefeed', 'Receipt_EPC_ZH')"/>
-                                    </row>
-                                    <row>
-                                        <label id="discountflag-label" control="discountflag" value="&receipt.label.discountflag;"/>
-                                        <textbox id="discountflag" form="receiptForm" name="discountflag" />
-                                    </row>
-                                    <row>
-                                        <label id="surchargeflag-label" control="surchargeflag" value="&receipt.label.surchargeflag;"/>
-                                        <textbox id="surchargeflag" form="receiptForm" name="surchargeflag" />
-                                    </row>
-                                </rows>
-                            </grid>
-                            <vbox>
-                                <checkbox id="autoprint" form="receiptForm" name="autoprint" label="&receipt.label.autoprint;" crop="end"/>
-                                <checkbox id="cutpaper" form="receiptForm" name="cutpaper" label="&receipt.label.cutpaper;" crop="none"/>
-                                <checkbox id="ignoreerror" form="receiptForm" name="ignoreerror" label="&receipt.label.ignoreerror;" crop="none"/>
-                            </vbox>
-                        </vbox>
-                        <vbox flex="1">
-                            <textbox id="receiptEditbox" flex="1" class="receiptEditbox" form="receiptForm" name="receiptTemplate" multiline="true" wrap="off"/>
-                            <hbox pack="center">
-                                <label id="pagewidth-label" control="pagewidth" value="&receipt.label.pagewidth;"/>
-                                <textbox class="textentry" id="pagewidth" readonly="true" />
-                                <vivibutton label="&receipt.label.preview;" oncommand="$do('preview', null, 'Receipt_EPC_ZH')"/>
-                                <vivibutton label="&receipt.label.print;" oncommand="$do('printPreview', true, 'Receipt_EPC_ZH')"/>
-                            </hbox>
-                            <hbox flex="1">
-                                <textbox id="receiptSample" class="receiptSample" multiline="true" readonly="true" wrap="off"/>
-                                <spacer flex="1"/>
-                            </hbox>
-                        </vbox>
-                    </groupbox>
-            </vbox>
-        </vbox>
-    </box>
+        </script>
 
-    <hbox id="okCancelButtonsRight" class="dialogbtns" />
+        <prefpane id="uireceiptSettingsPane" label="&uireceipt.tab.label;" >
+            <preferences>
+                <preference id="pref_archivefrequency" name="vivipos.fec.settings.unified.invoice.Archive.Frequency" type="int" />
+            </preferences>
 
-</window>
+            <grid class="DataFormB" >
+                <columns>
+                    <column flex="1"/>
+                    <column flex="1" />
+                </columns>
+                <rows>
+                    <row>
+                        <label control="device" value="&uireceipt.device;"/>
+                        <menulist id="device" flex="1" oncommand="GeckoJS.Configure.write('vivipos.fec.settings.unified.invoice.Device', this.value)">
+                            <menupopup>
+                                <menuitem label="1" value="1"/>
+                                <menuitem label="2" value="2"/>
+                            </menupopup>
+                        </menulist>
+                    </row>
+                    <row>
+                        <label control="archivefrequency" value="&uireceipt.archive.frequency;"/>
+                        <textbox preference="pref_archivefrequency" id="archivefrequency" type="number" size="3" maxlength="2" min="1" max="99"/>
+                    </row>
+                </rows>
+            </grid>
+
+        </prefpane>
+    </prefwindow>
+</overlay>

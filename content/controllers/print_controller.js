@@ -336,6 +336,7 @@
                         var devicemodel = device.devicemodel;
                         var encoding = device.encoding;
                         data._MODIFIERS = _templateModifiers(encoding);
+
                         self.printCheck(data, template, port, portspeed, handshaking, devicemodel, encoding, device.number);
                     }
                 });
@@ -513,8 +514,18 @@
 
             commands = this.getDeviceCommandCodes(devicemodel, true);
 
-            // dispatch beforePrintCheck event to allow extensions to add to the template data object
-            this.dispatchEvent('beforePrintCheck', data);
+            // dispatch beforePrintCheck event to allow extensions to add to the template data object or
+            // to prevent check from printed
+            if (!this.dispatchEvent('beforePrintCheck', {data: data,
+                                                         template: template,
+                                                         port: port,
+                                                         portspeed: portspeed,
+                                                         handshaking: handshaking,
+                                                         devicemodel: devicemodel,
+                                                         encoding: encoding,
+                                                         device: device})) {
+                return;
+            }
             
 /*
             alert('Printing check: \n\n' +
@@ -554,9 +565,10 @@
             //this.log('RECEIPT/GUEST CHECK\n' + encodedResult);
 
             // set up main thread callback to dispatch event
-            var sendEvent = function(device, result, encodedResult, printed) {
+            var sendEvent = function(device, data, result, encodedResult, printed) {
                 this.eventData = {printed: printed,
                                   device: device,
+                                  data: data,
                                   receipt: result,
                                   encodedReceipt: encodedResult
                                  };
@@ -621,7 +633,7 @@
                         // dispatch receiptPrinted event indirectly through the main thread
                         
                         if (self._main) {
-                            self._main.dispatch(new sendEvent(device, result,encodedResult, printed), self._worker.DISPATCH_NORMAL);
+                            self._main.dispatch(new sendEvent(device, data, result,encodedResult, printed), self._worker.DISPATCH_NORMAL);
                         }
 
                         

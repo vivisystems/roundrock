@@ -2,7 +2,7 @@
 <RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:em="http://www.mozilla.org/2004/em-rdf#">
     <Description about="urn:mozilla:install-manifest">
-        <em:id>vivipos@firich.com.tw</em:id>
+        <em:id>uireceipts@firich.com.tw</em:id>
         <em:name>VIVIPOS 發票管理</em:name>
         <em:version>0.1</em:version>
         <em:description>發票管理</em:description>
