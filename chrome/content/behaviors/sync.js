@@ -24,7 +24,7 @@ SyncBehavior.prototype.getSyncSetting = function() {
 
     if (SyncBehavior.syncSetting) return SyncBehavior.syncSetting;
 
-    SyncBehavior.syncSetting = (new SyncSetting()).read();
+    SyncBehavior.syncSetting = (new SyncSetting()).read() || {active: 0};
    
     return SyncBehavior.syncSetting;
 };
