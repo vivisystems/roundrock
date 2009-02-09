@@ -205,7 +205,11 @@
         loadDeviceCommandFile: function(path) {
             var commands = new Object;
             try {
-                var lines = GREUtils.File.readAllLine(GREUtils.File.chromeToPath(path)) || [];
+                var file = new GeckoJS.File(GREUtils.File.chromeToPath(path));
+                file.open('r');
+                var lines = file.readAllLine();
+                file.close();
+                
                 lines.forEach(function(line) {
                     var entry = line.split('=');
                     var name = entry[0];
@@ -221,9 +225,13 @@
         },
 
         loadTemplateFile: function(path) {
-            var bytes = '';
+            var bytes = {};
             try {
-                bytes = GREUtils.File.readAllBytes(GREUtils.File.chromeToPath(path)) || '';
+                var file = new GeckoJS.File(GREUtils.File.chromeToPath(path));
+                file.open('r');
+                bytes = file.readAllLine();
+                if (bytes.length > 0) bytes = bytes.join('\n');
+                file.close();
             }
             catch (e) {
                 this.log('Error reading from template file [' + path + ']');

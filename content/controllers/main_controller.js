@@ -43,7 +43,7 @@
             GeckoJS.Log.getAppender('console').level = GeckoJS.Log.TRACE;
 //            GeckoJS.Log.defaultClassLevel = GeckoJS.Log.TRACE;
 //
-            GeckoJS.Log.getLoggerForClass('DatasourceSQLite').level = GeckoJS.Log.DEBUG;
+//            GeckoJS.Log.getLoggerForClass('DatasourceSQLite').level = GeckoJS.Log.DEBUG;
 
             var cg = new CondimentGroupModel();
             var datas = cg.find('all');

@@ -395,7 +395,7 @@
                 }
 
                 var addedItem = curTransaction.appendItem(item);
-                var doSIS = plu.single && curTransaction.data.items_count == 1;
+                var doSIS = plu.single && curTransaction.data.items_count == 1 && !this._returnMode;
 
                 this.dispatchEvent('onAddItem', addedItem);
 
@@ -1299,8 +1299,9 @@
         },
 
 
-        houseBon: function() {
+        houseBon: function(name) {
 
+            if (name == null || name.length == 0) name = _('House Bon');
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
             
@@ -1340,7 +1341,7 @@
             if (itemTrans != null && itemTrans.type == 'item') {
 
                 var discountAmount =  itemTrans.current_subtotal;
-                this.addDiscount(discountAmount, '$', 'House Bon');
+                this.addDiscount(discountAmount, '$', name);
             }
             else {
                 //@todo OSD
@@ -1511,8 +1512,6 @@
             var buf = this._getKeypadController().getBuffer();
             this._getKeypadController().clearBuffer();
 
-            this.cancelReturn();
-
             // check if order is open
             var curTransaction = this._getTransaction();
 
@@ -1539,23 +1538,44 @@
             
             var payment = parseFloat(buf);
             var balance = curTransaction.getRemainTotal();
-            if (payment == 0 || isNaN(payment)) {
-                //@todo OSD
-                //NotifyUtils.warn(_('Please enter an amount first'));
-                //return;
-                payment = balance;
+            var paid = curTransaction.getPaymentSubtotal();
+            
+            if (this._returnMode) {
+                if (payment == null || payment == 0 || isNaN(payment)) {
+                    // if amount no given, set amount to amount paid
+                    payment = paid;
+                }
+
+                if (payment > paid) {
+                    NotifyUtils.warn(_('Refund amount [%S] may not exceed amount paid [%S]',
+                                     [curTransaction.formatPrice(payment), curTransaction.formatPrice(paid)]));
+                    GeckoJS.Session.remove('cart_set_price_value');
+                    GeckoJS.Session.remove('cart_set_qty_value');
+
+                    this.subtotal();
+                    return; // fatal error ?
+                }
+
             }
+            else {
+                if (payment == 0 || isNaN(payment)) {
+                    //@todo OSD
+                    //NotifyUtils.warn(_('Please enter an amount first'));
+                    //return;
+                    payment = balance;
+                }
 
-            if (payment > balance) {
-                // @todo OSD
-                GREUtils.Dialog.alert(window,
-                                      _('Credit Card Payment Error'),
-                                      _('Credit card payment may not exceed remaining balance'));
-                GeckoJS.Session.remove('cart_set_price_value');
-                GeckoJS.Session.remove('cart_set_qty_value');
+                if (payment > balance) {
+                    // @todo OSD
+                    GREUtils.Dialog.alert(window,
+                                          _('Credit Card Payment Error'),
+                                          _('Credit card payment may not exceed remaining balance'));
+                    GeckoJS.Session.remove('cart_set_price_value');
+                    GeckoJS.Session.remove('cart_set_qty_value');
 
-                this.subtotal();
-                return; // fatal error ?
+                    this.subtotal();
+                    return; // fatal error ?
+                }
             }
 
             var data = {
@@ -1577,8 +1597,6 @@
             // check if has buffer
             var buf = this._getKeypadController().getBuffer();
             this._getKeypadController().clearBuffer();
-
-            this.cancelReturn();
 
             // check if order is open
             var curTransaction = this._getTransaction();
@@ -1605,11 +1623,29 @@
             }
 
             var payment = parseFloat(buf);
-            if (payment == 0 || isNaN(payment)) {
-                //@todo OSD
-                //NotifyUtils.warn(_('Please enter an amount first'));
-                //return;
-                payment = curTransaction.getRemainTotal();
+            var paid = curTransaction.getPaymentSubtotal();
+
+            if (this._returnMode) {
+                if (payment == null || payment == 0 || isNaN(payment)) {
+                    // if amount no given, set amount to amount paid
+                    payment = paid;
+                }
+
+                if (payment > paid) {
+                    NotifyUtils.warn(_('Refund amount [%S] may not exceed amount paid [%S]',
+                                     [curTransaction.formatPrice(payment), curTransaction.formatPrice(paid)]));
+                    GeckoJS.Session.remove('cart_set_price_value');
+                    GeckoJS.Session.remove('cart_set_qty_value');
+
+                    this.subtotal();
+                    return; // fatal error ?
+                }
+
+            }
+            else {
+                if (payment == null || payment == 0 || isNaN(payment)) {
+                    payment = curTransaction.getRemainTotal();
+                }
             }
             var data = {
                 type: type,
@@ -1629,8 +1665,6 @@
             // check if has buffer
             var buf = this._getKeypadController().getBuffer();
             this._getKeypadController().clearBuffer();
-
-            this.cancelReturn();
 
             // check if order is open
             var curTransaction = this._getTransaction();
@@ -1658,23 +1692,44 @@
 
             var payment = parseFloat(buf);
             var balance = curTransaction.getRemainTotal();
-            if (payment == 0 || isNaN(payment)) {
-                //@todo OSD
-                //NotifyUtils.warn(_('Please enter an amount first'));
-                //return;
-                payment = balance;
-            }
+            var paid = curTransaction.getPaymentSubtotal();
 
-            if (payment > balance) {
-                if (GREUtils.Dialog.confirm(null,
-                                            _('confirm giftcard payment'),
-                                            _('Change of [%S] will NOT be given for this type of payment. Proceed?',
-                                            [curTransaction.formatPrice(payment - balance)])) == false) {
+            if (this._returnMode) {
+                if (payment == null || payment == 0 || isNaN(payment)) {
+                    // if amount no given, set amount to amount paid
+                    payment = paid;
+                }
+
+                if (payment > paid) {
+                    NotifyUtils.warn(_('Refund amount [%S] may not exceed amount paid [%S]',
+                                     [curTransaction.formatPrice(payment), curTransaction.formatPrice(paid)]));
                     GeckoJS.Session.remove('cart_set_price_value');
                     GeckoJS.Session.remove('cart_set_qty_value');
 
                     this.subtotal();
                     return; // fatal error ?
+                }
+
+            }
+            else {
+                if (payment == 0 || isNaN(payment)) {
+                    //@todo OSD
+                    //NotifyUtils.warn(_('Please enter an amount first'));
+                    //return;
+                    payment = balance;
+                }
+
+                if (payment > balance) {
+                    if (GREUtils.Dialog.confirm(null,
+                                                _('confirm giftcard payment'),
+                                                _('Change of [%S] will NOT be given for this type of payment. Proceed?',
+                                                [curTransaction.formatPrice(payment - balance)])) == false) {
+                        GeckoJS.Session.remove('cart_set_price_value');
+                        GeckoJS.Session.remove('cart_set_qty_value');
+
+                        this.subtotal();
+                        return; // fatal error ?
+                    }
                 }
             }
 
@@ -1728,33 +1783,51 @@
 
             var payment = parseFloat(buf);
             var balance = curTransaction.getRemainTotal();
-            if (payment == 0 || isNaN(payment)) {
-                //@todo OSD
-                //NotifyUtils.warn(_('Please enter an amount first'));
-                //return;
-                payment = balance;
-            }
+            var paid = curTransaction.getPaymentSubtotal();
 
-            if (payment > balance) {
-
-                // check user's check cashing limit
-                var user = GeckoJS.Session.get('user');
-                var limit = 0;
-                if (user) {
-                    limit = user.max_cash_check;
+            if (this._returnMode) {
+                if (payment == null || payment == 0 || isNaN(payment)) {
+                    // if amount no given, set amount to amount paid
+                    payment = paid;
                 }
-                if (isNaN(limit)) limit = 0;
 
-                if (payment - balance > limit) {
-                    // @todo OSD
-                    GREUtils.Dialog.alert(window,
-                                          _('Check Payment Error'),
-                                          _('Check Cashing limit of [%S] exceeded', [curTransaction.formatPrice(limit)]));
+                if (payment > paid) {
+                    NotifyUtils.warn(_('Refund amount [%S] may not exceed amount paid [%S]',
+                                     [curTransaction.formatPrice(payment), curTransaction.formatPrice(paid)]));
                     GeckoJS.Session.remove('cart_set_price_value');
                     GeckoJS.Session.remove('cart_set_qty_value');
 
                     this.subtotal();
                     return; // fatal error ?
+                }
+
+            }
+            else {
+                if (payment == null || payment == 0 || isNaN(payment)) {
+                    payment = balance;
+                }
+
+                if (payment > balance) {
+
+                    // check user's check cashing limit
+                    var user = GeckoJS.Session.get('user');
+                    var limit = 0;
+                    if (user) {
+                        limit = user.max_cash_check;
+                    }
+                    if (isNaN(limit)) limit = 0;
+
+                    if (payment - balance > limit) {
+                        // @todo OSD
+                        GREUtils.Dialog.alert(window,
+                                              _('Check Payment Error'),
+                                              _('Check Cashing limit of [%S] exceeded', [curTransaction.formatPrice(limit)]));
+                        GeckoJS.Session.remove('cart_set_price_value');
+                        GeckoJS.Session.remove('cart_set_qty_value');
+
+                        this.subtotal();
+                        return; // fatal error ?
+                    }
                 }
             }
 
@@ -1834,8 +1907,6 @@
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
 
-            this.cancelReturn();
-            
             if(curTransaction == null) {
                 this.clear();
                 this.dispatchEvent('onAddPayment', null);
@@ -1848,8 +1919,6 @@
                 this.subtotal();
                 return; // fatal error ?
             }
-
-            //if(index <0) return;
 
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 // @todo OSD
@@ -1870,12 +1939,38 @@
                 return; // fatal error ?
             }
 
-            // check if first time payment
             var paymentsTypes = GeckoJS.BaseObject.getKeys(curTransaction.getPayments());
+
+            if (this._returnMode) {
+                var err = false;
+                if (paymentsTypes.length == 0) {
+                    NotifyUtils.warn(_('No payment has been made; cannot register refund payment'));
+                    err = true;
+                }
+
+                if (amount == null || amount == 0 || isNaN(amount)) {
+                    // if amount no given, set amount to amount paid
+                    amount = curTransaction.getPaymentSubtotal();
+                }
+
+                if (!err && amount > curTransaction.getPaymentSubtotal()) {
+                    NotifyUtils.warn(_('Refund amount [%S] may not exceed payment amount [%S]',
+                                     [curTransaction.formatPrice(amount), curTransaction.formatPrice(curTransaction.getPaymentSubtotal())]));
+                    err = true;
+                }
+
+                if (err) {
+                    GeckoJS.Session.remove('cart_set_price_value');
+                    GeckoJS.Session.remove('cart_set_qty_value');
+
+                    this.subtotal();
+                    return; // fatal error ?
+                }
+            }
+
             if (paymentsTypes.length == 0) {
                 this.addMarker('total');
             }
-
             type = type || 'cash';
             amount = amount || false;
 
@@ -1884,13 +1979,14 @@
                 amount = curTransaction.getRemainTotal();
                 if (amount < 0) amount = 0;
             }
-            else if (type == 'check') {
-                // @todo
-                // make sure user's check cashing limit isn't exceeded
-            }
 
             origin_amount = typeof origin_amount == 'undefined' ? amount : origin_amount;
 
+            if (this._returnMode) {
+                origin_amount = 0 - origin_amount;
+                amount = 0 - amount;
+            }
+            
             var paymentItem = {
                 type: type,
                 amount: amount,
@@ -2151,14 +2247,12 @@
             // check if has buffer
             var buf = this._getKeypadController().getBuffer();
             this._getKeypadController().clearBuffer();
-            this.cancelReturn();
             
             if (buf.length>0) {
                 if (!amount) amount = parseFloat(buf);
             }
 
             this.addPayment('cash', amount);
-
         },
 
         addCondiment: function(plu, forceModal) {

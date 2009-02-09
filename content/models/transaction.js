@@ -66,7 +66,7 @@
 
                 no_of_customers: 1,
 
-                terminal_no: GeckoJS.Session.get('terminal_id'),
+                terminal_no: GeckoJS.Session.get('terminal_no'),
 
                 created: '',
                 modified: ''
