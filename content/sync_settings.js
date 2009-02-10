@@ -10,16 +10,18 @@
 
         doSetOKCancel(
             function(){
-                var data = {cancel: false};
+                var data = {
+                    cancel: false
+                };
 
-		var changed = true;
+                var changed = true;
 
                 if (changed) {
-                    if (GREUtils.Dialog.confirm(null, _('confirm synchronize change'),
-                                                      _('Synchronize changes require system restart to take effect. If you save the changes now, the system will restart automatically after you return to the Main Screen. Do you want to save your changes?')
-                                                      )) {
+                    if (GREUtils.Dialog.confirm(null, _('confirm synchronize settings change'),
+                        _('Synchronize settings changes require system restart to take effect. If you save the changes now, the system will restart automatically after you return to the Main Screen. Do you want to save your changes?')
+                        )) {
 
-	                $do('save', data, 'SyncSettings');
+                        $do('save', data, 'SyncSettings');
 
                         GeckoJS.Observer.notify(null, 'prepare-to-restart', this);
 
@@ -31,10 +33,11 @@
 
                 return !data.cancel;
             },
+
             function(){
                 return true;
             }
-        );
+            );
     };
     
 
