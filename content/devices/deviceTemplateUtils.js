@@ -97,7 +97,7 @@
                 else {
                     var leftPaddingWidth = width - convertedLength;
                     var internalLength = str.length;
-                    str = GeckoJS.String.padLeft(str, internalLength + leftPaddingWidth, 'L');
+                    str = GeckoJS.String.padLeft(str, internalLength + leftPaddingWidth, ' ');
                 }
                 return str;
             },

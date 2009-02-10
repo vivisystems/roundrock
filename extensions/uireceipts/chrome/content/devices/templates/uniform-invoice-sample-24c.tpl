@@ -12,7 +12,7 @@
 {/eval}
 {for item in order.items}
 {if pageCount == 0}
-[&QSON]${store.name|center:6}[&QSOFF]
+[&QSON]${store.name|center:12}[&QSOFF]
 ${(new Date()).toLocaleFormat('%Y-%m-%d %H:%M')}
 店名: ${store.branch|left:18}
 電話: ${store.telephone1|left:18}
