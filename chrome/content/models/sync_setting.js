@@ -128,4 +128,38 @@ SyncSetting.prototype.writeIniFile = function(file, str) {
 
 };
 
+
+SyncSetting.prototype.createSchema = function() {
+
+    var datasources = GeckoJS.ConnectionManager.getConfig();
+
+
+
+    for( var dbConfig in datasources ) {
+
+        var className = datasources[dbConfig]['classname'];
+
+        if (className == 'SQLite') {
+
+            var datasource = GeckoJS.ConnectionManager.getDataSource(dbConfig);
+
+            var sql = 'CREATE TABLE IF NOT EXISTS "syncs" ("id" INTEGER PRIMARY KEY NOT NULL ,"crud" varchar(255) NOT NULL ,"machine_id" varchar(36) ,"from_machine_id" varchar(36) ,"method_id" varchar(36) NOT NULL ,"method_type" varchar(45) NOT NULL ,"method_table" varchar(45) NOT NULL ,"created" int NOT NULL ,"modified" int NOT NULL) ';
+            var sql2 = 'CREATE TABLE IF NOT EXISTS "sync_remote_machines" ("id" INTEGER PRIMARY KEY NOT NULL, "machine_id" varchar(36) NOT NULL, "last_synced" int DEFAULT -1) ' ;
+
+            try {
+                datasource.execute(sql);
+            }catch(e) {
+            }
+
+            try {
+                datasource.execute(sql2);
+            }catch(e) {
+            }
+            
+        }
+
+    };
+
+};
+
 })();
