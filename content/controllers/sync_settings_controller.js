@@ -12,32 +12,44 @@
 
             if (warn == null) warn = true;
 		
-	    var settings = (new SyncSetting()).read();
+            var settings = (new SyncSetting()).read();
 
-	    if (settings == null) {
+            if (settings == null) {
                 settings = {};
-                settings.machine_id = GeckoJS.Session.get('terminal_no');
             }
+
+            settings.machine_id = settings.machine_id || GeckoJS.Session.get('terminal_no');
 		
             this.Form.unserializeFromObject('syncSettingForm', settings);
 
             
         },
 
-	save: function(data) {
+        save: function(data) {
 		
             var obj = this.Form.serializeToObject('syncSettingForm', false);
 
             // change boolean to integer
-	    for (var k in obj) {
-		if(typeof obj[k] == 'boolean') {
-			obj[k] = obj[k] ? 1 : 0 ;
-		}	
-	    }
+            for (var k in obj) {
+                if(typeof obj[k] == 'boolean') {
+                    obj[k] = obj[k] ? 1 : 0 ;
+                }
+            }
 
-  	    (new SyncSetting()).save(obj);
+            (new SyncSetting()).save(obj);
+
+            // restart sync_client
+            try {
+                var syncClientScript = new GeckoJS.File('/etc/init.d/sync_client');
+                if (syncClientScript.exists()) {
+                    syncClientScript.run(['restart'], true); // no arguments and blocking.
+                }
+                delete syncClientScript;
+                syncClientScript = null;
+            }catch(e) {
+            }
 		
-	}
+        }
 
     });
 

@@ -71,16 +71,6 @@
 		                        <textbox form="syncSettingForm" name="end_hour" value="20" />
 		                    </row>
 
-		                    <row>
-		                        <spacer />
-		                        <checkbox form="syncSettingForm" name="notify_pull" label="&sync_settings.label.notify_pull;"/>
-		                    </row>
-
-		                    <row>
-		                        <spacer />
-		                        <checkbox form="syncSettingForm" name="notify_push" label="&sync_settings.label.notify_push;"/>
-		                    </row>
-
 		                </rows>
 		            </grid>
 			</vbox>

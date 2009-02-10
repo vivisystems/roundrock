@@ -79,11 +79,19 @@
                     var password = this.password ;
 
                     var req = new XMLHttpRequest();
+
                     req.mozBackgroundRequest = true;
 
+                    /* Request Timeout guard */
+                    var timout = null;
+                    timeout = setTimeout(function() {
+                        clearTimeout(timeout);
+                        req.abort();
+                    }, 15000);
+
+                    /* Start Request with http basic authorization */
                     req.open('GET', url, true, username, password);
                     req.onreadystatechange = function (aEvt) {
-
                         if (req.readyState == 4) {
                             if(req.status == 200) {
                                 var server_machine_id = req.responseText;
@@ -95,6 +103,7 @@
                             }else {
                                 self.setStatus(false);
                             }
+                            delete req;
                             self.checkStatus(); // register again
                         }
                     };
