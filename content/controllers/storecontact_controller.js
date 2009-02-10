@@ -32,12 +32,10 @@
                     country: '',
                     fax: '',
                     email: '',
-                    note: '',
-                    terminal_no: ''
+                    note: ''
                 };
             }
             GeckoJS.Session.set('storeContact', contact);
-            GeckoJS.Session.set('terminal_no', contact == null ? '' : contact.terminal_no);
         },
 
         update: function () {
@@ -49,22 +47,19 @@
             }
             else {
                 var name = (formObj.name == null) ? '' : GeckoJS.String.trim(formObj.name);
-                var terminal_no = (formObj.terminal_no == null) ? '' : GeckoJS.String.trim(formObj.terminal_no);
 
-                if (name.length == 0 || terminal_no == 0) {
-                    NotifyUtils.warn(_('Store name and terminal ID must not be blank!'));
+                if (name.length == 0) {
+                    NotifyUtils.warn(_('Store name must not be blank!'));
                     return false;
                 }
             }
             formObj.name = name;
-            formObj.terminal_no = terminal_no;
             
             var storeContactModel = new StoreContactModel();
             storeContactModel.id = formObj.id;
             storeContactModel.save(formObj);
 
             GeckoJS.Session.set('storeContact', formObj);
-            GeckoJS.Session.set('terminal_no', terminal_no);
 
             return true;
         },
@@ -97,4 +92,3 @@
     }, false);
 
 })();
-
