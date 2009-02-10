@@ -1212,12 +1212,17 @@
                         // use lastH here as height for current row
                         lastH = cellHeight - adjustY;
 
-                        lastX = 0;
-                        lastW = 0;
-
+                        if (dir == 'reverse') {
+                            lastX = w;
+                            lastW = cellWidth;
+                        }
+                        else {
+                            lastX = 0;
+                            lastW = 0;
+                        }
                         for (var j = 0; j < c; j++) {
                             if (dir == 'reverse')
-                                posX = w - lastX - lastW;
+                                posX = lastX - cellWidth;
                             else
                                 posX = lastX + lastW;
                             var btn = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:vivibutton");
@@ -1226,6 +1231,7 @@
 
                             // use lastW as width for current button
                             lastW = cellWidth - adjustX;
+                            if (dir == 'reverse') posX += adjustX;;
 
                             btn.setAttribute('flex', 0);
                             btn.setAttribute('top', posY);
@@ -1238,7 +1244,11 @@
                             stack.appendChild(btn);
 
                             lastW -= -hs;
-                            lastX = posX;
+
+                            if (dir == 'reverse')
+                                lastX = posX - hs;
+                            else
+                                lastX = posX;
                         }
                         // set lastH to the total height
                         lastH -= -vs;
