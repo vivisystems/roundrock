@@ -1,0 +1,1 @@
+zip -r viviecr.xpi chrome.manifest install.rdf chrome/ defaults/ locale/ skin/
