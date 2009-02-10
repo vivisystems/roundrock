@@ -13,7 +13,7 @@
         </handlers>
 
         <content>
-        <xul:grid anonid="vivisessionstatus-grid" xbl:inherits="class,flex">
+        <xul:grid anonid="vivisessionstatus-grid" xbl:inherits="flex">
         </xul:grid>
         </content>
         <implementation>
@@ -189,6 +189,7 @@
                             labelNode.setAttribute('class', labelClass);
                             labelNode.setAttribute('value', labels[index]);
                             labelNode.setAttribute('readonly', 'true');
+                            labelNode.setAttribute('flex', '0');
                             row.appendChild(labelNode);
                         }
 
@@ -198,6 +199,7 @@
                         valueNode.setAttribute('anonid', 'value' + index);
                         valueNode.setAttribute('value', GeckoJS.Session.get(this.keys[index]));
                         valueNode.setAttribute('readonly', 'true');
+                        valueNode.setAttribute('flex', '1');
                         row.appendChild(valueNode);
                         this.nodes.push(valueNode);
 
