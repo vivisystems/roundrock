@@ -37,6 +37,17 @@
             }
 
             (new SyncSetting()).save(obj);
+
+            // restart sync_client
+            try {
+                var syncClientScript = new GeckoJS.File('/etc/init.d/sync_client');
+                if (syncClientScript.exists()) {
+                    syncClientScript.run(['restart'], true); // no arguments and blocking.
+                }
+                delete syncClientScript;
+                syncClientScript = null;
+            }catch(e) {
+            }
 		
         }
 
