@@ -9,7 +9,6 @@
         name: 'Main',
         screenwidth: 800,
         screenheight: 600,
-        maxButtonRows: 10,
         depPanelView: null,
         pluPanelView: null,
         condimentPanel: null,
@@ -362,14 +361,10 @@
             var cropDeptLabel = GeckoJS.Configure.read('vivipos.fec.settings.CropDeptLabel') || false;
             var cropPLULabel = GeckoJS.Configure.read('vivipos.fec.settings.CropPLULabel') || false;
 
-            // first check if rows and columns have changed
-
-            var rowsLeft = this.maxButtonRows;
-            if (departmentRows > rowsLeft) {
-                departmentRows = rowsLeft;
-            }
-            rowsLeft -= departmentRows;
-
+            // sanity check on department and plu panel heights
+            var deptHeight = departmentRows * departmentButtonHeight;
+            var pluHeight = pluRows * pluButtonHeight;
+            
             if (cropPLULabel) pluPanel.setAttribute('crop', 'end');
 
             if (initial ||
@@ -395,11 +390,6 @@
                 }
                 document.getElementById('pluAndCondimentDeck').style.height = '0px';
             }
-
-            if (pluRows > rowsLeft) {
-                pluRows = rowsLeft;
-            }
-            rowsLeft -= pluRows;
 
             if (initial ||
                 (pluPanel.getAttribute('rows') != pluRows) ||

@@ -5,6 +5,10 @@
   numPages = Math.ceil(order.items_count / pageSize);
   curPage = 1;
   order.receiptPages = numPages;
+  ubn = null;
+  if (typeof customer != 'undefined' && customer != null && customer.uniform_business_number != null) {
+    ubn = customer.uniform_business_number;
+  }
 {/eval}
 {for item in order.items}
 {if pageCount == 0}
@@ -15,8 +19,8 @@ ${(new Date()).toLocaleFormat('%Y-%m-%d %H:%M')}
 機號: ${order.terminal_no|left:18}
 櫃員: ${order.proceeds_clerk_displayname|left:18}
 序號: ${order.seq|left:9} ${curPage+'/'+numPages|right:6}頁
-{if customer.uniform_business_number != null}
-統一編號: ${customer.uniform_business_number|left:8}
+{if ubn != null}
+統一編號: ${ubn|left:8}
 {/if}
 -----------------------
 {/if}

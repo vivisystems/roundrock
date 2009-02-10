@@ -505,22 +505,22 @@ pref("vivipos.fec.registry.portspeeds", "2400, 4800, 9600, 19200, 38400, 57600, 
 pref("vivipos.fec.registry.devicemodels.fec-f632.label", "FEC F632");
 pref("vivipos.fec.registry.devicemodels.fec-f632.type", "receipt,guestcheck");
 pref("vivipos.fec.registry.devicemodels.fec-f632.path", "chrome://viviecr/content/devices/commands/fecf632.cmd");
-pref("vivipos.fec.registry.devicemodels.fec-f632.encodings", "English=US-ASCII,Western=ISO-8859-1,Simplified Chinese=GB18030,Traditional Chinese=Big5,Japanese=Shift_JIS,UTF-8=UTF-8");
+pref("vivipos.fec.registry.devicemodels.fec-f632.encodings", "English=US-ASCII,Western=ISO-8859-1,Simplified Chinese=GB18030,Simplified Chinese=GB2312,Traditional Chinese=Big5,Japanese=Shift_JIS,UTF-8=UTF-8");
  
 pref("vivipos.fec.registry.devicemodels.epson-tm-t88iv.label", "Epson TM-T88IV");
 pref("vivipos.fec.registry.devicemodels.epson-tm-t88iv.type", "receipt,guestcheck,cashdrawer");
 pref("vivipos.fec.registry.devicemodels.epson-tm-t88iv.path", "chrome://viviecr/content/devices/commands/epson-tm88iv.cmd");
-pref("vivipos.fec.registry.devicemodels.epson-tm-t88iv.encodings", "English=US-ASCII,Western=ISO-8859-1,Simplified Chinese=GB18030,Traditional Chinese=Big5,Japanese=Shift_JIS,UTF-8=UTF-8");
+pref("vivipos.fec.registry.devicemodels.epson-tm-t88iv.encodings", "English=US-ASCII,Western=ISO-8859-1,Simplified Chinese=GB18030,Simplified Chinese=GB2312,Traditional Chinese=Big5,Japanese=Shift_JIS,UTF-8=UTF-8");
  
 pref("vivipos.fec.registry.devicemodels.epson-rp-u420.label", "Epson RP-U420");
 pref("vivipos.fec.registry.devicemodels.epson-rp-u420.type", "receipt,guestcheck");
 pref("vivipos.fec.registry.devicemodels.epson-rp-u420.path", "chrome://viviecr/content/devices/commands/epson-rp-u420.cmd");
-pref("vivipos.fec.registry.devicemodels.epson-rp-u420.encodings", "English=US-ASCII,Western=ISO-8859-1,Traditional Chinese=Big5");
+pref("vivipos.fec.registry.devicemodels.epson-rp-u420.encodings", "English=US-ASCII,Western=ISO-8859-1,Simplified Chinese=GB18030,Simplified Chinese=GB2312,Traditional Chinese=Big5,Japanese=Shift_JIS,UTF-8=UTF-8");
 
 pref("vivipos.fec.registry.devicemodels.vfdfec.label", "Firich VFD");
 pref("vivipos.fec.registry.devicemodels.vfdfec.type", "vfd");
 pref("vivipos.fec.registry.devicemodels.vfdfec.path", "chrome://viviecr/content/devices/commands/vfdfec.cmd");
-pref("vivipos.fec.registry.devicemodels.vfdfec.encodings", "English=US-ASCII,Western=ISO-8859-1,Simplified Chinese=GB18030,Traditional Chinese=Big5,Japanese=Shift_JIS,UTF-8=UTF-8");
+pref("vivipos.fec.registry.devicemodels.vfdfec.encodings", "English=US-ASCII,Western=ISO-8859-1,Simplified Chinese=GB18030,Simplified Chinese=GB2312,Traditional Chinese=Big5,Japanese=Shift_JIS,UTF-8=UTF-8");
  
 pref("vivipos.fec.registry.devicemodels.vfdgeneric.label", "Generic VFD");
 pref("vivipos.fec.registry.devicemodels.vfdgeneric.type", "vfd");

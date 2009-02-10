@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<!DOCTYPE window SYSTEM "chrome://uireceipts/locale/uireceipt.dtd">
 
-<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+<!DOCTYPE window SYSTEM "chrome://uireceipts/locale/uireceipt.dtd">
 
 <overlay id="UniformInvoiceOverlay"
          xmlns:html="http://www.w3.org/1999/xhtml"

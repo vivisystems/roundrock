@@ -33,8 +33,7 @@
             // get handle to Cart controller
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             if (cart) {
-                cart.addEventListener('afterCancel', this.resetUBN, this);
-                cart.addEventListener('afterSubmit', this.resetUBN, this);
+                cart.addEventListener('newTransaction', this.resetUBN, this);
             }
 
         },
@@ -68,12 +67,6 @@
 
             return marker;
 
-        },
-
-        getPageCount: function (receipt) {
-            alert('Getting page count for receipt data: ' + receipt);
-
-            return 2;
         },
 
         getUBNDialog: function (data) {
@@ -136,9 +129,9 @@
             // get current uniform invoice number and store it in session
             var marker = this.getInvoiceMarker();
             if (marker)
-                GeckoJS.Session.set('vivipos_fec_console_message', marker.code + marker.seq);
+                GeckoJS.Session.set('uniform_invoice_marker', marker.code + marker.seq);
             else
-                GeckoJS.Session.set('vivipos_fec_console_message', null);
+                GeckoJS.Session.set('uniform_invoice_marker', null);
         },
 
         resetMarker: function () {
@@ -302,17 +295,20 @@
                 this._ubn = ubn;
             }
             if (cart) cart.subtotal();
+            GeckoJS.Session.set('uniform_business_number', this._ubn);
         },
 
         clearUBN: function () {
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             this._ubn = null;
             if (cart) cart.subtotal();
+
+            GeckoJS.Session.set('uniform_business_number', this._ubn);
         },
 
         resetUBN: function () {
             this._ubn = null;
-            alert('resetUBN');
+            GeckoJS.Session.set('uniform_business_number', this._ubn);
         },
 
         updateUIRecord: function (evt) {

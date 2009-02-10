@@ -170,7 +170,7 @@
             self.requestCommand('decStock', self.data, "Stocks");
 
             self.run();
-        }, 100);
+        }, 1500);
 
     };
 

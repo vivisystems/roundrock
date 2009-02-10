@@ -1,6 +1,8 @@
 var UniformInvoiceMarkerModel = window.UniformInvoiceMarkerModel =  GeckoJS.Model.extend({
     name: 'UniformInvoiceMarker',
 
-    useDbConfig: 'extension'
+    useDbConfig: 'extension',
+
+    behaviors: ['Sync']
 
 });

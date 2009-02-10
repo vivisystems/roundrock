@@ -278,6 +278,9 @@
             // check pricelevel schedule
             this.requestCommand('schedule', null, 'Pricelevel');
 
+            // dispatch event
+            this.dispatchEvent('newTransaction', {});
+            
             return curTransaction;
         },
 
