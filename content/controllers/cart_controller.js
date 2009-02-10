@@ -615,7 +615,8 @@
                 NotifyUtils.warn(_('Not an open order; cannot modify'));
 
                 this.subtotal();
-                }
+                return;
+            }
 
             if(index <0) {
                 //@todo OSD
