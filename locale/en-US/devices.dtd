@@ -1,4 +1,8 @@
 <!ENTITY devices.title "Device Configuration">
+<!ENTITY devices.tab.receipt.label "Receipt">
+<!ENTITY devices.tab.guestcheck.label "Check">
+<!ENTITY devices.tab.vfd.label "VFD">
+<!ENTITY devices.tab.cashdrawer.label "Cashdrawer">
 <!ENTITY devices.receipt.printer.1.label "Receipt Printer 1">
 <!ENTITY devices.receipt.printer.2.label "Receipt Printer 2">
 <!ENTITY devices.template.label "Template">

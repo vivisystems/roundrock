@@ -28,10 +28,10 @@
             <tabbox class="RightTabbox" flex="1">
 
                 <tabs>
-                    <tab id="receipt-tab" label="Receipt"/>
-                    <tab id="guestcheck-tab" label="Guest Check"/>
-                    <tab id="vfd-tab" label="VFD"/>
-                    <tab id="cashdrawer-tab" label="Cash Drawer"/>
+                    <tab id="receipt-tab" label="&devices.tab.receipt.label;"/>
+                    <tab id="guestcheck-tab" label="&devices.tab.guestcheck.label;"/>
+                    <tab id="vfd-tab" label="&devices.tab.vfd.label;"/>
+                    <tab id="cashdrawer-tab" label="&devices.tab.cashdrawer.label;"/>
                 </tabs>
 
                 <!-- Receipt configuration -->
@@ -80,7 +80,7 @@
                                         <row>
                                             <label value="&devices.devicemodel.label;"/>
                                             <menulist id="receipt-1-devicemodel" name="receipt-1-devicemodel" form="deviceForm"
-                                                      oncommand="$do('updateEncodings', [this, document.getElementById('receipt-1-encoding')], 'Devices')">
+                                                      oncommand="$do('updateEncodings', [this, document.getElementById('receipt-1-encoding'),'receipt'], 'Devices')">
                                                 <menupopup id="receipt-1-devicemodel-popup">
                                                 </menupopup>
                                             </menulist>
@@ -143,7 +143,7 @@
                                         <row>
                                             <label value="&devices.devicemodel.label;"/>
                                             <menulist id="receipt-2-devicemodel" name="receipt-2-devicemodel" form="deviceForm"
-                                                      oncommand="$do('updateEncodings', [this, document.getElementById('receipt-2-encoding')], 'Devices')">
+                                                      oncommand="$do('updateEncodings', [this, document.getElementById('receipt-2-encoding'), 'receipt'], 'Devices')">
                                                 <menupopup id="receipt-2-devicemodel-popup">
                                                 </menupopup>
                                             </menulist>
@@ -208,7 +208,7 @@
                                         <row>
                                             <label value="&devices.devicemodel.label;"/>
                                             <menulist id="guestcheck-1-devicemodel" name="guestcheck-1-devicemodel" form="deviceForm"
-                                                      oncommand="$do('updateEncodings', [this, document.getElementById('guestcheck-1-encoding')], 'Devices')">
+                                                      oncommand="$do('updateEncodings', [this, document.getElementById('guestcheck-1-encoding'), 'guestcheck'], 'Devices')">
                                                 <menupopup id="guestcheck-1-devicemodel-popup">
                                                 </menupopup>
                                             </menulist>
@@ -271,7 +271,7 @@
                                         <row>
                                             <label value="&devices.devicemodel.label;"/>
                                             <menulist id="guestcheck-2-devicemodel" name="guestcheck-2-devicemodel" form="deviceForm"
-                                                      oncommand="$do('updateEncodings', [this, document.getElementById('guestcheck-2-encoding')], 'Devices')">
+                                                      oncommand="$do('updateEncodings', [this, document.getElementById('guestcheck-2-encoding'),'guestcheck'], 'Devices')">
                                                 <menupopup id="guestcheck-2-devicemodel-popup">
                                                 </menupopup>
                                             </menulist>
@@ -336,7 +336,7 @@
                                         <row>
                                             <label value="&devices.devicemodel.label;"/>
                                             <menulist id="vfd-1-devicemodel" name="vfd-1-devicemodel" form="deviceForm"
-                                                      oncommand="$do('updateEncodings', [this, document.getElementById('vfd-1-encoding')], 'Devices')">
+                                                      oncommand="$do('updateEncodings', [this, document.getElementById('vfd-1-encoding'), 'vfd'], 'Devices')">
                                                 <menupopup id="vfd-1-devicemodel-popup">
                                                 </menupopup>
                                             </menulist>
@@ -397,7 +397,7 @@
                                     <row>
                                         <label value="&devices.devicemodel.label;"/>
                                         <menulist id="vfd-2-devicemodel" name="vfd-2-devicemodel" form="deviceForm"
-                                                  oncommand="$do('updateEncodings', [this, document.getElementById('vfd-2-encoding')], 'Devices')">
+                                                  oncommand="$do('updateEncodings', [this, document.getElementById('vfd-2-encoding'),'vfd'], 'Devices')">
                                             <menupopup id="vfd-2-devicemodel-popup">
                                             </menupopup>
                                         </menulist>

@@ -1,0 +1,5 @@
+<!ENTITY    uireceipt.tab.label                     "發票">
+<!ENTITY    uireceipt.device                        "發票機號">
+<!ENTITY    uireceipt.archive.frequency             "發票保存天數">
+<!ENTITY    uireceipt.display.uniform.invoice       "  發票序號:">
+<!ENTITY    uireceipt.display.uniform.business.number       "統一編號:">

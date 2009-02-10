@@ -12,6 +12,7 @@
 
         var condgroup = inputObj.condgroup;
         var condsData = inputObj.condsData;
+        var selectedItems = inputObj.selectedItems;
 
         window.viewHelper = new opener.GeckoJS.NSITreeViewArray(condsData);
 
@@ -32,8 +33,8 @@
             }
 
         };
-
         document.getElementById('condimentscrollablepanel').datasource = window.viewHelper ;
+        document.getElementById('condimentscrollablepanel').selectedItems = selectedItems ;
 
         doSetOKCancel(
             function(){

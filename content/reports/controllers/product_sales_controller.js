@@ -59,6 +59,7 @@
             var doc = document.getElementById('preview_div');
             doc.innerHTML = result;
 
+
         },
 
         exportCsv: function() {
@@ -92,6 +93,7 @@
             var doc = document.getElementById('preview_div');
             doc.innerHTML = result;
 
+            
         },
 
         load: function() {

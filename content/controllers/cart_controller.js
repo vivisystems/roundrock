@@ -6,7 +6,7 @@
 
     GeckoJS.Controller.extend( {
         name: 'Cart',
-        components: ['Tax'],
+        components: ['Tax', 'GuestCheck'],
         _cartView: null,
         _queuePool: null,
         _returnMode: false,
@@ -43,7 +43,6 @@
 
             // var curTransaction = this._getTransaction();
             // curTransaction.events.addListener('beforeAppendItem', obj, this);
-
             GeckoJS.Session.remove('cart_last_sell_item');
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
@@ -279,6 +278,9 @@
             // check pricelevel schedule
             this.requestCommand('schedule', null, 'Pricelevel');
 
+            // dispatch event
+            this.dispatchEvent('newTransaction', {});
+            
             return curTransaction;
         },
 
@@ -361,14 +363,42 @@
                 this._getKeypadController().clearBuffer();
             }
 
+            // check if new item is the same as current item. if they are the same,
+            // collapse it into the current item if no surcharge/discount/marker has
+            // been applied to the current item and price/tax status are the same
+            
+            if (curTransaction) {
+                var index = this._cartView.getSelectedIndex();
+                var currentItem = curTransaction.getItemAt(index);
+                var currentItemDisplay = curTransaction.getDisplaySeqAt(index);
+
+                var price = GeckoJS.Session.get('cart_set_price_value');
+                var qty = GeckoJS.Session.get('cart_set_qty_value');
+
+                if (qty == null) qty = 1;
+
+                if (currentItemDisplay && currentItemDisplay.type == 'item') {
+                    if (currentItem.no == plu.no &&
+                        !currentItem.hasDiscount &&
+                        !currentItem.hasSurcharge &&
+                        !currentItem.hasMarker &&
+                        ((price == null) || (currentItem.current_price == price)) &&
+                        currentItem.tax_name == plu.rate) {
+
+                        this.modifyQty('plus', qty);
+                        return;
+                    }
+                }
+            }
+
             if (this.dispatchEvent('beforeAddItem', item)) {
                 if ( this._returnMode) {
                     var qty = 0 - (GeckoJS.Session.get('cart_set_qty_value') || 1);
                     GeckoJS.Session.set('cart_set_qty_value', qty);
                 }
 
-                var doSIS = plu.single && curTransaction.data.items_count == 1;
                 var addedItem = curTransaction.appendItem(item);
+                var doSIS = plu.single && curTransaction.data.items_count == 1 && !this._returnMode;
 
                 this.dispatchEvent('onAddItem', addedItem);
 
@@ -453,18 +483,24 @@
 
                 //@todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot modify'));
-                return; // fatal error ?
+
+                this.subtotal();
+                return;
             }
 
             if(index <0) {
                 //@todo OSD
                 NotifyUtils.warn(_('Please select an item first'));
+
+                this.subtotal();
                 return;
             }
 
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 //@todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot modify'));
+
+                this.subtotal();
                 return;
             }
 
@@ -476,12 +512,16 @@
 
                 //@todo OSD
                 NotifyUtils.warn(_('Cannot modify selected item [%S]', [itemDisplay.name]));
+
+                this.subtotal();
                 return;
             }
 
             if (itemDisplay.type == 'condiment' && !this.Acl.isUserInRole('acl_modify_condiment_price')) {
                 //@todo OSD
                 NotifyUtils.warn(_('Not authorized to modify condiment price'));
+
+                this.subtotal();
                 return;
             }
 
@@ -490,6 +530,8 @@
 
                 //@todo OSD
                 NotifyUtils.warn(_('Cannot modify; selected item [%S] has discount or surcharge applied', [itemDisplay.name]));
+
+                this.subtotal();
                 return;
             }
 
@@ -498,6 +540,8 @@
 
                 //@todo OSD
                 NotifyUtils.warn(_('Cannot modify; selected item [%S] has been subtotaled', [itemDisplay.name]));
+
+                this.subtotal();
                 return;
             }
 
@@ -519,6 +563,8 @@
                 //@todo OSD
                 NotifyUtils.warn(_('Cannot modify condiment; no price entered'));
                 GeckoJS.Session.remove('cart_set_qty_value');
+
+                this.subtotal();
                 return ;
             }
 
@@ -529,13 +575,15 @@
 
             // check if zero preset price is allowed
             // @todo
-            var positivePriceRequired = GeckoJS.Configure.read('vivipos.fec.settings.PositivePriceRequired');
+            var positivePriceRequired = GeckoJS.Configure.read('vivipos.fec.settings.PositivePriceRequired') || false;
 
             if (positivePriceRequired && curTransaction != null) {
                 if (curTransaction.checkSellPrice(itemTrans) <= 0) {
                     NotifyUtils.warn(_('Product [%S] may not be modified with a price of [%S]!', [itemTrans.name, curTransaction.formatPrice(0)]));
                     GeckoJS.Session.remove('cart_set_price_value');
                     GeckoJS.Session.remove('cart_set_qty_value');
+
+                    this.subtotal();
                     return;
                 }
             }
@@ -553,7 +601,7 @@
         },
 	
 
-        modifyQty: function(action) {
+        modifyQty: function(action, delta) {
 
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
@@ -565,18 +613,24 @@
 
                 //@todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot modify'));
-                return; // fatal error ?
+
+                this.subtotal();
+                return;
             }
 
             if(index <0) {
                 //@todo OSD
                 NotifyUtils.warn(_('Please select an item first'));
+
+                this.subtotal();
                 return;
             }
 
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 //@todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot modify'));
+
+                this.subtotal();
                 return;
             }
 
@@ -588,6 +642,8 @@
 
                 //@todo OSD
                 NotifyUtils.warn(_('Cannot modify selected item [%S]', [itemDisplay.name]));
+
+                this.subtotal();
                 return;
             }
 
@@ -596,17 +652,22 @@
 
                 //@todo OSD
                 NotifyUtils.warn(_('Cannot modify; selected item [%S] has discount or surcharge applied', [itemDisplay.name]));
+
+                this.subtotal();
                 return;
             }
 
             var qty = itemTrans.current_qty;
             var newQty = Math.abs(qty + 0);
+            if (delta == null || isNaN(delta)) {
+                delta = 1;
+            }
             switch(action) {
                 case 'plus':
-                    newQty = newQty+1;
+                    newQty = newQty+delta;
                     break;
                 case 'minus':
-                    newQty = (newQty - 1 > 0) ? (newQty - 1) : newQty;
+                    newQty = (newQty - delta > 0) ? (newQty - delta) : newQty;
                     break;
             }
             if (qty < 0) newQty = 0 - newQty;
@@ -617,6 +678,9 @@
             else {
                 //@todo OSD
                 NotifyUtils.warn(_('Quantity may not be less than 1'));
+
+                this.subtotal();
+                return;
             }
             
         },
@@ -656,19 +720,25 @@
 
                 // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot VOID'));
-                return; // fatal error ?
+
+                this.subtotal();
+                return;
             }
 
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 this.dispatchEvent('onVoidItemError', {});
                 // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot VOID'));
+
+                this.subtotal();
                 return;
             }
 
             if(index <0) {
                 // @todo OSD
                 NotifyUtils.warn(_('Please select an item first'));
+
+                this.subtotal();
                 return;
             }
 
@@ -685,13 +755,17 @@
 
                     // @todo OSD
                     NotifyUtils.warn(_('Cannot VOID the selected item [%S]. It is not the last registered item', [itemDisplay.name]));
-                    return ;
+
+                    this.subtotal();
+                    return;
                 }
             }
             else if (itemDisplay.type == 'setitem') {
                 // @todo OSD
                 NotifyUtils.warn(_('The select item [%S] is a member of a product set and cannot be VOIDed individually', [itemDisplay.name]));
-                return ;
+
+                this.subtotal();
+                return;
             }
 
             itemTrans = curTransaction.getItemAt(index);
@@ -702,17 +776,23 @@
                     // @todo OSD
                     this.dispatchEvent('onVoidItemError', {});
                     NotifyUtils.warn(_('Cannot VOID an entry that has been subtotaled'));
-                    return ;
+
+                    this.subtotal();
+                    return;
                 }
 
                 // if voiding condiment, make sure item does not have discounts applied
                 if(itemDisplay.type == 'condiment' && parseFloat(itemDisplay.current_price) > 0) {
                     if (itemTrans.hasDiscount) {
                         NotifyUtils.warn(_('Please void discount on item [%S] first', [itemTrans.name]));
+
+                        this.subtotal();
                         return;
                     }
                     else if (itemTrans.hasSurcharge) {
                         NotifyUtils.warn(_('Please void surcharge on item [%S] first', [itemTrans.name]));
+
+                        this.subtotal();
                         return;
                     }
                 }
@@ -793,13 +873,16 @@
 
                 // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot add discount'));
-                return; // fatal error ?
+
+                this.subtotal();
+                return;
             }
 
             if(index <0) {
                 // @todo OSD
                 NotifyUtils.warn(_('Please select an item'));
                 
+                this.subtotal();
                 return;
             }
 
@@ -809,6 +892,8 @@
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 //@todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot add discount'));
+
+                this.subtotal();
                 return;
             }
 
@@ -818,6 +903,8 @@
             if (pretax && itemDisplay.type != 'subtotal') {
                 // @todo OSD
                 NotifyUtils.warn(_('Pretax discount can only be registered against subtotals'));
+
+                this.subtotal();
                 return;
             }
 
@@ -828,6 +915,8 @@
 
                     //@todo OSD
                     NotifyUtils.warn(_('Discount has been already been registered on item [%S]', [itemTrans.name]));
+
+                    this.subtotal();
                     return;
                 }
                 if (itemTrans.hasSurcharge) {
@@ -836,6 +925,8 @@
 
                     //@todo OSD
                     NotifyUtils.warn(_('Surcharge has been already been registered on item [%S]', [itemTrans.name]));
+
+                    this.subtotal();
                     return;
                 }
                 if (itemTrans.hasMarker) {
@@ -844,6 +935,8 @@
 
                     //@todo OSD
                     NotifyUtils.warn(_('Cannot modify an item that has been subtotaled'));
+
+                    this.subtotal();
                     return;
                 }
                 /*
@@ -859,10 +952,14 @@
                 if (itemDisplay.hasSurcharge) {
                     //@todo OSD
                     NotifyUtils.warn(_('Surcharge has been already been registered on item [%S]', [itemDisplay.name]));
+
+                    this.subtotal();
                     return;
                 }
                 else if (itemDisplay.hasDiscount) {
                     NotifyUtils.warn(_('Discount has been already been registered on item [%S]', [itemDisplay.name]));
+
+                    this.subtotal();
                     return;
                 }
                 else if (index < cartLength - 1) {
@@ -870,12 +967,16 @@
 
                     // @todo OSD
                     NotifyUtils.warn(_('Cannot apply discount to [%S]. It is not the last registered item', [itemDisplay.name]));
-                    return ;
+
+                    this.subtotal();
+                    return;
                 }
             }
             else {
                 //@todo OSD
-                NotifyUtils.warn(_('Discount may not be added to [%S]', [itemDisplay.name]));
+                NotifyUtils.warn(_('Discount may not be applied to [%S]', [itemDisplay.name]));
+
+                this.subtotal();
                 return;
             }
 
@@ -890,6 +991,7 @@
 
                 this.dispatchEvent('onAddDiscountError', {});
 
+                this.subtotal();
                 return;
             }
             
@@ -991,12 +1093,16 @@
 
                 // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot add surcharge'));
-                return; // fatal error ?
+
+                this.subtotal();
+                return;
             }
 
             if(index < 0) {
                 // @todo OSD
                 NotifyUtils.warn(_('Please select an item first'));
+
+                this.subtotal();
                 return;
             }
 
@@ -1005,6 +1111,8 @@
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 //@todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot add surcharge'));
+
+                this.subtotal();
                 return;
             }
 
@@ -1014,6 +1122,8 @@
             if (pretax && itemDisplay.type != 'subtotal') {
                 // @todo OSD
                 NotifyUtils.warn(_('Pretax surcharge can only be registered against subtotals'));
+
+                this.subtotal();
                 return;
             }
             if (itemTrans != null && itemTrans.type == 'item') {
@@ -1024,6 +1134,8 @@
 
                     //@todo OSD
                     NotifyUtils.warn(_('Discount has been already been registered on item [%S]', [itemTrans.name]));
+
+                    this.subtotal();
                     return;
                 }
                 if (itemTrans.hasSurcharge) {
@@ -1032,6 +1144,8 @@
 
                     //@todo OSD
                     NotifyUtils.warn(_('Surcharge has been already been registered on item [%S]', [itemTrans.name]));
+
+                    this.subtotal();
                     return;
                 }
                 if (itemTrans.hasMarker) {
@@ -1040,6 +1154,8 @@
 
                     //@todo OSD
                     NotifyUtils.warn(_('Cannot modify an item that has been subtotaled'));
+
+                    this.subtotal();
                     return;
                 }
             }
@@ -1048,10 +1164,14 @@
                 if (itemDisplay.hasSurcharge) {
                     //@todo OSD
                     NotifyUtils.warn(_('Surcharge has been already been registered on item [%S]', [itemDisplay.name]));
+
+                    this.subtotal();
                     return;
                 }
                 else if (itemDisplay.hasDiscount) {
                     NotifyUtils.warn(_('Discount has been already been registered on item [%S]', [itemDisplay.name]));
+
+                    this.subtotal();
                     return;
                 }
                 else if (index < cartLength - 1) {
@@ -1059,12 +1179,16 @@
 
                     // @todo OSD
                     NotifyUtils.warn(_('Cannot apply surcharge to [%S]. It is not the last registered item', [itemDisplay.name]));
-                    return ;
+
+                    this.subtotal();
+                    return;
                 }
             }
             else {
                 //@todo OSD
-                NotifyUtils.warn(_('Surcharge may not be added to [%S]', [itemDisplay.name]));
+                NotifyUtils.warn(_('Surcharge may not be applied to [%S]', [itemDisplay.name]));
+
+                this.subtotal();
                 return;
             }
 
@@ -1079,6 +1203,7 @@
 
                 this.dispatchEvent('onAddSurchargeError', {});
 
+                this.subtotal();
                 return;
             }
 
@@ -1127,7 +1252,9 @@
 
                 // @todo OSD
                 NotifyUtils.warn(_('Not an open order; operation invalid'));
-                return; // fatal error ?
+
+                this.subtotal();
+                return;
             }
 
             //if(index <0) return;
@@ -1136,11 +1263,15 @@
 
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 NotifyUtils.warn(_('Not an open order; operation invalid'));
+
+                this.subtotal();
                 return;
             }
 
             if (curTransaction.getItemsCount() < 1) {
                 NotifyUtils.warn(_('Nothing has been registered yet; operation invalid'));
+
+                this.subtotal();
                 return;
             }
 
@@ -1167,11 +1298,14 @@
 
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
+
+            this.subtotal();
         },
 
 
-        houseBon: function() {
+        houseBon: function(name) {
 
+            if (name == null || name.length == 0) name = _('House Bon');
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
             
@@ -1184,18 +1318,24 @@
 
                 // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot register House Bon'));
-                return; // fatal error ?
+
+                this.subtotal();
+                return;
             }
 
             if(index <0) {
                 // @todo OSD
                 NotifyUtils.warn(_('Please select an item first'));
+
+                this.subtotal();
                 return;
             }
 
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 //@todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot register House Bon'));
+
+                this.subtotal();
                 return;
             }
 
@@ -1205,11 +1345,13 @@
             if (itemTrans != null && itemTrans.type == 'item') {
 
                 var discountAmount =  itemTrans.current_subtotal;
-                this.addDiscount(discountAmount, '$', 'House Bon');
+                this.addDiscount(discountAmount, '$', name);
             }
             else {
                 //@todo OSD
                 NotifyUtils.warn(_('House Bon may not be applied to [%S]', [itemDisplay.name]));
+
+                this.subtotal();
                 return;
             }
 
@@ -1239,6 +1381,10 @@
             if (convertIndex < 0) {
                 //@todo OSD
                 NotifyUtils.warn(_('The selected currency [%S] has not been configured', [convertCode]));
+                GeckoJS.Session.remove('cart_set_price_value');
+                GeckoJS.Session.remove('cart_set_qty_value');
+
+                this.subtotal();
                 return;
             }
 
@@ -1251,12 +1397,20 @@
 
                 // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot register payments'));
+                GeckoJS.Session.remove('cart_set_price_value');
+                GeckoJS.Session.remove('cart_set_qty_value');
+
+                this.subtotal();
                 return; // fatal error ?
             }
 
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot register payments'));
+                GeckoJS.Session.remove('cart_set_price_value');
+                GeckoJS.Session.remove('cart_set_qty_value');
+
+                this.subtotal();
                 return;
             }
             
@@ -1265,8 +1419,8 @@
                 var origin_amount = amount;
                 // currency convert array
                 var currency_rate = currencies[convertIndex].currency_exchange;
-                var memo1 = currencies[convertIndex].currency + ':' + amount;
-                var memo2 = 'x' + currency_rate;
+                var memo1 = currencies[convertIndex].currency;
+                var memo2 = currency_rate;
                 amount = amount * currency_rate;
                 this._getKeypadController().clearBuffer();
                 this.addPayment('cash', amount, origin_amount, memo1, memo2);
@@ -1280,7 +1434,11 @@
                     //@todo OSD
                     NotifyUtils.warn(_('Please configure the selected currency entry first [%S]', [convertIndex]));
                 }
+                GeckoJS.Session.remove('cart_set_price_value');
+                GeckoJS.Session.remove('cart_set_qty_value');
 
+                this.subtotal();
+                return;
             }
         },
 
@@ -1318,39 +1476,112 @@
             }
         },
 
+        getGiftcardDialog: function (data) {
+            var aURL = 'chrome://viviecr/content/coupon_remark.xul';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=550';
+            var inputObj = {
+                input0:data.type,
+                input1:null
+            };
+            window.openDialog(aURL, _('Giftcard Remark'), features, _('Giftcard Remark'), _('Payment') + ' [' + data.payment + ']',
+                _('Giftcard Type'), _('Giftcard Remark'), inputObj);
+
+            if (inputObj.ok) {
+                return inputObj;
+            }else {
+                return null;
+            }
+        },
+
+        getCheckDialog: function (data) {
+            var aURL = 'chrome://viviecr/content/coupon_remark.xul';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=550';
+            var inputObj = {
+                input0:data.type,
+                input1:null
+            };
+            window.openDialog(aURL, _('Check Remark'), features, _('Check Remark'), _('Payment') + ' [' + data.payment + ']',
+                _('Check Type'), _('Check Remark'), inputObj);
+
+            if (inputObj.ok) {
+                return inputObj;
+            }else {
+                return null;
+            }
+        },
+
         creditCard: function(mark) {
 
             // check if has buffer
             var buf = this._getKeypadController().getBuffer();
             this._getKeypadController().clearBuffer();
 
-            this.cancelReturn();
-
             // check if order is open
             var curTransaction = this._getTransaction();
 
             if(curTransaction == null) {
-                this.clear();
-                this.dispatchEvent('onAddPayment', null);
 
                 // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot register payments'));
+                GeckoJS.Session.remove('cart_set_price_value');
+                GeckoJS.Session.remove('cart_set_qty_value');
+
+                this.subtotal();
                 return; // fatal error ?
             }
 
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot register payments'));
-                return;
+                GeckoJS.Session.remove('cart_set_price_value');
+                GeckoJS.Session.remove('cart_set_qty_value');
+
+                this.subtotal();
+                return; // fatal error ?
             }
             
             var payment = parseFloat(buf);
-            if (payment == 0 || isNaN(payment)) {
-                //@todo OSD
-                //NotifyUtils.warn(_('Please enter an amount first'));
-                //return;
-                payment = curTransaction.getRemainTotal();
+            var balance = curTransaction.getRemainTotal();
+            var paid = curTransaction.getPaymentSubtotal();
+            
+            if (this._returnMode) {
+                if (payment == null || payment == 0 || isNaN(payment)) {
+                    // if amount no given, set amount to amount paid
+                    payment = paid;
+                }
+
+                if (payment > paid) {
+                    NotifyUtils.warn(_('Refund amount [%S] may not exceed amount paid [%S]',
+                                     [curTransaction.formatPrice(payment), curTransaction.formatPrice(paid)]));
+                    GeckoJS.Session.remove('cart_set_price_value');
+                    GeckoJS.Session.remove('cart_set_qty_value');
+
+                    this.subtotal();
+                    return; // fatal error ?
+                }
+
             }
+            else {
+                if (payment == 0 || isNaN(payment)) {
+                    //@todo OSD
+                    //NotifyUtils.warn(_('Please enter an amount first'));
+                    //return;
+                    payment = balance;
+                }
+
+                if (payment > balance) {
+                    // @todo OSD
+                    GREUtils.Dialog.alert(window,
+                                          _('Credit Card Payment Error'),
+                                          _('Credit card payment may not exceed remaining balance'));
+                    GeckoJS.Session.remove('cart_set_price_value');
+                    GeckoJS.Session.remove('cart_set_qty_value');
+
+                    this.subtotal();
+                    return; // fatal error ?
+                }
+            }
+
             var data = {
                 type: mark,
                 payment: curTransaction.formatPrice(payment)
@@ -1365,7 +1596,164 @@
 
         },
 
-        coupon: function(mark) {
+        coupon: function(type) {
+
+            // check if has buffer
+            var buf = this._getKeypadController().getBuffer();
+            this._getKeypadController().clearBuffer();
+
+            // check if order is open
+            var curTransaction = this._getTransaction();
+
+            if(curTransaction == null) {
+
+                // @todo OSD
+                NotifyUtils.warn(_('Not an open order; cannot register payments'));
+                GeckoJS.Session.remove('cart_set_price_value');
+                GeckoJS.Session.remove('cart_set_qty_value');
+
+                this.subtotal();
+                return; // fatal error ?
+            }
+
+            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
+                // @todo OSD
+                NotifyUtils.warn(_('Not an open order; cannot register payments'));
+                GeckoJS.Session.remove('cart_set_price_value');
+                GeckoJS.Session.remove('cart_set_qty_value');
+
+                this.subtotal();
+                return; // fatal error ?
+            }
+
+            var payment = parseFloat(buf);
+            var paid = curTransaction.getPaymentSubtotal();
+
+            if (this._returnMode) {
+                if (payment == null || payment == 0 || isNaN(payment)) {
+                    // if amount no given, set amount to amount paid
+                    payment = paid;
+                }
+
+                if (payment > paid) {
+                    NotifyUtils.warn(_('Refund amount [%S] may not exceed amount paid [%S]',
+                                     [curTransaction.formatPrice(payment), curTransaction.formatPrice(paid)]));
+                    GeckoJS.Session.remove('cart_set_price_value');
+                    GeckoJS.Session.remove('cart_set_qty_value');
+
+                    this.subtotal();
+                    return; // fatal error ?
+                }
+
+            }
+            else {
+                if (payment == null || payment == 0 || isNaN(payment)) {
+                    payment = curTransaction.getRemainTotal();
+                }
+            }
+            var data = {
+                type: type,
+                payment: curTransaction.formatPrice(payment)
+            };
+            var inputObj = this.getCouponDialog(data);
+            if (inputObj) {
+                var memo1 = inputObj.input0 || '';
+                var memo2 = inputObj.input1 || '';
+                this.addPayment('coupon', payment, payment, memo1, memo2);
+            }
+
+        },
+
+        giftcard: function(type) {
+
+            // check if has buffer
+            var buf = this._getKeypadController().getBuffer();
+            this._getKeypadController().clearBuffer();
+
+            // check if order is open
+            var curTransaction = this._getTransaction();
+
+            if(curTransaction == null) {
+
+                // @todo OSD
+                NotifyUtils.warn(_('Not an open order; cannot register payments'));
+                GeckoJS.Session.remove('cart_set_price_value');
+                GeckoJS.Session.remove('cart_set_qty_value');
+
+                this.subtotal();
+                return; // fatal error ?
+            }
+
+            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
+                // @todo OSD
+                NotifyUtils.warn(_('Not an open order; cannot register payments'));
+                GeckoJS.Session.remove('cart_set_price_value');
+                GeckoJS.Session.remove('cart_set_qty_value');
+
+                this.subtotal();
+                return; // fatal error ?
+            }
+
+            var payment = parseFloat(buf);
+            var balance = curTransaction.getRemainTotal();
+            var paid = curTransaction.getPaymentSubtotal();
+
+            if (this._returnMode) {
+                if (payment == null || payment == 0 || isNaN(payment)) {
+                    // if amount no given, set amount to amount paid
+                    payment = paid;
+                }
+
+                if (payment > paid) {
+                    NotifyUtils.warn(_('Refund amount [%S] may not exceed amount paid [%S]',
+                                     [curTransaction.formatPrice(payment), curTransaction.formatPrice(paid)]));
+                    GeckoJS.Session.remove('cart_set_price_value');
+                    GeckoJS.Session.remove('cart_set_qty_value');
+
+                    this.subtotal();
+                    return; // fatal error ?
+                }
+
+            }
+            else {
+                if (payment == 0 || isNaN(payment)) {
+                    //@todo OSD
+                    //NotifyUtils.warn(_('Please enter an amount first'));
+                    //return;
+                    payment = balance;
+                }
+
+                if (payment > balance) {
+                    if (GREUtils.Dialog.confirm(null,
+                                                _('confirm giftcard payment'),
+                                                _('Change of [%S] will NOT be given for this type of payment. Proceed?',
+                                                [curTransaction.formatPrice(payment - balance)])) == false) {
+                        GeckoJS.Session.remove('cart_set_price_value');
+                        GeckoJS.Session.remove('cart_set_qty_value');
+
+                        this.subtotal();
+                        return; // fatal error ?
+                    }
+                }
+            }
+
+            var data = {
+                type: type,
+                payment: curTransaction.formatPrice(payment)
+            };
+            var inputObj = this.getGiftcardDialog(data);
+
+            if (inputObj) {
+                var memo1 = inputObj.input0 || '';
+                var memo2 = inputObj.input1 || '';
+
+
+                this.addPayment('giftcard', balance, payment, memo1, memo2);
+            }
+
+        },
+
+        check: function(type) {
 
             // check if has buffer
             var buf = this._getKeypadController().getBuffer();
@@ -1377,39 +1765,145 @@
             var curTransaction = this._getTransaction();
 
             if(curTransaction == null) {
-                this.clear();
-                this.dispatchEvent('onAddPayment', null);
 
                 // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot register payments'));
+                GeckoJS.Session.remove('cart_set_price_value');
+                GeckoJS.Session.remove('cart_set_qty_value');
+
+                this.subtotal();
                 return; // fatal error ?
             }
 
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot register payments'));
-                return;
+                GeckoJS.Session.remove('cart_set_price_value');
+                GeckoJS.Session.remove('cart_set_qty_value');
+
+                this.subtotal();
+                return; // fatal error ?
             }
 
             var payment = parseFloat(buf);
-            if (payment == 0 || isNaN(payment)) {
-                //@todo OSD
-                //NotifyUtils.warn(_('Please enter an amount first'));
-                //return;
-                payment = curTransaction.getRemainTotal();
+            var balance = curTransaction.getRemainTotal();
+            var paid = curTransaction.getPaymentSubtotal();
+
+            if (this._returnMode) {
+                if (payment == null || payment == 0 || isNaN(payment)) {
+                    // if amount no given, set amount to amount paid
+                    payment = paid;
+                }
+
+                if (payment > paid) {
+                    NotifyUtils.warn(_('Refund amount [%S] may not exceed amount paid [%S]',
+                                     [curTransaction.formatPrice(payment), curTransaction.formatPrice(paid)]));
+                    GeckoJS.Session.remove('cart_set_price_value');
+                    GeckoJS.Session.remove('cart_set_qty_value');
+
+                    this.subtotal();
+                    return; // fatal error ?
+                }
+
             }
+            else {
+                if (payment == null || payment == 0 || isNaN(payment)) {
+                    payment = balance;
+                }
+
+                if (payment > balance) {
+
+                    // check user's check cashing limit
+                    var user = GeckoJS.Session.get('user');
+                    var limit = 0;
+                    if (user) {
+                        limit = user.max_cash_check;
+                    }
+                    if (isNaN(limit)) limit = 0;
+
+                    if (payment - balance > limit) {
+                        // @todo OSD
+                        GREUtils.Dialog.alert(window,
+                                              _('Check Payment Error'),
+                                              _('Check Cashing limit of [%S] exceeded', [curTransaction.formatPrice(limit)]));
+                        GeckoJS.Session.remove('cart_set_price_value');
+                        GeckoJS.Session.remove('cart_set_qty_value');
+
+                        this.subtotal();
+                        return; // fatal error ?
+                    }
+                }
+            }
+
             var data = {
-                type: mark,
+                type: type,
                 payment: curTransaction.formatPrice(payment)
             };
-            var inputObj = this.getCouponDialog(data);
+            var inputObj = this.getCheckDialog(data);
             if (inputObj) {
                 var memo1 = inputObj.input0 || '';
                 var memo2 = inputObj.input1 || '';
-                this.addPayment('coupon', payment, payment, memo1, memo2);
+                this.addPayment('check', payment, payment, memo1, memo2);
             }
             //this.clear();
 
+        },
+
+        accounting: function(inputObj) {
+            // @todo Accounting IN/OUT
+
+            var data = {};
+            data.accountPayment = {};
+
+            if (!inputObj) {
+                var aURL = "chrome://viviecr/content/prompt_addaccount.xul";
+                var features = "chrome,titlebar,toolbar,centerscreen,modal,width=500,height=450";
+                var inputObj = {
+                    input0:null,
+                    input1:null,
+                    topics:null
+                };
+
+                var accountTopic = new AccountTopicModel();
+                inputObj.topics = accountTopic.find('all');
+
+                window.openDialog(aURL, "prompt_addaccount", features, inputObj);
+            }
+
+            if (!inputObj.ok) {
+                return;
+            }
+
+            if (inputObj.type == "IN") {
+                data.total = inputObj.amount;
+                data.status = 101; // Accounting IN
+            } else {
+                data.total = inputObj.amount * (-1);
+                data.status = 102; // Accounting OUT
+            }
+            
+            var user = new GeckoJS.AclComponent().getUserPrincipal();
+            if ( user != null ) {
+                data.service_clerk = user.username;
+            }
+
+            data.accountPayment['order_items_count'] = 1;
+            data.accountPayment['order_total'] = data.total;
+            data.accountPayment['amount'] = data.total;
+            data.accountPayment['name'] = 'accounting'; // + payment type
+            data.accountPayment['memo1'] = inputObj.topic + "-" + _(inputObj.type); // + topic + topic type
+            data.accountPayment['memo2'] = inputObj.description; // description
+            data.accountPayment['change'] = 0;
+
+            data.accountPayment['service_clerk'] = data.service_clerk;
+            // data.orderPayment['proceeds_clerk'] = data.proceeds_clerk;
+            // data.orderPayment['service_clerk_displayname'] = data.service_clerk_displayname;
+            // data.orderPayment['proceeds_clerk_displayname'] = data.proceeds_clerk_displayname;
+
+            var order = new OrderModel();
+            order.saveAccounting(data);
+
+            return data;
         },
 
         addPayment: function(type, amount, origin_amount, memo1, memo2) {
@@ -1417,36 +1911,70 @@
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
 
-            this.cancelReturn();
-            
             if(curTransaction == null) {
                 this.clear();
                 this.dispatchEvent('onAddPayment', null);
 
                 // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot register payments'));
+                GeckoJS.Session.remove('cart_set_price_value');
+                GeckoJS.Session.remove('cart_set_qty_value');
+
+                this.subtotal();
                 return; // fatal error ?
             }
-
-            //if(index <0) return;
 
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot register payments'));
-                return;
+                GeckoJS.Session.remove('cart_set_price_value');
+                GeckoJS.Session.remove('cart_set_qty_value');
+
+                this.subtotal();
+                return; // fatal error ?
             }
 
             if (curTransaction.getItemsCount() < 1) {
                 NotifyUtils.warn(_('Nothing has been registered yet; cannot register payments'));
-                return;
+                GeckoJS.Session.remove('cart_set_price_value');
+                GeckoJS.Session.remove('cart_set_qty_value');
+
+                this.subtotal();
+                return; // fatal error ?
             }
 
-            // check if first time payment
             var paymentsTypes = GeckoJS.BaseObject.getKeys(curTransaction.getPayments());
+
+            if (this._returnMode) {
+                var err = false;
+                if (paymentsTypes.length == 0) {
+                    NotifyUtils.warn(_('No payment has been made; cannot register refund payment'));
+                    err = true;
+                }
+
+                if (amount == null || amount == 0 || isNaN(amount)) {
+                    // if amount no given, set amount to amount paid
+                    amount = curTransaction.getPaymentSubtotal();
+                }
+
+                if (!err && amount > curTransaction.getPaymentSubtotal()) {
+                    NotifyUtils.warn(_('Refund amount [%S] may not exceed payment amount [%S]',
+                                     [curTransaction.formatPrice(amount), curTransaction.formatPrice(curTransaction.getPaymentSubtotal())]));
+                    err = true;
+                }
+
+                if (err) {
+                    GeckoJS.Session.remove('cart_set_price_value');
+                    GeckoJS.Session.remove('cart_set_qty_value');
+
+                    this.subtotal();
+                    return; // fatal error ?
+                }
+            }
+
             if (paymentsTypes.length == 0) {
                 this.addMarker('total');
             }
-
             type = type || 'cash';
             amount = amount || false;
 
@@ -1458,6 +1986,11 @@
 
             origin_amount = typeof origin_amount == 'undefined' ? amount : origin_amount;
 
+            if (this._returnMode) {
+                origin_amount = 0 - origin_amount;
+                amount = 0 - amount;
+            }
+            
             var paymentItem = {
                 type: type,
                 amount: amount,
@@ -1496,10 +2029,12 @@
             for (var key in payments) {
                 var payment = payments[key];
                 payment.amount = curTransaction.formatPrice(payment.amount);
+                payment.name = _(payment.name.toUpperCase());
+                payment.origin_amount = curTransaction.formatPrice(payment.origin_amount);
             }
             
             var aURL = 'chrome://viviecr/content/payment_details.xul';
-            var features = 'chrome,modal,width=500,height=450,centerscreen';
+            var features = 'chrome,modal,width=700,height=450,centerscreen';
             window.openDialog(aURL, _('Payment Details'), features, _('Payment Details'), payments);
         },
 
@@ -1531,18 +2066,24 @@
                 this.dispatchEvent('onShiftTax', null);
                 //@todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot shift tax'));
+
+                this.subtotal();
                 return; // fatal error ?
             }
 
             if(index <0) {
                 //@todo OSD
                 NotifyUtils.warn(_('Please select an item first'));
-                return;
+
+                this.subtotal();
+                return; // fatal error ?
             }
 
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 //@todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot shift tax'));
+
+                this.subtotal();
                 return; // fatal error ?
             }
 
@@ -1552,14 +2093,18 @@
                 //@todo OSD
                 var displayItem = curTransaction.getDisplaySeqAt(index);
                 NotifyUtils.warn(_('This operation cannot be performed on [%S]', [displayItem.name]));
-                return;
+
+                this.subtotal();
+                return; // fatal error ?
             }
 
             if (itemTrans.hasMarker) {
                 this.dispatchEvent('onShiftTaxError', {});
                 //@todo OSD
                 NotifyUtils.warn(_('Cannot modify an item that has been subtotaled'));
-                return;
+
+                this.subtotal();
+                return; // fatal error ?
             }
 
             this.dispatchEvent('beforeShiftTax', itemTrans);
@@ -1578,7 +2123,9 @@
                     this.dispatchEvent('onShiftTaxError', {});
                     //@todo OSD
                     NotifyUtils.error(_('The tax status indicated does not exist [%S]', [taxNo]));
-                    return;
+
+                    this.subtotal();
+                    return; // fatal error ?
                 }
             }
 
@@ -1592,7 +2139,7 @@
         },
 
         clear: function() {
-
+            
             GeckoJS.Session.remove('cart_last_sell_item');
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
@@ -1661,18 +2208,18 @@
         },
 
 
-        submit: function() {
+        submit: function(status) {
 
             // cancel cart but save
             var oldTransaction = this._getTransaction();
             
             if(oldTransaction == null) return; // fatal error ?
 
-            if (oldTransaction.getRemainTotal() > 0) return;
+            if (status == 1 && oldTransaction.getRemainTotal() > 0) return;
 
             this.dispatchEvent('beforeSubmit', oldTransaction);
 
-            oldTransaction.submit();
+            oldTransaction.submit(status);
 
             this.dispatchEvent('afterSubmit', oldTransaction);
 
@@ -1688,7 +2235,14 @@
             this._getKeypadController().clearBuffer();
             this.cancelReturn();
 
-            this.dispatchEvent('onSubmit', oldTransaction);
+            if (status != 2) {
+
+                this.dispatchEvent('onWarning', '');
+                this.dispatchEvent('onSubmit', oldTransaction);
+            }
+            else
+                this.dispatchEvent('onGetSubtotal', oldTransaction);
+				
         },
 
 
@@ -1697,14 +2251,12 @@
             // check if has buffer
             var buf = this._getKeypadController().getBuffer();
             this._getKeypadController().clearBuffer();
-            this.cancelReturn();
             
             if (buf.length>0) {
                 if (!amount) amount = parseFloat(buf);
             }
 
             this.addPayment('cash', amount);
-
         },
 
         addCondiment: function(plu, forceModal) {
@@ -1801,7 +2353,7 @@
             var condGroups = GeckoJS.Session.get('condGroups');
             if (!condGroups) {
                 var condGroupModel = new CondimentGroupModel();
-                var condGroups = condGroupModel.find('all');
+                var condGroups = condGroupModel.find('all', {recursive: 2});
                 GeckoJS.Session.add('condGroups', condGroups);
                 condGroups = GeckoJS.Session.get('condGroups');
             }
@@ -1821,7 +2373,13 @@
             if (typeof condGroups[index] == 'undefined') return null;
 
             var conds = condGroups[index]['Condiment'];
+            var selectedItems = [];
 
+            if (conds != null) {
+                for (var i = 0; i < conds.length; i++) {
+                    if (conds[i].preset) selectedItems.push(i);
+                }
+            }
             var colsRows = parseInt(this._condimentPanel.getAttribute('cols')) * parseInt(this._condimentPanel.getAttribute('rows'));
 
             if (forceModal || colsRows == 0) {
@@ -1832,7 +2390,8 @@
                 var inputObj = {
                     condgroup: condgroup,
                     condsData: conds,
-                    condiments: condiments
+                    condiments: condiments,
+                    selectedItems: selectedItems
                 };
                
                 window.openDialog(aURL, 'select_condiments', features, inputObj);
@@ -1855,6 +2414,8 @@
                 this._condimentPanel.datasource.data = conds;
                 this._condimentPanel.vivibuttonpanel.invalidate();
 
+                this._condimentPanel.selectedItems = selectedItems;
+                this._condimentPanel.scrollToRow(0);
                 this._pluAndCondimentDeck.selectedIndex = 1;
             }
 
@@ -2053,6 +2614,11 @@
                 return;
             }
 
+            if (curTransaction.data.recall == 2) {
+                if (warn) NotifyUtils.warn(_('Can not queue the recall order!!'));
+                return;
+            }
+
             var user = this.Acl.getUserPrincipal();
 
             var count = curTransaction.getItemsCount();
@@ -2164,13 +2730,104 @@
 
             var curTransaction = new Transaction();
             curTransaction.unserializeFromOrder(order_id);
+
+            if (curTransaction.data.status == 2) {
+                // set order status to process (0)
+                curTransaction.data.status = 0;
+
+                curTransaction.data.recall = 2;
+            }
+
             this._setTransactionToView(curTransaction);
             curTransaction.updateCartView(-1, -1);
             this.subtotal();
 
-        }
-	
-	
-    });
+        },
 
+        guestCheck: function(action) {
+            // check if has buffer
+            var buf = this._getKeypadController().getBuffer();
+            this._getKeypadController().clearBuffer();
+
+            this.cancelReturn();
+
+            var curTransaction = this._getTransaction(true);
+
+            if(curTransaction == null) {
+                // this.dispatchEvent('onAddItem', null);
+                NotifyUtils.warn(_('fatal error!!'));
+                return; // fatal error ?
+            }
+
+            // transaction is submit and close success
+            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
+                curTransaction = this._newTransaction();
+            }
+
+            var param = action.split('|');
+            var action = param[0];
+            var param2 = param[1];
+
+            var no = buf;
+
+            var r = -1;
+
+            switch(action) {
+                case 'newCheck':
+                    if (buf.length == 0) {
+                        r = this.GuestCheck.getNewCheckNo();
+                    } else {
+                        r = this.GuestCheck.check(no);
+                    }
+
+                    if (r >= 0) {
+                        curTransaction.data.check_no = r;
+                    } else {
+                        NotifyUtils.warn(_('Check# %S is exist!!', [no]));
+                    }
+                    break;
+                case 'releaseCheck':
+                        r = this.GuestCheck.releaseCheckNo(no);
+                    break;
+                case 'newTable':
+                    if (buf.length == 0) {
+                        r = this.GuestCheck.getNewTableNo();
+                    } else {
+                        r = this.GuestCheck.table(no);
+                    }
+
+                    if (r >= 0) {
+                        curTransaction.data.table_no = r;
+                    } else {
+                        NotifyUtils.warn(_('Table# %S is exist!!', [no]));
+                    }
+                    break;
+                case 'guest':
+                        r = this.GuestCheck.guest(no);
+                        curTransaction.data.no_of_customers = no;
+                    break;
+                case 'destination':
+                        r = this.GuestCheck.destination(param2);
+                        curTransaction.data.destination = param2;
+                    break;
+                case 'store':
+                        if (curTransaction.data.status == 1) {
+                            NotifyUtils.warn(_('This order has been submited!!'));
+                        } else {
+                            r = this.GuestCheck.store(curTransaction.data.items_count);
+                        }
+                    break;
+                case 'recallCheck':
+                        r = this.GuestCheck.recallByCheckNo(no);
+                    break;
+                case 'recallTable':
+                        r = this.GuestCheck.recallByTableNo(no);
+                    break;
+            }
+
+            this.subtotal();
+            
+            return;
+        }
+    });
 })();

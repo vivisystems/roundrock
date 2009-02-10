@@ -80,7 +80,6 @@ textbox:not([onclick]) *[readonly] {
 }
 
 .user-plubtn {
-    min-height:50px;
     min-width: 50px;
     border: 2px solid;
     -moz-appearance: none;

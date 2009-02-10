@@ -1,0 +1,8 @@
+<!ENTITY rptcashbyclerk.title "Closed Cash Report">
+<!ENTITY rptcashbyclerk.startdate "Start Date:">
+<!ENTITY rptcashbyclerk.enddate "End Date:">
+<!ENTITY rptcashbyclerk.execute "Execute">
+<!ENTITY rptcashbyclerk.exportpdf "Export to PDF">
+<!ENTITY rptcashbyclerk.exportcsv "Export to CSV">
+<!ENTITY rptcashbyclerk.togglezoom "Toggle Zoom">
+

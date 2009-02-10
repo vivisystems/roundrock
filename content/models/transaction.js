@@ -64,9 +64,9 @@
                 table_no: '',
                 check_no: '',
 
-                no_of_customers: 0,
+                no_of_customers: 1,
 
-                terminal_no: GeckoJS.Session.get('terminal_id'),
+                terminal_no: GeckoJS.Session.get('terminal_no'),
 
                 created: '',
                 modified: ''
@@ -106,7 +106,10 @@
         this.data.id = GeckoJS.String.uuid();
 
         this.data.seq = SequenceModel.getSequence('order_no');
+        // this.data.check_no = SequenceModel.getSequence('check_no');
+
         GeckoJS.Session.set('vivipos_fec_order_sequence', this.data.seq);
+        GeckoJS.Session.set('vivipos_fec_number_of_customers', this.no_of_customers);
         
         var user = new GeckoJS.AclComponent().getUserPrincipal();
 
@@ -115,7 +118,7 @@
             this.data.service_clerk_displayname = user.description;
         }
 
-        this.data.created = new Date().getTime();
+        this.data.created = Math.round(new Date().getTime());
 
         if (Transaction.Tax == null) Transaction.Tax = new TaxComponent();
 
@@ -131,11 +134,11 @@
         this.data.decimals = GeckoJS.Configure.read('vivipos.fec.settings.DecimalPoint') || '.';
         this.data.thousands = GeckoJS.Configure.read('vivipos.fec.settings.ThousandsDelimiter') || ',';
 
-        if (Transaction.worker == null) {
+//        if (Transaction.worker == null) {
           //  Transaction.worker = new GeckoJS.Thread();
 
-          Transaction.worker = GREUtils.Thread.getWorkerThread();
-        }
+          // Transaction.worker = GREUtils.Thread.getWorkerThread();
+//        }
         //Transaction.worker._runnable = this;
 
         // @todo 
@@ -147,16 +150,34 @@
         this.view.empty();
     };
 
-
-    Transaction.prototype.cancel = function() {
-        this.data.status = -1;
+    // set order status, -1:canceled 0:process 1:submit
+    Transaction.prototype.process = function(status) {
+        this.data.status = status;
 
         // save transaction to order / orderdetail ...
-        this.data.modified = new Date().getTime();
+        this.data.modified = Math.round(new Date().getTime());
+
+        // maintain stock...
+//        this.requestCommand('decStock', this.data, "Stocks");
 
         // use background save
-        //Transaction.worker.start();
-        Transaction.worker.dispatch(this, Transaction.worker.DISPATCH_NORMAL);
+        // Transaction.worker.start();
+        //Transaction.worker.dispatch(this, Transaction.worker.DISPATCH_NORMAL);
+
+        var self = this;
+        Transaction.worker = setTimeout(function() {
+            // maintain stock...
+            self.requestCommand('decStock', self.data, "Stocks");
+
+            self.run();
+        }, 1500);
+
+    };
+
+    Transaction.prototype.cancel = function() {
+
+        // set status = -1
+        this.process(-1);
 
         this.emptyView();
     };
@@ -166,29 +187,26 @@
     };
 
 
-    Transaction.prototype.submit = function() {
-        this.data.status = 1;
+    Transaction.prototype.submit = function(status) {
+        if (typeof(status) == 'undefined') status = 1;
 
-        // save transaction to order / orderdetail ...
-        this.data.modified = new Date().getTime();
-
-        var user = new GeckoJS.AclComponent().getUserPrincipal();
-        if ( user != null ) {
-            this.data.proceeds_clerk = user.username;
-            this.data.proceeds_clerk_displayname = user.description;
+        // set proceeds_cherk when submit to status == 1
+        if (status == 1) {
+            var user = new GeckoJS.AclComponent().getUserPrincipal();
+            if ( user != null ) {
+                this.data.proceeds_clerk = user.username;
+                this.data.proceeds_clerk_displayname = user.description;
+            }
         }
 
-        // use backgroud to save
-        //Transaction.worker.start();
-        Transaction.worker.dispatch(this, Transaction.worker.DISPATCH_NORMAL);
-
-        // maintain stock...
-        this.requestCommand('decStock', this.data, "Stocks");
+        // set status = 1
+        this.process(status);
         
     };
 
     Transaction.prototype.isSubmit = function() {
-        return (this.data.status == 1);
+        // return (this.data.status == 1);
+        return (this.data.status > 0);
     };
 
 
@@ -247,7 +265,9 @@
             
             hasDiscount: false,
             hasSurcharge: false,
-            hasMarker: false
+            hasMarker: false,
+
+            stock_maintained: false
 
         };
 
@@ -396,11 +416,45 @@
                 level: (level == null) ? 1 : level
             });           
         }else if(type =='payment') {
+            var dispName;
+            var current_price = '';
+            var current_qty = '';
+
+            switch (item.name.toUpperCase()) {
+                
+                case 'CREDITCARD':
+                    dispName = _(item.memo1);
+                    break;
+                    
+                case 'COUPON':
+                    dispName = _(item.memo1);
+                    break;
+
+                case 'GIFTCARD':
+                    dispName = _(item.memo1);
+                    break;
+
+                case 'CASH':
+                    if (item.memo1 != null && item.origin_amount != null) {
+                        dispName = _(item.memo1);
+                        current_qty = item.origin_amount + 'X';
+                        current_price = item.memo2;
+                    }
+                    else
+                        dispName = _(item.name.toUpperCase());
+                    break;
+
+                default:
+                    dispName = _(item.name.toUpperCase());
+                    break;
+                    
+            }
+
             itemDisplay = GREUtils.extend(itemDisplay, {
                 id: '',
-                name: _(item.name.toUpperCase()),
-                current_qty: '',
-                current_price: '',
+                name: dispName,
+                current_qty: current_qty,
+                current_price: current_price,
                 current_subtotal: item.amount,
                 current_tax: '',
                 type: type,
@@ -1016,7 +1070,7 @@
                 if (discount.pretax == null) discount.pretax = false;
 
                 if (discount.pretax) {
-                    discountItem.current_discount = (remainder - this.data.tax_subtotal) * discountItem.discount_rate;
+                    discountItem.current_discount = parseFloat(itemDisplay.current_price) * discountItem.discount_rate;
                 }
                 else {
                     discountItem.discount_name += '*';
@@ -1070,7 +1124,7 @@
         var item = this.getItemAt(index);
         var itemDisplay = this.getDisplaySeqAt(index); // last seq
         var itemIndex = itemDisplay.index;
-        var lastItemDispIndex = this.getLastDisplaySeqByIndex(itemIndex);
+        var lastItemDispIndex;
         var resultItem;
 
         var prevRowCount = this.data.display_sequences.length;
@@ -1097,7 +1151,10 @@
             // create data object to push in items array
             var newItemDisplay = this.createDisplaySeq(item.index, item, 'surcharge');
 
-            this.data.display_sequences.splice(++displayIndex,0,newItemDisplay);
+            // find the display index of the last entry associated with the item
+            lastItemDispIndex = this.getLastDisplaySeqByIndex(item.index)
+
+            this.data.display_sequences.splice(++lastItemDispIndex,0,newItemDisplay);
 
             //this.calcPromotions();
 
@@ -1131,7 +1188,7 @@
                 // percentage order surcharge is pretax?
                 if (surcharge.pretax == null) surcharge.pretax = false;
                 if (surcharge.pretax) {
-                    surchargeItem.current_surcharge = this.getRoundedPrice((this.getRemainTotal() - this.data.tax_subtotal) * surchargeItem.surcharge_rate);
+                    surchargeItem.current_surcharge = this.getRoundedPrice(parseFloat(itemDisplay.current_price) * surchargeItem.surcharge_rate);
                 }
                 else {
                     surchargeItem.surcharge_name += '*';
@@ -1149,7 +1206,10 @@
             var newItemDisplay = this.createDisplaySeq(surchargeIndex, surchargeItem, 'trans_surcharge');
             newItemDisplay.subtotal_index = index;
 
-            this.data.display_sequences.splice(++displayIndex,0,newItemDisplay);
+            // find the display index of the last entry associated with the item
+            lastItemDispIndex = this.getLastDisplaySeqByIndex(itemIndex)
+
+            this.data.display_sequences.splice(++lastItemDispIndex,0,newItemDisplay);
 
             this.calcPromotions();
             //this.calcItemsTax();
@@ -1161,7 +1221,7 @@
 
         this.calcTotal();
 
-        this.updateCartView(prevRowCount, currentRowCount, displayIndex);
+        this.updateCartView(prevRowCount, currentRowCount, lastItemDispIndex);
 
         return resultItem;
 
@@ -1414,7 +1474,7 @@
         var paymentItem = {
             id: paymentId,
             name: type,
-            amount: amount,
+            amount: this.getRoundedPrice(amount),
             origin_amount: origin_amount,
             memo1: memo1,
             memo2: memo2
@@ -1526,9 +1586,10 @@
                 lastIndex = i;
             }
             else if ((itemDisplay.type == 'condiment' || itemDisplay.type == 'memo') &&
-                     (this.data.items[itemDisplay.index].parent_index == index)) {
+                     (itemDisplay.index != null && this.data.items[itemDisplay.index] != null && this.data.items[itemDisplay.index].parent_index == index)) {
                 lastIndex = i;
             }
+
         }
 
         return lastIndex ;
@@ -1756,7 +1817,7 @@
                     item.tax_type = tax.type;
 
                     var toTaxCharge = item.current_subtotal + item.current_discount + item.current_surcharge;
-                    var taxChargeObj = Transaction.Tax.calcTaxAmount(item.tax_name, Math.abs(toTaxCharge));
+                    var taxChargeObj = Transaction.Tax.calcTaxAmount(item.tax_name, Math.abs(toTaxCharge), item.current_price, item.current_qty);
 
                     // @todo total only or summary ?
                     item.current_tax =  taxChargeObj[item.tax_name].charge;
@@ -1826,13 +1887,13 @@
         remain = total - payment_subtotal;
 
         this.data.total = this.getRoundedPrice(total);
-        this.data.remain = remain;
-        this.data.tax_subtotal = tax_subtotal;
-        this.data.item_surcharge_subtotal = item_surcharge_subtotal;
-        this.data.item_discount_subtotal = item_discount_subtotal;
-        this.data.trans_surcharge_subtotal = trans_surcharge_subtotal;
-        this.data.trans_discount_subtotal = trans_discount_subtotal ;
-        this.data.payment_subtotal = payment_subtotal;
+        this.data.remain = this.getRoundedPrice(remain);
+        this.data.tax_subtotal = this.getRoundedTax(tax_subtotal);
+        this.data.item_surcharge_subtotal = this.getRoundedPrice(item_surcharge_subtotal);
+        this.data.item_discount_subtotal = this.getRoundedPrice(item_discount_subtotal);
+        this.data.trans_surcharge_subtotal = this.getRoundedPrice(trans_surcharge_subtotal);
+        this.data.trans_discount_subtotal = this.getRoundedPrice(trans_discount_subtotal);
+        this.data.payment_subtotal = this.getRoundedPrice(payment_subtotal);
 
         Transaction.events.dispatch('afterCalcTotal', this.data, this);
 
@@ -1920,6 +1981,7 @@
     Transaction.prototype.run = function() {
         var order = new OrderModel();
         order.saveOrder(this.data);
+        clearTimeout(Transaction.worker);
     };
 
     // nsirunnable run

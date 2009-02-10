@@ -41,10 +41,6 @@
             <rows>
                 <row>
                     <vbox>
-                        <label value="* &storecontact.terminal_no;" />
-                        <textbox id="contact" value="" form="storecontactForm" name="terminal_no"/>
-                    </vbox>
-                    <vbox>
                         <label value="* &storecontact.name;" />
                         <textbox id="name" value="" form="storecontactForm" name="name"/>
                     </vbox>

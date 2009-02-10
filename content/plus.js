@@ -27,16 +27,25 @@ function startup() {
 function selectImages() {
 	var no  = $('#product_no').val();
 
-    var sDstDir = GREUtils.File.chromeToPath("chrome://viviecr/content/skin/images/");
+    var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/') + '/data';
+    var sDstDir = datapath + "/images/original/";
+    if (!sDstDir) sDstDir = '/data/images/original/';
+    sDstDir = (sDstDir + '/').replace(/\/+/g,'/');
+
+    var sPluDir = datapath + "/images/pluimages/";
+    if (!sPluDir) sPluDir = '/data/images/pluimages/';
+    sPluDir = (sPluDir + '/').replace(/\/+/g,'/');
+
     var aURL = "chrome://viviecr/content/imageManager.xul";
     var aName = "imagePicker";
 
     var args = {
         pickerMode: true,
-        directory: sDstDir + "/",
+        directory: sDstDir + "",
         result: false,
         file: ""
     };
+
     args.wrappedJSObject = args;
     GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,dependent=yes,resize=no,width=800,height=600", args);
     
@@ -50,12 +59,12 @@ function selectImages() {
 
 	if (!GREUtils.File.exists(aSrcFile))
 	        return false;
-	var aDstFile = GREUtils.File.chromeToPath("chrome://viviecr/content/skin/pluimages/") + "/" + no + ".png";
+	var aDstFile = sPluDir + no + ".png";
         
     GREUtils.File.remove(aDstFile);
 	var result = GREUtils.File.copy(aSrcFile, aDstFile);
         
-    document.getElementById('pluimage').setAttribute("src", "chrome://viviecr/content/skin/pluimages/" + no + ".png?" + Math.random());
+    document.getElementById('pluimage').setAttribute("src", "file://" + aDstFile + "?" + Math.random());
 
 	return aDstFile;
 };
@@ -66,7 +75,12 @@ function selectImages() {
 function RemoveImage() {
 	var no  = $('#product_no').val();
 
-	var aDstFile = GREUtils.File.chromeToPath("chrome://viviecr/content/skin/pluimages/") + "/" + no + ".png";
+    var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/') + '/data';
+    var sPluDir = datapath + "/images/pluimages/";
+    if (!sPluDir) sPluDir = '/data/images/pluimages/';
+    sPluDir = (sPluDir + '/').replace(/\/+/g,'/');
+    var aDstFile = sPluDir + no + ".png";
+
 	GREUtils.File.remove(aDstFile);
         document.getElementById('pluimage').setAttribute("src", "");
 

@@ -480,14 +480,21 @@
  * @param {Number} amount
  * @return {Object} 
  */
-    TaxComponent.prototype.calcTaxAmount = function(no, amount) {
+    TaxComponent.prototype.calcTaxAmount = function(no, amount, unitprice, qty) {
 
         var taxObject = null;
         amount = amount || 0;
         amount = parseFloat(amount);
 
+        unitprice = unitprice || 0;
+        unitprice = parseFloat(unitprice);
+
+        qty = qty || 0;
+        qty = parseFloat(qty);
+
         var taxAmount = {}; taxAmount[no] = {
             charge: 0,
+            addon: 0,
             tax: taxObject
         };
 
@@ -503,10 +510,10 @@
                 taxAmount[no]['charge'] = 0;
                 break;
             case "ADDON":
-                if (amount > taxObject['threshold']) {
+                if (unitprice >= taxObject['threshold']) {
                     var charge = 0;
                     if (taxObject['rate_type'] == '$') {
-                        charge = taxObject['rate'];
+                        charge = qty * taxObject['rate'];
                     }else {
                         charge = amount * (taxObject['rate'] / 100) ;
                     }
@@ -517,15 +524,15 @@
             case "COMBINE":
                 var totalCharge = 0;
                 taxAmount['combine'] = {};
-                if (amount > taxObject['threshold'] && taxObject.CombineTax != null) {
+                if (unitprice >= taxObject['threshold'] && taxObject.CombineTax != null) {
 
                     // foreach combine taxes
                     taxObject.CombineTax.forEach(function(cTaxObj){
-                        if (amount > cTaxObj['threshold']) {
+                        if (unitprice >= cTaxObj['threshold']) {
 
                             var charge = 0;
                             if (cTaxObj['rate_type'] == '$') {
-                                charge = cTaxObj['rate'];
+                                charge = qty * cTaxObj['rate'];
                             }else {
                                 charge = amount * (cTaxObj['rate'] / 100) ;
                             }
@@ -547,15 +554,15 @@
             case "VAT":
                 var totalCharge = 0;
                 taxAmount['combine'] = {};
-                if (amount > taxObject['threshold'] && taxObject.CombineTax != null) {
+                if (unitprice >= taxObject['threshold'] && taxObject.CombineTax != null) {
 
                     // foreach combine taxes
                     taxObject.CombineTax.forEach(function(cTaxObj){
-                        if (amount > cTaxObj['threshold']) {
+                        if (unitprice >= cTaxObj['threshold']) {
 
                             var charge = 0;
                             if (cTaxObj['rate_type'] == '$') {
-                                charge = cTaxObj['rate'];
+                                charge = qty * cTaxObj['rate'];
                             }else {
                                 charge = (amount + totalCharge) * (cTaxObj['rate'] / 100) ;
                             }

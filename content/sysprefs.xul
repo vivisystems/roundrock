@@ -42,6 +42,7 @@
             <preference id="pref_positivepricerequired" name="vivipos.fec.settings.PositivePriceRequired" type="bool" />
 
         </preferences>
+
         <grid class="DataForm">
             <columns>
                 <column flex="1" /><column flex="1" />
@@ -74,7 +75,7 @@
                 <rows>
                     <row>
                         <vbox>
-                            <label control="precisionprices" value="&defaultpricelevel;"/>
+                            <label control="defaultpricelevel" value="&defaultpricelevel;"/>
                             <textbox preference="pref_defaultpricelevel" id="defaultpricelevel" type="number" size="2" maxlength="1" min="1" max="9"/>    
                         </vbox>
                         <vbox>
@@ -232,8 +233,10 @@
 
             <preference id="pref_deprows" name="vivipos.fec.settings.DepartmentRows" type="int"/>
             <preference id="pref_depcols" name="vivipos.fec.settings.DepartmentCols" type="int"/>
+            <preference id="pref_depbtnheight" name="vivipos.fec.settings.Department.Button.Height" type="int"/>
             <preference id="pref_plurows" name="vivipos.fec.settings.PluRows" type="int"/>
             <preference id="pref_plucols" name="vivipos.fec.settings.PluCols" type="int"/>
+            <preference id="pref_plubtnheight" name="vivipos.fec.settings.Plu.Button.Height" type="int"/>
             <preference id="pref_fprows" name="vivipos.fec.settings.functionpanel.rows" type="int"/>
             <preference id="pref_fpcols" name="vivipos.fec.settings.functionpanel.columns" type="int"/>
 
@@ -269,6 +272,8 @@
                 <column/>
                 <column/>
                 <column/>
+                <column/>
+                <column/>
             </columns>
             <rows>
                 <row>
@@ -277,6 +282,8 @@
                     <textbox preference="pref_deprows" id="deprows" type="number" size="2" maxlength="1"/>
                     <label control="depcols" value="&layout.department.cols;"/>
                     <textbox preference="pref_depcols" id="depcols" type="number" size="2" maxlength="1"/>
+                    <label control="depbtnheight" value="&layout.department.button.height;"/>
+                    <textbox preference="pref_depbtnheight" id="depbtnheight" type="number" min="50" max="100" size="3" maxlength="3"/>
                 </row>
                 <row>
                     <label control="deprows" value="&layout.plu.label;"/>
@@ -284,6 +291,8 @@
                     <textbox preference="pref_plurows" id="pref_plurows" type="number" size="2" maxlength="1"/>
                     <label control="pref_plucols" value="&layout.plu.cols;"/>
                     <textbox preference="pref_plucols" id="pref_plucols" type="number" size="2" maxlength="1"/>
+                    <label control="plubtnheight" value="&layout.plu.button.height;"/>
+                    <textbox preference="pref_plubtnheight" id="plubtnheightS" type="number" min="50" max="100"  size="3" maxlength="3"/>
                 </row>
                 <row>
                     <label control="deprows" value="&layout.functionpanel.label;"/>
@@ -412,7 +421,4 @@
     </prefpane>
 
 
-    <!-- prefpane id="localeSettingsPane" label="locale" image="chrome://viviecr/content/skin/icons/gnome-run.png">
-        <vivilocaleslistbox package="viviecr" />
-    </prefpane -->
 </prefwindow>

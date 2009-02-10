@@ -12,7 +12,7 @@
         _portspeeds: null,
         _devicemodels: null,
         _selectedDevices: null,
-        _sortedDevicemodels: null,
+        _sortedDevicemodels: {},
         _portControlService: null,
 
         // load device configuration and selections
@@ -205,7 +205,11 @@
         loadDeviceCommandFile: function(path) {
             var commands = new Object;
             try {
-                var lines = GREUtils.File.readAllLine(GREUtils.File.chromeToPath(path)) || [];
+                var file = new GeckoJS.File(GREUtils.File.chromeToPath(path));
+                file.open('r');
+                var lines = file.readAllLine();
+                file.close();
+                
                 lines.forEach(function(line) {
                     var entry = line.split('=');
                     var name = entry[0];
@@ -221,9 +225,13 @@
         },
 
         loadTemplateFile: function(path) {
-            var bytes = '';
+            var bytes = {};
             try {
-                bytes = GREUtils.File.readAllBytes(GREUtils.File.chromeToPath(path)) || '';
+                var file = new GeckoJS.File(GREUtils.File.chromeToPath(path));
+                file.open('r');
+                bytes = file.readAllLine();
+                if (bytes.length > 0) bytes = bytes.join('\n');
+                file.close();
             }
             catch (e) {
                 this.log('Error reading from template file [' + path + ']');
@@ -712,15 +720,16 @@
         updateEncodings: function(data) {
             var devicemenu = data[0];
             var encodingmenu = data[1];
+            var type = data[2];
 
             if (devicemenu == null || encodingmenu == null) return;
 
             var selectedDeviceIndex = devicemenu.selectedIndex;
-            if (selectedDeviceIndex == -1 || this._sortedDevicemodels == null || selectedDeviceIndex >= this._sortedDevicemodels.length) {
+            if (selectedDeviceIndex == -1 || this._sortedDevicemodels[type] == null || selectedDeviceIndex >= this._sortedDevicemodels[type].length) {
                 encodingmenu.selectedIndex = 0;
             }
             else {
-                var selectedDevice = this._sortedDevicemodels[selectedDeviceIndex];
+                var selectedDevice = this._sortedDevicemodels[type][selectedDeviceIndex];
                 this.populateEncodings(encodingmenu, selectedDevice);
                 encodingmenu.selectedIndex = 0;
             }
@@ -847,7 +856,7 @@
                         sortedDevicemodels.push(newDevicemodel);
                     }
                 }
-                this._sortedDevicemodels = sortedDevicemodels = new GeckoJS.ArrayQuery(sortedDevicemodels).orderBy('label asc');
+                this._sortedDevicemodels['receipt'] = sortedDevicemodels = new GeckoJS.ArrayQuery(sortedDevicemodels).orderBy('label asc');
 
                 for (var i in sortedDevicemodels) {
                     var devicemodelName = sortedDevicemodels[i].name;
@@ -933,7 +942,7 @@
                         sortedDevicemodels.push(newDevicemodel);
                     }
                 }
-                this._sortedDevicemodels = sortedDevicemodels = new GeckoJS.ArrayQuery(sortedDevicemodels).orderBy('label asc');
+                this._sortedDevicemodels['guestcheck'] = sortedDevicemodels = new GeckoJS.ArrayQuery(sortedDevicemodels).orderBy('label asc');
 
                 for (var i in sortedDevicemodels) {
                     var devicemodelName = sortedDevicemodels[i].name;
@@ -1019,7 +1028,7 @@
                         sortedDevicemodels.push(newDevicemodel);
                     }
                 }
-                this._sortedDevicemodels = sortedDevicemodels = new GeckoJS.ArrayQuery(sortedDevicemodels).orderBy('label asc');
+                this._sortedDevicemodels['vfd'] = sortedDevicemodels = new GeckoJS.ArrayQuery(sortedDevicemodels).orderBy('label asc');
 
                 for (var i in sortedDevicemodels) {
                     var devicemodelName = sortedDevicemodels[i].name;
@@ -1082,7 +1091,7 @@
                         sortedDevicemodels.push(newDevicemodel);
                     }
                 }
-                this._sortedDevicemodels = sortedDevicemodels = new GeckoJS.ArrayQuery(sortedDevicemodels).orderBy('label asc');
+                sortedDevicemodels = new GeckoJS.ArrayQuery(sortedDevicemodels).orderBy('label asc');
 
                 for (var i in sortedDevicemodels) {
                     var devicemodelName = sortedDevicemodels[i].name;

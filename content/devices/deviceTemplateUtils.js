@@ -52,27 +52,35 @@
                 if (width == null || isNaN(width) || width < 0) return str;
 
                 width = Math.floor(Math.abs(width));
-                var len = strLen(str);
+                var convertedLength = strLen(str);
+                var internalLength = str.length;
 
-                if (width < len) {
+                if (width < convertedLength) {
                     str = subStr(str, 0, width);
-                    len = width;
                 }
-                var leftPaddingWidth = Math.floor((width - len) / 2);
-                return GeckoJS.String.padRight(GeckoJS.String.padLeft(str, leftPaddingWidth - (- len) , ' '), width, ' ');
+                else {
+                    var leftPaddingWidth = Math.floor((width - convertedLength) / 2);
+                    var rightPaddingWidth = width - convertedLength - leftPaddingWidth;
+                    str = GeckoJS.String.padRight(GeckoJS.String.padLeft(str, leftPaddingWidth - (- internalLength) , ' '),
+                                                  leftPaddingWidth - (- internalLength) - (- rightPaddingWidth),
+                                                  ' ');
+                }
+                return str;
             },
 
             left: function(str, width) {
                 if (width == null || isNaN(width)) return str;
 
                 width = Math.floor(Math.abs(width));
-                var len = strLen(str);
+                var convertedLength = strLen(str);
 
-                if (width < len) {
+                if (width < convertedLength) {
                     str = subStr(str, 0, width);
                 }
                 else {
-                    str = GeckoJS.String.padRight(str, width, ' ');
+                    var rightPaddingWidth = width - convertedLength;
+                    var internalLength = str.length;
+                    str = GeckoJS.String.padRight(str, internalLength + rightPaddingWidth, ' ');
                 }
                 return str;
             },
@@ -81,13 +89,15 @@
                 if (width == null || isNaN(width)) return str;
 
                 width = Math.floor(Math.abs(width));
-                var len = strLen(str);
+                var convertedLength = strLen(str);
 
-                if (width < len) {
+                if (width < convertedLength) {
                     str = subStr(str, 0, width);
                 }
                 else {
-                    str = GeckoJS.String.padLeft(str, width, ' ');
+                    var leftPaddingWidth = width - convertedLength;
+                    var internalLength = str.length;
+                    str = GeckoJS.String.padLeft(str, internalLength + leftPaddingWidth, ' ');
                 }
                 return str;
             },
