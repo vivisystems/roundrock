@@ -16,3 +16,7 @@ pref("DATABASE_CONFIG.order.classname", 'SQLite');
 pref("DATABASE_CONFIG.order.path", '/data/databases');
 pref("DATABASE_CONFIG.order.database", 'vivipos_order.sqlite');
 
+pref("DATABASE_CONFIG.extension.classname", 'SQLite');
+pref("DATABASE_CONFIG.extension.path", '/data/databases');
+pref("DATABASE_CONFIG.extension.database", 'vivipos_extension.sqlite');
+
