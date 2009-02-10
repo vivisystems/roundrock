@@ -433,7 +433,6 @@
                 sPluDir = (sPluDir + '/').replace(/\/+/g,'/');
                 var aDstFile = sPluDir + valObj.no + ".png";
 
-                // document.getElementById('pluimage').setAttribute('src', 'chrome://viviecr/content/skin/pluimages/' + valObj.no + '.png?' + Math.random());
                 document.getElementById('pluimage').setAttribute("src", "file://" + aDstFile + "?" + Math.random());
             }
         },

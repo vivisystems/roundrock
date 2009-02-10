@@ -1,4 +1,4 @@
-// test
+
 (function(){
 
     /**
@@ -331,6 +331,7 @@
             var condimentPanel = document.getElementById('condimentscrollablepanel');
             var fnPanel = document.getElementById('functionPanel');
             var btmBox = document.getElementById('vivipos-bottombox');
+            var pluAndCondimentDeck = document.getElementById('pluAndCondimentDeck');
 
             var departmentRows = GeckoJS.Configure.read('vivipos.fec.settings.DepartmentRows');
             if (departmentRows == null) departmentRows = 3;
@@ -388,7 +389,7 @@
                 else {
                     deptPanel.setAttribute('hidden', true);
                 }
-                document.getElementById('pluAndCondimentDeck').style.height = '0px';
+                if (pluAndCondimentDeck) pluAndCondimentDeck.style.height = '0px';
             }
 
             if (initial ||
@@ -433,6 +434,7 @@
                     document.getElementById('condimentBtnContainer').setAttribute('hidden', true);
                 }
             }
+            if (pluAndCondimentDeck) pluAndCondimentDeck.selectedIndex = 0;
 
             if (deptPanel) deptPanel.vivibuttonpanel.resizeButtons();
             if (pluPanel) pluPanel.vivibuttonpanel.resizeButtons();
@@ -789,8 +791,11 @@
 
             var args = arg.split('|');
 
-            this.requestCommand(args[0], args[1], args[2]) ;
-            
+            //this.requestCommand(args[0], args[1], args[2]) ;
+            var printer = GeckoJS.Controller.getInstanceByName('Print');
+            if (printer) {
+                printer.printReport('narrow', 'This is a narrow report [0x0C]');
+            }
         }
 
 

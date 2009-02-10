@@ -299,16 +299,17 @@
             var self = this;
             if (enabledDevices != null) {
                 enabledDevices.forEach(function(device) {
-                    if ((printer == null && device.autoprint) || printer == device.number || printer == 0) {
+                    if ((printer == null && device.autoprint > 0) || printer == device.number || printer == 0) {
                         var template = device.template;
                         var port = device.port;
                         var portspeed = device.portspeed;
                         var handshaking = device.handshaking;
                         var devicemodel = device.devicemodel;
                         var encoding = device.encoding;
+                        var copies = (printer == null) ? device.autoprint : 1;
                         data._MODIFIERS = _templateModifiers(encoding);
 
-                        self.printCheck(data, template, port, portspeed, handshaking, devicemodel, encoding, device.number);
+                        self.printCheck(data, template, port, portspeed, handshaking, devicemodel, encoding, device.number, copies);
                     }
                 });
             }
@@ -418,28 +419,64 @@
             var self = this;
             if (enabledDevices != null) {
                 enabledDevices.forEach(function(device) {
-                    if ((printer == null && device.autoprint) || printer == device.number || printer == 0) {
+                    if ((printer == null && device.autoprint > 0) || printer == device.number || printer == 0) {
                         var template = device.template;
                         var port = device.port;
                         var portspeed = device.portspeed;
                         var handshaking = device.handshaking;
                         var devicemodel = device.devicemodel;
                         var encoding = device.encoding;
+                        var copies = (printer == null) ? device.autoprint : 1;
                         data._MODIFIERS = _templateModifiers(encoding);
-                        self.printCheck(data, template, port, portspeed, handshaking, devicemodel, encoding, 0);
+
+                        self.printCheck(data, template, port, portspeed, handshaking, devicemodel, encoding, 0, copies);
                     }
                 });
             }
         },
 
+        // handles user initiated receipt requests
+        printReport: function(type, tpl) {
+            var device = this.getDeviceController();
+
+            if (device == null) {
+                NotifyUtils.error(_('Error in device manager! Please check your device configuration'));
+                return;
+            }
+
+            // check device settings
+            var printer = (type == 'narrow' ? 1 : 2);
+
+            switch (device.isDeviceEnabled('report', printer)) {
+                case -2:
+                    NotifyUtils.warn(_('The specified report printer [%S] is not configured', [printer]));
+                    return;
+
+                case -1:
+                    NotifyUtils.warn(_('Invalid report printer [%S]', [printer]));
+                    return;
+
+                case 0:
+                    NotifyUtils.warn(_('The specified report printer [%S] is not enabled', [printer]));
+                    return;
+            }
+
+            var enabledDevices = device.getEnabledDevices('report', printer);
+            var port = enabledDevices[0].port;
+            var portspeed = enabledDevices[0].portspeed;
+            var handshaking = enabledDevices[0].handshaking;
+            var devicemodel = enabledDevices[0].devicemodel;
+            var encoding = enabledDevices[0].encoding;
+
+            this.printCheck(null, tpl, port, portspeed, handshaking, devicemodel, encoding, 0, 1);
+        },
+
         // print check using the given parameters
-        printCheck: function(data, template, port, portspeed, handshaking, devicemodel, encoding, device) {
-            
+        printCheck: function(data, template, port, portspeed, handshaking, devicemodel, encoding, device, copies) {
             if (this._worker == null) {
                 NotifyUtils.error(_('Error in Print controller: no worker thread available!'));
                 return;
             }
-
             var portPath = this.getPortPath(port);
             var commands = {};
             
@@ -447,13 +484,6 @@
                 NotifyUtils.error(_('Specified device port [%S] does not exist!', [port]));
                 return false;
             }
-            var tpl = this.getTemplateData(template, false);
-            if (tpl == null || tpl == '') {
-                NotifyUtils.error(_('Specified receipt/guest check template [%S] is empty or does not exist!', [template]));
-                return false;
-            }
-
-            commands = this.getDeviceCommandCodes(devicemodel, false);
 
             // dispatch beforePrintCheck event to allow extensions to add to the template data object or
             // to prevent check from printed
@@ -467,7 +497,25 @@
                                                          device: device})) {
                 return;
             }
-            
+
+            var tpl;
+            var result;
+
+            // if data is null, then the document has already been generated and passed in through the template parameter
+            if (data != null) {
+                var tpl = this.getTemplateData(template, false);
+                if (tpl == null || tpl == '') {
+                    NotifyUtils.error(_('Specified template [%S] is empty or does not exist!', [template]));
+                    return false;
+                }
+
+                //this.log(GeckoJS.BaseObject.dump(data.order));
+
+                result = tpl.process(data);
+            }
+            else {
+                result = template;
+            }
 
 /*
             alert('Printing check: \n\n' +
@@ -477,11 +525,11 @@
                   '   model [' + devicemodel + ']\n' +
                   '   encoding [' + encoding + ']\n' +
                   '   template content: ' + this.dump(tpl));
-            alert('Device commands: \n\n' +
-                  '   commands: ' + this.dump(commands));
 */
-            this.log(GeckoJS.BaseObject.dump(data.order));
-            var result = tpl.process(data);
+
+            commands = this.getDeviceCommandCodes(devicemodel, false);
+
+            //alert('Device commands: \n\n' +  '   commands: ' + this.dump(commands));
 
             // map each command code into corresponding
             if (commands) {
@@ -493,7 +541,6 @@
                     result = result.replace(re, value);
                 }
             }
-            //this.log(this.dump(GeckoJS.BaseObject.dump(data.order)));
             //alert(this.dump(result));
             //alert(data.order.receiptPages);
             //
@@ -551,16 +598,17 @@
                             }
                         }
 
-                        var printed = false;
+                        var printed = 0;
                         if (self.openSerialPort(portPath, portspeed, handshaking)) {
-                            var len = self.writeSerialPort(portPath, encodedResult);
-                            if (len == encodedResult.length) {
-                                printed = true;
+                            for (var i = 0; i < copies; i++) {
+                                var len = self.writeSerialPort(portPath, encodedResult);
+                                if (len == encodedResult.length) {
+                                    printed++;
+                                }
                             }
                             self.closeSerialPort(portPath);
                         }
-
-                        if (!printed) {
+                        if (printed == 0) {
                             var devicemodelName = self.getDeviceModelName(devicemodel);
                             var portName = self.getPortName(port);
 
