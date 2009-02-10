@@ -46,8 +46,11 @@
             var syncSetting = new SyncSetting();
             var syncSettings = syncSetting.read();
 
-            if (syncSettings['active'] == 1) {
-                syncSetting.createSchema();
+            if (syncSettings) {
+                if (syncSettings['active'] == 1) syncSetting.createSchema();
+                GeckoJS.Session.set('terminal_no', syncSettings['machine_id']);
+            }else {
+                GeckoJS.Session.set('terminal_no', 'T001');
             }
 
             var self = this;
