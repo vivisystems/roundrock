@@ -494,7 +494,7 @@
                 }
             }
             //this.log(this.dump(GeckoJS.BaseObject.dump(data.order)));
-            alert(this.dump(result));
+            //alert(this.dump(result));
             //alert(data.order.receiptPages);
             //
             // translate embedded hex codes into actual hex values
