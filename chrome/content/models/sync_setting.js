@@ -143,16 +143,28 @@ SyncSetting.prototype.createSchema = function() {
 
             var datasource = GeckoJS.ConnectionManager.getDataSource(dbConfig);
 
-            var sql = 'CREATE TABLE IF NOT EXISTS "syncs" ("id" INTEGER PRIMARY KEY NOT NULL ,"crud" varchar(255) NOT NULL ,"machine_id" varchar(36) ,"from_machine_id" varchar(36) ,"method_id" varchar(36) NOT NULL ,"method_type" varchar(45) NOT NULL ,"method_table" varchar(45) NOT NULL ,"created" int NOT NULL ,"modified" int NOT NULL) ';
-            var sql2 = 'CREATE TABLE IF NOT EXISTS "sync_remote_machines" ("id" INTEGER PRIMARY KEY NOT NULL, "machine_id" varchar(36) NOT NULL, "last_synced" int DEFAULT -1) ' ;
+
+            
 
             try {
+                
+                var sql = 'CREATE TABLE IF NOT EXISTS "syncs" ("id" INTEGER PRIMARY KEY NOT NULL ,"crud" varchar(255) NOT NULL ,"machine_id" varchar(36) ,"from_machine_id" varchar(36) ,"method_id" varchar(36) NOT NULL ,"method_type" varchar(45) NOT NULL ,"method_table" varchar(45) NOT NULL ,"created" INTEGER NOT NULL ,"modified" INTEGER NOT NULL) ';
                 datasource.execute(sql);
+                
+                sql = 'CREATE INDEX IF NOT EXISTS "syncs_from_machine_id" on "syncs" ("from_machine_id")';
+                datasource.execute(sql);
+                
             }catch(e) {
             }
 
             try {
+
+                var sql2 = 'CREATE TABLE IF NOT EXISTS "sync_remote_machines" ("id" INTEGER PRIMARY KEY NOT NULL, "machine_id" varchar(36) NOT NULL, "last_synced" int DEFAULT -1) ' ;
                 datasource.execute(sql2);
+
+                sql2 = 'CREATE INDEX IF NOT EXISTS "sync_remote_machines_machine_id" on "sync_remote_machines" ("machine_id")' ;
+                datasource.execute(sql2);
+
             }catch(e) {
             }
             
