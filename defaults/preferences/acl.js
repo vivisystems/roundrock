@@ -54,6 +54,7 @@ pref("vivipos.fec.acl.roles.acl_manage_products", "acl_manage_products");
 pref("vivipos.fec.acl.roles.acl_register_return", "acl_manage_products");
 pref("vivipos.fec.acl.roles.acl_register_credit_card", "acl_register_credit_card");
 pref("vivipos.fec.acl.roles.acl_register_coupon", "acl_register_coupon");
+pref("vivipos.fec.acl.roles.acl_register_giftcard", "acl_register_giftcard");
 pref("vivipos.fec.acl.roles.acl_modify_condiment_price", "acl_modify_condiment_price");
 pref("vivipos.fec.acl.roles.acl_modify_keymap_parameter", "acl_modify_keymap_parameter");
 pref("vivipos.fec.acl.roles.acl_manage_locale_keyboard", "acl_manage_locale_keyboard");
@@ -67,3 +68,4 @@ pref("vivipos.fec.acl.roles.acl_manage_storecontact", "acl_manage_storecontact")
 pref("vivipos.fec.acl.roles.acl_open_cashdrawer_1", "acl_open_cashdrawer_1");
 pref("vivipos.fec.acl.roles.acl_open_cashdrawer_2", "acl_open_cashdrawer_2");
 pref("vivipos.fec.acl.roles.acl_manage_sync_settings", "acl_manage_sync_settings");
+pref("vivipos.fec.acl.roles.acl_register_check", "acl_register_check");

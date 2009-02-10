@@ -24,6 +24,9 @@
             this._worker = GREUtils.Thread.getWorkerThread();
             //this._worker = GREUtils.Thread.getMainThread();
 
+            // initialize main thread
+            this._main = GREUtils.Thread.getMainThread();
+
             // add event listener for onSubmit events
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             if(cart) {
@@ -117,6 +120,8 @@
 
         // invoke getTemplateData on device controller to retrieve the content of a specific template
         getTemplateData: function(template, useCache) {
+            //@todo DEBUG
+            useCache = false;
             var device = this.getDeviceController();
             if (device != null) {
                 return device.getTemplateData(template, useCache);
@@ -269,39 +274,8 @@
             }
 
             var enabledDevices = device.getEnabledDevices('receipt');
-            /*
-             *
-             * add support attributes to order object:
-             *
-             * - create_date: Date object created from the created attribute
-             * - print_date: Date object representing current time
-             * - proceeds_clerk
-             * - proceeds_clerk_displayname
-             *
-             * - store details:
-             *   - store name
-             *   - store contact
-             *   - branch
-             *   - telephone1
-             *   - telephone2
-             *   - address1
-             *   - address2
-             *   - city
-             *   - county
-             *   - province
-             *   - state
-             *   - country
-             *   - zip
-             *   - fax
-             *   - email
-             *   - note
-             */
-
             var order = txn.data;
             
-            order.create_date = new Date(order.created);
-            order.print_date = new Date();
-
             var data = {
                 txn: txn,
                 store: GeckoJS.Session.get('storeContact'),
@@ -333,6 +307,7 @@
                         var devicemodel = device.devicemodel;
                         var encoding = device.encoding;
                         data._MODIFIERS = _templateModifiers(encoding);
+
                         self.printCheck(data, template, port, portspeed, handshaking, devicemodel, encoding, device.number);
                     }
                 });
@@ -418,37 +393,7 @@
             }
 
             var enabledDevices = device.getEnabledDevices('guestcheck');
-
-            /*
-             *
-             * add support attributes to order object:
-             *
-             * - create_date: Date object created from the created attribute
-             * - print_date: Date object representing current time
-             * - proceeds_clerk
-             * - proceeds_clerk_displayname
-             *
-             * - store details:
-             *   - store name
-             *   - store contact
-             *   - telephone1
-             *   - telephone2
-             *   - address1
-             *   - address2
-             *   - city
-             *   - county
-             *   - province
-             *   - state
-             *   - country
-             *   - zip
-             *   - fax
-             *   - email
-             *   - note
-             */
-            var now = new Date();
             var order = txn.data;
-            order.create_date = new Date(order.created);
-            order.print_date = new Date();
 
             var data = {
                 txn: txn,
@@ -502,25 +447,40 @@
                 NotifyUtils.error(_('Specified device port [%S] does not exist!', [port]));
                 return false;
             }
-            var tpl = this.getTemplateData(template, true);
+            var tpl = this.getTemplateData(template, false);
             if (tpl == null || tpl == '') {
                 NotifyUtils.error(_('Specified receipt/guest check template [%S] is empty or does not exist!', [template]));
                 return false;
             }
 
-            commands = this.getDeviceCommandCodes(devicemodel, true);
+            commands = this.getDeviceCommandCodes(devicemodel, false);
+
+            // dispatch beforePrintCheck event to allow extensions to add to the template data object or
+            // to prevent check from printed
+            if (!this.dispatchEvent('beforePrintCheck', {data: data,
+                                                         template: template,
+                                                         port: port,
+                                                         portspeed: portspeed,
+                                                         handshaking: handshaking,
+                                                         devicemodel: devicemodel,
+                                                         encoding: encoding,
+                                                         device: device})) {
+                return;
+            }
+            
 
 /*
             alert('Printing check: \n\n' +
                   '   template [' + template + ']\n' +
                   '   port [' + port + ' (' + portPath + ')]\n' +
-                  '   speed [' + speed + ']\n' +
+                  '   speed [' + portspeed + ']\n' +
                   '   model [' + devicemodel + ']\n' +
                   '   encoding [' + encoding + ']\n' +
                   '   template content: ' + this.dump(tpl));
             alert('Device commands: \n\n' +
                   '   commands: ' + this.dump(commands));
 */
+            this.log(GeckoJS.BaseObject.dump(data.order));
             var result = tpl.process(data);
 
             // map each command code into corresponding
@@ -533,8 +493,9 @@
                     result = result.replace(re, value);
                 }
             }
-            //alert(this.dump(result));
-            //alert(this.dump(data.order));
+            //this.log(this.dump(GeckoJS.BaseObject.dump(data.order)));
+            alert(this.dump(result));
+            //alert(data.order.receiptPages);
             //
             // translate embedded hex codes into actual hex values
             var replacer = function(str, p1, offset, s) {
@@ -547,9 +508,37 @@
             var encodedResult = GREUtils.Charset.convertFromUnicode(result, encoding);
             //this.log('RECEIPT/GUEST CHECK\n' + encodedResult);
 
+            // set up main thread callback to dispatch event
+            var sendEvent = function(device, data, result, encodedResult, printed) {
+                this.eventData = {printed: printed,
+                                  device: device,
+                                  data: data,
+                                  receipt: result,
+                                  encodedReceipt: encodedResult
+                                 };
+            }
+
             // send to output device using worker thread
             var self = this;
 
+            sendEvent.prototype = {
+                run: function() {
+                    try {
+                        self.dispatchEvent('onReceiptPrinted', this.eventData);
+                    }
+                    catch (e) {
+                        this.log('WARN', 'failed to dispatch onReceiptPrinted event');
+                    }
+                },
+
+                QueryInterface: function(iid) {
+                    if (iid.equals(Components.Interfaces.nsIRunnable) || iid.equals(Components.Interfaces.nsISupports)) {
+                        return this;
+                    }
+                    throw Components.results.NS_ERROR_NO_INTERFACE;
+                }
+            }
+            
             var runnable = {
                 run: function() {
                     try {
@@ -585,19 +574,13 @@
                             self.receiptPrinted(data.order.id, data.order.seq, device);
                         }
 
-                        // dispatch receiptPrinted event
+                        // dispatch receiptPrinted event indirectly through the main thread
+                        
+                        if (self._main) {
+                            self._main.dispatch(new sendEvent(device, data, result,encodedResult, printed), self._worker.DISPATCH_NORMAL);
+                        }
 
-                        //@todo OSD
-                        /*
-                        NotifyUtils.info('Dispatching onReceiptPrinted event');
-
-                        self.dispatchEvent('onReceiptPrinted', {result: result,
-                                                                encodedResult: encodedResult,
-                                                                device: device});
-
-                        //@todo OSD
-                        NotifyUtils.info('onReceiptPrinted event dispatched');
-                        */
+                        
                     }catch(e) {
                         return false;
                     }

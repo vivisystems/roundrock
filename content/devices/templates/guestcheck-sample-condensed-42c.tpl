@@ -2,8 +2,8 @@
 [&QSON]${store.name|center:21}[&QSOFF]
 [&DWON]${store.branch|center:21}[&DWOFF]
 ${store.telephone1|center:42}
-Opened:   ${order.create_date.toLocaleFormat('%Y-%m-%d %H:%M:%S')}
-Closed:   ${order.print_date.toLocaleFormat('%Y-%m-%d %H:%M:%S')}
+Opened:   ${(new Date(order.created)).toLocaleFormat('%Y-%m-%d %H:%M:%S')}
+Submitted:${(new Date(order.modified)).toLocaleFormat('%Y-%m-%d %H:%M:%S')}
 Terminal: ${store.terminal_no|left:10} Clerk: ${order.proceeds_clerk_displayname|left:14}
 ------------------------------------------
 {for item in order.display_sequences}

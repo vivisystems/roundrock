@@ -66,7 +66,7 @@
 
                 no_of_customers: 1,
 
-                terminal_no: GeckoJS.Session.get('terminal_id'),
+                terminal_no: GeckoJS.Session.get('terminal_no'),
 
                 created: '',
                 modified: ''
@@ -170,7 +170,7 @@
             self.requestCommand('decStock', self.data, "Stocks");
 
             self.run();
-        }, 100);
+        }, 1500);
 
     };
 
@@ -416,11 +416,45 @@
                 level: (level == null) ? 1 : level
             });           
         }else if(type =='payment') {
+            var dispName;
+            var current_price = '';
+            var current_qty = '';
+
+            switch (item.name.toUpperCase()) {
+                
+                case 'CREDITCARD':
+                    dispName = _(item.memo1);
+                    break;
+                    
+                case 'COUPON':
+                    dispName = _(item.memo1);
+                    break;
+
+                case 'GIFTCARD':
+                    dispName = _(item.memo1);
+                    break;
+
+                case 'CASH':
+                    if (item.memo1 != null && item.origin_amount != null) {
+                        dispName = _(item.memo1);
+                        current_qty = item.origin_amount + 'X';
+                        current_price = item.memo2;
+                    }
+                    else
+                        dispName = _(item.name.toUpperCase());
+                    break;
+
+                default:
+                    dispName = _(item.name.toUpperCase());
+                    break;
+                    
+            }
+
             itemDisplay = GREUtils.extend(itemDisplay, {
                 id: '',
-                name: _(item.name.toUpperCase()),
-                current_qty: '',
-                current_price: '',
+                name: dispName,
+                current_qty: current_qty,
+                current_price: current_price,
                 current_subtotal: item.amount,
                 current_tax: '',
                 type: type,
@@ -1036,7 +1070,7 @@
                 if (discount.pretax == null) discount.pretax = false;
 
                 if (discount.pretax) {
-                    discountItem.current_discount = (remainder - this.data.tax_subtotal) * discountItem.discount_rate;
+                    discountItem.current_discount = parseFloat(itemDisplay.current_price) * discountItem.discount_rate;
                 }
                 else {
                     discountItem.discount_name += '*';
@@ -1154,7 +1188,7 @@
                 // percentage order surcharge is pretax?
                 if (surcharge.pretax == null) surcharge.pretax = false;
                 if (surcharge.pretax) {
-                    surchargeItem.current_surcharge = this.getRoundedPrice((this.getRemainTotal() - this.data.tax_subtotal) * surchargeItem.surcharge_rate);
+                    surchargeItem.current_surcharge = this.getRoundedPrice(parseFloat(itemDisplay.current_price) * surchargeItem.surcharge_rate);
                 }
                 else {
                     surchargeItem.surcharge_name += '*';
@@ -1552,9 +1586,10 @@
                 lastIndex = i;
             }
             else if ((itemDisplay.type == 'condiment' || itemDisplay.type == 'memo') &&
-                     (this.data.items[itemDisplay.index].parent_index == index)) {
+                     (itemDisplay.index != null && this.data.items[itemDisplay.index] != null && this.data.items[itemDisplay.index].parent_index == index)) {
                 lastIndex = i;
             }
+
         }
 
         return lastIndex ;

@@ -1,0 +1,7 @@
+content uireceipts		/home/user/app/extensions/uireceipts/chrome/content/ xpcnativewrappers=no
+locale	uireceipts	en-US   /home/user/app/extensions/uireceipts/chrome/locale/zh-TW/
+locale	uireceipts	zh-TW   /home/user/app/extensions/uireceipts/chrome/locale/zh-TW/
+skin	uireceipts	classic	/home/user/app/extensions/uireceipts/chrome/skin/
+
+overlay chrome://vivipos/content/mainUIOverlay.xul chrome://uireceipts/content/overlay.xul
+overlay chrome://viviecr/content/sysprefs.xul chrome://uireceipts/content/uireceipt.xul

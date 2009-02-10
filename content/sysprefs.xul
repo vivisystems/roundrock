@@ -75,7 +75,7 @@
                 <rows>
                     <row>
                         <vbox>
-                            <label control="precisionprices" value="&defaultpricelevel;"/>
+                            <label control="defaultpricelevel" value="&defaultpricelevel;"/>
                             <textbox preference="pref_defaultpricelevel" id="defaultpricelevel" type="number" size="2" maxlength="1" min="1" max="9"/>    
                         </vbox>
                         <vbox>
