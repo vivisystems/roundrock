@@ -11,9 +11,9 @@
         
         _print: null,
 
-        _keypad: null,
-
         _model: null,
+
+        _ubn: null,
 
         // attach listener for Print event onReceiptPrinted
 
@@ -29,6 +29,14 @@
                 print.addEventListener('onReceiptPrinted', this.updateUIRecord, this);
                 print.addEventListener('beforePrintCheck', this.beforePrintCheck, this);
             }
+
+            // get handle to Cart controller
+            var cart = GeckoJS.Controller.getInstanceByName('Cart');
+            if (cart) {
+                cart.addEventListener('afterCancel', this.resetUBN, this);
+                cart.addEventListener('afterSubmit', this.resetUBN, this);
+            }
+
         },
 
         getPrintController: function () {
@@ -40,7 +48,7 @@
 
         getMarkerModel: function () {
             if (this._model == null) {
-                this._model = new UnifiedInvoiceMarkerModel();
+                this._model = new UniformInvoiceMarkerModel();
             }
             return this._model;
         },
@@ -68,6 +76,24 @@
             return 2;
         },
 
+        getUBNDialog: function (data) {
+            var aURL = 'chrome://viviecr/content/prompt_additem.xul';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=300';
+            var inputObj = {
+                input0:data, require0: true, digitOnly0: true, fixedLength0: 8
+            };
+
+            // @todo TEXT
+            window.openDialog(aURL, _('Reset Uniform Invoice'), features, _('Reset Uniform Invoice'), '',
+                                    _('Code'), _('Sequence'), inputObj);
+
+            if (inputObj.ok) {
+                return inputObj.input0;
+            }else {
+                return null;
+            }
+        },
+
         getResetUIDialog: function () {
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=300';
@@ -77,7 +103,7 @@
             };
 
             // @todo TEXT
-            window.openDialog(aURL, _('Reset Unified Invoice'), features, _('Reset Unified Invoice'), '',
+            window.openDialog(aURL, _('Reset Uniform Invoice'), features, _('Reset Uniform Invoice'), '',
                                     _('Code'), _('Sequence'), inputObj);
 
             if (inputObj.ok) {
@@ -96,7 +122,7 @@
             };
 
             // @todo TEXT
-            window.openDialog(aURL, _('Void Unified Invoice'), features, _('Void Unified Invoice'), '',
+            window.openDialog(aURL, _('Void Uniform Invoice'), features, _('Void Uniform Invoice'), '',
                                     _('Code'), _('Sequence'), inputObj);
 
             if (inputObj.ok) {
@@ -107,7 +133,7 @@
         },
 
         updateSession: function () {
-            // get current unified invoice number and store it in session
+            // get current uniform invoice number and store it in session
             var marker = this.getInvoiceMarker();
             if (marker)
                 GeckoJS.Session.set('vivipos_fec_console_message', marker.code + marker.seq);
@@ -140,7 +166,7 @@
                 else {
                     //@todo TEXT
                     GREUtils.Dialog.alert(window,
-                                          _('Unified Invoice Error'),
+                                          _('Uniform Invoice Error'),
                                           _('Failed to retrieve model; please contact your dealer for technical assistance'));
                 }
             }
@@ -151,7 +177,7 @@
             if (inputObj) {
                 var code = inputObj.input0;
                 var seq = inputObj.input1
-                var model = new UnifiedInvoiceModel();
+                var model = new UniformInvoiceModel();
                 var terminal_no = GeckoJS.Session.get('terminal_no');
 
                 if (model) {
@@ -163,82 +189,140 @@
 
                     if (uirecord == null) {
                         // no associated order, marker this receipt as voided
-                        if (GREUtils.Dialog.confirm(null, _('Void Unified Invoice'), _('Do you really want to void unified invoice [%S]?', [code + seq])) == false) {
+                        if (GREUtils.Dialog.confirm(null, _('Void Uniform Invoice'), _('Do you really want to void uniform invoice [%S]?', [code + seq])) == false) {
                             return;
                         }
                         var voidedInvoice = {
-                            order_id: null,
+                            order_seq: '',
                             code: code,
                             start_seq: seq,
                             end_seq: seq,
                             status: 1,
+                            taxable_amount: '',
+                            nontaxable_amount: '',
                             terminal_no: terminal_no,
+                            submit_time: '',
                             void_time: voidedTime
                         }
                         model.id = null;
                         model.save(voidedInvoice);
+
+                        //@todo OSD
+                        NotifyUtils.info(_('Uniform Invoice [%S] voided', [code + seq]));
                     }
                     else {
-                        // void all receipts associated with the order
+                        // void all invoices associated with the order
                         var orderStr = '   ' + _('starting sequence') + ': ' + uirecord.code + uirecord.start_seq + '\n' +
                                        '   ' + _('ending sequence') + ': ' + uirecord.code + uirecord.end_seq + '\n' +
-                                       '   ' + _('order submitted') + ': ' + new Date(uirecord.submit_time).toLocaleString() + '\n' +
+                                       '   ' + _('terminal') + ': ' + uirecord.terminal_no + '\n' +
+                                       '   ' + _('order sequence') + ': ' + ((uirecord.order_seq.length > 0) ? new Number(uirecord.order_seq).toFixed(0) : '') + '\n' +
+                                       '   ' + _('order submitted') + ': ' + ((uirecord.submit_time > 0) ? new Date(uirecord.submit_time).toLocaleString() : '') + '\n' +
                                        '   ' + _('taxable amount') + ': ' + uirecord.taxable_amount + '\n' +
                                        '   ' + _('nontaxable amount') + ': ' + uirecord.taxable_amount;
 
                         if (uirecord.status == 1) {
+                            orderStr += '\n' + '   ' + _('invoice voided') + ': ' + new Date(uirecord.void_time).toLocaleString();
                             GREUtils.Dialog.alert(window,
-                                                  _('Unified Invoice Void Error'),
-                                                  _('The following unified invoice has already been voided\n\n%S', [orderStr]));
+                                                  _('Uniform Invoice Void Error'),
+                                                  _('The following uniform invoice(s) have already been voided\n\n%S', [orderStr]));
                             return;
                         }
-                        if (GREUtils.Dialog.confirm(null, _('Void Unified Invoice'),
-                                                          _('Do you really want to void the following unified invoice?\n\n%S', [orderStr])) == false) {
+                        if (GREUtils.Dialog.confirm(null, _('Void Uniform Invoice'),
+                                                          _('Do you really want to void the following uniform invoice(s)?\n\n%S', [orderStr])) == false) {
                             return;
                         }
                         uirecord.status = 1;
                         uirecord.voided_time = voidedTime;
                         model.id = uirecord.id;
                         model.save(uirecord);
+
+                        if (uirecord.start_seq == uirecord.end_seq) {
+                            NotifyUtils.info(_('Uniform Invoice [%S] voided', [uirecord.code + uirecord.start_seq, uirecord.code + uirecord.end_seq]));
+                        }
+                        else {
+                            NotifyUtils.info(_('Uniform Invoices [%S] through [%S] voided', [uirecord.code + uirecord.start_seq, uirecord.code + uirecord.end_seq]));
+                        }
                     }
                 }
                 else {
                     //@todo TEXT
                     GREUtils.Dialog.alert(window,
-                                          _('Unified Invoice Error'),
+                                          _('Uniform Invoice Error'),
                                           _('Failed to retrieve model; please contact your dealer for technical assistance'));
                 }
             }
         },
 
         beforePrintCheck: function (evt) {
-            // check if unified invoice marker has been set before we allow printing to
+            // check if uniform invoice marker has been set before we allow printing to
             // proceed
             // first check if the target device is for us
             var data = evt.data
-            var device = GeckoJS.Configure.read('vivipos.fec.settings.unified.invoice.Device');
+            var device = GeckoJS.Configure.read('vivipos.fec.settings.uniform.invoice.Device');
             if (data.device == device) {
 
-                // next get current unified invoice configuration
+                // next get current uniform invoice configuration
                 var marker = this.getInvoiceMarker();
                 if (marker == null) {
                     GREUtils.Dialog.alert(window,
-                                          'Unified Invoice Error',
-                                          'No Unified Invoice configuration found; please reset UI code and sequence first');
+                                          'Uniform Invoice Error',
+                                          'No Uniform Invoice configuration found; please reset UI code and sequence first');
                     evt.preventDefault();
                     return;
+                }
+
+                // make UBN available to template
+                if (data.data != null) {
+                    if ('customer' in data.data) {
+                        data.data.customer.uniform_business_number = this._ubn;
+                    }
+                    else
+                        data.data.customer = {'uniform_business_number': this._ubn};
                 }
             }
         },
 
+        setUBN: function () {
+            var keypad = GeckoJS.Controller.getInstanceByName('Keypad');
+            var cart = GeckoJS.Controller.getInstanceByName('Cart');
+            var buf = '';
+            var ubn = '';
+            if (keypad) {
+                buf = keypad.getBuffer();
+                keypad.clearBuffer();
+            }
+            if (buf.length == 8 && !(/[^0-9]/.test(buf))) {
+                ubn = buf;
+            }
+            else {
+                ubn = this.getUBNDialog(buf);
+            }
+
+            if (ubn != null && ubn.length == 8) {
+                this._ubn = ubn;
+            }
+            if (cart) cart.subtotal();
+        },
+
+        clearUBN: function () {
+            var cart = GeckoJS.Controller.getInstanceByName('Cart');
+            this._ubn = null;
+            if (cart) cart.subtotal();
+        },
+
+        resetUBN: function () {
+            this._ubn = null;
+            alert('resetUBN');
+        },
+
         updateUIRecord: function (evt) {
             var data = evt.data
-            var device = GeckoJS.Configure.read('vivipos.fec.settings.unified.invoice.Device');
+            var device = GeckoJS.Configure.read('vivipos.fec.settings.uniform.invoice.Device');
 
-            this.log(GeckoJS.BaseObject.dump(data.data.order));
-            
             if (data.printed && data.device == device) {
 
+                this._ubn = null;
+                
                 // first, we get current invoice number
                 var marker = this.getInvoiceMarker();
                 if (marker) {
@@ -248,14 +332,13 @@
 
                     var endSequence = Number(marker.seq) - (-pageCount) - 1;
                     var newSequence = Number(marker.seq) - (-pageCount);
-                    this.log(marker.seq + ':' + pageCount + ':' + endSequence + ':' + newSequence);
 
                     var terminal_no = GeckoJS.Session.get('terminal_no');
 
-                    // insert unified invoices
-                    var model = new UnifiedInvoiceModel();
+                    // insert uniform invoices
+                    var model = new UniformInvoiceModel();
                     var newInvoice = {
-                        order_id: data.data.order.id,
+                        order_seq: new Number(data.data.order.seq).toFixed(0),
                         code: marker.code,
                         start_seq: marker.seq,
                         end_seq: GeckoJS.String.padLeft(endSequence, 8, '0'),
@@ -267,7 +350,7 @@
                     }
                     model.save(newInvoice);
                     
-                    // update unified invoice marker
+                    // update uniform invoice marker
                     marker.seq = GeckoJS.String.padLeft(newSequence, 8, '0');
                     marker.terminal_no = terminal_no;
 
@@ -280,8 +363,8 @@
                 else {
                     //@todo TEXT
                     GREUtils.Dialog.alert(window,
-                                          'Unified Invoice Error',
-                                          'No Unified Invoice configuration found; please reset UI code and sequence first');
+                                          'Uniform Invoice Error',
+                                          'No Uniform Invoice configuration found; please reset UI code and sequence first');
                     return;
                 }
             }

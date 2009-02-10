@@ -15,6 +15,9 @@ ${(new Date()).toLocaleFormat('%Y-%m-%d %H:%M')}
 機號: ${order.terminal_no|left:18}
 櫃員: ${order.proceeds_clerk_displayname|left:18}
 序號: ${order.seq|left:9} ${curPage+'/'+numPages|right:6}頁
+{if customer.uniform_business_number != null}
+統一編號: ${customer.uniform_business_number|left:8}
+{/if}
 -----------------------
 {/if}
 {if item.parent_index == null}

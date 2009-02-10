@@ -5,7 +5,7 @@
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
-<overlay id="UnifiedInvoiceOverlay"
+<overlay id="UniformInvoiceOverlay"
          xmlns:html="http://www.w3.org/1999/xhtml"
          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
@@ -14,7 +14,7 @@
 
             function uireceipt_pref_init() {
                 var deviceNode = document.getElementById('device');
-                deviceNode.value = GeckoJS.Configure.read('vivipos.fec.settings.unified.invoice.Device');
+                deviceNode.value = GeckoJS.Configure.read('vivipos.fec.settings.uniform.invoice.Device');
             };
 
             window.addEventListener('load', uireceipt_pref_init, false);
@@ -23,7 +23,7 @@
 
         <prefpane id="uireceiptSettingsPane" label="&uireceipt.tab.label;" >
             <preferences>
-                <preference id="pref_archivefrequency" name="vivipos.fec.settings.unified.invoice.Archive.Frequency" type="int" />
+                <preference id="pref_archivefrequency" name="vivipos.fec.settings.uniform.invoice.Archive.Frequency" type="int" />
             </preferences>
 
             <grid class="DataFormB" >
@@ -34,7 +34,7 @@
                 <rows>
                     <row>
                         <label control="device" value="&uireceipt.device;"/>
-                        <menulist id="device" flex="1" oncommand="GeckoJS.Configure.write('vivipos.fec.settings.unified.invoice.Device', this.value)">
+                        <menulist id="device" flex="1" oncommand="GeckoJS.Configure.write('vivipos.fec.settings.uniform.invoice.Device', this.value)">
                             <menupopup>
                                 <menuitem label="1" value="1"/>
                                 <menuitem label="2" value="2"/>

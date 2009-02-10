@@ -5,8 +5,8 @@ GeckoJS.StringBundle.createBundle("chrome://uireceipts/locale/messages.propertie
 
 // include extension models
 
-GeckoJS.include('chrome://uireceipts/content/models/unified_invoice.js');
-GeckoJS.include('chrome://uireceipts/content/models/unified_invoice_marker.js');
+GeckoJS.include('chrome://uireceipts/content/models/uniform_invoice.js');
+GeckoJS.include('chrome://uireceipts/content/models/uniform_invoice_marker.js');
 
 // include extension controller
 GeckoJS.include('chrome://uireceipts/content/uireceipt_controller.js');
