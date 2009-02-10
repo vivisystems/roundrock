@@ -201,7 +201,7 @@
                         model.save(voidedInvoice);
 
                         //@todo OSD
-                        NotifyUtils.info(_('Uniform Invoice [%S] voided', [code + seq]));
+                        NotifyUtils.info(_('Uniform invoice [%S] voided', [code + seq]));
                     }
                     else {
                         // void all invoices associated with the order
@@ -230,7 +230,7 @@
                         model.save(uirecord);
 
                         if (uirecord.start_seq == uirecord.end_seq) {
-                            NotifyUtils.info(_('Uniform Invoice [%S] voided', [uirecord.code + uirecord.start_seq, uirecord.code + uirecord.end_seq]));
+                            NotifyUtils.info(_('Uniform invoice [%S] voided', [uirecord.code + uirecord.start_seq, uirecord.code + uirecord.end_seq]));
                         }
                         else {
                             NotifyUtils.info(_('Uniform Invoices [%S] through [%S] voided', [uirecord.code + uirecord.start_seq, uirecord.code + uirecord.end_seq]));
@@ -360,7 +360,7 @@
                     //@todo TEXT
                     GREUtils.Dialog.alert(window,
                                           'Uniform Invoice Error',
-                                          'No Uniform Invoice configuration found; please reset UI code and sequence first');
+                                          'No uniform invoice configuration found; please reset UI code and sequence first');
                     return;
                 }
             }

@@ -1,0 +1,76 @@
+# English translations for PACKAGE package.
+# Copyright (C) 2009 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# user <support@vivipos.com>, 2009.
+#
+!=Project-Id-Version: PACKAGE VERSION\nReport-Msgid-Bugs-To: support@vivipos.com.tw\nPOT-Creation-Date: 2009-02-10 17:05+0800\nPO-Revision-Date: 2009-02-10 17:05+0800\nLast-Translator: user <support@vivipos.com>\nLanguage-Team: English\nMIME-Version: 1.0\nContent-Type: text/plain; charset\=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals\=2; plural\=(n !\= 1);\n
+
+#: ../../content/uireceipt_controller.js:80
+#: ../../content/uireceipt_controller.js:99
+Reset Uniform Invoice=Reset Uniform Invoice
+
+#: ../../content/uireceipt_controller.js:81
+#: ../../content/uireceipt_controller.js:100
+#: ../../content/uireceipt_controller.js:119
+Code=Code
+
+#: ../../content/uireceipt_controller.js:81
+#: ../../content/uireceipt_controller.js:100
+#: ../../content/uireceipt_controller.js:119
+Sequence=Sequence
+
+#: ../../content/uireceipt_controller.js:118
+#: ../../content/uireceipt_controller.js:185
+#: ../../content/uireceipt_controller.js:223
+Void Uniform Invoice=Void Uniform Invoice
+
+#: ../../content/uireceipt_controller.js:162
+#: ../../content/uireceipt_controller.js:243
+Uniform Invoice Error=Uniform Invoice Error
+
+#: ../../content/uireceipt_controller.js:163
+#: ../../content/uireceipt_controller.js:244
+Failed to retrieve model; please contact your dealer for technical assistance=Failed to retrieve model; please contact your dealer for technical assistance
+
+#: ../../content/uireceipt_controller.js:185
+Do you really want to void uniform invoice [%S]?=Do you really want to void uniform invoice [%S]?
+
+#: ../../content/uireceipt_controller.js:204
+#: ../../content/uireceipt_controller.js:233
+Uniform invoice [%S] voided=Uniform invoice [%S] voided
+
+#: ../../content/uireceipt_controller.js:208
+starting sequence=starting sequence
+
+#: ../../content/uireceipt_controller.js:209
+ending sequence=ending sequence
+
+#: ../../content/uireceipt_controller.js:210
+terminal=terminal
+
+#: ../../content/uireceipt_controller.js:211
+order sequence=order sequence
+
+#: ../../content/uireceipt_controller.js:212
+order submitted=order submitted
+
+#: ../../content/uireceipt_controller.js:213
+taxable amount=taxable amount
+
+#: ../../content/uireceipt_controller.js:214
+nontaxable amount=nontaxable amount
+
+#: ../../content/uireceipt_controller.js:217
+invoice voided=invoice voided
+
+#: ../../content/uireceipt_controller.js:219
+Uniform Invoice Void Error=Uniform Invoice Void Error
+
+#: ../../content/uireceipt_controller.js:220
+The following uniform invoice(s) have already been voided\n\n%S=The following uniform invoice(s) have already been voided\n\n%S
+
+#: ../../content/uireceipt_controller.js:224
+Do you really want to void the following uniform invoice(s)?\n\n%S=Do you really want to void the following uniform invoice(s)?\n\n%S
+
+#: ../../content/uireceipt_controller.js:236
+Uniform Invoices [%S] through [%S] voided=Uniform Invoices [%S] through [%S] voided
