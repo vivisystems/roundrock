@@ -24,8 +24,13 @@
                 return;
             this.initialized = true;
 
-            // preload SyncSetting
-            (new SyncSetting()).read();
+            // preload SyncSetting and createSchema
+            var syncSetting = new SyncSetting();
+            var syncSettings = syncSetting.read();
+
+            if (syncSettings['active'] == 1 ) {
+                syncSetting.createSchema();
+            }
 
             // addAppender for vivipos.log file.
             GeckoJS.Log.addAppender('vivipos', new GeckoJS.Log.FileAppender(GeckoJS.Log.FATAL, GeckoJS.Configure.read('CurProcD')+"/log/vivipos.log"));
