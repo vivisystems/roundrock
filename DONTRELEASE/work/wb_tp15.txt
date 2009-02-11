@@ -1,0 +1,5 @@
+dallas = 01d310dd110000a1 
+system = CX700 
+vendor = VIA Technologies, Inc. 
+mac address = 000565757b3e 
+license stub= 0aab15c3cdb10aaa15d5d8cf5536ba36292ffa139fd42f65568b9393e42e1590ad4d5e4607f1371b66b68537497e1513aedf99dd210472ae69137b4d26a0dbe0 
