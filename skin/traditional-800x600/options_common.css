@@ -269,7 +269,7 @@ textbox[readonly="true"] {
   background: none;
   border: none;
 }
-.dialogbtns button:active {
+.dialogbtns button:hover {
     -moz-appearance: none;
     background-color: white !important;
     border: none;
