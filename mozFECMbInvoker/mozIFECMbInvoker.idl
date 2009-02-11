@@ -1,0 +1,43 @@
+#include "nsISupports.idl"
+
+%{C++
+#include "nsStringAPI.h"
+%}
+
+/*
+ * libmb-invoker XPCOM
+ * @author racklin@gmail.com
+ */
+[scriptable, uuid(e8fa5e9b-47bf-4e7b-935b-3c5bd88a7c49)]
+interface mozIFECMbInvoker : nsISupports
+{
+
+  const short REMOTE_NONE    =  0;
+  const short REMOTE_SHOW    =  1; 
+  const short REMOTE_HIDE    =  2;
+  const short REMOTE_TOGGLE    =  3;
+
+    /**
+     * Display mb keyboard
+     *
+     */
+    void show ();
+
+    /**
+     * hide mb keyboard
+     *
+     */
+    void hide ();
+
+
+    /**
+     * toggle mb keyboard
+     *
+     */
+    void toggle ();
+
+
+};
+
+
+

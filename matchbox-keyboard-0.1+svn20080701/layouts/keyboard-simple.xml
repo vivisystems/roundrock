@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<keyboard>
+
+<options>
+<!-- not yet implemented -->
+</options>
+
+<layout id="sample keyboard">
+
+<!--
+  <row>
+     <key>
+	  <default display="ヂ" />                
+    </key>
+    <key>
+	  <default display="Ӫ" />                
+    </key>
+    <key width="1500">
+	  <default display="Ω" />                
+    </key>
+    <space width="1500" />
+    <key fill="true">
+	  <default display="⠿" />                
+    </key>
+  </row>
+-->
+
+
+  <row>
+     <key obey-caps='true'>
+	  <default display="a" />                
+	  <shifted display="A" />
+    </key>
+    <key obey-caps='true'>
+	  <default display="b" />                
+	  <shifted display="B" />
+    </key>
+    <key obey-caps='true'>
+	  <default    display="c" />                
+	  <shifted display="C" />
+    </key>
+    <key obey-caps='true'>
+	  <default display="d" />                
+	  <shifted display="D" />
+    </key>
+    <key obey-caps='true'>
+	  <default display="e" />                
+	  <shifted display="E" />
+    </key>
+    <key obey-caps='true'>
+	  <default display="f" />                
+	  <shifted display="F" />
+    </key>
+    <key obey-caps='true'>
+	  <default display="g" />                
+	  <shifted display="G" />
+    </key>
+    <key obey-caps='true'>
+	  <default display="h" />                
+	  <shifted display="H" />
+    </key>
+    <key obey-caps='true'>
+	  <default display="i" />                
+	  <shifted display="I" />
+    </key>
+    <key obey-caps='true'>
+	  <default display="j" />                
+	  <shifted display="J" />
+    </key>
+    <key obey-caps='true'>
+	  <default display="k" />                
+	  <shifted display="K" />
+    </key>
+    <key obey-caps='true'>
+	  <default display="l" />                
+	  <shifted display="L" />
+    </key>
+    <key obey-caps='true'>
+	  <default    display="n" />                
+	  <shifted display="N" />
+    </key>
+    <key obey-caps='true'>
+	  <default display="m" />                
+	  <shifted display="M" />
+    </key>
+    <key obey-caps='true'>
+	  <default display="o" />                
+	  <shifted display="O" />
+    </key>
+    <key obey-caps='true'>
+	  <default display="p" />                
+	  <shifted display="P" />
+    </key>
+    <key obey-caps='true'>
+	  <default display="q" />                
+	  <shifted display="Q" />
+    </key>
+    <key obey-caps='true'>
+	  <default display="r" />                
+	  <shifted display="R" />
+    </key>
+    <key obey-caps='true'>
+	  <default display="s" />                
+	  <shifted display="S" />
+    </key>
+    <key obey-caps='true'>
+	  <default display="t" />                
+	  <shifted display="T" />
+  </key>
+    <key obey-caps='true'>
+	  <default display="u" />                
+	  <shifted display="U" />
+  </key>
+    <key obey-caps='true'>
+	  <default display="v" />                
+	  <shifted display="V" />
+    </key>
+    <key obey-caps='true'>
+	  <default display="w" />                
+	  <shifted display="W" />
+    </key>
+    <key obey-caps='true'>
+	  <default display="x" />                
+	  <shifted display="X" />
+    </key>
+    <key obey-caps='true'>
+	  <default display="y" />                
+	  <shifted display="Y" />
+    </key>
+    <key obey-caps='true'>
+	  <default display="z" />                
+	  <shifted display="Z" />
+    </key>
+    <key width="2000"  extended="true">
+	  <default display="Bksp" colortext="#000000" colorbackground="#FFFF00" action="backspace"/>
+    </key>
+    <key width="2000"  extended="true">
+         <default display="C" 
+		  colorbackground="#FFFF00"
+	          action="close"/>
+    </key>
+</row>
+<row>
+    <key width="2000"  extended="true">
+		<default display="Shift" colortext="#000000" colorbackground="#FFFF00" action="modifier:shift"/>                
+    </key >
+    <key>
+	  <default display="1" colorbackground="#000000" colortext="#00FFFF" />                
+	  <shifted display="!" />
+    </key>
+    <key>
+	  <default display="2" colorbackground="#000000" colortext="#00FFFF" />                
+	  <shifted display='"' />
+          <mod1    display="½" />
+    </key>
+    <key>
+	  <default display="3" colorbackground="#000000" colortext="#00FFFF" />
+	  <shifted display="£" />
+          <mod1    display="¾" />               
+    </key>
+    <key>
+	  <default display="4" colorbackground="#000000" colortext="#00FFFF" />
+	  <shifted display="$" colorbackground="#000000" colortext="#00FFFF" />                
+    </key>
+    <key>
+	  <default display="5" colorbackground="#000000" colortext="#00FFFF" />
+	  <shifted display="%" colorbackground="#000000" colortext="#00FFFF" />                
+    </key>
+    <key>
+	  <default display="6" colorbackground="#000000" colortext="#00FFFF" />
+	  <shifted display="^" colorbackground="#000000" colortext="#00FFFF"  />                
+    </key>
+    <key>
+	  <default display="7" colorbackground="#000000" colortext="#00FFFF" />
+	  <shifted display="&amp;" colorbackground="#000000" colortext="#00FFFF" />                
+    </key>
+    <key>
+	  <default display="8" colorbackground="#000000" colortext="#00FFFF" />
+	  <shifted display="*" colorbackground="#000000" colortext="#00FFFF" />                
+    </key>
+    <key>
+	  <default display="9" colorbackground="#000000" colortext="#00FFFF" />
+	  <shifted display="(" colorbackground="#000000" colortext="#00FFFF" />                
+    </key>
+    <key>
+	  <default display="0" colorbackground="#000000" colortext="#00FFFF"/>
+	  <shifted display=")" colorbackground="#000000" colortext="#00FFFF"/>                
+    </key>
+
+    <key>
+	  <default display=";" />                
+	  <shifted display=":" />
+    </key>
+
+    <key>
+	  <default display="," />                
+	  <shifted display="&lt;" />
+    </key>
+    <key>
+	  <default display="." />                
+	  <shifted display="&gt;" />
+    </key>
+    <key>
+	  <default display="/" />                
+	  <shifted display="?" />
+    </key>
+    <key>
+	  <default display="`" />
+    </key>
+
+    <key >
+	  <default display="@" />                
+	  <shifted display="'" />
+    </key>
+
+
+    <key width="6400" extended="true">
+	  <default display=" " action="space" />                
+    </key>
+
+    <key>
+	  <default display="#"  />                
+	  <shifted display="~" />
+    </key>
+    <key >
+	  <default display="\" />                
+	  <shifted display="|" />
+    </key>
+
+    <key>
+	  <default display="[" />                
+	  <shifted display="{" />
+    </key>
+    <key>
+	  <default display="]" />                
+	  <shifted display="}" />
+    </key>
+
+    <key>
+	  <default display="-" />
+	  <shifted display="_" />                
+    </key>
+    <key>
+	  <default display="=" />
+	  <shifted display="+" />                
+    </key>
+    <key width="2000"  extended="true">
+	    <default display="Ret" colortext="#000000" colorbackground="#FFFF00" action="return"/>
+    </key>
+
+</row>
+
+</layout>
+
+
+</keyboard>

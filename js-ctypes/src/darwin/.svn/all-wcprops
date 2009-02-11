@@ -1,0 +1,89 @@
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/!svn/ver/12335/projects/js-ctypes/trunk/js-ctypes/src/darwin
+END
+x86_darwin.s
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/!svn/ver/12335/projects/js-ctypes/trunk/js-ctypes/src/darwin/x86_darwin.s
+END
+powerpc_darwin.s
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/!svn/ver/12335/projects/js-ctypes/trunk/js-ctypes/src/darwin/powerpc_darwin.s
+END
+powerpc_darwin_closure.s
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/!svn/ver/12335/projects/js-ctypes/trunk/js-ctypes/src/darwin/powerpc_darwin_closure.s
+END
+ffi_common.h
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/!svn/ver/12335/projects/js-ctypes/trunk/js-ctypes/src/darwin/ffi_common.h
+END
+powerpc_ffi_darwin.c
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/!svn/ver/12335/projects/js-ctypes/trunk/js-ctypes/src/darwin/powerpc_ffi_darwin.c
+END
+x86_ffitarget.h
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/!svn/ver/12335/projects/js-ctypes/trunk/js-ctypes/src/darwin/x86_ffitarget.h
+END
+fficonfig.h
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/!svn/ver/12335/projects/js-ctypes/trunk/js-ctypes/src/darwin/fficonfig.h
+END
+prep_cif.c
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/!svn/ver/12335/projects/js-ctypes/trunk/js-ctypes/src/darwin/prep_cif.c
+END
+powerpc_ffitarget.h
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/!svn/ver/12335/projects/js-ctypes/trunk/js-ctypes/src/darwin/powerpc_ffitarget.h
+END
+ffitarget.h
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/!svn/ver/12335/projects/js-ctypes/trunk/js-ctypes/src/darwin/ffitarget.h
+END
+types.c
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/!svn/ver/12335/projects/js-ctypes/trunk/js-ctypes/src/darwin/types.c
+END
+Makefile.in
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/!svn/ver/12335/projects/js-ctypes/trunk/js-ctypes/src/darwin/Makefile.in
+END
+ffi.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/!svn/ver/12335/projects/js-ctypes/trunk/js-ctypes/src/darwin/ffi.h
+END
+x86_ffi_darwin.c
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/!svn/ver/12335/projects/js-ctypes/trunk/js-ctypes/src/darwin/x86_ffi_darwin.c
+END

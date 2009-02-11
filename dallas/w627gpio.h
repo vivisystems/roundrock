@@ -1,0 +1,40 @@
+#ifndef __W627UHG_H__
+#define __W627UHG_H__
+
+#define SUPERIO_CONFIG_PORT 0x2e
+//#define GPIO_IO_REG 0xe0
+//#define GPIO_DATA_REG 0xe1
+
+typedef enum {GPIO_10,GPIO_11,GPIO_12,GPIO_13,GPIO_20, GPIO_21, GPIO_22, GPIO_23, GPIO_24, GPIO_25, GPIO_26, GPIO_27, GPIO_50, GPIO_51,GPIO_52, GPIO_53, GPIO_54, GPIO_55, GPIO_56, GPIO_57} GPIO_TYPE;  //GPIO_10  11 12  13  ping 3 for in   ping 7 out connect to ground  for vivipos      
+
+unsigned char GPIO_IO_REG[20] = {0xf0,0xf0,0xf0,0xf0,0xe4,0xe4,0xe4,0xe4,0xe4,0xe4,0xe4,0xe4,0xe0,0xe0,0xe0,0xe0,0xe0,0xe0,0xe0,0xe0}; //0xf0 x4  //  index for access 
+unsigned char GPIO_DATA_REG[20] =  {0xf1,0xf1,0xf1,0xf1,0xe5,0xe5,0xe5,0xe5,0xe5,0xe5,0xe5,0xe5,0xe1,0xe1,0xe1,0xe1,0xe1,0xe1,0xe1,0xe1};  //0xf1 x4   access data
+
+// #define GPIO_LOGICIAL_DEVICE 0x09
+unsigned char GPIO_LOGICIAL_DEVICE[20] = {0x07,0x07,0x07,0x07,0x09,0x09,0x09,0x09,0x09,0x09,0x09,0x09,0x08,0x08,0x08,0x08,0x08,0x08,0x08,0x08} ;  //0x07  x4
+// #define GPIO_ACTIVE 0x02
+unsigned char GPIO_ACTIVE[20] = {0x01,0x01,0x01,0x01,0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02} ;   //0x01 x4
+
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+inline void SetGPIO(GPIO_TYPE pin, unsigned char high_low);
+inline void SetForwardDirection(GPIO_TYPE pin);
+inline void SetBackwardDirection(GPIO_TYPE pin);
+inline void GetGPIO(GPIO_TYPE pin, unsigned char *gpio_state);
+void pgW627(GPIO_TYPE pin);
+void Set_Logical_Device(GPIO_TYPE pin);
+inline void Superio_Get_Reg(unsigned char reg_index, unsigned char *reg_value);
+inline void Superio_Set_Reg(unsigned char reg_index, unsigned char reg_value);
+void Superio_Enter_Config();
+void Superio_Exit_Config();
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif
+
+

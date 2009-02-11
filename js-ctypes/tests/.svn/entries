@@ -1,0 +1,46 @@
+8
+
+dir
+19431
+http://svn.mozilla.org/projects/js-ctypes/trunk/js-ctypes/tests
+http://svn.mozilla.org
+
+
+
+2008-04-30T19:32:10.681537Z
+12717
+mfinkle@mozilla.com
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+4eb1ac78-321c-0410-a911-ec516a8615a5
+
+unit
+dir
+
+Makefile.in
+file
+
+
+
+
+2008-08-27T11:18:39.000000Z
+d991b39607c4b1950dedc766a5a85ffb
+2008-04-16T01:37:03.500028Z
+12271
+mfinkle@mozilla.com
+
+js-ctypes-test
+dir
+

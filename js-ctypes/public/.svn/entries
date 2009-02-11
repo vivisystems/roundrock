@@ -1,0 +1,52 @@
+8
+
+dir
+19431
+http://svn.mozilla.org/projects/js-ctypes/trunk/js-ctypes/public
+http://svn.mozilla.org
+
+
+
+2008-04-30T19:32:10.681537Z
+12717
+mfinkle@mozilla.com
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+4eb1ac78-321c-0410-a911-ec516a8615a5
+
+Makefile.in
+file
+
+
+
+
+2008-08-27T11:18:43.000000Z
+d3520b1bc5da4f58fe45b4ca5b7e9d8c
+2008-04-16T01:37:03.500028Z
+12271
+mfinkle@mozilla.com
+
+nsINativeTypes.idl
+file
+
+
+
+
+2008-08-27T11:18:43.000000Z
+729a12a886afefd21045e47fcd8d1f29
+2008-04-30T19:32:10.681537Z
+12717
+mfinkle@mozilla.com
+

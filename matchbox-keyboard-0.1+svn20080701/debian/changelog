@@ -1,0 +1,16 @@
+matchbox-keyboard (0.1+svn20080701-0ubuntu1) intrepid; urgency=low
+
+  * Update to a newer SVN snapshot.
+  * Add sharutils, autoconf, automake and libtool to Build-Depends.
+  * Add ubuntu-mobile patches from the PPA.
+    - Support background images.
+    - Change the keyboard XML layouts.
+    - Include images, uuencoded in debian/.
+
+ -- Steve Kowalik <stevenk@ubuntu.com>  Thu, 03 Jul 2008 12:11:23 +1000
+
+matchbox-keyboard (0.1-1) unstable; urgency=low
+
+  * Initial release.  Closes: #321077.
+
+ -- Moray Allan <moray@debian.org>  Sat, 15 Apr 2006 18:25:17 +0100

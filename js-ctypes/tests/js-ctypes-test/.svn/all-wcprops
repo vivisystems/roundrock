@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/!svn/ver/12717/projects/js-ctypes/trunk/js-ctypes/tests/js-ctypes-test
+END
+js-ctypes-test.h
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/!svn/ver/12717/projects/js-ctypes/trunk/js-ctypes/tests/js-ctypes-test/js-ctypes-test.h
+END
+Makefile.in
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/!svn/ver/12271/projects/js-ctypes/trunk/js-ctypes/tests/js-ctypes-test/Makefile.in
+END
+js-ctypes-test.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/!svn/ver/12717/projects/js-ctypes/trunk/js-ctypes/tests/js-ctypes-test/js-ctypes-test.cpp
+END

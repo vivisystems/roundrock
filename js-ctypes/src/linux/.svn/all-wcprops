@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/!svn/ver/12271/projects/js-ctypes/trunk/js-ctypes/src/linux
+END
+unix64.S
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/!svn/ver/6849/projects/js-ctypes/trunk/js-ctypes/src/linux/unix64.S
+END
+sysv.s
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/!svn/ver/6849/projects/js-ctypes/trunk/js-ctypes/src/linux/sysv.s
+END
+ffi_common.h
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/!svn/ver/6849/projects/js-ctypes/trunk/js-ctypes/src/linux/ffi_common.h
+END
+ffi.c
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/!svn/ver/6849/projects/js-ctypes/trunk/js-ctypes/src/linux/ffi.c
+END
+ffi64.c
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/!svn/ver/6849/projects/js-ctypes/trunk/js-ctypes/src/linux/ffi64.c
+END
+fficonfig.h
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/!svn/ver/6849/projects/js-ctypes/trunk/js-ctypes/src/linux/fficonfig.h
+END
+README
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/!svn/ver/9734/projects/js-ctypes/trunk/js-ctypes/src/linux/README
+END
+prep_cif.c
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/!svn/ver/6849/projects/js-ctypes/trunk/js-ctypes/src/linux/prep_cif.c
+END
+win32.S
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/!svn/ver/6849/projects/js-ctypes/trunk/js-ctypes/src/linux/win32.S
+END
+ffitarget.h
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/!svn/ver/6849/projects/js-ctypes/trunk/js-ctypes/src/linux/ffitarget.h
+END
+types.c
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/!svn/ver/6849/projects/js-ctypes/trunk/js-ctypes/src/linux/types.c
+END
+Makefile.in
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/!svn/ver/12271/projects/js-ctypes/trunk/js-ctypes/src/linux/Makefile.in
+END
+ffi.h
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/!svn/ver/6849/projects/js-ctypes/trunk/js-ctypes/src/linux/ffi.h
+END

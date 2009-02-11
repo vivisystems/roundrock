@@ -1,0 +1,1375 @@
+diff -Nur -x '*.orig' -x '*~' matchbox-keyboard/layouts/keyboard-extended.xml matchbox-keyboard.new/layouts/keyboard-extended.xml
+--- matchbox-keyboard/layouts/keyboard-extended.xml	2008-07-01 17:14:14.000000000 +1000
++++ matchbox-keyboard.new/layouts/keyboard-extended.xml	2008-07-02 13:29:58.000000000 +1000
+@@ -9,7 +9,7 @@
+ -->
+ </options>
+ 
+-<layout id="name">
++<layout id="name" colorbackground="#808080" >
+ 
+ <!--
+   <row>
+@@ -33,6 +33,67 @@
+     <key fill="true">
+ 	  <default display="Esc" action="escape" />
+     </key>
++
++    <space width="1000" />
++    <key >
++	  <default display="F1" action="f1"/>
++    </key>
++    <key >
++	  <default display="F2" action="f2"/>
++    </key>
++    <key >
++	  <default display="F3" action="f3"/>
++    </key>
++    <key >
++	  <default display="F4" action="f4"/>
++    </key>
++    <space width="100" />
++    <key >
++	  <default display="F5" action="f5"/>
++    </key>
++    <key >
++	  <default display="F6" action="f6"/>
++    </key>
++    <key >
++	  <default display="F7" action="f7"/>
++    </key>
++    <key >
++	  <default display="F8" action="f8"/>
++    </key>
++    <space width="100" />
++    <key >
++	  <default display="F9" action="f9"/>
++    </key>
++    <key >
++	  <default display="F10" action="f10"/>
++    </key>
++    <key >
++	  <default display="F11" action="f11"/>
++    </key>
++    <key >
++	  <default display="F12" action="f12"/>
++    </key>
++
++    <space width="400" />
++
++    <key width="2000">
++	  <default display="PrSc" action="sysreq"/>
++    </key>
++    <key width="2000">
++	  <default display="ScLk" action="scrolllock"/>
++    </key>
++    <key width="2000">
++	  <default display="Paus" action="pause"/>
++    </key>
++    <space width="7300" />
++
++    <key width="1000">
++         <default display="image:/usr/share/pixmaps/close.png" 
++	          action="close"/>
++    </key>
++  </row>
++
++  <row>
+     <key>
+ 	  <default display="`" />
+     </key>
+@@ -89,15 +150,32 @@
+ 	  <default display="Bksp" action="backspace"/>
+     </key>
+ 
+-    <space width="500" />
++    <space width="100" />
+ 
+-    <key width="4000">
+-	  <default display="Home" />
++    <key width="2000">
++	  <default display="Inst" action="insert"/>
++    </key>
++    <key width="2000">
++	  <default display="Home" action="home"/>
+     </key>
+-    <key width="4000">
+-	  <default display="PgUp" />
++    <key width="2000">
++	  <default display="PgUp" action="pageup"/>
+     </key>
+ 
++    <space width="100" />
++
++    <key>              
++	  <default display="" colorbackground="#000000"/>
++    </key>
++    <key>              
++	  <default display="/" colorbackground="#000000"/>
++    </key>
++    <key>              
++	  <default display="*" colorbackground="#000000"/>
++    </key>
++    <key>              
++	  <default display="-" colorbackground="#000000"/>
++    </key>
+ 
+   </row>
+ 
+@@ -146,32 +224,46 @@
+ 	  <shifted display="P" />
+     </key>
+     <key>
+-	  <default display="{" />                
+-	  <shifted display="[" />
++	  <default display="[" />                
++	  <shifted display="{" />
+     </key>
+     <key>
+-	  <default display="}" />                
+-	  <shifted display="]" />
++	  <default display="]" />                
++	  <shifted display="}" />
+     </key>
+     <key fill="true">
+ 	  <default display="\" />                
+ 	  <shifted display="|" />
+     </key>
+ 
+-    <space width="500" />
++    <space width="100" />
+ 
+-    <key width="4000">
+-	  <default display="End" />
++    <key width="2000">
++	  <default display="Del" action="delete"/>
+     </key>
+-    <key width="4000">
+-	  <default display="PgDn" />
++    <key width="2000">
++	  <default display="End" action="end"/>
++    </key>
++    <key width="2000">
++	  <default display="PgDn" action="pagedown"/>
++    </key>
++    <space width="100" />
++    <key>
++	  <default display="7" colorbackground="#000000" />
++    </key>
++    <key>
++	  <default display="8" colorbackground="#000000"/>
++    </key>
++    <key>
++	  <default display="9" colorbackground="#000000"/>
++    </key>
++    <key>              
++	  <default display="+" colorbackground="#000000"/>
+     </key>
+-
+-
+   </row>
+   <row>
+     <key fill="true">
+-	  <default display="Caps" action="modifier:caps"/>                
++	  <default display="Caps" colorbackground="#000000" action="modifier:caps"/>                
+     </key>
+     <key obey-caps='true'>
+ 	  <default display="a" />                
+@@ -209,33 +301,41 @@
+ 	  <default display="l" />                
+ 	  <shifted display="L" />
+     </key>
+-    <key>
+-	  <default display=":" />                
+-	  <shifted display=";" />
++    <key obey-caps='true'>
++	  <default display=";" />                
++	  <shifted display=":" />
+     </key>
+-    <key>
++    <key obey-caps='true'>
+ 	  <default display="#" />                
+ 	  <shifted display="~" />
+     </key>
+     <key fill="true">
+-	  <default display="Ret" action="return"/>
++	  <default display="Enter" colorbackground="#000000" action="return"/>
+     </key>
+ 
+-    <space width="500" />
+-
+-    <key width="4000">
+-	  <default display="Del" />
++    <space width="100" />
++    <space width="2000" />
++    <space width="2000" />
++    <space width="2000" />
++    <space width="100" />
++    <key>
++	  <default display="4" colorbackground="#000000"/>
+     </key>
+-    <key width="4000">
+-	  <default display="XXX" />
++    <key>
++	  <default display="5" colorbackground="#000000"/>
++    </key>
++    <key>
++	  <default display="6" colorbackground="#000000"/>
++    </key>
++    <key>
++	  <default display="@" colorbackground="#000000"/>                
+     </key>
+-
+ 
+   </row>
+   <row>
+ 
+     <key fill="true">
+-	  <default display="Shift" action="modifier:shift"/>                
++	  <default display="Shift" colorbackground="#000000" action="modifier:shift"/>                
+     </key>
+ 
+     <key obey-caps='true'>
+@@ -274,7 +374,7 @@
+     </key>
+ 
+     <key>
+-	  <default display="." />                
++	  <default display="," />                
+ 	  <shifted display="&lt;" />
+     </key>
+     <key>
+@@ -282,64 +382,84 @@
+ 	  <shifted display="&gt;" />
+     </key>
+     <key>
+-	  <default display="?" />                
+-	  <shifted display="/" />
++	  <default display="/" />                
++	  <shifted display="?" />
+     </key>
+ 
+ 
+     <key fill="true">
+-	  <default display="Shift" action="modifier:shift"/>                
++	  <default display="Shift" colorbackground="#000000" action="modifier:shift"/>                
+     </key>
+ 
+-    <space width="500" />
+-
+-    <key width="4000">
+-	  <default display="Inst" />
++    <space width="100" />
++    <space width="2000" />
++    <key width="2000">
++	  <default display="^" colorbackground="#000000" action="up" />                
+     </key>
+-    <key width="4000">
+-	  <default display="Pase" />
++    <space width="2000" />
++    <space width="100" />
++    <key>
++	  <default display="1" colorbackground="#000000"/>                
++    </key>
++    <key>
++	  <default display="2" colorbackground="#000000"/>                
++    </key>
++    <key>
++	  <default display="3" colorbackground="#000000"/>               
++    </key>
++    <key>
++	  <default display="" colorbackground="#000000"/>               
+     </key>
+-
+-
+  </row>
+   <row>
++    <key fill="true">
++	  <default display="Ctrl" colorbackground="#000000" action="modifier:ctrl"/>                
++    </key>
+     <key>
+-	  <default display="aeo" action="modifier:mod1"/>                
++	  <default display="" colorbackground="#000000"/>                
++    </key>
++    <key fill="true">
++	  <default display="Alt" colorbackground="#000000" action="modifier:alt"/>                
+     </key>
+ 
++    <key fill="true" width="18000">
++	  <default display=" " action="space" />                
++    </key>
++    <key fill="true">
++	  <default display="Alt" colorbackground="#000000" action="modifier:alt"/>                
++    </key>
+     <key>
+-	  <default display="Ctrl" action="modifier:ctrl"/>                
++	  <default display="" colorbackground="#000000"/>                
+     </key>
+-
+     <key>
+-	  <default display="Alt" action="modifier:alt"/>                
++	  <default display="" colorbackground="#000000"/>                
++    </key>
++    <key fill="true">
++	  <default display="Ctrl" colorbackground="#000000" action="modifier:ctrl"/>                
+     </key>
+ 
++    <space width="100" />
+ 
+-    <key width="14000">
+-	  <default display=" " action="space" />                
++    <key width="2000">
++	  <default display="&lt;" colorbackground="#000000" action="left" />                
+     </key>
+-
+-    <key>
+-	  <default display="@" />                
+-	  <shifted display="'" />
++    <key width="2000">
++	  <default display="V" colorbackground="#000000" action="down" />                
+     </key>
+-
+-    <key>
+-	  <default display="^" action="up" />                
++    <key width="2000">
++	  <default display="&gt;" colorbackground="#000000" action="right" />                
+     </key>
+-    <key>
+-	  <default display="^" action="down" />                
++    <space width="100" />
++    <key >
++	  <default display="0" colorbackground="#000000"/>
+     </key>
+     <key>
+-	  <default display="&lt;" action="left" />                
++	  <default display="." colorbackground="#000000"/>
+     </key>
+-    <key>
+-	  <default display="&gt;" action="right" />                
++    <key fill="true">
++	  <default display="Enter" colorbackground="#000000" action="return"/>
+     </key>
+ 
+-    <space width="8500" />
+-
+ </row>
+ 
+ </layout>
+diff -Nur -x '*.orig' -x '*~' matchbox-keyboard/layouts/keyboard-simple.xml matchbox-keyboard.new/layouts/keyboard-simple.xml
+--- matchbox-keyboard/layouts/keyboard-simple.xml	1970-01-01 10:00:00.000000000 +1000
++++ matchbox-keyboard.new/layouts/keyboard-simple.xml	2008-07-02 13:29:58.000000000 +1000
+@@ -0,0 +1,256 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<keyboard>
++
++<options>
++<!-- not yet implemented -->
++</options>
++
++<layout id="sample keyboard">
++
++<!--
++  <row>
++     <key>
++	  <default display="ヂ" />                
++    </key>
++    <key>
++	  <default display="Ӫ" />                
++    </key>
++    <key width="1500">
++	  <default display="Ω" />                
++    </key>
++    <space width="1500" />
++    <key fill="true">
++	  <default display="⠿" />                
++    </key>
++  </row>
++-->
++
++
++  <row>
++     <key obey-caps='true'>
++	  <default display="a" />                
++	  <shifted display="A" />
++    </key>
++    <key obey-caps='true'>
++	  <default display="b" />                
++	  <shifted display="B" />
++    </key>
++    <key obey-caps='true'>
++	  <default    display="c" />                
++	  <shifted display="C" />
++    </key>
++    <key obey-caps='true'>
++	  <default display="d" />                
++	  <shifted display="D" />
++    </key>
++    <key obey-caps='true'>
++	  <default display="e" />                
++	  <shifted display="E" />
++    </key>
++    <key obey-caps='true'>
++	  <default display="f" />                
++	  <shifted display="F" />
++    </key>
++    <key obey-caps='true'>
++	  <default display="g" />                
++	  <shifted display="G" />
++    </key>
++    <key obey-caps='true'>
++	  <default display="h" />                
++	  <shifted display="H" />
++    </key>
++    <key obey-caps='true'>
++	  <default display="i" />                
++	  <shifted display="I" />
++    </key>
++    <key obey-caps='true'>
++	  <default display="j" />                
++	  <shifted display="J" />
++    </key>
++    <key obey-caps='true'>
++	  <default display="k" />                
++	  <shifted display="K" />
++    </key>
++    <key obey-caps='true'>
++	  <default display="l" />                
++	  <shifted display="L" />
++    </key>
++    <key obey-caps='true'>
++	  <default    display="n" />                
++	  <shifted display="N" />
++    </key>
++    <key obey-caps='true'>
++	  <default display="m" />                
++	  <shifted display="M" />
++    </key>
++    <key obey-caps='true'>
++	  <default display="o" />                
++	  <shifted display="O" />
++    </key>
++    <key obey-caps='true'>
++	  <default display="p" />                
++	  <shifted display="P" />
++    </key>
++    <key obey-caps='true'>
++	  <default display="q" />                
++	  <shifted display="Q" />
++    </key>
++    <key obey-caps='true'>
++	  <default display="r" />                
++	  <shifted display="R" />
++    </key>
++    <key obey-caps='true'>
++	  <default display="s" />                
++	  <shifted display="S" />
++    </key>
++    <key obey-caps='true'>
++	  <default display="t" />                
++	  <shifted display="T" />
++  </key>
++    <key obey-caps='true'>
++	  <default display="u" />                
++	  <shifted display="U" />
++  </key>
++    <key obey-caps='true'>
++	  <default display="v" />                
++	  <shifted display="V" />
++    </key>
++    <key obey-caps='true'>
++	  <default display="w" />                
++	  <shifted display="W" />
++    </key>
++    <key obey-caps='true'>
++	  <default display="x" />                
++	  <shifted display="X" />
++    </key>
++    <key obey-caps='true'>
++	  <default display="y" />                
++	  <shifted display="Y" />
++    </key>
++    <key obey-caps='true'>
++	  <default display="z" />                
++	  <shifted display="Z" />
++    </key>
++    <key width="2000"  extended="true">
++	  <default display="Bksp" colortext="#000000" colorbackground="#FFFF00" action="backspace"/>
++    </key>
++    <key width="2000"  extended="true">
++         <default display="image:/usr/share/pixmaps/close.png" 
++		  colorbackground="#FFFF00"
++	          action="close"/>
++    </key>
++</row>
++<row>
++    <key width="2000"  extended="true">
++		<default display="Shift" colortext="#000000" colorbackground="#FFFF00" action="modifier:shift"/>                
++    </key >
++    <key>
++	  <default display="1" colorbackground="#000000" colortext="#00FFFF" />                
++	  <shifted display="!" />
++    </key>
++    <key>
++	  <default display="2" colorbackground="#000000" colortext="#00FFFF" />                
++	  <shifted display='"' />
++          <mod1    display="½" />
++    </key>
++    <key>
++	  <default display="3" colorbackground="#000000" colortext="#00FFFF" />
++	  <shifted display="£" />
++          <mod1    display="¾" />               
++    </key>
++    <key>
++	  <default display="4" colorbackground="#000000" colortext="#00FFFF" />
++	  <shifted display="$" colorbackground="#000000" colortext="#00FFFF" />                
++    </key>
++    <key>
++	  <default display="5" colorbackground="#000000" colortext="#00FFFF" />
++	  <shifted display="%" colorbackground="#000000" colortext="#00FFFF" />                
++    </key>
++    <key>
++	  <default display="6" colorbackground="#000000" colortext="#00FFFF" />
++	  <shifted display="^" colorbackground="#000000" colortext="#00FFFF"  />                
++    </key>
++    <key>
++	  <default display="7" colorbackground="#000000" colortext="#00FFFF" />
++	  <shifted display="&amp;" colorbackground="#000000" colortext="#00FFFF" />                
++    </key>
++    <key>
++	  <default display="8" colorbackground="#000000" colortext="#00FFFF" />
++	  <shifted display="*" colorbackground="#000000" colortext="#00FFFF" />                
++    </key>
++    <key>
++	  <default display="9" colorbackground="#000000" colortext="#00FFFF" />
++	  <shifted display="(" colorbackground="#000000" colortext="#00FFFF" />                
++    </key>
++    <key>
++	  <default display="0" colorbackground="#000000" colortext="#00FFFF"/>
++	  <shifted display=")" colorbackground="#000000" colortext="#00FFFF"/>                
++    </key>
++
++    <key>
++	  <default display=";" />                
++	  <shifted display=":" />
++    </key>
++
++    <key>
++	  <default display="," />                
++	  <shifted display="&lt;" />
++    </key>
++    <key>
++	  <default display="." />                
++	  <shifted display="&gt;" />
++    </key>
++    <key>
++	  <default display="/" />                
++	  <shifted display="?" />
++    </key>
++    <key>
++	  <default display="`" />
++    </key>
++
++    <key >
++	  <default display="@" />                
++	  <shifted display="'" />
++    </key>
++
++
++    <key width="6400" extended="true">
++	  <default display=" " action="space" />                
++    </key>
++
++    <key>
++	  <default display="#"  />                
++	  <shifted display="~" />
++    </key>
++    <key >
++	  <default display="\" />                
++	  <shifted display="|" />
++    </key>
++
++    <key>
++	  <default display="[" />                
++	  <shifted display="{" />
++    </key>
++    <key>
++	  <default display="]" />                
++	  <shifted display="}" />
++    </key>
++
++    <key>
++	  <default display="-" />
++	  <shifted display="_" />                
++    </key>
++    <key>
++	  <default display="=" />
++	  <shifted display="+" />                
++    </key>
++    <key width="2000"  extended="true">
++	    <default display="Ret" colortext="#000000" colorbackground="#FFFF00" action="return"/>
++    </key>
++
++</row>
++
++</layout>
++
++
++</keyboard>
+diff -Nur -x '*.orig' -x '*~' matchbox-keyboard/layouts/keyboard-us.xml matchbox-keyboard.new/layouts/keyboard-us.xml
+--- matchbox-keyboard/layouts/keyboard-us.xml	2008-07-01 17:14:14.000000000 +1000
++++ matchbox-keyboard.new/layouts/keyboard-us.xml	2008-07-02 13:29:58.000000000 +1000
+@@ -33,8 +33,6 @@
+ 
+   <row>
+ 
+-    <space width="500" extended="true"/>
+-
+     <key fill="true">
+ 	  <default display="Esc" action="escape" />
+     </key>
+@@ -97,24 +95,10 @@
+ 	  <default display="Bksp" action="backspace"/>
+     </key>
+ 
+-    <space width="500" extended="true"/>
+-
+-    <key width="4000"  extended="true">
+-	  <default display="Home" action="home"/>
+-    </key>
+-    <key width="4000"  extended="true">
+-	  <default display="PgUp" action="pageup"/>
+-    </key>
+-
+-    <space width="500" extended="true"/>
+-
+-
+   </row>
+ 
+   <row>
+ 
+-    <space width="500" extended="true"/>
+-
+     <key fill="true">
+ 	  <default display="Tab" action="tab"/>                
+     </key>
+@@ -172,22 +156,9 @@
+ 	  <shifted display="|" />
+     </key>
+ 
+-    <space width="500" extended="true"/>
+-
+-    <key width="4000"  extended="true">
+-	  <default display="End" action="end"/>
+-    </key>
+-    <key width="4000"  extended="true">
+-	  <default display="PgDn" action="pagedown"/>
+-    </key>
+-
+-    <space width="500" extended="true"/>
+-
+   </row>
+   <row>
+ 
+-    <space width="500" extended="true"/>
+-
+     <key fill="true">
+ 	  <default display="Caps" action="modifier:caps"/>                
+     </key>
+@@ -239,20 +210,9 @@
+ 	  <default display="Ret" action="return"/>
+     </key>
+ 
+-    <space width="500" extended="true"/>
+-
+-    <space width="4000"  extended="true" />
+-
+-    <space width="4000"  extended="true" />
+-
+-    <space width="500" extended="true"/>
+-
+-
+   </row>
+   <row>
+-
+-    <space width="500" extended="true"/>
+-
++    
+     <key fill="true">
+ 	  <default display="Shift" action="modifier:shift"/>                
+     </key>
+@@ -310,20 +270,11 @@
+ 	  <default display="Shift" action="modifier:shift"/>                
+     </key>
+ 
+-    <space width="500" extended="true"/>
+-
+-    <space width="4000"  extended="true" />
+-
+-    <space width="4000"  extended="true" />
+-
+-    <space width="500" extended="true"/>
+-
+ 
+ 
+  </row>
+   <row>
+ 
+-    <space width="500" extended="true"/>
+ 
+     <key>
+ 	  <default display="äëö" action="modifier:mod1"/>                
+@@ -355,13 +306,6 @@
+ 	  <default display="&gt;" action="right" />                
+     </key>
+ 
+-    <space width="500" extended="true"/>
+-
+-    <space width="4000"  extended="true" />
+-
+-    <space width="4000"  extended="true" />
+-
+-    <space width="500" extended="true"/>
+ 
+ </row>
+ 
+diff -Nur -x '*.orig' -x '*~' matchbox-keyboard/layouts/keyboard.xml matchbox-keyboard.new/layouts/keyboard.xml
+--- matchbox-keyboard/layouts/keyboard.xml	2008-07-01 17:14:14.000000000 +1000
++++ matchbox-keyboard.new/layouts/keyboard.xml	2008-07-02 13:29:58.000000000 +1000
+@@ -5,225 +5,147 @@
+ <!-- not yet implemented -->
+ </options>
+ 
+-<layout id="defualt keyboard">
++<layout id="default keyboard" display="image:/usr/share/pixmaps/keyboard_bkgd.png"
++        colorbackground="#000000" colorbackground2="#628CE9"
++        stretchbackground="false" centerbackground="false" 
++        fillkeys="false" keybkgdcolor="#AEAEAE" keybkgdcolor2="#050505">
+ 
+-<!--
+   <row>
+-     <key>
+-	  <default display="ヂ" />                
+-    </key>
+-    <key>
+-	  <default display="Ӫ" />                
+-    </key>
+-    <key width="1500">
+-	  <default display="Ω" />                
+-    </key>
+-    <space width="1500" />
+-    <key fill="true">
+-	  <default display="⠿" />                
+-    </key>
+-  </row>
+--->
+-
+-  <row>
+-
+-    <space width="500" extended="true"/>
+-
+-    <key fill="true">
+-	  <default display="Esc" action="escape" />
+-    </key>
+-<!--
+-    <key>
+-      <default display="image:/usr/share/pixmaps/sync_icon.png" action="a"/>
+-    </key>  
+--->
+-    <key>
+-	  <default display="`" />
+-    </key>
+-    <key>
+-	  <default display="1" />                
+-	  <shifted display="!" />
+-    </key>
+-    <key>
+-	  <default display="2" />                
+-	  <shifted display='"' />
+-          <mod1    display="½" />
+-    </key>
+-    <key>
+-	  <default display="3" />
+-	  <shifted display="£" />
+-          <mod1    display="¾" />               
+-    </key>
+-    <key>
+-	  <default display="4" />
+-	  <shifted display="$" />                
+-    </key>
+-    <key>
+-	  <default display="5" />
+-	  <shifted display="%" />                
+-    </key>
+-    <key>
+-	  <default display="6" />
+-	  <shifted display="^" />                
+-    </key>
+-    <key>
+-	  <default display="7" />
+-	  <shifted display="&amp;" />                
+-    </key>
+-    <key>
+-	  <default display="8" />
+-	  <shifted display="*" />                
+-    </key>
+-    <key>
+-	  <default display="9" />
+-	  <shifted display="(" />                
+-    </key>
+-    <key>
+-	  <default display="0" />
+-	  <shifted display=")" />                
+-    </key>
+-    <key>
+-	  <default display="-" />
+-	  <shifted display="_" />                
+-    </key>
+-    <key>
+-	  <default display="=" />
+-	  <shifted display="+" />                
+-    </key>
+-
+-    <key fill="true">
+-	 <!-- <default display="⌫" action="backspace"/> -->
+-         <default display="Bksp" action="backspace"/>
+-    </key>
+-
+-    <space width="500" extended="true"/>
+-
+-    <key width="4000"  extended="true">
+-	  <default display="Home" action="home"/>
+-    </key>
+-    <key width="4000"  extended="true">
+-	  <default display="PgUp" action="pageup"/>
+-    </key>
+-
+-    <space width="500" extended="true"/>
+-
+-
+-  </row>
+-
+-  <row>
+-
+-    <space width="500" extended="true"/>
+-
+-    <key fill="true">
+-	  <!-- <default display="↹" action="tab"/> -->
+-          <default display="Tab" action="tab"/>
+-    </key>
+-    <key obey-caps='true'>
++    <space width="5" />
++    <key x="col1" width="3500"  extended="true">
++	  <default display="Esc" colortext="#95BFFC" action="escape" />
++    </key>
++    <space width="50"/>
++    
++    <key obey-caps="true">
+ 	  <default display="q" />                
+ 	  <shifted display="Q" />
+     </key>
+-    <key obey-caps='true'>
++    <key obey-caps="true">
+ 	  <default display="w" />                
+ 	  <shifted display="W" />
+     </key>
+-    <key obey-caps='true'>
+-	  <mod1 display="ë" />
++    <key obey-caps="true">
+ 	  <default    display="e" />                
+ 	  <shifted display="E" />
++	  <mod1 display="ë" /> 
+     </key>
+-    <key obey-caps='true'>
++    <key obey-caps="true">
+ 	  <default display="r" />                
+ 	  <shifted display="R" />
++          <mod1 display="Ë" />
+     </key>
+-    <key obey-caps='true'>
++    <key obey-caps="true">
+ 	  <default display="t" />                
+ 	  <shifted display="T" />
+     </key>
+-    <key obey-caps='true'>
++    <key obey-caps="true">
+ 	  <default display="y" />                
+ 	  <shifted display="Y" />
+     </key>
+-    <key obey-caps='true'>
++    <key obey-caps="true">
+ 	  <default display="u" />                
+ 	  <shifted display="U" />
++          <mod1 display="ü" />
+     </key>
+-    <key obey-caps='true'>
++    <key obey-caps="true">
+ 	  <default display="i" />                
+ 	  <shifted display="I" />
++          <mod1 display="Ü" />
+     </key>
+-    <key obey-caps='true'>
++    <key obey-caps="true">
+ 	  <default display="o" />                
+ 	  <shifted display="O" />
++          <mod1 display="ö" />
+     </key>
+-    <key obey-caps='true'>
++    <key obey-caps="true">
+ 	  <default display="p" />                
+ 	  <shifted display="P" />
++          <mod1 display="Ö" />
+     </key>
++    <key width="3000"  extended="true">
++	  <default display="Bksp" action="backspace"/>
++    </key>
++
++    <space width="50"/>
+     <key>
+-	  <default display="{" />                
+-	  <shifted display="[" />
++	  <default display="1" colorbackground="#000000" />
++	  <shifted display="!" />
++          <mod1 display="£" />
++          <mod2 display="¼" />
+     </key>
+     <key>
+-	  <default display="}" />                
+-	  <shifted display="]" />
++	  <default display="2" colorbackground="#000000" colortext="#FFFFFF" />
++	  <shifted display='@' />
++          <mod1 display="¢" />
++          <mod2 display="½" />
+     </key>
+-    <key fill="true">
+-	  <default display="\" />                
+-	  <shifted display="|" />
++    <key>
++	  <default display="3" colorbackground="#000000" />
++          <shifted display="#" />
++          <mod1 display="¤" />
++          <mod2 display="°" />
+     </key>
+ 
+-    <space width="500" extended="true"/>
+-
+-    <key width="4000"  extended="true">
+-	  <default display="End" action="end"/>
++    <space width="50" />
++    <key width="2800"  extended="true">
++	  <default display="PgUp" action="pageup"/>
+     </key>
+-    <key width="4000"  extended="true">
+-	  <default display="PgDn" action="pagedown"/>
++    <key width="2800"  extended="true">
++	  <default display="Home" action="home"/>
+     </key>
++  
++    <space width="800" />
+ 
+-    <space width="500" extended="true"/>
++    <key width="1000"  extended="true">
++         <default display="image:/usr/share/pixmaps/close.png" 
++	          action="close"/>
++    </key>
++    <space fill="true" />
+ 
+   </row>
+   <row>
+-
+-    <space width="500" extended="true"/>
+-
+-    <key fill="true">
+-	  <default display="Caps" action="modifier:caps"/>                
++    <space width="5" />
++    <key width="3500"  extended="true">
++	  <default display="Tab" colortext="#95BFFC" action="tab"/>
+     </key>
+-    <key obey-caps='true'>
++    <space width="50"/>
++
++    <key obey-caps="true">
+ 	  <default display="a" />                
+ 	  <shifted display="A" />
++          <mod1 display="ä" />
+     </key>
+-    <key obey-caps='true'>
++    <key obey-caps="true">
+ 	  <default display="s" />                
+ 	  <shifted display="S" />
++          <mod1 display="Ä" />
+     </key>
+-    <key obey-caps='true'>
++    <key obey-caps="true">
+ 	  <default display="d" />                
+ 	  <shifted display="D" />
+     </key>
+-    <key obey-caps='true'>
++    <key obey-caps="true">
+ 	  <default display="f" />                
+ 	  <shifted display="F" />
+     </key>
+-    <key obey-caps='true'>
++    <key obey-caps="true">
+ 	  <default display="g" />                
+ 	  <shifted display="G" />
+     </key>
+-    <key obey-caps='true'>
++    <key obey-caps="true">
+ 	  <default display="h" />                
+ 	  <shifted display="H" />
+     </key>
+-    <key obey-caps='true'>
++    <key obey-caps="true">
+ 	  <default display="j" />                
+ 	  <shifted display="J" />
+     </key>
+-    <key obey-caps='true'>
++    <key obey-caps="true">
+ 	  <default display="k" />                
+ 	  <shifted display="K" />
+     </key>
+-    <key obey-caps='true'>
++    <key obey-caps="true">
+ 	  <default display="l" />                
+ 	  <shifted display="L" />
+     </key>
+@@ -231,64 +153,85 @@
+ 	  <default display=";" />                
+ 	  <shifted display=":" />
+     </key>
++
++    <key width="3000">
++	  <default display="image:/usr/share/pixmaps/return.png"  
++                   colorbackground="#000000" action="return"/>
++    </key>
++
++    <space width="50"/>
+     <key>
+-	  <default display="#" />                
+-	  <shifted display="~" />
++	  <default display="4" colorbackground="#000000" />
++	  <shifted display="$" colorbackground="#000000" />
++          <mod1    display="¥" />
++          <mod2 display="¹" />
+     </key>
+-    <key fill="true">
+-	  <!-- <default display="◀┛" action="return"/> -->
+-          <default display="Ret" action="return"/>
++    <key>
++	  <default display="5" colorbackground="#000000" />
++	  <shifted display="%" colorbackground="#000000" />                
++          <mod1    display="§" />
++          <mod2    display="²" />
++    </key>
++    <key>
++	  <default display="6" colorbackground="#000000" />
++	  <shifted display="^" colorbackground="#000000" />                
++          <mod1    display="«" />
++          <mod2    display="³" />
+     </key>
+ 
+-    <space width="500" extended="true"/>
+-
+-    <space width="4000"  extended="true" />
++    <space width="50" />
+ 
+-    <space width="4000"  extended="true" />
++    <key width="2800"  extended="true">
++	  <default display="PgDn" action="pagedown"/>
++    </key>
++    <key width="2800"  extended="true">
++	  <default display="End" action="end"/>
++    </key>
+ 
+-    <space width="500" extended="true"/>
++    <space width="50" />
+ 
++    <space fill="true" />
+ 
+   </row>
+   <row>
++    <space width="5" />
++    <key width="3500">
++           <default display="Shift" colortext="#95BFFC" action="modifier:shift"/>
++           <shifted display="SHIFT" colortext="#FFFFFF" action="modifier:shift"/>
++    </key >
++    <space width="50" />
+ 
+-    <space width="500" extended="true"/>
+-
+-    <key fill="true">
+-	  <default display="Shift" action="modifier:shift"/>                
+-    </key>
+-
+-    <key obey-caps='true'>
++    <key obey-caps="true">
+ 	  <default display="z" />                
+ 	  <shifted display="Z" />
+     </key>
+ 
+-    <key obey-caps='true'>
++    <key obey-caps="true">
+ 	  <default display="x" />                
+ 	  <shifted display="X" />
+     </key>
+ 
+-    <key obey-caps='true'>
++    <key obey-caps="true">
+ 	  <default display="c" />                
+ 	  <shifted display="C" />
+     </key>
+ 
+-    <key obey-caps='true'>
++    <key obey-caps="true">
+ 	  <default display="v" />                
+ 	  <shifted display="V" />
+     </key>
+ 
+-    <key obey-caps='true'>
++    <key obey-caps="true">
+ 	  <default display="b" />                
+ 	  <shifted display="B" />
+     </key>
+ 
+-    <key obey-caps='true'>
++    <key obey-caps="true">
+ 	  <default display="n" />                
+ 	  <shifted display="N" />
+     </key>
+ 
+-    <key obey-caps='true'>
++    <key obey-caps="true">
+ 	  <default display="m" />                
+ 	  <shifted display="M" />
+     </key>
+@@ -302,76 +245,130 @@
+ 	  <shifted display="&gt;" />
+     </key>
+     <key>
++	  <default display="'" />
++	  <shifted display='"' />
++    </key>
++    <key >
+ 	  <default display="/" />                
+ 	  <shifted display="?" />
+     </key>
+-
+-
+-    <key fill="true">
+-	  <default display="Shift" action="modifier:shift"/>                
++    <key >
++	  <default display="\" />    
++	  <shifted display="|" />
+     </key>
+ 
+-    <space width="500" extended="true"/>
+-
+-    <space width="4000"  extended="true" />
+-
+-    <space width="4000"  extended="true" />
++    <space width="300" />
++    <key>
++	  <default display="7"     colorbackground="#000000" />
++	  <shifted display="&amp;" colorbackground="#000000" />                
++          <mod1    display="¿" />
++          <mod2 display="±" />
++    </key>
++    <key>
++	  <default display="8" colorbackground="#000000" />
++	  <shifted display="*" colorbackground="#000000" />
++          <mod1    display="" />
++          <mod2 display="µ" />
++    </key>
++    <key>
++	  <default display="9" colorbackground="#000000" />
++	  <shifted display="(" colorbackground="#000000" />
++          <mod1    display="" />
++          <mod2 display="¶" />
++    </key>
++    <space width="2550" />
+ 
+-    <space width="500" extended="true"/>
++    <key width="1000"  extended="true">
++	  <default display="image:/usr/share/pixmaps/arrow_up.png"  
++                   colorbackground="#000000" action="up"/>
++    </key>
+ 
++    <space width="2550" />
++    <key width="3000"  extended="true">
++          <default display="äëö" colorbackground="#000000" 
++                   colortext="#95BFFC" action="modifier:mod1"/>
++    </key>
+ 
+ 
++    <space fill="true" />
+  </row>
+   <row>
++    <space width="5" />
+ 
+-    <space width="500" extended="true"/>
+-
+-    <key>
+-	  <default display="äëö" action="modifier:mod1"/>                
++    <key width="3500"  >
++	  <default display="Caps" colorbackground="#000000"
++                   colortext="#95BFFC" action="modifier:caps"/>
+     </key>
+ 
+-    <key fill="true">
+-	  <default display="Ctrl" action="modifier:ctrl"/>                
+-    </key>
++    <space width="50"/>
+ 
+-    <key>
+-	  <default display="Alt" action="modifier:alt"/>                
++    <key  extended="true">
++	  <default display="Ctrl" colorbackground="#000000" 
++                   colortext="#95BFFC" action="modifier:ctrl"/>
++    </key>
++    <key  >
++	  <default display="Alt" colorbackground="#000000" 
++                   colortext="#95BFFC"  action="modifier:alt"/> 
+     </key>
+ 
++    <key width="10000" extended="true" >
++	  <default display=" " action="space" />    
++    </key>
+ 
+-    <key width="12000">
+-	  <default display=" " action="space" />                
++    <key  extended="true">
++	  <default display="`" />
++	  <shifted display="~" />
+     </key>
+ 
+     <key>
+-	  <default display="@" />                
+-	  <shifted display="'" />
++	  <default display="[" />    
++	  <shifted display="{" />
+     </key>
+-
+     <key>
+-	  <default display="↑" action="up" />                
++	  <default display="]" />    
++	  <shifted display="}" />
+     </key>
++    
++    <space width= "800" />
++
+     <key>
+-	  <default display="↓" action="down" />                
++	  <default display="0" colorbackground="#000000" />
++	  <shifted display=")" colorbackground="#000000" />    
++	  <mod2    display="»" />
+     </key>
+     <key>
+-	  <default display="←" action="left" />                
++	  <default display="-" colorbackground="#000000" />
++	  <shifted display="_" colorbackground="#000000" />    
++          <mod2 display="©" />
+     </key>
+     <key>
+-	  <default display="→" action="right" />                
++	  <default display="=" colorbackground="#000000" />
++	  <shifted display="+" colorbackground="#000000" />   
++	  <mod2    display="®" />
+     </key>
+ 
+-    <space width="500" extended="true"/>
+-
+-    <space width="4000"  extended="true" />
+-
+-    <space width="4000"  extended="true" />
++    <space width="800" />
++    <key width="1000"  extended="true">
++	  <default display="image:/usr/share/pixmaps/arrow_left.png"  
++                   colorbackground="#000000" action="left"/>
++    </key>
++    <key width="1000"  extended="true">
++	  <default display="image:/usr/share/pixmaps/arrow_down.png"  
++                   colorbackground="#000000" action="down"/>
++    </key>
++    <key width="1000"  extended="true">
++	  <default display="image:/usr/share/pixmaps/arrow_right.png"  
++                   colorbackground="#000000" action="right"/>
++    </key>
+ 
+-    <space width="500" extended="true"/>
++    <space width="800" />
++    <key width="3000"  extended="true">
++          <default display="sym" colorbackground="#000000" 
++                   colortext="#95BFFC" action="modifier:mod2"/>
++    </key>
+ 
++    <space fill="true" />
+ </row>
+-
+ </layout>
+-
+-
+ </keyboard>
++
+diff -Nur -x '*.orig' -x '*~' matchbox-keyboard/layouts/Makefile.am matchbox-keyboard.new/layouts/Makefile.am
+--- matchbox-keyboard/layouts/Makefile.am	2008-07-01 17:14:14.000000000 +1000
++++ matchbox-keyboard.new/layouts/Makefile.am	2008-07-02 13:29:58.000000000 +1000
+@@ -1,4 +1,4 @@
+ keyboardsdir = $(datadir)/matchbox-keyboard
+ dist_keyboards_DATA = keyboard.xml keyboard-extended.xml keyboard-dvorak.xml \
+ 		      keyboard-us.xml keyboard-ru.xml keyboard-fi.xml        \
+-		      keyboard-numpad.xml
++		      keyboard-numpad.xml keyboard-simple.xml
+diff -Nur -x '*.orig' -x '*~' matchbox-keyboard/src/config-parser.c matchbox-keyboard.new/src/config-parser.c
+--- matchbox-keyboard/src/config-parser.c	2008-07-01 17:14:14.000000000 +1000
++++ matchbox-keyboard.new/src/config-parser.c	2008-07-02 13:29:58.000000000 +1000
+@@ -73,7 +73,8 @@
+  { XK_Scroll_Lock, "scrolllock" },	
+  { XK_Sys_Req,     "sysreq" },
+  { XK_Escape,      "escape" },	
+- { XK_Delete,      "delete" },	
++ { XK_Delete,      "delete" },
++ { XK_Insert,      "insert"},	
+  { XK_Home,        "home" },
+  { XK_Left,        "left" },
+  { XK_Up,          "up"   },
+@@ -86,6 +87,7 @@
+  { XK_End,         "end" },
+  { XK_Begin,	   "begin" },
+  { XK_space,        "space" },
++ { XK_Cancel,       "close" },
+  { XK_F1,          "f1" },
+  { XK_F2,          "f2" },
+  { XK_F3,          "f3" },
+diff -Nur -x '*.orig' -x '*~' matchbox-keyboard/src/matchbox-keyboard.h matchbox-keyboard.new/src/matchbox-keyboard.h
+--- matchbox-keyboard/src/matchbox-keyboard.h	2008-07-01 17:14:14.000000000 +1000
++++ matchbox-keyboard.new/src/matchbox-keyboard.h	2008-07-02 13:30:21.000000000 +1000
+@@ -41,6 +41,7 @@
+ #include <X11/Xatom.h>
+ #include <X11/Xresource.h>
+ #include <X11/keysym.h>
++#include <X11/extensions/Xrender.h>
+ 
+ #include <fakekey/fakekey.h>
+ 
+@@ -158,6 +159,7 @@
+   int                    key_border, key_pad, key_margin;
+   int                    row_spacing, col_spacing;
+   boolean                extended; /* are we showing extended keys ? */
++  boolean                exitflag; /* set exit flag */ 
+   MBKeyboardKey         *held_key;
+   MBKeyboardStateType    keys_state;
+ };
+diff -Nur -x '*.orig' -x '*~' matchbox-keyboard/src/matchbox-keyboard-key.c matchbox-keyboard.new/src/matchbox-keyboard-key.c
+--- matchbox-keyboard/src/matchbox-keyboard-key.c	2008-07-01 17:14:14.000000000 +1000
++++ matchbox-keyboard.new/src/matchbox-keyboard-key.c	2008-07-02 13:29:58.000000000 +1000
+@@ -454,6 +564,10 @@
+ 	KeySym ks;
+ 	if ((ks = mb_kbd_key_get_keysym_action(key, state)) != None)
+ 	  {
++	    if( XK_Cancel == ks)	
++            {
++               key->kbd->exitflag = True;
++            } 
+ 	    mb_kbd_ui_send_keysym_press(key->kbd->ui, ks, flags);
+ 	    mb_kbd_set_held_key(key->kbd, key);
+ 	  }

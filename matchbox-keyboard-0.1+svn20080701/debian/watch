@@ -1,0 +1,4 @@
+version=2
+
+http://projects.o-hand.com/matchbox/sources/matchbox-keyboard/0.1/matchbox-keyboard-(.*)\.tar.gz \
+	debian	uupdate

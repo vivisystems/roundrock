@@ -1,0 +1,18 @@
+Source: matchbox-keyboard
+Section: embedded
+Priority: optional
+Maintainer: Ubuntu Mobile Developers <ubuntu-mobile@lists.ubuntu.com>
+XSBC-Original-Maintainer: Moray Allan <moray@debian.org>
+Build-Depends: cdbs (>= 0.4.21), debhelper (>= 5.0.0), pkg-config, libfakekey-dev, libx11-dev, libxft-dev, libcairo2-dev, libgtk2.0-dev, sharutils, autoconf, automake, libtool
+Standards-Version: 3.6.2
+
+Package: matchbox-keyboard
+Architecture: any
+Depends: ${shlibs:Depends}
+Description: on-screen keyboard
+ Matchbox-keyboard is an on-screen 'virtual' or 'software' keyboard, designed
+ for touch-screen devices running X.
+ .
+ Matchbox is a base environment for the X Window System running on non-desktop
+ embedded platforms such as handhelds, set-top boxes, kiosks and anything else
+ for which screen space, input mechanisms or system resources are limited.

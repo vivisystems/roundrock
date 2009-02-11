@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/!svn/ver/12857/projects/js-ctypes/trunk/js-ctypes/src/xpcom
+END
+Makefile.in
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/!svn/ver/12335/projects/js-ctypes/trunk/js-ctypes/src/xpcom/Makefile.in
+END
+nsNativeTypes.h
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/!svn/ver/9734/projects/js-ctypes/trunk/js-ctypes/src/xpcom/nsNativeTypes.h
+END
+nsNativeMethod.h
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/!svn/ver/12857/projects/js-ctypes/trunk/js-ctypes/src/xpcom/nsNativeMethod.h
+END
+nsNativeTypes.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/!svn/ver/12857/projects/js-ctypes/trunk/js-ctypes/src/xpcom/nsNativeTypes.cpp
+END
+nsNativeModule.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/!svn/ver/9734/projects/js-ctypes/trunk/js-ctypes/src/xpcom/nsNativeModule.cpp
+END
+nsNativeMethod.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/!svn/ver/12857/projects/js-ctypes/trunk/js-ctypes/src/xpcom/nsNativeMethod.cpp
+END

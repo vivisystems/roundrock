@@ -1,0 +1,28 @@
+#include "nsISupports.idl"
+
+%{C++
+#include "nsStringAPI.h"
+%}
+
+/*
+ * libnotify XPCOM
+ * @author racklin@gmail.com
+ */
+[scriptable, uuid(f9911196-8164-44ee-99d3-6337cf41961e)]
+interface mozIFECNotify : nsISupports
+{
+
+  const short URGENCY_LOW         =  0;
+  const short URGENCY_NORMAL      =  1; 
+  const short URGENCY_CRITICAL    =  2;
+
+    /**
+     * notify
+     *
+     */
+  boolean notify (in AString summary, in AString body, in AString icon, in PRInt32 total_display_ms, in PRInt32 urgency);
+
+};
+
+
+

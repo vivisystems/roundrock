@@ -1,0 +1,8 @@
+patching file layouts/keyboard-extended.xml
+patching file layouts/keyboard-simple.xml
+patching file layouts/keyboard-us.xml
+patching file layouts/keyboard.xml
+patching file layouts/Makefile.am
+patching file src/config-parser.c
+patching file src/matchbox-keyboard.h
+patching file src/matchbox-keyboard-key.c

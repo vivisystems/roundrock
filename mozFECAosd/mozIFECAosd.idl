@@ -1,0 +1,28 @@
+#include "nsISupports.idl"
+
+%{C++
+#include "nsStringAPI.h"
+%}
+
+/*
+ * libaosd XPCOM
+ * @author racklin@gmail.com
+ */
+[scriptable, uuid(9ea97f11-8e68-4d70-ba0c-713f6f103b05)]
+interface mozIFECAosd : nsISupports
+{
+
+  const short TRANSPARENCY_NONE         =  0;
+  const short TRANSPARENCY_FAKE         =  1; 
+  const short TRANSPARENCY_COMPOSITE    =  2;
+
+    /**
+     * Display Text 
+     *
+     */
+    void osdText (in AString markup, in PRInt32 posX, in PRInt32 posY, in PRInt32 fade_ms, in PRInt32 total_display_ms, in PRInt32 transparency);
+
+};
+
+
+

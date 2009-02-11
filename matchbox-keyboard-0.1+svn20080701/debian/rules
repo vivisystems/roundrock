@@ -1,0 +1,14 @@
+#!/usr/bin/make -f
+include /usr/share/cdbs/1/rules/debhelper.mk
+include /usr/share/cdbs/1/class/autotools.mk
+include /usr/share/cdbs/1/rules/simple-patchsys.mk
+
+DEB_CONFIGURE_SCRIPT := ./autogen.sh
+DEB_CONFIGURE_EXTRA_FLAGS = --enable-cairo --enable-gtk-im
+
+install/matchbox-keyboard::
+	mkdir -p debian/matchbox-keyboard/usr/share/pixmaps
+	for i in debian/*.png.uue ; do \
+		j=$$(echo $$i | cut -d/ -f2 | sed 's/.uue$$//'); \
+		uudecode -o debian/matchbox-keyboard/usr/share/pixmaps/$$j $$i; \
+	done

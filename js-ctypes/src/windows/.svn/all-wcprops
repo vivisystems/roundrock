@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/!svn/ver/12271/projects/js-ctypes/trunk/js-ctypes/src/windows
+END
+win32.c
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/!svn/ver/9734/projects/js-ctypes/trunk/js-ctypes/src/windows/win32.c
+END
+ffitarget.h
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/!svn/ver/9734/projects/js-ctypes/trunk/js-ctypes/src/windows/ffitarget.h
+END
+types.c
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/!svn/ver/9734/projects/js-ctypes/trunk/js-ctypes/src/windows/types.c
+END
+ffi.c
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/!svn/ver/9734/projects/js-ctypes/trunk/js-ctypes/src/windows/ffi.c
+END
+ffi_common.h
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/!svn/ver/9734/projects/js-ctypes/trunk/js-ctypes/src/windows/ffi_common.h
+END
+Makefile.in
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/!svn/ver/12271/projects/js-ctypes/trunk/js-ctypes/src/windows/Makefile.in
+END
+README.ctypes
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/!svn/ver/9734/projects/js-ctypes/trunk/js-ctypes/src/windows/README.ctypes
+END
+ffi.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/!svn/ver/9734/projects/js-ctypes/trunk/js-ctypes/src/windows/ffi.h
+END
+fficonfig.h
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/!svn/ver/9734/projects/js-ctypes/trunk/js-ctypes/src/windows/fficonfig.h
+END
+README
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/!svn/ver/9734/projects/js-ctypes/trunk/js-ctypes/src/windows/README
+END
+prep_cif.c
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/!svn/ver/9734/projects/js-ctypes/trunk/js-ctypes/src/windows/prep_cif.c
+END
