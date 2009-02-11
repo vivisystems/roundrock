@@ -513,7 +513,7 @@
                     if (taxObject['rate_type'] == '$') {
                         included = qty * taxObject['rate'];
                     }else {
-                        included = amount * (taxObject['rate'] / 100) ;
+                        included = amount - ( amount / (100 + taxObject['rate']) * 100) ;
                     }
                     if (included > 0) taxAmount[no]['included'] = included;
                 }
