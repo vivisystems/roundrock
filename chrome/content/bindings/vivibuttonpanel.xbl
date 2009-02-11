@@ -260,7 +260,6 @@
     <method name="scrollByPages">
         <parameter name="numPages"/>
         <body><![CDATA[
-            
             this.startOffset += numPages*this.buttonCount;
 
         ]]>  
@@ -451,7 +450,7 @@
                 this.selectedCount = 1;
                 event.originalTarget.setAttribute('selected', 'true');
 
-            }else {
+            }else if (this.seltype == 'multiple') {
                 // multiple
                 if (GeckoJS.Array.inArray(this.currentIndex, this.selectedItems) == -1) {
                     this.selectedItems.push(this.currentIndex);

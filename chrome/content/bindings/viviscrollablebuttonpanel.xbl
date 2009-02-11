@@ -132,7 +132,6 @@
             <body><![CDATA[
                 var hasPrev = this.vivibuttonpanel.startOffset > 0;
                 var hasNext = (this.vivibuttonpanel.startOffset + this.vivibuttonpanel.buttonCount) < this.vivibuttonpanel.rowCount;
-                // alert((this.vivibuttonpanel.startOffset + this.vivibuttonpanel.buttonCount) + "," + this.vivibuttonpanel.rowCount +","+  hasNext);
 
                 if (hasPrev) {
                     this._scrollButtonUp.setAttribute('disabled', false);
