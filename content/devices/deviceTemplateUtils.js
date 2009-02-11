@@ -48,6 +48,20 @@
         }
 
         var _MODIFIERS = {
+            wcenter: function(str, width) {
+                if (width == null || isNaN(width) || width < 0) return str;
+                var len = str.length;
+
+                if (width < len) {
+                    str = str.substr(0, width);
+                }
+                else {
+                    var leftPaddingWidth = Math.floor((width - len) / 2);
+                    str = GeckoJS.String.padRight(GeckoJS.String.padLeft(str, leftPaddingWidth - (- len) , ' '), width, ' ');
+                }
+                return str;
+            },
+
             center: function(str, width) {
                 if (width == null || isNaN(width) || width < 0) return str;
 
@@ -64,6 +78,21 @@
                     str = GeckoJS.String.padRight(GeckoJS.String.padLeft(str, leftPaddingWidth - (- internalLength) , ' '),
                                                   leftPaddingWidth - (- internalLength) - (- rightPaddingWidth),
                                                   ' ');
+                }
+                return str;
+            },
+
+            wleft: function(str, width) {
+                if (width == null || isNaN(width)) return str;
+
+                width = Math.floor(Math.abs(width));
+                var len = str.length;
+
+                if (width < len) {
+                    str = str.substr(0, width);
+                }
+                else {
+                    str = GeckoJS.String.padRight(str, width, ' ');
                 }
                 return str;
             },
@@ -85,6 +114,21 @@
                 return str;
             },
 
+            wright: function(str, width) {
+                if (width == null || isNaN(width)) return str;
+
+                width = Math.floor(Math.abs(width));
+                var len = str.length;
+
+                if (width < len) {
+                    str = str.substr(0, width);
+                }
+                else {
+                    str = GeckoJS.String.padLeft(str, width, ' ');
+                }
+                return str;
+            },
+
             right: function(str, width) {
                 if (width == null || isNaN(width)) return str;
 
@@ -98,6 +142,18 @@
                     var leftPaddingWidth = width - convertedLength;
                     var internalLength = str.length;
                     str = GeckoJS.String.padLeft(str, internalLength + leftPaddingWidth, ' ');
+                }
+                return str;
+            },
+
+            wtruncate: function(str, width) {
+                if (width == null || isNaN(width)) return str;
+
+                width = Math.floor(Math.abs(width));
+                var len = str.length;
+
+                if (width < len) {
+                    str = str.substr(0, width);
                 }
                 return str;
             },

@@ -510,7 +510,7 @@
                 }
 
                 //this.log(GeckoJS.BaseObject.dump(data.order));
-
+                
                 result = tpl.process(data);
             }
             else {
@@ -542,6 +542,7 @@
                 }
             }
             //alert(this.dump(result));
+            //return;
             //alert(data.order.receiptPages);
             //
             // translate embedded hex codes into actual hex values

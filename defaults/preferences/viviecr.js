@@ -477,9 +477,9 @@ pref("vivipos.fec.registry.templates.guestcheck-sample-condensed-42c.label", "Sa
 pref("vivipos.fec.registry.templates.guestcheck-sample-condensed-42c.type", "guestcheck");
 pref("vivipos.fec.registry.templates.guestcheck-sample-condensed-42c.path", "chrome://viviecr/content/devices/templates/guestcheck-sample-condensed-42c.tpl");
  
-pref("vivipos.fec.registry.templates.test.label", "Test Template");
-pref("vivipos.fec.registry.templates.test.type", "receipt,guestcheck");
-pref("vivipos.fec.registry.templates.test.path", "chrome://viviecr/content/devices/templates/test.tpl");
+pref("vivipos.fec.registry.templates.label-sample-argox-203td.label", "Sample Label Argox 203TD");
+pref("vivipos.fec.registry.templates.label-sample-argox-203td.type", "receipt,guestcheck");
+pref("vivipos.fec.registry.templates.label-sample-argox-203td.path", "chrome://viviecr/content/devices/templates/label-sample-argox-203td.tpl");
 
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-24c.label", "Sample Receipt 24c condensed");
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-24c.type", "receipt");
@@ -505,6 +505,10 @@ pref("vivipos.fec.registry.ports.com4.label", "COM 4");
 pref("vivipos.fec.registry.ports.com4.type", "serial");
 pref("vivipos.fec.registry.ports.com4.path", "/dev/ttyS3");
  
+pref("vivipos.fec.registry.ports.com5.label", "COM 5");
+pref("vivipos.fec.registry.ports.com5.type", "serial");
+pref("vivipos.fec.registry.ports.com5.path", "/dev/ttyS4");
+
 pref("vivipos.fec.registry.ports.usb1.label", "USB 1");
 pref("vivipos.fec.registry.ports.usb1.type", "usb");
 pref("vivipos.fec.registry.ports.usb1.path", "/dev/ttyUSB0");
