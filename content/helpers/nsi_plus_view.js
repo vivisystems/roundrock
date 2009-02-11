@@ -30,6 +30,8 @@
 
             if(this._cateView) this.setCatePanelIndex(this._currentCateIndex);
 
+            this._prodscrollablepanel = prodscrollablepanel;
+
         },
 
         /*
@@ -76,7 +78,10 @@
             }
 
             try {
-                this.tree.invalidate();
+                //we cheat here, invoke vivibutton directly to reset to first page and refresh the buttons
+                this._prodscrollablepanel.vivibuttonpanel.startOffset = 0;
+                this._prodscrollablepanel.selectedIndex = 0;
+                this._prodscrollablepanel.vivibuttonpanel.invalidate();
             }catch(e) {}
 
 
@@ -86,7 +91,7 @@
          * FrontEnd style
          */
         renderButton: function(row, btn) {
-
+            
             var buttonColor = this.getCellValue(row,{
                 id: 'button_color'
             });

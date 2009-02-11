@@ -191,22 +191,12 @@
             // change pluview panel
             var clearBuf = GeckoJS.Configure.read("vivipos.fec.settings.ChangeDepartmentClearBuffer") || false;
             if(clearBuf) this.requestCommand('clear',null,'Cart');
-            
             this.pluPanelView.setCatePanelIndex(index);
-
-            // display first item in pluview panel
-            var prodpanel = document.getElementById('prodscrollablepanel');
-            prodpanel.selectedIndex = -1;
-            prodpanel.selectedItems = [];
-            prodpanel.ensureIndexIsVisible(0);
-
         },
 
         clickPluPanel: function(index) {
             var product = this.pluPanelView.getCurrentIndexData(index);
             var prodpanel = document.getElementById('prodscrollablepanel');
-            prodpanel.selectedIndex = -1;
-            prodpanel.selectedItems = [];
             
             return this.requestCommand('addItem',product,'Cart');
 

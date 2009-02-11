@@ -236,7 +236,7 @@
         },
 
         renderButton: function(row, btn) {
-
+            
             var buttonColor = this.getCellValue(row,{
                 id: 'button_color'
             });

@@ -27,6 +27,11 @@
     </script>
     <script type="application/x-javascript" src="chrome://viviecr/content/reportPanel.js" />
 
+    <keyset id="keyset_extensions">
+        <key id="key_enter" keycode="VK_RETURN" oncommand="document.getElementById('ok').click()"/>
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()" />
+    </keyset>
+
     <vbox flex="1" class="main-dialog">
         <vbox flex="1" class="MainPnl">
         <!-- caption label="Report Panel: "/ -->

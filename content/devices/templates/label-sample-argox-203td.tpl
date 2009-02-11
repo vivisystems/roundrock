@@ -3,17 +3,12 @@
 [&STX]f320
 {for item in order.items}
 {eval}
-  loop = [];
-  for (i = 0; i < item.current_qty; i++) loop.push(i);
   conds = GeckoJS.BaseObject.getKeys(item.condiments);
   condLimit = 3;
   if (item.memo == null || item.memo.length == 0) {
     condLimit = 4;
   }
   if (conds.length > condLimit) conds.length = condLimit;
-{/eval}
-{for index in loop}
-{eval}
   y = 50
   lineHeight = 14;
 {/eval}
@@ -31,6 +26,6 @@ y -= lineHeight;
 {if item.memo != null && item.memo.length > 0}
 1;0000100${GeckoJS.String.padLeft(y, 2, '0')}0010${'*' + item.memo|wleft:10}[&CR]
 {/if}
+Q${GeckoJS.String.padLeft(item.current_qty, 4, '0')}
 E
-{/for}
 {/for}

@@ -21,6 +21,11 @@
     </script>
     <script type="application/x-javascript" src="chrome://viviecr/content/select_checks.js" />
 
+    <keyset id="keyset_extensions">
+        <key id="key_enter" keycode="VK_RETURN" oncommand="document.getElementById('ok').click()"/>
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('cancel').click()" />
+    </keyset>
+
     <hbox flex="1" class="main-dialog">
         <vbox flex="3" class="footlogo">
             <groupbox>
