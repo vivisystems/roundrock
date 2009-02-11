@@ -33,11 +33,13 @@
                             'sum(order_payments.amount) as "Order.payment_subtotal"',
                             'order_payments.name as "Order.payment_name"',
                             'orders.transaction_created',
-                            'DATETIME("orders"."transaction_created", "unixepoch", "localtime") AS "Order.Date"',
+                            //'DATETIME("orders"."transaction_created", "unixepoch", "localtime") AS "Order.Date"',
                             'orders.id',
                             'orders.sequence',
                             'orders.status',
                             'orders.total',
+                            'orders.rounding_prices',
+                            'orders.precision_prices',
                             'orders.surcharge_subtotal',
                             'orders.discount_subtotal',
                             'orders.items_count',
@@ -66,14 +68,8 @@
             // var datas = order.find('all',{fields: fields, conditions: conditions, group2: groupby, order: orderby, recursive: 1});
             var datas = orderPayment.find('all',{fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1});
 
-            var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
-            var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
-
-
             // prepare reporting data
             var repDatas = {};
-
-            var initZero = parseFloat(0).toFixed(precision_prices);
             
             datas.forEach(function(data){
 
@@ -81,18 +77,8 @@
                 var o = data.Order;
                 o.Order = o;
 
-                o.total = GeckoJS.NumberHelper.round(o.total, precision_prices, rounding_prices) || 0;
-                o.total = o.total.toFixed(precision_prices);
-                o.surcharge_subtotal = GeckoJS.NumberHelper.round(o.surcharge_subtotal, precision_prices, rounding_prices) || 0;
-                o.surcharge_subtotal = o.surcharge_subtotal.toFixed(precision_prices);
-                o.discount_subtotal = GeckoJS.NumberHelper.round(o.discount_subtotal, precision_prices, rounding_prices) || 0;
-                o.discount_subtotal = o.discount_subtotal.toFixed(precision_prices);
-
-                o.payment_subtotal = GeckoJS.NumberHelper.round(o.payment_subtotal, precision_prices, rounding_prices) || 0;
-                o.payment_subtotal = o.payment_subtotal.toFixed(precision_prices);
-
                 if (!repDatas[oid]) {
-                    repDatas[oid] = GREUtils.extend({cash:initZero, creditcard: initZero, coupon: initZero}, o);
+                    repDatas[oid] = GREUtils.extend({cash:0, creditcard: 0, coupon: 0}, o);
                 }
 
                 repDatas[oid][o.payment_name] = o.payment_subtotal;
