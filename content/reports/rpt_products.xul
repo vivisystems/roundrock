@@ -26,26 +26,19 @@
             <caption label="&rptproducts.title;"  class="PageTitle"/>
             <!--caption label="&productsales.conditions;" / -->
             <hbox class="TopPnl">
-                <grid class="DataForm">
+                <grid class="DataForm" flex="1">
                     <columns>
-                        <column  flex="1"/><column flex="1" />
+                        <column  flex="1"/>
+                        <column flex="1" />
                     </columns>
                     <rows>
-                        <!-- row>
-                            <vbox>
-                                <label value="&productsales.startdate;" />
-                                <vividatetimepicker id="start_date" value='' type="popup" />
-                            </vbox>
-                            <vbox>
-                                <label value="&productsales.enddate;" />
-                                <vividatetimepicker id="end_date" value='' type="popup"/>
-                            </vbox>
-                        </row -->
                         <row>
-                            <vbox>
-                                <label value="Department:" />
-                                <textbox id="department" value='0010' readonly="true"/>
-                            </vbox>
+                            <label value="&rptproducts.department;" />
+                            <menulist id="department" flex="1">
+                                <menupopup id="department_menupopup"  flex="1">
+                                    <menuitem selected="true" label="&rptproducts.all;" value="all" />
+                                </menupopup>
+                            </menulist>
                         </row>
                     </rows>
                 </grid>
