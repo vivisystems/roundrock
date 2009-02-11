@@ -88,7 +88,7 @@
                     <groupbox class="DataForm">
                         <grid>
                             <columns>
-                                <column flex="1" /><column flex="1" />
+                                <column flex="1" /><column flex="1" /><column flex="1" />
                             </columns>
                             <rows>
                                 <row>

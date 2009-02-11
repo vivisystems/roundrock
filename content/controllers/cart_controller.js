@@ -1419,7 +1419,7 @@
 
             if (!inputObj) {
                 var aURL = "chrome://viviecr/content/prompt_addaccount.xul";
-                var features = "chrome,titlebar,toolbar,centerscreen,modal,width=500,height=450";
+                var features = "chrome,titlebar,toolbar,centerscreen,modal,width=500,height=500";
                 var inputObj = {
                     input0:null,
                     input1:null,

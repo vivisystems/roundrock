@@ -117,7 +117,7 @@ vividatetimepicker dropmarker {
     background: white url(images/tboxbg_readonly.png) left center repeat-x;
     -moz-appearance: none;
     min-height: 36px;
-    color: #534741;
+    color: #372213;
 }
 .ReportButton[disabled="true"] {
   -moz-appearance: none;

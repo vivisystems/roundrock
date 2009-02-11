@@ -9,10 +9,10 @@
     font-size: 14px;
     min-height: 200px;
     border: 2px solid ;
-    -moz-border-top-colors: #f3faff #f3faff;
-    -moz-border-right-colors: #f3faff #f2f2f2;
-    -moz-border-bottom-colors: #e4e4e4 #f7f7f7;
-    -moz-border-left-colors: #f6f6f6 #fff;
+    -moz-border-top-colors: #ecf7ff #ecf7ff;
+    -moz-border-right-colors: #ecf7ff #ebebeb;
+    -moz-border-bottom-colors: #d6d6d6 #f2f2f2;
+    -moz-border-left-colors: #f1f1f1 #fff;
     margin: 0px 0px 2px 0px;
     padding: 0px;
     background: transparent;
@@ -109,7 +109,7 @@
 .cartList tree {
     margin: 0px;
     border: none;
-    background: #f3faff;
+    background: #ecf7ff;
     -moz-appearance: none;
 }
 

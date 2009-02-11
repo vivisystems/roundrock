@@ -538,6 +538,16 @@ scrollbar {
 
 
 
+/*treecol, treecolpicker {
+    background: #92856a;
+    border: none;
+    border-right: 1px solid #fff;
+    -moz-border-right-colors: #fff;
+    padding: 1px 3px;
+    -moz-appearance: none;
+    color: #fff;
+}*/
+
 treechildren::-moz-tree-row {
   height: 40px;
 }

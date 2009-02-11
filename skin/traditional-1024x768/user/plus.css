@@ -212,3 +212,18 @@
     -moz-appearance: none;
     color: #603913;
 }
+
+#rows_filter row{
+    -moz-box-align: center;
+}
+
+
+#rows_filter label {
+    font-size: 10pt;
+    color: #736357;
+}
+
+.AdvButton{
+    padding: 4px 8px;
+    min-height: 50px;
+}
