@@ -478,7 +478,7 @@ pref("vivipos.fec.registry.templates.guestcheck-sample-condensed-42c.type", "gue
 pref("vivipos.fec.registry.templates.guestcheck-sample-condensed-42c.path", "chrome://viviecr/content/devices/templates/guestcheck-sample-condensed-42c.tpl");
  
 pref("vivipos.fec.registry.templates.label-sample-argox-203td.label", "Sample Label Argox 203TD");
-pref("vivipos.fec.registry.templates.label-sample-argox-203td.type", "receipt,guestcheck");
+pref("vivipos.fec.registry.templates.label-sample-argox-203td.type", "guestcheck");
 pref("vivipos.fec.registry.templates.label-sample-argox-203td.path", "chrome://viviecr/content/devices/templates/label-sample-argox-203td.tpl");
 
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-24c.label", "Sample Receipt 24c condensed");
