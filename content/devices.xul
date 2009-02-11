@@ -30,6 +30,7 @@
                 <tabs>
                     <tab id="receipt-tab" label="&devices.tab.receipt.label;"/>
                     <tab id="guestcheck-tab" label="&devices.tab.guestcheck.label;"/>
+                    <tab id="report-tab" label="&devices.tab.report.label;"/>
                     <tab id="vfd-tab" label="&devices.tab.vfd.label;"/>
                     <tab id="cashdrawer-tab" label="&devices.tab.cashdrawer.label;"/>
                 </tabs>
@@ -92,9 +93,12 @@
                                                 </menupopup>
                                             </menulist>
                                         </row>
+                                        <row>
+                                            <label value="&devices.receipt.autoprint.label;"/>
+                                            <textbox id="receipt-1-autoprint" value="0" size="1" default="0" type="number" min="0" max="9" name="receipt-1-autoprint" form="deviceForm"/>
+                                        </row>
                                     </rows>
                                 </grid>
-                                <checkbox id="receipt-1-autoprint" label="&devices.receipt.autoprint.label;" value="false" name="receipt-1-autoprint" form="deviceForm"/>
                             </vbox>    
                         </vbox>
                         
@@ -155,9 +159,12 @@
                                                 </menupopup>
                                             </menulist>
                                         </row>
+                                        <row>
+                                            <label value="&devices.receipt.autoprint.label;"/>
+                                            <textbox id="receipt-2-autoprint" value="0" size="1" default="0" type="number" min="0" max="9" name="receipt-2-autoprint" form="deviceForm"/>
+                                        </row>
                                     </rows>
                                 </grid>
-                                <checkbox id="receipt-2-autoprint" label="&devices.receipt.autoprint.label;" value="false" name="receipt-2-autoprint" form="deviceForm"/>
                             </vbox>    
                         </vbox>
                         
@@ -220,14 +227,17 @@
                                                 </menupopup>
                                             </menulist>
                                         </row>
+                                        <row>
+                                            <label value="&devices.guestcheck.autoprint.label;"/>
+                                            <textbox id="guestcheck-1-autoprint" value="0" size="1" default="0" type="number" min="0" max="9" name="guestcheck-1-autoprint" form="deviceForm"/>
+                                        </row>
                                     </rows>
                                 </grid>
-                                <checkbox id="guestcheck-1-autoprint" label="&devices.guestcheck.autoprint.label;" value="false" name="guestcheck-1-autoprint" form="deviceForm"/>
-                            </vbox>    
+                            </vbox>
                         </vbox>
 
                         <spacer width="10px"/>
-                        
+
                         <vbox class="SetArea" flex="1">
                             <checkbox label="&devices.guestcheck.printer.2.label;" name="guestcheck-2-enabled" value="false" default="false" form="deviceForm"/>
                             <vbox class="SubArea">
@@ -283,9 +293,124 @@
                                                 </menupopup>
                                             </menulist>
                                         </row>
+                                        <row>
+                                            <label value="&devices.guestcheck.autoprint.label;"/>
+                                            <textbox id="guestcheck-2-autoprint" value="0" size="1" default="0" type="number" min="0" max="9" name="guestcheck-2-autoprint" form="deviceForm"/>
+                                        </row>
                                     </rows>
                                 </grid>
-                                <checkbox id="guestcheck-2-autoprint" label="&devices.guestcheck.autoprint.label;" value="false" name="guestcheck-2-autoprint" form="deviceForm"/>
+                            </vbox>
+                        </vbox>
+
+                    </tabpanel>
+
+                <!-- Report configuration -->
+                    <tabpanel id="report-panel" orient="horizontal">
+                        <vbox class="SetArea" flex="1">
+                            <checkbox label="&devices.report.printer.1.label;" name="report-1-enabled" value="false" default="false" form="deviceForm"/>
+                            <vbox class="SubArea">
+                                <grid>
+                                    <columns>
+                                        <column flex="0"/>
+                                        <column flex="1"/>
+                                    </columns>
+                                    <rows>
+                                        <row>
+                                            <label value="&devices.port.label;"/>
+                                            <menulist id="report-1-port" name="report-1-port" form="deviceForm">
+                                                <menupopup id="report-1-port-popup">
+                                                </menupopup>
+                                            </menulist>
+                                        </row>
+                                        <row>
+                                            <label value="&devices.portspeed.label;"/>
+                                            <menulist id="report-1-portspeed" name="report-1-portspeed" form="deviceForm">
+                                                <menupopup id="report-1-portspeed-popup">
+                                                </menupopup>
+                                            </menulist>
+                                        </row>
+                                        <row>
+                                            <label value="&devices.handshaking.label;"/>
+                                            <menulist id="report-1-handshaking" name="report-1-handshaking" form="deviceForm">
+                                                <menupopup id="report-1-handshaking-popup">
+                                                    <menuitem label="&devices.handshaking.hardware;" value="h"/>
+                                                    <menuitem label="&devices.handshaking.xonxoff;" value="x"/>
+                                                    <menuitem label="&devices.handshaking.none;" value="n"/>
+                                                </menupopup>
+                                            </menulist>
+                                        </row>
+                                        <row>
+                                            <label value="&devices.devicemodel.label;"/>
+                                            <menulist id="report-1-devicemodel" name="report-1-devicemodel" form="deviceForm"
+                                                      oncommand="$do('updateEncodings', [this, document.getElementById('report-1-encoding'), 'report'], 'Devices')">
+                                                <menupopup id="report-1-devicemodel-popup">
+                                                </menupopup>
+                                            </menulist>
+                                        </row>
+                                        <row>
+                                            <label value="&devices.deviceencoding.label;"/>
+                                            <menulist id="report-1-encoding" name="report-1-encoding" form="deviceForm">
+                                                <menupopup id="report-1-encoding-popup">
+                                                </menupopup>
+                                            </menulist>
+                                        </row>
+                                    </rows>
+                                </grid>
+                            </vbox>    
+                        </vbox>
+
+                        <spacer width="10px"/>
+                        
+                        <vbox class="SetArea" flex="1">
+                            <checkbox label="&devices.report.printer.2.label;" name="report-2-enabled" value="false" default="false" form="deviceForm"/>
+                            <vbox class="SubArea">
+                                <grid >
+                                    <columns>
+                                        <column flex="0"/>
+                                        <column flex="1"/>
+                                    </columns>
+                                    <rows>
+                                        <row>
+                                            <label value="&devices.port.label;"/>
+                                            <menulist id="report-2-port" name="report-2-port" form="deviceForm">
+                                                <menupopup id="report-2-port-popup">
+                                                </menupopup>
+                                            </menulist>
+                                        </row>
+                                        <row>
+                                            <label value="&devices.portspeed.label;"/>
+                                            <menulist id="report-2-portspeed" name="report-2-portspeed" form="deviceForm">
+                                                <menupopup id="report-2-portspeed-popup">
+                                                </menupopup>
+                                            </menulist>
+                                        </row>
+                                        <row>
+                                            <label value="&devices.handshaking.label;"/>
+                                            <menulist id="report-2-handshaking" name="report-2-handshaking" form="deviceForm">
+                                                <menupopup id="report-2-handshaking-popup">
+                                                    <menuitem label="&devices.handshaking.hardware;" value="h"/>
+                                                    <menuitem label="&devices.handshaking.xonxoff;" value="x"/>
+                                                    <menuitem label="&devices.handshaking.none;" value="n"/>
+                                                </menupopup>
+                                            </menulist>
+                                        </row>
+                                        <row>
+                                            <label value="&devices.devicemodel.label;"/>
+                                            <menulist id="report-2-devicemodel" name="report-2-devicemodel" form="deviceForm"
+                                                      oncommand="$do('updateEncodings', [this, document.getElementById('report-2-encoding'),'report'], 'Devices')">
+                                                <menupopup id="report-2-devicemodel-popup">
+                                                </menupopup>
+                                            </menulist>
+                                        </row>
+                                        <row>
+                                            <label value="&devices.deviceencoding.label;"/>
+                                            <menulist id="report-2-encoding" name="report-2-encoding" form="deviceForm">
+                                                <menupopup id="report-2-encoding-popup">
+                                                </menupopup>
+                                            </menulist>
+                                        </row>
+                                    </rows>
+                                </grid>
                             </vbox>
                         </vbox>
                             

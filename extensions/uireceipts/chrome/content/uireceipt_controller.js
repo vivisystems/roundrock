@@ -252,7 +252,7 @@
             // first check if the target device is for us
             var data = evt.data
             var device = GeckoJS.Configure.read('vivipos.fec.settings.uniform.invoice.Device');
-            if (data.device == device) {
+            if (data != null && data.device == device) {
 
                 // next get current uniform invoice configuration
                 var marker = this.getInvoiceMarker();
@@ -314,8 +314,8 @@
         updateUIRecord: function (evt) {
             var data = evt.data
             var device = GeckoJS.Configure.read('vivipos.fec.settings.uniform.invoice.Device');
-
-            if (data.printed && data.device == device) {
+            
+            if (data.printed > 0 && data.device == device) {
 
                 this._ubn = null;
                 
