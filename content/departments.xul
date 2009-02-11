@@ -22,6 +22,11 @@
     <script type="application/x-javascript" src="chrome://viviecr/content/bootstrap.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/departments.js" />
 
+    <keyset id="keyset_extensions">
+        <key id="key_enter" keycode="VK_RETURN" oncommand="document.getElementById('ok').click()"/>
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()" />
+    </keyset>
+
     <vbox class="main-dialog" flex="1">
         <hbox flex="1" class="MainPnl">
             <vbox flex="1" pack="start" class="MainL">

@@ -403,6 +403,50 @@
                     printerEnabled = true;
                 }
 
+                // report printer 1
+                if (selectedDevices['report-1-enabled']) {
+                    var port = selectedDevices['report-1-port'];
+                    status = 0;
+                    if (ports != null && port != null && ports[port] != null && ports[port].path != null) {
+                        switch(ports[port].type) {
+                            case 'serial':
+                            case 'usb':
+                                status = this.checkSerialPort(ports[port].path);
+                                break;
+                        }
+                        statuses.push([_('Report Printer %S', [1]), ports[port].label + ' (' + ports[port].path + ')', status]);
+                    }
+                    else {
+                        if (ports != null && port!= null && ports[port] != null)
+                            statuses.push([_('Report Printer %S', [1]), ports[port].label + ' (' + ports[port].path + ')', status]);
+                        else
+                            statuses.push([_('Report Printer %S', [1]), 'unknown', status]);
+                    }
+                    printerEnabled = true;
+                }
+
+                // report printer 2
+                if (selectedDevices['report-2-enabled']) {
+                    var port = selectedDevices['report-2-port'];
+                    status = 0;
+                    if (ports != null && port != null && ports[port] != null && ports[port].path != null) {
+                        switch(ports[port].type) {
+                            case 'serial':
+                            case 'usb':
+                                status = this.checkSerialPort(ports[port].path);
+                                break;
+                        }
+                        statuses.push([_('Report Printer %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
+                    }
+                    else {
+                        if (ports != null && port!= null && ports[port] != null)
+                            statuses.push([_('Report Printer %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
+                        else
+                            statuses.push([_('Report Printer %S', [2]), 'unknown', status]);
+                    }
+                    printerEnabled = true;
+                }
+
                 // VFD 1
                 if (selectedDevices['vfd-1-enabled']) {
                     var port = selectedDevices['vfd-1-port'];
@@ -663,7 +707,7 @@
             return this._selectedDevices;
         },
 
-        // check if the device of the given type [receipt, guestcheck, vfd, cashdrawer] and number is enabled
+        // check if the device of the given type [receipt, guestcheck, report, vfd, cashdrawer] and number is enabled
         // returns:
         // -2: no devices have been configured
         // -1: printer number is invalid

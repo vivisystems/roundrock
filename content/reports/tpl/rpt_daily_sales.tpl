@@ -24,15 +24,15 @@
 {for detail in body}
                 <tr>
                     <td style="text-align: left;">${detail.terminal_no}</td>
-                    <td style="text-align: left;">${detail.Order.Date}</td>
+                    <td style="text-align: left;">${detail.transaction_created|unixTimeToLocale}</td>
                     <td>${detail.sequence}</td>
                     <td>${detail.invoice_no}</td>
-                    <td>${detail.total}</td>
-                    <td>${detail.surcharge_subtotal}</td>
-                    <td>${detail.discount_subtotal}</td>
-                    <td>${detail.cash}</td>
-                    <td>${detail.creditcard}</td>
-                    <td>${detail.coupon}</td>
+                    <td>${detail.total|round:detail.precision_prices,detail.rounding_prices|format:detail.precision_prices}</td>
+                    <td>${detail.surcharge_subtotal|round:detail.precision_prices,detail.rounding_prices|format:detail.precision_prices}</td>
+                    <td>${detail.discount_subtotal|round:detail.precision_prices,detail.rounding_prices|format:detail.precision_prices}</td>
+                    <td>${detail.cash|round:detail.precision_prices,detail.rounding_prices|format:detail.precision_prices}</td>
+                    <td>${detail.creditcard|round:detail.precision_prices,detail.rounding_prices|format:detail.precision_prices}</td>
+                    <td>${detail.coupon|round:detail.precision_prices,detail.rounding_prices|format:detail.precision_prices}</td>
                 </tr>
 {/for}
             </tbody>

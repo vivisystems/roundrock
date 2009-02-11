@@ -14,6 +14,11 @@
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/shift_changes.js" />
 
+    <keyset id="keyset_extensions">
+        <key id="key_enter" keycode="VK_RETURN" oncommand="document.getElementById('ok').click()"/>
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('cancel').click()" />
+    </keyset>
+
     <box flex="1" class="mainpanel1 pad40">
         <vbox flex="1" class="panel40">
             <hbox flex="1" class="footlogo">

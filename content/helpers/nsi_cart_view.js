@@ -64,7 +64,8 @@
 
             if (rc1 != rc2) {
                 // lazy way ? full refresh
-                this._cartList.datasource = this;
+                //this._cartList.datasource = this;
+                this.tree.rowCountChanged(this.tree.view.selection.current + 1, rc2 - rc1);
 
                 /*
                 if (jumpToLast) newIndex = rc2 - 1;
@@ -73,19 +74,18 @@
                     else newIndex = oldIndex;
                 }
                 */
-                if (newIndex < 0) newIndex = (this.data.length > 0) ? 0 : -1;
-                else if (newIndex >= this.data.length) newIndex = this.data.length - 1;
-
-                this.tree.view.selection.currentIndex = newIndex;
-                this.tree.view.selection.select(newIndex);
-                this.tree.ensureRowIsVisible(newIndex);
             }else {
                 this.tree.invalidate();
                 //this.tree.ensureRowIsVisible(oldIndex);
                 //this.tree.view.selection.currentIndex = oldIndex;
                 //this.tree.view.selection.select(oldIndex);
             }
+            if (newIndex < 0) newIndex = (this.data.length > 0) ? 0 : -1;
+            else if (newIndex >= this.data.length) newIndex = this.data.length - 1;
 
+            this.tree.view.selection.currentIndex = newIndex;
+            this.tree.view.selection.select(newIndex);
+            this.tree.ensureRowIsVisible(newIndex);
         },
 /*
         getCellText: function(row, col) {

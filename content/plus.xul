@@ -24,6 +24,11 @@
     <script type="application/x-javascript" src="chrome://viviecr/content/bootstrap.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/plus.js" />
 
+    <keyset id="keyset_extensions">
+        <key id="key_enter" keycode="VK_RETURN" oncommand="document.getElementById('ok').click()"/>
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()" />
+    </keyset>
+
     <vbox flex="1" class="main-dialog">
         <hbox flex="1" class="MainPnl">
             <vbox flex="1" class="MainL">
@@ -41,7 +46,6 @@
                                 <viviscrollablebuttonpanel dir="reverse" id="catescrollablepanel" flex="1" cols="2" rows="3" labelField="name" imageField="no"
                                            oncommand="$do('changePluPanel',this.selectedIndex, 'Plus');"
                                            class="catescrollablepanel"
-                                           validate="always"
                                            buttonClass="catbtn"
                                            scrollUpClass="ScrollUp"
                                            scrollDownClass="ScrollDown">
@@ -53,7 +57,6 @@
                                            ensureVisible="true"
                                            oncommand="$do('clickPluPanel',this.selectedIndex, 'Plus');"
                                            class="prodscrollablepanel"
-                                           validate="always"
                                            buttonClass="plubtn mediumimagebtn"
                                            scrollUpClass="ScrollUp"
                                            scrollDownClass="ScrollDown">

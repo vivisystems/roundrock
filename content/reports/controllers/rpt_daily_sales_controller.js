@@ -33,11 +33,13 @@
                             'sum(order_payments.amount) as "Order.payment_subtotal"',
                             'order_payments.name as "Order.payment_name"',
                             'orders.transaction_created',
-                            'DATETIME("orders"."transaction_created", "unixepoch", "localtime") AS "Order.Date"',
+                            //'DATETIME("orders"."transaction_created", "unixepoch", "localtime") AS "Order.Date"',
                             'orders.id',
                             'orders.sequence',
                             'orders.status',
                             'orders.total',
+                            'orders.rounding_prices',
+                            'orders.precision_prices',
                             'orders.surcharge_subtotal',
                             'orders.discount_subtotal',
                             'orders.items_count',
@@ -100,7 +102,7 @@
                 o.payment_subtotal = o.payment_subtotal.toFixed(precision_prices);
 
                 if (!repDatas[oid]) {
-                    repDatas[oid] = GREUtils.extend({cash:initZero, creditcard: initZero, coupon: initZero}, o);
+                    repDatas[oid] = GREUtils.extend({cash:0, creditcard: 0, coupon: 0}, o);
                 }
 
                 repDatas[oid][o.payment_name] = o.payment_subtotal;
