@@ -21,6 +21,8 @@
     <LINK rel="stylesheet" type="text/css" href="tpl/rpt_cash_by_clerk.css" />
 
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/template.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/template_ext.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/reports/rpt_daily_sales.js" />
   
     <vbox flex="1" class="main-dialog">

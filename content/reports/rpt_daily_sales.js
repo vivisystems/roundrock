@@ -7,9 +7,7 @@
     include('chrome://viviecr/content/models/order_receipt.js');
 
     // include controllers  and register itself
-
     include('chrome://viviecr/content/reports/controllers/rpt_daily_sales_controller.js');
-    include('chrome://viviecr/content/reports/template.js');
     include('chrome://viviecr/content/reports/controllers/components/browser_print.js');
     include('chrome://viviecr/content/reports/controllers/components/csv_export.js');
 
