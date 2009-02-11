@@ -27,7 +27,7 @@ function startup() {
 function selectImages() {
 	var no  = $('#product_no').val();
 
-    var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
+    var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/') + '/data';
     var sDstDir = datapath + "/images/original/";
     if (!sDstDir) sDstDir = '/data/images/original/';
     sDstDir = (sDstDir + '/').replace(/\/+/g,'/');
@@ -35,7 +35,7 @@ function selectImages() {
     var sPluDir = datapath + "/images/pluimages/";
     if (!sPluDir) sPluDir = '/data/images/pluimages/';
     sPluDir = (sPluDir + '/').replace(/\/+/g,'/');
-
+    
     var aURL = "chrome://viviecr/content/imageManager.xul";
     var aName = "imagePicker";
 
@@ -56,11 +56,10 @@ function selectImages() {
     }
 	var aSrcFile = aFile.replace("file://", "");
 
-
 	if (!GREUtils.File.exists(aSrcFile))
 	        return false;
 	var aDstFile = sPluDir + no + ".png";
-        
+    
     GREUtils.File.remove(aDstFile);
 	var result = GREUtils.File.copy(aSrcFile, aDstFile);
         
@@ -75,7 +74,7 @@ function selectImages() {
 function RemoveImage() {
 	var no  = $('#product_no').val();
 
-    var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
+    var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/') + '/data';
     var sPluDir = datapath + "/images/pluimages/";
     if (!sPluDir) sPluDir = '/data/images/pluimages/';
     sPluDir = (sPluDir + '/').replace(/\/+/g,'/');

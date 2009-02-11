@@ -41,7 +41,6 @@
                                 <viviscrollablebuttonpanel dir="reverse" id="catescrollablepanel" flex="1" cols="2" rows="3" labelField="name" imageField="no"
                                            oncommand="$do('changePluPanel',this.selectedIndex, 'Plus');"
                                            class="catescrollablepanel"
-                                           validate="always"
                                            buttonClass="catbtn"
                                            scrollUpClass="ScrollUp"
                                            scrollDownClass="ScrollDown">
@@ -53,7 +52,6 @@
                                            ensureVisible="true"
                                            oncommand="$do('clickPluPanel',this.selectedIndex, 'Plus');"
                                            class="prodscrollablepanel"
-                                           validate="always"
                                            buttonClass="plubtn mediumimagebtn"
                                            scrollUpClass="ScrollUp"
                                            scrollDownClass="ScrollDown">

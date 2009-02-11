@@ -226,6 +226,7 @@
             if (!sPluDir) sPluDir = '/data/images/pluimages/';
             sPluDir = (sPluDir + '/').replace(/\/+/g,'/');
             var aDstFile = sPluDir + val + ".png";
+            
             if (GREUtils.File.exists(aDstFile)) {
                 return 'file://' + aDstFile  /*+ "?"+ Math.random()*/;
 

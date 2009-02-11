@@ -599,14 +599,16 @@
                         }
 
                         var printed = 0;
-                        if (self.openSerialPort(portPath, portspeed, handshaking)) {
-                            for (var i = 0; i < copies; i++) {
-                                var len = self.writeSerialPort(portPath, encodedResult);
-                                if (len == encodedResult.length) {
-                                    printed++;
+                        if (self._device.checkSerialPort(portPath)) {
+                            if (self.openSerialPort(portPath, portspeed, handshaking)) {
+                                for (var i = 0; i < copies; i++) {
+                                    var len = self.writeSerialPort(portPath, encodedResult);
+                                    if (len == encodedResult.length) {
+                                        printed++;
+                                    }
                                 }
+                                self.closeSerialPort(portPath);
                             }
-                            self.closeSerialPort(portPath);
                         }
                         if (printed == 0) {
                             var devicemodelName = self.getDeviceModelName(devicemodel);
