@@ -1,0 +1,15 @@
+#!/bin/sh
+#
+
+#
+# execute php sync client 
+#
+cmd=${1:-help}
+pid=$$
+dir=`dirname $0`
+
+cd $dir ;
+
+#echo "pid = ${pid}"
+
+exec ${dir}/cake/console/cake sync_client ${cmd}
