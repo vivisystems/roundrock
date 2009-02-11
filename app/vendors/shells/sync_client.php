@@ -13,7 +13,7 @@ System_Daemon::setOption("authorName", "Rack Lin");
 System_Daemon::setOption("authorEmail", "racklin@gmail.com");
 System_Daemon::setOption("sysMaxExecutionTime", "0");
 System_Daemon::setOption("sysMaxInputTime", "0");
-System_Daemon::setOption("logVerbosity", System_Daemon::LOG_ERR);
+System_Daemon::setOption("logVerbosity", System_Daemon::LOG_INFO);
 
 class SyncClientShell extends Shell {
 /**
@@ -63,6 +63,12 @@ class SyncClientShell extends Shell {
 
         System_Daemon::start();
 
+        // What mode are we in?
+        $mode = "'".(System_Daemon::isInBackground() ? "" : "non-" )."daemon' mode";
+
+        // Log something using the Daemon class's logging facility
+        System_Daemon::log(System_Daemon::LOG_INFO, System_Daemon::getOption("appName")." running in ".$mode." ".$syncSettings['hostname']);
+
         // This variable gives your own code the ability to breakdown the daemon:
         $runningOkay = true;
 
@@ -80,19 +86,11 @@ class SyncClientShell extends Shell {
         // - That we're not executing more than 3 runs
         while (!System_Daemon::isDying() && $runningOkay) {
 
-            // What mode are we in?
-            $mode = "'".(System_Daemon::isInBackground() ? "" : "non-" )."daemon' mode";
-
-            // Log something using the Daemon class's logging facility
-            // System_Daemon::log(System_Daemon::LOG_INFO, System_Daemon::getOption("appName")." running in ".$mode." ".$syncSettings['hostname']);
-
             // is ok?
             $nowHour = date("H") + 0;
 
             // check starting / ending hour
             $runningOkay = ( $nowHour >= $startHour && $nowHour <= $endHour );
-
-            // System_Daemon::log(System_Daemon::LOG_INFO, "start  = " . $startHour . ",,, end  = " . $endHour);
 
             // if error retries
             $tries = 0 ;
@@ -113,12 +111,13 @@ class SyncClientShell extends Shell {
                 sleep($timeout);
             }
 
-            // System_Daemon::log(System_Daemon::LOG_INFO, "perform_sync = " . var_dump($syncResult, true)) ;
-
             // Relax the system by sleeping for a little bit
             sleep($interval);
             
         }
+
+        // Log something using the Daemon class's logging facility
+        System_Daemon::log(System_Daemon::LOG_INFO, System_Daemon::getOption("appName")." stopping ".$syncSettings['hostname']);
 
         System_Daemon::stop();
 

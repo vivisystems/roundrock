@@ -432,7 +432,9 @@ class SyncHandlerComponent extends Object {
 
             }catch(Exception $e) {
 
-                CakeLog::write('warning', 'Error saveData to ' . $dbConfig );
+                CakeLog::write('warning', 'Error saveData to ' . $dbConfig . "\n" .
+                                          '  Exception: ' . $e->getMessage() );
+
                 
                 $result[$dbConfig] = array('datasource' => $dbConfig, 'count' => 0 , 'last_synced' => 0);
 

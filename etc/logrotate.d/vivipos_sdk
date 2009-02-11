@@ -1,0 +1,8 @@
+/data/vivipos_sdk/log/*.log {
+  rotate 4
+  weekly
+  compress
+  missingok
+  notifempty
+}
+

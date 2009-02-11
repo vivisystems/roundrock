@@ -54,7 +54,7 @@
  *
  * And uncomment the App.baseUrl below:
  */
-	Configure::write('App.baseUrl', env('SCRIPT_NAME'));
+//	Configure::write('App.baseUrl', env('SCRIPT_NAME'));
 /**
  * Uncomment the define below to use CakePHP admin routes.
  *
@@ -117,7 +117,7 @@
 /**
  * The name of CakePHP's session cookie.
  */
-	Configure::write('Session.cookie', 'CAKEPHP');
+	Configure::write('Session.cookie', 'VIVISESSID');
 /**
  * Session time out time (in seconds).
  * Actual value depends on 'Security.level' setting.
@@ -126,12 +126,12 @@
 /**
  * If set to false, sessions are not automatically started.
  */
-	Configure::write('Session.start', true);
+	Configure::write('Session.start', false);
 /**
  * When set to false, HTTP_USER_AGENT will not be checked
  * in the session
  */
-	Configure::write('Session.checkAgent', true);
+	Configure::write('Session.checkAgent', false);
 /**
  * The level of CakePHP security. The session timeout time defined
  * in 'Session.timeout' is multiplied according to the settings here.
@@ -144,7 +144,7 @@
  * CakePHP session IDs are also regenerated between requests if
  * 'Security.level' is set to 'high'.
  */
-	Configure::write('Security.level', 'high');
+	Configure::write('Security.level', 'medium');
 /**
  * A random string used in security hashing methods.
  */
