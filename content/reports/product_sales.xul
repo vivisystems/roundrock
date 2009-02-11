@@ -2,8 +2,8 @@
 <!DOCTYPE overlay [
   <!ENTITY % Overlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
   %Overlay;
-  <!ENTITY % suppliers SYSTEM "chrome://viviecr/locale/reports/product_sales.dtd">
-  %suppliers;
+  <!ENTITY % product_sales SYSTEM "chrome://viviecr/locale/reports/product_sales.dtd">
+  %product_sales;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
@@ -44,6 +44,10 @@
                             <label value="Department:" />
                             <textbox id="department" value='' readonly="true" width="300"/>
                         </row -->
+                        <row>
+                            <label value="&productsales.machineid;" />
+                            <textbox id="machine_id" value='' width="300"/>
+                        </row>
                     </rows>
                 </grid>
                 <button id="execute" label="&productsales.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'ProductSales');" />
@@ -64,10 +68,10 @@
                 </groupbox>
                 <vbox>
                     <vbox class="ToolBar BarHeight">
-                        <button id="export_csv" label="&productsales.exportcsv;" disabled="true" oncommand="$do('exportCsv', null, 'ProductSales');"/>
-                        <button id="togglesize" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png">
-                            <label>&productsales.togglezoom;</label>
-                        </button>
+                        <vivibutton id="export_pdf" label="&productsales.exportpdf;" disabled="false" class="editbtns" oncommand="$do('exportPdf', null, 'ProductSales');" />
+                        <vivibutton id="export_csv" label="&productsales.exportcsv;" disabled="true" class="editbtns" oncommand="$do('exportCsv', null, 'ProductSales');" />
+
+                        <vivibutton id="togglesize" label="&productsales.togglezoom;" disabled="false" class="editbtns" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
                         <spacer flex="1" />
                     </vbox>
                     <hbox id="dialogButtons" class="dialogbtns" pack="end">

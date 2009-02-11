@@ -19,14 +19,22 @@
             var start = document.getElementById('start_date').value;
             var end = document.getElementById('end_date').value;
 
-            var start_str = document.getElementById('start_date').datetimeValue.toLocaleString();
-            var end_str = document.getElementById('end_date').datetimeValue.toLocaleString();
+//            var start_str = document.getElementById('start_date').datetimeValue.toLocaleString();
+//            var end_str = document.getElementById('end_date').datetimeValue.toLocaleString();
+            var start_str = document.getElementById('start_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
+            var end_str = document.getElementById('end_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
+
+            var machineid = document.getElementById('machine_id').value;
 
             start = parseInt(start / 1000);
             end = parseInt(end / 1000);
 
-            var fields = ['orders.transaction_created',
+            var fields = [
+                            'sum(order_payments.amount) as "Order.payment_subtotal"',
+                            'order_payments.name as "Order.payment_name"',
+                            'orders.transaction_created',
                             'DATETIME("orders"."transaction_created", "unixepoch", "localtime") AS "Order.Date"',
+                            'orders.id',
                             'orders.sequence',
                             'orders.status',
                             'orders.total',
@@ -43,21 +51,35 @@
                             "' AND orders.transaction_created<='" + end +
                             "' AND orders.status='1'";
 
-            var groupby = '"Order.Day"';
-            var orderby = 'orders.transaction_created';
+            if (machineid.length > 0) {
+                conditions += " AND orders.terminal_no LIKE '" + machineid + "%'";
+                //var groupby = 'orders.terminal_no,"Order.Date"';
+            } else {
+                //var groupby = '"Order.Date"';
+            }
+            var groupby = 'order_payments.order_id,order_payments.name';
+            var orderby = 'orders.terminal_no,orders.transaction_created,orders.id';
 
-            var order = new OrderModel();
-            var datas = order.find('all',{fields: fields, conditions: conditions, group2: groupby, order: orderby, recursive: 1});
+            // var order = new OrderModel();
+
+            var orderPayment = new OrderPaymentModel();
+            // var datas = order.find('all',{fields: fields, conditions: conditions, group2: groupby, order: orderby, recursive: 1});
+            var datas = orderPayment.find('all',{fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1});
 
             var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
             var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
 
-            datas.forEach(function(o){
-                var d = new Date();
-                d.setTime(o.starttime);
-                o.starttime = d.toString('yyyy/MM/dd HH:mm');
-                d.setTime(o.endtime);
-                o.endtime = d.toString('yyyy/MM/dd HH:mm');
+
+            // prepare reporting data
+            var repDatas = {};
+
+            var initZero = parseFloat(0).toFixed(precision_prices);
+            
+            datas.forEach(function(data){
+
+                var oid = data.Order.id;
+                var o = data.Order;
+                o.Order = o;
 
                 o.total = GeckoJS.NumberHelper.round(o.total, precision_prices, rounding_prices) || 0;
                 o.total = o.total.toFixed(precision_prices);
@@ -66,15 +88,26 @@
                 o.discount_subtotal = GeckoJS.NumberHelper.round(o.discount_subtotal, precision_prices, rounding_prices) || 0;
                 o.discount_subtotal = o.discount_subtotal.toFixed(precision_prices);
 
+                o.payment_subtotal = GeckoJS.NumberHelper.round(o.payment_subtotal, precision_prices, rounding_prices) || 0;
+                o.payment_subtotal = o.payment_subtotal.toFixed(precision_prices);
+
+                if (!repDatas[oid]) {
+                    repDatas[oid] = GREUtils.extend({cash:initZero, creditcard: initZero, coupon: initZero}, o);
+                }
+
+                repDatas[oid][o.payment_name] = o.payment_subtotal;
+
             });
 
-            this._datas = datas;
+
+            this._datas = GeckoJS.BaseObject.getValues(repDatas);
 
             var data = {
                 head: {
                     title:_('Daily Sales Report'),
-                    start_date: start,
-                    end_date: end
+                    start_time: start_str,
+                    end_time: end_str,
+                    machine_id: machineid
                 },
                 body: this._datas,
                 foot: {

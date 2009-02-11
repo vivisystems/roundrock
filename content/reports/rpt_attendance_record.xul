@@ -16,7 +16,6 @@
 
 <window id="main" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
                 xmlns:html="http://www.w3.org/1999/xhtml">
-    <LINK rel="stylesheet" type="text/css" href="tpl/rpt_cash_by_clerk.css" />
 
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/reports/rpt_attendance_record.js" />

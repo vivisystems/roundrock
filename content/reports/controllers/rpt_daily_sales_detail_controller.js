@@ -19,14 +19,15 @@
             var start = document.getElementById('start_date').value;
             var end = document.getElementById('end_date').value;
 
-            var start_str = document.getElementById('start_date').datetimeValue.toLocaleString();
-            var end_str = document.getElementById('end_date').datetimeValue.toLocaleString();
+//            var start_str = document.getElementById('start_date').datetimeValue.toLocaleString();
+//            var end_str = document.getElementById('end_date').datetimeValue.toLocaleString();
+            var start_str = document.getElementById('start_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
+            var end_str = document.getElementById('end_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
+            
+            var machineid = document.getElementById('machine_id').value;
 
             start = parseInt(start / 1000);
             end = parseInt(end / 1000);
-
-            var start_str = document.getElementById('start_date').datetimeValue.toLocaleString();
-            var end_str = document.getElementById('end_date').datetimeValue.toLocaleString();
 
             var fields = ['orders.transaction_created',
                             'DATETIME("orders"."transaction_created", "unixepoch", "localtime") AS "Order.Time"',
@@ -44,15 +45,21 @@
             var conditions = "orders.transaction_created>='" + start +
                             "' AND orders.transaction_created<='" + end +
                             "' AND orders.status='1'";
+
+            if (machineid.length > 0) {
+                conditions += " AND orders.terminal_no LIKE '" + machineid + "%'";
+            } else {
+                //
+            }
+
             var groupby = null;
-            var orderby = 'orders.transaction_created';
+            var orderby = 'orders.terminal_no,orders.transaction_created';
 
             var order = new OrderModel();
-            var datas = order.find('all',{fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1});
+            var datas = order.find('all',{fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 2});
 
             var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
             var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
-
 
             datas.forEach(function(o){
 
@@ -72,8 +79,9 @@
             var data = {
                 head: {
                     title:_('Daily Sales Report - Detail'),
-                    start_date: start,
-                    end_date: end
+                    start_time: start_str,
+                    end_time: end_str,
+                    machine_id: machineid
                 },
                 body: this._datas,
                 foot: {

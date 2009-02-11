@@ -5,4 +5,5 @@
 <!ENTITY rpthourlysales.exportpdf "Export to PDF">
 <!ENTITY rpthourlysales.exportcsv "Export to CSV">
 <!ENTITY rpthourlysales.togglezoom "Toggle Zoom">
+<!ENTITY rpthourlysales.machineid "Terminal No:">
 

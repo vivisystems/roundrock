@@ -1,8 +1,9 @@
-<!ENTITY rpthourlysales.title "Daily Sales Report - Detail">
-<!ENTITY rpthourlysales.startdate "Start Date:">
-<!ENTITY rpthourlysales.enddate "End Date:">
-<!ENTITY rpthourlysales.execute "Execute">
-<!ENTITY rpthourlysales.exportpdf "Export to PDF">
-<!ENTITY rpthourlysales.exportcsv "Export to CSV">
-<!ENTITY rpthourlysales.togglezoom "Toggle Zoom">
+<!ENTITY rptdailysalesdetail.title "Daily Sales Report - Detail">
+<!ENTITY rptdailysalesdetail.startdate "Start Date:">
+<!ENTITY rptdailysalesdetail.enddate "End Date:">
+<!ENTITY rptdailysalesdetail.execute "Execute">
+<!ENTITY rptdailysalesdetail.exportpdf "Export to PDF">
+<!ENTITY rptdailysalesdetail.exportcsv "Export to CSV">
+<!ENTITY rptdailysalesdetail.togglezoom "Toggle Zoom">
+<!ENTITY rptdailysalesdetail.machineid "Terminal No:">
 

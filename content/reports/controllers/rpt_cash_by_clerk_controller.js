@@ -1,7 +1,7 @@
 (function(){
 
     /**
-     * RptProducts Controller
+     * RptCashByClerk Controller
      */
 
     var  XUL_NS = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
@@ -11,12 +11,8 @@
 
     GeckoJS.Controller.extend( {
         name: 'RptCashByClerk',
-        components: ['BrowserPrint'],
+        components: ['BrowserPrint','CsvExport'],
 	
-        _listObj: null,
-        _listDatas: null,
-        _panelView: null,
-        _selectedIndex: 0,
         _datas: null,
 
         execute: function() {
@@ -26,8 +22,59 @@
             var start = document.getElementById('start_date').value;
             var end = document.getElementById('end_date').value;
 
-            var start_str = document.getElementById('start_date').datetimeValue.toLocaleString();
-            var end_str = document.getElementById('end_date').datetimeValue.toLocaleString();
+//            var start_str = document.getElementById('start_date').datetimeValue.toLocaleString();
+//            var end_str = document.getElementById('end_date').datetimeValue.toLocaleString();
+            var start_str = document.getElementById('start_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
+            var end_str = document.getElementById('end_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
+
+            // var machineid = document.getElementById('machine_id').value;
+
+            start = parseInt(start / 1000);
+            end = parseInt(end / 1000);
+
+            var fields = [];
+            var conditions = "shift_changes.created>='" + start +
+                            "' AND shift_changes.created<='" + end +
+                            "'";
+            /*
+            if (machineid.length > 0) {
+                conditions += " AND shift_changes.terminal_no LIKE '" + machineid + "%'";
+            } else {
+                //
+            }
+            */
+
+            var groupby;
+
+            var orderby = 'shift_changes.created';
+
+            var shiftChange = new ShiftChangeModel();
+            var datas = shiftChange.find('all',{fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: -1});
+
+
+            var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
+            var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
+
+            // text = GeckoJS.NumberHelper.round(this.data[row].amount, precision_prices, rounding_prices) || 0;
+
+            datas.forEach(function(o){
+                var d = new Date();
+                d.setTime(o.starttime);
+                o.starttime = d.toString('yyyy/MM/dd HH:mm');
+                d.setTime(o.endtime);
+                o.endtime = d.toString('yyyy/MM/dd HH:mm');
+
+                o.amount = GeckoJS.NumberHelper.round(o.amount, precision_prices, rounding_prices) || 0;
+                o.amount = o.amount.toFixed(precision_prices);
+
+                o.ShiftChangeDetail.forEach(function(k){
+                    k.amount = GeckoJS.NumberHelper.round(k.amount, precision_prices, rounding_prices) || 0;
+                    k.amount = k.amount.toFixed(precision_prices);
+                });
+            });
+            // this.log(this.dump(datas));
+
+            this._datas = datas;
 
             var data = {
                 head: {
@@ -86,35 +133,8 @@
 
             var start_str = document.getElementById('start_date').datetimeValue.toLocaleString();
             var end_str = document.getElementById('end_date').datetimeValue.toLocaleString();
-            
-            var shiftChange = new ShiftChangeModel();
-            var datas = shiftChange.find('all', {
-                fields: []
-                });
 
-            var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
-            var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
 
-            // text = GeckoJS.NumberHelper.round(this.data[row].amount, precision_prices, rounding_prices) || 0;
-
-            datas.forEach(function(o){
-                var d = new Date();
-                d.setTime(o.starttime);
-                o.starttime = d.toString('yyyy/MM/dd HH:mm');
-                d.setTime(o.endtime);
-                o.endtime = d.toString('yyyy/MM/dd HH:mm');
-
-                o.amount = GeckoJS.NumberHelper.round(o.amount, precision_prices, rounding_prices) || 0;
-                o.amount = o.amount.toFixed(precision_prices);
-
-                o.ShiftChangeDetail.forEach(function(k){
-                    k.amount = GeckoJS.NumberHelper.round(k.amount, precision_prices, rounding_prices) || 0;
-                    k.amount = k.amount.toFixed(precision_prices);
-                });
-            });
-            // this.log(this.dump(datas));
-
-            this._datas = datas;
         }
 
     });

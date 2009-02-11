@@ -19,13 +19,18 @@
             var start = document.getElementById('start_date').value;
             var end = document.getElementById('end_date').value;
 
-            var start_str = document.getElementById('start_date').datetimeValue.toLocaleString();
-            var end_str = document.getElementById('end_date').datetimeValue.toLocaleString();
+//            var start_str = document.getElementById('start_date').datetimeValue.toLocaleString();
+//            var end_str = document.getElementById('end_date').datetimeValue.toLocaleString();
+            var start_str = document.getElementById('start_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
+            var end_str = document.getElementById('end_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
+
+            var machineid = document.getElementById('machine_id').value;
 
             start = parseInt(start / 1000);
             end = parseInt(end / 1000);
 
             var fields = ['orders.transaction_created',
+                            'orders.terminal_no',
                             'orders.status',
                             'SUM("orders"."total") AS "Order.HourTotal"',
                             // 'STRFTIME("%Y-%m-%d %H","orders"."transaction_created_format") AS "Order.Hour"',
@@ -37,9 +42,15 @@
             var conditions = "orders.transaction_created>='" + start +
                             "' AND orders.transaction_created<='" + end +
                             "' AND orders.status='1'";
+            if (machineid.length > 0) {
+                conditions += " AND orders.terminal_no LIKE '" + machineid + "%'";
+                var groupby = 'orders.terminal_no,"Order.Hour"';
+            } else {
+                var groupby = '"Order.Hour"';
+            }
 
-            var groupby = '"Order.Hour"';
-            var orderby = 'orders.transaction_created';
+            
+            var orderby = 'orders.terminal_no,orders.transaction_created';
 
             var order = new OrderModel();
             var datas = order.find('all',{fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: -1});
@@ -48,16 +59,37 @@
             var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
 
             this._datas = datas;
+            var HourTotal = 0;
+            var OrderNum = 0;
+            var Guests = 0;
+            var ItemsCount = 0;
+
+            datas.forEach(function(o){
+                HourTotal += o.HourTotal;
+                OrderNum += o.OrderNum;
+                Guests += o.Guests;
+                ItemsCount += o.ItemsCount;
+
+                o.HourTotal = GeckoJS.NumberHelper.round(o.HourTotal, precision_prices, rounding_prices) || 0;
+                o.HourTotal = o.HourTotal.toFixed(precision_prices);
+            });
+
+            HourTotal = GeckoJS.NumberHelper.round(HourTotal, precision_prices, rounding_prices) || 0;
+            HourTotal = HourTotal.toFixed(precision_prices);
 
             var data = {
                 head: {
                     title:_('Hourly Sales Report'),
-                    start_date: start,
-                    end_date: end
+                    start_time: start_str,
+                    end_time: end_str,
+                    machine_id: machineid
                 },
                 body: this._datas,
                 foot: {
-                    summary: 120
+                    HourTotal: HourTotal,
+                    OrderNum : OrderNum,
+                    Guests   : Guests,
+                    ItemsCount: ItemsCount
                 }
             }
 

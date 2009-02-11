@@ -28,6 +28,14 @@
             ${head.department}
             </html:td>
         </html:tr -->
+        <html:tr>
+            <html:td>
+            Machine Id:
+            </html:td>
+            <html:td>
+            ${head.machine_id}
+            </html:td>
+        </html:tr>
     </html:table>
 
     <html:table id="body-table">

@@ -3,11 +3,12 @@
 <img src="chrome://viviecr/content/skin/images/logo.png" /><br />
 </div>
 <div id="docbody" class="paper">
- <!-- ${head.starttime} - ${head.endtime} -->
+<p align="right">${head.start_time} - ${head.end_time}</p>
         <table id="body-table">
             <caption>${head.title}</caption>
             <thead>
                 <tr>
+                    <th>Term_No.</th>
                     <th>Time</th>
                     <th>Sequence</th>
                     <th>Total</th>
@@ -18,6 +19,7 @@
             <tbody>
 {for detail in body}
                 <tr>
+                    <td style="text-align: left;">{if head.machine_id} ${detail.terminal_no} {/if}</td>
                     <td style="text-align: left;">${detail.Order.Time}</td>
                     <td>${detail.sequence}</td>
                     <td>${detail.total}</td>
@@ -27,12 +29,12 @@
 
                 <tr>
                     <td></td>
-                    <td colspan="4">
+                    <td colspan="5">
                         <table width="100%">
 {for items in detail.OrderItem}
                             <tr>
-                                <td>${items.product_no}</td>
-                                <td>${items.product_name}</td>
+                                <td style="text-align: left;">${items.product_no}</td>
+                                <td style="text-align: left;">${items.product_name}</td>
                                 <td>${items.current_price}</td>
                                 <td>${items.current_qty}</td>
                                 <td>${items.current_subtotal}</td>
@@ -45,6 +47,7 @@
             </tbody>
             <tfoot>
                 <tr>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>

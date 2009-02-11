@@ -79,6 +79,8 @@
                 return;
             }
 
+            if (!this._printSettings) this.getPrintSettings();
+
             try {
                 this._printSettings.outputFormat = Components.interfaces.nsIPrintSettings.kOutputFormatPDF;
 
@@ -94,16 +96,22 @@
         },
        
         setPaperSizeUnit: function(paperSizeUnit) {
+
+            if (!this._printSettings) this.getPrintSettings();
             this._printSettings.paperSizeUnit = 1; //kPaperSizeMillimeters;
         },
 
         setPaperSize: function(paperWidth, paperHeight) {
+
+            if (!this._printSettings) this.getPrintSettings();
             this._printSettings.paperHeight = paperHeight;
             this._printSettings.paperWidth = paperWidth;
 
         },
 
         setPaperEdge: function(edgeLeft, edgeRight, edgeTop, edgeBottom) {
+
+            if (!this._printSettings) this.getPrintSettings();
             this._printSettings.edgeLeft = edgeLeft;
             this._printSettings.edgeRight = edgeRight;
             this._printSettings.edgeTop = edgeTop;

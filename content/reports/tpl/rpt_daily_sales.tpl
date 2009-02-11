@@ -3,11 +3,12 @@
 <img src="chrome://viviecr/content/skin/images/logo.png" /><br />
 </div>
 <div id="docbody" class="paper">
- <!-- ${head.starttime} - ${head.endtime} -->
+<p align="right">${head.start_time} - ${head.end_time}</p>
         <table id="body-table">
             <caption>${head.title}</caption>
             <thead>
                 <tr>
+                    <th>Term_No.</th>
                     <th>Time</th>
                     <th>Sequence</th>
                     <th>Invoice No</th>
@@ -22,15 +23,16 @@
             <tbody>
 {for detail in body}
                 <tr>
+                    <td style="text-align: left;">${detail.terminal_no}</td>
                     <td style="text-align: left;">${detail.Order.Date}</td>
                     <td>${detail.sequence}</td>
                     <td>${detail.invoice_no}</td>
                     <td>${detail.total}</td>
                     <td>${detail.surcharge_subtotal}</td>
                     <td>${detail.discount_subtotal}</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>${detail.cash}</td>
+                    <td>${detail.creditcard}</td>
+                    <td>${detail.coupon}</td>
                 </tr>
 {/for}
             </tbody>
