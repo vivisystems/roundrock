@@ -2248,6 +2248,7 @@
 
         guestCheck: function(action) {
             // check if has buffer
+            
             var buf = this._getKeypadController().getBuffer();
             this._getKeypadController().clearBuffer();
 

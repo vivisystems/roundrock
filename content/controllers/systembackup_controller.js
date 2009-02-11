@@ -272,10 +272,10 @@
             
             if (this._dataPath == null) {
                 this.checkBackupDevices();
-                this._dataPath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/') + '/data/';
+                this._dataPath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
             }
-            this._scriptPath = this._dataPath + "scripts/"
-            this._localbackupDir = this._dataPath + "backups/";
+            this._scriptPath = this._dataPath + "/scripts/"
+            this._localbackupDir = this._dataPath + "/backups/";
             if (this._backupDir)
                 this._stickbackupDir = this._backupDir + "/";
             else

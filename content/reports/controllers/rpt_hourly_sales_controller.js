@@ -1,7 +1,7 @@
 (function(){
 
     /**
-     * RptProducts Controller
+     * RptHourlySales Controller
      */
 
     var  XUL_NS = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
@@ -10,18 +10,11 @@
     var gSavePrintSettings = false;
 
     GeckoJS.Controller.extend( {
-        name: 'RptCashByClerk',
-        components: ['BrowserPrint'],
-	
-        _listObj: null,
-        _listDatas: null,
-        _panelView: null,
-        _selectedIndex: 0,
+        name: 'RptHourlySales',
+        components: ['BrowserPrint', 'CsvExport'],
         _datas: null,
 
         execute: function() {
-            //
-            this.load();
 
             var start = document.getElementById('start_date').value;
             var end = document.getElementById('end_date').value;
@@ -29,9 +22,36 @@
             var start_str = document.getElementById('start_date').datetimeValue.toLocaleString();
             var end_str = document.getElementById('end_date').datetimeValue.toLocaleString();
 
+            start = parseInt(start / 1000);
+            end = parseInt(end / 1000);
+
+            var fields = ['orders.transaction_created',
+                            'orders.status',
+                            'SUM("orders"."total") AS "Order.HourTotal"',
+                            // 'STRFTIME("%Y-%m-%d %H","orders"."transaction_created_format") AS "Order.Hour"',
+                            'STRFTIME("%Y-%m-%d %H",DATETIME("orders"."transaction_created", "unixepoch", "localtime")) AS "Order.Hour"',
+                            'COUNT("orders"."id") AS "Order.OrderNum"',
+                            'SUM("orders"."no_of_customers") AS "Order.Guests"',
+                            'SUM("orders"."items_count") AS "Order.ItemsCount"'];
+
+            var conditions = "orders.transaction_created>='" + start +
+                            "' AND orders.transaction_created<='" + end +
+                            "' AND orders.status='1'";
+
+            var groupby = '"Order.Hour"';
+            var orderby = 'orders.transaction_created';
+
+            var order = new OrderModel();
+            var datas = order.find('all',{fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: -1});
+
+            var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
+            var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
+
+            this._datas = datas;
+
             var data = {
                 head: {
-                    title:_('Closed Cash Report'),
+                    title:_('Hourly Sales Report'),
                     start_date: start,
                     end_date: end
                 },
@@ -41,7 +61,7 @@
                 }
             }
 
-            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_cash_by_clerk.tpl");
+            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_hourly_sales.tpl");
 
             var file = GREUtils.File.getFile(path);
             var tpl = GREUtils.File.readAllBytes(file);
@@ -66,12 +86,12 @@
             this.BrowserPrint.setPaperEdge(20, 20, 20, 20);
 
             this.BrowserPrint.getWebBrowserPrint('preview_frame');
-            this.BrowserPrint.printToPdf("/var/tmp/cash_by_clerk.pdf");
+            this.BrowserPrint.printToPdf("/var/tmp/hourly_sales.pdf");
         },
 
         exportCsv: function() {
             
-            this.CsvExport.exportToCsv("/var/tmp/cash_by_clerk.csv");
+            this.CsvExport.exportToCsv("/var/tmp/hourly_sales.csv");
 
         },
 
@@ -83,38 +103,7 @@
             var end = document.getElementById('end_date').value;
             document.getElementById('start_date').value = start;
             document.getElementById('end_date').value = end;
-
-            var start_str = document.getElementById('start_date').datetimeValue.toLocaleString();
-            var end_str = document.getElementById('end_date').datetimeValue.toLocaleString();
             
-            var shiftChange = new ShiftChangeModel();
-            var datas = shiftChange.find('all', {
-                fields: []
-                });
-
-            var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
-            var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
-
-            // text = GeckoJS.NumberHelper.round(this.data[row].amount, precision_prices, rounding_prices) || 0;
-
-            datas.forEach(function(o){
-                var d = new Date();
-                d.setTime(o.starttime);
-                o.starttime = d.toString('yyyy/MM/dd HH:mm');
-                d.setTime(o.endtime);
-                o.endtime = d.toString('yyyy/MM/dd HH:mm');
-
-                o.amount = GeckoJS.NumberHelper.round(o.amount, precision_prices, rounding_prices) || 0;
-                o.amount = o.amount.toFixed(precision_prices);
-
-                o.ShiftChangeDetail.forEach(function(k){
-                    k.amount = GeckoJS.NumberHelper.round(k.amount, precision_prices, rounding_prices) || 0;
-                    k.amount = k.amount.toFixed(precision_prices);
-                });
-            });
-            // this.log(this.dump(datas));
-
-            this._datas = datas;
         }
 
     });

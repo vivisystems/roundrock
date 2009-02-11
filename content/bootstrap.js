@@ -59,6 +59,7 @@ include('chrome://viviecr/content/helpers/nsi_taxes_view.js');
 include('chrome://viviecr/content/controllers/components/barcode.js');
 include('chrome://viviecr/content/controllers/components/tax.js');
 include('chrome://viviecr/content/controllers/components/guest_check.js');
+// include('chrome://viviecr/content/controllers/components/browser_print.js');
 
 // include project controllers
 include('chrome://viviecr/content/controllers/main_controller.js');
