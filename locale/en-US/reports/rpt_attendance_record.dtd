@@ -1,0 +1,8 @@
+<!ENTITY rptattendancerecord.title "Attendance Record Report">
+<!ENTITY rptattendancerecord.startdate "Start Date:">
+<!ENTITY rptattendancerecord.enddate "End Date:">
+<!ENTITY rptattendancerecord.execute "Execute">
+<!ENTITY rptattendancerecord.exportpdf "Export to PDF">
+<!ENTITY rptattendancerecord.exportcsv "Export to CSV">
+<!ENTITY rptattendancerecord.togglezoom "Toggle Zoom">
+
