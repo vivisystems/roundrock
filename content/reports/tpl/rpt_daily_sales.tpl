@@ -23,16 +23,16 @@
             <tbody>
 {for detail in body}
                 <tr>
-                    <td style="text-align: left;">{if head.machine_id} ${detail.terminal_no} {/if}</td>
+                    <td style="text-align: left;">${detail.terminal_no}</td>
                     <td style="text-align: left;">${detail.Order.Date}</td>
                     <td>${detail.sequence}</td>
                     <td>${detail.invoice_no}</td>
                     <td>${detail.total}</td>
                     <td>${detail.surcharge_subtotal}</td>
                     <td>${detail.discount_subtotal}</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>${detail.cash}</td>
+                    <td>${detail.creditcard}</td>
+                    <td>${detail.coupon}</td>
                 </tr>
 {/for}
             </tbody>

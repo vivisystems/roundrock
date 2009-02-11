@@ -29,8 +29,12 @@
             start = parseInt(start / 1000);
             end = parseInt(end / 1000);
 
-            var fields = ['orders.transaction_created',
+            var fields = [
+                            'sum(order_payments.amount) as "Order.payment_subtotal"',
+                            'order_payments.name as "Order.payment_name"',
+                            'orders.transaction_created',
                             'DATETIME("orders"."transaction_created", "unixepoch", "localtime") AS "Order.Date"',
+                            'orders.id',
                             'orders.sequence',
                             'orders.status',
                             'orders.total',
@@ -49,21 +53,34 @@
 
             if (machineid.length > 0) {
                 conditions += " AND orders.terminal_no LIKE '" + machineid + "%'";
-                var groupby = 'orders.terminal_no,"Order.Date"';
+                //var groupby = 'orders.terminal_no,"Order.Date"';
             } else {
-                var groupby = '"Order.Date"';
+                //var groupby = '"Order.Date"';
             }
+            var groupby = 'order_payments.order_id,order_payments.name';
+            var orderby = 'orders.terminal_no,orders.transaction_created,orders.id';
 
-            var orderby = 'orders.terminal_no,orders.transaction_created';
+            // var order = new OrderModel();
 
-            var order = new OrderModel();
-            var datas = order.find('all',{fields: fields, conditions: conditions, group2: groupby, order: orderby, recursive: 1});
+            var orderPayment = new OrderPaymentModel();
+            // var datas = order.find('all',{fields: fields, conditions: conditions, group2: groupby, order: orderby, recursive: 1});
+            var datas = orderPayment.find('all',{fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1});
 
             var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
             var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
 
-            datas.forEach(function(o){
-                
+
+            // prepare reporting data
+            var repDatas = {};
+
+            var initZero = parseFloat(0).toFixed(precision_prices);
+            
+            datas.forEach(function(data){
+
+                var oid = data.Order.id;
+                var o = data.Order;
+                o.Order = o;
+
                 o.total = GeckoJS.NumberHelper.round(o.total, precision_prices, rounding_prices) || 0;
                 o.total = o.total.toFixed(precision_prices);
                 o.surcharge_subtotal = GeckoJS.NumberHelper.round(o.surcharge_subtotal, precision_prices, rounding_prices) || 0;
@@ -71,9 +88,19 @@
                 o.discount_subtotal = GeckoJS.NumberHelper.round(o.discount_subtotal, precision_prices, rounding_prices) || 0;
                 o.discount_subtotal = o.discount_subtotal.toFixed(precision_prices);
 
+                o.payment_subtotal = GeckoJS.NumberHelper.round(o.payment_subtotal, precision_prices, rounding_prices) || 0;
+                o.payment_subtotal = o.payment_subtotal.toFixed(precision_prices);
+
+                if (!repDatas[oid]) {
+                    repDatas[oid] = GREUtils.extend({cash:initZero, creditcard: initZero, coupon: initZero}, o);
+                }
+
+                repDatas[oid][o.payment_name] = o.payment_subtotal;
+
             });
 
-            this._datas = datas;
+
+            this._datas = GeckoJS.BaseObject.getValues(repDatas);
 
             var data = {
                 head: {
