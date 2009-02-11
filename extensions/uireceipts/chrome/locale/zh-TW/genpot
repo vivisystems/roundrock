@@ -1,6 +1,0 @@
-#!/bin/sh
-flag=
-if [ -f messages.pot ]; then
-   flag=-j
-fi
-xgettext -o messages.pot --msgid-bugs-address=support@vivipos.com.tw $flag -Lpython -k_ ../../content/*.js 
