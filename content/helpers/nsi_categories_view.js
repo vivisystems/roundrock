@@ -128,11 +128,13 @@
 
         getImageSrc: function(row, col) {
             var val = this.getCellValue(row, col);
-
-            var aImageFile = "chrome://viviecr/skin/cateimages" + "/" + val + ".png" /*+ "?"+ Math.random()*/;
-
-            if (GREUtils.File.exists(GREUtils.File.chromeToPath(aImageFile))) {
-                return aImageFile;
+            var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/') + '/data';
+            var sPluDir = datapath + "/images/pluimages/";
+            if (!sPluDir) sPluDir = '/data/images/pluimages/';
+            sPluDir = (sPluDir + '/').replace(/\/+/g,'/');
+            var aDstFile = sPluDir + val + ".png";
+            if (GREUtils.File.exists(aDstFile)) {
+                return 'file://' + aDstFile;
 
             }else {
                 return null;

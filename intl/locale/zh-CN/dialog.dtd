@@ -1,7 +1,0 @@
-<!ENTITY dialog.prompt.title "数据输入对话框">
-<!ENTITY dialog.okButton.label "完成">
-<!ENTITY dialog.cancelButton.label "取消">
-<!ENTITY dialog.helpButton.label "帮助">
-<!ENTITY dialog.closeButton.label "关闭">
-<!ENTITY dialog.saveButton.label "储存设定">
-<!ENTITY dialog.applyButton.label "套用">

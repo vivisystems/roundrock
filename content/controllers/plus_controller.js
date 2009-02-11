@@ -427,13 +427,12 @@
             this._setPluSet();
             this._setCondimentGroup();
             if (valObj) {
-                var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/') + '/data';
+                var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
                 var sPluDir = datapath + "/images/pluimages/";
                 if (!sPluDir) sPluDir = '/data/images/pluimages/';
                 sPluDir = (sPluDir + '/').replace(/\/+/g,'/');
                 var aDstFile = sPluDir + valObj.no + ".png";
 
-                // document.getElementById('pluimage').setAttribute('src', 'chrome://viviecr/content/skin/pluimages/' + valObj.no + '.png?' + Math.random());
                 document.getElementById('pluimage').setAttribute("src", "file://" + aDstFile + "?" + Math.random());
             }
         },
@@ -649,7 +648,7 @@
         RemoveImage: function(no) {
             // var no  = $('#product_no').val();
 
-            var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/') + '/data';
+            var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
             var sPluDir = datapath + "/images/pluimages/";
             if (!sPluDir) sPluDir = '/data/images/pluimages/';
             sPluDir = (sPluDir + '/').replace(/\/+/g,'/');

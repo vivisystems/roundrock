@@ -33,6 +33,7 @@
                 total: 0,
                 remain: 0,
                 tax_subtotal: 0,
+                included_tax_subtotal: 0,
                 surcharge_subtotal: 0,
                 discount_subtotal: 0,
                 payment_subtotal: 0,
@@ -118,7 +119,7 @@
             this.data.service_clerk_displayname = user.description;
         }
 
-        this.data.created = Math.round(new Date().getTime());
+        this.data.created = Math.round(new Date().getTime() / 1000 );
 
         if (Transaction.Tax == null) Transaction.Tax = new TaxComponent();
 
@@ -155,7 +156,7 @@
         this.data.status = status;
 
         // save transaction to order / orderdetail ...
-        this.data.modified = Math.round(new Date().getTime());
+        this.data.modified = Math.round(new Date().getTime() / 1000 );
 
         // maintain stock...
 //        this.requestCommand('decStock', this.data, "Stocks");
@@ -1821,12 +1822,15 @@
 
                     // @todo total only or summary ?
                     item.current_tax =  taxChargeObj[item.tax_name].charge;
+                    item.included_tax = taxChargeObj[item.tax_name].included;
                 }else {
                     item.current_tax = 0;
+                    item.included_tax = 0;
                 }
 
                 // rounding tax
                 item.current_tax = this.getRoundedTax(item.current_tax);
+                item.included_tax = this.getRoundedTax(item.included_tax);
                 if (toTaxCharge < 0) item.current_tax = 0 - item.current_tax;
             }
         }
@@ -1842,14 +1846,17 @@
         this.log('DEBUG', 'dispatchEvent onCalcTotal ' + this.dump(this.data));
         Transaction.events.dispatch('onCalcTotal', this.data, this);
 
-        var total=0, remain=0, item_subtotal=0, tax_subtotal=0, item_surcharge_subtotal=0, item_discount_subtotal=0;
+        var total=0, remain=0, item_subtotal=0, tax_subtotal=0, included_tax_subtotal=0, item_surcharge_subtotal=0, item_discount_subtotal=0;
         var trans_surcharge_subtotal=0, trans_discount_subtotal=0, payment_subtotal=0;
 
         // item subtotal and grouping
         this.data.items_summary = {}; // reset summary
         for(var itemIndex in this.data.items ) {
             var item = this.data.items[itemIndex];
+
             tax_subtotal += parseFloat(item.current_tax);
+            included_tax_subtotal += parseFloat(item.included_tax);
+
             item_surcharge_subtotal += parseFloat(item.current_surcharge);
             item_discount_subtotal += parseFloat(item.current_discount);
             item_subtotal += parseFloat(item.current_subtotal);
@@ -1889,6 +1896,7 @@
         this.data.total = this.getRoundedPrice(total);
         this.data.remain = this.getRoundedPrice(remain);
         this.data.tax_subtotal = this.getRoundedTax(tax_subtotal);
+        this.data.included_tax_subtotal = this.getRoundedTax(included_tax_subtotal);
         this.data.item_surcharge_subtotal = this.getRoundedPrice(item_surcharge_subtotal);
         this.data.item_discount_subtotal = this.getRoundedPrice(item_discount_subtotal);
         this.data.trans_surcharge_subtotal = this.getRoundedPrice(trans_surcharge_subtotal);

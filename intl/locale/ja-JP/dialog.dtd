@@ -1,7 +1,0 @@
-<!ENTITY dialog.prompt.title "ユーザープロンプト">
-<!ENTITY dialog.okButton.label "OK">
-<!ENTITY dialog.cancelButton.label "キャンセル">
-<!ENTITY dialog.helpButton.label "ヘルプ">
-<!ENTITY dialog.closeButton.label "閉じる">
-<!ENTITY dialog.saveButton.label "保存">
-<!ENTITY dialog.applyButton.label "適用">

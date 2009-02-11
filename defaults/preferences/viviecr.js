@@ -122,7 +122,7 @@ pref("vivipos.fec.settings.controlpanels.product.imagemanager.label", "Image Man
 pref("vivipos.fec.settings.controlpanels.product.imagemanager.path", "chrome://viviecr/content/imageManager.xul");
 pref("vivipos.fec.settings.controlpanels.product.imagemanager.icon", "chrome://viviecr/skin/icons/icon_imgmanager.png");
 pref("vivipos.fec.settings.controlpanels.product.imagemanager.roles", "acl_manage_images");
- 
+
 pref("vivipos.fec.settings.controlpanels.config.functionpanel.label", "Function Panel Configuration");
 pref("vivipos.fec.settings.controlpanels.config.functionpanel.path", "chrome://viviecr/content/funcpanelecrprefs.xul");
 pref("vivipos.fec.settings.controlpanels.config.functionpanel.icon", "chrome://viviecr/skin/icons/icon_functionpnl.png");
@@ -507,12 +507,12 @@ pref("vivipos.fec.registry.ports.gpio1.path", "/dev/ttyGPIO1");
 pref("vivipos.fec.registry.portspeeds", "2400, 4800, 9600, 19200, 38400, 57600, 115200");
  
 pref("vivipos.fec.registry.devicemodels.fec-f632.label", "FEC F632");
-pref("vivipos.fec.registry.devicemodels.fec-f632.type", "receipt,guestcheck");
+pref("vivipos.fec.registry.devicemodels.fec-f632.type", "receipt,guestcheck,report");
 pref("vivipos.fec.registry.devicemodels.fec-f632.path", "chrome://viviecr/content/devices/commands/fecf632.cmd");
 pref("vivipos.fec.registry.devicemodels.fec-f632.encodings", "English=US-ASCII,Western=ISO-8859-1,Simplified Chinese=GB18030,Simplified Chinese=GB2312,Traditional Chinese=Big5,Japanese=Shift_JIS,UTF-8=UTF-8");
  
 pref("vivipos.fec.registry.devicemodels.epson-tm-t88iv.label", "Epson TM-T88IV");
-pref("vivipos.fec.registry.devicemodels.epson-tm-t88iv.type", "receipt,guestcheck,cashdrawer");
+pref("vivipos.fec.registry.devicemodels.epson-tm-t88iv.type", "receipt,guestcheck,report,cashdrawer");
 pref("vivipos.fec.registry.devicemodels.epson-tm-t88iv.path", "chrome://viviecr/content/devices/commands/epson-tm88iv.cmd");
 pref("vivipos.fec.registry.devicemodels.epson-tm-t88iv.encodings", "English=US-ASCII,Western=ISO-8859-1,Simplified Chinese=GB18030,Simplified Chinese=GB2312,Traditional Chinese=Big5,UTF-8=UTF-8");
  

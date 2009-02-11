@@ -25,7 +25,7 @@
 
         <hbox id="mainPanel" flex="1" class="mainpanel">
 
-            <vbox id="leftPanel" flex="1">
+            <vbox id="leftPanel" flex="1" style="overflow: hidden">
                 <box id="productPanelContainer" class="productPanel" />
                 <box id="functionPanelContainer" class="functionPanel" />
                 

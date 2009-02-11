@@ -409,7 +409,7 @@
 
                 if (addedItem.id == plu.id && !this._returnMode) {
                     if (plu.force_condiment) {
-                        this.addCondiment(plu, doSIS);
+                        this.addCondiment(plu, null, doSIS);
                     }
                     if (plu.force_memo) {
                         this.addMemo(plu);
@@ -1717,9 +1717,6 @@
             }
             else {
                 if (payment == 0 || isNaN(payment)) {
-                    //@todo OSD
-                    //NotifyUtils.warn(_('Please enter an amount first'));
-                    //return;
                     payment = balance;
                 }
 
@@ -1758,8 +1755,6 @@
             // check if has buffer
             var buf = this._getKeypadController().getBuffer();
             this._getKeypadController().clearBuffer();
-
-            this.cancelReturn();
 
             // check if order is open
             var curTransaction = this._getTransaction();
@@ -2259,7 +2254,7 @@
             this.addPayment('cash', amount);
         },
 
-        addCondiment: function(plu, forceModal) {
+        addCondiment: function(plu, condiments, forceModal) {
 
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
@@ -2338,9 +2333,7 @@
                     return;
                 }
                 else {
-                    //var condiments = this.getCondimentsDialog(condimentItem.cond_group);
-                    //if (condiments) curTransaction.appendCondiment(index, condiments);
-                    this.getCondimentsDialog(condimentItem.cond_group, forceModal);
+                    this.getCondimentsDialog(condimentItem.cond_group, condiments, forceModal);
                 }
                 
             }
@@ -2348,62 +2341,67 @@
 
         },
 
-        getCondimentsDialog: function (condgroup, forceModal) {
+        getCondimentsDialog: function (condgroup, condiments, forceModal) {
 
-            var condGroups = GeckoJS.Session.get('condGroups');
-            if (!condGroups) {
-                var condGroupModel = new CondimentGroupModel();
-                var condGroups = condGroupModel.find('all', {recursive: 2});
-                GeckoJS.Session.add('condGroups', condGroups);
-                condGroups = GeckoJS.Session.get('condGroups');
-            }
-
-            var i = -1;
-            var index = -1;
-
-            for each (var o in condGroups) {
-            //condGroups.forEach(function(o) {
-                i++;
-                if (o.id == condgroup) {
-                    index = i
-                    break;
+            if (condiments == null) {
+                var condGroups = GeckoJS.Session.get('condGroups');
+                if (!condGroups) {
+                    var condGroupModel = new CondimentGroupModel();
+                    var condGroups = condGroupModel.find('all', {recursive: 2});
+                    GeckoJS.Session.add('condGroups', condGroups);
+                    condGroups = GeckoJS.Session.get('condGroups');
                 }
-            }
 
-            if (typeof condGroups[index] == 'undefined') return null;
+                var i = -1;
+                var index = -1;
 
-            var conds = condGroups[index]['Condiment'];
-            var selectedItems = [];
-
-            if (conds != null) {
-                for (var i = 0; i < conds.length; i++) {
-                    if (conds[i].preset) selectedItems.push(i);
+                for each (var o in condGroups) {
+                //condGroups.forEach(function(o) {
+                    i++;
+                    if (o.id == condgroup) {
+                        index = i
+                        break;
+                    }
                 }
+
+                if (typeof condGroups[index] == 'undefined') return null;
+
+                var conds = condGroups[index]['Condiment'];
+                var selectedItems = [];
+
+                if (conds != null) {
+                    for (var i = 0; i < conds.length; i++) {
+                        if (conds[i].preset) selectedItems.push(i);
+                    }
+                }
+                var colsRows = parseInt(this._condimentPanel.getAttribute('cols')) * parseInt(this._condimentPanel.getAttribute('rows'));
             }
-            var colsRows = parseInt(this._condimentPanel.getAttribute('cols')) * parseInt(this._condimentPanel.getAttribute('rows'));
 
-            if (forceModal || colsRows == 0) {
-                var condiments = null;
-                
-                var aURL = 'chrome://viviecr/content/select_condiments.xul';
-                var features = 'chrome,modal,width=600,height=480';
-                var inputObj = {
-                    condgroup: condgroup,
-                    condsData: conds,
-                    condiments: condiments,
-                    selectedItems: selectedItems
-                };
-               
-                window.openDialog(aURL, 'select_condiments', features, inputObj);
+            if (forceModal || colsRows == 0 || condiments != null) {
 
-                if (inputObj.ok && inputObj.condiments) {
+                if (condiments == null) {
+                    var aURL = 'chrome://viviecr/content/select_condiments.xul';
+                    var features = 'chrome,modal,width=600,height=480';
+                    var inputObj = {
+                        condgroup: condgroup,
+                        condsData: conds,
+                        condiments: condiments,
+                        selectedItems: selectedItems
+                    };
 
+                    window.openDialog(aURL, 'select_condiments', features, inputObj);
+
+                    if (inputObj.ok && inputObj.condiments)
+                        condiments = inputObj.condiments;
+                }
+
+                if (condiments  != null) {
                     var index = this._cartView.getSelectedIndex();
                     var curTransaction = this._getTransaction();
 
                     if(curTransaction != null && index >=0) {
-                        curTransaction.appendCondiment(index, inputObj.condiments);
-                        this.dispatchEvent('afterAddCondiment', inputObj.condiments);
+                        curTransaction.appendCondiment(index, condiments);
+                        this.dispatchEvent('afterAddCondiment', condiments);
                     }
                     
                     this.subtotal();
@@ -2429,7 +2427,7 @@
                 this._condimentPanel.selectedIndex = -1;
                 return ;
             }
-            
+/*
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
 
@@ -2444,7 +2442,7 @@
                 NotifyUtils.warn(_('Please select an item first'));
                 return;
             }
-
+*/
             var condsData = this._condimentPanel.datasource.data;
             var indexes = this._condimentPanel.selectedItems;
             var condiments = [];
@@ -2455,13 +2453,17 @@
 
             this._condimentPanel.selectedItems = [];
             this._condimentPanel.selectedIndex = -1;
+            this._pluAndCondimentDeck.selectedIndex = 0;
+
             if (condiments.length > 0) {
+                this.addCondiment(null, condiments);
+                /*
                 curTransaction.appendCondiment(index, condiments);
                 this.dispatchEvent('afterAddCondiment', condiments);
                 this.subtotal();
+                */
             }
             
-            this._pluAndCondimentDeck.selectedIndex = 0;
         },
 
         addMemo: function(plu) {
@@ -2746,6 +2748,7 @@
 
         guestCheck: function(action) {
             // check if has buffer
+            
             var buf = this._getKeypadController().getBuffer();
             this._getKeypadController().clearBuffer();
 

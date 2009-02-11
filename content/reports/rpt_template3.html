@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <title>head.title</title>
+        <LINK rel="stylesheet" type="text/css" href="tpl/rpt_a4_landscape.css" />
+
+        <!-- style type="text/css" media="print,screen" >
+        /*
+        th {
+            font-family:Arial;
+            color:black;
+            background-color:lightgrey;
+        }
+        thead {
+            display:table-header-group;
+        }
+        tbody {
+            display:table-row-group;
+        }
+        */
+        div#printhead { position: fixed; top: 0; left: 0; width: 100%; height: 2em; padding-bottom: 1em; border-bottom: 1px solid; margin-bottom: 10px; }
+
+        @media screen { div#printhead { display: none; } div#docbody { margin-top: 0; } }
+
+        @media print { div#printhead { display: block; } div#docbody { margin-top: 6em; } }
+        </style -->
+
+    </head>
+    <body id="abody" class="report">
+
+    </body>
+</html>

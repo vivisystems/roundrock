@@ -27,7 +27,7 @@ function startup() {
 function selectImages() {
 	var no  = $('#product_no').val();
 
-    var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/') + '/data';
+    var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
     var sDstDir = datapath + "/images/original/";
     if (!sDstDir) sDstDir = '/data/images/original/';
     sDstDir = (sDstDir + '/').replace(/\/+/g,'/');
@@ -75,7 +75,7 @@ function selectImages() {
 function RemoveImage() {
 	var no  = $('#product_no').val();
 
-    var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/') + '/data';
+    var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
     var sPluDir = datapath + "/images/pluimages/";
     if (!sPluDir) sPluDir = '/data/images/pluimages/';
     sPluDir = (sPluDir + '/').replace(/\/+/g,'/');

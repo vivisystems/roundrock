@@ -1,0 +1,8 @@
+<!ENTITY rptsalessummary.title "Sales Summary Report">
+<!ENTITY rptsalessummary.startdate "Start Date:">
+<!ENTITY rptsalessummary.enddate "End Date:">
+<!ENTITY rptsalessummary.execute "Execute">
+<!ENTITY rptsalessummary.exportpdf "Export to PDF">
+<!ENTITY rptsalessummary.exportcsv "Export to CSV">
+<!ENTITY rptsalessummary.togglezoom "Toggle Zoom">
+

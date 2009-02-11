@@ -494,7 +494,7 @@
 
         var taxAmount = {}; taxAmount[no] = {
             charge: 0,
-            addon: 0,
+            included: 0,
             tax: taxObject
         };
 
@@ -508,7 +508,17 @@
             default:
             case "INCLUDED":
                 taxAmount[no]['charge'] = 0;
+                if (unitprice >= taxObject['threshold']) {
+                    var included = 0;
+                    if (taxObject['rate_type'] == '$') {
+                        included = qty * taxObject['rate'];
+                    }else {
+                        included = amount - ( amount / (100 + taxObject['rate']) * 100) ;
+                    }
+                    if (included > 0) taxAmount[no]['included'] = included;
+                }
                 break;
+                
             case "ADDON":
                 if (unitprice >= taxObject['threshold']) {
                     var charge = 0;

@@ -1,0 +1,8 @@
+<!ENTITY rptdailysales.title "Daily Sales Report">
+<!ENTITY rptdailysales.startdate "Start Date:">
+<!ENTITY rptdailysales.enddate "End Date:">
+<!ENTITY rptdailysales.execute "Execute">
+<!ENTITY rptdailysales.exportpdf "Export to PDF">
+<!ENTITY rptdailysales.exportcsv "Export to CSV">
+<!ENTITY rptdailysales.togglezoom "Toggle Zoom">
+

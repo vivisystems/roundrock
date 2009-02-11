@@ -221,11 +221,13 @@
         getImageSrc: function(row, col) {
             
             var val = this.getCellValue(row, col);
-            //this.log('getImageSrc = ' + row + ", " +col.id + "," + val);
-
-            var aImageFile = "chrome://viviecr/content/skin/pluimages" + "/" + val + ".png";
-            if (GREUtils.File.exists(GREUtils.File.chromeToPath(aImageFile))) {
-                return aImageFile  /*+ "?"+ Math.random()*/;
+            var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/') + '/data';
+            var sPluDir = datapath + "/images/pluimages/";
+            if (!sPluDir) sPluDir = '/data/images/pluimages/';
+            sPluDir = (sPluDir + '/').replace(/\/+/g,'/');
+            var aDstFile = sPluDir + val + ".png";
+            if (GREUtils.File.exists(aDstFile)) {
+                return 'file://' + aDstFile  /*+ "?"+ Math.random()*/;
 
             }else {
                 return null;

@@ -1,0 +1,8 @@
+<!ENTITY rpthourlysales.title "Daily Sales Report - Detail">
+<!ENTITY rpthourlysales.startdate "Start Date:">
+<!ENTITY rpthourlysales.enddate "End Date:">
+<!ENTITY rpthourlysales.execute "Execute">
+<!ENTITY rpthourlysales.exportpdf "Export to PDF">
+<!ENTITY rpthourlysales.exportcsv "Export to CSV">
+<!ENTITY rpthourlysales.togglezoom "Toggle Zoom">
+
