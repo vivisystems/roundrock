@@ -16,16 +16,27 @@
         _datas: null,
 
         execute: function() {
-            //
             var start = '';
             var end = '';
             var department = document.getElementById('department').value;
-            // department = '';
-            var cate = new CategoryModel();
-            var cateDatas = cate.find('all', {
-                fields: ['no','name']
-                });
-            // this.log(this.dump(cateDatas));
+
+            var fields = [];
+
+            var conditions = null;
+
+            if (department != "all") {
+                var cate = new CategoryModel();
+                var cateDatas = cate.find('all', {
+                    fields: ['no','name'],
+                    conditions: "categories.no LIKE '" + department + "%'"
+                    });
+            } else {
+                var cate = new CategoryModel();
+                var cateDatas = cate.find('all', {
+                    fields: ['no','name']
+                    });
+            }
+
             var self = this;
             var datas = [];
             cateDatas.forEach(function(o){
@@ -34,44 +45,6 @@
                     name:o.name
                     };
             });
-
-            // var fields = ['cate_no', 'no','name','visible','stock','min_stock'];
-            var fields = [];
-
-            var conditions = null;
-
-            if (department != "all") {
-                conditions = " products.cate_no LIKE '" + department + "%'";
-
-                var cate = new CategoryModel();
-                var cateDatas = cate.find('all', {
-                    fields: ['no','name'],
-                    conditions: "categories.no LIKE '" + department + "%'"
-                    });
-                // this.log(this.dump(cateDatas));
-                var self = this;
-                var datas = [];
-                cateDatas.forEach(function(o){
-                    datas[o.no] = {
-                        no:o.no,
-                        name:o.name
-                        };
-                });
-            } else {
-                var cate = new CategoryModel();
-                var cateDatas = cate.find('all', {
-                    fields: ['no','name']
-                    });
-                // this.log(this.dump(cateDatas));
-                var self = this;
-                var datas = [];
-                cateDatas.forEach(function(o){
-                    datas[o.no] = {
-                        no:o.no,
-                        name:o.name
-                        };
-                });
-            }
 
             var groupby;
 

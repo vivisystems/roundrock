@@ -69,12 +69,14 @@
             var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
             var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
 
-
             // prepare reporting data
             var repDatas = {};
 
             var initZero = parseFloat(0).toFixed(precision_prices);
-            
+
+            var footDatas = {total: 0, surcharge_subtotal: 0,discount_subtotal: 0, cash: 0, creditcard: 0, coupon: 0};
+            var old_oid;
+
             datas.forEach(function(data){
 
                 var oid = data.Order.id;
@@ -82,13 +84,19 @@
                 o.Order = o;
 
                 o.total = GeckoJS.NumberHelper.round(o.total, precision_prices, rounding_prices) || 0;
+                if (old_oid != oid) footDatas.total += o.total;
                 o.total = o.total.toFixed(precision_prices);
+
                 o.surcharge_subtotal = GeckoJS.NumberHelper.round(o.surcharge_subtotal, precision_prices, rounding_prices) || 0;
+                if (old_oid != oid) footDatas.surcharge_subtotal += o.surcharge_subtotal;
                 o.surcharge_subtotal = o.surcharge_subtotal.toFixed(precision_prices);
+
                 o.discount_subtotal = GeckoJS.NumberHelper.round(o.discount_subtotal, precision_prices, rounding_prices) || 0;
+                if (old_oid != oid) footDatas.discount_subtotal += o.discount_subtotal;
                 o.discount_subtotal = o.discount_subtotal.toFixed(precision_prices);
 
                 o.payment_subtotal = GeckoJS.NumberHelper.round(o.payment_subtotal, precision_prices, rounding_prices) || 0;
+                footDatas[o.payment_name] += o.payment_subtotal;
                 o.payment_subtotal = o.payment_subtotal.toFixed(precision_prices);
 
                 if (!repDatas[oid]) {
@@ -97,10 +105,18 @@
 
                 repDatas[oid][o.payment_name] = o.payment_subtotal;
 
+                old_oid = oid;
+
             });
 
-
             this._datas = GeckoJS.BaseObject.getValues(repDatas);
+
+            footDatas.total = footDatas.total.toFixed(precision_prices);
+            footDatas.surcharge_subtotal = footDatas.surcharge_subtotal.toFixed(precision_prices);
+            footDatas.discount_subtotal = footDatas.discount_subtotal.toFixed(precision_prices);
+            footDatas.cash = footDatas.cash.toFixed(precision_prices);
+            footDatas.creditcard = footDatas.creditcard.toFixed(precision_prices);
+            footDatas.coupon = footDatas.coupon.toFixed(precision_prices);
 
             var data = {
                 head: {
@@ -110,9 +126,7 @@
                     machine_id: machineid
                 },
                 body: this._datas,
-                foot: {
-                    summary: 120
-                }
+                foot: footDatas
             }
 
             var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_daily_sales.tpl");
@@ -131,7 +145,7 @@
 
         exportPdf: function() {
 
-            this.execute();
+            // this.execute();
             // this.print();
 
             this.BrowserPrint.getPrintSettings();

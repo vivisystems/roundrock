@@ -40,9 +40,13 @@
                 <tr>
                     <td></td>
                     <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td colspan="2">Summary:</td>
+                    <td>${foot.total}</td>
+                    <td>${foot.surcharge_subtotal}</td>
+                    <td>${foot.discount_subtotal}</td>
+                    <td>${foot.cash}</td>
+                    <td>${foot.creditcard}</td>
+                    <td>${foot.coupon}</td>
                 </tr>
             </tfoot>
         </table>

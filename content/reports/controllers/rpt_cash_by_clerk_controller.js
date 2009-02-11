@@ -27,7 +27,7 @@
             var start_str = document.getElementById('start_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
             var end_str = document.getElementById('end_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
 
-            // var machineid = document.getElementById('machine_id').value;
+            var machineid = document.getElementById('machine_id').value;
 
             start = parseInt(start / 1000);
             end = parseInt(end / 1000);
@@ -36,32 +36,30 @@
             var conditions = "shift_changes.created>='" + start +
                             "' AND shift_changes.created<='" + end +
                             "'";
-            /*
+            
             if (machineid.length > 0) {
                 conditions += " AND shift_changes.terminal_no LIKE '" + machineid + "%'";
             } else {
                 //
             }
-            */
+            
 
             var groupby;
 
-            var orderby = 'shift_changes.created';
+            var orderby = 'shift_changes.terminal_no,shift_changes.created';
 
             var shiftChange = new ShiftChangeModel();
-            var datas = shiftChange.find('all',{fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: -1});
-
+            var datas = shiftChange.find('all',{fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 2});
 
             var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
             var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
 
-            // text = GeckoJS.NumberHelper.round(this.data[row].amount, precision_prices, rounding_prices) || 0;
 
             datas.forEach(function(o){
                 var d = new Date();
-                d.setTime(o.starttime);
+                d.setTime(o.starttime * 1000);
                 o.starttime = d.toString('yyyy/MM/dd HH:mm');
-                d.setTime(o.endtime);
+                d.setTime(o.endtime * 1000);
                 o.endtime = d.toString('yyyy/MM/dd HH:mm');
 
                 o.amount = GeckoJS.NumberHelper.round(o.amount, precision_prices, rounding_prices) || 0;
@@ -72,7 +70,6 @@
                     k.amount = k.amount.toFixed(precision_prices);
                 });
             });
-            // this.log(this.dump(datas));
 
             this._datas = datas;
 
@@ -80,11 +77,11 @@
                 head: {
                     title:_('Closed Cash Report'),
                     start_date: start,
-                    end_date: end
+                    end_date: end,
+                    machine_id: machineid
                 },
                 body: this._datas,
                 foot: {
-                    summary: 120
                 }
             }
 
@@ -104,7 +101,7 @@
 
         exportPdf: function() {
 
-            this.execute();
+            // this.execute();
             // this.print();
 
             this.BrowserPrint.getPrintSettings();

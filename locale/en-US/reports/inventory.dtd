@@ -1,0 +1,10 @@
+<!ENTITY rptinventory.title "Product List">
+<!ENTITY rptinventory.startdate "Start Date:">
+<!ENTITY rptinventory.enddate "End Date:">
+<!ENTITY rptinventory.execute "Execute">
+<!ENTITY rptinventory.exportpdf "Export to PDF">
+<!ENTITY rptinventory.exportcsv "Export to CSV">
+<!ENTITY rptinventory.togglezoom "Toggle Zoom">
+<!ENTITY rptinventory.department "Department:">
+<!ENTITY rptinventory.all "List All">
+

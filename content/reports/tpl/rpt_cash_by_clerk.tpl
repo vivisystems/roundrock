@@ -5,7 +5,7 @@
 <div id="docbody" class="paper">
 {for master in body}
         <table id="body-table">
-            <caption>${master.starttime} - ${master.endtime}</caption>
+            <caption>${master.terminal_no} : ${master.starttime} - ${master.endtime}</caption>
             <thead>
                 <tr>
                     <th>Topic</th>

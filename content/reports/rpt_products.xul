@@ -14,8 +14,10 @@
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
 
-<window id="main" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-                xmlns:html="http://www.w3.org/1999/xhtml">
+<window id="main" 
+        hidechrome="true"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        xmlns:html="http://www.w3.org/1999/xhtml">
     <LINK rel="stylesheet" type="text/css" href="tpl/rpt_products.css" />
 
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
@@ -36,7 +38,7 @@
                             <label value="&rptproducts.department;" />
                             <menulist id="department" flex="1">
                                 <menupopup id="department_menupopup"  flex="1">
-                                    <menuitem selected="true" label="&rptproducts.all;" value="all" />
+                                    <menuitem selected="true" label="[&rptproducts.all;]" value="all" />
                                 </menupopup>
                             </menulist>
                         </row>
