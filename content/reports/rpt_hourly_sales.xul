@@ -14,9 +14,10 @@
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
 
-<window id="main" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-                xmlns:html="http://www.w3.org/1999/xhtml">
-    <LINK rel="stylesheet" type="text/css" href="tpl/rpt_cash_by_clerk.css" />
+<window id="main"
+        hidechrome="true"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        xmlns:html="http://www.w3.org/1999/xhtml">
 
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/reports/rpt_hourly_sales.js" />
@@ -40,6 +41,10 @@
                                 <label value="&rpthourlysales.enddate;" />
                                 <vividatetimepicker id="end_date" value='' type="popup"/>
                             </vbox>
+                        </row>
+                        <row>
+                            <label value="&rpthourlysales.machineid;" />
+                            <textbox id="machine_id" value='' width="300"/>
                         </row>
                     </rows>
                 </grid>

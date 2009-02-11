@@ -19,8 +19,12 @@
             var start = document.getElementById('start_date').value;
             var end = document.getElementById('end_date').value;
 
-            var start_str = document.getElementById('start_date').datetimeValue.toLocaleString();
-            var end_str = document.getElementById('end_date').datetimeValue.toLocaleString();
+//            var start_str = document.getElementById('start_date').datetimeValue.toLocaleString();
+//            var end_str = document.getElementById('end_date').datetimeValue.toLocaleString();
+            var start_str = document.getElementById('start_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
+            var end_str = document.getElementById('end_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
+
+            var machineid = document.getElementById('machine_id').value;
 
             start = parseInt(start / 1000);
             end = parseInt(end / 1000);
@@ -43,8 +47,14 @@
                             "' AND orders.transaction_created<='" + end +
                             "' AND orders.status='1'";
 
-            var groupby = '"Order.Day"';
-            var orderby = 'orders.transaction_created';
+            if (machineid.length > 0) {
+                conditions += " AND orders.terminal_no LIKE '" + machineid + "%'";
+                var groupby = 'orders.terminal_no,"Order.Date"';
+            } else {
+                var groupby = '"Order.Date"';
+            }
+
+            var orderby = 'orders.terminal_no,orders.transaction_created';
 
             var order = new OrderModel();
             var datas = order.find('all',{fields: fields, conditions: conditions, group2: groupby, order: orderby, recursive: 1});
@@ -53,12 +63,7 @@
             var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
 
             datas.forEach(function(o){
-                var d = new Date();
-                d.setTime(o.starttime);
-                o.starttime = d.toString('yyyy/MM/dd HH:mm');
-                d.setTime(o.endtime);
-                o.endtime = d.toString('yyyy/MM/dd HH:mm');
-
+                
                 o.total = GeckoJS.NumberHelper.round(o.total, precision_prices, rounding_prices) || 0;
                 o.total = o.total.toFixed(precision_prices);
                 o.surcharge_subtotal = GeckoJS.NumberHelper.round(o.surcharge_subtotal, precision_prices, rounding_prices) || 0;
@@ -73,8 +78,9 @@
             var data = {
                 head: {
                     title:_('Daily Sales Report'),
-                    start_date: start,
-                    end_date: end
+                    start_time: start_str,
+                    end_time: end_str,
+                    machine_id: machineid
                 },
                 body: this._datas,
                 foot: {

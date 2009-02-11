@@ -6,6 +6,8 @@
 
     include('chrome://viviecr/content/reports/controllers/rpt_products_controller.js');
     include('chrome://viviecr/content/reports/template.js');
+    include('chrome://viviecr/content/reports/controllers/components/browser_print.js');
+    include('chrome://viviecr/content/reports/controllers/components/csv_export.js');
 
     // include('chrome://viviecr/content/seethrough_js/seethrough.js');
 
