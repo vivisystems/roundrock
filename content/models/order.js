@@ -6,6 +6,8 @@ var OrderModel = window.OrderModel =  GeckoJS.Model.extend({
     hasMany: ['OrderItem', 'OrderAddition', 'OrderPayment', 'OrderReceipt'],
     hasOne: ['OrderObject'],
 
+    behaviors: ['Sync'],
+
     removeOldOrder: function(iid) {
         //
         this.del(iid);

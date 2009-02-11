@@ -163,18 +163,11 @@
             // 2. pass drawer number to openDrawer()
 
             var drawerNo = null;
-            var user = this.Acl.getUserPrincipal();
+            var user = GeckoJS.Session.get('user');
             if (user) {
-                var userModel = new UserModel();
-                var userRecord = userModel.findByIndex('first', {
-                    index: 'username',
-                    value: user.username
-                });
-                if (userRecord) {
-                    if (userRecord.drawer != null) {
-                        drawerNo = GeckoJS.String.trim(userRecord.drawer);
-                        if (drawerNo == '') drawerNo = null;
-                    }
+                if (user.drawer != null) {
+                    drawerNo = GeckoJS.String.trim(user.drawer);
+                    if (drawerNo == '') drawerNo = null;
                 }
             }
 

@@ -49,16 +49,13 @@
 
         checkBackupDevices: function() {
 
-            // var osLastMedia = new GeckoJS.File('/tmp/last_media');
-            var osLastMedia = new GeckoJS.File('/var/tmp/vivipos/last_media');
+            var osLastMedia = new GeckoJS.File('/tmp/last_media');
 
             var last_media = "";
             var deviceNode = "";
             var deviceReady = false;
 
-            //var deviceMount = "/media/";
-            // var deviceMount = GeckoJS.Configure.read('vivipos.fec.settings.device.mount.path') || '/media/';
-            var deviceMount = "/var/tmp/";
+            var deviceMount = "/media/";
 
             var hasMounted = false;
 
@@ -175,7 +172,7 @@
 
                 total = tableTmp.exportCSV(fileName, {
 
-                    limit:9999
+                    limit:99999
                 }, updateProgress);
 
                 // sync to media...

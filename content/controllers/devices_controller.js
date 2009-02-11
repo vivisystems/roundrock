@@ -12,7 +12,7 @@
         _portspeeds: null,
         _devicemodels: null,
         _selectedDevices: null,
-        _sortedDevicemodels: null,
+        _sortedDevicemodels: {},
         _portControlService: null,
 
         // load device configuration and selections
@@ -155,6 +155,22 @@
                     }
                 }
 
+                if (enabledDevices['report-1-enabled']) {
+                    // check if device already loaded
+                    var device = enabledDevices['report-1-devicemodel'];
+                    if (device != null && !(device in deviceCommands) && devicemodels[device] != null) {
+                        deviceCommands[device] = this.loadDeviceCommandFile(devicemodels[device].path)
+                    }
+                }
+
+                if (enabledDevices['report-2-enabled']) {
+                    // check if device already loaded
+                    var device = enabledDevices['report-2-devicemodel'];
+                    if (device != null && !(device in deviceCommands) && devicemodels[device] != null) {
+                        deviceCommands[device] = this.loadDeviceCommandFile(devicemodels[device].path)
+                    }
+                }
+
                 if (enabledDevices['vfd-1-enabled']) {
                     var template = templates['vfd-1-template'];
                     if (template != null && !(template in deviceTemplates) && templates[template] != null) {
@@ -205,7 +221,11 @@
         loadDeviceCommandFile: function(path) {
             var commands = new Object;
             try {
-                var lines = GREUtils.File.readAllLine(GREUtils.File.chromeToPath(path)) || [];
+                var file = new GeckoJS.File(GREUtils.File.chromeToPath(path));
+                file.open('r');
+                var lines = file.readAllLine();
+                file.close();
+                
                 lines.forEach(function(line) {
                     var entry = line.split('=');
                     var name = entry[0];
@@ -221,9 +241,13 @@
         },
 
         loadTemplateFile: function(path) {
-            var bytes = '';
+            var bytes = {};
             try {
-                bytes = GREUtils.File.readAllBytes(GREUtils.File.chromeToPath(path)) || '';
+                var file = new GeckoJS.File(GREUtils.File.chromeToPath(path));
+                file.open('r');
+                bytes = file.readAllLine();
+                if (bytes.length > 0) bytes = bytes.join('\n');
+                file.close();
             }
             catch (e) {
                 this.log('Error reading from template file [' + path + ']');
@@ -670,11 +694,11 @@
             }
         },
 
-        getEnabledDevices: function(type) {
+        getEnabledDevices: function(type, number) {
             var enabledDevices = [];
             var selectedDevices = this.getSelectedDevices();
             if (selectedDevices != null) {
-                if (selectedDevices[type + '-1-enabled']) {
+                if (selectedDevices[type + '-1-enabled'] && (number == null || number == 1)) {
                     enabledDevices.push({
                         type: selectedDevices[type + '-1-type'],
                         template: selectedDevices[type + '-1-template'],
@@ -689,7 +713,7 @@
                         number: 1
                     });
                 }
-                if (selectedDevices[type + '-2-enabled']) {
+                if (selectedDevices[type + '-2-enabled'] && (number == null || number == 2)) {
                     enabledDevices.push({
                         type: selectedDevices[type + '-2-type'],
                         template: selectedDevices[type + '-2-template'],
@@ -712,15 +736,16 @@
         updateEncodings: function(data) {
             var devicemenu = data[0];
             var encodingmenu = data[1];
+            var type = data[2];
 
             if (devicemenu == null || encodingmenu == null) return;
 
             var selectedDeviceIndex = devicemenu.selectedIndex;
-            if (selectedDeviceIndex == -1 || this._sortedDevicemodels == null || selectedDeviceIndex >= this._sortedDevicemodels.length) {
+            if (selectedDeviceIndex == -1 || this._sortedDevicemodels[type] == null || selectedDeviceIndex >= this._sortedDevicemodels[type].length) {
                 encodingmenu.selectedIndex = 0;
             }
             else {
-                var selectedDevice = this._sortedDevicemodels[selectedDeviceIndex];
+                var selectedDevice = this._sortedDevicemodels[type][selectedDeviceIndex];
                 this.populateEncodings(encodingmenu, selectedDevice);
                 encodingmenu.selectedIndex = 0;
             }
@@ -847,7 +872,7 @@
                         sortedDevicemodels.push(newDevicemodel);
                     }
                 }
-                this._sortedDevicemodels = sortedDevicemodels = new GeckoJS.ArrayQuery(sortedDevicemodels).orderBy('label asc');
+                this._sortedDevicemodels['receipt'] = sortedDevicemodels = new GeckoJS.ArrayQuery(sortedDevicemodels).orderBy('label asc');
 
                 for (var i in sortedDevicemodels) {
                     var devicemodelName = sortedDevicemodels[i].name;
@@ -933,7 +958,7 @@
                         sortedDevicemodels.push(newDevicemodel);
                     }
                 }
-                this._sortedDevicemodels = sortedDevicemodels = new GeckoJS.ArrayQuery(sortedDevicemodels).orderBy('label asc');
+                this._sortedDevicemodels['guestcheck'] = sortedDevicemodels = new GeckoJS.ArrayQuery(sortedDevicemodels).orderBy('label asc');
 
                 for (var i in sortedDevicemodels) {
                     var devicemodelName = sortedDevicemodels[i].name;
@@ -946,6 +971,69 @@
 
                 var encodingmenu1 = document.getElementById('guestcheck-1-encoding');
                 var encodingmenu2 = document.getElementById('guestcheck-2-encoding');
+
+                this.populateEncodings(encodingmenu1, sortedDevicemodels[devicemodelmenu1.selectedIndex]);
+                this.populateEncodings(encodingmenu2, sortedDevicemodels[devicemodelmenu2.selectedIndex]);
+            }
+
+            /*
+             * populate report panel
+             *
+             */
+
+            if (document.getElementById('report-panel') != null) {
+
+                /* populate device ports */
+
+                var portmenu1 = document.getElementById('report-1-port');
+                var portmenu2 = document.getElementById('report-2-port');
+
+                for (var i in sortedPorts) {
+                    var portName = sortedPorts[i].name;
+                    portmenu1.appendItem(_(sortedPorts[i].label), portName, '');
+                    portmenu2.appendItem(_(sortedPorts[i].label), portName, '');
+                }
+                portmenu1.selectedIndex = portmenu2.selectedIndex = 0;
+
+                /* populate device portspeeds */
+
+                var portspeedmenu1 = document.getElementById('report-1-portspeed');
+                var portspeedmenu2 = document.getElementById('report-2-portspeed');
+
+                for (var i in portspeeds) {
+                    var portspeed = portspeeds[i];
+                    portspeedmenu1.appendItem(portspeed, portspeed, '');
+                    portspeedmenu2.appendItem(portspeed, portspeed, '');
+                }
+                portspeedmenu1.selectedIndex = portspeedmenu2.selectedIndex = 0;
+
+                /* populate device models */
+
+                var devicemodelmenu1 = document.getElementById('report-1-devicemodel');
+                var devicemodelmenu2 = document.getElementById('report-2-devicemodel');
+                var devicemodels = this.getDeviceModels();
+
+                var sortedDevicemodels = [];
+                for (var devicemodel in devicemodels) {
+                    if (devicemodels[devicemodel].type != null && devicemodels[devicemodel].type.indexOf('report') > -1) {
+                        var newDevicemodel = GREUtils.extend({}, devicemodels[devicemodel]);
+                        newDevicemodel.name = devicemodel;
+                        sortedDevicemodels.push(newDevicemodel);
+                    }
+                }
+                this._sortedDevicemodels['report'] = sortedDevicemodels = new GeckoJS.ArrayQuery(sortedDevicemodels).orderBy('label asc');
+
+                for (var i in sortedDevicemodels) {
+                    var devicemodelName = sortedDevicemodels[i].name;
+                    devicemodelmenu1.appendItem(_(sortedDevicemodels[i].label), devicemodelName, '');
+                    devicemodelmenu2.appendItem(_(sortedDevicemodels[i].label), devicemodelName, '');
+                }
+                devicemodelmenu1.selectedIndex = devicemodelmenu2.selectedIndex = 0;
+
+                /* populate encodings */
+
+                var encodingmenu1 = document.getElementById('report-1-encoding');
+                var encodingmenu2 = document.getElementById('report-2-encoding');
 
                 this.populateEncodings(encodingmenu1, sortedDevicemodels[devicemodelmenu1.selectedIndex]);
                 this.populateEncodings(encodingmenu2, sortedDevicemodels[devicemodelmenu2.selectedIndex]);
@@ -1019,7 +1107,7 @@
                         sortedDevicemodels.push(newDevicemodel);
                     }
                 }
-                this._sortedDevicemodels = sortedDevicemodels = new GeckoJS.ArrayQuery(sortedDevicemodels).orderBy('label asc');
+                this._sortedDevicemodels['vfd'] = sortedDevicemodels = new GeckoJS.ArrayQuery(sortedDevicemodels).orderBy('label asc');
 
                 for (var i in sortedDevicemodels) {
                     var devicemodelName = sortedDevicemodels[i].name;
@@ -1082,7 +1170,7 @@
                         sortedDevicemodels.push(newDevicemodel);
                     }
                 }
-                this._sortedDevicemodels = sortedDevicemodels = new GeckoJS.ArrayQuery(sortedDevicemodels).orderBy('label asc');
+                sortedDevicemodels = new GeckoJS.ArrayQuery(sortedDevicemodels).orderBy('label asc');
 
                 for (var i in sortedDevicemodels) {
                     var devicemodelName = sortedDevicemodels[i].name;

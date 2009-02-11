@@ -3,6 +3,8 @@ var OrderReceiptModel = window.OrderReceiptModel =  GeckoJS.Model.extend({
 
     useDbConfig: 'order',
 
-    belongsTo: ['Order']
+    belongsTo: ['Order'],
+
+    behaviors: ['Sync']
     
 });

@@ -128,11 +128,13 @@
 
         getImageSrc: function(row, col) {
             var val = this.getCellValue(row, col);
-
-            var aImageFile = "chrome://viviecr/skin/cateimages" + "/" + val + ".png" /*+ "?"+ Math.random()*/;
-
-            if (GREUtils.File.exists(GREUtils.File.chromeToPath(aImageFile))) {
-                return aImageFile;
+            var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/') + '/data';
+            var sPluDir = datapath + "/images/pluimages/";
+            if (!sPluDir) sPluDir = '/data/images/pluimages/';
+            sPluDir = (sPluDir + '/').replace(/\/+/g,'/');
+            var aDstFile = sPluDir + val + ".png";
+            if (GREUtils.File.exists(aDstFile)) {
+                return 'file://' + aDstFile;
 
             }else {
                 return null;
@@ -148,11 +150,17 @@
                 id: 'font_size'
             });
 
+            var classStr = '';
             if (buttonColor && btn) {
-                $(btn).addClass(buttonColor);
+                classStr = buttonColor;
+                //$(btn).addClass(buttonColor);
             }
             if (buttonFontSize && btn) {
-                $(btn).addClass('font-'+ buttonFontSize);
+                classStr += ((classStr.length > 0) ? ' ' : '') + 'font-' + buttonFontSize;
+                //$(btn).addClass('font-'+ buttonFontSize);
+            }
+            if (classStr.length > 0) {
+                $(btn).addClass(classStr);
             }
 
         }

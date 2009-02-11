@@ -5,7 +5,7 @@
 <!ENTITY category.tax "Taxes">
 <!ENTITY category.plufilter "Product Filter">
 <!ENTITY publicattendance "Individual Time-and-Attendance visible to all">
-<!ENTITY defaultlogin "Automatically log in default user:">
+<!ENTITY defaultlogin "Automatically log in default user">
 <!ENTITY privatequeue "Private order queue">
 <!ENTITY defaultpricelevel "System default price level">
 <!ENTITY defaulttaxstatus "System default tax status">
@@ -42,13 +42,15 @@
 <!ENTITY layout.hidefpscrollbar "Hide scrollbars for function panel">
 <!ENTITY layout.cropdeptlabel "Crop department label">
 <!ENTITY layout.cropplulabel "Crop product label">
-<!ENTITY layout.department.label "Department panel dimensions">
+<!ENTITY layout.department.label "Department panel">
 <!ENTITY layout.department.rows "rows">
 <!ENTITY layout.department.cols "columns">
-<!ENTITY layout.plu.label "Product panel dimensions">
+<!ENTITY layout.department.button.height "height">
+<!ENTITY layout.plu.label "Product panel">
 <!ENTITY layout.plu.rows "rows">
 <!ENTITY layout.plu.cols "columns">
-<!ENTITY layout.functionpanel.label "Function panel dimensions">
+<!ENTITY layout.plu.button.height "height">
+<!ENTITY layout.functionpanel.label "Function panel">
 <!ENTITY layout.functionpanel.rows "rows">
 <!ENTITY layout.functionpanel.cols "columns">
 <!ENTITY plufilter.title "Product Filter Definition">

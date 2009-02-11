@@ -1,8 +1,0 @@
-<!ENTITY productsales.title "Product Sales Report">
-<!ENTITY productsales.conditions "Conditions:">
-<!ENTITY productsales.startdate "Start Date:">
-<!ENTITY productsales.enddate "End Date:">
-<!ENTITY productsales.execute "Execute">
-<!ENTITY productsales.exportcsv "Export to CSV">
-<!ENTITY productsales.togglezoom "Toggle Zoom">
-

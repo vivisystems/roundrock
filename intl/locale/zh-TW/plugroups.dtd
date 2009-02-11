@@ -1,8 +1,0 @@
-<!ENTITY plugroups.title "Product Groups">
-<!ENTITY plugroups.name "Group Name">
-<!ENTITY plugroups.visible "Show on Menu">
-<!ENTITY plugroups.button.color "Button Color">
-<!ENTITY plugroups.font.size "Font Size">
-<!ENTITY plugroups.button.action.add "Add">
-<!ENTITY plugroups.button.action.modify "Modify">
-<!ENTITY plugroups.button.action.delete "Delete">

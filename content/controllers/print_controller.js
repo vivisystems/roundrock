@@ -22,6 +22,10 @@
 
             // initialize worker thread
             this._worker = GREUtils.Thread.getWorkerThread();
+            //this._worker = GREUtils.Thread.getMainThread();
+
+            // initialize main thread
+            this._main = GREUtils.Thread.getMainThread();
 
             // add event listener for onSubmit events
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
@@ -116,6 +120,8 @@
 
         // invoke getTemplateData on device controller to retrieve the content of a specific template
         getTemplateData: function(template, useCache) {
+            //@todo DEBUG
+            useCache = false;
             var device = this.getDeviceController();
             if (device != null) {
                 return device.getTemplateData(template, useCache);
@@ -161,11 +167,10 @@
         },
 
         // check if receipts have already been printed on any printer
-        isReceiptPrinted: function(txn) {
+        isReceiptPrinted: function(orderid, device) {
             var orderReceiptModel = new OrderReceiptModel();
-            var receipts = orderReceiptModel.findByIndex('all', {
-                index: 'order_id',
-                value: txn.data.id
+            var receipts = orderReceiptModel.find('all', {
+                conditions: 'order_id = "' + orderid + '" AND device = "' + device + '"'
             });
             if (receipts == null || receipts.length == 0)
                 return null;
@@ -174,12 +179,13 @@
         },
 
         // add a receipt print timestamp
-        receiptPrinted: function(txn) {
+        receiptPrinted: function(orderid, orderseq, device) {
             var orderReceiptModel = new OrderReceiptModel();
             var orderReceipt = {
-                order_id: txn.data.id,
+                order_id: orderid,
                 printed: new Date().getTime(),
-                sequence: txn.data.seq
+                sequence: orderseq,
+                device: device
             };
 
             orderReceiptModel.save(orderReceipt);
@@ -188,22 +194,12 @@
         // handle order submit events
         submitOrder: function(evt) {
 
-            // @todo
-            // check if receipt already printed
-            var receipts = this.isReceiptPrinted(evt.data);
-            if (receipts == null) {
-
-                //@hack sleep to allow UI events to catch up
-                // autoprint receipts
-                this.printReceipts(evt.data);
-                this.sleep(50);
-            }
-            else {
-                NotifyUtils.warn(_('A receipt has already been issued for this order at [%S]'));
-            }
-
-            // auto print guest checks
+            this.printReceipts(evt.data);
             this.printGuestChecks(evt.data);
+
+            // @hack
+            // sleep to allow UI to catch up
+            this.sleep(50);
         },
 
         // handles user initiated receipt requests
@@ -223,12 +219,6 @@
                 // @todo OSD
                 NotifyUtils.warn(_('The order has not been finalized; cannot issue receipt'));
                 return; // fatal error ?
-            }
-
-            var receipts = this.isReceiptPrinted(txn);
-            if (receipts != null) {
-                NotifyUtils.warn(_('A receipt has already been issued for this order'));
-                return;
             }
 
             if (device == null) {
@@ -270,6 +260,11 @@
         },
 
         // print on all enabled receipt printers
+        // printer = 0: print on all enabled printers
+        // printer = 1: first printer
+        // printer = 2: second printer
+        // printer = null: print on all auto-print enabled printers
+
         printReceipts: function(txn, printer) {
 
             var device = this.getDeviceController();
@@ -279,43 +274,12 @@
             }
 
             var enabledDevices = device.getEnabledDevices('receipt');
-            /*
-             *
-             * add support attributes to order object:
-             *
-             * - create_date: Date object created from the created attribute
-             * - print_date: Date object representing current time
-             * - proceeds_clerk
-             * - proceeds_clerk_displayname
-             *
-             * - store details:
-             *   - store name
-             *   - store contact
-             *   - branch
-             *   - telephone1
-             *   - telephone2
-             *   - address1
-             *   - address2
-             *   - city
-             *   - county
-             *   - province
-             *   - state
-             *   - country
-             *   - zip
-             *   - fax
-             *   - email
-             *   - note
-             */
-
             var order = txn.data;
             
-            order.create_date = new Date(order.created);
-            order.print_date = new Date();
-
             var data = {
                 txn: txn,
                 store: GeckoJS.Session.get('storeContact'),
-                order: order,
+                order: order
             };
 
             if (order.proceeds_clerk == null || order.proceeds_clerk == '') {
@@ -328,21 +292,24 @@
 
             //this.log('Enabled Devices:\n' + GeckoJS.BaseObject.dump(enabledDevices));
             //this.log('Data:\n' + GeckoJS.BaseObject.dump(data));
+            //this.log('Order:\n' + GeckoJS.BaseObject.dump(data.order));
+            //this.log('Store:\n' + GeckoJS.BaseObject.dump(data.store));
             
             // for each enabled printer device, print if autoprint is on or if force is true
-            var printed;
             var self = this;
             if (enabledDevices != null) {
                 enabledDevices.forEach(function(device) {
-                    if ((printer == null && device.autoprint) || printer == device.number || printer == 0) {
+                    if ((printer == null && device.autoprint > 0) || printer == device.number || printer == 0) {
                         var template = device.template;
                         var port = device.port;
                         var portspeed = device.portspeed;
                         var handshaking = device.handshaking;
                         var devicemodel = device.devicemodel;
                         var encoding = device.encoding;
+                        var copies = (printer == null) ? device.autoprint : 1;
                         data._MODIFIERS = _templateModifiers(encoding);
-                        self.printCheck(data, template, port, portspeed, handshaking, devicemodel, encoding, true);
+
+                        self.printCheck(data, template, port, portspeed, handshaking, devicemodel, encoding, device.number, copies);
                     }
                 });
             }
@@ -357,7 +324,7 @@
             var txn = cart._getTransaction();
             if (txn == null) {
                 // @todo OSD
-                NotifyUtils.warn(_('No order has been opened; cannot issue guest check'));
+                NotifyUtils.warn(_('Not an open order; cannot issue guest check'));
                 return; // fatal error ?
             }
 
@@ -365,6 +332,11 @@
                 // @todo OSD
                 NotifyUtils.warn(_('Cannot issue guest check on a canceled order'));
                 return; // fatal error ?
+            }
+
+            if (txn.getItemsCount() < 1) {
+                NotifyUtils.warn(_('Nothing has been registered yet; cannot issue guest check'));
+                return;
             }
 
             if (device == null) {
@@ -406,7 +378,13 @@
         },
 
 
-        // print on all enabled receipt printers
+        // print on all enabled guestcheck printers
+        //
+        // printer = 0: print on all enabled printers
+        // printer = 1: first printer
+        // printer = 2: second printer
+        // printer = null: print on all auto-print enabled printers
+
         printGuestChecks: function(txn, printer) {
 
             var device = this.getDeviceController();
@@ -416,37 +394,7 @@
             }
 
             var enabledDevices = device.getEnabledDevices('guestcheck');
-
-            /*
-             *
-             * add support attributes to order object:
-             *
-             * - create_date: Date object created from the created attribute
-             * - print_date: Date object representing current time
-             * - proceeds_clerk
-             * - proceeds_clerk_displayname
-             *
-             * - store details:
-             *   - store name
-             *   - store contact
-             *   - telephone1
-             *   - telephone2
-             *   - address1
-             *   - address2
-             *   - city
-             *   - county
-             *   - province
-             *   - state
-             *   - country
-             *   - zip
-             *   - fax
-             *   - email
-             *   - note
-             */
-            var now = new Date();
             var order = txn.data;
-            order.create_date = new Date(order.created);
-            order.print_date = new Date();
 
             var data = {
                 txn: txn,
@@ -462,35 +410,73 @@
                 }
             }
 /*
-            this.log(this.dump(selectedDevices));
-            this.log(this.dump(txn));
+            //this.log('Enabled Devices:\n' + GeckoJS.BaseObject.dump(enabledDevices));
+            //this.log('Data:\n' + GeckoJS.BaseObject.dump(data));
+            //this.log('Order:\n' + GeckoJS.BaseObject.dump(data.order));
+            //this.log('Store:\n' + GeckoJS.BaseObject.dump(data.store));
 */
             // for each enabled printer device, print if autoprint is on or if force is true
             var self = this;
             if (enabledDevices != null) {
                 enabledDevices.forEach(function(device) {
-                    if ((printer == null && device.autoprint) || printer == device.number || printer == 0) {
+                    if ((printer == null && device.autoprint > 0) || printer == device.number || printer == 0) {
                         var template = device.template;
                         var port = device.port;
                         var portspeed = device.portspeed;
                         var handshaking = device.handshaking;
                         var devicemodel = device.devicemodel;
                         var encoding = device.encoding;
+                        var copies = (printer == null) ? device.autoprint : 1;
                         data._MODIFIERS = _templateModifiers(encoding);
-                        self.printCheck(data, template, port, portspeed, handshaking, devicemodel, encoding, false);
+
+                        self.printCheck(data, template, port, portspeed, handshaking, devicemodel, encoding, 0, copies);
                     }
                 });
             }
         },
 
+        // handles user initiated receipt requests
+        printReport: function(type, tpl) {
+            var device = this.getDeviceController();
+
+            if (device == null) {
+                NotifyUtils.error(_('Error in device manager! Please check your device configuration'));
+                return;
+            }
+
+            // check device settings
+            var printer = (type == 'narrow' ? 1 : 2);
+
+            switch (device.isDeviceEnabled('report', printer)) {
+                case -2:
+                    NotifyUtils.warn(_('The specified report printer [%S] is not configured', [printer]));
+                    return;
+
+                case -1:
+                    NotifyUtils.warn(_('Invalid report printer [%S]', [printer]));
+                    return;
+
+                case 0:
+                    NotifyUtils.warn(_('The specified report printer [%S] is not enabled', [printer]));
+                    return;
+            }
+
+            var enabledDevices = device.getEnabledDevices('report', printer);
+            var port = enabledDevices[0].port;
+            var portspeed = enabledDevices[0].portspeed;
+            var handshaking = enabledDevices[0].handshaking;
+            var devicemodel = enabledDevices[0].devicemodel;
+            var encoding = enabledDevices[0].encoding;
+
+            this.printCheck(null, tpl, port, portspeed, handshaking, devicemodel, encoding, 0, 1);
+        },
+
         // print check using the given parameters
-        printCheck: function(data, template, port, portspeed, handshaking, devicemodel, encoding, recordReceipt) {
-            
+        printCheck: function(data, template, port, portspeed, handshaking, devicemodel, encoding, device, copies) {
             if (this._worker == null) {
                 NotifyUtils.error(_('Error in Print controller: no worker thread available!'));
                 return;
             }
-
             var portPath = this.getPortPath(port);
             var commands = {};
             
@@ -498,26 +484,52 @@
                 NotifyUtils.error(_('Specified device port [%S] does not exist!', [port]));
                 return false;
             }
-            var tpl = this.getTemplateData(template, true);
-            if (tpl == null || tpl == '') {
-                NotifyUtils.error(_('Specified receipt/guest check template [%S] is empty or does not exist!', [template]));
-                return false;
+
+            // dispatch beforePrintCheck event to allow extensions to add to the template data object or
+            // to prevent check from printed
+            if (!this.dispatchEvent('beforePrintCheck', {data: data,
+                                                         template: template,
+                                                         port: port,
+                                                         portspeed: portspeed,
+                                                         handshaking: handshaking,
+                                                         devicemodel: devicemodel,
+                                                         encoding: encoding,
+                                                         device: device})) {
+                return;
             }
 
-            commands = this.getDeviceCommandCodes(devicemodel, true);
+            var tpl;
+            var result;
+
+            // if data is null, then the document has already been generated and passed in through the template parameter
+            if (data != null) {
+                var tpl = this.getTemplateData(template, false);
+                if (tpl == null || tpl == '') {
+                    NotifyUtils.error(_('Specified template [%S] is empty or does not exist!', [template]));
+                    return false;
+                }
+
+                //this.log(GeckoJS.BaseObject.dump(data.order));
+
+                result = tpl.process(data);
+            }
+            else {
+                result = template;
+            }
 
 /*
             alert('Printing check: \n\n' +
                   '   template [' + template + ']\n' +
                   '   port [' + port + ' (' + portPath + ')]\n' +
-                  '   speed [' + speed + ']\n' +
+                  '   speed [' + portspeed + ']\n' +
                   '   model [' + devicemodel + ']\n' +
                   '   encoding [' + encoding + ']\n' +
                   '   template content: ' + this.dump(tpl));
-            alert('Device commands: \n\n' +
-                  '   commands: ' + this.dump(commands));
 */
-            var result = tpl.process(data);
+
+            commands = this.getDeviceCommandCodes(devicemodel, false);
+
+            //alert('Device commands: \n\n' +  '   commands: ' + this.dump(commands));
 
             // map each command code into corresponding
             if (commands) {
@@ -530,6 +542,7 @@
                 }
             }
             //alert(this.dump(result));
+            //alert(data.order.receiptPages);
             //
             // translate embedded hex codes into actual hex values
             var replacer = function(str, p1, offset, s) {
@@ -542,23 +555,60 @@
             var encodedResult = GREUtils.Charset.convertFromUnicode(result, encoding);
             //this.log('RECEIPT/GUEST CHECK\n' + encodedResult);
 
+            // set up main thread callback to dispatch event
+            var sendEvent = function(device, data, result, encodedResult, printed) {
+                this.eventData = {printed: printed,
+                                  device: device,
+                                  data: data,
+                                  receipt: result,
+                                  encodedReceipt: encodedResult
+                                 };
+            }
+
             // send to output device using worker thread
             var self = this;
 
+            sendEvent.prototype = {
+                run: function() {
+                    try {
+                        self.dispatchEvent('onReceiptPrinted', this.eventData);
+                    }
+                    catch (e) {
+                        this.log('WARN', 'failed to dispatch onReceiptPrinted event');
+                    }
+                },
+
+                QueryInterface: function(iid) {
+                    if (iid.equals(Components.Interfaces.nsIRunnable) || iid.equals(Components.Interfaces.nsISupports)) {
+                        return this;
+                    }
+                    throw Components.results.NS_ERROR_NO_INTERFACE;
+                }
+            }
+            
             var runnable = {
                 run: function() {
                     try {
-                        var printed = false;
-                        if (self.openSerialPort(portPath, portspeed, handshaking)) {
-                            var len = self.writeSerialPort(portPath, encodedResult);
-                            if (len == encodedResult.length) {
-                                printed = true;
+                        // if recordReceipt is true, check if record already exists
+                        if (device > 0) {
+                            var receipts = self.isReceiptPrinted(data.order.id, device);
+                            if (receipts != null) {
+                                NotifyUtils.warn(_('A receipt has already been issued for this order on printer [%S]', [device]));
+                                return;
                             }
-                            self.log('DEBUG', 'In Worker thread: print length: [' + encodedResult.length + '], printed length: [' + len + ']');
-                            self.closeSerialPort(portPath);
                         }
 
-                        if (!printed) {
+                        var printed = 0;
+                        if (self.openSerialPort(portPath, portspeed, handshaking)) {
+                            for (var i = 0; i < copies; i++) {
+                                var len = self.writeSerialPort(portPath, encodedResult);
+                                if (len == encodedResult.length) {
+                                    printed++;
+                                }
+                            }
+                            self.closeSerialPort(portPath);
+                        }
+                        if (printed == 0) {
                             var devicemodelName = self.getDeviceModelName(devicemodel);
                             var portName = self.getPortName(port);
 
@@ -568,9 +618,17 @@
                             //@todo OSD
                             NotifyUtils.error(_('Error detected when outputing to device [%S] at port [%S]', [devicemodelName, portName]));
                         }
-                        if (printed) {
-                            self.receiptPrinted(data.txn);
+                        if (printed && device > 0) {
+                            self.receiptPrinted(data.order.id, data.order.seq, device);
                         }
+
+                        // dispatch receiptPrinted event indirectly through the main thread
+                        
+                        if (self._main) {
+                            self._main.dispatch(new sendEvent(device, data, result,encodedResult, printed), self._worker.DISPATCH_NORMAL);
+                        }
+
+                        
                     }catch(e) {
                         return false;
                     }

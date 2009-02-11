@@ -16,8 +16,8 @@
                                 fields="name,current_qty,current_price,current_subtotal,current_tax"
                                 scrollUpClass="cartScrollUp" scrollDownClass="cartScrollDown" >
                 <vbox id="cartsidebar">
-                    <vivibutton id="btnPlus" label="&cart.button.plus;" oncommand="$do('modifyQty', 'plus', 'Cart');"  class="systoolbtn mediumimagebtn plusbtn"/>
-                    <vivibutton id="btnMinus" label="&cart.button.minus;" oncommand="$do('modifyQty', 'minus', 'Cart');"  class="systoolbtn mediumimagebtn minusbtn"/>
+                    <vivibutton id="btnPlus" label="&cart.button.plus;" oncommand="$do('modifyQty', 'plus', 'Cart');"  class="systoolbtn mediumimagebtn plusbtn" roles="acl_modify_cart_item" action="none"/>
+                    <vivibutton id="btnMinus" label="&cart.button.minus;" oncommand="$do('modifyQty', 'minus', 'Cart');"  class="systoolbtn mediumimagebtn minusbtn" roles="acl_modify_cart_item" action="none"/>
                     <vivibutton id="btnPayment" label="&cart.button.payments;" oncommand="$do('showPaymentStatus', null, 'Cart');"  class="systoolbtn mediumimagebtn paymentdetailsbtn"/>
                 </vbox>
             </viviscrollabletree>

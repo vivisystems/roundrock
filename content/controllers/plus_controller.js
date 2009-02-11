@@ -433,7 +433,6 @@
                 sPluDir = (sPluDir + '/').replace(/\/+/g,'/');
                 var aDstFile = sPluDir + valObj.no + ".png";
 
-                // document.getElementById('pluimage').setAttribute('src', 'chrome://viviecr/content/skin/pluimages/' + valObj.no + '.png?' + Math.random());
                 document.getElementById('pluimage').setAttribute("src", "file://" + aDstFile + "?" + Math.random());
             }
         },
@@ -455,13 +454,13 @@
                         if (o.no == data.no && data.id == null) {
                             NotifyUtils.warn(_('The Product No. [%S] already exists; product not added', [data.no]));
                             return 1;
-                        } else if (o.name == data.name) {
+                        } else if (o.name == data.name && o.cate_no == data.cate_no) {
                             if (data.id == null) {
-                                NotifyUtils.warn(_('The Product Name [%S] already exists; product not added', [data.name]));
+                                NotifyUtils.warn(_('The Product Name [%S] already exists in department [%S]; product not added', [data.name, data.cate_name]));
                                 return 2;
                             }
                             else if (data.id != o.id) {
-                                NotifyUtils.warn(_('The Product Name [%S] already exists; product not modified', [data.name]));
+                                NotifyUtils.warn(_('The Product Name [%S] already exists in department [%S]; product not modified', [data.name, data.cate_name]));
                                 return 2;
                             }
                             break;
@@ -539,6 +538,15 @@
                         
                         // newly added item is appended to end; jump cursor to end
                         var index = this.productPanelView.data.length - 1;
+
+                        // index < 0 indicates that this category was previously empty
+                        // we need to manually select it again to make the panel display
+                        // the newly added product
+                        if (index < 0) {
+                            var catepanel = document.getElementById('catescrollablepanel');
+                            this.changePluPanel(catepanel.selectedIndex);
+                            index = 0;
+                        }
                         this.clickPluPanel(index);
 
                         // @todo OSD

@@ -7,9 +7,9 @@
 
 .catescrollablepanel{
     background: none;
-    min-width: 356px;
-    max-width: 356px;
-    width: 356px;
+    min-width: 360px;
+    max-width: 360px;
+    width: 360px;
     margin: 0px;
 }
 
@@ -91,47 +91,6 @@
 	margin-top: 2px;
 	margin-right: 4px;
 	margin-bottom: 0px;
-}
-/*--------------------------------------------------------------------------
- * BUTTONS
- *--------------------------------------------------------------------------
- */
-
-.plubtn {
-    min-height:50px;
-    min-width: 50px;
-    border: 1px solid;
-    -moz-appearance: none;
-    margin: 2px;
-    padding: 0px;
-    -moz-border-top-colors: #c9c3b9;
-    -moz-border-right-colors: #c9c3b9;
-    -moz-border-bottom-colors: #c9c3b9;
-    -moz-border-left-colors: #c9c3b9;
-    -moz-box-pack: center;
-    -moz-user-focus: ignore;
-    -moz-background-clip: border;
-    background-color: #ffffff;
-
-}
-
-.plubtn:active {
-    background-position:0pt -60px;
-    border: 2px solid;
-    -moz-border-top-colors: #444 #222;
-    -moz-border-right-colors: #444 #ddd;
-    -moz-border-bottom-colors: #444 #ddd;
-    -moz-border-left-colors: #444 #222;
-}
-
-.plubtn[disabled=true] {
-    background-color: #ffffff;
-    border: 1px solid #c9c3b9;
-}
-
-.plubtn hbox {
-    -moz-box-orient: vertical;
-
 }
 
 /*--------------------------------------------------------------------------

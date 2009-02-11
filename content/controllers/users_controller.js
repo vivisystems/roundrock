@@ -154,6 +154,14 @@
 
                 // @todo OSD
                 OsdUtils.info(_('Employee [%S] modified successfully', [evt.data.displayname]));
+
+                // if
+                var currentUser = GeckoJS.Session.get('user');
+                if (currentUser != null && currentUser.id == evt.data.id) {
+                        GREUtils.Dialog.alert(window,
+                                              _('Modify Employee'),
+                                              _('Changes to an employee will take effect the next time the employee logs in'));
+                }
             }
         },
 
@@ -221,9 +229,14 @@
             var view = panel.datasource;
             var displayname = view.data[panel.selectedIndex].displayname;
             var defaultUserID = GeckoJS.Configure.read('vivipos.fec.settings.DefaultUser');
+            var currentUser = GeckoJS.Session.get('user');
 
             if (defaultUserID == evt.data.id) {
                 NotifyUtils.warn(_('[%S] is the default user and may not be deleted', [displayname]));
+                evt.preventDefault();
+            }
+            else if (currentUser != null && currentUser.id == evt.data.id) {
+                NotifyUtils.warn(_('[%S] is the current user and may not be deleted', [displayname]));
                 evt.preventDefault();
             }
             else if (evt.data.username == 'superuser') {

@@ -1,7 +1,0 @@
-<!ENTITY dialog.prompt.title "User Prompt">
-<!ENTITY dialog.okButton.label "OK">
-<!ENTITY dialog.cancelButton.label "AVBRYT">
-<!ENTITY dialog.helpButton.label "HJÄLP">
-<!ENTITY dialog.closeButton.label "STÄNG">
-<!ENTITY dialog.saveButton.label "SPARA">
-<!ENTITY dialog.applyButton.label "UTFÖR">

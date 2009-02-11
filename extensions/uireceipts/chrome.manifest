@@ -1,0 +1,7 @@
+content uireceipts		chrome/content/ xpcnativewrappers=no
+locale	uireceipts	en-US   chrome/locale/zh-TW/
+locale	uireceipts	zh-TW   chrome/locale/zh-TW/
+skin	uireceipts	classic	chrome/skin/
+
+overlay chrome://vivipos/content/mainUIOverlay.xul chrome://uireceipts/content/overlay.xul
+overlay chrome://viviecr/content/sysprefs.xul chrome://uireceipts/content/uireceipt.xul

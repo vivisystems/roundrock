@@ -1,4 +1,4 @@
-// test
+
 (function(){
 
     /**
@@ -9,7 +9,6 @@
         name: 'Main',
         screenwidth: 800,
         screenheight: 600,
-        maxButtonRows: 10,
         depPanelView: null,
         pluPanelView: null,
         condimentPanel: null,
@@ -24,7 +23,7 @@
 
             GeckoJS.Session.set('screenwidth', this.screenwidth);
             GeckoJS.Session.set('screenheight', this.screenheight);
-            
+
             this.createPluPanel();
             this.requestCommand('initial', null, 'Pricelevel');
             this.requestCommand('initial', null, 'Cart');
@@ -40,10 +39,13 @@
             GeckoJS.Log.getAppender('console').level = GeckoJS.Log.ERROR;
             GeckoJS.Log.defaultClassLevel = GeckoJS.Log.ERROR;
 
-//            GeckoJS.Log.getAppender('console').level = GeckoJS.Log.TRACE;
+            GeckoJS.Log.getAppender('console').level = GeckoJS.Log.TRACE;
 //            GeckoJS.Log.defaultClassLevel = GeckoJS.Log.TRACE;
 //
-//            GeckoJS.Log.getLoggerForClass('DatasourceSQLite').level = GeckoJS.Log.TRACE;
+//            GeckoJS.Log.getLoggerForClass('DatasourceSQLite').level = GeckoJS.Log.DEBUG;
+
+            var cg = new CondimentGroupModel();
+            var datas = cg.find('all');
 
             var self = this;
             
@@ -218,15 +220,19 @@
                 //    - if user has role 'vivipos_fec_acl_override_system_price_level', use user default price level
                 var userModel = new UserModel();
 
-                var userRecord = userModel.findByIndex('all', {
+                var userRecord = userModel.findByIndex('first', {
                     index: "username",
                     value: user.username
                 });
 
                 var priceLevelSet = false;
 
-                if (userRecord && userRecord.length > 0) {
-                    var userPriceLevel = parseInt(userRecord[0].default_price_level);
+                if (userRecord) {
+                    // first, store user data in session
+
+                    GeckoJS.Session.set('user', userRecord);
+                    
+                    var userPriceLevel = parseInt(userRecord.default_price_level);
                     //var canOverride = (GeckoJS.Array.inArray('acl_user_override_default_price_level', user.Roles) != -1);
                     var canOverride = this.Acl.isUserInRole('acl_user_override_default_price_level');
 
@@ -247,6 +253,9 @@
 
                 var fnPanel = document.getElementById('functionPanel');
                 if (fnPanel) fnPanel.home();
+            }
+            else {
+                GeckoJS.Session.clear('user');
             }
         },
 
@@ -322,6 +331,7 @@
             var condimentPanel = document.getElementById('condimentscrollablepanel');
             var fnPanel = document.getElementById('functionPanel');
             var btmBox = document.getElementById('vivipos-bottombox');
+            var pluAndCondimentDeck = document.getElementById('pluAndCondimentDeck');
 
             var departmentRows = GeckoJS.Configure.read('vivipos.fec.settings.DepartmentRows');
             if (departmentRows == null) departmentRows = 3;
@@ -329,12 +339,17 @@
             var departmentCols = GeckoJS.Configure.read('vivipos.fec.settings.DepartmentCols');
             if (departmentCols == null) departmentCols = 4;
 
+            var departmentButtonHeight = GeckoJS.Configure.read('vivipos.fec.settings.Department.Button.Height');
+            if (departmentButtonHeight == null) departmentButtonHeight = 50;
+
             var pluRows = GeckoJS.Configure.read('vivipos.fec.settings.PluRows');
             if (pluRows == null) pluRows = 4;
 
             var pluCols = GeckoJS.Configure.read('vivipos.fec.settings.PluCols');
             if (pluCols == null) pluCols = 4;
 
+            var pluButtonHeight = GeckoJS.Configure.read('vivipos.fec.settings.Plu.Button.Height');
+            if (pluButtonHeight == null) pluButtonHeight = 50;
             var fnRows = GeckoJS.Configure.read('vivipos.fec.settings.functionpanel.rows');
             if (fnRows == null) fnRows = 3;
 
@@ -347,24 +362,22 @@
             var cropDeptLabel = GeckoJS.Configure.read('vivipos.fec.settings.CropDeptLabel') || false;
             var cropPLULabel = GeckoJS.Configure.read('vivipos.fec.settings.CropPLULabel') || false;
 
-            // first check if rows and columns have changed
-
-            var rowsLeft = this.maxButtonRows;
-            if (departmentRows > rowsLeft) {
-                departmentRows = rowsLeft;
-            }
-            rowsLeft -= departmentRows;
-
+            // sanity check on department and plu panel heights
+            var deptHeight = departmentRows * departmentButtonHeight;
+            var pluHeight = pluRows * pluButtonHeight;
+            
             if (cropPLULabel) pluPanel.setAttribute('crop', 'end');
 
             if (initial ||
                 (deptPanel.getAttribute('rows') != departmentRows) ||
                 (deptPanel.getAttribute('cols') != departmentCols) ||
+                (deptPanel.getAttribute('buttonHeight') != departmentButtonHeight) ||
                 (cropDeptLabel && (deptPanel.getAttribute('crop') != 'end')) ||
                 (!cropDeptLabel && (deptPanel.getAttribute('crop') == 'end')) ||
                 (deptPanel.getAttribute('hideScrollbar') != hideDeptScrollbar)) {
                 deptPanel.setAttribute('rows', departmentRows);
                 deptPanel.setAttribute('cols', departmentCols);
+                deptPanel.setAttribute('buttonHeight', departmentButtonHeight);
                 if (cropDeptLabel) deptPanel.setAttribute('crop', 'end');
                 else deptPanel.removeAttribute('crop');
                 if ((departmentRows > 0) && (departmentCols > 0)) {
@@ -376,27 +389,27 @@
                 else {
                     deptPanel.setAttribute('hidden', true);
                 }
-                document.getElementById('pluAndCondimentDeck').style.height = '0px';
+                if (pluAndCondimentDeck) pluAndCondimentDeck.style.height = '0px';
             }
-
-            if (pluRows > rowsLeft) {
-                pluRows = rowsLeft;
-            }
-            rowsLeft -= pluRows;
 
             if (initial ||
                 (pluPanel.getAttribute('rows') != pluRows) ||
                 (pluPanel.getAttribute('cols') != pluCols) ||
+                (pluPanel.getAttribute('buttonHeight') != pluButtonHeight) ||
                 (cropPLULabel && (pluPanel.getAttribute('crop') != 'end')) ||
                 (!cropPLULabel && (pluPanel.getAttribute('crop') == 'end')) ||
                 (pluPanel.getAttribute('hideScrollbar') != hidePLUScrollbar)) {
                 pluPanel.setAttribute('rows', pluRows);
                 pluPanel.setAttribute('cols', pluCols);
+                pluPanel.setAttribute('buttonHeight', pluButtonHeight);
 
                 // condimentPanel
                 var condRows =  (parseInt(pluRows)-1) > 0 ? (parseInt(pluRows)-1) : 0 ;
                 condimentPanel.setAttribute('rows', condRows);
                 condimentPanel.setAttribute('cols', pluCols);
+                condimentPanel.setAttribute('buttonHeight', pluButtonHeight);
+                document.getElementById('ok').style.height = pluButtonHeight + 'px';
+                document.getElementById('cancel').style.height = pluButtonHeight + 'px';
 
                 if (cropPLULabel) pluPanel.setAttribute('crop', 'end');
                 else pluPanel.removeAttribute('crop');
@@ -421,6 +434,7 @@
                     document.getElementById('condimentBtnContainer').setAttribute('hidden', true);
                 }
             }
+            if (pluAndCondimentDeck) pluAndCondimentDeck.selectedIndex = 0;
 
             if (deptPanel) deptPanel.vivibuttonpanel.resizeButtons();
             if (pluPanel) pluPanel.vivibuttonpanel.resizeButtons();
@@ -428,11 +442,9 @@
             if (fnPanel) {
                 var totalHeight = deptPanel.boxObject.height - (- pluPanel.boxObject.height);
                 var panelSpacerWidth = (panelSpacer) ? panelSpacer.boxObject.width : 0;
-                var fnWidth = this.screenwidth - rightPanel.boxObject.width - panelSpacerWidth;
-                var fnTop = $(fnPanel).css('margin-top');
-                var fnBottom = $(fnPanel).css('margin-bottom');
+                var fnWidth = this.screenwidth - rightPanel.boxObject.width - panelSpacerWidth - 0;
 
-                var fnHeight = this.screenheight - totalHeight - btmBox.boxObject.height - 6;
+                var fnHeight = this.screenheight - totalHeight - btmBox.boxObject.height - 4;
                 if (fnHeight < 1 || fnRows == 0 || fnCols == 0) {
                     fnPanel.setAttribute('height', 0);
                     fnPanel.hide();
@@ -779,8 +791,11 @@
 
             var args = arg.split('|');
 
-            this.requestCommand(args[0], args[1], args[2]) ;
-            
+            //this.requestCommand(args[0], args[1], args[2]) ;
+            var printer = GeckoJS.Controller.getInstanceByName('Print');
+            if (printer) {
+                printer.printReport('narrow', 'This is a narrow report [0x0C]');
+            }
         }
 
 

@@ -2,9 +2,9 @@
 [&QSON]${store.name|center:21}[&QSOFF]
 [&DWON]${store.branch|center:21}[&DWOFF]
 ${store.telephone1|center:42}
-Opened:   ${order.create_date.toLocaleFormat('%Y-%m-%d %H:%M:%S')}
-Closed:   ${order.print_date.toLocaleFormat('%Y-%m-%d %H:%M:%S')}
-Terminal: ${store.terminal_no|left:10} Clerk: ${order.proceeds_clerk_displayname|left:14}
+Opened:   ${(new Date(order.created)).toLocaleFormat('%Y-%m-%d %H:%M:%S')}
+Peinrws  :${(new Date()).toLocaleFormat('%Y-%m-%d %H:%M:%S')}
+Terminal: ${order.terminal_no|left:10} Clerk: ${order.proceeds_clerk_displayname|left:14}
 ------------------------------------------
 {for item in order.display_sequences}
 {if item.type == 'item'}
@@ -24,9 +24,6 @@ ${item.current_qty|right:4} ${item.name|left:12} ${item.current_price|left:7} ${
 {/if}
 Tax:       ${txn.formatPrice(order.tax_subtotal)|right:30}
 Total:     ${txn.formatPrice(order.total)|right:30}
-
-Received:  ${txn.formatPrice(order.payment_subtotal)|right:30}
-CHANGE:    ${txn.formatPrice(0 - order.remain)|right:30}
 ------------------------------------------
 
 ${'Thank you for shopping at ' + store.name +'!'|center:42}
