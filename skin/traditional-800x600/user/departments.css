@@ -211,5 +211,23 @@ vividatetimepicker-timepad {
     margin: 4px;
 }
 
-
+/* sycn_settings */
+.DataFormA row{
+	border-bottom: 2px solid white;
+	font-size: 10pt;
+	padding: 8px;
+    -moz-box-align: center;
+}
+.DataFormA {
+	border-right: 2px solid white;
+	background: #f4f3ee;
+    margin: 0 10px 10px 10px;
+}
+.DataFormA column{
+	padding: 8px;
+}
+.DataFormA label {
+  font-size: 10pt;
+  color: #372213;
+}
 

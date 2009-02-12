@@ -13,13 +13,13 @@
 }
 
 .leftPanel {
-    width: 510px;
+    width: 500px;
 }
 
 .rightPanel {
-    width: 510px;
-    min-width: 510px;
-    max-width: 510px;
+    width: 520px;
+    min-width: 520px;
+    max-width: 520px;
 }
 
 .panelSpacer {

@@ -88,11 +88,11 @@ textbox {
 
 }
 textbox[readonly="true"] {
-  border: 1px solid #bdbcb8;
-  -moz-border-top-colors: #bdbcb8;
-  -moz-border-left-colors: #bdbcb8;
-  -moz-border-right-colors: #bdbcb8;
-  -moz-border-bottom-colors: #bdbcb8;
+  border: 1px solid #a1a09d;
+  -moz-border-top-colors: #a1a09d;
+  -moz-border-left-colors: #a1a09d;
+  -moz-border-right-colors: #a1a09d;
+  -moz-border-bottom-colors: #a1a09d;
   background: white url(images/tboxbg_readonly.png) left center repeat-x;
   -moz-appearance: none;
 }
@@ -304,6 +304,7 @@ checkbox {
     cursor: pointer;
     min-height: 40px;
     padding: 5px;
+    font-size: 11pt;
 }
 
 radio {
@@ -331,17 +332,17 @@ checkbox:hover, radio:hover {
 }
 
 .numpad sendkeybutton{
-    min-width:90px;
-    max-width:90px;
-    width: 90px;
-    min-height:50px;
-    max-height:50px;
-    height: 50px;
+    min-width:92px;
+    max-width:92px;
+    width: 92px;
+    min-height:55px;
+    max-height:55px;
+    height: 55px;
     margin: 2px 0px 0px 3px;
     padding: 0px;
     list-style-type: none;
     font-weight: bold !important;
-    font-size: 32px;
+    font-size: 34px;
     overflow: hidden;
     border: 0px solid;
     -moz-appearance: none;
@@ -355,18 +356,18 @@ checkbox:hover, radio:hover {
 }
 
 .fixedbtn {
-    min-width:90px;
-    max-width:90px;
-    width: 90px;
-    min-height:50px;
-    max-height:50px;
-    height: 50px;
+    min-width:92px;
+    max-width:92px;
+    width: 92px;
+    min-height:55px;
+    max-height:55px;
+    height: 55px;
     margin:  2px 0px 0px 3px;
     padding: 0px;
     list-style-type: none;
-    color: #3b556c;
+    color: #1d3144;
     font-weight: bold !important;
-    font-size: 14px;
+    font-size: 15px;
     overflow: hidden;
     text-wrap: normal;
     word-wrap: break-word;
@@ -399,6 +400,7 @@ checkbox:hover, radio:hover {
     border:none;
     color: #4b4b4b;
     margin-bottom: 5px;
+    font-size: 11pt;
 }
 .RightTabbox tab[selected=true] {
     -moz-user-focus: ignore;
@@ -435,6 +437,17 @@ listitem[selected=true] {
 menuitem {
     min-height: 36px;
 }
+menuitem:hover {
+    color: #000;
+    background-color: #cabda2;
+    -moz-appearance: none;
+}
+menuitem[selected=true] {
+    color: white;
+    background-color: #7e7259;
+    -moz-appearance: none;
+}
+
 menulist {
     -moz-appearance: none;
     border: 3px solid;
@@ -466,6 +479,12 @@ menulist hbox label {
     -moz-border-right-colors: #a1a1ba;
     padding: 0 5px;
 }
+.popup-internal-box {
+    -moz-appearance: none;
+    background: white;
+    border: 1px solid #666;
+}
+
 
 spinbuttons {
     -moz-appearance: none;
@@ -557,15 +576,17 @@ scrollbar {
 
 
 
-/*treecol, treecolpicker {
-    background: #92856a;
+treecol, treecolpicker {
+    background: #f2f2f2 url(images/titleBg.png) center center repeat-x;
     border: none;
-    border-right: 1px solid #fff;
-    -moz-border-right-colors: #fff;
-    padding: 1px 3px;
+    border-right: 1px solid #979a9d;
+    -moz-border-right-colors: #979a9d;
+    border-bottom: 1px solid #979a9d;
+    -moz-border-bottom-colors: #979a9d;
+    padding: 2px 4px;
     -moz-appearance: none;
-    color: #fff;
-}*/
+    color: #000;
+}
 
 treechildren::-moz-tree-row {
   height: 40px;

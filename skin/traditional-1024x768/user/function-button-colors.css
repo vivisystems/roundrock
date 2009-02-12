@@ -6,10 +6,10 @@
  */
 
 .function-button-color-default {
-    -moz-border-top-colors: #e3e3e3;
-    -moz-border-right-colors: #e3e3e3;
-    -moz-border-bottom-colors: #e3e3e3;
-    -moz-border-left-colors: #e3e3e3;
+    -moz-border-top-colors: #a6a6a6;
+    -moz-border-right-colors: #a6a6a6;
+    -moz-border-bottom-colors: #a6a6a6;
+    -moz-border-left-colors: #a6a6a6;
     background: #fff url(images/funColor01.gif) bottom left repeat-x;
 }
 
@@ -107,5 +107,5 @@
 .function-button-color-5[selected], .function-button-color-6[selected], .function-button-color-7[selected],
 .function-button-color-8[selected], .function-button-color-9[selected], .function-button-color-10[selected],
 .function-button-color-11[selected] {
-    list-style-image: url(chrome://viviecr/skin/images/gtk-yes.png);
+    list-style-image: url(images/con_sel.png);
 }

@@ -17,12 +17,13 @@ radio {
     color: #333232;
     margin-bottom: 5px;
 }
-radio[selected=true] {
+radio[selected=true], radio[selected=true]:hover {
     -moz-user-focus: ignore;
-    background-color: #92856a;
+    background-color: #92856a !important;
     background-image: none;
     color: white;
     font-weight: bold;
+    -moz-appearance: none;
 }
 radio:hover {
     background: #f4f3ee !important;

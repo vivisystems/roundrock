@@ -27,6 +27,7 @@
     background: #ede7dc;
     margin: 1px 8px 1px 4px;
     padding: 8px;
+    -moz-box-align: center;
 }
 .DataRowA label, .DataRow label {
     font-size: 10pt;

@@ -433,6 +433,17 @@ listitem[selected=true] {
 menuitem {
     min-height: 32px;
 }
+menuitem:hover {
+    color: #000;
+    background-color: #cabda2;
+    -moz-appearance: none;
+}
+menuitem[selected=true] {
+    color: white;
+    background-color: #7e7259;
+    -moz-appearance: none;
+}
+
 menulist {
     -moz-appearance: none;
     border: 3px solid;
@@ -464,6 +475,11 @@ menulist hbox label {
     border-right: 1px solid ;
     -moz-border-right-colors: #a1a1ba;
     padding: 0 5px;
+}
+.popup-internal-box {
+    -moz-appearance: none;
+    background: white;
+    border: 1px solid #666;
 }
 
 spinbuttons {
@@ -556,15 +572,17 @@ scrollbar {
 
 
 
-/*treecol, treecolpicker {
-    background: #92856a;
+treecol, treecolpicker {
+    background: #f2f2f2 url(images/titleBg.png) center center repeat-x;
     border: none;
-    border-right: 1px solid #fff;
-    -moz-border-right-colors: #fff;
-    padding: 1px 2px;
+    border-right: 1px solid #979a9d;
+    -moz-border-right-colors: #979a9d;
+    border-bottom: 1px solid #979a9d;
+    -moz-border-bottom-colors: #979a9d;
+    padding: 1px 3px;
     -moz-appearance: none;
-    color: #fff;
-}*/
+    color: #000;
+}
 
 treechildren::-moz-tree-row {
   height: 32px;

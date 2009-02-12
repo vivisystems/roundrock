@@ -107,10 +107,10 @@
 
 .vivifuncpanelecr_matrix_button_configure[checked=true] {
     border-width: 3px;
-    -moz-border-top-colors: black red;
-    -moz-border-bottom-colors: black red;
-    -moz-border-left-colors: black red;
-    -moz-border-right-colors: black red;
+    -moz-border-top-colors: black ;
+    -moz-border-bottom-colors: black ;
+    -moz-border-left-colors: black ;
+    -moz-border-right-colors: black ;
 }
 
 /*-----------------------------------------------------------------------------
