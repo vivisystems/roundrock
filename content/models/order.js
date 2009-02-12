@@ -103,12 +103,10 @@ var OrderModel = window.OrderModel =  GeckoJS.Model.extend({
 
                 case 'created':
                     orderData['transaction_created'] = data[key];
-                    orderData['transaction_created_format'] = new Date(data[key]).toString('yyyy-MM-dd HH:mm:ss');
                     break;
 
                 case 'modified':
                     orderData['transaction_submited'] = data[key];
-                    orderData['transaction_submited_format'] = new Date(data[key]).toString('yyyy-MM-dd HH:mm:ss');
                     break;
 
                 case 'items':
@@ -146,8 +144,9 @@ var OrderModel = window.OrderModel =  GeckoJS.Model.extend({
 
 
                 switch(key) {
+                    case 'cate_id':
                     case 'id':
-                        orderItem['product_id'] = item[key];
+                        // orderItem['product_id'] = item[key];
                         break;
                     case 'no':
                         orderItem['product_no'] = item[key];
