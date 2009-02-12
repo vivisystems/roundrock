@@ -59,21 +59,12 @@
                     if (datas[o.cate_no].plu == null) {
                         datas[o.cate_no].plu = [];
                     }
-                    /*
-                    datas[o.cate_no].plu.push( {
-                        cate_no:o.cate_no,
-                        no:o.no,
-                        name:o.name,
-                        stock:o.stock,
-                        min_stock:o.min_stock
-                        });
-                    */
                     datas[o.cate_no].plu.push(GREUtils.extend({}, o));
                 }
             });
 
             this._datas = datas;
-this.log(this.dump(datas));
+
             var start = '';
             var end = '';
             var data = {

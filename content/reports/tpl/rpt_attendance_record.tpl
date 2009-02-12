@@ -1,50 +1,35 @@
-<!-- div class="paper" style="overflow:auto;" -->
-<div id="printhead">
+<div class="paper" style="overflow:auto;">
+<!-- div id="printhead" -->
 <img src="chrome://viviecr/content/skin/images/logo.png" /><br />
-</div>
-<div id="docbody" class="paper">
- <!-- ${head.starttime} - ${head.endtime} -->
+<p>${head.title}</p>
+<!-- /div>
+<div id="docbody" -->
+{for master in body}
         <table id="body-table">
-            <caption>${head.title}</caption>
+            <caption>${master.username} - {master.displayname}</caption>
             <thead>
                 <tr>
-                    <th>Time</th>
-                    <th>Sequence</th>
-                    <th>Invoice No</th>
-                    <th>Total</th>
-                    <th>Surcharge</th>
-                    <th>Discount</th>
-                    <th>Cash</th>
-                    <th>Credit Card</th>
-                    <th>Coupon</th>
+                    <th style="text-align: left;">Job</th>
+                    <th style="text-align: left;">Clock In</th>
+                    <th style="text-align: left;">Clock Out</th>
                 </tr>
             </thead>
             <tbody>
-{for detail in body}
+{for stamp in master.clockStamps}
                 <tr>
-                    <td style="text-align: left;">${detail.Order.Date}</td>
-                    <td>${detail.sequence}</td>
-                    <td>${detail.invoice_no}</td>
-                    <td>${detail.total}</td>
-                    <td>${detail.surcharge_subtotal}</td>
-                    <td>${detail.discount_subtotal}</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td style="text-align: left;">${stamp.job}</td>
+                    <td style="text-align: left;">${stamp.InTime}</td>
+                    <td style="text-align: left;">${stamp.OutTime}</td>
                 </tr>
 {/for}
             </tbody>
             <tfoot>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td colspan="3"></td>
                 </tr>
             </tfoot>
         </table>
         </br>
-
+{/for}
 </div>
 <!--/div -->

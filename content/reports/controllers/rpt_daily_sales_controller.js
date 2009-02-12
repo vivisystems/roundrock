@@ -6,9 +6,6 @@
 
     var  XUL_NS = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
 
-    var gPrintSettingsAreGlobal = false;
-    var gSavePrintSettings = false;
-
     GeckoJS.Controller.extend( {
         name: 'RptDailySales',
         components: ['BrowserPrint', 'CsvExport'],
@@ -147,17 +144,16 @@
         },
 
         load: function() {
-            var self = this;
-            this._selectedIndex = -1;
+            var today = new Date();
+            var yy = today.getYear() + 1900;
+            var mm = today.getMonth();
+            var dd = today.getDate();
 
-            var start = document.getElementById('start_date').value;
-            var end = document.getElementById('end_date').value;
+            var start = (new Date(yy,mm,dd,0,0,0)).getTime();
+            var end = (new Date(yy,mm,dd + 1,0,0,0)).getTime();
+
             document.getElementById('start_date').value = start;
             document.getElementById('end_date').value = end;
-
-            var start_str = document.getElementById('start_date').datetimeValue.toLocaleString();
-            var end_str = document.getElementById('end_date').datetimeValue.toLocaleString();
-
             
         }
 

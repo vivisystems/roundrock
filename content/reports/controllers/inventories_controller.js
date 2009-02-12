@@ -74,7 +74,7 @@
             var end = '';
             var data = {
                 head: {
-                    title:_('Product List'),
+                    title:_('Product Stock List'),
                     start_date: start,
                     end_date: end
                 },
@@ -84,7 +84,7 @@
                 }
             }
 
-            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_products.tpl");
+            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/inventory.tpl");
 
             var file = GREUtils.File.getFile(path);
             var tpl = GREUtils.File.readAllBytes(file);

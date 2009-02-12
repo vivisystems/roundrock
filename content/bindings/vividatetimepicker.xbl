@@ -1620,7 +1620,7 @@
             this.datepad.dateValue = dt;
 
             // this.timepad.dateValue.setTime(val);
-            this.timepad._dateValue = dt;
+            this.timepad.dateValue = dt;
 
             this.datepad._fireEvent("change", this);
             this.timepad._fireEvent("change", this);
@@ -1642,6 +1642,9 @@
         this.datepad = datepad;
         this.timepad = timepad;
         this.datetimelabel = datetimelabel;
+
+        //this._setValueOnChange();
+        this.datetimelabel.value = (new Date()).toLocaleString();
       </constructor>
       <property name="datetimeValue" onget="return new Date(this.value);">
         <!-- setter>
@@ -1680,6 +1683,9 @@
             var ss = 0;
             var dt = new Date(y,m,d,h,n,s);
             this.datetimelabel.value = dt.toLocaleString();
+
+            this.datepad._setValueOnChange(aField);
+            this.timepad._setValueOnChange(aField);
 
             /*
             if (!this._hasEntry)

@@ -7,17 +7,20 @@
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/content/reports/tpl/rpt_users.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/reports.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
 
-<window id="main" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-                xmlns:html="http://www.w3.org/1999/xhtml">
+<window id="main"
+        hidechrome="true"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        xmlns:html="http://www.w3.org/1999/xhtml">
 
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/template.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/template_ext.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/reports/rpt_users.js" />
 
     <vbox flex="1" class="main-dialog">
@@ -25,23 +28,16 @@
             <caption label="&rptusers.title;"  class="PageTitle"/>
             <!--caption label="&productsales.conditions;" / -->
             <hbox class="TopPnl">
-                <!-- grid class="DataForm">
+                <grid class="DataForm" flex="1">
                     <columns>
                         <column  flex="1"/><column flex="1" />
                     </columns>
                     <rows>
                         <row>
-                            <vbox>
-                                <label value="&productsales.startdate;" />
-                                <vividatetimepicker id="start_date" value='' type="popup" />
-                            </vbox>
-                            <vbox>
-                                <label value="&productsales.enddate;" />
-                                <vividatetimepicker id="end_date" value='' type="popup"/>
-                            </vbox>
+                            
                         </row>
                     </rows>
-                </grid  -->
+                </grid>
                 <button id="execute" label="&rptusers.execute;" disabled="false" class="editbtns" oncommand="$do('execute', null, 'RptUsers');" />
             </hbox>
 

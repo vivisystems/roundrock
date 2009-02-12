@@ -7,7 +7,6 @@
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/content/reports/tpl/rpt_cash_by_clerk.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/reports.css" type="text/css"?>
 
@@ -20,12 +19,13 @@
         xmlns:html="http://www.w3.org/1999/xhtml">
 
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/template.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/template_ext.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/reports/rpt_daily_sales_detail.js" />
   
     <vbox flex="1" class="main-dialog">
         <vbox flex="1" class="MainPnl">
             <caption label="&rptdailysalesdetail.title;"  class="PageTitle"/>
-            <!--caption label="&productsales.conditions;" / -->
             <hbox class="TopPnl">
                 <grid class="DataForm">
                     <columns>
@@ -73,6 +73,7 @@
                     </vbox>
                     <hbox id="dialogButtons" class="dialogbtns" pack="end">
                         <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                        <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle()" class="VkbBtn"/>
                     </hbox>
                 </vbox>
             </hbox>
