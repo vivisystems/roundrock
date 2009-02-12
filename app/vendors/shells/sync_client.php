@@ -80,11 +80,10 @@ class SyncClientShell extends Shell {
 
         $timeout = $syncSettings['timeout'];
 
-        // While checks on 3 things in this case:
+        // While checks on 2 things in this case:
         // - That the Daemon Class hasn't reported it's dying
         // - That your own code has been running Okay
-        // - That we're not executing more than 3 runs
-        while (!System_Daemon::isDying() && $runningOkay) {
+        while (!System_Daemon::isDying()/* && $runningOkay*/) {
 
             // is ok?
             $nowHour = date("H") + 0;
@@ -100,10 +99,10 @@ class SyncClientShell extends Shell {
                 $syncResult = $shell->requestAction("/sync_clients/perform_sync");
 
                 $successed = $syncResult['pull_result'] && $syncResult['push_result'];
-
-                // System_Daemon::log(System_Daemon::LOG_INFO, "successed = " . $successed );
                 
                 if ($successed) break;
+
+                System_Daemon::log(System_Daemon::LOG_INFO, "perform_sync not successed, retries = " . $tries );
 
                 $tries++;
 
@@ -112,7 +111,12 @@ class SyncClientShell extends Shell {
             }
 
             // Relax the system by sleeping for a little bit
-            sleep($interval);
+            // if not runningOkay sleeping one hour
+            if($runningOkay) {
+                sleep($interval);
+            }else {
+                sleep(3600);
+            }
             
         }
 
