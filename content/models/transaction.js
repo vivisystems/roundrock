@@ -166,12 +166,12 @@
         //Transaction.worker.dispatch(this, Transaction.worker.DISPATCH_NORMAL);
 
         var self = this;
-        Transaction.worker = setTimeout(function() {
+       // Transaction.worker = setTimeout(function() {
             // maintain stock...
             self.requestCommand('decStock', self.data, "Stocks");
 
             self.run();
-        }, 1500);
+       // }, 1500);
 
     };
 
