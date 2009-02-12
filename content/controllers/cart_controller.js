@@ -2214,7 +2214,7 @@
 
             this.dispatchEvent('beforeSubmit', oldTransaction);
 
-            oldTransaction.submit(status);
+            // oldTransaction.submit(status);
 
             this.dispatchEvent('afterSubmit', oldTransaction);
 

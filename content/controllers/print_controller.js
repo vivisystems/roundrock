@@ -197,6 +197,9 @@
             this.printReceipts(evt.data);
             this.printGuestChecks(evt.data);
 
+            // @todo delay saving order to database til after print jobs have all been scheduled
+            this.scheduleOrderCommit(evt.data);
+
             // @hack
             // sleep to allow UI to catch up
             this.sleep(50);
@@ -646,6 +649,61 @@
             };
 
             this._worker.dispatch(runnable, this._worker.DISPATCH_NORMAL);
+        },
+
+        scheduleOrderCommit: function(txn) {
+
+            // set up main thread callback to dispatch event
+            var orderCommit = function(txn) {
+                this._commitTxn = txn;
+            }
+
+            // send to output device using worker thread
+            var self = this;
+
+            orderCommit.prototype = {
+                run: function() {
+                    try {
+                        this._commitTxn.submit();
+                    }
+                    catch (e) {
+                        this.log('WARN', 'failed to commit order');
+                    }
+                },
+
+                QueryInterface: function(iid) {
+                    if (iid.equals(Components.Interfaces.nsIRunnable) || iid.equals(Components.Interfaces.nsISupports)) {
+                        return this;
+                    }
+                    throw Components.results.NS_ERROR_NO_INTERFACE;
+                }
+            }
+
+            var runnable = {
+                run: function() {
+                    try {
+                        // dispatch commitOrder event indirectly through the main thread
+
+                        if (self._main) {
+                            self._main.dispatch(new orderCommit(txn), self._worker.DISPATCH_NORMAL);
+                        }
+
+
+                    }catch(e) {
+                        return false;
+                    }
+                },
+
+                QueryInterface: function(iid) {
+                    if (iid.equals(Components.Interfaces.nsIRunnable) || iid.equals(Components.Interfaces.nsISupports)) {
+                        return this;
+                    }
+                    throw Components.results.NS_ERROR_NO_INTERFACE;
+                }
+            };
+
+            this._worker.dispatch(runnable, this._worker.DISPATCH_NORMAL);
+
         }
 
     });

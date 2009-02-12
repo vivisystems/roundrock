@@ -1,6 +1,13 @@
 [&STX]KI70
 [&STX]c0000
 [&STX]f320
+{eval}
+total = 0;
+for (id in order.items_summary) {
+   total += order.items_summary[id].qty_subtotal;
+}
+counter = 1;
+{/eval}
 {for item in order.items}
 {eval}
   conds = GeckoJS.BaseObject.getKeys(item.condiments);
@@ -27,5 +34,11 @@ y -= lineHeight;
 1;0000100${GeckoJS.String.padLeft(y, 2, '0')}0010${'*' + item.memo|wleft:10}[&CR]
 {/if}
 Q${GeckoJS.String.padLeft(item.current_qty, 4, '0')}
+191100200100010${counter}
++01
+191100200100016/${total}
 E
+{eval}
+counter += item.current_qty;
+{/eval}
 {/for}
