@@ -603,7 +603,7 @@
                         }
 
                         var printed = 0;
-                        if (self._device.checkSerialPort(portPath)) {
+                        if (self._device.checkSerialPort(portPath, handshaking, true)) {
                             if (self.openSerialPort(portPath, portspeed, handshaking)) {
                                 for (var i = 0; i < copies; i++) {
                                     var len = self.writeSerialPort(portPath, encodedResult);

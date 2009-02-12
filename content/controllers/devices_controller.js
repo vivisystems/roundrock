@@ -323,7 +323,7 @@
                         switch(ports[port].type) {
                             case 'serial':
                             case 'usb':
-                                status = this.checkSerialPort(ports[port].path);
+                                status = this.checkSerialPort(ports[port].path, selectedDevices['receipt-1-handshaking']);
                                 break;
                         }
                         statuses.push([_('Receipt Printer %S', [1]), ports[port].label + ' (' + ports[port].path + ')', status]);
@@ -345,7 +345,7 @@
                         switch(ports[port].type) {
                             case 'serial':
                             case 'usb':
-                                status = this.checkSerialPort(ports[port].path);
+                                status = this.checkSerialPort(ports[port].path, selectedDevices['receipt-2-handshaking']);
                                 break;
                         }
                         statuses.push([_('Receipt Printer %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
@@ -367,7 +367,7 @@
                         switch(ports[port].type) {
                             case 'serial':
                             case 'usb':
-                                status = this.checkSerialPort(ports[port].path);
+                                status = this.checkSerialPort(ports[port].path, selectedDevices['guestcheck-1-handshaking']);
                                 break;
                         }
                         statuses.push([_('Guest Check Printer %S', [1]), ports[port].label + ' (' + ports[port].path + ')', status]);
@@ -389,7 +389,7 @@
                         switch(ports[port].type) {
                             case 'serial':
                             case 'usb':
-                                status = this.checkSerialPort(ports[port].path);
+                                status = this.checkSerialPort(ports[port].path, selectedDevices['guestcheck-2-handshaking']);
                                 break;
                         }
                         statuses.push([_('Guest Check Printer %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
@@ -411,7 +411,7 @@
                         switch(ports[port].type) {
                             case 'serial':
                             case 'usb':
-                                status = this.checkSerialPort(ports[port].path);
+                                status = this.checkSerialPort(ports[port].path, selectedDevices['report-1-handshaking']);
                                 break;
                         }
                         statuses.push([_('Report Printer %S', [1]), ports[port].label + ' (' + ports[port].path + ')', status]);
@@ -433,7 +433,7 @@
                         switch(ports[port].type) {
                             case 'serial':
                             case 'usb':
-                                status = this.checkSerialPort(ports[port].path);
+                                status = this.checkSerialPort(ports[port].path, selectedDevices['report-2-handshaking']);
                                 break;
                         }
                         statuses.push([_('Report Printer %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
@@ -455,7 +455,7 @@
                         switch(ports[port].type) {
                             case 'serial':
                             case 'usb':
-                                status = this.checkSerialPort(ports[port].path);
+                                status = this.checkSerialPort(ports[port].path, selectedDevices['vfd-1-handshaking']);
                                 break;
                         }
                         statuses.push([_('VFD %S', [1]), ports[port].label + ' (' + ports[port].path + ')', status]);
@@ -476,7 +476,7 @@
                         switch(ports[port].type) {
                             case 'serial':
                             case 'usb':
-                                status = this.checkSerialPort(ports[port].path);
+                                status = this.checkSerialPort(ports[port].path, selectedDevices['vfd-2-handshaking']);
                                 break;
                         }
                         statuses.push([_('VFD %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
@@ -503,7 +503,7 @@
                                 switch(ports[port].type) {
                                     case 'serial':
                                     case 'usb':
-                                        status = this.checkSerialPort(ports[port].path);
+                                        status = this.checkSerialPort(ports[port].path, selectedDevices['cashdrawer-1-handshaking']);
                                         break;
                                 }
                                 statuses.push([_('Cash Drawer %S', [1]), ports[port].label + ' (' + ports[port].path + ')', status]);
@@ -532,7 +532,7 @@
                                 switch(ports[port].type) {
                                     case 'serial':
                                     case 'usb':
-                                        status = this.checkSerialPort(ports[port].path);
+                                        status = this.checkSerialPort(ports[port].path, selectedDevices['cashdrawer-2-handshaking']);
                                         break;
                                 }
                                 statuses.push([_('Cash Drawer %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
@@ -550,12 +550,19 @@
             return {printerEnabled: printerEnabled, statuses: statuses};
         },
 
-        checkSerialPort: function (path) {
+        checkSerialPort: function (path, handshaking, noHandshakingValue) {
             var portControl = this.getSerialPortControlService();
             var status = 0;
+            if (handshaking == null) handshaking = 'n';
+            if (noHandshakingValue == null) noHandshakingValue = false;
 
+            // if handshaking is 'n' or 'x', return value depending value of checkOnly
+            if (handshaking == 'x' || handshaking == 'n') {
+                return noHandshakingValue;
+            }
+            
             if (portControl != null) {
-                portControl.openPort(path, '9600,n,8,1,h');
+                portControl.openPort(path, '9600,n,8,1,' + handshaking);
                 status = portControl.statusPort(path);
                 portControl.closePort(path);
                 //this.log(path + ':' + status);
