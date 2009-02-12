@@ -412,7 +412,7 @@ pref("vivipos.fec.reportpanels.accountreport.roles", "acl_public_access_inactive
 pref("vivipos.fec.reportpanels.attendancerecord.label", "Attendance Record");
 pref("vivipos.fec.reportpanels.attendancerecord.path", "chrome://viviecr/content/reports/rpt_attendance_record.xul");
 pref("vivipos.fec.reportpanels.attendancerecord.icon", "chrome://viviecr/content/skin/icons/insert-object.png");
-pref("vivipos.fec.reportpanels.attendancerecord.roles", "acl_public_access");
+pref("vivipos.fec.reportpanels.attendancerecord.roles", "acl_public_access_inactive");
 
 pref("vivipos.fec.reportpanels.inventory.label", "Inventory Report");
 pref("vivipos.fec.reportpanels.inventory.path", "chrome://viviecr/content/reports/inventory.xul");
@@ -462,7 +462,7 @@ pref("vivipos.fec.reportpanels.dailysalesdetail.roles", "acl_public_access");
 pref("vivipos.fec.reportpanels.salessummary.label", "Sales Summary");
 pref("vivipos.fec.reportpanels.salessummary.path", "chrome://viviecr/content/reports/rpt_sales_summary.xul");
 pref("vivipos.fec.reportpanels.salessummary.icon", "chrome://viviecr/content/skin/icons/editcopy.png");
-pref("vivipos.fec.reportpanels.salessummary.roles", "acl_public_access");
+pref("vivipos.fec.reportpanels.salessummary.roles", "acl_public_access_inactive");
 
  
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-42c.label", "Sample Receipt 42c condensed");

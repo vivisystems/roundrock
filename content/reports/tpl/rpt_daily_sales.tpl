@@ -24,15 +24,15 @@
 {for detail in body}
                 <tr>
                     <td style="text-align: left;">${detail.terminal_no}</td>
-                    <td style="text-align: left;">${detail.transaction_created|unixTimeToLocale}</td>
+                    <td style="text-align: left;">${detail.transaction_created|unixTimeToString:'yyyy-M-d'}</td>
                     <td>${detail.sequence}</td>
                     <td>${detail.invoice_no}</td>
-                    <td>${detail.total|round:detail.precision_prices,detail.rounding_prices|format:detail.precision_prices}</td>
-                    <td>${detail.surcharge_subtotal|round:detail.precision_prices,detail.rounding_prices|format:detail.precision_prices}</td>
-                    <td>${detail.discount_subtotal|round:detail.precision_prices,detail.rounding_prices|format:detail.precision_prices}</td>
-                    <td>${detail.cash|round:detail.precision_prices,detail.rounding_prices|format:detail.precision_prices}</td>
-                    <td>${detail.creditcard|round:detail.precision_prices,detail.rounding_prices|format:detail.precision_prices}</td>
-                    <td>${detail.coupon|round:detail.precision_prices,detail.rounding_prices|format:detail.precision_prices}</td>
+                    <td>${detail.total|viviFormatPrices:true}</td>
+                    <td>${detail.surcharge_subtotal|viviFormatPrices:true}</td>
+                    <td>${detail.discount_subtotal|viviFormatPrices:true}</td>
+                    <td>${detail.cash|default:0|viviFormatPrices:true}</td>
+                    <td>${detail.creditcard|default:0|viviFormatPrices:true}</td>
+                    <td>${detail.coupon|default:0|viviFormatPrices:true}</td>
                 </tr>
 {/for}
             </tbody>
@@ -41,12 +41,12 @@
                     <td></td>
                     <td></td>
                     <td colspan="2">Summary:</td>
-                    <td>${foot.total}</td>
-                    <td>${foot.surcharge_subtotal}</td>
-                    <td>${foot.discount_subtotal}</td>
-                    <td>${foot.cash}</td>
-                    <td>${foot.creditcard}</td>
-                    <td>${foot.coupon}</td>
+                    <td>${foot.total|viviFormatPrices:true}</td>
+                    <td>${foot.surcharge_subtotal|viviFormatPrices:true}</td>
+                    <td>${foot.discount_subtotal|viviFormatPrices:true}</td>
+                    <td>${foot.cash|viviFormatPrices:true}</td>
+                    <td>${foot.creditcard|viviFormatPrices:true}</td>
+                    <td>${foot.coupon|viviFormatPrices:true}</td>
                 </tr>
             </tfoot>
         </table>
