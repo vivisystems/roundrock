@@ -286,10 +286,10 @@ class SyncHandlerComponent extends Object {
                         $valuesUpdate[] = $datasource->name($fields[$i]) .' = '. $datasource->value($values[$i], 'TEXT', false);
                     }
 
-                    $sql = $datasource->renderStatement('update', array(
+                    $sql = $this->renderStatement('update', array(
                                                                         'table' => $table,
                                                                         'fields' => join(', ', $valuesUpdate),
-                                                                        'conditions '=> $defaultCondition
+                                                                        'conditions'=> $defaultCondition
                         )
                     );
 

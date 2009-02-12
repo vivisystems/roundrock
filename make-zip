@@ -1,0 +1,7 @@
+rel_date=`date +'%Y%m%d'`
+filename=vivipos_webapp_${rel_date}
+
+find app/tmp -type f -exec rm -f {} \;
+
+zip -r ${filename} * -x make-zip
+
