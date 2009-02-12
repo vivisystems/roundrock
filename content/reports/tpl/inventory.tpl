@@ -1,11 +1,9 @@
-<!-- div class="paper" style="overflow:auto;" -->
-<div id="printhead">
+<div class="paper" style="overflow:auto;">
+<!-- div id="printhead" -->
 <img src="chrome://viviecr/content/skin/images/logo.png" /><br />
-Date:<br />
-{i18n startdate}:${head.start_date}<br />
-{i18n enddate}:${head.end_date}<br />
-</div>
-<div id="docbody">
+<p>${head.title}</p>
+<!-- /div>
+<div id="docbody" -->
 {for category in body}
         <table id="body-table">
             <caption>${category.no} - ${category.name}</caption>
@@ -29,7 +27,7 @@ Date:<br />
             </tbody>
             <tfoot>
                 <tr>
-                <td colspan="4">{i18n summary}:${foot.summary}</td>
+                <td colspan="4"></td>
                 </tr>
             </tfoot>
         </table>

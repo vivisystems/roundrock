@@ -1,30 +1,30 @@
-<!-- div class="paper" style="overflow:auto;" -->
-<div id="printhead" class="paper">
+<div class="paper" style="overflow:auto;">
+<!-- div id="printhead" class="paper" -->
 <img src="chrome://viviecr/content/skin/images/logo.png" /><br />
-</div>
-<div id="docbody" class="paper">
+<!-- /div>
+<div id="docbody" class="paper" -->
 
         <table id="body-table">
             <caption>${head.title}</caption>
             <thead>
                 <tr>
-                    <th>User Name</th>
-                    <th>Display Name</th>
-                    <th>Access Group</th>
+                    <th style="text-align: left;">User Name</th>
+                    <th style="text-align: left;">Display Name</th>
+                    <th style="text-align: left;">Access Group</th>
                 </tr>
             </thead>
             <tbody>
 {for user in body}
                 <tr>
-                    <td>${user.username}</td>
-                    <td>${user.displayname}</td>
-                    <td>${user.group}</td>
+                    <td style="text-align: left;">${user.username}</td>
+                    <td style="text-align: left;">${user.displayname}</td>
+                    <td style="text-align: left;">${user.group}</td>
                 </tr>
 {/for}
             </tbody>
             <tfoot>
                 <tr>
-                <td colspan="4">{i18n summary}:${foot.summary}</td>
+                <td colspan="4"></td>
                 </tr>
             </tfoot>
         </table>

@@ -25,50 +25,45 @@
             start = parseInt(start / 1000);
             end = parseInt(end / 1000);
 
-            var fields = ['orders.transaction_created',
-                            'DATETIME("orders"."transaction_created", "unixepoch", "localtime") AS "Order.Date"',
-                            'orders.sequence',
-                            'orders.status',
-                            'orders.total',
-                            'orders.surcharge_subtotal',
-                            'orders.discount_subtotal',
-                            'orders.items_count',
-                            'orders.check_no',
-                            'orders.table_no',
-                            'orders.no_of_customers',
-                            'orders.invoice_no',
-                            'orders.terminal_no'];
+            var fields = ['clock_stamps.created',
+                            'DATETIME("clock_stamps"."created", "unixepoch", "localtime") AS "ClockStamp.InTime"',
+                            'DATETIME("clock_stamps"."modified", "unixepoch", "localtime") AS "ClockStamp.OutTime"',
+                            'clock_stamps.username',
+                            'clock_stamps.job'];
 
-            var conditions = "orders.transaction_created>='" + start +
-                            "' AND orders.transaction_created<='" + end +
-                            "' AND orders.status='1'";
+            var conditions = "clock_stamps.created>='" + start +
+                            "' AND clock_stamps.created<='" + end +
+                            "'";
 
-            var groupby = '"Order.Day"';
-            var orderby = 'orders.transaction_created';
+            var groupby = 'clock_stamps.username';
+            var orderby = 'clock_stamps.username,clock_stamps.created';
 
             var order = new ClockStampModel();
             var datas = order.find('all',{fields: fields, conditions: conditions, group2: groupby, order: orderby, recursive: 1});
 
-            var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
-            var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
+            /*
+            var user = new UserModel();
+            var users = user.find('all', {
+                fields: ['username','displayname','group']
+                });
+            */
 
+            // prepare report datas
+            var clockStamps = {};
+            
+            var old_user;
             datas.forEach(function(o){
-                var d = new Date();
-                d.setTime(o.starttime);
-                o.starttime = d.toString('yyyy/MM/dd HH:mm');
-                d.setTime(o.endtime);
-                o.endtime = d.toString('yyyy/MM/dd HH:mm');
-
-                o.total = GeckoJS.NumberHelper.round(o.total, precision_prices, rounding_prices) || 0;
-                o.total = o.total.toFixed(precision_prices);
-                o.surcharge_subtotal = GeckoJS.NumberHelper.round(o.surcharge_subtotal, precision_prices, rounding_prices) || 0;
-                o.surcharge_subtotal = o.surcharge_subtotal.toFixed(precision_prices);
-                o.discount_subtotal = GeckoJS.NumberHelper.round(o.discount_subtotal, precision_prices, rounding_prices) || 0;
-                o.discount_subtotal = o.discount_subtotal.toFixed(precision_prices);
-
+                if (!clockStamps[o.username]) {
+                    clockStamps[o.username] = {};
+                    clockStamps[o.username].username = o.username;
+                    clockStamps[o.username].clockStamps = [];
+                    clockStamps[o.username].clockStamps.push(GREUtils.extend({}, o));
+                } else {
+                    clockStamps[o.username].clockStamps.push(GREUtils.extend({}, o));
+                }
             });
 
-            this._datas = datas;
+            this._datas = GeckoJS.BaseObject.getValues(clockStamps);
 
             var data = {
                 head: {
@@ -78,7 +73,7 @@
                 },
                 body: this._datas,
                 foot: {
-                    summary: 120
+                    
                 }
             }
 
@@ -98,7 +93,7 @@
 
         exportPdf: function() {
 
-            this.execute();
+            // this.execute();
             // this.print();
 
             this.BrowserPrint.getPrintSettings();
@@ -117,17 +112,16 @@
         },
 
         load: function() {
-            var self = this;
-            this._selectedIndex = -1;
+            var today = new Date();
+            var yy = today.getYear() + 1900;
+            var mm = today.getMonth();
+            var dd = today.getDate();
 
-            var start = document.getElementById('start_date').value;
-            var end = document.getElementById('end_date').value;
+            var start = (new Date(yy,mm,dd,0,0,0)).getTime();
+            var end = (new Date(yy,mm,dd + 1,0,0,0)).getTime();
+
             document.getElementById('start_date').value = start;
             document.getElementById('end_date').value = end;
-
-            var start_str = document.getElementById('start_date').datetimeValue.toLocaleString();
-            var end_str = document.getElementById('end_date').datetimeValue.toLocaleString();
-
             
         }
 

@@ -1,50 +1,53 @@
+@namespace xul url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+@namespace html url(""http://www.w3.org/1999/xhtml"");
 
-@namespace url("http://www.w3.org/1999/xhtml");
-
-* {
-	padding: 10px;
-	margin: 10px;
-}
-
+/******** for xul ********/
 .reportbox {
-
+    overflow-y:auto;
 }
+
+
+/******** for html ********/
 .report {
-	width: 400px;
-	height: 340px;
-    max-height: 300px;
+	width: 1px;
+    height: 1px;
+	min-height: 1px;
     padding: 10px;
-	margin: 10px;
+	margin: 0px;
 	background: #aaa;
-	border: solid;
+	border: dot;
     border-width: 1px;
 }
 
 .paper {
-	width: 500px;
-	min-height: 600px;
+	width: 550px;
+	min-height: 340px;
+    padding: 10px;
+	margin: 10px;
 	background: #fff;
 	border: solid;
     border-width: 1px;
     font-size:16px;
+    border-right-width: 3px;
+    border-bottom-width: 3px;
 }
 
 #body-table {
-  width: 480px;
-  font: 100% sans-serif;
-  background-color: #efe;
+  width: 95%;
+  margin: 0px auto 0px auto;
+/*  font: 100% sans-serif; */
+  background-color: #def;
   border-collapse: collapse;
   empty-cells: show;
-  border: 1px solid #7a7;
+  border: 1px solid #4ca;
   }
 
 #body-table > caption {
   text-align: left;
   font-weight: bold;
   font-size: 120%;
-  background-color: #efe;
-  border-bottom: .2em solid #4ca;
-/*  margin-bottom: .5em; */
+  border-bottom: .2em solid #7a7;
+  margin-bottom: .5em;
   }
 
 
@@ -52,7 +55,8 @@
 #body-table th,
 #body-table td {
   text-align: right;
-  padding-right: .5em;
+  padding-right: .3em;
+  border-bottom: 1px dotted #bbb;
   }
 
 #body-table th {
@@ -79,8 +83,8 @@
 
 /* body */
 #body-table td {
-  background-color: #cef;
-  padding:.5em .5em .5em 3em; 
+  background-color: #eef;
+  padding:.1em .5em .1em .5em;
   }
 
 #body-table tbody th:after {
@@ -107,5 +111,6 @@
 
 #body-table > tfoot > tr:first-child td {
   border-top: .2em solid #7a7;
+  padding:.1em .5em .5em .5em;
   }
 
