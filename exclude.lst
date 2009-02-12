@@ -1,0 +1,6 @@
+exclude.lst
+DONTRELEASE/*
+make-zip
+layouts/*
+nbproject/*
+data/*

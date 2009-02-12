@@ -1,0 +1,5 @@
+rel_date=`date +'%Y%m%d'`
+filename=vivipos_sdk_${rel_date}
+
+zip -r ${filename} * -x@exclude.lst
+
