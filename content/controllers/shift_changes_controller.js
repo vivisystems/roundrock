@@ -109,6 +109,7 @@
 
                     
                 }
+                data.terminal_no = GeckoJS.Session.get('terminal_no');
 
                 shiftChangeModel.saveShiftChange(data);
 
