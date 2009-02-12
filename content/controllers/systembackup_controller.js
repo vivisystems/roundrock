@@ -139,8 +139,8 @@
             // restart vivipos
             // return;
             // opener.opener.vivipos.suspendSavePreference = true;
-            // GeckoJS.Observer.notify(null, 'prepare-to-restart', this);
-            GeckoJS.Observer.notify(null, 'prepare-to-quit', this);
+            GeckoJS.Observer.notify(null, 'prepare-to-restart', this);
+            // GeckoJS.Observer.notify(null, 'prepare-to-quit', this);
         },
 
         _showWaitPanel: function(panel) {
