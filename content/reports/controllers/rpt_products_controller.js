@@ -53,11 +53,13 @@
             var prod = new ProductModel();
             var prodDatas = prod.find('all', { fields: fields, conditions: conditions, order: orderby });
             // this.log(this.dump(prodDatas));
+
             prodDatas.forEach(function(o){
                 if (datas[o.cate_no]) {
                     if (datas[o.cate_no].plu == null) {
                         datas[o.cate_no].plu = [];
                     }
+                    /*
                     datas[o.cate_no].plu.push( {
                         cate_no:o.cate_no,
                         no:o.no,
@@ -65,11 +67,13 @@
                         stock:o.stock,
                         min_stock:o.min_stock
                         });
+                    */
+                    datas[o.cate_no].plu.push(GREUtils.extend({}, o));
                 }
             });
 
             this._datas = datas;
-
+this.log(this.dump(datas));
             var start = '';
             var end = '';
             var data = {

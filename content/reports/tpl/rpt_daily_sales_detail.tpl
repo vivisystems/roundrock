@@ -19,7 +19,7 @@
             <tbody>
 {for detail in body}
                 <tr>
-                    <td style="text-align: left;">{if head.machine_id} ${detail.terminal_no} {/if}</td>
+                    <td style="text-align: left;">${detail.terminal_no}</td>
                     <td style="text-align: left;">${detail.Order.Time}</td>
                     <td>${detail.sequence}</td>
                     <td>${detail.total}</td>

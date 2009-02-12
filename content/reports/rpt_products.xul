@@ -21,6 +21,8 @@
     <LINK rel="stylesheet" type="text/css" href="tpl/rpt_products.css" />
 
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/template.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/template_ext.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/reports/rpt_products.js" />
   
     <vbox flex="1" class="main-dialog">
@@ -54,7 +56,7 @@
             <hbox flex="1">
                 <groupbox flex="1">
                     <box class="reportbox" flex="1">
-                        <browser type="content" id="preview_frame" src="rpt_template1.html" flex="1"/>
+                        <browser type="content" id="preview_frame" src="rpt_template2.html" flex="1"/>
                     </box>
 
                 </groupbox>
