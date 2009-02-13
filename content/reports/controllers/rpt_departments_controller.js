@@ -11,12 +11,21 @@
 
     GeckoJS.Controller.extend( {
         name: 'RptDepartments',
-	
-        _listObj: null,
-        _listDatas: null,
-        _panelView: null,
-        _selectedIndex: 0,
         _datas: null,
+
+        _showWaitPanel: function(panel) {
+            var waitPanel = document.getElementById(panel);
+            var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
+            var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
+            waitPanel.sizeTo(360, 120);
+            var x = (width - 360) / 2;
+            var y = (height - 240) / 2;
+            waitPanel.openPopupAtScreen(x, y);
+
+            // release CPU for progressbar ...
+            this.sleep(1500);
+            return waitPanel;
+        },
 
         showPageSetup: function () {
             try {
@@ -107,7 +116,7 @@
 
         execute: function() {
             //
-            this.load();
+            var waitPanel = this._showWaitPanel('wait_panel');
 
             var start = '';
             var end = '';
@@ -136,6 +145,8 @@
             var doc = bw.contentWindow.document.getElementById('abody');
 
             doc.innerHTML = result;
+
+            waitPanel.hidePopup();
 
         },
 

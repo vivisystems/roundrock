@@ -14,9 +14,22 @@
         components: ['BrowserPrint', 'CsvExport'],
         _datas: null,
 
-        execute: function() {
-            //
+        _showWaitPanel: function(panel) {
+            var waitPanel = document.getElementById(panel);
+            var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
+            var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
+            waitPanel.sizeTo(360, 120);
+            var x = (width - 360) / 2;
+            var y = (height - 240) / 2;
+            waitPanel.openPopupAtScreen(x, y);
 
+            // release CPU for progressbar ...
+            this.sleep(1500);
+            return waitPanel;
+        },
+
+        execute: function() {
+            var waitPanel = this._showWaitPanel('wait_panel');
             var start = document.getElementById('start_date').value;
             var end = document.getElementById('end_date').value;
 
@@ -64,7 +77,6 @@
             var order = new OrderModel();
             var datas = order.find('all',{fields: fields, conditions: conditions, group2: groupby, order: orderby, recursive: 1});
             // var datas = order.execute(sql);
-this.log(this.dump(datas));
 
             var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
             var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
@@ -114,6 +126,8 @@ this.log(this.dump(datas));
             var doc = bw.contentWindow.document.getElementById('abody');
 
             doc.innerHTML = result;
+
+            waitPanel.hidePopup();
 
         },
 

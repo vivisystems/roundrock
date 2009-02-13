@@ -7,4 +7,5 @@
 <!ENTITY productsales.exportcsv "Export to CSV">
 <!ENTITY productsales.togglezoom "Toggle Zoom">
 <!ENTITY productsales.machineid "Terminal No:">
+<!ENTITY productsales.wait "Waiting...">
 
