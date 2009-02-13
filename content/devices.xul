@@ -98,12 +98,9 @@
                                                 </menupopup>
                                             </menulist>
                                         </row>
-                                        <row>
-                                            <label value="&devices.receipt.autoprint.label;"/>
-                                            <textbox id="receipt-1-autoprint" value="0" size="1" default="0" type="number" min="0" max="9" name="receipt-1-autoprint" form="deviceForm"/>
-                                        </row>
                                     </rows>
                                 </grid>
+                                <checkbox id="receipt-1-autoprint" name="receipt-1-autoprint" form="deviceForm" value="1" default="1" label="&devices.receipt.autoprint.label;"/>
                             </vbox>    
                         </vbox>
                         
@@ -164,12 +161,9 @@
                                                 </menupopup>
                                             </menulist>
                                         </row>
-                                        <row>
-                                            <label value="&devices.receipt.autoprint.label;"/>
-                                            <textbox id="receipt-2-autoprint" value="0" size="1" default="0" type="number" min="0" max="9" name="receipt-2-autoprint" form="deviceForm"/>
-                                        </row>
                                     </rows>
                                 </grid>
+                                <checkbox id="receipt-2-autoprint" name="receipt-2-autoprint" form="deviceForm" value="1" default="1" label="&devices.receipt.autoprint.label;"/>
                             </vbox>    
                         </vbox>
                         
