@@ -2821,6 +2821,8 @@
                             r = this.GuestCheck.store(curTransaction.data.items_count);
                         }
                     break;
+                case 'recallSequence':
+                        r = this.GuestCheck.recallByOrderNo(no);
                 case 'recallCheck':
                         r = this.GuestCheck.recallByCheckNo(no);
                     break;
