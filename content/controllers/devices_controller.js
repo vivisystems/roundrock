@@ -946,7 +946,7 @@
              *
              */
 
-            if (document.getElementById('guestcheck-panel') != null) {
+            //if (document.getElementById('guestcheck-panel') != null) {
 
                 /* populate templates */
 
@@ -1025,7 +1025,15 @@
 
                 this.populateEncodings(encodingmenu1, sortedDevicemodels[devicemodelmenu1.selectedIndex]);
                 this.populateEncodings(encodingmenu2, sortedDevicemodels[devicemodelmenu2.selectedIndex]);
-            }
+
+                var pluGroupModel = new PlugroupModel();
+                var groups = pluGroupModel.find('all', {
+                });
+                var group_listscrollablepanel = document.getElementById('group_listscrollablepanel');
+                var plugroupPanelView = new NSIPluGroupsView(groups);
+                group_listscrollablepanel.datasource = plugroupPanelView;
+            //}
+
 
             /*
              * populate report panel
@@ -1253,8 +1261,12 @@
 
         // save configurations
         save: function (data) {
+            // get form data
             var formObj = GeckoJS.FormHelper.serializeToObject('deviceForm');
-            
+            alert(GeckoJS.BaseObject.dump(formObj));
+
+            // get product group items
+
             // check status of selected devices
             this._selectedDevices = formObj;
             var statusResult = this.checkStatusAll();

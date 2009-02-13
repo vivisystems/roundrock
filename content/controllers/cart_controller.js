@@ -2720,6 +2720,7 @@
             var curTransaction = new Transaction();
             curTransaction.data = data ;
             this._setTransactionToView(curTransaction);
+
             curTransaction.updateCartView(-1, -1);
 
             this.subtotal();
