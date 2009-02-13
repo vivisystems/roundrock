@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/overlay.css" type="text/css"?>
 
 <!DOCTYPE overlay PUBLIC "-//MOZILLA//DTD XUL V1.0//EN" "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
@@ -11,6 +12,7 @@
 <?xul-overlay href="chrome://viviecr/content/overlays/numberpadPanelOverlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/terminalStatus.xul" ?>
 
+<?xul-overlay href="chrome://viviecr/content/select_condiments_dialog.xul" ?>
 
 <overlay id="viviecrOverlay"
          xmlns:html="http://www.w3.org/1999/xhtml"
@@ -40,5 +42,10 @@
             </vbox>
 
         </hbox>
+
+        <box id="dialogs" collapsed="true" style="margin:0px; padding:0px; border:0px;">
+
+        </box>
+
     </box>
 </overlay>

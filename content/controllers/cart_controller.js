@@ -334,6 +334,15 @@
 
         addItem: function(plu) {
 
+            $.blockUI({message: $('#condimentPanel'), timeout: 2000,
+                css: {
+                    width: '600px',
+                    height: '480px',
+                    left: '5%',
+                    top: '5%'
+                }
+            });
+            
             if (this._suspended) return;
             
             var item = GREUtils.extend({}, plu);
