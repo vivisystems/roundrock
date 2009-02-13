@@ -2,7 +2,7 @@
 [&DWON]${store.branch|center:21}[&DWOFF]
 ${store.telephone1|center:42}
 Opened:   ${(new Date(order.created)).toLocaleFormat('%Y-%m-%d %H:%M:%S')}
-Submitted:${(new Date(order.modified)).toLocaleFormat('%Y-%m-%d %H:%M:%S')}
+Submitted:${(new Date()).toLocaleFormat('%Y-%m-%d %H:%M:%S')}
 Terminal: ${order.terminal_no|left:10} Clerk: ${order.proceeds_clerk_displayname|left:14}
 ------------------------------------------
 {for item in order.items_summary}
@@ -19,15 +19,15 @@ Terminal: ${order.terminal_no|left:10} Clerk: ${order.proceeds_clerk_displayname
 {/if}
 Tax:       ${txn.formatPrice(order.tax_subtotal)|right:30}
 Total:     ${txn.formatPrice(order.total)|right:30}
-
+[&CR]
 Received:  ${txn.formatPrice(order.payment_subtotal)|right:30}
 CHANGE:    ${txn.formatPrice(0 - order.remain)|right:30}
 ------------------------------------------
-
+[&CR]
 ${'Thank you for shopping at ' + store.name +'!'|center:42}
-
-
-
-
-
+[&CR]
+[&CR]
+[&CR]
+[&CR]
+[&CR]
 [&PC]

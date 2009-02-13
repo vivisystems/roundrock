@@ -2,7 +2,7 @@
 [&DWON]${store.branch|center:21}[&DWOFF]
 ${store.telephone1|center:42}
 Opened:   ${(new Date(order.created)).toLocaleFormat('%Y-%m-%d %H:%M:%S')}
-Submitted:${(new Date(order.modified)).toLocaleFormat('%Y-%m-%d %H:%M:%S')}
+Submitted:${(new Date()).toLocaleFormat('%Y-%m-%d %H:%M:%S')}
 Terminal: ${order.terminal_no|left:10} Clerk: ${order.proceeds_clerk_displayname|left:14}
 ------------------------------------------
 {for item in order.display_sequences}
@@ -33,7 +33,7 @@ ${item.current_qty|right:4} ${item.name|left:12} @${item.current_price|right:6} 
 Subtotal:  ${txn.formatPrice(order.total - order.tax_subtotal)|right:27}
 Tax:       ${txn.formatPrice(order.tax_subtotal)|right:27}
 Total:     ${txn.formatPrice(order.total)|right:27}
-
+[&CR]
 {for payment in order.trans_payments}
 {if payment.name == 'cash'}
 Cash:      ${txn.formatPrice(payment.amount)|right:27}
@@ -43,15 +43,15 @@ ${payment.memo1 + ':'|left:10} ${txn.formatPrice(payment.amount)|right:27}
 ${payment.memo1 + ':'|left:10} ${txn.formatPrice(payment.amount)|right:27}
 {/if}
 {/for}
-  
+[&CR] 
 Received:  ${txn.formatPrice(order.payment_subtotal)|right:27}
 CHANGE:    ${txn.formatPrice(0 - order.remain)|right:27}
 ------------------------------------------
-
+[&CR]
 ${'Thank you for shopping at ' + store.name +'!'|center:42}
-
-
-
-
-
+[&CR]
+[&CR]
+[&CR]
+[&CR]
+[&CR]
 [&PC]
