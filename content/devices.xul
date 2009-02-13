@@ -9,6 +9,7 @@
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/devices.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/plugroup-button-colors.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -34,7 +35,8 @@
 
                 <tabs>
                     <tab id="receipt-tab" label="&devices.tab.receipt.label;"/>
-                    <tab id="guestcheck-tab" label="&devices.tab.guestcheck.label;"/>
+                    <tab id="guestcheck1-tab" label="&devices.tab.guestcheck1.label;"/>
+                    <tab id="guestcheck2-tab" label="&devices.tab.guestcheck2.label;"/>
                     <tab id="report-tab" label="&devices.tab.report.label;"/>
                     <tab id="vfd-tab" label="&devices.tab.vfd.label;"/>
                     <tab id="cashdrawer-tab" label="&devices.tab.cashdrawer.label;"/>
@@ -98,12 +100,9 @@
                                                 </menupopup>
                                             </menulist>
                                         </row>
-                                        <row>
-                                            <label value="&devices.receipt.autoprint.label;"/>
-                                            <textbox id="receipt-1-autoprint" value="0" size="1" default="0" type="number" min="0" max="9" name="receipt-1-autoprint" form="deviceForm"/>
-                                        </row>
                                     </rows>
                                 </grid>
+                                <checkbox id="receipt-1-autoprint" name="receipt-1-autoprint" form="deviceForm" value="1" default="1" label="&devices.receipt.autoprint.label;"/>
                             </vbox>    
                         </vbox>
                         
@@ -164,22 +163,27 @@
                                                 </menupopup>
                                             </menulist>
                                         </row>
-                                        <row>
-                                            <label value="&devices.receipt.autoprint.label;"/>
-                                            <textbox id="receipt-2-autoprint" value="0" size="1" default="0" type="number" min="0" max="9" name="receipt-2-autoprint" form="deviceForm"/>
-                                        </row>
                                     </rows>
                                 </grid>
+                                <checkbox id="receipt-2-autoprint" name="receipt-2-autoprint" form="deviceForm" value="1" default="1" label="&devices.receipt.autoprint.label;"/>
                             </vbox>    
                         </vbox>
                         
                     </tabpanel>
 
                 <!-- Guest Check configuration -->
-                    <tabpanel id="guestcheck-panel" orient="horizontal">
+                    <tabpanel id="guestcheck1-panel" orient="horizontal">
                         <vbox class="SetArea" flex="1">
                             <checkbox label="&devices.guestcheck.printer.1.label;" name="guestcheck-1-enabled" value="false" default="false" form="deviceForm"/>
-                            <vbox class="SubArea">
+                            <hbox class="SubArea">
+                                    <viviscrollablebuttonpanel id="group_listscrollablepanel" form="deviceForm" name="link_group" default="" seltype="multiple" flex="1" cols="3" rows="4" labelField="name" imageField="no"
+                                                               oncommand=""
+                                                               class="catescrollablepanel"
+                                                               buttonClass="catbtn"
+                                                               scrollUpClass="ScrollUp"
+                                                               scrollDownClass="ScrollDown">
+                                        <spacer flex="1"/>
+                                    </viviscrollablebuttonpanel>
                                 <grid>
                                     <columns>
                                         <column flex="0"/>
@@ -238,11 +242,13 @@
                                         </row>
                                     </rows>
                                 </grid>
-                            </vbox>
+                            </hbox>
                         </vbox>
+                    </tabpanel>
 
-                        <spacer width="10px"/>
+                        <!--spacer width="10px"/-->
 
+                    <tabpanel id="guestcheck2-panel" orient="horizontal">
                         <vbox class="SetArea" flex="1">
                             <checkbox label="&devices.guestcheck.printer.2.label;" name="guestcheck-2-enabled" value="false" default="false" form="deviceForm"/>
                             <vbox class="SubArea">
