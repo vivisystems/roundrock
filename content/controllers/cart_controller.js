@@ -2213,8 +2213,9 @@
             if (status == 1 && oldTransaction.getRemainTotal() > 0) return;
 
             this.dispatchEvent('beforeSubmit', oldTransaction);
-
-            // oldTransaction.submit(status);
+            
+            if (status != 1)
+                oldTransaction.submit(status);
 
             this.dispatchEvent('afterSubmit', oldTransaction);
 
@@ -2820,6 +2821,8 @@
                             r = this.GuestCheck.store(curTransaction.data.items_count);
                         }
                     break;
+                case 'recallSequence':
+                        r = this.GuestCheck.recallByOrderNo(no);
                 case 'recallCheck':
                         r = this.GuestCheck.recallByCheckNo(no);
                     break;

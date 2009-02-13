@@ -6,4 +6,6 @@
 <!ENTITY rptdailysales.exportcsv "Export to CSV">
 <!ENTITY rptdailysales.togglezoom "Toggle Zoom">
 <!ENTITY rptdailysales.machineid "Terminal No:">
+<!ENTITY rptdailysales.wait "Waiting...">
+
 

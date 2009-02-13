@@ -7,4 +7,5 @@
 <!ENTITY rptinventory.togglezoom "Toggle Zoom">
 <!ENTITY rptinventory.department "Department:">
 <!ENTITY rptinventory.all "List All">
+<!ENTITY rptinventory.wait "Waiting...">
 

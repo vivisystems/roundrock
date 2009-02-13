@@ -80,4 +80,15 @@
         </vbox>
     </vbox>
 
+    <panel id="wait_panel" position="overlap" noautohide="true" class="WaitPnl">
+        <vbox flex="1">
+        <groupbox flex="1">
+            <caption label="&rptdailysalesdetail.wait;" class="PageTitle"/>
+            <spacer style="height: 20px;" />
+            <progressmeter id="progress" mode="undetermined" value="0" />
+            <spacer style="height: 20px;" />
+        </groupbox>
+        </vbox>
+    </panel>
+
 </window>
