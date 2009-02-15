@@ -315,10 +315,10 @@
             var panelSpacer = document.getElementById('panelSpacer');
             var deptPanel = document.getElementById('catescrollablepanel');
             var pluPanel = document.getElementById('prodscrollablepanel');
-            var condimentPanel = document.getElementById('condimentscrollablepanel');
+            //var condimentPanel = document.getElementById('condimentscrollablepanel');
             var fnPanel = document.getElementById('functionPanel');
             var btmBox = document.getElementById('vivipos-bottombox');
-            var pluAndCondimentDeck = document.getElementById('pluAndCondimentDeck');
+            //var pluAndCondimentDeck = document.getElementById('pluAndCondimentDeck');
 
             var departmentRows = GeckoJS.Configure.read('vivipos.fec.settings.DepartmentRows');
             if (departmentRows == null) departmentRows = 3;
@@ -376,7 +376,7 @@
                 else {
                     deptPanel.setAttribute('hidden', true);
                 }
-                if (pluAndCondimentDeck) pluAndCondimentDeck.style.height = '0px';
+                //if (pluAndCondimentDeck) pluAndCondimentDeck.style.height = '0px';
             }
 
             if (initial ||

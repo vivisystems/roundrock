@@ -24,13 +24,14 @@
                 this._pluPanel = document.getElementById('prodscrollablepanel');
             }
 
-            if (this._pluAndCondimentDeck == null) {
-                this._pluAndCondimentDeck = document.getElementById('pluAndCondimentDeck');
-            }
+//            if (this._pluAndCondimentDeck == null) {
+ //               this._pluAndCondimentDeck = document.getElementById('pluAndCondimentDeck');
+//            }
 
             if (this._condimentPanel == null) {
-                this._condimentPanel = document.getElementById('condimentscrollablepanel');
+               // this._condimentPanel = document.getElementById('condimentscrollablepanel');
             }
+            // this._condimentPanel.datasource = new NSICondimentsView();
 
             self = this;
             var keypad = GeckoJS.Controller.getInstanceByName('Keypad');
@@ -334,15 +335,6 @@
 
         addItem: function(plu) {
 
-            $.blockUI({message: $('#condimentPanel'), timeout: 2000,
-                css: {
-                    width: '600px',
-                    height: '480px',
-                    left: '5%',
-                    top: '5%'
-                }
-            });
-            
             if (this._suspended) return;
             
             var item = GREUtils.extend({}, plu);
@@ -2384,9 +2376,10 @@
                         if (conds[i].preset) selectedItems.push(i);
                     }
                 }
-                var colsRows = parseInt(this._condimentPanel.getAttribute('cols')) * parseInt(this._condimentPanel.getAttribute('rows'));
+                // var colsRows = parseInt(this._condimentPanel.getAttribute('cols')) * parseInt(this._condimentPanel.getAttribute('rows'));
             }
 
+/*
             if (forceModal || colsRows == 0 || condiments != null) {
 
                 if (condiments == null) {
@@ -2418,15 +2411,39 @@
                 }
                 
             }else {
+*/
+                // alert(this.dump(conds));
+                var d2 = document.getElementById('selectCondimentPanel');
+                d2.addEventListener('popupshown', function() {
+                    GREUtils.log('selectCondimentPanel datasource');
+                    var condimentPanel = document.getElementById('condimentscrollablepanel');
+                    condimentPanel.datasource = conds;
+                    condimentPanel.vivibuttonpanel.invalidate();
 
-                this._condimentPanel.datasource.data = conds;
+                    condimentPanel.selectedItems = selectedItems;
+                    condimentPanel.scrollToRow(0);
+
+                }, true);
+                d2.openPopupAtScreen(0,0,false);
+
+                
+                //var obj = document.getElementById('condimentscrollablepanel222');
+                //alert(obj.datasource);
+                /*
+                 *
+                this._condimentPanel = document.getElementById('condimentscrollablepanel222');
+                this._condimentPanel.datasource = conds;
                 this._condimentPanel.vivibuttonpanel.invalidate();
 
                 this._condimentPanel.selectedItems = selectedItems;
                 this._condimentPanel.scrollToRow(0);
+                */
+
+
+/*
                 this._pluAndCondimentDeck.selectedIndex = 1;
             }
-
+*/
         },
 
         addCondimentCallback: function(ok) {

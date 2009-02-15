@@ -73,7 +73,7 @@
 }
 
 /* �@�q�� texbox ���� */
-textbox {
+textbox[form] {
   border: 3px solid;
   -moz-border-top-colors: #b8b8b8 #cfcfcf #e1e1e1;
   -moz-border-right-colors: #ececec #f9f9f9 #fefefe;
@@ -87,7 +87,7 @@ textbox {
   color: #444;
 
 }
-textbox[readonly="true"] {
+textbox[form][readonly="true"] {
   border: 1px solid #d0cfcb;
   -moz-border-top-colors: #d0cfcb;
   -moz-border-left-colors: #d0cfcb;
