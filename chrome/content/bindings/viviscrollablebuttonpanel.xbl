@@ -59,14 +59,14 @@
 
     <constructor>
     <![CDATA[
-
         var self = this;
+        // GREUtils.log('viviscrollablebuttonpanel constructor ,, '  + this.getAttribute('rows') );
 
-        this.ready = function() {
-            self.initGrid();
-        };
+        //this.ready = function() {
+            //self.initGrid();
+        //};
         // add treecols and children
-        window.addEventListener('DOMContentLoaded', this.ready, true);
+        //window.addEventListener('DOMContentLoaded', this.ready, true);
         //window.addEventListener('load', this.ready, true);
 
     ]]>
@@ -74,7 +74,7 @@
 
     <destructor>
     <![CDATA[
-       window.removeEventListener('DOMContentLoaded', this.ready, true);
+       //window.removeEventListener('DOMContentLoaded', this.ready, true);
        //window.removeEventListener('load', this.ready, true);
     ]]>
     </destructor>
@@ -82,6 +82,8 @@
 
         <method name="initGrid">
         <body><![CDATA[
+            //GREUtils.log('init viviscrollablebuttonpanel grid ');
+            // XXX call vivibuttonpanel.initGrid will before vivibuttonpanel.constructor ??
             this.vivibuttonpanel.initGrid();
             var self = this;
             this.vivibuttonpanel.addEventListener('refresh', function() {

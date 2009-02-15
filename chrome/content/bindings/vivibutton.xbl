@@ -15,9 +15,9 @@
       <children includes="observes|template|menupopup|tooltip"/>
       <xul:hbox class="box-inherit button-box" xbl:inherits="align,dir,pack,orient,disabled"
                 align="center" pack="center" flex="1" anonid="vivibutton-box" style="overflow: hidden;">
-          <xul:image anonid="image" class="button-icon" xbl:inherits="validate,src=image"/>
+          <xul:image anonid="vivibutton-image" class="button-icon" xbl:inherits="validate,src=image"/>
           <!-- xul:label anonid="label" crop="end" class="button-text" xbl:inherits="accesskey,crop"> </xul:label-->
-          <xul:description anonid="label" class="button-text" xbl:inherits="accesskey,crop,pre" > </xul:description>
+          <xul:description anonid="vivibutton-label" class="button-text" xbl:inherits="accesskey,crop,pre" > </xul:description>
       </xul:hbox>
   </content>
 
@@ -25,26 +25,28 @@
 
     <property name="label" onget="return this.getLabel();" onset="return this.setLabel(val);" />
 
+    <property name="vivibuttonBox" onget='return document.getAnonymousElementByAttribute(this, "anonid", "vivibutton-box");' readonly="true" />
+    <property name="vivibuttonImage" onget='return document.getAnonymousElementByAttribute(this, "anonid", "vivibutton-image");' readonly="true" />
+    <property name="vivibuttonLabel" onget='return document.getAnonymousElementByAttribute(this, "anonid", "vivibutton-label");' readonly="true" />
+
     <constructor><![CDATA[
 
         var self = this;
         var suspended = false;
 
-        this.vivibuttonBox = document.getAnonymousElementByAttribute(this, "anonid", "vivibutton-box");
-        this.vivibuttonImage = document.getAnonymousElementByAttribute(this, "anonid", "image");
-       	// this.aLabel = this.vivibuttonBox.childNodes[1];
-        this.aLabel = document.getAnonymousElementByAttribute(this, "anonid", "label");
+
+        var aLabel = this.vivibuttonLabel ;
 
         this.roles = this.getAttribute('roles') || '';
         this.action = this.getAttribute('action') || 'display';
 
         var value = this.getAttribute('label') || '';
-        if(this.aLabel.getAttribute('crop')) {
-            this.aLabel.removeChild(this.aLabel.firstChild);
+        if(aLabel.getAttribute('crop')) {
+            aLabel.removeChild(aLabel.firstChild);
         }
 
         if (this.getAttribute('pre')) {
-            this.aLabel.setAttribute('style', 'white-space: pre;');
+            aLabel.setAttribute('style', 'white-space: pre;');
         }
 
         this.setLabel(value);
@@ -77,11 +79,11 @@
         }
         this.addEventListener('DOMAttrModified', this._attrmodified, true);
 
-        this.ready = function() {
+        //this.ready = function() {
             self.resizeLabel();
-        };
+        //};
         
-        window.addEventListener('load', this.ready, true);
+        //window.addEventListener('load', this.ready, true);
 
 
         ]]>
@@ -90,7 +92,7 @@
         <destructor><![CDATA[
 
         this.removeEventListener('DOMAttrModified', this._attrmodified, true);
-        window.removeEventListener('load', this.ready, true);
+        //window.removeEventListener('load', this.ready, true);
         if (this.roles.length >0 ) this.observer.unregister();
 
         ]]>
@@ -123,11 +125,11 @@
       <parameter name="value" />
       <body><![CDATA[
 
-        var label = this.aLabel;
-        if(label.getAttribute('crop')) {
-            label.value = value;
+        var aLabel = this.vivibuttonLabel ;
+        if(aLabel.getAttribute('crop')) {
+            aLabel.value = value;
         }else {
-            label.firstChild.data = value;
+            aLabel.firstChild.data = value;
         }
         //
 
@@ -139,14 +141,14 @@
     <method name="getLabel">
       <body><![CDATA[
 
-        var label = this.aLabel;
-        return label.firstChild.data;
-        //return label.value;
+        var aLabel = this.vivibuttonLabel;
+        
+        return aLabel.firstChild.data;
 
-        if(label.getAttribute('crop')) {
-            return label.value;
+        if(aLabel.getAttribute('crop')) {
+            return aLabel.value;
         }else {
-            return label.firstChild.data;
+            return aLabel.firstChild.data;
         }
 
 
@@ -187,7 +189,11 @@
             return ;
         }
 	*/
-        var isInRole = GeckoJS.AclComponent.isUserInRole(roles);
+        var isInRole = false;
+        
+        if(GeckoJS && GeckoJS.AclComponent && typeof GeckoJS.AclComponent.isUserInRole == 'function') {
+            isInRole = GeckoJS.AclComponent.isUserInRole(roles);
+        }
 
         var $button =  jQuery(this);
 
@@ -210,13 +216,15 @@
         <parameter name="height" />
         <body><![CDATA[
 
-            var label = this.aLabel;
+            var aLabel = this.vivibuttonLabel;
+            // GREUtils.log('resizeLabel ' + aLabel  + ',,' + this.vivibuttonBox);
             var $btn = $(this.vivibuttonBox);
 
             width = width || $btn.css('width').replace('px', '');
             height = height || $btn.css('height').replace('px', '');
-	    label.style['width'] = width +'px' ;
-	    label.style['max-width'] = width +'px';
+
+            aLabel.style['width'] = width +'px' ;
+            aLabel.style['max-width'] = width +'px';
 
         ]]>  
         </body>

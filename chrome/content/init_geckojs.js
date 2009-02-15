@@ -62,8 +62,11 @@ window.include = loadScript ;/*function include(src, scope) {
 
 // include jquery
 if(typeof window.jQuery == 'undefined') {
+
     include("chrome://vivipos/content/libs/jquery.js");
     include("chrome://vivipos/content/libs/jquery.form.js");
+    include("chrome://vivipos/content/libs/jquery.blockUI_XUL.js");
+
 }
 
 // include date-js

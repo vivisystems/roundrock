@@ -124,16 +124,16 @@
 
             <xbl:constructor><![CDATA[
                 var self = this;
-                this.ready = function() {
+                //this.ready = function() {
                     self.init();
-                };
-                window.addEventListener('load', this.ready, true);
+                //};
+                //window.addEventListener('load', this.ready, true);
             ]]>
             </xbl:constructor>
 
             <destructor>
             <![CDATA[
-               window.removeEventListener('load', this.ready, true);
+               //window.removeEventListener('load', this.ready, true);
             ]]>
             </destructor>
 

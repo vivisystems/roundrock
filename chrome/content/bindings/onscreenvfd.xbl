@@ -203,12 +203,12 @@
                 this.mainevents.addListener('onEnterPassword', this.onEnterPassword, this);
                 this.mainevents.addListener('onExitPassword', this.onExitPassword, this);
 
-                this.ready = function() {
+                //this.ready = function() {
                     self.roundPrecision = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
                     self.onClear({data: null});
-                }
+                //}
 
-                window.addEventListener('DOMContentLoaded', this.ready, true);
+                //window.addEventListener('DOMContentLoaded', this.ready, true);
 
             ]]>
             </constructor>
@@ -232,7 +232,7 @@
                     this.mainevents.removeListener('onExitPassword', this.onExitPassword, this);
                 }
 
-                window.removeEventListener('DOMContentLoaded', this.ready, true);
+                //window.removeEventListener('DOMContentLoaded', this.ready, true);
 
             ]]>
             </destructor>

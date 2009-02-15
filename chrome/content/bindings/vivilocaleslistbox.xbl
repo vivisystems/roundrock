@@ -34,16 +34,16 @@
 
             <xbl:constructor><![CDATA[
                 var self = this;
-                this.ready = function() {
+                //this.ready = function() {
                     self.initListbox();
-                };
-                window.addEventListener('load', this.ready, true);
+                //};
+                //window.addEventListener('load', this.ready, true);
             ]]>
             </xbl:constructor>
 
             <destructor>
             <![CDATA[
-               window.removeEventListener('load', this.ready, true);
+               //window.removeEventListener('load', this.ready, true);
             ]]>
             </destructor>
 
@@ -74,7 +74,7 @@
 
                     var locale = availableLocales.getNext();
 
-                    var listitem = document.createElementNS(XUL_NS, "xul:listitem");
+                    var listitem = document.createElementNS(XUL_NS, "listitem");
                     listitem.setAttribute("value", locale);
                     listitem.setAttribute("label", _(locale));
                     listitem.setAttribute("class", "listitem-iconic");

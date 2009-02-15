@@ -28,6 +28,7 @@
 
     <field name="_selectedCount" >0</field>
     <field name="_selectedItems" >null</field>
+    <field name="_selectedMixedItems" >null</field>
 
     <property name="rowCount" onget="return this.datasource.rowCount;" readonly="true" />
 
@@ -56,7 +57,7 @@
     <property name="grid" onget="return document.getAnonymousElementByAttribute(this, 'anonid', 'grid');" readonly="true" />
     <property name="cols" onget="return this.getAttribute('cols')" onset="this.setAttribute('cols', val); return val;"/>
     <property name="rows" onget="return this.getAttribute('rows')" onset="this.setAttribute('rows', val); return val;"/>
-    <property name="seltype" onget="return (this.getAttribute('seltype') ||'single');" onset="this.setAttribute('seltype', val); return val;"/>
+    <property name="seltype" onget="return (this.getAttribute('seltype') ||'single').toLowerCase();" onset="this.setAttribute('seltype', val); return val;"/>
 
     <property name="buttonClass" onget="return this.getAttribute('buttonClass')" onset="this.setAttribute('buttonClass', val); return val;"/>
 
@@ -118,15 +119,16 @@
     
     <constructor>
     <![CDATA[
-        
-        var self = this;
-        this._datasource = null;
 
-        this.ready = function() {
+        //GREUtils.log('init vivibuttonpanel constructor ' + this.getAttribute('rows'));
+        var self = this;
+        // this._datasource = this.getAttribute('datasource') || null;
+
+        //this.ready = function() {
             self.initGrid();
-        };
+        //};
         // add treecols and children
-        window.addEventListener('DOMContentLoaded', this.ready, true);
+        //window.addEventListener('DOMContentLoaded', this.ready, true);
         //window.addEventListener('load', this.ready, true);
 
     ]]>
@@ -134,7 +136,7 @@
 
     <destructor>
     <![CDATA[
-       window.removeEventListener('DOMContentLoaded', this.ready, true);
+       //window.removeEventListener('DOMContentLoaded', this.ready, true);
        //window.removeEventListener('load', this.ready, true);
     ]]>
     </destructor>
@@ -142,6 +144,7 @@
     <method name="initGrid">
         <body><![CDATA[
 
+            // GREUtils.log('init vivibuttonpanel grid ' + this.getAttribute('rows'));
             var buttons = [];
             var imageValidate = this.getAttribute('validate');
             var buttonHeight = this.getAttribute('buttonHeight');
@@ -158,7 +161,7 @@
 
             for(let i=0; i < cols ; i++) {
 
-                let column = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:column");
+                let column = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","column");
                 column.setAttribute("flex", 1);
                 columnsObj.appendChild(column);
             }
@@ -174,11 +177,11 @@
 
             for(let i=0; i < rows ; i++) {
 
-                let row = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:row");
+                let row = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","row");
                 row.setAttribute("flex", 1);
 
                 for(let j=0; j < cols ; j++) {
-                    let btn = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:vivibutton");
+                    let btn = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","vivibutton");
                     btn.setAttribute("flex", 1);
                     btn.setAttribute("anonid", i*cols+j);
                     if (imageValidate != null) btn.setAttribute('validate', imageValidate);
@@ -191,7 +194,13 @@
                         $(btn).css('height', buttonHeight + 'px');
                         $(btn).css('min-height', buttonHeight + 'px');
                     }
-                    btn.setAttribute('disabled', 'true');
+
+                    // not use type and group attribute
+                    // @see chrome://global/content/bindings/button.xml#button-base
+                    // button use this.parentNode.getElementsByAttribute("group") , slow!!!
+
+
+                    btn.setAttribute('disabled', true);
                     buttons.push(btn);
                     row.appendChild(btn);
                 }
@@ -199,7 +208,7 @@
                 rowsObj.appendChild(row);
             }
 
-            rowsObj.setAttribute('hidden', "false");
+            rowsObj.setAttribute('hidden', false);
 
             this.buttons = buttons;
             this.buttonCount = cols * rows;
@@ -234,6 +243,7 @@
                     this._datasource = datasource;
                     this._datasource.setTree(this);
                 }
+                this.setAttribute('datasource', this._datasource);
             }
             this._selectedCount = 0;
             this._selectedItems = [];
@@ -305,14 +315,16 @@
                 let row = startOffset + i;
 
                 if (GeckoJS.Array.inArray(row, selectedItems) != -1) {
-                    buttons[i].setAttribute('selected', 'true');
+                    buttons[i].setAttribute('selected', true);
+                    buttons[i].setAttribute('checked', true);
                 }else {
                     buttons[i].removeAttribute('selected');
+                    buttons[i].removeAttribute('checked');
                 }
 
                 if (row >= rowCount) {
 
-                    buttons[i].setAttribute('disabled', 'true');
+                    buttons[i].setAttribute('disabled', true);
                     // buttons[i].setAttribute('label', "");
                     buttons[i].setLabel("");
                     // buttons[i].setAttribute('image', '');
@@ -415,25 +427,29 @@
             var btnHeight = Math.floor(height/rows);
             var buttonCount = this.buttonCount;
             var buttons = this.buttons;
+
+            // GREUtils.log('resizeButtons ' + width + ',,' + cols + ',,' + btnWidth );
            
             for(let i=0; i < buttonCount ; i++) {
 		       buttons[i].style['width'] = btnWidth +'px';
 	           buttons[i].style['height'] = btnHeight +'px';
-               buttons[i].resizeLabel(btnWidth, btnHeight);
+                //GREUtils.log('resizeButton ' + i +',,,' + btnWidth );
+               try {
+                 buttons[i].resizeLabel(btnWidth, btnHeight);
+               }catch(e){
+                //GREUtils.log('call button.resizeLabel ' + i + ',,,' + e );
+               }
             } 
 
         ]]>  
         </body>
     </method>
 
+    <method name="setCheckedState">
+        <parameter name="target" />
+        <body><![CDATA[
 
-  </implementation>
-
-  <handlers>
-    <handler event="click" button="0"><![CDATA[
-
-        if(event.originalTarget.getAttribute('disabled') != 'true') {
-            this.currentIndex = this.startOffset + parseInt(event.originalTarget.getAttribute('anonid'));
+            this.currentIndex = this.startOffset + parseInt(target.getAttribute('anonid'));
             if (this.seltype == 'single') {
 
                 if (this.selectedItems.length >0)  {
@@ -443,26 +459,53 @@
                     if (preIndex >= this.startOffset && preIndex <= (this.startOffset+this.buttonCount)) {
                         var btnid = preIndex%this.buttonCount;
                         var btn = document.getAnonymousElementByAttribute(this, 'anonid', btnid);
-                        btn.removeAttribute('selected');
+                        if(btn) {
+                            btn.removeAttribute('selected');
+                            btn.removeAttribute('checked');
+                        }
                     }
                 }
                 this.selectedItems = [this.currentIndex];
                 this.selectedCount = 1;
-                event.originalTarget.setAttribute('selected', 'true');
+                target.setAttribute('selected', true);
+                target.setAttribute('checked', true);
 
             }else if (this.seltype == 'multiple') {
                 // multiple
                 if (GeckoJS.Array.inArray(this.currentIndex, this.selectedItems) == -1) {
                     this.selectedItems.push(this.currentIndex);
                     this.selectedCount++;
-                    event.originalTarget.setAttribute('selected', 'true');
+                    target.setAttribute('selected', true);
+                    target.setAttribute('checked', true);
                 }else {
                     this.selectedItems.splice(GeckoJS.Array.inArray(this.currentIndex, this.selectedItems), 1);
                     this.selectedCount--;
-                    event.originalTarget.removeAttribute('selected');
+                    target.removeAttribute('selected');
+                    target.removeAttribute('checked');
                 }
             }
 
+
+        ]]>
+        </body>
+    </method>
+
+
+  </implementation>
+
+  <handlers>
+    <handler event="click" button="0"><![CDATA[
+
+        // maybe click on row / grid
+        // fixed click on row will unchecked all buttons at seltype=single
+        var tagName = event.originalTarget.tagName.toLowerCase();
+        if(tagName != 'vivibutton' && tagName != 'button') {
+            return ;
+        }
+
+        // make vivibuttonpanel has checked and selected state.
+        if(event.originalTarget.getAttribute('disabled').toLowerCase() != 'true') {
+            this.setCheckedState(event.originalTarget);
         }
         if(event.target == this) event.stopPropagation();
     ]]>

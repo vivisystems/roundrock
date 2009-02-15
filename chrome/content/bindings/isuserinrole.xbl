@@ -22,9 +22,9 @@
       
         var self = this;
 
-        this.ready = function() {
+//        this.ready = function() {
             self.render();
-        };
+//        };
 
         this.observer = GeckoJS.Observer.newInstance({
                 topics: ['acl-session-change'],
@@ -33,14 +33,16 @@
                 }
             }).register();
         
-        window.addEventListener('DOMContentLoaded', this.ready, true);
+//        window.addEventListener('DOMContentLoaded', this.ready, true);
+          window.addEventListener('load', this.ready, true);
 
         ]]>
         </constructor>
 
         <destructor><![CDATA[
-        window.removeEventListener('DOMContentLoaded', this.ready, true);
-        this.observer.unregister();
+//        window.removeEventListener('DOMContentLoaded', this.ready, true);
+          window.removeEventListener('load', this.ready, true);
+          this.observer.unregister();
         ]]>
         </destructor>
 

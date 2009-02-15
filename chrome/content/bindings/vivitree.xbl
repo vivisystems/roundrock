@@ -48,19 +48,19 @@
         var self = this;
         this._datasource = null;
 
-        this.ready = function() {
+        //this.ready = function() {
             self.initTreecols();
-        };
+        //};
 
         // add treecols and children
-        window.addEventListener('DOMContentLoaded', this.ready, true);
+        //window.addEventListener('DOMContentLoaded', this.ready, true);
 
     ]]>
     </constructor>
 
     <destructor>
     <![CDATA[
-        window.removeEventListener('DOMContentLoaded', this.ready, true);
+        //window.removeEventListener('DOMContentLoaded', this.ready, true);
     ]]>
     </destructor>
 
@@ -77,7 +77,7 @@
 
             for (let i = 0; i < _headers.length ; i++) {
 
-                let treecol = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:treecol");
+                let treecol = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","treecol");
                 treecol.setAttribute("label", _headers[i]);
                 treecol.setAttribute("id", _fields[i]);
                 treecol.setAttribute("flex", 1);
@@ -87,7 +87,7 @@
                 treecols.appendChild(treecol);
 
                 if (fixed != 'true') {
-                    let splitter = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:splitter");
+                    let splitter = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","splitter");
                     // splitter.setAttribute("id", "splitter_" + _fields[i]);
                     splitter.setAttribute("class", "tree-splitter");
                     splitter.setAttribute("resizebefore", "closest");
