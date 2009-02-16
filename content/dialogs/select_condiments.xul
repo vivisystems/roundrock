@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE overlay [
+  <!ENTITY % DialogOverlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %DialogOverlay;
+  <!ENTITY % SelectCondiments SYSTEM "chrome://viviecr/locale/select_condiments.dtd">
+  %SelectCondiments;
+]>
+
+<?xml-stylesheet href="chrome://viviecr/skin/user/condiment-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/selectBox.css" type="text/css"?>
+
+<overlay id="selectCondimentsDialogOverlay"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <popupset id="dialogs">
+
+        <panel id="selectCondimentPanel" style="width: 800px; height: 600px;">
+
+            <script type="application/x-javascript" src="chrome://viviecr/content/dialogs/select_condiments.js" />
+
+            <hbox flex="1" class="main-dialog" pack="center">
+
+                <vbox class="MainPnl" flex="1">
+
+                    <caption label="&select.condiments.title;" class="PageTitle" />
+
+                    <hbox class="SelectBox">
+                        <viviscrollablebuttonpanel id="condimentscrollablepanel" flex="1" cols="4" rows="7"  seltype="multiple" labelField="name"
+                                                   class="catesdcrollablepanel"
+                                                   buttonClass="plubtn"
+                                                   scrollUpClass="ScrollUp"
+                                                   scrollDownClass="ScrollDown">
+                            <spacer flex="1"/>
+                        </viviscrollablebuttonpanel>
+                    </hbox>
+
+                    <spacer style="height: 10px;" />
+
+                    <hbox>
+                        <hbox class="ToolBar" flex="1">
+                            <button class="okBtn" label="&dialog.okButton.label;" default="true" oncommand="$.hidePanel('selectCondimentPanel', true)"/>
+                            <button class="cancelBtn" label="&dialog.cancelButton.label;" default="true" oncommand="$.hidePanel('selectCondimentPanel', false)"/>
+                        </hbox>
+                        <hbox id="dialogButtons" class="dialogbtns" pack="center">
+                            <button class="VkbBtn" label=""  oncommand="VirtualKeyboard.toggle();" />
+                        </hbox>
+                    </hbox>
+
+                </vbox>
+
+            </hbox>
+
+        </panel>
+
+    </popupset>
+
+</overlay>

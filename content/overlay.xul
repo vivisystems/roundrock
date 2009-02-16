@@ -12,7 +12,8 @@
 <?xul-overlay href="chrome://viviecr/content/overlays/numberpadPanelOverlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/terminalStatus.xul" ?>
 
-<?xul-overlay href="chrome://viviecr/content/select_condiments_dialog.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/dialogs/select_condiments.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/dialogs/prompt_additem.xul" ?>
 
 <overlay id="viviecrOverlay"
          xmlns:html="http://www.w3.org/1999/xhtml"

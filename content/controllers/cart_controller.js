@@ -24,12 +24,12 @@
                 this._pluPanel = document.getElementById('prodscrollablepanel');
             }
 
-//            if (this._pluAndCondimentDeck == null) {
- //               this._pluAndCondimentDeck = document.getElementById('pluAndCondimentDeck');
-//            }
+            //            if (this._pluAndCondimentDeck == null) {
+            //               this._pluAndCondimentDeck = document.getElementById('pluAndCondimentDeck');
+            //            }
 
             if (this._condimentPanel == null) {
-               // this._condimentPanel = document.getElementById('condimentscrollablepanel');
+            // this._condimentPanel = document.getElementById('condimentscrollablepanel');
             }
             // this._condimentPanel.datasource = new NSICondimentsView();
 
@@ -47,6 +47,7 @@
             GeckoJS.Session.remove('cart_last_sell_item');
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
+
 
         },
 
@@ -77,8 +78,8 @@
         checkStock: function(action, qty, item, clearWarning) {
             if (clearWarning == null) clearWarning = true;
             var obj = {
-                    item: item
-                };
+                item: item
+            };
             var diff = qty;
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             var min_stock = parseFloat(item.min_stock);
@@ -216,7 +217,9 @@
             // check if age verification required
             if ( !evt._cancel) {
                 if (!cart._returnMode && (item.age_verification || setItemsAgeVerificationRequired)) {
-                    var obj = { item: item };
+                    var obj = { 
+                        item: item
+                    };
 
                     cart.dispatchEvent('onAgeVerification', obj);
                     cart.dispatchEvent('onWarning', _('VERIFY AGE'));
@@ -336,10 +339,10 @@
         addItem: function(plu) {
 
 
-		var f = document.getElementById('functionPanelContainer');
-                var v = document.getElementById('productPanelContainer');
-		var n = document.getElementById('multinumberpad');
-		//f.appendChild(v);
+            var f = document.getElementById('functionPanelContainer');
+            var v = document.getElementById('productPanelContainer');
+            var n = document.getElementById('multinumberpad');
+            //f.appendChild(v);
 
             if (this._suspended) return;
             
@@ -414,23 +417,42 @@
 
                 this.dispatchEvent('afterAddItem', addedItem);
 
-                if (addedItem.id == plu.id && !this._returnMode) {
-                    if (plu.force_condiment) {
-                        this.addCondiment(plu, null, doSIS);
-                    }
-                    if (plu.force_memo) {
-                        this.addMemo(plu);
-                    }
-                }
+                var self = this;
 
-                // single item sale?
-                if (doSIS) {
-                    this.addPayment('cash');
-                    this.dispatchEvent('onWarning', _('SINGLE ITEM SALE'));
-                }
-                else {
-                    this.subtotal();
-                }
+                // wrap with chain method
+                next( function() {
+
+                    if (addedItem.id == plu.id && !self._returnMode) {
+
+                        return next( function() {
+
+                            if (plu.force_condiment) {
+                                return self.addCondiment(plu, null, doSIS);
+                            }
+
+                        }).next( function() {
+				 
+                            if (plu.force_memo) {
+                                return self.addMemo(plu);
+                            }
+
+                        });
+                        
+                    }
+
+                } ).next( function() {
+
+                    // single item sale?
+                    if (doSIS) {
+                        self.addPayment('cash');
+                        self.dispatchEvent('onWarning', _('SINGLE ITEM SALE'));
+                    }
+                    else {
+                        self.subtotal();
+                    }
+
+                });
+
             }
             else {
                 GeckoJS.Session.remove('cart_set_price_value');
@@ -595,7 +617,10 @@
                 }
             }
 
-            if (this.dispatchEvent('beforeModifyItem', {item: itemTrans, itemDisplay: itemDisplay})) {
+            if (this.dispatchEvent('beforeModifyItem', {
+                item: itemTrans,
+                itemDisplay: itemDisplay
+            })) {
                 var modifiedItem = curTransaction.modifyItemAt(index);
 
                 this.dispatchEvent('afterModifyItem', [modifiedItem, itemDisplay]);
@@ -946,7 +971,7 @@
                     this.subtotal();
                     return;
                 }
-                /*
+            /*
                 if (itemTrans.current_qty < 0) {
                     //@todo OSD
                     NotifyUtils.warn(_('Cannot register discount on return items'));
@@ -1559,7 +1584,7 @@
 
                 if (payment > paid) {
                     NotifyUtils.warn(_('Refund amount [%S] may not exceed amount paid [%S]',
-                                     [curTransaction.formatPrice(payment), curTransaction.formatPrice(paid)]));
+                        [curTransaction.formatPrice(payment), curTransaction.formatPrice(paid)]));
                     GeckoJS.Session.remove('cart_set_price_value');
                     GeckoJS.Session.remove('cart_set_qty_value');
 
@@ -1579,8 +1604,8 @@
                 if (payment > balance) {
                     // @todo OSD
                     GREUtils.Dialog.alert(window,
-                                          _('Credit Card Payment Error'),
-                                          _('Credit card payment may not exceed remaining balance'));
+                        _('Credit Card Payment Error'),
+                        _('Credit card payment may not exceed remaining balance'));
                     GeckoJS.Session.remove('cart_set_price_value');
                     GeckoJS.Session.remove('cart_set_qty_value');
 
@@ -1599,7 +1624,7 @@
                 var memo2 = inputObj.input1 || '';
                 this.addPayment('creditcard', payment, payment, memo1, memo2);
             }
-            //this.clear();
+        //this.clear();
 
         },
 
@@ -1644,7 +1669,7 @@
 
                 if (payment > paid) {
                     NotifyUtils.warn(_('Refund amount [%S] may not exceed amount paid [%S]',
-                                     [curTransaction.formatPrice(payment), curTransaction.formatPrice(paid)]));
+                        [curTransaction.formatPrice(payment), curTransaction.formatPrice(paid)]));
                     GeckoJS.Session.remove('cart_set_price_value');
                     GeckoJS.Session.remove('cart_set_qty_value');
 
@@ -1713,7 +1738,7 @@
 
                 if (payment > paid) {
                     NotifyUtils.warn(_('Refund amount [%S] may not exceed amount paid [%S]',
-                                     [curTransaction.formatPrice(payment), curTransaction.formatPrice(paid)]));
+                        [curTransaction.formatPrice(payment), curTransaction.formatPrice(paid)]));
                     GeckoJS.Session.remove('cart_set_price_value');
                     GeckoJS.Session.remove('cart_set_qty_value');
 
@@ -1729,9 +1754,9 @@
 
                 if (payment > balance) {
                     if (GREUtils.Dialog.confirm(null,
-                                                _('confirm giftcard payment'),
-                                                _('Change of [%S] will NOT be given for this type of payment. Proceed?',
-                                                [curTransaction.formatPrice(payment - balance)])) == false) {
+                        _('confirm giftcard payment'),
+                        _('Change of [%S] will NOT be given for this type of payment. Proceed?',
+                            [curTransaction.formatPrice(payment - balance)])) == false) {
                         GeckoJS.Session.remove('cart_set_price_value');
                         GeckoJS.Session.remove('cart_set_qty_value');
 
@@ -1799,7 +1824,7 @@
 
                 if (payment > paid) {
                     NotifyUtils.warn(_('Refund amount [%S] may not exceed amount paid [%S]',
-                                     [curTransaction.formatPrice(payment), curTransaction.formatPrice(paid)]));
+                        [curTransaction.formatPrice(payment), curTransaction.formatPrice(paid)]));
                     GeckoJS.Session.remove('cart_set_price_value');
                     GeckoJS.Session.remove('cart_set_qty_value');
 
@@ -1826,8 +1851,8 @@
                     if (payment - balance > limit) {
                         // @todo OSD
                         GREUtils.Dialog.alert(window,
-                                              _('Check Payment Error'),
-                                              _('Check Cashing limit of [%S] exceeded', [curTransaction.formatPrice(limit)]));
+                            _('Check Payment Error'),
+                            _('Check Cashing limit of [%S] exceeded', [curTransaction.formatPrice(limit)]));
                         GeckoJS.Session.remove('cart_set_price_value');
                         GeckoJS.Session.remove('cart_set_qty_value');
 
@@ -1847,7 +1872,7 @@
                 var memo2 = inputObj.input1 || '';
                 this.addPayment('check', payment, payment, memo1, memo2);
             }
-            //this.clear();
+        //this.clear();
 
         },
 
@@ -1961,7 +1986,7 @@
 
                 if (!err && amount > curTransaction.getPaymentSubtotal()) {
                     NotifyUtils.warn(_('Refund amount [%S] may not exceed payment amount [%S]',
-                                     [curTransaction.formatPrice(amount), curTransaction.formatPrice(curTransaction.getPaymentSubtotal())]));
+                        [curTransaction.formatPrice(amount), curTransaction.formatPrice(curTransaction.getPaymentSubtotal())]));
                     err = true;
                 }
 
@@ -2334,18 +2359,20 @@
                 condimentItem = productsById[setItem.id];
             }
 
+            var d = new Deferred();
             if (condimentItem) {
                 if(!condimentItem.cond_group){
                     //@todo OSD
                     NotifyUtils.warn(_('No Condiment group associated with item [%S]', [condimentItem.name]));
-                    return;
+                    return d;
                 }
                 else {
-                    this.getCondimentsDialog(condimentItem.cond_group, condiments, forceModal);
+                    return this.getCondimentsDialog(condimentItem.cond_group, condiments, forceModal);
                 }
                 
             }
-            this.subtotal();
+
+            return d
 
         },
 
@@ -2355,7 +2382,9 @@
                 var condGroups = GeckoJS.Session.get('condGroups');
                 if (!condGroups) {
                     var condGroupModel = new CondimentGroupModel();
-                    var condGroups = condGroupModel.find('all', {recursive: 2});
+                    var condGroups = condGroupModel.find('all', {
+                        recursive: 2
+                    });
                     GeckoJS.Session.add('condGroups', condGroups);
                     condGroups = GeckoJS.Session.get('condGroups');
                 }
@@ -2364,7 +2393,7 @@
                 var index = -1;
 
                 for each (var o in condGroups) {
-                //condGroups.forEach(function(o) {
+                    //condGroups.forEach(function(o) {
                     i++;
                     if (o.id == condgroup) {
                         index = i
@@ -2382,66 +2411,28 @@
                         if (conds[i].preset) selectedItems.push(i);
                     }
                 }
-                // var colsRows = parseInt(this._condimentPanel.getAttribute('cols')) * parseInt(this._condimentPanel.getAttribute('rows'));
             }
 
-		var self = this;
-		return $.popupPanel('selectCondimentPanel', conds).next(function(evt){
-			var selectedCondiments = evt.data;
-			    if (selectedCondiments.length > 0) {
-				self.addCondiment(null, selectedCondiments);
-			    }
+            var self = this;
+            return $.popupPanel('selectCondimentPanel', conds).next(function(evt){
+                var selectedCondiments = evt.data;
+                if (selectedCondiments.length > 0) {
+				
+                    var index = self._cartView.getSelectedIndex();
+                    var curTransaction = self._getTransaction();
 
-		});
+                    if(curTransaction != null && index >=0) {
+                        curTransaction.appendCondiment(index, selectedCondiments);
+                        self.dispatchEvent('afterAddCondiment', selectedCondiments);
+                    }
+				    
+                    self.subtotal();
+                }
 
-        },
-
-        addCondimentCallback: function(ok) {
-
-            this._pluAndCondimentDeck.selectedIndex = 0;
-            if (!ok) {
-                this._condimentPanel.selectedItems = [];
-                this._condimentPanel.selectedIndex = -1;
-                return ;
-            }
-/*
-            var index = this._cartView.getSelectedIndex();
-            var curTransaction = this._getTransaction();
-
-            if(curTransaction == null) {
-                //@todo OSD
-                NotifyUtils.warn(_('Not an open order; cannot add condiment'));
-                return; // fatal error ?
-            }
-
-            if(index <0) {
-                //@todo OSD
-                NotifyUtils.warn(_('Please select an item first'));
-                return;
-            }
-*/
-            var condsData = this._condimentPanel.datasource.data;
-            var indexes = this._condimentPanel.selectedItems;
-            var condiments = [];
-            indexes.forEach(function(index) {
-                // condiments.push(condsData[index].name);
-                condiments.push(condsData[index]);
             });
 
-            this._condimentPanel.selectedItems = [];
-            this._condimentPanel.selectedIndex = -1;
-            this._pluAndCondimentDeck.selectedIndex = 0;
-
-            if (condiments.length > 0) {
-                this.addCondiment(null, condiments);
-                /*
-                curTransaction.appendCondiment(index, condiments);
-                this.dispatchEvent('afterAddCondiment', condiments);
-                this.subtotal();
-                */
-            }
-            
         },
+
 
         addMemo: function(plu) {
 
@@ -2478,38 +2469,62 @@
                 if (cartItem != null && cartItem.type == 'item') {
                     //xxxx why clone it? so we don't change the default memo
                     memoItem = GREUtils.extend({}, productsById[cartItem.id]);
-                    //memoItem = productsById[cartItem.id];
+                //memoItem = productsById[cartItem.id];
                 }
                 if (memoItem && plu != null && plu != '') memoItem.memo = plu;
             }
 
+            var d = new Deferred();
+
             var memo;
             if (typeof plu == 'object' || plu == null || plu == '') {
-                memo = this.getMemoDialog(memoItem ? memoItem.memo : '');
+                return this.getMemoDialog(memoItem ? memoItem.memo : '');
             }
             else {
                 memo = GeckoJS.String.trim(plu);
-            }
-            if (memo) curTransaction.appendMemo(index, memo);
+                if (memo) curTransaction.appendMemo(index, memo);
+            }           
+
+            return d;
 
         },
 
 
 
         getMemoDialog: function (memo) {
-            var aURL = 'chrome://viviecr/content/prompt_additem.xul';
-            //var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250';
-            var features = 'chrome,modal,width=500,height=380,centerscreen';
-            var inputObj = {
-                input0:memo,require0:false
-            };
-            window.openDialog(aURL, _('Add New Memo'), features, _('Add Memo'), '', _('Memo'), '', inputObj);
 
-            if (inputObj.ok && inputObj.input0) {
-                return inputObj.input0;
-            }else {
-                return null;
-            }
+            var self = this;
+
+            var inputObj = {
+                input0: memo,
+                require0:false
+            };
+
+            var data = [
+            _('Add Memo'),
+            '',
+            _('Memo'),
+            '',
+            inputObj
+            ];
+
+            return $.popupPanel('promptAdditemPanel', data).next( function(evt){
+                var result = evt.data;
+                
+                if (result.ok && result.input0) {
+
+                    var index = self._cartView.getSelectedIndex();
+                    var curTransaction = self._getTransaction();
+
+                    if(curTransaction != null && index >=0) {
+
+                        curTransaction.appendMemo(index, result.input0);
+                    }
+
+                }
+
+            });
+
         },
 
 
@@ -2583,7 +2598,7 @@
             var curTransaction = this._getTransaction();
 
             if(curTransaction == null) {
-                    //@todo OSD
+                //@todo OSD
                 if (warn) NotifyUtils.warn(_('No open order to push'));
                 return; // fatal error ?
             }
@@ -2767,7 +2782,7 @@
                     }
                     break;
                 case 'releaseCheck':
-                        r = this.GuestCheck.releaseCheckNo(no);
+                    r = this.GuestCheck.releaseCheckNo(no);
                     break;
                 case 'newTable':
                     if (buf.length == 0) {
@@ -2783,27 +2798,27 @@
                     }
                     break;
                 case 'guest':
-                        r = this.GuestCheck.guest(no);
-                        curTransaction.data.no_of_customers = no;
+                    r = this.GuestCheck.guest(no);
+                    curTransaction.data.no_of_customers = no;
                     break;
                 case 'destination':
-                        r = this.GuestCheck.destination(param2);
-                        curTransaction.data.destination = param2;
+                    r = this.GuestCheck.destination(param2);
+                    curTransaction.data.destination = param2;
                     break;
                 case 'store':
-                        if (curTransaction.data.status == 1) {
-                            NotifyUtils.warn(_('This order has been submited!!'));
-                        } else {
-                            r = this.GuestCheck.store(curTransaction.data.items_count);
-                        }
+                    if (curTransaction.data.status == 1) {
+                        NotifyUtils.warn(_('This order has been submited!!'));
+                    } else {
+                        r = this.GuestCheck.store(curTransaction.data.items_count);
+                    }
                     break;
                 case 'recallSequence':
-                        r = this.GuestCheck.recallByOrderNo(no);
+                    r = this.GuestCheck.recallByOrderNo(no);
                 case 'recallCheck':
-                        r = this.GuestCheck.recallByCheckNo(no);
+                    r = this.GuestCheck.recallByCheckNo(no);
                     break;
                 case 'recallTable':
-                        r = this.GuestCheck.recallByTableNo(no);
+                    r = this.GuestCheck.recallByTableNo(no);
                     break;
             }
 
