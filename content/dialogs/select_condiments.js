@@ -33,7 +33,9 @@
 
             hide: function (evt) {
 
-                var isOK = evt.data;
+                // press escape
+                var isOK = typeof evt.data == 'boolean' ? evt.data : false;
+
                 var condiments = [];
                 var selectedItems = $buttonPanel[0].selectedItems; // 0..n index
                 
@@ -50,7 +52,7 @@
 
         });
 
-    };
+    }
 
     window.addEventListener('load', startup, false);
 

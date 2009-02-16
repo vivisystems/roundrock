@@ -11,8 +11,6 @@
         _queuePool: null,
         _returnMode: false,
         _pluPanel: null,
-        _condimentPanel: null,
-        _pluAndCondimentDeck: null,
 
         initial: function() {
             
@@ -24,16 +22,7 @@
                 this._pluPanel = document.getElementById('prodscrollablepanel');
             }
 
-            //            if (this._pluAndCondimentDeck == null) {
-            //               this._pluAndCondimentDeck = document.getElementById('pluAndCondimentDeck');
-            //            }
-
-            if (this._condimentPanel == null) {
-            // this._condimentPanel = document.getElementById('condimentscrollablepanel');
-            }
-            // this._condimentPanel.datasource = new NSICondimentsView();
-
-            self = this;
+            var self = this;
             var keypad = GeckoJS.Controller.getInstanceByName('Keypad');
             keypad.addEventListener('beforeAddBuffer', self.beforeAddBuffer);
 
@@ -61,7 +50,8 @@
 
         beforeAddBuffer: function () {
 
-            self = this;
+            var self = this;
+            
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             var curTransaction = cart._getTransaction();
             if (curTransaction == null) return;
@@ -1475,71 +1465,87 @@
         },
 
         getCreditCardDialog: function (data) {
-            var aURL = 'chrome://viviecr/content/creditcard_remark.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=550';
+
+            var self = this;
+
             var inputObj = {
-                input0:data.type,
+                input0: data.type,
                 input1:null
             };
-            window.openDialog(aURL, _('Credit Card Remark'), features, _('Credit Card Remark'), _('Payment') + ' [' + data.payment + ']',
-                _('Card Type'), _('Card Remark'), inputObj);
 
-            if (inputObj.ok) {
-                return inputObj;
-            }else {
-                return null;
-            }
+            var dialog_data = [
+                _('Credit Card Remark'),
+                _('Payment') + ' [' + data.payment + ']',
+                _('Card Type'),
+                _('Card Remark'),
+                inputObj
+            ];
+
+            return $.popupPanel('creditcardRemarkPanel', dialog_data);
+            
         },
 
         getCouponDialog: function (data) {
-            var aURL = 'chrome://viviecr/content/coupon_remark.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=550';
+            
+            var self = this;
+
             var inputObj = {
-                input0:data.type,
+                input0: data.type,
                 input1:null
             };
-            window.openDialog(aURL, _('Coupon Remark'), features, _('Coupon Remark'), _('Payment') + ' [' + data.payment + ']',
-                _('Coupon Type'), _('Coupon Remark'), inputObj);
 
-            if (inputObj.ok) {
-                return inputObj;
-            }else {
-                return null;
-            }
+            var dialog_data = [
+                _('Coupon Remark'),
+                _('Payment') + ' [' + data.payment + ']',
+                _('Coupon Type'),
+                _('Coupon Remark'),
+                inputObj
+            ];
+
+            return $.popupPanel('couponRemarkPanel', dialog_data);
+
         },
 
         getGiftcardDialog: function (data) {
-            var aURL = 'chrome://viviecr/content/coupon_remark.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=550';
+
+            var self = this;
+
             var inputObj = {
-                input0:data.type,
+                input0: data.type,
                 input1:null
             };
-            window.openDialog(aURL, _('Giftcard Remark'), features, _('Giftcard Remark'), _('Payment') + ' [' + data.payment + ']',
-                _('Giftcard Type'), _('Giftcard Remark'), inputObj);
 
-            if (inputObj.ok) {
-                return inputObj;
-            }else {
-                return null;
-            }
+            var dialog_data = [
+                _('Giftcard Remark'),
+                _('Payment') + ' [' + data.payment + ']',
+                _('Giftcard Type'),
+                _('Giftcard Remark'),
+                inputObj
+            ];
+
+            return $.popupPanel('couponRemarkPanel', dialog_data);
+
         },
 
         getCheckDialog: function (data) {
-            var aURL = 'chrome://viviecr/content/coupon_remark.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=550';
+
+            var self = this;
+
             var inputObj = {
-                input0:data.type,
+                input0: data.type,
                 input1:null
             };
-            window.openDialog(aURL, _('Check Remark'), features, _('Check Remark'), _('Payment') + ' [' + data.payment + ']',
-                _('Check Type'), _('Check Remark'), inputObj);
 
-            if (inputObj.ok) {
-                return inputObj;
-            }else {
-                return null;
-            }
+            var dialog_data = [
+                _('Check Remark'),
+                _('Payment') + ' [' + data.payment + ']',
+                _('Check Type'),
+                _('Check Remark'),
+                inputObj
+            ];
+
+            return $.popupPanel('couponRemarkPanel', dialog_data);
+
         },
 
         creditCard: function(mark) {
@@ -1618,13 +1624,20 @@
                 type: mark,
                 payment: curTransaction.formatPrice(payment)
             };
-            var inputObj = this.getCreditCardDialog(data);
-            if (inputObj) {
-                var memo1 = inputObj.input0 || '';
-                var memo2 = inputObj.input1 || '';
-                this.addPayment('creditcard', payment, payment, memo1, memo2);
-            }
-        //this.clear();
+
+            var self = this;
+
+            return this.getCreditCardDialog(data).next(function(evt) {
+
+                var result = evt.data;
+                
+                if (result.ok) {
+                    var memo1 = result.input0 || '';
+                    var memo2 = result.input1 || '';
+                    self.addPayment('creditcard', payment, payment, memo1, memo2);
+                }
+
+            });
 
         },
 
@@ -1687,12 +1700,22 @@
                 type: type,
                 payment: curTransaction.formatPrice(payment)
             };
-            var inputObj = this.getCouponDialog(data);
-            if (inputObj) {
-                var memo1 = inputObj.input0 || '';
-                var memo2 = inputObj.input1 || '';
-                this.addPayment('coupon', payment, payment, memo1, memo2);
-            }
+
+            var self = this;
+
+            return this.getCouponDialog(data).next(function(evt){
+                
+                var result = evt.data;
+
+                if(result.ok) {
+
+                    var memo1 = result.input0 || '';
+                    var memo2 = result.input1 || '';
+                    
+                    self.addPayment('coupon', payment, payment, memo1, memo2);
+
+                }
+            });
 
         },
 
@@ -1770,15 +1793,22 @@
                 type: type,
                 payment: curTransaction.formatPrice(payment)
             };
-            var inputObj = this.getGiftcardDialog(data);
 
-            if (inputObj) {
-                var memo1 = inputObj.input0 || '';
-                var memo2 = inputObj.input1 || '';
+            var self = this;
 
+            return this.getGiftcardDialog(data).next(function(evt){
 
-                this.addPayment('giftcard', balance, payment, memo1, memo2);
-            }
+                var result = evt.data;
+
+                if(result.ok) {
+
+                    var memo1 = result.input0 || '';
+                    var memo2 = result.input1 || '';
+
+                    self.addPayment('giftcard', balance, payment, memo1, memo2);
+
+                }
+            });
 
         },
 
@@ -1866,13 +1896,22 @@
                 type: type,
                 payment: curTransaction.formatPrice(payment)
             };
-            var inputObj = this.getCheckDialog(data);
-            if (inputObj) {
-                var memo1 = inputObj.input0 || '';
-                var memo2 = inputObj.input1 || '';
-                this.addPayment('check', payment, payment, memo1, memo2);
-            }
-        //this.clear();
+
+            var self = this;
+
+            return this.getCheckDialog(data).next(function(evt){
+
+                var result = evt.data;
+
+                if(result.ok) {
+
+                    var memo1 = result.input0 || '';
+                    var memo2 = result.input1 || '';
+
+                    self.addPayment('check', payment, payment, memo1, memo2);
+
+                }
+            });
 
         },
 
@@ -2060,9 +2099,13 @@
                 payment.origin_amount = curTransaction.formatPrice(payment.origin_amount);
             }
             
-            var aURL = 'chrome://viviecr/content/payment_details.xul';
-            var features = 'chrome,modal,width=700,height=450,centerscreen';
-            window.openDialog(aURL, _('Payment Details'), features, _('Payment Details'), payments);
+            var dialog_data = [
+                _('Payment Details'),
+                payments
+            ];
+
+            return $.popupPanel('paymentDetailsPanel', dialog_data);
+
         },
 
 
@@ -2676,45 +2719,46 @@
                     });
                 }
             }
-            var aURL = 'chrome://viviecr/content/select_queues.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
-            var inputObj = {
+
+            var dialog_data = {
                 queues: queues,
                 queuePool: queuePool
             };
 
-            window.openDialog(aURL, 'select_queues', features, inputObj);
+            return $.popupPanel('selectQueuesPanel', dialog_data);
 
-            if (inputObj.ok && inputObj.index) {
-                var idx = inputObj.index;
-                return queues[idx].key;
-            }else {
-                return null;
-            }
         },
 
         pullQueue: function(data) {
 
-            var key = this.getQueueIdDialog();
-            var queuePool = this._getQueuePool();
+            var self = this;
 
+            return this.getQueueIdDialog().next(function(evt){
 
-            if(!key) return;
+                var result = evt.data;
 
-            // if has transaction push queue
-            this.pushQueue(false);
+                if (!result.ok) return;
 
-            var data = queuePool.data[key];
+                var key = result.key;
+                var queuePool = self._getQueuePool();
 
-            // remove from list;
-            this._removeQueueByKey(key);
+                // if has transaction push queue
+                self.pushQueue(false);
 
-            var curTransaction = new Transaction();
-            curTransaction.data = data ;
-            this._setTransactionToView(curTransaction);
-            curTransaction.updateCartView(-1, -1);
+                var data = queuePool.data[key];
 
-            this.subtotal();
+                // remove from list;
+                self._removeQueueByKey(key);
+
+                var curTransaction = new Transaction();
+                curTransaction.data = data ;
+
+                self._setTransactionToView(curTransaction);
+                curTransaction.updateCartView(-1, -1);
+
+                self.subtotal();
+
+            });
 
         },
 

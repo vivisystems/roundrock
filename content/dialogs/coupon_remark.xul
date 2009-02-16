@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE overlay [
+  <!ENTITY % DialogOverlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %DialogOverlay;
+  <!ENTITY % Coupon SYSTEM "chrome://viviecr/locale/coupon.dtd">
+  %Coupon;
+]>
+
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/selectBox.css" type="text/css"?>
+
+<overlay id="couponRemarkDialogOverlay"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <popupset id="dialogs">
+
+        <panel id="couponRemarkPanel" style="width: 800px; height: 600px;">
+
+            <script type="application/x-javascript" src="chrome://viviecr/content/dialogs/coupon_remark.js" />
+
+            <hbox class="pop-dialog" flex="1" pack="center">
+
+                <vbox class="MainPnl" flex="1">
+
+                    <caption id="couponRemark-dialog-caption" label=""  class="PageTitle"/>
+                    <label id="couponRemark-text0" value="" class="SubTitle" />
+                    <grid class="DataForm">
+                        <columns>
+                            <column flex="1"/>
+                        </columns>
+                        <rows>
+                            <row>
+                                <vbox>
+                                    <label id="couponRemark-title0" style="width:6em" value="" control="couponRemark-input0"/>
+                                    <textbox id="couponRemark-input0" value="" oninput="couponRemark_validateInput()" onfocus="this.select()"/>
+                                </vbox>
+                            </row>
+                            <row>
+                                <vbox>
+                                    <label id="couponRemark-title1" style="width:6em" value="" control="couponRemark-input1"/>
+                                    <textbox id="couponRemark-input1" value="" oninput="couponRemark_validateInput()" onfocus="this.select()"/>
+                                </vbox>
+                            </row>
+                        </rows>
+                    </grid>
+
+                    <hbox pack="center">
+                        <numberpad id="couponRemark-multinumpad" class="numpad" target="plu"/>
+                        <vbox>
+                            <sendkeybutton id="couponRemark-bkeyBtn"  label="&coupon.button.action.del;" keyCode='0x08' target="plu" class="fixedbtn"  />
+                            <sendkeybutton id="couponRemark-clearBtn"  label="&coupon.button.action.clear;" class="fixedbtn"/>
+                        </vbox>
+                    </hbox>
+
+                    <spacer flex="1"/>
+
+                    <hbox>
+                        <hbox class="ToolBar" flex="1">
+                            <button id="couponRemark-ok" class="okBtn" label="&dialog.okButton.label;" default="true" oncommand="$.hidePanel('couponRemarkPanel', true)"/>
+                            <button id="couponRemark-cancel" class="cancelBtn" label="&dialog.cancelButton.label;" default="true" oncommand="$.hidePanel('couponRemarkPanel', false)"/>
+                        </hbox>
+                        <hbox id="dialogButtons" class="dialogbtns" pack="center">
+                            <button class="VkbBtn" label=""  oncommand="VirtualKeyboard.toggle();" />
+                        </hbox>
+                    </hbox>
+
+                </vbox>
+
+            </hbox>
+
+        </panel>
+
+    </popupset>
+
+</overlay>

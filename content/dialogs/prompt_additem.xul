@@ -4,7 +4,6 @@
   %DialogOverlay;
 ]>
 
-<?xml-stylesheet href="chrome://viviecr/skin/user/condiment-button-colors.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/selectBox.css" type="text/css"?>
 
@@ -12,7 +11,6 @@
          xmlns:html="http://www.w3.org/1999/xhtml"
          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
-
 
     <popupset id="dialogs">
 
@@ -47,6 +45,8 @@
                             </rows>
                         </grid>
                     </groupbox>
+
+                    <spacer flex="1"/>
 
                     <hbox>
                         <hbox class="ToolBar" flex="1">
