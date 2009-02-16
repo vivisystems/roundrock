@@ -360,20 +360,19 @@
     </prefpane>
 -->
 
-    <prefpane id="pluFilterSettingsPane" label="&category.plufilter;" >
+    <prefpane id="pluFilterSettingsPane" label="&category.plufilters;" >
         <preferences>
             <preference id="pref_plufilters" name="vivipos.fec.settings.PluFilters" type="string" />
         </preferences>
         <hbox flex="1">
             <vbox class="MainL" flex="1">
-                <label value="&plufilter.title;" class="SubTitle"/>
                 <vbox pack="start" flex="1" class="LeftPnl">
                     <viviscrollabletree id="plufilterscrollablepanel" flex="1"
                                     headers="&plufilter.filtername;,&plufilter.index;,&plufilter.length;"
                                     fields="filtername,index,length"
                                     onclick="$do('select',this.selectedIndex, 'Plufilters');"
                                     class="ListPnl"
-                                    scrollUpClass="ScrollUp" dir="reverse"
+                                    scrollUpClass="ScrollUp" dir="normal"
                                     scrollDownClass="ScrollDown">
                         <spacer flex="1" />
                     </viviscrollabletree>
@@ -388,21 +387,21 @@
                     <rows>
                         <row>
                             <vbox>
-                                <label control="filter_name" value="&plufilter.filtername;:"/>
+                                <label control="filter_name" value="&plufilter.filtername;"/>
                                 <textbox id="filter_name"
                                         oninput="$do('validateForm', null, 'Plufilters')"/>
                             </vbox>
                         </row>
                         <row>
                             <vbox>
-                                <label control="filter_index" value="&plufilter.index;:"/>
+                                <label control="filter_index" value="&plufilter.index;"/>
                                 <textbox id="filter_index" size="3" maxlength="2" min="0" max="16"
                                         oninput="$do('validateForm', null, 'Plufilters')"/>
                             </vbox>
                         </row>
                         <row>
                             <vbox>
-                                <label control="filter_length" value="&plufilter.length;:"/>
+                                <label control="filter_length" value="&plufilter.length;"/>
                                 <textbox id="filter_length" size="3" maxlength="2" min="0" max="16"
                                         oninput="$do('validateForm', null, 'Plufilters')"/>
                             </vbox>
@@ -421,5 +420,77 @@
 
     </prefpane>
 
+    <prefpane id="destinations" label="&category.destinations;" >
+        <preferences>
+            <preference id="pref_destinations" name="vivipos.fec.settings.Destinations" type="string" />
+        </preferences>
+        <hbox flex="1">
+            <vbox class="MainL" flex="1">
+                <vbox pack="start" flex="1" class="LeftPnl">
+                    <viviscrollabletree id="destscrollablepanel" flex="1"
+                                    headers="&destination.default;,&destination.name;,&destination.pricelevel;,&destination.prefix;"
+                                    fields="default,name,pricelevel,prefix"
+                                    onclick="$do('select',this.selectedIndex, 'Destinations');"
+                                    class="ListPnl"
+                                    scrollUpClass="ScrollUp" dir="normal"
+                                    scrollDownClass="ScrollDown">
+                        <spacer flex="1" />
+                    </viviscrollabletree>
+                    <checkbox id="default_destination" label="&destination.setdefault;" oncommand="$do('setDefaultDestination', this.checked, 'Destinations');"/>
+                </vbox>
+            </vbox>
+
+            <vbox >
+                <grid class="DataForm">
+                    <columns>
+                        <column flex="1" />
+                    </columns>
+                    <rows>
+                        <row>
+                            <vbox>
+                                <label control="destination_name" value="&destination.name;"/>
+                                <textbox id="destination_name"
+                                        oninput="$do('validateForm', null, 'Destinations')"/>
+                            </vbox>
+                        </row>
+                        <row>
+                            <vbox>
+                                <label control="destination_pricelevel" value="&destination.pricelevel;"/>
+                                <menulist id="destination_pricelevel" name="destination_pricelevel" onchange="$do('validateForm', null, 'Destinations')">
+                                    <menupopup id="destination_pricelevel-popup">
+                                        <menuitem label="-" value="-"/>
+                                        <menuitem label="1" value="1"/>
+                                        <menuitem label="2" value="2"/>
+                                        <menuitem label="3" value="3"/>
+                                        <menuitem label="4" value="4"/>
+                                        <menuitem label="5" value="5"/>
+                                        <menuitem label="6" value="6"/>
+                                        <menuitem label="7" value="7"/>
+                                        <menuitem label="8" value="8"/>
+                                        <menuitem label="9" value="9"/>
+                                    </menupopup>
+                                </menulist>
+                            </vbox>
+                        </row>
+                        <row>
+                            <vbox>
+                                <label control="destination_prefix" value="&destination.prefix;"/>
+                                <textbox id="destination_prefix" size="3" min="0" max="16"
+                                        oninput="$do('validateForm', null, 'Destinations')"/>
+                            </vbox>
+                        </row>
+
+                    </rows>
+
+                </grid>
+                <spacer flex="1" />
+                <hbox class="ToolBar" flex="1">
+                    <vivibutton id="add_destination"  label="&destination.add;" oncommand="$do('addDestination', null, 'Destinations');"   />
+                    <vivibutton id="remove_destination"  label="&destination.remove;" oncommand="$do('removeDestination', null, 'Destinations');"   />
+                </hbox>
+            </vbox>
+        </hbox>
+
+    </prefpane>
 
 </prefwindow>
