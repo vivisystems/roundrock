@@ -92,6 +92,8 @@
 
                 // register listener for attribute modified events
                 this.addEventListener('DOMAttrModified', this._attrModified, true);
+
+                self._render;
                 //GREUtils.log('[CONSTRUCTOR]: leaving');
             ]]>
             </constructor>

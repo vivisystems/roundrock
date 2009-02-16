@@ -462,6 +462,7 @@
                 // register listener for attribute modified events
                 this.addEventListener('DOMAttrModified', this._attrModified, true);
 
+                this._refreshCurrentPage();
             ]]>
             </constructor>
 
