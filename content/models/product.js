@@ -2,7 +2,7 @@
 // ViviPOS.ProductModel = GeckoJS.Model.extend({
 var ProductModel = window.ProductModel = GeckoJS.Model.extend({
     name: 'Product',
-    hasMany: ['SetItem'],
+    hasMany: ['SetItem', {name: 'CondimentGroup', primaryKey: 'cond_group', foreignKey:'id'}],
     useDbConfig: 'default',
     
     checkUnique: function() {

@@ -335,6 +335,12 @@
 
         addItem: function(plu) {
 
+
+		var f = document.getElementById('functionPanelContainer');
+                var v = document.getElementById('productPanelContainer');
+		var n = document.getElementById('multinumberpad');
+		//f.appendChild(v);
+
             if (this._suspended) return;
             
             var item = GREUtils.extend({}, plu);
@@ -2379,71 +2385,15 @@
                 // var colsRows = parseInt(this._condimentPanel.getAttribute('cols')) * parseInt(this._condimentPanel.getAttribute('rows'));
             }
 
-/*
-            if (forceModal || colsRows == 0 || condiments != null) {
+		var self = this;
+		return $.popupPanel('selectCondimentPanel', conds).next(function(evt){
+			var selectedCondiments = evt.data;
+			    if (selectedCondiments.length > 0) {
+				self.addCondiment(null, selectedCondiments);
+			    }
 
-                if (condiments == null) {
-                    var aURL = 'chrome://viviecr/content/select_condiments.xul';
-                    var features = 'chrome,modal,width=600,height=480';
-                    var inputObj = {
-                        condgroup: condgroup,
-                        condsData: conds,
-                        condiments: condiments,
-                        selectedItems: selectedItems
-                    };
+		});
 
-                    window.openDialog(aURL, 'select_condiments', features, inputObj);
-
-                    if (inputObj.ok && inputObj.condiments)
-                        condiments = inputObj.condiments;
-                }
-
-                if (condiments  != null) {
-                    var index = this._cartView.getSelectedIndex();
-                    var curTransaction = this._getTransaction();
-
-                    if(curTransaction != null && index >=0) {
-                        curTransaction.appendCondiment(index, condiments);
-                        this.dispatchEvent('afterAddCondiment', condiments);
-                    }
-                    
-                    this.subtotal();
-                }
-                
-            }else {
-*/
-                // alert(this.dump(conds));
-                var d2 = document.getElementById('selectCondimentPanel');
-                d2.addEventListener('popupshown', function() {
-                    GREUtils.log('selectCondimentPanel datasource');
-                    var condimentPanel = document.getElementById('condimentscrollablepanel');
-                    condimentPanel.datasource = conds;
-                    condimentPanel.vivibuttonpanel.invalidate();
-
-                    condimentPanel.selectedItems = selectedItems;
-                    condimentPanel.scrollToRow(0);
-
-                }, true);
-                d2.openPopupAtScreen(0,0,false);
-
-                
-                //var obj = document.getElementById('condimentscrollablepanel222');
-                //alert(obj.datasource);
-                /*
-                 *
-                this._condimentPanel = document.getElementById('condimentscrollablepanel222');
-                this._condimentPanel.datasource = conds;
-                this._condimentPanel.vivibuttonpanel.invalidate();
-
-                this._condimentPanel.selectedItems = selectedItems;
-                this._condimentPanel.scrollToRow(0);
-                */
-
-
-/*
-                this._pluAndCondimentDeck.selectedIndex = 1;
-            }
-*/
         },
 
         addCondimentCallback: function(ok) {
