@@ -207,7 +207,7 @@ textbox[readonly="true"] {
   font-size: 12pt;
   margin: 0 5px;
   -moz-border-radius: 6px;
-  min-width: 70px;
+  min-width: 80px;
   padding: 0 8px;
 }
 .ToolBar button[disabled=true], .ToolBar vivibutton[disabled=true] {

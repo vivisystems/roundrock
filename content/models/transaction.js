@@ -9,6 +9,8 @@
 
             this.view = null,
 
+            this.destination_prefix = null,
+            
             this.data = {
 
                 id: '',
@@ -211,6 +213,11 @@
     };
 
 
+    Transaction.prototype.isStored = function() {
+        return (this.data.status == 2);
+    };
+
+
     Transaction.prototype.updateCartView = function(prevRowCount, currentRowCount, cursorIndex) {
 
         this.view.data = this.data.display_sequences;
@@ -269,8 +276,8 @@
             hasSurcharge: false,
             hasMarker: false,
 
-            stock_maintained: false
-
+            stock_maintained: false,
+            destination: GeckoJS.Session.get('vivipos_fec_order_destination')
         };
 
         return item2;
@@ -284,12 +291,11 @@
         _('Trans');
         var itemDisplay = {} ;
         var dispName;
-        
         if (type == 'item') {
             itemDisplay = GREUtils.extend(itemDisplay, {
                 id: item.id,
                 no: item.no,
-                name: item.name,
+                name: this.destination_prefix + item.name,
                 current_qty: item.current_qty,
                 current_price: item.current_price,
                 //current_subtotal: item.current_subtotal + item.current_condiment,

@@ -278,6 +278,9 @@
             // check pricelevel schedule
             this.requestCommand('schedule', null, 'Pricelevel');
 
+            // check default destination
+            this.requestCommand('initTransaction', curTransaction, 'Destinations');
+
             // dispatch event
             this.dispatchEvent('newTransaction', {});
             
@@ -1363,8 +1366,6 @@
             var buf = this._getKeypadController().getBuffer();
             this._getKeypadController().clearBuffer();
 
-            this.cancelReturn();
-
             var currencies = GeckoJS.Session.get('Currencies');
             var convertIndex = -1;
 
@@ -2175,10 +2176,37 @@
             }
 
             this.dispatchEvent('beforeCancel', curTransaction);
-
+            
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 this._cartView.empty();
                 return ;
+            }
+
+            // if the order has been stored, then check if the customer is owed any refund
+            var orderModel = new OrderModel();
+            var order = orderModel.findById(curTransaction.data.id);
+            if (order != null && order.status == 2) {
+                var payment = curTransaction.getPaymentSubtotal();
+                if (payment == 0) {
+                    if (GREUtils.Dialog.confirm(null, _('confirm cancel'), _('Do you really want to cancel this stored order?')) == false) {
+                        this.subtotal();
+                        return;
+                    }
+                }
+                else if (payment > 0) {
+                    if (GREUtils.Dialog.confirm(null, _('confirm cancel'),
+                                                _('A total payment of [%S] has been received on this order, do you really want to cancel it without refunding the customer?', [curTransaction.formatPrice(payment)])) == false) {
+                        this.subtotal();
+                        return;
+                    }
+                }
+                else {
+                    if (GREUtils.Dialog.confirm(null, _('confirm cancel'),
+                                                _('A total credit of [%S] has been given on this order, do you really want to cancel it?', [curTransaction.formatPrice(payment)])) == false) {
+                        this.subtotal();
+                        return;
+                    }
+                }
             }
 
             curTransaction.cancel();
@@ -2194,12 +2222,15 @@
         },
 	
         subtotal: function() {
-
             var oldTransaction = this._getTransaction();
             this.cancelReturn();
-
-            this.dispatchEvent('onGetSubtotal', oldTransaction);
             
+            if (oldTransaction.isCancel() || oldTransaction.isSubmit()) {
+                this.dispatchEvent('onGetSubtotal', null);
+            }
+            else {
+                this.dispatchEvent('onGetSubtotal', oldTransaction);
+            }
         },
 
 
@@ -2214,8 +2245,10 @@
 
             this.dispatchEvent('beforeSubmit', oldTransaction);
             
+            // save order unless the order is being finalized (i.e. status == 1)
             if (status != 1)
                 oldTransaction.submit(status);
+            if (status != 1) oldTransaction.submit(status);
 
             this.dispatchEvent('afterSubmit', oldTransaction);
 
@@ -2232,13 +2265,11 @@
             this.cancelReturn();
 
             if (status != 2) {
-
                 this.dispatchEvent('onWarning', '');
                 this.dispatchEvent('onSubmit', oldTransaction);
             }
             else
                 this.dispatchEvent('onGetSubtotal', oldTransaction);
-				
         },
 
 
@@ -2831,8 +2862,8 @@
                         r = this.GuestCheck.recallByTableNo(no);
                     break;
             }
-
-            this.subtotal();
+            // @irving: comment out the subtotal() call 02-16-09
+            //this.subtotal();
             
             return;
         }
