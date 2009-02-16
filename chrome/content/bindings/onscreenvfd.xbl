@@ -121,7 +121,7 @@
                     }
                 }
 
-                this.onCancel = function(evt) {
+                this.afterCancel = function(evt) {
                     var transaction = evt.data;
                     if (transaction == null || typeof transaction.data == "undefined") {
                         total = this.format(0);
@@ -195,7 +195,7 @@
                 this.cartevents.addListener('onReturnStatus', this.onReturnStatus, this);
                 this.cartevents.addListener('onSetQty', this.onSetQty, this);
                 this.cartevents.addListener('onClear', this.onClear, this);
-                this.cartevents.addListener('onCancel', this.onCancel, this);
+                this.cartevents.addListener('afterCancel', this.afterCancel, this);
                 this.cartevents.addListener('onQueue', this.onQueue, this);
                 this.cartevents.addListener('afterSubmit', this.afterSubmit, this);
                 this.cartevents.addListener('onWarning', this.onWarning, this);
