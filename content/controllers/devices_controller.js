@@ -861,6 +861,7 @@
                         supportsstatus: selectedDevices[type + '-2-supports-status'],
                         gpiopulses: selectedDevices[type + '-2-gpio-pulses'],
                         linkgroups: selectedDevices[type + '-2-link-groups'],
+                        printunlinked: selectedDevices[type + '-2-print-unlinked'],
                         number: 2
                     });
                 }
@@ -1190,7 +1191,10 @@
                 this.populateEncodings(encodingmenu4, sortedDevicemodels[devicemodelmenu4.selectedIndex]);
 
                 var pluGroupModel = new PlugroupModel();
-                var groups = pluGroupModel.find('all', {
+                var groups = pluGroupModel.findByIndex('all', {
+                    index: 'routing',
+                    value: 1,
+                    order: 'display_order, name'
                 });
                 var guestcheck1_group_listscrollablepanel = document.getElementById('guestcheck-1-group_listscrollablepanel');
                 var guestcheck2_group_listscrollablepanel = document.getElementById('guestcheck-2-group_listscrollablepanel');

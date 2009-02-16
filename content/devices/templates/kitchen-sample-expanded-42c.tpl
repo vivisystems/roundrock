@@ -8,11 +8,13 @@ Terminal: ${order.terminal_no|left:10} Clerk:    ${order.proceeds_clerk_displayn
 Check:    ${order.check_no|left:10} Sequence: ${order.seq|left:14}
 ------------------------------------------
 {for item in order.display_sequences}
-{if item.type == 'item' && order.items[item.index] != null && order.items[item.index].doPrint}
+{if item.type == 'item' && order.items[item.index] != null && order.items[item.index].linked}
 ${item.current_qty|right:4} ${item.name|left:37}
-{elseif item.type == 'condiment' && (item.index == null || order.items[item.index].doPrint)}
+{elseif item.type == 'setitem' && order.items[item.index] != null && order.items[item.index].linked}
+  ${item.current_qty|right:4} ${item.name|left:35}
+{elseif item.type == 'condiment' && (item.index == null || order.items[item.index].linked)}
     ${item.name|left:38}
-{elseif item.type == 'memo' && (item.index == null || order.items[item.index] == null || order.items[item.index].doPrint)}
+{elseif item.type == 'memo' && (item.index == null || order.items[item.index] == null || order.items[item.index].linked)}
 {if item.index == null || order.items[item.index] == null}
 {eval}
 if (memo.length == 0)
