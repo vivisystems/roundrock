@@ -12,16 +12,16 @@
     background: white;
 }
 
-.RightTabbox grid row {
+.RightTabbox row {
 	border-bottom: 0px solid red;
 	font-size: 10pt;
-	padding: 4px;
+	padding: 2px;
     -moz-box-align: center;
 }
 
-.RightTabbox grid column{
+.RightTabbox column{
 	
-	padding: 4px;
+	padding: 2px;
 }
 
 grid {

@@ -310,7 +310,9 @@
                         var devicemodel = device.devicemodel;
                         var encoding = device.encoding;
                         var copies = (printer == null) ? device.autoprint : 1;
+
                         data._MODIFIERS = _templateModifiers(encoding);
+                        data.linkgroups = null;
 
                         self.printCheck(data, template, port, portspeed, handshaking, devicemodel, encoding, device.number, copies);
                     }
@@ -430,7 +432,10 @@
                         var devicemodel = device.devicemodel;
                         var encoding = device.encoding;
                         var copies = (printer == null) ? device.autoprint : 1;
+                        
                         data._MODIFIERS = _templateModifiers(encoding);
+                        data.linkgroups = device.linkgroups.split(',');
+                        data.printunlinked = device.printunlinked;
 
                         self.printCheck(data, template, port, portspeed, handshaking, devicemodel, encoding, 0, copies);
                     }
@@ -501,6 +506,38 @@
                 return;
             }
 
+            // check if item is linked to this printer and set 'doPrint' accordingly
+            var empty = true;
+            for (var i in data.order.items) {
+                var item = data.order.items[i];
+
+                item.doPrint = false;
+
+                // print item if:
+                // 1. item.link_group is empty and data.printunlinked
+                // 2. item.link_group intersects data.linkgroups
+                if (item.link_group == null || item.link_group.length == 0) {
+                    if (data.printunlinked) {
+                        empty = false;
+                        item.doPrint = true;
+                    }
+                }
+                else {
+                    for (var j in data.linkgroups) {
+                        if (item.link_group.indexOf(data.linkgroups[j]) > -1) {
+                            empty = false;
+                            item.doPrint = true;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if (empty) {
+                this.log('no items linked to this printer; printing terminated');
+                return;
+            }
+
             var tpl;
             var result;
 
@@ -544,7 +581,7 @@
                     result = result.replace(re, value);
                 }
             }
-            //alert(this.dump(result));
+            alert(this.dump(result));
             //return;
             //alert(data.order.receiptPages);
             //

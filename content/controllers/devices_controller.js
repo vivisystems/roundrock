@@ -14,6 +14,7 @@
         _selectedDevices: null,
         _sortedDevicemodels: {},
         _portControlService: null,
+        _sortedPorts: [],
 
         // load device configuration and selections
         initial: function (warn) {
@@ -150,6 +151,33 @@
 
                     // check if device already loaded
                     var device = enabledDevices['guestcheck-2-devicemodel'];
+                    if (device != null && !(device in deviceCommands) && devicemodels[device] != null) {
+                        deviceCommands[device] = this.loadDeviceCommandFile(devicemodels[device].path)
+                    }
+                }
+
+                if (enabledDevices['guestcheck-3-enabled']) {
+                    // check if template already loaded
+                    var template = templates['guestcheck-3-template'];
+                    if (template != null && !(template in deviceTemplates) && templates[template] != null) {
+                        deviceTemplates[template] = this.loadTemplateFile(templates[template].path);
+                    }
+
+                    // check if device already loaded
+                    var device = enabledDevices['guestcheck-3-devicemodel'];
+                    if (device != null && !(device in deviceCommands) && devicemodels[device] != null) {
+                        deviceCommands[device] = this.loadDeviceCommandFile(devicemodels[device].path)
+                    }
+                }
+
+                if (enabledDevices['guestcheck-4-enabled']) {
+                    var template = templates['guestcheck-4-template'];
+                    if (template != null && !(template in deviceTemplates) && templates[template] != null) {
+                        deviceTemplates[template] = this.loadTemplateFile(templates[template].path);
+                    }
+
+                    // check if device already loaded
+                    var device = enabledDevices['guestcheck-4-devicemodel'];
                     if (device != null && !(device in deviceCommands) && devicemodels[device] != null) {
                         deviceCommands[device] = this.loadDeviceCommandFile(devicemodels[device].path)
                     }
@@ -399,6 +427,50 @@
                             statuses.push([_('Guest Check Printer %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
                         else
                             statuses.push([_('Guest Check Printer %S', [2]), 'unknown', status]);
+                    }
+                    printerEnabled = true;
+                }
+
+                // guest check printer 3
+                if (selectedDevices['guestcheck-3-enabled']) {
+                    var port = selectedDevices['guestcheck-3-port'];
+                    status = 0;
+                    if (ports != null && port != null && ports[port] != null && ports[port].path != null) {
+                        switch(ports[port].type) {
+                            case 'serial':
+                            case 'usb':
+                                status = this.checkSerialPort(ports[port].path, selectedDevices['guestcheck-3-handshaking']);
+                                break;
+                        }
+                        statuses.push([_('Guest Check Printer %S', [3]), ports[port].label + ' (' + ports[port].path + ')', status]);
+                    }
+                    else {
+                        if (ports != null && port!= null && ports[port] != null)
+                            statuses.push([_('Guest Check Printer %S', [3]), ports[port].label + ' (' + ports[port].path + ')', status]);
+                        else
+                            statuses.push([_('Guest Check Printer %S', [3]), 'unknown', status]);
+                    }
+                    printerEnabled = true;
+                }
+
+                // guest check printer 4
+                if (selectedDevices['guestcheck-4-enabled']) {
+                    var port = selectedDevices['guestcheck-4-port'];
+                    status = 0;
+                    if (ports != null && port != null && ports[port] != null && ports[port].path != null) {
+                        switch(ports[port].type) {
+                            case 'serial':
+                            case 'usb':
+                                status = this.checkSerialPort(ports[port].path, selectedDevices['guestcheck-4-handshaking']);
+                                break;
+                        }
+                        statuses.push([_('Guest Check Printer %S', [4]), ports[port].label + ' (' + ports[port].path + ')', status]);
+                    }
+                    else {
+                        if (ports != null && port!= null && ports[port] != null)
+                            statuses.push([_('Guest Check Printer %S', [4]), ports[port].label + ' (' + ports[port].path + ')', status]);
+                        else
+                            statuses.push([_('Guest Check Printer %S', [4]), 'unknown', status]);
                     }
                     printerEnabled = true;
                 }
@@ -714,6 +786,16 @@
             return this._selectedDevices;
         },
 
+        // returns true if the specified link_group is associated with guestcheck1/2/3/4
+        isGroupLinked: function(link_group_id) {
+            var selectedDevices = this.getSelectedDevices();
+
+            return (selectedDevices['guestcheck-1-link-groups'].indexOf(link_group_id) > -1 ||
+                    selectedDevices['guestcheck-2-link-groups'].indexOf(link_group_id) > -1 ||
+                    selectedDevices['guestcheck-3-link-groups'].indexOf(link_group_id) > -1||
+                    selectedDevices['guestcheck-4-link-groups'].indexOf(link_group_id) > -1);
+        },
+
         // check if the device of the given type [receipt, guestcheck, report, vfd, cashdrawer] and number is enabled
         // returns:
         // -2: no devices have been configured
@@ -732,7 +814,7 @@
                     }
                 }
                 else {
-                    if (selectedDevices[type + '-1-enabled'] || selectedDevices[type + '-2-enabled']) {
+                    if (selectedDevices[type + '-1-enabled'] || selectedDevices[type + '-2-enabled'] || selectedDevices[type + '-3-enabled'] || selectedDevices[type + '-4-enabled']) {
                         return 1;
                     }
                     else {
@@ -761,6 +843,8 @@
                         autoprint: selectedDevices[type + '-1-autoprint'],
                         supportsstatus: selectedDevices[type + '-1-supports-status'],
                         gpiopulses: selectedDevices[type + '-1-gpio-pulses'],
+                        linkgroups: selectedDevices[type + '-1-link-groups'],
+                        printunlinked: selectedDevices[type + '-1-print-unlinked'],
                         number: 1
                     });
                 }
@@ -776,8 +860,45 @@
                         autoprint: selectedDevices[type + '-2-autoprint'],
                         supportsstatus: selectedDevices[type + '-2-supports-status'],
                         gpiopulses: selectedDevices[type + '-2-gpio-pulses'],
+                        linkgroups: selectedDevices[type + '-2-link-groups'],
                         number: 2
                     });
+                }
+
+                if (type == 'guestcheck') {
+                    if (selectedDevices[type + '-3-enabled'] && (number == null || number == 1)) {
+                        enabledDevices.push({
+                            type: selectedDevices[type + '-3-type'],
+                            template: selectedDevices[type + '-3-template'],
+                            port: selectedDevices[type + '-3-port'],
+                            portspeed: selectedDevices[type + '-3-portspeed'],
+                            handshaking: selectedDevices[type + '-3-handshaking'],
+                            devicemodel: selectedDevices[type + '-3-devicemodel'],
+                            encoding: selectedDevices[type + '-3-encoding'],
+                            autoprint: selectedDevices[type + '-3-autoprint'],
+                            supportsstatus: selectedDevices[type + '-3-supports-status'],
+                            gpiopulses: selectedDevices[type + '-3-gpio-pulses'],
+                            linkgroups: selectedDevices[type + '-3-link-groups'],
+                            printunlinked: selectedDevices[type + '-3-print-unlinked'],
+                            number: 1
+                        });
+                    }
+                    if (selectedDevices[type + '-4-enabled'] && (number == null || number == 2)) {
+                        enabledDevices.push({
+                            type: selectedDevices[type + '-4-type'],
+                            template: selectedDevices[type + '-4-template'],
+                            port: selectedDevices[type + '-4-port'],
+                            portspeed: selectedDevices[type + '-4-portspeed'],
+                            handshaking: selectedDevices[type + '-4-handshaking'],
+                            devicemodel: selectedDevices[type + '-4-devicemodel'],
+                            encoding: selectedDevices[type + '-4-encoding'],
+                            autoprint: selectedDevices[type + '-4-autoprint'],
+                            supportsstatus: selectedDevices[type + '-4-supports-status'],
+                            gpiopulses: selectedDevices[type + '-4-gpio-pulses'],
+                            linkgroups: selectedDevices[type + '-4-link-groups'],
+                            number: 2
+                        });
+                    }
                 }
             }
             return enabledDevices;
@@ -812,12 +933,32 @@
             var devicemenu = document.getElementById('cashdrawer-' + drawer_no + '-devicemodel')
             var pulsemenu = document.getElementById('cashdrawer-' + drawer_no + '-gpio-pulses')
             var statusbox = document.getElementById('cashdrawer-' + drawer_no + '-supports-status')
-            
+            var sortedPorts = this._sortedPorts;
+            var selectedType = typemenu.selectedItem;
+
             if (typemenu == null || devicemenu == null) return;
 
-            var selectedType = typemenu.selectedItem;
+            // update list of ports that support cashdrawer
+            portmenu.removeAllItems();
+            if (selectedType.value == 'gpio') {
+                for (var i in sortedPorts) {
+                    if (sortedPorts[i].type == 'gpio' && sortedPorts[i].support.indexOf('cashdrawer') > -1) {
+                        var portName = sortedPorts[i].name;
+                        portmenu.appendItem(_(sortedPorts[i].label), portName, '');
+                    }
+                }
+            }
+            else {
+                for (var i in sortedPorts) {
+                    if (sortedPorts[i].type != 'gpio' && sortedPorts[i].support.indexOf('cashdrawer') > -1) {
+                        var portName = sortedPorts[i].name;
+                        portmenu.appendItem(_(sortedPorts[i].label), portName, '');
+                    }
+                }
+            }
+            portmenu.selectedIndex = 0;
+
             if (selectedType == null) {
-                portmenu.setAttribute('disabled', true);
                 speedmenu.setAttribute('disabled', true);
                 handshakebox.setAttribute('disabled', true);
                 pulsemenu.setAttribute('disabled', true);
@@ -825,7 +966,6 @@
                 devicemenu.selectedIndex = 0;
             }
             else {
-                portmenu.setAttribute('disabled', selectedType.value == 'gpio');
                 speedmenu.setAttribute('disabled', selectedType.value == 'gpio');
                 handshakebox.setAttribute('disabled', selectedType.value == 'gpio');
                 devicemenu.setAttribute('disabled', selectedType.value == 'gpio');
@@ -833,12 +973,11 @@
                 statusbox.setAttribute('disabled', selectedType.value != 'gpio');
             }
         },
-        
+
         // initialize UI forms
         load: function() {
 
             // prepare device ports
-
             var ports = this.getPorts();
             var sortedPorts = [];
 
@@ -847,7 +986,7 @@
                 newPort.name = port;
                 sortedPorts.push(newPort);
             }
-            sortedPorts = new GeckoJS.ArrayQuery(sortedPorts).orderBy('label asc');
+            this._sortedPorts = sortedPorts = new GeckoJS.ArrayQuery(sortedPorts).orderBy('label asc');
 
             // prepare portspeeds
             var portspeeds = this.getPortSpeeds();
@@ -891,9 +1030,11 @@
                 var portmenu1 = document.getElementById('receipt-1-port');
                 var portmenu2 = document.getElementById('receipt-2-port');
                 for (var i in sortedPorts) {
-                    var portName = sortedPorts[i].name;
-                    portmenu1.appendItem(_(sortedPorts[i].label), portName, '');
-                    portmenu2.appendItem(_(sortedPorts[i].label), portName, '');
+                    if (sortedPorts[i].support.indexOf('receipt') > -1) {
+                        var portName = sortedPorts[i].name;
+                        portmenu1.appendItem(_(sortedPorts[i].label), portName, '');
+                        portmenu2.appendItem(_(sortedPorts[i].label), portName, '');
+                    }
                 }
                 portmenu1.selectedIndex = portmenu2.selectedIndex = 0;
 
@@ -952,6 +1093,8 @@
 
                 var tmplmenu1 = document.getElementById('guestcheck-1-template');
                 var tmplmenu2 = document.getElementById('guestcheck-2-template');
+                var tmplmenu3 = document.getElementById('guestcheck-3-template');
+                var tmplmenu4 = document.getElementById('guestcheck-4-template');
                 var templates = this.getTemplates();
 
                 var sortedTemplates = [];
@@ -968,37 +1111,51 @@
                     var tmplName = sortedTemplates[i].name;
                     tmplmenu1.appendItem(_(sortedTemplates[i].label), tmplName, '');
                     tmplmenu2.appendItem(_(sortedTemplates[i].label), tmplName, '');
+                    tmplmenu3.appendItem(_(sortedTemplates[i].label), tmplName, '');
+                    tmplmenu4.appendItem(_(sortedTemplates[i].label), tmplName, '');
                 }
-                tmplmenu1.selectedIndex = tmplmenu2.selectedIndex = 0;
+                tmplmenu1.selectedIndex = tmplmenu2.selectedIndex = tmplmenu3.selectedIndex = tmplmenu4.selectedIndex = 0;
 
                 /* populate device ports */
 
                 var portmenu1 = document.getElementById('guestcheck-1-port');
                 var portmenu2 = document.getElementById('guestcheck-2-port');
+                var portmenu3 = document.getElementById('guestcheck-3-port');
+                var portmenu4 = document.getElementById('guestcheck-4-port');
 
                 for (var i in sortedPorts) {
-                    var portName = sortedPorts[i].name;
-                    portmenu1.appendItem(_(sortedPorts[i].label), portName, '');
-                    portmenu2.appendItem(_(sortedPorts[i].label), portName, '');
+                    if (sortedPorts[i].support.indexOf('guestcheck') > -1) {
+                        var portName = sortedPorts[i].name;
+                        portmenu1.appendItem(_(sortedPorts[i].label), portName, '');
+                        portmenu2.appendItem(_(sortedPorts[i].label), portName, '');
+                        portmenu3.appendItem(_(sortedPorts[i].label), portName, '');
+                        portmenu4.appendItem(_(sortedPorts[i].label), portName, '');
+                    }
                 }
-                portmenu1.selectedIndex = portmenu2.selectedIndex = 0;
+                portmenu1.selectedIndex = portmenu2.selectedIndex = portmenu3.selectedIndex = portmenu4.selectedIndex = 0;
 
                 /* populate device portspeeds */
 
                 var portspeedmenu1 = document.getElementById('guestcheck-1-portspeed');
                 var portspeedmenu2 = document.getElementById('guestcheck-2-portspeed');
+                var portspeedmenu3 = document.getElementById('guestcheck-3-portspeed');
+                var portspeedmenu4 = document.getElementById('guestcheck-4-portspeed');
 
                 for (var i in portspeeds) {
                     var portspeed = portspeeds[i];
                     portspeedmenu1.appendItem(portspeed, portspeed, '');
                     portspeedmenu2.appendItem(portspeed, portspeed, '');
+                    portspeedmenu3.appendItem(portspeed, portspeed, '');
+                    portspeedmenu4.appendItem(portspeed, portspeed, '');
                 }
-                portspeedmenu1.selectedIndex = portspeedmenu2.selectedIndex = 0;
+                portspeedmenu1.selectedIndex = portspeedmenu2.selectedIndex = portspeedmenu3.selectedIndex = portspeedmenu4.selectedIndex = 0;
 
                 /* populate device models */
 
                 var devicemodelmenu1 = document.getElementById('guestcheck-1-devicemodel');
                 var devicemodelmenu2 = document.getElementById('guestcheck-2-devicemodel');
+                var devicemodelmenu3 = document.getElementById('guestcheck-3-devicemodel');
+                var devicemodelmenu4 = document.getElementById('guestcheck-4-devicemodel');
                 var devicemodels = this.getDeviceModels();
 
                 var sortedDevicemodels = [];
@@ -1015,23 +1172,38 @@
                     var devicemodelName = sortedDevicemodels[i].name;
                     devicemodelmenu1.appendItem(_(sortedDevicemodels[i].label), devicemodelName, '');
                     devicemodelmenu2.appendItem(_(sortedDevicemodels[i].label), devicemodelName, '');
+                    devicemodelmenu3.appendItem(_(sortedDevicemodels[i].label), devicemodelName, '');
+                    devicemodelmenu4.appendItem(_(sortedDevicemodels[i].label), devicemodelName, '');
                 }
-                devicemodelmenu1.selectedIndex = devicemodelmenu2.selectedIndex = 0;
+                devicemodelmenu1.selectedIndex = devicemodelmenu2.selectedIndex = devicemodelmenu3.selectedIndex = devicemodelmenu4.selectedIndex = 0;
 
                 /* populate encodings */
 
                 var encodingmenu1 = document.getElementById('guestcheck-1-encoding');
                 var encodingmenu2 = document.getElementById('guestcheck-2-encoding');
+                var encodingmenu3 = document.getElementById('guestcheck-3-encoding');
+                var encodingmenu4 = document.getElementById('guestcheck-4-encoding');
 
                 this.populateEncodings(encodingmenu1, sortedDevicemodels[devicemodelmenu1.selectedIndex]);
                 this.populateEncodings(encodingmenu2, sortedDevicemodels[devicemodelmenu2.selectedIndex]);
+                this.populateEncodings(encodingmenu3, sortedDevicemodels[devicemodelmenu3.selectedIndex]);
+                this.populateEncodings(encodingmenu4, sortedDevicemodels[devicemodelmenu4.selectedIndex]);
 
                 var pluGroupModel = new PlugroupModel();
                 var groups = pluGroupModel.find('all', {
                 });
-                var group_listscrollablepanel = document.getElementById('group_listscrollablepanel');
-                var plugroupPanelView = new NSIPluGroupsView(groups);
-                group_listscrollablepanel.datasource = plugroupPanelView;
+                var guestcheck1_group_listscrollablepanel = document.getElementById('guestcheck-1-group_listscrollablepanel');
+                var guestcheck2_group_listscrollablepanel = document.getElementById('guestcheck-2-group_listscrollablepanel');
+                var guestcheck3_group_listscrollablepanel = document.getElementById('guestcheck-3-group_listscrollablepanel');
+                var guestcheck4_group_listscrollablepanel = document.getElementById('guestcheck-4-group_listscrollablepanel');
+                var plugroupPanelView1 = new NSIPluGroupsView(groups);
+                var plugroupPanelView2 = new NSIPluGroupsView(groups);
+                var plugroupPanelView3 = new NSIPluGroupsView(groups);
+                var plugroupPanelView4 = new NSIPluGroupsView(groups);
+                guestcheck1_group_listscrollablepanel.datasource = plugroupPanelView1;
+                guestcheck2_group_listscrollablepanel.datasource = plugroupPanelView2;
+                guestcheck3_group_listscrollablepanel.datasource = plugroupPanelView3;
+                guestcheck4_group_listscrollablepanel.datasource = plugroupPanelView4;
             //}
 
 
@@ -1048,9 +1220,11 @@
                 var portmenu2 = document.getElementById('report-2-port');
 
                 for (var i in sortedPorts) {
-                    var portName = sortedPorts[i].name;
-                    portmenu1.appendItem(_(sortedPorts[i].label), portName, '');
-                    portmenu2.appendItem(_(sortedPorts[i].label), portName, '');
+                    if (sortedPorts[i].support.indexOf('report') > -1) {
+                        var portName = sortedPorts[i].name;
+                        portmenu1.appendItem(_(sortedPorts[i].label), portName, '');
+                        portmenu2.appendItem(_(sortedPorts[i].label), portName, '');
+                    }
                 }
                 portmenu1.selectedIndex = portmenu2.selectedIndex = 0;
 
@@ -1134,9 +1308,11 @@
                 var portmenu2 = document.getElementById('vfd-2-port');
 
                 for (var i in sortedPorts) {
-                    var portName = sortedPorts[i].name;
-                    portmenu1.appendItem(_(sortedPorts[i].label), portName, '');
-                    portmenu2.appendItem(_(sortedPorts[i].label), portName, '');
+                    if (sortedPorts[i].support.indexOf('vfd') > -1) {
+                        var portName = sortedPorts[i].name;
+                        portmenu1.appendItem(_(sortedPorts[i].label), portName, '');
+                        portmenu2.appendItem(_(sortedPorts[i].label), portName, '');
+                    }
                 }
                 portmenu1.selectedIndex = portmenu2.selectedIndex = 0;
 
@@ -1197,9 +1373,11 @@
                 var portmenu2 = document.getElementById('cashdrawer-2-port');
 
                 for (var i in sortedPorts) {
-                    var portName = sortedPorts[i].name;
-                    portmenu1.appendItem(_(sortedPorts[i].label), portName, '');
-                    portmenu2.appendItem(_(sortedPorts[i].label), portName, '');
+                    if (sortedPorts[i].support.indexOf('cashdrawer') > -1) {
+                        var portName = sortedPorts[i].name;
+                        portmenu1.appendItem(_(sortedPorts[i].label), portName, '');
+                        portmenu2.appendItem(_(sortedPorts[i].label), portName, '');
+                    }
                 }
                 portmenu1.selectedIndex = portmenu2.selectedIndex = 0;
 
@@ -1263,9 +1441,6 @@
         save: function (data) {
             // get form data
             var formObj = GeckoJS.FormHelper.serializeToObject('deviceForm');
-            alert(GeckoJS.BaseObject.dump(formObj));
-
-            // get product group items
 
             // check status of selected devices
             this._selectedDevices = formObj;

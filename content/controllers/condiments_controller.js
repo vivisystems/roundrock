@@ -14,8 +14,7 @@
         _condGroupscrollablepanel: null,
         _condscrollablepanel: null,
 
-        createCondimentPanel: function () {
-            
+        initial: function () {
             var condGroups;
             var condGroupModel = new CondimentGroupModel();
             condGroups = condGroupModel.find('all', {
@@ -23,6 +22,11 @@
                 recursive: 2
             });
             GeckoJS.Session.add('condGroups', condGroups);
+        },
+
+        createCondimentPanel: function () {
+
+            GeckoJS.Session.get('condGroups', condGroups);
 
             // bind condiments data
             var condPanelView =  new GeckoJS.NSITreeViewArray(condGroups);
@@ -543,5 +547,13 @@
 
     });
 
+    // register onload
+    window.addEventListener('load', function() {
+        var main = GeckoJS.Controller.getInstanceByName('Main');
+        if(main) main.addEventListener('onInitial', function() {
+                                            main.requestCommand('initial', null, 'Condiments');
+                                      });
+
+    }, false);
 })();
 

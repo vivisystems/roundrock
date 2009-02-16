@@ -239,6 +239,7 @@
             stock_status: item.stock_status,
             age_verification: item.age_verification,
             parent_index: parent_index,
+            link_group: item.link_group,
             
             current_qty: sellQty,
             current_price: roundedPrice,

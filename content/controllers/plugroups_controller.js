@@ -165,9 +165,14 @@
             var panel = this.getListObj();
             var view = panel.datasource;
             var name = view.data[panel.selectedIndex].name;
-
+            var device = opener.opener.GeckoJS.Controller.getInstanceByName('Devices');
+            
             if (this.hasTaggedProducts(evt.data.id)) {
                 NotifyUtils.error(_('[%S] has one or more products and may not be deleted', [name]));
+                evt.preventDefault();
+            }
+            else if (device != null && device.isGroupLinked(evt.data.id)) {
+                NotifyUtils.error(_('[%S] has been linked to one or more check printers and may not be deleted', [name]));
                 evt.preventDefault();
             }
             else if (GREUtils.Dialog.confirm(null, _('confirm delete %S', [name]), _('Are you sure?')) == false) {

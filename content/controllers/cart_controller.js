@@ -2608,17 +2608,17 @@
 
             if(curTransaction == null) {
                     //@todo OSD
-                if (warn) NotifyUtils.warn(_('No open order to push'));
+                if (warn) NotifyUtils.warn(_('No open order to queue'));
                 return; // fatal error ?
             }
 
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
-                if (warn) NotifyUtils.warn(_('No open order to push'));
+                if (warn) NotifyUtils.warn(_('No open order to queue'));
                 return;
             }
 
             if (curTransaction.data.recall == 2) {
-                if (warn) NotifyUtils.warn(_('Can not queue the recall order!!'));
+                if (warn) NotifyUtils.warn(_('Can not queue the recalled order!!'));
                 return;
             }
 
