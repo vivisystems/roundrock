@@ -383,6 +383,11 @@ pref("vivipos.fec.registry.function.programmable.shiftchange.command", "shiftCha
 pref("vivipos.fec.registry.function.programmable.shiftchange.controller", "ShiftChanges");
 pref("vivipos.fec.registry.function.programmable.shiftchange.data", "");
 
+pref("vivipos.fec.registry.function.programmable.setdestination.access", "acl_set_destination");
+pref("vivipos.fec.registry.function.programmable.setdestination.command", "setDestination");
+pref("vivipos.fec.registry.function.programmable.setdestination.controller", "Destinations");
+pref("vivipos.fec.registry.function.programmable.setdestination.data", "");
+
 pref('vivipos.fec.ui.functionpanel.button.defaultcolor', 'function-button-color-default');
 pref('vivipos.fec.ui.functionpanel.button.defaultfontsize', 'medium');
 pref('vivipos.fec.ui.department.button.defaultcolor', 'department-button-color-default');

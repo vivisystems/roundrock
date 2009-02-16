@@ -278,9 +278,6 @@
             // check pricelevel schedule
             this.requestCommand('schedule', null, 'Pricelevel');
 
-            // check default destination
-            this.requestCommand('initTransaction', curTransaction, 'Destinations');
-
             // dispatch event
             this.dispatchEvent('newTransaction', {});
             

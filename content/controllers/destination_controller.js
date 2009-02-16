@@ -10,15 +10,24 @@
             // load default destination
             var defaultDest = null;
             var datastr = GeckoJS.Configure.read('vivipos.fec.settings.Destinations');
+            var listDatas = null;
 
             if (datastr != null) {
-                var listDatas = GeckoJS.BaseObject.unserialize(GeckoJS.String.urlDecode(datastr));
+                listDatas = GeckoJS.BaseObject.unserialize(GeckoJS.String.urlDecode(datastr));
                 var curDefaults = new GeckoJS.ArrayQuery(listDatas).filter('default = *');
                 if (curDefaults.length > 0) {
                     defaultDest = curDefaults[0];
                 }
             }
+            GeckoJS.Session.set('destinations', listDatas);
             GeckoJS.Session.set('defaultDestination', defaultDest);
+
+            // add listener for newTransaction event
+            var cart = GeckoJS.Controller.getInstanceByName('Cart');
+            if (cart) {
+                cart.addEventListener('newTransaction', this.initTransaction, this);
+            }
+
         },
 
         getListObj: function() {
@@ -60,11 +69,7 @@
             document.getElementById('destination_pricelevel').value = '-';
             document.getElementById('destination_prefix').value = '';
 
-            var datas = new GeckoJS.ArrayQuery(this._listDatas).orderBy('name asc');
-            var datastr = GeckoJS.String.urlEncode(GeckoJS.BaseObject.serialize(datas));
-
-            document.getElementById('pref_destinations').value = datastr;
-            GeckoJS.Session.set('defaultDestination', this.getDefaultDestination());
+            this.saveDestinations();
 
             // @todo OSD
             OsdUtils.info(_('Destination [%S] added successfully', [destName]));
@@ -77,11 +82,7 @@
             if (index >= 0) {
                 var destName = this._listDatas[index].name;
                 this._listDatas.splice(index, 1);
-                var datas = new GeckoJS.ArrayQuery(this._listDatas).orderBy('name asc');
-                var datastr = GeckoJS.String.urlEncode(GeckoJS.BaseObject.serialize(datas));
-
-                document.getElementById('pref_destinations').value = datastr;
-                GeckoJS.Session.set('defaultDestination', this.getDefaultDestination());
+                this.saveDestinations();
 
                 // @todo OSD
                 OsdUtils.info(_('Destination [%S] removed successfully', [destName]));
@@ -89,10 +90,19 @@
                 this.load();
 
                 index = this.getListObj().selectedIndex;
-                if (index >= datas.length) index = datas.length - 1;
+                if (index >= this._listDatas.length) index = this._listDatas.length - 1;
                 this.getListObj().selectedIndex = index;
                 this.select(index);
             }
+        },
+
+        saveDestinations: function() {
+            var datas = new GeckoJS.ArrayQuery(this._listDatas).orderBy('name asc');
+            var datastr = GeckoJS.String.urlEncode(GeckoJS.BaseObject.serialize(datas));
+
+            document.getElementById('pref_destinations').value = datastr;
+            GeckoJS.Session.set('defaultDestination', this.getDefaultDestination());
+            GeckoJS.Session.set('destinations', datas);
         },
 
         setDefaultDestination: function(checked) {
@@ -172,20 +182,64 @@
             this.validateForm();
         },
 
-        // invoked from cart controller to initialize a new transaction
-        initTransaction: function(txn) {
+        // handles newTransaction event from cart controller to initialize a new transaction
+        initTransaction: function() {
             var defaultDest = GeckoJS.Session.get('defaultDestination');
             if (defaultDest != null) {
-                GeckoJS.Session.set('vivipos_fec_order_destination', defaultDest.name);
-
-                // check if price level needs to be set
-                if (!isNaN(defaultDest.pricelevel)) {
-                    this.requestCommand('change', defaultDest.pricelevel, 'Pricelevel');
-                }
-
-                // store destination prefix in transaction
-                txn.destination_prefix = (defaultDest.prefix == null) ? null: defaultDest.prefix + ' ';
+                this.setDestination(defaultDest.name);
             }
+            else {
+                var cart = GeckoJS.Controller.getInstanceByName('Cart');
+                if (cart) {
+                    var txn = cart._getTransaction();
+                    if (txn) {
+                        txn.destination_prefix = '';
+                        txn.data.destination = null;
+                    }
+                }
+            }
+        },
+
+        setDestination: function(destName) {
+            
+            // check if destination is valid
+            var destinations = GeckoJS.Session.get('destinations');
+            var results = new GeckoJS.ArrayQuery(destinations).filter('name = ' + destName);
+
+            if (results == null || results.length == 0) {
+                NotifyUtils.warn('Destination [%S] has not been defined', [destName]);
+                return;
+            }
+            var dest = results[0];
+            
+            // get cart controller
+            var cart = GeckoJS.Controller.getInstanceByName('Cart');
+            if (cart == null) {
+                NotifyUtils.error('Shopping cart is missing; please contact your dealer for technical support');
+                return;
+            }
+
+            // get current transaction
+            var txn = cart._getTransaction();
+            if (txn == null || txn.isSubmit() || txn.isCancel()) {
+                // create a new transaction
+                txn = cart._newTransaction();
+                cart.clear();
+            }
+
+            // set current destination
+            GeckoJS.Session.set('vivipos_fec_order_destination', dest.name);
+
+            // set price level if necessary
+            if (!isNaN(dest.pricelevel)) {
+                this.requestCommand('change', dest.pricelevel, 'Pricelevel');
+            }
+
+            // set txn destination
+            txn.data.destination = dest.name;
+
+            // store destination prefix in transaction
+            txn.destination_prefix = (dest.prefix == null) ? '' : dest.prefix + ' ';
         }
 	
     });

@@ -70,3 +70,4 @@ pref("vivipos.fec.acl.roles.acl_open_cashdrawer_1", "acl_open_cashdrawer_1");
 pref("vivipos.fec.acl.roles.acl_open_cashdrawer_2", "acl_open_cashdrawer_2");
 pref("vivipos.fec.acl.roles.acl_manage_sync_settings", "acl_manage_sync_settings");
 pref("vivipos.fec.acl.roles.acl_register_check", "acl_register_check");
+pref("vivipos.fec.acl.roles.acl_set_destination", "acl_set_destination");
