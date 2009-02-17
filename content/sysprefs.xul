@@ -13,7 +13,8 @@
             ondialogcancel="closePreferences()"
             ondialogaccept="closePreferences()"
             width="800" height="600"
-            dlgbuttons="help"
+            dlgbuttons="accept,cancel"
+            buttons="cancel,extra1"
             closebuttonlabel="&button.close.label;"
             >
 

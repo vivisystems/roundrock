@@ -36,6 +36,11 @@
 
     window.addEventListener('load', startup, false);
 
+    window.addEventListener('dialogextra1', function(){
+        VirtualKeyboard.toggle();
+    }, false);
+
+
 })();
 
 function closePreferences() {
