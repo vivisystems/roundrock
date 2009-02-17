@@ -228,6 +228,7 @@
             <preference id="pref_hidedeptscrollbar" name="vivipos.fec.settings.HideDeptScrollbar" type="bool"/>
             <preference id="pref_hidepluscrollbar" name="vivipos.fec.settings.HidePLUScrollbar" type="bool"/>
             <preference id="pref_hidefpscrollbar" name="vivipos.fec.settings.HideFPScrollbar" type="bool"/>
+            <preference id="pref_checktrackingmode" name="vivipos.fec.settings.CheckTrackingMode" type="bool"/>
 
             <preference id="pref_crop_dept_label" name="vivipos.fec.settings.CropDeptLabel" type="bool"/>
             <preference id="pref_crop_plu_label" name="vivipos.fec.settings.CropPLULabel" type="bool"/>
@@ -262,6 +263,9 @@
                 <row>
                     <checkbox id="cropDeptLabel" label="&layout.cropdeptlabel;" preference="pref_crop_dept_label" />
                     <checkbox id="cropPLULabel" label="&layout.cropplulabel;" preference="pref_crop_plu_label"/>
+                </row>
+                <row>
+                    <checkbox id="checkTrackingMode" label="&layout.checktrackingmode;" preference="pref_checktrackingmode" />
                 </row>
             </rows>
         </grid>
@@ -429,14 +433,13 @@
                 <vbox pack="start" flex="1" class="LeftPnl">
                     <viviscrollabletree id="destscrollablepanel" flex="1"
                                     headers="&destination.default;,&destination.name;,&destination.pricelevel;,&destination.prefix;"
-                                    fields="default,name,pricelevel,prefix"
+                                    fields="defaultMark,name,pricelevel,prefix"
                                     onclick="$do('select',this.selectedIndex, 'Destinations');"
                                     class="ListPnl"
                                     scrollUpClass="ScrollUp" dir="normal"
                                     scrollDownClass="ScrollDown">
                         <spacer flex="1" />
                     </viviscrollabletree>
-                    <checkbox id="default_destination" label="&destination.setdefault;" oncommand="$do('setDefaultDestination', this.checked, 'Destinations');"/>
                 </vbox>
             </vbox>
 
@@ -449,14 +452,13 @@
                         <row>
                             <vbox>
                                 <label control="destination_name" value="&destination.name;"/>
-                                <textbox id="destination_name"
-                                        oninput="$do('validateForm', null, 'Destinations')"/>
+                                <textbox id="destination_name" name="name" form="destinationForm" default="" readonly="true"/>
                             </vbox>
                         </row>
                         <row>
                             <vbox>
                                 <label control="destination_pricelevel" value="&destination.pricelevel;"/>
-                                <menulist id="destination_pricelevel" name="destination_pricelevel" onchange="$do('validateForm', null, 'Destinations')">
+                                <menulist id="destination_pricelevel" name="pricelevel" form="destinationForm" default="">
                                     <menupopup id="destination_pricelevel-popup">
                                         <menuitem label="-" value="-"/>
                                         <menuitem label="1" value="1"/>
@@ -475,18 +477,19 @@
                         <row>
                             <vbox>
                                 <label control="destination_prefix" value="&destination.prefix;"/>
-                                <textbox id="destination_prefix" size="3" min="0" max="16"
-                                        oninput="$do('validateForm', null, 'Destinations')"/>
+                                <textbox id="destination_prefix" name="prefix" form="destinationForm" default="" size="3" min="0" max="16"/>
                             </vbox>
                         </row>
 
                     </rows>
 
                 </grid>
+                <checkbox id="destination_default" name="defaultCheckbox" form="destinationForm" default="0" label="&destination.setdefault;"/>
                 <spacer flex="1" />
                 <hbox class="ToolBar" flex="1">
                     <vivibutton id="add_destination"  label="&destination.add;" oncommand="$do('addDestination', null, 'Destinations');"   />
-                    <vivibutton id="remove_destination"  label="&destination.remove;" oncommand="$do('removeDestination', null, 'Destinations');"   />
+                    <vivibutton id="modify_destination"  label="&destination.modify;" oncommand="$do('modifyDestination', null, 'Destinations');"   />
+                    <vivibutton id="delete_destination"  label="&destination.delete;" oncommand="$do('deleteDestination', null, 'Destinations');"   />
                 </hbox>
             </vbox>
         </hbox>

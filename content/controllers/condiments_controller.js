@@ -26,7 +26,7 @@
 
         createCondimentPanel: function () {
 
-            GeckoJS.Session.get('condGroups', condGroups);
+            var condGroups = GeckoJS.Session.get('condGroups');
 
             // bind condiments data
             var condPanelView =  new GeckoJS.NSITreeViewArray(condGroups);

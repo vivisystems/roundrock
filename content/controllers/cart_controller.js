@@ -156,6 +156,12 @@
 
             var sellQty = null, sellPrice = null;
 
+            // check if user is allowed to register open price
+            if (GeckoJS.Session.get('cart_set_price_value') != null && !this.Acl.isUserInRole('acl_register_open_price')) {
+                GeckoJS.Session.remove('cart_set_price_value');
+                NotifyUtils.warn(_('Not authorized to register open price'));
+            }
+
             sellQty  = (GeckoJS.Session.get('cart_set_qty_value') != null) ? GeckoJS.Session.get('cart_set_qty_value') : sellQty;
             if (sellQty == null) sellQty = 1;
 
@@ -517,9 +523,10 @@
                 return;
             }
 
+            // check if user is allowed to modify condiment
             if (itemDisplay.type == 'condiment' && !this.Acl.isUserInRole('acl_modify_condiment_price')) {
                 //@todo OSD
-                NotifyUtils.warn(_('Not authorized to modify condiment price'));
+                NotifyUtils.warn(_('Not authorized to modify condiment'));
 
                 this.subtotal();
                 return;
@@ -561,7 +568,7 @@
                 this.dispatchEvent('onModifyItemError', {});
 
                 //@todo OSD
-                NotifyUtils.warn(_('Cannot modify condiment; no price entered'));
+                NotifyUtils.warn(_('Cannot modify condiment price; no price entered'));
                 GeckoJS.Session.remove('cart_set_qty_value');
 
                 this.subtotal();
@@ -573,6 +580,28 @@
                 this.setPrice(buf);
             }
 
+            // check whether price or quantity or both are being modified
+            var newPrice = GeckoJS.Session.get('cart_set_price_value');
+            var newQuantity = GeckoJS.Session.get('cart_set_qty_value');
+            var modifyPrice = false;
+            var modifyQuantity = false;
+            var modifyPrice = (newPrice != null && newPrice != itemTrans.current_price);
+            var modifyQuantity = (newQuantity != null && newQuantity != itemTrans.current_qty);
+            
+            if (modifyPrice && !this.Acl.isUserInRole('acl_modify_price')) {
+                NotifyUtils.warn(_('Not authorized to modify price'));
+
+                this.subtotal();
+                return;
+            }
+
+            if (modifyQuantity && !this.Acl.isUserInRole('acl_modify_quantity')) {
+                NotifyUtils.warn(_('Not authorized to modify quantity'));
+
+                this.subtotal();
+                return;
+            }
+            
             // check if zero preset price is allowed
             // @todo
             var positivePriceRequired = GeckoJS.Configure.read('vivipos.fec.settings.PositivePriceRequired') || false;

@@ -14,7 +14,7 @@
 
             if (datastr != null) {
                 listDatas = GeckoJS.BaseObject.unserialize(GeckoJS.String.urlDecode(datastr));
-                var curDefaults = new GeckoJS.ArrayQuery(listDatas).filter('default = *');
+                var curDefaults = new GeckoJS.ArrayQuery(listDatas).filter('defaultMark = *');
                 if (curDefaults.length > 0) {
                     defaultDest = curDefaults[0];
                 }
@@ -51,33 +51,61 @@
         },
 
         addDestination: function(){
-            var destName = GeckoJS.String.trim(document.getElementById('destination_name').value);
-            var destPriceLevel = document.getElementById('destination_pricelevel').value;
-            var destPrefix = GeckoJS.String.trim(document.getElementById('destination_prefix').value);
+            var aURL = 'chrome://viviecr/content/prompt_additem.xul';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
+            var inputObj = {input0:null, require0:true, alphaOnly0:true};
 
-            if (this._listDatas) {
+            window.openDialog(aURL, _('Add New Destination'), features, _('New Destination'), '', _('Name'), '', inputObj);
+            if (inputObj.ok && inputObj.input0) {
+                var destName = inputObj.input0;
+
                 var dupNames = new GeckoJS.ArrayQuery(this._listDatas).filter('name = ' + destName);
                 if (dupNames.length > 0) {
                     // @todo OSD
                     NotifyUtils.warn(_('Destination [%S] already exists', [destName]));
                     return;
                 }
+
+                this._listDatas.push({defaultMark: '', name: destName, pricelevel: '-', prefix: ''});
+
+                this.saveDestinations();
+
+                // loop through tihs._listDatas to find the newly added destination and select it
+                var index = 0;
+                for (var index = 0; index < this._listDatas.length; index++) {
+                    if (this._listDatas[index].name == destName) {
+                        this.select(index);
+                        break;
+                    }
+                }
+
+                // @todo OSD
+                OsdUtils.info(_('Destination [%S] added successfully', [destName]));
             }
-            this._listDatas.push({default: '', name: destName, pricelevel: destPriceLevel, prefix: destPrefix});
-
-            document.getElementById('destination_name').value = '';
-            document.getElementById('destination_pricelevel').value = '-';
-            document.getElementById('destination_prefix').value = '';
-
-            this.saveDestinations();
-
-            // @todo OSD
-            OsdUtils.info(_('Destination [%S] added successfully', [destName]));
-
-            this.load();
         },
 
-        removeDestination: function(){
+        modifyDestination: function() {
+            var inputObj = GeckoJS.FormHelper.serializeToObject('destinationForm');
+            var index = this.getListObj().selectedIndex;
+            if (index > -1) {
+                if (inputObj.name != null && inputObj.name.length > 0) {
+                    this._listDatas[index].pricelevel = inputObj.pricelevel;
+                    this._listDatas[index].prefix = GeckoJS.String.trim(inputObj.prefix);
+                    this.setDefaultDestination(inputObj.defaultCheckbox);
+
+                    this.saveDestinations();
+
+                    var destName = this._listDatas[index].name;
+                    OsdUtils.info(_('Destination [%S] modified successfully', [destName]));
+                }
+                else {
+                    // shouldn't happen, but check anyways
+                    NotifyUtils.warn(_('Destination name must not be empty'));
+                }
+            }
+        },
+
+        deleteDestination: function(){
             var index = this.getListObj().selectedIndex;
             if (index >= 0) {
                 var destName = this._listDatas[index].name;
@@ -85,13 +113,12 @@
                 this.saveDestinations();
 
                 // @todo OSD
-                OsdUtils.info(_('Destination [%S] removed successfully', [destName]));
+                OsdUtils.info(_('Destination [%S] deleted successfully', [destName]));
 
                 this.load();
 
                 index = this.getListObj().selectedIndex;
                 if (index >= this._listDatas.length) index = this._listDatas.length - 1;
-                this.getListObj().selectedIndex = index;
                 this.select(index);
             }
         },
@@ -103,6 +130,8 @@
             document.getElementById('pref_destinations').value = datastr;
             GeckoJS.Session.set('defaultDestination', this.getDefaultDestination());
             GeckoJS.Session.set('destinations', datas);
+
+            this.load();
         },
 
         setDefaultDestination: function(checked) {
@@ -111,36 +140,25 @@
 
                 if (checked) {
                 // find current default and clear it
-                    var curDefaults = new GeckoJS.ArrayQuery(this._listDatas).filter('default = *');
+                    var curDefaults = new GeckoJS.ArrayQuery(this._listDatas).filter('defaultMark = *');
                     if (curDefaults.length > 0) {
                         // @todo OSD
                         curDefaults.forEach(function(ele) {
-                            ele.default = '';
+                            ele.defaultMark = '';
                         });
                     }
-                    this._listDatas[index].default = '*';
+                    this._listDatas[index].defaultMark = '*';
                 }
                 else {
-                    this._listDatas[index].default = '';
+                    this._listDatas[index].defaultMark = '';
                 }
-                var destName = this._listDatas[index].name;
-                var datas = new GeckoJS.ArrayQuery(this._listDatas).orderBy('name asc');
-                var datastr = GeckoJS.String.urlEncode(GeckoJS.BaseObject.serialize(datas));
-
-                document.getElementById('pref_destinations').value = datastr;
-                GeckoJS.Session.set('defaultDestination', this.getDefaultDestination());
-
-                // @todo OSD
-                OsdUtils.info(_('Destination [%S] set as default successfully', [destName]));
-
-                this.load();
             }
         },
 
         getDefaultDestination: function() {
             // get default destination
             if (this._listDatas != null) {
-                var curDefaults = new GeckoJS.ArrayQuery(this._listDatas).filter('default = *');
+                var curDefaults = new GeckoJS.ArrayQuery(this._listDatas).filter('defaultMark = *');
                 if (curDefaults.length > 0) {
                     return curDefaults[0];
                 }
@@ -151,32 +169,39 @@
         validateForm: function() {
 
             var addBtn = document.getElementById('add_destination');
-            var removeBtn = document.getElementById('remove_destination');
-            var defaultCheckbox = document.getElementById('default_destination');
-
-            var destName = document.getElementById('destination_name').value;
-            var destPriceLevel = document.getElementById('destination_pricelevel').value;
+            var modifyBtn = document.getElementById('modify_destination');
+            var deleteBtn = document.getElementById('delete_destination');
+            var prefixTextbox = document.getElementById('destination_prefix');
+            var defaultCheckbox = document.getElementById('destination_default');
 
             var panel = this.getListObj();
             if (panel.selectedIndex > -1) {
-                removeBtn.setAttribute('disabled', false);
-                defaultCheckbox.setAttribute('disabled', false);
+                deleteBtn.removeAttribute('disabled');
+                modifyBtn.removeAttribute('disabled');
+                defaultCheckbox.removeAttribute('disabled');
+                prefixTextbox.removeAttribute('disabled');
             } else {
-                removeBtn.setAttribute('disabled', true);
+                deleteBtn.setAttribute('disabled', true);
+                modifyBtn.setAttribute('disabled', true);
                 defaultCheckbox.checked = false;
                 defaultCheckbox.setAttribute('disabled', true);
-            }
-
-            if (destName.length > 0 && destPriceLevel.length > 0) {
-                addBtn.setAttribute('disabled', false);
-            } else {
-                addBtn.setAttribute('disabled', true);
+                prefixTextbox.setAttribute('disabled', true);
             }
         },
 	
         select: function(index){
+            this.getListObj().vivitree.selection.select(index);
             if (index > -1) {
-                document.getElementById('default_destination').checked = (this._listDatas[index].default == '*');
+                var inputObj = this._listDatas[index];
+                if (inputObj.defaultMark == '*')
+                    inputObj.defaultCheckbox = 1;
+                else
+                    inputObj.defaultCheckbox = 0;
+                GeckoJS.FormHelper.unserializeFromObject('destinationForm', inputObj);
+
+            }
+            else {
+                GeckoJS.FormHelper.reset('destinationForm');
             }
 
             this.validateForm();
@@ -201,13 +226,12 @@
         },
 
         setDestination: function(destName) {
-            
             // check if destination is valid
             var destinations = GeckoJS.Session.get('destinations');
             var results = new GeckoJS.ArrayQuery(destinations).filter('name = ' + destName);
 
             if (results == null || results.length == 0) {
-                NotifyUtils.warn('Destination [%S] has not been defined', [destName]);
+                NotifyUtils.warn(_('Destination [%S] has not been defined', [destName]));
                 return;
             }
             var dest = results[0];
@@ -215,7 +239,7 @@
             // get cart controller
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             if (cart == null) {
-                NotifyUtils.error('Shopping cart is missing; please contact your dealer for technical support');
+                NotifyUtils.error(_('Shopping cart is missing; please contact your dealer for technical support'));
                 return;
             }
 

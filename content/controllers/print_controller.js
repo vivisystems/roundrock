@@ -467,7 +467,7 @@
         },
 
         // handles user initiated receipt requests
-        printReport: function(type, tpl) {
+        printReport: function(type, tpl, data) {
             var device = this.getDeviceController();
 
             if (device == null) {
@@ -499,7 +499,9 @@
             var devicemodel = enabledDevices[0].devicemodel;
             var encoding = enabledDevices[0].encoding;
 
-            this.printCheck(null, tpl, port, portspeed, handshaking, devicemodel, encoding, 0, 1);
+            data._MODIFIERS = _templateModifiers(encoding);
+
+            this.printCheck(data, tpl, port, portspeed, handshaking, devicemodel, encoding, 0, 1);
         },
 
         // print check using the given parameters

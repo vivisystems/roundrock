@@ -36,6 +36,7 @@
 <!ENTITY login.allowquicklogin "Allow quick login by automatically matching user by password">
 <!ENTITY layout.registeratleft "Place register screen on the left side of screen">
 <!ENTITY layout.hidenumpad "Hide numeric keypad">
+<!ENTITY layout.checktrackingmode "Show check tracking details">
 <!ENTITY layout.functionpanelontop "Place function key panel at the top of the screen">
 <!ENTITY layout.PLUbeforedept "Place product panel before department panel">
 <!ENTITY layout.hidedeptscrollbar "Hide scrollbars for department panel">
@@ -64,7 +65,8 @@
 <!ENTITY destination.pricelevel "Price Level">
 <!ENTITY destination.prefix "Prefix">
 <!ENTITY destination.add "Add">
-<!ENTITY destination.remove "Remove">
+<!ENTITY destination.modify "Modify">
+<!ENTITY destination.delete "Delete">
 <!ENTITY destination.setdefault "Default Destination">
 <!ENTITY category.sound "Sound">
 <!ENTITY sound.beepOnItemAdd "Beep on item registrations">

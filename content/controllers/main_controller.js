@@ -468,6 +468,7 @@
             var registerAtLeft = GeckoJS.Configure.read('vivipos.fec.settings.RegisterAtLeft') || false;
             var functionPanelOnTop = GeckoJS.Configure.read('vivipos.fec.settings.FunctionPanelOnTop') || false;
             var PLUbeforeDept = GeckoJS.Configure.read('vivipos.fec.settings.DeptBeforePLU') || false;
+            var checkTrackingMode = GeckoJS.Configure.read('vivipos.fec.settings.CheckTrackingMode') || false;
             var hideNumPad = false;
             
             var hbox = document.getElementById('mainPanel');
@@ -479,6 +480,7 @@
             var leftPanel = document.getElementById('leftPanel');
             var productPanel = document.getElementById('productPanel');
             var cartList = document.getElementById('cartList');
+            var checkTrackingStatus = document.getElementById('vivipos_fec_check_tracking_status');
             
             if (hbox) hbox.setAttribute('dir', registerAtLeft ? 'reverse' : 'normal');
             if (deptPanel) deptPanel.setAttribute('dir', registerAtLeft ? 'normal' : 'reverse');
@@ -489,6 +491,7 @@
             if (leftPanel) leftPanel.setAttribute('dir', functionPanelOnTop ? 'reverse' : 'normal');
             if (productPanel) productPanel.setAttribute('dir', PLUbeforeDept ? 'reverse' : 'normal');
             if (cartList) cartList.setAttribute('dir', registerAtLeft ? 'reverse': 'normal');
+            if (checkTrackingStatus) checkTrackingStatus.setAttribute('hidden', checkTrackingMode ? 'false' : 'true');
 
             // fudge to make functionPanelOnTop work even if rightPanel is taller than the screen
             leftPanel.setAttribute('pack', functionPanelOnTop ? 'end' : 'start');
