@@ -240,7 +240,7 @@
                                     <viviscrollablebuttonpanel id="guestcheck-1-group_listscrollablepanel" form="deviceForm" name="guestcheck-1-link-groups" default="" seltype="multiple" flex="1" cols="3" rows="4" labelField="name" imageField="no"
                                                                oncommand=""
                                                                class="catescrollablepanel"
-                                                               buttonClass="catbtn"
+                                                               buttonClass1="catbtn"
                                                                scrollUpClass="ScrollUp"
                                                                scrollDownClass="ScrollDown">
                                         <spacer flex="1"/>
