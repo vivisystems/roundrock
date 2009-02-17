@@ -75,18 +75,20 @@
             var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
             var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
 
-            datas.forEach(function(o){
+            if (datas) {
+                datas.forEach(function(o){
 
-                o.total = GeckoJS.NumberHelper.round(o.total, precision_prices, rounding_prices) || 0;
-                o.total = o.total.toFixed(precision_prices);
+                    o.total = GeckoJS.NumberHelper.round(o.total, precision_prices, rounding_prices) || 0;
+                    o.total = o.total.toFixed(precision_prices);
 
-                o.OrderItem.forEach(function(k){
-                    k.current_price = GeckoJS.NumberHelper.round(k.current_price, precision_prices, rounding_prices) || 0;
-                    k.current_price = k.current_price.toFixed(precision_prices);
-                    k.current_subtotal = GeckoJS.NumberHelper.round(k.current_subtotal, precision_prices, rounding_prices) || 0;
-                    k.current_subtotal = k.current_subtotal.toFixed(precision_prices);
+                    o.OrderItem.forEach(function(k){
+                        k.current_price = GeckoJS.NumberHelper.round(k.current_price, precision_prices, rounding_prices) || 0;
+                        k.current_price = k.current_price.toFixed(precision_prices);
+                        k.current_subtotal = GeckoJS.NumberHelper.round(k.current_subtotal, precision_prices, rounding_prices) || 0;
+                        k.current_subtotal = k.current_subtotal.toFixed(precision_prices);
+                    });
                 });
-            });
+            }
 
             this._datas = datas;
 

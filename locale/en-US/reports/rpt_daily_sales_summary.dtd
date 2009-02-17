@@ -1,0 +1,9 @@
+<!ENTITY rptdailysalessummary.title "Daily Sales Summary Report">
+<!ENTITY rptdailysalessummary.startdate "Start Date:">
+<!ENTITY rptdailysalessummary.enddate "End Date:">
+<!ENTITY rptdailysalessummary.execute "Execute">
+<!ENTITY rptdailysalessummary.exportpdf "Export to PDF">
+<!ENTITY rptdailysalessummary.exportcsv "Export to CSV">
+<!ENTITY rptdailysalessummary.togglezoom "Toggle Zoom">
+<!ENTITY rptdailysalessummary.machineid "Terminal No:">
+
