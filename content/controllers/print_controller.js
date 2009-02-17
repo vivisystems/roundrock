@@ -313,6 +313,8 @@
 
                         data._MODIFIERS = _templateModifiers(encoding);
                         data.linkgroups = null;
+                        data.printunlinked = 1;
+                        data.routingGroups = null;
 
                         self.printCheck(data, template, port, portspeed, handshaking, devicemodel, encoding, device.number, copies);
                     }
@@ -476,19 +478,19 @@
             }
 
             // check device settings
-            var printer = (type == 'narrow' ? 1 : 2);
+            var printer = (type == 'report' ? 1 : 2);
 
             switch (device.isDeviceEnabled('report', printer)) {
                 case -2:
-                    NotifyUtils.warn(_('The specified report printer [%S] is not configured', [printer]));
+                    NotifyUtils.warn(_('The specified report/label printer [%S] is not configured', [printer]));
                     return;
 
                 case -1:
-                    NotifyUtils.warn(_('Invalid report printer [%S]', [printer]));
+                    NotifyUtils.warn(_('Invalid report/label printer [%S]', [printer]));
                     return;
 
                 case 0:
-                    NotifyUtils.warn(_('The specified report printer [%S] is not enabled', [printer]));
+                    NotifyUtils.warn(_('The specified report/label printer [%S] is not enabled', [printer]));
                     return;
             }
 
@@ -501,7 +503,9 @@
 
             data._MODIFIERS = _templateModifiers(encoding);
 
-            this.printCheck(data, tpl, port, portspeed, handshaking, devicemodel, encoding, 0, 1);
+            var template = tpl.process(data);
+
+            this.printCheck(null, template, port, portspeed, handshaking, devicemodel, encoding, 0, 1);
         },
 
         // print check using the given parameters
@@ -531,52 +535,54 @@
                 return;
             }
             // check if item is linked to this printer and set 'linked' accordingly
-            var empty = true;
-            var routingGroups = data.routingGroups;
-            for (var i in data.order.items) {
-                var item = data.order.items[i];
+            if (data != null) {
+                var empty = true;
+                var routingGroups = data.routingGroups;
+                for (var i in data.order.items) {
+                    var item = data.order.items[i];
 
-                item.linked = false;
+                    item.linked = false;
 
-                // we first filter item.link_group by routing groups
-                var linkgroups = null;
-                if (item.link_group != null && item.link_group.length > 0) {
-                    var groups = item.link_group.split(',');
-                    if (groups.length > 0) {
-                        groups.forEach(function(g) {
-                            if (g in routingGroups) {
-                                if (linkgroups == null) linkgroups = {};
-                                linkgroups[g] = 1;
-                            }
-                        });
+                    // we first filter item.link_group by routing groups
+                    var linkgroups = null;
+                    if (item.link_group != null && item.link_group.length > 0) {
+                        var groups = item.link_group.split(',');
+                        if (groups.length > 0) {
+                            groups.forEach(function(g) {
+                                if (g in routingGroups) {
+                                    if (linkgroups == null) linkgroups = {};
+                                    linkgroups[g] = 1;
+                                }
+                            });
+                        }
                     }
-                }
 
-                // then we print item if:
-                // 1. item's filtered linkgroups is empty and data.printunlinked, or
-                // 2. item's filtered linkgroups intersects data.linkgroups
-                if (linkgroups == null) {
-                    if (data.printunlinked) {
-                        empty = false;
-                        item.linked = true;
-                    }
-                }
-                else {
-                    for (var j in data.linkgroups) {
-                        if (j in linkgroups) {
+                    // then we print item if:
+                    // 1. item's filtered linkgroups is empty and data.printunlinked, or
+                    // 2. item's filtered linkgroups intersects data.linkgroups
+                    if (linkgroups == null) {
+                        if (data.printunlinked) {
                             empty = false;
                             item.linked = true;
-                            break;
+                        }
+                    }
+                    else {
+                        for (var j in data.linkgroups) {
+                            if (j in linkgroups) {
+                                empty = false;
+                                item.linked = true;
+                                break;
+                            }
                         }
                     }
                 }
-            }
 
-            if (empty) {
-                this.log('no items linked to this printer; printing terminated');
-                return;
+                if (empty) {
+                    this.log('no items linked to this printer; printing terminated');
+                    return;
+                }
             }
-
+            
             var tpl;
             var result;
 

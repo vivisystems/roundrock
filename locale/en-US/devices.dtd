@@ -5,7 +5,7 @@
 <!ENTITY devices.tab.guestcheck2.label "Check 2">
 <!ENTITY devices.tab.guestcheck3.label "Check 3">
 <!ENTITY devices.tab.guestcheck4.label "Check 4">
-<!ENTITY devices.tab.report.label "Report">
+<!ENTITY devices.tab.report.label "Report/Label">
 <!ENTITY devices.tab.vfd.label "VFD">
 <!ENTITY devices.tab.cashdrawer.label "Cashdrawer">
 <!ENTITY devices.receipt.printer.1.label "Receipt Printer 1">
@@ -26,8 +26,8 @@
 <!ENTITY devices.guestcheck.printer.4.label "Check Printer 4">
 <!ENTITY devices.guestcheck.autoprint.label "Auto-print copies">
 <!ENTITY devices.guestcheck.printunlinked.label "Print unlinked items">
-<!ENTITY devices.report.printer.1.label "Narrow Report Printer">
-<!ENTITY devices.report.printer.2.label "A4 Report Printer">
+<!ENTITY devices.report.printer.1.label "Report Printer">
+<!ENTITY devices.report.printer.2.label "Label Printer">
 <!ENTITY devices.vfd.1.label "VFD 1">
 <!ENTITY devices.vfd.2.label "VFD 2">
 <!ENTITY devices.cashdrawer.1.label "Cash Drawer 1">

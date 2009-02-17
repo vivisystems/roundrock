@@ -2326,7 +2326,7 @@
             var oldTransaction = this._getTransaction();
             this.cancelReturn();
             
-            if (oldTransaction.isCancel() || oldTransaction.isSubmit()) {
+            if (oldTransaction == null || oldTransaction.isCancel() || oldTransaction.isSubmit()) {
                 this.dispatchEvent('onGetSubtotal', null);
             }
             else {

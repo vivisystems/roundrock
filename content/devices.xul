@@ -240,7 +240,7 @@
                                     <viviscrollablebuttonpanel id="guestcheck-1-group_listscrollablepanel" form="deviceForm" name="guestcheck-1-link-groups" default="" seltype="multiple" flex="1" cols="3" rows="4" labelField="name" imageField="no"
                                                                oncommand=""
                                                                class="catescrollablepanel"
-                                                               buttonClass1="catbtn"
+                                                               buttonClass="plubtn"
                                                                scrollUpClass="ScrollUp"
                                                                scrollDownClass="ScrollDown">
                                         <spacer flex="1"/>
@@ -317,7 +317,7 @@
                                     <viviscrollablebuttonpanel id="guestcheck-2-group_listscrollablepanel" form="deviceForm" name="guestcheck-2-link-groups" default="" seltype="multiple" flex="1" cols="3" rows="4" labelField="name" imageField="no"
                                                                oncommand=""
                                                                class="catescrollablepanel"
-                                                               buttonClass="catbtn"
+                                                               buttonClass="plubtn"
                                                                scrollUpClass="ScrollUp"
                                                                scrollDownClass="ScrollDown">
                                         <spacer flex="1"/>
@@ -395,7 +395,7 @@
                                     <viviscrollablebuttonpanel id="guestcheck-3-group_listscrollablepanel" form="deviceForm" name="guestcheck-3-link-groups" default="" seltype="multiple" flex="1" cols="3" rows="4" labelField="name" imageField="no"
                                                                oncommand=""
                                                                class="catescrollablepanel"
-                                                               buttonClass="catbtn"
+                                                               buttonClass="plubtn"
                                                                scrollUpClass="ScrollUp"
                                                                scrollDownClass="ScrollDown">
                                         <spacer flex="1"/>
@@ -472,7 +472,7 @@
                                     <viviscrollablebuttonpanel id="guestcheck-4-group_listscrollablepanel" form="deviceForm" name="guestcheck-4-link-groups" default="" seltype="multiple" flex="1" cols="3" rows="4" labelField="name" imageField="no"
                                                                oncommand=""
                                                                class="catescrollablepanel"
-                                                               buttonClass="catbtn"
+                                                               buttonClass="plubtn"
                                                                scrollUpClass="ScrollUp"
                                                                scrollDownClass="ScrollDown">
                                         <spacer flex="1"/>
