@@ -53,7 +53,13 @@ function launchControl(panel) {
         var features = "chrome,popup=no,titlebar=no,toolbar,centerscreen,modal,width=" + width + ",height=" + height;
 
         try {
-            $('#loading').show();
+            $.blockUI({
+                message:$('#loading'),
+                css: {
+                    left: '30%',
+                    border: '0px'
+                }
+            });
 
             // @hack sleep to make sure the loading panel is rendered
             GeckoJS.BaseObject.sleep(50);
@@ -74,7 +80,7 @@ function launchControl(panel) {
         }
         catch (e) {alert(e);}
         finally {
-            $('#loading').hide();
+            $.unblockUI();
         }
     }
 }

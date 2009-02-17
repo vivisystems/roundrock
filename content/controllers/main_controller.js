@@ -11,7 +11,7 @@
         screenheight: 600,
         depPanelView: null,
         pluPanelView: null,
-        condimentPanel: null,
+
         doRestart: false,
         restartClock: false,
     
@@ -39,13 +39,11 @@
             GeckoJS.Log.getAppender('console').level = GeckoJS.Log.ERROR;
             GeckoJS.Log.defaultClassLevel = GeckoJS.Log.ERROR;
 
-            GeckoJS.Log.getAppender('console').level = GeckoJS.Log.TRACE;
+//            GeckoJS.Log.getAppender('console').level = GeckoJS.Log.TRACE;
 //            GeckoJS.Log.defaultClassLevel = GeckoJS.Log.TRACE;
 //
-//            GeckoJS.Log.getLoggerForClass('DatasourceSQLite').level = GeckoJS.Log.DEBUG;
-
-            var cg = new CondimentGroupModel();
-            var datas = cg.find('all');
+//            GeckoJS.Log.getLoggerForClass('DatasourceSQL').level = GeckoJS.Log.TRACE;
+//            GeckoJS.Log.getLoggerForClass('DatasourceSQLite').level = GeckoJS.Log.TRACE;
 
             var self = this;
             
@@ -169,9 +167,6 @@
             this.pluPanelView = new NSIPlusView('prodscrollablepanel');
             this.pluPanelView.setCatePanelView(this.depPanelView);
             this.pluPanelView.setCatePanelIndex(0);
-
-            this.condimentPanel = document.getElementById('condimentscrollablepanel');
-            this.condimentPanel.datasource = new NSICondimentsView();
 
         },
 
@@ -318,10 +313,10 @@
             var panelSpacer = document.getElementById('panelSpacer');
             var deptPanel = document.getElementById('catescrollablepanel');
             var pluPanel = document.getElementById('prodscrollablepanel');
-            var condimentPanel = document.getElementById('condimentscrollablepanel');
+            //var condimentPanel = document.getElementById('condimentscrollablepanel');
             var fnPanel = document.getElementById('functionPanel');
             var btmBox = document.getElementById('vivipos-bottombox');
-            var pluAndCondimentDeck = document.getElementById('pluAndCondimentDeck');
+            //var pluAndCondimentDeck = document.getElementById('pluAndCondimentDeck');
 
             var departmentRows = GeckoJS.Configure.read('vivipos.fec.settings.DepartmentRows');
             if (departmentRows == null) departmentRows = 3;
@@ -379,7 +374,7 @@
                 else {
                     deptPanel.setAttribute('hidden', true);
                 }
-                if (pluAndCondimentDeck) pluAndCondimentDeck.style.height = '0px';
+                //if (pluAndCondimentDeck) pluAndCondimentDeck.style.height = '0px';
             }
 
             if (initial ||
@@ -393,14 +388,6 @@
                 pluPanel.setAttribute('cols', pluCols);
                 pluPanel.setAttribute('buttonHeight', pluButtonHeight);
 
-                // condimentPanel
-                var condRows =  (parseInt(pluRows)-1) > 0 ? (parseInt(pluRows)-1) : 0 ;
-                condimentPanel.setAttribute('rows', condRows);
-                condimentPanel.setAttribute('cols', pluCols);
-                condimentPanel.setAttribute('buttonHeight', pluButtonHeight);
-                document.getElementById('ok').style.height = pluButtonHeight + 'px';
-                document.getElementById('cancel').style.height = pluButtonHeight + 'px';
-
                 if (cropPLULabel) pluPanel.setAttribute('crop', 'end');
                 else pluPanel.removeAttribute('crop');
                 if ((pluRows > 0) && (pluCols > 0)) {
@@ -413,18 +400,7 @@
                     pluPanel.setAttribute('hidden', true);
                 }
 
-                if ((condRows > 0) && (pluCols > 0)) {
-                    condimentPanel.setAttribute('hideScrollbar', hidePLUScrollbar);
-                    condimentPanel.setAttribute('hidden', false);
-                    document.getElementById('condimentBtnContainer').setAttribute('hidden', false);
-                    condimentPanel.initGrid();
-                    condimentPanel.vivibuttonpanel.refresh();
-                }else {
-                    condimentPanel.setAttribute('hidden', true);
-                    document.getElementById('condimentBtnContainer').setAttribute('hidden', true);
-                }
             }
-            if (pluAndCondimentDeck) pluAndCondimentDeck.selectedIndex = 0;
 
             if (deptPanel) deptPanel.vivibuttonpanel.resizeButtons();
             if (pluPanel) pluPanel.vivibuttonpanel.resizeButtons();
@@ -473,7 +449,6 @@
             var hbox = document.getElementById('mainPanel');
             var deptPanel = document.getElementById('catescrollablepanel');
             var pluPanel = document.getElementById('prodscrollablepanel');
-            var condimentPanel = document.getElementById('condimentscrollablepanel');
             var fnPanel = document.getElementById('functionPanel');
             var toolbarPanel = document.getElementById('numberpadPanelContainer');
             var leftPanel = document.getElementById('leftPanel');
@@ -483,7 +458,6 @@
             if (hbox) hbox.setAttribute('dir', registerAtLeft ? 'reverse' : 'normal');
             if (deptPanel) deptPanel.setAttribute('dir', registerAtLeft ? 'normal' : 'reverse');
             if (pluPanel) pluPanel.setAttribute('dir', registerAtLeft ? 'normal' : 'reverse');
-            if (condimentPanel) condimentPanel.setAttribute('dir', registerAtLeft ? 'normal' : 'reverse');
             if (fnPanel) fnPanel.setAttribute('dir', registerAtLeft ? 'reverse' : 'normal');
             if (toolbarPanel) toolbarPanel.setAttribute('dir', registerAtLeft ? 'reverse' : 'normal');
             if (leftPanel) leftPanel.setAttribute('dir', functionPanelOnTop ? 'reverse' : 'normal');

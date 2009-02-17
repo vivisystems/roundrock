@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet href="chrome://viviecr/skin/buttons.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/department-button-colors.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/product-button-colors.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/plugroup-button-colors.css" type="text/css"?>
@@ -27,39 +26,21 @@
        </viviscrollablebuttonpanel>
         <!-- End Catalogs -->
 
-        <deck id="pluAndCondimentDeck" selectedIndex="0" flex="1">
-            <!-- Begin PLUs -->
-            <viviscrollablebuttonpanel dir="reverse" id="prodscrollablepanel" flex="1" cols="2" rows="1" labelField="name" imageField="no"
-                                       oncommand="$do('clickPluPanel',this.selectedIndex, 'Main');"
-                                       class="prodscrollablepanel"
-                                       ensureVisible="true"
-                                       buttonHeight="50"
-                                       buttonClass="user-plubtn"
-                                       scrollUpClass="depart_scroll_up"
-                                       scrollDownClass="depart_scroll_down"
-                                       seltype="none" >
-               <spacer flex="1"/>
+        <!-- Begin PLUs -->
+        <viviscrollablebuttonpanel dir="reverse" id="prodscrollablepanel" flex="1" cols="2" rows="1" labelField="name" imageField="no"
+                                   oncommand="$do('clickPluPanel',this.selectedIndex, 'Main');"
+                                   class="prodscrollablepanel"
+                                   ensureVisible="true"
+                                   buttonHeight="50"
+                                   buttonClass="user-plubtn"
+                                   scrollUpClass="depart_scroll_up"
+                                   scrollDownClass="depart_scroll_down"
+                                   seltype="none" >
+           <spacer flex="1"/>
 
-           </viviscrollablebuttonpanel>
-            <!-- End PLUs -->
-                <vbox id="condimentPanel" flex="1">
-                    <viviscrollablebuttonpanel id="condimentscrollablepanel" flex="1" cols="2" rows="1"  labelField="name"
-                                           class="catescrollablepanel"
-                                           buttonClass="user-plubtn"
-                                           scrollUpClass="depart_scroll_up"
-                                           scrollDownClass="depart_scroll_down"
-                                           seltype="multiple" >
-                        <spacer flex="1"/>
-                    </viviscrollablebuttonpanel>
+       </viviscrollablebuttonpanel>
+        <!-- End PLUs -->
 
-                    <hbox id="condimentBtnContainer" pack="center">
-                        <button flex="10" class="user-plubtn" id="ok" icon="yes" label="&dialog.okButton.label;" oncommand="$do('addCondimentCallback', true, 'Cart');"/>
-
-                        <button flex="10" class="user-plubtn" id="cancel" icon="cancel" label="&dialog.cancelButton.label;" oncommand="$do('addCondimentCallback', false, 'Cart');"/>
-                    </hbox>
-                </vbox>
-
-        </deck>
     </vbox>
   </box>
 </overlay>

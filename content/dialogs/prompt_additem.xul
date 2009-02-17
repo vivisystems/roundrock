@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE overlay [
+  <!ENTITY % DialogOverlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %DialogOverlay;
+]>
+
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/selectBox.css" type="text/css"?>
+
+<overlay id="promptAdditemDialogOverlay"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <popupset id="dialogs">
+
+        <panel id="promptAdditemPanel" style="width: 800px; height: 600px;">
+
+            <script type="application/x-javascript" src="chrome://viviecr/content/dialogs/prompt_additem.js" />
+
+            <hbox class="pop-dialog" flex="1" pack="center">
+
+                <vbox class="MainPnl" flex="1">
+
+                    <groupbox  flex="1">
+                        <caption id="promptAdditem-dialog-caption" label="" class="PageTitle"/>
+                        <label id="promptAdditem-text0" value="" />
+                        <grid class="DataForm">
+                            <columns>
+                                <column flex="1"/>
+                            </columns>
+                            <rows>
+                                <row>
+                                    <vbox>
+                                        <label id="promptAdditem-title0" style="width:6em" value="" control="promptAdditem-input0"/>
+                                        <textbox id="promptAdditem-input0" value="" oninput="promptAdditem_validateInput()" onfocus="this.select()"/>
+                                    </vbox>
+                                </row>
+                                <row>
+                                    <vbox>
+                                        <label id="promptAdditem-title1" style="width:6em" value="" control="promptAdditem-input1"/>
+                                        <textbox id="promptAdditem-input1" value="" oninput="promptAdditem_validateInput()" onfocus="this.select()"/>
+                                    </vbox>
+                                </row>
+                            </rows>
+                        </grid>
+                    </groupbox>
+
+                    <spacer flex="1"/>
+
+                    <hbox>
+                        <hbox class="ToolBar" flex="1">
+                            <button id="promptAdditem-ok" class="okBtn" label="&dialog.okButton.label;" default="true" oncommand="$.hidePanel('promptAdditemPanel', true)"/>
+                            <button id="promptAdditem-cancel" class="cancelBtn" label="&dialog.cancelButton.label;" default="true" oncommand="$.hidePanel('promptAdditemPanel', false)"/>
+                        </hbox>
+                        <hbox id="dialogButtons" class="dialogbtns" pack="center">
+                            <button class="VkbBtn" label=""  oncommand="VirtualKeyboard.toggle();" />
+                        </hbox>
+                    </hbox>
+
+                </vbox>
+
+            </hbox>
+
+        </panel>
+
+    </popupset>
+
+</overlay>

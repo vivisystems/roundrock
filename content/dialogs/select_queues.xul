@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE overlay [
+  <!ENTITY % DialogOverlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %DialogOverlay;
+  <!ENTITY % SelectQueues SYSTEM "chrome://viviecr/locale/select_queues.dtd">
+  %SelectQueues;
+]>
+
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/selectBox.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/QueuedOrder.css" type="text/css"?>
+
+<overlay id="selectQueuesDialogOverlay"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <popupset id="dialogs">
+
+        <panel id="selectQueuesPanel" style="width: 800px; height: 600px;">
+
+            <script type="application/x-javascript" src="chrome://viviecr/content/dialogs/select_queues.js" />
+
+            <hbox flex="1" class="main-dialog" pack="center">
+
+                <vbox class="MainPnl" flex="1">
+
+                    <caption label="&select.queues.title;"  class="PageTitle"/>
+
+                    <hbox class="MainL" flex="1">
+
+                        <vbox class="LeftPnl" flex="6">
+                            <viviscrollablebuttonpanel id="queueScrollablepanel" flex="1" cols="2" rows="7"  seltype="single" labelField="key"
+                                                       class="ItemScrollablepanel"  dir="reverse"
+                                                       buttonClass="ItemButtonA"
+                                                       scrollUpClass="ScrollUp"
+                                                       scrollDownClass="ScrollDown">
+                                <spacer flex="1"/>
+                            </viviscrollablebuttonpanel>
+                        </vbox>
+
+                        <vbox class="RightPnl" flex="4">
+                            <label id="selectQueues-label" value="&select.queues.order.details;"  class="PageTitle"/>
+                            <hbox class="sline"></hbox>
+                            <textbox class="QueueList" readonly="1" id="selectQueues-itemlist" value="" />
+                        </vbox>
+
+                    </hbox>
+
+                    <spacer flex="1"/>
+
+                    <hbox>
+                        <hbox class="ToolBar" flex="1">
+                            <button class="okBtn" label="&dialog.okButton.label;" default="true" oncommand="$.hidePanel('selectQueuesPanel', true)"/>
+                            <button class="cancelBtn" label="&dialog.cancelButton.label;" default="true" oncommand="$.hidePanel('selectQueuesPanel', false)"/>
+                        </hbox>
+                        <hbox id="dialogButtons" class="dialogbtns" pack="center">
+                            <button class="VkbBtn" label=""  oncommand="VirtualKeyboard.toggle();" />
+                        </hbox>
+                    </hbox>
+
+                </vbox>
+
+            </hbox>
+
+        </panel>
+
+    </popupset>
+
+</overlay>
