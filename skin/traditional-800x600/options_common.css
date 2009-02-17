@@ -47,7 +47,7 @@
 .DataForm row{
 	border-bottom: 2px solid white;
 	font-size: 10pt;
-	padding: 8px;
+	padding: 5px;
 }
 .DataForm {
 	border-right: 2px solid white;
@@ -207,7 +207,7 @@ textbox[form][readonly="true"] {
   font-size: 12pt;
   margin: 0 5px;
   -moz-border-radius: 6px;
-  min-width: 70px;
+  min-width: 80px;
   padding: 0 8px;
 }
 .ToolBar button[disabled=true], .ToolBar vivibutton[disabled=true] {

@@ -27,10 +27,18 @@
         },
 
         addFilter: function(){
-            var filterName = document.getElementById('filter_name').value;
+            var filterName = GeckoJS.String.trim(document.getElementById('filter_name').value);
             var filterIndex = document.getElementById('filter_index').value;
             var filterLength = document.getElementById('filter_length').value;
             
+            if (this._listDatas) {
+                var dupNames = new GeckoJS.ArrayQuery(this._listDatas).filter('filtername = ' + filterName);
+                if (dupNames.length > 0) {
+                    // @todo OSD
+                    NotifyUtils.warn(_('Filter [%S] already exists', [filterName]));
+                    return;
+                }
+            }
             this._listDatas.push({filtername: filterName, index: filterIndex, length: filterLength});
 
             document.getElementById('filter_name').value = '';

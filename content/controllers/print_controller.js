@@ -310,7 +310,9 @@
                         var devicemodel = device.devicemodel;
                         var encoding = device.encoding;
                         var copies = (printer == null) ? device.autoprint : 1;
+
                         data._MODIFIERS = _templateModifiers(encoding);
+                        data.linkgroups = null;
 
                         self.printCheck(data, template, port, portspeed, handshaking, devicemodel, encoding, device.number, copies);
                     }
@@ -418,6 +420,18 @@
             //this.log('Order:\n' + GeckoJS.BaseObject.dump(data.order));
             //this.log('Store:\n' + GeckoJS.BaseObject.dump(data.store));
 */
+            // construct routing groups
+            var pluGroupModel = new PlugroupModel();
+            var groups = pluGroupModel.findByIndex('all', {
+                index: 'routing',
+                value: 1,
+                order: 'display_order, name'
+            });
+            var routingGroups = {};
+            groups.forEach(function(g) {
+                routingGroups[g.id] = 1;
+            });
+
             // for each enabled printer device, print if autoprint is on or if force is true
             var self = this;
             if (enabledDevices != null) {
@@ -430,7 +444,21 @@
                         var devicemodel = device.devicemodel;
                         var encoding = device.encoding;
                         var copies = (printer == null) ? device.autoprint : 1;
+                        
                         data._MODIFIERS = _templateModifiers(encoding);
+
+                        data.linkgroups = {};
+                        if (device.linkgroups.length > 0) {
+                            var linkgroups = device.linkgroups.split(',');
+                            if (linkgroups.length > 0) {
+                                linkgroups.forEach(function(g) {
+                                    data.linkgroups[g] = 1;
+                                });
+                            }
+                        }
+
+                        data.printunlinked = device.printunlinked;
+                        data.routingGroups = routingGroups;
 
                         self.printCheck(data, template, port, portspeed, handshaking, devicemodel, encoding, 0, copies);
                     }
@@ -439,7 +467,7 @@
         },
 
         // handles user initiated receipt requests
-        printReport: function(type, tpl) {
+        printReport: function(type, tpl, data) {
             var device = this.getDeviceController();
 
             if (device == null) {
@@ -471,7 +499,9 @@
             var devicemodel = enabledDevices[0].devicemodel;
             var encoding = enabledDevices[0].encoding;
 
-            this.printCheck(null, tpl, port, portspeed, handshaking, devicemodel, encoding, 0, 1);
+            data._MODIFIERS = _templateModifiers(encoding);
+
+            this.printCheck(data, tpl, port, portspeed, handshaking, devicemodel, encoding, 0, 1);
         },
 
         // print check using the given parameters
@@ -500,6 +530,52 @@
                                                          device: device})) {
                 return;
             }
+            // check if item is linked to this printer and set 'linked' accordingly
+            var empty = true;
+            var routingGroups = data.routingGroups;
+            for (var i in data.order.items) {
+                var item = data.order.items[i];
+
+                item.linked = false;
+
+                // we first filter item.link_group by routing groups
+                var linkgroups = null;
+                if (item.link_group != null && item.link_group.length > 0) {
+                    var groups = item.link_group.split(',');
+                    if (groups.length > 0) {
+                        groups.forEach(function(g) {
+                            if (g in routingGroups) {
+                                if (linkgroups == null) linkgroups = {};
+                                linkgroups[g] = 1;
+                            }
+                        });
+                    }
+                }
+
+                // then we print item if:
+                // 1. item's filtered linkgroups is empty and data.printunlinked, or
+                // 2. item's filtered linkgroups intersects data.linkgroups
+                if (linkgroups == null) {
+                    if (data.printunlinked) {
+                        empty = false;
+                        item.linked = true;
+                    }
+                }
+                else {
+                    for (var j in data.linkgroups) {
+                        if (j in linkgroups) {
+                            empty = false;
+                            item.linked = true;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if (empty) {
+                this.log('no items linked to this printer; printing terminated');
+                return;
+            }
 
             var tpl;
             var result;
@@ -512,7 +588,7 @@
                     return false;
                 }
 
-                //this.log(GeckoJS.BaseObject.dump(data.order));
+//this.log(GeckoJS.BaseObject.dump(data.order));
                 
                 result = tpl.process(data);
             }
@@ -544,7 +620,7 @@
                     result = result.replace(re, value);
                 }
             }
-            //alert(this.dump(result));
+            alert(this.dump(result));
             //return;
             //alert(data.order.receiptPages);
             //
