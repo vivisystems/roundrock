@@ -1,7 +1,9 @@
+/*
 * {
   padding: 0px;
   margin: 0px;
 }
+*/
 
 .main-dialog {
     background: white url(images/optionsbg.gif) center center no-repeat;
@@ -47,7 +49,7 @@
 .DataForm row{
 	border-bottom: 2px solid white;
 	font-size: 10pt;
-	padding: 8px;
+	padding: 5px;
 }
 .DataForm {
 	border-right: 2px solid white;
@@ -72,7 +74,8 @@
 }
 
 /* �@�q�� texbox ���� */
-textbox[form] {
+/*textbox[form], #prefwin textbox {*/
+textbox:not(.uidisplay_field_label):not(.uidisplay_field_value):not(.orderstatus_field_label):not(.orderstatus_field_value):not(.current_user):not(.console_message_value) {
   border: 3px solid;
   -moz-border-top-colors: #b8b8b8 #cfcfcf #e1e1e1;
   -moz-border-right-colors: #ececec #f9f9f9 #fefefe;
@@ -86,7 +89,8 @@ textbox[form] {
   color: #444;
 
 }
-textbox[form][readonly="true"] {
+/*textbox[form][readonly="true"], #prefwin textbox[readonly="true"] {*/
+textbox[readonly="true"]:not(.uidisplay_field_label):not(.uidisplay_field_value):not(.orderstatus_field_label):not(.orderstatus_field_value):not(.current_user):not(.console_message_value) {
   border: 1px solid #d0cfcb;
   -moz-border-top-colors: #d0cfcb;
   -moz-border-left-colors: #d0cfcb;
@@ -207,7 +211,7 @@ textbox[form][readonly="true"] {
   font-size: 12pt;
   margin: 0 5px;
   -moz-border-radius: 6px;
-  min-width: 70px;
+  min-width: 80px;
   padding: 0 8px;
 }
 .ToolBar button[disabled=true], .ToolBar vivibutton[disabled=true] {

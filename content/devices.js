@@ -3,6 +3,9 @@
     // include controller
 
     GeckoJS.include('chrome://viviecr/content/controllers/devices_controller.js');
+    GeckoJS.include('chrome://viviecr/content/models/plugroup.js');
+    GeckoJS.include('chrome://viviecr/content/helpers/nsi_plugroups_view.js');
+
 
     /**
      * Controller Startup

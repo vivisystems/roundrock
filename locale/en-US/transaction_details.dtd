@@ -1,0 +1,9 @@
+<!ENTITY txndetails.title  "Transaction Details">
+<!ENTITY txndetails.terminal "Terminal">
+<!ENTITY txndetails.sequence "Sequence">
+<!ENTITY txndetails.date "Date">
+<!ENTITY txndetails.item.count "Item Count">
+<!ENTITY txndetails.amount "Amount">
+<!ENTITY txndetails.paid "Paid">
+<!ENTITY txndetails.change "Change">
+<!ENTITY txndetails.clerk "Clerk">

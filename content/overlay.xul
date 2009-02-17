@@ -47,10 +47,7 @@
             </vbox>
 
         </hbox>
-
-        <popupset id="dialogs">
-
-        </popupset>
-
+        <popupset id="dialogs" />
     </box>
+    
 </overlay>
