@@ -79,11 +79,11 @@
         }
         this.addEventListener('DOMAttrModified', this._attrmodified, true);
 
-        //this.ready = function() {
+        this.ready = function() {
             self.resizeLabel();
-        //};
+        };
         
-        //window.addEventListener('load', this.ready, true);
+        window.addEventListener('load', this.ready, true);
 
 
         ]]>
@@ -92,7 +92,7 @@
         <destructor><![CDATA[
 
         this.removeEventListener('DOMAttrModified', this._attrmodified, true);
-        //window.removeEventListener('load', this.ready, true);
+        window.removeEventListener('load', this.ready, true);
         if (this.roles.length >0 ) this.observer.unregister();
 
         ]]>
