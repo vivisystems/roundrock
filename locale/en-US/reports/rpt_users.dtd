@@ -5,6 +5,7 @@
 <!ENTITY rptusers.execute "Execute">
 <!ENTITY rptusers.exportpdf "Export to PDF">
 <!ENTITY rptusers.exportcsv "Export to CSV">
+<!ENTITY rptusers.exportrcp "Print">
 <!ENTITY rptusers.togglezoom "Toggle Zoom">
 <!ENTITY rptusers.wait "Waiting...">
 
