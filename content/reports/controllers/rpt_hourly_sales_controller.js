@@ -111,7 +111,8 @@
                     HourTotal: HourTotal,
                     OrderNum : OrderNum,
                     Guests   : Guests,
-                    ItemsCount: ItemsCount
+                    ItemsCount: ItemsCount,
+                    gen_time: (new Date()).toString('yyyy/MM/dd HH:mm:ss')
                 }
             }
 
@@ -169,7 +170,7 @@
             datas = this._datas;
 
             // this.RcpExport.print(datas, tpl);
-            var rcp = GeckoJS.Controller.getInstanceByName('Print');
+            var rcp = opener.opener.opener.GeckoJS.Controller.getInstanceByName('Print');
             rcp.printReport('report', tpl, datas);
 
         },

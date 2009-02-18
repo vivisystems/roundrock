@@ -4,11 +4,6 @@
      * RptDailySales Controller
      */
 
-    var  XUL_NS = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
-
-    var gPrintSettingsAreGlobal = false;
-    var gSavePrintSettings = false;
-
     GeckoJS.Controller.extend( {
         name: 'RptSalesSummary',
         components: ['BrowserPrint', 'CsvExport'],
@@ -270,6 +265,16 @@
 
         execute: function() {
             var waitPanel = this._showWaitPanel('wait_panel');
+
+            var storeContact = GeckoJS.Session.get('storeContact');
+            var clerk = "";
+            var clerk_displayname = "";
+            var user = new GeckoJS.AclComponent().getUserPrincipal();
+            if ( user != null ) {
+                clerk = user.username;
+                clerk_displayname = user.description;
+            }
+
             var start = document.getElementById('start_date').value;
             var end = document.getElementById('end_date').value;
 
@@ -282,7 +287,9 @@
                 head: {
                     title:_('Sales Summary Report'),
                     start_time: start_str,
-                    end_time: end_str
+                    end_time: end_str,
+                    store: storeContact,
+                    clerk_displayname: clerk_displayname
                 },
                 body: {
                     hourly_sales: this._hourlySales(),
@@ -292,9 +299,11 @@
                     sales_summary: this._SalesSummary()
                 },
                 foot: {
-                    //
+                    gen_time: (new Date()).toString('yyyy/MM/dd HH:mm:ss')
                 }
             }
+
+            this._datas = data;
 // this.log(this.dump(data));
             var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_sales_summary.tpl");
 
@@ -327,12 +336,29 @@
 
         exportCsv: function() {
 
-            var columns = ['terminal_no', 'HourTotal', 'Hour', 'OrderNum', 'Guests', 'ItemsCount'];
-            var headers = ['TerminalNo', 'HourTotal', 'Hour', 'OrderNum', 'Guests', 'ItemsCount'];
-            var datas;
-            datas = this._hourlySales();
+            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_sales_summary_csv.tpl");
 
-            this.CsvExport.exportToCsv("/var/tmp/sales_summary.csv", headers, columns, datas);
+            var file = GREUtils.File.getFile(path);
+            var tpl = GREUtils.File.readAllBytes(file);
+            var datas;
+            datas = this._datas;
+
+            this.CsvExport.printToFile("/var/tmp/sales_summary.csv", datas, tpl);
+
+        },
+
+        exportRcp: function() {
+            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_sales_summary_rcp.tpl");
+
+            var file = GREUtils.File.getFile(path);
+            var tpl = GREUtils.File.readAllBytes(file);
+            var datas;
+            datas = this._datas;
+
+            // this.RcpExport.print(datas, tpl);
+            var rcp = opener.opener.opener.GeckoJS.Controller.getInstanceByName('Print');
+            rcp.printReport('report', tpl, datas);
+
         },
 
         load: function() {
