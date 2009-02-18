@@ -1,2 +1,6 @@
-rm -f viviecr.xpi
-zip -r viviecr.xpi chrome.manifest install.rdf content/ defaults/ locale/ skin/
+rm -f viviecr_*.xpi
+
+rel_date=`date +'%Y%m%d'`
+filename=viviecr_${rel_date}.xpi
+
+zip -r ${filename} chrome.manifest install.rdf content/ defaults/ locale/ skin/

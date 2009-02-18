@@ -95,10 +95,12 @@
                     if (!repDatas[oid]) {
                         repDatas[oid] = GREUtils.extend({}, o); // {cash:0, creditcard: 0, coupon: 0}, o);
                     }
+
                     repDatas[oid][ 'cash' ] = 0.0;
                     repDatas[oid][ 'creditcard' ] = 0.0;
                     repDatas[oid][ 'coupon' ] = 0.0;
                     repDatas[oid][o.payment_name] += o.payment_subtotal;
+
                     tmp_oid = oid;
                 } else {
                     repDatas[ tmp_oid ][ o.payment_name ] = o.payment_subtotal;

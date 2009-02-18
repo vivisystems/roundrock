@@ -174,15 +174,15 @@
                 // this.log("GuestCheck store..." + no);
                 this._controller.addMarker('subtotal');
                 this._controller.submit(2);
-
                 this._controller.dispatchEvent('onWarning', _('STORED'));
-
+                
                 // @todo OSD
                 NotifyUtils.warn(_('This order has been stored!!'));
             } else {
                 // @todo OSD
                 NotifyUtils.warn(_('This order is empty!!'));
             }
+     
         },
 
         recallByOrderNo: function(no) {

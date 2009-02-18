@@ -4,6 +4,7 @@
 <!ENTITY rptproducts.execute "Execute">
 <!ENTITY rptproducts.exportpdf "Export to PDF">
 <!ENTITY rptproducts.exportcsv "Export to CSV">
+<!ENTITY rptproducts.exportrcp "Print">
 <!ENTITY rptproducts.togglezoom "Toggle Zoom">
 <!ENTITY rptproducts.department "Department:">
 <!ENTITY rptproducts.sortby "Sort by:">
@@ -14,4 +15,4 @@
 <!ENTITY rptproducts.rate "Tax">
 <!ENTITY rptproducts.stock "Stock">
 <!ENTITY rptproducts.min_stock "Safe Stock">
-
+<!ENTITY rptproducts.wait "Waiting...">

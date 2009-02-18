@@ -6,15 +6,36 @@
 
     var  XUL_NS = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
 
-    var gPrintSettingsAreGlobal = false;
-    var gSavePrintSettings = false;
-
     GeckoJS.Controller.extend( {
         name: 'RptHourlySales',
         components: ['BrowserPrint', 'CsvExport'],
         _datas: null,
 
+        _showWaitPanel: function(panel) {
+            var waitPanel = document.getElementById(panel);
+            var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
+            var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
+            waitPanel.sizeTo(360, 120);
+            var x = (width - 360) / 2;
+            var y = (height - 240) / 2;
+            waitPanel.openPopupAtScreen(x, y);
+
+            // release CPU for progressbar ...
+            this.sleep(1500);
+            return waitPanel;
+        },
+
         execute: function() {
+            var waitPanel = this._showWaitPanel('wait_panel');
+
+            var storeContact = GeckoJS.Session.get('storeContact');
+            var clerk = "";
+            var clerk_displayname = "";
+            var user = new GeckoJS.AclComponent().getUserPrincipal();
+            if ( user != null ) {
+                clerk = user.username;
+                clerk_displayname = user.description;
+            }
 
             var start = document.getElementById('start_date').value;
             var end = document.getElementById('end_date').value;
@@ -69,7 +90,6 @@
             	);
             }
 
-            this._datas = datas;
             var HourTotal = 0;
             var OrderNum = 0;
             var Guests = 0;
@@ -93,17 +113,22 @@
                     title:_('Hourly Sales Report'),
                     start_time: start_str,
                     end_time: end_str,
-                    machine_id: machineid
+                    machine_id: machineid,
+                    store: storeContact,
+                    clerk_displayname: clerk_displayname
                 },
-                body: this._datas,
+                body: datas,
                 foot: {
                     HourTotal: HourTotal,
                     OrderNum : OrderNum,
                     Guests   : Guests,
-                    ItemsCount: ItemsCount
+                    ItemsCount: ItemsCount,
+                    gen_time: (new Date()).toString('yyyy/MM/dd HH:mm:ss')
                 }
             }
-            
+
+            this._datas = data;
+
             var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_hourly_sales.tpl");
 
             var file = GREUtils.File.getFile(path);
@@ -116,6 +141,8 @@
 
             doc.innerHTML = result;
 
+            waitPanel.hidePopup();
+
         },
 
         exportPdf: function() {
@@ -126,15 +153,36 @@
             this.BrowserPrint.getPrintSettings();
             this.BrowserPrint.setPaperSizeUnit(1);
             this.BrowserPrint.setPaperSize(210, 297);
-            this.BrowserPrint.setPaperEdge(20, 20, 20, 20);
+            // this.BrowserPrint.setPaperEdge(20, 20, 20, 20);
 
             this.BrowserPrint.getWebBrowserPrint('preview_frame');
             this.BrowserPrint.printToPdf("/var/tmp/hourly_sales.pdf");
         },
 
         exportCsv: function() {
-            
-            this.CsvExport.exportToCsv("/var/tmp/hourly_sales.csv");
+
+            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_hourly_sales_csv.tpl");
+
+            var file = GREUtils.File.getFile(path);
+            var tpl = GREUtils.File.readAllBytes(file);
+            var datas;
+            datas = this._datas;
+
+            this.CsvExport.printToFile("/var/tmp/hourly_sales.csv", datas, tpl);
+
+        },
+
+        exportRcp: function() {
+            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_hourly_sales_rcp.tpl");
+
+            var file = GREUtils.File.getFile(path);
+            var tpl = GREUtils.File.readAllBytes(file);
+            var datas;
+            datas = this._datas;
+
+            // this.RcpExport.print(datas, tpl);
+            var rcp = opener.opener.opener.GeckoJS.Controller.getInstanceByName('Print');
+            rcp.printReport('report', tpl, datas);
 
         },
 

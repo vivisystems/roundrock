@@ -12,3 +12,4 @@
 <!ENTITY rptinventory.stock "Stock">
 <!ENTITY rptinventory.min_stock "Min. Stock">
 <!ENTITY rptinventory.all "List All">
+<!ENTITY rptinventory.wait "Waiting...">

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE overlay [
+  <!ENTITY % DialogOverlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %DialogOverlay;
+  <!ENTITY % PaymentDetails SYSTEM "chrome://viviecr/locale/payment_details.dtd">
+  %PaymentDetails;
+]>
+
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/selectBox.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/condiment-button-colors.css" type="text/css"?>
+
+<overlay id="paymentDetailsDialogOverlay"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <popupset id="dialogs">
+
+        <panel id="paymentDetailsPanel" style="width: 800px; height: 600px;">
+
+            <script type="application/x-javascript" src="chrome://viviecr/content/dialogs/payment_details.js" />
+
+            <hbox flex="1" class="pop-dialog" pack="center">
+
+                <vbox class="MainPnl" flex="1">
+
+                    <caption id="paymentDetails-title" class="PageTitle" />
+                    <viviscrollabletree id="paymentscrollablepanel" flex="1" headers="&paymentdetails.amount;,&paymentdetails.origin_amount;,&paymentdetails.type;,&paymentdetails.note1;,&paymentdetails.note2;"
+                                        fields="amount,origin_amount,name,memo1,memo2" hidecolumnpicker="true"
+                                        class="paymentscrollablepanel" scrollUpClass="ScrollUp" scrollDownClass="ScrollDown">
+                        <spacer flex="1" />
+                    </viviscrollabletree>
+
+                    <spacer flex="1"/>
+
+                    <hbox id="dialogButtons" class="dialogbtns" pack="end">
+                        <button class="ExitBtn" id="paymentDetails-ok" label="&dialog.closeButton.label;" default="true" oncommand="$.hidePanel('paymentDetailsPanel', false)"/>
+                    </hbox>
+
+                </vbox>
+
+            </hbox>
+
+        </panel>
+
+    </popupset>
+
+</overlay>

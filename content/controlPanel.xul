@@ -15,12 +15,7 @@
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-    <script type="application/x-javascript" src="chrome://vivipos/content/libs/jquery.js" />
-    <script type="application/x-javascript">
-        window['GeckoJS'] = opener.GeckoJS;
-        window['GREUtils'] = opener.GREUtils;
-        window['_'] = opener._;
-    </script>
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/controlPanel.js" />
 
     <keyset id="keyset_extensions">
@@ -28,8 +23,7 @@
         <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()" />
     </keyset>
 
-    <stack class="ControlPanel" flex="1">
-        <vbox >
+        <vbox class="ControlPanel" flex="1">
             <label style="display: none;" value="&controlpanel.title;"/>
             <vbox >
                 <hbox >
@@ -89,9 +83,6 @@
             </vbox>
         </vbox>
         
-        <!--hbox id="loading" class="loading" align="center" style="display: none;"-->
-            <button id="loading" class="loading" style="display: none;" label="&controlpanel.loading;"/>
-        <!--/hbox-->
-    </stack>
+        <button id="loading" class="loading" style="display: none;" label="&controlpanel.loading;"/>
 
 </window>

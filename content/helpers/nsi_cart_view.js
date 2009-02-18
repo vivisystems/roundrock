@@ -49,7 +49,6 @@
         },
 
         rowCountChanged: function(rc1, rc2, newIndex) {
-
             // lazy way ? full refresh
             var oldIndex = this._cartList.currentIndex;
 
@@ -60,12 +59,14 @@
             }else {
                 this.tree.invalidate();
             }*/
+            if (rc1 < 0) rc1 = 0;
             if (rc2 < 0) rc2 = this.data.length;
+            if (newIndex == null) newIndex = this.data.length - 1;
 
             if (rc1 != rc2) {
                 // lazy way ? full refresh
                 //this._cartList.datasource = this;
-                this.tree.rowCountChanged(this.tree.view.selection.current + 1, rc2 - rc1);
+                this.tree.rowCountChanged(this.tree.view.selection.current - 1, rc2 - rc1);
 
                 /*
                 if (jumpToLast) newIndex = rc2 - 1;

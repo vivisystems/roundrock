@@ -43,6 +43,10 @@
                                 <vividatetimepicker id="end_date" value='' type="popup"/>
                             </vbox>
                         </row>
+                        <row>
+                            <label value="&rptsalessummary.machineid;" />
+                            <textbox id="machine_id" value='' width="300"/>
+                        </row>
                     </rows>
                 </grid>
                 <button id="execute" label="&rptsalessummary.execute;" disabled="false" class="editbtns" oncommand="$do('execute', null, 'RptSalesSummary');" />
@@ -55,7 +59,7 @@
             <hbox flex="1">
                 <groupbox flex="1">
                     <box class="reportbox" flex="1">
-                        <browser type="content" id="preview_frame" src="rpt_template3.html" flex="1"/>
+                        <browser type="content" id="preview_frame" src="rpt_template2.html" flex="1"/>
                     </box>
 
                 </groupbox>
@@ -63,7 +67,8 @@
                     <vbox class="ToolBar BarHeight">
 
                         <vivibutton id="export_pdf" label="&rptsalessummary.exportpdf;" disabled="false" class="editbtns" oncommand="$do('exportPdf', null, 'RptSalesSummary');" />
-                        <vivibutton id="export_csv" label="&rptsalessummary.exportcsv;" disabled="true" class="editbtns" oncommand="$do('exportCsv', null, 'RptSalesSummary');" />
+                        <vivibutton id="export_csv" label="&rptsalessummary.exportcsv;" disabled="false" class="editbtns" oncommand="$do('exportCsv', null, 'RptSalesSummary');" />
+                        <vivibutton id="export_rcp" label="&rptsalessummary.exportrcp;" disabled="false" class="editbtns" oncommand="$do('exportRcp', null, 'RptSalesSummary');" />
 
                         <vivibutton id="togglesize" label="&rptsalessummary.togglezoom;" disabled="false" class="editbtns" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
                         <spacer flex="1" />
@@ -76,5 +81,16 @@
             </hbox>
         </vbox>
     </vbox>
+
+    <panel id="wait_panel" position="overlap" noautohide="true" class="WaitPnl">
+        <vbox flex="1">
+        <groupbox flex="1">
+            <caption label="&rptsalessummary.wait;" class="PageTitle"/>
+            <spacer style="height: 20px;" />
+            <progressmeter id="progress" mode="undetermined" value="0" />
+            <spacer style="height: 20px;" />
+        </groupbox>
+        </vbox>
+    </panel>
 
 </window>

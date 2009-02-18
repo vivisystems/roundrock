@@ -221,7 +221,7 @@
         getImageSrc: function(row, col) {
             
             var val = this.getCellValue(row, col);
-            var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/') + '/data';
+            var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
             var sPluDir = datapath + "/images/pluimages/";
             if (!sPluDir) sPluDir = '/data/images/pluimages/';
             sPluDir = (sPluDir + '/').replace(/\/+/g,'/');

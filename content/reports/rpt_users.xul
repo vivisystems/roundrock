@@ -64,7 +64,8 @@
                     <vbox class="ToolBar BarHeight">
 
                         <vivibutton id="export_pdf" label="&rptusers.exportpdf;" disabled="false" class="editbtns" oncommand="$do('exportPdf', null, 'RptUsers');" />
-                        <vivibutton id="export_csv" label="&rptusers.exportcsv;" disabled="true" class="editbtns" oncommand="$do('exportCsv', null, 'RptUsers');" />
+                        <vivibutton id="export_csv" label="&rptusers.exportcsv;" disabled="false" class="editbtns" oncommand="$do('exportCsv', null, 'RptUsers');" />
+                        <vivibutton id="export_rcp" label="&rptusers.exportrcp;" disabled="false" class="editbtns" oncommand="$do('exportRcp', null, 'RptUsers');" />
 
                         <vivibutton id="togglesize" label="&rptusers.togglezoom;" disabled="false" class="editbtns" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
                         <spacer flex="1" />
@@ -76,5 +77,16 @@
             </hbox>
         </vbox>
     </vbox>
+
+    <panel id="wait_panel" position="overlap" noautohide="true" class="WaitPnl">
+        <vbox flex="1">
+        <groupbox flex="1">
+            <caption label="&rptusers.wait;" class="PageTitle"/>
+            <spacer style="height: 20px;" />
+            <progressmeter id="progress" mode="undetermined" value="0" />
+            <spacer style="height: 20px;" />
+        </groupbox>
+        </vbox>
+    </panel>
 
 </window>

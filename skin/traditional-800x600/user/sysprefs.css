@@ -193,3 +193,7 @@ prefpane {
     margin: 0 8px 10px 10px;
     -moz-box-align: center;
 }
+
+button[dlgtype=extra1] {
+  background: white url(images/VkbBtn.png) center center no-repeat !important;
+}

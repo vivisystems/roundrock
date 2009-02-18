@@ -42,6 +42,7 @@
                                 <vividatetimepicker id="end_date" value='' type="popup"/>
                             </vbox>
                         </row>
+
                         <row>
                         	<vbox>
 		                    	<label value="&rptdailysalessummary.sortby;" />

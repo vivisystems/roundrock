@@ -4,6 +4,7 @@
 <!ENTITY rptdailysales.execute "Execute">
 <!ENTITY rptdailysales.exportpdf "Export to PDF">
 <!ENTITY rptdailysales.exportcsv "Export to CSV">
+<!ENTITY rptdailysales.exportrcp "Print">
 <!ENTITY rptdailysales.togglezoom "Toggle Zoom">
 <!ENTITY rptdailysales.machineid "Terminal No:">
 <!ENTITY rptdailysales.sortby "Sort By:">
@@ -18,4 +19,4 @@
 <!ENTITY rptdailysales.creditcard "Credit Card">
 <!ENTITY rptdailysales.coupon "Coupon">
 <!ENTITY rptdailysales.all "List All">
-
+<!ENTITY rptdailysales.wait "Waiting...">

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE overlay [
+  <!ENTITY % DialogOverlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %DialogOverlay;
+  <!ENTITY % CreditCard SYSTEM "chrome://viviecr/locale/creditcard.dtd">
+  %CreditCard;
+]>
+
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/selectBox.css" type="text/css"?>
+
+<overlay id="creditcardRemarkDialogOverlay"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <popupset id="dialogs">
+
+        <panel id="creditcardRemarkPanel" style="width: 800px; height: 600px;">
+
+            <script type="application/x-javascript" src="chrome://viviecr/content/dialogs/creditcard_remark.js" />
+
+            <hbox class="pop-dialog" flex="1" pack="center">
+
+                <vbox class="MainPnl" flex="1">
+
+                    <caption id="creditcardRemark-dialog-caption" label="" class="PageTitle" />
+                    <label id="creditcardRemark-text0" value="" class="SubTitle" />
+                    <grid class="DataForm">
+                        <columns>
+                            <column flex="1"/>
+                        </columns>
+                        <rows>
+                            <row>
+                                <vbox>
+                                    <label id="creditcardRemark-title0" style="width:6em" value="" control="creditcardRemark-input0"/>
+                                    <textbox id="creditcardRemark-input0" value="" oninput="creditcardRemark_validateInput()" onfocus="this.select()"/>
+                                </vbox>
+                            </row>
+                            <row>
+                                <vbox>
+                                    <label id="creditcardRemark-title1" style="width:6em" value="" control="creditcardRemark-input1"/>
+                                    <textbox id="creditcardRemark-input1" value="" oninput="creditcardRemark_validateInput()" onfocus="this.select()"/>
+                                </vbox>
+                            </row>
+                        </rows>
+                    </grid>
+
+                    <hbox pack="center">
+                        <numberpad id="creditcardRemark-multinumberpad" class="numpad" target="plu"/>
+                        <vbox>
+                            <sendkeybutton id="creditcardRemark-bkeyBtn"  label="&creditcard.button.action.del;" keyCode='0x08' target="plu" class="fixedbtn"  />
+                            <sendkeybutton id="creditcardRemark-clearBtn"  label="&creditcard.button.action.clear;" class="fixedbtn"/>
+                        </vbox>
+                    </hbox>
+
+                    <spacer flex="1"/>
+
+                    <hbox>
+                        <hbox class="ToolBar" flex="1">
+                            <button id="creditcardRemark-ok" class="okBtn" label="&dialog.okButton.label;" default="true" oncommand="$.hidePanel('creditcardRemarkPanel', true)"/>
+                            <button id="creditcardRemark-cancel" class="cancelBtn" label="&dialog.cancelButton.label;" default="true" oncommand="$.hidePanel('creditcardRemarkPanel', false)"/>
+                        </hbox>
+                        <hbox id="dialogButtons" class="dialogbtns" pack="center">
+                            <button class="VkbBtn" label=""  oncommand="VirtualKeyboard.toggle();" />
+                        </hbox>
+                    </hbox>
+
+                </vbox>
+
+            </hbox>
+
+        </panel>
+
+    </popupset>
+
+</overlay>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE overlay [
+  <!ENTITY % Overlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Overlay;
+  <!ENTITY % rpt_stocks SYSTEM "chrome://viviecr/locale/reports/rpt_stocks.dtd">
+  %rpt_stocks;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/reports.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+
+<window id="main" 
+        hidechrome="true"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        xmlns:html="http://www.w3.org/1999/xhtml">
+
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/template.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/template_ext.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/rpt_stocks.js" />
+  
+    <vbox flex="1" class="main-dialog">
+        <vbox flex="1" class="MainPnl">
+            <caption label="&rptstocks.title;"  class="PageTitle"/>
+            <hbox class="TopPnl">
+                <grid class="DataForm" flex="1">
+                    <columns>
+                        <column  flex="1"/>
+                        <column flex="1" />
+                    </columns>
+                    <rows>
+                        <row>
+                            <label value="&rptstocks.department;" />
+                            <menulist id="department" flex="1">
+                                <menupopup id="department_menupopup"  flex="1">
+                                    <menuitem selected="true" label="[&rptstocks.all;]" value="all" />
+                                </menupopup>
+                            </menulist>
+                        </row>
+                    </rows>
+                </grid>
+                <button id="execute" label="&rptstocks.execute;" disabled="false" class="editbtns" oncommand="$do('execute', null, 'RptStocks');" />
+            </hbox>
+
+            <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
+                <!-- grippy/ -->
+            </splitter>
+
+            <hbox flex="1">
+                <groupbox flex="1">
+                    <box class="reportbox" flex="1">
+                        <browser type="content" id="preview_frame" src="rpt_template1.html" flex="1"/>
+                    </box>
+
+                </groupbox>
+                <vbox>
+                    <vbox class="ToolBar BarHeight">
+
+                        <vivibutton id="export_pdf" label="&rptstocks.exportpdf;" disabled="false" class="editbtns" oncommand="$do('exportPdf', null, 'RptStocks');" />
+                        <vivibutton id="export_csv" label="&rptstocks.exportcsv;" disabled="false" class="editbtns" oncommand="$do('exportCsv', null, 'RptStocks');" />
+                        <vivibutton id="export_csv" label="&rptstocks.exportrcp;" disabled="false" class="editbtns" oncommand="$do('exportRcp', null, 'RptStocks');" />
+
+                        <vivibutton id="togglesize" label="&rptstocks.togglezoom;" disabled="false" class="editbtns" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
+                        <spacer flex="1" />
+                    </vbox>
+                    <hbox id="dialogButtons" class="dialogbtns" pack="end">
+                        <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                    </hbox>
+                </vbox>
+            </hbox>
+        </vbox>
+    </vbox>
+
+    <panel id="wait_panel" position="overlap" noautohide="true" class="WaitPnl">
+        <vbox flex="1">
+        <groupbox flex="1">
+            <caption label="&rptstocks.wait;" class="PageTitle"/>
+            <spacer style="height: 20px;" />
+            <progressmeter id="progress" mode="undetermined" value="0" />
+            <spacer style="height: 20px;" />
+        </groupbox>
+        </vbox>
+    </panel>
+
+</window>
