@@ -1,7 +1,7 @@
 (function(){
 
     /**
-     * RptProducts Controller
+     * RptStocks Controller
      */
 
     var  XUL_NS = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
@@ -10,9 +10,9 @@
     var gSavePrintSettings = false;
 
     GeckoJS.Controller.extend( {
-        name: 'RptProducts',
+        name: 'RptStocks',
         components: ['BrowserPrint', 'CsvExport'],
-	
+        
         _datas: null,
 
         _showWaitPanel: function(panel) {
@@ -30,6 +30,7 @@
         },
 
         execute: function() {
+            
             var waitPanel = this._showWaitPanel('wait_panel');
 
             var storeContact = GeckoJS.Session.get('storeContact');
@@ -43,7 +44,7 @@
 
             var department = document.getElementById('department').value;
 
-            var fields = [];
+            var fields = ['cate_no', 'no','name','stock','min_stock'];
 
             var conditions = null;
 
@@ -57,7 +58,7 @@
                 var cate = new CategoryModel();
                 var cateDatas = cate.find('all', {
                     fields: ['no','name']
-                    });
+                    });                
             }
 
             var self = this;
@@ -75,22 +76,25 @@
 
             var prod = new ProductModel();
             var prodDatas = prod.find('all', { fields: fields, conditions: conditions, order: orderby });
-            // this.log(this.dump(prodDatas));
 
             prodDatas.forEach(function(o){
                 if (datas[o.cate_no]) {
                     if (datas[o.cate_no].plu == null) {
                         datas[o.cate_no].plu = [];
                     }
-                    datas[o.cate_no].plu.push(GREUtils.extend({}, o));
+                    datas[o.cate_no].plu.push( {
+                        cate_no:o.cate_no,
+                        no:o.no,
+                        name:o.name,
+                        stock:o.stock,
+                        min_stock:o.min_stock
+                        });
                 }
             });
 
-            
-
             var data = {
                 head: {
-                    title:_('Product List'),
+                    title:_('Product Stock List'),
                     store: storeContact,
                     clerk_displayname: clerk_displayname
                 },
@@ -102,7 +106,7 @@
 
             this._datas = data;
 
-            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_products.tpl");
+            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/inventory.tpl");
 
             var file = GREUtils.File.getFile(path);
             var tpl = GREUtils.File.readAllBytes(file);
@@ -120,33 +124,29 @@
 
         exportPdf: function() {
 
-            // this.execute();
-            // this.print();
-
             this.BrowserPrint.getPrintSettings();
             this.BrowserPrint.setPaperSizeUnit(1);
             this.BrowserPrint.setPaperSize(297, 210);
             // this.BrowserPrint.setPaperEdge(20, 20, 20, 20);
 
             this.BrowserPrint.getWebBrowserPrint('preview_frame');
-            this.BrowserPrint.printToPdf("/var/tmp/products.pdf");
+            this.BrowserPrint.printToPdf("/var/tmp/stocks.pdf");
         },
 
         exportCsv: function() {
-
-            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_products_csv.tpl");
+            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_stocks_csv.tpl");
 
             var file = GREUtils.File.getFile(path);
             var tpl = GREUtils.File.readAllBytes(file);
             var datas;
             datas = this._datas;
 
-            this.CsvExport.printToFile("/var/tmp/products.csv", datas, tpl);
+            this.CsvExport.printToFile("/var/tmp/stocks.csv", datas, tpl);
 
         },
 
         exportRcp: function() {
-            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_products_rcp.tpl");
+            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_stocks_rcp.tpl");
 
             var file = GREUtils.File.getFile(path);
             var tpl = GREUtils.File.readAllBytes(file);
@@ -172,7 +172,6 @@
                 menuitem.setAttribute('label', data.no + "-" + data.name);
                 dpt.appendChild(menuitem);
             });
-            
         }
 
     });

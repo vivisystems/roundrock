@@ -3,7 +3,13 @@
 <img src="chrome://viviecr/content/skin/images/logo.png" /><br />
 </div>
 <div id="docbody" class="paper">
+<p align="left">${head.store.name}</p>
+<p align="left">${head.store.branch}</p>
+<p align="left">${head.store.telephone1}</p>
+<p align="left">Terminal: ${head.store.terminal_no}</p>
+<p align="left">Clerk: ${head.clerk_displayname}</p>
 <p align="right">${head.start_time} - ${head.end_time}</p>
+
         <table id="body-table">
             <caption>${head.title}</caption>
             <thead>

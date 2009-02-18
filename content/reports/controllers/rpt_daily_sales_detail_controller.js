@@ -123,7 +123,7 @@
 
         exportPdf: function() {
 
-            this.execute();
+            // this.execute();
             // this.print();
 
             this.BrowserPrint.getPrintSettings();

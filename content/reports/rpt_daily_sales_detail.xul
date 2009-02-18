@@ -66,7 +66,8 @@
                     <vbox class="ToolBar BarHeight">
 
                         <vivibutton id="export_pdf" label="&rptdailysalesdetail.exportpdf;" disabled="false" class="editbtns" oncommand="$do('exportPdf', null, 'RptDailySalesDetail');" />
-                        <vivibutton id="export_csv" label="&rptdailysalesdetail.exportcsv;" disabled="true" class="editbtns" oncommand="$do('exportCsv', null, 'RptDailySalesDetail');" />
+                        <vivibutton id="export_csv" label="&rptdailysalesdetail.exportcsv;" disabled="false" class="editbtns" oncommand="$do('exportCsv', null, 'RptDailySalesDetail');" />
+                        <vivibutton id="export_csv" label="&rptdailysalesdetail.exportrcp;" disabled="false" class="editbtns" oncommand="$do('exportRcp', null, 'RptDailySalesDetail');" />
 
                         <vivibutton id="togglesize" label="&rptdailysalesdetail.togglezoom;" disabled="false" class="editbtns" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
                         <spacer flex="1" />

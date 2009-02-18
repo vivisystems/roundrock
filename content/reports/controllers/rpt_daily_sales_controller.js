@@ -28,6 +28,15 @@
         execute: function() {
             var waitPanel = this._showWaitPanel('wait_panel');
 
+            var storeContact = GeckoJS.Session.get('storeContact');
+            var clerk = "";
+            var clerk_displayname = "";
+            var user = new GeckoJS.AclComponent().getUserPrincipal();
+            if ( user != null ) {
+                clerk = user.username;
+                clerk_displayname = user.description;
+            }
+
             var start = document.getElementById('start_date').value;
             var end = document.getElementById('end_date').value;
 
@@ -111,18 +120,23 @@
 
             });
 
-            this._datas = GeckoJS.BaseObject.getValues(repDatas);
-
             var data = {
                 head: {
                     title:_('Daily Sales Report'),
                     start_time: start_str,
                     end_time: end_str,
-                    machine_id: machineid
+                    machine_id: machineid,
+                    store: storeContact,
+                    clerk_displayname: clerk_displayname
                 },
-                body: this._datas,
-                foot: footDatas
+                body: GeckoJS.BaseObject.getValues(repDatas),
+                foot: {
+                    foot_datas: footDatas,
+                    gen_time: (new Date()).toString('yyyy/MM/dd HH:mm:ss')
+                }
             }
+
+            this._datas = data;
 
             var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_daily_sales.tpl");
 
@@ -142,21 +156,39 @@
 
         exportPdf: function() {
 
-            // this.execute();
-            // this.print();
-
             this.BrowserPrint.getPrintSettings();
             this.BrowserPrint.setPaperSizeUnit(1);
             this.BrowserPrint.setPaperSize(297, 210);
-            this.BrowserPrint.setPaperEdge(20, 20, 20, 20);
+            // this.BrowserPrint.setPaperEdge(20, 20, 20, 20);
 
             this.BrowserPrint.getWebBrowserPrint('preview_frame');
             this.BrowserPrint.printToPdf("/var/tmp/daily_sales.pdf");
         },
 
         exportCsv: function() {
-            
-            this.CsvExport.exportToCsv("/var/tmp/daily_sales.csv");
+
+            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_daily_sales_csv.tpl");
+
+            var file = GREUtils.File.getFile(path);
+            var tpl = GREUtils.File.readAllBytes(file);
+            var datas;
+            datas = this._datas;
+
+            this.CsvExport.printToFile("/var/tmp/daily_sales.csv", datas, tpl);
+
+        },
+
+        exportRcp: function() {
+            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_daily_sales_rcp.tpl");
+
+            var file = GREUtils.File.getFile(path);
+            var tpl = GREUtils.File.readAllBytes(file);
+            var datas;
+            datas = this._datas;
+
+            // this.RcpExport.print(datas, tpl);
+            var rcp = GeckoJS.Controller.getInstanceByName('Print');
+            rcp.printReport('report', tpl, datas);
 
         },
 
