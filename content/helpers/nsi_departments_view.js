@@ -63,7 +63,7 @@
 
 
         refreshView: function() {
-
+            
             var departmentsIndexes;
             if (this.hideInvisible) {
                 departmentsIndexes = GeckoJS.Session.get('categoriesIndexes').concat(GeckoJS.Session.get('visiblePlugroups'));

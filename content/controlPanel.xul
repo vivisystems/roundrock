@@ -30,7 +30,7 @@
                     <vbox id="productBox" class="ProductBox">
                         <hbox><label value="&controlpanel.products.label;" class="ProductTitle"/></hbox>
                         <viviscrollablebuttonpanel id="productPanel" cols="3" rows="3" labelField="label" imageField="icon" aclField="roles" flex="1"
-                                                   oncommand="launchControl(this)" class="ProductScrollPanel"  dir="reverse" seltype="single" 
+                                                   oncommand="launchControl(this)" class="ProductScrollPanel"  dir="reverse" seltype="none"
                                                    buttonClass="ProductBtn"
                                                    scrollUpClass="ProductUpBtn"
                                                    scrollDownClass="ProductDownBtn" >
@@ -42,7 +42,7 @@
                         <vbox id="employeeBox" class="EmployeeBox">
                             <label value="&controlpanel.employees.label;" class="EmployeeTitle"/>
                             <viviscrollablebuttonpanel id="employeePanel" cols="3" rows="1" labelField="label" imageField="icon" aclField="roles"
-                                                       oncommand="launchControl(this)" class="EmployeeScrollPanel"
+                                                       oncommand="launchControl(this)" class="EmployeeScrollPanel" seltype="none"
                                                        buttonClass="EmployeeBtn"
                                                        scrollUpClass="EmployeeUpBtn"
                                                        scrollDownClass="EmployeeDownBtn" >
@@ -52,7 +52,7 @@
                         <vbox id="activityBox" class="ActivityBox">
                             <label value="&controlpanel.activities.label;" class="ActivityTitle"/>
                             <viviscrollablebuttonpanel id="activityPanel" cols="2" rows="1" labelField="label" imageField="icon" aclField="roles"
-                                                       oncommand="launchControl(this)"  class="ActivityScrollPanel"
+                                                       oncommand="launchControl(this)"  class="ActivityScrollPanel" seltype="none"
                                                        buttonClass="ActivityBtn"
                                                        scrollUpClass="ActivityUpBtn"
                                                        scrollDownClass="ActivityDownBtn" >
@@ -62,7 +62,7 @@
                         <vbox id="configBox" flex="1" class="ToolsBox">
                             <label value="&controlpanel.tools.label;" class="ToolsTitle"/>
                             <viviscrollablebuttonpanel id="configPanel" cols="3" rows="1" labelField="label" imageField="icon" aclField="roles" flex="1"
-                                                       oncommand="launchControl(this)" class="ToolsScrollPanel"
+                                                       oncommand="launchControl(this)" class="ToolsScrollPanel" seltype="none"
                                                        buttonClass="ToolsBtn"
                                                        scrollUpClass="ToolsUpBtn"
                                                        scrollDownClass="ToolsDownBtn" >
@@ -73,7 +73,7 @@
                 </hbox>
                 <hbox id="systemBox" flex="0" class="SysBox">
                     <viviscrollablebuttonpanel id="systemPanel" cols="3" rows="1" labelField="label" imageField="icon" aclField="roles"
-                                               oncommand="launchControl(this)"  class="SysScrollPanel"
+                                               oncommand="launchControl(this)"  class="SysScrollPanel" seltype="none"
                                                buttonClass="SysBtn"
                                                scrollUpClass="SysUpBtn"
                                                scrollDownClass="SysDownBtn" >

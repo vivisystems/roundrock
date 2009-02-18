@@ -239,7 +239,7 @@
     -moz-appearance: none;
     -moz-user-focus: ignore;
     background: white;
-    border: 1px solid white;
+    border: 0px solid white;
     -moz-background-clip: border;
 }
 .ActivityBtn[disabled=true] {
