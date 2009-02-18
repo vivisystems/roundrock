@@ -103,7 +103,7 @@
 
         add: function (evt) {
             var aURL = 'chrome://viviecr/content/prompt_addtaxitem.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=560,height=420';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=560,height=450';
             var inputObj = {
                 input0:null, require0:true, alphaOnly0:true,
                 input1:null, require1:true,

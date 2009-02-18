@@ -3,7 +3,7 @@
 }
 
 .MainL {
-    border-right: 1px solid #c1ab8e;
+    border-right: 1px solid #a98f6e;
 }
 
 .FontSizeSet button{
@@ -28,8 +28,8 @@
     padding: 4px 8px;
 }
 .PageNumPnl label {
-    font-size: 10pt;
-    color: #736357;
+    font-size: 11pt;
+    color: #372213;
 }
 .PageNumPnl textbox {
     max-width: 160px;
@@ -41,10 +41,10 @@
 
 .DataFormA row{
 	border-bottom: 2px solid white;
-	font-size: 10pt;
+	font-size: 11pt;
 	padding: 8px;
     -moz-box-align: center;
-    background: #f4f3ee;
+    background: #ecebe2;
 }
 .DataFormA {
     margin: 0 6px 3px 6px;
@@ -54,36 +54,36 @@
 }
 .DataFormB label, .DataFormB2 label,
 .DataFormA2 label, .DataFormA label {
-  font-size: 10pt;
-  color: #736357;
+  font-size: 11pt;
+  color: #372213;
 }
 .TboxWidth {
     min-width: 100px;
 }
 
 .DataFormA2 {
-	background: #f4f3ee;
+	background: #ecebe2;
     margin: 3px 6px 6px 6px;
     padding: 4px 8px;
     -moz-box-align: center;
 }
 
 .DataFormB row{
-	font-size: 10pt;
+	font-size: 11pt;
 	padding: 8px;
     -moz-box-align: center;
-    background: #f8f5f1;
+    background: #ede7dc;
 }
 .DataFormB2, .DataFormB {
 	margin: 0 6px 4px 6px;
 }
 
 .DataFormB2 row{
-	font-size: 10pt;
+	font-size: 11pt;
 	padding: 8px;
     -moz-box-align: center;
     border-bottom: 2px solid white;
-    background: #f8f5f1;
+    background: #ede7dc;
 }
 
 .RightPnlB {
@@ -92,7 +92,7 @@
 
 .RightPnlB vbox {
     margin: 1px;
-    background: #f8f5f1;
+    background: #ede7dc;
     -moz-box-align: center;
     padding: 8px 10px;
 }

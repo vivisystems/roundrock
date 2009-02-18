@@ -45,3 +45,11 @@
     margin: 4px;
 }
 
+#rows_filter row{
+    -moz-box-align: center;
+}
+
+#rows_filter label {
+    font-size: 10pt;
+    color: #372213;
+}

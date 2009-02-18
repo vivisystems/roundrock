@@ -88,19 +88,21 @@
                                         <spacer flex="1" />
                                     </viviscrollabletree>
                                 </vbox>
+                                <spacer style="height:10px;" />
                                 <groupbox id="advance_search">
-                                    <caption label="&plus.search.advancesearch;:" />
-                                    <vbox>
+                                    <caption label="&plus.search.advancesearch;:" class="SubTitle" />
+                                    <nbox>
                                         <grid>
                                             <rows id="rows_filter">
 
                                             </rows>
                                         </grid>
-                                        <hbox>
-                                            <vivibutton id="advSearchBtn"  label="&plus.button.numpad.advsearch;" oncommand="$do('advSearch', null, 'PluSearch');" class="systembtn"  />
-                                            <vivibutton id="advClearBtn"  label="&plus.button.numpad.advclear;" oncommand="$do('advClear', null, 'PluSearch');" class="systembtn"  />
-                                        </hbox>
-                                    </vbox>
+                                        <spacer style="width:5px;" />
+                                        <vbox>
+                                            <vivibutton id="advSearchBtn"  label="&plus.button.numpad.advsearch;" oncommand="$do('advSearch', null, 'PluSearch');" class="ItemButtonA AdvButton"  />
+                                            <vivibutton id="advClearBtn"  label="&plus.button.numpad.advclear;" oncommand="$do('advClear', null, 'PluSearch');" class="ItemButtonA AdvButton"  />
+                                        </vbox>
+                                    </nbox>
                                 </groupbox>
                             </vbox>
                         </tabpanel>

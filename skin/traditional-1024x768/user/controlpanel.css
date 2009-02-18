@@ -21,6 +21,7 @@
 	color: #503828;
 	font-size: 12pt;
 	margin-left: 5px;
+    font-weight: bold;
 }
 .ProductScrollPanel {
 	margin: 18px 0 0 0;
@@ -118,6 +119,7 @@
     color: #605048;
     font-size: 12pt;
     margin: 0 0 0 300px;
+    font-weight: bold;
 }
 .EmployeeScrollPanel {
     margin: 18px 0 0 0px;
@@ -214,6 +216,7 @@
     color: #396c6d;
     font-size: 12pt;
     margin: 0 0 0 287px;
+    font-weight: bold;
 }
 .ActivityScrollPanel {
     margin: 24px 0 0 0px;
@@ -303,6 +306,7 @@
     color: #3e4428;
     font-size: 12pt;
     margin: 0 0 0 299px;
+    font-weight: bold;
 }
 .ToolsScrollPanel {
     margin: 19px 0 0 0px;
