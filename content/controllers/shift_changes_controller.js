@@ -44,7 +44,7 @@
             var orderPayment = new OrderPaymentModel();
             var detail = orderPayment.find('all', {
                 fields: fields,
-                conditions: conditions,
+                
                 group: groupby,
                 order: orderby
             });

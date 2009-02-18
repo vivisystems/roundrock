@@ -7,7 +7,7 @@ if (typeof(TrimPath) != 'undefined') {
 
     // Using a closure
     (function($T) {
-
+        
         // default modifier
         $T.parseTemplate_etc.modifierDef['default'] = function(s, d) {
             return (s != null && typeof s != 'undefined' ) ? s : d;
@@ -225,7 +225,6 @@ if (typeof(TrimPath) != 'undefined') {
 
         };
 
-          
     }) (TrimPath);
 // end closure
 

@@ -1952,7 +1952,7 @@
 
             if (!inputObj) {
                 var aURL = "chrome://viviecr/content/prompt_addaccount.xul";
-                var features = "chrome,titlebar,toolbar,centerscreen,modal,width=500,height=450";
+                var features = "chrome,titlebar,toolbar,centerscreen,modal,width=500,height=500";
                 var inputObj = {
                     input0:null,
                     input1:null,
@@ -2349,9 +2349,8 @@
             this.dispatchEvent('beforeSubmit', oldTransaction);
             
             // save order unless the order is being finalized (i.e. status == 1)
-            if (status != 1)
-                oldTransaction.submit(status);
             if (status != 1) oldTransaction.submit(status);
+            oldTransaction.status = status;
 
             this.dispatchEvent('afterSubmit', oldTransaction);
 

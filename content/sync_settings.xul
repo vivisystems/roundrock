@@ -8,7 +8,7 @@
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/sync_settings.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/departments.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -40,40 +40,48 @@
                     <tabpanel id="basic-panel" orient="horizontal">
 			<vbox class="SetArea" flex="1">
 			    <checkbox form="syncSettingForm" name="active" label="&sync_settings.label.active;" />	        
-		            <grid class="BasicForm" flex="1">
+		            <grid class="DataForm" flex="1">
 		                <columns>
-		                    <column  flex="1" /><column flex="2" />
+		                    <column  flex="1" /><column flex="1" />
 		                </columns>
 		                <rows>
 
 		                    <row>
-		                        <label value="&sync_settings.label.hostname;" />
-		                        <textbox form="syncSettingForm" name="hostname" value="localhost"/>
+		                        <vbox>
+                                    <label value="&sync_settings.label.hostname;" />
+                                    <textbox form="syncSettingForm" name="hostname" value="localhost"/>
+                                </vbox>
+                                <vbox>
+                                    <label value="&sync_settings.label.machine_id;" />
+                                    <textbox form="syncSettingForm" name="machine_id" />
+                                </vbox>
 		                    </row>
 
 		                    <row>
-		                        <label value="&sync_settings.label.machine_id;" />
-		                        <textbox form="syncSettingForm" name="machine_id" />
+		                        <vbox>
+                                    <label value="&sync_settings.label.password;" />
+                                    <textbox form="syncSettingForm" name="password" />
+                                </vbox>
+                                <vbox>
+                                    <label value="&sync_settings.label.interval;" />
+                                    <textbox form="syncSettingForm" name="interval" type="number" value="60" />
+                                </vbox>
 		                    </row>
 
 		                    <row>
-		                        <label value="&sync_settings.label.password;" />
-		                        <textbox form="syncSettingForm" name="password" />
-		                    </row>
-
-		                    <row>
-		                        <label value="&sync_settings.label.interval;" />
-		                        <textbox form="syncSettingForm" name="interval" type="number" value="60" />
-		                    </row>
-
-		                    <row>
-		                        <label value="&sync_settings.label.start_hour;" />
-		                        <textbox form="syncSettingForm" name="start_hour" value="08" />
-		                    </row>
-
-		                    <row>
-		                        <label value="&sync_settings.label.end_hour;" />
+		                        <vbox>
+                                    <label value="&sync_settings.label.start_hour;" />
+                                    <textbox form="syncSettingForm" name="start_hour" value="08" />
+                                </vbox>
+                                <vbox>
+                                    <label value="&sync_settings.label.end_hour;" />
 		                        <textbox form="syncSettingForm" name="end_hour" value="20" />
+                                </vbox>
+		                    </row>
+
+		                    <row>
+		                        <checkbox form="syncSettingForm" name="notify_pull" label="&sync_settings.label.notify_pull;"/>
+                                <checkbox form="syncSettingForm" name="notify_push" label="&sync_settings.label.notify_push;"/>
 		                    </row>
 
 		                </rows>
@@ -82,18 +90,18 @@
                     </tabpanel>
                     <tabpanel id="advanced-panel" orient="horizontal">
 	        
-		            <grid class="AdvancedForm" flex="1">
+		            <grid class="DataFormA" flex="1">
 		                <columns>
 		                    <column  flex="1" /><column flex="2" />
 		                </columns>
 		                <rows>
 		                    <row>
 		                        <label value="&sync_settings.label.protocol;" />
-				            <menulist id="protocol" flex="1" form="syncSettingForm" name="protocol" >
-				                <menupopup>
-				                    <menuitem label="http" value="http"/>
-				                </menupopup>
-				            </menulist>
+                                <menulist id="protocol" flex="1" form="syncSettingForm" name="protocol" >
+                                    <menupopup>
+                                        <menuitem label="http" value="http"/>
+                                    </menupopup>
+                                </menulist>
 		                    </row>
 
 		                    <row>
@@ -123,9 +131,12 @@
                 </tabpanels>
             </tabbox>
 
+            <spacer flex="1" />
+
             <hbox id="dialogButtons" class="dialogbtns" pack="end">
-                <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
                 <button class="SaveBtn" id="ok" label="&dialog.applyButton.label;" default="true" oncommand="doOKButton();"/>
+                <spacer flex="1" />
+                <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
                 <button class="ExitBtn" id="cancel" label="&dialog.cancelButton.label;" default="false" oncommand="doCancelButton();"/>
             </hbox>
   

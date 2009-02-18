@@ -17,12 +17,13 @@ radio {
     color: #4b4b4b;
     margin-bottom: 5px;
 }
-radio[selected=true] {
+radio[selected=true], radio[selected=true]:hover {
     -moz-user-focus: ignore;
-    background-color: #92856a;
+    background-color: #92856a !important;
     background-image: none;
     color: white;
     font-weight: bold;
+    -moz-appearance: none;
 }
 radio:hover {
     background: #f4f3ee !important;
@@ -89,37 +90,38 @@ prefpane {
 .DataFormB row{
 	border-bottom: 2px solid white;
 	font-size: 10pt;
-	padding: 8px;
+	padding: 4px;
 }
 .DataFormB {
 	border-right: 2px solid white;
 	background: #f8f5f1;
-    margin: 0 8px 0px 10px;
+    margin: 0px 4px 0px 5px;
 }
 .DataFormB column{
 	border-right: 2px solid white;
-	padding: 8px;
+	padding: 4px;
 }
 
 .DataFormC row{
 	border-bottom: 2px solid white;
 	font-size: 10pt;
-	padding: 8px;
+	padding: 0px;
     -moz-box-align: center;
 }
 .DataFormC {
 	border-right: 2px solid white;
 	background: #f8f5f1;
-    margin: 0 8px 10px 10px;
+/*    margin: 0 8px 10px 10px;*/
+    margin: 0px 4px 5px 5px;
 }
 .DataFormC column{
-	padding: 8px;
+	padding: 0px;
 }
 
 .DataFormD row{
 	/*border-bottom: 2px solid white;*/
 	font-size: 10pt;
-	padding: 8px;
+	padding: 4px;
     -moz-box-align: center;
 }
 .DataFormD row hbox {
@@ -128,10 +130,10 @@ prefpane {
 .DataFormD {
 	border-right: 2px solid white;
 	background: #f8f5f1;
-    margin: 0 10px 1px 10px;
+    margin: 0 5px 1px 5px;
 }
 .DataFormD column{
-	padding: 8px;
+	padding: 4px;
 }
 .RightPnlB label, .DataFormB label,
 .DataFormC label, .DataFormD label{

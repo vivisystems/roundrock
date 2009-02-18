@@ -3,11 +3,11 @@
 }
 
 .MainL {
-    border-right: 1px solid #c1ab8e;
+    border-right: 1px solid #a98f6e;
 }
 
 .TopPnl {
-    border-bottom: 1px solid #c1ab8e;
+    border-bottom: 1px solid #a98f6e;
     padding-bottom:4px;
     margin-bottom: 5px;
 }
@@ -37,12 +37,12 @@
 
 .RightPnlB vbox {
     margin: 1px;
-    background: #f8f5f1;
+    background: #ede7dc;
 }
 
 .RightPnlB .SubTitle {
-  font-size: 10pt;
-  color: #736357;
+  font-size: 11pt;
+  color: #372213;
   margin: 8px;
 }
 
