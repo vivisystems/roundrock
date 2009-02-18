@@ -109,7 +109,7 @@
             datas = this._datas;
 
             // this.RcpExport.print(datas, tpl);
-            var rcp = GeckoJS.Controller.getInstanceByName('Print');
+            var rcp = opener.opener.opener.GeckoJS.Controller.getInstanceByName('Print');
             rcp.printReport('report', tpl, datas);
 
         },

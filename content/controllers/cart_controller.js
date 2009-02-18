@@ -89,9 +89,11 @@
                 var item_count = 0;
                 var curTransaction = cart._getTransaction(true);
                 var qtyIncreased = (diff > 0);
+                
                 try {
                     item_count = (curTransaction.data.items_summary[item.id]).qty_subtotal;
-                } catch (e) {};
+                } catch (e) {}
+
                 if ((diff + item_count) > stock) {
                     if (true || qtyIncreased) { // always display warning
                         cart.dispatchEvent('onLowStock', obj);
@@ -2512,8 +2514,10 @@
                 }
             }
 
+            var dialog_data = {conds: conds, selectedItems: selectedItems};
+
             var self = this;
-            return $.popupPanel('selectCondimentPanel', conds).next(function(evt){
+            return $.popupPanel('selectCondimentPanel', dialog_data).next(function(evt){
                 var selectedCondiments = evt.data;
                 if (selectedCondiments.length > 0) {
 				
