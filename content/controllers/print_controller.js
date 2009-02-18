@@ -1,8 +1,5 @@
 (function(){
 
-    GeckoJS.include('chrome://viviecr/content/devices/deviceTemplate.js');
-    GeckoJS.include('chrome://viviecr/content/devices/deviceTemplateUtils.js');
-
     /**
      * Print Controller
      */
@@ -194,8 +191,8 @@
         // handle order submit events
         submitOrder: function(evt) {
 
-            this.printReceipts(evt.data);
             this.printGuestChecks(evt.data);
+            this.printReceipts(evt.data);
 
             // @todo delay saving order to database til after print jobs have all been scheduled
             this.scheduleOrderCommit(evt.data);
@@ -311,7 +308,8 @@
                         var encoding = device.encoding;
                         var copies = (printer == null) ? device.autoprint : 1;
 
-                        data._MODIFIERS = _templateModifiers(encoding);
+                        _templateModifiers(TrimPath, encoding);
+
                         data.linkgroups = null;
                         data.printunlinked = 1;
                         data.routingGroups = null;
@@ -447,7 +445,7 @@
                         var encoding = device.encoding;
                         var copies = (printer == null) ? device.autoprint : 1;
                         
-                        data._MODIFIERS = _templateModifiers(encoding);
+                        _templateModifiers(TrimPath, encoding);
 
                         data.linkgroups = {};
                         if (device.linkgroups.length > 0) {
@@ -501,7 +499,7 @@
             var devicemodel = enabledDevices[0].devicemodel;
             var encoding = enabledDevices[0].encoding;
 
-            data._MODIFIERS = _templateModifiers(encoding);
+            _templateModifiers(TrimPath, encoding);
 
             var template = tpl.process(data);
 
@@ -540,12 +538,11 @@
                 var routingGroups = data.routingGroups;
                 for (var i in data.order.items) {
                     var item = data.order.items[i];
-
                     item.linked = false;
 
                     // we first filter item.link_group by routing groups
                     var linkgroups = null;
-                    if (item.link_group != null && item.link_group.length > 0) {
+                    if (routingGroups != null && item.link_group != null && item.link_group.length > 0) {
                         var groups = item.link_group.split(',');
                         if (groups.length > 0) {
                             groups.forEach(function(g) {
@@ -594,7 +591,7 @@
                     return false;
                 }
 
-//this.log(GeckoJS.BaseObject.dump(data.order));
+this.log(GeckoJS.BaseObject.dump(data.order));
                 
                 result = tpl.process(data);
             }

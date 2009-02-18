@@ -3,7 +3,7 @@
 }
 
 .MainL {
-    border-right: 1px solid #c1ab8e;
+    border-right: 1px solid #a98f6e;
 }
 
 .FontSizeSet button{
@@ -28,7 +28,7 @@
 }
 .PageNumPnl label {
     font-size: 10pt;
-    color: #736357;
+    color: #372213;
 }
 .PageNumPnl textbox {
     max-width: 100px;
@@ -54,7 +54,7 @@
 .DataFormB label, .DataFormB2 label,
 .DataFormA2 label, .DataFormA label {
   font-size: 10pt;
-  color: #736357;
+  color: #372213;
 }
 .TboxWidth {
     min-width: 100px;

@@ -15,18 +15,18 @@
  */
 
 .fixedbtn {
-    min-width:90px;
-    max-width:90px;
-    width: 90px;
-    min-height:50px;
-    max-height:50px;
+    min-width:92px;
+    max-width:92px;
+    width: 92px;
+    min-height:55px;
+    max-height:55px;
     height: 50px;
     margin:  2px 0px 0px 3px;
     padding: 0px;
     list-style-type: none;
-    color: #3b556c;
+    color: #1d3144;
     font-weight: bold !important;
-    font-size: 14px;
+    font-size: 15px;
     overflow: hidden;
     text-wrap: normal;
     word-wrap: break-word;
@@ -60,23 +60,23 @@
 }
 
 .fe-numberpad sendkeybutton{
-    min-width:90px;
-    max-width:90px;
-    width: 90px;
-    min-height:50px;
-    max-height:50px;
+    min-width:92px;
+    max-width:92px;
+    width: 92px;
+    min-height:55px;
+    max-height:55px;
     margin: 2px 0px 0px 3px;
     padding: 0px;
     list-style-type: none;
     font-weight: bold !important;
-    font-size: 30px;
+    font-size: 34px;
     overflow: hidden;
     border: 0px solid;
     -moz-appearance: none;
     -moz-user-focus: ignore;
     /* background: white; */
     background: transparent url(images/m_numbtn.png) center center no-repeat;
-    color: #47657d;
+    color: #1e344a;
 }
 
 .fe-numberpad sendkeybutton:active{
