@@ -1,8 +1,5 @@
 (function(){
 
-    GeckoJS.include('chrome://viviecr/content/devices/deviceTemplate.js');
-    GeckoJS.include('chrome://viviecr/content/devices/deviceTemplateUtils.js');
-
     /**
      * Print Controller
      */

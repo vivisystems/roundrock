@@ -1,9 +1,9 @@
-/*
+
 * {
   padding: 0px;
   margin: 0px;
 }
-*/
+
 
 .main-dialog {
     background: white url(images/optionsbg.gif) center center no-repeat;
@@ -304,14 +304,14 @@ textbox[readonly="true"]:not(.uidisplay_field_label):not(.uidisplay_field_value)
 
 checkbox {
     cursor: pointer;
-    min-height: 40px;
-    padding: 5px;
+    min-height: 30px;
+    padding: 3px;
 }
 
 radio {
-    min-height: 40px;
+    min-height: 30px;
     cursor: pointer;
-    padding: 5px;
+    padding: 3px;
 }
 
 checkbox:hover, radio:hover {

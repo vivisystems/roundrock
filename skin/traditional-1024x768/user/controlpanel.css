@@ -4,7 +4,7 @@
 }
 
 .ControlPanel {
-	  width: 1024px;
+	width: 1024px;
     height: 768px;
     background: #f8f4eb url(images/controlpanelbg.jpg) top left no-repeat;
     border: none;
@@ -124,6 +124,9 @@
 .EmployeeScrollPanel {
     margin: 18px 0 0 0px;
 }
+.EmployeeScrollPanel > .scrollablepanel-scrollbar {
+    margin-left: 12px !important;
+}
 .EmployeeBtn {
 	  min-width:129px;
     max-width:129px;
@@ -222,6 +225,9 @@
     margin: 24px 0 0 0px;
     
 }
+.ActivityScrollPanel > .scrollablepanel-scrollbar {
+    margin-left: 15px !important;
+}
 .ActivityBtn {
 	  min-width:173px;
     max-width:173px;
@@ -312,6 +318,10 @@
     margin: 19px 0 0 0px;
     
 }
+.ToolsScrollPanel > .scrollablepanel-scrollbar {
+    margin-left: 12px !important;
+
+}
 .ToolsBtn {
 	  min-width: 130px;
     max-width: 130px;
@@ -388,7 +398,7 @@
 
 /* System */
 .SysBox {
-    margin: 28px 0 0 30px;
+    margin: 28px 0 0 48px;
 }
 .SysScrollPanel {
     max-width: 475px;    

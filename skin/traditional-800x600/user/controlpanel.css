@@ -121,6 +121,9 @@
 .EmployeeScrollPanel {
     margin: 12px 0 0 2px;
 }
+.EmployeeScrollPanel > .scrollablepanel-scrollbar {
+    margin-left: 4px !important;
+}
 .EmployeeBtn {
 	  min-width:101px;
     max-width:101px;
@@ -218,6 +221,9 @@
     margin: 17px 0 0 14px;
     
 }
+.ActivityScrollPanel > .scrollablepanel-scrollbar {
+    margin-left: 15px !important;
+}
 .ActivityBtn {
 	  min-width:135px;
     max-width:135px;
@@ -307,6 +313,10 @@
     margin: 14px 0 0 0px;
     
 }
+.ToolsScrollPanel > .scrollablepanel-scrollbar {
+    margin-left: 8px !important;
+
+}
 .ToolsBtn {
 	  min-width:101px;
     max-width:101px;
@@ -383,7 +393,7 @@
 
 /* System */
 .SysBox {
-    margin: 21px 0 0 14px;
+    margin: 24px 0 0 30px;
 }
 .SysScrollPanel {
     max-width: 375px;    

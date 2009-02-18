@@ -52,7 +52,7 @@
                                 </viviscrollablebuttonpanel>
                                 </vbox>
                 <!-- Begin PLUs -->
-                                <viviscrollablebuttonpanel dir="reverse" id="prodscrollablepanel" flex="1" cols="2" rows="5" labelField="name" imageField="no"
+                                <viviscrollablebuttonpanel dir="reverse" id="prodscrollablepanel" flex="5" cols="2" rows="5" labelField="name" imageField="no"
                                            ensureVisible="true"
                                            oncommand="$do('clickPluPanel',this.selectedIndex, 'Plus');"
                                            class="prodscrollablepanel"
@@ -99,8 +99,8 @@
                                         </grid>
                                         <spacer style="width:5px;" />
                                         <vbox>
-                                            <vivibutton id="advSearchBtn"  label="&plus.button.numpad.advsearch;" oncommand="$do('advSearch', null, 'PluSearch');" class="ItemButtonA AdvButton"  />
-                                            <vivibutton id="advClearBtn"  label="&plus.button.numpad.advclear;" oncommand="$do('advClear', null, 'PluSearch');" class="ItemButtonA AdvButton"  />
+                                            <vivibutton id="advSearchBtn"  label="&plus.button.numpad.advsearch;" oncommand="$do('advSearch', null, 'PluSearch');" class="SearchBtn"  />
+                                            <vivibutton id="advClearBtn"  label="&plus.button.numpad.advclear;" oncommand="$do('advClear', null, 'PluSearch');" class="SearchBtn"  />
                                         </vbox>
                                     </nbox>
                                 </groupbox>

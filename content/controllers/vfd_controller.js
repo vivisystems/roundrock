@@ -1,6 +1,5 @@
 (function(){
 
-    GeckoJS.include('chrome://viviecr/content/devices/deviceTemplate.js');
     GeckoJS.include('chrome://viviecr/content/devices/deviceTemplateUtils.js');
 
     /**
@@ -239,7 +238,7 @@
                     var handshaking = device.handshaking;
                     var devicemodel = device.devicemodel;
                     var encoding = device.encoding;
-                    data._MODIFIERS = _templateModifiers(encoding);
+                    _templateModifiers(TrimPath, encoding);
                     self.sendToVFD(data, template, port, portspeed, handshaking, devicemodel, encoding);
                 });
             }

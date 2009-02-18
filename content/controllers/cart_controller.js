@@ -2347,9 +2347,8 @@
             this.dispatchEvent('beforeSubmit', oldTransaction);
             
             // save order unless the order is being finalized (i.e. status == 1)
-            if (status != 1)
-                oldTransaction.submit(status);
             if (status != 1) oldTransaction.submit(status);
+            oldTransaction.status = status;
 
             this.dispatchEvent('afterSubmit', oldTransaction);
 
