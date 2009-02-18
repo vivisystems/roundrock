@@ -12,7 +12,6 @@ var ClockStampModel = GeckoJS.Model.extend({
             case "clockin":
                 var last = this.findLastStamp(username);
                 // automatically clocks out last job if necessary
-                
                 if (last && !last['clockout']) {
                     // clock out previous job first
                     last['clockout'] = 1;

@@ -34,10 +34,10 @@
 <!ENTITY login.shiftreportonsignoff "Print shift report when users sign off">
 <!ENTITY login.shiftreportonquickswitch "Print shift report when quick-switching users">
 <!ENTITY login.allowquicklogin "Allow quick login by automatically matching user by password">
-<!ENTITY layout.registeratleft "Place register screen on the left side of screen">
+<!ENTITY layout.registeratleft "Place register screen on the left">
 <!ENTITY layout.hidenumpad "Hide numeric keypad">
 <!ENTITY layout.checktrackingmode "Show check tracking details">
-<!ENTITY layout.functionpanelontop "Place function key panel at the top of the screen">
+<!ENTITY layout.functionpanelontop "Place function key panel on top">
 <!ENTITY layout.PLUbeforedept "Place product panel before department panel">
 <!ENTITY layout.hidedeptscrollbar "Hide scrollbars for department panel">
 <!ENTITY layout.hidepluscrollbar "Hide scrollbars for product panel">
