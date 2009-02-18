@@ -6,4 +6,12 @@
 <!ENTITY rptdailysalesdetail.exportcsv "Export to CSV">
 <!ENTITY rptdailysalesdetail.togglezoom "Toggle Zoom">
 <!ENTITY rptdailysalesdetail.machineid "Terminal No:">
+<!ENTITY rptdailysalesdetail.sortby "Sort By:">
+<!ENTITY rptdailysalesdetail.terminal_no "Terminal No.">
+<!ENTITY rptdailysalesdetail.transaction_created "Time">
+<!ENTITY rptdailysalesdetail.sequence "Sequence">
+<!ENTITY rptdailysalesdetail.total "Total">
+<!ENTITY rptdailysalesdetail.guests "Guests">
+<!ENTITY rptdailysalesdetail.items "Items">
+<!ENTITY rptdailysalesdetail.all "List All">
 

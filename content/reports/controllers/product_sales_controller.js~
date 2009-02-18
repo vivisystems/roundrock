@@ -51,7 +51,7 @@
             var orderby = 'order_items.product_no';
 
             var datas = orderItem.find('all',{fields: fields, conditions: conditions, group: groupby, recursive:1, order: orderby});
-this.log( this.dump( datas ) );
+
 			var sortby = document.getElementById( 'sortby' ).value;
 			if ( sortby != 'all' ) {
 				datas.sort(

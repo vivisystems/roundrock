@@ -6,4 +6,11 @@
 <!ENTITY rpthourlysales.exportcsv "Export to CSV">
 <!ENTITY rpthourlysales.togglezoom "Toggle Zoom">
 <!ENTITY rpthourlysales.machineid "Terminal No:">
-
+<!ENTITY rpthourlysales.sortby "Sort By:">
+<!ENTITY rpthourlysales.terminal_no "Term_No.">
+<!ENTITY rpthourlysales.Hour "Time">
+<!ENTITY rpthourlysales.HourTotal "Total">
+<!ENTITY rpthourlysales.OrderNum "Orders">
+<!ENTITY rpthourlysales.Guests "Guests">
+<!ENTITY rpthourlysales.ItemsCount "Items">
+<!ENTITY rpthourlysales.all "List All">

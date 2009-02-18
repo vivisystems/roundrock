@@ -59,7 +59,7 @@
             var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
             
             var sortby = document.getElementById( 'sortby' ).value;
-            if ( sortby != 'all' ) {
+            if ( sortby == 'all' ) {
             	datas.sort(
             		function ( a, b ) {
             			if ( a[ sortby ] > b[ sortby ] ) return 1;

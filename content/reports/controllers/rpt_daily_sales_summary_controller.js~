@@ -1,13 +1,13 @@
 (function(){
 
     /**
-     * RptDailySales Controller
+     * RptDailySalesSummary Controller
      */
 
     var  XUL_NS = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
 
     GeckoJS.Controller.extend( {
-        name: 'RptDailySales',
+        name: 'RptDailySalesSummary',
         components: ['BrowserPrint', 'CsvExport'],
         _datas: null,
 
@@ -32,18 +32,18 @@
                             'orders.transaction_created',
                             //'DATETIME("orders"."transaction_created", "unixepoch", "localtime") AS "Order.Date"',
                             'orders.id',
-                            'orders.sequence',
+                            //'orders.sequence',
                             'orders.status',
-                            'orders.total',
+                            'sum( orders.total ) as "Order.total"',
                             'orders.rounding_prices',
                             'orders.precision_prices',
-                            'orders.surcharge_subtotal',
-                            'orders.discount_subtotal',
+                            'sum( orders.surcharge_subtotal ) as "Order.surcharge_subtotal"',
+                            'sum( orders.discount_subtotal ) as "Order.discount_subtotal"',
                             'orders.items_count',
                             'orders.check_no',
                             'orders.table_no',
                             'orders.no_of_customers',
-                            'orders.invoice_no',
+                            //'orders.invoice_no',
                             'orders.terminal_no'];
 
             var conditions = "orders.transaction_created>='" + start +
@@ -56,9 +56,9 @@
             } else {
                 //var groupby = '"Order.Date"';
             }
-            var groupby = 'order_payments.order_id,order_payments.name';
+            var groupby = 'order_payments.name, orders.terminal_no';//order_payments.order_id';';
             var orderby = 'orders.terminal_no,orders.transaction_created,orders.id';
-            
+
             // var order = new OrderModel();
 
             var orderPayment = new OrderPaymentModel();
@@ -75,49 +75,69 @@
 
             var footDatas = {total: 0, surcharge_subtotal: 0,discount_subtotal: 0, cash: 0, creditcard: 0, coupon: 0};
             var old_oid;
+            var tmp_oid;
 
+
+            var self = this;
+            var terminal;
+            var old_terminal;
+            
             datas.forEach(function(data){
 
                 var oid = data.Order.id;
                 var o = data.Order;
-                o.Order = o;
 
-                if (!repDatas[oid]) {
-                    repDatas[oid] = GREUtils.extend({}, o); // {cash:0, creditcard: 0, coupon: 0}, o);
+                o.Order = o;
+                
+                terminal = o.terminal_no;
+
+                if ( terminal != old_terminal ) {
+                    if (!repDatas[oid]) {
+                        repDatas[oid] = GREUtils.extend({}, o); // {cash:0, creditcard: 0, coupon: 0}, o);
+                    }
+                    repDatas[oid][ 'cash' ] = 0.0;
+                    repDatas[oid][ 'creditcard' ] = 0.0;
+                    repDatas[oid][ 'coupon' ] = 0.0;
+                    repDatas[oid][o.payment_name] += o.payment_subtotal;
+                    tmp_oid = oid;
+                } else {
+                    repDatas[ tmp_oid ][ o.payment_name ] = o.payment_subtotal;
+                    repDatas[ tmp_oid ][ 'total' ] += o.total;
+                    repDatas[ tmp_oid ][ 'surcharge_subtotal' ] += o.surcharge_subtotal;
+                    repDatas[ tmp_oid ][ 'discount_subtotal' ] += o.discount_subtotal;
                 }
-				
-				repDatas[oid][ 'cash' ] = 0.0;
-				repDatas[oid][ 'creditcard' ] = 0.0;
-				repDatas[oid][ 'coupon' ] = 0.0;
-                repDatas[oid][o.payment_name] += o.payment_subtotal;
 
                 if (old_oid != oid) footDatas.total += o.total;
                 if (old_oid != oid) footDatas.surcharge_subtotal += o.surcharge_subtotal;
                 if (old_oid != oid) footDatas.discount_subtotal += o.discount_subtotal;
                 footDatas[o.payment_name] += o.payment_subtotal;
+              
                 old_oid = oid;
-
+                old_terminal = terminal;
             });
-
-            this._datas = GeckoJS.BaseObject.getValues(repDatas);
             
+            var orderedData = [];
+           	var counter = 0;
+           	
+           	for ( p in repDatas ) {
+           		orderedData[ counter++ ] = GREUtils.extend({}, repDatas[ p ] );
+           	}
+           	
             var sortby = document.getElementById( 'sortby' ).value;
+
             if ( sortby != 'all' ) {
-            	this._datas.sort(
-            		/*function ( a, b ) {
-            			if ( a[ sortby ] > b[ sortby ] ) return 1;
-            			if ( a[ sortby ] < b[ sortby ] ) return -1;
-            			return 0;
-            		}*/
-            		function ( a, b ) {
-            			var a = a[ sortby ];
-            			var b = b[ sortby ];
-            			if ( a > b ) return 1;
-            			if ( a < b ) return -1;
-            			return 0;
-            		}
-            	);
+		        function sortFunction( a, b ) {
+		        	var a = a[ sortby ];
+		        	var b = b[ sortby ];
+				    if ( a > b ) return 1;
+				    if ( a < b ) return -1;
+				    return 0;
+            	}
+            	
+            	orderedData.sort( sortFunction );
             }
+            
+            this._datas = GeckoJS.BaseObject.getValues(orderedData);
 
             var data = {
                 head: {
@@ -130,7 +150,7 @@
                 foot: footDatas
             }
 
-            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_daily_sales.tpl");
+            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_daily_sales_summary.tpl");
 
             var file = GREUtils.File.getFile(path);
             var tpl = GREUtils.File.readAllBytes(file);

@@ -6,5 +6,9 @@
 <!ENTITY rptinventory.exportcsv "Export to CSV">
 <!ENTITY rptinventory.togglezoom "Toggle Zoom">
 <!ENTITY rptinventory.department "Department:">
+<!ENTITY rptinventory.sortby "Sort By:">
+<!ENTITY rptinventory.no "No.">
+<!ENTITY rptinventory.name "Name">
+<!ENTITY rptinventory.stock "Stock">
+<!ENTITY rptinventory.min_stock "Min. Stock">
 <!ENTITY rptinventory.all "List All">
-

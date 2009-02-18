@@ -34,13 +34,13 @@
                     </columns>
                     <rows>
                         <row>
-                            <label value="&rptusers.sortby;" />
+                            <label value="&users.sortby;" />
 	                        <menulist id="sortby">
 	                            <menupopup id="sortby_menupopup">
-	                                <menuitem selected="true" label="[&rptusers.all;]" value="all" />
-	                                <menuitem selected="true" label="&rptusers.username;" value="username" />
-	                                <menuitem selected="true" label="&rptusers.displayname;" value="displayname" />
-	                                <menuitem selected="true" label="&rptusers.group;" value="group" />
+	                                <menuitem selected="true" label="[&users.all;]" value="all" />
+	                                <menuitem selected="true" label="&users.username;" value="username" />
+	                                <menuitem selected="true" label="&users.displayname;" value="displayname" />
+	                                <menuitem selected="true" label="&users.group;" value="group" />
 	                            </menupopup>
 	                        </menulist>
                         </row>

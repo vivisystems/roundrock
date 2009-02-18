@@ -1,0 +1,19 @@
+<!ENTITY rptdailysalessummary.title "Daily Sales Summary Report">
+<!ENTITY rptdailysalessummary.startdate "Start Date:">
+<!ENTITY rptdailysalessummary.enddate "End Date:">
+<!ENTITY rptdailysalessummary.execute "Execute">
+<!ENTITY rptdailysalessummary.exportpdf "Export to PDF">
+<!ENTITY rptdailysalessummary.exportcsv "Export to CSV">
+<!ENTITY rptdailysalessummary.togglezoom "Toggle Zoom">
+<!ENTITY rptdailysalessummary.machineid "Terminal No:">
+<!ENTITY rptdailysalessummary.sortby "Sort By:">
+<!ENTITY rptdailysalessummary.terminal_no "Terminal No.">
+<!ENTITY rptdailysalessummary.total "Total">
+<!ENTITY rptdailysalessummary.surcharge_subtotal "Surcharge">
+<!ENTITY rptdailysalessummary.discount_subtotal "Discount">
+<!ENTITY rptdailysalessummary.cash "Cash">
+<!ENTITY rptdailysalessummary.creditcard "Credit Card">
+<!ENTITY rptdailysalessummary.coupon "Coupon">
+<!ENTITY rptdailysalessummary.all "List All">
+
+
