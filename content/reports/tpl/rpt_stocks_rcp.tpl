@@ -6,7 +6,7 @@ Terminal: ${head.store.terminal_no|left:10} Clerk: ${head.clerk_displayname|left
 ${head.title}
 ------------------------------------------
 {for category in body}
-${category.no|left:14}  ${category.name|26}
+${category.no|left:14}  ${category.name|left:26}
 --------------  --------------------------
 {for plu in category.plu}
     ${plu.no|left:14}      ${plu.name|left:22}
