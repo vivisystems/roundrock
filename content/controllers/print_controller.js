@@ -574,9 +574,9 @@
                     }
                 }
 
+                data.hasLinkedItems = !empty;
                 if (empty) {
                     this.log('no items linked to this printer; printing terminated');
-                    return;
                 }
             }
             
@@ -590,9 +590,6 @@
                     NotifyUtils.error(_('Specified template [%S] is empty or does not exist!', [template]));
                     return false;
                 }
-
-this.log(GeckoJS.BaseObject.dump(data.order));
-                
                 result = tpl.process(data);
             }
             else {
@@ -623,7 +620,7 @@ this.log(GeckoJS.BaseObject.dump(data.order));
                     result = result.replace(re, value);
                 }
             }
-            alert(this.dump(result));
+            //alert(this.dump(result));
             //return;
             //alert(data.order.receiptPages);
             //

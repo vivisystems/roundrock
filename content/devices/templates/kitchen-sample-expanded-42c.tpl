@@ -1,3 +1,4 @@
+{if data.hasLinkedItems}
 {eval}
   memo = '';
 {/eval}
@@ -36,3 +37,4 @@ ${memo|left:42}
 [&CR]
 [&CR]
 [&PC]
+{/if}
