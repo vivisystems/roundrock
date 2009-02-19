@@ -695,6 +695,7 @@
 
                     if (!stack) stack = this._render(page);
                     var found = false;
+                    
                     while (this.keypad.childNodes.length > 0) {
                         if (stack == this.keypad.firstChild) {
                             found = true;
@@ -1029,7 +1030,7 @@
                     else {
                         stack = this._layoutStackMap.get(key);
                     }
-                    //GREUtils.log('[GetLayoutStack]: layout <' + key + '>, stack <' + stack + '>');
+                    //GREUtils.log('[GetLayoutStack]: layout <' + key + '>, stack <' + stack + '>, total stacks <' + this._layoutStackMap.getCount() + '>');
                     return stack;
                 ]]>
                 </body>
@@ -1241,7 +1242,7 @@
                             btn.setAttribute('width', lastW);
                             btn.setAttribute('disabled', true);
                             btn.setAttribute('anonid', (1 - (-i)) +'x' + (1 - (-j)));
-                            
+                            btn.disabled = true;
                             stack.appendChild(btn);
 
                             lastW -= -hs;
@@ -1326,6 +1327,7 @@
                             btn.setAttribute('width', posWidth);
                             btn.setAttribute('disabled', true);
                             btn.setAttribute('anonid', row + 'x' + column);
+                            btn.disabled = true;
                             stack.appendChild(btn);
 
                             //GREUtils.log('[CUSTOM]: custom button created at <' + posX + ',' + posY + '>x<' + posWidth + ',' + posHeight + '>');
