@@ -90,7 +90,7 @@
                     </tabpanel>
                     <tabpanel id="advanced-panel" orient="horizontal">
 	        
-		            <grid class="DataFormA" flex="1">
+		            <grid class="DataForm" flex="1">
 		                <columns>
 		                    <column  flex="1" /><column flex="2" />
 		                </columns>

@@ -107,7 +107,6 @@ textbox[readonly="true"]:not(.uidisplay_field_label):not(.uidisplay_field_value)
   -moz-border-left-colors: #f4f3ee #ecebe7 #dddcd8;
   background: white url(images/tboxbg_readonly.png) left center repeat-x;
   -moz-appearance: none;
-  min-height: 36px;
   color: #3b312b;
 }
 .ItemButtonA[disabled="false"]:hover {
@@ -118,7 +117,6 @@ textbox[readonly="true"]:not(.uidisplay_field_label):not(.uidisplay_field_value)
   -moz-border-left-colors: #f4f3ee #ecebe7 #00aeef;
   background: white url(images/tboxbg_readonly.png) left center repeat-x;
   -moz-appearance: none;
-  min-height: 36px;
 }
 .ItemButtonA[selected], .ItemButtonA[checked], .ItemButtonA[selected]:hover,
 .ItemButtonA[disabled="fales"]:active {
@@ -156,7 +154,6 @@ textbox[readonly="true"]:not(.uidisplay_field_label):not(.uidisplay_field_value)
   -moz-border-left-colors: #f8f5f1 #f2efeb #ed145b;
   background: white url(images/tboxbg_readonly.png) left center repeat-x;
   -moz-appearance: none;
-  min-height: 36px;
   color: #3c322d;
 }
 .ItemButtonB[selected], .ItemButtonB[checked], .ItemButtonB[selected]:hover,
@@ -304,14 +301,14 @@ textbox[readonly="true"]:not(.uidisplay_field_label):not(.uidisplay_field_value)
 
 checkbox {
     cursor: pointer;
-    min-height: 30px;
-    padding: 3px;
+    min-height: 40px;
+    padding: 8px;
 }
 
 radio {
-    min-height: 30px;
+    min-height: 40px;
     cursor: pointer;
-    padding: 3px;
+    padding: 8px;
 }
 
 checkbox:hover, radio:hover {

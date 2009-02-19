@@ -6,7 +6,7 @@
 <!ENTITY stocks.show.low.only "Filter for Products below Threshold">
 <!ENTITY stocks.label.no "No.">
 <!ENTITY stocks.label.name "Name">
-<!ENTITY stocks.label.stock "Level">
+<!ENTITY stocks.label.stock "Quantity">
 <!ENTITY stocks.label.threshold "Threshold">
 <!ENTITY stocks.search.label "Enter Product or Barcode No.">
 <!ENTITY stocks.button.action.clear "CLEAR">
