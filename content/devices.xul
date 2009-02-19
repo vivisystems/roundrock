@@ -245,7 +245,7 @@
                                                                scrollDownClass="ScrollDown">
                                         <spacer flex="1"/>
                                     </viviscrollablebuttonpanel>
-                                    <checkbox id="guestcheck-1-print-unlinked" name="guestcheck-1-print-unlinked" form="deviceForm" value="1" default="1" label="&devices.guestcheck.printunlinked.label;"/>
+                                    <checkbox id="guestcheck-1-print-unlinked" name="guestcheck-1-print-unlinked" form="deviceForm" checked="true" default="1" label="&devices.guestcheck.printunlinked.label;"/>
                                 </vbox>
                             </hbox>
                         </vbox>
@@ -322,7 +322,7 @@
                                                                scrollDownClass="ScrollDown">
                                         <spacer flex="1"/>
                                     </viviscrollablebuttonpanel>
-                                    <checkbox id="guestcheck-2-print-unlinked" name="guestcheck-2-print-unlinked" form="deviceForm" value="1" default="1" label="&devices.guestcheck.printunlinked.label;"/>
+                                    <checkbox id="guestcheck-2-print-unlinked" name="guestcheck-2-print-unlinked" form="deviceForm" checked="true" default="1" label="&devices.guestcheck.printunlinked.label;"/>
                                 </vbox>
                             </hbox>
                         </vbox>
@@ -400,7 +400,7 @@
                                                                scrollDownClass="ScrollDown">
                                         <spacer flex="1"/>
                                     </viviscrollablebuttonpanel>
-                                    <checkbox id="guestcheck-3-print-unlinked" name="guestcheck-3-print-unlinked" form="deviceForm" value="1" default="1" label="&devices.guestcheck.printunlinked.label;"/>
+                                    <checkbox id="guestcheck-3-print-unlinked" name="guestcheck-3-print-unlinked" form="deviceForm" checked="true" default="1" label="&devices.guestcheck.printunlinked.label;"/>
                                 </vbox>
                             </hbox>
                         </vbox>
@@ -477,7 +477,7 @@
                                                                scrollDownClass="ScrollDown">
                                         <spacer flex="1"/>
                                     </viviscrollablebuttonpanel>
-                                    <checkbox id="guestcheck-4-print-unlinked" name="guestcheck-4-print-unlinked" form="deviceForm" value="1" default="1" label="&devices.guestcheck.printunlinked.label;"/>
+                                    <checkbox id="guestcheck-4-print-unlinked" name="guestcheck-4-print-unlinked" form="deviceForm" checked="true" default="1" label="&devices.guestcheck.printunlinked.label;"/>
                                 </vbox>
                             </hbox>
                         </vbox>
