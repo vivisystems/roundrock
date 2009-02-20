@@ -191,8 +191,8 @@
         // handle order submit events
         submitOrder: function(evt) {
 
-            this.printGuestChecks(evt.data);
-            this.printReceipts(evt.data);
+            this.printGuestChecks(evt.data, null, true);
+            this.printReceipts(evt.data, null, true);
 
             // @todo delay saving order to database til after print jobs have all been scheduled
             this.scheduleOrderCommit(evt.data);
@@ -256,7 +256,7 @@
                 }
             }
             if (printer == null) printer = 0;
-            this.printReceipts(txn, printer);
+            this.printReceipts(txn, printer, false);
         },
 
         // print on all enabled receipt printers
@@ -265,7 +265,7 @@
         // printer = 2: second printer
         // printer = null: print on all auto-print enabled printers
 
-        printReceipts: function(txn, printer) {
+        printReceipts: function(txn, printer, autoPrint) {
 
             var device = this.getDeviceController();
             if (device == null) {
@@ -313,6 +313,7 @@
                         data.linkgroups = null;
                         data.printunlinked = 1;
                         data.routingGroups = null;
+                        data.autoPrint = autoPrint;
 
                         self.printCheck(data, template, port, portspeed, handshaking, devicemodel, encoding, device.number, copies);
                     }
@@ -321,7 +322,7 @@
         },
 
         // handles user initiated guest check requests
-        issueGuestCheck: function(printer) {
+        issueGuestCheck: function(printers) {
             var device = this.getDeviceController();
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
 
@@ -350,8 +351,7 @@
             }
 
             // check device settings
-            printer = GeckoJS.String.trim(printer);
-            if (printer == null || printer == '') {
+            if (printers == null || printers == '' ) {
                 switch (device.isDeviceEnabled('guestcheck', null)) {
                     case -2:
                         NotifyUtils.warn(_('You have not configured any guest check printers'));
@@ -362,24 +362,28 @@
                         NotifyUtils.warn(_('All guest check printers are disabled'));
                         return;
                 }
+                this.printGuestChecks(txn, 0, false);
             }
             else {
-                switch (device.isDeviceEnabled('guestcheck', printer)) {
-                    case -2:
-                        NotifyUtils.warn(_('You have not configured any guest check printers'));
-                        return;
+                var printerArray = GeckoJS.String.trim(printers).split(',');
+                var self = this;
+                printerArray.forEach(function(printer) {
+                    switch (device.isDeviceEnabled('guestcheck', printer)) {
+                        case -2:
+                            NotifyUtils.warn(_('You have not configured any guest check printers'));
+                            return;
 
-                    case -1:
-                        NotifyUtils.warn(_('Invalid guest check printer [%S]', [printer]));
-                        return;
+                        case -1:
+                            NotifyUtils.warn(_('Invalid guest check printer [%S]', [printer]));
+                            return;
 
-                    case 0:
-                        NotifyUtils.warn(_('The specified guest check printer [%S] is not enabled', [printer]));
-                        return;
-                }
+                        case 0:
+                            NotifyUtils.warn(_('The specified guest check printer [%S] is not enabled', [printer]));
+                            return;
+                    }
+                    self.printGuestChecks(txn, printer, false);
+                });
             }
-            if (printer == null) printer = 0;
-            this.printGuestChecks(txn, printer);
         },
 
 
@@ -390,7 +394,7 @@
         // printer = 2: second printer
         // printer = null: print on all auto-print enabled printers
 
-        printGuestChecks: function(txn, printer) {
+        printGuestChecks: function(txn, printer, autoPrint) {
 
             var device = this.getDeviceController();
             if (device == null) {
@@ -459,7 +463,8 @@
 
                         data.printunlinked = device.printunlinked;
                         data.routingGroups = routingGroups;
-
+                        data.autoPrint = autoPrint;
+                        
                         self.printCheck(data, template, port, portspeed, handshaking, devicemodel, encoding, 0, copies);
                     }
                 });
@@ -574,9 +579,9 @@
                     }
                 }
 
+                data.hasLinkedItems = !empty;
                 if (empty) {
                     this.log('no items linked to this printer; printing terminated');
-                    return;
                 }
             }
             
@@ -590,16 +595,13 @@
                     NotifyUtils.error(_('Specified template [%S] is empty or does not exist!', [template]));
                     return false;
                 }
-
-this.log(GeckoJS.BaseObject.dump(data.order));
-                
                 result = tpl.process(data);
             }
             else {
                 result = template;
             }
 
-/*
+            /*
             alert('Printing check: \n\n' +
                   '   template [' + template + ']\n' +
                   '   port [' + port + ' (' + portPath + ')]\n' +
@@ -607,7 +609,7 @@ this.log(GeckoJS.BaseObject.dump(data.order));
                   '   model [' + devicemodel + ']\n' +
                   '   encoding [' + encoding + ']\n' +
                   '   template content: ' + this.dump(tpl));
-*/
+            */
 
             commands = this.getDeviceCommandCodes(devicemodel, false);
 
@@ -623,8 +625,8 @@ this.log(GeckoJS.BaseObject.dump(data.order));
                     result = result.replace(re, value);
                 }
             }
-            alert(this.dump(result));
-            //return;
+            alert(GeckoJS.BaseObject.dump(result));
+            return;
             //alert(data.order.receiptPages);
             //
             // translate embedded hex codes into actual hex values
@@ -672,7 +674,7 @@ this.log(GeckoJS.BaseObject.dump(data.order));
             var runnable = {
                 run: function() {
                     try {
-                        // if recordReceipt is true, check if record already exists
+                        // check if record already exists if device > 0 (device is set to 0 for guestcheck and report/label printers
                         if (device > 0) {
                             var receipts = self.isReceiptPrinted(data.order.id, device);
                             if (receipts != null) {
