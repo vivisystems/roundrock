@@ -3,14 +3,14 @@
 }
 
 .BtnColors {
-    margin: 12px 20px 8px 20px;
+    margin: 0px 20px 8px 20px;
 }
 .BtnColors label{
     color: white;
 }
 .BtnColors button {
-    min-height: 45px;
-    min-width: 45px;
+    min-height: 55px;
+    min-width: 55px;
 }
 
 .LeftPnl {
@@ -19,7 +19,7 @@
 }
 
 .MainL {
-    border-right: 1px solid #c1ab8e;
+    border-right: 1px solid #a98f6e;
 }
 
 .DataForm {
@@ -111,7 +111,7 @@ vividatetimepicker-timepad {
     background: white url(../images/tboxbg_readonly.png) left center repeat-x;
     -moz-appearance: none;
     min-height: 36px;
-    color: #736357;
+    color: #372213;
     margin: 3px;
     cursor: pointer;
     -moz-border-radius: 6px;
@@ -141,7 +141,7 @@ vividatetimepicker-timepad {
 /* for system backup use*/
 .BakBtn {
     -moz-appearance: none;
-    color: #6c6050;
+    color: #372213;
     font-size: 12pt;
     margin: 0 5px;
     -moz-border-radius: 6px;
@@ -161,7 +161,7 @@ vividatetimepicker-timepad {
     -moz-border-bottom-colors: #ee9400 #ee9400;
     -moz-border-left-colors: #ee9400 #ee9400;
     -moz-appearance: none;
-    color: #603913;
+    color: #372213;
 }
 
 /* for keyboard use*/
@@ -197,7 +197,7 @@ vividatetimepicker-timepad {
     -moz-border-bottom-colors: #ee9400 #ee9400 #ee9400;
     -moz-border-left-colors: #ee9400 #ee9400 #ee9400;
     -moz-appearance: none;
-    color: #603913;
+    color: #372213;
 }
 
 .ImgInfo {
@@ -210,3 +210,24 @@ vividatetimepicker-timepad {
 .ImgTool button {
     margin: 4px;
 }
+
+/* sycn_settings */
+.DataFormA row{
+	border-bottom: 2px solid white;
+	font-size: 10pt;
+	padding: 8px;
+    -moz-box-align: center;
+}
+.DataFormA {
+	border-right: 2px solid white;
+	background: #f4f3ee;
+    margin: 0 10px 10px 10px;
+}
+.DataFormA column{
+	padding: 8px;
+}
+.DataFormA label {
+  font-size: 10pt;
+  color: #372213;
+}
+

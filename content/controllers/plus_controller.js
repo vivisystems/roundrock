@@ -86,7 +86,7 @@
             this.productPanelView.setCatePanelIndex(index);
             var category = this.catePanelView.getCurrentIndexData(index);
 
-            if (category) {
+            if (this._selCateIndex != index && category != null) {
                 this._selCateNo = category.no;
                 this._selCateName = category.name;
                 this._selCateIndex = index;

@@ -46,12 +46,12 @@
     -moz-user-focus: ignore;
     -moz-background-clip: border;
     -moz-border-radius: 4px;
-    color: #4b443f;
+    color: #2b2623;
     border: 1px solid;
-    -moz-border-top-colors: #afafaf;
-    -moz-border-right-colors: #afafaf;
-    -moz-border-bottom-colors: #afafaf;
-    -moz-border-left-colors: #afafaf;
+    -moz-border-top-colors: #8e8e8e;
+    -moz-border-right-colors: #8e8e8e;
+    -moz-border-bottom-colors: #8e8e8e;
+    -moz-border-left-colors: #8e8e8e;
     background: #fff url(images/funColor01.gif) bottom left repeat-x;
 }
 
@@ -78,10 +78,10 @@
     -moz-background-clip: border;
     -moz-border-radius: 4px;
     border: 1px solid;
-    -moz-border-top-colors: #afafaf;
-    -moz-border-right-colors: #afafaf;
-    -moz-border-bottom-colors: #afafaf;
-    -moz-border-left-colors: #afafaf;
+    -moz-border-top-colors: #8e8e8e;
+    -moz-border-right-colors: #8e8e8e;
+    -moz-border-bottom-colors: #8e8e8e;
+    -moz-border-left-colors: #8e8e8e;
 }
 
 

@@ -7,9 +7,9 @@
 
 .catescrollablepanel{
     background: none;
-    width: 512px;
-    max-width: 512px;
-    min-width: 512px;
+    width: 502px;
+    max-width: 502px;
+    min-width: 502px;
     margin: 0px;
 }
 
@@ -81,7 +81,7 @@
 	-moz-appearance: none;
 	-moz-background-clip: border;
 	margin: 1px 2px 1px 0px;
-	background: #7f8893;
+	background: #59626e;
 	padding: 0px 0 0 2px;
 }
 

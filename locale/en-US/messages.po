@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # user <support@vivipos.com>, 2009.
 #
-!=Project-Id-Version: PACKAGE VERSION\nReport-Msgid-Bugs-To: irving.hsu@firich.com.tw\nPOT-Creation-Date: 2009-02-10 16:54+0800\nPO-Revision-Date: 2009-02-10 16:54+0800\nLast-Translator: user <support@vivipos.com>\nLanguage-Team: English\nMIME-Version: 1.0\nContent-Type: text/plain; charset\=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals\=2; plural\=(n !\= 1);\n
+!=Project-Id-Version: PACKAGE VERSION\nReport-Msgid-Bugs-To: irving.hsu@firich.com.tw\nPOT-Creation-Date: 2009-02-19 09:46+0800\nPO-Revision-Date: 2009-02-19 09:46+0800\nLast-Translator: user <support@vivipos.com>\nLanguage-Team: English\nMIME-Version: 1.0\nContent-Type: text/plain; charset\=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals\=2; plural\=(n !\= 1);\n
 
 #: /home/user/workspace/vivipos_app/content/datetime.js:27
 confirm timezone change=confirm timezone change
@@ -42,6 +42,7 @@ New ACL Group=New ACL Group
 #: /home/user/workspace/vivipos_app/content/controllers/aclgroups_controller.js:47
 #: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:201
 #: /home/user/workspace/vivipos_app/content/controllers/plugroups_controller.js:51
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:205
 Group Name=Group Name
 
 #: /home/user/workspace/vivipos_app/content/controllers/aclgroups_controller.js:54
@@ -68,6 +69,10 @@ The ACL group [%S] has been assigned to one or more users [%S] and cannot be rem
 #: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:684
 #: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:187
 #: /home/user/workspace/vivipos_app/content/controllers/users_controller.js:246
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:315
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:514
+#: /home/user/workspace/vivipos_app/content/controllers/plugroups_controller.js:178
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:683
 confirm delete %S=confirm delete %S
 
 #: /home/user/workspace/vivipos_app/content/controllers/aclgroups_controller.js:84
@@ -80,6 +85,10 @@ confirm delete %S=confirm delete %S
 #: /home/user/workspace/vivipos_app/content/controllers/pricelevelschedule_controller.js:121
 #: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:187
 #: /home/user/workspace/vivipos_app/content/controllers/users_controller.js:246
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:315
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:514
+#: /home/user/workspace/vivipos_app/content/controllers/plugroups_controller.js:178
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:683
 Are you sure?=Are you sure?
 
 #: /home/user/workspace/vivipos_app/content/controllers/aclgroups_controller.js:102
@@ -95,15 +104,19 @@ ACL Group [%S] modified successfully=ACL Group [%S] modified successfully
 An error occurred while modifying ACL Group [%S]; the ACL group may not have been modified successfully=An error occurred while modifying ACL Group [%S]; the ACL group may not have been modified successfully
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:106
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:100
 OUT OF STOCK=OUT OF STOCK
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:108
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:102
 [%S] may be out of stock!=[%S] may be out of stock!
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:123
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:117
 STOCK LOW=STOCK LOW
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:126
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:120
 [%S] low stock threshold reached!=[%S] low stock threshold reached!
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:169
@@ -113,27 +126,37 @@ Product [%S] may not be registered with a price of [%S]!=Product [%S] may not be
 Return of product sets [%S] not allowed!=Return of product sets [%S] not allowed!
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:221
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:223
 VERIFY AGE=VERIFY AGE
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:226
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:228
 confirm age=confirm age
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:226
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:228
 Is customer of age for purchase of [%S]?=Is customer of age for purchase of [%S]?
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:232
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:234
 Verify Customer Age for Purchase of [%S]!=Verify Customer Age for Purchase of [%S]!
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:422
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:446
 SINGLE ITEM SALE=SINGLE ITEM SALE
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:454
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:481
 Product scan code not found [%S]=Product scan code not found [%S]
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:485
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:501
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:615
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:631
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:512
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:528
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:668
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:684
 Not an open order; cannot modify=Not an open order; cannot modify
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:493
@@ -145,10 +168,20 @@ Not an open order; cannot modify=Not an open order; cannot modify
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2278
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2444
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2481
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:520
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:676
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:792
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1156
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1381
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2175
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2407
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2554
 Please select an item first=Please select an item first
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:514
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:644
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:541
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:697
 Cannot modify selected item [%S]=Cannot modify selected item [%S]
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:522
@@ -156,123 +189,173 @@ Not authorized to modify condiment price=Not authorized to modify condiment pric
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:532
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:654
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:560
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:707
 Cannot modify; selected item [%S] has discount or surcharge applied=Cannot modify; selected item [%S] has discount or surcharge applied
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:542
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:570
 Cannot modify; selected item [%S] has been subtotaled=Cannot modify; selected item [%S] has been subtotaled
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:554
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:582
 Cannot modify; no price or quantity entered=Cannot modify; no price or quantity entered
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:564
 Cannot modify condiment; no price entered=Cannot modify condiment; no price entered
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:582
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:632
 Product [%S] may not be modified with a price of [%S]!=Product [%S] may not be modified with a price of [%S]!
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:680
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:733
 Quantity may not be less than 1=Quantity may not be less than 1
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:722
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:731
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:775
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:784
 Not an open order; cannot VOID=Not an open order; cannot VOID
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:757
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:810
 Cannot VOID the selected item [%S]. It is not the last registered item=Cannot VOID the selected item [%S]. It is not the last registered item
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:765
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:818
 The select item [%S] is a member of a product set and cannot be VOIDed individually=The select item [%S] is a member of a product set and cannot be VOIDed individually
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:778
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:831
 Cannot VOID an entry that has been subtotaled=Cannot VOID an entry that has been subtotaled
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:787
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2321
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:840
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2450
 Please void discount on item [%S] first=Please void discount on item [%S] first
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:793
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2326
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:846
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2455
 Please void surcharge on item [%S] first=Please void surcharge on item [%S] first
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:875
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:894
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:928
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:947
 Not an open order; cannot add discount=Not an open order; cannot add discount
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:883
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:936
 Please select an item=Please select an item
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:905
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:958
 Pretax discount can only be registered against subtotals=Pretax discount can only be registered against subtotals
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:917
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:960
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1136
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1172
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:970
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1013
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1189
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1225
 Discount has been already been registered on item [%S]=Discount has been already been registered on item [%S]
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:927
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:954
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1146
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1166
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:980
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1007
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1199
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1219
 Surcharge has been already been registered on item [%S]=Surcharge has been already been registered on item [%S]
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:937
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1156
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2104
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:990
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1209
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2203
 Cannot modify an item that has been subtotaled=Cannot modify an item that has been subtotaled
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:945
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:998
 Cannot register discount on return items=Cannot register discount on return items
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:969
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1022
 Cannot apply discount to [%S]. It is not the last registered item=Cannot apply discount to [%S]. It is not the last registered item
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:977
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1030
 Discount may not be applied to [%S]=Discount may not be applied to [%S]
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:986
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1039
 Please enter the discount amount=Please enter the discount amount
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:989
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1042
 Please enter the discount percentage=Please enter the discount percentage
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1095
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1113
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1148
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1166
 Not an open order; cannot add surcharge=Not an open order; cannot add surcharge
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1124
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1177
 Pretax surcharge can only be registered against subtotals=Pretax surcharge can only be registered against subtotals
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1181
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1234
 Cannot apply surcharge to [%S]. It is not the last registered item=Cannot apply surcharge to [%S]. It is not the last registered item
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1189
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1242
 Surcharge may not be applied to [%S]=Surcharge may not be applied to [%S]
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1198
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1251
 Please enter the surcharge amount=Please enter the surcharge amount
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1201
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1254
 Please enter the surcharge percentage=Please enter the surcharge percentage
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1254
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1265
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1307
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1318
 Not an open order; operation invalid=Not an open order; operation invalid
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1272
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1325
 Nothing has been registered yet; operation invalid=Nothing has been registered yet; operation invalid
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1308
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1361
 House Bon=House Bon
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1320
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1336
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1373
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1389
 Not an open order; cannot register House Bon=Not an open order; cannot register House Bon
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1352
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1405
 House Bon may not be applied to [%S]=House Bon may not be applied to [%S]
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1383
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1434
 The selected currency [%S] has not been configured=The selected currency [%S] has not been configured
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1399
@@ -287,151 +370,217 @@ The selected currency [%S] has not been configured=The selected currency [%S] ha
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1780
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1919
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1929
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1450
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1460
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1592
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1602
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1685
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1695
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1763
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1773
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1856
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1866
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2014
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2024
 Not an open order; cannot register payments=Not an open order; cannot register payments
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1431
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1567
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1721
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1482
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1634
 Please enter an amount first=Please enter an amount first
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1435
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1486
 Please configure the selected currency entry first [%S]=Please configure the selected currency entry first [%S]
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1452
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1506
 Credit Card Remark=Credit Card Remark
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1452
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1469
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1486
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1503
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1507
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1528
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1549
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1570
 Payment=Payment
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1453
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1508
 Card Type=Card Type
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1453
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1509
 Card Remark=Card Remark
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1469
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1470
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1527
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1530
 Coupon Remark=Coupon Remark
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1470
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1529
 Coupon Type=Coupon Type
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1486
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1487
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1548
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1551
 Giftcard Remark=Giftcard Remark
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1487
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1550
 Giftcard Type=Giftcard Type
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1503
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1504
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1569
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1572
 Check Remark=Check Remark
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1504
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1571
 Check Type=Check Type
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1554
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1639
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1708
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1799
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1621
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1713
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1792
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1885
 Refund amount [%S] may not exceed amount paid [%S]=Refund amount [%S] may not exceed amount paid [%S]
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1575
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1642
 Credit Card Payment Error=Credit Card Payment Error
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1576
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1643
 Credit card payment may not exceed remaining balance=Credit card payment may not exceed remaining balance
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1728
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1809
 confirm giftcard payment=confirm giftcard payment
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1729
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1810
 Change of [%S] will NOT be given for this type of payment. Proceed?=Change of [%S] will NOT be given for this type of payment. Proceed?
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1827
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1913
 Check Payment Error=Check Payment Error
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1828
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1914
 Check Cashing limit of [%S] exceeded=Check Cashing limit of [%S] exceeded
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1938
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2033
 Nothing has been registered yet; cannot register payments=Nothing has been registered yet; cannot register payments
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1951
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2046
 No payment has been made; cannot register refund payment=No payment has been made; cannot register refund payment
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1961
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2056
 Refund amount [%S] may not exceed payment amount [%S]=Refund amount [%S] may not exceed payment amount [%S]
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2038
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2132
 Payment Details=Payment Details
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2068
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2084
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2167
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2183
 Not an open order; cannot shift tax=Not an open order; cannot shift tax
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2095
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2194
 This operation cannot be performed on [%S]=This operation cannot be performed on [%S]
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2125
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2224
 The tax status indicated does not exist [%S]=The tax status indicated does not exist [%S]
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2178
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2277
 Not an open order; nothing to cancel=Not an open order; nothing to cancel
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2272
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2289
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2438
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2401
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2418
 Not an open order; cannot add condiment=Not an open order; cannot add condiment
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2305
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2434
 Condiments may not be added to [%S]=Condiments may not be added to [%S]
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2311
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2440
 Condiments may not be added to a return item [%S]=Condiments may not be added to a return item [%S]
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2316
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2445
 Cannot add condiments to an item that has been subtotaled=Cannot add condiments to an item that has been subtotaled
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2337
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2467
 No Condiment group associated with item [%S]=No Condiment group associated with item [%S]
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2476
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2487
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2549
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2560
 Not an open order; cannot add memo=Not an open order; cannot add memo
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2527
 Add New Memo=Add New Memo
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2527
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2607
 Add Memo=Add Memo
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2527
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2609
 Memo=Memo
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2608
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2613
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2705
 No open order to push=No open order to push
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2618
 Can not queue the recall order!!=Can not queue the recall order!!
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2653
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2750
 Order is not queued because it is empty=Order is not queued because it is empty
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2758
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2857
 fatal error!!=fatal error!!
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2786
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2885
 Check\# %S is exist!!=Check\# %S is exist!!
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2802
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2901
 Table\# %S is exist!!=Table\# %S is exist!!
 
 #: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2815
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2914
 This order has been submited!!=This order has been submited!!
 
 #: /home/user/workspace/vivipos_app/content/controllers/cashdrawer_controller.js:194
@@ -440,6 +589,10 @@ This order has been submited!!=This order has been submited!!
 #: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:342
 #: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:391
 #: /home/user/workspace/vivipos_app/content/controllers/vfd_controller.js:181
+#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:348
+#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:397
+#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:474
+#: /home/user/workspace/vivipos_app/content/controllers/vfd_controller.js:180
 Error in device manager! Please check your device configuration=Error in device manager! Please check your device configuration
 
 #: /home/user/workspace/vivipos_app/content/controllers/cashdrawer_controller.js:203
@@ -452,11 +605,15 @@ Error detected while opening cash drawer [%S]; please check if cash drawer is co
 #: /home/user/workspace/vivipos_app/content/controllers/cashdrawer_controller.js:249
 #: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:447
 #: /home/user/workspace/vivipos_app/content/controllers/vfd_controller.js:255
+#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:519
+#: /home/user/workspace/vivipos_app/content/controllers/vfd_controller.js:254
 Specified device port [%S] does not exist!=Specified device port [%S] does not exist!
 
 #: /home/user/workspace/vivipos_app/content/controllers/cashdrawer_controller.js:313
 #: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:571
 #: /home/user/workspace/vivipos_app/content/controllers/vfd_controller.js:335
+#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:701
+#: /home/user/workspace/vivipos_app/content/controllers/vfd_controller.js:334
 Error detected when outputing to device [%S] at port [%S]=Error detected when outputing to device [%S] at port [%S]
 
 #: /home/user/workspace/vivipos_app/content/controllers/changeuser_controller.js:68
@@ -488,74 +645,98 @@ Please select a job first.=Please select a job first.
 Not clocked in yet.=Not clocked in yet.
 
 #: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:197
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:201
 Add New Condiment Group=Add New Condiment Group
 
 #: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:199
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:203
 New Condiment Group=New Condiment Group
 
 #: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:213
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:217
 Condiment Group [%S] already exists.=Condiment Group [%S] already exists.
 
 #: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:237
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:241
 Condiment Group [%S] added successfully=Condiment Group [%S] added successfully
 
 #: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:242
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:246
 An error occurred while adding Condiment Group [%S]. The group may not have been added successfully=An error occurred while adding Condiment Group [%S]. The group may not have been added successfully
 
 #: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:266
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:270
 Condiment Group [%S] already exists=Condiment Group [%S] already exists
 
 #: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:285
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:289
 Condiment Group [%S] modified successfully=Condiment Group [%S] modified successfully
 
 #: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:289
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:293
 An error occurred while modifying Condiment Group [%S]. The group may not have been modified successfully=An error occurred while modifying Condiment Group [%S]. The group may not have been modified successfully
 
 #: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:307
 #: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:176
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:311
 [%S] has been assigned to one or more products and may not be deleted=[%S] has been assigned to one or more products and may not be deleted
 
 #: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:341
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:345
 Condiment Group [%S] removed successfully=Condiment Group [%S] removed successfully
 
 #: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:345
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:349
 An error occurred while removing Condiment Group [%S]. The group may not have been removed successfully=An error occurred while removing Condiment Group [%S]. The group may not have been removed successfully
 
 #: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:389
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:393
 Add New Condiment=Add New Condiment
 
 #: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:389
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:393
 New Condiment=New Condiment
 
 #: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:389
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:393
 Condiment Name=Condiment Name
 
 #: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:389
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:393
 Condiment Price=Condiment Price
 
 #: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:395
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:399
 Condiment Price must be a number=Condiment Price must be a number
 
 #: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:414
 #: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:474
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:418
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:478
 Condiment [%S] already exists in this group=Condiment [%S] already exists in this group
 
 #: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:448
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:452
 Condiment [%S] added successfully=Condiment [%S] added successfully
 
 #: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:453
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:457
 An error occurred while adding Condiment [%S]. The condiment may not have been added successfully=An error occurred while adding Condiment [%S]. The condiment may not have been added successfully
 
 #: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:496
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:500
 Condiment [%S] modified successfully=Condiment [%S] modified successfully
 
 #: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:500
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:504
 An error occurred while modifying Condiment [%S]. The condiment may not have been modified successfully=An error occurred while modifying Condiment [%S]. The condiment may not have been modified successfully
 
 #: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:535
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:539
 Condiment [%S] removed successfully=Condiment [%S] removed successfully
 
 #: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:539
+#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:543
 An error occurred while removing Condiment [%S]. The condiment may not have been removed successfully=An error occurred while removing Condiment [%S]. The condiment may not have been removed successfully
 
 #: /home/user/workspace/vivipos_app/content/controllers/departments_controller.js:146
@@ -596,6 +777,7 @@ An error occurred while modifying Department [%S]. The department may not have b
 
 #: /home/user/workspace/vivipos_app/content/controllers/departments_controller.js:254
 #: /home/user/workspace/vivipos_app/content/controllers/plugroups_controller.js:170
+#: /home/user/workspace/vivipos_app/content/controllers/plugroups_controller.js:171
 [%S] has one or more products and may not be deleted=[%S] has one or more products and may not be deleted
 
 #: /home/user/workspace/vivipos_app/content/controllers/departments_controller.js:270
@@ -608,21 +790,32 @@ An error occurred while removing Department [%S]. The department may not have be
 #: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:66
 #: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:1132
 #: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:1149
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:50
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:67
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:1454
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:1471
 Device Status=Device Status
 
 #: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:50
 #: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:1133
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:51
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:1455
 No device has been enabled for receipt and/or guest check printing!=No device has been enabled for receipt and/or guest check printing!
 
 #: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:60
 #: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:1143
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:61
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:1465
 Device=Device
 
 #: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:60
 #: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:1143
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:61
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:1465
 Port=Port
 
 #: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:67
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:68
 The following enabled devices appear to be offline, please ensure that they are functioning correctly: \n%S=The following enabled devices appear to be offline, please ensure that they are functioning correctly: \n%S
 
 #: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:313
@@ -631,6 +824,12 @@ The following enabled devices appear to be offline, please ensure that they are 
 #: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:335
 #: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:339
 #: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:341
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:357
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:361
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:363
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:379
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:383
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:385
 Receipt Printer %S=Receipt Printer %S
 
 #: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:357
@@ -639,6 +838,18 @@ Receipt Printer %S=Receipt Printer %S
 #: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:379
 #: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:383
 #: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:385
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:401
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:405
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:407
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:423
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:427
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:429
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:445
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:449
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:451
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:467
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:471
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:473
 Guest Check Printer %S=Guest Check Printer %S
 
 #: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:401
@@ -647,6 +858,12 @@ Guest Check Printer %S=Guest Check Printer %S
 #: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:422
 #: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:426
 #: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:428
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:533
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:537
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:539
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:554
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:558
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:560
 VFD %S=VFD %S
 
 #: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:449
@@ -655,9 +872,16 @@ VFD %S=VFD %S
 #: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:478
 #: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:483
 #: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:485
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:581
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:586
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:588
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:610
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:615
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:617
 Cash Drawer %S=Cash Drawer %S
 
 #: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:1150
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:1472
 The following enabled devices appear to be offline, do you still want to save the new configuration?\n%S=The following enabled devices appear to be offline, do you still want to save the new configuration?\n%S
 
 #: /home/user/workspace/vivipos_app/content/controllers/funcpanelecrprefs_controller.js:824
@@ -782,56 +1006,78 @@ Job [%S] removed successfully=Job [%S] removed successfully
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:575
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:660
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:545
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:630
  logged in= logged in
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:592
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:668
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:562
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:638
 Authentication failed! Please make sure the password is correct.=Authentication failed! Please make sure the password is correct.
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:634
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:604
 User [%S] does not exist!=User [%S] does not exist!
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:673
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:643
 Please enter passcode first.=Please enter passcode first.
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:697
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:709
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:722
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:735
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:667
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:679
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:692
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:705
 Sign Off=Sign Off
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:697
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:667
 Discard items that have been registered?=Discard items that have been registered?
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:709
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:679
 What do you want to do with the registered items?=What do you want to do with the registered items?
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:710
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:680
 Queue=Queue
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:710
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:736
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:680
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:706
 Discard=Discard
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:722
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:692
 You have one or more queued orders. Discard them?=You have one or more queued orders. Discard them?
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:735
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:705
 You have one or more queued orders. What do you want to do with them?=You have one or more queued orders. What do you want to do with them?
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:736
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:706
 Keep=Keep
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:745
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:715
 confirm sign-off=confirm sign-off
 
 #: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:745
+#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:715
 Are you ready to sign off?=Are you ready to sign off?
 
 #: /home/user/workspace/vivipos_app/content/controllers/plufilters_controller.js:46
+#: /home/user/workspace/vivipos_app/content/controllers/plufilters_controller.js:54
 Filter [%S] added successfully=Filter [%S] added successfully
 
 #: /home/user/workspace/vivipos_app/content/controllers/plufilters_controller.js:62
+#: /home/user/workspace/vivipos_app/content/controllers/plufilters_controller.js:70
 Filter [%S] removed successfully=Filter [%S] removed successfully
 
 #: /home/user/workspace/vivipos_app/content/controllers/plugroups_controller.js:51
@@ -850,6 +1096,7 @@ Product Group [%S] added successfully=Product Group [%S] added successfully
 Duplicate Product Group name [%S]; Product group not modified.=Duplicate Product Group name [%S]; Product group not modified.
 
 #: /home/user/workspace/vivipos_app/content/controllers/plugroups_controller.js:205
+#: /home/user/workspace/vivipos_app/content/controllers/plugroups_controller.js:210
 Product Group [%S] removed successfully=Product Group [%S] removed successfully
 
 #: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:305
@@ -877,60 +1124,79 @@ Quantity=Quantity
 Product not found [%S].=Product not found [%S].
 
 #: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:446
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:445
 Product No. must not be empty.=Product No. must not be empty.
 
 #: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:449
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:448
 Product Name must not be empty.=Product Name must not be empty.
 
 #: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:456
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:455
 The Product No. [%S] already exists; product not added=The Product No. [%S] already exists; product not added
 
 #: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:460
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:459
 The Product Name [%S] already exists in department [%S]; product not added=The Product Name [%S] already exists in department [%S]; product not added
 
 #: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:464
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:463
 The Product Name [%S] already exists in department [%S]; product not modified=The Product Name [%S] already exists in department [%S]; product not modified
 
 #: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:473
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:472
 Condiment is required but no condiment group selected; product not modified=Condiment is required but no condiment group selected; product not modified
 
 #: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:486
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:485
 Price level %S preset price [%S] is larger than HALO [%S]; product not modified=Price level %S preset price [%S] is larger than HALO [%S]; product not modified
 
 #: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:490
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:489
 Price level %S preset price [%S] is less than LALO [%S]; product not modified=Price level %S preset price [%S] is less than LALO [%S]; product not modified
 
 #: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:510
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:509
 Add New Product=Add New Product
 
 #: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:510
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:509
 New Product=New Product
 
 #: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:510
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:509
 Product No.=Product No.
 
 #: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:510
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:509
 Product Name=Product Name
 
 #: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:554
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:553
 Product [%S] added successfully=Product [%S] added successfully
 
 #: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:558
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:557
 An error occurred while adding Product [%S]; the product may not have been added successfully=An error occurred while adding Product [%S]; the product may not have been added successfully
 
 #: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:638
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:637
 Product [%S] modified successfully=Product [%S] modified successfully
 
 #: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:643
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:642
 An error occurred while modifying Product [%S]. The product may not have been modified successfully=An error occurred while modifying Product [%S]. The product may not have been modified successfully
 
 #: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:680
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:679
 Product [%S] is part of a product set [%S] and may not be removed=Product [%S] is part of a product set [%S] and may not be removed
 
 #: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:713
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:712
 Product [%S] removed successfully=Product [%S] removed successfully
 
 #: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:717
+#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:716
 An error occurred while removing Product [%S]. The product may not have been removed successfully=An error occurred while removing Product [%S]. The product may not have been removed successfully
 
 #: /home/user/workspace/vivipos_app/content/controllers/plusearch_controller.js:104
@@ -982,41 +1248,53 @@ Invalid receipt printer [%S]=Invalid receipt printer [%S]
 The specified receipt printer [%S] is not enabled=The specified receipt printer [%S] is not enabled
 
 #: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:326
+#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:332
 Not an open order; cannot issue guest check=Not an open order; cannot issue guest check
 
 #: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:332
+#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:338
 Cannot issue guest check on a canceled order=Cannot issue guest check on a canceled order
 
 #: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:337
+#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:343
 Nothing has been registered yet; cannot issue guest check=Nothing has been registered yet; cannot issue guest check
 
 #: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:351
 #: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:363
+#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:357
+#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:369
 You have not configured any guest check printers=You have not configured any guest check printers
 
 #: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:356
+#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:362
 All guest check printers are disabled=All guest check printers are disabled
 
 #: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:367
+#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:373
 Invalid guest check printer [%S]=Invalid guest check printer [%S]
 
 #: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:371
+#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:377
 The specified guest check printer [%S] is not enabled=The specified guest check printer [%S] is not enabled
 
 #: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:439
+#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:512
 Error in Print controller: no worker thread available!=Error in Print controller: no worker thread available!
 
 #: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:452
 #: /home/user/workspace/vivipos_app/content/controllers/vfd_controller.js:260
+#: /home/user/workspace/vivipos_app/content/controllers/vfd_controller.js:259
 Specified receipt/guest check template [%S] is empty or does not exist!=Specified receipt/guest check template [%S] is empty or does not exist!
 
 #: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:549
+#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:676
 A receipt has already been issued for this order on printer [%S]=A receipt has already been issued for this order on printer [%S]
 
 #: /home/user/workspace/vivipos_app/content/controllers/shift_changes_controller.js:53
 shift change is not needed!=shift change is not needed!
 
 #: /home/user/workspace/vivipos_app/content/controllers/shift_changes_controller.js:115
+#: /home/user/workspace/vivipos_app/content/controllers/shift_changes_controller.js:116
 shift change has been finished!=shift change has been finished!
 
 #: /home/user/workspace/vivipos_app/content/controllers/sound_controller.js:77
@@ -1029,6 +1307,7 @@ Stock level for [%S] modified successfully=Stock level for [%S] modified success
 Product/Barcode Number (%S) not found!=Product/Barcode Number (%S) not found!
 
 #: /home/user/workspace/vivipos_app/content/controllers/storecontact_controller.js:47
+#: /home/user/workspace/vivipos_app/content/controllers/storecontact_controller.js:45
 Unable to save store contact!=Unable to save store contact!
 
 #: /home/user/workspace/vivipos_app/content/controllers/storecontact_controller.js:55
@@ -1135,6 +1414,7 @@ Add New Employee=Add New Employee
 New Employee=New Employee
 
 #: /home/user/workspace/vivipos_app/content/controllers/users_controller.js:56
+#: /home/user/workspace/vivipos_app/content/controllers/destination_controller.js:58
 Name=Name
 
 #: /home/user/workspace/vivipos_app/content/controllers/users_controller.js:56
@@ -1189,6 +1469,7 @@ Select Access Group=Select Access Group
 Select Default Job=Select Default Job
 
 #: /home/user/workspace/vivipos_app/content/controllers/vfd_controller.js:186
+#: /home/user/workspace/vivipos_app/content/controllers/vfd_controller.js:185
 Error in VFD controller: no worker thread available!=Error in VFD controller: no worker thread available!
 
 #: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:69
@@ -1237,3 +1518,100 @@ QUEUED=QUEUED
 
 #: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:163
 CHG=CHG
+
+#: /home/user/workspace/vivipos_app/content/sync_settings.js:20
+confirm synchronize settings change=confirm synchronize settings change
+
+#: /home/user/workspace/vivipos_app/content/sync_settings.js:21
+Synchronize settings changes require system restart to take effect. If you save the changes now, the system will restart automatically after you return to the Main Screen. Do you want to save your changes?=Synchronize settings changes require system restart to take effect. If you save the changes now, the system will restart automatically after you return to the Main Screen. Do you want to save your changes?
+
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:156
+Not authorized to register open price=Not authorized to register open price
+
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:550
+Not authorized to modify condiment=Not authorized to modify condiment
+
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:592
+Cannot modify condiment price; no price entered=Cannot modify condiment price; no price entered
+
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:613
+Not authorized to modify price=Not authorized to modify price
+
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:620
+Not authorized to modify quantity=Not authorized to modify quantity
+
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2294
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2300
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2307
+confirm cancel=confirm cancel
+
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2294
+Do you really want to cancel this stored order?=Do you really want to cancel this stored order?
+
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2301
+A total payment of [%S] has been received on this order, do you really want to cancel it without refunding the customer?=A total payment of [%S] has been received on this order, do you really want to cancel it without refunding the customer?
+
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2308
+A total credit of [%S] has been given on this order, do you really want to cancel it?=A total credit of [%S] has been given on this order, do you really want to cancel it?
+
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2710
+No open order to queue=No open order to queue
+
+#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2715
+Can not queue the recalled order!!=Can not queue the recalled order!!
+
+#: /home/user/workspace/vivipos_app/content/controllers/destination_controller.js:58
+Add New Destination=Add New Destination
+
+#: /home/user/workspace/vivipos_app/content/controllers/destination_controller.js:58
+New Destination=New Destination
+
+#: /home/user/workspace/vivipos_app/content/controllers/destination_controller.js:65
+Destination [%S] already exists=Destination [%S] already exists
+
+#: /home/user/workspace/vivipos_app/content/controllers/destination_controller.js:83
+Destination [%S] added successfully=Destination [%S] added successfully
+
+#: /home/user/workspace/vivipos_app/content/controllers/destination_controller.js:99
+Destination [%S] modified successfully=Destination [%S] modified successfully
+
+#: /home/user/workspace/vivipos_app/content/controllers/destination_controller.js:103
+Destination name must not be empty=Destination name must not be empty
+
+#: /home/user/workspace/vivipos_app/content/controllers/destination_controller.js:116
+Destination [%S] deleted successfully=Destination [%S] deleted successfully
+
+#: /home/user/workspace/vivipos_app/content/controllers/destination_controller.js:234
+Destination [%S] has not been defined=Destination [%S] has not been defined
+
+#: /home/user/workspace/vivipos_app/content/controllers/destination_controller.js:242
+Shopping cart is missing; please contact your dealer for technical support=Shopping cart is missing; please contact your dealer for technical support
+
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:489
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:493
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:495
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:511
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:515
+#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:517
+Report Printer %S=Report Printer %S
+
+#: /home/user/workspace/vivipos_app/content/controllers/plufilters_controller.js:38
+Filter [%S] already exists=Filter [%S] already exists
+
+#: /home/user/workspace/vivipos_app/content/controllers/plugroups_controller.js:175
+[%S] has been linked to one or more check printers and may not be deleted=[%S] has been linked to one or more check printers and may not be deleted
+
+#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:483
+The specified report/label printer [%S] is not configured=The specified report/label printer [%S] is not configured
+
+#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:487
+Invalid report/label printer [%S]=Invalid report/label printer [%S]
+
+#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:491
+The specified report/label printer [%S] is not enabled=The specified report/label printer [%S] is not enabled
+
+#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:590
+Specified template [%S] is empty or does not exist!=Specified template [%S] is empty or does not exist!
+
+#: /home/user/workspace/vivipos_app/content/controllers/storecontact_controller.js:52
+Store name must not be blank!=Store name must not be blank!

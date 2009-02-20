@@ -8,7 +8,7 @@
 }
 
 .MainL {
-    border-right: 1px solid #c1ab8e;
+    border-right: 1px solid #a98f6e;
 }
 
 .DataForm {
@@ -17,7 +17,7 @@
 
 .RightPnlB {
     margin: 2px 20px 12px 20px;
-    background: #f8f5f1;
+    background: #ede7dc;
     padding: 8px;
 }
 
@@ -27,7 +27,7 @@
 .DataB {
     border-right: 2px solid white;
     border-bottom: 2px solid white;
-    background: #f8f5f1;
+    background: #ede7dc;
     padding: 8px;
 }
 

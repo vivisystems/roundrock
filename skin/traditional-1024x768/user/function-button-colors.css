@@ -6,100 +6,100 @@
  */
 
 .function-button-color-default {
-    -moz-border-top-colors: #afafaf;
-    -moz-border-right-colors: #afafaf;
-    -moz-border-bottom-colors: #afafaf;
-    -moz-border-left-colors: #afafaf;
+    -moz-border-top-colors: #a6a6a6;
+    -moz-border-right-colors: #a6a6a6;
+    -moz-border-bottom-colors: #a6a6a6;
+    -moz-border-left-colors: #a6a6a6;
     background: #fff url(images/funColor01.gif) bottom left repeat-x;
 }
 
 .function-button-color-1 {
-    -moz-border-top-colors: #7f8893 !important;
-    -moz-border-right-colors: #7f8893 !important;
-    -moz-border-bottom-colors: #7f8893 !important;
-    -moz-border-left-colors: #7f8893 !important;
-    background: #edf4ff url(images/funColor02.gif) bottom left repeat-x !important;
+    -moz-border-top-colors: #758498 !important;
+    -moz-border-right-colors: #758498 !important;
+    -moz-border-bottom-colors: #758498 !important;
+    -moz-border-left-colors: #758498 !important;
+    background: #dfebff url(images/funColor02.gif) bottom left repeat-x !important;
 }
 
 .function-button-color-2 {
-    -moz-border-top-colors: #919612 !important;
-    -moz-border-right-colors: #919612 !important;
-    -moz-border-bottom-colors: #919612 !important;
-    -moz-border-left-colors: #919612 !important;
-    background: #e5e899 url(images/funColor03.gif) bottom left repeat-x !important;
+    -moz-border-top-colors: #98a006 !important;
+    -moz-border-right-colors: #98a006 !important;
+    -moz-border-bottom-colors: #98a006 !important;
+    -moz-border-left-colors: #98a006 !important;
+    background: #d3d768 url(images/funColor03.gif) bottom left repeat-x !important;
 }
 
 .function-button-color-3 {
-    -moz-border-top-colors: #d77e00 !important;
-    -moz-border-right-colors: #d77e00 !important;
-    -moz-border-bottom-colors: #d77e00 !important;
-    -moz-border-left-colors: #d77e00 !important;
-    background: #fedfb2 url(images/funColor04.gif) bottom left repeat-x !important;
+    -moz-border-top-colors: #fa6200 !important;
+    -moz-border-right-colors: #fa6200 !important;
+    -moz-border-bottom-colors: #fa6200 !important;
+    -moz-border-left-colors: #fa6200 !important;
+    background: #fdc987 url(images/funColor04.gif) bottom left repeat-x !important;
 
 }
 
 .function-button-color-4 {
-    -moz-border-top-colors: #526763 !important;
-    -moz-border-right-colors: #526763 !important;
-    -moz-border-bottom-colors: #526763 !important;
-    -moz-border-left-colors: #526763 !important;
-    background: #d3dfdc url(images/funColor05.gif) bottom left repeat-x !important;
+    -moz-border-top-colors: #50756d !important;
+    -moz-border-right-colors: #50756d !important;
+    -moz-border-bottom-colors: #50756d !important;
+    -moz-border-left-colors: #50756d !important;
+    background: #b6c9c4 url(images/funColor05.gif) bottom left repeat-x !important;
 }
 
 .function-button-color-5 {
-    -moz-border-top-colors: #475620 !important;
-    -moz-border-right-colors: #475620 !important;
-    -moz-border-bottom-colors: #475620 !important;
-    -moz-border-left-colors: #475620 !important;
-    background: #bfc7aa url(images/funColor06.gif) bottom left repeat-x !important;
+    -moz-border-top-colors: #2f410e !important;
+    -moz-border-right-colors: #2f410e !important;
+    -moz-border-bottom-colors: #2f410e !important;
+    -moz-border-left-colors: #2f410e !important;
+    background: #99a47c url(images/funColor06.gif) bottom left repeat-x !important;
 }
 
 .function-button-color-6 {
-    -moz-border-top-colors: #8e4755 !important;
-    -moz-border-right-colors: #8e4755 !important;
-    -moz-border-bottom-colors: #8e4755 !important;
-    -moz-border-left-colors: #8e4755 !important;
-    background: #e2bdc5 url(images/funColor07.gif) bottom left repeat-x !important;
+    -moz-border-top-colors: #8c2c3b !important;
+    -moz-border-right-colors: #8c2c3b !important;
+    -moz-border-bottom-colors: #8c2c3b !important;
+    -moz-border-left-colors: #8c2c3b !important;
+    background: #cd96a1 url(images/funColor07.gif) bottom left repeat-x !important;
 }
 
 .function-button-color-7 {
-    -moz-border-top-colors: #438987 !important;
-    -moz-border-right-colors: #438987 !important;
-    -moz-border-bottom-colors: #438987 !important;
-    -moz-border-left-colors: #438987 !important;
-    background: #badcdb url(images/funColor08.gif) bottom left repeat-x !important;
+    -moz-border-top-colors: #257a77 !important;
+    -moz-border-right-colors: #257a77 !important;
+    -moz-border-bottom-colors: #257a77 !important;
+    -moz-border-left-colors: #257a77 !important;
+    background: #92c4c2 url(images/funColor08.gif) bottom left repeat-x !important;
 }
 
 .function-button-color-8 {
-    -moz-border-top-colors: #5b2717 !important;
-    -moz-border-right-colors: #5b2717 !important;
-    -moz-border-bottom-colors: #5b2717 !important;
-    -moz-border-left-colors: #5b2717 !important;
-    background: #c6aca4 url(images/funColor09.gif) bottom left repeat-x !important;
+    -moz-border-top-colors: #3f1108 !important;
+    -moz-border-right-colors: #3f1108 !important;
+    -moz-border-bottom-colors: #3f1108 !important;
+    -moz-border-left-colors: #3f1108 !important;
+    background: #a37f75 url(images/funColor09.gif) bottom left repeat-x !important;
 }
 
 .function-button-color-9 {
-    -moz-border-top-colors: #674d28 !important;
-    -moz-border-right-colors: #674d28 !important;
-    -moz-border-bottom-colors: #674d28 !important;
-    -moz-border-left-colors: #674d28 !important;
-    background: #b6a58d url(images/funColor10.gif) bottom left repeat-x !important;
+    -moz-border-top-colors: #482d11 !important;
+    -moz-border-right-colors: #482d11 !important;
+    -moz-border-bottom-colors: #482d11 !important;
+    -moz-border-left-colors: #482d11 !important;
+    background: #8c775b url(images/funColor10.gif) bottom left repeat-x !important;
 }
 
 .function-button-color-10 {
-    -moz-border-top-colors: #406884 !important;
-    -moz-border-right-colors: #406884 !important;
-    -moz-border-bottom-colors: #406884 !important;
-    -moz-border-left-colors: #406884 !important;
-    background: #b8cbd9 url(images/funColor11.gif) bottom left repeat-x !important;
+    -moz-border-top-colors: #224b70 !important;
+    -moz-border-right-colors: #224b70 !important;
+    -moz-border-bottom-colors: #224b70 !important;
+    -moz-border-left-colors: #224b70 !important;
+    background: #8faabf url(images/funColor11.gif) bottom left repeat-x !important;
 }
 
 .function-button-color-11 {
-    -moz-border-top-colors: #763b74 !important;
-    -moz-border-right-colors: #763b74 !important;
-    -moz-border-bottom-colors: #763b74 !important;
-    -moz-border-left-colors: #763b74 !important;
-    background: #d8c0d7 url(images/funColor12.gif) bottom left repeat-x !important;
+    -moz-border-top-colors: #5b1e59 !important;
+    -moz-border-right-colors: #5b1e59 !important;
+    -moz-border-bottom-colors: #5b1e59 !important;
+    -moz-border-left-colors: #5b1e59 !important;
+    background: #be9abc url(images/funColor12.gif) bottom left repeat-x !important;
 }
 
 .function-button-color-default[selected], .function-button-color-1[selected],
@@ -107,5 +107,5 @@
 .function-button-color-5[selected], .function-button-color-6[selected], .function-button-color-7[selected],
 .function-button-color-8[selected], .function-button-color-9[selected], .function-button-color-10[selected],
 .function-button-color-11[selected] {
-    list-style-image: url(chrome://viviecr/skin/images/gtk-yes.png);
+    list-style-image: url(images/con_sel.png);
 }

@@ -3,7 +3,7 @@
 }
 
 .MainL {
-    border-right: 1px solid #c1ab8e;
+    border-right: 1px solid #a98f6e;
     padding: 0 8px 5px 4px;
 }
 
@@ -12,14 +12,14 @@
 }
 
 .PLbox {
-    background: #f4f3ee;
+    background: #ecebe2;
     margin: 5px 10px 5px 10px;
     padding: 8px;
 }
 
 .RightPnlB {
     margin: 0px 10px 5px 10px;
-    background: #f8f5f1;
+    background: #ede7dc;
     padding: 8px;
 }
 
@@ -29,21 +29,32 @@
 
 .RightPnlB button {
     border: 3px solid;
-    -moz-border-top-colors: #f8f5f1 #f2efeb #e6e3df;
-    -moz-border-right-colors: #e6e3df #d3d0cd #bab8b5;
-    -moz-border-bottom-colors: #e6e3df #d3d0cd #bab8b5;
-    -moz-border-left-colors: #f8f5f1 #f2efeb #e6e3df;
+    -moz-border-top-colors: #ede7dc #e6e0d5 #d7d1c7;
+  -moz-border-right-colors: #d7d1c7 #c0bcb3 #a39f97;
+  -moz-border-bottom-colors: #d7d1c7 #c0bcb3 #a39f97;
+  -moz-border-left-colors: #ede7dc #e6e0d5 #d7d1c7;
     background: white url(../images/tboxbg_readonly.png) left center repeat-x;
     -moz-appearance: none;
     min-height: 45px;
-    color: #736357;
+    color: #372213;
+}
+.RightPnlB button:hover {
+    border: 3px solid;
+    -moz-border-top-colors: #ede7dc #e6e0d5 #ed145b;
+  -moz-border-right-colors: #d7d1c7 #c0bcb3 #ed145b;
+  -moz-border-bottom-colors: #d7d1c7 #c0bcb3 #ed145b;
+  -moz-border-left-colors: #ede7dc #e6e0d5 #ed145b;
+    background: white url(../images/tboxbg_readonly.png) left center repeat-x;
+    -moz-appearance: none;
+    min-height: 45px;
+    color: #372213;
 }
 .RightPnlB button:active {
     border: 2px solid;
-    -moz-border-top-colors: #00a99d #00a99d;
-    -moz-border-right-colors: #00a99d #00a99d;
-    -moz-border-bottom-colors: #00a99d #00a99d;
-    -moz-border-left-colors: #00a99d #00a99d;
+    -moz-border-top-colors: #ede7dc #e6e0d5 #ed145b;
+  -moz-border-right-colors: #d7d1c7 #c0bcb3 #ed145b;
+  -moz-border-bottom-colors: #d7d1c7 #c0bcb3 #ed145b;
+  -moz-border-left-colors: #ede7dc #e6e0d5 #ed145b;
     background: white url(../images/itembtnB_sel.png) left center repeat-x;
     -moz-appearance: none;
     color: #32787a;
@@ -54,16 +65,26 @@
     min-height: 50px;
     -moz-border-radius: 6px;
     border: 3px solid;
-    -moz-border-top-colors: #f4f3ee #eeede8 #e2e1dc;
-    -moz-border-right-colors: #e2e1dc #d0cfcb #b7b6b2;
-    -moz-border-bottom-colors: #e2e1dc #d0cfcb #b7b6b2;
-    -moz-border-left-colors: #f4f3ee #eeede8 #e2e1dc;
+    -moz-border-top-colors: #ecebe2 #e5e4db #d6d5cd;
+	  -moz-border-right-colors: #d6d5cd #c0bfb7 #a2a19b;
+	  -moz-border-bottom-colors: #d6d5cd #c0bfb7 #a2a19b;
+	  -moz-border-left-colors: #ecebe2 #e5e4db #d6d5cd;
     background: white url(../images/tboxbg_readonly.png) left center repeat-x;
     -moz-appearance: none;
     color: #6c6050;
     font-size: 12pt;
     padding: 0 8px;
 }
+.BtnAdd[disabled=false]:hover {
+    border: 3px solid;
+    -moz-border-top-colors: #ecebe2 #e5e4db #ed145b;
+	  -moz-border-right-colors: #d6d5cd #c0bfb7 #ed145b;
+	  -moz-border-bottom-colors: #d6d5cd #c0bfb7 #ed145b;
+	  -moz-border-left-colors: #ecebe2 #e5e4db #ed145b;
+    background: white url(../images/tboxbg_readonly.png) left center repeat-x;
+    -moz-appearance: none;
+}
+
 .BtnAdd[disabled=false]:active {
     border: 2px solid;
   -moz-border-top-colors: #ee9400 #ee9400;

@@ -3,7 +3,7 @@
 }
 
 .MainL {
-    border-right: 1px solid #c1ab8e;
+    border-right: 1px solid #a98f6e;
 }
 
 .ToolBar {
@@ -20,7 +20,7 @@
     padding: 8px 15px;
     background: white ;
     border:none;
-    color: #4b4b4b;
+    color: #4f4f51;
     font-size: 12pt;
 }
 .PLUTabbox tab hbox {
@@ -29,7 +29,7 @@
 }
 .PLUTabbox tab[selected=true] {
     -moz-user-focus: ignore;
-    background-color: #92856a;
+    background-color: #847860;
     background-image: none;
     color: white;
     font-weight: bold;
@@ -39,7 +39,7 @@
     -moz-border-radius-bottomright: 0px;
 }
 .PLUTabbox tabpanel {
-    border-top: 2px solid #92856a;
+    border-top: 2px solid #847860;
     background: #e9e8e3;
     padding: 10px 5px;
     -moz-border-radius-bottomleft: 10px;
@@ -90,7 +90,7 @@
 /* �ϰ���D */
 .DataFormB label {
   font-size: 10pt;
-  color: #736357;
+  color: #372213;
 }
 
 .DepartBox {
@@ -183,33 +183,52 @@
 }
 .PLTable label {
     font-size: 10pt;
-    color: #736357;
+    color: #372213;
 }
 
 
 .SearchBtn {
     -moz-appearance: none;
-    color: #6c6050;
+    color: #372213;
     font-size: 12pt;
     margin: 0 5px;
     -moz-border-radius: 6px;
     border: 3px solid;
-    -moz-border-top-colors: #f4f3ee #eeede8 #e2e1dc;
-    -moz-border-right-colors: #e2e1dc #d0cfcb #b7b6b2;
-    -moz-border-bottom-colors: #e2e1dc #d0cfcb #b7b6b2;
-    -moz-border-left-colors: #f4f3ee #eeede8 #e2e1dc;
-    background: white url(../images/tboxbg_readonly.png) left center repeat-x;
+    -moz-border-top-colors: #e9e8e3 #dad9d5 #bdbcb8;
+    -moz-border-right-colors: #bdbcb8 #91918e #585755;
+    -moz-border-bottom-colors: #bdbcb8 #91918e #585755;
+    -moz-border-left-colors: #e9e8e3 #dad9d5 #bdbcb8;
+    background: white url(images/tboxbg_readonly.png) left center repeat-x;
     max-height: 60px;
     height: 50px;
     padding: 3px;
 }
 
-.SearchBtn:active {
+.SearchBtn:hover {
     border: 3px solid;
     -moz-border-top-colors: #ee9400 #ee9400 #ee9400;
     -moz-border-right-colors: #ee9400 #ee9400 #ee9400;
     -moz-border-bottom-colors: #ee9400 #ee9400 #ee9400;
     -moz-border-left-colors: #ee9400 #ee9400 #ee9400;
     -moz-appearance: none;
-    color: #603913;
+    color: #372213;
+}
+
+#rows_filter row{
+    -moz-box-align: center;
+    padding: 2px;
+}
+
+#rows_filter textbox {
+    min-width: 70px;
+}
+
+#rows_filter label {
+    font-size: 10pt;
+    color: #372213;
+}
+
+.AdvButton{
+    padding: 4px 8px;
+    min-height: 40px;
 }

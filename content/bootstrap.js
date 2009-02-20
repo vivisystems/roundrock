@@ -93,6 +93,10 @@ include('chrome://viviecr/content/controllers/destination_controller.js');
 
 include('chrome://viviecr/content/controllers/test_controller.js');
 
+include('chrome://viviecr/content/devices/deviceTemplate.js');
+include('chrome://viviecr/content/devices/deviceTemplateUtils.js');
+include('chrome://viviecr/content/reports/template_ext.js');
+
 
 //
 //

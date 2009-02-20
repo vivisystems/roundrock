@@ -440,7 +440,7 @@
         },
         
         resetLayout: function (initial) {
-
+            
             var registerAtLeft = GeckoJS.Configure.read('vivipos.fec.settings.RegisterAtLeft') || false;
             var functionPanelOnTop = GeckoJS.Configure.read('vivipos.fec.settings.FunctionPanelOnTop') || false;
             var PLUbeforeDept = GeckoJS.Configure.read('vivipos.fec.settings.DeptBeforePLU') || false;
@@ -476,7 +476,6 @@
             if (!this.toggleNumPad(hideNumPad, initial)) {
                 this.resizeLeftPanel(initial);
             }
-
         },
         
         initialLogin: function () {

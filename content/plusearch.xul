@@ -41,19 +41,21 @@
                             <vivibutton id="ekeyBtn"  label="&plus.button.numpad.enter;" oncommand="$do('searchPlu', document.getElementById('plu').value, 'PluSearch');" class="fixedbtn" />
                         </vbox>
                     </hbox>
+                    <spacer style="height:5px;" />
                     <groupbox id="advance_search">
-                        <caption label="&plus.search.advancesearch;:" />
-                        <vbox>
+                        <caption label="&plus.search.advancesearch;:" class="SubTitle" />
+                        <hbox>
                             <grid>
                                 <rows id="rows_filter">
 
                                 </rows>
                             </grid>
-                            <hbox>
+                            <spacer style="width:5px;" />
+                            <vbox>
                                 <vivibutton id="advSearchBtn"  label="&plus.button.numpad.advsearch;" oncommand="$do('advSearch', null, 'PluSearch');" class="fixedbtn"  />
                                 <vivibutton id="advClearBtn"  label="&plus.button.numpad.advclear;" oncommand="$do('advClear', null, 'PluSearch');" class="fixedbtn"  />
-                            </hbox>
-                        </vbox>
+                            </vbox>
+                        </hbox>
                     </groupbox>
                     <spacer style="height:5px;" />
                     <viviscrollabletree id="plusearchscrollablepanel" flex="1"

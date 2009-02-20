@@ -3,7 +3,7 @@
 }
 
 .MainL {
-    border-right: 1px solid #c1ab8e;
+    border-right: 1px solid #a98f6e;
 }
 
 .dialogbtns {
@@ -18,19 +18,20 @@
 }
 
 .DataRowA {
-    background: #f4f3ee;
+    background: #ecebe2;
     margin: 5px 8px 1px 4px;
     padding: 8px;
 }
 
 .DataRow {
-    background: #f8f5f1;
+    background: #ede7dc;
     margin: 1px 8px 1px 4px;
     padding: 8px;
+    -moz-box-align: center;
 }
 .DataRowA label, .DataRow label {
     font-size: 10pt;
-    color: #736357;
+    color: #372213;
 }
 .DataRow hbox {
     -mox-box-align: center;
@@ -41,7 +42,7 @@
 
 .FieldTitle {
     font-size: 9pt;
-    color: #736357;
+    color: #372213;
 }
 .SpaceA {
     width: 40px;

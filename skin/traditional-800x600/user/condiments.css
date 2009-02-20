@@ -3,11 +3,11 @@
 }
 
 .MainL {
-    border-right: 1px solid #c1ab8e;
+    border-right: 1px solid #a98f6e;
 }
 
 .TopPnl {
-    border-bottom: 1px solid #c1ab8e;
+    border-bottom: 1px solid #a98f6e;
     padding-bottom:4px;
     margin-bottom: 5px;
 }
@@ -39,7 +39,7 @@
 
 .RightPnlB .SubTitle {
   font-size: 10pt;
-  color: #736357;
+  color: #372213;
   margin: 8px;
 }
 
