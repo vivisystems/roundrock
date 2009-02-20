@@ -19,7 +19,7 @@
 <!ENTITY devices.handshaking.none "None">
 <!ENTITY devices.devicemodel.label "Device Model">
 <!ENTITY devices.deviceencoding.label "Encoding">
-<!ENTITY devices.receipt.autoprint.label "Auto-print after order finalization">
+<!ENTITY devices.receipt.autoprint.label "Auto-print after payment finalization">
 <!ENTITY devices.guestcheck.printer.1.label "Check Printer 1">
 <!ENTITY devices.guestcheck.printer.2.label "Check Printer 2">
 <!ENTITY devices.guestcheck.printer.3.label "Check Printer 3">

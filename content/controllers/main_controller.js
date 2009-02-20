@@ -387,7 +387,7 @@
             var hideFPScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.HideFPScrollbar');
             var cropDeptLabel = GeckoJS.Configure.read('vivipos.fec.settings.CropDeptLabel') || false;
             var cropPLULabel = GeckoJS.Configure.read('vivipos.fec.settings.CropPLULabel') || false;
-alert(hideDeptScrollbar + ':' + hidePLUScrollbar);
+
             // sanity check on department and plu panel heights
             var deptHeight = departmentRows * departmentButtonHeight;
             var pluHeight = pluRows * pluButtonHeight;
