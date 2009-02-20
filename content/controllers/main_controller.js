@@ -175,26 +175,67 @@
             // depPanel click
             // change cate or sale it
             var dep = this.depPanelView.getCurrentIndexData(index);
-            if (typeof dep.no != 'undefined' && dep.cansale)  {
-                // department not group
-                var buf = this._getKeypadController().getBuffer();
-                if(GeckoJS.Session.get('cart_set_qty_value') != null || buf.length > 0  ) {
-                    return this.requestCommand('addItem',dep,'Cart');
+            var catepanel = document.getElementById('catescrollablepanel');
+            if (dep) {
+                var soldOutButton = document.getElementById('catescrollablepanel-soldout');
+                if (soldOutButton && soldOutButton.checkState) {
+
+                    if (dep.soldout) {
+                        dep.soldout = false;
+                    }
+                    else {
+                        dep.soldout = true;
+                    }
+                    soldOutButton.checkState = 0;
+                    soldOutButton.checked = false;
+                    catepanel.selectedItems = [];
+                    catepanel.selectedIndex = -1;
+                }
+                else if (dep.soldout) {
+                    catepanel.selectedItems = [];
+                    catepanel.selectedIndex = -1;
+                    return;
+                }
+                else {
+                    if (typeof dep.no != 'undefined' && dep.cansale)  {
+                        // department not group
+                        var buf = this._getKeypadController().getBuffer();
+                        if(GeckoJS.Session.get('cart_set_qty_value') != null || buf.length > 0  ) {
+                            return this.requestCommand('addItem',dep,'Cart');
+                        }
+                    }
+            
+                    // change pluview panel
+                    var clearBuf = GeckoJS.Configure.read("vivipos.fec.settings.ChangeDepartmentClearBuffer") || false;
+                    if(clearBuf) this.requestCommand('clear',null,'Cart');
+                    this.pluPanelView.setCatePanelIndex(index);
                 }
             }
-            
-            // change pluview panel
-            var clearBuf = GeckoJS.Configure.read("vivipos.fec.settings.ChangeDepartmentClearBuffer") || false;
-            if(clearBuf) this.requestCommand('clear',null,'Cart');
-            this.pluPanelView.setCatePanelIndex(index);
         },
 
         clickPluPanel: function(index) {
             var product = this.pluPanelView.getCurrentIndexData(index);
-            var prodpanel = document.getElementById('prodscrollablepanel');
-            
-            return this.requestCommand('addItem',product,'Cart');
 
+            // check whether the panel is in sold-out mode
+            if (product) {
+                var prodpanel = document.getElementById('prodscrollablepanel');
+                var soldOutButton = document.getElementById('prodscrollablepanel-soldout');
+                if (soldOutButton && soldOutButton.checkState) {
+
+                    if (product.soldout) {
+                        product.soldout = false;
+                    }
+                    else {
+                        product.soldout = true;
+                    }
+                    soldOutButton.checkState = 0;
+                    soldOutButton.checked = false;
+                    prodpanel.vivibuttonpanel.invalidate();
+                }
+                else if (!product.soldout) {
+                    return this.requestCommand('addItem',product,'Cart');
+                }
+            }
         },
 
         setClerk: function () {
@@ -346,7 +387,7 @@
             var hideFPScrollbar = GeckoJS.Configure.read('vivipos.fec.settings.HideFPScrollbar');
             var cropDeptLabel = GeckoJS.Configure.read('vivipos.fec.settings.CropDeptLabel') || false;
             var cropPLULabel = GeckoJS.Configure.read('vivipos.fec.settings.CropPLULabel') || false;
-
+alert(hideDeptScrollbar + ':' + hidePLUScrollbar);
             // sanity check on department and plu panel heights
             var deptHeight = departmentRows * departmentButtonHeight;
             var pluHeight = pluRows * pluButtonHeight;
@@ -445,6 +486,7 @@
             var functionPanelOnTop = GeckoJS.Configure.read('vivipos.fec.settings.FunctionPanelOnTop') || false;
             var PLUbeforeDept = GeckoJS.Configure.read('vivipos.fec.settings.DeptBeforePLU') || false;
             var checkTrackingMode = GeckoJS.Configure.read('vivipos.fec.settings.CheckTrackingMode') || false;
+            var hideSoldOutButtons = GeckoJS.Configure.read('vivipos.fec.settings.HideSoldOutButtons') || false;
             var hideNumPad = false;
             
             var hbox = document.getElementById('mainPanel');
@@ -456,6 +498,8 @@
             var productPanel = document.getElementById('productPanel');
             var cartList = document.getElementById('cartList');
             var checkTrackingStatus = document.getElementById('vivipos_fec_check_tracking_status');
+            var soldOutCategory = document.getElementById('catescrollablepanel-soldout');
+            var soldOutProduct = document.getElementById('prodscrollablepanel-soldout');
             
             if (hbox) hbox.setAttribute('dir', registerAtLeft ? 'reverse' : 'normal');
             if (deptPanel) deptPanel.setAttribute('dir', registerAtLeft ? 'normal' : 'reverse');
@@ -468,6 +512,8 @@
             if (checkTrackingStatus) {
                 checkTrackingStatus.setAttribute('hidden', checkTrackingMode ? 'false' : 'true');
             }
+            if (soldOutCategory) soldOutCategory.setAttribute('hidden', hideSoldOutButtons ? 'true' : 'false');
+            if (soldOutProduct) soldOutProduct.setAttribute('hidden', hideSoldOutButtons ? 'true' : 'false');
 
             // fudge to make functionPanelOnTop work even if rightPanel is taller than the screen
             leftPanel.setAttribute('pack', functionPanelOnTop ? 'end' : 'start');

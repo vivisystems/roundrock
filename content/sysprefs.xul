@@ -230,6 +230,7 @@
             <preference id="pref_hidepluscrollbar" name="vivipos.fec.settings.HidePLUScrollbar" type="bool"/>
             <preference id="pref_hidefpscrollbar" name="vivipos.fec.settings.HideFPScrollbar" type="bool"/>
             <preference id="pref_checktrackingmode" name="vivipos.fec.settings.CheckTrackingMode" type="bool"/>
+            <preference id="pref_hidesoldoutbuttons" name="vivipos.fec.settings.HideSoldOutButtons" type="bool"/>
 
             <preference id="pref_crop_dept_label" name="vivipos.fec.settings.CropDeptLabel" type="bool"/>
             <preference id="pref_crop_plu_label" name="vivipos.fec.settings.CropPLULabel" type="bool"/>
@@ -267,6 +268,7 @@
                 </row>
                 <row>
                     <checkbox id="checkTrackingMode" label="&layout.checktrackingmode;" preference="pref_checktrackingmode" />
+                    <checkbox id="hideSoldOutButtons" label="&layout.hidesoldoutbuttons;" preference="pref_hidesoldoutbuttons" />
                 </row>
             </rows>
         </grid>
