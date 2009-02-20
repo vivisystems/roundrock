@@ -1,0 +1,186 @@
+<?xml version="1.0"?>
+
+<bindings xmlns="http://www.mozilla.org/xbl"
+          xmlns:xbl="http://www.mozilla.org/xbl"
+          xmlns:html="http://www.w3.org/1999/xhtml"
+          xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <binding id="vivipanel">
+        <content>
+            <html:div anonid="overlay" style="margin: 0pt; padding: 0pt; z-index: 1000; cursor: wait; width: 100%; height: 100%; top: 0pt; left: 0pt; position: fixed; display: none;" class="panelOverlay"/>
+            <html:div anonid="box" style="margin: 0px; padding: 0px; z-index: 1001; position: fixed; cursor: auto; display: none;" class="panelBox">
+                <children />
+            </html:div>
+        </content>
+
+        <resources>
+            <stylesheet src="chrome://vivipos/skin/bindings/vivipanel.css" />
+        </resources>
+
+        <implementation>
+
+            <property name="windowWidth" onget="return window.innerWidth;" readonly="true" />
+
+            <property name="windowHeight" onget="return window.innerHeight;" readonly="true" />
+
+            <property name="popupOverlay">
+                <getter>
+                    return document.getAnonymousElementByAttribute(this, "anonid", "overlay");
+                </getter>
+            </property>
+
+            <property name="popupBox">
+                <getter>
+                    return document.getAnonymousElementByAttribute(this, "anonid", "box");
+                </getter>
+            </property>
+
+            <property name="state" readonly="true" >
+                <getter>
+                    <![CDATA[
+                        var display = $(this.popupBox).css('display');
+                        if (display == 'none') {
+                           return 'closed';
+                        }else {
+                           return 'open';
+                        }
+                    ]]>
+                </getter>
+            </property>
+
+            <method name="_fireEvent">
+                <parameter name="aType"/>
+                <body>
+                    <![CDATA[
+
+                        var event = document.createEvent("Events");
+                        event.initEvent(aType, true, true);
+
+                        // handle dom event handlers
+                        var noCancel = this.dispatchEvent(event);
+
+                        // handle any xml attribute event handlers
+                        var handler = this.getAttribute("on"+aType);
+                        if (handler != "") {
+                            var fn = new Function("event", handler);
+                            var returned = fn(event);
+                            if (returned == false)
+                              noCancel = false;
+                        }
+                        
+                        return noCancel;
+                    ]]>
+                </body>
+            </method>
+
+            <method name="openPopupAtScreen">
+                <parameter name="aX"/>
+                <parameter name="aY"/>
+                <parameter name="aIsContextMenu"/>
+                <body>
+                    <![CDATA[
+
+                        aX = isNaN(parseInt(aX)) ? 0 : parseInt(aX) ;
+                        aY = isNaN(parseInt(aY)) ? 0 : parseInt(aY) ;
+                        
+                        var cssObj = {left: aX, top: aY};
+                        $(this.popupBox).css(cssObj);
+
+                        // GREUtils.log('popupshowing');
+                        this._fireEvent('popupshowing');
+
+                        try {
+                            $(this.popupBox).show();
+                            $(this.popupOverlay).show();
+                        }catch(e) {
+                            // alert(e);
+                        }
+
+                        //GREUtils.log('popupshown');
+                        this._fireEvent('popupshown');
+
+                    ]]>
+                </body>
+            </method>
+
+            <method name="openPopup">
+                <parameter name="aAnchorElement"/>
+                <parameter name="aPosition"/>
+                <parameter name="aX"/>
+                <parameter name="aY"/>
+                <parameter name="aIsContextMenu"/>
+                <parameter name="aAttributesOverride"/>
+                <body>
+                    <![CDATA[
+                        // vivipanel only support panel's openPopupAtScreen
+                        this.openPopupAtScreen(aX, aY, aIsContextMenu);
+                    ]]>
+                </body>
+            </method>
+
+            <method name="showPopup">
+                <parameter name="element"/>
+                <parameter name="xpos"/>
+                <parameter name="ypos"/>
+                <parameter name="popuptype"/>
+                <parameter name="anchoralignment"/>
+                <parameter name="popupalignment"/>
+                <body>
+                    <![CDATA[
+                    
+                        // vivipanel only support panel's openPopupAtScreen
+                        this.openPopupAtScreen(xpos, ypos, false);
+
+                    ]]>
+                </body>
+            </method>
+
+            <method name="hidePopup">
+                <body>
+                    <![CDATA[
+
+                        this._fireEvent('popuphiding');
+
+                        $(this.popupBox).hide();
+                        $(this.popupOverlay).hide();
+
+                        this._fireEvent('popuphidden');
+
+
+                    ]]>
+                </body>
+            </method>
+
+            <method name="sizeTo">
+                <parameter name="aWidth"/>
+                <parameter name="aHeight"/>
+                <body>
+                    <![CDATA[
+
+                        var cssObj = {width: aWidth+'px', height: aHeight+'px'};
+                        $(this.popupBox).css(cssObj);
+                        
+                    ]]>
+                </body>
+            </method>
+
+            <method name="moveTo">
+                <parameter name="aLeft"/>
+                <parameter name="aTop"/>
+                <body>
+                    <![CDATA[
+
+                        var cssObj = {left: aLeft, top: aTop};
+                        $(this.popupBox).css(cssObj);
+                        
+                    ]]>
+                </body>
+            </method>
+            
+        </implementation>
+
+        <handlers>
+        </handlers>
+
+    </binding>
+</bindings>

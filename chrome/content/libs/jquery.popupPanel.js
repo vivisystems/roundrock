@@ -30,28 +30,43 @@
     // override these in your code to change the default behavior and style
     $.popupPanel.defaults = {
 
-        // top for panel
-        top: 0,
-        
-        left: 0,
+	css: {
+            padding:        0,
+            margin:         0,
+            width:          '640px',
+            height:          '480px'
+            //top:            '5%',
+            //left:           '5%'
+            //color:          '#000'
+            //backgroundColor:'#fff'
+	},
 
-        // styles for the panel
-        panelCSS:  {
-            backgroundColor: '#000',
-            width: '100%',
-            height: '100%'
+        // styles for the overlay
+        overlayCSS:  {
+            //backgroundColor: '#000',
+            //'-moz-opacity': 0.6,
+            //width: '100%',
+            //height: '100%'
         },
 
         init: function(evt) {
             //alert('init ' + evt.data);
         },
 
+        showing: function(evt) {
+
+        },
+
         load: function(evt) {
             //alert('load ' + evt.data);
         },
 
+        shown: function(evt) {
+
+        },
+
         hide: function(evt) {
-            alert('hide ' + evt.data);
+            //alert('hide ' + evt.data);
         },
       
         // time in millis to wait before auto-hide; set to 0 to disable auto-hide
@@ -61,7 +76,7 @@
     function install(el, opts) {
 
         opts = $.extend({}, $.popupPanel.defaults, opts || {});
-        opts.panelCSS = $.extend({}, $.popupPanel.defaults.panelCSS, opts.panelCSS || {});
+        opts.overlayCSS = $.extend({}, $.popupPanel.defaults.overlayCSS, opts.overlayCSS || {});
 
 	if(typeof el == 'string') {
 		el = document.getElementById(el);
@@ -72,11 +87,56 @@
 
 	var data = $el.data('popupPanel.data');
 
-	var onPopupShown, onPopupHidden, onPopupShownCB, onPopupHiddenCB ;
+	var onPopupShowing, onPopupShown, onPopupHidden, onPopupShowingCB, onPopupShownCB, onPopupHiddenCB ;
 
         if(typeof data == 'undefined') {
+
+            // initial css
+            try{
+                if(el.popupBox) {
+                    $(el.popupBox).css(opts.css);
+                }
+            }catch(e){}
+
+            try{
+                if(el.popupOverlay) {
+                    $(el.popupOverlay).css(opts.overlayCSS);
+                }
+            }catch(e){}
+
+
             // initial once
             // because popupPanel use lazy initialize pattern.
+
+                onPopupShowingCB = new Deferred();
+                
+		onPopupShowing = function(evt) {
+
+			var element = evt.target;
+			var $element = $(element);
+
+			var _data = $element.data('popupPanel.data');
+			var _init = $element.data('popupPanel.init');
+			var _opts = $element.data('popupPanel.opts');
+
+                        var loadFunction = _opts.load;
+                        var showingFunction = _opts.showing;
+
+			evt.data = _data;
+
+                        // if already init , call load function at showing event
+			if (typeof _init != 'undefined') {
+
+                            if(loadFunction) loadFunction.apply(this, [evt] );
+
+			}
+
+                        if(showingFunction) showingFunction.apply(this, [evt]);
+
+			return onPopupShowingCB.call(evt);
+
+		};
+
 
 		onPopupShownCB = new Deferred();
 
@@ -92,6 +152,7 @@
 
 			var loadFunction = _opts.load;
 			var initFunction = _opts.init;
+                        var shownFunction = _opts.shown;
 
 			evt.data = _data;
 
@@ -101,9 +162,14 @@
 
 				$element.data('popupPanel.init', {});
 
-			}
+                                if(loadFunction) loadFunction.apply(this, [evt] );
 
-			if(loadFunction) loadFunction.apply(this, [evt] );
+			}else {
+                            // maybe load function calling at showing event.
+                            evt.target.focus();
+                        }
+
+                         if(shownFunction) shownFunction.apply(this, [evt]);
 
 			return onPopupShownCB.call(evt);
 
@@ -129,6 +195,7 @@
 		};
 
 
+            el.addEventListener('popupshowing', onPopupShowing, true);
             el.addEventListener('popupshown', onPopupShown, true);
             el.addEventListener('popuphidden', onPopupHidden, true);
 
@@ -145,7 +212,7 @@
 
 	return onPopupHiddenCB;
 
-    };
+    }
 
     function popup(el, data) {
 
@@ -169,14 +236,14 @@
             }, opts.timeout);
         }
 
-	var top = opts.top;
-	var left = opts.left;
-
-        el.openPopupAtScreen(top, left, false);
+        var x = getX(el, opts) ;
+        var y = getY(el, opts) ;
+        
+        el.openPopupAtScreen(x, y, false);
 
 	return onPopupHiddenCB;
 
-    };
+    }
 
     // hide the panel
     function hide(el, data) {
@@ -198,8 +265,59 @@
 
 	return onPopupHiddenCB;
 
-    };
+    }
+
+    function getX(el, opts) {
+
+        try{
+            if(el.popupBox) {
+
+            }
+        }catch(e){}
+
+        var left = opts.css.left || null;
+        var x = 0;
+
+        if(left) {
+            if (left.indexOf('%') != -1) {
+                x = window.innerWidth * parseInt(left) / 100;
+            }else {
+                x = parseInt(left);
+            }
+        }else {
+            // center default
+            x = parseInt((window.innerWidth - parseInt(opts.css.width)) /2);
+        }
+
+        return x;
+    }
+
+    function getY(el, opts) {
+
+
+        try{
+            if(el.popupBox.next) {
+
+            }
+        }catch(e){}
+
+        var top = opts.css.top || null;
+        var y = 0;
+
+        if(top) {
+            if (top.indexOf('%') != -1) {
+                y = window.innerHeight * parseInt(top) / 100;
+            }else {
+                y = parseInt(top);
+            }
+        }else {
+            // center default
+            y = parseInt((window.innerHeight - parseInt(opts.css.height)) /2);
+        }
+
+        return y;
+
+    }
 
 
 })(jQuery);
-
