@@ -14,13 +14,13 @@
          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
+    <script type="application/x-javascript" src="chrome://viviecr/content/dialogs/coupon_remark.js" />
+    
     <popupset id="dialogs">
 
-        <panel id="couponRemarkPanel" style="width: 800px; height: 600px;">
+        <vivipanel id="couponRemarkPanel" >
 
-            <script type="application/x-javascript" src="chrome://viviecr/content/dialogs/coupon_remark.js" />
-
-            <hbox class="pop-dialog" flex="1" pack="center">
+            <hbox class="pop-dialog" flex="1" pack="center" style="width: 640px; max-width: 640px; height: 560px; max-height: 560px;">
 
                 <vbox class="MainPnl" flex="1">
 
@@ -47,8 +47,8 @@
                     </grid>
 
                     <hbox pack="center">
-                        <numberpad id="couponRemark-multinumpad" class="numpad" target="plu"/>
-                        <vbox>
+                        <numberpad id="couponRemark-multinumpad" class="numpad" target="plu" style="padding: 0;" />
+                        <vbox pack="end">
                             <sendkeybutton id="couponRemark-bkeyBtn"  label="&coupon.button.action.del;" keyCode='0x08' target="plu" class="fixedbtn"  />
                             <sendkeybutton id="couponRemark-clearBtn"  label="&coupon.button.action.clear;" class="fixedbtn"/>
                         </vbox>
@@ -70,7 +70,7 @@
 
             </hbox>
 
-        </panel>
+        </vivipanel>
 
     </popupset>
 
