@@ -56,7 +56,7 @@ pref("general.autoScroll", true);
 pref("general.smoothScroll", false);
 pref("extensions.ignoreMTimeChanges", false);
 pref("extensions.logging.enabled", false);
-pref("general.skins.selectedSkin", "traditional-800x600/1.0");
+pref("general.skins.selectedSkin", "traditional-1024x768/1.0");
 
 // NB these point at AMO
 // pref("extensions.update.url", "chrome://mozapps/locale/extensions/extensions.properties");
@@ -79,8 +79,8 @@ pref("intl.locale.matchOS", "false");
 pref("general.useragent.locale", "en-US");
 pref("intl.charset.default", "UTF-8");
 
-pref("vivipos.fec.mainscreen.width", 800);
-pref("vivipos.fec.mainscreen.height", 600);
+pref("vivipos.fec.mainscreen.width", 1024);
+pref("vivipos.fec.mainscreen.height", 768);
 pref("vivipos.fec.mainscreen.hidechrome", false);
 
 pref("vivipos.fec.debug.disable_bottombox", false);

@@ -60,7 +60,7 @@
     <constructor>
     <![CDATA[
         var self = this;
-        GREUtils.log('viviscrollablebuttonpanel constructor ,, ' + this.getAttribute('id') );
+        //GREUtils.log('viviscrollablebuttonpanel constructor ,, ' + this.getAttribute('id') );
 
         //this.ready = function() {
             //self.initGrid();
