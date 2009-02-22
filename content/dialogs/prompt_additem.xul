@@ -12,13 +12,13 @@
          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
+    <script type="application/x-javascript" src="chrome://viviecr/content/dialogs/prompt_additem.js" />
+
     <popupset id="dialogs">
 
-        <panel id="promptAdditemPanel" style="width: 800px; height: 600px;">
+        <vivipanel id="promptAdditemPanel">
 
-            <script type="application/x-javascript" src="chrome://viviecr/content/dialogs/prompt_additem.js" />
-
-            <hbox class="pop-dialog" flex="1" pack="center">
+            <hbox class="pop-dialog" flex="1" pack="center" style="width: 640px; max-width: 640px; height: 480px; max-height: 480px;">
 
                 <vbox class="MainPnl" flex="1">
 
@@ -62,7 +62,7 @@
 
             </hbox>
 
-        </panel>
+        </vivipanel>
 
     </popupset>
 

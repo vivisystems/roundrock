@@ -15,13 +15,13 @@
          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
+    <script type="application/x-javascript" src="chrome://viviecr/content/dialogs/payment_details.js" />
+    
     <popupset id="dialogs">
 
-        <panel id="paymentDetailsPanel" style="width: 800px; height: 600px;">
+        <vivipanel id="paymentDetailsPanel" >
 
-            <script type="application/x-javascript" src="chrome://viviecr/content/dialogs/payment_details.js" />
-
-            <hbox flex="1" class="pop-dialog" pack="center">
+            <hbox flex="1" class="pop-dialog" pack="center" style="width: 640px; max-width: 640px; height: 480px; max-height: 480px;">
 
                 <vbox class="MainPnl" flex="1">
 
@@ -42,7 +42,7 @@
 
             </hbox>
 
-        </panel>
+        </vivipanel>
 
     </popupset>
 
