@@ -624,6 +624,49 @@
     };
 
 
+    Transaction.prototype.tagItemAt = function(index, tag){
+
+        var prevRowCount = this.data.display_sequences.length;
+
+        var itemTrans = this.getItemAt(index); // item in transaction
+        var itemDisplay = this.getDisplaySeqAt(index); // item in transaction
+        
+        if (itemDisplay.type != 'item' && itemDisplay.type != 'setitem') {
+            return ; // TODO - shouldn't be here since cart has intercepted illegal operations
+        }
+
+        var currentTags = itemTrans.tags;
+        if (currentTags == null || currentTags.length == 0) {
+            currentTags = [tag];
+        }
+        else {
+            var deleted = false;
+            for (var i = 0; i < currentTags.length; i++) {
+                if (currentTags[i] == tag) {
+                    currentTags.splice(i, 1);
+                    deleted = true;
+                    break;
+                }
+            }
+            if (!deleted) {
+                currentTags.push(tag);
+            }
+        }
+
+        itemTrans.tags = currentTags;
+        if (currentTags == null || currentTags.length == 0) {
+            itemDisplay.tagged = false;
+        }
+        else {
+            itemDisplay.tagged = true;
+        }
+
+        this.updateCartView(prevRowCount, prevRowCount, index);
+
+        return itemTrans;
+    };
+
+
     Transaction.prototype.modifyItemAt = function(index){
 
         var prevRowCount = this.data.display_sequences.length;

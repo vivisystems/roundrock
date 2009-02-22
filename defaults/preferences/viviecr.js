@@ -128,6 +128,11 @@ pref("vivipos.fec.settings.controlpanels.config.functionpanel.path", "chrome://v
 pref("vivipos.fec.settings.controlpanels.config.functionpanel.icon", "chrome://viviecr/skin/icons/icon_functionpnl.png");
 pref("vivipos.fec.settings.controlpanels.config.functionpanel.roles", "acl_manage_function_panel");
  
+pref("vivipos.fec.registry.function.programmable.tagitem.access", "acl_tag_item");
+pref("vivipos.fec.registry.function.programmable.tagitem.command", "tagItem");
+pref("vivipos.fec.registry.function.programmable.tagitem.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.tagitem.data", "");
+
 pref("vivipos.fec.registry.function.programmable.receipt.access", "acl_issue_post_receipt");
 pref("vivipos.fec.registry.function.programmable.receipt.command", "issueReceipt");
 pref("vivipos.fec.registry.function.programmable.receipt.controller", "Print");

@@ -6,7 +6,7 @@
  */
 
 .cartList {
-    font-size: 14px;
+    font-size: 13px;
     border: 2px solid ;
     -moz-border-top-colors: #ecf7ff #ecf7ff;
     -moz-border-right-colors: #ecf7ff #ebebeb;
@@ -17,7 +17,7 @@
     background: transparent;
 }
 
-.cartList .cartList {
+.cartList > .cartList {
     border: none;
 }
 
@@ -148,6 +148,8 @@ treechildren::-moz-tree-row(treeReturnItem) {background-color: lightgreen;}
 treechildren::-moz-tree-cell-text(treecellTRAY) {color: white;}
 treechildren::-moz-tree-cell-text(treecellSUBTOTAL) {color: #3d5470;}
 treechildren::-moz-tree-cell-text(treecellTOTAL) {color: white;}
+treechildren::-moz-tree-image(treecellTagged) {list-style-image: url(images/prod-add.png);}
+treechildren::-moz-tree-image(treecellUntagged) {list-style-image: url(images/prod-remove.png);}
 
 .cartList #name {
     text-align: left;
@@ -162,26 +164,35 @@ treechildren::-moz-tree-cell-text(treecellTOTAL) {color: white;}
  *-----------------------------------------------------------------------------
  */
 
+.cartList tree #tag {
+    max-width: 15px;
+    min-width: 15px;
+}
+
 .cartList tree #name {
-    max-width: 138px;
-    min-width: 138px;
+/*
+    max-width: 140px;
+    min-width: 140px;
+*/
 }
 
 .cartList tree #current_qty {
-    max-width: 75px;
-    min-width: 75px;
+    max-width: 67px;
+    min-width: 67px;
 }
 
 .cartList tree #current_price {
-    max-width: 75px;
-    min-width: 75px;
+    max-width: 76px;
+    min-width: 76px;
 }
 
 .cartList tree #current_subtotal {
-    max-width: 90px;
-    min-width: 90px;
+    max-width: 76px;
+    min-width: 76px;
 }
 .cartList tree #current_tax {
+    max-width: 20px;
+    min-width: 20px;
 }
 
 .cartList tree label {

@@ -483,10 +483,9 @@
         resetLayout: function (initial) {
             
             var registerAtLeft = GeckoJS.Configure.read('vivipos.fec.settings.RegisterAtLeft') || false;
-            var functionPanelOnTop = GeckoJS.Configure.read('vivipos.fec.settings.FunctionPanelOnTop') || false;
-            var PLUbeforeDept = GeckoJS.Configure.read('vivipos.fec.settings.DeptBeforePLU') || false;
             var checkTrackingMode = GeckoJS.Configure.read('vivipos.fec.settings.CheckTrackingMode') || false;
             var hideSoldOutButtons = GeckoJS.Configure.read('vivipos.fec.settings.HideSoldOutButtons') || false;
+            var hideTag = GeckoJS.Configure.read('vivipos.fec.settings.HideTagColumn') || false;
             var hideNumPad = false;
             
             var hbox = document.getElementById('mainPanel');
@@ -494,8 +493,6 @@
             var pluPanel = document.getElementById('prodscrollablepanel');
             var fnPanel = document.getElementById('functionPanel');
             var toolbarPanel = document.getElementById('numberpadPanelContainer');
-            var leftPanel = document.getElementById('leftPanel');
-            var productPanel = document.getElementById('productPanel');
             var cartList = document.getElementById('cartList');
             var checkTrackingStatus = document.getElementById('vivipos_fec_check_tracking_status');
             var soldOutCategory = document.getElementById('catescrollablepanel-soldout');
@@ -506,17 +503,36 @@
             if (pluPanel) pluPanel.setAttribute('dir', registerAtLeft ? 'normal' : 'reverse');
             if (fnPanel) fnPanel.setAttribute('dir', registerAtLeft ? 'reverse' : 'normal');
             if (toolbarPanel) toolbarPanel.setAttribute('dir', registerAtLeft ? 'reverse' : 'normal');
-            if (leftPanel) leftPanel.setAttribute('dir', functionPanelOnTop ? 'reverse' : 'normal');
-            if (productPanel) productPanel.setAttribute('dir', PLUbeforeDept ? 'reverse' : 'normal');
             if (cartList) cartList.setAttribute('dir', registerAtLeft ? 'reverse': 'normal');
             if (checkTrackingStatus) {
                 checkTrackingStatus.setAttribute('hidden', checkTrackingMode ? 'false' : 'true');
             }
+            // display tag field
+            var headers = cartList.getAttribute('headers');
+            var fields = cartList.getAttribute('fields');
+            if (hideTag) {
+                if (headers.split(',').length == 6) {
+                    headers = headers.substring(headers.indexOf(',') + 1);
+                    fields = fields.substring(fields.indexOf(',') + 1);
+                    cartList.setAttribute('headers', headers);
+                    cartList.setAttribute('fields', fields);
+
+                    cartList.vivitree.initTreecols();
+                }
+            }
+            else {
+                if (headers.split(',').length == 5) {
+                    headers = '"",' + headers;
+                    fields = 'tag,' + fields;
+                    cartList.setAttribute('headers', headers);
+                    cartList.setAttribute('fields', fields);
+
+                    cartList.vivitree.initTreecols();
+                }
+            }
+            // display sold out buttons
             if (soldOutCategory) soldOutCategory.setAttribute('hidden', hideSoldOutButtons ? 'true' : 'false');
             if (soldOutProduct) soldOutProduct.setAttribute('hidden', hideSoldOutButtons ? 'true' : 'false');
-
-            // fudge to make functionPanelOnTop work even if rightPanel is taller than the screen
-            leftPanel.setAttribute('pack', functionPanelOnTop ? 'end' : 'start');
 
             // toggleNumPad() returns true if it invoked resizeLeftPanel()
             if (!this.toggleNumPad(hideNumPad, initial)) {

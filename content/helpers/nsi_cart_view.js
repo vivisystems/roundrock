@@ -67,7 +67,7 @@
             if (rc1 != rc2) {
                 // lazy way ? full refresh
                 //this._cartList.datasource = this;
-                this.tree.rowCountChanged(oldIndex - 1, rc2 - rc1);
+                this.tree.rowCountChanged(oldIndex, rc2 - rc1);
 
                 /*
                 if (jumpToLast) newIndex = rc2 - 1;
@@ -99,6 +99,18 @@
             var aserv=Components.classes['@mozilla.org/atom-service;1'].
                       getService(Components.interfaces.nsIAtomService);
             switch(col.id) {
+                case 'tag':
+                    var data = this.getCurrentIndexData(row);
+                    if (data.type == 'item' || data.type == 'setitem') {
+                        if (data.tagged) {
+                            prop.AppendElement(aserv.getAtom('treecellTagged'));
+                        }
+                        else {
+                            prop.AppendElement(aserv.getAtom('treecellUntagged'));
+                        }
+                    }
+                    break;
+
                 case 'name':
                     prop.AppendElement(aserv.getAtom('treecellProduct'));
                     break;
