@@ -66,6 +66,7 @@
             // ourselves
 
             this.dispatchEvent('onInitial', null);
+
             this.initialLogin();
         },
 
@@ -284,6 +285,10 @@
                 GeckoJS.Session.clear('user');
             }
         },
+
+	updateOptions: function () {
+	    this.resetLayout();
+	},
 
         toggleNumPad: function (state, initial) {
             var numPad = document.getElementById('numpad');
