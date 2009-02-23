@@ -87,7 +87,7 @@
                 treecol.setAttribute("id", _fields[i]);
                 treecol.setAttribute("flex", 1);
 
-                if (i == primary) {
+                if (_fields[i] == primary) {
                     treecol.setAttribute('primary', true);
                 }
 
