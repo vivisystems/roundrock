@@ -695,6 +695,7 @@
 
                     if (!stack) stack = this._render(page);
                     var found = false;
+                    
                     while (this.keypad.childNodes.length > 0) {
                         if (stack == this.keypad.firstChild) {
                             found = true;
@@ -1029,7 +1030,7 @@
                     else {
                         stack = this._layoutStackMap.get(key);
                     }
-                    //GREUtils.log('[GetLayoutStack]: layout <' + key + '>, stack <' + stack + '>');
+                    //GREUtils.log('[GetLayoutStack]: layout <' + key + '>, stack <' + stack + '>, total stacks <' + this._layoutStackMap.getCount() + '>');
                     return stack;
                 ]]>
                 </body>
@@ -1241,7 +1242,7 @@
                             btn.setAttribute('width', lastW);
                             btn.setAttribute('disabled', true);
                             btn.setAttribute('anonid', (1 - (-i)) +'x' + (1 - (-j)));
-                            
+                            btn.disabled = true;
                             stack.appendChild(btn);
 
                             lastW -= -hs;
@@ -1326,6 +1327,7 @@
                             btn.setAttribute('width', posWidth);
                             btn.setAttribute('disabled', true);
                             btn.setAttribute('anonid', row + 'x' + column);
+                            btn.disabled = true;
                             stack.appendChild(btn);
 
                             //GREUtils.log('[CUSTOM]: custom button created at <' + posX + ',' + posY + '>x<' + posWidth + ',' + posHeight + '>');
@@ -1685,29 +1687,34 @@
 
                                     //GREUtils.log('[KEYMAP]: mapped key disabled status set to <' + btn.getAttribute('disabled') + '>');
 
-                                    var cmds = entry.command.split(',');
+                                    var cmds = entry.command.split('||');
                                     var datas = [];
-                                    if (entry.data) datas = entry.data.split(',');
+                                    if (entry.data) datas = entry.data.split('||');
                                     
                                     var controllers = [];
-                                    if (entry.controller) controllers = entry.controller.split(',');
+                                    if (entry.controller) controllers = entry.controller.split('||');
 
                                     //GREUtils.log('[KEYMAP]: processing mapped function <' + GeckoJS.BaseObject.dump(entry) + '> <' + cmds.length + '> <' + datas.length + '> <' + controllers.length + '>');
 
                                     var cmdLine = [];
+                                    var lastData = null;
+                                    var lastController = null;
                                     for (var j = 0; j < cmds.length; j++) {
                                     
                                         var iData = datas[j];
                                         var iController = controllers[j];
                                         
-                                        if (!iData) iData = datas[0];
-                                        if (!iController) iController = controllers[0];
+                                        if (!iData) iData = lastData;
+                                        if (!iController) iController = lastController;
                                         
                                         var command = '$do("' + cmds[j] + '","' + ((iData == null) ? '' : iData) + '","' + iController + '")';
 
                                         //GREUtils.log('[KEYMAP]: adding command <' + command + '>');
 
                                         cmdLine.push(command);
+
+                                        lastData = iData;
+                                        lastController = iController;
                                     }
                                     btn.setAttribute('oncommand', cmdLine.join(';'));
 
