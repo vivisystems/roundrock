@@ -218,7 +218,7 @@
                 if (cart) {
                     var txn = cart._getTransaction();
                     if (txn) {
-                        txn.destination_prefix = '';
+                        txn.data.destination_prefix = '';
                         txn.data.destination = null;
                     }
                 }
@@ -263,7 +263,7 @@
             txn.data.destination = dest.name;
 
             // store destination prefix in transaction
-            txn.destination_prefix = (dest.prefix == null) ? '' : dest.prefix + ' ';
+            txn.data.destination_prefix = (dest.prefix == null) ? '' : dest.prefix + ' ';
         }
 	
     });
