@@ -584,12 +584,15 @@
                     this.log('no items linked to this printer; printing terminated');
                 }
             }
-            
+
             var tpl;
             var result;
 
             // if data is null, then the document has already been generated and passed in through the template parameter
             if (data != null) {
+
+                //this.log(GeckoJS.BaseObject.dump(data.order));
+                
                 var tpl = this.getTemplateData(template, false);
                 if (tpl == null || tpl == '') {
                     NotifyUtils.error(_('Specified template [%S] is empty or does not exist!', [template]));
@@ -626,7 +629,7 @@
                 }
             }
             alert(GeckoJS.BaseObject.dump(result));
-            return;
+            //return;
             //alert(data.order.receiptPages);
             //
             // translate embedded hex codes into actual hex values
