@@ -12,7 +12,7 @@
     background: white;
 }
 
-.RightTabbox row {
+.RightTabbox .SubArea > grid row {
 	border-bottom: 2px solid white;
 	font-size: 11pt;
 	padding: 4px;

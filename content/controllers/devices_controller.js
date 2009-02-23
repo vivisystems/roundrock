@@ -790,10 +790,10 @@
         isGroupLinked: function(link_group_id) {
             var selectedDevices = this.getSelectedDevices();
 
-            return (selectedDevices['guestcheck-1-link-groups'].indexOf(link_group_id) > -1 ||
-                    selectedDevices['guestcheck-2-link-groups'].indexOf(link_group_id) > -1 ||
-                    selectedDevices['guestcheck-3-link-groups'].indexOf(link_group_id) > -1||
-                    selectedDevices['guestcheck-4-link-groups'].indexOf(link_group_id) > -1);
+            return (selectedDevices['guestcheck-1-link-group'].indexOf(link_group_id) > -1 ||
+                    selectedDevices['guestcheck-2-link-group'].indexOf(link_group_id) > -1 ||
+                    selectedDevices['guestcheck-3-link-group'].indexOf(link_group_id) > -1||
+                    selectedDevices['guestcheck-4-link-group'].indexOf(link_group_id) > -1);
         },
 
         // check if the device of the given type [receipt, guestcheck, report, vfd, cashdrawer] and number is enabled
@@ -843,8 +843,8 @@
                         autoprint: selectedDevices[type + '-1-autoprint'],
                         supportsstatus: selectedDevices[type + '-1-supports-status'],
                         gpiopulses: selectedDevices[type + '-1-gpio-pulses'],
-                        linkgroups: selectedDevices[type + '-1-link-groups'],
-                        printunlinked: selectedDevices[type + '-1-print-unlinked'],
+                        linkgroup: selectedDevices[type + '-1-link-group'],
+                        printNoRouting: selectedDevices[type + '-1-print-no-routing'],
                         number: 1
                     });
                 }
@@ -860,8 +860,8 @@
                         autoprint: selectedDevices[type + '-2-autoprint'],
                         supportsstatus: selectedDevices[type + '-2-supports-status'],
                         gpiopulses: selectedDevices[type + '-2-gpio-pulses'],
-                        linkgroups: selectedDevices[type + '-2-link-groups'],
-                        printunlinked: selectedDevices[type + '-2-print-unlinked'],
+                        linkgroup: selectedDevices[type + '-2-link-group'],
+                        printNoRouting: selectedDevices[type + '-2-print-no-routing'],
                         number: 2
                     });
                 }
@@ -879,8 +879,8 @@
                             autoprint: selectedDevices[type + '-3-autoprint'],
                             supportsstatus: selectedDevices[type + '-3-supports-status'],
                             gpiopulses: selectedDevices[type + '-3-gpio-pulses'],
-                            linkgroups: selectedDevices[type + '-3-link-groups'],
-                            printunlinked: selectedDevices[type + '-3-print-unlinked'],
+                            linkgroup: selectedDevices[type + '-3-link-group'],
+                            printNoRouting: selectedDevices[type + '-3-print-no-routing'],
                             number: 3
                         });
                     }
@@ -896,8 +896,8 @@
                             autoprint: selectedDevices[type + '-4-autoprint'],
                             supportsstatus: selectedDevices[type + '-4-supports-status'],
                             gpiopulses: selectedDevices[type + '-4-gpio-pulses'],
-                            linkgroups: selectedDevices[type + '-4-link-groups'],
-                            printunlinked: selectedDevices[type + '-4-print-unlinked'],
+                            linkgroup: selectedDevices[type + '-4-link-group'],
+                            printNoRouting: selectedDevices[type + '-4-print-no-routing'],
                             number: 4
                         });
                     }
