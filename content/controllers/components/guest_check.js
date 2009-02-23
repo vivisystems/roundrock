@@ -177,7 +177,6 @@
 
                 // lock cart content up to the last display item
                 this._controller.lockItems();
-this._controller.closeTransaction();
                 this._controller.submit(2);
                 this._controller.dispatchEvent('onWarning', _('STORED'));
                 

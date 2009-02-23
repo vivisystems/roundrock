@@ -2519,6 +2519,7 @@
             
             if(oldTransaction == null) return; // fatal error ?
 
+            if (status == null) status = 1;
             if (status == 1 && oldTransaction.getRemainTotal() > 0) return;
 
             this.dispatchEvent('beforeSubmit', oldTransaction);
@@ -2526,7 +2527,7 @@
             // save order unless the order is being finalized (i.e. status == 1)
             if (status != 1) oldTransaction.submit(status);
             oldTransaction.data.status = status;
-
+            
             this.dispatchEvent('afterSubmit', oldTransaction);
 
             // sleep to allow UI events to update

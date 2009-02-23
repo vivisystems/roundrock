@@ -7,7 +7,6 @@
 {else}
 [&DWON]${'Kitchen Order'|center:21}[&DWOFF]
 {/if}
-[${order.batchCount}] [${order.closed}] [${order.lock}]
 Submitted:${(new Date()).toLocaleFormat('%Y-%m-%d %H:%M:%S')}
 Terminal: ${order.terminal_no|left:10} Clerk:    ${order.proceeds_clerk_displayname|left:14}
 Check:    ${order.check_no|left:10} Sequence: ${order.seq|left:14}
