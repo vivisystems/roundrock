@@ -1,12 +1,23 @@
 <!-- div class="paper" style="overflow:auto;" -->
 <div id="printhead">
-<img src="chrome://viviecr/content/skin/images/logo.png" /><br />
+<!--img src="chrome://viviecr/content/skin/images/logo.png" /><br /-->
 </div>
 <div id="docbody" class="paper">
-<p align="right">${head.start_time} - ${head.end_time}</p>
+<!--p align="right">${head.start_time} - ${head.end_time}</p-->
         <table id="body-table">
-            <caption>${head.title}</caption>
+            
             <thead>
+            	<tr>
+            		<td style="border: 0; background: white;" colspan="6">
+            			<img style="border: 0; float: left" src="chrome://viviecr/content/skin/images/logo.png" />
+            		</td>
+            	</tr>
+		        <tr>
+		        	<td style="background: white;" colspan="6">
+						<span style="float: left;">${head.title}</span>
+						<span style="float: right;">${head.start_time} - ${head.end_time}</span>
+					</td>
+		        </tr>
                 <tr>
                     <th>Term_No.</th>
                     <th>Time</th>
@@ -57,6 +68,5 @@
             </tfoot>
         </table>
         </br>
-
 </div>
 <!--/div -->

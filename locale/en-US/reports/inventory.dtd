@@ -1,4 +1,4 @@
-<!ENTITY rptinventory.title "Product List">
+<!ENTITY rptinventory.title "Product Stock List">
 <!ENTITY rptinventory.startdate "Start Date:">
 <!ENTITY rptinventory.enddate "End Date:">
 <!ENTITY rptinventory.execute "Execute">

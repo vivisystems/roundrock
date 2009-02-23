@@ -110,8 +110,10 @@ this.log( this.dump( datas ) );
             var tpl = GREUtils.File.readAllBytes(file);
 
             result = tpl.process(data);
+            
+            var bw = document.getElementById('preview_frame');
+            var doc = bw.contentWindow.document.getElementById('abody');
 
-            var doc = document.getElementById('preview_div');
             doc.innerHTML = result;
 
             waitPanel.hidePopup();
@@ -119,13 +121,13 @@ this.log( this.dump( datas ) );
 
         exportPdf: function() {
 
-            this.execute();
+            //this.execute();
             // this.print();
 
             this.BrowserPrint.getPrintSettings();
             this.BrowserPrint.setPaperSizeUnit(1);
-            this.BrowserPrint.setPaperSize(297, 210);
-            this.BrowserPrint.setPaperEdge(20, 20, 20, 20);
+            this.BrowserPrint.setPaperSize(210, 297);
+            //this.BrowserPrint.setPaperEdge(20, 20, 20, 20);
 
             this.BrowserPrint.getWebBrowserPrint('preview_frame');
             this.BrowserPrint.printToPdf("/var/tmp/product_sales.pdf");

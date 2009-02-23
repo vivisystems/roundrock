@@ -126,8 +126,9 @@
 
             this.BrowserPrint.getPrintSettings();
             this.BrowserPrint.setPaperSizeUnit(1);
-            this.BrowserPrint.setPaperSize(297, 210);
-            this.BrowserPrint.setPaperEdge(20, 20, 20, 20);
+            this.BrowserPrint.setPaperSize(210, 297);
+            //this.BrowserPrint.setPaperEdge( 1, 1, 1, 1 );
+            //this.BrowserPrint.setPaperMargin( 0, 0, 1, 0 );
 
             this.BrowserPrint.getWebBrowserPrint('preview_frame');
             this.BrowserPrint.printToPdf("/var/tmp/stocks.pdf");

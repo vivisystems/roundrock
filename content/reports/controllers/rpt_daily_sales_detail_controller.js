@@ -145,7 +145,7 @@
             this.BrowserPrint.getPrintSettings();
             this.BrowserPrint.setPaperSizeUnit(1);
             this.BrowserPrint.setPaperSize(210, 297);
-            this.BrowserPrint.setPaperEdge(20, 20, 20, 20);
+            this.BrowserPrint.setPaperEdge(0, 0, 0, 0);
 
             this.BrowserPrint.getWebBrowserPrint('preview_frame');
             this.BrowserPrint.printToPdf("/var/tmp/daily_sales_detail.pdf");
