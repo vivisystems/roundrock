@@ -4,18 +4,13 @@
      * RptCashByClerk Controller
      */
 
-    var  XUL_NS = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
-
-    var gPrintSettingsAreGlobal = false;
-    var gSavePrintSettings = false;
-
     GeckoJS.Controller.extend( {
         name: 'RptCashByClerk',
-        components: ['BrowserPrint','CsvExport'],
+        components: ['BrowserPrint','CsvExport', 'CheckMedia'],
 	
         _datas: null,
 
-        _showWaitPanel: function(panel) {
+        _showWaitPanel: function(panel, sleepTime) {
             var waitPanel = document.getElementById(panel);
             var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
             var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
@@ -25,8 +20,18 @@
             waitPanel.openPopupAtScreen(x, y);
 
             // release CPU for progressbar ...
-            this.sleep(1500);
+            if (!sleepTime) {
+              sleepTime = 1000;
+            }
+            this.sleep(sleepTime);
             return waitPanel;
+        },
+
+        _enableButton: function(enable) {
+            var disabled = !enable;
+            $('#export_pdf').attr('disabled', disabled);
+            $('#export_csv').attr('disabled', disabled);
+            $('#export_rcp').attr('disabled', disabled);
         },
 
         execute: function() {
@@ -104,12 +109,14 @@
             var file = GREUtils.File.getFile(path);
             var tpl = GREUtils.File.readAllBytes(file);
 
-            result = tpl.process(data);
+            var result = tpl.process(data);
 
             var bw = document.getElementById('preview_frame');
             var doc = bw.contentWindow.document.getElementById('abody');
 
             doc.innerHTML = result;
+
+            this._enableButton(true);
 
             waitPanel.hidePopup();
 
@@ -117,22 +124,82 @@
 
         exportPdf: function() {
 
-            // this.execute();
-            // this.print();
+            try {
+                this._enableButton(false);
+                var media_path = this.CheckMedia.checkMedia('export_report');
+                if (!media_path){
+                    NotifyUtils.info(_('Media not found!! Please attach the USB thumb drive...'));
+                    return;
+                }
 
-            this.BrowserPrint.getPrintSettings();
-            this.BrowserPrint.setPaperSizeUnit(1);
-            this.BrowserPrint.setPaperSize(210, 297);
-            this.BrowserPrint.setPaperEdge(20, 20, 20, 20);
+                var waitPanel = this._showWaitPanel('wait_panel');
 
-            this.BrowserPrint.getWebBrowserPrint('preview_frame');
-            this.BrowserPrint.printToPdf("/var/tmp/cash_by_clerk.pdf");
+                this.BrowserPrint.getPrintSettings();
+                this.BrowserPrint.setPaperSizeUnit(1);
+                this.BrowserPrint.setPaperSize(210, 297);
+                // this.BrowserPrint.setPaperEdge(20, 20, 20, 20);
+
+                this.BrowserPrint.getWebBrowserPrint('preview_frame');
+                this.BrowserPrint.printToPdf(media_path + "/cash_by_clerk.pdf");
+            } catch (e) {
+                //
+            } finally {
+                this._enableButton(true);
+                waitPanel.hidePopup();
+            }
         },
 
-        exportCsv: function() {
-            
-            this.CsvExport.exportToCsv("/var/tmp/cash_by_clerk.csv");
+        exportCsv: function() {            
+            try {
+                this._enableButton(false);
+                var media_path = this.CheckMedia.checkMedia('export_report');
+                if (!media_path){
+                    NotifyUtils.info(_('Media not found!! Please attach the USB thumb drive...'));
+                    return;
+                }
 
+                var waitPanel = this._showWaitPanel('wait_panel', 100);
+
+                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_cash_by_clerk_csv.tpl");
+
+                var file = GREUtils.File.getFile(path);
+                var tpl = GREUtils.File.readAllBytes(file);
+                var datas;
+                datas = this._datas;
+
+                this.CsvExport.printToFile(media_path + "/cash_by_clerk.csv", datas, tpl);
+
+
+            } catch (e) {
+                //
+            } finally {
+                this._enableButton(true);
+                waitPanel.hidePopup();
+            }
+
+        },
+
+        exportRcp: function() {
+            try {
+                this._enableButton(false);
+                var waitPanel = this._showWaitPanel('wait_panel', 100);
+
+                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_cash_by_clerk_rcp.tpl");
+
+                var file = GREUtils.File.getFile(path);
+                var tpl = GREUtils.File.readAllBytes(file);
+                var datas;
+                datas = this._datas;
+
+                // this.RcpExport.print(datas, tpl);
+                var rcp = opener.opener.opener.GeckoJS.Controller.getInstanceByName('Print');
+                rcp.printReport('report', tpl, datas);
+            } catch (e) {
+                //
+            } finally {
+                this._enableButton(true);
+                waitPanel.hidePopup();
+            }
         },
 
         load: function() {
@@ -146,6 +213,8 @@
 
             document.getElementById('start_date').value = start;
             document.getElementById('end_date').value = end;
+
+            this._enableButton(false);
 
         }
 

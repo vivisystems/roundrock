@@ -6,7 +6,7 @@ Terminal: ${head.store.terminal_no|left:10} Clerk: ${head.clerk_displayname|left
 Time        Total      Orders Guests Items
 ----------  ---------- ------ ------ -----
 {for category in body}
-${detail.Hour:10}  ${detail.HourTotal:10} ${detail.OrderNum} ${detail.Guests} ${detail.ItemsCount}
+${detail.Hour|left:10}  ${detail.HourTotal|right:10} ${detail.OrderNum} ${detail.Guests} ${detail.ItemsCount}
 {/for}
 ------------------------------------------
 ${foot.gen_time}

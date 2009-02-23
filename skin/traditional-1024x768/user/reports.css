@@ -9,10 +9,10 @@
     margin: 0 5px;
     -moz-border-radius: 6px;
     border: 3px solid;
-    -moz-border-top-colors: #f4f3ee #eeede8 #e2e1dc;
+    -moz-border-top-colors: #ecebe2 #eeede8 #e2e1dc;
     -moz-border-right-colors: #e2e1dc #d0cfcb #b7b6b2;
     -moz-border-bottom-colors: #e2e1dc #d0cfcb #b7b6b2;
-    -moz-border-left-colors: #f4f3ee #eeede8 #e2e1dc;
+    -moz-border-left-colors: #ecebe2 #eeede8 #e2e1dc;
     background: white url(../images/tboxbg_readonly.png) left center repeat-x;
     max-height: 90px;
 }
@@ -28,7 +28,7 @@
 }
 
 .TopPnl {
-    border-bottom: 1px solid #c1ab8e;
+    border-bottom: 1px solid #a98f6e;
     padding-bottom: 8px;
 }
 
@@ -63,10 +63,10 @@ vividatetimepicker .datetimepicker-input-box input {
 }
 vividatetimepicker dropmarker {
     border: 3px solid;
-    -moz-border-top-colors: #f4f3ee #eeede8 #e2e1dc;
+    -moz-border-top-colors: #ecebe2 #eeede8 #e2e1dc;
     -moz-border-right-colors: #e2e1dc #d0cfcb #b7b6b2;
     -moz-border-bottom-colors: #e2e1dc #d0cfcb #b7b6b2;
-    -moz-border-left-colors: #f4f3ee #eeede8 #e2e1dc;
+    -moz-border-left-colors: #ecebe2 #eeede8 #e2e1dc;
     background: white url(../images/tboxbg_readonly.png) left center repeat-x;
     -moz-appearance: none;
     min-height: 40px;
@@ -110,10 +110,10 @@ vividatetimepicker dropmarker {
 .ReportButton {
     font-size: 11pt;
     border: 3px solid;
-    -moz-border-top-colors: #f4f3ee #eeede8 #e2e1dc;
+    -moz-border-top-colors: #ecebe2 #eeede8 #e2e1dc;
     -moz-border-right-colors: #e2e1dc #d0cfcb #b7b6b2;
     -moz-border-bottom-colors: #e2e1dc #d0cfcb #b7b6b2;
-    -moz-border-left-colors: #f4f3ee #eeede8 #e2e1dc;
+    -moz-border-left-colors: #ecebe2 #eeede8 #e2e1dc;
     background: white url(images/tboxbg_readonly.png) left center repeat-x;
     -moz-appearance: none;
     min-height: 36px;
@@ -135,10 +135,10 @@ vividatetimepicker dropmarker {
 }
 .ReportButton[disabled="false"]:hover {
     border: 3px solid;
-    -moz-border-top-colors: #f4f3ee #eeede8 #5eb3ad;
+    -moz-border-top-colors: #ecebe2 #eeede8 #5eb3ad;
     -moz-border-right-colors: #e2e1dc #d0cfcb #5eb3ad;
     -moz-border-bottom-colors: #e2e1dc #d0cfcb #5eb3ad;
-    -moz-border-left-colors: #f4f3ee #eeede8 #5eb3ad;
+    -moz-border-left-colors: #ecebe2 #eeede8 #5eb3ad;
     background: white url(images/tboxbg_readonly.png) left center repeat-x;
     -moz-appearance: none;
 }
@@ -151,28 +151,28 @@ vividatetimepicker dropmarker {
 }
 .datepicker-monthbox {
     font-size: 13pt;
-    background: #f8f5f1;
+    background: #ede7dc;
     padding: 5px;
     margin-top: 5px;
 }
 .datepicker-mainbox grid row {
     padding: 5px;
-    border: 1px solid #f8f5f1;
+    border: 1px solid #ede7dc;
 }
 .datepicker-mainbox grid column {
     padding: 5px;
-    border: 1px solid #f8f5f1;
+    border: 1px solid #ede7dc;
 }
 vividatetimepicker button {
     border: 3px solid;
-    -moz-border-top-colors: #f8f5f1 #f2efeb #e6e3df;
+    -moz-border-top-colors: #ede7dc #f2efeb #e6e3df;
     -moz-border-right-colors: #e6e3df #d3d0cd #bab8b5;
     -moz-border-bottom-colors: #e6e3df #d3d0cd #bab8b5;
-    -moz-border-left-colors: #f8f5f1 #f2efeb #e6e3df;
+    -moz-border-left-colors: #ede7dc #f2efeb #e6e3df;
     background: white url(../images/tboxbg_readonly.png) left center repeat-x;
     -moz-appearance: none;
     min-height: 45px;
-    color: #736357;
+    color: #372213;
     margin: 3px;
     cursor: pointer;
     -moz-border-radius: 6px;

@@ -450,13 +450,13 @@
                     </tabpanels>
                 </tabbox>
                 <hbox class="dialogbtns" pack="center"  flex="1">
-                    <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
-                    <spacer flex="1"/>
-                    <button id="ok"
+                    <button id="vivifuncpanelecr_prefs_save"
                             class="SaveBtn"
                             label="&vivifuncpanelecr.prefs.save.label;"
                             oncommand="$do('savePreferences', null, 'vivifuncpanelecr_prefs')"/>
-                    <button id="cancel"
+                    <spacer flex="1"/>
+                    <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
+                    <button id="vivifuncpanelecr_prefs_cancel"
                             class="ExitBtn"
                             label="&vivifuncpanelecr.prefs.cancel.label;"
                             oncommand="$do('cancelPreferences', null, 'vivifuncpanelecr_prefs')"/>

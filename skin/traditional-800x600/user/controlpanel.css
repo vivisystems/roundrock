@@ -19,7 +19,7 @@
 	max-width: 126px;
 	max-height: 24px;
 	color: #503828;
-	font-size: 10pt;
+	font-size: 11pt;
 }
 .ProductScrollPanel {
 	margin: 12px 0 0 0;
@@ -38,7 +38,7 @@
     margin: 4px 3px 3px 2px;
     padding: 0px;
     color: black;
-    font-size: 10px;
+    font-size: 11px;
     overflow: hidden;
     -moz-appearance: none;
     -moz-user-focus: ignore;
@@ -115,11 +115,14 @@
     max-width: 119px;
     max-height: 22px;
     color: #605048;
-    font-size: 10pt;
+    font-size: 11pt;
     margin: 0 0 0 235px;
 }
 .EmployeeScrollPanel {
     margin: 12px 0 0 2px;
+}
+.EmployeeScrollPanel > .scrollablepanel-scrollbar {
+    margin-left: 4px !important;
 }
 .EmployeeBtn {
 	  min-width:101px;
@@ -131,7 +134,7 @@
     margin: 0px 3px 0px 0px;
     padding: 0px;
     color: black;
-    font-size: 10px;
+    font-size: 11px;
     overflow: hidden;
     -moz-appearance: none;
     -moz-user-focus: ignore;
@@ -205,18 +208,21 @@
 
 /* Activity Area */
 .ActivityBox {
-    margin: 31px 0 0 3px;
+    margin: 30px 0 0 3px;
 }
 .ActivityTitle {
     max-width: 119px;
     max-height: 22px;
     color: #396c6d;
-    font-size: 10pt;
+    font-size: 11pt;
     margin: 0 0 0 239px;
 }
 .ActivityScrollPanel {
     margin: 17px 0 0 14px;
     
+}
+.ActivityScrollPanel > .scrollablepanel-scrollbar {
+    margin-left: 15px !important;
 }
 .ActivityBtn {
 	  min-width:135px;
@@ -228,12 +234,12 @@
     margin: 0px 7px 0px 0px;
     padding: 0px;
     color: black;
-    font-size: 10px;
+    font-size: 11px;
     overflow: hidden;
     -moz-appearance: none;
     -moz-user-focus: ignore;
     background: white;
-    border: 1px solid white;
+    border: 0px solid white;
     -moz-background-clip: border;
 }
 .ActivityBtn[disabled=true] {
@@ -300,24 +306,28 @@
     max-width: 119px;
     max-height: 22px;
     color: #3e4428;
-    font-size: 10pt;
+    font-size: 11pt;
     margin: 0 0 0 231px;
 }
 .ToolsScrollPanel {
     margin: 14px 0 0 0px;
     
 }
+.ToolsScrollPanel > .scrollablepanel-scrollbar {
+    margin-left: 8px !important;
+
+}
 .ToolsBtn {
 	  min-width:101px;
     max-width:101px;
-    min-height:96px;
-    max-height:96px;
-    height: 96px;
+    min-height:92px;
+    max-height:92px;
+    height: 92px;
     width: 101px;
     margin: 0px 3px 0px 0px;
     padding: 0px;
     color: black;
-    font-size: 10px;
+    font-size: 11px;
     overflow: hidden;
     -moz-appearance: none;
     -moz-user-focus: ignore;
@@ -334,8 +344,8 @@
     -moz-box-orient: vertical;
 }
 .ToolsBtn image{
-    width: 68px;
-    height: 68px;
+    width: 66px;
+    height: 66px;
 }
 .ToolsBtn .button-text{
     width: 88px;
@@ -383,7 +393,7 @@
 
 /* System */
 .SysBox {
-    margin: 21px 0 0 14px;
+    margin: 24px 0 0 30px;
 }
 .SysScrollPanel {
     max-width: 375px;    
@@ -398,7 +408,7 @@
     margin: 0px 5px 0px 0px;
     padding: 38px 11px 11px 9px;
     color: #362f2d;
-    font-size: 10px;
+    font-size: 11px;
     overflow: hidden;
     -moz-appearance: none;
     -moz-user-focus: ignore;

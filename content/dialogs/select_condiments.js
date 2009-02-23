@@ -13,6 +13,11 @@
 
         $.installPanel($panel[0], {
 
+            css: {
+                width: '640px',
+                height: '560px'
+            },
+
             init: function(evt) {
 			
                 var viewHelper = new NSICondimentsView();

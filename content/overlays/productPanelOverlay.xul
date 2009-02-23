@@ -23,6 +23,8 @@
                                    scrollDownClass="depart_scroll_down"
                                    seltype="single" >
            <spacer flex="1"/>
+           <vivibutton id="catescrollablepanel-soldout" type="checkbox" checkState="0" oncommand="event.stopPropagation()"/>
+           <spacer flex="1"/>
        </viviscrollablebuttonpanel>
         <!-- End Catalogs -->
 
@@ -37,7 +39,8 @@
                                    scrollDownClass="depart_scroll_down"
                                    seltype="none" >
            <spacer flex="1"/>
-
+           <vivibutton id="prodscrollablepanel-soldout" type="checkbox" checkState="0" oncommand="event.stopPropagation()"/>
+           <spacer flex="1"/>
        </viviscrollablebuttonpanel>
         <!-- End PLUs -->
 

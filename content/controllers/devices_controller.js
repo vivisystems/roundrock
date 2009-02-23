@@ -881,7 +881,7 @@
                             gpiopulses: selectedDevices[type + '-3-gpio-pulses'],
                             linkgroups: selectedDevices[type + '-3-link-groups'],
                             printunlinked: selectedDevices[type + '-3-print-unlinked'],
-                            number: 1
+                            number: 3
                         });
                     }
                     if (selectedDevices[type + '-4-enabled'] && (number == null || number == 2)) {
@@ -897,7 +897,8 @@
                             supportsstatus: selectedDevices[type + '-4-supports-status'],
                             gpiopulses: selectedDevices[type + '-4-gpio-pulses'],
                             linkgroups: selectedDevices[type + '-4-link-groups'],
-                            number: 2
+                            printunlinked: selectedDevices[type + '-4-print-unlinked'],
+                            number: 4
                         });
                     }
                 }

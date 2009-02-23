@@ -19,13 +19,13 @@
 <!ENTITY devices.handshaking.none "None">
 <!ENTITY devices.devicemodel.label "Device Model">
 <!ENTITY devices.deviceencoding.label "Encoding">
-<!ENTITY devices.receipt.autoprint.label "Auto-print after order finalization">
+<!ENTITY devices.receipt.autoprint.label "Auto-print after payment finalization">
 <!ENTITY devices.guestcheck.printer.1.label "Check Printer 1">
 <!ENTITY devices.guestcheck.printer.2.label "Check Printer 2">
 <!ENTITY devices.guestcheck.printer.3.label "Check Printer 3">
 <!ENTITY devices.guestcheck.printer.4.label "Check Printer 4">
 <!ENTITY devices.guestcheck.autoprint.label "Auto-print copies">
-<!ENTITY devices.guestcheck.printunlinked.label "Print unlinked items">
+<!ENTITY devices.guestcheck.printunlinked.label "Print items with no routing groups">
 <!ENTITY devices.report.printer.1.label "Report Printer">
 <!ENTITY devices.report.printer.2.label "Label Printer">
 <!ENTITY devices.vfd.1.label "VFD 1">

@@ -6,18 +6,18 @@
  */
 
 .cartList {
-    font-size: 14px;
+    font-size: 13px;
     border: 2px solid ;
-    -moz-border-top-colors: #f3faff #f3faff;
-    -moz-border-right-colors: #f3faff #f2f2f2;
-    -moz-border-bottom-colors: #e4e4e4 #f7f7f7;
-    -moz-border-left-colors: #f6f6f6 #fff;
+    -moz-border-top-colors: #ecf7ff #ecf7ff;
+    -moz-border-right-colors: #ecf7ff #ebebeb;
+    -moz-border-bottom-colors: #d6d6d6 #f2f2f2;
+    -moz-border-left-colors: #f1f1f1 #fff;
     margin: 0px 0px 2px 0px;
     padding: 0px;
     background: transparent;
 }
 
-.cartList .cartList {
+.cartList > .cartList {
     border: none;
 }
 
@@ -108,7 +108,7 @@
 .cartList tree {
     margin: 0px;
     border: none;
-    background: #f3faff;
+    background: #ecf7ff;
     -moz-appearance: none;
 }
 
@@ -148,6 +148,8 @@ treechildren::-moz-tree-row(treeReturnItem) {background-color: lightgreen;}
 treechildren::-moz-tree-cell-text(treecellTRAY) {color: white;}
 treechildren::-moz-tree-cell-text(treecellSUBTOTAL) {color: #3d5470;}
 treechildren::-moz-tree-cell-text(treecellTOTAL) {color: white;}
+treechildren::-moz-tree-image(treecellTagged) {list-style-image: url(images/prod-add.png);}
+treechildren::-moz-tree-image(treecellUntagged) {list-style-image: url(images/prod-remove.png);}
 
 .cartList #name {
     text-align: left;
@@ -162,26 +164,35 @@ treechildren::-moz-tree-cell-text(treecellTOTAL) {color: white;}
  *-----------------------------------------------------------------------------
  */
 
+.cartList tree #tag {
+    max-width: 15px;
+    min-width: 15px;
+}
+
 .cartList tree #name {
-    max-width: 138px;
-    min-width: 138px;
+/*
+    max-width: 140px;
+    min-width: 140px;
+*/
 }
 
 .cartList tree #current_qty {
-    max-width: 75px;
-    min-width: 75px;
+    max-width: 67px;
+    min-width: 67px;
 }
 
 .cartList tree #current_price {
-    max-width: 75px;
-    min-width: 75px;
+    max-width: 76px;
+    min-width: 76px;
 }
 
 .cartList tree #current_subtotal {
-    max-width: 90px;
-    min-width: 90px;
+    max-width: 76px;
+    min-width: 76px;
 }
 .cartList tree #current_tax {
+    max-width: 20px;
+    min-width: 20px;
 }
 
 .cartList tree label {

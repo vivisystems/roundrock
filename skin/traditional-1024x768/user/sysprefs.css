@@ -6,7 +6,7 @@ radiogroup {
     -moz-box-orient: vertical;
     -moz-appearance: none;
     border: none;
-    border-bottom: 1px solid #c1ab8e;
+    border-bottom: 1px solid #a98f6e;
 }
 
 radio {
@@ -14,15 +14,16 @@ radio {
     padding: 20px 10px;
     background: white url(images/sep.png) center right no-repeat;
     border:none;
-    color: #4b4b4b;
+    color: #333232;
     margin-bottom: 5px;
 }
-radio[selected=true] {
+radio[selected=true], radio[selected=true]:hover {
     -moz-user-focus: ignore;
-    background-color: #92856a;
+    background-color: #92856a !important;
     background-image: none;
     color: white;
     font-weight: bold;
+    -moz-appearance: none;
 }
 radio:hover {
     background: #f4f3ee !important;
@@ -66,7 +67,7 @@ prefpane {
   -moz-border-right-colors: #b2aca1;
   -moz-border-bottom-colors: #b2aca1;
   -moz-appearance: none;
-  color: #6c6050;
+  color: #524739;
   font-size: 12pt;
   margin: 0 5px;
   -moz-border-radius: 6px;
@@ -93,7 +94,7 @@ prefpane {
 }
 .DataFormB {
 	border-right: 2px solid white;
-	background: #f8f5f1;
+	background: #ede7dc;
     margin: 0 8px 0px 10px;
 }
 .DataFormB column{
@@ -109,7 +110,7 @@ prefpane {
 }
 .DataFormC {
 	border-right: 2px solid white;
-	background: #f8f5f1;
+	background: #ede7dc;
     margin: 0 8px 10px 10px;
 }
 .DataFormC column{
@@ -117,7 +118,7 @@ prefpane {
 }
 
 .DataFormD row{
-	/*border-bottom: 2px solid white;*/
+	border-bottom: 2px solid white;
 	font-size: 10pt;
 	padding: 10px;
     -moz-box-align: center;
@@ -127,7 +128,7 @@ prefpane {
 }
 .DataFormD {
 	border-right: 2px solid white;
-	background: #f8f5f1;
+	background: #ede7dc;
     margin: 0 10px 1px 10px;
 }
 .DataFormD column{
@@ -135,8 +136,8 @@ prefpane {
 }
 .RightPnlB label, .DataFormB label,
 .DataFormC label, .DataFormD label{
-	font-size: 10pt;
-    color: #534741;
+	font-size: 11pt;
+    color: #372213;
 }
 
 .DataForm {
@@ -163,7 +164,7 @@ prefpane {
 
 .TopArea {
     margin: 10px;
-    background: #f4f3ee;
+    background: #ecebe2;
     padding: 8px;
 }
 
@@ -180,7 +181,7 @@ prefpane {
 }
 
 .MainL {
-    border-right: 1px solid #c1ab8e;
+    border-right: 1px solid #a98f6e;
     margin-top: 4px;
 }
 
