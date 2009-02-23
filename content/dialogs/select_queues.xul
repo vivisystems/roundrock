@@ -15,22 +15,22 @@
          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
+    <script type="application/x-javascript" src="chrome://viviecr/content/dialogs/select_queues.js" />
+
     <popupset id="dialogs">
 
-        <panel id="selectQueuesPanel" style="width: 800px; height: 600px;">
+        <vivipanel id="selectQueuesPanel">
 
-            <script type="application/x-javascript" src="chrome://viviecr/content/dialogs/select_queues.js" />
+            <hbox flex="1" class="main-dialog" pack="center" style="width: 680px; max-width: 680px; height: 580px; max-height: 580px;">
 
-            <hbox flex="1" class="main-dialog" pack="center">
-
-                <vbox class="MainPnl" flex="1">
+                <vbox class="MainPnl" flex="1" style="padding: 0; margin: 0;">
 
                     <caption label="&select.queues.title;"  class="PageTitle"/>
 
                     <hbox class="MainL" flex="1">
 
                         <vbox class="LeftPnl" flex="6">
-                            <viviscrollablebuttonpanel id="queueScrollablepanel" flex="1" cols="2" rows="7"  seltype="single" labelField="key"
+                            <viviscrollablebuttonpanel id="queueScrollablepanel" flex="1" cols="2" rows="6"  seltype="single" labelField="key" style="height: 400px; max-height: 400px;"
                                                        class="ItemScrollablepanel"  dir="reverse"
                                                        buttonClass="ItemButtonA"
                                                        scrollUpClass="ScrollUp"
@@ -63,7 +63,7 @@
 
             </hbox>
 
-        </panel>
+        </vivipanel>
 
     </popupset>
 

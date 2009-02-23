@@ -140,6 +140,14 @@
             // force no list style image at dep
             $btn.css('list-style-image', 'none');
 
+            // sold out?
+            var soldout = this.getCellValue(row,{
+                id: 'soldout'
+            });
+            if (soldout) {
+                btn.label = _('Sold Out - ') + btn.label;
+            }
+
         }
     });
 

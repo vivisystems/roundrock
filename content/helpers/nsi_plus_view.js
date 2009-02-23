@@ -138,6 +138,14 @@
             if (classStr.length > 0) {
                 $(btn).addClass(classStr);
             }
+
+            // sold out?
+            var soldout = this.getCellValue(row,{
+                id: 'soldout'
+            });
+            if (soldout) {
+                btn.label = _('Sold Out - ') + btn.label;
+            }
         }
 
     });

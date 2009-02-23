@@ -37,7 +37,8 @@
 <!ENTITY layout.registeratleft "Place register screen on the left">
 <!ENTITY layout.hidenumpad "Hide numeric keypad">
 <!ENTITY layout.checktrackingmode "Show check tracking details">
-<!ENTITY layout.functionpanelontop "Place function key panel on top">
+<!ENTITY layout.hidesoldoutbuttons "Hide sold-out buttons">
+<!ENTITY layout.hidetagcolumn "Hide tag column">
 <!ENTITY layout.PLUbeforedept "Place product panel before department panel">
 <!ENTITY layout.hidedeptscrollbar "Hide scrollbars for department panel">
 <!ENTITY layout.hidepluscrollbar "Hide scrollbars for product panel">

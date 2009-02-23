@@ -8,11 +8,12 @@ var promptAdditem_options;
     function startup() {
 
         var $panel = $('#promptAdditemPanel');
-
+        
         $.installPanel($panel[0], {
 
             init: function(evt) {
 
+                
                 /*
                 var textNodes = document.getElementsByTagName('textbox');
                 if (textNodes != null && textNodes.length > 0) {
@@ -59,13 +60,15 @@ var promptAdditem_options;
                     document.getElementById('promptAdditem-cancel').setAttribute('disabled', false);
 
                     promptAdditem_validateInput();
-
-                    document.getElementById('promptAdditem-input0').focus();
                     
                 }catch(e) {
 
                 }
 
+            },
+
+            shown: function(evt) {
+                document.getElementById('promptAdditem-input0').focus();
             },
 
             hide: function (evt) {

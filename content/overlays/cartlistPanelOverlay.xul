@@ -11,8 +11,8 @@
     <vbox id="cartlistPanelContainer" flex="1">
 
             <viviscrollabletree class="cartList" id="cartList" hidecolumnpicker="true" hidevscroll="true" flex="1" dir="normal" fixed="true" disableKeyNavigation="true"
-                                headers="&cart.item.name;,&cart.item.qty;,&cart.item.unitprice;,&cart.item.subtotal;,&cart.item.tax;"
-                                fields="name,current_qty,current_price,current_subtotal,current_tax"
+                                headers="'',&cart.item.name;,&cart.item.qty;,&cart.item.unitprice;,&cart.item.subtotal;,&cart.item.tax;"
+                                fields="tag,name,current_qty,current_price,current_subtotal,current_tax"
                                 scrollUpClass="cartScrollUp" scrollDownClass="cartScrollDown" >
                 <vbox id="cartsidebar">
                     <vivibutton id="btnPlus" label="&cart.button.plus;" oncommand="$do('modifyQty', 'plus', 'Cart');"  class="systoolbtn mediumimagebtn plusbtn" roles="acl_modify_quantity" action="none"/>
