@@ -124,11 +124,19 @@
                 this.onCancel = function(evt) {
                     var transaction = evt.data;
                     if (transaction == null || typeof transaction.data == "undefined") {
+                        self.afterCancel(evt);
+                    }
+                }
+
+                this.afterCancel = function(evt) {
+                    var transaction = evt.data;
+                    if (transaction == null || typeof transaction.data == "undefined") {
                         total = this.format(0);
                         remain = this.format(0);
                         payment = this.format(0);
 
-                        // self.setText0_1('');
+                        // @irving 2009-02-23 removed comments from self.setText0_1('')
+                        self.setText0_1('');
                         self.setText0_0(_('TAL') + ': ' + total);
                         self.setText1_1(_('REM') + ': ' + remain);
                         self.setText1_0(_('PAY') + ': ' + payment);
@@ -196,6 +204,7 @@
                 this.cartevents.addListener('onSetQty', this.onSetQty, this);
                 this.cartevents.addListener('onClear', this.onClear, this);
                 this.cartevents.addListener('onCancel', this.onCancel, this);
+                this.cartevents.addListener('afterCancel', this.afterCancel, this);
                 this.cartevents.addListener('onQueue', this.onQueue, this);
                 this.cartevents.addListener('afterSubmit', this.afterSubmit, this);
                 this.cartevents.addListener('onWarning', this.onWarning, this);
@@ -225,9 +234,12 @@
                     this.cartevents.removeListener('onSetQty', this.onSetQty);
                     this.cartevents.removeListener('onClear', this.onClear);
                     this.cartevents.removeListener('onCancel', this.onCancel);
+                    this.cartevents.removeListener('afterCancel', this.afterCancel);
                     this.cartevents.removeListener('onQueue', this.onQueue);
                     this.cartevents.removeListener('afterSubmit', this.afterSubmit);
                     this.cartevents.removeListener('onWarning', this.onWarning);
+                }
+                if (this.mainevents) {
                     this.mainevents.removeListener('onEnterPassword', this.onEnterPassword);
                     this.mainevents.removeListener('onExitPassword', this.onExitPassword, this);
                 }
