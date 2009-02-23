@@ -124,12 +124,14 @@
         var self = this;
         // this._datasource = this.getAttribute('datasource') || null;
 
-        //this.ready = function() {
-            self.initGrid();
-        //};
+        self.initGrid();
+        
+        this.ready = function() {
+            self.resizeButtons();
+        };
         // add treecols and children
         //window.addEventListener('DOMContentLoaded', this.ready, true);
-        //window.addEventListener('load', this.ready, true);
+        window.addEventListener('load', this.ready, true);
 
     ]]>
     </constructor>
@@ -137,7 +139,7 @@
     <destructor>
     <![CDATA[
        //window.removeEventListener('DOMContentLoaded', this.ready, true);
-       //window.removeEventListener('load', this.ready, true);
+       window.removeEventListener('load', this.ready, true);
     ]]>
     </destructor>
 

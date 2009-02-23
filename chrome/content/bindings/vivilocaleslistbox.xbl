@@ -55,6 +55,9 @@
 
                 if (!package) return;
 
+                // already initial
+                if (this.listbox.childNodes.length >0) return;
+
                 // Query available and selected locales
                 var chromeRegInstance = Components.classes["@mozilla.org/chrome/chrome-registry;1"].getService();
                 var xulChromeReg = chromeRegInstance.QueryInterface(Components.interfaces.nsIXULChromeRegistry);
