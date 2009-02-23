@@ -4,6 +4,7 @@
 <!ENTITY rpthourlysales.execute "Execute">
 <!ENTITY rpthourlysales.exportpdf "Export to PDF">
 <!ENTITY rpthourlysales.exportcsv "Export to CSV">
+<!ENTITY rpthourlysales.exportrcp "Print">
 <!ENTITY rpthourlysales.togglezoom "Toggle Zoom">
 <!ENTITY rpthourlysales.machineid "Terminal No:">
 <!ENTITY rpthourlysales.wait "Waiting...">

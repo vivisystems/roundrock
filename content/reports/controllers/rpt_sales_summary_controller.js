@@ -4,14 +4,9 @@
      * RptDailySales Controller
      */
 
-    var  XUL_NS = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
-
-    var gPrintSettingsAreGlobal = false;
-    var gSavePrintSettings = false;
-
     GeckoJS.Controller.extend( {
         name: 'RptSalesSummary',
-        components: ['BrowserPrint', 'CsvExport'],
+        components: ['BrowserPrint', 'CsvExport', 'CheckMedia'],
 
         _mediaPath: null,
         _datas: null,
@@ -19,7 +14,7 @@
         _end: null,
         _machineid: null,
 
-        _showWaitPanel: function(panel) {
+        _showWaitPanel: function(panel, sleepTime) {
             var waitPanel = document.getElementById(panel);
             var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
             var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
@@ -29,8 +24,18 @@
             waitPanel.openPopupAtScreen(x, y);
 
             // release CPU for progressbar ...
-            this.sleep(1500);
+            if (!sleepTime) {
+              sleepTime = 1000;
+            }
+            this.sleep(sleepTime);
             return waitPanel;
+        },
+
+        _enableButton: function(enable) {
+            var disabled = !enable;
+            $('#export_pdf').attr('disabled', disabled);
+            $('#export_csv').attr('disabled', disabled);
+            $('#export_rcp').attr('disabled', disabled);
         },
 
         _getConditions: function() {
@@ -270,6 +275,16 @@
 
         execute: function() {
             var waitPanel = this._showWaitPanel('wait_panel');
+
+            var storeContact = GeckoJS.Session.get('storeContact');
+            var clerk = "";
+            var clerk_displayname = "";
+            var user = new GeckoJS.AclComponent().getUserPrincipal();
+            if ( user != null ) {
+                clerk = user.username;
+                clerk_displayname = user.description;
+            }
+
             var start = document.getElementById('start_date').value;
             var end = document.getElementById('end_date').value;
 
@@ -282,7 +297,9 @@
                 head: {
                     title:_('Sales Summary Report'),
                     start_time: start_str,
-                    end_time: end_str
+                    end_time: end_str,
+                    store: storeContact,
+                    clerk_displayname: clerk_displayname
                 },
                 body: {
                     hourly_sales: this._hourlySales(),
@@ -292,21 +309,25 @@
                     sales_summary: this._SalesSummary()
                 },
                 foot: {
-                    //
+                    gen_time: (new Date()).toString('yyyy/MM/dd HH:mm:ss')
                 }
             }
+
+            this._datas = data;
 // this.log(this.dump(data));
             var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_sales_summary.tpl");
 
             var file = GREUtils.File.getFile(path);
             var tpl = GREUtils.File.readAllBytes(file);
 
-            result = tpl.process(data);
+            var result = tpl.process(data);
 
             var bw = document.getElementById('preview_frame');
             var doc = bw.contentWindow.document.getElementById('abody');
 
             doc.innerHTML = result;
+
+            this._enableButton(true);
 
             waitPanel.hidePopup();
 
@@ -314,25 +335,84 @@
 
         exportPdf: function() {
 
-            this.BrowserPrint.getPrintSettings();
+            try {
+                this._enableButton(false);
+                var media_path = this.CheckMedia.checkMedia('export_report');
+                if (!media_path){
+                    NotifyUtils.info(_('Media not found!! Please attach the USB thumb drive...'));
+                    return;
+                }
 
-            this.BrowserPrint.setPaperSizeUnit(1);
-            this.BrowserPrint.setPaperSize(210, 297);
-            // this.BrowserPrint.setPaperEdge(80, 80, 80, 80);
-            // this.BrowserPrint.setPaperMargin(2, 2, 2, 2);
+                var waitPanel = this._showWaitPanel('wait_panel');
 
-            this.BrowserPrint.getWebBrowserPrint('preview_frame');
-            this.BrowserPrint.printToPdf("/var/tmp/sales_summary.pdf");
+                this.BrowserPrint.getPrintSettings();
+
+                this.BrowserPrint.setPaperSizeUnit(1);
+                this.BrowserPrint.setPaperSize(210, 297);
+                // this.BrowserPrint.setPaperEdge(80, 80, 80, 80);
+                // this.BrowserPrint.setPaperMargin(2, 2, 2, 2);
+
+                this.BrowserPrint.getWebBrowserPrint('preview_frame');
+                this.BrowserPrint.printToPdf(media_path + "/sales_summary.pdf");
+            } catch (e) {
+                //
+            } finally {
+                this._enableButton(true);
+                waitPanel.hidePopup();
+            }
         },
 
         exportCsv: function() {
+            try {
+                this._enableButton(false);
+                var media_path = this.CheckMedia.checkMedia('export_report');
+                if (!media_path){
+                    NotifyUtils.info(_('Media not found!! Please attach the USB thumb drive...'));
+                    return;
+                }
 
-            var columns = ['terminal_no', 'HourTotal', 'Hour', 'OrderNum', 'Guests', 'ItemsCount'];
-            var headers = ['TerminalNo', 'HourTotal', 'Hour', 'OrderNum', 'Guests', 'ItemsCount'];
-            var datas;
-            datas = this._hourlySales();
+                var waitPanel = this._showWaitPanel('wait_panel', 100);
 
-            this.CsvExport.exportToCsv("/var/tmp/sales_summary.csv", headers, columns, datas);
+                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_sales_summary_csv.tpl");
+
+                var file = GREUtils.File.getFile(path);
+                var tpl = GREUtils.File.readAllBytes(file);
+                var datas;
+                datas = this._datas;
+
+                this.CsvExport.printToFile(media_path + "/sales_summary.csv", datas, tpl);
+
+            } catch (e) {
+                //
+            } finally {
+                this._enableButton(true);
+                waitPanel.hidePopup();
+            }
+
+        },
+
+        exportRcp: function() {
+            try {
+                this._enableButton(false);
+                var waitPanel = this._showWaitPanel('wait_panel', 100);
+
+                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_sales_summary_rcp.tpl");
+
+                var file = GREUtils.File.getFile(path);
+                var tpl = GREUtils.File.readAllBytes(file);
+                var datas;
+                datas = this._datas;
+
+                // this.RcpExport.print(datas, tpl);
+                var rcp = opener.opener.opener.GeckoJS.Controller.getInstanceByName('Print');
+                rcp.printReport('report', tpl, datas);
+            } catch (e) {
+                //
+            } finally {
+                this._enableButton(true);
+                waitPanel.hidePopup();
+            }
+
         },
 
         load: function() {
@@ -346,6 +426,8 @@
 
             document.getElementById('start_date').value = start;
             document.getElementById('end_date').value = end;
+
+            this._enableButton(false);
 
         }
 

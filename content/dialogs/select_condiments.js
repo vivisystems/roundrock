@@ -9,8 +9,14 @@
         var $buttonPanel = $('#condimentscrollablepanel');
 
         var condsData = null;
+        var selectedItems = [];
 
         $.installPanel($panel[0], {
+
+            css: {
+                width: '640px',
+                height: '560px'
+            },
 
             init: function(evt) {
 			
@@ -23,9 +29,11 @@
 
             load: function(evt) {
 		
-                condsData = evt.data; // 0..n index
+                condsData = evt.data.conds; // 0..n index
+                selectedItems = evt.data.selectedItems; // 0..n index
 
                 $buttonPanel[0].datasource = condsData ;
+                $buttonPanel[0].selectedItems = selectedItems ;
                 $buttonPanel[0].vivibuttonpanel.invalidate();
                 $buttonPanel[0].scrollToRow(0);
 

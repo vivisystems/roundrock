@@ -1,8 +1,5 @@
 (function(){
 
-    GeckoJS.include('chrome://viviecr/content/devices/deviceTemplate.js');
-    GeckoJS.include('chrome://viviecr/content/devices/deviceTemplateUtils.js');
-
     /**
      * Print Controller
      */
@@ -194,8 +191,8 @@
         // handle order submit events
         submitOrder: function(evt) {
 
-            this.printReceipts(evt.data);
-            this.printGuestChecks(evt.data);
+            this.printGuestChecks(evt.data, null, true);
+            this.printReceipts(evt.data, null, true);
 
             // @todo delay saving order to database til after print jobs have all been scheduled
             this.scheduleOrderCommit(evt.data);
@@ -259,7 +256,7 @@
                 }
             }
             if (printer == null) printer = 0;
-            this.printReceipts(txn, printer);
+            this.printReceipts(txn, printer, false);
         },
 
         // print on all enabled receipt printers
@@ -268,7 +265,7 @@
         // printer = 2: second printer
         // printer = null: print on all auto-print enabled printers
 
-        printReceipts: function(txn, printer) {
+        printReceipts: function(txn, printer, autoPrint) {
 
             var device = this.getDeviceController();
             if (device == null) {
@@ -311,10 +308,12 @@
                         var encoding = device.encoding;
                         var copies = (printer == null) ? device.autoprint : 1;
 
-                        data._MODIFIERS = _templateModifiers(encoding);
+                        _templateModifiers(TrimPath, encoding);
+
                         data.linkgroups = null;
-                        data.printunlinked = 1;
+                        data.printNoRouting = 1;
                         data.routingGroups = null;
+                        data.autoPrint = autoPrint;
 
                         self.printCheck(data, template, port, portspeed, handshaking, devicemodel, encoding, device.number, copies);
                     }
@@ -323,7 +322,7 @@
         },
 
         // handles user initiated guest check requests
-        issueGuestCheck: function(printer) {
+        issueGuestCheck: function(printers) {
             var device = this.getDeviceController();
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
 
@@ -352,8 +351,7 @@
             }
 
             // check device settings
-            printer = GeckoJS.String.trim(printer);
-            if (printer == null || printer == '') {
+            if (printers == null || printers == '' ) {
                 switch (device.isDeviceEnabled('guestcheck', null)) {
                     case -2:
                         NotifyUtils.warn(_('You have not configured any guest check printers'));
@@ -364,24 +362,28 @@
                         NotifyUtils.warn(_('All guest check printers are disabled'));
                         return;
                 }
+                this.printGuestChecks(txn, 0, false);
             }
             else {
-                switch (device.isDeviceEnabled('guestcheck', printer)) {
-                    case -2:
-                        NotifyUtils.warn(_('You have not configured any guest check printers'));
-                        return;
+                var printerArray = GeckoJS.String.trim(printers).split(',');
+                var self = this;
+                printerArray.forEach(function(printer) {
+                    switch (device.isDeviceEnabled('guestcheck', printer)) {
+                        case -2:
+                            NotifyUtils.warn(_('You have not configured any guest check printers'));
+                            return;
 
-                    case -1:
-                        NotifyUtils.warn(_('Invalid guest check printer [%S]', [printer]));
-                        return;
+                        case -1:
+                            NotifyUtils.warn(_('Invalid guest check printer [%S]', [printer]));
+                            return;
 
-                    case 0:
-                        NotifyUtils.warn(_('The specified guest check printer [%S] is not enabled', [printer]));
-                        return;
-                }
+                        case 0:
+                            NotifyUtils.warn(_('The specified guest check printer [%S] is not enabled', [printer]));
+                            return;
+                    }
+                    self.printGuestChecks(txn, printer, false);
+                });
             }
-            if (printer == null) printer = 0;
-            this.printGuestChecks(txn, printer);
         },
 
 
@@ -392,7 +394,7 @@
         // printer = 2: second printer
         // printer = null: print on all auto-print enabled printers
 
-        printGuestChecks: function(txn, printer) {
+        printGuestChecks: function(txn, printer, autoPrint) {
 
             var device = this.getDeviceController();
             if (device == null) {
@@ -426,13 +428,16 @@
             var pluGroupModel = new PlugroupModel();
             var groups = pluGroupModel.findByIndex('all', {
                 index: 'routing',
-                value: 1,
-                order: 'display_order, name'
+                value: 1
             });
-            var routingGroups = {};
-            groups.forEach(function(g) {
-                routingGroups[g.id] = 1;
-            });
+
+            var routingGroups;
+            if (groups.length > 0) {
+                routingGroups = {};
+                groups.forEach(function(g) {
+                    routingGroups[g.id] = 1;
+                });
+            }
 
             // for each enabled printer device, print if autoprint is on or if force is true
             var self = this;
@@ -447,21 +452,13 @@
                         var encoding = device.encoding;
                         var copies = (printer == null) ? device.autoprint : 1;
                         
-                        data._MODIFIERS = _templateModifiers(encoding);
-
-                        data.linkgroups = {};
-                        if (device.linkgroups.length > 0) {
-                            var linkgroups = device.linkgroups.split(',');
-                            if (linkgroups.length > 0) {
-                                linkgroups.forEach(function(g) {
-                                    data.linkgroups[g] = 1;
-                                });
-                            }
-                        }
-
-                        data.printunlinked = device.printunlinked;
+                        _templateModifiers(TrimPath, encoding);
+                        data.linkgroup = device.linkgroup;
+                        
+                        data.printNoRouting = device.printNoRouting;
                         data.routingGroups = routingGroups;
-
+                        data.autoPrint = autoPrint;
+                        
                         self.printCheck(data, template, port, portspeed, handshaking, devicemodel, encoding, 0, copies);
                     }
                 });
@@ -501,7 +498,7 @@
             var devicemodel = enabledDevices[0].devicemodel;
             var encoding = enabledDevices[0].encoding;
 
-            data._MODIFIERS = _templateModifiers(encoding);
+            _templateModifiers(TrimPath, encoding);
 
             var template = tpl.process(data);
 
@@ -538,71 +535,83 @@
             if (data != null) {
                 var empty = true;
                 var routingGroups = data.routingGroups;
+
+                //this.log('printNoRouting: ' + data.printNoRouting);
+                //this.log('device group: ' + data.linkgroup);
+                //this.log('routingGroups: ' + GeckoJS.BaseObject.dump(data.routingGroups));
                 for (var i in data.order.items) {
                     var item = data.order.items[i];
-
                     item.linked = false;
 
-                    // we first filter item.link_group by routing groups
-                    var linkgroups = null;
-                    if (item.link_group != null && item.link_group.length > 0) {
-                        var groups = item.link_group.split(',');
-                        if (groups.length > 0) {
-                            groups.forEach(function(g) {
-                                if (g in routingGroups) {
-                                    if (linkgroups == null) linkgroups = {};
-                                    linkgroups[g] = 1;
-                                }
-                            });
+                    // rules:
+                    //
+                    // 1. item.link_group does not contain any link groups and device.printNoRouting is true
+                    // 2. device.linkgroup intersects item.link_group
+                    // 3. item.link_group does not contain any routing groups and device.printNoRouting is true
+                    //
+                    //this.log('item link groups: ' + GeckoJS.BaseObject.dump(item.link_group));
+                    if (device.printNoRouting) {
+                        if (item.link_group == null || item.link_group == '') {
+                            item.linked = true;
+                            empty = false;
                         }
                     }
 
-                    // then we print item if:
-                    // 1. item's filtered linkgroups is empty and data.printunlinked, or
-                    // 2. item's filtered linkgroups intersects data.linkgroups
-                    if (linkgroups == null) {
-                        if (data.printunlinked) {
-                            empty = false;
-                            item.linked = true;
-                        }
+                    if (!item.linked && data.linkgroup != null && data.linkgroup != '' && item.link_group.indexOf(data.linkgroup) > -1) {
+                        item.linked = true;
+                        empty = false;
                     }
-                    else {
-                        for (var j in data.linkgroups) {
-                            if (j in linkgroups) {
-                                empty = false;
-                                item.linked = true;
-                                break;
+
+                    if (!item.linked && data.printNoRouting) {
+                        var noRoutingGroups;
+                        if (data.routingGroups == null) {
+                            noRoutingGroups = true;
+                        }
+                        else {
+                            var groups = item.link_group.split(',');
+                            var noRoutingGroups = true;
+                            for (var i = 0; i < groups.length; i++) {
+                                if (groups[i] in data.routingGroups) {
+                                    noRoutingGroups = false;
+                                    break;
+                                }
                             }
                         }
+
+                        if (noRoutingGroups) {
+                            item.linked = true;
+                            empty = false;
+                        }
                     }
+                    this.log('item linked: ' + item.linked);
                 }
 
+                data.hasLinkedItems = !empty;
                 if (empty) {
                     this.log('no items linked to this printer; printing terminated');
-                    return;
                 }
             }
-            
+
             var tpl;
             var result;
 
             // if data is null, then the document has already been generated and passed in through the template parameter
             if (data != null) {
+
+                //this.log(GeckoJS.BaseObject.dump(data.order));
+                
                 var tpl = this.getTemplateData(template, false);
                 if (tpl == null || tpl == '') {
                     NotifyUtils.error(_('Specified template [%S] is empty or does not exist!', [template]));
                     return false;
                 }
-
-//this.log(GeckoJS.BaseObject.dump(data.order));
-                
                 result = tpl.process(data);
             }
             else {
                 result = template;
             }
 
-/*
+            /*
             alert('Printing check: \n\n' +
                   '   template [' + template + ']\n' +
                   '   port [' + port + ' (' + portPath + ')]\n' +
@@ -610,7 +619,7 @@
                   '   model [' + devicemodel + ']\n' +
                   '   encoding [' + encoding + ']\n' +
                   '   template content: ' + this.dump(tpl));
-*/
+            */
 
             commands = this.getDeviceCommandCodes(devicemodel, false);
 
@@ -626,7 +635,7 @@
                     result = result.replace(re, value);
                 }
             }
-            alert(this.dump(result));
+            alert(GeckoJS.BaseObject.dump(result));
             //return;
             //alert(data.order.receiptPages);
             //
@@ -675,7 +684,7 @@
             var runnable = {
                 run: function() {
                     try {
-                        // if recordReceipt is true, check if record already exists
+                        // check if record already exists if device > 0 (device is set to 0 for guestcheck and report/label printers
                         if (device > 0) {
                             var receipts = self.isReceiptPrinted(data.order.id, device);
                             if (receipts != null) {

@@ -4,6 +4,7 @@
 <!ENTITY rptdepartments.execute "Execute">
 <!ENTITY rptdepartments.exportpdf "Export to PDF">
 <!ENTITY rptdepartments.exportcsv "Export to CSV">
+<!ENTITY rptdepartments.exportrcp "Print">
 <!ENTITY rptdepartments.togglezoom "Toggle Zoom">
 <!ENTITY rptdepartments.wait "Waiting...">
 

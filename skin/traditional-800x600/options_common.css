@@ -1,9 +1,9 @@
-/*
+
 * {
   padding: 0px;
   margin: 0px;
 }
-*/
+
 
 .main-dialog {
     background: white url(images/optionsbg.gif) center center no-repeat;
@@ -32,12 +32,12 @@
 
 .SubTitle {
   font-size: 10pt;
-  color: #736357;
+  color: #372213;
   margin: 8px;
 }
 
 
-/* ���䪩���϶� */
+/*  */
 .LeftPnl {
   background: #f2f1eb;
   -moz-border-radius: 8px;
@@ -45,7 +45,7 @@
   margin: 5px;
 }
 
-/* �k��W���϶� */
+/*  */
 .DataForm row{
 	border-bottom: 2px solid white;
 	font-size: 10pt;
@@ -60,6 +60,10 @@
 	border-right: 2px solid white;
 	padding: 8px;
 }
+.DataForm label {
+  font-size: 10pt;
+  color: #372213;
+}
 
 /* �k��U���϶� */
 .RightPnlB {
@@ -67,20 +71,14 @@
 }
 
 
-/* �ϰ���D */
-.DataForm label {
-  font-size: 10pt;
-  color: #736357;
-}
-
 /* �@�q�� texbox ���� */
-/*textbox[form], #prefwin textbox {*/
+/* default texbox  */
 textbox:not(.uidisplay_field_label):not(.uidisplay_field_value):not(.orderstatus_field_label):not(.orderstatus_field_value):not(.current_user):not(.console_message_value) {
   border: 3px solid;
-  -moz-border-top-colors: #b8b8b8 #cfcfcf #e1e1e1;
-  -moz-border-right-colors: #ececec #f9f9f9 #fefefe;
-  -moz-border-bottom-colors: #ececec #f9f9f9 #fefefe;
-  -moz-border-left-colors: #b8b8b8 #cfcfcf #e1e1e1;
+  -moz-border-top-colors: #a7a7a7 #c5c5c5 #dcdcdc;
+  -moz-border-right-colors: #e7e7e7 #f7f7f7 #fefefe;
+  -moz-border-bottom-colors: #e7e7e7 #f7f7f7 #fefefe;
+  -moz-border-left-colors: #a7a7a7 #c5c5c5 #dcdcdc;
   background: white url(images/tboxbg.png) left center repeat-x;
   -moz-appearance: none;
   min-height: 36px;
@@ -89,32 +87,38 @@ textbox:not(.uidisplay_field_label):not(.uidisplay_field_value):not(.orderstatus
   color: #444;
 
 }
-/*textbox[form][readonly="true"], #prefwin textbox[readonly="true"] {*/
 textbox[readonly="true"]:not(.uidisplay_field_label):not(.uidisplay_field_value):not(.orderstatus_field_label):not(.orderstatus_field_value):not(.current_user):not(.console_message_value) {
-  border: 1px solid #d0cfcb;
-  -moz-border-top-colors: #d0cfcb;
-  -moz-border-left-colors: #d0cfcb;
-  -moz-border-right-colors: #d0cfcb;
-  -moz-border-bottom-colors: #d0cfcb;
+  border: 1px solid #bdbcb8;
+  -moz-border-top-colors: #bdbcb8;
+  -moz-border-left-colors: #bdbcb8;
+  -moz-border-right-colors: #bdbcb8;
+  -moz-border-bottom-colors: #bdbcb8;
   background: white url(images/tboxbg_readonly.png) left center repeat-x;
   -moz-appearance: none;
   min-height: 36px;
 }
 
-/* ��ϥΪ̫� textbox �� �ﶵ����s(�D�\���s) */
-/* A ����Υk��W���� �F B ��k��U���� ; ��ӥu�O�C�⤣�P�Ӥw */
+/* Buttons */
 .ItemButtonA, .ItemButtonA[readonly=true] {
   border: 3px solid;
-  -moz-border-top-colors: #f4f3ee #eeede8 #e2e1dc;
-  -moz-border-right-colors: #e2e1dc #d0cfcb #b7b6b2;
-  -moz-border-bottom-colors: #e2e1dc #d0cfcb #b7b6b2;
-  -moz-border-left-colors: #f4f3ee #eeede8 #e2e1dc;
+  -moz-border-top-colors: #f4f3ee #ecebe7 #dddcd8;
+  -moz-border-right-colors: #dddcd8 #c6c5c1 #a7a7a3;
+  -moz-border-bottom-colors: #dddcd8 #c6c5c1 #a7a7a3;
+  -moz-border-left-colors: #f4f3ee #ecebe7 #dddcd8;
   background: white url(images/tboxbg_readonly.png) left center repeat-x;
   -moz-appearance: none;
-  min-height: 36px;
-  color: #534741;
+  color: #3b312b;
 }
-.ItemButtonA[selected], .ItemButtonA[checked],
+.ItemButtonA[disabled="false"]:hover {
+  border: 3px solid;
+  -moz-border-top-colors: #f4f3ee #ecebe7 #00aeef;
+  -moz-border-right-colors: #dddcd8 #c6c5c1 #00aeef;
+  -moz-border-bottom-colors: #dddcd8 #c6c5c1 #00aeef;
+  -moz-border-left-colors: #f4f3ee #ecebe7 #00aeef;
+  background: white url(images/tboxbg_readonly.png) left center repeat-x;
+  -moz-appearance: none;
+}
+.ItemButtonA[selected], .ItemButtonA[checked], .ItemButtonA[selected]:hover,
 .ItemButtonA[disabled="fales"]:active {
   border: 2px solid;
   -moz-border-top-colors: #ee9400 #ee9400 !important;
@@ -140,9 +144,19 @@ textbox[readonly="true"]:not(.uidisplay_field_label):not(.uidisplay_field_value)
   background: white url(images/tboxbg_readonly.png) left center repeat-x;
   -moz-appearance: none;
   min-height: 36px;
-  color: #736357;
+  color: #3c322d;
 }
-.ItemButtonB[selected], .ItemButtonB[checked],
+.ItemButtonB[disabled="false"]:hover {
+  border: 3px solid;
+  -moz-border-top-colors: #f8f5f1 #f2efeb #ed145b;
+  -moz-border-right-colors: #e6e3df #d3d0cd #ed145b;
+  -moz-border-bottom-colors: #e6e3df #d3d0cd #ed145b;
+  -moz-border-left-colors: #f8f5f1 #f2efeb #ed145b;
+  background: white url(images/tboxbg_readonly.png) left center repeat-x;
+  -moz-appearance: none;
+  color: #3c322d;
+}
+.ItemButtonB[selected], .ItemButtonB[checked], .ItemButtonB[selected]:hover,
 .ItemButtonB[disabled=false]:active {
   border: 2px solid;
   -moz-border-top-colors: #00a99d #00a99d !important;
@@ -153,6 +167,7 @@ textbox[readonly="true"]:not(.uidisplay_field_label):not(.uidisplay_field_value)
   -moz-appearance: none;
   color: #32787a;
 }
+
 
 /* Scroll bar button */
 .ScrollUp {
@@ -188,9 +203,9 @@ textbox[readonly="true"]:not(.uidisplay_field_label):not(.uidisplay_field_value)
     display: none;
 }
 
-/* �\��ϰ�P��s �ק�B�R���B�s�W�K�� */
+/* functions  */
 .ToolBar {
-  background: #efe7dc;
+  background: #e8d1b1;
   -moz-border-radius: 8px;
   padding: 10px 5px;
   height: 60px;
@@ -202,12 +217,12 @@ textbox[readonly="true"]:not(.uidisplay_field_label):not(.uidisplay_field_value)
   background-color: white ;
   background-image: none;
   border: 1px solid !important;
-  -moz-border-top-colors: #b2aca1;
-  -moz-border-left-colors: #b2aca1;
-  -moz-border-right-colors: #b2aca1;
-  -moz-border-bottom-colors: #b2aca1;
+  -moz-border-top-colors: #918570;
+  -moz-border-left-colors: #918570;
+  -moz-border-right-colors: #918570;
+  -moz-border-bottom-colors: #918570;
   -moz-appearance: none;
-  color: #6c6050;
+  color: #4d4234;
   font-size: 12pt;
   margin: 0 5px;
   -moz-border-radius: 6px;
@@ -215,10 +230,10 @@ textbox[readonly="true"]:not(.uidisplay_field_label):not(.uidisplay_field_value)
   padding: 0 8px;
 }
 .ToolBar button[disabled=true], .ToolBar vivibutton[disabled=true] {
-  background-color: #f8f5f1 ;
+  background-color: #fff6e8 ;
 }
-.ToolBar button[disabled=false]:active, .ToolBar vivibutton[disabled=false]:active {
-    color: #362f2d;
+.ToolBar button[disabled=false]:hover, .ToolBar vivibutton[disabled=false]:hover {
+    color: #148c9c;
     text-decoration: underline;
     -moz-appearance: none;
 }
@@ -233,9 +248,9 @@ textbox[readonly="true"]:not(.uidisplay_field_label):not(.uidisplay_field_value)
   list-style-image: url(images/icon_add.png);
 }
 
-/* �����D��s�P�϶� ��}�B�x�s�B��L�K�� */
+/* Exit , keybroad, ... area */
 .dialogbtns {
-  background: #f2ede7;
+  background: #eee3d6;
   -moz-border-radius: 8px;
   padding: 5px 8px;
   height: 60px;
@@ -254,7 +269,7 @@ textbox[readonly="true"]:not(.uidisplay_field_label):not(.uidisplay_field_value)
   background: none;
   border: none;
 }
-.dialogbtns button:active {
+.dialogbtns button:hover {
     -moz-appearance: none;
     background-color: white !important;
     border: none;
@@ -287,13 +302,13 @@ textbox[readonly="true"]:not(.uidisplay_field_label):not(.uidisplay_field_value)
 checkbox {
     cursor: pointer;
     min-height: 40px;
-    padding: 5px;
+    padding: 8px;
 }
 
 radio {
     min-height: 40px;
     cursor: pointer;
-    padding: 5px;
+    padding: 8px;
 }
 
 checkbox:hover, radio:hover {
@@ -323,12 +338,12 @@ checkbox:hover, radio:hover {
     padding: 16px 8px;
     background: white url(images/sep.png) center right no-repeat;
     border:none;
-    color: #4b4b4b;
+    color: #393939;
     margin-bottom: 5px;
 }
 .RightTabbox tab[selected=true] {
     -moz-user-focus: ignore;
-    background-color: #92856a;
+    background-color: #847860;
     background-image: none;
     color: white;
     font-weight: bold;
@@ -417,7 +432,19 @@ listitem[selected=true] {
 /* menulist **/
 menuitem {
     min-height: 32px;
+    text-align: right;
 }
+menuitem:hover {
+    color: #000;
+    background-color: #cabda2;
+    -moz-appearance: none;
+}
+menuitem[selected=true] {
+    color: white;
+    background-color: #7e7259;
+    -moz-appearance: none;
+}
+
 menulist {
     -moz-appearance: none;
     border: 3px solid;
@@ -427,6 +454,7 @@ menulist {
     -moz-border-left-colors: #f4f3ee #eeede8 #e2e1dc;
     background: white url(images/tboxbg_readonly.png) left center repeat-x;
     min-height: 38px;
+    text-align: right;
     list-style-image: url(images/dropdown.png);
 }
 menulist:hover {
@@ -449,6 +477,11 @@ menulist hbox label {
     border-right: 1px solid ;
     -moz-border-right-colors: #a1a1ba;
     padding: 0 5px;
+}
+.popup-internal-box {
+    -moz-appearance: none;
+    background: white;
+    border: 1px solid #666;
 }
 
 spinbuttons {
@@ -546,6 +579,18 @@ scrollbar {
   padding: 30px;
 }
 
+treecol, treecolpicker {
+    background: #f2f2f2 url(images/titleBg.png) center center repeat-x;
+    border: none;
+    border-right: 1px solid #979a9d;
+    -moz-border-right-colors: #979a9d;
+    border-bottom: 1px solid #979a9d;
+    -moz-border-bottom-colors: #979a9d;
+    padding: 1px 3px;
+    -moz-appearance: none;
+    color: #000;
+}
+
 treechildren::-moz-tree-row {
   height: 32px;
 }
@@ -553,3 +598,7 @@ treechildren::-moz-tree-row(selected) {background-color: #92856a; }
 treechildren::-moz-tree-row(odd, selected) {background-color: #92856a; }
 treechildren::-moz-tree-cell-text(selected) {color: #FFFFFF;}
 treechildren::-moz-tree-cell-text(odd, selected) {color: #FFFFFF;}
+<<<<<<< HEAD:skin/traditional-800x600/options_common.css
+=======
+
+>>>>>>> f62e57d1c824b6fcbb8f8783c0abeb402e71a1a9:skin/traditional-800x600/options_common.css

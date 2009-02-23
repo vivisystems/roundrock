@@ -32,12 +32,12 @@
     </keyset>
 
     <vbox flex="1" class="main-dialog">
-        <vbox flex="1" class="MainPnl">
+        <vbox flex="1" class="MainPnl2">
         
             <caption label="&select.condiments.title;" class="PageTitle" />
             <label id="condiments" hidden="true" value="" />
             <hbox class="SelectBox">
-                <viviscrollablebuttonpanel id="condimentscrollablepanel" flex="1" cols="4" rows="7"  seltype="multiple" labelField="name"
+                <viviscrollablebuttonpanel id="condimentscrollablepanel" flex="1" cols="4" rows="5"  seltype="multiple" labelField="name"
                                            class="catescrollablepanel"
                                            buttonClass="plubtn"
                                            scrollUpClass="ScrollUp"
@@ -45,7 +45,7 @@
                     <spacer flex="1"/>
                 </viviscrollablebuttonpanel>
             </hbox>
-            <spacer style="height: 10px;" />
+            <spacer flex="1" />
             <hbox>
                 <hbox class="ToolBar" flex="1">
                     <button id="ok" label="&dialog.okButton.label;" default="true" oncommand="doOKButton();"/>

@@ -110,6 +110,15 @@
                 //$(btn).addClass('font-'+ buttonFontSize);
             }
 
+            // is this product unavailable?
+            var unavailable = this.getCellValue(row,{
+                id: 'unavailable'
+            });
+
+            if (unavailable) {
+                btn.disabled = true;
+            }
+
             // display icon only?
             var icon_only = this.getCellValue(row,{
                 id: 'icon_only'
@@ -128,6 +137,14 @@
             }
             if (classStr.length > 0) {
                 $(btn).addClass(classStr);
+            }
+
+            // sold out?
+            var soldout = this.getCellValue(row,{
+                id: 'soldout'
+            });
+            if (soldout) {
+                btn.label = _('Sold Out - ') + btn.label;
             }
         }
 

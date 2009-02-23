@@ -89,9 +89,11 @@
                 var item_count = 0;
                 var curTransaction = cart._getTransaction(true);
                 var qtyIncreased = (diff > 0);
+                
                 try {
                     item_count = (curTransaction.data.items_summary[item.id]).qty_subtotal;
-                } catch (e) {};
+                } catch (e) {}
+
                 if ((diff + item_count) > stock) {
                     if (true || qtyIncreased) { // always display warning
                         cart.dispatchEvent('onLowStock', obj);
@@ -332,6 +334,72 @@
             
         },
 
+        tagItem: function(tag) {
+            var index = this._cartView.getSelectedIndex();
+            var curTransaction = this._getTransaction();
+
+            var buf = this._getKeypadController().getBuffer();
+            this._getKeypadController().clearBuffer();
+
+            this.cancelReturn();
+
+            if(curTransaction == null) {
+                this.dispatchEvent('onTagItemError', null);
+
+                //@todo OSD
+                NotifyUtils.warn(_('Not an open order; cannot tag the selected entry'));
+
+                this.subtotal();
+                return;
+            }
+
+            if (tag == null || tag.length == 0) {
+                //@todo OSD
+                NotifyUtils.warn(_('Cannot tag the selected item with an empty tag'));
+
+                this.subtotal();
+                return;
+            }
+
+            if(index <0) {
+                //@todo OSD
+                NotifyUtils.warn(_('Please select an item first'));
+
+                this.subtotal();
+                return;
+            }
+
+            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
+                //@todo OSD
+                NotifyUtils.warn(_('Not an open order; cannot tag the selected item'));
+
+                this.subtotal();
+                return;
+            }
+
+            var itemTrans = curTransaction.getItemAt(index);
+            var itemDisplay = curTransaction.getDisplaySeqAt(index);
+
+            if (itemDisplay.type != 'item' && itemDisplay.type != 'setitem') {
+                this.dispatchEvent('onTagItemError', {});
+
+                //@todo OSD
+                NotifyUtils.warn(_('Cannot tag the selected item [%S]', [itemDisplay.name]));
+
+                this.subtotal();
+                return;
+            }
+
+            if (this.dispatchEvent('beforeTagItem', {
+                item: itemTrans,
+                itemDisplay: itemDisplay
+            })) {
+                var taggedItem = curTransaction.tagItemAt(index, tag);
+
+                this.dispatchEvent('afterTagItem', [taggedItem, itemDisplay]);
+            }
+        },
+
         addItem: function(plu) {
 
 
@@ -507,7 +575,7 @@
                 this.dispatchEvent('onModifyItemError', null);
 
                 //@todo OSD
-                NotifyUtils.warn(_('Not an open order; cannot modify'));
+                NotifyUtils.warn(_('Not an open order; cannot modify the selected item'));
 
                 this.subtotal();
                 return;
@@ -523,7 +591,7 @@
 
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 //@todo OSD
-                NotifyUtils.warn(_('Not an open order; cannot modify'));
+                NotifyUtils.warn(_('Not an open order; cannot modify the selected item'));
 
                 this.subtotal();
                 return;
@@ -536,7 +604,7 @@
                 this.dispatchEvent('onModifyItemError', {});
 
                 //@todo OSD
-                NotifyUtils.warn(_('Cannot modify selected item [%S]', [itemDisplay.name]));
+                NotifyUtils.warn(_('Cannot modify the selected item [%S]', [itemDisplay.name]));
 
                 this.subtotal();
                 return;
@@ -545,7 +613,7 @@
             // check if user is allowed to modify condiment
             if (itemDisplay.type == 'condiment' && !this.Acl.isUserInRole('acl_modify_condiment_price')) {
                 //@todo OSD
-                NotifyUtils.warn(_('Not authorized to modify condiment'));
+                NotifyUtils.warn(_('Not authorized to modify condiment price'));
 
                 this.subtotal();
                 return;
@@ -663,7 +731,7 @@
                 this.dispatchEvent('onModifyQty', null);
 
                 //@todo OSD
-                NotifyUtils.warn(_('Not an open order; cannot modify'));
+                NotifyUtils.warn(_('Not an open order; cannot modify the selected item'));
 
                 this.subtotal();
                 return;
@@ -679,7 +747,7 @@
 
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 //@todo OSD
-                NotifyUtils.warn(_('Not an open order; cannot modify'));
+                NotifyUtils.warn(_('Not an open order; cannot modify the selected item'));
 
                 this.subtotal();
                 return;
@@ -1950,7 +2018,7 @@
 
             if (!inputObj) {
                 var aURL = "chrome://viviecr/content/prompt_addaccount.xul";
-                var features = "chrome,titlebar,toolbar,centerscreen,modal,width=500,height=450";
+                var features = "chrome,titlebar,toolbar,centerscreen,modal,width=500,height=500";
                 var inputObj = {
                     input0:null,
                     input1:null,
@@ -2347,9 +2415,8 @@
             this.dispatchEvent('beforeSubmit', oldTransaction);
             
             // save order unless the order is being finalized (i.e. status == 1)
-            if (status != 1)
-                oldTransaction.submit(status);
             if (status != 1) oldTransaction.submit(status);
+            oldTransaction.status = status;
 
             this.dispatchEvent('afterSubmit', oldTransaction);
 
@@ -2513,8 +2580,10 @@
                 }
             }
 
+            var dialog_data = {conds: conds, selectedItems: selectedItems};
+
             var self = this;
-            return $.popupPanel('selectCondimentPanel', conds).next(function(evt){
+            return $.popupPanel('selectCondimentPanel', dialog_data).next(function(evt){
                 var selectedCondiments = evt.data;
                 if (selectedCondiments.length > 0) {
 				

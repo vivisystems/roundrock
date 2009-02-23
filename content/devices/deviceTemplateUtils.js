@@ -1,5 +1,5 @@
 (function() {               // Using a closure to keep global namespace clean.
-    var _templateModifiers = window._templateModifiers = function(_encoding) {
+    var _templateModifiers = window._templateModifiers = function($T, _encoding) {
 
         // return the length of the string in the given encoding
         function strLen(str) {
@@ -9,6 +9,7 @@
             }
             else {
                 try {
+                    str += '';
                     var lstr = GREUtils.Charset.convertFromUnicode(str, _encoding);
                     len = lstr.length;
                 }
@@ -17,13 +18,15 @@
                 }
             }
             return len;
-        }
+        };
 
         // carry out substring function on the string at the correct word boundary
         function subStr(str, startIndex, width) {
             var substr = '';
             if (str != null && str.length > 0) {
                 try {
+                    str += '';
+
                     var resultArray = [];
                     var charArray = str.split('');
                     var len = 0;
@@ -45,11 +48,12 @@
                 }
             }
             return substr;
-        }
+        };
 
-        var _MODIFIERS = {
-            wcenter: function(str, width) {
+        $T.parseTemplate_etc.modifierDef['wcenter'] = function(str, width) {
                 if (width == null || isNaN(width) || width < 0) return str;
+                str += '';
+
                 var len = str.length;
 
                 if (width < len) {
@@ -60,10 +64,11 @@
                     str = GeckoJS.String.padRight(GeckoJS.String.padLeft(str, leftPaddingWidth - (- len) , ' '), width, ' ');
                 }
                 return str;
-            },
+            };
 
-            center: function(str, width) {
+        $T.parseTemplate_etc.modifierDef['center'] = function(str, width) {
                 if (width == null || isNaN(width) || width < 0) return str;
+                str += '';
 
                 width = Math.floor(Math.abs(width));
                 var convertedLength = strLen(str);
@@ -80,10 +85,11 @@
                                                   ' ');
                 }
                 return str;
-            },
+            };
 
-            wleft: function(str, width) {
+        $T.parseTemplate_etc.modifierDef['wleft'] = function(str, width) {
                 if (width == null || isNaN(width)) return str;
+                str += '';
 
                 width = Math.floor(Math.abs(width));
                 var len = str.length;
@@ -95,10 +101,11 @@
                     str = GeckoJS.String.padRight(str, width, ' ');
                 }
                 return str;
-            },
+            };
 
-            left: function(str, width) {
+        $T.parseTemplate_etc.modifierDef['left'] = function(str, width) {
                 if (width == null || isNaN(width)) return str;
+                str += '';
 
                 width = Math.floor(Math.abs(width));
                 var convertedLength = strLen(str);
@@ -112,10 +119,11 @@
                     str = GeckoJS.String.padRight(str, internalLength + rightPaddingWidth, ' ');
                 }
                 return str;
-            },
+            };
 
-            wright: function(str, width) {
+        $T.parseTemplate_etc.modifierDef['wright'] = function(str, width) {
                 if (width == null || isNaN(width)) return str;
+                str += '';
 
                 width = Math.floor(Math.abs(width));
                 var len = str.length;
@@ -127,10 +135,11 @@
                     str = GeckoJS.String.padLeft(str, width, ' ');
                 }
                 return str;
-            },
+            };
 
-            right: function(str, width) {
+        $T.parseTemplate_etc.modifierDef['right'] = function(str, width) {
                 if (width == null || isNaN(width)) return str;
+                str += '';
 
                 width = Math.floor(Math.abs(width));
                 var convertedLength = strLen(str);
@@ -144,10 +153,11 @@
                     str = GeckoJS.String.padLeft(str, internalLength + leftPaddingWidth, ' ');
                 }
                 return str;
-            },
+            };
 
-            wtruncate: function(str, width) {
+        $T.parseTemplate_etc.modifierDef['wtruncate'] = function(str, width) {
                 if (width == null || isNaN(width)) return str;
+                str += '';
 
                 width = Math.floor(Math.abs(width));
                 var len = str.length;
@@ -158,8 +168,9 @@
                 return str;
             },
 
-            truncate: function(str, width) {
+        $T.parseTemplate_etc.modifierDef['truncate'] = function(str, width) {
                 if (width == null || isNaN(width)) return str;
+                str += '';
 
                 width = Math.floor(Math.abs(width));
                 var len = strLen(str);
@@ -170,6 +181,4 @@
                 return str;
             }
         };
-        return _MODIFIERS;
-    }
 }) ();

@@ -4,17 +4,12 @@
      * RptUsers Controller
      */
 
-    var  XUL_NS = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
-
-    var gPrintSettingsAreGlobal = false;
-    var gSavePrintSettings = false;
-
     GeckoJS.Controller.extend( {
         name: 'RptUsers',
-	
+        components: ['BrowserPrint', 'CsvExport', 'CheckMedia'],
         _datas: null,
 
-        _showWaitPanel: function(panel) {
+        _showWaitPanel: function(panel, sleepTime) {
             var waitPanel = document.getElementById(panel);
             var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
             var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
@@ -24,215 +19,151 @@
             waitPanel.openPopupAtScreen(x, y);
 
             // release CPU for progressbar ...
-            this.sleep(1500);
+            if (!sleepTime) {
+              sleepTime = 1000;
+            }
+            this.sleep(sleepTime);
             return waitPanel;
         },
 
-        showPageSetup: function () {
-            try {
-                var printSettings = this.getPrintSettings();
-                alert("setup:" + printSettings.paperName);
-                var PRINTPROMPTSVC = Components.classes["@mozilla.org/embedcomp/printingprompt-service;1"]
-                .getService(Components.interfaces.nsIPrintingPromptService);
-                PRINTPROMPTSVC.showPageSetup(window, printSettings, null);
-                alert("setup:" + printSettings.paperName);
-                if (gSavePrintSettings) {
-                    // Page Setup data is a "native" setting on the Mac
-                    var PSSVC = Components.classes["@mozilla.org/gfx/printsettings-service;1"]
-                    .getService(Components.interfaces.nsIPrintSettingsService);
-                    PSSVC.savePrintSettingsToPrefs(printSettings, true, printSettings.kInitSaveNativeData);
-                }
-            } catch (e) {
-                dump("showPageSetup "+e+"\n");
-                return false;
-            }
-            return true;
-        },
-
-        print: function () {
-
-            var webBrowserPrint = this.getWebBrowserPrint();
-            var printSettings = this.getPrintSettings();
-
-            printSettings.paperSizeUnit = 1; //kPaperSizeMillimeters;
-    
-            // letter
-            printSettings.paperHeight = 279;
-            printSettings.paperWidth = 216;
-
-            // a4
-            printSettings.paperHeight = 288;
-            printSettings.paperWidth = 210;
-
-            printSettings.edgeLeft = 60;
-            printSettings.edgeRight = 60;
-            printSettings.edgeTop = 60;
-            printSettings.edgeBottom = 60;
-
-            printSettings.outputFormat = Components.interfaces.nsIPrintSettings.kOutputFormatPDF;
-
-            var path = "/var/tmp/users.pdf";
-            printSettings.printToFile = true;
-            printSettings.toFileName = path;
-            printSettings.printSilent = true;
-    
-            try {
-                webBrowserPrint.print(printSettings, null);
-
-            } catch (e) {
-
-            }
-        },
-
-        getWebBrowserPrint: function () {
-            var doc = document.getElementById('preview_frame');
-            var _content = doc.contentWindow;
-            return _content.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-            .getInterface(Components.interfaces.nsIWebBrowserPrint);
-        },
-
-        getPrintSettings: function () {
-            var pref = Components.classes["@mozilla.org/preferences-service;1"]
-            .getService(Components.interfaces.nsIPrefBranch);
-            if (pref) {
-                gPrintSettingsAreGlobal = pref.getBoolPref("print.use_global_printsettings", false);
-                gSavePrintSettings = pref.getBoolPref("print.save_print_settings", false);
-            }
-
-            var printSettings;
-            try {
-                var PSSVC = Components.classes["@mozilla.org/gfx/printsettings-service;1"]
-                .getService(Components.interfaces.nsIPrintSettingsService);
-                if (gPrintSettingsAreGlobal) {
-                    printSettings = PSSVC.globalPrintSettings;
-                    this.setPrinterDefaultsForSelectedPrinter(PSSVC, printSettings);
-                } else {
-                    printSettings = PSSVC.newPrintSettings;
-                }
-            } catch (e) {
-                dump("getPrintSettings: "+e+"\n");
-            }
-            return printSettings;
+        _enableButton: function(enable) {
+            var disabled = !enable;
+            $('#export_pdf').attr('disabled', disabled);
+            $('#export_csv').attr('disabled', disabled);
+            $('#export_rcp').attr('disabled', disabled);
         },
 
         execute: function() {
             //
             var waitPanel = this._showWaitPanel('wait_panel');
 
-            var start = '';
-            var end = '';
+            var storeContact = GeckoJS.Session.get('storeContact');
+            var clerk = "";
+            var clerk_displayname = "";
+            var user = new GeckoJS.AclComponent().getUserPrincipal();
+            if ( user != null ) {
+                clerk = user.username;
+                clerk_displayname = user.description;
+            }
+
+            var users = new UserModel();
+            var datas = users.find('all', {});
+
             var data = {
                 head: {
                     title:_('User List'),
-                    start_date: start,
-                    end_date: end
+                    store: storeContact,
+                    clerk_displayname: clerk_displayname
                 },
-                body: this._datas,
+                body: datas,
                 foot: {
-                    summary: 120
+                    gen_time: (new Date()).toString('yyyy/MM/dd HH:mm:ss')
                 }
             }
+
+            this._datas = data;
 
             var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_users.tpl");
 
             var file = GREUtils.File.getFile(path);
             var tpl = GREUtils.File.readAllBytes(file);
 
-            result = tpl.process(data);
+            var result = tpl.process(data);
 
             var bw = document.getElementById('preview_frame');
             var doc = bw.contentWindow.document.getElementById('abody');
 
             doc.innerHTML = result;
 
+            this._enableButton(true);
+
             waitPanel.hidePopup();
 
         },
 
         exportPdf: function() {
-            
-            this.execute();
-            this.print();
+            try {
+                this._enableButton(false);
+                var media_path = this.CheckMedia.checkMedia('export_report');
+                if (!media_path){
+                    NotifyUtils.info(_('Media not found!! Please attach the USB thumb drive...'));
+                    return;
+                }
+
+                var waitPanel = this._showWaitPanel('wait_panel');
+
+                this.BrowserPrint.getPrintSettings();
+
+                this.BrowserPrint.setPaperSizeUnit(1);
+                this.BrowserPrint.setPaperSize(210, 297);
+                // this.BrowserPrint.setPaperEdge(80, 80, 80, 80);
+                // this.BrowserPrint.setPaperMargin(2, 2, 2, 2);
+
+                this.BrowserPrint.getWebBrowserPrint('preview_frame');
+                this.BrowserPrint.printToPdf(media_path + "/users.pdf");
+            } catch (e) {
+                //
+            } finally {
+                this._enableButton(true);
+                waitPanel.hidePopup();
+            }
         },
 
         exportCsv: function() {
-
-            this.load();
-
-            var start = '';
-            var end = '';
-
-            var data = {
-                head: {
-                    title:_('Department List'),
-                    start_date: start_str,
-                    end_date: end_str,
-                    department: 'department'
-                },
-                body: this._datas,
-                foot: {
-                    summary: 120
+            try {
+                this._enableButton(false);
+                var media_path = this.CheckMedia.checkMedia('export_report');
+                if (!media_path){
+                    NotifyUtils.info(_('Media not found!! Please attach the USB thumb drive...'));
+                    return;
                 }
+
+                var waitPanel = this._showWaitPanel('wait_panel', 100);
+
+                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_users_csv.tpl");
+
+                var file = GREUtils.File.getFile(path);
+                var tpl = GREUtils.File.readAllBytes(file);
+                var datas;
+                datas = this._datas;
+
+                this.CsvExport.printToFile(media_path + "/users.csv", datas, tpl);
+
+            } catch (e) {
+                //
+            } finally {
+                this._enableButton(true);
+                waitPanel.hidePopup();
             }
 
-            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_users.tpl");
+        },
 
-            var file = GREUtils.File.getFile(path);
-            var tpl = GREUtils.File.readAllBytes(file);
+        exportRcp: function() {
+            try {
+                this._enableButton(false);
+                var waitPanel = this._showWaitPanel('wait_panel', 100);
 
-            result = tpl.process(data);
+                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_users_rcp.tpl");
 
-            var doc = document.getElementById('preview_div');
-            doc.innerHTML = result;
+                var file = GREUtils.File.getFile(path);
+                var tpl = GREUtils.File.readAllBytes(file);
+                var datas;
+                datas = this._datas;
+
+                // this.RcpExport.print(datas, tpl);
+                var rcp = opener.opener.opener.GeckoJS.Controller.getInstanceByName('Print');
+                rcp.printReport('report', tpl, datas);
+            } catch (e) {
+                //
+            } finally {
+                this._enableButton(true);
+                waitPanel.hidePopup();
+            }
+
         },
 
         load: function() {
-            this._selectedIndex = -1;
-
-            var users = new UserModel();
-            var datas = users.find('all');
-            this._datas = datas;
-
-/*
-            var start = document.getElementById('start_date').value;
-            var end = document.getElementById('end_date').value;
-            var cate = new CategoryModel();
-            var cateDatas = cate.find('all', {
-                fields: ['no','name']
-            });
-            // this.log(this.dump(cateDatas));
-            var self = this;
-            var datas = [];
-            cateDatas.forEach(function(o){
-                datas[o.no] = {
-                    no:o.no,
-                    name:o.name
-                };
-            });
-
-            var prod = new ProductModel();
-            var prodDatas = prod.find('all', {
-                fields: ['cate_no', 'no','name','stock','min_stock'],
-                order:'cate_no'
-            });
-            // this.log(this.dump(prodDatas));
-            prodDatas.forEach(function(o){
-                if (datas[o.cate_no]) {
-                    if (datas[o.cate_no].plu == null) {
-                        datas[o.cate_no].plu = [];
-                    }
-                    datas[o.cate_no].plu.push( {
-                        cate_no:o.cate_no,
-                        no:o.no,
-                        name:o.name,
-                        stock:o.stock,
-                        min_stock:o.min_stock
-                    });
-                }
-            });
-
-            this._datas = datas;
-*/
+            this._enableButton(false);
         }
 
     });

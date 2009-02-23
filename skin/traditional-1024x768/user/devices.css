@@ -3,7 +3,7 @@
 }
 
 .SetArea {
-   background: #f4f3ee;
+   background: #ecebe2;
    -moz-border-radius: 8px;
    padding: 8px;
 }
@@ -12,9 +12,9 @@
     background: white;
 }
 
-.RightTabbox row {
+.RightTabbox .SubArea > grid row {
 	border-bottom: 2px solid white;
-	font-size: 10pt;
+	font-size: 11pt;
 	padding: 4px;
     -moz-box-align: center;
 }
