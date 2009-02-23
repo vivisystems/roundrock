@@ -9,8 +9,6 @@
 
             this.view = null,
 
-            this.destination_prefix = null,
-            
             this.data = {
 
                 id: '',
@@ -64,6 +62,8 @@
                 invoice_no: '',
 
                 destination: '',
+                destination_prefix: '',
+
                 table_no: '',
                 check_no: '',
 
@@ -154,7 +154,7 @@
     };
 
     // set order status, -1:canceled 0:process 1:submit
-    Transaction.prototype.process = function(status) {
+    Transaction.prototype.process = function(status, discard) {
         this.data.status = status;
 
         // save transaction to order / orderdetail ...
@@ -172,7 +172,7 @@
             // maintain stock...
             self.requestCommand('decStock', self.data, "Stocks");
 
-            self.run();
+            if (!discard) self.run();
        // }, 1500);
 
     };
@@ -215,6 +215,11 @@
 
     Transaction.prototype.isStored = function() {
         return (this.data.status == 2);
+    };
+
+
+    Transaction.prototype.isClosed = function() {
+        return (this.data.status == 3);
     };
 
 
@@ -295,7 +300,7 @@
             itemDisplay = GREUtils.extend(itemDisplay, {
                 id: item.id,
                 no: item.no,
-                name: this.destination_prefix + item.name,
+                name: this.data.destination_prefix + item.name,
                 current_qty: item.current_qty,
                 current_price: item.current_price,
                 //current_subtotal: item.current_subtotal + item.current_condiment,
@@ -1595,7 +1600,19 @@
         return item;
         
     };
+    
+    Transaction.prototype.lock = function(index, tag) {
+        var displayItems = this.data.display_sequences;
+        for (var i = 0; i <= index; i++) {
+            this.tagItemAt(i, tag);
+        }
+    };
 
+    Transaction.prototype.isLocked = function(index) {
+        if (typeof this.data.lock == 'undefined' || this.data.lock == null || this.data.lock == '' || isNaN(this.data.lock))
+            return false;
+        return (index <= this.data.lock);
+    };
 
     Transaction.prototype.getDisplaySeqCount = function(){
         return this.data.display_sequences.length;

@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="demodragdrop.css" type="text/css"?>
+
+<window
+title="Drag and drop demonstration"
+xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+xmlns:html="http://www.w3.org/1999/xhtml"
+>
+
+<script type="text/javascript">
+<![CDATA[
+function showCoords(evt){
+  //var form = document.forms.form_coords;
+  //var parent_id = evt.target.parentNode.id;
+  //form.parentId.value = parent_id;
+  //form.pageXCoords.value = evt.pageX;
+  //form.pageYCoords.value = evt.pageY;
+  //form.layerXCoords.value = evt.layerX;
+  //form.layerYCoords.value = evt.layerY;
+  
+  alert("pageX:" + evt.pageX + ", pageY:" + evt.pageY +
+        ", layerX:" + evt.layerX + ", " + evt.layerY +
+        ", nodeName:" + evt.target.nodeName + ", id:" + evt.target.id + ", tagName:" + evt.target.tagName);
+  
+}
+
+function dragStart(ev) {
+    ev.dataTransfer.effectAllowed='move';
+    //ev.dataTransfer.dropEffect='move';
+    ev.dataTransfer.setData("Text", ev.target.getAttribute('id'));
+    ev.dataTransfer.setDragImage(ev.target,0,0);
+    return true;
+}
+
+function dragEnter(ev) {
+    var idelt = ev.dataTransfer.getData("Text");
+    return true;
+}
+
+function dragOver(ev) {
+    var idelt = ev.dataTransfer.getData("Text");
+    var id = ev.target.getAttribute('id');
+    if( (id =='boxB' || id =='boxA') && (idelt == 'drag' || idelt=='drag2'))
+        return false;
+    else if( id =='boxC' && idelt == 'drag3')
+        return false;
+    else
+        return true;
+}
+
+function dragEnd(ev) {
+    ev.dataTransfer.clearData("Text");
+    return true
+}
+
+function dragDrop(ev) {
+    var idelt = ev.dataTransfer.getData("Text");
+    ev.target.appendChild(document.getElementById(idelt));
+    return false;
+}
+]]>
+</script>
+<vbox>
+<html:h1>Drag and drop demo in a XUL document, using the HTML5 drag and drop API</html:h1>
+<description>The red box and the orange box can be dragged and dropped between the blue and the green boxes.</description>
+<description>The purple box can be dragged and dropped only to the yellow box.</description>
+</vbox>
+<hbox flex="1">
+
+    <vbox id="boxA"
+        ondragenter="return dragEnter(event)"
+        ondrop="return dragDrop(event)"
+        ondragover="return dragOver(event)">
+        <hbox id="drag"
+            onmousedown="showCoords(event)"
+            ondragstart="return dragStart(event)"
+            ondragend="return dragEnd(event)"></hbox>
+
+        <hbox id="drag2"
+            ondragstart="return dragStart(event)"
+            ondragend="return dragEnd(event)"></hbox>
+        <hbox id="drag3"
+            ondragstart="return dragStart(event)"
+            ondragend="return dragEnd(event)"></hbox>
+
+    </vbox>
+
+    <vbox id="boxB"
+        ondragenter="return dragEnter(event)"
+        ondrop="return dragDrop(event)"
+        ondragover="return dragOver(event)">
+
+    </vbox>
+
+    <vbox id="boxC"
+        ondragenter="return dragEnter(event)"
+        ondrop="return dragDrop(event)"
+        ondragover="return dragOver(event)">
+
+    </vbox>
+</hbox>
+<vbox><html:div>Example created by <html:a href="http://ljouanneau.com/blog/">Laurent Jouanneau</html:a>
+for <html:a href="http://xulfr.org">xulfr.org</html:a>.</html:div></vbox>
+</window>

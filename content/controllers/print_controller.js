@@ -28,6 +28,7 @@
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             if(cart) {
                 cart.addEventListener('onSubmit', this.submitOrder, this);
+                cart.addEventListener('onGuestCheck', this.storeOrder, this);
             }
         },
 
@@ -202,6 +203,23 @@
             this.sleep(50);
         },
 
+        // handle store order events
+        storeOrder: function(evt) {
+
+            this.log(GeckoJS.BaseObject.dump(evt.data));
+            return;
+            
+            this.printGuestChecks(evt.data, null, true);
+            this.printReceipts(evt.data, null, true);
+
+            // @todo delay saving order to database til after print jobs have all been scheduled
+            this.scheduleOrderCommit(evt.data);
+
+            // @hack
+            // sleep to allow UI to catch up
+            this.sleep(50);
+        },
+
         // handles user initiated receipt requests
         issueReceipt: function(printer) {
             var device = this.getDeviceController();
@@ -215,7 +233,7 @@
                 return; // fatal error ?
             }
 
-            if (!txn.isSubmit()) {
+            if (!txn.isSubmit() || txn.isStored()) {
                 // @todo OSD
                 NotifyUtils.warn(_('The order has not been finalized; cannot issue receipt'));
                 return; // fatal error ?
@@ -259,13 +277,69 @@
             this.printReceipts(txn, printer, false);
         },
 
+        issueReceiptCopy: function(printer) {
+            var device = this.getDeviceController();
+            var cart = GeckoJS.Controller.getInstanceByName('Cart');
+
+            // check transaction status
+            var txn = cart._getTransaction();
+            if (txn == null) {
+                // @todo OSD
+                NotifyUtils.warn(_('Not an open order; cannot issue receipt copy'));
+                return; // fatal error ?
+            }
+
+            if (!txn.isSubmit()) {
+                // @todo OSD
+                NotifyUtils.warn(_('The order has not been finalized; cannot issue receipt copy'));
+                return; // fatal error ?
+            }
+
+            if (device == null) {
+                NotifyUtils.error(_('Error in device manager! Please check your device configuration copy'));
+                return;
+            }
+
+            // check device settings
+            printer = GeckoJS.String.trim(printer);
+            if (printer == null || printer == '') {
+                switch (device.isDeviceEnabled('receipt', null)) {
+                    case -2:
+                        NotifyUtils.warn(_('You have not configured any receipt printers'));
+                        return;
+
+                    case -1: // invalid device
+                    case 0: // device not enabled
+                        NotifyUtils.warn(_('All receipt printers are disabled'));
+                        return;
+                }
+            }
+            else {
+                switch (device.isDeviceEnabled('receipt', printer)) {
+                    case -2:
+                        NotifyUtils.warn(_('The specified receipt printer [%S] is not configured', [printer]));
+                        return;
+
+                    case -1:
+                        NotifyUtils.warn(_('Invalid receipt printer [%S]', [printer]));
+                        return;
+
+                    case 0:
+                        NotifyUtils.warn(_('The specified receipt printer [%S] is not enabled', [printer]));
+                        return;
+                }
+            }
+            if (printer == null) printer = 0;
+            this.printReceipts(txn, printer, false, true);
+        },
+
         // print on all enabled receipt printers
         // printer = 0: print on all enabled printers
         // printer = 1: first printer
         // printer = 2: second printer
         // printer = null: print on all auto-print enabled printers
 
-        printReceipts: function(txn, printer, autoPrint) {
+        printReceipts: function(txn, printer, autoPrint, duplicate) {
 
             var device = this.getDeviceController();
             if (device == null) {
@@ -311,9 +385,10 @@
                         _templateModifiers(TrimPath, encoding);
 
                         data.linkgroups = null;
-                        data.printunlinked = 1;
+                        data.printNoRouting = 1;
                         data.routingGroups = null;
                         data.autoPrint = autoPrint;
+                        data.duplicate = duplicate;
 
                         self.printCheck(data, template, port, portspeed, handshaking, devicemodel, encoding, device.number, copies);
                     }
@@ -428,13 +503,16 @@
             var pluGroupModel = new PlugroupModel();
             var groups = pluGroupModel.findByIndex('all', {
                 index: 'routing',
-                value: 1,
-                order: 'display_order, name'
+                value: 1
             });
-            var routingGroups = {};
-            groups.forEach(function(g) {
-                routingGroups[g.id] = 1;
-            });
+
+            var routingGroups;
+            if (groups.length > 0) {
+                routingGroups = {};
+                groups.forEach(function(g) {
+                    routingGroups[g.id] = 1;
+                });
+            }
 
             // for each enabled printer device, print if autoprint is on or if force is true
             var self = this;
@@ -450,20 +528,12 @@
                         var copies = (printer == null) ? device.autoprint : 1;
                         
                         _templateModifiers(TrimPath, encoding);
-
-                        data.linkgroups = {};
-                        if (device.linkgroups.length > 0) {
-                            var linkgroups = device.linkgroups.split(',');
-                            if (linkgroups.length > 0) {
-                                linkgroups.forEach(function(g) {
-                                    data.linkgroups[g] = 1;
-                                });
-                            }
-                        }
-
-                        data.printunlinked = device.printunlinked;
+                        data.linkgroup = device.linkgroup;
+                        
+                        data.printNoRouting = device.printNoRouting;
                         data.routingGroups = routingGroups;
                         data.autoPrint = autoPrint;
+                        data.duplicate = null;
                         
                         self.printCheck(data, template, port, portspeed, handshaking, devicemodel, encoding, 0, copies);
                     }
@@ -541,42 +611,55 @@
             if (data != null) {
                 var empty = true;
                 var routingGroups = data.routingGroups;
+
+                //this.log('printNoRouting: ' + data.printNoRouting);
+                //this.log('device group: ' + data.linkgroup);
+                //this.log('routingGroups: ' + GeckoJS.BaseObject.dump(data.routingGroups));
                 for (var i in data.order.items) {
                     var item = data.order.items[i];
                     item.linked = false;
 
-                    // we first filter item.link_group by routing groups
-                    var linkgroups = null;
-                    if (routingGroups != null && item.link_group != null && item.link_group.length > 0) {
-                        var groups = item.link_group.split(',');
-                        if (groups.length > 0) {
-                            groups.forEach(function(g) {
-                                if (g in routingGroups) {
-                                    if (linkgroups == null) linkgroups = {};
-                                    linkgroups[g] = 1;
-                                }
-                            });
+                    // rules:
+                    //
+                    // 1. item.link_group does not contain any link groups and device.printNoRouting is true
+                    // 2. device.linkgroup intersects item.link_group
+                    // 3. item.link_group does not contain any routing groups and device.printNoRouting is true
+                    //
+                    //this.log('item link groups: ' + GeckoJS.BaseObject.dump(item.link_group));
+                    if (device.printNoRouting) {
+                        if (item.link_group == null || item.link_group == '') {
+                            item.linked = true;
+                            empty = false;
                         }
                     }
 
-                    // then we print item if:
-                    // 1. item's filtered linkgroups is empty and data.printunlinked, or
-                    // 2. item's filtered linkgroups intersects data.linkgroups
-                    if (linkgroups == null) {
-                        if (data.printunlinked) {
-                            empty = false;
-                            item.linked = true;
-                        }
+                    if (!item.linked && data.linkgroup != null && data.linkgroup != '' && item.link_group.indexOf(data.linkgroup) > -1) {
+                        item.linked = true;
+                        empty = false;
                     }
-                    else {
-                        for (var j in data.linkgroups) {
-                            if (j in linkgroups) {
-                                empty = false;
-                                item.linked = true;
-                                break;
+
+                    if (!item.linked && data.printNoRouting) {
+                        var noRoutingGroups;
+                        if (routingGroups == null) {
+                            noRoutingGroups = true;
+                        }
+                        else {
+                            var groups = item.link_group.split(',');
+                            var noRoutingGroups = true;
+                            for (var i = 0; i < groups.length; i++) {
+                                if (groups[i] in routingGroups) {
+                                    noRoutingGroups = false;
+                                    break;
+                                }
                             }
                         }
+
+                        if (noRoutingGroups) {
+                            item.linked = true;
+                            empty = false;
+                        }
                     }
+                    this.log('item linked: ' + item.linked);
                 }
 
                 data.hasLinkedItems = !empty;
@@ -591,7 +674,7 @@
             // if data is null, then the document has already been generated and passed in through the template parameter
             if (data != null) {
 
-                //this.log(GeckoJS.BaseObject.dump(data.order));
+                this.log('type [' + typeof data.duplicate + '] [' + data.duplicate + '] ' + GeckoJS.BaseObject.dump(data.order));
                 
                 var tpl = this.getTemplateData(template, false);
                 if (tpl == null || tpl == '') {
@@ -678,7 +761,7 @@
                 run: function() {
                     try {
                         // check if record already exists if device > 0 (device is set to 0 for guestcheck and report/label printers
-                        if (device > 0) {
+                        if (device > 0 && ((typeof data.duplicate) == 'undefined' || data.duplicate == null)) {
                             var receipts = self.isReceiptPrinted(data.order.id, device);
                             if (receipts != null) {
                                 NotifyUtils.warn(_('A receipt has already been issued for this order on printer [%S]', [device]));
@@ -708,7 +791,7 @@
                             //@todo OSD
                             NotifyUtils.error(_('Error detected when outputing to device [%S] at port [%S]', [devicemodelName, portName]));
                         }
-                        if (printed && device > 0) {
+                        if (device > 0 && (typeof data.duplicate == 'undefined' || data.duplicate == null)) {
                             self.receiptPrinted(data.order.id, data.order.seq, device);
                         }
 

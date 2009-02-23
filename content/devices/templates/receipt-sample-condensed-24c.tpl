@@ -1,3 +1,6 @@
+{if duplicate}
+[&DWON]${'Bill Copy'|center:12}[&DWOFF]
+{/if}
 [&QSON]${store.name|center:12}[&QSOFF][&CR]
 [&DWON]${store.branch|center:12}[&DWOFF][&CR]
 ${store.telephone1|center:24}[&CR]
