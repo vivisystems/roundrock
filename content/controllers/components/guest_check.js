@@ -173,11 +173,11 @@
             if (count > 0) {
 
                 // this.log("GuestCheck store..." + no);
-                this._controller.addMarker('subtotal');
+                //this._controller.addMarker('subtotal');
 
                 // lock cart content up to the last display item
-                this._controller.lockCart();
-
+                this._controller.lockItems();
+this._controller.closeTransaction();
                 this._controller.submit(2);
                 this._controller.dispatchEvent('onWarning', _('STORED'));
                 

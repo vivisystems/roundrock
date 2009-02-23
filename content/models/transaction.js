@@ -71,9 +71,12 @@
 
                 terminal_no: GeckoJS.Session.get('terminal_no'),
 
+                lock: -1,
+                batchCount: 0,
+                closed: false,
+
                 created: '',
                 modified: ''
-
             };
 
             this.create();
@@ -219,7 +222,7 @@
 
 
     Transaction.prototype.isClosed = function() {
-        return (this.data.status == 3);
+        return this.data.closed;
     };
 
 
@@ -1600,18 +1603,35 @@
         return item;
         
     };
-    
-    Transaction.prototype.lock = function(index, tag) {
+
+    Transaction.prototype.close = function() {
+        this.data.closed = true;
+    };
+
+    Transaction.prototype.lockItems = function(index, tag) {
         var displayItems = this.data.display_sequences;
+        var batch = ++this.data.batchCount;
+
+        displayItems[index].batchMarker = batch;
+
+        // lock all display items up-to and including the item at position given by index
         for (var i = 0; i <= index; i++) {
-            this.tagItemAt(i, tag);
+            var dispItem = displayItems[i];
+            if (!('lock' in dispItem)) dispItem['lock'] = batch;
+        }
+
+        // set order lock index
+        if (this.data.lock < index) {
+            this.data.lock = index;
         }
     };
 
     Transaction.prototype.isLocked = function(index) {
-        if (typeof this.data.lock == 'undefined' || this.data.lock == null || this.data.lock == '' || isNaN(this.data.lock))
-            return false;
         return (index <= this.data.lock);
+    };
+
+    Transaction.prototype.isModified = function() {
+        return (this.data.lock < this.data.display_sequences.length - 1);
     };
 
     Transaction.prototype.getDisplaySeqCount = function(){

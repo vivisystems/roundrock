@@ -60,10 +60,12 @@
                 this.tree.invalidate();
             }*/
             //GREUtils.log('rowCountChanged 1: ' + oldIndex + ', ' + rc1 + ', ' + rc2 + ', ' + newIndex);
-            if (rc1 < 0) rc1 = 0;
+            if (rc1 < 0) {
+                rc1 = 0;
+                oldIndex = 0;
+            }
             if (rc2 < 0) rc2 = this.data.length;
             if (newIndex == null) newIndex = this.data.length - 1;
-
             if (rc1 != rc2) {
                 // lazy way ? full refresh
                 //this._cartList.datasource = this;
@@ -184,6 +186,11 @@
                 var aserv=Components.classes['@mozilla.org/atom-service;1'].
                           getService(Components.interfaces.nsIAtomService);
                 props.AppendElement(aserv.getAtom('treeVerifyAge'));
+            }
+            if (data.batchMarker) {
+                var aserv=Components.classes['@mozilla.org/atom-service;1'].
+                          getService(Components.interfaces.nsIAtomService);
+                props.AppendElement(aserv.getAtom('batchMarker'));
             }
             this._old_row = row;
         },

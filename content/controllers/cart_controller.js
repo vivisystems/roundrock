@@ -146,7 +146,6 @@
             var setItemsAgeVerificationRequired = 0;
             var positivePriceRequired = GeckoJS.Configure.read('vivipos.fec.settings.PositivePriceRequired');
             var curTransaction = this._getTransaction();
-            var index = curTransaction.getDisplaySeqCount();
 
             // cart.log('Item:' + cart.dump(item));
 
@@ -2420,17 +2419,29 @@
 
         },
 
-        lockCart: function(index) {
+        lockItems: function(index) {
             var curTransaction = this._getTransaction();
             if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
 
-                // no need to lock when transaction is in such a state
+                // cannot lock when transaction is in such a state
                 return;
             }
             if (index == null) index = curTransaction.getDisplaySeqCount() - 1;
-            curTransaction.lock(index, 'locked');
+            curTransaction.lockItems(index);
         },
-        
+
+        closeTransaction: function() {
+            var curTransaction = this._getTransaction();
+            if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel() || curTransaction.isClosed()) {
+
+                // cannot close the transaction when it is in such a state
+                return;
+            }
+            else {
+                curTransaction.close();
+            }
+        },
+
         cancel: function() {
 
             this._getKeypadController().clearBuffer();
@@ -2457,20 +2468,24 @@
 
             // if the order has been stored, then it cannot be cancelled; it must be voided instead
             if (curTransaction.data.recall == 2) {
-                if (GREUtils.Dialog.confirm(null, _('confirm cancel'),
+                
+                // determine if new items have been added
+                if (!curTransaction.isModified() ||
+                    GREUtils.Dialog.confirm(null, _('confirm cancel'),
                                             _('Are you sure you want to discard changes made to this order?'))) {
                     curTransaction.process(-1, true);
                     this._cartView.empty();
                     this.dispatchEvent('onCancel', null);
-                    return;
                 }
                 else {
                     this.dispatchEvent('onCancel', curTransaction);
                     return;
                 }
             }
-
-            curTransaction.cancel();
+            else {
+                curTransaction.cancel();
+            }
+            
             // @todo save oldTransaction to log ??
 
             GeckoJS.Session.remove('current_transaction');
@@ -2478,8 +2493,10 @@
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
 
-            this.dispatchEvent('afterCancel', curTransaction);
-            this.dispatchEvent('onCancel', curTransaction);
+            if (curTransaction.data.recall != 2) {
+                this.dispatchEvent('afterCancel', curTransaction);
+                this.dispatchEvent('onCancel', curTransaction);
+            }
         },
 	
         subtotal: function() {
@@ -2508,7 +2525,7 @@
             
             // save order unless the order is being finalized (i.e. status == 1)
             if (status != 1) oldTransaction.submit(status);
-            oldTransaction.status = status;
+            oldTransaction.data.status = status;
 
             this.dispatchEvent('afterSubmit', oldTransaction);
 
@@ -3096,6 +3113,7 @@
                         NotifyUtils.warn(_('This order has been submited!!'));
                     } else {
                         r = this.GuestCheck.store(curTransaction.data.items_count);
+                        this.dispatchEvent('onStore', curTransaction);
                     }
                     break;
                 case 'recallSequence':
