@@ -48,7 +48,9 @@
 function closePreferences() {
     try {
         // change button height
-        opener.opener.$do('resetLayout', null, 'Main');
+        //opener.opener.$do('updateOptions', null, 'Main');
+        var main = opener.opener.GeckoJS.Controller.getInstanceByName('Main');
+        main.requestCommand('updateOptions', null, 'Main');
 
         $do('setDefaultUser', null, 'Users');
         $do('setDefaultTaxStatus', null, 'Taxes');

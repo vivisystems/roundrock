@@ -244,6 +244,10 @@
             }
         },
 
+        updateOptions: function () {
+            this.resetLayout();
+        },
+
         toggleNumPad: function (state, initial) {
             var numPad = document.getElementById('numpad');
             var toolbar = document.getElementById('toolbar');
