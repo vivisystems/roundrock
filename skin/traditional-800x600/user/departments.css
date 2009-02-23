@@ -32,7 +32,7 @@
 
 .RightPnlB vbox {
     margin: 1px;
-    background: #f8f5f1;
+    background: #f1ede5;
 }
 
 .FontSizeSet {
@@ -49,7 +49,7 @@
 
 /** for import / export interface **/
 .ImportList {
-    background: #f4f3ee;
+    background: #f0efe8;
     margin: 8px;
 }
 
@@ -73,7 +73,7 @@
 }
 
 vividatetimepicker-datepad {
-   /* background: #f8f5f1;*/
+   /* background: #f1ede5;*/
     margin-right: 10px;
     padding: 10px;
 }
@@ -84,17 +84,17 @@ vividatetimepicker-datepad {
 }
 .datepicker-monthbox {
     font-size: 12pt;
-    background: #f8f5f1;
+    background: #f1ede5;
     padding: 5px;
     margin-top: 5px;
 }
 .datepicker-mainbox grid row {
     padding: 3px;
-    border: 1px solid #f8f5f1;
+    border: 1px solid #f1ede5;
 }
 .datepicker-mainbox grid column {
     padding: 3px;
-    border: 1px solid #f8f5f1;
+    border: 1px solid #f1ede5;
 }
 
 vividatetimepicker-timepad {
@@ -104,10 +104,10 @@ vividatetimepicker-timepad {
 
 .DateTime button {
     border: 3px solid;
-    -moz-border-top-colors: #f8f5f1 #f2efeb #e6e3df;
-    -moz-border-right-colors: #e6e3df #d3d0cd #bab8b5;
-    -moz-border-bottom-colors: #e6e3df #d3d0cd #bab8b5;
-    -moz-border-left-colors: #f8f5f1 #f2efeb #e6e3df;
+    -moz-border-top-colors: #f0efe8 #e8e8e1 #d9d9d2;
+	  -moz-border-right-colors: #d9d9d2 #c3c2bc #a5a49f;
+	  -moz-border-bottom-colors: #d9d9d2 #c3c2bc #a5a49f;
+	  -moz-border-left-colors: #f0efe8 #e8e8e1 #d9d9d2;
     background: white url(../images/tboxbg_readonly.png) left center repeat-x;
     -moz-appearance: none;
     min-height: 36px;
@@ -115,6 +115,15 @@ vividatetimepicker-timepad {
     margin: 3px;
     cursor: pointer;
     -moz-border-radius: 6px;
+}
+.DateTime button:hover {
+    border: 3px solid;
+	  -moz-border-top-colors: #f0efe8 #e8e8e1 #00aeef;
+	  -moz-border-right-colors: #d9d9d2 #c3c2bc #00aeef;
+	  -moz-border-bottom-colors: #d9d9d2 #c3c2bc #00aeef;
+	  -moz-border-left-colors: #f0efe8 #e8e8e1 #00aeef;
+    background: white url(../images/tboxbg_readonly.png) left center repeat-x;
+    -moz-appearance: none;
 }
 .DateTime button:active {
     border: 2px solid;
@@ -146,10 +155,10 @@ vividatetimepicker-timepad {
     margin: 0 5px;
     -moz-border-radius: 6px;
     border: 3px solid;
-    -moz-border-top-colors: #f4f3ee #eeede8 #e2e1dc;
+    -moz-border-top-colors: #f0efe8 #eeede8 #e2e1dc;
     -moz-border-right-colors: #e2e1dc #d0cfcb #b7b6b2;
     -moz-border-bottom-colors: #e2e1dc #d0cfcb #b7b6b2;
-    -moz-border-left-colors: #f4f3ee #eeede8 #e2e1dc;
+    -moz-border-left-colors: #f0efe8 #eeede8 #e2e1dc;
     background: white url(../images/tboxbg_readonly.png) left center repeat-x;
     max-height: 80px;
 }
@@ -172,25 +181,27 @@ vividatetimepicker-timepad {
 
 /* image manager**/
 .ImgList {
-    background: #f4f3ee;
+    background: #f0efe8;
     margin: 8px 0 0 0;
     padding: 8px 4px;
 }
-.ImgList vivibutton{
+.ImgList vbox vivibutton{
     margin: 0 4px;
 }
 
 .ImgThumb {
     -moz-appearance: none;
      border: 3px solid;
-    -moz-border-top-colors: #f4f3ee #f4f3ee #dacece;
-    -moz-border-right-colors: #f4f3ee #f4f3ee #dacece;
-    -moz-border-bottom-colors: #f4f3ee #f4f3ee #dacece;
-    -moz-border-left-colors: #f4f3ee #f4f3ee #dacece;
+    -moz-border-top-colors: #f0efe8 #e8e8e1 #d9d9d2;
+	  -moz-border-right-colors: #d9d9d2 #c3c2bc #a5a49f;
+	  -moz-border-bottom-colors: #d9d9d2 #c3c2bc #a5a49f;
+	  -moz-border-left-colors: #f0efe8 #e8e8e1 #d9d9d2;
     background: white;
-    margin: 3px;
+    margin: 3px;    
+    overflow: hidden;
+    min-height: 98px;
 }
-.ImgThumb[selected=true] {
+.ImgThumb[selected=true], .ImgThumb[checked] {
     border: 3px solid;
     -moz-border-top-colors: #ee9400 #ee9400 #ee9400;
     -moz-border-right-colors: #ee9400 #ee9400 #ee9400;
@@ -198,6 +209,18 @@ vividatetimepicker-timepad {
     -moz-border-left-colors: #ee9400 #ee9400 #ee9400;
     -moz-appearance: none;
     color: #372213;
+}
+.ImgThumb[disabled="true"] {
+  -moz-appearance: none;
+  border: none;
+  background: #e1dfdb;
+}
+.ImgThumb hbox {
+    -moz-box-orient: vertical;
+}
+.ImgThumb image {
+	width: 64px;
+	height: 64px;
 }
 
 .ImgInfo {
@@ -207,9 +230,48 @@ vividatetimepicker-timepad {
     font-weight: bold;
 }
 
-.ImgTool button {
-    margin: 4px;
+.ImgTool {
+    background: #e8d1b1;
+    -moz-border-radius: 8px;
+    padding: 10px 5px;
+    margin: 0px 2px 6px 6px;
+    max-width: 180px;
 }
+
+.ImgTool button, .ImgTool vivibutton {
+    margin: 4px;
+    min-height: 45px;
+    background-color: white ;
+    background-image: none;
+    border: 1px solid !important;
+    -moz-border-top-colors: #918570;
+    -moz-border-left-colors: #918570;
+    -moz-border-right-colors: #918570;
+    -moz-border-bottom-colors: #918570;
+    -moz-appearance: none;
+    color: #4d4234;
+    font-size: 12pt;
+    margin: 4px 5px;
+    -moz-border-radius: 6px;
+    min-width: 90px;
+    padding: 0 8px;
+}
+
+.ImgTool button[disabled=true],
+.ImgTool vivibutton[disabled=true]{
+  background-color: #fff6e8 ;
+}
+
+.ImgTool button[disabled=false]:hover,
+.ImgTool vivibutton[disabled=false]:hover,
+.ImgTool button[disabled=false]:active,
+.ImgTool vivibutton[disabled=false]:active {
+    color: #148c9c;
+    text-decoration: underline;
+    -moz-appearance: none;
+}
+
+
 
 /* sycn_settings */
 .DataFormA row{
@@ -220,7 +282,7 @@ vividatetimepicker-timepad {
 }
 .DataFormA {
 	border-right: 2px solid white;
-	background: #f4f3ee;
+	background: #f0efe8;
     margin: 0 10px 10px 10px;
 }
 .DataFormA column{

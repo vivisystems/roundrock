@@ -44,7 +44,7 @@
                     </viviscrollablebuttonpanel>
                 </hbox>
             </vbox>
-            <vbox>
+            <vbox >
                 <label id="" value="&select.queues.order.details;"  class="PageTitle"/>
                 <hbox class="sline"></hbox>
                 <textbox class="QueueList" readonly="1" id="itemlist" value="" />

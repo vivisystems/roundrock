@@ -26,7 +26,7 @@ radio[selected=true], radio[selected=true]:hover {
     -moz-appearance: none;
 }
 radio:hover {
-    background: #f4f3ee !important;
+    background: #f0efe8 !important;
     -moz-appearance: none;
 }
 radio image {
@@ -94,7 +94,7 @@ prefpane {
 }
 .DataFormB {
 	border-right: 2px solid white;
-	background: #f8f5f1;
+	background: #f1ede5;
     margin: 0px 8px 0px 10px;
 }
 .DataFormB column{
@@ -110,7 +110,7 @@ prefpane {
 }
 .DataFormC {
 	border-right: 2px solid white;
-	background: #f8f5f1;
+	background: #f1ede5;
     margin: 0 8px 10px 10px;
 }
 .DataFormC column{
@@ -128,7 +128,7 @@ prefpane {
 }
 .DataFormD {
 	border-right: 2px solid white;
-	background: #f8f5f1;
+	background: #f1ede5;
     margin: 0 5px 1px 5px;
 }
 .DataFormD column{
@@ -164,7 +164,7 @@ prefpane {
 
 .TopArea {
     margin: 10px;
-    background: #f4f3ee;
+    background: #f0efe8;
     padding: 8px;
 }
 

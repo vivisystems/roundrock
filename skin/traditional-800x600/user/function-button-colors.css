@@ -30,11 +30,11 @@
 }
 
 .function-button-color-3 {
-    -moz-border-top-colors: #fa6f00 !important;
-    -moz-border-right-colors: #fa6f00 !important;
-    -moz-border-bottom-colors: #fa6f00 !important;
-    -moz-border-left-colors: #fa6f00 !important;
-    background: #fdce92 url(images/funColor04.gif) bottom left repeat-x !important;
+    -moz-border-top-colors: #fc9c51 !important;
+    -moz-border-right-colors: #fc9c51 !important;
+    -moz-border-bottom-colors: #fc9c51 !important;
+    -moz-border-left-colors: #fc9c51 !important;
+    background: #fdd8a8 url(images/funColor04.gif) bottom left repeat-x !important;
 
 }
 

@@ -137,6 +137,7 @@
 }
 .catbtn[disabled=true], .plubtn[disabled=true] {
     background-position:0pt -64px;
+    background-color: #d8d7d3;
 }
 
 .catbtn hbox, .plubtn hbox {

@@ -63,7 +63,7 @@
                     <button id="importBtn" disabled="true" label="&importexport.import;"  oncommand="$do('importData', 'departments', 'ImportExport');" />
                     <button id="exportBtn" disabled="true" label="&importexport.export;"  oncommand="$do('exportData', 'departments', 'ImportExport');" />
                 </hbox>
-                <hbox id="dialogButtons" class="dialogbtns" pack="center">
+                <hbox id="dialogButtons" class="dialogbtns" pack="left">
                     <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
                 </hbox>
             </hbox>
