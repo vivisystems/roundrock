@@ -134,8 +134,8 @@ treechildren::-moz-tree-row {
   border-bottom: 1px solid #818085;
 }
 
-treechildren::-moz-tree-row(selected) {background-color: #3b556c; }
-treechildren::-moz-tree-row(odd, selected) {background-color: #3b556c; }
+treechildren::-moz-tree-row(selected) {background-color: #3b556c !important; }
+treechildren::-moz-tree-row(odd, selected) {background-color: #3b556c !important; }
 treechildren::-moz-tree-cell-text(selected) {color: #FFFFFF;}
 treechildren::-moz-tree-cell-text(odd, selected) {color: #FFFFFF;}
 treechildren::-moz-tree-row(treeTRAY) {background-color: #8e9d90;}

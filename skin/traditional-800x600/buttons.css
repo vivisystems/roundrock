@@ -409,21 +409,21 @@ textbox:not([onclick]) *[readonly] {
 }
 
 .dialogbtns .vkb {
-    list-style-image: url(images/keyboard-48x48.png);
+    list-style-image: url(images/keyboard.png);
     margin: 2px;
     -moz-box-orient: vertical;
     width: 40px;
 }
 
 .promptbtns .vkb {
-    list-style-image: url(images/keyboard-48x48.png);
+    list-style-image: url(images/keyboard.png);
     margin: 2px;
     -moz-box-orient: vertical;
     width: 40px;
 }
 
 .button-vkb {
-    background: transparent url(images/keyboard-32x32.png) center center no-repeat;
+    background: transparent url(images/keyboard.png) center center no-repeat;
     margin: 2px;
 }
 

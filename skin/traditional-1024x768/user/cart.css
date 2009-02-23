@@ -8,10 +8,10 @@
 .cartList {
     font-size: 14px;
     border: 2px solid ;
-    -moz-border-top-colors: #eaf6ff #eaf6ff;
-    -moz-border-right-colors: #eaf6ff #e8e8e8;
-    -moz-border-bottom-colors: #d1d1d1 #f1f1f1;
-    -moz-border-left-colors: #efefef #fff;
+    -moz-border-top-colors: #e6f4ff #e6f4ff;
+    -moz-border-right-colors: #e6f4ff #e4e4e4;
+    -moz-border-bottom-colors: #c9c9c9 #f1f1f1;
+    -moz-border-left-colors: #ececec #fff;
     margin: 0px 0px 2px 0px;
     padding: 0px;
     background: transparent;
@@ -106,7 +106,7 @@
 .cartList tree {
     margin: 0px;
     border: none;
-    background: #eaf6ff;
+    background: #e6f4ff;
     -moz-appearance: none;
 }
 
@@ -129,10 +129,10 @@
 
 treechildren::-moz-tree-row {
   height: 28px;
-  border-bottom: 1px solid #818085;
+  border-bottom: 1px solid #818085 !important;
 }
-treechildren::-moz-tree-row(selected) {background-color: #3b556c; }
-treechildren::-moz-tree-row(odd, selected) {background-color: #3b556c; }
+treechildren::-moz-tree-row(selected) {background-color: #3b556c  !important;; }
+treechildren::-moz-tree-row(odd, selected) {background-color: #3b556c !important; }
 treechildren::-moz-tree-cell-text(selected) {color: #FFFFFF;}
 treechildren::-moz-tree-cell-text(odd, selected) {color: #FFFFFF;}
 treechildren::-moz-tree-row(treeTRAY) {background-color: #8e9d90;}

@@ -35,7 +35,7 @@ pref("vivipos.fec.settings.controlpanels.config.devices.roles", "acl_manage_devi
  
 pref("vivipos.fec.settings.controlpanels.config.sync_settings.label", "Synchronization Settings");
 pref("vivipos.fec.settings.controlpanels.config.sync_settings.path", "chrome://viviecr/content/sync_settings.xul");
-pref("vivipos.fec.settings.controlpanels.config.sync_settings.icon", "chrome://viviecr/skin/icons/sync_settings.png");
+pref("vivipos.fec.settings.controlpanels.config.sync_settings.icon", "chrome://viviecr/skin/icons/icon_sync.png");
 pref("vivipos.fec.settings.controlpanels.config.sync_settings.roles", "acl_manage_sync_settings");
  
 pref("vivipos.fec.settings.controlpanels.product.departments.label", "Departments");
@@ -401,72 +401,72 @@ pref('vivipos.fec.ui.plugroup.button.defaultfontsize', 'medium');
  
 pref("vivipos.fec.reportpanels.productsales.label", "Product Sales");
 pref("vivipos.fec.reportpanels.productsales.path", "chrome://viviecr/content/reports/product_sales.xul");
-pref("vivipos.fec.reportpanels.productsales.icon", "chrome://viviecr/content/skin/icons/document-print-preview.png");
+pref("vivipos.fec.reportpanels.productsales.icon", "chrome://viviecr/content/skin/icons/reporticon_sale.png");
 pref("vivipos.fec.reportpanels.productsales.roles", "acl_public_access");
 
 pref("vivipos.fec.reportpanels.cashbyclerk.label", "Cash by Clerk");
 pref("vivipos.fec.reportpanels.cashbyclerk.path", "chrome://viviecr/content/reports/rpt_cash_by_clerk.xul");
-pref("vivipos.fec.reportpanels.cashbyclerk.icon", "chrome://viviecr/content/skin/icons/document-print-preview.png");
+pref("vivipos.fec.reportpanels.cashbyclerk.icon", "chrome://viviecr/content/skin/icons/reporticon_cash.png");
 pref("vivipos.fec.reportpanels.cashbyclerk.roles", "acl_public_access");
 
 pref("vivipos.fec.reportpanels.accountreport.label", "Accounting Report");
 pref("vivipos.fec.reportpanels.accountreport.path", "chrome://viviecr/content/reports/account_report.xul");
-pref("vivipos.fec.reportpanels.accountreport.icon", "chrome://viviecr/content/skin/icons/document-print-preview.png");
+pref("vivipos.fec.reportpanels.accountreport.icon", "chrome://viviecr/content/skin/icons/reporticon_account.png");
 pref("vivipos.fec.reportpanels.accountreport.roles", "acl_public_access_inactive");
 
 pref("vivipos.fec.reportpanels.attendancerecord.label", "Attendance Record");
 pref("vivipos.fec.reportpanels.attendancerecord.path", "chrome://viviecr/content/reports/rpt_attendance_record.xul");
-pref("vivipos.fec.reportpanels.attendancerecord.icon", "chrome://viviecr/content/skin/icons/insert-object.png");
+pref("vivipos.fec.reportpanels.attendancerecord.icon", "chrome://viviecr/content/skin/icons/reporticon_attendance.png");
 pref("vivipos.fec.reportpanels.attendancerecord.roles", "acl_public_access");
 
 pref("vivipos.fec.reportpanels.stocks.label", "Stocks Report");
 pref("vivipos.fec.reportpanels.stocks.path", "chrome://viviecr/content/reports/rpt_stocks.xul");
-pref("vivipos.fec.reportpanels.stocks.icon", "chrome://viviecr/content/skin/icons/editpaste.png");
+pref("vivipos.fec.reportpanels.stocks.icon", "chrome://viviecr/content/skin/icons/reporticon_plu.png");
 pref("vivipos.fec.reportpanels.stocks.roles", "acl_public_access");
 
 pref("vivipos.fec.reportpanels.userlist.label", "User List");
 pref("vivipos.fec.reportpanels.userlist.path", "chrome://viviecr/content/reports/rpt_users.xul");
-pref("vivipos.fec.reportpanels.userlist.icon", "chrome://viviecr/content/skin/icons/document-print.png");
+pref("vivipos.fec.reportpanels.userlist.icon", "chrome://viviecr/content/skin/icons/reporticon_user.png");
 pref("vivipos.fec.reportpanels.userlist.roles", "acl_public_access");
 
 pref("vivipos.fec.reportpanels.departmentlist.label", "Department List");
 pref("vivipos.fec.reportpanels.departmentlist.path", "chrome://viviecr/content/reports/rpt_departments.xul");
-pref("vivipos.fec.reportpanels.departmentlist.icon", "chrome://viviecr/content/skin/icons/document-print.png");
+pref("vivipos.fec.reportpanels.departmentlist.icon", "chrome://viviecr/content/skin/icons/reporticon_depart.png");
 pref("vivipos.fec.reportpanels.departmentlist.roles", "acl_public_access");
 
 pref("vivipos.fec.reportpanels.productlist.label", "Product List");
 pref("vivipos.fec.reportpanels.productlist.path", "chrome://viviecr/content/reports/rpt_products.xul");
-pref("vivipos.fec.reportpanels.productlist.icon", "chrome://viviecr/content/skin/icons/document-print.png");
+pref("vivipos.fec.reportpanels.productlist.icon", "chrome://viviecr/content/skin/icons/reporticon_plulist.png");
 pref("vivipos.fec.reportpanels.productlist.roles", "acl_public_access");
 
 pref("vivipos.fec.reportpanels.printlabel.label", "Print Label");
 pref("vivipos.fec.reportpanels.printlabel.path", "chrome://viviecr/content/reports/print_label.xul");
-pref("vivipos.fec.reportpanels.printlabel.icon", "chrome://viviecr/content/skin/icons/editcopy.png");
+pref("vivipos.fec.reportpanels.printlabel.icon", "chrome://viviecr/content/skin/icons/reporticon_printlbl.png");
 pref("vivipos.fec.reportpanels.printlabel.roles", "acl_public_access_inactive");
 
 pref("vivipos.fec.reportpanels.taxesreport.label", "Taxes Report");
 pref("vivipos.fec.reportpanels.taxesreport.path", "chrome://viviecr/content/reports/taxes_report.xul");
-pref("vivipos.fec.reportpanels.taxesreport.icon", "chrome://viviecr/content/skin/icons/editcopy.png");
+pref("vivipos.fec.reportpanels.taxesreport.icon", "chrome://viviecr/content/skin/icons/reporticon_taxe.png");
 pref("vivipos.fec.reportpanels.taxesreport.roles", "acl_public_access_inactive");
 
 pref("vivipos.fec.reportpanels.hourlysales.label", "Hourly Sales");
 pref("vivipos.fec.reportpanels.hourlysales.path", "chrome://viviecr/content/reports/rpt_hourly_sales.xul");
-pref("vivipos.fec.reportpanels.hourlysales.icon", "chrome://viviecr/content/skin/icons/editcopy.png");
+pref("vivipos.fec.reportpanels.hourlysales.icon", "chrome://viviecr/content/skin/icons/reporticon_hour.png");
 pref("vivipos.fec.reportpanels.hourlysales.roles", "acl_public_access");
 
 pref("vivipos.fec.reportpanels.dailysales.label", "Daily Sales");
 pref("vivipos.fec.reportpanels.dailysales.path", "chrome://viviecr/content/reports/rpt_daily_sales.xul");
-pref("vivipos.fec.reportpanels.dailysales.icon", "chrome://viviecr/content/skin/icons/editcopy.png");
+pref("vivipos.fec.reportpanels.dailysales.icon", "chrome://viviecr/content/skin/icons/reporticon_daily.png");
 pref("vivipos.fec.reportpanels.dailysales.roles", "acl_public_access");
 
 pref("vivipos.fec.reportpanels.dailysalesdetail.label", "Daily Sales - Detail");
 pref("vivipos.fec.reportpanels.dailysalesdetail.path", "chrome://viviecr/content/reports/rpt_daily_sales_detail.xul");
-pref("vivipos.fec.reportpanels.dailysalesdetail.icon", "chrome://viviecr/content/skin/icons/editcopy.png");
+pref("vivipos.fec.reportpanels.dailysalesdetail.icon", "chrome://viviecr/content/skin/icons/reporticon_dailydetail.png");
 pref("vivipos.fec.reportpanels.dailysalesdetail.roles", "acl_public_access");
 
 pref("vivipos.fec.reportpanels.salessummary.label", "Sales Summary");
 pref("vivipos.fec.reportpanels.salessummary.path", "chrome://viviecr/content/reports/rpt_sales_summary.xul");
-pref("vivipos.fec.reportpanels.salessummary.icon", "chrome://viviecr/content/skin/icons/editcopy.png");
+pref("vivipos.fec.reportpanels.salessummary.icon", "chrome://viviecr/content/skin/icons/reporticon_salelist.png");
 pref("vivipos.fec.reportpanels.salessummary.roles", "acl_public_access");
 
  
