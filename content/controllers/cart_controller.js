@@ -1957,8 +1957,10 @@
                         return; // fatal error ?
                     }
                 }
+                else {
+                    balance = payment;
+                }
             }
-alert(payment);
             var data = {
                 type: type,
                 payment: curTransaction.formatPrice(payment)
