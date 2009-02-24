@@ -237,7 +237,7 @@
                                     </rows>
                                 </grid>
                                 <vbox flex="1">
-                                    <viviscrollablebuttonpanel id="check-1-group_listscrollablepanel" form="deviceForm" name="check-1-link-group" default="" seltype="single" flex="1" cols="3" rows="4" labelField="name" imageField="no"
+                                    <viviscrollablebuttonpanel id="check-1-group_listscrollablepanel" form="deviceForm" name="check-1-link-group" default="" seltype="toggle" flex="1" cols="3" rows="4" labelField="name" imageField="no"
                                                                oncommand=""
                                                                class="catescrollablepanel"
                                                                buttonClass="plubtn"
@@ -314,7 +314,7 @@
                                     </rows>
                                 </grid>
                                 <vbox flex="1">
-                                    <viviscrollablebuttonpanel id="check-2-group_listscrollablepanel" form="deviceForm" name="check-2-link-group" default="" seltype="single" flex="1" cols="3" rows="4" labelField="name" imageField="no"
+                                    <viviscrollablebuttonpanel id="check-2-group_listscrollablepanel" form="deviceForm" name="check-2-link-group" default="" seltype="toggle" flex="1" cols="3" rows="4" labelField="name" imageField="no"
                                                                oncommand=""
                                                                class="catescrollablepanel"
                                                                buttonClass="plubtn"
@@ -392,7 +392,7 @@
                                     </rows>
                                 </grid>
                                 <vbox flex="1">
-                                    <viviscrollablebuttonpanel id="check-3-group_listscrollablepanel" form="deviceForm" name="check-3-link-group" default="" seltype="single" flex="1" cols="3" rows="4" labelField="name" imageField="no"
+                                    <viviscrollablebuttonpanel id="check-3-group_listscrollablepanel" form="deviceForm" name="check-3-link-group" default="" seltype="toggle" flex="1" cols="3" rows="4" labelField="name" imageField="no"
                                                                oncommand=""
                                                                class="catescrollablepanel"
                                                                buttonClass="plubtn"
@@ -469,7 +469,7 @@
                                     </rows>
                                 </grid>
                                 <vbox flex="1">
-                                    <viviscrollablebuttonpanel id="check-4-group_listscrollablepanel" form="deviceForm" name="check-4-link-group" default="" seltype="single" flex="1" cols="3" rows="4" labelField="name" imageField="no"
+                                    <viviscrollablebuttonpanel id="check-4-group_listscrollablepanel" form="deviceForm" name="check-4-link-group" default="" seltype="toggle" flex="1" cols="3" rows="4" labelField="name" imageField="no"
                                                                oncommand=""
                                                                class="catescrollablepanel"
                                                                buttonClass="plubtn"
