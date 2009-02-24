@@ -3,12 +3,23 @@
 [&STX]f320
 {eval}
 total = 0;
-for (id in order.items_summary) {
-   total += order.items_summary[id].qty_subtotal;
+for (id in order.items) {
+    var taglist = '';
+    if (order.items[id].tags != null) {
+        taglist = order.items[id].tags.join(',');
+    }
+    if (taglist.indexOf('nolabel') == -1) {
+        total += order.items[id].current_qty;
+        order.items[id].nolabel = false;
+    }
+    else {
+        order.items[id].nolabel = true;
+    }
 }
 counter = 1;
 {/eval}
 {for item in order.items}
+{if !item.nolabel}
 {eval}
   conds = GeckoJS.BaseObject.getKeys(item.condiments);
   condLimit = 3;
@@ -42,4 +53,5 @@ E
 {eval}
 counter += item.current_qty;
 {/eval}
+{/if}
 {/for}

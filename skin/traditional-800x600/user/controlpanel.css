@@ -221,9 +221,6 @@
     margin: 17px 0 0 14px;
     
 }
-.ActivityScrollPanel > .scrollablepanel-scrollbar {
-    margin-left: 15px !important;
-}
 .ActivityBtn {
 	  min-width:135px;
     max-width:135px;

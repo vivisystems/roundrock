@@ -9,8 +9,6 @@
 
             this.view = null,
 
-            this.destination_prefix = null,
-            
             this.data = {
 
                 id: '',
@@ -64,6 +62,8 @@
                 invoice_no: '',
 
                 destination: '',
+                destination_prefix: '',
+
                 table_no: '',
                 check_no: '',
 
@@ -71,9 +71,12 @@
 
                 terminal_no: GeckoJS.Session.get('terminal_no'),
 
+                lock: -1,
+                batchCount: 0,
+                closed: false,
+
                 created: '',
                 modified: ''
-
             };
 
             this.create();
@@ -154,7 +157,7 @@
     };
 
     // set order status, -1:canceled 0:process 1:submit
-    Transaction.prototype.process = function(status) {
+    Transaction.prototype.process = function(status, discard) {
         this.data.status = status;
 
         // save transaction to order / orderdetail ...
@@ -172,7 +175,7 @@
             // maintain stock...
             self.requestCommand('decStock', self.data, "Stocks");
 
-            self.run();
+            if (!discard) self.run();
        // }, 1500);
 
     };
@@ -215,6 +218,11 @@
 
     Transaction.prototype.isStored = function() {
         return (this.data.status == 2);
+    };
+
+
+    Transaction.prototype.isClosed = function() {
+        return this.data.closed;
     };
 
 
@@ -295,7 +303,7 @@
             itemDisplay = GREUtils.extend(itemDisplay, {
                 id: item.id,
                 no: item.no,
-                name: this.destination_prefix + item.name,
+                name: this.data.destination_prefix + item.name,
                 current_qty: item.current_qty,
                 current_price: item.current_price,
                 //current_subtotal: item.current_subtotal + item.current_condiment,
@@ -1596,6 +1604,35 @@
         
     };
 
+    Transaction.prototype.close = function() {
+        this.data.closed = true;
+    };
+
+    Transaction.prototype.lockItems = function(index, tag) {
+        var displayItems = this.data.display_sequences;
+        var batch = ++this.data.batchCount;
+
+        displayItems[index].batchMarker = batch;
+
+        // lock all display items up-to and including the item at position given by index
+        for (var i = 0; i <= index; i++) {
+            var dispItem = displayItems[i];
+            if (!('lock' in dispItem)) dispItem['lock'] = batch;
+        }
+
+        // set order lock index
+        if (this.data.lock < index) {
+            this.data.lock = index;
+        }
+    };
+
+    Transaction.prototype.isLocked = function(index) {
+        return (index <= this.data.lock);
+    };
+
+    Transaction.prototype.isModified = function() {
+        return (this.data.lock < this.data.display_sequences.length - 1);
+    };
 
     Transaction.prototype.getDisplaySeqCount = function(){
         return this.data.display_sequences.length;

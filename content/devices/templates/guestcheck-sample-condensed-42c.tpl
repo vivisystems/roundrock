@@ -1,6 +1,6 @@
 [&REVON][&QSON]${'GUEST CHECK'|center:21}[&QSOFF][&REVOFF]
-[&QSON]${store.name|center:21}[&QSOFF]
-[&DWON]${store.branch|center:21}[&DWOFF]
+[&DHON]${store.name|center:42}[&DHOFF]
+[&DHON]${store.branch|center:42}[&DHOFF]
 ${store.telephone1|center:42}
 Opened:   ${(new Date(order.created)).toLocaleFormat('%Y-%m-%d %H:%M:%S')}
 Submitted:${(new Date()).toLocaleFormat('%Y-%m-%d %H:%M:%S')}
