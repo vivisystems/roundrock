@@ -10,12 +10,15 @@
         $panel = $('#selectQueuesPanel');
         $buttonPanel = $('#queueScrollablepanel');
         $itemlist = $('#selectQueues-itemlist');
-        
+
+        var width = (GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800) - 20;
+        var height = (GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600) - 20;
+
         $.installPanel($panel[0], {
             
             css: {
-                width: GeckoJS.Session.get('screenwidth') || '800',
-                height: GeckoJS.Session.get('screenheight') || '600'
+                width: width + 'px',
+                height: height + 'px'
             },
 
             init: function(evt) {
@@ -24,7 +27,7 @@
 
                 $buttonPanel[0].datasource = viewHelper ;
                 $buttonPanel[0].selectedItems = [] ;
-                
+
                 try {
                     $buttonPanel[0].addEventListener('command', onBtnClick, true);
                 }catch(e) {
