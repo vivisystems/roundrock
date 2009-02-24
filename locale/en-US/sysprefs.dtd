@@ -32,8 +32,7 @@
 <!ENTITY login.autodiscardcart "Automatically discard cart content when signing off">
 <!ENTITY login.autodiscardqueue "Automatically discard queued orders when signing off">
 <!ENTITY login.mustemptyqueue "Order queue must be emptied when signing off">
-<!ENTITY login.shiftreportonsignoff "Print shift report when users sign off">
-<!ENTITY login.shiftreportonquickswitch "Print shift report when quick-switching users">
+<!ENTITY login.endshiftonsignoff "Automatically ends shift when users sign off">
 <!ENTITY login.allowquicklogin "Allow quick login by automatically matching user by password">
 <!ENTITY layout.registeratleft "Place register screen on the left">
 <!ENTITY layout.hidenumpad "Hide numeric keypad">

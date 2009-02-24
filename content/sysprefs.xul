@@ -156,8 +156,7 @@
             <preference id="pref_autodiscardqueue" name="vivipos.fec.settings.autodiscardqueue" type="bool"/>
             <preference id="pref_mustemptyqueue" name="vivipos.fec.settings.mustemptyqueue" type="bool"/>
             <preference id="pref_defaultlogin" name="vivipos.fec.settings.DefaultLogin" type="bool" />
-            <preference id="pref_shiftreportonquickswitch" name="vivipos.fec.settings.shiftreportonquickswitch" type="bool" />
-            <preference id="pref_shiftreportonsignoff" name="vivipos.fec.settings.shiftreportonsignoff" type="bool" />
+            <preference id="pref_endshiftonsignoff" name="vivipos.fec.settings.EndShiftOnSignOff" type="bool" />
             <preference id="pref_allowquicklogin" name="vivipos.fec.settings.login.allowquicklogin" type="bool" />
         </preferences>
         <vbox>
@@ -196,10 +195,7 @@
                     </row>
                     <row>
                         <checkbox id="mustemptyqueue" label="&login.mustemptyqueue;" preference="pref_mustemptyqueue"/>
-                        <checkbox id="shiftreportonsignoff" label="&login.shiftreportonsignoff;" preference="pref_shiftreportonsignoff"/>
-                    </row>
-                    <row>
-                        <checkbox id="shiftreportonquickswitch" label="&login.shiftreportonquickswitch;" preference="pref_shiftreportonquickswitch"/>
+                        <checkbox id="endshiftonsignoff" label="&login.endshiftonsignoff;" preference="pref_endshiftonsignoff"/>
                     </row>
                 </rows>
             </grid>
@@ -453,7 +449,7 @@
             <vbox >
                 <grid class="DataForm">
                     <columns>
-                        <column flex="1" />
+                        <column flex="0" />
                     </columns>
                     <rows>
                         <row>
