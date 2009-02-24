@@ -286,9 +286,9 @@
             }
         },
 
-	updateOptions: function () {
-	    this.resetLayout();
-	},
+        updateOptions: function () {
+            this.resetLayout();
+        },
 
         toggleNumPad: function (state, initial) {
             var numPad = document.getElementById('numpad');
@@ -355,7 +355,6 @@
         resizeLeftPanel: function (initial) {
             // resizing product/function panels
             var rightPanel = document.getElementById('rightPanel');
-            var leftPanel = document.getElementById('leftPanel');
             var panelSpacer = document.getElementById('panelSpacer');
             var deptPanel = document.getElementById('catescrollablepanel');
             var pluPanel = document.getElementById('prodscrollablepanel');
