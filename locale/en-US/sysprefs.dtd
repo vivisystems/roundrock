@@ -39,7 +39,7 @@
 <!ENTITY layout.checktrackingmode "Show check tracking details">
 <!ENTITY layout.hidesoldoutbuttons "Hide sold-out buttons">
 <!ENTITY layout.hidetagcolumn "Hide tag column">
-<!ENTITY layout.PLUbeforedept "Place product panel before department panel">
+<!ENTITY layout.nonumpad "Replace numeric keypad with function panel">
 <!ENTITY layout.hidedeptscrollbar "Hide scrollbars for department panel">
 <!ENTITY layout.hidepluscrollbar "Hide scrollbars for product panel">
 <!ENTITY layout.hidefpscrollbar "Hide scrollbars for function panel">
