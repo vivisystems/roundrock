@@ -75,9 +75,12 @@
       <method name="_autorepeatbuttonScroll">
         <parameter name="event"/>
         <body><![CDATA[
+          var scrollUnit = this.getAttribute('scrollUnit') || 'line';
           var dir = event.originalTarget == this._scrollButtonUp ? -1 : 1;
-
-          this.scrollByPages(dir);
+          if (scrollUnit == 'page')
+              this.scrollByPages(dir);
+          else
+              this.scrollByLines(dir);
 
           event.stopPropagation();
         ]]></body>
