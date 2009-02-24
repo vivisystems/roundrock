@@ -597,7 +597,3 @@ treechildren::-moz-tree-row(selected) {background-color: #92856a; }
 treechildren::-moz-tree-row(odd, selected) {background-color: #92856a; }
 treechildren::-moz-tree-cell-text(selected) {color: #FFFFFF;}
 treechildren::-moz-tree-cell-text(odd, selected) {color: #FFFFFF;}
-<<<<<<< HEAD:skin/traditional-800x600/options_common.css
-=======
-
->>>>>>> f62e57d1c824b6fcbb8f8783c0abeb402e71a1a9:skin/traditional-800x600/options_common.css

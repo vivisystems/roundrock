@@ -1958,7 +1958,7 @@
                     }
                 }
             }
-
+alert(payment);
             var data = {
                 type: type,
                 payment: curTransaction.formatPrice(payment)

@@ -302,22 +302,31 @@
             var cartSidebar = document.getElementById('cartsidebar');
             var isHidden = numPad.getAttribute('hidden') || 'false';
             var hideNumPad = (state == null) ? (isHidden == 'false') : state;
+            var commonPad = document.getElementById('commonPad');
+            var noNumPad = GeckoJS.Configure.read('vivipos.fec.settings.NoNumPad') || false;
             var toggled = false;
 
             if (hideNumPad) {
                 if (numPad && (isHidden != 'true')) {
                 // relocate clockinBtn and optionsBtn to cartSidebar
-                    if (vkbBtn) vkbBtn.parentNode.removeChild(vkbBtn);
-                    if (clockinBtn) clockinBtn.parentNode.removeChild(clockinBtn);
-                    if (optionsBtn) optionsBtn.parentNode.removeChild(optionsBtn);
+                    //if (vkbBtn) vkbBtn.parentNode.removeChild(vkbBtn);
+                    //if (clockinBtn) clockinBtn.parentNode.removeChild(clockinBtn);
+                    //if (optionsBtn) optionsBtn.parentNode.removeChild(optionsBtn);
 
                     if (cartSidebar) {
                         cartSidebar.appendChild(vkbBtn);
                         cartSidebar.appendChild(clockinBtn);
                         cartSidebar.appendChild(optionsBtn);
+
+                        if (noNumPad) {
+                            cartSidebar.appendChild(toggleBtn);
+                        }
                     }
 
                     if (numPad) numPad.setAttribute('hidden', 'true');
+                    if (commonPad && noNumPad) {
+                        commonPad.setAttribute('hidden', 'true');
+                    }
                     toggled = true;
                 }
                 if (toggleBtn) toggleBtn.setAttribute('state', 'true');
@@ -327,13 +336,13 @@
                 // if already visible then don't change
                 if (numPad && (isHidden == 'true')) {
                     // relocate clockinBtn and optionsBtn to toolbar
-                    if (vkbBtn) vkbBtn.parentNode.removeChild(vkbBtn);
-                    if (clockinBtn) clockinBtn.parentNode.removeChild(clockinBtn);
-                    if (optionsBtn) optionsBtn.parentNode.removeChild(optionsBtn);
+                    //if (vkbBtn) vkbBtn.parentNode.removeChild(vkbBtn);
+                    //if (clockinBtn) clockinBtn.parentNode.removeChild(clockinBtn);
+                    //if (optionsBtn) optionsBtn.parentNode.removeChild(optionsBtn);
 
                     if (toolbar) {
-                        if (toggleBtn) toolbar.removeChild(toggleBtn);
-                        if (spacer) toolbar.removeChild(spacer);
+                        //if (toggleBtn) toolbar.removeChild(toggleBtn);
+                        //if (spacer) toolbar.removeChild(spacer);
                         if (vkbBtn) toolbar.appendChild(vkbBtn);
                         if (clockinBtn) toolbar.appendChild(clockinBtn);
                         if (optionsBtn) toolbar.appendChild(optionsBtn);
@@ -342,14 +351,17 @@
                     }
 
                     if (numPad) numPad.setAttribute('hidden', 'false');
+                    if (commonPad && noNumPad) {
+                        commonPad.setAttribute('hidden', 'false');
+                    }
                     toggled = true;
                 }
                 if (toggleBtn) toggleBtn.setAttribute('state', 'false');
                 fixedRow.selectedIndex = 0;
             }
 
-            if (initial) this.resizeLeftPanel(initial);
-            return toggled;
+            //if (initial) this.resizeLeftPanel(initial);
+            //return toggled;
         },
 
         resizeLeftPanel: function (initial) {
@@ -431,8 +443,12 @@
                 (pluPanel.getAttribute('hideScrollbar') != hidePLUScrollbar)) {
                 pluPanel.setAttribute('rows', pluRows);
                 pluPanel.setAttribute('cols', pluCols);
-                if (!noNumPad) pluPanel.setAttribute('buttonHeight', pluButtonHeight);
-                else pluPanel.removeAttribute('buttonHeight');
+                if (!noNumPad) {
+                    pluPanel.setAttribute('buttonHeight', pluButtonHeight);
+                }
+                else {
+                    pluPanel.removeAttribute('buttonHeight');
+                }
 
                 if (cropPLULabel) pluPanel.setAttribute('crop', 'end');
                 else pluPanel.removeAttribute('crop');
@@ -454,7 +470,12 @@
             // replace number pad with function panel?
             var commonPad = document.getElementById('commonPad');
             if (commonPad) {
-                commonPad.selectedIndex = noNumPad ? 1 : 0;
+                if (noNumPad) {
+                    commonPad.selectedIndex = 1;
+                }
+                else {
+                    commonPad.selectedIndex = 0;
+                }
             }
 
             // resize left & right fnPanels
@@ -522,7 +543,7 @@
             var checkTrackingMode = GeckoJS.Configure.read('vivipos.fec.settings.CheckTrackingMode') || false;
             var hideSoldOutButtons = GeckoJS.Configure.read('vivipos.fec.settings.HideSoldOutButtons') || false;
             var hideTag = GeckoJS.Configure.read('vivipos.fec.settings.HideTagColumn') || false;
-            var hideNumPad = false;
+            var hideNumPad = !initial;
             
             var hbox = document.getElementById('mainPanel');
             var deptPanel = document.getElementById('catescrollablepanel');
@@ -572,9 +593,13 @@
             if (soldOutProduct) soldOutProduct.setAttribute('hidden', hideSoldOutButtons ? 'true' : 'false');
 
             // toggleNumPad() returns true if it invoked resizeLeftPanel()
+            /*
             if (!this.toggleNumPad(hideNumPad, initial)) {
                 this.resizeLeftPanel(initial);
             }
+            */
+            this.resizeLeftPanel(initial);
+            this.toggleNumPad(hideNumPad, initial);
         },
         
         initialLogin: function () {
