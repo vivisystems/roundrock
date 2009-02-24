@@ -2,10 +2,10 @@
 {eval}
   memo = '';
 {/eval}
-{if autoPrint}
-[&DWON]${'Kitchen Order'|center:21}[&DWOFF]
-{else}
+{if duplicate}
 [&DWON]${'Kitchen Order Copy'|center:21}[&DWOFF]
+{else}
+[&DWON]${'Kitchen Order'|center:21}[&DWOFF]
 {/if}
 Submitted:${(new Date()).toLocaleFormat('%Y-%m-%d %H:%M:%S')}
 Terminal: ${order.terminal_no|left:10} Clerk:    ${order.proceeds_clerk_displayname|left:14}

@@ -50,12 +50,21 @@
                         </columns>
                         <rows>
                             <row>
-                                <vbox>
+                                <hbox>
                                     <label id= "condiment_group_id" hidden="true" form="condGroupForm" name="id" value=""/>
                                     <label value="&condiments.group.name;" control="condiment_group_name"/>
                                     <textbox id="condiment_group_name" form="condGroupForm" name="name" oninput="$do('validateForm', null, 'Condiments')"
                                              onfocus="select()"/>
-                                </vbox>
+                                </hbox>
+                            </row>
+                            <row>
+                                <hbox>
+                                    <label value="&condiments.group.seltype;" control="condiment_group_seltype"/>
+                                    <radiogroup orient="horizontal" flex="1" form="condGroupForm" name="seltype">
+                                       <radio label="&condiments.group.single;" value="single" />
+                                       <radio label="&condiments.group.multiple;" value="multiple" />
+                                    </radiogroup>
+                                </hbox>
                             </row>
                         </rows>
                     </grid>
