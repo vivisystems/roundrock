@@ -124,12 +124,14 @@
         var self = this;
         // this._datasource = this.getAttribute('datasource') || null;
 
-        //this.ready = function() {
-            self.initGrid();
-        //};
+        self.initGrid();
+        
+        this.ready = function() {
+            self.resizeButtons();
+        };
         // add treecols and children
         //window.addEventListener('DOMContentLoaded', this.ready, true);
-        //window.addEventListener('load', this.ready, true);
+        window.addEventListener('load', this.ready, true);
 
     ]]>
     </constructor>
@@ -137,7 +139,7 @@
     <destructor>
     <![CDATA[
        //window.removeEventListener('DOMContentLoaded', this.ready, true);
-       //window.removeEventListener('load', this.ready, true);
+       window.removeEventListener('load', this.ready, true);
     ]]>
     </destructor>
 
@@ -470,6 +472,32 @@
                 target.setAttribute('selected', true);
                 target.setAttribute('checked', true);
 
+            }else if (this.seltype == 'toggle') {
+
+                if (this.selectedItems.length >0)  {
+                    // process prev index
+                    var preIndex = this.selectedItems[0];
+
+                    if (preIndex >= this.startOffset && preIndex <= (this.startOffset+this.buttonCount)) {
+                        var btnid = preIndex%this.buttonCount;
+                        var btn = document.getAnonymousElementByAttribute(this, 'anonid', btnid);
+                        if(btn) {
+                            btn.removeAttribute('selected');
+                            btn.removeAttribute('checked');
+                        }
+                    }
+                }
+                if (preIndex != this.currentIndex || this.selectedCount == 0) {
+                    this.selectedItems = [this.currentIndex];
+                    this.selectedCount = 1;
+                    target.setAttribute('selected', true);
+                    target.setAttribute('checked', true);
+
+                }
+                else {
+                    this.selectedItems = [];
+                    this.selectedCount = 0;
+                }
             }else if (this.seltype == 'multiple') {
                 // multiple
                 if (GeckoJS.Array.inArray(this.currentIndex, this.selectedItems) == -1) {

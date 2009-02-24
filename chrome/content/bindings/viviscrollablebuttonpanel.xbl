@@ -60,10 +60,10 @@
     <constructor>
     <![CDATA[
         var self = this;
-        GREUtils.log('viviscrollablebuttonpanel constructor ,, ' + this.getAttribute('id') );
+        //GREUtils.log('viviscrollablebuttonpanel constructor ,, ' + this.getAttribute('id') );
 
         //this.ready = function() {
-            //self.initGrid();
+            self.initGrid();
         //};
         // add treecols and children
         //window.addEventListener('DOMContentLoaded', this.ready, true);
