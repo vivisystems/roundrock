@@ -21,9 +21,9 @@
 
         <vivipanel id="selectQueuesPanel">
 
-            <hbox flex="1" class="main-dialog" pack="center" style="width: 680px; max-width: 680px; height: 580px; max-height: 580px;">
+            <hbox flex="1" class="main-dialog" pack="center" style="width: 720px; max-width: 720px; height: 590px; max-height: 590px; padding: 20px;">
 
-                <vbox class="MainPnl" flex="1" style="padding: 0; margin: 0;">
+                <vbox class="MainPnl" flex="1" style="padding: 0px; margin: 0px;">
 
                     <caption label="&select.queues.title;"  class="PageTitle"/>
 
