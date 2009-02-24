@@ -57,13 +57,15 @@
             var conds;
             if (condGroups && (index != null) && (index > -1) && condGroups.length > index)
                 conds = condGroups[index]['Condiment'];
+
+            this.log('ERROR', this.dump(conds));
             
             this._condGroupscrollablepanel.selectedIndex = index;
             this._condGroupscrollablepanel.selectedItems = [index];
 
             this._selectedIndex = index;
             if (index >= 0 && condGroups.length > index)
-                this.setInputData(condGroups[index]);
+                this.setInputData(condGroups[index]);              
             else {
                 this.resetInputData();
                 this._selectedIndex = -1;
@@ -88,6 +90,7 @@
             if (condGroups) {
                 if (this._selectedIndex >= 0 && this._selectedIndex < condGroups.length) {
                     conds = condGroups[this._selectedIndex]['Condiment'];
+
                     if (conds) {
                         if (index > conds.length) index = conds.length - 1;
                     }
@@ -186,9 +189,11 @@
         },
 
         setInputData: function (valObj) {
-            //GeckoJS.FormHelper.unserializeFromObject('condGroupForm', valObj);
-            this.query('#condiment_group_id').val(valObj.id);
-            this.query('#condiment_group_name').val(valObj.name);
+
+            GeckoJS.FormHelper.unserializeFromObject('condGroupForm', GREUtils.extend({}, valObj, {id: ''}));
+            //this.query('#condiment_group_id').val(valObj.id);
+            //this.query('#condiment_group_name').val(valObj.name);
+            //this.query('#condiment_group_name').val(valObj.name);
         },
 
         add: function  () {
