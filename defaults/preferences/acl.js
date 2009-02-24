@@ -19,7 +19,7 @@ pref("vivipos.fec.acl.roles.acl_void_cart_item", "acl_void_cart_item");
 pref("vivipos.fec.acl.roles.acl_cancel_order", "acl_cancel_order");
 pref("vivipos.fec.acl.roles.acl_plu_search", "acl_plu_search");
 pref("vivipos.fec.acl.roles.acl_open_cash", "acl_open_cash");
-pref("vivipos.fec.acl.roles.acl_toggle_numpad", "acl_toggle_numpad");
+pref("vivipos.fec.acl.roles.acl_toggle_function_panel", "acl_toggle_function_panel");
 pref("vivipos.fec.acl.roles.acl_public_access", "acl_public_access");
 pref("vivipos.fec.acl.roles.acl_manage_condiments", "acl_manage_condiments");
 pref("vivipos.fec.acl.roles.acl_manage_currency", "acl_manage_currency");

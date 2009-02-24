@@ -739,8 +739,8 @@ msgstr "Product Search"
 msgid "acl_open_cash"
 msgstr "Register Cash Payment"
 
-msgid "acl_toggle_numpad"
-msgstr "Toggle Number Pad"
+msgid "acl_toggle_function_panel"
+msgstr "Toggle Function Panl"
 
 msgid "acl_public_access"
 msgstr "Public Access"

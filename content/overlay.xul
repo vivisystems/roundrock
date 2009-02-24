@@ -9,7 +9,6 @@
 <?xul-overlay href="chrome://viviecr/content/overlays/productPanelOverlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/functionPanelOverlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/cartlistPanelOverlay.xul" ?>
-<?xul-overlay href="chrome://viviecr/content/overlays/numberpadPanelOverlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/terminalStatus.xul" ?>
 
 <?xul-overlay href="chrome://viviecr/content/dialogs/prompt_additem.xul" ?>
@@ -34,15 +33,14 @@
 
             <box id="leftPanel" flex="1" style="overflow: hidden" orient="vertical">
                 <box id="productPanelContainer" flex="1" class="productPanel" />
-                <box id="functionPanelContainer" flex="1" class="functionPanel" />
             </box>
 
             <spacer id="panelSpacer" width="0px" flex="0"/>
 
             <box id="rightPanel" flex="1" class="rightPanel" orient="vertical">
                 <box id="vfdPanelContainer" flex="1"/>
-                <vbox id="cartlistPanelContainer" flex="1"/>
-                <box id="numberpadPanelContainer" flex="1"/>
+                <box id="cartlistPanelContainer" flex="1"/>
+                <box id="functionPanelContainer" flex="0"/>
             </box>
 
         </box>

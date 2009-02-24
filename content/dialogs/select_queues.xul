@@ -30,11 +30,7 @@
                     <hbox class="MainL" flex="1">
 
                         <vbox class="LeftPnl" flex="6">
-<<<<<<< HEAD:content/dialogs/select_queues.xul
                             <viviscrollablebuttonpanel id="queueScrollablepanel" flex="1" cols="1" rows="7"  seltype="single" labelField="key"
-=======
-                            <viviscrollablebuttonpanel id="queueScrollablepanel" flex="1" cols="1" rows="6"  seltype="single" labelField="key" style="height: 400px; max-height: 400px;"
->>>>>>> irving:content/dialogs/select_queues.xul
                                                        class="ItemScrollablepanel"  dir="reverse"
                                                        buttonClass="ItemButtonA"
                                                        scrollUpClass="ScrollUp"

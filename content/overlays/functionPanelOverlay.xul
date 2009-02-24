@@ -8,11 +8,11 @@
          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-  <box id="functionPanelContainer">
+  <box id="functionPanelContainer" orient="horizontal" flex="0">
 
         <!-- Begin FuncBtns -->
         <vivifuncpanelecr
-            id="leftFunctionPanel"
+            id="functionpanel"
             class="vivifuncpanelecr_function_panel"
             label="%d/%m"
             rows="4" columns="2" hspacing="1" vspacing="1"
@@ -39,5 +39,19 @@
             />
         <!-- End FuncBtns -->
 
+        <!-- begin tools -->
+        <vbox id="toolbar">
+            <spacer flex="1"/>
+            <vivibutton id="vkb" label=""  oncommand="VirtualKeyboard.toggle();"
+                        class="systoolbtn button-vkb"/>
+            <vivibutton id="clockin" label="" oncommand="$do('ClockInOutDialog', null, 'Main');"
+                        class="systoolbtn clockinout"/>
+            <vivibutton id="options" roles="acl_open_control_panel" action="none" label=""  oncommand="$do('ControlPanelDialog', null, 'Main');"
+                        class="systoolbtn options"/>
+            <spacer id="spacer" flex="1"/>
+            <vivibutton id="togglefunctionpanel"  disabled="false" state="false" suspendable="false" label="" action="display" oncommand="$do('toggleFunctionPanel', null, 'Layout');"
+                        class="togglefunctionpanel" />
+        </vbox>
+        <!-- end tools -->
   </box>
 </overlay>

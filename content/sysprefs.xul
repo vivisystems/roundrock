@@ -225,7 +225,6 @@
 			
             <preference id="pref_registeratleft" name="vivipos.fec.settings.RegisterAtLeft" type="bool"/>
             <preference id="pref_hidetagcolumn" name="vivipos.fec.settings.HideTagColumn" type="bool"/>
-            <preference id="pref_nonumpad" name="vivipos.fec.settings.NoNumPad" type="bool"/>
             <preference id="pref_hidedeptscrollbar" name="vivipos.fec.settings.HideDeptScrollbar" type="bool"/>
             <preference id="pref_hidepluscrollbar" name="vivipos.fec.settings.HidePLUScrollbar" type="bool"/>
             <preference id="pref_hidefpscrollbar" name="vivipos.fec.settings.HideFPScrollbar" type="bool"/>
@@ -237,12 +236,12 @@
 
             <preference id="pref_deprows" name="vivipos.fec.settings.DepartmentRows" type="int"/>
             <preference id="pref_depcols" name="vivipos.fec.settings.DepartmentCols" type="int"/>
-            <preference id="pref_depbtnheight" name="vivipos.fec.settings.Department.Button.Height" type="int"/>
+            <preference id="pref_depbtnheight" name="vivipos.fec.settings.DepartmentButtonHeight" type="int"/>
             <preference id="pref_plurows" name="vivipos.fec.settings.PluRows" type="int"/>
             <preference id="pref_plucols" name="vivipos.fec.settings.PluCols" type="int"/>
-            <preference id="pref_plubtnheight" name="vivipos.fec.settings.Plu.Button.Height" type="int"/>
-            <preference id="pref_fprows" name="vivipos.fec.settings.functionpanel.rows" type="int"/>
-            <preference id="pref_fpcols" name="vivipos.fec.settings.functionpanel.columns" type="int"/>
+            <preference id="pref_fnrows" name="vivipos.fec.settings.functionpanel.rows" type="int"/>
+            <preference id="pref_fncols" name="vivipos.fec.settings.functionpanel.columns" type="int"/>
+            <preference id="pref_fnheight" name="vivipos.fec.settings.functionpanel.height" type="int"/>
 
         </preferences>
         <grid class="DataForm">
@@ -251,16 +250,16 @@
             </columns>
             <rows>
                 <row>
-                    <checkbox id="registeratleft" label="&layout.registeratleft;" preference="pref_registeratleft"/>
-                    <checkbox id="hidetagcolumn" label="&layout.hidetagcolumn;" preference="pref_hidetagcolumn"/>
+                    <checkbox id="registerAtLeft" label="&layout.registeratleft;" preference="pref_registeratleft"/>
+                    <checkbox id="hideFPScrollbar" label="&layout.hidefpscrollbar;" preference="pref_hidefpscrollbar"/>
                 </row>
                 <row>
-                    <checkbox id="nonumpad" label="&layout.nonumpad;" preference="pref_nonumpad"/>
                     <checkbox id="hideDeptScrollbar" label="&layout.hidedeptscrollbar;" preference="pref_hidedeptscrollbar"/>            
+                    <checkbox id="hidePLUScrollbar" label="&layout.hidepluscrollbar;" preference="pref_hidepluscrollbar"/>
                 </row>
                 <row>
-                    <checkbox id="hidePLUScrollbar" label="&layout.hidepluscrollbar;" preference="pref_hidepluscrollbar"/>
-                    <checkbox id="hideFPScrollbar" label="&layout.hidefpscrollbar;" preference="pref_hidefpscrollbar"/>            
+                    <checkbox id="hideSoldOutButtons" label="&layout.hidesoldoutbuttons;" preference="pref_hidesoldoutbuttons" />
+                    <checkbox id="hideTagColumn" label="&layout.hidetagcolumn;" preference="pref_hidetagcolumn"/>
                 </row>
                 <row>
                     <checkbox id="cropDeptLabel" label="&layout.cropdeptlabel;" preference="pref_crop_dept_label" />
@@ -268,7 +267,6 @@
                 </row>
                 <row>
                     <checkbox id="checkTrackingMode" label="&layout.checktrackingmode;" preference="pref_checktrackingmode" />
-                    <checkbox id="hideSoldOutButtons" label="&layout.hidesoldoutbuttons;" preference="pref_hidesoldoutbuttons" />
                 </row>
             </rows>
         </grid>
@@ -299,15 +297,15 @@
                     <textbox preference="pref_plurows" id="pref_plurows" type="number" size="2" maxlength="1"/>
                     <label control="pref_plucols" value="&layout.plu.cols;"/>
                     <textbox preference="pref_plucols" id="pref_plucols" type="number" size="2" maxlength="1"/>
-                    <label control="plubtnheight" value="&layout.plu.button.height;"/>
-                    <textbox preference="pref_plubtnheight" id="plubtnheightS" type="number" min="50" max="100"  size="3" maxlength="3"/>
                 </row>
                 <row>
                     <label control="deprows" value="&layout.functionpanel.label;"/>
-                    <label control="pref_fprows" value="&layout.functionpanel.rows;"/>
-                    <textbox preference="pref_fprows" id="pref_fprows" type="number" size="2" maxlength="1"/>
-                    <label control="pref_fpcols" value="&layout.functionpanel.cols;"/>
-                    <textbox preference="pref_fpcols" id="pref_fpcols" type="number" size="2" maxlength="1"/>
+                    <label control="pref_fnrows" value="&layout.functionpanel.rows;"/>
+                    <textbox preference="pref_fnrows" id="pref_fnrows" type="number" size="2" maxlength="1" min="1" max="9"/>
+                    <label control="pref_fncols" value="&layout.functionpanel.cols;"/>
+                    <textbox preference="pref_fncols" id="pref_fncols" type="number" size="2" maxlength="1" min="1" max="9"/>
+                    <label control="pref_fncols" value="&layout.functionpanel.height;"/>
+                    <textbox preference="pref_fnheight" id="fnheight" type="number" min="200" max="300"  size="3" maxlength="3"/>
                 </row>
             </rows>
         </grid>

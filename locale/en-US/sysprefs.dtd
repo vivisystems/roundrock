@@ -35,27 +35,25 @@
 <!ENTITY login.endshiftonsignoff "Automatically ends shift when users sign off">
 <!ENTITY login.allowquicklogin "Allow quick login by automatically matching user by password">
 <!ENTITY layout.registeratleft "Place register screen on the left">
-<!ENTITY layout.hidenumpad "Hide numeric keypad">
 <!ENTITY layout.checktrackingmode "Show check tracking details">
 <!ENTITY layout.hidesoldoutbuttons "Hide sold-out buttons">
 <!ENTITY layout.hidetagcolumn "Hide tag column">
-<!ENTITY layout.nonumpad "Replace numeric keypad with function panel">
-<!ENTITY layout.hidedeptscrollbar "Hide scrollbars for department panel">
-<!ENTITY layout.hidepluscrollbar "Hide scrollbars for product panel">
-<!ENTITY layout.hidefpscrollbar "Hide scrollbars for function panel">
+<!ENTITY layout.hidedeptscrollbar "Hide department panel scrollbars">
+<!ENTITY layout.hidepluscrollbar "Hide product panel scrollbars">
+<!ENTITY layout.hidefpscrollbar "Hide function panel scrollbars">
 <!ENTITY layout.cropdeptlabel "Crop department label">
 <!ENTITY layout.cropplulabel "Crop product label">
 <!ENTITY layout.department.label "Department panel">
 <!ENTITY layout.department.rows "rows">
 <!ENTITY layout.department.cols "columns">
-<!ENTITY layout.department.button.height "height">
+<!ENTITY layout.department.button.height "button height">
 <!ENTITY layout.plu.label "Product panel">
 <!ENTITY layout.plu.rows "rows">
 <!ENTITY layout.plu.cols "columns">
-<!ENTITY layout.plu.button.height "height">
 <!ENTITY layout.functionpanel.label "Function panel">
 <!ENTITY layout.functionpanel.rows "rows">
 <!ENTITY layout.functionpanel.cols "columns">
+<!ENTITY layout.functionpanel.height "panel height">
 <!ENTITY tax.defaulttaxstatus "System default tax status">
 <!ENTITY plufilter.filtername "Filter Name">
 <!ENTITY plufilter.index "Index">
