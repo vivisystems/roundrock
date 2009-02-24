@@ -2958,8 +2958,6 @@
             var queuePool = this._getQueuePool();
             var queues = [];
             var confs = GeckoJS.Configure.read('vivipos.fec.settings');
-            var screenwidth = GeckoJS.Session.get('screenwidth') || '800';
-            var screenheight = GeckoJS.Session.get('screenheight') || '600';
 
             // check private queue
             if (confs.PrivateQueue) {

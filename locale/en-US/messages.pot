@@ -1,2099 +1,917 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
-msgid ""
-msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: irving.hsu@firich.com.tw\n"
-"POT-Creation-Date: 2009-02-19 09:46+0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
-"Content-Transfer-Encoding: 8bit\n"
-
-#: /home/user/workspace/vivipos_app/content/datetime.js:27
-msgid "confirm timezone change"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/datetime.js:28
-msgid ""
-"Timezone change requires system restart to take effect. If you save the "
-"changes now, the system will restart automatically after you return to the "
-"Main Screen. Do you want to save your changes?"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/datetime.js:51
-msgid "Failed to set date/time"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/localekeyboard.js:31
-msgid "confirm language and keyboard mapping change"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/localekeyboard.js:32
-msgid ""
-"Language and Keyboard mapping changes require system restart to take effect. "
-"If you save the changes now, the system will restart automatically after you "
-"return to the Main Screen. Do you want to save your changes?"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/prompt_addaccount.js:39
-#: /home/user/workspace/vivipos_app/content/prompt_doshiftchange.js:73
-msgid "data incompleted!"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/sync_settings.js:18
-msgid "confirm synchronize change"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/sync_settings.js:19
-msgid ""
-"Synchronize changes require system restart to take effect. If you save the "
-"changes now, the system will restart automatically after you return to the "
-"Main Screen. Do you want to save your changes?"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/account_topics_controller.js:63
-msgid "Can not delete built-in topic item!!"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/aclgroups_controller.js:47
-msgid "Add New ACL Group"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/aclgroups_controller.js:47
-msgid "New ACL Group"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/aclgroups_controller.js:47
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:201
-#: /home/user/workspace/vivipos_app/content/controllers/plugroups_controller.js:51
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:205
-msgid "Group Name"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/aclgroups_controller.js:54
-msgid "ACL Group [%S] already exists; ACL group not added."
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/aclgroups_controller.js:62
-msgid "ACL Group [%S] added successfully"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/aclgroups_controller.js:66
-msgid ""
-"An error occurred while adding ACL Group [%S]; the ACL group may not have "
-"been added successfully"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/aclgroups_controller.js:82
-msgid "Remove User"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/aclgroups_controller.js:83
-msgid ""
-"The ACL group [%S] has been assigned to one or more users [%S] and cannot be "
-"removed."
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/aclgroups_controller.js:84
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:311
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:510
-#: /home/user/workspace/vivipos_app/content/controllers/departments_controller.js:258
-#: /home/user/workspace/vivipos_app/content/controllers/jobs_controller.js:143
-#: /home/user/workspace/vivipos_app/content/controllers/plugroups_controller.js:173
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:684
-#: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:187
-#: /home/user/workspace/vivipos_app/content/controllers/users_controller.js:246
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:315
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:514
-#: /home/user/workspace/vivipos_app/content/controllers/plugroups_controller.js:178
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:683
-msgid "confirm delete %S"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/aclgroups_controller.js:84
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:311
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:510
-#: /home/user/workspace/vivipos_app/content/controllers/departments_controller.js:258
-#: /home/user/workspace/vivipos_app/content/controllers/jobs_controller.js:143
-#: /home/user/workspace/vivipos_app/content/controllers/plugroups_controller.js:173
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:684
-#: /home/user/workspace/vivipos_app/content/controllers/pricelevelschedule_controller.js:121
-#: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:187
-#: /home/user/workspace/vivipos_app/content/controllers/users_controller.js:246
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:315
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:514
-#: /home/user/workspace/vivipos_app/content/controllers/plugroups_controller.js:178
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:683
-msgid "Are you sure?"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/aclgroups_controller.js:102
-msgid "ACL Group [%S] removed successfully"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/aclgroups_controller.js:106
-msgid ""
-"An error occurred while removing ACL Group [%S]; the ACL group may not have "
-"been removed successfully"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/aclgroups_controller.js:131
-msgid "ACL Group [%S] modified successfully"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/aclgroups_controller.js:135
-msgid ""
-"An error occurred while modifying ACL Group [%S]; the ACL group may not have "
-"been modified successfully"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:106
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:100
-msgid "OUT OF STOCK"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:108
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:102
-msgid "[%S] may be out of stock!"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:123
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:117
-msgid "STOCK LOW"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:126
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:120
-msgid "[%S] low stock threshold reached!"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:169
-msgid "Product [%S] may not be registered with a price of [%S]!"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:210
-msgid "Return of product sets [%S] not allowed!"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:221
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:223
-msgid "VERIFY AGE"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:226
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:228
-msgid "confirm age"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:226
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:228
-msgid "Is customer of age for purchase of [%S]?"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:232
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:234
-msgid "Verify Customer Age for Purchase of [%S]!"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:422
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:446
-msgid "SINGLE ITEM SALE"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:454
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:481
-msgid "Product scan code not found [%S]"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:485
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:501
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:615
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:631
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:512
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:528
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:668
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:684
-msgid "Not an open order; cannot modify"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:493
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:623
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:739
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1103
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1328
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2076
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2278
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2444
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2481
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:520
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:676
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:792
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1156
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1381
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2175
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2407
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2554
-msgid "Please select an item first"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:514
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:644
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:541
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:697
-msgid "Cannot modify selected item [%S]"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:522
-msgid "Not authorized to modify condiment price"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:532
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:654
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:560
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:707
-msgid "Cannot modify; selected item [%S] has discount or surcharge applied"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:542
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:570
-msgid "Cannot modify; selected item [%S] has been subtotaled"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:554
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:582
-msgid "Cannot modify; no price or quantity entered"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:564
-msgid "Cannot modify condiment; no price entered"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:582
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:632
-msgid "Product [%S] may not be modified with a price of [%S]!"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:680
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:733
-msgid "Quantity may not be less than 1"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:722
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:731
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:775
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:784
-msgid "Not an open order; cannot VOID"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:757
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:810
-msgid "Cannot VOID the selected item [%S]. It is not the last registered item"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:765
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:818
-msgid ""
-"The select item [%S] is a member of a product set and cannot be VOIDed "
-"individually"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:778
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:831
-msgid "Cannot VOID an entry that has been subtotaled"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:787
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2321
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:840
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2450
-msgid "Please void discount on item [%S] first"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:793
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2326
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:846
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2455
-msgid "Please void surcharge on item [%S] first"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:875
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:894
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:928
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:947
-msgid "Not an open order; cannot add discount"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:883
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:936
-msgid "Please select an item"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:905
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:958
-msgid "Pretax discount can only be registered against subtotals"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:917
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:960
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1136
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1172
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:970
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1013
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1189
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1225
-msgid "Discount has been already been registered on item [%S]"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:927
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:954
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1146
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1166
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:980
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1007
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1199
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1219
-msgid "Surcharge has been already been registered on item [%S]"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:937
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1156
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2104
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:990
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1209
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2203
-msgid "Cannot modify an item that has been subtotaled"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:945
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:998
-msgid "Cannot register discount on return items"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:969
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1022
-msgid "Cannot apply discount to [%S]. It is not the last registered item"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:977
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1030
-msgid "Discount may not be applied to [%S]"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:986
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1039
-msgid "Please enter the discount amount"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:989
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1042
-msgid "Please enter the discount percentage"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1095
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1113
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1148
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1166
-msgid "Not an open order; cannot add surcharge"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1124
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1177
-msgid "Pretax surcharge can only be registered against subtotals"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1181
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1234
-msgid "Cannot apply surcharge to [%S]. It is not the last registered item"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1189
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1242
-msgid "Surcharge may not be applied to [%S]"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1198
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1251
-msgid "Please enter the surcharge amount"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1201
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1254
-msgid "Please enter the surcharge percentage"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1254
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1265
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1307
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1318
-msgid "Not an open order; operation invalid"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1272
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1325
-msgid "Nothing has been registered yet; operation invalid"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1308
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1361
+msgid "Condiments"
+msgstr "Condiments"
+
+msgid "Currency Exchange"
+msgstr "Currency Exchange"
+
+msgid "Departments"
+msgstr "Departments"
+
+msgid "Promotions"
+msgstr "Promotions (inactive)"
+
+msgid "Employees"
+msgstr "Employees"
+
+msgid "Function Panel Configuration"
+msgstr "Function Panel Configuration"
+
+msgid "Data Import/ Export"
+msgstr "Data Import/ Export"
+
+msgid "Jobs"
+msgstr "Jobs"
+
+msgid "Image Manager"
+msgstr "Image Manager"
+
+msgid "Locale and Keyboard Mapping"
+msgstr "Language and Keyboard Mapping"
+
+msgid "Product Groups"
+msgstr "Product Groups"
+
+msgid "Products"
+msgstr "Products"
+
+msgid "Price Level Schedule"
+msgstr "Price Level Schedule"
+
+msgid "Reports"
+msgstr "Reports"
+
+msgid "Roles"
+msgstr "Roles"
+
+msgid "Stock Control"
+msgstr "Stock Control"
+
+msgid "System Backup"
+msgstr "System Backup"
+
+msgid "General Options"
+msgstr "General Options"
+
+msgid "Taxes"
+msgstr "Taxes"
+
+msgid "Date and Time"
+msgstr "Date & Time"
+
+msgid "Store Contact"
+msgstr "Store Contact"
+
+msgid "Devices"
+msgstr "Devices"
+
+msgid "Accounting Report"
+msgstr "Accounting Report"
+
+msgid "Attendance Record"
+msgstr "Attendance Record"
+
+msgid "Cash by Clerk"
+msgstr "Cash Report"
+
+msgid "Department List"
+msgstr "Department List"
+
+msgid "Inventory Report"
+msgstr "Stock Report"
+
+msgid "Print Label"
+msgstr "Print Label"
+
+msgid "Product List"
+msgstr "Product List"
+
+msgid "Product Sales"
+msgstr "Sales Report"
+
+msgid "Taxes Report"
+msgstr "Taxes Report"
+
+msgid "User List"
+msgstr "User List"
+
+# \ register\ display:\ payment\ types
+msgid "CREDITCARD"
+msgstr "CC"
+
+msgid "COUPON"
+msgstr "CPN"
+
+msgid "CASH"
+msgstr "$"
+
+msgid "CHECK"
+msgstr "CHK"
+
+msgid "GIFTCARD"
+msgstr "GC"
+
+# \ register\ display:\ marker\ types
+msgid "** SUBTOTAL"
+msgstr "** SUB"
+
+msgid "** TOTAL"
+msgstr "** TAL"
+
+msgid "** TRAY"
+msgstr "** TRAY"
+
+# \ register\ display:\ others
 msgid "House Bon"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1320
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1336
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1373
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1389
-msgid "Not an open order; cannot register House Bon"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1352
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1405
-msgid "House Bon may not be applied to [%S]"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1383
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1434
-msgid "The selected currency [%S] has not been configured"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1399
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1409
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1525
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1535
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1611
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1621
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1679
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1689
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1770
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1780
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1919
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1929
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1450
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1460
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1592
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1602
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1685
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1695
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1763
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1773
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1856
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1866
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2014
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2024
-msgid "Not an open order; cannot register payments"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1431
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1567
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1721
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1482
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1634
-msgid "Please enter an amount first"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1435
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1486
-msgid "Please configure the selected currency entry first [%S]"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1452
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1506
-msgid "Credit Card Remark"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1452
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1469
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1486
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1503
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1507
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1528
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1549
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1570
-msgid "Payment"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1453
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1508
-msgid "Card Type"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1453
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1509
-msgid "Card Remark"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1469
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1470
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1527
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1530
-msgid "Coupon Remark"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1470
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1529
-msgid "Coupon Type"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1486
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1487
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1548
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1551
-msgid "Giftcard Remark"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1487
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1550
-msgid "Giftcard Type"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1503
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1504
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1569
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1572
-msgid "Check Remark"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1504
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1571
-msgid "Check Type"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1554
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1639
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1708
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1799
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1621
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1713
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1792
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1885
-msgid "Refund amount [%S] may not exceed amount paid [%S]"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1575
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1642
-msgid "Credit Card Payment Error"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1576
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1643
-msgid "Credit card payment may not exceed remaining balance"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1728
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1809
-msgid "confirm giftcard payment"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1729
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1810
-msgid "Change of [%S] will NOT be given for this type of payment. Proceed?"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1827
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1913
-msgid "Check Payment Error"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1828
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1914
-msgid "Check Cashing limit of [%S] exceeded"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1938
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2033
-msgid "Nothing has been registered yet; cannot register payments"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1951
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2046
-msgid "No payment has been made; cannot register refund payment"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:1961
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2056
-msgid "Refund amount [%S] may not exceed payment amount [%S]"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2038
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2132
-msgid "Payment Details"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2068
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2084
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2167
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2183
-msgid "Not an open order; cannot shift tax"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2095
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2194
-msgid "This operation cannot be performed on [%S]"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2125
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2224
-msgid "The tax status indicated does not exist [%S]"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2178
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2277
-msgid "Not an open order; nothing to cancel"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2272
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2289
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2438
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2401
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2418
-msgid "Not an open order; cannot add condiment"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2305
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2434
-msgid "Condiments may not be added to [%S]"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2311
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2440
-msgid "Condiments may not be added to a return item [%S]"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2316
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2445
-msgid "Cannot add condiments to an item that has been subtotaled"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2337
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2467
-msgid "No Condiment group associated with item [%S]"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2476
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2487
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2549
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2560
-msgid "Not an open order; cannot add memo"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2527
-msgid "Add New Memo"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2527
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2607
-msgid "Add Memo"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2527
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2609
-msgid "Memo"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2608
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2613
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2705
-msgid "No open order to push"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2618
-msgid "Can not queue the recall order!!"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2653
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2750
-msgid "Order is not queued because it is empty"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2758
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2857
-msgid "fatal error!!"
-msgstr ""
+msgstr "BON"
 
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2786
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2885
-msgid "Check# %S is exist!!"
+msgid "receipt.desc"
 msgstr ""
+"This function issues a post-finalization receipt. The parameter should be 1 "
+"or 2, indicating the printer to issue the receipt on. If no parameter is "
+"given, the receipt will be printed on all enabled receipt printers."
 
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2802
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2901
-msgid "Table# %S is exist!!"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2815
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2914
-msgid "This order has been submited!!"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cashdrawer_controller.js:194
-#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:225
-#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:272
-#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:342
-#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:391
-#: /home/user/workspace/vivipos_app/content/controllers/vfd_controller.js:181
-#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:348
-#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:397
-#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:474
-#: /home/user/workspace/vivipos_app/content/controllers/vfd_controller.js:180
-msgid "Error in device manager! Please check your device configuration"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cashdrawer_controller.js:203
-#: /home/user/workspace/vivipos_app/content/controllers/cashdrawer_controller.js:214
-msgid "Cash drawer [%S] is not enabled! Please check your device configuration"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cashdrawer_controller.js:226
-msgid ""
-"Error detected while opening cash drawer [%S]; please check if cash drawer "
-"is connected and powered up"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cashdrawer_controller.js:249
-#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:447
-#: /home/user/workspace/vivipos_app/content/controllers/vfd_controller.js:255
-#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:519
-#: /home/user/workspace/vivipos_app/content/controllers/vfd_controller.js:254
-msgid "Specified device port [%S] does not exist!"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/cashdrawer_controller.js:313
-#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:571
-#: /home/user/workspace/vivipos_app/content/controllers/vfd_controller.js:335
-#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:701
-#: /home/user/workspace/vivipos_app/content/controllers/vfd_controller.js:334
-msgid "Error detected when outputing to device [%S] at port [%S]"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/changeuser_controller.js:68
-#: /home/user/workspace/vivipos_app/content/controllers/changeuser_controller.js:80
-msgid "Authentication failed!. Please make sure the password is correct."
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/changeuser_controller.js:74
-msgid "Authentication failed!. Please select a user"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/clockinout_controller.js:71
-#: /home/user/workspace/vivipos_app/content/controllers/clockinout_controller.js:109
-#: /home/user/workspace/vivipos_app/content/controllers/clockinout_controller.js:166
-msgid "Please select a user first."
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/clockinout_controller.js:80
-#: /home/user/workspace/vivipos_app/content/controllers/clockinout_controller.js:144
-#: /home/user/workspace/vivipos_app/content/controllers/clockinout_controller.js:189
-msgid "Please enter the passcode."
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/clockinout_controller.js:83
-#: /home/user/workspace/vivipos_app/content/controllers/clockinout_controller.js:147
-#: /home/user/workspace/vivipos_app/content/controllers/clockinout_controller.js:192
-msgid "Authentication Failed!. Please make sure the passcode is correct."
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/clockinout_controller.js:130
-msgid "Please select a job first."
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/clockinout_controller.js:181
-msgid "Not clocked in yet."
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:197
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:201
-msgid "Add New Condiment Group"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:199
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:203
-msgid "New Condiment Group"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:213
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:217
-msgid "Condiment Group [%S] already exists."
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:237
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:241
-msgid "Condiment Group [%S] added successfully"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:242
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:246
-msgid ""
-"An error occurred while adding Condiment Group [%S]. The group may not have "
-"been added successfully"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:266
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:270
-msgid "Condiment Group [%S] already exists"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:285
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:289
-msgid "Condiment Group [%S] modified successfully"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:289
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:293
-msgid ""
-"An error occurred while modifying Condiment Group [%S]. The group may not "
-"have been modified successfully"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:307
-#: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:176
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:311
-msgid "[%S] has been assigned to one or more products and may not be deleted"
-msgstr ""
+msgid "receipt.label"
+msgstr "Issue Receipt"
 
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:341
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:345
-msgid "Condiment Group [%S] removed successfully"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:345
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:349
-msgid ""
-"An error occurred while removing Condiment Group [%S]. The group may not "
-"have been removed successfully"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:389
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:393
-msgid "Add New Condiment"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:389
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:393
-msgid "New Condiment"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:389
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:393
-msgid "Condiment Name"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:389
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:393
-msgid "Condiment Price"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:395
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:399
-msgid "Condiment Price must be a number"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:414
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:474
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:418
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:478
-msgid "Condiment [%S] already exists in this group"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:448
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:452
-msgid "Condiment [%S] added successfully"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:453
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:457
-msgid ""
-"An error occurred while adding Condiment [%S]. The condiment may not have "
-"been added successfully"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:496
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:500
-msgid "Condiment [%S] modified successfully"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:500
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:504
-msgid ""
-"An error occurred while modifying Condiment [%S]. The condiment may not have "
-"been modified successfully"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:535
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:539
-msgid "Condiment [%S] removed successfully"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:539
-#: /home/user/workspace/vivipos_app/content/controllers/condiments_controller.js:543
-msgid ""
-"An error occurred while removing Condiment [%S]. The condiment may not have "
-"been removed successfully"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/departments_controller.js:146
-msgid "Department Number must not be empty"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/departments_controller.js:150
-msgid "Department Name must not be empty"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/departments_controller.js:158
-msgid "Duplicate Department Number (%S); department not %S."
-msgstr ""
+msgid "receipt.name"
+msgstr "Issue Receipt"
 
-#: /home/user/workspace/vivipos_app/content/controllers/departments_controller.js:162
-msgid "Duplicate Department Name (%S); department not %S."
+msgid "printcheck.desc"
 msgstr ""
+"This function issues a guest check. The parameter should be 1, 2, 3, or 4, "
+"indicating the printer to issue the guest check on. If no parameter is "
+"given, the guest check will be printed on all enabled guest check printers."
 
-#: /home/user/workspace/vivipos_app/content/controllers/departments_controller.js:178
-msgid "Add New Department"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/departments_controller.js:178
-msgid "New Department"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/departments_controller.js:178
-msgid "Department Number"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/departments_controller.js:178
-msgid "Department Name"
-msgstr ""
-
-#: /home/user/workspace/vivipos_app/content/controllers/departments_controller.js:204
-msgid "Department [%S] added successfully"
-msgstr ""
+msgid "printcheck.label"
+msgstr "Issue Guest Check"
 
-#: /home/user/workspace/vivipos_app/content/controllers/departments_controller.js:208
-msgid ""
-"An error occurred while adding Department [%S]; the department may not have "
-"been added successfully"
-msgstr ""
+msgid "printcheck.name"
+msgstr "Issue Guest Check"
 
-#: /home/user/workspace/vivipos_app/content/controllers/departments_controller.js:232
-msgid "Department [%S] modified successfully"
+msgid "pricelevelshift.desc"
 msgstr ""
+"This function shifts the current price level up by 1. No parameter is needed."
 
-#: /home/user/workspace/vivipos_app/content/controllers/departments_controller.js:237
-msgid ""
-"An error occurred while modifying Department [%S]. The department may not "
-"have been modified successfully"
-msgstr ""
+msgid "pricelevelshift.label"
+msgstr "Price Level Shift"
 
-#: /home/user/workspace/vivipos_app/content/controllers/departments_controller.js:254
-#: /home/user/workspace/vivipos_app/content/controllers/plugroups_controller.js:170
-#: /home/user/workspace/vivipos_app/content/controllers/plugroups_controller.js:171
-msgid "[%S] has one or more products and may not be deleted"
-msgstr ""
+msgid "pricelevelshift.name"
+msgstr "Price Level Shift"
 
-#: /home/user/workspace/vivipos_app/content/controllers/departments_controller.js:270
-msgid "Department [%S] removed successfully"
+msgid "pricelevel1.desc"
 msgstr ""
+"This function sets the current price level to 1. The parameter must be 1."
 
-#: /home/user/workspace/vivipos_app/content/controllers/departments_controller.js:274
-msgid ""
-"An error occurred while removing Department [%S]. The department may not "
-"have been removed successfully"
-msgstr ""
+msgid "pricelevel1.label"
+msgstr "Price Level 1"
 
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:49
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:66
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:1132
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:1149
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:50
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:67
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:1454
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:1471
-msgid "Device Status"
-msgstr ""
+msgid "pricelevel1.name"
+msgstr "Price Level 1"
 
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:50
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:1133
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:51
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:1455
-msgid "No device has been enabled for receipt and/or guest check printing!"
+msgid "pricelevel2.desc"
 msgstr ""
+"This function sets the current price level to 2. The parameter must be 2."
 
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:60
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:1143
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:61
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:1465
-msgid "Device"
-msgstr ""
+msgid "pricelevel2.label"
+msgstr "Price Level 2"
 
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:60
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:1143
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:61
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:1465
-msgid "Port"
-msgstr ""
+msgid "pricelevel2.name"
+msgstr "Price Level 2"
 
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:67
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:68
-msgid ""
-"The following enabled devices appear to be offline, please ensure that they "
-"are functioning correctly: \n"
-"%S"
+msgid "pricelevel3.desc"
 msgstr ""
+"This function sets the current price level to 3. The parameter must be 3."
 
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:313
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:317
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:319
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:335
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:339
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:341
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:357
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:361
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:363
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:379
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:383
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:385
-msgid "Receipt Printer %S"
-msgstr ""
+msgid "pricelevel3.label"
+msgstr "Price Level 3"
 
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:357
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:361
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:363
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:379
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:383
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:385
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:401
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:405
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:407
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:423
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:427
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:429
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:445
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:449
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:451
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:467
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:471
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:473
-msgid "Guest Check Printer %S"
-msgstr ""
+msgid "pricelevel3.name"
+msgstr "Price Level 3"
 
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:401
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:405
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:407
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:422
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:426
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:428
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:533
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:537
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:539
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:554
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:558
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:560
-msgid "VFD %S"
+msgid "pricelevel4.desc"
 msgstr ""
+"This function sets the current price level to 4. The parameter must be 4."
 
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:449
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:454
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:456
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:478
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:483
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:485
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:581
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:586
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:588
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:610
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:615
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:617
-msgid "Cash Drawer %S"
-msgstr ""
+msgid "pricelevel4.label"
+msgstr "Price Level 4"
 
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:1150
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:1472
-msgid ""
-"The following enabled devices appear to be offline, do you still want to "
-"save the new configuration?\n"
-"%S"
-msgstr ""
+msgid "pricelevel4.name"
+msgstr "Price Level 4"
 
-#: /home/user/workspace/vivipos_app/content/controllers/funcpanelecrprefs_controller.js:824
-msgid ".name"
+msgid "pricelevel5.desc"
 msgstr ""
+"This function sets the current price level to 5. The parameter must be 5."
 
-#: /home/user/workspace/vivipos_app/content/controllers/funcpanelecrprefs_controller.js:825
-msgid ".label"
-msgstr ""
+msgid "pricelevel5.label"
+msgstr "Price Level 5"
 
-#: /home/user/workspace/vivipos_app/content/controllers/funcpanelecrprefs_controller.js:826
-msgid ".desc"
-msgstr ""
+msgid "pricelevel5.name"
+msgstr "Price Level 5"
 
-#: /home/user/workspace/vivipos_app/content/controllers/image_manager_controller.js:121
-#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:101
-msgid "Media Not Found!"
+msgid "pricelevel6.desc"
 msgstr ""
+"This function sets the current price level to 6. The parameter must be 6."
 
-#: /home/user/workspace/vivipos_app/content/controllers/image_manager_controller.js:122
-#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:102
-msgid "Please attach the USB thumb drive..."
-msgstr ""
+msgid "pricelevel6.label"
+msgstr "Price Level 6"
 
-#: /home/user/workspace/vivipos_app/content/controllers/image_manager_controller.js:262
-msgid "Import Images Error!!"
-msgstr ""
+msgid "pricelevel6.name"
+msgstr "Price Level 6"
 
-#: /home/user/workspace/vivipos_app/content/controllers/image_manager_controller.js:276
-msgid "Import Images Done!!"
+msgid "pricelevel7.desc"
 msgstr ""
+"This function sets the current price level to 7. The parameter must be 7."
 
-#: /home/user/workspace/vivipos_app/content/controllers/image_manager_controller.js:354
-msgid "Export Images Error!!"
-msgstr ""
+msgid "pricelevel7.label"
+msgstr "Price Level 7"
 
-#: /home/user/workspace/vivipos_app/content/controllers/image_manager_controller.js:367
-msgid "Export Images Done!!"
-msgstr ""
+msgid "pricelevel7.name"
+msgstr "Price Level 7"
 
-#: /home/user/workspace/vivipos_app/content/controllers/image_manager_controller.js:382
-msgid "Delete Image (%S) is Done!!"
+msgid "pricelevel8.desc"
 msgstr ""
+"This function sets the current price level to 8. The parameter must be 8."
 
-#: /home/user/workspace/vivipos_app/content/controllers/image_manager_controller.js:401
-msgid "Rename Image Name (%S) to (%S)!!"
-msgstr ""
+msgid "pricelevel8.label"
+msgstr "Price Level 8"
 
-#: /home/user/workspace/vivipos_app/content/controllers/image_manager_controller.js:414
-msgid "Rename Image (%S) Error!!"
-msgstr ""
+msgid "pricelevel8.name"
+msgstr "Price Level 8"
 
-#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:45
-#: /home/user/workspace/vivipos_app/content/controllers/systembackup_controller.js:133
-msgid "Failed to execute command (%S)."
+msgid "pricelevel9.desc"
 msgstr ""
+"This function sets the current price level to 9. The parameter must be 9."
 
-#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:117
-msgid "Please select a data category to export"
-msgstr ""
+msgid "pricelevel9.label"
+msgstr "Price Level 9"
 
-#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:183
-msgid "Export To CSV (%S) Error!!"
-msgstr ""
+msgid "pricelevel9.name"
+msgstr "Price Level 9"
 
-#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:203
-#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:369
-msgid "Yes"
+msgid "shifttax.desc"
 msgstr ""
+"This function shifts current item's tax status. The parameter field can be "
+"used to program a specific tax status. If a preset tax status is programmed, "
+"this function changes the current item to the preset tax status; otherwise, "
+"it shifts the item to the next tax status."
 
-#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:203
-#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:369
-msgid " (%S)"
-msgstr ""
+msgid "shifttax.label"
+msgstr "Shift Tax"
 
-#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:206
-msgid "Data export to CSV file [%S] finished!"
-msgstr ""
+msgid "shifttax.name"
+msgstr "Shift Tax"
 
-#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:218
-msgid "Please select a data category to import"
+msgid "discountByPercentage.desc"
 msgstr ""
+"This function registers a percentage-based discount. The parameter field can "
+"be used to program a preset percentage. If no preset percentage is "
+"programmed, the discount percentage is read from the input line."
 
-#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:239
-msgid "The specified CSV file [%S] does not exist!"
-msgstr ""
+msgid "discountByPercentage.label"
+msgstr "%-"
 
-#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:275
-msgid "Unable to open the specified CSV file [%S]!"
-msgstr ""
+msgid "discountByPercentage.name"
+msgstr "Percentage Discount"
 
-#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:297
-msgid "Import format error: field [%S] not exist!"
+msgid "discountByAmount.desc"
 msgstr ""
+"This function registers a reduction. The parameter field can be used to "
+"program a preset reduction amount. If no preset amount is programmed, the "
+"discount amount is read from the input line."
 
-#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:354
-msgid "Format error detected in import CSV file [%S]!"
-msgstr ""
+msgid "discountByAmount.label"
+msgstr "-"
 
-#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:372
-msgid "Data import from CSV file [%S] finished!"
-msgstr ""
+msgid "discountByAmount.name"
+msgstr "Reduction"
 
-#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:385
-msgid "Department"
+msgid "surchargeByPercentage.desc"
 msgstr ""
+"This function registers a percentage surcharge. The parameter field can be "
+"used to program a preset surcharge. If no preset surcharge is programmed, "
+"the surcharge percentage is read from the input line."
 
-#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:392
-msgid "Product"
-msgstr ""
+msgid "surchargeByPercentage.label"
+msgstr "%+"
 
-#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:399
-msgid "Product Group"
-msgstr ""
+msgid "surchargeByPercentage.name"
+msgstr "Surcharge"
 
-#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:406
-msgid "Condiment Group"
+msgid "surchargeByAmount.desc"
 msgstr ""
+"This function registers an addition. The parameter field can be used to "
+"program a preset addition amount. If no preset amount is programmed, the "
+"amount is read from the input line."
 
-#: /home/user/workspace/vivipos_app/content/controllers/import_export_controller.js:413
-msgid "Condiment"
-msgstr ""
+msgid "surchargeByAmount.label"
+msgstr "+"
 
-#: /home/user/workspace/vivipos_app/content/controllers/jobs_controller.js:35
-msgid "Add New Job"
-msgstr ""
+msgid "surchargeByAmount.name"
+msgstr "PLUS"
 
-#: /home/user/workspace/vivipos_app/content/controllers/jobs_controller.js:35
-msgid "New Job"
+msgid "cash.desc"
 msgstr ""
+"This function registers a cash payment. The parameter field can be used to "
+"program a preset cash apayment amount. If no preset is programmed, the "
+"payment amount is read from the input line  If the input line is also blank, "
+"a quick cash payment is registered."
 
-#: /home/user/workspace/vivipos_app/content/controllers/jobs_controller.js:35
-msgid "Job Name"
-msgstr ""
+msgid "cash.label"
+msgstr "Cash"
 
-#: /home/user/workspace/vivipos_app/content/controllers/jobs_controller.js:53
-msgid "Duplicate job name [%S]; job not added."
-msgstr ""
+msgid "cash.name"
+msgstr "Cash"
 
-#: /home/user/workspace/vivipos_app/content/controllers/jobs_controller.js:81
-msgid "Job [%S] added successfully"
+msgid "keypress.desc"
 msgstr ""
+"This function simulates a series of key presses. The parameter field "
+"contains the string of key characters to press."
 
-#: /home/user/workspace/vivipos_app/content/controllers/jobs_controller.js:102
-msgid "Duplicate job name [%S]; job not modified."
-msgstr ""
+msgid "keypress.label"
+msgstr "Key"
 
-#: /home/user/workspace/vivipos_app/content/controllers/jobs_controller.js:119
-#: /home/user/workspace/vivipos_app/content/controllers/plugroups_controller.js:148
-msgid "Job [%S] modified successfully"
-msgstr ""
+msgid "keypress.name"
+msgstr "Keypress"
 
-#: /home/user/workspace/vivipos_app/content/controllers/jobs_controller.js:140
-msgid ""
-"[%S] has been assigned as the default job to one or more users and may not "
-"be deleted"
+msgid "clear.desc"
 msgstr ""
+"This function clears the input line. The parameter field must not be altered"
 
-#: /home/user/workspace/vivipos_app/content/controllers/jobs_controller.js:168
-msgid "Job [%S] removed successfully"
-msgstr ""
+msgid "clear.label"
+msgstr "Clear"
 
-#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:575
-#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:660
-#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:545
-#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:630
-msgid " logged in"
-msgstr ""
+msgid "clear.name"
+msgstr "Clear"
 
-#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:592
-#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:668
-#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:562
-#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:638
-msgid "Authentication failed! Please make sure the password is correct."
+msgid "enter.desc"
 msgstr ""
+"This function simulates pressing the 'Enter' key. The parameter field must "
+"not be altered"
 
-#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:634
-#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:604
-msgid "User [%S] does not exist!"
-msgstr ""
+msgid "enter.label"
+msgstr "Enter"
 
-#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:673
-#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:643
-msgid "Please enter passcode first."
-msgstr ""
+msgid "enter.name"
+msgstr "Enter"
 
-#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:697
-#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:709
-#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:722
-#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:735
-#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:667
-#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:679
-#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:692
-#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:705
-msgid "Sign Off"
+msgid "quantity.desc"
 msgstr ""
+"This function sets the quantity to the value entered on the input line. The "
+"parameter field must not be altered"
 
-#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:697
-#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:667
-msgid "Discard items that have been registered?"
-msgstr ""
+msgid "quantity.label"
+msgstr "X"
 
-#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:709
-#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:679
-msgid "What do you want to do with the registered items?"
-msgstr ""
+msgid "quantity.name"
+msgstr "Quantity"
 
-#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:710
-#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:680
-msgid "Queue"
+msgid "subtotal.desc"
 msgstr ""
+"This function registers a subtotal. The parameter field must not be altered"
 
-#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:710
-#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:736
-#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:680
-#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:706
-msgid "Discard"
-msgstr ""
+msgid "subtotal.label"
+msgstr "SUB TOTAL"
 
-#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:722
-#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:692
-msgid "You have one or more queued orders. Discard them?"
-msgstr ""
+msgid "subtotal.name"
+msgstr "Sub Total"
 
-#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:735
-#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:705
-msgid "You have one or more queued orders. What do you want to do with them?"
+msgid "traymarker.desc"
 msgstr ""
+"This function registers a tray marker. The parameter field must not be "
+"altered"
 
-#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:736
-#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:706
-msgid "Keep"
-msgstr ""
+msgid "traymarker.label"
+msgstr "Tray Marker"
 
-#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:745
-#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:715
-msgid "confirm sign-off"
-msgstr ""
+msgid "traymarker.name"
+msgstr "Tray Marker"
 
-#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:745
-#: /home/user/workspace/vivipos_app/content/controllers/main_controller.js:715
-msgid "Are you ready to sign off?"
-msgstr ""
+msgid "cancel.desc"
+msgstr "This function cancels the current order. No parameter is needed."
 
-#: /home/user/workspace/vivipos_app/content/controllers/plufilters_controller.js:46
-#: /home/user/workspace/vivipos_app/content/controllers/plufilters_controller.js:54
-msgid "Filter [%S] added successfully"
-msgstr ""
+msgid "cancel.label"
+msgstr "Cancel"
 
-#: /home/user/workspace/vivipos_app/content/controllers/plufilters_controller.js:62
-#: /home/user/workspace/vivipos_app/content/controllers/plufilters_controller.js:70
-msgid "Filter [%S] removed successfully"
-msgstr ""
+msgid "cancel.name"
+msgstr "Cancel"
 
-#: /home/user/workspace/vivipos_app/content/controllers/plugroups_controller.js:51
-msgid "Add New Product Group"
+msgid "plusearch.desc"
 msgstr ""
+"This function allows the operator to perform a Product search. No parameter "
+"is needed."
 
-#: /home/user/workspace/vivipos_app/content/controllers/plugroups_controller.js:51
-msgid "New Product Group"
-msgstr ""
+msgid "plusearch.label"
+msgstr "Product Search"
 
-#: /home/user/workspace/vivipos_app/content/controllers/plugroups_controller.js:69
-msgid "Duplicate Product Group name [%S]; Product Group not added."
-msgstr ""
+msgid "plusearch.name"
+msgstr "Product Search"
 
-#: /home/user/workspace/vivipos_app/content/controllers/plugroups_controller.js:108
-msgid "Product Group [%S] added successfully"
+msgid "pushqueue.desc"
 msgstr ""
+"This function queues the current order and readies the register for a new "
+"order. No parameter is needed."
 
-#: /home/user/workspace/vivipos_app/content/controllers/plugroups_controller.js:130
-msgid "Duplicate Product Group name [%S]; Product group not modified."
-msgstr ""
+msgid "pushqueue.label"
+msgstr "Queue Order"
 
-#: /home/user/workspace/vivipos_app/content/controllers/plugroups_controller.js:205
-#: /home/user/workspace/vivipos_app/content/controllers/plugroups_controller.js:210
-msgid "Product Group [%S] removed successfully"
-msgstr ""
+msgid "pushqueue.name"
+msgstr "Queue Order"
 
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:305
-msgid "Add New Product Set"
+msgid "pullqueue.desc"
 msgstr ""
+"This function allows the operator to recall a queued order. No parameter is "
+"needed."
 
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:305
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:315
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:322
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:351
-msgid "Product Set"
-msgstr ""
+msgid "pullqueue.label"
+msgstr "View Queue"
 
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:305
-msgid "Product No.or Barcode"
-msgstr ""
+msgid "pullqueue.name"
+msgstr "View Queue"
 
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:305
-msgid "Quantity"
+msgid "modifyitem.desc"
 msgstr ""
+"This function allows the operator to modify a registered item. No parameter "
+"is needed."
 
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:316
-msgid "[%S] (%S) may not be a member of its own product set."
-msgstr ""
+msgid "modifyitem.label"
+msgstr "Modify"
 
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:323
-msgid ""
-"[%S] (%S) is a product set and may not be a member of another product set."
-msgstr ""
+msgid "modifyitem.name"
+msgstr "Modify Item"
 
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:352
-msgid "Product not found [%S]."
-msgstr ""
+msgid "voidItem.desc"
+msgstr "This function voids the last transaction. No parameter is needed."
 
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:446
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:445
-msgid "Product No. must not be empty."
-msgstr ""
+msgid "voidItem.label"
+msgstr "VOID"
 
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:449
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:448
-msgid "Product Name must not be empty."
-msgstr ""
+msgid "voidItem.name"
+msgstr "VOID"
 
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:456
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:455
-msgid "The Product No. [%S] already exists; product not added"
+msgid "houseBon.desc"
 msgstr ""
+"This function marks the current item as 'on-the-house'. The parameter, if "
+"specified, will be used to register the discount."
 
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:460
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:459
-msgid ""
-"The Product Name [%S] already exists in department [%S]; product not added"
-msgstr ""
+msgid "houseBon.label"
+msgstr "House BON"
 
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:464
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:463
-msgid ""
-"The Product Name [%S] already exists in department [%S]; product not modified"
-msgstr ""
+msgid "houseBon.name"
+msgstr "House BON"
 
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:473
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:472
-msgid ""
-"Condiment is required but no condiment group selected; product not modified"
-msgstr ""
+msgid "signOff.desc"
+msgstr "This function signs off the current operator. No parameter is needed."
 
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:486
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:485
-msgid ""
-"Price level %S preset price [%S] is larger than HALO [%S]; product not "
-"modified"
-msgstr ""
+msgid "signOff.label"
+msgstr "Sign Off"
 
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:490
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:489
-msgid ""
-"Price level %S preset price [%S] is less than LALO [%S]; product not modified"
-msgstr ""
+msgid "signOff.name"
+msgstr "Sign Off"
 
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:510
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:509
-msgid "Add New Product"
+msgid "currencyConvert.desc"
 msgstr ""
+"This function registers a currency conversion. The parameter indicates the "
+"currency code to convert from and must be filled."
 
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:510
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:509
-msgid "New Product"
-msgstr ""
+msgid "currencyConvert.label"
+msgstr "Currency Exchange"
 
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:510
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:509
-msgid "Product No."
-msgstr ""
+msgid "currencyConvert.name"
+msgstr "Currency Exchange"
 
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:510
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:509
-msgid "Product Name"
+msgid "changeToCurrentLevel.desc"
 msgstr ""
+"This function resets the current price level. If the price level schedule is "
+"active, the currently scheduled level is restored. If the price level "
+"schedule is not active, or if no schedule has been defined, the price level "
+"reverts to the system/user default. No parameter is needed."
 
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:554
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:553
-msgid "Product [%S] added successfully"
-msgstr ""
+msgid "changeToCurrentLevel.label"
+msgstr "Reset Price Level"
 
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:558
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:557
-msgid ""
-"An error occurred while adding Product [%S]; the product may not have been "
-"added successfully"
-msgstr ""
+msgid "changeToCurrentLevel.name"
+msgstr "Reset Price Level"
 
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:638
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:637
-msgid "Product [%S] modified successfully"
+msgid "silentsignoff.desc"
 msgstr ""
+"This function allows a silent switch to the user specified in the paramter "
+"field using password from the input buffer. The parameter field must be set "
+"to the username of the user to switch to."
 
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:643
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:642
-msgid ""
-"An error occurred while modifying Product [%S]. The product may not have "
-"been modified successfully"
-msgstr ""
+msgid "silentsignoff.label"
+msgstr "Silent User Switch"
 
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:680
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:679
-msgid "Product [%S] is part of a product set [%S] and may not be removed"
-msgstr ""
+msgid "silentsignoff.name"
+msgstr "Silent User Switch"
 
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:713
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:712
-msgid "Product [%S] removed successfully"
+msgid "quicksignoff.desc"
 msgstr ""
+"This function allows the current user to enter a password and quickly switch "
+"to the user identified by that password. No parameter is needed."
 
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:717
-#: /home/user/workspace/vivipos_app/content/controllers/plus_controller.js:716
-msgid ""
-"An error occurred while removing Product [%S]. The product may not have been "
-"removed successfully"
-msgstr ""
+msgid "quicksignoff.label"
+msgstr "Change Clerk"
 
-#: /home/user/workspace/vivipos_app/content/controllers/plusearch_controller.js:104
-#: /home/user/workspace/vivipos_app/content/controllers/plusearch_controller.js:126
-#: /home/user/workspace/vivipos_app/content/controllers/stocks_controller.js:118
-msgid "Product Search"
-msgstr ""
+msgid "quicksignoff.name"
+msgstr "Quick User Switch"
 
-#: /home/user/workspace/vivipos_app/content/controllers/plusearch_controller.js:105
-#: /home/user/workspace/vivipos_app/content/controllers/plusearch_controller.js:127
-msgid "Product [%S] Not Found!"
+msgid "dispatch.desc"
 msgstr ""
+"This function dispatches a command to a controller. The parameter field "
+"should be a comma-separated list of arguments, with the first argument being "
+"the command name, the second argument the data to pass to the command, and "
+"the third argument the controller handling the command."
 
-#: /home/user/workspace/vivipos_app/content/controllers/pricelevel_controller.js:53
-msgid "Price Level changed from [%S] to [%S]"
-msgstr ""
+msgid "dispatch.label"
+msgstr "Dispatch"
 
-#: /home/user/workspace/vivipos_app/content/controllers/pricelevelschedule_controller.js:42
-msgid "Default"
-msgstr ""
+msgid "dispatch.name"
+msgstr "Dispatch"
 
-#: /home/user/workspace/vivipos_app/content/controllers/pricelevelschedule_controller.js:59
-msgid "Default Price Level"
+msgid "return.desc"
 msgstr ""
+"This function registers a return of an item for refund. No parameter is "
+"needed."
 
-#: /home/user/workspace/vivipos_app/content/controllers/pricelevelschedule_controller.js:110
-msgid "Schedule [%S - Price Level %S] added successfully"
-msgstr ""
+msgid "return.label"
+msgstr "Refund"
 
-#: /home/user/workspace/vivipos_app/content/controllers/pricelevelschedule_controller.js:121
-msgid "confirm remove %S - price level %S"
-msgstr ""
+msgid "return.name"
+msgstr "Refund"
 
-#: /home/user/workspace/vivipos_app/content/controllers/pricelevelschedule_controller.js:137
-msgid "Schedule [%S - Price Level %S] removed successfully"
+msgid "creditcard.desc"
 msgstr ""
+"This function registers a credit card payment. The parameter field should be "
+"set to the credit type."
 
-#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:214
-msgid "Not an open order; cannot issue receipt"
-msgstr ""
+msgid "creditcard.label"
+msgstr "Credit Card"
 
-#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:220
-msgid "The order has not been finalized; cannot issue receipt"
-msgstr ""
+msgid "creditcard.name"
+msgstr "Credit Card"
 
-#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:234
-msgid "You have not configured any receipt printers"
+msgid "coupon.desc"
 msgstr ""
+"This function registers a coupon payment. The parameter field should be set "
+"to the coupon type."
 
-#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:239
-msgid "All receipt printers are disabled"
-msgstr ""
+msgid "coupon.label"
+msgstr "Coupon"
 
-#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:246
-msgid "The specified receipt printer [%S] is not configured"
-msgstr ""
+msgid "coupon.name"
+msgstr "Coupon"
 
-#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:250
-msgid "Invalid receipt printer [%S]"
+msgid "giftcard.desc"
 msgstr ""
+"This function registers a giftcard payment. A giftcard payment is similar to "
+"a coupon payment, except that no change is given. The parameter field should "
+"be set to the giftcard type."
 
-#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:254
-msgid "The specified receipt printer [%S] is not enabled"
-msgstr ""
+msgid "giftcard.label"
+msgstr "Giftcard"
 
-#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:326
-#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:332
-msgid "Not an open order; cannot issue guest check"
-msgstr ""
+msgid "giftcard.name"
+msgstr "Giftcard"
 
-#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:332
-#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:338
-msgid "Cannot issue guest check on a canceled order"
+msgid "check.desc"
 msgstr ""
+"This function registers a check payment. The parameter field should be set "
+"to the check type."
 
-#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:337
-#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:343
-msgid "Nothing has been registered yet; cannot issue guest check"
-msgstr ""
+msgid "check.label"
+msgstr "Check"
 
-#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:351
-#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:363
-#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:357
-#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:369
-msgid "You have not configured any guest check printers"
-msgstr ""
+msgid "check.name"
+msgstr "Check"
 
-#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:356
-#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:362
-msgid "All guest check printers are disabled"
+msgid "addmemo.desc"
 msgstr ""
+"This function adds an open memo to an item in the cart. The memo may also be "
+"preset in the parameter field."
 
-#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:367
-#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:373
-msgid "Invalid guest check printer [%S]"
-msgstr ""
+msgid "addmemo.label"
+msgstr "Add Memo"
 
-#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:371
-#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:377
-msgid "The specified guest check printer [%S] is not enabled"
-msgstr ""
+msgid "addmemo.name"
+msgstr "Add Memo"
 
-#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:439
-#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:512
-msgid "Error in Print controller: no worker thread available!"
+msgid "addcondiment.desc"
 msgstr ""
+"This function registers a condiment. The parameter field must be empty."
 
-#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:452
-#: /home/user/workspace/vivipos_app/content/controllers/vfd_controller.js:260
-#: /home/user/workspace/vivipos_app/content/controllers/vfd_controller.js:259
-msgid "Specified receipt/guest check template [%S] is empty or does not exist!"
-msgstr ""
+msgid "addcondiment.label"
+msgstr "Add Condiment"
 
-#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:549
-#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:676
-msgid "A receipt has already been issued for this order on printer [%S]"
-msgstr ""
+msgid "addcondiment.name"
+msgstr "Add Condiment"
 
-#: /home/user/workspace/vivipos_app/content/controllers/shift_changes_controller.js:53
-msgid "shift change is not needed!"
+msgid "surchargePretaxByPercentage.desc"
 msgstr ""
+"This function registers a pretax order surcharge by percentage. The "
+"parameter field can be used to program a preset percentage. If no preset "
+"percentage is programmed, the surcharge percentage is read from the input "
+"line."
 
-#: /home/user/workspace/vivipos_app/content/controllers/shift_changes_controller.js:115
-#: /home/user/workspace/vivipos_app/content/controllers/shift_changes_controller.js:116
-msgid "shift change has been finished!"
-msgstr ""
+msgid "surchargePretaxByPercentage.label"
+msgstr "Pretax Order Surcharge"
 
-#: /home/user/workspace/vivipos_app/content/controllers/sound_controller.js:77
-msgid "Failed to set volume"
-msgstr ""
+msgid "surchargePretaxByPercentage.name"
+msgstr "Pretax Order Surcharge"
 
-#: /home/user/workspace/vivipos_app/content/controllers/stocks_controller.js:93
-msgid "Stock level for [%S] modified successfully"
+msgid "discountPretaxByPercentage.desc"
 msgstr ""
+"This function registers a pretax order discount by percentage. The parameter "
+"field can be used to program a preset percentage. If no preset percentage is "
+"programmed, the discount percentage is read from the input line."
 
-#: /home/user/workspace/vivipos_app/content/controllers/stocks_controller.js:119
-msgid "Product/Barcode Number (%S) not found!"
-msgstr ""
+msgid "discountPretaxByPercentage.label"
+msgstr "Pretax Order Discount"
 
-#: /home/user/workspace/vivipos_app/content/controllers/storecontact_controller.js:47
-#: /home/user/workspace/vivipos_app/content/controllers/storecontact_controller.js:45
-msgid "Unable to save store contact!"
-msgstr ""
+msgid "discountPretaxByPercentage.name"
+msgstr "Pretax Order Discount"
 
-#: /home/user/workspace/vivipos_app/content/controllers/storecontact_controller.js:55
-msgid "Store name and terminal ID must not be blank!"
-msgstr ""
+msgid "opendrawer1.desc"
+msgstr "This function opens cash drawer #1. The parameter field must be empty."
 
-#: /home/user/workspace/vivipos_app/content/controllers/systembackup_controller.js:167
-msgid "<Backup to Local> is done!!"
-msgstr ""
+msgid "opendrawer1.label"
+msgstr "Cash Drawer #1"
 
-#: /home/user/workspace/vivipos_app/content/controllers/systembackup_controller.js:178
-#: /home/user/workspace/vivipos_app/content/controllers/systembackup_controller.js:239
-msgid "Media not found!! Please attach the USB thumb drive..."
-msgstr ""
+msgid "opendrawer1.name"
+msgstr "Cash Drawer #1"
 
-#: /home/user/workspace/vivipos_app/content/controllers/systembackup_controller.js:196
-msgid "<Copy Backup to Stick> is done!!"
-msgstr ""
+msgid "opendrawer2.desc"
+msgstr "This function opens cash drawer #2. The parameter field must be empty."
 
-#: /home/user/workspace/vivipos_app/content/controllers/systembackup_controller.js:198
-#: /home/user/workspace/vivipos_app/content/controllers/systembackup_controller.js:228
-msgid "Must select a item from local backup list."
-msgstr ""
+msgid "opendrawer2.label"
+msgstr "Cash Drawer #2"
 
-#: /home/user/workspace/vivipos_app/content/controllers/systembackup_controller.js:220
-#: /home/user/workspace/vivipos_app/content/controllers/systembackup_controller.js:254
-msgid "Confirm Restore"
-msgstr ""
+msgid "opendrawer2.name"
+msgstr "Cash Drawer #2"
 
-#: /home/user/workspace/vivipos_app/content/controllers/systembackup_controller.js:221
-msgid ""
-"Do you want to restore (%S) from local backup?\n"
-"If you execute restore now, the system will restart automatically after you "
-"return to the Main Screen."
+msgid "setdestination.desc"
 msgstr ""
+"This function sets the destination indicator to the status given by the "
+"parameter. The parameter field should be set to a defined destination name."
 
-#: /home/user/workspace/vivipos_app/content/controllers/systembackup_controller.js:224
-msgid "<Restore from Local backup> is done!!"
-msgstr ""
+msgid "setdestination.label"
+msgstr "Set Destination"
 
-#: /home/user/workspace/vivipos_app/content/controllers/systembackup_controller.js:255
-msgid ""
-"Do you want to restore (%S) from stick?\n"
-"If you execute restore now, the system will restart automatically after you "
-"return to the Main Screen."
-msgstr ""
+msgid "setdestination.name"
+msgstr "Set Destination"
 
-#: /home/user/workspace/vivipos_app/content/controllers/systembackup_controller.js:259
-msgid "<Restore from Stick> is done!!"
+msgid "tagitem.desc"
 msgstr ""
+"This function tags the current cart item with the tag given by the "
+"parameter. The parameter field must not be empty."
 
-#: /home/user/workspace/vivipos_app/content/controllers/systembackup_controller.js:263
-msgid "Must select a item from stick list."
-msgstr ""
+msgid "tagitem.label"
+msgstr "Tag Item"
 
-#: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:80
-msgid "Tax code must not be empty."
-msgstr ""
+msgid "tagitem.name"
+msgstr "Tag Item"
 
-#: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:84
-msgid "Tax name must not be empty."
+msgid "// ACL Roles"
 msgstr ""
 
-#: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:92
-msgid "Duplicate tax code [%S]; tax not added"
-msgstr ""
+msgid "acl_user_dummy"
+msgstr "dummy"
 
-#: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:96
-msgid "Duplicate tax name [%S]; tax not %S"
-msgstr ""
+msgid "acl_override_default_price_level"
+msgstr "Override Default Price Level"
 
-#: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:110
-msgid "Add-On"
-msgstr ""
+msgid "acl_change_price_level"
+msgstr "Change Price Level"
 
-#: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:111
-msgid "Included"
-msgstr ""
+msgid "acl_set_price_level_1"
+msgstr "Set Price Level 1"
 
-#: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:112
-msgid "Combined"
-msgstr ""
+msgid "acl_set_price_level_2"
+msgstr "Set Price Level 2"
 
-#: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:113
-msgid "VAT & VAT"
-msgstr ""
+msgid "acl_set_price_level_3"
+msgstr "Set Price Level 3"
 
-#: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:116
-msgid "Add New Tax Status"
-msgstr ""
+msgid "acl_set_price_level_4"
+msgstr "Set Price Level 4"
 
-#: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:116
-msgid "New Tax Status"
-msgstr ""
+msgid "acl_set_price_level_5"
+msgstr "Set Price Level 5"
 
-#: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:116
-msgid "Tax Code"
-msgstr ""
+msgid "acl_set_price_level_6"
+msgstr "Set Price Level 6"
 
-#: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:116
-msgid "Tax Name"
-msgstr ""
+msgid "acl_set_price_level_7"
+msgstr "Set Price Level 7"
 
-#: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:138
-msgid "Tax [%S] added successfully"
-msgstr ""
+msgid "acl_set_price_level_8"
+msgstr "Set Price Level 8"
 
-#: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:142
-#: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:226
-msgid ""
-"An error occurred while adding Tax [%S]; the tax may not have been added "
-"successfully"
-msgstr ""
+msgid "acl_set_price_level_9"
+msgstr "Set Price Level 9"
 
-#: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:164
-msgid ""
-"[%S] has been assigned to one or more departments and may not be deleted"
-msgstr ""
+msgid "acl_revert_price_level"
+msgstr "Revert Price Level"
 
-#: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:183
-msgid "[%S] is the default tax and may not be deleted"
-msgstr ""
+msgid "acl_override_halo"
+msgstr "Override HALO"
 
-#: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:199
-msgid "Tax [%S] removed successfully"
-msgstr ""
+msgid "acl_override_lalo"
+msgstr "Override LALO"
 
-#: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:203
-msgid ""
-"An error occurred while removing Tax [%S]; the tax may not have been removed "
-"successfully"
-msgstr ""
+msgid "acl_queue_order"
+msgstr "Queue Order"
 
-#: /home/user/workspace/vivipos_app/content/controllers/taxes_controller.js:222
-msgid "Tax [%S] modified successfully"
-msgstr ""
+msgid "acl_pull_queue"
+msgstr "Pull Order from Queue"
 
-#: /home/user/workspace/vivipos_app/content/controllers/test_controller.js:12
-msgid "Test"
-msgstr ""
+msgid "acl_open_control_panel"
+msgstr "Access Control Panel"
 
-#: /home/user/workspace/vivipos_app/content/controllers/users_controller.js:56
-msgid "Add New Employee"
-msgstr ""
+msgid "acl_void_cart_item"
+msgstr "VOID Cart Items"
 
-#: /home/user/workspace/vivipos_app/content/controllers/users_controller.js:56
-msgid "New Employee"
-msgstr ""
+msgid "acl_cancel_order"
+msgstr "Cancel Order"
 
-#: /home/user/workspace/vivipos_app/content/controllers/users_controller.js:56
-#: /home/user/workspace/vivipos_app/content/controllers/destination_controller.js:58
-msgid "Name"
-msgstr ""
+msgid "acl_plu_search"
+msgstr "Product Search"
 
-#: /home/user/workspace/vivipos_app/content/controllers/users_controller.js:56
-msgid "Passcode"
-msgstr ""
+msgid "acl_open_cash"
+msgstr "Register Cash Payment"
 
-#: /home/user/workspace/vivipos_app/content/controllers/users_controller.js:82
-msgid "Duplicate user name [%S]; user not added."
-msgstr ""
+msgid "acl_toggle_numpad"
+msgstr "Toggle Number Pad"
 
-#: /home/user/workspace/vivipos_app/content/controllers/users_controller.js:89
-msgid "Duplicate display name [%S]; user not added."
-msgstr ""
+msgid "acl_public_access"
+msgstr "Public Access"
 
-#: /home/user/workspace/vivipos_app/content/controllers/users_controller.js:122
-msgid "Employee [%S] added successfully"
-msgstr ""
+msgid "acl_manage_condiments"
+msgstr "Manage Condiments"
 
-#: /home/user/workspace/vivipos_app/content/controllers/users_controller.js:140
-msgid "Duplicate display name [%S]; user not modified."
-msgstr ""
+msgid "acl_manage_currency"
+msgstr "Manage Currency Exchange"
 
-#: /home/user/workspace/vivipos_app/content/controllers/users_controller.js:156
-msgid "Employee [%S] modified successfully"
-msgstr ""
+msgid "acl_manage_departments"
+msgstr "Manage Departments"
 
-#: /home/user/workspace/vivipos_app/content/controllers/users_controller.js:162
-msgid "Modify Employee"
-msgstr ""
+msgid "acl_manage_employees"
+msgstr "Manage Employees"
 
-#: /home/user/workspace/vivipos_app/content/controllers/users_controller.js:163
-msgid ""
-"Changes to an employee will take effect the next time the employee logs in"
-msgstr ""
+msgid "acl_manage_function_panel"
+msgstr "Manage Function Panel"
 
-#: /home/user/workspace/vivipos_app/content/controllers/users_controller.js:200
-msgid "NOTE: the assigned drawer [%S] does not exist!"
-msgstr ""
+msgid "acl_shift_item_tax"
+msgstr "Shift Item Tax"
 
-#: /home/user/workspace/vivipos_app/content/controllers/users_controller.js:215
-msgid "WARN: the assigned drawer [%S] is not yet enabled!"
-msgstr ""
+msgid "acl_register_discount"
+msgstr "Register Discounts"
 
-#: /home/user/workspace/vivipos_app/content/controllers/users_controller.js:220
-msgid ""
-"Error detected in device manager; unable to verify cash drawer configuration"
-msgstr ""
+msgid "acl_register_reduction"
+msgstr "Register Reductions"
 
-#: /home/user/workspace/vivipos_app/content/controllers/users_controller.js:235
-msgid "[%S] is the default user and may not be deleted"
-msgstr ""
+msgid "acl_register_surcharge"
+msgstr "Register Surcharges"
 
-#: /home/user/workspace/vivipos_app/content/controllers/users_controller.js:239
-msgid "[%S] is the current user and may not be deleted"
-msgstr ""
+msgid "acl_register_addition"
+msgstr "Register Additions"
 
-#: /home/user/workspace/vivipos_app/content/controllers/users_controller.js:243
-msgid "[%S] may not be deleted"
-msgstr ""
+msgid "acl_send_keypress"
+msgstr "Send Keypresses"
 
-#: /home/user/workspace/vivipos_app/content/controllers/users_controller.js:270
-msgid "Employee [%S] removed successfully"
-msgstr ""
+msgid "acl_register_plus"
+msgstr "Register Products"
 
-#: /home/user/workspace/vivipos_app/content/controllers/users_controller.js:298
-msgid "Select Access Group"
-msgstr ""
+msgid "acl_register_enter"
+msgstr "Register ENTER"
 
-#: /home/user/workspace/vivipos_app/content/controllers/users_controller.js:320
-msgid "Select Default Job"
-msgstr ""
+msgid "acl_register_quantity"
+msgstr "Register Quantity"
 
-#: /home/user/workspace/vivipos_app/content/controllers/vfd_controller.js:186
-#: /home/user/workspace/vivipos_app/content/controllers/vfd_controller.js:185
-msgid "Error in VFD controller: no worker thread available!"
-msgstr ""
+msgid "acl_register_sub_total"
+msgstr "Register Subtotal"
 
-#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:69
-#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:118
-#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:132
-#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:139
-#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:157
-#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:161
-msgid "TAL"
-msgstr ""
+msgid "acl_register_tray_marker"
+msgstr "Register Tray Marker"
 
-#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:71
-#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:119
-#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:133
-msgid "REM"
-msgstr ""
+msgid "acl_register_housebon"
+msgstr "Register House BON"
 
-#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:72
-#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:120
-#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:134
-#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:162
-msgid "PAY"
-msgstr ""
+msgid "acl_register_currency_exchange"
+msgstr "Register Currency Exchange"
 
-#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:80
-msgid "Return"
-msgstr ""
+msgid "acl_manage_jobs"
+msgstr "Manage Jobs"
 
-#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:84
-msgid "I"
-msgstr ""
+msgid "acl_manage_plu_groups"
+msgstr "Manage Product Groups"
 
-#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:88
-msgid "QTY"
-msgstr ""
+msgid "acl_manage_import_export"
+msgstr "Import/Export Data"
 
-#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:95
-msgid "Change Clerk"
-msgstr ""
+msgid "acl_manage_price_level_schedule"
+msgstr "Manage Price Level Schedule"
 
-#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:97
-msgid "Password"
-msgstr ""
+msgid "acl_manage_acl_groups"
+msgstr "Manage Access Groups"
 
-#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:136
-msgid "CANCELED"
-msgstr ""
+msgid "acl_manage_stock"
+msgstr "Manage Stock"
 
-#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:137
-#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:149
-msgid "SEQ#"
-msgstr ""
+msgid "acl_manage_system_options"
+msgstr "Manage System Options"
 
-#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:148
-msgid "QUEUED"
-msgstr ""
+msgid "acl_manage_taxes"
+msgstr "Manage Taxes"
 
-#: /home/user/vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:163
-msgid "CHG"
-msgstr ""
+msgid "acl_manage_products"
+msgstr "Manage Products"
 
-#: /home/user/workspace/vivipos_app/content/sync_settings.js:20
-msgid "confirm synchronize settings change"
-msgstr ""
+msgid "acl_register_return"
+msgstr "Register Item Return"
 
-#: /home/user/workspace/vivipos_app/content/sync_settings.js:21
-msgid ""
-"Synchronize settings changes require system restart to take effect. If you "
-"save the changes now, the system will restart automatically after you return "
-"to the Main Screen. Do you want to save your changes?"
-msgstr ""
+msgid "acl_register_credit_card"
+msgstr "Register Credit Card Payment"
 
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:156
-msgid "Not authorized to register open price"
-msgstr ""
+msgid "acl_register_coupon"
+msgstr "Register Coupon Payment"
 
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:550
-msgid "Not authorized to modify condiment"
-msgstr ""
+msgid "acl_register_giftcard"
+msgstr "Register Giftcard Payment"
 
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:592
-msgid "Cannot modify condiment price; no price entered"
-msgstr ""
+msgid "acl_manage_images"
+msgstr "Manage Images"
 
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:613
-msgid "Not authorized to modify price"
-msgstr ""
+msgid "acl_modify_keymap_parameter"
+msgstr "Modify Keymap Parameter"
 
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:620
-msgid "Not authorized to modify quantity"
-msgstr ""
+msgid "acl_modify_condiment_price"
+msgstr "Modify Condiment Price"
 
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2294
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2300
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2307
-msgid "confirm cancel"
-msgstr ""
+msgid "acl_manage_locale_keyboard"
+msgstr "Change Language and Keyboard Mapping"
 
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2294
-msgid "Do you really want to cancel this stored order?"
-msgstr ""
+msgid "acl_register_pretax_discount"
+msgstr "Register Order Discounts Pretax"
 
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2301
-msgid ""
-"A total payment of [%S] has been received on this order, do you really want "
-"to cancel it without refunding the customer?"
-msgstr ""
+msgid "acl_register_pretax_surcharge"
+msgstr "Register Order Surcharges Pretax"
 
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2308
-msgid ""
-"A total credit of [%S] has been given on this order, do you really want to "
-"cancel it?"
-msgstr ""
+msgid "acl_manage_reports"
+msgstr "Run Reports"
 
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2710
-msgid "No open order to queue"
-msgstr ""
+msgid "acl_manage_date_time"
+msgstr "Set Date and Time"
 
-#: /home/user/workspace/vivipos_app/content/controllers/cart_controller.js:2715
-msgid "Can not queue the recalled order!!"
-msgstr ""
+msgid "acl_manage_devices"
+msgstr "Manage Devices"
 
-#: /home/user/workspace/vivipos_app/content/controllers/destination_controller.js:58
-msgid "Add New Destination"
-msgstr ""
+msgid "acl_issue_post_receipts"
+msgstr "Issue Post-finalization Receipts"
 
-#: /home/user/workspace/vivipos_app/content/controllers/destination_controller.js:58
-msgid "New Destination"
-msgstr ""
+msgid "acl_issue_guest_checks"
+msgstr "Issue Guest Checks"
 
-#: /home/user/workspace/vivipos_app/content/controllers/destination_controller.js:65
-msgid "Destination [%S] already exists"
-msgstr ""
+msgid "acl_manage_storecontact"
+msgstr "Manage Store Contact"
 
-#: /home/user/workspace/vivipos_app/content/controllers/destination_controller.js:83
-msgid "Destination [%S] added successfully"
-msgstr ""
+msgid "acl_open_cashdrawer_1"
+msgstr "Open Cash Drawer #1"
 
-#: /home/user/workspace/vivipos_app/content/controllers/destination_controller.js:99
-msgid "Destination [%S] modified successfully"
-msgstr ""
+msgid "acl_open_cashdrawer_2"
+msgstr "Open Cash Drawer #2"
 
-#: /home/user/workspace/vivipos_app/content/controllers/destination_controller.js:103
-msgid "Destination name must not be empty"
-msgstr ""
+msgid "acl_register_check"
+msgstr "Register Check Payment"
 
-#: /home/user/workspace/vivipos_app/content/controllers/destination_controller.js:116
-msgid "Destination [%S] deleted successfully"
-msgstr ""
+msgid "acl_manage_backup"
+msgstr "Manage System Backup/Recovery"
 
-#: /home/user/workspace/vivipos_app/content/controllers/destination_controller.js:234
-msgid "Destination [%S] has not been defined"
-msgstr ""
+msgid "acl_manage_sync_settings"
+msgstr "Manage Cluster Synchronization"
 
-#: /home/user/workspace/vivipos_app/content/controllers/destination_controller.js:242
-msgid ""
-"Shopping cart is missing; please contact your dealer for technical support"
-msgstr ""
+msgid "acl_set_destination"
+msgstr "Set Destination"
 
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:489
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:493
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:495
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:511
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:515
-#: /home/user/workspace/vivipos_app/content/controllers/devices_controller.js:517
-msgid "Report Printer %S"
-msgstr ""
+msgid "acl_modify_price"
+msgstr "Modify Price"
 
-#: /home/user/workspace/vivipos_app/content/controllers/plufilters_controller.js:38
-msgid "Filter [%S] already exists"
-msgstr ""
+msgid "acl_modify_quantity"
+msgstr "Modify Quantity"
 
-#: /home/user/workspace/vivipos_app/content/controllers/plugroups_controller.js:175
-msgid ""
-"[%S] has been linked to one or more check printers and may not be deleted"
-msgstr ""
+msgid "acl_register_open_price"
+msgstr "Register Open Price"
 
-#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:483
-msgid "The specified report/label printer [%S] is not configured"
-msgstr ""
+msgid "acl_void_transactions"
+msgstr "Void Completed Transactions"
 
-#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:487
-msgid "Invalid report/label printer [%S]"
-msgstr ""
+msgid "acl_tag_item"
+msgstr "Tag Item"
 
-#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:491
-msgid "The specified report/label printer [%S] is not enabled"
-msgstr ""
+msgid "acl_manage_network_setting"
+msgstr "Manage Network"
 
-#: /home/user/workspace/vivipos_app/content/controllers/print_controller.js:590
-msgid "Specified template [%S] is empty or does not exist!"
-msgstr ""
+msgid "Network Setting"
+msgstr "Network Setting"
 
-#: /home/user/workspace/vivipos_app/content/controllers/storecontact_controller.js:52
-msgid "Store name must not be blank!"
-msgstr ""
+msgid "Synchronization Settings"
+msgstr "Synchronization Settings"
