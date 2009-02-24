@@ -12,7 +12,7 @@
 
         <!-- Begin FuncBtns -->
         <vivifuncpanelecr
-            id="functionPanel"
+            id="leftFunctionPanel"
             class="vivifuncpanelecr_function_panel"
             label="%d/%m"
             rows="4" columns="2" hspacing="1" vspacing="1"

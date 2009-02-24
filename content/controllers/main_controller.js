@@ -286,9 +286,9 @@
             }
         },
 
-	updateOptions: function () {
-	    this.resetLayout();
-	},
+        updateOptions: function () {
+            this.resetLayout();
+        },
 
         toggleNumPad: function (state, initial) {
             var numPad = document.getElementById('numpad');
@@ -355,13 +355,16 @@
         resizeLeftPanel: function (initial) {
             // resizing product/function panels
             var rightPanel = document.getElementById('rightPanel');
-            var leftPanel = document.getElementById('leftPanel');
             var panelSpacer = document.getElementById('panelSpacer');
             var deptPanel = document.getElementById('catescrollablepanel');
             var pluPanel = document.getElementById('prodscrollablepanel');
             //var condimentPanel = document.getElementById('condimentscrollablepanel');
-            var fnPanel = document.getElementById('functionPanel');
+            var fnPanelContainer = document.getElementById('functionPanelContainer');
+            var fnPanel1 = document.getElementById('leftFunctionPanel');
+            var fnPanel2 = document.getElementById('rightFunctionPanel');
             var btmBox = document.getElementById('vivipos-bottombox');
+            var noNumPad = GeckoJS.Configure.read('vivipos.fec.settings.NoNumPad') || false;
+
             //var pluAndCondimentDeck = document.getElementById('pluAndCondimentDeck');
 
             var departmentRows = GeckoJS.Configure.read('vivipos.fec.settings.DepartmentRows');
@@ -393,10 +396,6 @@
             var cropDeptLabel = GeckoJS.Configure.read('vivipos.fec.settings.CropDeptLabel') || false;
             var cropPLULabel = GeckoJS.Configure.read('vivipos.fec.settings.CropPLULabel') || false;
 
-            // sanity check on department and plu panel heights
-            var deptHeight = departmentRows * departmentButtonHeight;
-            var pluHeight = pluRows * pluButtonHeight;
-            
             if (cropPLULabel) pluPanel.setAttribute('crop', 'end');
 
             if (initial ||
@@ -432,7 +431,8 @@
                 (pluPanel.getAttribute('hideScrollbar') != hidePLUScrollbar)) {
                 pluPanel.setAttribute('rows', pluRows);
                 pluPanel.setAttribute('cols', pluCols);
-                pluPanel.setAttribute('buttonHeight', pluButtonHeight);
+                if (!noNumPad) pluPanel.setAttribute('buttonHeight', pluButtonHeight);
+                else pluPanel.removeAttribute('buttonHeight');
 
                 if (cropPLULabel) pluPanel.setAttribute('crop', 'end');
                 else pluPanel.removeAttribute('crop');
@@ -451,38 +451,69 @@
             if (deptPanel) deptPanel.vivibuttonpanel.resizeButtons();
             if (pluPanel) pluPanel.vivibuttonpanel.resizeButtons();
 
-            if (fnPanel) {
-                var totalHeight = deptPanel.boxObject.height - (- pluPanel.boxObject.height);
-                var panelSpacerWidth = (panelSpacer) ? panelSpacer.boxObject.width : 0;
-                var fnWidth = this.screenwidth - rightPanel.boxObject.width - panelSpacerWidth - 0;
+            // replace number pad with function panel?
+            var commonPad = document.getElementById('commonPad');
+            if (commonPad) {
+                commonPad.selectedIndex = noNumPad ? 1 : 0;
+            }
 
-                var fnHeight = this.screenheight - totalHeight - btmBox.boxObject.height - 4;
-                if (fnHeight < 1 || fnRows == 0 || fnCols == 0) {
-                    fnPanel.setAttribute('height', 0);
-                    fnPanel.hide();
-                }
-                else {
-                    fnPanel.show();
-                    fnPanel.setAttribute('hideScrollbar', hideFPScrollbar);
+            // resize left & right fnPanels
+            if (noNumPad) {
+                fnPanelContainer.setAttribute('hidden', true);
+                if (fnPanel2) {
+                    fnPanel2.show();
+                    fnPanel2.setAttribute('hideScrollbar', hideFPScrollbar);
 
                     // check if rows/columns have changed
-                    var currentRows = fnPanel.rows;
-                    var currentColumns = fnPanel.columns;
+                    var currentRows = fnPanel2.rows;
+                    var currentColumns = fnPanel2.columns;
 
                     if ((currentRows != fnRows) || (currentColumns != fnCols)) {
                         // need to change layout, first retrieve h/vspacing
 
-                        var hspacing = fnPanel.hspacing;
-                        var vspacing = fnPanel.vspacing;
+                        var hspacing = fnPanel2.hspacing;
+                        var vspacing = fnPanel2.vspacing;
 
-                        fnPanel.setSize(fnRows, fnCols, hspacing, vspacing);
+                        fnPanel2.setSize(fnRows, fnCols, hspacing, vspacing);
                     }
-
-                    fnPanel.setAttribute('height', fnHeight);
-                    fnPanel.setAttribute('width', fnWidth);
                 }
             }
+            else {
+                fnPanel2.hide();
+                fnPanelContainer.setAttribute('hidden', false);
+                if (fnPanel1) {
+                    var fnWidth, fnHeight;
+                    var totalHeight = deptPanel.boxObject.height - (- pluPanel.boxObject.height);
+                    var panelSpacerWidth = (panelSpacer) ? panelSpacer.boxObject.width : 0;
 
+                    fnWidth = this.screenwidth - rightPanel.boxObject.width - panelSpacerWidth - 0;
+                    fnHeight = this.screenheight - totalHeight - btmBox.boxObject.height - 4;
+                    if (fnHeight < 1 || fnRows == 0 || fnCols == 0) {
+                        fnPanel1.setAttribute('height', 0);
+                        fnPanel1.hide();
+                    }
+                    else {
+                        fnPanel1.show();
+                        fnPanel1.setAttribute('hideScrollbar', hideFPScrollbar);
+
+                        // check if rows/columns have changed
+                        var currentRows = fnPanel1.rows;
+                        var currentColumns = fnPanel1.columns;
+
+                        if ((currentRows != fnRows) || (currentColumns != fnCols)) {
+                            // need to change layout, first retrieve h/vspacing
+
+                            var hspacing = fnPanel1.hspacing;
+                            var vspacing = fnPanel1.vspacing;
+
+                            fnPanel1.setSize(fnRows, fnCols, hspacing, vspacing);
+                        }
+
+                        fnPanel1.setAttribute('height', fnHeight);
+                        fnPanel1.setAttribute('width', fnWidth);
+                    }
+                }
+            }
         },
         
         resetLayout: function (initial) {
@@ -512,6 +543,7 @@
             if (checkTrackingStatus) {
                 checkTrackingStatus.setAttribute('hidden', checkTrackingMode ? 'false' : 'true');
             }
+
             // display tag field
             var headers = cartList.getAttribute('headers');
             var fields = cartList.getAttribute('fields');

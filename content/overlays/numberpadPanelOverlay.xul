@@ -11,8 +11,8 @@
     <hbox id="numberpadPanelContainer" flex="0">
 
         <vbox flex="1" pack="start" align="center">
-            <deck id="commonpad" selectedIndex="0">
-                <vbox id="commandpad-deck1">
+            <deck id="commonPad" selectedIndex="0">
+                <vbox id="commonPad-deck1">
                     <deck id="fixedbtnrow" selectedIndex="1" flex="0">
                         <hbox id="fixedbtnrow-1" flex="0" class="funpad1">
                             <vivibutton id="clearBtn"  label="&numberpad.keylabel.clear;" oncommand="$do('keypress', {keyCode: 27}, 'Keypad');" class="fixedbtn" suspendable="false"/>
@@ -48,7 +48,34 @@
                         <numberpad id="multinumberpad" class="fe-numberpad" target="null" onkeypress="$do('keypress', event, 'Keypad');" />
                     </hbox>
                 </vbox>
-                <vbox id="commandpad-deck2">
+                <vbox id="commonPad-deck2">
+                    <vivifuncpanelecr
+                        id="rightFunctionPanel"
+                        class="vivifuncpanelecr_function_panel"
+                        label="%d/%m"
+                        rows="4" columns="2" hspacing="1" vspacing="1"
+                        homePage="1"
+                        controlLocation="left"
+                        dir="normal"
+                        maxpage="3"
+                        wrap="0"
+                        flex="1"
+                        mode="normal"
+                        restrictMode="normal"
+                        disabled="false"
+                        prefix="vivipos.fec.settings.functionpanel"
+                        panel_spacer_class="vivifuncpanelecr_spacer"
+                        control_panel_class="vivifuncpanelecr_control_panel"
+                        control_scroll_left_class="vivifuncpanelecr_control_scroll_left"
+                        control_scroll_right_class="vivifuncpanelecr_control_scroll_right"
+                        control_label_class="vivifuncpanelecr_control_label"
+                        control_home_class="vivifuncpanelecr_control_home"
+                        button_panel_class="vivifuncpanelecr_button_panel"
+                        matrix_button_nomap_class="vivifuncpanelecr_matrix_button_nomap"
+                        matrix_button_configure_class="vivifuncpanelecr_matrix_button_configure"
+                        matrix_button_mapped_class="vivifuncpanelecr_matrix_button_mapped"
+                        />
+        <!-- End FuncBtns -->
                 </vbox>
             </deck>
         </vbox>
