@@ -7,7 +7,7 @@ ${head.start_time} ~ ${head.end_time}
 Term_No.  Time        Seq.    Invoice No
 --------  ----------  ------  ------------
 {for detail in body}
-${detail.terminal_no|8}  ${detail.transaction_created|10}  ${detail.sequence|6}  ${detail.invoice_no|12}
+${detail.terminal_no|left:8}  ${detail.transaction_created|left:10}  ${detail.sequence|left:6}  ${detail.invoice_no|left:12}
     Total      : ${detail.total|viviFormatPrices:true}
     Surcharge  : ${detail.surcharge_subtotal|viviFormatPrices:true}
     Discount   : ${detail.discount_subtotal|viviFormatPrices:true}

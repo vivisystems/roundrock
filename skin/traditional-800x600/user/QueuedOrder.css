@@ -15,7 +15,7 @@
     border: none  !important;
     background: none !important;
     margin: 20px;
-    min-height: 410px !important;
+    min-height: 390px !important;
     min-width: 300px;
     -moz-box-flex: 1 !important;
 }
@@ -27,5 +27,5 @@
 
 .ItemScrollablepanel {
     min-width: 300px;
-    min-height: 430px;
+    min-height: 390px;
 }

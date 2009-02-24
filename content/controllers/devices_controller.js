@@ -48,7 +48,7 @@
 
                 if (!statusResult.printerEnabled) {
                     GREUtils.Dialog.alert(window, _('Device Status'),
-                                                  _('No device has been enabled for receipt and/or guest check printing!'));
+                                                  _('No device has been enabled for receipt and/or check printing!'));
                 }
 
                 var statusStr = '';
@@ -129,55 +129,55 @@
                     }
                 }
 
-                if (enabledDevices['guestcheck-1-enabled']) {
+                if (enabledDevices['check-1-enabled']) {
                     // check if template already loaded
-                    var template = templates['guestcheck-1-template'];
+                    var template = templates['check-1-template'];
                     if (template != null && !(template in deviceTemplates) && templates[template] != null) {
                         deviceTemplates[template] = this.loadTemplateFile(templates[template].path);
                     }
 
                     // check if device already loaded
-                    var device = enabledDevices['guestcheck-1-devicemodel'];
+                    var device = enabledDevices['check-1-devicemodel'];
                     if (device != null && !(device in deviceCommands) && devicemodels[device] != null) {
                         deviceCommands[device] = this.loadDeviceCommandFile(devicemodels[device].path)
                     }
                 }
 
-                if (enabledDevices['guestcheck-2-enabled']) {
-                    var template = templates['guestcheck-2-template'];
+                if (enabledDevices['check-2-enabled']) {
+                    var template = templates['check-2-template'];
                     if (template != null && !(template in deviceTemplates) && templates[template] != null) {
                         deviceTemplates[template] = this.loadTemplateFile(templates[template].path);
                     }
 
                     // check if device already loaded
-                    var device = enabledDevices['guestcheck-2-devicemodel'];
+                    var device = enabledDevices['check-2-devicemodel'];
                     if (device != null && !(device in deviceCommands) && devicemodels[device] != null) {
                         deviceCommands[device] = this.loadDeviceCommandFile(devicemodels[device].path)
                     }
                 }
 
-                if (enabledDevices['guestcheck-3-enabled']) {
+                if (enabledDevices['check-3-enabled']) {
                     // check if template already loaded
-                    var template = templates['guestcheck-3-template'];
+                    var template = templates['check-3-template'];
                     if (template != null && !(template in deviceTemplates) && templates[template] != null) {
                         deviceTemplates[template] = this.loadTemplateFile(templates[template].path);
                     }
 
                     // check if device already loaded
-                    var device = enabledDevices['guestcheck-3-devicemodel'];
+                    var device = enabledDevices['check-3-devicemodel'];
                     if (device != null && !(device in deviceCommands) && devicemodels[device] != null) {
                         deviceCommands[device] = this.loadDeviceCommandFile(devicemodels[device].path)
                     }
                 }
 
-                if (enabledDevices['guestcheck-4-enabled']) {
-                    var template = templates['guestcheck-4-template'];
+                if (enabledDevices['check-4-enabled']) {
+                    var template = templates['check-4-template'];
                     if (template != null && !(template in deviceTemplates) && templates[template] != null) {
                         deviceTemplates[template] = this.loadTemplateFile(templates[template].path);
                     }
 
                     // check if device already loaded
-                    var device = enabledDevices['guestcheck-4-devicemodel'];
+                    var device = enabledDevices['check-4-devicemodel'];
                     if (device != null && !(device in deviceCommands) && devicemodels[device] != null) {
                         deviceCommands[device] = this.loadDeviceCommandFile(devicemodels[device].path)
                     }
@@ -387,90 +387,90 @@
                     printerEnabled = true;
                 }
 
-                // guest check printer 1
-                if (selectedDevices['guestcheck-1-enabled']) {
-                    var port = selectedDevices['guestcheck-1-port'];
+                // check printer 1
+                if (selectedDevices['check-1-enabled']) {
+                    var port = selectedDevices['check-1-port'];
                     status = 0;
                     if (ports != null && port != null && ports[port] != null && ports[port].path != null) {
                         switch(ports[port].type) {
                             case 'serial':
                             case 'usb':
-                                status = this.checkSerialPort(ports[port].path, selectedDevices['guestcheck-1-handshaking']);
+                                status = this.checkSerialPort(ports[port].path, selectedDevices['check-1-handshaking']);
                                 break;
                         }
-                        statuses.push([_('Guest Check Printer %S', [1]), ports[port].label + ' (' + ports[port].path + ')', status]);
+                        statuses.push([_('Check Printer %S', [1]), ports[port].label + ' (' + ports[port].path + ')', status]);
                     }
                     else {
                         if (ports != null && port!= null && ports[port] != null)
-                            statuses.push([_('Guest Check Printer %S', [1]), ports[port].label + ' (' + ports[port].path + ')', status]);
+                            statuses.push([_('Check Printer %S', [1]), ports[port].label + ' (' + ports[port].path + ')', status]);
                         else
-                            statuses.push([_('Guest Check Printer %S', [1]), 'unknown', status]);
+                            statuses.push([_('Check Printer %S', [1]), 'unknown', status]);
                     }
                     printerEnabled = true;
                 }
 
-                // guest check printer 2
-                if (selectedDevices['guestcheck-2-enabled']) {
-                    var port = selectedDevices['guestcheck-2-port'];
+                // check printer 2
+                if (selectedDevices['check-2-enabled']) {
+                    var port = selectedDevices['check-2-port'];
                     status = 0;
                     if (ports != null && port != null && ports[port] != null && ports[port].path != null) {
                         switch(ports[port].type) {
                             case 'serial':
                             case 'usb':
-                                status = this.checkSerialPort(ports[port].path, selectedDevices['guestcheck-2-handshaking']);
+                                status = this.checkSerialPort(ports[port].path, selectedDevices['check-2-handshaking']);
                                 break;
                         }
-                        statuses.push([_('Guest Check Printer %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
+                        statuses.push([_('Check Printer %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
                     }
                     else {
                         if (ports != null && port!= null && ports[port] != null)
-                            statuses.push([_('Guest Check Printer %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
+                            statuses.push([_('Check Printer %S', [2]), ports[port].label + ' (' + ports[port].path + ')', status]);
                         else
-                            statuses.push([_('Guest Check Printer %S', [2]), 'unknown', status]);
+                            statuses.push([_('Check Printer %S', [2]), 'unknown', status]);
                     }
                     printerEnabled = true;
                 }
 
-                // guest check printer 3
-                if (selectedDevices['guestcheck-3-enabled']) {
-                    var port = selectedDevices['guestcheck-3-port'];
+                // check printer 3
+                if (selectedDevices['check-3-enabled']) {
+                    var port = selectedDevices['check-3-port'];
                     status = 0;
                     if (ports != null && port != null && ports[port] != null && ports[port].path != null) {
                         switch(ports[port].type) {
                             case 'serial':
                             case 'usb':
-                                status = this.checkSerialPort(ports[port].path, selectedDevices['guestcheck-3-handshaking']);
+                                status = this.checkSerialPort(ports[port].path, selectedDevices['check-3-handshaking']);
                                 break;
                         }
-                        statuses.push([_('Guest Check Printer %S', [3]), ports[port].label + ' (' + ports[port].path + ')', status]);
+                        statuses.push([_('Check Printer %S', [3]), ports[port].label + ' (' + ports[port].path + ')', status]);
                     }
                     else {
                         if (ports != null && port!= null && ports[port] != null)
-                            statuses.push([_('Guest Check Printer %S', [3]), ports[port].label + ' (' + ports[port].path + ')', status]);
+                            statuses.push([_('Check Printer %S', [3]), ports[port].label + ' (' + ports[port].path + ')', status]);
                         else
-                            statuses.push([_('Guest Check Printer %S', [3]), 'unknown', status]);
+                            statuses.push([_('Check Printer %S', [3]), 'unknown', status]);
                     }
                     printerEnabled = true;
                 }
 
-                // guest check printer 4
-                if (selectedDevices['guestcheck-4-enabled']) {
-                    var port = selectedDevices['guestcheck-4-port'];
+                // check printer 4
+                if (selectedDevices['check-4-enabled']) {
+                    var port = selectedDevices['check-4-port'];
                     status = 0;
                     if (ports != null && port != null && ports[port] != null && ports[port].path != null) {
                         switch(ports[port].type) {
                             case 'serial':
                             case 'usb':
-                                status = this.checkSerialPort(ports[port].path, selectedDevices['guestcheck-4-handshaking']);
+                                status = this.checkSerialPort(ports[port].path, selectedDevices['check-4-handshaking']);
                                 break;
                         }
-                        statuses.push([_('Guest Check Printer %S', [4]), ports[port].label + ' (' + ports[port].path + ')', status]);
+                        statuses.push([_('Check Printer %S', [4]), ports[port].label + ' (' + ports[port].path + ')', status]);
                     }
                     else {
                         if (ports != null && port!= null && ports[port] != null)
-                            statuses.push([_('Guest Check Printer %S', [4]), ports[port].label + ' (' + ports[port].path + ')', status]);
+                            statuses.push([_('Check Printer %S', [4]), ports[port].label + ' (' + ports[port].path + ')', status]);
                         else
-                            statuses.push([_('Guest Check Printer %S', [4]), 'unknown', status]);
+                            statuses.push([_('Check Printer %S', [4]), 'unknown', status]);
                     }
                     printerEnabled = true;
                 }
@@ -786,17 +786,17 @@
             return this._selectedDevices;
         },
 
-        // returns true if the specified link_group is associated with guestcheck1/2/3/4
+        // returns true if the specified link_group is associated with check1/2/3/4
         isGroupLinked: function(link_group_id) {
             var selectedDevices = this.getSelectedDevices();
 
-            return (selectedDevices['guestcheck-1-link-groups'].indexOf(link_group_id) > -1 ||
-                    selectedDevices['guestcheck-2-link-groups'].indexOf(link_group_id) > -1 ||
-                    selectedDevices['guestcheck-3-link-groups'].indexOf(link_group_id) > -1||
-                    selectedDevices['guestcheck-4-link-groups'].indexOf(link_group_id) > -1);
+            return (selectedDevices['check-1-link-group'].indexOf(link_group_id) > -1 ||
+                    selectedDevices['check-2-link-group'].indexOf(link_group_id) > -1 ||
+                    selectedDevices['check-3-link-group'].indexOf(link_group_id) > -1||
+                    selectedDevices['check-4-link-group'].indexOf(link_group_id) > -1);
         },
 
-        // check if the device of the given type [receipt, guestcheck, report, vfd, cashdrawer] and number is enabled
+        // check if the device of the given type [receipt, check, report, vfd, cashdrawer] and number is enabled
         // returns:
         // -2: no devices have been configured
         // -1: printer number is invalid
@@ -843,8 +843,8 @@
                         autoprint: selectedDevices[type + '-1-autoprint'],
                         supportsstatus: selectedDevices[type + '-1-supports-status'],
                         gpiopulses: selectedDevices[type + '-1-gpio-pulses'],
-                        linkgroups: selectedDevices[type + '-1-link-groups'],
-                        printunlinked: selectedDevices[type + '-1-print-unlinked'],
+                        linkgroup: selectedDevices[type + '-1-link-group'],
+                        printNoRouting: selectedDevices[type + '-1-print-no-routing'],
                         number: 1
                     });
                 }
@@ -860,13 +860,13 @@
                         autoprint: selectedDevices[type + '-2-autoprint'],
                         supportsstatus: selectedDevices[type + '-2-supports-status'],
                         gpiopulses: selectedDevices[type + '-2-gpio-pulses'],
-                        linkgroups: selectedDevices[type + '-2-link-groups'],
-                        printunlinked: selectedDevices[type + '-2-print-unlinked'],
+                        linkgroup: selectedDevices[type + '-2-link-group'],
+                        printNoRouting: selectedDevices[type + '-2-print-no-routing'],
                         number: 2
                     });
                 }
 
-                if (type == 'guestcheck') {
+                if (type == 'check') {
                     if (selectedDevices[type + '-3-enabled'] && (number == null || number == 1)) {
                         enabledDevices.push({
                             type: selectedDevices[type + '-3-type'],
@@ -879,9 +879,9 @@
                             autoprint: selectedDevices[type + '-3-autoprint'],
                             supportsstatus: selectedDevices[type + '-3-supports-status'],
                             gpiopulses: selectedDevices[type + '-3-gpio-pulses'],
-                            linkgroups: selectedDevices[type + '-3-link-groups'],
-                            printunlinked: selectedDevices[type + '-3-print-unlinked'],
-                            number: 1
+                            linkgroup: selectedDevices[type + '-3-link-group'],
+                            printNoRouting: selectedDevices[type + '-3-print-no-routing'],
+                            number: 3
                         });
                     }
                     if (selectedDevices[type + '-4-enabled'] && (number == null || number == 2)) {
@@ -896,8 +896,9 @@
                             autoprint: selectedDevices[type + '-4-autoprint'],
                             supportsstatus: selectedDevices[type + '-4-supports-status'],
                             gpiopulses: selectedDevices[type + '-4-gpio-pulses'],
-                            linkgroups: selectedDevices[type + '-4-link-groups'],
-                            number: 2
+                            linkgroup: selectedDevices[type + '-4-link-group'],
+                            printNoRouting: selectedDevices[type + '-4-print-no-routing'],
+                            number: 4
                         });
                     }
                 }
@@ -1084,23 +1085,23 @@
             }
 
             /*
-             * populate guest check panel
+             * populate check panel
              *
              */
 
-            //if (document.getElementById('guestcheck-panel') != null) {
+            //if (document.getElementById('check-panel') != null) {
 
                 /* populate templates */
 
-                var tmplmenu1 = document.getElementById('guestcheck-1-template');
-                var tmplmenu2 = document.getElementById('guestcheck-2-template');
-                var tmplmenu3 = document.getElementById('guestcheck-3-template');
-                var tmplmenu4 = document.getElementById('guestcheck-4-template');
+                var tmplmenu1 = document.getElementById('check-1-template');
+                var tmplmenu2 = document.getElementById('check-2-template');
+                var tmplmenu3 = document.getElementById('check-3-template');
+                var tmplmenu4 = document.getElementById('check-4-template');
                 var templates = this.getTemplates();
 
                 var sortedTemplates = [];
                 for (var tmpl in templates) {
-                    if (templates[tmpl].type != null && templates[tmpl].type.indexOf('guestcheck') > -1) {
+                    if (templates[tmpl].type != null && templates[tmpl].type.indexOf('check') > -1) {
                         var newTemplate = GREUtils.extend({}, templates[tmpl]);
                         newTemplate.name = tmpl;
                         sortedTemplates.push(newTemplate);
@@ -1119,13 +1120,13 @@
 
                 /* populate device ports */
 
-                var portmenu1 = document.getElementById('guestcheck-1-port');
-                var portmenu2 = document.getElementById('guestcheck-2-port');
-                var portmenu3 = document.getElementById('guestcheck-3-port');
-                var portmenu4 = document.getElementById('guestcheck-4-port');
+                var portmenu1 = document.getElementById('check-1-port');
+                var portmenu2 = document.getElementById('check-2-port');
+                var portmenu3 = document.getElementById('check-3-port');
+                var portmenu4 = document.getElementById('check-4-port');
 
                 for (var i in sortedPorts) {
-                    if (sortedPorts[i].support.indexOf('guestcheck') > -1) {
+                    if (sortedPorts[i].support.indexOf('check') > -1) {
                         var portName = sortedPorts[i].name;
                         portmenu1.appendItem(_(sortedPorts[i].label), portName, '');
                         portmenu2.appendItem(_(sortedPorts[i].label), portName, '');
@@ -1137,10 +1138,10 @@
 
                 /* populate device portspeeds */
 
-                var portspeedmenu1 = document.getElementById('guestcheck-1-portspeed');
-                var portspeedmenu2 = document.getElementById('guestcheck-2-portspeed');
-                var portspeedmenu3 = document.getElementById('guestcheck-3-portspeed');
-                var portspeedmenu4 = document.getElementById('guestcheck-4-portspeed');
+                var portspeedmenu1 = document.getElementById('check-1-portspeed');
+                var portspeedmenu2 = document.getElementById('check-2-portspeed');
+                var portspeedmenu3 = document.getElementById('check-3-portspeed');
+                var portspeedmenu4 = document.getElementById('check-4-portspeed');
 
                 for (var i in portspeeds) {
                     var portspeed = portspeeds[i];
@@ -1153,21 +1154,21 @@
 
                 /* populate device models */
 
-                var devicemodelmenu1 = document.getElementById('guestcheck-1-devicemodel');
-                var devicemodelmenu2 = document.getElementById('guestcheck-2-devicemodel');
-                var devicemodelmenu3 = document.getElementById('guestcheck-3-devicemodel');
-                var devicemodelmenu4 = document.getElementById('guestcheck-4-devicemodel');
+                var devicemodelmenu1 = document.getElementById('check-1-devicemodel');
+                var devicemodelmenu2 = document.getElementById('check-2-devicemodel');
+                var devicemodelmenu3 = document.getElementById('check-3-devicemodel');
+                var devicemodelmenu4 = document.getElementById('check-4-devicemodel');
                 var devicemodels = this.getDeviceModels();
 
                 var sortedDevicemodels = [];
                 for (var devicemodel in devicemodels) {
-                    if (devicemodels[devicemodel].type != null && devicemodels[devicemodel].type.indexOf('guestcheck') > -1) {
+                    if (devicemodels[devicemodel].type != null && devicemodels[devicemodel].type.indexOf('check') > -1) {
                         var newDevicemodel = GREUtils.extend({}, devicemodels[devicemodel]);
                         newDevicemodel.name = devicemodel;
                         sortedDevicemodels.push(newDevicemodel);
                     }
                 }
-                this._sortedDevicemodels['guestcheck'] = sortedDevicemodels = new GeckoJS.ArrayQuery(sortedDevicemodels).orderBy('label asc');
+                this._sortedDevicemodels['check'] = sortedDevicemodels = new GeckoJS.ArrayQuery(sortedDevicemodels).orderBy('label asc');
 
                 for (var i in sortedDevicemodels) {
                     var devicemodelName = sortedDevicemodels[i].name;
@@ -1180,10 +1181,10 @@
 
                 /* populate encodings */
 
-                var encodingmenu1 = document.getElementById('guestcheck-1-encoding');
-                var encodingmenu2 = document.getElementById('guestcheck-2-encoding');
-                var encodingmenu3 = document.getElementById('guestcheck-3-encoding');
-                var encodingmenu4 = document.getElementById('guestcheck-4-encoding');
+                var encodingmenu1 = document.getElementById('check-1-encoding');
+                var encodingmenu2 = document.getElementById('check-2-encoding');
+                var encodingmenu3 = document.getElementById('check-3-encoding');
+                var encodingmenu4 = document.getElementById('check-4-encoding');
 
                 this.populateEncodings(encodingmenu1, sortedDevicemodels[devicemodelmenu1.selectedIndex]);
                 this.populateEncodings(encodingmenu2, sortedDevicemodels[devicemodelmenu2.selectedIndex]);
@@ -1196,18 +1197,18 @@
                     value: 1,
                     order: 'display_order, name'
                 });
-                var guestcheck1_group_listscrollablepanel = document.getElementById('guestcheck-1-group_listscrollablepanel');
-                var guestcheck2_group_listscrollablepanel = document.getElementById('guestcheck-2-group_listscrollablepanel');
-                var guestcheck3_group_listscrollablepanel = document.getElementById('guestcheck-3-group_listscrollablepanel');
-                var guestcheck4_group_listscrollablepanel = document.getElementById('guestcheck-4-group_listscrollablepanel');
+                var check1_group_listscrollablepanel = document.getElementById('check-1-group_listscrollablepanel');
+                var check2_group_listscrollablepanel = document.getElementById('check-2-group_listscrollablepanel');
+                var check3_group_listscrollablepanel = document.getElementById('check-3-group_listscrollablepanel');
+                var check4_group_listscrollablepanel = document.getElementById('check-4-group_listscrollablepanel');
                 var plugroupPanelView1 = new NSIPluGroupsView(groups);
                 var plugroupPanelView2 = new NSIPluGroupsView(groups);
                 var plugroupPanelView3 = new NSIPluGroupsView(groups);
                 var plugroupPanelView4 = new NSIPluGroupsView(groups);
-                guestcheck1_group_listscrollablepanel.datasource = plugroupPanelView1;
-                guestcheck2_group_listscrollablepanel.datasource = plugroupPanelView2;
-                guestcheck3_group_listscrollablepanel.datasource = plugroupPanelView3;
-                guestcheck4_group_listscrollablepanel.datasource = plugroupPanelView4;
+                check1_group_listscrollablepanel.datasource = plugroupPanelView1;
+                check2_group_listscrollablepanel.datasource = plugroupPanelView2;
+                check3_group_listscrollablepanel.datasource = plugroupPanelView3;
+                check4_group_listscrollablepanel.datasource = plugroupPanelView4;
             //}
 
 
@@ -1452,7 +1453,7 @@
 
             if (!statusResult.printerEnabled) {
                 GREUtils.Dialog.alert(window, _('Device Status'),
-                                              _('No device has been enabled for receipt and/or guest check printing!'));
+                                              _('No device has been enabled for receipt and/or check printing!'));
             }
             
             var statusStr = '';

@@ -12,6 +12,11 @@
         $itemlist = $('#selectQueues-itemlist');
 
         $.installPanel($panel[0], {
+            
+            css: {
+                width: '780px',
+                height: '580px'
+            },
 
             init: function(evt) {
 

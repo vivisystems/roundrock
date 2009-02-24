@@ -11,9 +11,14 @@ var couponRemark_options;
 
         $.installPanel($panel[0], {
 
+            css: {
+                width: '640px',
+                height: '560px'
+            },
+
             init: function(evt) {
 
-                document.getElementById('couponRemark-clearBtn').addEventListener('command', clearTextBox, false);
+               document.getElementById('couponRemark-clearBtn').addEventListener('command', clearTextBox, false);
 
                 /*
                 var textNodes = document.getElementsByTagName('textbox');
@@ -47,16 +52,25 @@ var couponRemark_options;
 
                     couponRemark_validateInput();
 
-                    if (inputObj.input0 != '')
-                        document.getElementById('couponRemark-input1').focus();
-                    else
-                        document.getElementById('couponRemark-input0').focus();
 
                 }catch(e) {
 
                 }
 
+
             },
+
+            shown: function(evt) {
+
+                var inputObj = evt.data[4];
+
+                if (inputObj.input0 != '')
+                    document.getElementById('couponRemark-input1').focus();
+                else
+                    document.getElementById('couponRemark-input0').focus();
+
+            },
+
 
             hide: function (evt) {
 

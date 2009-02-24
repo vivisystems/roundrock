@@ -35,10 +35,10 @@
 
                 <tabs>
                     <tab id="receipt-tab" label="&devices.tab.receipt.label;"/>
-                    <tab id="guestcheck1-tab" label="&devices.tab.guestcheck1.label;"/>
-                    <tab id="guestcheck2-tab" label="&devices.tab.guestcheck2.label;"/>
-                    <tab id="guestcheck3-tab" label="&devices.tab.guestcheck3.label;"/>
-                    <tab id="guestcheck4-tab" label="&devices.tab.guestcheck4.label;"/>
+                    <tab id="check1-tab" label="&devices.tab.check1.label;"/>
+                    <tab id="check2-tab" label="&devices.tab.check2.label;"/>
+                    <tab id="check3-tab" label="&devices.tab.check3.label;"/>
+                    <tab id="check4-tab" label="&devices.tab.check4.label;"/>
                     <tab id="report-tab" label="&devices.tab.report.label;"/>
                     <tab id="vfd-tab" label="&devices.tab.vfd.label;"/>
                     <tab id="cashdrawer-tab" label="&devices.tab.cashdrawer.label;"/>
@@ -173,10 +173,10 @@
                         
                     </tabpanel>
 
-                <!-- Guest Check configuration -->
-                    <tabpanel id="guestcheck-1-panel" orient="horizontal">
+                <!-- Check configuration -->
+                    <tabpanel id="check-1-panel" orient="horizontal">
                         <vbox class="SetArea" flex="1">
-                            <checkbox label="&devices.guestcheck.printer.1.label;" name="guestcheck-1-enabled" value="false" default="false" form="deviceForm"/>
+                            <checkbox label="&devices.check.printer.1.label;" name="check-1-enabled" value="false" default="false" form="deviceForm"/>
                             <hbox class="SubArea">
                                 <grid>
                                     <columns>
@@ -186,29 +186,29 @@
                                     <rows>
                                         <row>
                                             <label value="&devices.template.label;"/>
-                                            <menulist id="guestcheck-1-template" name="guestcheck-1-template" form="deviceForm">
-                                                <menupopup id="guestcheck-1-template-popup">
+                                            <menulist id="check-1-template" name="check-1-template" form="deviceForm">
+                                                <menupopup id="check-1-template-popup">
                                                 </menupopup>
                                             </menulist>
                                         </row>
                                         <row>
                                             <label value="&devices.port.label;"/>
-                                            <menulist id="guestcheck-1-port" name="guestcheck-1-port" form="deviceForm">
-                                                <menupopup id="guestcheck-1-port-popup">
+                                            <menulist id="check-1-port" name="check-1-port" form="deviceForm">
+                                                <menupopup id="check-1-port-popup">
                                                 </menupopup>
                                             </menulist>
                                         </row>
                                         <row>
                                             <label value="&devices.portspeed.label;"/>
-                                            <menulist id="guestcheck-1-portspeed" name="guestcheck-1-portspeed" form="deviceForm">
-                                                <menupopup id="guestcheck-1-portspeed-popup">
+                                            <menulist id="check-1-portspeed" name="check-1-portspeed" form="deviceForm">
+                                                <menupopup id="check-1-portspeed-popup">
                                                 </menupopup>
                                             </menulist>
                                         </row>
                                         <row>
                                             <label value="&devices.handshaking.label;"/>
-                                            <menulist id="guestcheck-1-handshaking" name="guestcheck-1-handshaking" form="deviceForm">
-                                                <menupopup id="guestcheck-1-handshaking-popup">
+                                            <menulist id="check-1-handshaking" name="check-1-handshaking" form="deviceForm">
+                                                <menupopup id="check-1-handshaking-popup">
                                                     <menuitem label="&devices.handshaking.hardware;" value="h"/>
                                                     <menuitem label="&devices.handshaking.xonxoff;" value="x"/>
                                                     <menuitem label="&devices.handshaking.none;" value="n"/>
@@ -217,27 +217,27 @@
                                         </row>
                                         <row>
                                             <label value="&devices.devicemodel.label;"/>
-                                            <menulist id="guestcheck-1-devicemodel" name="guestcheck-1-devicemodel" form="deviceForm"
-                                                      oncommand="$do('updateEncodings', [this, document.getElementById('guestcheck-1-encoding'), 'guestcheck'], 'Devices')">
-                                                <menupopup id="guestcheck-1-devicemodel-popup">
+                                            <menulist id="check-1-devicemodel" name="check-1-devicemodel" form="deviceForm"
+                                                      oncommand="$do('updateEncodings', [this, document.getElementById('check-1-encoding'), 'check'], 'Devices')">
+                                                <menupopup id="check-1-devicemodel-popup">
                                                 </menupopup>
                                             </menulist>
                                         </row>
                                         <row>
                                             <label value="&devices.deviceencoding.label;"/>
-                                            <menulist id="guestcheck-1-encoding" name="guestcheck-1-encoding" form="deviceForm">
-                                                <menupopup id="guestcheck-1-encoding-popup">
+                                            <menulist id="check-1-encoding" name="check-1-encoding" form="deviceForm">
+                                                <menupopup id="check-1-encoding-popup">
                                                 </menupopup>
                                             </menulist>
                                         </row>
                                         <row>
-                                            <label value="&devices.guestcheck.autoprint.label;"/>
-                                            <textbox id="guestcheck-1-autoprint" value="0" size="1" default="0" type="number" min="0" max="9" name="guestcheck-1-autoprint" form="deviceForm"/>
+                                            <label value="&devices.check.autoprint.label;"/>
+                                            <textbox id="check-1-autoprint" value="0" size="1" default="0" type="number" min="0" max="9" name="check-1-autoprint" form="deviceForm"/>
                                         </row>
                                     </rows>
                                 </grid>
                                 <vbox flex="1">
-                                    <viviscrollablebuttonpanel id="guestcheck-1-group_listscrollablepanel" form="deviceForm" name="guestcheck-1-link-groups" default="" seltype="multiple" flex="1" cols="3" rows="4" labelField="name" imageField="no"
+                                    <viviscrollablebuttonpanel id="check-1-group_listscrollablepanel" form="deviceForm" name="check-1-link-group" default="" seltype="toggle" flex="1" cols="3" rows="4" labelField="name" imageField="no"
                                                                oncommand=""
                                                                class="catescrollablepanel"
                                                                buttonClass="plubtn"
@@ -245,15 +245,15 @@
                                                                scrollDownClass="ScrollDown">
                                         <spacer flex="1"/>
                                     </viviscrollablebuttonpanel>
-                                    <checkbox id="guestcheck-1-print-unlinked" name="guestcheck-1-print-unlinked" form="deviceForm" value="1" default="1" label="&devices.guestcheck.printunlinked.label;"/>
+                                    <checkbox id="check-1-print-no-routing" name="check-1-print-no-routing" form="deviceForm" checked="true" default="1" label="&devices.check.print.no.routing.label;"/>
                                 </vbox>
                             </hbox>
                         </vbox>
                     </tabpanel>
                     
-                    <tabpanel id="guestcheck-2-panel" orient="horizontal">
+                    <tabpanel id="check-2-panel" orient="horizontal">
                         <vbox class="SetArea" flex="1">
-                            <checkbox label="&devices.guestcheck.printer.2.label;" name="guestcheck-2-enabled" value="false" default="false" form="deviceForm"/>
+                            <checkbox label="&devices.check.printer.2.label;" name="check-2-enabled" value="false" default="false" form="deviceForm"/>
                             <hbox class="SubArea">
                                 <grid >
                                     <columns>
@@ -263,29 +263,29 @@
                                     <rows>
                                         <row>
                                             <label value="&devices.template.label;"/>
-                                            <menulist id="guestcheck-2-template" name="guestcheck-2-template" form="deviceForm">
-                                                <menupopup id="guestcheck-2-template-popup">
+                                            <menulist id="check-2-template" name="check-2-template" form="deviceForm">
+                                                <menupopup id="check-2-template-popup">
                                                 </menupopup>
                                             </menulist>
                                         </row>
                                         <row>
                                             <label value="&devices.port.label;"/>
-                                            <menulist id="guestcheck-2-port" name="guestcheck-2-port" form="deviceForm">
-                                                <menupopup id="guestcheck-2-port-popup">
+                                            <menulist id="check-2-port" name="check-2-port" form="deviceForm">
+                                                <menupopup id="check-2-port-popup">
                                                 </menupopup>
                                             </menulist>
                                         </row>
                                         <row>
                                             <label value="&devices.portspeed.label;"/>
-                                            <menulist id="guestcheck-2-portspeed" name="guestcheck-2-portspeed" form="deviceForm">
-                                                <menupopup id="guestcheck-2-portspeed-popup">
+                                            <menulist id="check-2-portspeed" name="check-2-portspeed" form="deviceForm">
+                                                <menupopup id="check-2-portspeed-popup">
                                                 </menupopup>
                                             </menulist>
                                         </row>
                                         <row>
                                             <label value="&devices.handshaking.label;"/>
-                                            <menulist id="guestcheck-2-handshaking" name="guestcheck-2-handshaking" form="deviceForm">
-                                                <menupopup id="guestcheck-2-handshaking-popup">
+                                            <menulist id="check-2-handshaking" name="check-2-handshaking" form="deviceForm">
+                                                <menupopup id="check-2-handshaking-popup">
                                                     <menuitem label="&devices.handshaking.hardware;" value="h"/>
                                                     <menuitem label="&devices.handshaking.xonxoff;" value="x"/>
                                                     <menuitem label="&devices.handshaking.none;" value="n"/>
@@ -294,27 +294,27 @@
                                         </row>
                                         <row>
                                             <label value="&devices.devicemodel.label;"/>
-                                            <menulist id="guestcheck-2-devicemodel" name="guestcheck-2-devicemodel" form="deviceForm"
-                                                      oncommand="$do('updateEncodings', [this, document.getElementById('guestcheck-2-encoding'),'guestcheck'], 'Devices')">
-                                                <menupopup id="guestcheck-2-devicemodel-popup">
+                                            <menulist id="check-2-devicemodel" name="check-2-devicemodel" form="deviceForm"
+                                                      oncommand="$do('updateEncodings', [this, document.getElementById('check-2-encoding'),'check'], 'Devices')">
+                                                <menupopup id="check-2-devicemodel-popup">
                                                 </menupopup>
                                             </menulist>
                                         </row>
                                         <row>
                                             <label value="&devices.deviceencoding.label;"/>
-                                            <menulist id="guestcheck-2-encoding" name="guestcheck-2-encoding" form="deviceForm">
-                                                <menupopup id="guestcheck-2-encoding-popup">
+                                            <menulist id="check-2-encoding" name="check-2-encoding" form="deviceForm">
+                                                <menupopup id="check-2-encoding-popup">
                                                 </menupopup>
                                             </menulist>
                                         </row>
                                         <row>
-                                            <label value="&devices.guestcheck.autoprint.label;"/>
-                                            <textbox id="guestcheck-2-autoprint" value="0" size="1" default="0" type="number" min="0" max="9" name="guestcheck-2-autoprint" form="deviceForm"/>
+                                            <label value="&devices.check.autoprint.label;"/>
+                                            <textbox id="check-2-autoprint" value="0" size="1" default="0" type="number" min="0" max="9" name="check-2-autoprint" form="deviceForm"/>
                                         </row>
                                     </rows>
                                 </grid>
                                 <vbox flex="1">
-                                    <viviscrollablebuttonpanel id="guestcheck-2-group_listscrollablepanel" form="deviceForm" name="guestcheck-2-link-groups" default="" seltype="multiple" flex="1" cols="3" rows="4" labelField="name" imageField="no"
+                                    <viviscrollablebuttonpanel id="check-2-group_listscrollablepanel" form="deviceForm" name="check-2-link-group" default="" seltype="toggle" flex="1" cols="3" rows="4" labelField="name" imageField="no"
                                                                oncommand=""
                                                                class="catescrollablepanel"
                                                                buttonClass="plubtn"
@@ -322,16 +322,16 @@
                                                                scrollDownClass="ScrollDown">
                                         <spacer flex="1"/>
                                     </viviscrollablebuttonpanel>
-                                    <checkbox id="guestcheck-2-print-unlinked" name="guestcheck-2-print-unlinked" form="deviceForm" value="1" default="1" label="&devices.guestcheck.printunlinked.label;"/>
+                                    <checkbox id="check-2-print-no-routing" name="check-2-print-no-routing" form="deviceForm" checked="true" default="1" label="&devices.check.print.no.routing.label;"/>
                                 </vbox>
                             </hbox>
                         </vbox>
 
                     </tabpanel>
 
-                    <tabpanel id="guestcheck-3-panel" orient="horizontal">
+                    <tabpanel id="check-3-panel" orient="horizontal">
                         <vbox class="SetArea" flex="1">
-                            <checkbox label="&devices.guestcheck.printer.3.label;" name="guestcheck-3-enabled" value="false" default="false" form="deviceForm"/>
+                            <checkbox label="&devices.check.printer.3.label;" name="check-3-enabled" value="false" default="false" form="deviceForm"/>
                             <hbox class="SubArea">
                                 <grid>
                                     <columns>
@@ -341,29 +341,29 @@
                                     <rows>
                                         <row>
                                             <label value="&devices.template.label;"/>
-                                            <menulist id="guestcheck-3-template" name="guestcheck-3-template" form="deviceForm">
-                                                <menupopup id="guestcheck-3-template-popup">
+                                            <menulist id="check-3-template" name="check-3-template" form="deviceForm">
+                                                <menupopup id="check-3-template-popup">
                                                 </menupopup>
                                             </menulist>
                                         </row>
                                         <row>
                                             <label value="&devices.port.label;"/>
-                                            <menulist id="guestcheck-3-port" name="guestcheck-3-port" form="deviceForm">
-                                                <menupopup id="guestcheck-3-port-popup">
+                                            <menulist id="check-3-port" name="check-3-port" form="deviceForm">
+                                                <menupopup id="check-3-port-popup">
                                                 </menupopup>
                                             </menulist>
                                         </row>
                                         <row>
                                             <label value="&devices.portspeed.label;"/>
-                                            <menulist id="guestcheck-3-portspeed" name="guestcheck-3-portspeed" form="deviceForm">
-                                                <menupopup id="guestcheck-3-portspeed-popup">
+                                            <menulist id="check-3-portspeed" name="check-3-portspeed" form="deviceForm">
+                                                <menupopup id="check-3-portspeed-popup">
                                                 </menupopup>
                                             </menulist>
                                         </row>
                                         <row>
                                             <label value="&devices.handshaking.label;"/>
-                                            <menulist id="guestcheck-3-handshaking" name="guestcheck-3-handshaking" form="deviceForm">
-                                                <menupopup id="guestcheck-3-handshaking-popup">
+                                            <menulist id="check-3-handshaking" name="check-3-handshaking" form="deviceForm">
+                                                <menupopup id="check-3-handshaking-popup">
                                                     <menuitem label="&devices.handshaking.hardware;" value="h"/>
                                                     <menuitem label="&devices.handshaking.xonxoff;" value="x"/>
                                                     <menuitem label="&devices.handshaking.none;" value="n"/>
@@ -372,27 +372,27 @@
                                         </row>
                                         <row>
                                             <label value="&devices.devicemodel.label;"/>
-                                            <menulist id="guestcheck-3-devicemodel" name="guestcheck-3-devicemodel" form="deviceForm"
-                                                      oncommand="$do('updateEncodings', [this, document.getElementById('guestcheck-3-encoding'), 'guestcheck'], 'Devices')">
-                                                <menupopup id="guestcheck-3-devicemodel-popup">
+                                            <menulist id="check-3-devicemodel" name="check-3-devicemodel" form="deviceForm"
+                                                      oncommand="$do('updateEncodings', [this, document.getElementById('check-3-encoding'), 'check'], 'Devices')">
+                                                <menupopup id="check-3-devicemodel-popup">
                                                 </menupopup>
                                             </menulist>
                                         </row>
                                         <row>
                                             <label value="&devices.deviceencoding.label;"/>
-                                            <menulist id="guestcheck-3-encoding" name="guestcheck-3-encoding" form="deviceForm">
-                                                <menupopup id="guestcheck-3-encoding-popup">
+                                            <menulist id="check-3-encoding" name="check-3-encoding" form="deviceForm">
+                                                <menupopup id="check-3-encoding-popup">
                                                 </menupopup>
                                             </menulist>
                                         </row>
                                         <row>
-                                            <label value="&devices.guestcheck.autoprint.label;"/>
-                                            <textbox id="guestcheck-3-autoprint" value="0" size="1" default="0" type="number" min="0" max="9" name="guestcheck-3-autoprint" form="deviceForm"/>
+                                            <label value="&devices.check.autoprint.label;"/>
+                                            <textbox id="check-3-autoprint" value="0" size="1" default="0" type="number" min="0" max="9" name="check-3-autoprint" form="deviceForm"/>
                                         </row>
                                     </rows>
                                 </grid>
                                 <vbox flex="1">
-                                    <viviscrollablebuttonpanel id="guestcheck-3-group_listscrollablepanel" form="deviceForm" name="guestcheck-3-link-groups" default="" seltype="multiple" flex="1" cols="3" rows="4" labelField="name" imageField="no"
+                                    <viviscrollablebuttonpanel id="check-3-group_listscrollablepanel" form="deviceForm" name="check-3-link-group" default="" seltype="toggle" flex="1" cols="3" rows="4" labelField="name" imageField="no"
                                                                oncommand=""
                                                                class="catescrollablepanel"
                                                                buttonClass="plubtn"
@@ -400,15 +400,15 @@
                                                                scrollDownClass="ScrollDown">
                                         <spacer flex="1"/>
                                     </viviscrollablebuttonpanel>
-                                    <checkbox id="guestcheck-3-print-unlinked" name="guestcheck-3-print-unlinked" form="deviceForm" value="1" default="1" label="&devices.guestcheck.printunlinked.label;"/>
+                                    <checkbox id="check-3-print-no-routing" name="check-3-print-no-routing" form="deviceForm" checked="true" default="1" label="&devices.check.print.no.routing.label;"/>
                                 </vbox>
                             </hbox>
                         </vbox>
                     </tabpanel>
 
-                    <tabpanel id="guestcheck-4-panel" orient="horizontal">
+                    <tabpanel id="check-4-panel" orient="horizontal">
                         <vbox class="SetArea" flex="1">
-                            <checkbox label="&devices.guestcheck.printer.4.label;" name="guestcheck-4-enabled" value="false" default="false" form="deviceForm"/>
+                            <checkbox label="&devices.check.printer.4.label;" name="check-4-enabled" value="false" default="false" form="deviceForm"/>
                             <hbox class="SubArea">
                                 <grid >
                                     <columns>
@@ -418,29 +418,29 @@
                                     <rows>
                                         <row>
                                             <label value="&devices.template.label;"/>
-                                            <menulist id="guestcheck-4-template" name="guestcheck-4-template" form="deviceForm">
-                                                <menupopup id="guestcheck-4-template-popup">
+                                            <menulist id="check-4-template" name="check-4-template" form="deviceForm">
+                                                <menupopup id="check-4-template-popup">
                                                 </menupopup>
                                             </menulist>
                                         </row>
                                         <row>
                                             <label value="&devices.port.label;"/>
-                                            <menulist id="guestcheck-4-port" name="guestcheck-4-port" form="deviceForm">
-                                                <menupopup id="guestcheck-4-port-popup">
+                                            <menulist id="check-4-port" name="check-4-port" form="deviceForm">
+                                                <menupopup id="check-4-port-popup">
                                                 </menupopup>
                                             </menulist>
                                         </row>
                                         <row>
                                             <label value="&devices.portspeed.label;"/>
-                                            <menulist id="guestcheck-4-portspeed" name="guestcheck-4-portspeed" form="deviceForm">
-                                                <menupopup id="guestcheck-4-portspeed-popup">
+                                            <menulist id="check-4-portspeed" name="check-4-portspeed" form="deviceForm">
+                                                <menupopup id="check-4-portspeed-popup">
                                                 </menupopup>
                                             </menulist>
                                         </row>
                                         <row>
                                             <label value="&devices.handshaking.label;"/>
-                                            <menulist id="guestcheck-4-handshaking" name="guestcheck-4-handshaking" form="deviceForm">
-                                                <menupopup id="guestcheck-4-handshaking-popup">
+                                            <menulist id="check-4-handshaking" name="check-4-handshaking" form="deviceForm">
+                                                <menupopup id="check-4-handshaking-popup">
                                                     <menuitem label="&devices.handshaking.hardware;" value="h"/>
                                                     <menuitem label="&devices.handshaking.xonxoff;" value="x"/>
                                                     <menuitem label="&devices.handshaking.none;" value="n"/>
@@ -449,27 +449,27 @@
                                         </row>
                                         <row>
                                             <label value="&devices.devicemodel.label;"/>
-                                            <menulist id="guestcheck-4-devicemodel" name="guestcheck-4-devicemodel" form="deviceForm"
-                                                      oncommand="$do('updateEncodings', [this, document.getElementById('guestcheck-4-encoding'),'guestcheck'], 'Devices')">
-                                                <menupopup id="guestcheck-4-devicemodel-popup">
+                                            <menulist id="check-4-devicemodel" name="check-4-devicemodel" form="deviceForm"
+                                                      oncommand="$do('updateEncodings', [this, document.getElementById('check-4-encoding'),'check'], 'Devices')">
+                                                <menupopup id="check-4-devicemodel-popup">
                                                 </menupopup>
                                             </menulist>
                                         </row>
                                         <row>
                                             <label value="&devices.deviceencoding.label;"/>
-                                            <menulist id="guestcheck-4-encoding" name="guestcheck-4-encoding" form="deviceForm">
-                                                <menupopup id="guestcheck-4-encoding-popup">
+                                            <menulist id="check-4-encoding" name="check-4-encoding" form="deviceForm">
+                                                <menupopup id="check-4-encoding-popup">
                                                 </menupopup>
                                             </menulist>
                                         </row>
                                         <row>
-                                            <label value="&devices.guestcheck.autoprint.label;"/>
-                                            <textbox id="guestcheck-4-autoprint" value="0" size="1" default="0" type="number" min="0" max="9" name="guestcheck-4-autoprint" form="deviceForm"/>
+                                            <label value="&devices.check.autoprint.label;"/>
+                                            <textbox id="check-4-autoprint" value="0" size="1" default="0" type="number" min="0" max="9" name="check-4-autoprint" form="deviceForm"/>
                                         </row>
                                     </rows>
                                 </grid>
                                 <vbox flex="1">
-                                    <viviscrollablebuttonpanel id="guestcheck-4-group_listscrollablepanel" form="deviceForm" name="guestcheck-4-link-groups" default="" seltype="multiple" flex="1" cols="3" rows="4" labelField="name" imageField="no"
+                                    <viviscrollablebuttonpanel id="check-4-group_listscrollablepanel" form="deviceForm" name="check-4-link-group" default="" seltype="toggle" flex="1" cols="3" rows="4" labelField="name" imageField="no"
                                                                oncommand=""
                                                                class="catescrollablepanel"
                                                                buttonClass="plubtn"
@@ -477,7 +477,7 @@
                                                                scrollDownClass="ScrollDown">
                                         <spacer flex="1"/>
                                     </viviscrollablebuttonpanel>
-                                    <checkbox id="guestcheck-4-print-unlinked" name="guestcheck-4-print-unlinked" form="deviceForm" value="1" default="1" label="&devices.guestcheck.printunlinked.label;"/>
+                                    <checkbox id="check-4-print-no-routing" name="check-4-print-no-routing" form="deviceForm" checked="true" default="1" label="&devices.check.print.no.routing.label;"/>
                                 </vbox>
                             </hbox>
                         </vbox>

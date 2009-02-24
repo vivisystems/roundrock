@@ -17,7 +17,7 @@
     background: transparent;
 }
 
-.cartList .cartList {
+.cartList > .cartList {
     border: none;
 }
 
@@ -117,7 +117,7 @@
     border-right: 1px solid #bebebe;
     -moz-border-right-colors: #bebebe;
     -moz-border-bottom-colors: #908c83;
-    padding: 1px 2px; 
+    /* padding: 1px 2px;  */
     -moz-appearance: none;
 }
 
@@ -131,8 +131,9 @@ treechildren::-moz-tree-row {
   height: 28px;
   border-bottom: 1px solid #818085 !important;
 }
-treechildren::-moz-tree-row(selected) {background-color: #3b556c  !important;; }
-treechildren::-moz-tree-row(odd, selected) {background-color: #3b556c !important; }
+
+treechildren::-moz-tree-row(selected) {background-color: #3b556c; }
+treechildren::-moz-tree-row(odd, selected) {background-color: #3b556c; }
 treechildren::-moz-tree-cell-text(selected) {color: #FFFFFF;}
 treechildren::-moz-tree-cell-text(odd, selected) {color: #FFFFFF;}
 treechildren::-moz-tree-row(treeTRAY) {background-color: #8e9d90;}
@@ -142,12 +143,16 @@ treechildren::-moz-tree-row(treeLowStock) {background-color: orange;}
 treechildren::-moz-tree-row(treeOutofStock) {background-color: red;}
 treechildren::-moz-tree-row(treeVerifyAge) {background-color: steelblue;}
 treechildren::-moz-tree-row(treeReturnItem) {background-color: lightgreen;}
+treechildren::-moz-tree-row(batchMarker) {border-bottom: 3px dotted black;}
 treechildren::-moz-tree-cell-text(treecellTRAY) {color: white;}
 treechildren::-moz-tree-cell-text(treecellSUBTOTAL) {color: #3d5470;}
 treechildren::-moz-tree-cell-text(treecellTOTAL) {color: white;}
+treechildren::-moz-tree-image(treecellTagged) {list-style-image: url(images/prod-add.png);}
+treechildren::-moz-tree-image(treecellUntagged) {list-style-image: url(images/prod-remove.png);}
 
 .cartList #name {
     text-align: left;
+    overflow: hidden;
 }
 
 .cartList #current_qty, #current_price, #current_subtotal, #current_tax {
@@ -163,24 +168,33 @@ treechildren::-moz-tree-cell-text(treecellTOTAL) {color: white;}
  *-----------------------------------------------------------------------------
  */
 
+.cartList tree #tag {
+    max-width: 15px;
+    min-width: 15px;
+}
+
 .cartList tree #name {
-    max-width: 180px;
-    min-width: 180px;
+/*
+    max-width: 185px;
+    min-width: 185px;
+*/
 }
 
 .cartList tree #current_qty {
-    max-width: 80px;
-    min-width: 80px;
+    max-width: 70px;
+    min-width: 70px;
 }
 
 .cartList tree #current_price {
-    max-width: 90px;
-    min-width: 90px;
+    max-width: 86px;
+    min-width: 86px;
 }
 
 .cartList tree #current_subtotal {
-    max-width: 90px;
-    min-width: 90px;
+    max-width: 94px;
+    min-width: 94px;
 }
 .cartList tree #current_tax {
+    max-width: 22px;
+    min-width: 22px;
 }

@@ -11,6 +11,11 @@ var creditcardRemark_options;
 
         $.installPanel($panel[0], {
 
+            css: {
+                width: '640px',
+                height: '560px'
+            },
+
             init: function(evt) {
 
                 document.getElementById('creditcardRemark-clearBtn').addEventListener('command', clearTextBox, false);
@@ -46,17 +51,24 @@ var creditcardRemark_options;
                     document.getElementById('creditcardRemark-cancel').setAttribute('disabled', false);
 
                     creditcardRemark_validateInput();
-
-                    if (inputObj.input0 != '')
-                        document.getElementById('creditcardRemark-input1').focus();
-                    else
-                        document.getElementById('creditcardRemark-input0').focus();
                 
                 }catch(e) {
 
                 }
 
             },
+
+            shown: function(evt) {
+                
+                var inputObj = evt.data[4];
+
+                if (inputObj.input0 != '')
+                    document.getElementById('creditcardRemark-input1').focus();
+                else
+                    document.getElementById('creditcardRemark-input0').focus();
+
+            },
+
 
             hide: function (evt) {
 

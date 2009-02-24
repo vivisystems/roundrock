@@ -431,6 +431,7 @@ listitem[selected=true] {
 /* menulist **/
 menuitem {
     min-height: 32px;
+    text-align: right;
 }
 menuitem:hover {
     color: #000;
@@ -452,6 +453,7 @@ menulist {
     -moz-border-left-colors: #f0efe8 #eeede8 #e2e1dc;
     background: white url(images/tboxbg_readonly.png) left center repeat-x;
     min-height: 38px;
+    text-align: right;
     list-style-image: url(images/dropdown.png);
 }
 menulist:hover {

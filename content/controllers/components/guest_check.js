@@ -138,13 +138,13 @@
                           'orders.table_no', 'orders.status'];
             switch (key) {
                 case 'CheckNo':
-                    var conditions = "orders.check_no='" + no + "' AND orders.status='2'";
+                    var conditions = "orders.check_no='" + no + "' AND (orders.status='2' OR orders.status='3')";
                     break;
                 case 'TableNo':
-                    var conditions = "orders.table_no='" + no + "' AND orders.status='2'";
+                    var conditions = "orders.table_no='" + no + "' AND (orders.status='2' OR orders.status='3')";
                     break;
                 case 'AllCheck':
-                    var conditions = "orders.status='2'";
+                    var conditions = "(orders.status='2' OR orders.status='3')";
                     break;
             }
             
@@ -171,8 +171,12 @@
 
         store: function(count) {
             if (count > 0) {
+
                 // this.log("GuestCheck store..." + no);
-                this._controller.addMarker('subtotal');
+                //this._controller.addMarker('subtotal');
+
+                // lock cart content up to the last display item
+                this._controller.lockItems();
                 this._controller.submit(2);
                 this._controller.dispatchEvent('onWarning', _('STORED'));
                 
@@ -239,7 +243,7 @@
                     var order = new OrderModel();
                     var fields = ['orders.id', 'orders.sequence', 'orders.check_no',
                                   'orders.table_no', 'orders.status'];
-                    var conditions = "orders.check_no='" + no + "' AND orders.status='2'";
+                    var conditions = "orders.check_no='" + no + "' AND (orders.status='2' OR orders.status='3')";
                     var ord = order.find('all', {fields: fields, conditions: conditions});
 
                     if (ord && ord.length > 0) {
@@ -265,7 +269,7 @@
                     var order = new OrderModel();
                     var fields = ['orders.id', 'orders.sequence', 'orders.check_no',
                                   'orders.table_no', 'orders.status'];
-                    var conditions = "orders.table_no='" + no + "' AND orders.status='2'";
+                    var conditions = "orders.table_no='" + no + "' AND (orders.status='2' OR orders.status='3')";
                     var ord = order.find('all', {fields: fields, conditions: conditions});
 
                     if (ord && ord.length > 1) {
@@ -327,7 +331,7 @@
                     var order = new OrderModel();
                     var fields = ['orders.id', 'orders.sequence', 'orders.check_no',
                                   'orders.table_no', 'orders.status'];
-                    var conditions = "orders.status='2'";
+                    var conditions = "orders.status='2' OR orders.status='3'";
                     var ord = order.find('all', {fields: fields, conditions: conditions});
 
                     if (ord && ord.length > 1) {
