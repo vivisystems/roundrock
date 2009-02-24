@@ -41,10 +41,11 @@
         <caption>${head.title}</caption>
         <thead>
             <tr>
-                <th>No</th>
-                <th>Name</th>
-                <th>Qty</th>
-                <th>Total</th>
+                <th style="text-align: left;">No</th>
+                <th style="text-align: left;">Name</th>
+                <th style="text-align: right;">Avg. Price</th>
+                <th style="text-align: right;">Qty</th>
+                <th style="text-align: right;">Total</th>
             </tr>
         </thead>
         <tbody>
@@ -52,6 +53,7 @@
             <tr>
                 <td style="text-align: left;">${item.product_no}</td>
                 <td style="text-align: left;">${item.product_name}</td>
+                <td>${item.avg_price}</td>
                 <td>${item.qty}</td>
                 <td>${item.total}</td>
             </tr>
@@ -59,7 +61,7 @@
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="2">Summary:</td>
+                <td colspan="3">Summary:</td>
                 <td>${foot.qty}</td>
                 <td>${foot.summary}</td>
             </tr>

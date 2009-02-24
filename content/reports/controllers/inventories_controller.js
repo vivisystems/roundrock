@@ -131,7 +131,7 @@
             //this.BrowserPrint.setPaperMargin( 0, 0, 1, 0 );
 
             this.BrowserPrint.getWebBrowserPrint('preview_frame');
-            this.BrowserPrint.printToPdf("/var/tmp/stocks.pdf");
+            this.BrowserPrint.printToPdf("/var/tmp/product_sales.pdf");
         },
 
         exportCsv: function() {

@@ -51,7 +51,6 @@
             if ( sortby != 'all' )
             	orderby = '"' + sortby + '"'; // doing so for the 'group' is a keyword.
 
-
             var users = new UserModel();
             var datas = users.find('all', { order: orderby });
 

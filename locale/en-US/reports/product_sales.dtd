@@ -10,6 +10,7 @@
 <!ENTITY productsales.sortby "Sort By:">
 <!ENTITY productsales.product_no "No.">
 <!ENTITY productsales.product_name "Name">
+<!ENTITY productsales.avg_price "Avg. Price">
 <!ENTITY productsales.qty "Qty">
 <!ENTITY productsales.total "Total">
 <!ENTITY productsales.all "List All">

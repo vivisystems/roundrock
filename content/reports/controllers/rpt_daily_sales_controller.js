@@ -91,16 +91,17 @@
             var groupby = 'order_payments.order_id,order_payments.name';
             var orderby = 'orders.terminal_no,orders.transaction_created,orders.id';
             
-            // var order = new OrderModel();
+            var order = new OrderModel();
 
-            var orderPayment = new OrderPaymentModel();
-            // var datas = order.find('all',{fields: fields, conditions: conditions, group2: groupby, order: orderby, recursive: 1});
-            var datas = orderPayment.find('all',{fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1});
-
+            //var orderPayment = new OrderPaymentModel();
+            
+            var datas = order.find('all', {fields: '*', conditions: conditions, group2: groupby, order: orderby, recursive: 2 });
+            //var datas = orderPayment.find('all', {fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1});
+this.log( this.dump( datas ) );
             var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
             var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
 
-            // prepare reporting data
+            //prepare reporting data
             var repDatas = {};
 
             var initZero = parseFloat(0).toFixed(precision_prices);
@@ -209,7 +210,8 @@
                 //
             } finally {
                 this._enableButton(true);
-                waitPanel.hidePopup();
+                if ( waitPanel != undefined )
+                	waitPanel.hidePopup();
             }
         },
 

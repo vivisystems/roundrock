@@ -39,9 +39,9 @@
 	                        <menulist id="sortby">
 	                            <menupopup id="sortby_menupopup">
 	                                <menuitem selected="true" label="[&rptusers.all;]" value="all" />
-	                                <menuitem selected="true" label="&rptusers.username;" value="username" />
-	                                <menuitem selected="true" label="&rptusers.displayname;" value="displayname" />
-	                                <menuitem selected="true" label="&rptusers.group;" value="group" />
+	                                <menuitem selected="false" label="&rptusers.username;" value="username" />
+	                                <menuitem selected="false" label="&rptusers.displayname;" value="displayname" />
+	                                <menuitem selected="false" label="&rptusers.group;" value="group" />
 	                            </menupopup>
 	                        </menulist>
                         </row>

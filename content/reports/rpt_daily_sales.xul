@@ -49,16 +49,16 @@
 			                    <menulist id="sortby">
 			                        <menupopup id="sortby_menupopup">
 			                            <menuitem selected="true" label="[&rptdailysales.all;]" value="all" />
-			                            <menuitem selected="true" label="&rptdailysales.terminal_no;" value="terminal_no" />
-			                            <menuitem selected="true" label="&rptdailysales.transaction_created;" value="transaction_created" />
-			                            <menuitem selected="true" label="&rptdailysales.sequence;" value="sequence" />
-			                            <menuitem selected="true" label="&rptdailysales.invoice_no;" value="invoice_no" />
-			                            <menuitem selected="true" label="&rptdailysales.total;" value="total" />
-			                            <menuitem selected="true" label="&rptdailysales.surcharge_subtotal;" value="surcharge_subtotal" />
-			                            <menuitem selected="true" label="&rptdailysales.discount_subtotal;" value="discount_subtotal" />
-			                            <menuitem selected="true" label="&rptdailysales.cash;" value="cash" />
-			                            <menuitem selected="true" label="&rptdailysales.creditcard;" value="creditcard" />
-			                            <menuitem selected="true" label="&rptdailysales.coupon;" value="coupon" />
+			                            <menuitem selected="false" label="&rptdailysales.terminal_no;" value="terminal_no" />
+			                            <menuitem selected="false" label="&rptdailysales.transaction_created;" value="transaction_created" />
+			                            <menuitem selected="false" label="&rptdailysales.sequence;" value="sequence" />
+			                            <menuitem selected="false" label="&rptdailysales.invoice_no;" value="invoice_no" />
+			                            <menuitem selected="false" label="&rptdailysales.total;" value="total" />
+			                            <menuitem selected="false" label="&rptdailysales.surcharge_subtotal;" value="surcharge_subtotal" />
+			                            <menuitem selected="false" label="&rptdailysales.discount_subtotal;" value="discount_subtotal" />
+			                            <menuitem selected="false" label="&rptdailysales.cash;" value="cash" />
+			                            <menuitem selected="false" label="&rptdailysales.creditcard;" value="creditcard" />
+			                            <menuitem selected="false" label="&rptdailysales.coupon;" value="coupon" />
 			                        </menupopup>
 			                    </menulist>
 	                        </vbox>
