@@ -7,7 +7,7 @@
 
 <binding id="vivitree">
     <content>
-      <xul:tree anonid="tree" flags="dont-build-content" flex="1" seltype="single" xbl:inherits="class,pack,orient,collapsed,hidden,flex,enableColumnDrag,flags,hidecolumnpicker,rows,fixed,seltype,align,dir,hidevscroll,hidehscroll,disableKeyNavigation">
+      <xul:tree anonid="tree" flags="dont-build-content" flex="1" seltype="single" xbl:inherits="class,pack,orient,collapsed,hidden,flex,enableColumnDrag,flags,hidecolumnpicker,rows,fixed,primary,seltype,align,dir,hidevscroll,hidehscroll,disableKeyNavigation">
           <xul:treecols anonid="treecols" />
           <xul:treechildren anonid="treechildren" alternatingbackground="true" />
       </xul:tree>
@@ -69,9 +69,10 @@
 
             var treecols = document.getAnonymousElementByAttribute(this, 'anonid', 'treecols');
             var fixed = this.getAttribute('fixed');
+            var primary = this.getAttribute('primary');
+
             treecols.setAttribute('hidden', "true");
             GeckoJS.Helper.removeAllChildren(treecols);
-
             var _headers = this.headers.split(',');
             var _fields = this.fields.split(',');
 
@@ -82,7 +83,9 @@
                 treecol.setAttribute("id", _fields[i]);
                 treecol.setAttribute("flex", 1);
 
-                if (i == 0) treecol.setAttribute('primary', true);
+                if (_fields[i] == primary) {
+                    treecol.setAttribute('primary', true);
+                }
 
                 treecols.appendChild(treecol);
 
