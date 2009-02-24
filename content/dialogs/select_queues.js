@@ -10,12 +10,12 @@
         $panel = $('#selectQueuesPanel');
         $buttonPanel = $('#queueScrollablepanel');
         $itemlist = $('#selectQueues-itemlist');
-
+        
         $.installPanel($panel[0], {
             
             css: {
-                width: '780px',
-                height: '580px'
+                width: GeckoJS.Session.get('screenwidth') || '800',
+                height: GeckoJS.Session.get('screenheight') || '600'
             },
 
             init: function(evt) {

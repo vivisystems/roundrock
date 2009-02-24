@@ -19,9 +19,9 @@
 
     <popupset id="dialogs">
 
-        <vivipanel id="selectQueuesPanel">
-
-            <hbox flex="1" class="main-dialog" pack="center" style="width: 760px; max-width: 760px; height: 560px; max-height: 560px;">
+        <vivipanel id="selectQueuesPanel" flex="1">
+            <hbox flex="1" class="main-dialog" pack="center">
+            <hbox flex="1"/>
 
                 <vbox class="MainPnl" flex="1" style="padding: 0; margin: 0;">
 
@@ -42,7 +42,7 @@
                         <vbox class="RightPnl" flex="4">
                             <label id="selectQueues-label" value="&select.queues.order.details;"  class="PageTitle"/>
                             <hbox class="sline"></hbox>
-                            <textbox class="QueueList" readonly="1" id="selectQueues-itemlist" value="" />
+                            <textbox class="QueueList" flex="1" readonly="1" id="selectQueues-itemlist" value="" />
                         </vbox>
 
                     </hbox>

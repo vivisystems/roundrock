@@ -15,8 +15,8 @@
     border: none !important;
     background: none !important;
     margin: 20px;
-    min-height: 410px !important;
-    min-width: 300px;
+    min-width: 350px;
+    min-height: 390px !important;
     -moz-box-flex: 1 !important;
 }
 
@@ -26,6 +26,6 @@
 }
 
 .ItemScrollablepanel {
-    min-width: 300px;
-    min-height: 430px;
+    min-width: 350px;
+    min-height: 390px;
 }
