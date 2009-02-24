@@ -2540,6 +2540,10 @@
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
 
+            // clear register screen if needed
+            if (GeckoJS.Configure.read('vivipos.fec.settings.ClearCartAfterFinalization')) {
+                this._cartView.empty();
+            }
             //this.dispatchEvent('onClear', 0.00);
             this._getKeypadController().clearBuffer();
             this.cancelReturn();

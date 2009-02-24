@@ -13,7 +13,6 @@
 
         $('#clearBtn')[0].addEventListener('command', clearTextBox, false);
         // $('#ekeyBtn')[0].addEventListener('command', searchPlu, true);
-        $('#plu').focus();
 
         $do('createFilterRows', null, 'PluSearch');
 
@@ -31,6 +30,26 @@
                 return true;
             }
             );
+
+        // parse windows.arguments to get initial search parameters
+        if (window.arguments.length > 0) {
+            var inputObj = window.arguments[0];
+
+            var buf = inputObj.buffer;
+            var item = inputObj.item;
+            var barcode;
+            if (buf.length > 0) {
+                barcode = buf;
+            }
+            else if (item != null) {
+                barcode = item.no;
+            }
+        }
+        if (barcode != null && barcode.length > 0) {
+            $do('searchPlu', barcode, 'PluSearch');
+            document.getElementById('plu').value = barcode;
+        }
+        $('#plu')[0].select();
     };
 
     /**

@@ -140,14 +140,25 @@
 
         PLUSearchDialog: function () {
             
+            var buf = this._getKeypadController().getBuffer();
+            this.requestCommand('clear', null, 'Cart');
+            var item;
+            var txn = GeckoJS.Session.get('current_transaction');
+            var cart = GeckoJS.Controller.getInstanceByName('Cart');
+            if (cart && txn) {
+                var index = cart._cartView.getSelectedIndex();
+                item = txn.getItemAt(index);
+            }
+
             var aURL = "chrome://viviecr/content/plusearch.xul";
             var aName = "PLUSearch";
-            var aArguments = "";
+            var aArguments = {buffer: buf, item: item};
             var posX = 0;
             var posY = 0;
             var width = this.screenwidth;
             var height = this.screenheight;
             //$do('load', null, 'Categories');
+
             GREUtils.Dialog.openDialog(window, aURL, aName, aArguments, posX, posY, width, height);
         },
 
