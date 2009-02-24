@@ -83,6 +83,10 @@
 
     <property name="boxObject" onget="return this.grid.boxObject;" readonly="true" />
 
+    <property name="boxHeight" onget="return this.boxObject.height;" readonly="true" />
+
+    <property name="boxWidth" onget="return this.boxObject.width;" readonly="true" />
+
     <property name="datasource" onget="return this.getDatasource();" onset="return this.setDatasource(val);"/>
 
 
@@ -121,27 +125,38 @@
     <![CDATA[
 
         //GREUtils.log('init vivibuttonpanel constructor ' + this.getAttribute('rows'));
-        var self = this;
-        // this._datasource = this.getAttribute('datasource') || null;
 
-        self.initGrid();
+        this.initGrid();
+
+        // resizeButtons
+        this.ready = false;
+
+        var self = this;
         
-        this.ready = function() {
-            self.resizeButtons();
-        };
-        // add treecols and children
-        //window.addEventListener('DOMContentLoaded', this.ready, true);
-        window.addEventListener('load', this.ready, true);
+        if (this.boxWidth == 0 || this.boxHeight == 0) {
+
+            this.ready = function() {
+                self.resizeButtons();
+            };
+            
+            window.addEventListener('load', this.ready, true);
+
+        }else {
+            // already loaded
+            this.resizeButtons();
+        }
 
     ]]>
     </constructor>
 
     <destructor>
     <![CDATA[
-       //window.removeEventListener('DOMContentLoaded', this.ready, true);
-       window.removeEventListener('load', this.ready, true);
+        if (this.ready) {
+            window.removeEventListener('load', this.ready, true);
+        }
     ]]>
     </destructor>
+
 
     <method name="initGrid">
         <body><![CDATA[
@@ -220,8 +235,6 @@
             this._currentIndex = -1;
             this._selectedCount = 0;
             this._selectedItems = [];
-
-            this.resizeButtons();
 
         ]]>  
         </body>
@@ -422,9 +435,8 @@
     <method name="resizeButtons">
         <body><![CDATA[
 
-            var $grid = $(this.grid);
-            var width = $grid.css('width').replace('px', '');
-            var height = $grid.css('height').replace('px', '');
+            var width = this.boxWidth;
+            var height = this.boxHeight;
             var rows = parseInt(this.rows);
             var cols = parseInt(this.cols);
             var btnWidth = Math.floor(width/cols);

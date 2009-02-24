@@ -26,16 +26,23 @@
     <property name="label" onget="return this.getLabel();" onset="return this.setLabel(val);" />
 
     <property name="vivibuttonBox" onget='return document.getAnonymousElementByAttribute(this, "anonid", "vivibutton-box");' readonly="true" />
+
+    <property name="boxObject" onget='return this.vivibuttonBox.boxObject;' readonly="true" />
+
+    <property name="boxHeight" onget="return this.boxObject.height;" readonly="true" />
+
+    <property name="boxWidth" onget="return this.boxObject.width;" readonly="true" />
+
     <property name="vivibuttonImage" onget='return document.getAnonymousElementByAttribute(this, "anonid", "vivibutton-image");' readonly="true" />
     <property name="vivibuttonLabel" onget='return document.getAnonymousElementByAttribute(this, "anonid", "vivibutton-label");' readonly="true" />
 
     <constructor><![CDATA[
 
-        var self = this;
         var suspended = false;
 
-
         var aLabel = this.vivibuttonLabel ;
+
+        var autoResize = (this.getAttribute('autoresize') || "true").toLowerCase() == 'true';
 
         this.roles = this.getAttribute('roles') || '';
         this.action = this.getAttribute('action') || 'display';
@@ -51,8 +58,10 @@
 
         this.setLabel(value);
 
-        self.render();
-
+        this.render();
+       
+        var self = this;
+        
         if (this.roles.length >0 ) {
 
             this.observer = GeckoJS.Observer.newInstance({
@@ -77,13 +86,19 @@
                 }).register();
 
         }
+
         this.addEventListener('DOMAttrModified', this._attrmodified, true);
 
-        this.ready = function() {
-            self.resizeLabel();
-        };
-        
-        window.addEventListener('load', this.ready, true);
+        // process resizeLabel if needed.
+        this.ready = false;
+
+        if (autoResize) {
+            this.ready = function() {
+                self.resizeLabel();
+            };
+
+            window.addEventListener('load', this.ready, true);
+        }
 
 
         ]]>
@@ -92,7 +107,11 @@
         <destructor><![CDATA[
 
         this.removeEventListener('DOMAttrModified', this._attrmodified, true);
-        window.removeEventListener('load', this.ready, true);
+
+        if (this.ready) {
+            window.removeEventListener('load', this.ready, true);
+        }
+
         if (this.roles.length >0 ) this.observer.unregister();
 
         ]]>
