@@ -75,14 +75,23 @@
       <method name="_autorepeatbuttonScroll">
         <parameter name="event"/>
         <body><![CDATA[
-          var scrollUnit = this.getAttribute('scrollUnit') || 'line';
           var dir = event.originalTarget == this._scrollButtonUp ? -1 : 1;
+          var scrollMode = this.getAttribute('scrollMode') || 'view';
           var scrollUnit = this.getAttribute('scrollUnit') || 'line';
 
-          if (scrollUnit == 'page')
-              this.scrollByPages(dir);
-          else
-              this.scrollByLines(dir);
+          if (scrollMode == 'view') {
+              if (scrollUnit == 'page')
+                  this.scrollByPages(dir);
+              else
+                  this.scrollByLines(dir);
+          }
+          else {
+              var newIndex = this.selectedIndex + dir;
+              if (newIndex < 0) newIndex = 0;
+              if (newIndex >= this.vivitree.view.rowCount) newIndex = this.vivitree.view.rowCount - 1;
+              if (newIndex != this.selectedIndex)
+                  this.vivitree.selection.select(newIndex);
+          }
 
           event.stopPropagation();
         ]]></body>
