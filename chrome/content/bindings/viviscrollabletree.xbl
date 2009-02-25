@@ -76,8 +76,12 @@
         <parameter name="event"/>
         <body><![CDATA[
           var dir = event.originalTarget == this._scrollButtonUp ? -1 : 1;
+          var scrollUnit = this.getAttribute('scrollUnit') || 'line';
 
-          this.scrollByPages(dir);
+          if (scrollUnit == 'page')
+              this.scrollByPages(dir);
+          else
+              this.scrollByLines(dir);
 
           event.stopPropagation();
         ]]></body>
