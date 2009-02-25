@@ -910,6 +910,9 @@ msgstr "Tag Item"
 msgid "acl_manage_network_setting"
 msgstr "Manage Network"
 
+msgid "acl_scroll_function_panel"
+msgstr "Scroll Function Panel"
+
 msgid "Network Setting"
 msgstr "Network Setting"
 

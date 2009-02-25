@@ -76,3 +76,4 @@ pref("vivipos.fec.acl.roles.acl_modify_price", "acl_modify_price");
 pref("vivipos.fec.acl.roles.acl_modify_quantity", "acl_modify_quantity");
 pref("vivipos.fec.acl.roles.acl_void_transactions", "acl_void_transactions");
 pref("vivipos.fec.acl.roles.acl_manage_network_setting", "acl_manage_network_setting");
+pref("vivipos.fec.acl.roles.acl_scroll_function_panel", "acl_scroll_function_panel");
