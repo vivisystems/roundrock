@@ -67,17 +67,21 @@
                             'orders.id',
                             //'orders.sequence',
                             'orders.status',
-                            'sum( orders.total ) as "Order.total"',
+                            'orders.change',
+                            'orders.tax_subtotal',
+                            'orders.item_subtotal',
+                            'orders.total',
                             'orders.rounding_prices',
                             'orders.precision_prices',
-                            'sum( orders.surcharge_subtotal ) as "Order.surcharge_subtotal"',
-                            'sum( orders.discount_subtotal ) as "Order.discount_subtotal"',
+                            'orders.surcharge_subtotal',
+                            'orders.discount_subtotal',
                             'orders.items_count',
                             'orders.check_no',
                             'orders.table_no',
                             'orders.no_of_customers',
                             //'orders.invoice_no',
-                            'orders.terminal_no'];
+                            'orders.terminal_no'
+                        ];
 
             var conditions = "orders.transaction_created>='" + start +
                             "' AND orders.transaction_created<='" + end +
@@ -89,8 +93,8 @@
             } else {
                 //var groupby = '"Order.Date"';
             }
-            var groupby = 'order_payments.name, orders.terminal_no';//order_payments.order_id';';
-            var orderby = 'orders.terminal_no,orders.transaction_created,orders.id';
+            var groupby = 'order_payments.order_id, order_payments.name';//order_payments.order_id';';
+            var orderby = 'orders.terminal_no, orders.transaction_created, orders.id';
 
             // var order = new OrderModel();
 
@@ -106,7 +110,18 @@
 
             var initZero = parseFloat(0).toFixed(precision_prices);
 
-            var footDatas = {total: 0, surcharge_subtotal: 0,discount_subtotal: 0, cash: 0, creditcard: 0, coupon: 0};
+            var footDatas = {
+            	tax_subtotal: 0,
+            	item_subtotal: 0,
+            	total: 0,
+            	surcharge_subtotal: 0,
+            	discount_subtotal: 0,
+            	cash: 0,
+            	creditcard: 0,
+            	coupon: 0,
+            	giftcard: 0
+            };
+            
             var old_oid;
             var tmp_oid;
 
@@ -114,7 +129,7 @@
             var self = this;
             var terminal;
             var old_terminal;
-            
+//this.log( this.dump( datas ) );            
             datas.forEach(function(data){
 
                 var oid = data.Order.id;
@@ -124,28 +139,49 @@
                 
                 terminal = o.terminal_no;
 
-                if ( terminal != old_terminal ) {
-                    if (!repDatas[oid]) {
-                        repDatas[oid] = GREUtils.extend({}, o); // {cash:0, creditcard: 0, coupon: 0}, o);
+               if ( terminal != old_terminal ) {
+                    if ( !repDatas[ oid ] ) {
+                        repDatas[ oid ] = GREUtils.extend({}, o); // {cash:0, creditcard: 0, coupon: 0}, o);
                     }
-
-                    repDatas[oid][ 'cash' ] = 0.0;
-                    repDatas[oid][ 'creditcard' ] = 0.0;
-                    repDatas[oid][ 'coupon' ] = 0.0;
-                    repDatas[oid][o.payment_name] += o.payment_subtotal;
+					
+					if ( old_oid != oid ) {
+		                repDatas[ oid ][ 'cash' ] = 0.0;
+		                repDatas[ oid ][ 'creditcard' ] = 0.0;
+		                repDatas[ oid ][ 'coupon' ] = 0.0;
+		                repDatas[ oid ][ 'giftcard' ] = 0.0;
+		            }
+		           
+		           if ( o.payment_name == 'cash' )
+	                	repDatas[ oid ][ o.payment_name ] += o.payment_subtotal - o.change;
+	                else repDatas[ oid ][ o.payment_name ] += o.payment_subtotal;
 
                     tmp_oid = oid;
                 } else {
-                    repDatas[ tmp_oid ][ o.payment_name ] = o.payment_subtotal;
-                    repDatas[ tmp_oid ][ 'total' ] += o.total;
-                    repDatas[ tmp_oid ][ 'surcharge_subtotal' ] += o.surcharge_subtotal;
-                    repDatas[ tmp_oid ][ 'discount_subtotal' ] += o.discount_subtotal;
+                
+                	if ( o.payment_name == 'cash' )
+	                	repDatas[ tmp_oid ][ o.payment_name ] += o.payment_subtotal - o.change;
+	                else repDatas[ tmp_oid ][ o.payment_name ] += o.payment_subtotal;
+                    
+                    if ( old_oid != oid ) {
+		                repDatas[ tmp_oid ][ 'total' ] += o.total;
+		                repDatas[ tmp_oid ][ 'surcharge_subtotal' ] += o.surcharge_subtotal;
+		                repDatas[ tmp_oid ][ 'discount_subtotal' ] += o.discount_subtotal;
+		                repDatas[ tmp_oid ][ 'tax_subtotal' ] += o.tax_subtotal;
+		                repDatas[ tmp_oid ][ 'item_subtotal' ] += o.item_subtotal;
+		            }
                 }
 
-                if (old_oid != oid) footDatas.total += o.total;
-                if (old_oid != oid) footDatas.surcharge_subtotal += o.surcharge_subtotal;
-                if (old_oid != oid) footDatas.discount_subtotal += o.discount_subtotal;
-                footDatas[o.payment_name] += o.payment_subtotal;
+                if ( old_oid != oid ) {
+                	footDatas.total += o.total;
+		            footDatas.surcharge_subtotal += o.surcharge_subtotal;
+		            footDatas.discount_subtotal += o.discount_subtotal;
+		            footDatas.tax_subtotal += o.tax_subtotal;
+		            footDatas.item_subtotal += o.item_subtotal;
+		        }
+		        
+		        if ( o.payment_name == 'cash' )
+                	footDatas[ o.payment_name ] += o.payment_subtotal - o.change;
+                else footDatas[ o.payment_name ] += o.payment_subtotal;
               
                 old_oid = oid;
                 old_terminal = terminal;
