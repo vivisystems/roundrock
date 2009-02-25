@@ -53,7 +53,7 @@ msgid "New ACL Group"
 msgstr ""
 
 #: ../..//content/controllers/aclgroups_controller.js:47
-#: ../..//content/controllers/condiments_controller.js:205
+#: ../..//content/controllers/condiments_controller.js:210
 #: ../..//content/controllers/plugroups_controller.js:51
 msgid "Group Name"
 msgstr ""
@@ -83,8 +83,8 @@ msgid ""
 msgstr ""
 
 #: ../..//content/controllers/aclgroups_controller.js:84
-#: ../..//content/controllers/condiments_controller.js:315
-#: ../..//content/controllers/condiments_controller.js:514
+#: ../..//content/controllers/condiments_controller.js:320
+#: ../..//content/controllers/condiments_controller.js:519
 #: ../..//content/controllers/departments_controller.js:258
 #: ../..//content/controllers/jobs_controller.js:143
 #: ../..//content/controllers/plugroups_controller.js:178
@@ -95,8 +95,8 @@ msgid "confirm delete %S"
 msgstr ""
 
 #: ../..//content/controllers/aclgroups_controller.js:84
-#: ../..//content/controllers/condiments_controller.js:315
-#: ../..//content/controllers/condiments_controller.js:514
+#: ../..//content/controllers/condiments_controller.js:320
+#: ../..//content/controllers/condiments_controller.js:519
 #: ../..//content/controllers/departments_controller.js:258
 #: ../..//content/controllers/jobs_controller.js:143
 #: ../..//content/controllers/plugroups_controller.js:178
@@ -177,35 +177,35 @@ msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:357
 #: ../..//content/controllers/cart_controller.js:613
-#: ../..//content/controllers/cart_controller.js:2595
+#: ../..//content/controllers/cart_controller.js:2600
 msgid "This order is being finalized and items may not be modified"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:365
-#: ../..//content/controllers/cart_controller.js:621
-#: ../..//content/controllers/cart_controller.js:2603
-#: ../..//content/controllers/cart_controller.js:2758
-msgid "Stored items may not be modified"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:373
 msgid "Not an open order; cannot tag the selected item"
 msgstr ""
 
+#: ../..//content/controllers/cart_controller.js:373
+#: ../..//content/controllers/cart_controller.js:621
+#: ../..//content/controllers/cart_controller.js:777
+#: ../..//content/controllers/cart_controller.js:893
+#: ../..//content/controllers/cart_controller.js:1288
+#: ../..//content/controllers/cart_controller.js:1521
+#: ../..//content/controllers/cart_controller.js:2333
+#: ../..//content/controllers/cart_controller.js:2608
+#: ../..//content/controllers/cart_controller.js:2757
+msgid "Please select an item first"
+msgstr ""
+
 #: ../..//content/controllers/cart_controller.js:381
-msgid "Cannot tag the selected item with an empty tag"
+#: ../..//content/controllers/cart_controller.js:629
+#: ../..//content/controllers/cart_controller.js:2614
+#: ../..//content/controllers/cart_controller.js:2763
+msgid "Stored items may not be modified"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:389
-#: ../..//content/controllers/cart_controller.js:629
-#: ../..//content/controllers/cart_controller.js:777
-#: ../..//content/controllers/cart_controller.js:901
-#: ../..//content/controllers/cart_controller.js:1297
-#: ../..//content/controllers/cart_controller.js:1522
-#: ../..//content/controllers/cart_controller.js:2340
-#: ../..//content/controllers/cart_controller.js:2611
-#: ../..//content/controllers/cart_controller.js:2746
-msgid "Please select an item first"
+msgid "Cannot tag the selected item with an empty tag"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:402
@@ -281,7 +281,7 @@ msgstr ""
 msgid "Not an open order; cannot VOID"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:893
+#: ../..//content/controllers/cart_controller.js:901
 msgid "Stored items may not be voided"
 msgstr ""
 
@@ -300,12 +300,12 @@ msgid "Cannot VOID an entry that has been subtotaled"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:949
-#: ../..//content/controllers/cart_controller.js:2642
+#: ../..//content/controllers/cart_controller.js:2647
 msgid "Please void discount on item [%S] first"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:955
-#: ../..//content/controllers/cart_controller.js:2647
+#: ../..//content/controllers/cart_controller.js:2652
 msgid "Please void surcharge on item [%S] first"
 msgstr ""
 
@@ -319,11 +319,11 @@ msgid "This order is being finalized and discount may not be registered"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:1053
-msgid "Discount may not be registered against stored items"
+msgid "Please select an item"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:1061
-msgid "Please select an item"
+msgid "Discount may not be registered against stored items"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:1083
@@ -332,21 +332,21 @@ msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:1095
 #: ../..//content/controllers/cart_controller.js:1138
-#: ../..//content/controllers/cart_controller.js:1330
-#: ../..//content/controllers/cart_controller.js:1366
+#: ../..//content/controllers/cart_controller.js:1329
+#: ../..//content/controllers/cart_controller.js:1365
 msgid "Discount has been already been registered on item [%S]"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:1105
 #: ../..//content/controllers/cart_controller.js:1132
-#: ../..//content/controllers/cart_controller.js:1340
-#: ../..//content/controllers/cart_controller.js:1360
+#: ../..//content/controllers/cart_controller.js:1339
+#: ../..//content/controllers/cart_controller.js:1359
 msgid "Surcharge has been already been registered on item [%S]"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:1115
-#: ../..//content/controllers/cart_controller.js:1350
-#: ../..//content/controllers/cart_controller.js:2360
+#: ../..//content/controllers/cart_controller.js:1349
+#: ../..//content/controllers/cart_controller.js:2361
 msgid "Cannot modify an item that has been subtotaled"
 msgstr ""
 
@@ -370,278 +370,278 @@ msgstr ""
 msgid "Please enter the discount percentage"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1273
-#: ../..//content/controllers/cart_controller.js:1307
+#: ../..//content/controllers/cart_controller.js:1272
+#: ../..//content/controllers/cart_controller.js:1306
 msgid "Not an open order; cannot add surcharge"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1281
+#: ../..//content/controllers/cart_controller.js:1280
 msgid "This order is being finalized and surcharge may not be registered"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1289
+#: ../..//content/controllers/cart_controller.js:1296
 msgid "Surcharge may not be registered against stored items"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1318
+#: ../..//content/controllers/cart_controller.js:1317
 msgid "Pretax surcharge can only be registered against subtotals"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1375
+#: ../..//content/controllers/cart_controller.js:1374
 msgid "Cannot apply surcharge to [%S]. It is not the last registered item"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1383
+#: ../..//content/controllers/cart_controller.js:1382
 msgid "Surcharge may not be applied to [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1392
+#: ../..//content/controllers/cart_controller.js:1391
 msgid "Please enter the surcharge amount"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1395
+#: ../..//content/controllers/cart_controller.js:1394
 msgid "Please enter the surcharge percentage"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1448
-#: ../..//content/controllers/cart_controller.js:1459
+#: ../..//content/controllers/cart_controller.js:1447
+#: ../..//content/controllers/cart_controller.js:1458
 msgid "Not an open order; operation invalid"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1466
+#: ../..//content/controllers/cart_controller.js:1465
 msgid "Nothing has been registered yet; operation invalid"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1502
+#: ../..//content/controllers/cart_controller.js:1501
 msgid "House Bon"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1514
-#: ../..//content/controllers/cart_controller.js:1530
+#: ../..//content/controllers/cart_controller.js:1513
+#: ../..//content/controllers/cart_controller.js:1529
 msgid "Not an open order; cannot register House Bon"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1546
+#: ../..//content/controllers/cart_controller.js:1545
 msgid "House Bon may not be applied to [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1575
+#: ../..//content/controllers/cart_controller.js:1574
 msgid "The selected currency [%S] has not been configured"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1591
-#: ../..//content/controllers/cart_controller.js:1601
-#: ../..//content/controllers/cart_controller.js:1733
-#: ../..//content/controllers/cart_controller.js:1743
-#: ../..//content/controllers/cart_controller.js:1826
-#: ../..//content/controllers/cart_controller.js:1836
-#: ../..//content/controllers/cart_controller.js:1904
-#: ../..//content/controllers/cart_controller.js:1914
-#: ../..//content/controllers/cart_controller.js:1997
-#: ../..//content/controllers/cart_controller.js:2007
-#: ../..//content/controllers/cart_controller.js:2155
-#: ../..//content/controllers/cart_controller.js:2165
+#: ../..//content/controllers/cart_controller.js:1590
+#: ../..//content/controllers/cart_controller.js:1600
+#: ../..//content/controllers/cart_controller.js:1732
+#: ../..//content/controllers/cart_controller.js:1742
+#: ../..//content/controllers/cart_controller.js:1825
+#: ../..//content/controllers/cart_controller.js:1835
+#: ../..//content/controllers/cart_controller.js:1903
+#: ../..//content/controllers/cart_controller.js:1913
+#: ../..//content/controllers/cart_controller.js:1998
+#: ../..//content/controllers/cart_controller.js:2008
+#: ../..//content/controllers/cart_controller.js:2156
+#: ../..//content/controllers/cart_controller.js:2166
 msgid "Not an open order; cannot register payments"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1623
-#: ../..//content/controllers/cart_controller.js:1775
+#: ../..//content/controllers/cart_controller.js:1622
+#: ../..//content/controllers/cart_controller.js:1774
 msgid "Please enter an amount first"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1627
+#: ../..//content/controllers/cart_controller.js:1626
 msgid "Please configure the selected currency entry first [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1647
+#: ../..//content/controllers/cart_controller.js:1646
 msgid "Credit Card Remark"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1648
-#: ../..//content/controllers/cart_controller.js:1669
-#: ../..//content/controllers/cart_controller.js:1690
-#: ../..//content/controllers/cart_controller.js:1711
+#: ../..//content/controllers/cart_controller.js:1647
+#: ../..//content/controllers/cart_controller.js:1668
+#: ../..//content/controllers/cart_controller.js:1689
+#: ../..//content/controllers/cart_controller.js:1710
 msgid "Payment"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1649
+#: ../..//content/controllers/cart_controller.js:1648
 msgid "Card Type"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1650
+#: ../..//content/controllers/cart_controller.js:1649
 msgid "Card Remark"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1668
-#: ../..//content/controllers/cart_controller.js:1671
+#: ../..//content/controllers/cart_controller.js:1667
+#: ../..//content/controllers/cart_controller.js:1670
 msgid "Coupon Remark"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1670
+#: ../..//content/controllers/cart_controller.js:1669
 msgid "Coupon Type"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1689
-#: ../..//content/controllers/cart_controller.js:1692
+#: ../..//content/controllers/cart_controller.js:1688
+#: ../..//content/controllers/cart_controller.js:1691
 msgid "Giftcard Remark"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1691
+#: ../..//content/controllers/cart_controller.js:1690
 msgid "Giftcard Type"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1710
-#: ../..//content/controllers/cart_controller.js:1713
+#: ../..//content/controllers/cart_controller.js:1709
+#: ../..//content/controllers/cart_controller.js:1712
 msgid "Check Remark"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1712
+#: ../..//content/controllers/cart_controller.js:1711
 msgid "Check Type"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1762
-#: ../..//content/controllers/cart_controller.js:1854
-#: ../..//content/controllers/cart_controller.js:1933
-#: ../..//content/controllers/cart_controller.js:2026
+#: ../..//content/controllers/cart_controller.js:1761
+#: ../..//content/controllers/cart_controller.js:1853
+#: ../..//content/controllers/cart_controller.js:1932
+#: ../..//content/controllers/cart_controller.js:2027
 msgid "Refund amount [%S] may not exceed amount paid [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1783
+#: ../..//content/controllers/cart_controller.js:1782
 msgid "Credit Card Payment Error"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1784
+#: ../..//content/controllers/cart_controller.js:1783
 msgid "Credit card payment may not exceed remaining balance"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1950
+#: ../..//content/controllers/cart_controller.js:1949
 msgid "confirm giftcard payment"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:1951
+#: ../..//content/controllers/cart_controller.js:1950
 msgid "Change of [%S] will NOT be given for this type of payment. Proceed?"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2054
+#: ../..//content/controllers/cart_controller.js:2055
 msgid "Check Payment Error"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2055
+#: ../..//content/controllers/cart_controller.js:2056
 msgid "Check Cashing limit of [%S] exceeded"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2174
+#: ../..//content/controllers/cart_controller.js:2175
 msgid "Nothing has been registered yet; cannot register payments"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2187
+#: ../..//content/controllers/cart_controller.js:2188
 msgid "No payment has been made; cannot register refund payment"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2197
+#: ../..//content/controllers/cart_controller.js:2198
 msgid "Refund amount [%S] may not exceed payment amount [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2273
+#: ../..//content/controllers/cart_controller.js:2274
 msgid "Payment Details"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2308
-#: ../..//content/controllers/cart_controller.js:2316
+#: ../..//content/controllers/cart_controller.js:2309
+#: ../..//content/controllers/cart_controller.js:2317
 msgid "Not an open order; cannot shift tax"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2324
+#: ../..//content/controllers/cart_controller.js:2325
 msgid "This order is being finalized and tax status may not be changed"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2332
+#: ../..//content/controllers/cart_controller.js:2341
 msgid "Tax status may not be changed on stored items"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2351
+#: ../..//content/controllers/cart_controller.js:2352
 msgid "This operation cannot be performed on [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2381
+#: ../..//content/controllers/cart_controller.js:2382
 msgid "The tax status indicated does not exist [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2457
+#: ../..//content/controllers/cart_controller.js:2458
 msgid "Not an open order; nothing to cancel"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2474
+#: ../..//content/controllers/cart_controller.js:2475
 msgid "confirm cancel"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2475
+#: ../..//content/controllers/cart_controller.js:2476
 msgid "Are you sure you want to discard changes made to this order?"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2577
-#: ../..//content/controllers/cart_controller.js:2588
+#: ../..//content/controllers/cart_controller.js:2582
+#: ../..//content/controllers/cart_controller.js:2593
 msgid "Not an open order; cannot add condiment"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2626
+#: ../..//content/controllers/cart_controller.js:2631
 msgid "Condiments may not be added to [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2632
+#: ../..//content/controllers/cart_controller.js:2637
 msgid "Condiments may not be added to a return item [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2637
+#: ../..//content/controllers/cart_controller.js:2642
 msgid "Cannot add condiments to an item that has been subtotaled"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2659
+#: ../..//content/controllers/cart_controller.js:2664
 msgid "No Condiment group associated with item [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2741
+#: ../..//content/controllers/cart_controller.js:2746
 #: ../..//content/controllers/cart_controller.js:2752
 msgid "Not an open order; cannot add memo"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2807
+#: ../..//content/controllers/cart_controller.js:2812
 msgid "Add Memo"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2809
+#: ../..//content/controllers/cart_controller.js:2814
 msgid "Memo"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2905
+#: ../..//content/controllers/cart_controller.js:2910
 msgid "No open order to push"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2910
+#: ../..//content/controllers/cart_controller.js:2915
 msgid "No open order to queue"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2915
+#: ../..//content/controllers/cart_controller.js:2920
 msgid "Can not queue the recalled order!!"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2950
+#: ../..//content/controllers/cart_controller.js:2955
 msgid "Order is not queued because it is empty"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3057
+#: ../..//content/controllers/cart_controller.js:3060
 msgid "fatal error!!"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3085
+#: ../..//content/controllers/cart_controller.js:3088
 msgid "Check# %S is exist!!"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3101
+#: ../..//content/controllers/cart_controller.js:3104
 msgid "Table# %S is exist!!"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3114
+#: ../..//content/controllers/cart_controller.js:3117
 msgid "This order has been submited!!"
 msgstr ""
 
@@ -713,107 +713,107 @@ msgstr ""
 msgid "Not clocked in yet."
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:201
+#: ../..//content/controllers/condiments_controller.js:206
 msgid "Add New Condiment Group"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:203
+#: ../..//content/controllers/condiments_controller.js:208
 msgid "New Condiment Group"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:217
+#: ../..//content/controllers/condiments_controller.js:222
 msgid "Condiment Group [%S] already exists."
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:241
+#: ../..//content/controllers/condiments_controller.js:246
 msgid "Condiment Group [%S] added successfully"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:246
+#: ../..//content/controllers/condiments_controller.js:251
 msgid ""
 "An error occurred while adding Condiment Group [%S]. The group may not have "
 "been added successfully"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:270
+#: ../..//content/controllers/condiments_controller.js:275
 msgid "Condiment Group [%S] already exists"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:289
+#: ../..//content/controllers/condiments_controller.js:294
 msgid "Condiment Group [%S] modified successfully"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:293
+#: ../..//content/controllers/condiments_controller.js:298
 msgid ""
 "An error occurred while modifying Condiment Group [%S]. The group may not "
 "have been modified successfully"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:311
+#: ../..//content/controllers/condiments_controller.js:316
 #: ../..//content/controllers/taxes_controller.js:176
 msgid "[%S] has been assigned to one or more products and may not be deleted"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:345
+#: ../..//content/controllers/condiments_controller.js:350
 msgid "Condiment Group [%S] removed successfully"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:349
+#: ../..//content/controllers/condiments_controller.js:354
 msgid ""
 "An error occurred while removing Condiment Group [%S]. The group may not "
 "have been removed successfully"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:393
+#: ../..//content/controllers/condiments_controller.js:398
 msgid "Add New Condiment"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:393
+#: ../..//content/controllers/condiments_controller.js:398
 msgid "New Condiment"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:393
+#: ../..//content/controllers/condiments_controller.js:398
 msgid "Condiment Name"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:393
+#: ../..//content/controllers/condiments_controller.js:398
 msgid "Condiment Price"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:399
+#: ../..//content/controllers/condiments_controller.js:404
 msgid "Condiment Price must be a number"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:418
-#: ../..//content/controllers/condiments_controller.js:478
+#: ../..//content/controllers/condiments_controller.js:423
+#: ../..//content/controllers/condiments_controller.js:483
 msgid "Condiment [%S] already exists in this group"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:452
+#: ../..//content/controllers/condiments_controller.js:457
 msgid "Condiment [%S] added successfully"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:457
+#: ../..//content/controllers/condiments_controller.js:462
 msgid ""
 "An error occurred while adding Condiment [%S]. The condiment may not have "
 "been added successfully"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:500
+#: ../..//content/controllers/condiments_controller.js:505
 msgid "Condiment [%S] modified successfully"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:504
+#: ../..//content/controllers/condiments_controller.js:509
 msgid ""
 "An error occurred while modifying Condiment [%S]. The condiment may not have "
 "been modified successfully"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:539
+#: ../..//content/controllers/condiments_controller.js:544
 msgid "Condiment [%S] removed successfully"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:543
+#: ../..//content/controllers/condiments_controller.js:548
 msgid ""
 "An error occurred while removing Condiment [%S]. The condiment may not have "
 "been removed successfully"
@@ -1015,15 +1015,15 @@ msgid ""
 "%S"
 msgstr ""
 
-#: ../..//content/controllers/funcpanelecrprefs_controller.js:824
+#: ../..//content/controllers/funcpanelecrprefs_controller.js:828
 msgid ".name"
 msgstr ""
 
-#: ../..//content/controllers/funcpanelecrprefs_controller.js:825
+#: ../..//content/controllers/funcpanelecrprefs_controller.js:829
 msgid ".label"
 msgstr ""
 
-#: ../..//content/controllers/funcpanelecrprefs_controller.js:826
+#: ../..//content/controllers/funcpanelecrprefs_controller.js:830
 msgid ".desc"
 msgstr ""
 
@@ -1175,65 +1175,65 @@ msgstr ""
 msgid "Job [%S] removed successfully"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:612
-#: ../..//content/controllers/main_controller.js:697
+#: ../..//content/controllers/main_controller.js:365
+#: ../..//content/controllers/main_controller.js:450
 msgid " logged in"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:629
-#: ../..//content/controllers/main_controller.js:705
+#: ../..//content/controllers/main_controller.js:382
+#: ../..//content/controllers/main_controller.js:458
 msgid "Authentication failed! Please make sure the password is correct."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:671
+#: ../..//content/controllers/main_controller.js:424
 msgid "User [%S] does not exist!"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:710
+#: ../..//content/controllers/main_controller.js:463
 msgid "Please enter passcode first."
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:734
-#: ../..//content/controllers/main_controller.js:746
-#: ../..//content/controllers/main_controller.js:759
-#: ../..//content/controllers/main_controller.js:772
+#: ../..//content/controllers/main_controller.js:487
+#: ../..//content/controllers/main_controller.js:499
+#: ../..//content/controllers/main_controller.js:512
+#: ../..//content/controllers/main_controller.js:525
 msgid "Sign Off"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:734
+#: ../..//content/controllers/main_controller.js:487
 msgid "Discard items that have been registered?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:746
+#: ../..//content/controllers/main_controller.js:499
 msgid "What do you want to do with the registered items?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:747
+#: ../..//content/controllers/main_controller.js:500
 msgid "Queue"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:747
-#: ../..//content/controllers/main_controller.js:773
+#: ../..//content/controllers/main_controller.js:500
+#: ../..//content/controllers/main_controller.js:526
 msgid "Discard"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:759
+#: ../..//content/controllers/main_controller.js:512
 msgid "You have one or more queued orders. Discard them?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:772
+#: ../..//content/controllers/main_controller.js:525
 msgid "You have one or more queued orders. What do you want to do with them?"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:773
+#: ../..//content/controllers/main_controller.js:526
 msgid "Keep"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:782
+#: ../..//content/controllers/main_controller.js:535
 msgid "confirm sign-off"
 msgstr ""
 
-#: ../..//content/controllers/main_controller.js:782
+#: ../..//content/controllers/main_controller.js:535
 msgid "Are you ready to sign off?"
 msgstr ""
 
@@ -1763,61 +1763,97 @@ msgstr ""
 msgid "Specified receipt/guest check template [%S] is empty or does not exist!"
 msgstr ""
 
-#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:69
-#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:118
-#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:140
-#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:147
-#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:165
-#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:170
+#: ../../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:69
+#: ../../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:118
+#: ../../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:140
+#: ../../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:147
+#: ../../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:165
+#: ../../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:170
 msgid "TAL"
 msgstr ""
 
-#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:71
-#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:119
-#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:141
+#: ../../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:71
+#: ../../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:119
+#: ../../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:141
 msgid "REM"
 msgstr ""
 
-#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:72
-#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:120
-#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:142
-#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:171
+#: ../../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:72
+#: ../../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:120
+#: ../../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:142
+#: ../../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:171
 msgid "PAY"
 msgstr ""
 
-#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:80
+#: ../../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:80
 msgid "Return"
 msgstr ""
 
-#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:84
+#: ../../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:84
 msgid "I"
 msgstr ""
 
-#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:88
+#: ../../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:88
 msgid "QTY"
 msgstr ""
 
-#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:95
+#: ../../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:95
 msgid "Change Clerk"
 msgstr ""
 
-#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:97
+#: ../../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:97
 msgid "Password"
 msgstr ""
 
-#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:144
+#: ../../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:144
 msgid "CANCELED"
 msgstr ""
 
-#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:145
-#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:157
+#: ../../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:145
+#: ../../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:157
 msgid "SEQ#"
 msgstr ""
 
-#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:156
+#: ../../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:156
 msgid "QUEUED"
 msgstr ""
 
-#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:172
+#: ../../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:172
 msgid "CHG"
+msgstr ""
+
+#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1886
+msgid "Scroll Forward"
+msgstr ""
+
+#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1887
+msgid "Next"
+msgstr ""
+
+#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1888
+msgid "This function scrolls the function panel to the next page"
+msgstr ""
+
+#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1896
+msgid "Scroll Backward"
+msgstr ""
+
+#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1897
+msgid "Back"
+msgstr ""
+
+#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1898
+msgid "This function scrolls the function panel to the previous page"
+msgstr ""
+
+#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1906
+msgid "Home Page"
+msgstr ""
+
+#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1907
+msgid "Home"
+msgstr ""
+
+#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1908
+msgid "This function scrolls the function panel to the home page"
 msgstr ""

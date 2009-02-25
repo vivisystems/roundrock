@@ -75,7 +75,7 @@
 }
 .DataFormB {
 	border-right: 2px solid white;
-	background: #f8f5f1;
+	background: #f1ede5;
     margin: 0 2px 0px 4px;
 }
 .DataFormB column{
@@ -106,11 +106,11 @@
 
 .RightPnlB vbox {
     margin: 1px;
-    background: #f8f5f1;
+    background: #f1ede5;
 }
 
 .ImgPnl {
-    background:#f4f3ee;
+    background:#f0efe8;
     padding-left: 8px;
     margin: 1px;
 }

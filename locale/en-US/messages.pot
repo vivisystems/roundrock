@@ -739,8 +739,8 @@ msgstr "Product Search"
 msgid "acl_open_cash"
 msgstr "Register Cash Payment"
 
-msgid "acl_toggle_numpad"
-msgstr "Toggle Number Pad"
+msgid "acl_toggle_function_panel"
+msgstr "Toggle Function Panl"
 
 msgid "acl_public_access"
 msgstr "Public Access"
@@ -909,6 +909,9 @@ msgstr "Tag Item"
 
 msgid "acl_manage_network_setting"
 msgstr "Manage Network"
+
+msgid "acl_scroll_function_panel"
+msgstr "Scroll Function Panel"
 
 msgid "Network Setting"
 msgstr "Network Setting"

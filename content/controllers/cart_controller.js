@@ -360,14 +360,6 @@
                 return;
             }
 
-            // check if the current item is locked
-            if (curTransaction.isLocked(index)) {
-                NotifyUtils.warn(_('Stored items may not be modified'));
-
-                this.subtotal();
-                return;
-            }
-
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 //@todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot tag the selected item'));
@@ -376,17 +368,25 @@
                 return;
             }
 
-            if (tag == null || tag.length == 0) {
+            if(index <0) {
                 //@todo OSD
-                NotifyUtils.warn(_('Cannot tag the selected item with an empty tag'));
+                NotifyUtils.warn(_('Please select an item first'));
 
                 this.subtotal();
                 return;
             }
 
-            if(index <0) {
+            // check if the current item is locked
+            if (curTransaction.isLocked(index)) {
+                NotifyUtils.warn(_('Stored items may not be modified'));
+
+                this.subtotal();
+                return;
+            }
+
+            if (tag == null || tag.length == 0) {
                 //@todo OSD
-                NotifyUtils.warn(_('Please select an item first'));
+                NotifyUtils.warn(_('Cannot tag the selected item with an empty tag'));
 
                 this.subtotal();
                 return;
@@ -616,17 +616,17 @@
                 return;
             }
 
-            // check if the current item is locked
-            if (curTransaction.isLocked(index)) {
-                NotifyUtils.warn(_('Stored items may not be modified'));
+            if(index <0) {
+                //@todo OSD
+                NotifyUtils.warn(_('Please select an item first'));
 
                 this.subtotal();
                 return;
             }
 
-            if(index <0) {
-                //@todo OSD
-                NotifyUtils.warn(_('Please select an item first'));
+            // check if the current item is locked
+            if (curTransaction.isLocked(index)) {
+                NotifyUtils.warn(_('Stored items may not be modified'));
 
                 this.subtotal();
                 return;
@@ -888,17 +888,17 @@
                 return;
             }
 
-            // check if the current item is locked
-            if (curTransaction.isLocked(index)) {
-                NotifyUtils.warn(_('Stored items may not be voided'));
+            if(index <0) {
+                // @todo OSD
+                NotifyUtils.warn(_('Please select an item first'));
 
                 this.subtotal();
                 return;
             }
 
-            if(index <0) {
-                // @todo OSD
-                NotifyUtils.warn(_('Please select an item first'));
+            // check if the current item is locked
+            if (curTransaction.isLocked(index)) {
+                NotifyUtils.warn(_('Stored items may not be voided'));
 
                 this.subtotal();
                 return;
@@ -1048,18 +1048,18 @@
                 return;
             }
 
-            // check if the current item is locked
-            if (curTransaction.isLocked(index)) {
-                NotifyUtils.warn(_('Discount may not be registered against stored items'));
-
-                this.subtotal();
-                return;
-            }
-
             if(index <0) {
                 // @todo OSD
                 NotifyUtils.warn(_('Please select an item'));
                 
+                this.subtotal();
+                return;
+            }
+
+            // check if the current item is locked
+            if (curTransaction.isLocked(index)) {
+                NotifyUtils.warn(_('Discount may not be registered against stored items'));
+
                 this.subtotal();
                 return;
             }
@@ -1283,17 +1283,17 @@
                 return;
             }
 
-            // check if the current item is locked
-            if (curTransaction.isLocked(index)) {
-                NotifyUtils.warn(_('Surcharge may not be registered against stored items'));
+            if(index < 0) {
+                // @todo OSD
+                NotifyUtils.warn(_('Please select an item first'));
 
                 this.subtotal();
                 return;
             }
 
-            if(index < 0) {
-                // @todo OSD
-                NotifyUtils.warn(_('Please select an item first'));
+            // check if the current item is locked
+            if (curTransaction.isLocked(index)) {
+                NotifyUtils.warn(_('Surcharge may not be registered against stored items'));
 
                 this.subtotal();
                 return;
@@ -1956,8 +1956,10 @@
                         return; // fatal error ?
                     }
                 }
+                else {
+                    balance = payment;
+                }
             }
-
             var data = {
                 type: type,
                 payment: curTransaction.formatPrice(payment)
@@ -2326,20 +2328,20 @@
                 return;
             }
 
-            // check if the current item is locked
-            if (curTransaction.isLocked(index)) {
-                NotifyUtils.warn(_('Tax status may not be changed on stored items'));
-
-                this.subtotal();
-                return;
-            }
-
             if(index <0) {
                 //@todo OSD
                 NotifyUtils.warn(_('Please select an item first'));
 
                 this.subtotal();
                 return; // fatal error ?
+            }
+
+            // check if the current item is locked
+            if (curTransaction.isLocked(index)) {
+                NotifyUtils.warn(_('Tax status may not be changed on stored items'));
+
+                this.subtotal();
+                return;
             }
 
             var itemTrans = curTransaction.getItemAt(index);
@@ -2537,6 +2539,10 @@
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
 
+            // clear register screen if needed
+            if (GeckoJS.Configure.read('vivipos.fec.settings.ClearCartAfterFinalization')) {
+                this._cartView.empty();
+            }
             //this.dispatchEvent('onClear', 0.00);
             this._getKeypadController().clearBuffer();
             this.cancelReturn();
@@ -2597,17 +2603,17 @@
                 return;
             }
 
+            if(index <0) {
+                //@todo OSD
+                NotifyUtils.warn(_('Please select an item first'));
+                return;
+            }
+
             // check if the current item is locked
             if (curTransaction.isLocked(index)) {
                 NotifyUtils.warn(_('Stored items may not be modified'));
 
                 this.subtotal();
-                return;
-            }
-
-            if(index <0) {
-                //@todo OSD
-                NotifyUtils.warn(_('Please select an item first'));
                 return;
             }
 
@@ -2741,15 +2747,15 @@
                 return; // fatal error ?
             }
 
-            if(index <0) {
-                NotifyUtils.warn(_('Please select an item first'));
-                return;
-            }
-
             // transaction is submit and close success
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 NotifyUtils.warn(_('Not an open order; cannot add memo'));
                 return; // fatal error ?
+            }
+
+            if(index <0) {
+                NotifyUtils.warn(_('Please select an item first'));
+                return;
             }
 
             // check if the current item is locked
@@ -2957,8 +2963,6 @@
             var queuePool = this._getQueuePool();
             var queues = [];
             var confs = GeckoJS.Configure.read('vivipos.fec.settings');
-            var screenwidth = GeckoJS.Session.get('screenwidth') || '800';
-            var screenheight = GeckoJS.Session.get('screenheight') || '600';
 
             // check private queue
             if (confs.PrivateQueue) {

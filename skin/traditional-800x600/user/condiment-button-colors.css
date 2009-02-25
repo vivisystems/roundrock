@@ -124,3 +124,7 @@
 .condiment-button-color-10[selected], .condiment-button-color-11[selected] {
     list-style-image: url(images/con_sel.png);
 }
+
+.condiment-button[disabled] {
+    background-color: #e1dfdb;
+}

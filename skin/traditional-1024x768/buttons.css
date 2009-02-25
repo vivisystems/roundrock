@@ -137,6 +137,7 @@
 }
 .catbtn[disabled=true], .plubtn[disabled=true] {
     background-position:0pt -64px;
+    background-color: #d8d7d3;
 }
 
 .catbtn hbox, .plubtn hbox {
@@ -394,17 +395,17 @@
 }
 
 .dialogbtns .vkb {
-    list-style-image: url(images/keyboard-48x48.png);
+    list-style-image: url(images/keyboard.png);
     -moz-box-orient: vertical;
 }
 
 .promptbtns .vkb {
-    list-style-image: url(images/keyboard-48x48.png);
+    list-style-image: url(images/keyboard.png);
     -moz-box-orient: vertical;
 }
 
 .button-vkb {
-    background: transparent url(images/keyboard-40x40.png) center center no-repeat;
+    background: transparent url(images/keyboard.png) center center no-repeat;
     margin-right: 0px;
 }
 

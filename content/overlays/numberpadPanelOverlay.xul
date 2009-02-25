@@ -30,22 +30,21 @@
             <hbox id="numpad">
 
                 <hbox  class="funpad2">
-                    <vbox id="numpadCol1">
-                        <vivibutton id="enterBtn"  label="&numberpad.keylabel.enter;" oncommand="$do('keypress', {keyCode: 13}, 'Keypad');" class="fixedbtn" suspendable="false" roles="acl_register_enter" action="display"/>
-                        <vivibutton id="cancelBtn"  label="&numberpad.keylabel.cancel;"    oncommand="$do('cancel', null, 'Cart');" class="fixedbtn" roles="acl_cancel_order" action="display"/>
-                        <vivibutton id="subtotalBtn"  label="&numberpad.keylabel.subtotal;" oncommand="$do('keypress', {keyCode: 35}, 'Keypad');" class="fixedbtn" roles="acl_register_sub_total" action="display"/>
-                        <vivibutton id="cashBtn"  label="&numberpad.keylabel.cash;"    oncommand="$do('cash', null, 'Cart');" class="fixedbtn" roles="acl_open_cash" action="display" />
-                    </vbox>
-                    <vbox id="numpadCol2">
-                        <vivibutton id="PLUBtn" label="&numberpad.keylabel.plusearch;"  oncommand="$do('PLUSearchDialog', null, 'Main');" class="fixedbtn" roles="acl_plu_search" action="display"/>
-                        <vivibutton id="xkeyBtn"  label="&numberpad.keylabel.times;" oncommand="$do('keypress', {charCode: 120}, 'Keypad');" class="fixedbtn" roles="acl_register_quantity" action="display"/>
-                        <vivibutton id="sign_off" label="&numberpad.keylabel.signoff;" oncommand="$do('signOff', null, 'Main');" class="fixedbtn"/>
-                        <vivibutton id="trayBtn" label="&numberpad.keylabel.tray;" oncommand="$do('addMarker', 'tray', 'Cart');" class="fixedbtn" roles="acl_register_tray_marker" action="display"/>
-                    </vbox>
-                </hbox>
+                <vbox id="numpadCol1">
+                    <vivibutton id="enterBtn"  label="&numberpad.keylabel.enter;" oncommand="$do('keypress', {keyCode: 13}, 'Keypad');" class="fixedbtn" suspendable="false" roles="acl_register_enter" action="display"/>
+                    <vivibutton id="cancelBtn"  label="&numberpad.keylabel.cancel;"    oncommand="$do('cancel', null, 'Cart');" class="fixedbtn" roles="acl_cancel_order" action="display"/>
+                    <vivibutton id="subtotalBtn"  label="&numberpad.keylabel.subtotal;" oncommand="$do('keypress', {keyCode: 35}, 'Keypad');" class="fixedbtn" roles="acl_register_sub_total" action="display"/>
+                    <vivibutton id="cashBtn"  label="&numberpad.keylabel.cash;"    oncommand="$do('cash', null, 'Cart');" class="fixedbtn" roles="acl_open_cash" action="display" />
+                </vbox>
+                <vbox id="numpadCol2">
+                    <vivibutton id="PLUBtn" label="&numberpad.keylabel.plusearch;"  oncommand="$do('PLUSearchDialog', null, 'Main');" class="fixedbtn" roles="acl_plu_search" action="display"/>
+                    <vivibutton id="xkeyBtn"  label="&numberpad.keylabel.times;" oncommand="$do('keypress', {charCode: 120}, 'Keypad');" class="fixedbtn" roles="acl_register_quantity" action="display"/>
+                    <vivibutton id="sign_off" label="&numberpad.keylabel.signoff;" oncommand="$do('signOff', null, 'Main');" class="fixedbtn"/>
+                    <vivibutton id="trayBtn" label="&numberpad.keylabel.tray;" oncommand="$do('addMarker', 'tray', 'Cart');" class="fixedbtn" roles="acl_register_tray_marker" action="display"/>
+                </vbox>
+            </hbox>
                 <numberpad id="multinumberpad" class="fe-numberpad" target="null" onkeypress="$do('keypress', event, 'Keypad');" />
             </hbox>
-
         </vbox>
 
       <!-- begin tools -->

@@ -170,3 +170,28 @@ button_colorpicker .product-button-color-default[selected],.product-button-color
 .product-button-color-10[selected], .product-button-color-11[selected] {
     list-style-image: url(chrome://viviecr/skin/images/con_sel.png);
 }
+
+.product-button {
+    min-height:50px;
+    min-width: 50px;
+    border: 1px solid;
+    -moz-appearance: none;
+    margin: 2px 2px 2px 2px;
+    padding: 0px;
+
+    -moz-box-pack: center;
+    -moz-user-focus: ignore;
+
+    -moz-border-top-colors: #444;
+    -moz-border-right-colors: #444;
+    -moz-border-bottom-colors: #444;
+    -moz-border-left-colors: #444;
+}
+.product-button hbox{
+    -moz-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.product-button[disabled] {
+    background-color: #efede9;
+}

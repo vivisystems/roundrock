@@ -817,8 +817,10 @@
         var fns = GeckoJS.Configure.read(prefix);
         
         var keys = GeckoJS.BaseObject.getKeys(fns);
-        var functionArray = [];
-        
+
+        // build list of internal functions
+        var functionArray = panel.getInternalFunctionList();
+
         for (var i = 0; i < keys.length; i++) {
             var newKey = GeckoJS.BaseObject.extend(fns[keys[i]], {});
             newKey.name = _(keys[i] + '.name');

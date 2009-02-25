@@ -53,7 +53,7 @@
 }
 .DataForm {
 	border-right: 2px solid white;
-	background: #f4f3ee;
+	background: #f0efe8;
     margin: 0 10px 10px 10px;
 }
 .DataForm column{
@@ -65,13 +65,12 @@
   color: #372213;
 }
 
-/* �k��U���϶� */
+/*  */
 .RightPnlB {
   
 }
 
 
-/* �@�q�� texbox ���� */
 /* default texbox  */
 textbox:not(.uidisplay_field_label):not(.uidisplay_field_value):not(.orderstatus_field_label):not(.orderstatus_field_value):not(.current_user):not(.console_message_value) {
   border: 3px solid;
@@ -101,20 +100,20 @@ textbox[readonly="true"]:not(.uidisplay_field_label):not(.uidisplay_field_value)
 /* Buttons */
 .ItemButtonA, .ItemButtonA[readonly=true] {
   border: 3px solid;
-  -moz-border-top-colors: #f4f3ee #ecebe7 #dddcd8;
-  -moz-border-right-colors: #dddcd8 #c6c5c1 #a7a7a3;
-  -moz-border-bottom-colors: #dddcd8 #c6c5c1 #a7a7a3;
-  -moz-border-left-colors: #f4f3ee #ecebe7 #dddcd8;
+  -moz-border-top-colors: #f0efe8 #e8e8e1 #d9d9d2;
+  -moz-border-right-colors: #d9d9d2 #c3c2bc #a5a49f;
+  -moz-border-bottom-colors: #d9d9d2 #c3c2bc #a5a49f;
+  -moz-border-left-colors: #f0efe8 #e8e8e1 #d9d9d2;
   background: white url(images/tboxbg_readonly.png) left center repeat-x;
   -moz-appearance: none;
   color: #3b312b;
 }
 .ItemButtonA[disabled="false"]:hover {
   border: 3px solid;
-  -moz-border-top-colors: #f4f3ee #ecebe7 #00aeef;
-  -moz-border-right-colors: #dddcd8 #c6c5c1 #00aeef;
-  -moz-border-bottom-colors: #dddcd8 #c6c5c1 #00aeef;
-  -moz-border-left-colors: #f4f3ee #ecebe7 #00aeef;
+  -moz-border-top-colors: #f0efe8 #e8e8e1 #00aeef;
+  -moz-border-right-colors: #d9d9d2 #c3c2bc #00aeef;
+  -moz-border-bottom-colors: #d9d9d2 #c3c2bc #00aeef;
+  -moz-border-left-colors: #f0efe8 #e8e8e1 #00aeef;
   background: white url(images/tboxbg_readonly.png) left center repeat-x;
   -moz-appearance: none;
 }
@@ -137,10 +136,10 @@ textbox[readonly="true"]:not(.uidisplay_field_label):not(.uidisplay_field_value)
 
 .ItemButtonB {
   border: 3px solid;
-  -moz-border-top-colors: #f8f5f1 #f2efeb #e6e3df;
-  -moz-border-right-colors: #e6e3df #d3d0cd #bab8b5;
-  -moz-border-bottom-colors: #e6e3df #d3d0cd #bab8b5;
-  -moz-border-left-colors: #f8f5f1 #f2efeb #e6e3df;
+  -moz-border-top-colors: #f1ede5 #e8e4dc #d6d2cb;
+  -moz-border-right-colors: #d6d2cb #bab7b1 #979590;
+  -moz-border-bottom-colors: #d6d2cb #bab7b1 #979590;
+  -moz-border-left-colors: #f1ede5 #e8e4dc #d6d2cb;
   background: white url(images/tboxbg_readonly.png) left center repeat-x;
   -moz-appearance: none;
   min-height: 36px;
@@ -148,10 +147,10 @@ textbox[readonly="true"]:not(.uidisplay_field_label):not(.uidisplay_field_value)
 }
 .ItemButtonB[disabled="false"]:hover {
   border: 3px solid;
-  -moz-border-top-colors: #f8f5f1 #f2efeb #ed145b;
-  -moz-border-right-colors: #e6e3df #d3d0cd #ed145b;
-  -moz-border-bottom-colors: #e6e3df #d3d0cd #ed145b;
-  -moz-border-left-colors: #f8f5f1 #f2efeb #ed145b;
+  -moz-border-top-colors: #f1ede5 #e8e4dc #ed145b;
+  -moz-border-right-colors: #d6d2cb #bab7b1 #ed145b;
+  -moz-border-bottom-colors: #d6d2cb #bab7b1 #ed145b;
+  -moz-border-left-colors: #f1ede5 #e8e4dc #ed145b;
   background: white url(images/tboxbg_readonly.png) left center repeat-x;
   -moz-appearance: none;
   color: #3c322d;
@@ -448,10 +447,10 @@ menuitem[selected=true] {
 menulist {
     -moz-appearance: none;
     border: 3px solid;
-    -moz-border-top-colors: #f4f3ee #eeede8 #e2e1dc;
+    -moz-border-top-colors: #f0efe8 #eeede8 #e2e1dc;
     -moz-border-right-colors: #e2e1dc #d0cfcb #b7b6b2;
     -moz-border-bottom-colors: #e2e1dc #d0cfcb #b7b6b2;
-    -moz-border-left-colors: #f4f3ee #eeede8 #e2e1dc;
+    -moz-border-left-colors: #f0efe8 #eeede8 #e2e1dc;
     background: white url(images/tboxbg_readonly.png) left center repeat-x;
     min-height: 38px;
     text-align: right;
@@ -460,10 +459,10 @@ menulist {
 menulist:hover {
     -moz-appearance: none;
     border: 3px solid;
-    -moz-border-top-colors: #f4f3ee #eeede8 #5eb3ad;
+    -moz-border-top-colors: #f0efe8 #eeede8 #5eb3ad;
     -moz-border-right-colors: #e2e1dc #d0cfcb #5eb3ad;
     -moz-border-bottom-colors: #e2e1dc #d0cfcb #5eb3ad;
-    -moz-border-left-colors: #f4f3ee #eeede8 #5eb3ad;
+    -moz-border-left-colors: #f0efe8 #eeede8 #5eb3ad;
     background: white url(images/tboxbg_readonly.png) left center repeat-x;
     min-height: 38px;
     list-style-image: url(images/dropdown.png);
@@ -598,7 +597,3 @@ treechildren::-moz-tree-row(selected) {background-color: #92856a; }
 treechildren::-moz-tree-row(odd, selected) {background-color: #92856a; }
 treechildren::-moz-tree-cell-text(selected) {color: #FFFFFF;}
 treechildren::-moz-tree-cell-text(odd, selected) {color: #FFFFFF;}
-<<<<<<< HEAD:skin/traditional-800x600/options_common.css
-=======
-
->>>>>>> f62e57d1c824b6fcbb8f8783c0abeb402e71a1a9:skin/traditional-800x600/options_common.css

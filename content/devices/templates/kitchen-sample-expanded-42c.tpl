@@ -10,8 +10,7 @@
 Submitted:${(new Date()).toLocaleFormat('%Y-%m-%d %H:%M:%S')}
 Terminal: ${order.terminal_no|left:10} Clerk:    ${order.proceeds_clerk_displayname|left:14}
 Check:    ${order.check_no|left:10} Sequence: ${order.seq|left:14}
-Table:    [${order.table_no1|default:101|left:10}]
-Table:    [${order.table_no|default:101|left:10}]
+Table:    ${order.table_no|left:10}
 ------------------------------------------
 {for item in order.display_sequences}
 {if item.type == 'item' && order.items[item.index] != null && order.items[item.index].linked}
