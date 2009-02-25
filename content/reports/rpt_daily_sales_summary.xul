@@ -23,7 +23,7 @@
     <script type="application/x-javascript" src="chrome://viviecr/content/reports/template_ext.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/reports/controllers/components/check_media.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/reports/rpt_daily_sales_summary.js" />
-  
+
     <vbox flex="1" class="main-dialog">
         <vbox flex="1" class="MainPnl">
             <caption label="&rptdailysalessummary.title;"  class="PageTitle"/>
@@ -43,9 +43,27 @@
                                 <vividatetimepicker id="end_date" value='' type="popup"/>
                             </vbox>
                         </row>
+
                         <row>
-                            <label value="&rptdailysalessummary.machineid;" />
-                            <textbox id="machine_id" value='' width="300"/>
+                        	<vbox>
+		                    	<label value="&rptdailysalessummary.sortby;" />
+			                    <menulist id="sortby">
+			                        <menupopup id="sortby_menupopup">
+			                            <menuitem selected="true" label="[&rptdailysalessummary.all;]" value="all" />
+			                            <menuitem selected="true" label="&rptdailysalessummary.terminal_no;" value="terminal_no" />
+			                            <menuitem selected="true" label="&rptdailysalessummary.total;" value="total" />
+			                            <menuitem selected="true" label="&rptdailysalessummary.surcharge_subtotal;" value="surcharge_subtotal" />
+			                            <menuitem selected="true" label="&rptdailysalessummary.discount_subtotal;" value="discount_subtotal" />
+			                            <menuitem selected="true" label="&rptdailysalessummary.cash;" value="cash" />
+			                            <menuitem selected="true" label="&rptdailysalessummary.creditcard;" value="creditcard" />
+			                            <menuitem selected="true" label="&rptdailysalessummary.coupon;" value="coupon" />
+			                        </menupopup>
+			                    </menulist>
+	                        </vbox>
+	                        <vbox>
+		                        <label value="&rptdailysalessummary.machineid;" />
+		                        <textbox id="machine_id" value='' width="300"/>
+		                    </vbox>
                         </row>
                     </rows>
                 </grid>
@@ -80,5 +98,16 @@
             </hbox>
         </vbox>
     </vbox>
+    
+    <panel id="wait_panel" position="overlap" noautohide="true" class="WaitPnl">
+        <vbox flex="1">
+        <groupbox flex="1">
+            <caption label="&rptdailysalessummary.wait;" class="PageTitle"/>
+            <spacer style="height: 20px;" />
+            <progressmeter id="progress" mode="undetermined" value="0" />
+            <spacer style="height: 20px;" />
+        </groupbox>
+        </vbox>
+    </panel>
 
 </window>

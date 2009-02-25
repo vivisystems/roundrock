@@ -76,7 +76,11 @@
 
             var groupby;
 
-            var orderby = 'products.cate_no,products.no';
+			var sortby = document.getElementById( 'sortby' ).value;
+            var orderby = 'products.cate_no, products.no';
+            
+            if ( sortby != 'all' )
+            	orderby = 'products.' + sortby + ', products.cate_no';
 
             var prod = new ProductModel();
             var prodDatas = prod.find('all', { fields: fields, conditions: conditions, order: orderby });
@@ -219,7 +223,6 @@
             });
 
             this._enableButton(false);
-            
         }
 
     });

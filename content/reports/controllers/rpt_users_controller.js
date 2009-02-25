@@ -46,8 +46,13 @@
                 clerk_displayname = user.description;
             }
 
+			var sortby = document.getElementById( 'sortby' ).value;
+            var orderby = 'username';
+            if ( sortby != 'all' )
+            	orderby = '"' + sortby + '"'; // doing so for the 'group' is a keyword.
+
             var users = new UserModel();
-            var datas = users.find('all', {});
+            var datas = users.find('all', { order: orderby });
 
             var data = {
                 head: {
@@ -165,7 +170,6 @@
         load: function() {
             this._enableButton(false);
         }
-
     });
 })();
 

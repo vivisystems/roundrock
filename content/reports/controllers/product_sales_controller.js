@@ -45,7 +45,7 @@
                 clerk = user.username;
                 clerk_displayname = user.description;
             }
-
+			
             var start = document.getElementById('start_date').value;
             var end = document.getElementById('end_date').value;
 
@@ -64,7 +64,7 @@
             var orderItem = new OrderItemModel();
 
             var fields = ['orders.terminal_no',
-                    'order_items.created',
+                    		'order_items.created',
                             'order_items.product_no',
                             'order_items.product_name',
                             'SUM("order_items"."current_qty") as "OrderItem.qty"',
@@ -86,9 +86,24 @@
 
             var datas = orderItem.find('all',{fields: fields, conditions: conditions, group: groupby, recursive:1, order: orderby});
 
+			datas.forEach( function( data ) {
+				data[ 'avg_price' ] = data[ 'total' ] / data[ 'qty' ];
+			} );
+//this.log( this.dump( datas ) );			
+			var sortby = document.getElementById( 'sortby' ).value;
+			if ( sortby != 'all' ) {
+				datas.sort(
+					function ( a, b ) {
+						if ( a[ sortby ] > b[ sortby ] ) return 1;
+						if ( a[ sortby ] < b[ sortby ] ) return -1;
+						return 0;
+					}
+				);
+			}
+
             this._datas = datas;
 
-// this.log(this.dump(datas));
+
 
             var qty = 0;
             var summary = 0;
@@ -101,6 +116,7 @@
                 qty = qty + o.qty;
                 summary = summary + o.total;
                 o.total = GeckoJS.NumberHelper.format(o.total, options);
+                o.avg_price = GeckoJS.NumberHelper.format( o.avg_price, options );
             });
 
             this.qty = qty;
@@ -119,8 +135,10 @@
             var tpl = GREUtils.File.readAllBytes(file);
 
             result = tpl.process(data);
+            
+            var bw = document.getElementById('preview_frame');
+            var doc = bw.contentWindow.document.getElementById('abody');
 
-            var doc = document.getElementById('preview_div');
             doc.innerHTML = result;
 
             this._enableButton(true);
@@ -129,10 +147,10 @@
         },
 
         exportPdf: function() {
-
+        
             try {
                 this._enableButton(false);
-                var media_path = this.CheckMedia.checkMedia('export_report');
+               var media_path = this.CheckMedia.checkMedia('export_report');
                 if (!media_path){
                     NotifyUtils.info(_('Media not found!! Please attach the USB thumb drive...'));
                     return;
@@ -147,11 +165,13 @@
 
                 this.BrowserPrint.getWebBrowserPrint('preview_frame');
                 this.BrowserPrint.printToPdf(media_path + "/product_sales.pdf");
+                //this.BrowserPrint.printToPdf("/var/tmp/stocks.pdf");
             } catch (e) {
                 //
             } finally {
                 this._enableButton(true);
-                waitPanel.hidePopup();
+                if ( waitPanel != undefined )
+                	waitPanel.hidePopup();
             }
         },
 
@@ -165,7 +185,7 @@
                 }
 
                 var waitPanel = this._showWaitPanel('wait_panel', 100);
-
+				
                 var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_product_sales_csv.tpl");
 
                 var file = GREUtils.File.getFile(path);
@@ -228,4 +248,3 @@
 
 
 })();
-

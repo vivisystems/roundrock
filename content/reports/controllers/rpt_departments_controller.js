@@ -45,12 +45,17 @@
                 clerk = user.username;
                 clerk_displayname = user.description;
             }
-
+            
+            var sortby = document.getElementById( 'sortby' ).value;
+        	var orderby = 'no';
+        	if ( sortby != 'all' )
+        		orderby = sortby;
+            
             var cate = new CategoryModel();
             var datas = cate.find('all', {
-                fields: ['no','name']
+                fields: ['no','name'], order: orderby
                 });
-
+        	
             var self = this;
 
             var data = {
@@ -166,10 +171,10 @@
         },
 
         load: function() {
+
             this._enableButton(false);
         }
 
     });
 
 })();
-

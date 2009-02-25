@@ -90,17 +90,18 @@
             }
             var groupby = 'order_payments.order_id,order_payments.name';
             var orderby = 'orders.terminal_no,orders.transaction_created,orders.id';
+            
+            var order = new OrderModel();
 
-            // var order = new OrderModel();
-
-            var orderPayment = new OrderPaymentModel();
-            // var datas = order.find('all',{fields: fields, conditions: conditions, group2: groupby, order: orderby, recursive: 1});
-            var datas = orderPayment.find('all',{fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1});
-
+            //var orderPayment = new OrderPaymentModel();
+            
+            var datas = order.find('all', {fields: '*', conditions: conditions, group2: groupby, order: orderby, recursive: 2 });
+            //var datas = orderPayment.find('all', {fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1});
+this.log( this.dump( datas ) );
             var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
             var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
 
-            // prepare reporting data
+            //prepare reporting data
             var repDatas = {};
 
             var initZero = parseFloat(0).toFixed(precision_prices);
@@ -117,8 +118,11 @@
                 if (!repDatas[oid]) {
                     repDatas[oid] = GREUtils.extend({}, o); // {cash:0, creditcard: 0, coupon: 0}, o);
                 }
-
-                repDatas[oid][o.payment_name] = o.payment_subtotal;
+				
+				repDatas[oid][ 'cash' ] = 0.0;
+				repDatas[oid][ 'creditcard' ] = 0.0;
+				repDatas[oid][ 'coupon' ] = 0.0;
+                repDatas[oid][o.payment_name] += o.payment_subtotal;
 
                 if (old_oid != oid) footDatas.total += o.total;
                 if (old_oid != oid) footDatas.surcharge_subtotal += o.surcharge_subtotal;
@@ -127,6 +131,26 @@
                 old_oid = oid;
 
             });
+
+            this._datas = GeckoJS.BaseObject.getValues(repDatas);
+            
+            var sortby = document.getElementById( 'sortby' ).value;
+            if ( sortby != 'all' ) {
+            	this._datas.sort(
+            		/*function ( a, b ) {
+            			if ( a[ sortby ] > b[ sortby ] ) return 1;
+            			if ( a[ sortby ] < b[ sortby ] ) return -1;
+            			return 0;
+            		}*/
+            		function ( a, b ) {
+            			var a = a[ sortby ];
+            			var b = b[ sortby ];
+            			if ( a > b ) return 1;
+            			if ( a < b ) return -1;
+            			return 0;
+            		}
+            	);
+            }
 
             var data = {
                 head: {
@@ -137,7 +161,7 @@
                     store: storeContact,
                     clerk_displayname: clerk_displayname
                 },
-                body: GeckoJS.BaseObject.getValues(repDatas),
+                body: GeckoJS.BaseObject.getValues( this._datas ),
                 foot: {
                     foot_datas: footDatas,
                     gen_time: (new Date()).toString('yyyy/MM/dd HH:mm:ss')
@@ -186,7 +210,8 @@
                 //
             } finally {
                 this._enableButton(true);
-                waitPanel.hidePopup();
+                if ( waitPanel != undefined )
+                	waitPanel.hidePopup();
             }
         },
 

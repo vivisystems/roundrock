@@ -36,12 +36,28 @@
                     </columns>
                     <rows>
                         <row>
-                            <label value="&rptproducts.department;" />
-                            <menulist id="department" flex="1">
-                                <menupopup id="department_menupopup"  flex="1">
-                                    <menuitem selected="true" label="[&rptproducts.all;]" value="all" />
-                                </menupopup>
-                            </menulist>
+                        	<vbox>
+		                        <label value="&rptproducts.department;" />
+		                        <menulist id="department">
+		                            <menupopup id="department_menupopup">
+		                                <menuitem selected="true" label="[&rptproducts.all;]" value="all" />
+		                            </menupopup>
+		                        </menulist>
+		                    </vbox>
+		                    <vbox>
+		                        <label value="&rptproducts.sortby;" />
+		                        <menulist id="sortby">
+		                            <menupopup id="sortby_menupopup">
+		                                <menuitem selected="true" label="[&rptproducts.all;]" value="all" />
+		                                <menuitem selected="true" label="&rptproducts.no;" value="no" />
+		                                <menuitem selected="true" label="&rptproducts.name;" value="name" />
+		                                <menuitem selected="true" label="&rptproducts.barcode;" value="barcode" />
+		                                <menuitem selected="true" label="&rptproducts.rate;" value="rate" />
+		                                <menuitem selected="true" label="&rptproducts.stock;" value="stock" />
+		                                <menuitem selected="true" label="&rptproducts.min_stock;" value="min_stock" />
+		                            </menupopup>
+		                        </menulist>
+		                    </vbox>
                         </row>
                     </rows>
                 </grid>
