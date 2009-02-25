@@ -136,17 +136,41 @@ msgstr "Issue Receipt"
 msgid "receipt.name"
 msgstr "Issue Receipt"
 
+msgid "receiptcopy.desc"
+msgstr ""
+"This function issues a receipt copy. The parameter should be 1 "
+"or 2, indicating the printer to issue the receipt on. If no parameter is "
+"given, the receipt will be printed on all enabled receipt printers."
+
+msgid "receiptcopy.label"
+msgstr "Issue Receipt Copy"
+
+msgid "receiptcopy.name"
+msgstr "Issue Receipt Copy"
+
 msgid "printcheck.desc"
 msgstr ""
-"This function issues a guest check. The parameter should be 1, 2, 3, or 4, "
-"indicating the printer to issue the guest check on. If no parameter is "
-"given, the guest check will be printed on all enabled guest check printers."
+"This function issues a check. The parameter should be 1, 2, 3, or 4, "
+"indicating the printer to issue the check on. If no parameter is "
+"given, the check will be printed on all enabled check printers."
 
 msgid "printcheck.label"
-msgstr "Issue Guest Check"
+msgstr "Issue Check"
 
 msgid "printcheck.name"
-msgstr "Issue Guest Check"
+msgstr "Issue Check"
+
+msgid "checkcopy.desc"
+msgstr ""
+"This function issues a check copy. The parameter should be 1, 2, 3, or 4, "
+"indicating the printer to issue the check on. If no parameter is "
+"given, the check will be printed on all enabled check printers."
+
+msgid "checkcopy.label"
+msgstr "Issue Check Copy"
+
+msgid "checkcopy.name"
+msgstr "Issue Check Copy"
 
 msgid "pricelevelshift.desc"
 msgstr ""
@@ -865,11 +889,17 @@ msgstr "Set Date and Time"
 msgid "acl_manage_devices"
 msgstr "Manage Devices"
 
-msgid "acl_issue_post_receipts"
-msgstr "Issue Post-finalization Receipts"
+msgid "acl_issue_post_receipt"
+msgstr "Issue Post-finalization Receipt"
 
-msgid "acl_issue_guest_checks"
-msgstr "Issue Guest Checks"
+msgid "acl_issue_post_receipt_copy"
+msgstr "Issue Post-finalization Receipt Copy"
+
+msgid "acl_issue_check"
+msgstr "Issue Check"
+
+msgid "acl_issue_check_copy"
+msgstr "Issue Check Copy"
 
 msgid "acl_manage_storecontact"
 msgstr "Manage Store Contact"

@@ -1015,15 +1015,15 @@ msgid ""
 "%S"
 msgstr ""
 
-#: ../..//content/controllers/funcpanelecrprefs_controller.js:828
+#: ../..//content/controllers/funcpanelecrprefs_controller.js:826
 msgid ".name"
 msgstr ""
 
-#: ../..//content/controllers/funcpanelecrprefs_controller.js:829
+#: ../..//content/controllers/funcpanelecrprefs_controller.js:827
 msgid ".label"
 msgstr ""
 
-#: ../..//content/controllers/funcpanelecrprefs_controller.js:830
+#: ../..//content/controllers/funcpanelecrprefs_controller.js:828
 msgid ".desc"
 msgstr ""
 
@@ -1822,38 +1822,38 @@ msgstr ""
 msgid "CHG"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1886
+#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1887
 msgid "Scroll Forward"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1887
+#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1888
 msgid "Next"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1888
+#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1889
 msgid "This function scrolls the function panel to the next page"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1896
+#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1897
 msgid "Scroll Backward"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1897
+#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1898
 msgid "Back"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1898
+#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1899
 msgid "This function scrolls the function panel to the previous page"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1906
+#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1907
 msgid "Home Page"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1907
+#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1908
 msgid "Home"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1908
+#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1909
 msgid "This function scrolls the function panel to the home page"
 msgstr ""

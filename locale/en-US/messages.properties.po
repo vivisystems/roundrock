@@ -136,17 +136,41 @@ msgstr "Issue Receipt"
 msgid "receipt.name"
 msgstr "Issue Receipt"
 
+msgid "receiptcopy.desc"
+msgstr ""
+"This function issues a receipt copy. The parameter should be 1 or 2, "
+"indicating the printer to issue the receipt on. If no parameter is given, "
+"the receipt will be printed on all enabled receipt printers."
+
+msgid "receiptcopy.label"
+msgstr "Issue Receipt Copy"
+
+msgid "receiptcopy.name"
+msgstr "Issue Receipt Copy"
+
 msgid "printcheck.desc"
 msgstr ""
-"This function issues a guest check. The parameter should be 1, 2, 3, or 4, "
-"indicating the printer to issue the guest check on. If no parameter is "
-"given, the guest check will be printed on all enabled guest check printers."
+"This function issues a check. The parameter should be 1, 2, 3, or 4, "
+"indicating the printer to issue the check on. If no parameter is given, the "
+"check will be printed on all enabled check printers."
 
 msgid "printcheck.label"
-msgstr "Issue Guest Check"
+msgstr "Issue Check"
 
 msgid "printcheck.name"
-msgstr "Issue Guest Check"
+msgstr "Issue Check"
+
+msgid "checkcopy.desc"
+msgstr ""
+"This function issues a check copy. The parameter should be 1, 2, 3, or 4, "
+"indicating the printer to issue the check on. If no parameter is given, the "
+"check will be printed on all enabled check printers."
+
+msgid "checkcopy.label"
+msgstr "Issue Check Copy"
+
+msgid "checkcopy.name"
+msgstr "Issue Check Copy"
 
 msgid "pricelevelshift.desc"
 msgstr ""
@@ -865,11 +889,17 @@ msgstr "Set Date and Time"
 msgid "acl_manage_devices"
 msgstr "Manage Devices"
 
-msgid "acl_issue_post_receipts"
-msgstr "Issue Post-finalization Receipts"
+msgid "acl_issue_post_receipt"
+msgstr "Issue Post-finalization Receipt"
 
-msgid "acl_issue_guest_checks"
-msgstr "Issue Guest Checks"
+msgid "acl_issue_post_receipt_copy"
+msgstr "Issue Post-finalization Receipt Copy"
+
+msgid "acl_issue_check"
+msgstr "Issue Check"
+
+msgid "acl_issue_check_copy"
+msgstr "Issue Check Copy"
 
 msgid "acl_manage_storecontact"
 msgstr "Manage Store Contact"
@@ -1932,15 +1962,15 @@ msgid ""
 "%S"
 msgstr ""
 
-#: ../..//content/controllers/funcpanelecrprefs_controller.js:828
+#: ../..//content/controllers/funcpanelecrprefs_controller.js:826
 msgid ".name"
 msgstr ""
 
-#: ../..//content/controllers/funcpanelecrprefs_controller.js:829
+#: ../..//content/controllers/funcpanelecrprefs_controller.js:827
 msgid ".label"
 msgstr ""
 
-#: ../..//content/controllers/funcpanelecrprefs_controller.js:830
+#: ../..//content/controllers/funcpanelecrprefs_controller.js:828
 msgid ".desc"
 msgstr ""
 
@@ -2739,38 +2769,38 @@ msgstr ""
 msgid "CHG"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1886
+#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1887
 msgid "Scroll Forward"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1887
+#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1888
 msgid "Next"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1888
+#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1889
 msgid "This function scrolls the function panel to the next page"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1896
+#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1897
 msgid "Scroll Backward"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1897
+#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1898
 msgid "Back"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1898
+#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1899
 msgid "This function scrolls the function panel to the previous page"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1906
+#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1907
 msgid "Home Page"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1907
+#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1908
 msgid "Home"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1908
+#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1909
 msgid "This function scrolls the function panel to the home page"
 msgstr ""

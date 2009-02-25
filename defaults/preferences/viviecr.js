@@ -138,10 +138,15 @@ pref("vivipos.fec.registry.function.programmable.receipt.command", "issueReceipt
 pref("vivipos.fec.registry.function.programmable.receipt.controller", "Print");
 pref("vivipos.fec.registry.function.programmable.receipt.data", "");
 
-pref("vivipos.fec.registry.function.programmable.receiptcopy.access", "acl_issue_receipt_copy");
+pref("vivipos.fec.registry.function.programmable.receiptcopy.access", "acl_issue_post_receipt_copy");
 pref("vivipos.fec.registry.function.programmable.receiptcopy.command", "issueReceiptCopy");
 pref("vivipos.fec.registry.function.programmable.receiptcopy.controller", "Print");
 pref("vivipos.fec.registry.function.programmable.receiptcopy.data", "");
+
+pref("vivipos.fec.registry.function.programmable.checkcopy.access", "acl_issue_check_copy");
+pref("vivipos.fec.registry.function.programmable.checkcopy.command", "issueCheckCopy");
+pref("vivipos.fec.registry.function.programmable.checkcopy.controller", "Print");
+pref("vivipos.fec.registry.function.programmable.checkcopy.data", "");
 
 pref("vivipos.fec.registry.function.programmable.printcheck.access", "acl_issue_check");
 pref("vivipos.fec.registry.function.programmable.printcheck.command", "issueCheck");

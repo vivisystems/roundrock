@@ -62,9 +62,10 @@ pref("vivipos.fec.acl.roles.acl_register_pretax_discount", "acl_register_pretax_
 pref("vivipos.fec.acl.roles.acl_register_pretax_surcharge", "acl_register_pretax_surcharge");
 pref("vivipos.fec.acl.roles.acl_manage_date_time", "acl_manage_date_time");
 pref("vivipos.fec.acl.roles.acl_manage_devices", "acl_manage_devices");
-pref("vivipos.fec.acl.roles.acl_issue_post_receipts", "acl_issue_post_receipts");
+pref("vivipos.fec.acl.roles.acl_issue_post_receipt", "acl_issue_post_receipt");
 pref("vivipos.fec.acl.roles.acl_issue_post_receipt_copy", "acl_issue_post_receipt_copy");
-pref("vivipos.fec.acl.roles.acl_issue_checks", "acl_issue_checks");
+pref("vivipos.fec.acl.roles.acl_issue_check", "acl_issue_check");
+pref("vivipos.fec.acl.roles.acl_issue_check_copy", "acl_issue_check_copy");
 pref("vivipos.fec.acl.roles.acl_manage_storecontact", "acl_manage_storecontact");
 pref("vivipos.fec.acl.roles.acl_open_cashdrawer_1", "acl_open_cashdrawer_1");
 pref("vivipos.fec.acl.roles.acl_open_cashdrawer_2", "acl_open_cashdrawer_2");
