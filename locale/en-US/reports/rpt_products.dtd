@@ -7,6 +7,12 @@
 <!ENTITY rptproducts.exportrcp "Print">
 <!ENTITY rptproducts.togglezoom "Toggle Zoom">
 <!ENTITY rptproducts.department "Department:">
+<!ENTITY rptproducts.sortby "Sort by:">
 <!ENTITY rptproducts.all "List All">
+<!ENTITY rptproducts.no "No">
+<!ENTITY rptproducts.name "Name">
+<!ENTITY rptproducts.barcode "Barcode">
+<!ENTITY rptproducts.rate "Tax">
+<!ENTITY rptproducts.stock "Stock">
+<!ENTITY rptproducts.min_stock "Safe Stock">
 <!ENTITY rptproducts.wait "Waiting...">
-

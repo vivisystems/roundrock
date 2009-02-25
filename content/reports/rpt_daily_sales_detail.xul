@@ -44,8 +44,27 @@
                             </vbox>
                         </row>
                         <row>
-                            <label value="&rptdailysalesdetail.machineid;" />
-                            <textbox id="machine_id" value='' width="300"/>
+                        	<vbox>
+                        		<label value="&rptdailysalesdetail.sortby;" />
+			                    <menulist id="sortby">
+			                        <menupopup id="sortby_menupopup">
+			                            <menuitem selected="true" label="[&rptdailysalesdetail.all;]" value="all" />
+			                            <menuitem selected="false" label="&rptdailysalesdetail.terminal_no;" value="terminal_no" />
+			                            <menuitem selected="false" label="&rptdailysalesdetail.transaction_created;" value="transaction_created" />
+			                            <menuitem selected="false" label="&rptdailysalesdetail.item_subtotal;" value="item_subtotal" />
+			                            <menuitem selected="false" label="&rptdailysalesdetail.tax_subtotal;" value="tax_subtotal" />
+			                            <menuitem selected="false" label="&rptdailysalesdetail.surcharge_subtotal;" value="surcharge_subtotal" />
+			                            <menuitem selected="false" label="&rptdailysalesdetail.discount_subtotal;" value="discount_subtotal" />
+			                            <menuitem selected="false" label="&rptdailysalesdetail.total;" value="total" />
+			                            <menuitem selected="false" label="&rptdailysalesdetail.guests;" value="no_of_customers" />
+			                            <menuitem selected="false" label="&rptdailysalesdetail.items;" value="items_count" />
+			                        </menupopup>
+			                    </menulist>
+			                </vbox>
+			                <vbox>
+		                        <label value="&rptdailysalesdetail.machineid;" />
+		                        <textbox id="machine_id" value='' width="300"/>
+                            </vbox>
                         </row>
                     </rows>
                 </grid>
@@ -59,7 +78,7 @@
             <hbox flex="1">
                 <groupbox flex="1">
                     <box class="reportbox" flex="1">
-                        <browser type="content" id="preview_frame" src="rpt_template2.html" flex="1"/>
+                        <browser type="content" id="preview_frame" src="rpt_template3.html" flex="1"/>
                     </box>
 
                 </groupbox>

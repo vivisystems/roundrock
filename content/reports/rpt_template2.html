@@ -3,9 +3,9 @@
         <title>head.title</title>
         <LINK rel="stylesheet" type="text/css" href="tpl/rpt_a4.css" />
 
-        <!-- style type="text/css" media="print,screen" >
-        /*
-        th {
+        <!--style type="text/css" media="print, screen" >
+        
+        /*th {
             font-family:Arial;
             color:black;
             background-color:lightgrey;
@@ -15,14 +15,14 @@
         }
         tbody {
             display:table-row-group;
-        }
-        */
-        div#printhead { position: fixed; top: 0; left: 0; width: 100%; height: 2em; padding-bottom: 1em; border-bottom: 1px solid; margin-bottom: 10px; }
+        }*/
+        
+        div#printhead { position: fixed; top: 0px; left: 0px; }
 
-        @media screen { div#printhead { display: none; } div#docbody { margin-top: 0; } }
+        @media screen { div#printhead { display: block; } div#docbody { margin-top: 0px; } }
 
-        @media print { div#printhead { display: block; } div#docbody { margin-top: 6em; } }
-        </style -->
+        @media print { div#printhead { display: block; } div#docbody { margin-top: 60px; } }
+        </style-->
 
     </head>
     <body id="abody" class="report">

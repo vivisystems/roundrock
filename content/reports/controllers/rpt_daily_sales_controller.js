@@ -66,6 +66,9 @@
                             'orders.id',
                             'orders.sequence',
                             'orders.status',
+                            'orders.change',
+                            'orders.tax_subtotal',
+                            'orders.item_subtotal',
                             'orders.total',
                             'orders.rounding_prices',
                             'orders.precision_prices',
@@ -76,7 +79,8 @@
                             'orders.table_no',
                             'orders.no_of_customers',
                             'orders.invoice_no',
-                            'orders.terminal_no'];
+                            'orders.terminal_no'
+                         ];
 
             var conditions = "orders.transaction_created>='" + start +
                             "' AND orders.transaction_created<='" + end +
@@ -88,24 +92,36 @@
             } else {
                 //var groupby = '"Order.Date"';
             }
-            var groupby = 'order_payments.order_id,order_payments.name';
-            var orderby = 'orders.terminal_no,orders.transaction_created,orders.id';
-
-            // var order = new OrderModel();
+            var groupby = 'order_payments.order_id, order_payments.name';
+            var orderby = 'orders.terminal_no, orders.transaction_created, orders.id';
+            
+            //var order = new OrderModel();
 
             var orderPayment = new OrderPaymentModel();
-            // var datas = order.find('all',{fields: fields, conditions: conditions, group2: groupby, order: orderby, recursive: 1});
-            var datas = orderPayment.find('all',{fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1});
+            
+            //var datas = order.find('all', {fields: '*', conditions: conditions, group2: groupby, order: orderby, recursive: 2 });
+            var datas = orderPayment.find('all', {fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1});
 
             var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
             var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
 
-            // prepare reporting data
+            //prepare reporting data
             var repDatas = {};
 
             var initZero = parseFloat(0).toFixed(precision_prices);
 
-            var footDatas = {total: 0, surcharge_subtotal: 0,discount_subtotal: 0, cash: 0, creditcard: 0, coupon: 0};
+            var footDatas = {
+            	tax_subtotal: 0,
+            	item_subtotal: 0,
+            	total: 0,
+            	surcharge_subtotal: 0,
+            	discount_subtotal: 0,
+            	cash: 0,
+            	creditcard: 0,
+            	coupon: 0,
+            	giftcard: 0
+            };
+            
             var old_oid;
 
             datas.forEach(function(data){
@@ -117,16 +133,51 @@
                 if (!repDatas[oid]) {
                     repDatas[oid] = GREUtils.extend({}, o); // {cash:0, creditcard: 0, coupon: 0}, o);
                 }
+				
+				if ( old_oid != oid ) {
+					repDatas[ oid ][ 'cash' ] = 0.0;
+					repDatas[ oid ][ 'creditcard' ] = 0.0;
+					repDatas[ oid ][ 'coupon' ] = 0.0;
+					repDatas[ oid ][ 'giftcard' ] = 0.0;
+					
+					//for setting up footdata
+					footDatas.total += o.total;
+		            footDatas.surcharge_subtotal += o.surcharge_subtotal;
+		            footDatas.discount_subtotal += o.discount_subtotal;
+		            footDatas.tax_subtotal += o.tax_subtotal;
+		            footDatas.item_subtotal += o.item_subtotal;
+				}
+				
+				if ( o.payment_name == 'cash' ) {
+					repDatas[ oid ][o.payment_name] += o.payment_subtotal - o.change;
+					footDatas[ o.payment_name ] += o.payment_subtotal - o.change;
+				} else {
+		            repDatas[ oid ][ o.payment_name ] += o.payment_subtotal;
+					footDatas[ o.payment_name ] += o.payment_subtotal;
+				}
 
-                repDatas[oid][o.payment_name] = o.payment_subtotal;
-
-                if (old_oid != oid) footDatas.total += o.total;
-                if (old_oid != oid) footDatas.surcharge_subtotal += o.surcharge_subtotal;
-                if (old_oid != oid) footDatas.discount_subtotal += o.discount_subtotal;
-                footDatas[o.payment_name] += o.payment_subtotal;
                 old_oid = oid;
-
             });
+
+            this._datas = GeckoJS.BaseObject.getValues(repDatas);
+            
+            var sortby = document.getElementById( 'sortby' ).value;
+            if ( sortby != 'all' ) {
+            	this._datas.sort(
+            		/*function ( a, b ) {
+            			if ( a[ sortby ] > b[ sortby ] ) return 1;
+            			if ( a[ sortby ] < b[ sortby ] ) return -1;
+            			return 0;
+            		}*/
+            		function ( a, b ) {
+            			var a = a[ sortby ];
+            			var b = b[ sortby ];
+            			if ( a > b ) return 1;
+            			if ( a < b ) return -1;
+            			return 0;
+            		}
+            	);
+            }
 
             var data = {
                 head: {
@@ -137,7 +188,7 @@
                     store: storeContact,
                     clerk_displayname: clerk_displayname
                 },
-                body: GeckoJS.BaseObject.getValues(repDatas),
+                body: GeckoJS.BaseObject.getValues( this._datas ),
                 foot: {
                     foot_datas: footDatas,
                     gen_time: (new Date()).toString('yyyy/MM/dd HH:mm:ss')
@@ -167,11 +218,11 @@
         exportPdf: function() {
             try {
                 this._enableButton(false);
-                var media_path = this.CheckMedia.checkMedia('export_report');
+                /*var media_path = this.CheckMedia.checkMedia('export_report');
                 if (!media_path){
                     NotifyUtils.info(_('Media not found!! Please attach the USB thumb drive...'));
                     return;
-                }
+                }*/
 
                 var waitPanel = this._showWaitPanel('wait_panel');
 
@@ -181,12 +232,14 @@
                 // this.BrowserPrint.setPaperEdge(20, 20, 20, 20);
 
                 this.BrowserPrint.getWebBrowserPrint('preview_frame');
-                this.BrowserPrint.printToPdf(media_path + "/daily_sales.pdf");
+                //this.BrowserPrint.printToPdf(media_path + "/daily_sales.pdf");
+                this.BrowserPrint.printToPdf( "/var/tmp/daily_sales.pdf" );
             } catch (e) {
                 //
             } finally {
                 this._enableButton(true);
-                waitPanel.hidePopup();
+                if ( waitPanel != undefined )
+                	waitPanel.hidePopup();
             }
         },
 

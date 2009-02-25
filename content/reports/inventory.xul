@@ -35,12 +35,26 @@
                     </columns>
                     <rows>
                         <row>
-                            <label value="&rptinventory.department;" />
-                            <menulist id="department" flex="1">
-                                <menupopup id="department_menupopup"  flex="1">
-                                    <menuitem selected="true" label="[&rptinventory.all;]" value="all" />
-                                </menupopup>
-                            </menulist>
+                        	<vbox>
+		                        <label value="&rptinventory.department;" />
+		                        <menulist id="department" flex="1">
+		                            <menupopup id="department_menupopup"  flex="1">
+		                                <menuitem selected="true" label="[&rptinventory.all;]" value="all" />
+		                            </menupopup>
+		                        </menulist>
+		                    </vbox>
+		                    <vbox>
+		                    	<label value="&rptinventory.sortby;" />
+				                <menulist id="sortby">
+				                    <menupopup id="sortby_menupopup">
+				                        <menuitem selected="true" label="[&rptinventory.all;]" value="all" />
+				                        <menuitem selected="true" label="&rptinventory.no;" value="no" />
+				                        <menuitem selected="true" label="&rptinventory.name;" value="name" />
+				                        <menuitem selected="true" label="&rptinventory.stock;" value="stock" />
+				                        <menuitem selected="true" label="&rptinventory.min_stock;" value="min_stock" />
+				                    </menupopup>
+				                </menulist>
+				            </vbox>
                         </row>
                     </rows>
                 </grid>
@@ -54,7 +68,7 @@
             <hbox flex="1">
                 <groupbox flex="1">
                     <box class="reportbox" flex="1">
-                        <browser type="content" id="preview_frame" src="rpt_template1.html" flex="1"/>
+                        <browser type="content" id="preview_frame" src="rpt_template2.html" flex="1"/>
                     </box>
 
                 </groupbox>

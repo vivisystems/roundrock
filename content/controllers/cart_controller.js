@@ -1203,7 +1203,6 @@
             GeckoJS.Session.remove('cart_set_qty_value');
 
             this.subtotal();
-
         },
 
         addSurchargeByNumber: function(amount) {
