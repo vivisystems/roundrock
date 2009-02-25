@@ -73,6 +73,9 @@
                 </hbox>
                 <button id="execute" label="&productsales.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'ProductSales');" />
             </hbox>
+            <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
+                <!-- grippy/ -->
+            </splitter>
             <hbox class="TopPnl">
                 <hbox class="ReportTool"  flex="1">
                     <vivibutton id="export_pdf" label="&productsales.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do('exportPdf', null, 'ProductSales');" />
@@ -87,9 +90,7 @@
                     
                 </hbox>
             </hbox>
-            <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
-                <!-- grippy/ -->
-            </splitter>
+            
 
             <hbox flex="1">
                 <groupbox flex="1">
@@ -98,7 +99,7 @@
                     </box>
 
                 </groupbox>
-                <vbox>
+                <!--vbox>
                     <vbox class="ToolBar BarHeight">
                         <vivibutton id="export_pdf" label="&productsales.exportpdf;" disabled="false" class="editbtns" oncommand="$do('exportPdf', null, 'ProductSales');" />
                         <vivibutton id="export_csv" label="&productsales.exportcsv;" disabled="false" class="editbtns" oncommand="$do('exportCsv', null, 'ProductSales');" />
@@ -110,7 +111,7 @@
                         <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
                         <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle()" class="VkbBtn"/>
                     </hbox>
-                </vbox>
+                </vbox-->
             </hbox>
         </vbox>
     </vbox>

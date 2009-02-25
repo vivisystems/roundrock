@@ -44,8 +44,8 @@
                                 <vividatetimepicker id="end_date" value='' type="popup"/>
                             </vbox>
                         </row>
-			<row>
-				<vbox>
+						<row>
+							<vbox>
                         		<label value="&rptdailysalesdetail.sortby;" />
 			                    <menulist id="sortby">
 			                        <menupopup id="sortby_menupopup">
@@ -72,6 +72,9 @@
                 </hbox>
                 <button id="execute" label="&rptdailysalesdetail.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptDailySalesDetail');" />
             </hbox>
+            <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
+                <!-- grippy/ -->
+            </splitter>
 			<hbox class="TopPnl">
                 <hbox class="ReportTool"  flex="1">
 
@@ -88,9 +91,6 @@
                     
                 </hbox>
             </hbox>
-            <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
-                <!-- grippy/ -->
-            </splitter>
 
             <hbox flex="1">
                 <groupbox flex="1">
@@ -99,7 +99,7 @@
                     </box>
 
                 </groupbox>
-                <vbox>
+                <!--vbox>
                     <vbox class="ToolBar BarHeight">
 
                         <vivibutton id="export_pdf" label="&rptdailysalesdetail.exportpdf;" disabled="false" class="editbtns" oncommand="$do('exportPdf', null, 'RptDailySalesDetail');" />
@@ -113,7 +113,7 @@
                         <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
                         <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle()" class="VkbBtn"/>
                     </hbox>
-                </vbox>
+                </vbox-->
             </hbox>
         </vbox>
     </vbox>

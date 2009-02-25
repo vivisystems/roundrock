@@ -76,6 +76,9 @@
                 </hbox>
                 <button id="execute" label="&rptdailysales.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptDailySales');" />
             </hbox>
+            <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
+                <!-- grippy/ -->
+            </splitter>
             <hbox class="TopPnl">
                 <hbox class="ReportTool"  flex="1">
 
@@ -93,17 +96,13 @@
                 </hbox>
             </hbox>
 
-            <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
-                <!-- grippy/ -->
-            </splitter>
-
             <hbox flex="1">
                 <groupbox flex="1">
                     <box class="reportbox" flex="1">
                         <browser type="content" id="preview_frame" src="rpt_template3.html" flex="1"/>
                     </box>
                 </groupbox>
-                <vbox>
+                <!--vbox>
                     <vbox class="ToolBar BarHeight">
 
                         <vivibutton id="export_pdf" label="&rptdailysales.exportpdf;" disabled="false" class="editbtns" oncommand="$do('exportPdf', null, 'RptDailySales');" />
@@ -117,7 +116,7 @@
                         <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
                         <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle()" class="VkbBtn"/>
                     </hbox>
-                </vbox>
+                </vbox-->
             </hbox>
         </vbox>
     </vbox>
