@@ -2553,10 +2553,6 @@
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
 
-            // clear register screen if needed
-            if (GeckoJS.Configure.read('vivipos.fec.settings.ClearCartAfterFinalization')) {
-                this._cartView.empty();
-            }
             //this.dispatchEvent('onClear', 0.00);
             this._getKeypadController().clearBuffer();
             this.cancelReturn();
@@ -2567,8 +2563,25 @@
             }
             else
                 this.dispatchEvent('onGetSubtotal', oldTransaction);
+            
+            // clear register screen if needed
+            if (GeckoJS.Configure.read('vivipos.fec.settings.ClearCartAfterFinalization')) {
+                this._cartView.empty();
+            }
         },
 
+
+        close: function(dest) {
+            // if destination is given, then items in cart are first validated to make sure
+            // their destinations match the given destination
+
+            // next, prompts for customer# if not already given
+
+            // then, prompts for additional annotation (such as ID of deliverer)
+
+            // lastly, close the transaction and store the order to generate the
+            // appropriate printouts
+        },
 
         cash: function(amount) {
 

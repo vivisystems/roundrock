@@ -208,20 +208,12 @@
 
             var txn = evt.data;
             this.log(GeckoJS.BaseObject.dump(txn.data));
-            return;
 
             // check if checks need to be printed
             this.printChecks(evt.data, null, 'store');
 
             // check if receipts need to be printed
             this.printReceipts(evt.data, null, 'store');
-
-            // @todo delay saving order to database til after print jobs have all been scheduled
-            this.scheduleOrderCommit(evt.data);
-
-            // @hack
-            // sleep to allow UI to catch up
-            this.sleep(50);
         },
 
         // handles user initiated receipt requests
@@ -332,7 +324,7 @@
                         var handshaking = device.handshaking;
                         var devicemodel = device.devicemodel;
                         var encoding = device.encoding;
-                        var copies = (printer == null) ? device.autoprint : 1;
+                        var copies = 1;
 
                         _templateModifiers(TrimPath, encoding);
 
