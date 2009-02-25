@@ -971,9 +971,16 @@
 
         },
 
-        addDiscountByNumber: function(amount) {
-            // shorcut
-            var discountAmount = (amount == '') ? false : amount;
+        addDiscountByNumber: function(args) {
+            // args is a list of up to 2 comma separated arguments: amount, label
+            var discountAmount;
+            var discountName = '-'
+
+            if (args != null && args != '') {
+                var argList = args.split(',');
+                if (argList.length > 0) discountAmount = argList[0];
+                if (argList.length > 1) discountName = argList[1];
+            }
 
             // check if has buffer
             var buf = this._getKeypadController().getBuffer();
@@ -981,16 +988,25 @@
 
             this.cancelReturn();
 
-            if (!discountAmount && buf.length>0) {
+            if ((discountAmount == null || discountAmount == '') && buf.length>0) {
                 discountAmount = buf;
             }
 
-            this.addDiscount(discountAmount, '$', '-');
+            this.addDiscount(discountAmount, '$', discountName, false);
         },
 
-        addDiscountByPercentage: function(amount) {
-            // shortcut
-            var discountAmount = (amount == '') ? false : amount;
+        addDiscountByPercentage: function(args, pretax) {
+            // args is a list of up to 2 comma separated arguments: amount, label
+            var discountAmount;
+            var discountName;
+
+            if (args != null && args != '') {
+                var argList = args.split(',');
+                if (argList.length > 0) discountAmount = argList[0];
+                if (argList.length > 1) discountName = argList[1];
+            }
+
+            if (pretax == null) pretax = false;
 
             // check if has buffer
             var buf = this._getKeypadController().getBuffer();
@@ -998,29 +1014,20 @@
 
             this.cancelReturn();
 
-            if (!discountAmount && buf.length>0) {
+            if ((discountAmount == null || discountAmount == '') && buf.length>0) {
                 discountAmount = buf;
             }
 
-            this.addDiscount(discountAmount, '%', '-' + discountAmount + '%', false);
+            if (discountName == null || discountName == '') {
+                discountName = '-' + discountAmount + '%';
+            }
+
+            this.addDiscount(discountAmount, '%', discountName, pretax);
         },
 
 
-        addPretaxDiscountByPercentage: function(amount) {
-            // shortcut
-            var discountAmount = (amount == '') ? false : amount;
-
-            // check if has buffer
-            var buf = this._getKeypadController().getBuffer();
-            this._getKeypadController().clearBuffer();
-
-            this.cancelReturn();
-
-            if (!discountAmount && buf.length>0) {
-                discountAmount = buf;
-            }
-
-            this.addDiscount(discountAmount, '%', '-' + discountAmount + '%', true);
+        addPretaxDiscountByPercentage: function(args) {
+            this.addDiscountByPercentage(args, true);
         },
 
 
@@ -1205,9 +1212,16 @@
             this.subtotal();
         },
 
-        addSurchargeByNumber: function(amount) {
-            // shorcut
-            var surchargeAmount = (amount == '') ? false : amount;
+        addSurchargeByNumber: function(args) {
+            // args is a list of up to 2 comma separated arguments: amount, label
+            var surchargeAmount;
+            var surchargeName = '+'
+
+            if (args != null && args != '') {
+                var argList = args.split(',');
+                if (argList.length > 0) surchargeAmount = argList[0];
+                if (argList.length > 1) surchargeName = argList[1];
+            }
 
             // check if has buffer
             var buf = this._getKeypadController().getBuffer();
@@ -1215,16 +1229,25 @@
 
             this.cancelReturn();
 
-            if (!surchargeAmount && buf.length>0) {
+            if ((surchargeAmount != null || surchargeAmount != '') && buf.length>0) {
                 surchargeAmount = buf;
             }
 
-            this.addSurcharge(surchargeAmount, '$', '+', false);
+            this.addSurcharge(surchargeAmount, '$', surchargeName, false);
         },
 
-        addSurchargeByPercentage: function(amount) {
-            // shortcut
-            var surchargeAmount = (amount == '') ? false : amount;
+        addSurchargeByPercentage: function(args, pretax) {
+            // args is a list of up to 2 comma separated arguments: amount, label
+            var surchargeAmount;
+            var surchargeName;
+
+            if (args != null && args != '') {
+                var argList = args.split(',');
+                if (argList.length > 0) surchargeAmount = argList[0];
+                if (argList.length > 1) surchargeName = argList[1];
+            }
+
+            if (pretax == null) pretax = false;
 
             // check if has buffer
             var buf = this._getKeypadController().getBuffer();
@@ -1232,29 +1255,20 @@
 
             this.cancelReturn();
 
-            if (!surchargeAmount && buf.length>0) {
+            if ((surchargeAmount == null || surchargeAmount == '') && buf.length>0) {
                 surchargeAmount = buf;
             }
 
-            this.addSurcharge(surchargeAmount, '%', '+' + surchargeAmount + '%', false);
+            if (surchargeName == null || surchargeName == '') {
+                surchargeName = '+' + surchargeAmount + '%';
+            }
+
+            this.addSurcharge(surchargeAmount, '%', surchargeName, false);
         },
 
 
-        addPretaxSurchargeByPercentage: function(amount) {
-            // shortcut
-            var surchargeAmount = (amount == '') ? false : amount;
-
-            // check if has buffer
-            var buf = this._getKeypadController().getBuffer();
-            this._getKeypadController().clearBuffer();
-
-            this.cancelReturn();
-
-            if (!surchargeAmount && buf.length>0) {
-                surchargeAmount = buf;
-            }
-
-            this.addSurcharge(surchargeAmount, '%', '+' + surchargeAmount + '%', true);
+        addPretaxSurchargeByPercentage: function(args) {
+            this.addSurchargeByPercentage(args, true);
         },
 
 
@@ -2496,8 +2510,8 @@
 
             if (curTransaction.data.recall != 2) {
                 this.dispatchEvent('afterCancel', curTransaction);
-                this.dispatchEvent('onCancel', curTransaction);
             }
+            this.dispatchEvent('onCancel', curTransaction);
         },
 	
         subtotal: function() {
@@ -2532,7 +2546,7 @@
             this.dispatchEvent('afterSubmit', oldTransaction);
 
             // sleep to allow UI events to update
-            this.sleep(100);
+            //this.sleep(100);
             
             // GeckoJS.Session.remove('current_transaction');
             GeckoJS.Session.remove('cart_last_sell_item');

@@ -19,7 +19,6 @@
             // add event listener for beforeSubmit events
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             if(cart) {
-                cart.addEventListener('onSubmit', this.handleOpenDrawerEvent, this);
                 cart.addEventListener('afterAddPayment', this.handleOpenDrawerEvent, this);
             }
         },
@@ -145,18 +144,18 @@
         // handles payment events
         handleOpenDrawerEvent: function(evt) {
 
+            var eventType = 'payment';
+
             // on payment events, check if a submit event is coming
-            if (evt.getType() == 'afterAddPayment') {
-                var cart= GeckoJS.Controller.getInstanceByName('Cart');
-                if (cart == null) return;
+            var cart= GeckoJS.Controller.getInstanceByName('Cart');
+            if (cart == null) return;
 
-                var txn = cart._getTransaction();
-                if (txn == null) return;
+            var txn = cart._getTransaction();
+            if (txn == null) return;
 
-                if (txn.getRemainTotal() <= 0) {
-                    // don't open drawer; wait for afterSubmit event
-                    return;
-                }
+            if (txn.getRemainTotal() <= 0) {
+                // don't open drawer; wait for afterSubmit event
+                eventType = 'finalization';
             }
 
             // 1. get user's assigned drawer (or null)
@@ -171,18 +170,18 @@
                 }
             }
 
-            this.openDrawer(drawerNo);
+            this.openDrawer(drawerNo, eventType, evt.data.name);
         },
 
         openDrawer1: function() {
-            this.openDrawer(1);
+            this.openDrawer(1, 'nosale');
         },
 
         openDrawer2: function() {
-            this.openDrawer(2);
+            this.openDrawer(2, 'nosale');
         },
 
-        openDrawer: function(drawerNo) {
+        openDrawer: function(drawerNo, eventType, paymentType) {
 
             // 1. get list of enabled drawers; if no drawer is enabled, simply exit
             // 2. if drawer == null, use first enabled drawer
@@ -214,10 +213,34 @@
                     NotifyUtils.error(_('Cash drawer [%S] is not enabled! Please check your device configuration', [drawerNo]));
                     return;
                 }
-                enabledDevices.forEach(function(d) {
-                   if (d.number == drawerNo) drawer = d; 
-                });
+                for (var i = 0; i < enabledDevices.length; i++) {
+                    if (enabledDevices[i].number == drawerNo) {
+                        drawer = d;
+                        break;
+                    }
+                }
             }
+
+            if (drawer == null) {
+                if (drawerNo != null)
+                    NotifyUtils.error(_('Cash drawer [%S] is not enabled! Please check your device configuration', [drawerNo]));
+                return;
+            }
+
+            // check if drawer action is needed
+            switch(eventType) {
+                case 'payment':
+                    if (drawer[paymentType + 'action'] != 'always') return;
+                    break;
+
+                case 'finalization':
+                    if ((drawer[paymentType + 'action'] != 'always') && (drawer[paymentType + 'action'] != 'finalization')) return;
+                    break;
+
+                case 'nosale':
+                    break;
+            }
+
             switch (drawer.type) {
                 
                 case 'gpio':
@@ -282,7 +305,7 @@
             
             // get encoding
             var encodedResult = GREUtils.Charset.convertFromUnicode(result, 'US-ASCII');
-            this.log('CASHDRAWER:\n' + encodedResult);
+            //this.log('CASHDRAWER:\n' + encodedResult);
             //alert('CASHDRAWER:\n' + encodedResult);
             
             // send to output device
