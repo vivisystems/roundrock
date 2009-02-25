@@ -27,8 +27,9 @@
     <vbox flex="1" class="main-dialog">
         <vbox flex="1" class="MainPnl">
             <caption label="&rptdailysalesdetail.title;"  class="PageTitle"/>
-            <hbox class="TopPnl">
-                <grid class="DataForm">
+            <hbox>
+                <hbox flex="1">
+                <grid class="DataForm" flex="1">
                     <columns>
                         <column  flex="1"/><column flex="1" />
                     </columns>
@@ -43,8 +44,6 @@
                                 <vividatetimepicker id="end_date" value='' type="popup"/>
                             </vbox>
                         </row>
-                        <row>
-                        	<vbox>
                         		<label value="&rptdailysalesdetail.sortby;" />
 			                    <menulist id="sortby">
 			                        <menupopup id="sortby_menupopup">
@@ -68,9 +67,25 @@
                         </row>
                     </rows>
                 </grid>
-                <button id="execute" label="&rptdailysalesdetail.execute;" disabled="false" class="editbtns" oncommand="$do('execute', null, 'RptDailySalesDetail');" />
+                </hbox>
+                <button id="execute" label="&rptdailysalesdetail.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptDailySalesDetail');" />
             </hbox>
+			<hbox class="TopPnl">
+                <hbox class="ReportTool"  flex="1">
 
+                    <vivibutton id="export_pdf" label="&rptdailysalesdetail.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do('exportPdf', null, 'RptDailySalesDetail');" />
+                    <vivibutton id="export_csv" label="&rptdailysalesdetail.exportcsv;" disabled="false" class="CsvBtn" oncommand="$do('exportCsv', null, 'RptDailySalesDetail');" />
+                    <vivibutton id="export_rcp" label="&rptdailysalesdetail.exportrcp;" disabled="false" class="PrintBtn" oncommand="$do('exportRcp', null, 'RptDailySalesDetail');" />
+
+                    <vivibutton id="togglesize" label="&rptdailysalesdetail.togglezoom;" disabled="false" class="ZoomBtn" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
+                    
+                </hbox>
+                <hbox id="dialogButtons" class="dialogbtns" pack="end">
+                    <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle()" class="VkbBtn"/>
+                    <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                    
+                </hbox>
+            </hbox>
             <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
                 <!-- grippy/ -->
             </splitter>

@@ -27,11 +27,11 @@
     <vbox flex="1" class="main-dialog">
         <vbox flex="1" class="MainPnl">
             <caption label="&rptstocks.title;"  class="PageTitle"/>
-            <hbox class="TopPnl">
+            <hbox>
+                <hbox flex="1">
                 <grid class="DataForm" flex="1">
                     <columns>
-                        <column  flex="1"/>
-                        <column flex="1" />
+                        <column  flex="1"/><column  flex="1"/>
                     </columns>
                     <rows>
                         <row>
@@ -44,35 +44,30 @@
                         </row>
                     </rows>
                 </grid>
-                <button id="execute" label="&rptstocks.execute;" disabled="false" class="editbtns" oncommand="$do('execute', null, 'RptStocks');" />
+                </hbox>
+                <button id="execute" label="&rptstocks.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptStocks');" />
             </hbox>
+						<hbox class="TopPnl">
+                <hbox class="ReportTool"  flex="1">
 
+                    <vivibutton id="export_pdf" label="&rptstocks.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do('exportPdf', null, 'RptStocks');" />
+                    <vivibutton id="export_csv" label="&rptstocks.exportcsv;" disabled="false" class="CsvBtn" oncommand="$do('exportCsv', null, 'RptStocks');" />
+                    <vivibutton id="export_rcp" label="&rptstocks.exportrcp;" disabled="false" class="PrintBtn" oncommand="$do('exportRcp', null, 'RptStocks');" />
+
+                    <vivibutton id="togglesize" label="&rptstocks.togglezoom;" disabled="false" class="ZoomBtn" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
+                    
+                </hbox>
+                <hbox id="dialogButtons" class="dialogbtns" pack="end">
+                    <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                </hbox>
+            </hbox>
             <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
                 <!-- grippy/ -->
             </splitter>
 
-            <hbox flex="1">
-                <groupbox flex="1">
-                    <box class="reportbox" flex="1">
-                        <browser type="content" id="preview_frame" src="rpt_template1.html" flex="1"/>
-                    </box>
-
-                </groupbox>
-                <vbox>
-                    <vbox class="ToolBar BarHeight">
-
-                        <vivibutton id="export_pdf" label="&rptstocks.exportpdf;" disabled="false" class="editbtns" oncommand="$do('exportPdf', null, 'RptStocks');" />
-                        <vivibutton id="export_csv" label="&rptstocks.exportcsv;" disabled="false" class="editbtns" oncommand="$do('exportCsv', null, 'RptStocks');" />
-                        <vivibutton id="export_rcp" label="&rptstocks.exportrcp;" disabled="false" class="editbtns" oncommand="$do('exportRcp', null, 'RptStocks');" />
-
-                        <vivibutton id="togglesize" label="&rptstocks.togglezoom;" disabled="false" class="editbtns" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
-                        <spacer flex="1" />
-                    </vbox>
-                    <hbox id="dialogButtons" class="dialogbtns" pack="end">
-                        <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
-                    </hbox>
-                </vbox>
-            </hbox>
+            <box class="reportbox" flex="1">
+                <browser type="content" id="preview_frame" src="rpt_template1.html" flex="1"/>
+            </box>
         </vbox>
     </vbox>
 
