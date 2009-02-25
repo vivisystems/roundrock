@@ -45,8 +45,28 @@
                             </vbox>
                         </row>
                         <row>
-                            <label value="&rptdailysales.machineid;" />
-                            <textbox id="machine_id" value=''/>
+                        	<vbox>
+		                    	<label value="&rptdailysales.sortby;" />
+			                    <menulist id="sortby">
+			                        <menupopup id="sortby_menupopup">
+			                            <menuitem selected="true" label="[&rptdailysales.all;]" value="all" />
+			                            <menuitem selected="false" label="&rptdailysales.terminal_no;" value="terminal_no" />
+			                            <menuitem selected="false" label="&rptdailysales.transaction_created;" value="transaction_created" />
+			                            <menuitem selected="false" label="&rptdailysales.sequence;" value="sequence" />
+			                            <menuitem selected="false" label="&rptdailysales.invoice_no;" value="invoice_no" />
+			                            <menuitem selected="false" label="&rptdailysales.total;" value="total" />
+			                            <menuitem selected="false" label="&rptdailysales.surcharge_subtotal;" value="surcharge_subtotal" />
+			                            <menuitem selected="false" label="&rptdailysales.discount_subtotal;" value="discount_subtotal" />
+			                            <menuitem selected="false" label="&rptdailysales.cash;" value="cash" />
+			                            <menuitem selected="false" label="&rptdailysales.creditcard;" value="creditcard" />
+			                            <menuitem selected="false" label="&rptdailysales.coupon;" value="coupon" />
+			                        </menupopup>
+			                    </menulist>
+	                        </vbox>
+	                        <vbox>
+		                        <label value="&rptdailysales.machineid;" />
+		                        <textbox id="machine_id" value='' width="300"/>
+		                    </vbox>
                         </row>
                     </rows>
                 </grid>
@@ -74,9 +94,28 @@
                 <!-- grippy/ -->
             </splitter>
 
-            <box class="reportbox" flex="1">
-                <browser type="content" id="preview_frame" src="rpt_template3.html" flex="1"/>
-            </box>
+            <hbox flex="1">
+                <groupbox flex="1">
+                    <box class="reportbox" flex="1">
+                        <browser type="content" id="preview_frame" src="rpt_template3.html" flex="1"/>
+                    </box>
+                </groupbox>
+                <vbox>
+                    <vbox class="ToolBar BarHeight">
+
+                        <vivibutton id="export_pdf" label="&rptdailysales.exportpdf;" disabled="false" class="editbtns" oncommand="$do('exportPdf', null, 'RptDailySales');" />
+                        <vivibutton id="export_csv" label="&rptdailysales.exportcsv;" disabled="false" class="editbtns" oncommand="$do('exportCsv', null, 'RptDailySales');" />
+                        <vivibutton id="export_rcp" label="&rptdailysales.exportrcp;" disabled="false" class="editbtns" oncommand="$do('exportRcp', null, 'RptDailySales');" />
+
+                        <vivibutton id="togglesize" label="&rptdailysales.togglezoom;" disabled="false" class="editbtns" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
+                        <spacer flex="1" />
+                    </vbox>
+                    <hbox id="dialogButtons" class="dialogbtns" pack="end">
+                        <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                        <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle()" class="VkbBtn"/>
+                    </hbox>
+                </vbox>
+            </hbox>
         </vbox>
     </vbox>
 

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE overlay [
+  <!ENTITY % Overlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Overlay;
+  <!ENTITY % rpt_products SYSTEM "chrome://viviecr/locale/reports/rpt_products.dtd">
+  %rpt_products;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/reports.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+
+<window id="main" 
+        hidechrome="true"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        xmlns:html="http://www.w3.org/1999/xhtml">
+
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/template.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/template_ext.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/rpt_products.js" />
+  
+    <vbox flex="1" class="main-dialog">
+        <vbox flex="1" class="MainPnl">
+            <caption label="&rptproducts.title;"  class="PageTitle"/>
+            <!--caption label="&productsales.conditions;" / -->
+            <hbox class="TopPnl">
+                <grid class="DataForm" flex="1">
+                    <columns>
+                        <column  flex="1"/>
+                        <column flex="1" />
+                    </columns>
+                    <rows>
+                        <row>
+                        	<vbox>
+		                        <label value="&rptproducts.department;" />
+		                        <menulist id="department">
+		                            <menupopup id="department_menupopup">
+		                                <menuitem selected="true" label="[&rptproducts.all;]" value="all" />
+		                            </menupopup>
+		                        </menulist>
+		                    </vbox>
+		                    <vbox>
+		                        <label value="&rptproducts.sortby;" />
+		                        <menulist id="sortby">
+		                            <menupopup id="sortby_menupopup">
+		                                <menuitem selected="true" label="[&rptproducts.all;]" value="all" />
+		                                <menuitem selected="true" label="&rptproducts.no;" value="no" />
+		                                <menuitem selected="true" label="&rptproducts.name;" value="name" />
+		                                <menuitem selected="true" label="&rptproducts.barcode;" value="barcode" />
+		                                <menuitem selected="true" label="&rptproducts.rate;" value="rate" />
+		                                <menuitem selected="true" label="&rptproducts.stock;" value="stock" />
+		                                <menuitem selected="true" label="&rptproducts.min_stock;" value="min_stock" />
+		                            </menupopup>
+		                        </menulist>
+		                    </vbox>
+                        </row>
+                    </rows>
+                </grid>
+                <button id="execute" label="&rptproducts.execute;" disabled="false" class="editbtns" oncommand="$do('execute', null, 'RptProducts');" />
+            </hbox>
+
+            <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
+                <!-- grippy/ -->
+            </splitter>
+
+            <hbox flex="1">
+                <groupbox flex="1">
+                    <box class="reportbox" flex="1">
+                        <browser type="content" id="preview_frame" src="rpt_template2.html" flex="1"/>
+                    </box>
+
+                </groupbox>
+                <vbox>
+                    <vbox class="ToolBar BarHeight">
+
+                        <vivibutton id="export_pdf" label="&rptproducts.exportpdf;" disabled="false" class="editbtns" oncommand="$do('exportPdf', null, 'RptProducts');" />
+                        <vivibutton id="export_csv" label="&rptproducts.exportcsv;" disabled="true" class="editbtns" oncommand="$do('exportCsv', null, 'RptProducts');" />
+
+                        <vivibutton id="togglesize" label="&rptproducts.togglezoom;" disabled="false" class="editbtns" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
+                        <spacer flex="1" />
+                    </vbox>
+                    <hbox id="dialogButtons" class="dialogbtns" pack="end">
+                        <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                    </hbox>
+                </vbox>
+            </hbox>
+        </vbox>
+    </vbox>
+
+</window>

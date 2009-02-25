@@ -46,8 +46,24 @@
                             </vbox>
                         </row>
                         <row>
-                            <label value="&rpthourlysales.machineid;" />
-                            <textbox id="machine_id" value='' width="300"/>
+                        	<vbox>
+                        		<label value="&rpthourlysales.sortby;" />
+				                <menulist id="sortby">
+				                    <menupopup id="sortby_menupopup">
+				                        <menuitem selected="true" label="[&rpthourlysales.all;]" value="all" />
+				                        <menuitem selected="true" label="&rpthourlysales.terminal_no;" value="terminal_no" />
+				                        <menuitem selected="true" label="&rpthourlysales.Hour;" value="Hour" />
+				                        <menuitem selected="true" label="&rpthourlysales.HourTotal;" value="HourTotal" />
+				                        <menuitem selected="true" label="&rpthourlysales.OrderNum;" value="OrderNum" />
+				                        <menuitem selected="true" label="&rpthourlysales.Guests;" value="Guests" />
+				                        <menuitem selected="true" label="&rpthourlysales.ItemsCount;" value="ItemsCount" />
+				                    </menupopup>
+				                </menulist>
+				            </vbox>
+				            <vbox>
+		                        <label value="&rpthourlysales.machineid;" />
+		                        <textbox id="machine_id" value='' width="300"/>
+		                    </vbox>
                         </row>
                     </rows>
                 </grid>

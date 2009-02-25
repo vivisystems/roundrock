@@ -1,6 +1,6 @@
 #!/bin/sh
 APP_DIR=`dirname $0`/../../;
-SDK_DIR="$APP_DIR../vivipos_sdk";
+SDK_DIR="$APP_DIR../../vivipos_sdk";
 
 #flag=
 #if [ -f messages.pot ]; then

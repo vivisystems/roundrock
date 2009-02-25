@@ -1,5 +1,8 @@
 <!ENTITY    condiments.group         "Condiment Group">
 <!ENTITY    condiments.group.name      "Group Name">
+<!ENTITY    condiments.group.seltype      "Select Type">
+<!ENTITY    condiments.group.single      "Single">
+<!ENTITY    condiments.group.multiple      "Multiple">
 <!ENTITY    condiments.button.action.add   "Add">
 <!ENTITY    condiments.button.action.modify   "Modify">
 <!ENTITY    condiments.button.action.delete   "Delete">

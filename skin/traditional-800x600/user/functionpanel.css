@@ -223,4 +223,63 @@ vivifunctionpanelecr vivibutton[disabled=false]:active {
     -moz-border-left-colors: #444 #222;
 }
 
-/* button baseclass */
+/*-----------------------------------------------------------------------------
+ * Function Panel toolbar
+ *-----------------------------------------------------------------------------
+ */
+
+#toolbar {
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+/* toggle button */
+
+.togglefunctionpanel {
+  border: 0px solid;
+  max-height: 32px;
+  min-height: 32px;
+  max-width: 32px;
+  min-width: 32px;
+  height: 32px;
+  width: 32px;
+  margin: 2px;
+  -moz-user-focus: ignore;
+  -moz-appearance: none;
+}
+
+.togglefunctionpanel[state=true] {
+  border: 0px solid;
+  background: transparent url(images/maximize.png) -32px 0 no-repeat !important;
+  max-height: 32px;
+  min-height: 32px;
+  max-width: 32px;
+  min-width: 32px;
+  height: 32px;
+  width: 32px;
+  margin: 2px;
+  -moz-user-focus: ignore;
+  -moz-appearance: none;
+}
+
+.togglefunctionpanel[state=true]:active {
+	background-position:-32px 0;
+}
+
+.togglefunctionpanel[state=false] {
+    background: transparent url(images/minimize.png) 0 0 no-repeat;
+}
+
+.togglefunctionpanel[state=false]:active {
+	background-position:-32px 0;
+}
+
+/* clockin/out button */
+
+.clockinout {
+    background: transparent url(images/clock.png) center center no-repeat;
+}
+
+.options {
+    background: transparent url(images/option.png) center center no-repeat;
+}

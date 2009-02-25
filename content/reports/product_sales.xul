@@ -50,8 +50,23 @@
                             <textbox id="department" value='' readonly="true" width="300"/>
                         </row -->
                         <row>
-                            <label value="&productsales.machineid;" />
-                            <textbox id="machine_id" value='' width="300"/>
+                        	<vbox>
+		                    	<label value="&productsales.sortby;" />
+				                <menulist id="sortby">
+				                    <menupopup id="sortby_menupopup">
+				                        <menuitem selected="true" label="[&productsales.all;]" value="all" />
+				                        <menuitem selected="false" label="&productsales.product_no;" value="product_no" />
+				                        <menuitem selected="false" label="&productsales.product_name;" value="product_name" />
+				                        <menuitem selected="false" label="&productsales.avg_price;" value="avg_price" />
+				                        <menuitem selected="false" label="&productsales.qty;" value="qty" />
+				                        <menuitem selected="false" label="&productsales.total;" value="total" />
+				                    </menupopup>
+				                </menulist>
+				            </vbox>
+				            <vbox>
+		                        <label value="&productsales.machineid;" />
+		                        <textbox id="machine_id" value='' width="300"/>
+		                    </vbox>
                         </row>
                     </rows>
                 </grid>
@@ -76,11 +91,27 @@
                 <!-- grippy/ -->
             </splitter>
 
-            <box class="reportbox" flex="1">
-                <html:div id="preview_div" class="report" >
+            <hbox flex="1">
+                <groupbox flex="1">
+                    <box class="reportbox" flex="1">
+                        <browser type="content" id="preview_frame" src="rpt_template2.html" flex="1"/>
+                    </box>
 
-                </html:div>
-            </box>
+                </groupbox>
+                <vbox>
+                    <vbox class="ToolBar BarHeight">
+                        <vivibutton id="export_pdf" label="&productsales.exportpdf;" disabled="false" class="editbtns" oncommand="$do('exportPdf', null, 'ProductSales');" />
+                        <vivibutton id="export_csv" label="&productsales.exportcsv;" disabled="false" class="editbtns" oncommand="$do('exportCsv', null, 'ProductSales');" />
+
+                        <vivibutton id="togglesize" label="&productsales.togglezoom;" disabled="false" class="editbtns" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
+                        <spacer flex="1" />
+                    </vbox>
+                    <hbox id="dialogButtons" class="dialogbtns" pack="end">
+                        <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                        <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle()" class="VkbBtn"/>
+                    </hbox>
+                </vbox>
+            </hbox>
         </vbox>
     </vbox>
   

@@ -64,6 +64,10 @@
             var groupby;
 
             var orderby = 'products.cate_no,products.no';
+            
+            var sortby = document.getElementById( 'sortby' ).value;
+            if ( sortby != 'all' )
+            	orderby = 'products.' + sortby;
 
             var prod = new ProductModel();
             var prodDatas = prod.find('all', { fields: fields, conditions: conditions, order: orderby });
@@ -122,11 +126,12 @@
 
             this.BrowserPrint.getPrintSettings();
             this.BrowserPrint.setPaperSizeUnit(1);
-            this.BrowserPrint.setPaperSize(297, 210);
-            this.BrowserPrint.setPaperEdge(20, 20, 20, 20);
+            this.BrowserPrint.setPaperSize(210, 297);
+            //this.BrowserPrint.setPaperEdge( 1, 1, 1, 1 );
+            //this.BrowserPrint.setPaperMargin( 0, 0, 1, 0 );
 
             this.BrowserPrint.getWebBrowserPrint('preview_frame');
-            this.BrowserPrint.printToPdf("/var/tmp/stocks.pdf");
+            this.BrowserPrint.printToPdf("/var/tmp/product_sales.pdf");
         },
 
         exportCsv: function() {

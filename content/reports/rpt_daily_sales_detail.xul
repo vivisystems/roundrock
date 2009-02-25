@@ -44,9 +44,23 @@
                                 <vividatetimepicker id="end_date" value='' type="popup"/>
                             </vbox>
                         </row>
-                        <row>
-                            <label value="&rptdailysalesdetail.machineid;" />
-                            <textbox id="machine_id" value=''/>
+                        		<label value="&rptdailysalesdetail.sortby;" />
+			                    <menulist id="sortby">
+			                        <menupopup id="sortby_menupopup">
+			                            <menuitem selected="true" label="[&rptdailysalesdetail.all;]" value="all" />
+			                            <menuitem selected="true" label="&rptdailysalesdetail.terminal_no;" value="terminal_no" />
+			                            <menuitem selected="true" label="&rptdailysalesdetail.transaction_created;" value="transaction_created" />
+			                            <menuitem selected="true" label="&rptdailysalesdetail.sequence;" value="sequence" />
+			                            <menuitem selected="true" label="&rptdailysalesdetail.total;" value="total" />
+			                            <menuitem selected="true" label="&rptdailysalesdetail.guests;" value="no_of_customers" />
+			                            <menuitem selected="true" label="&rptdailysalesdetail.items;" value="items_count" />
+			                        </menupopup>
+			                    </menulist>
+			                </vbox>
+			                <vbox>
+		                        <label value="&rptdailysalesdetail.machineid;" />
+		                        <textbox id="machine_id" value='' width="300"/>
+                            </vbox>
                         </row>
                     </rows>
                 </grid>

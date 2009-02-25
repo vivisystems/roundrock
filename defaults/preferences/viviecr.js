@@ -479,6 +479,10 @@ pref("vivipos.fec.reportpanels.salessummary.path", "chrome://viviecr/content/rep
 pref("vivipos.fec.reportpanels.salessummary.icon", "chrome://viviecr/content/skin/icons/reporticon_salelist.png");
 pref("vivipos.fec.reportpanels.salessummary.roles", "acl_public_access");
 
+pref("vivipos.fec.reportpanels.dailysalessummary.label", "Daily Sales Summary");
+pref("vivipos.fec.reportpanels.dailysalessummary.path", "chrome://viviecr/content/reports/rpt_daily_sales_summary.xul");
+pref("vivipos.fec.reportpanels.dailysalessummary.icon", "chrome://viviecr/content/skin/icons/editcopy.png");
+pref("vivipos.fec.reportpanels.dailysalessummary.roles", "acl_public_access");
  
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-42c.label", "Sample Receipt 42c condensed");
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-42c.type", "receipt");

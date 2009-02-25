@@ -24,7 +24,7 @@
             // initialize main thread
             this._main = GREUtils.Thread.getMainThread();
 
-            // add event listener for onSubmit events
+            // add event listener for onSubmit & onStore events
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             if(cart) {
                 cart.addEventListener('onSubmit', this.submitOrder, this);

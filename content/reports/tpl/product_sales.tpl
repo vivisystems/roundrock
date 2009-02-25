@@ -1,72 +1,73 @@
+<div class="paper">
+    <img src="chrome://viviecr/content/skin/images/logo.png" />
+    <br />
 
-<html:div class="paper">
-    <html:img src="chrome://viviecr/content/skin/images/logo.png" />
-    <html:br />
-
-    <html:table>
-        <html:tr>
-            <html:td>
+    <table>
+        <tr>
+            <td>
             Start:
-            </html:td>
-            <html:td>
+            </td>
+            <td>
             ${head.start_date}
-            </html:td>
-        </html:tr>
-        <html:tr>
-            <html:td>
+            </td>
+        </tr>
+        <tr>
+            <td>
             End:
-            </html:td>
-            <html:td>
+            </td>
+            <td>
             ${head.end_date}
-            </html:td>
-        </html:tr>
+            </td>
+        </tr>
         <!-- html:tr>
-            <html:td>
+            <td>
             Department:
-            </html:td>
-            <html:td>
+            </td>
+            <td>
             ${head.department}
-            </html:td>
-        </html:tr -->
-        <html:tr>
-            <html:td>
+            </td>
+        </tr -->
+        <tr>
+            <td>
             Machine Id:
-            </html:td>
-            <html:td>
+            </td>
+            <td>
             ${head.machine_id}
-            </html:td>
-        </html:tr>
-    </html:table>
+            </td>
+        </tr>
+    </table>
 
-    <html:table id="body-table">
-        <html:caption>${head.title}</html:caption>
-        <html:thead>
-            <html:tr>
-                <html:th>No</html:th>
-                <html:th>Name</html:th>
-                <html:th>Qty</html:th>
-                <html:th>Total</html:th>
-            </html:tr>
-        </html:thead>
-        <html:tbody>
+    <table id="body-table">
+        <caption>${head.title}</caption>
+        <thead>
+            <tr>
+                <th style="text-align: left;">No</th>
+                <th style="text-align: left;">Name</th>
+                <th style="text-align: right;">Avg. Price</th>
+                <th style="text-align: right;">Qty</th>
+                <th style="text-align: right;">Total</th>
+            </tr>
+        </thead>
+        <tbody>
 {for item in body}
-            <html:tr>
-                <html:td style="text-align: left;">${item.product_no}</html:td>
-                <html:td style="text-align: left;">${item.product_name}</html:td>
-                <html:td>${item.qty}</html:td>
-                <html:td>${item.total}</html:td>
-            </html:tr>
+            <tr>
+                <td style="text-align: left;">${item.product_no}</td>
+                <td style="text-align: left;">${item.product_name}</td>
+                <td>${item.avg_price}</td>
+                <td>${item.qty}</td>
+                <td>${item.total}</td>
+            </tr>
 {/for}
-        </html:tbody>
-        <html:tfoot>
-            <html:tr>
-                <html:td colspan="2">Summary:</html:td>
-                <html:td>${foot.qty}</html:td>
-                <html:td>${foot.summary}</html:td>
-            </html:tr>
-        </html:tfoot>
-    </html:table>
-    <html:br />
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3">Summary:</td>
+                <td>${foot.qty}</td>
+                <td>${foot.summary}</td>
+            </tr>
+        </tfoot>
+    </table>
+    <br />
     Printed:${printedtime}
-</html:div>
-<html:br />
+</div>
+<br />
