@@ -2665,48 +2665,45 @@
                 
             }
 
-            return d
+            return d;
 
         },
 
         getCondimentsDialog: function (condgroup, condiments, forceModal) {
 
-            if (condiments == null) {
-                var condGroups = GeckoJS.Session.get('condGroups');
-                if (!condGroups) {
-                    var condGroupModel = new CondimentGroupModel();
-                    var condGroups = condGroupModel.find('all', {
-                        recursive: 2
-                    });
-                    GeckoJS.Session.add('condGroups', condGroups);
-                    condGroups = GeckoJS.Session.get('condGroups');
+                var condGroupsById = GeckoJS.Session.get('condGroupsById');
+
+                // not initial , initial again!
+                if (!condGroupsById) {
+                    try {
+                        GeckoJS.Controller.getInstanceByName('Condiments').initial();
+                        condGroupsById = GeckoJS.Session.get('condGroupsById');
+                    }catch(e) {}
                 }
 
-                var i = -1;
-                var index = -1;
+                var itemCondGroups = condgroup.split(',');
 
-                for each (var o in condGroups) {
-                    //condGroups.forEach(function(o) {
-                    i++;
-                    if (o.id == condgroup) {
-                        index = i
-                        break;
-                    }
-                }
-
-                if (typeof condGroups[index] == 'undefined') return null;
-
-                var conds = condGroups[index]['Condiment'];
+                var selectCondiments = [];
                 var selectedItems = [];
 
-                if (conds != null) {
-                    for (var i = 0; i < conds.length; i++) {
-                        if (conds[i].preset) selectedItems.push(i);
+                itemCondGroups.forEach(function(itemCondGroup){
+                    
+                    if(!condGroupsById[itemCondGroup]) return false;
+
+                    selectCondiments = selectCondiments.concat(condGroupsById[itemCondGroup]['Condiment']);
+
+                });
+
+                for(var i = 0 ; i < selectCondiments.length; i++ ) {
+                    if (condiments == null) {
+                        if(selectCondiments[i]['preset']) selectedItems.push(i);
+                    }else {
+                        // check item selected condiments
+                        if (condiments[selectCondiments[i]['name']]) selectedItems.push(i);
                     }
                 }
-            }
 
-            var dialog_data = {conds: conds, selectedItems: selectedItems};
+            var dialog_data = {conds: selectCondiments, selectedItems: selectedItems};
 
             var self = this;
             return $.popupPanel('selectCondimentPanel', dialog_data).next(function(evt){
@@ -2717,6 +2714,8 @@
                     var curTransaction = self._getTransaction();
 
                     if(curTransaction != null && index >=0) {
+
+                        // self.log(self.dump(curTransaction.data));
                         curTransaction.appendCondiment(index, selectedCondiments);
                         self.dispatchEvent('afterAddCondiment', selectedCondiments);
                     }

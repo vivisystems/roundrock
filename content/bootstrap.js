@@ -54,7 +54,6 @@ include('chrome://viviecr/content/helpers/nsi_plugroups_view.js');
 include('chrome://viviecr/content/helpers/nsi_rolegroups_view.js');
 include('chrome://viviecr/content/helpers/nsi_taxes_view.js');
 
-
 // include project components
 include('chrome://viviecr/content/controllers/components/barcode.js');
 include('chrome://viviecr/content/controllers/components/tax.js');

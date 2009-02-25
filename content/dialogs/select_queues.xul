@@ -19,7 +19,7 @@
 
     <popupset id="dialogs">
 
-        <vivipanel id="selectQueuesPanel">
+        <panel id="selectQueuesPanel" noautohide="true">
 
             <hbox flex="1" class="main-dialog" pack="center" style="width: 680px; max-width: 680px; height: 580px; max-height: 580px;">
 
@@ -51,11 +51,10 @@
 
                     <hbox>
                         <hbox class="ToolBar" flex="1">
+                            <spacer flex="1"/>
                             <button class="okBtn" label="&dialog.okButton.label;" default="true" oncommand="$.hidePanel('selectQueuesPanel', true)"/>
                             <button class="cancelBtn" label="&dialog.cancelButton.label;" default="true" oncommand="$.hidePanel('selectQueuesPanel', false)"/>
-                        </hbox>
-                        <hbox id="dialogButtons" class="dialogbtns" pack="center">
-                            <button class="VkbBtn" label=""  oncommand="VirtualKeyboard.toggle();" />
+                            <spacer flex="1"/>
                         </hbox>
                     </hbox>
 
@@ -63,7 +62,7 @@
 
             </hbox>
 
-        </vivipanel>
+        </panel>
 
     </popupset>
 

@@ -18,7 +18,7 @@
 
     <popupset id="dialogs">
 
-        <vivipanel id="creditcardRemarkPanel">
+        <panel id="creditcardRemarkPanel" noautohide="true">
 
             <hbox class="pop-dialog" flex="1" pack="center" style="width: 640px; max-width: 640px; height: 560px; max-height: 560px;">
 
@@ -47,7 +47,7 @@
                     </grid>
 
                     <hbox pack="center">
-                        <numberpad id="creditcardRemark-multinumberpad" class="numpad" target="plu" style="padding: 0;"/>
+                        <numberpad id="creditcardRemark-multinumberpad" class="numpad" style="padding: 0;"/>
                         <vbox pack="end">
                             <sendkeybutton id="creditcardRemark-bkeyBtn"  label="&creditcard.button.action.del;" keyCode='0x08' target="plu" class="fixedbtn"  />
                             <sendkeybutton id="creditcardRemark-clearBtn"  label="&creditcard.button.action.clear;" class="fixedbtn"/>
@@ -70,7 +70,7 @@
 
             </hbox>
 
-        </vivipanel>
+        </panel>
 
     </popupset>
 

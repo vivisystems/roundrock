@@ -127,7 +127,25 @@ pref("vivipos.fec.settings.controlpanels.config.functionpanel.label", "Function 
 pref("vivipos.fec.settings.controlpanels.config.functionpanel.path", "chrome://viviecr/content/funcpanelecrprefs.xul");
 pref("vivipos.fec.settings.controlpanels.config.functionpanel.icon", "chrome://viviecr/skin/icons/icon_functionpnl.png");
 pref("vivipos.fec.settings.controlpanels.config.functionpanel.roles", "acl_manage_function_panel");
- 
+
+
+pref("vivipos.fec.settings.controlpanels.system.network_setting.label", "Network Setting");
+pref("vivipos.fec.settings.controlpanels.system.network_setting.type", "application");
+pref("vivipos.fec.settings.controlpanels.system.network_setting.path", "/usr/bin/wicd-client -n");
+pref("vivipos.fec.settings.controlpanels.system.network_setting.icon", "chrome://viviecr/content/skin/icons/gnome-run.png");
+pref("vivipos.fec.settings.controlpanels.system.network_setting.roles", "acl_manage_network_setting");
+
+pref("vivipos.fec.settings.controlpanels.config.hotkey.label", "HotKey Configuration");
+pref("vivipos.fec.settings.controlpanels.config.hotkey.path", "chrome://viviecr/content/hotkey_prefs.xul");
+pref("vivipos.fec.settings.controlpanels.config.hotkey.icon", "chrome://viviecr/skin/icons/icon_hotkey.png");
+pref("vivipos.fec.settings.controlpanels.config.hotkey.roles", "acl_manage_hotkey");
+
+pref("vivipos.fec.settings.controlpanels.config.addons.label", "Add-ons");
+pref("vivipos.fec.settings.controlpanels.config.addons.path", "chrome://mozapps/content/extensions/extensions.xul");
+pref("vivipos.fec.settings.controlpanels.config.addons.features", "chrome,menubar,extra-chrome,toolbar,centerscreen,dialog=no");
+pref("vivipos.fec.settings.controlpanels.config.addons.icon", "chrome://viviecr/skin/icons/icon_addons.png");
+pref("vivipos.fec.settings.controlpanels.config.addons.roles", "acl_manage_addons");
+
 pref("vivipos.fec.registry.function.programmable.tagitem.access", "acl_tag_item");
 pref("vivipos.fec.registry.function.programmable.tagitem.command", "tagItem");
 pref("vivipos.fec.registry.function.programmable.tagitem.controller", "Cart");
@@ -585,8 +603,3 @@ pref("vivipos.fec.registry.devicemodels.vfdgeneric.type", "vfd");
 pref("vivipos.fec.registry.devicemodels.vfdgeneric.path", "chrome://viviecr/content/devices/commands/vfdgeneric.cmd");
 pref("vivipos.fec.registry.devicemodels.vfdgeneric.encodings", "English=US-ASCII");
  
-pref("vivipos.fec.settings.controlpanels.system.network_setting.label", "Network Setting");
-pref("vivipos.fec.settings.controlpanels.system.network_setting.type", "application");
-pref("vivipos.fec.settings.controlpanels.system.network_setting.path", "/usr/bin/wicd-client -n");
-pref("vivipos.fec.settings.controlpanels.system.network_setting.icon", "chrome://viviecr/content/skin/icons/gnome-run.png");
-pref("vivipos.fec.settings.controlpanels.system.network_setting.roles", "acl_manage_network_setting");
