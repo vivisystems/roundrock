@@ -54,12 +54,15 @@
 			                            <menuitem selected="false" label="&rptdailysales.transaction_created;" value="transaction_created" />
 			                            <menuitem selected="false" label="&rptdailysales.sequence;" value="sequence" />
 			                            <menuitem selected="false" label="&rptdailysales.invoice_no;" value="invoice_no" />
-			                            <menuitem selected="false" label="&rptdailysales.total;" value="total" />
+			                            <menuitem selected="false" label="&rptdailysales.item_subtotal;" value="item_subtotal" />
+			                            <menuitem selected="false" label="&rptdailysales.tax_subtotal;" value="tax_subtotal" />
 			                            <menuitem selected="false" label="&rptdailysales.surcharge_subtotal;" value="surcharge_subtotal" />
 			                            <menuitem selected="false" label="&rptdailysales.discount_subtotal;" value="discount_subtotal" />
+			                            <menuitem selected="false" label="&rptdailysales.total;" value="total" />
 			                            <menuitem selected="false" label="&rptdailysales.cash;" value="cash" />
 			                            <menuitem selected="false" label="&rptdailysales.creditcard;" value="creditcard" />
 			                            <menuitem selected="false" label="&rptdailysales.coupon;" value="coupon" />
+			                            <menuitem selected="false" label="&rptdailysales.giftcard;" value="giftcard" />
 			                        </menupopup>
 			                    </menulist>
 	                        </vbox>

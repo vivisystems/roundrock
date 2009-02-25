@@ -11,7 +11,11 @@
 <!ENTITY rptdailysalesdetail.terminal_no "Terminal No.">
 <!ENTITY rptdailysalesdetail.transaction_created "Time">
 <!ENTITY rptdailysalesdetail.sequence "Sequence">
-<!ENTITY rptdailysalesdetail.total "Total">
+<!ENTITY rptdailysalesdetail.item_subtotal "Total">
+<!ENTITY rptdailysalesdetail.tax_subtotal "Add-on Tax">
+<!ENTITY rptdailysalesdetail.surcharge_subtotal "Surcharge">
+<!ENTITY rptdailysalesdetail.discount_subtotal "Discount">
+<!ENTITY rptdailysalesdetail.total "Payment">
 <!ENTITY rptdailysalesdetail.guests "Guests">
 <!ENTITY rptdailysalesdetail.items "Items">
 <!ENTITY rptdailysalesdetail.all "List All">
