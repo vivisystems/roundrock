@@ -77,6 +77,8 @@
         <body><![CDATA[
           var scrollUnit = this.getAttribute('scrollUnit') || 'line';
           var dir = event.originalTarget == this._scrollButtonUp ? -1 : 1;
+          var scrollUnit = this.getAttribute('scrollUnit') || 'line';
+
           if (scrollUnit == 'page')
               this.scrollByPages(dir);
           else

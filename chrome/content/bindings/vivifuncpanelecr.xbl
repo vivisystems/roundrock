@@ -1574,6 +1574,7 @@
                     //alert('entering renderKeymap: ' + this.getAttribute('height'));
                     var r = this.row;
                     var c = this.column;
+                    var id = this.getAttribute('id');
 
                     var gkeymap = this.getPageKeymap('global');
                     var lkeymap = this.getPageKeymap(page);
@@ -1703,15 +1704,21 @@
                                     
                                         var iData = datas[j];
                                         var iController = controllers[j];
+                                        var command;
                                         
                                         if (!iData) iData = lastData;
                                         if (!iController) iController = lastController;
-                                        
-                                        var command = '$do("' + cmds[j] + '","' + ((iData == null) ? '' : iData) + '","' + iController + '")';
 
+                                        if (cmds[j] == 'internal' && iController != null && id != null) {
+                                            command = 'document.getElementById("' + id + '").' + iController + '(' + ((iData == null) ? '' : '"' + iData + '"') + ')';
+                                        }
+                                        else {
+                                            command = '$do("' + cmds[j] + '","' + ((iData == null) ? '' : iData) + '","' + iController + '")';
+                                        }
                                         //GREUtils.log('[KEYMAP]: adding command <' + command + '>');
 
-                                        cmdLine.push(command);
+                                        if (command != null && command != '')
+                                            cmdLine.push(command);
 
                                         lastData = iData;
                                         lastController = iController;
@@ -1868,6 +1875,43 @@
                 </body>
             </method>
 
+            <method name="getInternalFunctionList">
+                <body>
+                <![CDATA[
+                    return [
+                        // next panel
+                        {access: 'acl_scroll_function_panel',
+                         command: 'internal',
+                         controller: 'next',
+                         data: '',
+                         name: _('Scroll Forward'),
+                         label: _('Next'),
+                         desc: _('This function scrolls the function panel to the next page')
+                        },
+
+                        // prev panel
+                        {access: 'acl_scroll_function_panel',
+                         command: 'internal',
+                         controller: 'prev',
+                         data: '',
+                         name: _('Scroll Backward'),
+                         label: _('Back'),
+                         desc: _('This function scrolls the function panel to the previous page')
+                        },
+
+                        // home panel
+                        {access: 'acl_scroll_function_panel',
+                         command: 'internal',
+                         controller: 'home',
+                         data: '',
+                         name: _('Home Page'),
+                         label: _('Home'),
+                         desc: _('This function scrolls the function panel to the home page')
+                        }
+                    ];
+                ]]>
+                </body>
+            </method>
             <!-- set the button layout -->
             <method name="setLayout">
                 <parameter name="page"/>
