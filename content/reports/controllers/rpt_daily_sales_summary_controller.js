@@ -128,11 +128,16 @@
                     if (!repDatas[oid]) {
                         repDatas[oid] = GREUtils.extend({}, o); // {cash:0, creditcard: 0, coupon: 0}, o);
                     }
-                    repDatas[oid][o.payment_name] = o.payment_subtotal;
+
+                    repDatas[oid][ 'cash' ] = 0.0;
+                    repDatas[oid][ 'creditcard' ] = 0.0;
+                    repDatas[oid][ 'coupon' ] = 0.0;
+                    repDatas[oid][o.payment_name] += o.payment_subtotal;
+
                     tmp_oid = oid;
                 } else {
                     repDatas[ tmp_oid ][ o.payment_name ] = o.payment_subtotal;
-                    repDatas[ tmp_oid ][ 'total' ] += o.payment_subtotal;
+                    repDatas[ tmp_oid ][ 'total' ] += o.total;
                     repDatas[ tmp_oid ][ 'surcharge_subtotal' ] += o.surcharge_subtotal;
                     repDatas[ tmp_oid ][ 'discount_subtotal' ] += o.discount_subtotal;
                 }
@@ -144,10 +149,30 @@
               
                 old_oid = oid;
                 old_terminal = terminal;
-            
             });
+            
+            var orderedData = [];
+           	var counter = 0;
+           	
+           	for ( p in repDatas ) {
+           		orderedData[ counter++ ] = GREUtils.extend({}, repDatas[ p ] );
+           	}
+           	
+            var sortby = document.getElementById( 'sortby' ).value;
 
-            this._datas = GeckoJS.BaseObject.getValues(repDatas);
+            if ( sortby != 'all' ) {
+		        function sortFunction( a, b ) {
+		        	var a = a[ sortby ];
+		        	var b = b[ sortby ];
+				    if ( a > b ) return 1;
+				    if ( a < b ) return -1;
+				    return 0;
+            	}
+            	
+            	orderedData.sort( sortFunction );
+            }
+            
+            this._datas = GeckoJS.BaseObject.getValues(orderedData);
 
             var data = {
                 head: {

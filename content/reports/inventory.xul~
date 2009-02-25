@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE overlay [
+  <!ENTITY % Overlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Overlay;
+  <!ENTITY % inventory SYSTEM "chrome://viviecr/locale/reports/inventory.dtd">
+  %inventory;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/content/reports/tpl/rpt_products.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/reports.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+
+<window id="main" 
+        hidechrome="true"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        xmlns:html="http://www.w3.org/1999/xhtml">
+
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/template.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/template_ext.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/inventory.js" />
+  
+    <vbox flex="1" class="main-dialog">
+        <vbox flex="1" class="MainPnl">
+            <caption label="&rptinventory.title;"  class="PageTitle"/>
+            <hbox class="TopPnl">
+                <grid class="DataForm" flex="1">
+                    <columns>
+                        <column  flex="1"/>
+                        <column flex="1" />
+                    </columns>
+                    <rows>
+                        <row>
+                        	<vbox>
+		                        <label value="&rptinventory.department;" />
+		                        <menulist id="department" flex="1">
+		                            <menupopup id="department_menupopup"  flex="1">
+		                                <menuitem selected="true" label="[&rptinventory.all;]" value="all" />
+		                            </menupopup>
+		                        </menulist>
+		                    </vbox>
+		                    <vbox>
+		                    	<label value="&rptinventory.sortby;" />
+				                <menulist id="sortby">
+				                    <menupopup id="sortby_menupopup">
+				                        <menuitem selected="true" label="[&rptinventory.all;]" value="all" />
+				                        <menuitem selected="true" label="&rptinventory.no;" value="no" />
+				                        <menuitem selected="true" label="&rptinventory.name;" value="name" />
+				                        <menuitem selected="true" label="&rptinventory.stock;" value="stock" />
+				                        <menuitem selected="true" label="&rptinventory.min_stock;" value="min_stock" />
+				                    </menupopup>
+				                </menulist>
+				            </vbox>
+                        </row>
+                    </rows>
+                </grid>
+                <button id="execute" label="&rptinventory.execute;" disabled="false" class="editbtns" oncommand="$do('execute', null, 'Inventories');" />
+            </hbox>
+
+            <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
+                <!-- grippy/ -->
+            </splitter>
+
+            <hbox flex="1">
+                <groupbox flex="1">
+                    <box class="reportbox" flex="1">
+                        <browser type="content" id="preview_frame" src="rpt_template1.html" flex="1"/>
+                    </box>
+
+                </groupbox>
+                <vbox>
+                    <vbox class="ToolBar BarHeight">
+
+                        <vivibutton id="export_pdf" label="&rptinventory.exportpdf;" disabled="false" class="editbtns" oncommand="$do('exportPdf', null, 'Inventories');" />
+                        <vivibutton id="export_csv" label="&rptinventory.exportcsv;" disabled="true" class="editbtns" oncommand="$do('exportCsv', null, 'Inventories');" />
+
+                        <vivibutton id="togglesize" label="&rptinventory.togglezoom;" disabled="false" class="editbtns" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
+                        <spacer flex="1" />
+                    </vbox>
+                    <hbox id="dialogButtons" class="dialogbtns" pack="end">
+                        <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                    </hbox>
+                </vbox>
+            </hbox>
+        </vbox>
+    </vbox>
+
+</window>

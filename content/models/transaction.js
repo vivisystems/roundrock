@@ -1983,12 +1983,16 @@
         this.data.total = this.getRoundedPrice(total);
         this.data.remain = this.getRoundedPrice(remain);
         this.data.tax_subtotal = this.getRoundedTax(tax_subtotal);
+        this.data.item_subtotal = this.getRoundedPrice(item_subtotal);
         this.data.included_tax_subtotal = this.getRoundedTax(included_tax_subtotal);
         this.data.item_surcharge_subtotal = this.getRoundedPrice(item_surcharge_subtotal);
         this.data.item_discount_subtotal = this.getRoundedPrice(item_discount_subtotal);
         this.data.trans_surcharge_subtotal = this.getRoundedPrice(trans_surcharge_subtotal);
         this.data.trans_discount_subtotal = this.getRoundedPrice(trans_discount_subtotal);
         this.data.payment_subtotal = this.getRoundedPrice(payment_subtotal);
+
+        this.data.discount_subtotal = this.data.item_discount_subtotal + this.data.trans_discount_subtotal ;
+        this.data.surcharge_subtotal = this.data.item_surcharge_subtotal + this.data.trans_surcharge_subtotal;
 
         Transaction.events.dispatch('afterCalcTotal', this.data, this);
 

@@ -86,6 +86,17 @@
 
             var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
             var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
+            
+            var sortby = document.getElementById( 'sortby' ).value;
+            if ( sortby != 'all' ) {
+            	datas.sort(
+            		function ( a, b ) {
+            			if ( a[ sortby ] > b[ sortby ] ) return 1;
+            			if ( a[ sortby ] < b[ sortby ] ) return -1;
+            			return 0;
+            		}
+            	);
+            }
 
             var HourTotal = 0;
             var OrderNum = 0;

@@ -83,6 +83,10 @@
 
             var groupby = null;
             var orderby = 'orders.terminal_no,orders.transaction_created';
+            
+            var sortby = document.getElementById( 'sortby' ).value;
+            if ( sortby != 'all' )
+            	orderby = 'orders.' + sortby;
 
             var order = new OrderModel();
             var datas = order.find('all',{fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 2});
