@@ -2563,9 +2563,33 @@
                 return;
             }
 
+            if (this.dispatchEvent('beforePreFinalize', curTransaction)) {
+                return;
+            }
             // if destination is given, then items in cart are first validated to make sure
             // their destinations match the given destination
+            if (dest != null) {
+                var mismatch = false;
+                if (curTransaction.data.destination != dest) {
+                    mismatch = true;
+                }
+                else {
+                    var items = curTransaction.getItems();
+                    for (var index in items) {
+                        if (items[index].destination != dest) {
+                            mismatch = true;
+                            break;
+                        }
+                    }
+                }
 
+                if (mismatch) {
+                    if (GREUtils.Dialog.confirm(null, _('confirm destination'),
+                                                _('Destinations other than [%S] found in the order, proceed with pre-finalization?', [dest])) == false) {
+                        return;
+                    }
+                }
+            }
             // next, prompts for customer# if not already given
 
             // then, prompts for additional annotation (such as ID of deliverer)
@@ -2581,6 +2605,8 @@
 
             // @todo OSD
             NotifyUtils.warn(_('Order# [%S] has been pre-finalized', [curTransaction.data.seq]));
+
+            this.dispatchEvent('afterPreFinalize', curTransaction);
         },
 
         cash: function(amount) {

@@ -1156,7 +1156,7 @@ msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:357
 #: ../..//content/controllers/cart_controller.js:613
-#: ../..//content/controllers/cart_controller.js:2621
+#: ../..//content/controllers/cart_controller.js:2627
 msgid "This order is being finalized and items may not be modified"
 msgstr ""
 
@@ -1171,15 +1171,15 @@ msgstr ""
 #: ../..//content/controllers/cart_controller.js:1302
 #: ../..//content/controllers/cart_controller.js:1535
 #: ../..//content/controllers/cart_controller.js:2348
-#: ../..//content/controllers/cart_controller.js:2629
-#: ../..//content/controllers/cart_controller.js:2777
+#: ../..//content/controllers/cart_controller.js:2635
+#: ../..//content/controllers/cart_controller.js:2783
 msgid "Please select an item first"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:381
 #: ../..//content/controllers/cart_controller.js:629
-#: ../..//content/controllers/cart_controller.js:2635
-#: ../..//content/controllers/cart_controller.js:2783
+#: ../..//content/controllers/cart_controller.js:2641
+#: ../..//content/controllers/cart_controller.js:2789
 msgid "Stored items may not be modified"
 msgstr ""
 
@@ -1279,12 +1279,12 @@ msgid "Cannot VOID an entry that has been subtotaled"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:949
-#: ../..//content/controllers/cart_controller.js:2668
+#: ../..//content/controllers/cart_controller.js:2674
 msgid "Please void discount on item [%S] first"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:955
-#: ../..//content/controllers/cart_controller.js:2673
+#: ../..//content/controllers/cart_controller.js:2679
 msgid "Please void surcharge on item [%S] first"
 msgstr ""
 
@@ -1554,102 +1554,106 @@ msgstr ""
 msgid "Are you sure you want to discard changes made to this order?"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2554
+#: ../..//content/controllers/cart_controller.js:2557
 msgid "Not an open order; cannot pre-finalize order"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2559
+#: ../..//content/controllers/cart_controller.js:2562
 msgid "Order is already pre-finalized"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2574
+#: ../..//content/controllers/cart_controller.js:2577
 msgid "PRE-FINALIZED"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2577
+#: ../..//content/controllers/cart_controller.js:2583
 msgid "Order# [%S] has been pre-finalized"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2603
-#: ../..//content/controllers/cart_controller.js:2614
+#: ../..//content/controllers/cart_controller.js:2609
+#: ../..//content/controllers/cart_controller.js:2620
 msgid "Not an open order; cannot add condiment"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2652
+#: ../..//content/controllers/cart_controller.js:2658
 msgid "Condiments may not be added to [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2658
+#: ../..//content/controllers/cart_controller.js:2664
 msgid "Condiments may not be added to a return item [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2663
+#: ../..//content/controllers/cart_controller.js:2669
 msgid "Cannot add condiments to an item that has been subtotaled"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2685
+#: ../..//content/controllers/cart_controller.js:2691
 msgid "No Condiment group associated with item [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2766
 #: ../..//content/controllers/cart_controller.js:2772
+#: ../..//content/controllers/cart_controller.js:2778
 msgid "Not an open order; cannot add memo"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2832
+#: ../..//content/controllers/cart_controller.js:2838
 msgid "Add Memo"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2834
+#: ../..//content/controllers/cart_controller.js:2840
 msgid "Memo"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2930
+#: ../..//content/controllers/cart_controller.js:2936
 msgid "No open order to push"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2935
+#: ../..//content/controllers/cart_controller.js:2941
 msgid "No open order to queue"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2940
+#: ../..//content/controllers/cart_controller.js:2946
 msgid "Can not queue the recalled order!!"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2974
+#: ../..//content/controllers/cart_controller.js:2980
 msgid "Order is not queued because it is empty"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3079
+#: ../..//content/controllers/cart_controller.js:3085
 msgid "fatal error!!"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3109
+#: ../..//content/controllers/cart_controller.js:3115
 msgid "Check# %S is exist!!"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3125
+#: ../..//content/controllers/cart_controller.js:3131
 msgid "Table# %S is exist!!"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3134
+#: ../..//content/controllers/cart_controller.js:3140
 msgid "This order has been submitted"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3138
+#: ../..//content/controllers/cart_controller.js:3144
 msgid "This order is pending payment and may only be finalized"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3142
+#: ../..//content/controllers/cart_controller.js:3148
 msgid "This order is empty"
+msgstr ""
+
+#: ../..//content/controllers/cart_controller.js:3157
+msgid "No change to store"
 msgstr ""
 
 #: ../..//content/controllers/cashdrawer_controller.js:195
 #: ../..//content/controllers/print_controller.js:241
-#: ../..//content/controllers/print_controller.js:291
-#: ../..//content/controllers/print_controller.js:380
-#: ../..//content/controllers/print_controller.js:435
-#: ../..//content/controllers/print_controller.js:508
+#: ../..//content/controllers/print_controller.js:315
+#: ../..//content/controllers/print_controller.js:385
+#: ../..//content/controllers/print_controller.js:464
+#: ../..//content/controllers/print_controller.js:537
 #: ../..//content/controllers/vfd_controller.js:180
 msgid "Error in device manager! Please check your device configuration"
 msgstr ""
@@ -1667,13 +1671,13 @@ msgid ""
 msgstr ""
 
 #: ../..//content/controllers/cashdrawer_controller.js:301
-#: ../..//content/controllers/print_controller.js:553
+#: ../..//content/controllers/print_controller.js:582
 #: ../..//content/controllers/vfd_controller.js:254
 msgid "Specified device port [%S] does not exist!"
 msgstr ""
 
 #: ../..//content/controllers/cashdrawer_controller.js:365
-#: ../..//content/controllers/print_controller.js:751
+#: ../..//content/controllers/print_controller.js:780
 #: ../..//content/controllers/vfd_controller.js:334
 msgid "Error detected when outputing to device [%S] at port [%S]"
 msgstr ""
@@ -2472,85 +2476,93 @@ msgstr ""
 msgid "Schedule [%S - Price Level %S] removed successfully"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:230
+#: ../..//content/controllers/print_controller.js:249
 msgid "Not an open order; cannot issue receipt"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:236
+#: ../..//content/controllers/print_controller.js:255
 msgid "The order has not been finalized; cannot issue receipt"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:250
+#: ../..//content/controllers/print_controller.js:261
+msgid "No new payment made; cannot issue receipt"
+msgstr ""
+
+#: ../..//content/controllers/print_controller.js:274
 msgid "You have not configured any receipt printers"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:255
+#: ../..//content/controllers/print_controller.js:279
 msgid "All receipt printers are disabled"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:262
+#: ../..//content/controllers/print_controller.js:286
 msgid "The specified receipt printer [%S] is not configured"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:266
+#: ../..//content/controllers/print_controller.js:290
 msgid "Invalid receipt printer [%S]"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:270
+#: ../..//content/controllers/print_controller.js:294
 msgid "The specified receipt printer [%S] is not enabled"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:345
-#: ../..//content/controllers/print_controller.js:726
+#: ../..//content/controllers/print_controller.js:369
+#: ../..//content/controllers/print_controller.js:755
 msgid "A receipt has already been issued for this order on printer [%S]"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:364
+#: ../..//content/controllers/print_controller.js:393
 msgid "Not an open order; cannot issue check"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:370
+#: ../..//content/controllers/print_controller.js:399
 msgid "Cannot issue check on a canceled order"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:375
+#: ../..//content/controllers/print_controller.js:404
+msgid "Order has not been stored yet; cannot issue check"
+msgstr ""
+
+#: ../..//content/controllers/print_controller.js:409
 msgid "Nothing has been registered yet; cannot issue check"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:388
-#: ../..//content/controllers/print_controller.js:404
+#: ../..//content/controllers/print_controller.js:417
+#: ../..//content/controllers/print_controller.js:433
 msgid "You have not configured any check printers"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:393
+#: ../..//content/controllers/print_controller.js:422
 msgid "All check printers are disabled"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:408
+#: ../..//content/controllers/print_controller.js:437
 msgid "Invalid check printer [%S]"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:412
+#: ../..//content/controllers/print_controller.js:441
 msgid "The specified check printer [%S] is not enabled"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:517
+#: ../..//content/controllers/print_controller.js:546
 msgid "The specified report/label printer [%S] is not configured"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:521
+#: ../..//content/controllers/print_controller.js:550
 msgid "Invalid report/label printer [%S]"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:525
+#: ../..//content/controllers/print_controller.js:554
 msgid "The specified report/label printer [%S] is not enabled"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:546
+#: ../..//content/controllers/print_controller.js:575
 msgid "Error in Print controller: no worker thread available!"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:640
+#: ../..//content/controllers/print_controller.js:669
 msgid "Specified template [%S] is empty or does not exist!"
 msgstr ""
 
