@@ -113,14 +113,18 @@
             <vbox id=""  flex="1">
 
                 <tabbox  flex="1" crop="right" class="RightTabbox">
+                    
+                    <arrowscrollbox orient="horizontal" flex="1" class="arrowScrollBox">
                     <tabs id="tabs" >
                         <tab id="tab1" label="&plus.tab.base.data1;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
                         <tab id="tab2" label="&plus.tab.base.data2;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
                         <tab id="tab3" label="&plus.tab.setmenu;" image="chrome://viviecr/content/skin/icons/rss-24.png" orient="vertical" />
                         <tab id="tab4" label="&plus.tab.appearance;" image="chrome://viviecr/content/skin/icons/plugins-24.png" orient="vertical"/>
                         <tab id="tab5" label="&plus.tab.pricelevels;" image="chrome://viviecr/content/skin/icons/comments-24.png" orient="vertical"/>
+                        <tab id="tabCondGroups" label="&plus.tab.condimentgroups;" image="chrome://viviecr/content/skin/icons/comments-24.png" orient="vertical"/>
                         <tab id="tab6" label="&plus.tab.linkgroups;" image="chrome://viviecr/content/skin/icons/comments-24.png" orient="vertical"/>
                     </tabs>
+                    </arrowscrollbox >
 
                     <tabpanels id="tabpanels" flex="1" >
 
@@ -163,9 +167,6 @@
                                                 <textbox id="rate_name" class="ItemButtonA" value="" form="productForm" name="rate_name" default="" readonly="true" onclick="$do('getRate',this.selectedIndex,'Plus');"/>
                                             </vbox>
                                             <vbox>
-                                                <label value="&plus.product.condiments;"/>
-                                                <textbox id="cond_group_name" class="ItemButtonA" value="" form="productForm" name="cond_group_name" readonly="true" onclick="$do('getCondiment',this.selectedIndex,'Plus');"/>
-                                                <label hidden="true" id="cond_group" value="" form="productForm" name="cond_group"/>
                                             </vbox>
                                         </row>
                                     </rows>
@@ -181,16 +182,16 @@
                                             <checkbox id="return_stock" value="true" label="&plus.can.restock;" form="productForm" name="return_stock" default="0"/>
                                         </row>
                                         <row>
-                                            <checkbox id="force_condiment" value="false" label="&plus.require.condiment;" form="productForm" name="force_condiment" default="0"/>
-                                            <checkbox id="force_memo" value="false" label="&plus.require.memo;" form="productForm" name="force_memo" default="0"/>
-                                        </row>
-                                        <row>
                                             <checkbox id="singleplu" value="false" label="&plus.single.item.sale;" form="productForm" name="single" default="0"/>
                                             <checkbox id="visible" value="true" label="&plus.visible;" form="productForm" name="visible" default="1"/>
                                         </row>
                                         <row>
                                             <checkbox id="icon_only" value="false" label="&plus.display.icon.only;" form="productForm" name="icon_only" default="0"/>
                                             <checkbox id="age_verification" value="false" label="&plus.require.age.verification;" form="productForm" name="age_verification" default="0"/>
+                                        </row>
+                                        <row>
+                                            <checkbox id="force_memo" value="false" label="&plus.require.memo;" form="productForm" name="force_memo" default="0"/>
+                                            <spacer />
                                         </row>
                                     </rows>
                                 </grid>
@@ -391,6 +392,36 @@
                                         </rows>
                                     </grid>
 
+                            </vbox>
+                        </tabpanel>
+
+                        <!-- condiment Groups -->
+                        <tabpanel flex="1" >
+                            <vbox flex="1">
+
+                                <grid class="DataFormB">
+                                    <columns>
+                                        <column flex="1" /><column flex="1" />
+                                    </columns>
+                                    <rows>
+                                        <row>
+                                            <checkbox id="force_condiment" value="false" label="&plus.require.condiment;" form="productForm" name="force_condiment" default="0"/>
+                                            <spacer />
+                                        </row>
+                                    </rows>
+                                </grid>
+
+                                <groupbox flex="1">
+                                    <!--caption label="&plus.linkgroups;" /-->
+                                    <viviscrollablebuttonpanel id="condimentscrollablepanel" form="productForm" name="cond_group" default="" seltype="multiple" flex="1" cols="3" rows="6" labelField="name" imageField="no"
+                                                               oncommand=""
+                                                               class="ItemScrollablepanel"
+                                                               buttonClass="ItemButtonA"
+                                                               scrollUpClass="ScrollUp"
+                                                               scrollDownClass="ScrollDown">
+                                        <spacer flex="1"/>
+                                    </viviscrollablebuttonpanel>
+                                </groupbox>
                             </vbox>
                         </tabpanel>
 

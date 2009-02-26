@@ -24,8 +24,7 @@
     <!--script type="application/x-javascript" src="chrome://viviecr/content/controllers/sound_controller.js" /-->
     <!-- users.js & taxes.js must load before sysprefs.js -->
     <script type="application/x-javascript" src="chrome://viviecr/content/sysprefs.js" />
-    
-    
+   
     <prefpane id="generalSettingsPane" label="&category.general;" >
         <preferences>
             <preference id="pref_publicattendance" name="vivipos.fec.settings.PublicAttendance" type="bool" />

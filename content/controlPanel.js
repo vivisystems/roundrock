@@ -25,6 +25,7 @@
                 var entry = {icon: el.icon,
                              path: el.path,
                              roles: el.roles,
+                             features: (el.features || null), 
                              type:  (el.type || 'uri'),
                              label: _(el.label)}
                 return entry;
@@ -50,7 +51,8 @@ function launchControl(panel) {
         var pref = data[index];
 
         var aArguments = "";
-        var features = "chrome,popup=no,titlebar=no,toolbar,centerscreen,modal,width=" + width + ",height=" + height;
+        var features = pref['features'] || "chrome,popup=no,titlebar=no,toolbar,centerscreen";
+        features += ",modal,width=" + width + ",height=" + height;
 
         try {
             $.blockUI({
@@ -65,7 +67,7 @@ function launchControl(panel) {
             GeckoJS.BaseObject.sleep(50);
             if (pref['type'] == 'uri') {
 
-                window.openDialog(pref['path'], pref['label'], features, aArguments);
+                window.openDialog(pref['path'], pref['label'], features);
 
             }else {
 

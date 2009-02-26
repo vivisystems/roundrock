@@ -597,3 +597,10 @@ treechildren::-moz-tree-row(selected) {background-color: #92856a; }
 treechildren::-moz-tree-row(odd, selected) {background-color: #92856a; }
 treechildren::-moz-tree-cell-text(selected) {color: #FFFFFF;}
 treechildren::-moz-tree-cell-text(odd, selected) {color: #FFFFFF;}
+
+.arrowScrollBox .autorepeatbutton-up {
+   width: 40px;
+}
+.arrowScrollBox .autorepeatbutton-down {
+   width: 40px;
+}

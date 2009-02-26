@@ -6,12 +6,9 @@
          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
+  
   <keyset id="keyset_extensions">
-    <key id="key_clear" keycode="VK_ESCAPE" oncommand="$do('keypress', {keyCode: 27}, 'Keypad');" />
-    <key id="key_subtotal" keycode="VK_END" oncommand="$do('keypress', {keyCode: 35}, 'Keypad');"/>
     <key id="key_enter" keycode="VK_RETURN" oncommand="$do('keypress', {keyCode: 13}, 'Keypad');"/>
-    <key id="key_backspace" keycode="VK_BACK" oncommand="$do('keypress', {keyCode: 8}, 'Keypad');"/>
-    <key id="key_x" key="x" oncommand="$do('keypress', {charCode: 120}, 'Keypad');"/>
     <key id="key_num0" key="0" oncommand="$do('keypress', {charCode: 48}, 'Keypad');"/>
     <key id="key_num1" key="1" oncommand="$do('keypress', {charCode: 49}, 'Keypad');"/>
     <key id="key_num2" key="2" oncommand="$do('keypress', {charCode: 50}, 'Keypad');"/>
@@ -22,7 +19,7 @@
     <key id="key_num7" key="7" oncommand="$do('keypress', {charCode: 55}, 'Keypad');"/>
     <key id="key_num8" key="8" oncommand="$do('keypress', {charCode: 56}, 'Keypad');"/>
     <key id="key_num9" key="9" oncommand="$do('keypress', {charCode: 57}, 'Keypad');"/>
-    <key id="key_dot" key="." oncommand="$do('keypress', {charCode: 46}, 'Keypad');"/>
+    <key id="key_dot" key="." oncommand="$do('keypress', {charCode: 46}, 'Keypad');"/>   
   </keyset>
 
 </overlay>

@@ -766,8 +766,8 @@ msgstr "Register Cash Payment"
 msgid "acl_toggle_function_panel"
 msgstr "Toggle Function Panl"
 
-msgid "acl_public_access"
-msgstr "Public Access"
+msgid "acl_run_report"
+msgstr "Run Report"
 
 msgid "acl_manage_condiments"
 msgstr "Manage Condiments"
@@ -865,9 +865,6 @@ msgstr "Register Giftcard Payment"
 msgid "acl_manage_images"
 msgstr "Manage Images"
 
-msgid "acl_modify_keymap_parameter"
-msgstr "Modify Keymap Parameter"
-
 msgid "acl_modify_condiment_price"
 msgstr "Modify Condiment Price"
 
@@ -948,3 +945,16 @@ msgstr "Network Setting"
 
 msgid "Synchronization Settings"
 msgstr "Synchronization Settings"
+
+msgid "acl_manage_hotkey"
+msgstr "Manage Hotkey"
+
+msgid "HotKey Configuration"
+msgstr "HotKey Configuration"
+
+msgid "acl_manage_addons"
+msgstr "Manage Add-Ons"
+
+msgid "Add-Ons"
+msgstr "Add-Ons"
+

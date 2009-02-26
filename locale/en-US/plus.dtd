@@ -6,6 +6,7 @@
 <!ENTITY plus.tab.setmenu     "Sets">
 <!ENTITY plus.tab.appearance "Appearance">
 <!ENTITY plus.tab.pricelevels "Price Levels">
+<!ENTITY plus.tab.condimentgroups "Condiments">
 <!ENTITY plus.tab.linkgroups "Link Groups">
 
 <!ENTITY plus.tab.normalmode "Browse">
