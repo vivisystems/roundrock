@@ -7,7 +7,7 @@
 
 <binding id="vivitree">
     <content>
-      <xul:tree anonid="tree" flags="dont-build-content" flex="1" seltype="single" xbl:inherits="class,pack,orient,collapsed,hidden,flex,enableColumnDrag,flags,hidecolumnpicker,rows,fixed,primary,seltype,align,dir,hidevscroll,hidehscroll,disableKeyNavigation">
+      <xul:tree anonid="tree" flags="dont-build-content" flex="1" seltype="single" xbl:inherits="class,pack,orient,collapsed,hidden,flex,disabled,enableColumnDrag,flags,hidecolumnpicker,rows,fixed,primary,seltype,align,dir,hidevscroll,hidehscroll,disableKeyNavigation">
           <xul:treecols anonid="treecols" />
           <xul:treechildren anonid="treechildren" alternatingbackground="true" />
       </xul:tree>
@@ -33,6 +33,23 @@
     <property name="currentIndex" onget="return this.tree.currentIndex;" onset="return this.tree.currentIndex = val;"/>
 
     <property name="selectedIndex" onget="return this.currentIndex;" onset="return this.currentIndex = val;" />
+
+    <property name="selectedItems">
+        <getter>
+            <![CDATA[
+            var rowCount = this.view.rowCount;
+            var selectedItems = [] ;
+
+            for(var i=0; i<rowCount; i++) {
+                if (this.selection.isSelected(i)) selectedItems.push(i);
+            }
+            return selectedItems;
+            ]]>
+        </getter>
+        <setter>
+
+        </setter>
+    </property>
 
     <property name="treeBoxObject" onget="return this.tree.treeBoxObject;" readonly="true" />
     

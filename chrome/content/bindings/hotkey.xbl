@@ -1,0 +1,756 @@
+<?xml version="1.0"?>
+
+<bindings xmlns="http://www.mozilla.org/xbl"
+          xmlns:xbl="http://www.mozilla.org/xbl"
+          xmlns:html="http://www.w3.org/1999/xhtml"
+          xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">  
+  
+    <binding id="hotkey-textbox">
+
+        <content>
+            <xul:textbox flex="1" anonid="hotkey.textbox" class="hotkey-textbox-textbox" xbl:inherits="disabled,hidden" />
+        </content>
+
+        <implementation>
+
+            <constructor>
+              <![CDATA[
+
+                this.meta_key_str = "meta";
+
+                this.shift_down = false;
+                this.ctrl_down = false;
+                this.alt_down = false;
+                this.meta_down = false;
+                this.hotkeyShift = false;
+                this.hotkeyCtrl = false;
+                this.hotkeyAlt = false;
+                this.hotkeyMeta = false;
+                this.hotkeyCode = 0;
+                this.hotkeyChar = 0;
+                this.hotkeyCodeVK = "";
+                this.nostandardkeys = (this.getAttribute("nostandardkeys") == "true");
+              ]]>
+            </constructor>
+            <destructor>
+            </destructor>
+
+            <field name="textbox">document.getAnonymousElementByAttribute(this, 'anonid', 'hotkey.textbox');</field>
+    
+            <method name="keyCodeToString">
+                <parameter name="code"/>
+                <body>
+        <![CDATA[
+          const e = Components.interfaces.nsIDOMKeyEvent;
+
+          // GREUtils.log(code);
+          switch (code) {
+
+            case e.DOM_VK_CANCEL: return "cancel";
+            case e.DOM_VK_HELP: return "help";
+            case e.DOM_VK_BACK_SPACE: return "backspace";
+            case e.DOM_VK_TAB: return "tab";
+            case e.DOM_VK_CLEAR: return "clear";
+            case e.DOM_VK_RETURN: return "return";
+            case e.DOM_VK_ENTER: return "enter";
+            case e.DOM_VK_SHIFT: return "shift";
+            case e.DOM_VK_CONTROL: return "ctrl";
+            case e.DOM_VK_ALT: return "alt";
+            case e.DOM_VK_PAUSE: return "pause";
+            case e.DOM_VK_CAPS_LOCK: return "capslock";
+            case e.DOM_VK_ESCAPE: return "escape";
+            case e.DOM_VK_SPACE: return "space";
+            case e.DOM_VK_PAGE_UP: return "pageup";
+            case e.DOM_VK_PAGE_DOWN: return "pagedown";
+            case e.DOM_VK_END: return "end";
+            case e.DOM_VK_HOME: return "home";
+            case e.DOM_VK_LEFT: return "left";
+            case e.DOM_VK_UP: return "up";
+            case e.DOM_VK_RIGHT: return "right";
+            case e.DOM_VK_DOWN: return "down";
+            case e.DOM_VK_PRINTSCREEN: return "printscreen";
+            case e.DOM_VK_INSERT: return "insert";
+            case e.DOM_VK_DELETE: return "delete";
+            case e.DOM_VK_SEMICOLON: return "semicolon";
+            case e.DOM_VK_EQUALS: return "equals";
+            case e.DOM_VK_CONTEXT_MENU: return "contextmenu";
+            case e.DOM_VK_NUMPAD0: return "numpad0";
+            case e.DOM_VK_NUMPAD1: return "numpad1";
+            case e.DOM_VK_NUMPAD2: return "numpad2";
+            case e.DOM_VK_NUMPAD3: return "numpad3";
+            case e.DOM_VK_NUMPAD4: return "numpad4";
+            case e.DOM_VK_NUMPAD5: return "numpad5";
+            case e.DOM_VK_NUMPAD6: return "numpad6";
+            case e.DOM_VK_NUMPAD7: return "numpad7";
+            case e.DOM_VK_NUMPAD8: return "numpad8";
+            case e.DOM_VK_NUMPAD9: return "numpad9";
+            case e.DOM_VK_MULTIPLY: return "multiply";
+            case e.DOM_VK_ADD: return "add";
+            case e.DOM_VK_SEPARATOR: return "separator";
+            case e.DOM_VK_SUBTRACT: return "subtract";
+            case e.DOM_VK_DECIMAL: return "decimal";
+            case e.DOM_VK_DIVIDE: return "divide";
+            case e.DOM_VK_F1: return "f1";
+            case e.DOM_VK_F2: return "f2";
+            case e.DOM_VK_F3: return "f3";
+            case e.DOM_VK_F4: return "f4";
+            case e.DOM_VK_F5: return "f5";
+            case e.DOM_VK_F6: return "f6";
+            case e.DOM_VK_F7: return "f7";
+            case e.DOM_VK_F8: return "f8";
+            case e.DOM_VK_F9: return "f9";
+            case e.DOM_VK_F10: return "f10";
+            case e.DOM_VK_F11: return "f11";
+            case e.DOM_VK_F12: return "f12";
+            case e.DOM_VK_F13: return "f13";
+            case e.DOM_VK_F14: return "f14";
+            case e.DOM_VK_F15: return "f15";
+            case e.DOM_VK_F16: return "f16";
+            case e.DOM_VK_F17: return "f17";
+            case e.DOM_VK_F18: return "f18";
+            case e.DOM_VK_F19: return "f19";
+            case e.DOM_VK_F20: return "f20";
+            case e.DOM_VK_F21: return "f21";
+            case e.DOM_VK_F22: return "f22";
+            case e.DOM_VK_F23: return "f23";
+            case e.DOM_VK_F24: return "f24";
+            case e.DOM_VK_NUM_LOCK: return "numlock";
+            case e.DOM_VK_SCROLL_LOCK: return "scrolllock";
+            case e.DOM_VK_META: return this.meta_key_str;
+          }
+
+          if (this.hotkeyChar && this.hotkeyChar != 0) return String.fromCharCode(this.hotkeyChar);
+
+          return "$" + code;
+        ]]>
+                </body>
+            </method>
+
+            <method name="keyCodeToVKString">
+                <parameter name="code"/>
+                <body>
+        <![CDATA[
+          const e = Components.interfaces.nsIDOMKeyEvent;
+
+          // GREUtils.log(code);
+          switch (code) {
+
+            case e.DOM_VK_CANCEL: return "VK_CANCEL";
+            case e.DOM_VK_HELP: return "VK_HELP";
+            case e.DOM_VK_BACK_SPACE: return "VK_BACK";
+            case e.DOM_VK_TAB: return "VK_TAB";
+            case e.DOM_VK_CLEAR: return "VK_CLEAR";
+            case e.DOM_VK_RETURN: return "VK_RETURN";
+            case e.DOM_VK_ENTER: return "VK_ENTER";
+            // case e.DOM_VK_SHIFT: return "VK_SHIFT";
+            // case e.DOM_VK_CONTROL: return "VK_CONTROL";
+            // case e.DOM_VK_ALT: return "VK_ALT";
+            // case e.DOM_VK_META: return "VK_META";
+            case e.DOM_VK_PAUSE: return "VK_PAUSE";
+            case e.DOM_VK_CAPS_LOCK: return "VK_CAPS_LOCK";
+            case e.DOM_VK_ESCAPE: return "VK_ESCAPE";
+            case e.DOM_VK_SPACE: return "VK_SPACE";
+            case e.DOM_VK_PAGE_UP: return "PAGE_UP";
+            case e.DOM_VK_PAGE_DOWN: return "PAGE_DOWN";
+            case e.DOM_VK_END: return "VK_END";
+            case e.DOM_VK_HOME: return "VK_HOME";
+            case e.DOM_VK_LEFT: return "VK_LEFT";
+            case e.DOM_VK_UP: return "VK_UP";
+            case e.DOM_VK_RIGHT: return "VK_RIGHT";
+            case e.DOM_VK_DOWN: return "VK_DOWN";
+            case e.DOM_VK_PRINTSCREEN: return "VK_PRINTSCREEN";
+            case e.DOM_VK_INSERT: return "VK_INSERT";
+            case e.DOM_VK_DELETE: return "VK_DELETE";
+            case e.DOM_VK_SEMICOLON: return "VK_SEMICOLON";
+            case e.DOM_VK_EQUALS: return "VK_EQUALS";
+            case e.DOM_VK_NUMPAD0: return "VK_NUMPAD0";
+            case e.DOM_VK_NUMPAD1: return "VK_NUMPAD1";
+            case e.DOM_VK_NUMPAD2: return "VK_NUMPAD2";
+            case e.DOM_VK_NUMPAD3: return "VK_NUMPAD3";
+            case e.DOM_VK_NUMPAD4: return "VK_NUMPAD4";
+            case e.DOM_VK_NUMPAD5: return "VK_NUMPAD5";
+            case e.DOM_VK_NUMPAD6: return "VK_NUMPAD6";
+            case e.DOM_VK_NUMPAD7: return "VK_NUMPAD7";
+            case e.DOM_VK_NUMPAD8: return "VK_NUMPAD8";
+            case e.DOM_VK_NUMPAD9: return "VK_NUMPAD9";
+            case e.DOM_VK_MULTIPLY: return "VK_MULTIPLY";
+            case e.DOM_VK_ADD: return "VK_ADD";
+            case e.DOM_VK_SEPARATOR: return "VK_SEPARATOR";
+            case e.DOM_VK_SUBTRACT: return "VK_SUBTRACT";
+            case e.DOM_VK_DECIMAL: return "VK_DECIMAL";
+            case e.DOM_VK_DIVIDE: return "VK_DIVIDE";
+            case e.DOM_VK_F1: return "VK_F1";
+            case e.DOM_VK_F2: return "VK_F2";
+            case e.DOM_VK_F3: return "VK_F3";
+            case e.DOM_VK_F4: return "VK_F4";
+            case e.DOM_VK_F5: return "VK_F5";
+            case e.DOM_VK_F6: return "VK_F6";
+            case e.DOM_VK_F7: return "VK_F7";
+            case e.DOM_VK_F8: return "VK_F8";
+            case e.DOM_VK_F9: return "VK_F9";
+            case e.DOM_VK_F10: return "VK_F10";
+            case e.DOM_VK_F11: return "VK_F11";
+            case e.DOM_VK_F12: return "VK_F12";
+            case e.DOM_VK_F13: return "VK_F13";
+            case e.DOM_VK_F14: return "VK_F14";
+            case e.DOM_VK_F15: return "VK_F15";
+            case e.DOM_VK_F16: return "VK_F16";
+            case e.DOM_VK_F17: return "VK_F17";
+            case e.DOM_VK_F18: return "VK_F18";
+            case e.DOM_VK_F19: return "VK_F19";
+            case e.DOM_VK_F20: return "VK_F20";
+            case e.DOM_VK_F21: return "VK_F21";
+            case e.DOM_VK_F22: return "VK_F22";
+            case e.DOM_VK_F23: return "VK_F23";
+            case e.DOM_VK_F24: return "VK_F24";
+            case e.DOM_VK_NUM_LOCK: return "VK_NUM_LOCK";
+            case e.DOM_VK_SCROLL_LOCK: return "VK_SCROLL_LOCK";
+            case e.DOM_VK_COMMA: return "VK_COMMA";
+            case e.DOM_VK_PERIOD: return "VK_PERIOD";
+            case e.DOM_VK_SLASH: return "VK_SLASH";
+            case e.DOM_VK_BACK_QUOTE: return "VK_BACK_QUOTE";
+            case e.DOM_VK_OPEN_BRACKET: return "VK_OPEN_BRACKET";
+            case e.DOM_VK_BACK_SLASH: return "VK_BACK_SLASH";
+            case e.DOM_VK_CLOSE_BRACKET: return "VK_CLOSE_BRACKET";
+            case e.DOM_VK_QUOTE: return "VK_QUOTE";
+          }
+
+          // number or alpha
+          if ( (code >= 48 && code <= 57) || (code >= 65 && code <= 90) ) {
+            return "VK_" + String.fromCharCode(code);
+          }
+          return "$" + code;
+        ]]>
+                </body>
+            </method>
+
+            <method name="isStandardKey">
+                <parameter name="key"/>
+                <body>
+        <![CDATA[
+
+        if (key >= 0x21 /* '!' */ &&
+            key <= 0x7e /* '~' */) return true;
+
+        const e = Components.interfaces.nsIDOMKeyEvent;
+
+        switch (key) {
+            case e.DOM_VK_BACK_SPACE: 
+            case e.DOM_VK_TAB: 
+            case e.DOM_VK_RETURN: 
+            case e.DOM_VK_CAPS_LOCK: 
+            case e.DOM_VK_ESCAPE: 
+            case e.DOM_VK_SPACE: 
+            case e.DOM_VK_PAGE_UP: 
+            case e.DOM_VK_PAGE_DOWN: 
+            case e.DOM_VK_END: 
+            case e.DOM_VK_HOME: 
+            case e.DOM_VK_LEFT: 
+            case e.DOM_VK_UP: 
+            case e.DOM_VK_RIGHT: 
+            case e.DOM_VK_DOWN: 
+            case e.DOM_VK_PRINTSCREEN: 
+            case e.DOM_VK_INSERT: 
+            case e.DOM_VK_DELETE: 
+            case e.DOM_VK_SEMICOLON: 
+            case e.DOM_VK_EQUALS: 
+            case e.DOM_VK_CONTEXT_MENU:
+            case e.DOM_VK_NUMPAD0: 
+            case e.DOM_VK_NUMPAD1: 
+            case e.DOM_VK_NUMPAD2: 
+            case e.DOM_VK_NUMPAD3: 
+            case e.DOM_VK_NUMPAD4: 
+            case e.DOM_VK_NUMPAD5: 
+            case e.DOM_VK_NUMPAD6: 
+            case e.DOM_VK_NUMPAD7: 
+            case e.DOM_VK_NUMPAD8: 
+            case e.DOM_VK_NUMPAD9: 
+            case e.DOM_VK_MULTIPLY: 
+            case e.DOM_VK_ADD: 
+            case e.DOM_VK_SEPARATOR: 
+            case e.DOM_VK_SUBTRACT: 
+            case e.DOM_VK_DECIMAL: 
+            case e.DOM_VK_DIVIDE: 
+            case e.DOM_VK_F1: 
+            case e.DOM_VK_F2: 
+            case e.DOM_VK_F3: 
+            case e.DOM_VK_F4: 
+            case e.DOM_VK_F5: 
+            case e.DOM_VK_F6: 
+            case e.DOM_VK_F7: 
+            case e.DOM_VK_F8: 
+            case e.DOM_VK_F9: 
+            case e.DOM_VK_F10: 
+            case e.DOM_VK_F11: 
+            case e.DOM_VK_F12: 
+            case e.DOM_VK_NUM_LOCK:
+            case e.DOM_VK_COMMA:
+            case e.DOM_VK_PERIOD:
+            case e.DOM_VK_SLASH:
+            case e.DOM_VK_BACK_QUOTE:
+            case e.DOM_VK_OPEN_BRACKET:
+            case e.DOM_VK_BACK_SLASH:
+            case e.DOM_VK_CLOSE_BRACKET:
+            case e.DOM_VK_QUOTE: 
+              return true;
+          default:
+            return false;
+        }
+        ]]>
+                </body>
+            </method>
+
+            <method name="addKeyStr">
+                <parameter name="str"/>
+                <parameter name="key"/>
+                <body>
+        <![CDATA[
+          if (!str) str = "";
+          if (str != "") str += "-";
+          str += key;
+          return str;
+        ]]>
+                </body>
+            </method>
+    
+            <method name="updateDisplay">
+                <body>
+        <![CDATA[
+          this.textbox.value = this.getHotkey(true);
+        ]]>
+                </body>
+            </method>
+
+            <method name="isModKey">
+                <parameter name="keyCode"/>
+                <body>
+        <![CDATA[
+
+         const e = Components.interfaces.nsIDOMKeyEvent;
+
+         var ismodkey ;
+
+         switch(keyCode) {
+            case e.DOM_VK_SHIFT:
+            case e.DOM_VK_CONTROL:
+            case e.DOM_VK_ALT:
+            case e.DOM_VK_META:
+                ismodkey = true;
+                break;
+
+            default:
+                ismodkey = false;
+                break;
+         }
+          //GREUtils.log("ismodkey = " + ismodkey);
+          return ismodkey;
+        ]]>
+                </body>
+            </method>
+
+            <method name="newKey">
+                <parameter name="keyCode"/>
+                <body>
+        <![CDATA[
+          this.hotkeyShift = this.shift_down;
+          this.hotkeyCtrl = this.ctrl_down;
+          this.hotkeyAlt = this.alt_down;
+          this.hotkeyMeta = this.meta_down;
+          //GREUtils.log("hS " + this.hotkeyShift + " hC " + this.hotkeyCtrl + " hA " + this.hotkeyAlt + " hM " + this.hotkeyMeta);
+          if (!this.isModKey(keyCode)) { 
+            this.hotkeyCode = keyCode;
+            this.hotkeyCodeVK = this.keyCodeToVKString(keyCode);
+          } else {
+            this.hotkeyCode = 0;
+          }
+          this.updateDisplay();
+        ]]>
+                </body>
+            </method>
+
+            <method name="handleModState">
+                <parameter name="mod"/>
+                <parameter name="down"/>
+                <body>
+        <![CDATA[
+
+          const e = Components.interfaces.nsIDOMKeyEvent;
+
+          switch (mod) {
+            case e.DOM_VK_SHIFT: this.shift_down = down; break;
+            case e.DOM_VK_CONTROL: this.ctrl_down = down; break;
+            case e.DOM_VK_ALT: this.alt_down = down; break;
+            case e.DOM_VK_META: // fallthru
+            case e.DOM_VK_LWIN: // fallthru
+            case e.DOM_VK_RWIN: this.meta_down = down; break;
+          }
+          //GREUtils.log("hS " + this.hotkeyShift + " hC " + this.hotkeyCtrl + " hA " + this.hotkeyAlt + " hM " + this.hotkeyMeta);
+        ]]>
+                </body>
+            </method>
+
+            <method name="getHotkey">
+                <parameter name="forDisplay" />
+                <body>
+        <![CDATA[
+          var str = "";
+          forDisplay = forDisplay || false;
+
+          if (this.hotkeyCtrl) str = this.addKeyStr(str, "ctrl");
+          if (this.hotkeyAlt) str = this.addKeyStr(str, "alt");
+          if (this.hotkeyShift) str = this.addKeyStr(str, "shift");
+          if (this.hotkeyMeta) str = this.addKeyStr(str, forDisplay ? this.meta_key_str : "meta");
+
+          if (forDisplay) {
+            if (this.hotkeyCode != 0) str = this.addKeyStr(str, this.keyCodeToString(this.hotkeyCode));
+          } else {
+            if (this.hotkeyCode != 0) str = this.addKeyStr(str, "$" + this.hotkeyCode);
+          }
+          if (forDisplay) str = str.toUpperCase();
+          return str;
+        ]]>
+                </body>
+            </method>
+
+            <method name="setHotkey">
+                <parameter name="keycombo"/>
+                <parameter name="keydisplay"/>
+                <body>
+        <![CDATA[
+          this.hotkeyAlt = this.hotkeyShift = this.hotkeyCtrl = this.hotkeyMeta = false; 
+          this.alt_down = this.shift_down = this.ctrl_down = this.meta_down = false; 
+          this.hotkeyCode = this.hotkeyChar = 0;
+          this.hotkeyCodeVK = "";
+          
+          // Split key combination string
+          var keys = keycombo.split("-");
+          var dkeys = keydisplay.split("-");
+          // Parse its components
+          for (var j=0;j<keys.length;j++) {
+            keys[j] = keys[j].toLowerCase();
+            if (keys[j] == "alt") this.hotkeyAlt = true;
+            else if (keys[j] == "shift") this.hotkeyShift = true;
+            else if (keys[j] == "ctrl") this.hotkeyCtrl = true;
+            else if (keys[j] == "meta") this.hotkeyMeta = true;
+            else {
+              this.hotkeyCode = this.stringToKeyCode(keys[j]);
+              if (dkeys[j].length == 1) this.hotkeyChar = dkeys[j].charCodeAt(0);
+              else this.hotkeyChar = 0;
+            }
+          }
+
+          if (this.hotkeyCode != 0) this.hotkeyCodeVK = this.keyCodeToVKString(this.hotkeyCode);
+
+          this.updateDisplay();
+        ]]>
+                </body>
+            </method>
+
+            <method name="getModifiers">
+                <parameter name="forDisplay" />
+                <body>
+        <![CDATA[
+          var modifiers = [];
+          forDisplay = forDisplay || false;
+
+          if (this.hotkeyCtrl) modifiers.push("control");
+          if (this.hotkeyAlt) modifiers.push("alt");
+          if (this.hotkeyShift) modifiers.push("shift");
+          if (this.hotkeyMeta) modifiers.push(forDisplay ? this.meta_key_str : "meta");
+
+          if (forDisplay) {
+            return modifiers.join('-').toUpperCase();
+          } else {
+            return modifiers.join(' ');
+          }
+        ]]>
+                </body>
+            </method>
+
+
+            <method name="stringToKeyCode">
+                <parameter name="str"/>
+                <body>
+        <![CDATA[
+          if (str.slice(0, 1) == '$') return parseInt(str.slice(1));
+          return 0;
+        ]]>
+                </body>
+            </method>
+
+            <method name="isValid">
+                <body>
+        <![CDATA[
+        if (this.hotkeyCode == 0)
+          return false;
+        if (this.nostandardkeys &&
+            this.isStandardKey(this.hotkeyCode) &&
+            !(this.hotkeyAlt ||
+              this.hotkeyCtrl ||
+              this.hotkeyMeta)) 
+          return false;
+        return true;      
+        ]]>
+                </body>
+            </method>
+
+            <method name="reset">
+                <body>
+        this.hotkeyChar = 0;
+        this.hotkeyCode = 0;
+        this.hotkeyCodeVK = "";
+        this.hotkeyAlt =
+        this.hotkeyShift =
+        this.hotkeyCtrl =
+        this.hotkeyMeta = false;
+        this.updateDisplay();
+                </body>
+            </method>
+
+        </implementation>
+
+        <handlers>
+            <handler event="keypress">
+       <![CDATA[
+        //GREUtils.log("keypress -> " + event.keyCode + " - " + event.charCode);
+        this.hotkeyChar = event.charCode;
+        this.updateDisplay();
+       ]]>
+            </handler>
+
+            <handler event="keydown">
+       <![CDATA[
+         // special case for alt, which does not give an up event after an Alt-Letter was pressed
+         if (!event.altKey && this.alt_down) this.alt_down = false;
+         if (this.isModKey(event.keyCode)) this.handleModState(event.keyCode, true);
+
+         //GREUtils.log("keydown -> " + event.keyCode + " - " + event.charCode);
+
+         this.inkeydown = event.keycode;
+         this.newKey(event.keyCode);
+         event.preventDefault();
+         event.stopPropagation();
+       ]]>
+            </handler>
+
+            <handler event="keyup">
+         <![CDATA[
+         //GREUtils.log("keyup");
+         if (this.isModKey(event.keyCode)) this.handleModState(event.keyCode, false);
+         var reset = (this.hotkeyCode == 0 && this.isModKey(event.keyCode));
+         if (this.nostandardkeys && 
+             this.isStandardKey(event.keyCode) && 
+             /* note: no check for shift since we want to disable shift+standard as well */
+             !(this.hotkeyAlt || 
+               this.hotkeyCtrl || 
+               this.hotkeyMeta)) {
+           reset = true;
+         }
+         if (reset) 
+          this.reset();
+         event.preventDefault();
+         event.stopPropagation();
+       ]]>
+            </handler>
+
+            <handler event="blur">
+         if (!this.isValid())
+          this.reset();
+            </handler>
+
+       
+        </handlers>
+ 
+    </binding>
+
+
+    <binding id="hotkey-keyset">
+
+        <content>
+            <xul:box anonid="hotkey-box" collapsed="true" />
+        </content>
+
+        <implementation>
+
+            <field name="box">document.getAnonymousElementByAttribute(this, 'anonid', 'hotkey-box');</field>
+
+            <field name="_hotkeys">null;</field>
+
+            <field name="_keys">null;</field>
+
+            <property name="keys" onget="return this.getKeys();" onset="return this.setKeys(val);"/>
+
+            <constructor>
+              <![CDATA[
+                this._loadPreferences();
+
+                var self = this;
+
+                // register observer listeners for 'acl-session-change' and this component's own id
+                this.observer = GeckoJS.Observer.newInstance({
+                        topics: ['hotkey-preferences-update'],
+                        observe: function(aSubject, aTopic, aData) {
+
+                        GREUtils.log('[OBSERVER]: observing topic <' + aTopic + '> data <' + aData + '>');
+                            switch(aTopic) {
+
+                                case 'hotkey-preferences-update':
+                                    self._loadPreferences();
+                                    self.createKeys();
+                                    break;
+                            }
+                        }
+                    }).register();
+
+                this.createKeys();
+              ]]>
+            </constructor>
+            <destructor>
+                this.observer.unregister();
+            </destructor>
+
+            <method name="_loadPreferences">
+                <body>
+                    <![CDATA[
+
+                        try {
+
+                        this._hotkeys = new GeckoJS.Map();
+
+                        // get hotkey prefs
+                        var hotkey_prefix = 'vivipos.fec.settings.hotkeys';
+                        GeckoJS.Configure.loadPreferences(hotkey_prefix);
+                        var hotkeys = GeckoJS.Configure.read(hotkey_prefix);
+
+                        if (hotkeys) {
+                            this._hotkeys.unserialize(hotkeys);
+                        }
+
+                        this._keys = this._hotkeys.getValues();
+                        }catch(e) {}
+
+                    ]]>
+                </body>
+            </method>
+
+            <method name="getKeys">
+                <body>
+                    return this._keys;
+                </body>
+            </method>
+
+            <method name="setKeys">
+                <parameter name="keys" />
+                <body>
+                    <![CDATA[
+                        if (keys) {
+                            this._keys = keys;
+                            this.createKeys();
+                        }
+                        return keys;
+                    ]]>
+                </body>
+            </method>
+
+            <method name="createKeys">
+                <body>
+                    <![CDATA[
+                    try {
+
+                        var box = this.box;
+
+                        var keys = this.keys;
+                        var keyCount = keys.length;
+
+                        var containerId = this.getAttribute('id');
+
+                        GeckoJS.Helper.removeAllChildren(box);
+
+                        let keyset = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul", "keyset");
+
+                        for(let i=0; i < keyCount ; i++) {
+
+                            let key = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul", "key");
+
+                            key.setAttribute("id", keys[i].keycombo);
+                            if (keys[i].modifiers) key.setAttribute("modifiers", keys[i].modifiers);
+
+                            // GREUtils.log('key id=' + keys[i].keycombo + ' , code = ' + keys[i].keycode + ', char = ' + String.fromCharCode(keys[i].keychar) );
+
+                            if (parseInt(keys[i].keychar) != 0) {
+                                key.setAttribute("key", String.fromCharCode(keys[i].keychar));
+                            }else {
+                                key.setAttribute("keycode", keys[i].keycode);
+                            }
+
+                            key.container = this;
+                            //XXX  why this work only ????
+                            key.setAttribute('oncommand', "event.target.container.fireCommand(event)");
+                            
+                            keyset.appendChild(key);
+
+                        }
+
+                        box.appendChild(keyset);
+
+                    }catch(e) {
+                    }
+
+                    ]]>
+                </body>
+            </method>
+
+        <method name="fireCommand">
+            <parameter name="event" />
+            <body>
+       <![CDATA[
+
+            var key = event.target;
+            var keyId = key.getAttribute("id");
+
+            var hotkeys = this._hotkeys;
+
+            // alert('keys = ' + hotkeys );
+
+            var keySetting = hotkeys.get(keyId);
+
+            // alert(keySetting);
+
+            // key not found , return and stopPropagation
+            if(!keySetting) return event.stopPropagation();
+
+            var role = keySetting['access'] || false;
+            var action = keySetting['command'] || false;
+            var params = keySetting['data'] || null;
+            var controller = keySetting['controller'] || false;
+
+            // nothing to do , return and stopPropagation
+            if (!action || !controller) return event.stopPropagation();
+
+            var hasRole = true;
+
+            if(role) {
+                // check user role
+                hasRole = GeckoJS.AclComponent.isUserInRole(role);
+            }
+
+            // don't has permission, return and stopPropagation
+            if (!hasRole) return event.stopPropagation();
+
+            // try invoke controller's action
+            try {
+                // alert('invoke ' + action + ' , controller ' + controller);
+                $do(action, params, controller);
+            }finally {
+                event.stopPropagation();
+            }
+       ]]>
+            </body>
+        </method>
+
+
+        </implementation>
+
+    </binding>
+
+</bindings>

@@ -150,7 +150,6 @@
         }else {
             aLabel.firstChild.data = value;
         }
-        //
 
       ]]>
       </body>

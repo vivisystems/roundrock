@@ -30,27 +30,27 @@
     // override these in your code to change the default behavior and style
     $.popupPanel.defaults = {
 
-	css: {
+        css: {
             padding:        0,
             margin:         0,
             width:          '640px',
             height:          '480px'
-            //top:            '5%',
-            //left:           '5%'
-            //color:          '#000'
-            //backgroundColor:'#fff'
-	},
+        //top:            '5%',
+        //left:           '5%'
+        //color:          '#000'
+        //backgroundColor:'#fff'
+        },
 
         // styles for the overlay
         overlayCSS:  {
-            //backgroundColor: '#000',
-            //'-moz-opacity': 0.6,
-            //width: '100%',
-            //height: '100%'
+        //backgroundColor: '#000',
+        //'-moz-opacity': 0.6,
+        //width: '100%',
+        //height: '100%'
         },
 
         init: function(evt) {
-            //alert('init ' + evt.data);
+        //alert('init ' + evt.data);
         },
 
         showing: function(evt) {
@@ -58,7 +58,7 @@
         },
 
         load: function(evt) {
-            //alert('load ' + evt.data);
+        //alert('load ' + evt.data);
         },
 
         shown: function(evt) {
@@ -66,7 +66,7 @@
         },
 
         hide: function(evt) {
-            //alert('hide ' + evt.data);
+        //alert('hide ' + evt.data);
         },
       
         // time in millis to wait before auto-hide; set to 0 to disable auto-hide
@@ -78,154 +78,153 @@
         opts = $.extend({}, $.popupPanel.defaults, opts || {});
         opts.overlayCSS = $.extend({}, $.popupPanel.defaults.overlayCSS, opts.overlayCSS || {});
 
-	if(typeof el == 'string') {
-		el = document.getElementById(el);
-		if(!el) return ;
-	}
+        if(typeof el == 'string') {
+            el = document.getElementById(el);
+            if(!el) return ;
+        }
+        var panelTag = el.tagName.toLowerCase();
 	
-	var $el = $(el);
+        var $el = $(el);
 
-	var data = $el.data('popupPanel.data');
+        var data = $el.data('popupPanel.data');
 
-	var onPopupShowing, onPopupShown, onPopupHidden, onPopupShowingCB, onPopupShownCB, onPopupHiddenCB ;
+        var onPopupShowing, onPopupShown, onPopupHidden, onPopupShowingCB, onPopupShownCB, onPopupHiddenCB ;
 
         if(typeof data == 'undefined') {
 
-            // initial css
-            try{
-                if(el.popupBox) {
+            // initial vivipanel css
+            if (panelTag == 'vivipanel') {
+                try {
                     $(el.popupBox).css(opts.css);
-                }
-            }catch(e){}
-
-            try{
-                if(el.popupOverlay) {
                     $(el.popupOverlay).css(opts.overlayCSS);
+                }catch(e) {
                 }
-            }catch(e){}
-
+            }
 
             // initial once
             // because popupPanel use lazy initialize pattern.
 
-                onPopupShowingCB = new Deferred();
+            onPopupShowingCB = new Deferred();
                 
-		onPopupShowing = function(evt) {
+            onPopupShowing = function(evt) {
 
-			var element = evt.target;
-			var $element = $(element);
+                var element = evt.target;
+                var $element = $(element);
 
-			var _data = $element.data('popupPanel.data');
-			var _init = $element.data('popupPanel.init');
-			var _opts = $element.data('popupPanel.opts');
+                var _data = $element.data('popupPanel.data');
+                var _init = $element.data('popupPanel.init');
+                var _opts = $element.data('popupPanel.opts');
 
-                        var loadFunction = _opts.load;
-                        var showingFunction = _opts.showing;
+                var loadFunction = _opts.load;
+                var showingFunction = _opts.showing;
 
-			evt.data = _data;
+                evt.data = _data;
 
-                        // if already init , call load function at showing event
-			if (typeof _init != 'undefined') {
+                // if already init , call load function at showing event
+                if (typeof _init != 'undefined') {
+                    if(loadFunction) loadFunction.apply(this, [evt] );
+                }
 
-                            if(loadFunction) loadFunction.apply(this, [evt] );
+                // fixed for non-topmost panel
+                // @see https://bugzilla.mozilla.org/show_bug.cgi?id=433340#c100
+                if (element.tagName.toLowerCase() == 'panel') {
+                    element.removeAttribute('noautohide');
+                }               
 
-			}
+                if(showingFunction) showingFunction.apply(this, [evt]);
 
-                        if(showingFunction) showingFunction.apply(this, [evt]);
+                return onPopupShowingCB.call(evt);
 
-			return onPopupShowingCB.call(evt);
-
-		};
-
-
-		onPopupShownCB = new Deferred();
-
-		onPopupShown = function(evt) {
-
-			var element = evt.target;
-			var $element = $(element);
-
-			var _data = $element.data('popupPanel.data');
-			var _init = $element.data('popupPanel.init');
-			var _opts = $element.data('popupPanel.opts');
+            };
 
 
-			var loadFunction = _opts.load;
-			var initFunction = _opts.init;
-                        var shownFunction = _opts.shown;
+            onPopupShownCB = new Deferred();
 
-			evt.data = _data;
+            onPopupShown = function(evt) {
 
-			if (typeof _init == 'undefined') {
+                var element = evt.target;
+                var $element = $(element);
 
-				if(initFunction) initFunction.apply(this, [evt] );
+                var _data = $element.data('popupPanel.data');
+                var _init = $element.data('popupPanel.init');
+                var _opts = $element.data('popupPanel.opts');
 
-				$element.data('popupPanel.init', {});
+                var loadFunction = _opts.load;
+                var initFunction = _opts.init;
+                var shownFunction = _opts.shown;
 
-                                if(loadFunction) loadFunction.apply(this, [evt] );
+                evt.data = _data;
 
-			}else {
-                            // maybe load function calling at showing event.
-                            evt.target.focus();
-                        }
+                if (typeof _init == 'undefined') {
 
-                         if(shownFunction) shownFunction.apply(this, [evt]);
+                    if(initFunction) initFunction.apply(this, [evt] );
 
-			return onPopupShownCB.call(evt);
+                    $element.data('popupPanel.init', {});
 
-		};
+                    if(loadFunction) loadFunction.apply(this, [evt] );
 
-		onPopupHiddenCB = new Deferred();
+                }else {
+                    // maybe load function calling at showing event.
+                    evt.target.focus();
+                }
 
-		onPopupHidden = function(evt) {
+                if(shownFunction) shownFunction.apply(this, [evt]);
 
-			var element = evt.target;
-			var $element = $(element);
+                return onPopupShownCB.call(evt);
 
-			var _data = $element.data('popupPanel.data');
-			var _opts = $element.data('popupPanel.opts');
+            };
 
-			var hideFunction = _opts.hide;
+            onPopupHiddenCB = new Deferred();
 
-			evt.data = _data;
+            onPopupHidden = function(evt) {
 
-			if(hideFunction) hideFunction.apply(this, [evt] );
+                var element = evt.target;
+                var $element = $(element);
 
-			return onPopupHiddenCB.call(evt);
-		};
+                var _data = $element.data('popupPanel.data');
+                var _opts = $element.data('popupPanel.opts');
+
+                var hideFunction = _opts.hide;
+
+                evt.data = _data;
+
+                if(hideFunction) hideFunction.apply(this, [evt] );
+
+                return onPopupHiddenCB.call(evt);
+            };
 
 
             el.addEventListener('popupshowing', onPopupShowing, true);
             el.addEventListener('popupshown', onPopupShown, true);
             el.addEventListener('popuphidden', onPopupHidden, true);
 
-	    $el.data('popupPanel.data', {});
-	    $el.data('popupPanel.opts', opts);
+            $el.data('popupPanel.data', {});
+            $el.data('popupPanel.opts', opts);
             $el.data('popupPanel.popupshown', onPopupShownCB);
             $el.data('popupPanel.popuphidden', onPopupHiddenCB);
             	
-	    return onPopupHiddenCB;
+            return onPopupHiddenCB;
 
         }else {
-	    onPopupHiddenCB = $el.data('popupPanel.popuphidden');
-	}
+            onPopupHiddenCB = $el.data('popupPanel.popuphidden');
+        }
 
-	return onPopupHiddenCB;
+        return onPopupHiddenCB;
 
     }
 
     function popup(el, data) {
 
-	if(typeof el == 'string') {
-		el = document.getElementById(el);
-		if(!el) return ;
-	}
+        if(typeof el == 'string') {
+            el = document.getElementById(el);
+            if(!el) return ;
+        }
 
-	var $el = $(el);
+        var $el = $(el);
 
-	var opts = $el.data('popupPanel.opts');
+        var opts = $el.data('popupPanel.opts');
         var onPopupShownCB = $el.data('popupPanel.popupshown');
-	var onPopupHiddenCB = $el.data('popupPanel.popuphidden');
+        var onPopupHiddenCB = $el.data('popupPanel.popuphidden');
 
         $el.data('popupPanel.data', data);
 
@@ -241,39 +240,33 @@
         
         el.openPopupAtScreen(x, y, false);
 
-	return onPopupHiddenCB;
+        return onPopupHiddenCB;
 
     }
 
     // hide the panel
     function hide(el, data) {
 
-	if(typeof el == 'string') {
-		el = document.getElementById(el);
-		if(!el) return ;
-	}
+        if(typeof el == 'string') {
+            el = document.getElementById(el);
+            if(!el) return ;
+        }
 
-	var $el = $(el);
+        var $el = $(el);
 
-	var opts = $el.data('popupPanel.opts');
+        var opts = $el.data('popupPanel.opts');
         var onPopupShownCB = $el.data('popupPanel.popupshown');
-	var onPopupHiddenCB = $el.data('popupPanel.popuphidden');
+        var onPopupHiddenCB = $el.data('popupPanel.popuphidden');
 
-	$el.data('popupPanel.data', data);
+        $el.data('popupPanel.data', data);
 
-	el.hidePopup();
+        el.hidePopup();
 
-	return onPopupHiddenCB;
+        return onPopupHiddenCB;
 
     }
 
     function getX(el, opts) {
-
-        try{
-            if(el.popupBox) {
-
-            }
-        }catch(e){}
 
         var left = opts.css.left || null;
         var x = 0;
@@ -293,13 +286,6 @@
     }
 
     function getY(el, opts) {
-
-
-        try{
-            if(el.popupBox.next) {
-
-            }
-        }catch(e){}
 
         var top = opts.css.top || null;
         var y = 0;

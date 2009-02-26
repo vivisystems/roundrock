@@ -8,6 +8,14 @@ cartlistbox {
   -moz-binding: url("chrome://vivipos/content/bindings/cartlistbox.xbl#cartlistbox");
 }
 
+hotkey-textbox {
+  -moz-binding: url("chrome://vivipos/content/bindings/hotkey.xbl#hotkey-textbox");
+}
+
+hotkey-keyset {
+  -moz-binding: url("chrome://vivipos/content/bindings/hotkey.xbl#hotkey-keyset");
+}
+
 numberpad {
   -moz-binding: url("chrome://vivipos/content/bindings/numberpad.xbl#numberpad");
 }
