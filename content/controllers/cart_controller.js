@@ -2223,9 +2223,8 @@
                 }
             }
 
-            if (paymentsTypes.length == 0) {
-                this.addMarker('total');
-            }
+            this.addMarker('total');
+            
             type = type || 'cash';
             amount = amount || false;
 
@@ -2245,10 +2244,12 @@
             var paymentItem = {
                 type: type,
                 amount: amount,
-                origin_amount: origin_amount
+                origin_amount: origin_amount,
             };
             this.dispatchEvent('beforeAddPayment', paymentItem);
             var paymentedItem = curTransaction.appendPayment(type, amount, origin_amount, memo1, memo2);
+
+            paymentedItem.seq = curTransaction.data.seq;
 
             this.dispatchEvent('afterAddPayment', paymentedItem);
 
@@ -2558,7 +2559,7 @@
             this.cancelReturn();
 
             if (status != 2) {
-                this.dispatchEvent('onWarning', '');
+                if (status != 1) this.dispatchEvent('onWarning', '');
                 this.dispatchEvent('onSubmit', oldTransaction);
             }
             else
@@ -2947,7 +2948,6 @@
                 if (warn) NotifyUtils.warn(_('Can not queue the recalled order!!'));
                 return;
             }
-
             var user = this.Acl.getUserPrincipal();
 
             var count = curTransaction.getItemsCount();

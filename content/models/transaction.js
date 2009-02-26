@@ -1608,7 +1608,7 @@
         this.data.closed = true;
     };
 
-    Transaction.prototype.lockItems = function(index, tag) {
+    Transaction.prototype.lockItems = function(index) {
         var displayItems = this.data.display_sequences;
         var batch = ++this.data.batchCount;
 
