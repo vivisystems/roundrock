@@ -11,24 +11,20 @@
 
         <content>
             <xul:hbox flex="1" xbl:inherits="orient,align">
-                <xul:label anonid="labelVfd" hidden="true" class="label_vfd" xbl:inherits="class=labelClass"></xul:label>
-                <hbox>
-                    <xul:label anonid="label0_0" style="width:200px;" class="label_vfd" xbl:inherits="class=labelClass"></xul:label>
-                    <xul:label anonid="label0_1" value="" style="color:yellow; align:right;" class="label_vfd" xbl:inherits="class=labelClass"></xul:label>
-                </hbox>
+                <xul:textbox anonid="labelVfd" hidden="true" class="label_vfd" xbl:inherits="class=labelClass"></xul:textbox>
                 <xul:grid flex="1">
                     <xul:columns>
-                        <xul:column flex="2" />
+                        <xul:column flex="0" />
                         <xul:column flex="1" />
                     </xul:columns>
-                    <xul:rows flex="1">
-                        <!-- xul:row flex="1">
-                            <xul:label anonid="label0_0" flex="1" class="label_vfd" xbl:inherits="class=labelClass,value"></xul:label>
-                            <xul:label anonid="label0_1" class="label_vfd" xbl:inherits="class=labelClass,value"></xul:label>
-                        </xul:row -->
-                        <xul:row>
-                            <xul:label anonid="label1_0" style="width:200px;" class="label_vfd" xbl:inherits="class=labelClass"></xul:label>
-                            <xul:label anonid="label1_1" flex="1" class="label_vfd" xbl:inherits="class=labelClass"></xul:label>
+                    <xul:rows>
+                        <xul:row flex="1">
+                            <xul:textbox anonid="label0_0" readonly="false" class="label_vfd" xbl:inherits="class=labelClass,value"></xul:textbox>
+                            <xul:textbox anonid="label0_1" readonly="true" class="label_vfd" xbl:inherits="class=labelClass,value"></xul:textbox>
+                        </xul:row>
+                        <xul:row flex="1">
+                            <xul:textbox anonid="label1_0" readonly="true" class="label_vfd" xbl:inherits="class=labelClass"></xul:textbox>
+                            <xul:textbox anonid="label1_1" readonly="true" class="label_vfd" xbl:inherits="class=labelClass"></xul:textbox>
                         </xul:row>
                     </xul:rows>
                 </xul:grid>
