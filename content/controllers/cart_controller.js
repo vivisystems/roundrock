@@ -826,7 +826,7 @@
             }
             if (qty < 0) newQty = 0 - newQty;
             if (newQty != qty) {
-                this.setQty(newQty);
+                GeckoJS.Session.set('cart_set_qty_value', newQty);
                 this.modifyItem();
             }
             else {
@@ -2435,29 +2435,6 @@
 
         },
 
-        lockItems: function(index) {
-            var curTransaction = this._getTransaction();
-            if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
-
-                // cannot lock when transaction is in such a state
-                return;
-            }
-            if (index == null) index = curTransaction.getDisplaySeqCount() - 1;
-            curTransaction.lockItems(index);
-        },
-
-        closeTransaction: function() {
-            var curTransaction = this._getTransaction();
-            if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel() || curTransaction.isClosed()) {
-
-                // cannot close the transaction when it is in such a state
-                return;
-            }
-            else {
-                curTransaction.close();
-            }
-        },
-
         cancel: function() {
 
             this._getKeypadController().clearBuffer();
@@ -2467,8 +2444,7 @@
             var curTransaction = this._getTransaction();
             if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
                 
-                this.dispatchEvent('onCancel', null);
-                this._cartView.empty();
+                this.clear();
                 //@todo OSD - don't notify'
                 //NotifyUtils.warn(_('Not an open order; nothing to cancel'));
                 return; // fatal error ?
@@ -2530,7 +2506,6 @@
 
         submit: function(status) {
 
-            // cancel cart but save
             var oldTransaction = this._getTransaction();
             
             if(oldTransaction == null) return; // fatal error ?
@@ -2540,6 +2515,8 @@
 
             this.dispatchEvent('beforeSubmit', oldTransaction);
             
+            oldTransaction.lockItems();
+
             // save order unless the order is being finalized (i.e. status == 1)
             if (status != 1) oldTransaction.submit(status);
             oldTransaction.data.status = status;
@@ -2572,7 +2549,20 @@
         },
 
 
-        close: function(dest) {
+        // pre-finalize the order by closing it
+        preFinalize: function(dest) {
+            var curTransaction = this._getTransaction();
+
+            if (curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
+                NotifyUtils.warn(_('Not an open order; cannot pre-finalize order'));
+                return;
+            }
+
+            if (curTransaction.isClosed()) {
+                NotifyUtils.warn(_('Order is already pre-finalized'));
+                return;
+            }
+
             // if destination is given, then items in cart are first validated to make sure
             // their destinations match the given destination
 
@@ -2582,6 +2572,15 @@
 
             // lastly, close the transaction and store the order to generate the
             // appropriate printouts
+            curTransaction.close();
+            this.submit(2);
+            this.dispatchEvent('onWarning', _('PRE-FINALIZED'));
+
+            // dispatch onSubmit event here manually since submit() won't do it for us
+            this.dispatchEvent('onSubmit', curTransaction);
+
+            // @todo OSD
+            NotifyUtils.warn(_('Order# [%S] has been pre-finalized', [curTransaction.data.seq]));
         },
 
         cash: function(amount) {
@@ -3100,6 +3099,8 @@
 
             var r = -1;
 
+            this.dispatchEvent('onWarning', '');
+
             switch(action) {
                 case 'newCheck':
                     if (buf.length == 0) {
@@ -3134,16 +3135,26 @@
                     r = this.GuestCheck.guest(no);
                     curTransaction.data.no_of_customers = no;
                     break;
-                case 'destination':
-                    r = this.GuestCheck.destination(param2);
-                    curTransaction.data.destination = param2;
-                    break;
                 case 'store':
                     if (curTransaction.data.status == 1) {
-                        NotifyUtils.warn(_('This order has been submited!!'));
-                    } else {
-                        r = this.GuestCheck.store(curTransaction.data.items_count);
+                        NotifyUtils.warn(_('This order has been submitted'));
+                        return;
+                    }
+                    if (curTransaction.data.closed) {
+                        NotifyUtils.warn(_('This order is pending payment and may only be finalized'));
+                        return;
+                    }
+                    if (curTransaction.data.items_count == 0) {
+                        NotifyUtils.warn(_('This order is empty'));
+                        return;
+                    }
+                    var modified = curTransaction.isModified();
+                    if (modified) {
+                        r = this.GuestCheck.store();
                         this.dispatchEvent('onStore', curTransaction);
+                    }
+                    else {
+                        NotifyUtils.warn(_('No change to store'));
                     }
                     break;
                 case 'recallSequence':

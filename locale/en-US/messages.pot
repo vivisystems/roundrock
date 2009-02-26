@@ -672,6 +672,19 @@ msgstr "Cash Drawer #2"
 msgid "opendrawer2.name"
 msgstr "Cash Drawer #2"
 
+msgid "prefinalize.desc"
+msgstr ""
+"This function closes the current order in order for finalization. As part of "
+"pre-finalization, the order is closed pending payment of the balance. The "
+"same set of post-finalization receipts, slips, and checks will be "
+"automatically printed. The parameter field must be empty."
+
+msgid "prefinalize.label"
+msgstr "Pre-Finalize"
+
+msgid "prefinalize.name"
+msgstr "Pre-Finalize"
+
 msgid "setdestination.desc"
 msgstr ""
 "This function sets the destination indicator to the status given by the "
@@ -918,6 +931,9 @@ msgstr "Manage Cluster Synchronization"
 
 msgid "acl_set_destination"
 msgstr "Set Destination"
+
+msgid "acl_pre_finalize"
+msgstr "Pre-Finalize Order"
 
 msgid "acl_modify_price"
 msgstr "Modify Price"

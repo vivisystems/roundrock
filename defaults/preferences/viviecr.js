@@ -421,6 +421,11 @@ pref("vivipos.fec.registry.function.programmable.setdestination.command", "setDe
 pref("vivipos.fec.registry.function.programmable.setdestination.controller", "Destinations");
 pref("vivipos.fec.registry.function.programmable.setdestination.data", "");
 
+pref("vivipos.fec.registry.function.programmable.prefinalize.access", "acl_pre_finalize");
+pref("vivipos.fec.registry.function.programmable.prefinalize.command", "preFinalize");
+pref("vivipos.fec.registry.function.programmable.prefinalize.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.prefinalize.data", "");
+
 pref('vivipos.fec.ui.functionpanel.button.defaultcolor', 'function-button-color-default');
 pref('vivipos.fec.ui.functionpanel.button.defaultfontsize', 'medium');
 pref('vivipos.fec.ui.department.button.defaultcolor', 'department-button-color-default');

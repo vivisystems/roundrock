@@ -138,13 +138,13 @@
                           'orders.table_no', 'orders.status'];
             switch (key) {
                 case 'CheckNo':
-                    var conditions = "orders.check_no='" + no + "' AND (orders.status='2' OR orders.status='3')";
+                    var conditions = "orders.check_no='" + no + "' AND orders.status='2'";
                     break;
                 case 'TableNo':
-                    var conditions = "orders.table_no='" + no + "' AND (orders.status='2' OR orders.status='3')";
+                    var conditions = "orders.table_no='" + no + "' AND orders.status='2'";
                     break;
                 case 'AllCheck':
-                    var conditions = "(orders.status='2' OR orders.status='3')";
+                    var conditions = "orders.status='2'";
                     break;
             }
             
@@ -169,23 +169,13 @@
             return ord;
         },
 
-        store: function(count) {
-            if (count > 0) {
+        store: function() {
 
-                // this.log("GuestCheck store..." + no);
-                //this._controller.addMarker('subtotal');
-
-                // lock cart content up to the last display item
-                this._controller.lockItems();
-                this._controller.submit(2);
-                this._controller.dispatchEvent('onWarning', _('STORED'));
+            this._controller.submit(2);
+            this._controller.dispatchEvent('onWarning', _('STORED'));
                 
-                // @todo OSD
-                NotifyUtils.warn(_('This order has been stored!!'));
-            } else {
-                // @todo OSD
-                NotifyUtils.warn(_('This order is empty!!'));
-            }
+            // @todo OSD
+            NotifyUtils.warn(_('This order has been stored!!'));
      
         },
 
@@ -231,7 +221,7 @@
 
                         if (status == 1) {
                             // @todo OSD
-                            NotifyUtils.warn(_('This order has been submited!!'));
+                            NotifyUtils.warn(_('This order is already finalized!'));
                         }
                     }
                      else {
@@ -243,7 +233,7 @@
                     var order = new OrderModel();
                     var fields = ['orders.id', 'orders.sequence', 'orders.check_no',
                                   'orders.table_no', 'orders.status'];
-                    var conditions = "orders.check_no='" + no + "' AND (orders.status='2' OR orders.status='3')";
+                    var conditions = "orders.check_no='" + no + "' AND orders.status='2'";
                     var ord = order.find('all', {fields: fields, conditions: conditions});
 
                     if (ord && ord.length > 0) {
@@ -258,7 +248,7 @@
 
                         if (status == 1) {
                             // @todo OSD
-                            NotifyUtils.warn(_('This order has been submited!!'));
+                            NotifyUtils.warn(_('This order is already finalized!'));
                         }
                     } else {
                         // @todo OSD
@@ -269,7 +259,7 @@
                     var order = new OrderModel();
                     var fields = ['orders.id', 'orders.sequence', 'orders.check_no',
                                   'orders.table_no', 'orders.status'];
-                    var conditions = "orders.table_no='" + no + "' AND (orders.status='2' OR orders.status='3')";
+                    var conditions = "orders.table_no='" + no + "' AND orders.status='2'";
                     var ord = order.find('all', {fields: fields, conditions: conditions});
 
                     if (ord && ord.length > 1) {
@@ -320,7 +310,7 @@
 
                         if (status == 1) {
                             // @todo OSD
-                            NotifyUtils.warn(_('This order has been submited!!'));
+                            NotifyUtils.warn(_('This order is already finalized!'));
                         }
                     } else {
                         // @todo OSD
@@ -331,7 +321,7 @@
                     var order = new OrderModel();
                     var fields = ['orders.id', 'orders.sequence', 'orders.check_no',
                                   'orders.table_no', 'orders.status'];
-                    var conditions = "orders.status='2' OR orders.status='3'";
+                    var conditions = "orders.status='2'";
                     var ord = order.find('all', {fields: fields, conditions: conditions});
 
                     if (ord && ord.length > 1) {
@@ -363,7 +353,7 @@
 
                             if (status == 1) {
                                 // @todo OSD
-                                NotifyUtils.warn(_('This order has been submited!!'));
+                                NotifyUtils.warn(_('This order is already finalized!'));
                             }
 
                         }else {
@@ -382,7 +372,7 @@
 
                         if (status == 1) {
                             // @todo OSD
-                            NotifyUtils.warn(_('This order has been submited!!'));
+                            NotifyUtils.warn(_('This order is already finalized!'));
                         }
                     } else {
                         // @todo OSD
