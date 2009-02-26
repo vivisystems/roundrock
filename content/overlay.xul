@@ -49,6 +49,8 @@
             </vbox>
 
         </hbox>
+
+
         <popupset id="dialogs" />
     </box>
     

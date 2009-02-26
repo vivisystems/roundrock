@@ -18,7 +18,7 @@
 
     <popupset id="dialogs">
 
-        <panel id="creditcardRemarkPanel" noautohide="true">
+        <panel id="creditcardRemarkPanel" noautohide="true" noautofocus="true" norestorefocus="true">
 
             <hbox class="pop-dialog" flex="1" pack="center" style="width: 640px; max-width: 640px; height: 560px; max-height: 560px;">
 

@@ -51,7 +51,8 @@ function launchControl(panel) {
         var pref = data[index];
 
         var aArguments = "";
-        var features = pref['features'] || "chrome,popup=no,titlebar=no,toolbar,centerscreen,modal,width=" + width + ",height=" + height;
+        var features = pref['features'] || "chrome,popup=no,titlebar=no,toolbar,centerscreen";
+        features += ",modal,width=" + width + ",height=" + height;
 
         try {
             $.blockUI({

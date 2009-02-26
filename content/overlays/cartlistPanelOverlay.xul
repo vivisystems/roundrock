@@ -9,7 +9,7 @@
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
     <vbox id="cartlistPanelContainer" flex="1">
-        <hotkey-keyset id="TEST" />
+
             <viviscrollabletree class="cartList" id="cartList" hidecolumnpicker="true" hidevscroll="true" flex="1" dir="normal" fixed="true" disableKeyNavigation="true"
                                 primary="name"
                                 headers="'',&cart.item.name;,&cart.item.qty;,&cart.item.unitprice;,&cart.item.subtotal;,&cart.item.tax;"
