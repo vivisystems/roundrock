@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/hotkey_prefs.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % Hotkeys SYSTEM "chrome://viviecr/locale/hotkey_prefs.dtd">
+  %Hotkeys;
+  ]>
+
+<window title="&hotkey.title;"
+	hidechrome="true"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script src="chrome://viviecr/content/controllers/hotkey_prefs_controller.js" type="text/javascript"/>
+    
+    <box id="hotkey-container"  class="main-dialog" flex="1">
+        <hbox flex="1" class="MainPnl" >
+            <!-- vivifuncpanel -->
+            <vbox class="MainL">
+                <vbox id="hotkey_prefs_box" class="LeftPnl" pack="center" flex="1">
+                    
+                    <vivitree style="width: 300px;" id="hotkey_prefs_tree"
+                                                class="hotkey_list"
+                                                headers="&hotkey.prefs.name.label;,&hotkey.prefs.hotkey.label;"
+                                                fields="name,keydisplay"
+                                                seltype="single"
+                                                flex="1"
+                                                hidevscroll="true"
+                                                onselect="$do('selectHotkey', this, 'HotkeyPrefs')"/>
+                    <spacer height="3px" />
+
+                </vbox>
+            </vbox>
+            <vbox flex="1">
+                <!-- Key Map -->
+                <vbox flex="1">
+                    <grid class="DataFormA">
+                        <columns>
+                            <column flex="1"/>
+                            <column flex="1"/>
+                            <column flex="1"/>
+                            <column flex="1"/>
+                        </columns>
+                        <rows>
+                            <!-- hotkey -->
+                            <row>
+                                <textbox id="hotkey_id" name="id" form="hotkeyForm" hidden="true" />
+                                <label value="&hotkey.prefs.hotkey.label;"/>
+                                <hotkey-textbox id="hotkey_hotkey" name="hotkey" value="" disabled="true" />
+                            </row>
+                            
+                            <row>
+                                <label value="&hotkey.prefs.name.label;"/>
+                                <textbox id="hotkey_name" name="name" value="" form="hotkeyForm" readonly="true"/>
+                            </row>
+
+                            <!-- function link -->
+                            <row>
+                                <label value="&hotkey.prefs.linked.label;"/>
+                                <textbox id="hotkey_linked" name="linked" value="" form="hotkeyForm" readonly="true"/>
+                            </row>
+
+                            <!-- function label -->
+                            <row>
+                                <label value="&hotkey.prefs.data.label;"/>
+                                <textbox id="hotkey_data" name="data" value="" form="hotkeyForm" readonly="true"/>
+                            </row>
+                        </rows>
+                    </grid>
+                    <vivitree id="hotkey_function_tree"
+                                                class="keymap_function_list"
+                                                headers="&hotkey.tree.function.label;,&hotkey.tree.label.label;"
+                                                fields="name,label"
+                                                seltype="single"
+                                                flex="1"
+                                                hidevscroll="true"
+                                                disabled="true"
+                                                onselect="$do('selectFunction', this, 'HotkeyPrefs')"/>
+                    <spacer height="3px" />
+                    <hbox>
+                        <textbox class="descbox_keymap" id="hotkey_function_desc" wrap="true"
+                                         readonly="true" multiline="true" rows="3" flex="1">
+                        </textbox>
+                        <spacer width="3px" />
+                        <button id="hotkey_link" icon="apply"
+                                        label="&hotkey.prefs.link.label;"
+                                        disabled="true" class="ItemButtonB"
+                                        oncommand="$do('linkFunction', null, 'HotkeyPrefs')"/>
+                    </hbox>
+                </vbox>
+                    <hbox>
+                        <hbox class="ToolBar" flex="1">
+                            <button id="add_hotkey" label="&hotkey.button.action.add;" disabled="false" class="BtnAdd" oncommand="$do('addHotkey', null, 'HotkeyPrefs');" />
+                            <button id="modify_hotkey" label="&hotkey.button.action.modify;" disabled="true" class="BtnMod" oncommand="$do('modifyHotkey', null, 'HotkeyPrefs');" />
+                            <button id="delete_hotkey" label="&hotkey.button.action.delete;" disabled="true" class="BtnDel" oncommand="$do('removeHotkey', null, 'HotkeyPrefs');" />
+                        </hbox>
+                        <hbox id="dialogButtons" class="dialogbtns" pack="center">
+                            <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
+                            <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="$do('cancelPreferences', null, 'HotkeyPrefs');"/>
+                        </hbox>
+                    </hbox>
+            </vbox>
+        </hbox>
+    </box>
+</window>

@@ -30,6 +30,8 @@
 
     <box id="main-container">
 
+        <hotkey-keyset id="hotkeySets" />
+
         <hbox id="mainPanel" flex="1" class="mainpanel">
 
             <vbox id="leftPanel" flex="1" style="overflow: hidden">
@@ -47,6 +49,8 @@
             </vbox>
 
         </hbox>
+
+
         <popupset id="dialogs" />
     </box>
     

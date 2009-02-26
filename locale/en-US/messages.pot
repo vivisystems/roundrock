@@ -915,3 +915,16 @@ msgstr "Network Setting"
 
 msgid "Synchronization Settings"
 msgstr "Synchronization Settings"
+
+msgid "acl_manage_hotkey"
+msgstr "Manage Hotkey"
+
+msgid "HotKey Configuration"
+msgstr "HotKey Configuration"
+
+msgid "acl_manage_addons"
+msgstr "Manage Add-Ons"
+
+msgid "Add-Ons"
+msgstr "Add-Ons"
+

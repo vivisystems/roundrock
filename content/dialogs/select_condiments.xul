@@ -19,7 +19,7 @@
     
     <popupset id="dialogs">
 
-        <vivipanel id="selectCondimentPanel">
+        <panel id="selectCondimentPanel" noautohide="true">
 
             <hbox flex="1" class="pop-dialog" pack="center" style="margin: 0; padding: 0;width: 640px; max-width: 640px; height: 560px; max-height: 560px;">
 
@@ -28,7 +28,7 @@
                     <caption label="&select.condiments.title;" class="PageTitle" />
 
                     <hbox class="SelectBox">
-                        <viviscrollablebuttonpanel id="condimentscrollablepanel" flex="1" cols="4" rows="7"  seltype="multiple" labelField="name"
+                        <viviscrollablebuttonpanel id="condimentscrollablepanel" flex="1" cols="4" rows="7"  seltype="mixed" labelField="name"
                                                    class="catesdcrollablepanel"
                                                    buttonClass="plubtn"
                                                    scrollUpClass="ScrollUp"
@@ -41,11 +41,10 @@
 
                     <hbox>
                         <hbox class="ToolBar" flex="1">
+                            <spacer flex="1"/>
                             <button class="okBtn" label="&dialog.okButton.label;" default="true" oncommand="$.hidePanel('selectCondimentPanel', true)"/>
                             <button class="cancelBtn" label="&dialog.cancelButton.label;" default="true" oncommand="$.hidePanel('selectCondimentPanel', false)"/>
-                        </hbox>
-                        <hbox id="dialogButtons" class="dialogbtns" pack="center">
-                            <button class="VkbBtn" label=""  oncommand="VirtualKeyboard.toggle();" />
+                            <spacer flex="1"/>
                         </hbox>
                     </hbox>
 
@@ -53,7 +52,7 @@
 
             </hbox>
 
-        </vivipanel>
+        </panel>
 
     </popupset>
 

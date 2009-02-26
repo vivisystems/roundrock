@@ -18,7 +18,7 @@
     
     <popupset id="dialogs">
 
-        <vivipanel id="couponRemarkPanel" >
+        <panel id="couponRemarkPanel" noautohide="true">
 
             <hbox class="pop-dialog" flex="1" pack="center" style="width: 640px; max-width: 640px; height: 560px; max-height: 560px;">
 
@@ -70,7 +70,7 @@
 
             </hbox>
 
-        </vivipanel>
+        </panel>
 
     </popupset>
 
