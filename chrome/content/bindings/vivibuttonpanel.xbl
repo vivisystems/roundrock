@@ -209,7 +209,9 @@
             for(let i=0; i < rows ; i++) {
 
                 let row = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","row");
-                row.setAttribute("flex", 1);
+
+                // allow row to flex only if buttonHeight is not set
+                row.setAttribute("flex", (buttonHeight) ? 0 : 1);
 
                 for(let j=0; j < cols ; j++) {
                 
