@@ -2550,7 +2550,7 @@
 
 
         // pre-finalize the order by closing it
-        preFinalize: function(dest) {
+        preFinalize: function(args) {
             var curTransaction = this._getTransaction();
 
             if (curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
@@ -2559,21 +2559,45 @@
             }
 
             if (curTransaction.isClosed()) {
-                NotifyUtils.warn(_('Order is already pre-finalized'));
+                NotifyUtils.warn(_('The order is already pre-finalized'));
+                return;
+            }
+
+            if (curTransaction.getItemsCount() == 0) {
+                NotifyUtils.warn(_('The order is empty; cannot pre-finalize order'));
                 return;
             }
 
             if (!this.dispatchEvent('beforePreFinalize', curTransaction)) {
                 return;
             }
-            // if destination is given, then items in cart are first validated to make sure
+
+            // if destination is given, we assume that this is a delivery order
+            // items in cart are first validated to make sure
             // their destinations match the given destination
-            if (dest != null) {
-                var mismatch = false;
-                if (curTransaction.data.destination != dest) {
-                    mismatch = true;
+            if (args != null && args != '') {
+                
+                var argList = args.split(',');
+                var dest = argList[0];
+                var annotationCode = argList[1];
+                var annotationType;
+
+                var annotationController = GeckoJS.Controller.getInstanceByName('Annotations');
+
+                if (annotationController != null && annotationCode != null && annotationCode != '') {
+                    annotationType = annotationController.getAnnotationType(annotationCode);
                 }
-                else {
+                if (annotationType == null || annotationType == '') annotationType = annotationCode;
+
+                if (dest) {
+                    if (curTransaction.data.destination != dest) {
+                        if (GREUtils.Dialog.confirm(null, _('confirm destination'),
+                                                    _('The order destination is different from [%S], proceed with pre-finalization?', [dest])) == false) {
+                            return;
+                        }
+                    }
+
+                    var mismatch = false;
                     var items = curTransaction.getItems();
                     for (var index in items) {
                         if (items[index].destination != dest) {
@@ -2581,21 +2605,69 @@
                             break;
                         }
                     }
-                }
 
-                if (mismatch) {
-                    if (GREUtils.Dialog.confirm(null, _('confirm destination'),
-                                                _('Destinations other than [%S] found in the order, proceed with pre-finalization?', [dest])) == false) {
-                        return;
+                    if (mismatch) {
+                        if (GREUtils.Dialog.confirm(null, _('confirm destination'),
+                                                    _('Destinations other than [%S] found in the order, proceed with pre-finalization?', [dest])) == false) {
+                            return;
+                        }
                     }
                 }
+                // next, prompts for customer# if not already given
+
+                // then, prompts for additional annotation (such as ID of deliver person)
+                if (annotationType) {
+
+                    var inputObj = {
+                        input0: '',
+                        require0:false
+                    };
+
+                    var data = [
+                        _('Add Annotation'),
+                        '',
+                        _(annotationType),
+                        '',
+                        inputObj
+                    ];
+
+                    var self = this;
+                    return $.popupPanel('promptAdditemPanel', data).next( function(evt){
+                        var result = evt.data;
+
+                        if (result.ok && result.input0) {
+                            if ('annotations' in curTransaction.data) {
+                                curTransaction.data.annotations.push({type: annotationType, text: result.input0});
+                            }
+                            else {
+                                curTransaction.data.annotations = [{type: annotationType, text: result.input0}];
+                            }
+
+                            // save annotation in db
+                            var annotationModel = new OrderAnnotationModel();
+                            var annotationObj = {order_id: curTransaction.data.id,
+                                                 type: annotationType,
+                                                 text: result.input0};
+                            annotationModel.save(annotationObj);
+                        }
+
+                        curTransaction.close();
+                        self.submit(2);
+                        self.dispatchEvent('onWarning', _('PRE-FINALIZED'));
+
+                        // dispatch onSubmit event here manually since submit() won't do it for us
+                        self.dispatchEvent('onSubmit', curTransaction);
+
+                        // @todo OSD
+                        NotifyUtils.warn(_('Order# [%S] has been pre-finalized', [curTransaction.data.seq]));
+
+                        this.dispatchEvent('afterPreFinalize', curTransaction);
+                    });
+                }
+
+                // lastly, close the transaction and store the order to generate the
+                // appropriate printouts
             }
-            // next, prompts for customer# if not already given
-
-            // then, prompts for additional annotation (such as ID of deliverer)
-
-            // lastly, close the transaction and store the order to generate the
-            // appropriate printouts
             curTransaction.close();
             this.submit(2);
             this.dispatchEvent('onWarning', _('PRE-FINALIZED'));
@@ -2850,6 +2922,37 @@
         },
 
 
+        getAnnotationDialog: function (type) {
+
+            var self = this;
+
+            var inputObj = {
+                input0: '',
+                require0:false
+            };
+
+            var data = [
+            _('Add Annotation'),
+            '',
+            _(type),
+            '',
+            inputObj
+            ];
+
+            return $.popupPanel('promptAdditemPanel', data).next( function(evt){
+                var result = evt.data;
+
+                if (result.ok && result.input0) {
+                    return result.input0;
+                }
+                else {
+                    return null;
+                }
+
+            });
+
+        },
+
 
         getMemoDialog: function (memo) {
 
@@ -2953,13 +3056,13 @@
 
         pushQueue: function(warn) {
 
-            if (warn == null) warn = true;
+            if (warn == null || warn == '') warn = true;
 
             var curTransaction = this._getTransaction();
 
             if(curTransaction == null) {
                 //@todo OSD
-                if (warn) NotifyUtils.warn(_('No open order to push'));
+                if (warn) NotifyUtils.warn(_('No open order to queue'));
                 return; // fatal error ?
             }
 
@@ -2969,7 +3072,7 @@
             }
 
             if (curTransaction.data.recall == 2) {
-                if (warn) NotifyUtils.warn(_('Can not queue the recalled order!!'));
+                if (warn) NotifyUtils.warn(_('Cannot queue the recalled order!!'));
                 return;
             }
             var user = this.Acl.getUserPrincipal();
@@ -3167,7 +3270,7 @@
                         return;
                     }
                     if (curTransaction.data.closed) {
-                        NotifyUtils.warn(_('This order is pending payment and may only be finalized'));
+                        NotifyUtils.warn(_('This order is closed pending payment and may only be finalized'));
                         return;
                     }
                     if (curTransaction.data.items_count == 0) {

@@ -27,7 +27,7 @@ include('chrome://viviecr/content/models/plugroup.js');
 include('chrome://viviecr/content/models/job.js');
 include('chrome://viviecr/content/models/setitem.js');
 include('chrome://viviecr/content/models/producttmp.js');
-include('chrome://viviecr/content/models/stprecpmtact.js');
+include('chrome://viviecr/content/models/storecontact.js');
 
 
 include('chrome://viviecr/content/models/order.js');
@@ -36,6 +36,9 @@ include('chrome://viviecr/content/models/order_addition.js');
 include('chrome://viviecr/content/models/order_payment.js');
 include('chrome://viviecr/content/models/order_object.js');
 include('chrome://viviecr/content/models/order_receipt.js');
+include('chrome://viviecr/content/models/order_annotation.js');
+
+include('chrome://viviecr/content/models/cashdrawer_record.js');
 
 include('chrome://viviecr/content/models/account.js');
 include('chrome://viviecr/content/models/account_topic.js');
@@ -90,6 +93,7 @@ include('chrome://viviecr/content/controllers/cashdrawer_controller.js');
 include('chrome://viviecr/content/controllers/shift_changes_controller.js');
 include('chrome://viviecr/content/controllers/destination_controller.js');
 include('chrome://viviecr/content/controllers/layout_controller.js');
+include('chrome://viviecr/content/controllers/annotation_controller.js');
 
 include('chrome://viviecr/content/controllers/test_controller.js');
 

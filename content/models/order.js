@@ -3,7 +3,7 @@ var OrderModel = window.OrderModel =  GeckoJS.Model.extend({
 
     useDbConfig: 'order',
 
-    hasMany: ['OrderItem', 'OrderAddition', 'OrderPayment', 'OrderReceipt'],
+    hasMany: ['OrderItem', 'OrderAddition', 'OrderPayment', 'OrderReceipt', 'OrderAnnotation'],
     hasOne: ['OrderObject'],
 
     behaviors: ['Sync'],

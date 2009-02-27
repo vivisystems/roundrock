@@ -5,6 +5,7 @@
 <!ENTITY category.tax "Taxes">
 <!ENTITY category.plufilters "Product Filters">
 <!ENTITY category.destinations "Destinations">
+<!ENTITY category.annotations "Annotations">
 <!ENTITY general.publicattendance "Individual Time-and-Attendance visible to all">
 <!ENTITY general.privatequeue "Private order queue">
 <!ENTITY general.defaultpricelevel "System default price level">
@@ -70,6 +71,11 @@
 <!ENTITY destination.modify "Modify">
 <!ENTITY destination.delete "Delete">
 <!ENTITY destination.setdefault "Default Destination">
+<!ENTITY annotation.code "Code">
+<!ENTITY annotation.type "Type">
+<!ENTITY annotation.add "Add">
+<!ENTITY annotation.modify "Modify">
+<!ENTITY annotation.delete "Delete">
 <!ENTITY category.sound "Sound">
 <!ENTITY sound.beepOnItemAdd "Beep on item registrations">
 <!ENTITY sound.beepOnScanningError "Beep on scanning errors">
