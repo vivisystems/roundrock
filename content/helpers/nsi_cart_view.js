@@ -62,6 +62,8 @@
             //GREUtils.log('rowCountChanged 1: ' + oldIndex + ', ' + rc1 + ', ' + rc2 + ', ' + newIndex);
             if (rc1 < 0) {
                 rc1 = 0;
+            }
+            if (oldIndex < 0) {
                 oldIndex = 0;
             }
             if (rc2 < 0) rc2 = this.data.length;

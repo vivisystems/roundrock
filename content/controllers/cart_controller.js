@@ -392,7 +392,7 @@
                 return;
             }
 
-            var itemTrans = curTransaction.getItemAt(index);
+            var itemTrans = curTransaction.getItemAt(index, true);
             var itemDisplay = curTransaction.getDisplaySeqAt(index);
 
             if (itemDisplay.type != 'item' && itemDisplay.type != 'setitem') {

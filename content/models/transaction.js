@@ -1555,11 +1555,11 @@
         return paymentItem;
     };
 
-    Transaction.prototype.getItemAt = function(index, inclusive){
+    Transaction.prototype.getItemAt = function(index, nofollow){
         
         if (index < 0 || index >= this.data.display_sequences.length) return null;
 
-        if (inclusive == null) inclusive = false;
+        if (nofollow == null) nofollow = false;
 
         var itemDisplay = this.getDisplaySeqAt(index);
         var item = null;
@@ -1570,7 +1570,7 @@
                 item = this.data.items[itemIndex];
                 break;
             case 'setitem':
-                if (inclusive)
+                if (nofollow)
                     item = this.data.items[itemIndex];
                 else {
                     var parent_index = this.data.items[itemIndex].parent_index;
@@ -1587,7 +1587,7 @@
             case 'condiment':
             case 'memo':
                 item = this.data.items[itemIndex];
-                if (!inclusive && item != null && item.parent_index != null) {
+                if (!nofollow && item != null && item.parent_index != null) {
                     item = this.data.items[item.parent_index];
                 }
                 break;
