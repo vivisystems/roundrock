@@ -12,7 +12,6 @@ var promptAdditem_options;
         $.installPanel($panel[0], {
 
             init: function(evt) {
-
                 
                 /*
                 var textNodes = document.getElementsByTagName('textbox');
@@ -95,11 +94,13 @@ var promptAdditem_options;
 
 
     function gotFocus() {
+        /*
         var focusedElement = document.commandDispatcher.focusedElement;
         if (focusedElement.tagName == 'html:input' || focusedElement.tagName == 'textbox') {
             focusedElement.select();
         }
         return true;
+        */
     }
 
 

@@ -63,6 +63,7 @@
 <!ENTITY destination.default "Default">
 <!ENTITY destination.name "Name">
 <!ENTITY destination.pricelevel "Price Level">
+<!ENTITY destination.pricelevel.current "Current Level">
 <!ENTITY destination.prefix "Prefix">
 <!ENTITY destination.add "Add">
 <!ENTITY destination.modify "Modify">

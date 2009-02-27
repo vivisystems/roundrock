@@ -72,7 +72,7 @@
 
 
 /* default texbox  */
-textbox:not(.uidisplay_field_label):not(.uidisplay_field_value):not(.orderstatus_field_label):not(.orderstatus_field_value):not(.current_user):not(.console_message_value) {
+textbox:not(.uidisplay_field_label):not(.uidisplay_field_value):not(.orderstatus_field_label):not(.orderstatus_field_value):not(.current_user):not(.console_message_value):not(.label_vfd) {
   border: 3px solid;
   -moz-border-top-colors: #a7a7a7 #c5c5c5 #dcdcdc;
   -moz-border-right-colors: #e7e7e7 #f7f7f7 #fefefe;
@@ -86,7 +86,7 @@ textbox:not(.uidisplay_field_label):not(.uidisplay_field_value):not(.orderstatus
   color: #444;
 
 }
-textbox[readonly="true"]:not(.uidisplay_field_label):not(.uidisplay_field_value):not(.orderstatus_field_label):not(.orderstatus_field_value):not(.current_user):not(.console_message_value) {
+textbox[readonly="true"]:not(.uidisplay_field_label):not(.uidisplay_field_value):not(.orderstatus_field_label):not(.orderstatus_field_value):not(.current_user):not(.console_message_value):not(.label_vfd) {
   border: 1px solid #bdbcb8;
   -moz-border-top-colors: #bdbcb8;
   -moz-border-left-colors: #bdbcb8;
@@ -597,3 +597,10 @@ treechildren::-moz-tree-row(selected) {background-color: #92856a; }
 treechildren::-moz-tree-row(odd, selected) {background-color: #92856a; }
 treechildren::-moz-tree-cell-text(selected) {color: #FFFFFF;}
 treechildren::-moz-tree-cell-text(odd, selected) {color: #FFFFFF;}
+
+.arrowScrollBox .autorepeatbutton-up {
+   width: 40px;
+}
+.arrowScrollBox .autorepeatbutton-down {
+   width: 40px;
+}

@@ -7,7 +7,8 @@
 <!ENTITY devices.tab.check4.label "Check 4">
 <!ENTITY devices.tab.report.label "Report/Label">
 <!ENTITY devices.tab.vfd.label "VFD">
-<!ENTITY devices.tab.cashdrawer.label "Cashdrawer">
+<!ENTITY devices.tab.cashdrawer1.label "Drawer 1">
+<!ENTITY devices.tab.cashdrawer2.label "Drawer 2">
 <!ENTITY devices.receipt.printer.1.label "Receipt Printer 1">
 <!ENTITY devices.receipt.printer.2.label "Receipt Printer 2">
 <!ENTITY devices.template.label "Template">
@@ -34,5 +35,14 @@
 <!ENTITY devices.cashdrawer.2.label "Cash Drawer 2">
 <!ENTITY devices.cashdrawer.type.gpio "GPIO">
 <!ENTITY devices.cashdrawer.type.printer "Printer">
-<!ENTITY devices.cashdrawer.supports.status "Supports status command">
+<!ENTITY devices.cashdrawer.supports.status "Status-enabled?">
 <!ENTITY devices.cashdrawer.gpio.pulses "Pulses to send">
+<!ENTITY devices.cashdrawer.action.label "Open drawer on payment type:">
+<!ENTITY devices.cashdrawer.payment.cash.label "Cash">
+<!ENTITY devices.cashdrawer.payment.creditcard.label "Credit Card">
+<!ENTITY devices.cashdrawer.payment.check.label "Check">
+<!ENTITY devices.cashdrawer.payment.coupon.label "Coupon">
+<!ENTITY devices.cashdrawer.payment.giftcard.label "Giftcard">
+<!ENTITY devices.cashdrawer.action.finalization.label "Finalization">
+<!ENTITY devices.cashdrawer.action.always.label "Always">
+<!ENTITY devices.cashdrawer.action.never.label "Never">

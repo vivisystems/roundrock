@@ -24,8 +24,7 @@
     <!--script type="application/x-javascript" src="chrome://viviecr/content/controllers/sound_controller.js" /-->
     <!-- users.js & taxes.js must load before sysprefs.js -->
     <script type="application/x-javascript" src="chrome://viviecr/content/sysprefs.js" />
-    
-    
+   
     <prefpane id="generalSettingsPane" label="&category.general;" >
         <preferences>
             <preference id="pref_publicattendance" name="vivipos.fec.settings.PublicAttendance" type="bool" />
@@ -462,6 +461,7 @@
                                 <menulist id="destination_pricelevel" name="pricelevel" form="destinationForm" default="">
                                     <menupopup id="destination_pricelevel-popup">
                                         <menuitem label="-" value="-"/>
+                                        <menuitem label="&destination.pricelevel.current;" value="&destination.pricelevel.current;"/>
                                         <menuitem label="1" value="1"/>
                                         <menuitem label="2" value="2"/>
                                         <menuitem label="3" value="3"/>
