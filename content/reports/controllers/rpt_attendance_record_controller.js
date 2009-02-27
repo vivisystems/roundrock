@@ -89,6 +89,19 @@
                 fields: ['username','displayname','group']
                 });
             */
+            
+            var sortby = document.getElementById( 'sortby' ).value;
+            if ( sortby != 'all' ) {
+		        datas.sort(
+				    function( a, b ) {
+				    	a = a[ sortby ];
+				    	b = b[ sortby ];
+				    	if ( a > b ) return 1;
+				    	if ( a < b ) return -1;
+				    	return 0;
+				    }
+		        );
+		    }
 
             // prepare report datas
             var clockStamps = {};
@@ -109,11 +122,6 @@
                                                             GeckoJS.String.padLeft(parseInt(clockStamps[o.username].total_spans % 60),2);
             });
             
-            var sortby = document.getElementById( 'sortby' ).value;
-            
-            datas.sort( function( data ) {
-            	
-
             var data = {
                 head: {
                     title:_('Attendance Record Report'),
@@ -143,9 +151,11 @@
             doc.innerHTML = result;
 
             this._enableButton(true);
+            
+            var splitter = document.getElementById('splitter_zoom');
+            splitter.setAttribute("state", "collapsed");
 
             waitPanel.hidePopup();
-
         },
 
         exportPdf: function() {

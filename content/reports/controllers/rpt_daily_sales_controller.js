@@ -70,6 +70,8 @@
                             'orders.tax_subtotal',
                             'orders.item_subtotal',
                             'orders.total',
+                            'orders.service_clerk_displayname',
+                            'orders.proceeds_clerk_displayname',
                             'orders.rounding_prices',
                             'orders.precision_prices',
                             'orders.surcharge_subtotal',
@@ -84,7 +86,15 @@
 
             var conditions = "orders.transaction_created>='" + start +
                             "' AND orders.transaction_created<='" + end +
-                            "' AND orders.status='1'";
+                            "' AND orders.status=1";
+                            
+            var service_clerk = document.getElementById( 'service_clerk' ).value;
+            if ( service_clerk != 'all' )
+            	conditions += " AND orders.service_clerk_displayname = '" + service_clerk + "'";
+
+			var proceeds_clerk = document.getElementById( 'proceeds_clerk' ).value;
+			if ( proceeds_clerk != 'all' )
+				conditions += " AND orders.proceeds_clerk_displayname = '" + proceeds_clerk + "'";
 
             if (machineid.length > 0) {
                 conditions += " AND orders.terminal_no LIKE '" + machineid + "%'";
@@ -99,9 +109,9 @@
 
             var orderPayment = new OrderPaymentModel();
             
-            //var datas = order.find('all', {fields: '*', conditions: conditions, group2: groupby, order: orderby, recursive: 2 });
-            var datas = orderPayment.find('all', {fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1});
-this.log( this.dump( datas ) );
+            //var datas = order.find('all', {fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 2 });
+            var datas = orderPayment.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1 } );
+
             var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
             var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
 
@@ -212,6 +222,9 @@ this.log( this.dump( datas ) );
             doc.innerHTML = result;
 
             this._enableButton(true);
+            
+            var splitter = document.getElementById( 'splitter_zoom' );
+            splitter.setAttribute( "state", "collapsed" );
 
             waitPanel.hidePopup();
 
@@ -308,6 +321,25 @@ this.log( this.dump( datas ) );
 
             document.getElementById('start_date').value = start;
             document.getElementById('end_date').value = end;
+            
+            function addMenuitem( dbModel, fields, order, group, menupopupId, valueField, labelField ) {
+		        //set up the designated pop-up menulist.
+		        var records = dbModel.find( 'all', { fields: fields, order: order, group: group } );
+		        var menupopup = document.getElementById( menupopupId );
+
+		        records.forEach( function( data ) {
+		            var menuitem = document.createElementNS( "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul", "xul:menuitem" );
+		            menuitem.setAttribute( 'value', data[ valueField ] );
+		            menuitem.setAttribute( 'label', data[ labelField ] );
+		            menupopup.appendChild( menuitem );
+		        });
+		    }
+		    	    
+		    addMenuitem( new OrderModel(), [ 'service_clerk_displayname' ],
+		    			[ 'service_clerk_displayname' ], [ 'service_clerk_displayname' ], 'service_clerk_menupopup', 'service_clerk_displayname', 'service_clerk_displayname' );
+		    			
+		    addMenuitem( new OrderModel(), [ 'proceeds_clerk_displayname' ],
+		    			[ 'proceeds_clerk_displayname' ], [ 'proceeds_clerk_displayname' ], 'proceeds_clerk_menupopup', 'proceeds_clerk_displayname', 'proceeds_clerk_displayname' );
 
             this._enableButton(false);
             

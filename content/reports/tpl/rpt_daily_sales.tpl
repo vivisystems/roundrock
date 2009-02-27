@@ -16,6 +16,8 @@
             <thead>
                 <tr>
                     <th>Term_No.</th>
+                    <th>Service Clerk</th>
+                    <th>Proceeds Clerk</th>
                     <th>Time</th>
                     <th>Sequence</th>
                     <th>Invoice No</th>
@@ -35,6 +37,8 @@
 {for detail in body}
                 <tr>
                     <td style="text-align: left;">${detail.terminal_no}</td>
+                    <td style="text-align: left;">${detail.service_clerk_displayname}</td>
+                    <td style="text-align: left;">${detail.proceeds_clerk_displayname}</td>
                     <td style="text-align: left;">${detail.transaction_created|unixTimeToString:'yyyy-M-d'}</td>
                     <td>${detail.sequence}</td>
                     <td>${detail.invoice_no}</td>
@@ -55,7 +59,7 @@
                 <tr>
                     <td></td>
                     <td></td>
-                    <td colspan="2">Summary:</td>
+                    <td colspan="4">Summary:</td>
                     <td>${foot.foot_datas.item_subtotal|viviFormatPrices:true}</td>
                     <td>${foot.foot_datas.tax_subtotal|viviFormatPrices:true}</td>
                     <td>${foot.foot_datas.surcharge_subtotal|viviFormatPrices:true}</td>

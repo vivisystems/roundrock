@@ -24,3 +24,7 @@
 <!ENTITY rptdailysales.giftcard "Gift Card">
 <!ENTITY rptdailysales.all "List All">
 <!ENTITY rptdailysales.wait "Waiting...">
+<!ENTITY rptdailysales.service_clerks "Service Clerks:">
+<!ENTITY rptdailysales.proceeds_clerks "Proceeds Clerks:">
+<!ENTITY rptdailysales.service_clerk "Service Clerk">
+<!ENTITY rptdailysales.proceeds_clerk "Proceeds Clerk">

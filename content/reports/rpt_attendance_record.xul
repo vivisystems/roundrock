@@ -26,60 +26,67 @@
   
     <vbox flex="1" class="main-dialog">
         <vbox flex="1" class="MainPnl">
-            <caption label="&rptattendancerecord.title;"  class="PageTitle"/>
-            <!--caption label="&productsales.conditions;" / -->
-            <hbox>
-                <hbox flex="1">
-                <grid class="DataForm" flex="1">
-                    <columns>
-                        <column  flex="1"/><column flex="1" />
-                    </columns>
-                    <rows>
-                        <row>
-                            <vbox>
-                                <label value="&rptattendancerecord.startdate;" />
-                                <vividatetimepicker id="start_date" value='' type="popup" />
-                            </vbox>
-                            <vbox>
-                                <label value="&rptattendancerecord.enddate;" />
-                                <vividatetimepicker id="end_date" value='' type="popup"/>
-                            </vbox>
-                        </row>
-                        <row>
-		                    <vbox>
-		                    	<label value="&rptattendancerecord.user;" />
-		                        <menulist id="user">
-		                            <menupopup id="user_menupopup">
-		                                <menuitem selected="true" label="[&rptattendancerecord.all;]" value="all" />
-		                            </menupopup>
-		                        </menulist>
-		                    </vbox>
-		                    <vbox>
-		                    	<label value="&rptattendancerecord.job;" />
-		                    	<menulist id="job">
-		                    		<menupopup id="job_menupopup">
-		                    			<menuitem selected="true" label="[&rptattendancerecord.all;]" value="all" />
-		                    		</menupopup>
-		                    	</menulist>
-		                    </vbox>
-		                    <vbox>
-		                    	<label value="&rptattendancerecord.sortby;" />
-			                    <menulist id="sortby">
-			                        <menupopup id="sortby_menupopup">
-			                            <menuitem selected="true" label="[&rptattendancerecord.all;]" value="all" />
-			                            <menuitem selected="false" label="&rptattendancerecord.job;" value="job" />
-			                            <menuitem selected="false" label="&rptattendancerecord.intime;" value="InTime" />
-			                            <menuitem selected="false" label="&rptattendancerecord.outtime;" value="OutTime" />
-			                            <menuitem selected="false" label="&rptattendancerecord.spantime;" value="SpanTime" />
-			                        </menupopup>
-			                    </menulist>
-			                </vbox>
-			            </row>
-                    </rows>
-                </grid>
-                </hbox>
-                <button id="execute" label="&rptattendancerecord.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptAttendanceRecord');" />
-            </hbox>
+		    <vbox><!-- set for the splitter to collapse up to here.-->
+		        <caption label="&rptattendancerecord.title;"  class="PageTitle"/>
+		        <!--caption label="&productsales.conditions;" / -->
+		        <hbox>
+		            <hbox flex="1">
+		            <grid class="DataForm" flex="1">
+		                <columns>
+		                    <column  flex="1"/><column flex="1" />
+		                </columns>
+		                <rows>
+		                    <row>
+		                        <vbox>
+		                            <label value="&rptattendancerecord.startdate;" />
+		                            <vividatetimepicker id="start_date" value='' type="popup" />
+		                        </vbox>
+		                        <vbox>
+		                            <label value="&rptattendancerecord.enddate;" />
+		                            <vividatetimepicker id="end_date" value='' type="popup"/>
+		                        </vbox>
+		                    </row>
+		                    <row>
+				                <vbox>
+				                	<label value="&rptattendancerecord.user;" />
+				                    <menulist id="user">
+				                        <menupopup id="user_menupopup">
+				                            <menuitem selected="true" label="[&rptattendancerecord.all;]" value="all" />
+				                        </menupopup>
+				                    </menulist>
+				                </vbox>
+				                <vbox>
+				                	<label value="&rptattendancerecord.jobs;" />
+				                	<menulist id="job">
+				                		<menupopup id="job_menupopup">
+				                			<menuitem selected="true" label="[&rptattendancerecord.all;]" value="all" />
+				                		</menupopup>
+				                	</menulist>
+				                </vbox>
+					        </row>
+					        <row>
+					        	<vbox>
+				                	<label value="&rptattendancerecord.sortby;" />
+					                <menulist id="sortby">
+					                    <menupopup id="sortby_menupopup">
+					                        <menuitem selected="true" label="[&rptattendancerecord.all;]" value="all" />
+					                        <menuitem selected="false" label="&rptattendancerecord.job;" value="job" />
+					                        <menuitem selected="false" label="&rptattendancerecord.intime;" value="InTime" />
+					                        <menuitem selected="false" label="&rptattendancerecord.outtime;" value="OutTime" />
+					                        <menuitem selected="false" label="&rptattendancerecord.spantime;" value="SpanTime" />
+					                    </menupopup>
+					                </menulist>
+					            </vbox>
+					        </row>
+		                </rows>
+		            </grid>
+		            </hbox>
+		            <button id="execute" label="&rptattendancerecord.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptAttendanceRecord');" />
+		        </hbox>
+		    </vbox>
+            <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
+                <!-- grippy/ -->
+            </splitter>
             <hbox class="TopPnl">
                 <hbox class="ReportTool"  flex="1">
 
@@ -95,11 +102,7 @@
                     <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
                 </hbox>
             </hbox>
-
-            <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
-                <!-- grippy/ -->
-            </splitter>
-
+            
             <box class="reportbox" flex="1">
                 <browser type="content" id="preview_frame" src="rpt_template1.html" flex="1"/>
             </box>
