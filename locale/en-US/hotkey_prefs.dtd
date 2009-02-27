@@ -1,4 +1,9 @@
 <!ENTITY    hotkey.title                   "Hotkey Configuration">
+
+<!ENTITY    hotkey.search.hotkey.label                   "Search Hotkey:">
+<!ENTITY    hotkey.search.button.label                   "Search">
+<!ENTITY    hotkey.search.reset.label                   "Reset">
+
 <!ENTITY    hotkey.prefs.reset.label     "Reset">
 <!ENTITY    hotkey.prefs.name.label      "Hotkey Name">
 <!ENTITY    hotkey.prefs.hotkey.label    "Hotkey">
