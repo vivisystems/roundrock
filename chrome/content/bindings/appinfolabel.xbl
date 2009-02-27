@@ -1,0 +1,191 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE bindings [
+  <!ENTITY % globalDTD SYSTEM "chrome://global/locale/global.dtd">
+  %globalDTD;
+]>
+
+<bindings xmlns="http://www.mozilla.org/xbl"
+          xmlns:xbl="http://www.mozilla.org/xbl"
+          xmlns:html="http://www.w3.org/1999/xhtml"
+          xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+
+    <binding id="appinfolabel">
+        <resources>
+        </resources>
+
+        <content>
+            <xul:label anonid="app-info-label" crop="none" xbl:inherits="flex,class,crop,dir,align" />
+        </content>
+
+        <xbl:implementation>
+
+            <field name="label">
+            document.getAnonymousElementByAttribute(this, "anonid", "app-info-label");
+            </field>
+
+            <property name="appId" onget="return this.getAttribute('appId')" onset="this.setAttribute('appId', val); return val;"/>
+
+            <property name="appField" onget="return this.getAttribute('appField')" onset="this.setAttribute('appField', val); return val;"/>
+
+            <constructor><![CDATA[
+                var self = this;
+                self.initLabel();
+            ]]>
+            </constructor>
+
+            <destructor>
+            <![CDATA[
+            ]]>
+            </destructor>
+
+            <xbl:method name="initLabel">
+                <xbl:body><![CDATA[
+
+                var appField = this.appField.toLowerCase();
+
+                var label = this.label;
+                var value = "";
+
+                // Query Appinfo
+
+                try {
+                    var appInfo = Components.classes["@mozilla.org/xre/app-info;1"].getService(Components.interfaces.nsIXULAppInfo);
+
+                    if (!appInfo) return;
+
+                    switch(appField) {
+
+                        case 'id':
+                            value = appInfo.ID;
+                            break;
+
+                        case 'name':
+                            value = appInfo.name;
+                            break;
+
+                        case 'buildid':
+                            value = appInfo.appBuildID;
+                            break;
+
+                        case 'vendor':
+                        case 'creator':
+                            value = appInfo.vendor;
+                            break;
+
+                        case 'homepageurl':
+                            value = appInfo.name;
+                            break;
+
+                        case 'version':
+                            value = appInfo.version;
+                            break;
+
+                    }
+
+                    label.value = value;
+
+                }catch(e) {
+                }
+
+                ]]>
+                </xbl:body>
+            </xbl:method>
+
+        </xbl:implementation>
+
+    </binding>
+
+
+    <binding id="extinfolabel">
+        <resources>
+        </resources>
+
+        <content>
+            <xul:label anonid="ext-info-label" crop="none" xbl:inherits="flex,class,crop,dir,align" />
+        </content>
+
+        <xbl:implementation>
+
+            <field name="label">
+            document.getAnonymousElementByAttribute(this, "anonid", "ext-info-label");
+            </field>
+
+            <property name="extId" onget="return this.getAttribute('extId')" onset="this.setAttribute('extId', val); return val;"/>
+
+            <property name="extField" onget="return this.getAttribute('extField')" onset="this.setAttribute('extField', val); return val;"/>
+
+            <constructor><![CDATA[
+                var self = this;
+                self.initLabel();
+            ]]>
+            </constructor>
+
+            <destructor>
+            <![CDATA[
+            ]]>
+            </destructor>
+
+            <xbl:method name="initLabel">
+                <xbl:body><![CDATA[
+
+                var extensionId = this.extId;
+                var extensionField = this.extField.toLowerCase();
+
+                var label = this.label;
+                var value = "";
+
+                if (!extensionId) return;
+
+                // Query extension
+
+                try {
+                    var extMgr = Components.classes["@mozilla.org/extensions/manager;1"].getService(Components.interfaces.nsIExtensionManager);
+
+                    var extItem = extMgr.getItemForID(extensionId);
+
+                    if (!extItem) return;
+
+                    switch(extensionField) {
+
+                        case 'id':
+                            value = extItem.id;
+                            break;
+
+                        case 'name':
+                            value = extItem.name;
+                            break;
+
+                        case 'description':
+                            value = extItem.description;
+                            break;
+
+                        case 'creator':
+                            value = extItem.creator;
+                            break;
+
+                        case 'homepageurl':
+                            value = extItem.homepageURL;
+                            break;
+
+                        case 'version':
+                            value = extItem.version;
+                            break;
+
+                    }
+
+                    label.value = value;
+                    
+                }catch(e) {
+                }
+                
+                ]]>
+                </xbl:body>
+            </xbl:method>
+
+        </xbl:implementation>
+
+    </binding>
+
+</bindings>

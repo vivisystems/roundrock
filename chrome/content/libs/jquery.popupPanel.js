@@ -127,7 +127,7 @@
 
                 // fixed for non-topmost panel
                 // @see https://bugzilla.mozilla.org/show_bug.cgi?id=433340#c100
-                if (element.tagName.toLowerCase() == 'panel') {
+                if (element.tagName.toLowerCase() == 'panel' && element.getAttribute('non-topmost')) {
                     element.removeAttribute('noautohide');
                 }               
 
