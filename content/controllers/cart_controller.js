@@ -2563,7 +2563,7 @@
                 return;
             }
 
-            if (this.dispatchEvent('beforePreFinalize', curTransaction)) {
+            if (!this.dispatchEvent('beforePreFinalize', curTransaction)) {
                 return;
             }
             // if destination is given, then items in cart are first validated to make sure

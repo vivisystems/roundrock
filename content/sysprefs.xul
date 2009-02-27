@@ -223,6 +223,7 @@
         <preferences>
 			
             <preference id="pref_registeratleft" name="vivipos.fec.settings.RegisterAtLeft" type="bool"/>
+            <preference id="pref_productpanelontop" name="vivipos.fec.settings.ProductPanelOnTop" type="bool"/>
             <preference id="pref_hidetagcolumn" name="vivipos.fec.settings.HideTagColumn" type="bool"/>
             <preference id="pref_hidedeptscrollbar" name="vivipos.fec.settings.HideDeptScrollbar" type="bool"/>
             <preference id="pref_hidepluscrollbar" name="vivipos.fec.settings.HidePLUScrollbar" type="bool"/>
@@ -250,7 +251,7 @@
             <rows>
                 <row>
                     <checkbox id="registerAtLeft" label="&layout.registeratleft;" preference="pref_registeratleft"/>
-                    <checkbox id="hideFPScrollbar" label="&layout.hidefpscrollbar;" preference="pref_hidefpscrollbar"/>
+                    <checkbox id="productPanelOnTop" label="&layout.productpanelontop;" preference="pref_productpanelontop"/>
                 </row>
                 <row>
                     <checkbox id="hideDeptScrollbar" label="&layout.hidedeptscrollbar;" preference="pref_hidedeptscrollbar"/>            
@@ -261,11 +262,12 @@
                     <checkbox id="hideTagColumn" label="&layout.hidetagcolumn;" preference="pref_hidetagcolumn"/>
                 </row>
                 <row>
-                    <checkbox id="cropDeptLabel" label="&layout.cropdeptlabel;" preference="pref_crop_dept_label" />
-                    <checkbox id="cropPLULabel" label="&layout.cropplulabel;" preference="pref_crop_plu_label"/>
+                    <checkbox id="hideFPScrollbar" label="&layout.hidefpscrollbar;" preference="pref_hidefpscrollbar"/>
+                    <checkbox id="checkTrackingMode" label="&layout.checktrackingmode;" preference="pref_checktrackingmode" />
                 </row>
                 <row>
-                    <checkbox id="checkTrackingMode" label="&layout.checktrackingmode;" preference="pref_checktrackingmode" />
+                    <checkbox id="cropDeptLabel" label="&layout.cropdeptlabel;" preference="pref_crop_dept_label" />
+                    <checkbox id="cropPLULabel" label="&layout.cropplulabel;" preference="pref_crop_plu_label"/>
                 </row>
             </rows>
         </grid>

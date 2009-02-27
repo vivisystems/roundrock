@@ -35,6 +35,7 @@
 <!ENTITY login.endshiftonsignoff "Automatically ends shift when users sign off">
 <!ENTITY login.allowquicklogin "Allow quick login by automatically matching user by password">
 <!ENTITY layout.registeratleft "Place register screen on the left">
+<!ENTITY layout.productpanelontop "Place product panel on top">
 <!ENTITY layout.checktrackingmode "Show check tracking details">
 <!ENTITY layout.hidesoldoutbuttons "Hide sold-out buttons">
 <!ENTITY layout.hidetagcolumn "Hide tag column">
