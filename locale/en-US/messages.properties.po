@@ -680,7 +680,9 @@ msgstr ""
 "This function closes the current order in order for finalization. As part of "
 "pre-finalization, the order is closed pending payment of the balance. The "
 "same set of post-finalization receipts, slips, and checks will be "
-"automatically printed. The parameter field must be empty."
+"automatically printed. The parameter field may optional contain a "
+"destination. When destination is given, the order will be validated against "
+"it."
 
 msgid "prefinalize.label"
 msgstr "Pre-Finalize"
@@ -1106,6 +1108,42 @@ msgid ""
 "been modified successfully"
 msgstr ""
 
+#: ../..//content/controllers/annotation_controller.js:46
+msgid "Add New Annotation"
+msgstr ""
+
+#: ../..//content/controllers/annotation_controller.js:46
+msgid "New Annotation"
+msgstr ""
+
+#: ../..//content/controllers/annotation_controller.js:46
+msgid "Code"
+msgstr ""
+
+#: ../..//content/controllers/annotation_controller.js:46
+msgid "Text"
+msgstr ""
+
+#: ../..//content/controllers/annotation_controller.js:53
+msgid "Annotation [%S] already exists"
+msgstr ""
+
+#: ../..//content/controllers/annotation_controller.js:71
+msgid "Annotation [%S] added successfully"
+msgstr ""
+
+#: ../..//content/controllers/annotation_controller.js:85
+msgid "Annotation [%S] modified successfully"
+msgstr ""
+
+#: ../..//content/controllers/annotation_controller.js:89
+msgid "Annotation name must not be empty"
+msgstr ""
+
+#: ../..//content/controllers/annotation_controller.js:102
+msgid "Annotation [%S] deleted successfully"
+msgstr ""
+
 #: ../..//content/controllers/cart_controller.js:100
 msgid "OUT OF STOCK"
 msgstr ""
@@ -1156,7 +1194,7 @@ msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:357
 #: ../..//content/controllers/cart_controller.js:613
-#: ../..//content/controllers/cart_controller.js:2627
+#: ../..//content/controllers/cart_controller.js:2725
 msgid "This order is being finalized and items may not be modified"
 msgstr ""
 
@@ -1171,15 +1209,15 @@ msgstr ""
 #: ../..//content/controllers/cart_controller.js:1302
 #: ../..//content/controllers/cart_controller.js:1535
 #: ../..//content/controllers/cart_controller.js:2348
-#: ../..//content/controllers/cart_controller.js:2635
-#: ../..//content/controllers/cart_controller.js:2783
+#: ../..//content/controllers/cart_controller.js:2733
+#: ../..//content/controllers/cart_controller.js:2881
 msgid "Please select an item first"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:381
 #: ../..//content/controllers/cart_controller.js:629
-#: ../..//content/controllers/cart_controller.js:2641
-#: ../..//content/controllers/cart_controller.js:2789
+#: ../..//content/controllers/cart_controller.js:2739
+#: ../..//content/controllers/cart_controller.js:2887
 msgid "Stored items may not be modified"
 msgstr ""
 
@@ -1279,12 +1317,12 @@ msgid "Cannot VOID an entry that has been subtotaled"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:949
-#: ../..//content/controllers/cart_controller.js:2674
+#: ../..//content/controllers/cart_controller.js:2772
 msgid "Please void discount on item [%S] first"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:955
-#: ../..//content/controllers/cart_controller.js:2679
+#: ../..//content/controllers/cart_controller.js:2777
 msgid "Please void surcharge on item [%S] first"
 msgstr ""
 
@@ -1559,92 +1597,116 @@ msgid "Not an open order; cannot pre-finalize order"
 msgstr ""
 
 #: ../..//content/controllers/cart_controller.js:2562
-msgid "Order is already pre-finalized"
+msgid "The order is already pre-finalized"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2577
+#: ../..//content/controllers/cart_controller.js:2567
+msgid "The order is empty; cannot pre-finalize order"
+msgstr ""
+
+#: ../..//content/controllers/cart_controller.js:2594
+#: ../..//content/controllers/cart_controller.js:2610
+msgid "confirm destination"
+msgstr ""
+
+#: ../..//content/controllers/cart_controller.js:2595
+msgid ""
+"The order destination is different from [%S], proceed with pre-finalization?"
+msgstr ""
+
+#: ../..//content/controllers/cart_controller.js:2611
+msgid ""
+"Destinations other than [%S] found in the order, proceed with pre-"
+"finalization?"
+msgstr ""
+
+#: ../..//content/controllers/cart_controller.js:2627
+#: ../..//content/controllers/cart_controller.js:2935
+msgid "Add Annotation"
+msgstr ""
+
+#: ../..//content/controllers/cart_controller.js:2656
+#: ../..//content/controllers/cart_controller.js:2673
 msgid "PRE-FINALIZED"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2583
+#: ../..//content/controllers/cart_controller.js:2662
+#: ../..//content/controllers/cart_controller.js:2679
 msgid "Order# [%S] has been pre-finalized"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2609
-#: ../..//content/controllers/cart_controller.js:2620
+#: ../..//content/controllers/cart_controller.js:2707
+#: ../..//content/controllers/cart_controller.js:2718
 msgid "Not an open order; cannot add condiment"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2658
+#: ../..//content/controllers/cart_controller.js:2756
 msgid "Condiments may not be added to [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2664
+#: ../..//content/controllers/cart_controller.js:2762
 msgid "Condiments may not be added to a return item [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2669
+#: ../..//content/controllers/cart_controller.js:2767
 msgid "Cannot add condiments to an item that has been subtotaled"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2691
+#: ../..//content/controllers/cart_controller.js:2789
 msgid "No Condiment group associated with item [%S]"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2772
-#: ../..//content/controllers/cart_controller.js:2778
+#: ../..//content/controllers/cart_controller.js:2870
+#: ../..//content/controllers/cart_controller.js:2876
 msgid "Not an open order; cannot add memo"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2838
+#: ../..//content/controllers/cart_controller.js:2967
 msgid "Add Memo"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2840
+#: ../..//content/controllers/cart_controller.js:2969
 msgid "Memo"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2936
-msgid "No open order to push"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:2941
+#: ../..//content/controllers/cart_controller.js:3065
+#: ../..//content/controllers/cart_controller.js:3070
 msgid "No open order to queue"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2946
-msgid "Can not queue the recalled order!!"
+#: ../..//content/controllers/cart_controller.js:3075
+msgid "Cannot queue the recalled order!!"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:2980
+#: ../..//content/controllers/cart_controller.js:3109
 msgid "Order is not queued because it is empty"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3085
+#: ../..//content/controllers/cart_controller.js:3214
 msgid "fatal error!!"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3115
+#: ../..//content/controllers/cart_controller.js:3244
 msgid "Check# %S is exist!!"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3131
+#: ../..//content/controllers/cart_controller.js:3260
 msgid "Table# %S is exist!!"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3140
+#: ../..//content/controllers/cart_controller.js:3269
 msgid "This order has been submitted"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3144
-msgid "This order is pending payment and may only be finalized"
+#: ../..//content/controllers/cart_controller.js:3273
+msgid "This order is closed pending payment and may only be finalized"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3148
+#: ../..//content/controllers/cart_controller.js:3277
 msgid "This order is empty"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3157
+#: ../..//content/controllers/cart_controller.js:3286
 msgid "No change to store"
 msgstr ""
 
@@ -1932,6 +1994,10 @@ msgid ""
 "Shopping cart is missing; please contact your dealer for technical support"
 msgstr ""
 
+#: ../..//content/controllers/destination_controller.js:250
+msgid "This order is closed pending payment and may not be modified"
+msgstr ""
+
 #: ../..//content/controllers/devices_controller.js:50
 #: ../..//content/controllers/devices_controller.js:67
 #: ../..//content/controllers/devices_controller.js:1467
@@ -2020,54 +2086,66 @@ msgid ""
 msgstr ""
 
 #: ../..//content/controllers/funcpanelecrprefs_controller.js:826
-#: ../..//content/controllers/hotkey_prefs_controller.js:55
+#: ../..//content/controllers/hotkey_prefs_controller.js:54
 msgid ".name"
 msgstr ""
 
 #: ../..//content/controllers/funcpanelecrprefs_controller.js:827
-#: ../..//content/controllers/hotkey_prefs_controller.js:56
+#: ../..//content/controllers/hotkey_prefs_controller.js:55
 msgid ".label"
 msgstr ""
 
 #: ../..//content/controllers/funcpanelecrprefs_controller.js:828
-#: ../..//content/controllers/hotkey_prefs_controller.js:57
+#: ../..//content/controllers/hotkey_prefs_controller.js:56
 msgid ".desc"
 msgstr ""
 
-#: ../..//content/controllers/hotkey_prefs_controller.js:97
+#: ../..//content/controllers/hotkey_prefs_controller.js:96
 msgid "New Hotkey"
 msgstr ""
 
-#: ../..//content/controllers/hotkey_prefs_controller.js:114
+#: ../..//content/controllers/hotkey_prefs_controller.js:112
 msgid "Please Linking Function to Hotkey"
 msgstr ""
 
-#: ../..//content/controllers/hotkey_prefs_controller.js:153
+#: ../..//content/controllers/hotkey_prefs_controller.js:147
+msgid "Please Assign Hotkey to Linking Function"
+msgstr ""
+
+#: ../..//content/controllers/hotkey_prefs_controller.js:157
 msgid "Hotkey [%S] is reserved"
 msgstr ""
 
-#: ../..//content/controllers/hotkey_prefs_controller.js:161
+#: ../..//content/controllers/hotkey_prefs_controller.js:165
 msgid "Hotkey [%S] is exists"
 msgstr ""
 
-#: ../..//content/controllers/hotkey_prefs_controller.js:182
+#: ../..//content/controllers/hotkey_prefs_controller.js:189
 msgid "Hotkey [%S] [%S] modified successfully"
 msgstr ""
 
-#: ../..//content/controllers/hotkey_prefs_controller.js:188
+#: ../..//content/controllers/hotkey_prefs_controller.js:195
 msgid ""
 "An error occurred while modifying Hotkey [%S]. The hotkey may not have been "
 "modified successfully"
 msgstr ""
 
-#: ../..//content/controllers/hotkey_prefs_controller.js:217
+#: ../..//content/controllers/hotkey_prefs_controller.js:223
 msgid "Hotkey [%S] [%S] remove successfully"
 msgstr ""
 
-#: ../..//content/controllers/hotkey_prefs_controller.js:227
+#: ../..//content/controllers/hotkey_prefs_controller.js:233
 msgid ""
 "An error occurred while removing Hotkey [%S]. The hotkey may not have been "
 "removed successfully"
+msgstr ""
+
+#: ../..//content/controllers/hotkey_prefs_controller.js:311
+msgid "Hotkey [%S] is not exists"
+msgstr ""
+
+#: ../..//content/controllers/hotkey_prefs_controller.js:330
+msgid "An error occurred while searching Hotkey [%S]."
 msgstr ""
 
 #: ../..//content/controllers/image_manager_controller.js:121
@@ -2878,38 +2956,38 @@ msgstr ""
 msgid "Sale Completed"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1887
+#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1894
 msgid "Scroll Forward"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1888
+#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1895
 msgid "Next"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1889
+#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1896
 msgid "This function scrolls the function panel to the next page"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1897
+#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1904
 msgid "Scroll Backward"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1898
+#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1905
 msgid "Back"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1899
+#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1906
 msgid "This function scrolls the function panel to the previous page"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1907
+#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1914
 msgid "Home Page"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1908
+#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1915
 msgid "Home"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1909
+#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1916
 msgid "This function scrolls the function panel to the home page"
 msgstr ""
