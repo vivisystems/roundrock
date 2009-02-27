@@ -14,7 +14,7 @@
                 <xul:textbox anonid="labelVfd" hidden="true" class="label_vfd" xbl:inherits="class=labelClass"></xul:textbox>
                 <xul:grid flex="1">
                     <xul:columns>
-                        <xul:column flex="0" />
+                        <xul:column flex="1" />
                         <xul:column flex="1" />
                     </xul:columns>
                     <xul:rows>

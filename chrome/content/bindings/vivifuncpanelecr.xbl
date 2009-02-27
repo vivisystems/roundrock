@@ -1668,7 +1668,17 @@
                                 }
                                 else {
                                     // check ACL - relegated to vivibutton to check ACL access
-                                    var hasAccess = this._isUserInRole(entry.access);
+                                    var hasAccess = true;
+                                    if (entry.access != null && entry.access != '') {
+                                        hasAccess = this._isUserInRole(entry.access);
+                                        btn.setAttribute('roles', entry.access);
+                                        btn.setAttribute('action', 'display');
+                                    }
+                                    else {
+                                        btn.removeAttribute('roles');
+                                        btn.removeAttribute('action');
+                                    }
+
                                     btn.setAttribute('label', entry.label);
                                     //btn.setLabel(entry.label);
                                     var ch = document.getAnonymousElementByAttribute(btn, 'class', 'button-text');
@@ -1677,9 +1687,6 @@
                                         ch.style.width = labelWidth + 'px';
                                     }
                                     
-                                    btn.setAttribute('roles', entry.access);
-                                    btn.setAttribute('action', 'display');
-
                                     btnstyles.push(this.getAttribute('matrix_button_mapped_class'));
 
                                     //GREUtils.log('[KEYMAP]: mapping function to button <' + btn.getAttribute('label') + '> with class <' + this.getAttribute('matrix_button_mapped_class') + '> hasAccess <' + hasAccess + '> disabled <' + disabledFlag + '>');
