@@ -105,6 +105,7 @@
             var fields = ['orders.terminal_no',
                             'order_items.created',
                             'order_items.cate_no',
+                            'order_items.cate_name',
                             'order_items.product_no',
                             'order_items.product_name',
                             'SUM("order_items"."current_qty") as "OrderItem.qty"',
@@ -135,7 +136,7 @@
             var orderItem = new OrderItemModel();
 
             var fields = ['orders.terminal_no',
-                    'order_items.created',
+                    		'order_items.created',
                             'order_items.product_no',
                             'order_items.product_name',
                             'SUM("order_items"."current_qty") as "OrderItem.qty"',
@@ -164,24 +165,10 @@
             end = parseInt(end / 1000);
 
             var fields = [
-                            'sum(order_payments.amount) as "Order.payment_subtotal"',
-                            'order_payments.name as "Order.payment_name"',
-                            'orders.transaction_created',
-                            //'DATETIME("orders"."transaction_created", "unixepoch", "localtime") AS "Order.Date"',
-                            'orders.id',
-                            'orders.sequence',
-                            'orders.status',
-                            'orders.total',
-                            'orders.rounding_prices',
-                            'orders.precision_prices',
-                            'orders.surcharge_subtotal',
-                            'orders.discount_subtotal',
-                            'orders.items_count',
-                            'orders.check_no',
-                            'orders.table_no',
-                            'orders.no_of_customers',
-                            'orders.invoice_no',
-                            'orders.terminal_no'];
+                            'order_payments.name',
+                            'sum( order_payments.amount ) as "OrderPayment.amount"',
+                            'sum( order_payments.change ) as "OrderPayment.change"',
+                       	 ];
 
             var conditions = "orders.transaction_created>='" + start +
                             "' AND orders.transaction_created<='" + end +
@@ -197,41 +184,8 @@
             }
 
             var orderPayment = new OrderPaymentModel();
-            // var datas = order.find('all',{fields: fields, conditions: conditions, group2: groupby, order: orderby, recursive: 1});
+            
             var datas = orderPayment.find('all',{fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1});
-
-            var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
-            var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
-
-            // prepare reporting data
-            var repDatas = {};
-
-            var initZero = parseFloat(0).toFixed(precision_prices);
-
-            var footDatas = {total: 0, surcharge_subtotal: 0,discount_subtotal: 0, cash: 0, creditcard: 0, coupon: 0};
-            var old_oid;
-
-            datas.forEach(function(data){
-
-                var oid = data.Order.id;
-                var o = data.Order;
-                o.Order = o;
-
-                if (!repDatas[oid]) {
-                    repDatas[oid] = GREUtils.extend({}, o); // {cash:0, creditcard: 0, coupon: 0}, o);
-                }
-
-                repDatas[oid][o.payment_name] = o.payment_subtotal;
-
-                if (old_oid != oid) footDatas.total += o.total;
-                if (old_oid != oid) footDatas.surcharge_subtotal += o.surcharge_subtotal;
-                if (old_oid != oid) footDatas.discount_subtotal += o.discount_subtotal;
-                footDatas[o.payment_name] += o.payment_subtotal;
-                old_oid = oid;
-
-            });
-
-            var datas = GeckoJS.BaseObject.getValues(repDatas);
 
             return datas;
         },
@@ -247,6 +201,10 @@
                             'orders.terminal_no',
                             'orders.status',
                             'SUM("orders"."total") AS "Order.Total"',
+                            'SUM( "orders"."item_subtotal" ) AS "Order.ItemSubtotal"',
+                            'SUM( "orders"."discount_subtotal" ) AS "Order.DiscountSubtotal"',
+                            'SUM( "orders"."surcharge_subtotal" ) AS "Order.SurchargeSubtotal"',
+                            'SUM( "orders"."tax_subtotal" ) AS "Order.TaxSubtotal"',
                             'COUNT("orders"."id") AS "Order.OrderNum"',
                             'SUM("orders"."no_of_customers") AS "Order.Guests"',
                             'SUM("orders"."items_count") AS "Order.ItemsCount"',
@@ -272,6 +230,45 @@
 
             return datas;
         },
+        
+        _destinationSummary: function() {
+        	var start = document.getElementById('start_date').value;
+            var end = document.getElementById('end_date').value;
+            var machineid = document.getElementById('machine_id').value;
+            start = parseInt(start / 1000);
+            end = parseInt(end / 1000);
+            
+            var fields = [
+                            'orders.destination as "Order.destination"',
+                            'count( orders.id ) as "Order.num_trans"',
+                            'sum( orders.total ) as "Order.total"'
+                        ];
+
+            var conditions = "orders.transaction_created>='" + start +
+                            "' AND orders.transaction_created<='" + end +
+                            "' AND orders.status='1'";
+
+            if (machineid.length > 0) {
+                conditions += " AND orders.terminal_no LIKE '" + machineid + "%'";
+            } else {
+                //
+            }
+			
+            var groupby = 'orders.destination';
+            var orderby = 'orders.destination';
+            
+            var order = new OrderModel();
+            var datas = order.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1 } );
+            
+            // calculate the number of the transaction.
+            var total_trans = order.find( 'first', { fields: 'count( orders.id ) as num', conditions: conditions, recursive: 1 } ).num;
+            
+            var records = {};
+            records.total_trans = total_trans;
+            records.data = datas;
+
+			return records;
+		},
 
         execute: function() {
             var waitPanel = this._showWaitPanel('wait_panel');
@@ -306,7 +303,8 @@
                     dept_sales: this._deptSalesBillboard(),
                     prod_sales: this._prodSalesBillboard(),
                     payment_list: this._paymentList(),
-                    sales_summary: this._SalesSummary()
+                    sales_summary: this._SalesSummary(),
+                    destination_summary: this._destinationSummary()
                 },
                 foot: {
                     gen_time: (new Date()).toString('yyyy/MM/dd HH:mm:ss')
@@ -328,6 +326,10 @@
             doc.innerHTML = result;
 
             this._enableButton(true);
+            
+            // initialize the splitter.
+            var splitter = document.getElementById( 'splitter_zoom' );
+            splitter.setAttribute( "state", "collapsed" );
 
             waitPanel.hidePopup();
 
@@ -435,4 +437,3 @@
 
 
 })();
-

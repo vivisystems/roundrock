@@ -58,6 +58,7 @@
 			                            <menuitem selected="false" label="&rptdailysalessummary.discount_subtotal;" value="discount_subtotal" />
 			                            <menuitem selected="false" label="&rptdailysalessummary.total;" value="total" />
 			                            <menuitem selected="false" label="&rptdailysalessummary.cash;" value="cash" />
+			                            <menuitem selected="false" label="&rptdailysalessummary.check;" value="check" />
 			                            <menuitem selected="false" label="&rptdailysalessummary.creditcard;" value="creditcard" />
 			                            <menuitem selected="false" label="&rptdailysalessummary.coupon;" value="coupon" />
 			                            <menuitem selected="false" label="&rptdailysalessummary.giftcard;" value="giftcard" />

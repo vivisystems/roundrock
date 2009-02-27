@@ -54,24 +54,34 @@
             start = parseInt(start / 1000);
             end = parseInt(end / 1000);
 
-            var fields = ['clock_stamps.created',
+            var fields = [
+            				'clock_stamps.created',
                             'clock_stamps.modified',
                             'DATETIME("clock_stamps"."created", "unixepoch", "localtime") AS "ClockStamp.InTime"',
                             'DATETIME("clock_stamps"."modified", "unixepoch", "localtime") AS "ClockStamp.OutTime"',
                             'ABS("clock_stamps"."modified" - "clock_stamps"."created") AS "ClockStamp.Spans"',
                             'TIME(ABS("clock_stamps"."modified" - "clock_stamps"."created"), "unixepoch") AS "ClockStamp.SpanTime"',
                             'clock_stamps.username',
-                            'clock_stamps.job'];
+                            'clock_stamps.job'
+                        ];
 
             var conditions = "clock_stamps.created>='" + start +
                             "' AND clock_stamps.created<='" + end +
                             "'";
+                            
+            var userName = document.getElementById( 'user' ) .value;
+            if ( userName != 'all' )
+            	conditions += " AND clock_stamps.username = '" + userName + "'";
+            	
+           	var jobTitle = document.getElementById( 'job' ).value;
+           	if ( jobTitle != 'all' )
+           		conditions += " AND clock_stamps.job = '" + jobTitle + "'";
 
             var groupby = 'clock_stamps.username';
             var orderby = 'clock_stamps.username,clock_stamps.created';
 
             var clockStamp = new ClockStampModel();
-            var datas = clockStamp.find('all',{fields: fields, conditions: conditions, group2: groupby, order: orderby, recursive: 1});
+            var datas = clockStamp.find( 'all', { fields: fields, conditions: conditions, group2: groupby, order: orderby, recursive: 1 } );
 
             /*
             var user = new UserModel();
@@ -98,6 +108,11 @@
                                                             GeckoJS.String.padLeft(parseInt((clockStamps[o.username].total_spans / 60) % 60),2) + ":" +
                                                             GeckoJS.String.padLeft(parseInt(clockStamps[o.username].total_spans % 60),2);
             });
+            
+            var sortby = document.getElementById( 'sortby' ).value;
+            
+            datas.sort( function( data ) {
+            	
 
             var data = {
                 head: {
@@ -223,12 +238,27 @@
 
             document.getElementById('start_date').value = start;
             document.getElementById('end_date').value = end;
+            
+            function addMenuitem( dbModel, fields, order, group, menupopupId, valueField, labelField ) {
+		        //set up the designated pop-up menulist.
+		        var records = dbModel.find( 'all', { fields: fields, order: order, group: group } );
+		        var menupopup = document.getElementById( menupopupId );
+
+		        records.forEach( function( data ) {
+		            var menuitem = document.createElementNS( "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul", "xul:menuitem" );
+		            menuitem.setAttribute( 'value', data[ valueField ] );
+		            menuitem.setAttribute( 'label', data[ labelField ] );
+		            menupopup.appendChild( menuitem );
+		        });
+		    }
+		    
+		    addMenuitem( new ClockStampModel(), [ 'username' ], [ 'username' ], [ 'username' ], 'user_menupopup', 'username', 'username' );
+            
+            addMenuitem( new ClockStampModel(), [ 'job' ], [ 'job' ], [ 'job' ], 'job_menupopup', 'job', 'job' );
 
             this._enableButton(false);
         }
-
+        
     });
-
-
+    
 })();
-

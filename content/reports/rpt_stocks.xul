@@ -35,19 +35,36 @@
                     </columns>
                     <rows>
                         <row>
-                            <label value="&rptstocks.department;" />
-                            <menulist id="department" flex="1">
-                                <menupopup id="department_menupopup"  flex="1">
-                                    <menuitem selected="true" label="[&rptstocks.all;]" value="all" />
-                                </menupopup>
-                            </menulist>
+                        	<vbox>
+		                        <label value="&rptstocks.department;" />
+		                        <menulist id="department" flex="1">
+		                            <menupopup id="department_menupopup"  flex="1">
+		                                <menuitem selected="true" label="[&rptstocks.all;]" value="all" />
+		                            </menupopup>
+		                        </menulist>
+		                    </vbox>
+                            <vbox>
+		                    	<label value="&rptstocks.sortby;" />
+				                <menulist id="sortby">
+				                    <menupopup id="sortby_menupopup">
+				                        <menuitem selected="true" label="[&rptstocks.all;]" value="all" />
+				                        <menuitem selected="false" label="&rptstocks.no;" value="no" />
+				                        <menuitem selected="false" label="&rptstocks.name;" value="name" />
+				                        <menuitem selected="false" label="&rptstocks.stock;" value="stock" />
+				                        <menuitem selected="false" label="&rptstocks.min_stock;" value="min_stock" />
+				                    </menupopup>
+				                </menulist>
+				            </vbox>
                         </row>
                     </rows>
                 </grid>
                 </hbox>
                 <button id="execute" label="&rptstocks.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptStocks');" />
             </hbox>
-						<hbox class="TopPnl">
+            <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
+                <!-- grippy/ -->
+            </splitter>
+			<hbox class="TopPnl">
                 <hbox class="ReportTool"  flex="1">
 
                     <vivibutton id="export_pdf" label="&rptstocks.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do('exportPdf', null, 'RptStocks');" />
@@ -61,10 +78,7 @@
                     <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
                 </hbox>
             </hbox>
-            <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
-                <!-- grippy/ -->
-            </splitter>
-
+            
             <box class="reportbox" flex="1">
                 <browser type="content" id="preview_frame" src="rpt_template1.html" flex="1"/>
             </box>

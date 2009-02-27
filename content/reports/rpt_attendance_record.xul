@@ -45,6 +45,36 @@
                                 <vividatetimepicker id="end_date" value='' type="popup"/>
                             </vbox>
                         </row>
+                        <row>
+		                    <vbox>
+		                    	<label value="&rptattendancerecord.user;" />
+		                        <menulist id="user">
+		                            <menupopup id="user_menupopup">
+		                                <menuitem selected="true" label="[&rptattendancerecord.all;]" value="all" />
+		                            </menupopup>
+		                        </menulist>
+		                    </vbox>
+		                    <vbox>
+		                    	<label value="&rptattendancerecord.job;" />
+		                    	<menulist id="job">
+		                    		<menupopup id="job_menupopup">
+		                    			<menuitem selected="true" label="[&rptattendancerecord.all;]" value="all" />
+		                    		</menupopup>
+		                    	</menulist>
+		                    </vbox>
+		                    <vbox>
+		                    	<label value="&rptattendancerecord.sortby;" />
+			                    <menulist id="sortby">
+			                        <menupopup id="sortby_menupopup">
+			                            <menuitem selected="true" label="[&rptattendancerecord.all;]" value="all" />
+			                            <menuitem selected="false" label="&rptattendancerecord.job;" value="job" />
+			                            <menuitem selected="false" label="&rptattendancerecord.intime;" value="InTime" />
+			                            <menuitem selected="false" label="&rptattendancerecord.outtime;" value="OutTime" />
+			                            <menuitem selected="false" label="&rptattendancerecord.spantime;" value="SpanTime" />
+			                        </menupopup>
+			                    </menulist>
+			                </vbox>
+			            </row>
                     </rows>
                 </grid>
                 </hbox>

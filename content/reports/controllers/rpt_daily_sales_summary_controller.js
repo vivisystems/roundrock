@@ -117,6 +117,7 @@
             	surcharge_subtotal: 0,
             	discount_subtotal: 0,
             	cash: 0,
+            	check: 0,
             	creditcard: 0,
             	coupon: 0,
             	giftcard: 0
@@ -129,7 +130,7 @@
             var self = this;
             var terminal;
             var old_terminal;
-//this.log( this.dump( datas ) );            
+            
             datas.forEach(function(data){
 
                 var oid = data.Order.id;
@@ -146,6 +147,7 @@
 					
 					if ( old_oid != oid ) {
 		                repDatas[ oid ][ 'cash' ] = 0.0;
+		                repDatas[ oid ][ 'check' ] = 0.0;
 		                repDatas[ oid ][ 'creditcard' ] = 0.0;
 		                repDatas[ oid ][ 'coupon' ] = 0.0;
 		                repDatas[ oid ][ 'giftcard' ] = 0.0;

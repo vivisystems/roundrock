@@ -7,5 +7,10 @@
 <!ENTITY rptstocks.exportrcp "Print">
 <!ENTITY rptstocks.togglezoom "Toggle Zoom">
 <!ENTITY rptstocks.department "Department:">
+<!ENTITY rptstocks.sortby "Sort By:">
+<!ENTITY rptstocks.no "No.">
+<!ENTITY rptstocks.name "Name">
+<!ENTITY rptstocks.stock "Stock">
+<!ENTITY rptstocks.min_stock "Min. Stock">
 <!ENTITY rptstocks.all "List All">
 <!ENTITY rptstocks.wait "Waiting...">

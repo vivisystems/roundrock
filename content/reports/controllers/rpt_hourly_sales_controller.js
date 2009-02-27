@@ -82,7 +82,7 @@
             var orderby = 'orders.terminal_no,orders.transaction_created';
 
             var order = new OrderModel();
-            var datas = order.find('all',{fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: -1});
+            var datas = order.find( 'all', {fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: -1} );
 
             var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
             var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
@@ -103,7 +103,7 @@
             var Guests = 0;
             var ItemsCount = 0;
 
-            datas.forEach(function(o){
+            datas.forEach( function(o) {
                 HourTotal += o.HourTotal;
                 OrderNum += o.OrderNum;
                 Guests += o.Guests;
@@ -111,7 +111,7 @@
 
                 o.HourTotal = GeckoJS.NumberHelper.round(o.HourTotal, precision_prices, rounding_prices) || 0;
                 o.HourTotal = o.HourTotal.toFixed(precision_prices);
-            });
+            } );
 
             HourTotal = GeckoJS.NumberHelper.round(HourTotal, precision_prices, rounding_prices) || 0;
             HourTotal = HourTotal.toFixed(precision_prices);
@@ -137,7 +137,7 @@
 
             this._datas = data;
 
-            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_hourly_sales.tpl");
+            var path = GREUtils.File.chromeToPath( "chrome://viviecr/content/reports/tpl/rpt_hourly_sales.tpl" );
 
             var file = GREUtils.File.getFile(path);
             var tpl = GREUtils.File.readAllBytes(file);
@@ -254,4 +254,3 @@
 
 
 })();
-

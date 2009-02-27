@@ -101,7 +101,7 @@
             
             //var datas = order.find('all', {fields: '*', conditions: conditions, group2: groupby, order: orderby, recursive: 2 });
             var datas = orderPayment.find('all', {fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1});
-
+this.log( this.dump( datas ) );
             var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
             var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
 
@@ -117,6 +117,7 @@
             	surcharge_subtotal: 0,
             	discount_subtotal: 0,
             	cash: 0,
+            	check: 0,
             	creditcard: 0,
             	coupon: 0,
             	giftcard: 0
@@ -136,6 +137,7 @@
 				
 				if ( old_oid != oid ) {
 					repDatas[ oid ][ 'cash' ] = 0.0;
+					repDatas[ oid ][ 'check' ] = 0.0;
 					repDatas[ oid ][ 'creditcard' ] = 0.0;
 					repDatas[ oid ][ 'coupon' ] = 0.0;
 					repDatas[ oid ][ 'giftcard' ] = 0.0;
