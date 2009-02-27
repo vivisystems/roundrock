@@ -255,7 +255,12 @@
             GeckoJS.Session.set('vivipos_fec_order_destination', dest.name);
 
             // set price level if necessary
-            if (!isNaN(dest.pricelevel)) {
+            if (isNaN(dest.pricelevel)) {
+                if (dest.pricelevel != '-') {
+                    this.requestCommand('changeToCurrentLevel', null, 'Pricelevel');
+                }
+            }
+            else {
                 this.requestCommand('change', dest.pricelevel, 'Pricelevel');
             }
 

@@ -79,3 +79,4 @@ pref("vivipos.fec.acl.roles.acl_manage_network_setting", "acl_manage_network_set
 pref("vivipos.fec.acl.roles.acl_scroll_function_panel", "acl_scroll_function_panel");
 pref("vivipos.fec.acl.roles.acl_manage_hotkey", "acl_manage_hotkey");
 pref("vivipos.fec.acl.roles.acl_manage_addons", "acl_manage_addons");
+pref("vivipos.fec.acl.roles.acl_pre_finalize", "acl_pre_finalize");
