@@ -1942,54 +1942,66 @@ msgid ""
 msgstr ""
 
 #: ../..//content/controllers/funcpanelecrprefs_controller.js:824
-#: ../..//content/controllers/hotkey_prefs_controller.js:55
+#: ../..//content/controllers/hotkey_prefs_controller.js:54
 msgid ".name"
 msgstr ""
 
 #: ../..//content/controllers/funcpanelecrprefs_controller.js:825
-#: ../..//content/controllers/hotkey_prefs_controller.js:56
+#: ../..//content/controllers/hotkey_prefs_controller.js:55
 msgid ".label"
 msgstr ""
 
 #: ../..//content/controllers/funcpanelecrprefs_controller.js:826
-#: ../..//content/controllers/hotkey_prefs_controller.js:57
+#: ../..//content/controllers/hotkey_prefs_controller.js:56
 msgid ".desc"
 msgstr ""
 
-#: ../..//content/controllers/hotkey_prefs_controller.js:97
+#: ../..//content/controllers/hotkey_prefs_controller.js:96
 msgid "New Hotkey"
 msgstr ""
 
-#: ../..//content/controllers/hotkey_prefs_controller.js:114
+#: ../..//content/controllers/hotkey_prefs_controller.js:112
 msgid "Please Linking Function to Hotkey"
 msgstr ""
 
-#: ../..//content/controllers/hotkey_prefs_controller.js:153
+#: ../..//content/controllers/hotkey_prefs_controller.js:147
+msgid "Please Assign Hotkey to Linking Function"
+msgstr ""
+
+#: ../..//content/controllers/hotkey_prefs_controller.js:157
 msgid "Hotkey [%S] is reserved"
 msgstr ""
 
-#: ../..//content/controllers/hotkey_prefs_controller.js:161
+#: ../..//content/controllers/hotkey_prefs_controller.js:165
 msgid "Hotkey [%S] is exists"
 msgstr ""
 
-#: ../..//content/controllers/hotkey_prefs_controller.js:182
+#: ../..//content/controllers/hotkey_prefs_controller.js:189
 msgid "Hotkey [%S] [%S] modified successfully"
 msgstr ""
 
-#: ../..//content/controllers/hotkey_prefs_controller.js:188
+#: ../..//content/controllers/hotkey_prefs_controller.js:195
 msgid ""
 "An error occurred while modifying Hotkey [%S]. The hotkey may not have been "
 "modified successfully"
 msgstr ""
 
-#: ../..//content/controllers/hotkey_prefs_controller.js:217
+#: ../..//content/controllers/hotkey_prefs_controller.js:223
 msgid "Hotkey [%S] [%S] remove successfully"
 msgstr ""
 
-#: ../..//content/controllers/hotkey_prefs_controller.js:227
+#: ../..//content/controllers/hotkey_prefs_controller.js:233
 msgid ""
 "An error occurred while removing Hotkey [%S]. The hotkey may not have been "
 "removed successfully"
+msgstr ""
+
+#: ../..//content/controllers/hotkey_prefs_controller.js:311
+msgid "Hotkey [%S] is not exists"
+msgstr ""
+
+#: ../..//content/controllers/hotkey_prefs_controller.js:330
+msgid "An error occurred while searching Hotkey [%S]."
 msgstr ""
 
 #: ../..//content/controllers/image_manager_controller.js:121
@@ -2728,61 +2740,101 @@ msgstr ""
 msgid "Specified receipt/guest check template [%S] is empty or does not exist!"
 msgstr ""
 
-#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:69
-#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:118
-#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:140
-#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:147
-#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:165
-#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:170
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:65
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:114
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:136
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:143
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:161
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:166
 msgid "TAL"
 msgstr ""
 
-#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:71
-#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:119
-#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:141
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:67
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:115
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:137
 msgid "REM"
 msgstr ""
 
-#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:72
-#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:120
-#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:142
-#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:171
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:68
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:116
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:138
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:167
 msgid "PAY"
 msgstr ""
 
-#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:80
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:76
 msgid "Return"
 msgstr ""
 
-#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:84
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:80
 msgid "I"
 msgstr ""
 
-#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:88
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:84
 msgid "QTY"
 msgstr ""
 
-#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:95
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:91
 msgid "Change Clerk"
 msgstr ""
 
-#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:97
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:93
 msgid "Password"
 msgstr ""
 
-#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:144
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:140
 msgid "CANCELED"
 msgstr ""
 
-#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:145
-#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:157
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:141
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:153
 msgid "SEQ#"
 msgstr ""
 
-#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:156
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:152
 msgid "QUEUED"
 msgstr ""
 
-#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:172
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:168
 msgid "CHG"
+msgstr ""
+
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:169
+msgid "Sale Completed"
+msgstr ""
+
+#: ../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1887
+msgid "Scroll Forward"
+msgstr ""
+
+#: ../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1888
+msgid "Next"
+msgstr ""
+
+#: ../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1889
+msgid "This function scrolls the function panel to the next page"
+msgstr ""
+
+#: ../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1897
+msgid "Scroll Backward"
+msgstr ""
+
+#: ../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1898
+msgid "Back"
+msgstr ""
+
+#: ../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1899
+msgid "This function scrolls the function panel to the previous page"
+msgstr ""
+
+#: ../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1907
+msgid "Home Page"
+msgstr ""
+
+#: ../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1908
+msgid "Home"
+msgstr ""
+
+#: ../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1909
+msgid "This function scrolls the function panel to the home page"
 msgstr ""
