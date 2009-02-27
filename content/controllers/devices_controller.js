@@ -845,6 +845,11 @@
                         gpiopulses: selectedDevices[type + '-1-gpio-pulses'],
                         linkgroup: selectedDevices[type + '-1-link-group'],
                         printNoRouting: selectedDevices[type + '-1-print-no-routing'],
+                        cashaction: selectedDevices[type + '-1-cash-action'],
+                        creditcardaction: selectedDevices[type + '-1-creditcard-action'],
+                        checkaction: selectedDevices[type + '-1-check-action'],
+                        couponaction: selectedDevices[type + '-1-coupon-action'],
+                        giftcardaction: selectedDevices[type + '-1-giftcard-action'],
                         number: 1
                     });
                 }
@@ -862,6 +867,11 @@
                         gpiopulses: selectedDevices[type + '-2-gpio-pulses'],
                         linkgroup: selectedDevices[type + '-2-link-group'],
                         printNoRouting: selectedDevices[type + '-2-print-no-routing'],
+                        cashaction: selectedDevices[type + '-2-cash-action'],
+                        creditcardaction: selectedDevices[type + '-2-creditcard-action'],
+                        checkaction: selectedDevices[type + '-2-check-action'],
+                        couponaction: selectedDevices[type + '-2-coupon-action'],
+                        giftcardaction: selectedDevices[type + '-2-giftcard-action'],
                         number: 2
                     });
                 }
@@ -1370,7 +1380,7 @@
              *
              */
 
-            if (document.getElementById('cashdrawer-panel') != null) {
+            if (document.getElementById('cashdrawer-1-panel') != null && document.getElementById('cashdrawer-2-panel') != null) {
 
                 /* populate device ports */
 
@@ -1425,8 +1435,10 @@
             /* apply device selections */
             GeckoJS.FormHelper.unserializeFromObject('deviceForm', selectedDevices);
 
-            if (document.getElementById('cashdrawer-panel') != null) {
+            if (document.getElementById('cashdrawer-1-panel') != null) {
                 this.updateCashdrawerType([document.getElementById('cashdrawer-1-type'), '1']);
+            }
+            if (document.getElementById('cashdrawer-2-panel') != null) {
                 this.updateCashdrawerType([document.getElementById('cashdrawer-2-type'), '2']);
             }
         },
@@ -1477,7 +1489,6 @@
             }
 
             // update device session data
-            
             GeckoJS.Configure.write('vivipos.fec.settings.selectedDevices', GeckoJS.BaseObject.serialize(formObj));
 
             GeckoJS.Observer.notify(null, 'device-refresh', this);

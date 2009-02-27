@@ -13,15 +13,6 @@
     min-height: 50px;
 }
 
-vivibutton[disabled=true] description {
-    color: gray;
-    font-style: italic;
-}
-
-viviscrollabletree scrollbar {
-    display: none;
-}
-
 textbox:not([onclick]) *[readonly] {
     -moz-user-focus: ignore;
     -moz-user-input: disabled;
@@ -408,6 +399,16 @@ textbox:not([onclick]) *[readonly] {
     background: transparent url(images/prod-remove.png) center center no-repeat;
 }
 
+.soldoutbtn {
+    border: 2px solid black !important;
+    background: transparent url(images/prohibitsale.png) center center no-repeat;
+}
+
+.soldoutbtn[checked=true] {
+    border: 2px solid black !important;
+    background: yellow url(images/prohibitsale.png) center center no-repeat;
+}
+
 .dialogbtns .vkb {
     list-style-image: url(images/keyboard.png);
     margin: 2px;
@@ -657,7 +658,7 @@ textbox:not([onclick]) *[readonly] {
 
 .font-small {
     font-weight: bold !important;
-    font-size: 8px;
+    font-size: 10px;
 }
 
 .font-medium {

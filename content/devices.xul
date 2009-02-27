@@ -41,7 +41,8 @@
                     <tab id="check4-tab" label="&devices.tab.check4.label;"/>
                     <tab id="report-tab" label="&devices.tab.report.label;"/>
                     <tab id="vfd-tab" label="&devices.tab.vfd.label;"/>
-                    <tab id="cashdrawer-tab" label="&devices.tab.cashdrawer.label;"/>
+                    <tab id="cashdrawer-1-tab" label="&devices.tab.cashdrawer1.label;"/>
+                    <tab id="cashdrawer-2-tab" label="&devices.tab.cashdrawer2.label;"/>
                 </tabs>
 
                 <!-- Receipt configuration -->
@@ -236,6 +237,9 @@
                                         </row>
                                     </rows>
                                 </grid>
+
+                                <spacer width="10px"/>
+
                                 <vbox flex="1">
                                     <viviscrollablebuttonpanel id="check-1-group_listscrollablepanel" form="deviceForm" name="check-1-link-group" default="" seltype="toggle" flex="1" cols="3" rows="4" labelField="name" imageField="no"
                                                                oncommand=""
@@ -313,6 +317,9 @@
                                         </row>
                                     </rows>
                                 </grid>
+
+                                <spacer width="10px"/>
+
                                 <vbox flex="1">
                                     <viviscrollablebuttonpanel id="check-2-group_listscrollablepanel" form="deviceForm" name="check-2-link-group" default="" seltype="toggle" flex="1" cols="3" rows="4" labelField="name" imageField="no"
                                                                oncommand=""
@@ -391,6 +398,9 @@
                                         </row>
                                     </rows>
                                 </grid>
+
+                                <spacer width="10px"/>
+
                                 <vbox flex="1">
                                     <viviscrollablebuttonpanel id="check-3-group_listscrollablepanel" form="deviceForm" name="check-3-link-group" default="" seltype="toggle" flex="1" cols="3" rows="4" labelField="name" imageField="no"
                                                                oncommand=""
@@ -468,6 +478,9 @@
                                         </row>
                                     </rows>
                                 </grid>
+
+                                <spacer width="10px"/>
+
                                 <vbox flex="1">
                                     <viviscrollablebuttonpanel id="check-4-group_listscrollablepanel" form="deviceForm" name="check-4-link-group" default="" seltype="toggle" flex="1" cols="3" rows="4" labelField="name" imageField="no"
                                                                oncommand=""
@@ -657,6 +670,7 @@
                                 </grid>
                             </vbox> 
                         </vbox>
+
                         <spacer width="10px"/>
 
                         <vbox class="SetArea" flex="1">
@@ -722,11 +736,11 @@
                     </tabpanel>
 
                 <!-- Cash Drawer configuration -->
-                    <tabpanel id="cashdrawer-panel" orient="horizontal">
+                    <tabpanel id="cashdrawer-1-panel" orient="horizontal">
                         <vbox class="SetArea" flex="1">
                             <checkbox label="&devices.cashdrawer.1.label;" name="cashdrawer-1-enabled" value="false" default="false" form="deviceForm"/>
-                            <vbox class="SubArea">
-                                <grid>
+                            <hbox class="SubArea" flex="1">
+                                <grid flex="1">
                                     <columns>
                                         <column flex="0"/>
                                         <column flex="1"/>
@@ -791,15 +805,71 @@
                                         </row>
                                     </rows>
                                 </grid>
-                            </vbox>
+
+                                <separator class="groove-thin" width="2px" orient="vertical" style="margin: 10px;"/>
+
+                                <vbox class="SubArea">
+                                    <label value="&devices.cashdrawer.action.label;"/>
+                                    <grid>
+                                    <columns>
+                                        <column flex="0"/>
+                                        <column flex="0"/>
+                                    </columns>
+                                    <rows>
+                                        <row>
+                                            <label value="&devices.cashdrawer.payment.cash.label;"/>
+                                            <radiogroup id="cashdrawer-1-cash-action" name="cashdrawer-1-cash-action" form="deviceForm" default="finalization" orient="horizontal">
+                                                <radio id="cashdrawer-1-cash-action-finalization" label="&devices.cashdrawer.action.finalization.label;" value="finalization"/>
+                                                <radio id="cashdrawer-1-cash-action-always" label="&devices.cashdrawer.action.always.label;" value="always"/>
+                                                <radio id="cashdrawer-1-cash-action-never" label="&devices.cashdrawer.action.never.label;" value="never"/>
+                                            </radiogroup>
+                                        </row>
+                                        <row>
+                                            <label value="&devices.cashdrawer.payment.creditcard.label;"/>
+                                            <radiogroup id="cashdrawer-1-creditcard-action" name="cashdrawer-1-creditcard-action" form="deviceForm" default="finalization" orient="horizontal">
+                                                <radio id="cashdrawer-1-creditcard-action-finalization" label="&devices.cashdrawer.action.finalization.label;" value="finalization"/>
+                                                <radio id="cashdrawer-1-creditcard-action-always" label="&devices.cashdrawer.action.always.label;" value="always"/>
+                                                <radio id="cashdrawer-1-creditcard-action-never" label="&devices.cashdrawer.action.never.label;" value="never"/>
+                                            </radiogroup>
+                                        </row>
+                                        <row>
+                                            <label value="&devices.cashdrawer.payment.check.label;"/>
+                                            <radiogroup id="cashdrawer-1-check-action" name="cashdrawer-1-check-action" form="deviceForm" default="finalization" orient="horizontal">
+                                                <radio id="cashdrawer-1-check-action-finalization" label="&devices.cashdrawer.action.finalization.label;" value="finalization"/>
+                                                <radio id="cashdrawer-1-check-action-always" label="&devices.cashdrawer.action.always.label;" value="always"/>
+                                                <radio id="cashdrawer-1-check-action-never" label="&devices.cashdrawer.action.never.label;" value="never"/>
+                                            </radiogroup>
+                                        </row>
+                                        <row>
+                                            <label value="&devices.cashdrawer.payment.coupon.label;"/>
+                                            <radiogroup id="cashdrawer-1-coupon-action" name="cashdrawer-1-coupon-action" form="deviceForm" default="finalization" orient="horizontal">
+                                                <radio id="cashdrawer-1-coupon-action-finalization" label="&devices.cashdrawer.action.finalization.label;" value="finalization"/>
+                                                <radio id="cashdrawer-1-coupon-action-always" label="&devices.cashdrawer.action.always.label;" value="always"/>
+                                                <radio id="cashdrawer-1-coupon-action-never" label="&devices.cashdrawer.action.never.label;" value="never"/>
+                                            </radiogroup>
+                                        </row>
+                                        <row>
+                                            <label value="&devices.cashdrawer.payment.giftcard.label;"/>
+                                            <radiogroup id="cashdrawer-1-giftcard-action" name="cashdrawer-1-giftcard-action" form="deviceForm" default="finalization" orient="horizontal">
+                                                <radio id="cashdrawer-1-giftcard-action-finalization" label="&devices.cashdrawer.action.finalization.label;" value="finalization"/>
+                                                <radio id="cashdrawer-1-giftcard-action-always" label="&devices.cashdrawer.action.always.label;" value="always"/>
+                                                <radio id="cashdrawer-1-giftcard-action-never" label="&devices.cashdrawer.action.never.label;" value="never"/>
+                                            </radiogroup>
+                                        </row>
+                                    </rows>
+                                    </grid>
+                                </vbox>
+
+                            </hbox>
                         </vbox>
 
-                        <spacer width="10px"/>
+                    </tabpanel>
 
+                    <tabpanel id="cashdrawer-2-panel" orient="horizontal">
                         <vbox class="SetArea" flex="1">
                             <checkbox label="&devices.cashdrawer.2.label;" name="cashdrawer-2-enabled" value="false" default="false" form="deviceForm"/>
-                            <vbox class="SubArea">
-                                <grid>
+                            <hbox class="SubArea" flex="1">
+                                <grid flex="1">
                                     <columns>
                                         <column flex="0"/>
                                         <column flex="1"/>
@@ -864,9 +934,64 @@
                                         </row>
                                     </rows>
                                 </grid>
-                            </vbox>
+
+                                <separator class="groove-thin" width="2px" orient="vertical" style="margin: 10px;"/>
+
+                                <vbox class="SubArea">
+                                    <label value="&devices.cashdrawer.action.label;"/>
+                                    <grid>
+                                    <columns>
+                                        <column flex="0"/>
+                                        <column flex="0"/>
+                                    </columns>
+                                    <rows>
+                                        <row>
+                                            <label value="&devices.cashdrawer.payment.cash.label;"/>
+                                            <radiogroup id="cashdrawer-2-cash-action" name="cashdrawer-2-cash-action" form="deviceForm" default="finalization" orient="horizontal">
+                                                <radio id="cashdrawer-2-cash-action-finalization" label="&devices.cashdrawer.action.finalization.label;" value="finalization"/>
+                                                <radio id="cashdrawer-2-cash-action-always" label="&devices.cashdrawer.action.always.label;" value="always"/>
+                                                <radio id="cashdrawer-2-cash-action-never" label="&devices.cashdrawer.action.never.label;" value="never"/>
+                                            </radiogroup>
+                                        </row>
+                                        <row>
+                                            <label value="&devices.cashdrawer.payment.creditcard.label;"/>
+                                            <radiogroup id="cashdrawer-2-creditcard-action" name="cashdrawer-2-creditcard-action" form="deviceForm" default="finalization" orient="horizontal">
+                                                <radio id="cashdrawer-2-creditcard-action-finalization" label="&devices.cashdrawer.action.finalization.label;" value="finalization"/>
+                                                <radio id="cashdrawer-2-creditcard-action-always" label="&devices.cashdrawer.action.always.label;" value="always"/>
+                                                <radio id="cashdrawer-2-creditcard-action-never" label="&devices.cashdrawer.action.never.label;" value="never"/>
+                                            </radiogroup>
+                                        </row>
+                                        <row>
+                                            <label value="&devices.cashdrawer.payment.check.label;"/>
+                                            <radiogroup id="cashdrawer-2-check-action" name="cashdrawer-2-check-action" form="deviceForm" default="finalization" orient="horizontal">
+                                                <radio id="cashdrawer-2-check-action-finalization" label="&devices.cashdrawer.action.finalization.label;" value="finalization"/>
+                                                <radio id="cashdrawer-2-check-action-always" label="&devices.cashdrawer.action.always.label;" value="always"/>
+                                                <radio id="cashdrawer-2-check-action-never" label="&devices.cashdrawer.action.never.label;" value="never"/>
+                                            </radiogroup>
+                                        </row>
+                                        <row>
+                                            <label value="&devices.cashdrawer.payment.coupon.label;"/>
+                                            <radiogroup id="cashdrawer-2-coupon-action" name="cashdrawer-2-coupon-action" form="deviceForm" default="finalization" orient="horizontal">
+                                                <radio id="cashdrawer-2-coupon-action-finalization" label="&devices.cashdrawer.action.finalization.label;" value="finalization"/>
+                                                <radio id="cashdrawer-2-coupon-action-always" label="&devices.cashdrawer.action.always.label;" value="always"/>
+                                                <radio id="cashdrawer-2-coupon-action-never" label="&devices.cashdrawer.action.never.label;" value="never"/>
+                                            </radiogroup>
+                                        </row>
+                                        <row>
+                                            <label value="&devices.cashdrawer.payment.giftcard.label;"/>
+                                            <radiogroup id="cashdrawer-2-giftcard-action" name="cashdrawer-2-giftcard-action" form="deviceForm" default="finalization" orient="horizontal">
+                                                <radio id="cashdrawer-2-giftcard-action-finalization" label="&devices.cashdrawer.action.finalization.label;" value="finalization"/>
+                                                <radio id="cashdrawer-2-giftcard-action-always" label="&devices.cashdrawer.action.always.label;" value="always"/>
+                                                <radio id="cashdrawer-2-giftcard-action-never" label="&devices.cashdrawer.action.never.label;" value="never"/>
+                                            </radiogroup>
+                                        </row>
+                                    </rows>
+                                    </grid>
+                                </vbox>
+
+                            </hbox>
                         </vbox>
-                            
+
                     </tabpanel>
                 </tabpanels>
             </tabbox>

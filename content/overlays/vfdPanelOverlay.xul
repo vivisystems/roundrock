@@ -10,7 +10,7 @@
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
   <box id="vfdPanelContainer" orient="vertical" flex="0">
-    <vbox id="vfdPanel" flex="0" class="vfdPad">
+    <vbox id="vfdPanel" flex="1" class="vfdPad">
 
         <onscreenvfd id="onscreenvfd" maxlen="17" class="vbox_vfd" labelClass="label_vfd" value="" />
         <vivisessionstatus id="vivipos_fec_order_status" flex="1"

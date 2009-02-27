@@ -95,11 +95,13 @@ var creditcardRemark_options;
 
 
     function gotFocus() {
+        /*
         var focusedElement = document.commandDispatcher.focusedElement;
         if (focusedElement.tagName == 'html:input' || focusedElement.tagName == 'textbox') {
             focusedElement.select();
         }
         return true;
+        */
     }
 
     function clearTextBox() {

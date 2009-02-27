@@ -3,11 +3,11 @@
      xmlns:em="http://www.mozilla.org/2004/em-rdf#">
     <Description about="urn:mozilla:install-manifest">
         <em:id>viviecr@firich.com.tw</em:id>
-        <em:name>ViViECR</em:name>
-        <em:version>0.1</em:version>
+        <em:name>VIVIECR</em:name>
+        <em:version>0.9</em:version>
         <em:description></em:description>
-        <em:creator>Rack Achang</em:creator>
-        <em:homepageURL>http://yourdomain.org/viviecr</em:homepageURL>
+        <em:creator>FIRICH VIVIPOS TEAM</em:creator>
+        <em:homepageURL>http://www.firich.com.tw/</em:homepageURL>
         <em:type>2</em:type> <!-- type=extension --> 
 
         <em:targetApplication>
