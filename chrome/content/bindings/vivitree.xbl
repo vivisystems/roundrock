@@ -30,6 +30,8 @@
                 onget="return this.getAttribute('fields')"
                 onset="this.setAttribute('fields', val); return val;"/>
 
+    <property name="rowCount" onget="return this.view.rowCount;" readonly="true" />
+    
     <property name="currentIndex" onget="return this.tree.currentIndex;" onset="return this.tree.currentIndex = val;"/>
 
     <property name="selectedIndex" onget="return this.currentIndex;" onset="return this.currentIndex = val;" />
