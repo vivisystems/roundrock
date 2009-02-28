@@ -2129,6 +2129,10 @@
     Transaction.prototype.run = function() {
         var order = new OrderModel();
         order.saveOrder(this.data);
+
+        if (this.data.status == 2) {
+            order.serializeOrder(this.data);
+        }
         // clearTimeout(Transaction.worker);
     };
 

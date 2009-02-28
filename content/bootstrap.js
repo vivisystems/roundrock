@@ -94,6 +94,7 @@ include('chrome://viviecr/content/controllers/shift_changes_controller.js');
 include('chrome://viviecr/content/controllers/destination_controller.js');
 include('chrome://viviecr/content/controllers/layout_controller.js');
 include('chrome://viviecr/content/controllers/annotation_controller.js');
+include('chrome://viviecr/content/controllers/annotate_controller.js');
 
 include('chrome://viviecr/content/controllers/test_controller.js');
 

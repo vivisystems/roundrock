@@ -59,7 +59,7 @@
             }else {
                 this.tree.invalidate();
             }*/
-            GREUtils.log('rowCountChanged 1: ' + oldIndex + ', ' + rc1 + ', ' + rc2 + ', ' + newIndex);
+            //GREUtils.log('rowCountChanged 1: ' + oldIndex + ', ' + rc1 + ', ' + rc2 + ', ' + newIndex);
             if (rc1 < 0) {
                 rc1 = 0;
                 oldIndex = 0;
@@ -89,7 +89,7 @@
             }
             if (newIndex < 0) newIndex = (this.data.length > 0) ? 0 : -1;
             else if (newIndex >= this.data.length) newIndex = this.data.length - 1;
-            GREUtils.log('rowCountChanged 2: ' + rc1 + ', ' + rc2 + ', ' + newIndex);
+            //GREUtils.log('rowCountChanged 2: ' + rc1 + ', ' + rc2 + ', ' + newIndex);
 
             this.tree.view.selection.currentIndex = newIndex;
             this.tree.view.selection.select(newIndex);

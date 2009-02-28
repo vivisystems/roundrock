@@ -33,7 +33,7 @@
                         <viviscrollabletree id="annotationscrollablepanel" flex="1"
                                         headers="&annotations.code;,&annotations.type;"
                                         fields="code,type"
-                                        onclick="$do('select',this.selectedIndex, 'Annotations');"
+                                        onclick="$do('selectCode',this.selectedIndex, 'Annotations');"
                                         class="ListPnl"
                                         scrollUpClass="ScrollUp" dir="normal"
                                         scrollDownClass="ScrollDown">
@@ -51,13 +51,13 @@
                             <row>
                                 <vbox>
                                     <label control="annotation_code" value="&annotations.code;"/>
-                                    <textbox id="annotation_code" name="code" form="annotationForm" default="" readonly="true"/>
+                                    <textbox id="annotation_code" name="code" form="annotationCodeForm" default="" readonly="true"/>
                                 </vbox>
                             </row>
                             <row>
                                 <vbox>
                                     <label control="annotation_type" value="&annotations.type;"/>
-                                    <textbox id="annotation_type" name="type" form="annotationForm" default="" size="3" min="0" max="16"/>
+                                    <textbox id="annotation_type" name="type" form="annotationCodeForm" default="" oninput="$do('validateCodeForm', null, 'Annotations');"/>
                                 </vbox>
                             </row>
                         </rows>
@@ -66,9 +66,10 @@
             </hbox>
             <hbox>
                 <hbox class="ToolBar" flex="1">
-                    <button id="add_annotation"  label="&annotations.add;" disabled="false" oncommand="$do('addAnnotation', null, 'Annotations');"   />
-                    <button id="modify_annotation"  label="&annotations.modify;" disabled="true" oncommand="$do('modifyAnnotation', null, 'Annotations');"   />
-                    <button id="delete_annotation"  label="&annotations.delete;" disabled="true" oncommand="$do('deleteAnnotation', null, 'Annotations');"   />
+                    <button id="add_annotation"  label="&annotations.add;" disabled="false" class="BtnAdd" oncommand="$do('addAnnotationCode', null, 'Annotations');"   />
+                    <button id="modify_annotation"  label="&annotations.modify;" disabled="true" class="BtnMod" oncommand="$do('modifyAnnotationCode', null, 'Annotations');"   />
+                    <spacer flex="1"/>
+                    <button id="delete_annotation"  label="&annotations.delete;" disabled="true" class="BtnDel" oncommand="$do('deleteAnnotationCode', null, 'Annotations');"   />
                 </hbox>
                 <hbox id="dialogButtons" class="dialogbtns" pack="center">
                     <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>

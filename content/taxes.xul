@@ -109,6 +109,7 @@
                     <hbox class="ToolBar" flex="1">
                         <button id="add_tax" label="&taxes.button.action.add;" disabled="false" class="BtnAdd" oncommand="$do('add', null, 'Taxes');" />
                         <button id="modify_tax" label="&taxes.button.action.modify;" disabled="true" class="BtnMod" oncommand="$do('update', null, 'Taxes');" />
+                        <spacer flex="1"/>
                         <button id="delete_tax" label="&taxes.button.action.delete;" disabled="true" class="BtnDel" oncommand="$do('remove', null, 'Taxes');" />
                     </hbox>
                     <hbox id="dialogButtons" class="dialogbtns" pack="center">

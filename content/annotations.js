@@ -9,7 +9,9 @@
      */
     function startup() {
 
-        $do('load', null, 'Annotations');
+        centerWindowOnScreen();
+
+        $do('loadCodes', null, 'Annotations');
 
     };
 

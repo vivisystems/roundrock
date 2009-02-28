@@ -1819,12 +1819,23 @@
                     var memo2 = result.input1 || '';
                     self.addPayment('creditcard', payment, payment, memo1, memo2);
                 }
-
+                else {
+                    self.subtotal();
+                }
             });
 
         },
 
-        coupon: function(type) {
+        coupon: function(args) {
+
+            // args should be a list of up to 2 comma-separated parameters: type, amount
+            var type = '';
+            var amount;
+            if (args != null && args != '') {
+                var argList = args.split(',');
+                type = argList[0];
+                if (!isNaN(argList[1])) amount = parseFloat(argList[1]);
+            }
 
             // check if has buffer
             var buf = this._getKeypadController().getBuffer();
@@ -1854,7 +1865,7 @@
                 return; // fatal error ?
             }
 
-            var payment = parseFloat(buf);
+            var payment = (amount != null) ? amount : parseFloat(buf);
             var paid = curTransaction.getPaymentSubtotal();
 
             if (this._returnMode) {
@@ -1898,11 +1909,23 @@
                     self.addPayment('coupon', payment, payment, memo1, memo2);
 
                 }
+                else {
+                    self.subtotal();
+                }
             });
 
         },
 
-        giftcard: function(type) {
+        giftcard: function(args) {
+
+            // args should be a list of up to 2 comma-separated parameters: type, amount
+            var type = '';
+            var amount;
+            if (args != null && args != '') {
+                var argList = args.split(',');
+                type = argList[0];
+                if (!isNaN(argList[1])) amount = parseFloat(argList[1]);
+            }
 
             // check if has buffer
             var buf = this._getKeypadController().getBuffer();
@@ -1932,7 +1955,7 @@
                 return; // fatal error ?
             }
 
-            var payment = parseFloat(buf);
+            var payment = (amount != null) ? amount : parseFloat(buf);
             var balance = curTransaction.getRemainTotal();
             var paid = curTransaction.getPaymentSubtotal();
 
@@ -1992,6 +2015,9 @@
 
                     self.addPayment('giftcard', balance, payment, memo1, memo2);
 
+                }
+                else {
+                    self.subtotal();
                 }
             });
 
@@ -2095,6 +2121,9 @@
 
                     self.addPayment('check', payment, payment, memo1, memo2);
 
+                }
+                else {
+                    self.subtotal();
                 }
             });
 
@@ -2620,7 +2649,8 @@
 
                     var inputObj = {
                         input0: '',
-                        require0:false
+                        require0:false,
+                        multiline0: true
                     };
 
                     var data = [
@@ -2644,11 +2674,7 @@
                             }
 
                             // save annotation in db
-                            var annotationModel = new OrderAnnotationModel();
-                            var annotationObj = {order_id: curTransaction.data.id,
-                                                 type: annotationType,
-                                                 text: result.input0};
-                            annotationModel.save(annotationObj);
+                            annotationController.annotate(curTransaction.data.id, annotationType, result.input0);
                         }
 
                         curTransaction.close();
@@ -3171,7 +3197,7 @@
 
         unserializeFromOrder: function(order_id) {
             //
-            order_id = order_id || '04de7be5-9969-4756-8852-6f6eed2301a8';
+            order_id = order_id;
 
             var curTransaction = new Transaction();
             curTransaction.unserializeFromOrder(order_id);

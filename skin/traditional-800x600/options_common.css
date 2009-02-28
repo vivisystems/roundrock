@@ -590,6 +590,10 @@ treecol, treecolpicker {
     color: #000;
 }
 
+treecol > label {
+    text-align: center;
+}
+
 treechildren::-moz-tree-row {
   height: 32px;
 }

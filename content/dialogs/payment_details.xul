@@ -9,6 +9,7 @@
 <?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/selectBox.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/condiment-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/payment_details.css" type="text/css"?>
 
 <overlay id="paymentDetailsDialogOverlay"
          xmlns:html="http://www.w3.org/1999/xhtml"

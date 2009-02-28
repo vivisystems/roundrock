@@ -13,7 +13,7 @@
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
 <window title="&destinations.title;"
-	hidechrome="true"
+        hidechrome="true"
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
@@ -77,7 +77,7 @@
                             <row>
                                 <vbox>
                                     <label control="destination_prefix" value="&destinations.prefix;"/>
-                                    <textbox id="destination_prefix" name="prefix" form="destinationForm" default="" size="3" min="0" max="16"/>
+                                    <textbox id="destination_prefix" name="prefix" form="destinationForm" default=""/>
                                 </vbox>
                             </row>
 
@@ -89,9 +89,10 @@
             </hbox>
             <hbox>
                 <hbox class="ToolBar" flex="1">
-                    <button id="add_destination"  label="&destinations.add;" oncommand="$do('addDestination', null, 'Destinations');"   />
-                    <button id="modify_destination"  label="&destinations.modify;" oncommand="$do('modifyDestination', null, 'Destinations');"   />
-                    <button id="delete_destination"  label="&destinations.delete;" oncommand="$do('deleteDestination', null, 'Destinations');"   />
+                    <button id="add_destination"  label="&destinations.add;" class="BtnAdd" oncommand="$do('addDestination', null, 'Destinations');"   />
+                    <button id="modify_destination"  label="&destinations.modify;" class="BtnMod" oncommand="$do('modifyDestination', null, 'Destinations');"   />
+                    <spacer flex="1"/>
+                    <button id="delete_destination"  label="&destinations.delete;" class="BtnDel" oncommand="$do('deleteDestination', null, 'Destinations');"   />
                 </hbox>
                 <hbox id="dialogButtons" class="dialogbtns" pack="center">
                     <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>

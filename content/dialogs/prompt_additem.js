@@ -48,11 +48,37 @@ var promptAdditem_options;
                 // make inputObj globally available
                 promptAdditem_options = inputObj;
 
+                var multiline = false;
+                if ('multiline0' in inputObj) {
+                    document.getElementById('promptAdditem-input0').setAttribute('multiline', true);
+                    document.getElementById('promptAdditem-row0').setAttribute('flex', 1);
+                    multiline = true;
+                    document.getElementById('key_enter').setAttribute('disabled', true);
+                }
+                else {
+                    document.getElementById('promptAdditem-input0').setAttribute('multiline', false);
+                    document.getElementById('promptAdditem-row0').setAttribute('flex', 0);
+                }
+
                 // hide input1?
                 if (!('input1' in inputObj)) {
                     document.getElementById('promptAdditem-title1').hidden = true;
                     document.getElementById('promptAdditem-input1').hidden = true;
+                    document.getElementById('promptAdditem-input1').setAttribute('multiline', false);
+                    document.getElementById('promptAdditem-row1').setAttribute('flex', 0);
                 }
+                else {
+                    if ('multiline1' in inputObj) {
+                        document.getElementById('promptAdditem-input1').setAttribute('multiline', true);
+                        document.getElementById('promptAdditem-row1').setAttribute('flex', 1);
+                        multiline = true;
+                    }
+                    else {
+                        document.getElementById('promptAdditem-input1').setAttribute('multiline', false);
+                        document.getElementById('promptAdditem-row1').setAttribute('flex', 0);
+                    }
+                }
+                document.getElementById('key_enter').setAttribute('disabled', multiline);
 
                 // set input type
                 if ('type0' in inputObj) {
@@ -62,14 +88,23 @@ var promptAdditem_options;
                     document.getElementById('promptAdditem-input1').setAttribute('type', inputObj.type1);
                 }
 
+                if ('readonly0' in inputObj && inputObj.readonly0) {
+                    document.getElementById('promptAdditem-input0').setAttribute('readonly', true);
+                }
                 try {
                     
                     document.getElementById('promptAdditem-dialog-caption').setAttribute("label", caption0);
                     document.getElementById('promptAdditem-text0').value = text0;
                     document.getElementById('promptAdditem-title0').value = title0;
                     document.getElementById('promptAdditem-title1').value = title1;
+
+                    // must use setAttribute; otherwise values would be wiped out by change made to 'multiline'
+                    document.getElementById('promptAdditem-input0').setAttribute('value', inputObj.input0);
                     document.getElementById('promptAdditem-input0').value = inputObj.input0;
+
+                    document.getElementById('promptAdditem-input1').setAttribute('value', inputObj.input1);
                     document.getElementById('promptAdditem-input1').value = inputObj.input1;
+                    
                     document.getElementById('promptAdditem-cancel').setAttribute('disabled', false);
 
                     promptAdditem_validateInput();
@@ -158,6 +193,7 @@ function promptAdditem_validateInput() {
         ((!input1Required) || trimmed1.length > 0)) {
         validated = true;
     }
+
     if (alphaOnly0) {
         validated = validated && !alphaRE.test(trimmed0);
     }

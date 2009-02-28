@@ -13,7 +13,7 @@
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
 <window title="&plufilters.title;"
-	hidechrome="true"
+        hidechrome="true"
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
@@ -65,8 +65,8 @@
                         <row>
                             <vbox>
                                 <label control="filter_length" value="&plufilters.length;"/>
-                                <textbox id="filter_length" size="3" maxlength="2" min="0" max="16" name="length" form="filterForm"
-                                        oninput="$do('validateForm', null, 'Plufilters')"/>
+                                <textbox id="filter_length" size="3" maxlength="2" name="length" form="filterForm"
+                                         oninput="$do('validateForm', null, 'Plufilters')"/>
                             </vbox>
                         </row>
 
@@ -77,9 +77,10 @@
             </hbox>
             <hbox>
                 <hbox class="ToolBar" flex="1">
-                    <button id="add_filter"  label="&plufilters.add;" oncommand="$do('addFilter', null, 'Plufilters');"   />
-                    <button id="modify_filter"  label="&plufilters.modify;" oncommand="$do('modifyFilter', null, 'Plufilters');"   />
-                    <button id="delete_filter"  label="&plufilters.delete;" oncommand="$do('deleteFilter', null, 'Plufilters');"   />
+                    <button id="add_filter"  label="&plufilters.add;" class="BtnAdd" oncommand="$do('addFilter', null, 'Plufilters');"   />
+                    <button id="modify_filter"  label="&plufilters.modify;" class="BtnMod" oncommand="$do('modifyFilter', null, 'Plufilters');"   />
+                    <spacer flex="1"/>
+                    <button id="delete_filter"  label="&plufilters.delete;" class="BtnDel" oncommand="$do('deleteFilter', null, 'Plufilters');"   />
                 </hbox>
                 <hbox id="dialogButtons" class="dialogbtns" pack="center">
                     <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>

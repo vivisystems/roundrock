@@ -133,6 +133,22 @@ msgstr "** TRAY"
 msgid "House Bon"
 msgstr "BON"
 
+msgid "annotate.desc"
+msgstr ""
+"This function is used to add and/or view annotations. Annotations are "
+"most often used to allow the user to enter customer data or special messages "
+"to be printed on receipts or checks. The parameter may be set to a "
+"pre-defined annotation code, in which case the user will be prompted "
+"to enter the annotation text for that annotation code. If the parameter is "
+"left blank, all annotations for the current order are listed, and the user "
+"may add, edit, or delete annotations per his/her access privileges."
+
+msgid "annotate.label"
+msgstr "Annotate"
+
+msgid "annotate.name"
+msgstr "Annotate"
+
 msgid "receipt.desc"
 msgstr ""
 "This function issues a post-finalization receipt. The parameter should be 1 "
@@ -992,3 +1008,15 @@ msgstr "Manage Annotations"
 
 msgid "acl_manage_plufilters"
 msgstr "Manage Product Filters"
+
+msgid "acl_annotate"
+msgstr "Add Annotations"
+
+msgid "acl_view_annotations"
+msgstr "View Annotations"
+
+msgid "acl_modify_annotations"
+msgstr "Modify Annotations"
+
+msgid "acl_delete_annotations"
+msgstr "Delete Annotations"
