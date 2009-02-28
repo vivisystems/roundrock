@@ -275,11 +275,9 @@
         },
 
         afterScaffoldIndex: function(evt) {
-            
+
             this.getListObj().datasource = evt.data;
-
-            this.validateForm(true);
-
+            
         },
 
         getRoleGroup: function () {
@@ -341,6 +339,12 @@
             var index = panel.selectedIndex;
 
             this.requestCommand('list', index);
+
+            panel.selectedItems = [index];
+            panel.selectedIndex = index;
+
+            this.validateForm(true);
+
 
         },
         
