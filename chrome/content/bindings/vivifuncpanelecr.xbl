@@ -71,7 +71,7 @@
             <field name="_pageButtonfontsizeMap">new GeckoJS.Map()</field>
             <field name="_selectedNode1"/>
             <field name="_selectedNode2"/>
-            <field name="_hiddenChildren">[]</field>
+            <field name="_topStack"></field>
 
             <!-- Properties -->
 
@@ -495,37 +495,6 @@
                 </body>
             </method>
 
-            <!-- hide: use this method to hide the function panel instead of using the 'hidden' attribute -->
-            <method name="hide">
-                <body>
-                <![CDATA[
-                    var panel = this.functionPanel;
-
-                    if (panel.hasChildNodes()) {
-                        this._hiddenChildren = [];
-                        while (panel.hasChildNodes())
-                            this._hiddenChildren.push(panel.removeChild(panel.firstChild));
-                    }
-                ]]>
-                </body>
-            </method>
-
-            <!-- show: use this method to show the function panel instead of using the 'hidden' attribute -->
-            <method name="show">
-                <body>
-                <![CDATA[
-                    var panel = this.functionPanel;
-
-                    if (!panel.hasChildNodes() && (this._hiddenChildren.length > 0)) {
-                        this._hiddenChildren.forEach(function (node) {
-                            panel.appendChild(node);
-                        })
-                        this._hiddenChildren = [];
-                    }
-                ]]>
-                </body>
-            </method>
-
             <!-- handle attribute modification event -->
             <method name="_attrModified">
                 <parameter name="evt"/>
@@ -695,7 +664,15 @@
 
                     if (!stack) stack = this._render(page);
                     var found = false;
-                    
+                    for (var i = 0; i < this.keypad.childNodes.length; i++) {
+                        if (stack == this.keypad.childNodes[i]) {
+                            found = true;
+                        }
+                        else {
+                            this.keypad.childNodes[i].setAttribute('hidden', true);
+                        }
+                    }
+                    /*
                     while (this.keypad.childNodes.length > 0) {
                         if (stack == this.keypad.firstChild) {
                             found = true;
@@ -705,7 +682,11 @@
                             this.keypad.removeChild(this.keypad.firstChild);
                         }
                     }
+                    */
                     if (!found) this.keypad.appendChild(stack);
+                    this._topStack = stack;
+                    stack.setAttribute('hidden', false);
+
                     this.renderLabel();
 
                     this.renderKeymap(page, stack);
@@ -1092,7 +1073,7 @@
                 <![CDATA[
                     var page = this.currentPage;
                     var label = this.getPageLabel(page);
-                    this.controlLabel.setAttribute('label', label.replace(/%d/g, this.currentPage).replace(/%m/g, this.maxpage));
+                    this.controlLabel.label = label.replace(/%d/g, this.currentPage).replace(/%m/g, this.maxpage);
 
                 ]]>
                 </body>
@@ -1466,7 +1447,9 @@
                 <![CDATA[
                     //GREUtils.log('[SetSelection]: entering page <' + this.currentPage + '> state <' + state + '> on stack <' + stack + '> with layout <' + GeckoJS.BaseObject.dump(layout) + '>');
 
-                    if (!stack) stack = this.keypad.firstChild;
+                    if (!stack) {
+                        stack = this._topStack;
+                    }
                     if (!layout) layout = this.getPageLayout(this.currentPage);
                     else if (layout == 'global') layout = this.getPageLayout('global');
 
@@ -1591,7 +1574,7 @@
                     var restrictMode = this.getAttribute('restrictMode');
                     var mode = this.getAttribute('mode');
 
-                    if (stack == null) stack = this.keypad.firstChild;
+                    if (stack == null) stack = this._topStack;
 
                     var btns = stack.childNodes;
                     var entry;
@@ -1635,7 +1618,7 @@
 
                             if (entry && (entry.label != null) && (entry.label != '')) {
                                 btn.setAttribute('label', entry.label);
-                                //btn.setLabel(entry.label);
+                                btn.setLabel(entry.label);
                                 var ch = document.getAnonymousElementByAttribute(btn, 'class', 'button-text');
                                 if (ch) {
                                     var labelWidth = btn.width * 0.85;
@@ -1645,7 +1628,7 @@
                             }
                             else {
                                 btn.removeAttribute('label');
-                                //btn.setLabel('');
+                                btn.setLabel('');
                                 //GREUtils.log('[KEYMAP]: label not set');
                             }
 
@@ -1657,7 +1640,7 @@
                             if (entry) {
                                 if ((entry.command == null) || (entry.command == '') || (entry.label == null) || (entry.label == '')) {
                                     btn.removeAttribute('label');
-                                    //btn.setLabel('');
+                                    btn.setLabel('');
                                     btn.setAttribute('disabled', true);
                                     btn.removeAttribute('oncommand');
                                     btn.style.visibility = 'inherit';
@@ -1680,7 +1663,7 @@
                                     }
 
                                     btn.setAttribute('label', entry.label);
-                                    //btn.setLabel(entry.label);
+                                    btn.setLabel(entry.label);
                                     var ch = document.getAnonymousElementByAttribute(btn, 'class', 'button-text');
                                     if (ch) {
                                         var labelWidth = btn.width * 0.85;
@@ -1754,7 +1737,7 @@
                             }
                             else {
                                 btn.removeAttribute('label');
-                                //btn.setLabel('');
+                                btn.setLabel('');
                                 btn.setAttribute('disabled', true);
                                 btn.setAttribute('oncommand', '');
                                 btn.style.visibility = 'inherit';
@@ -1837,7 +1820,7 @@
                 <body>
                 <![CDATA[
                     //GREUtils.log('[NEXT]: going forward from page <' + this.currentPage + '>');
-                    var stack = this.keypad.firstChild;
+                    var stack = this._topStack;
                     var page = this.currentPage;
 
                     if (page != 'global') {
@@ -1854,7 +1837,7 @@
                 <body>
                 <![CDATA[
                     //GREUtils.log('[PREV]: going backward from page <' + this.currentPage + '>');
-                    var stack = this.keypad.firstChild;
+                    var stack = this._topStack;
                     var page = this.currentPage;
 
                     if (page != 'global') {
@@ -1870,7 +1853,7 @@
             <method name="home">
                 <body>
                 <![CDATA[
-                    var stack = this.keypad.firstChild;
+                    var stack = this._topStack;
                     var page = this.currentPage;
 
                     if (page != 'global') {
@@ -1933,7 +1916,7 @@
                     if ((page == null) || (updateOnly && ((layout == null) || (layout.length == 0)))) return;
 
                     var existingLayout = this.getPageLayout(page);
-                    var currentStack = this.keypad.firstChild;
+                    var currentStack = this._topStack;
 
                     // clear selection on a layout change
                     if (currentStack) {
