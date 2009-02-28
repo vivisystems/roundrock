@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % Plufilters SYSTEM "chrome://viviecr/locale/plufilters.dtd">
+  %Plufilters;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/plufilters.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+<window title="&plufilters.title;"
+	hidechrome="true"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/plufilters.js" />
+
+    <keyset id="keyset_extensions">
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()" />
+    </keyset>
+
+    <vbox class="main-dialog" flex="1">
+        <vbox flex="1" class="MainPnl">
+            <hbox flex="1">
+                <vbox flex="1" pack="start" class="MainL">
+                    <caption label="&plufilters.title;"  class="PageTitle"/>
+                    <hbox pack="start" flex="1" class="LeftPnl">
+                        <viviscrollabletree id="plufilterscrollablepanel" flex="1"
+                                        headers="&plufilters.filtername;,&plufilters.index;,&plufilters.length;"
+                                        fields="filtername,index,length"
+                                        onclick="$do('select',this.selectedIndex, 'Plufilters');"
+                                        class="ListPnl"
+                                        scrollUpClass="ScrollUp" dir="normal"
+                                        scrollDownClass="ScrollDown">
+                            <spacer flex="1" />
+                        </viviscrollabletree>
+                    </hbox>
+                </vbox>
+
+                <vbox>
+                <grid class="DataForm">
+                    <columns>
+                        <column flex="1" />
+                    </columns>
+                    <rows>
+                        <row>
+                            <vbox>
+                                <label control="filter_name" value="&plufilters.filtername;"/>
+                                <textbox id="filter_name"
+                                        oninput="$do('validateForm', null, 'Plufilters')"/>
+                            </vbox>
+                        </row>
+                        <row>
+                            <vbox>
+                                <label control="filter_index" value="&plufilters.index;"/>
+                                <textbox id="filter_index" size="3" maxlength="2" min="0" max="16"
+                                        oninput="$do('validateForm', null, 'Plufilters')"/>
+                            </vbox>
+                        </row>
+                        <row>
+                            <vbox>
+                                <label control="filter_length" value="&plufilters.length;"/>
+                                <textbox id="filter_length" size="3" maxlength="2" min="0" max="16"
+                                        oninput="$do('validateForm', null, 'Plufilters')"/>
+                            </vbox>
+                        </row>
+
+                    </rows>
+
+                </grid>
+                </vbox>
+            </hbox>
+            <hbox>
+                <hbox class="ToolBar" flex="1">
+                    <vivibutton id="add_plufilter"  label="&plufilters.add;" oncommand="$do('addPlufilter', null, 'Plufilters');"   />
+                    <vivibutton id="modify_plufilter"  label="&plufilters.modify;" oncommand="$do('modifyPlufilter', null, 'Plufilters');"   />
+                    <vivibutton id="delete_plufilter"  label="&plufilters.delete;" oncommand="$do('deletePlufilter', null, 'Plufilters');"   />
+                </hbox>
+                <hbox id="dialogButtons" class="dialogbtns" pack="center">
+                    <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
+                    <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                </hbox>
+            </hbox>
+        </vbox>
+    </vbox>
+  
+</window>

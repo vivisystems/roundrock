@@ -25,10 +25,10 @@
             return this._listObj;
         },
 
-        load: function (data) {
+        load: function () {
 
             if (this._listDatas.length <= 0) {
-                var datas = document.getElementById('pref_annotations').value;
+                var datas = GeckoJS.Configure.read('vivipos.fec.settings.Annotations');
                 if (datas != null) this._listDatas = GeckoJS.BaseObject.unserialize(GeckoJS.String.urlDecode(datas));
                 if (this._listDatas.length <= 0) this._listDatas = [];
             }
@@ -112,7 +112,7 @@
         saveAnnotations: function() {
             var datas = new GeckoJS.ArrayQuery(this._listDatas).orderBy('code asc');
             var datastr = GeckoJS.String.urlEncode(GeckoJS.BaseObject.serialize(datas));
-            document.getElementById('pref_annotations').value = datastr;
+            GeckoJS.Configure.write('vivipos.fec.settings.Annotations', datastr);
             GeckoJS.Session.set('annotations', datas);
 
             this.load();

@@ -94,6 +94,15 @@ msgstr "Taxes Report"
 msgid "User List"
 msgstr "User List"
 
+msgid "Product Filters"
+msgstr "Product Filters"
+
+msgid "Destinations"
+msgstr "Order Destinations"
+
+msgid "Annotations"
+msgstr "Annotations"
+
 # \ register\ display:\ payment\ types
 msgid "CREDITCARD"
 msgstr "CC"
@@ -975,3 +984,11 @@ msgstr "Manage Add-Ons"
 msgid "Add-Ons"
 msgstr "Add-Ons"
 
+msgid "acl_manage_destinations"
+msgstr "Manage Order Destinations"
+
+msgid "acl_manage_annotations"
+msgstr "Manage Annotations"
+
+msgid "acl_manage_plufilters"
+msgstr "Manage Product Filters"

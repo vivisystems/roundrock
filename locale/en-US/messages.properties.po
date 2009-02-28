@@ -94,6 +94,15 @@ msgstr "Taxes Report"
 msgid "User List"
 msgstr "User List"
 
+msgid "Product Filters"
+msgstr "Product Filters"
+
+msgid "Destinations"
+msgstr "Order Destinations"
+
+msgid "Annotations"
+msgstr "Annotations"
+
 # \ register\ display:\ payment\ types
 msgid "CREDITCARD"
 msgstr "CC"
@@ -978,6 +987,15 @@ msgstr "Manage Add-Ons"
 
 msgid "Add-Ons"
 msgstr "Add-Ons"
+
+msgid "acl_manage_destinations"
+msgstr "Manage Order Destinations"
+
+msgid "acl_manage_annotations"
+msgstr "Manage Annotations"
+
+msgid "acl_manage_plufilters"
+msgstr "Manage Product Filters"
 
 #: ../..//content/datetime.js:27
 msgid "confirm timezone change"
@@ -1994,7 +2012,7 @@ msgid ""
 "Shopping cart is missing; please contact your dealer for technical support"
 msgstr ""
 
-#: ../..//content/controllers/destination_controller.js:250
+#: ../..//content/controllers/destination_controller.js:255
 msgid "This order is closed pending payment and may not be modified"
 msgstr ""
 

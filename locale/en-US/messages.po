@@ -1017,7 +1017,7 @@ msgid ""
 "Shopping cart is missing; please contact your dealer for technical support"
 msgstr ""
 
-#: ../..//content/controllers/destination_controller.js:250
+#: ../..//content/controllers/destination_controller.js:255
 msgid "This order is closed pending payment and may not be modified"
 msgstr ""
 

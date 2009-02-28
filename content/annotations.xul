@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % Annotations SYSTEM "chrome://viviecr/locale/annotations.dtd">
+  %Annotations;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/annotations.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+<window title="&annotations.title;"
+	hidechrome="true"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/annotations.js" />
+
+    <keyset id="keyset_extensions">
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()" />
+    </keyset>
+
+    <vbox class="main-dialog" flex="1">
+        <vbox flex="1" class="MainPnl">
+            <hbox flex="1">
+                <vbox flex="1" pack="start" class="MainL">
+                    <caption label="&annotations.title;"  class="PageTitle"/>
+                    <hbox pack="start" flex="1" class="LeftPnl">
+                        <viviscrollabletree id="annotationscrollablepanel" flex="1"
+                                        headers="&annotations.code;,&annotations.type;"
+                                        fields="code,type"
+                                        onclick="$do('select',this.selectedIndex, 'Annotations');"
+                                        class="ListPnl"
+                                        scrollUpClass="ScrollUp" dir="normal"
+                                        scrollDownClass="ScrollDown">
+                            <spacer flex="1" />
+                        </viviscrollabletree>
+                    </hbox>
+                </vbox>
+
+                <vbox>
+                    <grid class="AnnotationForm">
+                        <columns>
+                            <column flex="0" />
+                        </columns>
+                        <rows>
+                            <row>
+                                <vbox>
+                                    <label control="annotation_code" value="&annotations.code;"/>
+                                    <textbox id="annotation_code" name="code" form="annotationForm" default="" readonly="true"/>
+                                </vbox>
+                            </row>
+                            <row>
+                                <vbox>
+                                    <label control="annotation_type" value="&annotations.type;"/>
+                                    <textbox id="annotation_type" name="type" form="annotationForm" default="" size="3" min="0" max="16"/>
+                                </vbox>
+                            </row>
+                        </rows>
+                    </grid>
+                </vbox>
+            </hbox>
+            <hbox>
+                <hbox class="ToolBar" flex="1">
+                    <vivibutton id="add_annotation"  label="&annotations.add;" oncommand="$do('addAnnotation', null, 'Annotations');"   />
+                    <vivibutton id="modify_annotation"  label="&annotations.modify;" oncommand="$do('modifyAnnotation', null, 'Annotations');"   />
+                    <vivibutton id="delete_annotation"  label="&annotations.delete;" oncommand="$do('deleteAnnotation', null, 'Annotations');"   />
+                </hbox>
+                <hbox id="dialogButtons" class="dialogbtns" pack="center">
+                    <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
+                    <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                </hbox>
+            </hbox>
+        </vbox>
+    </vbox>
+  
+</window>

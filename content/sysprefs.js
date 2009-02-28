@@ -25,9 +25,6 @@
         $do('initUser', defaultUser, 'Users');
         $do('initTaxStatus', defaultTaxStatus, 'Taxes');
 
-        $do('load', null, 'Plufilters');
-        $do('load', null, 'Destinations');
-        $do('load', null, 'Annotations');
         //$do('load', null, 'Sound');
 
         var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
@@ -50,7 +47,7 @@
 function closePreferences() {
     try {
         // change button height
-	var main = opener.opener.GeckoJS.Controller.getInstanceByName('Main');
+        var main = opener.opener.GeckoJS.Controller.getInstanceByName('Main');
        	main.requestCommand('updateOptions', null, 'Main');
 
         $do('setDefaultUser', null, 'Users');

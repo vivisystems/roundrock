@@ -18,6 +18,16 @@ pref("vivipos.fec.settings.controlpanels.employee.storecontact.path", "chrome://
 pref("vivipos.fec.settings.controlpanels.employee.storecontact.icon", "chrome://viviecr/skin/icons/icon_store.png");
 pref("vivipos.fec.settings.controlpanels.employee.storecontact.roles", "acl_manage_storecontact");
  
+pref("vivipos.fec.settings.controlpanels.config.destinations.label", "Destinations");
+pref("vivipos.fec.settings.controlpanels.config.destinations.path", "chrome://viviecr/content/destinations.xul");
+pref("vivipos.fec.settings.controlpanels.config.destinations.icon", "chrome://viviecr/skin/icons/icon_store.png");
+pref("vivipos.fec.settings.controlpanels.config.destinations.roles", "acl_manage_destinations");
+
+pref("vivipos.fec.settings.controlpanels.config.annotations.label", "Annotations");
+pref("vivipos.fec.settings.controlpanels.config.annotations.path", "chrome://viviecr/content/annotations.xul");
+pref("vivipos.fec.settings.controlpanels.config.annotations.icon", "chrome://viviecr/skin/icons/icon_store.png");
+pref("vivipos.fec.settings.controlpanels.config.annotations.roles", "acl_manage_annotations");
+
 pref("vivipos.fec.settings.controlpanels.system.localekeyboard.label", "Locale and Keyboard Mapping");
 pref("vivipos.fec.settings.controlpanels.system.localekeyboard.path", "chrome://viviecr/content/localekeyboard.xul");
 pref("vivipos.fec.settings.controlpanels.system.localekeyboard.icon", "chrome://viviecr/skin/icons/icon_generic.png");
@@ -73,6 +83,11 @@ pref("vivipos.fec.settings.controlpanels.config.currency.path", "chrome://viviec
 pref("vivipos.fec.settings.controlpanels.config.currency.icon", "chrome://viviecr/skin/icons/icon_exchange.png");
 pref("vivipos.fec.settings.controlpanels.config.currency.roles", "acl_manage_currency");
  
+pref("vivipos.fec.settings.controlpanels.product.plufilters.label", "Product Filters");
+pref("vivipos.fec.settings.controlpanels.product.plufilters.path", "chrome://viviecr/content/plufilters.xul");
+pref("vivipos.fec.settings.controlpanels.product.plufilters.icon", "chrome://viviecr/skin/icons/icon_store.png");
+pref("vivipos.fec.settings.controlpanels.product.plufilters.roles", "acl_manage_plufilters");
+
 pref("vivipos.fec.settings.controlpanels.product.stocks.label", "Stock Control");
 pref("vivipos.fec.settings.controlpanels.product.stocks.path", "chrome://viviecr/content/stocks.xul");
 pref("vivipos.fec.settings.controlpanels.product.stocks.icon", "chrome://viviecr/skin/icons/icon_stocks.png");

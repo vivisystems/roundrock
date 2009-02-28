@@ -37,10 +37,10 @@
             return this._listObj;
         },
 
-        load: function (data) {
+        load: function () {
 
             if (this._listDatas.length <= 0) {
-                var datas = document.getElementById('pref_destinations').value;
+                var datas = GeckoJS.Configure.read('vivipos.fec.settings.Destinations');
                 if (datas != null) this._listDatas = GeckoJS.BaseObject.unserialize(GeckoJS.String.urlDecode(datas));
                 if (this._listDatas.length <= 0) this._listDatas = [];
             }
@@ -127,7 +127,7 @@
             var datas = new GeckoJS.ArrayQuery(this._listDatas).orderBy('name asc');
             var datastr = GeckoJS.String.urlEncode(GeckoJS.BaseObject.serialize(datas));
 
-            document.getElementById('pref_destinations').value = datastr;
+            GeckoJS.Configure.write('vivipos.fec.settings.Destinations', datastr);
             GeckoJS.Session.set('defaultDestination', this.getDefaultDestination());
             GeckoJS.Session.set('destinations', datas);
 
@@ -246,15 +246,14 @@
             // get current transaction
             var txn = cart._getTransaction();
 
-            if (txn.isClosed()) {
-                NotifyUtils.warn(_('This order is closed pending payment and may not be modified'));
-                return;
-            }
-
             if (txn == null || txn.isSubmit() || txn.isCancel()) {
                 // create a new transaction
                 txn = cart._newTransaction();
                 cart.clear();
+            }
+            else if (txn.isClosed()) {
+                NotifyUtils.warn(_('This order is closed pending payment and may not be modified'));
+                return;
             }
 
             // set current destination

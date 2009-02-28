@@ -1,0 +1,6 @@
+<!ENTITY annotations.title "Order annotations">
+<!ENTITY annotations.code "Code">
+<!ENTITY annotations.type "Type">
+<!ENTITY annotations.add "Add">
+<!ENTITY annotations.modify "Modify">
+<!ENTITY annotations.delete "Delete">

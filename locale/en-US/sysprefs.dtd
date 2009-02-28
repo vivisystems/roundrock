@@ -62,20 +62,6 @@
 <!ENTITY plufilter.length "Length">
 <!ENTITY plufilter.add "Add">
 <!ENTITY plufilter.remove "Remove">
-<!ENTITY destination.default "Default">
-<!ENTITY destination.name "Name">
-<!ENTITY destination.pricelevel "Price Level">
-<!ENTITY destination.pricelevel.current "Current Level">
-<!ENTITY destination.prefix "Prefix">
-<!ENTITY destination.add "Add">
-<!ENTITY destination.modify "Modify">
-<!ENTITY destination.delete "Delete">
-<!ENTITY destination.setdefault "Default Destination">
-<!ENTITY annotation.code "Code">
-<!ENTITY annotation.type "Type">
-<!ENTITY annotation.add "Add">
-<!ENTITY annotation.modify "Modify">
-<!ENTITY annotation.delete "Delete">
 <!ENTITY category.sound "Sound">
 <!ENTITY sound.beepOnItemAdd "Beep on item registrations">
 <!ENTITY sound.beepOnScanningError "Beep on scanning errors">
