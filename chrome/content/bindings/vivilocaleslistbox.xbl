@@ -34,17 +34,33 @@
 
             <xbl:constructor><![CDATA[
                 var self = this;
+
+                this.ready = false;
+                this.readyRuned = false;
+
                 this.ready = function() {
-                    self.initListbox();
+                    if(!self.readyRuned) {
+                        self.initListbox();
+                        self.readyRuned = true;
+                    }
                 };
-                this.ready();
+                
+                // createElement
+                this.addEventListener('load', this.ready, true);
+
+                // static .xul
                 window.addEventListener('load', this.ready, true);
+
             ]]>
             </xbl:constructor>
 
             <destructor>
             <![CDATA[
-               window.removeEventListener('load', this.ready, true);
+
+                if (this.ready) {
+                    window.removeEventListener('load', this.ready, true);
+                }
+
             ]]>
             </destructor>
 

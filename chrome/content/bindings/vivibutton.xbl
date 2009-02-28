@@ -34,71 +34,76 @@
     <property name="boxWidth" onget="return this.boxObject.width;" readonly="true" />
 
     <property name="vivibuttonImage" onget='return document.getAnonymousElementByAttribute(this, "anonid", "vivibutton-image");' readonly="true" />
+
     <property name="vivibuttonLabel" onget='return document.getAnonymousElementByAttribute(this, "anonid", "vivibutton-label");' readonly="true" />
 
-    <constructor><![CDATA[
+    <constructor>
+        <![CDATA[
 
-        var suspended = false;
+            var suspended = false;
 
-        var aLabel = this.vivibuttonLabel ;
+            var aLabel = this.vivibuttonLabel ;
 
-        var autoResize = (this.getAttribute('autoresize') || "true").toLowerCase() == 'true';
+            this.roles = this.getAttribute('roles') || '';
+            this.action = this.getAttribute('action') || 'display';
 
-        this.roles = this.getAttribute('roles') || '';
-        this.action = this.getAttribute('action') || 'display';
+            var value = this.getAttribute('label') || '';
+            if(aLabel.getAttribute('crop')) {
+                aLabel.removeChild(aLabel.firstChild);
+            }
 
-        var value = this.getAttribute('label') || '';
-        if(aLabel.getAttribute('crop')) {
-            aLabel.removeChild(aLabel.firstChild);
-        }
+            if (this.getAttribute('pre')) {
+                aLabel.setAttribute('style', 'white-space: pre;');
+            }
 
-        if (this.getAttribute('pre')) {
-            aLabel.setAttribute('style', 'white-space: pre;');
-        }
+            this.setLabel(value);
 
-        this.setLabel(value);
+            var self = this;
 
-        this.render();
-       
-        var self = this;
-        
-        if (this.roles.length >0 ) {
+            if (this.roles.length >0 ) {
 
-            this.observer = GeckoJS.Observer.newInstance({
-                    topics: ['acl-session-change', 'button-state-suspend', 'button-state-resume'],
-                    observe: function(aSubject, aTopic, aData) {
-                        switch(aTopic) {
-                            case 'acl-session-change':
-                                self.render();
-                                break;
+                this.observer = GeckoJS.Observer.newInstance({
+                        topics: ['acl-session-change', 'button-state-suspend', 'button-state-resume'],
+                        observe: function(aSubject, aTopic, aData) {
+                            switch(aTopic) {
+                                case 'acl-session-change':
+                                    self.render();
+                                    break;
 
-                            case 'button-state-suspend':
-                                self.suspended = (self.getAttribute('suspendable') || 'true') == 'true';
-                                self.render();
-                                break;
+                                case 'button-state-suspend':
+                                    self.suspended = (self.getAttribute('suspendable') || 'true') == 'true';
+                                    self.render();
+                                    break;
 
-                            case 'button-state-resume':
-                                self.suspended = false;
-                                self.render();
-                                break;
+                                case 'button-state-resume':
+                                    self.suspended = false;
+                                    self.render();
+                                    break;
+                            }
                         }
-                    }
-                }).register();
+                    }).register();
 
-        }
+            }
 
-        this.addEventListener('DOMAttrModified', this._attrmodified, true);
+            // process resizeLabel if needed.
+            this.ready = false;
+            this.readyRuned = false;
 
-        // process resizeLabel if needed.
-        this.ready = false;
-
-        if (autoResize) {
             this.ready = function() {
-                self.resizeLabel();
+                if(!self.readyRuned) {
+                    self.render();
+                    self.resizeLabel();
+                    self.readyRuned = true;
+                }
             };
 
+            // createElement
+            this.addEventListener('load', this.ready, true);
+
+            // static .xul
             window.addEventListener('load', this.ready, true);
-        }
+
+            // this.addEventListener('DOMAttrModified', this._attrmodified, true);
 
 
         ]]>
@@ -106,7 +111,7 @@
 
         <destructor><![CDATA[
 
-        this.removeEventListener('DOMAttrModified', this._attrmodified, true);
+        // this.removeEventListener('DOMAttrModified', this._attrmodified, true);
 
         if (this.ready) {
             window.removeEventListener('load', this.ready, true);
@@ -181,8 +186,6 @@
 
         var image = this.vivibuttonImage;
         image.src = value;
-        //if(image.src == '') image.collapsed = true;
-        //else image.collapsed = false;
 
       ]]>
       </body>
@@ -200,13 +203,6 @@
             return;
         }
 
-	/*
-        if(this.suspended) {
-            // alway disable
-            this.disabled = true;
-            return ;
-        }
-	*/
         var isInRole = false;
         
         if(GeckoJS && GeckoJS.AclComponent && typeof GeckoJS.AclComponent.isUserInRole == 'function') {
@@ -235,7 +231,6 @@
         <body><![CDATA[
 
             var aLabel = this.vivibuttonLabel;
-            // GREUtils.log('resizeLabel ' + aLabel  + ',,' + this.vivibuttonBox);
             var $btn = $(this.vivibuttonBox);
 
             width = width || $btn.css('width').replace('px', '');

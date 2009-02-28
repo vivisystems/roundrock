@@ -50,15 +50,12 @@
         },
 
         init: function(evt) {
-        //alert('init ' + evt.data);
         },
 
         showing: function(evt) {
-
         },
 
         load: function(evt) {
-        //alert('load ' + evt.data);
         },
 
         shown: function(evt) {
@@ -66,7 +63,6 @@
         },
 
         hide: function(evt) {
-        //alert('hide ' + evt.data);
         },
       
         // time in millis to wait before auto-hide; set to 0 to disable auto-hide
@@ -97,6 +93,13 @@
                 try {
                     $(el.popupBox).css(opts.css);
                     $(el.popupOverlay).css(opts.overlayCSS);
+                }catch(e) {
+                }
+            }
+
+            if (panelTag == 'panel') {
+                try {
+                    $el.css(opts.css);
                 }catch(e) {
                 }
             }
@@ -237,7 +240,8 @@
 
         var x = getX(el, opts) ;
         var y = getY(el, opts) ;
-        
+
+        // GREUtils.log('openPopupAtScreen x = ' + x +', y = ' + y);
         el.openPopupAtScreen(x, y, false);
 
         return onPopupHiddenCB;
@@ -268,10 +272,11 @@
 
     function getX(el, opts) {
 
-        var left = opts.css.left || null;
+        var left = opts.css.left;
         var x = 0;
 
-        if(left) {
+        if(typeof left != 'undefined') {
+            left = left +"";
             if (left.indexOf('%') != -1) {
                 x = window.innerWidth * parseInt(left) / 100;
             }else {
@@ -287,10 +292,11 @@
 
     function getY(el, opts) {
 
-        var top = opts.css.top || null;
+        var top = opts.css.top;
         var y = 0;
 
-        if(top) {
+        if(typeof top != 'undefined') {
+            top = top + "";
             if (top.indexOf('%') != -1) {
                 y = window.innerHeight * parseInt(top) / 100;
             }else {

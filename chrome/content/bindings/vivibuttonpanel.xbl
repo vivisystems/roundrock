@@ -47,7 +47,10 @@
 
             this._startOffset = offset; 
 
-            if(this._startOffset != preStartOffset) this.render();
+            // redraw
+            if(this._startOffset != preStartOffset) {
+                this.render();
+            }
 
             return offset;
         ]]>
@@ -138,25 +141,25 @@
 
         this.initGrid();
 
+        var self = this;
+
         // resizeButtons
         this.ready = false;
+        this.readyRuned = false;
 
-        var self = this;
-        
-        if (this.boxWidth == 0 || this.boxHeight == 0) {
-
-            this.ready = function() {
+        this.ready = function() {
+            if(!self.readyRuned) {
                 self.resizeButtons();
-            };
-            
-            window.addEventListener('load', this.ready, true);
+                self.readyRuned = true;
+            }
+        };
 
-        }else {
+        // createElement
+        this.addEventListener('load', this.ready, true);
 
-            // already loaded
-            this.resizeButtons();
-            
-        }
+        // static .xul
+        window.addEventListener('load', this.ready, true);
+
 
     ]]>
     </constructor>
@@ -330,6 +333,60 @@
     </method>
 
 
+    <method name="getButtonSelectType">
+        <parameter name="index"/>
+        <body><![CDATA[
+
+
+            var seltype = this.seltype;
+
+            if (seltype != 'mix') return seltype;
+
+            // GREUtils.log('vivibuttonpanel getButtonSelectType ' );
+
+            var rowCount = this.rowCount;
+
+            if (index >= rowCount ) return seltype;
+
+            var datasource = this.getDatasource();
+
+            if(!datasource) return seltype;
+
+            if (typeof datasource.getSelectType == 'function') {
+                return datasource.getSelectType(index);
+            }
+
+        ]]>
+        </body>
+    </method>
+
+    <method name="getButtonSelectGroup">
+        <parameter name="index"/>
+        <body><![CDATA[
+
+            var seltype = this.seltype;
+
+            if (seltype != 'mix' ) return 'default';
+
+            //GREUtils.log('vivibuttonpanel getButtonSelectGroup ' );
+
+            var rowCount = this.rowCount;
+
+            if (index >= rowCount ) return 'default';
+
+            var datasource = this.getDatasource();
+
+            if(!datasource) return 'default';
+
+            if (typeof datasource.getSelectGroup == 'function') {
+                return datasource.getSelectGroup(index);
+            }
+
+        ]]>
+        </body>
+    </method>
+
+
     <method name="render">
         <body><![CDATA[
 
@@ -344,6 +401,8 @@
             var hasRole = true;
             var rowCount = this.rowCount;
             var startOffset = this.startOffset;
+
+            // GREUtils.log('vivibuttonpanel render ' + this.parentNode.parentNode.id +' ,buttonCount = ' + buttonCount + ' ,offset = ' + startOffset);
 
             for(let i=0; i < buttonCount ; i++) {
 
@@ -360,11 +419,11 @@
                 if (row >= rowCount) {
 
                     buttons[i].setAttribute('disabled', true);
-                    // buttons[i].setAttribute('label', "");
+
                     buttons[i].setLabel("");
-                    // buttons[i].setAttribute('image', '');
                     buttons[i].setImage('');
-                    if (buttonClass) buttons[i].setAttribute('class', buttonClass);
+
+                    if (buttonClass) buttons[i].className = buttonClass;
 
                 }else {
                 
@@ -379,18 +438,16 @@
                     }
 
                     buttons[i].setAttribute('disabled', !hasRole);
-                    if (buttonClass) buttons[i].setAttribute('class', buttonClass);
+
+                    if (buttonClass) buttons[i].className = buttonClass;
 
                     let text = datasource.getCellText(row, {id: labelField});
-                    // buttons[i].setAttribute('label', text);
                     buttons[i].setLabel(text);
                     
                     let image = datasource.getImageSrc(row, {id: imageField});
                     if (image) {
-                        // buttons[i].setAttribute('image', image);
                         buttons[i].setImage(image);
                     }else {
-                        //buttons[i].setAttribute('image', '');
                         buttons[i].setImage('');
                     }
 
@@ -407,6 +464,9 @@
 
     <method name="refresh">
         <body><![CDATA[
+
+            // GREUtils.log('vivibutton panel refresh ' + this.parentNode.parentNode.id);
+
             var evt = document.createEvent('Event');
             evt.initEvent("refresh", true, false);
             this.canceled = this.dispatchEvent(evt);
@@ -417,9 +477,9 @@
                 this._startOffset = pageOffset * pageSize;
             }
 
-            //this._startOffset = (this._startOffset < 0) ? 0 : this._startOffset;
+            this._startOffset = (this._startOffset < 0) ? 0 : this._startOffset;
             //if (this._startOffset > this.rowCount) this._startOffset = 0;
-            this.startOffset = this._startOffset;
+            // this.startOffset = this._startOffset;
             this.render();
 
         ]]>  
@@ -440,6 +500,9 @@
 
     <method name="invalidate">
         <body><![CDATA[
+
+            // GREUtils.log('vivibutton panel invalidate ' + this.parentNode.parentNode.id);
+
             this.refresh();
         ]]>
         </body>
@@ -484,13 +547,25 @@
             var selectedItems = this.selectedItems;
             var startOffset = this.startOffset;
 
+            // GREUtils.log('updateSelectedItemState offset = ' + startOffset );
+            var seltype = this.seltype;
+
             for(let i=0; i < buttonCount ; i++) {
 
                 let row = startOffset + i;
 
                 if (GeckoJS.Array.inArray(row, selectedItems) != -1) {
+
                     buttons[i].setAttribute('selected', true);
                     buttons[i].setAttribute('checked', true);
+
+                    let seltype = this.getButtonSelectType(row);
+                    let selgroup = this.getButtonSelectGroup(row);
+
+                    if (seltype == 'single' || seltype == 'toggle') {
+                        this._selectedItemGroups[selgroup] = row;
+                    }
+
                 }else {
                     buttons[i].removeAttribute('selected');
                     buttons[i].removeAttribute('checked');
@@ -507,34 +582,21 @@
 
             this.currentIndex = this.startOffset + parseInt(target.getAttribute('anonid'));
 
-            var seltype = this.seltype;
-            var selgroup = 'default';
-
-            if (seltype == 'mixed') {
-                // change seltype with button's attribute
-
-                var btnSeltype = target.getAttribute('seltype');
-                if (btnSeltype) seltype = btnSeltype;
-
-                var btnSelgroup = target.getAttribute('selgroup');
-                if (btnSelgroup) selgroup = btnSelgroup;
-
-            }
+            var seltype = this.getButtonSelectType(this.currentIndex);
+            var selgroup = this.getButtonSelectGroup(this.currentIndex);
 
             if (seltype == 'single' || seltype == 'toggle' ) {
 
                 var preIndex = this._selectedItemGroups[selgroup];
 
-                if ( preIndex && preIndex != this.currentIndex )  {
-
-                    // alert('ddd ' + selgroup + ',,,' +  preIndex);
-                    
+                if ( typeof preIndex != 'undefined' && preIndex != this.currentIndex )  {
+                   
                     // process prev index
                     this.selectedItems.splice(GeckoJS.Array.inArray(preIndex, this.selectedItems), 1);
                     this.selectedCount--;
 
                     if (preIndex >= this.startOffset && preIndex <= (this.startOffset+this.buttonCount)) {
-                        var btnid = preIndex%this.buttonCount;
+                        var btnid = preIndex % this.buttonCount;
                         var btn = document.getAnonymousElementByAttribute(this, 'anonid', btnid);
                         if(btn) {
                             btn.removeAttribute('selected');
@@ -542,12 +604,14 @@
                         }
                     }
 
-                }else if (preIndex && preIndex == this.currentIndex) {
+                }else if ( typeof preIndex != 'undefined' && preIndex == this.currentIndex ) {
 
                     if (seltype == 'toggle') {
 
                         this.selectedItems.splice(GeckoJS.Array.inArray(this.currentIndex, this.selectedItems), 1);
                         this.selectedCount--;
+
+                        delete this._selectedItemGroups[selgroup];
 
                         target.removeAttribute('selected');
                         target.removeAttribute('checked');
@@ -555,45 +619,17 @@
                     }
 
                     return ;
-
                 }
 
                 this._selectedItemGroups[selgroup] = this.currentIndex;
                 this.selectedItems.push(this.currentIndex);
                 this.selectedCount++;
+
                 target.setAttribute('selected', true);
                 target.setAttribute('checked', true);
                     
-            }
-            /*
-            else if (seltype == 'toggle') {
+            } else if (seltype == 'multiple') {
 
-                if (this.selectedItems.length >0)  {
-                    // process prev index
-                    var preIndex = this.selectedItems[0];
-
-                    if (preIndex >= this.startOffset && preIndex <= (this.startOffset+this.buttonCount)) {
-                        var btnid = preIndex%this.buttonCount;
-                        var btn = document.getAnonymousElementByAttribute(this, 'anonid', btnid);
-                        if(btn) {
-                            btn.removeAttribute('selected');
-                            btn.removeAttribute('checked');
-                        }
-                    }
-                }
-                if (preIndex != this.currentIndex || this.selectedCount == 0) {
-                    this.selectedItems = [this.currentIndex];
-                    this.selectedCount = 1;
-                    target.setAttribute('selected', true);
-                    target.setAttribute('checked', true);
-
-                }
-                else {
-                    this.selectedItems = [];
-                    this.selectedCount = 0;
-                }
-            }*/
-            else if (seltype == 'multiple') {
                 // multiple
                 if (GeckoJS.Array.inArray(this.currentIndex, this.selectedItems) == -1) {
                     this.selectedItems.push(this.currentIndex);
@@ -606,6 +642,7 @@
                     target.removeAttribute('selected');
                     target.removeAttribute('checked');
                 }
+
             }
 
 
