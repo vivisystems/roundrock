@@ -43,23 +43,28 @@
             </vbox>
             <vbox flex="1">
                 <spacer style="height: 25px;" />
-                <vbox class="DataForm">
-                    <hbox>
-                        <vbox>
-                            <label id="plugroup_id" hidden="true" form="plugroupForm" name="id" value="" />
-                            <label value="&plugroups.name;" control="plugroup_name"/>
-                            <textbox id="plugroup_name" value="" form="plugroupForm" name="name" oninput="$do('validateForm', null, 'Plugroups')" default="" onfocus="this.select()"/>
-                        </vbox>
-                        <vbox flex="1">
-                            <label style="width:10em" value="&plugroups.display_order;" control="display_order"/>
-                            <textbox id="display_order" default="" size="2" form="plugroupForm" name="display_order" onfocus="this.select()"/>
-                        </vbox>
-                    </hbox>
-                    <hbox flex="1">
-                        <checkbox id="visible" flex="1" style="height: 50px;" value="true" label="&plugroups.visible;" form="plugroupForm" name="visible" default="true"/>
-                        <checkbox id="routing" flex="1" style="height: 50px;" value="true" label="&plugroups.routing;" form="plugroupForm" name="routing" default="false"/>
-                    </hbox>
-                </vbox>
+                <grid class="DataForm">
+                    <columns>
+                        <column flex="1" /><column flex="1" />
+                    </columns>
+                    <rows>
+                        <row>
+                            <vbox>
+                                <label id="plugroup_id" hidden="true" form="plugroupForm" name="id" value="" />
+                                <label value="&plugroups.name;" control="plugroup_name"/>
+                                <textbox id="plugroup_name" value="" form="plugroupForm" name="name" oninput="$do('validateForm', null, 'Plugroups')" default="" onfocus="this.select()"/>
+                            </vbox>
+                            <vbox flex="1">
+                                <label style="width:10em" value="&plugroups.display_order;" control="display_order"/>
+                                <textbox id="display_order" default="" size="2" form="plugroupForm" name="display_order" onfocus="this.select()"/>
+                            </vbox>
+                        </row>
+                        <row>
+                            <checkbox id="visible" flex="1" style="height: 50px;" value="true" label="&plugroups.visible;" form="plugroupForm" name="visible" default="true"/>
+                            <checkbox id="routing" flex="1" style="height: 50px;" value="true" label="&plugroups.routing;" form="plugroupForm" name="routing" default="false"/>
+                        </row>
+                    </rows>
+                </grid>
                 <spacer style="height: 5px;" />
                 <hbox class="RightPnlB">
                     <vbox flex="1">

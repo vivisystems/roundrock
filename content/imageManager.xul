@@ -29,10 +29,10 @@
     <vbox class="main-dialog" flex="1">
         <vbox flex="1" class="MainPnl">
             <hbox flex="1" >
-                <vbox flex="2">
+                <vbox flex="1">
                     <viviscrollablebuttonpanel id="imagePanel" flex="1" cols="4" rows="4" labelField="leafName" imageField="path"
                                                oncommand="$do('select',this.selectedIndex, 'ImageManager');"
-                                               buttonClass="imageThumbBtn largeimagebtn ImgThumb" dir="reverse"
+                                               buttonClass="ImgThumb" dir="reverse"
                                                scrollUpClass="ScrollUp" class="ImgList"
                                                scrollDownClass="ScrollDown">
                         <spacer flex="1"/>
@@ -44,20 +44,21 @@
                        <label value=" / "/>
                        <label id="lblSize" value="" />
                     </hbox>
+                    <spacer flex="1" />
                 </vbox>
-                <vbox flex="1" id="managerPanel" class="ToolBar ImgTool">
+                <vbox flex="1" id="managerPanel" class="ImgTool">
                     <button id="importBtn" label="&imagemanager.action.import;"  oncommand="$do('importFromDir',null, 'ImageManager');"/>
                     <button id="exportBtn" label="&imagemanager.action.export;"  oncommand="$do('exportToDir',null, 'ImageManager');"/>
                     <button id="deleteBtn" label="&imagemanager.action.delete;"  oncommand="$do('deleteImage',null, 'ImageManager');" />
                     <button id="renameBtn" label="&imagemanager.action.rename;"  oncommand="$do('renameImage',null, 'ImageManager');"/>
-                    <spacer flex="5"/>
+                    <spacer flex="1"/>
                     <groupbox>
                         <caption label="&imagemanager.action.caption;"/>
                         <hbox>&imagemanager.action.usage;<label id="actionUsage" value="" /> </hbox>
                         <hbox>&imagemanager.action.files;<label id="actionFiles" value="" /> </hbox>
                         <hbox>&imagemanager.action.status;<label id="actionStatus" value="" /> </hbox>
                     </groupbox>
-                    <spacer flex="1"/>
+                    <spacer height="10px"/>
                     <groupbox>
                       <caption label="&imagemanager.status.disklimit;" />
                        <progressmeter id="usageProgressmeter" mode="determined" value="" />
@@ -90,7 +91,7 @@
                 </groupbox>
                 </vbox>
             </panel>
-
+            
             <hbox id="dialogButtons" class="dialogbtns" pack="end">
                 <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
             </hbox>

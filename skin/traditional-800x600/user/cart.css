@@ -130,12 +130,12 @@
 }
 
 treechildren::-moz-tree-row {
-  height: 28px;
-  border-bottom: 1px solid #818085;
+    height: 28px;
+    border-bottom: 1px solid #818085;
 }
 
-treechildren::-moz-tree-row(selected) {background-color: #3b556c; }
-treechildren::-moz-tree-row(odd, selected) {background-color: #3b556c; }
+treechildren::-moz-tree-row(selected) {background-color: #3b556c !important; }
+treechildren::-moz-tree-row(odd, selected) {background-color: #3b556c !important; }
 treechildren::-moz-tree-cell-text(selected) {color: #FFFFFF;}
 treechildren::-moz-tree-cell-text(odd, selected) {color: #FFFFFF;}
 treechildren::-moz-tree-row(treeTRAY) {background-color: #8e9d90;}
@@ -145,7 +145,7 @@ treechildren::-moz-tree-row(treeLowStock) {background-color: orange;}
 treechildren::-moz-tree-row(treeOutofStock) {background-color: red;}
 treechildren::-moz-tree-row(treeVerifyAge) {background-color: steelblue;}
 treechildren::-moz-tree-row(treeReturnItem) {background-color: lightgreen;}
-treechildren::-moz-tree-row(batchMarker) {border-bottom: 3px dotted black;}
+treechildren::-moz-tree-row(batchMarker) {border-bottom: 4px solid black;}
 treechildren::-moz-tree-cell-text(treecellTRAY) {color: white;}
 treechildren::-moz-tree-cell-text(treecellSUBTOTAL) {color: #3d5470;}
 treechildren::-moz-tree-cell-text(treecellTOTAL) {color: white;}

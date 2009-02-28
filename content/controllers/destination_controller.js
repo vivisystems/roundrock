@@ -245,6 +245,12 @@
 
             // get current transaction
             var txn = cart._getTransaction();
+
+            if (txn.isClosed()) {
+                NotifyUtils.warn(_('This order is closed pending payment and may not be modified'));
+                return;
+            }
+
             if (txn == null || txn.isSubmit() || txn.isCancel()) {
                 // create a new transaction
                 txn = cart._newTransaction();
@@ -255,7 +261,12 @@
             GeckoJS.Session.set('vivipos_fec_order_destination', dest.name);
 
             // set price level if necessary
-            if (!isNaN(dest.pricelevel)) {
+            if (isNaN(dest.pricelevel)) {
+                if (dest.pricelevel != '-') {
+                    this.requestCommand('changeToCurrentLevel', null, 'Pricelevel');
+                }
+            }
+            else {
                 this.requestCommand('change', dest.pricelevel, 'Pricelevel');
             }
 

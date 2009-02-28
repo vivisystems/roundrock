@@ -30,7 +30,7 @@
 
                 $buttonPanel[0].datasource = viewHelper ;
                 $buttonPanel[0].selectedItems = [] ;
-                
+
                 try {
                     $buttonPanel[0].addEventListener('command', onBtnClick, true);
                 }catch(e) {

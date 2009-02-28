@@ -1,30 +1,33 @@
 .MainPnl {
-    margin: 18px;
+    margin: 0px;
+    width: 780px;
+    height: 580px;
 }
 
 .MainL {
-    border-right: 1px solid #c1ab8e;
+    border-right: 1px solid #a98f6e;
 }
 
 .ToolBar {
     margin-left: 4px;
 }
 
-.QueueList {
+.QueueList, .QueueList[readonly=true] {
     -moz-appearance: none;
-    border: none;
-    background: none;
+    border: none  !important;
+    background: none !important;
     margin: 20px;
-    min-height: 410px;
+    min-height: 390px !important;
     min-width: 300px;
+    -moz-box-flex: 1 !important;
 }
 
 .sline{
-    border-bottom: 1px solid #c1ab8e;
+    border-bottom: 1px solid #a98f6e;
     margin-left: 4px;
 }
 
 .ItemScrollablepanel {
     min-width: 300px;
-    min-height: 430px;
+    min-height: 390px;
 }

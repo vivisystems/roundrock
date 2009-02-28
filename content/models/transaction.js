@@ -71,7 +71,7 @@
 
                 terminal_no: GeckoJS.Session.get('terminal_no'),
 
-                lock: -1,
+                lockIndex: -1,
                 batchCount: 0,
                 closed: false,
 
@@ -194,6 +194,7 @@
 
 
     Transaction.prototype.submit = function(status) {
+
         if (typeof(status) == 'undefined') status = 1;
 
         // set proceeds_cherk when submit to status == 1
@@ -210,6 +211,10 @@
         
     };
 
+    Transaction.prototype.close = function() {
+        this.data.closed = true;
+    };
+    
     Transaction.prototype.isSubmit = function() {
         // return (this.data.status == 1);
         return (this.data.status > 0);
@@ -217,7 +222,7 @@
 
 
     Transaction.prototype.isStored = function() {
-        return (this.data.status == 2);
+        return (this.data.recall == 2);
     };
 
 
@@ -1555,11 +1560,11 @@
         return paymentItem;
     };
 
-    Transaction.prototype.getItemAt = function(index, inclusive){
+    Transaction.prototype.getItemAt = function(index, nofollow){
         
         if (index < 0 || index >= this.data.display_sequences.length) return null;
 
-        if (inclusive == null) inclusive = false;
+        if (nofollow == null) nofollow = false;
 
         var itemDisplay = this.getDisplaySeqAt(index);
         var item = null;
@@ -1570,7 +1575,7 @@
                 item = this.data.items[itemIndex];
                 break;
             case 'setitem':
-                if (inclusive)
+                if (nofollow)
                     item = this.data.items[itemIndex];
                 else {
                     var parent_index = this.data.items[itemIndex].parent_index;
@@ -1587,7 +1592,7 @@
             case 'condiment':
             case 'memo':
                 item = this.data.items[itemIndex];
-                if (!inclusive && item != null && item.parent_index != null) {
+                if (!nofollow && item != null && item.parent_index != null) {
                     item = this.data.items[item.parent_index];
                 }
                 break;
@@ -1604,34 +1609,78 @@
         
     };
 
-    Transaction.prototype.close = function() {
-        this.data.closed = true;
-    };
-
-    Transaction.prototype.lockItems = function(index, tag) {
+    Transaction.prototype.lockItems = function(index) {
         var displayItems = this.data.display_sequences;
+        var transItems = this.data.items;
+        var paymentItems = this.data.trans_payments;
         var batch = ++this.data.batchCount;
 
+        var batchItemCount = 0;
+        var batchPaymentCount = 0;
+
+        if (index == null) index = displayItems.length - 1;
+        
         displayItems[index].batchMarker = batch;
 
         // lock all display items up-to and including the item at position given by index
         for (var i = 0; i <= index; i++) {
             var dispItem = displayItems[i];
-            if (!('lock' in dispItem)) dispItem['lock'] = batch;
+            if (!('batch' in dispItem)) {
+                dispItem['batch'] = batch;
+
+                // lock corresponding transaction item
+                if (dispItem.index != null) {
+                    switch(dispItem.type) {
+                        case 'item':
+                            if (transItems[dispItem.index] != null) {
+                                transItems[dispItem.index].batch = batch;
+                                batchItemCount++;
+                            }
+                            break;
+
+                        case 'payment':
+                            if (paymentItems[dispItem.index] != null) {
+                                paymentItems[dispItem.index].batch = batch;
+                                batchPaymentCount++;
+                            }
+                            break;
+                    }
+                }
+            }
         }
 
         // set order lock index
-        if (this.data.lock < index) {
-            this.data.lock = index;
-        }
+        this.data.batchItemCount = batchItemCount;
+        this.data.batchPaymentCount = batchPaymentCount;
+        this.data.lockIndex = index;
     };
 
     Transaction.prototype.isLocked = function(index) {
-        return (index <= this.data.lock);
+        return (index <= this.data.lockIndex);
     };
 
     Transaction.prototype.isModified = function() {
-        return (this.data.lock < this.data.display_sequences.length - 1);
+        return (!('lockIndex' in this.data) && this.data.display_sequences.length > 0) || this.data.lockIndex < (this.data.display_sequences.length - 1);
+    };
+
+    Transaction.prototype.hasItemsInBatch = function(batch) {
+        if (batch == null) batch = this.data.batchCount;
+        for (var index in this.data.items) {
+            if (this.data.items[index].batch == batch) {
+                return true;
+            }
+        }
+        return false;
+    };
+
+     Transaction.prototype.hasPaymentsInBatch = function(batch) {
+        if (batch == null) batch = this.data.batchCount;
+        for (var index in this.data.trans_payments) {
+            if (this.data.trans_payments[index].batch == batch) {
+                return true;
+            }
+        }
+        return false;
     };
 
     Transaction.prototype.getDisplaySeqCount = function(){

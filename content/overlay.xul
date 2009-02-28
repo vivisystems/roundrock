@@ -9,7 +9,6 @@
 <?xul-overlay href="chrome://viviecr/content/overlays/productPanelOverlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/functionPanelOverlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/cartlistPanelOverlay.xul" ?>
-<?xul-overlay href="chrome://viviecr/content/overlays/numberpadPanelOverlay.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/overlays/terminalStatus.xul" ?>
 
 <?xul-overlay href="chrome://viviecr/content/dialogs/prompt_additem.xul" ?>
@@ -32,24 +31,21 @@
 
         <hotkey-keyset id="hotkeySets" />
 
-        <hbox id="mainPanel" flex="1" class="mainpanel">
+        <box id="mainPanel" flex="1" class="mainpanel" orient="horizontal">
 
-            <vbox id="leftPanel" flex="1" style="overflow: hidden">
-                <box id="productPanelContainer" class="productPanel" />
-                <box id="functionPanelContainer" class="functionPanel" />
-                
-            </vbox>
+            <box id="leftPanel" flex="1" style="overflow: hidden" orient="vertical">
+                <box id="productPanelContainer" flex="1" class="productPanel" />
+            </box>
 
             <spacer id="panelSpacer" width="0px" flex="0"/>
 
-            <vbox id="rightPanel" flex="1" class="rightPanel">
-                <box id="vfdPanelContainer" />
-                <vbox id="cartlistPanelContainer" />
-                <box id="numberpadPanelContainer" />
-            </vbox>
+            <box id="rightPanel" flex="1" class="rightPanel" orient="vertical">
+                <box id="vfdPanelContainer" flex="1"/>
+                <box id="cartlistPanelContainer" flex="1"/>
+                <box id="functionPanelContainer" flex="0"/>
+            </box>
 
-        </hbox>
-
+        </box>
 
         <popupset id="dialogs" />
     </box>

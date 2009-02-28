@@ -56,7 +56,7 @@
                                            ensureVisible="true"
                                            oncommand="$do('clickPluPanel',this.selectedIndex, 'Plus');"
                                            class="prodscrollablepanel"
-                                           buttonClass="plubtn mediumimagebtn"
+                                           buttonClass="product-button mediumimagebtn"
                                            scrollUpClass="ScrollUp"
                                            scrollDownClass="ScrollDown">
                                     <spacer flex="1"/>

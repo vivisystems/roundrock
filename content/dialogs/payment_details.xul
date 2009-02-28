@@ -32,8 +32,8 @@
                         <spacer flex="1" />
                     </viviscrollabletree>
 
-                    <spacer flex="1"/>
-
+                    <spacer height="10px"/>
+                    
                     <hbox id="dialogButtons" class="dialogbtns" pack="end">
                         <button class="ExitBtn" id="paymentDetails-ok" label="&dialog.closeButton.label;" default="true" oncommand="$.hidePanel('paymentDetailsPanel', false)"/>
                     </hbox>

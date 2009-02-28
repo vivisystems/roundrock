@@ -12,13 +12,16 @@
 .vbox_vfd {
   padding: 3px;
   margin-left: 0px;
-  height: 26px;
+  height: 60px;
 }
 
 .label_vfd {
-  color: #f49b1d;
-  font-size: 15pt;
-  font-family: monospace;
-  font-weight: bold !important;
+    color: #f49b1d;
+    background-color: transparent;
+    border-width: 0px;
+    font-size: 15pt;
+    font-family: monospace;
+    font-weight: bold !important;
+    -moz-appearance: none;
 }
 

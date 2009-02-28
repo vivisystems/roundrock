@@ -59,9 +59,12 @@
             }else {
                 this.tree.invalidate();
             }*/
-            //GREUtils.log('rowCountChanged 1: ' + oldIndex + ', ' + rc1 + ', ' + rc2 + ', ' + newIndex);
+            GREUtils.log('rowCountChanged 1: ' + oldIndex + ', ' + rc1 + ', ' + rc2 + ', ' + newIndex);
             if (rc1 < 0) {
                 rc1 = 0;
+                oldIndex = 0;
+            }
+            if (oldIndex < 0) {
                 oldIndex = 0;
             }
             if (rc2 < 0) rc2 = this.data.length;
@@ -86,7 +89,7 @@
             }
             if (newIndex < 0) newIndex = (this.data.length > 0) ? 0 : -1;
             else if (newIndex >= this.data.length) newIndex = this.data.length - 1;
-            //GREUtils.log('rowCountChanged 2: ' + rc1 + ', ' + rc2 + ', ' + newIndex);
+            GREUtils.log('rowCountChanged 2: ' + rc1 + ', ' + rc2 + ', ' + newIndex);
 
             this.tree.view.selection.currentIndex = newIndex;
             this.tree.view.selection.select(newIndex);
@@ -158,39 +161,28 @@
         getRowProperties : function(row, props){
             if (this._old_row == row) return;
             var data = this.getCurrentIndexData(row);
+            var aserv=Components.classes['@mozilla.org/atom-service;1'].
+                      getService(Components.interfaces.nsIAtomService);
             if (data.type == 'tray') {
-                var aserv=Components.classes['@mozilla.org/atom-service;1'].
-                          getService(Components.interfaces.nsIAtomService);
                 props.AppendElement(aserv.getAtom('treeTRAY'));
             } else if (data.type == 'subtotal') {
-                var aserv=Components.classes['@mozilla.org/atom-service;1'].
-                          getService(Components.interfaces.nsIAtomService);
                 props.AppendElement(aserv.getAtom('treeSUBTOTAL'));
             } else if (data.type == 'total') {
-                var aserv=Components.classes['@mozilla.org/atom-service;1'].
-                          getService(Components.interfaces.nsIAtomService);
                 props.AppendElement(aserv.getAtom('treeTOTAL'));
             } else if (parseFloat(data.current_qty.replace('X', '')) < 0) {
-                var aserv=Components.classes['@mozilla.org/atom-service;1'].
-                          getService(Components.interfaces.nsIAtomService);
                 props.AppendElement(aserv.getAtom('treeReturnItem'));
             } else if (data.stock_status == '0') {
-                var aserv=Components.classes['@mozilla.org/atom-service;1'].
-                          getService(Components.interfaces.nsIAtomService);
                 props.AppendElement(aserv.getAtom('treeLowStock'));
             } else if (data.stock_status == '-1') {
-                var aserv=Components.classes['@mozilla.org/atom-service;1'].
-                          getService(Components.interfaces.nsIAtomService);
                 props.AppendElement(aserv.getAtom('treeOutofStock'));
             } else if (data.age_verification == '1') {
-                var aserv=Components.classes['@mozilla.org/atom-service;1'].
-                          getService(Components.interfaces.nsIAtomService);
                 props.AppendElement(aserv.getAtom('treeVerifyAge'));
             }
             if (data.batchMarker) {
-                var aserv=Components.classes['@mozilla.org/atom-service;1'].
-                          getService(Components.interfaces.nsIAtomService);
                 props.AppendElement(aserv.getAtom('batchMarker'));
+            }
+            else {
+                props.AppendElement(aserv.getAtom('regular'));
             }
             this._old_row = row;
         },

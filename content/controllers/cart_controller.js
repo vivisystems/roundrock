@@ -360,25 +360,9 @@
                 return;
             }
 
-            // check if the current item is locked
-            if (curTransaction.isLocked(index)) {
-                NotifyUtils.warn(_('Stored items may not be modified'));
-
-                this.subtotal();
-                return;
-            }
-
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 //@todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot tag the selected item'));
-
-                this.subtotal();
-                return;
-            }
-
-            if (tag == null || tag.length == 0) {
-                //@todo OSD
-                NotifyUtils.warn(_('Cannot tag the selected item with an empty tag'));
 
                 this.subtotal();
                 return;
@@ -392,7 +376,23 @@
                 return;
             }
 
-            var itemTrans = curTransaction.getItemAt(index);
+            // check if the current item is locked
+            if (curTransaction.isLocked(index)) {
+                NotifyUtils.warn(_('Stored items may not be modified'));
+
+                this.subtotal();
+                return;
+            }
+
+            if (tag == null || tag.length == 0) {
+                //@todo OSD
+                NotifyUtils.warn(_('Cannot tag the selected item with an empty tag'));
+
+                this.subtotal();
+                return;
+            }
+
+            var itemTrans = curTransaction.getItemAt(index, true);
             var itemDisplay = curTransaction.getDisplaySeqAt(index);
 
             if (itemDisplay.type != 'item' && itemDisplay.type != 'setitem') {
@@ -616,17 +616,17 @@
                 return;
             }
 
-            // check if the current item is locked
-            if (curTransaction.isLocked(index)) {
-                NotifyUtils.warn(_('Stored items may not be modified'));
+            if(index <0) {
+                //@todo OSD
+                NotifyUtils.warn(_('Please select an item first'));
 
                 this.subtotal();
                 return;
             }
 
-            if(index <0) {
-                //@todo OSD
-                NotifyUtils.warn(_('Please select an item first'));
+            // check if the current item is locked
+            if (curTransaction.isLocked(index)) {
+                NotifyUtils.warn(_('Stored items may not be modified'));
 
                 this.subtotal();
                 return;
@@ -826,7 +826,7 @@
             }
             if (qty < 0) newQty = 0 - newQty;
             if (newQty != qty) {
-                this.setQty(newQty);
+                GeckoJS.Session.set('cart_set_qty_value', newQty);
                 this.modifyItem();
             }
             else {
@@ -888,17 +888,17 @@
                 return;
             }
 
-            // check if the current item is locked
-            if (curTransaction.isLocked(index)) {
-                NotifyUtils.warn(_('Stored items may not be voided'));
+            if(index <0) {
+                // @todo OSD
+                NotifyUtils.warn(_('Please select an item first'));
 
                 this.subtotal();
                 return;
             }
 
-            if(index <0) {
-                // @todo OSD
-                NotifyUtils.warn(_('Please select an item first'));
+            // check if the current item is locked
+            if (curTransaction.isLocked(index)) {
+                NotifyUtils.warn(_('Stored items may not be voided'));
 
                 this.subtotal();
                 return;
@@ -971,9 +971,16 @@
 
         },
 
-        addDiscountByNumber: function(amount) {
-            // shorcut
-            var discountAmount = (amount == '') ? false : amount;
+        addDiscountByNumber: function(args) {
+            // args is a list of up to 2 comma separated arguments: amount, label
+            var discountAmount;
+            var discountName = '-'
+
+            if (args != null && args != '') {
+                var argList = args.split(',');
+                if (argList.length > 0) discountAmount = argList[0];
+                if (argList.length > 1) discountName = argList[1];
+            }
 
             // check if has buffer
             var buf = this._getKeypadController().getBuffer();
@@ -981,16 +988,25 @@
 
             this.cancelReturn();
 
-            if (!discountAmount && buf.length>0) {
+            if ((discountAmount == null || discountAmount == '') && buf.length>0) {
                 discountAmount = buf;
             }
 
-            this.addDiscount(discountAmount, '$', '-');
+            this.addDiscount(discountAmount, '$', discountName, false);
         },
 
-        addDiscountByPercentage: function(amount) {
-            // shortcut
-            var discountAmount = (amount == '') ? false : amount;
+        addDiscountByPercentage: function(args, pretax) {
+            // args is a list of up to 2 comma separated arguments: amount, label
+            var discountAmount;
+            var discountName;
+
+            if (args != null && args != '') {
+                var argList = args.split(',');
+                if (argList.length > 0) discountAmount = argList[0];
+                if (argList.length > 1) discountName = argList[1];
+            }
+
+            if (pretax == null) pretax = false;
 
             // check if has buffer
             var buf = this._getKeypadController().getBuffer();
@@ -998,29 +1014,20 @@
 
             this.cancelReturn();
 
-            if (!discountAmount && buf.length>0) {
+            if ((discountAmount == null || discountAmount == '') && buf.length>0) {
                 discountAmount = buf;
             }
 
-            this.addDiscount(discountAmount, '%', '-' + discountAmount + '%', false);
+            if (discountName == null || discountName == '') {
+                discountName = '-' + discountAmount + '%';
+            }
+
+            this.addDiscount(discountAmount, '%', discountName, pretax);
         },
 
 
-        addPretaxDiscountByPercentage: function(amount) {
-            // shortcut
-            var discountAmount = (amount == '') ? false : amount;
-
-            // check if has buffer
-            var buf = this._getKeypadController().getBuffer();
-            this._getKeypadController().clearBuffer();
-
-            this.cancelReturn();
-
-            if (!discountAmount && buf.length>0) {
-                discountAmount = buf;
-            }
-
-            this.addDiscount(discountAmount, '%', '-' + discountAmount + '%', true);
+        addPretaxDiscountByPercentage: function(args) {
+            this.addDiscountByPercentage(args, true);
         },
 
 
@@ -1048,18 +1055,18 @@
                 return;
             }
 
-            // check if the current item is locked
-            if (curTransaction.isLocked(index)) {
-                NotifyUtils.warn(_('Discount may not be registered against stored items'));
-
-                this.subtotal();
-                return;
-            }
-
             if(index <0) {
                 // @todo OSD
                 NotifyUtils.warn(_('Please select an item'));
                 
+                this.subtotal();
+                return;
+            }
+
+            // check if the current item is locked
+            if (curTransaction.isLocked(index)) {
+                NotifyUtils.warn(_('Discount may not be registered against stored items'));
+
                 this.subtotal();
                 return;
             }
@@ -1205,9 +1212,16 @@
             this.subtotal();
         },
 
-        addSurchargeByNumber: function(amount) {
-            // shorcut
-            var surchargeAmount = (amount == '') ? false : amount;
+        addSurchargeByNumber: function(args) {
+            // args is a list of up to 2 comma separated arguments: amount, label
+            var surchargeAmount;
+            var surchargeName = '+'
+
+            if (args != null && args != '') {
+                var argList = args.split(',');
+                if (argList.length > 0) surchargeAmount = argList[0];
+                if (argList.length > 1) surchargeName = argList[1];
+            }
 
             // check if has buffer
             var buf = this._getKeypadController().getBuffer();
@@ -1215,16 +1229,25 @@
 
             this.cancelReturn();
 
-            if (!surchargeAmount && buf.length>0) {
+            if ((surchargeAmount != null || surchargeAmount != '') && buf.length>0) {
                 surchargeAmount = buf;
             }
 
-            this.addSurcharge(surchargeAmount, '$', '+', false);
+            this.addSurcharge(surchargeAmount, '$', surchargeName, false);
         },
 
-        addSurchargeByPercentage: function(amount) {
-            // shortcut
-            var surchargeAmount = (amount == '') ? false : amount;
+        addSurchargeByPercentage: function(args, pretax) {
+            // args is a list of up to 2 comma separated arguments: amount, label
+            var surchargeAmount;
+            var surchargeName;
+
+            if (args != null && args != '') {
+                var argList = args.split(',');
+                if (argList.length > 0) surchargeAmount = argList[0];
+                if (argList.length > 1) surchargeName = argList[1];
+            }
+
+            if (pretax == null) pretax = false;
 
             // check if has buffer
             var buf = this._getKeypadController().getBuffer();
@@ -1232,29 +1255,20 @@
 
             this.cancelReturn();
 
-            if (!surchargeAmount && buf.length>0) {
+            if ((surchargeAmount == null || surchargeAmount == '') && buf.length>0) {
                 surchargeAmount = buf;
             }
 
-            this.addSurcharge(surchargeAmount, '%', '+' + surchargeAmount + '%', false);
+            if (surchargeName == null || surchargeName == '') {
+                surchargeName = '+' + surchargeAmount + '%';
+            }
+
+            this.addSurcharge(surchargeAmount, '%', surchargeName, false);
         },
 
 
-        addPretaxSurchargeByPercentage: function(amount) {
-            // shortcut
-            var surchargeAmount = (amount == '') ? false : amount;
-
-            // check if has buffer
-            var buf = this._getKeypadController().getBuffer();
-            this._getKeypadController().clearBuffer();
-
-            this.cancelReturn();
-
-            if (!surchargeAmount && buf.length>0) {
-                surchargeAmount = buf;
-            }
-
-            this.addSurcharge(surchargeAmount, '%', '+' + surchargeAmount + '%', true);
+        addPretaxSurchargeByPercentage: function(args) {
+            this.addSurchargeByPercentage(args, true);
         },
 
 
@@ -1283,17 +1297,17 @@
                 return;
             }
 
-            // check if the current item is locked
-            if (curTransaction.isLocked(index)) {
-                NotifyUtils.warn(_('Surcharge may not be registered against stored items'));
+            if(index < 0) {
+                // @todo OSD
+                NotifyUtils.warn(_('Please select an item first'));
 
                 this.subtotal();
                 return;
             }
 
-            if(index < 0) {
-                // @todo OSD
-                NotifyUtils.warn(_('Please select an item first'));
+            // check if the current item is locked
+            if (curTransaction.isLocked(index)) {
+                NotifyUtils.warn(_('Surcharge may not be registered against stored items'));
 
                 this.subtotal();
                 return;
@@ -1956,8 +1970,10 @@
                         return; // fatal error ?
                     }
                 }
+                else {
+                    balance = payment;
+                }
             }
-
             var data = {
                 type: type,
                 payment: curTransaction.formatPrice(payment)
@@ -2207,9 +2223,8 @@
                 }
             }
 
-            if (paymentsTypes.length == 0) {
-                this.addMarker('total');
-            }
+            this.addMarker('total');
+            
             type = type || 'cash';
             amount = amount || false;
 
@@ -2229,10 +2244,12 @@
             var paymentItem = {
                 type: type,
                 amount: amount,
-                origin_amount: origin_amount
+                origin_amount: origin_amount,
             };
             this.dispatchEvent('beforeAddPayment', paymentItem);
             var paymentedItem = curTransaction.appendPayment(type, amount, origin_amount, memo1, memo2);
+
+            paymentedItem.seq = curTransaction.data.seq;
 
             this.dispatchEvent('afterAddPayment', paymentedItem);
 
@@ -2326,20 +2343,20 @@
                 return;
             }
 
-            // check if the current item is locked
-            if (curTransaction.isLocked(index)) {
-                NotifyUtils.warn(_('Tax status may not be changed on stored items'));
-
-                this.subtotal();
-                return;
-            }
-
             if(index <0) {
                 //@todo OSD
                 NotifyUtils.warn(_('Please select an item first'));
 
                 this.subtotal();
                 return; // fatal error ?
+            }
+
+            // check if the current item is locked
+            if (curTransaction.isLocked(index)) {
+                NotifyUtils.warn(_('Tax status may not be changed on stored items'));
+
+                this.subtotal();
+                return;
             }
 
             var itemTrans = curTransaction.getItemAt(index);
@@ -2418,29 +2435,6 @@
 
         },
 
-        lockItems: function(index) {
-            var curTransaction = this._getTransaction();
-            if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
-
-                // cannot lock when transaction is in such a state
-                return;
-            }
-            if (index == null) index = curTransaction.getDisplaySeqCount() - 1;
-            curTransaction.lockItems(index);
-        },
-
-        closeTransaction: function() {
-            var curTransaction = this._getTransaction();
-            if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel() || curTransaction.isClosed()) {
-
-                // cannot close the transaction when it is in such a state
-                return;
-            }
-            else {
-                curTransaction.close();
-            }
-        },
-
         cancel: function() {
 
             this._getKeypadController().clearBuffer();
@@ -2450,8 +2444,7 @@
             var curTransaction = this._getTransaction();
             if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
                 
-                this.dispatchEvent('onCancel', null);
-                this._cartView.empty();
+                this.clear();
                 //@todo OSD - don't notify'
                 //NotifyUtils.warn(_('Not an open order; nothing to cancel'));
                 return; // fatal error ?
@@ -2494,8 +2487,8 @@
 
             if (curTransaction.data.recall != 2) {
                 this.dispatchEvent('afterCancel', curTransaction);
-                this.dispatchEvent('onCancel', curTransaction);
             }
+            this.dispatchEvent('onCancel', curTransaction);
         },
 	
         subtotal: function() {
@@ -2513,7 +2506,6 @@
 
         submit: function(status) {
 
-            // cancel cart but save
             var oldTransaction = this._getTransaction();
             
             if(oldTransaction == null) return; // fatal error ?
@@ -2523,6 +2515,8 @@
 
             this.dispatchEvent('beforeSubmit', oldTransaction);
             
+            oldTransaction.lockItems();
+
             // save order unless the order is being finalized (i.e. status == 1)
             if (status != 1) oldTransaction.submit(status);
             oldTransaction.data.status = status;
@@ -2530,7 +2524,7 @@
             this.dispatchEvent('afterSubmit', oldTransaction);
 
             // sleep to allow UI events to update
-            this.sleep(100);
+            //this.sleep(100);
             
             // GeckoJS.Session.remove('current_transaction');
             GeckoJS.Session.remove('cart_last_sell_item');
@@ -2542,13 +2536,150 @@
             this.cancelReturn();
 
             if (status != 2) {
-                this.dispatchEvent('onWarning', '');
+                if (status != 1) this.dispatchEvent('onWarning', '');
                 this.dispatchEvent('onSubmit', oldTransaction);
             }
             else
                 this.dispatchEvent('onGetSubtotal', oldTransaction);
+            
+            // clear register screen if needed
+            if (GeckoJS.Configure.read('vivipos.fec.settings.ClearCartAfterFinalization')) {
+                this._cartView.empty();
+            }
         },
 
+
+        // pre-finalize the order by closing it
+        preFinalize: function(args) {
+            var curTransaction = this._getTransaction();
+
+            if (curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
+                NotifyUtils.warn(_('Not an open order; cannot pre-finalize order'));
+                return;
+            }
+
+            if (curTransaction.isClosed()) {
+                NotifyUtils.warn(_('The order is already pre-finalized'));
+                return;
+            }
+
+            if (curTransaction.getItemsCount() == 0) {
+                NotifyUtils.warn(_('The order is empty; cannot pre-finalize order'));
+                return;
+            }
+
+            if (!this.dispatchEvent('beforePreFinalize', curTransaction)) {
+                return;
+            }
+
+            // if destination is given, we assume that this is a delivery order
+            // items in cart are first validated to make sure
+            // their destinations match the given destination
+            if (args != null && args != '') {
+                
+                var argList = args.split(',');
+                var dest = argList[0];
+                var annotationCode = argList[1];
+                var annotationType;
+
+                var annotationController = GeckoJS.Controller.getInstanceByName('Annotations');
+
+                if (annotationController != null && annotationCode != null && annotationCode != '') {
+                    annotationType = annotationController.getAnnotationType(annotationCode);
+                }
+                if (annotationType == null || annotationType == '') annotationType = annotationCode;
+
+                if (dest) {
+                    if (curTransaction.data.destination != dest) {
+                        if (GREUtils.Dialog.confirm(null, _('confirm destination'),
+                                                    _('The order destination is different from [%S], proceed with pre-finalization?', [dest])) == false) {
+                            return;
+                        }
+                    }
+
+                    var mismatch = false;
+                    var items = curTransaction.getItems();
+                    for (var index in items) {
+                        if (items[index].destination != dest) {
+                            mismatch = true;
+                            break;
+                        }
+                    }
+
+                    if (mismatch) {
+                        if (GREUtils.Dialog.confirm(null, _('confirm destination'),
+                                                    _('Destinations other than [%S] found in the order, proceed with pre-finalization?', [dest])) == false) {
+                            return;
+                        }
+                    }
+                }
+                // next, prompts for customer# if not already given
+
+                // then, prompts for additional annotation (such as ID of deliver person)
+                if (annotationType) {
+
+                    var inputObj = {
+                        input0: '',
+                        require0:false
+                    };
+
+                    var data = [
+                        _('Add Annotation'),
+                        '',
+                        _(annotationType),
+                        '',
+                        inputObj
+                    ];
+
+                    var self = this;
+                    return $.popupPanel('promptAdditemPanel', data).next( function(evt){
+                        var result = evt.data;
+
+                        if (result.ok && result.input0) {
+                            if ('annotations' in curTransaction.data) {
+                                curTransaction.data.annotations.push({type: annotationType, text: result.input0});
+                            }
+                            else {
+                                curTransaction.data.annotations = [{type: annotationType, text: result.input0}];
+                            }
+
+                            // save annotation in db
+                            var annotationModel = new OrderAnnotationModel();
+                            var annotationObj = {order_id: curTransaction.data.id,
+                                                 type: annotationType,
+                                                 text: result.input0};
+                            annotationModel.save(annotationObj);
+                        }
+
+                        curTransaction.close();
+                        self.submit(2);
+                        self.dispatchEvent('onWarning', _('PRE-FINALIZED'));
+
+                        // dispatch onSubmit event here manually since submit() won't do it for us
+                        self.dispatchEvent('onSubmit', curTransaction);
+
+                        // @todo OSD
+                        NotifyUtils.warn(_('Order# [%S] has been pre-finalized', [curTransaction.data.seq]));
+
+                        this.dispatchEvent('afterPreFinalize', curTransaction);
+                    });
+                }
+
+                // lastly, close the transaction and store the order to generate the
+                // appropriate printouts
+            }
+            curTransaction.close();
+            this.submit(2);
+            this.dispatchEvent('onWarning', _('PRE-FINALIZED'));
+
+            // dispatch onSubmit event here manually since submit() won't do it for us
+            this.dispatchEvent('onSubmit', curTransaction);
+
+            // @todo OSD
+            NotifyUtils.warn(_('Order# [%S] has been pre-finalized', [curTransaction.data.seq]));
+
+            this.dispatchEvent('afterPreFinalize', curTransaction);
+        },
 
         cash: function(amount) {
 
@@ -2597,17 +2728,17 @@
                 return;
             }
 
+            if(index <0) {
+                //@todo OSD
+                NotifyUtils.warn(_('Please select an item first'));
+                return;
+            }
+
             // check if the current item is locked
             if (curTransaction.isLocked(index)) {
                 NotifyUtils.warn(_('Stored items may not be modified'));
 
                 this.subtotal();
-                return;
-            }
-
-            if(index <0) {
-                //@todo OSD
-                NotifyUtils.warn(_('Please select an item first'));
                 return;
             }
 
@@ -2730,15 +2861,15 @@
                 return; // fatal error ?
             }
 
-            if(index <0) {
-                NotifyUtils.warn(_('Please select an item first'));
-                return;
-            }
-
             // transaction is submit and close success
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 NotifyUtils.warn(_('Not an open order; cannot add memo'));
                 return; // fatal error ?
+            }
+
+            if(index <0) {
+                NotifyUtils.warn(_('Please select an item first'));
+                return;
             }
 
             // check if the current item is locked
@@ -2780,6 +2911,37 @@
 
         },
 
+
+        getAnnotationDialog: function (type) {
+
+            var self = this;
+
+            var inputObj = {
+                input0: '',
+                require0:false
+            };
+
+            var data = [
+            _('Add Annotation'),
+            '',
+            _(type),
+            '',
+            inputObj
+            ];
+
+            return $.popupPanel('promptAdditemPanel', data).next( function(evt){
+                var result = evt.data;
+
+                if (result.ok && result.input0) {
+                    return result.input0;
+                }
+                else {
+                    return null;
+                }
+
+            });
+
+        },
 
 
         getMemoDialog: function (memo) {
@@ -2884,13 +3046,13 @@
 
         pushQueue: function(warn) {
 
-            if (warn == null) warn = true;
+            if (warn == null || warn == '') warn = true;
 
             var curTransaction = this._getTransaction();
 
             if(curTransaction == null) {
                 //@todo OSD
-                if (warn) NotifyUtils.warn(_('No open order to push'));
+                if (warn) NotifyUtils.warn(_('No open order to queue'));
                 return; // fatal error ?
             }
 
@@ -2900,10 +3062,9 @@
             }
 
             if (curTransaction.data.recall == 2) {
-                if (warn) NotifyUtils.warn(_('Can not queue the recalled order!!'));
+                if (warn) NotifyUtils.warn(_('Cannot queue the recalled order!!'));
                 return;
             }
-
             var user = this.Acl.getUserPrincipal();
 
             var count = curTransaction.getItemsCount();
@@ -2946,8 +3107,6 @@
             var queuePool = this._getQueuePool();
             var queues = [];
             var confs = GeckoJS.Configure.read('vivipos.fec.settings');
-            var screenwidth = GeckoJS.Session.get('screenwidth') || '800';
-            var screenheight = GeckoJS.Session.get('screenheight') || '600';
 
             // check private queue
             if (confs.PrivateQueue) {
@@ -3059,6 +3218,8 @@
 
             var r = -1;
 
+            this.dispatchEvent('onWarning', '');
+
             switch(action) {
                 case 'newCheck':
                     if (buf.length == 0) {
@@ -3093,16 +3254,26 @@
                     r = this.GuestCheck.guest(no);
                     curTransaction.data.no_of_customers = no;
                     break;
-                case 'destination':
-                    r = this.GuestCheck.destination(param2);
-                    curTransaction.data.destination = param2;
-                    break;
                 case 'store':
                     if (curTransaction.data.status == 1) {
-                        NotifyUtils.warn(_('This order has been submited!!'));
-                    } else {
-                        r = this.GuestCheck.store(curTransaction.data.items_count);
+                        NotifyUtils.warn(_('This order has been submitted'));
+                        return;
+                    }
+                    if (curTransaction.data.closed) {
+                        NotifyUtils.warn(_('This order is closed pending payment and may only be finalized'));
+                        return;
+                    }
+                    if (curTransaction.data.items_count == 0) {
+                        NotifyUtils.warn(_('This order is empty'));
+                        return;
+                    }
+                    var modified = curTransaction.isModified();
+                    if (modified) {
+                        r = this.GuestCheck.store();
                         this.dispatchEvent('onStore', curTransaction);
+                    }
+                    else {
+                        NotifyUtils.warn(_('No change to store'));
                     }
                     break;
                 case 'recallSequence':

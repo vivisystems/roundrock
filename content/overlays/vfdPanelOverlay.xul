@@ -9,7 +9,7 @@
          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-  <box id="vfdPanelContainer">
+  <box id="vfdPanelContainer" orient="vertical" flex="0">
     <vbox id="vfdPanel" flex="1" class="vfdPad">
 
         <onscreenvfd id="onscreenvfd" maxlen="17" class="vbox_vfd" labelClass="label_vfd" value="" />
