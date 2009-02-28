@@ -77,9 +77,9 @@
             </hbox>
             <hbox>
                 <hbox class="ToolBar" flex="1">
-                    <vivibutton id="add_filter"  label="&plufilters.add;" oncommand="$do('addFilter', null, 'Plufilters');"   />
-                    <vivibutton id="modify_filter"  label="&plufilters.modify;" oncommand="$do('modifyFilter', null, 'Plufilters');"   />
-                    <vivibutton id="delete_filter"  label="&plufilters.delete;" oncommand="$do('deleteFilter', null, 'Plufilters');"   />
+                    <button id="add_filter"  label="&plufilters.add;" oncommand="$do('addFilter', null, 'Plufilters');"   />
+                    <button id="modify_filter"  label="&plufilters.modify;" oncommand="$do('modifyFilter', null, 'Plufilters');"   />
+                    <button id="delete_filter"  label="&plufilters.delete;" oncommand="$do('deleteFilter', null, 'Plufilters');"   />
                 </hbox>
                 <hbox id="dialogButtons" class="dialogbtns" pack="center">
                     <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>

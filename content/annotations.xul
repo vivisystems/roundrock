@@ -66,9 +66,9 @@
             </hbox>
             <hbox>
                 <hbox class="ToolBar" flex="1">
-                    <vivibutton id="add_annotation"  label="&annotations.add;" oncommand="$do('addAnnotation', null, 'Annotations');"   />
-                    <vivibutton id="modify_annotation"  label="&annotations.modify;" oncommand="$do('modifyAnnotation', null, 'Annotations');"   />
-                    <vivibutton id="delete_annotation"  label="&annotations.delete;" oncommand="$do('deleteAnnotation', null, 'Annotations');"   />
+                    <button id="add_annotation"  label="&annotations.add;" disabled="false" oncommand="$do('addAnnotation', null, 'Annotations');"   />
+                    <button id="modify_annotation"  label="&annotations.modify;" disabled="true" oncommand="$do('modifyAnnotation', null, 'Annotations');"   />
+                    <button id="delete_annotation"  label="&annotations.delete;" disabled="true" oncommand="$do('deleteAnnotation', null, 'Annotations');"   />
                 </hbox>
                 <hbox id="dialogButtons" class="dialogbtns" pack="center">
                     <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>

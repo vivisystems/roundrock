@@ -89,9 +89,9 @@
             </hbox>
             <hbox>
                 <hbox class="ToolBar" flex="1">
-                    <vivibutton id="add_destination"  label="&destinations.add;" oncommand="$do('addDestination', null, 'Destinations');"   />
-                    <vivibutton id="modify_destination"  label="&destinations.modify;" oncommand="$do('modifyDestination', null, 'Destinations');"   />
-                    <vivibutton id="delete_destination"  label="&destinations.delete;" oncommand="$do('deleteDestination', null, 'Destinations');"   />
+                    <button id="add_destination"  label="&destinations.add;" oncommand="$do('addDestination', null, 'Destinations');"   />
+                    <button id="modify_destination"  label="&destinations.modify;" oncommand="$do('modifyDestination', null, 'Destinations');"   />
+                    <button id="delete_destination"  label="&destinations.delete;" oncommand="$do('deleteDestination', null, 'Destinations');"   />
                 </hbox>
                 <hbox id="dialogButtons" class="dialogbtns" pack="center">
                     <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>

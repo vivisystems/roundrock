@@ -132,16 +132,26 @@
 
             var panel = this.getListObj();
             if (panel.selectedIndex > -1) {
+                alert('selected');
                 deleteBtn.removeAttribute('disabled');
-                if (GeckoJS.String.trim(annotationTextbox.value).length > 0)
+                alert(1);
+                if (GeckoJS.String.trim(annotationTextbox.value).length > 0) {
+                    alert(2);
                     modifyBtn.removeAttribute('disabled');
-                else
+                }
+                else {
+                    alert(3);
                     modifyBtn.setAttribute('disabled', true);
+                }
+                alert(4);
                 annotationTextbox.removeAttribute('disabled');
             } else {
+                alert('not selected');
                 deleteBtn.setAttribute('disabled', true);
                 modifyBtn.setAttribute('disabled', true);
                 annotationTextbox.setAttribute('disabled', true);
+                alert('disabled');
+                deleteBtn.setAttribute('disabled', 'true');
             }
         },
 	
