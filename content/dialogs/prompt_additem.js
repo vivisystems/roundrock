@@ -8,8 +8,22 @@ var promptAdditem_options;
     function startup() {
 
         var $panel = $('#promptAdditemPanel');
-        
+
+        var screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
+        var screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
+
         $.installPanel($panel[0], {
+            
+            css: {
+                left: 0,
+                top: 0,
+
+                width: screenwidth,
+                'max-width': screenwidth,
+
+                height: screenheight,
+                'max-height': screenheight
+            },
 
             init: function(evt) {
                 

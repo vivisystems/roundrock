@@ -19,9 +19,9 @@
 
     <popupset id="dialogs">
 
-        <panel id="selectQueuesPanel" noautohide="true">
+        <panel id="selectQueuesPanel" noautohide="false">
 
-            <hbox flex="1" class="main-dialog" pack="center">
+            <hbox flex="1" class="main-dialog" pack="center" style="margin: 0; padding: 0;">
 
                 <vbox class="MainPnl" flex="1" style="padding: 0px; margin: 0px;">
 

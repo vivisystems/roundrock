@@ -16,9 +16,9 @@
 
     <popupset id="dialogs">
 
-        <panel id="promptAdditemPanel" noautohide="true" noautofocus="true" norestorefocus="true">
+        <vivipanel id="promptAdditemPanel" noautohide="true" >
 
-            <hbox class="pop-dialog" flex="1" pack="center" style="width: 640px; max-width: 640px; height: 480px; max-height: 480px;">
+            <hbox class="pop-dialog" flex="1" pack="center" style="margin: 0; padding: 0; width: 800px; max-width: 800px; height: 600px; max-height: 600px;">
 
                 <vbox class="MainPnl" flex="1">
 
@@ -62,7 +62,7 @@
 
             </hbox>
 
-        </panel>
+        </vivipanel>
 
     </popupset>
 

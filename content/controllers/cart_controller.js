@@ -1657,11 +1657,11 @@
             };
 
             var dialog_data = [
-                _('Credit Card Remark'),
-                _('Payment') + ' [' + data.payment + ']',
-                _('Card Type'),
-                _('Card Remark'),
-                inputObj
+            _('Credit Card Remark'),
+            _('Payment') + ' [' + data.payment + ']',
+            _('Card Type'),
+            _('Card Remark'),
+            inputObj
             ];
 
             return $.popupPanel('creditcardRemarkPanel', dialog_data);
@@ -1678,11 +1678,11 @@
             };
 
             var dialog_data = [
-                _('Coupon Remark'),
-                _('Payment') + ' [' + data.payment + ']',
-                _('Coupon Type'),
-                _('Coupon Remark'),
-                inputObj
+            _('Coupon Remark'),
+            _('Payment') + ' [' + data.payment + ']',
+            _('Coupon Type'),
+            _('Coupon Remark'),
+            inputObj
             ];
 
             return $.popupPanel('couponRemarkPanel', dialog_data);
@@ -1699,11 +1699,11 @@
             };
 
             var dialog_data = [
-                _('Giftcard Remark'),
-                _('Payment') + ' [' + data.payment + ']',
-                _('Giftcard Type'),
-                _('Giftcard Remark'),
-                inputObj
+            _('Giftcard Remark'),
+            _('Payment') + ' [' + data.payment + ']',
+            _('Giftcard Type'),
+            _('Giftcard Remark'),
+            inputObj
             ];
 
             return $.popupPanel('couponRemarkPanel', dialog_data);
@@ -1720,11 +1720,11 @@
             };
 
             var dialog_data = [
-                _('Check Remark'),
-                _('Payment') + ' [' + data.payment + ']',
-                _('Check Type'),
-                _('Check Remark'),
-                inputObj
+            _('Check Remark'),
+            _('Payment') + ' [' + data.payment + ']',
+            _('Check Type'),
+            _('Check Remark'),
+            inputObj
             ];
 
             return $.popupPanel('couponRemarkPanel', dialog_data);
@@ -2286,8 +2286,8 @@
             }
             
             var dialog_data = [
-                _('Payment Details'),
-                payments
+            _('Payment Details'),
+            payments
             ];
 
             return $.popupPanel('paymentDetailsPanel', dialog_data);
@@ -2464,7 +2464,7 @@
                 // determine if new items have been added
                 if (!curTransaction.isModified() ||
                     GREUtils.Dialog.confirm(null, _('confirm cancel'),
-                                            _('Are you sure you want to discard changes made to this order?'))) {
+                        _('Are you sure you want to discard changes made to this order?'))) {
                     curTransaction.process(-1, true);
                     this._cartView.empty();
                     this.dispatchEvent('onCancel', null);
@@ -2801,43 +2801,33 @@
 
         getCondimentsDialog: function (condgroup, condiments, forceModal) {
 
-                var condGroupsById = GeckoJS.Session.get('condGroupsById');
+            var condGroupsByPLU = GeckoJS.Session.get('condGroupsByPLU');
+            // not initial , initial again!
+            if (!condGroupsByPLU) {
+                try {
+                    this.log('DEBUG', 'initital Condiments from Cart Controller ');
+                    GeckoJS.Controller.getInstanceByName('Condiments').initial();
+                    condGroupsByPLU = GeckoJS.Session.get('condGroupsByPLU');
+                }catch(e) {}
+            }
 
-                // not initial , initial again!
-                if (!condGroupsById) {
-                    try {
-                        GeckoJS.Controller.getInstanceByName('Condiments').initial();
-                        condGroupsById = GeckoJS.Session.get('condGroupsById');
-                    }catch(e) {}
-                }
+            var selectedItems = [];
 
-                var itemCondGroups = condgroup.split(',');
+            if (condiments == null) {
+                selectedItems = selectedItems.concat(condGroupsByPLU[condgroup]['PresetItems']);
+            }else {
+                    // check item selected condiments
+                   // if (condiments[selectCondiments[i]['name']]) selectedItems.push(i);
+            }
 
-                var selectCondiments = [];
-                var selectedItems = [];
-
-                itemCondGroups.forEach(function(itemCondGroup){
-                    
-                    if(!condGroupsById[itemCondGroup]) return false;
-
-                    selectCondiments = selectCondiments.concat(condGroupsById[itemCondGroup]['Condiment']);
-
-                });
-
-                for(var i = 0 ; i < selectCondiments.length; i++ ) {
-                    if (condiments == null) {
-                        if(selectCondiments[i]['preset']) selectedItems.push(i);
-                    }else {
-                        // check item selected condiments
-                        if (condiments[selectCondiments[i]['name']]) selectedItems.push(i);
-                    }
-                }
-
-            var dialog_data = {conds: selectCondiments, selectedItems: selectedItems};
+            var dialog_data = {
+                conds: condGroupsByPLU[condgroup]['Condiments'],
+                selectedItems: selectedItems
+            };
 
             var self = this;
             return $.popupPanel('selectCondimentPanel', dialog_data).next(function(evt){
-                var selectedCondiments = evt.data;
+                var selectedCondiments = evt.data.condiments;
                 if (selectedCondiments.length > 0) {
 				
                     var index = self._cartView.getSelectedIndex();

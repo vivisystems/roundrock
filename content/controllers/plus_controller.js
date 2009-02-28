@@ -65,7 +65,7 @@
             catpanel.initGrid();
 
             this.catePanelView.hideInvisible = false;
-            this.catePanelView.refreshView();
+            this.catePanelView.refreshView(true);
 
             this.productPanelView.hideInvisible = false;
             this.productPanelView.updateProducts();
