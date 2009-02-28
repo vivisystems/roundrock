@@ -2,7 +2,7 @@
 <!ENTITY destinations.default "Default">
 <!ENTITY destinations.name "Name">
 <!ENTITY destinations.pricelevel "Price Level">
-<!ENTITY destinations.pricelevel.current "Current Level">
+<!ENTITY destinations.pricelevel.default "Default Level">
 <!ENTITY destinations.prefix "Prefix">
 <!ENTITY destinations.add "Add">
 <!ENTITY destinations.modify "Modify">

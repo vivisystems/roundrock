@@ -51,21 +51,21 @@
                         <row>
                             <vbox>
                                 <label control="filter_name" value="&plufilters.filtername;"/>
-                                <textbox id="filter_name"
+                                <textbox id="filter_name" name="filtername" form="filterForm" readonly="true"
                                         oninput="$do('validateForm', null, 'Plufilters')"/>
                             </vbox>
                         </row>
                         <row>
                             <vbox>
                                 <label control="filter_index" value="&plufilters.index;"/>
-                                <textbox id="filter_index" size="3" maxlength="2" min="0" max="16"
+                                <textbox id="filter_index" size="3" maxlength="2" min="0" max="16" name="index" form="filterForm"
                                         oninput="$do('validateForm', null, 'Plufilters')"/>
                             </vbox>
                         </row>
                         <row>
                             <vbox>
                                 <label control="filter_length" value="&plufilters.length;"/>
-                                <textbox id="filter_length" size="3" maxlength="2" min="0" max="16"
+                                <textbox id="filter_length" size="3" maxlength="2" min="0" max="16" name="length" form="filterForm"
                                         oninput="$do('validateForm', null, 'Plufilters')"/>
                             </vbox>
                         </row>
@@ -77,9 +77,9 @@
             </hbox>
             <hbox>
                 <hbox class="ToolBar" flex="1">
-                    <vivibutton id="add_plufilter"  label="&plufilters.add;" oncommand="$do('addPlufilter', null, 'Plufilters');"   />
-                    <vivibutton id="modify_plufilter"  label="&plufilters.modify;" oncommand="$do('modifyPlufilter', null, 'Plufilters');"   />
-                    <vivibutton id="delete_plufilter"  label="&plufilters.delete;" oncommand="$do('deletePlufilter', null, 'Plufilters');"   />
+                    <vivibutton id="add_filter"  label="&plufilters.add;" oncommand="$do('addFilter', null, 'Plufilters');"   />
+                    <vivibutton id="modify_filter"  label="&plufilters.modify;" oncommand="$do('modifyFilter', null, 'Plufilters');"   />
+                    <vivibutton id="delete_filter"  label="&plufilters.delete;" oncommand="$do('deleteFilter', null, 'Plufilters');"   />
                 </hbox>
                 <hbox id="dialogButtons" class="dialogbtns" pack="center">
                     <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>

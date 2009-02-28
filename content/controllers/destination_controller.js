@@ -57,9 +57,9 @@
 
             window.openDialog(aURL, _('Add New Destination'), features, _('New Destination'), '', _('Name'), '', inputObj);
             if (inputObj.ok && inputObj.input0) {
-                var destName = inputObj.input0;
+                var destName = inputObj.input0.replace('\'', '"', 'g');
 
-                var dupNames = new GeckoJS.ArrayQuery(this._listDatas).filter('name = ' + destName);
+                var dupNames = new GeckoJS.ArrayQuery(this._listDatas).filter('name = \'' + destName + '\'');
                 if (dupNames.length > 0) {
                     // @todo OSD
                     NotifyUtils.warn(_('Destination [%S] already exists', [destName]));
@@ -109,13 +109,16 @@
             var index = this.getListObj().selectedIndex;
             if (index >= 0) {
                 var destName = this._listDatas[index].name;
+
+                if (!GREUtils.Dialog.confirm(null, _('confirm delete desttination [%S]', [destName]), _('Are you sure you want to delete destination [%S]?', [destName]))) {
+                    return;
+                }
+
                 this._listDatas.splice(index, 1);
                 this.saveDestinations();
 
                 // @todo OSD
                 OsdUtils.info(_('Destination [%S] deleted successfully', [destName]));
-
-                this.load();
 
                 index = this.getListObj().selectedIndex;
                 if (index >= this._listDatas.length) index = this._listDatas.length - 1;
@@ -171,6 +174,7 @@
             var addBtn = document.getElementById('add_destination');
             var modifyBtn = document.getElementById('modify_destination');
             var deleteBtn = document.getElementById('delete_destination');
+            var pricelevelMenu = document.getElementById('destination_pricelevel');
             var prefixTextbox = document.getElementById('destination_prefix');
             var defaultCheckbox = document.getElementById('destination_default');
 
@@ -179,12 +183,14 @@
                 deleteBtn.removeAttribute('disabled');
                 modifyBtn.removeAttribute('disabled');
                 defaultCheckbox.removeAttribute('disabled');
+                pricelevelMenu.removeAttribute('disabled');
                 prefixTextbox.removeAttribute('disabled');
             } else {
                 deleteBtn.setAttribute('disabled', true);
                 modifyBtn.setAttribute('disabled', true);
                 defaultCheckbox.checked = false;
                 defaultCheckbox.setAttribute('disabled', true);
+                pricelevelMenu.setAttribute('disabled', true);
                 prefixTextbox.setAttribute('disabled', true);
             }
         },

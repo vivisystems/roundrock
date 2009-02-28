@@ -45,9 +45,9 @@
 
             window.openDialog(aURL, _('Add New Annotation'), features, _('New Annotation'), '', _('Code'), _('Text'), inputObj);
             if (inputObj.ok && inputObj.input0) {
-                var annotationCode = inputObj.input0;
+                var annotationCode = inputObj.input0.replace('\'', '"', 'g');
 
-                var dupCodes = new GeckoJS.ArrayQuery(this._listDatas).filter('code = ' + annotationCode);
+                var dupCodes = new GeckoJS.ArrayQuery(this._listDatas).filter('code = \'' + annotationCode + '\'');
                 if (dupCodes.length > 0) {
                     // @todo OSD
                     NotifyUtils.warn(_('Annotation [%S] already exists', [annotationCode]));
@@ -95,6 +95,12 @@
             var index = this.getListObj().selectedIndex;
             if (index >= 0) {
                 var annotationCode = this._listDatas[index].code;
+
+                if (!GREUtils.Dialog.confirm(null, _('confirm delete annotation [%S]', [annotationCode]),
+                                             _('Are you sure you want to delete annotation [%S]?', [annotationCode]))) {
+                    return;
+                }
+
                 this._listDatas.splice(index, 1);
                 this.saveAnnotations();
 
