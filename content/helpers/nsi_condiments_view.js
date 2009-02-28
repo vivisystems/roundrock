@@ -34,19 +34,6 @@
             return this.data[row];
         },
 
-        getImageSrc: function(row, col) {
-            var val = this.getCellValue(row, col);
-
-            var aImageFile = "chrome://viviecr/content/skin/cateimages" + "/" + val + ".png" /*+ "?"+ Math.random()*/;
-
-            if (GREUtils.File.exists(GREUtils.File.chromeToPath(aImageFile))) {
-                return aImageFile;
-
-            }else {
-                return null;
-            }
-        },
-
         renderButton: function(row, btn) {
             
             var buttonColor = this.getCellValue(row,{
@@ -86,17 +73,20 @@
             return this.data[row];
         },
 
-        getImageSrc: function(row, col) {
-            var val = this.getCellValue(row, col);
 
-            var aImageFile = "chrome://viviecr/content/skin/cateimages" + "/" + val + ".png" /*+ "?"+ Math.random()*/;
+        getSelectType: function(row) {
 
-            if (GREUtils.File.exists(GREUtils.File.chromeToPath(aImageFile))) {
-                return aImageFile;
+            return this.getCellValue(row,{
+                id: 'seltype'
+            });
 
-            }else {
-                return null;
-            }
+        },
+
+        getSelectGroup: function(row) {
+            
+            return this.getCellValue(row,{
+                id: 'condiment_group_id'
+            });
         },
 
         renderButton: function(row, btn) {
@@ -108,12 +98,22 @@
                 id: 'font_size'
             });
 
+            var classStr = '';
+
             if (buttonColor && btn) {
-                $(btn).addClass(buttonColor);
+                // $(btn).addClass(buttonColor);
+                classStr += ' ' + buttonColor ;
             }
             if (buttonFontSize && btn) {
-                $(btn).addClass('font-' + buttonFontSize);
+                // $(btn).addClass('font-' + buttonFontSize);
+                classStr += ' font-' + buttonFontSize ;
             }
+
+            if (classStr.length > 0) {
+                // $btn.addClass(classStr);
+                btn.className += " " + classStr;
+            }
+
 
         }
     });

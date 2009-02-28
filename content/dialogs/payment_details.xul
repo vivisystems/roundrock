@@ -19,9 +19,9 @@
     
     <popupset id="dialogs">
 
-        <panel id="paymentDetailsPanel" noautohide="true">
+        <panel id="paymentDetailsPanel" noautohide="false">
 
-            <hbox flex="1" class="pop-dialog" pack="center" style="width: 640px; max-width: 640px; height: 480px; max-height: 480px;">
+            <hbox flex="1" class="pop-dialog" pack="center" style="margin: 0; padding: 0;">
 
                 <vbox class="MainPnl" flex="1">
 

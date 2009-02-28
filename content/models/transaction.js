@@ -2080,7 +2080,7 @@
     Transaction.prototype.run = function() {
         var order = new OrderModel();
         order.saveOrder(this.data);
-        clearTimeout(Transaction.worker);
+        // clearTimeout(Transaction.worker);
     };
 
     // nsirunnable run

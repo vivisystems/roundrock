@@ -170,12 +170,8 @@
 
 
         afterScaffoldIndex: function(evt) {
-            var panelView = this.getListObj().datasource;
-            if (panelView == null) {
-                panelView =  new GeckoJS.NSITreeViewArray(evt.data);
-                this.getListObj().datasource = panelView;
-            }
-            panelView.data = evt.data;
+            
+            this.getListObj().datasource = evt.data;
 
             this.validateForm();
         },

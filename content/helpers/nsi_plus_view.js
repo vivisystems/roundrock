@@ -135,8 +135,10 @@
                 classStr += ((classStr.length > 0) ? ' ' : '') + 'noimagebtn';
                 //$(btn).addClass('noimagebtn');
             }
+
             if (classStr.length > 0) {
-                $(btn).addClass(classStr);
+                // $(btn).addClass(classStr);
+                btn.className += " " + classStr;
             }
 
             // sold out?

@@ -8,14 +8,23 @@
         var $panel = $('#selectCondimentPanel');
         var $buttonPanel = $('#condimentscrollablepanel');
 
+        var screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
+        var screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
+
         var condsData = null;
         var selectedItems = [];
 
         $.installPanel($panel[0], {
 
             css: {
-                width: '640px',
-                height: '560px'
+                left: 0,
+                top: 0,
+                
+                width: screenwidth,
+                'max-width': screenwidth,
+
+                height: screenheight,
+                'max-height': screenheight
             },
 
             init: function(evt) {
@@ -55,7 +64,7 @@
 
                 }
 
-                evt.data = condiments;
+                evt.data = {condiments: condiments, selectedItems: selectedItems};
             }
 
         });

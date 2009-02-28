@@ -11,11 +11,17 @@
         $buttonPanel = $('#queueScrollablepanel');
         $itemlist = $('#selectQueues-itemlist');
 
+        var screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
+        var screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
+
         $.installPanel($panel[0], {
             
             css: {
-                width: '680px',
-                height: '580px'
+                top: 0,
+                left: 0,
+
+                width: screenwidth,
+                height: screenheight
             },
 
             init: function(evt) {
