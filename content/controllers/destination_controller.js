@@ -91,6 +91,7 @@
                 if (inputObj.name != null && inputObj.name.length > 0) {
                     this._listDatas[index].pricelevel = inputObj.pricelevel;
                     this._listDatas[index].prefix = GeckoJS.String.trim(inputObj.prefix);
+                    this._listDatas[index].customerInfo = inputObj.customerInfo;
                     this.setDefaultDestination(inputObj.defaultCheckbox);
 
                     this.saveDestinations();
@@ -177,6 +178,7 @@
             var pricelevelMenu = document.getElementById('destination_pricelevel');
             var prefixTextbox = document.getElementById('destination_prefix');
             var defaultCheckbox = document.getElementById('destination_default');
+            var customerInfoCheckbox = document.getElementById('destination_customer_info');
 
             var panel = this.getListObj();
             if (panel.selectedIndex > -1) {
@@ -185,6 +187,7 @@
                 defaultCheckbox.removeAttribute('disabled');
                 pricelevelMenu.removeAttribute('disabled');
                 prefixTextbox.removeAttribute('disabled');
+                customerInfoCheckbox.removeAttribute('disabled');
             } else {
                 deleteBtn.setAttribute('disabled', true);
                 modifyBtn.setAttribute('disabled', true);
@@ -192,6 +195,7 @@
                 defaultCheckbox.setAttribute('disabled', true);
                 pricelevelMenu.setAttribute('disabled', true);
                 prefixTextbox.setAttribute('disabled', true);
+                customerInfoCheckbox.setAttribute('disabled', true);
             }
         },
 	
@@ -262,24 +266,31 @@
                 return;
             }
 
-            // set current destination
-            GeckoJS.Session.set('vivipos_fec_order_destination', dest.name);
+            // send beforeSetDestination event
+            if (this.dispatchEvent('beforeSetDestination', txn)) {
 
-            // set price level if necessary
-            if (isNaN(dest.pricelevel)) {
-                if (dest.pricelevel != '-') {
-                    this.requestCommand('changeToCurrentLevel', null, 'Pricelevel');
+                // set current destination
+                GeckoJS.Session.set('vivipos_fec_order_destination', dest.name);
+
+                // set price level if necessary
+                if (isNaN(dest.pricelevel)) {
+                    if (dest.pricelevel != '-') {
+                        this.requestCommand('changeToCurrentLevel', null, 'Pricelevel');
+                    }
                 }
-            }
-            else {
-                this.requestCommand('change', dest.pricelevel, 'Pricelevel');
-            }
+                else {
+                    this.requestCommand('change', dest.pricelevel, 'Pricelevel');
+                }
 
-            // set txn destination
-            txn.data.destination = dest.name;
+                // set txn destination
+                txn.data.destination = dest.name;
 
-            // store destination prefix in transaction
-            txn.data.destination_prefix = (dest.prefix == null) ? '' : dest.prefix + ' ';
+                // store destination prefix in transaction
+                txn.data.destination_prefix = (dest.prefix == null) ? '' : dest.prefix + ' ';
+
+                // send afterSetDestination event to signal success
+                this.dispatchEvent('afterSetDestination', {transaction: txn, destination: dest});
+            }
         }
 	
     });

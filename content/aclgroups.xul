@@ -50,7 +50,7 @@
                 <vbox flex="1" class="RightPnlB">
                     <label value="Role List:" class="SubTitle" />
                     <viviscrollablebuttonpanel id="rolelistscrollablepanel" form="aclgroupForm" name="role_group" default="" seltype="multiple" flex="1"
-                                               cols="3" rows="6" labelField="description" imageField="no"
+                                               cols="3" rows="5" labelField="description" imageField="no"
                                                class="ItemScrollablepanel"
                                                buttonClass="ItemButtonB"
                                                scrollUpClass="ScrollUp"
