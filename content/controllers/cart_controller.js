@@ -2601,22 +2601,12 @@
                 return;
             }
 
-            // if destination is given, we assume that this is a delivery order
-            // items in cart are first validated to make sure
+            // if destination is given, items in cart are first validated to make sure
             // their destinations match the given destination
             if (args != null && args != '') {
                 
                 var argList = args.split(',');
                 var dest = argList[0];
-                var annotationCode = argList[1];
-                var annotationType;
-
-                var annotationController = GeckoJS.Controller.getInstanceByName('Annotations');
-
-                if (annotationController != null && annotationCode != null && annotationCode != '') {
-                    annotationType = annotationController.getAnnotationType(annotationCode);
-                }
-                if (annotationType == null || annotationType == '') annotationType = annotationCode;
 
                 if (dest) {
                     if (curTransaction.data.destination != dest) {
@@ -2642,53 +2632,68 @@
                         }
                     }
                 }
-                // next, prompts for customer# if not already given
+                // prompts for additional annotation(s) (such as ID of deliver person)
+                // if a single annotationType is specified, prompt using memo-style UI
+                // if more than one annotationTypes are specified, prompt using full UI
 
-                // then, prompts for additional annotation (such as ID of deliver person)
-                if (annotationType) {
+                if (argList.length > 1) {
+                    var annotationController = GeckoJS.Controller.getInstanceByName('Annotations');
+                    var annotationType;
 
-                    var inputObj = {
-                        input0: '',
-                        require0:false,
-                        multiline0: true
-                    };
+                    if (argList.length == 2 && argList[1] != null && argList[1] != '') {
+                        annotationType = annotationController.getAnnotationType(argList[1]);
+                    }
 
-                    var data = [
-                        _('Add Annotation'),
-                        '',
-                        _(annotationType),
-                        '',
-                        inputObj
-                    ];
+                    // only one annotationType is specified and is not null, use memo-style UI
+                    if (argList.length == 2 && annotationType != null && annotationType != '') {
+                        var inputObj = {
+                            input0: '',
+                            require0:false,
+                            multiline0: true
+                        };
 
-                    var self = this;
-                    return $.popupPanel('promptAdditemPanel', data).next( function(evt){
-                        var result = evt.data;
+                        var data = [
+                            _('Add Annotation'),
+                            '',
+                            _(annotationType),
+                            '',
+                            inputObj
+                        ];
 
-                        if (result.ok && result.input0) {
-                            if ('annotations' in curTransaction.data) {
-                                curTransaction.data.annotations.push({type: annotationType, text: result.input0});
+                        var self = this;
+                        return $.popupPanel('promptAdditemPanel', data).next( function(evt){
+                            var result = evt.data;
+
+                            if (result.ok && result.input0) {
+                                if ('annotations' in curTransaction.data) {
+                                    curTransaction.data.annotations.push({type: annotationType, text: result.input0});
+                                }
+                                else {
+                                    curTransaction.data.annotations = [{type: annotationType, text: result.input0}];
+                                }
+
+                                // save annotation in db
+                                annotationController.annotate(curTransaction.data.id, annotationType, result.input0);
                             }
-                            else {
-                                curTransaction.data.annotations = [{type: annotationType, text: result.input0}];
-                            }
 
-                            // save annotation in db
-                            annotationController.annotate(curTransaction.data.id, annotationType, result.input0);
-                        }
+                            curTransaction.close();
+                            self.submit(2);
+                            self.dispatchEvent('onWarning', _('PRE-FINALIZED'));
 
-                        curTransaction.close();
-                        self.submit(2);
-                        self.dispatchEvent('onWarning', _('PRE-FINALIZED'));
+                            // dispatch onSubmit event here manually since submit() won't do it for us
+                            self.dispatchEvent('onSubmit', curTransaction);
 
-                        // dispatch onSubmit event here manually since submit() won't do it for us
-                        self.dispatchEvent('onSubmit', curTransaction);
+                            // @todo OSD
+                            NotifyUtils.warn(_('Order# [%S] has been pre-finalized', [curTransaction.data.seq]));
 
-                        // @todo OSD
-                        NotifyUtils.warn(_('Order# [%S] has been pre-finalized', [curTransaction.data.seq]));
-
-                        this.dispatchEvent('afterPreFinalize', curTransaction);
-                    });
+                            this.dispatchEvent('afterPreFinalize', curTransaction);
+                        });
+                    }
+                    else {
+                        // multiple annotations are requested, use full UI
+                        argList.splice(0, 1);
+                        $do('AnnotateDialog', argList.join(','), 'Main');
+                    }
                 }
 
                 // lastly, close the transaction and store the order to generate the
