@@ -199,7 +199,7 @@
         var action = this.action;
 
         if (roles.length == 0) {
-            this.disabled = this.suspended;
+            this.setAttribute('disabled', (this.suspended || this.disabled));
             return;
         }
 
@@ -214,11 +214,11 @@
         if (isInRole) {
             if(action =='display') {
                 $button.show();
-                this.disabled = this.suspended;
+                this.setAttribute('disabled', this.suspended);
             }
             else $button.show();
         }else {
-            if(action =='display') this.disabled = true;
+            if(action =='display') this.setAttribute('disabled', true);
             else $button.hide();
         }
       ]]>

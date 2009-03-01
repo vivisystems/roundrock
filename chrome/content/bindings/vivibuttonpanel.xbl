@@ -141,6 +141,12 @@
 
         this.initGrid();
 
+        this._startOffset = -1;
+        this._currentIndex = -1;
+        this._selectedCount = 0;
+        this._selectedItems = [];
+        this._selectedItemGroups = {};
+
         var self = this;
 
         // resizeButtons
@@ -160,7 +166,6 @@
         // static .xul
         window.addEventListener('load', this.ready, true);
 
-
     ]]>
     </constructor>
 
@@ -178,14 +183,13 @@
     <method name="initGrid">
         <body><![CDATA[
 
-            // GREUtils.log('init vivibuttonpanel grid ' + this.getAttribute('rows'));
+            // GREUtils.log('init vivibuttonpanel grid ' + this.parentNode.parentNode.id);
             var buttons = [];
             var imageValidate = this.getAttribute('validate');
             var buttonHeight = this.getAttribute('buttonHeight');
 
             // init columns
             var columnsObj = document.getAnonymousElementByAttribute(this, 'anonid', 'columns');
-            // columnsObj.setAttribute('hidden', "true");
             GeckoJS.Helper.removeAllChildren(columnsObj);
 
             var crop = this.getAttribute('crop');
@@ -200,11 +204,9 @@
                 columnsObj.appendChild(column);
             }
 
-            // columnsObj.setAttribute('hidden', "false");
 
             // init rows
             var rowsObj = document.getAnonymousElementByAttribute(this, 'anonid', 'rows');
-            //rowsObj.setAttribute('hidden', "true");
             GeckoJS.Helper.removeAllChildren(rowsObj);
 
             var rows = parseInt(this.rows) || 0;
@@ -234,11 +236,6 @@
                             'height': buttonHeight + 'px',
                             'min-height': buttonHeight + 'px'
                         });
-                        /*
-                        $(btn).css('max-height', buttonHeight + 'px');
-                        $(btn).css('height', buttonHeight + 'px');
-                        $(btn).css('min-height', buttonHeight + 'px');
-                        */
                     }
 
                     // not use type and group attribute
@@ -246,6 +243,7 @@
                     // button use this.parentNode.getElementsByAttribute("group") , slow!!!
 
                     btn.setAttribute('disabled', true);
+                    
                     buttons.push(btn);
                     row.appendChild(btn);
                 }
@@ -253,15 +251,8 @@
                 rowsObj.appendChild(row);
             }
 
-            // rowsObj.setAttribute('hidden', false);
-
             this.buttons = buttons;
             this.buttonCount = cols * rows;
-            this._startOffset = -1;
-            this._currentIndex = -1;
-            this._selectedCount = 0;
-            this._selectedItems = [];
-            this._selectedItemGroups = {};
 
         ]]>  
         </body>
@@ -402,7 +393,7 @@
             var rowCount = this.rowCount;
             var startOffset = this.startOffset;
 
-            // GREUtils.log('vivibuttonpanel render ' + this.parentNode.parentNode.id +' ,buttonCount = ' + buttonCount + ' ,offset = ' + startOffset);
+            // GREUtils.log('vivibuttonpanel render ' + this.parentNode.parentNode.id +' ,buttonCount = ' + buttonCount + ' ,offset = ' + startOffset + ' ,rowCount = ' + rowCount);
 
             for(let i=0; i < buttonCount ; i++) {
 
@@ -417,13 +408,14 @@
                 }
 
                 if (row >= rowCount) {
-
+                    
                     buttons[i].setAttribute('disabled', true);
-
                     buttons[i].setLabel("");
-                    buttons[i].setImage('');
+                    buttons[i].setImage("");
 
                     if (buttonClass) buttons[i].className = buttonClass;
+
+                    continue;
 
                 }else {
                 
@@ -546,16 +538,16 @@
             var buttonCount = this.buttonCount;
             var selectedItems = this.selectedItems;
             var startOffset = this.startOffset;
-
-            // GREUtils.log('updateSelectedItemState offset = ' + startOffset );
             var seltype = this.seltype;
+
+            //GREUtils.log('updateSelectedItemState ' + this.parentNode.parentNode.id + ' selectedItems = ' + selectedItems.join('||')  + ' ,offset = ' + startOffset );
 
             for(let i=0; i < buttonCount ; i++) {
 
                 let row = startOffset + i;
 
                 if (GeckoJS.Array.inArray(row, selectedItems) != -1) {
-
+                    
                     buttons[i].setAttribute('selected', true);
                     buttons[i].setAttribute('checked', true);
 
@@ -567,8 +559,10 @@
                     }
 
                 }else {
+
                     buttons[i].removeAttribute('selected');
                     buttons[i].removeAttribute('checked');
+                    
                 }
             }
 
