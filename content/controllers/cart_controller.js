@@ -342,11 +342,10 @@
 
             this.cancelReturn();
 
-            if(curTransaction == null) {
-                this.dispatchEvent('onTagItemError', null);
+            if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
 
                 //@todo OSD
-                NotifyUtils.warn(_('Not an open order; cannot tag the selected entry'));
+                NotifyUtils.warn(_('Not an open order; cannot tag the selected item'));
 
                 this.subtotal();
                 return;
@@ -355,14 +354,6 @@
             // check if transaction is closed
             if (curTransaction.isClosed()) {
                 NotifyUtils.warn(_('This order is being finalized and items may not be modified'));
-
-                this.subtotal();
-                return;
-            }
-
-            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
-                //@todo OSD
-                NotifyUtils.warn(_('Not an open order; cannot tag the selected item'));
 
                 this.subtotal();
                 return;
@@ -423,14 +414,12 @@
 
             // not valid plu item.
             if (typeof item != 'object' || typeof item.id == 'undefined') {
-                this.dispatchEvent('onAddItemError', {});
                 return;
             }
 
             var curTransaction = this._getTransaction(true);
 
             if(curTransaction == null) {
-                this.dispatchEvent('onAddItem', null);
                 return; // fatal error ?
             }
 
@@ -590,17 +579,8 @@
 
             this.cancelReturn();
 
-            if(curTransaction == null) {
-                this.dispatchEvent('onModifyItemError', null);
+            if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
 
-                //@todo OSD
-                NotifyUtils.warn(_('Not an open order; cannot modify the selected item'));
-
-                this.subtotal();
-                return;
-            }
-
-            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 //@todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot modify the selected item'));
 
@@ -762,11 +742,18 @@
 
             this._getKeypadController().clearBuffer();
 
-            if(curTransaction == null) {
-                this.dispatchEvent('onModifyQty', null);
+            if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
 
                 //@todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot modify the selected item'));
+
+                this.subtotal();
+                return;
+            }
+
+            // check if transaction is closed
+            if (curTransaction.isClosed()) {
+                NotifyUtils.warn(_('This order is being finalized and items may not be modified'));
 
                 this.subtotal();
                 return;
@@ -775,14 +762,6 @@
             if(index <0) {
                 //@todo OSD
                 NotifyUtils.warn(_('Please select an item first'));
-
-                this.subtotal();
-                return;
-            }
-
-            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
-                //@todo OSD
-                NotifyUtils.warn(_('Not an open order; cannot modify the selected item'));
 
                 this.subtotal();
                 return;
@@ -869,20 +848,18 @@
             this.cancelReturn();
             this._getKeypadController().clearBuffer();
 
-            if(curTransaction == null) {
-                this.dispatchEvent('onVoidItem', null);
+            if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
 
                 // @todo OSD
-                NotifyUtils.warn(_('Not an open order; cannot VOID'));
+                NotifyUtils.warn(_('Not an open order; cannot void'));
 
                 this.subtotal();
                 return;
             }
 
-            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
-                this.dispatchEvent('onVoidItemError', {});
-                // @todo OSD
-                NotifyUtils.warn(_('Not an open order; cannot VOID'));
+            // check if transaction is closed
+            if (curTransaction.isClosed()) {
+                NotifyUtils.warn(_('This order is being finalized and items may not be modified'));
 
                 this.subtotal();
                 return;
@@ -1036,9 +1013,8 @@
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
 
-            if(curTransaction == null) {
+            if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
                 this.clear();
-                this.dispatchEvent('onAddDiscount', null);
 
                 // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot add discount'));
@@ -1073,14 +1049,6 @@
 
             discountAmount = discountAmount || false;
             discountName = discountName || '';
-
-            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
-                //@todo OSD
-                NotifyUtils.warn(_('Not an open order; cannot add discount'));
-
-                this.subtotal();
-                return;
-            }
 
             var itemTrans = curTransaction.getItemAt(index);
             var itemDisplay = curTransaction.getDisplaySeqAt(index);
@@ -1278,9 +1246,8 @@
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
 
-            if(curTransaction == null) {
+            if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
                 this.clear();
-                this.dispatchEvent('onAddSurcharge', null);
 
                 // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot add surcharge'));
@@ -1314,14 +1281,6 @@
             }
 
             surchargeAmount = surchargeAmount || false;
-
-            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
-                //@todo OSD
-                NotifyUtils.warn(_('Not an open order; cannot add surcharge'));
-
-                this.subtotal();
-                return;
-            }
 
             var itemTrans = curTransaction.getItemAt(index);
             var itemDisplay = curTransaction.getDisplaySeqAt(index);
@@ -1446,37 +1405,25 @@
         },
 
         addMarker: function(type) {
+            type = type || _('subtotal');
 
-            //var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
 
             this._getKeypadController().clearBuffer();
             this.cancelReturn();
 
-            if(curTransaction == null) {
+            if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
                 this.clear();
-                this.dispatchEvent('onAddMarker', null);
 
                 // @todo OSD
-                NotifyUtils.warn(_('Not an open order; operation invalid'));
-
-                this.subtotal();
-                return;
-            }
-
-            //if(index <0) return;
-
-            type = type || 'subtotal';
-
-            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
-                NotifyUtils.warn(_('Not an open order; operation invalid'));
+                NotifyUtils.warn(_('Not an open order; cannot add %s', [type]));
 
                 this.subtotal();
                 return;
             }
 
             if (curTransaction.getItemsCount() < 1) {
-                NotifyUtils.warn(_('Nothing has been registered yet; operation invalid'));
+                NotifyUtils.warn(_('Nothing has been registered yet; cannot add %s', [type]));
 
                 this.subtotal();
                 return;
@@ -1519,12 +1466,13 @@
             this._getKeypadController().clearBuffer();
             this.cancelReturn();
 
-            if(curTransaction == null) {
+            if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
+
                 this.clear();
                 this.dispatchEvent('onHouseBon', null);
 
                 // @todo OSD
-                NotifyUtils.warn(_('Not an open order; cannot register House Bon'));
+                NotifyUtils.warn(_('Not an open order; cannot register %s', [name]));
 
                 this.subtotal();
                 return;
@@ -1533,14 +1481,6 @@
             if(index <0) {
                 // @todo OSD
                 NotifyUtils.warn(_('Please select an item first'));
-
-                this.subtotal();
-                return;
-            }
-
-            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
-                //@todo OSD
-                NotifyUtils.warn(_('Not an open order; cannot register House Bon'));
 
                 this.subtotal();
                 return;
@@ -1596,9 +1536,8 @@
             // check if order is open
             var curTransaction = this._getTransaction();
 
-            if(curTransaction == null) {
+            if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
                 this.clear();
-                this.dispatchEvent('onAddPayment', null);
 
                 // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot register payments'));
@@ -1609,16 +1548,6 @@
                 return; // fatal error ?
             }
 
-            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
-                // @todo OSD
-                NotifyUtils.warn(_('Not an open order; cannot register payments'));
-                GeckoJS.Session.remove('cart_set_price_value');
-                GeckoJS.Session.remove('cart_set_qty_value');
-
-                this.subtotal();
-                return;
-            }
-            
             if (buf.length>0 && currencies && currencies.length > convertIndex) {
                 var amount = parseFloat(buf);
                 var origin_amount = amount;
@@ -1740,7 +1669,8 @@
             // check if order is open
             var curTransaction = this._getTransaction();
 
-            if(curTransaction == null) {
+            if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
+                this.clear();
 
                 // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot register payments'));
@@ -1751,16 +1681,6 @@
                 return; // fatal error ?
             }
 
-            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
-                // @todo OSD
-                NotifyUtils.warn(_('Not an open order; cannot register payments'));
-                GeckoJS.Session.remove('cart_set_price_value');
-                GeckoJS.Session.remove('cart_set_qty_value');
-
-                this.subtotal();
-                return; // fatal error ?
-            }
-            
             var payment = parseFloat(buf);
             var balance = curTransaction.getRemainTotal();
             var paid = curTransaction.getPaymentSubtotal();
@@ -1844,18 +1764,9 @@
             // check if order is open
             var curTransaction = this._getTransaction();
 
-            if(curTransaction == null) {
+            if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
+                this.clear();
 
-                // @todo OSD
-                NotifyUtils.warn(_('Not an open order; cannot register payments'));
-                GeckoJS.Session.remove('cart_set_price_value');
-                GeckoJS.Session.remove('cart_set_qty_value');
-
-                this.subtotal();
-                return; // fatal error ?
-            }
-
-            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot register payments'));
                 GeckoJS.Session.remove('cart_set_price_value');
@@ -1934,18 +1845,9 @@
             // check if order is open
             var curTransaction = this._getTransaction();
 
-            if(curTransaction == null) {
+            if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
+                this.clear();
 
-                // @todo OSD
-                NotifyUtils.warn(_('Not an open order; cannot register payments'));
-                GeckoJS.Session.remove('cart_set_price_value');
-                GeckoJS.Session.remove('cart_set_qty_value');
-
-                this.subtotal();
-                return; // fatal error ?
-            }
-
-            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot register payments'));
                 GeckoJS.Session.remove('cart_set_price_value');
@@ -2032,18 +1934,9 @@
             // check if order is open
             var curTransaction = this._getTransaction();
 
-            if(curTransaction == null) {
+            if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
+                this.clear();
 
-                // @todo OSD
-                NotifyUtils.warn(_('Not an open order; cannot register payments'));
-                GeckoJS.Session.remove('cart_set_price_value');
-                GeckoJS.Session.remove('cart_set_qty_value');
-
-                this.subtotal();
-                return; // fatal error ?
-            }
-
-            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot register payments'));
                 GeckoJS.Session.remove('cart_set_price_value');
@@ -2191,20 +2084,9 @@
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
 
-            if(curTransaction == null) {
+            if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
                 this.clear();
-                this.dispatchEvent('onAddPayment', null);
 
-                // @todo OSD
-                NotifyUtils.warn(_('Not an open order; cannot register payments'));
-                GeckoJS.Session.remove('cart_set_price_value');
-                GeckoJS.Session.remove('cart_set_qty_value');
-
-                this.subtotal();
-                return; // fatal error ?
-            }
-
-            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 // @todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot register payments'));
                 GeckoJS.Session.remove('cart_set_price_value');
@@ -2300,7 +2182,6 @@
             var curTransaction = this._getTransaction();
 
             if(curTransaction == null) {
-                this.dispatchEvent('onShowPaymentStatus', null);
                 return; // fatal error ?
             }
 
@@ -2347,16 +2228,9 @@
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
 
-            if(curTransaction == null) {
-                this.dispatchEvent('onShiftTax', null);
-                //@todo OSD
-                NotifyUtils.warn(_('Not an open order; cannot shift tax'));
+            if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
+                this.clear();
 
-                this.subtotal();
-                return; // fatal error ?
-            }
-
-            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 //@todo OSD
                 NotifyUtils.warn(_('Not an open order; cannot shift tax'));
 
@@ -2471,7 +2345,7 @@
 
             // cancel cart but save
             var curTransaction = this._getTransaction();
-            if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
+            if(curTransaction == null) {
                 
                 this.clear();
                 //@todo OSD - don't notify'
@@ -2482,7 +2356,6 @@
             this.dispatchEvent('beforeCancel', curTransaction);
             
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
-                this.dispatchEvent('onCancel', null);
                 this._cartView.empty();
                 return ;
             }
@@ -2887,13 +2760,7 @@
             this._getKeypadController().clearBuffer();
             this.cancelReturn();
 
-            if(curTransaction == null) {
-                NotifyUtils.warn(_('Not an open order; cannot add memo'));
-                return; // fatal error ?
-            }
-
-            // transaction is submit and close success
-            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
+            if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
                 NotifyUtils.warn(_('Not an open order; cannot add memo'));
                 return; // fatal error ?
             }
@@ -3081,15 +2948,11 @@
 
             var curTransaction = this._getTransaction();
 
-            if(curTransaction == null) {
-                //@todo OSD
-                if (warn) NotifyUtils.warn(_('No open order to queue'));
-                return; // fatal error ?
-            }
+            if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
 
-            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
-                if (warn) NotifyUtils.warn(_('No open order to queue'));
-                return;
+                //@todo OSD
+                if (warn) NotifyUtils.warn(_('No order to queue'));
+                return; // fatal error ?
             }
 
             if (curTransaction.data.recall == 2) {
