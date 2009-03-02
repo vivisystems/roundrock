@@ -12,34 +12,39 @@
          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
+    <keyset id="keyset_extensions">
+        <key id="key_enter" keycode="VK_RETURN" oncommand="document.getElementById('promptAdditem-ok').click()"/>
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('promptAdditem-cancel').click()" />
+    </keyset>
+
     <script type="application/x-javascript" src="chrome://viviecr/content/dialogs/prompt_additem.js" />
 
     <popupset id="dialogs">
 
-        <vivipanel id="promptAdditemPanel">
+        <vivipanel id="promptAdditemPanel" noautohide="true" >
 
-            <hbox class="pop-dialog" flex="1" pack="center" style="width: 640px; max-width: 640px; height: 480px; max-height: 480px;">
+            <hbox class="pop-dialog" flex="1" pack="center" style="margin: 0; padding: 0; width: 800px; max-width: 800px; height: 600px; max-height: 600px;">
 
                 <vbox class="MainPnl" flex="1">
 
                     <groupbox  flex="1">
                         <caption id="promptAdditem-dialog-caption" label="" class="PageTitle"/>
                         <label id="promptAdditem-text0" value="" />
-                        <grid class="DataForm">
+                        <grid class="DataForm" flex="1">
                             <columns>
                                 <column flex="1"/>
                             </columns>
                             <rows>
-                                <row>
+                                <row id="promptAdditem-row0">
                                     <vbox>
                                         <label id="promptAdditem-title0" style="width:6em" value="" control="promptAdditem-input0"/>
-                                        <textbox id="promptAdditem-input0" value="" oninput="promptAdditem_validateInput()" onfocus="this.select()"/>
+                                        <textbox id="promptAdditem-input0" flex="1" value="" oninput="promptAdditem_validateInput()" onfocus="this.select()"/>
                                     </vbox>
                                 </row>
-                                <row>
+                                <row id="promptAdditem-row1">
                                     <vbox>
                                         <label id="promptAdditem-title1" style="width:6em" value="" control="promptAdditem-input1"/>
-                                        <textbox id="promptAdditem-input1" value="" oninput="promptAdditem_validateInput()" onfocus="this.select()"/>
+                                        <textbox id="promptAdditem-input1" flex="1" value="" oninput="promptAdditem_validateInput()" onfocus="this.select()"/>
                                     </vbox>
                                 </row>
                             </rows>

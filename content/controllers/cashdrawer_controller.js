@@ -1,5 +1,7 @@
 (function(){
 
+    include('chrome://viviecr/content/models/cashdrawer_record.js');
+    
     /**
      * Cash Drawer Controller
      */
@@ -19,7 +21,6 @@
             // add event listener for beforeSubmit events
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             if(cart) {
-                cart.addEventListener('onSubmit', this.handleOpenDrawerEvent, this);
                 cart.addEventListener('afterAddPayment', this.handleOpenDrawerEvent, this);
             }
         },
@@ -145,18 +146,18 @@
         // handles payment events
         handleOpenDrawerEvent: function(evt) {
 
+            var eventType = 'payment';
+
             // on payment events, check if a submit event is coming
-            if (evt.getType() == 'afterAddPayment') {
-                var cart= GeckoJS.Controller.getInstanceByName('Cart');
-                if (cart == null) return;
+            var cart= GeckoJS.Controller.getInstanceByName('Cart');
+            if (cart == null) return;
 
-                var txn = cart._getTransaction();
-                if (txn == null) return;
+            var txn = cart._getTransaction();
+            if (txn == null) return;
 
-                if (txn.getRemainTotal() <= 0) {
-                    // don't open drawer; wait for afterSubmit event
-                    return;
-                }
+            if (txn.getRemainTotal() <= 0) {
+                // don't open drawer; wait for afterSubmit event
+                eventType = 'finalization';
             }
 
             // 1. get user's assigned drawer (or null)
@@ -171,18 +172,18 @@
                 }
             }
 
-            this.openDrawer(drawerNo);
+            this.openDrawer(drawerNo, eventType, evt.data.name, evt.data.seq, evt.data.amount);
         },
 
         openDrawer1: function() {
-            this.openDrawer(1);
+            this.openDrawer(1, 'nosale');
         },
 
         openDrawer2: function() {
-            this.openDrawer(2);
+            this.openDrawer(2, 'nosale');
         },
 
-        openDrawer: function(drawerNo) {
+        openDrawer: function(drawerNo, eventType, paymentType, sequence, amount) {
 
             // 1. get list of enabled drawers; if no drawer is enabled, simply exit
             // 2. if drawer == null, use first enabled drawer
@@ -214,16 +215,47 @@
                     NotifyUtils.error(_('Cash drawer [%S] is not enabled! Please check your device configuration', [drawerNo]));
                     return;
                 }
-                enabledDevices.forEach(function(d) {
-                   if (d.number == drawerNo) drawer = d; 
-                });
+                for (var i = 0; i < enabledDevices.length; i++) {
+                    if (enabledDevices[i].number == drawerNo) {
+                        drawer = enabledDevices[i];
+                        break;
+                    }
+                }
             }
+
+            if (drawer == null) {
+                if (drawerNo != null)
+                    NotifyUtils.error(_('Cash drawer [%S] is not enabled! Please check your device configuration', [drawerNo]));
+                return;
+            }
+
+            // check if drawer action is needed
+            switch(eventType) {
+                case 'payment':
+                    if (drawer[paymentType + 'action'] != 'always') return;
+                    break;
+
+                case 'finalization':
+                    if ((drawer[paymentType + 'action'] != 'always') && (drawer[paymentType + 'action'] != 'finalization')) return;
+                    break;
+
+                case 'nosale':
+                    break;
+            }
+
+            // allow UI to catch up before triggering drawer
+            this.sleep(100);
+
+            var status = 0;
             switch (drawer.type) {
                 
                 case 'gpio':
                     if (!drawer.supportsstatus || !device.isGPIODrawerOpen()) {
                         if (device.triggerGPIO(drawer.gpiopulses) == 0) {
                             NotifyUtils.error(_('Error detected while opening cash drawer [%S]; please check if cash drawer is connected and powered up', [drawerNo]));
+                        }
+                        else {
+                            status = 1;
                         }
                     }
                     break;
@@ -233,10 +265,30 @@
                     var portspeed = drawer.portspeed;
                     var handshaking = drawer.handshaking;
                     var devicemodel = drawer.devicemodel;
-                    this.sendToPrinter(port, portspeed, handshaking, devicemodel);
+                    if (this.sendToPrinter(port, portspeed, handshaking, devicemodel)) {
+                        status = 1;
+                    }
 
                     break;
             }
+
+            // save cashdrawer access
+            var drawerRecordModel = new CashdrawerRecordModel();
+            var accessRecord = {
+                terminal_no: GeckoJS.Session.get('terminal_no'),
+                drawer_no: drawer.number,
+                event_type: eventType,
+                payment_type: paymentType,
+                sequence: sequence,
+                amount: amount,
+                status: status
+            };
+            var user = new GeckoJS.AclComponent().getUserPrincipal();
+            if ( user != null ) {
+                accessRecord.clerk = user.username;
+                accessRecord.clerk_displayname = user.description;
+            }
+            drawerRecordModel.save(accessRecord);
         },
 
         // send open drawer commands to printer using the given parameters
@@ -282,7 +334,7 @@
             
             // get encoding
             var encodedResult = GREUtils.Charset.convertFromUnicode(result, 'US-ASCII');
-            this.log('CASHDRAWER:\n' + encodedResult);
+            //this.log('CASHDRAWER:\n' + encodedResult);
             //alert('CASHDRAWER:\n' + encodedResult);
             
             // send to output device

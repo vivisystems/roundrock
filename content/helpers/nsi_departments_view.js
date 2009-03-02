@@ -39,8 +39,9 @@
             catescrollablepanel.setAttribute('rows', GeckoJS.Configure.read('vivipos.fec.settings.DepartmentRows'));
             catescrollablepanel.setAttribute('cols', GeckoJS.Configure.read('vivipos.fec.settings.DepartmentCols'));
             catescrollablepanel.initGrid();
+            this.refreshView(false);
             catescrollablepanel.datasource = this;
-            this.refreshView();
+            
 
         },
 
@@ -55,14 +56,16 @@
                 // maybe controllPanel update categories session.
                 // just refresh view , dont prepare categories array to session.
                 if (evt.data.key == 'categoriesIndexesAll' || evt.data.key == 'visiblePlugroups' || evt.data.key == 'allPlugroups') {
-                    self.refreshView();
+                    self.refreshView(true);
                 }
             });
 
         },
 
 
-        refreshView: function() {
+        refreshView: function(autoInvalidate) {
+
+            autoInvalidate = autoInvalidate || false;
             
             var departmentsIndexes;
             if (this.hideInvisible) {
@@ -72,7 +75,7 @@
             }
             this._data = departmentsIndexes;
             try {
-                this.tree.invalidate();
+                if (autoInvalidate) this.tree.invalidate();
             }catch(e) {}
 
         },
@@ -121,7 +124,7 @@
             var buttonFontSize = this.getCellValue(row,{
                 id: 'font_size'
             });
-            var $btn = $(btn);
+            // var $btn = $(btn);
             var classStr = '';
 
             if (buttonColor && btn) {
@@ -134,11 +137,13 @@
             }
 
             if (classStr.length > 0) {
-                $btn.addClass(classStr);
+                // $btn.addClass(classStr);
+                btn.className += " " + classStr;
             }
 
             // force no list style image at dep
-            $btn.css('list-style-image', 'none');
+            //$btn.css('list-style-image', 'none');
+            btn.style['list-style-image'] = 'none';
 
             // sold out?
             var soldout = this.getCellValue(row,{

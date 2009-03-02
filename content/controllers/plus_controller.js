@@ -26,11 +26,18 @@
             this.screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
 
             var pluGroupModel = new PlugroupModel();
-            var groups = pluGroupModel.find('all', {
-            });
+            var groups = pluGroupModel.find('all');
+
             var group_listscrollablepanel = document.getElementById('group_listscrollablepanel');
             var plugroupPanelView = new NSIPluGroupsView(groups);
             group_listscrollablepanel.datasource = plugroupPanelView;
+
+            var condGroups = GeckoJS.Session.get('condGroups');
+
+            var condimentscrollablepanel = document.getElementById('condimentscrollablepanel');
+            var condGroupPanelView = new NSICondGroupsView(condGroups);
+            condimentscrollablepanel.datasource = condGroupPanelView;
+
 
             doSetOKCancel(
                 function(){
@@ -58,7 +65,7 @@
             catpanel.initGrid();
 
             this.catePanelView.hideInvisible = false;
-            this.catePanelView.refreshView();
+            this.catePanelView.refreshView(true);
 
             this.productPanelView.hideInvisible = false;
             this.productPanelView.updateProducts();
@@ -168,21 +175,6 @@
             }
         },
 
-        getCondiment: function () {
-            var cond_group = $('#cond_group').val();
-            var aURL = 'chrome://viviecr/content/select_condgroup.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
-            var inputObj = {
-                cond_group: cond_group
-            };
-            window.openDialog(aURL, 'select_cond_group', features, inputObj);
-
-            if (inputObj.ok) {
-                $('#cond_group').val(inputObj.cond_group);
-                $('#cond_group_name').val(inputObj.cond_group_name);
-            }
-        },
-
         getRate: function () {
             var rate = $('#rate').val();
             var aURL = 'chrome://viviecr/content/select_tax.xul';
@@ -279,6 +271,22 @@
             this.getPluSetListObj().datasource = panelView;
         },
 
+        /*
+        getCondiment: function () {
+            var cond_group = $('#cond_group').val();
+            var aURL = 'chrome://viviecr/content/select_condgroup.xul';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
+            var inputObj = {
+                cond_group: cond_group
+            };
+            window.openDialog(aURL, 'select_cond_group', features, inputObj);
+
+            if (inputObj.ok) {
+                $('#cond_group').val(inputObj.cond_group);
+                $('#cond_group_name').val(inputObj.cond_group_name);
+            }
+        },
+
         _setCondimentGroup: function () {
             var cond_group = document.getElementById('cond_group').value;
             var cond_group_name = '';
@@ -291,7 +299,7 @@
                 }
             }
             document.getElementById('cond_group_name').value = cond_group_name;
-        },
+        },*/
 
         getPlu: function (){
 
@@ -425,7 +433,7 @@
         setInputData: function (valObj) {
             GeckoJS.FormHelper.unserializeFromObject('productForm', valObj);
             this._setPluSet();
-            this._setCondimentGroup();
+            // this._setCondimentGroup();
             if (valObj) {
                 var datapath = GeckoJS.Configure.read('CurProcD').split('/').slice(0,-1).join('/');
                 var sPluDir = datapath + "/images/pluimages/";
@@ -1063,6 +1071,7 @@
                 document.getElementById('tab4').setAttribute('disabled', true);
                 document.getElementById('tab5').setAttribute('disabled', true);
                 document.getElementById('tab6').setAttribute('disabled', true);
+                document.getElementById('tabCondGroups').setAttribute('disabled', true);
 
                 // disable all fields
                 this.disableInputData(true);
@@ -1077,6 +1086,7 @@
                 document.getElementById('tab4').removeAttribute('disabled');
                 document.getElementById('tab5').removeAttribute('disabled');
                 document.getElementById('tab6').removeAttribute('disabled');
+                document.getElementById('tabCondGroups').removeAttribute('disabled');
 
                 // enable all fields
                 this.disableInputData(false);

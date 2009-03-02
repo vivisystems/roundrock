@@ -14,7 +14,7 @@
 
 
 <window title="&importexport.caption;"
-	hidechrome="true"
+        hidechrome="true"
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
@@ -63,7 +63,7 @@
                     <button id="importBtn" disabled="true" label="&importexport.import;"  oncommand="$do('importData', 'departments', 'ImportExport');" />
                     <button id="exportBtn" disabled="true" label="&importexport.export;"  oncommand="$do('exportData', 'departments', 'ImportExport');" />
                 </hbox>
-                <hbox id="dialogButtons" class="dialogbtns" pack="center">
+                <hbox id="dialogButtons" class="dialogbtns" pack="left">
                     <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
                 </hbox>
             </hbox>

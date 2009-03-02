@@ -14,7 +14,7 @@
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
 <window title="&departments.title;"
-	hidechrome="true"
+        hidechrome="true"
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
@@ -96,6 +96,7 @@
                     <hbox class="ToolBar" flex="1">
                         <button id="add_dept" label="&departments.button.action.add;" disabled="false" class="BtnAdd" oncommand="$do('add', null, 'Departments');" />
                         <button id="modify_dept" label="&departments.button.action.modify;" disabled="false" class="BtnMod" oncommand="$do('modify', null, 'Departments');" />
+                        <spacer flex="1"/>
                         <button id="delete_dept" label="&departments.button.action.delete;" disabled="false" class="BtnDel" oncommand="$do('remove', null, 'Departments');" />
                     </hbox>
                     <hbox id="dialogButtons" class="dialogbtns" pack="center">

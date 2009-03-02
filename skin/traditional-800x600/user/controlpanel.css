@@ -221,9 +221,6 @@
     margin: 17px 0 0 14px;
     
 }
-.ActivityScrollPanel > .scrollablepanel-scrollbar {
-    margin-left: 15px !important;
-}
 .ActivityBtn {
 	  min-width:135px;
     max-width:135px;
@@ -393,7 +390,7 @@
 
 /* System */
 .SysBox {
-    margin: 24px 0 0 30px;
+    margin: 24px 0 0 14px;
 }
 .SysScrollPanel {
     max-width: 375px;    
@@ -479,7 +476,7 @@
     overflow: hidden;
     -moz-appearance: none;
     -moz-user-focus: ignore;
-    margin: 2px 0 0 316px;
+    margin: 2px 20px;
     background: transparent url(images/cp_exit.png) bottom left no-repeat;
     border: none;
     -moz-background-clip: border;

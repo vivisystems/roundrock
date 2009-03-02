@@ -14,7 +14,7 @@
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
 <window title="&select.condiments.title;"
-	hidechrome="true"
+        hidechrome="true"
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
@@ -38,7 +38,7 @@
             <label id="condiments" hidden="true" value="" />
             <hbox class="SelectBox">
                 <viviscrollablebuttonpanel id="condimentscrollablepanel" flex="1" cols="4" rows="5"  seltype="multiple" labelField="name"
-                                           class="catescrollablepanel"
+                                           class="ItemScrollablepanel"
                                            buttonClass="plubtn"
                                            scrollUpClass="ScrollUp"
                                            scrollDownClass="ScrollDown">

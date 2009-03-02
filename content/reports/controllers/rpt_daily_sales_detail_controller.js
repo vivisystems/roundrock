@@ -58,11 +58,16 @@
             start = parseInt(start / 1000);
             end = parseInt(end / 1000);
 
-            var fields = ['orders.transaction_created',
+            var fields = [
+            				'orders.transaction_created',
                             'DATETIME("orders"."transaction_created", "unixepoch", "localtime") AS "Order.Time"',
                             'orders.sequence',
                             'orders.status',
                             'orders.total',
+                            'orders.tax_subtotal',
+                            'orders.item_subtotal',
+                            'orders.discount_subtotal',
+                            'orders.surcharge_subtotal',
                             'orders.items_count',
                             'orders.check_no',
                             'orders.table_no',
@@ -83,12 +88,24 @@
 
             var groupby = null;
             var orderby = 'orders.terminal_no,orders.transaction_created';
+            
+            var sortby = document.getElementById( 'sortby' ).value;
+            if ( sortby != 'all' )
+            	orderby = 'orders.' + sortby;
 
             var order = new OrderModel();
             var datas = order.find('all',{fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 2});
 
             var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
             var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
+
+			var footDatas = {
+            	tax_subtotal: 0,
+            	item_subtotal: 0,
+            	payment: 0,
+            	surcharge_subtotal: 0,
+            	discount_subtotal: 0,
+            };
 
             if (datas) {
                 datas.forEach(function(o){
@@ -102,6 +119,12 @@
                         k.current_subtotal = GeckoJS.NumberHelper.round(k.current_subtotal, precision_prices, rounding_prices) || 0;
                         k.current_subtotal = k.current_subtotal.toFixed(precision_prices);
                     });
+                    
+                    footDatas.tax_subtotal += o[ 'tax_subtotal' ];
+                    footDatas.item_subtotal += o[ 'item_subtotal' ];
+                    footDatas.discount_subtotal += o[ 'discount_subtotal' ];
+                    footDatas.surcharge_subtotal += o[ 'surcharge_subtotal' ];
+                    footDatas.payment += parseFloat( o[ 'total' ] );
                 });
             }
 
@@ -115,9 +138,7 @@
                     clerk_displayname: clerk_displayname
                 },
                 body: datas,
-                foot: {
-                    gen_time: (new Date()).toString('yyyy/MM/dd HH:mm:ss')
-                }
+                foot: footDatas
             }
 
             this._datas = data;
@@ -215,7 +236,17 @@
             } finally {
                 this._enableButton(true);
                 waitPanel.hidePopup();
-            }
+            }var footDatas = {
+            	tax_subtotal: 0,
+            	item_subtotal: 0,
+            	total: 0,
+            	surcharge_subtotal: 0,
+            	discount_subtotal: 0,
+            	cash: 0,
+            	creditcard: 0,
+            	coupon: 0,
+            	giftcard: 0
+            };
 
         },
 

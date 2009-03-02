@@ -150,6 +150,7 @@ treechildren::-moz-tree-row(treeLowStock) {background-color: orange;}
 treechildren::-moz-tree-row(treeOutofStock) {background-color: red;}
 treechildren::-moz-tree-row(treeVerifyAge) {background-color: steelblue;}
 treechildren::-moz-tree-row(treeReturnItem) {background-color: lightgreen;}
+treechildren::-moz-tree-row(batchMarker) {border-bottom: 4px solid black;}
 treechildren::-moz-tree-cell-text(treecellTRAY) {color: white;}
 treechildren::-moz-tree-cell-text(treecellSUBTOTAL) {color: yellow;}
 treechildren::-moz-tree-cell-text(treecellTOTAL) {color: yellow;}

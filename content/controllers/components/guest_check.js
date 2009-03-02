@@ -169,19 +169,13 @@
             return ord;
         },
 
-        store: function(count) {
-            if (count > 0) {
-                // this.log("GuestCheck store..." + no);
-                this._controller.addMarker('subtotal');
-                this._controller.submit(2);
-                this._controller.dispatchEvent('onWarning', _('STORED'));
+        store: function() {
+
+            this._controller.submit(2);
+            this._controller.dispatchEvent('onWarning', _('STORED'));
                 
-                // @todo OSD
-                NotifyUtils.warn(_('This order has been stored!!'));
-            } else {
-                // @todo OSD
-                NotifyUtils.warn(_('This order is empty!!'));
-            }
+            // @todo OSD
+            NotifyUtils.warn(_('This order has been stored!!'));
      
         },
 
@@ -227,7 +221,7 @@
 
                         if (status == 1) {
                             // @todo OSD
-                            NotifyUtils.warn(_('This order has been submited!!'));
+                            NotifyUtils.warn(_('This order is already finalized!'));
                         }
                     }
                      else {
@@ -254,7 +248,7 @@
 
                         if (status == 1) {
                             // @todo OSD
-                            NotifyUtils.warn(_('This order has been submited!!'));
+                            NotifyUtils.warn(_('This order is already finalized!'));
                         }
                     } else {
                         // @todo OSD
@@ -316,7 +310,7 @@
 
                         if (status == 1) {
                             // @todo OSD
-                            NotifyUtils.warn(_('This order has been submited!!'));
+                            NotifyUtils.warn(_('This order is already finalized!'));
                         }
                     } else {
                         // @todo OSD
@@ -364,7 +358,7 @@
 
                             if (status == 1) {
                                 // @todo OSD
-                                NotifyUtils.warn(_('This order has been submited!!'));
+                                NotifyUtils.warn(_('This order is already finalized!'));
                             }
 
                         }else {
@@ -383,7 +377,7 @@
 
                         if (status == 1) {
                             // @todo OSD
-                            NotifyUtils.warn(_('This order has been submited!!'));
+                            NotifyUtils.warn(_('This order is already finalized!'));
                         }
                     } else {
                         // @todo OSD

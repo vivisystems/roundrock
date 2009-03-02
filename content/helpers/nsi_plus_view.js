@@ -110,6 +110,15 @@
                 //$(btn).addClass('font-'+ buttonFontSize);
             }
 
+            // is this product unavailable?
+            var unavailable = this.getCellValue(row,{
+                id: 'unavailable'
+            });
+
+            if (unavailable) {
+                btn.disabled = true;
+            }
+
             // display icon only?
             var icon_only = this.getCellValue(row,{
                 id: 'icon_only'
@@ -126,8 +135,10 @@
                 classStr += ((classStr.length > 0) ? ' ' : '') + 'noimagebtn';
                 //$(btn).addClass('noimagebtn');
             }
+
             if (classStr.length > 0) {
-                $(btn).addClass(classStr);
+                // $(btn).addClass(classStr);
+                btn.className += " " + classStr;
             }
 
             // sold out?

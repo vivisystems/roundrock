@@ -23,12 +23,13 @@
     <script type="application/x-javascript" src="chrome://viviecr/content/reports/template_ext.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/reports/controllers/components/check_media.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/reports/rpt_daily_sales_summary.js" />
-  
+
     <vbox flex="1" class="main-dialog">
         <vbox flex="1" class="MainPnl">
             <caption label="&rptdailysalessummary.title;"  class="PageTitle"/>
-            <hbox class="TopPnl">
-                <grid class="DataForm">
+            <hbox>
+                <hbox flex="1">
+                <grid class="DataForm" flex="1">
                     <columns>
                         <column  flex="1"/><column flex="1" />
                     </columns>
@@ -43,42 +44,70 @@
                                 <vividatetimepicker id="end_date" value='' type="popup"/>
                             </vbox>
                         </row>
+
                         <row>
-                            <label value="&rptdailysalessummary.machineid;" />
-                            <textbox id="machine_id" value='' width="300"/>
+                        	<vbox>
+		                    	<label value="&rptdailysalessummary.sortby;" />
+			                    <menulist id="sortby">
+			                        <menupopup id="sortby_menupopup">
+			                            <menuitem selected="true" label="[&rptdailysalessummary.all;]" value="all" />
+			                            <menuitem selected="false" label="&rptdailysalessummary.terminal_no;" value="terminal_no" />
+			                            <menuitem selected="false" label="&rptdailysalessummary.item_subtotal;" value="item_subtotal" />
+			                            <menuitem selected="false" label="&rptdailysalessummary.tax_subtotal;" value="tax_subtotal" />
+			                            <menuitem selected="false" label="&rptdailysalessummary.surcharge_subtotal;" value="surcharge_subtotal" />
+			                            <menuitem selected="false" label="&rptdailysalessummary.discount_subtotal;" value="discount_subtotal" />
+			                            <menuitem selected="false" label="&rptdailysalessummary.total;" value="total" />
+			                            <menuitem selected="false" label="&rptdailysalessummary.cash;" value="cash" />
+			                            <menuitem selected="false" label="&rptdailysalessummary.creditcard;" value="creditcard" />
+			                            <menuitem selected="false" label="&rptdailysalessummary.coupon;" value="coupon" />
+			                            <menuitem selected="false" label="&rptdailysalessummary.giftcard;" value="giftcard" />
+			                        </menupopup>
+			                    </menulist>
+	                        </vbox>
+	                        <vbox>
+		                        <label value="&rptdailysalessummary.machineid;" />
+		                        <textbox id="machine_id" value='' width="300"/>
+		                    </vbox>
                         </row>
                     </rows>
                 </grid>
-                <button id="execute" label="&rptdailysalessummary.execute;" disabled="false" class="editbtns" oncommand="$do('execute', null, 'RptDailySalesSummary');" />
+                </hbox>
+                <button id="execute" label="&rptdailysalessummary.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptDailySalesSummary');" />
             </hbox>
+						<hbox class="TopPnl">
+                <hbox class="ReportTool"  flex="1">
 
+                    <vivibutton id="export_pdf" label="&rptdailysalessummary.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do('exportPdf', null, 'RptDailySalesSummary');" />
+                    <vivibutton id="export_csv" label="&rptdailysalessummary.exportcsv;" disabled="true" class="CsvBtn" oncommand="$do('exportCsv', null, 'RptDailySalesSummary');" />
+
+                    <vivibutton id="togglesize" label="&rptdailysalessummary.togglezoom;" disabled="false" class="ZoomBtn" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
+                    
+                </hbox>
+                <hbox id="dialogButtons" class="dialogbtns" pack="end">
+                    <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle()" class="VkbBtn"/>
+                    <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                    
+                </hbox>
+            </hbox>
             <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
                 <!-- grippy/ -->
             </splitter>
 
-            <hbox flex="1">
-                <groupbox flex="1">
-                    <box class="reportbox" flex="1">
-                        <browser type="content" id="preview_frame" src="rpt_template3.html" flex="1"/>
-                    </box>
-
-                </groupbox>
-                <vbox>
-                    <vbox class="ToolBar BarHeight">
-
-                        <vivibutton id="export_pdf" label="&rptdailysalessummary.exportpdf;" disabled="false" class="editbtns" oncommand="$do('exportPdf', null, 'RptDailySalesSummary');" />
-                        <vivibutton id="export_csv" label="&rptdailysalessummary.exportcsv;" disabled="true" class="editbtns" oncommand="$do('exportCsv', null, 'RptDailySalesSummary');" />
-
-                        <vivibutton id="togglesize" label="&rptdailysalessummary.togglezoom;" disabled="false" class="editbtns" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
-                        <spacer flex="1" />
-                    </vbox>
-                    <hbox id="dialogButtons" class="dialogbtns" pack="end">
-                        <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
-                        <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle()" class="VkbBtn"/>
-                    </hbox>
-                </vbox>
-            </hbox>
+            <box class="reportbox" flex="1">
+                <browser type="content" id="preview_frame" src="rpt_template3.html" flex="1"/>
+            </box>
         </vbox>
     </vbox>
+    
+    <panel id="wait_panel" position="overlap" noautohide="true" class="WaitPnl">
+        <vbox flex="1">
+        <groupbox flex="1">
+            <caption label="&rptdailysalessummary.wait;" class="PageTitle"/>
+            <spacer style="height: 20px;" />
+            <progressmeter id="progress" mode="undetermined" value="0" />
+            <spacer style="height: 20px;" />
+        </groupbox>
+        </vbox>
+    </panel>
 
 </window>

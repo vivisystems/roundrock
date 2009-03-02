@@ -1,4 +1,4 @@
-var creditcardRemark_options;
+var creditcardRemark_options = null;
 
 (function(){
 
@@ -9,11 +9,17 @@ var creditcardRemark_options;
 
         var $panel = $('#creditcardRemarkPanel');
 
+        var screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
+        var screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
+
         $.installPanel($panel[0], {
 
             css: {
-                width: '640px',
-                height: '560px'
+                top: 0,
+                left: 0,
+                
+                width: screenwidth,
+                height: screenheight
             },
 
             init: function(evt) {
@@ -95,11 +101,13 @@ var creditcardRemark_options;
 
 
     function gotFocus() {
+        /*
         var focusedElement = document.commandDispatcher.focusedElement;
         if (focusedElement.tagName == 'html:input' || focusedElement.tagName == 'textbox') {
             focusedElement.select();
         }
         return true;
+        */
     }
 
     function clearTextBox() {
@@ -108,7 +116,6 @@ var creditcardRemark_options;
         focusedElement.value = '';
 
     }
-
 
     window.addEventListener('load', startup, false);
 

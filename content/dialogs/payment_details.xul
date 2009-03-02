@@ -9,6 +9,7 @@
 <?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/selectBox.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/condiment-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/payment_details.css" type="text/css"?>
 
 <overlay id="paymentDetailsDialogOverlay"
          xmlns:html="http://www.w3.org/1999/xhtml"
@@ -19,9 +20,9 @@
     
     <popupset id="dialogs">
 
-        <vivipanel id="paymentDetailsPanel" >
+        <panel id="paymentDetailsPanel" noautohide="false">
 
-            <hbox flex="1" class="pop-dialog" pack="center" style="width: 640px; max-width: 640px; height: 480px; max-height: 480px;">
+            <hbox flex="1" class="pop-dialog" pack="center" style="margin: 0; padding: 0;">
 
                 <vbox class="MainPnl" flex="1">
 
@@ -32,8 +33,8 @@
                         <spacer flex="1" />
                     </viviscrollabletree>
 
-                    <spacer flex="1"/>
-
+                    <spacer height="10px"/>
+                    
                     <hbox id="dialogButtons" class="dialogbtns" pack="end">
                         <button class="ExitBtn" id="paymentDetails-ok" label="&dialog.closeButton.label;" default="true" oncommand="$.hidePanel('paymentDetailsPanel', false)"/>
                     </hbox>
@@ -42,7 +43,7 @@
 
             </hbox>
 
-        </vivipanel>
+        </panel>
 
     </popupset>
 

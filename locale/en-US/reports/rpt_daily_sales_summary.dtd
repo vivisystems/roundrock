@@ -6,4 +6,16 @@
 <!ENTITY rptdailysalessummary.exportcsv "Export to CSV">
 <!ENTITY rptdailysalessummary.togglezoom "Toggle Zoom">
 <!ENTITY rptdailysalessummary.machineid "Terminal No:">
-
+<!ENTITY rptdailysalessummary.sortby "Sort By:">
+<!ENTITY rptdailysalessummary.terminal_no "Terminal No.">
+<!ENTITY rptdailysalessummary.tax_subtotal "Add-on Tax">
+<!ENTITY rptdailysalessummary.total "Payment">
+<!ENTITY rptdailysalessummary.item_subtotal "Total">
+<!ENTITY rptdailysalessummary.surcharge_subtotal "Surcharge">
+<!ENTITY rptdailysalessummary.discount_subtotal "Discount">
+<!ENTITY rptdailysalessummary.cash "Cash">
+<!ENTITY rptdailysalessummary.creditcard "Credit Card">
+<!ENTITY rptdailysalessummary.coupon "Coupon">
+<!ENTITY rptdailysalessummary.giftcard "Gift Card">
+<!ENTITY rptdailysalessummary.all "List All">
+<!ENTITY rptdailysalessummary.wait "Waiting...">

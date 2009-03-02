@@ -9,8 +9,6 @@
 
             this.view = null,
 
-            this.destination_prefix = null,
-            
             this.data = {
 
                 id: '',
@@ -64,6 +62,8 @@
                 invoice_no: '',
 
                 destination: '',
+                destination_prefix: '',
+
                 table_no: '',
                 check_no: '',
 
@@ -71,9 +71,12 @@
 
                 terminal_no: GeckoJS.Session.get('terminal_no'),
 
+                lockIndex: -1,
+                batchCount: 0,
+                closed: false,
+
                 created: '',
                 modified: ''
-
             };
 
             this.create();
@@ -154,7 +157,7 @@
     };
 
     // set order status, -1:canceled 0:process 1:submit
-    Transaction.prototype.process = function(status) {
+    Transaction.prototype.process = function(status, discard) {
         this.data.status = status;
 
         // save transaction to order / orderdetail ...
@@ -172,7 +175,7 @@
             // maintain stock...
             self.requestCommand('decStock', self.data, "Stocks");
 
-            self.run();
+            if (!discard) self.run();
        // }, 1500);
 
     };
@@ -191,6 +194,7 @@
 
 
     Transaction.prototype.submit = function(status) {
+
         if (typeof(status) == 'undefined') status = 1;
 
         // set proceeds_cherk when submit to status == 1
@@ -207,6 +211,10 @@
         
     };
 
+    Transaction.prototype.close = function() {
+        this.data.closed = true;
+    };
+    
     Transaction.prototype.isSubmit = function() {
         // return (this.data.status == 1);
         return (this.data.status > 0);
@@ -214,7 +222,12 @@
 
 
     Transaction.prototype.isStored = function() {
-        return (this.data.status == 2);
+        return (this.data.recall == 2);
+    };
+
+
+    Transaction.prototype.isClosed = function() {
+        return this.data.closed;
     };
 
 
@@ -295,7 +308,7 @@
             itemDisplay = GREUtils.extend(itemDisplay, {
                 id: item.id,
                 no: item.no,
-                name: this.destination_prefix + item.name,
+                name: this.data.destination_prefix + item.name,
                 current_qty: item.current_qty,
                 current_price: item.current_price,
                 //current_subtotal: item.current_subtotal + item.current_condiment,
@@ -1547,11 +1560,11 @@
         return paymentItem;
     };
 
-    Transaction.prototype.getItemAt = function(index, inclusive){
+    Transaction.prototype.getItemAt = function(index, nofollow){
         
         if (index < 0 || index >= this.data.display_sequences.length) return null;
 
-        if (inclusive == null) inclusive = false;
+        if (nofollow == null) nofollow = false;
 
         var itemDisplay = this.getDisplaySeqAt(index);
         var item = null;
@@ -1562,7 +1575,7 @@
                 item = this.data.items[itemIndex];
                 break;
             case 'setitem':
-                if (inclusive)
+                if (nofollow)
                     item = this.data.items[itemIndex];
                 else {
                     var parent_index = this.data.items[itemIndex].parent_index;
@@ -1579,7 +1592,7 @@
             case 'condiment':
             case 'memo':
                 item = this.data.items[itemIndex];
-                if (!inclusive && item != null && item.parent_index != null) {
+                if (!nofollow && item != null && item.parent_index != null) {
                     item = this.data.items[item.parent_index];
                 }
                 break;
@@ -1596,6 +1609,79 @@
         
     };
 
+    Transaction.prototype.lockItems = function(index) {
+        var displayItems = this.data.display_sequences;
+        var transItems = this.data.items;
+        var paymentItems = this.data.trans_payments;
+        var batch = ++this.data.batchCount;
+
+        var batchItemCount = 0;
+        var batchPaymentCount = 0;
+
+        if (index == null) index = displayItems.length - 1;
+        
+        displayItems[index].batchMarker = batch;
+
+        // lock all display items up-to and including the item at position given by index
+        for (var i = 0; i <= index; i++) {
+            var dispItem = displayItems[i];
+            if (!('batch' in dispItem)) {
+                dispItem['batch'] = batch;
+
+                // lock corresponding transaction item
+                if (dispItem.index != null) {
+                    switch(dispItem.type) {
+                        case 'item':
+                            if (transItems[dispItem.index] != null) {
+                                transItems[dispItem.index].batch = batch;
+                                batchItemCount++;
+                            }
+                            break;
+
+                        case 'payment':
+                            if (paymentItems[dispItem.index] != null) {
+                                paymentItems[dispItem.index].batch = batch;
+                                batchPaymentCount++;
+                            }
+                            break;
+                    }
+                }
+            }
+        }
+
+        // set order lock index
+        this.data.batchItemCount = batchItemCount;
+        this.data.batchPaymentCount = batchPaymentCount;
+        this.data.lockIndex = index;
+    };
+
+    Transaction.prototype.isLocked = function(index) {
+        return (index <= this.data.lockIndex);
+    };
+
+    Transaction.prototype.isModified = function() {
+        return (!('lockIndex' in this.data) && this.data.display_sequences.length > 0) || this.data.lockIndex < (this.data.display_sequences.length - 1);
+    };
+
+    Transaction.prototype.hasItemsInBatch = function(batch) {
+        if (batch == null) batch = this.data.batchCount;
+        for (var index in this.data.items) {
+            if (this.data.items[index].batch == batch) {
+                return true;
+            }
+        }
+        return false;
+    };
+
+     Transaction.prototype.hasPaymentsInBatch = function(batch) {
+        if (batch == null) batch = this.data.batchCount;
+        for (var index in this.data.trans_payments) {
+            if (this.data.trans_payments[index].batch == batch) {
+                return true;
+            }
+        }
+        return false;
+    };
 
     Transaction.prototype.getDisplaySeqCount = function(){
         return this.data.display_sequences.length;
@@ -1946,12 +2032,16 @@
         this.data.total = this.getRoundedPrice(total);
         this.data.remain = this.getRoundedPrice(remain);
         this.data.tax_subtotal = this.getRoundedTax(tax_subtotal);
+        this.data.item_subtotal = this.getRoundedPrice(item_subtotal);
         this.data.included_tax_subtotal = this.getRoundedTax(included_tax_subtotal);
         this.data.item_surcharge_subtotal = this.getRoundedPrice(item_surcharge_subtotal);
         this.data.item_discount_subtotal = this.getRoundedPrice(item_discount_subtotal);
         this.data.trans_surcharge_subtotal = this.getRoundedPrice(trans_surcharge_subtotal);
         this.data.trans_discount_subtotal = this.getRoundedPrice(trans_discount_subtotal);
         this.data.payment_subtotal = this.getRoundedPrice(payment_subtotal);
+
+        this.data.discount_subtotal = this.data.item_discount_subtotal + this.data.trans_discount_subtotal ;
+        this.data.surcharge_subtotal = this.data.item_surcharge_subtotal + this.data.trans_surcharge_subtotal;
 
         Transaction.events.dispatch('afterCalcTotal', this.data, this);
 
@@ -2039,7 +2129,11 @@
     Transaction.prototype.run = function() {
         var order = new OrderModel();
         order.saveOrder(this.data);
-        clearTimeout(Transaction.worker);
+
+        if (this.data.status == 2) {
+            order.serializeOrder(this.data);
+        }
+        // clearTimeout(Transaction.worker);
     };
 
     // nsirunnable run

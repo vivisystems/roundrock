@@ -13,7 +13,7 @@
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
 <window title="&pricelevelschedule.title;"
-	hidechrome="true"
+        hidechrome="true"
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
@@ -41,7 +41,7 @@
             </vbox>
             <vbox >
                 <label value="Add New Price Level Schedule" class="PageTitle"/>
-                <vbox class="PLbox">
+                <vbox class="PLbox" flex="1">
                     <label value="Step 1. Selet Price Level" class="SubTitle"/>
                     <viviscrollablebuttonpanel id="pricelevelscrollablepanel" flex="1" cols="3" rows="4" hideScrollbar="true" labelField="name"
                                                ensureVisible="true"
@@ -54,7 +54,7 @@
                     </viviscrollablebuttonpanel>
                 </vbox>
 
-                <vbox class="RightPnlB">
+                <vbox class="RightPnlB" flex="1">
                     <label value="Step 2. Set Start Time" class="SubTitle"/>
                     <vividatetimepicker-timepad id="seltime" value="12:00" flex="1" labelClass="timepickerfont" buttonClass="timepickerbtns"/>
                 </vbox>

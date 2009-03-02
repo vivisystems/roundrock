@@ -19,16 +19,17 @@
         var categories = GeckoJS.BaseObject.getKeys(prefs) || [];
 
         categories.forEach(function(cn) {
-            var data = new GeckoJS.ArrayQuery(GeckoJS.BaseObject.getValues(prefs[cn])).orderBy("label asc");
-            //if (data) data.forEach(function(el) {el.label = _(el.label)});
-            if (data) data = data.map(function(el) {
+            var ctrls = GeckoJS.BaseObject.getValues(prefs[cn]);
+            if (ctrls) ctrls = ctrls.map(function(el) {
                 var entry = {icon: el.icon,
                              path: el.path,
                              roles: el.roles,
+                             features: (el.features || null), 
                              type:  (el.type || 'uri'),
                              label: _(el.label)}
                 return entry;
             })
+            var data = new GeckoJS.ArrayQuery(ctrls).orderBy("label asc");
             window.viewHelper = new opener.GeckoJS.NSITreeViewArray(data);
         
             document.getElementById(cn + 'Panel').datasource = window.viewHelper ;
@@ -50,7 +51,8 @@ function launchControl(panel) {
         var pref = data[index];
 
         var aArguments = "";
-        var features = "chrome,popup=no,titlebar=no,toolbar,centerscreen,modal,width=" + width + ",height=" + height;
+        var features = pref['features'] || "chrome,popup=no,titlebar=no,toolbar,centerscreen";
+        features += ",modal,width=" + width + ",height=" + height;
 
         try {
             $.blockUI({
@@ -65,7 +67,7 @@ function launchControl(panel) {
             GeckoJS.BaseObject.sleep(50);
             if (pref['type'] == 'uri') {
 
-                window.openDialog(pref['path'], pref['label'], features, aArguments);
+                window.openDialog(pref['path'], pref['label'], features);
 
             }else {
 

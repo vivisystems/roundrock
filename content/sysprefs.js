@@ -3,6 +3,7 @@
     // include controllers  and register itself
     include('chrome://viviecr/content/controllers/plufilters_controller.js');
     include('chrome://viviecr/content/controllers/destination_controller.js');
+    include('chrome://viviecr/content/controllers/annotation_controller.js');
 
     /**
      * Controller Startup
@@ -24,8 +25,6 @@
         $do('initUser', defaultUser, 'Users');
         $do('initTaxStatus', defaultTaxStatus, 'Taxes');
 
-        $do('load', null, 'Plufilters');
-        $do('load', null, 'Destinations');
         //$do('load', null, 'Sound');
 
         var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
@@ -48,7 +47,8 @@
 function closePreferences() {
     try {
         // change button height
-        opener.opener.$do('resetLayout', null, 'Main');
+        var main = opener.opener.GeckoJS.Controller.getInstanceByName('Main');
+       	main.requestCommand('updateOptions', null, 'Main');
 
         $do('setDefaultUser', null, 'Users');
         $do('setDefaultTaxStatus', null, 'Taxes');

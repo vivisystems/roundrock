@@ -13,7 +13,7 @@
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
 <window title="&plus.title;"
-	hidechrome="true"
+        hidechrome="true"
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
@@ -21,7 +21,7 @@
     <script type="application/x-javascript" src="chrome://viviecr/content/plusearch.js" />
 
     <keyset id="keyset_extensions">
-        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()" />
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('cancel').click()" />
     </keyset>
 
     <hbox flex="1" class="main-dialog">
@@ -238,7 +238,7 @@
             </tabbox>
             <hbox id="dialogButtons" class="dialogbtns" pack="end">
                 <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
-                <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                <button class="ExitBtn" id="cancel" label="&dialog.closeButton.label;" default="false" oncommand="doOKButton();"/>
             </hbox>            
         </vbox>
         </hbox>

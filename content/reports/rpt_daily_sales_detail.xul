@@ -27,8 +27,9 @@
     <vbox flex="1" class="main-dialog">
         <vbox flex="1" class="MainPnl">
             <caption label="&rptdailysalesdetail.title;"  class="PageTitle"/>
-            <hbox class="TopPnl">
-                <grid class="DataForm">
+            <hbox>
+                <hbox flex="1">
+                <grid class="DataForm" flex="1">
                     <columns>
                         <column  flex="1"/><column flex="1" />
                     </columns>
@@ -43,15 +44,48 @@
                                 <vividatetimepicker id="end_date" value='' type="popup"/>
                             </vbox>
                         </row>
-                        <row>
-                            <label value="&rptdailysalesdetail.machineid;" />
-                            <textbox id="machine_id" value='' width="300"/>
+                        		<label value="&rptdailysalesdetail.sortby;" />
+			                    <menulist id="sortby">
+			                        <menupopup id="sortby_menupopup">
+			                            <menuitem selected="true" label="[&rptdailysalesdetail.all;]" value="all" />
+			                            <menuitem selected="false" label="&rptdailysalesdetail.terminal_no;" value="terminal_no" />
+			                            <menuitem selected="false" label="&rptdailysalesdetail.transaction_created;" value="transaction_created" />
+			                            <menuitem selected="false" label="&rptdailysalesdetail.item_subtotal;" value="item_subtotal" />
+			                            <menuitem selected="false" label="&rptdailysalesdetail.tax_subtotal;" value="tax_subtotal" />
+			                            <menuitem selected="false" label="&rptdailysalesdetail.surcharge_subtotal;" value="surcharge_subtotal" />
+			                            <menuitem selected="false" label="&rptdailysalesdetail.discount_subtotal;" value="discount_subtotal" />
+			                            <menuitem selected="false" label="&rptdailysalesdetail.total;" value="total" />
+			                            <menuitem selected="false" label="&rptdailysalesdetail.guests;" value="no_of_customers" />
+			                            <menuitem selected="false" label="&rptdailysalesdetail.items;" value="items_count" />
+			                        </menupopup>
+			                    </menulist>
+			                </vbox>
+			                <vbox>
+		                        <label value="&rptdailysalesdetail.machineid;" />
+		                        <textbox id="machine_id" value='' width="300"/>
+                            </vbox>
                         </row>
                     </rows>
                 </grid>
-                <button id="execute" label="&rptdailysalesdetail.execute;" disabled="false" class="editbtns" oncommand="$do('execute', null, 'RptDailySalesDetail');" />
+                </hbox>
+                <button id="execute" label="&rptdailysalesdetail.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptDailySalesDetail');" />
             </hbox>
+			<hbox class="TopPnl">
+                <hbox class="ReportTool"  flex="1">
 
+                    <vivibutton id="export_pdf" label="&rptdailysalesdetail.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do('exportPdf', null, 'RptDailySalesDetail');" />
+                    <vivibutton id="export_csv" label="&rptdailysalesdetail.exportcsv;" disabled="false" class="CsvBtn" oncommand="$do('exportCsv', null, 'RptDailySalesDetail');" />
+                    <vivibutton id="export_rcp" label="&rptdailysalesdetail.exportrcp;" disabled="false" class="PrintBtn" oncommand="$do('exportRcp', null, 'RptDailySalesDetail');" />
+
+                    <vivibutton id="togglesize" label="&rptdailysalesdetail.togglezoom;" disabled="false" class="ZoomBtn" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
+                    
+                </hbox>
+                <hbox id="dialogButtons" class="dialogbtns" pack="end">
+                    <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle()" class="VkbBtn"/>
+                    <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                    
+                </hbox>
+            </hbox>
             <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
                 <!-- grippy/ -->
             </splitter>
@@ -59,7 +93,7 @@
             <hbox flex="1">
                 <groupbox flex="1">
                     <box class="reportbox" flex="1">
-                        <browser type="content" id="preview_frame" src="rpt_template2.html" flex="1"/>
+                        <browser type="content" id="preview_frame" src="rpt_template3.html" flex="1"/>
                     </box>
 
                 </groupbox>

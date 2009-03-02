@@ -18,9 +18,9 @@
 
     <popupset id="dialogs">
 
-        <vivipanel id="creditcardRemarkPanel">
+        <panel id="creditcardRemarkPanel" noautohide="false">
 
-            <hbox class="pop-dialog" flex="1" pack="center" style="width: 640px; max-width: 640px; height: 560px; max-height: 560px;">
+            <hbox class="pop-dialog" flex="1" pack="center" style="margin: 0; padding: 0; width: 800px; max-width: 800px; height: 600px; max-height: 600px;">
 
                 <vbox class="MainPnl" flex="1">
 
@@ -47,7 +47,7 @@
                     </grid>
 
                     <hbox pack="center">
-                        <numberpad id="creditcardRemark-multinumberpad" class="numpad" target="plu" style="padding: 0;"/>
+                        <numberpad id="creditcardRemark-multinumberpad" class="numpad" style="padding: 0;"/>
                         <vbox pack="end">
                             <sendkeybutton id="creditcardRemark-bkeyBtn"  label="&creditcard.button.action.del;" keyCode='0x08' target="plu" class="fixedbtn"  />
                             <sendkeybutton id="creditcardRemark-clearBtn"  label="&creditcard.button.action.clear;" class="fixedbtn"/>
@@ -61,16 +61,16 @@
                             <button id="creditcardRemark-ok" class="okBtn" label="&dialog.okButton.label;" default="true" oncommand="$.hidePanel('creditcardRemarkPanel', true)"/>
                             <button id="creditcardRemark-cancel" class="cancelBtn" label="&dialog.cancelButton.label;" default="true" oncommand="$.hidePanel('creditcardRemarkPanel', false)"/>
                         </hbox>
-                        <hbox id="dialogButtons" class="dialogbtns" pack="center">
+                        <!--hbox id="dialogButtons" class="dialogbtns" pack="center">
                             <button class="VkbBtn" label=""  oncommand="VirtualKeyboard.toggle();" />
-                        </hbox>
+                        </hbox-->
                     </hbox>
 
                 </vbox>
 
             </hbox>
 
-        </vivipanel>
+        </panel>
 
     </popupset>
 

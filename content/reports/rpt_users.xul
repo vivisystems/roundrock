@@ -28,46 +28,48 @@
         <vbox flex="1" class="MainPnl">
             <caption label="&rptusers.title;"  class="PageTitle"/>
             <!--caption label="&productsales.conditions;" / -->
-            <hbox class="TopPnl">
+            <hbox>
                 <grid class="DataForm" flex="1">
                     <columns>
-                        <column  flex="1"/><column flex="1" />
+                        <column  flex="1"/>
                     </columns>
                     <rows>
                         <row>
-                            
+                            <label value="&rptusers.sortby;" />
+	                        <menulist id="sortby">
+	                            <menupopup id="sortby_menupopup">
+	                                <menuitem selected="true" label="[&rptusers.all;]" value="all" />
+	                                <menuitem selected="false" label="&rptusers.username;" value="username" />
+	                                <menuitem selected="false" label="&rptusers.displayname;" value="displayname" />
+	                                <menuitem selected="false" label="&rptusers.group;" value="group" />
+	                            </menupopup>
+	                        </menulist>
                         </row>
                     </rows>
                 </grid>
-                <button id="execute" label="&rptusers.execute;" disabled="false" class="editbtns" oncommand="$do('execute', null, 'RptUsers');" />
+                <button id="execute" label="&rptusers.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptUsers');" />
             </hbox>
+            <hbox class="TopPnl">
+                <hbox class="ReportTool"  flex="1">
 
+                    <vivibutton id="export_pdf" label="&rptusers.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do('exportPdf', null, 'RptUsers');" />
+                    <vivibutton id="export_csv" label="&rptusers.exportcsv;" disabled="false" class="CsvBtn" oncommand="$do('exportCsv', null, 'RptUsers');" />
+                    <vivibutton id="export_rcp" label="&rptusers.exportrcp;" disabled="false" class="PrintBtn" oncommand="$do('exportRcp', null, 'RptUsers');" />
+
+                    <vivibutton id="togglesize" label="&rptusers.togglezoom;" disabled="false" class="ZoomBtn" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
+                    
+                </hbox>
+                <hbox id="dialogButtons" class="dialogbtns" pack="end">
+                    <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                </hbox>
+            </hbox>
             <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
                 <!-- grippy/ -->
             </splitter>
 
-            <hbox flex="1">
-                <groupbox flex="1">
-                    <box class="reportbox" flex="1">
-                        <browser type="content" id="preview_frame" src="rpt_template1.html" flex="1"/>
-                    </box>
-
-                </groupbox>
-                <vbox>
-                    <vbox class="ToolBar BarHeight">
-
-                        <vivibutton id="export_pdf" label="&rptusers.exportpdf;" disabled="false" class="editbtns" oncommand="$do('exportPdf', null, 'RptUsers');" />
-                        <vivibutton id="export_csv" label="&rptusers.exportcsv;" disabled="false" class="editbtns" oncommand="$do('exportCsv', null, 'RptUsers');" />
-                        <vivibutton id="export_rcp" label="&rptusers.exportrcp;" disabled="false" class="editbtns" oncommand="$do('exportRcp', null, 'RptUsers');" />
-
-                        <vivibutton id="togglesize" label="&rptusers.togglezoom;" disabled="false" class="editbtns" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
-                        <spacer flex="1" />
-                    </vbox>
-                    <hbox id="dialogButtons" class="dialogbtns" pack="end">
-                        <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
-                    </hbox>
-                </vbox>
-            </hbox>
+            <box class="reportbox" flex="1">
+                <browser type="content" id="preview_frame" src="rpt_template1.html" flex="1"/>
+            </box>
         </vbox>
     </vbox>
 

@@ -5,19 +5,18 @@
  *-----------------------------------------------------------------------------
  */
 
-.paymentscrollablepanel #name {
-    text-align: center;
-}
-
-.paymentscrollablepanel #amount, #origin_amount {
+.paymentscrollablepanel tree #amount, #origin_amount {
     text-align: right;
 }
 
-.paymentscrollabelpanel #current_price, #current_subtotal, #current_tax {
+.paymentscrollablepanel tree #name {
+    text-align: center;
+}
+
+.paymentscrollablepanel tree #memo1, #memo2 {
     text-align: left;
 }
 
 .paymentscrollablepanel vivibutton {
     margin: 0 4px;
 }
-

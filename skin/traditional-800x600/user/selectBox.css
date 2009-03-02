@@ -11,17 +11,18 @@
 }
 
 .SelectBox {
-    background: #f4f3ee;
+    background: #f0efe8;
     margin: 8px;
     padding: 8px;
+    -moz-box-flex: 1;
 }
 
 .ItemButtonA {
-    min-height: 46px;
+    min-height: 53px;
 }
 
 .catbtn {
-    min-height: 50px;
+    min-height: 53px;
 }
 
 .plubtn {

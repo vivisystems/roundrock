@@ -13,8 +13,8 @@
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
 <window id="backupandrecovery"
-	hidechrome="true"
-	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+        hidechrome="true"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/systembackup.js" />
@@ -35,13 +35,14 @@
                     </viviscrollabletree>
                 </vbox>
 
-                <vbox flex="1" align="center">
-                    <spacer style="height:80px;" />
-                    <vivibutton id="backuptolocal" label="&systembackup.backuptolocal;" class="BakBtn" oncommand="$do('backupToLocal',null, 'SystemBackup');"/>
-                    <vivibutton id="backuptostick" label="&systembackup.backuptostick;" class="BakBtn" oncommand="$do('backupToStick',null, 'SystemBackup');"/>
+                <vbox flex="1" class="ImgTool">
+                    <spacer flex="1" />
+                    <vivibutton id="backuptolocal" label="&systembackup.backuptolocal;"  oncommand="$do('backupToLocal',null, 'SystemBackup');"/>
+                    <vivibutton id="backuptostick" label="&systembackup.backuptostick;"  oncommand="$do('backupToStick',null, 'SystemBackup');"/>
                     <spacer style="height:50px;" />
-                    <vivibutton id="restorefromlocal" label="&systembackup.restorefromlocal;" class="BakBtn" oncommand="$do('restoreFromLocal',null, 'SystemBackup');"/>
-                    <vivibutton id="restorefromstick" label="&systembackup.restorefromstick;" class="BakBtn" oncommand="$do('restoreFromStick',null, 'SystemBackup');"/>
+                    <vivibutton id="restorefromlocal" label="&systembackup.restorefromlocal;"  oncommand="$do('restoreFromLocal',null, 'SystemBackup');"/>
+                    <vivibutton id="restorefromstick" label="&systembackup.restorefromstick;"  oncommand="$do('restoreFromStick',null, 'SystemBackup');"/>
+                    <spacer flex="1" />
                 </vbox>
 
                 <vbox flex="1">
@@ -52,7 +53,7 @@
                     </viviscrollabletree>
                 </vbox>
             </hbox>
-            <hbox id="dialogButtons" class="dialogbtns" pack="center">
+            <hbox id="dialogButtons" class="dialogbtns" pack="end">
                 <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
             </hbox>
         </vbox>
