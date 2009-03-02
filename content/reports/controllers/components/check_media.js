@@ -31,7 +31,7 @@
             var hasMounted = false;
 
             // auto create folder default is true...
-            if (typeof autoCreate == "undefine") autoCreate = true;
+            if (typeof autoCreate == "undefined") autoCreate = true;
 
             if (osLastMedia.exists()) {
                 osLastMedia.open("r");

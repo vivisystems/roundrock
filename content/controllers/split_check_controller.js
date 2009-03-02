@@ -6,8 +6,6 @@
     GeckoJS.Controller.extend( {
 
         name: 'SplitCheck',
-        screenwidth: 800,
-        screenheight: 600,
         _mainitems: null,
         _splitedchecks: [],
         _splititems: [],
@@ -155,6 +153,13 @@
 
         conform: function() {
             alert('Conform...');
+            var items = this._splititems[0].items;
+            var newTransaction = new Transaction();
+            items.forEach(function(item){
+                var addedItem = newTransaction.appendItem(item);
+            });
+            newTransaction.submit(2);
+            delete newTransaction;
 
         },
 

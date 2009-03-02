@@ -1,6 +1,8 @@
 (function(){
-    GeckoJS.include('chrome://viviecr/content/models/product.js');
-    GeckoJS.include('chrome://viviecr/content/models/plugroup.js');
+    include('chrome://viviecr/content/models/product.js');
+    include('chrome://viviecr/content/models/plugroup.js');
+    include('chrome://viviecr/content/models/sequence.js');
+    include('chrome://viviecr/content/models/transaction.js');
 
     // include controllers  and register itself
 
