@@ -16,7 +16,7 @@
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-    <script type="application/x-javascript" src="chrome://vivipos/content/libs/jquery-1.2.6.js" />
+    <script type="application/x-javascript" src="chrome://vivipos/content/libs/jquery.js" />
     <script type="application/x-javascript">
         window['GeckoJS'] = opener.GeckoJS;
         window['GREUtils'] = opener.GREUtils;
@@ -28,13 +28,18 @@
             <caption label="select.checks.title;"  class="PageTitle" />
             <label id="queues" hidden="true" value="" />
             <hbox class="SelectBox">
-                <viviscrollablebuttonpanel id="checkScrollablepanel" pre="true" flex="1" cols="4" rows="5"  seltype="single" labelField="check_no"
+                <viviscrollablebuttonpanel id="checkScrollablepanel" pre="true" flex="1" cols="2" rows="5"  seltype="single" labelField="check_no"
                                            class="ItemScrollablepanel"
                                            buttonClass="ItemButtonA TableHeight"
                                            scrollUpClass="ScrollUp"
                                            scrollDownClass="ScrollDown">
                     <spacer flex="1"/>
                 </viviscrollablebuttonpanel>
+                <vbox>
+                <label id="" value="&select.queues.order.details;"  class="PageTitle"/>
+                <hbox class="sline"></hbox>
+                <textbox class="QueueList" readonly="1" id="itemlist" value="" />
+                </vbox>
             </hbox>
             <spacer flex="1" />
             <hbox class="ToolBar" flex="1" pack="center">

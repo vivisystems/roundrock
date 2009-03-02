@@ -2990,6 +2990,19 @@
                 case 'recallTable':
                     r = this.GuestCheck.recallByTableNo(no);
                     break;
+
+                case 'transferSequence':
+                    r = this.GuestCheck.transferToOrderNo(no);
+                    break;
+                case 'transferCheck':
+                    r = this.GuestCheck.transferToCheckNo(no);
+                    break;
+                case 'transferTable':
+                    r = this.GuestCheck.transferToTableNo(no);
+                    break;
+                case 'splitOrder':
+                    r = this.GuestCheck.splitOrder(no, curTransaction.data);
+                    break;
             }
             // @irving: comment out the subtotal() call 02-16-09
             //this.subtotal();

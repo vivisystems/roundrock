@@ -190,7 +190,7 @@
             if (no)
                 this.recall('OrderNo', no);
             else
-                this.recall('AllCheck');
+                this.recall('AllCheck', 'OrderNo');
         },
 
         recallByCheckNo: function(no) {
@@ -198,7 +198,7 @@
             if (no)
                 this.recall('CheckNo', no);
             else
-                this.recall('AllCheck');
+                this.recall('AllCheck', 'CheckNo');
         },
 
         recallByTableNo: function(no) {
@@ -206,11 +206,11 @@
             if (no)
                 this.recall('TableNo', no);
             else
-                this.recall('AllCheck');
+                this.recall('AllCheck', 'TableNo');
         },
 
         recall: function(key, no) {
-            // this.log("GuestCheck recall...key:" + key + ",  no:" + no);
+            this.log("GuestCheck recall...key:" + key + ",  no:" + no);
             switch(key) {
                 case 'OrderNo':
                     var order = new OrderModel();
@@ -281,7 +281,7 @@
                             checks: ord
                         };
 
-                        window.openDialog(aURL, 'select_checks', features, inputObj);
+                        window.openDialog(aURL, 'select_tables', features, inputObj);
 
                         if (inputObj.ok && inputObj.index) {
                             var idx = inputObj.index;
@@ -326,10 +326,11 @@
                 case 'AllCheck':
                     var order = new OrderModel();
                     var fields = ['orders.id', 'orders.sequence', 'orders.check_no',
-                                  'orders.table_no', 'orders.status'];
+                                  'orders.table_no', 'orders.status', 'orders.total'];
                     var conditions = "orders.status='2'";
-                    var ord = order.find('all', {fields: fields, conditions: conditions});
-
+                    var ord = order.find('all', {fields: fields, conditions: conditions, recursive: 2});
+                    // var ord = order.find('all', {fields: fields, conditions: conditions});
+// this.log(this.dump(ord));
                     if (ord && ord.length > 1) {
                         //
                         // alert(this.dump(ord));
@@ -337,7 +338,11 @@
                         var screenwidth = GeckoJS.Session.get('screenwidth') || '800';
                         var screenheight = GeckoJS.Session.get('screenheight') || '600';
 
+                        if (no == 'CheckNo')
                         var aURL = 'chrome://viviecr/content/select_checks.xul';
+                        else if (no == 'TableNo')
+                        var aURL = 'chrome://viviecr/content/select_tables.xul';
+
                         var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
                         var inputObj = {
                             checks: ord
@@ -387,7 +392,85 @@
                     break;
             }
 
+        },
+
+        transferToOrderNo: function(no) {
+            this.transfer('OrderNo', no);
+        },
+
+        transferToCheckNo: function(no) {
+            this.transfer('CheckNo', no);
+        },
+
+        transferToTableNo: function(no) {
+            this.transfer('TableNo', no);
+        },
+
+        transfer: function(key, no) {
+            this.log("GuestCheck transfer...key:" + key + ",  no:" + no);
+            switch(key) {
+                case 'OrderNo':
+                break;
+                case 'CheckNo':
+                break;
+                case 'TableNo':
+                break;
+                case 'AllCheck':
+                break;
+            }
+        },
+
+        splitOrder: function(no, data) {
+            this.log("GuestCheck split check...no:" + no);
+
+            var order = new OrderModel();
+            var fields = ['orders.id', 'orders.sequence', 'orders.check_no',
+                          'orders.table_no', 'orders.status'];
+            var conditions = "orders.status='2'";
+            var ord = order.find('all', {fields: fields, conditions: conditions});
+
+            var screenwidth = GeckoJS.Session.get('screenwidth') || '800';
+            var screenheight = GeckoJS.Session.get('screenheight') || '600';
+            var aURL = "chrome://viviecr/content/split_check.xul";
+            var aName = "Split Check";
+            var aArguments = "";
+            var posX = 0;
+            var posY = 0;
+
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
+            var inputObj = {
+                checks: ord,
+                data: data
+            };
+
+            window.openDialog(aURL, 'select_checks', features, inputObj);
+
+            if (inputObj.ok && inputObj.index) {
+                var idx = inputObj.index;
+                // return queues[idx].key;
+                var id = ord[idx].id;
+                var status = ord[idx].status;
+                var check_no = ord[idx].check_no;
+
+                this._controller.unserializeFromOrder(id);
+
+                // display to onscreen VFD
+                this._controller.dispatchEvent('onWarning', _('RECALL# %S', [check_no]));
+
+                if (status == 1) {
+                    // @todo OSD
+                    NotifyUtils.warn(_('This order has been submited!!'));
+                }
+
+            }else {
+                // return null;
+            }
+        },
+
+        reformOrder: function(no) {
+            //
         }
+
     });
 
 })();

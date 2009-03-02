@@ -1,0 +1,126 @@
+<?xml version="1.0"?>
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % TableMap SYSTEM "chrome://viviecr/locale/table_map.dtd">
+  %TableMap;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/table_map.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+<window title="&tablemap.title;"
+        hidechrome="true"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script src="chrome://global/content/nsDragAndDrop.js"/>
+    <script src="chrome://global/content/nsTransferable.js"/>
+    <script src="chrome://viviecr/content/bindings/dragtablemap.js"/>
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/table_map.js" />
+
+<script>
+
+var btnObj;
+
+function setShape(shape) {
+    var tmap = document.getElementById('tmap');
+    var data = tmap.datasource;
+    var index = parseInt(btnObj.label);
+    data[index - 1].shape = shape;
+    tmap.datasource = data;
+
+    var propPanel = document.getElementById("prop_panel");
+    propPanel.hidePopup();
+
+}
+
+function popupProp(evt) {
+    var obj = evt.originalTarget;
+    btnObj = obj;
+
+    var propPanel = document.getElementById("prop_panel");
+    var x = obj.boxObject.x;
+    var y = obj.boxObject.y;
+
+    propPanel.openPopup(obj, "after_start");
+
+}
+
+</script>
+<box flex="1" style="background-color: purple; border:0px brown solid;">
+    <hbox flex="1" style="background-color: purple; border:0px blue solid;">
+        <vbox>
+            <table_map id="tmap" oncommand="popupProp(event);" class="tablestack"/>
+        </vbox>
+
+        <vbox flex="1">
+            <vbox flex="1">
+            <viviscrollablebuttonpanel id="regionScrollablepanel" flex="1" cols="1" rows="7"  seltype="single" labelField="region"
+                                       class="ItemScrollablepanel"
+                                       buttonClass="ItemButtonA"
+                                       scrollUpClass="ScrollUp"
+                                       scrollDownClass="ScrollDown"
+                                       oncommand="$do('selectRegion',this.selectedIndex, 'TableMap');"
+                                       >
+                <spacer flex="1"/>
+            </viviscrollablebuttonpanel>
+            </vbox>
+
+            <!-- vbox id="dialogButtons" class="dialogbtns" pack="center" -->
+            <hbox id="dialogButtons" class="dialogbtns" pack="end">
+                <button class="BtnAdd" label="test..." oncommand=""/>
+                <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
+                <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+            </hbox>
+
+        </vbox>
+        
+    </hbox>
+</box>
+<panel id="prop_panel" position="after_start" autohide="true" class="WaitPnl">
+    <vbox flex="1">
+    <groupbox flex="1">
+        <caption label="&tablemap.table.shape;" class="PageTitle"/>
+        <grid>
+            <columns>
+                <column flex="1" />
+                <column flex="1" />
+                <column flex="1" />
+                <column flex="1" />
+            </columns>
+
+            <rows>
+                <row>
+                    <label value="Large" />
+                    <button id="large1" type="radio" group="shape" label="Round" class="table1" oncommand="setShape('table1');"/>
+                    <button id="large2" type="radio" group="shape" label="Rect" class="table2" oncommand="setShape('table2');"/>
+                    <button id="large3" type="radio" group="shape" label="Square" class="table3" oncommand="setShape('table3');"/>
+                </row>
+                <row>
+                    <label value="Medium" />
+                    <button id="medium1" type="radio" group="shape" label="Round" class="table1" oncommand="setShape('table1');"/>
+                    <button id="medium2" type="radio" group="shape" label="Rect" class="table2" oncommand="setShape('table2');"/>
+                    <button id="medium3" type="radio" group="shape" label="Square" class="table3" oncommand="setShape('table3');"/>
+                </row>
+                <row>
+                    <label value="Small" />
+                    <button id="small1" type="radio" group="shape" label="Round" class="table1" oncommand="setShape('table1');"/>
+                    <button id="small2" type="radio" group="shape" label="Rect" class="table2" oncommand="setShape('table2');"/>
+                    <button id="small3" type="radio" group="shape" label="Square" class="table3" oncommand="setShape('table3');"/>
+                </row>
+            </rows>
+
+        </grid>
+    </groupbox>
+    </vbox>
+</panel>
+
+</window>
+
+

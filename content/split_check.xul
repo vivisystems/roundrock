@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % SplitCheck SYSTEM "chrome://viviecr/locale/split_check.dtd">
+  %SplitCheck;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/plugroup-button-colors.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/departments.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+<window title="&splitcheck.title;"
+	hidechrome="true"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+            
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/split_check.js" />
+
+    <keyset id="keyset_extensions">
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()" />
+    </keyset>
+
+    <vbox class="main-dialog" flex="1">
+        <hbox flex="1" class="MainPnl">
+            <vbox flex="1">
+                <caption label="&splitcheck.title;"/>
+                <vbox class="DataForm">
+                    <hbox>
+                        
+                        <vbox flex="1">
+                            <hbox>
+                            <caption label="Main Check"/>
+                            <label value="Check No:" />
+                            <label value="Table No:" />
+                            </hbox>
+                            <viviscrollabletree id="maincheckscrollablepanel" flex="1" rows="5" seltype="multiple" headers="Name,Qty,Price" fields="name,current_qty,current_price" onclick="$do('selectMain',this.selectedIndex, 'SplitCheck');"
+                                                     dir="reverse" class="ListPnl" scrollUpClass="ScrollUp" scrollDownClass="ScrollDown">
+                                <spacer flex="1" />
+                            </viviscrollabletree>
+                        </vbox>
+                        <vbox style="width:200px;">
+                            <vbox class="ToolBar">
+                            <button id="add_plugroup" label="&splitcheck.button.action.split;" disabled="false" class="BtnAdd" oncommand="$do('splitItems', null, 'SplitCheck');" />
+                            <button id="modify_plugroup" label="&splitcheck.button.action.conform;" disabled="false" class="BtnMod" oncommand="$do('conform', null, 'SplitCheck');" />
+                            <button id="delete_plugroup" label="&splitcheck.button.action.cancel;" disabled="false" class="BtnDel" oncommand="$do('cancel', null, 'SplitCheck');" />
+                            </vbox>
+                        </vbox>
+                    </hbox>
+
+                    <spacer style="height:10px;" />
+                    <separator class="groove-thin"/>
+                    <spacer style="height:20px;" />
+
+                    <hbox flex="1">
+                        
+                        <vbox flex="1">
+                            <hbox>
+                            <caption label="Splited Checks"/>
+                            <label value="Check No:" />
+                            <label value="Table No:" />
+                            </hbox>
+                            <viviscrollabletree id="splitedcheckscrollablepanel" flex="1" rows="5" seltype="multiple" headers="Name,Qty,Price" fields="name,current_qty,current_price" onclick="$do('selectSplited',this.selectedIndex, 'SplitCheck');"
+                                                     dir="reverse" class="ListPnl" scrollUpClass="ScrollUp" scrollDownClass="ScrollDown">
+                                <spacer flex="1" />
+                            </viviscrollabletree>
+                        </vbox>
+                        <vbox style="width:200px;">
+                            <viviscrollabletree id="splitedscrollablepanel" rows="4" headers="Splited Checks" fields="name" onclick="$do('selectSplitedCheck',this.selectedIndex, 'SplitCheck');"
+                                                         class="ListPnl" scrollUpClass="ScrollUp" scrollDownClass="ScrollDown">
+                                <spacer flex="1" />
+                            </viviscrollabletree>
+                            <vbox class="ToolBar">
+                                <button id="delete_plugroup" label="&splitcheck.button.action.reverse;" disabled="false" class="BtnDel" oncommand="$do('reverse', null, 'SplitCheck');" />
+                                <button id="delete_plugroup" label="&splitcheck.button.action.paythis;" disabled="false" class="BtnMod" oncommand="$do('paythis', null, 'SplitCheck');" />
+                            </vbox>
+                        </vbox>
+                        
+                    </hbox>
+                </vbox>
+            </vbox>
+        </hbox>
+    </vbox>
+
+</window>
