@@ -48,31 +48,6 @@
 
         document.getElementById('checkScrollablepanel').datasource = window.viewHelper ;
 
-        document.getElementById('checkScrollablepanel').addEventListener('command', function(evt) {
-            var index = evt.target.value;
-
-            var itemlistObj = document.getElementById('itemlist');
-            var data = window.viewHelper.getCurrentIndexData(index);
-            GREUtils.log(GeckoJS.BaseObject.dump(data));
-
-            var displayStr = "";
-            displayStr += "SEQ# " + data.sequence + "\n\n";
-            var limit = 10, cc= 0;
-            data.OrderItem.forEach(function(item){
-                if (cc<=limit) {
-                    displayStr += item.product_name + ' x ' + item.current_qty + '\n';
-                }
-
-            });
-
-            if (cc>limit) displayStr += "   ......   \n" ;
-
-            // displayStr += "\n\nTL: " + data.remain;
-            displayStr += "\n\nTL: " + data.total;
-
-            itemlistObj.setAttribute('value', displayStr);
-
-        }, true);
 
         doSetOKCancel(
             function(){

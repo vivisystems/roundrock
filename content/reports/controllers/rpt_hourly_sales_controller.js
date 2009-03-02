@@ -178,7 +178,7 @@
                 //
             } finally {
                 this._enableButton(true);
-                waitPanel.hidePopup();
+                if (waitPanel) waitPanel.hidePopup();
             }
         },
 
