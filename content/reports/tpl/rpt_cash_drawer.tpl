@@ -19,14 +19,6 @@
             ${head.end_date}
             </td>
         </tr>
-        <!-- html:tr>
-            <td>
-            Department:
-            </td>
-            <td>
-            ${head.department}
-            </td>
-        </tr -->
         <tr>
             <td>
             Machine Id:
@@ -45,7 +37,6 @@
                 <th style="text-align: left;">Drawer No.</th>
                 <th style="text-align: right;">Clerk</th>
                 <th style="text-align: right;">Time</th>
-                <th style="text-align: right;">Status</th>
                 <th style="text-align: right;">Event</th>
             </tr>
         </thead>
@@ -56,14 +47,13 @@
                 <td style="text-align: left;">${item.drawer_no}</td>
                 <td>${item.clerk_displayname}</td>
                 <td>${item.created}</td>
-                <td>${item.status}</td>
                 <td>${item.event_type}</td>
             </tr>
 {/for}
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="6"></td>
+                <td colspan="5"></td>
             </tr>
         </tfoot>
     </table>

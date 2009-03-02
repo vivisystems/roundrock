@@ -65,10 +65,10 @@
 
             var groupby;
 
-            var orderby = 'shift_changes.terminal_no,shift_changes.created';
+            var orderby = 'shift_changes.terminal_no, shift_changes.created';
 
             var shiftChange = new ShiftChangeModel();
-            var datas = shiftChange.find('all',{fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 2});
+            var datas = shiftChange.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 2 } );
 
             var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
             var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
@@ -104,7 +104,7 @@
                 }
             }
 
-            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_cash_by_clerk.tpl");
+            var path = GREUtils.File.chromeToPath( "chrome://viviecr/content/reports/tpl/rpt_cash_by_clerk.tpl" );
 
             var file = GREUtils.File.getFile(path);
             var tpl = GREUtils.File.readAllBytes(file);

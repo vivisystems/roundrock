@@ -96,8 +96,8 @@
             var order = new OrderModel();
             var datas = order.find('all',{fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 2});
 
-            var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
-            var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
+            var rounding_prices = GeckoJS.Configure.read( 'vivipos.fec.settings.RoundingPrices' ) || 'to-nearest-precision';
+            var precision_prices = GeckoJS.Configure.read( 'vivipos.fec.settings.PrecisionPrices' ) || 0;
 
 			var footDatas = {
             	tax_subtotal: 0,

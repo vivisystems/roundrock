@@ -53,35 +53,34 @@
             var end_str = document.getElementById('end_date').datetimeValue.toLocaleString();
 
             // var department = document.getElementById('department').value;
-            var machineid = document.getElementById('machine_id').value;
+            var machineid = document.getElementById( 'machine_id' ).value;
 
             start = parseInt(start / 1000);
             end = parseInt(end / 1000);
             
-            var cashDrawer = new CashDrawer();
+            var cashDrawer = new CashdrawerRecordModel();
 
             var fields = [
-            				'cash_drawer_records.terminal_no',
-                    		'cash_drawer_records.drawer_no',
-                            'cash_drawer_records.clerk_displayname',
-                            'cash_drawer_records.created',
-                            'cash_drawer_records.status',
-                            'cash_drawer_records.event_type'
+            				'terminal_no',
+                    		'drawer_no',
+                            'clerk_displayname',
+                            'DATETIME( "created", "unixepoch", "localtime" ) AS "created"',
+                            'event_type'
                         ];
                         
-            var conditions = "cashDrawer.created>='" + start +
-                            "' AND cashDrawer.created<='" + end + "'";
+            var conditions = "created>='" + start +
+                            "' AND created<='" + end + "'";
             
             if ( machineid.length > 0 ) {
-                conditions += " AND orders.terminal_no LIKE '" + machineid + "%'";
+                conditions += " AND terminal_no LIKE '" + machineid + "%'";
             }
 
-            var groupby = 'cash_drawer_records.terminal_no';
-            var orderby = 'cash_drawer_records.terminal_no';
+            var groupby = '';
+            var orderby = 'terminal_no';
             
             var sortby = document.getElementById( 'sortby' ).value;
             if ( sortby != 'all' )
-            	var orderby = 'cash_drawer_records.' + sortby;
+            	var orderby = sortby;
 
             var datas = cashDrawer.find( 'all', {fields: fields, conditions: conditions, group: groupby, recursive:1, order: orderby} );
 
@@ -106,6 +105,9 @@
             doc.innerHTML = result;
 
             this._enableButton(true);
+            
+            var splitter = document.getElementById('splitter_zoom');
+            splitter.setAttribute("state", "collapsed");
 
             waitPanel.hidePopup();
         },

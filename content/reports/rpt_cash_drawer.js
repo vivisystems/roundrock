@@ -1,5 +1,5 @@
 (function(){
-    include('chrome://viviecr/content/models/cash_drawer.js');
+    include('chrome://viviecr/content/models/cashdrawer_record.js');
 
     // include controllers  and register itself
 
