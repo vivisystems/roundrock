@@ -19,16 +19,16 @@
     
     <popupset id="dialogs">
 
-        <panel id="selectCondimentPanel" noautohide="true">
+        <panel id="selectCondimentPanel" noautohide="false">
 
-            <hbox flex="1" class="pop-dialog" pack="center" style="margin: 0; padding: 0;width: 640px; max-width: 640px; height: 560px; max-height: 560px;">
+            <hbox flex="1" class="pop-dialog" pack="center" style="margin: 0; padding: 0;">
 
                 <vbox class="MainPnl" flex="1">
 
                     <caption label="&select.condiments.title;" class="PageTitle" />
 
                     <hbox class="SelectBox">
-                        <viviscrollablebuttonpanel id="condimentscrollablepanel" flex="1" cols="4" rows="7"  seltype="mixed" labelField="name"
+                        <viviscrollablebuttonpanel id="condimentscrollablepanel" flex="1" cols="4" rows="7"  seltype="mix" labelField="name"
                                                    class="catesdcrollablepanel"
                                                    buttonClass="plubtn"
                                                    scrollUpClass="ScrollUp"

@@ -170,14 +170,9 @@
 
 
         afterScaffoldIndex: function(evt) {
-            var panelView = this.getListObj().datasource;
-            if (panelView == null) {
-                panelView =  new GeckoJS.NSITreeViewArray(evt.data);
-                this.getListObj().datasource = panelView;
-            }
-            panelView.data = evt.data;
+            
+            this.getListObj().datasource = evt.data;
 
-            this.validateForm();
         },
 
         load: function () {
@@ -196,8 +191,14 @@
 
         select: function(index){
 
+            var panel = this.getListObj();
+
             this.requestCommand('list', index);
 
+            panel.selectedItems = [index];
+            panel.selectedIndex = index;
+
+            this.validateForm(true);
             document.getElementById('job_name').focus();
         },
 

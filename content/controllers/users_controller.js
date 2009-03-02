@@ -275,15 +275,9 @@
         },
 
         afterScaffoldIndex: function(evt) {
-            var panelView = this.getListObj().datasource;
-            if (panelView == null) {
-                panelView =  new GeckoJS.NSITreeViewArray(evt.data);
-                this.getListObj().datasource = panelView;
-            }
-            panelView.data = evt.data;
 
-            this.validateForm(true);
-
+            this.getListObj().datasource = evt.data;
+            
         },
 
         getRoleGroup: function () {
@@ -345,6 +339,12 @@
             var index = panel.selectedIndex;
 
             this.requestCommand('list', index);
+
+            panel.selectedItems = [index];
+            panel.selectedIndex = index;
+
+            this.validateForm(true);
+
 
         },
         

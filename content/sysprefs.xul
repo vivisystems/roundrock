@@ -223,6 +223,7 @@
         <preferences>
 			
             <preference id="pref_registeratleft" name="vivipos.fec.settings.RegisterAtLeft" type="bool"/>
+            <preference id="pref_productpanelontop" name="vivipos.fec.settings.ProductPanelOnTop" type="bool"/>
             <preference id="pref_hidetagcolumn" name="vivipos.fec.settings.HideTagColumn" type="bool"/>
             <preference id="pref_hidedeptscrollbar" name="vivipos.fec.settings.HideDeptScrollbar" type="bool"/>
             <preference id="pref_hidepluscrollbar" name="vivipos.fec.settings.HidePLUScrollbar" type="bool"/>
@@ -250,7 +251,7 @@
             <rows>
                 <row>
                     <checkbox id="registerAtLeft" label="&layout.registeratleft;" preference="pref_registeratleft"/>
-                    <checkbox id="hideFPScrollbar" label="&layout.hidefpscrollbar;" preference="pref_hidefpscrollbar"/>
+                    <checkbox id="productPanelOnTop" label="&layout.productpanelontop;" preference="pref_productpanelontop"/>
                 </row>
                 <row>
                     <checkbox id="hideDeptScrollbar" label="&layout.hidedeptscrollbar;" preference="pref_hidedeptscrollbar"/>            
@@ -261,11 +262,12 @@
                     <checkbox id="hideTagColumn" label="&layout.hidetagcolumn;" preference="pref_hidetagcolumn"/>
                 </row>
                 <row>
-                    <checkbox id="cropDeptLabel" label="&layout.cropdeptlabel;" preference="pref_crop_dept_label" />
-                    <checkbox id="cropPLULabel" label="&layout.cropplulabel;" preference="pref_crop_plu_label"/>
+                    <checkbox id="hideFPScrollbar" label="&layout.hidefpscrollbar;" preference="pref_hidefpscrollbar"/>
+                    <checkbox id="checkTrackingMode" label="&layout.checktrackingmode;" preference="pref_checktrackingmode" />
                 </row>
                 <row>
-                    <checkbox id="checkTrackingMode" label="&layout.checktrackingmode;" preference="pref_checktrackingmode" />
+                    <checkbox id="cropDeptLabel" label="&layout.cropdeptlabel;" preference="pref_crop_dept_label" />
+                    <checkbox id="cropPLULabel" label="&layout.cropplulabel;" preference="pref_crop_plu_label"/>
                 </row>
             </rows>
         </grid>
@@ -363,138 +365,5 @@
 
     </prefpane>
 -->
-
-    <prefpane id="pluFilterSettingsPane" label="&category.plufilters;" >
-        <preferences>
-            <preference id="pref_plufilters" name="vivipos.fec.settings.PluFilters" type="string" />
-        </preferences>
-        <hbox flex="1">
-            <vbox class="MainL" flex="1">
-                <vbox pack="start" flex="1" class="LeftPnl">
-                    <viviscrollabletree id="plufilterscrollablepanel" flex="1"
-                                    headers="&plufilter.filtername;,&plufilter.index;,&plufilter.length;"
-                                    fields="filtername,index,length"
-                                    onclick="$do('select',this.selectedIndex, 'Plufilters');"
-                                    class="ListPnl"
-                                    scrollUpClass="ScrollUp" dir="normal"
-                                    scrollDownClass="ScrollDown">
-                        <spacer flex="1" />
-                    </viviscrollabletree>
-                </vbox>
-            </vbox>
-            
-            <vbox >
-                <grid class="DataForm">
-                    <columns>
-                        <column flex="1" />
-                    </columns>
-                    <rows>
-                        <row>
-                            <vbox>
-                                <label control="filter_name" value="&plufilter.filtername;"/>
-                                <textbox id="filter_name"
-                                        oninput="$do('validateForm', null, 'Plufilters')"/>
-                            </vbox>
-                        </row>
-                        <row>
-                            <vbox>
-                                <label control="filter_index" value="&plufilter.index;"/>
-                                <textbox id="filter_index" size="3" maxlength="2" min="0" max="16"
-                                        oninput="$do('validateForm', null, 'Plufilters')"/>
-                            </vbox>
-                        </row>
-                        <row>
-                            <vbox>
-                                <label control="filter_length" value="&plufilter.length;"/>
-                                <textbox id="filter_length" size="3" maxlength="2" min="0" max="16"
-                                        oninput="$do('validateForm', null, 'Plufilters')"/>
-                            </vbox>
-                        </row>
-
-                    </rows>
-
-                </grid>
-                <spacer flex="1" />
-                <hbox class="ToolBar" flex="1">
-                    <vivibutton id="add_filter"  label="&plufilter.add;" oncommand="$do('addFilter', null, 'Plufilters');"   />
-                    <vivibutton id="remove_filter"  label="&plufilter.remove;" oncommand="$do('removeFilter', null, 'Plufilters');"   />
-                </hbox>
-            </vbox>
-        </hbox>
-
-    </prefpane>
-
-    <prefpane id="destinations" label="&category.destinations;" >
-        <preferences>
-            <preference id="pref_destinations" name="vivipos.fec.settings.Destinations" type="string" />
-        </preferences>
-        <hbox flex="1">
-            <vbox class="MainL" flex="1">
-                <vbox pack="start" flex="1" class="LeftPnl">
-                    <viviscrollabletree id="destscrollablepanel" flex="1"
-                                    headers="&destination.default;,&destination.name;,&destination.pricelevel;,&destination.prefix;"
-                                    fields="defaultMark,name,pricelevel,prefix"
-                                    onclick="$do('select',this.selectedIndex, 'Destinations');"
-                                    class="ListPnl"
-                                    scrollUpClass="ScrollUp" dir="normal"
-                                    scrollDownClass="ScrollDown">
-                        <spacer flex="1" />
-                    </viviscrollabletree>
-                </vbox>
-            </vbox>
-
-            <vbox >
-                <grid class="DataForm">
-                    <columns>
-                        <column flex="0" />
-                    </columns>
-                    <rows>
-                        <row>
-                            <vbox>
-                                <label control="destination_name" value="&destination.name;"/>
-                                <textbox id="destination_name" name="name" form="destinationForm" default="" readonly="true"/>
-                            </vbox>
-                        </row>
-                        <row>
-                            <vbox>
-                                <label control="destination_pricelevel" value="&destination.pricelevel;"/>
-                                <menulist id="destination_pricelevel" name="pricelevel" form="destinationForm" default="">
-                                    <menupopup id="destination_pricelevel-popup">
-                                        <menuitem label="-" value="-"/>
-                                        <menuitem label="&destination.pricelevel.current;" value="&destination.pricelevel.current;"/>
-                                        <menuitem label="1" value="1"/>
-                                        <menuitem label="2" value="2"/>
-                                        <menuitem label="3" value="3"/>
-                                        <menuitem label="4" value="4"/>
-                                        <menuitem label="5" value="5"/>
-                                        <menuitem label="6" value="6"/>
-                                        <menuitem label="7" value="7"/>
-                                        <menuitem label="8" value="8"/>
-                                        <menuitem label="9" value="9"/>
-                                    </menupopup>
-                                </menulist>
-                            </vbox>
-                        </row>
-                        <row>
-                            <vbox>
-                                <label control="destination_prefix" value="&destination.prefix;"/>
-                                <textbox id="destination_prefix" name="prefix" form="destinationForm" default="" size="3" min="0" max="16"/>
-                            </vbox>
-                        </row>
-
-                    </rows>
-
-                </grid>
-                <checkbox id="destination_default" name="defaultCheckbox" form="destinationForm" default="0" label="&destination.setdefault;"/>
-                <spacer flex="1" />
-                <hbox class="ToolBar" flex="1">
-                    <vivibutton id="add_destination"  label="&destination.add;" oncommand="$do('addDestination', null, 'Destinations');"   />
-                    <vivibutton id="modify_destination"  label="&destination.modify;" oncommand="$do('modifyDestination', null, 'Destinations');"   />
-                    <vivibutton id="delete_destination"  label="&destination.delete;" oncommand="$do('deleteDestination', null, 'Destinations');"   />
-                </hbox>
-            </vbox>
-        </hbox>
-
-    </prefpane>
 
 </prefwindow>

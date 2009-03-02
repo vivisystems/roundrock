@@ -179,11 +179,13 @@
         
         resetLayout: function (initial) {
             var registerAtLeft = GeckoJS.Configure.read('vivipos.fec.settings.RegisterAtLeft') || false;
+            var productPanelOnTop = GeckoJS.Configure.read('vivipos.fec.settings.ProductPanelOnTop') || false;
             var checkTrackingMode = GeckoJS.Configure.read('vivipos.fec.settings.CheckTrackingMode') || false;
             var hideSoldOutButtons = GeckoJS.Configure.read('vivipos.fec.settings.HideSoldOutButtons') || false;
             var hideTag = GeckoJS.Configure.read('vivipos.fec.settings.HideTagColumn') || false;
             
             var hbox = document.getElementById('mainPanel');
+            var productPanel = document.getElementById('productPanel');
             var deptPanel = document.getElementById('catescrollablepanel');
             var pluPanel = document.getElementById('prodscrollablepanel');
             var fnPanel = document.getElementById('functionPanel');
@@ -194,6 +196,7 @@
             var soldOutProduct = document.getElementById('prodscrollablepanel-soldout');
             
             if (hbox) hbox.setAttribute('dir', registerAtLeft ? 'reverse' : 'normal');
+            if (productPanel) productPanel.setAttribute('dir', productPanelOnTop ? 'reverse' : 'normal');
             if (deptPanel) deptPanel.setAttribute('dir', registerAtLeft ? 'normal' : 'reverse');
             if (pluPanel) pluPanel.setAttribute('dir', registerAtLeft ? 'normal' : 'reverse');
             if (fnPanel) fnPanel.setAttribute('dir', registerAtLeft ? 'reverse' : 'normal');

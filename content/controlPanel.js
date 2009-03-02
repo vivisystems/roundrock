@@ -19,9 +19,8 @@
         var categories = GeckoJS.BaseObject.getKeys(prefs) || [];
 
         categories.forEach(function(cn) {
-            var data = new GeckoJS.ArrayQuery(GeckoJS.BaseObject.getValues(prefs[cn])).orderBy("label asc");
-            //if (data) data.forEach(function(el) {el.label = _(el.label)});
-            if (data) data = data.map(function(el) {
+            var ctrls = GeckoJS.BaseObject.getValues(prefs[cn]);
+            if (ctrls) ctrls = ctrls.map(function(el) {
                 var entry = {icon: el.icon,
                              path: el.path,
                              roles: el.roles,
@@ -30,6 +29,7 @@
                              label: _(el.label)}
                 return entry;
             })
+            var data = new GeckoJS.ArrayQuery(ctrls).orderBy("label asc");
             window.viewHelper = new opener.GeckoJS.NSITreeViewArray(data);
         
             document.getElementById(cn + 'Panel').datasource = window.viewHelper ;

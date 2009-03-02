@@ -80,3 +80,10 @@ pref("vivipos.fec.acl.roles.acl_scroll_function_panel", "acl_scroll_function_pan
 pref("vivipos.fec.acl.roles.acl_manage_hotkey", "acl_manage_hotkey");
 pref("vivipos.fec.acl.roles.acl_manage_addons", "acl_manage_addons");
 pref("vivipos.fec.acl.roles.acl_pre_finalize", "acl_pre_finalize");
+pref("vivipos.fec.acl.roles.acl_manage_plufilters", "acl_manage_plufilters");
+pref("vivipos.fec.acl.roles.acl_manage_destinations", "acl_manage_destinations");
+pref("vivipos.fec.acl.roles.acl_manage_annotations", "acl_manage_annotations");
+pref("vivipos.fec.acl.roles.acl_annotate", "acl_add_annotate");
+pref("vivipos.fec.acl.roles.acl_view_annotations", "acl_view_annotations");
+pref("vivipos.fec.acl.roles.acl_modify_annotations", "acl_modify_annotations");
+pref("vivipos.fec.acl.roles.acl_delete_annotations", "acl_delete_annotations");

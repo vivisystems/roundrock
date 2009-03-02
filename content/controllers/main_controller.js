@@ -160,6 +160,97 @@
             GREUtils.Dialog.openDialog(window, aURL, aName, aArguments, posX, posY, width, height);
         },
 
+        AnnotateDialog: function (codes) {
+
+            var buf = this._getKeypadController().getBuffer();
+            this.requestCommand('clear', null, 'Cart');
+
+            var txn = GeckoJS.Session.get('current_transaction');
+            if (txn == null || txn.data == null || txn.data.id == null || txn.data.id == '') {
+                NotifyUtils.warn(_('No order to add/view annotations'));
+                return;
+            }
+
+            // retrieve annotation type if a single code is given
+            var codeList = [];
+            if (codes != null && codes != '') {
+
+                if (txn.isSubmit() || txn.isCancel()) {
+                    NotifyUtils.warn('Order is not open; annotations may not be added');
+                    return;
+                }
+
+                codeList = codes.split(',');
+
+                var annotationController = GeckoJS.Controller.getInstanceByName('Annotations');
+                var annotationType;
+
+                if (codeList.length == 1 && codeList[0] != null && codeList[0] != '') {
+                    annotationType = annotationController.getAnnotationType(codeList[0]);
+                }
+            }
+
+            // only one annotationType is specified and is not null, use memo-style UI
+            if (codeList.length == 1 && annotationType != null && annotationType != '') {
+                var existingAnnotation = annotationController.retrieveAnnotation(txn.data.id, annotationType);
+                var readonly = false;
+                if (!this.Acl.isUserInRole('acl_modify_annotations')) {
+                    // no privilege to modify annotation, we must make sure we don't
+                    // overwrite existing annotation of the same type
+                    if (existingAnnotation != '') {
+                        readonly = true;
+                    }
+                }
+                
+                var text;
+                if (buf != null && buf != '') {
+                    text = buf;
+                }
+                else {
+                    text = existingAnnotation;
+                }
+
+                var inputObj = {
+                    input0: text,
+                    require0: false,
+                    multiline0: true,
+                    readonly0: readonly
+                };
+                
+                var data = [
+                    _('Add Annotation'),
+                    '',
+                    _(annotationType),
+                    '',
+                    inputObj
+                ];
+
+                return $.popupPanel('promptAdditemPanel', data).next( function(evt){
+                    var result = evt.data;
+
+                    if (result.ok && result.input0) {
+                        if ('annotations' in txn.data) {
+                            txn.data.annotations.push({type: annotationType, text: result.input0});
+                        }
+                        else {
+                            txn.data.annotations = [{type: annotationType, text: result.input0}];
+                        }
+
+                        // save annotation in db
+                        annotationController.annotate(txn.data.id, annotationType, result.input0);
+                    }
+                });
+            }
+            else {
+                var aURL = "chrome://viviecr/content/annotate.xul";
+                var aName = "Annotate";
+                var aArguments = {order_id: txn.data.id, codes: codeList};
+                var aFeatures = "chrome,titlebar,toolbar,centerscreen,modal,width=" + this.screenwidth + ",height=" + this.screenheight;
+
+                window.openDialog(aURL, aName, aFeatures, aArguments);
+            }
+        },
+
         WizardDialog: function () {
             var aURL = "chrome://viviecr/content/firstuse.xul";
             var aName = "First Run";

@@ -5,6 +5,7 @@
 <!ENTITY category.tax "Taxes">
 <!ENTITY category.plufilters "Product Filters">
 <!ENTITY category.destinations "Destinations">
+<!ENTITY category.annotations "Annotations">
 <!ENTITY general.publicattendance "Individual Time-and-Attendance visible to all">
 <!ENTITY general.privatequeue "Private order queue">
 <!ENTITY general.defaultpricelevel "System default price level">
@@ -35,6 +36,7 @@
 <!ENTITY login.endshiftonsignoff "Automatically ends shift when users sign off">
 <!ENTITY login.allowquicklogin "Allow quick login by automatically matching user by password">
 <!ENTITY layout.registeratleft "Place register screen on the left">
+<!ENTITY layout.productpanelontop "Place product panel on top">
 <!ENTITY layout.checktrackingmode "Show check tracking details">
 <!ENTITY layout.hidesoldoutbuttons "Hide sold-out buttons">
 <!ENTITY layout.hidetagcolumn "Hide tag column">
@@ -60,15 +62,6 @@
 <!ENTITY plufilter.length "Length">
 <!ENTITY plufilter.add "Add">
 <!ENTITY plufilter.remove "Remove">
-<!ENTITY destination.default "Default">
-<!ENTITY destination.name "Name">
-<!ENTITY destination.pricelevel "Price Level">
-<!ENTITY destination.pricelevel.current "Current Level">
-<!ENTITY destination.prefix "Prefix">
-<!ENTITY destination.add "Add">
-<!ENTITY destination.modify "Modify">
-<!ENTITY destination.delete "Delete">
-<!ENTITY destination.setdefault "Default Destination">
 <!ENTITY category.sound "Sound">
 <!ENTITY sound.beepOnItemAdd "Beep on item registrations">
 <!ENTITY sound.beepOnScanningError "Beep on scanning errors">

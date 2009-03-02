@@ -48,7 +48,6 @@
 	border-bottom: 2px solid white;
 	font-size: 11pt;
 	padding: 8px;
-    -moz-box-align: center;
 }
 .DataForm {
 	border-right: 2px solid white;
@@ -588,6 +587,10 @@ treecol, treecolpicker {
     padding: 2px 4px;
     -moz-appearance: none;
     color: #000;
+}
+
+treecol > label {
+    text-align: center
 }
 
 treechildren::-moz-tree-row {

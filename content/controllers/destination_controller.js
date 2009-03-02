@@ -37,10 +37,10 @@
             return this._listObj;
         },
 
-        load: function (data) {
+        load: function () {
 
             if (this._listDatas.length <= 0) {
-                var datas = document.getElementById('pref_destinations').value;
+                var datas = GeckoJS.Configure.read('vivipos.fec.settings.Destinations');
                 if (datas != null) this._listDatas = GeckoJS.BaseObject.unserialize(GeckoJS.String.urlDecode(datas));
                 if (this._listDatas.length <= 0) this._listDatas = [];
             }
@@ -57,9 +57,9 @@
 
             window.openDialog(aURL, _('Add New Destination'), features, _('New Destination'), '', _('Name'), '', inputObj);
             if (inputObj.ok && inputObj.input0) {
-                var destName = inputObj.input0;
+                var destName = inputObj.input0.replace('\'', '"', 'g');
 
-                var dupNames = new GeckoJS.ArrayQuery(this._listDatas).filter('name = ' + destName);
+                var dupNames = new GeckoJS.ArrayQuery(this._listDatas).filter('name = \'' + destName + '\'');
                 if (dupNames.length > 0) {
                     // @todo OSD
                     NotifyUtils.warn(_('Destination [%S] already exists', [destName]));
@@ -91,6 +91,7 @@
                 if (inputObj.name != null && inputObj.name.length > 0) {
                     this._listDatas[index].pricelevel = inputObj.pricelevel;
                     this._listDatas[index].prefix = GeckoJS.String.trim(inputObj.prefix);
+                    this._listDatas[index].customerInfo = inputObj.customerInfo;
                     this.setDefaultDestination(inputObj.defaultCheckbox);
 
                     this.saveDestinations();
@@ -109,13 +110,16 @@
             var index = this.getListObj().selectedIndex;
             if (index >= 0) {
                 var destName = this._listDatas[index].name;
+
+                if (!GREUtils.Dialog.confirm(null, _('confirm delete desttination [%S]', [destName]), _('Are you sure you want to delete destination [%S]?', [destName]))) {
+                    return;
+                }
+
                 this._listDatas.splice(index, 1);
                 this.saveDestinations();
 
                 // @todo OSD
                 OsdUtils.info(_('Destination [%S] deleted successfully', [destName]));
-
-                this.load();
 
                 index = this.getListObj().selectedIndex;
                 if (index >= this._listDatas.length) index = this._listDatas.length - 1;
@@ -127,7 +131,7 @@
             var datas = new GeckoJS.ArrayQuery(this._listDatas).orderBy('name asc');
             var datastr = GeckoJS.String.urlEncode(GeckoJS.BaseObject.serialize(datas));
 
-            document.getElementById('pref_destinations').value = datastr;
+            GeckoJS.Configure.write('vivipos.fec.settings.Destinations', datastr);
             GeckoJS.Session.set('defaultDestination', this.getDefaultDestination());
             GeckoJS.Session.set('destinations', datas);
 
@@ -171,21 +175,27 @@
             var addBtn = document.getElementById('add_destination');
             var modifyBtn = document.getElementById('modify_destination');
             var deleteBtn = document.getElementById('delete_destination');
+            var pricelevelMenu = document.getElementById('destination_pricelevel');
             var prefixTextbox = document.getElementById('destination_prefix');
             var defaultCheckbox = document.getElementById('destination_default');
+            var customerInfoCheckbox = document.getElementById('destination_customer_info');
 
             var panel = this.getListObj();
             if (panel.selectedIndex > -1) {
                 deleteBtn.removeAttribute('disabled');
                 modifyBtn.removeAttribute('disabled');
                 defaultCheckbox.removeAttribute('disabled');
+                pricelevelMenu.removeAttribute('disabled');
                 prefixTextbox.removeAttribute('disabled');
+                customerInfoCheckbox.removeAttribute('disabled');
             } else {
                 deleteBtn.setAttribute('disabled', true);
                 modifyBtn.setAttribute('disabled', true);
                 defaultCheckbox.checked = false;
                 defaultCheckbox.setAttribute('disabled', true);
+                pricelevelMenu.setAttribute('disabled', true);
                 prefixTextbox.setAttribute('disabled', true);
+                customerInfoCheckbox.setAttribute('disabled', true);
             }
         },
 	
@@ -245,30 +255,42 @@
 
             // get current transaction
             var txn = cart._getTransaction();
+
             if (txn == null || txn.isSubmit() || txn.isCancel()) {
                 // create a new transaction
                 txn = cart._newTransaction();
                 cart.clear();
             }
+            else if (txn.isClosed()) {
+                NotifyUtils.warn(_('This order is closed pending payment and may not be modified'));
+                return;
+            }
 
-            // set current destination
-            GeckoJS.Session.set('vivipos_fec_order_destination', dest.name);
+            // send beforeSetDestination event
+            if (this.dispatchEvent('beforeSetDestination', txn)) {
 
-            // set price level if necessary
-            if (isNaN(dest.pricelevel)) {
-                if (dest.pricelevel != '-') {
-                    this.requestCommand('changeToCurrentLevel', null, 'Pricelevel');
+                // set current destination
+                GeckoJS.Session.set('vivipos_fec_order_destination', dest.name);
+
+                // set price level if necessary
+                if (isNaN(dest.pricelevel)) {
+                    if (dest.pricelevel != '-') {
+                        this.requestCommand('changeToCurrentLevel', null, 'Pricelevel');
+                    }
                 }
-            }
-            else {
-                this.requestCommand('change', dest.pricelevel, 'Pricelevel');
-            }
+                else {
+                    this.requestCommand('change', dest.pricelevel, 'Pricelevel');
+                }
 
-            // set txn destination
-            txn.data.destination = dest.name;
+                // set txn destination
+                txn.data.destination = dest.name;
 
-            // store destination prefix in transaction
-            txn.data.destination_prefix = (dest.prefix == null) ? '' : dest.prefix + ' ';
+                // store destination prefix in transaction
+                txn.data.destination_prefix = (dest.prefix == null) ? '' : dest.prefix + ' ';
+
+                // send afterSetDestination event to signal success
+                this.dispatchEvent('afterSetDestination', {transaction: txn, destination: dest});
+            }
         }
 	
     });

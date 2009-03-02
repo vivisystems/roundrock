@@ -64,6 +64,9 @@
                 rc1 = 0;
                 oldIndex = 0;
             }
+            if (oldIndex < 0) {
+                oldIndex = 0;
+            }
             if (rc2 < 0) rc2 = this.data.length;
             if (newIndex == null) newIndex = this.data.length - 1;
             if (rc1 != rc2) {
