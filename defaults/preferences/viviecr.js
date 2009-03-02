@@ -127,6 +127,11 @@ pref("vivipos.fec.settings.controlpanels.config.functionpanel.label", "Function 
 pref("vivipos.fec.settings.controlpanels.config.functionpanel.path", "chrome://viviecr/content/funcpanelecrprefs.xul");
 pref("vivipos.fec.settings.controlpanels.config.functionpanel.icon", "chrome://viviecr/skin/icons/icon_functionpnl.png");
 pref("vivipos.fec.settings.controlpanels.config.functionpanel.roles", "acl_manage_function_panel");
+
+pref("vivipos.fec.settings.controlpanels.system.tablemap.label", "Table Map");
+pref("vivipos.fec.settings.controlpanels.system.tablemap.path", "chrome://viviecr/content/table_map.xul");
+pref("vivipos.fec.settings.controlpanels.system.tablemap.icon", "chrome://viviecr/skin/icons/icon_generic.png");
+pref("vivipos.fec.settings.controlpanels.system.tablemap.roles", "acl_public_access");
  
 pref("vivipos.fec.registry.function.programmable.tagitem.access", "acl_tag_item");
 pref("vivipos.fec.registry.function.programmable.tagitem.command", "tagItem");
