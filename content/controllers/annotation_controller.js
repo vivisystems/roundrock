@@ -51,7 +51,7 @@
         addAnnotationCode: function(){
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
-            var inputObj = {input0:null, require0:true, input1:null, require1:true};
+            var inputObj = {input0:null, require0:true, alphaOnly0:true, input1:null, require1:true};
 
             window.openDialog(aURL, _('Add New Annotation Code'), features, _('New Annotation Code'), '', _('Code'), _('Type'), inputObj);
             if (inputObj.ok && inputObj.input0) {
@@ -203,11 +203,11 @@
             return this._textboxObj;
         },
 
-        loadViews: function() {
+        loadViews: function(codes) {
 
             this.loadAnnotations();
 
-            this.loadTypes();
+            this.loadTypes(codes);
             
             this.validateAnnotateForm();
         },
@@ -224,13 +224,28 @@
             this.getViewListObj().datasource = this._annotationDatas;
         },
 
-        loadTypes: function() {
+        loadTypes: function(filters) {
             // load list of annotation types
             if (this._typeDatas.length <= 0) {
+                var types = [];
                 var datas = GeckoJS.Configure.read('vivipos.fec.settings.Annotations');
-                if (datas != null) this._typeDatas = GeckoJS.BaseObject.unserialize(GeckoJS.String.urlDecode(datas));
-                if (this._typeDatas.length <= 0) this._typeDatas = [];
-                else new GeckoJS.ArrayQuery(this._typeDatas).orderBy('type asc');
+                if (datas != null) types = GeckoJS.BaseObject.unserialize(GeckoJS.String.urlDecode(datas));
+                if (types.length <= 0) types = [];
+                else new GeckoJS.ArrayQuery(types).orderBy('type asc');
+
+                if (filters && filters.length > 0) {
+                    this._typeDatas = [];
+
+                    var self = this;
+                    types.forEach(function(t) {
+                        if (filters.indexOf(t.code) > -1) {
+                            self._typeDatas.push(t);
+                        }
+                    });
+                }
+                else {
+                    this._typeDatas = types;
+                }
             }
 
             this.getTypeListObj().datasource = this._typeDatas;
@@ -419,7 +434,7 @@
         getAnnotationType: function(annotationCode) {
             // check if annotation is valid
             var annotations = GeckoJS.Session.get('annotations');
-            var results = new GeckoJS.ArrayQuery(annotations).filter('code = ' + annotationCode);
+            var results = new GeckoJS.ArrayQuery(annotations).filter('code = \'' + annotationCode + '\'');
             if (results == null || results.length == 0) {
                 return null;
             }

@@ -85,6 +85,7 @@
 
                     </grid>
                     <checkbox id="destination_default" name="defaultCheckbox" form="destinationForm" default="0" label="&destinations.setdefault;"/>
+                    <checkbox id="destination_customer_info" name="customerInfo" form="destinationForm" default="0" label="&destinations.customer.info;"/>
                 </vbox>
             </hbox>
             <hbox>

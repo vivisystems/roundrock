@@ -3,6 +3,7 @@
 <!ENTITY destinations.name "Name">
 <!ENTITY destinations.pricelevel "Price Level">
 <!ENTITY destinations.pricelevel.default "Default Level">
+<!ENTITY destinations.customer.info "Need Customer Info">
 <!ENTITY destinations.prefix "Prefix">
 <!ENTITY destinations.add "Add">
 <!ENTITY destinations.modify "Modify">

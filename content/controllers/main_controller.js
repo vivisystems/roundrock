@@ -160,7 +160,7 @@
             GREUtils.Dialog.openDialog(window, aURL, aName, aArguments, posX, posY, width, height);
         },
 
-        AnnotateDialog: function (code) {
+        AnnotateDialog: function (codes) {
 
             var buf = this._getKeypadController().getBuffer();
             this.requestCommand('clear', null, 'Cart');
@@ -171,23 +171,27 @@
                 return;
             }
 
-            // retrieve annotation type is code is given
-            var annotationType;
-            if (code != null) {
+            // retrieve annotation type if a single code is given
+            var codeList = [];
+            if (codes != null && codes != '') {
 
-                var annotationController = GeckoJS.Controller.getInstanceByName('Annotations');
-
-                if (annotationController != null && code != null && code != '') {
-                    annotationType = annotationController.getAnnotationType(code);
-                }
-            }
-
-            if (annotationType != null && annotationType != '') {
                 if (txn.isSubmit() || txn.isCancel()) {
                     NotifyUtils.warn('Order is not open; annotations may not be added');
                     return;
                 }
 
+                codeList = codes.split(',');
+
+                var annotationController = GeckoJS.Controller.getInstanceByName('Annotations');
+                var annotationType;
+
+                if (codeList.length == 1 && codeList[0] != null && codeList[0] != '') {
+                    annotationType = annotationController.getAnnotationType(codeList[0]);
+                }
+            }
+
+            // only one annotationType is specified and is not null, use memo-style UI
+            if (codeList.length == 1 && annotationType != null && annotationType != '') {
                 var existingAnnotation = annotationController.retrieveAnnotation(txn.data.id, annotationType);
                 var readonly = false;
                 if (!this.Acl.isUserInRole('acl_modify_annotations')) {
@@ -208,7 +212,7 @@
 
                 var inputObj = {
                     input0: text,
-                    require0:false,
+                    require0: false,
                     multiline0: true,
                     readonly0: readonly
                 };
@@ -240,13 +244,10 @@
             else {
                 var aURL = "chrome://viviecr/content/annotate.xul";
                 var aName = "Annotate";
-                var aArguments = txn.data.id;
-                var posX = 0;
-                var posY = 0;
-                var width = this.screenwidth;
-                var height = this.screenheight;
+                var aArguments = {order_id: txn.data.id, codes: codeList};
+                var aFeatures = "chrome,titlebar,toolbar,centerscreen,modal,width=" + this.screenwidth + ",height=" + this.screenheight;
 
-                GREUtils.Dialog.openDialog(window, aURL, aName, aArguments, posX, posY, width, height);
+                window.openDialog(aURL, aName, aFeatures, aArguments);
             }
         },
 

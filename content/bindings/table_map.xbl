@@ -1,0 +1,196 @@
+<?xml version="1.0"?>
+
+<bindings xmlns="http://www.mozilla.org/xbl"
+          xmlns:xbl="http://www.mozilla.org/xbl"
+          xmlns:html="http://www.w3.org/1999/xhtml"
+          xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script src="chrome://global/content/nsDragAndDrop.js"/>
+    <script src="chrome://global/content/nsTransferable.js"/>
+    <script src="chrome://viviecr/content/bindings/dragtablemap.js"/>
+
+    <binding id="table_map">
+        <content>
+            <xul:box xbl:inherits="class,hidden,flex,align,dir">
+                <xul:stack anonid="stack"
+                    style="background: transparent url( chrome://viviecr/content/skin/images/bg_fec_vivi.png) 0 0 no-repeat;"
+                    xbl:inherits="class,hidden,flex,align,dir"
+                    ondragover="nsDragAndDrop.dragOver(event,mapObserver)"
+                    ondragdrop="nsDragAndDrop.drop(event,mapObserver)"
+                />
+            </xul:box>
+            <children />
+        </content>
+
+        <resources>
+        </resources>
+
+        <implementation>
+
+            <field name="_backgroundImage" > </field>
+
+            <field name="_datasource" >null</field>
+            <field name="_selectedIndex" >-1</field>
+            <field name="_currentIndex" >-1</field>
+            <field name="_selectedItem" >null</field>
+
+            <property name="backgroundImage" onset="return this.setBackgroundImage(val);"/>
+            <property name="datasource" onget="return this.getDatasource();" onset="return this.setDatasource(val);"/>
+            <property name="selectedIndex" onget="return this._selectedIndex;" onset="return this.setSelectedIndex(val);"/>
+            <property name="currentIndex" onget="return this._currentIndex;"/>
+            <property name="selectedItem" onget="return this._selectedItem;" onset="return this.setSelectedItem(val);"/>
+            <constructor>
+            <![CDATA[
+
+                var self = this;
+                // this._datasource = this.getAttribute('datasource') || null;
+
+                //this.ready = function() {
+                    //
+                //};
+                //window.addEventListener('DOMContentLoaded', this.ready, true);
+                //window.addEventListener('load', this.ready, true);
+
+            ]]>
+            </constructor>
+
+            <destructor>
+            <![CDATA[
+               //window.removeEventListener('DOMContentLoaded', this.ready, true);
+               //window.removeEventListener('load', this.ready, true);
+            ]]>
+            </destructor>
+
+            <method name="setBackgroundImage">
+                <parameter name="imgsrc"/>
+                <body><![CDATA[
+                        // Set stack background image...
+
+                        // this.refresh();
+                    ]]>
+                </body>
+            </method>
+
+            <method name="getDatasource">
+                <body><![CDATA[
+                            if (!this._datasource) this._datasource = [];
+                            return this._datasource;
+                        ]]>
+                </body>
+            </method>
+
+
+            <method name="setDatasource">
+                <parameter name="datasource"/>
+                <body><![CDATA[
+                        if (datasource) {
+                            if (datasource.constructor.name == 'Array') {
+                                this._datasource = datasource;
+                            }
+
+                            this.setAttribute('datasource', this._datasource);
+                        }
+
+                        var stackObj = document.getAnonymousElementByAttribute(this, 'anonid', 'stack');
+                        // GeckoJS.Helper.removeAllChildren(stackObj);
+                        // remove all childs
+                        while (stackObj.firstChild) {
+                            stackObj.removeChild(stackObj.firstChild);
+                        }
+
+                        var i=0;
+                        var cnt = datasource.length;
+                        for (i=0; i< cnt;i++) {
+
+                            var elem = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","button");
+                            elem.setAttribute("label",datasource[i].label);
+
+                            stackObj.appendChild(elem);
+                            elem.setAttribute("left",""+datasource[i].x);
+                            elem.setAttribute("top",""+datasource[i].y);
+                            elem.setAttribute("elem","button");
+                            elem.setAttribute("group","table");
+                            elem.setAttribute("type","radio");
+                            // elem.setAttribute("popup","prop_panel");
+                            elem.setAttribute("anonid", "table" + i);
+
+                            elem.className = datasource[i].shape;
+                            elem.setAttribute("ondraggesture", "nsDragAndDrop.startDrag(event,tableObserver)");
+                            elem.setAttribute("ondragdrop", "nsDragAndDrop.drop(event,mapObserver)");
+
+                        }
+
+                        // this.refresh();
+                        return this.getDatasource();
+                    ]]>
+                </body>
+            </method>
+
+            <method name="setSelectedIndex">
+                <parameter name="index"/>
+                <body><![CDATA[
+                        // Set table index...
+
+                        return this._selectedIndex;
+                    ]]>
+                </body>
+            </method>
+
+            <method name="setCurrentIndex">
+                <parameter name="index"/>
+                <body><![CDATA[
+                        // Set table index...
+
+                        return this._currentIndex;
+                    ]]>
+                </body>
+            </method>
+
+        </implementation>
+
+        <handlers>
+            <handler event="click"><![CDATA[
+
+                    var obj = event.originalTarget.boxObject;
+                    var tagName = event.originalTarget.tagName.toLowerCase();
+                    // alert(tagName);
+                    if (tagName == 'xul:stack') {
+
+                    // alert('stack...');
+                        if (this.selButton) {
+                            // this.selButton.x = event.pageX;
+                            // this.selButton.y = event.pageY;
+                            // this.selButton.setAttribute("left",""+event.pageX);
+                            // this.selButton.setAttribute("top",""+event.pageY);
+                            // alert(event.clientX + ":" + obj.screenX);
+
+                            var w = this.selButton.boxObject.width / 2;
+                            var h = this.selButton.boxObject.height / 2;
+                            this.selButton.setAttribute("left",""+(event.clientX - obj.x - w));
+                            this.selButton.setAttribute("top",""+(event.clientY - obj.y - h));
+
+                            // this.selButton.boxObject.x = (event.clientX - obj.x);
+                            // this.selButton.boxObject.y = (event.clientY - obj.y);
+                        }
+                    }
+                    if(tagName != 'vivibutton' && tagName != 'button' && tagName != 'image') {
+                        return ;
+                    }
+                    this.selButton = event.originalTarget;
+                    /*
+                    if (tagName == 'image') {
+                        var evt = document.createEvent("Event");
+                        evt.initEvent("click", true, false);
+                        this.dispatchEvent(evt);
+                    }
+                    */
+                    // alert('click...');
+
+                ]]>
+            </handler>
+
+        </handlers>
+
+    </binding>
+</bindings>
