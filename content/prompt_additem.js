@@ -12,11 +12,37 @@ var options;
      */
     function startup() {
 
+        var multiline = false;
+        if ('multiline0' in inputObj) {
+            document.getElementById('input0').setAttribute('multiline', true);
+            document.getElementById('row0').setAttribute('flex', 1);
+            multiline = true;
+            document.getElementById('key_enter').setAttribute('disabled', true);
+        }
+        else {
+            document.getElementById('input0').setAttribute('multiline', false);
+            document.getElementById('row0').setAttribute('flex', 0);
+        }
+
         // hide input1?
         if (!('input1' in inputObj)) {
             document.getElementById('title1').hidden = true;
             document.getElementById('input1').hidden = true;
+            document.getElementById('input1').setAttribute('multiline', false);
+            document.getElementById('row1').setAttribute('flex', 0);
         }
+        else {
+            if ('multiline1' in inputObj) {
+                document.getElementById('input1').setAttribute('multiline', true);
+                document.getElementById('row1').setAttribute('flex', 1);
+                multiline = true;
+            }
+            else {
+                document.getElementById('input1').setAttribute('multiline', false);
+                document.getElementById('row1').setAttribute('flex', 0);
+            }
+        }
+        document.getElementById('key_enter').setAttribute('disabled', multiline);
 
         // set input type
         if ('type0' in inputObj) {
@@ -25,13 +51,21 @@ var options;
         if ('type1' in inputObj) {
             document.getElementById('input1').setAttribute('type', inputObj.type1);
         }
+        if ('readonly0' in inputObj && inputObj.readonly0) {
+            document.getElementById('input0').setAttribute('readonly', true);
+        }
         
         document.getElementById('dialog-caption').setAttribute("label", caption0);
         document.getElementById('text0').value = text0;
         document.getElementById('title0').value = title0;
         document.getElementById('title1').value = title1;
+
+        // must use setAttribute; otherwise values would be wiped out by change made to 'multiline'
+        document.getElementById('input0').setAttribute('value', inputObj.input0);
         document.getElementById('input0').value = inputObj.input0;
+        document.getElementById('input1').setAttribute('value', inputObj.input1);
         document.getElementById('input1').value = inputObj.input1;
+
         document.getElementById('cancel').setAttribute('disabled', false);
 
         doSetOKCancel(
@@ -106,6 +140,7 @@ function validateInput() {
         ((!input1Required) || trimmed1.length > 0)) {
         validated = true;
     }
+
     if (alphaOnly0) {
         validated = validated && !alphaRE.test(trimmed0);
     }

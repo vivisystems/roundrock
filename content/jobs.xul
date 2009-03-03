@@ -13,7 +13,7 @@
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
 <window title="&jobs.title;"
-	hidechrome="true"
+        hidechrome="true"
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
@@ -53,6 +53,7 @@
                     <hbox class="ToolBar" flex="1">
                         <button id="add_job" label="&jobs.button.action.add;" disabled="false" class="BtnAdd" oncommand="$do('add', null, 'Jobs');" />
                         <button id="modify_job" label="&jobs.button.action.modify;" disabled="false" class="BtnMod" oncommand="$do('update', null, 'Jobs');" />
+                        <spacer flex="1"/>
                         <button id="delete_job" label="&jobs.button.action.delete;" disabled="false" class="BtnDel" oncommand="$do('delete', null, 'Jobs');" />
                     </hbox>
                     <hbox id="dialogButtons" class="dialogbtns" pack="center">

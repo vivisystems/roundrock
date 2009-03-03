@@ -7,7 +7,7 @@
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
 <window title="&dialog.prompt.title;"
-	hidechrome="true"
+        hidechrome="true"
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
     <keyset id="keyset_extensions">
@@ -30,16 +30,16 @@
                         <column flex="1"/>
                     </columns>
                     <rows>
-                        <row>
+                        <row id="row0">
                             <vbox>
                                 <label id="title0" style="width:6em" value="" control="input0"/>
-                                <textbox id="input0" value="" oninput="validateInput()" onfocus="this.select()"/>
+                                <textbox id="input0" flex="1" value="" oninput="validateInput()" onfocus="this.select()"/>
                             </vbox>
                         </row>
-                        <row>
+                        <row id="row1">
                             <vbox>
                                 <label id="title1" style="width:6em" value="" control="input1"/>
-                                <textbox id="input1" value="" oninput="validateInput()" onfocus="this.select()"/>
+                                <textbox id="input1" flex="1" value="" oninput="validateInput()" onfocus="this.select()"/>
                             </vbox>
                         </row>
                     </rows>

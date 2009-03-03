@@ -392,7 +392,7 @@
                 return;
             }
 
-            var itemTrans = curTransaction.getItemAt(index);
+            var itemTrans = curTransaction.getItemAt(index, true);
             var itemDisplay = curTransaction.getDisplaySeqAt(index);
 
             if (itemDisplay.type != 'item' && itemDisplay.type != 'setitem') {
@@ -1657,11 +1657,11 @@
             };
 
             var dialog_data = [
-                _('Credit Card Remark'),
-                _('Payment') + ' [' + data.payment + ']',
-                _('Card Type'),
-                _('Card Remark'),
-                inputObj
+            _('Credit Card Remark'),
+            _('Payment') + ' [' + data.payment + ']',
+            _('Card Type'),
+            _('Card Remark'),
+            inputObj
             ];
 
             return $.popupPanel('creditcardRemarkPanel', dialog_data);
@@ -1678,11 +1678,11 @@
             };
 
             var dialog_data = [
-                _('Coupon Remark'),
-                _('Payment') + ' [' + data.payment + ']',
-                _('Coupon Type'),
-                _('Coupon Remark'),
-                inputObj
+            _('Coupon Remark'),
+            _('Payment') + ' [' + data.payment + ']',
+            _('Coupon Type'),
+            _('Coupon Remark'),
+            inputObj
             ];
 
             return $.popupPanel('couponRemarkPanel', dialog_data);
@@ -1699,11 +1699,11 @@
             };
 
             var dialog_data = [
-                _('Giftcard Remark'),
-                _('Payment') + ' [' + data.payment + ']',
-                _('Giftcard Type'),
-                _('Giftcard Remark'),
-                inputObj
+            _('Giftcard Remark'),
+            _('Payment') + ' [' + data.payment + ']',
+            _('Giftcard Type'),
+            _('Giftcard Remark'),
+            inputObj
             ];
 
             return $.popupPanel('couponRemarkPanel', dialog_data);
@@ -1720,11 +1720,11 @@
             };
 
             var dialog_data = [
-                _('Check Remark'),
-                _('Payment') + ' [' + data.payment + ']',
-                _('Check Type'),
-                _('Check Remark'),
-                inputObj
+            _('Check Remark'),
+            _('Payment') + ' [' + data.payment + ']',
+            _('Check Type'),
+            _('Check Remark'),
+            inputObj
             ];
 
             return $.popupPanel('couponRemarkPanel', dialog_data);
@@ -1819,12 +1819,23 @@
                     var memo2 = result.input1 || '';
                     self.addPayment('creditcard', payment, payment, memo1, memo2);
                 }
-
+                else {
+                    self.subtotal();
+                }
             });
 
         },
 
-        coupon: function(type) {
+        coupon: function(args) {
+
+            // args should be a list of up to 2 comma-separated parameters: type, amount
+            var type = '';
+            var amount;
+            if (args != null && args != '') {
+                var argList = args.split(',');
+                type = argList[0];
+                if (!isNaN(argList[1])) amount = parseFloat(argList[1]);
+            }
 
             // check if has buffer
             var buf = this._getKeypadController().getBuffer();
@@ -1854,7 +1865,7 @@
                 return; // fatal error ?
             }
 
-            var payment = parseFloat(buf);
+            var payment = (amount != null) ? amount : parseFloat(buf);
             var paid = curTransaction.getPaymentSubtotal();
 
             if (this._returnMode) {
@@ -1898,11 +1909,23 @@
                     self.addPayment('coupon', payment, payment, memo1, memo2);
 
                 }
+                else {
+                    self.subtotal();
+                }
             });
 
         },
 
-        giftcard: function(type) {
+        giftcard: function(args) {
+
+            // args should be a list of up to 2 comma-separated parameters: type, amount
+            var type = '';
+            var amount;
+            if (args != null && args != '') {
+                var argList = args.split(',');
+                type = argList[0];
+                if (!isNaN(argList[1])) amount = parseFloat(argList[1]);
+            }
 
             // check if has buffer
             var buf = this._getKeypadController().getBuffer();
@@ -1932,7 +1955,7 @@
                 return; // fatal error ?
             }
 
-            var payment = parseFloat(buf);
+            var payment = (amount != null) ? amount : parseFloat(buf);
             var balance = curTransaction.getRemainTotal();
             var paid = curTransaction.getPaymentSubtotal();
 
@@ -1992,6 +2015,9 @@
 
                     self.addPayment('giftcard', balance, payment, memo1, memo2);
 
+                }
+                else {
+                    self.subtotal();
                 }
             });
 
@@ -2095,6 +2121,9 @@
 
                     self.addPayment('check', payment, payment, memo1, memo2);
 
+                }
+                else {
+                    self.subtotal();
                 }
             });
 
@@ -2286,8 +2315,8 @@
             }
             
             var dialog_data = [
-                _('Payment Details'),
-                payments
+            _('Payment Details'),
+            payments
             ];
 
             return $.popupPanel('paymentDetailsPanel', dialog_data);
@@ -2464,7 +2493,7 @@
                 // determine if new items have been added
                 if (!curTransaction.isModified() ||
                     GREUtils.Dialog.confirm(null, _('confirm cancel'),
-                                            _('Are you sure you want to discard changes made to this order?'))) {
+                        _('Are you sure you want to discard changes made to this order?'))) {
                     curTransaction.process(-1, true);
                     this._cartView.empty();
                     this.dispatchEvent('onCancel', null);
@@ -2550,7 +2579,7 @@
 
 
         // pre-finalize the order by closing it
-        preFinalize: function(dest) {
+        preFinalize: function(args) {
             var curTransaction = this._getTransaction();
 
             if (curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
@@ -2559,21 +2588,35 @@
             }
 
             if (curTransaction.isClosed()) {
-                NotifyUtils.warn(_('Order is already pre-finalized'));
+                NotifyUtils.warn(_('The order is already pre-finalized'));
                 return;
             }
 
-            if (this.dispatchEvent('beforePreFinalize', curTransaction)) {
+            if (curTransaction.getItemsCount() == 0) {
+                NotifyUtils.warn(_('The order is empty; cannot pre-finalize order'));
                 return;
             }
-            // if destination is given, then items in cart are first validated to make sure
+
+            if (!this.dispatchEvent('beforePreFinalize', curTransaction)) {
+                return;
+            }
+
+            // if destination is given, items in cart are first validated to make sure
             // their destinations match the given destination
-            if (dest != null) {
-                var mismatch = false;
-                if (curTransaction.data.destination != dest) {
-                    mismatch = true;
-                }
-                else {
+            if (args != null && args != '') {
+                
+                var argList = args.split(',');
+                var dest = argList[0];
+
+                if (dest) {
+                    if (curTransaction.data.destination != dest) {
+                        if (GREUtils.Dialog.confirm(null, _('confirm destination'),
+                                                    _('The order destination is different from [%S], proceed with pre-finalization?', [dest])) == false) {
+                            return;
+                        }
+                    }
+
+                    var mismatch = false;
                     var items = curTransaction.getItems();
                     for (var index in items) {
                         if (items[index].destination != dest) {
@@ -2581,21 +2624,81 @@
                             break;
                         }
                     }
-                }
 
-                if (mismatch) {
-                    if (GREUtils.Dialog.confirm(null, _('confirm destination'),
-                                                _('Destinations other than [%S] found in the order, proceed with pre-finalization?', [dest])) == false) {
-                        return;
+                    if (mismatch) {
+                        if (GREUtils.Dialog.confirm(null, _('confirm destination'),
+                                                    _('Destinations other than [%S] found in the order, proceed with pre-finalization?', [dest])) == false) {
+                            return;
+                        }
                     }
                 }
+                // prompts for additional annotation(s) (such as ID of deliver person)
+                // if a single annotationType is specified, prompt using memo-style UI
+                // if more than one annotationTypes are specified, prompt using full UI
+
+                if (argList.length > 1) {
+                    var annotationController = GeckoJS.Controller.getInstanceByName('Annotations');
+                    var annotationType;
+
+                    if (argList.length == 2 && argList[1] != null && argList[1] != '') {
+                        annotationType = annotationController.getAnnotationType(argList[1]);
+                    }
+
+                    // only one annotationType is specified and is not null, use memo-style UI
+                    if (argList.length == 2 && annotationType != null && annotationType != '') {
+                        var inputObj = {
+                            input0: '',
+                            require0:false,
+                            multiline0: true
+                        };
+
+                        var data = [
+                            _('Add Annotation'),
+                            '',
+                            _(annotationType),
+                            '',
+                            inputObj
+                        ];
+
+                        var self = this;
+                        return $.popupPanel('promptAdditemPanel', data).next( function(evt){
+                            var result = evt.data;
+
+                            if (result.ok && result.input0) {
+                                if ('annotations' in curTransaction.data) {
+                                    curTransaction.data.annotations.push({type: annotationType, text: result.input0});
+                                }
+                                else {
+                                    curTransaction.data.annotations = [{type: annotationType, text: result.input0}];
+                                }
+
+                                // save annotation in db
+                                annotationController.annotate(curTransaction.data.id, annotationType, result.input0);
+                            }
+
+                            curTransaction.close();
+                            self.submit(2);
+                            self.dispatchEvent('onWarning', _('PRE-FINALIZED'));
+
+                            // dispatch onSubmit event here manually since submit() won't do it for us
+                            self.dispatchEvent('onSubmit', curTransaction);
+
+                            // @todo OSD
+                            NotifyUtils.warn(_('Order# [%S] has been pre-finalized', [curTransaction.data.seq]));
+
+                            this.dispatchEvent('afterPreFinalize', curTransaction);
+                        });
+                    }
+                    else {
+                        // multiple annotations are requested, use full UI
+                        argList.splice(0, 1);
+                        $do('AnnotateDialog', argList.join(','), 'Main');
+                    }
+                }
+
+                // lastly, close the transaction and store the order to generate the
+                // appropriate printouts
             }
-            // next, prompts for customer# if not already given
-
-            // then, prompts for additional annotation (such as ID of deliverer)
-
-            // lastly, close the transaction and store the order to generate the
-            // appropriate printouts
             curTransaction.close();
             this.submit(2);
             this.dispatchEvent('onWarning', _('PRE-FINALIZED'));
@@ -2729,43 +2832,33 @@
 
         getCondimentsDialog: function (condgroup, condiments, forceModal) {
 
-                var condGroupsById = GeckoJS.Session.get('condGroupsById');
+            var condGroupsByPLU = GeckoJS.Session.get('condGroupsByPLU');
+            // not initial , initial again!
+            if (!condGroupsByPLU) {
+                try {
+                    this.log('DEBUG', 'initital Condiments from Cart Controller ');
+                    GeckoJS.Controller.getInstanceByName('Condiments').initial();
+                    condGroupsByPLU = GeckoJS.Session.get('condGroupsByPLU');
+                }catch(e) {}
+            }
 
-                // not initial , initial again!
-                if (!condGroupsById) {
-                    try {
-                        GeckoJS.Controller.getInstanceByName('Condiments').initial();
-                        condGroupsById = GeckoJS.Session.get('condGroupsById');
-                    }catch(e) {}
-                }
+            var selectedItems = [];
 
-                var itemCondGroups = condgroup.split(',');
+            if (condiments == null) {
+                selectedItems = selectedItems.concat(condGroupsByPLU[condgroup]['PresetItems']);
+            }else {
+                    // check item selected condiments
+                   // if (condiments[selectCondiments[i]['name']]) selectedItems.push(i);
+            }
 
-                var selectCondiments = [];
-                var selectedItems = [];
-
-                itemCondGroups.forEach(function(itemCondGroup){
-                    
-                    if(!condGroupsById[itemCondGroup]) return false;
-
-                    selectCondiments = selectCondiments.concat(condGroupsById[itemCondGroup]['Condiment']);
-
-                });
-
-                for(var i = 0 ; i < selectCondiments.length; i++ ) {
-                    if (condiments == null) {
-                        if(selectCondiments[i]['preset']) selectedItems.push(i);
-                    }else {
-                        // check item selected condiments
-                        if (condiments[selectCondiments[i]['name']]) selectedItems.push(i);
-                    }
-                }
-
-            var dialog_data = {conds: selectCondiments, selectedItems: selectedItems};
+            var dialog_data = {
+                conds: condGroupsByPLU[condgroup]['Condiments'],
+                selectedItems: selectedItems
+            };
 
             var self = this;
             return $.popupPanel('selectCondimentPanel', dialog_data).next(function(evt){
-                var selectedCondiments = evt.data;
+                var selectedCondiments = evt.data.condiments;
                 if (selectedCondiments.length > 0) {
 				
                     var index = self._cartView.getSelectedIndex();
@@ -2849,6 +2942,37 @@
 
         },
 
+
+        getAnnotationDialog: function (type) {
+
+            var self = this;
+
+            var inputObj = {
+                input0: '',
+                require0:false
+            };
+
+            var data = [
+            _('Add Annotation'),
+            '',
+            _(type),
+            '',
+            inputObj
+            ];
+
+            return $.popupPanel('promptAdditemPanel', data).next( function(evt){
+                var result = evt.data;
+
+                if (result.ok && result.input0) {
+                    return result.input0;
+                }
+                else {
+                    return null;
+                }
+
+            });
+
+        },
 
 
         getMemoDialog: function (memo) {
@@ -2953,13 +3077,13 @@
 
         pushQueue: function(warn) {
 
-            if (warn == null) warn = true;
+            if (warn == null || warn == '') warn = true;
 
             var curTransaction = this._getTransaction();
 
             if(curTransaction == null) {
                 //@todo OSD
-                if (warn) NotifyUtils.warn(_('No open order to push'));
+                if (warn) NotifyUtils.warn(_('No open order to queue'));
                 return; // fatal error ?
             }
 
@@ -2969,7 +3093,7 @@
             }
 
             if (curTransaction.data.recall == 2) {
-                if (warn) NotifyUtils.warn(_('Can not queue the recalled order!!'));
+                if (warn) NotifyUtils.warn(_('Cannot queue the recalled order!!'));
                 return;
             }
             var user = this.Acl.getUserPrincipal();
@@ -3078,7 +3202,7 @@
 
         unserializeFromOrder: function(order_id) {
             //
-            order_id = order_id || '04de7be5-9969-4756-8852-6f6eed2301a8';
+            order_id = order_id;
 
             var curTransaction = new Transaction();
             curTransaction.unserializeFromOrder(order_id);
@@ -3167,7 +3291,7 @@
                         return;
                     }
                     if (curTransaction.data.closed) {
-                        NotifyUtils.warn(_('This order is pending payment and may only be finalized'));
+                        NotifyUtils.warn(_('This order is closed pending payment and may only be finalized'));
                         return;
                     }
                     if (curTransaction.data.items_count == 0) {
@@ -3190,6 +3314,19 @@
                     break;
                 case 'recallTable':
                     r = this.GuestCheck.recallByTableNo(no);
+                    break;
+
+                case 'transferSequence':
+                    r = this.GuestCheck.transferToOrderNo(no);
+                    break;
+                case 'transferCheck':
+                    r = this.GuestCheck.transferToCheckNo(no);
+                    break;
+                case 'transferTable':
+                    r = this.GuestCheck.transferToTableNo(no);
+                    break;
+                case 'splitOrder':
+                    r = this.GuestCheck.splitOrder(no, curTransaction.data);
                     break;
             }
             // @irving: comment out the subtotal() call 02-16-09

@@ -14,7 +14,7 @@
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
 <window title="&condiments.group;"
-	hidechrome="true"
+        hidechrome="true"
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
@@ -72,6 +72,7 @@
                     <hbox class="ToolBar" flex="1">
                         <button id="add_group" label="&condiments.button.action.add;" disabled="false" class="BtnAdd" oncommand="$do('add', null, 'Condiments');" />
                         <button id="modify_group" label="&condiments.button.action.modify;" disabled="false" class="BtnMod" oncommand="$do('modify', null, 'Condiments');" />
+                        <spacer flex="1"/>
                         <button id="delete_group" label="&condiments.button.action.delete;" disabled="false" class="BtnDel" oncommand="$do('remove', null, 'Condiments');" />
                     </hbox>
                 </vbox>
@@ -142,6 +143,7 @@
                         <hbox class="ToolBar" flex="1">
                             <button id="add_condiment" label="&condiments.button.action.add;" disabled="false" class="BtnAdd" oncommand="$do('addCond', null, 'Condiments');" />
                             <button id="modify_condiment" label="&condiments.button.action.modify;" disabled="false" class="BtnMod" oncommand="$do('modifyCond', null, 'Condiments');" />
+                            <spacer flex="1"/>
                             <button id="delete_condiment" label="&condiments.button.action.delete;" disabled="false" class="BtnDel" oncommand="$do('removeCond', null, 'Condiments');" />
                         </hbox>
                         <hbox id="dialogButtons" class="dialogbtns" pack="center">

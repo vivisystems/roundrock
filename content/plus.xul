@@ -16,7 +16,7 @@
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
 <window title="&plus.title;"
-	hidechrome="true"
+        hidechrome="true"
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
             
@@ -449,6 +449,7 @@
                     <hbox class="ToolBar" flex="1">
                         <button id="add_plu" label="&plus.button.action.add;" disabled="false" class="BtnAdd" oncommand="$do('add', null, 'Plus');" />
                         <button id="modify_plu" label="&plus.button.action.modify;" disabled="true" class="BtnMod" oncommand="$do('modify', null, 'Plus');" />
+                        <spacer flex="1"/>
                         <button id="delete_plu" label="&plus.button.action.delete;" disabled="true" class="BtnDel" oncommand="$do('remove', null, 'Plus');" />
                     </hbox>
                     <hbox id="dialogButtons" class="dialogbtns" pack="center">

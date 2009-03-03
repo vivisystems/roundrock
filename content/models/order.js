@@ -3,7 +3,7 @@ var OrderModel = window.OrderModel =  GeckoJS.Model.extend({
 
     useDbConfig: 'order',
 
-    hasMany: ['OrderItem', 'OrderAddition', 'OrderPayment', 'OrderReceipt'],
+    hasMany: ['OrderItem', 'OrderAddition', 'OrderPayment', 'OrderReceipt', 'OrderAnnotation'],
     hasOne: ['OrderObject'],
 
     behaviors: ['Sync'],
@@ -28,11 +28,17 @@ var OrderModel = window.OrderModel =  GeckoJS.Model.extend({
 
         var r;
         r = this.saveOrderMaster(data);
-        r = this.saveOrderItems(data);
-        r = this.saveOrderAdditions(data);
-        r = this.saveOrderPayments(data);
-        // serialize to database
-        r = this.serializeOrder(data);
+
+        if (data.status >= 0) {
+            // ignore cancel or fail order
+            r = this.saveOrderItems(data);
+            r = this.saveOrderAdditions(data);
+            r = this.saveOrderPayments(data);
+
+            // serialize to database
+            // serialize must call serializeOrder by your self
+            // r = this.serializeOrder(data);
+        }
 
     },
 

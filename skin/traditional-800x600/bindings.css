@@ -51,3 +51,7 @@ vividatetimepicker-popup {
 sync_status {
   -moz-binding: url("chrome://viviecr/content/bindings/sync_status.xbl#sync_status");
 }
+
+table_map {
+  -moz-binding: url("chrome://viviecr/content/bindings/table_map.xbl#table_map");
+}

@@ -7,8 +7,8 @@
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
 <window id="addpluset"
-	hidechrome="true"
-	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+        hidechrome="true"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
     <keyset id="keyset_extensions">
         <key id="key_enter" keycode="VK_RETURN" oncommand="document.getElementById('ok').click()"/>

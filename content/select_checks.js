@@ -19,7 +19,7 @@
         window.viewHelper.getCurrentIndexData= function(row) {
             // var text = row + ":" + col.check_no;
             // GREUtils.log(GeckoJS.BaseObject.dump(row))
-            GREUtils.log(row);
+            // GREUtils.log(row);
 
             return this.data[row];
 
@@ -48,35 +48,31 @@
 
         document.getElementById('checkScrollablepanel').datasource = window.viewHelper ;
 
-        /*
-        document.getElementById('queueScrollablepanel').addEventListener('command', function(evt) {
+        document.getElementById('checkScrollablepanel').addEventListener('command', function(evt) {
             var index = evt.target.value;
-            var key = queues[index].key;
 
-            var queueData = queuePool.data[key];
+            var itemlistObj = document.getElementById('itemlist');
+            var data = window.viewHelper.getCurrentIndexData(index);
+            GREUtils.log(GeckoJS.BaseObject.dump(data));
 
             var displayStr = "";
-
-            displayStr += "SEQ# " + queueData.seq + "\n\n";
-
+            displayStr += "SEQ# " + data.sequence + "\n\n";
             var limit = 10, cc= 0;
+            data.OrderItem.forEach(function(item){
+                if (cc<=limit) {
+                    displayStr += item.product_name + ' x ' + item.current_qty + '\n';
+                }
 
-            for(var txid in queueData.items) {
-                var item = queueData.items[txid];
-                displayStr += item.name + ' x ' + item.current_qty + '\n';
-                cc++;
-                if (cc>limit) break;
-            }
+            });
 
             if (cc>limit) displayStr += "   ......   \n" ;
 
-            displayStr += "\n\nTL: " + queueData.remain;
+            // displayStr += "\n\nTL: " + data.remain;
+            displayStr += "\n\nTL: " + data.total;
 
             itemlistObj.setAttribute('value', displayStr);
 
-
         }, true);
-        */
 
         doSetOKCancel(
             function(){

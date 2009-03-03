@@ -28,6 +28,8 @@
                 GeckoJS.Session.add('condGroups', condGroups);
 
                 this.updateCondimentsSession();
+
+                this.registerEventListener();
             }
             
         },
@@ -52,8 +54,42 @@
 
             });
 
-            GeckoJS.Session.add('condGroupsById', condGroupsById);
-            this.log('updateCondimentsSession ' +  this.dump(condGroupsById) );
+            // GeckoJS.Session.add('condGroupsById', condGroupsById);
+
+            var condGroupsByPLU = {};
+
+            // preprocess condiments for faster
+            var products = GeckoJS.Session.get('products');
+            products.forEach(function(product) {
+
+                if(product['cond_group'].length == 0) return false;
+                if (condGroupsByPLU[product['cond_group']]) return false;
+
+                var condgroup = product['cond_group'];
+                var itemCondGroups = condgroup.split(',');
+
+                var selectCondiments = [];
+                var selectedItems = [];
+
+                itemCondGroups.forEach(function(itemCondGroup){
+
+                    if(!condGroupsById[itemCondGroup]) return false;
+
+                    selectCondiments = selectCondiments.concat(condGroupsById[itemCondGroup]['Condiment']);
+
+                });
+
+                for(var i = 0 ; i < selectCondiments.length; i++ ) {
+                    if(selectCondiments[i]['preset']) selectedItems.push(i);
+                }
+
+                condGroupsByPLU[condgroup] = {'Condiments': selectCondiments, 'PresetItems': selectedItems};
+
+            }, this);
+
+            GeckoJS.Session.add('condGroupsByPLU', condGroupsByPLU);
+
+            // this.log('condGroupsByPLU ' + this.dump(condGroupsByPLU));
 
         },
 
@@ -62,7 +98,7 @@
 
             var self = this;
             GeckoJS.Session.addEventListener('change', function(evt){
-                if (evt.data.key == 'condGroups') {
+                if (evt.data.key == 'condGroups' || evt.data.key == 'products') {
                     self.updateCondimentsSession();
                 }
             });

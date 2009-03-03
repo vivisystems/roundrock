@@ -37,7 +37,6 @@
 
         },
 
-
         startup: function() {
 
             // get function list from configure; builds data into array of objects
@@ -103,19 +102,17 @@
 
         },
 
-
         modifyHotkey: function() {
 
             var entry = this.lastLinkFunction;
 
-                if (!entry) {
+            if (!entry) {
 
-                    // @todo OSD
-                    NotifyUtils.error(_('Please Linking Function to Hotkey', []));
-                    return ;
+                // @todo OSD
+                NotifyUtils.error(_('Please Linking Function to Hotkey'));
+                return ;
 
-                }
-
+            }
 
             var inputData = this.Form.serializeToObject('hotkeyForm');
 
@@ -137,16 +134,23 @@
 
             //this.log(this.dump(inputData));
 
+            var isEditMode = false;
             try {
 
                 var id = inputData.id ;
                 var keycombo = inputData.keycombo;
                 var keydisplay = inputData.keydisplay;
 
+                if (!keycombo) {
+
+                    // @todo OSD
+                    NotifyUtils.error(_('Please Assign Hotkey to Linking Function'));
+                    return ;
+
+                }
 
                 // change hotkey, find hotkey exists
                 if (id != keycombo) {
-
 
                     if(this.reserveHotKeys[keycombo]) {
 
@@ -162,11 +166,10 @@
                         return ;
                     }
 
-
-
                     // remove old
                     try {
-                        this.hotkeys.remove(id);
+                        isEditMode = this.hotkeys.containsKey(id);
+                        if (isEditMode) this.hotkeys.remove(id);
                     }catch(e) {}
                 }
 
@@ -176,6 +179,10 @@
 
                 this.savePreferences();
 
+                if (!isEditMode) {
+                // move cursor to last index
+                    this.searchHotkey(hotkey);
+                }
                 //
                 //
                 // @todo OSD
@@ -190,7 +197,6 @@
             }
 
         },
-
 
         removeHotkey: function() {
 
@@ -230,7 +236,6 @@
 
         },
 
-
         editableFields: function(enable) {
 
             $('[form="hotkeyForm"]').val('');
@@ -259,10 +264,9 @@
         selectHotkey: function(tree) {
 
             var count = tree.tree.view.selection.count;
-            if (count > 0)
-                index = tree.currentIndex;
-            else
-                index = -1;
+            var index = -1;
+            
+            if (count > 0) index = tree.currentIndex;
 
             if (index <0) return;
 
@@ -292,6 +296,42 @@
 
         },
 
+        searchHotkey: function(element) {
+
+            try {
+
+                var keycombo = element.getHotkey(false);
+                var keydisplay = element.getHotkey(true);
+
+                var hotkeyTree = document.getElementById('hotkey_prefs_tree');
+
+                if (!this.hotkeys.get(keycombo)) {
+
+                    // @todo OSD
+                    NotifyUtils.error(_('Hotkey [%S] is not exists', [keydisplay]));
+
+                    return ;
+                }
+
+                var count = this.hotkeysArray.length;
+
+                for (var i = 0; i < count ; i++) {
+
+                    if (this.hotkeysArray[i]['keycombo'] == keycombo) {
+                        hotkeyTree.currentIndex = i ;
+                        hotkeyTree.selection.select(i);
+                        hotkeyTree.treeBoxObject.ensureRowIsVisible(i);
+                    }
+                }
+                
+            }catch (e) {
+
+                // @todo OSD
+                NotifyUtils.error(_('An error occurred while searching Hotkey [%S].', [keydisplay]));
+
+            }
+
+        },
         
         // close preferences window
         cancelPreferences: function() {
@@ -359,7 +399,7 @@
                 command: f.command,
                 controller: f.controller,
                 data: f.data
-                };
+            };
 
             //GREUtils.log('[LinkFunction]: link prepared <' + GeckoJS.BaseObject.dump(entry) + '>');
 
@@ -372,8 +412,6 @@
 
         }
 
-
-       
 
     });
 

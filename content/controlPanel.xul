@@ -71,13 +71,28 @@
                         </vbox>
                     </vbox>
                 </hbox>
-                <hbox id="systemBox" flex="0" class="SysBox">
+                <hbox id="systemBox" flex="0" class="SysBox" align="center">
                     <viviscrollablebuttonpanel id="systemPanel" cols="3" rows="1" labelField="label" imageField="icon" aclField="roles"
                                                oncommand="launchControl(this)"  class="SysScrollPanel" seltype="none"
                                                buttonClass="SysBtn"
                                                scrollUpClass="SysUpBtn"
                                                scrollDownClass="SysDownBtn" >
                     </viviscrollablebuttonpanel>
+
+                    <spacer style="width: 10px;"/>
+                    <vbox>
+                        <hbox>
+                            <extinfolabel extId="viviecr@firich.com.tw" extField="name" />
+                            <extinfolabel extId="viviecr@firich.com.tw" extField="version" />
+                        </hbox>
+                        <hbox>
+                            <appinfolabel appField="name" />
+                            <appinfolabel appField="version" />
+                        </hbox>
+                        <hbox>(<appinfolabel appField="buildId" />)</hbox>
+                    </vbox>
+                    <spacer flex="1"/>
+                    
                     <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="savePreferences();"/>
                 </hbox>
             </vbox>

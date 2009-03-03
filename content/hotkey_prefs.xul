@@ -34,6 +34,19 @@
                                                 hidevscroll="true"
                                                 onselect="$do('selectHotkey', this, 'HotkeyPrefs')"/>
                     <spacer height="3px" />
+                    <grid class="DataFormA">
+                        <columns>
+                            <column flex="1"/>
+                            <column flex="1"/>
+                        </columns>
+                        <rows>
+                            <row>
+                                <label value="&hotkey.search.hotkey.label;"/>
+                                <hotkey-textbox id="hotkey_search" size="4" style="width: 100px;" value="" oncommand="$do('searchHotkey', this, 'HotkeyPrefs')" />
+                            </row>
+                       </rows>
+                   </grid>
+
 
                 </vbox>
             </vbox>
