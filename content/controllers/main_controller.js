@@ -291,10 +291,14 @@
                     soldOutButton.checked = false;
                     catepanel.selectedItems = [];
                     catepanel.selectedIndex = -1;
+                    
+                    catepanel.invalidate(index);
                 }
                 else if (dep.soldout) {
                     catepanel.selectedItems = [];
                     catepanel.selectedIndex = -1;
+
+                    catepanel.invalidate(index);
                     return;
                 }
                 else {
@@ -331,7 +335,7 @@
                     }
                     soldOutButton.checkState = 0;
                     soldOutButton.checked = false;
-                    prodpanel.vivibuttonpanel.invalidate();
+                    prodpanel.invalidate(index);
                 }
                 else if (!product.soldout) {
                     return this.requestCommand('addItem',product,'Cart');
