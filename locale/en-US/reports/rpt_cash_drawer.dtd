@@ -1,0 +1,17 @@
+<!ENTITY cashdrawer.title "Cash Drawer Report">
+<!ENTITY cashdrawer.conditions "Conditions:">
+<!ENTITY cashdrawer.startdate "Start Date:">
+<!ENTITY cashdrawer.enddate "End Date:">
+<!ENTITY cashdrawer.execute "Execute">
+<!ENTITY cashdrawer.exportpdf "Export to PDF">
+<!ENTITY cashdrawer.exportcsv "Export to CSV">
+<!ENTITY cashdrawer.togglezoom "Toggle Zoom">
+<!ENTITY cashdrawer.machineid "Terminal No:">
+<!ENTITY cashdrawer.sortby "Sort By:">
+<!ENTITY cashdrawer.terminal_no "Terminal No.">
+<!ENTITY cashdrawer.drawer_no "Drawer No.">
+<!ENTITY cashdrawer.clerk_displayname "Clerk">
+<!ENTITY cashdrawer.created "Time">
+<!ENTITY cashdrawer.event_type "Event Type">
+<!ENTITY cashdrawer.all "List All">
+<!ENTITY cashdrawer.wait "Waiting...">

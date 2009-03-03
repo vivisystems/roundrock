@@ -17,7 +17,7 @@
                 <tr>
                     <th>Term_No.</th>
                     <th>Service Clerk</th>
-                    <th>Proceeds Clerk</th>
+                    <th>Status</th>
                     <th>Time</th>
                     <th>Sequence</th>
                     <th>Invoice No</th>
@@ -26,11 +26,6 @@
                     <th>Surcharge</th>
                     <th>Discount</th>
                     <th>Payment</th>
-                    <th>Cash</th>
-                    <th>Check</th>
-                    <th>Credit Card</th>
-                    <th>Coupon</th>
-                    <th>Gift Card</th>
                 </tr>
             </thead>
             <tbody>
@@ -38,7 +33,7 @@
                 <tr>
                     <td style="text-align: left;">${detail.terminal_no}</td>
                     <td style="text-align: left;">${detail.service_clerk_displayname}</td>
-                    <td style="text-align: left;">${detail.proceeds_clerk_displayname}</td>
+                    <td style="text-align: left;">${detail.status}</td>
                     <td style="text-align: left;">${detail.transaction_created|unixTimeToString:'yyyy-M-d'}</td>
                     <td>${detail.sequence}</td>
                     <td>${detail.invoice_no}</td>
@@ -47,11 +42,6 @@
                     <td>${detail.surcharge_subtotal|viviFormatPrices:true}</td>
                     <td>${detail.discount_subtotal|viviFormatPrices:true}</td>
                     <td>${detail.total|viviFormatPrices:true}</td>
-                    <td>${detail.cash|default:0|viviFormatPrices:true}</td>
-                    <td>${detail.check|default:0|viviFormatPrices:true}</td>
-                    <td>${detail.creditcard|default:0|viviFormatPrices:true}</td>
-                    <td>${detail.coupon|default:0|viviFormatPrices:true}</td>
-                    <td>${detail.giftcard|default:0|viviFormatPrices:true}</td>
                 </tr>
 {/for}
             </tbody>
@@ -65,11 +55,6 @@
                     <td>${foot.foot_datas.surcharge_subtotal|viviFormatPrices:true}</td>
                     <td>${foot.foot_datas.discount_subtotal|viviFormatPrices:true}</td>
                     <td>${foot.foot_datas.total|viviFormatPrices:true}</td>
-                    <td>${foot.foot_datas.cash|viviFormatPrices:true}</td>
-                    <td>${foot.foot_datas.check|viviFormatPrices:true}</td>
-                    <td>${foot.foot_datas.creditcard|viviFormatPrices:true}</td>
-                    <td>${foot.foot_datas.coupon|viviFormatPrices:true}</td>
-                    <td>${foot.foot_datas.giftcard|viviFormatPrices:true}</td>
                 </tr>
             </tfoot>
         </table>

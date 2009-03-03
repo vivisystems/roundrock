@@ -2,8 +2,8 @@
 <!DOCTYPE overlay [
   <!ENTITY % Overlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
   %Overlay;
-  <!ENTITY % product_sales SYSTEM "chrome://viviecr/locale/reports/product_sales.dtd">
-  %product_sales;
+  <!ENTITY % cashdrawer SYSTEM "chrome://viviecr/locale/reports/rpt_cash_drawer.dtd">
+  %cashdrawer;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
@@ -22,13 +22,13 @@
     <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/reports/template.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/reports/template_ext.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/reports/product_sales.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/rpt_cash_drawer.js" />
 
     <vbox flex="1" class="main-dialog">
         <vbox flex="1" class="MainPnl">
-		    <vbox>
-		        <caption label="&productsales.title;"  class="PageTitle"/>
-		        <!--caption label="&productsales.conditions;" / -->
+        	<vbox>
+		        <caption label="&cashdrawer.title;"  class="PageTitle"/>
+		        <!--caption label="&cashdrawer.conditions;" / -->
 		        <hbox>
 		            <hbox flex="1">
 		            <grid class="DataForm" flex="1">
@@ -38,11 +38,11 @@
 		                <rows>
 		                    <row>
 		                        <vbox>
-		                            <label value="&productsales.startdate;" />
+		                            <label value="&cashdrawer.startdate;" />
 		                            <vividatetimepicker id="start_date" value='' type="popup" />  
 		                        </vbox>
 		                        <vbox>
-		                            <label value="&productsales.enddate;" />
+		                            <label value="&cashdrawer.enddate;" />
 		                            <vividatetimepicker id="end_date" value='' type="popup"/>
 		                        </vbox>
 		                    </row>
@@ -52,27 +52,27 @@
 		                    </row -->
 		                    <row>
 		                    	<vbox>
-				                	<label value="&productsales.sortby;" />
+				                	<label value="&cashdrawer.sortby;" />
 						            <menulist id="sortby">
 						                <menupopup id="sortby_menupopup">
-						                    <menuitem selected="true" label="[&productsales.all;]" value="all" />
-						                    <menuitem selected="false" label="&productsales.product_no;" value="product_no" />
-						                    <menuitem selected="false" label="&productsales.product_name;" value="product_name" />
-						                    <menuitem selected="false" label="&productsales.avg_price;" value="avg_price" />
-						                    <menuitem selected="false" label="&productsales.qty;" value="qty" />
-						                    <menuitem selected="false" label="&productsales.total;" value="total" />
+						                    <menuitem selected="true" label="[&cashdrawer.all;]" value="all" />
+						                    <menuitem selected="false" label="&cashdrawer.terminal_no;" value="terminal_no" />
+						                    <menuitem selected="false" label="&cashdrawer.drawer_no;" value="drawer_no" />
+						                    <menuitem selected="false" label="&cashdrawer.clerk_displayname;" value="clerk_displayname" />
+						                    <menuitem selected="false" label="&cashdrawer.created;" value="created" />
+						                    <menuitem selected="false" label="&cashdrawer.event_type;" value="event_type" />
 						                </menupopup>
 						            </menulist>
 						        </vbox>
 						        <vbox>
-				                    <label value="&productsales.machineid;" />
+				                    <label value="&cashdrawer.machineid;" />
 				                    <textbox id="machine_id" value='' width="300"/>
 				                </vbox>
 		                    </row>
 		                </rows>
 		            </grid>
 		            </hbox>
-		            <button id="execute" label="&productsales.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'ProductSales');" />
+		            <button id="execute" label="&cashdrawer.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptCashDrawer');" />
 		        </hbox>
             </vbox>
             <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
@@ -80,10 +80,10 @@
             </splitter>
             <hbox class="TopPnl">
                 <hbox class="ReportTool"  flex="1">
-                    <vivibutton id="export_pdf" label="&productsales.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do('exportPdf', null, 'ProductSales');" />
-                    <vivibutton id="export_csv" label="&productsales.exportcsv;" disabled="true" class="CsvBtn" oncommand="$do('exportCsv', null, 'ProductSales');" />
+                    <vivibutton id="export_pdf" label="&cashdrawer.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do('exportPdf', null, 'RptCashDrawer');" />
+                    <vivibutton id="export_csv" label="&cashdrawer.exportcsv;" disabled="true" class="CsvBtn" oncommand="$do('exportCsv', null, 'RptCashDrawer');" />
 
-                    <vivibutton id="togglesize" label="&productsales.togglezoom;" disabled="false" class="ZoomBtn" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
+                    <vivibutton id="togglesize" label="&cashdrawer.togglezoom;" disabled="false" class="ZoomBtn" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
                     
                 </hbox>
                 <hbox id="dialogButtons" class="dialogbtns" pack="end">
@@ -99,21 +99,7 @@
                     <box class="reportbox" flex="1">
                         <browser type="content" id="preview_frame" src="rpt_template2.html" flex="1"/>
                     </box>
-
                 </groupbox>
-                <!--vbox>
-                    <vbox class="ToolBar BarHeight">
-                        <vivibutton id="export_pdf" label="&productsales.exportpdf;" disabled="false" class="editbtns" oncommand="$do('exportPdf', null, 'ProductSales');" />
-                        <vivibutton id="export_csv" label="&productsales.exportcsv;" disabled="false" class="editbtns" oncommand="$do('exportCsv', null, 'ProductSales');" />
-
-                        <vivibutton id="togglesize" label="&productsales.togglezoom;" disabled="false" class="editbtns" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
-                        <spacer flex="1" />
-                    </vbox>
-                    <hbox id="dialogButtons" class="dialogbtns" pack="end">
-                        <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
-                        <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle()" class="VkbBtn"/>
-                    </hbox>
-                </vbox-->
             </hbox>
         </vbox>
     </vbox>
@@ -121,13 +107,12 @@
     <panel id="wait_panel" position="overlap" noautohide="true" class="WaitPnl">
         <vbox flex="1">
         <groupbox flex="1">
-            <caption label="&productsales.wait;" class="PageTitle"/>
+            <caption label="&cashdrawer.wait;" class="PageTitle"/>
             <spacer style="height: 20px;" />
             <progressmeter id="progress" mode="undetermined" value="0" />
             <spacer style="height: 20px;" />
         </groupbox>
         </vbox>
     </panel>
-    
 
 </window>

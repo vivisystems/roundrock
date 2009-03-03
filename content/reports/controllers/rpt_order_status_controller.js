@@ -1,12 +1,12 @@
 (function(){
 
     /**
-     * RptDailySales Controller
+     * RptOrderStatus Controller
      */
 
     GeckoJS.Controller.extend( {
-        name: 'RptDailySales',
-        components: ['BrowserPrint', 'CsvExport', 'CheckMedia'],
+        name: 'RptOrderStatus',
+        components: [ 'BrowserPrint', 'CsvExport', 'CheckMedia' ],
         _datas: null,
 
        _showWaitPanel: function(panel, sleepTime) {
@@ -59,10 +59,7 @@
             end = parseInt(end / 1000);
 
             var fields = [
-                            'sum(order_payments.amount) as "Order.payment_subtotal"',
-                            'order_payments.name as "Order.payment_name"',
                             'orders.transaction_created',
-                            //'DATETIME("orders"."transaction_created", "unixepoch", "localtime") AS "Order.Date"',
                             'orders.id',
                             'orders.sequence',
                             'orders.status',
@@ -71,7 +68,6 @@
                             'orders.item_subtotal',
                             'orders.total',
                             'orders.service_clerk_displayname',
-                            'orders.proceeds_clerk_displayname',
                             'orders.rounding_prices',
                             'orders.precision_prices',
                             'orders.surcharge_subtotal',
@@ -86,15 +82,15 @@
 
             var conditions = "orders.transaction_created>='" + start +
                             "' AND orders.transaction_created<='" + end +
-                            "' AND orders.status=1";
+                            "' AND orders.status < 100";
+                            
+            var orderstatus = document.getElementById( 'orderstatus' ).value;
+            if ( orderstatus != 'all' )
+            	conditions += " AND orders.status = " + orderstatus;
                             
             var service_clerk = document.getElementById( 'service_clerk' ).value;
             if ( service_clerk != 'all' )
             	conditions += " AND orders.service_clerk_displayname = '" + service_clerk + "'";
-
-			var proceeds_clerk = document.getElementById( 'proceeds_clerk' ).value;
-			if ( proceeds_clerk != 'all' )
-				conditions += " AND orders.proceeds_clerk_displayname = '" + proceeds_clerk + "'";
 
             if (machineid.length > 0) {
                 conditions += " AND orders.terminal_no LIKE '" + machineid + "%'";
@@ -102,21 +98,33 @@
             } else {
                 //var groupby = '"Order.Date"';
             }
-            var groupby = 'order_payments.order_id, order_payments.name';
+            var groupby = '';
             var orderby = 'orders.terminal_no, orders.transaction_created, orders.id';
             
-            //var order = new OrderModel();
-
-            var orderPayment = new OrderPaymentModel();
+            var sortby = document.getElementById( 'sortby' ).value;
+            if ( sortby != 'all' )
+            	orderby = 'orders.' + sortby;
             
-            //var datas = order.find('all', {fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 2 });
-            var datas = orderPayment.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1 } );
+            var order = new OrderModel();
+            
+            var datas = order.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: -1 } );
+            
+            datas.forEach( function( data ) {
+            	switch ( parseInt( data.status ) ) {
+            		case 1:
+            			data.status = 'Finalized';
+            			break;
+            		case 2:
+            			data.status = 'Saved';
+            			break;
+            		case -1:
+            			data.status = 'Canceled';
+            			break;
+            	}
+            });
 
             var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
             var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
-
-            //prepare reporting data
-            var repDatas = {};
 
             var initZero = parseFloat(0).toFixed(precision_prices);
 
@@ -126,70 +134,7 @@
             	total: 0,
             	surcharge_subtotal: 0,
             	discount_subtotal: 0,
-            	cash: 0,
-            	check: 0,
-            	creditcard: 0,
-            	coupon: 0,
-            	giftcard: 0
             };
-            
-            var old_oid;
-
-            datas.forEach(function(data){
-
-                var oid = data.Order.id;
-                var o = data.Order;
-                o.Order = o;
-
-                if (!repDatas[oid]) {
-                    repDatas[oid] = GREUtils.extend({}, o); // {cash:0, creditcard: 0, coupon: 0}, o);
-                }
-				
-				if ( old_oid != oid ) {
-					repDatas[ oid ][ 'cash' ] = 0.0;
-					repDatas[ oid ][ 'check' ] = 0.0;
-					repDatas[ oid ][ 'creditcard' ] = 0.0;
-					repDatas[ oid ][ 'coupon' ] = 0.0;
-					repDatas[ oid ][ 'giftcard' ] = 0.0;
-					
-					//for setting up footdata
-					footDatas.total += o.total;
-		            footDatas.surcharge_subtotal += o.surcharge_subtotal;
-		            footDatas.discount_subtotal += o.discount_subtotal;
-		            footDatas.tax_subtotal += o.tax_subtotal;
-		            footDatas.item_subtotal += o.item_subtotal;
-				}
-				
-				if ( o.payment_name == 'cash' ) {
-					repDatas[ oid ][o.payment_name] += o.payment_subtotal - o.change;
-					footDatas[ o.payment_name ] += o.payment_subtotal - o.change;
-				} else {
-		            repDatas[ oid ][ o.payment_name ] += o.payment_subtotal;
-					footDatas[ o.payment_name ] += o.payment_subtotal;
-				}
-
-                old_oid = oid;
-            });
-
-            this._datas = GeckoJS.BaseObject.getValues(repDatas);
-            
-            var sortby = document.getElementById( 'sortby' ).value;
-            if ( sortby != 'all' ) {
-            	this._datas.sort(
-            		/*function ( a, b ) {
-            			if ( a[ sortby ] > b[ sortby ] ) return 1;
-            			if ( a[ sortby ] < b[ sortby ] ) return -1;
-            			return 0;
-            		}*/
-            		function ( a, b ) {
-            			var a = a[ sortby ];
-            			var b = b[ sortby ];
-            			if ( a > b ) return 1;
-            			if ( a < b ) return -1;
-            			return 0;
-            		}
-            	);
-            }
 
             var data = {
                 head: {
@@ -200,7 +145,7 @@
                     store: storeContact,
                     clerk_displayname: clerk_displayname
                 },
-                body: GeckoJS.BaseObject.getValues( this._datas ),
+                body: datas,
                 foot: {
                     foot_datas: footDatas,
                     gen_time: (new Date()).toString('yyyy/MM/dd HH:mm:ss')
@@ -209,7 +154,7 @@
 
             this._datas = data;
 
-            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_daily_sales.tpl");
+            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_order_status.tpl");
 
             var file = GREUtils.File.getFile(path);
             var tpl = GREUtils.File.readAllBytes(file);
@@ -247,8 +192,8 @@
                 // this.BrowserPrint.setPaperEdge(20, 20, 20, 20);
 
                 this.BrowserPrint.getWebBrowserPrint('preview_frame');
-                //this.BrowserPrint.printToPdf(media_path + "/daily_sales.pdf");
-                this.BrowserPrint.printToPdf( "/var/tmp/daily_sales.pdf" );
+                //this.BrowserPrint.printToPdf(media_path + "/order_status.pdf");
+                this.BrowserPrint.printToPdf( "/var/tmp/order_status.pdf" );
             } catch (e) {
                 //
             } finally {
@@ -269,14 +214,14 @@
 
                 var waitPanel = this._showWaitPanel('wait_panel', 100);
 
-                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_daily_sales_csv.tpl");
+                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_order_status_csv.tpl");
 
                 var file = GREUtils.File.getFile(path);
                 var tpl = GREUtils.File.readAllBytes(file);
                 var datas;
                 datas = this._datas;
 
-                this.CsvExport.printToFile(media_path + "/daily_sales.csv", datas, tpl);
+                this.CsvExport.printToFile(media_path + "/order_status.csv", datas, tpl);
             } catch (e) {
                 //
             } finally {
@@ -291,7 +236,7 @@
                 this._enableButton(false);
                 var waitPanel = this._showWaitPanel('wait_panel', 100);
 
-                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_daily_sales_rcp.tpl");
+                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_order_status_rcp.tpl");
 
                 var file = GREUtils.File.getFile(path);
                 var tpl = GREUtils.File.readAllBytes(file);
@@ -337,9 +282,6 @@
 		    	    
 		    addMenuitem( new OrderModel(), [ 'service_clerk_displayname' ],
 		    			[ 'service_clerk_displayname' ], [ 'service_clerk_displayname' ], 'service_clerk_menupopup', 'service_clerk_displayname', 'service_clerk_displayname' );
-		    			
-		    addMenuitem( new OrderModel(), [ 'proceeds_clerk_displayname' ],
-		    			[ 'proceeds_clerk_displayname' ], [ 'proceeds_clerk_displayname' ], 'proceeds_clerk_menupopup', 'proceeds_clerk_displayname', 'proceeds_clerk_displayname' );
 
             this._enableButton(false);
             

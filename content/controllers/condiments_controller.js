@@ -190,6 +190,7 @@
 
             this._condscrollablepanel.selectedIndex = index;
             this._condscrollablepanel.selectedItems = [index];
+            this._condscrollablepanel.refresh();
 
             if (conds) {
                 this.setInputCondData(conds[index]);

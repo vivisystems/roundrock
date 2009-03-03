@@ -3069,14 +3069,14 @@
         },
 
         pushQueue: function(warn) {
-
-            if (warn == null || warn == '') warn = true;
-
+            
+            if (warn == 'false') warn = false;
+            else if (warn == null || warn == '') warn = true;
+            
             var curTransaction = this._getTransaction();
-
             if(curTransaction == null) {
                 //@todo OSD
-                if (warn) NotifyUtils.warn(_('No open order to queue'));
+                if (warn) NotifyUtils.warn('[' + warn + '] ' + _('No open order to queue'));
                 return; // fatal error ?
             }
 
@@ -3174,7 +3174,7 @@
                 var queuePool = self._getQueuePool();
 
                 // if has transaction push queue
-                self.pushQueue(false);
+                self.pushQueue('false');
 
                 var data = queuePool.data[key];
 

@@ -96,8 +96,8 @@
             var order = new OrderModel();
             var datas = order.find('all',{fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 2});
 
-            var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
-            var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
+            var rounding_prices = GeckoJS.Configure.read( 'vivipos.fec.settings.RoundingPrices' ) || 'to-nearest-precision';
+            var precision_prices = GeckoJS.Configure.read( 'vivipos.fec.settings.PrecisionPrices' ) || 0;
 
 			var footDatas = {
             	tax_subtotal: 0,
@@ -156,6 +156,10 @@
             doc.innerHTML = result;
 
             this._enableButton(true);
+            
+            // initialize the splitter.
+            var splitter = document.getElementById( 'splitter_zoom' );
+            splitter.setAttribute( "state", "collapsed" );
 
             waitPanel.hidePopup();
 
@@ -165,21 +169,22 @@
 
             try {
                 this._enableButton(false);
-                var media_path = this.CheckMedia.checkMedia('export_report');
+                /*var media_path = this.CheckMedia.checkMedia('export_report');
                 if (!media_path){
-                    NotifyUtils.info(_('Media not found!! Please attach the USB thumb drive...'));
+                    NotifyUtils.info( _( 'Media not found!! Please attach the USB thumb drive...' ) );
                     return;
-                }
+                }*/
 
-                var waitPanel = this._showWaitPanel('wait_panel');
+                var waitPanel = this._showWaitPanel( 'wait_panel' );
 
                 this.BrowserPrint.getPrintSettings();
                 this.BrowserPrint.setPaperSizeUnit(1);
-                this.BrowserPrint.setPaperSize(210, 297);
+                this.BrowserPrint.setPaperSize( 297, 210 );
                 // this.BrowserPrint.setPaperEdge(20, 20, 20, 20);
 
                 this.BrowserPrint.getWebBrowserPrint('preview_frame');
-                this.BrowserPrint.printToPdf(media_path + "/daily_sales_detail.pdf");
+                //this.BrowserPrint.printToPdf(media_path + "/daily_sales_detail.pdf");
+                this.BrowserPrint.printToPdf( '/var/tmp/daily_sales_detail.pdf' );
             } catch (e) {
                 //
             } finally {
@@ -270,4 +275,3 @@
 
 
 })();
-
