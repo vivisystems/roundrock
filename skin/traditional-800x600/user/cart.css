@@ -151,8 +151,8 @@ treechildren::-moz-tree-cell-text(treecellTRAY) {color: white;}
 treechildren::-moz-tree-cell-text(treecellSUBTOTAL) {color: #3d5470;}
 treechildren::-moz-tree-cell-text(treecellTOTAL) {color: white;}
 */
-treechildren::-moz-tree-image(treecellTagged) {list-style-image: url(images/prod-add.png);}
-treechildren::-moz-tree-image(treecellUntagged) {list-style-image: url(images/prod-remove.png);}
+/*treechildren::-moz-tree-image(treecellUntagged) {list-style-image: url(images/prod-add.png);}*/
+treechildren::-moz-tree-image(treecellTagged) {list-style-image: url(images/prod-remove.png);}
 
 .cartList #name {
     text-align: left;
