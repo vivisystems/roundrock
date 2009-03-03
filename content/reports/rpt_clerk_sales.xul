@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE overlay [
+  <!ENTITY % Overlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Overlay;
+  <!ENTITY % rpt_clerk_sales SYSTEM "chrome://viviecr/locale/reports/rpt_clerk_sales.dtd">
+  %rpt_clerk_sales;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/reports.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+
+<window id="main" 
+        hidechrome="true"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        xmlns:html="http://www.w3.org/1999/xhtml">
+
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/template.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/template_ext.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/controllers/components/check_media.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/rpt_clerk_sales.js" />
+  
+    <vbox flex="1" class="main-dialog">
+		<vbox flex="1" class="MainPnl">
+		    <vbox>
+		        <caption label="&rptclerksales.title;"  class="PageTitle"/>
+		        <hbox>
+		            <hbox flex="1">
+		            <grid class="DataForm" flex="1">
+		                <columns>
+		                    <column  flex="1"/><column flex="1" />
+		                </columns>
+		                <rows>
+		                    <row>
+		                        <vbox>
+		                            <label value="&rptclerksales.startdate;" />
+		                            <vividatetimepicker id="start_date" value='' type="popup" />
+		                        </vbox>
+		                        <vbox>
+		                            <label value="&rptclerksales.enddate;" />
+		                            <vividatetimepicker id="end_date" value='' type="popup"/>
+		                        </vbox>
+		                    </row>
+		                    <row>
+		                    	<vbox>
+		                    		<label value="&rptclerksales.clerk_type;" />
+					                <menulist id="clerk_type">
+					                    <menupopup id="clerk_type_menupopup">
+					                        <menuitem selected="true" label="&rptclerksales.service_clerk;" value="service_clerk_displayname" />
+					                        <menuitem selected="false" label="&rptclerksales.proceeds_clerk;" value="proceeds_clerk_displayname" />
+					                    </menupopup>
+					                </menulist>
+		                    	</vbox>
+		                    	<vbox>
+				                    <label value="&rptclerksales.machineid;" />
+				                    <textbox id="machine_id" value='' width="300"/>
+				                </vbox>
+		                    </row>
+		                    <row>
+		                    	<vbox>
+				                	<label value="&rptclerksales.sortby;" />
+					                <menulist id="sortby">
+					                    <menupopup id="sortby_menupopup">
+					                        <menuitem selected="true" label="[&rptclerksales.all;]" value="all" />
+					                        <menuitem selected="false" label="&rptclerksales.terminal_no;" value="terminal_no" />
+					                        <menuitem selected="false" label="&rptclerksales.associated_clerk;" value="associated_clerk_displayname" />
+					                        <menuitem selected="false" label="&rptclerksales.transaction_created;" value="transaction_created" />
+					                        <menuitem selected="false" label="&rptclerksales.sequence;" value="sequence" />
+					                        <menuitem selected="false" label="&rptclerksales.invoice_no;" value="invoice_no" />
+					                        <menuitem selected="false" label="&rptclerksales.item_subtotal;" value="item_subtotal" />
+					                        <menuitem selected="false" label="&rptclerksales.tax_subtotal;" value="tax_subtotal" />
+					                        <menuitem selected="false" label="&rptclerksales.surcharge_subtotal;" value="surcharge_subtotal" />
+					                        <menuitem selected="false" label="&rptclerksales.discount_subtotal;" value="discount_subtotal" />
+					                        <menuitem selected="false" label="&rptclerksales.total;" value="total" />
+					                        <menuitem selected="false" label="&rptclerksales.cash;" value="cash" />
+					                        <menuitem selected="false" label="&rptclerksales.check;" value="check" />
+					                        <menuitem selected="false" label="&rptclerksales.creditcard;" value="creditcard" />
+					                        <menuitem selected="false" label="&rptclerksales.coupon;" value="coupon" />
+					                        <menuitem selected="false" label="&rptclerksales.giftcard;" value="giftcard" />
+					                    </menupopup>
+					                </menulist>
+			                    </vbox> 
+		                    </row>
+		                </rows>
+		            </grid>
+		            </hbox>
+		            <button id="execute" label="&rptclerksales.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptClerkSales');" />
+		        </hbox>
+		    </vbox>
+            <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
+                <!-- grippy/ -->
+            </splitter>
+            <hbox class="TopPnl">
+                <hbox class="ReportTool"  flex="1">
+
+                    <vivibutton id="export_pdf" label="&rptclerksales.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do('exportPdf', null, 'RptClerkSales');" />
+                    <vivibutton id="export_csv" label="&rptclerksales.exportcsv;" disabled="false" class="CsvBtn" oncommand="$do('exportCsv', null, 'RptClerkSales');" />
+                    <vivibutton id="export_rcp" label="&rptclerksales.exportrcp;" disabled="false" class="PrintBtn" oncommand="$do('exportRcp', null, 'RptClerkSales');" />
+
+                    <vivibutton id="togglesize" label="&rptclerksales.togglezoom;" disabled="false" class="ZoomBtn" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
+                    
+                </hbox>
+                <hbox id="dialogButtons" class="dialogbtns" pack="end">
+                    <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle()" class="VkbBtn"/>
+                    <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                    
+                </hbox>
+            </hbox>
+
+            <hbox flex="1">
+                <groupbox flex="1">
+                    <box class="reportbox" flex="1">
+                        <browser type="content" id="preview_frame" src="rpt_template3.html" flex="1"/>
+                    </box>
+                </groupbox>
+            </hbox>
+        </vbox>
+    </vbox>
+
+    <panel id="wait_panel" position="overlap" noautohide="true" class="WaitPnl">
+        <vbox flex="1">
+        <groupbox flex="1">
+            <caption label="&rptclerksales.wait;" class="PageTitle"/>
+            <spacer style="height: 20px;" />
+            <progressmeter id="progress" mode="undetermined" value="0" />
+            <spacer style="height: 20px;" />
+        </groupbox>
+        </vbox>
+    </panel>
+
+</window>

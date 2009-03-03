@@ -1,15 +1,15 @@
 (function(){
 
     /**
-     * RptHourlySales Controller
+     * RptOrderStatus Controller
      */
 
     GeckoJS.Controller.extend( {
-        name: 'RptHourlySales',
-        components: ['BrowserPrint', 'CsvExport', 'CheckMedia'],
+        name: 'RptOrderStatus',
+        components: [ 'BrowserPrint', 'CsvExport', 'CheckMedia' ],
         _datas: null,
 
-        _showWaitPanel: function(panel, sleepTime) {
+       _showWaitPanel: function(panel, sleepTime) {
             var waitPanel = document.getElementById(panel);
             var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
             var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
@@ -58,67 +58,87 @@
             start = parseInt(start / 1000);
             end = parseInt(end / 1000);
 
-            var fields = ['orders.transaction_created',
-                            'orders.terminal_no',
+            var fields = [
+                            'orders.transaction_created',
+                            'orders.id',
+                            'orders.sequence',
                             'orders.status',
-                            'SUM("orders"."total") AS "Order.HourTotal"',
-                            // 'STRFTIME("%Y-%m-%d %H","orders"."transaction_created_format") AS "Order.Hour"',
-                            'STRFTIME("%Y-%m-%d %H",DATETIME("orders"."transaction_created", "unixepoch", "localtime")) AS "Order.Hour"',
-                            'COUNT("orders"."id") AS "Order.OrderNum"',
-                            'SUM("orders"."no_of_customers") AS "Order.Guests"',
-                            'SUM("orders"."items_count") AS "Order.ItemsCount"'];
+                            'orders.change',
+                            'orders.tax_subtotal',
+                            'orders.item_subtotal',
+                            'orders.total',
+                            'orders.service_clerk_displayname',
+                            'orders.rounding_prices',
+                            'orders.precision_prices',
+                            'orders.surcharge_subtotal',
+                            'orders.discount_subtotal',
+                            'orders.items_count',
+                            'orders.check_no',
+                            'orders.table_no',
+                            'orders.no_of_customers',
+                            'orders.invoice_no',
+                            'orders.terminal_no'
+                         ];
 
             var conditions = "orders.transaction_created>='" + start +
                             "' AND orders.transaction_created<='" + end +
-                            "' AND orders.status='1'";
+                            "' AND orders.status < 100";
+                            
+            var orderstatus = document.getElementById( 'orderstatus' ).value;
+            if ( orderstatus != 'all' )
+            	conditions += " AND orders.status = " + orderstatus;
+                            
+            var service_clerk = document.getElementById( 'service_clerk' ).value;
+            if ( service_clerk != 'all' )
+            	conditions += " AND orders.service_clerk_displayname = '" + service_clerk + "'";
+
             if (machineid.length > 0) {
                 conditions += " AND orders.terminal_no LIKE '" + machineid + "%'";
-                var groupby = 'orders.terminal_no,"Order.Hour"';
+                //var groupby = 'orders.terminal_no,"Order.Date"';
             } else {
-                var groupby = '"Order.Hour"';
+                //var groupby = '"Order.Date"';
             }
-
+            var groupby = '';
+            var orderby = 'orders.terminal_no, orders.transaction_created, orders.id';
             
-            var orderby = 'orders.terminal_no,orders.transaction_created';
-
+            var sortby = document.getElementById( 'sortby' ).value;
+            if ( sortby != 'all' )
+            	orderby = 'orders.' + sortby;
+            
             var order = new OrderModel();
-            var datas = order.find( 'all', {fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: -1} );
+            
+            var datas = order.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: -1 } );
+            
+            datas.forEach( function( data ) {
+            	switch ( parseInt( data.status ) ) {
+            		case 1:
+            			data.status = 'Finalized';
+            			break;
+            		case 2:
+            			data.status = 'Saved';
+            			break;
+            		case -1:
+            			data.status = 'Canceled';
+            			break;
+            	}
+            });
 
             var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
             var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
-            
-            var sortby = document.getElementById( 'sortby' ).value;
-            if ( sortby != 'all' ) {
-            	datas.sort(
-            		function ( a, b ) {
-            			if ( a[ sortby ] > b[ sortby ] ) return 1;
-            			if ( a[ sortby ] < b[ sortby ] ) return -1;
-            			return 0;
-            		}
-            	);
-            }
 
-            var HourTotal = 0;
-            var OrderNum = 0;
-            var Guests = 0;
-            var ItemsCount = 0;
+            var initZero = parseFloat(0).toFixed(precision_prices);
 
-            datas.forEach( function(o) {
-                HourTotal += o.HourTotal;
-                OrderNum += o.OrderNum;
-                Guests += o.Guests;
-                ItemsCount += o.ItemsCount;
-
-                o.HourTotal = GeckoJS.NumberHelper.round(o.HourTotal, precision_prices, rounding_prices) || 0;
-                o.HourTotal = o.HourTotal.toFixed(precision_prices);
-            } );
-
-            HourTotal = GeckoJS.NumberHelper.round(HourTotal, precision_prices, rounding_prices) || 0;
-            HourTotal = HourTotal.toFixed(precision_prices);
+            var footDatas = {
+            	tax_subtotal: 0,
+            	item_subtotal: 0,
+            	total: 0,
+            	surcharge_subtotal: 0,
+            	discount_subtotal: 0,
+            };
 
             var data = {
                 head: {
-                    title:_('Hourly Sales Report'),
+                    title:_('Daily Sales Report'),
                     start_time: start_str,
                     end_time: end_str,
                     machine_id: machineid,
@@ -127,17 +147,14 @@
                 },
                 body: datas,
                 foot: {
-                    HourTotal: HourTotal,
-                    OrderNum : OrderNum,
-                    Guests   : Guests,
-                    ItemsCount: ItemsCount,
+                    foot_datas: footDatas,
                     gen_time: (new Date()).toString('yyyy/MM/dd HH:mm:ss')
                 }
             }
 
             this._datas = data;
 
-            var path = GREUtils.File.chromeToPath( "chrome://viviecr/content/reports/tpl/rpt_hourly_sales.tpl" );
+            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_order_status.tpl");
 
             var file = GREUtils.File.getFile(path);
             var tpl = GREUtils.File.readAllBytes(file);
@@ -151,37 +168,38 @@
 
             this._enableButton(true);
             
-            var splitter = document.getElementById('splitter_zoom');
-            splitter.setAttribute("state", "collapsed");
+            var splitter = document.getElementById( 'splitter_zoom' );
+            splitter.setAttribute( "state", "collapsed" );
 
             waitPanel.hidePopup();
 
         },
 
         exportPdf: function() {
-
             try {
                 this._enableButton(false);
-                var media_path = this.CheckMedia.checkMedia('export_report');
+                /*var media_path = this.CheckMedia.checkMedia('export_report');
                 if (!media_path){
                     NotifyUtils.info(_('Media not found!! Please attach the USB thumb drive...'));
                     return;
-                }
+                }*/
 
                 var waitPanel = this._showWaitPanel('wait_panel');
 
                 this.BrowserPrint.getPrintSettings();
                 this.BrowserPrint.setPaperSizeUnit(1);
-                this.BrowserPrint.setPaperSize(210, 297);
+                this.BrowserPrint.setPaperSize(297, 210);
                 // this.BrowserPrint.setPaperEdge(20, 20, 20, 20);
 
                 this.BrowserPrint.getWebBrowserPrint('preview_frame');
-                this.BrowserPrint.printToPdf(media_path + "/hourly_sales.pdf");
+                //this.BrowserPrint.printToPdf(media_path + "/order_status.pdf");
+                this.BrowserPrint.printToPdf( "/var/tmp/order_status.pdf" );
             } catch (e) {
                 //
             } finally {
                 this._enableButton(true);
-                if (waitPanel) waitPanel.hidePopup();
+                if ( waitPanel != undefined )
+                	waitPanel.hidePopup();
             }
         },
 
@@ -196,14 +214,14 @@
 
                 var waitPanel = this._showWaitPanel('wait_panel', 100);
 
-                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_hourly_sales_csv.tpl");
+                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_order_status_csv.tpl");
 
                 var file = GREUtils.File.getFile(path);
                 var tpl = GREUtils.File.readAllBytes(file);
                 var datas;
                 datas = this._datas;
 
-                this.CsvExport.printToFile(media_path + "/hourly_sales.csv", datas, tpl);
+                this.CsvExport.printToFile(media_path + "/order_status.csv", datas, tpl);
             } catch (e) {
                 //
             } finally {
@@ -218,7 +236,7 @@
                 this._enableButton(false);
                 var waitPanel = this._showWaitPanel('wait_panel', 100);
 
-                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_hourly_sales_rcp.tpl");
+                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_order_status_rcp.tpl");
 
                 var file = GREUtils.File.getFile(path);
                 var tpl = GREUtils.File.readAllBytes(file);
@@ -248,6 +266,22 @@
 
             document.getElementById('start_date').value = start;
             document.getElementById('end_date').value = end;
+            
+            function addMenuitem( dbModel, fields, order, group, menupopupId, valueField, labelField ) {
+		        //set up the designated pop-up menulist.
+		        var records = dbModel.find( 'all', { fields: fields, order: order, group: group } );
+		        var menupopup = document.getElementById( menupopupId );
+
+		        records.forEach( function( data ) {
+		            var menuitem = document.createElementNS( "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul", "xul:menuitem" );
+		            menuitem.setAttribute( 'value', data[ valueField ] );
+		            menuitem.setAttribute( 'label', data[ labelField ] );
+		            menupopup.appendChild( menuitem );
+		        });
+		    }
+		    	    
+		    addMenuitem( new OrderModel(), [ 'service_clerk_displayname' ],
+		    			[ 'service_clerk_displayname' ], [ 'service_clerk_displayname' ], 'service_clerk_menupopup', 'service_clerk_displayname', 'service_clerk_displayname' );
 
             this._enableButton(false);
             
@@ -257,3 +291,4 @@
 
 
 })();
+

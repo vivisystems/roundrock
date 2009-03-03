@@ -1,0 +1,7 @@
+<!ENTITY splitcheck.title "Split Check">
+<!ENTITY splitcheck.name "Group Name">
+<!ENTITY splitcheck.button.action.split "Split">
+<!ENTITY splitcheck.button.action.reverse "Reverse">
+<!ENTITY splitcheck.button.action.cancel "Cancel">
+<!ENTITY splitcheck.button.action.conform "Conform">
+<!ENTITY splitcheck.button.action.paythis "Pay This Check">
