@@ -26,50 +26,52 @@
   
     <vbox flex="1" class="main-dialog">
         <vbox flex="1" class="MainPnl">
-            <caption label="&rpthourlysales.title;"  class="PageTitle"/>
-            <!--caption label="&productsales.conditions;" / -->
-            <hbox>
-                <hbox flex="1">
-                <grid class="DataForm" flex="1">
-                    <columns>
-                        <column  flex="1"/><column flex="1" />
-                    </columns>
-                    <rows>
-                        <row>
-                            <vbox>
-                                <label value="&rpthourlysales.startdate;" />
-                                <vividatetimepicker id="start_date" value='' type="popup" />
-                            </vbox>
-                            <vbox>
-                                <label value="&rpthourlysales.enddate;" />
-                                <vividatetimepicker id="end_date" value='' type="popup"/>
-                            </vbox>
-                        </row>
-                        <row>
-                        	<vbox>
-                        		<label value="&rpthourlysales.sortby;" />
-				                <menulist id="sortby">
-				                    <menupopup id="sortby_menupopup">
-				                        <menuitem selected="true" label="[&rpthourlysales.all;]" value="all" />
-				                        <menuitem selected="false" label="&rpthourlysales.terminal_no;" value="terminal_no" />
-				                        <menuitem selected="false" label="&rpthourlysales.Hour;" value="Hour" />
-				                        <menuitem selected="false" label="&rpthourlysales.HourTotal;" value="HourTotal" />
-				                        <menuitem selected="false" label="&rpthourlysales.OrderNum;" value="OrderNum" />
-				                        <menuitem selected="false" label="&rpthourlysales.Guests;" value="Guests" />
-				                        <menuitem selected="false" label="&rpthourlysales.ItemsCount;" value="ItemsCount" />
-				                    </menupopup>
-				                </menulist>
-				            </vbox>
-				            <vbox>
-		                        <label value="&rpthourlysales.machineid;" />
-		                        <textbox id="machine_id" value='' width="300"/>
-		                    </vbox>
-                        </row>
-                    </rows>
-                </grid>
-                </hbox>
-                <button id="execute" label="&rpthourlysales.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptHourlySales');" />
-            </hbox>
+		    <vbox>
+		        <caption label="&rpthourlysales.title;"  class="PageTitle"/>
+		        <!--caption label="&productsales.conditions;" / -->
+		        <hbox>
+		            <hbox flex="1">
+		            <grid class="DataForm" flex="1">
+		                <columns>
+		                    <column  flex="1"/><column flex="1" />
+		                </columns>
+		                <rows>
+		                    <row>
+		                        <vbox>
+		                            <label value="&rpthourlysales.startdate;" />
+		                            <vividatetimepicker id="start_date" value='' type="popup" />
+		                        </vbox>
+		                        <vbox>
+		                            <label value="&rpthourlysales.enddate;" />
+		                            <vividatetimepicker id="end_date" value='' type="popup"/>
+		                        </vbox>
+		                    </row>
+		                    <row>
+		                    	<vbox>
+		                    		<label value="&rpthourlysales.sortby;" />
+						            <menulist id="sortby">
+						                <menupopup id="sortby_menupopup">
+						                    <menuitem selected="true" label="[&rpthourlysales.all;]" value="all" />
+						                    <menuitem selected="false" label="&rpthourlysales.terminal_no;" value="terminal_no" />
+						                    <menuitem selected="false" label="&rpthourlysales.Hour;" value="Hour" />
+						                    <menuitem selected="false" label="&rpthourlysales.HourTotal;" value="HourTotal" />
+						                    <menuitem selected="false" label="&rpthourlysales.OrderNum;" value="OrderNum" />
+						                    <menuitem selected="false" label="&rpthourlysales.Guests;" value="Guests" />
+						                    <menuitem selected="false" label="&rpthourlysales.ItemsCount;" value="ItemsCount" />
+						                </menupopup>
+						            </menulist>
+						        </vbox>
+						        <vbox>
+				                    <label value="&rpthourlysales.machineid;" />
+				                    <textbox id="machine_id" value='' width="300"/>
+				                </vbox>
+		                    </row>
+		                </rows>
+		            </grid>
+		            </hbox>
+		            <button id="execute" label="&rpthourlysales.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptHourlySales');" />
+		        </hbox>
+            </vbox>
             <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
                 <!-- grippy/ -->
             </splitter>

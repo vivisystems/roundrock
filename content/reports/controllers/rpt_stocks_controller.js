@@ -128,6 +128,9 @@
             doc.innerHTML = result;
 
             this._enableButton(true);
+            
+            var splitter = document.getElementById('splitter_zoom');
+            splitter.setAttribute("state", "collapsed");
 
             waitPanel.hidePopup();
 

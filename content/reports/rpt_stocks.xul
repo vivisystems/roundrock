@@ -26,41 +26,43 @@
   
     <vbox flex="1" class="main-dialog">
         <vbox flex="1" class="MainPnl">
-            <caption label="&rptstocks.title;"  class="PageTitle"/>
-            <hbox>
-                <hbox flex="1">
-                <grid class="DataForm" flex="1">
-                    <columns>
-                        <column  flex="1"/><column  flex="1"/>
-                    </columns>
-                    <rows>
-                        <row>
-                        	<vbox>
-		                        <label value="&rptstocks.department;" />
-		                        <menulist id="department" flex="1">
-		                            <menupopup id="department_menupopup"  flex="1">
-		                                <menuitem selected="true" label="[&rptstocks.all;]" value="all" />
-		                            </menupopup>
-		                        </menulist>
-		                    </vbox>
-                            <vbox>
-		                    	<label value="&rptstocks.sortby;" />
-				                <menulist id="sortby">
-				                    <menupopup id="sortby_menupopup">
-				                        <menuitem selected="true" label="[&rptstocks.all;]" value="all" />
-				                        <menuitem selected="false" label="&rptstocks.no;" value="no" />
-				                        <menuitem selected="false" label="&rptstocks.name;" value="name" />
-				                        <menuitem selected="false" label="&rptstocks.stock;" value="stock" />
-				                        <menuitem selected="false" label="&rptstocks.min_stock;" value="min_stock" />
-				                    </menupopup>
-				                </menulist>
-				            </vbox>
-                        </row>
-                    </rows>
-                </grid>
-                </hbox>
-                <button id="execute" label="&rptstocks.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptStocks');" />
-            </hbox>
+		    <vbox>
+		        <caption label="&rptstocks.title;"  class="PageTitle"/>
+		        <hbox>
+		            <hbox flex="1">
+		            <grid class="DataForm" flex="1">
+		                <columns>
+		                    <column  flex="1"/><column  flex="1"/>
+		                </columns>
+		                <rows>
+		                    <row>
+		                    	<vbox>
+				                    <label value="&rptstocks.department;" />
+				                    <menulist id="department" flex="1">
+				                        <menupopup id="department_menupopup"  flex="1">
+				                            <menuitem selected="true" label="[&rptstocks.all;]" value="all" />
+				                        </menupopup>
+				                    </menulist>
+				                </vbox>
+		                        <vbox>
+				                	<label value="&rptstocks.sortby;" />
+						            <menulist id="sortby">
+						                <menupopup id="sortby_menupopup">
+						                    <menuitem selected="true" label="[&rptstocks.all;]" value="all" />
+						                    <menuitem selected="false" label="&rptstocks.no;" value="no" />
+						                    <menuitem selected="false" label="&rptstocks.name;" value="name" />
+						                    <menuitem selected="false" label="&rptstocks.stock;" value="stock" />
+						                    <menuitem selected="false" label="&rptstocks.min_stock;" value="min_stock" />
+						                </menupopup>
+						            </menulist>
+						        </vbox>
+		                    </row>
+		                </rows>
+		            </grid>
+		            </hbox>
+		            <button id="execute" label="&rptstocks.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptStocks');" />
+		        </hbox>
+            </vbox>
             <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
                 <!-- grippy/ -->
             </splitter>

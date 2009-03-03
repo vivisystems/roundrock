@@ -41,8 +41,8 @@
             var start = document.getElementById('start_date').value;
             var end = document.getElementById('end_date').value;
 
-//            var start_str = document.getElementById('start_date').datetimeValue.toLocaleString();
-//            var end_str = document.getElementById('end_date').datetimeValue.toLocaleString();
+            //var start_str = document.getElementById('start_date').datetimeValue.toLocaleString();
+            //var end_str = document.getElementById('end_date').datetimeValue.toLocaleString();
             var start_str = document.getElementById('start_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
             var end_str = document.getElementById('end_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
 
@@ -76,9 +76,9 @@
 
             datas.forEach(function(o){
                 var d = new Date();
-                d.setTime(o.starttime * 1000);
+                d.setTime( o.starttime );
                 o.starttime = d.toString('yyyy/MM/dd HH:mm');
-                d.setTime(o.endtime * 1000);
+                d.setTime( o.endtime );
                 o.endtime = d.toString('yyyy/MM/dd HH:mm');
 
                 o.amount = GeckoJS.NumberHelper.round(o.amount, precision_prices, rounding_prices) || 0;
@@ -117,6 +117,9 @@
             doc.innerHTML = result;
 
             this._enableButton(true);
+            
+            var splitter = document.getElementById('splitter_zoom');
+            splitter.setAttribute("state", "collapsed");
 
             waitPanel.hidePopup();
 
@@ -126,7 +129,7 @@
 
             try {
                 this._enableButton(false);
-                var media_path = this.CheckMedia.checkMedia('export_report');
+                var media_path = this.CheckMedia.checkMedia('report_export');
                 if (!media_path){
                     NotifyUtils.info(_('Media not found!! Please attach the USB thumb drive...'));
                     return;

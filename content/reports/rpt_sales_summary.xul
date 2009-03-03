@@ -47,8 +47,10 @@
 		                        </vbox>
 		                    </row>
 		                    <row>
-		                        <label value="&rptsalessummary.machineid;" />
-		                        <textbox id="machine_id" value='' width="300"/>
+		                    	<vbox>
+				                    <label value="&rptsalessummary.machineid;" />
+				                    <textbox id="machine_id" value='' width="300"/>
+				                </vbox>
 		                    </row>
 		                </rows>
 		            </grid>
