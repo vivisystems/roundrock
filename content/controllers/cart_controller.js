@@ -2848,7 +2848,6 @@
                 conds: condGroupsByPLU[condgroup]['Condiments'],
                 selectedItems: selectedItems
             };
-
             var self = this;
             return $.popupPanel('selectCondimentPanel', dialog_data).next(function(evt){
                 var selectedCondiments = evt.data.condiments;
