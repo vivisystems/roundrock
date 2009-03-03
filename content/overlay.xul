@@ -32,6 +32,7 @@
   <script src='chrome://viviecr/content/helpers/nsi_plus_view.js'/>
   <script src='chrome://viviecr/content/helpers/nsi_categories_view.js'/>
   <script src='chrome://viviecr/content/helpers/nsi_departments_view.js'/>
+  <script src='chrome://viviecr/content/helpers/nsi_condiments_view.js'/>
   <script src='chrome://viviecr/content/helpers/nsi_cart_view.js'/>
 
   <!-- front-end components -->
