@@ -1,5 +1,5 @@
 <?php
-$dir = "./";
+$dir = "./work/";
 
 // Open a known directory, and proceed to read its contents
 if (is_dir($dir)) {
@@ -18,7 +18,7 @@ if (is_dir($dir)) {
 		
 			preg_match('/license stub= (.*)$/', $content, $m);
 
-			$out = shell_exec("echo " . trim($m[1]) . " | ../getSystemLicense > " . $out_file);
+			$out = shell_exec("echo " . trim($m[1]) . " | ./getSystemLicense > " . $out_file);
 
 			
 		}
