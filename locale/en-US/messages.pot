@@ -1028,3 +1028,7 @@ msgstr "Modify Annotations"
 
 msgid "acl_delete_annotations"
 msgstr "Delete Annotations"
+
+msgid "Cash Drawer Report"
+msgstr "Cash Drawer Report"
+

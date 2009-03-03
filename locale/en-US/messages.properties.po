@@ -1033,6 +1033,9 @@ msgstr "Modify Annotations"
 msgid "acl_delete_annotations"
 msgstr "Delete Annotations"
 
+msgid "Cash Drawer Report"
+msgstr "Cash Drawer Report"
+
 #: ../..//content/datetime.js:27
 msgid "confirm timezone change"
 msgstr ""
@@ -1088,7 +1091,7 @@ msgid "New ACL Group"
 msgstr ""
 
 #: ../..//content/controllers/aclgroups_controller.js:47
-#: ../..//content/controllers/condiments_controller.js:291
+#: ../..//content/controllers/condiments_controller.js:294
 #: ../..//content/controllers/plugroups_controller.js:51
 msgid "Group Name"
 msgstr ""
@@ -1118,8 +1121,8 @@ msgid ""
 msgstr ""
 
 #: ../..//content/controllers/aclgroups_controller.js:84
-#: ../..//content/controllers/condiments_controller.js:401
-#: ../..//content/controllers/condiments_controller.js:622
+#: ../..//content/controllers/condiments_controller.js:404
+#: ../..//content/controllers/condiments_controller.js:625
 #: ../..//content/controllers/departments_controller.js:258
 #: ../..//content/controllers/jobs_controller.js:143
 #: ../..//content/controllers/plugroups_controller.js:178
@@ -1130,8 +1133,8 @@ msgid "confirm delete %S"
 msgstr ""
 
 #: ../..//content/controllers/aclgroups_controller.js:84
-#: ../..//content/controllers/condiments_controller.js:401
-#: ../..//content/controllers/condiments_controller.js:622
+#: ../..//content/controllers/condiments_controller.js:404
+#: ../..//content/controllers/condiments_controller.js:625
 #: ../..//content/controllers/departments_controller.js:258
 #: ../..//content/controllers/jobs_controller.js:143
 #: ../..//content/controllers/plugroups_controller.js:178
@@ -1866,107 +1869,107 @@ msgstr ""
 msgid "Not clocked in yet."
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:287
+#: ../..//content/controllers/condiments_controller.js:290
 msgid "Add New Condiment Group"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:289
+#: ../..//content/controllers/condiments_controller.js:292
 msgid "New Condiment Group"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:303
+#: ../..//content/controllers/condiments_controller.js:306
 msgid "Condiment Group [%S] already exists."
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:327
+#: ../..//content/controllers/condiments_controller.js:330
 msgid "Condiment Group [%S] added successfully"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:332
+#: ../..//content/controllers/condiments_controller.js:335
 msgid ""
 "An error occurred while adding Condiment Group [%S]. The group may not have "
 "been added successfully"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:356
+#: ../..//content/controllers/condiments_controller.js:359
 msgid "Condiment Group [%S] already exists"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:375
+#: ../..//content/controllers/condiments_controller.js:378
 msgid "Condiment Group [%S] modified successfully"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:379
+#: ../..//content/controllers/condiments_controller.js:382
 msgid ""
 "An error occurred while modifying Condiment Group [%S]. The group may not "
 "have been modified successfully"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:397
+#: ../..//content/controllers/condiments_controller.js:400
 #: ../..//content/controllers/taxes_controller.js:176
 msgid "[%S] has been assigned to one or more products and may not be deleted"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:431
+#: ../..//content/controllers/condiments_controller.js:434
 msgid "Condiment Group [%S] removed successfully"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:435
+#: ../..//content/controllers/condiments_controller.js:438
 msgid ""
 "An error occurred while removing Condiment Group [%S]. The group may not "
 "have been removed successfully"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:479
+#: ../..//content/controllers/condiments_controller.js:482
 msgid "Add New Condiment"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:479
+#: ../..//content/controllers/condiments_controller.js:482
 msgid "New Condiment"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:479
+#: ../..//content/controllers/condiments_controller.js:482
 msgid "Condiment Name"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:479
+#: ../..//content/controllers/condiments_controller.js:482
 msgid "Condiment Price"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:485
+#: ../..//content/controllers/condiments_controller.js:488
 msgid "Condiment Price must be a number"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:504
-#: ../..//content/controllers/condiments_controller.js:566
+#: ../..//content/controllers/condiments_controller.js:507
+#: ../..//content/controllers/condiments_controller.js:569
 msgid "Condiment [%S] already exists in this group"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:539
+#: ../..//content/controllers/condiments_controller.js:542
 msgid "Condiment [%S] added successfully"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:544
+#: ../..//content/controllers/condiments_controller.js:547
 msgid ""
 "An error occurred while adding Condiment [%S]. The condiment may not have "
 "been added successfully"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:608
+#: ../..//content/controllers/condiments_controller.js:611
 msgid "Condiment [%S] modified successfully"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:612
+#: ../..//content/controllers/condiments_controller.js:615
 msgid ""
 "An error occurred while modifying Condiment [%S]. The condiment may not have "
 "been modified successfully"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:647
+#: ../..//content/controllers/condiments_controller.js:650
 msgid "Condiment [%S] removed successfully"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:651
+#: ../..//content/controllers/condiments_controller.js:654
 msgid ""
 "An error occurred while removing Condiment [%S]. The condiment may not have "
 "been removed successfully"
@@ -3017,101 +3020,101 @@ msgstr ""
 msgid "Specified receipt/guest check template [%S] is empty or does not exist!"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:65
-#: ../../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:114
-#: ../../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:136
-#: ../../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:143
-#: ../../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:161
-#: ../../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:166
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:65
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:114
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:136
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:143
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:161
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:166
 msgid "TAL"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:67
-#: ../../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:115
-#: ../../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:137
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:67
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:115
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:137
 msgid "REM"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:68
-#: ../../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:116
-#: ../../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:138
-#: ../../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:167
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:68
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:116
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:138
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:167
 msgid "PAY"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:76
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:76
 msgid "Return"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:80
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:80
 msgid "I"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:84
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:84
 msgid "QTY"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:91
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:91
 msgid "Change Clerk"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:93
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:93
 msgid "Password"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:140
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:140
 msgid "CANCELED"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:141
-#: ../../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:153
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:141
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:153
 msgid "SEQ#"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:152
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:152
 msgid "QUEUED"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:168
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:168
 msgid "CHG"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:169
+#: ../../../vivipos_sdk/chrome/content/bindings/onscreenvfd.xbl:169
 msgid "Sale Completed"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1877
+#: ../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1877
 msgid "Scroll Forward"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1878
+#: ../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1878
 msgid "Next"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1879
+#: ../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1879
 msgid "This function scrolls the function panel to the next page"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1887
+#: ../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1887
 msgid "Scroll Backward"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1888
+#: ../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1888
 msgid "Back"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1889
+#: ../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1889
 msgid "This function scrolls the function panel to the previous page"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1897
+#: ../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1897
 msgid "Home Page"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1898
+#: ../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1898
 msgid "Home"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1899
+#: ../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1899
 msgid "This function scrolls the function panel to the home page"
 msgstr ""
