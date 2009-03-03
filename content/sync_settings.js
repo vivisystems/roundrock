@@ -1,6 +1,5 @@
 (function(){
 
-
     /**
      * Controller Startup
      */

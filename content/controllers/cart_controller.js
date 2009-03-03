@@ -10,16 +10,11 @@
         _cartView: null,
         _queuePool: null,
         _returnMode: false,
-        _pluPanel: null,
 
         initial: function() {
             
             if (this._cartView == null ) {
                 this._cartView = new NSICartView('cartList');
-            }
-
-            if (this._pluPanel == null) {
-                this._pluPanel = document.getElementById('prodscrollablepanel');
             }
 
             var self = this;
@@ -36,8 +31,6 @@
             GeckoJS.Session.remove('cart_last_sell_item');
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
-
-
         },
 
         suspend: function () {
@@ -2728,7 +2721,6 @@
                 conds: condGroupsByPLU[condgroup]['Condiments'],
                 selectedItems: selectedItems
             };
-
             var self = this;
             return $.popupPanel('selectCondimentPanel', dialog_data).next(function(evt){
                 var selectedCondiments = evt.data.condiments;
@@ -2943,9 +2935,10 @@
         },
 
         pushQueue: function(warn) {
-
-            if (warn == null || warn == '') warn = true;
-
+            
+            if (warn == 'false') warn = false;
+            else if (warn == null || warn == '') warn = true;
+            
             var curTransaction = this._getTransaction();
 
             if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
@@ -3044,7 +3037,7 @@
                 var queuePool = self._getQueuePool();
 
                 // if has transaction push queue
-                self.pushQueue(false);
+                self.pushQueue('false');
 
                 var data = queuePool.data[key];
 

@@ -15,6 +15,7 @@
                     <th>Discount</th>
                     <th>Payment</th>
                     <th>Cash</th>
+                    <th>Check</th>
                     <th>Credit Card</th>
                     <th>Coupon</th>
                     <th>Gift Card</th>
@@ -30,6 +31,7 @@
                     <td>${detail.discount_subtotal|viviFormatPrices:true}</td>
                     <td>${detail.total|viviFormatPrices:true}</td>
                     <td>${detail.cash|default:0|viviFormatPrices:true}</td>
+                    <td>${detail.check|default:0|viviFormatPrices:true}</td>
                     <td>${detail.creditcard|default:0|viviFormatPrices:true}</td>
                     <td>${detail.coupon|default:0|viviFormatPrices:true}</td>
                     <td>${detail.giftcard|default:0|viviFormatPrices:true}</td>
@@ -45,6 +47,7 @@
                     <td>${foot.discount_subtotal|viviFormatPrices:true}</td>
                     <td>${foot.total|viviFormatPrices:true}</td>
                     <td>${foot.cash|viviFormatPrices:true}</td>
+                    <td>${foot.check|viviFormatPrices:true}</td>
                     <td>${foot.creditcard|viviFormatPrices:true}</td>
                     <td>${foot.coupon|viviFormatPrices:true}</td>
                     <td>${foot.giftcard|viviFormatPrices:true}</td>

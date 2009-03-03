@@ -1,9 +1,5 @@
 (function(){
 
-    // include controllers  and register itself
-
-    GeckoJS.include('chrome://viviecr/content/controllers/plufilter_controller.js');
-
     /**
      * Controller Startup
      */

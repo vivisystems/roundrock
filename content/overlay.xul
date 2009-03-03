@@ -24,7 +24,45 @@
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
 
+  <!-- include models -->
   <script src="chrome://viviecr/content/bootstrap.js" type="application/x-javascript"/>
+
+  <!-- include front-end views -->
+  <script src='chrome://viviecr/content/helpers/nsi_products_view.js'/>
+  <script src='chrome://viviecr/content/helpers/nsi_plus_view.js'/>
+  <script src='chrome://viviecr/content/helpers/nsi_categories_view.js'/>
+  <script src='chrome://viviecr/content/helpers/nsi_departments_view.js'/>
+  <script src='chrome://viviecr/content/helpers/nsi_condiments_view.js'/>
+  <script src='chrome://viviecr/content/helpers/nsi_cart_view.js'/>
+
+  <!-- front-end components -->
+  <script src='chrome://viviecr/content/controllers/components/barcode.js'/>
+  <script src='chrome://viviecr/content/controllers/components/tax.js'/>
+  <script src='chrome://viviecr/content/controllers/components/guest_check.js'/>
+
+  <!-- front-end UI controllers -->
+  <script src='chrome://viviecr/content/controllers/main_controller.js'/>
+  <script src='chrome://viviecr/content/controllers/cart_controller.js'/>
+  <script src='chrome://viviecr/content/controllers/keypad_controller.js'/>
+  <script src='chrome://viviecr/content/controllers/layout_controller.js'/>
+
+  <!-- function controllers -->
+  <script src='chrome://viviecr/content/controllers/pricelevel_controller.js'/>
+  <script src='chrome://viviecr/content/controllers/condiments_controller.js'/>
+  <script src='chrome://viviecr/content/controllers/currencysetup_controller.js'/>
+  <script src='chrome://viviecr/content/controllers/destination_controller.js'/>
+  <script src='chrome://viviecr/content/controllers/currencysetup_controller.js'/>
+  <script src='chrome://viviecr/content/controllers/storecontact_controller.js'/>
+  <script src='chrome://viviecr/content/controllers/annotation_controller.js'/>
+  <script src='chrome://viviecr/content/controllers/shift_changes_controller.js'/>
+  <script src='chrome://viviecr/content/controllers/stocks_controller.js'/>
+
+  <!-- device controllers -->
+  <script src='chrome://viviecr/content/controllers/devices_controller.js'/>
+  <script src='chrome://viviecr/content/controllers/print_controller.js'/>
+  <script src='chrome://viviecr/content/controllers/vfd_controller.js'/>
+  <script src='chrome://viviecr/content/controllers/cash_drawer_controller.js'/>
+
   <script src="chrome://viviecr/content/overlay.js" type="application/x-javascript"/>
 
     <box id="main-container">

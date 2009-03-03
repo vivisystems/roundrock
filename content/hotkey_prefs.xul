@@ -16,8 +16,10 @@
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
-    <script src="chrome://viviecr/content/controllers/hotkey_prefs_controller.js" type="text/javascript"/>
+  <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+
+  <!-- include startup script -->
+  <script src="chrome://viviecr/content/controllers/hotkey_prefs_controller.js" type="text/javascript"/>
     
     <box id="hotkey-container"  class="main-dialog" flex="1">
         <hbox flex="1" class="MainPnl" >

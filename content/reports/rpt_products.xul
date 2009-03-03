@@ -26,46 +26,51 @@
   
     <vbox flex="1" class="main-dialog">
         <vbox flex="1" class="MainPnl">
-            <caption label="&rptproducts.title;"  class="PageTitle"/>
-            <!--caption label="&productsales.conditions;" / -->
-            <hbox>
-                <hbox flex="1">
-                <grid class="DataForm" flex="1">
-                    <columns>
-                        <column  flex="1"/>
-                        <column flex="1" />
-                    </columns>
-                    <rows>
-                        <row>
-                        	<vbox>
-		                        <label value="&rptproducts.department;" />
-		                        <menulist id="department">
-		                            <menupopup id="department_menupopup">
-		                                <menuitem selected="true" label="[&rptproducts.all;]" value="all" />
-		                            </menupopup>
-		                        </menulist>
-		                    </vbox>
-		                    <vbox>
-		                        <label value="&rptproducts.sortby;" />
-		                        <menulist id="sortby">
-		                            <menupopup id="sortby_menupopup">
-		                                <menuitem selected="true" label="[&rptproducts.all;]" value="all" />
-		                                <menuitem selected="true" label="&rptproducts.no;" value="no" />
-		                                <menuitem selected="true" label="&rptproducts.name;" value="name" />
-		                                <menuitem selected="true" label="&rptproducts.barcode;" value="barcode" />
-		                                <menuitem selected="true" label="&rptproducts.rate;" value="rate" />
-		                                <menuitem selected="true" label="&rptproducts.stock;" value="stock" />
-		                                <menuitem selected="true" label="&rptproducts.min_stock;" value="min_stock" />
-		                            </menupopup>
-		                        </menulist>
-		                    </vbox>
-                        </row>
-                    </rows>
-                </grid>
-                </hbox>
-                <button id="execute" label="&rptproducts.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptProducts');" />
-            </hbox>
-						<hbox class="TopPnl">
+		    <vbox>
+		        <caption label="&rptproducts.title;"  class="PageTitle"/>
+		        <!--caption label="&productsales.conditions;" / -->
+		        <hbox>
+		            <hbox flex="1">
+		            <grid class="DataForm" flex="1">
+		                <columns>
+		                    <column  flex="1"/>
+		                    <column flex="1" />
+		                </columns>
+		                <rows>
+		                    <row>
+		                    	<vbox width="50%">
+				                    <label value="&rptproducts.department;" />
+				                    <menulist id="department">
+				                        <menupopup id="department_menupopup">
+				                            <menuitem selected="true" label="[&rptproducts.all;]" value="all" />
+				                        </menupopup>
+				                    </menulist>
+				                </vbox>
+				                <vbox width="50%">
+				                    <label value="&rptproducts.sortby;" />
+				                    <menulist id="sortby">
+				                        <menupopup id="sortby_menupopup">
+				                            <menuitem selected="true" label="[&rptproducts.all;]" value="all" />
+				                            <menuitem selected="false" label="&rptproducts.no;" value="no" />
+				                            <menuitem selected="false" label="&rptproducts.name;" value="name" />
+				                            <menuitem selected="false" label="&rptproducts.barcode;" value="barcode" />
+				                            <menuitem selected="false" label="&rptproducts.rate;" value="rate" />
+				                            <menuitem selected="false" label="&rptproducts.stock;" value="stock" />
+				                            <menuitem selected="false" label="&rptproducts.min_stock;" value="min_stock" />
+				                        </menupopup>
+				                    </menulist>
+				                </vbox>
+		                    </row>
+		                </rows>
+		            </grid>
+		            </hbox>
+		            <button id="execute" label="&rptproducts.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptProducts');" />
+		        </hbox>
+            </vbox>
+            <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
+                <!-- grippy/ -->
+            </splitter>
+			<hbox class="TopPnl">
                 <hbox class="ReportTool"  flex="1">
 
                     <vivibutton id="export_pdf" label="&rptproducts.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do('exportPdf', null, 'RptProducts');" />
@@ -79,9 +84,6 @@
                     <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
                 </hbox>
             </hbox>
-            <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
-                <!-- grippy/ -->
-            </splitter>
 
             <box class="reportbox" flex="1">
                 <browser type="content" id="preview_frame" src="rpt_template2.html" flex="1"/>
