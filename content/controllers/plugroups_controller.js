@@ -235,6 +235,7 @@
                 panel.datasource = panelView;
             }
             panelView.data = evt.data;
+            panel.refresh();
 
             this.validateForm();
         },

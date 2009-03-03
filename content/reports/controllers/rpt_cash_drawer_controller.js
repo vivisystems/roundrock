@@ -1,13 +1,13 @@
 (function(){
 
     /**
-     * RptStocks Controller
+     * Cash Drawer Controller
      */
 
     GeckoJS.Controller.extend( {
-        name: 'RptStocks',
+        name: 'RptCashDrawer',
         components: ['BrowserPrint', 'CsvExport', 'CheckMedia'],
-        
+	
         _datas: null,
 
         _showWaitPanel: function(panel, sleepTime) {
@@ -35,9 +35,8 @@
         },
 
         execute: function() {
-            
             var waitPanel = this._showWaitPanel('wait_panel');
-
+            
             var storeContact = GeckoJS.Session.get('storeContact');
             var clerk = "";
             var clerk_displayname = "";
@@ -46,82 +45,60 @@
                 clerk = user.username;
                 clerk_displayname = user.description;
             }
+			
+            var start = document.getElementById('start_date').value;
+            var end = document.getElementById('end_date').value;
 
-            var department = document.getElementById('department').value;
+            var start_str = document.getElementById('start_date').datetimeValue.toLocaleString();
+            var end_str = document.getElementById('end_date').datetimeValue.toLocaleString();
 
-            var fields = ['cate_no', 'no','name','stock','min_stock'];
+            // var department = document.getElementById('department').value;
+            var machineid = document.getElementById( 'machine_id' ).value;
 
-            var conditions = null;
+            start = parseInt(start / 1000);
+            end = parseInt(end / 1000);
+            
+            var cashDrawer = new CashdrawerRecordModel();
 
-            if (department != "all") {
-                var cate = new CategoryModel();
-                var cateDatas = cate.find('all', {
-                    fields: ['no','name'],
-                    conditions: "categories.no LIKE '" + department + "%'"
-                    });
-            } else {
-                var cate = new CategoryModel();
-                var cateDatas = cate.find('all', {
-                    fields: ['no','name']
-                    });                
+            var fields = [
+            				'terminal_no',
+                    		'drawer_no',
+                            'clerk_displayname',
+                            'DATETIME( "created", "unixepoch", "localtime" ) AS "created"',
+                            'event_type'
+                        ];
+                        
+            var conditions = "created>='" + start +
+                            "' AND created<='" + end + "'";
+            
+            if ( machineid.length > 0 ) {
+                conditions += " AND terminal_no LIKE '" + machineid + "%'";
             }
 
-            var self = this;
-            var datas = [];
-            cateDatas.forEach(function(o){
-                datas[o.no] = {
-                    no:o.no,
-                    name:o.name
-                    };
-            });
-
-            var groupby;
-            
-            var orderby = 'products.cate_no,products.no';
+            var groupby = '';
+            var orderby = 'terminal_no';
             
             var sortby = document.getElementById( 'sortby' ).value;
             if ( sortby != 'all' )
-            	orderby = 'products.' + sortby;
+            	var orderby = sortby;
 
-            var prod = new ProductModel();
-            var prodDatas = prod.find('all', { fields: fields, conditions: conditions, order: orderby });
+            var datas = cashDrawer.find( 'all', {fields: fields, conditions: conditions, group: groupby, recursive:1, order: orderby} );
 
-            prodDatas.forEach(function(o){
-                if (datas[o.cate_no]) {
-                    if (datas[o.cate_no].plu == null) {
-                        datas[o.cate_no].plu = [];
-                    }
-                    datas[o.cate_no].plu.push( {
-                        cate_no:o.cate_no,
-                        no:o.no,
-                        name:o.name,
-                        stock:o.stock,
-                        min_stock:o.min_stock
-                        });
-                }
-            });
+            this._datas = datas;
 
             var data = {
-                head: {
-                    title:_('Product Stock List'),
-                    store: storeContact,
-                    clerk_displayname: clerk_displayname
-                },
-                body: datas,
-                foot: {
-                    gen_time: (new Date()).toString('yyyy/MM/dd HH:mm:ss')
-                }
+                head: { title:_('Cash Drawer Report'), start_date: start_str, end_date: end_str, machine_id: machineid },
+                body: this._datas,
+                printedtime: (new Date()).toLocaleString()
             }
 
-            this._datas = data;
-
-            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/inventory.tpl");
+            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_cash_drawer.tpl");
 
             var file = GREUtils.File.getFile(path);
             var tpl = GREUtils.File.readAllBytes(file);
 
-            var result = tpl.process(data);
-
+            result = tpl.process(data);
+            
             var bw = document.getElementById('preview_frame');
             var doc = bw.contentWindow.document.getElementById('abody');
 
@@ -133,13 +110,13 @@
             splitter.setAttribute("state", "collapsed");
 
             waitPanel.hidePopup();
-
         },
 
         exportPdf: function() {
+        
             try {
                 this._enableButton(false);
-                var media_path = this.CheckMedia.checkMedia('export_report');
+               var media_path = this.CheckMedia.checkMedia('export_report');
                 if (!media_path){
                     NotifyUtils.info(_('Media not found!! Please attach the USB thumb drive...'));
                     return;
@@ -150,15 +127,17 @@
                 this.BrowserPrint.getPrintSettings();
                 this.BrowserPrint.setPaperSizeUnit(1);
                 this.BrowserPrint.setPaperSize(297, 210);
-                // this.BrowserPrint.setPaperEdge(20, 20, 20, 20);
+                //this.BrowserPrint.setPaperEdge(20, 20, 20, 20);
 
                 this.BrowserPrint.getWebBrowserPrint('preview_frame');
-                this.BrowserPrint.printToPdf(media_path + "/stocks.pdf");
+                this.BrowserPrint.printToPdf(media_path + "/rpt_cash_drawer.pdf");
+                //this.BrowserPrint.printToPdf("/var/tmp/stocks.pdf");
             } catch (e) {
                 //
             } finally {
                 this._enableButton(true);
-                waitPanel.hidePopup();
+                if ( waitPanel != undefined )
+                	waitPanel.hidePopup();
             }
         },
 
@@ -172,15 +151,15 @@
                 }
 
                 var waitPanel = this._showWaitPanel('wait_panel', 100);
-
-                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_stocks_csv.tpl");
+				
+                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_cash_drawer_csv.tpl");
 
                 var file = GREUtils.File.getFile(path);
                 var tpl = GREUtils.File.readAllBytes(file);
                 var datas;
                 datas = this._datas;
 
-                this.CsvExport.printToFile(media_path + "/stocks.csv", datas, tpl);
+                this.CsvExport.printToFile(media_path + "/rpt_cash_drawer.csv", datas, tpl);
 
             } catch (e) {
                 //
@@ -188,7 +167,6 @@
                 this._enableButton(true);
                 waitPanel.hidePopup();
             }
-
         },
 
         exportRcp: function() {
@@ -196,7 +174,7 @@
                 this._enableButton(false);
                 var waitPanel = this._showWaitPanel('wait_panel', 100);
 
-                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_stocks_rcp.tpl");
+                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_cash_report.tpl");
 
                 var file = GREUtils.File.getFile(path);
                 var tpl = GREUtils.File.readAllBytes(file);
@@ -212,28 +190,26 @@
                 this._enableButton(true);
                 waitPanel.hidePopup();
             }
-
         },
 
         load: function() {
-            var cate = new CategoryModel();
-            var cateDatas = cate.find('all', {
-                fields: ['no','name']
-                });
-            var dpt = document.getElementById('department_menupopup');
 
-            cateDatas.forEach(function(data){
-                var menuitem = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:menuitem");
-                menuitem.setAttribute('value', data.no);
-                menuitem.setAttribute('label', data.no + "-" + data.name);
-                dpt.appendChild(menuitem);
-            });
+            var today = new Date();
+            var yy = today.getYear() + 1900;
+            var mm = today.getMonth();
+            var dd = today.getDate();
+
+            var start = (new Date(yy,mm,dd,0,0,0)).getTime();
+            var end = (new Date(yy,mm,dd + 1,0,0,0)).getTime();
+
+            document.getElementById('start_date').value = start;
+            document.getElementById('end_date').value = end;
 
             this._enableButton(false);
+            
         }
-
+	
     });
 
 
 })();
-

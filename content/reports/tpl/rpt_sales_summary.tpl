@@ -13,16 +13,16 @@
             <table id="body-table">
                 <tr>
                     <td>Total</td>
-                    <td>Discount</td>
+                    <td>Add-on Tax</td>
                     <td>Surcharge</td>
-                    <td>=</td>
-                    <td>Total</td>
+                    <td>Discount</td>
+                    <td>Revenue</td>
                 </tr>
                 <tr>
-                    <td>${body.sales_summary.Total|default:0|viviFormatPrices:true}</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td></td>
+                    <td>${body.sales_summary.ItemSubtotal|default:0|viviFormatPrices:true}</td>
+                    <td>${body.sales_summary.TaxSubtotal|default:0|viviFormatPrices:true}</td>
+                    <td>${body.sales_summary.SurchargeSubtotal|default:0|viviFormatPrices:true}</td>
+                    <td>${body.sales_summary.DiscountSubtotal|default:0|viviFormatPrices:true}</td>
                     <td>${body.sales_summary.Total|default:0|viviFormatPrices:true}</td>
                 </tr>
             </table>
@@ -91,8 +91,8 @@
                 <tbody>
     {for detail in body.payment_list}
                     <tr>
-                        <td style="text-align: left;">${detail.payment_name}</td>
-                        <td>${detail.total|default:0|viviFormatPrices:true}</td>
+                        <td style="text-align: left;">${detail.name}</td>
+                        <td>${detail.amount - detail.change|default:0|viviFormatPrices:true}</td>
                     </tr>
     {/for}
                 </tbody>
@@ -114,33 +114,20 @@
                     </tr>
                 </thead>
                 <tbody>
+                	<tr>
+                		<td style="text-align: left;">Total Orders:</td>
+                		<td>${body.destination_summary.total_trans }</td>
+                	</tr>
+	{for detail in body.destination_summary.data}
                     <tr>
-                        <td style="text-align: left;">IN Num:</td>
-                        <td>0</td>
+                        <td style="text-align: left;">${detail.destination}&nbsp;Time:</td>
+                        <td>${detail.num_trans|default:0|viviFormatPrices:false}</td>
                     </tr>
                     <tr>
-                        <td style="text-align: left;">IN Amt:</td>
-                        <td>0</td>
+                        <td style="text-align: left;">${detail.destination}&nbsp;Amount:</td>
+                        <td>${detail.total|default:0|viviFormatPrices:true}</td>
                     </tr>
-
-                    <tr>
-                        <td style="text-align: left;">OUT Num:</td>
-                        <td>0</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left;">OUT Amt:</td>
-                        <td>0</td>
-                    </tr>
-
-                    <tr>
-                        <td style="text-align: left;">SENT Num:</td>
-                        <td>0</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: left;">SENT Amt:</td>
-                        <td>0</td>
-                    </tr>
-
+	{/for}
                 </tbody>
                 <tfoot>
                     <tr>
@@ -165,7 +152,7 @@
                 <tbody>
     {for detail in body.dept_sales}
                     <tr>
-                        <td style="text-align: left;">${detail.cate_no}</td>
+                        <td style="text-align: left;">${detail.cate_no}-${detail.cate_name}</td>
                         <td>${detail.qty}</td>
                         <td>${detail.total|default:0|viviFormatPrices:true}</td>
                     </tr>

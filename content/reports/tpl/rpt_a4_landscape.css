@@ -20,19 +20,20 @@
 }
 
 .paper {
-	width: 1200px;
+	width: 750px;
 	min-height: 360px;
     padding: 10px;
 	margin: 10px;
 	background: #fff;
 	border: solid;
     border-width: 1px;
-    font-size:16px;
+    font-size:12px;/*16*/
     border-right-width: 3px;
     border-bottom-width: 3px;
 }
 
 #body-table {
+  font-size:12px;
   width: 95%;
   margin: 0px auto 0px auto;
 /*  font: 100% sans-serif; */

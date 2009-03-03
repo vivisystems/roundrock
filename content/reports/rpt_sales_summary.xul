@@ -26,34 +26,41 @@
   
     <vbox flex="1" class="main-dialog">
         <vbox flex="1" class="MainPnl">
-            <caption label="&rptsalessummary.title;"  class="PageTitle"/>
-            <!--caption label="&productsales.conditions;" / -->
-            <hbox>
-                <hbox flex="1">
-                <grid class="DataForm" flex="1">
-                    <columns>
-                        <column  flex="1"/><column flex="1" />
-                    </columns>
-                    <rows>
-                        <row>
-                            <vbox>
-                                <label value="&rptsalessummary.startdate;" />
-                                <vividatetimepicker id="start_date" value='' type="popup" />
-                            </vbox>
-                            <vbox>
-                                <label value="&rptsalessummary.enddate;" />
-                                <vividatetimepicker id="end_date" value='' type="popup"/>
-                            </vbox>
-                        </row>
-                        <row>
-                            <label value="&rptsalessummary.machineid;" />
-                            <textbox id="machine_id" value='' width="300"/>
-                        </row>
-                    </rows>
-                </grid>
-                </hbox>
-                <button id="execute" label="&rptsalessummary.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptSalesSummary');" />
-            </hbox>
+		  	<vbox><!--this vbox is for the splitter to shadow the caption.-->
+		        <caption id="caption" label="&rptsalessummary.title;"  class="PageTitle"/>
+		        <!--caption label="&productsales.conditions;" / -->
+		        <hbox>
+		            <hbox flex="1">
+		            <grid class="DataForm" flex="1">
+		                <columns>
+		                    <column  flex="1"/><column flex="1" />
+		                </columns>
+		                <rows>
+		                    <row>
+		                        <vbox>
+		                            <label value="&rptsalessummary.startdate;" />
+		                            <vividatetimepicker id="start_date" value='' type="popup" />
+		                        </vbox>
+		                        <vbox>
+		                            <label value="&rptsalessummary.enddate;" />
+		                            <vividatetimepicker id="end_date" value='' type="popup"/>
+		                        </vbox>
+		                    </row>
+		                    <row>
+		                    	<vbox>
+				                    <label value="&rptsalessummary.machineid;" />
+				                    <textbox id="machine_id" value='' width="300"/>
+				                </vbox>
+		                    </row>
+		                </rows>
+		            </grid>
+		            </hbox>
+		            <button id="execute" label="&rptsalessummary.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptSalesSummary');" />
+		        </hbox>
+        	</vbox>
+            <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
+                <!-- grippy/ -->
+            </splitter>
             <hbox class="TopPnl">
                 <hbox class="ReportTool"  flex="1">
 
@@ -70,10 +77,7 @@
                     
                 </hbox>
             </hbox>
-            <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
-                <!-- grippy/ -->
-            </splitter>
-
+        
             <box class="reportbox" flex="1">
                 <browser type="content" id="preview_frame" src="rpt_template2.html" flex="1"/>
             </box>
