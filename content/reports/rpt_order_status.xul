@@ -2,8 +2,8 @@
 <!DOCTYPE overlay [
   <!ENTITY % Overlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
   %Overlay;
-  <!ENTITY % rpt_daily_sales SYSTEM "chrome://viviecr/locale/reports/rpt_daily_sales.dtd">
-  %rpt_daily_sales;
+  <!ENTITY % rpt_order_status SYSTEM "chrome://viviecr/locale/reports/rpt_order_status.dtd">
+  %rpt_order_status;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
@@ -22,12 +22,12 @@
     <script type="application/x-javascript" src="chrome://viviecr/content/reports/template.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/reports/template_ext.js" />
     <script type="application/x-javascript" src="chrome://viviecr/content/reports/controllers/components/check_media.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/reports/rpt_daily_sales.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/rpt_order_status.js" />
   
     <vbox flex="1" class="main-dialog">
 		<vbox flex="1" class="MainPnl">
 		    <vbox>
-		        <caption label="&rptdailysales.title;"  class="PageTitle"/>
+		        <caption label="&rptorderstatus.title;"  class="PageTitle"/>
 		        <hbox>
 		            <hbox flex="1">
 		            <grid class="DataForm" flex="1">
@@ -37,66 +37,63 @@
 		                <rows>
 		                    <row>
 		                        <vbox>
-		                            <label value="&rptdailysales.startdate;" />
+		                            <label value="&rptorderstatus.startdate;" />
 		                            <vividatetimepicker id="start_date" value='' type="popup" />
 		                        </vbox>
 		                        <vbox>
-		                            <label value="&rptdailysales.enddate;" />
+		                            <label value="&rptorderstatus.enddate;" />
 		                            <vividatetimepicker id="end_date" value='' type="popup"/>
 		                        </vbox>
 		                    </row>
 		                    <row>
 		                    	<vbox>
-		                    		<label value="&rptdailysales.service_clerks;" />
+		                    		<label value="&rptorderstatus.service_clerks;" />
 					                <menulist id="service_clerk">
 					                    <menupopup id="service_clerk_menupopup">
-					                        <menuitem selected="true" label="[&rptdailysales.all;]" value="all" />
+					                        <menuitem selected="true" label="[&rptorderstatus.all;]" value="all" />
 					                    </menupopup>
 					                </menulist>
 		                    	</vbox>
 		                    	<vbox>
-				                    <label value="&rptdailysales.proceeds_clerks;" />
-					                <menulist id="proceeds_clerk">
-					                    <menupopup id="proceeds_clerk_menupopup">
-					                        <menuitem selected="true" label="[&rptdailysales.all;]" value="all" />
+				                	<label value="&rptorderstatus.orderstatus;" />
+					                <menulist id="orderstatus">
+					                    <menupopup id="orderstatus_menupopup">
+					                        <menuitem selected="true" label="[&rptorderstatus.all;]" value="all" />
+					                        <menuitem selected="false" label="&rptorderstatus.finalizedorder;" value="1" />
+					                        <menuitem selected="false" label="&rptorderstatus.savedorder;" value="2" />
+					                        <menuitem selected="false" label="&rptorderstatus.canceledorder;" value="-1" />
 					                    </menupopup>
 					                </menulist>
-				                </vbox>
+			                    </vbox>
 		                    </row>
 		                    <row>
 		                    	<vbox>
-				                	<label value="&rptdailysales.sortby;" />
+				                	<label value="&rptorderstatus.sortby;" />
 					                <menulist id="sortby">
 					                    <menupopup id="sortby_menupopup">
-					                        <menuitem selected="true" label="[&rptdailysales.all;]" value="all" />
-					                        <menuitem selected="false" label="&rptdailysales.terminal_no;" value="terminal_no" />
-					                        <menuitem selected="false" label="&rptdailysales.service_clerk;" value="service_clerk_displayname" />
-					                        <menuitem selected="false" label="&rptdailysales.proceeds_clerk;" value="proceeds_clerk_displayname" />
-					                        <menuitem selected="false" label="&rptdailysales.transaction_created;" value="transaction_created" />
-					                        <menuitem selected="false" label="&rptdailysales.sequence;" value="sequence" />
-					                        <menuitem selected="false" label="&rptdailysales.invoice_no;" value="invoice_no" />
-					                        <menuitem selected="false" label="&rptdailysales.item_subtotal;" value="item_subtotal" />
-					                        <menuitem selected="false" label="&rptdailysales.tax_subtotal;" value="tax_subtotal" />
-					                        <menuitem selected="false" label="&rptdailysales.surcharge_subtotal;" value="surcharge_subtotal" />
-					                        <menuitem selected="false" label="&rptdailysales.discount_subtotal;" value="discount_subtotal" />
-					                        <menuitem selected="false" label="&rptdailysales.total;" value="total" />
-					                        <menuitem selected="false" label="&rptdailysales.cash;" value="cash" />
-					                        <menuitem selected="false" label="&rptdailysales.check;" value="check" />
-					                        <menuitem selected="false" label="&rptdailysales.creditcard;" value="creditcard" />
-					                        <menuitem selected="false" label="&rptdailysales.coupon;" value="coupon" />
-					                        <menuitem selected="false" label="&rptdailysales.giftcard;" value="giftcard" />
+					                        <menuitem selected="true" label="[&rptorderstatus.all;]" value="all" />
+					                        <menuitem selected="false" label="&rptorderstatus.terminal_no;" value="terminal_no" />
+					                        <menuitem selected="false" label="&rptorderstatus.service_clerk;" value="service_clerk_displayname" />
+					                        <menuitem selected="false" label="&rptorderstatus.transaction_created;" value="transaction_created" />
+					                        <menuitem selected="false" label="&rptorderstatus.sequence;" value="sequence" />
+					                        <menuitem selected="false" label="&rptorderstatus.invoice_no;" value="invoice_no" />
+					                        <menuitem selected="false" label="&rptorderstatus.item_subtotal;" value="item_subtotal" />
+					                        <menuitem selected="false" label="&rptorderstatus.tax_subtotal;" value="tax_subtotal" />
+					                        <menuitem selected="false" label="&rptorderstatus.surcharge_subtotal;" value="surcharge_subtotal" />
+					                        <menuitem selected="false" label="&rptorderstatus.discount_subtotal;" value="discount_subtotal" />
+					                        <menuitem selected="false" label="&rptorderstatus.total;" value="total" />
 					                    </menupopup>
 					                </menulist>
 			                    </vbox>
 			                    <vbox>
-				                    <label value="&rptdailysales.machineid;" />
+				                    <label value="&rptorderstatus.machineid;" />
 				                    <textbox id="machine_id" value='' width="300"/>
 				                </vbox>
 		                    </row>
 		                </rows>
 		            </grid>
 		            </hbox>
-		            <button id="execute" label="&rptdailysales.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptDailySales');" />
+		            <button id="execute" label="&rptorderstatus.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptOrderStatus');" />
 		        </hbox>
 		    </vbox>
             <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
@@ -105,11 +102,11 @@
             <hbox class="TopPnl">
                 <hbox class="ReportTool"  flex="1">
 
-                    <vivibutton id="export_pdf" label="&rptdailysales.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do('exportPdf', null, 'RptDailySales');" />
-                    <vivibutton id="export_csv" label="&rptdailysales.exportcsv;" disabled="false" class="CsvBtn" oncommand="$do('exportCsv', null, 'RptDailySales');" />
-                    <vivibutton id="export_rcp" label="&rptdailysales.exportrcp;" disabled="false" class="PrintBtn" oncommand="$do('exportRcp', null, 'RptDailySales');" />
+                    <vivibutton id="export_pdf" label="&rptorderstatus.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do('exportPdf', null, 'RptOrderStatus');" />
+                    <vivibutton id="export_csv" label="&rptorderstatus.exportcsv;" disabled="false" class="CsvBtn" oncommand="$do('exportCsv', null, 'RptOrderStatus');" />
+                    <vivibutton id="export_rcp" label="&rptorderstatus.exportrcp;" disabled="false" class="PrintBtn" oncommand="$do('exportRcp', null, 'RptOrderStatus');" />
 
-                    <vivibutton id="togglesize" label="&rptdailysales.togglezoom;" disabled="false" class="ZoomBtn" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
+                    <vivibutton id="togglesize" label="&rptorderstatus.togglezoom;" disabled="false" class="ZoomBtn" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
                     
                 </hbox>
                 <hbox id="dialogButtons" class="dialogbtns" pack="end">
@@ -132,7 +129,7 @@
     <panel id="wait_panel" position="overlap" noautohide="true" class="WaitPnl">
         <vbox flex="1">
         <groupbox flex="1">
-            <caption label="&rptdailysales.wait;" class="PageTitle"/>
+            <caption label="&rptorderstatus.wait;" class="PageTitle"/>
             <spacer style="height: 20px;" />
             <progressmeter id="progress" mode="undetermined" value="0" />
             <spacer style="height: 20px;" />

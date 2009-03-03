@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE overlay [
+  <!ENTITY % Overlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Overlay;
+  <!ENTITY % cashdrawersummary SYSTEM "chrome://viviecr/locale/reports/rpt_cash_drawer_summary.dtd">
+  %cashdrawersummary;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/reports.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+
+<window id="main"
+        hidechrome="true"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        xmlns:html="http://www.w3.org/1999/xhtml">
+
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/template.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/template_ext.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/reports/rpt_cash_drawer_summary.js" />
+
+    <vbox flex="1" class="main-dialog">
+        <vbox flex="1" class="MainPnl">
+        	<vbox>
+		        <caption label="&cashdrawersummary.title;"  class="PageTitle"/>
+		        <!--caption label="&cashdrawer.conditions;" / -->
+		        <hbox>
+		            <hbox flex="1">
+				        <grid class="DataForm" flex="1">
+				            <columns>
+				                <column  flex="1"/><column flex="1" />
+				            </columns>
+				            <rows>
+				                <row>
+				                    <vbox>
+				                        <label value="&cashdrawersummary.startdate;" />
+				                        <vividatetimepicker id="start_date" value='' type="popup" />  
+				                    </vbox>
+				                    <vbox>
+				                        <label value="&cashdrawersummary.enddate;" />
+				                        <vividatetimepicker id="end_date" value='' type="popup"/>
+				                    </vbox>
+				                </row>
+				                <row>
+				                	<vbox>
+						            	<label value="&cashdrawersummary.sortby;" />
+								        <menulist id="sortby">
+								            <menupopup id="sortby_menupopup">
+								                <menuitem selected="true" label="[&cashdrawersummary.all;]" value="all" />
+								                <menuitem selected="false" label="&cashdrawersummary.clerk_displayname;" value="clerk_displayname" />
+								                <menuitem selected="false" label="&cashdrawersummary.event_type;" value="event_type" />
+								                <menuitem selected="false" label="&cashdrawersummary.num_events;" value="num_events" />
+								            </menupopup>
+								        </menulist>
+								    </vbox>
+				                </row>
+				            </rows>
+				        </grid>
+		        	</hbox>
+		        	<button id="execute" label="&cashdrawersummary.execute;" disabled="false" class="ExeBtn" oncommand="$do( 'execute', null, 'RptCashDrawerSummary' );" />
+		        </hbox>
+            </vbox>
+            <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
+                <!-- grippy/ -->
+            </splitter>
+            <hbox class="TopPnl">
+                <hbox class="ReportTool"  flex="1">
+                    <vivibutton id="export_pdf" label="&cashdrawersummary.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do( 'exportPdf', null, 'RptCashDrawerSummary' );" />
+                    <vivibutton id="export_csv" label="&cashdrawersummary.exportcsv;" disabled="true" class="CsvBtn" oncommand="$do( 'exportCsv', null, 'RptCashDrawerSummary' );" />
+                    <vivibutton id="togglesize" label="&cashdrawersummary.togglezoom;" disabled="false" class="ZoomBtn" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
+                </hbox>
+                <hbox id="dialogButtons" class="dialogbtns" pack="end">
+                    <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle()" class="VkbBtn"/>
+                    <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                    
+                </hbox>
+            </hbox>
+            
+
+            <hbox flex="1">
+                <groupbox flex="1">
+                    <box class="reportbox" flex="1">
+                        <browser type="content" id="preview_frame" src="rpt_template1.html" flex="1"/>
+                    </box>
+                </groupbox>
+            </hbox>
+        </vbox>
+    </vbox>
+  
+    <panel id="wait_panel" position="overlap" noautohide="true" class="WaitPnl">
+        <vbox flex="1">
+        <groupbox flex="1">
+            <caption label="&cashdrawersummary.wait;" class="PageTitle"/>
+            <spacer style="height: 20px;" />
+            <progressmeter id="progress" mode="undetermined" value="0" />
+            <spacer style="height: 20px;" />
+        </groupbox>
+        </vbox>
+    </panel>
+
+</window>
