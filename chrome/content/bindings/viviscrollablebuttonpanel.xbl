@@ -140,7 +140,6 @@
             ]]></body>
         </method>
 
-
         <method name="_autorepeatbuttonScroll">
             <parameter name="event"/>
             <body><![CDATA[
@@ -151,6 +150,23 @@
               event.stopPropagation();
             ]]></body>
         </method>
+
+
+    <method name="refresh">
+        <body><![CDATA[
+
+            this.vivibuttonpanel.refresh();
+        ]]>
+        </body>
+    </method>
+
+    <method name="invalidate">
+        <body><![CDATA[
+
+            this.refresh();
+        ]]>
+        </body>
+    </method>
 
     </implementation>
 
