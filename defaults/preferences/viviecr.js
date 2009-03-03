@@ -531,6 +531,11 @@ pref("vivipos.fec.reportpanels.orderstatus.label", "Order Status Report");
 pref("vivipos.fec.reportpanels.orderstatus.path", "chrome://viviecr/content/reports/rpt_order_status.xul");
 pref("vivipos.fec.reportpanels.orderstatus.icon", "chrome://viviecr/content/skin/icons/editcopy.png");
 pref("vivipos.fec.reportpanels.orderstatus.roles", "acl_run_report");
+
+pref("vivipos.fec.reportpanels.clerksalesreport.label", "Clerk Sales Report");
+pref("vivipos.fec.reportpanels.clerksalesreport.path", "chrome://viviecr/content/reports/rpt_clerk_sales.xul");
+pref("vivipos.fec.reportpanels.clerksalesreport.icon", "chrome://viviecr/content/skin/icons/editcopy.png");
+pref("vivipos.fec.reportpanels.clerksalesreport.roles", "acl_run_report");
  
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-42c.label", "Sample Receipt 42c condensed");
 pref("vivipos.fec.registry.templates.receipt-sample-condensed-42c.type", "receipt");
