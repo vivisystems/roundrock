@@ -46,6 +46,8 @@
                 var condimentGroup = condGroup['CondimentGroup'];
                 condimentGroup['Condiment'] = [];
 
+                if(!condGroup['Condiment']) return ;
+
                 condGroup['Condiment'].forEach(function(condiment) {
                     condiment['seltype'] = condGroup.seltype;
                     condimentGroup['Condiment'].push(condiment);
@@ -98,7 +100,7 @@
 
             var self = this;
             GeckoJS.Session.addEventListener('change', function(evt){
-                if (evt.data.key == 'condGroups' || evt.data.key == 'products') {
+                if (evt.data.key == 'condGroups' || evt.data.key == 'productsIndexesByCateAll') {
                     self.updateCondimentsSession();
                 }
             });
