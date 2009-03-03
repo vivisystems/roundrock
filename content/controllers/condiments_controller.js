@@ -1,9 +1,9 @@
 (function(){
 
     /**
-     * Class ViviPOS.CondimentsController
+     * Condiments Controller
      *
-     * @todo need to make sure current selection is visible - need ensureVisible from viviscrollablebuttonpanel
+     * @todo need to find a way to show preset condiments
      */
     GeckoJS.Controller.extend( {
 
@@ -113,7 +113,6 @@
 
             // bind condiments data
             var condPanelView =  new GeckoJS.NSITreeViewArray(condGroups);
-
             this._condGroupscrollablepanel = document.getElementById('condimentscrollablepanel');
             this._condGroupscrollablepanel.datasource = condPanelView;
 

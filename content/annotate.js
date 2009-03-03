@@ -1,10 +1,5 @@
 (function(){
 
-    include('chrome://viviecr/content/models/order_annotation.js');
-
-    // include controllers  and register itself
-    include('chrome://viviecr/content/controllers/annotation_controller.js');
-
     /**
      * Controller Startup
      */

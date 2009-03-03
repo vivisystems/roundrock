@@ -1,10 +1,5 @@
 (function(){
    
-    // include controllers  and register itself
-    include('chrome://viviecr/content/controllers/plufilters_controller.js');
-    include('chrome://viviecr/content/controllers/destination_controller.js');
-    include('chrome://viviecr/content/controllers/annotation_controller.js');
-
     /**
      * Controller Startup
      */

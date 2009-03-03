@@ -10,16 +10,11 @@
         _cartView: null,
         _queuePool: null,
         _returnMode: false,
-        _pluPanel: null,
 
         initial: function() {
             
             if (this._cartView == null ) {
                 this._cartView = new NSICartView('cartList');
-            }
-
-            if (this._pluPanel == null) {
-                this._pluPanel = document.getElementById('prodscrollablepanel');
             }
 
             var self = this;
@@ -36,8 +31,6 @@
             GeckoJS.Session.remove('cart_last_sell_item');
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
-
-
         },
 
         suspend: function () {

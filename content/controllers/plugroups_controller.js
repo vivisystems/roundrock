@@ -231,7 +231,7 @@
                         $(btn).addClass('font-' + buttonFontSize);
                     }
                 }
-                this._listView = panelView;
+                //this._listView = panelView;
                 panel.datasource = panelView;
             }
             panelView.data = evt.data;

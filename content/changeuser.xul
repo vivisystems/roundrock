@@ -11,8 +11,16 @@
     <key id="key_enter" keycode="VK_RETURN" oncommand="$do('checkUser', null, 'ChangeUser');" />
     </keyset>
 
-    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/changeuser.js" />
+  <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+
+  <!-- include models -->
+  <script src="chrome://viviecr/content/bootstrap.js" type="application/x-javascript"/>
+
+  <!-- include controller -->
+  <script src="chrome://viviecr/content/controllers/changeuser_controller.js" type="application/x-javascript"/>
+
+  <!-- include startup script -->
+  <script type="application/x-javascript" src="chrome://viviecr/content/changeuser.js" />
 
     <vbox id="signinpanel" pack="start" class="hboxb" flex="1">
         <hbox>

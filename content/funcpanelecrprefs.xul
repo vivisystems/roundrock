@@ -1,21 +1,25 @@
 <?xml version="1.0"?>
+<!DOCTYPE window SYSTEM "chrome://viviecr/locale/funcpanelecrprefs.dtd">
+
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/functionpanel.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/function-button-colors.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/funcpanelecrprefs.css" type="text/css"?>
-<!DOCTYPE window SYSTEM "chrome://viviecr/locale/funcpanelecrprefs.dtd">
 
 <window title="&vivifuncpanelecr.title;"
         hidechrome="true"
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
-    <script type="application/x-javascript" src="chrome://vivipos/content/vivipos.js" />
-    <script type="application/x-javascript" src="chrome://vivipos/content/consoleErrors.js" />
-    <script src="chrome://viviecr/content/controllers/funcpanelecrprefs_controller.js" type="text/javascript"/>
+  <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+
+  <!-- include models -->
+  <script src="chrome://viviecr/content/bootstrap.js" type="application/x-javascript"/>
+
+  <!-- include controller -->
+  <script src="chrome://viviecr/content/controllers/funcpanelecrprefs_controller.js" type="text/javascript"/>
     
     <keyset id="keyset_extensions">
         <key id="key_enter" keycode="VK_RETURN" oncommand="document.getElementById('ok').click()"/>

@@ -1,9 +1,5 @@
 (function(){
 
-    include('chrome://viviecr/content/models/product.js');
-    // include controllers  and register itself
-    include('chrome://viviecr/content/controllers/plusearch_controller.js');
-
     /**
      * Controller Startup
      */
