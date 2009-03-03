@@ -834,7 +834,6 @@
         },
 
         voidItem: function() {
-
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
 
