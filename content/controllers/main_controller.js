@@ -16,8 +16,7 @@
         restartClock: false,
     
         initial: function() {
-
-
+            
             this.screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
             this.screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
 
@@ -25,9 +24,8 @@
             GeckoJS.Session.set('screenheight', this.screenheight);
 
             this.createPluPanel();
-            this.requestCommand('initial', null, 'Pricelevel');
+            //this.requestCommand('initial', null, 'Pricelevel');
             this.requestCommand('initial', null, 'Cart');
-            this.requestCommand('initial', null, 'CurrencySetup');
 
             var deptNode = document.getElementById('catescrollablepanel');
             deptNode.selectedIndex = 0;
@@ -60,12 +58,12 @@
 
             GeckoJS.Observer.notify(null, 'render', this);
 
-            // since initialLogin may potentially block, let's invoke onInitial to initialize controllers
+            // since initialLogin may potentially block, let's invoke afterInitial to initialize controllers
             // ourselves
 
-            this.dispatchEvent('onInitial', null);
+            this.dispatchEvent('afterInitial', null);
 
-            this.initialLogin();
+            this.requestCommand('initialLogin', null, 'Main');
         },
 
         _getKeypadController: function() {

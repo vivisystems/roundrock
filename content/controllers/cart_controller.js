@@ -2933,22 +2933,19 @@
             
         },
 
-        pushQueue: function(warn) {
-            
-            if (warn == 'false') warn = false;
-            else if (warn == null || warn == '') warn = true;
+        pushQueue: function(nowarning) {
             
             var curTransaction = this._getTransaction();
 
             if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
 
                 //@todo OSD
-                if (warn) NotifyUtils.warn(_('No order to queue'));
+                if (!nowarning) NotifyUtils.warn(_('No order to queue'));
                 return; // fatal error ?
             }
 
             if (curTransaction.data.recall == 2) {
-                if (warn) NotifyUtils.warn(_('Cannot queue the recalled order!!'));
+                if (!nowarning) NotifyUtils.warn(_('Cannot queue the recalled order!!'));
                 return;
             }
             var user = this.Acl.getUserPrincipal();
@@ -2982,7 +2979,7 @@
 
             }
             else {
-                if (warn) NotifyUtils.warn(_('Order is not queued because it is empty'));
+                if (!nowarning) NotifyUtils.warn(_('Order is not queued because it is empty'));
                 return;
             }
         
@@ -3036,7 +3033,7 @@
                 var queuePool = self._getQueuePool();
 
                 // if has transaction push queue
-                self.pushQueue('false');
+                self.pushQueue(true);
 
                 var data = queuePool.data[key];
 
