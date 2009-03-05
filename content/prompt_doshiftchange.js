@@ -70,7 +70,7 @@
                     inputObj.ok = true;
                     return true;
                 } else {
-                    NotifyUtils.warn(_('data incompleted!'));
+                    NotifyUtils.warn(_('data incomplete!'));
                 }
             },
 

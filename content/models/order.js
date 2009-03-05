@@ -251,6 +251,9 @@ var OrderModel = window.OrderModel =  GeckoJS.Model.extend({
             orderPayment['service_clerk_displayname'] = data.service_clerk_displayname;
             orderPayment['proceeds_clerk_displayname'] = data.proceeds_clerk_displayname;
 
+            orderPayment['sale_period'] = data.sale_period;
+            orderPayment['shift_number'] = data.shift_number;
+            
             if (i == len) {
                 orderPayment['change'] = Math.abs(data.remain);
             } else {

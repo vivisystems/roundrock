@@ -26,13 +26,17 @@
 
             // initialize main thread
             this._main = GREUtils.Thread.getMainThread();
-            
+
+            // initialize receipt printing status
+            this.updateReceiptPrintingStatus();
+
             // add event listener for onSubmit & onStore events
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             if(cart) {
                 cart.addEventListener('onSubmit', this.submitOrder, this);
                 cart.addEventListener('onStore', this.storeOrder, this);
             }
+
         },
 
         getDeviceController: function () {
@@ -307,6 +311,29 @@
             this.issueReceipt(printer, true);
         },
 
+        updateReceiptPrintingStatus: function() {
+            var status = GeckoJS.Configure.read('vivipos.fec.settings.PrintReceipt');
+            if (status) {
+                document.getElementById('receiptStatus').setAttribute('status', 'on');
+            }
+            else {
+                document.getElementById('receiptStatus').setAttribute('status', 'off');
+            }
+        },
+
+
+        toggleReceiptPrinting: function() {
+            if (GeckoJS.Configure.read('vivipos.fec.settings.PrintReceipt')) {
+                GeckoJS.Configure.write('vivipos.fec.settings.PrintReceipt', false);
+                NotifyUtils.info(_('Receipt printing off'));
+            }
+            else {
+                GeckoJS.Configure.write('vivipos.fec.settings.PrintReceipt', true);
+                NotifyUtils.info(_('Receipt printing on'));
+            }
+            this.updateReceiptPrintingStatus();
+        },
+
         // print on all enabled receipt printers
         // printer = 0: print on all enabled printers
         // printer = 1: first printer
@@ -314,6 +341,10 @@
         // printer = null: print on all auto-print enabled printers
 
         printReceipts: function(txn, printer, autoPrint, duplicate) {
+
+            // is receipt printing current enabled?
+            if (!GeckoJS.Configure.read('vivipos.fec.settings.PrintReceipt')) return;
+
             var deviceController = this.getDeviceController();
             if (deviceController == null) {
                 NotifyUtils.error(_('Error in device manager! Please check your device configuration'));

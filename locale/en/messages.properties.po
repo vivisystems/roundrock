@@ -1042,6 +1042,30 @@ msgstr "Manage Accounting Topics"
 msgid "Cash Drawer Report"
 msgstr "Cash Drawer Report"
 
+msgid "acl_toggle_receipt"
+msgstr "Toggle Receipt Printing"
+
+msgid "togglereceipt.desc"
+msgstr ""
+"This function is used to toggle receipt printing on/off. No parameter is "
+"needed."
+
+msgid "togglereceipt.label"
+msgstr "Receipt On/Off"
+
+msgid "togglereceipt.name"
+msgstr "Receipt On/Off"
+
+msgid "shiftchange.desc"
+msgstr ""
+"This function is used to initiate shift change. No parameter is needed."
+
+msgid "shiftchange.label"
+msgstr "Shift Change"
+
+msgid "shiftchange.name"
+msgstr "Shift Change"
+
 #: ../..//content/datetime.js:27
 msgid "confirm timezone change"
 msgstr ""
@@ -1796,11 +1820,11 @@ msgid "No change to store"
 msgstr ""
 
 #: ../..//content/controllers/cashdrawer_controller.js:195
-#: ../..//content/controllers/print_controller.js:245
-#: ../..//content/controllers/print_controller.js:319
-#: ../..//content/controllers/print_controller.js:389
-#: ../..//content/controllers/print_controller.js:468
-#: ../..//content/controllers/print_controller.js:539
+#: ../..//content/controllers/print_controller.js:249
+#: ../..//content/controllers/print_controller.js:350
+#: ../..//content/controllers/print_controller.js:420
+#: ../..//content/controllers/print_controller.js:499
+#: ../..//content/controllers/print_controller.js:570
 #: ../..//content/controllers/vfd_controller.js:180
 msgid "Error in device manager! Please check your device configuration"
 msgstr ""
@@ -1818,13 +1842,13 @@ msgid ""
 msgstr ""
 
 #: ../..//content/controllers/cashdrawer_controller.js:301
-#: ../..//content/controllers/print_controller.js:584
+#: ../..//content/controllers/print_controller.js:615
 #: ../..//content/controllers/vfd_controller.js:254
 msgid "Specified device port [%S] does not exist!"
 msgstr ""
 
 #: ../..//content/controllers/cashdrawer_controller.js:365
-#: ../..//content/controllers/print_controller.js:782
+#: ../..//content/controllers/print_controller.js:813
 #: ../..//content/controllers/vfd_controller.js:334
 msgid "Error detected when outputing to device [%S] at port [%S]"
 msgstr ""
@@ -2676,101 +2700,109 @@ msgstr ""
 msgid "Schedule [%S - Price Level %S] removed successfully"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:253
+#: ../..//content/controllers/print_controller.js:257
 msgid "Not an open order; cannot issue receipt"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:259
+#: ../..//content/controllers/print_controller.js:263
 msgid "The order has not been finalized; cannot issue receipt"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:265
+#: ../..//content/controllers/print_controller.js:269
 msgid "No new payment made; cannot issue receipt"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:278
+#: ../..//content/controllers/print_controller.js:282
 msgid "You have not configured any receipt printers"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:283
+#: ../..//content/controllers/print_controller.js:287
 msgid "All receipt printers are disabled"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:290
+#: ../..//content/controllers/print_controller.js:294
 msgid "The specified receipt printer [%S] is not configured"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:294
+#: ../..//content/controllers/print_controller.js:298
 msgid "Invalid receipt printer [%S]"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:298
+#: ../..//content/controllers/print_controller.js:302
 msgid "The specified receipt printer [%S] is not enabled"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:373
-#: ../..//content/controllers/print_controller.js:757
+#: ../..//content/controllers/print_controller.js:328
+msgid "Receipt printing off"
+msgstr ""
+
+#: ../..//content/controllers/print_controller.js:332
+msgid "Receipt printing on"
+msgstr ""
+
+#: ../..//content/controllers/print_controller.js:404
+#: ../..//content/controllers/print_controller.js:788
 msgid "A receipt has already been issued for this order on printer [%S]"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:397
+#: ../..//content/controllers/print_controller.js:428
 msgid "Not an open order; cannot issue check"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:403
+#: ../..//content/controllers/print_controller.js:434
 msgid "Cannot issue check on a canceled order"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:408
+#: ../..//content/controllers/print_controller.js:439
 msgid "Order has not been stored yet; cannot issue check"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:413
+#: ../..//content/controllers/print_controller.js:444
 msgid "Nothing has been registered yet; cannot issue check"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:421
-#: ../..//content/controllers/print_controller.js:437
+#: ../..//content/controllers/print_controller.js:452
+#: ../..//content/controllers/print_controller.js:468
 msgid "You have not configured any check printers"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:426
+#: ../..//content/controllers/print_controller.js:457
 msgid "All check printers are disabled"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:441
+#: ../..//content/controllers/print_controller.js:472
 msgid "Invalid check printer [%S]"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:445
+#: ../..//content/controllers/print_controller.js:476
 msgid "The specified check printer [%S] is not enabled"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:548
+#: ../..//content/controllers/print_controller.js:579
 msgid "The specified report/label printer [%S] is not configured"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:552
+#: ../..//content/controllers/print_controller.js:583
 msgid "Invalid report/label printer [%S]"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:556
+#: ../..//content/controllers/print_controller.js:587
 msgid "The specified report/label printer [%S] is not enabled"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:577
+#: ../..//content/controllers/print_controller.js:608
 msgid "Error in Print controller: no worker thread available!"
 msgstr ""
 
-#: ../..//content/controllers/print_controller.js:671
+#: ../..//content/controllers/print_controller.js:702
 msgid "Specified template [%S] is empty or does not exist!"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:53
+#: ../..//content/controllers/shift_changes_controller.js:178
 msgid "shift change is not needed!"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:114
+#: ../..//content/controllers/shift_changes_controller.js:239
 msgid "shift change has been finished!"
 msgstr ""
 

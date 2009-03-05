@@ -1,5 +1,4 @@
 .terminal_no {
-    max-width: 90px;
     margin: 0px 5px 0px 2px;
     padding: 0px 0px 0px 0px;
     background-color: transparent;
@@ -11,15 +10,15 @@
 
 .current_user {
     margin: 0px 2px 0px 0px;
-    max-width: 120px;
     padding: 0px 0px 0px 0px;
     background-color: transparent;
     border-width: 1px;
     font-size: x-small;
     text-align: center;
+    max-width: 80px;
 }
 
-.console_message {
+.sale_period {
     border-width: 0px;
     border-style: solid;
     border-color: blue;
@@ -29,6 +28,7 @@
 }
 
 .console_message_value {
+    min-width: 80px;
     margin: 0px 2px 0px 0px;
     padding: 0px 0px 0px 0px;
     background-color: transparent;
@@ -41,4 +41,18 @@
     padding: 0px 0px 0px 0px;
     background-color: transparent;
     font-size: small;
+}
+
+.receiptStatus[status="on"] {
+    max-width: 18px;
+    max-height: 18px;
+    margin: 0 10px 0 10px;
+    list-style-image: url("chrome://viviecr/skin/images/gtk-yes.png");
+}
+
+.receiptStatus[status="off"] {
+    max-width: 18px;
+    max-height: 18px;
+    margin: 0 10px 0 10px;
+    list-style-image: url("chrome://viviecr/skin/images/gtk-cancel.png");
 }

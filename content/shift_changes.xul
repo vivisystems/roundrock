@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE overlay [
-  <!ENTITY % Overlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
-  %Overlay;
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % ShiftChange SYSTEM "chrome://viviecr/locale/shiftchange.dtd">
+  %ShiftChange;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
@@ -23,7 +25,6 @@
   <script type="application/x-javascript" src="chrome://viviecr/content/shift_changes.js" />
 
     <keyset id="keyset_extensions">
-        <key id="key_enter" keycode="VK_RETURN" oncommand="document.getElementById('ok').click()"/>
         <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('cancel').click()" />
     </keyset>
 

@@ -1,0 +1,6 @@
+<!ENTITY shiftchange.title "Shift Change">
+<!ENTITY shiftchange.alert.title "Shift Information">
+<!ENTITY shiftchange.alert.current.sale.period "Current Sale Period">
+<!ENTITY shiftchange.alert.current.shift.number "Current Shift Number">
+<!ENTITY shiftchange.alert.last.sale.period "Last Sale Period">
+<!ENTITY shiftchange.alert.last.shift.number "Last Shift Number">

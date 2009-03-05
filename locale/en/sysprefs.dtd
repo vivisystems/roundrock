@@ -22,6 +22,7 @@
 <!ENTITY general.allowoverstock "Allow negative stock">
 <!ENTITY general.ageverificationack "Require clerk acknowledgement for age verification">
 <!ENTITY general.positivepricerequired "Items must be registered with positive prices">
+<!ENTITY general.tracksaleperiod "Track orders by sale period">
 <!ENTITY rounding.to-nearest-precision "to nearest precision">
 <!ENTITY rounding.to-nearest-half "to nearest half">
 <!ENTITY rounding.to-nearest-quarter "to nearest quarter">

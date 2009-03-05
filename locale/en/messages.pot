@@ -1038,3 +1038,26 @@ msgstr "Manage Accounting Topics"
 msgid "Cash Drawer Report"
 msgstr "Cash Drawer Report"
 
+msgid "acl_toggle_receipt"
+msgstr "Toggle Receipt Printing"
+
+msgid "togglereceipt.desc"
+msgstr ""
+"This function is used to toggle receipt printing on/off. No parameter is needed."
+
+msgid "togglereceipt.label"
+msgstr "Receipt On/Off"
+
+msgid "togglereceipt.name"
+msgstr "Receipt On/Off"
+
+msgid "shiftchange.desc"
+msgstr ""
+"This function is used to initiate shift change. No parameter is needed."
+
+msgid "shiftchange.label"
+msgstr "Shift Change"
+
+msgid "shiftchange.name"
+msgstr "Shift Change"
+

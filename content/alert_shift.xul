@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % Numberpad SYSTEM "chrome://viviecr/locale/shiftchange.dtd">
+  %Numberpad;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+<window title="&shiftchange.alert.title;"
+        hidechrome="true"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+    <keyset id="keyset_extensions">
+        <key id="key_enter" keycode="VK_RETURN" oncommand="document.getElementById('ok').click()"/>
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()" />
+    </keyset>
+
+    <script type="application/x-javascript" src="chrome://viviecr/content/alert_shift.js" />
+    <script type="application/x-javascript">
+        window['GeckoJS'] = opener.GeckoJS;
+        window['GREutils'] = opener.GREUtils;
+    </script>
+    
+    <vbox class="main-dialog" flex="1">
+        <vbox class="MainPnl" flex="1">
+            <caption id="dialog-caption" label="&shiftchange.alert.title;" class="PageTitle"/>
+            <grid class="DataForm">
+                <columns>
+                    <column flex="1"/>
+                    <column flex="1"/>
+                </columns>
+                <rows>
+                    <row>
+                        <vbox>
+                            <label value="&shiftchange.alert.current.sale.period;"/>
+                            <textbox id="current_sale_period" flex="1" value="" readonly="true"/>
+                        </vbox>
+                        <vbox>
+                            <label value="&shiftchange.alert.current.shift.number;"/>
+                            <textbox id="current_shift_number" flex="1" value="" readonly="true"/>
+                        </vbox>
+                    </row>
+                    <row>
+                        <vbox>
+                            <label value="&shiftchange.alert.last.sale.period;"/>
+                            <textbox id="last_sale_period" flex="1" value="" readonly="true"/>
+                        </vbox>
+                        <vbox>
+                            <label value="&shiftchange.alert.last.shift.number;"/>
+                            <textbox id="last_shift_number" flex="1" value="" readonly="true"/>
+                        </vbox>
+                    </row>
+                </rows>
+            </grid>
+            <spacer flex="1"/>
+            <hbox id="dialogButtons" class="ToolBar" flex="1" pack="center">
+                <button id="ok" label="&dialog.okButton.label;" default="true" oncommand="doOKButton();"/>
+            </hbox>
+        </vbox>
+    </vbox>
+    
+</window>
