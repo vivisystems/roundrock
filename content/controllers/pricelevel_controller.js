@@ -99,4 +99,12 @@
 
     });
 
+    window.addEventListener('load', function() {
+        var main = GeckoJS.Controller.getInstanceByName('Main');
+        if(main) main.addEventListener('afterInitial', function() {
+                                            main.requestCommand('initial', null, 'Pricelevel');
+                                      });
+
+    }, false);
+
 })();

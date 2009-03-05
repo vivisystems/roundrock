@@ -37,7 +37,6 @@
             },
 
             load: function(evt) {
-		
                 condsData = evt.data.conds; // 0..n index
                 selectedItems = evt.data.selectedItems; // 0..n index
 
@@ -61,7 +60,6 @@
                     selectedItems.forEach(function(index) {
                         condiments.push(condsData[index]);
                     });
-
                 }
 
                 evt.data = {condiments: condiments, selectedItems: selectedItems};

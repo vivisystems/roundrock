@@ -11,7 +11,7 @@
         // initialize volume - called from main_controller
         initial: function () {
 
-            // self initial after main onInitial
+            // self initial after main afterInitial
             var volume = GeckoJS.Configure.read('vivipos.fec.settings.sound.volume') || 0;
             this.setVolume(volume);
 
@@ -186,7 +186,7 @@
     // register onload
     window.addEventListener('load', function() {
         var main = GeckoJS.Controller.getInstanceByName('Main');
-        if(main) main.addEventListener('onInitial', function() {
+        if(main) main.addEventListener('afterInitial', function() {
                                             main.requestCommand('initial', null, 'Sound');
                                       });
 

@@ -20,6 +20,8 @@
     <key id="key_num8" key="8" oncommand="$do('keypress', {charCode: 56}, 'Keypad');"/>
     <key id="key_num9" key="9" oncommand="$do('keypress', {charCode: 57}, 'Keypad');"/>
     <key id="key_dot" key="." oncommand="$do('keypress', {charCode: 46}, 'Keypad');"/>   
+    <key id="key_tab" keycode="VK_TAB" oncommand="$do('keypress', {keyCode: 0x09}, 'Keypad');"/>
+    <key id="key_tab" keycode="VK_BACK" oncommand="$do('keypress', {keyCode: 0x08}, 'Keypad');"/>
   </keyset>
 
 </overlay>

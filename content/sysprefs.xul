@@ -18,12 +18,25 @@
             closebuttonlabel="&button.close.label;"
             >
 
-    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/users.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/taxes.js" />
-    <!--script type="application/x-javascript" src="chrome://viviecr/content/controllers/sound_controller.js" /-->
-    <!-- users.js & taxes.js must load before sysprefs.js -->
-    <script type="application/x-javascript" src="chrome://viviecr/content/sysprefs.js" />
+  <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+
+  <!-- include models -->
+  <script src="chrome://viviecr/content/bootstrap.js" type="application/x-javascript"/>
+  
+  <!-- include component -->
+  <script src="chrome://viviecr/content/controllers/components/tax.js" type="application/x-javascript"/>
+
+  <!-- include view -->
+  <script src="chrome://viviecr/content/helpers/nsi_taxes_view.js" type="application/x-javascript"/>
+  
+  <!-- include controllers -->
+  <script src="chrome://viviecr/content/controllers/users_controller.js" type="application/x-javascript"/>
+  <script src="chrome://viviecr/content/controllers/taxes_controller.js" type="application/x-javascript"/>
+
+  <!-- include startup scripts -->
+  <script type="application/x-javascript" src="chrome://viviecr/content/users.js" />
+  <script type="application/x-javascript" src="chrome://viviecr/content/taxes.js" />
+  <script type="application/x-javascript" src="chrome://viviecr/content/sysprefs.js" />
    
     <prefpane id="generalSettingsPane" label="&category.general;" >
         <preferences>

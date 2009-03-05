@@ -57,12 +57,22 @@
             var cols = catpanel.getAttribute('cols');
 
             this.catePanelView =  new NSIDepartmentsView('catescrollablepanel');
-            this.productPanelView = new NSIProductsView('prodscrollablepanel');
 
-            // restore rows and columns here
+            // restore department panel rows and columns here
             catpanel.setAttribute('rows', rows);
             catpanel.setAttribute('cols', cols);
             catpanel.initGrid();
+
+            var prodpanel = document.getElementById('prodscrollablepanel');
+            rows = prodpanel.getAttribute('rows');
+            cols = prodpanel.getAttribute('cols');
+
+            this.productPanelView = new NSIPlusView('prodscrollablepanel');
+
+            // restore department panel rows and columns here
+            prodpanel.setAttribute('rows', rows);
+            prodpanel.setAttribute('cols', cols);
+            prodpanel.initGrid();
 
             this.catePanelView.hideInvisible = false;
             this.catePanelView.refreshView(true);

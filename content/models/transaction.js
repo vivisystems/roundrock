@@ -1427,7 +1427,6 @@
         var prevRowCount = this.data.display_sequences.length;
 
         var displayIndex = index;
-
         if (item.type == 'item') {
 
             if (condiments.length >0) {
@@ -1456,9 +1455,7 @@
                             // update condiment display
                             var level = targetDisplayItem.type == 'setitem' ? 2 : null;
                             var condimentDisplay = this.createDisplaySeq(itemIndex, condimentItem, 'condiment', level);
-                            this.data.display_sequences.splice(index+1,0,condimentDisplay);
-
-                            displayIndex++;
+                            this.data.display_sequences.splice(++displayIndex,0,condimentDisplay);
                         }
                     }
                 }, this);

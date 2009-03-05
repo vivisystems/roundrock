@@ -1039,7 +1039,7 @@ msgid "Destination name must not be empty"
 msgstr ""
 
 #: ../..//content/controllers/destination_controller.js:114
-msgid "confirm delete desttination [%S]"
+msgid "confirm delete destination [%S]"
 msgstr ""
 
 #: ../..//content/controllers/destination_controller.js:114
