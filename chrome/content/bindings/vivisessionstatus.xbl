@@ -176,9 +176,9 @@
                 grid.appendChild(columns);
 
                 var rows = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:rows");
-                var r = Math.ceil(labels.length/ncols);
+                var r = Math.ceil(this.keys.length/ncols);
 
-                //GREUtils.log('[RENDER]: #labels <' + labels.length + '> #cols <' + ncols + '> #row <' + r + '>');
+                //GREUtils.log('[RENDER]: keys <' + this.keys.join(', ') + '> #keys <' + this.keys.length + '> #cols <' + ncols + '> #row <' + r + '>');
                 // create rows
 
                 this.nodes = [];
@@ -214,7 +214,7 @@
                             row.appendChild(sepNode);
                         }
                         rows.appendChild(row);
-                        if (++index == labels.length) break;
+                        if (++index == this.keys.length) break;
                     }
                 }
                 grid.appendChild(rows);
