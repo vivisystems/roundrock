@@ -2429,17 +2429,17 @@
             this._getKeypadController().clearBuffer();
             this.cancelReturn();
 
+            // clear register screen if needed
+            if (GeckoJS.Configure.read('vivipos.fec.settings.ClearCartAfterFinalization')) {
+                this._cartView.empty();
+            }
+
             if (status != 2) {
                 if (status != 1) this.dispatchEvent('onWarning', '');
                 this.dispatchEvent('onSubmit', oldTransaction);
             }
             else
                 this.dispatchEvent('onGetSubtotal', oldTransaction);
-            
-            // clear register screen if needed
-            if (GeckoJS.Configure.read('vivipos.fec.settings.ClearCartAfterFinalization')) {
-                this._cartView.empty();
-            }
         },
 
 

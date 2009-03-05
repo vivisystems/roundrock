@@ -39,7 +39,7 @@
                 <vbox>
                 <label id="" value="&select.queues.order.details;"  class="PageTitle"/>
                 <hbox class="sline"></hbox>
-                <textbox class="QueueList" readonly="1" id="itemlist" value="" />
+                <textbox class="QueueList" flex="1" readonly="1" id="itemlist" value="" />
                 </vbox>
             </hbox>
             <spacer flex="1" />
