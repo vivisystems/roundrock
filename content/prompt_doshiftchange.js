@@ -28,7 +28,7 @@
 
                 // text = this.data[row].amount;
                 text = GeckoJS.NumberHelper.round(this.data[row].amount, precision_prices, rounding_prices) || 0;
-                text = GeckoJS.NumberHelper.format(text, {places: 2});
+                text = GeckoJS.NumberHelper.format(text, {places: precision_prices});
 
             } else {
                 text = this.data[row][col.id];
@@ -44,6 +44,7 @@
         document.getElementById('cancel').setAttribute('disabled', false);
 
         document.getElementById('clearBtn').addEventListener('command', clearTextBox, false);
+        document.getElementById('amount').select();
 
         doSetOKCancel(
 
@@ -58,11 +59,6 @@
 
                 // if (!isNaN(inputObj.amount) && (index >= 0)) {
                 if (!isNaN(inputObj.amount)) {
-
-                    // var topic = topics[index];
-                    // inputObj.topic = topic.topic;
-                    inputObj.topic = 'DrawerCash';
-
                     inputObj.ok = true;
                     return true;
                 } else if (isNaN(inputObj.amount)) {

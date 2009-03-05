@@ -36,6 +36,7 @@ include('chrome://viviecr/content/models/sequence.js');
 include('chrome://viviecr/content/models/setitem.js');
 include('chrome://viviecr/content/models/shift_change.js');
 include('chrome://viviecr/content/models/shift_change_detail.js');
+include('chrome://viviecr/content/models/shift_marker.js');
 include('chrome://viviecr/content/models/storecontact.js');
 include('chrome://viviecr/content/models/transaction.js');
 include('chrome://viviecr/content/models/user.js');

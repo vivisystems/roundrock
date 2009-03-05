@@ -2051,6 +2051,10 @@
             if ( user != null ) {
                 data.service_clerk = user.username;
             }
+            // basic bookkeeping data
+            data.sale_period = GeckoJS.Session.get('sale_period');
+            data.shift_number = GeckoJS.Session.get('shift_number');
+            data.terminal_no = GeckoJS.Session.get('terminal_no');
 
             data.accountPayment['order_items_count'] = 1;
             data.accountPayment['order_total'] = data.total;
@@ -2064,8 +2068,6 @@
             // data.orderPayment['proceeds_clerk'] = data.proceeds_clerk;
             // data.orderPayment['service_clerk_displayname'] = data.service_clerk_displayname;
             // data.orderPayment['proceeds_clerk_displayname'] = data.proceeds_clerk_displayname;
-            data.accountPayment['sale_period'] = GeckoJS.Session.get('sale_period');
-            data.accountPayment['shift_number'] = GeckoJS.Session.get('shift_number');
             var order = new OrderModel();
             order.saveAccounting(data);
 

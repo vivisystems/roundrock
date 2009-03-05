@@ -28,13 +28,13 @@
             //
         },
 
-        loadLastShift: function() {
-            var shiftChangeModel = new ShiftChangeModel();
-            var lastShift = shiftChangeModel.find('first', {
-                order: 'sale_period desc, shift_number desc'
+        getShiftMarker: function() {
+            var shiftMarkerModel = new ShiftMarkerModel();
+            var shift = shiftMarkerModel.findByIndex('first', {
+                index: 'terminal_no',
+                value: GeckoJS.Session.get('terminal_no')
             });
-
-            return lastShift;
+            return shift;
         },
 
         getSalePeriod: function() {
@@ -53,43 +53,50 @@
             return GeckoJS.Session.get('end_of_period');
         },
 
-        updateSession: function() {
+        updateSession: function(currentShift) {
             var shiftNumber = '';
             var salePeriod = '';
             var endOfPeriod = false;
             var starttime = '';
 
-            var lastShift = this.loadLastShift();
+            if (!currentShift)
+                currentShift = this.getShiftMarker();
 
-            if (lastShift) {
-                shiftNumber = lastShift.shift_number;
-                salePeriod = new Date(lastShift.sale_period * 1000);
-                endOfPeriod = lastShift.end_of_period;
-                starttime = lastShift.starttime;
+            if (currentShift) {
+                shiftNumber = currentShift.shift_number;
+                salePeriod = currentShift.sale_period;
+                endOfPeriod = currentShift.end_of_period;
+                starttime = currentShift.starttime;
             }
-
             GeckoJS.Session.set('shift_number', shiftNumber);
             GeckoJS.Session.set('shift_starttime', starttime);
             GeckoJS.Session.set('sale_period', salePeriod);
             GeckoJS.Session.set('end_of_period', endOfPeriod);
-            GeckoJS.Session.set('sale_period_string', salePeriod == '' ? '' : salePeriod.toLocaleDateString());
+            GeckoJS.Session.set('sale_period_string', salePeriod == '' ? '' : new Date(salePeriod * 1000).toLocaleDateString());
         },
 
 
-        insertNewShift: function(salePeriod, shiftNumber) {
-            var shiftChangeModel = new ShiftChangeModel();
+        setShift: function(salePeriod, shiftNumber, endOfPeriod) {
+            var shiftMarkerModel = new ShiftMarkerModel();
 
-            var newShift = {
-                starttime: Math.floor(new Date().getTime() / 1000),
+            var newShiftMarker = {
                 terminal_no: GeckoJS.Session.get('terminal_no'),
                 sale_period: salePeriod,
                 shift_number: shiftNumber,
-                end_of_period: false
+                end_of_period: endOfPeriod
             };
 
-            shiftChangeModel.save(newShift);
+            var shift = shiftMarkerModel.findByIndex('first', {
+                index: 'terminal_no',
+                value: GeckoJS.Session.get('terminal_no')
+            });
+            if (shift) {
+                newShiftMarker.id = shift.id;
+                shiftMarkerModel.id = shift.id;
+            }
+            shiftMarkerModel.save(newShiftMarker);
 
-            this.updateSession();
+            this.updateSession(newShiftMarker);
         },
 
         // this is invoked right after initialLogin
@@ -111,7 +118,7 @@
                     newSalePeriod = new Date().clearTime();
                     newShiftNumber = 1;
 
-                    this.insertNewShift(newSalePeriod, newShiftNumber);
+                    this.setShift(newSalePeriod, newShiftNumber, false);
                 }
 
                 // is last shift the end of the last sale period
@@ -130,7 +137,7 @@
 
                     newShiftNumber = 1;
                     
-                    this.insertNewShift(newSalePeriod, newShiftNumber);
+                    this.setShift(newSalePeriod, newShiftNumber, false);
                 }
                 // continue last shift
                 else {
@@ -140,8 +147,8 @@
 
                 // display current shift / last shift information
 
-                this.ShiftDialog(newSalePeriod.toLocaleDateString(), newShiftNumber,
-                                 lastSalePeriod == '' ? '' : lastSalePeriod.toLocaleDateString(), lastShiftNumber );
+                this.ShiftDialog(new Date(newSalePeriod * 1000).toLocaleDateString(), newShiftNumber,
+                                 lastSalePeriod == '' ? '' : new Date(lastSalePeriod * 1000).toLocaleDateString(), lastShiftNumber );
             }
         },
         
@@ -158,18 +165,21 @@
             GREUtils.Dialog.openWindow(window, aURL, aName, aFeatures, aArguments);
         },
 
-        shiftChange: function() {
+        shiftChange: function(endOfPeriod) {
             //
             var salePeriod = this.getSalePeriod();
             var shiftNumber = this.getShiftNumber();
             var starttime = this.getStartTime();
             var endtime = new Date();
-
+            var terminal_no = GeckoJS.Session.get('terminal_no');
+            var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
+            var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
+            
             var fields = ['order_payments.modified',
                             'order_payments.name',
                             'order_payments.memo1',
                             'SUM("order_payments"."amount" - "order_payments"."change") as "OrderPayment.amount"'];
-            var conditions = "order_payments.sale_period = " + salePeriod + "' AND order_payments.shift_number = " + shiftNumber;
+            var conditions = "orders.sale_period = " + salePeriod + " AND orders.shift_number = " + shiftNumber + " AND orders.terminal_no = '" + terminal_no + "'";
             var groupby = '"order_payments"."name" , "order_payments"."memo1"';
             var orderby = 'order_payments.name';
             var orderPayment = new OrderPaymentModel();
@@ -177,9 +187,9 @@
                 fields: fields,
                 conditions: conditions,
                 group: groupby,
-                order: orderby
+                order: orderby,
+                recursive: 1
             });
-
             var amount = orderPayment.find('first', {
                 fields: ['SUM("order_payments"."amount" - "order_payments"."change") as "OrderPayment.amount"'],
                 conditions: conditions
@@ -212,39 +222,42 @@
             var accountTopic = new AccountTopicModel();
             inputObj.topics = accountTopic.find('all');
 
-            window.openDialog(aURL, "prompt_shiftchange", features, inputObj);
+            window.openDialog(aURL, _('Shift Change'), features, inputObj);
 
             var amt = parseFloat(inputObj.amount);
             if (inputObj.ok) {
                 data.note = inputObj.description;
 
-                if ( amt != 0) {
-                    inputObj.type = "OUT";
+                if (amt < 0) {
+                    NotifyUtils.warn(_('You may not leave negative amount of cash in the cashdrawer'));
+                    return;
+                }
+                else if (amt > 0) {
+                    inputObj.type = 'OUT';
+                    inputObj.topic = '**** WHAT TXN TYPE TO USE??? ****';
                     this.requestCommand('accounting', inputObj, 'Cart');
 
                     data.amount = data.amount - amt;
-                    data.endtime = (new Date()).getTime() / 1000;
                     data.detail.push({name:inputObj.topic, memo1: 'OUT', amount: amt * (-1)});
+
                 }
+                data.endtime = (new Date()).getTime() / 1000;
 
                 // do shift change
                 var shiftChangeModel = new ShiftChangeModel();
                 shiftChangeModel.saveShiftChange(data);
 
-                shiftNumber++;
-                
-                    // @todo ugly wait...
-                    this.sleep(100);
+                if (!endOfPeriod) {
+                    shiftNumber++;
+                }
+                this.setShift(salePeriod, shiftNumber, endOfPeriod);
 
+                if (amt > 0) {
                     inputObj.type = "IN";
                     this.requestCommand('accounting', inputObj, 'Cart');
-
-                    
                 }
-                data.terminal_no = GeckoJS.Session.get('terminal_no');
 
-
-                NotifyUtils.warn(_('shift change has been finished!'));
+                NotifyUtils.info(_('shift change completed'));
             }
         },
 
