@@ -1,0 +1,18 @@
+<!ENTITY rpthourlysales.title "Hourly Sales Report">
+<!ENTITY rpthourlysales.startdate "Start Date:">
+<!ENTITY rpthourlysales.enddate "End Date:">
+<!ENTITY rpthourlysales.execute "Execute">
+<!ENTITY rpthourlysales.exportpdf "Export to PDF">
+<!ENTITY rpthourlysales.exportcsv "Export to CSV">
+<!ENTITY rpthourlysales.exportrcp "Print">
+<!ENTITY rpthourlysales.togglezoom "Toggle Zoom">
+<!ENTITY rpthourlysales.machineid "Terminal No:">
+<!ENTITY rpthourlysales.sortby "Sort By:">
+<!ENTITY rpthourlysales.terminal_no "Term_No.">
+<!ENTITY rpthourlysales.Hour "Time">
+<!ENTITY rpthourlysales.HourTotal "Total">
+<!ENTITY rpthourlysales.OrderNum "Orders">
+<!ENTITY rpthourlysales.Guests "Guests">
+<!ENTITY rpthourlysales.ItemsCount "Items">
+<!ENTITY rpthourlysales.all "List All">
+<!ENTITY rpthourlysales.wait "Waiting...">

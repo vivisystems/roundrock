@@ -1,0 +1,17 @@
+<!ENTITY productsales.title "Product Sales Report">
+<!ENTITY productsales.conditions "Conditions:">
+<!ENTITY productsales.startdate "Start Date:">
+<!ENTITY productsales.enddate "End Date:">
+<!ENTITY productsales.execute "Execute">
+<!ENTITY productsales.exportpdf "Export to PDF">
+<!ENTITY productsales.exportcsv "Export to CSV">
+<!ENTITY productsales.togglezoom "Toggle Zoom">
+<!ENTITY productsales.machineid "Terminal No:">
+<!ENTITY productsales.sortby "Sort By:">
+<!ENTITY productsales.product_no "No.">
+<!ENTITY productsales.product_name "Name">
+<!ENTITY productsales.avg_price "Avg. Price">
+<!ENTITY productsales.qty "Qty">
+<!ENTITY productsales.total "Total">
+<!ENTITY productsales.all "List All">
+<!ENTITY productsales.wait "Waiting...">

@@ -1,0 +1,30 @@
+<!ENTITY rptdailysales.title "Daily Sales Report">
+<!ENTITY rptdailysales.startdate "Start Date:">
+<!ENTITY rptdailysales.enddate "End Date:">
+<!ENTITY rptdailysales.execute "Execute">
+<!ENTITY rptdailysales.exportpdf "Export to PDF">
+<!ENTITY rptdailysales.exportcsv "Export to CSV">
+<!ENTITY rptdailysales.exportrcp "Print">
+<!ENTITY rptdailysales.togglezoom "Toggle Zoom">
+<!ENTITY rptdailysales.machineid "Terminal No:">
+<!ENTITY rptdailysales.sortby "Sort By:">
+<!ENTITY rptdailysales.terminal_no "Terminal No.">
+<!ENTITY rptdailysales.transaction_created "Time">
+<!ENTITY rptdailysales.sequence "Sequence">
+<!ENTITY rptdailysales.invoice_no "Invoice No.">
+<!ENTITY rptdailysales.tax_subtotal "Add-on Tax">
+<!ENTITY rptdailysales.total "Payment">
+<!ENTITY rptdailysales.item_subtotal "Total">
+<!ENTITY rptdailysales.surcharge_subtotal "Surcharge">
+<!ENTITY rptdailysales.discount_subtotal "Discount">
+<!ENTITY rptdailysales.cash "Cash">
+<!ENTITY rptdailysales.check "Check">
+<!ENTITY rptdailysales.creditcard "Credit Card">
+<!ENTITY rptdailysales.coupon "Coupon">
+<!ENTITY rptdailysales.giftcard "Gift Card">
+<!ENTITY rptdailysales.all "List All">
+<!ENTITY rptdailysales.wait "Waiting...">
+<!ENTITY rptdailysales.service_clerks "Service Clerks:">
+<!ENTITY rptdailysales.proceeds_clerks "Proceeds Clerks:">
+<!ENTITY rptdailysales.service_clerk "Service Clerk">
+<!ENTITY rptdailysales.proceeds_clerk "Proceeds Clerk">

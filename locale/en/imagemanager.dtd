@@ -1,0 +1,23 @@
+<!ENTITY imagemanager.window.title "Image Manager">
+<!ENTITY imagemanager.image.caption "Image File:">
+<!ENTITY imagemanager.image.name "name: ">
+<!ENTITY imagemanager.image.size "size: ">
+
+<!ENTITY imagemanager.action.import "Import">
+<!ENTITY imagemanager.action.export "Export">
+<!ENTITY imagemanager.action.delete "Delete">
+<!ENTITY imagemanager.action.rename "Rename">
+
+<!ENTITY imagemanager.status.disklimit "Disk Usage Limit:">
+<!ENTITY imagemanager.status.total "Total: ">
+<!ENTITY imagemanager.status.usage "Used: ">
+<!ENTITY imagemanager.status.files "Files: ">
+
+<!ENTITY imagemanager.action.caption "Import/Export:">
+<!ENTITY imagemanager.action.usage "total size: ">
+<!ENTITY imagemanager.action.files "total files: ">
+<!ENTITY imagemanager.action.status "status:">
+
+<!ENTITY imagemanager.importwait "Waitting for Import Images...">
+<!ENTITY imagemanager.exportwait "Waitting for Export Images...">
+

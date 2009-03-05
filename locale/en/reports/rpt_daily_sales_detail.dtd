@@ -1,0 +1,22 @@
+<!ENTITY rptdailysalesdetail.title "Daily Sales Report - Detail">
+<!ENTITY rptdailysalesdetail.startdate "Start Date:">
+<!ENTITY rptdailysalesdetail.enddate "End Date:">
+<!ENTITY rptdailysalesdetail.execute "Execute">
+<!ENTITY rptdailysalesdetail.exportpdf "Export to PDF">
+<!ENTITY rptdailysalesdetail.exportcsv "Export to CSV">
+<!ENTITY rptdailysalesdetail.exportrcp "Print">
+<!ENTITY rptdailysalesdetail.togglezoom "Toggle Zoom">
+<!ENTITY rptdailysalesdetail.machineid "Terminal No:">
+<!ENTITY rptdailysalesdetail.sortby "Sort By:">
+<!ENTITY rptdailysalesdetail.terminal_no "Terminal No.">
+<!ENTITY rptdailysalesdetail.transaction_created "Time">
+<!ENTITY rptdailysalesdetail.sequence "Sequence">
+<!ENTITY rptdailysalesdetail.item_subtotal "Total">
+<!ENTITY rptdailysalesdetail.tax_subtotal "Add-on Tax">
+<!ENTITY rptdailysalesdetail.surcharge_subtotal "Surcharge">
+<!ENTITY rptdailysalesdetail.discount_subtotal "Discount">
+<!ENTITY rptdailysalesdetail.total "Payment">
+<!ENTITY rptdailysalesdetail.guests "Guests">
+<!ENTITY rptdailysalesdetail.items "Items">
+<!ENTITY rptdailysalesdetail.all "List All">
+<!ENTITY rptdailysalesdetail.wait "Waiting...">

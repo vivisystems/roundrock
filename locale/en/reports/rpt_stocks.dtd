@@ -1,0 +1,16 @@
+<!ENTITY rptstocks.title "Stock Report">
+<!ENTITY rptstocks.startdate "Start Date:">
+<!ENTITY rptstocks.enddate "End Date:">
+<!ENTITY rptstocks.execute "Execute">
+<!ENTITY rptstocks.exportpdf "Export to PDF">
+<!ENTITY rptstocks.exportcsv "Export to CSV">
+<!ENTITY rptstocks.exportrcp "Print">
+<!ENTITY rptstocks.togglezoom "Toggle Zoom">
+<!ENTITY rptstocks.department "Department:">
+<!ENTITY rptstocks.sortby "Sort By:">
+<!ENTITY rptstocks.no "No.">
+<!ENTITY rptstocks.name "Name">
+<!ENTITY rptstocks.stock "Stock">
+<!ENTITY rptstocks.min_stock "Min. Stock">
+<!ENTITY rptstocks.all "List All">
+<!ENTITY rptstocks.wait "Waiting...">
