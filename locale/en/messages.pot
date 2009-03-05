@@ -34,6 +34,9 @@ msgstr "Product Groups"
 msgid "Products"
 msgstr "Products"
 
+msgid "Accounting Topics"
+msgstr "Accounting Topics"
+
 msgid "Price Level Schedule"
 msgstr "Price Level Schedule"
 
@@ -1028,6 +1031,9 @@ msgstr "Modify Annotations"
 
 msgid "acl_delete_annotations"
 msgstr "Delete Annotations"
+
+msgid "acl_manage_accounting_topics"
+msgstr "Manage Accounting Topics"
 
 msgid "Cash Drawer Report"
 msgstr "Cash Drawer Report"

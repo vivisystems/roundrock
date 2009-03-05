@@ -80,6 +80,27 @@
       <field name="_valueEntered">false</field>
       <field name="attachedControl">null</field>
 
+      <field name="_mode">datetime</field>
+      <property name="mode" onget="return this._mode;">
+        <setter>
+          <![CDATA[
+            var disp_mode = this._mode;
+            if(disp_mode) {
+                // obj = document.getAnonymousElementByAttribute(this, "mode", disp_mode);
+
+            }
+            if ((val == "date") || (val == "time") || (val == "datetime")) {
+                this._mode = val;
+            } else {
+                this._mode = "datetime";
+            }
+
+            // this.updateUI();
+            return this._mode;
+          ]]>
+        </setter>
+      </property>
+
       <property name="_currentField" readonly="true">
         <getter>
           var focusedInput = document.activeElement;
@@ -155,6 +176,10 @@
             return;
           } catch (ex) { }
         }
+
+        // default is datetime mode...
+        this._mode = this.getAttribute('mode') || 'datetime';
+
         this.dateValue = new Date();
       </constructor>
 
@@ -1638,13 +1663,14 @@
         this.attachedControl = datepad;
         datepad.attachedControl = this;
         datepad._setValueNoSync(this._dateValue);
+        timepad._setValueNoSync(this._dateValue);
 
         this.datepad = datepad;
         this.timepad = timepad;
         this.datetimelabel = datetimelabel;
 
-        //this._setValueOnChange();
-        this.datetimelabel.value = (new Date()).toLocaleString();
+        this._setValueOnChange();
+        // this.datetimelabel.value = (new Date()).toLocaleString();
       </constructor>
       <property name="datetimeValue" onget="return new Date(this.value);">
         <!-- setter>
@@ -1682,8 +1708,26 @@
             var s = this.timepad.dateValue.getSeconds();
             var ss = 0;
             var dt = new Date(y,m,d,h,n,s);
-            this.datetimelabel.value = dt.toLocaleString();
 
+            switch(this._mode) {
+                case 'date':
+                    this.datepad.hidden = false;
+                    this.timepad.hidden = true;
+                    this.datetimelabel.value = dt.toLocaleDateString();
+                    break;
+                case 'time':
+                    this.datepad.hidden = true;
+                    this.timepad.hidden = false;
+                    this.datetimelabel.value = dt.toLocaleTimeString();
+                    break;
+                default:
+                    this.datepad.hidden = false;
+                    this.timepad.hidden = false;
+                    this.datetimelabel.value = dt.toLocaleString();
+                    break;
+            }
+            // this.datetimelabel.value = dt.toLocaleString();
+            
             this.datepad._setValueOnChange(aField);
             this.timepad._setValueOnChange(aField);
 
@@ -1829,13 +1873,14 @@
         this.attachedControl = datepad;
         datepad.attachedControl = this;
         datepad._setValueNoSync(this._dateValue);
+        timepad._setValueNoSync(this._dateValue);
         
         this.datepad = datepad;
         this.timepad = timepad;
         this.datetimelabel = datetimelabel;
 
-        //this._setValueOnChange();
-        this.datetimelabel.value = (new Date()).toLocaleString();
+        this._setValueOnChange();
+        // this.datetimelabel.value = (new Date()).toLocaleString();
       </constructor>
       <property name="datetimeValue" onget="return new Date(this.value);">
         <!-- setter>
@@ -1874,7 +1919,24 @@
             var ss = 0;
             var dt = new Date(y,m,d,h,n,s);
 
-            this.datetimelabel.value = dt.toLocaleString();
+            switch(this._mode) {
+                case 'date':
+                    this.datepad.hidden = false;
+                    this.timepad.hidden = true;
+                    this.datetimelabel.value = dt.toLocaleDateString();
+                    break;
+                case 'time':
+                    this.datepad.hidden = true;
+                    this.timepad.hidden = false;
+                    this.datetimelabel.value = dt.toLocaleTimeString();
+                    break;
+                default:
+                    this.datepad.hidden = false;
+                    this.timepad.hidden = false;
+                    this.datetimelabel.value = dt.toLocaleString();
+                    break;
+            }
+            // this.datetimelabel.value = dt.toLocaleString();
 
             this.datepad._setValueOnChange(aField);
             this.timepad._setValueOnChange(aField);

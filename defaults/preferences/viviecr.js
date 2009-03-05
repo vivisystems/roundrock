@@ -161,10 +161,10 @@ pref("vivipos.fec.settings.controlpanels.config.addons.features", "chrome,menuba
 pref("vivipos.fec.settings.controlpanels.config.addons.icon", "chrome://viviecr/skin/icons/icon_addons.png");
 pref("vivipos.fec.settings.controlpanels.config.addons.roles", "acl_manage_addons");
 
-//pref("vivipos.fec.settings.controlpanels.system.accounting.label", "Accounting");
-//pref("vivipos.fec.settings.controlpanels.system.accounting.path", "chrome://viviecr/content/accounts.xul");
-//pref("vivipos.fec.settings.controlpanels.system.accounting.icon", "chrome://viviecr/skin/icons/icon_generic.png");
-//pref("vivipos.fec.settings.controlpanels.system.accounting.roles", "acl_manage_date_time");
+pref("vivipos.fec.settings.controlpanels.config.accounting.label", "Accounting Topics");
+pref("vivipos.fec.settings.controlpanels.config.accounting.path", "chrome://viviecr/content/accounts.xul");
+pref("vivipos.fec.settings.controlpanels.config.accounting.icon", "chrome://viviecr/skin/icons/icon_generic.png");
+pref("vivipos.fec.settings.controlpanels.config.accounting.roles", "acl_manage_accounting_topics");
 
 pref("vivipos.fec.registry.function.programmable.tagitem.access", "acl_tag_item");
 pref("vivipos.fec.registry.function.programmable.tagitem.command", "tagItem");

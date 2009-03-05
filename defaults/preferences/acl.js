@@ -87,3 +87,4 @@ pref("vivipos.fec.acl.roles.acl_annotate", "acl_add_annotate");
 pref("vivipos.fec.acl.roles.acl_view_annotations", "acl_view_annotations");
 pref("vivipos.fec.acl.roles.acl_modify_annotations", "acl_modify_annotations");
 pref("vivipos.fec.acl.roles.acl_delete_annotations", "acl_delete_annotations");
+pref("vivipos.fec.acl.roles.acl_manage_accounting_topics", "acl_manage_accounting_topics");

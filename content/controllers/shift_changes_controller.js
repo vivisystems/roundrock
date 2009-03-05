@@ -10,6 +10,22 @@
         _listObj: null,
         _listDatas: null,
 
+        initial: function() {
+
+            // set current sales period and shift number
+            var shift_number = '';
+            var sale_period = '';
+
+            var lastShift = this.getLastShift();
+            if (lastShift) {
+                shift_number = lastShift.shift_number;
+                sale_period = new Date(lastShift.sale_period * 1000).toLocaleDateString();
+            }
+
+            GeckoJS.Session.set('current_shift', shift_number);
+            GeckoJS.Session.set('sale_period', sale_period);
+        },
+
         getListObj: function() {
             if(this._listObj == null) {
                 this._listObj = document.getElementById('supplierscrollablepanel');
@@ -21,15 +37,20 @@
             //
         },
 
-        shiftChange: function() {
-            //
+        getLastShift: function() {
             var shiftChangeModel = new ShiftChangeModel();
-            var lastChange = shiftChangeModel.find('first', {
+            var lastShift = shiftChangeModel.find('first', {
                 order: 'starttime desc'
             });
 
-            if (lastChange)
-                var start = lastChange.endtime;
+            return lastShift;
+        },
+
+        shiftChange: function() {
+            //
+            var lastShift = this.getLastShift();
+            if (lastShift)
+                var start = lastShift.endtime;
             else
                 var start = (new Date(2000,1,1)).getTime() / 1000;
             var end = (new Date()).getTime() / 1000;
@@ -124,6 +145,14 @@
         }
 
     });
+
+    window.addEventListener('load', function() {
+        var main = GeckoJS.Controller.getInstanceByName('Main');
+        if(main) main.addEventListener('afterInitial', function() {
+                                            main.requestCommand('initial', null, 'ShiftChanges');
+                                      });
+
+    }, false);
 
 })();
 
