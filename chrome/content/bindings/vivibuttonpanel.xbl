@@ -378,47 +378,51 @@
     </method>
 
 
-    <method name="render">
+    <method name="renderButton">
+        <parameter name="index" />
         <body><![CDATA[
 
-            var buttons = this.buttons;
-            var buttonCount = this.buttonCount;
-            var datasource = this.getDatasource();
-            var labelField = this.labelField;
-            var aclField = this.aclField;
-            var imageField = this.imageField;
-            var buttonClass = this.buttonClass;
-            var selectedItems = this.selectedItems;
+            var buttons = this.__buttons;
+            var buttonCount = this.__buttonCount;
+            var datasource = this.__datasource;
+            var labelField = this.__labelField;
+            var aclField = this.__aclField;
+            var imageField = this.__imageField;
+            var buttonClass = this.__buttonClass;
+            var selectedItems = this.__selectedItems;
+            var rowCount = this.__rowCount;
+            var startOffset = this.__startOffset;
+
             var hasRole = true;
-            var rowCount = this.rowCount;
-            var startOffset = this.startOffset;
+            var endOffset = startOffset + buttonCount;
 
-            // GREUtils.log('vivibuttonpanel render ' + this.parentNode.parentNode.id +' ,buttonCount = ' + buttonCount + ' ,offset = ' + startOffset + ' ,rowCount = ' + rowCount);
+            if (index < startOffset || index > endOffset) return ;
 
-            for(let i=0; i < buttonCount ; i++) {
+            let i = index - startOffset ;
+            let row = index;
 
-                let row = startOffset + i;
 
-                if (GeckoJS.Array.inArray(row, selectedItems) != -1) {
-                    buttons[i].setAttribute('selected', true);
-                    buttons[i].setAttribute('checked', true);
-                }else {
-                    buttons[i].removeAttribute('selected');
-                    buttons[i].removeAttribute('checked');
-                }
+            // GREUtils.log('renderButton ' + index );
 
-                if (row >= rowCount) {
-                    
+            if (GeckoJS.Array.inArray(row, selectedItems) != -1) {
+                buttons[i].setAttribute('selected', true);
+                buttons[i].setAttribute('checked', true);
+            }else {
+                buttons[i].removeAttribute('selected');
+                buttons[i].removeAttribute('checked');
+            }
+
+            if (row >= rowCount) {
+
                     buttons[i].setAttribute('disabled', true);
                     buttons[i].setLabel("");
                     buttons[i].setImage("");
 
                     if (buttonClass) buttons[i].className = buttonClass;
 
-                    continue;
+            }else {
 
-                }else {
-                
+
                     let role = (aclField.length > 0) ? datasource.getCellText(row, {id: aclField}) : null;
 
                     if (role && role.length > 0) {
@@ -435,7 +439,7 @@
 
                     let text = datasource.getCellText(row, {id: labelField});
                     buttons[i].setLabel(text);
-                    
+
                     let image = datasource.getImageSrc(row, {id: imageField});
                     if (image) {
                         buttons[i].setImage(image);
@@ -447,7 +451,37 @@
                         datasource.renderButton(row, buttons[i]);
                     }
 
-                 }
+            }
+
+
+        ]]>
+        </body>
+    </method>
+
+
+    <method name="render">
+        <body><![CDATA[
+
+            this.__buttons = this.buttons;
+            this.__buttonCount = this.buttonCount;
+            this.__datasource = this.getDatasource();
+            this.__labelField = this.labelField;
+            this.__aclField = this.aclField;
+            this.__imageField = this.imageField;
+            this.__buttonClass = this.buttonClass;
+            this.__selectedItems = this.selectedItems;
+            this.__rowCount = this.rowCount;
+            this.__startOffset = this.startOffset;
+
+            var buttonCount = this.buttonCount;
+            var startOffset = this.startOffset;
+
+            for(let i=0; i < buttonCount ; i++) {
+
+                let row = startOffset + i;
+
+                this.renderButton(row);
+
             }
 
         ]]>  
@@ -478,6 +512,80 @@
         </body>
     </method>
 
+    <method name="invalidate">
+        <body><![CDATA[
+
+            // GREUtils.log('vivibutton panel invalidate ' + this.parentNode.parentNode.id);
+            this.refresh();
+
+        ]]>
+        </body>
+    </method>
+
+    <method name="invalidateRange">
+        <parameter name="startIndex" />
+        <parameter name="endIndex" />
+        <body><![CDATA[
+
+
+            this.__buttons = this.buttons;
+            this.__buttonCount = this.buttonCount;
+            this.__datasource = this.getDatasource();
+            this.__labelField = this.labelField;
+            this.__aclField = this.aclField;
+            this.__imageField = this.imageField;
+            this.__buttonClass = this.buttonClass;
+            this.__selectedItems = this.selectedItems;
+            this.__rowCount = this.rowCount;
+            this.__startOffset = this.startOffset;
+
+            var buttonCount = this.buttonCount;
+            var startOffset = this.startOffset;
+            var endOffset = startOffset+buttonCount;
+
+            if ( startIndex < startOffset || startIndex > endOffset) return;
+            if (endIndex < startOffset || endIndex > endOffset) return;
+
+            for(let i=startIndex; i < endIndex ; i++) {
+
+                this.renderButton(i);
+
+            }
+
+        ]]>
+        </body>
+    </method>
+
+
+    <method name="invalidateRow">
+        <parameter name="index" />
+        <body><![CDATA[
+
+            this.__buttons = this.buttons;
+            this.__buttonCount = this.buttonCount;
+            this.__datasource = this.getDatasource();
+            this.__labelField = this.labelField;
+            this.__aclField = this.aclField;
+            this.__imageField = this.imageField;
+            this.__buttonClass = this.buttonClass;
+            this.__selectedItems = this.selectedItems;
+            this.__rowCount = this.rowCount;
+            this.__startOffset = this.startOffset;
+
+            var buttonCount = this.buttonCount;
+            var startOffset = this.startOffset;
+            var endOffset = startOffset+buttonCount;
+
+            if ( index < startOffset || index > endOffset) return;
+
+            this.renderButton(index);
+
+
+        ]]>
+        </body>
+    </method>
+
+
     <method name="ensureIndexIsVisible">
       <parameter name="index" />
       <body>
@@ -487,17 +595,6 @@
             this.startOffset = this._startOffset;
             this.render();
       </body>
-    </method>
-
-
-    <method name="invalidate">
-        <body><![CDATA[
-
-            // GREUtils.log('vivibutton panel invalidate ' + this.parentNode.parentNode.id);
-
-            this.refresh();
-        ]]>
-        </body>
     </method>
 
 

@@ -179,7 +179,7 @@
 
     <method name="refresh">
         <body><![CDATA[
-            this.treeBoxObject.invalidate();
+            this.invalidate();
         ]]>  
         </body>
     </method>
@@ -191,6 +191,24 @@
         </body>
     </method>
 
+
+    <method name="invalidateRange">
+        <parameter name="startIndex" />
+        <parameter name="endIndex" />
+        <body><![CDATA[
+            this.treeBoxObject.invalidateRange(startIndex, endIndex);
+        ]]>
+        </body>
+    </method>
+
+
+    <method name="invalidateRow">
+        <parameter name="index" />
+        <body><![CDATA[
+            this.treeBoxObject.invalidateRow(index);
+        ]]>
+        </body>
+    </method>
 
   </implementation>
 

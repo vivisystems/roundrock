@@ -1,5 +1,14 @@
-rel_date=`date +'%Y%m%d'`
+rel_date=`date +'%Y%m%d%H%M%S'`
+version=`cat VERSION`	
+
 filename=vivipos_sdk_${rel_date}
+
+regex1="s/^Version=.*/Version=${version}/g"
+regex2="s/^BuildID=.*/BuildID=${rel_date}/g"
+
+sed ${regex1} application.ini > application-new.ini
+sed ${regex2} application-new.ini > application.ini
+rm -f application-new.ini
 
 zip -r ${filename} * -x@exclude.lst
 
