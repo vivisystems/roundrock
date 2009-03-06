@@ -20,9 +20,25 @@
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
             
-    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/bootstrap.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/plus.js" />
+  <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+
+  <!-- include models -->
+  <script src="chrome://viviecr/content/bootstrap.js" type="application/x-javascript"/>
+
+  <!-- include views -->
+  <script src='chrome://viviecr/content/helpers/nsi_categories_view.js'/>
+  <script src='chrome://viviecr/content/helpers/nsi_departments_view.js'/>
+  <script src='chrome://viviecr/content/helpers/nsi_products_view.js'/>
+  <script src='chrome://viviecr/content/helpers/nsi_plus_view.js'/>
+  <script src='chrome://viviecr/content/helpers/nsi_condiments_view.js'/>
+  <script src='chrome://viviecr/content/helpers/nsi_plugroups_view.js'/>
+
+  <!-- include controllers -->
+  <script src="chrome://viviecr/content/controllers/plus_controller.js" type="application/x-javascript"/>
+  <script src="chrome://viviecr/content/controllers/plusearch_controller.js" type="application/x-javascript"/>
+
+  <!-- include startup script -->
+  <script type="application/x-javascript" src="chrome://viviecr/content/plus.js" />
 
     <keyset id="keyset_extensions">
         <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()" />

@@ -1,6 +1,5 @@
 (function(){
-    GeckoJS.include('chrome://viviecr/content/controllers/aclgroups_controller.js');
-
+    
     /**
      * Controller Startup
      */

@@ -16,8 +16,7 @@
         restartClock: false,
     
         initial: function() {
-
-
+            
             this.screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
             this.screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
 
@@ -25,9 +24,8 @@
             GeckoJS.Session.set('screenheight', this.screenheight);
 
             this.createPluPanel();
-            this.requestCommand('initial', null, 'Pricelevel');
+            //this.requestCommand('initial', null, 'Pricelevel');
             this.requestCommand('initial', null, 'Cart');
-            this.requestCommand('initial', null, 'CurrencySetup');
 
             var deptNode = document.getElementById('catescrollablepanel');
             deptNode.selectedIndex = 0;
@@ -47,10 +45,10 @@
             
             // observer restart topic
             this.observer = GeckoJS.Observer.newInstance({
-                topics: ['prepare-to-restart', 'restart-clock'],
+                topics: ['prepare-to-restart', 'restart-clock', 'addons-message-notification' ],
 
                 observe: function(aSubject, aTopic, aData) {
-                    if (aTopic == 'prepare-to-restart')
+                    if (aTopic == 'prepare-to-restart' || aData == 'addons-restart-app')
                         self.doRestart = true;
 
                     else if (aTopic == 'restart-clock')
@@ -60,12 +58,12 @@
 
             GeckoJS.Observer.notify(null, 'render', this);
 
-            // since initialLogin may potentially block, let's invoke onInitial to initialize controllers
+            // since initialLogin may potentially block, let's invoke afterInitial to initialize controllers
             // ourselves
 
-            this.dispatchEvent('onInitial', null);
+            this.dispatchEvent('afterInitial', null);
 
-            this.initialLogin();
+            this.requestCommand('initialLogin', null, 'Main');
         },
 
         _getKeypadController: function() {
@@ -291,10 +289,14 @@
                     soldOutButton.checked = false;
                     catepanel.selectedItems = [];
                     catepanel.selectedIndex = -1;
+                    
+                    catepanel.invalidate(index);
                 }
                 else if (dep.soldout) {
                     catepanel.selectedItems = [];
                     catepanel.selectedIndex = -1;
+
+                    catepanel.invalidate(index);
                     return;
                 }
                 else {
@@ -331,7 +333,7 @@
                     }
                     soldOutButton.checkState = 0;
                     soldOutButton.checked = false;
-                    prodpanel.vivibuttonpanel.invalidate();
+                    prodpanel.invalidate(index);
                 }
                 else if (!product.soldout) {
                     return this.requestCommand('addItem',product,'Cart');

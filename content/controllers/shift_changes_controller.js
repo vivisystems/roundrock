@@ -59,8 +59,6 @@
                 conditions: conditions
             });
 
-            // var amount = amount[0].amount;
-
             var clerk = '';
             var user = new GeckoJS.AclComponent().getUserPrincipal();
             if ( user != null ) {

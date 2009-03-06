@@ -1,9 +1,4 @@
 (function(){
-    include('chrome://viviecr/content/models/user.js');
-
-    // include controllers  and register itself
-    include('chrome://viviecr/content/controllers/changeuser_controller.js');
-
     /**
      * Controller Startup
      */

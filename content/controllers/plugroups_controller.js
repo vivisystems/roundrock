@@ -235,6 +235,7 @@
                 panel.datasource = panelView;
             }
             panelView.data = evt.data;
+            panel.refresh();
 
             this.validateForm();
         },
@@ -270,7 +271,7 @@
                 GeckoJS.FormHelper.reset('plugroupForm');
             }
             else {
-            this.requestCommand('list', {index: index, order: 'display_order, name'});
+                this.requestCommand('list', {index: index, order: 'display_order, name'});
             }
 
             document.getElementById('plugroup_name').focus();

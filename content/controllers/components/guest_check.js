@@ -46,7 +46,7 @@
 
             var tables = [];
             for(var k=1; k <= 100; k++) {
-                let o = {};
+                var o = {};
                 o.table_no = k;
                 tables.push(o);
             }

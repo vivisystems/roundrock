@@ -41,8 +41,8 @@
             var start = document.getElementById('start_date').value;
             var end = document.getElementById('end_date').value;
 
-//            var start_str = document.getElementById('start_date').datetimeValue.toLocaleString();
-//            var end_str = document.getElementById('end_date').datetimeValue.toLocaleString();
+            //var start_str = document.getElementById('start_date').datetimeValue.toLocaleString();
+            //var end_str = document.getElementById('end_date').datetimeValue.toLocaleString();
             var start_str = document.getElementById('start_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
             var end_str = document.getElementById('end_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
 
@@ -65,10 +65,10 @@
 
             var groupby;
 
-            var orderby = 'shift_changes.terminal_no,shift_changes.created';
+            var orderby = 'shift_changes.terminal_no, shift_changes.created';
 
             var shiftChange = new ShiftChangeModel();
-            var datas = shiftChange.find('all',{fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 2});
+            var datas = shiftChange.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 2 } );
 
             var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
             var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
@@ -76,9 +76,9 @@
 
             datas.forEach(function(o){
                 var d = new Date();
-                d.setTime(o.starttime * 1000);
+                d.setTime( o.starttime );
                 o.starttime = d.toString('yyyy/MM/dd HH:mm');
-                d.setTime(o.endtime * 1000);
+                d.setTime( o.endtime );
                 o.endtime = d.toString('yyyy/MM/dd HH:mm');
 
                 o.amount = GeckoJS.NumberHelper.round(o.amount, precision_prices, rounding_prices) || 0;
@@ -104,7 +104,7 @@
                 }
             }
 
-            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_cash_by_clerk.tpl");
+            var path = GREUtils.File.chromeToPath( "chrome://viviecr/content/reports/tpl/rpt_cash_by_clerk.tpl" );
 
             var file = GREUtils.File.getFile(path);
             var tpl = GREUtils.File.readAllBytes(file);
@@ -117,6 +117,9 @@
             doc.innerHTML = result;
 
             this._enableButton(true);
+            
+            var splitter = document.getElementById('splitter_zoom');
+            splitter.setAttribute("state", "collapsed");
 
             waitPanel.hidePopup();
 
@@ -126,7 +129,7 @@
 
             try {
                 this._enableButton(false);
-                var media_path = this.CheckMedia.checkMedia('export_report');
+                var media_path = this.CheckMedia.checkMedia('report_export');
                 if (!media_path){
                     NotifyUtils.info(_('Media not found!! Please attach the USB thumb drive...'));
                     return;

@@ -19,3 +19,12 @@
 .SubTitle {
     margin: 4px;
 }
+
+#plufilterscrollablepanel tree #index,
+#plufilterscrollablepanel tree #length {
+    text-align: center;
+}
+
+#plufilterscrollablepanel tree #filtername {
+    text-align: left;
+}

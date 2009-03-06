@@ -26,29 +26,39 @@
 
     <vbox flex="1" class="main-dialog">
         <vbox flex="1" class="MainPnl">
-            <caption label="&rptusers.title;"  class="PageTitle"/>
-            <!--caption label="&productsales.conditions;" / -->
-            <hbox>
-                <grid class="DataForm" flex="1">
-                    <columns>
-                        <column  flex="1"/>
-                    </columns>
-                    <rows>
-                        <row>
-                            <label value="&rptusers.sortby;" />
-	                        <menulist id="sortby">
-	                            <menupopup id="sortby_menupopup">
-	                                <menuitem selected="true" label="[&rptusers.all;]" value="all" />
-	                                <menuitem selected="false" label="&rptusers.username;" value="username" />
-	                                <menuitem selected="false" label="&rptusers.displayname;" value="displayname" />
-	                                <menuitem selected="false" label="&rptusers.group;" value="group" />
-	                            </menupopup>
-	                        </menulist>
-                        </row>
-                    </rows>
-                </grid>
-                <button id="execute" label="&rptusers.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptUsers');" />
-            </hbox>
+        	<vbox>
+		        <caption label="&rptusers.title;"  class="PageTitle"/>
+		        <!--caption label="&productsales.conditions;" / -->
+		        <hbox>
+		            <grid class="DataForm" flex="1">
+		                <columns>
+		                    <column  flex="1"/>
+		                </columns>
+		                <rows>
+		                    <row>
+		                    	<vbox>
+				                    <label value="&rptusers.sortby;" />
+					                <menulist id="sortby">
+					                    <menupopup id="sortby_menupopup">
+					                        <menuitem selected="true" label="[&rptusers.all;]" value="all" />
+					                        <menuitem selected="false" label="&rptusers.username;" value="username" />
+					                        <menuitem selected="false" label="&rptusers.displayname;" value="displayname" />
+					                        <menuitem selected="false" label="&rptusers.group;" value="group" />
+					                    </menupopup>
+					                </menulist>
+					            </vbox>
+					            <vbox>
+					            	<spacer width="280px" />
+					            </vbox>
+		                    </row>
+		                </rows>
+		            </grid>
+		            <button id="execute" label="&rptusers.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptUsers');" />
+		        </hbox>
+		    </vbox>
+		    <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
+                <!-- grippy/ -->
+            </splitter>
             <hbox class="TopPnl">
                 <hbox class="ReportTool"  flex="1">
 
@@ -63,9 +73,6 @@
                     <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
                 </hbox>
             </hbox>
-            <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
-                <!-- grippy/ -->
-            </splitter>
 
             <box class="reportbox" flex="1">
                 <browser type="content" id="preview_frame" src="rpt_template1.html" flex="1"/>

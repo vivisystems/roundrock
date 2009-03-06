@@ -1,6 +1,7 @@
 (function(){
     include('chrome://viviecr/content/models/category.js');
     include('chrome://viviecr/content/models/product.js');
+//    include('chrome://viviecr/content/models/setitem.js');
 
     // include controllers  and register itself
 

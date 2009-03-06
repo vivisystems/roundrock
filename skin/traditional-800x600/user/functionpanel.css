@@ -45,7 +45,7 @@
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-background-clip: border;
-    -moz-border-radius: 6px;
+    -moz-border-radius: 0px;
     color: #2b2623;
     border-top: 1px solid;
     border-left: 1px solid;
@@ -79,7 +79,7 @@
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-background-clip: border;
-    -moz-border-radius: 6px;
+    -moz-border-radius: 0px;
     border: 1px solid;
     -moz-border-top-colors: #8e8e8e;
     -moz-border-right-colors: #8e8e8e;
@@ -107,7 +107,7 @@
     -moz-appearance: none;
     -moz-user-focus: ignore;
     -moz-background-clip: border;
-    -moz-border-radius: 6px;
+    -moz-border-radius: 0px;
 }
 
 .vivifuncpanelecr_matrix_button_configure[checked=true] {

@@ -950,6 +950,8 @@
 
             if (typemenu == null || devicemenu == null) return;
 
+            var currentValue = portmenu.value;
+
             // update list of ports that support cashdrawer
             portmenu.removeAllItems();
             if (selectedType.value == 'gpio') {
@@ -968,7 +970,7 @@
                     }
                 }
             }
-            portmenu.selectedIndex = 0;
+            portmenu.value = currentValue;
 
             if (selectedType == null) {
                 speedmenu.setAttribute('disabled', true);
@@ -1501,7 +1503,7 @@
     // register onload
     window.addEventListener('load', function() {
         var main = GeckoJS.Controller.getInstanceByName('Main');
-        if(main) main.addEventListener('onInitial', function() {
+        if(main) main.addEventListener('afterInitial', function() {
                                             main.requestCommand('initial', null, 'Devices');
                                       });
 

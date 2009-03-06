@@ -1,5 +1,8 @@
 (function(){
 
+     include('chrome://viviecr/content/devices/deviceTemplate.js');
+     include('chrome://viviecr/content/devices/deviceTemplateUtils.js');
+
     /**
      * Print Controller
      */
@@ -23,7 +26,7 @@
 
             // initialize main thread
             this._main = GREUtils.Thread.getMainThread();
-
+            
             // add event listener for onSubmit & onStore events
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             if(cart) {
@@ -198,12 +201,13 @@
 
             if (txn.data.status != 1 || !txn.isClosed()) {
                 // check if checks need to be printed
-                if (txn.data.batchItemCount > 0)
+                if (txn.data.batchItemCount > 0) {
                     this.printChecks(evt.data, null, 'submit');
-
+                }
                 // check if receipts need to be printed
-                if (txn.data.batchPaymentCount > 0 || txn.isClosed())
+                if (txn.data.batchPaymentCount > 0 || txn.isClosed()) {
                     this.printReceipts(evt.data, null, 'submit');
+                }
             }
             
             // @todo delay saving order to database til after print jobs have all been scheduled
@@ -458,7 +462,7 @@
         // printer = null: print on all auto-print enabled printers
 
         printChecks: function(txn, printer, autoPrint, duplicate) {
-
+            
             var device = this.getDeviceController();
             if (device == null) {
                 NotifyUtils.error(_('Error in device manager! Please check your device configuration'));
@@ -514,7 +518,6 @@
                         var devicemodel = device.devicemodel;
                         var encoding = device.encoding;
                         var copies = (printer == null) ? device.autoprint : 1;
-                        
                         _templateModifiers(TrimPath, encoding);
                         data.linkgroup = device.linkgroup;
                         
@@ -522,7 +525,6 @@
                         data.routingGroups = routingGroups;
                         data.autoPrint = autoPrint;
                         data.duplicate = duplicate;
-                        
                         self.printSlip(data, template, port, portspeed, handshaking, devicemodel, encoding, 0, copies);
                     }
                 });
@@ -647,12 +649,12 @@
                             empty = false;
                         }
                     }
-                    this.log('item linked: ' + item.linked);
+                    //this.log('item linked: ' + item.linked);
                 }
 
                 data.hasLinkedItems = !empty;
                 if (empty) {
-                    this.log('no items linked to this printer; printing terminated');
+                    //this.log('no items linked to this printer; printing terminated');
                 }
             }
 
@@ -699,7 +701,7 @@
                     result = result.replace(re, value);
                 }
             }
-            alert(GeckoJS.BaseObject.dump(result));
+            //alert(GeckoJS.BaseObject.dump(result));
             //return;
             //alert(data.order.receiptPages);
             //
@@ -866,7 +868,7 @@
     // register onload
     window.addEventListener('load', function() {
         var main = GeckoJS.Controller.getInstanceByName('Main');
-        if(main) main.addEventListener('onInitial', function() {
+        if(main) main.addEventListener('afterInitial', function() {
                                             main.requestCommand('initial', null, 'Print');
                                       });
 
