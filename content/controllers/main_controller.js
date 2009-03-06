@@ -47,10 +47,10 @@
             
             // observer restart topic
             this.observer = GeckoJS.Observer.newInstance({
-                topics: ['prepare-to-restart', 'restart-clock'],
+                topics: ['prepare-to-restart', 'restart-clock', 'addons-message-notification' ],
 
                 observe: function(aSubject, aTopic, aData) {
-                    if (aTopic == 'prepare-to-restart')
+                    if (aTopic == 'prepare-to-restart' || aData == 'addons-restart-app')
                         self.doRestart = true;
 
                     else if (aTopic == 'restart-clock')

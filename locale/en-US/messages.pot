@@ -89,7 +89,7 @@ msgid "Product Sales"
 msgstr "Sales Report"
 
 msgid "Taxes Report"
-msgstr "Taxes Report"
+msgstr "Tax Report"
 
 msgid "User List"
 msgstr "User List"
@@ -1028,3 +1028,99 @@ msgstr "Modify Annotations"
 
 msgid "acl_delete_annotations"
 msgstr "Delete Annotations"
+
+msgid "Stocks Report"
+msgstr "Stock Report"
+
+msgid "Hourly Sales"
+msgstr "Hourly Sales"
+
+msgid "Daily Sales"
+msgstr "Daily Sales Report"
+
+msgid "Daily Sales - Detail"
+msgstr "Daily Sales Report - Detail"
+
+msgid "Sales Summary"
+msgstr "Sales Summary"
+
+msgid "Daily Sales Summary"
+msgstr "Daily Sales Summary"
+
+msgid "Cash Drawer Report"
+msgstr "Cash Drawer Report"
+
+msgid "Cash Drawer Summary"
+msgstr "Cash Drawer Summary"
+
+msgid "Order Status Report"
+msgstr "Order Status Report"
+
+msgid "Clerk Sales Report"
+msgstr "Clerk Sales Report"
+
+msgid "Sample Receipt 42c condensed"
+msgstr "Sample Receipt 42c condensed"
+
+msgid "Sample Receipt 42c expanded"
+msgstr "Sample Receipt 42c expanded"
+
+msgid "Sample Kitchen 42c expanded"
+msgstr "Sample Kitchen 42c expanded"
+
+msgid "Sample Guest Check 42c condensed"
+msgstr "Sample Guest Check 42c condensed"
+
+msgid "Sample Label Argox 203TD"
+msgstr "Sample Label Argox 203TD"
+
+msgid "Sample Receipt 24c condensed"
+msgstr "Sample Receipt 24c condensed"
+
+msgid "Internal VFD Template"
+msgstr "Internal VFD Template"
+
+msgid "COM 1"
+msgstr "COM 1"
+
+msgid "COM 2"
+msgstr "COM 2"
+
+msgid "COM 4"
+msgstr "COM 4"
+
+msgid "COM 5"
+msgstr "COM 5"
+
+msgid "USB 1"
+msgstr "USB 1"
+
+msgid "USB 2"
+msgstr "USB 2"
+
+msgid "USB 3"
+msgstr "USB 3"
+
+msgid "USB 4"
+msgstr "USB 4"
+
+msgid "GPIO 1"
+msgstr "GPIO 1"
+
+msgid "FEC F632"
+msgstr "FEC F632"
+
+msgid "Epson TM-T88IV"
+msgstr "Epson TM-T88IV"
+
+msgid "Epson RP-U420"
+msgstr "Epson RP-U420"
+
+msgid "Argox OS-203"
+msgstr "Argox OS-203"
+
+msgid "Firich VFD"
+msgstr "Firich VFD"
+
+msgid "Generic VFD"
+msgstr "Generic VFD"

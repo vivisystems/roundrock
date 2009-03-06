@@ -47,9 +47,7 @@
 
             var start = document.getElementById('start_date').value;
             var end = document.getElementById('end_date').value;
-
-//            var start_str = document.getElementById('start_date').datetimeValue.toLocaleString();
-//            var end_str = document.getElementById('end_date').datetimeValue.toLocaleString();
+            
             var start_str = document.getElementById('start_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
             var end_str = document.getElementById('end_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
 
@@ -109,7 +107,21 @@
             
             var datas = order.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: -1 } );
             
+            var tax_subtotal = 0;
+        	var item_subtotal = 0;
+        	var total = 0;
+        	var surcharge_subtotal = 0;
+        	var discount_subtotal = 0;
+            
             datas.forEach( function( data ) {
+            	delete data.Order;
+            	
+            	tax_subtotal += data.tax_subtotal;
+		    	item_subtotal += data.item_subtotal;
+		    	total += data.total;
+		    	surcharge_subtotal += data.surcharge_subtotal;
+		    	discount_subtotal += data.discount_subtotal;
+            	
             	switch ( parseInt( data.status ) ) {
             		case 1:
             			data.status = 'Finalized';
@@ -127,18 +139,17 @@
             var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
 
             var initZero = parseFloat(0).toFixed(precision_prices);
-
             var footDatas = {
-            	tax_subtotal: 0,
-            	item_subtotal: 0,
-            	total: 0,
-            	surcharge_subtotal: 0,
-            	discount_subtotal: 0,
+            	tax_subtotal: tax_subtotal,
+            	item_subtotal: item_subtotal,
+            	total: total,
+            	surcharge_subtotal: surcharge_subtotal,
+            	discount_subtotal: discount_subtotal,
             };
 
             var data = {
                 head: {
-                    title:_('Daily Sales Report'),
+                    title:_('Order Status Report'),
                     start_time: start_str,
                     end_time: end_str,
                     machine_id: machineid,
@@ -178,11 +189,11 @@
         exportPdf: function() {
             try {
                 this._enableButton(false);
-                /*var media_path = this.CheckMedia.checkMedia('export_report');
+                var media_path = this.CheckMedia.checkMedia('report_export');
                 if (!media_path){
                     NotifyUtils.info(_('Media not found!! Please attach the USB thumb drive...'));
                     return;
-                }*/
+                }
 
                 var waitPanel = this._showWaitPanel('wait_panel');
 
@@ -192,8 +203,7 @@
                 // this.BrowserPrint.setPaperEdge(20, 20, 20, 20);
 
                 this.BrowserPrint.getWebBrowserPrint('preview_frame');
-                //this.BrowserPrint.printToPdf(media_path + "/order_status.pdf");
-                this.BrowserPrint.printToPdf( "/var/tmp/order_status.pdf" );
+                this.BrowserPrint.printToPdf(media_path + "/rpt_order_status.pdf");
             } catch (e) {
                 //
             } finally {
@@ -206,7 +216,7 @@
         exportCsv: function() {
             try {
                 this._enableButton(false);
-                var media_path = this.CheckMedia.checkMedia('export_report');
+                var media_path = this.CheckMedia.checkMedia('report_export');
                 if (!media_path){
                     NotifyUtils.info(_('Media not found!! Please attach the USB thumb drive...'));
                     return;
@@ -221,12 +231,13 @@
                 var datas;
                 datas = this._datas;
 
-                this.CsvExport.printToFile(media_path + "/order_status.csv", datas, tpl);
+                this.CsvExport.printToFile(media_path + "/rpt_order_status.csv", datas, tpl);
             } catch (e) {
                 //
             } finally {
                 this._enableButton(true);
-                waitPanel.hidePopup();
+                if ( waitPanel != undefined )
+                	waitPanel.hidePopup();
             }
 
         },
@@ -250,7 +261,8 @@
                 //
             } finally {
                 this._enableButton(true);
-                waitPanel.hidePopup();
+                if ( waitPanel != undefined )
+                	waitPanel.hidePopup();
             }
 
         },

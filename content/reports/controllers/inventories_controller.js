@@ -120,24 +120,61 @@
         },
 
         exportPdf: function() {
+        
+            try {
+                this._enableButton(false);
+               var media_path = this.CheckMedia.checkMedia('report_export');
+                if (!media_path){
+                    NotifyUtils.info(_('Media not found!! Please attach the USB thumb drive...'));
+                    return;
+                }
 
-            // this.execute();
-            // this.print();
+                var waitPanel = this._showWaitPanel('wait_panel');
 
-            this.BrowserPrint.getPrintSettings();
-            this.BrowserPrint.setPaperSizeUnit(1);
-            this.BrowserPrint.setPaperSize(210, 297);
-            //this.BrowserPrint.setPaperEdge( 1, 1, 1, 1 );
-            //this.BrowserPrint.setPaperMargin( 0, 0, 1, 0 );
+                this.BrowserPrint.getPrintSettings();
+                this.BrowserPrint.setPaperSizeUnit(1);
+                this.BrowserPrint.setPaperSize(297, 210);
+                //this.BrowserPrint.setPaperEdge(20, 20, 20, 20);
 
-            this.BrowserPrint.getWebBrowserPrint('preview_frame');
-            this.BrowserPrint.printToPdf("/var/tmp/product_sales.pdf");
+                this.BrowserPrint.getWebBrowserPrint('preview_frame');
+                this.BrowserPrint.printToPdf(media_path + "/rpt_inventories.pdf");
+            } catch (e) {
+                //
+            } finally {
+                this._enableButton(true);
+                if ( waitPanel != undefined )
+                	waitPanel.hidePopup();
+            }
         },
 
         exportCsv: function() {
+            try {
+                this._enableButton(false);
+                var media_path = this.CheckMedia.checkMedia('report_export');
+                if (!media_path){
+                    NotifyUtils.info(_('Media not found!! Please attach the USB thumb drive...'));
+                    return;
+                }
 
-            this.CsvExport.exportToCsv("/var/tmp/stocks.csv");
+                var waitPanel = this._showWaitPanel('wait_panel', 100);
+				
+                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_inventories_csv.tpl");
 
+                var file = GREUtils.File.getFile(path);
+                var tpl = GREUtils.File.readAllBytes(file);
+                var datas;
+                datas = this._datas;
+
+                this.CsvExport.printToFile(media_path + "/rpt_inventories.csv", datas, tpl);
+
+
+            } catch (e) {
+                //
+            } finally {
+                this._enableButton(true);
+                if ( waitPanel != undefined )
+                	waitPanel.hidePopup();
+            }
         },
 
         load: function() {

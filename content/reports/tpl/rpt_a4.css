@@ -44,12 +44,11 @@
 
 #body-table > caption {
   text-align: left;
-  font-weight: bold;
+  font-weight: normal;
   font-size: 120%;
   border-bottom: .2em solid #7a7;
   margin-bottom: .5em;
   }
-
 
 /* basic shared rules */
 #body-table th,

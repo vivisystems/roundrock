@@ -71,6 +71,8 @@
                 <hbox class="ReportTool"  flex="1">
                     <vivibutton id="export_pdf" label="&cashdrawersummary.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do( 'exportPdf', null, 'RptCashDrawerSummary' );" />
                     <vivibutton id="export_csv" label="&cashdrawersummary.exportcsv;" disabled="true" class="CsvBtn" oncommand="$do( 'exportCsv', null, 'RptCashDrawerSummary' );" />
+                    <vivibutton id="export_rcp" label="&cashdrawersummary.exportrcp;" disabled="false" class="PrintBtn" oncommand="$do('exportRcp', null, 'RptCashDrawerSummary');" />
+                    
                     <vivibutton id="togglesize" label="&cashdrawersummary.togglezoom;" disabled="false" class="ZoomBtn" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
                 </hbox>
                 <hbox id="dialogButtons" class="dialogbtns" pack="end">

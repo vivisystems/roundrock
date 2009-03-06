@@ -12,6 +12,20 @@
             // @todo :
             alert('Csv Export initial...');
         },
+        
+        execute: function(cmd, param) {
+            try {
+                var exec = new GeckoJS.File(cmd);
+                var r = exec.run(param, true);
+                // this.log("ERROR", "Ret:" + r + "  cmd:" + cmd + "  param:" + param);
+                exec.close();
+                return true;
+            }
+            catch (e) {
+                NotifyUtils.warn(_('Failed to execute command (%S).', [cmd + ' ' + param]));
+                return false;
+            }
+        },
 
         printToFile: function(csvFileName, datas, tpl) {
             if (!csvFileName) {
@@ -29,6 +43,9 @@
                 saveFile.write(buf+"\n");
 
                 saveFile.close();
+                
+                // sync to media...
+                this.execute("/bin/sync", []);
 
             }catch(e){
                 GREUtils.log('ERROR', 'exportCSV ' + e);

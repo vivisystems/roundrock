@@ -45,12 +45,10 @@
                 clerk = user.username;
                 clerk_displayname = user.description;
             }
-
+            
             var start = document.getElementById('start_date').value;
             var end = document.getElementById('end_date').value;
 
-//            var start_str = document.getElementById('start_date').datetimeValue.toLocaleString();
-//            var end_str = document.getElementById('end_date').datetimeValue.toLocaleString();
             var start_str = document.getElementById('start_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
             var end_str = document.getElementById('end_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
 
@@ -208,20 +206,25 @@
             	}
             	
             	orderedData.sort( sortFunction );
-            }
-            
-            this._datas = GeckoJS.BaseObject.getValues(orderedData);
+            } 
 
             var data = {
                 head: {
                     title:_('Daily Sales Report'),
                     start_time: start_str,
                     end_time: end_str,
-                    machine_id: machineid
+                    machine_id: machineid,
+                    store: storeContact,
+                    clerk_displayname: clerk_displayname
                 },
-                body: this._datas,
-                foot: footDatas
+                body: GeckoJS.BaseObject.getValues( orderedData ),
+                foot: {
+                	foot_datas: footDatas,
+                	gen_time: (new Date()).toString('yyyy/MM/dd HH:mm:ss')
+                }
             }
+            
+            this._datas = data;
 
             var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_daily_sales_summary.tpl");
 
@@ -248,7 +251,7 @@
 
             try {
                 this._enableButton(false);
-                var media_path = this.CheckMedia.checkMedia('export_report');
+                var media_path = this.CheckMedia.checkMedia('report_export');
                 if (!media_path){
                     NotifyUtils.info(_('Media not found!! Please attach the USB thumb drive...'));
                     return;
@@ -262,19 +265,20 @@
                 // this.BrowserPrint.setPaperEdge(20, 20, 20, 20);
 
                 this.BrowserPrint.getWebBrowserPrint('preview_frame');
-                this.BrowserPrint.printToPdf(media_path + "/daily_sales_summary.pdf");
+                this.BrowserPrint.printToPdf(media_path + "/rpt_daily_sales_summary.pdf");
             } catch (e) {
                 //
             } finally {
                 this._enableButton(true);
-                waitPanel.hidePopup();
+                if ( waitPanel != undefined )
+                	waitPanel.hidePopup();
             }
         },
 
         exportCsv: function() {
             try {
                 this._enableButton(false);
-                var media_path = this.CheckMedia.checkMedia('export_report');
+                var media_path = this.CheckMedia.checkMedia('report_export');
                 if (!media_path){
                     NotifyUtils.info(_('Media not found!! Please attach the USB thumb drive...'));
                     return;
@@ -289,14 +293,14 @@
                 var datas;
                 datas = this._datas;
 
-                this.CsvExport.printToFile(media_path + "/daily_sales_summary.csv", datas, tpl);
+                this.CsvExport.printToFile(media_path + "/rpt_daily_sales_summary.csv", datas, tpl);
             } catch (e) {
                 //
             } finally {
                 this._enableButton(true);
-                waitPanel.hidePopup();
+                if ( waitPanel != undefined )
+                	waitPanel.hidePopup();
             }
-
         },
 
         exportRcp: function() {
@@ -318,7 +322,8 @@
                 //
             } finally {
                 this._enableButton(true);
-                waitPanel.hidePopup();
+                if ( waitPanel != undefined )
+                	waitPanel.hidePopup();
             }
 
         },

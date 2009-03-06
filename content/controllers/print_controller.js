@@ -541,6 +541,7 @@
             // check device settings
             var printer = (type == 'report' ? 1 : 2);
 
+			// to test with the 'alert' below, just comment the following switch statement and setup a dummy printer.
             switch (device.isDeviceEnabled('report', printer)) {
                 case -2:
                     NotifyUtils.warn(_('The specified report/label printer [%S] is not configured', [printer]));
@@ -565,6 +566,8 @@
             _templateModifiers(TrimPath, encoding);
 
             var template = tpl.process(data);
+            
+            //alert( template );
 
             this.printSlip(null, template, port, portspeed, handshaking, devicemodel, encoding, 0, 1);
         },

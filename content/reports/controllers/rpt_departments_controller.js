@@ -96,7 +96,7 @@
         exportPdf: function() {
             try {
                 this._enableButton(false);
-                var media_path = this.CheckMedia.checkMedia('export_report');
+                var media_path = this.CheckMedia.checkMedia('report_export');
                 if (!media_path){
                     NotifyUtils.info(_('Media not found!! Please attach the USB thumb drive...'));
                     return;
@@ -112,19 +112,20 @@
                 // this.BrowserPrint.setPaperMargin(2, 2, 2, 2);
 
                 this.BrowserPrint.getWebBrowserPrint('preview_frame');
-                this.BrowserPrint.printToPdf(media_path + "/departments.pdf");
+                this.BrowserPrint.printToPdf(media_path + "/rpt_departments.pdf");
             } catch (e) {
                 //
             } finally {
                 this._enableButton(true);
-                waitPanel.hidePopup();
+                if ( waitPanel != undefined )
+                	waitPanel.hidePopup();
             }
         },
 
         exportCsv: function() {
             try {
                 this._enableButton(false);
-                var media_path = this.CheckMedia.checkMedia('export_report');
+                var media_path = this.CheckMedia.checkMedia('report_export');
                 if (!media_path){
                     NotifyUtils.info(_('Media not found!! Please attach the USB thumb drive...'));
                     return;
@@ -139,12 +140,13 @@
                 var datas;
                 datas = this._datas;
 
-                this.CsvExport.printToFile(media_path + "/departments.csv", datas, tpl);
+                this.CsvExport.printToFile(media_path + "/rpt_departments.csv", datas, tpl);
             } catch (e) {
                 //
             } finally {
                 this._enableButton(true);
-                waitPanel.hidePopup();
+                if ( waitPanel != undefined )
+                	waitPanel.hidePopup();
             }
 
         },
@@ -168,7 +170,8 @@
                 //
             } finally {
                 this._enableButton(true);
-                waitPanel.hidePopup();
+                if ( waitPanel != undefined )
+                	waitPanel.hidePopup();
             }
 
         },
