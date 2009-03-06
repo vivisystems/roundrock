@@ -1,12 +1,11 @@
 (function(){
 
     /**
-     * Class ViviPOS.JobsController
      */
-    // GeckoJS.define('ViviPOS.JobsController');
 
     GeckoJS.Controller.extend( {
-        name: 'AccountTopics',
+        
+        name: 'LedgerEntryTypes',
         scaffold: true,
 
         _listObj: null,
@@ -14,7 +13,7 @@
 
         getListObj: function() {
             if(this._listObj == null) {
-                this._listObj = document.getElementById('topicscrollablepanel');
+                this._listObj = document.getElementById('typescrollablepanel');
             }
             return this._listObj;
         },
@@ -26,6 +25,13 @@
         */
         beforeScaffoldAdd: function(evt) {
 
+            // check for duplicate transaction type
+            var newType = evt.data.type.replace('\'', '"', 'g');
+            var dupType = new GeckoJS.ArrayQuery(this._listDatas).filter('type = \'' + newType + '\'');
+            if (dupType.length > 0) {
+                NotifyUtils.warn(_('Ledger transaction type [%s] already exists', [newType]));
+                evt.preventDefault();
+            }
             /*
             var aURL = "chrome://viviecr/content/prompt_additem.xul";
             var features = "chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250";
@@ -59,8 +65,8 @@
         },
 
         beforeScaffoldDelete: function(evt) {
-            if (evt.data.builtin) {
-                NotifyUtils.warn(_('Can not delete built-in topic item!!'));
+            if (evt.data.builtin != 'false') {
+                NotifyUtils.warn(_('Can not delete built-in ledger transaction type'));
                 evt.preventDefault();
                 return;
             }
@@ -76,19 +82,34 @@
         afterScaffoldIndex: function(evt) {
             this._listDatas = evt.data;
             var panelView =  new GeckoJS.NSITreeViewArray(evt.data);
+
+            panelView.getCellValue= function(row, col) {
+
+                var text;
+                if (col.id == 'mode') {
+                    text = _(this.data[row][col.id]);
+                }
+                else {
+                    text = this.data[row][col.id];
+                }
+                return text;
+            };
             this.getListObj().datasource = panelView;
+
+            if (this._listDatas.length > 0)
+                this.getListObj().view.selection.select(0);
+            else
+                this.getListObj().view.selection.clearSelection();
         },
 
-        load: function(data) {
-
-            // this.requestCommand('list', {conditions: "type='in'"});
+        load: function() {
             this.requestCommand('list', {});
         },
 
         select: function(index){
             if (index >= 0) {
-                var topic = this._listDatas[index];
-                this.requestCommand('view', topic.id);
+                var entry_type = this._listDatas[index];
+                this.requestCommand('view', entry_type.id);
                 this._listObj.selectedIndex = index;
             }
         }

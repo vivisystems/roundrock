@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE overlay [
+  <!ENTITY % Overlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Overlay;
+  <!ENTITY % Ledger SYSTEM "chrome://viviecr/locale/ledger.dtd">
+  %Ledger;
+  <!ENTITY % Numpad SYSTEM "chrome://viviecr/locale/numberpad.dtd">
+  %Numpad;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/ledger.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+
+<window id="ledger"
+        title="&ledger.title;"
+        hidechrome="true"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+
+  <!-- include models -->
+  <script src="chrome://viviecr/content/bootstrap.js" type="application/x-javascript"/>
+
+  <!-- include controllers -->
+  <script src="chrome://viviecr/content/controllers/ledger_entry_types_controller.js" type="application/x-javascript"/>
+  <script src="chrome://viviecr/content/controllers/ledger_controller.js" type="application/x-javascript"/>
+  <script src="chrome://viviecr/content/controllers/shift_changes_controller.js" type="application/x-javascript"/>
+
+  <!-- include startup script -->
+  <script type="application/x-javascript" src="chrome://viviecr/content/ledger.js" />
+
+    <keyset id="keyset_extensions">
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()" />
+    </keyset>
+
+    <vbox class="main-dialog" flex="1">
+        <hbox flex="1" class="MainPnl">
+            <vbox flex="1" pack="start" class="MainL">
+                <tabbox class="RightTabbox" flex="1">
+                    <tabs id="tabs" >
+                        <tab id="tab1" label="&ledger.tab.records;" orient="vertical" />
+                        <tab id="tab2" label="&ledger.tab.entry.types;" orient="vertical" />
+                    </tabs>
+
+                    <tabpanels id="tabpanels" flex="1">
+                        <tabpanel orient="vertical" flex="1">
+                            <vbox flex="1">
+                                <viviscrollabletree id="entryscrollablepanel" flex="1"
+                                                    headers="&ledger.entry.heading.date;,&ledger.entry.heading.type;,&ledger.entry.heading.description;,&ledger.entry.heading.mode;,&ledger.entry.heading.amount;"
+                                                    fields="created,entry_type,description,entry_mode,amount"
+                                                    onclick="$do('select',this.selectedIndex, 'LedgerRecords');"
+                                                    class="ListPnl" scrollUpClass="ScrollUp" scrollDownClass="ScrollDown">
+                                    <spacer flex="1" />
+                                </viviscrollabletree>
+
+                                <hbox align="center">
+                                    <radiogroup flex="1" orient="horizontal" id="show_type" oncommand="$do('load', null, 'LedgerRecords');" >
+                                        <radio id="show_all" selected="true" value="ALL" flex="1" label="&ledger.show.all;"/>
+                                        <radio id="show_in" value="IN" flex="1" label="&ledger.show.in;"/>
+                                        <radio id="show_out" value="OUT" flex="1" label="&ledger.show.out;"/>
+                                    </radiogroup>
+                                </hbox>
+                            </vbox>
+
+                            <spacer style="height: 10px;" />
+                            <separator class="groove-thin"/>
+                            <spacer style="height: 10px;" />
+
+                            <hbox flex="0">
+                                <vbox flex="1" class="DataForm">
+                                    <label id="ledger_id" hidden="true" form="ledger_recordForm" name="id" value="" />
+                                    <label id="ledger_mode" hidden="true" form="ledger_recordForm" name="entry_mode" value="" />
+                                    <label id="ledger_terminal_no" hidden="true" form="ledger_recordForm" name="terminal_no" value="" />
+                                    <label id="ledger_shift_number" hidden="true" form="ledger_recordForm" name="terminal_no" value="" />
+                                    <label id="ledger_sale_period" hidden="true" form="ledger_recordForm" name="terminal_no" value="" />
+                                    <label id="created" hidden="true" form="ledger_recordForm" name="entry_mode" value="" />
+                                    <grid flex="1">
+                                        <columns>
+                                            <column flex="0"/>
+                                            <column flex="1"/>
+                                        </columns>
+                                        <rows>
+                                            <row>
+                                                <label value="&ledger.entry.type;" />
+                                                <textbox id="ledger_entry_type" value="" form="ledger_recordForm" name="entry_type" readonly="true" />
+                                            </row>
+
+                                            <row>
+                                                <label value="&ledger.entry.description;" />
+                                                <textbox id="description" value="" form="ledger_recordForm" name="description" onfocus="select()"/>
+                                            </row>
+
+                                            <row>
+                                                <label value="&ledger.entry.amount;" />
+                                                <textbox id="amount" value="" form="ledger_recordForm" name="amount" onfocus="select()"/>
+                                            </row>
+                                        </rows>
+                                    </grid>
+                                </vbox>
+                                <space style="width: 10px;"/>
+                                <vbox>
+                                    <numberpad id="multinumberpad" class="numpad"/>
+                                </vbox>
+                                <spacer style="height:10px;" />
+                                <vbox>
+                                    <sendkeybutton id="bkeyBtn"  label="DEL"   keyCode='0x08' class="fixedbtn"/>
+                                    <button id="clearBtn"  label="CLEAR" class="fixedbtn" oncommand="clearFocusedElement()"/>
+                                </vbox>
+                            </hbox>
+                            <spacer style="height: 10px;" />
+                            <hbox flex="1">
+                                <hbox class="ToolBar" flex="1">
+                                    <vivibutton id="add_entry" label="&ledger.button.action.add;" disabled="false" class="BtnAdd"
+                                                roles="acl_add_ledger_entry" oncommand="$do('add', null, 'LedgerRecords');" />
+                                    <spacer flex="1" />
+                                    <vivibutton id="modify_entry" label="&ledger.button.action.modify;" disabled="false" class="BtnMod"
+                                                roles="acl_modify_ledger_entry" oncommand="$do('update', null, 'LedgerRecords');" />
+                                    <vivibutton id="delete_entry" label="&ledger.button.action.delete;" disabled="false" class="BtnDel"
+                                                roles="acl_delete_ledger_entry" oncommand="$do('delete', null, 'LedgerRecords');" />
+                                </hbox>
+                                <hbox id="dialogButtons" class="dialogbtns" pack="center">
+                                    <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
+                                    <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                                </hbox>
+                            </hbox>
+
+                        </tabpanel>
+
+                        <tabpanel orient="vertical" flex="0">
+                            <vbox flex="1">
+                                <label id="entry_type_id" hidden="true" form="ledger_entry_typeForm" name="id" value="" />
+                                <grid class="DataForm" flex="0">
+                                    <columns>
+                                        <column flex="0"/>
+                                        <column flex="1"/>
+                                    </columns>
+                                    <rows>
+                                        <row>
+                                            <label value="&ledger.entry.type;" />
+                                            <textbox id="entry_type" value="" form="ledger_entry_typeForm" name="type"/>
+                                        </row>
+
+                                        <row>
+                                            <label value="&ledger.entry.mode;" />
+                                            <radiogroup flex="1" id="mode" orient="horizontal" form="ledger_entry_typeForm" name="mode" >
+                                                <radio id="mode_in" selected="true" value="IN" flex="1" label="&ledger.entry.mode.in;"/>
+                                                <radio id="mode_out" value="OUT" flex="1" label="&ledger.entry.mode.out;"/>
+                                            </radiogroup>
+                                            <label id="entry_builtin" value="" form="ledger_entry_typeForm" name="builtin" hidden="true"/>
+                                        </row>
+                                    </rows>
+                                </grid>
+
+                                <viviscrollabletree id="typescrollablepanel" flex="1" headers="&ledger.entry.heading.type;,&ledger.entry.heading.mode;,&ledger.entry.heading.builtin;"
+                                                    fields="type,mode,builtin" onclick="$do('select',this.selectedIndex, 'LedgerEntryTypes');"
+                                                    class="ListPnl" scrollUpClass="ScrollUp" scrollDownClass="ScrollDown">
+                                    <spacer flex="1" />
+                                </viviscrollabletree>
+                                <spacer style="height: 10px;" />
+                                <hbox>
+                                    <hbox class="ToolBar" flex="1">
+                                        <vivibutton id="add_entry_type" label="&ledger.button.action.add;" class="btnAdd" roles="acl_manage_ledger"
+                                                    oncommand="$do('add', null, 'LedgerEntryTypes');" />
+                                        <spacer flex="1" />
+                                        <vivibutton id="modify_entry_type" label="&ledger.button.action.modify;" class="btnMod" roles="acl_manage_ledger"
+                                                    oncommand="$do('modify', null, 'LedgerEntryTypes');" />
+                                        <vivibutton id="delete_entry_type" label="&ledger.button.action.delete;" class="btnDel" roles="acl_manage_ledger"
+                                                    oncommand="$do('delete', null, 'LedgerEntryTypes');" />
+                                    </hbox>
+                                    <hbox id="dialogButtons" class="dialogbtns" pack="center">
+                                        <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
+                                        <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                                    </hbox>
+                                </hbox>
+                            </vbox>
+                        </tabpanel>
+                    </tabpanels>
+                </tabbox>
+            </vbox>
+        </hbox>
+    </vbox>
+
+</window>

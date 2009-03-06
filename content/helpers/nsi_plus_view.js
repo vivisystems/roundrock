@@ -146,7 +146,7 @@
                 id: 'soldout'
             });
             if (soldout) {
-                btn.label = _('Sold Out - ') + btn.label;
+                btn.label = _('Sold Out -') + ' ' + btn.label;
             }
         }
 

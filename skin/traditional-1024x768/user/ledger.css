@@ -1,0 +1,39 @@
+/*-----------------------------------------------------------------------------
+ *
+ * LEDGER
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+/*-----------------------------------------------------------------------------
+ * ledger headings
+ *-----------------------------------------------------------------------------
+ */
+
+#entryscrollablepanel tree #created {
+    text-align: center;
+    min-width: 140px;
+}
+
+#entryscrollablepanel tree #entry_type,
+#entryscrollablepanel tree #entry_mode {
+    text-align: center;
+}
+
+#entryscrollablepanel tree #amount {
+    text-align: right;
+}
+
+#entryscrollablepanel tree #description {
+    text-align: left;
+}
+
+#typescrollablepanel tree #type,
+#typescrollablepanel tree #builtin,
+#typescrollablepanel tree #mode {
+    text-align: center;
+}
+
+viviscrollablepanel scrollbar {
+    display: none;
+}

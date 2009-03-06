@@ -4,6 +4,8 @@
   %Overlay;
   <!ENTITY % PromptDoShiftChange SYSTEM "chrome://viviecr/locale/prompt_doshiftchange.dtd">
   %PromptDoShiftChange;
+  <!ENTITY % LedgerEntryTypes SYSTEM "chrome://viviecr/locale/ledger.dtd">
+  %LedgerEntryTypes;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
@@ -27,7 +29,7 @@
             <!-- Left side -->
             <vbox flex="1"  class="MainL">
             <caption label="&prompt.shiftchange.title;"   class="PageTitle" />
-                <viviscrollabletree id="shiftscrollablepanel" flex="1" rows="7" headers="Topic,Type,Amount" fields="name,memo1,amount" onclick=""
+                <viviscrollabletree id="shiftscrollablepanel" flex="1" headers="&ledger.entry.heading.type;,&ledger.entry.heading.amount;" fields="name,memo1,amount" onclick=""
                                            dir="reverse" class="ListPnl" scrollUpClass="ScrollUp" scrollDownClass="ScrollDown">
                     <spacer flex="1" />
                 </viviscrollabletree>

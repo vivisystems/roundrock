@@ -1,6 +1,6 @@
 (function(){
     var inputObj = window.arguments[0];
-    var topics = inputObj.topics;
+    var types = inputObj.entry_types;
     var data = inputObj.shiftchange;
     var detail = inputObj.shiftchange.detail;
     var amount = data.amount;
@@ -9,15 +9,8 @@
      * Controller Startup
      */
     function startup() {
-        // set topic list
-        window.viewHelper = new GeckoJS.NSITreeViewArray(topics);
-
-        /*
-        document.getElementById('topicscrollablepanel').datasource = window.viewHelper ;
-        document.getElementById('topicscrollablepanel').selectedIndex = 0;
-        document.getElementById('topicscrollablepanel').selectedItems = [0];
-        */
-        
+        // set ledger entry types
+        window.viewHelper = new GeckoJS.NSITreeViewArray(types);
         window.viewDetailHelper = new GeckoJS.NSITreeViewArray(detail);
         window.viewDetailHelper.getCellValue= function(row, col) {
             

@@ -2014,25 +2014,20 @@
 
         },
 
-        accounting: function(inputObj) {
-            // @todo Accounting IN/OUT
+        ledgerEntry: function(inputObj) {
 
             var data = {};
             data.accountPayment = {};
 
             if (!inputObj) {
-                var aURL = "chrome://viviecr/content/prompt_addaccount.xul";
-                var features = "chrome,titlebar,toolbar,centerscreen,modal,width=500,height=500";
-                var inputObj = {
-                    input0:null,
-                    input1:null,
-                    topics:null
-                };
+                var aURL = 'chrome://viviecr/content/prompt_add_ledger_entry.xul';
+                var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=500';
+                inputObj = {}
 
-                var accountTopic = new AccountTopicModel();
-                inputObj.topics = accountTopic.find('all');
+                var ledgerEntryTypeModel = new LedgerEntryTypeModel();
+                inputObj.entry_types = ledgerEntryTypeModel.find('all');
 
-                window.openDialog(aURL, "prompt_addaccount", features, inputObj);
+                window.openDialog(aURL, _('Add New Ledger Entry'), features, inputObj);
             }
 
             if (!inputObj.ok) {

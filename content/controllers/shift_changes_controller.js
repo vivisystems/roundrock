@@ -17,13 +17,6 @@
             this.startShift();
         },
 
-        getListObj: function() {
-            if(this._listObj == null) {
-                this._listObj = document.getElementById('supplierscrollablepanel');
-            }
-            return this._listObj;
-        },
-
         load: function(data) {
             //
         },
@@ -174,22 +167,89 @@
             var terminal_no = GeckoJS.Session.get('terminal_no');
             var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
             var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
-            
-            var fields = ['order_payments.modified',
-                            'order_payments.name',
-                            'order_payments.memo1',
-                            'SUM("order_payments"."amount" - "order_payments"."change") as "OrderPayment.amount"'];
-            var conditions = "orders.sale_period = " + salePeriod + " AND orders.shift_number = " + shiftNumber + " AND orders.terminal_no = '" + terminal_no + "'";
-            var groupby = '"order_payments"."name" , "order_payments"."memo1"';
-            var orderby = 'order_payments.name';
+
             var orderPayment = new OrderPaymentModel();
-            var detail = orderPayment.find('all', {
-                fields: fields,
-                conditions: conditions,
-                group: groupby,
-                order: orderby,
-                recursive: 1
-            });
+
+            // first, we collect payment totals for credit cards and coupons
+            var fields = ['order_payments.modified',
+                          'order_payments.memo1 as "OrderPayment.name"',
+                          'order_payments.name as "OrderPayment.type"',
+                          'SUM("order_payments"."origin_amount" - "order_payments"."change") as "OrderPayment.origin_amount"',
+                          'SUM("order_payments"."amount" - "order_payments"."change") as "OrderPayment.amount"'];
+            var conditions = "orders.sale_period = " + salePeriod +
+                             " AND orders.shift_number = " + shiftNumber +
+                             " AND orders.terminal_no = '" + terminal_no + "'" +
+                             " AND (order_payments.name = 'creditcard' OR order_payments.name = 'coupon')";
+            var groupby = 'order_payments.memo1';
+            var orderby = 'order_payments.memo1, "OrderPayment.type"';
+            var creditCardCouponDetails = orderPayment.find('all', {fields: fields,
+                                                                    conditions: conditions,
+                                                                    group: groupby,
+                                                                    order: orderby,
+                                                                    recursive: 1
+                                                                   });
+            this.log(this.dump(creditCardCouponDetails));
+
+            // next, we collect payment totals for personal checks
+            fields = ['order_payments.modified',
+                      'order_payments.name',
+                      'SUM("order_payments"."origin_amount" - "order_payments"."change") as "OrderPayment.origin_amount"',
+                      'SUM("order_payments"."amount" - "order_payments"."change") as "OrderPayment.amount"'];
+            conditions = "orders.sale_period = " + salePeriod +
+                         " AND orders.shift_number = " + shiftNumber +
+                         " AND orders.terminal_no = '" + terminal_no + "'" +
+                         " AND order_payments.name = 'check'";
+            groupby = 'order_payments.name';
+            var checkDetails = orderPayment.find('all', {fields: fields,
+                                                         conditions: conditions,
+                                                         group: groupby,
+                                                         order: orderby,
+                                                         recursive: 1
+                                                        });
+
+            alert(this.dump(checkDetails));
+            this.log(this.dump(checkDetails));
+
+            // next, we collect payment totals for cash in local denominations
+            fields = ['order_payments.modified',
+                      'order_payments.name',
+                      'SUM("order_payments"."origin_amount" - "order_payments"."change") as "OrderPayment.origin_amount"',
+                      'SUM("order_payments"."amount" - "order_payments"."change") as "OrderPayment.amount"'];
+            conditions = "orders.sale_period = " + salePeriod +
+                         " AND orders.shift_number = " + shiftNumber +
+                         " AND orders.terminal_no = '" + terminal_no + "'" +
+                         " AND order_payments.name = 'cash' AND order_payments.memo1 is NULL";
+            groupby = 'order_payments.name';
+            var localCashDetails = orderPayment.find('all', {fields: fields,
+                                                             conditions: conditions,
+                                                             group: groupby,
+                                                             order: orderby,
+                                                             recursive: 1
+                                                            });
+
+            alert(this.dump(localCashDetails));
+            this.log(this.dump(localCashDetails));
+
+            // next, we collect payment totals for cash in foreign denominations
+            fields = ['order_payments.modified',
+                      'order_payments.memo1 as "OrderPayment.name"',
+                      'SUM("order_payments"."origin_amount") as "OrderPayment.amount"',
+                      'SUM(- "order_payments"."change") as "OrderPayment.origin_amount"'];
+            conditions = "orders.sale_period = " + salePeriod +
+                         " AND orders.shift_number = " + shiftNumber +
+                         " AND orders.terminal_no = '" + terminal_no + "'" +
+                         " AND order_payments.name = 'cash' AND NOT (order_payments.memo1 is NULL)";
+            groupby = 'order_payments.memo1';
+            var foreignCashDetails = orderPayment.find('all', {fields: fields,
+                                                               conditions: conditions,
+                                                               group: groupby,
+                                                               order: orderby,
+                                                               recursive: 1
+                                                            });
+
+            alert(this.dump(foreignCashDetails));
+            this.log(this.dump(foreignCashDetails));
+return;
             var amount = orderPayment.find('first', {
                 fields: ['SUM("order_payments"."amount" - "order_payments"."change") as "OrderPayment.amount"'],
                 conditions: conditions
@@ -210,17 +270,14 @@
                 detail: detail
             }
 
-            var aURL = "chrome://viviecr/content/prompt_doshiftchange.xul";
-            var features = "chrome,titlebar,toolbar,centerscreen,modal,width=500,height=450";
+            var aURL = 'chrome://viviecr/content/prompt_doshiftchange.xul';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=450';
             var inputObj = {
-                input0:null,
-                input1:null,
-                topics:null,
                 shiftchange:data
             };
 
-            var accountTopic = new AccountTopicModel();
-            inputObj.topics = accountTopic.find('all');
+            var ledgerEntryTypeModel = new LedgerEntryTypeModel();
+            inputObj.entry_types = ledgerEntryTypeModel.find('all');
 
             window.openDialog(aURL, _('Shift Change'), features, inputObj);
 

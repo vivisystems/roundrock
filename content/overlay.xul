@@ -62,7 +62,8 @@
   <script src='chrome://viviecr/content/controllers/devices_controller.js'/>
   <script src='chrome://viviecr/content/controllers/print_controller.js'/>
   <script src='chrome://viviecr/content/controllers/vfd_controller.js'/>
-  <script src='chrome://viviecr/content/controllers/cash_drawer_controller.js'/>
+  <script src='chrome://viviecr/content/controllers/cashdrawer_controller.js'/>
+  <script src='chrome://viviecr/content/controllers/gpio_controller.js'/>
 
   <script src="chrome://viviecr/content/overlay.js" type="application/x-javascript"/>
 

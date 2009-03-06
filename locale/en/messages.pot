@@ -34,8 +34,8 @@ msgstr "Product Groups"
 msgid "Products"
 msgstr "Products"
 
-msgid "Accounting Topics"
-msgstr "Accounting Topics"
+msgid "Ledger Setup"
+msgstr "Ledger Setup"
 
 msgid "Price Level Schedule"
 msgstr "Price Level Schedule"
@@ -1032,8 +1032,20 @@ msgstr "Modify Annotations"
 msgid "acl_delete_annotations"
 msgstr "Delete Annotations"
 
-msgid "acl_manage_accounting_topics"
-msgstr "Manage Accounting Topics"
+msgid "acl_manage_ledger"
+msgstr "Manage Ledger"
+
+msgid "acl_view_ledger_entry"
+msgstr "View Ledger Entries"
+
+msgid "acl_add_ledger_entry"
+msgstr "Add Ledger Entries"
+
+msgid "acl_modify_ledger_entry"
+msgstr "Modify Ledger Entries"
+
+msgid "acl_delete_ledger_entry"
+msgstr "Delete Ledger Entries"
 
 msgid "Cash Drawer Report"
 msgstr "Cash Drawer Report"
@@ -1061,3 +1073,12 @@ msgstr "Shift Change"
 msgid "shiftchange.name"
 msgstr "Shift Change"
 
+msgid "ledgerentry.desc"
+msgstr ""
+"This function is used to enter an entry into the ledger. No parameter is needed."
+
+msgid "ledgerentry.label"
+msgstr "Ledger Entry"
+
+msgid "ledgerentry.name"
+msgstr "Ledger Entry"

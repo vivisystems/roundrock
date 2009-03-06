@@ -161,10 +161,10 @@ pref("vivipos.fec.settings.controlpanels.config.addons.features", "chrome,menuba
 pref("vivipos.fec.settings.controlpanels.config.addons.icon", "chrome://viviecr/skin/icons/icon_addons.png");
 pref("vivipos.fec.settings.controlpanels.config.addons.roles", "acl_manage_addons");
 
-pref("vivipos.fec.settings.controlpanels.config.accounting.label", "Accounting Topics");
-pref("vivipos.fec.settings.controlpanels.config.accounting.path", "chrome://viviecr/content/accounts.xul");
-pref("vivipos.fec.settings.controlpanels.config.accounting.icon", "chrome://viviecr/skin/icons/icon_generic.png");
-pref("vivipos.fec.settings.controlpanels.config.accounting.roles", "acl_manage_accounting_topics");
+pref("vivipos.fec.settings.controlpanels.config.ledger.label", "Ledger Setup");
+pref("vivipos.fec.settings.controlpanels.config.ledger.path", "chrome://viviecr/content/ledger.xul");
+pref("vivipos.fec.settings.controlpanels.config.ledger.icon", "chrome://viviecr/skin/icons/icon_generic.png");
+pref("vivipos.fec.settings.controlpanels.config.ledger.roles", "acl_manage_ledger");
 
 pref("vivipos.fec.registry.function.programmable.tagitem.access", "acl_tag_item");
 pref("vivipos.fec.registry.function.programmable.tagitem.command", "tagItem");
@@ -426,10 +426,10 @@ pref("vivipos.fec.registry.function.programmable.guestcheck.command", "guestChec
 pref("vivipos.fec.registry.function.programmable.guestcheck.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.guestcheck.data", "");
 
-pref("vivipos.fec.registry.function.programmable.accounting.access", "acl_public_access");
-pref("vivipos.fec.registry.function.programmable.accounting.command", "accounting");
-pref("vivipos.fec.registry.function.programmable.accounting.controller", "Cart");
-pref("vivipos.fec.registry.function.programmable.accounting.data", "");
+pref("vivipos.fec.registry.function.programmable.ledgerentry.access", "acl_view_ledger_entry");
+pref("vivipos.fec.registry.function.programmable.ledgerentry.command", "ledgerEntry");
+pref("vivipos.fec.registry.function.programmable.ledgerentry.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.ledgerentry.data", "");
 
 pref("vivipos.fec.registry.function.programmable.shiftchange.access", "");
 pref("vivipos.fec.registry.function.programmable.shiftchange.command", "shiftChange");
@@ -477,10 +477,10 @@ pref("vivipos.fec.reportpanels.cashbyclerk.path", "chrome://viviecr/content/repo
 pref("vivipos.fec.reportpanels.cashbyclerk.icon", "chrome://viviecr/content/skin/icons/reporticon_cash.png");
 pref("vivipos.fec.reportpanels.cashbyclerk.roles", "acl_run_report");
 
-pref("vivipos.fec.reportpanels.accountreport.label", "Accounting Report");
-pref("vivipos.fec.reportpanels.accountreport.path", "chrome://viviecr/content/reports/account_report.xul");
-pref("vivipos.fec.reportpanels.accountreport.icon", "chrome://viviecr/content/skin/icons/reporticon_account.png");
-pref("vivipos.fec.reportpanels.accountreport.roles", "acl_run_report_inactive");
+pref("vivipos.fec.reportpanels.ledgerreport.label", "Ledger Report");
+pref("vivipos.fec.reportpanels.ledgerreport.path", "chrome://viviecr/content/reports/ledger_report.xul");
+pref("vivipos.fec.reportpanels.ledgerreport.icon", "chrome://viviecr/content/skin/icons/reporticon_ledger.png");
+pref("vivipos.fec.reportpanels.ledgerreport.roles", "acl_run_report");
 
 pref("vivipos.fec.reportpanels.attendancerecord.label", "Attendance Record");
 pref("vivipos.fec.reportpanels.attendancerecord.path", "chrome://viviecr/content/reports/rpt_attendance_record.xul");

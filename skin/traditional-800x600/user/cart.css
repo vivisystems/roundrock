@@ -200,7 +200,6 @@ treechildren::-moz-tree-image(treecellTagged) {list-style-image: url(images/prod
 
 .cartList tree label {
     text-align: center;
-    crop: none;
 }
 
 .cartList .tree-scrollable-columns {
