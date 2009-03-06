@@ -5,6 +5,7 @@
     include('chrome://viviecr/content/models/order_payment.js');
     include('chrome://viviecr/content/models/order_object.js');
     include('chrome://viviecr/content/models/order_receipt.js');
+    incoude( 'chrome://viviecr/content/controllers/conponents/tax.js' );
 
     // include controllers  and register itself
 
