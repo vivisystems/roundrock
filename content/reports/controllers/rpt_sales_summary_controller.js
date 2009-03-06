@@ -296,12 +296,14 @@
             
             var orderItem = new OrderItemModel();
             data.records = orderItem.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1 } );
-            
+
             data.records.forEach( function( record ) {
             	summary.tax_total += record.tax_subtotal;
             	
             	if ( record.included_tax )
             		record.tax_subtotal += record.included_tax;
+            	
+            	record.rate_type = TaxComponent.prototype.getTax( record.tax_name ).rate_type;
             });
 			
 			data.summary = summary;

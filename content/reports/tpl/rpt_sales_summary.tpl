@@ -160,7 +160,7 @@
                     <tr>
                         <td>${detail.tax_name}</td>
                         <td>${detail.tax_rate}</td>
-                        <td></td>
+                        <td>${detail.rate_type}</td>
                         <td>${detail.tax_type}</td>
                         <td>${detail.tax_subtotal|default:0|viviFormatPrices:true}</td>
                     </tr>

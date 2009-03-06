@@ -40,7 +40,7 @@
 "Tax summary"
 "","Tax Name","Tax Rate","Rate Type","Tax Type","Total"
 {for detail in body.tax_summary.records}
-"","${detail.tax_name}","${detail.tax_rate}","","${detail.tax_type}","${detail.tax_subtotal|default:0|viviFormatPrices:true}"
+"","${detail.tax_name}","${detail.tax_rate}","${detail.rate_type}","${detail.tax_type}","${detail.tax_subtotal|default:0|viviFormatPrices:true}"
 {/for}
 "Summary:","","","","${body.tax_summary.summary.tax_total|default:0|viviFormatPrices:true}"
 "",""

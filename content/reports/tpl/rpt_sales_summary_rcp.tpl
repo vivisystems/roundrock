@@ -39,7 +39,7 @@ Tax summary
 {for detail in body.tax_summary.records}
   Tax Name:   ${detail.tax_name}
   Tax Rate:   ${detail.tax_rate}
-  Rate Type:
+  Rate Type:  ${detail.rate_type}
   Tax Type:   ${detail.tax_type}
   Total:      ${detail.tax_subtotal|default:0|viviFormatPrices:true}
   
