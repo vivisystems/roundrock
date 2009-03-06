@@ -31,8 +31,8 @@
             if (lastChange)
                 var start = lastChange.endtime;
             else
-                var start = (new Date(2000,1,1)).getTime();
-            var end = (new Date()).getTime();
+                var start = (new Date(2000,1,1)).getTime() / 1000;
+            var end = (new Date()).getTime() / 1000;
 
             var fields = ['order_payments.modified',
                             'order_payments.name',
@@ -44,21 +44,22 @@
             var orderPayment = new OrderPaymentModel();
             var detail = orderPayment.find('all', {
                 fields: fields,
-                
+                conditions: conditions,
                 group: groupby,
                 order: orderby
             });
-
+//alert(conditions);
+//alert(this.dump(detail));
             if (detail.length == 0) {
                 NotifyUtils.warn(_('shift change is not needed!'));
                 return;
             }
-            var amount = orderPayment.find('all', {
+            var amount = orderPayment.find('first', {
                 fields: ['SUM("order_payments"."amount" - "order_payments"."change") as "OrderPayment.amount"'],
-                conditions: conditions,
+                conditions: conditions
             });
 
-            var amount = amount[0].amount;
+            // var amount = amount[0].amount;
 
             var clerk = '';
             var user = new GeckoJS.AclComponent().getUserPrincipal();
@@ -69,7 +70,7 @@
             var data = {
                 starttime: start,
                 endtime: end,
-                amount: amount,
+                amount: amount.amount,
                 clerk: clerk,
                 note: '',
                 detail: detail
@@ -98,7 +99,7 @@
                     this.requestCommand('accounting', inputObj, 'Cart');
 
                     data.amount = data.amount - amt;
-                    data.endtime = (new Date()).getTime();
+                    data.endtime = (new Date()).getTime() / 1000;
                     data.detail.push({name:inputObj.topic, memo1: 'OUT', amount: amt * (-1)});
 
                     // @todo ugly wait...

@@ -67,6 +67,7 @@
                     return true;
                 } else if (isNaN(inputObj.amount)) {
                     inputObj.amount = 0;
+                    inputObj.topic = '';
                     inputObj.ok = true;
                     return true;
                 } else {

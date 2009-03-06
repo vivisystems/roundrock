@@ -2,11 +2,11 @@
 
     var GuestCheckComponent = window.GuestCheckComponent = GeckoJS.Component.extend({
 
-    /**
-     * Component GuestCheck
-     */
+        /**
+         * Component GuestCheck
+         */
 
-            /*
+        /*
             // Session
             vivipos_fec_price_level,
             vivipos_fec_tax_total,
@@ -16,7 +16,7 @@
             vivipos_fec_number_of_customers,
             vivipos_fec_check_number,
             vivipos_fec_table_number
-            */
+         */
 
         name: 'GuestCheck',
         _checkNoArray: [],
@@ -135,7 +135,7 @@
             var self = this;
             var order = new OrderModel();
             var fields = ['orders.id', 'orders.sequence', 'orders.check_no',
-                          'orders.table_no', 'orders.status'];
+                'orders.table_no', 'orders.status'];
             switch (key) {
                 case 'CheckNo':
                     var conditions = "orders.check_no='" + no + "' AND orders.status='2'";
@@ -203,13 +203,13 @@
                 this.recall('AllCheck', 'TableNo');
         },
 
-        recall: function(key, no) {
+        recall: function(key, no, silence) {
             this.log("GuestCheck recall...key:" + key + ",  no:" + no);
             switch(key) {
                 case 'OrderNo':
                     var order = new OrderModel();
                     var fields = ['orders.id', 'orders.sequence', 'orders.check_no',
-                                  'orders.table_no', 'orders.status'];
+                        'orders.table_no', 'orders.status'];
                     var conditions = "orders.sequence='" + no + "'";
                     var ord = order.find('all', {fields: fields, conditions: conditions});
 
@@ -224,7 +224,7 @@
                             NotifyUtils.warn(_('This order is already finalized!'));
                         }
                     }
-                     else {
+                    else {
                         // @todo OSD
                         NotifyUtils.warn(_('Can not find the Order# (%S)!!', [no]));
                     }
@@ -232,7 +232,7 @@
                 case 'CheckNo':
                     var order = new OrderModel();
                     var fields = ['orders.id', 'orders.sequence', 'orders.check_no',
-                                  'orders.table_no', 'orders.status'];
+                        'orders.table_no', 'orders.status'];
                     var conditions = "orders.check_no='" + no + "' AND orders.status='2'";
                     var ord = order.find('all', {fields: fields, conditions: conditions});
 
@@ -258,7 +258,7 @@
                 case 'TableNo':
                     var order = new OrderModel();
                     var fields = ['orders.id', 'orders.sequence', 'orders.check_no',
-                                  'orders.table_no', 'orders.status'];
+                        'orders.table_no', 'orders.status'];
                     var conditions = "orders.table_no='" + no + "' AND orders.status='2'";
                     var ord = order.find('all', {fields: fields, conditions: conditions});
 
@@ -320,11 +320,11 @@
                 case 'AllCheck':
                     var order = new OrderModel();
                     var fields = ['orders.id', 'orders.sequence', 'orders.check_no',
-                                  'orders.table_no', 'orders.status', 'orders.total'];
+                        'orders.table_no', 'orders.status', 'orders.total'];
                     var conditions = "orders.status='2'";
                     var ord = order.find('all', {fields: fields, conditions: conditions, recursive: 2});
                     // var ord = order.find('all', {fields: fields, conditions: conditions});
-// this.log(this.dump(ord));
+
                     if (ord && ord.length > 1) {
                         //
                         // alert(this.dump(ord));
@@ -333,9 +333,9 @@
                         var screenheight = GeckoJS.Session.get('screenheight') || '600';
 
                         if (no == 'CheckNo')
-                        var aURL = 'chrome://viviecr/content/select_checks.xul';
+                            var aURL = 'chrome://viviecr/content/select_checks.xul';
                         else if (no == 'TableNo')
-                        var aURL = 'chrome://viviecr/content/select_tables.xul';
+                            var aURL = 'chrome://viviecr/content/select_tables.xul';
 
                         var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
                         var inputObj = {
@@ -351,15 +351,21 @@
                             var status = ord[idx].status;
                             var check_no = ord[idx].check_no;
 
-                            this._controller.unserializeFromOrder(id);
+                            if (silence) {
+                                //
 
-                            // display to onscreen VFD
-                            this._controller.dispatchEvent('onWarning', _('RECALL# %S', [check_no]));
+                            } else {
+                                this._controller.unserializeFromOrder(id);
 
-                            if (status == 1) {
-                                // @todo OSD
-                                NotifyUtils.warn(_('This order is already finalized!'));
+                                // display to onscreen VFD
+                                this._controller.dispatchEvent('onWarning', _('RECALL# %S', [check_no]));
+
+                                if (status == 1) {
+                                    // @todo OSD
+                                    NotifyUtils.warn(_('This order is already finalized!'));
+                                }
                             }
+                            return id;
 
                         }else {
                             // return null;
@@ -404,25 +410,74 @@
             this.log("GuestCheck transfer...key:" + key + ",  no:" + no);
             switch(key) {
                 case 'OrderNo':
-                break;
+                    break;
                 case 'CheckNo':
-                break;
+                    // this.mergeOrder(no, data);
+                    break;
                 case 'TableNo':
-                break;
+                    break;
                 case 'AllCheck':
-                break;
+                    break;
+            }
+        },
+
+        unserializeFromOrder: function(order_id) {
+            var order = new OrderModel();
+            return order.unserializeOrder(order_id);
+        },
+
+        mergeOrder: function(no, data) {
+
+            this.log("GuestCheck merge check...no:" + no);
+
+            var target_id = this.recall('AllCheck', 'CheckNo', true);
+
+            var targetCheck = this.unserializeFromOrder(target_id);
+
+            var screenwidth = GeckoJS.Session.get('screenwidth') || '800';
+            var screenheight = GeckoJS.Session.get('screenheight') || '600';
+            var aURL = "chrome://viviecr/content/merge_check.xul";
+            var aName = "Merge Check";
+            var aArguments = "";
+            var posX = 0;
+            var posY = 0;
+
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
+            var inputObj = {
+                targetCheck: targetCheck,
+                sourceCheck: data
+            };
+
+            window.openDialog(aURL, 'merge_checks', features, inputObj);
+
+            if (inputObj.ok) {
+                // return queues[idx].key;
+                var id = inputObj.id;
+                var check_no = inputObj.check_no;
+
+                // recall the merged order...
+                this._controller.unserializeFromOrder(id);
+
+                // display to onscreen VFD
+                this._controller.dispatchEvent('onWarning', _('RECALL# %S', [check_no]));
+
+            }else {
+                // return null;
             }
         },
 
         splitOrder: function(no, data) {
             this.log("GuestCheck split check...no:" + no);
 
+            var ar = this.getCheckList('AllCheck', null);
+
             var order = new OrderModel();
             var fields = ['orders.id', 'orders.sequence', 'orders.check_no',
-                          'orders.table_no', 'orders.status'];
+                'orders.table_no', 'orders.status', 'order_objects.object'];
+            // fields = [];
             var conditions = "orders.status='2'";
-            var ord = order.find('all', {fields: fields, conditions: conditions});
-
+            var ord = order.find('all', {fields: fields, conditions: conditions, recursive: 2});
+            // this.log(this.dump(ord));
             var screenwidth = GeckoJS.Session.get('screenwidth') || '800';
             var screenheight = GeckoJS.Session.get('screenheight') || '600';
             var aURL = "chrome://viviecr/content/split_check.xul";
@@ -433,11 +488,11 @@
 
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
             var inputObj = {
-                checks: ord,
-                data: data
+                sourceCheck: data,
+                usedCheckNo: this._checkNoArray
             };
 
-            window.openDialog(aURL, 'select_checks', features, inputObj);
+            window.openDialog(aURL, 'split_checks', features, inputObj);
 
             if (inputObj.ok && inputObj.index) {
                 var idx = inputObj.index;

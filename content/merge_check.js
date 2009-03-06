@@ -1,6 +1,4 @@
 (function(){
-    // include models  and register itself
-
     include('chrome://viviecr/content/models/sequence.js');
     include('chrome://viviecr/content/models/transaction.js');
 
@@ -17,14 +15,14 @@
 
     // include controllers  and register itself
 
-    include('chrome://viviecr/content/controllers/split_check_controller.js');
+    include('chrome://viviecr/content/controllers/merge_check_controller.js');
 
     /**
      * Controller Startup
      */
     function startup() {
 
-        $do('load', null, 'SplitCheck');
+        $do('load', null, 'MergeCheck');
 
     };
 

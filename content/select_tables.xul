@@ -2,7 +2,7 @@
 <!DOCTYPE window [
   <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
   %Dialog;
-  <!ENTITY % SelectQueues SYSTEM "chrome://viviecr/locale/select_queues.dtd">
+  <!ENTITY % SelectQueues SYSTEM "chrome://viviecr/locale/select_tables.dtd">
   %SelectQueues;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
@@ -25,7 +25,7 @@
 
     <vbox flex="1" class="main-dialog">
         <vbox flex="1" class="MainPnl">
-            <caption label="select.checks.title;"  class="PageTitle" />
+            <caption label="&selecttables.title;"  class="PageTitle" />
             <label id="queues" hidden="true" value="" />
             <hbox class="SelectBox">
                 <viviscrollablebuttonpanel id="checkScrollablepanel" pre="true" flex="1" cols="4" rows="5"  seltype="single" labelField="check_no"

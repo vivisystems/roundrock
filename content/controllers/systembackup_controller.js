@@ -163,8 +163,10 @@
             var waitPanel = this._showWaitPanel('backup_wait_panel');
             this.setButtonState();
 
-            if (this.execute(this._scriptPath + "backup.sh", ''))
+            if (this.execute(this._scriptPath + "backup.sh", '')) {
+                this.execute("/bin/sync", []);
                 NotifyUtils.info(_('<Backup to Local> is done!!'));
+            }
 
             this.load();
             this._busy = false;
@@ -192,8 +194,10 @@
                 // var param = "-fr " + this._localbackupDir + dir + " " + this._stickbackupDir + dir;
                 var param = ["-fr", this._localbackupDir + dir, this._stickbackupDir];
 
-                if (this.execute("/bin/cp", param))
+                if (this.execute("/bin/cp", param)) {
+                    this.execute("/bin/sync", []);
                     NotifyUtils.info(_('<Copy Backup to Stick> is done!!'));
+                }
             } else {
                 NotifyUtils.info(_('Must select a item from local backup list.'));
             }

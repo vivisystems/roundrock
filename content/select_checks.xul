@@ -2,7 +2,7 @@
 <!DOCTYPE window [
   <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
   %Dialog;
-  <!ENTITY % SelectQueues SYSTEM "chrome://viviecr/locale/select_queues.dtd">
+  <!ENTITY % SelectQueues SYSTEM "chrome://viviecr/locale/select_checks.dtd">
   %SelectQueues;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
@@ -12,7 +12,7 @@
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
-<window title="select.checks.title;"
+<window title="&selectchecks.title;"
         hidechrome="true"
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
@@ -26,7 +26,7 @@
 
     <vbox flex="1" class="main-dialog">
         <vbox flex="1" class="MainPnl">
-            <caption label="select.checks.title;"  class="PageTitle" />
+            <caption label="&selectchecks.title;"  class="PageTitle" />
             <label id="queues" hidden="true" value="" />
             <hbox class="SelectBox">
                 <viviscrollablebuttonpanel id="checkScrollablepanel" pre="true" flex="1" cols="2" rows="5"  seltype="single" labelField="check_no"
@@ -37,7 +37,7 @@
                     <spacer flex="1"/>
                 </viviscrollablebuttonpanel>
                 <vbox>
-                <label id="" value="&select.queues.order.details;"  class="PageTitle"/>
+                <label id="" value="&selectchecks.check.details;"  class="PageTitle"/>
                 <hbox class="sline"></hbox>
                 <textbox class="QueueList" readonly="1" id="itemlist" value="" />
                 </vbox>

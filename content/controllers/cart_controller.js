@@ -3320,7 +3320,8 @@
                     r = this.GuestCheck.transferToOrderNo(no);
                     break;
                 case 'transferCheck':
-                    r = this.GuestCheck.transferToCheckNo(no);
+                    // r = this.GuestCheck.transferToCheckNo(no);
+                    r = this.GuestCheck.mergeOrder(no, curTransaction.data);
                     break;
                 case 'transferTable':
                     r = this.GuestCheck.transferToTableNo(no);

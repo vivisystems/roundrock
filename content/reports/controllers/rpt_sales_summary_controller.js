@@ -318,7 +318,7 @@
             var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_sales_summary.tpl");
 
             var file = GREUtils.File.getFile(path);
-            var tpl = GREUtils.File.readAllBytes(file);
+            var tpl = GREUtils.Charset.convertToUnicode(GREUtils.File.readAllBytes(file));
 
             var result = tpl.process(data);
 
@@ -326,7 +326,7 @@
             var doc = bw.contentWindow.document.getElementById('abody');
 
             doc.innerHTML = result;
-
+// this.log(result);
             this._enableButton(true);
 
             waitPanel.hidePopup();

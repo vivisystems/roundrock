@@ -41,7 +41,7 @@
                             </vbox>
                             <vbox>
                                 <label value="&rptdailysales.enddate;" />
-                                <vividatetimepicker id="end_date" value='' type="popup"/>
+                                <vividatetimepicker id="end_date" value='' type="popup" />
                             </vbox>
                         </row>
                         <row>
