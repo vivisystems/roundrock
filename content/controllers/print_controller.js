@@ -322,6 +322,10 @@
         },
 
 
+        isReceiptPrintingEnabled: function() {
+            return GeckoJS.Configure.read('vivipos.fec.settings.PrintReceipt') || false;
+        },
+
         toggleReceiptPrinting: function() {
             if (GeckoJS.Configure.read('vivipos.fec.settings.PrintReceipt')) {
                 GeckoJS.Configure.write('vivipos.fec.settings.PrintReceipt', false);
@@ -332,6 +336,8 @@
                 NotifyUtils.info(_('Receipt printing on'));
             }
             this.updateReceiptPrintingStatus();
+
+            this.dispatchEvent('onToggleReceiptPrinting', GeckoJS.Configure.read('vivipos.fec.settings.PrintReceipt'));
         },
 
         // print on all enabled receipt printers
