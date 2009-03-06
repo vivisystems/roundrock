@@ -142,7 +142,7 @@ pref("vivipos.fec.settings.controlpanels.config.hotkey.roles", "acl_manage_hotke
 
 pref("vivipos.fec.settings.controlpanels.config.addons.label", "Add-ons");
 pref("vivipos.fec.settings.controlpanels.config.addons.path", "chrome://mozapps/content/extensions/extensions.xul");
-pref("vivipos.fec.settings.controlpanels.config.addons.features", "chrome,menubar,extra-chrome,toolbar,centerscreen,dialog=no");
+pref("vivipos.fec.settings.controlpanels.config.addons.features", "chrome,menubar,extra-chrome,toolbar,centerscreen");
 pref("vivipos.fec.settings.controlpanels.config.addons.icon", "chrome://viviecr/skin/icons/icon_addons.png");
 pref("vivipos.fec.settings.controlpanels.config.addons.roles", "acl_manage_addons");
 

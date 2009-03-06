@@ -49,8 +49,8 @@
             var start = document.getElementById('start_date').value;
             var end = document.getElementById('end_date').value;
 
-            var start_str = document.getElementById('start_date').datetimeValue.toLocaleString();
-            var end_str = document.getElementById('end_date').datetimeValue.toLocaleString();
+            var start_str = document.getElementById('start_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
+            var end_str = document.getElementById('end_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
 
             // var department = document.getElementById('department').value;
             var machineid = document.getElementById('machine_id').value;
@@ -89,7 +89,7 @@
 			datas.forEach( function( data ) {
 				data[ 'avg_price' ] = data[ 'total' ] / data[ 'qty' ];
 			} );
-//this.log( this.dump( datas ) );			
+			
 			var sortby = document.getElementById( 'sortby' ).value;
 			if ( sortby != 'all' ) {
 				datas.sort(
@@ -100,10 +100,6 @@
 					}
 				);
 			}
-
-            this._datas = datas;
-
-
 
             var qty = 0;
             var summary = 0;
@@ -123,11 +119,23 @@
             this.summary = GeckoJS.NumberHelper.format(summary, options);
 
             var data = {
-                head: {title:_('Product Sales Report'), start_date: start_str, end_date: end_str, department: department, machine_id: machineid},
-                body: this._datas,
-                foot: {qty: this.qty ,summary: this.summary},
-                printedtime: (new Date()).toLocaleString()
+                head: {
+                	title: _('Product Sales Report'),
+                	start_time: start_str,
+                    end_time: end_str,
+                    machine_id: machineid,
+                    store: storeContact,
+                    clerk_displayname: clerk_displayname
+                },
+                body: datas,
+                foot: {
+                	qty: this.qty,
+                	summary: this.summary,
+                	gen_time: (new Date()).toLocaleString()
+                }
             }
+
+			this._datas = data;
 
             var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/product_sales.tpl");
 
@@ -153,7 +161,7 @@
         
             try {
                 this._enableButton(false);
-               var media_path = this.CheckMedia.checkMedia('export_report');
+               var media_path = this.CheckMedia.checkMedia('report_export');
                 if (!media_path){
                     NotifyUtils.info(_('Media not found!! Please attach the USB thumb drive...'));
                     return;
@@ -164,11 +172,10 @@
                 this.BrowserPrint.getPrintSettings();
                 this.BrowserPrint.setPaperSizeUnit(1);
                 this.BrowserPrint.setPaperSize(297, 210);
-                this.BrowserPrint.setPaperEdge(20, 20, 20, 20);
+                //this.BrowserPrint.setPaperEdge(20, 20, 20, 20);
 
                 this.BrowserPrint.getWebBrowserPrint('preview_frame');
-                this.BrowserPrint.printToPdf(media_path + "/product_sales.pdf");
-                //this.BrowserPrint.printToPdf("/var/tmp/stocks.pdf");
+                this.BrowserPrint.printToPdf(media_path + "/rpt_product_sales.pdf");
             } catch (e) {
                 //
             } finally {
@@ -181,7 +188,7 @@
         exportCsv: function() {
             try {
                 this._enableButton(false);
-                var media_path = this.CheckMedia.checkMedia('export_report');
+                var media_path = this.CheckMedia.checkMedia('report_export');
                 if (!media_path){
                     NotifyUtils.info(_('Media not found!! Please attach the USB thumb drive...'));
                     return;
@@ -189,21 +196,22 @@
 
                 var waitPanel = this._showWaitPanel('wait_panel', 100);
 				
-                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_product_sales_csv.tpl");
+                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/product_sales_csv.tpl");
 
                 var file = GREUtils.File.getFile(path);
                 var tpl = GREUtils.File.readAllBytes(file);
                 var datas;
                 datas = this._datas;
 
-                this.CsvExport.printToFile(media_path + "/product_sales.csv", datas, tpl);
+                this.CsvExport.printToFile(media_path + "/rpt_product_sales.csv", datas, tpl);
 
 
             } catch (e) {
                 //
             } finally {
                 this._enableButton(true);
-                waitPanel.hidePopup();
+                if ( waitPanel != undefined )
+               		waitPanel.hidePopup();
             }
         },
 
@@ -212,7 +220,7 @@
                 this._enableButton(false);
                 var waitPanel = this._showWaitPanel('wait_panel', 100);
 
-                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_product_sales_rcp.tpl");
+                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/product_sales_rcp.tpl");
 
                 var file = GREUtils.File.getFile(path);
                 var tpl = GREUtils.File.readAllBytes(file);
@@ -226,7 +234,8 @@
                 //
             } finally {
                 this._enableButton(true);
-                waitPanel.hidePopup();
+                if ( waitPanel != undefined )
+                	waitPanel.hidePopup();
             }
         },
 

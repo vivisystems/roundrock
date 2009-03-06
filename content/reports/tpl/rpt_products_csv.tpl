@@ -1,3 +1,9 @@
+"${head.store.name}"
+"${head.store.branch}"
+"Telphone:","'${head.store.telephone1}"
+"Clerk:","'${head.clerk_displayname}"
+"Printed Time:","${foot.gen_time}"
+
 "Dept.No","Dept.Name","No","Name","Barcode","Tax","Min.Stock","Stock"
 {for category in body}
 "'${category.no}","'${category.name}"

@@ -12,13 +12,13 @@
             // @todo :
             alert('check Media initial...');
         },
-
+        
         // @todo
         // folderName can not include the "/" at this moment...
         checkMedia: function(folderName, autoCreate) {
 
             var osLastMedia = new GeckoJS.File('/tmp/last_media');
-            // var osLastMedia = new GeckoJS.File('/var/tmp/vivipos/last_media');
+            //var osLastMedia = new GeckoJS.File('/var/tmp/vivipos/last_media');
 
             var last_media = "";
             var deviceNode = "";
@@ -26,7 +26,7 @@
             this._backupDir = null;
 
             var deviceMount = "/media/";
-            // var deviceMount = "/var/tmp/";
+            //var deviceMount = "/var/tmp/";
 
             var hasMounted = false;
 

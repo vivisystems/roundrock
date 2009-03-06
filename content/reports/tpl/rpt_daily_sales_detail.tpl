@@ -14,6 +14,13 @@
             	</tr>
 		        <tr>
 		        	<td style="background: white;" colspan="10">
+		        		<p align="left">${head.store.name}</p>
+						<p align="left">${head.store.branch}</p>
+						<p align="left">${head.store.telephone1}</p>
+						<p align="left">Terminal: ${head.store.terminal_no}</p>
+						<p align="left">Clerk: ${head.clerk_displayname}</p>
+						<p align="right">Printed Time: ${foot.gen_time}</p>
+						<p align="right">${head.start_time} - ${head.end_time}</p>
 						<span style="float: left;">${head.title}</span>
 						<span style="float: right;">${head.start_time} - ${head.end_time}</span>
 					</td>
@@ -67,11 +74,11 @@
             <tfoot>
                 <tr>
                     <td colspan="3">Summary:</td>
-                    <td>${foot.item_subtotal|viviFormatPrices:true}</td>
-                    <td>${foot.tax_subtotal|viviFormatPrices:true}</td>
-                    <td>${foot.surcharge_subtotal|viviFormatPrices:true}</td>
-                    <td>${foot.discount_subtotal|viviFormatPrices:true}</td>
-                    <td>${foot.payment|viviFormatPrices:true}</td>
+                    <td>${foot.foot_datas.item_subtotal|viviFormatPrices:true}</td>
+                    <td>${foot.foot_datas.tax_subtotal|viviFormatPrices:true}</td>
+                    <td>${foot.foot_datas.surcharge_subtotal|viviFormatPrices:true}</td>
+                    <td>${foot.foot_datas.discount_subtotal|viviFormatPrices:true}</td>
+                    <td>${foot.foot_datas.payment|viviFormatPrices:true}</td>
                     <td></td>
                     <td></td>
                 </tr>

@@ -5,6 +5,7 @@
 <!ENTITY productsales.execute "Execute">
 <!ENTITY productsales.exportpdf "Export to PDF">
 <!ENTITY productsales.exportcsv "Export to CSV">
+<!ENTITY productsales.exportrcp "Print">
 <!ENTITY productsales.togglezoom "Toggle Zoom">
 <!ENTITY productsales.machineid "Terminal No:">
 <!ENTITY productsales.sortby "Sort By:">

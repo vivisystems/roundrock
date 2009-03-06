@@ -138,7 +138,10 @@
                     clerk_displayname: clerk_displayname
                 },
                 body: datas,
-                foot: footDatas
+                foot: {
+                	foot_datas: footDatas,
+                	gen_time: (new Date()).toString('yyyy/MM/dd HH:mm:ss')
+                }
             }
 
             this._datas = data;
@@ -169,11 +172,11 @@
 
             try {
                 this._enableButton(false);
-                /*var media_path = this.CheckMedia.checkMedia('export_report');
+                var media_path = this.CheckMedia.checkMedia('report_export');
                 if (!media_path){
                     NotifyUtils.info( _( 'Media not found!! Please attach the USB thumb drive...' ) );
                     return;
-                }*/
+                }
 
                 var waitPanel = this._showWaitPanel( 'wait_panel' );
 
@@ -183,20 +186,20 @@
                 // this.BrowserPrint.setPaperEdge(20, 20, 20, 20);
 
                 this.BrowserPrint.getWebBrowserPrint('preview_frame');
-                //this.BrowserPrint.printToPdf(media_path + "/daily_sales_detail.pdf");
-                this.BrowserPrint.printToPdf( '/var/tmp/daily_sales_detail.pdf' );
+                this.BrowserPrint.printToPdf(media_path + "/rpt_daily_sales_detail.pdf");
             } catch (e) {
                 //
             } finally {
                 this._enableButton(true);
-                waitPanel.hidePopup();
+                if ( waitPanel != undefined )
+                	waitPanel.hidePopup();
             }
         },
 
         exportCsv: function() {
             try {
                 this._enableButton(false);
-                var media_path = this.CheckMedia.checkMedia('export_report');
+                var media_path = this.CheckMedia.checkMedia('report_export');
                 if (!media_path){
                     NotifyUtils.info(_('Media not found!! Please attach the USB thumb drive...'));
                     return;
@@ -211,7 +214,7 @@
                 var datas;
                 datas = this._datas;
 
-                this.CsvExport.printToFile(media_path + "/daily_sales_detail.csv", datas, tpl);
+                this.CsvExport.printToFile(media_path + "/rpt_daily_sales_detail.csv", datas, tpl);
             } catch (e) {
                 //
             } finally {

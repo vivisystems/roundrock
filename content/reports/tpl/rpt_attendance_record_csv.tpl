@@ -3,6 +3,7 @@
 "Telphone:","'${head.store.telephone1}"
 "Terminal:","'${head.store.terminal_no}"
 "Clerk:","'${head.clerk_displayname}"
+"Printed Time:","${foot.gen_time}"
 "Start:","${head.start_time}"
 "End:","${head.end_time}"
 

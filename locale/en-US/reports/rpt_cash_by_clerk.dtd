@@ -4,7 +4,7 @@
 <!ENTITY rptcashbyclerk.execute "Execute">
 <!ENTITY rptcashbyclerk.exportpdf "Export to PDF">
 <!ENTITY rptcashbyclerk.exportcsv "Export to CSV">
+<!ENTITY rptcashbyclerk.exportrcp "Print">
 <!ENTITY rptcashbyclerk.togglezoom "Toggle Zoom">
 <!ENTITY rptcashbyclerk.machineid "Terminal No:">
 <!ENTITY rptcashbyclerk.wait "Waiting...">
-

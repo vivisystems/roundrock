@@ -2,40 +2,13 @@
     <img src="chrome://viviecr/content/skin/images/logo.png" />
     <br />
 
-    <table>
-        <tr>
-            <td>
-            Start:
-            </td>
-            <td>
-            ${head.start_date}
-            </td>
-        </tr>
-        <tr>
-            <td>
-            End:
-            </td>
-            <td>
-            ${head.end_date}
-            </td>
-        </tr>
-        <!-- html:tr>
-            <td>
-            Department:
-            </td>
-            <td>
-            ${head.department}
-            </td>
-        </tr -->
-        <tr>
-            <td>
-            Machine Id:
-            </td>
-            <td>
-            ${head.machine_id}
-            </td>
-        </tr>
-    </table>
+    <p align="left">${head.store.name}</p>
+	<p align="left">${head.store.branch}</p>
+	<p align="left">${head.store.telephone1}</p>
+	<p align="left">Terminal: ${head.store.terminal_no}</p>
+	<p align="left">Clerk: ${head.clerk_displayname}</p>
+	<p align="right">Printed Time: ${foot.gen_time}</p>
+	<p align="right">${head.start_time} - ${head.end_time}</p>
 
     <table id="body-table">
         <caption>${head.title}</caption>
@@ -68,6 +41,5 @@
         </tfoot>
     </table>
     <br />
-    Printed:${printedtime}
 </div>
 <br />

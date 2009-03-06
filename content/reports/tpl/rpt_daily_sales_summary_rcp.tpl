@@ -1,48 +1,42 @@
-<!-- div class="paper" style="overflow:auto;" -->
-<div id="printhead">
-<img src="chrome://viviecr/content/skin/images/logo.png" /><br />
-</div>
-<div id="docbody" class="paper">
-<p align="right">${head.start_time} - ${head.end_time}</p>
-        <table id="body-table">
-            <caption>${head.title}</caption>
-            <thead>
-                <tr>
-                    <th>Term_No.</th>
-                    <th>Total</th>
-                    <th>Surcharge</th>
-                    <th>Discount</th>
-                    <th>Cash</th>
-                    <th>Credit Card</th>
-                    <th>Coupon</th>
-                </tr>
-            </thead>
-            <tbody>
-{for detail in body}
-                <tr>
-                    <td style="text-align: left;">${detail.terminal_no}</td>
-                    <td>${detail.total|viviFormatPrices:true}</td>
-                    <td>${detail.surcharge_subtotal|viviFormatPrices:true}</td>
-                    <td>${detail.discount_subtotal|viviFormatPrices:true}</td>
-                    <td>${detail.cash|default:0|viviFormatPrices:true}</td>
-                    <td>${detail.creditcard|default:0|viviFormatPrices:true}</td>
-                    <td>${detail.coupon|default:0|viviFormatPrices:true}</td>
-                </tr>
-{/for}
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="1">Summary:</td>
-                    <td>${foot.total|viviFormatPrices:true}</td>
-                    <td>${foot.surcharge_subtotal|viviFormatPrices:true}</td>
-                    <td>${foot.discount_subtotal|viviFormatPrices:true}</td>
-                    <td>${foot.cash|viviFormatPrices:true}</td>
-                    <td>${foot.creditcard|viviFormatPrices:true}</td>
-                    <td>${foot.coupon|viviFormatPrices:true}</td>
-                </tr>
-            </tfoot>
-        </table>
-        </br>
+[&QSON]${head.store.name|center:15}[&QSOFF]
+[&DWON]${head.store.branch|center:15}[&DWOFF]
+${head.store.telephone1|center:42}
+Terminal: ${head.store.terminal_no|left:10} Clerk: ${head.clerk_displayname|left:14}
+${head.start_time} ~ ${head.end_time}
 
-</div>
-<!--/div -->
+${head.title|center:42}
+{for detail in body}
+------------------------------------------
+    Termianl No: ${detail.terminal_no}
+    Total      : ${detail.item_subtotal|viviFormatPrices:true}
+    Add-on Tax : ${detail.tax_subtotal|viviFormatPrices:true}
+    Surcharge  : ${detail.surcharge_subtotal|viviFormatPrices:true}
+    Discount   : ${detail.discount_subtotal|viviFormatPrices:true}
+    Payment    : ${detail.total|viviFormatPrices:true}
+    Cash       : ${detail.cash|default:0|viviFormatPrices:true}
+    Check      : ${detail.check|viviFormatPrices:true}
+    Credit Card: ${detail.creditcard|default:0|viviFormatPrices:true}
+    Coupon     : ${detail.coupon|default:0|viviFormatPrices:true}
+    Gift Card  : ${detail.giftcard|viviFormatPrices:true}
+{/for}
+------------------------------------------
+Summary
+    Total      : ${foot.foot_datas.item_subtotal|viviFormatPrices:true}
+    Add-on Tax : ${foot.foot_datas.tax_subtotal|viviFormatPrices:true}
+    Surcharge  : ${foot.foot_datas.surcharge_subtotal|viviFormatPrices:true}
+    Discount   : ${foot.foot_datas.discount_subtotal|viviFormatPrices:true}
+    Payment    : ${foot.foot_datas.total|viviFormatPrices:true}
+    Cash       : ${foot.foot_datas.cash|default:0|viviFormatPrices:true}
+    Check      : ${foot.foot_datas.check|viviFormatPrices:true}
+    Credit Card: ${foot.foot_datas.creditcard|default:0|viviFormatPrices:true}
+    Coupon     : ${foot.foot_datas.coupon|default:0|viviFormatPrices:true}
+    Gift Card  : ${foot.foot_datas.giftcard|viviFormatPrices:true}
+------------------------------------------
+${foot.gen_time}
+[&CR]
+[&CR]
+[&CR]
+[&CR]
+[&CR]
+[&CR]
+[&PC]
