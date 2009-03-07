@@ -22,6 +22,7 @@
 <!ENTITY ledger.entry.heading.mode "Mode">
 <!ENTITY ledger.entry.heading.amount "Amount">
 <!ENTITY ledger.entry.heading.builtin "Built-In">
+<!ENTITY ledger.entry.heading.terminal "Terminal">
 
 <!ENTITY ledger.show.all "Show All">
 <!ENTITY ledger.show.in "IN Only">

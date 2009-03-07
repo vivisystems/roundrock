@@ -34,8 +34,8 @@ msgstr "Product Groups"
 msgid "Products"
 msgstr "Products"
 
-msgid "Ledger Setup"
-msgstr "Ledger Setup"
+msgid "Ledger"
+msgstr "Ledger"
 
 msgid "Price Level Schedule"
 msgstr "Price Level Schedule"
@@ -323,7 +323,7 @@ msgid "discountByPercentage.label"
 msgstr "-%"
 
 msgid "discountByPercentage.name"
-msgstr "Percentage Discount"
+msgstr "Discount"
 
 msgid "discountByAmount.desc"
 msgstr ""

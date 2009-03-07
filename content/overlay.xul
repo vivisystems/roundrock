@@ -57,7 +57,8 @@
   <script src='chrome://viviecr/content/controllers/shift_changes_controller.js'/>
   <script src='chrome://viviecr/content/controllers/stocks_controller.js'/>
   <script src='chrome://viviecr/content/controllers/plus_controller.js'/>
-
+  <script src='chrome://viviecr/content/controllers/ledger_controller.js'/>
+  
   <!-- device controllers -->
   <script src='chrome://viviecr/content/controllers/devices_controller.js'/>
   <script src='chrome://viviecr/content/controllers/print_controller.js'/>

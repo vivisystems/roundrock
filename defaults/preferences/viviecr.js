@@ -161,7 +161,7 @@ pref("vivipos.fec.settings.controlpanels.config.addons.features", "chrome,menuba
 pref("vivipos.fec.settings.controlpanels.config.addons.icon", "chrome://viviecr/skin/icons/icon_addons.png");
 pref("vivipos.fec.settings.controlpanels.config.addons.roles", "acl_manage_addons");
 
-pref("vivipos.fec.settings.controlpanels.config.ledger.label", "Ledger Setup");
+pref("vivipos.fec.settings.controlpanels.config.ledger.label", "Ledger");
 pref("vivipos.fec.settings.controlpanels.config.ledger.path", "chrome://viviecr/content/ledger.xul");
 pref("vivipos.fec.settings.controlpanels.config.ledger.icon", "chrome://viviecr/skin/icons/icon_generic.png");
 pref("vivipos.fec.settings.controlpanels.config.ledger.roles", "acl_manage_ledger");

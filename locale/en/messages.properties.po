@@ -34,8 +34,8 @@ msgstr "Product Groups"
 msgid "Products"
 msgstr "Products"
 
-msgid "Ledger Setup"
-msgstr "Ledger Setup"
+msgid "Ledger"
+msgstr "Ledger"
 
 msgid "Price Level Schedule"
 msgstr "Price Level Schedule"
@@ -324,7 +324,7 @@ msgid "discountByPercentage.label"
 msgstr "-%"
 
 msgid "discountByPercentage.name"
-msgstr "Percentage Discount"
+msgstr "Discount"
 
 msgid "discountByAmount.desc"
 msgstr ""
@@ -2838,15 +2838,15 @@ msgstr ""
 msgid "Specified template [%S] is empty or does not exist!"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:215
+#: ../..//content/controllers/shift_changes_controller.js:282
 msgid "Shift Change"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:222
+#: ../..//content/controllers/shift_changes_controller.js:289
 msgid "You may not leave negative amount of cash in the cashdrawer"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:250
+#: ../..//content/controllers/shift_changes_controller.js:317
 msgid "shift change completed"
 msgstr ""
 

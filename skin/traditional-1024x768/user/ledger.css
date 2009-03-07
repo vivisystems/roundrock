@@ -24,12 +24,9 @@
     text-align: right;
 }
 
-#entryscrollablepanel tree #description {
-    text-align: left;
-}
-
 #typescrollablepanel tree #type,
 #typescrollablepanel tree #builtin,
+#typescrollablepanel tree #terminal,
 #typescrollablepanel tree #mode {
     text-align: center;
 }

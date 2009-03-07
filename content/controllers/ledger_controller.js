@@ -18,17 +18,75 @@
             return this._listObj;
         },
 
+        setLedgerEntry: function(data) {
+
+            var shiftController = GeckoJS.Controller.getInstanceByName('ShiftChanges');
+            var salePeriod = shiftController.getSalePeriod();
+            var shiftNumber = shiftController.getShiftNumber();
+
+            var user = new GeckoJS.AclComponent().getUserPrincipal();
+            data.service_clerk = (user) ? user.username : '';
+            data.service_clerk_displayname = (user) ? user.description : '';
+
+            data.id = '';
+
+            data.terminal_no = GeckoJS.Session.get('terminal_no');
+            data.sale_period = salePeriod;
+            data.shift_number = shiftNumber;
+        },
+
+        saveLedgerEntry: function(inputObj) {
+
+            // create ledger entry object
+            this.setLedgerEntry(inputObj);
+
+            // save ledger entry
+            var ledgerRecordModel = new LedgerRecordModel();
+            inputObj.id = ledgerRecordModel.save(inputObj);
+
+            // save payment entry
+            this.savePaymentEntry(inputObj);
+        },
+
+        savePaymentEntry: function(ledgerEntry) {
+
+            var data = {};
+
+            if (ledgerEntry.mode == "IN") {
+                data.total = ledgerEntry.amount;
+                data.status = 101; // Accounting IN
+            } else {
+                data.total = ledgerEntry.amount * (-1);
+                data.status = 102; // Accounting OUT
+            }
+
+            // basic bookkeeping data
+            data.ledgerPayment['amount'] = data.total;
+            data.ledgerPayment['name'] = 'ledger'; // + payment type
+            data.ledgerPayment['memo1'] = ledgerEntry.type; // ledger entry type
+            data.ledgerPayment['memo2'] = ledgerEntry.description; // description
+            data.ledgerPayment['change'] = 0;
+
+            data.ledgerPayment['service_clerk'] = ledgerEntry.service_clerk;
+            data.ledgerPayment['service_clerk_displayname'] = ledgerEntry.service_clerk_displayname;
+
+            data.ledgerPayment['sale_period'] = ledgerEntry.sale_period;
+            data.ledgerPayment['shift_number'] = ledgerEntry.shift_number;
+            data.ledgerPayment['terminal_no'] = ledgerEntry.terminal_no;
+
+            var order = new OrderModel();
+            order.saveLedgerEntry(data);
+
+            return data;
+
+        },
+
         /*
         beforeScaffold: function(evt) {
             
         },
         */
         beforeScaffoldAdd: function(evt) {
-
-            var shiftController = GeckoJS.Controller.getInstanceByName('ShiftChanges');
-
-            var sale_period = shiftController.getSalePeriod();
-            var shift_number = shiftController.getShiftNumber();
 
             var aURL = 'chrome://viviecr/content/prompt_add_ledger_entry.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=500';
@@ -41,25 +99,22 @@
             if (inputObj.ok) {
 
                 $('#ledger_id').val('');
-                evt.data.id = '';
-                evt.data.entry_type = inputObj.type;
-                evt.data.description = inputObj.description;
-                evt.data.entry_mode = inputObj.mode;
-                evt.data.amount = inputObj.amount;
-                evt.data.terminal_no = GeckoJS.Session.get('terminal_no');
-                evt.data.shift_number = shift_number;
-                evt.data.sale_period = sale_period;
+
+                this.setLedgerEntry(evt.inputObj, inputObj);
             } else {
                 evt.preventDefault();
             }
             
         },
 
-        /*
         afterScaffoldAdd: function(evt) {
+            // add payment record
+            this.savePaymentEntry(evt.data);
+        },
+
+        createPaymentForLedger: function(data) {
 
         },
-        */
 
         beforeScaffoldSave: function(evt) {
             //alert(this.dump(evt));
@@ -118,10 +173,11 @@
 
         load: function() {
             var showtype = document.getElementById('show_type').value;
-            var shiftController = GeckoJS.Controller.getInstanceByName('ShiftChanges');
 
+            var shiftController = GeckoJS.Controller.getInstanceByName('ShiftChanges');
             var sale_period = shiftController.getSalePeriod();
             var shift_number = shiftController.getShiftNumber();
+
             var filter = 'sale_period=' + sale_period + ' AND shift_number=' + shift_number;
 
             if (showtype == 'IN') filter += ' AND entry_mode="IN"';

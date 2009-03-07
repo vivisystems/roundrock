@@ -12,8 +12,6 @@
 GeckoJS.StringBundle.createBundle("chrome://viviecr/locale/messages.properties");
 
 // include project models
-include('chrome://viviecr/content/models/ledger_record.js');
-include('chrome://viviecr/content/models/ledger_entry_type.js');
 include('chrome://viviecr/content/models/cart.js');
 include('chrome://viviecr/content/models/cashdrawer_record.js');
 include('chrome://viviecr/content/models/category.js');
@@ -29,6 +27,9 @@ include('chrome://viviecr/content/models/order_payment.js');
 include('chrome://viviecr/content/models/order_object.js');
 include('chrome://viviecr/content/models/order_receipt.js');
 include('chrome://viviecr/content/models/order_annotation.js');
+
+include('chrome://viviecr/content/models/ledger_entry_type.js');
+include('chrome://viviecr/content/models/ledger_record.js');
 
 include('chrome://viviecr/content/models/plugroup.js');
 include('chrome://viviecr/content/models/product.js');

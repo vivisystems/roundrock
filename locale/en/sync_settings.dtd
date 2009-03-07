@@ -5,7 +5,7 @@
 <!ENTITY sync_settings.label.hostname "hostname.">
 <!ENTITY sync_settings.label.port "port.">
 
-<!ENTITY sync_settings.label.machine_id "Machine Id.">
+<!ENTITY sync_settings.label.machine_id "Terminal No.">
 <!ENTITY sync_settings.label.password "Password.">
 
 <!ENTITY sync_settings.label.batch_limit "batch_limit.">

@@ -50,8 +50,8 @@
                         <tabpanel orient="vertical" flex="1">
                             <vbox flex="1">
                                 <viviscrollabletree id="entryscrollablepanel" flex="1"
-                                                    headers="&ledger.entry.heading.date;,&ledger.entry.heading.type;,&ledger.entry.heading.description;,&ledger.entry.heading.mode;,&ledger.entry.heading.amount;"
-                                                    fields="created,entry_type,description,entry_mode,amount"
+                                                    headers="&ledger.entry.heading.date;,&ledger.entry.heading.terminal;,&ledger.entry.heading.type;,&ledger.entry.heading.mode;,&ledger.entry.heading.amount;"
+                                                    fields="created,terminal_no,type,mode,amount"
                                                     onclick="$do('select',this.selectedIndex, 'LedgerRecords');"
                                                     class="ListPnl" scrollUpClass="ScrollUp" scrollDownClass="ScrollDown">
                                     <spacer flex="1" />
@@ -73,11 +73,12 @@
                             <hbox flex="0">
                                 <vbox flex="1" class="DataForm">
                                     <label id="ledger_id" hidden="true" form="ledger_recordForm" name="id" value="" />
-                                    <label id="ledger_mode" hidden="true" form="ledger_recordForm" name="entry_mode" value="" />
+                                    <label id="ledger_mode" hidden="true" form="ledger_recordForm" name="mode" value="" />
                                     <label id="ledger_terminal_no" hidden="true" form="ledger_recordForm" name="terminal_no" value="" />
                                     <label id="ledger_shift_number" hidden="true" form="ledger_recordForm" name="terminal_no" value="" />
                                     <label id="ledger_sale_period" hidden="true" form="ledger_recordForm" name="terminal_no" value="" />
-                                    <label id="created" hidden="true" form="ledger_recordForm" name="entry_mode" value="" />
+                                    <label id="ledger_service_clerk" hidden="true" form="ledger_recordForm" name="service_clerk" value="" />
+                                    <label id="ledger_service_clerk_displayname" hidden="true" form="ledger_recordForm" name="service_clerk_displayname" value="" />
                                     <grid flex="1">
                                         <columns>
                                             <column flex="0"/>
@@ -86,7 +87,7 @@
                                         <rows>
                                             <row>
                                                 <label value="&ledger.entry.type;" />
-                                                <textbox id="ledger_entry_type" value="" form="ledger_recordForm" name="entry_type" readonly="true" />
+                                                <textbox id="type" value="" form="ledger_recordForm" name="type" readonly="true" />
                                             </row>
 
                                             <row>
@@ -146,9 +147,9 @@
 
                                         <row>
                                             <label value="&ledger.entry.mode;" />
-                                            <radiogroup flex="1" id="mode" orient="horizontal" form="ledger_entry_typeForm" name="mode" >
-                                                <radio id="mode_in" selected="true" value="IN" flex="1" label="&ledger.entry.mode.in;"/>
-                                                <radio id="mode_out" value="OUT" flex="1" label="&ledger.entry.mode.out;"/>
+                                            <radiogroup flex="1" id="entry_mode" orient="horizontal" form="ledger_entry_typeForm" name="mode" >
+                                                <radio id="entry_mode_in" selected="true" value="IN" flex="1" label="&ledger.entry.mode.in;"/>
+                                                <radio id="entry_mode_out" value="OUT" flex="1" label="&ledger.entry.mode.out;"/>
                                             </radiogroup>
                                             <label id="entry_builtin" value="" form="ledger_entry_typeForm" name="builtin" hidden="true"/>
                                         </row>

@@ -39,11 +39,18 @@
         },
 
         getStartTime: function() {
-            return GeckoJS.Session.get('shift_starttime');
+            var shift = GeckoJS.Session.get('current_shift');
+            return (shift) ? shift.created : null;
         },
 
         getEndOfPeriod: function() {
-            return GeckoJS.Session.get('end_of_period');
+            var shift = GeckoJS.Session.get('current_shift');
+            return (shift) ? shift.end_of_period : null;
+        },
+
+        getEndOfShift: function() {
+            var shift = GeckoJS.Session.get('current_shift');
+            return (shift) ? shift.end_of_shift : null;
         },
 
         updateSession: function(currentShift) {
@@ -58,31 +65,30 @@
             if (currentShift) {
                 shiftNumber = currentShift.shift_number;
                 salePeriod = currentShift.sale_period;
-                endOfPeriod = currentShift.end_of_period;
-                starttime = currentShift.starttime;
             }
+            GeckoJS.Session.set('current_shift', currentShift);
             GeckoJS.Session.set('shift_number', shiftNumber);
-            GeckoJS.Session.set('shift_starttime', starttime);
             GeckoJS.Session.set('sale_period', salePeriod);
-            GeckoJS.Session.set('end_of_period', endOfPeriod);
             GeckoJS.Session.set('sale_period_string', salePeriod == '' ? '' : new Date(salePeriod * 1000).toLocaleDateString());
         },
 
 
-        setShift: function(salePeriod, shiftNumber, endOfPeriod) {
+        setShift: function(salePeriod, shiftNumber, endOfPeriod, endOfShift) {
             var shiftMarkerModel = new ShiftMarkerModel();
 
             var newShiftMarker = {
                 terminal_no: GeckoJS.Session.get('terminal_no'),
                 sale_period: salePeriod,
                 shift_number: shiftNumber,
-                end_of_period: endOfPeriod
+                end_of_period: endOfPeriod,
+                end_of_shift: endOfShift
             };
 
             var shift = shiftMarkerModel.findByIndex('first', {
                 index: 'terminal_no',
                 value: GeckoJS.Session.get('terminal_no')
             });
+            
             if (shift) {
                 newShiftMarker.id = shift.id;
                 shiftMarkerModel.id = shift.id;
@@ -104,14 +110,13 @@
                 var lastSalePeriod = this.getSalePeriod();
                 var lastShiftNumber = this.getShiftNumber();
                 var endOfPeriod = this.getEndOfPeriod();
+                var endOfShift = this.getEndOfShift();
 
                 // no last shift?
                 if (lastSalePeriod == '') {
                     // insert new sale period with today's date;
                     newSalePeriod = new Date().clearTime();
                     newShiftNumber = 1;
-
-                    this.setShift(newSalePeriod, newShiftNumber, false);
                 }
 
                 // is last shift the end of the last sale period
@@ -120,23 +125,26 @@
                     // set current sale period to the greater of
                     // today's date and last sale period + 1 day
                     var today = new Date().clearTime();
-                    var lastSalePeriodPlusOne = lastSalePeriod.add({days: 1}).clearTime();
+                    var lastSalePeriodPlusOne = new Date(lastSalePeriod * 1000).add({days: 1}).clearTime();
                     if (lastSalePeriod == '' || (today > lastSalePeriodPlusOne)) {
                         newSalePeriod = today;
                     }
                     else {
                         newSalePeriod = lastSalePeriodPlusOne;
                     }
-
+                    newSalePeriod = newSalePeriod.getTime() / 1000;
                     newShiftNumber = 1;
-                    
-                    this.setShift(newSalePeriod, newShiftNumber, false);
+                }
+                // has last shift ended?
+                else if (endOfShift) {
+                    newShiftNumber = lastShiftNumber + 1;
                 }
                 // continue last shift
                 else {
                     newSalePeriod = lastSalePeriod;
                     newShiftNumber = lastShiftNumber;
                 }
+                this.setShift(newSalePeriod, newShiftNumber, false, false);
 
                 // display current shift / last shift information
 
@@ -170,16 +178,17 @@
 
             var orderPayment = new OrderPaymentModel();
 
-            // first, we collect payment totals for credit cards and coupons
+            // first, we collect payment totals for credit cards, coupons, and giftcard
             var fields = ['order_payments.modified',
                           'order_payments.memo1 as "OrderPayment.name"',
                           'order_payments.name as "OrderPayment.type"',
+                          'COUNT(order_payments.name) as "OrderPayment.count"',
                           'SUM("order_payments"."origin_amount" - "order_payments"."change") as "OrderPayment.origin_amount"',
                           'SUM("order_payments"."amount" - "order_payments"."change") as "OrderPayment.amount"'];
             var conditions = "orders.sale_period = " + salePeriod +
                              " AND orders.shift_number = " + shiftNumber +
                              " AND orders.terminal_no = '" + terminal_no + "'" +
-                             " AND (order_payments.name = 'creditcard' OR order_payments.name = 'coupon')";
+                             " AND (order_payments.name = 'creditcard' OR order_payments.name = 'coupon' OR order_payments.name = 'giftcard')";
             var groupby = 'order_payments.memo1';
             var orderby = 'order_payments.memo1, "OrderPayment.type"';
             var creditCardCouponDetails = orderPayment.find('all', {fields: fields,
@@ -188,11 +197,14 @@
                                                                     order: orderby,
                                                                     recursive: 1
                                                                    });
+            alert(this.dump(creditCardCouponDetails));
             this.log(this.dump(creditCardCouponDetails));
 
             // next, we collect payment totals for personal checks
             fields = ['order_payments.modified',
                       'order_payments.name',
+                      'order_payments.name as "OrderPayment.type"',
+                      'COUNT(order_payments.name) as "OrderPayment.count"',
                       'SUM("order_payments"."origin_amount" - "order_payments"."change") as "OrderPayment.origin_amount"',
                       'SUM("order_payments"."amount" - "order_payments"."change") as "OrderPayment.amount"'];
             conditions = "orders.sale_period = " + salePeriod +
@@ -213,6 +225,7 @@
             // next, we collect payment totals for cash in local denominations
             fields = ['order_payments.modified',
                       'order_payments.name',
+                      'COUNT(order_payments.name) as "OrderPayment.count"',
                       'SUM("order_payments"."origin_amount" - "order_payments"."change") as "OrderPayment.origin_amount"',
                       'SUM("order_payments"."amount" - "order_payments"."change") as "OrderPayment.amount"'];
             conditions = "orders.sale_period = " + salePeriod +
@@ -233,23 +246,50 @@
             // next, we collect payment totals for cash in foreign denominations
             fields = ['order_payments.modified',
                       'order_payments.memo1 as "OrderPayment.name"',
+                      'order_payments.name as "OrderPayment.type"',
+                      'COUNT(order_payments.name) as "OrderPayment.count"',
                       'SUM("order_payments"."origin_amount") as "OrderPayment.amount"',
                       'SUM(- "order_payments"."change") as "OrderPayment.origin_amount"'];
             conditions = "orders.sale_period = " + salePeriod +
                          " AND orders.shift_number = " + shiftNumber +
                          " AND orders.terminal_no = '" + terminal_no + "'" +
                          " AND order_payments.name = 'cash' AND NOT (order_payments.memo1 is NULL)";
-            groupby = 'order_payments.memo1';
+            orderby = 'order_payments.memo1, "OrderPayment.type"';
             var foreignCashDetails = orderPayment.find('all', {fields: fields,
                                                                conditions: conditions,
                                                                group: groupby,
                                                                order: orderby,
                                                                recursive: 1
-                                                            });
+                                                              });
 
             alert(this.dump(foreignCashDetails));
             this.log(this.dump(foreignCashDetails));
 return;
+            // lastly, we collect payment totals from ledger entries
+            fields = ['order_payments.modified',
+                      'order_payments.memo1 as "OrderPayment.name"',
+                      'order_payments.name as "OrderPayment.type"',
+                      'COUNT(order_payments.name) as "OrderPayment.count"',
+                      'SUM("order_payments"."origin_amount" - "order_payments"."change") as "OrderPayment.origin_amount"',
+                      'SUM("order_payments"."amount" - "order_payments"."change") as "OrderPayment.amount"'];
+            conditions = "orders.sale_period = " + salePeriod +
+                         " AND orders.shift_number = " + shiftNumber +
+                         " AND orders.terminal_no = '" + terminal_no + "'" +
+                         " AND order_payments.name = 'ledger'";
+            groupby = 'order_payments.memo1';
+            orderby = 'order_payments.memo1, "OrderPayment.type"';
+            var ledgerDetails = orderPayment.find('all', {fields: fields,
+                                                          conditions: conditions,
+                                                          group: groupby,
+                                                          order: orderby,
+                                                          recursive: 1
+                                                         });
+            alert(this.dump(ledgerDetails));
+            this.log(this.dump(ledgerDetails));
+
+            return;
+            
+            // computer cash amount
             var amount = orderPayment.find('first', {
                 fields: ['SUM("order_payments"."amount" - "order_payments"."change") as "OrderPayment.amount"'],
                 conditions: conditions

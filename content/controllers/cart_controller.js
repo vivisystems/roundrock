@@ -2017,7 +2017,7 @@
         ledgerEntry: function(inputObj) {
 
             var data = {};
-            data.accountPayment = {};
+            data.ledgerPayment = {};
 
             if (!inputObj) {
                 var aURL = 'chrome://viviecr/content/prompt_add_ledger_entry.xul';
@@ -2033,40 +2033,8 @@
             if (!inputObj.ok) {
                 return;
             }
-
-            if (inputObj.type == "IN") {
-                data.total = inputObj.amount;
-                data.status = 101; // Accounting IN
-            } else {
-                data.total = inputObj.amount * (-1);
-                data.status = 102; // Accounting OUT
-            }
-            
-            var user = new GeckoJS.AclComponent().getUserPrincipal();
-            if ( user != null ) {
-                data.service_clerk = user.username;
-            }
-            // basic bookkeeping data
-            data.sale_period = GeckoJS.Session.get('sale_period');
-            data.shift_number = GeckoJS.Session.get('shift_number');
-            data.terminal_no = GeckoJS.Session.get('terminal_no');
-
-            data.accountPayment['order_items_count'] = 1;
-            data.accountPayment['order_total'] = data.total;
-            data.accountPayment['amount'] = data.total;
-            data.accountPayment['name'] = 'accounting'; // + payment type
-            data.accountPayment['memo1'] = inputObj.topic + "-" + _(inputObj.type); // + topic + topic type
-            data.accountPayment['memo2'] = inputObj.description; // description
-            data.accountPayment['change'] = 0;
-
-            data.accountPayment['service_clerk'] = data.service_clerk;
-            // data.orderPayment['proceeds_clerk'] = data.proceeds_clerk;
-            // data.orderPayment['service_clerk_displayname'] = data.service_clerk_displayname;
-            // data.orderPayment['proceeds_clerk_displayname'] = data.proceeds_clerk_displayname;
-            var order = new OrderModel();
-            order.saveAccounting(data);
-
-            return data;
+            var ledgerController = GeckoJS.Controller.getInstanceByName('LedgerRecords');
+            ledgerController.saveLedgerEntry(inputObj);
         },
 
         addPayment: function(type, amount, origin_amount, memo1, memo2) {
