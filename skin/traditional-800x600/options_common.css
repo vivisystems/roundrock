@@ -569,6 +569,7 @@ scrollbarbutton {
 
 scrollbar {
     min-width: 34px;
+    display: none;
 }
 
 .WaitPnl {

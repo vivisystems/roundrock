@@ -2035,6 +2035,10 @@
             }
             var ledgerController = GeckoJS.Controller.getInstanceByName('LedgerRecords');
             ledgerController.saveLedgerEntry(inputObj);
+
+            // @todo OSD
+            OsdUtils.info(_('Transaction [%S] for amount of [%S] successfully logged to the ledger',
+                               [inputObj.type + (inputObj.description ? ' (' + inputObj.description + ')' : ''), inputObj.amount]))
         },
 
         addPayment: function(type, amount, origin_amount, memo1, memo2) {

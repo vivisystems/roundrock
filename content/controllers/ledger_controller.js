@@ -10,6 +10,7 @@
 
         _listObj: null,
         _listDatas: null,
+        _index: 0,
 
         getListObj: function() {
             if(this._listObj == null) {
@@ -40,12 +41,12 @@
             // create ledger entry object
             this.setLedgerEntry(inputObj);
 
+            // save payment entry
+            inputObj.payment_id = this.savePaymentEntry(inputObj).id;
+            
             // save ledger entry
             var ledgerRecordModel = new LedgerRecordModel();
             inputObj.id = ledgerRecordModel.save(inputObj);
-
-            // save payment entry
-            this.savePaymentEntry(inputObj);
         },
 
         savePaymentEntry: function(ledgerEntry) {
@@ -54,33 +55,33 @@
 
             if (ledgerEntry.mode == "IN") {
                 data.total = ledgerEntry.amount;
-                data.status = 101; // Accounting IN
             } else {
                 data.total = ledgerEntry.amount * (-1);
-                data.status = 102; // Accounting OUT
             }
 
             // basic bookkeeping data
-            data.ledgerPayment['amount'] = data.total;
-            data.ledgerPayment['name'] = 'ledger'; // + payment type
-            data.ledgerPayment['memo1'] = ledgerEntry.type; // ledger entry type
-            data.ledgerPayment['memo2'] = ledgerEntry.description; // description
-            data.ledgerPayment['change'] = 0;
+            data['amount'] = data.total;
+            data['name'] = 'ledger'; // + payment type
+            data['memo1'] = ledgerEntry.type; // ledger entry type
+            data['memo2'] = ledgerEntry.description; // description
+            data['change'] = 0;
 
-            data.ledgerPayment['service_clerk'] = ledgerEntry.service_clerk;
-            data.ledgerPayment['service_clerk_displayname'] = ledgerEntry.service_clerk_displayname;
+            data['service_clerk'] = ledgerEntry.service_clerk;
+            data['service_clerk_displayname'] = ledgerEntry.service_clerk_displayname;
 
-            data.ledgerPayment['sale_period'] = ledgerEntry.sale_period;
-            data.ledgerPayment['shift_number'] = ledgerEntry.shift_number;
-            data.ledgerPayment['terminal_no'] = ledgerEntry.terminal_no;
+            data['sale_period'] = ledgerEntry.sale_period;
+            data['shift_number'] = ledgerEntry.shift_number;
+            data['terminal_no'] = ledgerEntry.terminal_no;
 
             var order = new OrderModel();
-            order.saveLedgerEntry(data);
-
-            return data;
-
+            return order.saveLedgerEntry(data);
         },
 
+        deletePaymentEntry: function(ledgerEntry) {
+            var order = new OrderModel();
+            order.deleteLedgerEntry(ledgerEntry.payment_id);
+        },
+        
         /*
         beforeScaffold: function(evt) {
             
@@ -96,11 +97,15 @@
 
             window.openDialog(aURL, _('Add Ledger Entry'), features, inputObj);
 
-            if (inputObj.ok) {
+            if (inputObj.ok && inputObj.type != '' && !isNaN(inputObj.amount)) {
 
                 $('#ledger_id').val('');
 
-                this.setLedgerEntry(evt.inputObj, inputObj);
+                GREUtils.extend(evt.data, inputObj);
+                this.setLedgerEntry(evt.data);
+
+                // add payment record
+                evt.data.payment_id = this.savePaymentEntry(evt.data).id;
             } else {
                 evt.preventDefault();
             }
@@ -108,31 +113,54 @@
         },
 
         afterScaffoldAdd: function(evt) {
-            // add payment record
-            this.savePaymentEntry(evt.data);
+            if (evt.data.id != '') {
+                this._index = 0;
+                this.load();
+
+                //@todo OSD
+                OsdUtils.info(_('Transaction [%S] for amount of [%S] successfully logged to the ledger',
+                               [evt.data.type + (evt.data.description ? ' (' + evt.data.description + ')' : ''), evt.data.amount]))
+            }
         },
 
-        createPaymentForLedger: function(data) {
-
-        },
-
-        beforeScaffoldSave: function(evt) {
+        beforeScaffoldEdit: function(evt) {
             //alert(this.dump(evt));
 
         },
 
-        afterScaffoldSave: function(evt) {
-            this.load(evt.data);
+        afterScaffoldEdit: function(evt) {
+            if (evt.data.id) {
+                this.load();
+
+                //@todo OSD
+                OsdUtils.info(_('Transaction [%S] for amount of [%S] successfully updated',
+                               [evt.data.type + (evt.data.description ? ' (' + evt.data.description + ')' : ''), evt.data.amount]))
+            }
         },
 
         beforeScaffoldDelete: function(evt) {
-            if (GREUtils.Dialog.confirm(null, _('confirm delete'), _('Are you sure?')) == false) {
+            if (evt.data.id) {
+                if (GREUtils.Dialog.confirm(null, _('confirm delete'), _('Are you sure?')) == false) {
+                    evt.preventDefault();
+                }
+                else {
+                    this.deletePaymentEntry(evt.data);
+                }
+            }
+            else {
                 evt.preventDefault();
             }
         },
 
-        afterScaffoldDelete: function() {
+        afterScaffoldDelete: function(evt) {
+            if (this._index == this._listDatas.length - 1) {
+                this._index--;
+            }
             this.load();
+
+            //@todo OSD
+            OsdUtils.info(_('Transaction [%S] for amount of [%S] successfully deleted from the ledger',
+                           [evt.data.type + (evt.data.description ? ' (' + evt.data.description + ')' : ''), evt.data.amount]))
         },
 
 
@@ -154,7 +182,7 @@
                     var date = new Date(this.data[row].created * 1000)
                     text = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
                 }
-                else if (col.id == 'entry_mode') {
+                else if (col.id == 'mode') {
                     text = _(this.data[row][col.id]);
                 }
                 else {
@@ -165,13 +193,19 @@
 
             this.getListObj().datasource = panelView;
 
-            if (this._listDatas.length > 0)
-                this.getListObj().vivitree.selection.select(0);
-            else
-                this.getListObj().vivitree.selection.clear();
+            if (this._listDatas.length > 0) {
+                this.getListObj().selection.select(this._index);
+            }
+            else {
+                this.getListObj().selection.select(-1);
+            }
+
+            this.validateForm();
         },
 
         load: function() {
+            GeckoJS.FormHelper.reset('ledger_recordForm');
+
             var showtype = document.getElementById('show_type').value;
 
             var shiftController = GeckoJS.Controller.getInstanceByName('ShiftChanges');
@@ -180,12 +214,14 @@
 
             var filter = 'sale_period=' + sale_period + ' AND shift_number=' + shift_number;
 
-            if (showtype == 'IN') filter += ' AND entry_mode="IN"';
-            else if (showtype == 'OUT') filter += ' AND entry_mode="OUT"';
+            if (showtype == 'IN') filter += ' AND mode="IN"';
+            else if (showtype == 'OUT') filter += ' AND mode="OUT"';
+
 
             this.requestCommand('list', {
                 conditions: filter,
-                index: 0
+                order: 'created desc',
+                index: this._index
             });
         },
 
@@ -194,8 +230,21 @@
                 var record = this._listDatas[index];
 
                 this.requestCommand('view', record.id);
-                this._listObj.selectedIndex = index;
             }
+            
+            this.getListObj().selection.select(index);
+            this._index = index;
+
+            this.validateForm();
+        },
+
+        validateForm: function() {
+            var index = this.getListObj().selectedIndex;
+            var modBtn = document.getElementById('modify_entry');
+            var delBtn = document.getElementById('delete_entry');
+
+            modBtn.setAttribute('disabled', index == -1);
+            delBtn.setAttribute('disabled', index == -1);
         }
 
     });

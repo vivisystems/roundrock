@@ -33,11 +33,14 @@ var ShiftChangeModel = window.ShiftChangeModel = GeckoJS.Model.extend({
         var self = this;
         var payments = [];
 
-        data.detail.forEach(function(o){
+        data.shiftChangeDetails.forEach(function(o){
             var detail = {};
             detail['shift_change_id'] = self.id;
-            detail['topic'] = o.name + '-' + o.memo1;
+            detail['type'] = o.type;
+            detail['name'] = o.name;
+            detail['change'] = o.change;
             detail['amount'] = o.amount;
+            detail['excess_amount'] = o.excess_amount;
             payments.push(detail);
         });
 

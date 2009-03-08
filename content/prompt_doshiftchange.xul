@@ -4,90 +4,136 @@
   %Overlay;
   <!ENTITY % PromptDoShiftChange SYSTEM "chrome://viviecr/locale/prompt_doshiftchange.dtd">
   %PromptDoShiftChange;
-  <!ENTITY % LedgerEntryTypes SYSTEM "chrome://viviecr/locale/ledger.dtd">
-  %LedgerEntryTypes;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/selectBox.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/shiftchange.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
-<window id="" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" width="800" height="600">
+<window id="do_shift_change"
+        title="&prompt.shiftchange.title;"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        width="800" height="600">
 
-    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/prompt_doshiftchange.js" />
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js"/>
+    <script type="application/x-javascript">
+        var GeckoJS = opener.GeckoJS;
+        var GREUtils = opener.GREUtils;
+    </script>
+    <script type="application/x-javascript" src="chrome://viviecr/content/prompt_doshiftchange.js"/>
 
     <keyset id="keyset_extensions">
         <key id="key_enter" keycode="VK_RETURN" oncommand="document.getElementById('ok').click()"/>
-        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('cancel').click()" />
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('cancel').click()"/>
     </keyset>
 
     <hbox flex="1" class="main-dialog">
-        <hbox flex="1" class="MainPnl2">
+        <vbox flex="1" class="MainPnl">
             <!-- Left side -->
-            <vbox flex="1"  class="MainL">
-            <caption label="&prompt.shiftchange.title;"   class="PageTitle" />
-                <viviscrollabletree id="shiftscrollablepanel" flex="1" headers="&ledger.entry.heading.type;,&ledger.entry.heading.amount;" fields="name,memo1,amount" onclick=""
-                                           dir="reverse" class="ListPnl" scrollUpClass="ScrollUp" scrollDownClass="ScrollDown">
-                    <spacer flex="1" />
+            <vbox flex="1" class="MainL">
+                <caption label="&prompt.shiftchange.title;"   class="PageTitle"/>
+                <viviscrollabletree id="shiftscrollablepanel" flex="1" onclick="" hidecolumnpicker="true"
+                                    headers="&prompt.shiftchange.heading.type;,&prompt.shiftchange.heading.name;,&prompt.shiftchange.heading.count;,&prompt.shiftchange.heading.amount;,&prompt.shiftchange.heading.change;,&prompt.shiftchange.heading.excess;"
+                                    fields="type,name,count,amount,change,excess_amount"
+                                    dir="normal" class="ListPnl" scrollUpClass="ScrollUp" scrollDownClass="ScrollDown">
+                    <spacer flex="1"/>
                 </viviscrollabletree>
 
-                <spacer style="height: 5px;" />
+                <spacer style="height: 5px;"/>
 
-                <hbox align="rigth">
-                    <label value="&prompt.shiftchange.total;" class="SubTitle"/>
-                    <textbox id="total" value="" readonly="true"/>
-                </hbox>
-
-            <spacer style="height: 10px;" />
-            
-            <groupbox flex="1" >
-                <caption label="&prompt.shiftchange.account;" class="SubTitle" />
-                <grid flex="1" class="AddAccount">
+                <grid id="shiftSummary" class="DataForm">
                     <columns>
+                        <column flex="1"/>
+                        <column flex="1"/>
+                        <column flex="1"/>
+                        <column flex="1"/>
                         <column flex="1"/>
                     </columns>
                     <rows>
-
                         <row>
                             <vbox>
-                                <label value="&prompt.shiftchange.description;" />
-                                <textbox id="description" value="" />
+                                <label value="&prompt.shiftchange.cash;" class="SubTitle"/>
+                                <textbox id="cash" flex="1" value="" readonly="true"/>
                             </vbox>
-                        </row>
-                        <row>
                             <vbox>
-                                <label value="&prompt.shiftchange.amount;" />
-                                <textbox id="amount" value="0" size="9" maxsize="9" />
+                                <label value="&prompt.shiftchange.balance;" class="SubTitle"/>
+                                <textbox id="balance" flex="1" value="" readonly="true"/>
+                            </vbox>
+                            <vbox>
+                                <label value="&prompt.shiftchange.sales;" class="SubTitle"/>
+                                <textbox id="sales" flex="1" value="" readonly="true"/>
+                            </vbox>
+                            <vbox>
+                                <label value="&prompt.shiftchange.ledger;" class="SubTitle"/>
+                                <textbox id="ledger" flex="1" value="" readonly="true"/>
+                            </vbox>
+                            <vbox>
+                                <label value="&prompt.shiftchange.excess;" class="SubTitle"/>
+                                <textbox id="excess" flex="1" value="" readonly="true"/>
                             </vbox>
                         </row>
                     </rows>
                 </grid>
-            </groupbox>
-        </vbox>
-        
-        <vbox>
-            <spacer style="height:20px;" />
-            <vbox>
-                <numberpad id="multinumberpad" class="numpad"/>
-            </vbox>
-            <spacer style="height:5px;" />
-            <vbox>
-                <hbox>
-                    <sendkeybutton id="bkeyBtn"  label="DEL"   keyCode='0x08' class="fixedbtn"  />
-                    <vivibutton id="clearBtn"  label="CLEAR" class="fixedbtn"/>
-                </hbox>
+
             </vbox>
 
-            <spacer flex="1" />
-            <hbox id="dialogButtons" class="ToolBar">
-                <button  id="ok" label="&dialog.okButton.label;" default="true" oncommand="doOKButton();"/>
-                <button  id="cancel" label="&dialog.cancelButton.label;" default="true" oncommand="doCancelButton();"/>
+            <spacer height="10px"/>
+            <separator class="groove-thin"/>
+            <spacer height="10px"/>
+        
+            <hbox>
+                <groupbox flex="1" >
+                    <caption label="&prompt.shiftchange.drawer.change;" class="SubTitle"/>
+                    <grid flex="1" class="AddAccount">
+                        <columns>
+                            <column flex="1"/>
+                        </columns>
+                        <rows>
+                            <row>
+                                <vbox>
+                                    <label value="&prompt.shiftchange.amount;"/>
+                                    <textbox id="amount" value="0" onfocus="select()" oninput="validateInput()"/>
+                                </vbox>
+                            </row>
+                            <row>
+                                <vbox>
+                                    <label value="&prompt.shiftchange.description;"/>
+                                    <textbox id="description" onfocus="select()" value=""/>
+                                </vbox>
+                            </row>
+                        </rows>
+                    </grid>
+                </groupbox>
+
+                <spacer style="width:20px;"/>
+                
+                <vbox>
+                    <numberpad id="multinumberpad" class="numpad"/>
+                </vbox>
+                <spacer style="height:5px;"/>
+                <vbox>
+                    <sendkeybutton id="bkeyBtn" label="DEL" keyCode='0x08' class="fixedbtn"/>
+                    <button id="clearBtn" label="CLEAR" class="fixedbtn" oncommand="clearFocusedElement()"/>
+                </vbox>
+            </hbox>
+
+            <spacer height="10px"/>
+
+            <hbox>
+                <hbox id="dialogButtons" class="ToolBar" pack="start" flex="1">
+                    <button  id="ok" label="&dialog.okButton.label;" default="true" oncommand="doOKButton();"/>
+                    <button  id="cancel" label="&dialog.cancelButton.label;" default="true" oncommand="doCancelButton();"/>
+                    <spacer flex="1"/>
+                    <button  id="close" label="&prompt.end.sale.period;" default="false" oncommand="if (confirmEndSalePeriod()) doOKButton('end');"/>
+                </hbox>
+                <hbox id="dialogButtons" class="dialogbtns" pack="center">
+                    <button id="vkb" label="" oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
+                </hbox>
             </hbox>
         </vbox>
-        </hbox>
     </hbox>
 
 

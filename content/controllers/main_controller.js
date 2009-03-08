@@ -392,6 +392,7 @@
             else {
                 GeckoJS.Session.clear('user');
             }
+            this.dispatchEvent('onSetClerk', userRecord);
         },
 
         updateOptions: function () {

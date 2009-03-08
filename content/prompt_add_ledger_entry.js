@@ -41,7 +41,7 @@
                 inputObj.amount = parseFloat(document.getElementById('amount').value);
                 if (!isNaN(inputObj.amount) && (index >= 0)) {
 
-                    inputObj.description = document.getElementById('description').value;
+                    inputObj.description = GeckoJS.String.trim(document.getElementById('description').value);
                     inputObj.type = document.getElementById('type').value;
                     inputObj.mode = types[index].mode;
                     inputObj.type = types[index].type;

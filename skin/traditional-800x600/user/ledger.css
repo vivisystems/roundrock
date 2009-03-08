@@ -15,8 +15,8 @@
     min-width: 140px;
 }
 
-#entryscrollablepanel tree #entry_type,
-#entryscrollablepanel tree #entry_mode {
+#entryscrollablepanel tree #type,
+#entryscrollablepanel tree #mode {
     text-align: center;
 }
 
@@ -25,12 +25,7 @@
 }
 
 #typescrollablepanel tree #type,
-#typescrollablepanel tree #builtin,
-#typescrollablepanel tree #terminal,
+#typescrollablepanel tree #drawer_change,
 #typescrollablepanel tree #mode {
     text-align: center;
-}
-
-viviscrollablepanel scrollbar {
-    display: none;
 }

@@ -1,38 +1,54 @@
+var options;
+
 (function(){
     var inputObj = window.arguments[0];
-    var types = inputObj.entry_types;
-    var data = inputObj.shiftchange;
-    var detail = inputObj.shiftchange.detail;
-    var amount = data.amount;
+    var shiftChangeDetails = inputObj.shiftChangeDetails;
+    var balance = inputObj.balance;
+    var giftcardExcess = inputObj.giftcardExcess;
+    var salesRevenue = inputObj.salesRevenue;
+    var ledgerTotal = inputObj.ledgerTotal;
+    var cashNet = inputObj.cashNet;
+
+    options = inputObj;
 
     /**
      * Controller Startup
      */
     function startup() {
         // set ledger entry types
-        window.viewHelper = new GeckoJS.NSITreeViewArray(types);
-        window.viewDetailHelper = new GeckoJS.NSITreeViewArray(detail);
+        window.viewDetailHelper = new GeckoJS.NSITreeViewArray(shiftChangeDetails);
         window.viewDetailHelper.getCellValue= function(row, col) {
             
             var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
             var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
             var text;
-            if (col.id == "amount") {
+            if (col.id == "type") {
+                text = _(this.data[row].type);
+            }
+            else if (col.id == "amount" || col.id == 'excess_amount' || col.id == 'change') {
 
+                var amt = this.data[row][col.id];
+                try {
+                    if (amt == null || amt == '' || parseFloat(this.data[row][col.id]) == 0) {
+                        return '';
+                    }
+                }
+                catch (e) {}
                 // text = this.data[row].amount;
-                text = GeckoJS.NumberHelper.round(this.data[row].amount, precision_prices, rounding_prices) || 0;
+                text = GeckoJS.NumberHelper.round(this.data[row][col.id], precision_prices, rounding_prices) || 0;
                 text = GeckoJS.NumberHelper.format(text, {places: precision_prices});
-
             } else {
                 text = this.data[row][col.id];
             }
             return text;
         };
-
+        
         document.getElementById('shiftscrollablepanel').datasource = window.viewDetailHelper ;
-        document.getElementById('shiftscrollablepanel').selectedIndex = 0;
-        document.getElementById('shiftscrollablepanel').selectedItems = [0];
-        document.getElementById('total').value = amount;
+        document.getElementById('cash').value = cashNet;
+        document.getElementById('balance').value = balance;
+        document.getElementById('sales').value = salesRevenue;
+        document.getElementById('ledger').value = ledgerTotal;
+        document.getElementById('excess').value = giftcardExcess;
         
         document.getElementById('cancel').setAttribute('disabled', false);
 
@@ -42,8 +58,6 @@
         doSetOKCancel(
 
             function(){
-
-                // var index = document.getElementById('topicscrollablepanel').selectedIndex;
 
                 inputObj.description = document.getElementById('description').value;
                 // inputObj.type = document.getElementById('type').value;
@@ -85,3 +99,28 @@
     window.addEventListener('load', startup, false);
 
 })();
+
+function confirmEndSalePeriod() {
+    var amount = parseFloat(document.getElementById('amount').value);
+    if (!isNaN(amount) && amount != 0) {
+        GREUtils.Dialog.alert(window, _('confirm end sale period'), _('Change may not be left in the drawer at the end of sale period'));
+        return false;
+    }
+    else {
+        if (GREUtils.Dialog.confirm(window, _('confirm end sale period'), _('Please confirm end of sale period'))) {
+            options.end = true;
+            return true;
+        }
+        else {
+            options.end = false;
+            return false;
+        }
+    }
+}
+
+function validateInput() {
+    var okButton = document.getElementById('ok');
+    var amount = GeckoJS.String.trim(document.getElementById('amount').value);
+
+    okButton.setAttribute('disabled', amount == '' || isNaN(amount) || amount > options.cashNet);
+}

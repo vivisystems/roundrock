@@ -70,7 +70,7 @@
                 </vbox>
                 <spacer style="height:5px;" />
                 <hbox>
-                        <sendkeybutton id="bkeyBtn"  label="DEL"   keyCode='0x08' class="fixedbtn"  />
+                        <sendkeybutton id="bkeyBtn" label="DEL" keyCode='0x08' class="fixedbtn"/>
                         <button id="clearBtn"  label="CLEAR" class="fixedbtn"/>
                 </hbox>
                 <spacer flex="1" />

@@ -14,6 +14,9 @@
 <!ENTITY ledger.entry.mode "Mode">
 <!ENTITY ledger.entry.mode.in "IN">
 <!ENTITY ledger.entry.mode.out "OUT">
+<!ENTITY ledger.entry.drawer.change "Use for Drawer Change">
+<!ENTITY ledger.entry.drawer.change.yes "Y">
+<!ENTITY ledger.entry.drawer.change.no "N">
 <!ENTITY ledger.entry.amount "Amount">
 
 <!ENTITY ledger.entry.heading.date "Date">
@@ -21,8 +24,7 @@
 <!ENTITY ledger.entry.heading.description "Description">
 <!ENTITY ledger.entry.heading.mode "Mode">
 <!ENTITY ledger.entry.heading.amount "Amount">
-<!ENTITY ledger.entry.heading.builtin "Built-In">
-<!ENTITY ledger.entry.heading.terminal "Terminal">
+<!ENTITY ledger.entry.heading.drawer.change "Use for Drawer Change">
 
 <!ENTITY ledger.show.all "Show All">
 <!ENTITY ledger.show.in "IN Only">

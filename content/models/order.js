@@ -304,13 +304,18 @@ var OrderModel = window.OrderModel =  GeckoJS.Model.extend({
         this.commit();
         */
         this.OrderPayment.id = '';
-        data.ledgerPayment['order_id'] = '';
+        data.order_id = '';
         this.OrderPayment.begin();
-        r = this.OrderPayment.save(data.ledgerPayment);
+        r = this.OrderPayment.save(data);
         this.OrderPayment.commit();
         return r;
         
     },
+
+    deleteLedgerEntry: function(iid) {
+        this.OrderPayment.del(iid);
+    },
+
 
     beforeSave: function(evt) {
         return true;

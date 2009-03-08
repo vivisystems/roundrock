@@ -50,11 +50,11 @@
                         <textbox id="name" value="" form="storecontactForm" name="name"/>
                     </vbox>
                     <vbox>
-                        <label value="&storecontact.branch;" />
+                        <label value="* &storecontact.branch;" />
                         <textbox id="branch" value="" form="storecontactForm" name="branch"/>
                     </vbox>
                     <vbox>
-                        <label value="&storecontact.branch.id;" />
+                        <label value="* &storecontact.branch.id;" />
                         <textbox id="branch_id" value="" form="storecontactForm" name="branch_id"/>
                     </vbox>
                 </row>
