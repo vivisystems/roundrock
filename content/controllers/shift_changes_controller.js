@@ -116,12 +116,16 @@
             var lastShiftNumber = this.getShiftNumber();
             var endOfPeriod = this.getEndOfPeriod();
             var endOfShift = this.getEndOfShift();
+            var resetSequence = GeckoJS.Configure.read('vivipos.fec.settings.SequenceTracksSalePeriod');
+            var isNewSalePeriod = false;
 
             // no last shift?
             if (lastSalePeriod == '') {
                 // insert new sale period with today's date;
                 newSalePeriod = new Date().clearTime() / 1000;
                 newShiftNumber = 1;
+
+                isNewSalePeriod = true;
             }
 
             // is last shift the end of the last sale period
@@ -139,6 +143,8 @@
                 }
                 newSalePeriod = newSalePeriod.getTime() / 1000;
                 newShiftNumber = 1;
+
+                isNewSalePeriod = true;
             }
             // has last shift ended?
             else if (endOfShift) {
@@ -152,8 +158,13 @@
             }
             this.setShift(newSalePeriod, newShiftNumber, false, false);
 
+            // reset sequence if necessary
+            if (resetSequence && isNewSalePeriod) {
+                var newSequence = new Date(newSalePeriod * 1000).toString('yyyyMMdd') + '00000';
+                SequenceModel.resetSequence('order_no', parseInt(newSequence));
+            }
+            
             // display current shift / last shift information
-
             this.ShiftDialog(new Date(newSalePeriod * 1000).toLocaleDateString(), newShiftNumber,
                              lastSalePeriod == '' ? '' : new Date(lastSalePeriod * 1000).toLocaleDateString(), lastShiftNumber );
         },
@@ -507,11 +518,17 @@
         },
 
         printShiftReport: function(all) {
+            var reportController = GeckoJS.Controller.getInstanceByName('RptCashByClerk');
+            var printController = GeckoJS.Controller.getInstanceByName('Print');
+            var salePeriod = this.getSalePeriod();
+            var terminalNo = GeckoJS.Session.get('terminal_no');
+
             if (all) {
-                alert('print all shifts');
+                reportController._printShiftChangeReport(salePeriod * 1000, salePeriod * 1000, 'sale_period', '', terminalNo, printController);
             }
             else {
-                alert('print this shift');
+                var shiftNumber = this.getShiftNumber().toString();
+                reportController._printShiftChangeReport(salePeriod * 1000, salePeriod * 1000, 'sale_period', shiftNumber, terminalNo, printController);
             }
         },
 

@@ -2,6 +2,7 @@
 
      include('chrome://viviecr/content/devices/deviceTemplate.js');
      include('chrome://viviecr/content/devices/deviceTemplateUtils.js');
+     include('chrome://viviecr/content/reports/template_ext.js');
 
     /**
      * Print Controller
@@ -203,6 +204,8 @@
 
             //this.log('SUBMIT: ' + GeckoJS.BaseObject.dump(txn.data));
 
+            // don't print if order has been pre-finalized and the order is being submitted for completion
+            // since receipts and checks would have already been printed
             if (txn.data.status != 1 || !txn.isClosed()) {
                 // check if checks need to be printed
                 if (txn.data.batchItemCount > 0) {
@@ -507,10 +510,11 @@
 
             var enabledDevices = device.getEnabledDevices('check');
             var order = txn.data;
-
+            var customer = GeckoJS.Session.get('current_customer');
             var data = {
                 txn: txn,
-                order: order
+                order: order,
+                customer: customer
             };
 
             if (order.proceeds_clerk == null || order.proceeds_clerk == '') {
@@ -569,7 +573,7 @@
         // handles user initiated receipt requests
         printReport: function(type, tpl, data) {
             var device = this.getDeviceController();
-
+            
             if (device == null) {
                 NotifyUtils.error(_('Error in device manager! Please check your device configuration'));
                 return;
@@ -620,7 +624,7 @@
             
             if (portPath == null || portPath == '') {
                 NotifyUtils.error(_('Specified device port [%S] does not exist!', [port]));
-                return false;
+                return;
             }
 
             // expand data with storeContact and terminal_no
@@ -708,12 +712,12 @@
             // if data is null, then the document has already been generated and passed in through the template parameter
             if (data != null) {
 
-                //this.log('type [' + typeof data.duplicate + '] [' + data.duplicate + '] ' + GeckoJS.BaseObject.dump(data.order));
+                this.log('type [' + typeof data.duplicate + '] [' + data.duplicate + '] ' + GeckoJS.BaseObject.dump(data.order));
                 
                 tpl = this.getTemplateData(template, false);
                 if (tpl == null || tpl == '') {
                     NotifyUtils.error(_('Specified template [%S] is empty or does not exist!', [template]));
-                    return false;
+                    return;
                 }
                 result = tpl.process(data);
             }
@@ -745,8 +749,8 @@
                     result = result.replace(re, value);
                 }
             }
-            //alert(GeckoJS.BaseObject.dump(result));
-            //return;
+            alert(GeckoJS.BaseObject.dump(result));
+            return;
             //alert(data.order.receiptPages);
             //
             // translate embedded hex codes into actual hex values

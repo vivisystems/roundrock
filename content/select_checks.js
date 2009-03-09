@@ -30,12 +30,13 @@
             var seq = this.data[row].sequence;
             var check_no = this.data[row].check_no;
             var table_no = this.data[row].table_no;
+            var destination = this.data[row].destination || '';
+            var total = this.data[row].total;
             var book_time = '';
-            var text = "Seq:" + seq +
-                       "\nCheck# " + check_no +
-                       "\nTable# " + table_no +
-                       // "Book:" + book_time + "";
-                       "";
+            var text = _("Seq") + ": " + seq +
+                       "\n" + _("TAL") + ": " + total + ((destination == "") ? "" : " (" + destination + ")") +
+                       "\n" + (check_no ? _("Check#") + " " + check_no + " " : "") +
+                              (table_no ? _("Table#") + " " + table_no : "")
             return text;
 
         };
@@ -53,10 +54,10 @@
 
             var itemlistObj = document.getElementById('itemlist');
             var data = window.viewHelper.getCurrentIndexData(index);
-            GREUtils.log(GeckoJS.BaseObject.dump(data));
+            //GREUtils.log(GeckoJS.BaseObject.dump(data));
 
             var displayStr = "";
-            displayStr += "SEQ# " + data.sequence + "\n\n";
+            displayStr += _("SEQ") + ": " + data.sequence + "\n\n";
             var limit = 10, cc= 0;
             data.OrderItem.forEach(function(item){
                 if (cc<=limit) {
@@ -68,7 +69,7 @@
             if (cc>limit) displayStr += "   ......   \n" ;
 
             // displayStr += "\n\nTL: " + data.remain;
-            displayStr += "\n\nTL: " + data.total;
+            displayStr += "\n\n" + _("TAL") + ": " + data.total;
 
             itemlistObj.setAttribute('value', displayStr);
 

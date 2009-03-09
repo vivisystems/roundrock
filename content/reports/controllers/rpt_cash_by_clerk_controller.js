@@ -117,7 +117,7 @@
             this._datas = data;
         },
         
-        _printShiftChangeReport: function( start, end, periodType, shiftNo, terminalNo ) {
+        _printShiftChangeReport: function( start, end, periodType, shiftNo, terminalNo, printController ) {
         	
         	this._set_datas( start, end, periodType, shiftNo, terminalNo );
 
@@ -125,9 +125,10 @@
             var file = GREUtils.File.getFile(path);
             var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
             
-			tpl.process( this._datas );
-            var rcp = opener.opener.opener.GeckoJS.Controller.getInstanceByName('Print');
-            rcp.printReport('report', tpl, this._datas);
+			//tpl.process( this._datas );
+            //var rcp = opener.opener.opener.GeckoJS.Controller.getInstanceByName('Print');
+            //rcp.printReport('report', tpl, this._datas);
+            printController.printReport('report', tpl, this._datas);
         },
 
         execute: function() {

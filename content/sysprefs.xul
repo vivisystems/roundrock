@@ -55,6 +55,7 @@
             <preference id="pref_ageverificationack" name="vivipos.fec.settings.AgeVerificationAck" type="bool" />
             <preference id="pref_positivepricerequired" name="vivipos.fec.settings.PositivePriceRequired" type="bool" />
             <preference id="pref_clearcartafterfinalization" name="vivipos.fec.settings.ClearCartAfterFinalization" type="bool" />
+            <preference id="pref_sequencetrackssaleperiod" name="vivipos.fec.settings.SequenceTracksSalePeriod" type="bool" />
 
         </preferences>
 
@@ -81,6 +82,7 @@
                 </row>
                 <row>
                     <checkbox preference="pref_allowoverstock" id="pref_allowoverstockCtrl" label="&general.allowoverstock;" />
+                    <checkbox preference="pref_sequencetrackssaleperiod" id="pref_sequencetrackssaleperiodCtrl" label="&general.sequencetrackssaleperiod;" />
                 </row>
             </rows>
         </grid>

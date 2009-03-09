@@ -83,7 +83,7 @@
 
             var displayStr = "";
 
-            displayStr += "SEQ# " + queueData.seq + "\n\n";
+            displayStr += _("SEQ") + ": " + queueData.seq + "\n\n";
 
             var limit = 10, cc= 0;
 
@@ -96,7 +96,7 @@
 
             if (cc>limit) displayStr += "   ......   \n" ;
 
-            displayStr += "\n\nTL: " + queueData.remain;
+            displayStr += "\n\n" + _("TAL") + ": " + queueData.remain;
 
             $itemlist.val(displayStr);
 

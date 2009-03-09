@@ -319,7 +319,7 @@
                     break;
                 case 'AllCheck':
                     var order = new OrderModel();
-                    var fields = ['orders.id', 'orders.sequence', 'orders.check_no',
+                    var fields = ['orders.id', 'orders.sequence', 'orders.destination', 'orders.check_no',
                                   'orders.table_no', 'orders.status', 'orders.total'];
                     var conditions = "orders.status='2'";
                     var ord = order.find('all', {fields: fields, conditions: conditions, recursive: 2});
@@ -353,8 +353,15 @@
 
                             this._controller.unserializeFromOrder(id);
 
+                            this._controller.dispatchEvent('afterRecallCheck', this._controller._getTransaction());
+                            
                             // display to onscreen VFD
-                            this._controller.dispatchEvent('onWarning', _('RECALL# %S', [check_no]));
+                            if (check_no != null && check_no != '') {
+                                this._controller.dispatchEvent('onWarning', _('RECALLED# %S', [check_no]));
+                            }
+                            else {
+                                this._controller.dispatchEvent('onWarning', _('ORDER RECALLED'));
+                            }
 
                             if (status == 1) {
                                 // @todo OSD

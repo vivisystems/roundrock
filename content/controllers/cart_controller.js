@@ -904,7 +904,7 @@
             if (itemTrans) {
 
                 // has item been marked?
-                if(itemTrans.hasMarker) {
+                if(itemDisplay.type != 'memo' && itemTrans.hasMarker) {
                     // @todo OSD
                     this.dispatchEvent('onVoidItemError', {});
                     NotifyUtils.warn(_('Cannot VOID an entry that has been subtotaled'));
@@ -2467,6 +2467,7 @@
                             return;
                         }
                     }
+                    curTransaction.data.destination = dest;
                 }
                 // prompts for additional annotation(s) (such as ID of deliver person)
                 // if a single annotationType is specified, prompt using memo-style UI
@@ -3019,6 +3020,7 @@
 
                 self.subtotal();
 
+                self.dispatchEvent('afterPullQueue', curTransaction);
             });
 
         },

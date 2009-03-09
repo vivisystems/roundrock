@@ -1,8 +1,8 @@
-<!ENTITY    viviorderstatus.pricelevel.label       "PL@">
-<!ENTITY    viviorderstatus.taxtotal.label         "TX">
-<!ENTITY    viviorderstatus.numberitems.label      "#ITEM">
-<!ENTITY    viviorderstatus.ordersequence.label    "SEQ#">
+<!ENTITY    viviorderstatus.pricelevel.label       "PLVL">
+<!ENTITY    viviorderstatus.taxtotal.label         "TAX">
+<!ENTITY    viviorderstatus.numberitems.label      "ITEMS">
+<!ENTITY    viviorderstatus.ordersequence.label    "SEQ">
 <!ENTITY    viviorderstatus.destination.label      "DEST">
-<!ENTITY    viviorderstatus.numbercustomer.label   "#CST">
-<!ENTITY    viviorderstatus.checknumber.label      "CHK#">
-<!ENTITY    viviorderstatus.tablenumber.label      "TBL#">
+<!ENTITY    viviorderstatus.numbercustomer.label   "CST">
+<!ENTITY    viviorderstatus.checknumber.label      "CHK">
+<!ENTITY    viviorderstatus.tablenumber.label      "TBL">
