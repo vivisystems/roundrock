@@ -749,8 +749,8 @@
                     result = result.replace(re, value);
                 }
             }
-            alert(GeckoJS.BaseObject.dump(result));
-            return;
+            //alert(GeckoJS.BaseObject.dump(result));
+            //return;
             //alert(data.order.receiptPages);
             //
             // translate embedded hex codes into actual hex values
