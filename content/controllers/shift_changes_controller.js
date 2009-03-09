@@ -126,7 +126,7 @@
                 // no last shift?
                 if (lastSalePeriod == '') {
                     // insert new sale period with today's date;
-                    newSalePeriod = new Date().clearTime();
+                    newSalePeriod = new Date().clearTime() / 1000;
                     newShiftNumber = 1;
                 }
 
@@ -174,7 +174,7 @@
                               current_shift_number: newShiftNumber,
                               last_sale_period: lastSalePeriod,
                               last_shift_number: lastShiftNumber};
-            var aFeatures = 'chrome,dialog,modal,centerwindow,dependent=yes,resize=no,width=' + width + ',height=' + height;
+            var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + width + ',height=' + height;
             GREUtils.Dialog.openWindow(window, aURL, aName, aFeatures, aArguments);
         },
 
