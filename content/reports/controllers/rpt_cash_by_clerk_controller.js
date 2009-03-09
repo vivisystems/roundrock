@@ -142,8 +142,7 @@
 
             var machineid = document.getElementById('machine_id').value;
             
-            //this._set_datas( start, end, periodType, shiftNo, machineid );
-            this._printShiftChangeReport( start, end, periodType, shiftNo, machineid );
+            this._set_datas( start, end, periodType, shiftNo, machineid );
 
             var path = GREUtils.File.chromeToPath( "chrome://viviecr/content/reports/tpl/rpt_cash_by_clerk.tpl" );
 
