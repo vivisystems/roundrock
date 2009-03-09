@@ -175,7 +175,7 @@
                               last_sale_period: lastSalePeriod,
                               last_shift_number: lastShiftNumber};
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + width + ',height=' + height;
-            GREUtils.Dialog.openWindow(window, aURL, aName, aFeatures, aArguments);
+            GREUtils.Dialog.openWindow(null, aURL, aName, aFeatures, aArguments);
         },
 
         shiftChange: function() {
