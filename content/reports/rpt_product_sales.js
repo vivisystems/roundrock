@@ -4,7 +4,7 @@
 
     // include controllers  and register itself
 
-    include('chrome://viviecr/content/reports/controllers/product_sales_controller.js');
+    include('chrome://viviecr/content/reports/controllers/rpt_product_sales_controller.js');
     include('chrome://viviecr/content/reports/controllers/components/browser_print.js');
     include('chrome://viviecr/content/reports/controllers/components/csv_export.js');
     include( 'chrome://viviecr/content/reports/controllers/components/check_media.js' );
@@ -15,7 +15,7 @@
     function startup() {
 
         $('#togglesize')[0].addEventListener('command', toggleSize, false);
-        $do('load', null, 'ProductSales');
+        $do('load', null, 'RptProductSales');
 
     };
 

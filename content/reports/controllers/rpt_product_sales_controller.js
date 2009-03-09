@@ -5,10 +5,12 @@
      */
 
     GeckoJS.Controller.extend( {
-        name: 'ProductSales',
+        name: 'RptProductSales',
         components: ['BrowserPrint', 'CsvExport', 'CheckMedia'],
 	
         _datas: null,
+        
+        _fileName: "/rpt_product_sales",
 
         _showWaitPanel: function(panel, sleepTime) {
             var waitPanel = document.getElementById(panel);
@@ -131,13 +133,13 @@
                 foot: {
                 	qty: this.qty,
                 	summary: this.summary,
-                	gen_time: (new Date()).toLocaleString()
+                	gen_time: (new Date()).toString('yyyy/MM/dd HH:mm:ss')
                 }
             }
 
 			this._datas = data;
 
-            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/product_sales.tpl");
+            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_product_sales.tpl");
 
             var file = GREUtils.File.getFile(path);
             var tpl = GREUtils.File.readAllBytes(file);
@@ -161,7 +163,7 @@
         
             try {
                 this._enableButton(false);
-               var media_path = this.CheckMedia.checkMedia('report_export');
+                var media_path = this.CheckMedia.checkMedia('report_export');
                 if (!media_path){
                     NotifyUtils.info(_('Media not found!! Please attach the USB thumb drive...'));
                     return;
@@ -175,7 +177,7 @@
                 //this.BrowserPrint.setPaperEdge(20, 20, 20, 20);
 
                 this.BrowserPrint.getWebBrowserPrint('preview_frame');
-                this.BrowserPrint.printToPdf(media_path + "/rpt_product_sales.pdf");
+                this.BrowserPrint.printToPdf( media_path + this._fileName );
             } catch (e) {
                 //
             } finally {
@@ -203,7 +205,7 @@
                 var datas;
                 datas = this._datas;
 
-                this.CsvExport.printToFile(media_path + "/rpt_product_sales.csv", datas, tpl);
+                this.CsvExport.printToFile(media_path + this._fileName, datas, tpl);
 
 
             } catch (e) {

@@ -8,6 +8,8 @@
         name: 'RptAttendanceRecord',
         components: ['BrowserPrint', 'CsvExport', 'CheckMedia'],
         _datas: null,
+        
+        _fileName: "/rpt_attendance_record",
 
         _showWaitPanel: function(panel, sleepTime) {
             var waitPanel = document.getElementById(panel);
@@ -175,7 +177,7 @@
                 // this.BrowserPrint.setPaperEdge(20, 20, 20, 20);
 
                 this.BrowserPrint.getWebBrowserPrint('preview_frame');
-                this.BrowserPrint.printToPdf(media_path + "/rpt_attendance_record.pdf");
+                this.BrowserPrint.printToPdf( media_path + this._fileName );
             } catch (e) {
                 //
             } finally {
@@ -203,7 +205,7 @@
                 var datas;
                 datas = this._datas;
 
-                this.CsvExport.printToFile(media_path + "/rpt_attendance_record.csv", datas, tpl);
+                this.CsvExport.printToFile(media_path + this._fileName, datas, tpl);
 
                 
             } catch (e) {
@@ -220,7 +222,7 @@
                 this._enableButton(false);
                 var waitPanel = this._showWaitPanel('wait_panel', 100);
 
-                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_attendance_record_rcp.tpl");
+                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/tpl_58mm/rpt_attendance_record_rcp.tpl");
 
                 var file = GREUtils.File.getFile(path);
                 var tpl = GREUtils.File.readAllBytes(file);

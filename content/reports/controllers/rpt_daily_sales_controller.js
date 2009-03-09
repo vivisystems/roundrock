@@ -8,6 +8,8 @@
         name: 'RptDailySales',
         components: ['BrowserPrint', 'CsvExport', 'CheckMedia'],
         _datas: null,
+        
+        _fileName: "/rpt_daily_sales",
 
        _showWaitPanel: function(panel, sleepTime) {
             var waitPanel = document.getElementById(panel);
@@ -176,11 +178,6 @@
             var sortby = document.getElementById( 'sortby' ).value;
             if ( sortby != 'all' ) {
             	this._datas.sort(
-            		/*function ( a, b ) {
-            			if ( a[ sortby ] > b[ sortby ] ) return 1;
-            			if ( a[ sortby ] < b[ sortby ] ) return -1;
-            			return 0;
-            		}*/
             		function ( a, b ) {
             			var a = a[ sortby ];
             			var b = b[ sortby ];
@@ -247,7 +244,7 @@
                 // this.BrowserPrint.setPaperEdge(20, 20, 20, 20);
 
                 this.BrowserPrint.getWebBrowserPrint('preview_frame');
-                this.BrowserPrint.printToPdf(media_path + "/rpt_daily_sales.pdf");
+                this.BrowserPrint.printToPdf(media_path + this._fileName);
             } catch (e) {
                 //
             } finally {
@@ -275,7 +272,7 @@
                 var datas;
                 datas = this._datas;
 
-                this.CsvExport.printToFile(media_path + "/rpt_daily_sales.csv", datas, tpl);
+                this.CsvExport.printToFile(media_path + this._fileName, datas, tpl);
             } catch (e) {
                 //
             } finally {

@@ -99,7 +99,7 @@
                 this._printSettings.outputFormat = Components.interfaces.nsIPrintSettings.kOutputFormatPDF;
 
                 this._printSettings.printToFile = true;
-                this._printSettings.toFileName = pdfFileName;
+                this._printSettings.toFileName = pdfFileName + ( new Date() ).toString( 'yyyyMMddHHmm' ) + ".pdf";
                 this._printSettings.printSilent = true;
 
                 this._webBrowserPrint.print(this._printSettings, null);

@@ -53,7 +53,8 @@
 
                     // mount dir exists
                     // autocreate given folder name
-                    var mediaDir = new GeckoJS.Dir(deviceMount + folderName, autoCreate);
+                    storeName = GeckoJS.Session.get('storeContact').name;
+                    var mediaDir = new GeckoJS.Dir(deviceMount + folderName + '/' + storeName, autoCreate);
 
                     if (mediaDir.exists()) {
 
@@ -67,7 +68,6 @@
             }
 
             return deviceReady ;
-
         }
     });
 

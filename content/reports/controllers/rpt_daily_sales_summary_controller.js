@@ -8,6 +8,8 @@
         name: 'RptDailySalesSummary',
         components: ['BrowserPrint', 'CsvExport', 'CheckMedia'],
         _datas: null,
+        
+        _fileName: "/rpt_daily_sales_summary",
 
         _showWaitPanel: function(panel, sleepTime) {
             var waitPanel = document.getElementById(panel);
@@ -265,7 +267,7 @@
                 // this.BrowserPrint.setPaperEdge(20, 20, 20, 20);
 
                 this.BrowserPrint.getWebBrowserPrint('preview_frame');
-                this.BrowserPrint.printToPdf(media_path + "/rpt_daily_sales_summary.pdf");
+                this.BrowserPrint.printToPdf(media_path + this._fileName);
             } catch (e) {
                 //
             } finally {
@@ -293,7 +295,7 @@
                 var datas;
                 datas = this._datas;
 
-                this.CsvExport.printToFile(media_path + "/rpt_daily_sales_summary.csv", datas, tpl);
+                this.CsvExport.printToFile(media_path + this._fileName, datas, tpl);
             } catch (e) {
                 //
             } finally {

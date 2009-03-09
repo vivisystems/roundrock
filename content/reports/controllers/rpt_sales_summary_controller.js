@@ -13,6 +13,8 @@
         _start: null,
         _end: null,
         _machineid: null,
+        
+        _fileName: "/rpt_sales_summary",
 
         _showWaitPanel: function(panel, sleepTime) {
             var waitPanel = document.getElementById(panel);
@@ -433,7 +435,7 @@
                 this.BrowserPrint.setPaperMargin(0, 0, 0, 0);
 
                 this.BrowserPrint.getWebBrowserPrint('preview_frame');
-                this.BrowserPrint.printToPdf(media_path + "/rpt_sales_summary.pdf");
+                this.BrowserPrint.printToPdf(media_path + this._fileName);
       
             } catch (e) {
                 //
@@ -462,7 +464,7 @@
                 var datas;
                 datas = this._datas;
 
-                this.CsvExport.printToFile(media_path + "/rpt_sales_summary.csv", datas, tpl);
+                this.CsvExport.printToFile(media_path + this._fileName, datas, tpl);
 
             } catch (e) {
                 //
