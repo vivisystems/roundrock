@@ -18,12 +18,15 @@
 
             this._files.forEach(function(o){
                 var str = o.leafName;
-
-                var dt = Date.parseExact(str, "yyyyMd");
-                var timestr = dt.toLocaleDateString();
+                try {
+                    var dt = Date.parseExact(str, "yyyyMd");
+                    var timestr = dt.toLocaleDateString();
+                } catch (e) {
+                    var timestr = _(str);
+                }
                 var typestr = '';
                 self._data.push({time: timestr, type: typestr, dir: str});
-                
+
             });            
         }
     });

@@ -21,9 +21,76 @@
         name: 'GuestCheck',
         _checkNoArray: [],
         _tableNoArray: [],
+        _guestCheck: null,
 
-        initial: function () {
+        init: function (c) {
+            // inherit Cart controller constructor
+            this._super(c);
             // @todo : check orders first and set _checkNoArray, _tableNoArray...
+            var guestCheck = {
+                requireCheckNo: true,
+                requireTableNo: true,
+                checkNoRange: {
+                    min: 1,
+                    max: 100
+                },
+                tableNoRange: {
+                    min: 1,
+                    max: 100
+                },
+                allowTableNoDup: true,
+                tableMapAsTopScreen: false
+            }
+
+            this._guestCheck = guestCheck;
+            GeckoJS.Session.set('vivipos_fec_guest_check', guestCheck);
+
+            // add listener for newTransaction and onSubmit event
+            // var cart = GeckoJS.Controller.getInstanceByName('Cart');
+            var cart = this._controller;
+            if (cart) {
+                cart.addEventListener('newTransaction', this.handleNewTransaction, this);
+                cart.addEventListener('onSubmit', this.handleNewTransaction, this);
+                cart.addEventListener('onCancel', this.handleNewTransaction, this);
+                cart.addEventListener('onClear', this.handleClear, this);
+            }
+            /*
+            // add listener for onLogin event
+            var main = GeckoJS.Controller.getInstanceByName('Main');
+            if (main) {
+                main.addEventListener('onInitial', this.handleNewTransaction, this);
+            }
+            */
+        },
+
+        handleNewTransaction: function(evt) {
+            // if (this._inSetCustomer) return;
+            alert(evt.type);
+            if (evt.type == 'onSubmit' || evt.type == 'onCancel' || evt.type == 'onInitial') {
+                //
+                if (this._guestCheck.requireCheckNo) {
+                    //
+                    var check_no = this.getNewCheckNo();
+                }
+
+                if (this._guestCheck.requireTableNo) {
+                    //
+                    var table_no = this.getNewTableNo();
+                }
+            }
+            else if (evt.type == 'newTransaction') {
+                /*
+                if (this._guestCheck.requireCheckNo) {
+                    //
+                    var check_no = this.getNewCheckNo();
+                }
+
+                if (this._guestCheck.requireTableNo) {
+                    //
+                    var table_no = this.getNewTableNo();
+                }
+                */
+            }
         },
 
         getNewCheckNo: function() {
@@ -494,12 +561,8 @@
 
             window.openDialog(aURL, 'split_checks', features, inputObj);
 
-            if (inputObj.ok && inputObj.index) {
-                var idx = inputObj.index;
-                // return queues[idx].key;
-                var id = ord[idx].id;
-                var status = ord[idx].status;
-                var check_no = ord[idx].check_no;
+            if (inputObj.ok) {
+                var id = inputObj.id;
 
                 this._controller.unserializeFromOrder(id);
 

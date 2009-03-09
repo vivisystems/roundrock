@@ -12,6 +12,7 @@
 
         _splitItems: [],
         _index: 0,
+        _splitedIndex: 0,
         
         checkOrd: function() {
             alert('checkOrd');
@@ -134,6 +135,7 @@
 
         selectSplitedCheck: function(index) {
             //
+            this._splitedIndex = index;
             if (this._splitItems.length > 0) {
                 var panelView2 = new GeckoJS.NSITreeViewArray(this._splitItems[index].items);
                 document.getElementById('splitedcheckscrollablepanel').datasource = panelView2;
@@ -265,7 +267,51 @@
 
         },
 
-        genOrders: function() {
+        _genOrigOrder: function() {
+            //
+            var self = this;
+            var order = {};
+
+            // gen order object from items
+            for (var key in self._sourceCheck) {
+                if (typeof(self._sourceCheck[key]) == 'object' && self._sourceCheck[key].constructor.name == 'Array' ) {
+                    order[key] = [];
+                }
+                else if (typeof(self._sourceCheck[key]) == "object") {
+                    order[key] = {};
+                } else {
+                    order[key] = self._sourceCheck[key];
+                }
+            }
+
+            // merge display_sequences and items
+            this._sourceItems.forEach(function(item){
+                // items
+                order.items[item.index] = GeckoJS.BaseObject.clone(self._sourceCheck.items[item.index]);
+
+                // display_sequences
+                self._sourceCheck.display_sequences.forEach(function(disp){
+                    if (disp.index == item.index) {
+                        var dd = GeckoJS.BaseObject.clone(disp);
+                        order.display_sequences.push(dd);
+                    }
+                });
+
+                // trans_discounts object
+                // trans_surcharges object
+                // trans_payments object
+                // markers array
+
+            });
+
+            order.id = self._sourceCheck.id;
+            order.seq = self._sourceCheck.seq;
+            self.calcTotal(order);
+
+            return order;
+        },
+
+        _genOrders: function() {
             //
             var self = this;
             var orders = [];
@@ -309,6 +355,9 @@
 
                 order.id = GeckoJS.String.uuid();
                 order.seq = SequenceModel.getSequence('order_no');
+                order.check_no = o.check_no;
+                order.table_no = o.table_no;
+
                 self.calcTotal(order);
                 
                 orders.push(order);
@@ -319,25 +368,28 @@
             
         },
 
-        conform: function() {
-            // alert('Conform...');
-            var self = this;
-            var items = this._splitItems[0].items;
-            // this.log(this.dump(items));
-            var orders = this.genOrders();
-/*
-            var checkNo = this._getNewCheckNo();
+        _saveOrders: function(index) {
 
-            this.log("checkNo:" + checkNo);
-            this.log(this.dump(orders));
-return;
-*/
+            var self = this;
+            // var items = this._splitItems[0].items;
+
+            var origData = this._genOrigOrder();
+            var order = new OrderModel();
+            order.saveOrder(origData);
+            order.serializeOrder(origData);
+
+            var orders = this._genOrders();
+
+            var check_no_list = [];
+
             orders.forEach(function(data){
+
                 // save order
                 var order = new OrderModel();
                 // order.saveOrder(data);
                 order.saveOrderMaster(data);
 
+                check_no_list.push(data.check_no);
                 // save order items...
                 // order.saveOrderItems(data);
                 var r;
@@ -355,25 +407,46 @@ return;
                 order.serializeOrder(data);
             });
             
-            var check_no_list;
+            
             
             // @todo OSD
-            NotifyUtils.warn(_('The Check# %S has been splited to Check# %S!!', [this._sourceCheck.check_no, this._mergedCheck.check_no]));
+            NotifyUtils.warn(_('The Check# %S has been splited to Check# %S!!', [this._sourceCheck.check_no, check_no_list.join(',')]));
+
+            if (index)
+                return orders[this._splitedIndex];
+            else
+                return origData;
+        },
+
+        conform: function() {
+            var retOrder = this._saveOrders();
+            var inputObj = window.arguments[0];
+            inputObj.ok = true;
+            inputObj.id = retOrder.id;
+            inputObj.check_no = retOrder.check_no;
 
             window.close();
         },
 
         cancel: function() {
+            var inputObj = window.arguments[0];
+            inputObj.ok = false;
             window.close();
         },
 
         paythis: function() {
 
-            alert('Pay This Check...');
+            var retOrder = this._saveOrders(this._splitedIndex);
+            var inputObj = window.arguments[0];
+            inputObj.ok = true;
+            inputObj.id = retOrder.id;
+            inputObj.check_no = retOrder.check_no;
+
+            window.close();
         },
 
         load: function() {
-            
+
             var inputObj = window.arguments[0];
 
             this._usedCheckNo = inputObj.usedCheckNo;

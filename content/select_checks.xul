@@ -2,13 +2,13 @@
 <!DOCTYPE window [
   <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
   %Dialog;
-  <!ENTITY % SelectQueues SYSTEM "chrome://viviecr/locale/select_checks.dtd">
-  %SelectQueues;
+  <!ENTITY % SelectChecks SYSTEM "chrome://viviecr/locale/select_checks.dtd">
+  %SelectChecks;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/selectBox.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/QueuedOrder.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -24,33 +24,43 @@
     </script>
     <script type="application/x-javascript" src="chrome://viviecr/content/select_checks.js" />
 
-    <vbox flex="1" class="main-dialog">
-        <vbox flex="1" class="MainPnl">
-            <caption label="&selectchecks.title;"  class="PageTitle" />
-            <label id="queues" hidden="true" value="" />
-            <hbox class="SelectBox">
-                <viviscrollablebuttonpanel id="checkScrollablepanel" pre="true" flex="1" cols="2" rows="5"  seltype="single" labelField="check_no"
+    <keyset id="keyset_extensions">
+        <key id="key_enter" keycode="VK_RETURN" oncommand="document.getElementById('ok').click()"/>
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('cancel').click()" />
+    </keyset>
+
+    <vbox class="main-dialog" flex="1">
+        <hbox flex="1" class="MainPnl">
+            <vbox flex="1" class="MainL">
+                <caption label="&selectchecks.title;"  class="PageTitle"/>
+                <label id="queues" hidden="true" value="" />
+                <hbox class="LeftPnl" flex="1">
+                    <viviscrollablebuttonpanel id="checkScrollablepanel" pre="true" flex="1" cols="2" rows="5"  seltype="single" labelField="check_no"
                                            class="ItemScrollablepanel"
                                            buttonClass="ItemButtonA TableHeight"
                                            scrollUpClass="ScrollUp"
                                            scrollDownClass="ScrollDown">
-                    <spacer flex="1"/>
-                </viviscrollablebuttonpanel>
-                <vbox>
+                        <spacer flex="1"/>
+                    </viviscrollablebuttonpanel>
+                </hbox>
+            </vbox>
+            <vbox >
                 <label id="" value="&selectchecks.check.details;"  class="PageTitle"/>
                 <hbox class="sline"></hbox>
                 <textbox class="QueueList" readonly="1" id="itemlist" value="" />
-                </vbox>
-            </hbox>
-            <spacer flex="1" />
-            <hbox class="ToolBar" flex="1" pack="center">
-                <button id="ok" label="&dialog.okButton.label;" default="true" oncommand="doOKButton();"/>
-                <button id="cancel" label="&dialog.cancelButton.label;" default="false" oncommand="doCancelButton();"/>                    
-            </hbox>             
-        </vbox>
-        
+
+                <hbox  id="dialogButtons"  flex="1">
+                    <hbox class="ToolBar" flex="1">
+                        <button id="ok" label="&dialog.okButton.label;" default="true" oncommand="doOKButton();"/>
+                        <button id="cancel" label="&dialog.cancelButton.label;" default="false" oncommand="doCancelButton();"/>
+                    </hbox>
+                    <hbox class="dialogbtns">
+                        <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
+                    </hbox>
+                </hbox>
+
+            </vbox>
+        </hbox>
     </vbox>
-  
-    
 
 </window>
