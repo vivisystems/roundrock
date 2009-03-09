@@ -14,13 +14,18 @@
                 return;
             }
 
-            this._files = new GeckoJS.Dir.readDir(dir, {type: "d"}).sort(function(a, b) {if (a.leafName < b.leafName) return -1; else if (a.leafName > b.leafName) return 1; else return 0;});
+            this._files = new GeckoJS.Dir.readDir(dir, {type: "d"}).sort(function(a, b) {if (a.leafName < b.leafName) return 1; else if (a.leafName > b.leafName) return -1; else return 0;});
 
             this._files.forEach(function(o){
                 var str = o.leafName;
 
                 var dt = Date.parseExact(str, "yyyyMd");
-                var timestr = dt.toLocaleDateString();
+                if (dt) {
+                    var timestr = dt.toLocaleDateString();
+                }
+                else {
+                    var timestr = str;
+                }
                 var typestr = '';
                 self._data.push({time: timestr, type: typestr, dir: str});
                 
