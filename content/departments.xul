@@ -18,9 +18,20 @@
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/bootstrap.js" />
-    <script type="application/x-javascript" src="chrome://viviecr/content/departments.js" />
+  <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+
+  <!-- include models -->
+  <script src="chrome://viviecr/content/bootstrap.js" type="application/x-javascript"/>
+
+  <!-- include views -->
+  <script src='chrome://viviecr/content/helpers/nsi_categories_view.js'/>
+  <script src='chrome://viviecr/content/helpers/nsi_departments_view.js'/>
+  
+  <!-- include controller -->
+  <script src="chrome://viviecr/content/controllers/departments_controller.js" type="application/x-javascript"/>
+
+  <!-- include startup script -->
+  <script type="application/x-javascript" src="chrome://viviecr/content/departments.js" />
 
     <keyset id="keyset_extensions">
         <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()" />

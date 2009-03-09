@@ -70,7 +70,7 @@
 
                 this.saveDestinations();
 
-                // loop through tihs._listDatas to find the newly added destination and select it
+                // loop through this._listDatas to find the newly added destination and select it
                 var index = 0;
                 for (var index = 0; index < this._listDatas.length; index++) {
                     if (this._listDatas[index].name == destName) {
@@ -111,7 +111,7 @@
             if (index >= 0) {
                 var destName = this._listDatas[index].name;
 
-                if (!GREUtils.Dialog.confirm(null, _('confirm delete desttination [%S]', [destName]), _('Are you sure you want to delete destination [%S]?', [destName]))) {
+                if (!GREUtils.Dialog.confirm(null, _('confirm delete destination [%S]', [destName]), _('Are you sure you want to delete destination [%S]?', [destName]))) {
                     return;
                 }
 
@@ -297,7 +297,7 @@
 
     window.addEventListener('load', function() {
         var main = GeckoJS.Controller.getInstanceByName('Main');
-        if(main) main.addEventListener('onInitial', function() {
+        if(main) main.addEventListener('afterInitial', function() {
                                             main.requestCommand('initial', null, 'Destinations');
                                       });
 

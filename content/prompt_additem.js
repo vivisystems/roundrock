@@ -54,7 +54,9 @@ var options;
         if ('readonly0' in inputObj && inputObj.readonly0) {
             document.getElementById('input0').setAttribute('readonly', true);
         }
-        
+
+        // hide numberpad
+        document.getElementById('numpad').setAttribute('hidden', !('numpad' in inputObj));
         document.getElementById('dialog-caption').setAttribute("label", caption0);
         document.getElementById('text0').value = text0;
         document.getElementById('title0').value = title0;

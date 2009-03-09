@@ -4,7 +4,7 @@
     <Description about="urn:mozilla:install-manifest">
         <em:id>viviecr@firich.com.tw</em:id>
         <em:name>VIVIECR</em:name>
-        <em:version>0.9</em:version>
+        <em:version>0.9.20090305151704</em:version>
         <em:description></em:description>
         <em:creator>FIRICH VIVIPOS TEAM</em:creator>
         <em:homepageURL>http://www.firich.com.tw/</em:homepageURL>
@@ -21,3 +21,4 @@
         
     </Description>
 </RDF>
+
