@@ -75,7 +75,7 @@
 
         <box id="mainPanel" flex="1" class="mainpanel" orient="horizontal">
 
-            <box id="leftPanel" flex="1" style="overflow: hidden" orient="vertical">
+            <box id="leftPanel" flex="1" style="overflow: hidden" orient="vertical" class="leftPanel">
                 <box id="productPanelContainer" flex="1" class="productPanel" />
             </box>
 

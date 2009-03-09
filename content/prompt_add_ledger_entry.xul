@@ -40,7 +40,7 @@
                             <vbox>
                                 <viviscrollabletree id="typescrollablepanel" flex="1" headers="&prompt.addentry.heading.type;,&prompt.addentry.heading.mode;"
                                                     fields="type,mode" onclick="validateInput()"
-                                                    class="ListPnl"
+                                                    class="ListPnl" hidecolumnpicker="true"
                                                     scrollUpClass="ScrollUp" scrollDownClass="ScrollDown">
                                     <spacer flex="1" />
                                 </viviscrollabletree>
@@ -70,8 +70,8 @@
                 </vbox>
                 <spacer style="height:5px;" />
                 <hbox>
-                        <sendkeybutton id="bkeyBtn" label="DEL" keyCode='0x08' class="fixedbtn"/>
-                        <button id="clearBtn"  label="CLEAR" class="fixedbtn"/>
+                    <sendkeybutton id="bkeyBtn" label="DEL" keyCode='0x08' class="fixedbtn"/>
+                    <button id="clearBtn"  label="CLEAR" class="fixedbtn"/>
                 </hbox>
                 <spacer flex="1" />
                 <hbox id="dialogButtons" class="ToolBar">

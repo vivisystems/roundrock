@@ -1010,10 +1010,10 @@ msgid "HotKey Configuration"
 msgstr "HotKey Configuration"
 
 msgid "acl_manage_addons"
-msgstr "Manage Add-Ons"
+msgstr "Manage Add-ons"
 
-msgid "Add-Ons"
-msgstr "Add-Ons"
+msgid "Add-ons"
+msgstr "Add-ons"
 
 msgid "acl_manage_destinations"
 msgstr "Manage Order Destinations"
@@ -1226,6 +1226,19 @@ msgstr ""
 
 #: ../..//content/prompt_doshiftchange.js:111
 msgid "Please confirm end of sale period"
+msgstr ""
+
+#: ../..//content/prompt_doshiftchange.js:124
+#: ../..//content/prompt_doshiftchange.js:129
+msgid "confirm shift change"
+msgstr ""
+
+#: ../..//content/prompt_doshiftchange.js:124
+msgid "Drawer change may not be negative"
+msgstr ""
+
+#: ../..//content/prompt_doshiftchange.js:129
+msgid "Please confirm shift change"
 msgstr ""
 
 #: ../..//content/sync_settings.js:19
@@ -1957,7 +1970,8 @@ msgstr ""
 msgid "No change to store"
 msgstr ""
 
-#: ../..//content/controllers/cashdrawer_controller.js:195
+#: ../..//content/controllers/cashdrawer_controller.js:189
+#: ../..//content/controllers/cashdrawer_controller.js:218
 #: ../..//content/controllers/print_controller.js:249
 #: ../..//content/controllers/print_controller.js:356
 #: ../..//content/controllers/print_controller.js:425
@@ -1967,26 +1981,26 @@ msgstr ""
 msgid "Error in device manager! Please check your device configuration"
 msgstr ""
 
-#: ../..//content/controllers/cashdrawer_controller.js:204
-#: ../..//content/controllers/cashdrawer_controller.js:215
-#: ../..//content/controllers/cashdrawer_controller.js:228
+#: ../..//content/controllers/cashdrawer_controller.js:227
+#: ../..//content/controllers/cashdrawer_controller.js:238
+#: ../..//content/controllers/cashdrawer_controller.js:251
 msgid "Cash drawer [%S] is not enabled! Please check your device configuration"
 msgstr ""
 
-#: ../..//content/controllers/cashdrawer_controller.js:255
+#: ../..//content/controllers/cashdrawer_controller.js:278
 msgid ""
 "Error detected while opening cash drawer [%S]; please check if cash drawer "
 "is connected and powered up"
 msgstr ""
 
-#: ../..//content/controllers/cashdrawer_controller.js:301
-#: ../..//content/controllers/print_controller.js:622
+#: ../..//content/controllers/cashdrawer_controller.js:324
+#: ../..//content/controllers/print_controller.js:619
 #: ../..//content/controllers/vfd_controller.js:254
 msgid "Specified device port [%S] does not exist!"
 msgstr ""
 
-#: ../..//content/controllers/cashdrawer_controller.js:365
-#: ../..//content/controllers/print_controller.js:826
+#: ../..//content/controllers/cashdrawer_controller.js:388
+#: ../..//content/controllers/print_controller.js:823
 #: ../..//content/controllers/vfd_controller.js:334
 msgid "Error detected when outputing to device [%S] at port [%S]"
 msgstr ""
@@ -2443,7 +2457,7 @@ msgid "Rename Image (%S) Error!!"
 msgstr ""
 
 #: ../..//content/controllers/import_export_controller.js:45
-#: ../..//content/controllers/systembackup_controller.js:133
+#: ../..//content/controllers/systembackup_controller.js:138
 msgid "Failed to execute command (%S)."
 msgstr ""
 
@@ -2982,27 +2996,31 @@ msgstr ""
 msgid "Specified template [%S] is empty or does not exist!"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:410
+#: ../..//content/controllers/shift_changes_controller.js:390
+msgid "Shift Change"
+msgstr ""
+
+#: ../..//content/controllers/shift_changes_controller.js:403
 msgid "Invalid cash drawer change amount [%S]"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:414
+#: ../..//content/controllers/shift_changes_controller.js:407
 msgid "You may not leave negative amount of cash in the cashdrawer"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:466
+#: ../..//content/controllers/shift_changes_controller.js:459
 msgid "Sale Period [%S] is now closed"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:467
+#: ../..//content/controllers/shift_changes_controller.js:460
 msgid "Sale Period Close"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:506
+#: ../..//content/controllers/shift_changes_controller.js:499
 msgid "Sale Period [%S] Shift [%S] is now closed"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:507
+#: ../..//content/controllers/shift_changes_controller.js:500
 msgid "Shift Close"
 msgstr ""
 
@@ -3034,52 +3052,52 @@ msgstr ""
 msgid "Branch ID must not be blank!"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:167
+#: ../..//content/controllers/systembackup_controller.js:172
 msgid "<Backup to Local> is done!!"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:178
-#: ../..//content/controllers/systembackup_controller.js:239
+#: ../..//content/controllers/systembackup_controller.js:183
+#: ../..//content/controllers/systembackup_controller.js:244
 msgid "Media not found!! Please attach the USB thumb drive..."
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:196
+#: ../..//content/controllers/systembackup_controller.js:201
 msgid "<Copy Backup to Stick> is done!!"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:198
-#: ../..//content/controllers/systembackup_controller.js:228
+#: ../..//content/controllers/systembackup_controller.js:203
+#: ../..//content/controllers/systembackup_controller.js:233
 msgid "Must select a item from local backup list."
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:220
-#: ../..//content/controllers/systembackup_controller.js:254
+#: ../..//content/controllers/systembackup_controller.js:225
+#: ../..//content/controllers/systembackup_controller.js:259
 msgid "Confirm Restore"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:221
+#: ../..//content/controllers/systembackup_controller.js:226
 msgid ""
 "Do you want to restore (%S) from local backup?\n"
 "If you execute restore now, the system will restart automatically after you "
 "return to the Main Screen."
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:224
+#: ../..//content/controllers/systembackup_controller.js:229
 msgid "<Restore from Local backup> is done!!"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:255
+#: ../..//content/controllers/systembackup_controller.js:260
 msgid ""
 "Do you want to restore (%S) from stick?\n"
 "If you execute restore now, the system will restart automatically after you "
 "return to the Main Screen."
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:259
+#: ../..//content/controllers/systembackup_controller.js:264
 msgid "<Restore from Stick> is done!!"
 msgstr ""
 
-#: ../..//content/controllers/systembackup_controller.js:263
+#: ../..//content/controllers/systembackup_controller.js:268
 msgid "Must select a item from stick list."
 msgstr ""
 
