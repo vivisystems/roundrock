@@ -2026,7 +2026,7 @@
                 inputObj = {}
 
                 var ledgerEntryTypeModel = new LedgerEntryTypeModel();
-                inputObj.entry_types = ledgerEntryTypeModel.find('all');
+                inputObj.entry_types = ledgerEntryTypeModel.find('all', {order: 'mode, type'});
 
                 window.openDialog(aURL, _('Add New Ledger Entry'), features, inputObj);
             }

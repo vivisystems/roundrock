@@ -1006,10 +1006,10 @@ msgid "HotKey Configuration"
 msgstr "HotKey Configuration"
 
 msgid "acl_manage_addons"
-msgstr "Manage Add-Ons"
+msgstr "Manage Add-ons"
 
-msgid "Add-Ons"
-msgstr "Add-Ons"
+msgid "Add-ons"
+msgstr "Add-ons"
 
 msgid "acl_manage_destinations"
 msgstr "Manage Order Destinations"

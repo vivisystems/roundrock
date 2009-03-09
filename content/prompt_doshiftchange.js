@@ -119,6 +119,23 @@ function confirmEndSalePeriod() {
     }
 }
 
+function confirmEndShift() {
+    var amount = parseFloat(document.getElementById('amount').value);
+    if (!isNaN(amount) && amount < 0) {
+        GREUtils.Dialog.alert(window, _('confirm shift change'), _('Drawer change may not be negative'));
+        return false;
+    }
+    else {
+        options.end = false;
+        if (GREUtils.Dialog.confirm(window, _('confirm shift change'), _('Please confirm shift change'))) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+}
+
 function validateInput() {
     var okButton = document.getElementById('ok');
     var amount = GeckoJS.String.trim(document.getElementById('amount').value);
