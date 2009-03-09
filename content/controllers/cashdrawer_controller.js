@@ -183,6 +183,29 @@
             this.openDrawer(2, 'nosale');
         },
 
+        openDrawerForShiftChange: function() {
+            var device = this.getDeviceController();
+            if (device == null) {
+                NotifyUtils.error(_('Error in device manager! Please check your device configuration'));
+                return;
+            }
+
+            // get list of enabled drawers
+            var enabledDevices = device.getEnabledDevices('cashdrawer');
+            if (enabledDevices == null || enabledDevices.length == 0) {
+                // no cashdrawer enabled, simply return
+                return;
+            }
+
+            if (device.isDeviceEnabled('cashdrawer', 1)) {
+                this.openDrawer(1, 'shift change');
+            }
+
+            if (device.isDeviceEnabled('cashdrawer', 2)) {
+                this.openDrawer(2, 'shift change');
+            }
+        },
+        
         openDrawer: function(drawerNo, eventType, paymentType, sequence, amount) {
 
             // 1. get list of enabled drawers; if no drawer is enabled, simply exit

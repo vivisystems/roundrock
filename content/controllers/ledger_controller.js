@@ -93,8 +93,8 @@
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=500';
             var inputObj = {}
             
-            inputObj.entry_types = this.LedgerEntryType.find('all');
-
+            inputObj.entry_types = this.LedgerEntryType.find('all', {order: 'mode, type'});
+            
             window.openDialog(aURL, _('Add Ledger Entry'), features, inputObj);
 
             if (inputObj.ok && inputObj.type != '' && !isNaN(inputObj.amount)) {
