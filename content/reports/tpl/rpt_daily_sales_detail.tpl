@@ -20,7 +20,6 @@
 						<p align="left">Terminal: ${head.store.terminal_no}</p>
 						<p align="left">Clerk: ${head.clerk_displayname}</p>
 						<p align="right">Printed Time: ${foot.gen_time}</p>
-						<p align="right">${head.start_time} - ${head.end_time}</p>
 						<span style="float: left;">${head.title}</span>
 						<span style="float: right;">${head.start_time} - ${head.end_time}</span>
 					</td>
@@ -55,7 +54,7 @@
 
                 <tr>
                     <td></td>
-                    <td colspan="10">
+                    <td colspan="9">
                         <table width="100%">
 {for items in detail.OrderItem}
                             <tr>

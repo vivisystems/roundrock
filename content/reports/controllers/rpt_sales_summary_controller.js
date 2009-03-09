@@ -392,7 +392,7 @@
             this._datas = data;
             
             //var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_sales_summary_chinese.tpl");
-            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_sales_summary.tpl");
+            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/Chinese/rpt_sales_summary.tpl");
 
             var file = GREUtils.File.getFile(path);
             var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );

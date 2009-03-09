@@ -1,4 +1,4 @@
-<div class="paper" style="overflow:auto;">
+<div class="paper">
 <!-- div id="printhead" -->
 <img src="chrome://viviecr/content/skin/images/logo.png" /><br />
 

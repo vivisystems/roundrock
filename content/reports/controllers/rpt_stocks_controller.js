@@ -117,10 +117,10 @@
 
             this._datas = data;
 
-            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_stocks.tpl");
+            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/Chinese/rpt_stocks.tpl");
 
             var file = GREUtils.File.getFile(path);
-            var tpl = GREUtils.File.readAllBytes(file);
+            var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
 
             var result = tpl.process(data);
 
@@ -151,7 +151,7 @@
 
                 this.BrowserPrint.getPrintSettings();
                 this.BrowserPrint.setPaperSizeUnit(1);
-                this.BrowserPrint.setPaperSize(297, 210);
+                this.BrowserPrint.setPaperSize(210, 297);
                 // this.BrowserPrint.setPaperEdge(20, 20, 20, 20);
 
                 this.BrowserPrint.getWebBrowserPrint('preview_frame');

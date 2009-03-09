@@ -1,28 +1,40 @@
-[&QSON]${head.store.name|center:24}[&QSOFF]
-[&DWON]${head.store.branch|center:24}[&DWOFF]
+[&QSON]${head.store.name|center:15}[&QSOFF]
+[&DWON]${head.store.branch|center:14}[&DWOFF]
 ${head.store.telephone1|center:24}
-Terminal: ${head.store.terminal_no|center:24}
-Clerk: ${head.clerk_displayname|center:24}
+
+Terminal: ${head.store.terminal_no}
+Clerk: ${head.clerk_displayname}
 ${head.start_time} ~
-${head.end_time|right:24}
+${head.end_time}
 
 ${head.title|center:24}
 ------------------------
 {for master in body}
 [&CR]
-Clerk:     ${master.username}
+Clerk: ${master.username}
 ------------------------
 {for stamp in master.clockStamps}
-Job:       ${stamp.job|left:12}
-Clock In:  ${stamp.InTime}
-Clock Out: ${stamp.OutTime}
-Span Time: ${stamp.SpanTime}
+Job:
+${stamp.job|right:24}
+Clock In:
+${stamp.InTime|right:24}
+Clock Out:
+${stamp.OutTime|right:24}
+Span Time:
+${stamp.SpanTime|right:24}
 {/for}
 ------------------------
-Summary: ${master.total_spantime|right:33}
+Summary:
+${master.total_spantime|right:24}
 ------------------------
 {/for}
 ${foot.gen_time}
+[&CR]
+[&CR]
+[&CR]
+[&CR]
+[&CR]
+[&CR]
 [&CR]
 [&CR]
 [&CR]
