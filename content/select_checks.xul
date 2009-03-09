@@ -47,6 +47,7 @@
             <vbox >
                 <label id="" value="&selectchecks.check.details;"  class="PageTitle"/>
                 <hbox class="sline"></hbox>
+<<<<<<< HEAD:content/select_checks.xul
                 <textbox class="QueueList" readonly="1" id="itemlist" value="" />
 
                 <hbox  id="dialogButtons"  flex="1">
@@ -61,6 +62,18 @@
 
             </vbox>
         </hbox>
+=======
+                <textbox class="QueueList" flex="1" readonly="1" id="itemlist" value="" />
+                </vbox>
+            </hbox>
+            <spacer flex="1" />
+            <hbox class="ToolBar" flex="1" pack="center">
+                <button id="ok" label="&dialog.okButton.label;" default="true" oncommand="doOKButton();"/>
+                <button id="cancel" label="&dialog.cancelButton.label;" default="false" oncommand="doCancelButton();"/>                    
+            </hbox>             
+        </vbox>
+        
+>>>>>>> 6b93752eabd4d4f6d56f1c0187fb526a83f59b6f:content/select_checks.xul
     </vbox>
 
 </window>

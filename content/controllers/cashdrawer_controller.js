@@ -208,7 +208,7 @@
             var drawer;
             if (drawerNo == null) {
                 drawer = enabledDevices[0];
-                drawerNo = 0;
+                drawerNo = drawer.number;
             }
             else {
                 if (!device.isDeviceEnabled('cashdrawer', drawerNo)) {

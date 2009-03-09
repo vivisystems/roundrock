@@ -1,0 +1,16 @@
+<!ENTITY prompt.shiftchange.title  "Shift Change">
+<!ENTITY prompt.shiftchange.cash  "Net Cash">
+<!ENTITY prompt.shiftchange.balance  "Balance">
+<!ENTITY prompt.shiftchange.sales  "Sales Total">
+<!ENTITY prompt.shiftchange.ledger  "Non-Sale Total">
+<!ENTITY prompt.shiftchange.excess  "Excess Giftcard Payment">
+<!ENTITY prompt.shiftchange.drawer.change  "Change to Leave in Drawer">
+<!ENTITY prompt.shiftchange.description "Note">
+<!ENTITY prompt.shiftchange.amount "Amount">
+<!ENTITY prompt.shiftchange.heading.type "Type">
+<!ENTITY prompt.shiftchange.heading.name "Name">
+<!ENTITY prompt.shiftchange.heading.count "Count">
+<!ENTITY prompt.shiftchange.heading.amount "Amount">
+<!ENTITY prompt.shiftchange.heading.change "Change">
+<!ENTITY prompt.shiftchange.heading.excess "Excess Payment">
+<!ENTITY prompt.end.sale.period "End Sale Period">

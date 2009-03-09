@@ -158,8 +158,9 @@
             // check if zero preset price is allowed
             // @todo
             if (positivePriceRequired && curTransaction != null) {
-                if (curTransaction.checkSellPrice(item) <= 0) {
-                    NotifyUtils.warn(_('Product [%S] may not be registered with a price of [%S]!', [item.name, curTransaction.formatPrice(0)]));
+                sellPrice = curTransaction.checkSellPrice(item)
+                if (sellPrice <= 0) {
+                    NotifyUtils.warn(_('Product [%S] may not be registered with a price of [%S]!', [item.name, curTransaction.formatPrice(sellPrice)]));
                     evt.preventDefault();
                     return;
                 }
@@ -2014,61 +2015,31 @@
 
         },
 
-        accounting: function(inputObj) {
-            // @todo Accounting IN/OUT
+        ledgerEntry: function(inputObj) {
 
             var data = {};
-            data.accountPayment = {};
+            data.ledgerPayment = {};
 
             if (!inputObj) {
-                var aURL = "chrome://viviecr/content/prompt_addaccount.xul";
-                var features = "chrome,titlebar,toolbar,centerscreen,modal,width=500,height=500";
-                var inputObj = {
-                    input0:null,
-                    input1:null,
-                    topics:null
-                };
+                var aURL = 'chrome://viviecr/content/prompt_add_ledger_entry.xul';
+                var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=500';
+                inputObj = {}
 
-                var accountTopic = new AccountTopicModel();
-                inputObj.topics = accountTopic.find('all');
+                var ledgerEntryTypeModel = new LedgerEntryTypeModel();
+                inputObj.entry_types = ledgerEntryTypeModel.find('all');
 
-                window.openDialog(aURL, "prompt_addaccount", features, inputObj);
+                window.openDialog(aURL, _('Add New Ledger Entry'), features, inputObj);
             }
 
             if (!inputObj.ok) {
                 return;
             }
+            var ledgerController = GeckoJS.Controller.getInstanceByName('LedgerRecords');
+            ledgerController.saveLedgerEntry(inputObj);
 
-            if (inputObj.type == "IN") {
-                data.total = inputObj.amount;
-                data.status = 101; // Accounting IN
-            } else {
-                data.total = inputObj.amount * (-1);
-                data.status = 102; // Accounting OUT
-            }
-            
-            var user = new GeckoJS.AclComponent().getUserPrincipal();
-            if ( user != null ) {
-                data.service_clerk = user.username;
-            }
-
-            data.accountPayment['order_items_count'] = 1;
-            data.accountPayment['order_total'] = data.total;
-            data.accountPayment['amount'] = data.total;
-            data.accountPayment['name'] = 'accounting'; // + payment type
-            data.accountPayment['memo1'] = inputObj.topic + "-" + _(inputObj.type); // + topic + topic type
-            data.accountPayment['memo2'] = inputObj.description; // description
-            data.accountPayment['change'] = 0;
-
-            data.accountPayment['service_clerk'] = data.service_clerk;
-            // data.orderPayment['proceeds_clerk'] = data.proceeds_clerk;
-            // data.orderPayment['service_clerk_displayname'] = data.service_clerk_displayname;
-            // data.orderPayment['proceeds_clerk_displayname'] = data.proceeds_clerk_displayname;
-
-            var order = new OrderModel();
-            order.saveAccounting(data);
-
-            return data;
+            // @todo OSD
+            OsdUtils.info(_('Transaction [%S] for amount of [%S] successfully logged to the ledger',
+                               [inputObj.type + (inputObj.description ? ' (' + inputObj.description + ')' : ''), inputObj.amount]))
         },
 
         addPayment: function(type, amount, origin_amount, memo1, memo2) {
@@ -2429,17 +2400,17 @@
             this._getKeypadController().clearBuffer();
             this.cancelReturn();
 
+            // clear register screen if needed
+            if (GeckoJS.Configure.read('vivipos.fec.settings.ClearCartAfterFinalization')) {
+                this._cartView.empty();
+            }
+
             if (status != 2) {
                 if (status != 1) this.dispatchEvent('onWarning', '');
                 this.dispatchEvent('onSubmit', oldTransaction);
             }
             else
                 this.dispatchEvent('onGetSubtotal', oldTransaction);
-            
-            // clear register screen if needed
-            if (GeckoJS.Configure.read('vivipos.fec.settings.ClearCartAfterFinalization')) {
-                this._cartView.empty();
-            }
         },
 
 

@@ -15,17 +15,19 @@
                                    valueClass="console_message_value"
                                    />
                 <viviuserlabel id="current_user" class="current_user"/>
-                <vivisessionstatus id="console_message" flex="1"
-                                   class="console_message"
-                                   columns="1"
+                <vivisessionstatus id="sale_period" flex="1"
+                                   class="sale_period"
+                                   columns="2"
                                    crop="end"
                                    nolabels="true"
-                                   keys="vivipos_fec_console_message"
+                                   noseparator="true"
+                                   keys="sale_period_string,shift_number"
                                    valueClass="console_message_value"
                                  />
                 <viviclock id="clock" class="clock" showdate="true"/>
 
-                <sync_status id="syncStatus" />
+                <image id="receiptStatus" class="receiptStatus"/>
+                <sync_status id="syncStatus"/>
             </statusbarpanel>
         </statusbar>
     </box>

@@ -1,0 +1,1087 @@
+msgid "Condiments"
+msgstr "Condiments"
+
+msgid "Currency Exchange"
+msgstr "Currency Exchange"
+
+msgid "Departments"
+msgstr "Departments"
+
+msgid "Promotions"
+msgstr "Promotions (inactive)"
+
+msgid "Employees"
+msgstr "Employees"
+
+msgid "Function Panel Configuration"
+msgstr "Function Panel Configuration"
+
+msgid "Data Import/ Export"
+msgstr "Data Import/ Export"
+
+msgid "Jobs"
+msgstr "Jobs"
+
+msgid "Image Manager"
+msgstr "Image Manager"
+
+msgid "Locale and Keyboard Mapping"
+msgstr "Language and Keyboard Mapping"
+
+msgid "Product Groups"
+msgstr "Product Groups"
+
+msgid "Products"
+msgstr "Products"
+
+msgid "Ledger"
+msgstr "Ledger"
+
+msgid "Price Level Schedule"
+msgstr "Price Level Schedule"
+
+msgid "Reports"
+msgstr "Reports"
+
+msgid "Roles"
+msgstr "Roles"
+
+msgid "Stock Control"
+msgstr "Stock Control"
+
+msgid "System Backup"
+msgstr "System Backup"
+
+msgid "General Options"
+msgstr "General Options"
+
+msgid "Taxes"
+msgstr "Taxes"
+
+msgid "Date and Time"
+msgstr "Date & Time"
+
+msgid "Store Contact"
+msgstr "Store Contact"
+
+msgid "Devices"
+msgstr "Devices"
+
+msgid "Accounting Report"
+msgstr "Accounting Report"
+
+msgid "Attendance Record"
+msgstr "Attendance Record"
+
+msgid "Cash by Clerk"
+msgstr "Cash Report"
+
+msgid "Department List"
+msgstr "Department List"
+
+msgid "Inventory Report"
+msgstr "Stock Report"
+
+msgid "Print Label"
+msgstr "Print Label"
+
+msgid "Product List"
+msgstr "Product List"
+
+msgid "Product Sales"
+msgstr "Sales Report"
+
+msgid "Taxes Report"
+msgstr "Taxes Report"
+
+msgid "User List"
+msgstr "User List"
+
+msgid "Product Filters"
+msgstr "Product Filters"
+
+msgid "Destinations"
+msgstr "Order Destinations"
+
+msgid "Annotations"
+msgstr "Annotations"
+
+# \ register\ display:\ payment\ types
+msgid "CREDITCARD"
+msgstr "CC"
+
+msgid "COUPON"
+msgstr "CPN"
+
+msgid "CASH"
+msgstr "$"
+
+msgid "CHECK"
+msgstr "CHK"
+
+msgid "GIFTCARD"
+msgstr "GC"
+
+# \ register\ display:\ marker\ types
+msgid "** SUBTOTAL"
+msgstr "** SUB"
+
+msgid "** TOTAL"
+msgstr "** TAL"
+
+msgid "** TRAY"
+msgstr "** TRAY"
+
+# \ register\ display:\ others
+msgid "House Bon"
+msgstr "BON"
+
+msgid "annotate.desc"
+msgstr ""
+"This function is used to add and/or view annotations. Annotations are "
+"most often used to allow the user to enter customer data or special messages "
+"to be printed on receipts or checks. The parameter may be set to a "
+"pre-defined annotation code, in which case the user will be prompted "
+"to enter the annotation text for that annotation code. If the parameter is "
+"left blank, all annotations for the current order are listed, and the user "
+"may add, edit, or delete annotations per his/her access privileges."
+
+msgid "annotate.label"
+msgstr "Annotate"
+
+msgid "annotate.name"
+msgstr "Annotate"
+
+msgid "receipt.desc"
+msgstr ""
+"This function issues a post-finalization receipt. The parameter should be 1 "
+"or 2, indicating the printer to issue the receipt on. If no parameter is "
+"given, the receipt will be printed on all enabled receipt printers."
+
+msgid "receipt.label"
+msgstr "Issue Receipt"
+
+msgid "receipt.name"
+msgstr "Issue Receipt"
+
+msgid "receiptcopy.desc"
+msgstr ""
+"This function issues a receipt copy. The parameter should be 1 "
+"or 2, indicating the printer to issue the receipt on. If no parameter is "
+"given, the receipt will be printed on all enabled receipt printers."
+
+msgid "receiptcopy.label"
+msgstr "Issue Receipt Copy"
+
+msgid "receiptcopy.name"
+msgstr "Issue Receipt Copy"
+
+msgid "printcheck.desc"
+msgstr ""
+"This function issues a check. The parameter should be 1, 2, 3, or 4, "
+"indicating the printer to issue the check on. If no parameter is "
+"given, the check will be printed on all enabled check printers."
+
+msgid "printcheck.label"
+msgstr "Issue Check"
+
+msgid "printcheck.name"
+msgstr "Issue Check"
+
+msgid "checkcopy.desc"
+msgstr ""
+"This function issues a check copy. The parameter should be 1, 2, 3, or 4, "
+"indicating the printer to issue the check on. If no parameter is "
+"given, the check will be printed on all enabled check printers."
+
+msgid "checkcopy.label"
+msgstr "Issue Check Copy"
+
+msgid "checkcopy.name"
+msgstr "Issue Check Copy"
+
+msgid "pricelevelshift.desc"
+msgstr ""
+"This function shifts the current price level up by 1. No parameter is needed."
+
+msgid "pricelevelshift.label"
+msgstr "Price Level Shift"
+
+msgid "pricelevelshift.name"
+msgstr "Price Level Shift"
+
+msgid "pricelevel1.desc"
+msgstr ""
+"This function sets the current price level to 1. The parameter must be 1."
+
+msgid "pricelevel1.label"
+msgstr "Price Level 1"
+
+msgid "pricelevel1.name"
+msgstr "Price Level 1"
+
+msgid "pricelevel2.desc"
+msgstr ""
+"This function sets the current price level to 2. The parameter must be 2."
+
+msgid "pricelevel2.label"
+msgstr "Price Level 2"
+
+msgid "pricelevel2.name"
+msgstr "Price Level 2"
+
+msgid "pricelevel3.desc"
+msgstr ""
+"This function sets the current price level to 3. The parameter must be 3."
+
+msgid "pricelevel3.label"
+msgstr "Price Level 3"
+
+msgid "pricelevel3.name"
+msgstr "Price Level 3"
+
+msgid "pricelevel4.desc"
+msgstr ""
+"This function sets the current price level to 4. The parameter must be 4."
+
+msgid "pricelevel4.label"
+msgstr "Price Level 4"
+
+msgid "pricelevel4.name"
+msgstr "Price Level 4"
+
+msgid "pricelevel5.desc"
+msgstr ""
+"This function sets the current price level to 5. The parameter must be 5."
+
+msgid "pricelevel5.label"
+msgstr "Price Level 5"
+
+msgid "pricelevel5.name"
+msgstr "Price Level 5"
+
+msgid "pricelevel6.desc"
+msgstr ""
+"This function sets the current price level to 6. The parameter must be 6."
+
+msgid "pricelevel6.label"
+msgstr "Price Level 6"
+
+msgid "pricelevel6.name"
+msgstr "Price Level 6"
+
+msgid "pricelevel7.desc"
+msgstr ""
+"This function sets the current price level to 7. The parameter must be 7."
+
+msgid "pricelevel7.label"
+msgstr "Price Level 7"
+
+msgid "pricelevel7.name"
+msgstr "Price Level 7"
+
+msgid "pricelevel8.desc"
+msgstr ""
+"This function sets the current price level to 8. The parameter must be 8."
+
+msgid "pricelevel8.label"
+msgstr "Price Level 8"
+
+msgid "pricelevel8.name"
+msgstr "Price Level 8"
+
+msgid "pricelevel9.desc"
+msgstr ""
+"This function sets the current price level to 9. The parameter must be 9."
+
+msgid "pricelevel9.label"
+msgstr "Price Level 9"
+
+msgid "pricelevel9.name"
+msgstr "Price Level 9"
+
+msgid "shifttax.desc"
+msgstr ""
+"This function shifts current item's tax status. The parameter field can be "
+"used to program a specific tax status. If a preset tax status is programmed, "
+"this function changes the current item to the preset tax status; otherwise, "
+"it shifts the item to the next tax status."
+
+msgid "shifttax.label"
+msgstr "Shift Tax"
+
+msgid "shifttax.name"
+msgstr "Shift Tax"
+
+msgid "discountByPercentage.desc"
+msgstr ""
+"This function registers a percentage-based discount. The parameter field can "
+"be used to program a preset percentage and label (separated by comma.) If no preset percentage is "
+"programmed, the discount percentage is read from the input line."
+
+msgid "discountByPercentage.label"
+msgstr "-%"
+
+msgid "discountByPercentage.name"
+msgstr "Discount"
+
+msgid "discountByAmount.desc"
+msgstr ""
+"This function registers a reduction. The parameter field can be used to "
+"program a preset reduction amount and label (separated by comma.) If no preset amount is programmed, the "
+"discount amount is read from the input line."
+
+msgid "discountByAmount.label"
+msgstr "-"
+
+msgid "discountByAmount.name"
+msgstr "Reduction"
+
+msgid "surchargeByPercentage.desc"
+msgstr ""
+"This function registers a percentage surcharge. The parameter field can be "
+"used to program a preset surcharge and label (separated by comma.) If no preset surcharge is programmed, "
+"the surcharge percentage is read from the input line."
+
+msgid "surchargeByPercentage.label"
+msgstr "+%"
+
+msgid "surchargeByPercentage.name"
+msgstr "Surcharge"
+
+msgid "surchargeByAmount.desc"
+msgstr ""
+"This function registers an addition. The parameter field can be used to "
+"program a preset addition amount and label (separated by comma.) If no preset amount is programmed, the "
+"amount is read from the input line."
+
+msgid "surchargeByAmount.label"
+msgstr "+"
+
+msgid "surchargeByAmount.name"
+msgstr "PLUS"
+
+msgid "cash.desc"
+msgstr ""
+"This function registers a cash payment. The parameter field can be used to "
+"program a preset cash payment amount. If no preset is programmed, the "
+"payment amount is read from the input line  If the input line is also blank, "
+"a quick cash payment is registered."
+
+msgid "cash.label"
+msgstr "Cash"
+
+msgid "cash.name"
+msgstr "Cash"
+
+msgid "keypress.desc"
+msgstr ""
+"This function simulates a series of key presses. The parameter field "
+"contains the string of key characters to press."
+
+msgid "keypress.label"
+msgstr "Key"
+
+msgid "keypress.name"
+msgstr "Keypress"
+
+msgid "clear.desc"
+msgstr ""
+"This function clears the input line. The parameter field must not be altered"
+
+msgid "clear.label"
+msgstr "Clear"
+
+msgid "clear.name"
+msgstr "Clear"
+
+msgid "enter.desc"
+msgstr ""
+"This function simulates pressing the 'Enter' key. The parameter field must "
+"not be altered"
+
+msgid "enter.label"
+msgstr "Enter"
+
+msgid "enter.name"
+msgstr "Enter"
+
+msgid "quantity.desc"
+msgstr ""
+"This function sets the quantity to the value entered on the input line. The "
+"parameter field must not be altered"
+
+msgid "quantity.label"
+msgstr "X"
+
+msgid "quantity.name"
+msgstr "Quantity"
+
+msgid "subtotal.desc"
+msgstr ""
+"This function registers a subtotal. The parameter field must not be altered"
+
+msgid "subtotal.label"
+msgstr "SUB TOTAL"
+
+msgid "subtotal.name"
+msgstr "Sub Total"
+
+msgid "traymarker.desc"
+msgstr ""
+"This function registers a tray marker. The parameter field must not be "
+"altered"
+
+msgid "traymarker.label"
+msgstr "Tray Marker"
+
+msgid "traymarker.name"
+msgstr "Tray Marker"
+
+msgid "cancel.desc"
+msgstr "This function cancels the current order. No parameter is needed."
+
+msgid "cancel.label"
+msgstr "Cancel"
+
+msgid "cancel.name"
+msgstr "Cancel"
+
+msgid "plusearch.desc"
+msgstr ""
+"This function allows the operator to perform a Product search. No parameter "
+"is needed."
+
+msgid "plusearch.label"
+msgstr "Product Search"
+
+msgid "plusearch.name"
+msgstr "Product Search"
+
+msgid "pushqueue.desc"
+msgstr ""
+"This function queues the current order and readies the register for a new "
+"order. No parameter is needed."
+
+msgid "pushqueue.label"
+msgstr "Queue Order"
+
+msgid "pushqueue.name"
+msgstr "Queue Order"
+
+msgid "pullqueue.desc"
+msgstr ""
+"This function allows the operator to recall a queued order. No parameter is "
+"needed."
+
+msgid "pullqueue.label"
+msgstr "View Queue"
+
+msgid "pullqueue.name"
+msgstr "View Queue"
+
+msgid "modifyitem.desc"
+msgstr ""
+"This function allows the operator to modify a registered item. No parameter "
+"is needed."
+
+msgid "modifyitem.label"
+msgstr "Modify"
+
+msgid "modifyitem.name"
+msgstr "Modify Item"
+
+msgid "voidItem.desc"
+msgstr "This function voids the last transaction. No parameter is needed."
+
+msgid "voidItem.label"
+msgstr "VOID"
+
+msgid "voidItem.name"
+msgstr "VOID"
+
+msgid "houseBon.desc"
+msgstr ""
+"This function marks the current item as 'on-the-house'. The parameter, if "
+"specified, will be used to register the discount."
+
+msgid "houseBon.label"
+msgstr "House BON"
+
+msgid "houseBon.name"
+msgstr "House BON"
+
+msgid "signOff.desc"
+msgstr "This function signs off the current operator. No parameter is needed."
+
+msgid "signOff.label"
+msgstr "Sign Off"
+
+msgid "signOff.name"
+msgstr "Sign Off"
+
+msgid "currencyConvert.desc"
+msgstr ""
+"This function registers a currency conversion. The parameter indicates the "
+"currency code to convert from and must be filled."
+
+msgid "currencyConvert.label"
+msgstr "Currency Exchange"
+
+msgid "currencyConvert.name"
+msgstr "Currency Exchange"
+
+msgid "changeToCurrentLevel.desc"
+msgstr ""
+"This function resets the current price level. If the price level schedule is "
+"active, the currently scheduled level is restored. If the price level "
+"schedule is not active, or if no schedule has been defined, the price level "
+"reverts to the system/user default. No parameter is needed."
+
+msgid "changeToCurrentLevel.label"
+msgstr "Reset Price Level"
+
+msgid "changeToCurrentLevel.name"
+msgstr "Reset Price Level"
+
+msgid "silentsignoff.desc"
+msgstr ""
+"This function allows a silent switch to the user specified in the paramter "
+"field using password from the input buffer. The parameter field must be set "
+"to the username of the user to switch to."
+
+msgid "silentsignoff.label"
+msgstr "Silent User Switch"
+
+msgid "silentsignoff.name"
+msgstr "Silent User Switch"
+
+msgid "quicksignoff.desc"
+msgstr ""
+"This function allows the current user to enter a password and quickly switch "
+"to the user identified by that password. No parameter is needed."
+
+msgid "quicksignoff.label"
+msgstr "Change Clerk"
+
+msgid "quicksignoff.name"
+msgstr "Quick User Switch"
+
+msgid "dispatch.desc"
+msgstr ""
+"This function dispatches a command to a controller. The parameter field "
+"should be a comma-separated list of arguments, with the first argument being "
+"the command name, the second argument the data to pass to the command, and "
+"the third argument the controller handling the command."
+
+msgid "dispatch.label"
+msgstr "Dispatch"
+
+msgid "dispatch.name"
+msgstr "Dispatch"
+
+msgid "return.desc"
+msgstr ""
+"This function registers a return of an item for refund. No parameter is "
+"needed."
+
+msgid "return.label"
+msgstr "Refund"
+
+msgid "return.name"
+msgstr "Refund"
+
+msgid "creditcard.desc"
+msgstr ""
+"This function registers a credit card payment. The parameter field should be "
+"set to the credit type. The payment amount is read from the input line; if "
+"no input is present, the payment will be for the balance due."
+
+msgid "creditcard.label"
+msgstr "Credit Card"
+
+msgid "creditcard.name"
+msgstr "Credit Card"
+
+msgid "coupon.desc"
+msgstr ""
+"This function registers a coupon payment. The parameter field should be set "
+"to the coupon type. A preset amount may be defined after the coupon type, "
+"separated by a comma. If no preset amount is programmed, the payment amount "
+"is read from the input line; if no input is present, the payment will be for "
+"the balance due."
+
+msgid "coupon.label"
+msgstr "Coupon"
+
+msgid "coupon.name"
+msgstr "Coupon"
+
+msgid "giftcard.desc"
+msgstr ""
+"This function registers a giftcard payment. A giftcard payment is similar to "
+"a coupon payment, except that no change is given. The parameter field should "
+"be set to the giftcard type. A preset amount may also be defined after the "
+"giftcard type, separated by a comma. If no preset amount is programmed, the "
+"payment amount is read from the input line; if no input is present, the "
+"payment will be for the balance due."
+
+msgid "giftcard.label"
+msgstr "Giftcard"
+
+msgid "giftcard.name"
+msgstr "Giftcard"
+
+msgid "check.desc"
+msgstr ""
+"This function registers a check payment. The parameter field should be set "
+"to the check type. The payment amount is read from the input line; if no "
+"input is present, the payment will be for the balance due."
+
+msgid "check.label"
+msgstr "Check"
+
+msgid "check.name"
+msgstr "Check"
+
+msgid "addmemo.desc"
+msgstr ""
+"This function adds an open memo to an item in the cart. The memo may also be "
+"preset in the parameter field."
+
+msgid "addmemo.label"
+msgstr "Add Memo"
+
+msgid "addmemo.name"
+msgstr "Add Memo"
+
+msgid "addcondiment.desc"
+msgstr ""
+"This function registers a condiment. The parameter field must be empty."
+
+msgid "addcondiment.label"
+msgstr "Add Condiment"
+
+msgid "addcondiment.name"
+msgstr "Add Condiment"
+
+msgid "surchargePretaxByPercentage.desc"
+msgstr ""
+"This function registers a pretax order surcharge by percentage. The "
+"parameter field can be used to program a preset percentage and label (separated by comma.) If no preset "
+"percentage is programmed, the surcharge percentage is read from the input "
+"line."
+
+msgid "surchargePretaxByPercentage.label"
+msgstr "Pretax Order Surcharge"
+
+msgid "surchargePretaxByPercentage.name"
+msgstr "Pretax Order Surcharge"
+
+msgid "discountPretaxByPercentage.desc"
+msgstr ""
+"This function registers a pretax order discount by percentage. The parameter "
+"field can be used to program a preset percentage and label (separated by comma.) If no preset percentage is "
+"programmed, the discount percentage is read from the input line."
+
+msgid "discountPretaxByPercentage.label"
+msgstr "Pretax Order Discount"
+
+msgid "discountPretaxByPercentage.name"
+msgstr "Pretax Order Discount"
+
+msgid "opendrawer1.desc"
+msgstr "This function opens cash drawer #1. The parameter field must be empty."
+
+msgid "opendrawer1.label"
+msgstr "Cash Drawer #1"
+
+msgid "opendrawer1.name"
+msgstr "Cash Drawer #1"
+
+msgid "opendrawer2.desc"
+msgstr "This function opens cash drawer #2. The parameter field must be empty."
+
+msgid "opendrawer2.label"
+msgstr "Cash Drawer #2"
+
+msgid "opendrawer2.name"
+msgstr "Cash Drawer #2"
+
+msgid "prefinalize.desc"
+msgstr ""
+"This function closes the current order in order for finalization. As part of "
+"pre-finalization, the order is closed pending payment of the balance. The "
+"same set of post-finalization receipts, slips, and checks will be "
+"automatically printed. The parameter field may optional contain a destination. "
+"When destination is given, the order will be validated against it."
+
+msgid "prefinalize.label"
+msgstr "Pre-Finalize"
+
+msgid "prefinalize.name"
+msgstr "Pre-Finalize"
+
+msgid "setdestination.desc"
+msgstr ""
+"This function sets the destination indicator to the status given by the "
+"parameter. The parameter field should be set to a defined destination name."
+
+msgid "setdestination.label"
+msgstr "Set Destination"
+
+msgid "setdestination.name"
+msgstr "Set Destination"
+
+msgid "tagitem.desc"
+msgstr ""
+"This function tags the current cart item with the tag given by the "
+"parameter. The parameter field must not be empty."
+
+msgid "tagitem.label"
+msgstr "Tag Item"
+
+msgid "tagitem.name"
+msgstr "Tag Item"
+
+msgid "// ACL Roles"
+msgstr ""
+
+msgid "acl_user_dummy"
+msgstr "dummy"
+
+msgid "acl_override_default_price_level"
+msgstr "Override Default Price Level"
+
+msgid "acl_change_price_level"
+msgstr "Change Price Level"
+
+msgid "acl_set_price_level_1"
+msgstr "Set Price Level 1"
+
+msgid "acl_set_price_level_2"
+msgstr "Set Price Level 2"
+
+msgid "acl_set_price_level_3"
+msgstr "Set Price Level 3"
+
+msgid "acl_set_price_level_4"
+msgstr "Set Price Level 4"
+
+msgid "acl_set_price_level_5"
+msgstr "Set Price Level 5"
+
+msgid "acl_set_price_level_6"
+msgstr "Set Price Level 6"
+
+msgid "acl_set_price_level_7"
+msgstr "Set Price Level 7"
+
+msgid "acl_set_price_level_8"
+msgstr "Set Price Level 8"
+
+msgid "acl_set_price_level_9"
+msgstr "Set Price Level 9"
+
+msgid "acl_revert_price_level"
+msgstr "Revert Price Level"
+
+msgid "acl_override_halo"
+msgstr "Override HALO"
+
+msgid "acl_override_lalo"
+msgstr "Override LALO"
+
+msgid "acl_queue_order"
+msgstr "Queue Order"
+
+msgid "acl_pull_queue"
+msgstr "Pull Order from Queue"
+
+msgid "acl_open_control_panel"
+msgstr "Access Control Panel"
+
+msgid "acl_void_cart_item"
+msgstr "Void Cart Items"
+
+msgid "acl_cancel_order"
+msgstr "Cancel Order"
+
+msgid "acl_plu_search"
+msgstr "Product Search"
+
+msgid "acl_open_cash"
+msgstr "Register Cash Payment"
+
+msgid "acl_toggle_function_panel"
+msgstr "Toggle Function Panl"
+
+msgid "acl_run_report"
+msgstr "Run Report"
+
+msgid "acl_manage_condiments"
+msgstr "Manage Condiments"
+
+msgid "acl_manage_currency"
+msgstr "Manage Currency Exchange"
+
+msgid "acl_manage_departments"
+msgstr "Manage Departments"
+
+msgid "acl_manage_employees"
+msgstr "Manage Employees"
+
+msgid "acl_manage_function_panel"
+msgstr "Manage Function Panel"
+
+msgid "acl_shift_item_tax"
+msgstr "Shift Item Tax"
+
+msgid "acl_register_discount"
+msgstr "Register Discounts"
+
+msgid "acl_register_reduction"
+msgstr "Register Reductions"
+
+msgid "acl_register_surcharge"
+msgstr "Register Surcharges"
+
+msgid "acl_register_addition"
+msgstr "Register Additions"
+
+msgid "acl_send_keypress"
+msgstr "Send Keypresses"
+
+msgid "acl_register_plus"
+msgstr "Register Products"
+
+msgid "acl_register_enter"
+msgstr "Register ENTER"
+
+msgid "acl_register_quantity"
+msgstr "Register Quantity"
+
+msgid "acl_register_sub_total"
+msgstr "Register Subtotal"
+
+msgid "acl_register_tray_marker"
+msgstr "Register Tray Marker"
+
+msgid "acl_register_housebon"
+msgstr "Register House BON"
+
+msgid "acl_register_currency_exchange"
+msgstr "Register Currency Exchange"
+
+msgid "acl_manage_jobs"
+msgstr "Manage Jobs"
+
+msgid "acl_manage_plu_groups"
+msgstr "Manage Product Groups"
+
+msgid "acl_manage_import_export"
+msgstr "Import/Export Data"
+
+msgid "acl_manage_price_level_schedule"
+msgstr "Manage Price Level Schedule"
+
+msgid "acl_manage_acl_groups"
+msgstr "Manage Access Groups"
+
+msgid "acl_manage_stock"
+msgstr "Manage Stock"
+
+msgid "acl_manage_system_options"
+msgstr "Manage System Options"
+
+msgid "acl_manage_taxes"
+msgstr "Manage Taxes"
+
+msgid "acl_manage_products"
+msgstr "Manage Products"
+
+msgid "acl_register_return"
+msgstr "Register Item Return"
+
+msgid "acl_register_credit_card"
+msgstr "Register Credit Card Payment"
+
+msgid "acl_register_coupon"
+msgstr "Register Coupon Payment"
+
+msgid "acl_register_giftcard"
+msgstr "Register Giftcard Payment"
+
+msgid "acl_manage_images"
+msgstr "Manage Images"
+
+msgid "acl_modify_condiment_price"
+msgstr "Modify Condiment Price"
+
+msgid "acl_manage_locale_keyboard"
+msgstr "Change Language and Keyboard Mapping"
+
+msgid "acl_register_pretax_discount"
+msgstr "Register Order Discounts Pretax"
+
+msgid "acl_register_pretax_surcharge"
+msgstr "Register Order Surcharges Pretax"
+
+msgid "acl_manage_reports"
+msgstr "Run Reports"
+
+msgid "acl_manage_date_time"
+msgstr "Set Date and Time"
+
+msgid "acl_manage_devices"
+msgstr "Manage Devices"
+
+msgid "acl_issue_post_receipt"
+msgstr "Issue Post-finalization Receipt"
+
+msgid "acl_issue_post_receipt_copy"
+msgstr "Issue Post-finalization Receipt Copy"
+
+msgid "acl_issue_check"
+msgstr "Issue Check"
+
+msgid "acl_issue_check_copy"
+msgstr "Issue Check Copy"
+
+msgid "acl_manage_storecontact"
+msgstr "Manage Store Contact"
+
+msgid "acl_open_cashdrawer_1"
+msgstr "Open Cash Drawer #1"
+
+msgid "acl_open_cashdrawer_2"
+msgstr "Open Cash Drawer #2"
+
+msgid "acl_register_check"
+msgstr "Register Check Payment"
+
+msgid "acl_manage_backup"
+msgstr "Manage System Backup/Recovery"
+
+msgid "acl_manage_sync_settings"
+msgstr "Manage Cluster Synchronization"
+
+msgid "acl_set_destination"
+msgstr "Set Destination"
+
+msgid "acl_pre_finalize"
+msgstr "Pre-Finalize Order"
+
+msgid "acl_modify_price"
+msgstr "Modify Price"
+
+msgid "acl_modify_quantity"
+msgstr "Modify Quantity"
+
+msgid "acl_register_open_price"
+msgstr "Register Open Price"
+
+msgid "acl_void_transactions"
+msgstr "Void Completed Transactions"
+
+msgid "acl_tag_item"
+msgstr "Tag Item"
+
+msgid "acl_manage_network_setting"
+msgstr "Manage Network"
+
+msgid "acl_scroll_function_panel"
+msgstr "Scroll Function Panel"
+
+msgid "Network Setting"
+msgstr "Network Setting"
+
+msgid "Synchronization Settings"
+msgstr "Synchronization Settings"
+
+msgid "acl_manage_hotkey"
+msgstr "Manage Hotkey"
+
+msgid "HotKey Configuration"
+msgstr "HotKey Configuration"
+
+msgid "acl_manage_addons"
+msgstr "Manage Add-Ons"
+
+msgid "Add-Ons"
+msgstr "Add-Ons"
+
+msgid "acl_manage_destinations"
+msgstr "Manage Order Destinations"
+
+msgid "acl_manage_annotations"
+msgstr "Manage Annotations"
+
+msgid "acl_manage_plufilters"
+msgstr "Manage Product Filters"
+
+msgid "acl_annotate"
+msgstr "Add Annotations"
+
+msgid "acl_view_annotations"
+msgstr "View Annotations"
+
+msgid "acl_modify_annotations"
+msgstr "Modify Annotations"
+
+msgid "acl_delete_annotations"
+msgstr "Delete Annotations"
+
+msgid "acl_manage_ledger"
+msgstr "Manage Ledger"
+
+msgid "acl_view_ledger_entry"
+msgstr "View Ledger Entries"
+
+msgid "acl_add_ledger_entry"
+msgstr "Add Ledger Entries"
+
+msgid "acl_modify_ledger_entry"
+msgstr "Modify Ledger Entries"
+
+msgid "acl_delete_ledger_entry"
+msgstr "Delete Ledger Entries"
+
+msgid "Cash Drawer Report"
+msgstr "Cash Drawer Report"
+
+msgid "acl_toggle_receipt"
+msgstr "Toggle Receipt Printing"
+
+msgid "togglereceipt.desc"
+msgstr ""
+"This function is used to toggle receipt printing on/off. No parameter is needed."
+
+msgid "togglereceipt.label"
+msgstr "Receipt On/Off"
+
+msgid "togglereceipt.name"
+msgstr "Receipt On/Off"
+
+msgid "shiftchange.desc"
+msgstr ""
+"This function is used to initiate shift change. No parameter is needed."
+
+msgid "shiftchange.label"
+msgstr "Shift Change"
+
+msgid "shiftchange.name"
+msgstr "Shift Change"
+
+msgid "ledgerentry.desc"
+msgstr ""
+"This function is used to enter an entry into the ledger. No parameter is needed."
+
+msgid "ledgerentry.label"
+msgstr "Ledger Entry"
+
+msgid "ledgerentry.name"
+msgstr "Ledger Entry"
+
+msgid "acl_end_sale_period"
+msgstr "End Sale Period"

@@ -57,12 +57,15 @@
   <script src='chrome://viviecr/content/controllers/shift_changes_controller.js'/>
   <script src='chrome://viviecr/content/controllers/stocks_controller.js'/>
   <script src='chrome://viviecr/content/controllers/plus_controller.js'/>
+  <script src='chrome://viviecr/content/controllers/ledger_controller.js'/>
+  <script src='chrome://viviecr/content/controllers/ledger_entry_types_controller.js'/>
 
   <!-- device controllers -->
   <script src='chrome://viviecr/content/controllers/devices_controller.js'/>
   <script src='chrome://viviecr/content/controllers/print_controller.js'/>
   <script src='chrome://viviecr/content/controllers/vfd_controller.js'/>
-  <script src='chrome://viviecr/content/controllers/cash_drawer_controller.js'/>
+  <script src='chrome://viviecr/content/controllers/cashdrawer_controller.js'/>
+  <script src='chrome://viviecr/content/controllers/gpio_controller.js'/>
 
   <script src="chrome://viviecr/content/overlay.js" type="application/x-javascript"/>
 
@@ -72,7 +75,7 @@
 
         <box id="mainPanel" flex="1" class="mainpanel" orient="horizontal">
 
-            <box id="leftPanel" flex="1" style="overflow: hidden" orient="vertical">
+            <box id="leftPanel" flex="1" style="overflow: hidden" orient="vertical" class="leftPanel">
                 <box id="productPanelContainer" flex="1" class="productPanel" />
             </box>
 

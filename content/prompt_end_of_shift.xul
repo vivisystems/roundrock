@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % EndOfShift SYSTEM "chrome://viviecr/locale/shiftchange.dtd">
+  %EndOfShift;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+<window title="&dialog.prompt.title;"
+        hidechrome="true"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+    <keyset id="keyset_extensions">
+        <key id="key_enter" keycode="VK_RETURN" oncommand="document.getElementById('ok').click()"/>
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()" />
+    </keyset>
+
+    <script type="application/x-javascript" src="chrome://viviecr/content/prompt_additem.js" />
+    <script type="application/x-javascript">
+        var GeckoJS = opener.GeckoJS;
+        var GREUtils = opener.GREUtils;
+
+        var message = window.arguments[0];
+        function startup() {
+            document.getElementById('message').value = message;
+        }
+
+        window.addEventListener('load', startup, false);
+
+    </script>
+    <vbox class="main-dialog" flex="1">
+        <vbox class="MainPnl" flex="1">
+            <label id="message" value="" class="PageTitle"/>
+            <spacer flex="1"/>
+            <hbox>
+                <hbox id="dialogButtons" class="ToolBar" flex="1">
+                    <button id="print" label="&shiftchange.button.print.this.shift;" default="false" oncommand="opener.$do('printShiftReport', null, 'ShiftChanges');"/>
+                    <spacer flex="1"/>
+                    <button id="ok" label="&dialog.okButton.label;" default="true" oncommand="doOKButton();"/>
+                </hbox>
+            </hbox>
+        </vbox>
+    </vbox>
+    
+</window>
