@@ -20,7 +20,7 @@ pref("vivipos.fec.settings.controlpanels.employee.storecontact.roles", "acl_mana
  
 pref("vivipos.fec.settings.controlpanels.config.destinations.label", "Destinations");
 pref("vivipos.fec.settings.controlpanels.config.destinations.path", "chrome://viviecr/content/destinations.xul");
-pref("vivipos.fec.settings.controlpanels.config.destinations.icon", "chrome://viviecr/skin/icons/icon_store.png");
+pref("vivipos.fec.settings.controlpanels.config.destinations.icon", "chrome://viviecr/skin/icons/icon_destinations.png");
 pref("vivipos.fec.settings.controlpanels.config.destinations.roles", "acl_manage_destinations");
 
 pref("vivipos.fec.settings.controlpanels.config.annotations.label", "Annotations");
@@ -85,7 +85,7 @@ pref("vivipos.fec.settings.controlpanels.config.currency.roles", "acl_manage_cur
  
 pref("vivipos.fec.settings.controlpanels.product.plufilters.label", "Product Filters");
 pref("vivipos.fec.settings.controlpanels.product.plufilters.path", "chrome://viviecr/content/plufilters.xul");
-pref("vivipos.fec.settings.controlpanels.product.plufilters.icon", "chrome://viviecr/skin/icons/icon_store.png");
+pref("vivipos.fec.settings.controlpanels.product.plufilters.icon", "chrome://viviecr/skin/icons/icon_productsort.png");
 pref("vivipos.fec.settings.controlpanels.product.plufilters.roles", "acl_manage_plufilters");
 
 pref("vivipos.fec.settings.controlpanels.product.stocks.label", "Stock Control");
@@ -163,7 +163,7 @@ pref("vivipos.fec.settings.controlpanels.config.addons.roles", "acl_manage_addon
 
 pref("vivipos.fec.settings.controlpanels.config.ledger.label", "Ledger");
 pref("vivipos.fec.settings.controlpanels.config.ledger.path", "chrome://viviecr/content/ledger.xul");
-pref("vivipos.fec.settings.controlpanels.config.ledger.icon", "chrome://viviecr/skin/icons/icon_generic.png");
+pref("vivipos.fec.settings.controlpanels.config.ledger.icon", "chrome://viviecr/skin/icons/icon_daybook.png");
 pref("vivipos.fec.settings.controlpanels.config.ledger.roles", "acl_manage_ledger");
 
 pref("vivipos.fec.registry.function.programmable.tagitem.access", "acl_tag_item");
