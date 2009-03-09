@@ -139,12 +139,14 @@
                 var ncols = this.getAttribute('columns');
                 var useSep = (this.getAttribute('noseparator') != 'true');
                 var useLabel = (this.getAttribute('nolabels') != 'true');
-                this.keys = this.getAttribute('keys').split(',');
+                var ratios = this.getAttribute('ratios').split(',');
 
                 var labelClass = this.getAttribute('labelClass');
                 var valueClass = this.getAttribute('valueClass');
                 var separatorClass = this.getAttribute('separatorClass') || 'groove-thin';
 
+                this.keys = this.getAttribute('keys').split(',');
+                
                 if (isNaN(ncols) || (ncols < 1)) ncols = 1;
                 
                 //GREUtils.log('[RENDER]: id <' + this.id + '> retrieved labels <' + labels + '> and keys <' + this.keys + '>');
@@ -162,9 +164,13 @@
                         labelCol.setAttribute('flex', '0');
                         columns.appendChild(labelCol);
                     }
-                    
+
+                    var flex = 1;
+                    if (i < ratios.length) {
+                        flex = parseInt(ratios[i]) || 1;
+                    }
                     var valueCol = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:column");
-                    valueCol.setAttribute('flex', '1');
+                    valueCol.setAttribute('flex', flex);
                     columns.appendChild(valueCol);
 
                     if (useSep && (i < (ncols - 1))) {
