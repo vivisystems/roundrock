@@ -69,8 +69,9 @@
             var shiftNumber = '';
             var salePeriod = '';
 
-            if (!currentShift)
+            if (!currentShift) {
                 currentShift = this.getShiftMarker();
+            }
 
             if (currentShift) {
                 shiftNumber = currentShift.shift_number;
@@ -104,7 +105,7 @@
                 newShiftMarker.id = shift.id;
                 shiftMarkerModel.id = shift.id;
             }
-            shiftMarkerModel.save(newShiftMarker);
+            newShiftMarker = shiftMarkerModel.save(newShiftMarker);
 
             // update shift
             this.updateSession(newShiftMarker);
@@ -438,7 +439,7 @@
                 // update shiftChangeDetails and record shift change to database
                 var shiftChangeRecord = {
                     starttime: currentShift.modified,
-                    endtime: new Date().getTime() / 1000,
+                    endtime: parseFloat(new Date().getTime() / 1000).toFixed(0),
                     cash: inputObj.cashNet - amt,
                     balance: inputObj.balance - amt,
                     sales: inputObj.salesRevenue,
