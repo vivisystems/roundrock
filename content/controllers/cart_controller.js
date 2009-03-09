@@ -158,8 +158,9 @@
             // check if zero preset price is allowed
             // @todo
             if (positivePriceRequired && curTransaction != null) {
-                if (curTransaction.checkSellPrice(item) <= 0) {
-                    NotifyUtils.warn(_('Product [%S] may not be registered with a price of [%S]!', [item.name, curTransaction.formatPrice(0)]));
+                sellPrice = curTransaction.checkSellPrice(item)
+                if (sellPrice <= 0) {
+                    NotifyUtils.warn(_('Product [%S] may not be registered with a price of [%S]!', [item.name, curTransaction.formatPrice(sellPrice)]));
                     evt.preventDefault();
                     return;
                 }

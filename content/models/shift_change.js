@@ -41,6 +41,7 @@ var ShiftChangeModel = window.ShiftChangeModel = GeckoJS.Model.extend({
             detail['change'] = o.change;
             detail['amount'] = o.amount;
             detail['excess_amount'] = o.excess_amount;
+            detail['count'] = o.count;
             payments.push(detail);
         });
 

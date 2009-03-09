@@ -396,7 +396,8 @@
     // handle function selection event
     selectFunction: function(tree) {
         //GREUtils.log('[SelectFunction]: node <' + tree.nodeName + '> child <' + tree.tree.nodeName + '>');
-        var count = tree.tree.view.selection.count;
+        var count = tree.selection.count;
+        var index;
         if (count > 0)
             index = tree.currentIndex;
         else

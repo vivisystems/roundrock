@@ -1082,3 +1082,6 @@ msgstr "Ledger Entry"
 
 msgid "ledgerentry.name"
 msgstr "Ledger Entry"
+
+msgid "acl_end_sale_period"
+msgstr "End Sale Period"

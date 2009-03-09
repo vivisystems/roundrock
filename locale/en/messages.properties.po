@@ -1089,6 +1089,9 @@ msgstr "Ledger Entry"
 msgid "ledgerentry.name"
 msgstr "Ledger Entry"
 
+msgid "acl_end_sale_period"
+msgstr "End Sale Period"
+
 #: ../..//content/datetime.js:27
 msgid "confirm timezone change"
 msgstr ""
