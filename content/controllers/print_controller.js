@@ -201,7 +201,7 @@
         submitOrder: function(evt) {
             var txn = evt.data;
 
-            this.log('SUBMIT: ' + GeckoJS.BaseObject.dump(txn.data));
+            //this.log('SUBMIT: ' + GeckoJS.BaseObject.dump(txn.data));
 
             if (txn.data.status != 1 || !txn.isClosed()) {
                 // check if checks need to be printed
@@ -225,7 +225,7 @@
         // handle store order events
         storeOrder: function(evt) {
             var txn = evt.data;
-            this.log('STORE: ' + GeckoJS.BaseObject.dump(txn.data));
+            //this.log('STORE: ' + GeckoJS.BaseObject.dump(txn.data));
 
             // check if checks need to be printed
             if (txn.data.batchItemCount > 0)
@@ -705,7 +705,7 @@
             // if data is null, then the document has already been generated and passed in through the template parameter
             if (data != null) {
 
-                this.log('type [' + typeof data.duplicate + '] [' + data.duplicate + '] ' + GeckoJS.BaseObject.dump(data.order));
+                //this.log('type [' + typeof data.duplicate + '] [' + data.duplicate + '] ' + GeckoJS.BaseObject.dump(data.order));
                 
                 tpl = this.getTemplateData(template, false);
                 if (tpl == null || tpl == '') {
