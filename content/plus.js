@@ -1,9 +1,5 @@
 (function(){
 
-include('chrome://viviecr/content/models/plugroup.js');
-
-include('chrome://viviecr/content/controllers/plusearch_controller.js');
-
 /**
  * Controller Startup
  */

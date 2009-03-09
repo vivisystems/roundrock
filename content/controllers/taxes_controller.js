@@ -134,6 +134,18 @@
 
                         this.load(this._listDatas.length);
 
+                        // find index of newly added tax
+                        var index = -1;
+                        for (var i = 0; i < this._listDatas.length; i++) {
+                            if (this._listDatas[i].no == data.no) {
+                                index = i;
+                                break;
+                            }
+                        }
+                        var listObj = this.getListObj();
+                        listObj.selectedIndex = index;
+                        this.select();
+
                         // @todo OSD.text to be replaced by OSD.info
                         OsdUtils.info(_('Tax [%S] added successfully', [data.name]));
                     }
@@ -269,6 +281,8 @@
             if (selectedIndex > -1) {
                 var tax = this._listDatas[selectedIndex];
                 this.setInputData(tax);
+
+                listObj.ensureIndexIsVisible(selectedIndex);
             }
             else {
                 GeckoJS.FormHelper.reset('taxForm');

@@ -10,7 +10,8 @@
 
         // initialize and load currency exchange table into Session
 
-        initial: function () {
+        initial: function (evt) {
+
             var currtmps = [{currency: '', currency_symbol: '', currency_exchange: 1.00}];
             var currtmp = {currency:'', currency_symbol:'', currency_exchange: 0.00};
             for (var i = 1; i < 6; i++)  currtmps.push(currtmp);
@@ -70,5 +71,13 @@
         }
 
     });
+
+    window.addEventListener('load', function() {
+        var main = GeckoJS.Controller.getInstanceByName('Main');
+        if(main) main.addEventListener('afterInitial', function() {
+                                            main.requestCommand('initial', null, 'CurrencySetup');
+                                      });
+
+    }, false);
 
 })();
