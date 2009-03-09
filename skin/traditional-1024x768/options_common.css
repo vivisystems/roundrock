@@ -573,6 +573,7 @@ scrollbarbutton {
 
 scrollbar {
     min-width: 36px;
+    display: none;
 }
 
 

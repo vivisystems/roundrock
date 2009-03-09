@@ -16,7 +16,13 @@
             var main = GeckoJS.Controller.getInstanceByName('Main');
             if(main) {
                 main.addEventListener('onUpdateOptions', this.resetLayout, this);
+                main.addEventListener('onSetClerk', this.home, this);
             }
+        },
+
+        home: function() {
+            var fnPanel = document.getElementById('functionpanel');
+            if (fnPanel) fnPanel.home();
         },
 
         toggleFunctionPanel: function (state) {

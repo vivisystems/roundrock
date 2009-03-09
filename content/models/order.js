@@ -83,7 +83,7 @@ var OrderModel = window.OrderModel =  GeckoJS.Model.extend({
 
         var orderPayments  = this.mappingTranToOrderPaymentsFields(data);
         var r;
-
+        
         this.OrderPayment.begin();
         r = this.OrderPayment.saveAll(orderPayments);
         this.OrderPayment.commit();
@@ -251,6 +251,10 @@ var OrderModel = window.OrderModel =  GeckoJS.Model.extend({
             orderPayment['service_clerk_displayname'] = data.service_clerk_displayname;
             orderPayment['proceeds_clerk_displayname'] = data.proceeds_clerk_displayname;
 
+            orderPayment['sale_period'] = data.sale_period;
+            orderPayment['shift_number'] = data.shift_number;
+            orderPayment['terminal_no'] = data.terminal_no;
+            
             if (i == len) {
                 orderPayment['change'] = Math.abs(data.remain);
             } else {
@@ -288,23 +292,30 @@ var OrderModel = window.OrderModel =  GeckoJS.Model.extend({
         return null;
     },
 
-    saveAccounting: function(data) {
-        //
+    saveLedgerEntry: function(data) {
+
+        // don't create orders just for tracking ledger payments
+
         var r;
-        
+        /*
         this.id = '';
         this.begin();
         r = this.save(data);
         this.commit();
-        
+        */
         this.OrderPayment.id = '';
-        data.accountPayment['order_id'] = this.id;
+        data.order_id = '';
         this.OrderPayment.begin();
-        r = this.OrderPayment.save(data.accountPayment);
+        r = this.OrderPayment.save(data);
         this.OrderPayment.commit();
         return r;
         
     },
+
+    deleteLedgerEntry: function(iid) {
+        this.OrderPayment.del(iid);
+    },
+
 
     beforeSave: function(evt) {
         return true;

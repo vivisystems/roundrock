@@ -12,8 +12,6 @@
 GeckoJS.StringBundle.createBundle("chrome://viviecr/locale/messages.properties");
 
 // include project models
-include('chrome://viviecr/content/models/account.js');
-include('chrome://viviecr/content/models/account_topic.js');
 include('chrome://viviecr/content/models/cart.js');
 include('chrome://viviecr/content/models/cashdrawer_record.js');
 include('chrome://viviecr/content/models/category.js');
@@ -30,12 +28,16 @@ include('chrome://viviecr/content/models/order_object.js');
 include('chrome://viviecr/content/models/order_receipt.js');
 include('chrome://viviecr/content/models/order_annotation.js');
 
+include('chrome://viviecr/content/models/ledger_entry_type.js');
+include('chrome://viviecr/content/models/ledger_record.js');
+
 include('chrome://viviecr/content/models/plugroup.js');
 include('chrome://viviecr/content/models/product.js');
 include('chrome://viviecr/content/models/sequence.js');
 include('chrome://viviecr/content/models/setitem.js');
 include('chrome://viviecr/content/models/shift_change.js');
 include('chrome://viviecr/content/models/shift_change_detail.js');
+include('chrome://viviecr/content/models/shift_marker.js');
 include('chrome://viviecr/content/models/storecontact.js');
 include('chrome://viviecr/content/models/transaction.js');
 include('chrome://viviecr/content/models/user.js');

@@ -1,0 +1,11 @@
+<!ENTITY shiftchange.title "Shift Changes">
+<!ENTITY shiftchange.alert.title "Shift Information">
+<!ENTITY shiftchange.alert.current.sale.period "Current Sale Period">
+<!ENTITY shiftchange.alert.current.shift.number "Current Shift Number">
+<!ENTITY shiftchange.alert.last.sale.period "Last Sale Period">
+<!ENTITY shiftchange.alert.last.shift.number "Last Shift Number">
+<!ENTITY shiftchange.button.print.this.shift "Print Shift Report">
+<!ENTITY shiftchange.button.print.all.shifts "Print All Shifts">
+<!ENTITY shiftchange.button.print.daily.sales "Print Daily Sales">
+<!ENTITY shiftchange.button.login "Return to Login Screen">
+<!ENTITY shiftchange.button.poweroff "Power Off">

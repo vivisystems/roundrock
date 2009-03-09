@@ -353,13 +353,14 @@
                                     </row>
                                 </rows>
                             </grid>
-                            <vivitree id="vivifuncpanelecr_prefs_keymap_function_tree"
+                            <viviscrollabletree id="vivifuncpanelecr_prefs_keymap_function_tree"
                                                 class="keymap_function_list"
                                                 headers="Function,Label"
                                                 fields="name,label"
                                                 seltype="single"
                                                 flex="1"
                                                 hidevscroll="true"
+                                                scrollUpClass="ScrollUp" scrollDownClass="ScrollDown"
                                                 onselect="$do('selectFunction', this, 'vivifuncpanelecr_prefs')"/>
                             <spacer height="3px" />
                             <hbox>

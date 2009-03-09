@@ -1,0 +1,9 @@
+<!ENTITY prompt.addentry.title  "Add New Ledger Entry">
+<!ENTITY prompt.addentry.type "Type">
+<!ENTITY prompt.addentry.description "Description">
+<!ENTITY prompt.addentry.amount "Amount">
+<!ENTITY prompt.addentry.mode "Mode">
+<!ENTITY prompt.addentry.mode.in "IN">
+<!ENTITY prompt.addentry.mode.out "OUT">
+<!ENTITY prompt.addentry.heading.type "Type">
+<!ENTITY prompt.addentry.heading.mode "Mode">

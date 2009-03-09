@@ -1,0 +1,22 @@
+<!ENTITY sync_settings.title "Synchronize">
+
+<!ENTITY sync_settings.label.active "Active.">
+<!ENTITY sync_settings.label.protocol "Protocol.">
+<!ENTITY sync_settings.label.hostname "hostname.">
+<!ENTITY sync_settings.label.port "port.">
+
+<!ENTITY sync_settings.label.machine_id "Terminal No.">
+<!ENTITY sync_settings.label.password "Password.">
+
+<!ENTITY sync_settings.label.batch_limit "batch_limit.">
+<!ENTITY sync_settings.label.interval "interval.">
+
+<!ENTITY sync_settings.label.start_hour "start_hour.">
+<!ENTITY sync_settings.label.end_hour "end_hour.">
+
+<!ENTITY sync_settings.label.error_retry "error_retry.">
+<!ENTITY sync_settings.label.timeout "timeout.">
+
+<!ENTITY sync_settings.label.notify_pull "notify_pull.">
+<!ENTITY sync_settings.label.notify_push "notify_push.">
+

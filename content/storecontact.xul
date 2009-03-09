@@ -49,12 +49,19 @@
                         <label value="* &storecontact.name;" />
                         <textbox id="name" value="" form="storecontactForm" name="name"/>
                     </vbox>
-                    <label value="&storecontact.requiredNotice;" class="NoticeMark"/>
+                    <vbox>
+                        <label value="* &storecontact.branch;" />
+                        <textbox id="branch" value="" form="storecontactForm" name="branch"/>
+                    </vbox>
+                    <vbox>
+                        <label value="* &storecontact.branch.id;" />
+                        <textbox id="branch_id" value="" form="storecontactForm" name="branch_id"/>
+                    </vbox>
                 </row>
                 <row>
                     <vbox>
-                        <label value="&storecontact.branch;" />
-                        <textbox id="branch" value="" form="storecontactForm" name="branch"/>
+                        <label value="&storecontact.terminal.no;" />
+                        <textbox id="terminal_no" value="" readonly="true"/>
                     </vbox>
                     <vbox>
                         <label value="&storecontact.contact;" />
@@ -120,6 +127,7 @@
                 </row>
             </rows>
         </grid>
+        <label value="&storecontact.requiredNotice;" class="NoticeMark"/>
         <spacer flex="1" />
         <hbox id="dialogButtons" class="dialogbtns" pack="center" flex="1">
             <button class="SaveBtn" id="ok" label="&dialog.saveButton.label;" default="true" oncommand="doOKButton();"/>

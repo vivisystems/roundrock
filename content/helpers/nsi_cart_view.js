@@ -91,7 +91,6 @@
             else if (newIndex >= this.data.length) newIndex = this.data.length - 1;
             //GREUtils.log('rowCountChanged 2: ' + rc1 + ', ' + rc2 + ', ' + newIndex);
 
-            this.tree.view.selection.currentIndex = newIndex;
             this.tree.view.selection.select(newIndex);
             this.tree.ensureRowIsVisible(newIndex);
         },

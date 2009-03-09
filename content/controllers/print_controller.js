@@ -26,13 +26,17 @@
 
             // initialize main thread
             this._main = GREUtils.Thread.getMainThread();
-            
+
+            // initialize receipt printing status
+            this.updateReceiptPrintingStatus();
+
             // add event listener for onSubmit & onStore events
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             if(cart) {
                 cart.addEventListener('onSubmit', this.submitOrder, this);
                 cart.addEventListener('onStore', this.storeOrder, this);
             }
+
         },
 
         getDeviceController: function () {
@@ -197,7 +201,7 @@
         submitOrder: function(evt) {
             var txn = evt.data;
 
-            this.log('SUBMIT: ' + GeckoJS.BaseObject.dump(txn.data));
+            //this.log('SUBMIT: ' + GeckoJS.BaseObject.dump(txn.data));
 
             if (txn.data.status != 1 || !txn.isClosed()) {
                 // check if checks need to be printed
@@ -221,7 +225,7 @@
         // handle store order events
         storeOrder: function(evt) {
             var txn = evt.data;
-            this.log('STORE: ' + GeckoJS.BaseObject.dump(txn.data));
+            //this.log('STORE: ' + GeckoJS.BaseObject.dump(txn.data));
 
             // check if checks need to be printed
             if (txn.data.batchItemCount > 0)
@@ -307,6 +311,35 @@
             this.issueReceipt(printer, true);
         },
 
+        updateReceiptPrintingStatus: function() {
+            var status = GeckoJS.Configure.read('vivipos.fec.settings.PrintReceipt');
+            if (status) {
+                document.getElementById('receiptStatus').setAttribute('status', 'on');
+            }
+            else {
+                document.getElementById('receiptStatus').setAttribute('status', 'off');
+            }
+        },
+
+
+        isReceiptPrintingEnabled: function() {
+            return GeckoJS.Configure.read('vivipos.fec.settings.PrintReceipt') || false;
+        },
+
+        toggleReceiptPrinting: function() {
+            if (GeckoJS.Configure.read('vivipos.fec.settings.PrintReceipt')) {
+                GeckoJS.Configure.write('vivipos.fec.settings.PrintReceipt', false);
+                NotifyUtils.info(_('Receipt printing off'));
+            }
+            else {
+                GeckoJS.Configure.write('vivipos.fec.settings.PrintReceipt', true);
+                NotifyUtils.info(_('Receipt printing on'));
+            }
+            this.updateReceiptPrintingStatus();
+
+            this.dispatchEvent('onToggleReceiptPrinting', GeckoJS.Configure.read('vivipos.fec.settings.PrintReceipt'));
+        },
+
         // print on all enabled receipt printers
         // printer = 0: print on all enabled printers
         // printer = 1: first printer
@@ -314,6 +347,10 @@
         // printer = null: print on all auto-print enabled printers
 
         printReceipts: function(txn, printer, autoPrint, duplicate) {
+
+            // is receipt printing current enabled?
+            if (!GeckoJS.Configure.read('vivipos.fec.settings.PrintReceipt')) return;
+
             var deviceController = this.getDeviceController();
             if (deviceController == null) {
                 NotifyUtils.error(_('Error in device manager! Please check your device configuration'));
@@ -325,7 +362,6 @@
             
             var data = {
                 txn: txn,
-                store: GeckoJS.Session.get('storeContact'),
                 order: order
             };
 
@@ -474,7 +510,6 @@
 
             var data = {
                 txn: txn,
-                store: GeckoJS.Session.get('storeContact'),
                 order: order
             };
 
@@ -588,6 +623,12 @@
                 return false;
             }
 
+            // expand data with storeContact and terminal_no
+            if (data) {
+                data.store = GeckoJS.Session.get('storeContact');
+                if (data.store) data.store.terminal_no = GeckoJS.Session.get('terminal_no');
+            }
+            
             // dispatch beforePrintCheck event to allow extensions to add to the template data object or
             // to prevent check from printed
             if (!this.dispatchEvent('beforePrintCheck', {data: data,
@@ -667,7 +708,7 @@
             // if data is null, then the document has already been generated and passed in through the template parameter
             if (data != null) {
 
-                this.log('type [' + typeof data.duplicate + '] [' + data.duplicate + '] ' + GeckoJS.BaseObject.dump(data.order));
+                //this.log('type [' + typeof data.duplicate + '] [' + data.duplicate + '] ' + GeckoJS.BaseObject.dump(data.order));
                 
                 tpl = this.getTemplateData(template, false);
                 if (tpl == null || tpl == '') {

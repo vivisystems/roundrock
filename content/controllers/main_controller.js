@@ -270,11 +270,17 @@
         },
 
         changePluPanel: function(index) {
-
             // depPanel click
             // change cate or sale it
             var dep = this.depPanelView.getCurrentIndexData(index);
             var catepanel = document.getElementById('catescrollablepanel');
+
+            // we first update catepanel's current selection
+            if (catepanel.selectedIndex != index) {
+                catepanel.selectedIndex = index;
+                catepanel.selectedItems = [index];
+            }
+            
             if (dep) {
                 var soldOutButton = document.getElementById('catescrollablepanel-soldout');
                 if (soldOutButton && soldOutButton.checkState) {
@@ -386,6 +392,7 @@
             else {
                 GeckoJS.Session.clear('user');
             }
+            this.dispatchEvent('onSetClerk', userRecord);
         },
 
         updateOptions: function () {

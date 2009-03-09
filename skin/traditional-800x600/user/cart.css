@@ -129,7 +129,7 @@
     background: #bebebe;
 }
 
-treechildren::-moz-tree-row {
+.cartList treechildren::-moz-tree-row {
     height: 28px;
     border-bottom: 1px solid #818085;
 }
@@ -200,7 +200,6 @@ treechildren::-moz-tree-image(treecellTagged) {list-style-image: url(images/prod
 
 .cartList tree label {
     text-align: center;
-    crop: none;
 }
 
 .cartList .tree-scrollable-columns {

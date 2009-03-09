@@ -69,8 +69,10 @@
 
                 no_of_customers: 1,
 
-                terminal_no: GeckoJS.Session.get('terminal_no'),
-
+                terminal_no: '',
+                sale_period: '',
+                shift_number: '',
+                
                 lockIndex: -1,
                 batchCount: 0,
                 closed: false,
@@ -159,10 +161,15 @@
     // set order status, -1:canceled 0:process 1:submit
     Transaction.prototype.process = function(status, discard) {
         this.data.status = status;
-
-        // save transaction to order / orderdetail ...
+        
+        this.data.terminal_no = GeckoJS.Session.get('terminal_no');
         this.data.modified = Math.round(new Date().getTime() / 1000 );
 
+        var store = GeckoJS.Session.get('storeContact');
+        if (store) {
+            this.data.branch = store.branch;
+            this.data.branch_id = store.branch_id;
+        }
         // maintain stock...
 //        this.requestCommand('decStock', this.data, "Stocks");
 
@@ -206,7 +213,24 @@
             }
         }
 
-        // set status = 1
+        // set sale period and shift number
+        var shiftController = GeckoJS.Controller.getInstanceByName('ShiftChanges');
+        var salePeriod = (shiftController) ? shiftController.getSalePeriod() : '';
+        var shiftNumber = (shiftController) ? shiftController.getShiftNumber() : '';
+
+        this.data.sale_period = salePeriod;
+        this.data.shift_number = shiftNumber;
+
+        // set branch and terminal info
+        var terminalNo = GeckoJS.Session.get('terminal_no') || '';
+        var store = GeckoJS.Session.get('storeContact');
+        
+        this.data.terminal_no = terminalNo;
+        if (store) {
+            this.data.branch = store.branch;
+            this.data.branch_id = store.branch_id;
+        }
+
         this.process(status);
         
     };

@@ -232,7 +232,8 @@
         if (cascade) {
             var combineTaxModel = new this.combineTaxModel;
             var childTaxes = combineTaxModel.find('all', {
-                conditions: "tax_id='"+taxId+"'"
+                conditions: "tax_id='"+taxId+"'",
+                recursive: 2
             });
             if(childTaxes.length > 0) {
                 // remove childTaxes;
@@ -273,7 +274,8 @@
         var taxModel = new this.taxModel;
 
         var tax = taxModel.find("first", {
-            conditions: "no='"+no+"'"
+            conditions: "no='"+no+"'",
+            recursive: 2
         });
 
         if (tax == null) tax =  {};
@@ -316,7 +318,8 @@
         var taxModel = new this.taxModel;
 
         var tax = taxModel.find("first", {
-            conditions: "name='"+name+"'"
+            conditions: "name='"+name+"'",
+            recursive: 2
         });
 
         if (tax == null) tax =  {};
@@ -361,6 +364,7 @@
         if (GeckoJS.Array.inArray(type, ["ADDON", "TABLE", "COMBINE", "VAT"]) != -1) {
             params['conditions'] = "type='"+type+"'";
         }
+        params['recursive'] = 2;
     
         var taxes = taxModel.find("all", params);
 
@@ -446,7 +450,8 @@
 
         var combineTaxModel = new this.combineTaxModel;
         var childTaxes = combineTaxModel.find('all', {
-            conditions: "tax_id='"+taxId+"'"
+            conditions: "tax_id='"+taxId+"'",
+            recursive: 2
         });
 
         if (childTaxes == null) return false;

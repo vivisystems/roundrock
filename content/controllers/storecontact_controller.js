@@ -20,6 +20,7 @@
                 contact = {
                     name: '',
                     branch: '',
+                    branch_id: '',
                     contact: '',
                     telephone1: '',
                     telephone2: '',
@@ -46,14 +47,34 @@
                 return false;
             }
             else {
+
+                // check required field: name
                 var name = (formObj.name == null) ? '' : GeckoJS.String.trim(formObj.name);
 
                 if (name.length == 0) {
                     NotifyUtils.warn(_('Store name must not be blank!'));
                     return false;
                 }
+                formObj.name = name;
+
+                // check required field: branch
+                var branch = (formObj.branch == null) ? '' : GeckoJS.String.trim(formObj.branch);
+
+                if (branch.length == 0) {
+                    NotifyUtils.warn(_('Branch name must not be blank!'));
+                    return false;
+                }
+                formObj.branch = branch;
+
+                // check required field: branch_id
+                var branch_id = (formObj.branch_id == null) ? '' : GeckoJS.String.trim(formObj.branch_id);
+
+                if (branch_id.length == 0) {
+                    NotifyUtils.warn(_('Branch ID must not be blank!'));
+                    return false;
+                }
+                formObj.branch_id = branch_id;
             }
-            formObj.name = name;
             
             var storeContactModel = new StoreContactModel();
             storeContactModel.id = formObj.id;
