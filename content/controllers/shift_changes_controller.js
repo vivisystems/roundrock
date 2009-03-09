@@ -96,8 +96,9 @@
             var shiftNumber = '';
             var salePeriod = '';
 
-            if (!currentShift)
+            if (!currentShift) {
                 currentShift = this.getShiftMarker();
+            }
 
             if (currentShift) {
                 shiftNumber = currentShift.shift_number;
@@ -139,7 +140,7 @@
                 shiftMarkerModel.id = shift.id;
 >>>>>>> 6b93752eabd4d4f6d56f1c0187fb526a83f59b6f:content/controllers/shift_changes_controller.js
             }
-            shiftMarkerModel.save(newShiftMarker);
+            newShiftMarker = shiftMarkerModel.save(newShiftMarker);
 
             // update shift
             this.updateSession(newShiftMarker);
@@ -210,7 +211,7 @@
                               last_sale_period: lastSalePeriod,
                               last_shift_number: lastShiftNumber};
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + width + ',height=' + height;
-            GREUtils.Dialog.openWindow(window, aURL, aName, aFeatures, aArguments);
+            GREUtils.Dialog.openWindow(null, aURL, aName, aFeatures, aArguments);
         },
 
         shiftChange: function() {
@@ -473,7 +474,7 @@
                 // update shiftChangeDetails and record shift change to database
                 var shiftChangeRecord = {
                     starttime: currentShift.modified,
-                    endtime: new Date().getTime() / 1000,
+                    endtime: parseFloat(new Date().getTime() / 1000).toFixed(0),
                     cash: inputObj.cashNet - amt,
                     balance: inputObj.balance - amt,
                     sales: inputObj.salesRevenue,
