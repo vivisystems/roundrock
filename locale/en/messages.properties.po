@@ -1864,7 +1864,8 @@ msgstr ""
 msgid "No change to store"
 msgstr ""
 
-#: ../..//content/controllers/cashdrawer_controller.js:195
+#: ../..//content/controllers/cashdrawer_controller.js:189
+#: ../..//content/controllers/cashdrawer_controller.js:218
 #: ../..//content/controllers/print_controller.js:249
 #: ../..//content/controllers/print_controller.js:356
 #: ../..//content/controllers/print_controller.js:425
@@ -1874,25 +1875,25 @@ msgstr ""
 msgid "Error in device manager! Please check your device configuration"
 msgstr ""
 
-#: ../..//content/controllers/cashdrawer_controller.js:204
-#: ../..//content/controllers/cashdrawer_controller.js:215
-#: ../..//content/controllers/cashdrawer_controller.js:228
+#: ../..//content/controllers/cashdrawer_controller.js:227
+#: ../..//content/controllers/cashdrawer_controller.js:238
+#: ../..//content/controllers/cashdrawer_controller.js:251
 msgid "Cash drawer [%S] is not enabled! Please check your device configuration"
 msgstr ""
 
-#: ../..//content/controllers/cashdrawer_controller.js:255
+#: ../..//content/controllers/cashdrawer_controller.js:278
 msgid ""
 "Error detected while opening cash drawer [%S]; please check if cash drawer "
 "is connected and powered up"
 msgstr ""
 
-#: ../..//content/controllers/cashdrawer_controller.js:301
+#: ../..//content/controllers/cashdrawer_controller.js:324
 #: ../..//content/controllers/print_controller.js:619
 #: ../..//content/controllers/vfd_controller.js:254
 msgid "Specified device port [%S] does not exist!"
 msgstr ""
 
-#: ../..//content/controllers/cashdrawer_controller.js:365
+#: ../..//content/controllers/cashdrawer_controller.js:388
 #: ../..//content/controllers/print_controller.js:823
 #: ../..//content/controllers/vfd_controller.js:334
 msgid "Error detected when outputing to device [%S] at port [%S]"
@@ -2889,31 +2890,31 @@ msgstr ""
 msgid "Specified template [%S] is empty or does not exist!"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:398
+#: ../..//content/controllers/shift_changes_controller.js:483
 msgid "Shift Change"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:411
+#: ../..//content/controllers/shift_changes_controller.js:496
 msgid "Invalid cash drawer change amount [%S]"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:415
+#: ../..//content/controllers/shift_changes_controller.js:500
 msgid "You may not leave negative amount of cash in the cashdrawer"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:467
+#: ../..//content/controllers/shift_changes_controller.js:568
 msgid "Sale Period [%S] is now closed"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:468
+#: ../..//content/controllers/shift_changes_controller.js:569
 msgid "Sale Period Close"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:507
+#: ../..//content/controllers/shift_changes_controller.js:608
 msgid "Sale Period [%S] Shift [%S] is now closed"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:508
+#: ../..//content/controllers/shift_changes_controller.js:609
 msgid "Shift Close"
 msgstr ""
 

@@ -72,7 +72,7 @@
 }
 
 /* �@�q�� texbox ���� */
-textbox:not(.uidisplay_field_label):not(.uidisplay_field_value):not(.orderstatus_field_label):not(.orderstatus_field_value):not(.current_user):not(.console_message_value):not(.label_vfd) {
+textbox:not(.customer_field_label):not(.customer_field_value):not(.uidisplay_field_label):not(.uidisplay_field_value):not(.orderstatus_field_label):not(.orderstatus_field_value):not(.current_user):not(.console_message_value):not(.label_vfd) {
   border: 3px solid;
   -moz-border-top-colors: #a7a7a7 #c5c5c5 #dcdcdc;
   -moz-border-right-colors: #e7e7e7 #f7f7f7 #fefefe;
@@ -86,7 +86,7 @@ textbox:not(.uidisplay_field_label):not(.uidisplay_field_value):not(.orderstatus
   color: #444;
 
 }
-textbox[readonly="true"]:not(.uidisplay_field_label):not(.uidisplay_field_value):not(.orderstatus_field_label):not(.orderstatus_field_value):not(.current_user):not(.console_message_value):not(.console_message_value):not(.label_vfd) {
+textbox[readonly="true"]:not(.customer_field_label):not(.customer_field_value):not(.uidisplay_field_label):not(.uidisplay_field_value):not(.orderstatus_field_label):not(.orderstatus_field_value):not(.current_user):not(.console_message_value):not(.console_message_value):not(.label_vfd) {
   border: 1px solid #a1a09d;
   -moz-border-top-colors: #a1a09d;
   -moz-border-left-colors: #a1a09d;
