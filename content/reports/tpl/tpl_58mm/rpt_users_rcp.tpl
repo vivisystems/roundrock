@@ -1,17 +1,28 @@
 [&QSON]${head.store.name|center:15}[&QSOFF]
-[&DWON]${head.store.branch|center:15}[&DWOFF]
-${head.store.telephone1|center:42}
-Terminal: ${head.store.terminal_no|left:10} Clerk: ${head.clerk_displayname|left:14}
+[&DWON]${head.store.branch|center:14}[&DWOFF]
+${head.store.telephone1|center:24}
 
-${head.title|center:42}
-------------------------------------------
-User Name   Display Name      Access Group
-----------  ----------------  ------------
+Terminal: ${head.store.terminal_no}
+Clerk: ${head.clerk_displayname}
+
+${head.title|center:24}
 {for user in body}
-${user.username|left:11} ${user.displayname|left:17} ${user.group|left:12}
+------------------------
+User Name:
+${user.username|right:24}
+Display Name:
+${user.displayname|right:24}
+Access Group:
+${user.group|right:24}
 {/for}
-------------------------------------------
+------------------------
 ${foot.gen_time}
+[&CR]
+[&CR]
+[&CR]
+[&CR]
+[&CR]
+[&CR]
 [&CR]
 [&CR]
 [&CR]

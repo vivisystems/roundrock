@@ -17,9 +17,9 @@ ${head.title|center:24}
 班別      :${master.shift_number}
 總金額   　:${master.balance|default:0|viviFormatPrices:true}
 現金淨額   :${master.cash|default:0|viviFormatPrices:true}
-銷售金額   :${master.Sales|default:0|viviFormatPrices:true}
-溢收金額   :${master.Excess|default:0|viviFormatPrices:true}
-代收代付淨額:${master.Ledger|default:0|viviFormatPrices:true}
+銷售金額   :${master.sales|default:0|viviFormatPrices:true}
+溢收金額   :${master.sxcess|default:0|viviFormatPrices:true}
+代收代付淨額:${master.ledger|default:0|viviFormatPrices:true}
 ------------------------
 {for detail in master.ShiftChangeDetail}
 {if detail.name.length > 0}${detail.name|left:10}{else}${detail.type|left:10}{/if}

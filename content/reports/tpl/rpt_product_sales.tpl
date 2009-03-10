@@ -1,20 +1,69 @@
 <div class="paper">
     <img src="chrome://viviecr/content/skin/images/logo.png" />
     <br />
-
-    <p align="left">${head.store.name}</p>
-	<p align="left">${head.store.branch}</p>
-	<p align="left">${head.store.telephone1}</p>
-	<p align="left">Terminal: ${head.store.terminal_no}</p>
-	<p align="left">Clerk: ${head.clerk_displayname}</p>
-	<p align="right">Printed Time: ${foot.gen_time}</p>
-	<p align="right">${head.start_time} - ${head.end_time}</p>
+<div class="PageTitle">
+		${head.title}
+</div>
+<div class="ReportDate">
+    <table width="100%">
+    	<tr>
+    		<td>
+    			<table>
+		        <tr>
+		            <td>
+		            	Printed : 
+		            </td>
+		            <td>
+		            	${printedtime}
+		            </td>
+		        </tr>
+		        <tr>
+		            <td>
+		            Machine Id : 
+		            </td>
+		            <td>
+		            ${head.machine_id}
+		            </td>
+		        </tr>
+		    </table>
+    		</td>
+    		<td align="right">
+			    <table>
+			        <tr>
+			            <td>
+			            Start : 
+			            </td>
+			            <td>
+			            ${head.start_date}
+			            </td>
+			        </tr>
+			        <!-- html:tr>
+			            <td>
+			            Department:
+			            </td>
+			            <td>
+			            ${head.department}
+			            </td>
+			        </tr -->
+			        <tr>
+			            <td>
+			            End : 
+			            </td>
+			            <td>
+			            ${head.end_date}
+			            </td>
+			        </tr>
+			    </table>			
+    		</td>
+    	</tr>
+    </table>
+    
+</div>
 
     <table id="body-table">
-        <caption>${head.title}</caption>
         <thead>
             <tr>
-                <th style="text-align: left;">No</th>
+                <th style="text-align: center;">No</th>
                 <th style="text-align: left;">Name</th>
                 <th style="text-align: right;">Avg. Price</th>
                 <th style="text-align: right;">Qty</th>
@@ -24,7 +73,7 @@
         <tbody>
 {for item in body}
             <tr>
-                <td style="text-align: left;">${item.product_no}</td>
+                <td style="text-align: center;">${item.product_no}</td>
                 <td style="text-align: left;">${item.product_name}</td>
                 <td>${item.avg_price}</td>
                 <td>${item.qty}</td>
@@ -41,5 +90,6 @@
         </tfoot>
     </table>
     <br />
+    
 </div>
 <br />

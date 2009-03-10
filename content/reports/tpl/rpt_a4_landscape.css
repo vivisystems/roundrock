@@ -9,55 +9,77 @@
 
 /******** for html ********/
 .report {
-	width: 1px;
-    height: 1px;
+	height: 1px;
 	min-height: 1px;
-    padding: 10px;
+  padding: 7px;
 	margin: 0px;
-	background: #aaa;
-	border: dot;
-    border-width: 1px;
+	background: #f7f4ed url(chrome://viviecr/content/skin/images/report_bg.gif) repeat-x top center;
 }
 
 .paper {
-	width: 750px;
+	margin: 0px auto;
+	width: 1200px;
 	min-height: 360px;
-    padding: 10px;
-	margin: 10px;
+	padding: 10px;
 	background: #fff;
-	border: solid;
-    border-width: 1px;
-    font-size:12px;/*16*/
-    border-right-width: 3px;
-    border-bottom-width: 3px;
+	border: solid #655e4c;
+	border-width: 1px;
+	border-right-width: 3px;
+	border-bottom-width: 3px;
 }
 
+.PageTitle  {
+	text-align: center;
+	font-size: 14pt;
+	color: #534741;
+	font-weight: bold;
+	border-bottom: 3px #b5b093 double;
+	background: url(chrome://viviecr/content/skin/images/report_title_bg.gif) repeat-x bottom center;
+	padding: 8px;
+	margin: 10px 0;
+}
+
+/* who print, when, time range, ...etc */
+.ReportDate {
+	font-size: 8pt;
+	color: black;
+	background-color: #f5f2e9;
+	padding: 10px;
+	width: 98%;
+	margin: 15px auto;	
+}
+.ReportDate td {
+	font-size: 8pt;
+}
+.ReportDate > h1 {
+	font-size: 10pt;
+	text-decoration: underline;
+}
+
+
 #body-table {
-  font-size:12px;
-  width: 95%;
+  width: 98%;
   margin: 0px auto 0px auto;
 /*  font: 100% sans-serif; */
-  background-color: #def;
   border-collapse: collapse;
   empty-cells: show;
-  border: 1px solid #4ca;
-  }
+}
 
 #body-table > caption {
   text-align: left;
   font-weight: bold;
-  font-size: 120%;
-  border-bottom: .2em solid #7a7;
-  margin-bottom: .5em;
-  }
+  font-size: 12pt;
+  color: #292929;
+  margin: 10px 5px;
+  list-style-image: url(chrome://viviecr/content/skin/images/table_title.gif);
+}
 
 
 /* basic shared rules */
 #body-table th,
 #body-table td {
   text-align: right;
-  padding-right: .3em;
-  border-bottom: 1px dotted #bbb;
+  border-bottom: 1px solid #c3c3c3;
   }
 
 #body-table th {
@@ -69,8 +91,13 @@
 /* header */
 #body-table > thead > tr:first-child > th {
   text-align: center;
-  color: blue;
-  }
+  color: #56523a;
+  border-top: 2px solid #b5b093;
+  border-bottom: 1px solid #b5b093;
+  background-color: #f5f2ec;
+  font-size: 11pt;
+  padding: 4px;
+}
 
 #body-table > thead > tr + tr > th {
   font-style: italic;
@@ -84,9 +111,10 @@
 
 /* body */
 #body-table td {
-  background-color: #eef;
-  padding:.1em .5em .1em .5em;
-  }
+  padding:4px 8px;
+  font-size: 10pt;
+  color: #484848;
+}
 
 #body-table tbody th:after {
   content: ":";
@@ -99,7 +127,7 @@
   }
 
 #body-table tfoot th {
-  color: blue;
+  color: #2e2e2e;
   }
 
 #body-table tfoot th:after {
@@ -107,11 +135,42 @@
   }
 
 #body-table > tfoot td {
-  background-color: #cee;
-  }
+  
+}
 
 #body-table > tfoot > tr:first-child td {
-  border-top: .2em solid #7a7;
-  padding:.1em .5em .5em .5em;
-  }
+  border-top: 2pt solid #c3c3c3;
+  padding: 4px;
+  border-bottom: none;
+  font-size: 11pt;
+}
 
+
+/** for print use **/
+@media print {
+	.report {
+		padding: 0px;
+		margin: 0px;
+		background: white;
+	}
+	
+	.paper {
+		width: 27.5cm;
+		padding: 10px;
+		background: none;
+		border: none;
+	}
+
+	.ReportDate {
+		border: 1px solid #555;
+	}
+		
+	#body-table > thead {
+		display: table-header-group;
+	}
+
+	#body-table > thead > tr:first-child > th {
+	  background-color: #f5f2ec;
+	}
+	
+}

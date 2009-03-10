@@ -1,42 +1,78 @@
 [&QSON]${head.store.name|center:15}[&QSOFF]
-[&DWON]${head.store.branch|center:15}[&DWOFF]
-${head.store.telephone1|center:42}
-Terminal: ${head.store.terminal_no|left:10} Clerk: ${head.clerk_displayname|left:14}
-${head.start_time} ~ ${head.end_time}
+[&DWON]${head.store.branch|center:14}[&DWOFF]
+${head.store.telephone1|center:24}
 
-${head.title|center:42}
-------------------------------------------
-Term_No.  Time        Seq.    Invoice No
---------  ----------  ------  ------------
+Terminal: ${head.store.terminal_no}
+Clerk: ${head.clerk_displayname}
+${head.start_time} ~
+${head.end_time}
+
+${head.title|center:24}
+------------------------
 {for detail in body}
-${detail.terminal_no|left:8}  ${detail.transaction_created|unixTimeToString:'yyyy-M-d'|left:10}  ${detail.sequence|left:6}  ${detail.invoice_no|left:12}
-    Service    : ${detail.service_clerk_displayname|viviFormatPrices:true}
-    Proceeds   : ${detail.proceeds_clerk_displayname|viviFormatPrices:true}
-    Total      : ${detail.item_subtotal|viviFormatPrices:true}
-    Add-on Tax : ${detail.tax_subtotal|viviFormatPrices:true}
-    Surcharge  : ${detail.surcharge_subtotal|viviFormatPrices:true}
-    Discount   : ${detail.discount_subtotal|viviFormatPrices:true}
-    Payment    : ${detail.total|viviFormatPrices:true}
-    Cash       : ${detail.cash|default:0|viviFormatPrices:true}
-    Check      : ${detail.check|viviFormatPrices:true}
-    Credit Card: ${detail.creditcard|default:0|viviFormatPrices:true}
-    Coupon     : ${detail.coupon|default:0|viviFormatPrices:true}
-    Gift Card  : ${detail.giftcard|viviFormatPrices:true}
+Term_No.   :
+${detail.terminal_no|right:24}
+Time       :
+${detail.transaction_created|unixTimeToString:'yyyy-M-d'|right:24}
+Sequence   :
+${detail.sequence|right:24}
+Invoice No.:
+${detail.invoice_no|right:24}
+Service    :
+${detail.service_clerk_displayname|viviFormatPrices:true|right:24}
+Proceeds   :
+${detail.proceeds_clerk_displayname|viviFormatPrices:true|right:24}
+Total      :
+${detail.item_subtotal|viviFormatPrices:true|right:24}
+Add-on Tax :
+${detail.tax_subtotal|viviFormatPrices:true|right:24}
+Surcharge  :
+${detail.surcharge_subtotal|viviFormatPrices:true|right:24}
+Discount   :
+${detail.discount_subtotal|viviFormatPrices:true|right:24}
+Payment    :
+${detail.total|viviFormatPrices:true|right:24}
+Cash       :
+${detail.cash|default:0|viviFormatPrices:true|right:24}
+Check      :
+${detail.check|viviFormatPrices:true|right:24}
+Credit Card:
+${detail.creditcard|default:0|viviFormatPrices:true|right:24}
+Coupon     :
+${detail.coupon|default:0|viviFormatPrices:true|right:24}
+Gift Card  :
+${detail.giftcard|viviFormatPrices:true|right:24}
 {/for}
-------------------------------------------
+------------------------
 Summary
-    Total      : ${foot.foot_datas.item_subtotal|viviFormatPrices:true}
-    Add-on Tax : ${foot.foot_datas.tax_subtotal|viviFormatPrices:true}
-    Surcharge  : ${foot.foot_datas.surcharge_subtotal|viviFormatPrices:true}
-    Discount   : ${foot.foot_datas.discount_subtotal|viviFormatPrices:true}
-    Payment    : ${foot.foot_datas.total|viviFormatPrices:true}
-    Cash       : ${foot.foot_datas.cash|default:0|viviFormatPrices:true}
-    Check      : ${foot.foot_datas.check|viviFormatPrices:true}
-    Credit Card: ${foot.foot_datas.creditcard|default:0|viviFormatPrices:true}
-    Coupon     : ${foot.foot_datas.coupon|default:0|viviFormatPrices:true}
-    Gift Card  : ${foot.foot_datas.giftcard|viviFormatPrices:true}
-------------------------------------------
+Total      :
+${foot.foot_datas.item_subtotal|viviFormatPrices:true|right:24}
+Add-on Tax :
+${foot.foot_datas.tax_subtotal|viviFormatPrices:true|right:24}
+Surcharge  :
+${foot.foot_datas.surcharge_subtotal|viviFormatPrices:true|right:24}
+Discount   :
+${foot.foot_datas.discount_subtotal|viviFormatPrices:true|right:24}
+Payment    :
+${foot.foot_datas.total|viviFormatPrices:true|right:24}
+Cash       :
+${foot.foot_datas.cash|default:0|viviFormatPrices:true|right:24}
+Check      :
+${foot.foot_datas.check|viviFormatPrices:true|right:24}
+Credit Card:
+${foot.foot_datas.creditcard|default:0|viviFormatPrices:true|right:24}
+Coupon     :
+${foot.foot_datas.coupon|default:0|viviFormatPrices:true|right:24}
+Gift Card  :
+${foot.foot_datas.giftcard|viviFormatPrices:true|right:24}
+------------------------
 ${foot.gen_time}
+[&CR]
+[&CR]
+[&CR]
+[&CR]
+[&CR]
+[&CR]
 [&CR]
 [&CR]
 [&CR]

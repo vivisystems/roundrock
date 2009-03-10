@@ -1,32 +1,58 @@
 [&QSON]${head.store.name|center:15}[&QSOFF]
-[&DWON]${head.store.branch|center:15}[&DWOFF]
-${head.store.telephone1|center:42}
-Terminal: ${head.store.terminal_no|left:10} Clerk: ${head.clerk_displayname|left:14}
-${head.start_time} ~ ${head.end_time}
+[&DWON]${head.store.branch|center:14}[&DWOFF]
+${head.store.telephone1|center:24}
 
-${head.title|center:42}
-------------------------------------------
-Term_No.  Time        Seq.    Invoice No
---------  ----------  ------  ------------
+Terminal: ${head.store.terminal_no}
+Clerk: ${head.clerk_displayname}
+${head.start_time} ~
+${head.end_time}
+
+${head.title|center:24}
 {for detail in body}
-${detail.terminal_no|left:8}  ${detail.transaction_created|unixTimeToString:'yyyy-M-d'|left:10}  ${detail.sequence|left:6}  ${detail.invoice_no|left:12}
-	Service Clerk: ${detail.service_clerk_displayname}
-    Status:     ${detail.status}
-    Total:      ${detail.item_subtotal|viviFormatPrices:true}
-    Add-on Tax: ${detail.tax_subtotal|viviFormatPrices:true}
-    Surcharge:  ${detail.surcharge_subtotal|viviFormatPrices:true}
-    Discount:   ${detail.discount_subtotal|viviFormatPrices:true}
-    Payment:    ${detail.total|viviFormatPrices:true}
+------------------------
+Term_No.:
+${detail.terminal_no|right:24}
+Time:
+${detail.transaction_created|unixTimeToString:'yyyy-M-d'|right:24}
+Sequence:
+${detail.sequence|right:24}
+Invoice No.:
+${detail.invoice_no|right:24}
+Service Clerk:
+${detail.service_clerk_displayname|right:24}
+Status:
+${detail.status|right:24}
+Total:
+${detail.item_subtotal|viviFormatPrices:true|right:24}
+Add-on Tax:
+${detail.tax_subtotal|viviFormatPrices:true|right:24}
+Surcharge:
+${detail.surcharge_subtotal|viviFormatPrices:true|right:24}
+Discount:
+${detail.discount_subtotal|viviFormatPrices:true|right:24}
+Payment:
+${detail.total|viviFormatPrices:true|right:24}
 {/for}
-------------------------------------------
+------------------------
 Summary
-    Total:      ${foot.foot_datas.item_subtotal|viviFormatPrices:true}
-    Add-on Tax: ${foot.foot_datas.tax_subtotal|viviFormatPrices:true}
-    Surcharge:  ${foot.foot_datas.surcharge_subtotal|viviFormatPrices:true}
-    Discount:   ${foot.foot_datas.discount_subtotal|viviFormatPrices:true}
-    Payment:    ${foot.foot_datas.total|viviFormatPrices:true}
-------------------------------------------
+Total:
+${foot.foot_datas.item_subtotal|viviFormatPrices:true|right:24}
+Add-on Tax:
+${foot.foot_datas.tax_subtotal|viviFormatPrices:true|right:24}
+Surcharge:
+${foot.foot_datas.surcharge_subtotal|viviFormatPrices:true|right:24}
+Discount:
+${foot.foot_datas.discount_subtotal|viviFormatPrices:true|right:24}
+Payment:
+${foot.foot_datas.total|viviFormatPrices:true|right:24}
+------------------------
 ${foot.gen_time}
+[&CR]
+[&CR]
+[&CR]
+[&CR]
+[&CR]
+[&CR]
 [&CR]
 [&CR]
 [&CR]

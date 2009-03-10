@@ -38,7 +38,8 @@
                 <tr style="border-top: 1px solid #4ca;">
                 	<td></td>
                 	<td></td>
-                	<td colspan="5">
+                	<td></td>
+                	<td colspan="4">
                 		<table style="width: 100%;">
                 			<tr style="color: gray; font-style: italic;">
                 				<th style="text-align: left;">Type</th>

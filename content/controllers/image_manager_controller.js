@@ -65,6 +65,20 @@ var ImageFilesView = window.ImageFilesView = GeckoJS.NSITreeViewArray.extend({
             $('#ok').attr('disabled', this._busy);
         },
 
+        execute: function(cmd, param) {
+            try {
+                var exec = new GeckoJS.File(cmd);
+                var r = exec.run(param, true);
+                // this.log("ERROR", "Ret:" + r + "  cmd:" + cmd + "  param:" + param);
+                exec.close();
+                return true;
+            }
+            catch (e) {
+                NotifyUtils.warn(_('Failed to execute command (%S).', [cmd + ' ' + param]));
+                return false;
+            }
+        },
+
         checkBackupDevices: function() {
 
             var osLastMedia = new GeckoJS.File('/tmp/last_media');
@@ -268,6 +282,9 @@ var ImageFilesView = window.ImageFilesView = GeckoJS.NSITreeViewArray.extend({
                 this.sleep(200);
                 // reset max script run time...
                 GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
+
+                this.execute("/bin/sync", []);
+
                 // progmeter.value = 0;
                 this.setButtonDisable(false);
                 waitPanel.hidePopup();
@@ -359,6 +376,9 @@ var ImageFilesView = window.ImageFilesView = GeckoJS.NSITreeViewArray.extend({
                 this.sleep(200);
                 // reset max script run time...
                 GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
+
+                this.execute("/bin/sync", []);
+
                 // progmeter.value = 0;
                 this.setButtonDisable(false);
                 waitPanel.hidePopup();
