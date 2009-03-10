@@ -359,17 +359,31 @@
 
             var salesRevenue = (salesTotal && salesTotal.amount != null) ? salesTotal.amount : 0;
 
-            // compute ledger balance
+            // compute ledger IN balance
             fields = ['SUM(order_payments.amount - order_payments.change) as "OrderPayment.amount"'];
             conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                          ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                          ' AND order_payments.terminal_no = "' + terminal_no + '"' +
-                         ' AND order_payments.name = "ledger"';
-            var ledgerBalance = orderPayment.find('first', {fields: fields,
-                                                            conditions: conditions,
-                                                            recursive: 0
-                                                           });
-            var ledgerTotal = (ledgerBalance && ledgerBalance.amount != null) ? ledgerBalance.amount : 0;
+                         ' AND order_payments.name = "ledger"' +
+                         ' AND order_payments.amount > 0';
+            var ledgerInBalance = orderPayment.find('first', {fields: fields,
+                                                              conditions: conditions,
+                                                              recursive: 0
+                                                             });
+            var ledgerInTotal = (ledgerInBalance && ledgerInBalance.amount != null) ? ledgerInBalance.amount : 0;
+
+            // compute ledger OUT balance
+            fields = ['SUM(order_payments.amount - order_payments.change) as "OrderPayment.amount"'];
+            conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
+                         ' AND order_payments.shift_number = "' + shiftNumber + '"' +
+                         ' AND order_payments.terminal_no = "' + terminal_no + '"' +
+                         ' AND order_payments.name = "ledger"' +
+                         ' AND order_payments.amount < 0';
+            var ledgerOutBalance = orderPayment.find('first', {fields: fields,
+                                                               conditions: conditions,
+                                                               recursive: 0
+                                                              });
+            var ledgerOutTotal = (ledgerOutBalance && ledgerOutBalance.amount != null) ? ledgerOutBalance.amount : 0;
 
             // compute excess giftcard payments
             fields = ['SUM(order_payments.origin_amount - order_payments.amount) as "OrderPayment.excess_amount"'];
@@ -392,9 +406,10 @@
             var inputObj = {
                 shiftChangeDetails:shiftChangeDetails,
                 cashNet: cashNet,
-                balance: salesRevenue + ledgerTotal,
+                balance: salesRevenue + ledgerInTotal + ledgerOutTotal,
                 salesRevenue: salesRevenue,
-                ledgerTotal: ledgerTotal,
+                ledgerInTotal: ledgerInTotal,
+                ledgerOutTotal: ledgerOutTotal,
                 giftcardExcess: giftcardExcess
             };
 
@@ -446,7 +461,8 @@
                     cash: inputObj.cashNet - amt,
                     balance: inputObj.balance - amt,
                     sales: inputObj.salesRevenue,
-                    ledger: inputObj.ledgerTotal - amt,
+                    ledger_out: inputObj.ledgerOutTotal - amt,
+                    ledger_in: inputObj.ledgerInTotal - amt,
                     excess: inputObj.giftcardExcess,
                     note: inputObj.description,
                     terminal_no: GeckoJS.Session.get('terminal_no'),
