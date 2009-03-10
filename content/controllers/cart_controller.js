@@ -3053,19 +3053,7 @@
 
             this.cancelReturn();
 
-            var curTransaction = this._getTransaction(true);
-
-            if(curTransaction == null) {
-                // this.dispatchEvent('onAddItem', null);
-                NotifyUtils.warn(_('fatal error!!'));
-                return; // fatal error ?
-            }
-
-            // transaction is submit and close success
-            if (curTransaction.isSubmit() || curTransaction.isCancel()) {
-                curTransaction = this._newTransaction();
-            }
-
+            var curTransaction;
             var param = action.split('|');
             var action = param[0];
             var param2 = param[1];
@@ -3078,6 +3066,12 @@
 
             switch(action) {
                 case 'newCheck':
+                    curTransaction = this._getTransaction(true);
+                    if (curTransaction == null) {
+                        NotifyUtils.warn(_('fatal error!!'));
+                        return; // fatal error ?
+                    }
+
                     if (buf.length == 0) {
                         r = this.GuestCheck.getNewCheckNo();
                     } else {
@@ -3091,9 +3085,21 @@
                     }
                     break;
                 case 'releaseCheck':
+                    curTransaction = this._getTransaction(true);
+                    if (curTransaction == null) {
+                        NotifyUtils.warn(_('fatal error!!'));
+                        return; // fatal error ?
+                    }
+
                     r = this.GuestCheck.releaseCheckNo(no);
                     break;
                 case 'newTable':
+                    curTransaction = this._getTransaction(true);
+                    if (curTransaction == null) {
+                        NotifyUtils.warn(_('fatal error!!'));
+                        return; // fatal error ?
+                    }
+
                     if (buf.length == 0) {
                         r = this.GuestCheck.getNewTableNo();
                     } else {
@@ -3107,10 +3113,22 @@
                     }
                     break;
                 case 'guest':
+                    curTransaction = this._getTransaction(true);
+                    if (curTransaction == null) {
+                        NotifyUtils.warn(_('fatal error!!'));
+                        return; // fatal error ?
+                    }
+
                     r = this.GuestCheck.guest(no);
                     curTransaction.data.no_of_customers = no;
                     break;
                 case 'store':
+                    curTransaction = this._getTransaction();
+                    if (curTransaction == null) {
+                        NotifyUtils.warn(_('Not an open order; unable to store'));
+                        return; // fatal error ?
+                    }
+
                     if (curTransaction.data.status == 1) {
                         NotifyUtils.warn(_('This order has been submitted'));
                         return;
