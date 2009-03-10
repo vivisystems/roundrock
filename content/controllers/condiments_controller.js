@@ -36,14 +36,14 @@
 
         updateCondimentsSession: function() {
             var condGroups = GeckoJS.Session.get('condGroups');
-
+            
             var condGroupsById = {};
 
             condGroups.forEach(function(condGroup){
 
                 var cgId = condGroup.id;
 
-                var condimentGroup = condGroup['CondimentGroup'];
+                var condimentGroup = condGroup['CondimentGroup'] || {};
                 condimentGroup['Condiment'] = [];
 
                 if(!condGroup['Condiment']) return ;
@@ -62,37 +62,37 @@
 
             // preprocess condiments for faster
             var products = GeckoJS.Session.get('products');
-            products.forEach(function(product) {
+            if (products) {
+                products.forEach(function(product) {
 
-                if(product['cond_group'].length == 0) return false;
-                if (condGroupsByPLU[product['cond_group']]) return false;
+                    if(product['cond_group'].length == 0) return false;
+                    if (condGroupsByPLU[product['cond_group']]) return false;
 
-                var condgroup = product['cond_group'];
-                var itemCondGroups = condgroup.split(',');
+                    var condgroup = product['cond_group'];
+                    var itemCondGroups = condgroup.split(',');
 
-                var selectCondiments = [];
-                var selectedItems = [];
+                    var selectCondiments = [];
+                    var selectedItems = [];
 
-                itemCondGroups.forEach(function(itemCondGroup){
+                    itemCondGroups.forEach(function(itemCondGroup){
 
-                    if(!condGroupsById[itemCondGroup]) return false;
+                        if(!condGroupsById[itemCondGroup]) return false;
 
-                    selectCondiments = selectCondiments.concat(condGroupsById[itemCondGroup]['Condiment']);
+                        selectCondiments = selectCondiments.concat(condGroupsById[itemCondGroup]['Condiment']);
 
-                });
+                    });
 
-                for(var i = 0 ; i < selectCondiments.length; i++ ) {
-                    if(selectCondiments[i]['preset']) selectedItems.push(i);
-                }
+                    for(var i = 0 ; i < selectCondiments.length; i++ ) {
+                        if(selectCondiments[i]['preset']) selectedItems.push(i);
+                    }
 
-                condGroupsByPLU[condgroup] = {'Condiments': selectCondiments, 'PresetItems': selectedItems};
+                    condGroupsByPLU[condgroup] = {'Condiments': selectCondiments, 'PresetItems': selectedItems};
 
-            }, this);
-
+                }, this);
+            }
             GeckoJS.Session.add('condGroupsByPLU', condGroupsByPLU);
 
             // this.log('condGroupsByPLU ' + this.dump(condGroupsByPLU));
-
         },
 
 
@@ -307,27 +307,22 @@
                 }
 
                 try {
-                    condGroupModel.save(inputData);
+                    var condgroup = condGroupModel.save(inputData);
+                    var condGroups = GeckoJS.Session.get('condGroups') || [];
+                    
+                    condGroups.push(condgroup);
 
-                    // retrieve newly created record
-                    var groups = condGroupModel.findByIndex('all', {
-                        index: 'name',
-                        value: inputData.name
-                    });
-                    if ((groups != null) && (groups.length > 0)) {
+                    GeckoJS.Session.set('condGroups', condGroups);
 
-                        var condGroups = GeckoJS.Session.get('condGroups');
-                        condGroups.push(groups[0]);
+                    var view = this._condGroupscrollablepanel.datasource;
+                    view.data = condGroups;
 
-                        GeckoJS.Session.set('condGroups', condGroups);
+                    this._condGroupscrollablepanel.refresh();
+                    
+                    this.changeCondimentPanel(condGroups.length - 1);
 
-                        var view = this._condGroupscrollablepanel.datasource;
-                        view.data = condGroups;
-                        this.changeCondimentPanel(condGroups.length - 1);
-
-                        // @todo OSD
-                        OsdUtils.info(_('Condiment Group [%S] added successfully', [inputData.name]));
-                    }
+                    // @todo OSD
+                    OsdUtils.info(_('Condiment Group [%S] added successfully', [inputData.name]));
                 }
                 catch (e) {
                     // @todo OSD
@@ -371,6 +366,8 @@
 
                     var view = this._condGroupscrollablepanel.datasource;
                     view.data = condGroups;
+                    this._condGroupscrollablepanel.refresh();
+
                     this.changeCondimentPanel(this._selectedIndex);
 
                     // @todo OSD
@@ -424,6 +421,7 @@
 
                     var view = this._condGroupscrollablepanel.datasource;
                     view.data = groups;
+                    this._condGroupscrollablepanel.refresh();
 
                     var newIndex = this._selectedIndex;
                     if (newIndex >= groups.length) newIndex = groups.length - 1;

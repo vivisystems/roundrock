@@ -748,7 +748,13 @@
             switch(action) {
                 case 'add':
                     var products = GeckoJS.Session.get('products');
-                    products.push(data);
+                    if (products == null) {
+                        products = [data];
+                        GeckoJS.Session.set('products', products);
+                    }
+                    else {
+                        products.push(data);
+                    }
 
                     var byId = GeckoJS.Session.get('productsById');
                     byId[data.id] = data;

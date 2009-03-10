@@ -1071,9 +1071,6 @@ msgstr "Cash Drawer Report"
 msgid "Cash Drawer Summary"
 msgstr "Cash Drawer Summary"
 
-msgid "acl_toggle_receipt"
-msgstr "Toggle Receipt Printing"
-
 msgid "Order Status Report"
 msgstr "Order Status Report"
 

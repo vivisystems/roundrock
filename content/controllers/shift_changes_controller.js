@@ -188,7 +188,6 @@
             var terminal_no = GeckoJS.Session.get('terminal_no');
 
             var orderPayment = new OrderPaymentModel();
-            var conditions = '';
             
             // first, we collect payment totals for credit cards and coupons
             var fields = ['order_payments.memo1 as "OrderPayment.name"',
@@ -272,7 +271,7 @@
                                                              recursive: 0
                                                             });
 
-            alert(this.dump(localCashDetails));
+            //alert(this.dump(localCashDetails));
             //this.log(this.dump(localCashDetails));
 
             // next, we collect payment totals for cash in foreign denominations
@@ -317,7 +316,7 @@
             //alert(this.dump(ledgerDetails));
             //this.log(this.dump(ledgerDetails));
             
-            // lastly, we collect payment totals from ledger entries
+            // lastly, we collect payment totals from destination entries
             fields = ['orders.destination as "Order.name"',
                       '\'destination\' as "Order.type"',
                       'COUNT(orders.destination) as "Order.count"',
@@ -325,6 +324,7 @@
             conditions = 'sale_period = "' + salePeriod + '"' +
                          ' AND shift_number = "' + shiftNumber + '"' +
                          ' AND terminal_no = "' + terminal_no + '"' +
+                         ' AND destination is NOT NULL' +
                          ' AND status = "1"';
             groupby = 'orders.destination';
             orderby = 'orders.destination';
@@ -335,7 +335,7 @@
                                                       order: orderby,
                                                       recursive: 0
                                                      });
-            alert(this.dump(destDetails));
+            //alert(this.dump(destDetails));
             //this.log(this.dump(ledgerDetails));
             // local cash amount = cash amount - cash change from cash, check, and coupon
 
