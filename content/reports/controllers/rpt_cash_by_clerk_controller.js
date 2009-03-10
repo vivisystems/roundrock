@@ -117,6 +117,7 @@
         },
         
         printShiftChangeReport: function( start, end, periodType, shiftNo, terminalNo, printController ) {
+        	// the parameters 'start' and 'end' are both thirteen-digit integer.
         	
         	this._set_datas( start, end, periodType, shiftNo, terminalNo );
 
@@ -144,10 +145,10 @@
             
             this._set_datas( start, end, periodType, shiftNo, machineid );
 
-            var path = GREUtils.File.chromeToPath( "chrome://viviecr/content/reports/tpl/rpt_cash_by_clerk.tpl" );
+            var path = GREUtils.File.chromeToPath( "chrome://viviecr/content/reports/tpl/Chinese/rpt_cash_by_clerk.tpl" );
 
             var file = GREUtils.File.getFile(path);
-            var tpl = GREUtils.File.readAllBytes(file);
+            var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
 
             var result = tpl.process( this._datas );
 
@@ -207,12 +208,11 @@
                 var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_cash_by_clerk_csv.tpl");
 
                 var file = GREUtils.File.getFile(path);
-                var tpl = GREUtils.File.readAllBytes(file);
+                var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
                 var datas;
                 datas = this._datas;
 
                 this.CsvExport.printToFile(media_path + this._fileName, datas, tpl);
-
 
             } catch (e) {
                 //
@@ -261,11 +261,6 @@
             document.getElementById('end_date').value = end;
 
             this._enableButton(false);
-
         }
-
     });
-
-
 })();
-

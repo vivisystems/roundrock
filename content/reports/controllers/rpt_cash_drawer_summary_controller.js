@@ -100,10 +100,10 @@
             
             this._datas = data;
 
-            var path = GREUtils.File.chromeToPath( "chrome://viviecr/content/reports/tpl/rpt_cash_drawer_summary.tpl" );
+            var path = GREUtils.File.chromeToPath( "chrome://viviecr/content/reports/tpl/Chinese/rpt_cash_drawer_summary.tpl" );
 
             var file = GREUtils.File.getFile( path );
-            var tpl = GREUtils.File.readAllBytes( file );
+            var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
 
             result = tpl.process( data );
             
@@ -134,7 +134,7 @@
 
                 this.BrowserPrint.getPrintSettings();
                 this.BrowserPrint.setPaperSizeUnit( 1 );
-                this.BrowserPrint.setPaperSize( 297, 210 );
+                this.BrowserPrint.setPaperSize( 210, 297 );
                 //this.BrowserPrint.setPaperEdge( 20, 20, 20, 20 );
 
                 this.BrowserPrint.getWebBrowserPrint( 'preview_frame' );
@@ -162,7 +162,7 @@
                 var path = GREUtils.File.chromeToPath( "chrome://viviecr/content/reports/tpl/rpt_cash_drawer_summary_csv.tpl" );
 
                 var file = GREUtils.File.getFile( path );
-                var tpl = GREUtils.File.readAllBytes( file );
+                var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
                 var datas;
                 datas = this._datas;
 
@@ -182,10 +182,10 @@
                 this._enableButton( false );
                 var waitPanel = this._showWaitPanel( 'wait_panel', 100 );
 
-                var path = GREUtils.File.chromeToPath( "chrome://viviecr/content/reports/tpl/rpt_cash_drawer_summary_rcp.tpl" );
+                var path = GREUtils.File.chromeToPath( "chrome://viviecr/content/reports/tpl/tpl_58mm/rpt_cash_drawer_summary_rcp.tpl" );
 
                 var file = GREUtils.File.getFile( path );
-                var tpl = GREUtils.File.readAllBytes( file );
+                var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
                 var datas;
                 datas = this._datas;
 

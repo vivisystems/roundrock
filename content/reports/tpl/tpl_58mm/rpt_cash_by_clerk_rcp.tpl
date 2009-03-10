@@ -17,9 +17,9 @@ Sale Period:${master.sale_period}
 Shift No.  :${master.shift_number}
 Balance    :${master.balance|default:0|viviFormatPrices:true}
 Cash       :${master.cash|default:0|viviFormatPrices:true}
-Sales      :${master.Sales|default:0|viviFormatPrices:true}
-Excess     :${master.Excess|default:0|viviFormatPrices:true}
-Ledger     :${master.Ledger|default:0|viviFormatPrices:true}
+Sales      :${master.sales|default:0|viviFormatPrices:true}
+Excess     :${master.excess|default:0|viviFormatPrices:true}
+Ledger     :${master.ledger|default:0|viviFormatPrices:true}
 ------------------------
 {for detail in master.ShiftChangeDetail}
 {if detail.name.length > 0}${detail.name|left:10}{else}${detail.type|left:10}{/if}

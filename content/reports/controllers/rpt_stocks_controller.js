@@ -179,7 +179,7 @@
                 var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_stocks_csv.tpl");
 
                 var file = GREUtils.File.getFile(path);
-                var tpl = GREUtils.File.readAllBytes(file);
+                var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
                 var datas;
                 datas = this._datas;
 
@@ -200,10 +200,10 @@
                 this._enableButton(false);
                 var waitPanel = this._showWaitPanel('wait_panel', 100);
 
-                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_stocks_rcp.tpl");
+                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/tpl_58mm/rpt_stocks_rcp.tpl");
 
                 var file = GREUtils.File.getFile(path);
-                var tpl = GREUtils.File.readAllBytes(file);
+                var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
                 var datas;
                 datas = this._datas;
 

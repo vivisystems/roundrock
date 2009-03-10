@@ -58,7 +58,7 @@
                             'orders.status',
                             'SUM("orders"."total") AS "Order.HourTotal"',
                             // 'STRFTIME("%Y-%m-%d %H","orders"."transaction_created_format") AS "Order.Hour"',
-                            'STRFTIME("%Y-%m-%d %H",DATETIME("orders"."transaction_created", "unixepoch", "localtime")) AS "Order.Hour"',
+                            'STRFTIME("%H",DATETIME("orders"."transaction_created", "unixepoch", "localtime")) AS "Order.Hour"',
                             'COUNT("orders"."id") AS "Order.OrderNum"',
                             'SUM("orders"."no_of_customers") AS "Order.Guests"',
                             'SUM("orders"."items_count") AS "Order.ItemsCount"'];
@@ -73,7 +73,7 @@
                 var groupby = '"Order.Hour"';
             }
 
-            var orderby = 'orders.terminal_no,orders.transaction_created';
+            var orderby = '"Order.Hour", orders.terminal_no, orders.transaction_created';
             
             var data = {};
             data.summary = {};
@@ -460,7 +460,7 @@
                 var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_sales_summary_csv.tpl");
 
                 var file = GREUtils.File.getFile(path);
-                var tpl = GREUtils.File.readAllBytes(file);
+                var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
                 var datas;
                 datas = this._datas;
 
@@ -481,10 +481,10 @@
                 this._enableButton(false);
                 var waitPanel = this._showWaitPanel('wait_panel', 100);
 
-                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_sales_summary_rcp.tpl");
+                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/tpl_58mm/rpt_sales_summary_rcp.tpl");
 
                 var file = GREUtils.File.getFile(path);
-                var tpl = GREUtils.File.readAllBytes(file);
+                var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
                 var datas;
                 datas = this._datas;
 

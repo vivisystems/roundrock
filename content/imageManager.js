@@ -4,8 +4,8 @@
      * Window Startup
      */
     function startup() {
-
-        if (typeof window.arguments[0].wrappedJSObject == "object") {
+        if (window.arguments && (typeof window.arguments[0].wrappedJSObject == "object")) {
+            
             var args = window.args = window.arguments[0].wrappedJSObject;
         } else {
 
