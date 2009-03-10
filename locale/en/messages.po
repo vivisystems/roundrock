@@ -24,33 +24,33 @@ msgid ""
 "return to the Main Screen. Do you want to save your changes?"
 msgstr ""
 
-#: ../..//content/prompt_doshiftchange.js:77
+#: ../..//content/prompt_doshiftchange.js:79
 msgid "data incomplete!"
 msgstr ""
 
-#: ../..//content/prompt_doshiftchange.js:107
-#: ../..//content/prompt_doshiftchange.js:111
+#: ../..//content/prompt_doshiftchange.js:109
+#: ../..//content/prompt_doshiftchange.js:113
 msgid "confirm end sale period"
 msgstr ""
 
-#: ../..//content/prompt_doshiftchange.js:107
+#: ../..//content/prompt_doshiftchange.js:109
 msgid "Change may not be left in the drawer at the end of sale period"
 msgstr ""
 
-#: ../..//content/prompt_doshiftchange.js:111
+#: ../..//content/prompt_doshiftchange.js:113
 msgid "Please confirm end of sale period"
 msgstr ""
 
-#: ../..//content/prompt_doshiftchange.js:125
-#: ../..//content/prompt_doshiftchange.js:130
+#: ../..//content/prompt_doshiftchange.js:127
+#: ../..//content/prompt_doshiftchange.js:132
 msgid "confirm shift change"
 msgstr ""
 
-#: ../..//content/prompt_doshiftchange.js:125
+#: ../..//content/prompt_doshiftchange.js:127
 msgid "Drawer change may not be negative"
 msgstr ""
 
-#: ../..//content/prompt_doshiftchange.js:130
+#: ../..//content/prompt_doshiftchange.js:132
 msgid "Please confirm shift change"
 msgstr ""
 
@@ -785,31 +785,38 @@ msgstr ""
 msgid "Order is not queued because it is empty"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3060
+#: ../..//content/controllers/cart_controller.js:3071
+#: ../..//content/controllers/cart_controller.js:3090
+#: ../..//content/controllers/cart_controller.js:3099
+#: ../..//content/controllers/cart_controller.js:3118
 msgid "fatal error!!"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3090
+#: ../..//content/controllers/cart_controller.js:3084
 msgid "Check# %S is exist!!"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3106
+#: ../..//content/controllers/cart_controller.js:3112
 msgid "Table# %S is exist!!"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3115
+#: ../..//content/controllers/cart_controller.js:3128
+msgid "Not an open order; unable to store"
+msgstr ""
+
+#: ../..//content/controllers/cart_controller.js:3133
 msgid "This order has been submitted"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3119
+#: ../..//content/controllers/cart_controller.js:3137
 msgid "This order is closed pending payment and may only be finalized"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3123
+#: ../..//content/controllers/cart_controller.js:3141
 msgid "This order is empty"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3132
+#: ../..//content/controllers/cart_controller.js:3150
 msgid "No change to store"
 msgstr ""
 
@@ -1839,31 +1846,31 @@ msgstr ""
 msgid "Specified template [%S] is empty or does not exist!"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:401
+#: ../..//content/controllers/shift_changes_controller.js:436
 msgid "Shift Change"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:414
+#: ../..//content/controllers/shift_changes_controller.js:449
 msgid "Invalid cash drawer change amount [%S]"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:418
+#: ../..//content/controllers/shift_changes_controller.js:453
 msgid "You may not leave negative amount of cash in the cashdrawer"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:470
+#: ../..//content/controllers/shift_changes_controller.js:506
 msgid "Sale Period [%S] is now closed"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:471
+#: ../..//content/controllers/shift_changes_controller.js:507
 msgid "Sale Period Close"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:510
+#: ../..//content/controllers/shift_changes_controller.js:546
 msgid "Sale Period [%S] Shift [%S] is now closed"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:511
+#: ../..//content/controllers/shift_changes_controller.js:547
 msgid "Shift Close"
 msgstr ""
 

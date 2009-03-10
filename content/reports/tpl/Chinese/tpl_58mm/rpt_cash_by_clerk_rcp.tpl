@@ -22,11 +22,27 @@ ${head.title|center:24}
 代收金額   :${master.ledger_in|default:0|viviFormatPrices:true}
 代付金額   :${master.ledger_out|default:0|viviFormatPrices:true}
 ------------------------
+{eval}
+  destDetails = [];
+{/eval}
 {for detail in master.ShiftChangeDetail}
+{if detail.type == 'destination'}
+{eval}
+  destDetails.push(detail);
+{/eval}
+{else}
 {if detail.name.length > 0}${detail.name|left:10}{else}${detail.type|left:10}{/if}
 :${detail.amount|default:0|viviFormatPrices:true|right:13}
-筆數       :${detail.count|default:0|viviFormatPrices:true|right:13}
+筆數       :${detail.count|default:0|right:13}
+{/if}
 {/for}
+{if destDetails.length > 0}
+------------------------
+{for dest in destDetails}
+${dest.name|left:10}:${dest.amount|default:0|viviFormatPrices:true|right:13}
+筆數       :${dest.count|default:0|right:13}
+{/for}
+{/if}
 {/for}
 ========================
 ${foot.gen_time}

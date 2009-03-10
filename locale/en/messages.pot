@@ -1178,3 +1178,21 @@ msgstr "Generic VFD"
 
 msgid "acl_end_sale_period"
 msgstr "End Sale Period"
+
+msgid "destination"
+msgstr "destination"
+
+msgid "cash"
+msgstr "cash"
+
+msgid "creditcard"
+msgstr "creditcard"
+
+msgid "coupon"
+msgstr "coupon"
+
+msgid "giftcard"
+msgstr "giftcard"
+
+msgid "check"
+msgstr "check"

@@ -272,7 +272,7 @@
                                                              recursive: 0
                                                             });
 
-            //alert(this.dump(localCashDetails));
+            alert(this.dump(localCashDetails));
             //this.log(this.dump(localCashDetails));
 
             // next, we collect payment totals for cash in foreign denominations
@@ -297,7 +297,7 @@
             //alert(this.dump(foreignCashDetails));
             //this.log(this.dump(foreignCashDetails));
 
-            // lastly, we collect payment totals from ledger entries
+            // next, we collect payment totals from ledger entries
             fields = ['order_payments.memo1 as "OrderPayment.name"',
                       'order_payments.name as "OrderPayment.type"',
                       'COUNT(order_payments.name) as "OrderPayment.count"',
@@ -317,6 +317,26 @@
             //alert(this.dump(ledgerDetails));
             //this.log(this.dump(ledgerDetails));
             
+            // lastly, we collect payment totals from ledger entries
+            fields = ['orders.destination as "Order.name"',
+                      '\'destination\' as "Order.type"',
+                      'COUNT(orders.destination) as "Order.count"',
+                      'SUM(orders.total) as "Order.amount"'];
+            conditions = 'sale_period = "' + salePeriod + '"' +
+                         ' AND shift_number = "' + shiftNumber + '"' +
+                         ' AND terminal_no = "' + terminal_no + '"' +
+                         ' AND status = "1"';
+            groupby = 'orders.destination';
+            orderby = 'orders.destination';
+            var orderModel = new OrderModel();
+            var destDetails = orderModel.find('all', {fields: fields,
+                                                      conditions: conditions,
+                                                      group: groupby,
+                                                      order: orderby,
+                                                      recursive: 0
+                                                     });
+            alert(this.dump(destDetails));
+            //this.log(this.dump(ledgerDetails));
             // local cash amount = cash amount - cash change from cash, check, and coupon
 
             // compute cash received from sale and ledger
@@ -398,7 +418,7 @@
 
             var giftcardExcess = (giftcardTotal && giftcardTotal.excess_amount != null) ? giftcardTotal.excess_amount : 0;
             
-            var shiftChangeDetails = creditcardCouponDetails.concat(giftcardDetails.concat(checkDetails.concat(localCashDetails.concat(foreignCashDetails.concat(ledgerDetails)))));
+            var shiftChangeDetails = destDetails.concat(creditcardCouponDetails.concat(giftcardDetails.concat(checkDetails.concat(localCashDetails.concat(foreignCashDetails.concat(ledgerDetails))))));
             shiftChangeDetails = new GeckoJS.ArrayQuery(shiftChangeDetails).orderBy('type asc, name asc');
 
             var aURL = 'chrome://viviecr/content/prompt_doshiftchange.xul';
