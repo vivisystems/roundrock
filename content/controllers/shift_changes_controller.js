@@ -21,7 +21,7 @@
             }
         },
 
-        load: function(data) {
+        load: function() {
             //
         },
 
@@ -67,11 +67,6 @@
 
         getShiftNumber: function() {
             return GeckoJS.Session.get('shift_number');
-        },
-
-        getStartTime: function() {
-            var shift = GeckoJS.Session.get('current_shift');
-            return (shift) ? shift.created : null;
         },
 
         getEndOfPeriod: function() {
@@ -148,57 +143,65 @@
 
         // this is invoked right after initialLogin
         startShift: function() {
-            // track sale period?
-            if (GeckoJS.Configure.read('vivipos.fec.settings.TrackSalePeriod')) {
 
-                // does sale period exist?
-                var newSalePeriod;
-                var newShiftNumber;
-                var lastSalePeriod = this.getSalePeriod();
-                var lastShiftNumber = this.getShiftNumber();
-                var endOfPeriod = this.getEndOfPeriod();
-                var endOfShift = this.getEndOfShift();
+            // does sale period exist?
+            var newSalePeriod;
+            var newShiftNumber;
+            var lastSalePeriod = this.getSalePeriod();
+            var lastShiftNumber = this.getShiftNumber();
+            var endOfPeriod = this.getEndOfPeriod();
+            var endOfShift = this.getEndOfShift();
+            var resetSequence = GeckoJS.Configure.read('vivipos.fec.settings.SequenceTracksSalePeriod');
+            var isNewSalePeriod = false;
 
-                // no last shift?
-                if (lastSalePeriod == '') {
-                    // insert new sale period with today's date;
-                    newSalePeriod = new Date().clearTime() / 1000;
-                    newShiftNumber = 1;
-                }
+            // no last shift?
+            if (lastSalePeriod == '') {
+                // insert new sale period with today's date;
+                newSalePeriod = new Date().clearTime() / 1000;
+                newShiftNumber = 1;
 
-                // is last shift the end of the last sale period
-                else if (endOfPeriod) {
-
-                    // set current sale period to the greater of
-                    // today's date and last sale period + 1 day
-                    var today = new Date().clearTime();
-                    var lastSalePeriodPlusOne = new Date(lastSalePeriod * 1000).add({days: 1}).clearTime();
-                    if (lastSalePeriod == '' || (today > lastSalePeriodPlusOne)) {
-                        newSalePeriod = today;
-                    }
-                    else {
-                        newSalePeriod = lastSalePeriodPlusOne;
-                    }
-                    newSalePeriod = newSalePeriod.getTime() / 1000;
-                    newShiftNumber = 1;
-                }
-                // has last shift ended?
-                else if (endOfShift) {
-                    newSalePeriod = lastSalePeriod;
-                    newShiftNumber = lastShiftNumber + 1;
-                }
-                // continue last shift
-                else {
-                    newSalePeriod = lastSalePeriod;
-                    newShiftNumber = lastShiftNumber;
-                }
-                this.setShift(newSalePeriod, newShiftNumber, false, false);
-
-                // display current shift / last shift information
-
-                this.ShiftDialog(new Date(newSalePeriod * 1000).toLocaleDateString(), newShiftNumber,
-                                 lastSalePeriod == '' ? '' : new Date(lastSalePeriod * 1000).toLocaleDateString(), lastShiftNumber );
+                isNewSalePeriod = true;
             }
+
+            // is last shift the end of the last sale period
+            else if (endOfPeriod) {
+
+                // set current sale period to the greater of
+                // today's date and last sale period + 1 day
+                var today = new Date().clearTime();
+                var lastSalePeriodPlusOne = new Date(lastSalePeriod * 1000).add({days: 1}).clearTime();
+                if (lastSalePeriod == '' || (today > lastSalePeriodPlusOne)) {
+                    newSalePeriod = today;
+                }
+                else {
+                    newSalePeriod = lastSalePeriodPlusOne;
+                }
+                newSalePeriod = newSalePeriod.getTime() / 1000;
+                newShiftNumber = 1;
+
+                isNewSalePeriod = true;
+            }
+            // has last shift ended?
+            else if (endOfShift) {
+                newSalePeriod = lastSalePeriod;
+                newShiftNumber = lastShiftNumber + 1;
+            }
+            // continue last shift
+            else {
+                newSalePeriod = lastSalePeriod;
+                newShiftNumber = lastShiftNumber;
+            }
+            this.setShift(newSalePeriod, newShiftNumber, false, false);
+
+            // reset sequence if necessary
+            if (resetSequence && isNewSalePeriod) {
+                var newSequence = new Date(newSalePeriod * 1000).toString('yyyyMMdd') + '00000';
+                SequenceModel.resetSequence('order_no', parseInt(newSequence));
+            }
+            
+            // display current shift / last shift information
+            this.ShiftDialog(new Date(newSalePeriod * 1000).toLocaleDateString(), newShiftNumber,
+                             lastSalePeriod == '' ? '' : new Date(lastSalePeriod * 1000).toLocaleDateString(), lastShiftNumber );
         },
         
         ShiftDialog: function (newSalePeriod, newShiftNumber, lastSalePeriod, lastShiftNumber) {
@@ -215,7 +218,6 @@
         },
 
         shiftChange: function() {
-            //
             var salePeriod = this.getSalePeriod();
             var shiftNumber = this.getShiftNumber();
             var terminal_no = GeckoJS.Session.get('terminal_no');
@@ -228,8 +230,8 @@
                           'COUNT(order_payments.name) as "OrderPayment.count"',
                           'SUM(order_payments.amount) as "OrderPayment.amount"',
                           'SUM(order_payments.change) as "OrderPayment.change"'];
-            var conditions = 'order_payments.sale_period = ' + salePeriod +
-                             ' AND order_payments.shift_number = ' + shiftNumber +
+            var conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
+                             ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                              ' AND order_payments.terminal_no = "' + terminal_no + '"' +
                              ' AND (order_payments.name = "creditcard" OR order_payments.name = "coupon")';
             var groupby = 'order_payments.memo1, order_payments.name';
@@ -249,8 +251,8 @@
                       'COUNT(order_payments.name) as "OrderPayment.count"',
                       'SUM(order_payments.origin_amount) as "OrderPayment.amount"',
                       'SUM(order_payments.origin_amount - order_payments.amount) as "OrderPayment.excess_amount"'];  // used to store excess giftcard payment amount
-            conditions = 'order_payments.sale_period = ' + salePeriod +
-                         ' AND order_payments.shift_number = ' + shiftNumber +
+            conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
+                         ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                          ' AND order_payments.terminal_no = "' + terminal_no + '"' +
                          ' AND order_payments.name = "giftcard"';
             groupby = 'order_payments.memo1, order_payments.name';
@@ -270,8 +272,8 @@
                       'COUNT(order_payments.name) as "OrderPayment.count"',
                       'SUM(order_payments.origin_amount) as "OrderPayment.amount"',
                       'SUM(order_payments.change) as "OrderPayment.change"'];
-            conditions = 'order_payments.sale_period = ' + salePeriod +
-                         ' AND order_payments.shift_number = ' + shiftNumber +
+            conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
+                         ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                          ' AND order_payments.terminal_no = "' + terminal_no + '"' +
                          ' AND order_payments.name = "check"';
             groupby = 'order_payments.memo1, order_payments.name';
@@ -291,8 +293,8 @@
                       'order_payments.name as "OrderPayment.type"',
                       'COUNT(order_payments.name) as "OrderPayment.count"',
                       'SUM(order_payments.amount - order_payments.change) as "OrderPayment.amount"'];
-            conditions = 'order_payments.sale_period = ' + salePeriod +
-                         ' AND order_payments.shift_number = ' + shiftNumber +
+            conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
+                         ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                          ' AND order_payments.terminal_no = "' + terminal_no + '"' +
                          ' AND order_payments.name = "cash" AND order_payments.memo1 IS NULL';
             groupby = 'order_payments.memo1, order_payments.name';
@@ -313,8 +315,8 @@
                       'COUNT(order_payments.name) as "OrderPayment.count"',
                       'SUM(order_payments.origin_amount) as "OrderPayment.amount"',
                       'SUM(order_payments.change) as "OrderPayment.change"'];
-            conditions = 'order_payments.sale_period = ' + salePeriod +
-                         ' AND order_payments.shift_number = ' + shiftNumber +
+            conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
+                         ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                          ' AND order_payments.terminal_no = "' + terminal_no + '"' +
                          ' AND order_payments.name = "cash" AND NOT (order_payments.memo1 IS NULL)';
             groupby = 'order_payments.memo1, order_payments.name';
@@ -329,13 +331,13 @@
             //alert(this.dump(foreignCashDetails));
             //this.log(this.dump(foreignCashDetails));
 
-            // lastly, we collect payment totals from ledger entries
+            // next, we collect payment totals from ledger entries
             fields = ['order_payments.memo1 as "OrderPayment.name"',
                       'order_payments.name as "OrderPayment.type"',
                       'COUNT(order_payments.name) as "OrderPayment.count"',
                       'SUM(order_payments.amount) as "OrderPayment.amount"'];
-            conditions = 'order_payments.sale_period = ' + salePeriod +
-                         ' AND order_payments.shift_number = ' + shiftNumber +
+            conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
+                         ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                          ' AND order_payments.terminal_no = "' + terminal_no + '"' +
                          ' AND order_payments.name = "ledger"';
             groupby = 'order_payments.memo1, order_payments.name';
@@ -349,12 +351,33 @@
             //alert(this.dump(ledgerDetails));
             //this.log(this.dump(ledgerDetails));
             
+            // lastly, we collect payment totals from destination entries
+            fields = ['orders.destination as "Order.name"',
+                      '\'destination\' as "Order.type"',
+                      'COUNT(orders.destination) as "Order.count"',
+                      'SUM(orders.total) as "Order.amount"'];
+            conditions = 'sale_period = "' + salePeriod + '"' +
+                         ' AND shift_number = "' + shiftNumber + '"' +
+                         ' AND terminal_no = "' + terminal_no + '"' +
+                         ' AND destination is NOT NULL' +
+                         ' AND status = "1"';
+            groupby = 'orders.destination';
+            orderby = 'orders.destination';
+            var orderModel = new OrderModel();
+            var destDetails = orderModel.find('all', {fields: fields,
+                                                      conditions: conditions,
+                                                      group: groupby,
+                                                      order: orderby,
+                                                      recursive: 0
+                                                     });
+            //alert(this.dump(destDetails));
+            //this.log(this.dump(ledgerDetails));
             // local cash amount = cash amount - cash change from cash, check, and coupon
 
             // compute cash received from sale and ledger
             fields = ['SUM(order_payments.amount - order_payments.change) as "OrderPayment.amount"'];
-            conditions = 'order_payments.sale_period = ' + salePeriod +
-                         ' AND order_payments.shift_number = ' + shiftNumber +
+            conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
+                         ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                          ' AND order_payments.terminal_no = "' + terminal_no + '"' +
                          ' AND ((order_payments.name = "cash" AND order_payments.memo1 IS NULL) OR (order_payments.name = "ledger"))';
             var cashDetails = orderPayment.find('first', {fields: fields,
@@ -365,8 +388,8 @@
 
             // compute cash change given
             fields = ['SUM(order_payments.change) as "OrderPayment.cash_change"'];
-            conditions = 'order_payments.sale_period = ' + salePeriod +
-                         ' AND order_payments.shift_number = ' + shiftNumber +
+            conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
+                         ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                          ' AND order_payments.terminal_no = "' + terminal_no + '"' +
                          ' AND ((order_payments.name = "cash" AND NOT (order_payments.memo1 IS NULL)) OR (order_payments.name = "coupon") OR (order_payments.name = "check"))';
             var changeDetails = orderPayment.find('first', {fields: fields,
@@ -380,8 +403,8 @@
 
             // compute total sales revenue
             fields = ['SUM(order_payments.amount - order_payments.change) as "OrderPayment.amount"'];
-            conditions = 'order_payments.sale_period = ' + salePeriod +
-                         ' AND order_payments.shift_number = ' + shiftNumber +
+            conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
+                         ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                          ' AND order_payments.terminal_no = "' + terminal_no + '"' +
                          ' AND order_payments.name != "ledger"';
             var salesTotal = orderPayment.find('first', {fields: fields,
@@ -391,22 +414,36 @@
 
             var salesRevenue = (salesTotal && salesTotal.amount != null) ? salesTotal.amount : 0;
 
-            // compute ledger balance
+            // compute ledger IN balance
             fields = ['SUM(order_payments.amount - order_payments.change) as "OrderPayment.amount"'];
-            conditions = 'order_payments.sale_period = ' + salePeriod +
-                         ' AND order_payments.shift_number = ' + shiftNumber +
+            conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
+                         ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                          ' AND order_payments.terminal_no = "' + terminal_no + '"' +
-                         ' AND order_payments.name = "ledger"';
-            var ledgerBalance = orderPayment.find('first', {fields: fields,
-                                                            conditions: conditions,
-                                                            recursive: 0
-                                                           });
-            var ledgerTotal = (ledgerBalance && ledgerBalance.amount != null) ? ledgerBalance.amount : 0;
+                         ' AND order_payments.name = "ledger"' +
+                         ' AND order_payments.amount > 0';
+            var ledgerInBalance = orderPayment.find('first', {fields: fields,
+                                                              conditions: conditions,
+                                                              recursive: 0
+                                                             });
+            var ledgerInTotal = (ledgerInBalance && ledgerInBalance.amount != null) ? ledgerInBalance.amount : 0;
+
+            // compute ledger OUT balance
+            fields = ['SUM(order_payments.amount - order_payments.change) as "OrderPayment.amount"'];
+            conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
+                         ' AND order_payments.shift_number = "' + shiftNumber + '"' +
+                         ' AND order_payments.terminal_no = "' + terminal_no + '"' +
+                         ' AND order_payments.name = "ledger"' +
+                         ' AND order_payments.amount < 0';
+            var ledgerOutBalance = orderPayment.find('first', {fields: fields,
+                                                               conditions: conditions,
+                                                               recursive: 0
+                                                              });
+            var ledgerOutTotal = (ledgerOutBalance && ledgerOutBalance.amount != null) ? ledgerOutBalance.amount : 0;
 
             // compute excess giftcard payments
             fields = ['SUM(order_payments.origin_amount - order_payments.amount) as "OrderPayment.excess_amount"'];
-            conditions = 'order_payments.sale_period = ' + salePeriod +
-                         ' AND order_payments.shift_number = ' + shiftNumber +
+            conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
+                         ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                          ' AND order_payments.terminal_no = "' + terminal_no + '"' +
                          ' AND order_payments.name = "giftcard"';
             var giftcardTotal = orderPayment.find('first', {fields: fields,
@@ -416,7 +453,7 @@
 
             var giftcardExcess = (giftcardTotal && giftcardTotal.excess_amount != null) ? giftcardTotal.excess_amount : 0;
             
-            var shiftChangeDetails = creditcardCouponDetails.concat(giftcardDetails.concat(checkDetails.concat(localCashDetails.concat(foreignCashDetails.concat(ledgerDetails)))));
+            var shiftChangeDetails = destDetails.concat(creditcardCouponDetails.concat(giftcardDetails.concat(checkDetails.concat(localCashDetails.concat(foreignCashDetails.concat(ledgerDetails))))));
             shiftChangeDetails = new GeckoJS.ArrayQuery(shiftChangeDetails).orderBy('type asc, name asc');
 
             var aURL = 'chrome://viviecr/content/prompt_doshiftchange.xul';
@@ -424,9 +461,10 @@
             var inputObj = {
                 shiftChangeDetails:shiftChangeDetails,
                 cashNet: cashNet,
-                balance: salesRevenue + ledgerTotal,
+                balance: salesRevenue + ledgerInTotal + ledgerOutTotal,
                 salesRevenue: salesRevenue,
-                ledgerTotal: ledgerTotal,
+                ledgerInTotal: ledgerInTotal,
+                ledgerOutTotal: ledgerOutTotal,
                 giftcardExcess: giftcardExcess
             };
 
@@ -478,15 +516,16 @@
                     cash: inputObj.cashNet - amt,
                     balance: inputObj.balance - amt,
                     sales: inputObj.salesRevenue,
-                    ledger: inputObj.ledgerTotal - amt,
+                    ledger_out: inputObj.ledgerOutTotal - amt,
+                    ledger_in: inputObj.ledgerInTotal - amt,
                     excess: inputObj.giftcardExcess,
                     note: inputObj.description,
                     terminal_no: GeckoJS.Session.get('terminal_no'),
                     sale_period: this.getSalePeriod(),
                     shift_number: this.getShiftNumber(),
                     shiftChangeDetails: inputObj.shiftChangeDetails
-
                 };
+
                 // do shift change
                 var shiftChangeModel = new ShiftChangeModel();
                 shiftChangeModel.saveShiftChange(shiftChangeRecord);
@@ -550,11 +589,17 @@
         },
 
         printShiftReport: function(all) {
+            var reportController = GeckoJS.Controller.getInstanceByName('RptCashByClerk');
+            var printController = GeckoJS.Controller.getInstanceByName('Print');
+            var salePeriod = this.getSalePeriod();
+            var terminalNo = GeckoJS.Session.get('terminal_no');
+
             if (all) {
-                alert('print all shifts');
+                reportController._printShiftChangeReport(salePeriod * 1000, salePeriod * 1000, 'sale_period', '', terminalNo, printController);
             }
             else {
-                alert('print this shift');
+                var shiftNumber = this.getShiftNumber().toString();
+                reportController._printShiftChangeReport(salePeriod * 1000, salePeriod * 1000, 'sale_period', shiftNumber, terminalNo, printController);
             }
         },
 

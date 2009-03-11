@@ -17,6 +17,20 @@
             // @todo :
             alert('BrowserPrint initial...');
         },
+        
+        execute: function(cmd, param) {
+            try {
+                var exec = new GeckoJS.File(cmd);
+                var r = exec.run(param, true);
+                // this.log("ERROR", "Ret:" + r + "  cmd:" + cmd + "  param:" + param);
+                exec.close();
+                return true;
+            }
+            catch (e) {
+                NotifyUtils.warn(_('Failed to execute command (%S).', [cmd + ' ' + param]));
+                return false;
+            }
+        },
 
         showPageSetup: function () {
             try {
@@ -85,11 +99,13 @@
                 this._printSettings.outputFormat = Components.interfaces.nsIPrintSettings.kOutputFormatPDF;
 
                 this._printSettings.printToFile = true;
-                this._printSettings.toFileName = pdfFileName;
+                this._printSettings.toFileName = pdfFileName + ( new Date() ).toString( 'yyyyMMddHHmm' ) + ".pdf";
                 this._printSettings.printSilent = true;
 
                 this._webBrowserPrint.print(this._printSettings, null);
-
+                
+                // sync to media...
+                this.execute("/bin/sync", []);
             } catch (e) {
 
             }

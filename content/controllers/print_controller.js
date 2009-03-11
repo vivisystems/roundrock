@@ -2,6 +2,7 @@
 
      include('chrome://viviecr/content/devices/deviceTemplate.js');
      include('chrome://viviecr/content/devices/deviceTemplateUtils.js');
+     include('chrome://viviecr/content/reports/template_ext.js');
 
     /**
      * Print Controller
@@ -26,9 +27,6 @@
 
             // initialize main thread
             this._main = GREUtils.Thread.getMainThread();
-
-            // initialize receipt printing status
-            this.updateReceiptPrintingStatus();
 
             // add event listener for onSubmit & onStore events
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
@@ -203,6 +201,8 @@
 
             //this.log('SUBMIT: ' + GeckoJS.BaseObject.dump(txn.data));
 
+            // don't print if order has been pre-finalized and the order is being submitted for completion
+            // since receipts and checks would have already been printed
             if (txn.data.status != 1 || !txn.isClosed()) {
                 // check if checks need to be printed
                 if (txn.data.batchItemCount > 0) {
@@ -311,35 +311,6 @@
             this.issueReceipt(printer, true);
         },
 
-        updateReceiptPrintingStatus: function() {
-            var status = GeckoJS.Configure.read('vivipos.fec.settings.PrintReceipt');
-            if (status) {
-                document.getElementById('receiptStatus').setAttribute('status', 'on');
-            }
-            else {
-                document.getElementById('receiptStatus').setAttribute('status', 'off');
-            }
-        },
-
-
-        isReceiptPrintingEnabled: function() {
-            return GeckoJS.Configure.read('vivipos.fec.settings.PrintReceipt') || false;
-        },
-
-        toggleReceiptPrinting: function() {
-            if (GeckoJS.Configure.read('vivipos.fec.settings.PrintReceipt')) {
-                GeckoJS.Configure.write('vivipos.fec.settings.PrintReceipt', false);
-                NotifyUtils.info(_('Receipt printing off'));
-            }
-            else {
-                GeckoJS.Configure.write('vivipos.fec.settings.PrintReceipt', true);
-                NotifyUtils.info(_('Receipt printing on'));
-            }
-            this.updateReceiptPrintingStatus();
-
-            this.dispatchEvent('onToggleReceiptPrinting', GeckoJS.Configure.read('vivipos.fec.settings.PrintReceipt'));
-        },
-
         // print on all enabled receipt printers
         // printer = 0: print on all enabled printers
         // printer = 1: first printer
@@ -384,6 +355,7 @@
                 for (var i = 0; i < enabledDevices.length; i++) {
                     var device = enabledDevices[i];
                     if ((printer == null && device.autoprint > 0) || printer == device.number || printer == 0) {
+
                         var template = device.template;
                         var port = device.port;
                         var portspeed = device.portspeed;
@@ -507,10 +479,11 @@
 
             var enabledDevices = device.getEnabledDevices('check');
             var order = txn.data;
-
+            var customer = GeckoJS.Session.get('current_customer');
             var data = {
                 txn: txn,
-                order: order
+                order: order,
+                customer: customer
             };
 
             if (order.proceeds_clerk == null || order.proceeds_clerk == '') {
@@ -569,7 +542,7 @@
         // handles user initiated receipt requests
         printReport: function(type, tpl, data) {
             var device = this.getDeviceController();
-
+            
             if (device == null) {
                 NotifyUtils.error(_('Error in device manager! Please check your device configuration'));
                 return;
@@ -578,6 +551,7 @@
             // check device settings
             var printer = (type == 'report' ? 1 : 2);
 
+			// to test with the 'alert' below, just comment the following switch statement and setup a dummy printer.
             switch (device.isDeviceEnabled('report', printer)) {
                 case -2:
                     NotifyUtils.warn(_('The specified report/label printer [%S] is not configured', [printer]));
@@ -602,6 +576,8 @@
             _templateModifiers(TrimPath, encoding);
 
             var template = tpl.process(data);
+            
+            //alert( template );
 
             this.printSlip(null, template, port, portspeed, handshaking, devicemodel, encoding, 0, 1);
         },
@@ -617,7 +593,7 @@
             
             if (portPath == null || portPath == '') {
                 NotifyUtils.error(_('Specified device port [%S] does not exist!', [port]));
-                return false;
+                return;
             }
 
             // expand data with storeContact and terminal_no
@@ -705,12 +681,12 @@
             // if data is null, then the document has already been generated and passed in through the template parameter
             if (data != null) {
 
-                //this.log('type [' + typeof data.duplicate + '] [' + data.duplicate + '] ' + GeckoJS.BaseObject.dump(data.order));
+                this.log('type [' + typeof data.duplicate + '] [' + data.duplicate + '] ' + GeckoJS.BaseObject.dump(data.order));
                 
                 tpl = this.getTemplateData(template, false);
                 if (tpl == null || tpl == '') {
                     NotifyUtils.error(_('Specified template [%S] is empty or does not exist!', [template]));
-                    return false;
+                    return;
                 }
                 result = tpl.process(data);
             }
@@ -742,7 +718,7 @@
                     result = result.replace(re, value);
                 }
             }
-            //alert(GeckoJS.BaseObject.dump(result));
+            alert(GeckoJS.BaseObject.dump(result));
             //return;
             //alert(data.order.receiptPages);
             //

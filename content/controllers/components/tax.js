@@ -1,6 +1,6 @@
 (function() {
 
-    /**
+/**
  * Creates a new GeckoJS.TaxComponent instance.
  *
  * @class GeckoJS.TaxComponent implements

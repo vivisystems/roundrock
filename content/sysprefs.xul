@@ -47,7 +47,6 @@
             <preference id="pref_precisiontaxes" name="vivipos.fec.settings.PrecisionTaxes" type="int"/>
             <preference id="pref_defaultpricelevel" name="vivipos.fec.settings.DefaultPriceLevel" type="int" />
             <preference id="pref_privatequeue" name="vivipos.fec.settings.PrivateQueue" type="bool" />
-            <preference id="pref_tracksaleperiod" name="vivipos.fec.settings.TrackSalePeriod" type="bool" />
 
             <preference id="pref_activepricelevelschedule" name="vivipos.fec.settings.ActivePriceLevelSchedule" type="bool" />
             <preference id="pref_pricelevelrevert" name="vivipos.fec.settings.PriceLevelRevert" type="bool" />
@@ -56,6 +55,7 @@
             <preference id="pref_ageverificationack" name="vivipos.fec.settings.AgeVerificationAck" type="bool" />
             <preference id="pref_positivepricerequired" name="vivipos.fec.settings.PositivePriceRequired" type="bool" />
             <preference id="pref_clearcartafterfinalization" name="vivipos.fec.settings.ClearCartAfterFinalization" type="bool" />
+            <preference id="pref_sequencetrackssaleperiod" name="vivipos.fec.settings.SequenceTracksSalePeriod" type="bool" />
 
         </preferences>
 
@@ -82,7 +82,7 @@
                 </row>
                 <row>
                     <checkbox preference="pref_allowoverstock" id="pref_allowoverstockCtrl" label="&general.allowoverstock;" />
-                    <checkbox preference="pref_tracksaleperiod" id="pref_tracksaleperiodCtrl" label="&general.tracksaleperiod;" />
+                    <checkbox preference="pref_sequencetrackssaleperiod" id="pref_sequencetrackssaleperiodCtrl" label="&general.sequencetrackssaleperiod;" />
                 </row>
             </rows>
         </grid>

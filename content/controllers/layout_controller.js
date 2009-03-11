@@ -75,6 +75,7 @@
             var deptPanel = document.getElementById('catescrollablepanel');
             var pluPanel = document.getElementById('prodscrollablepanel');
             var fnPanel = document.getElementById('functionpanel');
+            var fnPanelContainer = document.getElementById('functionPanelContainer');
 
             var departmentRows = GeckoJS.Configure.read('vivipos.fec.settings.DepartmentRows');
             if (departmentRows == null) departmentRows = 3;
@@ -176,6 +177,7 @@
                     var hspacing = fnPanel.hspacing;
                     var vspacing = fnPanel.vspacing;
 
+                    fnPanelContainer.setAttribute('style', 'height: ' + fnHeight + 'px; max-height: ' + fnHeight + 'px; min-height: ' + fnHeight + 'px');
                     fnPanel.setSize(fnRows, fnCols, hspacing, vspacing);
                     fnPanel.setAttribute('height', fnHeight);
                     //fnPanel.setAttribute('width', fnWidth);

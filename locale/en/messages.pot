@@ -92,7 +92,7 @@ msgid "Product Sales"
 msgstr "Sales Report"
 
 msgid "Taxes Report"
-msgstr "Taxes Report"
+msgstr "Tax Report"
 
 msgid "User List"
 msgstr "User List"
@@ -1006,10 +1006,10 @@ msgid "HotKey Configuration"
 msgstr "HotKey Configuration"
 
 msgid "acl_manage_addons"
-msgstr "Manage Add-Ons"
+msgstr "Manage Add-ons"
 
-msgid "Add-Ons"
-msgstr "Add-Ons"
+msgid "Add-ons"
+msgstr "Add-ons"
 
 msgid "acl_manage_destinations"
 msgstr "Manage Order Destinations"
@@ -1032,17 +1032,35 @@ msgstr "Modify Annotations"
 msgid "acl_delete_annotations"
 msgstr "Delete Annotations"
 
+msgid "Stocks Report"
+msgstr "Stock Report"
+
 msgid "acl_manage_ledger"
 msgstr "Manage Ledger"
+
+msgid "Hourly Sales"
+msgstr "Hourly Sales"
 
 msgid "acl_view_ledger_entry"
 msgstr "View Ledger Entries"
 
+msgid "Daily Sales"
+msgstr "Daily Sales Report"
+
 msgid "acl_add_ledger_entry"
 msgstr "Add Ledger Entries"
 
+msgid "Daily Sales - Detail"
+msgstr "Daily Sales Report - Detail"
+
 msgid "acl_modify_ledger_entry"
 msgstr "Modify Ledger Entries"
+
+msgid "Sales Summary"
+msgstr "Sales Summary"
+
+msgid "Daily Sales Summary"
+msgstr "Daily Sales Summary"
 
 msgid "acl_delete_ledger_entry"
 msgstr "Delete Ledger Entries"
@@ -1050,38 +1068,128 @@ msgstr "Delete Ledger Entries"
 msgid "Cash Drawer Report"
 msgstr "Cash Drawer Report"
 
-msgid "acl_toggle_receipt"
-msgstr "Toggle Receipt Printing"
+msgid "Cash Drawer Summary"
+msgstr "Cash Drawer Summary"
+
+msgid "Order Status Report"
+msgstr "Order Status Report"
 
 msgid "togglereceipt.desc"
 msgstr ""
 "This function is used to toggle receipt printing on/off. No parameter is needed."
 
+msgid "Clerk Sales Report"
+msgstr "Clerk Sales Report"
+
 msgid "togglereceipt.label"
 msgstr "Receipt On/Off"
 
+msgid "Sample Receipt 42c condensed"
+msgstr "Sample Receipt 42c condensed"
+
 msgid "togglereceipt.name"
 msgstr "Receipt On/Off"
+
+msgid "Sample Receipt 42c expanded"
+msgstr "Sample Receipt 42c expanded"
 
 msgid "shiftchange.desc"
 msgstr ""
 "This function is used to initiate shift change. No parameter is needed."
 
-msgid "shiftchange.label"
+msgid "Sample Kitchen 42c expanded"
+msgstr "Sample Kitchen 42c expanded"
+
+msgid "Shift Change"
 msgstr "Shift Change"
+
+msgid "Sample Guest Check 42c condensed"
+msgstr "Sample Guest Check 42c condensed"
 
 msgid "shiftchange.name"
 msgstr "Shift Change"
+
+msgid "Sample Label Argox 203TD"
+msgstr "Sample Label Argox 203TD"
 
 msgid "ledgerentry.desc"
 msgstr ""
 "This function is used to enter an entry into the ledger. No parameter is needed."
 
+msgid "Sample Receipt 24c condensed"
+msgstr "Sample Receipt 24c condensed"
+
 msgid "ledgerentry.label"
 msgstr "Ledger Entry"
+
+msgid "Internal VFD Template"
+msgstr "Internal VFD Template"
 
 msgid "ledgerentry.name"
 msgstr "Ledger Entry"
 
+msgid "COM 1"
+msgstr "COM 1"
+
+msgid "COM 2"
+msgstr "COM 2"
+
+msgid "COM 4"
+msgstr "COM 4"
+
+msgid "COM 5"
+msgstr "COM 5"
+
+msgid "USB 1"
+msgstr "USB 1"
+
+msgid "USB 2"
+msgstr "USB 2"
+
+msgid "USB 3"
+msgstr "USB 3"
+
+msgid "USB 4"
+msgstr "USB 4"
+
+msgid "GPIO 1"
+msgstr "GPIO 1"
+
+msgid "FEC F632"
+msgstr "FEC F632"
+
+msgid "Epson TM-T88IV"
+msgstr "Epson TM-T88IV"
+
+msgid "Epson RP-U420"
+msgstr "Epson RP-U420"
+
+msgid "Argox OS-203"
+msgstr "Argox OS-203"
+
+msgid "Firich VFD"
+msgstr "Firich VFD"
+
+msgid "Generic VFD"
+msgstr "Generic VFD"
+
 msgid "acl_end_sale_period"
 msgstr "End Sale Period"
+
+msgid "destination"
+msgstr "destination"
+
+msgid "cash"
+msgstr "cash"
+
+msgid "creditcard"
+msgstr "creditcard"
+
+msgid "coupon"
+msgstr "coupon"
+
+msgid "giftcard"
+msgstr "giftcard"
+
+msgid "check"
+msgstr "check"

@@ -3,6 +3,12 @@
 <img src="chrome://viviecr/content/skin/images/logo.png" /><br />
 </div>
 <div id="docbody" class="paper">
+<p align="left">${head.store.name}</p>
+<p align="left">${head.store.branch}</p>
+<p align="left">${head.store.telephone1}</p>
+<p align="left">Terminal: ${head.store.terminal_no}</p>
+<p align="left">Clerk: ${head.clerk_displayname}</p>
+<p align="right">Printed Time: ${foot.gen_time}</p>
 <p align="right">${head.start_time} - ${head.end_time}</p>
         <table id="body-table">
             <caption>${head.title}</caption>
@@ -41,16 +47,16 @@
             <tfoot>
                 <tr>
                     <td colspan="1">Summary:</td>
-                    <td>${foot.item_subtotal|viviFormatPrices:true}</td>
-                    <td>${foot.tax_subtotal|viviFormatPrices:true}</td>
-                    <td>${foot.surcharge_subtotal|viviFormatPrices:true}</td>
-                    <td>${foot.discount_subtotal|viviFormatPrices:true}</td>
-                    <td>${foot.total|viviFormatPrices:true}</td>
-                    <td>${foot.cash|viviFormatPrices:true}</td>
-                    <td>${foot.check|viviFormatPrices:true}</td>
-                    <td>${foot.creditcard|viviFormatPrices:true}</td>
-                    <td>${foot.coupon|viviFormatPrices:true}</td>
-                    <td>${foot.giftcard|viviFormatPrices:true}</td>
+                    <td>${foot.foot_datas.item_subtotal|viviFormatPrices:true}</td>
+                    <td>${foot.foot_datas.tax_subtotal|viviFormatPrices:true}</td>
+                    <td>${foot.foot_datas.surcharge_subtotal|viviFormatPrices:true}</td>
+                    <td>${foot.foot_datas.discount_subtotal|viviFormatPrices:true}</td>
+                    <td>${foot.foot_datas.total|viviFormatPrices:true}</td>
+                    <td>${foot.foot_datas.cash|viviFormatPrices:true}</td>
+                    <td>${foot.foot_datas.check|viviFormatPrices:true}</td>
+                    <td>${foot.foot_datas.creditcard|viviFormatPrices:true}</td>
+                    <td>${foot.foot_datas.coupon|viviFormatPrices:true}</td>
+                    <td>${foot.foot_datas.giftcard|viviFormatPrices:true}</td>
                 </tr>
             </tfoot>
         </table>

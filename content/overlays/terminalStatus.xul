@@ -4,7 +4,7 @@
 <overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" id="overlay_test">
 
     <box id="vivipos-bottombox">
-        <statusbar id="status-bar">
+        <statusbar id="status-bar" pack="end">
             <statusbarpanel id="statusbar-display" pack="left">
                 <vivisessionstatus id="terminal_no" flex="1"
                                    class="terminal_no"
@@ -25,8 +25,6 @@
                                    valueClass="console_message_value"
                                  />
                 <viviclock id="clock" class="clock" showdate="true"/>
-
-                <image id="receiptStatus" class="receiptStatus"/>
                 <sync_status id="syncStatus"/>
             </statusbarpanel>
         </statusbar>

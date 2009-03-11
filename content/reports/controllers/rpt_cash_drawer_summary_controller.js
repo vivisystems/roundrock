@@ -9,6 +9,8 @@
         components: ['BrowserPrint', 'CsvExport', 'CheckMedia'],
 	
         _datas: null,
+        
+        _fileName: "/rpt_cash_drawer_summary",
 
         _showWaitPanel: function( panel, sleepTime ) {
             var waitPanel = document.getElementById( panel );
@@ -49,8 +51,8 @@
             var start = document.getElementById( 'start_date' ).value;
             var end = document.getElementById( 'end_date' ).value;
 
-            var start_str = document.getElementById( 'start_date' ).datetimeValue.toLocaleString();
-            var end_str = document.getElementById( 'end_date' ).datetimeValue.toLocaleString();
+            var start_str = document.getElementById('start_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
+            var end_str = document.getElementById('end_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
 
             start = parseInt( start / 1000 );
             end = parseInt( end / 1000 );
@@ -74,8 +76,6 @@
             	var orderby = sortby;
 
             var datas = cashDrawer.find( 'all', { fields: fields, conditions: conditions, group: groupby, recursive:1, order: orderby } );
-
-            this._datas = datas;
             
             var footData = cashDrawer.find( 'first', {
             											fields: 'count( event_type ) as total_num_events',
@@ -84,11 +84,21 @@
             										 } );
 
             var data = {
-                head: { title:_( 'Cash Drawer Summary Report' ), start_date: start_str, end_date: end_str },
-                body: this._datas,
-                foot: footData,
-                printedtime: ( new Date() ).toLocaleString()
+                head: { 
+                	title:_( 'Cash Drawer Summary Report' ),
+                	start_time: start_str,
+                    end_time: end_str,
+                    store: storeContact,
+                    clerk_displayname: clerk_displayname
+                },
+                body: datas,
+                foot: {
+		            foot_data: footData,
+		            gen_time: (new Date()).toString('yyyy/MM/dd HH:mm:ss')
+                }
             }
+            
+            this._datas = data;
 
             var path = GREUtils.File.chromeToPath( "chrome://viviecr/content/reports/tpl/rpt_cash_drawer_summary.tpl" );
 
@@ -114,7 +124,7 @@
         
             try {
                 this._enableButton( false );
-               var media_path = this.CheckMedia.checkMedia( 'export_report' );
+               var media_path = this.CheckMedia.checkMedia( 'report_export' );
                 if ( !media_path ) {
                     NotifyUtils.info( _( 'Media not found!! Please attach the USB thumb drive...' ) );
                     return;
@@ -128,8 +138,7 @@
                 //this.BrowserPrint.setPaperEdge( 20, 20, 20, 20 );
 
                 this.BrowserPrint.getWebBrowserPrint( 'preview_frame' );
-                this.BrowserPrint.printToPdf( media_path + "/rpt_cash_drawer.pdf" );
-                //this.BrowserPrint.printToPdf( "/var/tmp/stocks.pdf" );
+                this.BrowserPrint.printToPdf( media_path + this._fileName );
             } catch (e) {
                 //
             } finally {
@@ -142,7 +151,7 @@
         exportCsv: function() {
             try {
                 this._enableButton( false );
-                var media_path = this.CheckMedia.checkMedia( 'export_report' );
+                var media_path = this.CheckMedia.checkMedia( 'report_export' );
                 if ( !media_path ){
                     NotifyUtils.info( _( 'Media not found!! Please attach the USB thumb drive...' ) );
                     return;
@@ -150,20 +159,21 @@
 
                 var waitPanel = this._showWaitPanel( 'wait_panel', 100 );
 				
-                var path = GREUtils.File.chromeToPath( "chrome://viviecr/content/reports/tpl/rpt_cash_drawer_csv.tpl" );
+                var path = GREUtils.File.chromeToPath( "chrome://viviecr/content/reports/tpl/rpt_cash_drawer_summary_csv.tpl" );
 
                 var file = GREUtils.File.getFile( path );
                 var tpl = GREUtils.File.readAllBytes( file );
                 var datas;
                 datas = this._datas;
 
-                this.CsvExport.printToFile( media_path + "/rpt_cash_drawer.csv", datas, tpl );
+                this.CsvExport.printToFile( media_path + this._fileName, datas, tpl );
 
             } catch ( e ) {
                 //
             } finally {
                 this._enableButton( true );
-                waitPanel.hidePopup();
+                if ( waitPanel != undefined )
+                	waitPanel.hidePopup();
             }
         },
 
@@ -172,7 +182,7 @@
                 this._enableButton( false );
                 var waitPanel = this._showWaitPanel( 'wait_panel', 100 );
 
-                var path = GREUtils.File.chromeToPath( "chrome://viviecr/content/reports/tpl/rpt_cash_report.tpl" );
+                var path = GREUtils.File.chromeToPath( "chrome://viviecr/content/reports/tpl/rpt_cash_drawer_summary_rcp.tpl" );
 
                 var file = GREUtils.File.getFile( path );
                 var tpl = GREUtils.File.readAllBytes( file );
@@ -186,7 +196,8 @@
                 //
             } finally {
                 this._enableButton( true );
-                waitPanel.hidePopup();
+                if ( waitPanel != undefined )
+                	waitPanel.hidePopup();
             }
         },
 

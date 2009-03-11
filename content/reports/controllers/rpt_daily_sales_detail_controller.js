@@ -8,6 +8,8 @@
         name: 'RptDailySalesDetail',
         components: ['BrowserPrint', 'CsvExport', 'CheckMedia'],
         _datas: null,
+        
+        _fileName: "/rpt_daily_sales_detail",
 
         _showWaitPanel: function(panel, sleepTime) {
             var waitPanel = document.getElementById(panel);
@@ -138,15 +140,18 @@
                     clerk_displayname: clerk_displayname
                 },
                 body: datas,
-                foot: footDatas
+                foot: {
+                	foot_datas: footDatas,
+                	gen_time: (new Date()).toString('yyyy/MM/dd HH:mm:ss')
+                }
             }
 
             this._datas = data;
 
-            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_daily_sales_detail.tpl");
+            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/Chinese/rpt_daily_sales_detail.tpl");
 
             var file = GREUtils.File.getFile(path);
-            var tpl = GREUtils.File.readAllBytes(file);
+            var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
 
             result = tpl.process(data);
 
@@ -169,34 +174,34 @@
 
             try {
                 this._enableButton(false);
-                /*var media_path = this.CheckMedia.checkMedia('export_report');
+                var media_path = this.CheckMedia.checkMedia('report_export');
                 if (!media_path){
                     NotifyUtils.info( _( 'Media not found!! Please attach the USB thumb drive...' ) );
                     return;
-                }*/
+                }
 
                 var waitPanel = this._showWaitPanel( 'wait_panel' );
 
                 this.BrowserPrint.getPrintSettings();
                 this.BrowserPrint.setPaperSizeUnit(1);
-                this.BrowserPrint.setPaperSize( 297, 210 );
+                this.BrowserPrint.setPaperSize( 210, 297 );
                 // this.BrowserPrint.setPaperEdge(20, 20, 20, 20);
 
                 this.BrowserPrint.getWebBrowserPrint('preview_frame');
-                //this.BrowserPrint.printToPdf(media_path + "/daily_sales_detail.pdf");
-                this.BrowserPrint.printToPdf( '/var/tmp/daily_sales_detail.pdf' );
+                this.BrowserPrint.printToPdf(media_path + this._fileName);
             } catch (e) {
                 //
             } finally {
                 this._enableButton(true);
-                waitPanel.hidePopup();
+                if ( waitPanel != undefined )
+                	waitPanel.hidePopup();
             }
         },
 
         exportCsv: function() {
             try {
                 this._enableButton(false);
-                var media_path = this.CheckMedia.checkMedia('export_report');
+                var media_path = this.CheckMedia.checkMedia('report_export');
                 if (!media_path){
                     NotifyUtils.info(_('Media not found!! Please attach the USB thumb drive...'));
                     return;
@@ -211,7 +216,7 @@
                 var datas;
                 datas = this._datas;
 
-                this.CsvExport.printToFile(media_path + "/daily_sales_detail.csv", datas, tpl);
+                this.CsvExport.printToFile(media_path + this._fileName, datas, tpl);
             } catch (e) {
                 //
             } finally {

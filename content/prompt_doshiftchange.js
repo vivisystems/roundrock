@@ -6,7 +6,8 @@ var options;
     var balance = inputObj.balance;
     var giftcardExcess = inputObj.giftcardExcess;
     var salesRevenue = inputObj.salesRevenue;
-    var ledgerTotal = inputObj.ledgerTotal;
+    var ledgerInTotal = inputObj.ledgerInTotal;
+    var ledgerOutTotal = inputObj.ledgerOutTotal;
     var cashNet = inputObj.cashNet;
 
     options = inputObj;
@@ -47,7 +48,8 @@ var options;
         document.getElementById('cash').value = cashNet;
         document.getElementById('balance').value = balance;
         document.getElementById('sales').value = salesRevenue;
-        document.getElementById('ledger').value = ledgerTotal;
+        document.getElementById('ledger_in').value = ledgerInTotal;
+        document.getElementById('ledger_out').value = ledgerOutTotal;
         document.getElementById('excess').value = giftcardExcess;
         
         document.getElementById('cancel').setAttribute('disabled', false);
@@ -114,6 +116,23 @@ function confirmEndSalePeriod() {
         }
         else {
             options.end = false;
+            return false;
+        }
+    }
+}
+
+function confirmEndShift() {
+    var amount = parseFloat(document.getElementById('amount').value);
+    if (!isNaN(amount) && amount < 0) {
+        GREUtils.Dialog.alert(window, _('confirm shift change'), _('Drawer change may not be negative'));
+        return false;
+    }
+    else {
+        options.end = false;
+        if (GREUtils.Dialog.confirm(window, _('confirm shift change'), _('Please confirm shift change'))) {
+            return true;
+        }
+        else {
             return false;
         }
     }

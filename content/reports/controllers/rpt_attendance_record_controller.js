@@ -8,6 +8,8 @@
         name: 'RptAttendanceRecord',
         components: ['BrowserPrint', 'CsvExport', 'CheckMedia'],
         _datas: null,
+        
+        _fileName: "/rpt_attendance_record",
 
         _showWaitPanel: function(panel, sleepTime) {
             var waitPanel = document.getElementById(panel);
@@ -48,8 +50,8 @@
             var start = document.getElementById('start_date').value;
             var end = document.getElementById('end_date').value;
 
-            var start_str = document.getElementById('start_date').datetimeValue.toLocaleString();
-            var end_str = document.getElementById('end_date').datetimeValue.toLocaleString();
+            var start_str = document.getElementById('start_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
+            var end_str = document.getElementById('end_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
 
             start = parseInt(start / 1000);
             end = parseInt(end / 1000);
@@ -138,10 +140,10 @@
 
             this._datas = data;
 
-            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_attendance_record.tpl");
+            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/Chinese/rpt_attendance_record.tpl");
 
             var file = GREUtils.File.getFile(path);
-            var tpl = GREUtils.File.readAllBytes(file);
+            var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
 
             var result = tpl.process(data);
 
@@ -161,7 +163,7 @@
         exportPdf: function() {
             try {
                 this._enableButton(false);
-                var media_path = this.CheckMedia.checkMedia('export_report');
+                var media_path = this.CheckMedia.checkMedia('report_export');
                 if (!media_path){
                     NotifyUtils.info(_('Media not found!! Please attach the USB thumb drive...'));
                     return;
@@ -175,20 +177,20 @@
                 // this.BrowserPrint.setPaperEdge(20, 20, 20, 20);
 
                 this.BrowserPrint.getWebBrowserPrint('preview_frame');
-                // this.BrowserPrint.printToPdf("/var/tmp/attendance_record.pdf");
-                this.BrowserPrint.printToPdf(media_path + "/attendance_record.pdf");
+                this.BrowserPrint.printToPdf( media_path + this._fileName );
             } catch (e) {
                 //
             } finally {
                 this._enableButton(true);
-                waitPanel.hidePopup();
+                if ( waitPanel != undefined )
+                	waitPanel.hidePopup();
             }
         },
 
         exportCsv: function() {
             try {
                 this._enableButton(false);
-                var media_path = this.CheckMedia.checkMedia('export_report');
+                var media_path = this.CheckMedia.checkMedia('report_export');
                 if (!media_path){
                     NotifyUtils.info(_('Media not found!! Please attach the USB thumb drive...'));
                     return;
@@ -203,14 +205,15 @@
                 var datas;
                 datas = this._datas;
 
-                this.CsvExport.printToFile(media_path + "/attendance_record.csv", datas, tpl);
+                this.CsvExport.printToFile(media_path + this._fileName, datas, tpl);
 
                 
             } catch (e) {
                 //
             } finally {
                 this._enableButton(true);
-                waitPanel.hidePopup();
+                if ( waitPanel != undefined )
+                	waitPanel.hidePopup();
             }
         },
 
@@ -219,7 +222,7 @@
                 this._enableButton(false);
                 var waitPanel = this._showWaitPanel('wait_panel', 100);
 
-                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_attendance_record_rcp.tpl");
+                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/tpl_58mm/rpt_attendance_record_rcp.tpl");
 
                 var file = GREUtils.File.getFile(path);
                 var tpl = GREUtils.File.readAllBytes(file);
@@ -233,7 +236,8 @@
                 //
             } finally {
                 this._enableButton(true);
-                waitPanel.hidePopup();
+                if ( waitPanel != undefined )
+                	waitPanel.hidePopup();
             }
         },
 

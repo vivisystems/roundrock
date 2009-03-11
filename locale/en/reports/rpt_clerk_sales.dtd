@@ -27,4 +27,4 @@
 <!ENTITY rptclerksales.associated_clerk "Associated Clerk">
 <!ENTITY rptclerksales.service_clerk "Service Clerk">
 <!ENTITY rptclerksales.proceeds_clerk "Proceeds Clerk">
-<!ENTITY rptclerksales.clerk_type "Clerk Type">
+<!ENTITY rptclerksales.clerk_type "Clerk Type:">

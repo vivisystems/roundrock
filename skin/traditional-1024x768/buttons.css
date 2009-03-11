@@ -431,7 +431,7 @@ textbox:not([onclick]) *[readonly] {
 
 .systoolbtn {
     margin: 0px;
-    height: 53px;
+    height: 48px;
     min-width: 36px;
     max-width: 40px;
     border: none;

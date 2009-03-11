@@ -1,6 +1,14 @@
-<div class="paper" style="overflow:auto;">
+<div class="paper">
 <!-- div id="printhead" -->
 <img src="chrome://viviecr/content/skin/images/logo.png" /><br />
+
+<p align="left">${head.store.name}</p>
+<p align="left">${head.store.branch}</p>
+<p align="left">${head.store.telephone1}</p>
+<p align="left">Terminal: ${head.store.terminal_no}</p>
+<p align="left">Clerk: ${head.clerk_displayname}</p>
+<p align="right">Printed Time: ${foot.gen_time}</p>
+
 <p>${head.title}</p>
 <!-- /div>
 <div id="docbody" -->

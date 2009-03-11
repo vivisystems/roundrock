@@ -13,6 +13,8 @@
         _start: null,
         _end: null,
         _machineid: null,
+        
+        _fileName: "/rpt_sales_summary",
 
         _showWaitPanel: function(panel, sleepTime) {
             var waitPanel = document.getElementById(panel);
@@ -71,26 +73,24 @@
                 var groupby = '"Order.Hour"';
             }
 
-
             var orderby = 'orders.terminal_no,orders.transaction_created';
-
+            
+            var data = {};
+            data.summary = {};
+            data.summary.Guests = 0;
+            data.summary.OrderNum = 0;
+            data.summary.HourTotal = 0.0;
+            
             var order = new OrderModel();
-            var datas = order.find('all',{fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: -1});
+            data.records = order.find('all',{fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: -1});
 
-            var HourTotal = 0;
-            var OrderNum = 0;
-            var Guests = 0;
-            var ItemsCount = 0;
-
-            datas.forEach(function(o){
-                HourTotal += o.HourTotal;
-                OrderNum += o.OrderNum;
-                Guests += o.Guests;
-                ItemsCount += o.ItemsCount;
-
-            });
-
-            return datas;
+			data.records.forEach( function( record ) {
+				data.summary.Guests += record.Guests;
+				data.summary.OrderNum += record.OrderNum;
+				data.summary.HourTotal += record.HourTotal;
+			} );			
+			
+            return data;
         },
 
         _deptSalesBillboard: function() {
@@ -120,10 +120,23 @@
 
             var groupby = 'order_items.cate_no';
             var orderby = '"OrderItem.qty" DESC';
+            
+            var data = {};
+            var summary = {};
+            summary.qty = 0;
+            summary.total = 0.0;
+			
+			var num_rows_to_get = data.num_rows_to_get = 10;
+            data.records = orderItem.find( 'all', { fields: fields, conditions: conditions, group: groupby, recursive:1, order: orderby, limit: num_rows_to_get } );
+            
+            data.records.forEach( function( record ) {
+            	summary.qty += record.qty;
+            	summary.total += record.total;
+            } );
+            
+            data.summary = summary;
 
-            var datas = orderItem.find('all',{fields: fields, conditions: conditions, group: groupby, recursive:1, order: orderby, limit: 10});
-
-            return datas;
+            return data;
         },
 
         _prodSalesBillboard: function() {
@@ -151,10 +164,21 @@
 
             var groupby = 'order_items.product_no';
             var orderby = '"OrderItem.qty" DESC';
+            
+            var data = {};
+            data.summary = {};
+            data.summary.qty = 0;
+            data.summary.total = 0.0;
+			
+			var num_rows_to_get = data.num_rows_to_get = 10;
+            data.records = orderItem.find( 'all', { fields: fields, conditions: conditions, group: groupby, recursive:1, order: orderby, limit: num_rows_to_get } );
+            
+            data.records.forEach( function( record ) {
+            	data.summary.qty += record.qty;
+            	data.summary.total += record.total;
+            } );
 
-            var datas = orderItem.find('all',{fields: fields, conditions: conditions, group: groupby, recursive:1, order: orderby, limit: 20});
-
-            return datas;
+            return data;
         },
 
         _paymentList: function() {
@@ -182,12 +206,24 @@
                 var groupby = 'order_payments.name';
                 var orderby = 'order_payments.name';
             }
+            
+            var data = {};
+            var summary = {};
+            summary.payment_total = 0;
+            summary.change_total = 0;
 
             var orderPayment = new OrderPaymentModel();
             
-            var datas = orderPayment.find('all',{fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1});
+            data.records = orderPayment.find('all',{fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1});
+            
+            data.records.forEach( function( record ) {
+            	summary.payment_total += record.amount;
+            	summary.change_total += record.change;
+            });
+            
+            data.summary = summary;
 
-            return datas;
+            return data;
         },
 
         _SalesSummary: function() {
@@ -231,7 +267,53 @@
             return datas;
         },
         
-        _destinationSummary: function() {
+        _taxSummary: function() {
+        	var start = document.getElementById('start_date').value;
+            var end = document.getElementById('end_date').value;
+            var machineid = document.getElementById('machine_id').value;
+            start = parseInt(start / 1000);
+            end = parseInt(end / 1000);
+            
+            var fields = [
+                            'order_items.tax_name',
+                            'order_items.tax_rate',
+                            'order_items.tax_type',
+                            'sum( order_items.included_tax ) as "included_tax"',
+                            'sum( order_items.current_tax ) as "tax_subtotal"'
+                        ];
+
+            var conditions = "orders.transaction_created>='" + start +
+                            "' AND orders.transaction_created<='" + end +
+                            "' AND orders.status='1'";
+
+            if (machineid.length > 0)
+                conditions += " AND orders.terminal_no LIKE '" + machineid + "%'";
+			
+            var groupby = 'order_items.tax_name, order_items.tax_rate, order_items.tax_type';
+            var orderby = 'tax_subtotal desc';
+            
+            var data = {};
+            var summary = {};
+            summary.tax_total = 0;
+            
+            var orderItem = new OrderItemModel();
+            data.records = orderItem.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1 } );
+
+            data.records.forEach( function( record ) {
+            	summary.tax_total += record.tax_subtotal;
+            	
+            	if ( record.included_tax )
+            		record.tax_subtotal += record.included_tax;
+            	
+            	record.rate_type = TaxComponent.prototype.getTax( record.tax_name ).rate_type;
+            });
+			
+			data.summary = summary;
+			
+			return data;
+		},
+
+		_destinationSummary: function() {
         	var start = document.getElementById('start_date').value;
             var end = document.getElementById('end_date').value;
             var machineid = document.getElementById('machine_id').value;
@@ -248,11 +330,8 @@
                             "' AND orders.transaction_created<='" + end +
                             "' AND orders.status='1'";
 
-            if (machineid.length > 0) {
+            if (machineid.length > 0)
                 conditions += " AND orders.terminal_no LIKE '" + machineid + "%'";
-            } else {
-                //
-            }
 			
             var groupby = 'orders.destination';
             var orderby = 'orders.destination';
@@ -268,8 +347,8 @@
             records.data = datas;
 
 			return records;
-		},
-
+		},		
+		
         execute: function() {
             var waitPanel = this._showWaitPanel('wait_panel');
 
@@ -285,10 +364,8 @@
             var start = document.getElementById('start_date').value;
             var end = document.getElementById('end_date').value;
 
-            var start_str = document.getElementById('start_date').datetimeValue.toLocaleString();
-            var end_str = document.getElementById('end_date').datetimeValue.toLocaleString();
-
-            // this._datas = datas;
+            var start_str = document.getElementById('start_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
+            var end_str = document.getElementById('end_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
 
             var data = {
                 head: {
@@ -304,7 +381,8 @@
                     prod_sales: this._prodSalesBillboard(),
                     payment_list: this._paymentList(),
                     sales_summary: this._SalesSummary(),
-                    destination_summary: this._destinationSummary()
+                    destination_summary: this._destinationSummary(),
+                    tax_summary: this._taxSummary()
                 },
                 foot: {
                     gen_time: (new Date()).toString('yyyy/MM/dd HH:mm:ss')
@@ -312,11 +390,12 @@
             }
 
             this._datas = data;
-// this.log(this.dump(data));
-            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_sales_summary.tpl");
+            
+            //var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_sales_summary_chinese.tpl");
+            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/Chinese/rpt_sales_summary.tpl");
 
             var file = GREUtils.File.getFile(path);
-            var tpl = GREUtils.Charset.convertToUnicode(GREUtils.File.readAllBytes(file));
+            var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
 
             var result = tpl.process(data);
 
@@ -339,7 +418,8 @@
 
             try {
                 this._enableButton(false);
-                var media_path = this.CheckMedia.checkMedia('export_report');
+                var media_path = this.CheckMedia.checkMedia('report_export');
+                
                 if (!media_path){
                     NotifyUtils.info(_('Media not found!! Please attach the USB thumb drive...'));
                     return;
@@ -351,23 +431,25 @@
 
                 this.BrowserPrint.setPaperSizeUnit(1);
                 this.BrowserPrint.setPaperSize(210, 297);
-                // this.BrowserPrint.setPaperEdge(80, 80, 80, 80);
-                // this.BrowserPrint.setPaperMargin(2, 2, 2, 2);
+                this.BrowserPrint.setPaperEdge(0, 0, 0, 0);
+                this.BrowserPrint.setPaperMargin(0, 0, 0, 0);
 
                 this.BrowserPrint.getWebBrowserPrint('preview_frame');
-                this.BrowserPrint.printToPdf(media_path + "/sales_summary.pdf");
+                this.BrowserPrint.printToPdf(media_path + this._fileName);
+      
             } catch (e) {
                 //
             } finally {
                 this._enableButton(true);
-                waitPanel.hidePopup();
+                if ( waitPanel != undefined )
+                	waitPanel.hidePopup();
             }
         },
 
         exportCsv: function() {
             try {
                 this._enableButton(false);
-                var media_path = this.CheckMedia.checkMedia('export_report');
+                var media_path = this.CheckMedia.checkMedia('report_export');
                 if (!media_path){
                     NotifyUtils.info(_('Media not found!! Please attach the USB thumb drive...'));
                     return;
@@ -382,13 +464,14 @@
                 var datas;
                 datas = this._datas;
 
-                this.CsvExport.printToFile(media_path + "/sales_summary.csv", datas, tpl);
+                this.CsvExport.printToFile(media_path + this._fileName, datas, tpl);
 
             } catch (e) {
                 //
             } finally {
                 this._enableButton(true);
-                waitPanel.hidePopup();
+                if ( waitPanel != undefined )
+                	waitPanel.hidePopup();
             }
 
         },
@@ -412,7 +495,8 @@
                 //
             } finally {
                 this._enableButton(true);
-                waitPanel.hidePopup();
+                if ( waitPanel != undefined )
+                	waitPanel.hidePopup();
             }
 
         },

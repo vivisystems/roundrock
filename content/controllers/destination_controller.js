@@ -66,7 +66,7 @@
                     return;
                 }
 
-                this._listDatas.push({defaultMark: '', name: destName, pricelevel: '-', prefix: ''});
+                this._listDatas.push({defaultMark: '', name: destName, pricelevel: '-', prefix: '', customerInfo: '0'});
 
                 this.saveDestinations();
 

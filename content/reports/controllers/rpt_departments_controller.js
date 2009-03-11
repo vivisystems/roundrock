@@ -8,6 +8,8 @@
         name: 'RptDepartments',
         components: ['BrowserPrint', 'CsvExport', 'CheckMedia'],
         _datas: null,
+        
+        _fileName: "/rpt_departments",
 
         _showWaitPanel: function(panel, sleepTime) {
             var waitPanel = document.getElementById(panel);
@@ -97,7 +99,7 @@ alert(this.dump(storeContact));
         exportPdf: function() {
             try {
                 this._enableButton(false);
-                var media_path = this.CheckMedia.checkMedia('export_report');
+                var media_path = this.CheckMedia.checkMedia('report_export');
                 if (!media_path){
                     NotifyUtils.info(_('Media not found!! Please attach the USB thumb drive...'));
                     return;
@@ -113,19 +115,20 @@ alert(this.dump(storeContact));
                 // this.BrowserPrint.setPaperMargin(2, 2, 2, 2);
 
                 this.BrowserPrint.getWebBrowserPrint('preview_frame');
-                this.BrowserPrint.printToPdf(media_path + "/departments.pdf");
+                this.BrowserPrint.printToPdf(media_path + this._fileName);
             } catch (e) {
                 //
             } finally {
                 this._enableButton(true);
-                waitPanel.hidePopup();
+                if ( waitPanel != undefined )
+                	waitPanel.hidePopup();
             }
         },
 
         exportCsv: function() {
             try {
                 this._enableButton(false);
-                var media_path = this.CheckMedia.checkMedia('export_report');
+                var media_path = this.CheckMedia.checkMedia('report_export');
                 if (!media_path){
                     NotifyUtils.info(_('Media not found!! Please attach the USB thumb drive...'));
                     return;
@@ -140,12 +143,13 @@ alert(this.dump(storeContact));
                 var datas;
                 datas = this._datas;
 
-                this.CsvExport.printToFile(media_path + "/departments.csv", datas, tpl);
+                this.CsvExport.printToFile(media_path + this._fileName, datas, tpl);
             } catch (e) {
                 //
             } finally {
                 this._enableButton(true);
-                waitPanel.hidePopup();
+                if ( waitPanel != undefined )
+                	waitPanel.hidePopup();
             }
 
         },
@@ -169,7 +173,8 @@ alert(this.dump(storeContact));
                 //
             } finally {
                 this._enableButton(true);
-                waitPanel.hidePopup();
+                if ( waitPanel != undefined )
+                	waitPanel.hidePopup();
             }
 
         },
