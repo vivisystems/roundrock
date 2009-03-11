@@ -11,7 +11,6 @@
 
             var settings = (new X11vncSetting()).read();
 
-            alert(this.dump(settings));
             if (settings == null) {
                 settings = {};
             }
