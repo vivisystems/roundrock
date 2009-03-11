@@ -113,6 +113,7 @@
             });
             if (preset) {
                 classStr += ' PresetCondiment';
+                btn.label = '* ' + btn.label;
             }
             else {
                 classStr += ' NotPresetCondiment';
@@ -122,7 +123,6 @@
                 // $btn.addClass(classStr);
                 btn.className += " " + classStr;
             }
-
 
         }
     });

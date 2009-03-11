@@ -1260,3 +1260,9 @@ msgstr "Recall Check"
 
 msgid "sale_period"
 msgstr "Sale Period"
+
+msgid "Factory"
+msgstr "Factory Dataset"
+
+msgid "Training"
+msgstr "Training Dataset"

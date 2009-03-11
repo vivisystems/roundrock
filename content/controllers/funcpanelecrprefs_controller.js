@@ -81,6 +81,23 @@
     
     // mapped button selected
     mappedButtonSelected: function(btnid, entry) {
+        // look for function in function list
+        var fList = this.functionArray;
+
+        var functionListLocal = document.getElementById('vivifuncpanelecr_prefs_keymap_function_tree');
+        var functionListGlobal = document.getElementById('vivifuncpanelecr_prefs_gkeymap_function_tree');
+
+        for (var index = 0; index < fList.length; index++) {
+            if (fList[index].name == entry.name) {
+                functionListLocal.selection.select(index);
+                functionListGlobal.selection.select(index);
+
+                functionListLocal.treeBoxObject.ensureRowIsVisible(index);
+                functionListGlobal.treeBoxObject.ensureRowIsVisible(index);
+                break;
+            }
+        }
+
         document.getElementById('vivifuncpanelecr_prefs_keymap_selection').value = '[' + btnid + ']';
         document.getElementById('vivifuncpanelecr_prefs_keymap_linked').value = entry.name;
         document.getElementById('vivifuncpanelecr_prefs_keymap_linked_unlink').disabled = false;

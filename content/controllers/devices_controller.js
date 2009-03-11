@@ -65,7 +65,7 @@
 
                 if (offline) {
                     GREUtils.Dialog.alert(window, _('Device Status'),
-                                                  _('The following enabled devices appear to be offline, please ensure that they are functioning correctly:') + '\n  ' + statusStr);
+                                                  _('The following enabled devices appear to be offline, please ensure that they are functioning correctly') + '\n  ' + statusStr);
                 }
             }
             // observer device-refresh topic

@@ -1267,6 +1267,12 @@ msgstr "Recall Check"
 msgid "sale_period"
 msgstr "Sale Period"
 
+msgid "Factory"
+msgstr "Factory Dataset"
+
+msgid "Training"
+msgstr "Training Dataset"
+
 msgid "confirm timezone change"
 msgstr ""
 
@@ -2050,7 +2056,7 @@ msgstr ""
 
 msgid ""
 "The following enabled devices appear to be offline, please ensure that they "
-"are functioning correctly:"
+"are functioning correctly"
 msgstr ""
 
 msgid "Receipt Printer %S"
@@ -2575,7 +2581,7 @@ msgstr ""
 msgid "The specified report/label printer [%S] is not enabled"
 msgstr ""
 
-msgid "Error in Print controller: no worker thread available!"
+msgid "Error in Print controller; no worker thread available!"
 msgstr ""
 
 msgid "Specified template [%S] is empty or does not exist!"
@@ -2754,10 +2760,10 @@ msgid ""
 "Changes to an employee will take effect the next time the employee logs in"
 msgstr ""
 
-msgid "NOTE: the assigned drawer [%S] does not exist!"
+msgid "The assigned drawer [%S] does not exist!"
 msgstr ""
 
-msgid "WARN: the assigned drawer [%S] is not yet enabled!"
+msgid "The assigned drawer [%S] is not yet enabled!"
 msgstr ""
 
 msgid ""
@@ -2782,7 +2788,7 @@ msgstr ""
 msgid "Select Default Job"
 msgstr ""
 
-msgid "Error in VFD controller: no worker thread available!"
+msgid "Error in VFD controller; no worker thread available!"
 msgstr ""
 
 msgid "Specified receipt/guest check template [%S] is empty or does not exist!"

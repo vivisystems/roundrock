@@ -14,7 +14,7 @@
                 return;
             }
 
-            this._files = new GeckoJS.Dir.readDir(dir, {type: "d"}).sort(function(a, b) {if (a.leafName < b.leafName) return -1; else if (a.leafName > b.leafName) return 1; else return 0;});
+            this._files = new GeckoJS.Dir.readDir(dir, {type: "d"}).sort(function(a, b) {if (a.leafName < b.leafName) return 1; else if (a.leafName > b.leafName) return -1; else return 0;});
 
             this._files.forEach(function(o){
                 var str = o.leafName;
@@ -226,6 +226,7 @@
 
                 if (GREUtils.Dialog.confirm(this.window, _("Confirm Restore"),
                         _("Do you want to restore (%S) from local backup?", [datas[index].time]) + "\n" + _("If you execute restore now, the system will restart automatically after you return to the Main Screen."))) {
+                    this.sleep(100);
                     if (this.execute(this._scriptPath + "restore.sh", [this._localbackupDir + dir])) {
                         this._restart();
                         NotifyUtils.info(_('<Restore from Local backup> is done!!'));
@@ -261,6 +262,7 @@
                 if (GREUtils.Dialog.confirm(this.window, _("Confirm Restore"),
                         _("Do you want to restore (%S) from stick?", [datas[index].time]) + "\n" + _("If you execute restore now, the system will restart automatically after you return to the Main Screen."))) {
 
+                    this.sleep(100);
                     if (this.execute(this._scriptPath + "restore.sh", [this._stickbackupDir + dir])){
                         this._restart();
                         NotifyUtils.info(_('<Restore from Stick> is done!!'));

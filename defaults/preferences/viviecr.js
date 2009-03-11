@@ -511,12 +511,12 @@ pref("vivipos.fec.reportpanels.cashbyclerk.label", "Cash by Clerk");
 pref("vivipos.fec.reportpanels.cashbyclerk.path", "chrome://viviecr/content/reports/rpt_cash_by_clerk.xul");
 pref("vivipos.fec.reportpanels.cashbyclerk.icon", "chrome://viviecr/content/skin/icons/reporticon_cash.png");
 pref("vivipos.fec.reportpanels.cashbyclerk.roles", "acl_run_report");
-
+/*
 pref("vivipos.fec.reportpanels.ledgerreport.label", "Ledger Report");
 pref("vivipos.fec.reportpanels.ledgerreport.path", "chrome://viviecr/content/reports/ledger_report.xul");
 pref("vivipos.fec.reportpanels.ledgerreport.icon", "chrome://viviecr/content/skin/icons/reporticon_ledger.png");
 pref("vivipos.fec.reportpanels.ledgerreport.roles", "acl_run_report");
-
+*/
 pref("vivipos.fec.reportpanels.attendancerecord.label", "Attendance Record");
 pref("vivipos.fec.reportpanels.attendancerecord.path", "chrome://viviecr/content/reports/rpt_attendance_record.xul");
 pref("vivipos.fec.reportpanels.attendancerecord.icon", "chrome://viviecr/content/skin/icons/reporticon_attendance.png");
@@ -541,7 +541,7 @@ pref("vivipos.fec.reportpanels.productlist.label", "Product List");
 pref("vivipos.fec.reportpanels.productlist.path", "chrome://viviecr/content/reports/rpt_products.xul");
 pref("vivipos.fec.reportpanels.productlist.icon", "chrome://viviecr/content/skin/icons/reporticon_plulist.png");
 pref("vivipos.fec.reportpanels.productlist.roles", "acl_run_report");
-
+/*
 pref("vivipos.fec.reportpanels.printlabel.label", "Print Label");
 pref("vivipos.fec.reportpanels.printlabel.path", "chrome://viviecr/content/reports/print_label.xul");
 pref("vivipos.fec.reportpanels.printlabel.icon", "chrome://viviecr/content/skin/icons/reporticon_printlbl.png");
@@ -551,7 +551,7 @@ pref("vivipos.fec.reportpanels.taxesreport.label", "Taxes Report");
 pref("vivipos.fec.reportpanels.taxesreport.path", "chrome://viviecr/content/reports/taxes_report.xul");
 pref("vivipos.fec.reportpanels.taxesreport.icon", "chrome://viviecr/content/skin/icons/reporticon_taxe.png");
 pref("vivipos.fec.reportpanels.taxesreport.roles", "acl_run_report_inactive");
-
+*/
 pref("vivipos.fec.reportpanels.hourlysales.label", "Hourly Sales");
 pref("vivipos.fec.reportpanels.hourlysales.path", "chrome://viviecr/content/reports/rpt_hourly_sales.xul");
 pref("vivipos.fec.reportpanels.hourlysales.icon", "chrome://viviecr/content/skin/icons/reporticon_hour.png");

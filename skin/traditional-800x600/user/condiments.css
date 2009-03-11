@@ -64,9 +64,8 @@
 }
 
 .PresetCondiment {
-    border-style: solid !important;
+    -moz-border-radius: 10px;
 }
 
 .NotPresetCondiment {
-    border-style: dashed !important;
 }

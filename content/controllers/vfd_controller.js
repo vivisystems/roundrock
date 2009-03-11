@@ -182,7 +182,7 @@
             }
 
             if (this._worker == null) {
-                NotifyUtils.error(_('Error in VFD controller: no worker thread available!'));
+                NotifyUtils.error(_('Error in VFD controller; no worker thread available!'));
                 return;
             }
 
