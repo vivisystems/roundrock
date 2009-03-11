@@ -60,10 +60,6 @@ viviclock {
   -moz-binding: url("chrome://vivipos/content/bindings/viviclock.xbl#viviclock");
 }
 
-vivifuncpanelecr {
-  -moz-binding: url("chrome://vivipos/content/bindings/vivifuncpanelecr.xbl#vivifuncpanelecr");
-}
-
 appinfolabel {
   -moz-binding: url("chrome://vivipos/content/bindings/appinfolabel.xbl#appinfolabel");
 }
