@@ -1178,3 +1178,9 @@ msgstr "Generic VFD"
 
 msgid "acl_end_sale_period"
 msgstr "End Sale Period"
+
+msgid "acl_remote_control"
+msgstr "Remote Control"
+
+msgid "Remote Control"
+msgstr "Remote Control"

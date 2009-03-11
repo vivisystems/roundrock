@@ -1,5 +1,8 @@
 <!ENTITY sync_settings.title "Synchronize">
 
+<!ENTITY sync_settings.tablabel.basic "Basic">
+<!ENTITY sync_settings.tablabel.advanced "Advanced">
+
 <!ENTITY sync_settings.label.active "Active.">
 <!ENTITY sync_settings.label.protocol "Protocol.">
 <!ENTITY sync_settings.label.hostname "hostname.">
