@@ -57,10 +57,8 @@ var ImageFilesView = window.ImageFilesView = GeckoJS.NSITreeViewArray.extend({
 
         setButtonDisable: function(disabled) {
             //
-            $('#importBtn').attr('disabled', disabled);
-            $('#exportBtn').attr('disabled', disabled);
-            $('#deleteBtn').attr('disabled', disabled);
-            $('#renameBtn').attr('disabled', disabled);
+            //$('#importBtn').attr('disabled', disabled);
+            //$('#exportBtn').attr('disabled', disabled);
 
             $('#ok').attr('disabled', this._busy);
         },
@@ -212,8 +210,8 @@ var ImageFilesView = window.ImageFilesView = GeckoJS.NSITreeViewArray.extend({
             var importUsage = 0;
             var importFiles = 0;
 
-            var result = GREUtils.Dialog.confirm(this.window, "Confirm Import",
-                                                              "Please attach the USB thumb drive containing the images to import and press OK to start the import.");
+            var result = GREUtils.Dialog.confirm(this.window, _("confirm import"),
+                                                              _("Please attach the USB thumb drive containing the images to import and press OK to start the import."));
 
             if (!result) return;
 
@@ -233,7 +231,7 @@ var ImageFilesView = window.ImageFilesView = GeckoJS.NSITreeViewArray.extend({
             this.setButtonDisable(true);
 
             total = files.length;
-            $importStatus.val('in progress');
+            $importStatus.val(_('in progress'));
             try {
                 // set max script run time...
                 var oldLimit = GREUtils.Pref.getPref('dom.max_chrome_script_run_time');
@@ -269,11 +267,11 @@ var ImageFilesView = window.ImageFilesView = GeckoJS.NSITreeViewArray.extend({
                         this.sleep(50);
                     }
                 }, this);
-                $importStatus.val('import done');
+                $importStatus.val(_('import done'));
             }
             catch (e) {
                 $importStatus.val('error');
-                NotifyUtils.info(_('Import Images Error!!'));
+                NotifyUtils.info(_('Import Image Error'));
             }
             finally {
 
@@ -290,7 +288,7 @@ var ImageFilesView = window.ImageFilesView = GeckoJS.NSITreeViewArray.extend({
                 waitPanel.hidePopup();
             }
 
-            NotifyUtils.info(_('Import Images Done!!'));
+            NotifyUtils.info(_('Import Images Done'));
 
             $importUsage.val(this.Number.toReadableSize(importUsage));
             $importFiles.val(this.Number.format(importFiles));
@@ -307,8 +305,8 @@ var ImageFilesView = window.ImageFilesView = GeckoJS.NSITreeViewArray.extend({
 
             if (!exportDir || (exportDir.length == 0)) exportDir = this._exportDir;
 
-            var result = GREUtils.Dialog.confirm(this.window, "Confirm Export",
-                                                              "Please attach the USB thumb drive to export images to and press OK to start the export.");
+            var result = GREUtils.Dialog.confirm(this.window, _("Confirm Export"),
+                                                              _("Please attach the USB thumb drive to export images to and press OK to start the export."));
 
             if (!result) return;
 
@@ -339,7 +337,7 @@ var ImageFilesView = window.ImageFilesView = GeckoJS.NSITreeViewArray.extend({
             this.setButtonDisable(true);
 
 
-            $exportStatus.val('in progress');
+            $exportStatus.val(_('in progress'));
             try {
                 var files = new GeckoJS.Dir.readDir(this._dir);
                 total = files.length;
@@ -364,11 +362,11 @@ var ImageFilesView = window.ImageFilesView = GeckoJS.NSITreeViewArray.extend({
                     progmeter.value = exportFiles * 100 / total;
                     self.sleep(50);
                 }, this);
-                $exportStatus.val('export done');
+                $exportStatus.val(_('export done'));
             }
             catch (e) {
                 $exportStatus.val('error');
-                NotifyUtils.info(_('Export Images Error!!'));
+                NotifyUtils.info(_('Export Image Error'));
             }
             finally {
                 this._busy = false;
@@ -384,22 +382,25 @@ var ImageFilesView = window.ImageFilesView = GeckoJS.NSITreeViewArray.extend({
                 waitPanel.hidePopup();
             }
 
-            NotifyUtils.info(_('Export Images Done!!'));
+            NotifyUtils.info(_('Export Images Done'));
 
             $exportUsage.val(this.Number.toReadableSize(exportUsage));
             $exportFiles.val(this.Number.format(exportFiles));
         },
 
         deleteImage: function() {
-            if (this._selectedFile == null) return;
+            if (this._selectedFile == null) {
+                NotifyUtils.warn(_('Please select an image first'));
+                return;
+            }
 
-            var result = GREUtils.Dialog.confirm(this.window, "Are you sure", "Are you sure want to delete '" + this._selectedFile.leafName + "'");
+            var result = GREUtils.Dialog.confirm(this.window, _("confirm delete"), _("Are you sure you want to delete %S", [this._selectedFile.leafName]));
             if (result) {
                 // unlink
                 // GeckoJS.File.remove(this._selectedFile.path) ;
                 this._selectedFile.remove(false);
 
-                NotifyUtils.info(_('Delete Image (%S) is Done!!', [this._selectedFile.leafName]));
+                NotifyUtils.info(_('Image (%S) is successfully deleted', [this._selectedFile.leafName]));
 
                 // refresh
                 this.loadImage(this._dir);
@@ -408,7 +409,10 @@ var ImageFilesView = window.ImageFilesView = GeckoJS.NSITreeViewArray.extend({
         },
         
         renameImage: function() {
-            if (this._selectedFile == null) return;
+            if (this._selectedFile == null) {
+                NotifyUtils.warn(_('Please select an image first'));
+                return;
+            }
 
             var input = {value: this._selectedFile.leafName};
             var result = GREUtils.Dialog.prompt(this.window, "Rename image", "Original image: '" + this._selectedFile.leafName, input);
@@ -418,7 +422,7 @@ var ImageFilesView = window.ImageFilesView = GeckoJS.NSITreeViewArray.extend({
                     // moveto
                     this._selectedFile.moveTo(this._selectedFile.parent, input.value);
 
-                    NotifyUtils.info(_('Rename Image Name (%S) to (%S)!!', [this._selectedFile.leafName, input.value]));
+                    NotifyUtils.info(_('Image (%S) successfully renamed to (%S)', [this._selectedFile.leafName, input.value]));
                     // refresh
                     //this.loadImage(this._dir);
                     var imagePanel = this.query('#imagePanel')[0];
@@ -431,7 +435,7 @@ var ImageFilesView = window.ImageFilesView = GeckoJS.NSITreeViewArray.extend({
                 }
                 catch (e) {
                     //
-                    NotifyUtils.info(_('Rename Image (%S) Error!!'));
+                    NotifyUtils.info(_('Rename Image (%S) Error'));
                 }
                 finally {
                     //

@@ -625,6 +625,10 @@ pref("vivipos.fec.registry.templates.vfd-internal.label", "Internal VFD Template
 pref("vivipos.fec.registry.templates.vfd-internal.type", "vfd");
 pref("vivipos.fec.registry.templates.vfd-internal.path", "chrome://viviecr/content/devices/templates/vfd-internal.tpl");
  
+pref("vivipos.fec.registry.templates.vfd-internal-non-en.label", "Internal VFD (non-en)");
+pref("vivipos.fec.registry.templates.vfd-internal-non-en.type", "vfd");
+pref("vivipos.fec.registry.templates.vfd-internal-non-en.path", "chrome://viviecr/content/devices/templates/vfd-internal-non-en.tpl");
+
 pref("vivipos.fec.registry.ports.com1.label", "COM 1");
 pref("vivipos.fec.registry.ports.com1.type", "serial");
 pref("vivipos.fec.registry.ports.com1.path", "/dev/ttyS0");

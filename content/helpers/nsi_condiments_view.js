@@ -49,7 +49,6 @@
             if (buttonFontSize && btn) {
                 $(btn).addClass('font-' + buttonFontSize);
             }
-
         }
 
     });
@@ -107,6 +106,16 @@
             if (buttonFontSize && btn) {
                 // $(btn).addClass('font-' + buttonFontSize);
                 classStr += ' font-' + buttonFontSize ;
+            }
+
+            var preset = this.getCellValue(row,{
+                id: 'preset'
+            });
+            if (preset) {
+                classStr += ' PresetCondiment';
+            }
+            else {
+                classStr += ' NotPresetCondiment';
             }
 
             if (classStr.length > 0) {

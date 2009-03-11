@@ -225,7 +225,7 @@
                 var dir = datas[index].dir;
 
                 if (GREUtils.Dialog.confirm(this.window, _("Confirm Restore"),
-                        _("Do you want to restore (%S) from local backup?\nIf you execute restore now, the system will restart automatically after you return to the Main Screen.", [datas[index].time]))) {
+                        _("Do you want to restore (%S) from local backup?", [datas[index].time]) + "\n" + _("If you execute restore now, the system will restart automatically after you return to the Main Screen."))) {
                     if (this.execute(this._scriptPath + "restore.sh", [this._localbackupDir + dir])) {
                         this._restart();
                         NotifyUtils.info(_('<Restore from Local backup> is done!!'));
@@ -259,7 +259,7 @@
                 var dir = datas[index].dir;
 
                 if (GREUtils.Dialog.confirm(this.window, _("Confirm Restore"),
-                        _("Do you want to restore (%S) from stick?\nIf you execute restore now, the system will restart automatically after you return to the Main Screen.", [datas[index].time]))) {
+                        _("Do you want to restore (%S) from stick?", [datas[index].time]) + "\n" + _("If you execute restore now, the system will restart automatically after you return to the Main Screen."))) {
 
                     if (this.execute(this._scriptPath + "restore.sh", [this._stickbackupDir + dir])){
                         this._restart();

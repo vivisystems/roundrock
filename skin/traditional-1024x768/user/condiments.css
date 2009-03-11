@@ -71,3 +71,10 @@
     margin-left: 4px;
 }
 
+.PresetCondiment {
+    border-style: solid !important;
+}
+
+.NotPresetCondiment {
+    border-style: dashed !important;
+}

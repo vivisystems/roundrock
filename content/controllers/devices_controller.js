@@ -65,7 +65,7 @@
 
                 if (offline) {
                     GREUtils.Dialog.alert(window, _('Device Status'),
-                                                  _('The following enabled devices appear to be offline, please ensure that they are functioning correctly: \n%S', [statusStr]));
+                                                  _('The following enabled devices appear to be offline, please ensure that they are functioning correctly:') + '\n  ' + statusStr);
                 }
             }
             // observer device-refresh topic
@@ -1484,7 +1484,7 @@
 
             if (offline) {
                 if (GREUtils.Dialog.confirm(null, _('Device Status'),
-                                            _('The following enabled devices appear to be offline, do you still want to save the new configuration?\n%S', [statusStr])) == false) {
+                                            _('The following enabled devices appear to be offline, do you still want to save the new configuration?') + '\n' + statusStr) == false) {
                         if (data != null) data.cancel = true;
                         return;
                 }
