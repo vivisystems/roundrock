@@ -1212,6 +1212,9 @@ msgstr "Touch Utility"
 msgid "acl_store_check"
 msgstr "Store Check"
 
+msgid "transaction_created"
+msgstr "Order Start Time"
+
 msgid "acl_recall_check"
 msgstr "Recall Stored Check"
 
@@ -1254,3 +1257,7 @@ msgstr "Recall Check"
 
 msgid "recallCheck.name"
 msgstr "Recall Check"
+=======
+msgid "sale_period"
+msgstr "Sale Period"
+>>>>>>> 2035cd6e69a7e4b54fe8500178721ef0dca00b9f:locale/en/messages.pot
