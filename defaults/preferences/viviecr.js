@@ -431,6 +431,21 @@ pref("vivipos.fec.registry.function.programmable.recallCheck.command", "recallCh
 pref("vivipos.fec.registry.function.programmable.recallCheck.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.recallCheck.data", "");
 
+pref("vivipos.fec.registry.function.programmable.storeCheck.access", "acl_store_check");
+pref("vivipos.fec.registry.function.programmable.storeCheck.command", "storeCheck");
+pref("vivipos.fec.registry.function.programmable.storeCheck.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.storeCheck.data", "");
+
+pref("vivipos.fec.registry.function.programmable.reboot.access", "");
+pref("vivipos.fec.registry.function.programmable.reboot.command", "reboot");
+pref("vivipos.fec.registry.function.programmable.reboot.controller", "Main");
+pref("vivipos.fec.registry.function.programmable.reboot.data", "");
+
+pref("vivipos.fec.registry.function.programmable.shutdown.access", "");
+pref("vivipos.fec.registry.function.programmable.shutdown.command", "shutdown");
+pref("vivipos.fec.registry.function.programmable.shutdown.controller", "Main");
+pref("vivipos.fec.registry.function.programmable.shutdown.data", "");
+
 pref("vivipos.fec.registry.function.programmable.ledgerentry.access", "acl_view_ledger_entry");
 pref("vivipos.fec.registry.function.programmable.ledgerentry.command", "ledgerEntry");
 pref("vivipos.fec.registry.function.programmable.ledgerentry.controller", "Cart");
@@ -450,6 +465,26 @@ pref("vivipos.fec.registry.function.programmable.annotate.access", "acl_annotate
 pref("vivipos.fec.registry.function.programmable.annotate.command", "AnnotateDialog");
 pref("vivipos.fec.registry.function.programmable.annotate.controller", "Main");
 pref("vivipos.fec.registry.function.programmable.annotate.data", "");
+
+pref("vivipos.fec.registry.function.programmable.prefinalize.access", "acl_pre_finalize");
+pref("vivipos.fec.registry.function.programmable.prefinalize.command", "preFinalize");
+pref("vivipos.fec.registry.function.programmable.prefinalize.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.prefinalize.data", "");
+
+pref("vivipos.fec.registry.function.programmable.prefinalize.access", "acl_pre_finalize");
+pref("vivipos.fec.registry.function.programmable.prefinalize.command", "preFinalize");
+pref("vivipos.fec.registry.function.programmable.prefinalize.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.prefinalize.data", "");
+
+pref("vivipos.fec.registry.function.programmable.prefinalize.access", "acl_pre_finalize");
+pref("vivipos.fec.registry.function.programmable.prefinalize.command", "preFinalize");
+pref("vivipos.fec.registry.function.programmable.prefinalize.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.prefinalize.data", "");
+
+pref("vivipos.fec.registry.function.programmable.prefinalize.access", "acl_pre_finalize");
+pref("vivipos.fec.registry.function.programmable.prefinalize.command", "preFinalize");
+pref("vivipos.fec.registry.function.programmable.prefinalize.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.prefinalize.data", "");
 
 pref("vivipos.fec.registry.function.programmable.prefinalize.access", "acl_pre_finalize");
 pref("vivipos.fec.registry.function.programmable.prefinalize.command", "preFinalize");

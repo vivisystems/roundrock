@@ -1215,6 +1215,52 @@ msgstr "Touch Calibration"
 msgid "Touch Utility"
 msgstr "Touch Utility"
 
+msgid "acl_store_check"
+msgstr "Store Check"
+
+msgid "acl_recall_check"
+msgstr "Recall Stored Check"
+
+msgid "shutdown.desc"
+msgstr "This function shuts down the terminal. No parameter needed."
+
+msgid "shutdown.label"
+msgstr "Shutdown Terminal"
+
+msgid "shutdown.name"
+msgstr "Shutdown Terminal"
+
+msgid "reboot.desc"
+msgstr "This function reboots the terminal. No parameter needed."
+
+msgid "reboot.label"
+msgstr "Reboot Terminal"
+
+msgid "reboot.name"
+msgstr "Reboot Terminal"
+
+msgid "storeCheck.desc"
+msgstr ""
+"This function stores the current check and issues the appropriate receipts/"
+"checks. The parameter field must be empty."
+
+msgid "storeCheck.label"
+msgstr "Store Check"
+
+msgid "storeCheck.name"
+msgstr "Store Check"
+
+msgid "recallCheck.desc"
+msgstr ""
+"This function recalls a prevously stored check for further action. The "
+"parameter field must be empty."
+
+msgid "recallCheck.label"
+msgstr "Recall Check"
+
+msgid "recallCheck.name"
+msgstr "Recall Check"
+
 #: ../..//content/datetime.js:27
 msgid "confirm timezone change"
 msgstr ""
@@ -1998,39 +2044,44 @@ msgstr ""
 msgid "Order is not queued because it is empty"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3071
-#: ../..//content/controllers/cart_controller.js:3090
-#: ../..//content/controllers/cart_controller.js:3099
-#: ../..//content/controllers/cart_controller.js:3118
-msgid "fatal error!!"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:3084
-msgid "Check# %S is exist!!"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:3112
-msgid "Table# %S is exist!!"
-msgstr ""
-
-#: ../..//content/controllers/cart_controller.js:3128
+#: ../..//content/controllers/cart_controller.js:3064
+#: ../..//content/controllers/cart_controller.js:3169
 msgid "Not an open order; unable to store"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3133
+#: ../..//content/controllers/cart_controller.js:3069
+#: ../..//content/controllers/cart_controller.js:3174
 msgid "This order has been submitted"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3137
+#: ../..//content/controllers/cart_controller.js:3073
+#: ../..//content/controllers/cart_controller.js:3178
 msgid "This order is closed pending payment and may only be finalized"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3141
+#: ../..//content/controllers/cart_controller.js:3077
+#: ../..//content/controllers/cart_controller.js:3182
 msgid "This order is empty"
 msgstr ""
 
-#: ../..//content/controllers/cart_controller.js:3150
+#: ../..//content/controllers/cart_controller.js:3086
+#: ../..//content/controllers/cart_controller.js:3191
 msgid "No change to store"
+msgstr ""
+
+#: ../..//content/controllers/cart_controller.js:3112
+#: ../..//content/controllers/cart_controller.js:3131
+#: ../..//content/controllers/cart_controller.js:3140
+#: ../..//content/controllers/cart_controller.js:3159
+msgid "fatal error!!"
+msgstr ""
+
+#: ../..//content/controllers/cart_controller.js:3125
+msgid "Check# %S is exist!!"
+msgstr ""
+
+#: ../..//content/controllers/cart_controller.js:3153
+msgid "Table# %S is exist!!"
 msgstr ""
 
 #: ../..//content/controllers/cashdrawer_controller.js:189
@@ -2745,6 +2796,22 @@ msgstr ""
 
 #: ../..//content/controllers/main_controller.js:705
 msgid "Removing old data..."
+msgstr ""
+
+#: ../..//content/controllers/main_controller.js:724
+msgid "Reboot"
+msgstr ""
+
+#: ../..//content/controllers/main_controller.js:724
+msgid "Please confirm to reboot the terminal"
+msgstr ""
+
+#: ../..//content/controllers/main_controller.js:731
+msgid "Shutdown"
+msgstr ""
+
+#: ../..//content/controllers/main_controller.js:731
+msgid "Please confirm to shut down the terminal"
 msgstr ""
 
 #: ../..//content/controllers/plufilter_controller.js:34

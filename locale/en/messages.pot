@@ -1209,3 +1209,48 @@ msgstr "Touch Calibration"
 msgid "Touch Utility"
 msgstr "Touch Utility"
 
+msgid "acl_store_check"
+msgstr "Store Check"
+
+msgid "acl_recall_check"
+msgstr "Recall Stored Check"
+
+msgid "shutdown.desc"
+msgstr ""
+"This function shuts down the terminal. No parameter needed."
+
+msgid "shutdown.label"
+msgstr "Shutdown Terminal"
+
+msgid "shutdown.name"
+msgstr "Shutdown Terminal"
+
+msgid "reboot.desc"
+msgstr ""
+"This function reboots the terminal. No parameter needed."
+
+msgid "reboot.label"
+msgstr "Reboot Terminal"
+
+msgid "reboot.name"
+msgstr "Reboot Terminal"
+
+msgid "storeCheck.desc"
+msgstr ""
+"This function stores the current check and issues the appropriate receipts/checks. The parameter field must be empty."
+
+msgid "storeCheck.label"
+msgstr "Store Check"
+
+msgid "storeCheck.name"
+msgstr "Store Check"
+
+msgid "recallCheck.desc"
+msgstr ""
+"This function recalls a prevously stored check for further action. The parameter field must be empty."
+
+msgid "recallCheck.label"
+msgstr "Recall Check"
+
+msgid "recallCheck.name"
+msgstr "Recall Check"
