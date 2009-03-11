@@ -2092,16 +2092,16 @@ msgid "New Hotkey"
 msgstr ""
 
 msgid "Please Linking Function to Hotkey"
-msgstr ""
+msgstr "Please Link Function to Hotkey"
 
 msgid "Please Assign Hotkey to Linking Function"
-msgstr ""
+msgstr "Please Assign Hotkey to Function"
 
 msgid "Hotkey [%S] is reserved"
 msgstr ""
 
 msgid "Hotkey [%S] is exists"
-msgstr ""
+msgstr "Hotkey [%S] is already assigned"
 
 msgid "Hotkey [%S] [%S] modified successfully"
 msgstr ""
@@ -2112,7 +2112,7 @@ msgid ""
 msgstr ""
 
 msgid "Hotkey [%S] [%S] remove successfully"
-msgstr ""
+msgstr "Hotkey [%S] [%S] removed successfully"
 
 msgid ""
 "An error occurred while removing Hotkey [%S]. The hotkey may not have been "
@@ -2120,10 +2120,10 @@ msgid ""
 msgstr ""
 
 msgid "Hotkey [%S] is not exists"
-msgstr ""
+msgstr "Hotkey [%S] does not exist"
 
 msgid "An error occurred while searching Hotkey [%S]."
-msgstr ""
+msgstr "An error occurred while searching for Hotkey [%S]."
 
 msgid "Failed to execute command (%S)."
 msgstr ""
