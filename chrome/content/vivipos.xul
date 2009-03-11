@@ -28,7 +28,7 @@
   </commandset>
 
   <keyset id="keyset_explorer">
-      <key id="key_quitApplication" key="q" command="cmd_quitApplication" modifiers="control"/>
+      <!-- key id="key_quitApplication" key="q" command="cmd_quitApplication" modifiers="control"/-->
       <key id="key_restartApplication" key="r" command="cmd_restartApplication" modifiers="control"/>
   </keyset>
   <keyset id="keyset_extensions">

@@ -143,6 +143,46 @@ window.goRestartApplication = function goRestartApplication()
     return true;
 };
 
+window.goShutdownMachine = function goShutdownMachine()
+{
+
+	if (!canQuitApplication()) return false;
+
+	try {
+		if (GREUtils.isWindow()) {
+			var fs = GREUtils.File.getFile("C:\\Windows\\System32\\shutdown.exe");
+			GREUtils.File.run(fs, ["-s","-t", "3"]);
+		}else {
+			var fs = GREUtils.File.getFile("/sbin/shutdown");
+			GREUtils.File.run(fs, ["-P", "now"]);
+		}
+		return true;
+	}catch (e) {
+	}
+	return false;
+
+};
+
+window.goRebootMachine = function goRebootMachine()
+{
+
+	if (!canQuitApplication()) return false;
+
+	try {
+		if (GREUtils.isWindow()) {
+			var fs = GREUtils.File.getFile("C:\\Windows\\System32\\shutdown.exe");
+			GREUtils.File.run(fs, ["-r", "-t", "3"]);
+		}else {
+			var fs = GREUtils.File.getFile("/sbin/shutdown");
+			GREUtils.File.run(fs, ["-r", "now"]);
+		}
+		return true;
+	}catch(e) {
+	}
+	return false;
+
+
+};
 
 window.toOpenWindowByType = function toOpenWindowByType(inType, uri) {
     var winopts = "chrome,extrachrome,menubar,resizable,scrollbars,status,toolbar";
