@@ -80,9 +80,9 @@
             datas.forEach(function(o){
                 var d = new Date();
                 d.setTime( o.starttime * 1000 ); // multiplying one thousand so that the time can be in the millisecond scale.
-                o.starttime = d.toString('yyyy/MM/dd HH:mm');
+                o.starttime = d.toString('yy/MM/dd HH:mm');
                 d.setTime( o.endtime * 1000 );
-                o.endtime = d.toString('yyyy/MM/dd HH:mm');
+                o.endtime = d.toString('yy/MM/dd HH:mm');
                 
                 d.setTime( o.sale_period * 1000 );
                 o.sale_period = d.toString( 'yyyy/MM/dd' );
@@ -117,10 +117,11 @@
         },
         
         printShiftChangeReport: function( start, end, periodType, shiftNo, terminalNo, printController ) {
+        	// the parameters 'start' and 'end' are both thirteen-digit integer.
         	
         	this._set_datas( start, end, periodType, shiftNo, terminalNo );
 
-            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/Chinese/tpl_58mm/rpt_cash_by_clerk_rcp.tpl");
+            var path = GREUtils.File.chromeToPath("chrome://reports/locale/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_58mm.tpl");
             var file = GREUtils.File.getFile(path);
             var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
             
@@ -144,10 +145,10 @@
             
             this._set_datas( start, end, periodType, shiftNo, machineid );
 
-            var path = GREUtils.File.chromeToPath( "chrome://viviecr/content/reports/tpl/rpt_cash_by_clerk.tpl" );
+            var path = GREUtils.File.chromeToPath( "chrome://reports/locale/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl" );
 
             var file = GREUtils.File.getFile(path);
-            var tpl = GREUtils.File.readAllBytes(file);
+            var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
 
             var result = tpl.process( this._datas );
 
@@ -204,15 +205,14 @@
 
                 var waitPanel = this._showWaitPanel('wait_panel', 100);
 
-                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_cash_by_clerk_csv.tpl");
+                var path = GREUtils.File.chromeToPath("chrome://reports/locale/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_csv.tpl");
 
                 var file = GREUtils.File.getFile(path);
-                var tpl = GREUtils.File.readAllBytes(file);
+                var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
                 var datas;
                 datas = this._datas;
 
                 this.CsvExport.printToFile(media_path + this._fileName, datas, tpl);
-
 
             } catch (e) {
                 //
@@ -229,7 +229,7 @@
                 this._enableButton(false);
                 var waitPanel = this._showWaitPanel('wait_panel', 100);
 
-                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/Chinese/tpl_58mm/rpt_cash_by_clerk_rcp.tpl");
+                var path = GREUtils.File.chromeToPath("chrome://reports/locale/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_80mm.tpl");
 
                 var file = GREUtils.File.getFile(path);
                 var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
@@ -261,11 +261,6 @@
             document.getElementById('end_date').value = end;
 
             this._enableButton(false);
-
         }
-
     });
-
-
 })();
-

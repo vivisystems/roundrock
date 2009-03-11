@@ -16,3 +16,7 @@
 <!ENTITY productsales.total "Total">
 <!ENTITY productsales.all "List All">
 <!ENTITY productsales.wait "Waiting...">
+<!ENTITY productsales.periodtype "Period Type:">
+<!ENTITY productsales.created "Order Start Time">
+<!ENTITY productsales.saleperiod "Sale Period">
+<!ENTITY productsales.shiftno "Shift No.:">
