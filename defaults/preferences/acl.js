@@ -95,3 +95,4 @@ pref("vivipos.fec.acl.roles.acl_delete_ledger_entry", "acl_delete_ledger_entry")
 pref("vivipos.fec.acl.roles.acl_end_sale_period", "acl_end_sale_period");
 pref("vivipos.fec.acl.roles.acl_remote_control", "acl_remote_control");
 pref("vivipos.fec.acl.roles.acl_touch_settings", "acl_touch_settings");
+pref("vivipos.fec.acl.roles.acl_recall_check", "acl_recall_check");

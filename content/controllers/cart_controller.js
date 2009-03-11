@@ -4,7 +4,7 @@
      * Class ViviPOS.CartController
      */
 
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
         name: 'Cart',
         components: ['Tax', 'GuestCheck'],
         _cartView: null,
@@ -3045,9 +3045,50 @@
 
         },
 
+        recallCheck: function() {
+            var no = this._getKeypadController().getBuffer();
+            this._getKeypadController().clearBuffer();
+
+            this.cancelReturn();
+
+            return this.GuestCheck.recallByCheckNo(no);
+        },
+
+        storeCheck: function() {
+            this._getKeypadController().clearBuffer();
+
+            this.cancelReturn();
+
+            var curTransaction = this._getTransaction();
+            if (curTransaction == null) {
+                NotifyUtils.warn(_('Not an open order; unable to store'));
+                return; // fatal error ?
+            }
+
+            if (curTransaction.data.status == 1) {
+                NotifyUtils.warn(_('This order has been submitted'));
+                return;
+            }
+            if (curTransaction.data.closed) {
+                NotifyUtils.warn(_('This order is closed pending payment and may only be finalized'));
+                return;
+            }
+            if (curTransaction.data.items_count == 0) {
+                NotifyUtils.warn(_('This order is empty'));
+                return;
+            }
+            var modified = curTransaction.isModified();
+            if (modified) {
+                r = this.GuestCheck.store();
+                this.dispatchEvent('onStore', curTransaction);
+            }
+            else {
+                NotifyUtils.warn(_('No change to store'));
+            }
+        },
+
         guestCheck: function(action) {
             // check if has buffer
-            
             var buf = this._getKeypadController().getBuffer();
             this._getKeypadController().clearBuffer();
 
@@ -3177,5 +3218,7 @@
             
             return;
         }
-    });
+    };
+
+    GeckoJS.Controller.extend(__controller__);
 })();

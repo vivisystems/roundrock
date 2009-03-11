@@ -731,19 +731,19 @@
             }
         },
 
-	shutdownMachine: function() {
-		try {
-			goShutdownMachine();
-		}catch(e) {
-		}
-	}, 
+        shutdownMachine: function() {
+            try {
+                goShutdownMachine();
+            }catch(e) {
+            }
+        },
 
-	rebootMachine: function() {
-		try {
-			goRebootMachine();
-		}catch(e) {
-		}
-	}, 
+        rebootMachine: function() {
+            try {
+                goRebootMachine();
+            }catch(e) {
+            }
+        }
 
 
     });

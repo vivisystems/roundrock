@@ -426,10 +426,10 @@ pref("vivipos.fec.registry.function.programmable.opendrawer2.command", "openDraw
 pref("vivipos.fec.registry.function.programmable.opendrawer2.controller", "CashDrawer");
 pref("vivipos.fec.registry.function.programmable.opendrawer2.data", "");
 
-pref("vivipos.fec.registry.function.programmable.guestcheck.access", "acl_public_access");
-pref("vivipos.fec.registry.function.programmable.guestcheck.command", "guestCheck");
-pref("vivipos.fec.registry.function.programmable.guestcheck.controller", "Cart");
-pref("vivipos.fec.registry.function.programmable.guestcheck.data", "");
+pref("vivipos.fec.registry.function.programmable.recallCheck.access", "acl_recall_check");
+pref("vivipos.fec.registry.function.programmable.recallCheck.command", "recallCheck");
+pref("vivipos.fec.registry.function.programmable.recallCheck.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.recallCheck.data", "");
 
 pref("vivipos.fec.registry.function.programmable.ledgerentry.access", "acl_view_ledger_entry");
 pref("vivipos.fec.registry.function.programmable.ledgerentry.command", "ledgerEntry");
