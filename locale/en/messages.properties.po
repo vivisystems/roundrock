@@ -2008,7 +2008,7 @@ msgstr ""
 msgid "New Destination"
 msgstr ""
 
-msgid "Name"
+msgid "Destination"
 msgstr ""
 
 msgid "Destination [%S] already exists"
@@ -2361,6 +2361,9 @@ msgid "Add New Filter"
 msgstr ""
 
 msgid "New Filter"
+msgstr ""
+
+msgid "Filter Name"
 msgstr ""
 
 msgid "Filter [%S] already exists"
@@ -2733,6 +2736,9 @@ msgid "Add New Employee"
 msgstr ""
 
 msgid "New Employee"
+msgstr ""
+
+msgid "User Name"
 msgstr ""
 
 msgid "Passcode"

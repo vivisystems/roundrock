@@ -31,7 +31,7 @@
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
             var inputObj = {input0:null, require0:true};
 
-            window.openDialog(aURL, _('Add New Filter'), features, _('New Filter'), '', _('Name'), '', inputObj);
+            window.openDialog(aURL, _('Add New Filter'), features, _('New Filter'), '', _('Filter Name'), '', inputObj);
 
             if (inputObj.ok && inputObj.input0) {
                 var filterName = inputObj.input0.replace('\'', '"', 'g');
