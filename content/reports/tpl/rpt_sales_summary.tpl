@@ -12,7 +12,7 @@
 <p align="right">Printed Time: ${foot.gen_time}</p>
 
 <table width="100%">
-    <caption>${head.title} - ${head.start_time} - ${head.end_time}</caption>
+    <caption>${head.title}&nbsp;${head.subtitle}<br />${head.start_time} - ${head.end_time}</caption>
 
     <tr>
         <td colspan="2">

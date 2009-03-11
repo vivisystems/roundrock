@@ -22,7 +22,8 @@
                     <th>現金淨額</th>
                     <th>銷售金額</th>
                     <th>溢收金額</th>
-                    <th>代收代付淨額</th>
+                    <th>代收金額</th>
+                    <th>代付金額</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,26 +32,45 @@
                 	<td>${master.shift_number}</td>
                 	<td>${master.balance|default:0|viviFormatPrices:true}</td>
                 	<td>${master.cash|default:0|viviFormatPrices:true}</td>
-                	<td>${master.Sales|default:0|viviFormatPrices:true}</td>
-                	<td>${master.Excess|default:0|viviFormatPrices:true}</td>
-                	<td>${master.Ledger|default:0|viviFormatPrices:true}</td>
+                	<td>${master.sales|default:0|viviFormatPrices:true}</td>
+                	<td>${master.excess|default:0|viviFormatPrices:true}</td>
+                	<td>${master.ledger_in|default:0|viviFormatPrices:true}</td>
+                	<td>${master.ledger_out|default:0|viviFormatPrices:true}</td>
                 </tr>
                 <tr style="border-top: 1px solid #4ca;">
-                	<td></td>
-                	<td></td>
-                	<td></td>
-                	<td colspan="4">
+                	<td colspan="4" style="vertical-align: top;">
                 		<table style="width: 100%;">
                 			<tr style="color: gray; font-style: italic;">
                 				<th style="text-align: left;">會計科目</th>
                 				<th>金額</th>
+                				<th>筆數</th>
                 			</tr>
 {for detail in master.ShiftChangeDetail}
-						
+{if detail.type != 'destination'}
 						    <tr>
 						        <td style="text-align: left;">${detail.type}{if detail.name.length > 0}&nbsp;( ${detail.name} ){/if}</td>
 						        <td>${detail.amount|default:0|viviFormatPrices:true}</td>
+						        <td>${detail.count|default:0}</td>
 						    </tr>
+{/if}
+{/for}
+						</table>
+					</td>
+					<td colspan="4" style="vertical-align: top;">
+						<table style="width: 100%;">
+							<tr style="color: gray; font-style: italic;">
+								<th style="text-align: left;">目的地</th>
+								<th>金額</th>
+								<th>筆數</th>
+							</tr>
+{for detail in master.ShiftChangeDetail}
+{if detail.type == 'destination'}
+							<tr>
+								<td style="text-align: left;">${detail.name}</td>
+								<td>${detail.amount|default:0|viviFormatPrices:true}</td>
+								<td>${detail.count|default:0}</td>
+							</tr>
+{/if}
 {/for}
 						</table>
 					</td>

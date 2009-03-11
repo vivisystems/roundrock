@@ -80,9 +80,9 @@
             datas.forEach(function(o){
                 var d = new Date();
                 d.setTime( o.starttime * 1000 ); // multiplying one thousand so that the time can be in the millisecond scale.
-                o.starttime = d.toString('yyyy/MM/dd HH:mm');
+                o.starttime = d.toString('yy/MM/dd HH:mm');
                 d.setTime( o.endtime * 1000 );
-                o.endtime = d.toString('yyyy/MM/dd HH:mm');
+                o.endtime = d.toString('yy/MM/dd HH:mm');
                 
                 d.setTime( o.sale_period * 1000 );
                 o.sale_period = d.toString( 'yyyy/MM/dd' );
@@ -121,7 +121,7 @@
         	
         	this._set_datas( start, end, periodType, shiftNo, terminalNo );
 
-            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/Chinese/tpl_58mm/rpt_cash_by_clerk_rcp.tpl");
+            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/Chinese/rpt_cash_by_clerk_rcp.tpl");
             var file = GREUtils.File.getFile(path);
             var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
             
@@ -229,7 +229,7 @@
                 this._enableButton(false);
                 var waitPanel = this._showWaitPanel('wait_panel', 100);
 
-                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/Chinese/tpl_58mm/rpt_cash_by_clerk_rcp.tpl");
+                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/Chinese/rpt_cash_by_clerk_rcp.tpl");
 
                 var file = GREUtils.File.getFile(path);
                 var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );

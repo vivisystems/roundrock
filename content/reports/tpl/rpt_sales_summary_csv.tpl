@@ -6,6 +6,8 @@
 "Printed Time:","'${foot.gen_time}"
 "Start:","${head.start_time}"
 "End:","${head.end_time}"
+""
+"${head.title} ${head.subtitle}"
 "",""
 "General Information"
 "","Total","${body.sales_summary.ItemSubtotal|default:0|viviFormatPrices:true}"
