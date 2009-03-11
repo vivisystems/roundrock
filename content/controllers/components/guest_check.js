@@ -52,7 +52,8 @@
                 cart.addEventListener('newTransaction', this.handleNewTransaction, this);
                 cart.addEventListener('onSubmit', this.handleNewTransaction, this);
                 cart.addEventListener('onCancel', this.handleNewTransaction, this);
-                cart.addEventListener('onClear', this.handleClear, this);
+                // cart.addEventListener('onClear', this.handleClear, this);
+                cart.addEventListener('onStore', this.handleNewTransaction, this);
             }
             /*
             // add listener for onLogin event
@@ -65,8 +66,8 @@
 
         handleNewTransaction: function(evt) {
             // if (this._inSetCustomer) return;
-            alert(evt.type);
-            if (evt.type == 'onSubmit' || evt.type == 'onCancel' || evt.type == 'onInitial') {
+            this.log(this.dump(evt));
+            if (evt.type == 'onSubmit' || evt.type == 'onCancel' || evt.type == 'onInitial' || evt.type == 'onStore') {
                 //
                 if (this._guestCheck.requireCheckNo) {
                     //
@@ -79,17 +80,17 @@
                 }
             }
             else if (evt.type == 'newTransaction') {
-                /*
                 if (this._guestCheck.requireCheckNo) {
                     //
-                    var check_no = this.getNewCheckNo();
+                    if (!GeckoJS.Session.get('vivipos_fec_check_number'))
+                        var check_no = this.getNewCheckNo();
                 }
 
                 if (this._guestCheck.requireTableNo) {
-                    //
-                    var table_no = this.getNewTableNo();
+                    if (!GeckoJS.Session.get('vivipos_fec_table_number'))
+                        var table_no = this.getNewTableNo();
                 }
-                */
+
             }
         },
 
