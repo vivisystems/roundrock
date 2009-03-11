@@ -1,0 +1,5 @@
+<!ENTITY remote_control.title "Remote Control">
+<!ENTITY remote_control.tablabel.basic "Remote Control Basic Settings">
+<!ENTITY remote_control.label.port "Port: ">
+<!ENTITY remote_control.label.password "Password: ">
+<!ENTITY remote_control.label.verify "Verify Password: ">

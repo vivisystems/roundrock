@@ -32,7 +32,7 @@ pref("vivipos.fec.settings.controlpanels.system.localekeyboard.label", "Locale a
 pref("vivipos.fec.settings.controlpanels.system.localekeyboard.path", "chrome://viviecr/content/localekeyboard.xul");
 pref("vivipos.fec.settings.controlpanels.system.localekeyboard.icon", "chrome://viviecr/skin/icons/icon_generic.png");
 pref("vivipos.fec.settings.controlpanels.system.localekeyboard.roles", "acl_manage_locale_keyboard");
- 
+
 pref("vivipos.fec.settings.controlpanels.config.sysprefs.label", "General Options");
 pref("vivipos.fec.settings.controlpanels.config.sysprefs.path", "chrome://viviecr/content/sysprefs.xul");
 pref("vivipos.fec.settings.controlpanels.config.sysprefs.icon", "chrome://viviecr/skin/icons/icon_generaloptions.png");
@@ -47,7 +47,12 @@ pref("vivipos.fec.settings.controlpanels.config.sync_settings.label", "Synchroni
 pref("vivipos.fec.settings.controlpanels.config.sync_settings.path", "chrome://viviecr/content/sync_settings.xul");
 pref("vivipos.fec.settings.controlpanels.config.sync_settings.icon", "chrome://viviecr/skin/icons/icon_sync.png");
 pref("vivipos.fec.settings.controlpanels.config.sync_settings.roles", "acl_manage_sync_settings");
- 
+
+pref("vivipos.fec.settings.controlpanels.config.remote_control.label", "Remote Control");
+pref("vivipos.fec.settings.controlpanels.config.remote_control.path", "chrome://viviecr/content/remote_control.xul");
+pref("vivipos.fec.settings.controlpanels.config.remote_control.icon", "chrome://viviecr/skin/icons/icon_vnc.png");
+pref("vivipos.fec.settings.controlpanels.config.remote_control.roles", "acl_remote_control");
+
 pref("vivipos.fec.settings.controlpanels.product.departments.label", "Departments");
 pref("vivipos.fec.settings.controlpanels.product.departments.path", "chrome://viviecr/content/departments.xul");
 pref("vivipos.fec.settings.controlpanels.product.departments.icon", "chrome://viviecr/skin/icons/icon_department.png");
@@ -662,3 +667,15 @@ pref("vivipos.fec.registry.devicemodels.vfdgeneric.type", "vfd");
 pref("vivipos.fec.registry.devicemodels.vfdgeneric.path", "chrome://viviecr/content/devices/commands/vfdgeneric.cmd");
 pref("vivipos.fec.registry.devicemodels.vfdgeneric.encodings", "English=US-ASCII");
  
+pref("vivipos.fec.settings.controlpanels.system.touch_calibration.label", "Touch Calibration");
+pref("vivipos.fec.settings.controlpanels.system.touch_calibration.type", "application");
+pref("vivipos.fec.settings.controlpanels.system.touch_calibration.path", "/usr/bin/TKCal /dev/ttyS2 Linz9");
+pref("vivipos.fec.settings.controlpanels.system.touch_calibration.icon", "chrome://viviecr/content/skin/icons/gnome-run.png");
+pref("vivipos.fec.settings.controlpanels.system.touch_calibration.roles", "acl_touch_settings");
+
+pref("vivipos.fec.settings.controlpanels.system.touch_utility.label", "Touch Utility");
+pref("vivipos.fec.settings.controlpanels.system.touch_utility.type", "application");
+pref("vivipos.fec.settings.controlpanels.system.touch_utility.path", "/usr/bin/TouchKit");
+pref("vivipos.fec.settings.controlpanels.system.touch_utility.icon", "chrome://viviecr/content/skin/icons/gnome-run.png");
+pref("vivipos.fec.settings.controlpanels.system.touch_utility.roles", "acl_touch_settings");
+

@@ -729,7 +729,21 @@
             if (printer) {
                 printer.printReport('narrow', 'This is a narrow report [0x0C]');
             }
-        }
+        },
+
+	shutdownMachine: function() {
+		try {
+			goShutdownMachine();
+		}catch(e) {
+		}
+	}, 
+
+	rebootMachine: function() {
+		try {
+			goRebootMachine();
+		}catch(e) {
+		}
+	}, 
 
 
     });

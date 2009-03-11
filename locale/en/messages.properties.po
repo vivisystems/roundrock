@@ -1182,6 +1182,12 @@ msgstr "Generic VFD"
 msgid "acl_end_sale_period"
 msgstr "End Sale Period"
 
+msgid "acl_remote_control"
+msgstr "Remote Control"
+
+msgid "Remote Control"
+msgstr "Remote Control"
+
 msgid "destination"
 msgstr "destination"
 
@@ -1199,6 +1205,15 @@ msgstr "giftcard"
 
 msgid "check"
 msgstr "check"
+
+msgid "acl_touch_settings"
+msgstr "Touch Screen Settings"
+
+msgid "Touch Calibration"
+msgstr "Touch Calibration"
+
+msgid "Touch Utility"
+msgstr "Touch Utility"
 
 #: ../..//content/datetime.js:27
 msgid "confirm timezone change"
@@ -2728,6 +2743,10 @@ msgstr ""
 msgid "Are you ready to sign off?"
 msgstr ""
 
+#: ../..//content/controllers/main_controller.js:705
+msgid "Removing old data..."
+msgstr ""
+
 #: ../..//content/controllers/plufilter_controller.js:34
 msgid "Add New Filter"
 msgstr ""
@@ -3038,6 +3057,10 @@ msgstr ""
 msgid "Specified template [%S] is empty or does not exist!"
 msgstr ""
 
+#: ../..//content/controllers/remote_control_controller.js:30
+msgid "Password and Verify Password not the same"
+msgstr ""
+
 #: ../..//content/controllers/shift_changes_controller.js:449
 msgid "Invalid cash drawer change amount [%S]"
 msgstr ""
@@ -3046,19 +3069,19 @@ msgstr ""
 msgid "You may not leave negative amount of cash in the cashdrawer"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:506
+#: ../..//content/controllers/shift_changes_controller.js:509
 msgid "Sale Period [%S] is now closed"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:507
+#: ../..//content/controllers/shift_changes_controller.js:510
 msgid "Sale Period Close"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:546
+#: ../..//content/controllers/shift_changes_controller.js:549
 msgid "Sale Period [%S] Shift [%S] is now closed"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:547
+#: ../..//content/controllers/shift_changes_controller.js:550
 msgid "Shift Close"
 msgstr ""
 
