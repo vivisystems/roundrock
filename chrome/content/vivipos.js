@@ -113,19 +113,22 @@
                     switch (k) {
 
                         case 'disable_bottombox':
-                            if (debugSettings[k]) document.getElementById('vivipos-bottombox').setAttribute('hidden', true);
+                            if (debugSettings[k] && document.getElementById('vivipos-bottombox') ) document.getElementById('vivipos-bottombox').setAttribute('hidden', true);
                             break;
                         case 'disable_extension_manager':
-                            if (debugSettings[k]) document.getElementById('statusbar-extension_manager').setAttribute('hidden', true);
+                            if (debugSettings[k] && document.getElementById('statusbar-extension_manager') ) document.getElementById('statusbar-extension_manager').setAttribute('hidden', true);
                             break;
                         case 'disable_inspector':
-                            if (debugSettings[k]) document.getElementById('statusbar-inspector').setAttribute('hidden', true);
+                            if (debugSettings[k] && document.getElementById('statusbar-inspector') ) document.getElementById('statusbar-inspector').setAttribute('hidden', true);
                             break;
                         case 'disable_debugger':
-                            if (debugSettings[k]) document.getElementById('statusbar-debugger').setAttribute('hidden', true);
+                            if (debugSettings[k] && document.getElementById('statusbar-debugger') ) document.getElementById('statusbar-debugger').setAttribute('hidden', true);
                             break;
+			case 'disable_sqlitemanager':
+                            if (debugSettings[k] && document.getElementById('statusbar-sqlitemanager') ) document.getElementById('statusbar-sqlitemanager').setAttribute('hidden', true);
+			    break;
                         case 'disable_jsconsole':
-                            if (debugSettings[k]) {
+                            if (debugSettings[k] && document.getElementById('statusbar-jsconsole') ) {
                                 document.getElementById('statusbar-jsconsole').setAttribute('hidden', true);
                             }else {
                                 if (!debugSettings['disable_bottombox']) {

@@ -88,4 +88,5 @@ pref("vivipos.fec.debug.disable_extension_manager", false);
 pref("vivipos.fec.debug.disable_jsconsole", false);
 pref("vivipos.fec.debug.disable_inspector", false);
 pref("vivipos.fec.debug.disable_debugger", false);
+pref("vivipos.fec.debug.disable_sqlitemanager", false);
 
