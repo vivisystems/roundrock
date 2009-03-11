@@ -139,7 +139,7 @@
 
             this._datas = data;
 
-            var path = GREUtils.File.chromeToPath( "chrome://viviecr/locale/reports/tpl/rpt_hourly_sales/rpt_hourly_sales.tpl" );
+            var path = GREUtils.File.chromeToPath( "chrome://reports/locale/reports/tpl/rpt_hourly_sales/rpt_hourly_sales.tpl" );
 
             var file = GREUtils.File.getFile(path);
             var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
@@ -199,7 +199,7 @@
 
                 var waitPanel = this._showWaitPanel('wait_panel', 100);
 
-                var path = GREUtils.File.chromeToPath("chrome://viviecr/locale/reports/tpl/rpt_hourly_sales/rpt_hourly_sales_csv.tpl");
+                var path = GREUtils.File.chromeToPath("chrome://reports/locale/reports/tpl/rpt_hourly_sales/rpt_hourly_sales_csv.tpl");
 
                 var file = GREUtils.File.getFile(path);
                 var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
@@ -222,7 +222,7 @@
                 this._enableButton(false);
                 var waitPanel = this._showWaitPanel('wait_panel', 100);
 
-                var path = GREUtils.File.chromeToPath("chrome://viviecr/locale/reports/tpl/rpt_hourly_sales/rpt_hourly_sales_rcp_80mm.tpl");
+                var path = GREUtils.File.chromeToPath("chrome://reports/locale/reports/tpl/rpt_hourly_sales/rpt_hourly_sales_rcp_80mm.tpl");
 
                 var file = GREUtils.File.getFile(path);
                 var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
