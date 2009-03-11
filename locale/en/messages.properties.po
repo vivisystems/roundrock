@@ -1206,6 +1206,15 @@ msgstr "giftcard"
 msgid "check"
 msgstr "check"
 
+msgid "acl_touch_settings"
+msgstr "Touch Screen Settings"
+
+msgid "Touch Calibration"
+msgstr "Touch Calibration"
+
+msgid "Touch Utility"
+msgstr "Touch Utility"
+
 #: ../..//content/datetime.js:27
 msgid "confirm timezone change"
 msgstr ""

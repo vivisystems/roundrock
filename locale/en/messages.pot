@@ -1200,3 +1200,12 @@ msgstr "giftcard"
 msgid "check"
 msgstr "check"
 
+msgid "acl_touch_settings"
+msgstr "Touch Screen Settings"
+
+msgid "Touch Calibration"
+msgstr "Touch Calibration"
+
+msgid "Touch Utility"
+msgstr "Touch Utility"
+
