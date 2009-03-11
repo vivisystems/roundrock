@@ -6,6 +6,7 @@
 <!ENTITY category.plufilters "Product Filters">
 <!ENTITY category.destinations "Destinations">
 <!ENTITY category.annotations "Annotations">
+<!ENTITY category.general2 "General Options 2">
 <!ENTITY general.publicattendance "Individual Time-and-Attendance visible to all">
 <!ENTITY general.privatequeue "Private order queue">
 <!ENTITY general.defaultpricelevel "System default price level">
@@ -77,3 +78,5 @@
 <!ENTITY sound.beepOnTrayMarker "Beep on Tray Marker">
 <!ENTITY sound.volume.label "Volume">
 <!ENTITY button.close.label "Close">
+<!ENTITY general2.orderretaindays "The number of days to retain order data">
+<!ENTITY general2.diskunused "The available disk space">

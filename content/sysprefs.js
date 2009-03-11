@@ -27,6 +27,13 @@
         document.getElementById('prefwin').width=width;
         document.getElementById('prefwin').height=height;
         document.getElementById('prefwin').dlgbuttons="accept,help";
+
+        // calculate available disk space...
+        var obj = GREUtils.XPCOM.createInstance('@mozilla.org/file/local;1', 'nsILocalFile');
+        obj.initWithPath("/data");
+        var size = obj.diskSpaceAvailable;
+        var diskspace = document.getElementById('disk_unused');
+        if (diskspace) diskspace.value = GeckoJS.NumberHelper.toReadableSize(size);
     };
     
 

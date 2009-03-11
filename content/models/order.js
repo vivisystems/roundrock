@@ -319,6 +319,28 @@ var OrderModel = window.OrderModel =  GeckoJS.Model.extend({
 
     beforeSave: function(evt) {
         return true;
+    },
+
+    removeOrders: function(conditions) {
+        // use execute sql statement to prevent sync...
+        var self = this;
+
+        var datas = this.find( 'all', {fields: ['id'], conditions: conditions, recursive: -1} );
+        datas.forEach(function(obj) {
+            var iid = obj.id;
+            var cond = "order_id='" + iid + "'";
+            
+            self.OrderItem.execute("DELETE FROM " + self.OrderItem.table + " WHERE " + cond);
+            self.OrderAddition.execute("DELETE FROM " + self.OrderAddition.table + " WHERE " + cond);
+            self.OrderPayment.execute("DELETE FROM " + self.OrderPayment.table + " WHERE " + cond);
+            self.OrderObject.execute("DELETE FROM " + self.OrderObject.table + " WHERE " + cond);
+            self.OrderReceipt.execute("DELETE FROM " + self.OrderReceipt.table + " WHERE " + cond);
+            self.OrderAnnotation.execute("DELETE FROM " + self.OrderAnnotation.table + " WHERE " + cond);
+
+        });
+
+        this.execute("DELETE FROM " + this.table + " WHERE " + conditions);
+
     }
     
 });
