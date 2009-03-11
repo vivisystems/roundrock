@@ -188,7 +188,6 @@
             var terminal_no = GeckoJS.Session.get('terminal_no');
 
             var orderPayment = new OrderPaymentModel();
-            var conditions = '';
             
             // first, we collect payment totals for credit cards and coupons
             var fields = ['order_payments.memo1 as "OrderPayment.name"',
@@ -297,7 +296,7 @@
             //alert(this.dump(foreignCashDetails));
             //this.log(this.dump(foreignCashDetails));
 
-            // lastly, we collect payment totals from ledger entries
+            // next, we collect payment totals from ledger entries
             fields = ['order_payments.memo1 as "OrderPayment.name"',
                       'order_payments.name as "OrderPayment.type"',
                       'COUNT(order_payments.name) as "OrderPayment.count"',
@@ -317,6 +316,27 @@
             //alert(this.dump(ledgerDetails));
             //this.log(this.dump(ledgerDetails));
             
+            // lastly, we collect payment totals from destination entries
+            fields = ['orders.destination as "Order.name"',
+                      '\'destination\' as "Order.type"',
+                      'COUNT(orders.destination) as "Order.count"',
+                      'SUM(orders.total) as "Order.amount"'];
+            conditions = 'sale_period = "' + salePeriod + '"' +
+                         ' AND shift_number = "' + shiftNumber + '"' +
+                         ' AND terminal_no = "' + terminal_no + '"' +
+                         ' AND destination is NOT NULL' +
+                         ' AND status = "1"';
+            groupby = 'orders.destination';
+            orderby = 'orders.destination';
+            var orderModel = new OrderModel();
+            var destDetails = orderModel.find('all', {fields: fields,
+                                                      conditions: conditions,
+                                                      group: groupby,
+                                                      order: orderby,
+                                                      recursive: 0
+                                                     });
+            //alert(this.dump(destDetails));
+            //this.log(this.dump(ledgerDetails));
             // local cash amount = cash amount - cash change from cash, check, and coupon
 
             // compute cash received from sale and ledger
@@ -359,17 +379,31 @@
 
             var salesRevenue = (salesTotal && salesTotal.amount != null) ? salesTotal.amount : 0;
 
-            // compute ledger balance
+            // compute ledger IN balance
             fields = ['SUM(order_payments.amount - order_payments.change) as "OrderPayment.amount"'];
             conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
                          ' AND order_payments.shift_number = "' + shiftNumber + '"' +
                          ' AND order_payments.terminal_no = "' + terminal_no + '"' +
-                         ' AND order_payments.name = "ledger"';
-            var ledgerBalance = orderPayment.find('first', {fields: fields,
-                                                            conditions: conditions,
-                                                            recursive: 0
-                                                           });
-            var ledgerTotal = (ledgerBalance && ledgerBalance.amount != null) ? ledgerBalance.amount : 0;
+                         ' AND order_payments.name = "ledger"' +
+                         ' AND order_payments.amount > 0';
+            var ledgerInBalance = orderPayment.find('first', {fields: fields,
+                                                              conditions: conditions,
+                                                              recursive: 0
+                                                             });
+            var ledgerInTotal = (ledgerInBalance && ledgerInBalance.amount != null) ? ledgerInBalance.amount : 0;
+
+            // compute ledger OUT balance
+            fields = ['SUM(order_payments.amount - order_payments.change) as "OrderPayment.amount"'];
+            conditions = 'order_payments.sale_period = "' + salePeriod + '"' +
+                         ' AND order_payments.shift_number = "' + shiftNumber + '"' +
+                         ' AND order_payments.terminal_no = "' + terminal_no + '"' +
+                         ' AND order_payments.name = "ledger"' +
+                         ' AND order_payments.amount < 0';
+            var ledgerOutBalance = orderPayment.find('first', {fields: fields,
+                                                               conditions: conditions,
+                                                               recursive: 0
+                                                              });
+            var ledgerOutTotal = (ledgerOutBalance && ledgerOutBalance.amount != null) ? ledgerOutBalance.amount : 0;
 
             // compute excess giftcard payments
             fields = ['SUM(order_payments.origin_amount - order_payments.amount) as "OrderPayment.excess_amount"'];
@@ -384,7 +418,7 @@
 
             var giftcardExcess = (giftcardTotal && giftcardTotal.excess_amount != null) ? giftcardTotal.excess_amount : 0;
             
-            var shiftChangeDetails = creditcardCouponDetails.concat(giftcardDetails.concat(checkDetails.concat(localCashDetails.concat(foreignCashDetails.concat(ledgerDetails)))));
+            var shiftChangeDetails = destDetails.concat(creditcardCouponDetails.concat(giftcardDetails.concat(checkDetails.concat(localCashDetails.concat(foreignCashDetails.concat(ledgerDetails))))));
             shiftChangeDetails = new GeckoJS.ArrayQuery(shiftChangeDetails).orderBy('type asc, name asc');
 
             var aURL = 'chrome://viviecr/content/prompt_doshiftchange.xul';
@@ -392,9 +426,10 @@
             var inputObj = {
                 shiftChangeDetails:shiftChangeDetails,
                 cashNet: cashNet,
-                balance: salesRevenue + ledgerTotal,
+                balance: salesRevenue + ledgerInTotal + ledgerOutTotal,
                 salesRevenue: salesRevenue,
-                ledgerTotal: ledgerTotal,
+                ledgerInTotal: ledgerInTotal,
+                ledgerOutTotal: ledgerOutTotal,
                 giftcardExcess: giftcardExcess
             };
 
@@ -446,7 +481,8 @@
                     cash: inputObj.cashNet - amt,
                     balance: inputObj.balance - amt,
                     sales: inputObj.salesRevenue,
-                    ledger: inputObj.ledgerTotal - amt,
+                    ledger_out: inputObj.ledgerOutTotal - amt,
+                    ledger_in: inputObj.ledgerInTotal - amt,
                     excess: inputObj.giftcardExcess,
                     note: inputObj.description,
                     terminal_no: GeckoJS.Session.get('terminal_no'),

@@ -88,7 +88,6 @@ pref("vivipos.fec.acl.roles.acl_view_annotations", "acl_view_annotations");
 pref("vivipos.fec.acl.roles.acl_modify_annotations", "acl_modify_annotations");
 pref("vivipos.fec.acl.roles.acl_delete_annotations", "acl_delete_annotations");
 pref("vivipos.fec.acl.roles.acl_manage_ledger", "acl_manage_ledger");
-pref("vivipos.fec.acl.roles.acl_toggle_receipt", "acl_toggle_receipt");
 pref("vivipos.fec.acl.roles.acl_view_ledger_entry", "acl_view_ledger_entry");
 pref("vivipos.fec.acl.roles.acl_add_ledger_entry", "acl_add_ledger_entry");
 pref("vivipos.fec.acl.roles.acl_modify_ledger_entry", "acl_modify_ledger_entry");

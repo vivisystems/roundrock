@@ -456,11 +456,6 @@ pref("vivipos.fec.registry.function.programmable.prefinalize.command", "preFinal
 pref("vivipos.fec.registry.function.programmable.prefinalize.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.prefinalize.data", "");
 
-pref("vivipos.fec.registry.function.programmable.togglereceipt.access", "acl_toggle_receipt");
-pref("vivipos.fec.registry.function.programmable.togglereceipt.command", "toggleReceiptPrinting");
-pref("vivipos.fec.registry.function.programmable.togglereceipt.controller", "Print");
-pref("vivipos.fec.registry.function.programmable.togglereceipt.data", "");
-
 pref('vivipos.fec.ui.functionpanel.button.defaultcolor', 'function-button-color-default');
 pref('vivipos.fec.ui.functionpanel.button.defaultfontsize', 'medium');
 pref('vivipos.fec.ui.department.button.defaultcolor', 'department-button-color-default');

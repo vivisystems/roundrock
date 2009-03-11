@@ -51,6 +51,7 @@
                         <column flex="1"/>
                         <column flex="1"/>
                         <column flex="1"/>
+                        <column flex="1"/>
                     </columns>
                     <rows>
                         <row>
@@ -67,8 +68,12 @@
                                 <textbox id="sales" flex="1" value="" readonly="true"/>
                             </vbox>
                             <vbox>
-                                <label value="&prompt.shiftchange.ledger;" class="SubTitle"/>
-                                <textbox id="ledger" flex="1" value="" readonly="true"/>
+                                <label value="&prompt.shiftchange.ledger.in;" class="SubTitle"/>
+                                <textbox id="ledger_in" flex="1" value="" readonly="true"/>
+                            </vbox>
+                            <vbox>
+                                <label value="&prompt.shiftchange.ledger.out;" class="SubTitle"/>
+                                <textbox id="ledger_out" flex="1" value="" readonly="true"/>
                             </vbox>
                             <vbox>
                                 <label value="&prompt.shiftchange.excess;" class="SubTitle"/>

@@ -17,14 +17,32 @@ ${head.title|center:24}
 班別      :${master.shift_number}
 總金額   　:${master.balance|default:0|viviFormatPrices:true}
 現金淨額   :${master.cash|default:0|viviFormatPrices:true}
-銷售金額   :${master.Sales|default:0|viviFormatPrices:true}
-溢收金額   :${master.Excess|default:0|viviFormatPrices:true}
-代收代付淨額:${master.Ledger|default:0|viviFormatPrices:true}
+銷售金額   :${master.sales|default:0|viviFormatPrices:true}
+溢收金額   :${master.excess|default:0|viviFormatPrices:true}
+代收金額   :${master.ledger_in|default:0|viviFormatPrices:true}
+代付金額   :${master.ledger_out|default:0|viviFormatPrices:true}
 ------------------------
+{eval}
+  destDetails = [];
+{/eval}
 {for detail in master.ShiftChangeDetail}
+{if detail.type == 'destination'}
+{eval}
+  destDetails.push(detail);
+{/eval}
+{else}
 {if detail.name.length > 0}${detail.name|left:10}{else}${detail.type|left:10}{/if}
 :${detail.amount|default:0|viviFormatPrices:true|right:13}
+筆數       :${detail.count|default:0|right:13}
+{/if}
 {/for}
+{if destDetails.length > 0}
+------------------------
+{for dest in destDetails}
+${dest.name|left:10}:${dest.amount|default:0|viviFormatPrices:true|right:13}
+筆數       :${dest.count|default:0|right:13}
+{/for}
+{/if}
 {/for}
 ========================
 ${foot.gen_time}

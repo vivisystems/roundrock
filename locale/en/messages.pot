@@ -1071,9 +1071,6 @@ msgstr "Cash Drawer Report"
 msgid "Cash Drawer Summary"
 msgstr "Cash Drawer Summary"
 
-msgid "acl_toggle_receipt"
-msgstr "Toggle Receipt Printing"
-
 msgid "Order Status Report"
 msgstr "Order Status Report"
 
@@ -1184,3 +1181,22 @@ msgstr "Remote Control"
 
 msgid "Remote Control"
 msgstr "Remote Control"
+
+msgid "destination"
+msgstr "destination"
+
+msgid "cash"
+msgstr "cash"
+
+msgid "creditcard"
+msgstr "creditcard"
+
+msgid "coupon"
+msgstr "coupon"
+
+msgid "giftcard"
+msgstr "giftcard"
+
+msgid "check"
+msgstr "check"
+

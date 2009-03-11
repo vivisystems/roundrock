@@ -77,7 +77,6 @@
             var rounding_prices = GeckoJS.Configure.read('vivipos.fec.settings.RoundingPrices') || 'to-nearest-precision';
             var precision_prices = GeckoJS.Configure.read('vivipos.fec.settings.PrecisionPrices') || 0;
 
-
             datas.forEach(function(o){
                 var d = new Date();
                 d.setTime( o.starttime * 1000 ); // multiplying one thousand so that the time can be in the millisecond scale.
@@ -90,7 +89,7 @@
 
                 o.balance = GeckoJS.NumberHelper.round(o.balance, precision_prices, rounding_prices) || 0;
                 o.balance = o.balance.toFixed(precision_prices);
-				
+
 				if ( o.ShiftChangeDetail ) {
 		            o.ShiftChangeDetail.forEach(function(k){
 		                k.amount = GeckoJS.NumberHelper.round(k.amount, precision_prices, rounding_prices) || 0;
@@ -117,7 +116,7 @@
             this._datas = data;
         },
         
-        _printShiftChangeReport: function( start, end, periodType, shiftNo, terminalNo, printController ) {
+        printShiftChangeReport: function( start, end, periodType, shiftNo, terminalNo, printController ) {
         	
         	this._set_datas( start, end, periodType, shiftNo, terminalNo );
 
