@@ -28,9 +28,6 @@
             // initialize main thread
             this._main = GREUtils.Thread.getMainThread();
 
-            // initialize receipt printing status
-            this.updateReceiptPrintingStatus();
-
             // add event listener for onSubmit & onStore events
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             if(cart) {
@@ -314,35 +311,6 @@
             this.issueReceipt(printer, true);
         },
 
-        updateReceiptPrintingStatus: function() {
-            var status = GeckoJS.Configure.read('vivipos.fec.settings.PrintReceipt');
-            if (status) {
-                document.getElementById('receiptStatus').setAttribute('status', 'on');
-            }
-            else {
-                document.getElementById('receiptStatus').setAttribute('status', 'off');
-            }
-        },
-
-
-        isReceiptPrintingEnabled: function() {
-            return GeckoJS.Configure.read('vivipos.fec.settings.PrintReceipt') || false;
-        },
-
-        toggleReceiptPrinting: function() {
-            if (GeckoJS.Configure.read('vivipos.fec.settings.PrintReceipt')) {
-                GeckoJS.Configure.write('vivipos.fec.settings.PrintReceipt', false);
-                NotifyUtils.info(_('Receipt printing off'));
-            }
-            else {
-                GeckoJS.Configure.write('vivipos.fec.settings.PrintReceipt', true);
-                NotifyUtils.info(_('Receipt printing on'));
-            }
-            this.updateReceiptPrintingStatus();
-
-            this.dispatchEvent('onToggleReceiptPrinting', GeckoJS.Configure.read('vivipos.fec.settings.PrintReceipt'));
-        },
-
         // print on all enabled receipt printers
         // printer = 0: print on all enabled printers
         // printer = 1: first printer
@@ -387,6 +355,7 @@
                 for (var i = 0; i < enabledDevices.length; i++) {
                     var device = enabledDevices[i];
                     if ((printer == null && device.autoprint > 0) || printer == device.number || printer == 0) {
+
                         var template = device.template;
                         var port = device.port;
                         var portspeed = device.portspeed;

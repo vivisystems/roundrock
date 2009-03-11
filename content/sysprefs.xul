@@ -327,6 +327,30 @@
         </grid>
     </prefpane>
 
+    <prefpane id="general2SettingsPane" label="&category.orderdata;" >
+        <preferences>
+
+            <preference id="pref_orderretaindays" name="vivipos.fec.settings.OrderRetainDays" type="int"/>
+
+        </preferences>
+        <grid class="DataForm">
+            <columns>
+                <column flex="1" /><column flex="1" />
+            </columns>
+            <rows>
+                <row>
+                    <label value="&orderdata.orderretaindays;" />
+                    <textbox preference="pref_orderretaindays" id="orderRetaindays" type="number" size="4" maxlength="4" min="0" max="9999"/>
+                </row>
+                <row>
+                    <label value="&orderdata.diskunused;" />
+                    <label id="disk_unused" value="100MB" />
+                </row>
+            </rows>
+        </grid>
+
+    </prefpane>
+    
 <!--
     <prefpane id="soundSettingsPane" label="&category.sound;" >
         <preferences>

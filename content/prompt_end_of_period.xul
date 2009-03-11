@@ -40,7 +40,7 @@
                     <button id="print" label="&shiftchange.button.print.daily.sales;" default="false" oncommand="opener.$do('printDailySales', null, 'ShiftChanges');"/>
                     <spacer flex="1"/>
                     <button id="login" label="&shiftchange.button.login;" default="false" oncommand="doOKButton();"/>
-                    <button id="poweroff" label="&shiftchange.button.poweroff;" default="true" oncommand="doOKButton();"/>
+                    <button id="poweroff" label="&shiftchange.button.poweroff;" default="true" oncommand="opener.$do('shutdownMachine', null, 'Main');;"/>
                 </hbox>
             </hbox>
         </vbox>

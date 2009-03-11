@@ -1071,9 +1071,6 @@ msgstr "Cash Drawer Report"
 msgid "Cash Drawer Summary"
 msgstr "Cash Drawer Summary"
 
-msgid "acl_toggle_receipt"
-msgstr "Toggle Receipt Printing"
-
 msgid "Order Status Report"
 msgstr "Order Status Report"
 
@@ -1179,6 +1176,12 @@ msgstr "Generic VFD"
 msgid "acl_end_sale_period"
 msgstr "End Sale Period"
 
+msgid "acl_remote_control"
+msgstr "Remote Control"
+
+msgid "Remote Control"
+msgstr "Remote Control"
+
 msgid "destination"
 msgstr "destination"
 
@@ -1196,3 +1199,13 @@ msgstr "giftcard"
 
 msgid "check"
 msgstr "check"
+
+msgid "acl_touch_settings"
+msgstr "Touch Screen Settings"
+
+msgid "Touch Calibration"
+msgstr "Touch Calibration"
+
+msgid "Touch Utility"
+msgstr "Touch Utility"
+

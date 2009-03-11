@@ -94,7 +94,7 @@
                 <vbox class="MainL">
                     <caption label="&condiments.condiment;" class="PageTitle" />
                     <vbox flex="1" class="LeftPnl LeftBottom">
-                        <viviscrollablebuttonpanel dir="reverse" ensureVisible="true" id="detailscrollablepanel" flex="1" cols="2" rows="6" labelField="name" imageField="no"
+                        <viviscrollablebuttonpanel dir="reverse" ensureVisible="true" id="detailscrollablepanel" flex="1" cols="2" rows="5" labelField="name" imageField="no"
                                                    oncommand="$do('clickCondimentPanel',this.selectedIndex, 'Condiments');"
                                                    class="ItemScrollablepanel"
                                                    buttonClass="plubtn"
