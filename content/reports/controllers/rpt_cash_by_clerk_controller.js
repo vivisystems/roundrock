@@ -121,7 +121,7 @@
         	
         	this._set_datas( start, end, periodType, shiftNo, terminalNo );
 
-            var path = GREUtils.File.chromeToPath("chrome://reports/locale/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_58mm.tpl");
+            var path = GREUtils.File.chromeToPath("chrome://reports/locale/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_80mm.tpl");
             var file = GREUtils.File.getFile(path);
             var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
             
