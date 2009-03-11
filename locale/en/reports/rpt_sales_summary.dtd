@@ -8,3 +8,6 @@
 <!ENTITY rptsalessummary.togglezoom "Toggle Zoom">
 <!ENTITY rptsalessummary.machineid "Terminal No:">
 <!ENTITY rptsalessummary.wait "Waiting...">
+<!ENTITY rptsalessummary.periodtype "Period Type:">
+<!ENTITY rptsalessummary.starttime "Order Start Time">
+<!ENTITY rptsalessummary.saleperiod "Sale Period">

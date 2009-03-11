@@ -35,11 +35,10 @@
             $('#export_csv').attr('disabled', disabled);
             $('#export_rcp').attr('disabled', disabled);
         },
-
-        execute: function() {
-            var waitPanel = this._showWaitPanel('wait_panel');
-            
-            var storeContact = GeckoJS.Session.get('storeContact');
+        
+        _set_datas: function( start, end, periodType, shiftNo, sortBy, terminalNo ) {
+        	
+        	var storeContact = GeckoJS.Session.get('storeContact');
             var clerk = "";
             var clerk_displayname = "";
             var user = new GeckoJS.AclComponent().getUserPrincipal();
@@ -47,20 +46,13 @@
                 clerk = user.username;
                 clerk_displayname = user.description;
             }
+            
+            var start_str = ( new Date( start ) ).toString( 'yyyy/MM/dd HH:mm' );
+			var end_str = ( new Date( start ) ).toString( 'yyyy/MM/dd HH:mm' );
 			
-            var start = document.getElementById('start_date').value;
-            var end = document.getElementById('end_date').value;
-
-            var start_str = document.getElementById('start_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
-            var end_str = document.getElementById('end_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
-
-            // var department = document.getElementById('department').value;
-            var machineid = document.getElementById('machine_id').value;
-
             start = parseInt(start / 1000);
             end = parseInt(end / 1000);
 
-            // var department = document.getElementById('department').value;
             var department = '';
             
             var orderItem = new OrderItemModel();
@@ -72,16 +64,20 @@
                             'SUM("order_items"."current_qty") as "OrderItem.qty"',
                             'SUM("order_items"."current_subtotal") as "OrderItem.total"',
                             'order_items.current_tax'];
-            var conditions = "order_items.created>='" + start +
-                            "' AND order_items.created<='" + end + "'";
+                            
+            var conditions = "orders." + periodType + ">='" + start +
+                            "' AND orders." + periodType + "<='" + end + "'";
 
             if (department.length > 0) {
                 conditions += " AND order_items.cate_no='" + department + "'";
             }
             
-            if (machineid.length > 0) {
-                conditions += " AND orders.terminal_no LIKE '" + machineid + "%'";
+            if (terminalNo.length > 0) {
+                conditions += " AND orders.terminal_no LIKE '" + terminalNo + "%'";
             }
+            
+            if ( shiftNo.length > 0 )
+            	conditions += " AND orders.shift_number = " + shiftNo;
 
             var groupby = 'order_items.product_no';
             var orderby = 'order_items.product_no';
@@ -91,13 +87,12 @@
 			datas.forEach( function( data ) {
 				data[ 'avg_price' ] = data[ 'total' ] / data[ 'qty' ];
 			} );
-			
-			var sortby = document.getElementById( 'sortby' ).value;
-			if ( sortby != 'all' ) {
+
+			if ( sortBy != 'all' ) {
 				datas.sort(
 					function ( a, b ) {
-						if ( a[ sortby ] > b[ sortby ] ) return 1;
-						if ( a[ sortby ] < b[ sortby ] ) return -1;
+						if ( a[ sortBy ] > b[ sortBy ] ) return 1;
+						if ( a[ sortBy ] < b[ sortBy ] ) return -1;
 						return 0;
 					}
 				);
@@ -125,7 +120,7 @@
                 	title: _('Product Sales Report'),
                 	start_time: start_str,
                     end_time: end_str,
-                    machine_id: machineid,
+                    machine_id: terminalNo,
                     store: storeContact,
                     clerk_displayname: clerk_displayname
                 },
@@ -138,23 +133,66 @@
             }
 
 			this._datas = data;
+		},
+		
+		/**
+		 * This method can be invoked internally by other methods in this object or called externally by other objects to print the designated product sales report
+		 * by the printer.
+		 *
+		 * @param start is a thirteen-digit integer indicating the beginning of the time interval.
+		 * @param end is a thirteen-digit integer indicating the end of the time interval.
+		 * @param periodType determines which kind of time interval the start and end will delimit, modified time or sale period.
+		 * @param shiftNo is an intuitive search criteron.
+		 * @param sortBy determines the field by which the fetched records will be sorted.
+		 * @param terminalNo is an intuitive search criteron.
+		 * @return nothing.
+		 */
+		 
+		printProductSalesReport: function( start, end, periodType, shiftNo, sortBy, terminalNo ) {
+			
+			this._set_datas( start, end, periodType, shiftNo, sortBy, terminalNo );
+			
+			var path = GREUtils.File.chromeToPath( "chrome://reports/locale/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl" );
 
-            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_product_sales.tpl");
+            var file = GREUtils.File.getFile( path );
+            var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
+			
+			tpl.process( this._datas );
+            var rcp = opener.opener.opener.GeckoJS.Controller.getInstanceByName( 'Print' );
+            //rcp.printReport( 'report', tpl, this._datas );
+       	},
 
-            var file = GREUtils.File.getFile(path);
-            var tpl = GREUtils.File.readAllBytes(file);
+        execute: function() {
+            var waitPanel = this._showWaitPanel('wait_panel');
 
-            result = tpl.process(data);
+            var start = document.getElementById('start_date').value;
+            var end = document.getElementById('end_date').value;
+
+            var machineid = document.getElementById('machine_id').value;
             
-            var bw = document.getElementById('preview_frame');
-            var doc = bw.contentWindow.document.getElementById('abody');
+            var periodType = document.getElementById( 'periodtype' ).value;
+            var shiftNo = document.getElementById( 'shiftno' ).value;
+            
+            var sortby = document.getElementById( 'sortby' ).value;
+
+			this._set_datas( start, end, periodType, shiftNo, sortby, machineid );
+
+            var path = GREUtils.File.chromeToPath("chrome://reports/locale/reports/tpl/rpt_product_sales/rpt_product_sales.tpl");
+
+            var file = GREUtils.File.getFile( path );
+            var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
+
+            result = tpl.process( this._datas );
+            
+            var bw = document.getElementById( 'preview_frame' );
+            var doc = bw.contentWindow.document.getElementById( 'abody' );
 
             doc.innerHTML = result;
 
-            this._enableButton(true);
+            this._enableButton( true );
             
-            var splitter = document.getElementById('splitter_zoom');
-            splitter.setAttribute("state", "collapsed");
+            var splitter = document.getElementById( 'splitter_zoom' );
+            splitter.setAttribute( "state", "collapsed" );
 
             waitPanel.hidePopup();
         },
@@ -173,7 +211,7 @@
 
                 this.BrowserPrint.getPrintSettings();
                 this.BrowserPrint.setPaperSizeUnit(1);
-                this.BrowserPrint.setPaperSize(297, 210);
+                this.BrowserPrint.setPaperSize( 210, 297 );
                 //this.BrowserPrint.setPaperEdge(20, 20, 20, 20);
 
                 this.BrowserPrint.getWebBrowserPrint('preview_frame');
@@ -198,10 +236,10 @@
 
                 var waitPanel = this._showWaitPanel('wait_panel', 100);
 				
-                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/product_sales_csv.tpl");
+                var path = GREUtils.File.chromeToPath("chrome://reports/locale/reports/tpl/rpt_product_sales/rpt_product_sales_csv.tpl");
 
                 var file = GREUtils.File.getFile(path);
-                var tpl = GREUtils.File.readAllBytes(file);
+                var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
                 var datas;
                 datas = this._datas;
 
@@ -222,10 +260,10 @@
                 this._enableButton(false);
                 var waitPanel = this._showWaitPanel('wait_panel', 100);
 
-                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/product_sales_rcp.tpl");
+                var path = GREUtils.File.chromeToPath("chrome://reports/locale/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl");
 
                 var file = GREUtils.File.getFile(path);
-                var tpl = GREUtils.File.readAllBytes(file);
+                var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
                 var datas;
                 datas = this._datas;
 

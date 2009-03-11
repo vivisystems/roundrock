@@ -48,6 +48,15 @@
 		                    </row>
 		                    <row>
 		                    	<vbox>
+		                    		<label value="&rptsalessummary.periodtype;" />
+					                <menulist id="period_type">
+					                    <menupopup id="periodtype_menupopup">
+					                        <menuitem selected="true" label="&rptsalessummary.starttime;" value="transaction_created" />
+					                        <menuitem selected="false" label="&rptsalessummary.saleperiod;" value="sale_period" />
+					                    </menupopup>
+					                </menulist>
+		                    	</vbox>
+		                    	<vbox>
 				                    <label value="&rptsalessummary.machineid;" />
 				                    <textbox id="machine_id" value='' width="300"/>
 				                </vbox>

@@ -14,21 +14,19 @@
                 return;
             }
 
-            this._files = new GeckoJS.Dir.readDir(dir, {type: "d"}).sort(function(a, b) {if (a.leafName < b.leafName) return 1; else if (a.leafName > b.leafName) return -1; else return 0;});
+            this._files = new GeckoJS.Dir.readDir(dir, {type: "d"}).sort(function(a, b) {if (a.leafName < b.leafName) return -1; else if (a.leafName > b.leafName) return 1; else return 0;});
 
             this._files.forEach(function(o){
                 var str = o.leafName;
-
-                var dt = Date.parseExact(str, "yyyyMd");
-                if (dt) {
+                try {
+                    var dt = Date.parseExact(str, "yyyyMd");
                     var timestr = dt.toLocaleDateString();
-                }
-                else {
-                    var timestr = str;
+                } catch (e) {
+                    var timestr = _(str);
                 }
                 var typestr = '';
                 self._data.push({time: timestr, type: typestr, dir: str});
-                
+
             });            
         }
     });
@@ -168,8 +166,10 @@
             var waitPanel = this._showWaitPanel('backup_wait_panel');
             this.setButtonState();
 
-            if (this.execute(this._scriptPath + "backup.sh", ''))
+            if (this.execute(this._scriptPath + "backup.sh", '')) {
+                this.execute("/bin/sync", []);
                 NotifyUtils.info(_('<Backup to Local> is done!!'));
+            }
 
             this.load();
             this._busy = false;
@@ -197,8 +197,10 @@
                 // var param = "-fr " + this._localbackupDir + dir + " " + this._stickbackupDir + dir;
                 var param = ["-fr", this._localbackupDir + dir, this._stickbackupDir];
 
-                if (this.execute("/bin/cp", param))
+                if (this.execute("/bin/cp", param)) {
+                    this.execute("/bin/sync", []);
                     NotifyUtils.info(_('<Copy Backup to Stick> is done!!'));
+                }
             } else {
                 NotifyUtils.info(_('Must select a item from local backup list.'));
             }
