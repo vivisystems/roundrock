@@ -16,7 +16,12 @@ window.loadScript = function loadScript(src, scope) {
    }catch(e) {
 
 	if (e.name == 'NS_ERROR_FAILURE' && src.indexOf('jsc') != -1) {
-		alert('Maybe license error' );
+        var width = 400;
+        var height = 300;
+        var aURL = 'chrome://vivipos/content/license_update.xul';
+        var aName = 'License Management';
+        var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + width + ',height=' + height;
+        GREUtils.Dialog.openWindow(null, aURL, aName, aFeatures, null);
 	}else {
 		// log  e.message
 
