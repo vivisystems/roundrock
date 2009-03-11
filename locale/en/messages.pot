@@ -1209,3 +1209,8 @@ msgstr "Touch Calibration"
 msgid "Touch Utility"
 msgstr "Touch Utility"
 
+msgid "transaction_created"
+msgstr "Order Start Time"
+
+msgid "sale_period"
+msgstr "Sale Period"
