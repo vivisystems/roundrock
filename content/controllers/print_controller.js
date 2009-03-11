@@ -319,9 +319,6 @@
 
         printReceipts: function(txn, printer, autoPrint, duplicate) {
 
-            // is receipt printing current enabled?
-            if (!GeckoJS.Configure.read('vivipos.fec.settings.PrintReceipt')) return;
-
             var deviceController = this.getDeviceController();
             if (deviceController == null) {
                 NotifyUtils.error(_('Error in device manager! Please check your device configuration'));
