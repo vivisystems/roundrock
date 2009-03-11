@@ -63,6 +63,7 @@
 
   <!-- report controllers for reports to be generated from front-end -->
   <script src='chrome://viviecr/content/reports/controllers/rpt_cash_by_clerk_controller.js'/>
+  <script src='chrome://viviecr/content/reports/controllers/rpt_sales_summary_controller.js'/>
 
   <!-- device controllers -->
   <script src='chrome://viviecr/content/controllers/devices_controller.js'/>

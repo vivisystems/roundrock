@@ -48,10 +48,11 @@
             this._periodtype = document.getElementById( 'period_type' ).value;
         },
         
-        _setConditions: function( start, end, machineid ) {
+        _setConditions: function( start, end, machineid, periodtype ) {
         	this._start = start;
         	this._end = end;
         	this._machineid = machineid;
+            this._periodtype = periodtype;
         },
 
         _hourlySales: function() {
@@ -384,19 +385,19 @@
             this._datas = data;
 		},
 		
-		printSalesSummary: function( start, end, terminalNo, periodType ) {
+		printSalesSummary: function( start, end, terminalNo, periodType, printController ) {
 			
 			this._setConditions( start, end, terminalNo, periodType );
 			this._set_datas();
 			
-			var path = GREUtils.File.chromeToPath( "chrome://reports/locale/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_58mm.tpl" );
+			var path = GREUtils.File.chromeToPath( "chrome://reports/locale/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl" );
 
             var file = GREUtils.File.getFile( path );
             var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
 			
-			tpl.process( this._datas );
-            var rcp = opener.opener.opener.GeckoJS.Controller.getInstanceByName( 'Print' );
-            rcp.printReport( 'report', tpl, this._datas );
+			//tpl.process( this._datas );
+            //var rcp = opener.opener.opener.GeckoJS.Controller.getInstanceByName( 'Print' );
+            printController.printReport( 'report', tpl, this._datas );
         },
 		
         execute: function() {

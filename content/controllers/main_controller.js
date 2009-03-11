@@ -1,10 +1,9 @@
-
 (function(){
 
     /**
      * Class ViviPOS.MainController
      */
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
 
         name: 'Main',
         screenwidth: 800,
@@ -758,9 +757,9 @@
             }catch(e) {
             }
         }
+    };
 
-
-    });
+    GeckoJS.Controller.extend(__controller__);
 
 })();
 
