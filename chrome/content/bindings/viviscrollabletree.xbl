@@ -83,6 +83,42 @@
         </body>
     </method>
 
+
+    <method name="refresh">
+        <body><![CDATA[
+            this.invalidate();
+        ]]>
+        </body>
+    </method>
+
+
+    <method name="invalidate">
+        <body><![CDATA[
+            this.vivitree.invalidate();
+        ]]>
+        </body>
+    </method>
+
+
+    <method name="invalidateRange">
+        <parameter name="startIndex" />
+        <parameter name="endIndex" />
+        <body><![CDATA[
+            this.vivitree.invalidateRange(startIndex, endIndex);
+        ]]>
+        </body>
+    </method>
+
+
+    <method name="invalidateRow">
+        <parameter name="index" />
+        <body><![CDATA[
+            this.vivitree.invalidateRow(index);
+        ]]>
+        </body>
+    </method>
+
+
       <method name="_autorepeatbuttonScroll">
         <parameter name="event"/>
         <body><![CDATA[

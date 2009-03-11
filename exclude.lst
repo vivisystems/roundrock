@@ -1,6 +1,8 @@
 exclude.lst
+.git/*
 DONTRELEASE/*
 make-zip
 layouts/*
 nbproject/*
 data/*
+./*.zip
