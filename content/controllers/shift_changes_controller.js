@@ -500,6 +500,9 @@
                     // mark end of sale period
                     this.setEndOfPeriod();
 
+                    // data cleanup
+                    this.requestCommand('clearOrderData', null, 'Main');
+                    
                     // offer options to power off or restart and to print shift and day reports
                     aURL = 'chrome://viviecr/content/prompt_end_of_period.xul';
                     features = 'chrome,titlebar,toolbar,centerscreen,modal,width=800,height=150';

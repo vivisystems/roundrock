@@ -675,6 +675,51 @@
             }
         },
 
+        _showWaitPanel: function(panel, caption, title, sleepTime) {
+            
+            var waitPanel = document.getElementById(panel);
+            var waitCaption = document.getElementById(caption);
+            var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
+            var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
+
+            if (waitCaption) waitCaption.setAttribute("label", title);
+
+            waitPanel.sizeTo(360, 120);
+            var x = (width - 360) / 2;
+            var y = (height - 240) / 2;
+            waitPanel.openPopupAtScreen(x, y);
+
+            // release CPU for progressbar ...
+            if (!sleepTime) {
+              sleepTime = 1000;
+            }
+            this.sleep(sleepTime);
+            return waitPanel;
+        },
+
+        clearOrderData: function(days) {
+            // the number of days to retain
+            var retainDays = days || GeckoJS.Configure.read('vivipos.fec.settings.OrderRetainDays') || 0;
+
+            if (retainDays > 0) {
+                var waitPanel = this._showWaitPanel('wait_panel', 'common_wait', _('Removing old data...'), 1000);
+
+                try {
+                    var retainDate = Date.today().addDays(retainDays * -1).getTime() / 1000;
+
+                    var order = new OrderModel();
+                    var conditions = "orders.transaction_submitted<='" + retainDate +
+                                     "' AND orders.status<='1'";
+                    order.removeOrders(conditions);
+                    delete order;
+
+                } catch (e) {}
+                finally {
+                    waitPanel.hidePopup();
+                }
+            }
+        },
+
         dispatch: function(arg) {
 
             var args = arg.split('|');

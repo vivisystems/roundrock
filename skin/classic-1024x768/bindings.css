@@ -51,3 +51,8 @@ vividatetimepicker-popup {
 table_map {
   -moz-binding: url("chrome://viviecr/content/bindings/table_map.xbl#table_map");
 }
+
+vivifuncpanelecr {
+  -moz-binding: url("chrome://viviecr/content/bindings/vivifuncpanelecr.xbl#vivifuncpanelecr");
+}
+

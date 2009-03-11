@@ -286,7 +286,7 @@ pref("vivipos.fec.registry.function.programmable.keypress.command", "sendCharcod
 pref("vivipos.fec.registry.function.programmable.keypress.controller", "Keypad");
 pref("vivipos.fec.registry.function.programmable.keypress.data", "");
  
-pref("vivipos.fec.registry.function.programmable.clear.access", "acl_register");
+pref("vivipos.fec.registry.function.programmable.clear.access", "");
 pref("vivipos.fec.registry.function.programmable.clear.command", "sendKeycode");
 pref("vivipos.fec.registry.function.programmable.clear.controller", "Keypad");
 pref("vivipos.fec.registry.function.programmable.clear.data", "27");
@@ -331,7 +331,7 @@ pref("vivipos.fec.registry.function.programmable.pullqueue.command", "pullQueue"
 pref("vivipos.fec.registry.function.programmable.pullqueue.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.pullqueue.data", "");
  
-pref("vivipos.fec.registry.function.programmable.modifyitem.access", "acl_modify_cart_item");
+pref("vivipos.fec.registry.function.programmable.modifyitem.access", "acl_modify_price,acl_modify_quantity");
 pref("vivipos.fec.registry.function.programmable.modifyitem.command", "modifyItem");
 pref("vivipos.fec.registry.function.programmable.modifyitem.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.modifyitem.data", "");
