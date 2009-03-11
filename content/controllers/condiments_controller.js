@@ -399,10 +399,11 @@
 
             if (GREUtils.Dialog.confirm(null, _('confirm delete %S', [condGroup.name]), _('Are you sure?'))) {
                 var condGroupModel = new CondimentGroupModel();
+                var condimentModel = new CondimentModel();
 
                 try {
                     // cascading delete
-                    condGroupModel.del(condGroup.id);
+                    condGroupModel.removeCondimentGroup(condGroup.id);
 
                     var condimentModel = new CondimentModel();
                     if (condGroup.condiment && condGroup.condiment.length > 0)

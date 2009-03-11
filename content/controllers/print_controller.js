@@ -718,7 +718,7 @@
                     result = result.replace(re, value);
                 }
             }
-            alert(GeckoJS.BaseObject.dump(result));
+            //alert(GeckoJS.BaseObject.dump(result));
             //return;
             //alert(data.order.receiptPages);
             //

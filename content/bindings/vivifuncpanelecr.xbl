@@ -1,0 +1,2206 @@
+<?xml version="1.0"?>
+<bindings xmlns="http://www.mozilla.org/xbl"
+          xmlns:xbl="http://www.mozilla.org/xbl"
+          xmlns:html="http://www.w3.org/1999/xhtml"
+          xmlns:svg="http://www.w3.org/2000/svg"
+          xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+    <binding id="vivifuncpanelecr">
+
+        <!-- Event Handlers -->
+        <handlers>
+        </handlers>
+
+        <content>
+        <xul:hbox xbl:inherits="class,pack,width,height,disabled,flex" anonid="function-panel">
+                <!-- Function Panel with control panel at left -->
+
+                <!-- Screen Control -->
+                <xul:vbox flex="1" xbl:inherits="class=control_panel_class" anonid="control-panel">
+
+                    <!-- Left Scroll Button -->
+                    <xul:vivibutton type="button"
+                                flex="0"
+                                anonid="control-prev"
+                                xbl:inherits="disabled,class=control_scroll_left_class"
+                                oncommand="next()"
+                                />
+
+                    <!-- Screen Label -->
+                    <xul:vivibutton flex="1"
+                                disabled="true"
+                                orient="vertical"
+                                anonid="control-label"
+                                xbl:inherits="class=control_label_class"
+                                />
+
+                    <!-- Home Button -->
+                    <xul:vivibutton
+                                flex="0"
+                                anonid="control-home"
+                                xbl:inherits="disabled,class=control_home_class"
+                                oncommand="home()"
+                                />
+
+                    <!-- Right Scroll Button -->
+                    <xul:vivibutton type="button"
+                                flex="0"
+                                anonid="control-next"
+                                xbl:inherits="disabled,class=control_scroll_right_class"
+                                oncommand="prev()"
+                                />
+                </xul:vbox>
+
+                <xul:spacer flex="0" xbl:inherits="class=panel_spacer_class" anonid="panel-spacer"/>
+                
+                <!-- Button Matrix -->
+                <xul:vbox flex="1"
+                          xbl:inherits="class=button_panel_class"
+                          anonid="keypad"
+                         />
+            </xul:hbox>
+
+        </content>
+        <implementation>
+
+            <!-- field -->
+            <field name="_pageLayoutMap">new GeckoJS.Map()</field>
+            <field name="_layoutStackMap">new GeckoJS.Map()</field>
+            <field name="_pageKeymapMap">new GeckoJS.Map()</field>
+            <field name="_pageLabelMap">new GeckoJS.Map()</field>
+            <field name="_pageButtonstyleMap">new GeckoJS.Map()</field>
+            <field name="_pageButtonfontsizeMap">new GeckoJS.Map()</field>
+            <field name="_selectedNode1"/>
+            <field name="_selectedNode2"/>
+            <field name="_topStack"></field>
+
+            <!-- Properties -->
+
+            <!-- selectedNode1 -->
+            <property name="selectedNode1">
+                <getter>
+                <![CDATA[
+                    return this._selectedNode1;
+                ]]>
+                </getter>
+                 <setter>
+                <![CDATA[
+                    this._selectedNode1 = val;
+
+                    // fire off a 'vivifuncpanelecrSelectionChanged' UI event
+                    var evt = document.createEvent('UIEvents');
+                    evt.initEvent('vivifuncpanelecrSelectionChanged', true, false);
+                    evt.extent = this.getSelection();
+                    evt.root = this;
+                    evt.page = this.currentPage;
+                    evt.selected = 1;
+
+                    // fire off the event
+                    this.dispatchEvent(evt);
+                ]]>
+                </setter>
+            </property>
+
+            <!-- selectedNode2 -->
+            <property name="selectedNode2">
+                <getter>
+                <![CDATA[
+                    return this._selectedNode2;
+                ]]>
+                </getter>
+                 <setter>
+                <![CDATA[
+                    this._selectedNode2 = val;
+
+                    // fire off a 'vivifuncpanelecrSelectionChanged' UI event
+                    var evt = document.createEvent('UIEvents');
+                    evt.initEvent('vivifuncpanelecrSelectionChanged', true, false);
+                    evt.extent = this.getSelection();
+                    evt.root = this;
+                    evt.page = this.currentPage;
+                    evt.selected = 2;
+
+                    // fire off the event
+                    this.dispatchEvent(evt);
+                ]]>
+                </setter>
+            </property>
+
+            <!-- rows: default is 5, minimum is 1 -->
+            <property name="rows">
+                <getter>
+                <![CDATA[
+                    var rows = parseInt(this.getAttribute('rows'));
+                    if (isNaN(rows)) return 5;
+                    if (rows < 1) rows = 1;
+                    else return rows;
+                ]]>
+                </getter>
+                 <setter>
+                <![CDATA[
+                    var rows = parseInt(val);
+                    if (!isNaN(rows) && (rows > 0)) {
+                        this.setAttribute('rows', rows);
+                    }
+                ]]>
+                </setter>
+           </property>
+
+            <!-- columns: default is 5, minimum is 1 -->
+            <property name="columns">
+                <getter>
+                <![CDATA[
+                    var columns = parseInt(this.getAttribute('columns'));
+                    if (isNaN(columns)) return 5;
+                    if (columns < 1) columns = 1;
+                    else return columns;
+                ]]>
+                </getter>
+                 <setter>
+                <![CDATA[
+                    var columns = parseInt(val);
+                    if (!isNaN(columns) && (columns > 0))
+                        this.setAttribute('columns', columns);
+                ]]>
+                </setter>
+            </property>
+
+            <!-- hspacing: default is 2, minimum is 0 -->
+            <property name="hspacing">
+                <getter>
+                <![CDATA[
+                    var hspacing = parseInt(this.getAttribute('hspacing'));
+                    if (isNaN(hspacing)) return 2;
+                    if (hspacing < 0) hspacing = 0;
+                    else return hspacing;
+                ]]>
+                </getter>
+                 <setter>
+                <![CDATA[
+                    var hspacing = parseInt(val);
+                    if (!isNaN(hspacing) && (hspacing >= 0))
+                        this.setAttribute('hspacing', hspacing);
+                ]]>
+                </setter>
+            </property>
+
+            <!-- vspacing: default is 2, minimum is 0 -->
+            <property name="vspacing">
+                <getter>
+                <![CDATA[
+                    var vspacing = parseInt(this.getAttribute('vspacing'));
+                    if (isNaN(vspacing)) return 15;
+                    if (vspacing < 0) vspacing = 0;
+                    else return vspacing;
+                ]]>
+                </getter>
+                 <setter>
+                <![CDATA[
+                    var vspacing = parseInt(val);
+                    if (!isNaN(vspacing) && (vspacing >= 0))
+                        this.setAttribute('vspacing', vspacing);
+                ]]>
+                </setter>
+            </property>
+
+            <!-- homePage: default is 1 -->
+            <property name="homePage">
+                <getter>
+                <![CDATA[
+                    var homePage = parseInt(this.getAttribute('homePage'));
+                    if (isNaN(homePage)) return 1;
+                    if (homePage < 1) homePage = 1;
+                    if (homePage > this.maxpage) homePage = this.maxpage;
+                    else return homePage;
+                ]]>
+                </getter>
+                 <setter>
+                <![CDATA[
+                    var homePage = parseInt(val);
+                    if (!isNaN(homePage) && (homePage > 0))
+                        this.setAttribute('homePage', homePage);
+                ]]>
+                </setter>
+            </property>
+
+            <!-- maxpage: default is 10 -->
+            <property name="maxpage">
+                <getter>
+                <![CDATA[
+                    var maxpage = parseInt(this.getAttribute('maxpage'));
+                    if (isNaN(maxpage)) return 10;
+                    if (maxpage < 1) maxpage = 1;
+                    else return maxpage;
+                ]]>
+                </getter>
+                 <setter>
+                <![CDATA[
+                    var maxpage = parseInt(val);
+                    //GREUtils.log('[MAXPAGE]: preparing to sett maxpage to <' + val + '>');
+
+                    if (!isNaN(maxpage) && (maxpage > 0)) {
+                        //GREUtils.log('[MAXPAGE]: setting to <' + maxpage + '>');
+                        this.setAttribute('maxpage', maxpage);
+                        //GREUtils.log('[MAXPAGE]: set to <' + this.maxpage + '>');
+                    }
+                ]]>
+                </setter>
+            </property>
+
+            <!-- currentPage -->
+            <property name="currentPage">
+                <getter>
+                <![CDATA[
+                    return this.getAttribute('currentPage');
+                ]]>
+                </getter>
+
+                // when setting the current page, all necessary screen render
+                // will be performed.
+                //
+                // if the new page is different from the current page, fire
+                // off a 'viviFuncPanelECRPageChanged' event
+                //
+                 <setter>
+                <![CDATA[
+                    if (val == 'global') {
+                        this.setAttribute('currentPage', 'global');
+                    } else if (val != null) {
+                        var wrap = parseInt(this.getAttribute('wrap'));
+                        if (isNaN(wrap)) wrap = 0;
+
+                        var page = val;
+                        var numPages = this.maxpage;
+                        
+                        //GREUtils.log('[PROPERTY-currentPage]: setting current page to <' + page + '> with max page <' + numPages + '>');
+                        if (page > numPages) {
+                            if (wrap == 0) {
+                                page = numPages;
+                            }
+                            else {
+                                page %= numPages;
+                                if (page == 0) page = numPages;
+                            }
+                        }
+                        if (page < 1) {
+                            if (wrap == 0) {
+                                page = 1;
+                            }
+                            else {
+                                page = numPages - ((page * -1) % numPages)
+                            }
+                        }
+                        //GREUtils.log('[PROPERTY-currentPage]: setting current page to <' + page + '>');
+                        this.setAttribute('currentPage', page);
+                    }
+                ]]>
+                </setter>
+            </property>
+
+            <!-- functionPanel: always point to the toplevel function panel -->
+            <property name="functionPanel" readonly="true">
+                <getter>
+                <![CDATA[
+                    // locate keypad element
+                    return document.getAnonymousElementByAttribute(this,'anonid', 'function-panel');
+                ]]>
+                </getter>
+            </property>
+
+            <!-- keypad: always point to the keypad -->
+            <property name="keypad" readonly="true">
+                <getter>
+                <![CDATA[
+                    // locate keypad element
+                    return document.getAnonymousElementByAttribute(this,'anonid', 'keypad');
+                ]]>
+                </getter>
+            </property>
+
+            <!-- controlPanel: always point to the controlPanel -->
+            <property name="controlPanel" readonly="true">
+                <getter>
+                <![CDATA[
+                    // locate control panel element
+                    return document.getAnonymousElementByAttribute(this,'anonid', 'control-panel');
+                ]]>
+                </getter>
+            </property>
+
+            <!-- controlLabel: always point to the controlLabel -->
+            <property name="controlLabel" readonly="true">
+                <getter>
+                <![CDATA[
+                    // locate control label element
+                    return document.getAnonymousElementByAttribute(this,'anonid', 'control-label');
+                ]]>
+                </getter>
+            </property>
+
+            <!-- controlPrev: always point to the control-scroll-left element -->
+            <property name="controlPrev" readonly="true">
+                <getter>
+                <![CDATA[
+                    // locate control prev element
+                    return document.getAnonymousElementByAttribute(this,'anonid', 'control-prev');
+                ]]>
+               </getter>
+            </property>
+
+            <!-- controlNext: always point to the control-scroll-right element -->
+            <property name="controlNext" readonly="true">
+                <getter>
+                <![CDATA[
+                    // locate control next element
+                    return document.getAnonymousElementByAttribute(this,'anonid', 'control-next');
+                ]]>
+               </getter>
+            </property>
+
+            <!-- controlHome: always point to the control-home element -->
+            <property name="controlHome" readonly="true">
+                <getter>
+                <![CDATA[
+                    // locate control prev element
+                    return document.getAnonymousElementByAttribute(this,'anonid', 'control-home');
+                ]]>
+               </getter>
+            </property>
+
+            <!-- spacer: always point to the spacer element -->
+            <property name="spacer" readonly="true">
+                <getter>
+                <![CDATA[
+                    // locate control prev element
+                    return document.getAnonymousElementByAttribute(this,'anonid', 'panel-spacer');
+                ]]>
+               </getter>
+            </property>
+
+            <property name="datasource">
+                <getter>
+                <![CDATA[
+                    var data = {};
+
+                    data.maxpage = this.maxpage;
+                    data.homePage = this.homePage;
+                    data.rows = this.rows;
+                    data.columns = this.columns;
+                    data.hspacing = this.hspacing;
+                    data.vspacing = this.vspacing;
+                    data.dir = this.getAttribute('dir');
+                    data.wrap = this.getAttribute('wrap');
+                    data.restrictMode = this.getAttribute('restrictMode');
+                    data.pageLabelMap = this._pageLabelMap;
+                    data.pageLayoutMap = this._pageLayoutMap;
+                    data.pageKeymapMap = this._pageKeymapMap;
+                    data.pageButtonstyleMap = this._pageButtonstyleMap;
+                    data.pageButtonfontsizeMap = this._pageButtonfontsizeMap;
+
+                    return data;
+                ]]>
+                </getter>
+
+                <setter>
+                <![CDATA[
+                    this._initialize(val);
+                ]]>
+                </setter>
+            </property>
+
+            <!-- Constructor -->
+
+            <constructor>
+            <![CDATA[
+
+                this._loadPreferences();
+
+                var self = this;
+
+                // register observer listeners for 'acl-session-change' and this component's own id
+                this.observer = GeckoJS.Observer.newInstance({
+                        topics: ['acl-session-change', 'functionpanel-preferences-update'],
+                        observe: function(aSubject, aTopic, aData) {
+                        
+                        //GREUtils.log('[OBSERVER]: observing topic <' + aTopic + '> data <' + aData + '>');
+                            switch(aTopic) {
+
+                                case 'acl-session-change':
+                                    self._refreshCurrentPage();
+                                    break;
+
+                                case 'functionpanel-preferences-update':
+                                    // only load if the intended recipient, or if recipient is null (i.e. global)
+                                    if (!aData || (self.id == aData)) {
+
+                                        self._loadPreferences();
+
+                                        // clear button keypad and render buttons with new settings
+                                        self._selectedNode1 = self._selectedNode2 = null;
+                                        self._clearKeypad();
+/*
+                                        GREUtils.log('[REFRESH] preparing <' + self.id + '> to navigate to <' + self.currentPage +
+                                                     '> with orientation <' + self.dir + '>');
+*/
+                                        self._refreshCurrentPage();
+                                    }
+                                    break;
+                            }
+                        }
+                    }).register();
+
+                this.ready = function() {
+                    self._refreshOrientation(self.getAttribute('dir'));
+                    self.currentPage = self.homePage;
+                    self.controlWidth = self.controlPanel.boxObject.width;
+
+                    if (self.getAttribute('hideScrollbar').toLowerCase() == 'true') {
+                        self._showHideScrollbar(true);
+                    }
+                }
+                window.addEventListener('DOMContentLoaded', this.ready, true);
+
+                // register listener for attribute modified events
+                this.addEventListener('DOMAttrModified', this._attrModified, true);
+
+                this._refreshCurrentPage();
+            ]]>
+            </constructor>
+
+            <!-- destructor -->
+            <destructor>
+            <![CDATA[
+                this.observer.unregister();
+                this.removeEventListener('DOMAttrModified', this._attrModified, true);
+                window.removeEventListener('DOMContentLoaded', this.ready, true);
+            ]]>
+            </destructor>
+
+            <!-- Methods -->
+
+            <method name="_showHideScrollbar">
+                <parameter name="hide"/>
+                <body>
+                <![CDATA[
+                    if (hide) {
+                        this.controlWidth = this.controlPanel.boxObject.width;
+                        this.keypadWidth = this.width || this.functionPanel.boxObject.width;
+                    }
+                    else {
+                        this.keypadWidth = (this.width || this.functionPanel.boxObject.width) - this.controlWidth;
+                    }
+                    this.controlPanel.setAttribute('hidden', hide);
+                    this._clearKeypad();
+                    this._refreshCurrentPage();
+                ]]>
+                </body>
+            </method>
+
+            <!-- handle attribute modification event -->
+            <method name="_attrModified">
+                <parameter name="evt"/>
+                <body>
+                <![CDATA[
+                    //GREUtils.log('[ATTRIBUTE-MODIFIED]: attribute <' + evt.attrName + '> changed to value <' + evt.newValue + '>');
+                    
+                    switch(evt.attrName) {
+                    
+                        case 'height':
+                            //GREUtils.log('[ATTRIBUTE-MODIFIED]: node <' + evt.originalTarget.id + '> attribute <' + evt.attrName + '> changed to value <' + evt.newValue + '>');
+                            if (this.keypadHeight != evt.newValue) {
+                                this.keypadHeight = evt.newValue;
+                                this._clearKeypad();
+                                this._refreshCurrentPage();
+                            }
+                            //GREUtils.log('[ATTRIBUTE-MODIFIED]: height done');
+                            break;
+
+                        case 'width':
+                            //GREUtils.log('[ATTRIBUTE-MODIFIED]: node <' + evt.originalTarget.id + '> attribute <' + evt.attrName + '> changed to value <' + evt.newValue + '>');
+                            var offset = (this.getAttribute('hideScrollbar') == 'true') ? 0 : this.controlWidth + 2;
+                            var newKeypadWidth = evt.newValue - offset;
+                            if (this.keypadWidth != newKeypadWidth) {
+                                this.keypadWidth = newKeypadWidth;
+
+                                this._clearKeypad();
+                                this._refreshCurrentPage();
+                            }
+                            break;
+
+                        case 'hideScrollbar':
+                            //GREUtils.log('[ATTRIBUTE-MODIFIED]: node <' + evt.originalTarget.id + '> attribute <' + evt.attrName + '> changed to value <' + evt.newValue + '>');
+                            this._showHideScrollbar(evt.newValue.toLowerCase() == 'true');
+                            break;
+                            
+<!-- we don't want changes to these attributes to be reflected immediately on screen: use setSize() instead
+                        case 'vspacing':
+                        case 'hspacing':
+                        case 'rows':
+                        case 'columns':
+                            //GREUtils.log('[ATTRIBUTE-MODIFIED]: attribute <' + evt.attrName + '> changed to value <' + evt.newValue + '>');
+                            this._clearKeypad();
+                            this._refreshCurrentPage();
+                            break;
+-->
+
+                        case 'dir':
+                            //GREUtils.log('[ATTRIBUTE-MODIFIED]: attribute <' + evt.attrName + '> changed to value <' + evt.newValue + '>');
+                            this._refreshOrientation(evt.newValue);
+                            break;
+
+                        case 'maxpage':
+                            //GREUtils.log('[ATTRIBUTE-MODIFIED]: attribute <' + evt.attrName + '> changed to value <' + evt.newValue + '>');
+                            this._refreshMaxPage();
+                            break;
+                        
+                        case 'currentPage':
+                            //GREUtils.log('[ATTRIBUTE-MODIFIED]: attribute <' + evt.attrName + '> changed to value <' + evt.newValue + '>');
+
+                            this._refreshCurrentPage();
+
+                            // fire off a 'viviFuncPanelECRPageChanged' UI event
+
+                            //GREUtils.log('[ATTRIBUTE-MODIFIED]: currentPage changed, preparing to fire off UIEvents:vivifuncpanelecrPageChanged');
+
+                            var pageChangedEvt = document.createEvent('UIEvents');
+                            pageChangedEvt.initEvent('vivifuncpanelecrPageChanged', true, false);
+                            pageChangedEvt.newPage = evt.newValue;
+                            pageChangedEvt.root = this;
+
+                            //GREUtils.log('[ATTRIBUTE-MODIFIED]: currentPage changed, UIEvents:vivifuncpanelecrPageChanged ready');
+
+                            // clear button state
+                            if (this.getAttribute('mode') == 'configure') {
+                                this.setSelection(false);
+                                this.selectedNode1 = null;  // must manually trigger selection change event
+                                //GREUtils.log('[NAVIGATION] selection cleared');
+                            }
+
+                            // fire off the event
+                            this.dispatchEvent(pageChangedEvt);
+
+                            //GREUtils.log('[ATTRIBUTE-MODIFIED]: currentPage changed, fired off UIEvents:vivifuncpanelecrPageChanged');
+
+                            break;
+
+                        case 'mode':
+                            //GREUtils.log('[ATTRIBUTE-MODIFIED]: attribute <' + evt.attrName + '> changed to value <' + evt.newValue + '>');
+                            this._refreshCurrentPage();
+                            break;
+                    }
+                ]]>
+                </body>
+            </method>
+            
+            <method name="_refreshOrientation">
+                <parameter name="dir"/>
+                <body>
+                <![CDATA[
+                
+                    //GREUtils.log('[REFRESH-ORIENTATION]: orientation <' + dir + '>');
+
+                    var panel = this.functionPanel;
+                    var keypad = this.keypad;
+                    var controlpanel = this.controlPanel;
+                    var spacer = this.spacer;
+
+                    if (!dir) dir = 'normal';
+                    
+                    panel.removeChild(controlpanel);
+                    panel.removeChild(keypad);
+                    panel.removeChild(spacer);
+
+                    if (dir == 'normal') {
+                        panel.appendChild(controlpanel);
+                        panel.appendChild(spacer);
+                        panel.appendChild(keypad);
+                    }
+                    else if (dir == 'reverse') {
+                        panel.appendChild(keypad);
+                        panel.appendChild(spacer);
+                        panel.appendChild(controlpanel);
+                    }
+                    this._clearKeypad();
+                    this._refreshCurrentPage();
+                ]]>
+                </body>
+            </method>
+
+            <method name="_refreshMaxPage">
+                <body>
+                <![CDATA[
+                    //GREUtils.log('[REFRESH-MAX-PAGE]: refreshing max page <' + this.maxpage + '> with current page <' + this.currentPage + '>');
+
+                    // update current page just in case maxpage is now less than current page
+                    if (this.currentPage > this.maxpage) {
+                        this._clearKeypad();
+                        this.currentPage = this.maxpage;
+                        //GREUtils.log('[REFRESH-MAX-PAGE]: changed current page to <' + this.maxpage + '>');
+                    }
+                    
+                    // update label in case label shows max page
+                    this.renderLabel();
+
+                    //GREUtils.log('[REFRESH-MAX-PAGE]: refreshed max page <' + this.maxpage + '>');
+                ]]>
+                </body>
+            </method>
+
+            <method name="_refreshCurrentPage">
+                <body>
+                <![CDATA[
+                    //GREUtils.log('[REFRESH-CURRENT-PAGE]: refreshing current page <' + this.currentPage + '> with maxpage <' + this.maxpage + '>');
+                    if (this.currentPage == '') {
+                        //GREUtils.log('[REFRESH-CURRENT-PAGE]: exiting due to null page');
+                        return;
+                    }
+
+                    var page = this.currentPage;
+                    var layout = this.getPageLayout(page);
+                    var stack = this._getLayoutStack(layout);
+
+                    //GREUtils.log('[REFRESH-CURRENT-PAGE]: refreshing current page layout <' + GeckoJS.BaseObject.dump(layout) + '> and stack <' + stack + '> for page <' + page + '>');
+
+                    // activate the corresponding stack
+
+                    if (!stack) stack = this._render(page);
+                    var found = false;
+                    for (var i = 0; i < this.keypad.childNodes.length; i++) {
+                        if (stack == this.keypad.childNodes[i]) {
+                            found = true;
+                        }
+                        else {
+                            this.keypad.childNodes[i].setAttribute('hidden', true);
+                        }
+                    }
+                    /*
+                    while (this.keypad.childNodes.length > 0) {
+                        if (stack == this.keypad.firstChild) {
+                            found = true;
+                            break;
+                        }
+                        else {
+                            this.keypad.removeChild(this.keypad.firstChild);
+                        }
+                    }
+                    */
+                    if (!found) this.keypad.appendChild(stack);
+                    this._topStack = stack;
+                    stack.setAttribute('hidden', false);
+
+                    this.renderLabel();
+
+                    this.renderKeymap(page, stack);
+
+                    //GREUtils.log('[REFRESH-CURRENT-PAGE]: navigated to page <' + page + '>');
+                    //GREUtils.log('[REFRESH-CURRENT-PAGEl: layout <' + GeckoJS.BaseObject.dump(layout) + '>');
+                    //GREUtils.log('[REFRESH-CURRENT-PAGE]: stack <' + this.keypad.selectedIndex + '>');
+                    //GREUtils.log('[REFRESH-CURRENT-PAGE]: refreshed current page <' + this.currentPage + '> with maxpage <' + this.maxpage + '>');
+                ]]>
+                </body>
+            </method>
+
+            <!-- initialize from preferences -->
+            <method name="_loadPreferences">
+                <body>
+                <![CDATA[
+
+                    // load settings from preferences and apply them through datasource
+                    var prefs = {};
+                    var prefix = this.getAttribute('prefix');
+                    if (!prefix) {
+                        prefix = 'vivipos.fec.settings.functionpanel';
+                        this.setAttribute('prefix', prefix);
+                    }
+                    GeckoJS.Configure.loadPreferences(prefix);
+                    prefs.maxpage = GeckoJS.Configure.read(prefix + '.maxpage');
+                    prefs.homePage = GeckoJS.Configure.read(prefix + '.homePage');
+                    prefs.rows = GeckoJS.Configure.read(prefix + '.rows');
+                    prefs.columns = GeckoJS.Configure.read(prefix + '.columns');
+                    prefs.vspacing = GeckoJS.Configure.read(prefix + '.vspacing');
+                    prefs.hspacing = GeckoJS.Configure.read(prefix + '.hspacing');
+                    prefs.dir = GeckoJS.Configure.read(prefix + '.dir');
+                    prefs.wrap = GeckoJS.Configure.read(prefix + '.wrap');
+                    prefs.restrictMode = GeckoJS.Configure.read(prefix + '.restrictMode');
+
+                    prefs.pageLabelMap = GeckoJS.Configure.read(prefix + '.pageLabelMap');
+                    prefs.pageLayoutMap = GeckoJS.Configure.read(prefix + '.pageLayoutMap');
+                    prefs.pageKeymapMap = GeckoJS.Configure.read(prefix + '.pageKeymapMap');
+                    prefs.pageButtonstyleMap = GeckoJS.Configure.read(prefix + '.pageButtonstyleMap');
+                    prefs.pageButtonfontsizeMap = GeckoJS.Configure.read(prefix + '.pageButtonfontsizeMap');
+
+                    //GREUtils.log('[LoadPreferences]: loading settings from <' + prefix + '> read - <' + GeckoJS.BaseObject.dump(prefs) + '> into <' + this.id + '>');
+
+                    // restoring maps
+
+                    // restore page label
+                    if (prefs.pageLabelMap) {
+                        try {
+                            var map = new GeckoJS.Map();
+                            map.unserialize(prefs.pageLabelMap);
+                            prefs.pageLabelMap = map;
+                            //GREUtils.log('[LoadPreferences]: restored page map <' + GeckoJS.BaseObject.dump(map) + '>');
+                        }
+                        catch (e) {
+                            prefs.pageLabelMap = new GeckoJS.Map();
+                            //GREUtils.log('[LoadPreferences]: failed to restore page map from <' + prefs.pageLabelMap + '> exception [' + e + ']');
+                        }
+                    }
+                    else {
+                        prefs.pageLabelMap = new GeckoJS.Map();
+                        //GREUtils.log('[LoadPreferences]: failed to restore label map from <' + prefs.pageLabelMap + '>');
+                    }
+
+                    // restore page layout
+                    if (prefs.pageLayoutMap) {
+                        try {
+                            var map = new GeckoJS.Map();
+                            map.unserialize(prefs.pageLayoutMap);
+                            prefs.pageLayoutMap = map;
+                            //GREUtils.log('[LoadPreferences]: restored layout map <' + GeckoJS.BaseObject.dump(map) + '>');
+                        }
+                        catch (e) {
+                            //GREUtils.log('[LoadPreferences]: failed to restore layout map from <' + prefs.pageLayoutMap + '> exception [' + e + ']');
+                            prefs.pageLayoutMap = new GeckoJS.Map();
+                        }
+                    }
+                    else {
+                        //GREUtils.log('[LoadPreferences]: failed to restore layout map from <' + prefs.pageLayoutMap + '>');
+                        prefs.pageLayoutMap = new GeckoJS.Map();
+                    }
+
+                    // restore keymap layout
+                    if (prefs.pageKeymapMap) {
+                        try {
+                            var map = new GeckoJS.Map();
+                            var pages = GeckoJS.BaseObject.getKeys(prefs.pageKeymapMap);
+
+                            pages.forEach(function(page) {
+
+                                //GREUtils.log('[LoadPreferences]: restoring keymap <' + GeckoJS.BaseObject.dump(prefs.pageKeymapMap[page]) + '> for page <' + page + '>');
+
+                                var keymap = new GeckoJS.Map();
+                                GeckoJS.BaseObject.getKeys(prefs.pageKeymapMap[page]).forEach(function(btnid) {
+
+                                    var rawEntry = prefs.pageKeymapMap[page][btnid]
+                                    //GREUtils.log('[LoadPreferences]: restoring mapping <' + GeckoJS.BaseObject.dump(rawEntry) + '> for btnid <' + btnid + '>');
+
+                                    if (rawEntry) {
+                                        var entry = GeckoJS.BaseObject.unserialize(prefs.pageKeymapMap[page][btnid]);
+                                        keymap.set(btnid, entry);
+                                    }
+                                });
+                                //GREUtils.log('[LoadPreferences]: restored mapping <' + GeckoJS.BaseObject.dump(keymap) + '> for page <' + page + '>');
+
+                                if (keymap.getCount() > 0)
+                                    map.set(page, keymap);
+                            })
+                            prefs.pageKeymapMap = map;
+                            //GREUtils.log('[LoadPreferences]: restored keymap map <' + GeckoJS.BaseObject.dump(map.getValues()) + '>');
+                        }
+                        catch (e) {
+                            //GREUtils.log('[LoadPreferences]: failed to restore keymap map from <' + prefs.pageKeymapMap + '> exception [' + e + ']');
+                            prefs.pageKeymapMap = new GeckoJS.Map();
+                        }
+                    }
+                    else {
+                        //GREUtils.log('[LoadPreferences]: failed to restore keymap map from <' + prefs.pageKeymapMap + '>');
+                        prefs.pageKeymapMap = new GeckoJS.Map();
+                    }
+
+                    // restore page buttonstyle
+                    if (prefs.pageButtonstyleMap) {
+                        try {
+                            var map = new GeckoJS.Map();
+                            map.unserialize(prefs.pageButtonstyleMap);
+                            prefs.pageButtonstyleMap = map;
+                            //GREUtils.log('[LoadPreferences]: restored button style map <' + GeckoJS.BaseObject.dump(map) + '>');
+                        }
+                        catch (e) {
+                            //GREUtils.log('[LoadPreferences]: failed to restore button style map from <' + prefs.pageButtonstyleMap + '> exception [' + e + ']');
+                            prefs.pageButtonstyleMap = new GeckoJS.Map();
+                        }
+                    }
+                    else {
+                        //GREUtils.log('[LoadPreferences]: failed to restore button style map from <' + prefs.pageButtonstyleMap + '>');
+                        prefs.pageButtonstyleMap = new GeckoJS.Map();
+                    }
+
+                    // restore page button fontsize
+                    if (prefs.pageButtonfontsizeMap) {
+                        try {
+                            var map = new GeckoJS.Map();
+                            map.unserialize(prefs.pageButtonfontsizeMap);
+                            prefs.pageButtonfontsizeMap = map;
+                            //GREUtils.log('[LoadPreferences]: restored button fontsize map <' + GeckoJS.BaseObject.dump(map) + '>');
+                        }
+                        catch (e) {
+                            //GREUtils.log('[LoadPreferences]: failed to restore button fontsize map from <' + prefs.pageButtonfontsizeMap + '> exception [' + e + ']');
+                            prefs.pageButtonfontsizeMap = new GeckoJS.Map();
+                        }
+                    }
+                    else {
+                        //GREUtils.log('[LoadPreferences]: failed to restore button fontsize map from <' + prefs.pageButtonfontsizeMap + '>');
+                        prefs.pageButtonfontsizeMap = new GeckoJS.Map();
+                    }
+
+                    //GREUtils.log('[LoadPreferences]: preferences loaded, initializing self');
+                    this._initialize(prefs);
+                    //GREUtils.log('[LoadPreferences]: self initialized');
+                ]]>
+                </body>
+            </method>
+
+            <!-- retrieve the label associated with a page
+                 order is: page-specific, global, default (from attribute)
+            -->
+            <method name="getPageLabel">
+                <parameter name="page"/>
+                <parameter name="localOnly"/>
+                <body>
+                <![CDATA[
+                    var label = this._pageLabelMap.get(page);
+                    //GREUtils.log('[GetPageLabel]: page <' + page + '> label from pageLabelMap <' + label + '> localOnly <' + localOnly + '>');
+                    if (!localOnly) {
+                        if (label == null)
+                            label = this._pageLabelMap.get('global');
+                        if (label == null)
+                            label = this.getAttribute('label');
+                    }
+                    //GREUtils.log('[GetPageLabel]: returning label <' + label + '>');
+                    return label;
+                ]]>
+                </body>
+            </method>
+
+            <!-- store the label associated with a page -->
+            <method name="_setPageLabel">
+                <parameter name="page"/>
+                <parameter name="label"/>
+                <body>
+                <![CDATA[
+                    if ((label == null) || (label == ''))
+                        this._pageLabelMap.remove(page);
+                    else
+                        this._pageLabelMap.set(page, label);
+                    // GREUtils.log('[SetPageLabel]: page <' + page + '>, label <' + label + '>');
+                ]]>
+                </body>
+            </method>
+
+            <!-- retrieve the keymap associated with a page -->
+            <method name="getPageKeymap">
+                <parameter name="page"/>
+                <body>
+                <![CDATA[
+                    return this._pageKeymapMap.get(page);
+                ]]>
+                </body>
+            </method>
+
+            <!-- store the keymap associated with a page -->
+            <method name="setPageKeymap">
+                <parameter name="page"/>
+                <parameter name="keymap"/>
+                <body>
+                <![CDATA[
+                    if (keymap == null)
+                        this._pageKeymapMap.remove(page);
+                    else
+                        this._pageKeymapMap.set(page, keymap);
+                    // GREUtils.log('[SetPageKeymap]: page <' + page + '>, keymap <' + GeckoJS.BaseObject.dump(keymap) + '>');
+                ]]>
+                </body>
+            </method>
+            
+            <!-- retrieve the layout associated with a page -->
+            <method name="getPageLayout">
+                <parameter name="page"/>
+                <body>
+                <![CDATA[
+                    var layout = this._pageLayoutMap.get(page);
+                    if (layout == null) {
+                        // no page-specific layout; check for global layout
+
+                        layout = this._pageLayoutMap.get('global');
+                    }
+                    return layout;
+                ]]>
+                </body>
+            </method>
+
+            <!-- store the layout associated with a page -->
+            <method name="setPageLayout">
+                <parameter name="page"/>
+                <parameter name="layout"/>
+                <body>
+                <![CDATA[
+                    if (layout == null)
+                        this._pageLayoutMap.remove(page);
+                    else
+                        this._pageLayoutMap.set(page, layout);
+                    // GREUtils.log('[SetPageLayout]: page <' + page + '>, layout <' + GeckoJS.BaseObject.dump(layout) + '>');
+                ]]>
+                </body>
+            </method>
+
+            <!-- retrieve the buttonstyles associated with a page -->
+            <method name="getPageButtonstyles">
+                <parameter name="page"/>
+                <body>
+                <![CDATA[
+                    return this._pageButtonstyleMap.get(page);
+                ]]>
+                </body>
+            </method>
+
+            <!-- store the buttonstyles associated with a page -->
+            <method name="setPageButtonstyles">
+                <parameter name="page"/>
+                <parameter name="styles"/>
+                <body>
+                <![CDATA[
+                    if (styles == null)
+                        this._pageButtonstyleMap.remove(page);
+                    else
+                        this._pageButtonstyleMap.set(page, styles);
+                    //GREUtils.log('[SetPageButtonstyles]: page <' + page + '>, styles <' + GeckoJS.BaseObject.dump(styles) + '>');
+                ]]>
+                </body>
+            </method>
+
+            <!-- retrieve the button fontsizes associated with a page -->
+            <method name="getPageButtonfontsizes">
+                <parameter name="page"/>
+                <body>
+                <![CDATA[
+                    return this._pageButtonfontsizeMap.get(page);
+                ]]>
+                </body>
+            </method>
+
+            <!-- store the button fontsizes associated with a page -->
+            <method name="setPageButtonfontsizes">
+                <parameter name="page"/>
+                <parameter name="fontsizes"/>
+                <body>
+                <![CDATA[
+                    if (fontsizes == null)
+                        this._pageButtonfontsizeMap.remove(page);
+                    else
+                        this._pageButtonfontsizeMap.set(page, fontsizes);
+                    //GREUtils.log('[SetPageButtonfontsizes]: page <' + page + '>, fontsizes <' + GeckoJS.BaseObject.dump(fontsizes) + '>');
+                ]]>
+                </body>
+            </method>
+
+            <!-- retrieve the stack associated with a layout;
+                 if layout is null then return the standard stack if it exists -->
+            <method name="_getLayoutStack">
+                <parameter name="layout"/>
+                <body>
+                <![CDATA[
+                    var stack;
+                    if (layout == null)
+                        var key = 'standard';
+                    else
+                        var key = GeckoJS.BaseObject.stringify(layout);
+
+                    if (layout == null) {
+                        stack = this._layoutStackMap.get('standard');
+                    }
+                    else {
+                        stack = this._layoutStackMap.get(key);
+                    }
+                    //GREUtils.log('[GetLayoutStack]: layout <' + key + '>, stack <' + stack + '>, total stacks <' + this._layoutStackMap.getCount() + '>');
+                    return stack;
+                ]]>
+                </body>
+            </method>
+
+            <!-- store the stack associated with a layout;
+                 if layout is null then store the stack as the standard stack -->
+            <method name="_setLayoutStack">
+                <parameter name="layout"/>
+                <parameter name="stack"/>
+                <body>
+                <![CDATA[
+                    if (layout == null) {
+                        if (stack == null)
+                            this._layoutStackMap.remove('standard');
+                        else
+                            this._layoutStackMap.set('standard', stack);
+                        // GREUtils.log('[SetLayoutStack]: layout <standard>, stack <' + stack + '>');
+                    }
+                    else {
+                        var key = GeckoJS.BaseObject.stringify(layout);
+                        if (stack == null)
+                            this._layoutStackMap.remove(key);
+                        else
+                            this._layoutStackMap.set(key, stack);
+                        // GREUtils.log('[SetLayoutStack]: layout <' + key + '>, stack <' + stack + '>');
+                    }
+                ]]>
+                </body>
+            </method>
+
+            <!-- sort the button layout in a layout array in ascending row, column order -->
+            <method name="_buttonLayoutSort">
+                <parameter name="btnA"/>
+                <parameter name="btnB"/>
+                <body>
+                <![CDATA[
+                    var btnEntryA = btnA.split(',');
+                    var btnEntryB = btnB.split(',');
+                    var rowA = btnEntryA[0];
+                    var rowB = btnEntryB[0]
+                    var columnA = btnEntryA[1]
+                    var columnB = btnEntryB[1];
+
+                    if (rowA < rowB) return -1;
+                    if (rowA == rowB) {
+                        if (columnA < columnB) return -1;
+                        else if (columnA == columnB) return 0;
+                        else return 1;
+                    }
+                    return 1;
+                ]]>
+                </body>
+            </method>
+
+            <!-- render the control label -->
+            <method name="renderLabel">
+                <body>
+                <![CDATA[
+                    var page = this.currentPage;
+                    var label = this.getPageLabel(page);
+                    this.controlLabel.label = label.replace(/%d/g, this.currentPage).replace(/%m/g, this.maxpage);
+
+                ]]>
+                </body>
+            </method>
+
+            <!-- render a specific or all function button pages; assumption is the correct orientation
+                 deck is already active
+            -->
+            <method name="_render">
+                <parameter name="page"/>
+                <body>
+                <![CDATA[
+                    var r = this.rows
+                    var c = this.columns;
+                    var hs = this.hspacing;
+                    var vs = this.vspacing;
+
+                    var keypad = this.keypad;
+                    // calculate cell dimensions and spacings
+                    <!-- XULRunner 1.9.1
+                    var w = keypad.clientWidth;
+                    var h = keypad.clientHeight;
+                    -->
+                    var w = this.keypadWidth || this.keypad.boxObject.width;
+                    var h = this.keypadHeight || this.keypad.boxObject.height;
+                    
+                    this.keypadWidth = w;
+                    this.keypadHeight = h;
+
+                    var cellWidth = ((w - (- hs)) / c) - hs;
+                    var cellHeight = ((h - (- vs)) / r) - vs;
+                    
+                    //GREUtils.log('[RENDER]: w <' + w + '> h <' + h + ' (' + this.keypad.boxObject.height + ')> r <' + r + '> c <' + c + '> hs <' + hs + '> vs <' + vs + '>');
+                    //GREUtils.log('[RENDER]: cellWidth <' + cellWidth + '> cellHeight <' + cellHeight + '>');
+                    if (keypad) {
+                        // get the layout applicable to this page
+                        var layout = this.getPageLayout(page);
+
+                        // get the stack associated with the layout
+                        var stack = this._getLayoutStack(layout);
+
+                        //GREUtils.log('[RENDER]: page <' + GeckoJS.BaseObject.dump(page) + '>');
+                        //GREUtils.log('[RENDER]: layout <' + GeckoJS.BaseObject.dump(layout) + '>');
+                        //GREUtils.log('[RENDER]: stack <' + stack + '>');
+
+                        if (stack == null) {
+                        
+                            // create new stack with standard layout
+                            stack = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:stack");
+                            stack.setAttribute('class', this.getAttribute('button_panel_class'));
+                            stack.setAttribute('flex', 1);
+                            stack.setAttribute('width', w);
+                            stack.setAttribute('height', h);
+                            stack.setAttribute('anonid', 'button-stack');
+                            keypad.appendChild(stack);
+
+                            if (layout == null) {
+                                // render new stack with standard layout
+                                this._setLayoutStack(layout, stack);
+                                this._renderStandardLayout(stack, w, h, r, c, hs, vs, cellWidth, cellHeight);
+
+                                //GREUtils.log('[RENDER]: created new stack with standard layout <' + stack.boxObject.width + 'x' + stack.boxObject.height + '>');
+                            }
+                            else {
+                                // render new stack with custom layout
+                                this._setLayoutStack(layout, stack);
+                                this._renderCustomLayout(stack, w, h, r, c, hs, vs, cellWidth, cellHeight, layout);
+
+                                //GREUtils.log('[RENDER]: created new stack with custom layout <' + stack.boxObject.width + 'x' + stack.boxObject.height + '>');
+                            }
+                        }
+                        else {
+                            //GREUtils.log('[RENDER]: found existing stack with same layout');
+                        }
+                        return stack;
+                    }
+                    else
+                        return null;
+                    //GREUtils.log('[RENDER]: _pageLayoutMap <' + GeckoJS.BaseObject.dump(this._pageLayoutMap) + '>');
+                    //GREUtils.log('[RENDER]: _layoutStackMap: <' + this._layoutStackMap.getKeys() + '>');
+                ]]>
+                </body>
+            </method>
+
+            <!-- render the function buttons in standard layout -->
+            <method name="_renderStandardLayout">
+                <parameter name="stack"/>
+                <parameter name="w"/>
+                <parameter name="h"/>
+                <parameter name="r"/>
+                <parameter name="c"/>
+                <parameter name="hs"/>
+                <parameter name="vs"/>
+                <parameter name="cellWidth"/>
+                <parameter name="cellHeight"/>
+                <body>
+                <![CDATA[
+                    var posX, posY, j;
+                    var mode = this.getAttribute('mode');
+                    var dir = this.getAttribute('dir');
+
+                    //GREUtils.log('[STANDARD]: rendering standard layout with <r=' + r + ',c=' + c + '>x<cellWidth=' + cellWidth + ',cellHeight=' + cellHeight + '>');
+                    //GREUtils.log('[STANDARD]: with mode <' + mode + '> and dir <' + dir + '>');
+
+                    var adjustXIndex = w - c * (cellWidth + hs);
+                    var adjustYIndex = h - r * (cellHeight + vs);
+
+                    var lastX = 0;
+                    var lastY = 0;
+                    var lastW = 0;
+                    var lastH = 0;
+                    var adjustX = 0;
+                    var adjustY = 0;
+
+                    for (var i = 0; i < r; i++) {
+                        posY = lastY + lastH
+                        //adjustY = (i < adjustYIndex) ? -1 : 0;
+                        adjustY = 0;
+
+                        // use lastH here as height for current row
+                        lastH = cellHeight - adjustY;
+
+                        if (dir == 'reverse') {
+                            lastX = w;
+                            lastW = cellWidth;
+                        }
+                        else {
+                            lastX = 0;
+                            lastW = 0;
+                        }
+                        for (var j = 0; j < c; j++) {
+                            if (dir == 'reverse')
+                                posX = lastX - cellWidth;
+                            else
+                                posX = lastX + lastW;
+                            var btn = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:vivibutton");
+
+                            //adjustX = (j < adjustXIndex) ? -1 : 0;
+                            adjustX = 0;
+
+                            // use lastW as width for current button
+                            lastW = cellWidth - adjustX;
+                            if (dir == 'reverse') posX += adjustX;;
+
+                            btn.setAttribute('flex', 0);
+                            btn.setAttribute('top', posY);
+                            btn.setAttribute('left', posX);
+                            btn.setAttribute('height', lastH);
+                            btn.setAttribute('width', lastW);
+                            btn.setAttribute('disabled', true);
+                            btn.setAttribute('anonid', (1 - (-i)) +'x' + (1 - (-j)));
+                            btn.disabled = true;
+                            stack.appendChild(btn);
+
+                            lastW -= -hs;
+
+                            if (dir == 'reverse')
+                                lastX = posX - hs;
+                            else
+                                lastX = posX;
+                        }
+                        // set lastH to the total height
+                        lastH -= -vs;
+                        lastY = posY;
+                    }
+                ]]>
+                </body>
+            </method>
+
+            <!-- render the function buttons using custom layout -->
+            <method name="_renderCustomLayout">
+                <parameter name="stack"/>
+                <parameter name="w"/>
+                <parameter name="h"/>
+                <parameter name="r"/>
+                <parameter name="c"/>
+                <parameter name="hs"/>
+                <parameter name="vs"/>
+                <parameter name="cellWidth"/>
+                <parameter name="cellHeight"/>
+                <parameter name="layout"/>
+                <body>
+                <![CDATA[
+                    var btn;
+                    var posX, posY, posWidth, posHeight;
+                    var entry, row, column, width, height;
+                    var mode = this.getAttribute('mode');
+                    var dir = this.dir;
+
+                    //GREUtils.log('[CUSTOM]: rendering custom layout with <r=' + r + ',c=' + c + '>x<cellWidth=' + cellWidth + ',cellHeight=' + cellHeight + '>');
+                    //GREUtils.log('[CUSTOM]: with mode <' + mode + '> and dir <' + dir + '>');
+
+                    for (var i = 0; i < layout.length; i++) {
+                        entry = layout[i].split(',');
+                        row = entry[0];
+                        column = entry[1];
+                        width = entry[2];
+                        height = entry[3];
+
+                        //GREUtils.log('[CUSTOM]: custom button layout <row=' + row + ',column=' + column + '>x<width=' + width + ',height=' + height + '>');
+
+                        // render only if starting position in within the display area
+                        if ((row <= r) && (column <= c)) {
+                            if ((+row - (-height)) > (+r + 1)) {
+                                height = r + 1 - row;
+                                // GREUtils.log('[CUSTOM]: button layout height adjusted <' + height + '>');
+                            }
+
+                            if ((+column - (-width)) > (+c + 1)) {
+                                width = c + 1 - column;
+                                // GREUtils.log('[CUSTOM]: button layout width adjusted <' + width + '>');
+                            }
+
+                            btn = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:vivibutton");
+                            if (dir == 'reverse')
+                                posX = w - (- hs) - (c - column - (- 1)) * (cellWidth - (- hs));
+                            else
+                                posX = (column - 1) * (cellWidth - (- hs));
+
+                            posY = (row - 1) * (cellHeight - (- vs));
+
+                            // GREUtils.log('[CUSTOM]: posWidth <' + width + '> <' + cellWidth + '> <' + hs + '>');
+                            // GREUtils.log('[CUSTOM]: posHeight <' + height + '> <' + cellHeight + '> <' + vs + '>');
+
+                            posWidth = cellWidth + (width - 1) * (cellWidth + hs);
+                            posHeight = cellHeight + (height - 1) * (cellHeight + vs);
+
+                            // GREUtils.log('[CUSTOM]: custom button size <' + posX + ',' + posY + '>x<' + posWidth + ',' + posHeight + '>');
+
+                            btn.setAttribute('flex', 0);
+                            btn.setAttribute('top', posY);
+                            btn.setAttribute('left', posX);
+                            btn.setAttribute('height', posHeight);
+                            btn.setAttribute('width', posWidth);
+                            btn.setAttribute('disabled', true);
+                            btn.setAttribute('anonid', row + 'x' + column);
+                            btn.disabled = true;
+                            stack.appendChild(btn);
+
+                            //GREUtils.log('[CUSTOM]: custom button created at <' + posX + ',' + posY + '>x<' + posWidth + ',' + posHeight + '>');
+                        }
+                    }
+                ]]>
+                </body>
+            </method>
+
+            // get current user
+            <method name="_getUserPrincipal">
+                <body>
+                <![CDATA[
+
+                    var session = GeckoJS.Session.getInstance();
+
+                    if( !session.has('User') ) return null;
+                    else return session.get('User');
+
+                ]]>
+                </body>
+            </method>
+
+            // check if user has given role
+            <method name="_isUserInRole">
+                <parameter name="roleName" />
+                <body>
+                <![CDATA[
+                    roleName = roleName || null;
+
+                    // no roleName parameter return false
+                    if (roleName == null) return false;
+
+                    // not login return false
+                    var principal = this._getUserPrincipal();
+
+                    //GREUtils.log('[IsUserInRole] user <' + principal + '> role <' + roleName + '>');
+                    if(principal == null) return false;
+
+                    //GREUtils.log('[IsUserInRole] <' + roleName + '> user roles <' + principal.Roles + '>');
+                    return GeckoJS.AclComponent.isUserInRole(roleName);
+
+                ]]>
+                </body>
+            </method>
+
+            <!-- return the extent of a button from the current page in an object with properties row1, column1, row2, column2 -->
+            <method name="getKeyExtent">
+                <parameter name="row"/>
+                <parameter name="column"/>
+                <parameter name="layout"/>
+                <body>
+                <![CDATA[
+                    if (layout == null) layout = this.getPageLayout(this.currentPage);
+                    else if (layout == 'global') layout = this.getPageLayout('global');
+
+                    // GREUtils.log('[GetKeyExtent]: looking for row <' + row + '> column <' + column + '> in layout <' + GeckoJS.BaseObject.dump(layout) + '>');
+                    if (layout == null) {
+                        // no custom layout, width and height = 1
+                        return {row1:row, column1:column, row2:row, column2:column};
+                    }
+                    else {
+                        // see if the key exists in the layout
+                        for (var i = 0; i < layout.length; i++) {
+                            var pos = layout[i].split(',');
+                            if ((pos[0] == row) && (pos[1] == column)) {
+                                var r2 = pos[0] - (-pos[3]) - 1;
+                                var c2 = pos[1] - (-pos[2]) - 1;
+                                return {row1: row, column1: column, row2: r2, column2: c2};
+                            }
+                        }
+                    }
+                ]]>
+                </body>
+            </method>
+
+            // return the extent of the selection in an object with properties row, column, width, and height
+            <method name="getSelection">
+                <parameter name="layout"/>
+                <body>
+                <![CDATA[
+                    if (this.selectedNode1 == null) {
+                        //GREUtils.log('[GetSelection]: no selected buttons');
+                        return;
+                    }
+                    else if (this.selectedNode2 == null) {
+                        var extent = this.getKeyExtent(this.selectedNode1.row, this.selectedNode1.column, layout);
+                        //GREUtils.log('[GetSelection]: single selected node <' + GeckoJS.BaseObject.dump(extent) + '>');
+                        return extent;
+                    }
+                    else {
+                        //GREUtils.log('[GetSelection]: layout <' + GeckoJS.BaseObject.dump(layout) + '>');
+                        //GREUtils.log('[GetSelection]: row <' + this.selectedNode1.row + '> column <' + this.selectedNode1.column + '>');
+                        //GREUtils.log('[GetSelection]: row <' + this.selectedNode2.row + '> column <' + this.selectedNode2.column + '>');
+                        var extent1 = this.getKeyExtent(this.selectedNode1.row, this.selectedNode1.column, layout);
+                        var extent2 = this.getKeyExtent(this.selectedNode2.row, this.selectedNode2.column, layout);
+
+                        var ext1r1 = extent1.row1;
+                        var ext1c1 = extent1.column1;
+                        var ext1r2 = extent1.row2;
+                        var ext1c2 = extent1.column2;
+
+                        var ext2r1 = extent2.row1;
+                        var ext2c1 = extent2.column1;
+                        var ext2r2 = extent2.row2;
+                        var ext2c2 = extent2.column2;
+
+                        var row1, column1, row2, column2;
+
+                        if (ext1r1 > ext2r1) row1 = ext2r1;
+                        else row1 = ext1r1;
+
+                        if (ext1r2 > ext2r2) row2 = ext1r2;
+                        else row2 = ext2r2;
+
+                        if (ext1c1 > ext2c1) column1 = ext2c1;
+                        else column1 = ext1c1;
+
+                        if (ext1c2 > ext2c2) column2 = ext1c2;
+                        else column2 = ext2c2;
+
+                        var extent = {row1:row1, column1:column1, row2:row2, column2:column2};
+                        //GREUtils.log('[GetSelection]: extended selection <' + GeckoJS.BaseObject.dump(extent) + '>');
+                        return extent;
+                    }
+                ]]>
+                </body>
+            </method>
+
+            <!-- set selected buttons to the given state -->
+            <method name="setSelection">
+                <parameter name="state"/>
+                <parameter name="stack"/>
+                <parameter name="layout"/>
+                <body>
+                <![CDATA[
+                    //GREUtils.log('[SetSelection]: entering page <' + this.currentPage + '> state <' + state + '> on stack <' + stack + '> with layout <' + GeckoJS.BaseObject.dump(layout) + '>');
+
+                    if (!stack) {
+                        stack = this._topStack;
+                    }
+                    if (!layout) layout = this.getPageLayout(this.currentPage);
+                    else if (layout == 'global') layout = this.getPageLayout('global');
+
+                    //GREUtils.log('[SetSelection]: layout is now <' + layout + '>');
+
+                    var extent = this.getSelection(layout);
+
+                    //GREUtils.log('[SetSelection]: setting selection range to state <' + state + '> on stack <' + stack.getAttribute('anonid') + '> with layout <' + GeckoJS.BaseObject.dump(layout) + '> and extent <' + GeckoJS.BaseObject.dump(extent) + '>');
+
+                    if (extent) {
+                        // set selected buttons to given state
+                        var btns = stack.childNodes;
+                        for (var i = 0, btn; btn = btns[i]; i++) {
+                            var pos = btn.getAttribute('anonid').split('x');
+
+                            if ((pos[0] >= extent.row1) && (pos[0] <= extent.row2) && (pos[1] >= extent.column1) && (pos[1] <= extent.column2)) {
+                                //GREUtils.log('[SetSelection]: setting button <' + pos[0] + 'x' + pos[1] + '> to <' + state + '>');
+                                btn.checked = state
+                            }
+                        }
+                    }
+                    if (!state) {
+                        this._selectedNode2 = null;
+                        this._selectedNode1 = null;
+                    }
+                    ]]>
+                </body>
+            </method>
+
+            <!-- select button -->
+            <method name="selectButton">
+                <parameter name="btn"/>
+                <parameter name="state"/>
+                <body>
+                <![CDATA[
+                    var pos = btn.getAttribute('anonid').split('x');
+                    var seltype = this.getAttribute('seltype');
+
+                    //GREUtils.log('[SelectButton]: selected cell position <' + pos[0] + ',' + pos[1] + '> button state <' + state + '> seltype <' + seltype + '>');
+
+                    if (pos.length != 2) {
+                        //GREUtils.log('[SelectButton]: invalid cell location <' + btnid + '> button state <' + state + '>');
+                        return;
+                    }
+                    btn.checked = !state;
+
+                    if (!state) {
+                        if (this.selectedNode1 == null) {
+                            // currently no node selected
+                            this.selectedNode1 = {row: pos[0], column: pos[1]};
+                            //GREUtils.log('[SelectButton]: 1st cell selected: <' + this.selectedNode1.row + 'x' + this.selectedNode1.column + '>');
+                        }
+                        else if (this.selectedNode2 == null) {
+
+                            if (seltype != 'single') {
+                                // first node has been selected: select a second node
+                                this.selectedNode2 = {row: pos[0], column: pos[1]};
+                                //GREUtils.log('[SelectButton]: 2nd cell selected: <' + this.selectedNode2.row + 'x' + this.selectedNode2.column + '>');
+                            }
+                            else {
+                                this.setSelection(false);
+                                this.selectedNode1 = {row: pos[0], column: pos[1]};
+                            }
+                            this.setSelection(true);
+                        }
+                        else {
+                            // selection already exists; clear it and start a new one
+                            this.setSelection(false);
+                            this.selectedNode1 = {row: pos[0], column: pos[1]};
+                            //GREUtils.log('[SelectButton]: new 1st cell selected: <' + this.selectedNode1.row + 'x' + this.selectedNode1.column + '>');
+                        }
+                    }
+                    else {
+                        if (this.selectedNode1 == null) {
+                            // currently no node selected; theoretically we shouldn't get here, so log error
+                            //GREUtils.log('[SelectButton]: button unchecked with no prior selection');
+                        }
+                        else if (this.selectedNode2 == null) {
+                            // currently only first node is selected; theoretically only the first node can be unchecked
+                            this.setSelection(false);
+                            this.selectedNode1 = null;
+                            //GREUtils.log('[SelectButton]: button unchecked and selection cleared');
+                        }
+                        else {
+                            // currently a range of cells are selected and one of them has been unchecked;
+                            // so let's clear the selection
+                            this.setSelection(false);
+                            this.selectedNode1 = null;
+                            //GREUtils.log('[SelectButton]: selection cleared');
+                        }
+                    }
+                ]]>
+                </body>
+            </method>
+
+            <!-- render the keymap -->
+            <method name="renderKeymap">
+                <parameter name="page"/>
+                <parameter name="stack"/>
+                <body>
+                <![CDATA[
+                    //GREUtils.log('[KEYMAP]: entering page <' + page + '>');
+
+                    // global keymap has priority over local keymap
+                    //alert('entering renderKeymap: ' + this.getAttribute('height'));
+                    var r = this.row;
+                    var c = this.column;
+                    var id = this.getAttribute('id');
+
+                    var gkeymap = this.getPageKeymap('global');
+                    var lkeymap = this.getPageKeymap(page);
+                    var btnstylemap = this.getPageButtonstyles(page);
+                    var btnfontsizemap = this.getPageButtonfontsizes(page);
+                    
+                    var defaultButtonColor = GeckoJS.Configure.read('vivipos.fec.ui.functionpanel.button.defaultcolor');
+                    var defaultButtonFontsize = GeckoJS.Configure.read('vivipos.fec.ui.functionpanel.button.defaultfontsize');
+<!--
+                    GREUtils.log('[KEYMAP]: page <' + page + '> global keymap <' + GeckoJS.BaseObject.dump(gkeymap) + '> local keymap <' + GeckoJS.BaseObject.dump(lkeymap) + '>');
+                    GREUtils.log('[KEYMAP]: page <' + page + '> button style map <' + GeckoJS.BaseObject.dump(btnstylemap) + '>');
+                    GREUtils.log('[KEYMAP]: page <' + page + '> button fontsize map <' + GeckoJS.BaseObject.dump(btnfontsizemap) + '>');
+-->
+                    var restrictMode = this.getAttribute('restrictMode');
+                    var mode = this.getAttribute('mode');
+
+                    if (stack == null) stack = this._topStack;
+
+                    var btns = stack.childNodes;
+                    var entry;
+                    var disabledFlag = this.getAttribute('disabled') || false;
+                    //GREUtils.log('[KEYMAP]: rendering on stack <' + stack.getAttribute('anonid') + '> with <' + btns.length + '> buttons with mode <' + mode + '> restrictMode <' + restrictMode + '> disabled <' + disabledFlag + '>');
+                    // for each button, check if corresponding key assignment and button style exists
+                    for (var i = 0, btn; btn = btns[i]; i++) {
+                        var btnid = btn.getAttribute('anonid');
+                        //GREUtils.log('[KEYMAP]: looking up keymap for button <' + btnid + '>');
+
+                        entry = null;
+                        if (gkeymap != null) entry = gkeymap.get(btnid);
+                        if ((entry == null) && (lkeymap != null)) entry = lkeymap.get(btnid);
+
+                        //GREUtils.log('[KEYMAP]: found entry <' + GeckoJS.BaseObject.dump(entry) + '>');
+
+                        //GREUtils.log('[KEYMAP]: looking up buttonstylemap for button <' + btnid + '>');
+                        var btnstyles = (btnstylemap && (btnid in btnstylemap)) ? btnstylemap[btnid].split(',') : [];
+
+                        //GREUtils.log('[KEYMAP]: found button style entry <' + btnstyles + '> (' + btnstyles.length + ')');
+                        if ((btnstyles.length == 0) && defaultButtonColor) btnstyles = defaultButtonColor.split(',');
+                        
+                        //GREUtils.log('[KEYMAP]: looking up buttonfontsizemap for button <' + btnid + '>');
+                        var btnfontsizes = (btnfontsizemap && (btnid in btnfontsizemap)) ? btnfontsizemap[btnid].split(',') : [];
+
+                        //GREUtils.log('[KEYMAP]: found button fontsize entry <' + btnfontsizes + '> (' + btnfontsizes.length + ')');
+                        if ((btnfontsizes.length == 0) && defaultButtonFontsize) btnfontsizes = defaultButtonFontsize.split(',');
+                        btnfontsizes = btnfontsizes.map(function(size) {return 'font-' + size});
+                        
+                        if ((mode == 'configure') || (mode == 'noop')) {
+                            if (mode == 'noop') disabledFlag = true;
+                            btn.setAttribute('disabled', disabledFlag);
+                            btn.setAttribute('type', 'checkbox');
+                            btn.setAttribute('autoCheck', 'false');
+                            btn.setAttribute('oncommand', 'this.parentNode.parentNode.parentNode.parentNode.selectButton(this, this.checked)');
+                            btn.setAttribute('roles', '');
+                            btn.setAttribute('action', 'none');
+                            btn.style.visibility = 'inherit';
+
+                            btnstyles.push(this.getAttribute('matrix_button_configure_class'));
+
+                            if (entry && (entry.label != null) && (entry.label != '')) {
+                                btn.setAttribute('label', entry.label);
+                                btn.setLabel(entry.label);
+                                var ch = document.getAnonymousElementByAttribute(btn, 'class', 'button-text');
+                                if (ch) {
+                                    var labelWidth = btn.width * 0.85;
+                                    ch.style.width = labelWidth + 'px';
+                                }
+                                //GREUtils.log('[KEYMAP]: label <' + entry.label + '> set');
+                            }
+                            else {
+                                btn.removeAttribute('label');
+                                btn.setLabel('');
+                                //GREUtils.log('[KEYMAP]: label not set');
+                            }
+
+                            //GREUtils.log('[KEYMAP]: set button to configure mode with label <' + btn.getAttribute('label') + '> disabled <' + disabledFlag + '>');
+                        }
+                        else {
+                            btn.removeAttribute('type');
+                            btn.removeAttribute('autoCheck');
+                            if (entry) {
+                                if ((entry.command == null) || (entry.command == '') || (entry.label == null) || (entry.label == '')) {
+                                    btn.removeAttribute('label');
+                                    btn.setLabel('');
+                                    btn.setAttribute('disabled', true);
+                                    btn.removeAttribute('oncommand');
+                                    btn.style.visibility = 'inherit';
+                                    
+                                    btnstyles.push(this.getAttribute('matrix_button_nomap_class'));
+
+                                    //GREUtils.log('[KEYMAP]: disabled button <' + btn.getAttribute('label') + '> with empty command');
+                                }
+                                else {
+                                    // check ACL - relegated to vivibutton to check ACL access
+                                    var hasAccess = true;
+                                    if (entry.access != null && entry.access != '') {
+                                        hasAccess = this._isUserInRole(entry.access);
+                                        btn.setAttribute('roles', entry.access);
+                                        btn.setAttribute('action', 'display');
+                                    }
+                                    else {
+                                        btn.removeAttribute('roles');
+                                        btn.removeAttribute('action');
+                                    }
+
+                                    btn.setAttribute('label', entry.label);
+                                    btn.setLabel(entry.label);
+                                    var ch = document.getAnonymousElementByAttribute(btn, 'class', 'button-text');
+                                    if (ch) {
+                                        var labelWidth = btn.width * 0.85;
+                                        ch.style.width = labelWidth + 'px';
+                                    }
+                                    
+                                    btnstyles.push(this.getAttribute('matrix_button_mapped_class'));
+
+                                    //GREUtils.log('[KEYMAP]: mapping function to button <' + btn.getAttribute('label') + '> with class <' + this.getAttribute('matrix_button_mapped_class') + '> hasAccess <' + hasAccess + '> disabled <' + disabledFlag + '>');
+
+                                    btn.setAttribute('disabled', (!hasAccess || disabledFlag));
+
+                                    //GREUtils.log('[KEYMAP]: mapped key disabled status set to <' + btn.getAttribute('disabled') + '>');
+
+                                    var cmds = entry.command.split('||');
+                                    var datas = [];
+                                    if (entry.data) datas = entry.data.split('||');
+                                    
+                                    var controllers = [];
+                                    if (entry.controller) controllers = entry.controller.split('||');
+
+                                    //GREUtils.log('[KEYMAP]: processing mapped function <' + GeckoJS.BaseObject.dump(entry) + '> <' + cmds.length + '> <' + datas.length + '> <' + controllers.length + '>');
+
+                                    var cmdLine = [];
+                                    var lastData = null;
+                                    var lastController = null;
+                                    for (var j = 0; j < cmds.length; j++) {
+                                    
+                                        var iData = datas[j];
+                                        var iController = controllers[j];
+                                        var command;
+                                        
+                                        if (!iData) iData = lastData;
+                                        if (!iController) iController = lastController;
+
+                                        if (cmds[j] == 'internal' && iController != null && id != null) {
+                                            command = 'document.getElementById("' + id + '").' + iController + '(' + ((iData == null) ? '' : '"' + iData + '"') + ')';
+                                        }
+                                        else {
+                                            command = '$do("' + cmds[j] + '","' + ((iData == null) ? '' : iData) + '","' + iController + '")';
+                                        }
+                                        //GREUtils.log('[KEYMAP]: adding command <' + command + '>');
+
+                                        if (command != null && command != '')
+                                            cmdLine.push(command);
+
+                                        lastData = iData;
+                                        lastController = iController;
+                                    }
+                                    btn.setAttribute('oncommand', cmdLine.join(';'));
+
+                                    // set button's appearance to reflect access restriction
+                                    if (!hasAccess) {
+                                        switch(restrictMode) {
+                                            case 'hidden':
+                                                btn.style.visibility = 'hidden';
+                                                break;
+
+                                            default:
+                                                btn.style.visibility = 'inherit';
+                                        }
+
+                                        //GREUtils.log('[KEYMAP]: disabled button <' + entry.label + '> with insufficient access <' + entry.access + '> for user <' + this._getUserPrincipal() + '>');
+                                    }
+                                    else {
+                                        btn.style.visibility = 'inherit';
+
+                                        //GREUtils.log('[KEYMAP]: button <' + entry.label + '> configured <' + btn.getAttribute('disabled') + '>');
+                                    }
+                                }
+                            }
+                            else {
+                                btn.removeAttribute('label');
+                                btn.setLabel('');
+                                btn.setAttribute('disabled', true);
+                                btn.setAttribute('oncommand', '');
+                                btn.style.visibility = 'inherit';
+
+                                btnstyles.push(this.getAttribute('matrix_button_nomap_class'));
+
+                                //GREUtils.log('[KEYMAP]: disabled button with no mapping');
+                            }
+                        }
+                        btn.setAttribute('class', btnstyles.concat(btnfontsizes).join(' '));
+
+                        //GREUtils.log('[KEYMAP]: merged button styles <' + btnstyles + '> with font size <' + btnfontsizes + '>');
+
+                        btn.setAttribute('inactive', btn.getAttribute('disabled'));
+                    }
+                    //GREUtils.log('[KEYMAP]: exiting');
+                ]]>
+                </body>
+            </method>
+
+            <!-- initialize the function panel -->
+            <method name="_initialize">
+                <parameter name="data"/>
+                <body>
+                <![CDATA[
+                    //GREUtils.log('[INIT]: entering <' + GeckoJS.BaseObject.dump(data) + '>');
+                    if (('maxpage' in data) && (data.maxpage != null)) this.setAttribute('maxpage', data.maxpage);
+                    if (('homePage' in data) && (data.homePage != null)) this.setAttribute('homePage', data.homePage);
+                    if (('rows' in data) && (data.rows != null)) this.setAttribute('rows', data.rows);
+                    if (('columns' in data) && (data.columns != null)) this.setAttribute('columns', data.columns);
+                    if (('vspacing' in data) && (data.vspacing != null)) this.setAttribute('vspacing', data.vspacing);
+                    if (('hspacing' in data) && (data.hspacing != null)) this.setAttribute('hspacing', data.hspacing);
+                    if (('dir' in data) && (data.dir != null)) this.setAttribute('dir', data.dir);
+                    if (('wrap' in data) && (data.wrap != null)) this.setAttribute('wrap', data.wrap);
+                    if (('restrictMode' in data) && (data.restrictMode != null)) this.setAttribute('restrictMode', data.restrictMode);
+
+                    if (('pageLabelMap' in data) && data.pageLabelMap) this._pageLabelMap = data.pageLabelMap;
+                    else this._pageLabelMap = new GeckoJS.Map();
+
+                    if (('pageLayoutMap' in data) && data.pageLayoutMap) this._pageLayoutMap = data.pageLayoutMap;
+                    else this._pageLayoutMap = new GeckoJS.Map();
+
+                    if (('pageKeymapMap' in data) && data.pageKeymapMap) this._pageKeymapMap = data.pageKeymapMap;
+                    else this._pageKeymapMap = new GeckoJS.Map();
+
+                    if (('pageButtonstyleMap' in data) && data.pageButtonstyleMap) this._pageButtonstyleMap = data.pageButtonstyleMap;
+                    else this._pageButtonstyleMap = new GeckoJS.Map();
+
+                    if (('pageButtonfontsizeMap' in data) && data.pageButtonfontsizeMap) this._pageButtonfontsizeMap = data.pageButtonfontsizeMap;
+                    else this._pageButtonfontsizeMap = new GeckoJS.Map();
+
+                    //GREUtils.log('[INIT]: page label map <' + GeckoJS.BaseObject.dump(this._pageLabelMap) + '>');
+                    //GREUtils.log('[INIT]: page layout map <' + GeckoJS.BaseObject.dump(this._pageLayoutMap) + '>');
+                    //GREUtils.log('[INIT]: page keymap map <' + GeckoJS.BaseObject.dump(this._pageKeymapMap) + '>');
+                    //GREUtils.log('[INIT]: page buttonstyle map <' + GeckoJS.BaseObject.dump(this._pageButtonstyleMap) + '>');
+                    //GREUtils.log('[INIT]: page buttonfontsize map <' + GeckoJS.BaseObject.dump(this._pageButtonfontsizeMap) + '>');
+                    //GREUtils.log('[INIT]: exiting');
+                ]]>
+                </body>
+            </method>
+
+            <!-- clear the function keypad, removing all child nodes.
+            -->
+            <method name="_clearKeypad">
+                <body>
+                <![CDATA[
+                    //GREUtils.log('[CLEARKEYPAD]: entering');
+
+                    var node = this.keypad;
+                    while (node.firstChild) node.removeChild(node.firstChild);
+                    this._layoutStackMap.clear();
+
+                    //GREUtils.log('[CLEARKEYPAD]: exiting <' + this._layoutStackMap.getCount() + '>');
+                ]]>
+                </body>
+            </method>
+
+            <!-- scroll forward to next screen -->
+            <method name="next">
+                <body>
+                <![CDATA[
+                    //GREUtils.log('[NEXT]: going forward from page <' + this.currentPage + '>');
+                    var stack = this._topStack;
+                    var page = this.currentPage;
+
+                    if (page != 'global') {
+                        this.setSelection(false, stack);
+                        this.currentPage = this.currentPage - (- 1);
+                    }
+                    //GREUtils.log('[NEXT]: going forward to page <' + this.currentPage + '>');
+                ]]>
+                </body>
+            </method>
+
+            <!-- scroll backward to previous screen -->
+            <method name="prev">
+                <body>
+                <![CDATA[
+                    //GREUtils.log('[PREV]: going backward from page <' + this.currentPage + '>');
+                    var stack = this._topStack;
+                    var page = this.currentPage;
+
+                    if (page != 'global') {
+                        this.setSelection(false, stack);
+                        this.currentPage = this.currentPage - 1;
+                    }
+                    
+                    //GREUtils.log('[PREV]: going backward to page <' + this.currentPage + '>');
+                ]]>
+                </body>
+            </method>
+
+            <method name="home">
+                <body>
+                <![CDATA[
+                    var stack = this._topStack;
+                    var page = this.currentPage;
+
+                    if (page != 'global') {
+                        this.setSelection(false, stack);
+                        this.currentPage = this.homePage;
+                    }
+
+                ]]>
+                </body>
+            </method>
+
+            <method name="page">
+                <parameter name="page"/>
+                <body>
+                <![CDATA[
+                    var stack = this._topStack;
+                    if (page != 'global') {
+
+                        if (isNaN(page)) {
+                            this.home();
+                        }
+                        page %= this.maxpage;
+                        if (page == 0) page = this.maxpage;
+
+                        this.setSelection(false, stack);
+                        this.currentPage = page;
+                    }
+
+                ]]>
+                </body>
+            </method>
+
+            <method name="getInternalFunctionList">
+                <body>
+                <![CDATA[
+                    return [
+                        // next panel
+                        {access: 'acl_scroll_function_panel',
+                         command: 'internal',
+                         controller: 'next',
+                         data: '',
+                         name: _('Scroll Forward'),
+                         label: _('Next'),
+                         desc: _('This function scrolls the function panel to the next page')
+                        },
+
+                        // prev panel
+                        {access: 'acl_scroll_function_panel',
+                         command: 'internal',
+                         controller: 'prev',
+                         data: '',
+                         name: _('Scroll Backward'),
+                         label: _('Back'),
+                         desc: _('This function scrolls the function panel to the previous page')
+                        },
+
+                        // home panel
+                        {access: 'acl_scroll_function_panel',
+                         command: 'internal',
+                         controller: 'home',
+                         data: '',
+                         name: _('Home Page'),
+                         label: _('Home'),
+                         desc: _('This function scrolls the function panel to the home page')
+                        },
+
+                        // page
+                        {access: 'acl_scroll_function_panel',
+                         command: 'internal',
+                         controller: 'page',
+                         data: '',
+                         name: _('Jump to Page'),
+                         label: _('Page'),
+                         desc: _('This function scrolls the function panel to the page indicated in the parameter field')
+                        }
+                    ];
+                ]]>
+                </body>
+            </method>
+            <!-- set the button layout -->
+            <method name="setLayout">
+                <parameter name="page"/>
+                <parameter name="layout"/>
+                <parameter name="updateOnly"/>
+                <body>
+                <![CDATA[
+                    //GREUtils.log('[SetLayout]: page <' + page + '> layout: <' + GeckoJS.BaseObject.dump(layout) + '> updateOnly <' + updateOnly + '>');
+                    // do nothing if updateOnly and layout is empty
+                    if (updateOnly == null) updateOnly = false;
+
+                    if ((page == null) || (updateOnly && ((layout == null) || (layout.length == 0)))) return;
+
+                    var existingLayout = this.getPageLayout(page);
+                    var currentStack = this._topStack;
+
+                    // clear selection on a layout change
+                    if (currentStack) {
+                        //if (layout == null) layout = 'global';
+                        this.setSelection(false, currentStack, 'global');
+                    }
+                    this._selectedNode1 = null;
+                    this.selectedNode2 = null; // this triggers the selection changed event
+
+                    if ((existingLayout != null) || (page == null) || (page == 'global')) {
+                        // removing the stack associated with the old layout if it is not the active stack
+                        // or if the page being updated is the current page
+                        var stack = this._getLayoutStack(existingLayout);
+
+                        if ((stack != currentStack) || (page == this.currentPage)) {
+                            //GREUtils.log('[SetLayout]: removing stack associated with page <' + page + '> layout: <' + GeckoJS.BaseObject.dump(existingLayout) + '>');
+                            if (stack != null) {
+                                var parentNode = stack.parentNode;
+                                if (parentNode != null) {
+                                    parentNode.removeChild(stack);
+                                }
+                                this._setLayoutStack(existingLayout, null);
+                                currentStack = null;
+                            }
+                            //GREUtils.log('[SetLayout]: removed stack');
+                        }
+                    }
+                    if (layout == null) {
+                        // layout is empty and updateOnly is false, so we reset the page to global layout
+                        // by removing the page to layout mapping
+                        this.setPageLayout(page, null);
+                        //GREUtils.log('[SetLayout]: page <' + page + '> layout: <' + GeckoJS.BaseObject.dump(layout) + '> updateOnly <' + updateOnly + '>');
+                    }
+                    else {
+                        // if updateOnly, build a map of existing layout keyed by rowxcolumn
+                        if (updateOnly) {
+                            var existingLayoutMap = new GeckoJS.Map();
+                            if ((existingLayout != null) && (existingLayout.length > 0)) {
+                                existingLayout.forEach(function(entry) {
+                                    var fields = entry.split(',');
+                                    var r = fields[0];
+                                    var c = fields[1];
+
+                                    existingLayoutMap.add(r + 'x' + c, entry);
+                                })
+                            //GREUtils.log('[SetLayout]: updating existing layout: <' + GeckoJS.BaseObject.dump(existingLayoutMap.getValues()) + '>');
+                            }
+                        }
+
+                        //GREUtils.log('[SetLayout]: validating new layout : <' + GeckoJS.BaseObject.dump(layout) + '>');
+
+                        // validate new layout, converting layout properties into concatenated string
+                        // only valid numeric entries are retained
+                        var newLayout = [];
+                        for (var i = 0; i < layout.length; i++) {
+                            var entry = layout[i].split(',');
+                            var r = parseInt(entry[0]);
+                            var c = parseInt(entry[1]);
+                            var w = parseInt(entry[2]);
+                            var h = parseInt(entry[3]);
+
+                            if (!isNaN(r) && !isNaN(c) && !isNaN(w)  && !isNaN(h)) {
+                                newLayout.push(r + ',' + c + ',' + w + ',' + h);
+                            }
+
+                            // remove corresponding rowxcolumn entry from existing layout map
+                            if (updateOnly) {
+                                existingLayoutMap.remove(r + 'x' + c);
+                            }
+                        }
+
+                        // if update only, merge existing layout back into new layout
+                        if (updateOnly) {
+                            existingLayoutMap.getValues().forEach(function(entry) {
+                                newLayout.push(entry);
+                            })
+                        }
+
+                        newLayout = newLayout.sort(this._buttonLayoutSort);
+                        this.setPageLayout(page, newLayout);
+                    }
+                    //GREUtils.log('[SetLayout]: preparing to render new layout for page <' + page + '> <' + GeckoJS.BaseObject.dump(newLayout) + '>');
+                    this._refreshCurrentPage();
+
+                    //GREUtils.log('[SetLayout]: navigated to page <' + this.currentPage + '>');
+                ]]>
+                </body>
+            </method>
+
+            <!-- set the button layout -->
+            <method name="setKeymap">
+                <parameter name="page"/>
+                <parameter name="keymap"/>
+                <parameter name="updateOnly"/>
+                <body>
+                <![CDATA[
+                    //GREUtils.log('[SETKEYMAP]: setting keymap for page <' + page + '> with keymap <' +
+                    //           GeckoJS.BaseObject.dump(keymap) + '> updateOnly <' + updateOnly + '>');
+
+                    // do nothing if updateOnly and layout is empty
+                    if ((page == null) || (updateOnly && ((keymap == null) || (keymap.length == 0)))) return;
+
+                    if (updateOnly) {
+                        var existingKeymap = this.getPageKeymap(page);
+                        if (existingKeymap == null) existingKeymap = new GeckoJS.Map();
+                    }
+                    else
+                        var existingKeymap = new GeckoJS.Map();
+
+                    //GREUtils.log('[SETKEYMAP]: existing keymap <' + GeckoJS.BaseObject.dump(existingKeymap.getValues()) + '>');
+                    if (keymap == null) {
+                        // keymap is empty and updateOnly is false, so we remove the keymap mapping for the page
+                        this.setPageKeymap(page, null);
+                        //GREUtils.log('[SETKEYMAP]: removed keymap');
+                    }
+                    else {
+                        // validate new keymap; only entries with non-empty id, name and label are are retained
+                        for (var i = 0; i < keymap.length; i++) {
+                            var entry = keymap[i];
+                            var row = parseInt(entry.row);
+                            var column = parseInt(entry.column);
+                            var name = entry.name;
+                            var label = entry.label
+                            var command = entry.command;
+                            var access = entry.access;
+                            var desc = entry.desc;
+                            var data = entry.data;
+                            var controller = entry.controller;
+                            var key = row + 'x' + column;
+
+                            //GREUtils.log('[SETKEYMAP]: mapping for id <' + key + '> name <' + name + '> label <' +
+                            //             label + '> command <' + command + '> access <' + access + '> data <' + data + '>');
+
+                            // store validated entry, overwriting existing entry if present
+                            if (!isNaN(row) && !isNaN(column) && (name != null) && (label != null)) {
+                                existingKeymap.set(key, entry);
+                            }
+                        }
+                        this.setPageKeymap(page, existingKeymap);
+                        //GREUtils.log('[SETKEYMAP]: updated keymap <' + GeckoJS.BaseObject.dump(existingKeymap.getValues()) + '>');
+                    }
+                    if ((page == this.currentPage) || (page == 'global')) {
+                        //GREUtils.log('[SETKEYMAP]: updating keymap for page <' + page + '>');
+                        this._refreshCurrentPage();
+                    }
+                    else {
+                        //GREUtils.log('[SETKEYMAP]: page updated <' + page + ' is not current page <' + this.currentPage + '>');
+                    }
+                ]]>
+                </body>
+            </method>
+
+            <!-- set the page button styles -->
+            <method name="setButtonstyles">
+                <parameter name="page"/>
+                <parameter name="styles"/>
+                <parameter name="updateOnly"/>
+                <body>
+                <![CDATA[
+                    //GREUtils.log('[SetButtonstyles]: setting styles <' + GeckoJS.BaseObject.dump(styles) + '> for page <' + page + '>');
+
+                    if (!page) return;
+                    
+                    if (updateOnly) {
+                        var oldStyles = this.getPageButtonstyles(page);
+                        this.setPageButtonstyles(page, GREUtils.extend(oldStyles, styles));
+                    }
+                    else {
+                        this.setPageButtonstyles(page, styles);
+                    }
+                    if (page == this.currentPage) this._refreshCurrentPage();
+                ]]>
+                </body>
+            </method>
+
+            <!-- set the page button fontsizes -->
+            <method name="setButtonfontsizes">
+                <parameter name="page"/>
+                <parameter name="fontsizes"/>
+                <parameter name="updateOnly"/>
+                <body>
+                <![CDATA[
+                    //GREUtils.log('[SetButtonfontsizes]: setting fontsizes <' + GeckoJS.BaseObject.dump(fontsizes) + '> for page <' + page + '>');
+
+                    if (!page) return;
+                    
+                    if (updateOnly) {
+                        var oldFontsizes = this.getPageButtonfontsizes(page);
+                        this.setPageButtonfontsizes(page, GREUtils.extend(oldFontsizes, fontsizes));
+                    }
+                    else {
+                        this.setPageButtonfontsizes(page, fontsizes);
+                    }
+                    if (page == this.currentPage) this._refreshCurrentPage();
+                ]]>
+                </body>
+            </method>
+
+            <!-- set the screen label -->
+            <method name="setLabel">
+                <parameter name="page"/>
+                <parameter name="label"/>
+                <body>
+                <![CDATA[
+                    GREUtils.log('[SetLabel]: setting label <' + label + '> for page <' + page + '>');
+
+                    this._setPageLabel(page, label);
+                    if ((page == 'global') || (page == this.currentPage))
+                        this._refreshCurrentPage();
+                ]]>
+                </body>
+            </method>
+
+            <!-- set the matrix dimensions -->
+            <method name="setSize">
+                <parameter name="rows"/>
+                <parameter name="columns"/>
+                <parameter name="hspacing"/>
+                <parameter name="vspacing"/>
+                <body>
+                <![CDATA[
+                    var r = parseInt(rows);
+                    var c = parseInt(columns);
+                    var h = parseInt(hspacing);
+                    var v = parseInt(vspacing);
+
+                    if (isNaN(r) || (r < 1) ||
+                        isNaN(c) || (c < 1) ||
+                        isNaN(h) || (h < 0) ||
+                        isNaN(v) || (v < 0))
+                        return;
+
+                    var rowColumnChanged = (this.rows != r) || (this.columns != c);
+              
+                    this.rows = r;
+                    this.columns = c;
+                    this.hspacing = h;
+                    this.vspacing = v;
+
+                    this._clearKeypad();
+                    if (rowColumnChanged) {
+                        this._pageLayoutMap.clear();
+                    }
+                    //GREUtils.log('[SetSize]: navigating to page <' + this.currentPage + '>');
+                    this._refreshCurrentPage();
+                    this._selectedNode1 = null;
+                    this._selectedNode2 = null;
+                ]]>
+                </body>
+            </method>
+
+        </implementation>
+    </binding>
+</bindings>

@@ -1182,6 +1182,12 @@ msgstr "Generic VFD"
 msgid "acl_end_sale_period"
 msgstr "End Sale Period"
 
+msgid "acl_remote_control"
+msgstr "Remote Control"
+
+msgid "Remote Control"
+msgstr "Remote Control"
+
 msgid "destination"
 msgstr "destination"
 
@@ -1199,6 +1205,15 @@ msgstr "giftcard"
 
 msgid "check"
 msgstr "check"
+
+msgid "acl_touch_settings"
+msgstr "Touch Screen Settings"
+
+msgid "Touch Calibration"
+msgstr "Touch Calibration"
+
+msgid "Touch Utility"
+msgstr "Touch Utility"
 
 #: ../..//content/datetime.js:27
 msgid "confirm timezone change"
@@ -1302,7 +1317,7 @@ msgid "New ACL Group"
 msgstr ""
 
 #: ../..//content/controllers/aclgroups_controller.js:47
-#: ../..//content/controllers/condiments_controller.js:294
+#: ../..//content/controllers/condiments_controller.js:293
 #: ../..//content/controllers/plugroups_controller.js:51
 msgid "Group Name"
 msgstr ""
@@ -1332,8 +1347,8 @@ msgid ""
 msgstr ""
 
 #: ../..//content/controllers/aclgroups_controller.js:84
-#: ../..//content/controllers/condiments_controller.js:404
-#: ../..//content/controllers/condiments_controller.js:625
+#: ../..//content/controllers/condiments_controller.js:400
+#: ../..//content/controllers/condiments_controller.js:623
 #: ../..//content/controllers/departments_controller.js:258
 #: ../..//content/controllers/jobs_controller.js:143
 #: ../..//content/controllers/plugroups_controller.js:178
@@ -1344,8 +1359,8 @@ msgid "confirm delete %S"
 msgstr ""
 
 #: ../..//content/controllers/aclgroups_controller.js:84
-#: ../..//content/controllers/condiments_controller.js:404
-#: ../..//content/controllers/condiments_controller.js:625
+#: ../..//content/controllers/condiments_controller.js:400
+#: ../..//content/controllers/condiments_controller.js:623
 #: ../..//content/controllers/departments_controller.js:258
 #: ../..//content/controllers/jobs_controller.js:143
 #: ../..//content/controllers/ledger_controller.js:143
@@ -2088,107 +2103,107 @@ msgstr ""
 msgid "Not clocked in yet."
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:290
+#: ../..//content/controllers/condiments_controller.js:289
 msgid "Add New Condiment Group"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:292
+#: ../..//content/controllers/condiments_controller.js:291
 msgid "New Condiment Group"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:306
+#: ../..//content/controllers/condiments_controller.js:305
 msgid "Condiment Group [%S] already exists."
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:330
+#: ../..//content/controllers/condiments_controller.js:325
 msgid "Condiment Group [%S] added successfully"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:335
+#: ../..//content/controllers/condiments_controller.js:329
 msgid ""
 "An error occurred while adding Condiment Group [%S]. The group may not have "
 "been added successfully"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:359
+#: ../..//content/controllers/condiments_controller.js:353
 msgid "Condiment Group [%S] already exists"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:378
+#: ../..//content/controllers/condiments_controller.js:374
 msgid "Condiment Group [%S] modified successfully"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:382
+#: ../..//content/controllers/condiments_controller.js:378
 msgid ""
 "An error occurred while modifying Condiment Group [%S]. The group may not "
 "have been modified successfully"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:400
+#: ../..//content/controllers/condiments_controller.js:396
 #: ../..//content/controllers/taxes_controller.js:188
 msgid "[%S] has been assigned to one or more products and may not be deleted"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:434
+#: ../..//content/controllers/condiments_controller.js:432
 msgid "Condiment Group [%S] removed successfully"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:438
+#: ../..//content/controllers/condiments_controller.js:436
 msgid ""
 "An error occurred while removing Condiment Group [%S]. The group may not "
 "have been removed successfully"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:482
+#: ../..//content/controllers/condiments_controller.js:480
 msgid "Add New Condiment"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:482
+#: ../..//content/controllers/condiments_controller.js:480
 msgid "New Condiment"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:482
+#: ../..//content/controllers/condiments_controller.js:480
 msgid "Condiment Name"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:482
+#: ../..//content/controllers/condiments_controller.js:480
 msgid "Condiment Price"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:488
+#: ../..//content/controllers/condiments_controller.js:486
 msgid "Condiment Price must be a number"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:507
-#: ../..//content/controllers/condiments_controller.js:569
+#: ../..//content/controllers/condiments_controller.js:505
+#: ../..//content/controllers/condiments_controller.js:567
 msgid "Condiment [%S] already exists in this group"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:542
+#: ../..//content/controllers/condiments_controller.js:540
 msgid "Condiment [%S] added successfully"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:547
+#: ../..//content/controllers/condiments_controller.js:545
 msgid ""
 "An error occurred while adding Condiment [%S]. The condiment may not have "
 "been added successfully"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:611
+#: ../..//content/controllers/condiments_controller.js:609
 msgid "Condiment [%S] modified successfully"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:615
+#: ../..//content/controllers/condiments_controller.js:613
 msgid ""
 "An error occurred while modifying Condiment [%S]. The condiment may not have "
 "been modified successfully"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:650
+#: ../..//content/controllers/condiments_controller.js:648
 msgid "Condiment [%S] removed successfully"
 msgstr ""
 
-#: ../..//content/controllers/condiments_controller.js:654
+#: ../..//content/controllers/condiments_controller.js:652
 msgid ""
 "An error occurred while removing Condiment [%S]. The condiment may not have "
 "been removed successfully"
@@ -2506,6 +2521,8 @@ msgstr ""
 
 #: ../..//content/controllers/import_export_controller.js:45
 #: ../..//content/controllers/systembackup_controller.js:138
+#: ../..//content/reports/controllers/components/browser_print.js:30
+#: ../..//content/reports/controllers/components/csv_export.js:25
 msgid "Failed to execute command (%S)."
 msgstr ""
 
@@ -2724,6 +2741,10 @@ msgstr ""
 
 #: ../..//content/controllers/main_controller.js:635
 msgid "Are you ready to sign off?"
+msgstr ""
+
+#: ../..//content/controllers/main_controller.js:705
+msgid "Removing old data..."
 msgstr ""
 
 #: ../..//content/controllers/plufilter_controller.js:34
@@ -3036,6 +3057,10 @@ msgstr ""
 msgid "Specified template [%S] is empty or does not exist!"
 msgstr ""
 
+#: ../..//content/controllers/remote_control_controller.js:30
+msgid "Password and Verify Password not the same"
+msgstr ""
+
 #: ../..//content/controllers/shift_changes_controller.js:449
 msgid "Invalid cash drawer change amount [%S]"
 msgstr ""
@@ -3044,19 +3069,19 @@ msgstr ""
 msgid "You may not leave negative amount of cash in the cashdrawer"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:506
+#: ../..//content/controllers/shift_changes_controller.js:509
 msgid "Sale Period [%S] is now closed"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:507
+#: ../..//content/controllers/shift_changes_controller.js:510
 msgid "Sale Period Close"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:546
+#: ../..//content/controllers/shift_changes_controller.js:549
 msgid "Sale Period [%S] Shift [%S] is now closed"
 msgstr ""
 
-#: ../..//content/controllers/shift_changes_controller.js:547
+#: ../..//content/controllers/shift_changes_controller.js:550
 msgid "Shift Close"
 msgstr ""
 
@@ -3094,6 +3119,38 @@ msgstr ""
 
 #: ../..//content/controllers/systembackup_controller.js:183
 #: ../..//content/controllers/systembackup_controller.js:244
+#: ../..//content/reports/controllers/rpt_attendance_record_controller.js:168
+#: ../..//content/reports/controllers/rpt_attendance_record_controller.js:195
+#: ../..//content/reports/controllers/rpt_cash_by_clerk_controller.js:174
+#: ../..//content/reports/controllers/rpt_cash_by_clerk_controller.js:201
+#: ../..//content/reports/controllers/rpt_cash_drawer_controller.js:132
+#: ../..//content/reports/controllers/rpt_cash_drawer_controller.js:159
+#: ../..//content/reports/controllers/rpt_cash_drawer_summary_controller.js:129
+#: ../..//content/reports/controllers/rpt_cash_drawer_summary_controller.js:156
+#: ../..//content/reports/controllers/rpt_clerk_sales_controller.js:257
+#: ../..//content/reports/controllers/rpt_clerk_sales_controller.js:284
+#: ../..//content/reports/controllers/rpt_daily_sales_controller.js:235
+#: ../..//content/reports/controllers/rpt_daily_sales_controller.js:262
+#: ../..//content/reports/controllers/rpt_daily_sales_detail_controller.js:179
+#: ../..//content/reports/controllers/rpt_daily_sales_detail_controller.js:206
+#: ../..//content/reports/controllers/rpt_daily_sales_summary_controller.js:258
+#: ../..//content/reports/controllers/rpt_daily_sales_summary_controller.js:285
+#: ../..//content/reports/controllers/rpt_departments_controller.js:103
+#: ../..//content/reports/controllers/rpt_departments_controller.js:132
+#: ../..//content/reports/controllers/rpt_hourly_sales_controller.js:169
+#: ../..//content/reports/controllers/rpt_hourly_sales_controller.js:196
+#: ../..//content/reports/controllers/rpt_order_status_controller.js:196
+#: ../..//content/reports/controllers/rpt_order_status_controller.js:223
+#: ../..//content/reports/controllers/rpt_product_sales_controller.js:168
+#: ../..//content/reports/controllers/rpt_product_sales_controller.js:195
+#: ../..//content/reports/controllers/rpt_products_controller.js:143
+#: ../..//content/reports/controllers/rpt_products_controller.js:170
+#: ../..//content/reports/controllers/rpt_sales_summary_controller.js:424
+#: ../..//content/reports/controllers/rpt_sales_summary_controller.js:454
+#: ../..//content/reports/controllers/rpt_stocks_controller.js:146
+#: ../..//content/reports/controllers/rpt_stocks_controller.js:173
+#: ../..//content/reports/controllers/rpt_users_controller.js:99
+#: ../..//content/reports/controllers/rpt_users_controller.js:128
 msgid "Media not found!! Please attach the USB thumb drive..."
 msgstr ""
 
@@ -3363,43 +3420,94 @@ msgstr ""
 msgid "Sale Completed"
 msgstr ""
 
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1877
-msgid "Scroll Forward"
-msgstr ""
-
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1878
-msgid "Next"
-msgstr ""
-
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1879
-msgid "This function scrolls the function panel to the next page"
-msgstr ""
-
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1887
-msgid "Scroll Backward"
-msgstr ""
-
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1888
-msgid "Back"
-msgstr ""
-
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1889
-msgid "This function scrolls the function panel to the previous page"
-msgstr ""
-
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1897
-msgid "Home Page"
-msgstr ""
-
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1898
-msgid "Home"
-msgstr ""
-
-#: ../../../../vivipos_sdk/chrome/content/bindings/vivifuncpanelecr.xbl:1899
-msgid "This function scrolls the function panel to the home page"
-msgstr ""
-
 #: ../..//content/helpers/nsi_departments_view.js:153
 #: ../..//content/helpers/nsi_plus_view.js:149
 msgid "Sold Out -"
+msgstr ""
+
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1900
+msgid "Scroll Forward"
+msgstr ""
+
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1901
+msgid "Next"
+msgstr ""
+
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1902
+msgid "This function scrolls the function panel to the next page"
+msgstr ""
+
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1910
+msgid "Scroll Backward"
+msgstr ""
+
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1911
+msgid "Back"
+msgstr ""
+
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1912
+msgid "This function scrolls the function panel to the previous page"
+msgstr ""
+
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1920
+msgid "Home Page"
+msgstr ""
+
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1921
+msgid "Home"
+msgstr ""
+
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1922
+msgid "This function scrolls the function panel to the home page"
+msgstr ""
+
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1930
+msgid "Jump to Page"
+msgstr ""
+
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1931
+msgid "Page"
+msgstr ""
+
+#: ../..//content/bindings/vivifuncpanelecr.xbl:1932
+msgid ""
+"This function scrolls the function panel to the page indicated in the "
+"parameter field"
+msgstr ""
+
+#: ../..//content/reports/controllers/rpt_attendance_record_controller.js:129
+msgid "Attendance Record Report"
+msgstr ""
+
+#: ../..//content/reports/controllers/rpt_cash_by_clerk_controller.js:103
+msgid "Shift Change Report"
+msgstr ""
+
+#: ../..//content/reports/controllers/rpt_cash_drawer_summary_controller.js:88
+msgid "Cash Drawer Summary Report"
+msgstr ""
+
+#: ../..//content/reports/controllers/rpt_daily_sales_controller.js:193
+#: ../..//content/reports/controllers/rpt_daily_sales_summary_controller.js:215
+msgid "Daily Sales Report"
+msgstr ""
+
+#: ../..//content/reports/controllers/rpt_daily_sales_detail_controller.js:135
+msgid "Daily Sales Report - Detail"
+msgstr ""
+
+#: ../..//content/reports/controllers/rpt_hourly_sales_controller.js:123
+msgid "Hourly Sales Report"
+msgstr ""
+
+#: ../..//content/reports/controllers/rpt_product_sales_controller.js:125
+msgid "Product Sales Report"
+msgstr ""
+
+#: ../..//content/reports/controllers/rpt_sales_summary_controller.js:372
+msgid "Sales Summary Report"
+msgstr ""
+
+#: ../..//content/reports/controllers/rpt_stocks_controller.js:108
+msgid "Product Stock List"
 msgstr ""

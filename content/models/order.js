@@ -112,7 +112,7 @@ var OrderModel = window.OrderModel =  GeckoJS.Model.extend({
                     break;
 
                 case 'modified':
-                    orderData['transaction_submited'] = data[key];
+                    orderData['transaction_submitted'] = data[key];
                     break;
 
                 case 'items':
@@ -329,7 +329,7 @@ var OrderModel = window.OrderModel =  GeckoJS.Model.extend({
         datas.forEach(function(obj) {
             var iid = obj.id;
             var cond = "order_id='" + iid + "'";
-            
+
             self.OrderItem.execute("DELETE FROM " + self.OrderItem.table + " WHERE " + cond);
             self.OrderAddition.execute("DELETE FROM " + self.OrderAddition.table + " WHERE " + cond);
             self.OrderPayment.execute("DELETE FROM " + self.OrderPayment.table + " WHERE " + cond);

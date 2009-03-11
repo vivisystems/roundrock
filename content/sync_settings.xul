@@ -8,7 +8,6 @@
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
-<?xml-stylesheet href="chrome://viviecr/skin/user/departments.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -39,8 +38,8 @@
             <tabbox class="RightTabbox" flex="1">
 
                 <tabs>
-                    <tab id="basic-tab" label="Basic"/>
-                    <tab id="advanced-tab" label="Advanced"/>
+                    <tab id="basic-tab" label="&sync_settings.tablabel.basic;"/>
+                    <tab id="advanced-tab" label="&sync_settings.tablabel.advanced;"/>
                 </tabs>
 
                 <tabpanels>

@@ -135,8 +135,6 @@
 
 
         PLUSearchDialog: function () {
-            this.clearOrderData();
-            return;
             
             var buf = this._getKeypadController().getBuffer();
             this.requestCommand('clear', null, 'Cart');
@@ -678,13 +676,14 @@
         },
 
         _showWaitPanel: function(panel, caption, title, sleepTime) {
+            
             var waitPanel = document.getElementById(panel);
             var waitCaption = document.getElementById(caption);
             var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
             var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
 
             if (waitCaption) waitCaption.setAttribute("label", title);
-            
+
             waitPanel.sizeTo(360, 120);
             var x = (width - 360) / 2;
             var y = (height - 240) / 2;
@@ -704,17 +703,18 @@
             var retainDays = days || GeckoJS.Configure.read('vivipos.fec.settings.OrderRetainDays') || 0;
 
             if (retainDays > 0) {
-                var waitPanel = this._showWaitPanel('wait_panel', 'common_wait', _("Please wait for data reforming..."), 500);
+
+                var waitPanel = this._showWaitPanel('wait_panel', 'common_wait', _('Removing old data...'), 1000);
 
                 try {
                     var retainDate = Date.today().addDays(retainDays * -1).getTime() / 1000;
-                    
+
                     var order = new OrderModel();
-                    var conditions = "orders.transaction_created<='" + retainDate +
+                    var conditions = "orders.transaction_submitted<='" + retainDate +
                                      "' AND orders.status<='1'";
                     order.removeOrders(conditions);
                     delete order;
-                    
+
                 } catch (e) {}
                 finally {
                     waitPanel.hidePopup();
@@ -731,7 +731,21 @@
             if (printer) {
                 printer.printReport('narrow', 'This is a narrow report [0x0C]');
             }
-        }
+        },
+
+	shutdownMachine: function() {
+		try {
+			goShutdownMachine();
+		}catch(e) {
+		}
+	}, 
+
+	rebootMachine: function() {
+		try {
+			goRebootMachine();
+		}catch(e) {
+		}
+	}
 
 
     });
