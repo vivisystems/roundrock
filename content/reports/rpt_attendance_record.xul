@@ -2,7 +2,7 @@
 <!DOCTYPE overlay [
   <!ENTITY % Overlay SYSTEM "chrome://viviecr/locale/dialog.dtd">
   %Overlay;
-  <!ENTITY % rpt_attendance_record SYSTEM "chrome://reports/locale/reports/rpt_attendance_record.dtd">
+  <!ENTITY % rpt_attendance_record SYSTEM "chrome://viviecr/locale/reports/rpt_attendance_record.dtd">
   %rpt_attendance_record;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
