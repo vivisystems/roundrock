@@ -130,16 +130,16 @@
         if (!canQuitApplication()) return false;
 
         try {
-            var fs;
-            if (GREUtils.isWindow()) {
-                fs = GREUtils.File.getFile("C:\\Windows\\System32\\shutdown.exe");
-                GREUtils.File.run(fs, ["-s","-t", "3"]);
+            if (GREUtils.isLinux()) {
+                GREUtils.File.run("/sbin/shutdown", ["-P", "now"], true);
+            }else if (GREUtils.isWindow()) {
+                GREUtils.File.run("C:\\Windows\\System32\\shutdown.exe", ["-s","-t", "3"], true);
             }else {
-                fs = GREUtils.File.getFile("/sbin/shutdown");
-                GREUtils.File.run(fs, ["-P", "now"]);
+                
             }
             return true;
         }catch (e) {
+            alert(e);
         }
         return false;
 
