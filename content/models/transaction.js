@@ -1,6 +1,6 @@
 (function() {
 
-    // declare Transaction Base Object / data encapulate
+    // declare Transaction Base Object / data encapsulate
     var Transaction = window.Transaction = GeckoJS.BaseObject.extend('Transaction', {
 
         name: 'Transaction',

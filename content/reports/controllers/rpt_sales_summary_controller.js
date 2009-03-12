@@ -134,9 +134,19 @@
 			var num_rows_to_get = data.num_rows_to_get = 10;
             data.records = orderItem.find( 'all', { fields: fields, conditions: conditions, group: groupby, recursive:1, order: orderby, limit: num_rows_to_get } );
             
+            var cate = new CategoryModel();
+            var cate_records = cate.find( 'all', { fields: [ 'no', 'name' ] } );
+            
             data.records.forEach( function( record ) {
             	summary.qty += record.qty;
             	summary.total += record.total;
+            	
+            	cate_records.forEach( function ( cate_record ) {
+            		if ( record.cate_no == cate_record.no ) {
+            			record.cate_name = cate_record.name;
+            			return;
+            		}
+            	} );
             } );
             
             data.summary = summary;
