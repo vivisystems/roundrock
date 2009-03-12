@@ -10,7 +10,6 @@ DIR=`dirname $0`
 DATABASE=/data/databases
 SQLITE3=/usr/bin/sqlite3
 
-
 #
 # do sqlite vacuum 
 #
@@ -23,6 +22,7 @@ do_vacuum()
 
     chmod -R 775 $DATABASE ;
 }
+
 
 while [ $RETVAL != 0 ]; do
     /usr/bin/aosd_cat -d 8000 "Starting VIVIPOS ......" &
