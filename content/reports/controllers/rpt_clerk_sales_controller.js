@@ -99,7 +99,7 @@
                          ];
                 
             var groupby = 'order_payments.order_id, order_payments.name';
-            var orderby = 'orders.terminal_no, orders.transaction_created, orders.id';
+            var orderby = 'orders.terminal_no, orders.total desc';//orders.transaction_created, orders.id';
 
             var orderPayment = new OrderPaymentModel();
 
@@ -144,7 +144,7 @@
                 o.Order = o;
 
                 if (!repDatas[oid]) {
-                    repDatas[oid] = GREUtils.extend({}, o); // {cash:0, creditcard: 0, coupon: 0}, o);
+                    repDatas[oid] = GREUtils.extend({}, o); // { cash:0, creditcard: 0, coupon: 0 }, o );
                 }
 				
 				if ( old_oid != oid ) {
@@ -177,11 +177,35 @@
             if ( sortby != 'all' ) {
             	this._datas.sort(
             		function ( a, b ) {
-            			var a = a[ sortby ];
-            			var b = b[ sortby ];
-            			if ( a > b ) return 1;
-            			if ( a < b ) return -1;
-            			return 0;
+            			a = a[ sortby ];
+            			b = b[ sortby ];
+            			
+            			switch ( sortby ) {
+            				
+            				case 'terminal_no':
+            				case 'associated_clerk_displayname':
+            					if ( a > b ) return 1;
+				    			if ( a < b ) return -1;
+				    			return 0;
+				    		case 'transaction_created':
+				    		case 'sequence':
+				    		case 'invoice_no':
+				    		case 'item_subtotal':
+				    		case 'tax_subtotal':
+				    		case 'surcharge_subtotal':
+				    		case 'discount_subtotal':
+				    		case 'total':
+				    		case 'cash':
+				    		case 'check':
+				    		case 'creditcard':
+				    		case 'coupon':
+				    		case 'giftcard':
+            					if ( a < b ) return 1;
+				    			if ( a > b ) return -1;
+				    			return 0;
+					    }
+					    
+            			
             		}
             	);
             }
@@ -350,4 +374,3 @@
 
 
 })();
-

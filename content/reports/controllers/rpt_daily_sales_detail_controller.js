@@ -89,11 +89,28 @@
             }
 
             var groupby = null;
-            var orderby = 'orders.terminal_no,orders.transaction_created';
+            var orderby = 'orders.terminal_no, orders.item_subtotal desc';//orders.transaction_created';
             
             var sortby = document.getElementById( 'sortby' ).value;
-            if ( sortby != 'all' )
-            	orderby = 'orders.' + sortby;
+            if ( sortby != 'all' ) {
+            	var desc = "";
+            	
+            	switch ( sortby ) {
+            		case 'terminal_no':
+            			break;
+            		case 'transaction_created':
+            		case 'item_subtotal':
+            		case 'tax_subtotal':
+            		case 'surcharge_subtotal':
+            		case 'discount_subtotal':
+            		case 'total':
+            		case 'no_of_customers':
+            		case 'items_count':
+            			desc = ' desc';
+            	}
+            	
+            	orderby = 'orders.' + sortby + desc;
+            }
 
             var order = new OrderModel();
             var datas = order.find('all',{fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 2});
