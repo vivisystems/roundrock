@@ -7,7 +7,9 @@ regex1="s/^Version=.*/Version=${version}/g"
 regex2="s/^BuildID=.*/BuildID=${rel_date}/g"
 
 sed ${regex1} application.ini > application-new.ini
+if [ $1 != "no" ]; then
 sed ${regex2} application-new.ini > application.ini
+fi
 rm -f application-new.ini
 
 zip -r ${filename} * -x@exclude.lst
