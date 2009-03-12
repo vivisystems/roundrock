@@ -3,6 +3,7 @@
 <!ENTITY systembackup.restore "System Resotre">
 <!ENTITY systembackup.local "Local Backup:">
 <!ENTITY systembackup.stick "Stick:">
+<!ENTITY systembackup.time "Time">
 <!ENTITY systembackup.backuptostick "Copy Local to Stick >>>">
 <!ENTITY systembackup.backuptolocal "Backup to Local">
 <!ENTITY systembackup.restorefromstick "Restore from Stick">

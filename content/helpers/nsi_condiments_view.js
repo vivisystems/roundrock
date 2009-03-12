@@ -49,7 +49,6 @@
             if (buttonFontSize && btn) {
                 $(btn).addClass('font-' + buttonFontSize);
             }
-
         }
 
     });
@@ -109,11 +108,21 @@
                 classStr += ' font-' + buttonFontSize ;
             }
 
+            var preset = this.getCellValue(row,{
+                id: 'preset'
+            });
+            if (preset) {
+                classStr += ' PresetCondiment';
+                btn.label = '* ' + btn.label;
+            }
+            else {
+                classStr += ' NotPresetCondiment';
+            }
+
             if (classStr.length > 0) {
                 // $btn.addClass(classStr);
                 btn.className += " " + classStr;
             }
-
 
         }
     });

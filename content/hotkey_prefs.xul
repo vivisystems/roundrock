@@ -27,13 +27,16 @@
             <vbox class="MainL">
                 <vbox id="hotkey_prefs_box" class="LeftPnl" pack="center" flex="1">
                     
-                    <vivitree style="width: 300px;" id="hotkey_prefs_tree"
+                    <viviscrollabletree style="width: 300px;" id="hotkey_prefs_tree"
                                                 class="hotkey_list"
                                                 headers="&hotkey.prefs.name.label;,&hotkey.prefs.hotkey.label;"
                                                 fields="name,keydisplay"
                                                 seltype="single"
+                                                reverse="true"
                                                 flex="1"
                                                 hidevscroll="true"
+                                                hidecolumnpicker="true"
+                                                scrollUpClass="ScrollUp" scrollDownClass="ScrollDown"
                                                 onselect="$do('selectHotkey', this, 'HotkeyPrefs')"/>
                     <spacer height="3px" />
                     <grid class="DataFormA">
@@ -55,7 +58,7 @@
             <vbox flex="1">
                 <!-- Key Map -->
                 <vbox flex="1">
-                    <grid class="DataFormA">
+                    <grid class="DataFormA" orient="vertical">
                         <columns>
                             <column flex="1"/>
                             <column flex="1"/>
@@ -88,14 +91,16 @@
                             </row>
                         </rows>
                     </grid>
-                    <vivitree id="hotkey_function_tree"
+                    <viviscrollabletree id="hotkey_function_tree"
                                                 class="keymap_function_list"
                                                 headers="&hotkey.tree.function.label;,&hotkey.tree.label.label;"
                                                 fields="name,label"
                                                 seltype="single"
                                                 flex="1"
                                                 hidevscroll="true"
+                                                hidecolumnpicker="true"
                                                 disabled="true"
+                                                scrollUpClass="ScrollUp" scrollDownClass="ScrollDown"
                                                 onselect="$do('selectFunction', this, 'HotkeyPrefs')"/>
                     <spacer height="3px" />
                     <hbox>

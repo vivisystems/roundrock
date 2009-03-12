@@ -263,7 +263,7 @@
 
         selectHotkey: function(tree) {
 
-            var count = tree.tree.view.selection.count;
+            var count = tree.selection.count;
             var index = -1;
             
             if (count > 0) index = tree.currentIndex;
@@ -358,7 +358,7 @@
         selectFunction: function(tree) {
 
             //GREUtils.log('[SelectFunction]: node <' + tree.nodeName + '> child <' + tree.tree.nodeName + '>');
-            var count = tree.tree.view.selection.count;
+            var count = tree.selection.count;
             if (count > 0)
                 index = tree.currentIndex;
             else

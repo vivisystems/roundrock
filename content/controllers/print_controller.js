@@ -319,9 +319,6 @@
 
         printReceipts: function(txn, printer, autoPrint, duplicate) {
 
-            // is receipt printing current enabled?
-            if (!GeckoJS.Configure.read('vivipos.fec.settings.PrintReceipt')) return;
-
             var deviceController = this.getDeviceController();
             if (deviceController == null) {
                 NotifyUtils.error(_('Error in device manager! Please check your device configuration'));
@@ -585,7 +582,7 @@
         // print slip using the given parameters
         printSlip: function(data, template, port, portspeed, handshaking, devicemodel, encoding, device, copies) {
             if (this._worker == null) {
-                NotifyUtils.error(_('Error in Print controller: no worker thread available!'));
+                NotifyUtils.error(_('Error in Print controller; no worker thread available!'));
                 return;
             }
             var portPath = this.getPortPath(port);
@@ -681,7 +678,7 @@
             // if data is null, then the document has already been generated and passed in through the template parameter
             if (data != null) {
 
-                this.log('type [' + typeof data.duplicate + '] [' + data.duplicate + '] ' + GeckoJS.BaseObject.dump(data.order));
+                //this.log('type [' + typeof data.duplicate + '] [' + data.duplicate + '] ' + GeckoJS.BaseObject.dump(data.order));
                 
                 tpl = this.getTemplateData(template, false);
                 if (tpl == null || tpl == '') {

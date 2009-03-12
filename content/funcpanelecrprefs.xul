@@ -355,7 +355,7 @@
                             </grid>
                             <viviscrollabletree id="vivifuncpanelecr_prefs_keymap_function_tree"
                                                 class="keymap_function_list"
-                                                headers="Function,Label"
+                                                headers="&vivifuncpanelecr.prefs.function;,&vivifuncpanelecr.prefs.label;"
                                                 fields="name,label"
                                                 seltype="single"
                                                 flex="1"
@@ -433,7 +433,7 @@
                             </grid>
                             <viviscrollabletree id="vivifuncpanelecr_prefs_gkeymap_function_tree"
                                                 class="keymap_function_list"
-                                                headers="Function,Label"
+                                                headers="&vivifuncpanelecr.prefs.function;,&vivifuncpanelecr.prefs.label;"
                                                 fields="name,label"
                                                 seltype="single"
                                                 flex="1"
