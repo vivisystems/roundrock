@@ -36,6 +36,18 @@
         <hbox flex="1" class="MainPnl">
             <vbox flex="1" pack="start" class="MainL">
                 <caption label="&pricelevelschedule.title;" class="PageTitle" />
+                <tabbox id="weekindex" class="RightTabbox" flex="1"
+                        onselect="$do('selectWeek', this.selectedIndex, 'PriceLevelSchedule')">
+                    <tabs id="weeklabel" >
+                        <tab label="-" flex="1" />
+                        <tab label="-" flex="1" />
+                        <tab label="-" flex="1" />
+                        <tab label="-" flex="1" />
+                        <tab label="-" flex="1" />
+                        <tab label="-" flex="1" />
+                        <tab label="-" flex="1" />
+                    </tabs>
+                </tabbox>
                 <viviscrollabletree id="schedulescrollablepanel" flex="1" rows="12"
                                     headers="&pricelevelschedule.header.time;, &pricelevelschedule.header.pricelevel;"
                                     ensureVisible="true"

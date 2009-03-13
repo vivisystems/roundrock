@@ -426,10 +426,55 @@ pref("vivipos.fec.registry.function.programmable.opendrawer2.command", "openDraw
 pref("vivipos.fec.registry.function.programmable.opendrawer2.controller", "CashDrawer");
 pref("vivipos.fec.registry.function.programmable.opendrawer2.data", "");
 
-pref("vivipos.fec.registry.function.programmable.guestcheck.access", "acl_public_access");
-pref("vivipos.fec.registry.function.programmable.guestcheck.command", "guestCheck");
-pref("vivipos.fec.registry.function.programmable.guestcheck.controller", "Cart");
-pref("vivipos.fec.registry.function.programmable.guestcheck.data", "");
+pref("vivipos.fec.registry.function.programmable.storeCheck.access", "acl_store_check");
+pref("vivipos.fec.registry.function.programmable.storeCheck.command", "storeCheck");
+pref("vivipos.fec.registry.function.programmable.storeCheck.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.storeCheck.data", "");
+
+pref("vivipos.fec.registry.function.programmable.newCheck.access", "acl_new_check");
+pref("vivipos.fec.registry.function.programmable.newCheck.command", "newCheck");
+pref("vivipos.fec.registry.function.programmable.newCheck.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.newCheck.data", "");
+
+pref("vivipos.fec.registry.function.programmable.newTable.access", "acl_new_table");
+pref("vivipos.fec.registry.function.programmable.newTable.command", "newTable");
+pref("vivipos.fec.registry.function.programmable.newTable.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.newTable.data", "");
+
+pref("vivipos.fec.registry.function.programmable.guestNum.access", "acl_guest_num");
+pref("vivipos.fec.registry.function.programmable.guestNum.command", "guestNum");
+pref("vivipos.fec.registry.function.programmable.guestNum.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.guestNum.data", "");
+
+pref("vivipos.fec.registry.function.programmable.recallOrder.access", "acl_recall_check");
+pref("vivipos.fec.registry.function.programmable.recallOrder.command", "recallOrder");
+pref("vivipos.fec.registry.function.programmable.recallOrder.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.recallOrder.data", "");
+
+pref("vivipos.fec.registry.function.programmable.recallCheck.access", "acl_recall_check");
+pref("vivipos.fec.registry.function.programmable.recallCheck.command", "recallCheck");
+pref("vivipos.fec.registry.function.programmable.recallCheck.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.recallCheck.data", "");
+
+pref("vivipos.fec.registry.function.programmable.recallTable.access", "acl_recall_check");
+pref("vivipos.fec.registry.function.programmable.recallTable.command", "recallTable");
+pref("vivipos.fec.registry.function.programmable.recallTable.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.recallTable.data", "");
+
+pref("vivipos.fec.registry.function.programmable.mergeCheck.access", "acl_merge_check");
+pref("vivipos.fec.registry.function.programmable.mergeCheck.command", "mergeCheck");
+pref("vivipos.fec.registry.function.programmable.mergeCheck.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.mergeCheck.data", "");
+
+pref("vivipos.fec.registry.function.programmable.splitCheck.access", "acl_split_check");
+pref("vivipos.fec.registry.function.programmable.splitCheck.command", "splitCheck");
+pref("vivipos.fec.registry.function.programmable.splitCheck.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.splitCheck.data", "");
+
+pref("vivipos.fec.registry.function.programmable.transferTable.access", "acl_transfer_table");
+pref("vivipos.fec.registry.function.programmable.transferTable.command", "transferTable");
+pref("vivipos.fec.registry.function.programmable.transferTable.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.transferTable.data", "");
 
 pref("vivipos.fec.registry.function.programmable.ledgerentry.access", "acl_view_ledger_entry");
 pref("vivipos.fec.registry.function.programmable.ledgerentry.command", "ledgerEntry");

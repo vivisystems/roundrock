@@ -697,7 +697,7 @@
             return waitPanel;
         },
 
-        clearOrderData: function(days) {
+        clearOrderData: function(days, pack) {
             // the number of days to retain
 
             var retainDays = days || GeckoJS.Configure.read('vivipos.fec.settings.OrderRetainDays') || 0;
@@ -713,12 +713,19 @@
                     var conditions = "orders.transaction_submitted<='" + retainDate +
                                      "' AND orders.status<='1'";
                     order.removeOrders(conditions);
+
+                    if (pack) {
+                        order.execute("VACUUM");
+                    }
+
                     delete order;
 
                 } catch (e) {}
                 finally {
                     waitPanel.hidePopup();
                 }
+
+
             }
         },
 
@@ -733,20 +740,19 @@
             }
         },
 
-	shutdownMachine: function() {
-		try {
-			goShutdownMachine();
-		}catch(e) {
-		}
-	}, 
+        shutdownMachine: function() {
+            try {
+                goShutdownMachine();
+            }catch(e) {
+            }
+        },
 
-	rebootMachine: function() {
-		try {
-			goRebootMachine();
-		}catch(e) {
-		}
-	}
-
+        rebootMachine: function() {
+            try {
+                goRebootMachine();
+            }catch(e) {
+            }
+        }
 
     });
 

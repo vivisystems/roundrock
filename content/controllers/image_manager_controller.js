@@ -59,8 +59,6 @@ var ImageFilesView = window.ImageFilesView = GeckoJS.NSITreeViewArray.extend({
             //
             $('#importBtn').attr('disabled', disabled);
             $('#exportBtn').attr('disabled', disabled);
-            $('#deleteBtn').attr('disabled', disabled);
-            $('#renameBtn').attr('disabled', disabled);
 
             $('#ok').attr('disabled', this._busy);
         },

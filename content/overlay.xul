@@ -48,6 +48,7 @@
   <script src='chrome://viviecr/content/controllers/layout_controller.js'/>
 
   <!-- function controllers -->
+  <script src="chrome://viviecr/content/controllers/pricelevelschedule_controller.js" type="application/x-javascript"/>
   <script src='chrome://viviecr/content/controllers/pricelevel_controller.js'/>
   <script src='chrome://viviecr/content/controllers/condiments_controller.js'/>
   <script src='chrome://viviecr/content/controllers/currencysetup_controller.js'/>
