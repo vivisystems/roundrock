@@ -1,25 +1,26 @@
-[&STX]KI70
-[&STX]c0000
-[&STX]f320
 {eval}
 total = 0;
+linkedItems = [];
 for (id in order.items) {
-    var taglist = '';
-    if (order.items[id].tags != null) {
-        taglist = order.items[id].tags.join(',');
-    }
-    if (taglist.indexOf('nolabel') == -1) {
-        total += order.items[id].current_qty;
-        order.items[id].nolabel = false;
-    }
-    else {
-        order.items[id].nolabel = true;
+    if (order.items[id].linked) {
+        var taglist = '';
+        if (order.items[id].tags != null) {
+            taglist = order.items[id].tags.join(',');
+        }
+        if (taglist.indexOf('nolabel') == -1) {
+            linkedItems.push(order.items[id]);
+            total += order.items[id].current_qty;
+        }
     }
 }
 counter = 1;
 {/eval}
-{for item in order.items}
-{if !item.nolabel}
+{for item in linkedItems}
+{if counter == 1}
+[&STX]KI70
+[&STX]c0000
+[&STX]f320
+{/if}
 {eval}
   conds = GeckoJS.BaseObject.getKeys(item.condiments);
   condLimit = 3;
@@ -30,7 +31,6 @@ counter = 1;
   y = 55
   lineHeight = 14;
 {/eval}
-${condLimit}
 [&STX]L
 D11
 H20
@@ -53,5 +53,4 @@ E
 {eval}
 counter += item.current_qty;
 {/eval}
-{/if}
 {/for}

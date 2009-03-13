@@ -6,7 +6,7 @@
 <!ENTITY category.plufilters "Product Filters">
 <!ENTITY category.destinations "Destinations">
 <!ENTITY category.annotations "Annotations">
-<!ENTITY category.orderdata "Order Data Options">
+<!ENTITY category.orderdata "Data Options">
 <!ENTITY general.publicattendance "Individual Time-and-Attendance visible to all">
 <!ENTITY general.privatequeue "Private order queue">
 <!ENTITY general.defaultpricelevel "System default price level">
@@ -80,3 +80,4 @@
 <!ENTITY button.close.label "Close">
 <!ENTITY orderdata.orderretaindays "Number of days to retain order data">
 <!ENTITY orderdata.diskunused "Available disk space">
+<!ENTITY orderdata.orderweeklypack "Pack order data on">
