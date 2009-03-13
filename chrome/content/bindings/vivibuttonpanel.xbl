@@ -639,6 +639,20 @@
 
             //GREUtils.log('updateSelectedItemState ' + this.parentNode.parentNode.id + ' selectedItems = ' + selectedItems.join('||')  + ' ,offset = ' + startOffset );
 
+            // update selectedItemGroup for all selecteditems
+            selectedItems.forEach(function(idx) {
+
+                    let seltype = this.getButtonSelectType(idx);
+                    let selgroup = this.getButtonSelectGroup(idx);
+
+                    if (seltype == 'single' || seltype == 'toggle') {
+                        this._selectedItemGroups[selgroup] = idx;
+                    }
+
+            }, this);
+
+
+            // update button checked state
             for(let i=0; i < buttonCount ; i++) {
 
                 let row = startOffset + i;
@@ -647,13 +661,6 @@
                     
                     buttons[i].setAttribute('selected', true);
                     buttons[i].setAttribute('checked', true);
-
-                    let seltype = this.getButtonSelectType(row);
-                    let selgroup = this.getButtonSelectGroup(row);
-
-                    if (seltype == 'single' || seltype == 'toggle') {
-                        this._selectedItemGroups[selgroup] = row;
-                    }
 
                 }else {
 

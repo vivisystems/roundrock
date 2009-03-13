@@ -44,6 +44,10 @@
                                     <label value="&system_info.vendor.label;" />
                                     <label id="lblVendor" value="" />
                                 </row>
+				<row>
+		                    <appinfolabel appField="name" />
+		                    <hbox><appinfolabel appField="version" /> (<appinfolabel appField="buildId" />) </hbox>
+                                </row>
                             </rows>
                         </grid>
                     </groupbox>

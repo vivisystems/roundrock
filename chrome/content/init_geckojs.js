@@ -45,7 +45,7 @@
             }else {
                 // log e.message
                 if(context['GREUtils']) {
-                    GREUtils.log('_loadScript Error: ' + e.message) ;
+                    GREUtils.log('_loadScript Error: ' + e.message + '\n' + e.stack) ;
                 }else {
                     dump(e.message);
                 }
