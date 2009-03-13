@@ -195,6 +195,7 @@
                     end_time: end_str,
                     machine_id: machineid,
                     store: storeContact,
+                    terminal_no: GeckoJS.Session.get('terminal_no') || storeContact.terminal_no || "",
                     clerk_displayname: clerk_displayname
                 },
                 body: GeckoJS.BaseObject.getValues( this._datas ),
