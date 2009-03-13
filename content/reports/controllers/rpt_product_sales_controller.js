@@ -80,7 +80,7 @@
             	conditions += " AND orders.shift_number = " + shiftNo;
 
             var groupby = 'order_items.product_no';
-            var orderby = 'order_items.product_no';
+            var orderby = '"OrderItem.total" desc';
 
             var datas = orderItem.find('all',{fields: fields, conditions: conditions, group: groupby, recursive:1, order: orderby});
 
@@ -91,9 +91,22 @@
 			if ( sortBy != 'all' ) {
 				datas.sort(
 					function ( a, b ) {
-						if ( a[ sortBy ] > b[ sortBy ] ) return 1;
-						if ( a[ sortBy ] < b[ sortBy ] ) return -1;
-						return 0;
+						a = a[ sortBy ];
+						b = b[ sortBy ];
+						
+						switch ( sortBy ) {
+							case 'product_no':
+							case 'product_name':
+								if ( a > b ) return 1;
+								if ( a < b ) return -1;
+								return 0;
+							case 'avg_price':
+							case 'qty':
+							case 'total':
+								if ( a < b ) return 1;
+								if ( a > b ) return -1;
+								return 0;
+						}
 					}
 				);
 			}
