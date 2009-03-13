@@ -48,8 +48,6 @@
             contact.terminal_no = terminal_no;
             GeckoJS.Session.set('storeContact', contact);
 
-            this.Form.unserializeFromObject('syncSettingForm', settings);
-
         },
 
         update: function () {
