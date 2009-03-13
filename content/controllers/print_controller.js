@@ -771,15 +771,15 @@
                     try {
                         // check if record already exists if device > 0 (device is set to 0 for check and report/label printers
                         if (device > 0 && ((typeof data.duplicate) == 'undefined' || data.duplicate == null)) {
-
                             // since we can't access DB to see if receipt is already printed, we'll store the last
                             // receipt information to prevent duplicate receipts from printed
                             if (this.lastReceipt != null) {
                                 if (data.order.id == this.lastReceipt.id &&
                                     data.order.batchCount == this.lastReceipt.batchCount &&
                                     device == this.lastReceipt.device) {
-                                NotifyUtils.warn(_('A receipt has already been issued for this order on printer [%S]', [device]));
-                                return;
+                                    NotifyUtils.warn(_('A receipt has already been issued for this order on printer [%S]', [device]));
+                                    return;
+                                }
                             }
                         }
 
@@ -810,7 +810,6 @@
                                                 batchCount: data.order.batchCount,
                                                 device: device};
 
-                            }
                         }
 
                         // dispatch receiptPrinted event indirectly through the main thread
