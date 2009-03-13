@@ -456,7 +456,6 @@ pref("vivipos.fec.registry.function.programmable.recallCheck.command", "recallCh
 pref("vivipos.fec.registry.function.programmable.recallCheck.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.recallCheck.data", "");
 
-<<<<<<< HEAD:defaults/preferences/viviecr.js
 pref("vivipos.fec.registry.function.programmable.recallTable.access", "acl_recall_check");
 pref("vivipos.fec.registry.function.programmable.recallTable.command", "recallTable");
 pref("vivipos.fec.registry.function.programmable.recallTable.controller", "Cart");

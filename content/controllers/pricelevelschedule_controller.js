@@ -96,7 +96,7 @@
             var date = new Date();
             date.setDate(date.getDate() - (date.getDay() - 0));
             for (var i = 0; i < weekTabs.length; i++) {
-                weekTabs[i].setAttribute('label', date.toLocaleFormat("%a").charAt(0));
+                weekTabs[i].setAttribute('label', date.toLocaleFormat("%a"));
                 date.setDate(date.getDate() + 1);
             }
 

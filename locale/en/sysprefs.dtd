@@ -80,3 +80,4 @@
 <!ENTITY button.close.label "Close">
 <!ENTITY orderdata.orderretaindays "Number of days to retain order data">
 <!ENTITY orderdata.diskunused "Available disk space">
+<!ENTITY orderdata.orderweeklypack "Pack order data period">

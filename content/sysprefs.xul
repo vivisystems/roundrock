@@ -335,11 +335,13 @@
         <preferences>
 
             <preference id="pref_orderretaindays" name="vivipos.fec.settings.OrderRetainDays" type="int"/>
+            <preference id="pref_orderweeklypack" name="vivipos.fec.settings.OrderWeeklyPack" type="int"/>
 
         </preferences>
         <grid class="DataForm">
             <columns>
-                <column flex="1" /><column flex="1" />
+                <column flex="1" />
+                <column flex="1" />
             </columns>
             <rows>
                 <row>
@@ -349,6 +351,14 @@
                 <row>
                     <label value="&orderdata.diskunused;" />
                     <label id="disk_unused" value="100MB" />
+                </row>
+                <row>
+                    <label value="&orderdata.orderweeklypack;" />
+                    <menulist preference="pref_orderweeklypack" id="orderweeklypack" flex="1">
+                        <menupopup id="weekmenulist">
+
+                        </menupopup>
+                    </menulist>
                 </row>
             </rows>
         </grid>

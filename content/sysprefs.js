@@ -34,6 +34,25 @@
         var size = obj.diskSpaceAvailable;
         var diskspace = document.getElementById('disk_unused');
         if (diskspace) diskspace.value = GeckoJS.NumberHelper.toReadableSize(size);
+
+        //
+        var weekmenulist = document.getElementById('weekmenulist');
+        var date = new Date();
+        date.setDate(date.getDate() - (date.getDay() - 0));
+        for (var i=-1; i < 7; i++) {
+            var menuitem = document.createElementNS( "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul", "xul:menuitem" );
+            menuitem.setAttribute( 'value', i );
+            if (i < 0) {
+                menuitem.setAttribute( 'label', _("Not need to pack"));
+            } else {
+                menuitem.setAttribute( 'label', date.toLocaleFormat("%A"));
+            }
+            date.setDate(date.getDate() + 1);
+            weekmenulist.appendChild( menuitem );
+        }
+
+        document.getElementById('orderweeklypack').value = document.getElementById('orderweeklypack').value;
+
     };
     
 
