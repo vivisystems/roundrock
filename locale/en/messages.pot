@@ -1214,3 +1214,6 @@ msgstr "Order Start Time"
 
 msgid "sale_period"
 msgstr "Sale Period"
+
+msgid "Detailed Tax Report"
+msgstr "Detailed Tax Report"

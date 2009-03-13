@@ -193,7 +193,7 @@
            	var counter = 0;
            	
            	for ( p in repDatas ) {
-           		orderedData[ counter++ ] = GREUtils.extend({}, repDatas[ p ] );
+           		orderedData[ counter++ ] = GREUtils.extend( {}, repDatas[ p ] );
            	}
            	
             var sortby = document.getElementById( 'sortby' ).value;
