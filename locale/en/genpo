@@ -11,4 +11,5 @@ xgettext -o messages.po --no-location --omit-header --msgid-bugs-address=irving.
 
 #combine pot and po to properties and append default msgstr
 msgcat messages.pot messages.po -o messages.properties.po
+rm messages.po
 

@@ -712,9 +712,9 @@ pref("vivipos.fec.settings.controlpanels.system.touch_calibration.path", "/usr/b
 pref("vivipos.fec.settings.controlpanels.system.touch_calibration.icon", "chrome://viviecr/content/skin/icons/gnome-run.png");
 pref("vivipos.fec.settings.controlpanels.system.touch_calibration.roles", "acl_touch_settings");
 
-pref("vivipos.fec.settings.controlpanels.system.touch_utility.label", "Touch Utility");
-pref("vivipos.fec.settings.controlpanels.system.touch_utility.type", "application");
-pref("vivipos.fec.settings.controlpanels.system.touch_utility.path", "/usr/bin/TouchKit");
-pref("vivipos.fec.settings.controlpanels.system.touch_utility.icon", "chrome://viviecr/content/skin/icons/gnome-run.png");
-pref("vivipos.fec.settings.controlpanels.system.touch_utility.roles", "acl_touch_settings");
+pref("vivipos.fec.settings.controlpanels.system.xterm.label", "XTerm");
+pref("vivipos.fec.settings.controlpanels.system.xterm.type", "application");
+pref("vivipos.fec.settings.controlpanels.system.xterm.path", "/usr/bin/lilyterm --execute login");
+pref("vivipos.fec.settings.controlpanels.system.xterm.icon", "chrome://viviecr/content/skin/icons/gnome-run.png");
+pref("vivipos.fec.settings.controlpanels.system.xterm.roles", "acl_xterm");
 

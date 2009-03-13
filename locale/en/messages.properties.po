@@ -1273,6 +1273,12 @@ msgstr "Factory Dataset"
 msgid "Training"
 msgstr "Training Dataset"
 
+msgid "XTerm"
+msgstr "XTerm"
+
+msgid "acl_xterm"
+msgstr "Run XTerm"
+
 msgid "confirm timezone change"
 msgstr ""
 
@@ -2092,16 +2098,16 @@ msgid "New Hotkey"
 msgstr ""
 
 msgid "Please Linking Function to Hotkey"
-msgstr "Please Link Function to Hotkey"
+msgstr ""
 
 msgid "Please Assign Hotkey to Linking Function"
-msgstr "Please Assign Hotkey to Function"
+msgstr ""
 
 msgid "Hotkey [%S] is reserved"
 msgstr ""
 
 msgid "Hotkey [%S] is exists"
-msgstr "Hotkey [%S] is already assigned"
+msgstr ""
 
 msgid "Hotkey [%S] [%S] modified successfully"
 msgstr ""
@@ -2112,7 +2118,7 @@ msgid ""
 msgstr ""
 
 msgid "Hotkey [%S] [%S] remove successfully"
-msgstr "Hotkey [%S] [%S] removed successfully"
+msgstr ""
 
 msgid ""
 "An error occurred while removing Hotkey [%S]. The hotkey may not have been "
@@ -2120,10 +2126,10 @@ msgid ""
 msgstr ""
 
 msgid "Hotkey [%S] is not exists"
-msgstr "Hotkey [%S] does not exist"
+msgstr ""
 
 msgid "An error occurred while searching Hotkey [%S]."
-msgstr "An error occurred while searching for Hotkey [%S]."
+msgstr ""
 
 msgid "Failed to execute command (%S)."
 msgstr ""

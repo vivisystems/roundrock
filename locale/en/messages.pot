@@ -1266,3 +1266,9 @@ msgstr "Factory Dataset"
 
 msgid "Training"
 msgstr "Training Dataset"
+
+msgid "XTerm"
+msgstr "XTerm"
+
+msgid "acl_xterm"
+msgstr "Run XTerm"

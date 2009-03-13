@@ -7,6 +7,8 @@ filename=viviecr_${rel_date}.xpi
 reg="s/<em:version>.*<\/em:version>/<em:version>${version}.${rel_date}<\/em:version>/g"
 
 sed $reg install.rdf > install-new.rdf
+if [ $1 != "no" ]; then
 mv install-new.rdf install.rdf
+fi
 
 zip -r ${filename} chrome.manifest install.rdf content/ defaults/ locale/ skin/
