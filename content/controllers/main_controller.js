@@ -1,10 +1,9 @@
-
 (function(){
 
     /**
      * Class ViviPOS.MainController
      */
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
 
         name: 'Main',
         screenwidth: 800,
@@ -729,6 +728,20 @@
             }
         },
 
+        reboot: function() {
+            if (GREUtils.Dialog.confirm(null, _('Reboot'), _('Please confirm to reboot the terminal')) == false) {
+                return;
+            }
+            this.rebootMachine();
+        },
+
+        shutdown: function() {
+            if (GREUtils.Dialog.confirm(null, _('Shutdown'), _('Please confirm to shut down the terminal')) == false) {
+                return;
+            }
+            this.shutdownMachine();
+        },
+
         dispatch: function(arg) {
 
             var args = arg.split('|');
@@ -753,8 +766,9 @@
             }catch(e) {
             }
         }
+    };
 
-    });
+    GeckoJS.Controller.extend(__controller__);
 
 })();
 

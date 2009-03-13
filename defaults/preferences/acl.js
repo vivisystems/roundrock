@@ -103,3 +103,4 @@ pref("vivipos.fec.acl.roles.acl_recall_check", "acl_recall_check");
 pref("vivipos.fec.acl.roles.acl_merge_check", "acl_merge_check");
 pref("vivipos.fec.acl.roles.acl_split_check", "acl_split_check");
 pref("vivipos.fec.acl.roles.acl_transfer_table", "acl_transfer_table");
+pref("vivipos.fec.acl.roles.acl_xterm", "acl_xterm");

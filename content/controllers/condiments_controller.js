@@ -580,11 +580,11 @@
 
                 GREUtils.extend(condGroups[this._selectedIndex]['Condiment'][this._selectedCondIndex], inputData);
 
-                // check seltype is single , dont' preset else
+                // check seltype is single , dont' preset else in the same condiment group
                 if (inputData.preset && condGroup.seltype == 'single') {
 
                     var cm = new CondimentModel();
-                    var presetConds = cm.find('all', {conditions: "preset=1 AND id !='"+cond.id+"'", recursive: 0});
+                    var presetConds = cm.find('all', {conditions: "preset=1 AND condiment_group_id = '" + condGroup.id + "' AND id !='"+cond.id+"'", recursive: 0});
 
                     presetConds.forEach(function(updateCond) {
                         cm.id = updateCond.id;

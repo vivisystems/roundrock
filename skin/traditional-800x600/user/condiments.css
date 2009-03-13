@@ -63,3 +63,9 @@
     margin-left: 4px;
 }
 
+.PresetCondiment {
+    -moz-border-radius: 10px;
+}
+
+.NotPresetCondiment {
+}

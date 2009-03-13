@@ -598,16 +598,21 @@
             var terminalNo = GeckoJS.Session.get('terminal_no');
 
             if (all) {
-                reportController._printShiftChangeReport(salePeriod * 1000, salePeriod * 1000, 'sale_period', '', terminalNo, printController);
+                reportController.printShiftChangeReport(salePeriod * 1000, salePeriod * 1000, 'sale_period', '', terminalNo, printController);
             }
             else {
                 var shiftNumber = this.getShiftNumber().toString();
-                reportController._printShiftChangeReport(salePeriod * 1000, salePeriod * 1000, 'sale_period', shiftNumber, terminalNo, printController);
+                reportController.printShiftChangeReport(salePeriod * 1000, salePeriod * 1000, 'sale_period', shiftNumber, terminalNo, printController);
             }
         },
 
         printDailySales: function() {
-            alert('print daily sales');
+            var reportController = GeckoJS.Controller.getInstanceByName('RptSalesSummary');
+            var printController = GeckoJS.Controller.getInstanceByName('Print');
+            var salePeriod = this.getSalePeriod();
+            var terminalNo = GeckoJS.Session.get('terminal_no');
+
+            reportController.printSalesSummary(salePeriod * 1000, salePeriod * 1000, terminalNo, 'sale_period', printController);
         },
 
         select: function(index){
