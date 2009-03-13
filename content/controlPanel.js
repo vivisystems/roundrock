@@ -26,10 +26,11 @@
                              roles: el.roles,
                              features: (el.features || null), 
                              type:  (el.type || 'uri'),
+                             org_label: el.label,
                              label: _(el.label)}
                 return entry;
             })
-            var data = new GeckoJS.ArrayQuery(ctrls).orderBy("label asc");
+            var data = new GeckoJS.ArrayQuery(ctrls).orderBy("org_label asc");
             window.viewHelper = new opener.GeckoJS.NSITreeViewArray(data);
         
             document.getElementById(cn + 'Panel').datasource = window.viewHelper ;
