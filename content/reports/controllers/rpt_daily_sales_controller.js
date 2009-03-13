@@ -342,9 +342,9 @@
             document.getElementById('start_date').value = start;
             document.getElementById('end_date').value = end;
             
-            function addMenuitem( dbModel, fields, order, group, menupopupId, valueField, labelField ) {
+            function addMenuitem( dbModel, fields, conditions, order, group, menupopupId, valueField, labelField ) {
 		        //set up the designated pop-up menulist.
-		        var records = dbModel.find( 'all', { fields: fields, order: order, group: group } );
+		        var records = dbModel.find( 'all', { fields: fields, conditions: conditions, order: order, group: group } );
 		        var menupopup = document.getElementById( menupopupId );
 
 		        records.forEach( function( data ) {
@@ -355,11 +355,11 @@
 		        });
 		    }
 		    	    
-		    addMenuitem( new OrderModel(), [ 'service_clerk_displayname' ],
-		    			[ 'service_clerk_displayname' ], [ 'service_clerk_displayname' ], 'service_clerk_menupopup', 'service_clerk_displayname', 'service_clerk_displayname' );
+		    addMenuitem( new OrderModel(), [ 'service_clerk_displayname' ], 'status = 1',
+		    			'service_clerk_displayname', 'service_clerk_displayname', 'service_clerk_menupopup', 'service_clerk_displayname', 'service_clerk_displayname' );
 		    			
-		    addMenuitem( new OrderModel(), [ 'proceeds_clerk_displayname' ],
-		    			[ 'proceeds_clerk_displayname' ], [ 'proceeds_clerk_displayname' ], 'proceeds_clerk_menupopup', 'proceeds_clerk_displayname', 'proceeds_clerk_displayname' );
+		    addMenuitem( new OrderModel(), [ 'proceeds_clerk_displayname' ], 'status = 1',
+		    			'proceeds_clerk_displayname', 'proceeds_clerk_displayname', 'proceeds_clerk_menupopup', 'proceeds_clerk_displayname', 'proceeds_clerk_displayname' );
 
             this._enableButton(false);
             
