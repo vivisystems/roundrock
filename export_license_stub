@@ -1,0 +1,7 @@
+#!/bin/sh
+
+. /etc/environment
+
+LIC_STUB=getSystemLicenseStub
+
+./$LIC_STUB -v > /tmp/vivipos_stub.txt

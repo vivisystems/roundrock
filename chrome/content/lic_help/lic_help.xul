@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+
+<!DOCTYPE window SYSTEM "chrome://vivipos/locale/vivipos.dtd">
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+<window title="&lic_help.title;" id="vivipos_licHelpWindow"
+        hidechrome="false"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script type="application/x-javascript" src="chrome://global/content/globalOverlay.js" />
+    <script type="application/x-javascript" src="chrome://vivipos/content/libs/jquery.js" />
+    <script type="application/x-javascript" src="chrome://vivipos/content/libs/GREUtils.js" />
+    <script type="application/x-javascript" src="chrome://vivipos/content/lic_help/lic_help.js" />
+
+    <stringbundle id="vivipos_strings" src="chrome://vivipos/locale/vivipos.properties"/>
+
+  <vbox flex="1" id="container" >
+    <vbox id="" flex="1" >
+        <label value="&lic_error.label;" />
+        <spacer style="height: 20px;" />
+                    <groupbox class="LicenseInfo">
+                        <caption label="&system_info.label;" />
+                        <grid>
+                            <columns>
+                                <column flex="1" /><column flex="1" />
+                            </columns>
+                            <rows>
+                                <row>
+                                    <label value="&system_info.serial.label;" />
+                                    <label id="lblDallas" value="" />
+                                </row>
+                                <row>
+                                    <label value="&system_info.mac.label;" />
+                                    <label id="lblMac" value="" />
+                                </row>
+                                <row>
+                                    <label value="&system_info.system.label;" />
+                                    <label id="lblSystem" value="" />
+                                </row>
+                                <row>
+                                    <label value="&system_info.vendor.label;" />
+                                    <label id="lblVendor" value="" />
+                                </row>
+                            </rows>
+                        </grid>
+                    </groupbox>
+
+    </vbox>
+
+    <spacer style="height: 60px;" />
+    <vbox>
+        <hbox class="dialogbtns" pack="center">
+            <button id="btnExport" label="&lic_help.export.button;" />
+            <button id="btnImport" label="&lic_help.import.button;" />
+        </hbox>
+        <hbox class="dialogbtns" pack="center">
+            <button id="btnShutdown" label="&lic_help.shutdown.button;" />
+            <button id="btnRestart" label="&lic_help.restart.button;" />
+        </hbox>
+    </vbox>
+
+  </vbox>
+</window>

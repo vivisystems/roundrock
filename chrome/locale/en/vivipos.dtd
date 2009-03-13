@@ -1,0 +1,11 @@
+<!ENTITY lic_help.title "License Help" >
+<!ENTITY lic_error.label "License Error" >
+<!ENTITY system_info.label "System Infomation">
+<!ENTITY system_info.serial.label  "Serial">
+<!ENTITY system_info.mac.label     "Mac Address">
+<!ENTITY system_info.system.label   "System Id">
+<!ENTITY system_info.vendor.label   "System Vendor">
+<!ENTITY lic_help.shutdown.button   "Shutdown Machine">
+<!ENTITY lic_help.restart.button   "Restart Application">
+<!ENTITY lic_help.export.button   "Export License Stub File (vivipos_stub.txt)">
+<!ENTITY lic_help.import.button   "Import License File (vivipos.lic)">
