@@ -5,7 +5,6 @@
     /**
      * Contact Info Controller
      */
-
     GeckoJS.Controller.extend( {
         name: 'StoreContact',
         components: ['Form'],
@@ -15,6 +14,14 @@
         initial: function() {
             var storeContactModel = new StoreContactModel();
             var contact = storeContactModel.findFirst();
+
+            var terminal_no = "" ;
+
+            // terminal_no from sync_settings
+            var syncSettings = (new SyncSetting()).read() || {};
+
+            terminal_no = syncSettings.machine_id;
+            GeckoJS.Session.set('terminal_no', terminal_no);
 
             if (contact == null) {
                 contact = {
@@ -33,10 +40,15 @@
                     country: '',
                     fax: '',
                     email: '',
-                    note: ''
+                    note: '',
+                    terminal_no: terminal_no
+
                 };
             }
             GeckoJS.Session.set('storeContact', contact);
+
+            this.Form.unserializeFromObject('syncSettingForm', settings);
+
         },
 
         update: function () {
