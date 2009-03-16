@@ -2680,16 +2680,16 @@
             }
 
             var selectedItems = [];
-
+            var conds = condGroupsByPLU[condgroup]['Condiments'];
             if (condiments == null) {
-                selectedItems = selectedItems.concat(condGroupsByPLU[condgroup]['PresetItems']);
+                //@irving filter out sold out condiments
+                selectedItems = selectedItems.concat(condGroupsByPLU[condgroup]['PresetItems'].filter(function(c) {return !conds[c].soldout}));
             }else {
                     // check item selected condiments
                    // if (condiments[selectCondiments[i]['name']]) selectedItems.push(i);
             }
-
             var dialog_data = {
-                conds: condGroupsByPLU[condgroup]['Condiments'],
+                conds: conds,
                 selectedItems: selectedItems
             };
             var self = this;

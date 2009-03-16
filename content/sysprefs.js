@@ -43,7 +43,7 @@
             var menuitem = document.createElementNS( "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul", "xul:menuitem" );
             menuitem.setAttribute( 'value', i );
             if (i < 0) {
-                menuitem.setAttribute( 'label', _("Not need to pack"));
+                menuitem.setAttribute( 'label', _("Do not pack"));
             } else {
                 menuitem.setAttribute( 'label', date.toLocaleFormat("%A"));
             }

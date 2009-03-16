@@ -8,7 +8,8 @@
      * Print Controller
      */
 
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
+
         name: 'Print',
 
         _device: null,
@@ -746,7 +747,11 @@
             sendEvent.prototype = {
                 run: function() {
                     try {
-                        self.dispatchEvent('onReceiptPrinted', this.eventData);
+                        data = this.eventData.data;
+                        if (this.eventData.printed) {
+                            self.receiptPrinted(data.order.id, data.order.seq, data.order.batchCount, this.eventData.device);
+                            self.dispatchEvent('onReceiptPrinted', this.eventData);
+                        }
                     }
                     catch (e) {
                         this.log('WARN', 'failed to dispatch onReceiptPrinted event');
@@ -766,10 +771,15 @@
                     try {
                         // check if record already exists if device > 0 (device is set to 0 for check and report/label printers
                         if (device > 0 && ((typeof data.duplicate) == 'undefined' || data.duplicate == null)) {
-                            var receipts = self.isReceiptPrinted(data.order.id, data.order.batchCount, device);
-                            if (receipts != null) {
-                                NotifyUtils.warn(_('A receipt has already been issued for this order on printer [%S]', [device]));
-                                return;
+                            // since we can't access DB to see if receipt is already printed, we'll store the last
+                            // receipt information to prevent duplicate receipts from printed
+                            if (this.lastReceipt != null) {
+                                if (data.order.id == this.lastReceipt.id &&
+                                    data.order.batchCount == this.lastReceipt.batchCount &&
+                                    device == this.lastReceipt.device) {
+                                    NotifyUtils.warn(_('A receipt has already been issued for this order on printer [%S]', [device]));
+                                    return;
+                                }
                             }
                         }
 
@@ -796,7 +806,10 @@
                             NotifyUtils.error(_('Error detected when outputing to device [%S] at port [%S]', [devicemodelName, portName]));
                         }
                         if (device > 0 && (typeof data.duplicate == 'undefined' || data.duplicate == null)) {
-                            self.receiptPrinted(data.order.id, data.order.seq, data.order.batchCount, device);
+                            this.lastReceipt = {id: data.order.id,
+                                                batchCount: data.order.batchCount,
+                                                device: device};
+
                         }
 
                         // dispatch receiptPrinted event indirectly through the main thread
@@ -877,7 +890,9 @@
 
         }
 
-    });
+    };
+
+    GeckoJS.Controller.extend(__controller__);
 
     // register onload
     window.addEventListener('load', function() {

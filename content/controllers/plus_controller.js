@@ -3,7 +3,7 @@
     /**
      * Class PlusController
      */
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
 
         name: 'Plus',
         screenwidth: 800,
@@ -1112,7 +1112,9 @@
                 document.getElementById('delete_plu').setAttribute('disabled', false);
             }
         }
-    });
+    };
+
+    GeckoJS.Controller.extend(__controller__);
 
 })();
 

@@ -345,18 +345,17 @@
             </columns>
             <rows>
                 <row>
-                    <label value="&orderdata.orderretaindays;" />
-                    <textbox preference="pref_orderretaindays" id="orderRetaindays" type="number" size="4" maxlength="4" min="0" max="9999"/>
-                </row>
-                <row>
                     <label value="&orderdata.diskunused;" />
                     <label id="disk_unused" value="100MB" />
+                </row>
+                <row>
+                    <label value="&orderdata.orderretaindays;" />
+                    <textbox preference="pref_orderretaindays" id="orderRetaindays" type="number" size="4" maxlength="4" min="0" max="9999"/>
                 </row>
                 <row>
                     <label value="&orderdata.orderweeklypack;" />
                     <menulist preference="pref_orderweeklypack" id="orderweeklypack" flex="1">
                         <menupopup id="weekmenulist">
-
                         </menupopup>
                     </menulist>
                 </row>

@@ -1093,6 +1093,12 @@ msgstr "Receipt On/Off"
 msgid "Sample Receipt 42c expanded"
 msgstr "Sample Receipt 42c expanded"
 
+msgid "shiftchange.label"
+msgstr "Shift Change"
+
+msgid "shiftchange.name"
+msgstr "Shift Change"
+
 msgid "shiftchange.desc"
 msgstr ""
 "This function is used to initiate shift change. No parameter is needed."
@@ -1105,9 +1111,6 @@ msgstr "Shift Change"
 
 msgid "Sample Guest Check 42c condensed"
 msgstr "Sample Guest Check 42c condensed"
-
-msgid "shiftchange.name"
-msgstr "Shift Change"
 
 msgid "Sample Label Argox 203TD"
 msgstr "Sample Label Argox 203TD"

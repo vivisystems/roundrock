@@ -12,16 +12,24 @@
 
         // load store contact from database into session cache
         initial: function() {
-            var storeContactModel = new StoreContactModel();
-            var contact = storeContactModel.findFirst();
-
             var terminal_no = "" ;
 
             // terminal_no from sync_settings
             var syncSettings = (new SyncSetting()).read() || {};
 
-            terminal_no = syncSettings.machine_id;
+            var terminal_no = syncSettings.machine_id;
             GeckoJS.Session.set('terminal_no', terminal_no);
+
+            var contact;
+            var storeContactModel = new StoreContactModel();
+            if (terminal_no == null || terminal_no == '') {
+                contact = storeContactModel.findFirst();
+            }
+            else {
+                contact = storeContactModel.findByIndex('first', {
+                                    index: 'terminal_no',
+                                    value: terminal_no});
+            }
 
             if (contact == null) {
                 contact = {
@@ -47,12 +55,10 @@
 
             contact.terminal_no = terminal_no;
             GeckoJS.Session.set('storeContact', contact);
-
         },
 
         update: function () {
             var formObj = GeckoJS.FormHelper.serializeToObject('storecontactForm');
-
             if (formObj == null) {
                 NotifyUtils.error(_('Unable to save store contact!'));
                 return false;
