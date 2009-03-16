@@ -581,7 +581,7 @@ pref("vivipos.fec.reportpanels.printlabel.label", "Print Label");
 pref("vivipos.fec.reportpanels.printlabel.path", "chrome://viviecr/content/reports/print_label.xul");
 pref("vivipos.fec.reportpanels.printlabel.icon", "chrome://viviecr/content/skin/icons/reporticon_printlbl.png");
 pref("vivipos.fec.reportpanels.printlabel.roles", "acl_run_report_inactive");
-
+*/
 pref("vivipos.fec.reportpanels.detailedtaxreport.label", "Detailed Tax Report");
 pref("vivipos.fec.reportpanels.detailedtaxreport.path", "chrome://viviecr/content/reports/rpt_detailed_tax.xul");
 pref("vivipos.fec.reportpanels.detailedtaxreport.icon", "chrome://viviecr/content/skin/icons/reporticon_taxe.png");
