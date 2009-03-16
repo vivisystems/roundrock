@@ -4,7 +4,7 @@
      * Class ViviPOS.TaxesController
      */
 
-    GeckoJS.Controller.extend({
+    var __controller__ = {
         name: 'Taxes',
         components: ['Tax'],
         
@@ -364,7 +364,9 @@
             }
         }
 
-    });
+    };
+
+    GeckoJS.Controller.extend(__controller__);
 
 })();
 

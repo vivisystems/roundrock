@@ -1,6 +1,6 @@
 (function(){
 
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
         name: 'SelectRolegroup',
 	
         _listObj: null,
@@ -43,7 +43,9 @@
             }
         }
 	
-    });
+    };
+
+    GeckoJS.Controller.extend(__controller__);
 
 })();
 

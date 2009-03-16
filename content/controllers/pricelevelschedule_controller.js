@@ -3,7 +3,7 @@
     /**
      * Class PriceLevelScheduleController
      */
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
 
         name: 'PriceLevelSchedule',
         _selectedIndex: null,
@@ -218,6 +218,8 @@
         }
 
 
-    });
+    };
+
+    GeckoJS.Controller.extend(__controller__);
 
 })();

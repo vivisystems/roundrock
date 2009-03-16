@@ -1,12 +1,7 @@
 (function(){
     GeckoJS.include('chrome://viviecr/content/models/job.js');
 
-    /**
-     * Class ViviPOS.UsersController
-     */
-    // GeckoJS.define('ViviPOS.UsersController');
-
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
         name: 'Users',
         scaffold: true,
 	
@@ -435,8 +430,9 @@
                 }
             }
         }
-    });
+    };
 
+    GeckoJS.Controller.extend(__controller__);
 
 })();
 

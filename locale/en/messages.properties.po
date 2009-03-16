@@ -1348,6 +1348,9 @@ msgid ""
 "to the Main Screen. Do you want to save your changes?"
 msgstr ""
 
+msgid "Do not pack"
+msgstr ""
+
 msgid "Add New ACL Group"
 msgstr ""
 

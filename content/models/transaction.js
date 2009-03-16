@@ -180,7 +180,8 @@
         var self = this;
        // Transaction.worker = setTimeout(function() {
             // maintain stock...
-            self.requestCommand('decStock', self.data, "Stocks");
+            if (status > 0)
+                self.requestCommand('decStock', self.data, "Stocks");
 
             if (!discard) self.run();
        // }, 1500);

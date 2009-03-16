@@ -4,7 +4,7 @@
      * Class TableMapController
      */
 
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
         name: 'TableMap',
         _tables: [],
 
@@ -78,6 +78,8 @@
                 region.datasource = regionView;
         }
 
-    });
+    };
+    
+    GeckoJS.Controller.extend(__controller__);
 
 })();

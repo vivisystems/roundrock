@@ -4,7 +4,7 @@
      * ShiftChangesController
      */
 
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
         name: 'ShiftChanges',
 
         _listObj: null,
@@ -592,7 +592,9 @@
             }
         }
 
-    });
+    };
+
+    GeckoJS.Controller.extend(__controller__);
 
     window.addEventListener('load', function() {
         var main = GeckoJS.Controller.getInstanceByName('Main');

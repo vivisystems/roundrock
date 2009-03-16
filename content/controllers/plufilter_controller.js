@@ -1,6 +1,6 @@
 (function(){
 
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
         name: 'Plufilters',
 	
         _listObj: null,
@@ -158,7 +158,9 @@
             this.validateForm();
         },
 	
-    });
+    };
+    
+    GeckoJS.Controller.extend(__controller__);
 
 })();
 
