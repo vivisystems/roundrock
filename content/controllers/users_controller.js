@@ -53,7 +53,7 @@
 
             this._userAdded = false;
 
-            window.openDialog(aURL, _('Add New Employee'), features, _('New Employee'), '', _('Name'), _('Passcode'), inputObj);
+            window.openDialog(aURL, _('Add New Employee'), features, _('New Employee'), '', _('User Name'), _('Passcode'), inputObj);
             if (inputObj.ok && inputObj.input0 && inputObj.input1) {
                 user.username = inputObj.input0;
                 user.password = inputObj.input1;
@@ -197,7 +197,7 @@
                     var warn = true;
                     if (device) {
                         if (!(device.deviceExists('cashdrawer', drawer))) {
-                            NotifyUtils.warn(_('NOTE: the assigned drawer [%S] does not exist!', [drawer]));
+                            NotifyUtils.warn(_('The assigned drawer [%S] does not exist!', [drawer]));
                         }
                         else {
                             var enabledDrawers = device.getEnabledDevices('cashdrawer');
@@ -212,7 +212,7 @@
                                 });
                             }
                             if (warn) {
-                                NotifyUtils.warn(_('WARN: the assigned drawer [%S] is not yet enabled!', [drawer]));
+                                NotifyUtils.warn(_('The assigned drawer [%S] is not yet enabled!', [drawer]));
                             }
                         }
                     }

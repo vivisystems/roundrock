@@ -49,13 +49,16 @@
             if (buttonFontSize && btn) {
                 $(btn).addClass('font-' + buttonFontSize);
             }
-
         }
 
     });
 
     var NSICondimentsView = window.NSICondimentsView = GeckoJS.NSITreeViewArray.extend({
+
+        supportSoldout: false,
         
+        soldoutActive: false,
+
         getValue: function() {
 
             var selectedItems = this.tree.selectedItems;
@@ -76,6 +79,9 @@
 
         getSelectType: function(row) {
 
+            if (this.supportSoldout && (this.soldoutActive || this.getCellValue(row, {id: 'soldout'}))) {
+                return 'none';
+            }
             return this.getCellValue(row,{
                 id: 'seltype'
             });
@@ -83,7 +89,13 @@
         },
 
         getSelectGroup: function(row) {
-            
+/*
+            if (this.supportSoldout && (this.soldoutActive || this.getCellValue(row, {id: 'soldout'}))) {
+                GREUtils.log('id');
+                return this.getCellValue(row, {id: 'id'});
+            }
+                GREUtils.log('group id');
+*/
             return this.getCellValue(row,{
                 id: 'condiment_group_id'
             });
@@ -108,12 +120,25 @@
                 // $(btn).addClass('font-' + buttonFontSize);
                 classStr += ' font-' + buttonFontSize ;
             }
+            if (this.supportSoldout && this.getCellValue(row, {id: 'soldout'})) {
+                btn.label = _('Sold Out -') + ' ' + btn.label;
+            }
+
+            var preset = this.getCellValue(row,{
+                id: 'preset'
+            });
+            if (preset) {
+                classStr += ' PresetCondiment';
+                btn.label = '* ' + btn.label;
+            }
+            else {
+                classStr += ' NotPresetCondiment';
+            }
 
             if (classStr.length > 0) {
                 // $btn.addClass(classStr);
                 btn.className += " " + classStr;
             }
-
 
         }
     });

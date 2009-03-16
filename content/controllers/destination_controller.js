@@ -55,7 +55,7 @@
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
             var inputObj = {input0:null, require0:true};
 
-            window.openDialog(aURL, _('Add New Destination'), features, _('New Destination'), '', _('Name'), '', inputObj);
+            window.openDialog(aURL, _('Add New Destination'), features, _('New Destination'), '', _('Destination'), '', inputObj);
             if (inputObj.ok && inputObj.input0) {
                 var destName = inputObj.input0.replace('\'', '"', 'g');
 

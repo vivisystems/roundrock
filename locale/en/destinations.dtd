@@ -1,6 +1,6 @@
 <!ENTITY destinations.title "Order Destinations">
 <!ENTITY destinations.default "Default">
-<!ENTITY destinations.name "Name">
+<!ENTITY destinations.name "Destination">
 <!ENTITY destinations.pricelevel "Price Level">
 <!ENTITY destinations.pricelevel.default "Default Level">
 <!ENTITY destinations.customer.info "Need Customer Info">

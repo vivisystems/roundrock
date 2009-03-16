@@ -61,7 +61,7 @@
                 <row>
                     <vbox>
                         <label value="&storecontact.terminal.no;" />
-                        <textbox id="terminal_no" value="" readonly="true"/>
+                        <textbox id="terminal_no" value="" form="storecontactForm" name="terminal_no" readonly="true"/>
                     </vbox>
                     <vbox>
                         <label value="&storecontact.contact;" />

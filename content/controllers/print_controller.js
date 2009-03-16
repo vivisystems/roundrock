@@ -8,7 +8,8 @@
      * Print Controller
      */
 
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
+
         name: 'Print',
 
         _device: null,
@@ -319,9 +320,6 @@
 
         printReceipts: function(txn, printer, autoPrint, duplicate) {
 
-            // is receipt printing current enabled?
-            if (!GeckoJS.Configure.read('vivipos.fec.settings.PrintReceipt')) return;
-
             var deviceController = this.getDeviceController();
             if (deviceController == null) {
                 NotifyUtils.error(_('Error in device manager! Please check your device configuration'));
@@ -585,7 +583,7 @@
         // print slip using the given parameters
         printSlip: function(data, template, port, portspeed, handshaking, devicemodel, encoding, device, copies) {
             if (this._worker == null) {
-                NotifyUtils.error(_('Error in Print controller: no worker thread available!'));
+                NotifyUtils.error(_('Error in Print controller; no worker thread available!'));
                 return;
             }
             var portPath = this.getPortPath(port);
@@ -681,7 +679,7 @@
             // if data is null, then the document has already been generated and passed in through the template parameter
             if (data != null) {
 
-                this.log('type [' + typeof data.duplicate + '] [' + data.duplicate + '] ' + GeckoJS.BaseObject.dump(data.order));
+                //this.log('type [' + typeof data.duplicate + '] [' + data.duplicate + '] ' + GeckoJS.BaseObject.dump(data.order));
                 
                 tpl = this.getTemplateData(template, false);
                 if (tpl == null || tpl == '') {
@@ -749,7 +747,11 @@
             sendEvent.prototype = {
                 run: function() {
                     try {
-                        self.dispatchEvent('onReceiptPrinted', this.eventData);
+                        data = this.eventData.data;
+                        if (this.eventData.printed) {
+                            self.receiptPrinted(data.order.id, data.order.seq, data.order.batchCount, this.eventData.device);
+                            self.dispatchEvent('onReceiptPrinted', this.eventData);
+                        }
                     }
                     catch (e) {
                         this.log('WARN', 'failed to dispatch onReceiptPrinted event');
@@ -769,10 +771,15 @@
                     try {
                         // check if record already exists if device > 0 (device is set to 0 for check and report/label printers
                         if (device > 0 && ((typeof data.duplicate) == 'undefined' || data.duplicate == null)) {
-                            var receipts = self.isReceiptPrinted(data.order.id, data.order.batchCount, device);
-                            if (receipts != null) {
-                                NotifyUtils.warn(_('A receipt has already been issued for this order on printer [%S]', [device]));
-                                return;
+                            // since we can't access DB to see if receipt is already printed, we'll store the last
+                            // receipt information to prevent duplicate receipts from printed
+                            if (this.lastReceipt != null) {
+                                if (data.order.id == this.lastReceipt.id &&
+                                    data.order.batchCount == this.lastReceipt.batchCount &&
+                                    device == this.lastReceipt.device) {
+                                    NotifyUtils.warn(_('A receipt has already been issued for this order on printer [%S]', [device]));
+                                    return;
+                                }
                             }
                         }
 
@@ -799,7 +806,10 @@
                             NotifyUtils.error(_('Error detected when outputing to device [%S] at port [%S]', [devicemodelName, portName]));
                         }
                         if (device > 0 && (typeof data.duplicate == 'undefined' || data.duplicate == null)) {
-                            self.receiptPrinted(data.order.id, data.order.seq, data.order.batchCount, device);
+                            this.lastReceipt = {id: data.order.id,
+                                                batchCount: data.order.batchCount,
+                                                device: device};
+
                         }
 
                         // dispatch receiptPrinted event indirectly through the main thread
@@ -880,7 +890,9 @@
 
         }
 
-    });
+    };
+
+    GeckoJS.Controller.extend(__controller__);
 
     // register onload
     window.addEventListener('load', function() {

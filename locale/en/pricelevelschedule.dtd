@@ -3,3 +3,5 @@
 <!ENTITY pricelevelschedule.header.pricelevel "Price Level">
 <!ENTITY pricelevelschedule.button.remove "Remove">
 <!ENTITY pricelevelschedule.button.add "Add">
+<!ENTITY pricelevelschedule.step1 "Step 1. Selet Price Level">
+<!ENTITY pricelevelschedule.step2 "Step 2. Set Start Time">

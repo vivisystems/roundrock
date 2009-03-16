@@ -1,7 +1,7 @@
 (function(){
 
     /**
-     * Class DepartmentsController
+     * Class PriceLevelScheduleController
      */
     GeckoJS.Controller.extend( {
 
@@ -11,6 +11,7 @@
         _listObj: null,
         _listPriceLevelObj: null,
         _listDatas: [],
+        _weekIndex: (new Date()).getDay(),
 
         getListObj: function() {
             if(this._listObj == null) {
@@ -27,10 +28,35 @@
             return this._listPriceLevelObj;
         },
 
-        readPrefSchedule: function (){
+        readPrefSchedule: function () {
             var datas = GeckoJS.Configure.read('vivipos.fec.settings.PriceLevelSchedule') || '[]';
+
             this._listDatas = GeckoJS.BaseObject.unserialize(datas);
-            GeckoJS.Session.add('pricelevelSchedule', this._listDatas);
+
+            if (this._listDatas.length == 0) {
+                for (var i = 0; i < 7; i++)
+                    this._listdatas.push([]);
+            } else if (this._listDatas.length > 0) {
+                // translate old schedule format to week schedule...
+                if (this._listDatas[0].time) {
+                    var week = GeckoJS.BaseObject.unserialize(datas);
+                    this._listDatas = [];
+                    for (var i = 0; i < 7; i++) {
+                        
+                        var w = [];
+                        week.forEach(function(o){
+                            w.push(o);
+                        });
+                        
+                        this._listDatas.push(w);
+                    }                
+                    var datastr = GeckoJS.BaseObject.serialize(this._listDatas);
+                    GeckoJS.Configure.write('vivipos.fec.settings.PriceLevelSchedule', datastr);
+                }
+            }
+
+            var today = (new Date()).getDay();
+            GeckoJS.Session.add('pricelevelSchedule', this._listDatas[today]);
             return this._listDatas;
         },
 
@@ -50,10 +76,11 @@
         },
 
         load: function (){
+            
             this.getPriceLevelObj();
             var pricelevelDatas = [];
             var defaultpriceLevel = GeckoJS.Configure.read('vivipos.fec.settings.DefaultPriceLevel') || 1;
-            this._listDatas.forEach(function(o){
+            this._listDatas[this._weekIndex].forEach(function(o){
                 let item = {};
                 item.time = o.time;
                 if (o.pricelevel == 0) item.pricelevel = _('Default Price Level') + ' (' + defaultpriceLevel + ')';
@@ -63,6 +90,15 @@
 
             var panelView =  new GeckoJS.NSITreeViewArray(pricelevelDatas);
             this.getListObj().datasource = panelView;
+
+            // set week label
+            var weekTabs = document.getElementById("weeklabel").childNodes;
+            var date = new Date();
+            date.setDate(date.getDate() - (date.getDay() - 0));
+            for (var i = 0; i < weekTabs.length; i++) {
+                weekTabs[i].setAttribute('label', date.toLocaleFormat("%a"));
+                date.setDate(date.getDate() + 1);
+            }
 
             this.validateForm();
         },
@@ -81,7 +117,7 @@
 
             var addedDefault = false;
             var modify = false;
-            this._listDatas.forEach(function(o){
+            this._listDatas[this._weekIndex].forEach(function(o){
                 if (o.time == '00:00') addedDefault = true;
                 if (o.time == item.time) {
                     o.pricelevel = item.pricelevel;
@@ -91,18 +127,18 @@
 
             if (!addedDefault) {
                 let item = {time: '00:00', pricelevel: 0};
-                this._listDatas.push(item);
+                this._listDatas[this._weekIndex].push(item);
             }
 
             if (!modify) {
-                this._listDatas.push(item);
+                this._listDatas[this._weekIndex].push(item);
             }
 
-            let datas = new GeckoJS.ArrayQuery(this._listDatas).orderBy('time asc');
+            let datas = new GeckoJS.ArrayQuery(this._listDatas[this._weekIndex]).orderBy('time asc');
+            this._listDatas[this._weekIndex] = datas;
 
-            var datastr = GeckoJS.BaseObject.serialize(datas);
+            var datastr = GeckoJS.BaseObject.serialize(this._listDatas);
             GeckoJS.Configure.write('vivipos.fec.settings.PriceLevelSchedule', datastr);
-            this._listDatas = datas
 
             this.updateSession();
 
@@ -114,17 +150,17 @@
             var index = this._listObj.selectedIndex;
             if (index < 0) return;
 
-            var item = this._listDatas[index];
+            var item = this._listDatas[this._weekIndex][index];
             var time = item.time;
             var pricelevel = item.pricelevel ? item.pricelevel : 'default';
 
             if (GREUtils.Dialog.confirm(null, _('confirm remove %S - price level %S', [time, pricelevel]), _('Are you sure?'))) {
 
                 if (index > 0) {
-                    this._listDatas.splice(index, 1);
+                    this._listDatas[this._weekIndex].splice(index, 1);
                     this.getListObj().vivitree.refresh();
                 } else if (index == 0) {
-                    this._listDatas[0].pricelevel = 0;
+                    this._listDatas[this._weekIndex][0].pricelevel = 0;
                 }
 
                 var datastr = GeckoJS.BaseObject.serialize(this._listDatas);
@@ -140,9 +176,36 @@
 
         updateSession: function() {
             this.load();
-            GeckoJS.Session.add('pricelevelSchedule', this._listDatas);
+            var today = (new Date()).getDay();
+            GeckoJS.Session.add('pricelevelSchedule', this._listDatas[today]);
 
             this.validateForm();
+        },
+
+        selectWeek: function(index){
+            //
+            this._weekIndex = index;
+
+            var pricelevelDatas = [];
+            var defaultpriceLevel = GeckoJS.Configure.read('vivipos.fec.settings.DefaultPriceLevel') || 1;
+            if (this._listDatas.length == 0) return;
+            this._listDatas[this._weekIndex].forEach(function(o){
+                let item = {};
+                item.time = o.time;
+                if (o.pricelevel == 0) item.pricelevel = _('Default Price Level') + ' (' + defaultpriceLevel + ')';
+                else item.pricelevel = o.pricelevel;
+                pricelevelDatas.push(item);
+            });
+
+            var panelView =  new GeckoJS.NSITreeViewArray(pricelevelDatas);
+            this.getListObj().datasource = panelView;
+
+            this.getListObj().selectedIndex = -1;
+            this.getPriceLevelObj().selectedIndex = -1 ;
+            this.getPriceLevelObj().selectedItems = [] ;
+            document.getElementById('add_schedule').setAttribute('disabled', true);
+            document.getElementById('remove_schedule').setAttribute('disabled', true);
+
         },
 
         validateForm: function() {

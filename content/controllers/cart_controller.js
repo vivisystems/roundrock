@@ -2680,16 +2680,16 @@
             }
 
             var selectedItems = [];
-
+            var conds = condGroupsByPLU[condgroup]['Condiments'];
             if (condiments == null) {
-                selectedItems = selectedItems.concat(condGroupsByPLU[condgroup]['PresetItems']);
+                //@irving filter out sold out condiments
+                selectedItems = selectedItems.concat(condGroupsByPLU[condgroup]['PresetItems'].filter(function(c) {return !conds[c].soldout}));
             }else {
                     // check item selected condiments
                    // if (condiments[selectCondiments[i]['name']]) selectedItems.push(i);
             }
-
             var dialog_data = {
-                conds: condGroupsByPLU[condgroup]['Condiments'],
+                conds: conds,
                 selectedItems: selectedItems
             };
             var self = this;
@@ -3045,6 +3045,88 @@
 
         },
 
+        newCheck: function() {
+            var no = this._getKeypadController().getBuffer();
+            this._getKeypadController().clearBuffer();
+
+            this.cancelReturn();
+
+            var curTransaction = this._getTransaction();
+            if (curTransaction == null) {
+                NotifyUtils.warn(_('Not an open order; unable to store'));
+                return; // fatal error ?
+            }
+
+            curTransaction = this._getTransaction(true);
+            if (curTransaction == null) {
+                NotifyUtils.warn(_('fatal error!!'));
+                return; // fatal error ?
+            }
+
+            var r = -1;
+            if (no.length == 0) {
+                r = this.GuestCheck.getNewCheckNo();
+            } else {
+                r = this.GuestCheck.check(no);
+            }
+
+            if (r >= 0) {
+                curTransaction.data.check_no = r;
+            } else {
+                NotifyUtils.warn(_('Check# %S is exist!!', [no]));
+            }
+        },
+
+        newtable: function() {
+            var no = this._getKeypadController().getBuffer();
+            this._getKeypadController().clearBuffer();
+
+            this.cancelReturn();
+
+            var curTransaction = this._getTransaction();
+            if (curTransaction == null) {
+                NotifyUtils.warn(_('Not an open order; unable to store'));
+                return; // fatal error ?
+            }
+
+            curTransaction = this._getTransaction(true);
+            if (curTransaction == null) {
+                NotifyUtils.warn(_('fatal error!!'));
+                return; // fatal error ?
+            }
+
+            var r = -1;
+            if (no.length == 0) {
+                r = this.GuestCheck.getNewTableNo();
+            } else {
+                r = this.GuestCheck.table(no);
+            }
+
+            if (r >= 0) {
+                curTransaction.data.table_no = r;
+            } else {
+                NotifyUtils.warn(_('Table# %S is exist!!', [no]));
+            }
+        },
+
+        recallOrder: function() {
+            var no = this._getKeypadController().getBuffer();
+            this._getKeypadController().clearBuffer();
+
+            this.cancelReturn();
+
+            return this.GuestCheck.recallByOrderNo(no);
+        },
+
+        recallTable: function() {
+            var no = this._getKeypadController().getBuffer();
+            this._getKeypadController().clearBuffer();
+
+            this.cancelReturn();
+
+            return this.GuestCheck.recallByTableNo(no);
+        },
+
         recallCheck: function() {
             var no = this._getKeypadController().getBuffer();
             this._getKeypadController().clearBuffer();
@@ -3077,6 +3159,7 @@
                 NotifyUtils.warn(_('This order is empty'));
                 return;
             }
+            var r = -1;
             var modified = curTransaction.isModified();
             if (modified) {
                 r = this.GuestCheck.store();
@@ -3085,6 +3168,138 @@
             else {
                 NotifyUtils.warn(_('No change to store'));
             }
+        },
+
+        guestNum: function() {
+            var no = this._getKeypadController().getBuffer();
+            this._getKeypadController().clearBuffer();
+
+            this.cancelReturn();
+
+            var curTransaction = this._getTransaction();
+            if (curTransaction == null) {
+                NotifyUtils.warn(_('Not an open order; unable to store'));
+                return; // fatal error ?
+            }
+
+            curTransaction = this._getTransaction(true);
+            if (curTransaction == null) {
+                NotifyUtils.warn(_('fatal error!!'));
+                return; // fatal error ?
+            }
+
+            var r = this.GuestCheck.guest(no);
+            curTransaction.data.no_of_customers = no;
+        },
+
+        mergeOrder: function() {
+
+            var no = this._getKeypadController().getBuffer();
+            this._getKeypadController().clearBuffer();
+
+            this.cancelReturn();
+
+            var curTransaction;
+
+            curTransaction = this._getTransaction();
+            if (curTransaction == null) {
+                NotifyUtils.warn(_('Not an open order; unable to store'));
+                return; // fatal error ?
+            }
+
+            if (curTransaction.data.status == 1) {
+                NotifyUtils.warn(_('This order has been submitted'));
+                return;
+            }
+            if (curTransaction.data.closed) {
+                NotifyUtils.warn(_('This order is closed pending payment and may only be finalized'));
+                return;
+            }
+            if (curTransaction.data.items_count == 0) {
+                NotifyUtils.warn(_('This order is empty'));
+                return;
+            }
+            var modified = curTransaction.isModified();
+            if (modified) {
+                NotifyUtils.warn(_('This order has been modified and must be stored first'));
+                // r = this.GuestCheck.store();
+                // this.dispatchEvent('onStore', curTransaction);
+            }
+
+            // r = this.GuestCheck.transferToCheckNo(no);
+            var r = this.GuestCheck.mergeOrder(no, curTransaction.data);
+        },
+
+        spliteOrder: function() {
+            var no = this._getKeypadController().getBuffer();
+            this._getKeypadController().clearBuffer();
+
+            this.cancelReturn();
+
+            var curTransaction;
+            
+            curTransaction = this._getTransaction();
+            if (curTransaction == null) {
+                NotifyUtils.warn(_('Not an open order; unable to store'));
+                return; // fatal error ?
+            }
+
+            if (curTransaction.data.status == 1) {
+                NotifyUtils.warn(_('This order has been submitted'));
+                return;
+            }
+            if (curTransaction.data.closed) {
+                NotifyUtils.warn(_('This order is closed pending payment and may only be finalized'));
+                return;
+            }
+            if (curTransaction.data.items_count == 0) {
+                NotifyUtils.warn(_('This order is empty'));
+                return;
+            }
+            var modified = curTransaction.isModified();
+            if (modified) {
+                NotifyUtils.warn(_('This order has been modified and must be stored first'));
+                // r = this.GuestCheck.store();
+                // this.dispatchEvent('onStore', curTransaction);
+            }
+
+            var r = this.GuestCheck.splitOrder(no, curTransaction.data);
+        },
+
+        transferTable: function(){
+            var no = this._getKeypadController().getBuffer();
+            this._getKeypadController().clearBuffer();
+
+            this.cancelReturn();
+
+            var curTransaction;
+
+            curTransaction = this._getTransaction();
+            if (curTransaction == null) {
+                NotifyUtils.warn(_('Not an open order; unable to store'));
+                return; // fatal error ?
+            }
+
+            if (curTransaction.data.status == 1) {
+                NotifyUtils.warn(_('This order has been submitted'));
+                return;
+            }
+            if (curTransaction.data.closed) {
+                NotifyUtils.warn(_('This order is closed pending payment and may only be finalized'));
+                return;
+            }
+            if (curTransaction.data.items_count == 0) {
+                NotifyUtils.warn(_('This order is empty'));
+                return;
+            }
+            var modified = curTransaction.isModified();
+            if (modified) {
+                NotifyUtils.warn(_('This order has been modified and must be stored first'));
+                // r = this.GuestCheck.store();
+                // this.dispatchEvent('onStore', curTransaction);
+            }
+
+            var r = this.GuestCheck.transferToTableNo(no);
         },
 
         guestCheck: function(action) {
@@ -3201,16 +3416,118 @@
                     break;
 
                 case 'transferSequence':
+                    curTransaction = this._getTransaction();
+                    if (curTransaction == null) {
+                        NotifyUtils.warn(_('Not an open order; unable to store'));
+                        return; // fatal error ?
+                    }
+
+                    if (curTransaction.data.status == 1) {
+                        NotifyUtils.warn(_('This order has been submitted'));
+                        return;
+                    }
+                    if (curTransaction.data.closed) {
+                        NotifyUtils.warn(_('This order is closed pending payment and may only be finalized'));
+                        return;
+                    }
+                    if (curTransaction.data.items_count == 0) {
+                        NotifyUtils.warn(_('This order is empty'));
+                        return;
+                    }
+                    var modified = curTransaction.isModified();
+                    if (modified) {
+                        NotifyUtils.warn(_('This order has been modified and must be stored first'));
+                        // r = this.GuestCheck.store();
+                        // this.dispatchEvent('onStore', curTransaction);
+                    }
+
                     r = this.GuestCheck.transferToOrderNo(no);
                     break;
                 case 'transferCheck':
-                    r = this.GuestCheck.transferToCheckNo(no);
+                    curTransaction = this._getTransaction();
+                    if (curTransaction == null) {
+                        NotifyUtils.warn(_('Not an open order; unable to store'));
+                        return; // fatal error ?
+                    }
+
+                    if (curTransaction.data.status == 1) {
+                        NotifyUtils.warn(_('This order has been submitted'));
+                        return;
+                    }
+                    if (curTransaction.data.closed) {
+                        NotifyUtils.warn(_('This order is closed pending payment and may only be finalized'));
+                        return;
+                    }
+                    if (curTransaction.data.items_count == 0) {
+                        NotifyUtils.warn(_('This order is empty'));
+                        return;
+                    }
+                    var modified = curTransaction.isModified();
+                    if (modified) {
+                        NotifyUtils.warn(_('This order has been modified and must be stored first'));
+                        // r = this.GuestCheck.store();
+                        // this.dispatchEvent('onStore', curTransaction);
+                    }
+
+                    // r = this.GuestCheck.transferToCheckNo(no);
+                    r = this.GuestCheck.mergeOrder(no, curTransaction.data);
                     break;
                 case 'transferTable':
+                    curTransaction = this._getTransaction();
+                    if (curTransaction == null) {
+                        NotifyUtils.warn(_('Not an open order; unable to store'));
+                        return; // fatal error ?
+                    }
+
+                    if (curTransaction.data.status == 1) {
+                        NotifyUtils.warn(_('This order has been submitted'));
+                        return;
+                    }
+                    if (curTransaction.data.closed) {
+                        NotifyUtils.warn(_('This order is closed pending payment and may only be finalized'));
+                        return;
+                    }
+                    if (curTransaction.data.items_count == 0) {
+                        NotifyUtils.warn(_('This order is empty'));
+                        return;
+                    }
+                    var modified = curTransaction.isModified();
+                    if (modified) {
+                        NotifyUtils.warn(_('This order has been modified and must be stored first'));
+                        // r = this.GuestCheck.store();
+                        // this.dispatchEvent('onStore', curTransaction);
+                    }
+                    
                     r = this.GuestCheck.transferToTableNo(no);
                     break;
                 case 'splitOrder':
+                    curTransaction = this._getTransaction();
+                    if (curTransaction == null) {
+                        NotifyUtils.warn(_('Not an open order; unable to store'));
+                        return; // fatal error ?
+                    }
+
+                    if (curTransaction.data.status == 1) {
+                        NotifyUtils.warn(_('This order has been submitted'));
+                        return;
+                    }
+                    if (curTransaction.data.closed) {
+                        NotifyUtils.warn(_('This order is closed pending payment and may only be finalized'));
+                        return;
+                    }
+                    if (curTransaction.data.items_count == 0) {
+                        NotifyUtils.warn(_('This order is empty'));
+                        return;
+                    }
+                    var modified = curTransaction.isModified();
+                    if (modified) {
+                        NotifyUtils.warn(_('This order has been modified and must be stored first'));
+                        // r = this.GuestCheck.store();
+                        // this.dispatchEvent('onStore', curTransaction);
+                    }
+
                     r = this.GuestCheck.splitOrder(no, curTransaction.data);
+
                     break;
             }
             // @irving: comment out the subtotal() call 02-16-09

@@ -56,7 +56,7 @@
                 if (passwordModified) {
                     var x11vncProg = new GeckoJS.File('/usr/bin/x11vnc');
                     if (x11vncProg.exists()) {
-                        x11vncProg.run([obj.password,'/home/root/.vnc/passwd'], true); // no arguments and blocking.
+                        x11vncProg.run(['--storepasswd', obj.password,'/home/root/.vnc/passwd'], true); // no arguments and blocking.
                     }
                     delete x11vncProg;
                     x11vncProg = null;

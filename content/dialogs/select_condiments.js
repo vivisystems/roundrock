@@ -30,7 +30,8 @@
             init: function(evt) {
 			
                 var viewHelper = new NSICondimentsView();
-
+                viewHelper.supportSoldout = true;
+                
                 $buttonPanel[0].datasource = viewHelper ;
                 $buttonPanel[0].selectedItems = [] ;
 		
@@ -63,6 +64,39 @@
                 }
 
                 evt.data = {condiments: condiments, selectedItems: selectedItems};
+            },
+
+            // custom function for handling sold-out @irving
+            doClick: function(panel) {
+                
+                // get sold out state
+                var soldOutBtn =  $('#condimentscrollablepanel-soldout')[0];
+
+                var soldout = soldOutBtn.checkState;
+                if (soldout) {
+                    soldOutBtn.checked = false;
+                    $buttonPanel[0].datasource.soldoutActive = 0;
+                }
+
+                // get condiment state
+                var selectedIndex = panel.selectedIndex;
+                if (selectedIndex > -1) {
+                    var cond = condsData[selectedIndex];
+                    if (soldout || cond.soldout) {
+                        if (soldout) {
+                            cond.soldout = !cond.soldout;
+/*
+                            var selectedItems = panel.selectedItems;
+                            var index = selectedItems.indexOf(selectedIndex);
+                            if (index != -1) {
+                                selectedItems.splice(index, 1);
+                                panel.selectedItems = selectedItems;
+                            }
+*/
+                            panel.invalidate();
+                        }
+                    }
+                }
             }
 
         });

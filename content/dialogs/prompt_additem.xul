@@ -12,11 +12,6 @@
          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-    <keyset id="keyset_extensions">
-        <key id="key_enter" keycode="VK_RETURN" oncommand="document.getElementById('promptAdditem-ok').click()"/>
-        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('promptAdditem-cancel').click()" />
-    </keyset>
-
     <script type="application/x-javascript" src="chrome://viviecr/content/dialogs/prompt_additem.js" />
 
     <popupset id="dialogs">

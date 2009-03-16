@@ -14,11 +14,13 @@
         <content>
             <xul:box xbl:inherits="class,hidden,flex,align,dir">
                 <xul:stack anonid="stack"
-                    style="background: transparent url( chrome://viviecr/content/skin/images/bg_fec_vivi.png) 0 0 no-repeat;"
+                    
                     xbl:inherits="class,hidden,flex,align,dir"
                     ondragover="nsDragAndDrop.dragOver(event,mapObserver)"
                     ondragdrop="nsDragAndDrop.drop(event,mapObserver)"
-                />
+                >
+                <!-- image src="chrome://viviecr/content/skin/images/bg_fec_vivi.png" / -->
+                </xul:stack>
             </xul:box>
             <children />
         </content>
@@ -66,6 +68,10 @@
                 <parameter name="imgsrc"/>
                 <body><![CDATA[
                         // Set stack background image...
+                        var stackObj = document.getAnonymousElementByAttribute(this, 'anonid', 'stack');
+                        // imgsrc = "chrome://viviecr/content/skin/images/bb.png";
+                        var style = "background: url( " + imgsrc + ") 0 0 no-repeat;";
+                        stackObj.setAttribute("style", style);
 
                         // this.refresh();
                     ]]>

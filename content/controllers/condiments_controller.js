@@ -5,7 +5,9 @@
      *
      * @todo need to find a way to show preset condiments
      */
-    GeckoJS.Controller.extend( {
+    var window = this;
+    
+    var __controller__ = {
 
         name: 'Condiments',
         helpers: ['Form'],
@@ -31,12 +33,13 @@
 
                 this.registerEventListener();
             }
-            
+
         },
 
         updateCondimentsSession: function() {
+
             var condGroups = GeckoJS.Session.get('condGroups');
-            
+
             var condGroupsById = {};
 
             condGroups.forEach(function(condGroup){
@@ -86,13 +89,16 @@
                         if(selectCondiments[i]['preset']) selectedItems.push(i);
                     }
 
-                    condGroupsByPLU[condgroup] = {'Condiments': selectCondiments, 'PresetItems': selectedItems};
+                    condGroupsByPLU[condgroup] = {
+                        'Condiments': selectCondiments,
+                        'PresetItems': selectedItems
+                    };
 
                 }, this);
             }
             GeckoJS.Session.add('condGroupsByPLU', condGroupsByPLU);
 
-            // this.log('condGroupsByPLU ' + this.dump(condGroupsByPLU));
+        // this.log('condGroupsByPLU ' + this.dump(condGroupsByPLU));
         },
 
 
@@ -124,7 +130,7 @@
             this.resetInputCondData();
 
             this.changeCondimentPanel(-1);
-            
+
             this.validateForm();
         },
 
@@ -141,13 +147,13 @@
             var conds;
             if (condGroups && (index != null) && (index > -1) && condGroups.length > index)
                 conds = condGroups[index]['Condiment'];
-           
+
             this._condGroupscrollablepanel.selectedIndex = index;
             this._condGroupscrollablepanel.selectedItems = [index];
 
             this._selectedIndex = index;
             if (index >= 0 && condGroups.length > index)
-                this.setInputData(condGroups[index]);              
+                this.setInputData(condGroups[index]);
             else {
                 this.resetInputData();
                 this._selectedIndex = -1;
@@ -199,7 +205,7 @@
             }
 
             this.validateForm();
-            
+
             document.getElementById('condiment_name').focus();
         },
 
@@ -274,28 +280,34 @@
         setInputData: function (valObj) {
 
             GeckoJS.FormHelper.unserializeFromObject('condGroupForm', valObj);
-            //this.query('#condiment_group_id').val(valObj.id);
-            //this.query('#condiment_group_name').val(valObj.name);
-            //this.query('#condiment_group_name').val(valObj.name);
+        //this.query('#condiment_group_id').val(valObj.id);
+        //this.query('#condiment_group_name').val(valObj.name);
+        //this.query('#condiment_group_name').val(valObj.name);
         },
 
         add: function  () {
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=250';
 
-            var inputObj = {input0:null, require0:true};
+            var inputObj = {
+                input0:null,
+                require0:true
+            };
 
             window.openDialog(aURL,
-                              _('Add New Condiment Group'),
-                              features,
-                              _('New Condiment Group'),
-                              '',
-                              _('Group Name'),
-                              '',
-                              inputObj);
+                _('Add New Condiment Group'),
+                features,
+                _('New Condiment Group'),
+                '',
+                _('Group Name'),
+                '',
+                inputObj);
 
             if (inputObj.ok && inputObj.input0) {
-                var inputData = {name: inputObj.input0};
+                var inputData = {
+                    name: inputObj.input0,
+                    seltype: 'single'
+                };
                 var condGroupModel = new CondimentGroupModel();
                 var condGroups = condGroupModel.findByIndex('all', {
                     index: 'name',
@@ -308,8 +320,9 @@
 
                 try {
                     var condgroup = condGroupModel.save(inputData);
+
                     var condGroups = GeckoJS.Session.get('condGroups') || [];
-                    
+
                     condGroups.push(condgroup);
 
                     GeckoJS.Session.set('condGroups', condGroups);
@@ -318,7 +331,7 @@
                     view.data = condGroups;
 
                     this._condGroupscrollablepanel.refresh();
-                    
+
                     this.changeCondimentPanel(condGroups.length - 1);
 
                     // @todo OSD
@@ -427,7 +440,7 @@
                     var newIndex = this._selectedIndex;
                     if (newIndex >= groups.length) newIndex = groups.length - 1;
                     this.changeCondimentPanel(newIndex);
-                    
+
                     // @todo OSD
                     OsdUtils.info(_('Condiment Group [%S] removed successfully', [condGroup.name]));
                 }
@@ -475,8 +488,13 @@
 
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
-            var inputObj = {input0:null, input1:0,
-                            require0:true, require1:true, numberOnly1:true};
+            var inputObj = {
+                input0:null,
+                input1:0,
+                require0:true,
+                require1:true,
+                numberOnly1:true
+            };
             window.openDialog(aURL, _('Add New Condiment'), features, _('New Condiment'), '', _('Condiment Name'), _('Condiment Price'), inputObj);
 
             if (inputObj.ok && inputObj.input0 && inputObj.input1) {
@@ -580,23 +598,31 @@
 
                 GREUtils.extend(condGroups[this._selectedIndex]['Condiment'][this._selectedCondIndex], inputData);
 
-                // check seltype is single , dont' preset else
+                // check seltype is single , dont' preset else in the same condiment group
                 if (inputData.preset && condGroup.seltype == 'single') {
 
                     var cm = new CondimentModel();
-                    var presetConds = cm.find('all', {conditions: "preset=1 AND id !='"+cond.id+"'", recursive: 0});
+                    var presetConds = cm.find('all', {
+                        conditions: "preset=1 AND condiment_group_id = '" + condGroup.id + "' AND id !='"+cond.id+"'",
+                        recursive: 0
+                    });
 
                     presetConds.forEach(function(updateCond) {
                         cm.id = updateCond.id;
-                        cm.save({preset: false});
+                        cm.save({
+                            preset: false
+                        });
                     });
 
                     if (presetConds.length >0) {
                         // update session
-                        condGroups[this._selectedIndex]['Condiment'] = GeckoJS.Array.objectExtract(cm.find('all', {conditions: "condiment_group_id ='"+condGroup.id+"'", recursive: 0}),
-                                                                                                   '{n}.Condiment');
+                        condGroups[this._selectedIndex]['Condiment'] = GeckoJS.Array.objectExtract(cm.find('all', {
+                            conditions: "condiment_group_id ='"+condGroup.id+"'",
+                            recursive: 0
+                        }),
+                        '{n}.Condiment');
                     }
- 
+
                 }
 
                 GeckoJS.Session.set('condGroups', condGroups);
@@ -654,15 +680,17 @@
             }
         }
 
-    });
+    };
+
+    // inherit controller
+    GeckoJS.Controller.extend(__controller__);
 
     // register onload
     window.addEventListener('load', function() {
         var main = GeckoJS.Controller.getInstanceByName('Main');
         if(main) main.addEventListener('afterInitial', function() {
-                                            main.requestCommand('initial', null, 'Condiments');
-                                      });
-
+            main.requestCommand('initial', null, 'Condiments');
+        });
     }, false);
-})();
 
+})();

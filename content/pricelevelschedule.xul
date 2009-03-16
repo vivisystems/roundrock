@@ -36,6 +36,18 @@
         <hbox flex="1" class="MainPnl">
             <vbox flex="1" pack="start" class="MainL">
                 <caption label="&pricelevelschedule.title;" class="PageTitle" />
+                <tabbox id="weekindex" class="RightTabbox" flex="1"
+                        onselect="$do('selectWeek', this.selectedIndex, 'PriceLevelSchedule')">
+                    <tabs id="weeklabel" >
+                        <tab label="-" flex="1" />
+                        <tab label="-" flex="1" />
+                        <tab label="-" flex="1" />
+                        <tab label="-" flex="1" />
+                        <tab label="-" flex="1" />
+                        <tab label="-" flex="1" />
+                        <tab label="-" flex="1" />
+                    </tabs>
+                </tabbox>
                 <viviscrollabletree id="schedulescrollablepanel" flex="1" rows="12"
                                     headers="&pricelevelschedule.header.time;, &pricelevelschedule.header.pricelevel;"
                                     ensureVisible="true"
@@ -49,7 +61,7 @@
             <vbox >
                 <label value="Add New Price Level Schedule" class="PageTitle"/>
                 <vbox class="PLbox" flex="1">
-                    <label value="Step 1. Selet Price Level" class="SubTitle"/>
+                    <label value="&pricelevelschedule.step1;" class="SubTitle"/>
                     <viviscrollablebuttonpanel id="pricelevelscrollablepanel" flex="1" cols="3" rows="4" hideScrollbar="true" labelField="name"
                                                ensureVisible="true"
                                                oncommand="$do('validateForm', null, 'PriceLevelSchedule')"
@@ -62,7 +74,7 @@
                 </vbox>
 
                 <vbox class="RightPnlB" flex="1">
-                    <label value="Step 2. Set Start Time" class="SubTitle"/>
+                    <label value="&pricelevelschedule.step2;" class="SubTitle"/>
                     <vividatetimepicker-timepad id="seltime" value="12:00" flex="1" labelClass="timepickerfont" buttonClass="timepickerbtns"/>
                 </vbox>
                 
