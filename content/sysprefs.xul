@@ -84,6 +84,10 @@
                     <checkbox preference="pref_allowoverstock" id="pref_allowoverstockCtrl" label="&general.allowoverstock;" />
                     <checkbox preference="pref_sequencetrackssaleperiod" id="pref_sequencetrackssaleperiodCtrl" label="&general.sequencetrackssaleperiod;" />
                 </row>
+                <row>
+                    <checkbox preference="pref_orderretaindays" id="pref_orderretaindaysCtrl" label="&general.allowoverstock;" />
+
+                </row>
             </rows>
         </grid>
         
@@ -336,7 +340,8 @@
         </preferences>
         <grid class="DataForm">
             <columns>
-                <column flex="1" /><column flex="1" />
+                <column flex="1" />
+                <column flex="1" />
             </columns>
             <rows>
                 <row>
@@ -354,7 +359,7 @@
                         </menupopup>
                     </menulist>
                 </row>
-             </rows>
+            </rows>
         </grid>
 
     </prefpane>

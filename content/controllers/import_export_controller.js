@@ -176,7 +176,7 @@
                 }, updateProgress);
 
                 // sync to media...
-                this.execute("/bin/sync", [])
+                this.execute("/bin/sync", []);
 
             }
             catch (e) {
@@ -362,6 +362,8 @@
                 // reset max script run time...
                 GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
                 // progmeter.value = 0;
+                this.execute("/bin/sync", []);
+
                 this.setButtonDisable(false);
                 waitPanel.hidePopup();
             }

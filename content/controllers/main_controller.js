@@ -698,10 +698,12 @@
 
         clearOrderData: function(days, pack) {
             // the number of days to retain
+
             var retainDays = days || GeckoJS.Configure.read('vivipos.fec.settings.OrderRetainDays') || 0;
             var weeklyPack = GeckoJS.Configure.read('vivipos.fec.settings.OrderWeeklyPack') || -1;
 
             if (retainDays > 0) {
+
                 var waitPanel = this._showWaitPanel('wait_panel', 'common_wait', _('Removing old data...'), 1000);
 
                 try {
@@ -724,6 +726,8 @@
                 finally {
                     waitPanel.hidePopup();
                 }
+
+
             }
         },
 
@@ -815,4 +819,3 @@
     GeckoJS.Controller.extend(__controller__);
 
 })();
-

@@ -45,7 +45,7 @@
             if (i < 0) {
                 menuitem.setAttribute( 'label', _("Do not pack"));
             } else {
-                menuitem.setAttribute( 'label', date.toLocaleFormat("%a"));
+                menuitem.setAttribute( 'label', date.toLocaleFormat("%A"));
             }
             date.setDate(date.getDate() + 1);
             weekmenulist.appendChild( menuitem );

@@ -40,6 +40,7 @@
             var waitPanel = this._showWaitPanel('wait_panel');
 
             var storeContact = GeckoJS.Session.get('storeContact');
+alert(this.dump(storeContact));
             var clerk = "";
             var clerk_displayname = "";
             var user = new GeckoJS.AclComponent().getUserPrincipal();

@@ -2,11 +2,11 @@
 
     var GuestCheckComponent = window.GuestCheckComponent = GeckoJS.Component.extend({
 
-    /**
-     * Component GuestCheck
-     */
+        /**
+         * Component GuestCheck
+         */
 
-            /*
+        /*
             // Session
             vivipos_fec_price_level,
             vivipos_fec_tax_total,
@@ -16,14 +16,82 @@
             vivipos_fec_number_of_customers,
             vivipos_fec_check_number,
             vivipos_fec_table_number
-            */
+         */
 
         name: 'GuestCheck',
         _checkNoArray: [],
         _tableNoArray: [],
+        _guestCheck: null,
 
-        initial: function () {
+        init: function (c) {
+            // inherit Cart controller constructor
+            this._super(c);
             // @todo : check orders first and set _checkNoArray, _tableNoArray...
+            var guestCheck = {
+                requireCheckNo: true,
+                requireTableNo: true,
+                checkNoRange: {
+                    min: 1,
+                    max: 100
+                },
+                tableNoRange: {
+                    min: 1,
+                    max: 100
+                },
+                allowTableNoDup: true,
+                tableMapAsTopScreen: false
+            }
+
+            this._guestCheck = guestCheck;
+            GeckoJS.Session.set('vivipos_fec_guest_check', guestCheck);
+
+            // add listener for newTransaction and onSubmit event
+            // var cart = GeckoJS.Controller.getInstanceByName('Cart');
+            var cart = this._controller;
+            if (cart) {
+                cart.addEventListener('newTransaction', this.handleNewTransaction, this);
+                cart.addEventListener('onSubmit', this.handleNewTransaction, this);
+                cart.addEventListener('onCancel', this.handleNewTransaction, this);
+                // cart.addEventListener('onClear', this.handleClear, this);
+                cart.addEventListener('onStore', this.handleNewTransaction, this);
+            }
+            /*
+            // add listener for onLogin event
+            var main = GeckoJS.Controller.getInstanceByName('Main');
+            if (main) {
+                main.addEventListener('onInitial', this.handleNewTransaction, this);
+            }
+            */
+        },
+
+        handleNewTransaction: function(evt) {
+            // if (this._inSetCustomer) return;
+            this.log(this.dump(evt));
+            if (evt.type == 'onSubmit' || evt.type == 'onCancel' || evt.type == 'onInitial' || evt.type == 'onStore') {
+                //
+                if (this._guestCheck.requireCheckNo) {
+                    //
+                    var check_no = this.getNewCheckNo();
+                }
+
+                if (this._guestCheck.requireTableNo) {
+                    //
+                    var table_no = this.getNewTableNo();
+                }
+            }
+            else if (evt.type == 'newTransaction') {
+                if (this._guestCheck.requireCheckNo) {
+                    //
+                    if (!GeckoJS.Session.get('vivipos_fec_check_number'))
+                        var check_no = this.getNewCheckNo();
+                }
+
+                if (this._guestCheck.requireTableNo) {
+                    if (!GeckoJS.Session.get('vivipos_fec_table_number'))
+                        var table_no = this.getNewTableNo();
+                }
+
+            }
         },
 
         getNewCheckNo: function() {
@@ -135,7 +203,7 @@
             var self = this;
             var order = new OrderModel();
             var fields = ['orders.id', 'orders.sequence', 'orders.check_no',
-                          'orders.table_no', 'orders.status'];
+                'orders.table_no', 'orders.status'];
             switch (key) {
                 case 'CheckNo':
                     var conditions = "orders.check_no='" + no + "' AND orders.status='2'";
@@ -203,13 +271,13 @@
                 this.recall('AllCheck', 'TableNo');
         },
 
-        recall: function(key, no) {
+        recall: function(key, no, silence) {
             this.log("GuestCheck recall...key:" + key + ",  no:" + no);
             switch(key) {
                 case 'OrderNo':
                     var order = new OrderModel();
                     var fields = ['orders.id', 'orders.sequence', 'orders.check_no',
-                                  'orders.table_no', 'orders.status'];
+                        'orders.table_no', 'orders.status'];
                     var conditions = "orders.sequence='" + no + "'";
                     var ord = order.find('all', {fields: fields, conditions: conditions});
 
@@ -224,7 +292,7 @@
                             NotifyUtils.warn(_('This order is already finalized!'));
                         }
                     }
-                     else {
+                    else {
                         // @todo OSD
                         NotifyUtils.warn(_('Can not find the Order# (%S)!!', [no]));
                     }
@@ -232,7 +300,7 @@
                 case 'CheckNo':
                     var order = new OrderModel();
                     var fields = ['orders.id', 'orders.sequence', 'orders.check_no',
-                                  'orders.table_no', 'orders.status'];
+                        'orders.table_no', 'orders.status'];
                     var conditions = "orders.check_no='" + no + "' AND orders.status='2'";
                     var ord = order.find('all', {fields: fields, conditions: conditions});
 
@@ -258,7 +326,7 @@
                 case 'TableNo':
                     var order = new OrderModel();
                     var fields = ['orders.id', 'orders.sequence', 'orders.check_no',
-                                  'orders.table_no', 'orders.status'];
+                        'orders.table_no', 'orders.status'];
                     var conditions = "orders.table_no='" + no + "' AND orders.status='2'";
                     var ord = order.find('all', {fields: fields, conditions: conditions});
 
@@ -321,10 +389,11 @@
                     var order = new OrderModel();
                     var fields = ['orders.id', 'orders.sequence', 'orders.destination', 'orders.check_no',
                                   'orders.table_no', 'orders.status', 'orders.total'];
+
                     var conditions = "orders.status='2'";
                     var ord = order.find('all', {fields: fields, conditions: conditions, recursive: 2});
                     // var ord = order.find('all', {fields: fields, conditions: conditions});
-// this.log(this.dump(ord));
+
                     if (ord && ord.length > 1) {
                         //
                         // alert(this.dump(ord));
@@ -333,9 +402,9 @@
                         var screenheight = GeckoJS.Session.get('screenheight') || '600';
 
                         if (no == 'CheckNo')
-                        var aURL = 'chrome://viviecr/content/select_checks.xul';
+                            var aURL = 'chrome://viviecr/content/select_checks.xul';
                         else if (no == 'TableNo')
-                        var aURL = 'chrome://viviecr/content/select_tables.xul';
+                            var aURL = 'chrome://viviecr/content/select_tables.xul';
 
                         var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
                         var inputObj = {
@@ -351,22 +420,29 @@
                             var status = ord[idx].status;
                             var check_no = ord[idx].check_no;
 
-                            this._controller.unserializeFromOrder(id);
+                            if (silence) {
+                                //
 
-                            this._controller.dispatchEvent('afterRecallCheck', this._controller._getTransaction());
+
+                            } else {
+                                this._controller.unserializeFromOrder(id);
+                                
+                                this._controller.dispatchEvent('afterRecallCheck', this._controller._getTransaction());
                             
-                            // display to onscreen VFD
-                            if (check_no != null && check_no != '') {
-                                this._controller.dispatchEvent('onWarning', _('RECALLED# %S', [check_no]));
-                            }
-                            else {
-                                this._controller.dispatchEvent('onWarning', _('ORDER RECALLED'));
-                            }
+                                // display to onscreen VFD
+                                if (check_no != null && check_no != '') {
+                                    this._controller.dispatchEvent('onWarning', _('RECALLED# %S', [check_no]));
+                                }
+                                else {
+                                    this._controller.dispatchEvent('onWarning', _('ORDER RECALLED'));
+                                }
 
-                            if (status == 1) {
-                                // @todo OSD
-                                NotifyUtils.warn(_('This order is already finalized!'));
+                                if (status == 1) {
+                                    // @todo OSD
+                                    NotifyUtils.warn(_('This order is already finalized!'));
+                                }
                             }
+                            return id;
 
                         }else {
                             // return null;
@@ -411,25 +487,74 @@
             this.log("GuestCheck transfer...key:" + key + ",  no:" + no);
             switch(key) {
                 case 'OrderNo':
-                break;
+                    break;
                 case 'CheckNo':
-                break;
+                    // this.mergeOrder(no, data);
+                    break;
                 case 'TableNo':
-                break;
+                    break;
                 case 'AllCheck':
-                break;
+                    break;
+            }
+        },
+
+        unserializeFromOrder: function(order_id) {
+            var order = new OrderModel();
+            return order.unserializeOrder(order_id);
+        },
+
+        mergeOrder: function(no, data) {
+
+            this.log("GuestCheck merge check...no:" + no);
+
+            var target_id = this.recall('AllCheck', 'CheckNo', true);
+
+            var targetCheck = this.unserializeFromOrder(target_id);
+
+            var screenwidth = GeckoJS.Session.get('screenwidth') || '800';
+            var screenheight = GeckoJS.Session.get('screenheight') || '600';
+            var aURL = "chrome://viviecr/content/merge_check.xul";
+            var aName = "Merge Check";
+            var aArguments = "";
+            var posX = 0;
+            var posY = 0;
+
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
+            var inputObj = {
+                targetCheck: targetCheck,
+                sourceCheck: data
+            };
+
+            window.openDialog(aURL, 'merge_checks', features, inputObj);
+
+            if (inputObj.ok) {
+                // return queues[idx].key;
+                var id = inputObj.id;
+                var check_no = inputObj.check_no;
+
+                // recall the merged order...
+                this._controller.unserializeFromOrder(id);
+
+                // display to onscreen VFD
+                this._controller.dispatchEvent('onWarning', _('RECALL# %S', [check_no]));
+
+            }else {
+                // return null;
             }
         },
 
         splitOrder: function(no, data) {
             this.log("GuestCheck split check...no:" + no);
 
+            var ar = this.getCheckList('AllCheck', null);
+
             var order = new OrderModel();
             var fields = ['orders.id', 'orders.sequence', 'orders.check_no',
-                          'orders.table_no', 'orders.status'];
+                'orders.table_no', 'orders.status', 'order_objects.object'];
+            // fields = [];
             var conditions = "orders.status='2'";
-            var ord = order.find('all', {fields: fields, conditions: conditions});
-
+            var ord = order.find('all', {fields: fields, conditions: conditions, recursive: 2});
+            // this.log(this.dump(ord));
             var screenwidth = GeckoJS.Session.get('screenwidth') || '800';
             var screenheight = GeckoJS.Session.get('screenheight') || '600';
             var aURL = "chrome://viviecr/content/split_check.xul";
@@ -440,18 +565,14 @@
 
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + screenwidth + ',height=' + screenheight;
             var inputObj = {
-                checks: ord,
-                data: data
+                sourceCheck: data,
+                usedCheckNo: this._checkNoArray
             };
 
-            window.openDialog(aURL, 'select_checks', features, inputObj);
+            window.openDialog(aURL, 'split_checks', features, inputObj);
 
-            if (inputObj.ok && inputObj.index) {
-                var idx = inputObj.index;
-                // return queues[idx].key;
-                var id = ord[idx].id;
-                var status = ord[idx].status;
-                var check_no = ord[idx].check_no;
+            if (inputObj.ok) {
+                var id = inputObj.id;
 
                 this._controller.unserializeFromOrder(id);
 

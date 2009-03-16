@@ -74,6 +74,7 @@
 					                        <menuitem selected="true" label="[&rptorderstatus.all;]" value="all" />
 					                        <menuitem selected="false" label="&rptorderstatus.terminal_no;" value="terminal_no" />
 					                        <menuitem selected="false" label="&rptorderstatus.service_clerk;" value="service_clerk_displayname" />
+					                        <menuitem selected="false" label="&rptorderstatus.status;" value="status" />
 					                        <menuitem selected="false" label="&rptorderstatus.transaction_created;" value="transaction_created" />
 					                        <menuitem selected="false" label="&rptorderstatus.sequence;" value="sequence" />
 					                        <menuitem selected="false" label="&rptorderstatus.invoice_no;" value="invoice_no" />
