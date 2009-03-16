@@ -31,8 +31,12 @@
                         <viviscrollablebuttonpanel id="condimentscrollablepanel" flex="1" cols="4" rows="7"  seltype="mix" labelField="name"
                                                    class="catesdcrollablepanel"
                                                    buttonClass="plubtn"
+                                                   oncommand="if (!$(document.getElementById('selectCondimentPanel')).data('popupPanel.opts').doClick(this)) event.stopPropagation()"
                                                    scrollUpClass="ScrollUp"
                                                    scrollDownClass="ScrollDown">
+                            <spacer flex="1"/>
+                            <vivibutton id="condimentscrollablepanel-soldout" class="systoolbtn soldoutbtn" flex="0" type="checkbox" checkState="0"
+                                        oncommand="$('#condimentscrollablepanel')[0].datasource.soldoutActive=this.checkState; event.stopPropagation()"/>
                             <spacer flex="1"/>
                         </viviscrollablebuttonpanel>
                     </hbox>
