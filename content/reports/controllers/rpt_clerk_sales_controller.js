@@ -237,7 +237,7 @@
    				
             var data = {
                 head: {
-                    title: reportTitle,
+                    title: _( reportTitle ),
                     start_time: start_str,
                     end_time: end_str,
                     machine_id: machineid,

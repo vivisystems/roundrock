@@ -7,8 +7,10 @@
 "Start:","${head.start_time}"
 "End:","${head.end_time}"
 
-"No.","Name","Avg. Price","Qty","Total"
+"Sequence","Total","Add-on Tax","Included Tax"{for tax in taxList},"${tax.no}"{/for}
 {for item in body}
-"${item.product_no}","${item.product_name}","${item.avg_price}","${item.qty}","${item.total}"
+,""
+"${item.Order.sequence}","${item.Order.total|default:0|viviFormatPrices:true}","${item.Order.tax_subtotal|default:0|viviFormatPrices:true}","${item.Order.included_tax_subtotal|default:0|viviFormatPrices:true}"{for tax in taxList},"${item[ tax.no ]|viviFormatPrices:true}"{/for}
 {/for}
-"","","Summary:","${foot.qty}","${foot.summary}"
+,""
+"Summary:","${foot.summary.total|default:0|viviFormatPrices:true}","${foot.summary.tax_subtotal|default:0|viviFormatPrices:true}","${foot.summary.included_tax_subtotal|default:0|viviFormatPrices:true}"{for tax in taxList},"${foot.summary[ tax.no ]|viviFormatPrices:true}"{/for}

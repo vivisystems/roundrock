@@ -10,23 +10,31 @@ ${head.end_time}
 ${head.title|center:24}
 {for item in body}
 ------------------------
-No.:
-${item.product_no|right:24}
-Name:
-${item.product_name|right:24}
-Avg. Price:
-${item.avg_price|right:24}
-Qty.:
-${item.qty|right:24}
-Total:
-${item.total|right:24}
+${'Sequence:'|left:24}
+${item.Order.sequence|right:24}
+${'Total:'|left:24}
+${item.Order.total|default:0|viviFormatPrices:true|right:24}
+${'Add-on Tax:'|left:24}
+${item.Order.tax_subtotal|default:0|viviFormatPrices:true|right:24}
+${'Included Tax:'|left:24}
+${item.Order.included_tax_subtotal|default:0|viviFormatPrices:true|right:24}
+{for tax in taxList}
+${tax.no + ':'|left:24}
+${item[ tax.no ]|viviFormatPrices:true|right:24}
+{/for}
 {/for}
 ------------------------
 Summary
-Qty.:
-${foot.qty|right:24}
-Total:
-${foot.summary|right:24}
+${'Total:'|left:24}
+${foot.summary.total|default:0|viviFormatPrices:true|right:24}
+${'Add-on Tax:'|left:24}
+${foot.summary.tax_subtotal|default:0|viviFormatPrices:true|right:24}
+${'Included Tax:'|left:24}
+${foot.summary.included_tax_subtotal|default:0|viviFormatPrices:true|right:24}
+{for tax in taxList}
+${tax.no + ':'|left:24}
+${foot.summary[ tax.no ]|viviFormatPrices:true|right:24}
+{/for}
 ------------------------
 ${foot.gen_time}
 [&CR]

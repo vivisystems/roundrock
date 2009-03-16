@@ -229,7 +229,7 @@
 
             var data = {
                 head: {
-                    title:_('Daily Sales Report'),
+                    title:_('Daily Sales Summary Report'),
                     start_time: start_str,
                     end_time: end_str,
                     machine_id: machineid,

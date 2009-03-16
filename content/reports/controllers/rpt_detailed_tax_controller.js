@@ -109,7 +109,7 @@
 				
             var data = {
                 head: {
-                	title: _('Product Sales Report'),
+                	title: _('Detailed Tax Report'),
                 	start_time: start_str,
                     end_time: end_str,
                     machine_id: terminalNo,
@@ -134,7 +134,6 @@
 		 * @param start is a thirteen-digit integer indicating the beginning of the time interval.
 		 * @param end is a thirteen-digit integer indicating the end of the time interval.
 		 * @param periodType determines which kind of time interval the start and end will delimit, modified time or sale period.
-		 * @param sortBy determines the field by which the fetched records will be sorted.
 		 * @param terminalNo is an intuitive search criteron.
 		 * @return nothing.
 		 */
@@ -284,6 +283,5 @@
         }
 	
     });
-
 
 })();

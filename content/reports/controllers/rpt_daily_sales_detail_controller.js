@@ -89,31 +89,14 @@
             }
 
             var groupby = null;
-            var orderby = 'orders.terminal_no, orders.item_subtotal desc';//orders.transaction_created';
+            var orderby = 'orders.terminal_no,orders.transaction_created';
             
             var sortby = document.getElementById( 'sortby' ).value;
-            if ( sortby != 'all' ) {
-            	var desc = "";
-            	
-            	switch ( sortby ) {
-            		case 'terminal_no':
-            			break;
-            		case 'transaction_created':
-            		case 'item_subtotal':
-            		case 'tax_subtotal':
-            		case 'surcharge_subtotal':
-            		case 'discount_subtotal':
-            		case 'total':
-            		case 'no_of_customers':
-            		case 'items_count':
-            			desc = ' desc';
-            	}
-            	
-            	orderby = 'orders.' + sortby + desc;
-            }
+            if ( sortby != 'all' )
+            	orderby = 'orders.' + sortby;
 
             var order = new OrderModel();
-            var datas = order.find('all',{fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 2});
+            var datas = order.find('all',{fields: fields, conditions: conditions, group: groupby, order: orderby, limit: 300, recursive: 2});
 
             var rounding_prices = GeckoJS.Configure.read( 'vivipos.fec.settings.RoundingPrices' ) || 'to-nearest-precision';
             var precision_prices = GeckoJS.Configure.read( 'vivipos.fec.settings.PrecisionPrices' ) || 0;
@@ -125,19 +108,19 @@
             	surcharge_subtotal: 0,
             	discount_subtotal: 0,
             };
-
+//this.log( this.dump( order.getDataSource().fetchAll( 'select * from orders limit 10' ) ) );
             if (datas) {
                 datas.forEach(function(o){
 
                     o.total = GeckoJS.NumberHelper.round(o.total, precision_prices, rounding_prices) || 0;
                     o.total = o.total.toFixed(precision_prices);
 
-                    o.OrderItem.forEach(function(k){
-                        k.current_price = GeckoJS.NumberHelper.round(k.current_price, precision_prices, rounding_prices) || 0;
-                        k.current_price = k.current_price.toFixed(precision_prices);
-                        k.current_subtotal = GeckoJS.NumberHelper.round(k.current_subtotal, precision_prices, rounding_prices) || 0;
-                        k.current_subtotal = k.current_subtotal.toFixed(precision_prices);
-                    });
+	                o.OrderItem.forEach(function(k){
+	                    k.current_price = GeckoJS.NumberHelper.round(k.current_price, precision_prices, rounding_prices) || 0;
+	                    k.current_price = k.current_price.toFixed(precision_prices);
+	                    k.current_subtotal = GeckoJS.NumberHelper.round(k.current_subtotal, precision_prices, rounding_prices) || 0;
+	                    k.current_subtotal = k.current_subtotal.toFixed(precision_prices);
+	                });
                     
                     footDatas.tax_subtotal += o[ 'tax_subtotal' ];
                     footDatas.item_subtotal += o[ 'item_subtotal' ];
@@ -201,7 +184,7 @@
 
                 this.BrowserPrint.getPrintSettings();
                 this.BrowserPrint.setPaperSizeUnit(1);
-                this.BrowserPrint.setPaperSize( 297, 210 );
+                this.BrowserPrint.setPaperSize( 210, 297 );
                 // this.BrowserPrint.setPaperEdge(20, 20, 20, 20);
 
                 this.BrowserPrint.getWebBrowserPrint('preview_frame');

@@ -1217,3 +1217,9 @@ msgstr "Sale Period"
 
 msgid "Detailed Tax Report"
 msgstr "Detailed Tax Report"
+
+msgid "Service Clerk Sales Report"
+msgstr "Service Clerk Sales Report"
+
+msgid "Proceeds Clerk Sales Report"
+msgstr "Proceeds Clerk Sales Report"
