@@ -69,7 +69,7 @@
 
                 no_of_customers: 1,
 
-                terminal_no: '',
+                terminal_no: GeckoJS.Session.get('terminal_no'),
                 sale_period: '',
                 shift_number: '',
                 

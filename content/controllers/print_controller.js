@@ -477,11 +477,9 @@
 
             var enabledDevices = device.getEnabledDevices('check');
             var order = txn.data;
-            var customer = GeckoJS.Session.get('current_customer');
             var data = {
                 txn: txn,
-                order: order,
-                customer: customer
+                order: order
             };
 
             if (order.proceeds_clerk == null || order.proceeds_clerk == '') {
@@ -596,6 +594,7 @@
 
             // expand data with storeContact and terminal_no
             if (data) {
+                data.customer = GeckoJS.Session.get('current_customer');
                 data.store = GeckoJS.Session.get('storeContact');
                 if (data.store) data.store.terminal_no = GeckoJS.Session.get('terminal_no');
             }

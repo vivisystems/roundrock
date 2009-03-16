@@ -417,8 +417,9 @@
                                                            });
 
             var giftcardExcess = (giftcardTotal && giftcardTotal.excess_amount != null) ? giftcardTotal.excess_amount : 0;
-            
-            var shiftChangeDetails = destDetails.concat(creditcardCouponDetails.concat(giftcardDetails.concat(checkDetails.concat(localCashDetails.concat(foreignCashDetails.concat(ledgerDetails))))));
+
+            // don't include destination details yet
+            var shiftChangeDetails = creditcardCouponDetails.concat(giftcardDetails.concat(checkDetails.concat(localCashDetails.concat(foreignCashDetails.concat(ledgerDetails)))));
             shiftChangeDetails = new GeckoJS.ArrayQuery(shiftChangeDetails).orderBy('type asc, name asc');
 
             var aURL = 'chrome://viviecr/content/prompt_doshiftchange.xul';
@@ -474,6 +475,9 @@
                     }
                 }
 
+                // append destination details to shift change details so it gets stored to db
+                shiftChangeDetails = destDetails.concat(shiftChangeDetails);
+
                 // update shiftChangeDetails and record shift change to database
                 var shiftChangeRecord = {
                     starttime: currentShift.modified,
@@ -488,7 +492,7 @@
                     terminal_no: GeckoJS.Session.get('terminal_no'),
                     sale_period: this.getSalePeriod(),
                     shift_number: this.getShiftNumber(),
-                    shiftChangeDetails: inputObj.shiftChangeDetails
+                    shiftChangeDetails: shiftChangeDetails
                 };
 
                 // do shift change
