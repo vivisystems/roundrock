@@ -3114,7 +3114,7 @@
             this._getKeypadController().clearBuffer();
 
             this.cancelReturn();
-
+// recall order
             return this.GuestCheck.recallByOrderNo(no);
         },
 
