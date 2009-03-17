@@ -337,6 +337,9 @@
             <preference id="pref_orderretaindays" name="vivipos.fec.settings.OrderRetainDays" type="int"/>
             <preference id="pref_orderweeklypack" name="vivipos.fec.settings.OrderWeeklyPack" type="int"/>
 
+            <preference id="pref_requirecheckno" name="vivipos.fec.settings.RequireCheckNo" type="bool"/>
+            <preference id="pref_requiretableno" name="vivipos.fec.settings.RequireTableNo" type="bool"/>
+
         </preferences>
         <grid class="DataForm">
             <columns>
@@ -359,6 +362,12 @@
                         </menupopup>
                     </menulist>
                 </row>
+
+                <row>
+                    <checkbox id="requireCheckNo" label="&orderdata.requirecheckno;" preference="pref_requirecheckno"/>
+                    <checkbox id="requireTableNo" label="&orderdata.requiretableno;" preference="pref_requiretableno"/>
+                </row>
+
             </rows>
         </grid>
 

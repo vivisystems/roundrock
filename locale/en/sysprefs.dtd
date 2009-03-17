@@ -81,3 +81,5 @@
 <!ENTITY orderdata.orderretaindays "Number of days to retain order data">
 <!ENTITY orderdata.diskunused "Available disk space">
 <!ENTITY orderdata.orderweeklypack "Pack order data on">
+<!ENTITY orderdata.requirecheckno "Require check no">
+<!ENTITY orderdata.requiretableno "Require table no">
