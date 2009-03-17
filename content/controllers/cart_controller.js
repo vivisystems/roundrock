@@ -3077,7 +3077,7 @@
             }
         },
 
-        newtable: function() {
+        newTable: function() {
             var no = this._getKeypadController().getBuffer();
             this._getKeypadController().clearBuffer();
 
@@ -3192,7 +3192,7 @@
             curTransaction.data.no_of_customers = no;
         },
 
-        mergeOrder: function() {
+        mergeCheck: function() {
 
             var no = this._getKeypadController().getBuffer();
             this._getKeypadController().clearBuffer();
@@ -3230,7 +3230,8 @@
             var r = this.GuestCheck.mergeOrder(no, curTransaction.data);
         },
 
-        spliteOrder: function() {
+        splitCheck: function() {
+
             var no = this._getKeypadController().getBuffer();
             this._getKeypadController().clearBuffer();
 
