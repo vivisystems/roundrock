@@ -99,11 +99,31 @@
                 //var groupby = '"Order.Date"';
             }
             var groupby = '';
-            var orderby = 'orders.terminal_no, orders.transaction_created, orders.id';
+            var orderby = 'orders.terminal_no, orders.status, orders.item_subtotal desc';//orders.transaction_created, orders.id';
             
             var sortby = document.getElementById( 'sortby' ).value;
-            if ( sortby != 'all' )
-            	orderby = 'orders.' + sortby;
+            if ( sortby != 'all' ) {
+				var desc = '';
+				
+				switch ( sortby ) {
+					case 'terminal_no':
+					case 'service_clerk_displayname':
+					case 'status':
+						break;
+					case 'transaction_created':
+					case 'sequence':
+					case 'invoice_no':
+					case 'item_subtotal':
+					case 'tax_subtotal':
+					case 'surcharge_subtotal':
+					case 'discount_subtotal':
+					case 'total':
+						desc = ' desc';
+						break;
+				}
+				
+            	orderby = 'orders.' + sortby + desc;
+            }
             
             var order = new OrderModel();
             

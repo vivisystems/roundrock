@@ -1,10 +1,10 @@
 (function(){
 
     /**
-     * Class ViviPOS.CartController
+     * Class ViviPOS.TestController
      */
 
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
         name: 'Test',
         components: ['Tax','Acl'],
 
@@ -99,7 +99,8 @@ alert('generateTransactions [' + count + ']');
 
         }
 
-    });
+    };
 
+    GeckoJS.Controller.extend(__controller__);
 
 })();

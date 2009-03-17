@@ -1,6 +1,6 @@
 (function(){
 
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
         name: 'Annotations',
 
         _orderId: null,
@@ -478,7 +478,9 @@
             return annotationModel.findByIndex('all', {index: 'order_id', value: order_id, order: 'type', recursive: 0});
         }
 
-    });
+    };
+
+    GeckoJS.Controller.extend(__controller__);
 
     window.addEventListener('load', function() {
         var main = GeckoJS.Controller.getInstanceByName('Main');

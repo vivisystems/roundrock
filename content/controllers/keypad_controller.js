@@ -3,9 +3,8 @@
     /**
      * Class ViviPOS.KeypadController
      */
-    // GeckoJS.define('ViviPOS.KeypadController');
 
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
         name: 'Keypad',
         // charpress buffer
         buf: "",
@@ -141,8 +140,8 @@
 			
             }
         }
-	
-	
-    });
+    };
+
+    GeckoJS.Controller.extend(__controller__);
 
 })();

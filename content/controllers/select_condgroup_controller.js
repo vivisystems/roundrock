@@ -1,6 +1,6 @@
 (function(){
 
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
         name: 'SelectCondgroup',
 	
         _listObj: null,
@@ -77,7 +77,9 @@
             }
         }
 	
-    });
+    };
+
+    GeckoJS.Controller.extend(__controller__);
 
 })();
 

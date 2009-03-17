@@ -3,9 +3,8 @@
     /**
      * Class ViviPOS.JobsController
      */
-    // GeckoJS.define('ViviPOS.JobsController');
 
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
         name: 'Jobs',
         components: ['Form', 'Acl'], 
         scaffold: true,
@@ -226,8 +225,9 @@
             }
         }
 
-    });
+    };
 
+    GeckoJS.Controller.extend(__controller__);
 
 })();
 

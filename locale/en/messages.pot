@@ -1212,9 +1212,6 @@ msgstr "Touch Calibration"
 msgid "Touch Utility"
 msgstr "Touch Utility"
 
-msgid "acl_store_check"
-msgstr "Store Check"
-
 msgid "transaction_created"
 msgstr "Order Start Time"
 
@@ -1391,11 +1388,20 @@ msgstr "Transfer Table No"
 msgid "sale_period"
 msgstr "Sale Period"
 
+msgid "Detailed Tax Report"
+msgstr "Detailed Tax Report"
+
 msgid "Factory"
 msgstr "Factory Dataset"
 
+msgid "Service Clerk Sales Report"
+msgstr "Service Clerk Sales Report"
+
 msgid "Training"
 msgstr "Training Dataset"
+
+msgid "Proceeds Clerk Sales Report"
+msgstr "Proceeds Clerk Sales Report"
 
 msgid "XTerm"
 msgstr "XTerm"

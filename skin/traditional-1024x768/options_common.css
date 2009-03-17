@@ -84,8 +84,8 @@ textbox:not(.customer_field_label):not(.customer_field_value):not(.uidisplay_fie
   font-size: 12pt;
   padding: 3px 4px;
   color: #444;
-
 }
+
 textbox[readonly="true"]:not(.customer_field_label):not(.customer_field_value):not(.uidisplay_field_label):not(.uidisplay_field_value):not(.orderstatus_field_label):not(.orderstatus_field_value):not(.current_user):not(.console_message_value):not(.console_message_value):not(.label_vfd) {
   border: 1px solid #a1a09d;
   -moz-border-top-colors: #a1a09d;
