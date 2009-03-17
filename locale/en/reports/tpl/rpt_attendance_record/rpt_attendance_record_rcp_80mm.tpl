@@ -5,9 +5,8 @@ Terminal: ${head.store.terminal_no|left:10} Clerk: ${head.clerk_displayname|left
 ${head.start_time} ~ ${head.end_time}
 
 ${head.title|center:42}
-------------------------------------------
 {for master in body}
-[&CR]
+------------------------------------------
 Clerk:     ${master.username}
 ------------------------------------------
 {for stamp in master.clockStamps}

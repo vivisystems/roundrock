@@ -58,6 +58,8 @@
                 
                 if(isOK && selectedItems.length > 0) {
 
+                    selectedItems.sort(function(a,b) {return a - b});
+                    
                     selectedItems.forEach(function(index) {
                         condiments.push(condsData[index]);
                     });

@@ -1,6 +1,6 @@
 (function(){
 
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
         name: 'Destinations',
 	
         _listObj: null,
@@ -293,7 +293,9 @@
             }
         }
 	
-    });
+    };
+
+    GeckoJS.Controller.extend(__controller__);
 
     window.addEventListener('load', function() {
         var main = GeckoJS.Controller.getInstanceByName('Main');

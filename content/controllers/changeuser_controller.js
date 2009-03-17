@@ -4,9 +4,8 @@
     /**
      * Class ViviPOS.ChangeUserController
      */
-    //GeckoJS.define('ViviPOS.ChangeUserController');
 
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
         name: 'ChangeUser',
         users: null,
         userpanel: null,
@@ -101,6 +100,8 @@
             }
         }
 
-    });
+    };
+
+    GeckoJS.Controller.extend(__controller__);
 
 })();

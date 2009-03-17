@@ -7,7 +7,7 @@
      * for vivifuncpanelecr
      */
 
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
 
         name: 'HotkeyPrefs',
         prefTree: null,
@@ -413,7 +413,9 @@
         }
 
 
-    });
+    };
+
+    GeckoJS.Controller.extend(__controller__);
 
     window.addEventListener("load", function (){
         $do('startup', '', 'HotkeyPrefs');

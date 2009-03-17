@@ -28,8 +28,8 @@
             this._super(c);
             // @todo : check orders first and set _checkNoArray, _tableNoArray...
             var guestCheck = {
-                requireCheckNo: true,
-                requireTableNo: true,
+                requireCheckNo: false,
+                requireTableNo: false,
                 checkNoRange: {
                     min: 1,
                     max: 100
@@ -66,7 +66,6 @@
 
         handleNewTransaction: function(evt) {
             // if (this._inSetCustomer) return;
-            // this.log(this.dump(evt));
 
             this._guestCheck.requireCheckNo = GeckoJS.Configure.read('vivipos.fec.settings.RequireCheckNo') || false;
             this._guestCheck.requireTableNo = GeckoJS.Configure.read('vivipos.fec.settings.RequireTableNo') || false;
@@ -488,7 +487,7 @@
         },
 
         transfer: function(key, no) {
-            this.log("GuestCheck transfer...key:" + key + ",  no:" + no);
+            //this.log("GuestCheck transfer...key:" + key + ",  no:" + no);
             switch(key) {
                 case 'OrderNo':
                     break;
@@ -509,7 +508,7 @@
 
         mergeOrder: function(no, data) {
 
-            this.log("GuestCheck merge check...no:" + no);
+            //this.log("GuestCheck merge check...no:" + no);
 
             var target_id = this.recall('AllCheck', 'CheckNo', true);
 
@@ -548,7 +547,7 @@
         },
 
         splitOrder: function(no, data) {
-            this.log("GuestCheck split check...no:" + no);
+            //this.log("GuestCheck split check...no:" + no);
 
             var ar = this.getCheckList('AllCheck', null);
 

@@ -1,10 +1,6 @@
 (function(){
 
-    /**
-     * Class ViviPOS.CartController
-     */
-
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
         name: 'CurrencySetup',
         _currencies: [],
 
@@ -70,7 +66,9 @@
             GeckoJS.Configure.write('vivipos.fec.settings.Currencies', datastr);
         }
 
-    });
+    };
+
+    GeckoJS.Controller.extend(__controller__);
 
     window.addEventListener('load', function() {
         var main = GeckoJS.Controller.getInstanceByName('Main');

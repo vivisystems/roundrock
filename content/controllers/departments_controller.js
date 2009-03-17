@@ -3,7 +3,7 @@
     /**
      * Class DepartmentsController
      */
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
 
         screenwidth: GeckoJS.Session.get('screenwidth') || 800,
         screenheight: GeckoJS.Session.get('screenheight') || 600,
@@ -325,6 +325,8 @@
             }
         }
 
-    });
+    };
+
+    GeckoJS.Controller.extend(__controller__);
 
 })();

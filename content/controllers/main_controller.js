@@ -777,7 +777,7 @@
             if (params) paramList = params.split(',');
             var count = parseInt(paramList[0]) || 1;
             var items = parseInt(paramList[1]) || 1;
-            var waitPanel = this._showWaitPanel('wait_panel', 'common_wait', _('Load Testing (%S orders with %S items)', [count, items]), 1000);
+            var waitPanel = this._showWaitPanel('wait_panel', 'common_wait', 'Load Testing (' + count + ' orders with ' + items + ' items)', 1000);
             var customers = GeckoJS.Session.get('customers');
             var products = GeckoJS.Session.get('products');
             var numProds = products.length;
@@ -819,4 +819,3 @@
     GeckoJS.Controller.extend(__controller__);
 
 })();
-
