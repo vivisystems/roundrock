@@ -107,14 +107,14 @@
             	orderby = 'orders.' + sortby + desc;
             }
             	
-            var limit = 3000;
+            var limit = 5000;
             	
             var sql = 'select ' + fields + ' from ' + tables + ' where ' + conditions + ' order by ' + orderby + ' limit ' + limit + ';';
 
             var order = new OrderModel();
 
 			var results = order.getDataSource().fetchAll( sql );
-			
+
 			var summary = {
 				item_subtotal: 0,
 				tax_subtotal: 0,

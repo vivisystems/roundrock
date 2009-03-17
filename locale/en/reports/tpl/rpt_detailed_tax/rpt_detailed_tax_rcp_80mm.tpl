@@ -9,6 +9,8 @@ ${head.title|center:42}
 ------------------------------------------
 ${'Sequence:'|left:14}${item.Order.sequence|right:28}
 ${'Total:'|left:14}${item.Order.total|default:0|viviFormatPrices:true|right:28}
+${'Discount:'|left:14}${item.discount_subtotal|default:0|viviFormatPrices:true|right:28}
+${'Surcharge:'|left:14}${item.surcharge_subtotal|default:0|viviFormatPrices:true|right:28}
 ${'Add-on Tax:'|left:14}${item.Order.tax_subtotal|default:0|viviFormatPrices:true|right:28}
 ${'Included Tax:'|left:14}${item.Order.included_tax_subtotal|default:0|viviFormatPrices:true|right:28}
 {for tax in taxList}
@@ -18,6 +20,8 @@ ${tax.no + ':'|left:14}${item[ tax.no ]|viviFormatPrices:true|right:28}
 ------------------------------------------
 Summary
 ${'Total:'|left:14}${foot.summary.total|default:0|viviFormatPrices:true|right:28}
+${'Discount:'|left:14}${foot.summary.discount_subtotal|default:0|viviFormatPrices:true|right:28}
+${'Surcharge:'|left:14}${foot.summary.surcharge_subtotal|default:0|viviFormatPrices:true|right:28}
 ${'Add-on Tax:'|left:14}${foot.summary.tax_subtotal|default:0|viviFormatPrices:true|right:28}
 ${'Included Tax:'|left:14}${foot.summary.included_tax_subtotal|default:0|viviFormatPrices:true|right:28}
 {for tax in taxList}
