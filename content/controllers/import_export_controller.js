@@ -4,7 +4,7 @@
      * Class ImportExportController
      */
 
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
         name: 'ImportExport',
         scaffold: true,
         uses: ["Product"],
@@ -423,8 +423,9 @@
             var panelView = new GeckoJS.NSITreeViewArray(this._datas);
             this.getListObj().datasource = panelView;
         }
-    });
+    };
 
+    GeckoJS.Controller.extend(__controller__);
 
 })();
 

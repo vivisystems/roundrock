@@ -4,7 +4,7 @@
      * Print Controller
      */
 
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
         name: 'GPIO',
 
         _ioService: null,
@@ -53,7 +53,9 @@
         }
 
 
-    });
+    };
+
+    GeckoJS.Controller.extend(__controller__);
 
     // register onload
     window.addEventListener('load', function() {

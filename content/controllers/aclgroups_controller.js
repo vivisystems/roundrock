@@ -1,6 +1,6 @@
 (function(){
 
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
         name: 'AclGroups',
 	
         _listObj: null,
@@ -265,7 +265,9 @@
             }
         }
 	
-    });
+    };
+
+    GeckoJS.Controller.extend(__controller__);
 
 })();
 

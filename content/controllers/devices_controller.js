@@ -4,7 +4,7 @@
      * Devices Controller
      */
 
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
         name: 'Devices',
 
         _templates: null,
@@ -1498,7 +1498,9 @@
             return;
         }
 
-    });
+    };
+
+    GeckoJS.Controller.extend(__controller__);
 
     // register onload
     window.addEventListener('load', function() {

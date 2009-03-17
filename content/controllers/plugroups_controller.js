@@ -1,10 +1,6 @@
 (function(){
 
-    /**
-     * Class TempleteController
-     */
-
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
         name: 'Plugroups',
         scaffold: true,
         uses: [],
@@ -348,7 +344,8 @@
             }
         }
 	
-    });
+    };
 
+    GeckoJS.Controller.extend(__controller__);
 
 })();

@@ -7,7 +7,7 @@
      * for vivifuncpanelecr
      */
 
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
 
       name: 'vivifuncpanelecr_prefs',
       panel: null,
@@ -899,7 +899,9 @@
         this.panel.setAttribute('mode', 'noop');
     }
 
-  });
+  };
+
+  GeckoJS.Controller.extend(__controller__);
 
   window.addEventListener("load", function (){
       $do('vivifuncpanelecrPrefs_startup', 'vivifuncpanelecr_prefs', 'vivifuncpanelecr_prefs');

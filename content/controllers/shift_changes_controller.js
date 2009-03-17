@@ -4,7 +4,7 @@
      * ShiftChangesController
      */
 
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
         name: 'ShiftChanges',
 
         _listObj: null,
@@ -34,33 +34,6 @@
             return shift;
         },
 
-<<<<<<< HEAD:content/controllers/shift_changes_controller.js
-            if (lastChange)
-                var start = lastChange.endtime;
-            else
-                var start = (new Date(2000,1,1)).getTime() / 1000;
-            var end = (new Date()).getTime() / 1000;
-
-            var fields = ['order_payments.modified',
-                            'order_payments.name',
-                            'order_payments.memo1',
-                            'SUM("order_payments"."amount" - "order_payments"."change") as "OrderPayment.amount"'];
-            var conditions = "order_payments.modified > '" + start + "' AND order_payments.modified < '" + end + "'";
-            var groupby = '"order_payments"."name" , "order_payments"."memo1"';
-            var orderby = 'order_payments.name';
-            var orderPayment = new OrderPaymentModel();
-            var detail = orderPayment.find('all', {
-                fields: fields,
-                conditions: conditions,
-                group: groupby,
-                order: orderby
-            });
-//alert(conditions);
-//alert(this.dump(detail));
-            if (detail.length == 0) {
-                NotifyUtils.warn(_('shift change is not needed!'));
-                return;
-=======
         getSalePeriod: function() {
             return GeckoJS.Session.get('sale_period');
         },
@@ -98,7 +71,6 @@
             if (currentShift) {
                 shiftNumber = currentShift.shift_number;
                 salePeriod = currentShift.sale_period;
->>>>>>> 6b93752eabd4d4f6d56f1c0187fb526a83f59b6f:content/controllers/shift_changes_controller.js
             }
             GeckoJS.Session.set('current_shift', currentShift);
             GeckoJS.Session.set('shift_number', shiftNumber);
@@ -110,6 +82,9 @@
         setShift: function(salePeriod, shiftNumber, endOfPeriod, endOfShift) {
             var shiftMarkerModel = new ShiftMarkerModel();
 
+            shiftNumber = parseInt(shiftNumber);
+            salePeriod = parseInt(salePeriod);
+            
             var newShiftMarker = {
                 terminal_no: GeckoJS.Session.get('terminal_no'),
                 sale_period: salePeriod,
@@ -123,17 +98,10 @@
                 value: GeckoJS.Session.get('terminal_no')
             });
 
-<<<<<<< HEAD:content/controllers/shift_changes_controller.js
-            var clerk = '';
-            var user = new GeckoJS.AclComponent().getUserPrincipal();
-            if ( user != null ) {
-                clerk = user.username;
-=======
             // update shift marker
             if (shift) {
                 newShiftMarker.id = shift.id;
                 shiftMarkerModel.id = shift.id;
->>>>>>> 6b93752eabd4d4f6d56f1c0187fb526a83f59b6f:content/controllers/shift_changes_controller.js
             }
             newShiftMarker = shiftMarkerModel.save(newShiftMarker);
 
@@ -452,8 +420,9 @@
                                                            });
 
             var giftcardExcess = (giftcardTotal && giftcardTotal.excess_amount != null) ? giftcardTotal.excess_amount : 0;
-            
-            var shiftChangeDetails = destDetails.concat(creditcardCouponDetails.concat(giftcardDetails.concat(checkDetails.concat(localCashDetails.concat(foreignCashDetails.concat(ledgerDetails))))));
+
+            // don't include destination details yet
+            var shiftChangeDetails = creditcardCouponDetails.concat(giftcardDetails.concat(checkDetails.concat(localCashDetails.concat(foreignCashDetails.concat(ledgerDetails)))));
             shiftChangeDetails = new GeckoJS.ArrayQuery(shiftChangeDetails).orderBy('type asc, name asc');
 
             var aURL = 'chrome://viviecr/content/prompt_doshiftchange.xul';
@@ -509,6 +478,9 @@
                     }
                 }
 
+                // append destination details to shift change details so it gets stored to db
+                shiftChangeDetails = destDetails.concat(shiftChangeDetails);
+
                 // update shiftChangeDetails and record shift change to database
                 var shiftChangeRecord = {
                     starttime: currentShift.modified,
@@ -523,7 +495,7 @@
                     terminal_no: GeckoJS.Session.get('terminal_no'),
                     sale_period: this.getSalePeriod(),
                     shift_number: this.getShiftNumber(),
-                    shiftChangeDetails: inputObj.shiftChangeDetails
+                    shiftChangeDetails: shiftChangeDetails
                 };
 
                 // do shift change
@@ -623,7 +595,9 @@
             }
         }
 
-    });
+    };
+
+    GeckoJS.Controller.extend(__controller__);
 
     window.addEventListener('load', function() {
         var main = GeckoJS.Controller.getInstanceByName('Main');

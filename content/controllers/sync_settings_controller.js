@@ -3,7 +3,7 @@
     /**
      * SyncSettings Controller
      */
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
         name: 'SyncSettings',
 
         // initial SyncSettings
@@ -49,6 +49,8 @@
 		
         }
 
-    });
+    };
+
+    GeckoJS.Controller.extend(__controller__);
 
 })();

@@ -4,7 +4,7 @@
     /**
      * Layout Controller
      */
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
 
         name: 'Layout',
     
@@ -244,7 +244,9 @@
             this.resizePanels(initial);
         }
 
-    });
+    };
+
+    GeckoJS.Controller.extend(__controller__);
 
     // register onload
     window.addEventListener('load', function() {

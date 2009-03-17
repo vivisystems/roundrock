@@ -1,6 +1,6 @@
 (function() {
 
-    // declare Transaction Base Object / data encapulate
+    // declare Transaction Base Object / data encapsulate
     var Transaction = window.Transaction = GeckoJS.BaseObject.extend('Transaction', {
 
         name: 'Transaction',
@@ -69,7 +69,7 @@
 
                 no_of_customers: 1,
 
-                terminal_no: '',
+                terminal_no: GeckoJS.Session.get('terminal_no'),
                 sale_period: '',
                 shift_number: '',
                 
@@ -180,7 +180,8 @@
         var self = this;
        // Transaction.worker = setTimeout(function() {
             // maintain stock...
-            self.requestCommand('decStock', self.data, "Stocks");
+            if (status > 0)
+                self.requestCommand('decStock', self.data, "Stocks");
 
             if (!discard) self.run();
        // }, 1500);

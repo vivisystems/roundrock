@@ -6,7 +6,7 @@
      * VFD Controller
      */
 
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
         name: 'VFD',
 
         _device: null,
@@ -349,7 +349,9 @@
             this._worker.dispatch(runnable, this._worker.DISPATCH_NORMAL);
         }
 
-    });
+    };
+
+    GeckoJS.Controller.extend(__controller__);
 
     // register onload
     window.addEventListener('load', function() {

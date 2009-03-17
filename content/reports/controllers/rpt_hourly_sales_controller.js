@@ -81,7 +81,7 @@
             }
 
             
-            var orderby = 'orders.terminal_no,orders.transaction_created';
+            var orderby = '"Order.HourTotal" desc';//orders.transaction_created';
 
             var order = new OrderModel();
             var datas = order.find( 'all', {fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: -1} );
@@ -93,9 +93,23 @@
             if ( sortby != 'all' ) {
             	datas.sort(
             		function ( a, b ) {
-            			if ( a[ sortby ] > b[ sortby ] ) return 1;
-            			if ( a[ sortby ] < b[ sortby ] ) return -1;
-            			return 0;
+            			a = a[ sortby ];
+            			b = b[ sortby ];
+            			
+            			switch ( sortby ) {
+            				case 'terminal_no':
+            					if ( a > b ) return 1;
+				    			if ( a < b ) return -1;
+				    			return 0;
+            				case 'Hour':
+            				case 'HourTotal':
+            				case 'OrderNum':
+            				case 'Guests':
+            				case 'ItemsCount':
+            					if ( a < b ) return 1;
+				    			if ( a > b ) return -1;
+				    			return 0;
+				    	}
             		}
             	);
             }

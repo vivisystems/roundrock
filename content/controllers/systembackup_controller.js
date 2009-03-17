@@ -35,7 +35,7 @@
      * SystemBackup Controller
      */
 
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
         name: 'SystemBackup',
 	
         _listObj: null,
@@ -300,7 +300,9 @@
         select: function(index){
             //
         }
-    });
+    };
+
+    GeckoJS.Controller.extend(__controller__);
 
 })();
 

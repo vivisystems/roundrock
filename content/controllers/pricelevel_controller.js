@@ -4,7 +4,7 @@
      * Class ViviPOS.CartController
      */
 
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
         name: 'Pricelevel',
 
         limit: 9,
@@ -97,7 +97,9 @@
             this._changeLevel(level);
         }
 
-    });
+    };
+
+    GeckoJS.Controller.extend(__controller__);
 
     window.addEventListener('load', function() {
         var main = GeckoJS.Controller.getInstanceByName('Main');

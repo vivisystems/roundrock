@@ -11,7 +11,6 @@
 <p align="left">Terminal: ${head.store.terminal_no}</p>
 <p align="left">Clerk: ${head.clerk_displayname}</p>
 <p align="right">Printed Time: ${foot.gen_time}</p>
-<p align="right">${head.start_time} - ${head.end_time}</p>
 
         <table id="body-table">
             <caption>${head.title}</caption>

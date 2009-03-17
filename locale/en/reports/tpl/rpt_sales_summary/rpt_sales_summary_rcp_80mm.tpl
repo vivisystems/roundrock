@@ -50,7 +50,7 @@ Summary:${body.tax_summary.summary.tax_total|default:0|viviFormatPrices:true|rig
 ------------------------------------------
 Top ${body.dept_sales.num_rows_to_get} Department Sales
 {for detail in body.dept_sales.records}
-  Department:${detail.cate_no}-${detail.cate_name|right:29}
+  Department:${detail.cate_no + '-' + detail.cate_name|right:29}
   Quantity:  ${detail.qty|right:29}
   Total:     ${detail.total|default:0|viviFormatPrices:true|right:29}
   

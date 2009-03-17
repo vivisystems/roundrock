@@ -25,3 +25,4 @@
 <!ENTITY rptorderstatus.finalizedorder "Finalized Orders">
 <!ENTITY rptorderstatus.savedorder "Saved Orders">
 <!ENTITY rptorderstatus.canceledorder "Canceled Orders">
+<!ENTITY rptorderstatus.status "Status">

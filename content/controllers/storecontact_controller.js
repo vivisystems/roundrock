@@ -5,7 +5,7 @@
     /**
      * Contact Info Controller
      */
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
         name: 'StoreContact',
         components: ['Form'],
 
@@ -118,7 +118,9 @@
         validateForm: function() {
         }
 
-    });
+    };
+
+    GeckoJS.Controller.extend(__controller__);
 
     // register onload
     window.addEventListener('load', function() {

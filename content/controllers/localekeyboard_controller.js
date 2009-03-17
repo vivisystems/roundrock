@@ -4,7 +4,7 @@
      * Controller LocaleKeyboard
      */
 
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
         name: 'LocaleKeyboard',
 
         // select the indicated keyboard layout
@@ -15,7 +15,8 @@
             $('#keyboard-layout')[0].setAttribute('src', 'chrome://viviecr/content/skin/kblayouts/' + selectedKbmap + '.png');
         }
 
+    };
 
-    });
+    GeckoJS.Controller.extend(__controller__);
 
 })();
