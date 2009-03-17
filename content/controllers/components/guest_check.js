@@ -66,15 +66,10 @@
 
         handleNewTransaction: function(evt) {
             // if (this._inSetCustomer) return;
-<<<<<<< HEAD:content/controllers/components/guest_check.js
-            // this.log(this.dump(evt));
 
             this._guestCheck.requireCheckNo = GeckoJS.Configure.read('vivipos.fec.settings.RequireCheckNo') || false;
             this._guestCheck.requireTableNo = GeckoJS.Configure.read('vivipos.fec.settings.RequireTableNo') || false;
 
-=======
-            //this.log(this.dump(evt));
->>>>>>> 6f6cbf1f91b85d53f8410879ced953efaa43d95b:content/controllers/components/guest_check.js
             if (evt.type == 'onSubmit' || evt.type == 'onCancel' || evt.type == 'onInitial' || evt.type == 'onStore') {
                 //
                 if (this._guestCheck.requireCheckNo) {
