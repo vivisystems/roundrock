@@ -3,19 +3,40 @@
 <img src="chrome://viviecr/content/skin/images/logo.png" /><br />
 </div>
 <div id="docbody" class="paper">
-<p align="left">${head.store.name}</p>
-<p align="left">${head.store.branch}</p>
-<p align="left">${head.store.telephone1}</p>
-<p align="left">Terminal: ${head.store.terminal_no}</p>
-<p align="left">Clerk: ${head.clerk_displayname}</p>
-<p align="right">Printed Time: ${foot.gen_time}</p>
-<p align="right">${head.start_time} - ${head.end_time}</p>
+<p class="heading_store">${head.store.name} - ${head.store.branch}</p>
+<p class="heading_store">${head.store.telephone1}</p>
+
+<div style="float: left;">
+	<p class="heading_p">Terminal: ${head.store.terminal_no}</p>
+	<p class="heading_p">Clerk: ${head.clerk_displayname}</p>
+	<p class="caption">${head.title}</p>
+</div>
+
+<div style="float: right;">
+	<p class="heading_p">&nbsp;</p>
+	<p class="heading_p" align="right">Printed Time: ${foot.gen_time}</p>
+	<p class="caption">${head.start_time} - ${head.end_time}</p>
+</div>
 
 {for master in body}
         <table id="body-table">
-            <caption>${master.terminal_no} : ${master.starttime} - ${master.endtime}</caption>
+            <!--caption>${master.terminal_no} : ${master.starttime} - ${master.endtime}</caption-->
             <thead>
-                <tr>
+            	<tr>
+            		<td colspan="8" style="text-align: left;
+							  font-weight: bold;
+							  font-size: 12pt;
+							  color: #292929;
+							  margin: 10px 5px;
+							  padding: 4px;">${master.terminal_no} : ${master.starttime} - ${master.endtime}</td>
+            	</tr>
+                <tr style="text-align: left;
+							  color: #56523a;
+							  border-top: 2px solid #b5b093;
+							  border-bottom: 1px solid #b5b093;
+							  background-color: #f5f2ec;
+							  font-size: 11pt;
+							  padding: 4px;">
                     <th>Sale Period</th>
                     <th>Shift No.</th>
                     <th>Balance</th>
@@ -26,6 +47,9 @@
                     <th>Ledger Out</th>
                 </tr>
             </thead>
+            <tfoot>
+            	<tr></tr>
+            </tfoot>
             <tbody>
                 <tr style="border-bottom: 2px solid #b5b093;">
                 	<td>${master.sale_period}</td>
@@ -76,8 +100,6 @@
 					</td>
 				</tr>
             </tbody>
-            <tfoot>
-            </tfoot>
         </table>
         </br>
 {/for}
