@@ -3075,6 +3075,8 @@
             } else {
                 NotifyUtils.warn(_('Check# %S is exist!!', [no]));
             }
+
+            this.subtotal();
         },
 
         newTable: function() {
@@ -3107,6 +3109,8 @@
             } else {
                 NotifyUtils.warn(_('Table# %S is exist!!', [no]));
             }
+
+            this.subtotal();
         },
 
         recallOrder: function() {
@@ -3190,6 +3194,8 @@
 
             var r = this.GuestCheck.guest(no);
             curTransaction.data.no_of_customers = no;
+
+            this.subtotal();
         },
 
         mergeCheck: function() {
