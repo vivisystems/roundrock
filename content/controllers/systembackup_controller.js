@@ -108,8 +108,12 @@
 
                     // mount dir exists
                     // autocreate backup_dir and restore dir
-                    var backupDir = new GeckoJS.Dir(deviceMount + 'system_backup', true);
-
+                    var terminalPath = GeckoJS.Session.get('terminal_no');
+                    if (terminalPath != null && terminalPath != '') {
+                        terminalPath = '/' + terminalPath;
+                    }
+                    var backupDir = new GeckoJS.Dir(deviceMount + 'system_backup' + terminalPath, true);
+                    
                     if (backupDir.exists()) {
 
                         this._backupDir = backupDir.path;

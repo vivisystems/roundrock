@@ -516,6 +516,11 @@
         add: function  () {
             if (this._selCateNo == null) return;
 
+            // auto-generate?
+            var autoProdNo = GeckoJS.Configure.read('vivipos.fec.settings.AutoGenerateProdNo');
+            var prodNoLen = GeckoJS.Configure.read('vivipos.fec.settings.ProdNoLength');
+            var prependDeptNo = GeckoJS.Configure.read('vivipos.fec.settings.PrependDeptNo');
+
             var inputData = this.getInputData();
 
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';

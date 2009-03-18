@@ -1,6 +1,7 @@
 <!ENTITY preferences.title "General Options">
 <!ENTITY category.layout "Layout">
-<!ENTITY category.general "General Options">
+<!ENTITY category.general "General">
+<!ENTITY category.products "Products">
 <!ENTITY category.login "Sign In/Out">
 <!ENTITY category.tax "Taxes">
 <!ENTITY category.plufilters "Product Filters">
@@ -81,3 +82,6 @@
 <!ENTITY orderdata.orderretaindays "Number of days to retain order data">
 <!ENTITY orderdata.diskunused "Available disk space">
 <!ENTITY orderdata.orderweeklypack "Pack order data on">
+<!ENTITY products.autogenerate "Auto-generate product numbers">
+<!ENTITY products.prodnolength "Length of product numbers">
+<!ENTITY products.prependdeptno "Prepend product numbers with department number">

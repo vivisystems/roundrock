@@ -259,7 +259,7 @@
                 return;
             }
 
-            if (!txn.isSubmit() && !txn.isStored()) {
+            if (!duplicate && !txn.isSubmit() && !txn.isStored()) {
                 // @todo OSD
                 NotifyUtils.warn(_('The order has not been finalized; cannot issue receipt'));
                 return;
@@ -410,7 +410,7 @@
                 return; // fatal error ?
             }
 
-            if (!txn.isStored() && !txn.isSubmit()) {
+            if (!duplicate && !txn.isStored() && !txn.isSubmit()) {
                 NotifyUtils.warn(_('Order has not been stored yet; cannot issue check'));
                 return;
             }
@@ -526,6 +526,7 @@
                         data.linkgroup = device.linkgroup;
                         
                         data.printNoRouting = device.printNoRouting;
+                        data.printAllRouting = device.printAllRouting;
                         data.routingGroups = routingGroups;
                         data.autoPrint = autoPrint;
                         data.duplicate = duplicate;
@@ -598,7 +599,9 @@
                 data.store = GeckoJS.Session.get('storeContact');
                 if (data.store) data.store.terminal_no = GeckoJS.Session.get('terminal_no');
             }
-            //this.log(this.dump(data.order));
+            this.log(this.dump(data.order));
+            if (data.customer) this.log(GeckoJS.BaseObject.dump(data.customer));
+            if (data.store) this.log(GeckoJS.BaseObject.dump(data.store));
             // dispatch beforePrintCheck event to allow extensions to add to the template data object or
             // to prevent check from printed
             if (!this.dispatchEvent('beforePrintCheck', {data: data,
@@ -621,46 +624,51 @@
                 //this.log('routingGroups: ' + GeckoJS.BaseObject.dump(data.routingGroups));
                 for (var i in data.order.items) {
                     var item = data.order.items[i];
-                    item.linked = false;
-
-                    // rules:
-                    //
-                    // 1. item.link_group does not contain any link groups and device.printNoRouting is true
-                    // 2. device.linkgroup intersects item.link_group
-                    // 3. item.link_group does not contain any routing groups and device.printNoRouting is true
-                    //
-                    //this.log('item link groups: ' + GeckoJS.BaseObject.dump(item.link_group));
-                    if (device.printNoRouting) {
-                        if (item.link_group == null || item.link_group == '') {
-                            item.linked = true;
-                            empty = false;
-                        }
-                    }
-
-                    if (!item.linked && data.linkgroup != null && data.linkgroup != '' && item.link_group.indexOf(data.linkgroup) > -1) {
+                    if (data.printAllRouting) {
                         item.linked = true;
-                        empty = false;
                     }
+                    else {
+                        item.linked = false;
 
-                    if (!item.linked && data.printNoRouting) {
-                        var noRoutingGroups;
-                        if (routingGroups == null) {
-                            noRoutingGroups = true;
-                        }
-                        else {
-                            var groups = item.link_group.split(',');
-                            var noRoutingGroups = true;
-                            for (var i = 0; i < groups.length; i++) {
-                                if (groups[i] in routingGroups) {
-                                    noRoutingGroups = false;
-                                    break;
-                                }
+                        // rules:
+                        //
+                        // 1. item.link_group does not contain any link groups and device.printNoRouting is true
+                        // 2. device.linkgroup intersects item.link_group
+                        // 3. item.link_group does not contain any routing groups and device.printNoRouting is true
+                        //
+                        //this.log('item link groups: ' + GeckoJS.BaseObject.dump(item.link_group));
+                        if (device.printNoRouting) {
+                            if (item.link_group == null || item.link_group == '') {
+                                item.linked = true;
+                                empty = false;
                             }
                         }
 
-                        if (noRoutingGroups) {
+                        if (!item.linked && data.linkgroup != null && data.linkgroup != '' && item.link_group.indexOf(data.linkgroup) > -1) {
                             item.linked = true;
                             empty = false;
+                        }
+
+                        if (!item.linked && data.printNoRouting) {
+                            var noRoutingGroups;
+                            if (routingGroups == null) {
+                                noRoutingGroups = true;
+                            }
+                            else {
+                                var groups = item.link_group.split(',');
+                                var noRoutingGroups = true;
+                                for (var i = 0; i < groups.length; i++) {
+                                    if (groups[i] in routingGroups) {
+                                        noRoutingGroups = false;
+                                        break;
+                                    }
+                                }
+                            }
+
+                            if (noRoutingGroups) {
+                                item.linked = true;
+                                empty = false;
+                            }
                         }
                     }
                     //this.log('item linked: ' + item.linked);
@@ -715,7 +723,7 @@
                     result = result.replace(re, value);
                 }
             }
-            //alert(GeckoJS.BaseObject.dump(result));
+            alert(GeckoJS.BaseObject.dump(result));
             //return;
             //alert(data.order.receiptPages);
             //

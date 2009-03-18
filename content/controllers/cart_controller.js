@@ -1653,7 +1653,17 @@
 
         },
 
-        creditCard: function(mark) {
+        creditCard: function(args) {
+
+            var argList = [];
+            if (args != null && args != '') {
+                argList = args.split(',');
+            }
+
+            var type = argList[0];
+            var silent = argList[1];
+
+            if (type == null) type = '';
 
             // check if has buffer
             var buf = this._getKeypadController().getBuffer();
@@ -1716,26 +1726,31 @@
                 }
             }
 
-            var data = {
-                type: mark,
-                payment: curTransaction.formatPrice(payment)
-            };
+            if (silent && type != '') {
+                this.addPayment('creditcard', payment, payment, type, '');
+            }
+            else {
+                var data = {
+                    type: type,
+                    payment: curTransaction.formatPrice(payment)
+                };
 
-            var self = this;
+                var self = this;
 
-            return this.getCreditCardDialog(data).next(function(evt) {
+                return this.getCreditCardDialog(data).next(function(evt) {
 
-                var result = evt.data;
-                
-                if (result.ok) {
-                    var memo1 = result.input0 || '';
-                    var memo2 = result.input1 || '';
-                    self.addPayment('creditcard', payment, payment, memo1, memo2);
-                }
-                else {
-                    self.subtotal();
-                }
-            });
+                    var result = evt.data;
+
+                    if (result.ok) {
+                        var memo1 = result.input0 || '';
+                        var memo2 = result.input1 || '';
+                        self.addPayment('creditcard', payment, payment, memo1, memo2);
+                    }
+                    else {
+                        self.subtotal();
+                    }
+                });
+            }
 
         },
 
@@ -1744,10 +1759,13 @@
             // args should be a list of up to 2 comma-separated parameters: type, amount
             var type = '';
             var amount;
+            var silent = false;
             if (args != null && args != '') {
                 var argList = args.split(',');
                 type = argList[0];
-                if (!isNaN(argList[1])) amount = parseFloat(argList[1]);
+                if (type == null) type = ''
+                if (argList[1] != null && argList[1] != '' && !isNaN(argList[1])) amount = parseFloat(argList[1]);
+                silent = argList[2];
             }
 
             // check if has buffer
@@ -1794,30 +1812,35 @@
                     payment = curTransaction.getRemainTotal();
                 }
             }
-            var data = {
-                type: type,
-                payment: curTransaction.formatPrice(payment)
-            };
 
-            var self = this;
+            if (silent && type != '') {
+                this.addPayment('coupon', payment, payment, type, '');
+            }
+            else {
+                var data = {
+                    type: type,
+                    payment: curTransaction.formatPrice(payment)
+                };
 
-            return this.getCouponDialog(data).next(function(evt){
-                
-                var result = evt.data;
+                var self = this;
 
-                if(result.ok) {
+                return this.getCouponDialog(data).next(function(evt){
 
-                    var memo1 = result.input0 || '';
-                    var memo2 = result.input1 || '';
-                    
-                    self.addPayment('coupon', payment, payment, memo1, memo2);
+                    var result = evt.data;
 
-                }
-                else {
-                    self.subtotal();
-                }
-            });
+                    if(result.ok) {
 
+                        var memo1 = result.input0 || '';
+                        var memo2 = result.input1 || '';
+
+                        self.addPayment('coupon', payment, payment, memo1, memo2);
+
+                    }
+                    else {
+                        self.subtotal();
+                    }
+                });
+            }
         },
 
         giftcard: function(args) {
@@ -1825,10 +1848,13 @@
             // args should be a list of up to 2 comma-separated parameters: type, amount
             var type = '';
             var amount;
+            var silent = false;
             if (args != null && args != '') {
                 var argList = args.split(',');
                 type = argList[0];
-                if (!isNaN(argList[1])) amount = parseFloat(argList[1]);
+                if (type == null) type = '';
+                if (argList[1] != null && argList[1] != '' && !isNaN(argList[1])) amount = parseFloat(argList[1]);
+                silent = argList[2];
             }
 
             // check if has buffer
@@ -1892,30 +1918,34 @@
                     balance = payment;
                 }
             }
-            var data = {
-                type: type,
-                payment: curTransaction.formatPrice(payment)
-            };
+            if (silent && type != '') {
+                this.addPayment('giftcard', balance, payment, type, '');
+            }
+            else {
+                var data = {
+                    type: type,
+                    payment: curTransaction.formatPrice(payment)
+                };
 
-            var self = this;
+                var self = this;
 
-            return this.getGiftcardDialog(data).next(function(evt){
+                return this.getGiftcardDialog(data).next(function(evt){
 
-                var result = evt.data;
+                    var result = evt.data;
 
-                if(result.ok) {
+                    if(result.ok) {
 
-                    var memo1 = result.input0 || '';
-                    var memo2 = result.input1 || '';
+                        var memo1 = result.input0 || '';
+                        var memo2 = result.input1 || '';
 
-                    self.addPayment('giftcard', balance, payment, memo1, memo2);
+                        self.addPayment('giftcard', balance, payment, memo1, memo2);
 
-                }
-                else {
-                    self.subtotal();
-                }
-            });
-
+                    }
+                    else {
+                        self.subtotal();
+                    }
+                });
+            }
         },
 
         check: function(type) {

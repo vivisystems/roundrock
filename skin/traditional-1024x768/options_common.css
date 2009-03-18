@@ -609,3 +609,9 @@ treechildren::-moz-tree-cell-text(odd, selected) {color: #FFFFFF;}
 .arrowScrollBox .autorepeatbutton-down {
    width: 40px;
 }
+
+vivisessionstatus textbox {
+    -moz-user-focus: ignore;
+    -moz-user-select: none;
+    -moz-user-input: none;
+}
