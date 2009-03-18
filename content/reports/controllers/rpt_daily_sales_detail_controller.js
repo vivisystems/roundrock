@@ -36,135 +36,178 @@
         },
 
         execute: function() {
-            var waitPanel = this._showWaitPanel('wait_panel');
+            var waitPanel = this._showWaitPanel( 'wait_panel' );
 
-            var storeContact = GeckoJS.Session.get('storeContact');
-            var clerk = "";
-            var clerk_displayname = "";
+            var storeContact = GeckoJS.Session.get( 'storeContact' );
+            var clerk = '';
+            var clerk_displayname = '';
             var user = new GeckoJS.AclComponent().getUserPrincipal();
             if ( user != null ) {
                 clerk = user.username;
                 clerk_displayname = user.description;
             }
             
-            var start = document.getElementById('start_date').value;
-            var end = document.getElementById('end_date').value;
-
-//            var start_str = document.getElementById('start_date').datetimeValue.toLocaleString();
-//            var end_str = document.getElementById('end_date').datetimeValue.toLocaleString();
-            var start_str = document.getElementById('start_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
-            var end_str = document.getElementById('end_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
+            var start = document.getElementById( 'start_date' ).value;
+            var end = document.getElementById( 'end_date' ).value;
             
-            var machineid = document.getElementById('machine_id').value;
+            var start_str = document.getElementById( 'start_date' ).datetimeValue.toString( 'yyyy/MM/dd HH:mm' );
+            var end_str = document.getElementById( 'end_date' ).datetimeValue.toString( 'yyyy/MM/dd HH:mm' );
+            
+            var machineid = document.getElementById( 'machine_id' ).value;
 
-            start = parseInt(start / 1000);
-            end = parseInt(end / 1000);
+            start = parseInt( start / 1000 );
+            end = parseInt( end / 1000 );
 
-            var fields = [
-            				'orders.transaction_created',
-                            'DATETIME("orders"."transaction_created", "unixepoch", "localtime") AS "Order.Time"',
-                            'orders.sequence',
-                            'orders.status',
-                            'orders.total',
-                            'orders.tax_subtotal',
-                            'orders.item_subtotal',
-                            'orders.discount_subtotal',
-                            'orders.surcharge_subtotal',
-                            'orders.items_count',
-                            'orders.check_no',
-                            'orders.table_no',
-                            'orders.no_of_customers',
-                            'orders.invoice_no',
-                            'orders.terminal_no'
-                        ];
+            var fields =	'orders.id, ' +
+            				'DATETIME( orders.transaction_created, "unixepoch", "localtime" ) as time, ' +
+                            'orders.sequence, ' +
+                            'orders.total, ' +
+                            'orders.tax_subtotal, ' +
+                            'orders.item_subtotal, ' +
+                            'orders.discount_subtotal, ' +
+                            'orders.surcharge_subtotal, ' +
+                            'orders.items_count, ' +
+                            'orders.no_of_customers, ' +
+                            'orders.terminal_no, ' +
+                            'order_items.product_no, ' +
+                            'order_items.product_name, ' +
+                            'order_items.current_qty, ' +
+                            'order_items.current_price, ' +
+                            'order_items.current_subtotal';
+                            
+            var tables = 'orders left join order_items on orders.id = order_items.order_id';
 
-            var conditions = "orders.transaction_created>='" + start +
-                            "' AND orders.transaction_created<='" + end +
-                            "' AND orders.status='1'";
+            var conditions = "orders.transaction_created >= '" + start +
+                            "' and orders.transaction_created <= '" + end +
+                            "' and orders.status = '1'";
 
-            if (machineid.length > 0) {
-                conditions += " AND orders.terminal_no LIKE '" + machineid + "%'";
-            } else {
-                //
-            }
+            if ( machineid.length > 0 )
+                conditions += " and orders.terminal_no like '" + machineid + "%'";
 
-            var groupby = null;
-            var orderby = 'orders.terminal_no,orders.transaction_created';
+            var orderby = 'orders.terminal_no, orders.item_subtotal desc';//orders.transaction_created';
             
             var sortby = document.getElementById( 'sortby' ).value;
-            if ( sortby != 'all' )
-            	orderby = 'orders.' + sortby;
+            if ( sortby != 'all' ) {
+            	var desc = "";
+            	
+            	switch ( sortby ) {
+            		case 'terminal_no':
+            			break;
+            		case 'transaction_created':
+            		case 'item_subtotal':
+            		case 'tax_subtotal':
+            		case 'surcharge_subtotal':
+            		case 'discount_subtotal':
+            		case 'total':
+            		case 'no_of_customers':
+            		case 'items_count':
+            			desc = ' desc';
+            	}
+            	
+            	orderby = 'orders.' + sortby + desc;
+            }
+            	
+            var limit = 5000;
+            	
+            var sql = 'select ' + fields + ' from ' + tables + ' where ' + conditions + ' order by ' + orderby + ' limit ' + limit + ';';
 
             var order = new OrderModel();
-            var datas = order.find('all',{fields: fields, conditions: conditions, group: groupby, order: orderby, limit: 300, recursive: 2});
 
-            var rounding_prices = GeckoJS.Configure.read( 'vivipos.fec.settings.RoundingPrices' ) || 'to-nearest-precision';
-            var precision_prices = GeckoJS.Configure.read( 'vivipos.fec.settings.PrecisionPrices' ) || 0;
+			var results = order.getDataSource().fetchAll( sql );
 
-			var footDatas = {
-            	tax_subtotal: 0,
-            	item_subtotal: 0,
-            	payment: 0,
-            	surcharge_subtotal: 0,
-            	discount_subtotal: 0,
-            };
-//this.log( this.dump( order.getDataSource().fetchAll( 'select * from orders limit 10' ) ) );
-            if (datas) {
-                datas.forEach(function(o){
+			var summary = {
+				item_subtotal: 0,
+				tax_subtotal: 0,
+				surcharge_subtotal: 0,
+				discount_subtotal: 0,
+				payment: 0
+			};
 
-                    o.total = GeckoJS.NumberHelper.round(o.total, precision_prices, rounding_prices) || 0;
-                    o.total = o.total.toFixed(precision_prices);
+			// re-synthesis the data retrieved from DB to fit the structure that .tpl files use.
+			var records = [];
+			var oid;
+			var record;
+			var isFirstRow = true;
+			
+			results.forEach( function( result ) {
+			
+				if ( oid != result.id ) {
+					if ( isFirstRow ) isFirstRow = false;
+					else records.push( record );
+					
+					record = {};
+					record.OrderItem = [];
+					record.Order = {};
+				
+					record.total = result.total;
+					record.sequence = result.sequence;
+					record.tax_subtotal = result.tax_subtotal;
+					record.item_subtotal = result.item_subtotal;
+					record.discount_subtotal = result.discount_subtotal;
+					record.surcharge_subtotal = result.surcharge_subtotal;
+					record.items_count = result.items_count;
+					record.no_of_customers = result.no_of_customers;
+					record.terminal_no = result.terminal_no;
+					
+					record.Order.time = result.time;
+					
+					summary.item_subtotal += result.item_subtotal;
+					summary.tax_subtotal += result.tax_subtotal;
+					summary.surcharge_subtotal += result.surcharge_subtotal;
+					summary.discount_subtotal += result.discount_subtotal;
+					summary.payment += result.total;
+				}
+				
+				var item = {};
 
-	                o.OrderItem.forEach(function(k){
-	                    k.current_price = GeckoJS.NumberHelper.round(k.current_price, precision_prices, rounding_prices) || 0;
-	                    k.current_price = k.current_price.toFixed(precision_prices);
-	                    k.current_subtotal = GeckoJS.NumberHelper.round(k.current_subtotal, precision_prices, rounding_prices) || 0;
-	                    k.current_subtotal = k.current_subtotal.toFixed(precision_prices);
-	                });
-                    
-                    footDatas.tax_subtotal += o[ 'tax_subtotal' ];
-                    footDatas.item_subtotal += o[ 'item_subtotal' ];
-                    footDatas.discount_subtotal += o[ 'discount_subtotal' ];
-                    footDatas.surcharge_subtotal += o[ 'surcharge_subtotal' ];
-                    footDatas.payment += parseFloat( o[ 'total' ] );
-                });
-            }
-
+				item.product_no = result.product_no;
+				item.product_name = result.product_name;
+				item.current_qty = result.current_qty;
+				item.current_price = result.current_price;
+				item.current_subtotal = result.current_subtotal;
+					
+				record.OrderItem.push( item );
+				
+				oid = result.id;
+			} );
+			// trap the last order.	
+			if ( record ) records.push( record );
+			
             var data = {
                 head: {
-                    title:_('Daily Sales Report - Detail'),
+                    title:_( 'Daily Sales Report - Detail' ),
                     start_time: start_str,
                     end_time: end_str,
                     machine_id: machineid,
                     store: storeContact,
                     clerk_displayname: clerk_displayname
                 },
-                body: datas,
+                body: records,
                 foot: {
-                	foot_datas: footDatas,
-                	gen_time: (new Date()).toString('yyyy/MM/dd HH:mm:ss')
+                	foot_datas: summary,
+                	gen_time: ( new Date() ).toString( 'yyyy/MM/dd HH:mm:ss' )
                 }
             }
 
             this._datas = data;
 
-            var path = GREUtils.File.chromeToPath("chrome://reports/locale/reports/tpl/rpt_daily_sales_detail/rpt_daily_sales_detail.tpl");
+            var path = GREUtils.File.chromeToPath( 'chrome://reports/locale/reports/tpl/rpt_daily_sales_detail/rpt_daily_sales_detail.tpl' );
 
-            var file = GREUtils.File.getFile(path);
+            var file = GREUtils.File.getFile( path );
             var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
 
             result = tpl.process(data);
 
-            var bw = document.getElementById('preview_frame');
-            var doc = bw.contentWindow.document.getElementById('abody');
+            var bw = document.getElementById( 'preview_frame' );
+            var doc = bw.contentWindow.document.getElementById( 'abody' );
 
             doc.innerHTML = result;
 
-            this._enableButton(true);
+            this._enableButton( true );
             
             // initialize the splitter.
             var splitter = document.getElementById( 'splitter_zoom' );
-            splitter.setAttribute( "state", "collapsed" );
+            splitter.setAttribute( 'state', 'collapsed' );
 
             waitPanel.hidePopup();
 
@@ -184,7 +227,7 @@
 
                 this.BrowserPrint.getPrintSettings();
                 this.BrowserPrint.setPaperSizeUnit(1);
-                this.BrowserPrint.setPaperSize( 210, 297 );
+                this.BrowserPrint.setPaperSize( 297, 210 );
                 // this.BrowserPrint.setPaperEdge(20, 20, 20, 20);
 
                 this.BrowserPrint.getWebBrowserPrint('preview_frame');
@@ -221,7 +264,8 @@
                 //
             } finally {
                 this._enableButton(true);
-                waitPanel.hidePopup();
+                if ( waitPanel != undefined )
+                	waitPanel.hidePopup();
             }
 
         },
@@ -245,19 +289,9 @@
                 //
             } finally {
                 this._enableButton(true);
-                waitPanel.hidePopup();
-            }var footDatas = {
-            	tax_subtotal: 0,
-            	item_subtotal: 0,
-            	total: 0,
-            	surcharge_subtotal: 0,
-            	discount_subtotal: 0,
-            	cash: 0,
-            	creditcard: 0,
-            	coupon: 0,
-            	giftcard: 0
-            };
-
+                if ( waitPanel != undefined )
+               		waitPanel.hidePopup();
+            }
         },
 
         load: function() {
@@ -272,11 +306,7 @@
             document.getElementById('start_date').value = start;
             document.getElementById('end_date').value = end;
 
-            this._enableButton(false);
-            
+            this._enableButton(false);            
         }
-
     });
-
-
 })();

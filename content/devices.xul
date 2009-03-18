@@ -260,7 +260,8 @@
                                                                scrollDownClass="ScrollDown">
                                         <spacer flex="1"/>
                                     </viviscrollablebuttonpanel>
-                                    <checkbox id="check-1-print-no-routing" name="check-1-print-no-routing" form="deviceForm" checked="true" default="1" label="&devices.check.print.no.routing.label;"/>
+                                    <checkbox id="check-1-print-no-routing" name="check-1-print-no-routing" form="deviceForm" checked="false" default="0" label="&devices.check.print.no.routing.label;"/>
+                                    <checkbox id="check-1-print-all-routing" name="check-1-print-all-routing" form="deviceForm" checked="true" default="1" label="&devices.check.print.all.routing.label;"/>
                                 </vbox>
                             </hbox>
                         </vbox>
@@ -340,7 +341,8 @@
                                                                scrollDownClass="ScrollDown">
                                         <spacer flex="1"/>
                                     </viviscrollablebuttonpanel>
-                                    <checkbox id="check-2-print-no-routing" name="check-2-print-no-routing" form="deviceForm" checked="true" default="1" label="&devices.check.print.no.routing.label;"/>
+                                    <checkbox id="check-2-print-no-routing" name="check-2-print-no-routing" form="deviceForm" checked="false" default="0" label="&devices.check.print.no.routing.label;"/>
+                                    <checkbox id="check-2-print-all-routing" name="check-2-print-all-routing" form="deviceForm" checked="true" default="1" label="&devices.check.print.all.routing.label;"/>
                                 </vbox>
                             </hbox>
                         </vbox>
@@ -421,7 +423,8 @@
                                                                scrollDownClass="ScrollDown">
                                         <spacer flex="1"/>
                                     </viviscrollablebuttonpanel>
-                                    <checkbox id="check-3-print-no-routing" name="check-3-print-no-routing" form="deviceForm" checked="true" default="1" label="&devices.check.print.no.routing.label;"/>
+                                    <checkbox id="check-3-print-no-routing" name="check-3-print-no-routing" form="deviceForm" checked="false" default="0" label="&devices.check.print.no.routing.label;"/>
+                                    <checkbox id="check-3-print-all-routing" name="check-3-print-all-routing" form="deviceForm" checked="true" default="1" label="&devices.check.print.all.routing.label;"/>
                                 </vbox>
                             </hbox>
                         </vbox>
@@ -501,7 +504,8 @@
                                                                scrollDownClass="ScrollDown">
                                         <spacer flex="1"/>
                                     </viviscrollablebuttonpanel>
-                                    <checkbox id="check-4-print-no-routing" name="check-4-print-no-routing" form="deviceForm" checked="true" default="1" label="&devices.check.print.no.routing.label;"/>
+                                    <checkbox id="check-4-print-no-routing" name="check-4-print-no-routing" form="deviceForm" checked="false" default="0" label="&devices.check.print.no.routing.label;"/>
+                                    <checkbox id="check-4-print-all-routing" name="check-4-print-all-routing" form="deviceForm" checked="true" default="1" label="&devices.check.print.all.routing.label;"/>
                                 </vbox>
                             </hbox>
                         </vbox>

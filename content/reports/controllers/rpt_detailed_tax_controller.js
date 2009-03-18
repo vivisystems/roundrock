@@ -64,6 +64,9 @@
             				'order_items.order_id',
             				'order_items.tax_name',
             				'order_items.tax_type',
+            				'order_items.current_subtotal',
+            				'order_items.current_qty',
+            				'order_items.current_price',
                             'SUM("order_items"."current_tax") + SUM("order_items"."included_tax") as "OrderItem.tax"'
                          ];
                             
@@ -77,34 +80,73 @@
             var orderby = 'orders.sequence';
 
             var datas = orderItem.find( 'all', { fields: fields, conditions: conditions, group: groupby, recursive:1, order: orderby } );
+            
+            var orderAdditions = new OrderAdditionModel();
+            
+            var orderAdditionRecords = orderAdditions.find( 'all',
+            	{ fields: [ 'order_id', 'sum( current_surcharge ) as surcharge_subtotal', 'sum( current_discount ) as discount_subtotal' ], group: 'order_id', recursive: 0 } );
 
-			var taxList = TaxComponent.prototype.getTaxList();
-			
-			var summary = {};
-			summary.total = 0;
-			summary.tax_subtotal = 0;
-			summary.included_tax_subtotal = 0;
-			taxList.forEach( function( tax ) {
-				summary[ tax.no ] = 0;
+			var typeCombineTax = 'COMBINE';
+			var taxList = [];
+			TaxComponent.prototype.getTaxList().forEach( function( tax ) {
+				if ( tax.type != typeCombineTax )
+					taxList.push( tax );
 			} );
+
+			var summary = {
+				total: 0,
+				tax_subtotal: 0,
+				included_tax_subtotal: 0,
+				surcharge_subtotal: 0,
+				discount_subtotal: 0
+			};
 			
+			taxList.forEach( function( tax ) {
+				if ( tax.type != typeCombineTax )
+					summary[ tax.no ] = 0;
+			} );
+
 			var oid;
 			records = {};
 			datas.forEach( function( data ) {
 				if ( data.order_id != oid ) {
 					oid = data.order_id;
 					records[ oid ] = GREUtils.extend( {}, data );
+					records[ oid ][ 'surcharge_subtotal' ] = 0;
+					records[ oid ][ 'discount_subtotal' ] = 0;
 
 					taxList.forEach( function( tax ) {
-						records[ oid ][ tax.no ] = 0;
+						if ( tax.type != typeCombineTax )
+							records[ oid ][ tax.no ] = 0;
+					} );
+					
+					orderAdditionRecords.forEach( function( orderAdditionRecord ) {
+						if ( orderAdditionRecord.order_id == data.order_id ) {
+							records[ oid ][ 'surcharge_subtotal' ] += orderAdditionRecord.surcharge_subtotal;
+							records[ oid ][ 'discount_subtotal' ] += orderAdditionRecord.discount_subtotal;
+						}
 					} );
 					
 					summary.total += data.Order.total;
 					summary.tax_subtotal += data.Order.tax_subtotal;
 					summary.included_tax_subtotal += data.Order.included_tax_subtotal;
+					summary.surcharge_subtotal += records[ oid ][ 'surcharge_subtotal' ];
+					summary.discount_subtotal += records[ oid ][ 'discount_subtotal' ];
 				}
-				records[ oid ][ data.tax_name ] += data.tax;
-				summary[ data.tax_name ] += data.tax;
+				
+				var taxObject = TaxComponent.prototype.getTax( data.tax_name );
+				
+				if ( taxObject.type != typeCombineTax ) {
+					records[ oid ][ data.tax_name ] += data.tax;
+					summary[ data.tax_name ] += data.tax;
+				} else {// break down the combined tax.
+					taxObject.CombineTax.forEach( function( cTax ) {
+						taxAmountObject = TaxComponent.prototype.calcTaxAmount( cTax.no, data.current_subtotal, data.current_price, data.current_qty );
+						taxAmount = taxAmountObject[ cTax.no ].charge + taxAmountObject[ cTax.no ].included;
+						records[ oid ][ cTax.no ] += taxAmount;
+						summary[ cTax.no ] += taxAmount;
+					} );
+				}
 			} );
 				
             var data = {
@@ -198,7 +240,7 @@
 
                 this.BrowserPrint.getPrintSettings();
                 this.BrowserPrint.setPaperSizeUnit(1);
-                this.BrowserPrint.setPaperSize( 210, 297 );
+                this.BrowserPrint.setPaperSize( 297, 210 );
                 //this.BrowserPrint.setPaperEdge(20, 20, 20, 20);
 
                 this.BrowserPrint.getWebBrowserPrint('preview_frame');
