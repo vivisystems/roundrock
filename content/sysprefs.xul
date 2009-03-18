@@ -164,6 +164,34 @@
         
     </prefpane>
     
+
+    <prefpane id="productSettingsPane" label="&category.products;" >
+        <preferences>
+
+            <preference id="pref_prodnoautogenerate" name="vivipos.fec.settings.AutoGenerateProdNo" type="bool"/>
+            <preference id="pref_prependdeptno" name="vivipos.fec.settings.PrependDeptNo" type="bool"/>
+            <preference id="pref_prodnolength" name="vivipos.fec.settings.ProdNoLength" type="int"/>
+
+        </preferences>
+        <grid class="DataForm">
+            <columns>
+                <column flex="1" />
+                <column flex="1" />
+            </columns>
+            <rows>
+                <row>
+                    <checkbox id="prodnoautogenerate" label="&products.autogenerate;" preference="pref_prodnoautogenerate"/>
+                    <checkbox id="prependdeptno" label="&products.prependdeptno;" preference="pref_prependdeptno"/>
+                </row>
+                <row>
+                    <label control="prodnolength" value="&products.prodnolength;"/>
+                    <textbox preference="pref_prodnolength" id="prodnolength" type="number" min="2"/>
+                </row>
+            </rows>
+        </grid>
+
+    </prefpane>
+
     <prefpane id="loginSettingsPane" label="&category.login;" >
         <preferences>
             <preference id="pref_autodiscardcart" name="vivipos.fec.settings.autodiscardcart" type="bool"/>
@@ -327,7 +355,7 @@
         </grid>
     </prefpane>
 
-    <prefpane id="general2SettingsPane" label="&category.orderdata;" >
+    <prefpane id="orderDataSettingsPane" label="&category.orderdata;" >
         <preferences>
 
             <preference id="pref_orderretaindays" name="vivipos.fec.settings.OrderRetainDays" type="int"/>

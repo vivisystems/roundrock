@@ -259,7 +259,7 @@
                 return;
             }
 
-            if (!txn.isSubmit() && !txn.isStored()) {
+            if (!duplicate && !txn.isSubmit() && !txn.isStored()) {
                 // @todo OSD
                 NotifyUtils.warn(_('The order has not been finalized; cannot issue receipt'));
                 return;
@@ -410,7 +410,7 @@
                 return; // fatal error ?
             }
 
-            if (!txn.isStored() && !txn.isSubmit()) {
+            if (!duplicate && !txn.isStored() && !txn.isSubmit()) {
                 NotifyUtils.warn(_('Order has not been stored yet; cannot issue check'));
                 return;
             }
@@ -598,7 +598,9 @@
                 data.store = GeckoJS.Session.get('storeContact');
                 if (data.store) data.store.terminal_no = GeckoJS.Session.get('terminal_no');
             }
-            //this.log(this.dump(data.order));
+            this.log(this.dump(data.order));
+            if (data.customer) this.log(GeckoJS.BaseObject.dump(data.customer));
+            if (data.store) this.log(GeckoJS.BaseObject.dump(data.store));
             // dispatch beforePrintCheck event to allow extensions to add to the template data object or
             // to prevent check from printed
             if (!this.dispatchEvent('beforePrintCheck', {data: data,
@@ -715,7 +717,7 @@
                     result = result.replace(re, value);
                 }
             }
-            //alert(GeckoJS.BaseObject.dump(result));
+            alert(GeckoJS.BaseObject.dump(result));
             //return;
             //alert(data.order.receiptPages);
             //

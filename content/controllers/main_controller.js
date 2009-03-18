@@ -709,16 +709,26 @@
                 try {
                     var retainDate = Date.today().addDays(retainDays * -1).getTime() / 1000;
 
+                    // dispatch beforeClearOrderData event
+                    this.dispatchEvent('beforeClearOrderData', retainDate);
+
                     var order = new OrderModel();
                     var conditions = "orders.transaction_submitted<='" + retainDate +
                                      "' AND orders.status<='1'";
                     order.removeOrders(conditions);
+
+                    // dispatch beforeClearOrderData event
+                    this.dispatchEvent('afterClearOrderData', retainDate);
 
                     // if pack order data...
                     var today = (new Date()).getDay();
                     if (pack || (weeklyPack == today)) {
                         order.execute("VACUUM");
                     }
+
+                    // dispatch afterPackOrderData event
+                    this.dispatchEvent('afterPackOrderData', retainDate);
+
 
                     delete order;
 
