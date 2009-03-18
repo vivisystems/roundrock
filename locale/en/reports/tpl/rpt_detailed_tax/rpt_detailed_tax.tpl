@@ -16,6 +16,8 @@
             <tr>
                 <th style="text-align: left;">Sequence</th>
                 <th style="text-align: left;">Total</th>
+                <th style="text-align: left;">Discount</th>
+                <th style="text-align: left;">Surcharge</th>
                 <th style="text-align: right;">Add-on Tax</th>
                 <th style="text-align: right;">Included Tax</th>
 {for tax in taxList}
@@ -28,6 +30,8 @@
             <tr>
                 <td style="text-align: left;">${item.Order.sequence}</td>
                 <td style="text-align: left;">${item.Order.total|default:0|viviFormatPrices:true}</td>
+                <td style="text-align: left;">${item.discount_subtotal|default:0|viviFormatPrices:true}</td>
+                <td style="text-align: left;">${item.surcharge_subtotal|default:0|viviFormatPrices:true}</td>
                 <td>${item.Order.tax_subtotal|default:0|viviFormatPrices:true}</td>
                 <td>${item.Order.included_tax_subtotal|default:0|viviFormatPrices:true}</td>
 {for tax in taxList}
@@ -40,6 +44,8 @@
             <tr>
 				<td>Summary:</td>
 				<td style="text-align: left;">${foot.summary.total|default:0|viviFormatPrices:true}</td>
+				<td style="text-align: left;">${foot.summary.discount_subtotal|default:0|viviFormatPrices:true}</td>
+                <td style="text-align: left;">${foot.summary.surcharge_subtotal|default:0|viviFormatPrices:true}</td>
                 <td>${foot.summary.tax_subtotal|default:0|viviFormatPrices:true}</td>
                 <td>${foot.summary.included_tax_subtotal|default:0|viviFormatPrices:true}</td>
 {for tax in taxList}
