@@ -41,10 +41,6 @@
     <prefpane id="generalSettingsPane" label="&category.general;" >
         <preferences>
             <preference id="pref_publicattendance" name="vivipos.fec.settings.PublicAttendance" type="bool" />
-            <preference id="pref_decimalpoint" name="vivipos.fec.settings.DecimalPoint" type="unichar"/>
-            <preference id="pref_thousandsdelimiter" name="vivipos.fec.settings.ThousandsDelimiter" type="unichar"/>
-            <preference id="pref_precisionprices" name="vivipos.fec.settings.PrecisionPrices" type="int"/>
-            <preference id="pref_precisiontaxes" name="vivipos.fec.settings.PrecisionTaxes" type="int"/>
             <preference id="pref_defaultpricelevel" name="vivipos.fec.settings.DefaultPriceLevel" type="int" />
             <preference id="pref_privatequeue" name="vivipos.fec.settings.PrivateQueue" type="bool" />
 
@@ -55,7 +51,6 @@
             <preference id="pref_ageverificationack" name="vivipos.fec.settings.AgeVerificationAck" type="bool" />
             <preference id="pref_positivepricerequired" name="vivipos.fec.settings.PositivePriceRequired" type="bool" />
             <preference id="pref_clearcartafterfinalization" name="vivipos.fec.settings.ClearCartAfterFinalization" type="bool" />
-            <preference id="pref_sequencetrackssaleperiod" name="vivipos.fec.settings.SequenceTracksSalePeriod" type="bool" />
 
         </preferences>
 
@@ -82,114 +77,114 @@
                 </row>
                 <row>
                     <checkbox preference="pref_allowoverstock" id="pref_allowoverstockCtrl" label="&general.allowoverstock;" />
-                    <checkbox preference="pref_sequencetrackssaleperiod" id="pref_sequencetrackssaleperiodCtrl" label="&general.sequencetrackssaleperiod;" />
+                </row>
+                <row>
+                    <vbox>
+                        <label control="defaultpricelevel" value="&general.defaultpricelevel;"/>
+                        <textbox preference="pref_defaultpricelevel" id="defaultpricelevel" type="number" size="2" maxlength="1" min="1" max="9"/>
+                    </vbox>
                 </row>
             </rows>
         </grid>
-        
-        <vbox>
-            <grid class="DataFormB" >
-                <columns>
-                    <column flex="1"/><column flex="1" /><column flex="1" />
-                </columns>
-                <rows>
-                    <row>
-                        <vbox>
-                            <label control="defaultpricelevel" value="&general.defaultpricelevel;"/>
-                            <textbox preference="pref_defaultpricelevel" id="defaultpricelevel" type="number" size="2" maxlength="1" min="1" max="9"/>    
-                        </vbox>
-                        <vbox>
-                            <label control="precisiontaxes" value="&general.precisiontaxes;"/>
-                            <textbox preference="pref_precisiontaxes" id="precisiontaxes" type="number" size="2" maxlength="1" min="-8" max="8"/>    
-                        </vbox>
-                        <vbox>
-                            <label control="precisionprices" value="&general.precisionprices;"/>
-                            <textbox preference="pref_precisionprices" id="precisionprices" type="number" size="2" maxlength="1" min="-8" max="8"/>    
-                        </vbox>
-                    </row>
-                </rows>
-            </grid>
-            <grid class="DataFormD" >
-                <columns>
-                    <column flex="1" /><column flex="1" />
-                </columns>
-                <rows>
-                    <row>
-                        <hbox flex="1">
-                            <label control="roundingtaxes" value="&general.roundingtaxes;"/>
-                            <menulist id="roundingtaxes" flex="1" oncommand="GeckoJS.Configure.write('vivipos.fec.settings.RoundingTaxes', this.value)">
-                                <menupopup>
-                                    <menuitem label="&rounding.to-nearest-precision;" value="to-nearest-precision"/>
-                                    <!--
-                                    <menuitem label="&rounding.to-nearest-half;" value="to-nearest-half"/>
-                                    <menuitem label="&rounding.to-nearest-quarter;" value="to-nearest-quarter"/>
-                                    <menuitem label="&rounding.to-nearest-nickel;" value="to-nearest-nickel"/>
-                                    <menuitem label="&rounding.to-nearest-dime;" value="to-nearest-dime"/>
-                                    -->
-                                    <menuitem label="&rounding.always-round-up;" value="always-round-up"/>
-                                    <menuitem label="&rounding.always-round-down;" value="always-round-down"/>
-                                </menupopup>
-                            </menulist>
-                        </hbox>
-                        <hbox flex="1" pack="end">
-                            <label control="decimalpoint" value="&general.decimalpoint;"/>
-                            <textbox preference="pref_decimalpoint" id="decimalpoint" size="1" maxlength="1" default="."/>
-                        </hbox>
-                    </row>
-                    <row>
-                        <hbox flex="1">
-                            <label control="roundingprices" value="&general.roundingprices;"/>
-                            <menulist id="roundingprices" flex="1" oncommand="GeckoJS.Configure.write('vivipos.fec.settings.RoundingPrices', this.value)">
-                                <menupopup>
-                                    <menuitem label="&rounding.to-nearest-precision;" value="to-nearest-precision"/>
-                                    <!--
-                                    <menuitem label="&rounding.to-nearest-half;" value="to-nearest-half"/>
-                                    <menuitem label="&rounding.to-nearest-quarter;" value="to-nearest-quarter"/>
-                                    <menuitem label="&rounding.to-nearest-nickel;" value="to-nearest-nickel"/>
-                                    <menuitem label="&rounding.to-nearest-dime;" value="to-nearest-dime"/>
-                                    -->
-                                    <menuitem label="&rounding.always-round-up;" value="always-round-up"/>
-                                    <menuitem label="&rounding.always-round-down;" value="always-round-down"/>
-                                </menupopup>
-                            </menulist>   
-                        </hbox>
-                        <hbox flex="1" pack="end">
-                            <label control="thousandsdelimiter" value="&general.thousandsdelimiter;"/>
-                            <textbox preference="pref_thousandsdelimiter" id="thousandsdelimiter" size="1" maxlength="1" default=","/>
-                        </hbox>
-                    </row>
-                </rows>
-            </grid>
-        </vbox>
-        
     </prefpane>
     
 
-    <prefpane id="productSettingsPane" label="&category.products;" >
+    <prefpane id="formatSettingsPane" label="&category.formats;" >
         <preferences>
 
             <preference id="pref_prodnoautogenerate" name="vivipos.fec.settings.AutoGenerateProdNo" type="bool"/>
             <preference id="pref_prependdeptno" name="vivipos.fec.settings.PrependDeptNo" type="bool"/>
             <preference id="pref_prodnolength" name="vivipos.fec.settings.ProdNoLength" type="int"/>
+            <preference id="pref_decimalpoint" name="vivipos.fec.settings.DecimalPoint" type="unichar"/>
+            <preference id="pref_thousandsdelimiter" name="vivipos.fec.settings.ThousandsDelimiter" type="unichar"/>
+            <preference id="pref_precisionprices" name="vivipos.fec.settings.PrecisionPrices" type="int"/>
+            <preference id="pref_precisiontaxes" name="vivipos.fec.settings.PrecisionTaxes" type="int"/>
+            <preference id="pref_sequencetrackssaleperiod" name="vivipos.fec.settings.SequenceTracksSalePeriod" type="bool" />
+            <preference id="pref_sequencenumberlength" name="vivipos.fec.settings.SequenceNumberLength" type="int" />
 
         </preferences>
-        <grid class="DataForm">
-            <columns>
-                <column flex="1" />
-                <column flex="1" />
-            </columns>
-            <rows>
-                <row>
-                    <checkbox id="prodnoautogenerate" label="&products.autogenerate;" preference="pref_prodnoautogenerate"/>
-                    <checkbox id="prependdeptno" label="&products.prependdeptno;" preference="pref_prependdeptno"/>
-                </row>
-                <row>
-                    <label control="prodnolength" value="&products.prodnolength;"/>
-                    <textbox preference="pref_prodnolength" id="prodnolength" type="number" min="2"/>
-                </row>
-            </rows>
-        </grid>
+        <vbox>
+            <grid class="DataForm">
+                <columns>
+                    <column flex="1" />
+                    <column flex="1" />
+                </columns>
+                <rows>
+                    <row>
+                        <vbox>
+                            <checkbox id="prodnoautogenerate" label="&formats.autogenerate;" preference="pref_prodnoautogenerate"/>
+                            <checkbox id="prependdeptno" label="&formats.prependdeptno;" preference="pref_prependdeptno"/>
+                        </vbox>
+                        <vbox>
+                            <label control="prodnolength" value="&formats.prodnolength;"/>
+                            <textbox preference="pref_prodnolength" id="prodnolength" type="number" min="2"/>
+                        </vbox>
+                    </row>
+                    <row>
+                        <checkbox preference="pref_sequencetrackssaleperiod" id="pref_sequencetrackssaleperiodCtrl" label="&formats.sequencetrackssaleperiod;" />
+                        <vbox>
+                            <label control="sequencenumberlength" value="&formats.sequence.number.length;"/>
+                            <textbox preference="pref_sequencenumberlength" id="sequencenumberlength" type="number" min="2" max="6"/>
+                        </vbox>
+                    </row>
 
+                    <row>
+                        <vbox>
+                            <label control="roundingtaxes" value="&formats.roundingtaxes;"/>
+                            <menulist id="roundingtaxes" flex="1" oncommand="GeckoJS.Configure.write('vivipos.fec.settings.RoundingTaxes', this.value)">
+                                <menupopup>
+                                    <menuitem label="&formats.rounding.to-nearest-precision;" value="to-nearest-precision"/>
+                                    <menuitem label="&formats.rounding.to-nearest-half;" value="to-nearest-half"/>
+                                    <!--
+                                    <menuitem label="&formats.rounding.to-nearest-quarter;" value="to-nearest-quarter"/>
+                                    <menuitem label="&formats.rounding.to-nearest-nickel;" value="to-nearest-nickel"/>
+                                    <menuitem label="&formats.rounding.to-nearest-dime;" value="to-nearest-dime"/>
+                                    -->
+                                    <menuitem label="&formats.rounding.always-round-up;" value="always-round-up"/>
+                                    <menuitem label="&formats.rounding.always-round-down;" value="always-round-down"/>
+                                </menupopup>
+                            </menulist>
+                        </vbox>
+                        <vbox>
+                            <label control="precisiontaxes" value="&formats.precisiontaxes;"/>
+                            <textbox preference="pref_precisiontaxes" id="precisiontaxes" type="number" min="-9" max="9"/>
+                        </vbox>
+                    </row>
+                    <row>
+                        <vbox>
+                            <label control="roundingprices" value="&formats.roundingprices;"/>
+                            <menulist id="roundingprices" flex="1" oncommand="GeckoJS.Configure.write('vivipos.fec.settings.RoundingPrices', this.value)">
+                                <menupopup>
+                                    <menuitem label="&formats.rounding.to-nearest-precision;" value="to-nearest-precision"/>
+                                    <menuitem label="&formats.rounding.to-nearest-half;" value="to-nearest-half"/>
+                                    <!--
+                                    <menuitem label="&formats.rounding.to-nearest-quarter;" value="to-nearest-quarter"/>
+                                    <menuitem label="&formats.rounding.to-nearest-nickel;" value="to-nearest-nickel"/>
+                                    <menuitem label="&formats.rounding.to-nearest-dime;" value="to-nearest-dime"/>
+                                    -->
+                                    <menuitem label="&formats.rounding.always-round-up;" value="always-round-up"/>
+                                    <menuitem label="&formats.rounding.always-round-down;" value="always-round-down"/>
+                                </menupopup>
+                            </menulist>
+                        </vbox>
+                        <vbox>
+                            <label control="precisionprices" value="&formats.precisionprices;"/>
+                            <textbox preference="pref_precisionprices" id="precisionprices" type="number" min="-9" max="9"/>
+                        </vbox>
+                    </row>
+                    <row>
+                        <vbox>
+                            <label control="decimalpoint" value="&formats.decimalpoint;"/>
+                            <textbox preference="pref_decimalpoint" id="decimalpoint" size="1" maxlength="1" default="."/>
+                        </vbox>
+                        <vbox>
+                            <label control="thousandsdelimiter" value="&formats.thousandsdelimiter;"/>
+                            <textbox preference="pref_thousandsdelimiter" id="thousandsdelimiter" size="1" maxlength="1" default=","/>
+                        </vbox>
+                    </row>
+                </rows>
+            </grid>
+        </vbox>
     </prefpane>
 
     <prefpane id="loginSettingsPane" label="&category.login;" >

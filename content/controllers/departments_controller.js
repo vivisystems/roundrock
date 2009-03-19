@@ -29,6 +29,7 @@
 
             this._deptscrollablepanel.selectedIndex = index;
             this._deptscrollablepanel.selectedItems = [index];
+            this._deptscrollablepanel.ensureIndexIsVisible(index);
 
             if (index == -1) this.resetInputData();
             

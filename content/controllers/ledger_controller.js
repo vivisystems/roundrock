@@ -140,7 +140,8 @@
 
         beforeScaffoldDelete: function(evt) {
             if (evt.data.id) {
-                if (GREUtils.Dialog.confirm(null, _('confirm delete'), _('Are you sure?')) == false) {
+                if (GREUtils.Dialog.confirm(null, _('confirm delete transaction %S (%S)', [evt.data.type, _(evt.data.mode)]),
+                                            _('Are you sure you want to delete transaction [%S] mode [%S] of amount [%S]?', [evt.data.type, _(evt.data.mode), evt.data.amount])) == false) {
                     evt.preventDefault();
                 }
                 else {
@@ -195,6 +196,7 @@
 
             if (this._listDatas.length > 0) {
                 this.getListObj().selection.select(this._index);
+                this.getListObj().treeBoxObject.ensureRowIsVisible(this._index);
             }
             else {
                 this.getListObj().selection.select(-1);
@@ -223,6 +225,8 @@
                 order: 'created desc',
                 index: this._index
             });
+
+            this.getListObj().treeBoxObject.ensureRowIsVisible(this._index);
         },
 
         select: function(index){
@@ -233,6 +237,7 @@
             }
             
             this.getListObj().selection.select(index);
+            this.getListObj().treeBoxObject.ensureRowIsVisible(index);
             this._index = index;
 
             this.validateForm();

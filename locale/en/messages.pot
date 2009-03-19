@@ -1414,3 +1414,15 @@ msgstr "XTerm"
 
 msgid "acl_xterm"
 msgstr "Run XTerm"
+
+msgid "IN"
+msgstr "IN"
+
+msgid "OUT"
+msgstr "OUT"
+
+msgid "Y"
+msgstr "YES"
+
+msgid "N"
+msgstr "NO"

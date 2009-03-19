@@ -73,8 +73,14 @@
                 }
                 
             }else {
-                productsIndexesByCate = GeckoJS.Session.get('productsIndexesByCateAll');
-                this._data = productsIndexesByCate[cate.no] || productsIndexesByCate[cate.id] || [];
+                if(typeof cate['no'] == 'undefined') {
+                    // group
+                    productsIndexesByCate = GeckoJS.Session.get('productsIndexesByLinkGroupAll');
+                    this._data = productsIndexesByCate[cate.id] || [];
+                }else {
+                    productsIndexesByCate = GeckoJS.Session.get('productsIndexesByCateAll');
+                    this._data = productsIndexesByCate[cate.no] || [];
+                }
             }
 
             try {

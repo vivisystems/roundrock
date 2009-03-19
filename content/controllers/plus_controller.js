@@ -102,7 +102,6 @@
 
             this.productPanelView.setCatePanelIndex(index);
             var category = this.catePanelView.getCurrentIndexData(index);
-
             if (this._selCateIndex != index && category != null) {
                 this._selCateNo = category.no;
                 this._selCateName = category.name;
@@ -147,7 +146,8 @@
             this._selectedIndex = index;
             plupanel.selectedIndex = index;
             plupanel.selectedItems = [index];
-
+            plupanel.ensureIndexIsVisible(index);
+            
             if (product) {
                 product.cate_name = this._selCateName;
                 this.setInputData(product);

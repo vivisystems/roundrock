@@ -126,6 +126,10 @@
                     deptPanel.setAttribute('hideScrollbar', hideDeptScrollbar);
                     deptPanel.setAttribute('hidden', false);
                     deptPanel.initGrid();
+
+                    // @hack to allow vivibuttons to be fully instantiated
+                    this.sleep(100);
+
                     deptPanel.vivibuttonpanel.refresh();
                 }
                 else {
@@ -150,6 +154,10 @@
                     pluPanel.setAttribute('hideScrollbar', hidePLUScrollbar);
                     pluPanel.setAttribute('hidden', false);
                     pluPanel.initGrid();
+
+                    // @hack to allow vivibuttons to be fully instantiated
+                    this.sleep(100);
+                    
                     pluPanel.vivibuttonpanel.refresh();
                 }
                 else {

@@ -1,7 +1,7 @@
 <!ENTITY preferences.title "General Options">
 <!ENTITY category.layout "Layout">
 <!ENTITY category.general "General">
-<!ENTITY category.products "Products">
+<!ENTITY category.formats "Numbers &amp; Formats">
 <!ENTITY category.login "Sign In/Out">
 <!ENTITY category.tax "Taxes">
 <!ENTITY category.plufilters "Product Filters">
@@ -11,12 +11,6 @@
 <!ENTITY general.publicattendance "Individual Time-and-Attendance visible to all">
 <!ENTITY general.privatequeue "Private order queue">
 <!ENTITY general.defaultpricelevel "System default price level">
-<!ENTITY general.precisionprices "Number of decimal places for Prices">
-<!ENTITY general.precisiontaxes "Number of decimal places for Taxes">
-<!ENTITY general.roundingprices "Rounding policy to use for Prices">
-<!ENTITY general.roundingtaxes "Rounding policy to use for Taxes">
-<!ENTITY general.decimalpoint "Decimal Point">
-<!ENTITY general.thousandsdelimiter "Thousands Delimiter">
 <!ENTITY general.activepricelevelschedule "Activate price level schedule">
 <!ENTITY general.pricelevelrevert "Price level reverts to schedule after each order">
 <!ENTITY general.changedepartmentclearbuffer "Clear input buffer when switching departments">
@@ -24,14 +18,6 @@
 <!ENTITY general.allowoverstock "Allow negative stock">
 <!ENTITY general.ageverificationack "Require clerk acknowledgement for age verification">
 <!ENTITY general.positivepricerequired "Items must be registered with positive prices">
-<!ENTITY general.sequencetrackssaleperiod "Order sequence number tracks sale period">
-<!ENTITY rounding.to-nearest-precision "to nearest precision">
-<!ENTITY rounding.to-nearest-half "to nearest half">
-<!ENTITY rounding.to-nearest-quarter "to nearest quarter">
-<!ENTITY rounding.to-nearest-nickel "to nearest nickel">
-<!ENTITY rounding.to-nearest-dime "to nearest dime">
-<!ENTITY rounding.always-round-up "always round up">
-<!ENTITY rounding.always-round-down "always round down">
 <!ENTITY login.defaultlogin "Automatically log in default user">
 <!ENTITY login.autodiscardcart "Automatically discard cart content when signing off">
 <!ENTITY login.autodiscardqueue "Automatically discard queued orders when signing off">
@@ -82,6 +68,22 @@
 <!ENTITY orderdata.orderretaindays "Number of days to retain order data">
 <!ENTITY orderdata.diskunused "Available disk space">
 <!ENTITY orderdata.orderweeklypack "Pack order data on">
-<!ENTITY products.autogenerate "Auto-generate product numbers">
-<!ENTITY products.prodnolength "Length of product numbers">
-<!ENTITY products.prependdeptno "Prepend product numbers with department number">
+<!ENTITY formats.autogenerate "Auto-generate product numbers">
+<!ENTITY formats.prodnolength "Length of product numbers">
+<!ENTITY formats.prependdeptno "Prepend product numbers with department number">
+<!ENTITY formats.precisionprices "Number of decimal places for Prices">
+<!ENTITY formats.precisiontaxes "Number of decimal places for Taxes">
+<!ENTITY formats.roundingprices "Rounding policy to use for Prices">
+<!ENTITY formats.roundingtaxes "Rounding policy to use for Taxes">
+<!ENTITY formats.decimalpoint "Decimal Point">
+<!ENTITY formats.thousandsdelimiter "Thousands Delimiter">
+<!ENTITY formats.sequencetrackssaleperiod "Order sequence number tracks sale period">
+<!ENTITY formats.rounding.to-nearest-precision "to nearest precision">
+<!ENTITY formats.rounding.to-nearest-half "to nearest half">
+<!ENTITY formats.rounding.to-nearest-quarter "to nearest quarter">
+<!ENTITY formats.rounding.to-nearest-nickel "to nearest nickel">
+<!ENTITY formats.rounding.to-nearest-dime "to nearest dime">
+<!ENTITY formats.rounding.always-round-up "always round up">
+<!ENTITY formats.rounding.always-round-down "always round down">
+<!ENTITY formats.sequence.date.format "Sequence date format">
+<!ENTITY formats.sequence.number.length "Sequence number length">

@@ -1422,6 +1422,18 @@ msgstr "XTerm"
 msgid "acl_xterm"
 msgstr "Run XTerm"
 
+msgid "IN"
+msgstr "IN"
+
+msgid "OUT"
+msgstr "OUT"
+
+msgid "Y"
+msgstr "YES"
+
+msgid "N"
+msgstr "NO"
+
 msgid "confirm timezone change"
 msgstr ""
 
@@ -2427,6 +2439,13 @@ msgstr ""
 msgid "Transaction [%S] for amount of [%S] successfully updated"
 msgstr ""
 
+msgid "confirm delete transaction %S (%S)"
+msgstr ""
+
+msgid ""
+"Are you sure you want to delete transaction [%S] mode [%S] of amount [%S]?"
+msgstr ""
+
 msgid ""
 "Transaction [%S] for amount of [%S] successfully deleted from the ledger"
 msgstr ""
@@ -2441,6 +2460,9 @@ msgid "Transaction type [%S] and mode [%S] successfully added"
 msgstr ""
 
 msgid "Transaction type [%S] and mode [%S] successfully updated"
+msgstr ""
+
+msgid "confirm delete %S (%S)"
 msgstr ""
 
 msgid "Transaction type [%S] and mode [%S] successfully deleted"
