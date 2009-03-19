@@ -50,10 +50,13 @@
             var cart = this._controller;
             if (cart) {
                 cart.addEventListener('newTransaction', this.handleNewTransaction, this);
-                cart.addEventListener('onSubmit', this.handleNewTransaction, this);
+                // cart.addEventListener('onSubmit', this.handleNewTransaction, this);
                 cart.addEventListener('onCancel', this.handleNewTransaction, this);
                 // cart.addEventListener('onClear', this.handleClear, this);
                 cart.addEventListener('onStore', this.handleNewTransaction, this);
+                
+                var print = GeckoJS.Controller.getInstanceByName('Print');
+                print.addEventListener('afterSubmit', this.handleNewTransaction, this);
             }
             /*
             // add listener for onLogin event
@@ -66,9 +69,12 @@
 
         handleNewTransaction: function(evt) {
             // if (this._inSetCustomer) return;
-            //this.log(this.dump(evt));
-            if (evt.type == 'onSubmit' || evt.type == 'onCancel' || evt.type == 'onInitial' || evt.type == 'onStore') {
-                //
+
+            this._guestCheck.requireCheckNo = GeckoJS.Configure.read('vivipos.fec.settings.RequireCheckNo') || false;
+            this._guestCheck.requireTableNo = GeckoJS.Configure.read('vivipos.fec.settings.RequireTableNo') || false;
+
+            if (evt.type == 'onSubmit' || evt.type == 'onCancel' || evt.type == 'onInitial' || evt.type == 'onStore' || evt.type == 'afterSubmit') {
+                /*
                 if (this._guestCheck.requireCheckNo) {
                     //
                     var check_no = this.getNewCheckNo();
@@ -78,17 +84,21 @@
                     //
                     var table_no = this.getNewTableNo();
                 }
+                */
+                this._controller._getTransaction(true);
             }
             else if (evt.type == 'newTransaction') {
                 if (this._guestCheck.requireCheckNo) {
                     //
                     if (!GeckoJS.Session.get('vivipos_fec_check_number'))
-                        var check_no = this.getNewCheckNo();
+                        // var check_no = this.getNewCheckNo();
+                        this._controller.newCheck();
                 }
 
                 if (this._guestCheck.requireTableNo) {
                     if (!GeckoJS.Session.get('vivipos_fec_table_number'))
-                        var table_no = this.getNewTableNo();
+                        // var table_no = this.getNewTableNo();
+                        this._controller.newTable();
                 }
 
             }
@@ -219,7 +229,7 @@
             this._checkNoArray = [];
             this._tableNoArray = [];
 
-            var ord = order.find('all', {fields: fields, conditions: conditions});
+            var ord = order.find('all', {fields: fields, conditions: conditions, recursive: 0});
 
             ord.forEach(function(o){
                 var check_no = o.check_no;

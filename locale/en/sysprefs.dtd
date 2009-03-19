@@ -82,6 +82,8 @@
 <!ENTITY orderdata.orderretaindays "Number of days to retain order data">
 <!ENTITY orderdata.diskunused "Available disk space">
 <!ENTITY orderdata.orderweeklypack "Pack order data on">
+<!ENTITY orderdata.requirecheckno "Require check no">
+<!ENTITY orderdata.requiretableno "Require table no">
 <!ENTITY products.autogenerate "Auto-generate product numbers">
 <!ENTITY products.prodnolength "Length of product numbers">
 <!ENTITY products.prependdeptno "Prepend product numbers with department number">
