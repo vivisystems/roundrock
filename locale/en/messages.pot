@@ -1418,6 +1418,9 @@ msgstr "Run XTerm"
 msgid "IN"
 msgstr "IN"
 
+msgid "Printers"
+msgstr "Printers"
+
 msgid "OUT"
 msgstr "OUT"
 
@@ -1426,3 +1429,6 @@ msgstr "YES"
 
 msgid "N"
 msgstr "NO"
+
+msgid "acl_manage_printers"
+msgstr "Manager Printers"
