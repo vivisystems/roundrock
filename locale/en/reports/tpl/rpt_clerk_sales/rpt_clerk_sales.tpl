@@ -1,38 +1,42 @@
 <!-- div class="paper" style="overflow:auto;" -->
 <div id="printhead">
-<img src="chrome://viviecr/content/skin/images/logo.png" /><br />
+	<img src="chrome://viviecr/content/skin/images/logo.png" /><br />
 </div>
 <div id="docbody" class="paper">
+	<p class="heading_store">${head.store.name} - ${head.store.branch}</p>
+	<p class="heading_store">${head.store.telephone1}</p>
 
-<p align="left">${head.store.name}</p>
-<p align="left">${head.store.branch}</p>
-<p align="left">${head.store.telephone1}</p>
-<p align="left">Terminal: ${head.store.terminal_no}</p>
-<p align="left">Clerk: ${head.clerk_displayname}</p>
-<p align="right">Printed Time: ${foot.gen_time}</p>
-<p align="right">${head.start_time} - ${head.end_time}</p>
-<p align="left">${head.title}</p>
+	<div style="float: left;">
+		<p class="heading_p">Terminal: ${head.store.terminal_no}</p>
+		<p class="heading_p">Clerk: ${head.clerk_displayname}</p>
+		<p class="caption">${head.title}</p>
+	</div>
 
+	<div style="float: right;">
+		<p class="heading_p">&nbsp;</p>
+		<p class="heading_p" align="right">Printed Time: ${foot.gen_time}</p>
+		<p class="caption">${head.start_time} - ${head.end_time}</p>
+	</div>
 {for clerk in body}
         <table id="body-table">
-            <caption>${clerk.name}</caption>
+            <!--caption>${clerk.name}</caption-->
             <thead>
                 <tr>
-                    <th>Term_No.</th>
-                    <th>${clerk.associated_clerk}</th>
-                    <th>Time</th>
-                    <th>Sequence</th>
-                    <th>Invoice No</th>
-                    <th>Total</th>
-                    <th>Add-on Tax</th>
-                    <th>Surcharge</th>
-                    <th>Discount</th>
-                    <th>Payment</th>
-                    <th>Cash</th>
-                    <th>Check</th>
-                    <th>Credit Card</th>
-                    <th>Coupon</th>
-                    <th>Gift Card</th>
+                    <th style="text-align: left;">Term_No.</th>
+                    <th style="text-align: left;">${clerk.associated_clerk}</th>
+                    <th style="text-align: left;">Time</th>
+                    <th style="text-align: left;">Sequence</th>
+                    <th style="text-align: left;">Invoice No</th>
+                    <th style="text-align: right;">Total</th>
+                    <th style="text-align: right;">Add-on Tax</th>
+                    <th style="text-align: right;">Surcharge</th>
+                    <th style="text-align: right;">Discount</th>
+                    <th style="text-align: right;">Payment</th>
+                    <th style="text-align: right;">Cash</th>
+                    <th style="text-align: right;">Check</th>
+                    <th style="text-align: right;">Credit Card</th>
+                    <th style="text-align: right;">Coupon</th>
+                    <th style="text-align: right;">Gift Card</th>
                 </tr>
             </thead>
             <tbody>
@@ -48,18 +52,18 @@
                     {/if}
                     </td>
                     <td style="text-align: left;">${order.transaction_created|unixTimeToString:'yyyy-M-d'}</td>
-                    <td>${order.sequence}</td>
-                    <td>${order.invoice_no}</td>
-                    <td>${order.item_subtotal|viviFormatPrices:true}</td>
-                    <td>${order.tax_subtotal|viviFormatPrices:true}</td>
-                    <td>${order.surcharge_subtotal|viviFormatPrices:true}</td>
-                    <td>${order.discount_subtotal|viviFormatPrices:true}</td>
-                    <td>${order.total|viviFormatPrices:true}</td>
-                    <td>${order.cash|default:0|viviFormatPrices:true}</td>
-                    <td>${order.check|default:0|viviFormatPrices:true}</td>
-                    <td>${order.creditcard|default:0|viviFormatPrices:true}</td>
-                    <td>${order.coupon|default:0|viviFormatPrices:true}</td>
-                    <td>${order.giftcard|default:0|viviFormatPrices:true}</td>
+                    <td style="text-align: left;">${order.sequence}</td>
+                    <td style="text-align: left;">${order.invoice_no}</td>
+                    <td style="text-align: right;">${order.item_subtotal|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${order.tax_subtotal|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${order.surcharge_subtotal|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${order.discount_subtotal|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${order.total|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${order.cash|default:0|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${order.check|default:0|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${order.creditcard|default:0|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${order.coupon|default:0|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${order.giftcard|default:0|viviFormatPrices:true}</td>
                 </tr>
 {/for}
             </tbody>
@@ -68,16 +72,16 @@
                     <td></td>
                     <td></td>
                     <td colspan="3">Summary:</td>
-                    <td>${clerk.summary.item_subtotal|viviFormatPrices:true}</td>
-                    <td>${clerk.summary.tax_subtotal|viviFormatPrices:true}</td>
-                    <td>${clerk.summary.surcharge_subtotal|viviFormatPrices:true}</td>
-                    <td>${clerk.summary.discount_subtotal|viviFormatPrices:true}</td>
-                    <td>${clerk.summary.total|viviFormatPrices:true}</td>
-                    <td>${clerk.summary.cash|viviFormatPrices:true}</td>
-                    <td>${clerk.summary.check|viviFormatPrices:true}</td>
-                    <td>${clerk.summary.creditcard|viviFormatPrices:true}</td>
-                    <td>${clerk.summary.coupon|viviFormatPrices:true}</td>
-                    <td>${clerk.summary.giftcard|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${clerk.summary.item_subtotal|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${clerk.summary.tax_subtotal|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${clerk.summary.surcharge_subtotal|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${clerk.summary.discount_subtotal|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${clerk.summary.total|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${clerk.summary.cash|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${clerk.summary.check|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${clerk.summary.creditcard|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${clerk.summary.coupon|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${clerk.summary.giftcard|viviFormatPrices:true}</td>
                 </tr>
             </tfoot>
         </table>

@@ -1,40 +1,35 @@
-<!-- div class="paper" style="overflow:auto;" -->
+<!--doing this can make the codes below be colored by the gedit. It's so funny, isn't it? -->
 <div id="printhead">
-<!--img src="chrome://viviecr/content/skin/images/logo.png" /><br /-->
+	<img src="chrome://viviecr/content/skin/images/logo.png" /><br />
 </div>
 <div id="docbody" class="paper">
-<!--p align="right">${head.start_time} - ${head.end_time}</p-->
+	<p class="heading_store">${head.store.name} - ${head.store.branch}</p>
+	<p class="heading_store">${head.store.telephone1}</p>
+
+	<div style="float: left;">
+		<p class="heading_p">Terminal: ${head.store.terminal_no}</p>
+		<p class="heading_p">Clerk: ${head.clerk_displayname}</p>
+		<p class="caption">${head.title}</p>
+	</div>
+
+	<div style="float: right;">
+		<p class="heading_p">&nbsp;</p>
+		<p class="heading_p" align="right">Printed Time: ${foot.gen_time}</p>
+		<p class="caption">${head.start_time} - ${head.end_time}</p>
+	</div>
         <table id="body-table">
-            
             <thead>
-            	<tr>
-            		<td style="border: 0; background: white;" colspan="10">
-            			<img style="border: 0; float: left" src="chrome://viviecr/content/skin/images/logo.png" />
-            		</td>
-            	</tr>
-		        <tr>
-		        	<td style="background: white;" colspan="10">
-		        		<p align="left">${head.store.name}</p>
-						<p align="left">${head.store.branch}</p>
-						<p align="left">${head.store.telephone1}</p>
-						<p align="left">Terminal: ${head.store.terminal_no}</p>
-						<p align="left">Clerk: ${head.clerk_displayname}</p>
-						<p align="right">Printed Time: ${foot.gen_time}</p>
-						<span style="float: left;">${head.title}</span>
-						<span style="float: right;">${head.start_time} - ${head.end_time}</span>
-					</td>
-		        </tr>
                 <tr>
-                    <th>Term_No.</th>
-                    <th>Time</th>
-                    <th>Sequence</th>
-                    <th>Total</th>
-                    <th>Add-on Tax</th>
-                    <th>Surcharge</th>
-                    <th>Discount</th>
-                    <th>Payment</th>
-                    <th>Guests</th>
-                    <th>Items</th>
+                    <th style="text-align: left;">Term_No.</th>
+                    <th style="text-align: left;">Time</th>
+                    <th style="text-align: left;">Sequence</th>
+                    <th style="text-align: right;">Total</th>
+                    <th style="text-align: right;">Add-on Tax</th>
+                    <th style="text-align: right;">Surcharge</th>
+                    <th style="text-align: right;">Discount</th>
+                    <th style="text-align: right;">Payment</th>
+                    <th style="text-align: right;">Guests</th>
+                    <th style="text-align: right;">Items</th>
                 </tr>
             </thead>
             <tbody>
@@ -42,14 +37,14 @@
                 <tr>
                     <td style="text-align: left;">${detail.terminal_no}</td>
                     <td style="text-align: left;">${detail.Order.Time}</td>
-                    <td>${detail.sequence}</td>
-                    <td>${detail.item_subtotal}</td>
-                    <td>${detail.tax_subtotal}</td>
-                    <td>${detail.surcharge_subtotal}</td>
-                    <td>${detail.discount_subtotal}</td>
-                    <td>${detail.total}</td>
-                    <td>${detail.no_of_customers}</td>
-                    <td>${detail.items_count}</td>
+                    <td style="text-align: left;">${detail.sequence}</td>
+                    <td style="text-align: right;">${detail.item_subtotal}</td>
+                    <td style="text-align: right;">${detail.tax_subtotal}</td>
+                    <td style="text-align: right;">${detail.surcharge_subtotal}</td>
+                    <td style="text-align: right;">${detail.discount_subtotal}</td>
+                    <td style="text-align: right;">${detail.total}</td>
+                    <td style="text-align: right;">${detail.no_of_customers}</td>
+                    <td style="text-align: right;">${detail.items_count}</td>
                 </tr>
 
                 <tr>
@@ -60,9 +55,9 @@
                             <tr>
                                 <td style="text-align: left;">${items.product_no}</td>
                                 <td style="text-align: left;">${items.product_name}</td>
-                                <td>${items.current_price}</td>
-                                <td>${items.current_qty}</td>
-                                <td>${items.current_subtotal}</td>
+                                <td style="text-align: right;">${items.current_price}</td>
+                                <td style="text-align: right;">${items.current_qty}</td>
+                                <td style="text-align: right;">${items.current_subtotal}</td>
                             </tr>
 {/for}
                         </table>
@@ -73,11 +68,11 @@
             <tfoot>
                 <tr>
                     <td colspan="3">Summary:</td>
-                    <td>${foot.foot_datas.item_subtotal|viviFormatPrices:true}</td>
-                    <td>${foot.foot_datas.tax_subtotal|viviFormatPrices:true}</td>
-                    <td>${foot.foot_datas.surcharge_subtotal|viviFormatPrices:true}</td>
-                    <td>${foot.foot_datas.discount_subtotal|viviFormatPrices:true}</td>
-                    <td>${foot.foot_datas.payment|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${foot.foot_datas.item_subtotal|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${foot.foot_datas.tax_subtotal|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${foot.foot_datas.surcharge_subtotal|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${foot.foot_datas.discount_subtotal|viviFormatPrices:true}</td>
+                    <td style="text-align: right;">${foot.foot_datas.payment|viviFormatPrices:true}</td>
                     <td></td>
                     <td></td>
                 </tr>

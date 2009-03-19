@@ -592,6 +592,11 @@ pref("vivipos.fec.reportpanels.detailedtaxreport.path", "chrome://viviecr/conten
 pref("vivipos.fec.reportpanels.detailedtaxreport.icon", "chrome://viviecr/content/skin/icons/reporticon_taxe.png");
 pref("vivipos.fec.reportpanels.detailedtaxreport.roles", "acl_run_report_inactive");
 
+pref("vivipos.fec.reportpanels.invoice.label", "Invoice Records");
+pref("vivipos.fec.reportpanels.invoice.path", "chrome://viviecr/content/reports/rpt_invoice.xul");
+pref("vivipos.fec.reportpanels.invoice.icon", "chrome://viviecr/content/skin/icons/reporticon_taxe.png");
+pref("vivipos.fec.reportpanels.invoice.roles", "acl_run_report_inactive");
+
 pref("vivipos.fec.reportpanels.hourlysales.label", "Hourly Sales");
 pref("vivipos.fec.reportpanels.hourlysales.path", "chrome://viviecr/content/reports/rpt_hourly_sales.xul");
 pref("vivipos.fec.reportpanels.hourlysales.icon", "chrome://viviecr/content/skin/icons/reporticon_hour.png");
