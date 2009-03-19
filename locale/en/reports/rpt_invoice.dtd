@@ -1,0 +1,16 @@
+<!ENTITY rptinvoice.title "Invoice Report">
+<!ENTITY rptinvoice.conditions "Conditions:">
+<!ENTITY rptinvoice.startdate "Start Date:">
+<!ENTITY rptinvoice.enddate "End Date:">
+<!ENTITY rptinvoice.execute "Execute">
+<!ENTITY rptinvoice.exportpdf "Export to PDF">
+<!ENTITY rptinvoice.exportcsv "Export to CSV">
+<!ENTITY rptinvoice.exportrcp "Print">
+<!ENTITY rptinvoice.togglezoom "Toggle Zoom">
+<!ENTITY rptinvoice.machineid "Terminal No:">
+<!ENTITY rptinvoice.all "List All">
+<!ENTITY rptinvoice.wait "Waiting...">
+<!ENTITY rptinvoice.periodtype "Period Type:">
+<!ENTITY rptinvoice.created "Order Start Time">
+<!ENTITY rptinvoice.saleperiod "Sale Period">
+<!ENTITY rptinvoice.shiftno "Shift No.">
