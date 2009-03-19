@@ -1,23 +1,31 @@
-<div class="paper">
-    <img src="chrome://viviecr/content/skin/images/logo.png" />
-    <br />
+<!---->
+<div id="printhead">
+	<img src="chrome://viviecr/content/skin/images/logo.png" /><br />
+</div>
+<div id="docbody" class="paper">
+	<p class="heading_store">${head.store.name} - ${head.store.branch}</p>
+	<p class="heading_store">${head.store.telephone1}</p>
 
-    <p align="left">${head.store.name}</p>
-	<p align="left">${head.store.branch}</p>
-	<p align="left">${head.store.telephone1}</p>
-	<p align="left">Terminal: ${head.store.terminal_no}</p>
-	<p align="left">Clerk: ${head.clerk_displayname}</p>
-	<p align="right">Printed Time: ${foot.gen_time}</p>
-	<p align="right">${head.start_time} - ${head.end_time}</p>
+	<div style="float: left;">
+		<p class="heading_p">Terminal: ${head.store.terminal_no}</p>
+		<p class="heading_p">Clerk: ${head.clerk_displayname}</p>
+		<p class="caption">${head.title}</p>
+	</div>
+
+	<div style="float: right;">
+		<p class="heading_p">&nbsp;</p>
+		<p class="heading_p" align="right">Printed Time: ${foot.gen_time}</p>
+		<p class="caption">${head.start_time} - ${head.end_time}</p>
+	</div>
 
     <table id="body-table">
-        <caption>${head.title}</caption>
+        <!--caption>${head.title}</caption-->
         <thead>
             <tr>
                 <th style="text-align: left;">Sequence</th>
-                <th style="text-align: left;">Total</th>
-                <th style="text-align: left;">Discount</th>
-                <th style="text-align: left;">Surcharge</th>
+                <th style="text-align: right;">Total</th>
+                <th style="text-align: right;">Discount</th>
+                <th style="text-align: right;">Surcharge</th>
                 <th style="text-align: right;">Add-on Tax</th>
                 <th style="text-align: right;">Included Tax</th>
 {for tax in taxList}
@@ -29,13 +37,13 @@
 {for item in body}
             <tr>
                 <td style="text-align: left;">${item.Order.sequence}</td>
-                <td style="text-align: left;">${item.Order.total|default:0|viviFormatPrices:true}</td>
-                <td style="text-align: left;">${item.discount_subtotal|default:0|viviFormatPrices:true}</td>
-                <td style="text-align: left;">${item.surcharge_subtotal|default:0|viviFormatPrices:true}</td>
-                <td>${item.Order.tax_subtotal|default:0|viviFormatPrices:true}</td>
-                <td>${item.Order.included_tax_subtotal|default:0|viviFormatPrices:true}</td>
+                <td style="text-align: right;">${item.Order.total|default:0|viviFormatPrices:true}</td>
+                <td style="text-align: right;">${item.discount_subtotal|default:0|viviFormatPrices:true}</td>
+                <td style="text-align: right;">${item.surcharge_subtotal|default:0|viviFormatPrices:true}</td>
+                <td style="text-align: right;">${item.Order.tax_subtotal|default:0|viviFormatPrices:true}</td>
+                <td style="text-align: right;">${item.Order.included_tax_subtotal|default:0|viviFormatPrices:true}</td>
 {for tax in taxList}
-                <td>${item[ tax.no ]|viviFormatPrices:true}</td>
+                <td style="text-align: right;">${item[ tax.no ]|viviFormatPrices:true}</td>
 {/for}
             </tr>
 {/for}
@@ -43,11 +51,11 @@
         <tfoot>
             <tr>
 				<td>Summary:</td>
-				<td style="text-align: left;">${foot.summary.total|default:0|viviFormatPrices:true}</td>
-				<td style="text-align: left;">${foot.summary.discount_subtotal|default:0|viviFormatPrices:true}</td>
-                <td style="text-align: left;">${foot.summary.surcharge_subtotal|default:0|viviFormatPrices:true}</td>
-                <td>${foot.summary.tax_subtotal|default:0|viviFormatPrices:true}</td>
-                <td>${foot.summary.included_tax_subtotal|default:0|viviFormatPrices:true}</td>
+				<td style="text-align: right;">${foot.summary.total|default:0|viviFormatPrices:true}</td>
+				<td style="text-align: right;">${foot.summary.discount_subtotal|default:0|viviFormatPrices:true}</td>
+                <td style="text-align: right;">${foot.summary.surcharge_subtotal|default:0|viviFormatPrices:true}</td>
+                <td style="text-align: right;">${foot.summary.tax_subtotal|default:0|viviFormatPrices:true}</td>
+                <td style="text-align: right;">${foot.summary.included_tax_subtotal|default:0|viviFormatPrices:true}</td>
 {for tax in taxList}
                 <td style="text-align: right;">${foot.summary[ tax.no ]|viviFormatPrices:true}</td>
 {/for}

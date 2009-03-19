@@ -1,17 +1,25 @@
-<div class="paper">
-    <img src="chrome://viviecr/content/skin/images/logo.png" />
-    <br />
+<!-- div class="paper" style="overflow:auto;" -->
+<div id="printhead">
+	<img src="chrome://viviecr/content/skin/images/logo.png" /><br />
+</div>
+<div id="docbody" class="paper">
+	<p class="heading_store">${head.store.name} - ${head.store.branch}</p>
+	<p class="heading_store">${head.store.telephone1}</p>
 
-    <p align="left">${head.store.name}</p>
-	<p align="left">${head.store.branch}</p>
-	<p align="left">${head.store.telephone1}</p>
-	<p align="left">Terminal: ${head.store.terminal_no}</p>
-	<p align="left">Clerk: ${head.clerk_displayname}</p>
-	<p align="right">Printed Time: ${foot.gen_time}</p>
-	<p align="right">${head.start_time} - ${head.end_time}</p>
+	<div style="float: left;">
+		<p class="heading_p">Terminal: ${head.store.terminal_no}</p>
+		<p class="heading_p">Clerk: ${head.clerk_displayname}</p>
+		<p class="caption">${head.title}</p>
+	</div>
 
+	<div style="float: right;">
+		<p class="heading_p">&nbsp;</p>
+		<p class="heading_p" align="right">Printed Time: ${foot.gen_time}</p>
+		<p class="caption">${head.start_time} - ${head.end_time}</p>
+	</div>
+	
     <table id="body-table">
-        <caption>${head.title}</caption>
+        <!--caption>${head.title}</caption-->
         <thead>
             <tr>
                 <th style="text-align: left;">No</th>
@@ -26,17 +34,17 @@
             <tr>
                 <td style="text-align: left;">${item.product_no}</td>
                 <td style="text-align: left;">${item.product_name}</td>
-                <td>${item.avg_price}</td>
-                <td>${item.qty}</td>
-                <td>${item.total}</td>
+                <td style="text-align: right;">${item.avg_price}</td>
+                <td style="text-align: right;">${item.qty}</td>
+                <td style="text-align: right;">${item.total}</td>
             </tr>
 {/for}
         </tbody>
         <tfoot>
             <tr>
                 <td colspan="3">Summary:</td>
-                <td>${foot.qty}</td>
-                <td>${foot.summary}</td>
+                <td style="text-align: right;">${foot.qty}</td>
+                <td style="text-align: right;">${foot.summary}</td>
             </tr>
         </tfoot>
     </table>
