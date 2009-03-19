@@ -42,7 +42,12 @@ pref("vivipos.fec.settings.controlpanels.config.devices.label", "Devices");
 pref("vivipos.fec.settings.controlpanels.config.devices.path", "chrome://viviecr/content/devices.xul");
 pref("vivipos.fec.settings.controlpanels.config.devices.icon", "chrome://viviecr/skin/icons/icon_devices.png");
 pref("vivipos.fec.settings.controlpanels.config.devices.roles", "acl_manage_devices");
- 
+
+pref("vivipos.fec.settings.controlpanels.config.printers.label", "Printers");
+pref("vivipos.fec.settings.controlpanels.config.printers.path", "chrome://viviecr/content/printers.xul");
+pref("vivipos.fec.settings.controlpanels.config.printers.icon", "chrome://viviecr/skin/icons/icon_devices.png");
+pref("vivipos.fec.settings.controlpanels.config.printers.roles", "acl_manage_printers");
+
 pref("vivipos.fec.settings.controlpanels.config.sync_settings.label", "Synchronization Settings");
 pref("vivipos.fec.settings.controlpanels.config.sync_settings.path", "chrome://viviecr/content/sync_settings.xul");
 pref("vivipos.fec.settings.controlpanels.config.sync_settings.icon", "chrome://viviecr/skin/icons/icon_sync.png");

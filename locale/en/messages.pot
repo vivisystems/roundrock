@@ -1414,3 +1414,9 @@ msgstr "XTerm"
 
 msgid "acl_xterm"
 msgstr "Run XTerm"
+
+msgid "Printers"
+msgstr "Printers"
+
+msgid "acl_manage_printers"
+msgstr "Manager Printers"
