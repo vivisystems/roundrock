@@ -32,10 +32,6 @@ pref("dom.max_script_run_time", 60);
 pref("javascript.options.jit.content", true);
 pref("javascript.options.jit.chrome", true);
 
-/* added to allow <label class="text-links" ... /> to work */
-pref("network.protocol-handler.expose.http", false);
-pref("network.protocol-handler.warn-external.http", false);
-
 /* extension prefs - turn off extension updating for now */
 pref("extensions.update.enabled", false);
 pref("extensions.update.interval", 86400);
@@ -52,10 +48,24 @@ pref("extensions.dss.enabled", false);
 // Non-dynamic switch pending after next restart
 pref("extensions.dss.switchPending", false);
 
-pref("general.autoScroll", true);
-pref("general.smoothScroll", false);
 pref("extensions.ignoreMTimeChanges", false);
 pref("extensions.logging.enabled", false);
+
+pref("general.autoScroll", true);
+pref("general.smoothScroll", false);
+
+// Don't warn when opening external http urls
+// This is to allow for launching _blank targeted links in the default browser
+pref("network.protocol-handler.warn-external.http", false);
+pref("network.protocol-handler.warn-external.https", false);
+pref("network.protocol-handler.warn-external.ftp", false);
+
+pref("network.proxy.share_proxy_settings",  false);
+
+pref("plugin.default_plugin_disabled", true);
+pref("security.warn_entering_secure.show_once", true);
+pref("security.warn_leaving_secure.show_once", true);
+
 pref("general.skins.selectedSkin", "traditional-800x600/1.0");
 
 // NB these point at AMO
