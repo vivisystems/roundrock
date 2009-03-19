@@ -87,3 +87,5 @@
 <!ENTITY formats.rounding.always-round-down "always round down">
 <!ENTITY formats.sequence.date.format "Sequence date format">
 <!ENTITY formats.sequence.number.length "Sequence number length">
+<!ENTITY orderdata.requirecheckno "Require check no">
+<!ENTITY orderdata.requiretableno "Require table no">

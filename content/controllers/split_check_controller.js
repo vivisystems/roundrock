@@ -412,7 +412,7 @@
             // @todo OSD
             NotifyUtils.warn(_('The Check# %S has been splited to Check# %S!!', [this._sourceCheck.check_no, check_no_list.join(',')]));
 
-            if (index)
+            if (index >= 0)
                 return orders[this._splitedIndex];
             else
                 return origData;
@@ -435,7 +435,6 @@
         },
 
         paythis: function() {
-
             var retOrder = this._saveOrders(this._splitedIndex);
             var inputObj = window.arguments[0];
             inputObj.ok = true;

@@ -857,7 +857,11 @@
             orderCommit.prototype = {
                 run: function() {
                     try {
+
                         this._commitTxn.submit();
+
+                        // dispatch afterSubmit event...
+                        self.dispatchEvent('afterSubmit', self);
                     }
                     catch (e) {
                         this.log('WARN', 'failed to commit order');
