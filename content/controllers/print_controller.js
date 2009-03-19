@@ -600,10 +600,9 @@
                 if (data.store) data.store.terminal_no = GeckoJS.Session.get('terminal_no');
             }
             //this.log(GeckoJS.BaseObject.dump(data.order));
-            //this.log(GeckoJS.BaseObject.dump(data.order));
-            //this.log(GeckoJS.BaseObject.dump(data.order));
-            if (data.customer) this.log(GeckoJS.BaseObject.dump(data.customer));
-            if (data.store) this.log(GeckoJS.BaseObject.dump(data.store));
+            //if (data.customer) this.log(GeckoJS.BaseObject.dump(data.customer));
+            //if (data.store) this.log(GeckoJS.BaseObject.dump(data.store));
+            //
             // dispatch beforePrintCheck event to allow extensions to add to the template data object or
             // to prevent check from printed
             if (!this.dispatchEvent('beforePrintCheck', {data: data,
@@ -726,6 +725,7 @@
                 }
             }
             //alert(GeckoJS.BaseObject.dump(result));
+            //this.log(GeckoJS.BaseObject.dump(result));
             //return;
             //alert(data.order.receiptPages);
             //

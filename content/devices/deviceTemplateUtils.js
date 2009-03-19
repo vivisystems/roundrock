@@ -29,8 +29,18 @@
 
                     var resultArray = [];
                     var charArray = str.split('');
+                    var offset = 0;
+                    for (var i = 0; i < charArray.length; i++) {
+                        var ch = GREUtils.Charset.convertFromUnicode(charArray[i], _encoding);
+                        if (offset - (- ch.length) > startIndex) {
+                            break;
+                        }
+                        else {
+                            offset += ch.length;
+                        }
+                    }
                     var len = 0;
-                    for (var i = startIndex; i < charArray.length; i++) {
+                    for (; i < charArray.length; i++) {
                         var ch = GREUtils.Charset.convertFromUnicode(charArray[i], _encoding);
 
                         if ((len - (- ch.length)) > width) {
@@ -178,6 +188,42 @@
                 if (width < len) {
                     str = subStr(str, 0, width);
                 }
+                return str;
+            },
+
+        $T.parseTemplate_etc.modifierDef['wtail'] = function(str, width) {
+                if (width == null || isNaN(width)) return str;
+                str += '';
+
+                width = Math.floor(Math.abs(width));
+                var len = str.length;
+
+                if (width < len) {
+                    str = str.substr(len - width, width);
+                }
+                return str;
+            },
+
+        $T.parseTemplate_etc.modifierDef['tail'] = function(str, width) {
+                if (width == null || isNaN(width)) return str;
+                str += '';
+
+                width = Math.floor(Math.abs(width));
+                var len = strLen(str);
+
+                if (width < len) {
+                    str = subStr(str, len - width, width);
+                }
+                return str;
+            },
+
+        $T.parseTemplate_etc.modifierDef['substr'] = function(str, index, width) {
+                if (width == null || isNaN(width) || index == null || isNaN(index)) return str;
+                str += '';
+
+                width = Math.floor(Math.abs(width));
+                index = Math.floor(Math.abs(index));
+                str = subStr(str, index, width);
                 return str;
             }
         };

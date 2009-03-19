@@ -2076,6 +2076,9 @@
 
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
+            var returnMode = this._returnMode;
+
+            this.cancelReturn();
 
             if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
                 this.clear();
@@ -2100,7 +2103,7 @@
 
             var paymentsTypes = GeckoJS.BaseObject.getKeys(curTransaction.getPayments());
 
-            if (this._returnMode) {
+            if (returnMode) {
                 var err = false;
                 if (paymentsTypes.length == 0) {
                     NotifyUtils.warn(_('No payment has been made; cannot register refund payment'));
@@ -2127,7 +2130,16 @@
                 }
             }
 
-            this.addMarker('total');
+            // add a total marker if no new items have been added since last total/subtotal marker
+            // in other words, check if any item has hasMarker = false
+            var transItems = curTransaction.getItems();
+            var allMarked = true;
+            for (var itemId in transItems) {
+                if (!(allMarked = transItems[itemId].hasMarker)) {
+                    break;
+                }
+            }
+            if (!allMarked) this.addMarker('total');
             
             type = type || 'cash';
             amount = amount || false;
@@ -2140,11 +2152,11 @@
 
             origin_amount = typeof origin_amount == 'undefined' ? amount : origin_amount;
 
-            if (this._returnMode) {
+            if (returnMode) {
                 origin_amount = 0 - origin_amount;
                 amount = 0 - amount;
             }
-            
+
             var paymentItem = {
                 type: type,
                 amount: amount,

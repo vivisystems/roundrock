@@ -85,7 +85,7 @@
                     var table_no = this.getNewTableNo();
                 }
                 */
-                this._controller._getTransaction(true);
+                //this._controller._getTransaction(true);
             }
             else if (evt.type == 'newTransaction') {
                 if (this._guestCheck.requireCheckNo) {
