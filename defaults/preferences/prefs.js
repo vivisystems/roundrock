@@ -1,5 +1,4 @@
 pref("toolkit.defaultChromeURI", "chrome://vivipos/content/vivipos.xul");
-//pref("toolkit.defaultChromeFeatures", "chrome,modal=no,toolbar=no,popup=no,titlebar=no,width=1024,height=768");
 
 // Prevent xulrunner from launching multiple instances.
 pref("toolkit.singletonWindowType", "Vivipos:Main");
@@ -8,13 +7,6 @@ pref("toolkit.singletonWindowType", "Vivipos:Main");
 /* prefwindow prefs (see: MDC - Preferences System and bug 350528) */
 pref("browser.preferences.animateFadeIn", "false");
 pref("browser.preferences.instantApply", "false");
-
-/* debugging prefs */
-pref("browser.dom.window.dump.enabled", true);
-pref("javascript.options.showInConsole", false);
-pref("javascript.options.strict", false);
-pref("nglayout.debug.disable_xul_cache", true);
-pref("nglayout.debug.disable_xul_fastload", true);
 
 //
 // Advanced DOM JavaScript preferences
@@ -66,8 +58,6 @@ pref("plugin.default_plugin_disabled", true);
 pref("security.warn_entering_secure.show_once", true);
 pref("security.warn_leaving_secure.show_once", true);
 
-pref("general.skins.selectedSkin", "traditional-800x600/1.0");
-
 // NB these point at AMO
 // pref("extensions.update.url", "chrome://mozapps/locale/extensions/extensions.properties");
 // pref("extensions.getMoreExtensionsURL", "chrome://mozapps/locale/extensions/extensions.properties");
@@ -88,15 +78,4 @@ pref("intl.locale.matchOS", "false");
 /* vivipos default locale */
 pref("general.useragent.locale", "en-US");
 pref("intl.charset.default", "UTF-8");
-
-pref("vivipos.fec.mainscreen.width", 800);
-pref("vivipos.fec.mainscreen.height", 600);
-pref("vivipos.fec.mainscreen.hidechrome", false);
-
-pref("vivipos.fec.debug.disable_bottombox", false);
-pref("vivipos.fec.debug.disable_extension_manager", false);
-pref("vivipos.fec.debug.disable_jsconsole", false);
-pref("vivipos.fec.debug.disable_inspector", false);
-pref("vivipos.fec.debug.disable_debugger", false);
-pref("vivipos.fec.debug.disable_sqlitemanager", false);
 
