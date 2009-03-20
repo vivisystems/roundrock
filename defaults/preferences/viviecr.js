@@ -43,10 +43,6 @@ pref("vivipos.fec.settings.controlpanels.config.devices.path", "chrome://viviecr
 pref("vivipos.fec.settings.controlpanels.config.devices.icon", "chrome://viviecr/skin/icons/icon_devices.png");
 pref("vivipos.fec.settings.controlpanels.config.devices.roles", "acl_manage_devices");
 
-pref("vivipos.fec.settings.controlpanels.config.printers.label", "Printers");
-pref("vivipos.fec.settings.controlpanels.config.printers.path", "chrome://viviecr/content/printers.xul");
-pref("vivipos.fec.settings.controlpanels.config.printers.icon", "chrome://viviecr/skin/icons/icon_devices.png");
-pref("vivipos.fec.settings.controlpanels.config.printers.roles", "acl_manage_printers");
 
 pref("vivipos.fec.settings.controlpanels.config.sync_settings.label", "Synchronization Settings");
 pref("vivipos.fec.settings.controlpanels.config.sync_settings.path", "chrome://viviecr/content/sync_settings.xul");
@@ -148,12 +144,17 @@ pref("vivipos.fec.settings.controlpanels.config.functionpanel.path", "chrome://v
 pref("vivipos.fec.settings.controlpanels.config.functionpanel.icon", "chrome://viviecr/skin/icons/icon_functionpnl.png");
 pref("vivipos.fec.settings.controlpanels.config.functionpanel.roles", "acl_manage_function_panel");
 
-
 pref("vivipos.fec.settings.controlpanels.system.network_setting.label", "Network Setting");
 pref("vivipos.fec.settings.controlpanels.system.network_setting.type", "application");
 pref("vivipos.fec.settings.controlpanels.system.network_setting.path", "/usr/bin/wicd-client -n");
 pref("vivipos.fec.settings.controlpanels.system.network_setting.icon", "chrome://viviecr/content/skin/icons/gnome-run.png");
 pref("vivipos.fec.settings.controlpanels.system.network_setting.roles", "acl_manage_network_setting");
+
+pref("vivipos.fec.settings.controlpanels.system.printers.label", "Printers");
+pref("vivipos.fec.settings.controlpanels.system.printers.path", "chrome://viviecr/content/printers.xul");
+pref("vivipos.fec.settings.controlpanels.system.printers.features", "chrome,modal,dependent,scrollbars");
+pref("vivipos.fec.settings.controlpanels.system.printers.icon", "chrome://viviecr/skin/icons/icon_devices.png");
+pref("vivipos.fec.settings.controlpanels.system.printers.roles", "acl_manage_printers");
 
 pref("vivipos.fec.settings.controlpanels.config.hotkey.label", "HotKey Configuration");
 pref("vivipos.fec.settings.controlpanels.config.hotkey.path", "chrome://viviecr/content/hotkey_prefs.xul");
