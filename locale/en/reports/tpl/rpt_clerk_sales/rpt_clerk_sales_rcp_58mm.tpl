@@ -23,8 +23,6 @@ Time       :
 ${order.transaction_created|unixTimeToString:'yyyy-M-d'|right:24}
 Seq.       :
 ${order.sequence|right:24}
-Invoice No.:
-${order.invoice_no|right:24}
 Total      :
 ${order.item_subtotal|viviFormatPrices:true|right:24}
 Add-on Tax :

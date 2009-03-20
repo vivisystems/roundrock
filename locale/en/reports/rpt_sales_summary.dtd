@@ -11,3 +11,4 @@
 <!ENTITY rptsalessummary.periodtype "Period Type:">
 <!ENTITY rptsalessummary.starttime "Order Start Time">
 <!ENTITY rptsalessummary.saleperiod "Sale Period">
+<!ENTITY rptsalessummary.shiftno "Shift No.:">

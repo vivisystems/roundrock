@@ -23,7 +23,7 @@ ${body.sales_summary.Total|default:0|viviFormatPrices:true|right:24}
 ------------------------
 Sales Summary
 Orders:
-${body.sales_summary.OrderNum|default:0|viviFormatPrices:true|right:24}
+${body.sales_summary.OrderNum|default:0|right:24}
 Total:
 ${body.sales_summary.Total|default:0|viviFormatPrices:true|right:24}
 Guests:
@@ -40,14 +40,16 @@ ${body.sales_summary.AvgItemsCount|default:0|viviFormatPrices:true|right:24}
 Payment List
 {for detail in body.payment_list.records}
 ${detail.name}:
-${detail.amount - detail.change|default:0|viviFormatPrices:true|right:24}
+${detail.total|default:0|viviFormatPrices:true|right:24}
+{for payment in detail.detail}
+  ${payment.memo1}:
+  ${payment.amount - payment.change|default:0|viviFormatPrices:true|right:22}
+{/for}
 {/for}
 Summary:
 ${body.payment_list.summary.payment_total - body.payment_list.summary.change_total|default:0|viviFormatPrices:true|right:24}
 ------------------------
 Destination Summary
-Total Orders:
-${body.destination_summary.total_trans|right:24}
 {for detail in body.destination_summary.data}
 ${detail.destination} Times:
 ${detail.num_trans|default:0|viviFormatPrices:false|right:24}
@@ -61,8 +63,6 @@ Tax Name:
 ${detail.tax_name|right:24}
 Tax Rate:
 ${detail.tax_rate|right:24}
-Rate Type:
-${detail.rate_type|right:24}
 Tax Type:
 ${detail.tax_type|right:24}
 Total:
@@ -75,7 +75,7 @@ ${body.tax_summary.summary.tax_total|default:0|viviFormatPrices:true|right:24}
 Top ${body.dept_sales.num_rows_to_get} Department Sales
 {for detail in body.dept_sales.records}
 Department:
-${detail.cate_no}-${detail.cate_name|right:24}
+${detail.cate_no + '-' + detail.cate_name|right:24}
 Quantity:
 ${detail.qty|right:24}
 Total:
@@ -123,6 +123,42 @@ Orders:
 ${body.hourly_sales.summary.OrderNum|right:24}
 Total:
 ${body.hourly_sales.summary.HourTotal|default:0|viviFormatPrices:true|right:24}
+------------------------
+Discount Summary
+{for detail in body.discount_summary.data}
+Name:
+${detail.discount_name|right:24}
+Type:
+${detail.itemOrAddition|right:24}
+Count:
+${detail.num_rows|right:24}
+Amount:
+${detail.amount|default:0|viviFormatPrices:true|right:24}
+	
+{/for}
+Summary
+Count:
+${body.discount_summary.summary.num_rows|right:24}
+Amount:
+${body.discount_summary.summary.amount|default:0|viviFormatPrices:true|right:24}
+------------------------
+Surcharge Summary
+{for detail in body.surcharge_summary.data}
+Name:
+${detail.surcharge_name|right:24}
+Type:
+${detail.itemOrAddition|right:24}
+Count:
+${detail.num_rows|right:24}
+Amount:
+${detail.amount|default:0|viviFormatPrices:true|right:24}
+
+{/for}
+Summary
+Count:
+${body.surcharge_summary.summary.num_rows|right:24}
+Amount:
+${body.surcharge_summary.summary.amount|default:0|viviFormatPrices:true|right:24}
 ------------------------
 ${foot.gen_time}
 [&CR]

@@ -594,14 +594,14 @@
             }
 
             // expand data with storeContact and terminal_no
-            if (data) {
-                data.customer = GeckoJS.Session.get('current_customer');
-                data.store = GeckoJS.Session.get('storeContact');
-                if (data.store) data.store.terminal_no = GeckoJS.Session.get('terminal_no');
-            }
-            this.log(this.dump(data.order));
-            if (data.customer) this.log(GeckoJS.BaseObject.dump(data.customer));
-            if (data.store) this.log(GeckoJS.BaseObject.dump(data.store));
+	        if (data) {
+	            data.customer = GeckoJS.Session.get('current_customer');
+	            data.store = GeckoJS.Session.get('storeContact');
+	            if (data.store) data.store.terminal_no = GeckoJS.Session.get('terminal_no');
+	        }
+	        // this.log(this.dump(data.order));
+            // if (data.customer) this.log(GeckoJS.BaseObject.dump(data.customer));
+            // if (data.store) this.log(GeckoJS.BaseObject.dump(data.store));
             // dispatch beforePrintCheck event to allow extensions to add to the template data object or
             // to prevent check from printed
             if (!this.dispatchEvent('beforePrintCheck', {data: data,

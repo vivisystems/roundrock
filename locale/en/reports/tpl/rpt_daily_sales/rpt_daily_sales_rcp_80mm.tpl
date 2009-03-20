@@ -6,10 +6,10 @@ ${head.start_time} ~ ${head.end_time}
 
 ${head.title|center:42}
 ------------------------------------------
-Term_No.  Time        Seq.    Invoice No
---------  ----------  ------  ------------
+Term_No.  Time        Seqequence
+--------  ----------  --------------------
 {for detail in body}
-${detail.terminal_no|left:8}  ${detail.transaction_created|unixTimeToString:'yyyy-M-d'|left:10}  ${detail.sequence|left:6}  ${detail.invoice_no|left:12}
+${detail.terminal_no|left:8}  ${detail.transaction_created|unixTimeToString:'yyyy-M-d'|left:10}  ${detail.sequence|left:19}
     Service    : ${detail.service_clerk_displayname|viviFormatPrices:true}
     Proceeds   : ${detail.proceeds_clerk_displayname|viviFormatPrices:true}
     Total      : ${detail.item_subtotal|viviFormatPrices:true}

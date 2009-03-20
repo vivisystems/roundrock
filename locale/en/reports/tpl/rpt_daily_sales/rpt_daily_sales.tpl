@@ -27,7 +27,6 @@
                     <th style="text-align: left;">Proceeds Clerk</th>
                     <th style="text-align: left;">Time</th>
                     <th style="text-align: left;">Sequence</th>
-                    <th style="text-align: left;">Invoice No</th>
                     <th style="text-align: right;">Total</th>
                     <th style="text-align: right;">Add-on Tax</th>
                     <th style="text-align: right;">Surcharge</th>
@@ -48,7 +47,6 @@
                     <td style="text-align: left;">${detail.proceeds_clerk_displayname}</td>
                     <td style="text-align: left;">${detail.transaction_created|unixTimeToString:'yyyy-M-d'}</td>
                     <td style="text-align: left;">${detail.sequence}</td>
-                    <td style="text-align: left;">${detail.invoice_no}</td>
                     <td style="text-align: right;">${detail.item_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${detail.tax_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${detail.surcharge_subtotal|viviFormatPrices:true}</td>
@@ -66,7 +64,7 @@
                 <tr>
                     <td></td>
                     <td></td>
-                    <td colspan="4">Summary:</td>
+                    <td colspan="3">Summary:</td>
                     <td style="text-align: right;">${foot.foot_datas.item_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${foot.foot_datas.tax_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${foot.foot_datas.surcharge_subtotal|viviFormatPrices:true}</td>

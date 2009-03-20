@@ -17,7 +17,7 @@
 "","Revenue","${body.sales_summary.Total|default:0|viviFormatPrices:true}"
 "",""
 "Sales Summary"
-"","Orders:","${body.sales_summary.OrderNum|default:0|viviFormatPrices:true}"
+"","Orders:","${body.sales_summary.OrderNum|default:0}"
 "","Total:","${body.sales_summary.Total|default:0|viviFormatPrices:true}"
 "","Guests:","${body.sales_summary.Guests|default:0|viviFormatPrices:true}"
 "","Items:","${body.sales_summary.ItemsCount|default:0|viviFormatPrices:true}"
@@ -28,21 +28,23 @@
 "Payment List"
 "","Payment","Total"
 {for detail in body.payment_list.records}
-"","${detail.name}","${detail.amount - detail.change|default:0|viviFormatPrices:true}"
+"","${detail.name}","${detail.total|default:0|viviFormatPrices:true}"
+{for payment in detail.detail}
+"","(${payment.memo1})","${payment.amount - payment.change|default:0|viviFormatPrices:true}"
+{/for}
 {/for}
 "Summary:","","${body.payment_list.summary.payment_total - body.payment_list.summary.change_total|default:0|viviFormatPrices:true}"
 "",""
 "Destination Summary"
-"","Total Orders:","${body.destination_summary.total_trans }"
 {for detail in body.destination_summary.data}
 "","${detail.destination} Times:","${detail.num_trans|default:0|viviFormatPrices:false}"
 "","${detail.destination} Amount:","${detail.total|default:0|viviFormatPrices:true}"
 {/for}
 "",""
 "Tax summary"
-"","Tax Name","Tax Rate","Rate Type","Tax Type","Total"
+"","Tax Name","Tax Rate","Tax Type","Total"
 {for detail in body.tax_summary.records}
-"","${detail.tax_name}","${detail.tax_rate}","${detail.rate_type}","${detail.tax_type}","${detail.tax_subtotal|default:0|viviFormatPrices:true}"
+"","${detail.tax_name}","${detail.tax_rate}","${detail.tax_type}","${detail.tax_subtotal|default:0|viviFormatPrices:true}"
 {/for}
 "Summary:","","","","${body.tax_summary.summary.tax_total|default:0|viviFormatPrices:true}"
 "",""
@@ -66,3 +68,17 @@
 "","${detail.Hour}","${detail.Guests}","${detail.OrderNum}","${detail.HourTotal|default:0|viviFormatPrices:true}"
 {/for}
 "Summary:","","${body.hourly_sales.summary.Guests}","${body.hourly_sales.summary.OrderNum}","${body.hourly_sales.summary.HourTotal|default:0|viviFormatPrices:true}"
+"",""
+"Discount Summary"
+"","Name","Type","Count","Amount"
+{for detail in body.discount_summary.data}
+"","${detail.discount_name}","${detail.itemOrAddition}","${detail.num_rows}","${detail.amount|default:0|viviFormatPrices:true}"
+{/for}
+"Summary:","","","${body.discount_summary.summary.num_rows}","${body.discount_summary.summary.amount|default:0|viviFormatPrices:true}"
+"",""
+"Surcharge Summary"
+"","Name","Type","Count","Amount"
+{for detail in body.surcharge_summary.data}
+"","${detail.surcharge_name}","${detail.itemOrAddition}","${detail.num_rows}","${detail.amount|default:0|viviFormatPrices:true}"
+{/for}
+"Summary:","","","${body.surcharge_summary.summary.num_rows}","${body.surcharge_summary.summary.amount|default:0|viviFormatPrices:true}"
