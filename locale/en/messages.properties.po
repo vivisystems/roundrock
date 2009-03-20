@@ -1422,6 +1422,12 @@ msgstr "XTerm"
 msgid "acl_xterm"
 msgstr "Run XTerm"
 
+msgid "Printers"
+msgstr "Printers"
+
+msgid "acl_manage_printers"
+msgstr "Manager Printers"
+
 msgid "confirm timezone change"
 msgstr ""
 
@@ -3057,6 +3063,9 @@ msgid "Daily Sales Summary Report"
 msgstr ""
 
 msgid "Hourly Sales Report"
+msgstr ""
+
+msgid "Invoice Report"
 msgstr ""
 
 msgid "Product Sales Report"

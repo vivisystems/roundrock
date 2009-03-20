@@ -24,7 +24,7 @@
             this._templates = GeckoJS.Configure.read('vivipos.fec.registry.templates');
 
             // load device ports
-            this._ports = GeckoJS.Configure.read('vivipos.fec.registry.ports');
+	    this.getPorts();
 
             // load port speeds
             var portspeeds = GeckoJS.Configure.read('vivipos.fec.registry.portspeeds');
@@ -697,10 +697,49 @@
             return this._templates;
         },
 
+	// get System Printers from xprint / cups system
+	getSystemPrinters: function () {
+
+		var printers = [];
+
+		try {
+
+			  var PE = Components.classes["@mozilla.org/gfx/printerenumerator;1"]
+						      .getService(Components.interfaces.nsIPrinterEnumerator);
+
+			  var enum = PE.printerNameList;
+
+			  do {
+				var printer = enum.getNext();
+				printers.push(printer);
+			  } while( enum.hasMore()) ;
+
+
+		}catch(e) {
+		}
+
+		return printers;
+	},
+
         // return port registry objects
         getPorts: function () {
             if (this._ports == null) {
                 this._ports = GeckoJS.Configure.read('vivipos.fec.registry.ports');
+
+		//merge CUPS 's virtual pty 
+		var systemPrinters = this.getSystemPrinters();
+		systemPrinters.forEach(function(printer) {
+
+			if (printer.indexOf('CUPS') == -1) return; // ignore not cups printer
+
+			var setting = {label: printer, type: 'serial', path: '/tmp/'+printer, support: 'receipt,check,cashdrawer,report'};
+			
+			// add to ports
+			this._ports[printer] = setting;
+
+		}, this); 
+		
+
             }
             return this._ports;
         },
