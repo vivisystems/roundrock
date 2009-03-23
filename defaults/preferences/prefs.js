@@ -1,5 +1,4 @@
 pref("toolkit.defaultChromeURI", "chrome://vivipos/content/vivipos.xul");
-//pref("toolkit.defaultChromeFeatures", "chrome,modal=no,toolbar=no,popup=no,titlebar=no,width=1024,height=768");
 
 // Prevent xulrunner from launching multiple instances.
 pref("toolkit.singletonWindowType", "Vivipos:Main");
@@ -8,13 +7,6 @@ pref("toolkit.singletonWindowType", "Vivipos:Main");
 /* prefwindow prefs (see: MDC - Preferences System and bug 350528) */
 pref("browser.preferences.animateFadeIn", "false");
 pref("browser.preferences.instantApply", "false");
-
-/* debugging prefs */
-pref("browser.dom.window.dump.enabled", true);
-pref("javascript.options.showInConsole", false);
-pref("javascript.options.strict", false);
-pref("nglayout.debug.disable_xul_cache", true);
-pref("nglayout.debug.disable_xul_fastload", true);
 
 //
 // Advanced DOM JavaScript preferences
@@ -32,10 +24,6 @@ pref("dom.max_script_run_time", 60);
 pref("javascript.options.jit.content", true);
 pref("javascript.options.jit.chrome", true);
 
-/* added to allow <label class="text-links" ... /> to work */
-pref("network.protocol-handler.expose.http", false);
-pref("network.protocol-handler.warn-external.http", false);
-
 /* extension prefs - turn off extension updating for now */
 pref("extensions.update.enabled", false);
 pref("extensions.update.interval", 86400);
@@ -52,11 +40,23 @@ pref("extensions.dss.enabled", false);
 // Non-dynamic switch pending after next restart
 pref("extensions.dss.switchPending", false);
 
-pref("general.autoScroll", true);
-pref("general.smoothScroll", false);
 pref("extensions.ignoreMTimeChanges", false);
 pref("extensions.logging.enabled", false);
-pref("general.skins.selectedSkin", "traditional-800x600/1.0");
+
+pref("general.autoScroll", true);
+pref("general.smoothScroll", false);
+
+// Don't warn when opening external http urls
+// This is to allow for launching _blank targeted links in the default browser
+pref("network.protocol-handler.warn-external.http", false);
+pref("network.protocol-handler.warn-external.https", false);
+pref("network.protocol-handler.warn-external.ftp", false);
+
+pref("network.proxy.share_proxy_settings",  false);
+
+pref("plugin.default_plugin_disabled", true);
+pref("security.warn_entering_secure.show_once", true);
+pref("security.warn_leaving_secure.show_once", true);
 
 // NB these point at AMO
 // pref("extensions.update.url", "chrome://mozapps/locale/extensions/extensions.properties");
@@ -78,15 +78,4 @@ pref("intl.locale.matchOS", "false");
 /* vivipos default locale */
 pref("general.useragent.locale", "en-US");
 pref("intl.charset.default", "UTF-8");
-
-pref("vivipos.fec.mainscreen.width", 800);
-pref("vivipos.fec.mainscreen.height", 600);
-pref("vivipos.fec.mainscreen.hidechrome", false);
-
-pref("vivipos.fec.debug.disable_bottombox", false);
-pref("vivipos.fec.debug.disable_extension_manager", false);
-pref("vivipos.fec.debug.disable_jsconsole", false);
-pref("vivipos.fec.debug.disable_inspector", false);
-pref("vivipos.fec.debug.disable_debugger", false);
-pref("vivipos.fec.debug.disable_sqlitemanager", false);
 
