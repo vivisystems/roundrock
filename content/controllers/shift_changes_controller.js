@@ -186,6 +186,9 @@
                               last_shift_number: lastShiftNumber};
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + width + ',height=' + height;
             var parent = GREUtils.Dialog.getMostRecentWindow();
+
+            // if parent is the ViviPOS root window, set parent to null instead to make dialog center
+            if (parent != null && parent.document.title.toLowerCase() == 'vivipos') parent = null;
             GREUtils.Dialog.openWindow(parent, aURL, aName, aFeatures, aArguments);
         },
 

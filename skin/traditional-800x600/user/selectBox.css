@@ -21,30 +21,8 @@
     min-height: 53px;
 }
 
-.catbtn {
-    min-height: 53px;
-}
-
-.plubtn {
-    min-height: 53px;
-}
-
 .TableHeight {
     min-height: 70px;
-}
-
-.AddAccount {
-    margin-right: 8px;
-}
-.AddAccount row {
-    padding: 4px 2px;
-}
-.AddAccount vivibutton {
-    margin-left: 4px;
-}
-.AddAccount label{
-    font-size: 10pt;
-    color: #736357;
 }
 
 .MainL {

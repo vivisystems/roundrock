@@ -1432,3 +1432,17 @@ msgstr "NO"
 
 msgid "acl_manage_printers"
 msgstr "Manager Printers"
+
+msgid "acl_printer_dashboard"
+msgstr "Printer Dashboard"
+
+msgid "printerDashboard.desc"
+msgstr ""
+"This function allows the operator to quickly view and change the status of "
+"enabled devices. No parameter is needed."
+
+msgid "printerDashboard.label"
+msgstr "Printer Dashboard"
+
+msgid "printerDashboard.name"
+msgstr "Printer Dashboard"

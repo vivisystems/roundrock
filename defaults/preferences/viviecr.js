@@ -532,6 +532,11 @@ pref("vivipos.fec.registry.function.programmable.prefinalize.command", "preFinal
 pref("vivipos.fec.registry.function.programmable.prefinalize.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.prefinalize.data", "");
 
+pref("vivipos.fec.registry.function.programmable.printerDashboard.access", "acl_printer_dashboard");
+pref("vivipos.fec.registry.function.programmable.printerDashboard.command", "printerDashboard");
+pref("vivipos.fec.registry.function.programmable.printerDashboard.controller", "Main");
+pref("vivipos.fec.registry.function.programmable.printerDashboard.data", "");
+
 pref('vivipos.fec.ui.functionpanel.button.defaultcolor', 'function-button-color-default');
 pref('vivipos.fec.ui.functionpanel.button.defaultfontsize', 'medium');
 pref('vivipos.fec.ui.department.button.defaultcolor', 'department-button-color-default');

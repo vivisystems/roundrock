@@ -41,6 +41,9 @@
 <!ENTITY layout.plu.label "Product panel">
 <!ENTITY layout.plu.rows "rows">
 <!ENTITY layout.plu.cols "columns">
+<!ENTITY layout.condiment.label "Condiment panel">
+<!ENTITY layout.condiment.rows "rows">
+<!ENTITY layout.condiment.cols "columns">
 <!ENTITY layout.functionpanel.label "Function panel">
 <!ENTITY layout.functionpanel.rows "rows">
 <!ENTITY layout.functionpanel.cols "columns">
@@ -70,7 +73,6 @@
 <!ENTITY orderdata.orderweeklypack "Pack order data on">
 <!ENTITY formats.autogenerate "Auto-generate product numbers">
 <!ENTITY formats.prodnolength "Length of product numbers">
-<!ENTITY formats.prependdeptno "Prepend product numbers with department number">
 <!ENTITY formats.precisionprices "Number of decimal places for Prices">
 <!ENTITY formats.precisiontaxes "Number of decimal places for Taxes">
 <!ENTITY formats.roundingprices "Rounding policy to use for Prices">

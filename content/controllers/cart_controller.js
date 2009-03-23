@@ -2732,7 +2732,8 @@
             }
             var dialog_data = {
                 conds: conds,
-                selectedItems: selectedItems
+                selectedItems: selectedItems,
+                hideSoldout: GeckoJS.Configure.read('vivipos.fec.settings.HideSoldOutButtons') || false
             };
             var self = this;
             return $.popupPanel('selectCondimentPanel', dialog_data).next(function(evt){

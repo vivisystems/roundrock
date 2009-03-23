@@ -1440,6 +1440,20 @@ msgstr "NO"
 msgid "acl_manage_printers"
 msgstr "Manager Printers"
 
+msgid "acl_printer_dashboard"
+msgstr "Printer Dashboard"
+
+msgid "printerDashboard.desc"
+msgstr ""
+"This function allows the operator to quickly view and change the status of "
+"enabled devices. No parameter is needed."
+
+msgid "printerDashboard.label"
+msgstr "Printer Dashboard"
+
+msgid "printerDashboard.name"
+msgstr "Printer Dashboard"
+
 msgid "confirm timezone change"
 msgstr ""
 
@@ -2480,6 +2494,9 @@ msgstr ""
 msgid "Drawer Change OUT"
 msgstr ""
 
+msgid "Control Panel"
+msgstr ""
+
 msgid "No order to add/view annotations"
 msgstr ""
 
@@ -2774,6 +2791,9 @@ msgid "Error in Print controller; no worker thread available!"
 msgstr ""
 
 msgid "Specified template [%S] is empty or does not exist!"
+msgstr ""
+
+msgid "Printer Dashboard"
 msgstr ""
 
 msgid "Password and Verify Password not the same"
@@ -3085,9 +3105,6 @@ msgid "Daily Sales Summary Report"
 msgstr ""
 
 msgid "Hourly Sales Report"
-msgstr ""
-
-msgid "Invoice Report"
 msgstr ""
 
 msgid "Product Sales Report"

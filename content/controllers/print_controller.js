@@ -352,35 +352,41 @@
             if (enabledDevices != null) {
                 for (var i = 0; i < enabledDevices.length; i++) {
                     var device = enabledDevices[i];
-                    if ((printer == null && device.autoprint > 0) || printer == device.number || printer == 0) {
 
-                        var template = device.template;
-                        var port = device.port;
-                        var portspeed = device.portspeed;
-                        var handshaking = device.handshaking;
-                        var devicemodel = device.devicemodel;
-                        var encoding = device.encoding;
-                        var copies = 1;
+                    // check if receipt printer is suspended
+                    if (!GeckoJS.Session.get('receipt-' + device.number + '-suspended')) {
 
-                        _templateModifiers(TrimPath, encoding);
+                        // check if we are the target device
+                        if ((printer == null && device.autoprint > 0) || printer == device.number || printer == 0) {
 
-                        data.linkgroups = null;
-                        data.printNoRouting = 1;
-                        data.routingGroups = null;
-                        data.autoPrint = autoPrint;
-                        data.duplicate = duplicate;
+                            var template = device.template;
+                            var port = device.port;
+                            var portspeed = device.portspeed;
+                            var handshaking = device.handshaking;
+                            var devicemodel = device.devicemodel;
+                            var encoding = device.encoding;
+                            var copies = 1;
 
-                        // check if record already exists on this device if not printing a duplicate
-                        if (data.duplicate == null) {
-                            var receipts = self.isReceiptPrinted(data.order.id, data.order.batchCount, device.number);
-                            if (receipts != null) {
+                            _templateModifiers(TrimPath, encoding);
 
-                                // if auto-print, then we don't issue warning
-                                if (!autoPrint) NotifyUtils.warn(_('A receipt has already been issued for this order on printer [%S]', [device.number]));
-                                return;
+                            data.linkgroups = null;
+                            data.printNoRouting = 1;
+                            data.routingGroups = null;
+                            data.autoPrint = autoPrint;
+                            data.duplicate = duplicate;
+
+                            // check if record already exists on this device if not printing a duplicate
+                            if (data.duplicate == null) {
+                                var receipts = self.isReceiptPrinted(data.order.id, data.order.batchCount, device.number);
+                                if (receipts != null) {
+
+                                    // if auto-print, then we don't issue warning
+                                    if (!autoPrint) NotifyUtils.warn(_('A receipt has already been issued for this order on printer [%S]', [device.number]));
+                                    return;
+                                }
                             }
+                            self.printSlip(data, template, port, portspeed, handshaking, devicemodel, encoding, device.number, copies);
                         }
-                        self.printSlip(data, template, port, portspeed, handshaking, devicemodel, encoding, device.number, copies);
                     }
                 };
             }
@@ -514,23 +520,28 @@
             var self = this;
             if (enabledDevices != null) {
                 enabledDevices.forEach(function(device) {
-                    if ((printer == null && device.autoprint > 0) || printer == device.number || printer == 0) {
-                        var template = device.template;
-                        var port = device.port;
-                        var portspeed = device.portspeed;
-                        var handshaking = device.handshaking;
-                        var devicemodel = device.devicemodel;
-                        var encoding = device.encoding;
-                        var copies = (printer == null) ? device.autoprint : 1;
-                        _templateModifiers(TrimPath, encoding);
-                        data.linkgroup = device.linkgroup;
-                        
-                        data.printNoRouting = device.printNoRouting;
-                        data.printAllRouting = device.printAllRouting;
-                        data.routingGroups = routingGroups;
-                        data.autoPrint = autoPrint;
-                        data.duplicate = duplicate;
-                        self.printSlip(data, template, port, portspeed, handshaking, devicemodel, encoding, 0, copies);
+                    // check if receipt printer is suspended
+                    if (!GeckoJS.Session.get('check-' + device.number + '-suspended')) {
+
+                        // check if we are the target device
+                        if ((printer == null && device.autoprint > 0) || printer == device.number || printer == 0) {
+                            var template = device.template;
+                            var port = device.port;
+                            var portspeed = device.portspeed;
+                            var handshaking = device.handshaking;
+                            var devicemodel = device.devicemodel;
+                            var encoding = device.encoding;
+                            var copies = (printer == null) ? device.autoprint : 1;
+                            _templateModifiers(TrimPath, encoding);
+                            data.linkgroup = device.linkgroup;
+
+                            data.printNoRouting = device.printNoRouting;
+                            data.printAllRouting = device.printAllRouting;
+                            data.routingGroups = routingGroups;
+                            data.autoPrint = autoPrint;
+                            data.duplicate = duplicate;
+                            self.printSlip(data, template, port, portspeed, handshaking, devicemodel, encoding, 0, copies);
+                        }
                     }
                 });
             }
@@ -598,23 +609,24 @@
                 data.customer = GeckoJS.Session.get('current_customer');
                 data.store = GeckoJS.Session.get('storeContact');
                 if (data.store) data.store.terminal_no = GeckoJS.Session.get('terminal_no');
+                
+                //this.log(GeckoJS.BaseObject.dump(data.order));
+                //if (data.customer) this.log(GeckoJS.BaseObject.dump(data.customer));
+                //if (data.store) this.log(GeckoJS.BaseObject.dump(data.store));
             }
-            //this.log(GeckoJS.BaseObject.dump(data.order));
-            //if (data.customer) this.log(GeckoJS.BaseObject.dump(data.customer));
-            //if (data.store) this.log(GeckoJS.BaseObject.dump(data.store));
-            //
-            // dispatch beforePrintCheck event to allow extensions to add to the template data object or
+            // dispatch beforePrintSlip event to allow extensions to add to the template data object or
             // to prevent check from printed
-            if (!this.dispatchEvent('beforePrintCheck', {data: data,
-                                                         template: template,
-                                                         port: port,
-                                                         portspeed: portspeed,
-                                                         handshaking: handshaking,
-                                                         devicemodel: devicemodel,
-                                                         encoding: encoding,
-                                                         device: device})) {
+            if (!this.dispatchEvent('beforePrintSlip', {data: data,
+                                                        template: template,
+                                                        port: port,
+                                                        portspeed: portspeed,
+                                                        handshaking: handshaking,
+                                                        devicemodel: devicemodel,
+                                                        encoding: encoding,
+                                                        device: device})) {
                 return;
             }
+
             // check if item is linked to this printer and set 'linked' accordingly
             if (data != null) {
                 var empty = true;
@@ -901,6 +913,38 @@
 
             this._worker.dispatch(runnable, this._worker.DISPATCH_NORMAL);
 
+        },
+
+        dashboard: function () {
+            var aURL = 'chrome://viviecr/content/printer_dashboard.xul';
+            var width = this.screenwidth/2;
+            var height = this.screenheight/2;
+            GREUtils.Dialog.openWindow(window, aURL, _('Printer Dashboard'), 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + width + ',height=' + height, '');
+        },
+
+        loadDashboard: function() {
+            var devices = this.getSelectedDevices();
+            if (devices != null) {
+                this.log(this.dump(devices));
+
+                // create receipt printer icons
+                var receiptRow = document.getElementById('receipt-row');
+                if (receiptRow) {
+                    for (var i = 0; true; i++) {
+                        var attr = 'receipt-' + i + '-enabled';
+                        alert('is ' + attr + ' in devices: ' + (attr in devices));
+                        if ('receipt-' + i + '-enabled' in devices) {
+
+                            // create icon button for this device
+                            var btn = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","xul:button");
+                            receiptRow.appendChild(btn);
+                        }
+                        else {
+                            break;
+                        }
+                    }
+                }
+            }
         }
 
     };
