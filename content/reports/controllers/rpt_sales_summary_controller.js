@@ -14,6 +14,7 @@
         _end: null,
         _machineid: null,
         _periodtype: null,
+        _shiftno: null,
         
         _fileName: "/rpt_sales_summary",
 
@@ -46,13 +47,15 @@
             this._end = document.getElementById( 'end_date' ).value;
             this._machineid = document.getElementById( 'machine_id' ).value;
             this._periodtype = document.getElementById( 'period_type' ).value;
+            this._shiftno = document.getElementById( 'shift_no' ).value;
         },
         
-        _setConditions: function( start, end, machineid, periodtype ) {
+        _setConditions: function( start, end, machineid, periodtype, shiftno ) {
         	this._start = start;
         	this._end = end;
         	this._machineid = machineid;
             this._periodtype = periodtype;
+            this._shiftno = shiftno;
         },
 
         _hourlySales: function() {
@@ -80,6 +83,9 @@
             } else {
                 var groupby = '"Order.Hour"';
             }
+            
+            if ( this._shiftno.length > 0 )
+            	conditions += " AND orders.shift_number = " + this._shiftno;
 
             var orderby = '"Order.Hour", orders.terminal_no, orders.' + this._periodtype;
             
@@ -123,6 +129,9 @@
 
             if ( this._machineid.length > 0 )
                 conditions += " AND orders.terminal_no LIKE '" + this._machineid + "%'";
+                
+            if ( this._shiftno.length > 0 )
+            	conditions += " AND orders.shift_number = " + this._shiftno;
 
             var groupby = 'order_items.cate_no';
             var orderby = '"OrderItem.qty" DESC';
@@ -175,6 +184,9 @@
                             
             if ( this._machineid.length > 0 )
                 conditions += " AND orders.terminal_no LIKE '" + this._machineid + "%'";
+                
+            if ( this._shiftno.length > 0 )
+            	conditions += " AND orders.shift_number = " + this._shiftno;
 
             var groupby = 'order_items.product_no';
             var orderby = '"OrderItem.qty" DESC';
@@ -202,8 +214,9 @@
 
             var fields = [
                             'order_payments.name',
+                            'order_payments.memo1',
                             'sum( order_payments.amount ) as "OrderPayment.amount"',
-                            'sum( order_payments.change ) as "OrderPayment.change"',
+                            'sum( order_payments.change ) as "OrderPayment.change"'
                        	 ];
 
              var conditions = "orders." + this._periodtype + ">='" + start +
@@ -212,12 +225,15 @@
 
             if ( this._machineid.length > 0 ) {
                 conditions += " AND orders.terminal_no LIKE '" + this._machineid + "%'";
-                var groupby = 'orders.terminal_no,order_payments.name';
-                var orderby = 'orders.terminal_no,order_payments.name';
+                var groupby = 'orders.terminal_no, order_payments.name, order_payments.memo1';
+                var orderby = 'orders.terminal_no, order_payments.name';
             } else {
-                var groupby = 'order_payments.name';
+                var groupby = 'order_payments.name, order_payments.memo1';
                 var orderby = 'order_payments.name';
             }
+            
+            if ( this._shiftno.length > 0 )
+            	conditions += " AND orders.shift_number = " + this._shiftno;
             
             var data = {};
             var summary = {};
@@ -226,13 +242,41 @@
 
             var orderPayment = new OrderPaymentModel();
             
-            data.records = orderPayment.find( 'all',{ fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1 } );
+            var records = orderPayment.find( 'all',{ fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1 } );
             
-            data.records.forEach( function( record ) {
+            var paymentList = [];
+            var name;
+            var payment;
+            records.forEach( function( record ) {
+            	if ( record.name != name ) {
+            		if ( payment )
+            			paymentList.push( payment );
+            		
+            		payment = {
+            			name: record.name,
+            			total: 0,
+            			detail: []
+            		}
+            		
+            		name = record.name;
+            	} 
+            	
+            	payment.total += record.amount - record.change;
+            	payment.detail.push( record );
+            	            	
             	summary.payment_total += record.amount;
             	summary.change_total += record.change;
             });
             
+            if ( payment )
+            	paymentList.push( payment );
+            	
+            paymentList.forEach( function( payment ) {
+            	if ( payment.detail.length == 1 )
+            		delete( payment.detail );
+            } );
+            
+            data.records = paymentList;
             data.summary = summary;
 
             return data;
@@ -265,6 +309,9 @@
                             
             if ( this._machineid.length > 0 )
                 conditions += " AND orders.terminal_no LIKE '" + this._machineid + "%'";
+                
+            if ( this._shiftno.length > 0 )
+            	conditions += " AND orders.shift_number = " + this._shiftno;
 
             var groupby;
 
@@ -295,6 +342,9 @@
 
             if ( this._machineid.length > 0)
                 conditions += " AND orders.terminal_no LIKE '" + this._machineid + "%'";
+                
+            if ( this._shiftno.length > 0 )
+            	conditions += " AND orders.shift_number = " + this._shiftno;
 			
             var groupby = 'order_items.tax_name, order_items.tax_rate, order_items.tax_type';
             var orderby = 'tax_subtotal desc';
@@ -312,7 +362,17 @@
             	if ( record.included_tax )
             		record.tax_subtotal += record.included_tax;
             	
-            	record.rate_type = TaxComponent.prototype.getTax( record.tax_name ).rate_type;
+            	var rate_type = TaxComponent.prototype.getTax( record.tax_name ).rate_type;
+            	
+            	if ( !record.tax_rate || record.tax_rate == '' ) 
+            		record.tax_rate = 0;
+            		
+            	if ( record.tax_rate == 0 )
+            		rate_type = '';
+            	
+            	if ( rate_type == '%' )
+            		record.tax_rate += rate_type;
+            	else record.tax_rate = rate_type + record.tax_rate;
             });
 			
 			data.summary = summary;
@@ -333,10 +393,13 @@
 
             var conditions = "orders." + this._periodtype + ">='" + start +
                             "' AND orders." + this._periodtype + "<='" + end +
-                            "' AND orders.status='1'";
+                            "' AND orders.status='1' AND orders.destination <> ''";
 
             if ( this._machineid.length > 0 )
                 conditions += " AND orders.terminal_no LIKE '" + this._machineid + "%'";
+                
+            if ( this._shiftno.length > 0 )
+            	conditions += " AND orders.shift_number = " + this._shiftno;
 			
             var groupby = 'orders.destination';
             var orderby = 'orders.destination';
@@ -352,7 +415,73 @@
             records.data = datas;
 
 			return records;
-		},		
+		},
+		
+		_discountSurchargeSummary: function( discountOrSurcharge ) {
+			// Before invoking, be sure that the private attributes are initialized by methods _getConditions or _setConditioins.
+            start = parseInt( this._start / 1000 );
+            end = parseInt( this._end / 1000 );
+            
+            var fields = [
+                            discountOrSurcharge + '_name',
+                            'count( * ) as num_rows',
+                            'sum( current_' + discountOrSurcharge +' ) as amount',
+                        ];
+
+            var conditions = "orders." + this._periodtype + ">='" + start +
+                            "' AND orders." + this._periodtype + "<='" + end +
+                            "' AND orders.status='1' AND " + discountOrSurcharge + "_name <> ''";
+
+            if ( this._machineid.length > 0 )
+                conditions += " AND orders.terminal_no LIKE '" + this._machineid + "%'";
+                
+            if ( this._shiftno.length > 0 )
+            	conditions += " AND orders.shift_number = " + this._shiftno;
+			
+            var groupby = discountOrSurcharge + '_name';
+            var orderby = 'amount desc';
+            
+            var orderItem = new OrderItemModel();
+            var results = orderItem.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1 } );
+            
+            var summary = {
+            	num_rows: 0,
+            	amount: 0
+            };
+            
+            var data = [];
+            
+            results.forEach( function( result ) {
+            	summary.num_rows += result.num_rows;
+            	summary.amount += result.amount;
+            	result.itemOrAddition = _( 'item' );
+            	
+            	data.push( result );
+            } );
+            
+            var fields = [
+                        discountOrSurcharge + '_name',
+                        'count( * ) as num_rows',
+                        'sum( current_' + discountOrSurcharge + ' ) as amount',
+                         ];
+            
+            var orderAddition = new OrderAdditionModel();
+            results = orderAddition.find( 'all', { fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: 1 } );
+            
+            results.forEach( function( result ) {
+            	summary.num_rows += result.num_rows;
+            	summary.amount += result.amount;
+            	result.itemOrAddition = _( 'order' );
+            	
+            	data.push( result );
+            } );
+            
+            var records = {};
+            records.data = data;
+            records.summary = summary;
+
+			return records;
+		},
 		
 		_set_datas: function() {
 			// Before invoking, be sure that the private attributes are initialized by methods _getConditions or _setConditioins.
@@ -385,7 +514,9 @@
                     payment_list: this._paymentList(),
                     sales_summary: this._SalesSummary(),
                     destination_summary: this._destinationSummary(),
-                    tax_summary: this._taxSummary()
+                    tax_summary: this._taxSummary(),
+                    discount_summary: this._discountSurchargeSummary( 'discount' ),
+                    surcharge_summary: this._discountSurchargeSummary( 'surcharge' )
                 },
                 foot: {
                     gen_time: ( new Date() ).toString( 'yyyy/MM/dd HH:mm:ss' )
@@ -395,9 +526,9 @@
             this._datas = data;
 		},
 		
-		printSalesSummary: function( start, end, terminalNo, periodType, printController ) {
+		printSalesSummary: function( start, end, terminalNo, periodType, shiftNo, printController ) {
 			
-			this._setConditions( start, end, terminalNo, periodType );
+			this._setConditions( start, end, terminalNo, periodType, shiftnNo );
 			this._set_datas();
 			
 			var path = GREUtils.File.chromeToPath( "chrome://reports/locale/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl" );
@@ -517,7 +648,7 @@
                 var rcp = opener.opener.opener.GeckoJS.Controller.getInstanceByName( 'Print' );
                 rcp.printReport( 'report', tpl, datas );
             } catch ( e ) {
-                //
+            	//
             } finally {
                 this._enableButton( true );
                 if ( waitPanel != undefined )

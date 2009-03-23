@@ -8,10 +8,10 @@ ${head.title|center:42}
 {for clerk in body}
 Clerk:${clerk.name|right:36}
 ------------------------------------------
-Term_No.  Time        Seq.    Invoice No
---------  ----------  ------  ------------
+Term_No.  Time        Seq.
+--------  ----------  --------------------
 {for order in clerk.orders}
-${order.terminal_no|left:8}  ${order.transaction_created|unixTimeToString:'yyyy-M-d'|left:10}  ${order.sequence|left:6}  ${order.invoice_no|left:12}
+${order.terminal_no|left:8}  ${order.transaction_created|unixTimeToString:'yyyy-M-d'|left:10}  ${order.sequence|left:19}
     ${clerk.associated_clerk} : {if clerk.associated_clerk == 'Proceeds Clerk'}${order.proceeds_clerk_displayname}{/if}{if clerk.associated_clerk == 'Service Clerk'}${order.service_clerk_displayname}{/if}
     
     Total      : ${order.item_subtotal|viviFormatPrices:true}

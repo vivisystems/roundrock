@@ -16,8 +16,6 @@ Time       :
 ${detail.transaction_created|unixTimeToString:'yyyy-M-d'|right:24}
 Sequence   :
 ${detail.sequence|right:24}
-Invoice No.:
-${detail.invoice_no|right:24}
 Service    :
 ${detail.service_clerk_displayname|viviFormatPrices:true|right:24}
 Proceeds   :

@@ -15,7 +15,7 @@ General Information
   Revenue:   ${body.sales_summary.Total|default:0|viviFormatPrices:true|right:29}
 ------------------------------------------
 Sales Summary
-  Orders:       ${body.sales_summary.OrderNum|default:0|viviFormatPrices:true|right:26}
+  Orders:       ${body.sales_summary.OrderNum|default:0|right:26}
   Total:        ${body.sales_summary.Total|default:0|viviFormatPrices:true|right:26}
   Guests:       ${body.sales_summary.Guests|default:0|viviFormatPrices:true|right:26}
   Items:        ${body.sales_summary.ItemsCount|default:0|viviFormatPrices:true|right:26}
@@ -25,13 +25,15 @@ Sales Summary
 ------------------------------------------
 Payment List
 {for detail in body.payment_list.records}
-${'  ' + detail.name + ':'|left:19}${detail.amount - detail.change|default:0|viviFormatPrices:true|right:23}
+${'  ' + detail.name + ':'|left:19}${detail.total|default:0|viviFormatPrices:true|right:23}
+{for payment in detail.detail}
+${'    ' + payment.memo1 + ':'|left:19}${payment.amount - payment.change|default:0|viviFormatPrices:true|right:23}
+{/for}
 {/for}
 [&CR]
 Summary:${body.payment_list.summary.payment_total - body.payment_list.summary.change_total|default:0|viviFormatPrices:true|right:34}
 ------------------------------------------
 Destination Summary
-  Total Orders:${body.destination_summary.total_trans|right:27}
 {for detail in body.destination_summary.data}
 ${'  ' + detail.destination + ' Times:'|left:20}${detail.num_trans|default:0|viviFormatPrices:false|right:22}
 ${'  ' + detail.destination + ' Amount:'|left:20}${detail.total|default:0|viviFormatPrices:true|right:22}
@@ -41,7 +43,6 @@ Tax summary
 {for detail in body.tax_summary.records}
   Tax Name: ${detail.tax_name|right:30}
   Tax Rate: ${detail.tax_rate|right:30}
-  Rate Type:${detail.rate_type|right:30}
   Tax Type: ${detail.tax_type|right:30}
   Total:    ${detail.tax_subtotal|default:0|viviFormatPrices:true|right:30}
   
@@ -82,6 +83,30 @@ Summary:
   Guests:${body.hourly_sales.summary.Guests|right:33}
   Orders:${body.hourly_sales.summary.OrderNum|right:33}
   Total: ${body.hourly_sales.summary.HourTotal|default:0|viviFormatPrices:true|right:33}
+------------------------------------------
+Discount Summary
+{for detail in body.discount_summary.data}
+${'  Name:'|left:18}${detail.discount_name|right:24}
+${'  Type:'|left:18}${detail.itemOrAddition|right:24}
+${'  Count:'|left:18}${detail.num_rows|right:24}
+${'  Amount:'|left:18}${detail.amount|default:0|viviFormatPrices:true|right:24}
+
+{/for}
+Summary:
+${'  Count:'|left:18}${body.discount_summary.summary.num_rows|right:24}
+${'  Amount:'|left:18}${body.discount_summary.summary.amount|default:0|viviFormatPrices:true|right:24}
+------------------------------------------
+Surcharge Summary
+{for detail in body.surcharge_summary.data}
+${'  Name:'|left:18}${detail.surcharge_name|right:24}
+${'  Type:'|left:18}${detail.itemOrAddition|right:24}
+${'  Count:'|left:18}${detail.num_rows|right:24}
+${'  Amount:'|left:18}${detail.amount|default:0|viviFormatPrices:true|right:24}
+
+{/for}
+Summary:
+${'  Count:'|left:18}${body.surcharge_summary.summary.num_rows|right:24}
+${'  Amount:'|left:18}${body.surcharge_summary.summary.amount|default:0|viviFormatPrices:true|right:24}
 ------------------------------------------
 ${foot.gen_time}
 [&CR]

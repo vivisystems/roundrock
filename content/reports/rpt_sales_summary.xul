@@ -61,6 +61,12 @@
 				                    <textbox id="machine_id" value='' width="300"/>
 				                </vbox>
 		                    </row>
+		                    <row>
+		                    	<vbox>
+				                    <label value="&rptsalessummary.shiftno;" />
+				                    <textbox id="shift_no" value='' width="300"/>
+				                </vbox>
+				            </row>
 		                </rows>
 		            </grid>
 		            </hbox>

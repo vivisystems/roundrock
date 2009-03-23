@@ -26,7 +26,6 @@
                     <th style="text-align: left;">${clerk.associated_clerk}</th>
                     <th style="text-align: left;">Time</th>
                     <th style="text-align: left;">Sequence</th>
-                    <th style="text-align: left;">Invoice No</th>
                     <th style="text-align: right;">Total</th>
                     <th style="text-align: right;">Add-on Tax</th>
                     <th style="text-align: right;">Surcharge</th>
@@ -53,7 +52,6 @@
                     </td>
                     <td style="text-align: left;">${order.transaction_created|unixTimeToString:'yyyy-M-d'}</td>
                     <td style="text-align: left;">${order.sequence}</td>
-                    <td style="text-align: left;">${order.invoice_no}</td>
                     <td style="text-align: right;">${order.item_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${order.tax_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${order.surcharge_subtotal|viviFormatPrices:true}</td>
@@ -71,7 +69,7 @@
                 <tr>
                     <td></td>
                     <td></td>
-                    <td colspan="3">Summary:</td>
+                    <td colspan="2">Summary:</td>
                     <td style="text-align: right;">${clerk.summary.item_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${clerk.summary.tax_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${clerk.summary.surcharge_subtotal|viviFormatPrices:true}</td>

@@ -1,28 +1,28 @@
 <!-- div class="paper" style="overflow:auto;" -->
-<div id="printhead">
+<!--div id="printhead">
 	<img src="chrome://viviecr/content/skin/images/logo.png" /><br />
-</div>
+</div-->
 <div id="docbody" class="paper">
 	<p class="heading_store">${head.store.name} - ${head.store.branch}</p>
 	<p class="heading_store">${head.store.telephone1}</p>
 
 	<div style="float: left;">
-		<p class="heading_p">Terminal: ${head.store.terminal_no}</p>
-		<p class="heading_p">Clerk: ${head.clerk_displayname}</p>
+		<!--p class="heading_p">Terminal: ${head.store.terminal_no}</p>
+		<p class="heading_p">Clerk: ${head.clerk_displayname}</p-->
 		<p class="caption">${head.title}<br />${head.subtitle}</p>
 	</div>
 
 	<div style="float: right;">
-		<p class="heading_p">&nbsp;</p>
-		<p class="heading_p" align="right">Printed Time: ${foot.gen_time}</p>
+		<!--p class="heading_p">&nbsp;</p>
+		<p class="heading_p" align="right">Printed Time: ${foot.gen_time}</p-->
 		<p class="caption">${head.start_time} - ${head.end_time}</p>
 	</div>
 
-<table width="100%">
+<table style="width: 720px;">
     <!--caption>${head.title}&nbsp;${head.subtitle}<br />${head.start_time} - ${head.end_time}</caption-->
 
     <tr>
-        <td colspan="2">
+        <td colspan="3">
             <table id="body-table">
                 <tr>
                     <td style="text-align: right;">Total</td>
@@ -55,7 +55,7 @@
                 <tbody>
                     <tr>
                         <td style="text-align: left;">Orders:</td>
-                        <td style="text-align: right;">${body.sales_summary.OrderNum|default:0|viviFormatPrices:true}</td>
+                        <td style="text-align: right;">${body.sales_summary.OrderNum|default:0}</td>
                     </tr>
 
                     <tr>
@@ -81,7 +81,7 @@
                     </tr>
                     <tr>
                         <td style="text-align: left;">Average Items:</td>
-                        <td style="text-align: right;">${body.sales_summary.AvgItemsCount|default:0|viviFormatPrices:true}</td>
+                        <td style="text-aligna: right;">${body.sales_summary.AvgItemsCount|default:0|viviFormatPrices:true}</td>
                     </tr>
                 </tbody>
                 <tfoot>
@@ -105,8 +105,14 @@
     {for detail in body.payment_list.records}
                     <tr>
                         <td style="text-align: left;">${detail.name}</td>
-                        <td style="text-align: right;">${detail.amount - detail.change|default:0|viviFormatPrices:true}</td>
+                        <td style="text-align: right;">${detail.total|default:0|viviFormatPrices:true}</td>
                     </tr>
+    {for payment in detail.detail}
+    				<tr>
+    					<td style="text-align: left;">&nbsp;&nbsp;&nbsp;&nbsp;${payment.memo1}</td>
+                        <td style="text-align: right;">${payment.amount - payment.change|default:0|viviFormatPrices:true}</td>
+                    </tr>
+   	{/for}
     {/for}
                 </tbody>
                 <tfoot>
@@ -127,10 +133,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                	<tr>
+                	<!--tr>
                 		<td style="text-align: left;">Total Orders:</td>
                 		<td style="text-align: right;">${body.destination_summary.total_trans }</td>
-                	</tr>
+                	</tr-->
 	{for detail in body.destination_summary.data}
                     <tr>
                         <td style="text-align: left;">${detail.destination}&nbsp;Times:</td>
@@ -151,40 +157,10 @@
             </table>
             <br />
             
-            <table id="body-table">
-                <caption>Tax summary</caption>
-                <thead>
-                    <tr>
-                        <th style="text-align: left;">Name</th>
-                        <th style="text-align: right;">Rate</th>
-                        <th style="text-align: left;">Rate Type</th>
-                        <th style="text-align: left;">Type</th>
-                        <th style="text-align: right;">Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-	{for detail in body.tax_summary.records}
-                    <tr>
-                        <td style="text-align: left;">${detail.tax_name}</td>
-                        <td style="text-align: right;">${detail.tax_rate}</td>
-                        <td style="text-align: left;">${detail.rate_type}</td>
-                        <td style="text-align: left;">${detail.tax_type}</td>
-                        <td style="text-align: right;">${detail.tax_subtotal|default:0|viviFormatPrices:true}</td>
-                    </tr>
-	{/for}
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="4">Summary:</td>
-                        <td style="text-align: right;">${body.tax_summary.summary.tax_total|default:0|viviFormatPrices:true}</td>
-                    </tr>
-                </tfoot>
-            </table>
-            <br />
         </td>
+        
         <td valign="top">
-
-            <table id="body-table">
+        	<table id="body-table">
                 <caption>Top ${body.dept_sales.num_rows_to_get} Department Sales</caption>
                 <thead>
                     <tr>
@@ -212,35 +188,7 @@
             </table>
             <br />
 
-            <table id="body-table">
-                <caption>Top ${body.prod_sales.num_rows_to_get} Product Sales</caption>
-                <thead>
-                    <tr>
-                        <th style="text-align: left;">Product</th>
-                        <th style="text-align: right;">Qty</th>
-                        <th style="text-align: right;">Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-    {for detail in body.prod_sales.records}
-                    <tr>
-                        <td style="text-align: left;">${detail.product_name}</td>
-                        <td style="text-align: right;">${detail.qty}</td>
-                        <td style="text-align: right;">${detail.total|default:0|viviFormatPrices:true}</td>
-                    </tr>
-    {/for}
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td>Summary:</td>
-                        <td style="text-align: right;">${body.prod_sales.summary.qty}</td>
-                        <td style="text-align: right;">${body.prod_sales.summary.total|default:0|viviFormatPrices:true}</td>
-                    </tr>
-                </tfoot>
-            </table>
-            <br />
-            
-            <table id="body-table">
+        	<table id="body-table">
                 <caption>Hourly Sales</caption>
                 <thead>
                     <tr>
@@ -270,6 +218,124 @@
                 </tfoot>
             </table>
             <br />
+        </td>
+        <td valign="top">
+            <table id="body-table">
+                <caption>Top ${body.prod_sales.num_rows_to_get} Product Sales</caption>
+                <thead>
+                    <tr>
+                        <th style="text-align: left;">Product</th>
+                        <th style="text-align: right;">Qty</th>
+                        <th style="text-align: right;">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+    {for detail in body.prod_sales.records}
+                    <tr>
+                        <td style="text-align: left;">${detail.product_name}</td>
+                        <td style="text-align: right;">${detail.qty}</td>
+                        <td style="text-align: right;">${detail.total|default:0|viviFormatPrices:true}</td>
+                    </tr>
+    {/for}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td>Summary:</td>
+                        <td style="text-align: right;">${body.prod_sales.summary.qty}</td>
+                        <td style="text-align: right;">${body.prod_sales.summary.total|default:0|viviFormatPrices:true}</td>
+                    </tr>
+                </tfoot>
+            </table>
+            <br />
+            
+            <table id="body-table">
+                <caption>Tax summary</caption>
+                <thead>
+                    <tr>
+                        <th style="text-align: left;">Name</th>
+                        <th style="text-align: right;">Rate</th>
+                        <th style="text-align: left;">Type</th>
+                        <th style="text-align: right;">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+	{for detail in body.tax_summary.records}
+                    <tr>
+                        <td style="text-align: left;">${detail.tax_name}</td>
+                        <td style="text-align: right;">${detail.tax_rate}</td>
+                        <td style="text-align: left;">${detail.tax_type}</td>
+                        <td style="text-align: right;">${detail.tax_subtotal|default:0|viviFormatPrices:true}</td>
+                    </tr>
+	{/for}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3">Summary:</td>
+                        <td style="text-align: right;">${body.tax_summary.summary.tax_total|default:0|viviFormatPrices:true}</td>
+                    </tr>
+                </tfoot>
+            </table>
+            <br />
+            
+            <table id="body-table">
+            	<caption>Discount Summary</caption>
+            	<thead>
+            		<tr>
+            			<th style="text-align: left;">Name</th>
+            			<th style="text-align: left;">Type</th>
+            			<th style="text-align: right;">Count</th>
+            			<th style="text-align: right;">Amount</th>
+            		</tr>
+            	</thead>
+            	<tbody>
+	{for detail in body.discount_summary.data}
+					<tr>
+						<td style="text-align: left;">${detail.discount_name}</td>
+						<td style="text-align: left;">${detail.itemOrAddition}</td>
+						<td style="text-align: right;">${detail.num_rows}</td>
+						<td style="text-align: right;">${detail.amount|default:0|viviFormatPrices:true}</td>
+					</tr>
+	{/for}
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="2">Summary:</td>
+						<td style="text-align: right;">${body.discount_summary.summary.num_rows}</td>
+						<td style="text-align: right;">${body.discount_summary.summary.amount|default:0|viviFormatPrices:true}</td>
+					</tr>
+				</tfoot>
+			</table>
+			<br />
+		
+			<table id="body-table">
+            	<caption>Surcharge Summary</caption>
+            	<thead>
+            		<tr>
+            			<th style="text-align: left;">Name</th>
+            			<th style="text-align: left;">Type</th>
+            			<th style="text-align: right;">Count</th>
+            			<th style="text-align: right;">Amount</th>
+            		</tr>
+            	</thead>
+            	<tbody>
+	{for detail in body.surcharge_summary.data}
+					<tr>
+						<td style="text-align: left;">${detail.surcharge_name}</td>
+						<td style="text-align: left;">${detail.itemOrAddition}</td>
+						<td style="text-align: right;">${detail.num_rows}</td>
+						<td style="text-align: right;">${detail.amount|default:0|viviFormatPrices:true}</td>
+					</tr>
+	{/for}
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="2">Summary:</td>
+						<td style="text-align: right;">${body.surcharge_summary.summary.num_rows}</td>
+						<td style="text-align: right;">${body.surcharge_summary.summary.amount|default:0|viviFormatPrices:true}</td>
+					</tr>
+				</tfoot>
+			</table>
+			<br />
         </td>
     </tr>
 
