@@ -44,7 +44,6 @@
             }
 
             this.getCodeListObj().datasource = this._codeDatas;
-
             this.validateCodeForm();
         },
 
@@ -91,6 +90,8 @@
                     this.saveAnnotationCodes();
 
                     var annotationCode = this._codeDatas[index].code;
+                    this.getCodeListObj().treeBoxObject.ensureRowIsVisible(index);
+                    
                     OsdUtils.info(_('Annotation code [%S] modified successfully', [annotationCode]));
                 }
                 else {
@@ -159,6 +160,7 @@
 	
         selectCode: function(index){
             this.getCodeListObj().vivitree.selection.select(index);
+            this.getCodeListObj().treeBoxObject.ensureRowIsVisible(index);
             if (index > -1) {
                 var inputObj = this._codeDatas[index];
                 GeckoJS.FormHelper.unserializeFromObject('annotationCodeForm', inputObj);

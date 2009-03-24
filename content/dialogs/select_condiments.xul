@@ -28,7 +28,7 @@
                     <caption label="&select.condiments.title;" class="PageTitle" />
 
                     <hbox class="SelectBox">
-                        <viviscrollablebuttonpanel id="condimentscrollablepanel" flex="1" cols="4" rows="7"  seltype="mix" labelField="name"
+                        <viviscrollablebuttonpanel id="condimentscrollablepanel" flex="1" cols="8" rows="8"  seltype="mix" labelField="name"
                                                    class="catesdcrollablepanel"
                                                    buttonClass="plubtn"
                                                    oncommand="if (!$(document.getElementById('selectCondimentPanel')).data('popupPanel.opts').doClick(this)) event.stopPropagation()"
@@ -40,8 +40,6 @@
                             <spacer flex="1"/>
                         </viviscrollablebuttonpanel>
                     </hbox>
-
-                    <spacer flex="1"/>
 
                     <hbox>
                         <hbox class="ToolBar" flex="1">

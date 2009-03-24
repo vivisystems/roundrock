@@ -30,14 +30,13 @@
             init: function(evt) {
 			
                 var viewHelper = new NSICondimentsView();
-                viewHelper.supportSoldout = true;
-                
                 $buttonPanel[0].datasource = viewHelper ;
                 $buttonPanel[0].selectedItems = [] ;
 		
             },
 
             load: function(evt) {
+
                 condsData = evt.data.conds; // 0..n index
                 selectedItems = evt.data.selectedItems; // 0..n index
 
@@ -46,6 +45,13 @@
                 $buttonPanel[0].vivibuttonpanel.invalidate();
                 $buttonPanel[0].scrollToRow(0);
 
+                $buttonPanel[0].datasource.supportSoldout = !evt.data.hideSoldout;
+                if (evt.data.hideSoldout) {
+                    $('#condimentscrollablepanel-soldout').hide();
+                }
+                else {
+                    $('#condimentscrollablepanel-soldout').show();
+                }
             },
 
             hide: function (evt) {
