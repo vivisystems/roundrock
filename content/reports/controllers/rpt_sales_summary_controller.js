@@ -531,7 +531,7 @@
 			this._setConditions( start, end, terminalNo, periodType, shiftnNo );
 			this._set_datas();
 			
-			var path = GREUtils.File.chromeToPath( "chrome://reports/locale/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl" );
+			var path = GREUtils.File.chromeToPath( "chrome://viviecr/content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl" );
 
             var file = GREUtils.File.getFile( path );
             var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
@@ -548,7 +548,7 @@
             
             this._set_datas();
             
-            var path = GREUtils.File.chromeToPath("chrome://reports/locale/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl");
+            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl");
 
             var file = GREUtils.File.getFile( path );
             var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
@@ -613,7 +613,7 @@
 
                 var waitPanel = this._showWaitPanel( 'wait_panel', 100 );
 
-                var path = GREUtils.File.chromeToPath( "chrome://reports/locale/reports/tpl/rpt_sales_summary/rpt_sales_summary_csv.tpl" );
+                var path = GREUtils.File.chromeToPath( "chrome://viviecr/content/reports/tpl/rpt_sales_summary/rpt_sales_summary_csv.tpl" );
 
                 var file = GREUtils.File.getFile( path );
                 var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
@@ -637,7 +637,7 @@
                 this._enableButton( false );
                 var waitPanel = this._showWaitPanel( 'wait_panel', 100 );
 
-                var path = GREUtils.File.chromeToPath( "chrome://reports/locale/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl" );
+                var path = GREUtils.File.chromeToPath( "chrome://viviecr/content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl" );
 
                 var file = GREUtils.File.getFile( path );
                 var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
