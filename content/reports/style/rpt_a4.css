@@ -72,6 +72,15 @@
   margin: 3px 5px;
 }
 
+.subtitle{
+text-align: left;
+font-weight: bold;
+font-size: 12pt;
+color: #292929;
+margin: 10px 5px;
+padding: 4px;
+}
+
 #body-table > caption > li {
 	list-style-image: url(chrome://viviecr/content/skin/images/images/table_title.gif);
 }
@@ -80,7 +89,7 @@
 /* basic shared rules */
 #body-table th,
 #body-table td {
-  text-align: right;
+  /*text-align: right;*/
   border-bottom: 1px solid #c3c3c3;
 }
 

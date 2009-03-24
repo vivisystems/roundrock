@@ -23,20 +23,9 @@
             <!--caption>${master.terminal_no} : ${master.starttime} - ${master.endtime}</caption-->
             <thead>
             	<tr>
-            		<td colspan="8" style="text-align: left;
-							  font-weight: bold;
-							  font-size: 12pt;
-							  color: #292929;
-							  margin: 10px 5px;
-							  padding: 4px;">${master.terminal_no} : ${master.starttime} - ${master.endtime}</td>
+            		<td colspan="8" class="subtitle">${master.terminal_no} : ${master.starttime} - ${master.endtime}</td>
             	</tr>
-                <tr style="text-align: left;
-							  color: #56523a;
-							  border-top: 2px solid #b5b093;
-							  border-bottom: 1px solid #b5b093;
-							  background-color: #f5f2ec;
-							  font-size: 11pt;
-							  padding: 4px;">
+                <tr class="fields">
                     <th style="text-align: left;">${_( 'Sale Period' )}</th>
                     <th style="text-align: right;">${_( 'Shift No.' )}</th>
                     <th style="text-align: right;">${_( 'Balance' )}</th>

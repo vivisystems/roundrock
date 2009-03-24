@@ -1,24 +1,31 @@
-<div class="paper" style="overflow:auto;">
-<!-- div id="printhead" -->
-<img src="chrome://viviecr/content/skin/images/logo.png" /><br />
+<!---->
+<div id="printhead">
+	<img src="chrome://viviecr/content/skin/images/logo.png" /><br />
+</div>
+<div id="docbody" class="paper">
+	<p class="heading_store">${head.store.name} - ${head.store.branch}</p>
+	<p class="heading_store">${head.store.telephone1}</p>
 
-<p align="left">${head.store.name}</p>
-<p align="left">${head.store.branch}</p>
-<p align="left">${head.store.telephone1}</p>
-<p align="left">${_( 'Terminal' ) + ': '}${head.store.terminal_no}</p>
-<p align="left">${_( 'Clerk' ) + ': '}${head.clerk_displayname}</p>
-<p align="right">${_( 'Printed Time' ) + ': '}${foot.gen_time}</p>
-<p align="right">${head.start_time}-${head.end_time}</p>
+	<div style="float: left;">
+		<p class="heading_p">${_( 'Terminal' ) + ': '}${head.store.terminal_no}</p>
+		<p class="heading_p">${_( 'Clerk' ) + ': '}${head.clerk_displayname}</p>
+		<p class="caption">${head.title}</p>
+	</div>
 
-<p>${head.title}</p>
+	<div style="float: right;">
+		<p class="heading_p">&nbsp;</p>
+		<p class="heading_p" align="right">${_( 'Printed Time' ) + ': '}${foot.gen_time}</p>
+		<p class="caption">${head.start_time} - ${head.end_time}</p>
+	</div>
 
-<!-- /div>
-<div id="docbody" -->
 {for master in body}
         <table id="body-table">
-            <caption>${master.username}</caption>
+            <!--caption>${master.username}</caption-->
             <thead>
-                <tr>
+            	<tr>
+            		<td colspan="8" class="subtitle">${master.username}</td>
+            	</tr>
+                <tr class="fields">
                     <th style="text-align: left;">${_( 'Job' )}</th>
                     <th style="text-align: left;">${_( 'Clock In' )}</th>
                     <th style="text-align: left;">${_( 'Clock Out' )}</th>
