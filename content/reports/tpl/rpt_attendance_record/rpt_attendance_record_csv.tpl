@@ -1,17 +1,17 @@
 "${head.store.name}"
 "${head.store.branch}"
-"${_( 'Telphone' ) + ':'}","'${head.store.telephone1}"
-"${_( 'Terminal' ) + ':'}","'${head.store.terminal_no}"
-"${_( 'Clerk' ) + ':'}","'${head.clerk_displayname}"
-"${_( 'Printed Time' ) + ':'}","${foot.gen_time}"
-"${_( 'Start' ) + ':'}","${head.start_time}"
-"${_( 'End' ) + ':'}","${head.end_time}"
+"${_( '(rpt)Telphone' ) + ':'}","'${head.store.telephone1}"
+"${_( '(rpt)Terminal' ) + ':'}","'${head.store.terminal_no}"
+"${_( '(rpt)Clerk' ) + ':'}","'${head.clerk_displayname}"
+"${_( '(rpt)Printed Time' ) + ':'}","${foot.gen_time}"
+"${_( '(rpt)Start' ) + ':'}","${head.start_time}"
+"${_( '(rpt)End' ) + ':'}","${head.end_time}"
 
 {for master in body}
-"${master.username}","${_( 'Job' )}","${_( 'Clock In' )}","${_( 'Clock Out' )}","${_( 'Span Time' )}"
+"${master.username}","${_( '(rpt)Job' )}","${_( '(rpt)Clock In' )}","${_( '(rpt)Clock Out' )}","${_( '(rpt)Span Time' )}"
 {for stamp in master.clockStamps}
 "","${stamp.job}","${stamp.InTime}","${stamp.OutTime}","${stamp.SpanTime}"
 {/for}
-"","","","${_( 'Summary' ) + ':'}","${master.total_spantime}"
+"","","","${_( '(rpt)Summary' ) + ':'}","${master.total_spantime}"
 "",""
 {/for}

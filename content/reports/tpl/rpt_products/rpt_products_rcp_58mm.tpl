@@ -2,29 +2,29 @@
 [&DWON]${head.store.branch|center:14}[&DWOFF]
 ${head.store.telephone1|center:24}
 
-${_( 'Terminal' ) + ': '}${head.store.terminal_no}
-${_( 'Clerk' ) + ': '}${head.clerk_displayname}
+${_( '(rpt)Terminal' ) + ': '}${head.store.terminal_no}
+${_( '(rpt)Clerk' ) + ': '}${head.clerk_displayname}
 
 ${head.title|center:24}
 {for category in body}
 ------------------------
-${_( 'Department No.' ) + ':'}
+${_( '(rpt)Department No.' ) + ':'}
 ${category.no|right:24}
-${_( 'Department Name' ) + ':'}
+${_( '(rpt)Department Name' ) + ':'}
 ${category.name|right:24}
 {for plu in category.plu}
 ------------------------
-${_( 'Product No.' ) + ':'}
+${_( '(rpt)Product No.' ) + ':'}
 ${plu.no|right:24}
-${_( 'Product' ) + ':'}
+${_( '(rpt)Product' ) + ':'}
 ${plu.name|right:24}
-${_( 'Barcode' ) + ':'}
+${_( '(rpt)Barcode' ) + ':'}
 ${plu.barcode|right:24}
-${_( 'Tax' ) + ':'}
+${_( '(rpt)Tax' ) + ':'}
 ${plu.rate|right:24}
-${_( 'Stock' ) + ':'}
+${_( '(rpt)Stock' ) + ':'}
 ${plu.stock|right:24}
-${_( 'Safe Stock' ) + ':'}
+${_( '(rpt)Safe Stock' ) + ':'}
 ${plu.min_stock|right:24}
 {/for}
 {/for}

@@ -2,8 +2,8 @@
 [&DWON]${head.store.branch|center:14}[&DWOFF]
 ${head.store.telephone1|center:24}
 
-${_( 'Terminal' ) + ': '}${head.store.terminal_no}
-${_( 'Clerk' ) + ': '}${head.clerk_displayname}
+${_( '(rpt)Terminal' ) + ': '}${head.store.terminal_no}
+${_( '(rpt)Clerk' ) + ': '}${head.clerk_displayname}
 ${head.start_time} ~
 ${head.end_time}
 
@@ -11,20 +11,20 @@ ${head.title|center:24}
 ------------------------
 {for master in body}
 [&CR]
-${_( 'Clerk' ) + ': '}${master.username}
+${_( '(rpt)Clerk' ) + ': '}${master.username}
 ------------------------
 {for stamp in master.clockStamps}
-${_( 'Job' ) + ':'}
+${_( '(rpt)Job' ) + ':'}
 ${stamp.job|right:24}
-${_( 'Clock In' ) + ':'}
+${_( '(rpt)Clock In' ) + ':'}
 ${stamp.InTime|right:24}
-${_( 'Clock Out' ) + ':'}
+${_( '(rpt)Clock Out' ) + ':'}
 ${stamp.OutTime|right:24}
-${_( 'Span Time' ) + ':'}
+${_( '(rpt)Span Time' ) + ':'}
 ${stamp.SpanTime|right:24}
 {/for}
 ------------------------
-${_( 'Summary' ) + ':'}
+${_( '(rpt)Summary' ) + ':'}
 ${master.total_spantime|right:24}
 ------------------------
 {/for}
