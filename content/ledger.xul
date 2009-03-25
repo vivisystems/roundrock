@@ -153,7 +153,7 @@
                                         <row>
                                             <vbox>
                                                 <label value="&ledger.entry.type;" />
-                                                <textbox id="entry_type" value="" form="ledger_entry_typeForm" name="type"
+                                                <textbox id="entry_type" value="" form="ledger_entry_typeForm" name="type" onfocus="this.select()"
                                                          oninput="$do('validateForm', this.value, 'LedgerEntryTypes')"/>
                                             </vbox>
 <!--

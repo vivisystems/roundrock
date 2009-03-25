@@ -1,0 +1,39 @@
+/*-----------------------------------------------------------------------------
+ *
+ * PRINTER DASHBOARD SCREEN
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+.printerStatus {
+    padding: 5px;
+    margin: 4px;
+    border: 0px;
+    -moz-border-top-colors: #f0efe8 #e8e8e1 #d9d9d2;
+    -moz-border-right-colors: #d9d9d2 #c3c2bc #a5a49f;
+    -moz-border-bottom-colors: #d9d9d2 #c3c2bc #a5a49f;
+    -moz-border-left-colors: #f0efe8 #e8e8e1 #d9d9d2;
+    -moz-appearance: none;
+    list-style-image: url(../icons/icon_devices.png);
+    -moz-box-orient: vertical;
+    background-color:silver;
+    color: #3b312b;
+}
+
+.printerStatus[checked][disabled="false"] {
+    border: 3px solid;
+    -moz-border-top-colors: #202e10 #233411 #2e5512 #2d7309 !important;
+    -moz-border-bottom-colors: #bcde8e #b2d97d #a1d05f #85c230 !important;
+    -moz-border-left-colors: #153503 #1d4a04 #266206 #307b07 !important;
+    -moz-border-right-colors: #93c948 #91c845 #8bc53a #7dbe23 !important;
+    background-color: green;
+}
+
+.printerStatus[disabled="false"] {
+    border: 3px solid;
+    -moz-border-top-colors: #f8c8ce #f7c0c6 #f6b2ba #f39ba5 !important;
+    -moz-border-bottom-colors: #351518 #3d171b #762b32 #9f212f !important;
+    -moz-border-left-colors: #f4a7af #f4a6ae #f3a0a9 #f2959f !important;
+    -moz-border-right-colors: #491016 #661720 #881f2b #ac2736 !important;
+    background-color: red;
+}

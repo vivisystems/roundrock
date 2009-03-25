@@ -150,6 +150,7 @@
 
             this._condGroupscrollablepanel.selectedIndex = index;
             this._condGroupscrollablepanel.selectedItems = [index];
+            this._condGroupscrollablepanel.ensureIndexIsVisible(index);
 
             this._selectedIndex = index;
             if (index >= 0 && condGroups.length > index)
@@ -198,7 +199,7 @@
 
             this._condscrollablepanel.selectedIndex = index;
             this._condscrollablepanel.selectedItems = [index];
-            this._condscrollablepanel.refresh();
+            this._condscrollablepanel.ensureIndexIsVisible(index);
 
             if (conds) {
                 this.setInputCondData(conds[index]);
@@ -330,7 +331,7 @@
                     var view = this._condGroupscrollablepanel.datasource;
                     view.data = condGroups;
 
-                    this._condGroupscrollablepanel.refresh();
+                    //this._condGroupscrollablepanel.refresh();
 
                     this.changeCondimentPanel(condGroups.length - 1);
 

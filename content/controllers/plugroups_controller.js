@@ -78,24 +78,26 @@
             // if new Product group exists, set selectedIndex to last item
 
             if (this._plugroupAdded) {
+                this.requestCommand('list', {order: 'display_order, name'});
+
+                var groupID = evt.data.id;
                 var panel = this.getListObj();
                 var data = panel.datasource.data;
-                var newIndex = data.length;
-
-                this.requestCommand('list', {index: newIndex, order: 'display_order, name'});
-
+                
+                var newIndex = -1;
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].id == groupID) {
+                        newIndex = i;
+                        break;
+                    }
+                }
                 panel.selectedIndex = newIndex;
                 panel.selectedItems = [newIndex];
+                panel.ensureIndexIsVisible(newIndex);
 
-                // look for plugroup.id
-                var plugroupModel = new PlugroupModel();
-                var plugroup = plugroupModel.findByIndex('all', {
-                    index: 'name',
-                    value: evt.data.name
-                });
-                if (plugroup && plugroup.length > 0)
-                    this.updateSession('add', plugroup[0].id);
+                this.updateSession('add', groupID);
 
+                this.select();
                 this.validateForm();
 
                 document.getElementById('plugroup_name').focus();
