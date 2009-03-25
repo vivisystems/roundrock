@@ -4,6 +4,7 @@
      include('chrome://viviecr/content/devices/deviceTemplateUtils.js');
      include('chrome://viviecr/content/reports/template_ext.js');
 
+
     /**
      * Print Controller
      */
@@ -56,36 +57,143 @@
             }
         },
 
+        checkSerialPort: function (path, handshaking, noHandshakingValue) {
+
+            // if CUPS try just check null device not exists?
+            if (path.indexOf("/CUPS/") != -1) {
+
+                // use pure XPCOM code in worker thread ...
+                try {
+
+                    var pathFile = Components.classes["@mozilla.org/file/local;1"].createInstance(Components.interfaces.nsILocalFile);
+                    var isExists = false;
+                    pathFile.initWithPath(path);
+                    isExists = pathFile.exists();
+                    pathFile = null;
+
+                    return isExists;
+
+                }catch (e) {
+                    return false;
+                }
+
+
+            }else {
+
+                var device = this.getDeviceController();
+                if (device != null) {
+                    return device.checkSerialPort(path, handshaking, noHandshakingValue);
+                }
+                else {
+                    return false;
+                }
+
+            }
+        },
+
         // invoke openSerialPort on device controller
         openSerialPort: function (path, portspeed, handshaking) {
-            var device = this.getDeviceController();
-            if (device != null) {
-                return device.openSerialPort(path, portspeed, handshaking);
-            }
-            else {
-                return false;
+
+            // if CUPS try just check null device not exists?
+            if (path.indexOf("/CUPS/") != -1) {
+
+                // use pure XPCOM code in worker thread ...
+                try {
+
+                    var pathFile = Components.classes["@mozilla.org/file/local;1"].createInstance(Components.interfaces.nsILocalFile);
+                    var isExists = false;
+                    pathFile.initWithPath(path);
+                    isExists = pathFile.exists();
+                    pathFile = null;
+
+                    return isExists;
+                    
+                }catch (e) {
+                    return false;
+                }
+
+            }else {
+
+                var device = this.getDeviceController();
+                if (device != null) {
+                    return device.openSerialPort(path, portspeed, handshaking);
+                }
+                else {
+                    return false;
+                }
             }
         },
 
         // invoke writeSerialPort on device controller
         writeSerialPort: function (path, buf) {
-            var device = this.getDeviceController();
-            if (device != null) {
-                return device.writeSerialPort(path, buf);
+
+            // if CUPS try just create jobfile
+            if (path.indexOf("/CUPS/") != -1) {
+
+                var printerName = path.replace("/tmp/CUPS/", "");
+
+                try {
+                    
+                    // vivipos has shell script to clean job spool
+                    // use pure XPCOM in worker thread.
+                    var jobFile = Components.classes["@mozilla.org/file/directory_service;1"].getService(Components.interfaces.nsIProperties).get("TmpD", Components.interfaces.nsIFile);
+                    jobFile.append(printerName + "_job");
+                    jobFile.createUnique(Components.interfaces.nsIFile.NORMAL_FILE_TYPE, 0666);
+
+                    var stream = Components.classes["@mozilla.org/network/safe-file-output-stream;1"].createInstance(Components.interfaces.nsIFileOutputStream);
+                    stream.init(jobFile, 0x04 | 0x08 | 0x20, 0666, 0); // write, create, truncate
+
+                    var bytesWritten = stream.write(buf, buf.length);
+                    if (stream instanceof Components.interfaces.nsISafeOutputStream) {
+                        stream.finish();
+                    } else {
+                        stream.close();
+                    }
+
+                    jobFile = null;
+                    stream = null;
+                    
+                    return bytesWritten;
+
+                }catch(e) {
+                    // length 0 for wanning message to popup
+                    return 0;
+                }
+                return buf.length;
+
+            }else {
+
+                var device = this.getDeviceController();
+                if (device != null) {
+
+                    return device.writeSerialPort(path, buf);
+                }
+                else {
+                    return -1;
+                }
+
             }
-            else {
-                return -1;
-            }
+
         },
 
         // invoke closeSerialPort on device controller
         closeSerialPort: function (path) {
-            var device = this.getDeviceController();
-            if (device != null) {
-                return device.closeSerialPort(path);
-            }
-            else {
-                return false;
+
+            // if CUPS try just return true
+            if (path.indexOf("/CUPS/") != -1) {
+                
+                return true;
+
+            }else {
+
+                var device = this.getDeviceController();
+                if (device != null) {
+                    return device.closeSerialPort(path);
+                }
+                else {
+                    return false;
+                }
+
             }
         },
 
@@ -599,9 +707,9 @@
                 data.store = GeckoJS.Session.get('storeContact');
                 if (data.store) data.store.terminal_no = GeckoJS.Session.get('terminal_no');
             }
-            this.log(this.dump(data.order));
-            if (data.customer) this.log(GeckoJS.BaseObject.dump(data.customer));
-            if (data.store) this.log(GeckoJS.BaseObject.dump(data.store));
+            //this.log(this.dump(data.order));
+            //if (data.customer) this.log(GeckoJS.BaseObject.dump(data.customer));
+            // if (data.store) this.log(GeckoJS.BaseObject.dump(data.store));
             // dispatch beforePrintCheck event to allow extensions to add to the template data object or
             // to prevent check from printed
             if (!this.dispatchEvent('beforePrintCheck', {data: data,
@@ -723,7 +831,7 @@
                     result = result.replace(re, value);
                 }
             }
-            alert(GeckoJS.BaseObject.dump(result));
+            // alert(GeckoJS.BaseObject.dump(result));
             //return;
             //alert(data.order.receiptPages);
             //
@@ -791,7 +899,7 @@
                         }
 
                         var printed = 0;
-                        if (self._device.checkSerialPort(portPath, handshaking, true)) {
+                        if (self.checkSerialPort(portPath, handshaking, true)) {
                             if (self.openSerialPort(portPath, portspeed, handshaking)) {
                                 for (var i = 0; i < copies; i++) {
                                     var len = self.writeSerialPort(portPath, encodedResult);
@@ -822,7 +930,16 @@
                         // dispatch receiptPrinted event indirectly through the main thread
                         
                         if (self._main) {
-                            self._main.dispatch(new sendEvent(device, data, result,encodedResult, printed), self._worker.DISPATCH_NORMAL);
+
+                            var curThread = Components.classes["@mozilla.org/thread-manager;1"].getService().currentThread;
+
+                            if (curThread === self._main) {
+                                // invoke directly
+                                (new sendEvent(device, data, result,encodedResult, printed)).run();
+                            }else {
+                                self._main.dispatch(new sendEvent(device, data, result,encodedResult, printed), self._main.DISPATCH_NORMAL);
+                            }
+                            
                         }
 
                         
@@ -839,7 +956,14 @@
                 }
             };
 
-            this._worker.dispatch(runnable, this._worker.DISPATCH_NORMAL);
+            // if CUPS , use main Thread
+            if (portPath.indexOf("/CUPS/") != -1) {
+                // direct invoke run function and set runnable to this context
+                runnable.run.apply(runnable);
+            }else {
+                this._worker.dispatch(runnable, this._worker.DISPATCH_NORMAL);
+            }
+            
         },
 
         scheduleOrderCommit: function(txn) {
