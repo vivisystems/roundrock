@@ -196,9 +196,15 @@
             var salePeriod = this.getSalePeriod();
             var shiftNumber = this.getShiftNumber();
             var terminal_no = GeckoJS.Session.get('terminal_no');
-
-            var orderPayment = new OrderPaymentModel();
+            var salePeriodLeadDays = GeckoJS.Configure.read('vivipos.fec.settings.MaxSalePeriodLeadDays') || 0;
             
+            var orderPayment = new OrderPaymentModel();
+
+            // check if sale period leads calendar date by more than allowed number of days
+            var today = Date.today();
+            var salePeriodDate = new Date(salePeriod * 1000);
+            var canEndSalePeriod = ((salePeriodDate - today) / (24 * 60 * 60 * 1000) + 1) <= salePeriodLeadDays;
+
             // first, we collect payment totals for credit cards and coupons
             var fields = ['order_payments.memo1 as "OrderPayment.name"',
                           'order_payments.name as "OrderPayment.type"',
@@ -441,7 +447,8 @@
                 salesRevenue: salesRevenue,
                 ledgerInTotal: ledgerInTotal,
                 ledgerOutTotal: ledgerOutTotal,
-                giftcardExcess: giftcardExcess
+                giftcardExcess: giftcardExcess,
+                canEndSalePeriod: canEndSalePeriod
             };
 
             window.openDialog(aURL, _('Shift Change'), features, inputObj);
@@ -526,12 +533,20 @@
                     // power off or restart
                     if (parms.poweroff) {
                         // power off
-                        alert('power off');
+                        this.requestCommand('shutdownMachine', null, 'Main');
                     }
                     else {
-                        // login
-                        this.requestCommand('signOff', true, 'Main');
-                        this.requestCommand('ChangeUserDialog', null, 'Main');
+                        // @irving 2009-03-25
+                        // we now restart after closing sale period
+                        try {
+                            GREUtils.restartApplication();
+                        }
+                        catch(e) {
+                            // sign off and return to login screen if restart fails
+                            // login
+                            this.requestCommand('signOff', true, 'Main');
+                            this.requestCommand('ChangeUserDialog', null, 'Main');
+                        }
                     }
                 }
                 else {
@@ -563,7 +578,6 @@
                     message = _('Sale Period [%S] Shift [%S] is now closed', [new Date(currentShift.sale_period * 1000).toLocaleDateString(), currentShift.shift_number]);
                     window.openDialog(aURL, _('Shift Close'), features, message);
 
-                    // sign off and return to login screen
                     this.requestCommand('signOff', true, 'Main');
                     this.requestCommand('ChangeUserDialog', null, 'Main');
                 }

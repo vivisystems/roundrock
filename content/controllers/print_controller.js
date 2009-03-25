@@ -218,6 +218,9 @@
             // @todo delay saving order to database til after print jobs have all been scheduled
             if (txn.data.status == 1) this.scheduleOrderCommit(txn);
 
+            // clear dashboard settings
+            this.resetDashboardSettings();
+
             // @hack
             // sleep to allow UI to catch up
             this.sleep(50);
@@ -236,9 +239,28 @@
             if (txn.data.batchPaymentCount > 0)
                 this.printReceipts(evt.data, null, 'store');
             
+            // clear dashboard settings
+            this.resetDashboardSettings();
+
             // @hack
             // sleep to allow UI to catch up
             this.sleep(50);
+        },
+
+        resetDashboardSettings: function() {
+            var toggleMode = GeckoJS.Session.get('printer-dashboard-toggle-mode');
+            if (toggleMode == 'popup') {
+                var devices = this.getDeviceController().getSelectedDevices();
+                for (var i = 1; 'receipt-' + i + '-enabled' in devices; i++) {
+                    GeckoJS.Session.remove('receipt-' + i + '-suspended');
+                    alert('receipt :' + i);
+                }
+
+                for (var i = 1; 'check-' + i + '-enabled' in devices; i++) {
+                    GeckoJS.Session.remove('check-' + i + '-suspended');
+                    alert('check :' + i);
+                }
+            }
         },
 
         // handles user initiated receipt requests
@@ -354,7 +376,7 @@
                     var device = enabledDevices[i];
 
                     // check if receipt printer is suspended
-                    if (!GeckoJS.Session.get('receipt-' + device.number + '-suspended')) {
+                    if (!autoPrint || !GeckoJS.Session.get('receipt-' + device.number + '-suspended')) {
 
                         // check if we are the target device
                         if ((printer == null && device.autoprint > 0) || printer == device.number || printer == 0) {
@@ -521,7 +543,7 @@
             if (enabledDevices != null) {
                 enabledDevices.forEach(function(device) {
                     // check if receipt printer is suspended
-                    if (!GeckoJS.Session.get('check-' + device.number + '-suspended')) {
+                    if (!autoPrint || !GeckoJS.Session.get('check-' + device.number + '-suspended')) {
 
                         // check if we are the target device
                         if ((printer == null && device.autoprint > 0) || printer == device.number || printer == 0) {
@@ -610,7 +632,7 @@
 	            data.store = GeckoJS.Session.get('storeContact');
 	            if (data.store) data.store.terminal_no = GeckoJS.Session.get('terminal_no');
 	        }
-	        // if (data.order) this.log(this.dump(data.order));
+            if (data.order) this.log(this.dump(data.order));
             // if (data.customer) this.log(this.dump(data.customer));
             // if (data.store) this.log(this.dump(data.store));
 
@@ -639,6 +661,7 @@
                     var item = data.order.items[i];
                     if (data.printAllRouting) {
                         item.linked = true;
+                        empty = false;
                     }
                     else {
                         item.linked = false;
@@ -736,7 +759,7 @@
                     result = result.replace(re, value);
                 }
             }
-            //alert(GeckoJS.BaseObject.dump(result));
+            alert(GeckoJS.BaseObject.dump(result));
             //this.log(GeckoJS.BaseObject.dump(result));
             //return;
             //alert(data.order.receiptPages);

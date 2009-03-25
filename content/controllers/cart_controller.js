@@ -768,7 +768,7 @@
                 this.dispatchEvent('onModifyItemError', {});
 
                 //@todo OSD
-                NotifyUtils.warn(_('Cannot modify selected item [%S]', [itemDisplay.name]));
+                NotifyUtils.warn(_('Cannot modify quantity of selected item [%S]', [itemDisplay.name]));
 
                 this.subtotal();
                 return;
@@ -2604,7 +2604,28 @@
             this.addPayment('cash', amount);
         },
 
-        addCondiment: function(plu, condiments, forceModal) {
+        insertCondiment: function(params) {
+            var argList = params.split(',');
+            var condArray = [];
+
+            if (argList.length > 0) {
+                argList.forEach(function(arg) {
+                    var parmList = arg.split('|');
+                    var condName = parmList[0];
+                    var condPrice = parmList[1] || 0;
+
+                    if (condName != '' && !isNaN(condPrice)) {
+                        condArray.push({name: condName, price: condPrice});
+                    }
+                });
+            }
+
+            if (condArray.length > 0) {
+                this.addCondiment(null, condArray, true);
+            }
+        },
+
+        addCondiment: function(plu, condiments, immediateMode) {
 
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
@@ -2666,12 +2687,14 @@
                     NotifyUtils.warn(_('Condiments may not be added to [%S]', [displayItem.name]));
                     return;
                 }
+/*
                 if (cartItem.current_qty < 0) {
                     var displayItem = curTransaction.getDisplaySeqAt(index);
                     //@todo OSD
                     NotifyUtils.warn(_('Condiments may not be added to a return item [%S]', [displayItem.name]));
                     return;
                 }
+*/
                 if (cartItem.hasMarker) {
                     //@todo OSD
                     NotifyUtils.warn(_('Cannot add condiments to an item that has been subtotaled'));
@@ -2690,17 +2713,33 @@
                 // xxxx why clone it ??
                 //condimentItem = GREUtils.extend({}, productsById[cartItem.id]);
                 condimentItem = productsById[setItem.id];
+
+                // extract cartItem's selected condiments, if any
+                if (setItem.condiments != null) {
+                    for (var c in setItem.condiments) {
+                        if (condiments == null) {
+                            condiments = {};
+                        }
+                        condiments[c] = setItem.condiments[c];
+                    }
+                }
             }
 
             var d = new Deferred();
             if (condimentItem) {
-                if(!condimentItem.cond_group){
+                if(!condimentItem.cond_group && !immediateMode){
                     //@todo OSD
                     NotifyUtils.warn(_('No Condiment group associated with item [%S]', [condimentItem.name]));
                     return d;
                 }
+                else if (immediateMode && condiments) {
+                    curTransaction.appendCondiment(index, condiments, false);
+                    this.dispatchEvent('afterAddCondiment', condiments);
+
+                    this.subtotal();
+                }
                 else {
-                    return this.getCondimentsDialog(condimentItem.cond_group, condiments, forceModal);
+                    return this.getCondimentsDialog(condimentItem.cond_group, condiments);
                 }
                 
             }
@@ -2709,7 +2748,7 @@
 
         },
 
-        getCondimentsDialog: function (condgroup, condiments, forceModal) {
+        getCondimentsDialog: function (condgroup, condiments) {
 
             var condGroupsByPLU = GeckoJS.Session.get('condGroupsByPLU');
             // not initial , initial again!
@@ -2725,11 +2764,17 @@
             var conds = condGroupsByPLU[condgroup]['Condiments'];
             if (condiments == null) {
                 //@irving filter out sold out condiments
-                selectedItems = selectedItems.concat(condGroupsByPLU[condgroup]['PresetItems'].filter(function(c) {return !conds[c].soldout}));
+                selectedItems = condGroupsByPLU[condgroup]['PresetItems'].filter(function(c) {return !conds[c].soldout});
             }else {
-                    // check item selected condiments
-                   // if (condiments[selectCondiments[i]['name']]) selectedItems.push(i);
+                // check item selected condiments
+                var condNames = GeckoJS.BaseObject.getKeys(condiments);
+                for (var i = 0; i < conds.length; i++) {
+                    if (condNames.indexOf(conds[i].name) > -1) {
+                        selectedItems.push(i);
+                    }
+                }
             }
+            
             var dialog_data = {
                 conds: conds,
                 selectedItems: selectedItems,
@@ -2739,14 +2784,14 @@
             return $.popupPanel('selectCondimentPanel', dialog_data).next(function(evt){
                 var selectedCondiments = evt.data.condiments;
                 if (selectedCondiments.length > 0) {
-				
+                    
                     var index = self._cartView.getSelectedIndex();
                     var curTransaction = self._getTransaction();
 
                     if(curTransaction != null && index >=0) {
 
                         // self.log(self.dump(curTransaction.data));
-                        curTransaction.appendCondiment(index, selectedCondiments);
+                        curTransaction.appendCondiment(index, selectedCondiments, true);
                         self.dispatchEvent('afterAddCondiment', selectedCondiments);
                     }
 				    

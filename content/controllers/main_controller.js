@@ -148,7 +148,7 @@
         printerDashboard: function () {
             var aURL = 'chrome://viviecr/content/printer_dashboard.xul';
             var width = this.screenwidth * .6;
-            var height = this.screenheight * .6;
+            var height = this.screenheight * .8;
 
             var deviceController = GeckoJS.Controller.getInstanceByName('Devices');
             var devices = deviceController ? deviceController.getSelectedDevices() : [];

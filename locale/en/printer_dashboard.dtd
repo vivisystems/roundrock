@@ -1,3 +1,5 @@
 <!ENTITY printer.dashboard.title  "Printer Dashboard">
 <!ENTITY printer.dashboard.receipt.title "Receipt Printers">
 <!ENTITY printer.dashboard.check.title "Check Printers">
+<!ENTITY printer.dashboard.toggle.staydown "Toggle stays down">
+<!ENTITY printer.dashboard.toggle.popup "Toggle pops up">
