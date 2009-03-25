@@ -2739,22 +2739,26 @@
             return $.popupPanel('selectCondimentPanel', dialog_data).next(function(evt){
                 var selectedCondiments = evt.data.condiments;
                 if (selectedCondiments.length > 0) {
-				
-                    var index = self._cartView.getSelectedIndex();
-                    var curTransaction = self._getTransaction();
-
-                    if(curTransaction != null && index >=0) {
-
-                        // self.log(self.dump(curTransaction.data));
-                        curTransaction.appendCondiment(index, selectedCondiments);
-                        self.dispatchEvent('afterAddCondiment', selectedCondiments);
-                    }
-				    
-                    self.subtotal();
+                    self._appendCondiments(selectedCondiments);
                 }
 
             });
 
+        },
+
+        _appendCondiments: function(selectedCondiments) {
+
+            var index = this._cartView.getSelectedIndex();
+            var curTransaction = this._getTransaction();
+
+            if(curTransaction != null && index >=0) {
+
+                // self.log(self.dump(curTransaction.data));
+                curTransaction.appendCondiment(index, selectedCondiments);
+                this.dispatchEvent('afterAddCondiment', selectedCondiments);
+            }
+
+            this.subtotal();
         },
 
 
