@@ -553,7 +553,7 @@ pref("vivipos.fec.reportpanels.productsales.path", "chrome://viviecr/content/rep
 pref("vivipos.fec.reportpanels.productsales.icon", "chrome://viviecr/content/skin/icons/reporticon_sale.png");
 pref("vivipos.fec.reportpanels.productsales.roles", "acl_run_report");
 
-pref("vivipos.fec.reportpanels.cashbyclerk.label", "Cash by Clerk");
+pref("vivipos.fec.reportpanels.cashbyclerk.label", "Shift Change Report");
 pref("vivipos.fec.reportpanels.cashbyclerk.path", "chrome://viviecr/content/reports/rpt_cash_by_clerk.xul");
 pref("vivipos.fec.reportpanels.cashbyclerk.icon", "chrome://viviecr/content/skin/icons/reporticon_cash.png");
 pref("vivipos.fec.reportpanels.cashbyclerk.roles", "acl_run_report");
