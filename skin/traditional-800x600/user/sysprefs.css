@@ -105,13 +105,13 @@ prefpane {
 .DataFormC row{
 	border-bottom: 2px solid white;
 	font-size: 10pt;
-	padding: 6px;
+	padding: 2px;
     -moz-box-align: center;
 }
 .DataFormC {
 	border-right: 2px solid white;
 	background: #f1ede5;
-    margin: 0 8px 10px 10px;
+    margin: 0 8px 5px 10px;
 }
 .DataFormC column{
 	padding: 0px;

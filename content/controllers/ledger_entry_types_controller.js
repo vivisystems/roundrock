@@ -91,7 +91,7 @@
 
         beforeScaffoldDelete: function(evt) {
             if (evt.data.id) {
-                if (GREUtils.Dialog.confirm(null, _('confirm delete'), _('Are you sure?')) == false) {
+                if (GREUtils.Dialog.confirm(null, _('confirm delete %S (%S)', [evt.data.type, _(evt.data.mode)]), _('Are you sure?')) == false) {
                     evt.preventDefault();
                 }
             }
@@ -132,8 +132,10 @@
             };
             this.getListObj().datasource = panelView;
 
-            if (this._listDatas.length > 0)
+            if (this._listDatas.length > 0) {
                 this.getListObj().selection.select(this._index);
+                this.getListObj().treeBoxObject.ensureRowIsVisible(this._index);
+            }
             else
                 this.getListObj().selection.select(-1);
 
@@ -143,6 +145,7 @@
         load: function() {
             GeckoJS.FormHelper.reset('ledger_entry_typeForm');
             this.requestCommand('list', {order: 'mode, type', index: this._index});
+            this.getListObj().treeBoxObject.ensureRowIsVisible(this._index);
         },
 
         select: function(index){
@@ -152,6 +155,7 @@
             }
             
             this.getListObj().selection.select(index);
+            this.getListObj().treeBoxObject.ensureRowIsVisible(index);
             this._index = index;
             
             this.validateForm();

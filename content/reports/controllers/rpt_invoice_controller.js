@@ -276,7 +276,7 @@
 			
 			this._set_datas( start, end, periodType, shiftNo, terminalNo );
 			
-			var path = GREUtils.File.chromeToPath( "chrome://reports/locale/reports/tpl/rpt_invoice/rpt_invoice_rcp_80mm.tpl" );
+			var path = GREUtils.File.chromeToPath( "chrome://viviecr/content/reports/tpl/rpt_invoice/rpt_invoice_rcp_80mm.tpl" );
 
             var file = GREUtils.File.getFile( path );
             var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
@@ -300,7 +300,7 @@
 
 			this._set_datas( start, end, periodType, shiftNo, machineid );
 
-            var path = GREUtils.File.chromeToPath( 'chrome://reports/locale/reports/tpl/rpt_invoice/rpt_invoice.tpl' );
+            var path = GREUtils.File.chromeToPath( 'chrome://viviecr/content/reports/tpl/rpt_invoice/rpt_invoice.tpl' );
 
             var file = GREUtils.File.getFile( path );
             var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
@@ -359,7 +359,7 @@
 
                 var waitPanel = this._showWaitPanel('wait_panel', 100);
 				
-                var path = GREUtils.File.chromeToPath("chrome://reports/locale/reports/tpl/rpt_invoice/rpt_invoice_csv.tpl");
+                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_invoice/rpt_invoice_csv.tpl");
 
                 var file = GREUtils.File.getFile(path);
                 var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
@@ -383,7 +383,7 @@
                 this._enableButton( false );
                 var waitPanel = this._showWaitPanel( 'wait_panel', 100 );
 
-                var path = GREUtils.File.chromeToPath( "chrome://reports/locale/reports/tpl/rpt_invoice/rpt_invoice_rcp_80mm.tpl" );
+                var path = GREUtils.File.chromeToPath( "chrome://viviecr/content/reports/tpl/rpt_invoice/rpt_invoice_rcp_80mm.tpl" );
 
                 var file = GREUtils.File.getFile( path );
                 var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );

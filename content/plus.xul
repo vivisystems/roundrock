@@ -224,6 +224,16 @@
                                     <rows>
                                         <row>
                                             <vbox>
+                                                <label value="&plus.product.alt.name1;" control="product_alt_name1"/>
+                                                <textbox id="product_alt_name1" form="productForm" name="alt_name1" value="" onfocus="this.select()" oninput="$do('validateForm', null, 'Plus')"/>
+                                            </vbox>
+                                            <vbox>
+                                                <label value="&plus.product.alt.name2;" control="product_alt_name2"/>
+                                                <textbox id="product_alt_name2" form="productForm" name="alt_name2" value="" onfocus="this.select()" oninput="$do('validateForm', null, 'Plus')"/>
+                                            </vbox>
+                                        </row>
+                                        <row>
+                                            <vbox>
                                                 <label value="&plus.purchase.price;" control="buy_price"/>
                                                 <textbox id="buy_price" type="number" decimalplaces="Infinity" min="-Infinity" max="Infinity" hidespinbuttons="true" form="productForm" name="buy_price" onfocus="this.select()"/>
                                             </vbox>

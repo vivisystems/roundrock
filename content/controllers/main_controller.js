@@ -70,26 +70,14 @@
         },
 
 
-        SysConfigDialog: function () {
-            var aURL = "chrome://viviecr/content/sysconfig.xul";
-            var aName = "SysConfig";
-            var aArguments = "";
-            var posX = 0;
-            var posY = 0;
-            var width = this.screenwidth;
-            var height = this.screenheight;
-            GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,dependent=yes,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height, "");
-        },
-
         ControlPanelDialog: function () {
-            var aURL = "chrome://viviecr/content/controlPanel.xul";
-            var aName = "SysConfig";
-            var aArguments = "";
+            var aURL = 'chrome://viviecr/content/controlPanel.xul';
+            var aName = _('Control Panel');
             var posX = 0;
             var posY = 0;
             var width = this.screenwidth;
             var height = this.screenheight;
-            GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,dependent=yes,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height, "");
+            GREUtils.Dialog.openWindow(window, aURL, aName, 'chrome,dialog,modal,dependent=yes,resize=no,top=' + posX + ',left=' + posY + ',width=' + width + ',height=' + height, "");
 
             if (this.doRestart) {
                 try {
@@ -155,6 +143,16 @@
             //$do('load', null, 'Categories');
 
             GREUtils.Dialog.openDialog(window, aURL, aName, aArguments, posX, posY, width, height);
+        },
+
+        printerDashboard: function () {
+            var aURL = 'chrome://viviecr/content/printer_dashboard.xul';
+            var width = this.screenwidth * .6;
+            var height = this.screenheight * .6;
+
+            var deviceController = GeckoJS.Controller.getInstanceByName('Devices');
+            var devices = deviceController ? deviceController.getSelectedDevices() : [];
+            GREUtils.Dialog.openWindow(window, aURL, _('Printer Dashboard'), 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + width + ',height=' + height, devices);
         },
 
         AnnotateDialog: function (codes) {
@@ -791,17 +789,25 @@
             var customers = GeckoJS.Session.get('customers');
             var products = GeckoJS.Session.get('products');
             var numProds = products.length;
+            var numCustomers = customers.length;
+            
+            var customerController = GeckoJS.Controller.getInstanceByName('Customers');
             
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
             //
             for (var i = 0; i < count; i++) {
 
                 // select a member
+                if (customerController && numCustomers > 0) {
+                    var customer = customers[Math.floor(numCustomers * Math.random())];
+                    var txn = cart._getTransaction(true);
+                    customerController.processSetCustomerResult(txn, {ok: true, customer: customer});
+                }
 
                 for (var j = 0; j < items; j++) {
 
                     // select an item with no condiments from product list
-                    var item = products[(numProds * Math.random()).toFixed(0)];
+                    var item = products[Math.floor(numProds * Math.random())];
                     if (item.force_condiment) {
                         item.force_condiment = false;
                     }

@@ -532,6 +532,11 @@ pref("vivipos.fec.registry.function.programmable.prefinalize.command", "preFinal
 pref("vivipos.fec.registry.function.programmable.prefinalize.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.prefinalize.data", "");
 
+pref("vivipos.fec.registry.function.programmable.printerDashboard.access", "acl_printer_dashboard");
+pref("vivipos.fec.registry.function.programmable.printerDashboard.command", "printerDashboard");
+pref("vivipos.fec.registry.function.programmable.printerDashboard.controller", "Main");
+pref("vivipos.fec.registry.function.programmable.printerDashboard.data", "");
+
 pref('vivipos.fec.ui.functionpanel.button.defaultcolor', 'function-button-color-default');
 pref('vivipos.fec.ui.functionpanel.button.defaultfontsize', 'medium');
 pref('vivipos.fec.ui.department.button.defaultcolor', 'department-button-color-default');
@@ -592,12 +597,12 @@ pref("vivipos.fec.reportpanels.detailedtaxreport.label", "Detailed Tax Report");
 pref("vivipos.fec.reportpanels.detailedtaxreport.path", "chrome://viviecr/content/reports/rpt_detailed_tax.xul");
 pref("vivipos.fec.reportpanels.detailedtaxreport.icon", "chrome://viviecr/content/skin/icons/reporticon_taxe.png");
 pref("vivipos.fec.reportpanels.detailedtaxreport.roles", "acl_run_report_inactive");
-
+/*
 pref("vivipos.fec.reportpanels.invoice.label", "Invoice Records");
 pref("vivipos.fec.reportpanels.invoice.path", "chrome://viviecr/content/reports/rpt_invoice.xul");
 pref("vivipos.fec.reportpanels.invoice.icon", "chrome://viviecr/content/skin/icons/reporticon_taxe.png");
-pref("vivipos.fec.reportpanels.invoice.roles", "acl_run_report_inactive");
-
+pref("vivipos.fec.reportpanels.invoice.roles", "acl_run_report_active");
+*/
 pref("vivipos.fec.reportpanels.hourlysales.label", "Hourly Sales");
 pref("vivipos.fec.reportpanels.hourlysales.path", "chrome://viviecr/content/reports/rpt_hourly_sales.xul");
 pref("vivipos.fec.reportpanels.hourlysales.icon", "chrome://viviecr/content/skin/icons/reporticon_hour.png");

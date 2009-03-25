@@ -108,7 +108,8 @@
 
                 panel.selectedIndex = newIndex;
                 panel.selectedItems = [newIndex];
-
+                panel.ensureIndexIsVisible(newIndex);
+                
                 this.validateForm(true);
 
                 document.getElementById('display_name').focus();
@@ -146,6 +147,7 @@
 
                 panel.selectedIndex = index;
                 panel.selectedItems = [index];
+                panel.ensureIndexIsVisible(index);
 
                 // @todo OSD
                 OsdUtils.info(_('Employee [%S] modified successfully', [evt.data.displayname]));
@@ -177,6 +179,11 @@
             this.Acl.changeUserPassword(evt.data.username, evt.data.password);
             this.Acl.addUserToGroup(evt.data.username, evt.data.group);
 
+            //
+            var panel = this.getListObj();
+            var index = panel.selectedIndex;
+            panel.ensureIndexIsVisible(index);
+            
             // check if assigned drawer, if any, is enabled
             var device;
             // use try just in case opener or opener.opener no longer exists
@@ -258,6 +265,7 @@
             
             panel.selectedIndex = index;
             panel.selectedItems = [index];
+            panel.ensureIndexIsVisible(index);
 
             this.validateForm(true);
 
@@ -271,7 +279,10 @@
 
         afterScaffoldIndex: function(evt) {
 
-            this.getListObj().datasource = evt.data;
+            var panel = this.getListObj();
+
+            panel.datasource = evt.data;
+            panel.ensureIndexIsVisible(panel.selectedIndex);
             
         },
 
@@ -337,7 +348,8 @@
 
             panel.selectedItems = [index];
             panel.selectedIndex = index;
-
+            panel.ensureIndexIsVisible(index);
+            
             this.validateForm(true);
 
 

@@ -127,6 +127,8 @@
                     self.Acl.addRoleToGroup(group, roles[idx].name);
                 });
 
+                this.select();
+                
                 // @todo OSD.text to be replaced by OSD.info
                 OsdUtils.info(_('ACL Group [%S] modified successfully', [group]));
             }
@@ -170,7 +172,7 @@
             }
 
             if (data) {
-                listObj.value = data;            
+                listObj.value = data;
             } else {
                 listObj.selectedItems = [];
                 listObj.selectedIndex = -1;
@@ -233,7 +235,6 @@
         select: function() {
 		
             var listObj = this.getListObj();
-            var roleListObj = this.getRoleListObj();
             var selectedIndex = listObj.selectedIndex;
 
             if (selectedIndex > -1) {
@@ -245,6 +246,8 @@
             else {
                 GeckoJS.FormHelper.reset('aclgroupForm');
             }
+            listObj.ensureIndexIsVisible(selectedIndex);
+            
             this.validateForm();
         },
 

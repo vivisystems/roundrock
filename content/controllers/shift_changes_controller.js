@@ -163,7 +163,10 @@
 
             // reset sequence if necessary
             if (resetSequence && isNewSalePeriod) {
-                var newSequence = new Date(newSalePeriod * 1000).toString('yyyyMMdd') + '00000';
+                // get sequence format and length
+                var sequenceNumberLength = GeckoJS.Configure.read('vivipos.fec.settings.SequenceNumberLength') || 4;
+                var newSequence = new Date(newSalePeriod * 1000).toString('yyyyMMdd') +
+                                  GeckoJS.String.padLeft('0', sequenceNumberLength, '0');
                 SequenceModel.resetSequence('order_no', parseInt(newSequence));
             }
             
@@ -182,7 +185,11 @@
                               last_sale_period: lastSalePeriod,
                               last_shift_number: lastShiftNumber};
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + width + ',height=' + height;
-            GREUtils.Dialog.openWindow(null, aURL, aName, aFeatures, aArguments);
+            var parent = GREUtils.Dialog.getMostRecentWindow();
+
+            // if parent is the ViviPOS root window, set parent to null instead to make dialog center
+            if (parent != null && parent.document.title.toLowerCase() == 'vivipos') parent = null;
+            GREUtils.Dialog.openWindow(parent, aURL, aName, aFeatures, aArguments);
         },
 
         shiftChange: function() {

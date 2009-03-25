@@ -1422,11 +1422,37 @@ msgstr "XTerm"
 msgid "acl_xterm"
 msgstr "Run XTerm"
 
+msgid "IN"
+msgstr "IN"
+
 msgid "Printers"
 msgstr "Printers"
 
+msgid "OUT"
+msgstr "OUT"
+
+msgid "Y"
+msgstr "YES"
+
+msgid "N"
+msgstr "NO"
+
 msgid "acl_manage_printers"
 msgstr "Manager Printers"
+
+msgid "acl_printer_dashboard"
+msgstr "Printer Dashboard"
+
+msgid "printerDashboard.desc"
+msgstr ""
+"This function allows the operator to quickly view and change the status of "
+"enabled devices. No parameter is needed."
+
+msgid "printerDashboard.label"
+msgstr "Printer Dashboard"
+
+msgid "printerDashboard.name"
+msgstr "Printer Dashboard"
 
 msgid "confirm timezone change"
 msgstr ""
@@ -2433,6 +2459,13 @@ msgstr ""
 msgid "Transaction [%S] for amount of [%S] successfully updated"
 msgstr ""
 
+msgid "confirm delete transaction %S (%S)"
+msgstr ""
+
+msgid ""
+"Are you sure you want to delete transaction [%S] mode [%S] of amount [%S]?"
+msgstr ""
+
 msgid ""
 "Transaction [%S] for amount of [%S] successfully deleted from the ledger"
 msgstr ""
@@ -2449,6 +2482,9 @@ msgstr ""
 msgid "Transaction type [%S] and mode [%S] successfully updated"
 msgstr ""
 
+msgid "confirm delete %S (%S)"
+msgstr ""
+
 msgid "Transaction type [%S] and mode [%S] successfully deleted"
 msgstr ""
 
@@ -2456,6 +2492,9 @@ msgid "Drawer Change IN"
 msgstr ""
 
 msgid "Drawer Change OUT"
+msgstr ""
+
+msgid "Control Panel"
 msgstr ""
 
 msgid "No order to add/view annotations"
@@ -2752,6 +2791,9 @@ msgid "Error in Print controller; no worker thread available!"
 msgstr ""
 
 msgid "Specified template [%S] is empty or does not exist!"
+msgstr ""
+
+msgid "Printer Dashboard"
 msgstr ""
 
 msgid "Password and Verify Password not the same"
@@ -3063,9 +3105,6 @@ msgid "Daily Sales Summary Report"
 msgstr ""
 
 msgid "Hourly Sales Report"
-msgstr ""
-
-msgid "Invoice Report"
 msgstr ""
 
 msgid "Product Sales Report"

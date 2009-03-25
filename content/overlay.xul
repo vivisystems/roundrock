@@ -69,6 +69,7 @@
   <!-- device controllers -->
   <script src='chrome://viviecr/content/controllers/devices_controller.js'/>
   <script src='chrome://viviecr/content/controllers/print_controller.js'/>
+  <script src='chrome://viviecr/content/controllers/printer_dashboard_controller.js'/>
   <script src='chrome://viviecr/content/controllers/vfd_controller.js'/>
   <script src='chrome://viviecr/content/controllers/cashdrawer_controller.js'/>
   <script src='chrome://viviecr/content/controllers/gpio_controller.js'/>

@@ -22,7 +22,8 @@
             }
 
             this.getListObj().datasource = this._listDatas;
-
+            this.getListObj().treeBoxObject.ensureRowIsVisible(this.getListObj().selectedIndex);
+            
             this.validateForm();
         },
 
@@ -156,7 +157,7 @@
             }
 
             this.validateForm();
-        },
+        }
 	
     };
     
