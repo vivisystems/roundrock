@@ -81,7 +81,7 @@
             }
 
             
-            var orderby = 'orders.terminal_no,orders.transaction_created';
+            var orderby = '"Order.HourTotal" desc';//orders.transaction_created';
 
             var order = new OrderModel();
             var datas = order.find( 'all', {fields: fields, conditions: conditions, group: groupby, order: orderby, recursive: -1} );
@@ -93,9 +93,23 @@
             if ( sortby != 'all' ) {
             	datas.sort(
             		function ( a, b ) {
-            			if ( a[ sortby ] > b[ sortby ] ) return 1;
-            			if ( a[ sortby ] < b[ sortby ] ) return -1;
-            			return 0;
+            			a = a[ sortby ];
+            			b = b[ sortby ];
+            			
+            			switch ( sortby ) {
+            				case 'terminal_no':
+            					if ( a > b ) return 1;
+				    			if ( a < b ) return -1;
+				    			return 0;
+            				case 'Hour':
+            				case 'HourTotal':
+            				case 'OrderNum':
+            				case 'Guests':
+            				case 'ItemsCount':
+            					if ( a < b ) return 1;
+				    			if ( a > b ) return -1;
+				    			return 0;
+				    	}
             		}
             	);
             }
@@ -139,7 +153,7 @@
 
             this._datas = data;
 
-            var path = GREUtils.File.chromeToPath( "chrome://reports/locale/reports/tpl/rpt_hourly_sales/rpt_hourly_sales.tpl" );
+            var path = GREUtils.File.chromeToPath( "chrome://viviecr/content/reports/tpl/rpt_hourly_sales/rpt_hourly_sales.tpl" );
 
             var file = GREUtils.File.getFile(path);
             var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
@@ -199,7 +213,7 @@
 
                 var waitPanel = this._showWaitPanel('wait_panel', 100);
 
-                var path = GREUtils.File.chromeToPath("chrome://reports/locale/reports/tpl/rpt_hourly_sales/rpt_hourly_sales_csv.tpl");
+                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_hourly_sales/rpt_hourly_sales_csv.tpl");
 
                 var file = GREUtils.File.getFile(path);
                 var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
@@ -222,7 +236,7 @@
                 this._enableButton(false);
                 var waitPanel = this._showWaitPanel('wait_panel', 100);
 
-                var path = GREUtils.File.chromeToPath("chrome://reports/locale/reports/tpl/rpt_hourly_sales/rpt_hourly_sales_rcp_80mm.tpl");
+                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_hourly_sales/rpt_hourly_sales_rcp_80mm.tpl");
 
                 var file = GREUtils.File.getFile(path);
                 var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );

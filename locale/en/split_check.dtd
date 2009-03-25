@@ -5,3 +5,16 @@
 <!ENTITY splitcheck.button.action.cancel "Cancel">
 <!ENTITY splitcheck.button.action.conform "Conform">
 <!ENTITY splitcheck.button.action.paythis "Pay This Check">
+<!ENTITY splitcheck.sourcecheck "Source Check">
+<!ENTITY splitcheck.sourcecheck.checkno "Check No:">
+<!ENTITY splitcheck.sourcecheck.tableno "Table No:">
+<!ENTITY splitcheck.sourcecheck.name "Name">
+<!ENTITY splitcheck.sourcecheck.qty "Qty">
+<!ENTITY splitcheck.sourcecheck.price "Price">
+<!ENTITY splitcheck.splitedcheck "Splited Check">
+<!ENTITY splitcheck.splitedcheck.checkno "Check No:">
+<!ENTITY splitcheck.splitedcheck.tableno "Table No:">
+<!ENTITY splitcheck.splitedcheck.name "Name">
+<!ENTITY splitcheck.splitedcheck.qty "Qty">
+<!ENTITY splitcheck.splitedcheck.price "Price">
+<!ENTITY splitcheck.splitedchecklist "Splited Checks">

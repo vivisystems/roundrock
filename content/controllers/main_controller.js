@@ -70,26 +70,14 @@
         },
 
 
-        SysConfigDialog: function () {
-            var aURL = "chrome://viviecr/content/sysconfig.xul";
-            var aName = "SysConfig";
-            var aArguments = "";
-            var posX = 0;
-            var posY = 0;
-            var width = this.screenwidth;
-            var height = this.screenheight;
-            GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,dependent=yes,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height, "");
-        },
-
         ControlPanelDialog: function () {
-            var aURL = "chrome://viviecr/content/controlPanel.xul";
-            var aName = "SysConfig";
-            var aArguments = "";
+            var aURL = 'chrome://viviecr/content/controlPanel.xul';
+            var aName = _('Control Panel');
             var posX = 0;
             var posY = 0;
             var width = this.screenwidth;
             var height = this.screenheight;
-            GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,dependent=yes,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height, "");
+            GREUtils.Dialog.openWindow(window, aURL, aName, 'chrome,dialog,modal,dependent=yes,resize=no,top=' + posX + ',left=' + posY + ',width=' + width + ',height=' + height, "");
 
             if (this.doRestart) {
                 try {
@@ -155,6 +143,16 @@
             //$do('load', null, 'Categories');
 
             GREUtils.Dialog.openDialog(window, aURL, aName, aArguments, posX, posY, width, height);
+        },
+
+        printerDashboard: function () {
+            var aURL = 'chrome://viviecr/content/printer_dashboard.xul';
+            var width = this.screenwidth * .6;
+            var height = this.screenheight * .6;
+
+            var deviceController = GeckoJS.Controller.getInstanceByName('Devices');
+            var devices = deviceController ? deviceController.getSelectedDevices() : [];
+            GREUtils.Dialog.openWindow(window, aURL, _('Printer Dashboard'), 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + width + ',height=' + height, devices);
         },
 
         AnnotateDialog: function (codes) {
@@ -696,26 +694,48 @@
             return waitPanel;
         },
 
-        clearOrderData: function(days) {
+        clearOrderData: function(days, pack) {
             // the number of days to retain
+
             var retainDays = days || GeckoJS.Configure.read('vivipos.fec.settings.OrderRetainDays') || 0;
+            var weeklyPack = GeckoJS.Configure.read('vivipos.fec.settings.OrderWeeklyPack') || -1;
 
             if (retainDays > 0) {
+
                 var waitPanel = this._showWaitPanel('wait_panel', 'common_wait', _('Removing old data...'), 1000);
 
                 try {
                     var retainDate = Date.today().addDays(retainDays * -1).getTime() / 1000;
 
+                    // dispatch beforeClearOrderData event
+                    this.dispatchEvent('beforeClearOrderData', retainDate);
+
                     var order = new OrderModel();
                     var conditions = "orders.transaction_submitted<='" + retainDate +
                                      "' AND orders.status<='1'";
                     order.removeOrders(conditions);
+
+                    // dispatch beforeClearOrderData event
+                    this.dispatchEvent('afterClearOrderData', retainDate);
+
+                    // if pack order data...
+                    var today = (new Date()).getDay();
+                    if (pack || (weeklyPack == today)) {
+                        order.execute("VACUUM");
+                    }
+
+                    // dispatch afterPackOrderData event
+                    this.dispatchEvent('afterPackOrderData', retainDate);
+
+
                     delete order;
 
                 } catch (e) {}
                 finally {
                     waitPanel.hidePopup();
                 }
+
+
             }
         },
 
@@ -737,11 +757,13 @@
 
             var args = arg.split('|');
 
-            //this.requestCommand(args[0], args[1], args[2]) ;
+            this.requestCommand(args[0], args[1], args[2]) ;
+            /*
             var printer = GeckoJS.Controller.getInstanceByName('Print');
             if (printer) {
                 printer.printReport('narrow', 'This is a narrow report [0x0C]');
             }
+            */
         },
 
         shutdownMachine: function() {
@@ -756,10 +778,60 @@
                 goRebootMachine();
             }catch(e) {
             }
+        },
+
+        loadTest: function(params) {
+            var paramList = [];
+            if (params) paramList = params.split(',');
+            var count = parseInt(paramList[0]) || 1;
+            var items = parseInt(paramList[1]) || 1;
+            var waitPanel = this._showWaitPanel('wait_panel', 'common_wait', 'Load Testing (' + count + ' orders with ' + items + ' items)', 1000);
+            var customers = GeckoJS.Session.get('customers');
+            var products = GeckoJS.Session.get('products');
+            var numProds = products.length;
+            var numCustomers = customers.length;
+            
+            var customerController = GeckoJS.Controller.getInstanceByName('Customers');
+            
+            var cart = GeckoJS.Controller.getInstanceByName('Cart');
+            //
+            for (var i = 0; i < count; i++) {
+
+                // select a member
+                if (customerController && numCustomers > 0) {
+                    var customer = customers[Math.floor(numCustomers * Math.random())];
+                    var txn = cart._getTransaction(true);
+                    customerController.processSetCustomerResult(txn, {ok: true, customer: customer});
+                }
+
+                for (var j = 0; j < items; j++) {
+
+                    // select an item with no condiments from product list
+                    var item = products[Math.floor(numProds * Math.random())];
+                    if (item.force_condiment) {
+                        item.force_condiment = false;
+                    }
+                    if (item.force_memo) {
+                        item.force_memo = false;
+                    }
+
+                    // add to cart
+                    cart.addItem(item);
+
+                    // delay
+                    this.sleep(100 + 100 * Math.random());
+                }
+                // finalize order with cash
+                cart.cash();
+
+                // delay
+                this.sleep(300 + 100 * Math.random());
+            }
+
+            waitPanel.hidePopup();
         }
     };
 
     GeckoJS.Controller.extend(__controller__);
 
 })();
-

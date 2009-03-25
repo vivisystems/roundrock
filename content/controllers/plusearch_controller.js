@@ -4,7 +4,7 @@
      * Class PluSearch
      */
 
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
         name: 'PluSearch',
         _listObj: null,
         _listDatas: null,
@@ -118,7 +118,7 @@
             if (barcode == "") return;
 
             this.load(barcode);
-
+            
             if (this._listDatas.length <= 0) {
                 // barcode notfound
                 // @todo OSD?
@@ -134,6 +134,8 @@
             }
 
         }
-    });
+    };
+
+    GeckoJS.Controller.extend(__controller__);
 
 })();

@@ -7,7 +7,7 @@
      * for vivifuncpanelecr
      */
 
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
 
         name: 'HotkeyPrefs',
         prefTree: null,
@@ -217,13 +217,32 @@
 
                 this.savePreferences();
 
-                this.editableFields(false);
+                // select preceding hotkey combo
+                var tree = document.getElementById('hotkey_prefs_tree');
+                var count = 0;
+                if (tree.datasource != null && tree.datasource.data != null) {
+                    count = tree.datasource.data.length;
+                }
+                var index = -1;
+                if (count > 0) {
+                    index = tree.currentIndex;
+                    if (index >= count) {
+                        index = count - 1;
+                        tree.selection.select(index);
+                    }
+                }
+                if (index > -1) {
+                    this.selectHotkey(tree);
+                }
+                else {
+                    this.editableFields(false);
+
+                    document.getElementById('modify_hotkey').setAttribute('disabled', true);
+                    document.getElementById('delete_hotkey').setAttribute('disabled', true);
+                }
 
                 // @todo OSD
                 OsdUtils.info(_('Hotkey [%S] [%S] remove successfully', [inputData.name, keydisplay]));
-
-                document.getElementById('modify_hotkey').setAttribute('disabled', true);
-                document.getElementById('delete_hotkey').setAttribute('disabled', true);
 
 
             }
@@ -413,7 +432,9 @@
         }
 
 
-    });
+    };
+
+    GeckoJS.Controller.extend(__controller__);
 
     window.addEventListener("load", function (){
         $do('startup', '', 'HotkeyPrefs');

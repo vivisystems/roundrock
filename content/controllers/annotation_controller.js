@@ -1,6 +1,6 @@
 (function(){
 
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
         name: 'Annotations',
 
         _orderId: null,
@@ -44,7 +44,6 @@
             }
 
             this.getCodeListObj().datasource = this._codeDatas;
-
             this.validateCodeForm();
         },
 
@@ -91,6 +90,8 @@
                     this.saveAnnotationCodes();
 
                     var annotationCode = this._codeDatas[index].code;
+                    this.getCodeListObj().treeBoxObject.ensureRowIsVisible(index);
+                    
                     OsdUtils.info(_('Annotation code [%S] modified successfully', [annotationCode]));
                 }
                 else {
@@ -159,6 +160,7 @@
 	
         selectCode: function(index){
             this.getCodeListObj().vivitree.selection.select(index);
+            this.getCodeListObj().treeBoxObject.ensureRowIsVisible(index);
             if (index > -1) {
                 var inputObj = this._codeDatas[index];
                 GeckoJS.FormHelper.unserializeFromObject('annotationCodeForm', inputObj);
@@ -478,7 +480,9 @@
             return annotationModel.findByIndex('all', {index: 'order_id', value: order_id, order: 'type', recursive: 0});
         }
 
-    });
+    };
+
+    GeckoJS.Controller.extend(__controller__);
 
     window.addEventListener('load', function() {
         var main = GeckoJS.Controller.getInstanceByName('Main');

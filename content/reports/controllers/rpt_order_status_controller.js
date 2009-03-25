@@ -99,11 +99,31 @@
                 //var groupby = '"Order.Date"';
             }
             var groupby = '';
-            var orderby = 'orders.terminal_no, orders.transaction_created, orders.id';
+            var orderby = 'orders.terminal_no, orders.status, orders.item_subtotal desc';//orders.transaction_created, orders.id';
             
             var sortby = document.getElementById( 'sortby' ).value;
-            if ( sortby != 'all' )
-            	orderby = 'orders.' + sortby;
+            if ( sortby != 'all' ) {
+				var desc = '';
+				
+				switch ( sortby ) {
+					case 'terminal_no':
+					case 'service_clerk_displayname':
+					case 'status':
+						break;
+					case 'transaction_created':
+					case 'sequence':
+					case 'invoice_no':
+					case 'item_subtotal':
+					case 'tax_subtotal':
+					case 'surcharge_subtotal':
+					case 'discount_subtotal':
+					case 'total':
+						desc = ' desc';
+						break;
+				}
+				
+            	orderby = 'orders.' + sortby + desc;
+            }
             
             var order = new OrderModel();
             
@@ -167,7 +187,7 @@
 
             this._datas = data;
 
-            var path = GREUtils.File.chromeToPath("chrome://reports/locale/reports/tpl/rpt_order_status/rpt_order_status.tpl");
+            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_order_status/rpt_order_status.tpl");
 
             var file = GREUtils.File.getFile(path);
             var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
@@ -226,7 +246,7 @@
 
                 var waitPanel = this._showWaitPanel('wait_panel', 100);
 
-                var path = GREUtils.File.chromeToPath("chrome://reports/locale/reports/tpl/rpt_order_status/rpt_order_status_csv.tpl");
+                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_order_status/rpt_order_status_csv.tpl");
 
                 var file = GREUtils.File.getFile(path);
                 var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
@@ -249,7 +269,7 @@
                 this._enableButton(false);
                 var waitPanel = this._showWaitPanel('wait_panel', 100);
 
-                var path = GREUtils.File.chromeToPath("chrome://reports/locale/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl");
+                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_order_status/rpt_order_status_rcp_80mm.tpl");
 
                 var file = GREUtils.File.getFile(path);
                 var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );

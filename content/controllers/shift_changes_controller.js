@@ -4,7 +4,7 @@
      * ShiftChangesController
      */
 
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
         name: 'ShiftChanges',
 
         _listObj: null,
@@ -82,6 +82,9 @@
         setShift: function(salePeriod, shiftNumber, endOfPeriod, endOfShift) {
             var shiftMarkerModel = new ShiftMarkerModel();
 
+            shiftNumber = parseInt(shiftNumber);
+            salePeriod = parseInt(salePeriod);
+            
             var newShiftMarker = {
                 terminal_no: GeckoJS.Session.get('terminal_no'),
                 sale_period: salePeriod,
@@ -160,7 +163,10 @@
 
             // reset sequence if necessary
             if (resetSequence && isNewSalePeriod) {
-                var newSequence = new Date(newSalePeriod * 1000).toString('yyyyMMdd') + '00000';
+                // get sequence format and length
+                var sequenceNumberLength = GeckoJS.Configure.read('vivipos.fec.settings.SequenceNumberLength') || 4;
+                var newSequence = new Date(newSalePeriod * 1000).toString('yyyyMMdd') +
+                                  GeckoJS.String.padLeft('0', sequenceNumberLength, '0');
                 SequenceModel.resetSequence('order_no', parseInt(newSequence));
             }
             
@@ -179,7 +185,11 @@
                               last_sale_period: lastSalePeriod,
                               last_shift_number: lastShiftNumber};
             var aFeatures = 'chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=' + width + ',height=' + height;
-            GREUtils.Dialog.openWindow(null, aURL, aName, aFeatures, aArguments);
+            var parent = GREUtils.Dialog.getMostRecentWindow();
+
+            // if parent is the ViviPOS root window, set parent to null instead to make dialog center
+            if (parent != null && parent.document.title.toLowerCase() == 'vivipos') parent = null;
+            GREUtils.Dialog.openWindow(parent, aURL, aName, aFeatures, aArguments);
         },
 
         shiftChange: function() {
@@ -417,8 +427,9 @@
                                                            });
 
             var giftcardExcess = (giftcardTotal && giftcardTotal.excess_amount != null) ? giftcardTotal.excess_amount : 0;
-            
-            var shiftChangeDetails = destDetails.concat(creditcardCouponDetails.concat(giftcardDetails.concat(checkDetails.concat(localCashDetails.concat(foreignCashDetails.concat(ledgerDetails))))));
+
+            // don't include destination details yet
+            var shiftChangeDetails = creditcardCouponDetails.concat(giftcardDetails.concat(checkDetails.concat(localCashDetails.concat(foreignCashDetails.concat(ledgerDetails)))));
             shiftChangeDetails = new GeckoJS.ArrayQuery(shiftChangeDetails).orderBy('type asc, name asc');
 
             var aURL = 'chrome://viviecr/content/prompt_doshiftchange.xul';
@@ -474,6 +485,9 @@
                     }
                 }
 
+                // append destination details to shift change details so it gets stored to db
+                shiftChangeDetails = destDetails.concat(shiftChangeDetails);
+
                 // update shiftChangeDetails and record shift change to database
                 var shiftChangeRecord = {
                     starttime: currentShift.modified,
@@ -488,7 +502,7 @@
                     terminal_no: GeckoJS.Session.get('terminal_no'),
                     sale_period: this.getSalePeriod(),
                     shift_number: this.getShiftNumber(),
-                    shiftChangeDetails: inputObj.shiftChangeDetails
+                    shiftChangeDetails: shiftChangeDetails
                 };
 
                 // do shift change
@@ -588,7 +602,9 @@
             }
         }
 
-    });
+    };
+
+    GeckoJS.Controller.extend(__controller__);
 
     window.addEventListener('load', function() {
         var main = GeckoJS.Controller.getInstanceByName('Main');

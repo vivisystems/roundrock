@@ -8,6 +8,10 @@ button_fontsizepicker {
   -moz-binding: url("chrome://viviecr/content/bindings/button_fontsizepicker.xbl#button_fontsizepicker");
 }
 
+sync_status {
+  -moz-binding: url("chrome://viviecr/content/bindings/sync_status.xbl#sync_status");
+}
+
 vividatetimepicker {
   -moz-binding: url("chrome://viviecr/content/bindings/vividatetimepicker.xbl#vividatetimepicker");
 }

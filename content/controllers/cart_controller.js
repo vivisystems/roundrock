@@ -1653,7 +1653,17 @@
 
         },
 
-        creditCard: function(mark) {
+        creditCard: function(args) {
+
+            var argList = [];
+            if (args != null && args != '') {
+                argList = args.split(',');
+            }
+
+            var type = argList[0];
+            var silent = argList[1];
+
+            if (type == null) type = '';
 
             // check if has buffer
             var buf = this._getKeypadController().getBuffer();
@@ -1716,26 +1726,31 @@
                 }
             }
 
-            var data = {
-                type: mark,
-                payment: curTransaction.formatPrice(payment)
-            };
+            if (silent && type != '') {
+                this.addPayment('creditcard', payment, payment, type, '');
+            }
+            else {
+                var data = {
+                    type: type,
+                    payment: curTransaction.formatPrice(payment)
+                };
 
-            var self = this;
+                var self = this;
 
-            return this.getCreditCardDialog(data).next(function(evt) {
+                return this.getCreditCardDialog(data).next(function(evt) {
 
-                var result = evt.data;
-                
-                if (result.ok) {
-                    var memo1 = result.input0 || '';
-                    var memo2 = result.input1 || '';
-                    self.addPayment('creditcard', payment, payment, memo1, memo2);
-                }
-                else {
-                    self.subtotal();
-                }
-            });
+                    var result = evt.data;
+
+                    if (result.ok) {
+                        var memo1 = result.input0 || '';
+                        var memo2 = result.input1 || '';
+                        self.addPayment('creditcard', payment, payment, memo1, memo2);
+                    }
+                    else {
+                        self.subtotal();
+                    }
+                });
+            }
 
         },
 
@@ -1744,10 +1759,13 @@
             // args should be a list of up to 2 comma-separated parameters: type, amount
             var type = '';
             var amount;
+            var silent = false;
             if (args != null && args != '') {
                 var argList = args.split(',');
                 type = argList[0];
-                if (!isNaN(argList[1])) amount = parseFloat(argList[1]);
+                if (type == null) type = ''
+                if (argList[1] != null && argList[1] != '' && !isNaN(argList[1])) amount = parseFloat(argList[1]);
+                silent = argList[2];
             }
 
             // check if has buffer
@@ -1794,30 +1812,35 @@
                     payment = curTransaction.getRemainTotal();
                 }
             }
-            var data = {
-                type: type,
-                payment: curTransaction.formatPrice(payment)
-            };
 
-            var self = this;
+            if (silent && type != '') {
+                this.addPayment('coupon', payment, payment, type, '');
+            }
+            else {
+                var data = {
+                    type: type,
+                    payment: curTransaction.formatPrice(payment)
+                };
 
-            return this.getCouponDialog(data).next(function(evt){
-                
-                var result = evt.data;
+                var self = this;
 
-                if(result.ok) {
+                return this.getCouponDialog(data).next(function(evt){
 
-                    var memo1 = result.input0 || '';
-                    var memo2 = result.input1 || '';
-                    
-                    self.addPayment('coupon', payment, payment, memo1, memo2);
+                    var result = evt.data;
 
-                }
-                else {
-                    self.subtotal();
-                }
-            });
+                    if(result.ok) {
 
+                        var memo1 = result.input0 || '';
+                        var memo2 = result.input1 || '';
+
+                        self.addPayment('coupon', payment, payment, memo1, memo2);
+
+                    }
+                    else {
+                        self.subtotal();
+                    }
+                });
+            }
         },
 
         giftcard: function(args) {
@@ -1825,10 +1848,13 @@
             // args should be a list of up to 2 comma-separated parameters: type, amount
             var type = '';
             var amount;
+            var silent = false;
             if (args != null && args != '') {
                 var argList = args.split(',');
                 type = argList[0];
-                if (!isNaN(argList[1])) amount = parseFloat(argList[1]);
+                if (type == null) type = '';
+                if (argList[1] != null && argList[1] != '' && !isNaN(argList[1])) amount = parseFloat(argList[1]);
+                silent = argList[2];
             }
 
             // check if has buffer
@@ -1892,30 +1918,34 @@
                     balance = payment;
                 }
             }
-            var data = {
-                type: type,
-                payment: curTransaction.formatPrice(payment)
-            };
+            if (silent && type != '') {
+                this.addPayment('giftcard', balance, payment, type, '');
+            }
+            else {
+                var data = {
+                    type: type,
+                    payment: curTransaction.formatPrice(payment)
+                };
 
-            var self = this;
+                var self = this;
 
-            return this.getGiftcardDialog(data).next(function(evt){
+                return this.getGiftcardDialog(data).next(function(evt){
 
-                var result = evt.data;
+                    var result = evt.data;
 
-                if(result.ok) {
+                    if(result.ok) {
 
-                    var memo1 = result.input0 || '';
-                    var memo2 = result.input1 || '';
+                        var memo1 = result.input0 || '';
+                        var memo2 = result.input1 || '';
 
-                    self.addPayment('giftcard', balance, payment, memo1, memo2);
+                        self.addPayment('giftcard', balance, payment, memo1, memo2);
 
-                }
-                else {
-                    self.subtotal();
-                }
-            });
-
+                    }
+                    else {
+                        self.subtotal();
+                    }
+                });
+            }
         },
 
         check: function(type) {
@@ -2046,6 +2076,9 @@
 
             var index = this._cartView.getSelectedIndex();
             var curTransaction = this._getTransaction();
+            var returnMode = this._returnMode;
+
+            this.cancelReturn();
 
             if(curTransaction == null || curTransaction.isSubmit() || curTransaction.isCancel()) {
                 this.clear();
@@ -2070,7 +2103,7 @@
 
             var paymentsTypes = GeckoJS.BaseObject.getKeys(curTransaction.getPayments());
 
-            if (this._returnMode) {
+            if (returnMode) {
                 var err = false;
                 if (paymentsTypes.length == 0) {
                     NotifyUtils.warn(_('No payment has been made; cannot register refund payment'));
@@ -2097,7 +2130,16 @@
                 }
             }
 
-            this.addMarker('total');
+            // add a total marker if no new items have been added since last total/subtotal marker
+            // in other words, check if any item has hasMarker = false
+            var transItems = curTransaction.getItems();
+            var allMarked = true;
+            for (var itemId in transItems) {
+                if (!(allMarked = transItems[itemId].hasMarker)) {
+                    break;
+                }
+            }
+            if (!allMarked) this.addMarker('total');
             
             type = type || 'cash';
             amount = amount || false;
@@ -2110,11 +2152,11 @@
 
             origin_amount = typeof origin_amount == 'undefined' ? amount : origin_amount;
 
-            if (this._returnMode) {
+            if (returnMode) {
                 origin_amount = 0 - origin_amount;
                 amount = 0 - amount;
             }
-            
+
             var paymentItem = {
                 type: type,
                 amount: amount,
@@ -2680,17 +2722,18 @@
             }
 
             var selectedItems = [];
-
+            var conds = condGroupsByPLU[condgroup]['Condiments'];
             if (condiments == null) {
-                selectedItems = selectedItems.concat(condGroupsByPLU[condgroup]['PresetItems']);
+                //@irving filter out sold out condiments
+                selectedItems = selectedItems.concat(condGroupsByPLU[condgroup]['PresetItems'].filter(function(c) {return !conds[c].soldout}));
             }else {
                     // check item selected condiments
                    // if (condiments[selectCondiments[i]['name']]) selectedItems.push(i);
             }
-
             var dialog_data = {
-                conds: condGroupsByPLU[condgroup]['Condiments'],
-                selectedItems: selectedItems
+                conds: conds,
+                selectedItems: selectedItems,
+                hideSoldout: GeckoJS.Configure.read('vivipos.fec.settings.HideSoldOutButtons') || false
             };
             var self = this;
             return $.popupPanel('selectCondimentPanel', dialog_data).next(function(evt){
@@ -3045,6 +3088,92 @@
 
         },
 
+        newCheck: function() {
+            var no = this._getKeypadController().getBuffer();
+            this._getKeypadController().clearBuffer();
+
+            this.cancelReturn();
+
+            var curTransaction = this._getTransaction();
+            if (curTransaction == null) {
+                NotifyUtils.warn(_('Not an open order; unable to store'));
+                return; // fatal error ?
+            }
+
+            curTransaction = this._getTransaction(true);
+            if (curTransaction == null) {
+                NotifyUtils.warn(_('fatal error!!'));
+                return; // fatal error ?
+            }
+
+            var r = -1;
+            if (no.length == 0) {
+                r = this.GuestCheck.getNewCheckNo();
+            } else {
+                r = this.GuestCheck.check(no);
+            }
+
+            if (r >= 0) {
+                curTransaction.data.check_no = r;
+            } else {
+                NotifyUtils.warn(_('Check# %S is exist!!', [no]));
+            }
+
+            this.subtotal();
+        },
+
+        newTable: function() {
+            var no = this._getKeypadController().getBuffer();
+            this._getKeypadController().clearBuffer();
+
+            this.cancelReturn();
+
+            var curTransaction = this._getTransaction();
+            if (curTransaction == null) {
+                NotifyUtils.warn(_('Not an open order; unable to store'));
+                return; // fatal error ?
+            }
+
+            curTransaction = this._getTransaction(true);
+            if (curTransaction == null) {
+                NotifyUtils.warn(_('fatal error!!'));
+                return; // fatal error ?
+            }
+
+            var r = -1;
+            if (no.length == 0) {
+                r = this.GuestCheck.getNewTableNo();
+            } else {
+                r = this.GuestCheck.table(no);
+            }
+
+            if (r >= 0) {
+                curTransaction.data.table_no = r;
+            } else {
+                NotifyUtils.warn(_('Table# %S is exist!!', [no]));
+            }
+
+            this.subtotal();
+        },
+
+        recallOrder: function() {
+            var no = this._getKeypadController().getBuffer();
+            this._getKeypadController().clearBuffer();
+
+            this.cancelReturn();
+// recall order
+            return this.GuestCheck.recallByOrderNo(no);
+        },
+
+        recallTable: function() {
+            var no = this._getKeypadController().getBuffer();
+            this._getKeypadController().clearBuffer();
+
+            this.cancelReturn();
+
+            return this.GuestCheck.recallByTableNo(no);
+        },
+
         recallCheck: function() {
             var no = this._getKeypadController().getBuffer();
             this._getKeypadController().clearBuffer();
@@ -3077,6 +3206,7 @@
                 NotifyUtils.warn(_('This order is empty'));
                 return;
             }
+            var r = -1;
             var modified = curTransaction.isModified();
             if (modified) {
                 r = this.GuestCheck.store();
@@ -3085,6 +3215,141 @@
             else {
                 NotifyUtils.warn(_('No change to store'));
             }
+        },
+
+        guestNum: function() {
+            var no = this._getKeypadController().getBuffer();
+            this._getKeypadController().clearBuffer();
+
+            this.cancelReturn();
+
+            var curTransaction = this._getTransaction();
+            if (curTransaction == null) {
+                NotifyUtils.warn(_('Not an open order; unable to store'));
+                return; // fatal error ?
+            }
+
+            curTransaction = this._getTransaction(true);
+            if (curTransaction == null) {
+                NotifyUtils.warn(_('fatal error!!'));
+                return; // fatal error ?
+            }
+
+            var r = this.GuestCheck.guest(no);
+            curTransaction.data.no_of_customers = no;
+
+            this.subtotal();
+        },
+
+        mergeCheck: function() {
+
+            var no = this._getKeypadController().getBuffer();
+            this._getKeypadController().clearBuffer();
+
+            this.cancelReturn();
+
+            var curTransaction;
+
+            curTransaction = this._getTransaction();
+            if (curTransaction == null) {
+                NotifyUtils.warn(_('Not an open order; unable to store'));
+                return; // fatal error ?
+            }
+
+            if (curTransaction.data.status == 1) {
+                NotifyUtils.warn(_('This order has been submitted'));
+                return;
+            }
+            if (curTransaction.data.closed) {
+                NotifyUtils.warn(_('This order is closed pending payment and may only be finalized'));
+                return;
+            }
+            if (curTransaction.data.items_count == 0) {
+                NotifyUtils.warn(_('This order is empty'));
+                return;
+            }
+            var modified = curTransaction.isModified();
+            if (modified) {
+                NotifyUtils.warn(_('This order has been modified and must be stored first'));
+                // r = this.GuestCheck.store();
+                // this.dispatchEvent('onStore', curTransaction);
+            }
+
+            // r = this.GuestCheck.transferToCheckNo(no);
+            var r = this.GuestCheck.mergeOrder(no, curTransaction.data);
+        },
+
+        splitCheck: function() {
+
+            var no = this._getKeypadController().getBuffer();
+            this._getKeypadController().clearBuffer();
+
+            this.cancelReturn();
+
+            var curTransaction;
+            
+            curTransaction = this._getTransaction();
+            if (curTransaction == null) {
+                NotifyUtils.warn(_('Not an open order; unable to store'));
+                return; // fatal error ?
+            }
+
+            if (curTransaction.data.status == 1) {
+                NotifyUtils.warn(_('This order has been submitted'));
+                return;
+            }
+            if (curTransaction.data.closed) {
+                NotifyUtils.warn(_('This order is closed pending payment and may only be finalized'));
+                return;
+            }
+            if (curTransaction.data.items_count == 0) {
+                NotifyUtils.warn(_('This order is empty'));
+                return;
+            }
+            var modified = curTransaction.isModified();
+            if (modified) {
+                NotifyUtils.warn(_('This order has been modified and must be stored first'));
+                // r = this.GuestCheck.store();
+                // this.dispatchEvent('onStore', curTransaction);
+            }
+
+            var r = this.GuestCheck.splitOrder(no, curTransaction.data);
+        },
+
+        transferTable: function(){
+            var no = this._getKeypadController().getBuffer();
+            this._getKeypadController().clearBuffer();
+
+            this.cancelReturn();
+
+            var curTransaction;
+
+            curTransaction = this._getTransaction();
+            if (curTransaction == null) {
+                NotifyUtils.warn(_('Not an open order; unable to store'));
+                return; // fatal error ?
+            }
+
+            if (curTransaction.data.status == 1) {
+                NotifyUtils.warn(_('This order has been submitted'));
+                return;
+            }
+            if (curTransaction.data.closed) {
+                NotifyUtils.warn(_('This order is closed pending payment and may only be finalized'));
+                return;
+            }
+            if (curTransaction.data.items_count == 0) {
+                NotifyUtils.warn(_('This order is empty'));
+                return;
+            }
+            var modified = curTransaction.isModified();
+            if (modified) {
+                NotifyUtils.warn(_('This order has been modified and must be stored first'));
+                // r = this.GuestCheck.store();
+                // this.dispatchEvent('onStore', curTransaction);
+            }
+
+            var r = this.GuestCheck.transferToTableNo(no);
         },
 
         guestCheck: function(action) {
@@ -3201,16 +3466,118 @@
                     break;
 
                 case 'transferSequence':
+                    curTransaction = this._getTransaction();
+                    if (curTransaction == null) {
+                        NotifyUtils.warn(_('Not an open order; unable to store'));
+                        return; // fatal error ?
+                    }
+
+                    if (curTransaction.data.status == 1) {
+                        NotifyUtils.warn(_('This order has been submitted'));
+                        return;
+                    }
+                    if (curTransaction.data.closed) {
+                        NotifyUtils.warn(_('This order is closed pending payment and may only be finalized'));
+                        return;
+                    }
+                    if (curTransaction.data.items_count == 0) {
+                        NotifyUtils.warn(_('This order is empty'));
+                        return;
+                    }
+                    var modified = curTransaction.isModified();
+                    if (modified) {
+                        NotifyUtils.warn(_('This order has been modified and must be stored first'));
+                        // r = this.GuestCheck.store();
+                        // this.dispatchEvent('onStore', curTransaction);
+                    }
+
                     r = this.GuestCheck.transferToOrderNo(no);
                     break;
                 case 'transferCheck':
-                    r = this.GuestCheck.transferToCheckNo(no);
+                    curTransaction = this._getTransaction();
+                    if (curTransaction == null) {
+                        NotifyUtils.warn(_('Not an open order; unable to store'));
+                        return; // fatal error ?
+                    }
+
+                    if (curTransaction.data.status == 1) {
+                        NotifyUtils.warn(_('This order has been submitted'));
+                        return;
+                    }
+                    if (curTransaction.data.closed) {
+                        NotifyUtils.warn(_('This order is closed pending payment and may only be finalized'));
+                        return;
+                    }
+                    if (curTransaction.data.items_count == 0) {
+                        NotifyUtils.warn(_('This order is empty'));
+                        return;
+                    }
+                    var modified = curTransaction.isModified();
+                    if (modified) {
+                        NotifyUtils.warn(_('This order has been modified and must be stored first'));
+                        // r = this.GuestCheck.store();
+                        // this.dispatchEvent('onStore', curTransaction);
+                    }
+
+                    // r = this.GuestCheck.transferToCheckNo(no);
+                    r = this.GuestCheck.mergeOrder(no, curTransaction.data);
                     break;
                 case 'transferTable':
+                    curTransaction = this._getTransaction();
+                    if (curTransaction == null) {
+                        NotifyUtils.warn(_('Not an open order; unable to store'));
+                        return; // fatal error ?
+                    }
+
+                    if (curTransaction.data.status == 1) {
+                        NotifyUtils.warn(_('This order has been submitted'));
+                        return;
+                    }
+                    if (curTransaction.data.closed) {
+                        NotifyUtils.warn(_('This order is closed pending payment and may only be finalized'));
+                        return;
+                    }
+                    if (curTransaction.data.items_count == 0) {
+                        NotifyUtils.warn(_('This order is empty'));
+                        return;
+                    }
+                    var modified = curTransaction.isModified();
+                    if (modified) {
+                        NotifyUtils.warn(_('This order has been modified and must be stored first'));
+                        // r = this.GuestCheck.store();
+                        // this.dispatchEvent('onStore', curTransaction);
+                    }
+                    
                     r = this.GuestCheck.transferToTableNo(no);
                     break;
                 case 'splitOrder':
+                    curTransaction = this._getTransaction();
+                    if (curTransaction == null) {
+                        NotifyUtils.warn(_('Not an open order; unable to store'));
+                        return; // fatal error ?
+                    }
+
+                    if (curTransaction.data.status == 1) {
+                        NotifyUtils.warn(_('This order has been submitted'));
+                        return;
+                    }
+                    if (curTransaction.data.closed) {
+                        NotifyUtils.warn(_('This order is closed pending payment and may only be finalized'));
+                        return;
+                    }
+                    if (curTransaction.data.items_count == 0) {
+                        NotifyUtils.warn(_('This order is empty'));
+                        return;
+                    }
+                    var modified = curTransaction.isModified();
+                    if (modified) {
+                        NotifyUtils.warn(_('This order has been modified and must be stored first'));
+                        // r = this.GuestCheck.store();
+                        // this.dispatchEvent('onStore', curTransaction);
+                    }
+
                     r = this.GuestCheck.splitOrder(no, curTransaction.data);
+
                     break;
             }
             // @irving: comment out the subtotal() call 02-16-09

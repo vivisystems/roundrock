@@ -4,7 +4,7 @@
     /**
      * Layout Controller
      */
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
 
         name: 'Layout',
     
@@ -15,7 +15,7 @@
             // add event listener for onUpdateOptions events
             var main = GeckoJS.Controller.getInstanceByName('Main');
             if(main) {
-                main.addEventListener('onUpdateOptions', this.resetLayout, this);
+                main.addEventListener('onUpdateOptions', this.handleUpdateOptions, this);
                 main.addEventListener('onSetClerk', this.home, this);
             }
         },
@@ -76,7 +76,8 @@
             var pluPanel = document.getElementById('prodscrollablepanel');
             var fnPanel = document.getElementById('functionpanel');
             var fnPanelContainer = document.getElementById('functionPanelContainer');
-
+            var condPanel = document.getElementById('condimentscrollablepanel');
+            
             var departmentRows = GeckoJS.Configure.read('vivipos.fec.settings.DepartmentRows');
             if (departmentRows == null) departmentRows = 3;
 
@@ -91,6 +92,12 @@
 
             var pluCols = GeckoJS.Configure.read('vivipos.fec.settings.PluCols');
             if (pluCols == null) pluCols = 4;
+
+            var condRows = GeckoJS.Configure.read('vivipos.fec.settings.CondimentRows');
+            if (condRows == null) condRows = 7;
+
+            var condCols = GeckoJS.Configure.read('vivipos.fec.settings.CondimentCols');
+            if (condCols == null) condCols = 4;
 
             var fnRows = GeckoJS.Configure.read('vivipos.fec.settings.functionpanel.rows');
             if (fnRows == null) fnRows = 3;
@@ -107,6 +114,23 @@
 
             if (cropPLULabel) pluPanel.setAttribute('crop', 'end');
 
+            if (initial ||
+                (condPanel.vivibuttonpanel.getAttribute('rows') != condRows) ||
+                (condPanel.vivibuttonpanel.getAttribute('cols') != condCols)) {
+                condPanel.vivibuttonpanel.rows = condRows;
+                condPanel.vivibuttonpanel.cols = condCols;
+
+                condPanel.initGrid();
+                condPanel.vivibuttonpanel.resizeButtons();
+
+                if (!initial) {
+                    // @hack irving
+                    // make panel visible to let changes take effect
+                    $.popupPanel('selectCondimentPanel', {});
+                    $.hidePanel('selectCondimentPanel', {});
+                }
+            }
+            
             if (initial ||
                 (deptPanel.getAttribute('rows') != departmentRows) ||
                 (deptPanel.getAttribute('cols') != departmentCols) ||
@@ -126,6 +150,10 @@
                     deptPanel.setAttribute('hideScrollbar', hideDeptScrollbar);
                     deptPanel.setAttribute('hidden', false);
                     deptPanel.initGrid();
+
+                    // @hack to allow vivibuttons to be fully instantiated
+                    this.sleep(100);
+
                     deptPanel.vivibuttonpanel.refresh();
                 }
                 else {
@@ -150,6 +178,10 @@
                     pluPanel.setAttribute('hideScrollbar', hidePLUScrollbar);
                     pluPanel.setAttribute('hidden', false);
                     pluPanel.initGrid();
+
+                    // @hack to allow vivibuttons to be fully instantiated
+                    this.sleep(100);
+                    
                     pluPanel.vivibuttonpanel.refresh();
                 }
                 else {
@@ -242,9 +274,15 @@
             if (soldOutProduct) soldOutProduct.setAttribute('hidden', hideSoldOutButtons ? 'true' : 'false');
 
             this.resizePanels(initial);
+        },
+
+        handleUpdateOptions: function(evt) {
+            this.resetLayout(false);
         }
 
-    });
+    };
+
+    GeckoJS.Controller.extend(__controller__);
 
     // register onload
     window.addEventListener('load', function() {

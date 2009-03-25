@@ -43,7 +43,7 @@ var ImageFilesView = window.ImageFilesView = GeckoJS.NSITreeViewArray.extend({
     });
 
 
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
         name: 'ImageManager',
         helpers: ['Number'],
 
@@ -451,6 +451,8 @@ var ImageFilesView = window.ImageFilesView = GeckoJS.NSITreeViewArray.extend({
                 args.file = this._selectedFile.path;
             }
         }
-    });
+    };
+
+    GeckoJS.Controller.extend(__controller__);
 
 })();

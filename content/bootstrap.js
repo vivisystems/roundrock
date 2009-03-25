@@ -12,7 +12,6 @@
 GeckoJS.StringBundle.createBundle("chrome://viviecr/locale/messages.properties");
 
 // include project models
-include('chrome://viviecr/content/models/cart.js');
 include('chrome://viviecr/content/models/cashdrawer_record.js');
 include('chrome://viviecr/content/models/category.js');
 include('chrome://viviecr/content/models/clockstamp.js');

@@ -4,7 +4,7 @@
      * Class ImportExportController
      */
 
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
         name: 'ImportExport',
         scaffold: true,
         uses: ["Product"],
@@ -176,7 +176,7 @@
                 }, updateProgress);
 
                 // sync to media...
-                this.execute("/bin/sync", [])
+                this.execute("/bin/sync", []);
 
             }
             catch (e) {
@@ -362,6 +362,8 @@
                 // reset max script run time...
                 GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
                 // progmeter.value = 0;
+                this.execute("/bin/sync", []);
+
                 this.setButtonDisable(false);
                 waitPanel.hidePopup();
             }
@@ -421,8 +423,9 @@
             var panelView = new GeckoJS.NSITreeViewArray(this._datas);
             this.getListObj().datasource = panelView;
         }
-    });
+    };
 
+    GeckoJS.Controller.extend(__controller__);
 
 })();
 

@@ -15,13 +15,24 @@
     <binding id="sync_status">
         <content>
 
-            <xul:image xbl:inherits="class" anonid="image" src="chrome://viviecr/skin/icons/sync_disabled.png" />
+		<xul:popupset>
+		  <xul:panel anonid="statusPanel" position="after_start">
+			<xul:label anonid="localIP" value=""/>
+			<xul:label anonid="worldIP" value=""/>
+		  </xul:panel>
+		</xul:popupset>
+
+            <xul:image xbl:inherits="class" anonid="image" src="chrome://viviecr/skin/icons/sync_disabled.png" onclick="showStatusPanel(event);"/>
+
     
         </content>
 
         <xbl:implementation>
 
             <property name="image" onget="return document.getAnonymousElementByAttribute(this, 'anonid', 'image');" readonly="true"/>
+	    <property name="statusPanel" onget="return document.getAnonymousElementByAttribute(this, 'anonid', 'statusPanel');" readonly="true"/>
+	    <property name="localIP" onget="return document.getAnonymousElementByAttribute(this, 'anonid', 'localIP');" readonly="true"/>
+	    <property name="worldIP" onget="return document.getAnonymousElementByAttribute(this, 'anonid', 'worldIP');" readonly="true"/>
 
             <xbl:constructor>
                 <![CDATA[
@@ -133,6 +144,90 @@
                     ]]>
                 </body>
             </method>
+
+            <method name="showStatusPanel">
+                <parameter name="event" />
+                <body>
+                    <![CDATA[
+
+			this.getMyIP();
+		        this.getWorldIP();
+
+			this.statusPanel.openPopup(this.image, "before_end", 0, 0, false, false);
+
+			event.stopPropagation();
+
+                    ]]>
+                </body>
+            </method>
+
+
+            <method name="getMyIP">
+                <body>
+                    <![CDATA[
+
+			var localIP = "127.0.0.1";
+
+			var prog = "/bin/sh"; 
+			var output = "/tmp/eth0_inet.txt";
+			var cmd_opts = "ifconfig eth0 | grep \"inet addr\"> " + output;
+
+			GREUtils.File.run(prog, ["-c", cmd_opts], true);
+
+			var lines = GREUtils.File.readAllBytes(output);
+
+			var m = lines.match(/inet addr:(.*) B/);
+
+			if(m && m.length >=2 ) localIP = m[1];
+
+			this.localIP.value = localIP;			
+
+                    ]]>
+                </body>
+            </method>
+
+            <method name="getWorldIP">
+                <body>
+                    <![CDATA[
+
+			var myip = ""; var myland = "";
+
+			var worldIP = this.worldIP;
+			
+			var req = new XMLHttpRequest();
+			req.open("GET", "http://api.wipmania.com/", true);
+			req.setRequestHeader("Accept", "text/html,text/plain");
+			req.setRequestHeader("Accept-Encoding", null);
+			req.setRequestHeader("Keep-Alive", null);
+			req.setRequestHeader("Accept-Charset", null);
+			req.setRequestHeader("Connection", "close");
+			
+			req.onreadystatechange = function()
+			{
+				if (req.readyState == 4)
+				{
+					var doc = req.responseText;
+					try
+					{
+						var myData = doc.split("<br>");
+						myip = myData[0].substring(0,15);
+						myland = myData[1].substring(0,2);
+					}
+					catch(e)
+					{
+						myip = "";
+						myland = "";
+					}
+					worldIP.value = myip;
+				}
+			};
+			req.send(null);
+			return true;
+	
+                    ]]>
+                </body>
+            </method>
+
 
         </xbl:implementation>
 

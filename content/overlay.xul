@@ -69,6 +69,7 @@
   <!-- device controllers -->
   <script src='chrome://viviecr/content/controllers/devices_controller.js'/>
   <script src='chrome://viviecr/content/controllers/print_controller.js'/>
+  <script src='chrome://viviecr/content/controllers/printer_dashboard_controller.js'/>
   <script src='chrome://viviecr/content/controllers/vfd_controller.js'/>
   <script src='chrome://viviecr/content/controllers/cashdrawer_controller.js'/>
   <script src='chrome://viviecr/content/controllers/gpio_controller.js'/>
@@ -96,7 +97,7 @@
         </box>
 
         <popupset id="dialogs" />
-        
+
         <panel id="wait_panel" position="overlap" noautohide="true" class="WaitPnl">
             <vbox flex="1">
             <groupbox flex="1">
@@ -109,5 +110,5 @@
         </panel>
 
     </box>
-    
+
 </overlay>

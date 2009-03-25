@@ -1,13 +1,13 @@
 
 <!ENTITY systembackup.backup "System Backup">
-<!ENTITY systembackup.restore "System Resotre">
+<!ENTITY systembackup.restore "System Restore">
 <!ENTITY systembackup.local "Local Backup:">
 <!ENTITY systembackup.stick "Stick:">
 <!ENTITY systembackup.time "Time">
 <!ENTITY systembackup.backuptostick "Copy Local to Stick >>>">
 <!ENTITY systembackup.backuptolocal "Backup to Local">
 <!ENTITY systembackup.restorefromstick "Restore from Stick">
-<!ENTITY systembackup.restorefromlocal "Resotre from Local">
+<!ENTITY systembackup.restorefromlocal "Restore from Local">
 <!ENTITY systembackup.backupwait "Waitting for Backup Data...">
 <!ENTITY systembackup.restorewait "Waitting for Restore Data...">
 

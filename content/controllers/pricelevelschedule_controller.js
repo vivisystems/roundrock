@@ -3,7 +3,7 @@
     /**
      * Class PriceLevelScheduleController
      */
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
 
         name: 'PriceLevelSchedule',
         _selectedIndex: null,
@@ -96,7 +96,7 @@
             var date = new Date();
             date.setDate(date.getDate() - (date.getDay() - 0));
             for (var i = 0; i < weekTabs.length; i++) {
-                weekTabs[i].setAttribute('label', date.toLocaleFormat("%a").charAt(0));
+                weekTabs[i].setAttribute('label', date.toLocaleFormat("%a"));
                 date.setDate(date.getDate() + 1);
             }
 
@@ -184,9 +184,8 @@
 
         selectWeek: function(index){
             //
-            //this.log('selectWeek...' + index);
             this._weekIndex = index;
-            // this.log("Week:" + index);
+
             var pricelevelDatas = [];
             var defaultpriceLevel = GeckoJS.Configure.read('vivipos.fec.settings.DefaultPriceLevel') || 1;
             if (this._listDatas.length == 0) return;
@@ -218,6 +217,8 @@
         }
 
 
-    });
+    };
+
+    GeckoJS.Controller.extend(__controller__);
 
 })();

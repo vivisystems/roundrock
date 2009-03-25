@@ -3,9 +3,8 @@
     /**
      * Class ViviPOS.OrdersController
      */
-    //GeckoJS.define('ViviPOS.ReportOrdersController');
 
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
         name: 'ReportOrders',
 
         _listObj: null,
@@ -51,6 +50,8 @@
             
         }
 	
-    });
+    };
+    
+    GeckoJS.Controller.extend(__controller__);
 
 })();

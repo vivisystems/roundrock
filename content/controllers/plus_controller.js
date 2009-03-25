@@ -3,7 +3,7 @@
     /**
      * Class PlusController
      */
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
 
         name: 'Plus',
         screenwidth: 800,
@@ -102,7 +102,6 @@
 
             this.productPanelView.setCatePanelIndex(index);
             var category = this.catePanelView.getCurrentIndexData(index);
-
             if (this._selCateIndex != index && category != null) {
                 this._selCateNo = category.no;
                 this._selCateName = category.name;
@@ -147,7 +146,8 @@
             this._selectedIndex = index;
             plupanel.selectedIndex = index;
             plupanel.selectedItems = [index];
-
+            plupanel.ensureIndexIsVisible(index);
+            
             if (product) {
                 product.cate_name = this._selCateName;
                 this.setInputData(product);
@@ -516,12 +516,39 @@
         add: function  () {
             if (this._selCateNo == null) return;
 
+            // auto-generate?
+            var autoProdNo = GeckoJS.Configure.read('vivipos.fec.settings.AutoGenerateProdNo');
+            var prodNoLen = GeckoJS.Configure.read('vivipos.fec.settings.ProdNoLength');
+
             var inputData = this.getInputData();
+            var prodNo = '';
+
+            if (autoProdNo && !isNaN(this._selCateNo)) {
+                var prodModel = new ProductModel();
+                var result = prodModel.find('first', {
+                        fields: 'max(no) as "prev"',
+                        conditions: 'cate_no = "' + this._selCateNo + '"'});
+                if (result != '' && result.prev != '') {
+                    var prev = result.prev;
+
+                    // remove department number
+                    var prodPart;
+                    if (prev.indexOf(this._selCateNo) == 0) {
+                        prodPart = prev.substr(this._selCateNo.length, prev.length - this._selCateNo.length);
+                    }
+                    else {
+                        prodPart = prev;
+                    }
+                    if (!isNaN(prodPart)) {
+                        prodNo = this._selCateNo + GeckoJS.String.padLeft(++prodPart, prodNoLen, '0');
+                    }
+                }
+            }
 
             var aURL = 'chrome://viviecr/content/prompt_additem.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
             var inputObj = {
-                input0:null, require0:true, alphaOnly0:true,
+                input0:prodNo, require0:true, alphaOnly0:true,
                 input1:null, require1:true
             };
             window.openDialog(aURL, _('Add New Product'), features, _('New Product'), '', _('Product No.'), _('Product Name'), inputObj);
@@ -1112,7 +1139,9 @@
                 document.getElementById('delete_plu').setAttribute('disabled', false);
             }
         }
-    });
+    };
+
+    GeckoJS.Controller.extend(__controller__);
 
 })();
 

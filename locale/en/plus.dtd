@@ -23,6 +23,8 @@
 <!ENTITY plus.department "Department">
 <!ENTITY plus.product.no "Product No.">
 <!ENTITY plus.product.name "Product Name">
+<!ENTITY plus.product.alt.name1 "Altenative Product Name 1">
+<!ENTITY plus.product.alt.name2 "Altenative Product Name 2">
 <!ENTITY plus.product.barcode "Barcode">
 <!ENTITY plus.product.tax.rate "Tax Rate">
 <!ENTITY plus.product.condiments "Condiments">

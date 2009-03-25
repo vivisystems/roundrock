@@ -80,7 +80,7 @@
             	conditions += " AND orders.shift_number = " + shiftNo;
 
             var groupby = 'order_items.product_no';
-            var orderby = 'order_items.product_no';
+            var orderby = '"OrderItem.total" desc';
 
             var datas = orderItem.find('all',{fields: fields, conditions: conditions, group: groupby, recursive:1, order: orderby});
 
@@ -91,9 +91,22 @@
 			if ( sortBy != 'all' ) {
 				datas.sort(
 					function ( a, b ) {
-						if ( a[ sortBy ] > b[ sortBy ] ) return 1;
-						if ( a[ sortBy ] < b[ sortBy ] ) return -1;
-						return 0;
+						a = a[ sortBy ];
+						b = b[ sortBy ];
+						
+						switch ( sortBy ) {
+							case 'product_no':
+							case 'product_name':
+								if ( a > b ) return 1;
+								if ( a < b ) return -1;
+								return 0;
+							case 'avg_price':
+							case 'qty':
+							case 'total':
+								if ( a < b ) return 1;
+								if ( a > b ) return -1;
+								return 0;
+						}
 					}
 				);
 			}
@@ -152,7 +165,7 @@
 			
 			this._set_datas( start, end, periodType, shiftNo, sortBy, terminalNo );
 			
-			var path = GREUtils.File.chromeToPath( "chrome://reports/locale/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl" );
+			var path = GREUtils.File.chromeToPath( "chrome://viviecr/content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl" );
 
             var file = GREUtils.File.getFile( path );
             var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
@@ -177,7 +190,7 @@
 
 			this._set_datas( start, end, periodType, shiftNo, sortby, machineid );
 
-            var path = GREUtils.File.chromeToPath("chrome://reports/locale/reports/tpl/rpt_product_sales/rpt_product_sales.tpl");
+            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_product_sales/rpt_product_sales.tpl");
 
             var file = GREUtils.File.getFile( path );
             var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
@@ -236,7 +249,7 @@
 
                 var waitPanel = this._showWaitPanel('wait_panel', 100);
 				
-                var path = GREUtils.File.chromeToPath("chrome://reports/locale/reports/tpl/rpt_product_sales/rpt_product_sales_csv.tpl");
+                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_product_sales/rpt_product_sales_csv.tpl");
 
                 var file = GREUtils.File.getFile(path);
                 var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
@@ -260,7 +273,7 @@
                 this._enableButton(false);
                 var waitPanel = this._showWaitPanel('wait_panel', 100);
 
-                var path = GREUtils.File.chromeToPath("chrome://reports/locale/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl");
+                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl");
 
                 var file = GREUtils.File.getFile(path);
                 var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );

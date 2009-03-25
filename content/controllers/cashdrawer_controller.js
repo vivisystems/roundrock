@@ -6,7 +6,7 @@
      * Cash Drawer Controller
      */
 
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
         name: 'CashDrawer',
 
         _device: null,
@@ -390,7 +390,9 @@
             return printed;
         }
 
-    });
+    };
+
+    GeckoJS.Controller.extend(__controller__);
 
     // register onload
     window.addEventListener('load', function() {

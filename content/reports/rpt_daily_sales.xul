@@ -25,6 +25,7 @@
     <script type="application/x-javascript" src="chrome://viviecr/content/reports/rpt_daily_sales.js" />
   
     <vbox flex="1" class="main-dialog">
+
 		<vbox flex="1" class="MainPnl">
 		    <vbox>
 		        <caption label="&rptdailysales.title;"  class="PageTitle"/>
@@ -102,6 +103,7 @@
             <splitter id="splitter_zoom" collapse="before" resizeafter="farthest">
                 <!-- grippy/ -->
             </splitter>
+
             <hbox class="TopPnl">
                 <hbox class="ReportTool"  flex="1">
 

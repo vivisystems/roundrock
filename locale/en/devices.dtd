@@ -27,6 +27,7 @@
 <!ENTITY devices.check.printer.4.label "Check Printer 4">
 <!ENTITY devices.check.autoprint.label "Auto-print copies">
 <!ENTITY devices.check.print.no.routing.label "Print items with no routing groups">
+<!ENTITY devices.check.print.all.routing.label "Print all items">
 <!ENTITY devices.report.printer.1.label "Report Printer">
 <!ENTITY devices.report.printer.2.label "Label Printer">
 <!ENTITY devices.vfd.1.label "VFD 1">

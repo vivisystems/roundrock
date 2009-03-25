@@ -3,9 +3,8 @@
     /**
      * Class ViviPOS.JobsController
      */
-    // GeckoJS.define('ViviPOS.JobsController');
 
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
         name: 'Jobs',
         components: ['Form', 'Acl'], 
         scaffold: true,
@@ -72,7 +71,8 @@
 
                 panel.selectedIndex = newIndex;
                 panel.selectedItems = [newIndex];
-
+                panel.ensureIndexIsVisible(newIndex);
+                
                 this.validateForm();
 
                 document.getElementById('job_name').focus();
@@ -114,6 +114,7 @@
 
                 panel.selectedIndex = index;
                 panel.selectedItems = [index];
+                panel.ensureIndexIsVisible(index);
 
                 // @todo OSD
                 OsdUtils.info(_('Job [%S] modified successfully', [evt.data.jobname]));
@@ -158,6 +159,7 @@
 
             panel.selectedIndex = index;
             panel.selectedItems = [index];
+            panel.ensureIndexIsVisible(index);
 
             if (panel.selectedIndex == -1) {
                 GeckoJS.FormHelper.reset('jobForm');
@@ -197,7 +199,8 @@
 
             panel.selectedItems = [index];
             panel.selectedIndex = index;
-
+            panel.ensureIndexIsVisible(index);
+            
             this.validateForm(true);
             document.getElementById('job_name').focus();
         },
@@ -226,8 +229,9 @@
             }
         }
 
-    });
+    };
 
+    GeckoJS.Controller.extend(__controller__);
 
 })();
 

@@ -1,6 +1,6 @@
 (function(){
 
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
         name: 'Destinations',
 	
         _listObj: null,
@@ -97,6 +97,8 @@
                     this.saveDestinations();
 
                     var destName = this._listDatas[index].name;
+
+                    this.getListObj().treeBoxObject.ensureRowIsVisible(index);
                     OsdUtils.info(_('Destination [%S] modified successfully', [destName]));
                 }
                 else {
@@ -201,6 +203,7 @@
 	
         select: function(index){
             this.getListObj().vivitree.selection.select(index);
+            this.getListObj().treeBoxObject.ensureRowIsVisible(index);
             if (index > -1) {
                 var inputObj = this._listDatas[index];
                 if (inputObj.defaultMark == '*')
@@ -293,7 +296,9 @@
             }
         }
 	
-    });
+    };
+
+    GeckoJS.Controller.extend(__controller__);
 
     window.addEventListener('load', function() {
         var main = GeckoJS.Controller.getInstanceByName('Main');

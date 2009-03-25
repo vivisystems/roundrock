@@ -1,7 +1,8 @@
 .tablestack stack{
   min-width:600px; 
   min-height: 600px; 
-  background: transparent url( chrome://viviecr/content/skin/images/bg_fec_vivi.png) 0 0 no-repeat; 
+  /* background: transparent url( chrome://viviecr/content/skin/images/bg_fec_vivi.png) 0 0 no-repeat; */
+  background: transparent url( file://home/achang/workspace/vivipos_app/content/skin/images/bg_fec_vivi.png) 0 0 no-repeat;
   border:0px green solid;
 }
 .table1 {

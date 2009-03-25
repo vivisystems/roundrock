@@ -318,3 +318,11 @@
 .QuickLogin[disabled=true] {
     background: transparent url(images/light_off.png) 0 0 no-repeat;
 }
+
+.clockinout {
+    background: transparent url(images/clock.png) center center no-repeat;
+    -moz-appearance: none;
+    border-width: 0px;
+    width: 80px;
+    height: 80px;
+}

@@ -1,6 +1,6 @@
 (function(){
 
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
         name: 'Plufilters',
 	
         _listObj: null,
@@ -22,7 +22,8 @@
             }
 
             this.getListObj().datasource = this._listDatas;
-
+            this.getListObj().treeBoxObject.ensureRowIsVisible(this.getListObj().selectedIndex);
+            
             this.validateForm();
         },
 
@@ -156,9 +157,11 @@
             }
 
             this.validateForm();
-        },
+        }
 	
-    });
+    };
+    
+    GeckoJS.Controller.extend(__controller__);
 
 })();
 

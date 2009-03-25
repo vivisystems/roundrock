@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % MergeCheck SYSTEM "chrome://viviecr/locale/merge_check.dtd">
+  %MergeCheck;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+<window title="&mergecheck.title;"
+	hidechrome="true"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+            
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/merge_check.js" />
+
+    <keyset id="keyset_extensions">
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()" />
+    </keyset>
+
+    <vbox class="main-dialog" flex="1">
+        <hbox flex="1" class="MainPnl">
+            <vbox flex="1">
+                <caption label="&mergecheck.title;"/>
+                <vbox class="DataForm">
+                    <hbox>
+                        <vbox flex="1">
+                            <caption label="&mergecheck.sourcecheck;"/>
+                            <hbox>
+                                <spacer style="width:40px;" />
+                                <label value="&mergecheck.sourcecheck.checkno;" />
+                                <label id="source_check_no" value="" />
+
+                                <spacer style="width:40px;" />
+                                <label value="&mergecheck.sourcecheck.tableno;" />
+                                <label id="source_table_no" value="" />
+                            </hbox>
+                            <viviscrollabletree id="sourcecheckscrollablepanel" flex="1" rows="5" seltype="multiple" 
+                                    headers="&mergecheck.sourcecheck.name;,&mergecheck.sourcecheck.qty;,&mergecheck.sourcecheck.price;"
+                                    fields="name,current_qty,current_price"
+                                    dir="reverse" class="ListPnl" scrollUpClass="ScrollUp" scrollDownClass="ScrollDown"
+                                    onclick="">
+                                <spacer flex="1" />
+                            </viviscrollabletree>
+                        </vbox>
+                        <vbox style="width:200px;">
+                            <vbox class="ToolBar">
+                            <button id="btn_merge" label="&mergecheck.button.action.merge;" disabled="false" class="BtnAdd" oncommand="$do('mergeItems', null, 'MergeCheck');" />
+                            <button id="btn_conform" label="&mergecheck.button.action.conform;" disabled="false" class="BtnMod" oncommand="$do('conform', null, 'MergeCheck');" />
+                            <button id="btn_cancel" label="&mergecheck.button.action.cancel;" disabled="false" class="BtnDel" oncommand="$do('cancel', null, 'MergeCheck');" />
+                            </vbox>
+                        </vbox>
+                    </hbox>
+
+                    <spacer style="height:10px;" />
+                    <separator class="groove-thin"/>
+                    <spacer style="height:20px;" />
+
+                    <hbox flex="1">
+                        <vbox flex="1">
+                            <caption label="&mergecheck.targetcheck;"/>
+                            <hbox>
+                                <spacer style="width:40px;" />
+                                <label value="&mergecheck.targetcheck.checkno;" />
+                                <label id="target_check_no" value="" />
+
+                                <spacer style="width:40px;" />
+                                <label value="&mergecheck.targetcheck.tableno;" />
+                                <label id="target_table_no" value="" />
+                            </hbox>
+                            <viviscrollabletree id="targetcheckscrollablepanel" flex="1" rows="5" seltype="multiple" 
+                                    headers="&mergecheck.targetcheck.name;,&mergecheck.targetcheck.qty;,&mergecheck.targetcheck.price;"
+                                    fields="name,current_qty,current_price"
+                                    dir="reverse" class="ListPnl" scrollUpClass="ScrollUp" scrollDownClass="ScrollDown"
+                                    onclick="">
+                                <spacer flex="1" />
+                            </viviscrollabletree>
+                        </vbox>
+                        <vbox style="width:200px;">                            
+                            <vbox class="ToolBar">
+                                <button id="btn_reverse" label="&mergecheck.button.action.reverse;" disabled="false" class="BtnDel" oncommand="$do('reverse', null, 'MergeCheck');" />
+                            </vbox>
+                        </vbox>
+                        
+                    </hbox>
+                </vbox>
+            </vbox>
+        </hbox>
+    </vbox>
+
+</window>

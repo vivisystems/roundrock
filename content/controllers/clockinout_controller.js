@@ -4,7 +4,7 @@
     /**
      * Class ViviPOS.ClockInOutController
      */
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
         name: 'ClockInOut',
         userpanel: null,
         users: null,
@@ -251,6 +251,8 @@
         validateForm: function () {
 
         }
-    });
+    };
+
+    GeckoJS.Controller.extend(__controller__);
 
 })();

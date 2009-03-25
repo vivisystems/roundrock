@@ -29,8 +29,6 @@
 	border-bottom-width: 3px;
 }
 
-
-
 .PageTitle  {
 	text-align: center;
 	font-size: 14pt;
@@ -66,13 +64,23 @@
   empty-cells: show;
 }
 
-#body-table > caption {
+#body-table > caption, .caption {
   text-align: left;
   font-weight: bold;
-  font-size: 12pt;
+  font-size: 9pt;
   color: #292929;
-  margin: 10px 5px;
+  margin: 3px 5px;
 }
+
+.subtitle{
+text-align: left;
+font-weight: bold;
+font-size: 12pt;
+color: #292929;
+margin: 10px 5px;
+padding: 4px;
+}
+
 #body-table > caption > li {
 	list-style-image: url(chrome://viviecr/content/skin/images/images/table_title.gif);
 }
@@ -81,7 +89,7 @@
 /* basic shared rules */
 #body-table th,
 #body-table td {
-  text-align: right;
+  /*text-align: right;*/
   border-bottom: 1px solid #c3c3c3;
 }
 
@@ -95,21 +103,21 @@
 #body-table > thead {
 	display: table-header-group;
 }
-#body-table > thead > tr:first-child > th {
+#body-table > thead > tr:first-child > th, .fields {
   text-align: center;
   color: #56523a;
   border-top: 2px solid #b5b093;
   border-bottom: 1px solid #b5b093;
   background-color: #f5f2ec;
-  font-size: 11pt;
+  font-size: 9pt;
   padding: 4px;
 }
-
+/*
 #body-table > thead > tr + tr > th {
   font-style: italic;
   color: gray;
 }
-
+*/
 /* fix size of superscript */
 #body-table sup {
   font-size: 75%;
@@ -118,12 +126,12 @@
 /* body */
 #body-table td {
   padding:4px 8px;
-  font-size: 10pt;
+  font-size: 9pt;
   color: #484848;
 }
 
 #body-table tbody th {
-	font-size: 10pt;
+	font-size: 9pt;
 	font-weight: bold;
 	color: #56523a;
 }
@@ -155,9 +163,19 @@
   border-top: 2pt solid #c3c3c3;
   padding: 4px;
   border-bottom: none;
-  font-size: 11pt;
+  font-size: 9pt;
 }
 
+.heading_p {
+margin: 3px 5px;
+font-size: 9pt;
+}
+
+.heading_store {
+margin: 3px 5px;
+font-size: 9pt;
+text-align: center;
+}
 
 /** for print use **/
 @media print {
@@ -180,6 +198,43 @@
 	
 	#body-table > thead > tr:first-child > th {
 	  background-color: #f5f2ec;
+	}
+	/* Mickey appends all below */
+	#body-table > caption, .caption {
+	  text-align: left;
+	  font-weight: bold;
+	  font-size: 9px;
+	  color: #292929;
+	  margin: 10px 5px;
+	}
+	
+	#body-table > thead > tr:first-child > th {
+	  text-align: center;
+	  color: #56523a;
+	  border-top: 2px solid #b5b093;
+	  border-bottom: 1px solid #b5b093;
+	  background-color: #f5f2ec;
+	  font-size: 9px;
+	  padding: 4px;
+	}
+
+	#body-table td {
+	  padding:4px 8px;
+	  font-size: 9px;
+	  color: #484848;
+	}
+
+	#body-table tbody th {
+		font-size: 9px;
+		font-weight: bold;
+		color: #56523a;
+	}
+
+	#body-table > tfoot > tr:first-child td {
+	  border-top: 2pt solid #c3c3c3;
+	  padding: 4px;
+	  border-bottom: none;
+	  font-size: 9px;
 	}
 	
 }

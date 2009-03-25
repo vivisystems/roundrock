@@ -2,6 +2,7 @@
 <!DOCTYPE window SYSTEM "chrome://viviecr/locale/changeuser.dtd">
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/changeuser.css" type="text/css"?>
+
 <window title="&changeuser.title;"
         hidechrome="true"
         xmlns:html="http://www.w3.org/1999/xhtml"
@@ -50,10 +51,14 @@
             <hbox id="quickLogin" class="QuickLogin"></hbox>
             <label value="&changeuser.keylabel.password;" class="pwlabel" />
                 <vbox>
-                    <textbox id="user_password" type="password" value="" class="pwBox"  oninput="$do('validateForm', null, 'ChangeUser')"/>
+                    <textbox id="user_password" type="password" value="" class="pwBox" onfocus="this.select()" oninput="$do('validateForm', null, 'ChangeUser')"/>
                     <label id="user_name" value="" class="userlabel"/>
                 </vbox>
                 <button id="signinBtn" label="&changeuser.keylabel.ok;" class="genbtn" oncommand="$do('checkUser', null, 'ChangeUser');" />
+        </hbox>
+        <spacer flex="1"/>
+        <hbox pack="end">
+            <button id="clockBtn" label="" class="clockinout" oncommand="opener.$do('ClockInOutDialog', null, 'Main'); document.getElementById('user_password').focus()" />
         </hbox>
     </vbox>
 </window>

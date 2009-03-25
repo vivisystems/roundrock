@@ -60,6 +60,22 @@ var promptAdditem_options;
                     document.getElementById('promptAdditem-row0').setAttribute('flex', 0);
                 }
 
+                // fixed length?
+                if ('fixedLength0' in inputObj) {
+                    var fixedLength0 = parseInt(inputObj.fixedLength0);
+                    if (!isNaN(fixedLength0) && fixedLength0 > 0) {
+                        document.getElementById('promptAdditem-input0').setAttribute('maxlength', fixedLength0);
+                    }
+                }
+
+                // fixed length?
+                if ('fixedLength1' in inputObj) {
+                    var fixedLength1 = parseInt(inputObj.fixedLength1);
+                    if (!isNaN(fixedLength1) && fixedLength1 > 0) {
+                        document.getElementById('promptAdditem-input1').setAttribute('maxlength', fixedLength1);
+                    }
+                }
+
                 // hide input1?
                 if (!('input1' in inputObj)) {
                     document.getElementById('promptAdditem-title1').hidden = true;

@@ -23,5 +23,8 @@
     font-family: monospace;
     font-weight: bold !important;
     -moz-appearance: none;
+    -moz-user-focus: ignore;
+    -moz-user-select: none;
+    -moz-user-input: none;
 }
 

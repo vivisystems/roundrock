@@ -12,7 +12,6 @@
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
-
 <window id="main" 
         hidechrome="true"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
@@ -29,6 +28,7 @@
 		    <vbox>
 		        <caption label="&rptdepartments.title;"  class="PageTitle"/>
 		        <hbox>
+		        	<hbox flex="1">
 		            <grid class="DataForm" flex="1">
 		                <columns>
 		                    <column  flex="1"/>
@@ -51,6 +51,7 @@
 		                    </row>
 		                </rows>
 		            </grid>
+		            </hbox>
 		            <button id="execute" label="&rptdepartments.execute;" disabled="false" class="ExeBtn" oncommand="$do('execute', null, 'RptDepartments');" />
 		        </hbox>
             </vbox>

@@ -93,8 +93,8 @@
             } else {
                 //var groupby = '"Order.Date"';
             }
-            var groupby = 'order_payments.order_id, order_payments.name';//order_payments.order_id';';
-            var orderby = 'orders.terminal_no, orders.transaction_created, orders.id';
+            var groupby = 'order_payments.order_id, order_payments.name';//order_payments.order_id';
+            var orderby = 'orders.terminal_no, orders.item_subtotal desc';//orders.transaction_created, orders.id';
 
             // var order = new OrderModel();
 
@@ -193,18 +193,35 @@
            	var counter = 0;
            	
            	for ( p in repDatas ) {
-           		orderedData[ counter++ ] = GREUtils.extend({}, repDatas[ p ] );
+           		orderedData[ counter++ ] = GREUtils.extend( {}, repDatas[ p ] );
            	}
            	
             var sortby = document.getElementById( 'sortby' ).value;
 
             if ( sortby != 'all' ) {
 		        function sortFunction( a, b ) {
-		        	var a = a[ sortby ];
-		        	var b = b[ sortby ];
-				    if ( a > b ) return 1;
-				    if ( a < b ) return -1;
-				    return 0;
+		        	a = a[ sortby ];
+		        	b = b[ sortby ];
+		        	
+		        	switch ( sortby ) {
+		        		case 'terminal_no':
+		        			if ( a > b ) return 1;
+							if ( a < b ) return -1;
+							return 0;
+		        		case 'item_subtotal':
+		        		case 'tax_subtotal':
+		        		case 'surcharge_subtotal':
+		        		case 'discount_subtotal':
+		        		case 'total':
+		        		case 'cash':
+		        		case 'check':
+		        		case 'creditcard':
+		        		case 'coupon':
+		        		case 'giftcard':
+		        			if ( a < b ) return 1;
+							if ( a > b ) return -1;
+							return 0;
+		        	}
             	}
             	
             	orderedData.sort( sortFunction );
@@ -212,7 +229,7 @@
 
             var data = {
                 head: {
-                    title:_('Daily Sales Report'),
+                    title:_('Daily Sales Summary Report'),
                     start_time: start_str,
                     end_time: end_str,
                     machine_id: machineid,
@@ -228,7 +245,7 @@
             
             this._datas = data;
 
-            var path = GREUtils.File.chromeToPath("chrome://reports/locale/reports/tpl/rpt_daily_sales_summary/rpt_daily_sales_summary.tpl");
+            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_daily_sales_summary/rpt_daily_sales_summary.tpl");
 
             var file = GREUtils.File.getFile(path);
             var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
@@ -288,7 +305,7 @@
 
                 var waitPanel = this._showWaitPanel('wait_panel', 100);
 
-                var path = GREUtils.File.chromeToPath("chrome://reports/locale/reports/tpl/rpt_daily_sales_summary/rpt_daily_sales_summary_csv.tpl");
+                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_daily_sales_summary/rpt_daily_sales_summary_csv.tpl");
 
                 var file = GREUtils.File.getFile(path);
                 var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
@@ -310,7 +327,7 @@
                 this._enableButton(false);
                 var waitPanel = this._showWaitPanel('wait_panel', 100);
 
-                var path = GREUtils.File.chromeToPath("chrome://reports/locale/reports/tpl/rpt_daily_sales_summary/rpt_daily_sales_summary_rcp_80mm.tpl");
+                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_daily_sales_summary/rpt_daily_sales_summary_rcp_80mm.tpl");
 
                 var file = GREUtils.File.getFile(path);
                 var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );

@@ -4,7 +4,7 @@
      * Class ViviPOS.TempletesController
      */
 
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
         name: 'Templetes',
         scaffold: true,
 
@@ -57,6 +57,8 @@
 
         }
         
-    });
+    };
+
+    GeckoJS.Controller.extend(__controller__);
 
 })();

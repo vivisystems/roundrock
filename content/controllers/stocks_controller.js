@@ -4,7 +4,7 @@
      * Class ViviPOS.StocksController
      */
 
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
         name: 'Stocks',
         scaffold: true,
         uses: ['Product'],
@@ -254,7 +254,8 @@
             }
         }
 
-    });
+    };
 
+    GeckoJS.Controller.extend(__controller__);
 
 })();

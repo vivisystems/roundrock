@@ -3,8 +3,7 @@
     /**
      * SyncSettings Controller
      */
-
-    GeckoJS.Controller.extend( {
+    var __controller__ = {
         name: 'SyncSettings',
 
         // initial SyncSettings
@@ -22,7 +21,6 @@
 		
             this.Form.unserializeFromObject('syncSettingForm', settings);
 
-            
         },
 
         save: function(data) {
@@ -51,7 +49,8 @@
 		
         }
 
-    });
+    };
+
+    GeckoJS.Controller.extend(__controller__);
 
 })();
-

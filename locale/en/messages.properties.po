@@ -596,8 +596,10 @@ msgstr "Refund"
 msgid "creditcard.desc"
 msgstr ""
 "This function registers a credit card payment. The parameter field should be "
-"set to the credit type. The payment amount is read from the input line; if "
-"no input is present, the payment will be for the balance due."
+"set to the credit card type. The payment amount is read from the input line; "
+"if no input is present, the payment will be for the balance due. An optional "
+"second parameter, separated by a comma, when set to 1, will cause the credit "
+"card payment to be registered immediately, bypassing the confirm screen."
 
 msgid "creditcard.label"
 msgstr "Credit Card"
@@ -611,7 +613,9 @@ msgstr ""
 "to the coupon type. A preset amount may be defined after the coupon type, "
 "separated by a comma. If no preset amount is programmed, the payment amount "
 "is read from the input line; if no input is present, the payment will be for "
-"the balance due."
+"the balance due. Finally, an optional third parameter, also separated by a "
+"comma, when set to 1, will cause the coupon payment to be registered "
+"immediately, bypassing the confirm screen."
 
 msgid "coupon.label"
 msgstr "Coupon"
@@ -626,7 +630,9 @@ msgstr ""
 "be set to the giftcard type. A preset amount may also be defined after the "
 "giftcard type, separated by a comma. If no preset amount is programmed, the "
 "payment amount is read from the input line; if no input is present, the "
-"payment will be for the balance due."
+"payment will be for the balance due. Finally, an optional third parameter,"
+"also separated by a comma, when set to 1, when set to 1, will cause the "
+"giftcard payment to be registered immediately, bypassing the confirm screen."
 
 msgid "giftcard.label"
 msgstr "Giftcard"
@@ -1098,6 +1104,12 @@ msgstr "Receipt On/Off"
 msgid "Sample Receipt 42c expanded"
 msgstr "Sample Receipt 42c expanded"
 
+msgid "shiftchange.label"
+msgstr "Shift Change"
+
+msgid "shiftchange.name"
+msgstr "Shift Change"
+
 msgid "shiftchange.desc"
 msgstr ""
 "This function is used to initiate shift change. No parameter is needed."
@@ -1110,9 +1122,6 @@ msgstr "Shift Change"
 
 msgid "Sample Guest Check 42c condensed"
 msgstr "Sample Guest Check 42c condensed"
-
-msgid "shiftchange.name"
-msgstr "Shift Change"
 
 msgid "Sample Label Argox 203TD"
 msgstr "Sample Label Argox 203TD"
@@ -1215,14 +1224,32 @@ msgstr "Touch Calibration"
 msgid "Touch Utility"
 msgstr "Touch Utility"
 
-msgid "acl_store_check"
-msgstr "Store Check"
-
 msgid "transaction_created"
 msgstr "Order Start Time"
 
+msgid "acl_new_check"
+msgstr "New Check"
+
+msgid "acl_new_table"
+msgstr "New Table"
+
+msgid "acl_guest_no"
+msgstr "Number of Guests"
+
+msgid "acl_store_check"
+msgstr "Store Check"
+
 msgid "acl_recall_check"
 msgstr "Recall Stored Check"
+
+msgid "acl_merge_check"
+msgstr "Merge Stored Checks"
+
+msgid "acl_split_check"
+msgstr "Split Stored Check"
+
+msgid "acl_transfer_table"
+msgstr "Transfer Table No"
 
 msgid "shutdown.desc"
 msgstr "This function shuts down the terminal. No parameter needed."
@@ -1264,20 +1291,168 @@ msgstr "Recall Check"
 msgid "recallCheck.name"
 msgstr "Recall Check"
 
+msgid "newCheck.desc"
+msgstr ""
+"This function assigns a new check number to an order. If the operator input "
+"a number first, then click this funcion button, the new check number will be "
+"the same as operator's input. If the operator click this function button "
+"directly, a new check number will be generated automatically. Check number "
+"can not be duplicated. The parameter field must be empty."
+
+msgid "newCheck.label"
+msgstr "New Check"
+
+msgid "newCheck.name"
+msgstr "New Check"
+
+msgid "newTable.desc"
+msgstr ""
+"This function assigns a new table number to an order. If the operator input "
+"a number first, then click this funcion button, the new table number will be "
+"the same as cashier's input. If the operator click this function button "
+"directly, a screen of table map will pop-up for table selection. Table "
+"number can be duplicated. The parameter field must be empty."
+
+msgid "newTable.label"
+msgstr "New Table"
+
+msgid "newTable.name"
+msgstr "New Table"
+
+msgid "guestNum.desc"
+msgstr ""
+"This function allows the operator to register the number of guest. The "
+"parameter field must be empty."
+
+msgid "guestNum.label"
+msgstr "Number of Guests"
+
+msgid "guestNum.name"
+msgstr "Number of Guests"
+
+msgid "recallOrder.desc"
+msgstr ""
+"This function recalls a previously stored check for further action via "
+"sequence number. If the operator click this function button without sequence "
+"number input, a screen will pop-up for the selection of stored check. The "
+"parameter field must be empty."
+
+msgid "recallOrder.label"
+msgstr "Recall Order"
+
+msgid "recallOrder.name"
+msgstr "Recall Order"
+
+msgid "recallTable.desc"
+msgstr ""
+"This function recalls a previously stored check for further action via table "
+"number. If the operator click this function button without table number "
+"input, a screen will pop-up for the selection of stored check. The parameter "
+"field must be empty."
+
+msgid "recallTable.label"
+msgstr "Recall Table"
+
+msgid "recallTable.name"
+msgstr "Recall Table"
+
+msgid "mergeCheck.desc"
+msgstr ""
+"This function allows operator to merge checks by recalling previously stored "
+"check. The operator should recall a previously stored check first, then "
+"input a check number and click this funcion button, the checks will be "
+"merged automatically. If the operator does not input a check number to "
+"merge, a screen will pop-up for the selection of stored check. The parameter "
+"field must be empty."
+
+msgid "mergeCheck.label"
+msgstr "Merge Stored Checks"
+
+msgid "mergeCheck.name"
+msgstr "Merge Stored Checks"
+
+msgid "splitCheck.desc"
+msgstr ""
+"This function allows operator to split check in a previously stored check. "
+"The operator should recall a previously stored check first, then click this "
+"funcion button, a screen of split check function will pop-up. The parameter "
+"field must be empty."
+
+msgid "splitCheck.label"
+msgstr "Split Stored Check"
+
+msgid "splitCheck.name"
+msgstr "Split Stored Check"
+
+msgid "transferTable.desc"
+msgstr ""
+"This function allows operator to change the table number in a previously "
+"stored check. The operator should recall a previously stored check first, "
+"then input a new table number and click this funcion button. If the operator "
+"does not input a new table number, a screen of table map will pop-up for "
+"table selection. The parameter field must be empty."
+
+msgid "transferTable.label"
+msgstr "Transfer Table No"
+
+msgid "transferTable.name"
+msgstr "Transfer Table No"
+
 msgid "sale_period"
 msgstr "Sale Period"
+
+msgid "Detailed Tax Report"
+msgstr "Detailed Tax Report"
 
 msgid "Factory"
 msgstr "Factory Dataset"
 
+msgid "Service Clerk Sales Report"
+msgstr "Service Clerk Sales Report"
+
 msgid "Training"
 msgstr "Training Dataset"
+
+msgid "Proceeds Clerk Sales Report"
+msgstr "Proceeds Clerk Sales Report"
 
 msgid "XTerm"
 msgstr "XTerm"
 
 msgid "acl_xterm"
 msgstr "Run XTerm"
+
+msgid "IN"
+msgstr "IN"
+
+msgid "Printers"
+msgstr "Printers"
+
+msgid "OUT"
+msgstr "OUT"
+
+msgid "Y"
+msgstr "YES"
+
+msgid "N"
+msgstr "NO"
+
+msgid "acl_manage_printers"
+msgstr "Manager Printers"
+
+msgid "acl_printer_dashboard"
+msgstr "Printer Dashboard"
+
+msgid "printerDashboard.desc"
+msgstr ""
+"This function allows the operator to quickly view and change the status of "
+"enabled devices. No parameter is needed."
+
+msgid "printerDashboard.label"
+msgstr "Printer Dashboard"
+
+msgid "printerDashboard.name"
+msgstr "Printer Dashboard"
 
 msgid "confirm timezone change"
 msgstr ""
@@ -1343,6 +1518,9 @@ msgid ""
 "Synchronize settings changes require system restart to take effect. If you "
 "save the changes now, the system will restart automatically after you return "
 "to the Main Screen. Do you want to save your changes?"
+msgstr ""
+
+msgid "Do not pack"
 msgstr ""
 
 msgid "Add New ACL Group"
@@ -1817,6 +1995,15 @@ msgstr ""
 msgid "Not an open order; unable to store"
 msgstr ""
 
+msgid "fatal error!!"
+msgstr ""
+
+msgid "Check# %S is exist!!"
+msgstr ""
+
+msgid "Table# %S is exist!!"
+msgstr ""
+
 msgid "This order has been submitted"
 msgstr ""
 
@@ -1829,13 +2016,7 @@ msgstr ""
 msgid "No change to store"
 msgstr ""
 
-msgid "fatal error!!"
-msgstr ""
-
-msgid "Check# %S is exist!!"
-msgstr ""
-
-msgid "Table# %S is exist!!"
+msgid "This order has been modified and must be stored first"
 msgstr ""
 
 msgid "Error in device manager! Please check your device configuration"
@@ -2278,6 +2459,13 @@ msgstr ""
 msgid "Transaction [%S] for amount of [%S] successfully updated"
 msgstr ""
 
+msgid "confirm delete transaction %S (%S)"
+msgstr ""
+
+msgid ""
+"Are you sure you want to delete transaction [%S] mode [%S] of amount [%S]?"
+msgstr ""
+
 msgid ""
 "Transaction [%S] for amount of [%S] successfully deleted from the ledger"
 msgstr ""
@@ -2294,6 +2482,9 @@ msgstr ""
 msgid "Transaction type [%S] and mode [%S] successfully updated"
 msgstr ""
 
+msgid "confirm delete %S (%S)"
+msgstr ""
+
 msgid "Transaction type [%S] and mode [%S] successfully deleted"
 msgstr ""
 
@@ -2301,6 +2492,9 @@ msgid "Drawer Change IN"
 msgstr ""
 
 msgid "Drawer Change OUT"
+msgstr ""
+
+msgid "Control Panel"
 msgstr ""
 
 msgid "No order to add/view annotations"
@@ -2361,6 +2555,9 @@ msgid "Shutdown"
 msgstr ""
 
 msgid "Please confirm to shut down the terminal"
+msgstr ""
+
+msgid "The Check# %S has been merged to Check# %S!!"
 msgstr ""
 
 msgid "Add New Filter"
@@ -2596,6 +2793,9 @@ msgstr ""
 msgid "Specified template [%S] is empty or does not exist!"
 msgstr ""
 
+msgid "Printer Dashboard"
+msgstr ""
+
 msgid "Password and Verify Password not the same"
 msgstr ""
 
@@ -2618,6 +2818,9 @@ msgid "Shift Close"
 msgstr ""
 
 msgid "Failed to set volume"
+msgstr ""
+
+msgid "The Check# %S has been splited to Check# %S!!"
 msgstr ""
 
 msgid "Stock level for [%S] modified successfully"
@@ -2896,6 +3099,9 @@ msgid "Daily Sales Report"
 msgstr ""
 
 msgid "Daily Sales Report - Detail"
+msgstr ""
+
+msgid "Daily Sales Summary Report"
 msgstr ""
 
 msgid "Hourly Sales Report"

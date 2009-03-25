@@ -224,7 +224,6 @@ if (typeof(TrimPath) != 'undefined') {
             return s;
 
         };
-
     }) (TrimPath);
 // end closure
 
