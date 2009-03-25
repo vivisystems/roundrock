@@ -526,6 +526,7 @@
                 
                 this.subtotal();
             }
+            this._getCartlist().refresh();
         },
 	
         addItemByBarcode: function(barcode) {
@@ -2139,7 +2140,10 @@
                     break;
                 }
             }
-            if (!allMarked) this.addMarker('total');
+            if (!allMarked) {
+                this.addMarker('total');
+                this._getCartlist().refresh();
+            }
             
             type = type || 'cash';
             amount = amount || false;
@@ -3256,6 +3260,8 @@
             if (modified) {
                 r = this.GuestCheck.store();
                 this.dispatchEvent('onStore', curTransaction);
+
+                this._getCartlist().refresh();
             }
             else {
                 NotifyUtils.warn(_('No change to store'));
