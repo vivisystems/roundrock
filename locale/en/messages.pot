@@ -661,9 +661,22 @@ msgstr "Add Memo"
 msgid "addmemo.name"
 msgstr "Add Memo"
 
+msgid "addlinkedcondiment.desc"
+msgstr ""
+"This function registers one or more condiments against a product from condiment groups linked to that product. The parameter field must be empty."
+
+msgid "addlinkedcondiment.label"
+msgstr "Add Linked Condiment"
+
+msgid "addlinkedcondiment.name"
+msgstr "Add Linked Condiment"
+
 msgid "addcondiment.desc"
 msgstr ""
-"This function registers a condiment. The parameter field must be empty."
+"This function registers one or more condiments given by the function parameter against a product. "
+"The condiments do not need to be explicitly linked to the product. The parameter field should contain a "
+"comma-separated list of condiment name - price tuples. Condiment name and price should be separated by a "
+"'|' symbol in each tuple."
 
 msgid "addcondiment.label"
 msgstr "Add Condiment"

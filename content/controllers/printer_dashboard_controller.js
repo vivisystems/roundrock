@@ -11,6 +11,14 @@
         load: function(devices) {
             if (devices != null) {
 
+                // set toggle mode
+                var toggleMode = GeckoJS.Session.get('printer-dashboard-toggle-mode');
+                if (!toggleMode) {
+                    toggleMode = 'popup';
+                    GeckoJS.Session.set('printer-dashboard-toggle-mode', toggleMode);
+                }
+                document.getElementById('toggle-mode').value = toggleMode;
+
                 // create receipt printer icons
                 var receiptRow = document.getElementById('receipt-row');
                 if (receiptRow) {
@@ -73,6 +81,10 @@
                     }
                 }
             }
+        },
+
+        setToggleMode: function(mode) {
+            GeckoJS.Session.set('printer-dashboard-toggle-mode', mode);
         },
 
         toggle: function(type, index) {

@@ -3,8 +3,11 @@
 [&DHON]${store.branch|center:42}[&DHOFF]
 ${store.telephone1|center:42}
 Opened:   ${(new Date(order.created)).toLocaleFormat('%Y-%m-%d %H:%M:%S')}
-Submitted:${(new Date()).toLocaleFormat('%Y-%m-%d %H:%M:%S')}
+Printed:${(new Date()).toLocaleFormat('%Y-%m-%d %H:%M:%S')}
 Terminal: ${order.terminal_no|left:10} Clerk: ${order.proceeds_clerk_displayname|left:14}
+{if order.table_no != null || order.no_of_customers != null}
+Table: ${order.table_no|default:''|left:13} Customers: ${order.no_of_customers|default:''|left:10}
+{/if}
 ------------------------------------------
 {for item in order.display_sequences}
 {if item.type == 'item'}
