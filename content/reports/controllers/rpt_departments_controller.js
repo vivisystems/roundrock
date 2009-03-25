@@ -40,7 +40,7 @@
             var waitPanel = this._showWaitPanel('wait_panel');
 
             var storeContact = GeckoJS.Session.get('storeContact');
-alert(this.dump(storeContact));
+
             var clerk = "";
             var clerk_displayname = "";
             var user = new GeckoJS.AclComponent().getUserPrincipal();
@@ -75,7 +75,7 @@ alert(this.dump(storeContact));
 
             this._datas = data;
 
-            var path = GREUtils.File.chromeToPath("chrome://reports/locale/reports/tpl/rpt_departments/rpt_departments.tpl");
+            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_departments/rpt_departments.tpl");
 
             var file = GREUtils.File.getFile(path);
             var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
@@ -136,7 +136,7 @@ alert(this.dump(storeContact));
 
                 var waitPanel = this._showWaitPanel('wait_panel', 100);
 
-                var path = GREUtils.File.chromeToPath("chrome://reports/locale/reports/tpl/rpt_departments/rpt_departments_csv.tpl");
+                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_departments/rpt_departments_csv.tpl");
 
                 var file = GREUtils.File.getFile(path);
                 var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
@@ -159,7 +159,7 @@ alert(this.dump(storeContact));
                 this._enableButton(false);
                 var waitPanel = this._showWaitPanel('wait_panel', 100);
 
-                var path = GREUtils.File.chromeToPath("chrome://reports/locale/reports/tpl/rpt_departments/rpt_departments_rcp_80mm.tpl");
+                var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_departments/rpt_departments_rcp_80mm.tpl");
 
                 var file = GREUtils.File.getFile(path);
                 var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );

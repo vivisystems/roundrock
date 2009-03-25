@@ -3136,3 +3136,300 @@ msgstr ""
 
 msgid "Product Stock List"
 msgstr ""
+
+msgid "(rpt)Terminal"
+msgstr "Terminal"
+
+msgid "(rpt)Clerk"
+msgstr "Clerk"
+
+msgid "(rpt)Printed Time"
+msgstr "Printed Time"
+
+msgid "(rpt)Job"
+msgstr "Job"
+
+msgid "(rpt)Clock In"
+msgstr "Clock In"
+
+msgid "(rpt)Clock Out"
+msgstr "Clock Out"
+
+msgid "(rpt)Span Time"
+msgstr "Span Time"
+
+msgid "(rpt)Summary"
+msgstr "Summary"
+
+msgid "(rpt)Sale Period"
+msgstr "Sale Period"
+
+msgid "(rpt)Shift No."
+msgstr "Shift No."
+
+msgid "(rpt)Balance"
+msgstr "Balance"
+
+msgid "(rpt)Cash"
+msgstr "Cash"
+
+msgid "(rpt)Sales"
+msgstr "Sales"
+
+msgid "(rpt)Excess"
+msgstr "Excess"
+
+msgid "(rpt)Ledger In"
+msgstr "Ledger In"
+
+msgid "(rpt)Ledger Out"
+msgstr "Ledger Out"
+
+msgid "(rpt)Type"
+msgstr "Type"
+
+msgid "(rpt)Amount"
+msgstr "Amount"
+
+msgid "(rpt)Count"
+msgstr "Count"
+
+msgid "(rpt)Destination"
+msgstr "Destination"
+
+msgid "(rpt)Terminal ID"
+msgstr "Terminal ID"
+
+msgid "(rpt)Start Time"
+msgstr "Start Time"
+
+msgid "(rpt)End Time"
+msgstr "End Time"
+
+msgid "(rpt)Terminal No."
+msgstr "Terminal No."
+
+msgid "(rpt)Drawer No."
+msgstr "Drawer No."
+
+msgid "(rpt)Time"
+msgstr "Time"
+
+msgid "(rpt)Event"
+msgstr "Event"
+
+msgid "(rpt)Number of Events"
+msgstr "Number of Events"
+
+msgid "(rpt)Term_No."
+msgstr "Term_No."
+
+msgid "(rpt)rpt_sequence"
+msgstr "Sequence"
+
+msgid "(rpt)Total"
+msgstr "Total"
+
+msgid "(rpt)Add-on Tax"
+msgstr "Add-on Tax"
+
+msgid "(rpt)Surcharge"
+msgstr "Surcharge"
+
+msgid "(rpt)Discount"
+msgstr "Discount"
+
+msgid "(rpt)Payment"
+msgstr "Payment"
+
+msgid "(rpt)Check"
+msgstr "Check"
+
+msgid "(rpt)Credit Card"
+msgstr "Credit Card"
+
+msgid "(rpt)Coupon"
+msgstr "Coupon"
+
+msgid "(rpt)Gift Card"
+msgstr "Gift Card"
+
+msgid "(rpt)Seq."
+msgstr "Seq."
+
+msgid "(rpt)Service Clerk"
+msgstr "Service Clerk"
+
+msgid "(rpt)Proceeds Clerk"
+msgstr "Proceeds Clerk"
+
+msgid "(rpt)Proceeds"
+msgstr "Proceeds"
+
+msgid "(rpt)Service"
+msgstr "Service"
+
+msgid "(rpt)Guests"
+msgstr "Guests"
+
+msgid "(rpt)Items"
+msgstr "Items"
+
+msgid "(rpt)Product No."
+msgstr "Porduct No."
+
+msgid "(rpt)Product Name"
+msgstr "Product Name"
+
+msgid "(rpt)Price"
+msgstr "Price"
+
+msgid "(rpt)Quantity"
+msgstr "Quantity"
+
+msgid "(rpt)Termianl No"
+msgstr "Terminal No."
+
+msgid "(rpt)No."
+msgstr "No."
+
+msgid "(rpt)Name"
+msgstr "Name"
+
+msgid "(rpt)Included Tax"
+msgstr "Included Tax"
+
+msgid "(rpt)Orders"
+msgstr "Orders"
+
+msgid "(rpt)Status"
+msgstr "Status"
+
+msgid "(rpt)Avg. Price"
+msgstr "Avg. Price"
+
+msgid "(rpt)Qty"
+msgstr "Qty"
+
+msgid "(rpt)Qty."
+msgstr "Qty."
+
+msgid "(rpt)Barcode"
+msgstr "Barcode"
+
+msgid "(rpt)Tax"
+msgstr "Tax"
+
+msgid "(rpt)Stock"
+msgstr "Stock"
+
+msgid "(rpt)Safe_Stock"
+msgstr "Safe Stock"
+
+msgid "(rpt)Halo"
+msgstr "Halo"
+
+msgid "(rpt)Lalo"
+msgstr "Lalo"
+
+msgid "(rpt)Maintain_Stock"
+msgstr "Maintain Stock"
+
+msgid "(rpt)Return_Stock"
+msgstr "Return Stock"
+
+msgid "(rpt)Single"
+msgstr "Single"
+
+msgid "(rpt)Age_Verification"
+msgstr "Age Verification"
+
+msgid "(rpt)Visible"
+msgstr "Visible"
+
+msgid "(rpt)Department No."
+msgstr "Department No."
+
+msgid "(rpt)Department Name"
+msgstr "Department Name"
+
+msgid "(rpt)Product"
+msgstr "Product"
+
+msgid "(rpt)Safe Stock"
+msgstr "Safe Stock"
+
+msgid "(rpt)Revenue"
+msgstr "Revenue"
+
+msgid "(rpt)Sales Summary"
+msgstr "Sales Summary"
+
+msgid "(rpt)Average Total"
+msgstr "Average Total"
+
+msgid "(rpt)Average Guest"
+msgstr "Average Guest"
+
+msgid "(rpt)Average Items"
+msgstr "Average Items"
+
+msgid "(rpt)Payment List"
+msgstr "Payment List"
+
+msgid "(rpt)Destination Summary"
+msgstr "Destination Summary"
+
+msgid "(rpt)Times"
+msgstr "Times"
+
+msgid "(rpt)Top Department Sales"
+msgstr "Top Department Sales"
+
+msgid "(rpt)Department"
+msgstr "Department"
+
+msgid "(rpt)Hourly Sales"
+msgstr "Hourly Sales"
+
+msgid "(rpt)Top Product Sales"
+msgstr "Top Product Sales"
+
+msgid "(rpt)Tax summary"
+msgstr "Tax Summary"
+
+msgid "(rpt)Rate"
+msgstr "Rate"
+
+msgid "(rpt)Discount Summary"
+msgstr "Discount Summary"
+
+msgid "(rpt)Surcharge Summary"
+msgstr "Surcharge Summary"
+
+msgid "(rpt)General Information"
+msgstr "General Information"
+
+msgid "(rpt)Tax Name"
+msgstr "Tax Name"
+
+msgid "(rpt)Tax Rate"
+msgstr "Tax Rate"
+
+msgid "(rpt)Tax Type"
+msgstr "Tax Type"
+
+msgid "(rpt)Min Stock"
+msgstr "Min Stock"
+
+msgid "(rpt)Min.Stock"
+msgstr "Min Stock"
+
+msgid "(rpt)User Name"
+msgstr "User Name"
+
+msgid "(rpt)Display Name"
+msgstr "Display Name"
+
+msgid "(rpt)Access Group"
+msgstr "Access Group"

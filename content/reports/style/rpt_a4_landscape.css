@@ -74,6 +74,14 @@
   list-style-image: url(chrome://viviecr/content/skin/images/table_title.gif);
 }
 
+.subtitle{
+text-align: left !important;
+font-weight: bold !important;
+font-size: 10pt !important;
+color: #292929 !important;
+margin: 10px 5px !important;
+padding: 4px !important;
+}
 
 /* basic shared rules */
 #body-table th,
@@ -89,7 +97,7 @@
 
 
 /* header */
-#body-table > thead > tr:first-child > th {
+#body-table > thead > tr:first-child > th, .fields {
   text-align: center;
   color: #56523a;
   border-top: 2px solid #b5b093;
@@ -98,12 +106,12 @@
   font-size: 9pt;
   padding: 4px;
 }
-
+/*
 #body-table > thead > tr + tr > th {
   font-style: italic;
   color: gray;
   }
-
+*/
 /* fix size of superscript */
 #body-table sup {
   font-size: 75%;
