@@ -90,6 +90,10 @@
 
         var sourceFile = "/tmp/vivipos_stub.txt";
 
+        // remove mountpoint files
+        GREUtils.File.remove(mountPoint + '/vivipos_stub.txt' );
+
+        // copy
         GREUtils.File.copy(sourceFile, mountPoint);
 
         // sync io
@@ -128,6 +132,9 @@
             return false;
         }
 
+        // remove old license file
+        GREUtils.File.remove(targetDir + 'vivipos.lic' );
+        // copy
         GREUtils.File.copy(sourceFile, targetDir);
         // sync io
         GREUtils.File.run('/bin/sync', [], true);
