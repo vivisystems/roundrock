@@ -31,6 +31,7 @@
             GeckoJS.Session.remove('cart_last_sell_item');
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
+
         },
 
         suspend: function () {
@@ -3094,17 +3095,7 @@
 
             this.cancelReturn();
 
-            var curTransaction = this._getTransaction();
-            if (curTransaction == null) {
-                NotifyUtils.warn(_('Not an open order; unable to store'));
-                return; // fatal error ?
-            }
-
-            curTransaction = this._getTransaction(true);
-            if (curTransaction == null) {
-                NotifyUtils.warn(_('fatal error!!'));
-                return; // fatal error ?
-            }
+            var curTransaction = null;
 
             var r = -1;
             if (no.length == 0) {
@@ -3114,6 +3105,11 @@
             }
 
             if (r >= 0) {
+                curTransaction = this._getTransaction(true);
+                if (curTransaction == null) {
+                    NotifyUtils.warn(_('fatal error!!'));
+                    return; // fatal error ?
+                }
                 curTransaction.data.check_no = r;
             } else {
                 NotifyUtils.warn(_('Check# %S is exist!!', [no]));
@@ -3128,13 +3124,9 @@
 
             this.cancelReturn();
 
-            var curTransaction = this._getTransaction();
-            if (curTransaction == null) {
-                NotifyUtils.warn(_('Not an open order; unable to store'));
-                return; // fatal error ?
-            }
+            var curTransaction = null;
 
-            curTransaction = this._getTransaction(true);
+            var curTransaction = this._getTransaction(true);
             if (curTransaction == null) {
                 NotifyUtils.warn(_('fatal error!!'));
                 return; // fatal error ?
@@ -3148,6 +3140,11 @@
             }
 
             if (r >= 0) {
+                curTransaction = this._getTransaction(true);
+                if (curTransaction == null) {
+                    NotifyUtils.warn(_('fatal error!!'));
+                    return; // fatal error ?
+                }
                 curTransaction.data.table_no = r;
             } else {
                 NotifyUtils.warn(_('Table# %S is exist!!', [no]));

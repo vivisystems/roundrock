@@ -55,16 +55,26 @@
                 // cart.addEventListener('onClear', this.handleClear, this);
                 cart.addEventListener('onStore', this.handleNewTransaction, this);
                 
-                var print = GeckoJS.Controller.getInstanceByName('Print');
+            }
+
+            // add listener for afterSubmit event
+            var print = GeckoJS.Controller.getInstanceByName('Print');
+            if (print) {
                 print.addEventListener('afterSubmit', this.handleNewTransaction, this);
             }
-            /*
+
             // add listener for onLogin event
-            var main = GeckoJS.Controller.getInstanceByName('Main');
-            if (main) {
-                main.addEventListener('onInitial', this.handleNewTransaction, this);
+//            var main = GeckoJS.Controller.getInstanceByName('Main');
+//            if (main) {
+//                main.addEventListener('onInitial', this.handleNewTransaction, this);
+//            }
+
+            // add listener for onStartShift event
+            var shiftchange = GeckoJS.Controller.getInstanceByName('ShiftChanges');
+            if (shiftchange) {
+                shiftchange.addEventListener('onStartShift', this.handleNewTransaction, this);
             }
-            */
+            
         },
 
         handleNewTransaction: function(evt) {
@@ -73,7 +83,7 @@
             this._guestCheck.requireCheckNo = GeckoJS.Configure.read('vivipos.fec.settings.RequireCheckNo') || false;
             this._guestCheck.requireTableNo = GeckoJS.Configure.read('vivipos.fec.settings.RequireTableNo') || false;
 
-            if (evt.type == 'onSubmit' || evt.type == 'onCancel' || evt.type == 'onInitial' || evt.type == 'onStore' || evt.type == 'afterSubmit') {
+            // if (evt.type == 'onSubmit' || evt.type == 'onCancel' || evt.type == 'onInitial' || evt.type == 'onStore' || evt.type == 'afterSubmit') {
                 /*
                 if (this._guestCheck.requireCheckNo) {
                     //
@@ -86,8 +96,9 @@
                 }
                 */
                 //this._controller._getTransaction(true);
-            }
-            else if (evt.type == 'newTransaction') {
+            // }
+            // else if (evt.type == 'newTransaction' || evt.type == 'onStartShift') {
+            if (evt.type == 'newTransaction' || evt.type == 'onStartShift' || evt.type == 'onCancel') {
                 if (this._guestCheck.requireCheckNo) {
                     //
                     if (!GeckoJS.Session.get('vivipos_fec_check_number'))
@@ -152,9 +163,24 @@
 
             window.openDialog(aURL, 'select_table', features, inputObj);
 
+
             if (inputObj.ok && inputObj.index) {
                 var idx = inputObj.index;
                 i = tables[idx].table_no;
+
+                switch (inputObj.action) {
+                    case 'RecallCheck':
+                        alert('RecallCheck...');
+                        this.recallByTableNo(i);
+                        // return;
+                        break;
+                    case 'SplitCheck':
+                        alert('SplitCheck...');
+                        break;
+                    case 'MergeCheck':
+                        alert('MergeCheck...');
+                        break;
+                }
             }else {
                 while (i <= 200) {
                     if (!this._tableNoArray[i] || this._tableNoArray[i] == 0) {
@@ -494,6 +520,10 @@
         },
 
         transfer: function(key, no) {
+            var tableTmp = new TableStatusModel();
+            this.log(this.dump(tableTmp.schema().fields));
+            return;
+
             //this.log("GuestCheck transfer...key:" + key + ",  no:" + no);
             switch(key) {
                 case 'OrderNo':
@@ -585,6 +615,7 @@
                 var id = inputObj.id;
 
                 this._controller.unserializeFromOrder(id);
+                var check_no = inputObj.check_no
 
                 // display to onscreen VFD
                 this._controller.dispatchEvent('onWarning', _('RECALL# %S', [check_no]));

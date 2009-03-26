@@ -1,6 +1,6 @@
-(function(){
+var inputObj = window.arguments[0];
 
-    var inputObj = window.arguments[0];
+(function(){    
 
     // include controllers  and register itself
 
@@ -55,7 +55,6 @@
             function(){
                 inputObj.index = document.getElementById('tableScrollablepanel').value;
                 inputObj.ok = true;
-
                 delete window.viewHelper;
 
                 return true;
@@ -73,4 +72,21 @@
 
 })();
 
+function doRecallCheck() {
+    //
+    // alert('Recall..');
+    inputObj.action = 'RecallCheck';
+    doOKButton();
+}
 
+function doSplitCheck() {
+    // alert('Split...');
+    inputObj.action = 'SplitCheck';
+    doOKButton();
+}
+
+function doMergeCheck() {
+    // alert('Merge...');
+    inputObj.action = 'MergeCheck';
+    doOKButton();
+}

@@ -1,1 +1,4 @@
 <!ENTITY selecttable.title  "Select Table">
+<!ENTITY selecttable.splitcheck  "Split Check">
+<!ENTITY selecttable.recallcheck  "Recall Check">
+<!ENTITY selecttable.mergecheck  "Merge Check">
