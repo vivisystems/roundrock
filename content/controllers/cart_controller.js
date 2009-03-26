@@ -2789,7 +2789,7 @@
             return $.popupPanel('selectCondimentPanel', dialog_data).next(function(evt){
                 var selectedCondiments = evt.data.condiments;
                 if (selectedCondiments.length > 0) {
-                    self._appendCondiments(selectedCondiments, false);
+                    self._appendCondiments(selectedCondiments, true);
                 }
 
             });

@@ -13,6 +13,8 @@
 
         doRestart: false,
         restartClock: false,
+
+        _suspendLoadTest: false,
     
         initial: function() {
             
@@ -389,7 +391,6 @@
             else {
                 GeckoJS.Session.clear('user');
             }
-            this.dispatchEvent('onSetClerk', userRecord);
         },
 
         updateOptions: function () {
@@ -416,7 +417,7 @@
 
             // check if default user successfully logged in
             if (this.Acl.getUserPrincipal()) {
-                this.setClerk();
+                this.requestCommand('setClerk', null, 'Main');
             }
             else {
                 this.ChangeUserDialog();
@@ -681,8 +682,8 @@
 
             if (waitCaption) waitCaption.setAttribute("label", title);
 
-            waitPanel.sizeTo(360, 120);
-            var x = (width - 360) / 2;
+            waitPanel.sizeTo(600, 120);
+            var x = (width - 600) / 2;
             var y = (height - 240) / 2;
             waitPanel.openPopupAtScreen(x, y);
 
@@ -754,10 +755,9 @@
         },
 
         dispatch: function(arg) {
-
             var args = arg.split('|');
 
-            this.requestCommand(args[0], args[1], args[2]) ;
+            $do(args[0], args[1], args[2]) ;
             /*
             var printer = GeckoJS.Controller.getInstanceByName('Print');
             if (printer) {
@@ -780,26 +780,59 @@
             }
         },
 
+        suspendLoadTest: function(data) {
+            this._suspendLoadTest = true;
+        },
+
         loadTest: function(params) {
             var paramList = [];
             if (params) paramList = params.split(',');
             var count = parseInt(paramList[0]) || 1;
             var items = parseInt(paramList[1]) || 1;
-            var waitPanel = this._showWaitPanel('wait_panel', 'common_wait', 'Load Testing (' + count + ' orders with ' + items + ' items)', 1000);
-            var customers = GeckoJS.Session.get('customers');
-            var products = GeckoJS.Session.get('products');
+            var resume = parseInt(paramList[2]) || 0;
+            var customers = GeckoJS.Session.get('customers') || [];
+            var products = GeckoJS.Session.get('products') || [];
             var numProds = products.length;
             var numCustomers = customers.length;
             
             var customerController = GeckoJS.Controller.getInstanceByName('Customers');
             
             var cart = GeckoJS.Controller.getInstanceByName('Cart');
-            //
-            for (var i = 0; i < count; i++) {
+            var startIndex = 0;
+            var waitPanel;
+
+            var progressBar = document.getElementById('progress');
+            progressBar.mode = 'determined';
+            progressBar.max = count;
+
+            if (resume && this.loadTestState != null) {
+                startIndex = this.loadTestState;
+                this.loadTestState = null;
+                progressBar.value = startIndex * 100 / count;
+                waitPanel = this._showWaitPanel('wait_panel', 'common_wait', 'Resume Load Testing (' + count + ' orders with ' + items + ' items)', 1000);
+            }
+            else {
+                progressBar.value = 0;
+                waitPanel = this._showWaitPanel('wait_panel', 'common_wait', 'Load Testing (' + count + ' orders with ' + items + ' items)', 1000);
+            }
+
+            //this.sleep(100);
+            
+            for (var i = startIndex; i < count; i++) {
+
+                if (this._suspendLoadTest) {
+                    this._suspendLoadTest = false;
+                    this.loadTestState = i;
+                    
+                    break;
+                }
 
                 // select a member
                 if (customerController && numCustomers > 0) {
-                    var customer = customers[Math.floor(numCustomers * Math.random())];
+                    var cIndex = Math.floor(numCustomers * Math.random());
+                    if (cIndex >= numCustomers) cIndex = numCustomers - 1;
+                    
+                    var customer = customers[cIndex];
                     var txn = cart._getTransaction(true);
                     customerController.processSetCustomerResult(txn, {ok: true, customer: customer});
                 }
@@ -807,7 +840,10 @@
                 for (var j = 0; j < items; j++) {
 
                     // select an item with no condiments from product list
-                    var item = products[Math.floor(numProds * Math.random())];
+                    var pindex = Math.floor(numProds * Math.random());
+                    if (pindex >= numProds) pindex = numProds - 1;
+                    
+                    var item = products[pindex];
                     if (item.force_condiment) {
                         item.force_condiment = false;
                     }
@@ -824,11 +860,15 @@
                 // finalize order with cash
                 cart.cash();
 
+                // update progress bar
+                progressBar.value = (i + 1) * 100 / count;
+
                 // delay
                 this.sleep(300 + 100 * Math.random());
             }
 
             waitPanel.hidePopup();
+            progressBar.mode = 'undetermined';
         }
     };
 
