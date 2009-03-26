@@ -59,7 +59,7 @@
 
             });
 
-            // GeckoJS.Session.add('condGroupsById', condGroupsById);
+            GeckoJS.Session.add('condGroupsById', condGroupsById);
 
             var condGroupsByPLU = {};
 
