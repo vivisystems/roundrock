@@ -829,7 +829,6 @@
 
             var progressBar = document.getElementById('progress');
             progressBar.mode = 'determined';
-            progressBar.max = count;
 
             if (resume && this.loadTestState != null) {
                 startIndex = this.loadTestState;

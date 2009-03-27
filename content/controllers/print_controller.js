@@ -361,12 +361,10 @@
                 var devices = this.getDeviceController().getSelectedDevices();
                 for (var i = 1; 'receipt-' + i + '-enabled' in devices; i++) {
                     GeckoJS.Session.remove('receipt-' + i + '-suspended');
-                    alert('receipt :' + i);
                 }
 
                 for (var i = 1; 'check-' + i + '-enabled' in devices; i++) {
                     GeckoJS.Session.remove('check-' + i + '-suspended');
-                    alert('check :' + i);
                 }
             }
         },
