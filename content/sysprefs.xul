@@ -405,7 +405,7 @@
         </grid>
 
         <hbox class="ToolBar">
-            <button id="rebuild_database" label="&orderdata.rebuilddatabase;" oncommand="" />
+            <button id="rebuild_database" label="&orderdata.rebuilddatabase;" oncommand="rebuildDatabases()" />
         </hbox>
 
     </prefpane>

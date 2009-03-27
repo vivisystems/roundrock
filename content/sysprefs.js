@@ -65,6 +65,18 @@
 
 })();
 
+function rebuildDatabases() {
+
+    // popup progress bar
+
+    //close all connection
+    GeckoJS.ConnectionManager.closeAll();
+    
+    GREUtils.File.run('/data/scripts/rebuild_databases.sh', [], true);
+
+   // unpopup progressbar
+}
+
 function closePreferences() {
     try {
         // change button height
