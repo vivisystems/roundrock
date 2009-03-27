@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window [
+  <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+  %Dialog;
+  <!ENTITY % TableMan SYSTEM "chrome://viviecr/locale/table_man.dtd">
+  %TableMan;
+  ]>
+<?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/reports.css" type="text/css"?>
+<!-- ?xml-stylesheet href="chrome://customers/skin/customers.css" type="text/css"? -->
+
+<?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+
+<window title="&tableman.title;"
+        hidechrome="true"
+        xmlns:html="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/table_man.js" />
+
+    <keyset id="keyset_extensions">
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('search_ok').click()" />
+    </keyset>
+
+    <vbox class="main-dialog" flex="1">
+        <vbox flex="1" class="MainPnl">
+            <tabbox flex="1" class="RightTabbox" oncommand="$do('setMode', null, 'Suppliers')">
+                <tabs id="main-tabbox">
+                    <tab id="tab_search" label="&tableman.tab.tables;"/>
+                    <tab id="tab_supplier" label="&tableman.tab.regions;"/>
+                    <tab id="tab_supplyitems" label="&tableman.tab.tablemap;"/>
+                </tabs>
+                <tabpanels flex="1">
+
+                    <!-- Tables Panel -->
+
+                    <tabpanel id="panel_search" flex="1" oncommand="event.stopPropagation()">
+                        <vbox flex="1">
+                            <vbox flex="1">
+                                <vbox pack="start" flex="1" class="LeftPnl">
+                                    <viviscrollabletree id="tablescrollabletree" flex="1"
+                                                    headers="&tableman.field.active;,&tableman.field.tableno;,&tableman.field.tablename;,&tableman.field.seats;,&tableman.field.region;"
+                                                    fields="active,table_no,table_name,seats,region"
+                                                    onclick="$do('selectTable',this.selectedIndex, 'TableMan');"
+                                                    class="ListPnl" hidecolumnpicker="true"
+                                                    scrollUpClass="ScrollUp" dir="normal"
+                                                    scrollDownClass="ScrollDown">
+                                        <spacer flex="1" />
+                                    </viviscrollabletree>
+                                    <hbox>
+                                        <label value="&tableman.result.count;"/><label id="table_count"/>
+                                    </hbox>
+                                </vbox>
+                                <grid class="DataForm">
+                                    <columns>
+                                        <column flex="1" />
+                                        <column flex="1" />
+                                        <column flex="1" />
+                                    </columns>
+                                    <rows>
+
+                                        <!-- row one -->
+                                        <row>
+                                            <vbox>
+                                                <label control="supplier_no" value="&tableman.field.tableno;"/>
+                                                <textbox id="filter_supplier_no" name="supplier_no" form="searchForm" default="" onfocus="select()"/>
+                                            </vbox>
+                                            <vbox>
+                                                <label control="name" value="&tableman.field.tablename;"/>
+                                                <textbox id="filter_name" name="supplier_name" form="searchForm" default=""  onfocus="select()"
+                                                         oninput="$do('validateForm', null, 'Suppliers');"/>
+                                            </vbox>
+                                            <vbox>
+                                                <label control="telephone" value="&tableman.field.seats;"/>
+                                                <textbox id="filter_telephone" name="supplier_telephone" form="searchForm" default="" onfocus="select()"/>
+                                            </vbox>
+                                        </row>
+                                    </rows>
+                                </grid>
+                            </vbox>
+                            <hbox>
+                                <hbox class="ToolBar" flex="1">
+                                    <button id="search_supplier"  label="&tableman.button.search;" class="BtnSearch" oncommand="$do('search', null, 'Suppliers');"/>
+                                    <button id="search_add_supplier"  label="&tableman.button.add;" hidden="true" class="BtnAdd" oncommand="$do('addSupplier', null, 'Suppliers');"/>
+                                    <spacer flex="1"/>
+                                    <button id="search_delete_supplier"  label="&tableman.button.delete;" hidden="true" class="BtnDel" oncommand="$do('deleteSupplier', null, 'Suppliers');"   />
+                                </hbox>
+                                <hbox id="search_dialogButtons" class="dialogbtns" pack="center">
+                                    <button id="search_vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
+                                    <button class="ExitBtn" id="search_ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                                </hbox>
+                            </hbox>
+                        </vbox>
+                    </tabpanel>
+
+                    <!-- Regions Panel -->
+
+                    <tabpanel id="panel_supplier" oncommand="event.stopPropagation()">
+                        <textbox id="supplier_id" name="id" form="supplierForm" readonly="true" hidden="true"/>
+                        <textbox id="supplier_no" name="no" form="supplierForm" readonly="true" hidden="true"/>
+                        
+                        <vbox flex="1">
+
+                            <hbox>
+                                <hbox class="ToolBar" flex="1" oncommand="event.stopPropagation()">
+                                    <button id="edit_modify_supplier"  label="&tableman.button.modify;" hidden="true" class="BtnMod" oncommand="$do('modifySupplier', null, 'Suppliers');"/>
+                                    <spacer flex="1"/>
+                                    <button id="edit_delete_supplier"  label="&tableman.button.delete;" hidden="true" class="BtnDel" oncommand="$do('deleteSupplier', null, 'Suppliers');"   />
+                                </hbox>
+                                <hbox id="edit_dialogButtons" class="dialogbtns" pack="center">
+                                    <button id="edit_vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
+                                    <button class="ExitBtn" id="edit_ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                                </hbox>
+                            </hbox>
+                        </vbox>
+                    </tabpanel>
+                    
+                    <!-- Table Map Panel -->
+
+                    <tabpanel id="panel_supplier" oncommand="event.stopPropagation()">
+                        <textbox id="supplier_id" name="id" form="supplierForm" readonly="true" hidden="true"/>
+                        <textbox id="supplier_no" name="no" form="supplierForm" readonly="true" hidden="true"/>
+
+                        <vbox flex="1">
+
+                            <hbox>
+                                <hbox class="ToolBar" flex="1" oncommand="event.stopPropagation()">
+                                    <button id="edit_modify_supplier"  label="&tableman.button.modify;" hidden="true" class="BtnMod" oncommand="$do('modifySupplier', null, 'Suppliers');"/>
+                                    <spacer flex="1"/>
+                                    <button id="edit_delete_supplier"  label="&tableman.button.delete;" hidden="true" class="BtnDel" oncommand="$do('deleteSupplier', null, 'Suppliers');"   />
+                                </hbox>
+                                <hbox id="edit_dialogButtons" class="dialogbtns" pack="center">
+                                    <button id="edit_vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
+                                    <button class="ExitBtn" id="edit_ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
+                                </hbox>
+                            </hbox>
+                        </vbox>
+                    </tabpanel>
+
+                    
+                </tabpanels>
+
+
+            </tabbox>
+        </vbox>
+    </vbox>
+
+</window>

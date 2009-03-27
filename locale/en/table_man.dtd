@@ -1,0 +1,27 @@
+<!ENTITY tableman.title  "Table Manage">
+<!ENTITY tableman.tab.tables "Tables">
+<!ENTITY tableman.tab.regions "Regions">
+<!ENTITY tableman.tab.tablemap "Table Map">
+
+<!ENTITY tableman.field.active "Active">
+<!ENTITY tableman.field.tableno "Table No">
+<!ENTITY tableman.field.tablename "Label">
+<!ENTITY tableman.field.seats "Seats">
+<!ENTITY tableman.field.region "Region">
+
+<!ENTITY tableman.result.count "Table Count">
+
+<!ENTITY tableman.button.search "Search">
+<!ENTITY tableman.button.add "Add">
+<!ENTITY tableman.button.modify "Modify">
+<!ENTITY tableman.button.delete "Delete">
+
+<!ENTITY tableman.properties "Properties:">
+<!ENTITY tableman.no "No:">
+<!ENTITY tableman.name "Name:">
+<!ENTITY tableman.contact "Contact:">
+<!ENTITY tableman.description "Description:">
+<!ENTITY tableman.phone "Phone:">
+<!ENTITY tableman.fax "Fax:">
+<!ENTITY tableman.address "Address:">
+
