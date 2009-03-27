@@ -619,16 +619,20 @@
 			var shiftNumber = '';
 			if ( !all )
 				shiftNumber = this.getShiftNumber().toString();
-				
-		   var waitPanel = reportController._showWaitPanel('wait_panel');
+		
+			var mainController = GeckoJS.Controller.getInstanceByName( 'Main' );
+			var waitPanel = mainController._showWaitPanel( 'wait_panel', 'common_wait', _( 'Waiting...' ), 1000 );
 			
-           var processedTpl = reportController.getProcessedTpl(salePeriod * 1000, salePeriod * 1000, 'sale_period', shiftNumber, terminalNo);
-           
-           aURL = 'chrome://viviecr/content/rpt_sales_summary.xul';
-           features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
-           window.openDialog( aURL, '', features, processedTpl );
-           
-           waitPanel.hidePopup();
+			try {
+				var processedTpl = reportController.getProcessedTpl(salePeriod * 1000, salePeriod * 1000, 'sale_period', shiftNumber, terminalNo);
+			} catch ( e ) {
+			} finally {
+				if ( waitPanel ) waitPanel.hidePopup();
+			}					
+		       
+		    aURL = 'chrome://viviecr/content/rpt_sales_summary.xul';
+		    features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
+		    window.openDialog( aURL, '', features, processedTpl );
         },
 
         reviewDailySales: function() {
@@ -637,15 +641,19 @@
             var salePeriod = this.getSalePeriod();
             var terminalNo = GeckoJS.Session.get( 'terminal_no' );
 
-			var waitPanel = reportController._showWaitPanel('wait_panel');			
+			var mainController = GeckoJS.Controller.getInstanceByName( 'Main' );
+			var waitPanel = mainController._showWaitPanel( 'wait_panel', 'common_wait', _( 'Waiting...' ), 1000 );	
 			
-            var processedTpl = reportController.getProcessedTpl( salePeriod * 1000, salePeriod * 1000, terminalNo, 'sale_period', '' );
+			try{
+            	var processedTpl = reportController.getProcessedTpl( salePeriod * 1000, salePeriod * 1000, terminalNo, 'sale_period', '' );
+            } catch ( e ) {
+            } finally {
+            	if ( waitPanel ) waitPanel.hidePopup();
+            }
             
             aURL = 'chrome://viviecr/content/rpt_sales_summary.xul';
             features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
             window.openDialog( aURL, '', features, processedTpl );
-            
-            waitPanel.hidePopup();
         },
 
         select: function(index){
