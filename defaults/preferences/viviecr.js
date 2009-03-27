@@ -412,11 +412,16 @@ pref("vivipos.fec.registry.function.programmable.addmemo.command", "addMemo");
 pref("vivipos.fec.registry.function.programmable.addmemo.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.addmemo.data", "");
  
+pref("vivipos.fec.registry.function.programmable.addlinkedcondiment.access", "acl_register_plus");
+pref("vivipos.fec.registry.function.programmable.addlinkedcondiment.command", "addCondiment");
+pref("vivipos.fec.registry.function.programmable.addlinkedcondiment.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.addlinkedcondiment.data", "");
+ 
 pref("vivipos.fec.registry.function.programmable.addcondiment.access", "acl_register_plus");
-pref("vivipos.fec.registry.function.programmable.addcondiment.command", "addCondiment");
+pref("vivipos.fec.registry.function.programmable.addcondiment.command", "insertCondiment");
 pref("vivipos.fec.registry.function.programmable.addcondiment.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.addcondiment.data", "");
- 
+
 pref("vivipos.fec.registry.function.programmable.opendrawer1.access", "acl_open_cashdrawer_1");
 pref("vivipos.fec.registry.function.programmable.opendrawer1.command", "openDrawer1");
 pref("vivipos.fec.registry.function.programmable.opendrawer1.controller", "CashDrawer");
@@ -553,7 +558,7 @@ pref("vivipos.fec.reportpanels.productsales.path", "chrome://viviecr/content/rep
 pref("vivipos.fec.reportpanels.productsales.icon", "chrome://viviecr/content/skin/icons/reporticon_sale.png");
 pref("vivipos.fec.reportpanels.productsales.roles", "acl_run_report");
 
-pref("vivipos.fec.reportpanels.cashbyclerk.label", "Cash by Clerk");
+pref("vivipos.fec.reportpanels.cashbyclerk.label", "Shift Change Report");
 pref("vivipos.fec.reportpanels.cashbyclerk.path", "chrome://viviecr/content/reports/rpt_cash_by_clerk.xul");
 pref("vivipos.fec.reportpanels.cashbyclerk.icon", "chrome://viviecr/content/skin/icons/reporticon_cash.png");
 pref("vivipos.fec.reportpanels.cashbyclerk.roles", "acl_run_report");

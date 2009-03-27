@@ -1,22 +1,30 @@
-<div class="paper">
-    <img src="chrome://viviecr/content/skin/images/logo.png" />
-    <br />
-    
-    <p align="left">${head.store.name}</p>
-	<p align="left">${head.store.branch}</p>
-	<p align="left">${head.store.telephone1}</p>
-	<p align="left">${_( 'Terminal' ) + ': '}${head.store.terminal_no}</p>
-	<p align="left">${_( 'Clerk' ) + ': '}${head.clerk_displayname}</p>
-	<p align="right">${_( 'Printed Time' ) + ': '}${foot.gen_time}</p>
-	<p align="right">${head.start_time} - ${head.end_time}</p>
+<!---->
+<div id="printhead">
+	<img src="chrome://viviecr/content/skin/images/logo.png" /><br />
+</div>
+<div id="docbody" class="paper">
+	<p class="heading_store">${head.store.name} - ${head.store.branch}</p>
+	<p class="heading_store">${head.store.telephone1}</p>
+
+	<div style="float: left;">
+		<p class="heading_p">${_( '(rpt)Terminal' ) + ': '}${head.store.terminal_no}</p>
+		<p class="heading_p">${_( '(rpt)Clerk' ) + ': '}${head.clerk_displayname}</p>
+		<p class="caption">${head.title}</p>
+	</div>
+
+	<div style="float: right;">
+		<p class="heading_p">&nbsp;</p>
+		<p class="heading_p" align="right">${_( '(rpt)Printed Time' ) + ': '}${foot.gen_time}</p>
+		<p class="caption">${head.start_time} - ${head.end_time}</p>
+	</div>
 
     <table id="body-table">
-        <caption>${head.title}</caption>
+        <!--caption>${head.title}</caption-->
         <thead>
             <tr>
-                <th style="text-align: left;">${_( 'Clerk' )}</th>
-                <th style="text-align: left;">${_( 'Event' )}</th>
-                <th style="text-align: right;">${_( 'Number of Events' )}</th>
+                <th style="text-align: left;">${_( '(rpt)Clerk' )}</th>
+                <th style="text-align: left;">${_( '(rpt)Event' )}</th>
+                <th style="text-align: right;">${_( '(rpt)Number of Events' )}</th>
             </tr>
         </thead>
         <tbody>
@@ -30,7 +38,7 @@
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="2">${_( 'Summary' ) + ':'}</td>
+                <td colspan="2">${_( '(rpt)Summary' ) + ':'}</td>
                 <td style="text-align: right;">${foot.foot_data.total_num_events}</td>
             </tr>
         </tfoot>

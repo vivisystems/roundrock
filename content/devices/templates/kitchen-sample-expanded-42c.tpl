@@ -3,14 +3,16 @@
   memo = '';
 {/eval}
 {if duplicate}
-[&DWON]${'Kitchen Order Copy'|center:21}[&DWOFF]
+[&DWON]${'Kitchen Check Copy'|center:21}[&DWOFF]
 {else}
-[&DWON]${'Kitchen Order'|center:21}[&DWOFF]
+[&DWON]${'Kitchen Check'|center:21}[&DWOFF]
 {/if}
-Submitted:${(new Date()).toLocaleFormat('%Y-%m-%d %H:%M:%S')}
-Terminal: ${order.terminal_no|left:10} Clerk: ${order.proceeds_clerk_displayname|left:14}
-Check:    ${order.check_no|left:10} Seq:   ${order.seq|left:14}
-Table:    ${order.table_no|left:10}
+Printed: ${(new Date()).toLocaleFormat('%Y-%m-%d %H:%M:%S')}
+Terminal: ${order.terminal_no|left:10} Clerk:     ${order.proceeds_clerk_displayname|left:10}
+Check:    ${order.check_no|left:10} Seq:       ${order.seq|tail:3}
+{if order.table_no != null || order.no_of_customers != null}
+Table:    ${order.table_no|default:''|left:10} Customers: ${order.no_of_customers|default:''|left:10}
+{/if}
 ------------------------------------------
 {for item in order.display_sequences}
 {if item.type == 'item' && order.items[item.index] != null && order.items[item.index].linked}

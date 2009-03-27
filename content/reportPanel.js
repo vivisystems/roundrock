@@ -23,13 +23,13 @@
                 var entry = {icon: el.icon,
                              path: el.path,
                              roles: el.roles,
-                             label: _(el.label)}
+                             label: _(el.label)};
                 return entry;
-            })
+            });
 
         window.viewHelper = new opener.GeckoJS.NSITreeViewArray(data);
 
-        document.getElementById('imagePanel').datasource = window.viewHelper ;
+        document.getElementById('imagePanel').datasource = window.viewHelper;
 
         document.getElementById('imagePanel').addEventListener('command', function(evt) {
 
@@ -42,7 +42,7 @@
             $('#loading').hide();
         }, true);
 
-    };
+    }
 
     window.addEventListener('load', startup, true);
 

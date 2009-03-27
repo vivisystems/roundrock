@@ -40,6 +40,13 @@
             <caption label="&printer.dashboard.check.title;" class="PageTitle" />
             <hbox id="check-row" flex="1" pack="center">
             </hbox>
+            <hbox flex="1">
+                <radiogroup flex="1" pack="center" id="toggle-mode" default="popup" orient="horizontal"
+                            oncommand="$do('setToggleMode', this.value, 'PrinterDashboard')">
+                    <radio id="toggle-mode-popup" label="&printer.dashboard.toggle.popup;" value="popup"/>
+                    <radio id="toggle-mode-staydown" label="&printer.dashboard.toggle.staydown;" value="staydown"/>
+                </radiogroup>
+            </hbox>
             <spacer flex="1"/>
             <hbox>
                 <hbox class="ToolBar" flex="1">

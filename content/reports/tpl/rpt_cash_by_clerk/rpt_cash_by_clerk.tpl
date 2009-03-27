@@ -7,14 +7,14 @@
 	<p class="heading_store">${head.store.telephone1}</p>
 
 	<div style="float: left;">
-		<p class="heading_p">${_( 'Terminal' ) + ': '}${head.store.terminal_no}</p>
-		<p class="heading_p">${_( 'Clerk' ) + ': '}${head.clerk_displayname}</p>
+		<p class="heading_p">${_( '(rpt)Terminal' ) + ': '}${head.store.terminal_no}</p>
+		<p class="heading_p">${_( '(rpt)Clerk' ) + ': '}${head.clerk_displayname}</p>
 		<p class="caption">${head.title}</p>
 	</div>
 
 	<div style="float: right;">
 		<p class="heading_p">&nbsp;</p>
-		<p class="heading_p" align="right">${_( 'Printed Time' ) + ': '}${foot.gen_time}</p>
+		<p class="heading_p" align="right">${_( '(rpt)Printed Time' ) + ': '}${foot.gen_time}</p>
 		<p class="caption">${head.start_time} - ${head.end_time}</p>
 	</div>
 
@@ -26,14 +26,14 @@
             		<td colspan="8" class="subtitle">${master.terminal_no} : ${master.starttime} - ${master.endtime}</td>
             	</tr>
                 <tr class="fields">
-                    <th style="text-align: left;">${_( 'Sale Period' )}</th>
-                    <th style="text-align: right;">${_( 'Shift No.' )}</th>
-                    <th style="text-align: right;">${_( 'Balance' )}</th>
-                    <th style="text-align: right;">${_( 'Cash' )}</th>
-                    <th style="text-align: right;">${_( 'Sales' )}</th>
-                    <th style="text-align: right;">${_( 'Excess' )}</th>
-                    <th style="text-align: right;">${_( 'Ledger In' )}</th>
-                    <th style="text-align: right;">${_( 'Ledger Out' )}</th>
+                    <th style="text-align: left;">${_( '(rpt)Sale Period' )}</th>
+                    <th style="text-align: right;">${_( '(rpt)Shift No.' )}</th>
+                    <th style="text-align: right;">${_( '(rpt)Balance' )}</th>
+                    <th style="text-align: right;">${_( '(rpt)Cash' )}</th>
+                    <th style="text-align: right;">${_( '(rpt)Sales' )}</th>
+                    <th style="text-align: right;">${_( '(rpt)Excess' )}</th>
+                    <th style="text-align: right;">${_( '(rpt)Ledger In' )}</th>
+                    <th style="text-align: right;">${_( '(rpt)Ledger Out' )}</th>
                 </tr>
             </thead>
             <tfoot>
@@ -54,9 +54,9 @@
                 	<td colspan="4" style="vertical-align: top;">
                 		<table style="width: 100%;">
                 			<tr style="color: gray; font-style: italic;">
-                				<th style="text-align: left;">${_( 'Type' )}</th>
-                				<th style="text-align: right;">${_( 'Amount' )}</th>
-                				<th style="text-align: right;">${_( 'Count' )}</th>
+                				<th style="text-align: left;">${_( '(rpt)Type' )}</th>
+                				<th style="text-align: right;">${_( '(rpt)Amount' )}</th>
+                				<th style="text-align: right;">${_( '(rpt)Count' )}</th>
                 			</tr>
 {for detail in master.ShiftChangeDetail}
 {if detail.type != 'destination'}
@@ -72,9 +72,9 @@
 					<td colspan="4" style="vertical-align: top;">
 						<table style="width: 100%;">
 							<tr style="color: gray; font-style: italic;">
-								<th style="text-align: left;">${_( 'Destination' )}</th>
-								<th style="text-align: right;">${_( 'Amount' )}</th>
-								<th style="text-align: right;">${_( 'Count' )}</th>
+								<th style="text-align: left;">${_( '(rpt)Destination' )}</th>
+								<th style="text-align: right;">${_( '(rpt)Amount' )}</th>
+								<th style="text-align: right;">${_( '(rpt)Count' )}</th>
 							</tr>
 {for detail in master.ShiftChangeDetail}
 {if detail.type == 'destination'}

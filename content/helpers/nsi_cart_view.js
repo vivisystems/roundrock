@@ -100,11 +100,16 @@
         },
 */
         getCellProperties: function(row, col, prop) {
+            var data = this.getCurrentIndexData(row);
             var aserv=Components.classes['@mozilla.org/atom-service;1'].
                       getService(Components.interfaces.nsIAtomService);
+            GREUtils.log('getCellProperties: [' + row + '] ' + col.id);
+
+            if (data.batchMarker) {
+                prop.AppendElement(aserv.getAtom('batchMarker'));
+            }
             switch(col.id) {
                 case 'tag':
-                    var data = this.getCurrentIndexData(row);
                     if (data.type == 'item' || data.type == 'setitem') {
                         if (data.tagged) {
                             prop.AppendElement(aserv.getAtom('treecellTagged'));
@@ -158,7 +163,7 @@
         */
 
         getRowProperties : function(row, props){
-            if (this._old_row == row) return;
+            //if (this._old_row == row) return;
             var data = this.getCurrentIndexData(row);
             var aserv=Components.classes['@mozilla.org/atom-service;1'].
                       getService(Components.interfaces.nsIAtomService);
@@ -183,7 +188,9 @@
             else {
                 props.AppendElement(aserv.getAtom('regular'));
             }
+            /*
             this._old_row = row;
+            */
         },
 
         //getRowProperties : function(row,props){},

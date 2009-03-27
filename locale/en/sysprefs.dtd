@@ -16,13 +16,14 @@
 <!ENTITY general.changedepartmentclearbuffer "Clear input buffer when switching departments">
 <!ENTITY general.clearcartafterfinalization "Clear register screen after order is finalized">
 <!ENTITY general.allowoverstock "Allow negative stock">
+<!ENTITY general.idletime "System Idle(Second)">
 <!ENTITY general.ageverificationack "Require clerk acknowledgement for age verification">
 <!ENTITY general.positivepricerequired "Items must be registered with positive prices">
+<!ENTITY general.maxsaleperiodleaddays "Maximum days sale period can lead calendar date">
 <!ENTITY login.defaultlogin "Automatically log in default user">
 <!ENTITY login.autodiscardcart "Automatically discard cart content when signing off">
 <!ENTITY login.autodiscardqueue "Automatically discard queued orders when signing off">
 <!ENTITY login.mustemptyqueue "Order queue must be emptied when signing off">
-<!ENTITY login.endshiftonsignoff "Automatically ends shift when users sign off">
 <!ENTITY login.allowquicklogin "Allow quick login by automatically matching user by password">
 <!ENTITY layout.registeratleft "Place register screen on the left">
 <!ENTITY layout.productpanelontop "Place product panel on top">

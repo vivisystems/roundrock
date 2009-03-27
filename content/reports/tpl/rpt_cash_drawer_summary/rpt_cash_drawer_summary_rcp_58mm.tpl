@@ -2,23 +2,23 @@
 [&DWON]${head.store.branch|center:14}[&DWOFF]
 ${head.store.telephone1|center:24}
 
-${_( 'Terminal' ) + ': '}${head.store.terminal_no}
-${_( 'Clerk' ) + ': '}${head.clerk_displayname}
+${_( '(rpt)Terminal' ) + ': '}${head.store.terminal_no}
+${_( '(rpt)Clerk' ) + ': '}${head.clerk_displayname}
 ${head.start_time} ~
 ${head.end_time}
 
 ${head.title|center:24}
 {for item in body}
 ------------------------
-${_( 'Clerk' ) + ':'}
+${_( '(rpt)Clerk' ) + ':'}
 ${item.clerk_displayname|right:24}
-${_( 'Event' ) + ':'}
+${_( '(rpt)Event' ) + ':'}
 ${item.event_type|right:24}
-${_( 'Number of Events' ) + ':'}
+${_( '(rpt)Number of Events' ) + ':'}
 ${item.num_events|right:24}
 {/for}
 ------------------------
-${_( 'Summary' ) + ':'}
+${_( '(rpt)Summary' ) + ':'}
 ${foot.foot_data.total_num_events|right:24}
 ------------------------
 ${foot.gen_time}

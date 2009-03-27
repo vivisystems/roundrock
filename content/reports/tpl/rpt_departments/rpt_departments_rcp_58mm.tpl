@@ -2,15 +2,15 @@
 [&DWON]${head.store.branch|center:14}[&DWOFF]
 ${head.store.telephone1|center:24}
 
-${_( 'Terminal' ) + ': '}${head.store.terminal_no}
-${_( 'Clerk' ) + ': '}${head.clerk_displayname}
+${_( '(rpt)Terminal' ) + ': '}${head.store.terminal_no}
+${_( '(rpt)Clerk' ) + ': '}${head.clerk_displayname}
 
 ${head.title|center:24}
 {for category in body}
 ------------------------
-${_( 'No.' ) + ':'}
+${_( '(rpt)No.' ) + ':'}
 ${category.no|right:24}
-${_( 'Name' ) + ':'}
+${_( '(rpt)Name' ) + ':'}
 ${category.name|right:24}
 {/for}
 ------------------------

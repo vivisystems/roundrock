@@ -286,46 +286,120 @@
 
         // open serial port for writing
         openSerialPort: function (path, speed, handshaking) {
-            var portControl = this.getSerialPortControlService();
-            if (portControl != null) {
+
+            // if CUPS try just check null device not exists?
+            if (path.indexOf("/CUPS/") != -1) {
+
+                // use pure XPCOM code in worker thread ...
                 try {
-                    return (portControl.openPort(path, speed + ',n,8,1,' + handshaking) != -1);
-                }
-                catch(e) {
+
+                    var pathFile = Components.classes["@mozilla.org/file/local;1"].createInstance(Components.interfaces.nsILocalFile);
+                    var isExists = false;
+                    pathFile.initWithPath(path);
+                    isExists = pathFile.exists();
+                    pathFile = null;
+
+                    return isExists;
+
+                }catch (e) {
                     return false;
                 }
-            }
-            else {
-                return false;
+
+            }else {
+
+                var portControl = this.getSerialPortControlService();
+                if (portControl != null) {
+                    try {
+
+                        return (portControl.openPort(path, speed + ',n,8,1,' + handshaking) != -1);
+                    }
+                    catch(e) {
+                        return false;
+                    }
+                }
+                else {
+                    return false;
+                }
+                
             }
         },
 
         writeSerialPort: function (path, buf) {
-            var portControl = this.getSerialPortControlService();
-            var len = -1;
-            if (portControl != null) {
+
+            // if CUPS try just create jobfile
+            if (path.indexOf("/CUPS/") != -1) {
+
+                var printerName = path.replace("/tmp/CUPS/", "");
+
                 try {
-                    len = portControl.writePort(path, buf, buf.length);
+
+                    // vivipos has shell script to clean job spool
+                    // use pure XPCOM in worker thread.
+                    var jobFile = Components.classes["@mozilla.org/file/directory_service;1"].getService(Components.interfaces.nsIProperties).get("TmpD", Components.interfaces.nsIFile);
+                    jobFile.append(printerName + "_job");
+                    jobFile.createUnique(Components.interfaces.nsIFile.NORMAL_FILE_TYPE, 0666);
+
+                    var stream = Components.classes["@mozilla.org/network/safe-file-output-stream;1"].createInstance(Components.interfaces.nsIFileOutputStream);
+                    stream.init(jobFile, 0x04 | 0x08 | 0x20, 0666, 0); // write, create, truncate
+
+                    var bytesWritten = stream.write(buf, buf.length);
+                    if (stream instanceof Components.interfaces.nsISafeOutputStream) {
+                        stream.finish();
+                    } else {
+                        stream.close();
+                    }
+
+                    jobFile = null;
+                    stream = null;
+
+                    return bytesWritten;
+
+                }catch(e) {
+                    // length 0 for wanning message to popup
+                    return 0;
                 }
-                catch(e) {
+                return buf.length;
+
+            }else {
+
+                var portControl = this.getSerialPortControlService();
+                var len = -1;
+                if (portControl != null) {
+                    try {
+
+                        len = portControl.writePort(path, buf, buf.length);
+
+                    }
+                    catch(e) {
+                    }
                 }
+                return len;
+                
             }
-            return len;
         },
 
         // close serial port
         closeSerialPort: function (path) {
-            var portControl = this.getSerialPortControlService();
-            if (portControl != null) {
-                try {
-                    return (portControl.closePort(path) != -1);
+
+            // if CUPS try just return true
+            if (path.indexOf("/CUPS/") != -1) {
+
+                return true;
+
+            }else {
+
+                var portControl = this.getSerialPortControlService();
+                if (portControl != null) {
+                    try {
+                        return (portControl.closePort(path) != -1);
+                    }
+                    catch(e) {
+                        return false;
+                    }
                 }
-                catch(e) {
+                else {
                     return false;
                 }
-            }
-            else {
-                return false;
             }
         },
 
@@ -623,6 +697,26 @@
         },
 
         checkSerialPort: function (path, handshaking, noHandshakingValue) {
+
+            // if CUPS try just check null device not exists?
+            if (path.indexOf("/CUPS/") != -1) {
+
+                // use pure XPCOM code in worker thread ...
+                try {
+
+                    var pathFile = Components.classes["@mozilla.org/file/local;1"].createInstance(Components.interfaces.nsILocalFile);
+                    var isExists = false;
+                    pathFile.initWithPath(path);
+                    isExists = pathFile.exists();
+                    pathFile = null;
+
+                    return isExists;
+
+                }catch (e) {
+                    return false;
+                }
+            }
+
             var portControl = this.getSerialPortControlService();
             var status = 0;
             if (handshaking == null) handshaking = 'n';
@@ -685,6 +779,8 @@
         getSerialPortControlService: function() {
             if (this._portControlService == null) {
                 this._portControlService = GREUtils.XPCOM.getService("@firich.com.tw/serial_port_control_unix;1", "nsISerialPortControlUnix");
+//				this._portControlService = GREUtils.XPCOM.getService("@firich.com.tw/file_port_control_unix;1", "nsIFilePortControlUnix");
+																													
             }
             return this._portControlService;
         },
