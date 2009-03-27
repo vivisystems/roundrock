@@ -491,9 +491,25 @@
                         ledgerController.saveLedgerEntry(ledgerEntry);
 
                         // append to shiftChangeDetails
-                        shiftChangeDetails.push({type: 'ledger',
-                                                 name: entryType.type,
-                                                 amount: 0 - amt});
+                        var newChangeDetail = {type: 'ledger',
+                                               name: entryType.type,
+                                               amount: 0 - amt,
+                                               count: 1};
+
+                        // look through shiftChangeDetails and add amount and count to entry of the same type/name
+                        var found = false;
+                        for (var i = 0; i < shiftChangeDetails.length; i++) {
+                            var record = shiftChangeDetails[i];
+                            if (record.type == newChangeDetail.type && record.name == newChangeDetail.name) {
+                                found = true;
+                                record.amount += newChangeDetail.amount;
+                                record.count++;
+                                break;
+                            }
+                        }
+                        if (!found) {
+                            shiftChangeDetails.push(newChangeDetail);
+                        }
                     }
                 }
 
@@ -508,7 +524,7 @@
                     balance: inputObj.balance - amt,
                     sales: inputObj.salesRevenue,
                     ledger_out: inputObj.ledgerOutTotal - amt,
-                    ledger_in: inputObj.ledgerInTotal - amt,
+                    ledger_in: inputObj.ledgerInTotal,
                     excess: inputObj.giftcardExcess,
                     note: inputObj.description,
                     terminal_no: GeckoJS.Session.get('terminal_no'),
