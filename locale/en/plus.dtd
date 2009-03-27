@@ -37,6 +37,7 @@
 <!ENTITY plus.visible "Show on menu">
 <!ENTITY plus.require.age.verification "Require age verification">
 <!ENTITY plus.display.icon.only "Display icon only">
+<!ENTITY plus.button.action.order "Reorder">
 
 <!ENTITY plus.purchase.price "Purchase Price">
 <!ENTITY plus.stock.level "Current Stock Level">

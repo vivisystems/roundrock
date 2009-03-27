@@ -863,7 +863,8 @@
                 // update progress bar
                 progressBar.value = (i + 1) * 100 / count;
 
-                // delay
+                // GC & delay
+                GREUtils.gc();
                 this.sleep(300 + 100 * Math.random());
             }
 

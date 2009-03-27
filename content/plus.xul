@@ -430,9 +430,9 @@
                                         <column flex="1" /><column flex="1" />
                                     </columns>
                                     <rows>
-                                        <row>
+                                        <row class="ToolBar">
                                             <checkbox id="force_condiment" value="false" label="&plus.require.condiment;" form="productForm" name="force_condiment" default="0"/>
-                                            <spacer />
+                                            <button id="order_cond_group" label="&plus.button.action.order;" class="BtnMod" oncommand="$do('reorderCondimentGroup', null, 'Plus');" />
                                         </row>
                                     </rows>
                                 </grid>

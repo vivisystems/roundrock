@@ -2459,9 +2459,6 @@
             else
                 this.dispatchEvent('onGetSubtotal', oldTransaction);
 
-			// notify gecko for gc
-			GREUtils.ramback();
-
         },
 
 
