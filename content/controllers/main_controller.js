@@ -17,12 +17,16 @@
         _suspendLoadTest: false,
     
         initial: function() {
+
+            this.patch102();
             
             this.screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
             this.screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
 
             GeckoJS.Session.set('screenwidth', this.screenwidth);
             GeckoJS.Session.set('screenheight', this.screenheight);
+
+            // patch
 
             this.createPluPanel();
             //this.requestCommand('initial', null, 'Pricelevel');
@@ -65,6 +69,24 @@
             this.dispatchEvent('afterInitial', null);
 
             this.requestCommand('initialLogin', null, 'Main');
+        },
+
+        patch102: function() {
+
+            // add DB column main.products.alt_name1
+            var productModel = new ProductModel();
+            try {
+                productModel.execute('ALTER TABLE "main"."products" ADD COLUMN "alt_name1" VARCHAR');
+            }
+            catch(e) {
+            }
+
+            // add DB column main.products.alt_name2
+            try {
+                productModel.execute('ALTER TABLE "main"."products" ADD COLUMN "alt_name2" VARCHAR');
+            }
+            catch(e) {
+            }
         },
 
         _getKeypadController: function() {
