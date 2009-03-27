@@ -104,15 +104,15 @@ function popupProp(evt) {
                 </row>
                 <row>
                     <label value="Medium" />
-                    <button id="medium1" type="radio" group="shape" label="Round" class="table1" oncommand="setShape('table1');"/>
-                    <button id="medium2" type="radio" group="shape" label="Rect" class="table2" oncommand="setShape('table2');"/>
-                    <button id="medium3" type="radio" group="shape" label="Square" class="table3" oncommand="setShape('table3');"/>
+                    <button id="medium1" type="radio" group="shape" label="Round" class="table4" oncommand="setShape('table4');"/>
+                    <button id="medium2" type="radio" group="shape" label="Rect" class="table5" oncommand="setShape('table5');"/>
+                    <button id="medium3" type="radio" group="shape" label="Square" class="table6" oncommand="setShape('table6');"/>
                 </row>
                 <row>
                     <label value="Small" />
-                    <button id="small1" type="radio" group="shape" label="Round" class="table1" oncommand="setShape('table1');"/>
-                    <button id="small2" type="radio" group="shape" label="Rect" class="table2" oncommand="setShape('table2');"/>
-                    <button id="small3" type="radio" group="shape" label="Square" class="table3" oncommand="setShape('table3');"/>
+                    <button id="small1" type="radio" group="shape" label="Round" class="table7" oncommand="setShape('table7');"/>
+                    <button id="small2" type="radio" group="shape" label="Rect" class="table8" oncommand="setShape('table8');"/>
+                    <button id="small3" type="radio" group="shape" label="Square" class="table9" oncommand="setShape('table9');"/>
                 </row>
             </rows>
 

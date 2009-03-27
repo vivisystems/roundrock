@@ -337,6 +337,9 @@ var OrderModel = window.OrderModel =  GeckoJS.Model.extend({
             self.OrderReceipt.execute("DELETE FROM " + self.OrderReceipt.table + " WHERE " + cond);
             self.OrderAnnotation.execute("DELETE FROM " + self.OrderAnnotation.table + " WHERE " + cond);
 
+            // update progressbar...
+            GeckoJS.BaseObject.sleep(50);
+
         });
 
         this.execute("DELETE FROM " + this.table + " WHERE " + conditions);
