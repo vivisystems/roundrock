@@ -396,13 +396,17 @@
                     </menulist>
                 </row>
 
-                <row>
+                <!-- row>
                     <checkbox id="requireCheckNo" label="&orderdata.requirecheckno;" preference="pref_requirecheckno"/>
                     <checkbox id="requireTableNo" label="&orderdata.requiretableno;" preference="pref_requiretableno"/>
-                </row>
+                </row -->
 
             </rows>
         </grid>
+
+        <hbox class="ToolBar" pack="center">
+            <button id="rebuild_database" label="&orderdata.rebuilddatabase;" oncommand="rebuildDatabases()" />
+        </hbox>
 
     </prefpane>
     
@@ -459,5 +463,15 @@
 
     </prefpane>
 -->
+	<panel id="wait_panel" position="overlap" noautohide="true" class="WaitPnl">
+		<vbox flex="1">
+		<groupbox flex="1">
+		    <caption id="common_wait" label="Waiting..." class="PageTitle"/>
+		    <spacer style="height: 20px;" />
+		    <progressmeter id="progress" mode="undetermined" value="0" />
+		    <spacer style="height: 20px;" />
+		</groupbox>
+		</vbox>
+	</panel>
 
 </prefwindow>
