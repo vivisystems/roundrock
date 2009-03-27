@@ -1441,7 +1441,7 @@
     
     };
 
-    Transaction.prototype.appendCondiment = function(index, condiments){
+    Transaction.prototype.appendCondiment = function(index, condiments, replace){
         
         var item = this.getItemAt(index, true);                           // item to add condiment to
         var targetItem = this.getItemAt(index);
@@ -1449,12 +1449,32 @@
         var itemIndex = itemDisplay.index;                          // itemIndex of item to add condiment to
         var targetDisplayItem = this.getDisplaySeqByIndex(itemIndex);   // display index of the item to add condiment to
 
-        var prevRowCount = this.data.display_sequences.length;
+        var prevRowCount = this.getDisplaySeqCount();
 
-        var displayIndex = index;
+        var displayIndex = replace ? this.getDisplayIndexByIndex(itemIndex) : index;
+
         if (item.type == 'item') {
 
             if (condiments.length >0) {
+
+                if (replace && item.condiments != null) {
+
+                    // void all condiment items up to next item whose index is different from itemIndex
+                    i = displayIndex + 1;
+                    for (; i < this.getDisplaySeqCount();) {
+                        var displayItem = this.getDisplaySeqAt(i);
+                        if (displayItem.index != itemIndex)
+                            break;
+                        if (displayItem.type == 'condiment') {
+                            this.voidItemAt(i);
+                        }
+                        else {
+                            i++;
+                            displayIndex++;
+                        }
+                    }
+                    prevRowCount = this.getDisplaySeqCount();
+                }
 
                 condiments.forEach(function(condiment){
                     // this extra check is a workaround for the bug in XULRunner where an item may appear to be selected

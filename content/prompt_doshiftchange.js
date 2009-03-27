@@ -9,6 +9,7 @@ var options;
     var ledgerInTotal = inputObj.ledgerInTotal;
     var ledgerOutTotal = inputObj.ledgerOutTotal;
     var cashNet = inputObj.cashNet;
+    var canEndSalePeriod = inputObj.canEndSalePeriod;
 
     options = inputObj;
 
@@ -56,7 +57,9 @@ var options;
 
         document.getElementById('clearBtn').addEventListener('command', clearTextBox, false);
         document.getElementById('amount').select();
-
+        
+        document.getElementById('close').disabled = !canEndSalePeriod;
+        
         doSetOKCancel(
 
             function(){

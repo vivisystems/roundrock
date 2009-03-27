@@ -99,7 +99,7 @@
                                                    class="ItemScrollablepanel"
                                                    buttonClass="plubtn"
                                                    scrollUpClass="ScrollUp"
-                                                   scrollDownClass="ScrollUp" >
+                                                   scrollDownClass="ScrollDown" >
                               <spacer flex="1" />
                         </viviscrollablebuttonpanel>
                     </vbox>

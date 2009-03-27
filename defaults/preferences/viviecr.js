@@ -412,11 +412,16 @@ pref("vivipos.fec.registry.function.programmable.addmemo.command", "addMemo");
 pref("vivipos.fec.registry.function.programmable.addmemo.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.addmemo.data", "");
  
+pref("vivipos.fec.registry.function.programmable.addlinkedcondiment.access", "acl_register_plus");
+pref("vivipos.fec.registry.function.programmable.addlinkedcondiment.command", "addCondiment");
+pref("vivipos.fec.registry.function.programmable.addlinkedcondiment.controller", "Cart");
+pref("vivipos.fec.registry.function.programmable.addlinkedcondiment.data", "");
+ 
 pref("vivipos.fec.registry.function.programmable.addcondiment.access", "acl_register_plus");
-pref("vivipos.fec.registry.function.programmable.addcondiment.command", "addCondiment");
+pref("vivipos.fec.registry.function.programmable.addcondiment.command", "insertCondiment");
 pref("vivipos.fec.registry.function.programmable.addcondiment.controller", "Cart");
 pref("vivipos.fec.registry.function.programmable.addcondiment.data", "");
- 
+
 pref("vivipos.fec.registry.function.programmable.opendrawer1.access", "acl_open_cashdrawer_1");
 pref("vivipos.fec.registry.function.programmable.opendrawer1.command", "openDrawer1");
 pref("vivipos.fec.registry.function.programmable.opendrawer1.controller", "CashDrawer");
