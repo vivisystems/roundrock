@@ -19,7 +19,7 @@
      */
     function startup() {
 
-        $( '#togglesize' )[ 0 ].addEventListener( 'command', toggleSize, false );
+        $( '#togglesize' )[ 0 ].addEventListener( 'command', toggleSize, false );        
         $do( 'load', null, 'RptSalesSummary' );
 
     };

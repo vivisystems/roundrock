@@ -8,6 +8,7 @@
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/reports.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
@@ -16,7 +17,6 @@
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-    <script type="application/x-javascript" src="chrome://viviecr/content/prompt_additem.js" />
     <script type="application/x-javascript">
         var GeckoJS = opener.GeckoJS;
         var GREUtils = opener.GREUtils;
@@ -32,18 +32,41 @@
     <vbox class="main-dialog" flex="1">
         <vbox class="MainPnl" flex="1">
             <label id="message" value="" class="PageTitle"/>
-            <spacer flex="1"/>
-            <hbox>
-                <hbox id="dialogButtons" class="ToolBar" flex="1">
-                    <button id="print" label="&shiftchange.button.print.this.shift;" default="false" oncommand="opener.$do('printShiftReport', null, 'ShiftChanges');"/>
-                    <button id="print" label="&shiftchange.button.print.all.shifts;" default="false" oncommand="opener.$do('printShiftReport', true, 'ShiftChanges');"/>
-                    <button id="print" label="&shiftchange.button.print.daily.sales;" default="false" oncommand="opener.$do('printDailySales', null, 'ShiftChanges');"/>
-                    <spacer flex="1"/>
-                    <button id="login" label="&shiftchange.button.login;" default="false" oncommand="doOKButton();"/>
-                    <button id="poweroff" label="&shiftchange.button.poweroff;" default="true" oncommand="opener.$do('shutdownMachine', null, 'Main');;"/>
-                </hbox>
+    		<grid flex="1">
+                <columns>
+                    <column  flex="1"/>
+                    <column flex="1" />
+                    <column flex="1" />
+                </columns>
+                <rows>
+                    <row>
+                        <vbox>
+                    		<button id="review" class="ZoomBtn" label="&shiftchange.button.review.this.shift;" default="false" oncommand="opener.$do('reviewShiftReport', null, 'ShiftChanges');"/>
+                    	</vbox>
+                    	<vbox>
+		                    <button id="review" class="ZoomBtn" label="&shiftchange.button.review.all.shifts;" default="false" oncommand="opener.$do('reviewShiftReport', true, 'ShiftChanges');"/>
+		                </vbox>
+		                <vbox>
+		                	<button id="review" class="ZoomBtn" label="&shiftchange.button.review.daily.sales;" default="false" oncommand="opener.$do('reviewDailySales', null, 'ShiftChanges');"/>
+		                </vbox>
+                    </row>
+                    <row>
+                    	<vbox>
+                    		<button id="print" class="PrintBtn" label="&shiftchange.button.print.this.shift;" default="false" oncommand="opener.$do('pringShiftReport', null, 'ShiftChanges');"/>
+                    	</vbox>
+                    	<vbox>
+		                    <button id="print" class="PrintBtn" label="&shiftchange.button.print.all.shifts;" default="false" oncommand="opener.$do('printShiftReport', true, 'ShiftChanges');"/>
+		                </vbox>
+		                <vbox>
+		                	<button id="print" class="PrintBtn" label="&shiftchange.button.print.daily.sales;" default="false" oncommand="opener.$do('printDailySales', null, 'ShiftChanges');"/>
+		                </vbox>
+                    </row>
+                </rows>
+            </grid>
+            <hbox flex="1" class="ToolBar" pack="center">
+                <button id="login" label="&shiftchange.button.login;" default="false" oncommand="doOKButton();"/>
+            	<button id="poweroff" label="&shiftchange.button.poweroff;" default="true" oncommand="opener.$do('shutdownMachine', null, 'Main');"/>
             </hbox>
         </vbox>
     </vbox>
-
 </window>
