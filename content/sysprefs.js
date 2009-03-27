@@ -38,7 +38,7 @@
         //
         var weekmenulist = document.getElementById('weekmenulist');
         var date = new Date();
-        date.setDate(date.getDate() - (date.getDay() - 0));
+        date.setDate(date.getDate() - (date.getDay() + 1));
         for (var i=-1; i < 7; i++) {
             var menuitem = document.createElementNS( "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul", "xul:menuitem" );
             menuitem.setAttribute( 'value', i );

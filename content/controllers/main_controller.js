@@ -724,6 +724,8 @@
             var weeklyPack = GeckoJS.Configure.read('vivipos.fec.settings.OrderWeeklyPack') || -1;
 
             if (retainDays > 0) {
+                var oldLimit = GREUtils.Pref.getPref('dom.max_chrome_script_run_time');
+                GREUtils.Pref.setPref('dom.max_chrome_script_run_time', 120 * 60);
 
                 var waitPanel = this._showWaitPanel('wait_panel', 'common_wait', _('Removing old data...'), 1000);
 
@@ -736,6 +738,7 @@
                     var order = new OrderModel();
                     var conditions = "orders.transaction_submitted<='" + retainDate +
                                      "' AND orders.status<='1'";
+
                     order.removeOrders(conditions);
 
                     // dispatch beforeClearOrderData event
@@ -743,6 +746,7 @@
 
                     // if pack order data...
                     var today = (new Date()).getDay();
+
                     if (pack || (weeklyPack == today)) {
                         order.execute("VACUUM");
                     }
@@ -750,11 +754,11 @@
                     // dispatch afterPackOrderData event
                     this.dispatchEvent('afterPackOrderData', retainDate);
 
-
                     delete order;
 
                 } catch (e) {}
                 finally {
+                    GREUtils.Pref.setPref('dom.max_chrome_script_run_time', oldLimit);
                     waitPanel.hidePopup();
                 }
 

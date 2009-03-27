@@ -72,6 +72,8 @@ function launchControl(panel) {
 
             }else {
 
+                VirtualKeyboard.show();
+
                 var paths = pref['path'].split(' ');
                 var launchAp = paths[0];
                 var args = paths.slice(1);
