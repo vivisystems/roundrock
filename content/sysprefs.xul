@@ -404,7 +404,7 @@
             </rows>
         </grid>
 
-        <hbox class="ToolBar">
+        <hbox class="ToolBar" pack="center">
             <button id="rebuild_database" label="&orderdata.rebuilddatabase;" oncommand="rebuildDatabases()" />
         </hbox>
 
