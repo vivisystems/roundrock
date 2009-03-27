@@ -92,3 +92,4 @@
 <!ENTITY formats.sequence.number.length "Sequence number length">
 <!ENTITY orderdata.requirecheckno "Require check no">
 <!ENTITY orderdata.requiretableno "Require table no">
+<!ENTITY orderdata.rebuilddatabase "Rebuild Database">
