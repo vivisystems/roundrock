@@ -52,6 +52,7 @@
             <preference id="pref_positivepricerequired" name="vivipos.fec.settings.PositivePriceRequired" type="bool" />
             <preference id="pref_clearcartafterfinalization" name="vivipos.fec.settings.ClearCartAfterFinalization" type="bool" />
             <preference id="pref_maxsaleperiodleaddays" name="vivipos.fec.settings.MaxSalePeriodLeadDays" type="int" />
+            <preference id="pref_idletime" name="vivipos.fec.settings.idle.time" type="int" />
 
         </preferences>
 
@@ -78,6 +79,10 @@
                 </row>
                 <row>
                     <checkbox preference="pref_allowoverstock" id="pref_allowoverstockCtrl" label="&general.allowoverstock;" />
+                    <hbox>
+                        <label control="idletime" value="&general.idletime;"/>
+                        <textbox preference="pref_idletime" id="idletime" type="number" size="3" maxlength="3" min="60" max="999"/>
+                    </hbox>
                 </row>
                 <row>
                     <vbox>
