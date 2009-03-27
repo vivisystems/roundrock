@@ -87,7 +87,7 @@ var options;
                 inputObj.ok = false;
                 return true;
             }
-            );
+        );
 
     };
 

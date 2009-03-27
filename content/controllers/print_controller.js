@@ -740,7 +740,8 @@
                 data.store = GeckoJS.Session.get('storeContact');
                 if (data.store) data.store.terminal_no = GeckoJS.Session.get('terminal_no');
 	        }
-            if (data.order) this.log(this.dump(data.order));
+            //@debug
+            // if (data.order) this.log(this.dump(data.order));
             // if (data.customer) this.log(this.dump(data.customer));
             // if (data.store) this.log(this.dump(data.store));
 
@@ -867,7 +868,8 @@
                     result = result.replace(re, value);
                 }
             }
-            alert(GeckoJS.BaseObject.dump(result));
+            //@debug
+            //alert(GeckoJS.BaseObject.dump(result));
             //this.log(GeckoJS.BaseObject.dump(result));
             //return;
             //alert(data.order.receiptPages);

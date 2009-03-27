@@ -18,20 +18,12 @@
      * Controller Startup
      */
     function startup() {
+		var processedTpl = window.arguments[ 0 ];
 
-        $( '#togglesize' )[ 0 ].addEventListener( 'command', toggleSize, false );        
-        $do( 'load', null, 'RptSalesSummary' );
-
+        var bw = document.getElementById( 'preview_frame' );
+        var doc = bw.contentWindow.document.getElementById( 'abody' );
+        doc.innerHTML = processedTpl;
     };
-
-    function toggleSize() {
-        var splitter = document.getElementById( 'splitter_zoom' );
-        if (splitter.getAttribute( "state" ) == "collapsed" ) {
-            splitter.setAttribute( "state", "open" );
-        } else {
-            splitter.setAttribute( "state", "collapsed" );
-        }
-    }
 
     window.addEventListener( 'load', startup, false );
 

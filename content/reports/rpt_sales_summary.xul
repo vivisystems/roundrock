@@ -89,7 +89,6 @@
                 <hbox id="dialogButtons" class="dialogbtns" pack="end">
                     <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle()" class="VkbBtn"/>
                     <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
-                    
                 </hbox>
             </hbox>
         

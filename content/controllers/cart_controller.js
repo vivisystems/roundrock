@@ -196,6 +196,7 @@
                             setItemsStockStatus = product.stock_status;
                     }
                 });
+                //this._getCartlist().refresh();
             }
             else {
                 // we don't allow return of set menus'
@@ -526,7 +527,7 @@
                 
                 this.subtotal();
             }
-            this._getCartlist().refresh();
+            //this._getCartlist().refresh();
         },
 	
         addItemByBarcode: function(barcode) {
@@ -2142,7 +2143,7 @@
             }
             if (!allMarked) {
                 this.addMarker('total');
-                this._getCartlist().refresh();
+                //this._getCartlist().refresh();
             }
             
             type = type || 'cash';
@@ -2177,12 +2178,12 @@
             GeckoJS.Session.remove('cart_set_qty_value');
 
             // @todo auto submit ??
+            this._getCartlist().refresh();
             if (curTransaction.getRemainTotal() <= 0) {
                 this.submit();
             }else {
                 this.subtotal();
             }
-
         },
 
 
@@ -2789,7 +2790,7 @@
             return $.popupPanel('selectCondimentPanel', dialog_data).next(function(evt){
                 var selectedCondiments = evt.data.condiments;
                 if (selectedCondiments.length > 0) {
-                    self._appendCondiments(selectedCondiments, false);
+                    self._appendCondiments(selectedCondiments, true);
                 }
 
             });

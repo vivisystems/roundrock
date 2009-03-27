@@ -130,6 +130,18 @@
             //rcp.printReport('report', tpl, this._datas);
             printController.printReport('report', tpl, this._datas);
         },
+        
+        getProcessedTpl: function( start, end, periodType, shiftNo, terminalNo ) {
+        	// the parameters 'start' and 'end' are both thirteen-digit integer.
+        	
+        	this._set_datas( start, end, periodType, shiftNo, terminalNo );
+
+            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl");
+            var file = GREUtils.File.getFile(path);
+            var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
+            
+			return tpl.process( this._datas );
+        },
 
         execute: function() {
 

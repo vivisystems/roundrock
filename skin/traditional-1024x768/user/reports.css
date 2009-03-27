@@ -143,20 +143,26 @@
   -moz-border-right-colors: white;
 }
 .ReportTool vivibutton[disabled="false"]:hover{
-	-moz-appearance: none;
+  -moz-appearance: none;
   background-color: white !important;
 }
 .ReportTool vivibutton description, .ReportTool vivibutton label{
 	display: none;
 }
 .PrintBtn {
-	background: transparent url(images/icon_print.png) center center no-repeat !important;
+	height: 60px;
+	padding-left: 58px;
+	-moz-appearance: none;
+	background: transparent url(images/icon_print.png) center left no-repeat !important;
 }
 .PrintBtn[disabled=true] {
 	background: transparent url(images/icon_print-d.png) center center no-repeat !important;
 }
 .ZoomBtn {
-	background: transparent url(images/icon_zoom.png) center center no-repeat !important;
+	height: 60px;
+	padding-left: 58px;
+	-moz-appearance: none;
+	background: transparent url(images/icon_zoom.png) center left no-repeat !important;
 }
 .ZoomBtn[disabled=true] {
 	background: transparent url(images/icon_zoom-d.png) center center no-repeat !important;
