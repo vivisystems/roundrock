@@ -11,7 +11,7 @@ ${head.title|center:24}
 {for item in body}
 ------------------------
 ${_( '(rpt)Sequence' ) + ':'|left:24}
-${item.Order.Sequence|right:24}
+${item.Order.sequence|right:24}
 ${_( '(rpt)Total' ) + ':'|left:24}
 ${item.Order.total|default:0|viviFormatPrices:true|right:24}
 ${_( '(rpt)Discount' ) + ':'|left:24}

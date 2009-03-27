@@ -37,7 +37,7 @@
                 <tr>
                     <td style="text-align: left;">${detail.terminal_no}</td>
                     <td style="text-align: left;">${detail.Order.Time}</td>
-                    <td style="text-align: left;">${detail.Sequence}</td>
+                    <td style="text-align: left;">${detail.sequence}</td>
                     <td style="text-align: right;">${detail.item_subtotal|default:0|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${detail.tax_subtotal|default:0|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${detail.surcharge_subtotal|default:0|viviFormatPrices:true}</td>

@@ -7,7 +7,7 @@ ${head.start_time} ~ ${head.end_time}
 ${head.title|center:42}
 {for item in body}
 ------------------------------------------
-${_( '(rpt)Sequence' ) + ':'|left:14}${item.Order.Sequence|right:28}
+${_( '(rpt)Sequence' ) + ':'|left:14}${item.Order.sequence|right:28}
 ${_( '(rpt)Total' ) + ':'|left:14}${item.Order.total|default:0|viviFormatPrices:true|right:28}
 ${_( '(rpt)Discount' ) + ':'|left:14}${item.discount_subtotal|default:0|viviFormatPrices:true|right:28}
 ${_( '(rpt)Surcharge' ) + ':'|left:14}${item.surcharge_subtotal|default:0|viviFormatPrices:true|right:28}

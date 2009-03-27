@@ -46,7 +46,7 @@
                     <td style="text-align: left;">${detail.service_clerk_displayname}</td>
                     <td style="text-align: left;">${detail.proceeds_clerk_displayname}</td>
                     <td style="text-align: left;">${detail.transaction_created|unixTimeToString:'yyyy-M-d'}</td>
-                    <td style="text-align: left;">${detail.Sequence}</td>
+                    <td style="text-align: left;">${detail.sequence}</td>
                     <td style="text-align: right;">${detail.item_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${detail.tax_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${detail.surcharge_subtotal|viviFormatPrices:true}</td>
