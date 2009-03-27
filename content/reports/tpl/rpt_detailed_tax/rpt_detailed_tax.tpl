@@ -22,7 +22,7 @@
         <!--caption>${head.title}</caption-->
         <thead>
             <tr>
-                <th style="text-align: left;">${_( '(rpt)rpt_sequence' )}</th>
+                <th style="text-align: left;">${_( '(rpt)sequence' )}</th>
                 <th style="text-align: right;">${_( '(rpt)Total' )}</th>
                 <th style="text-align: right;">${_( '(rpt)Discount' )}</th>
                 <th style="text-align: right;">${_( '(rpt)Surcharge' )}</th>

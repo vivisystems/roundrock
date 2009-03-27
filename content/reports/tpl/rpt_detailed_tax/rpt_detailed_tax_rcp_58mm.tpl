@@ -10,7 +10,7 @@ ${head.end_time}
 ${head.title|center:24}
 {for item in body}
 ------------------------
-${_( '(rpt)rpt_sequence' ) + ':'|left:24}
+${_( '(rpt)sequence' ) + ':'|left:24}
 ${item.Order.sequence|right:24}
 ${_( '(rpt)Total' ) + ':'|left:24}
 ${item.Order.total|default:0|viviFormatPrices:true|right:24}

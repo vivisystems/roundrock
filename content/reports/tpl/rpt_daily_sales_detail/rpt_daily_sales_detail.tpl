@@ -22,7 +22,7 @@
                 <tr>
                     <th style="text-align: left;">${_( '(rpt)Term_No.' )}</th>
                     <th style="text-align: left;">${_( '(rpt)Time' )}</th>
-                    <th style="text-align: left;">${_( '(rpt)rpt_sequence' )}</th>
+                    <th style="text-align: left;">${_( '(rpt)sequence' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Total' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Add-on Tax' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Surcharge' )}</th>
