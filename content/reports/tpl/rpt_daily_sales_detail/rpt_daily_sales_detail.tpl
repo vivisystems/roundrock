@@ -22,7 +22,7 @@
                 <tr>
                     <th style="text-align: left;">${_( '(rpt)Term_No.' )}</th>
                     <th style="text-align: left;">${_( '(rpt)Time' )}</th>
-                    <th style="text-align: left;">${_( '(rpt)rpt_sequence' )}</th>
+                    <th style="text-align: left;">${_( '(rpt)Sequence' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Total' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Add-on Tax' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Surcharge' )}</th>
@@ -37,7 +37,7 @@
                 <tr>
                     <td style="text-align: left;">${detail.terminal_no}</td>
                     <td style="text-align: left;">${detail.Order.Time}</td>
-                    <td style="text-align: left;">${detail.sequence}</td>
+                    <td style="text-align: left;">${detail.Sequence}</td>
                     <td style="text-align: right;">${detail.item_subtotal|default:0|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${detail.tax_subtotal|default:0|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${detail.surcharge_subtotal|default:0|viviFormatPrices:true}</td>

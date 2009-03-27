@@ -6,10 +6,10 @@ ${head.start_time} ~ ${head.end_time}
 
 ${head.title|center:42}
 ------------------------------------------
-${_( '(rpt)Term_No.' )|left:8}  ${_( '(rpt)Time' )|left:10}  ${_( '(rpt)rpt_sequence' )|left:20}
+${_( '(rpt)Term_No.' )|left:8}  ${_( '(rpt)Time' )|left:10}  ${_( '(rpt)Sequence' )|left:20}
 --------  ----------  --------------------
 {for detail in body}
-${detail.terminal_no|left:8}  ${detail.transaction_created|unixTimeToString:'yyyy-M-d'|left:10}  ${detail.sequence|left:20}
+${detail.terminal_no|left:8}  ${detail.transaction_created|unixTimeToString:'yyyy-M-d'|left:10}  ${detail.Sequence|left:20}
 ${'  ' + _( '(rpt)Service Clerk' ) + ':'|left:16}${detail.service_clerk_displayname}
 ${'  ' + _( '(rpt)Status' ) + ':'|left:16}${detail.status}
 ${'  ' + _( '(rpt)Total' ) + ':'|left:16}${detail.item_subtotal|viviFormatPrices:true}

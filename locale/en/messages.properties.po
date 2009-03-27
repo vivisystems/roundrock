@@ -3436,6 +3436,3 @@ msgstr ""
 
 msgid "Product Stock List"
 msgstr ""
-
-msgid "(rpt)rpt_sequence"
-msgstr ""

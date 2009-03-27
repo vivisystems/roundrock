@@ -26,7 +26,7 @@
                     <th style="text-align: left;">${_( '(rpt)Service Clerk' )}</th>
                     <th style="text-align: left;">${_( '(rpt)Proceeds Clerk' )}</th>
                     <th style="text-align: left;">${_( '(rpt)Time' )}</th>
-                    <th style="text-align: left;">${_( '(rpt)rpt_sequence' )}</th>
+                    <th style="text-align: left;">${_( '(rpt)Sequence' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Total' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Add-on Tax' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Surcharge' )}</th>
@@ -46,7 +46,7 @@
                     <td style="text-align: left;">${detail.service_clerk_displayname}</td>
                     <td style="text-align: left;">${detail.proceeds_clerk_displayname}</td>
                     <td style="text-align: left;">${detail.transaction_created|unixTimeToString:'yyyy-M-d'}</td>
-                    <td style="text-align: left;">${detail.sequence}</td>
+                    <td style="text-align: left;">${detail.Sequence}</td>
                     <td style="text-align: right;">${detail.item_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${detail.tax_subtotal|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${detail.surcharge_subtotal|viviFormatPrices:true}</td>

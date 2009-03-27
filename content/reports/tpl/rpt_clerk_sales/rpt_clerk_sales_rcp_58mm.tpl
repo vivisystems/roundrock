@@ -22,7 +22,7 @@ ${_( clerk.associated_clerk )}:
 ${_( '(rpt)Time' ) + ':'}
 ${order.transaction_created|unixTimeToString:'yyyy-M-d'|right:24}
 ${_( '(rpt)Seq.' ) + ':'}
-${order.sequence|right:24}
+${order.Sequence|right:24}
 ${_( '(rpt)Total' ) + ':'}
 ${order.item_subtotal|viviFormatPrices:true|right:24}
 ${_( '(rpt)Add-on Tax' ) + ':'}

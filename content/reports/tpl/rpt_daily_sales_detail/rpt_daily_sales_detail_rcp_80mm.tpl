@@ -7,9 +7,9 @@ ${head.start_time} ~ ${head.end_time}
 ${head.title|center:42}
 {for detail in body}
 ------------------------------------------
-${_( '(rpt)Term_No.' )|left:8} ${_( '(rpt)Time' )|left:10} ${_( '(rpt)rpt_sequence' )|left:8} ${_( '(rpt)Guests' )|left:7} ${_( '(rpt)Items' )|left:5}
+${_( '(rpt)Term_No.' )|left:8} ${_( '(rpt)Time' )|left:10} ${_( '(rpt)Sequence' )|left:8} ${_( '(rpt)Guests' )|left:7} ${_( '(rpt)Items' )|left:5}
 -------- ---------- -------- ------- -----
-${detail.terminal_no|left:8} ${detail.Order.Time|left:10} ${detail.sequence|right:8} ${detail.no_of_customers|right:7} ${detail.items_count|right:5}
+${detail.terminal_no|left:8} ${detail.Order.Time|left:10} ${detail.Sequence|right:8} ${detail.no_of_customers|right:7} ${detail.items_count|right:5}
 ------------------------------------------
 ${_( '(rpt)Total' ) + ':'|left:15}${detail.item_subtotal|default:0|viviFormatPrices:true}
 ${_( '(rpt)Add-on Tax' ) + ':'|left:15}${detail.tax_subtotal|default:0|viviFormatPrices:true}

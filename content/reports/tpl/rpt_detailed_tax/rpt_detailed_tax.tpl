@@ -22,7 +22,7 @@
         <!--caption>${head.title}</caption-->
         <thead>
             <tr>
-                <th style="text-align: left;">${_( '(rpt)rpt_sequence' )}</th>
+                <th style="text-align: left;">${_( '(rpt)Sequence' )}</th>
                 <th style="text-align: right;">${_( '(rpt)Total' )}</th>
                 <th style="text-align: right;">${_( '(rpt)Discount' )}</th>
                 <th style="text-align: right;">${_( '(rpt)Surcharge' )}</th>
@@ -36,7 +36,7 @@
         <tbody>
 {for item in body}
             <tr>
-                <td style="text-align: left;">${item.Order.sequence}</td>
+                <td style="text-align: left;">${item.Order.Sequence}</td>
                 <td style="text-align: right;">${item.Order.total|default:0|viviFormatPrices:true}</td>
                 <td style="text-align: right;">${item.discount_subtotal|default:0|viviFormatPrices:true}</td>
                 <td style="text-align: right;">${item.surcharge_subtotal|default:0|viviFormatPrices:true}</td>

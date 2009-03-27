@@ -11,7 +11,7 @@ Clerk:${clerk.name|right:36}
 ${_( '(rpt)Term_No.' )|left:8}  ${_( '(rpt)Time' )|left:10}  ${_( '(rpt)Seq.' )|left:20}
 --------  ----------  --------------------
 {for order in clerk.orders}
-${order.terminal_no|left:8}  ${order.transaction_created|unixTimeToString:'yyyy-M-d'|left:10}  ${order.sequence|left:20}
+${order.terminal_no|left:8}  ${order.transaction_created|unixTimeToString:'yyyy-M-d'|left:10}  ${order.Sequence|left:20}
 ${'    ' + _( clerk.associated_clerk ) + ':'|left:17}{if clerk.associated_clerk == 'Proceeds Clerk'}${order.proceeds_clerk_displayname}{/if}{if clerk.associated_clerk == 'Service Clerk'}${order.service_clerk_displayname}{/if}
     
 ${'    ' + _( '(rpt)Total' ) + ': '|left:17}${order.item_subtotal|viviFormatPrices:true}
