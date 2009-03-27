@@ -3138,298 +3138,298 @@ msgid "Product Stock List"
 msgstr ""
 
 msgid "(rpt)Terminal"
-msgstr ""
+msgstr "Terminal"
 
 msgid "(rpt)Clerk"
-msgstr ""
+msgstr "Clerk"
 
 msgid "(rpt)Printed Time"
-msgstr ""
+msgstr "Printed Time"
 
 msgid "(rpt)Job"
-msgstr ""
+msgstr "Job"
 
 msgid "(rpt)Clock In"
-msgstr ""
+msgstr "Clock In"
 
 msgid "(rpt)Clock Out"
-msgstr ""
+msgstr "Clock Out"
 
 msgid "(rpt)Span Time"
-msgstr ""
+msgstr "Span Time"
 
 msgid "(rpt)Summary"
-msgstr ""
+msgstr "Summary"
 
 msgid "(rpt)Sale Period"
-msgstr ""
+msgstr "Sale Period"
 
 msgid "(rpt)Shift No."
-msgstr ""
+msgstr "Shift No."
 
 msgid "(rpt)Balance"
-msgstr ""
+msgstr "Balance"
 
 msgid "(rpt)Cash"
-msgstr ""
+msgstr "Cash"
 
 msgid "(rpt)Sales"
-msgstr ""
+msgstr "Sales"
 
 msgid "(rpt)Excess"
-msgstr ""
+msgstr "Excess"
 
 msgid "(rpt)Ledger In"
-msgstr ""
+msgstr "Ledger In"
 
 msgid "(rpt)Ledger Out"
-msgstr ""
+msgstr "Ledger Out"
 
 msgid "(rpt)Type"
-msgstr ""
+msgstr "Type"
 
 msgid "(rpt)Amount"
-msgstr ""
+msgstr "Amount"
 
 msgid "(rpt)Count"
-msgstr ""
+msgstr "Count"
 
 msgid "(rpt)Destination"
-msgstr ""
+msgstr "Destination"
 
 msgid "(rpt)Terminal ID"
-msgstr ""
+msgstr "Terminal ID"
 
 msgid "(rpt)Start Time"
-msgstr ""
+msgstr "Start Time"
 
 msgid "(rpt)End Time"
-msgstr ""
+msgstr "End Time"
 
 msgid "(rpt)Terminal No."
-msgstr ""
+msgstr "Terminal No."
 
 msgid "(rpt)Drawer No."
-msgstr ""
+msgstr "Drawer No."
 
 msgid "(rpt)Time"
-msgstr ""
+msgstr "Time"
 
 msgid "(rpt)Event"
-msgstr ""
+msgstr "Event"
 
 msgid "(rpt)Number of Events"
-msgstr ""
+msgstr "Number of Events"
 
 msgid "(rpt)Term_No."
-msgstr ""
+msgstr "Term_No."
 
 msgid "(rpt)rpt_sequence"
-msgstr ""
+msgstr "rpt_sequence"
 
 msgid "(rpt)Total"
-msgstr ""
+msgstr "Total"
 
 msgid "(rpt)Add-on Tax"
-msgstr ""
+msgstr "Add-on Tax"
 
 msgid "(rpt)Surcharge"
-msgstr ""
+msgstr "Surcharge"
 
 msgid "(rpt)Discount"
-msgstr ""
+msgstr "Discount"
 
 msgid "(rpt)Payment"
-msgstr ""
+msgstr "Payment"
 
 msgid "(rpt)Check"
-msgstr ""
+msgstr "Check"
 
 msgid "(rpt)Credit Card"
-msgstr ""
+msgstr "Credit Card"
 
 msgid "(rpt)Coupon"
-msgstr ""
+msgstr "Coupon"
 
 msgid "(rpt)Gift Card"
-msgstr ""
+msgstr "Gift Card"
 
 msgid "(rpt)Seq."
-msgstr ""
+msgstr "Seq."
 
 msgid "(rpt)Service Clerk"
-msgstr ""
+msgstr "Service Clerk"
 
 msgid "(rpt)Proceeds Clerk"
-msgstr ""
+msgstr "Proceeds Clerk"
 
 msgid "(rpt)Proceeds"
-msgstr ""
+msgstr "Proceeds"
 
 msgid "(rpt)Service"
-msgstr ""
+msgstr "Service"
 
 msgid "(rpt)Guests"
-msgstr ""
+msgstr "Guests"
 
 msgid "(rpt)Items"
-msgstr ""
+msgstr "Items"
 
 msgid "(rpt)Product No."
-msgstr ""
+msgstr "Product No."
 
 msgid "(rpt)Product Name"
-msgstr ""
+msgstr "Product Name"
 
 msgid "(rpt)Price"
-msgstr ""
+msgstr "Price"
 
 msgid "(rpt)Quantity"
-msgstr ""
+msgstr "Quantity"
 
 msgid "(rpt)Termianl No"
-msgstr ""
+msgstr "Termianl No."
 
 msgid "(rpt)No."
-msgstr ""
+msgstr "No."
 
 msgid "(rpt)Name"
-msgstr ""
+msgstr "Name"
 
 msgid "(rpt)Included Tax"
-msgstr ""
+msgstr "Included Tax"
 
 msgid "(rpt)Orders"
-msgstr ""
+msgstr "Orders"
 
 msgid "(rpt)Status"
-msgstr ""
+msgstr "Status"
 
 msgid "(rpt)Avg. Price"
-msgstr ""
+msgstr "Avg. Price"
 
 msgid "(rpt)Qty"
-msgstr ""
+msgstr "Qty"
 
 msgid "(rpt)Qty."
-msgstr ""
+msgstr "Qty."
 
 msgid "(rpt)Barcode"
-msgstr ""
+msgstr "Barcode"
 
 msgid "(rpt)Tax"
-msgstr ""
+msgstr "Tax"
 
 msgid "(rpt)Stock"
-msgstr ""
+msgstr "Stock"
 
 msgid "(rpt)Safe_Stock"
-msgstr ""
+msgstr "Safe_Stock"
 
 msgid "(rpt)Halo"
-msgstr ""
+msgstr "Halo"
 
 msgid "(rpt)Lalo"
-msgstr ""
+msgstr "Lalo"
 
 msgid "(rpt)Maintain_Stock"
-msgstr ""
+msgstr "Maintain_Stock"
 
 msgid "(rpt)Return_Stock"
-msgstr ""
+msgstr "Return_Stock"
 
 msgid "(rpt)Single"
-msgstr ""
+msgstr "Single"
 
 msgid "(rpt)Age_Verification"
-msgstr ""
+msgstr "Age_Verification"
 
 msgid "(rpt)Visible"
-msgstr ""
+msgstr "Visible"
 
 msgid "(rpt)Department No."
-msgstr ""
+msgstr "Department No."
 
 msgid "(rpt)Department Name"
-msgstr ""
+msgstr "Department Name"
 
 msgid "(rpt)Product"
-msgstr ""
+msgstr "Product"
 
 msgid "(rpt)Safe Stock"
-msgstr ""
+msgstr "Safe Stock"
 
 msgid "(rpt)Revenue"
-msgstr ""
+msgstr "Revenue"
 
 msgid "(rpt)Sales Summary"
-msgstr ""
+msgstr "Sales Summary"
 
 msgid "(rpt)Average Total"
-msgstr ""
+msgstr "Average Total"
 
 msgid "(rpt)Average Guest"
-msgstr ""
+msgstr "Average Guest"
 
 msgid "(rpt)Average Items"
-msgstr ""
+msgstr "Average Items"
 
 msgid "(rpt)Payment List"
-msgstr ""
+msgstr "Payment List"
 
 msgid "(rpt)Destination Summary"
-msgstr ""
+msgstr "Destination Summary"
 
 msgid "(rpt)Times"
-msgstr ""
+msgstr "Times"
 
 msgid "(rpt)Top Department Sales"
-msgstr ""
+msgstr "Top Department Sales"
 
 msgid "(rpt)Department"
-msgstr ""
+msgstr "Department"
 
 msgid "(rpt)Hourly Sales"
-msgstr ""
+msgstr "Hourly Sales"
 
 msgid "(rpt)Top Product Sales"
-msgstr ""
+msgstr "Top Product Sales"
 
 msgid "(rpt)Tax summary"
-msgstr ""
+msgstr "Tax summary"
 
 msgid "(rpt)Rate"
-msgstr ""
+msgstr "Rate"
 
 msgid "(rpt)Discount Summary"
-msgstr ""
+msgstr "Discount Summary"
 
 msgid "(rpt)Surcharge Summary"
-msgstr ""
+msgstr "Surcharge Summary"
 
 msgid "(rpt)General Information"
-msgstr ""
+msgstr "General Information"
 
 msgid "(rpt)Tax Name"
-msgstr ""
+msgstr "Tax Name"
 
 msgid "(rpt)Tax Rate"
-msgstr ""
+msgstr "Tax Rate"
 
 msgid "(rpt)Tax Type"
-msgstr ""
+msgstr "Tax Type"
 
 msgid "(rpt)Min Stock"
-msgstr ""
+msgstr "Min Stock"
 
 msgid "(rpt)Min.Stock"
-msgstr ""
+msgstr "Min.Stock"
 
 msgid "(rpt)User Name"
-msgstr ""
+msgstr "User Name"
 
 msgid "(rpt)Display Name"
-msgstr ""
+msgstr "Display Name"
 
 msgid "(rpt)Access Group"
-msgstr ""
+msgstr "Access Group"
