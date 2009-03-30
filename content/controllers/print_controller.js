@@ -678,7 +678,7 @@
         // handles user initiated receipt requests
         printReport: function(type, tpl, data) {
             var device = this.getDeviceController();
-            
+           
             if (device == null) {
                 NotifyUtils.error(_('Error in device manager! Please check your device configuration'));
                 return;

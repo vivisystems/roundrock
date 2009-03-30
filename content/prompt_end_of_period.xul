@@ -52,7 +52,7 @@
                     </row>
                     <row>
                     	<vbox>
-                    		<button id="print" class="PrintBtn" label="&shiftchange.button.print.this.shift;" default="false" oncommand="opener.$do('pringShiftReport', null, 'ShiftChanges');"/>
+                    		<button id="print" class="PrintBtn" label="&shiftchange.button.print.this.shift;" default="false" oncommand="opener.$do('printShiftReport', null, 'ShiftChanges');"/>
                     	</vbox>
                     	<vbox>
 		                    <button id="print" class="PrintBtn" label="&shiftchange.button.print.all.shifts;" default="false" oncommand="opener.$do('printShiftReport', true, 'ShiftChanges');"/>
@@ -69,4 +69,15 @@
             </hbox>
         </vbox>
     </vbox>
+    
+    <panel id="wait_panel" position="overlap" noautohide="true" class="WaitPnl">
+        <vbox flex="1">
+        <groupbox flex="1">
+            <caption label="&shiftchange.wait;" class="PageTitle"/>
+            <spacer style="height: 20px;" />
+            <progressmeter id="progress" mode="undetermined" value="0" />
+            <spacer style="height: 20px;" />
+        </groupbox>
+        </vbox>
+    </panel>
 </window>
