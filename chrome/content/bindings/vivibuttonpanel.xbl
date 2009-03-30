@@ -76,6 +76,10 @@
                 onget="return this.getAttribute('imageField')"
                 onset="this.setAttribute('imageField', val); return val;"/>
 
+    <property name="buttonTagName"
+                onget="return this.getAttribute('buttonTagName')"
+                onset="this.setAttribute('buttonTagName', val); return val;"/>
+
     <property name="currentIndex" onget="return this._currentIndex;" onset="this._currentIndex = val; return val;"/>
 
     <property name="selectedIndex" onget="return this.currentIndex;" onset="return this.currentIndex = val;" />
@@ -187,6 +191,7 @@
             var buttons = [];
             var imageValidate = this.getAttribute('validate');
             var buttonHeight = this.getAttribute('buttonHeight');
+            var buttonTagName = this.buttonTagName || 'vivibutton';
 
             // init columns
             var columnsObj = document.getAnonymousElementByAttribute(this, 'anonid', 'columns');
@@ -220,7 +225,7 @@
 
                 for(let j=0; j < cols ; j++) {
                 
-                    let btn = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul","vivibutton");
+                    let btn = document.createElementNS("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul", buttonTagName);
                     let $btn = $(btn);
 
                     btn.setAttribute("flex", 1);
