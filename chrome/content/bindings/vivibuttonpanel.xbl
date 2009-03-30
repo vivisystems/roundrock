@@ -420,8 +420,15 @@
             if (row >= rowCount) {
 
                     buttons[i].setAttribute('disabled', true);
-                    buttons[i].setLabel("");
-                    buttons[i].setImage("");
+
+                    if(typeof buttons[i]['setLabel'] == 'function') {
+                        // vivibutton or compatible
+                        buttons[i].setLabel("");
+                        buttons[i].setImage("");
+                    } else {
+                        buttons[i].setAttribute('label', "");
+                        buttons[i].setAttribute('image', "");
+                    }                   
 
                     if (buttonClass) buttons[i].className = buttonClass;
 
@@ -443,13 +450,28 @@
                     if (buttonClass) buttons[i].className = buttonClass;
 
                     let text = datasource.getCellText(row, {id: labelField});
-                    buttons[i].setLabel(text);
+
+                    if(typeof buttons[i]['setLabel'] == 'function') {
+                        buttons[i].setLabel(text);
+                    }else {
+                        buttons[i].setAttribute('label', text);
+                    }
+                    
 
                     let image = datasource.getImageSrc(row, {id: imageField});
                     if (image) {
-                        buttons[i].setImage(image);
+                        if(typeof buttons[i]['setImage'] == 'function') {
+                            buttons[i].setImage(image);
+                        }else {
+                            buttons[i].setAttribute('image', image);
+                        }
                     }else {
-                        buttons[i].setImage('');
+                        if(typeof buttons[i]['setImage'] == 'function') {
+                            buttons[i].setImage('');
+                        }else {
+                            buttons[i].setAttribute('image', '');
+                        }
+
                     }
 
                     if (typeof datasource.renderButton == 'function') {
