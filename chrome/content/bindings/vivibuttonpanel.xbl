@@ -456,16 +456,18 @@
                     }else {
                         buttons[i].setAttribute('label', text);
                     }
-                    
 
                     let image = datasource.getImageSrc(row, {id: imageField});
                     if (image) {
+
                         if(typeof buttons[i]['setImage'] == 'function') {
                             buttons[i].setImage(image);
                         }else {
                             buttons[i].setAttribute('image', image);
                         }
+
                     }else {
+
                         if(typeof buttons[i]['setImage'] == 'function') {
                             buttons[i].setImage('');
                         }else {
