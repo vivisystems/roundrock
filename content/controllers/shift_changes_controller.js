@@ -491,9 +491,25 @@
                         ledgerController.saveLedgerEntry(ledgerEntry);
 
                         // append to shiftChangeDetails
-                        shiftChangeDetails.push({type: 'ledger',
-                                                 name: entryType.type,
-                                                 amount: 0 - amt});
+                        var newChangeDetail = {type: 'ledger',
+                                               name: entryType.type,
+                                               amount: 0 - amt,
+                                               count: 1};
+
+                        // look through shiftChangeDetails and add amount and count to entry of the same type/name
+                        var found = false;
+                        for (var i = 0; i < shiftChangeDetails.length; i++) {
+                            var record = shiftChangeDetails[i];
+                            if (record.type == newChangeDetail.type && record.name == newChangeDetail.name) {
+                                found = true;
+                                record.amount += newChangeDetail.amount;
+                                record.count++;
+                                break;
+                            }
+                        }
+                        if (!found) {
+                            shiftChangeDetails.push(newChangeDetail);
+                        }
                     }
                 }
 
@@ -508,7 +524,7 @@
                     balance: inputObj.balance - amt,
                     sales: inputObj.salesRevenue,
                     ledger_out: inputObj.ledgerOutTotal - amt,
-                    ledger_in: inputObj.ledgerInTotal - amt,
+                    ledger_in: inputObj.ledgerInTotal,
                     excess: inputObj.giftcardExcess,
                     note: inputObj.description,
                     terminal_no: GeckoJS.Session.get('terminal_no'),
@@ -588,30 +604,67 @@
                 }
             }
         },
+        
+        _showWaitPanel: function(panel, sleepTime) {
+            var waitPanel = document.getElementById(panel);
+            var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
+            var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
+            waitPanel.sizeTo(360, 120);
+            var x = (width - 360) / 2;
+            var y = (height - 240) / 2;
+            waitPanel.openPopupAtScreen(x, y);
 
-        printShiftReport: function(all) {
-            var reportController = GeckoJS.Controller.getInstanceByName('RptCashByClerk');
-            var printController = GeckoJS.Controller.getInstanceByName('Print');
-            var salePeriod = this.getSalePeriod();
-            var terminalNo = GeckoJS.Session.get('terminal_no');
-            
-            var shiftNumber = '';
-			if ( !all )
-				shiftNumber = this.getShiftNumber().toString();
+            // release CPU for progressbar ...
+            if (!sleepTime) {
+              sleepTime = 1000;
+            }
+            this.sleep(sleepTime);
+            return waitPanel;
+        },
 
-            reportController.printShiftChangeReport(salePeriod * 1000, salePeriod * 1000, 'sale_period', shiftNumber, terminalNo, printController);
+        printShiftReport: function( all ) {
+        	if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to print shift report?' ) ) )
+        		return;
+
+			var waitPanel = this._showWaitPanel( 'wait_panel', 1000 );
+        	
+        	try {
+		        var reportController = GeckoJS.Controller.getInstanceByName( 'RptCashByClerk' );
+		        var printController = GeckoJS.Controller.getInstanceByName( 'Print' );
+		        var salePeriod = this.getSalePeriod();
+		        var terminalNo = GeckoJS.Session.get( 'terminal_no' );
+		        
+		        var shiftNumber = '';
+				if ( !all )
+					shiftNumber = this.getShiftNumber().toString();
+
+		        reportController.printShiftChangeReport( salePeriod * 1000, salePeriod * 1000, 'sale_period', shiftNumber, terminalNo, printController );
+		    } catch ( e ) {
+		    } finally {
+		    	if ( waitPanel ) waitPanel.hidePopup();
+		    }
         },
 
         printDailySales: function() {
-            var reportController = GeckoJS.Controller.getInstanceByName('RptSalesSummary');
-            var printController = GeckoJS.Controller.getInstanceByName('Print');
-            var salePeriod = this.getSalePeriod();
-            var terminalNo = GeckoJS.Session.get('terminal_no');
+        	if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to print daily sales report?' ) ) )
+        		return;
+        	
+        	var waitPanel = this._showWaitPanel( 'wait_panel', 1000 );
+        	
+        	try {
+		        var reportController = GeckoJS.Controller.getInstanceByName( 'RptSalesSummary' );
+		        var printController = GeckoJS.Controller.getInstanceByName( 'Print' );
+		        var salePeriod = this.getSalePeriod();
+		        var terminalNo = GeckoJS.Session.get( 'terminal_no' );
 
-            reportController.printSalesSummary(salePeriod * 1000, salePeriod * 1000, terminalNo, 'sale_period', '', printController);
+		        reportController.printSalesSummary( salePeriod * 1000, salePeriod * 1000, terminalNo, 'sale_period', '', printController );
+		    } catch ( e ) {
+		    } finally {
+		    	if ( waitPanel ) waitPanel.hidePopup();
+		    }
         },
         
-        reviewShiftReport: function(all) {
+        reviewShiftReport: function( all ) {
             var reportController = GeckoJS.Controller.getInstanceByName('RptCashByClerk');
             var salePeriod = this.getSalePeriod();
             var terminalNo = GeckoJS.Session.get('terminal_no');
@@ -620,8 +673,7 @@
 			if ( !all )
 				shiftNumber = this.getShiftNumber().toString();
 		
-			var mainController = GeckoJS.Controller.getInstanceByName( 'Main' );
-			var waitPanel = mainController._showWaitPanel( 'wait_panel', 'common_wait', _( 'Waiting...' ), 1000 );
+			var waitPanel = this._showWaitPanel( 'wait_panel', 1000 );
 			
 			try {
 				var processedTpl = reportController.getProcessedTpl(salePeriod * 1000, salePeriod * 1000, 'sale_period', shiftNumber, terminalNo);
@@ -641,8 +693,7 @@
             var salePeriod = this.getSalePeriod();
             var terminalNo = GeckoJS.Session.get( 'terminal_no' );
 
-			var mainController = GeckoJS.Controller.getInstanceByName( 'Main' );
-			var waitPanel = mainController._showWaitPanel( 'wait_panel', 'common_wait', _( 'Waiting...' ), 1000 );	
+			var waitPanel = this._showWaitPanel( 'wait_panel', 1000 );
 			
 			try{
             	var processedTpl = reportController.getProcessedTpl( salePeriod * 1000, salePeriod * 1000, terminalNo, 'sale_period', '' );

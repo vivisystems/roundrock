@@ -14,7 +14,7 @@ ${_( '(rpt)Term_No.' )}:
 ${detail.terminal_no|right:24}
 ${_( '(rpt)Time' ) + ':'}
 ${detail.Order.Time|right:24}
-${_( '(rpt)rpt_sequence' ) + ':'}
+${_( '(rpt)Sequence' ) + ':'}
 ${detail.sequence|right:24}
 ${_( '(rpt)Guests' ) + ':'}
 ${detail.no_of_customers|right:24}

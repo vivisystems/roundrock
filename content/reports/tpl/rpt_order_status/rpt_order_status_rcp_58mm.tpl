@@ -14,7 +14,7 @@ ${_( '(rpt)Term_No.' ) + ':'}
 ${detail.terminal_no|right:24}
 ${_( '(rpt)Time' ) + ':'}
 ${detail.transaction_created|unixTimeToString:'yyyy-M-d'|right:24}
-${_( '(rpt)rpt_sequence' ) + ':'}
+${_( '(rpt)Sequence' ) + ':'}
 ${detail.sequence|right:24}
 ${_( '(rpt)Service Clerk' ) + ':'}
 ${detail.service_clerk_displayname|right:24}

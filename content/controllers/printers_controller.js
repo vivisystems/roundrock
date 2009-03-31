@@ -66,8 +66,7 @@
       },
 
       // This method is called to indicate a change to the current location.
-      onLocationChange: function(webProgress, request, location) {
-
+      onLocationChange: function( webProgress, request, locationURI ) {
       },
 
       // This method is called to indicate a status changes for the currently

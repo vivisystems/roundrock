@@ -7,7 +7,7 @@
 "${_( '(rpt)Start' ) + ':'}","${head.start_time}"
 "${_( '(rpt)End' ) + ':'}","${head.end_time}"
 
-"${_( '(rpt)Terminal No.' )}","${_( '(rpt)Service Clerk' )}","${_( '(rpt)Status' )}","${_( '(rpt)Time' )}","${_( '(rpt)rpt_sequence' )}","${_( '(rpt)Total' )}","${_( '(rpt)Add-on Tax' )}","${_( '(rpt)Surcharge' )}","${_( '(rpt)Discount' )}","${_( '(rpt)Payment' )}"
+"${_( '(rpt)Terminal No.' )}","${_( '(rpt)Service Clerk' )}","${_( '(rpt)Status' )}","${_( '(rpt)Time' )}","${_( '(rpt)Sequence' )}","${_( '(rpt)Total' )}","${_( '(rpt)Add-on Tax' )}","${_( '(rpt)Surcharge' )}","${_( '(rpt)Discount' )}","${_( '(rpt)Payment' )}"
 {for detail in body}
 "${detail.terminal_no}","${detail.service_clerk_displayname}","${detail.status}","${detail.transaction_created|unixTimeToString:'yyyy-M-d'}","${detail.sequence}","${detail.item_subtotal|viviFormatPrices:true}","${detail.tax_subtotal|viviFormatPrices:true}","${detail.surcharge_subtotal|viviFormatPrices:true}","${detail.discount_subtotal|viviFormatPrices:true}","${detail.total|viviFormatPrices:true}"
 {/for}

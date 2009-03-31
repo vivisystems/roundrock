@@ -132,8 +132,8 @@
     border-bottom: 1px solid #818085;
 }
 
-treechildren::-moz-tree-cell-text(batchMarker) {font-size: 16px; font-style: italic; font-weight: bolder; color: black;}
-treechildren::-moz-tree-cell-text(selected) {font-size: 16px; font-weight: bolder;}
+treechildren::-moz-tree-cell-text(batchMarker) {font-size: 18px; font-style: italic; font-weight: bolder; color: black;}
+treechildren::-moz-tree-cell-text(selected) {font-size: 18px; font-weight: bolder;}
 
 treechildren::-moz-tree-row(selected) {background-color: #3b556c; }
 treechildren::-moz-tree-row(treeLowStock) {background-color: orange;}
@@ -193,8 +193,8 @@ treechildren::-moz-tree-image(treecellTagged) {list-style-image: url(images/chec
 }
 
 .cartList tree #current_subtotal {
-    max-width: 94px;
-    min-width: 94px;
+    max-width: 110px;
+    min-width: 110px;
 }
 .cartList tree #current_tax {
     max-width: 22px;

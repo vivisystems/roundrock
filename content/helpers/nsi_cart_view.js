@@ -103,7 +103,6 @@
             var data = this.getCurrentIndexData(row);
             var aserv=Components.classes['@mozilla.org/atom-service;1'].
                       getService(Components.interfaces.nsIAtomService);
-            GREUtils.log('getCellProperties: [' + row + '] ' + col.id);
 
             if (data.batchMarker) {
                 prop.AppendElement(aserv.getAtom('batchMarker'));

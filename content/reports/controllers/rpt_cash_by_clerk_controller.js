@@ -138,7 +138,7 @@
 
             var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl");
             var file = GREUtils.File.getFile(path);
-            var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
+            var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
             
 			return tpl.process( this._datas );
         },
@@ -159,27 +159,29 @@
 
             var path = GREUtils.File.chromeToPath( "chrome://viviecr/content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk.tpl" );
 
-            var file = GREUtils.File.getFile(path);
-            var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
+            var file = GREUtils.File.getFile( path );
+            var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
 
             var result = tpl.process( this._datas );
 
-            var bw = document.getElementById('preview_frame');
-            var doc = bw.contentWindow.document.getElementById('abody');
+            var bw = document.getElementById( 'preview_frame' );
+            var doc = bw.contentWindow.document.getElementById( 'abody' );
 
             doc.innerHTML = result;
 
-            this._enableButton(true);
+            this._enableButton( true );
             
-            var splitter = document.getElementById('splitter_zoom');
-            splitter.setAttribute("state", "collapsed");
+            var splitter = document.getElementById( 'splitter_zoom' );
+            splitter.setAttribute( "state", "collapsed" );
 
             waitPanel.hidePopup();
 
         },
 
         exportPdf: function() {
-
+			if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to export PDF copy of this report?' ) ) )
+        		return;
+        		
             try {
 	            this._enableButton(false);
 	            var media_path = this.CheckMedia.checkMedia('report_export');
@@ -206,7 +208,10 @@
             }
         },
 
-        exportCsv: function() {            
+        exportCsv: function() {
+        	if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to export CSV copy of this report?' ) ) )
+        		return;
+        		
             try {
                 this._enableButton(false);
                 var media_path = this.CheckMedia.checkMedia('report_export');
@@ -237,20 +242,22 @@
         },
 
         exportRcp: function() {
+        	if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to print this report?' ) ) )
+        		return;
+        		
             try {
                 this._enableButton(false);
                 var waitPanel = this._showWaitPanel('wait_panel', 100);
 
                 var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_cash_by_clerk/rpt_cash_by_clerk_rcp_80mm.tpl");
 
-                var file = GREUtils.File.getFile(path);
-                var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
-                var datas;
-                datas = this._datas;
+                var file = GREUtils.File.getFile( path );
+                var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
+                var datas = this._datas;
 
-                // this.RcpExport.print(datas, tpl);
-                var rcp = opener.opener.opener.GeckoJS.Controller.getInstanceByName('Print');
-                rcp.printReport('report', tpl, datas);
+                // this.RcpExport.print( datas, tpl );
+                var rcp = opener.opener.opener.GeckoJS.Controller.getInstanceByName( 'Print' );
+                rcp.printReport( 'report', tpl, datas );
             } catch (e) {
                 //
             } finally {

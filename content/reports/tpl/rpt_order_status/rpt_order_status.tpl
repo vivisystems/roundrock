@@ -25,7 +25,7 @@
                     <th style="text-align: left;">${_( '(rpt)Service Clerk' )}</th>
                     <th style="text-align: left;">${_( '(rpt)Status' )}</th>
                     <th style="text-align: left;">${_( '(rpt)Time' )}</th>
-                    <th style="text-align: left;">${_( '(rpt)rpt_sequence' )}</th>
+                    <th style="text-align: left;">${_( '(rpt)Sequence' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Total' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Add-on Tax' )}</th>
                     <th style="text-align: right;">${_( '(rpt)Surcharge' )}</th>

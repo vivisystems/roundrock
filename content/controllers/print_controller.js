@@ -361,12 +361,10 @@
                 var devices = this.getDeviceController().getSelectedDevices();
                 for (var i = 1; 'receipt-' + i + '-enabled' in devices; i++) {
                     GeckoJS.Session.remove('receipt-' + i + '-suspended');
-                    alert('receipt :' + i);
                 }
 
                 for (var i = 1; 'check-' + i + '-enabled' in devices; i++) {
                     GeckoJS.Session.remove('check-' + i + '-suspended');
-                    alert('check :' + i);
                 }
             }
         },
@@ -680,7 +678,7 @@
         // handles user initiated receipt requests
         printReport: function(type, tpl, data) {
             var device = this.getDeviceController();
-            
+           
             if (device == null) {
                 NotifyUtils.error(_('Error in device manager! Please check your device configuration'));
                 return;
