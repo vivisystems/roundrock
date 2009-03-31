@@ -786,7 +786,8 @@
         // maybe click on row / grid
         // fixed click on row will unchecked all buttons at seltype=single
         var tagName = event.originalTarget.tagName.toLowerCase();
-        if(tagName != 'vivibutton' && tagName != 'button') {
+        var supportTagName = this.buttonTagName || 'vivibutton' ;
+        if(tagName != supportTagName && tagName != 'button') {
             return ;
         }
 
