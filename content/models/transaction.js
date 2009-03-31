@@ -278,6 +278,8 @@
             no: item.no,
             barcode: item.barcode,
             name: item.name,
+            alt_name1: item.alt_name1,
+            alt_name2: item.alt_name2,
             cate_no: item.cate_no,
 
             index: index,
