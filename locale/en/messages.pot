@@ -40,6 +40,9 @@ msgstr "Ledger"
 msgid "Price Level Schedule"
 msgstr "Price Level Schedule"
 
+msgid "Static Condiments"
+msgstr "Condiment Dock"
+
 msgid "Reports"
 msgstr "Reports"
 
