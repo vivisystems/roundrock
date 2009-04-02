@@ -28,7 +28,7 @@
   <script type="application/x-javascript" src="chrome://viviecr/content/view_order.js" />
 
     <keyset id="keyset_extensions">
-        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('cancel').click()" />
+        <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('ok').click()" />
     </keyset>
 
     <vbox flex="1" class="main-dialog">

@@ -1819,6 +1819,9 @@ msgstr "customer"
 msgid "(view)contact"
 msgstr "contact"
 
+msgid "(view)email"
+msgstr "email"
+
 msgid "(view)check #"
 msgstr "check #"
 
@@ -1828,8 +1831,8 @@ msgstr "table #"
 msgid "(view)customers"
 msgstr "customers"
 
-msgid "(view)Item Sub-total"
-msgstr "Item Sub-total"
+msgid "(view)Item Subtotal"
+msgstr "Item Subtotal"
 
 msgid "(view)Adjustments"
 msgstr "Adjustments"
@@ -1839,6 +1842,9 @@ msgstr "Add-on Taxes"
 
 msgid "(view)Total"
 msgstr "Total"
+
+msgid "(view)Payment Subtotal"
+msgstr "Payment Subtotal"
 
 msgid "(view)Change"
 msgstr "Change"

@@ -1,5 +1,6 @@
 {if order}
 {eval}
+  item_adjustments = 0;
   status = '';
   switch(parseInt(order.status)) {
     case 1:
@@ -22,130 +23,183 @@
       status = order.status;
   }
 {/eval}
-<pre>
-${_('(view)order sequence') + ': ' + order.sequence}
-${_('(view)order status') + ': ' + status}
-${_('(view)order destination') + ': ' + order.destination}
-${_('(view)branch') + ': ' + order.branch + ' (' + order.branch_id + ')'}
-${_('(view)terminal') + ': ' + order.terminal_no}
-</pre>
 <hr/>
-<pre>
-<table>
+<pre><table style="width: 720px">
     <tr>
-        <td>
-${_('(view)opened') + ': ' + (new Date(order.transaction_created * 1000)).toLocaleFormat('%Y-%m-%d %H:%M:%S')}
-        </td>
-        <td/>
-        <td>
-${_('(view)open clerk') + ': ' + order.service_clerk_displayname}
-        </td>
+        <td style="width: 80px">${_('(view)order sequence')+':'}</td>
+        <td> ${order.sequence}</td>
+        <td style="width: 80px">${_('(view)order status')+':'}</td>
+        <td>${status}</td>
+        <td style="width: 80px">${_('(view)order destination')+':'}</td>
+        <td>${order.destination}</td>
     </tr>
     <tr>
-        <td>
-${_('(view)submitted') + ': ' + (new Date(order.transaction_submitted * 1000)).toLocaleFormat('%Y-%m-%d %H:%M:%S')}
-        </td>
-        <td/>
-        <td>
-${_('(view)close clerk') + ': ' + order.proceeds_clerk_displayname}
-        </td>
+        <td style="width: 80px">${_('(view)terminal')+':'}</td>
+        <td>${order.terminal_no}</td>
+        <td style="width: 80px">${_('(view)branch')+':'}</td>
+        <td>${order.branch + ' (' + order.branch_id + ')'}</td>
     </tr>
-</table>
-</pre>
-<hr/>
-<pre>
-<table>
     <tr>
-        <td>
-${_('(view)customer') + ': ' + order.member_displayname}
-        </td>
-        <td/>
-        <td>
-${_('(view)contact') + ': ' + order.member_cellphone}
-        </td>
+        <td style="width: 80px">${_('(view)open clerk')+':'}</td>
+        <td>${order.service_clerk_displayname}</td>
+        <td style="width: 80px">${_('(view)opened')+':'}</td>
+        <td>${(new Date(order.transaction_created * 1000)).toLocaleFormat('%Y-%m-%d %H:%M:%S')}</td>
     </tr>
-</table>
-</pre>
-<hr/>
-<pre>
-<table>
     <tr>
-        <td>
-${_('(view)check #') + ': ' + order.check_no}
-        </td>
-        <td/>
-        <td>
-${_('(view)table #') + ': ' + order.table_no}
-        </td>
-        <td>
-${_('(view)customers') + ': ' + order.no_of_customers}
-        </td>
+        <td style="width: 80px">${_('(view)open clerk')+':'}</td>
+        <td>${order.proceeds_clerk_displayname}</td>
+        <td style="width: 80px">${_('(view)submitted')+':'}</td>
+        <td>${(new Date(order.transaction_submitted * 1000)).toLocaleFormat('%Y-%m-%d %H:%M:%S')}</td>
+    </tr>
+{if order.member}
+    <tr>
+        <td style="width: 80px">${_('(view)customer')+':'}</td>
+        <td> ${order.member_displayname}</td>
+        <td style="width: 80px">${_('(view)contact')+':'}</td>
+        <td>${order.member_cellphone}</td>
+        <td style="width: 80px">${_('(view)email')+':'}</td>
+        <td>${order.member_email}</td>
+    </tr>
+{/if}
+    <tr>
+        <td style="width: 80px">${_('(view)check #')+':'}</td>
+        <td> ${order.check_no}</td>
+        <td style="width: 80px">${_('(view)table #')+':'}</td>
+        <td>${order.table_no}</td>
+        <td style="width: 80px">${_('(view)customers')+':'}</td>
+        <td>${order.no_of_customers}</td>
     </tr>
 </table></pre><hr/>
-<pre><table>
+
+<pre><table style="width: 720px">
 {for item in order.OrderItem}
 {eval}
     prodName = item.product_name;
-    if (item.destination) prodName = '(' + item.destination + ') ' + prodName;
+    if (item.destination != null) prodName = '(' + item.destination + ') ' + prodName;
 {/eval}
-<tr>
-<td>${prodName}</td><td>${item.current_qty} X </td><td>${item.current_price}</td><td>${item.current_subtotal|viviFormatPrices:true}</td><td>${item.tax_name}</td>
-{if item.condiments}
-<td>${item.condiments}</td><td>${item.current_condiment|viviFormatPrices:true}</td>
-{else}
-<td></td><td></td>
+    <tr>
+        <td style="width: 400px">${prodName}</td>
+        <td/>
+        <td style="width: 70px; text-align: right">${item.current_qty} X</td>
+        <td style="width: 100px; text-align: right;">${item.current_price}</td>
+        <td style="width: 100px; text-align: right;">${item.current_subtotal|viviFormatPrices:true}</td>
+        <td>${item.tax_name}</td>
+    </tr>
+{if item.condiments != null && item.condiments != ''}
+    <tr>
+        <td colspan="3">&nbsp;&nbsp;${item.condiments}</td>
+        <td style="width: 100px; text-align: right;">${item.current_condiment|viviFormatPrices:true}</td>
+    </tr>
+{/if}
+{if item.memo != null && item.memo != ''}
+    <tr>
+        <td colspan="6">&nbsp;&nbsp;&nbsp;&nbsp;${item.memo}</td>
+    </tr>
 {/if}
 {if item.has_discount}
-<td>${item.discount_name}</td><td>${item.current_discount|viviFormatPrices:true}</td>
+    {eval}
+        item_adjustments += item.current_discount;
+    {/eval}
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${item.discount_name}</td>
+        <td style="width: 100px; text-align: right;">${item.current_discount|viviFormatPrices:true}</td>
+    </tr>
 {elseif item.has_surcharge}
-<td>${item.surcharge_name}</td><td>${item.current_surcharge|viviFormatPrices:true}</td>
-{else}
-<td></td><td></td>
+    {eval}
+        item_adjustments += item.current_surcharge;
+    {/eval}
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${item.surcharge_name}</td>
+        <td style="width: 100px; text-align: right;">${item.current_surcharge|viviFormatPrices:true}</td>
+    </tr>
 {/if}
-<td>
-{if item.memo}
-${item.memo}
-{/if}
-</td>
 {/for}
-</table></pre><hr/>
-<pre>
-${_('(view)Item Sub-total')}: ${order.item_subtotal|viviFormatPrices:true}
-</pre><hr/>
+    <tr>
+        <td colspan="6"><hr/></td>
+    </tr>
+    <tr>
+        <td colspan="4">${_('(view)Item Subtotal')}</td>
+        <td style="width: 100px; text-align: right;">${order.item_subtotal|viviFormatPrices:true}</td>
+    </tr>
+    <tr>
+        <td colspan="6"><hr/></td>
+    </tr>
 {if order.OrderAddition}
-<pre><table>
-{for adjustment in order.OrderAddition}
-{if adjustment.discount_name}
-<tr><td>${adjustment.discount_name}</td><td>${adjustment.current_discount|viviFormatPrices:true}</td>
-{else}
-<tr><td>${adjustment.surcharge_name}</td><td>${adjustment.current_surcharge|viviFormatPrices:true}</td>
+    {for adjustment in order.OrderAddition}
+    <tr>
+        {if adjustment.discount_name != null}
+        <td colspan="4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${adjustment.discount_name}</td>
+        <td style="width: 100px; text-align: right;">${adjustment.current_discount|viviFormatPrices:true}</td>
+        {else}
+        <td colspan="4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${adjustment.surcharge_name}</td>
+        <td style="width: 100px; text-align: right;">${adjustment.current_surcharge|viviFormatPrices:true}</td>
+    </tr>
+        {/if}
+    {/for}
+    <tr>
+        <td colspan="6"><hr/></td>
+    </tr>
+    <tr>
+        <td>${_('(view)Adjustments')}</td>
+        <td style="text-align: right;">${item_adjustments|viviFormatPrices:true}</td>
+        <td colspan="3" style="text-align: right;">${order.surcharge_subtotal + order.discount_subtotal|viviFormatPrices:true}</td>
+    </tr>
+    <tr>
+        <td colspan="6"><hr/></td>
+    </tr>
 {/if}
-{/for}
-</table>
-${_('(view)Adjustments')}: ${order.surcharge_subtotal + order.discount_subtotal|viviFormatPrices:true}
-</pre><hr/>
-{/if}
-<pre>
-${_('(view)Add-on Taxes')}: ${order.tax_subtotal|viviFormatTaxes:true}
-${_('(view)Total')}: ${order.total|viviFormatPrices:true}
-</pre><hr/>
+    <tr>
+        <td colspan="4">${_('(view)Add-on Taxes')}</td>
+        <td style="width: 100px; text-align: right;">${order.tax_subtotal|viviFormatTaxes:true}</td>
+    </tr>
+    <tr>
+        <td colspan="6"><hr/></td>
+    </tr>
+    <tr>
+        <td colspan="4">${_('(view)Total')}</td>
+        <td style="width: 100px; text-align: right;">${order.total|viviFormatPrices:true}</td>
+    </tr>
+    <tr>
+        <td colspan="6"><hr/></td>
+    </tr>
 {if order.OrderPayment}
-<pre><table>
 {for payment in order.OrderPayment}
-<tr><td>${payment.name}</td><td>${payment.memo1}</td><td>${payment.memo2}</td><td>${payment.origin_amount}</td><td>${payment.amount|viviFormatPrices:true}</td></tr>
+    <tr>
+        <td>${(payment.memo1 != null && payment.memo1 != '') ? payment.memo1 : payment.name}</td>
+        <td colspan="2">${(payment.memo1 != null && payment.memo1 != '') ? payment.name : ''}</td>
+        <td style="text-align: right;">${payment.origin_amount}</td>
+        <td style="text-align: right;">${payment.amount|viviFormatPrices:true}</td>
+    </tr>
+    {if payment.memo2 != null && payment.memo2 != ''}
+    <tr>
+        <td colspan="6">&nbsp;&nbsp;&nbsp;&nbsp;${payment.memo2}</td>
+    </tr>
+    {/if}
 {/for}
-</table></pre><hr/>
+    <tr>
+        <td colspan="6"><hr/></td>
+    </tr>
+    <tr>
+        <td colspan="4">${_('(view)Payment Subtotal')}</td>
+        <td style="width: 100px; text-align: right;">${order.payment_subtotal|viviFormatPrices:true}</td>
+    </tr>
+    <tr>
+        <td colspan="6"><hr/></td>
+    </tr>
 {/if}
-<pre>
-${_('(view)Change')}: ${order.change|viviFormatPrices:true}
-</pre><hr/>
+    <tr>
+        <td colspan="4">${_('(view)Change')}</td>
+        <td style="width: 100px; text-align: right;">${order.change|viviFormatPrices:true}</td>
+    </tr>
 {if order.OrderAnnotation}
-<pre><table>
-{for note in order.OrderAnnotation}
-<tr><td>${note.type}</td><td>${note.text}</td></tr>
-{/for}
-</table></pre><hr/>
+    <tr>
+        <td colspan="6"><hr/></td>
+    </tr>
+    {for note in order.OrderAnnotation}
+        <tr><td>${note.type}</td><td colspan="5">${note.text}</td></tr>
+    {/for}
 {/if}
+</table></pre><hr/>
 {elseif sequence}
 <H2>${_('Order sequence [%S] does not exist', [sequence])}</H2>
 {else}

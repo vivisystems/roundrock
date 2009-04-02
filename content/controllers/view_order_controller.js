@@ -24,7 +24,7 @@
                 recursive: 2
             });
 
-            this.log(GeckoJS.BaseObject.dump(order));
+            //this.log(GeckoJS.BaseObject.dump(order));
 
             // load template
             var path = GREUtils.File.chromeToPath('chrome://viviecr/content/order_template.tpl');
