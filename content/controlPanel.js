@@ -81,6 +81,7 @@ function launchControl(panel) {
                 var fileAp = new GeckoJS.File(launchAp);
                 fileAp.run(args, true);
 
+                VirtualKeyboard.hide();
             }
         }
         catch (e) {alert(e);}

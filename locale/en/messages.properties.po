@@ -40,6 +40,9 @@ msgstr "Ledger"
 msgid "Price Level Schedule"
 msgstr "Price Level Schedule"
 
+msgid "Static Condiments"
+msgstr "Condiment Dock"
+
 msgid "Reports"
 msgstr "Reports"
 
@@ -3129,7 +3132,10 @@ msgstr ""
 msgid "Shift Close"
 msgstr ""
 
-msgid "Waiting..."
+msgid "Are you sure you want to print shift report?"
+msgstr ""
+
+msgid "Are you sure you want to print daily sales report?"
 msgstr ""
 
 msgid "Failed to set volume"
@@ -3402,6 +3408,15 @@ msgid ""
 msgstr ""
 
 msgid "Attendance Record Report"
+msgstr ""
+
+msgid "Are you sure you want to export PDF copy of this report?"
+msgstr ""
+
+msgid "Are you sure you want to export CSV copy of this report?"
+msgstr ""
+
+msgid "Are you sure you want to print this report?"
 msgstr ""
 
 msgid "Shift Change Report"
