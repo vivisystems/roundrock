@@ -64,6 +64,12 @@
 					                </menulist>
 					            </vbox>
 					            <vbox>
+				                    <label value="&rptdailysalesdetail.sequence_no;" />
+				                    <textbox id="sequence_no" value='' width="300"/>
+		                        </vbox>
+		                    </row>
+		                    <row>
+		                    	<vbox>
 				                    <label value="&rptdailysalesdetail.machineid;" />
 				                    <textbox id="machine_id" value='' width="300"/>
 		                        </vbox>

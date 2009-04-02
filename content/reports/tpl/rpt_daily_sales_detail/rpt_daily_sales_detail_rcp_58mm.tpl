@@ -13,7 +13,7 @@ ${head.title|center:24}
 ${_( '(rpt)Term_No.' )}:
 ${detail.terminal_no|right:24}
 ${_( '(rpt)Time' ) + ':'}
-${detail.Order.Time|right:24}
+${detail.Order.time|right:24}
 ${_( '(rpt)Sequence' ) + ':'}
 ${detail.sequence|right:24}
 ${_( '(rpt)Guests' ) + ':'}

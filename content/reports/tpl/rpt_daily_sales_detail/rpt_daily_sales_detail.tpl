@@ -36,7 +36,7 @@
 {for detail in body}
                 <tr>
                     <td style="text-align: left;">${detail.terminal_no}</td>
-                    <td style="text-align: left;">${detail.Order.Time}</td>
+                    <td style="text-align: left;">${detail.Order.time}</td>
                     <td style="text-align: left;">${detail.sequence}</td>
                     <td style="text-align: right;">${detail.item_subtotal|default:0|viviFormatPrices:true}</td>
                     <td style="text-align: right;">${detail.tax_subtotal|default:0|viviFormatPrices:true}</td>
@@ -55,6 +55,9 @@
                             <tr>
                                 <td style="text-align: left;">${items.product_no}</td>
                                 <td style="text-align: left;">${items.product_name}</td>
+                                <td style="text-align: left;">${items.tax_name}</td>
+                                <td style="text-align: right;">${items.current_discount|default:0|viviFormatPrices:true}</td>
+                                <td style="text-align: right;">${items.current_surcharge|default:0|viviFormatPrices:true}</td>
                                 <td style="text-align: right;">${items.current_price|default:0|viviFormatPrices:true}</td>
                                 <td style="text-align: right;">${items.current_qty}</td>
                                 <td style="text-align: right;">${items.current_subtotal|default:0|viviFormatPrices:true}</td>

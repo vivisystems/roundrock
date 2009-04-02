@@ -9,7 +9,7 @@
 
 "${_( '(rpt)Term_No.' )}","${_( '(rpt)Time' )}","${_( '(rpt)Sequence' )}","${_( '(rpt)Total' )}","${_( '(rpt)Add-on Tax' )}","${_( '(rpt)Surcharge' )}","${_( '(rpt)Discount' )}","${_( '(rpt)Payment' )}","${_( '(rpt)Guests' )}","${_( '(rpt)Items' )}"
 {for detail in body}
-"${detail.terminal_no}","${detail.Order.Time}","${detail.sequence}","${detail.item_subtotal|default:0|viviFormatPrices:true}","${detail.tax_subtotal|default:0|viviFormatPrices:true}","${detail.surcharge_subtotal|default:0|viviFormatPrices:true}","${detail.discount_subtotal|default:0|viviFormatPrices:true}","${detail.total|default:0|viviFormatPrices:true}","${detail.no_of_customers}","${detail.items_count}"
+"${detail.terminal_no}","${detail.Order.time}","${detail.sequence}","${detail.item_subtotal|default:0|viviFormatPrices:true}","${detail.tax_subtotal|default:0|viviFormatPrices:true}","${detail.surcharge_subtotal|default:0|viviFormatPrices:true}","${detail.discount_subtotal|default:0|viviFormatPrices:true}","${detail.total|default:0|viviFormatPrices:true}","${detail.no_of_customers}","${detail.items_count}"
 {for items in detail.OrderItem}
 "","","${items.product_no}","${items.product_name}","${items.current_price}","${items.current_qty}","${items.current_subtotal}"
 {/for}
