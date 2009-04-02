@@ -55,6 +55,9 @@
                             <tr>
                                 <td style="text-align: left;">${items.product_no}</td>
                                 <td style="text-align: left;">${items.product_name}</td>
+                                <td style="text-align: left;">${items.tax_name}</td>
+                                <td style="text-align: right;">${items.current_discount|default:0|viviFormatPrices:true}</td>
+                                <td style="text-align: right;">${items.current_surcharge|default:0|viviFormatPrices:true}</td>
                                 <td style="text-align: right;">${items.current_price|default:0|viviFormatPrices:true}</td>
                                 <td style="text-align: right;">${items.current_qty}</td>
                                 <td style="text-align: right;">${items.current_subtotal|default:0|viviFormatPrices:true}</td>
