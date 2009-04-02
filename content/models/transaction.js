@@ -38,6 +38,8 @@
                 discount_subtotal: 0,
                 payment_subtotal: 0,
 
+                price_modifier: 1,    // used to modify item subtotals
+
                 rounding_prices: 'to-nearest-precision',
                 precision_prices: 0,
                 rounding_taxes: 'to-nearest-precision',
@@ -267,9 +269,9 @@
     },
 
     Transaction.prototype.createItemDataObj = function(index, item, sellQty, sellPrice, parent_index) {
-
+        
         var roundedPrice = sellPrice || 0;
-        var roundedSubtotal = this.getRoundedPrice(sellQty*sellPrice) || 0;
+        var roundedSubtotal = this.getRoundedPrice(sellQty*sellPrice*this.data.price_modifier) || 0;
         
         // name,current_qty,current_price,current_subtotal
         var item2 = {
@@ -1081,7 +1083,7 @@
         setItems.forEach(function(setitem) {
            condiment_subtotal += setitem.current_condiment;
         });
-        item.current_subtotal = this.getRoundedPrice(subtotal + condiment_subtotal);
+        item.current_subtotal = this.getRoundedPrice((subtotal + condiment_subtotal) * this.data.price_modifier);
         itemDisplay.current_subtotal = this.formatPrice(item.current_subtotal);
     };
 

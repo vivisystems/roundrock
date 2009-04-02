@@ -122,7 +122,7 @@
 
         ChangeUserDialog: function () {
             var aURL = "chrome://viviecr/content/changeuser.xul";
-            var aName = "ChangeUser";
+            var aName = _('Change User');
             var aArguments = "";
             var posX = 0;
             var posY = 0;
@@ -134,7 +134,7 @@
 
         ClockInOutDialog: function () {
             var aURL = "chrome://viviecr/content/clockinout.xul";
-            var aName = "Clock In/Out";
+            var aName = _('Clock In/Out');
             var aArguments = "";
             var posX = 0;
             var posY = 0;
@@ -158,15 +158,12 @@
             }
 
             var aURL = "chrome://viviecr/content/plusearch.xul";
-            var aName = "PLUSearch";
+            var aName = _('Product Search');
             var aArguments = {buffer: buf, item: item};
-            var posX = 0;
-            var posY = 0;
             var width = this.screenwidth;
             var height = this.screenheight;
-            //$do('load', null, 'Categories');
 
-            GREUtils.Dialog.openDialog(window, aURL, aName, aArguments, posX, posY, width, height);
+            GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=" + width + ",height=" + height, aArguments);
         },
 
         printerDashboard: function () {
