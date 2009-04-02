@@ -1472,6 +1472,20 @@ msgstr "Printer Dashboard"
 msgid "printerDashboard.name"
 msgstr "Printer Dashboard"
 
+msgid "acl_view_order"
+msgstr "View Order"
+
+msgid "vieworder.desc"
+msgstr ""
+"This function allows the operator to quickly view the complete details of an "
+"order. No parameter is needed."
+
+msgid "vieworder.label"
+msgstr "View Order"
+
+msgid "vieworder.name"
+msgstr "View Order"
+
 msgid "(rpt)Terminal"
 msgstr "Terminal"
 
@@ -1768,6 +1782,81 @@ msgstr "Display Name"
 
 msgid "(rpt)Access Group"
 msgstr "Access Group"
+
+msgid "(view)completed"
+msgstr "completed"
+
+msgid "(view)stored"
+msgstr "stored"
+
+msgid "(view)cancelled"
+msgstr "cancelled"
+
+msgid "(view)voided"
+msgstr "voided"
+
+msgid "(view)order sequence"
+msgstr "sequence"
+
+msgid "(view)order status"
+msgstr "status"
+
+msgid "(view)order destination"
+msgstr "destination"
+
+msgid "(view)branch"
+msgstr "branch"
+
+msgid "(view)terminal"
+msgstr "terminal"
+
+msgid "(view)opened"
+msgstr "opened"
+
+msgid "(view)open clerk"
+msgstr "open clerk"
+
+msgid "(view)submitted"
+msgstr "submitted"
+
+msgid "(view)close clerk"
+msgstr "close clerk"
+
+msgid "(view)customer"
+msgstr "customer"
+
+msgid "(view)contact"
+msgstr "contact"
+
+msgid "(view)check #"
+msgstr "check #"
+
+msgid "(view)table #"
+msgstr "table #"
+
+msgid "(view)customers"
+msgstr "customers"
+
+msgid "(view)Item Sub-total"
+msgstr "Item Sub-total"
+
+msgid "(view)Adjustments"
+msgstr "Adjustments"
+
+msgid "(view)Add-on Taxes"
+msgstr "Add-on Taxes"
+
+msgid "(view)Total"
+msgstr "Total"
+
+msgid "(view)Change"
+msgstr "Change"
+
+msgid "Order sequence [%S] does not exist"
+msgstr ""
+
+msgid "Unable to display order; no order sequence given"
+msgstr ""
 
 msgid "confirm timezone change"
 msgstr ""
@@ -2812,10 +2901,22 @@ msgstr ""
 msgid "Control Panel"
 msgstr ""
 
+msgid "Change User"
+msgstr ""
+
+msgid "Clock In/Out"
+msgstr ""
+
+msgid "Product Search"
+msgstr ""
+
 msgid "Printer Dashboard"
 msgstr ""
 
 msgid "No order to add/view annotations"
+msgstr ""
+
+msgid "Order Details"
 msgstr ""
 
 msgid " logged in"
@@ -3019,9 +3120,6 @@ msgstr ""
 msgid ""
 "An error occurred while removing Product [%S]. The product may not have been "
 "removed successfully"
-msgstr ""
-
-msgid "Product Search"
 msgstr ""
 
 msgid "Product [%S] Not Found!"

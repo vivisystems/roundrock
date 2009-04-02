@@ -19,6 +19,7 @@
         initial: function() {
 
             this.patch102();
+            this.patch110();
             
             this.screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
             this.screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
@@ -84,6 +85,16 @@
             // add DB column main.products.alt_name2
             try {
                 productModel.execute('ALTER TABLE "main"."products" ADD COLUMN "alt_name2" VARCHAR');
+            }
+            catch(e) {
+            }
+        },
+
+        patch110: function() {
+            // add DB column main.products.manual_adjustment_only
+            var productModel = new ProductModel();
+            try {
+                productModel.execute('ALTER TABLE "main"."products" ADD COLUMN "manual_adjustment_only" BOOL');
             }
             catch(e) {
             }
@@ -276,6 +287,19 @@
             var width = this.screenwidth;
             var height = this.screenheight;
             GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,dependent=yes,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height, "");
+        },
+
+        orderDialog: function () {
+            var aURL = 'chrome://viviecr/content/view_order.xul';
+            var aName = _('Order Details');
+            var aArguments = this._getKeypadController().getBuffer();
+            var posX = 0;
+            var posY = 0;
+            var width = this.screenwidth;
+            var height = this.screenheight;
+            
+            this.requestCommand('clear', null, 'Cart');
+            GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,dependent=yes,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height, aArguments);
         },
 
         createPluPanel: function () {

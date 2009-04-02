@@ -43,7 +43,6 @@ pref("vivipos.fec.settings.controlpanels.config.devices.path", "chrome://viviecr
 pref("vivipos.fec.settings.controlpanels.config.devices.icon", "chrome://viviecr/skin/icons/icon_devices.png");
 pref("vivipos.fec.settings.controlpanels.config.devices.roles", "acl_manage_devices");
 
-
 pref("vivipos.fec.settings.controlpanels.config.sync_settings.label", "Synchronization Settings");
 pref("vivipos.fec.settings.controlpanels.config.sync_settings.path", "chrome://viviecr/content/sync_settings.xul");
 pref("vivipos.fec.settings.controlpanels.config.sync_settings.icon", "chrome://viviecr/skin/icons/icon_sync.png");
@@ -546,6 +545,11 @@ pref("vivipos.fec.registry.function.programmable.printerDashboard.access", "acl_
 pref("vivipos.fec.registry.function.programmable.printerDashboard.command", "printerDashboard");
 pref("vivipos.fec.registry.function.programmable.printerDashboard.controller", "Main");
 pref("vivipos.fec.registry.function.programmable.printerDashboard.data", "");
+
+pref("vivipos.fec.registry.function.programmable.vieworder.access", "acl_view_order");
+pref("vivipos.fec.registry.function.programmable.vieworder.command", "orderDialog");
+pref("vivipos.fec.registry.function.programmable.vieworder.controller", "Main");
+pref("vivipos.fec.registry.function.programmable.vieworder.data", "");
 
 pref('vivipos.fec.ui.functionpanel.button.defaultcolor', 'function-button-color-default');
 pref('vivipos.fec.ui.functionpanel.button.defaultfontsize', 'medium');

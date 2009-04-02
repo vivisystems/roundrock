@@ -133,6 +133,12 @@
 
                 case 'current_subtotal':
                     prop.AppendElement(aserv.getAtom('treecellSubtotal'));
+                    if (data.price_modifier > 1) {
+                        prop.AppendElement(aserv.getAtom('surchargeApplied'));
+                    }
+                    else if (data.price_modifier < 1) {
+                        prop.AppendElement(aserv.getAtom('discountApplied'));
+                    }
                     break;
 
                 case 'current_tax':

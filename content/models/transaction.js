@@ -271,7 +271,8 @@
     Transaction.prototype.createItemDataObj = function(index, item, sellQty, sellPrice, parent_index) {
         
         var roundedPrice = sellPrice || 0;
-        var roundedSubtotal = this.getRoundedPrice(sellQty*sellPrice*this.data.price_modifier) || 0;
+        var priceModifier = item.manual_adjustment_only ? 1 : this.data.price_modifier;
+        var roundedSubtotal = this.getRoundedPrice(sellQty*sellPrice*priceModifier) || 0;
         
         // name,current_qty,current_price,current_subtotal
         var item2 = {
@@ -319,7 +320,9 @@
             hasMarker: false,
 
             stock_maintained: false,
-            destination: GeckoJS.Session.get('vivipos_fec_order_destination')
+            destination: GeckoJS.Session.get('vivipos_fec_order_destination'),
+
+            price_modifier: priceModifier
         };
 
         return item2;
@@ -347,7 +350,8 @@
                 index: index,
                 stock_status: item.stock_status,
                 age_verification: item.age_verification,
-                level: (level == null) ? 0 : level
+                level: (level == null) ? 0 : level,
+                price_modifier: item.price_modifier
             });
         }else if (type == 'setitem') {
             itemDisplay = GREUtils.extend(itemDisplay, {
@@ -363,7 +367,8 @@
                 index: index,
                 stock_status: item.stock_status,
                 age_verification: item.age_verification,
-                level: (level == null) ? 1 : level
+                level: (level == null) ? 1 : level,
+                price_modifier: item.price_modifier
             });
         }else if (type == 'discount') {
             if (item.discount_name && item.discount_name.length > 0) {
@@ -585,7 +590,7 @@
 
         var productsById = GeckoJS.Session.get('productsById');
         var prevRowCount = this.data.display_sequences.length;
-
+        
         var sellQty = null, sellPrice = null;
 
         var lastSellItem = GeckoJS.Session.get('cart_last_sell_item');
@@ -1083,7 +1088,7 @@
         setItems.forEach(function(setitem) {
            condiment_subtotal += setitem.current_condiment;
         });
-        item.current_subtotal = this.getRoundedPrice((subtotal + condiment_subtotal) * this.data.price_modifier);
+        item.current_subtotal = this.getRoundedPrice((subtotal + condiment_subtotal) * item.price_modifier);
         itemDisplay.current_subtotal = this.formatPrice(item.current_subtotal);
     };
 
