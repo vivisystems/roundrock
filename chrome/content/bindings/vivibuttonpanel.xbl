@@ -456,16 +456,18 @@
                     }else {
                         buttons[i].setAttribute('label', text);
                     }
-                    
 
                     let image = datasource.getImageSrc(row, {id: imageField});
                     if (image) {
+
                         if(typeof buttons[i]['setImage'] == 'function') {
                             buttons[i].setImage(image);
                         }else {
                             buttons[i].setAttribute('image', image);
                         }
+
                     }else {
+
                         if(typeof buttons[i]['setImage'] == 'function') {
                             buttons[i].setImage('');
                         }else {
@@ -784,7 +786,8 @@
         // maybe click on row / grid
         // fixed click on row will unchecked all buttons at seltype=single
         var tagName = event.originalTarget.tagName.toLowerCase();
-        if(tagName != 'vivibutton' && tagName != 'button') {
+        var supportTagName = this.buttonTagName || 'vivibutton' ;
+        if(tagName != supportTagName && tagName != 'button') {
             return ;
         }
 
