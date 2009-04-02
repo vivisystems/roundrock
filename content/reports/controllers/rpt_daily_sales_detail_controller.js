@@ -59,7 +59,7 @@
             end = parseInt( end / 1000 );
 
             var fields =	'orders.id, ' +
-            				'DATETIME( orders.transaction_created, "unixepoch", "localtime" ) as time, ' +
+            				'DATE( orders.transaction_created, "unixepoch", "localtime" ) as time, ' +
                             'orders.sequence, ' +
                             'orders.total, ' +
                             'orders.tax_subtotal, ' +
