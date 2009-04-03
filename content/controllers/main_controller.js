@@ -352,6 +352,7 @@
                         // department not group
                         var buf = this._getKeypadController().getBuffer();
                         if(GeckoJS.Session.get('cart_set_qty_value') != null || buf.length > 0  ) {
+                            dep.cate_no = dep.no;
                             return this.requestCommand('addItem',dep,'Cart');
                         }
                     }
