@@ -128,10 +128,10 @@
     {for adjustment in order.OrderAddition}
     <tr>
         {if adjustment.discount_name != null}
-        <td colspan="4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${adjustment.discount_name}</td>
+        <td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${adjustment.discount_name}</td>
         <td style="width: 100px; text-align: right;">${adjustment.current_discount|viviFormatPrices:true}</td>
         {else}
-        <td colspan="4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${adjustment.surcharge_name}</td>
+        <td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${adjustment.surcharge_name}</td>
         <td style="width: 100px; text-align: right;">${adjustment.current_surcharge|viviFormatPrices:true}</td>
     </tr>
         {/if}
@@ -165,7 +165,7 @@
 {if order.OrderPayment}
 {for payment in order.OrderPayment}
     <tr>
-        <td>${(payment.memo1 != null && payment.memo1 != '') ? payment.memo1 : payment.name}</td>
+        <td>&nbsp;&nbsp;${(payment.memo1 != null && payment.memo1 != '') ? payment.memo1 : payment.name}</td>
         <td colspan="2">${(payment.memo1 != null && payment.memo1 != '') ? payment.name : ''}</td>
         <td style="text-align: right;">${payment.origin_amount}</td>
         <td style="text-align: right;">${payment.amount|viviFormatPrices:true}</td>
