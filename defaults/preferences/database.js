@@ -20,3 +20,6 @@ pref("DATABASE_CONFIG.extension.classname", 'SQLite');
 pref("DATABASE_CONFIG.extension.path", '/data/databases');
 pref("DATABASE_CONFIG.extension.database", 'vivipos_extension.sqlite');
 
+pref("DATABASE_CONFIG.memory.classname", 'SQLite');
+pref("DATABASE_CONFIG.memory.path", '');
+pref("DATABASE_CONFIG.memory.database", ':in-memory');
