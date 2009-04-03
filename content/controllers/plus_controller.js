@@ -591,7 +591,7 @@
                 var result = prodModel.find('first', {
                         fields: 'max(no) as "prev"',
                         conditions: 'cate_no = "' + this._selCateNo + '"'});
-                if (result != '' && result.prev != '') {
+                if (result != '' && result.prev != null && result.prev != '') {
                     var prev = result.prev;
 
                     // remove department number
@@ -605,6 +605,9 @@
                     if (!isNaN(prodPart)) {
                         prodNo = this._selCateNo + GeckoJS.String.padLeft(++prodPart, prodNoLen, '0');
                     }
+                }
+                else {
+                    prodNo = this._selCateNo + GeckoJS.String.padLeft('1', prodNoLen, '0');
                 }
             }
 

@@ -43,7 +43,6 @@ pref("vivipos.fec.settings.controlpanels.config.devices.path", "chrome://viviecr
 pref("vivipos.fec.settings.controlpanels.config.devices.icon", "chrome://viviecr/skin/icons/icon_devices.png");
 pref("vivipos.fec.settings.controlpanels.config.devices.roles", "acl_manage_devices");
 
-
 pref("vivipos.fec.settings.controlpanels.config.sync_settings.label", "Synchronization Settings");
 pref("vivipos.fec.settings.controlpanels.config.sync_settings.path", "chrome://viviecr/content/sync_settings.xul");
 pref("vivipos.fec.settings.controlpanels.config.sync_settings.icon", "chrome://viviecr/skin/icons/icon_sync.png");
@@ -547,6 +546,11 @@ pref("vivipos.fec.registry.function.programmable.printerDashboard.command", "pri
 pref("vivipos.fec.registry.function.programmable.printerDashboard.controller", "Main");
 pref("vivipos.fec.registry.function.programmable.printerDashboard.data", "");
 
+pref("vivipos.fec.registry.function.programmable.vieworder.access", "acl_view_order");
+pref("vivipos.fec.registry.function.programmable.vieworder.command", "orderDialog");
+pref("vivipos.fec.registry.function.programmable.vieworder.controller", "Main");
+pref("vivipos.fec.registry.function.programmable.vieworder.data", "");
+
 pref('vivipos.fec.ui.functionpanel.button.defaultcolor', 'function-button-color-default');
 pref('vivipos.fec.ui.functionpanel.button.defaultfontsize', 'medium');
 pref('vivipos.fec.ui.department.button.defaultcolor', 'department-button-color-default');
@@ -612,6 +616,12 @@ pref("vivipos.fec.reportpanels.invoice.label", "Invoice Records");
 pref("vivipos.fec.reportpanels.invoice.path", "chrome://viviecr/content/reports/rpt_invoice.xul");
 pref("vivipos.fec.reportpanels.invoice.icon", "chrome://viviecr/content/skin/icons/reporticon_taxe.png");
 pref("vivipos.fec.reportpanels.invoice.roles", "acl_run_report_active");
+*/
+/*
+pref("vivipos.fec.reportpanels.detailedinvoice.label", "Detailed Invoice Records");
+pref("vivipos.fec.reportpanels.detailedinvoice.path", "chrome://viviecr/content/reports/rpt_detailed_invoice.xul");
+pref("vivipos.fec.reportpanels.detailedinvoice.icon", "chrome://viviecr/content/skin/icons/reporticon_taxe.png");
+pref("vivipos.fec.reportpanels.detailedinvoice.roles", "acl_run_report_active");
 */
 pref("vivipos.fec.reportpanels.hourlysales.label", "Hourly Sales");
 pref("vivipos.fec.reportpanels.hourlysales.path", "chrome://viviecr/content/reports/rpt_hourly_sales.xul");
