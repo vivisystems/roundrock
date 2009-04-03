@@ -21,6 +21,10 @@
         categories.forEach(function(cn) {
             var ctrls = GeckoJS.BaseObject.getValues(prefs[cn]);
             if (ctrls) ctrls = ctrls.map(function(el) {
+
+                // if controlpanel has stringbundle create it.
+                if (el.bundle) GeckoJS.StringBundle.createBundle(el.bundle);
+                
                 var entry = {icon: el.icon,
                              path: el.path,
                              roles: el.roles,
@@ -29,7 +33,9 @@
                              org_label: el.label,
                              label: _(el.label)}
                 return entry;
-            })
+                
+            });
+            
             var data = new GeckoJS.ArrayQuery(ctrls).orderBy("org_label asc");
             window.viewHelper = new opener.GeckoJS.NSITreeViewArray(data);
         
