@@ -17,11 +17,15 @@
 		<p class="heading_p" align="right">${_( '(rpt)Printed Time' ) + ': '}${foot.gen_time}</p>
 		<p class="caption">${head.start_time} - ${head.end_time}</p>
 	</div>
-	
+
+{for category in body}
     <table id="body-table">
         <!--caption>${head.title}</caption-->
         <thead>
-            <tr>
+        	<tr>
+            	<td colspan="5" class="subtitle">${category.no} - ${category.name}</td>
+            </tr>
+            <tr class="fields">
                 <th style="text-align: left;">${_( '(rpt)No.' )}</th>
                 <th style="text-align: left;">${_( '(rpt)Name' )}</th>
                 <th style="text-align: right;">${_( '(rpt)Avg. Price' )}</th>
@@ -30,7 +34,7 @@
             </tr>
         </thead>
         <tbody>
-{for item in body}
+{for item in category.orderItems}
             <tr>
                 <td style="text-align: left;">${item.product_no}</td>
                 <td style="text-align: left;">${item.product_name}</td>
@@ -43,11 +47,12 @@
         <tfoot>
             <tr>
                 <td colspan="3">${_( '(rpt)Summary' ) + ':'}</td>
-                <td style="text-align: right;">${foot.qty}</td>
-                <td style="text-align: right;">${foot.summary|default:0|viviFormatPrices:true}</td>
+                <td style="text-align: right;">${category.summary.qty|default:0}</td>
+                <td style="text-align: right;">${category.summary.total|default:0|viviFormatPrices:true}</td>
             </tr>
         </tfoot>
     </table>
     <br />
+{/for}
 </div>
 <br />
