@@ -61,6 +61,25 @@
 				                    <textbox id="shiftno" value='' width="300"/>
 				                </vbox>
 				            </row>
+				            <row>
+				            	<vbox>
+				                	<label value="&productsales.department;" />
+						            <menulist id="department" flex="1">
+				                        <menupopup id="department_menupopup"  flex="1">
+				                            <menuitem selected="true" label="[&productsales.all;]" value="all" />
+				                        </menupopup>
+						            </menulist>
+						        </vbox>
+						        <vbox>
+				                	<label value="&productsales.empty_department;" />
+						            <menulist id="empty_department">
+						                <menupopup id="empty_department_menupopup">
+						                    <menuitem selected="true" label="&productsales.show;" value="show" />
+						                    <menuitem selected="false" label="&productsales.hide;" value="hide" />
+						                </menupopup>
+						            </menulist>
+						        </vbox>
+				            </row>
 		                    <row>
 		                    	<vbox>
 				                	<label value="&productsales.sortby;" />
