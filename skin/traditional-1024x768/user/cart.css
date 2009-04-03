@@ -142,6 +142,8 @@ treechildren::-moz-tree-row(treeVerifyAge) {background-color: steelblue;}
 treechildren::-moz-tree-row(treeReturnItem) {background-color: lightgreen;}
 treechildren::-moz-tree-row(treeTOTAL) {background-color: #da7f12;}
 treechildren::-moz-tree-row(batchMarker) {border-bottom: 3px dotted black !important;}
+treechildren::-moz-tree-cell-text(discountApplied) {color: brown; font-style: italic; font-weight: bolder;}
+treechildren::-moz-tree-cell-text(surchargeApplied) {color: green; font-style: italic; font-weight: bolder;}
 /*
 treechildren::-moz-tree-row(treeTRAY) {background-color: #8e9d90;}
 treechildren::-moz-tree-row(treeSUBTOTAL) {background-color: #71a5d0;}

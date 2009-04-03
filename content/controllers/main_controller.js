@@ -19,6 +19,7 @@
         initial: function() {
 
             this.patch102();
+            this.patch110();
             
             this.screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
             this.screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
@@ -89,6 +90,16 @@
             }
         },
 
+        patch110: function() {
+            // add DB column main.products.manual_adjustment_only
+            var productModel = new ProductModel();
+            try {
+                productModel.execute('ALTER TABLE "main"."products" ADD COLUMN "manual_adjustment_only" BOOL');
+            }
+            catch(e) {
+            }
+        },
+
         _getKeypadController: function() {
             return GeckoJS.Controller.getInstanceByName('Keypad');
         },
@@ -122,7 +133,7 @@
 
         ChangeUserDialog: function () {
             var aURL = "chrome://viviecr/content/changeuser.xul";
-            var aName = "ChangeUser";
+            var aName = _('Change User');
             var aArguments = "";
             var posX = 0;
             var posY = 0;
@@ -134,7 +145,7 @@
 
         ClockInOutDialog: function () {
             var aURL = "chrome://viviecr/content/clockinout.xul";
-            var aName = "Clock In/Out";
+            var aName = _('Clock In/Out');
             var aArguments = "";
             var posX = 0;
             var posY = 0;
@@ -158,15 +169,12 @@
             }
 
             var aURL = "chrome://viviecr/content/plusearch.xul";
-            var aName = "PLUSearch";
+            var aName = _('Product Search');
             var aArguments = {buffer: buf, item: item};
-            var posX = 0;
-            var posY = 0;
             var width = this.screenwidth;
             var height = this.screenheight;
-            //$do('load', null, 'Categories');
 
-            GREUtils.Dialog.openDialog(window, aURL, aName, aArguments, posX, posY, width, height);
+            GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=" + width + ",height=" + height, aArguments);
         },
 
         printerDashboard: function () {
@@ -279,6 +287,19 @@
             var width = this.screenwidth;
             var height = this.screenheight;
             GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,dependent=yes,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height, "");
+        },
+
+        orderDialog: function () {
+            var aURL = 'chrome://viviecr/content/view_order.xul';
+            var aName = _('Order Details');
+            var aArguments = this._getKeypadController().getBuffer();
+            var posX = 0;
+            var posY = 0;
+            var width = this.screenwidth;
+            var height = this.screenheight;
+            
+            this.requestCommand('clear', null, 'Cart');
+            GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,dependent=yes,resize=no,top=" + posX + ",left=" + posY + ",width=" + width + ",height=" + height, aArguments);
         },
 
         createPluPanel: function () {

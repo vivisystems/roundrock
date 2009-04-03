@@ -430,7 +430,7 @@
             if (curTransaction.isSubmit() || curTransaction.isCancel()) {
                 curTransaction = this._newTransaction();
             }
-
+            
             // check if has buffer
             var buf = this._getKeypadController().getBuffer();
             if (buf.length>0) {

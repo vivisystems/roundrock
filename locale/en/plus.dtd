@@ -31,6 +31,7 @@
 
 <!ENTITY plus.auto.maintain "Auto-stock">
 <!ENTITY plus.can.restock "Returns can be restocked">
+<!ENTITY plus.manual.adjustment.only "Manual price adjustment only">
 <!ENTITY plus.require.condiment "Condiments required">
 <!ENTITY plus.require.memo "Memo required">
 <!ENTITY plus.single.item.sale "Single Item Sale">
