@@ -27,7 +27,7 @@
     <vbox flex="1" class="main-dialog">
         <vbox flex="1" class="MainPnl">
 		    <vbox>
-		        <caption label="&productsales.title;"  class="PageTitle"/>
+		        <caption label="&productsales.title;" class="PageTitle"/>
 		        <!--caption label="&productsales.conditions;" / -->
 		        <hbox>
 		            <hbox flex="1">
@@ -61,6 +61,25 @@
 				                    <textbox id="shiftno" value='' width="300"/>
 				                </vbox>
 				            </row>
+				            <row>
+				            	<vbox>
+				                	<label value="&productsales.department;" />
+						            <menulist id="department" flex="1">
+				                        <menupopup id="department_menupopup"  flex="1">
+				                            <menuitem selected="true" label="[&productsales.all;]" value="all" />
+				                        </menupopup>
+						            </menulist>
+						        </vbox>
+						        <vbox>
+				                	<label value="&productsales.empty_department;" />
+						            <menulist id="empty_department">
+						                <menupopup id="empty_department_menupopup">
+						                    <menuitem selected="true" label="&productsales.show;" value="show" />
+						                    <menuitem selected="false" label="&productsales.hide;" value="hide" />
+						                </menupopup>
+						            </menulist>
+						        </vbox>
+				            </row>
 		                    <row>
 		                    	<vbox>
 				                	<label value="&productsales.sortby;" />
@@ -90,7 +109,7 @@
                 <!-- grippy/ -->
             </splitter>
             <hbox class="TopPnl">
-                <hbox class="ReportTool"  flex="1">
+                <hbox class="ReportTool" flex="1">
                     <vivibutton id="export_pdf" label="&productsales.exportpdf;" disabled="false" class="PdfBtn" oncommand="$do('exportPdf', null, 'RptProductSales');" />
                     <vivibutton id="export_csv" label="&productsales.exportcsv;" disabled="true" class="CsvBtn" oncommand="$do('exportCsv', null, 'RptProductSales');" />
                     <vivibutton id="export_rcp" label="&productsales.exportrcp;" disabled="false" class="PrintBtn" oncommand="$do('exportRcp', null, 'RptProductSales');" />

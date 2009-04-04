@@ -100,11 +100,15 @@
         },
 */
         getCellProperties: function(row, col, prop) {
+            var data = this.getCurrentIndexData(row);
             var aserv=Components.classes['@mozilla.org/atom-service;1'].
                       getService(Components.interfaces.nsIAtomService);
+
+            if (data.batchMarker) {
+                prop.AppendElement(aserv.getAtom('batchMarker'));
+            }
             switch(col.id) {
                 case 'tag':
-                    var data = this.getCurrentIndexData(row);
                     if (data.type == 'item' || data.type == 'setitem') {
                         if (data.tagged) {
                             prop.AppendElement(aserv.getAtom('treecellTagged'));
@@ -129,6 +133,12 @@
 
                 case 'current_subtotal':
                     prop.AppendElement(aserv.getAtom('treecellSubtotal'));
+                    if (data.price_modifier > 1) {
+                        prop.AppendElement(aserv.getAtom('surchargeApplied'));
+                    }
+                    else if (data.price_modifier < 1) {
+                        prop.AppendElement(aserv.getAtom('discountApplied'));
+                    }
                     break;
 
                 case 'current_tax':
@@ -158,7 +168,7 @@
         */
 
         getRowProperties : function(row, props){
-            if (this._old_row == row) return;
+            //if (this._old_row == row) return;
             var data = this.getCurrentIndexData(row);
             var aserv=Components.classes['@mozilla.org/atom-service;1'].
                       getService(Components.interfaces.nsIAtomService);
@@ -183,7 +193,9 @@
             else {
                 props.AppendElement(aserv.getAtom('regular'));
             }
+            /*
             this._old_row = row;
+            */
         },
 
         //getRowProperties : function(row,props){},

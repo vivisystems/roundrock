@@ -13,6 +13,9 @@
         initial: function() {
             // set current sales period and shift number
             this.updateSession();
+            
+            this.screenwidth = GeckoJS.Configure.read('vivipos.fec.mainscreen.width') || 800;
+            this.screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
 
             // add event listener for onUpdateOptions events
             var main = GeckoJS.Controller.getInstanceByName('Main');
@@ -173,6 +176,8 @@
             // display current shift / last shift information
             this.ShiftDialog(new Date(newSalePeriod * 1000).toLocaleDateString(), newShiftNumber,
                              lastSalePeriod == '' ? '' : new Date(lastSalePeriod * 1000).toLocaleDateString(), lastShiftNumber );
+
+            this.dispatchEvent('onStartShift', {salePeriod: newSalePeriod, shift: newShiftNumber});
         },
         
         ShiftDialog: function (newSalePeriod, newShiftNumber, lastSalePeriod, lastShiftNumber) {
@@ -196,9 +201,15 @@
             var salePeriod = this.getSalePeriod();
             var shiftNumber = this.getShiftNumber();
             var terminal_no = GeckoJS.Session.get('terminal_no');
-
-            var orderPayment = new OrderPaymentModel();
+            var salePeriodLeadDays = GeckoJS.Configure.read('vivipos.fec.settings.MaxSalePeriodLeadDays') || 0;
             
+            var orderPayment = new OrderPaymentModel();
+
+            // check if sale period leads calendar date by more than allowed number of days
+            var today = Date.today();
+            var salePeriodDate = new Date(salePeriod * 1000);
+            var canEndSalePeriod = ((salePeriodDate - today) / (24 * 60 * 60 * 1000) + 1) <= salePeriodLeadDays;
+
             // first, we collect payment totals for credit cards and coupons
             var fields = ['order_payments.memo1 as "OrderPayment.name"',
                           'order_payments.name as "OrderPayment.type"',
@@ -433,7 +444,7 @@
             shiftChangeDetails = new GeckoJS.ArrayQuery(shiftChangeDetails).orderBy('type asc, name asc');
 
             var aURL = 'chrome://viviecr/content/prompt_doshiftchange.xul';
-            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=450';
+            var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
             var inputObj = {
                 shiftChangeDetails:shiftChangeDetails,
                 cashNet: cashNet,
@@ -441,7 +452,8 @@
                 salesRevenue: salesRevenue,
                 ledgerInTotal: ledgerInTotal,
                 ledgerOutTotal: ledgerOutTotal,
-                giftcardExcess: giftcardExcess
+                giftcardExcess: giftcardExcess,
+                canEndSalePeriod: canEndSalePeriod
             };
 
             window.openDialog(aURL, _('Shift Change'), features, inputObj);
@@ -479,9 +491,25 @@
                         ledgerController.saveLedgerEntry(ledgerEntry);
 
                         // append to shiftChangeDetails
-                        shiftChangeDetails.push({type: 'ledger',
-                                                 name: entryType.type,
-                                                 amount: 0 - amt});
+                        var newChangeDetail = {type: 'ledger',
+                                               name: entryType.type,
+                                               amount: 0 - amt,
+                                               count: 1};
+
+                        // look through shiftChangeDetails and add amount and count to entry of the same type/name
+                        var found = false;
+                        for (var i = 0; i < shiftChangeDetails.length; i++) {
+                            var record = shiftChangeDetails[i];
+                            if (record.type == newChangeDetail.type && record.name == newChangeDetail.name) {
+                                found = true;
+                                record.amount += newChangeDetail.amount;
+                                record.count++;
+                                break;
+                            }
+                        }
+                        if (!found) {
+                            shiftChangeDetails.push(newChangeDetail);
+                        }
                     }
                 }
 
@@ -496,7 +524,7 @@
                     balance: inputObj.balance - amt,
                     sales: inputObj.salesRevenue,
                     ledger_out: inputObj.ledgerOutTotal - amt,
-                    ledger_in: inputObj.ledgerInTotal - amt,
+                    ledger_in: inputObj.ledgerInTotal,
                     excess: inputObj.giftcardExcess,
                     note: inputObj.description,
                     terminal_no: GeckoJS.Session.get('terminal_no'),
@@ -519,19 +547,27 @@
                     
                     // offer options to power off or restart and to print shift and day reports
                     aURL = 'chrome://viviecr/content/prompt_end_of_period.xul';
-                    features = 'chrome,titlebar,toolbar,centerscreen,modal,width=800,height=150';
+                    features = 'chrome,titlebar,toolbar,centerscreen,modal,width=600,height=270';
                     var parms = {message: _('Sale Period [%S] is now closed', [new Date(currentShift.sale_period * 1000).toLocaleDateString()])};
                     window.openDialog(aURL, _('Sale Period Close'), features, parms);
 
                     // power off or restart
                     if (parms.poweroff) {
                         // power off
-                        alert('power off');
+                        this.requestCommand('shutdownMachine', null, 'Main');
                     }
                     else {
-                        // login
-                        this.requestCommand('signOff', true, 'Main');
-                        this.requestCommand('ChangeUserDialog', null, 'Main');
+                        // @irving 2009-03-25
+                        // we now restart after closing sale period
+                        try {
+                            GREUtils.restartApplication();
+                        }
+                        catch(e) {
+                            // sign off and return to login screen if restart fails
+                            // login
+                            this.requestCommand('signOff', true, 'Main');
+                            this.requestCommand('ChangeUserDialog', null, 'Main');
+                        }
                     }
                 }
                 else {
@@ -559,39 +595,116 @@
 
                     // shift change notification and print option
                     aURL = 'chrome://viviecr/content/prompt_end_of_shift.xul';
-                    features = 'chrome,titlebar,toolbar,centerscreen,modal,width=500,height=150';
+                    features = 'chrome,titlebar,toolbar,centerscreen,modal,width=477,height=150';
                     message = _('Sale Period [%S] Shift [%S] is now closed', [new Date(currentShift.sale_period * 1000).toLocaleDateString(), currentShift.shift_number]);
                     window.openDialog(aURL, _('Shift Close'), features, message);
 
-                    // sign off and return to login screen
                     this.requestCommand('signOff', true, 'Main');
                     this.requestCommand('ChangeUserDialog', null, 'Main');
                 }
             }
         },
+        
+        _showWaitPanel: function(panel, sleepTime) {
+            var waitPanel = document.getElementById(panel);
+            var width = GeckoJS.Configure.read("vivipos.fec.mainscreen.width") || 800;
+            var height = GeckoJS.Configure.read("vivipos.fec.mainscreen.height") || 600;
+            waitPanel.sizeTo(360, 120);
+            var x = (width - 360) / 2;
+            var y = (height - 240) / 2;
+            waitPanel.openPopupAtScreen(x, y);
 
-        printShiftReport: function(all) {
-            var reportController = GeckoJS.Controller.getInstanceByName('RptCashByClerk');
-            var printController = GeckoJS.Controller.getInstanceByName('Print');
-            var salePeriod = this.getSalePeriod();
-            var terminalNo = GeckoJS.Session.get('terminal_no');
+            // release CPU for progressbar ...
+            if (!sleepTime) {
+              sleepTime = 1000;
+            }
+            this.sleep(sleepTime);
+            return waitPanel;
+        },
 
-            if (all) {
-                reportController.printShiftChangeReport(salePeriod * 1000, salePeriod * 1000, 'sale_period', '', terminalNo, printController);
-            }
-            else {
-                var shiftNumber = this.getShiftNumber().toString();
-                reportController.printShiftChangeReport(salePeriod * 1000, salePeriod * 1000, 'sale_period', shiftNumber, terminalNo, printController);
-            }
+        printShiftReport: function( all ) {
+        	if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to print shift report?' ) ) )
+        		return;
+
+			var waitPanel = this._showWaitPanel( 'wait_panel', 1000 );
+        	
+        	try {
+		        var reportController = GeckoJS.Controller.getInstanceByName( 'RptCashByClerk' );
+		        var printController = GeckoJS.Controller.getInstanceByName( 'Print' );
+		        var salePeriod = this.getSalePeriod();
+		        var terminalNo = GeckoJS.Session.get( 'terminal_no' );
+		        
+		        var shiftNumber = '';
+				if ( !all )
+					shiftNumber = this.getShiftNumber().toString();
+
+		        reportController.printShiftChangeReport( salePeriod * 1000, salePeriod * 1000, 'sale_period', shiftNumber, terminalNo, printController );
+		    } catch ( e ) {
+		    } finally {
+		    	if ( waitPanel ) waitPanel.hidePopup();
+		    }
         },
 
         printDailySales: function() {
-            var reportController = GeckoJS.Controller.getInstanceByName('RptSalesSummary');
-            var printController = GeckoJS.Controller.getInstanceByName('Print');
+        	if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to print daily sales report?' ) ) )
+        		return;
+        	
+        	var waitPanel = this._showWaitPanel( 'wait_panel', 1000 );
+        	
+        	try {
+		        var reportController = GeckoJS.Controller.getInstanceByName( 'RptSalesSummary' );
+		        var printController = GeckoJS.Controller.getInstanceByName( 'Print' );
+		        var salePeriod = this.getSalePeriod();
+		        var terminalNo = GeckoJS.Session.get( 'terminal_no' );
+
+		        reportController.printSalesSummary( salePeriod * 1000, salePeriod * 1000, terminalNo, 'sale_period', '', printController );
+		    } catch ( e ) {
+		    } finally {
+		    	if ( waitPanel ) waitPanel.hidePopup();
+		    }
+        },
+        
+        reviewShiftReport: function( all ) {
+            var reportController = GeckoJS.Controller.getInstanceByName('RptCashByClerk');
             var salePeriod = this.getSalePeriod();
             var terminalNo = GeckoJS.Session.get('terminal_no');
 
-            reportController.printSalesSummary(salePeriod * 1000, salePeriod * 1000, terminalNo, 'sale_period', printController);
+			var shiftNumber = '';
+			if ( !all )
+				shiftNumber = this.getShiftNumber().toString();
+		
+			var waitPanel = this._showWaitPanel( 'wait_panel', 1000 );
+			
+			try {
+				var processedTpl = reportController.getProcessedTpl(salePeriod * 1000, salePeriod * 1000, 'sale_period', shiftNumber, terminalNo);
+			} catch ( e ) {
+			} finally {
+				if ( waitPanel ) waitPanel.hidePopup();
+			}					
+		       
+		    aURL = 'chrome://viviecr/content/rpt_sales_summary.xul';
+		    features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
+		    window.openDialog( aURL, '', features, processedTpl );
+        },
+
+        reviewDailySales: function() {
+               
+            var reportController = GeckoJS.Controller.getInstanceByName( 'RptSalesSummary' );
+            var salePeriod = this.getSalePeriod();
+            var terminalNo = GeckoJS.Session.get( 'terminal_no' );
+
+			var waitPanel = this._showWaitPanel( 'wait_panel', 1000 );
+			
+			try{
+            	var processedTpl = reportController.getProcessedTpl( salePeriod * 1000, salePeriod * 1000, terminalNo, 'sale_period', '' );
+            } catch ( e ) {
+            } finally {
+            	if ( waitPanel ) waitPanel.hidePopup();
+            }
+            
+            aURL = 'chrome://viviecr/content/rpt_sales_summary.xul';
+            features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
+            window.openDialog( aURL, '', features, processedTpl );
         },
 
         select: function(index){
@@ -615,4 +728,3 @@
     }, false);
 
 })();
-

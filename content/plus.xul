@@ -207,7 +207,7 @@
                                         </row>
                                         <row>
                                             <checkbox id="force_memo" value="false" label="&plus.require.memo;" form="productForm" name="force_memo" default="0"/>
-                                            <spacer />
+                                            <checkbox id="manual_adjustment_only" value="false" label="&plus.manual.adjustment.only;" form="productForm" name="manual_adjustment_only" default="0"/>
                                         </row>
                                     </rows>
                                 </grid>
@@ -430,9 +430,9 @@
                                         <column flex="1" /><column flex="1" />
                                     </columns>
                                     <rows>
-                                        <row>
+                                        <row class="ToolBar">
                                             <checkbox id="force_condiment" value="false" label="&plus.require.condiment;" form="productForm" name="force_condiment" default="0"/>
-                                            <spacer />
+                                            <button id="order_cond_group" label="&plus.button.action.order;" class="BtnMod" oncommand="$do('reorderCondimentGroup', null, 'Plus');" />
                                         </row>
                                     </rows>
                                 </grid>

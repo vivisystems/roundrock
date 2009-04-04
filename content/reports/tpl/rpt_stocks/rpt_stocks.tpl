@@ -7,32 +7,27 @@
 	<p class="heading_store">${head.store.telephone1}</p>
 
 	<div style="float: left;">
-		<p class="heading_p">${_( 'Terminal' ) + ': '}${head.store.terminal_no}</p>
-		<p class="heading_p">${_( 'Clerk' ) + ': '}${head.clerk_displayname}</p>
+		<p class="heading_p">${_( '(rpt)Terminal' ) + ': '}${head.store.terminal_no}</p>
+		<p class="heading_p">${_( '(rpt)Clerk' ) + ': '}${head.clerk_displayname}</p>
 		<p class="caption">${head.title}</p>
 	</div>
 
 	<div style="float: right;">
 		<p class="heading_p">&nbsp;</p>
-		<p class="heading_p" align="right">${_( 'Printed Time' ) + ': '}${foot.gen_time}</p>
+		<p class="heading_p" align="right">${_( '(rpt)Printed Time' ) + ': '}${foot.gen_time}</p>
 	</div>
 {for category in body}
         <table id="body-table">
             <!--caption>${category.no} - ${category.name}</caption-->
             <thead>
             	<tr>
-            		<td colspan="8" style="text-align: left;
-							  font-weight: bold;
-							  font-size: 12pt;
-							  color: #292929;
-							  margin: 10px 5px;
-							  padding: 4px;">${category.no} - ${category.name}</td>
+            		<td colspan="4" class="subtitle">${category.no} - ${category.name}</td>
             	</tr>
                 <tr class="fields">
-                    <th style="text-align: left;">${_( 'No.' )}</th>
-                    <th style="text-align: left;">${_( 'Name' )}</th>
-                    <th style="text-align: right;">${_( 'Stock' )}</th>
-                    <th style="text-align: right;">${_( 'Min Stock' )}</th>
+                    <th style="text-align: left;">${_( '(rpt)No.' )}</th>
+                    <th style="text-align: left;">${_( '(rpt)Name' )}</th>
+                    <th style="text-align: right;">${_( '(rpt)Stock' )}</th>
+                    <th style="text-align: right;">${_( '(rpt)Min Stock' )}</th>
                 </tr>
             </thead>
             <tbody>

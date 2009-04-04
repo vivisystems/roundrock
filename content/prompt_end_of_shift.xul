@@ -39,12 +39,11 @@
             <spacer flex="1"/>
             <hbox>
                 <hbox id="dialogButtons" class="ToolBar" flex="1">
+                    <button id="review" label="&shiftchange.button.review.this.shift;" default="false" oncommand="opener.$do('reviewShiftReport', null, 'ShiftChanges');"/>
                     <button id="print" label="&shiftchange.button.print.this.shift;" default="false" oncommand="opener.$do('printShiftReport', null, 'ShiftChanges');"/>
-                    <spacer flex="1"/>
                     <button id="ok" label="&dialog.okButton.label;" default="true" oncommand="doOKButton();"/>
                 </hbox>
             </hbox>
         </vbox>
-    </vbox>
-    
+    </vbox>   
 </window>

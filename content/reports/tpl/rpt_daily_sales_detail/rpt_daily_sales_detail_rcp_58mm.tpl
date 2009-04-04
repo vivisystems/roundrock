@@ -2,45 +2,45 @@
 [&DWON]${head.store.branch|center:14}[&DWOFF]
 ${head.store.telephone1|center:24}
 
-${_( 'Terminal' ) + ': '}${head.store.terminal_no}
-${_( 'Clerk' ) + ': '}${head.clerk_displayname}
+${_( '(rpt)Terminal' ) + ': '}${head.store.terminal_no}
+${_( '(rpt)Clerk' ) + ': '}${head.clerk_displayname}
 ${head.start_time} ~
 ${head.end_time}
 
 ${head.title|center:24}
 {for detail in body}
 ------------------------
-${_( 'Term_No.' )}:
+${_( '(rpt)Term_No.' )}:
 ${detail.terminal_no|right:24}
-${_( 'Time' ) + ':'}
-${detail.Order.Time|right:24}
-${_( 'Sequence' ) + ':'}
+${_( '(rpt)Time' ) + ':'}
+${detail.Order.time|right:24}
+${_( '(rpt)Sequence' ) + ':'}
 ${detail.sequence|right:24}
-${_( 'Guests' ) + ':'}
+${_( '(rpt)Guests' ) + ':'}
 ${detail.no_of_customers|right:24}
-${_( 'Items' ) + ':'}
+${_( '(rpt)Items' ) + ':'}
 ${detail.items_count|right:24}
-${_( 'Total' ) + ':'}
+${_( '(rpt)Total' ) + ':'}
 ${detail.item_subtotal|default:0|viviFormatPrices:true|right:24}
-${_( 'Add-on Tax' ) + ':'}
+${_( '(rpt)Add-on Tax' ) + ':'}
 ${detail.tax_subtotal|default:0|viviFormatPrices:true|right:24}
-${_( 'Surcharge' ) + ':'}
+${_( '(rpt)Surcharge' ) + ':'}
 ${detail.surcharge_subtotal|default:0|viviFormatPrices:true|right:24}
-${_( 'Discount' ) + ':'}
+${_( '(rpt)Discount' ) + ':'}
 ${detail.discount_subtotal|default:0|viviFormatPrices:true|right:24}
-${_( 'Payment' ) + ':'}
+${_( '(rpt)Payment' ) + ':'}
 ${detail.total|default:0|viviFormatPrices:true|right:24}
 {for items in detail.OrderItem}
 ------------------------
-${_( 'Product No.' ) + ':'}
+${_( '(rpt)Product No.' ) + ':'}
 ${items.product_no|right:24}
-${_( 'Product Name' ) + ':'}
+${_( '(rpt)Product Name' ) + ':'}
 ${items.product_name|right:24}
-${_( 'Price' ) + ':'}
+${_( '(rpt)Price' ) + ':'}
 ${items.current_price|right:24}
-${_( 'Quantity' ) + ':'}
+${_( '(rpt)Quantity' ) + ':'}
 ${items.current_qty|right:24}
-${_( 'Total' ) + ':'}
+${_( '(rpt)Total' ) + ':'}
 ${items.current_subtotal|right:24}
 {/for}
 {/for}

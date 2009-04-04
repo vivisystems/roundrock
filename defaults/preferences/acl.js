@@ -107,3 +107,4 @@ pref("vivipos.fec.acl.roles.acl_transfer_table", "acl_transfer_table");
 pref("vivipos.fec.acl.roles.acl_xterm", "acl_xterm");
 pref("vivipos.fec.acl.roles.acl_manage_printers", "acl_manage_printers");
 pref("vivipos.fec.acl.roles.acl_printer_dashboard", "acl_printer_dashboard");
+pref("vivipos.fec.acl.roles.acl_view_order", "acl_view_order");

@@ -2,25 +2,25 @@
 [&DWON]${head.store.branch|center:14}[&DWOFF]
 ${head.store.telephone1|center:24}
 
-${_( 'Terminal' ) + ': '}${head.store.terminal_no}
-${_( 'Clerk' ) + ': '}${head.clerk_displayname}
+${_( '(rpt)Terminal' ) + ': '}${head.store.terminal_no}
+${_( '(rpt)Clerk' ) + ': '}${head.clerk_displayname}
 
 ${head.title|center:24}
 {for category in body}
 ------------------------
-${_( 'Department No.' ) + ':'}
+${_( '(rpt)Department No.' ) + ':'}
 ${category.no|right:24}
-${_( 'Department Name' ) + ':'}
+${_( '(rpt)Department Name' ) + ':'}
 ${category.name|right:24}
 {for plu in category.plu}
 ------------------------
-${_( 'Product No.' ) + ':'}
+${_( '(rpt)Product No.' ) + ':'}
 ${plu.no|right:24}
-${_( 'Product Name' ) + ':'}
+${_( '(rpt)Product Name' ) + ':'}
 ${plu.name|right:24}
-${_( 'Min.Stock' ) + ':'}
+${_( '(rpt)Min.Stock' ) + ':'}
 ${plu.min_stock|right:24}
-${_( 'Stock' ) + ':'}
+${_( '(rpt)Stock' ) + ':'}
 ${plu.stock|right:24}
 {/for}
 ------------------------

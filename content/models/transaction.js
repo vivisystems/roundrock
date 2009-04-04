@@ -38,6 +38,8 @@
                 discount_subtotal: 0,
                 payment_subtotal: 0,
 
+                price_modifier: 1,    // used to modify item subtotals
+
                 rounding_prices: 'to-nearest-precision',
                 precision_prices: 0,
                 rounding_taxes: 'to-nearest-precision',
@@ -267,9 +269,10 @@
     },
 
     Transaction.prototype.createItemDataObj = function(index, item, sellQty, sellPrice, parent_index) {
-
+        
         var roundedPrice = sellPrice || 0;
-        var roundedSubtotal = this.getRoundedPrice(sellQty*sellPrice) || 0;
+        var priceModifier = item.manual_adjustment_only ? 1 : this.data.price_modifier;
+        var roundedSubtotal = this.getRoundedPrice(sellQty*sellPrice*priceModifier) || 0;
         
         // name,current_qty,current_price,current_subtotal
         var item2 = {
@@ -278,6 +281,8 @@
             no: item.no,
             barcode: item.barcode,
             name: item.name,
+            alt_name1: item.alt_name1,
+            alt_name2: item.alt_name2,
             cate_no: item.cate_no,
 
             index: index,
@@ -315,7 +320,9 @@
             hasMarker: false,
 
             stock_maintained: false,
-            destination: GeckoJS.Session.get('vivipos_fec_order_destination')
+            destination: GeckoJS.Session.get('vivipos_fec_order_destination'),
+
+            price_modifier: priceModifier
         };
 
         return item2;
@@ -343,7 +350,8 @@
                 index: index,
                 stock_status: item.stock_status,
                 age_verification: item.age_verification,
-                level: (level == null) ? 0 : level
+                level: (level == null) ? 0 : level,
+                price_modifier: item.price_modifier
             });
         }else if (type == 'setitem') {
             itemDisplay = GREUtils.extend(itemDisplay, {
@@ -359,7 +367,8 @@
                 index: index,
                 stock_status: item.stock_status,
                 age_verification: item.age_verification,
-                level: (level == null) ? 1 : level
+                level: (level == null) ? 1 : level,
+                price_modifier: item.price_modifier
             });
         }else if (type == 'discount') {
             if (item.discount_name && item.discount_name.length > 0) {
@@ -581,7 +590,7 @@
 
         var productsById = GeckoJS.Session.get('productsById');
         var prevRowCount = this.data.display_sequences.length;
-
+        
         var sellQty = null, sellPrice = null;
 
         var lastSellItem = GeckoJS.Session.get('cart_last_sell_item');
@@ -1079,7 +1088,7 @@
         setItems.forEach(function(setitem) {
            condiment_subtotal += setitem.current_condiment;
         });
-        item.current_subtotal = this.getRoundedPrice(subtotal + condiment_subtotal);
+        item.current_subtotal = this.getRoundedPrice((subtotal + condiment_subtotal) * item.price_modifier);
         itemDisplay.current_subtotal = this.formatPrice(item.current_subtotal);
     };
 
@@ -1441,7 +1450,7 @@
     
     };
 
-    Transaction.prototype.appendCondiment = function(index, condiments){
+    Transaction.prototype.appendCondiment = function(index, condiments, replace){
         
         var item = this.getItemAt(index, true);                           // item to add condiment to
         var targetItem = this.getItemAt(index);
@@ -1449,12 +1458,32 @@
         var itemIndex = itemDisplay.index;                          // itemIndex of item to add condiment to
         var targetDisplayItem = this.getDisplaySeqByIndex(itemIndex);   // display index of the item to add condiment to
 
-        var prevRowCount = this.data.display_sequences.length;
+        var prevRowCount = this.getDisplaySeqCount();
 
-        var displayIndex = index;
+        var displayIndex = replace ? this.getDisplayIndexByIndex(itemIndex) : index;
+
         if (item.type == 'item') {
 
             if (condiments.length >0) {
+
+                if (replace && item.condiments != null) {
+
+                    // void all condiment items up to next item whose index is different from itemIndex
+                    i = displayIndex + 1;
+                    for (; i < this.getDisplaySeqCount();) {
+                        var displayItem = this.getDisplaySeqAt(i);
+                        if (displayItem.index != itemIndex)
+                            break;
+                        if (displayItem.type == 'condiment') {
+                            this.voidItemAt(i);
+                        }
+                        else {
+                            i++;
+                            displayIndex++;
+                        }
+                    }
+                    prevRowCount = this.getDisplaySeqCount();
+                }
 
                 condiments.forEach(function(condiment){
                     // this extra check is a workaround for the bug in XULRunner where an item may appear to be selected

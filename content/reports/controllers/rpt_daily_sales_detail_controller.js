@@ -54,12 +54,13 @@
             var end_str = document.getElementById( 'end_date' ).datetimeValue.toString( 'yyyy/MM/dd HH:mm' );
             
             var machineid = document.getElementById( 'machine_id' ).value;
+            var sequenceNo = document.getElementById( 'sequence_no' ).value;
 
             start = parseInt( start / 1000 );
             end = parseInt( end / 1000 );
 
             var fields =	'orders.id, ' +
-            				'DATETIME( orders.transaction_created, "unixepoch", "localtime" ) as time, ' +
+            				'DATE( orders.transaction_created, "unixepoch", "localtime" ) as time, ' +
                             'orders.sequence, ' +
                             'orders.total, ' +
                             'orders.tax_subtotal, ' +
@@ -73,7 +74,10 @@
                             'order_items.product_name, ' +
                             'order_items.current_qty, ' +
                             'order_items.current_price, ' +
-                            'order_items.current_subtotal';
+                            'order_items.current_subtotal, ' +
+                            'order_items.current_discount, ' +
+                            'order_items.current_surcharge, ' +
+                            'order_items.tax_name';
                             
             var tables = 'orders left join order_items on orders.id = order_items.order_id';
 
@@ -83,6 +87,9 @@
 
             if ( machineid.length > 0 )
                 conditions += " and orders.terminal_no like '" + machineid + "%'";
+            
+            if ( sequenceNo.length > 0 )
+            	conditions += " and orders.sequence like '" + sequenceNo + "%'";
 
             var orderby = 'orders.terminal_no, orders.item_subtotal desc';//orders.transaction_created';
             
@@ -165,6 +172,9 @@
 				item.current_qty = result.current_qty;
 				item.current_price = result.current_price;
 				item.current_subtotal = result.current_subtotal;
+				item.current_discount = result.current_discount;
+				item.current_surcharge = result.current_surcharge;
+				item.tax_name = result.tax_name;
 					
 				record.OrderItem.push( item );
 				
@@ -214,7 +224,9 @@
         },
 
         exportPdf: function() {
-
+			if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to export PDF copy of this report?' ) ) )
+        		return;
+        		
             try {
                 this._enableButton(false);
                 var media_path = this.CheckMedia.checkMedia('report_export');
@@ -242,6 +254,9 @@
         },
 
         exportCsv: function() {
+        	if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to export CSV copy of this report?' ) ) )
+        		return;
+        		
             try {
                 this._enableButton(false);
                 var media_path = this.CheckMedia.checkMedia('report_export');
@@ -271,6 +286,9 @@
         },
 
         exportRcp: function() {
+        	if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to print this report?' ) ) )
+        		return;
+        		
             try {
                 this._enableButton(false);
                 var waitPanel = this._showWaitPanel('wait_panel', 100);

@@ -18,7 +18,7 @@
         productPanelView: null,
         _pluset: [],
         _selectedPluSetIndex: null,
-
+        _condGroupsById: null,
 
         createGroupPanel: function () {
 
@@ -38,6 +38,27 @@
             var condGroupPanelView = new NSICondGroupsView(condGroups);
             condimentscrollablepanel.datasource = condGroupPanelView;
 
+            var condGroupsById = {};
+
+            condGroups.forEach(function(condGroup){
+
+                var cgId = condGroup.id;
+
+                var condimentGroup = condGroup['CondimentGroup'] || {};
+                condimentGroup['Condiment'] = [];
+
+                if(condGroup['Condiment']) {
+
+                    condGroup['Condiment'].forEach(function(condiment) {
+                        condiment['seltype'] = condGroup.seltype;
+                        condimentGroup['Condiment'].push(condiment);
+                    });
+                }
+                condGroupsById[cgId] = condimentGroup;
+
+            });
+
+            this._condGroupsById = condGroupsById;
 
             doSetOKCancel(
                 function(){
@@ -139,6 +160,46 @@
             return ratename;
         },
 
+        reorderCondimentGroup: function() {
+            // re-arrange condiment groups
+            var condimentscrollablepanel = document.getElementById('condimentscrollablepanel');
+            var condGroupsById = this._condGroupsById;
+            
+            // build list of selection orders by group id
+            var selectedGroups = condimentscrollablepanel.value.split(',');
+            var count = 0;
+            var selectedGroupsById = {};
+            var selectedItems = [];
+            for (var i = 0; i < selectedGroups.length; i++) {
+                if (condGroupsById[selectedGroups[i]]) {
+                    selectedGroupsById[selectedGroups[i]] = count;
+                    selectedItems.push(count++);
+                }
+            }
+
+            // split cond groups into two arrays
+            var selectedList = [];
+            var notSelectedList = [];
+
+            for (var key in condGroupsById) {
+                // if group is selected, we order it by its position in cond_group
+                if (key in selectedGroupsById) {
+                    selectedList[selectedGroupsById[key]] = condGroupsById[key];
+                }
+
+                // otherwise, the group is ordered by its position in condGroupsById
+                else {
+                    notSelectedList.push(condGroupsById[key]);
+                }
+            }
+
+            // update condGroup view with ordered condiment group array
+            var condGroupView = condimentscrollablepanel.datasource;
+            condGroupView.data = selectedList.concat(notSelectedList);
+            condimentscrollablepanel.selectedItems = selectedItems;
+            condimentscrollablepanel.refresh();
+        },
+
         clickPluPanel: function(index) {
             var product = this.productPanelView.getCurrentIndexData(index);
             var plupanel = document.getElementById('prodscrollablepanel');
@@ -152,6 +213,8 @@
                 product.cate_name = this._selCateName;
                 this.setInputData(product);
 
+                this.reorderCondimentGroup();
+                
                 var rate = product.rate;
                 $('#rate').val(rate);
                 $('#rate_name').val(this.getRateName(rate));
@@ -528,7 +591,7 @@
                 var result = prodModel.find('first', {
                         fields: 'max(no) as "prev"',
                         conditions: 'cate_no = "' + this._selCateNo + '"'});
-                if (result != '' && result.prev != '') {
+                if (result != '' && result.prev != null && result.prev != '') {
                     var prev = result.prev;
 
                     // remove department number
@@ -542,6 +605,9 @@
                     if (!isNaN(prodPart)) {
                         prodNo = this._selCateNo + GeckoJS.String.padLeft(++prodPart, prodNoLen, '0');
                     }
+                }
+                else {
+                    prodNo = this._selCateNo + GeckoJS.String.padLeft('1', prodNoLen, '0');
                 }
             }
 

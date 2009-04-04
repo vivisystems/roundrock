@@ -74,6 +74,10 @@
   <script src='chrome://viviecr/content/controllers/cashdrawer_controller.js'/>
   <script src='chrome://viviecr/content/controllers/gpio_controller.js'/>
 
+
+  <!-- idle controller -->
+  <script src='chrome://viviecr/content/controllers/idle_controller.js'/>
+
   <script src="chrome://viviecr/content/overlay.js" type="application/x-javascript"/>
 
     <box id="main-container">

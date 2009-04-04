@@ -20,3 +20,7 @@
 <!ENTITY productsales.created "Order Start Time">
 <!ENTITY productsales.saleperiod "Sale Period">
 <!ENTITY productsales.shiftno "Shift No.:">
+<!ENTITY productsales.department "Department:">
+<!ENTITY productsales.empty_department "Empty Department:">
+<!ENTITY productsales.show "Show">
+<!ENTITY productsales.hide "Hide">

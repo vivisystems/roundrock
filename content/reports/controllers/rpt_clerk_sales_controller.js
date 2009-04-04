@@ -274,6 +274,9 @@
         },
 
         exportPdf: function() {
+        	if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to export PDF copy of this report?' ) ) )
+        		return;
+        		
             try {
                 this._enableButton(false);
                 var media_path = this.CheckMedia.checkMedia('report_export');
@@ -301,6 +304,9 @@
         },
 
         exportCsv: function() {
+        	if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to export CSV copy of this report?' ) ) )
+        		return;
+        		
             try {
                 this._enableButton(false);
                 var media_path = this.CheckMedia.checkMedia('report_export');
@@ -330,6 +336,9 @@
         },
 
         exportRcp: function() {
+        	if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to print this report?' ) ) )
+        		return;
+        		
             try {
                 this._enableButton(false);
                 var waitPanel = this._showWaitPanel('wait_panel', 100);

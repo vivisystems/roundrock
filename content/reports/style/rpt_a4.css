@@ -73,12 +73,12 @@
 }
 
 .subtitle{
-text-align: left;
-font-weight: bold;
-font-size: 12pt;
-color: #292929;
-margin: 10px 5px;
-padding: 4px;
+text-align: left !important;
+font-weight: bold !important;
+font-size: 10pt !important;
+color: #292929 !important;
+margin: 10px 5px !important;
+padding: 4px !important;
 }
 
 #body-table > caption > li {

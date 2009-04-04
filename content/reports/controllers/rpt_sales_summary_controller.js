@@ -528,7 +528,7 @@
 		
 		printSalesSummary: function( start, end, terminalNo, periodType, shiftNo, printController ) {
 			
-			this._setConditions( start, end, terminalNo, periodType, shiftnNo );
+			this._setConditions( start, end, terminalNo, periodType, shiftNo );
 			this._set_datas();
 			
 			var path = GREUtils.File.chromeToPath( "chrome://viviecr/content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl" );
@@ -539,6 +539,18 @@
 			//tpl.process( this._datas );
             //var rcp = opener.opener.opener.GeckoJS.Controller.getInstanceByName( 'Print' );
             printController.printReport( 'report', tpl, this._datas );
+        },
+        
+        getProcessedTpl: function( start, end, terminalNo, periodType, shiftNo ) {
+        	this._setConditions( start, end, terminalNo, periodType, shiftNo );
+			this._set_datas();
+			
+			var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl");
+
+            var file = GREUtils.File.getFile( path );
+            var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
+			
+			return tpl.process( this._datas );
         },
 		
         execute: function() {
@@ -567,11 +579,12 @@
             splitter.setAttribute( "state", "collapsed" );
 
             waitPanel.hidePopup();
-
         },
 
         exportPdf: function() {
-
+			if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to export PDF copy of this report?' ) ) )
+        		return;
+        		
             try {
                 this._enableButton( false );
                 var media_path = this.CheckMedia.checkMedia( 'report_export' );
@@ -603,6 +616,9 @@
         },
 
         exportCsv: function() {
+        	if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to export CSV copy of this report?' ) ) )
+        		return;
+        		
             try {
                 this._enableButton( false );
                 var media_path = this.CheckMedia.checkMedia( 'report_export' );
@@ -633,6 +649,9 @@
         },
 
         exportRcp: function() {
+        	if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to print this report?' ) ) )
+        		return;
+        		
             try {
                 this._enableButton( false );
                 var waitPanel = this._showWaitPanel( 'wait_panel', 100 );
