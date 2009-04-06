@@ -8,7 +8,7 @@
         name: 'RptProductSales',
         components: ['BrowserPrint', 'CsvExport', 'CheckMedia'],
 	
-        _datas: null,
+        _data: null,
         
         _fileName: "/rpt_product_sales",
 
@@ -36,7 +36,7 @@
             $('#export_rcp').attr('disabled', disabled);
         },
         
-        _set_datas: function( start, end, periodType, shiftNo, sortBy, terminalNo, department, empty_department ) {
+        _set_data: function( start, end, periodType, shiftNo, sortBy, terminalNo, department, empty_department ) {
         	
         	var storeContact = GeckoJS.Session.get( 'storeContact' );
             var clerk = "";
@@ -103,10 +103,10 @@
 	        	}
 	        } );
 
-            var datas = orderItem.find( 'all',{ fields: fields, conditions: conditions, group: groupby, recursive:1, order: orderby } );
+            var orderItemRecords = orderItem.find( 'all',{ fields: fields, conditions: conditions, group: groupby, recursive:1, order: orderby } );
 
 			if ( sortBy != 'all' ) {
-				datas.sort(
+				orderItemRecords.sort(
 					function ( a, b ) {
 						a = a[ sortBy ];
 						b = b[ sortBy ];
@@ -128,13 +128,13 @@
 				);
 			}
 
-            datas.forEach( function( data ) {
-            	delete data.OrderItem;
-				data[ 'avg_price' ] = data[ 'total' ] / data[ 'qty' ];
+            orderItemRecords.forEach( function( record ) {
+            	delete record.OrderItem;
+				record[ 'avg_price' ] = record[ 'total' ] / record[ 'qty' ];
 				
-                categories[ data.cate_no ].orderItems.push( data );
-                categories[ data.cate_no ].summary.qty += data.qty;
-                categories[ data.cate_no ].summary.total += data.total;
+                categories[ record.cate_no ].orderItems.push( record );
+                categories[ record.cate_no ].summary.qty += record.qty;
+                categories[ record.cate_no ].summary.total += record.total;
             } );
             
             if ( empty_department == 'hide' ) {
@@ -159,7 +159,7 @@
                 }
             }
 
-			this._datas = data;
+			this._data = data;
 		},
 		
 		/**
@@ -177,16 +177,16 @@
 		 
 		printProductSalesReport: function( start, end, periodType, shiftNo, sortBy, terminalNo, department, empty_department ) {
 			
-			this._set_datas( start, end, periodType, shiftNo, sortBy, terminalNo, department, empty_department );
+			this._set_data( start, end, periodType, shiftNo, sortBy, terminalNo, department, empty_department );
 			
 			var path = GREUtils.File.chromeToPath( "chrome://viviecr/content/reports/tpl/rpt_product_sales/rpt_product_sales_rcp_80mm.tpl" );
 
             var file = GREUtils.File.getFile( path );
             var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
 			
-			tpl.process( this._datas );
+			tpl.process( this._data );
             var rcp = opener.opener.opener.GeckoJS.Controller.getInstanceByName( 'Print' );
-            //rcp.printReport( 'report', tpl, this._datas );
+            //rcp.printReport( 'report', tpl, this._data );
        	},
 
         execute: function() {
@@ -204,14 +204,14 @@
             var department = document.getElementById( 'department' ).value;
             var empty_department = document.getElementById( 'empty_department' ).value;
 
-			this._set_datas( start, end, periodType, shiftNo, sortby, machineid, department, empty_department );
+			this._set_data( start, end, periodType, shiftNo, sortby, machineid, department, empty_department );
 
             var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_product_sales/rpt_product_sales.tpl");
 
             var file = GREUtils.File.getFile( path );
             var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
 
-            result = tpl.process( this._datas );
+            result = tpl.process( this._data );
             
             var bw = document.getElementById( 'preview_frame' );
             var doc = bw.contentWindow.document.getElementById( 'abody' );
@@ -275,7 +275,7 @@
                 var file = GREUtils.File.getFile(path);
                 var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
                 var datas;
-                datas = this._datas;
+                datas = this._data;
 
                 this.CsvExport.printToFile(media_path + this._fileName, datas, tpl);
 
@@ -302,7 +302,7 @@
                 var file = GREUtils.File.getFile(path);
                 var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
                 var datas;
-                datas = this._datas;
+                datas = this._data;
 
                 // this.RcpExport.print(datas, tpl);
                 var rcp = opener.opener.opener.GeckoJS.Controller.getInstanceByName('Print');

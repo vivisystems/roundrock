@@ -86,7 +86,7 @@
             </hbox>
 
             <box class="reportbox" flex="1">
-                <browser type="content" id="preview_frame" src="rpt_template3.html" flex="1"/>
+                <browser type="content" id="preview_frame" src="rpt_template2.html" flex="1"/>
             </box>
         </vbox>
     </vbox>

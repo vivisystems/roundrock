@@ -72,10 +72,15 @@
             if (action != "addItem") {
                 var productsById = GeckoJS.Session.get('productsById');
                 var product = productsById[item.id];
-                stock = parseFloat(product.stock);
-                min_stock = parseFloat(product.min_stock);
-                auto_maintain_stock = product.auto_maintain_stock;
-                diff = qty - item.current_qty;
+                if (product) {
+                    stock = parseFloat(product.stock);
+                    min_stock = parseFloat(product.min_stock);
+                    auto_maintain_stock = product.auto_maintain_stock;
+                    diff = qty - item.current_qty;
+                }
+                else {
+                    auto_maintain_stock = false;
+                }
             }
             if (auto_maintain_stock) {
 
