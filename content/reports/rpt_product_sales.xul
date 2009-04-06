@@ -131,19 +131,6 @@
                     </box>
 
                 </groupbox>
-                <!--vbox>
-                    <vbox class="ToolBar BarHeight">
-                        <vivibutton id="export_pdf" label="&productsales.exportpdf;" disabled="false" class="editbtns" oncommand="$do('exportPdf', null, 'RptProductSales');" />
-                        <vivibutton id="export_csv" label="&productsales.exportcsv;" disabled="false" class="editbtns" oncommand="$do('exportCsv', null, 'RptProductSales');" />
-
-                        <vivibutton id="togglesize" label="&productsales.togglezoom;" disabled="false" class="editbtns" image="chrome://viviecr/content/reports/tpl/gtk-fullscreen.png" />
-                        <spacer flex="1" />
-                    </vbox>
-                    <hbox id="dialogButtons" class="dialogbtns" pack="end">
-                        <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="doOKButton();"/>
-                        <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle()" class="VkbBtn"/>
-                    </hbox>
-                </vbox-->
             </hbox>
         </vbox>
     </vbox>
