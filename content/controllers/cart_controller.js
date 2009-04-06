@@ -634,7 +634,7 @@
                 this.dispatchEvent('onModifyItemError', {});
 
                 //@todo OSD
-                NotifyUtils.warn(_('Cannot modify; selected item [%S] has discount or surcharge applied', [itemDisplay.name]));
+                NotifyUtils.warn(_('Cannot modify; selected item [%S] has discount or surcharge applied', [itemTrans.name]));
 
                 this.subtotal();
                 return;
@@ -644,12 +644,12 @@
                 this.dispatchEvent('onModifyItemError', {});
 
                 //@todo OSD
-                NotifyUtils.warn(_('Cannot modify; selected item [%S] has been subtotaled', [itemDisplay.name]));
+                NotifyUtils.warn(_('Cannot modify; selected item [%S] has been subtotaled', [itemTrans.name]));
 
                 this.subtotal();
                 return;
             }
-
+/*
             if (itemDisplay.type == 'item' && GeckoJS.Session.get('cart_set_price_value') == null && GeckoJS.Session.get('cart_set_qty_value') == null && buf.length <= 0) {
                 // @todo popup ??
                 this.log('DEBUG', 'modifyItem but no qty / price set!! plu = ' + this.dump(itemTrans) );
@@ -659,7 +659,7 @@
                 NotifyUtils.warn(_('Cannot modify; no price or quantity entered'));
                 return ;
             }
-
+*/
             if (itemDisplay.type == 'condiment' && buf.length <= 0 ) {
                 // @todo popup ??
                 this.log('DEBUG', 'modify condiment but price not set!! plu = ' + this.dump(itemTrans) );
@@ -681,8 +681,6 @@
             // check whether price or quantity or both are being modified
             var newPrice = GeckoJS.Session.get('cart_set_price_value');
             var newQuantity = GeckoJS.Session.get('cart_set_qty_value');
-            var modifyPrice = false;
-            var modifyQuantity = false;
             var modifyPrice = (newPrice != null && newPrice != itemTrans.current_price);
             var modifyQuantity = (newQuantity != null && newQuantity != itemTrans.current_qty);
             
