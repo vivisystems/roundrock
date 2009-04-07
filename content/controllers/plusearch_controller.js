@@ -108,6 +108,8 @@
                 product = productsById[id];
                 GeckoJS.FormHelper.unserializeFromObject('productForm', product);
                 // document.getElementById('pluimage').setAttribute('src', 'chrome://viviecr/content/skin/pluimages/' + product.no + '.png?' + Math.random());
+                var inputObj = window.arguments[0];
+                inputObj.item = product;
             }
         },
 
@@ -129,6 +131,8 @@
                 var product = this._listDatas[0];
                 GeckoJS.FormHelper.unserializeFromObject('productForm', product);
                 // document.getElementById('pluimage').setAttribute('src', 'chrome://viviecr/content/skin/pluimages/' + product.no + '.png?' + Math.random());
+                var inputObj = window.arguments[0];
+                inputObj.item = product;
             }else {
                 // reset?
             }
