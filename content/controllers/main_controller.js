@@ -156,13 +156,9 @@
         },
 
 
-        PLUSearchDialog: function (pluno) {
+        PLUSearchDialog: function (addtocart) {
             //
-            var buf = '';
-            if (pluno)
-                buf = pluno;
-            else
-                buf = this._getKeypadController().getBuffer();
+            var buf = this._getKeypadController().getBuffer();
 
             this.requestCommand('clear', null, 'Cart');
             var item;
@@ -180,8 +176,12 @@
             var height = this.screenheight;
 
             GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=" + width + ",height=" + height, aArguments);
-            if (aArguments.ok)
+            if (aArguments.ok) {
+                if (addtocart && aArguments.item) {
+                    this.requestCommand('addItem',aArguments.item,'Cart');
+                }
                 return aArguments.item;
+            }
             else
                 return null;
         },
