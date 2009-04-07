@@ -518,7 +518,7 @@
             // tax amount is displayed in the current_qty field for readability
             if(itemDisplay.current_qty != ''  || itemDisplay.current_qty === 0 ) {
                 if (type == 'total' || type == 'subtotal') {
-                    itemDisplay.current_qty = this.formatTax(itemDisplay.current_qty) + 'T';
+                    itemDisplay.current_qty = this.formatTax(itemDisplay.current_qty);
                 }
                 else if (type == 'item' || type == 'setitem') {
                     itemDisplay.current_qty += 'X';
@@ -729,7 +729,9 @@
 
                 if (itemTrans.current_qty < 0 && sellQty > 0) sellQty = 0 - sellQty;
 
-                sellPrice  = (GeckoJS.Session.get('cart_set_price_value') != null) ? GeckoJS.Session.get('cart_set_price_value') : sellPrice;
+                sellPrice = (GeckoJS.Session.get('cart_set_price_value') != null)
+                    ? GeckoJS.Session.get('cart_set_price_value')
+                    : (GeckoJS.Session.get('cart_set_qty_value') != null) ? sellPrice : null;
 
                 sellPrice = this.calcSellPrice(sellPrice, sellQty, item);
             }
@@ -756,6 +758,7 @@
                 itemTrans.current_qty = itemModified.current_qty;
                 itemTrans.current_price = itemModified.current_price;
                 itemTrans.current_subtotal = itemModified.current_subtotal;
+                itemTrans.price_modifier = itemModified.price_modifier;
                 itemModified = itemTrans;
 
                 // update to items array

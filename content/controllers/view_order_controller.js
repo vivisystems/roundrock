@@ -20,7 +20,12 @@
             else {
                 conditions = inputObj.index + ' like "%' + inputObj.value + '%"';
             }
+            var localOnly = GeckoJS.Configure.read('vivipos.fec.settings.ViewLocalOrdersOnly') || false;
             
+            if (localOnly) {
+                conditions += ' AND terminal_no = "' + GeckoJS.Session.get('terminal_no') + '"';
+            }
+
             var orderModel = new OrderModel();
             var orders = orderModel.find('all', {
                 fields: ['id', 'sequence', 'terminal_no', 'branch', 'branch_id'],

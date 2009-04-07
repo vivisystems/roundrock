@@ -75,7 +75,7 @@
 {for item in order.OrderItem}
 {eval}
     prodName = item.product_name;
-    if (item.destination != null) prodName = '(' + item.destination + ') ' + prodName;
+    if (item.destination != null && item.destination != '') prodName = '(' + item.destination + ') ' + prodName;
 {/eval}
     <tr>
         <td style="width: 400px">${prodName}</td>

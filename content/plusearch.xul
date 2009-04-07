@@ -245,10 +245,12 @@
                     </tabpanel>
                 </tabpanels>
             </tabbox>
-            <hbox id="dialogButtons" class="dialogbtns" pack="end">
-                <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
+            <hbox id="dialogButtons" class="ToolBar" pack="end" >
+                <button id="ok" label="&dialog.okButton.label;" default="true" oncommand="doOKButton();"/>
+                <spacer flex="1" />
                 <button class="ExitBtn" id="cancel" label="&dialog.closeButton.label;" default="false" oncommand="doCancelButton();"/>
-            </hbox>            
+                <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
+            </hbox>
         </vbox>
         </hbox>
     </hbox>

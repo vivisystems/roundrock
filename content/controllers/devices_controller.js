@@ -1028,6 +1028,7 @@
                             gpiopulses: selectedDevices[type + '-3-gpio-pulses'],
                             linkgroup: selectedDevices[type + '-3-link-group'],
                             printNoRouting: selectedDevices[type + '-3-print-no-routing'],
+                            printAllRouting: selectedDevices[type + '-3-print-all-routing'],
                             number: 3
                         });
                     }
@@ -1045,6 +1046,7 @@
                             gpiopulses: selectedDevices[type + '-4-gpio-pulses'],
                             linkgroup: selectedDevices[type + '-4-link-group'],
                             printNoRouting: selectedDevices[type + '-4-print-no-routing'],
+                            printAllRouting: selectedDevices[type + '-4-print-all-routing'],
                             number: 4
                         });
                     }
