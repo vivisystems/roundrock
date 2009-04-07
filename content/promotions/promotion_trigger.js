@@ -20,9 +20,17 @@ var __klass__ = {
 
     },
 
+    startup: function() {
+        // after constructor called
+    },
 
     setup: function(transaction) {
         this.transaction = transaction || null;
+
+        this.triggerItems = [];
+
+        this.triggerAmount = 0;
+        
     },
 
 
@@ -30,7 +38,22 @@ var __klass__ = {
      * Trigger Action
      */
     execute: function() {
-        // abstract 
+        // abstract
+        return false;
+    },
+
+    reserveTriggerItems: function() {
+        
+        
+    },
+
+    getTriggerItems: function() {
+        return this.triggerItems;
+    },
+
+
+    getTriggerAmount: function() {
+        return this.triggerAmount;
     }
 
 };

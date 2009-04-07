@@ -40,5 +40,6 @@ include('chrome://viviecr/content/models/shift_marker.js');
 include('chrome://viviecr/content/models/storecontact.js');
 include('chrome://viviecr/content/models/transaction.js');
 include('chrome://viviecr/content/models/user.js');
+include('chrome://viviecr/content/models/promotion.js');
 
 })();

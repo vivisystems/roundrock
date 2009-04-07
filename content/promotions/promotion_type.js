@@ -20,6 +20,11 @@ var __klass__ = {
 
     },
 
+
+    startup: function() {
+        // after constructor called
+    },
+
     setup: function(trigger) {
         this.trigger = trigger || null;
     },

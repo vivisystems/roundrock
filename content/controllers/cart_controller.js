@@ -2165,8 +2165,9 @@
             var paymentItem = {
                 type: type,
                 amount: amount,
-                origin_amount: origin_amount,
+                origin_amount: origin_amount
             };
+            
             this.dispatchEvent('beforeAddPayment', paymentItem);
             var paymentedItem = curTransaction.appendPayment(type, amount, origin_amount, memo1, memo2);
 

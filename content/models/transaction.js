@@ -1732,6 +1732,7 @@
             for (var i =0 ; i < this.data.display_sequences.length; i++) {
                 if (this.data.display_sequences[i].index == index) return i;
             }
+            return -1;
         },
 
         getDisplaySeqAt: function(index){
@@ -1748,6 +1749,7 @@
                 var itemDisplay = this.data.display_sequences[i];
                 if (itemDisplay.index == index) return itemDisplay;
             }
+            return -1;
 
         },
 
