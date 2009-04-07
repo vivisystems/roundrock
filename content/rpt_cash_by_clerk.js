@@ -13,11 +13,15 @@
      */
     function startup() {
 		var processedTpl = window.arguments[ 0 ];
+		var parameters = window.arguments[ 1 ];
+		var printController = window.arguments[ 2 ];
 		
 		var bw = document.getElementById('preview_frame');
         var doc = bw.contentWindow.document.getElementById('abody');
 
-        doc.innerHTML = result;
+        doc.innerHTML = processedTpl;
+        $do('setConditionsAnd_datas', parameters, 'RptCashByClerk');
+        $do('set_printController', printController, 'RptCashByClerk');
     };
 
     window.addEventListener('load', startup, false);

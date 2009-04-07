@@ -666,8 +666,18 @@
         
         reviewShiftReport: function( all ) {
             var reportController = GeckoJS.Controller.getInstanceByName('RptCashByClerk');
-            var salePeriod = this.getSalePeriod();
+            var printController = GeckoJS.Controller.getInstanceByName( 'Print' );
+            var salePeriod = this.getSalePeriod() * 1000;
             var terminalNo = GeckoJS.Session.get('terminal_no');
+            var periodType = 'sale_period';
+            
+            var parameters = {
+				start: salePeriod,
+				end: salePeriod,
+				periodType: periodType,
+				shiftNo: shiftNumber,
+				terminalNo: terminalNo
+			};
 
 			var shiftNumber = '';
 			if ( !all )
@@ -676,27 +686,37 @@
 			var waitPanel = this._showWaitPanel( 'wait_panel', 1000 );
 			
 			try {
-				var processedTpl = reportController.getProcessedTpl(salePeriod * 1000, salePeriod * 1000, 'sale_period', shiftNumber, terminalNo);
+				var processedTpl = reportController.getProcessedTpl(salePeriod, salePeriod, periodType, shiftNumber, terminalNo);
 			} catch ( e ) {
 			} finally {
 				if ( waitPanel ) waitPanel.hidePopup();
 			}					
 		       
-		    aURL = 'chrome://viviecr/content/rpt_sales_summary.xul';
+		    aURL = 'chrome://viviecr/content/rpt_cash_by_clerk.xul';
 		    features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
-		    window.openDialog( aURL, '', features, processedTpl );
+		    window.openDialog( aURL, '', features, processedTpl, parameters, printController );
         },
 
         reviewDailySales: function() {
-               
             var reportController = GeckoJS.Controller.getInstanceByName( 'RptSalesSummary' );
-            var salePeriod = this.getSalePeriod();
+            var printController = GeckoJS.Controller.getInstanceByName( 'Print' );
+            var salePeriod = this.getSalePeriod() * 1000;
             var terminalNo = GeckoJS.Session.get( 'terminal_no' );
+            var periodType = 'sale_period';
+            var shiftNo = '';
+            
+            var parameters = {
+				start: salePeriod,
+				end: salePeriod,
+				periodtype: periodType,
+				shiftno: shiftNo,
+				machineid: terminalNo
+			};
 
 			var waitPanel = this._showWaitPanel( 'wait_panel', 1000 );
 			
 			try{
-            	var processedTpl = reportController.getProcessedTpl( salePeriod * 1000, salePeriod * 1000, terminalNo, 'sale_period', '' );
+            	var processedTpl = reportController.getProcessedTpl( salePeriod, salePeriod, terminalNo, periodType, shiftNo );
             } catch ( e ) {
             } finally {
             	if ( waitPanel ) waitPanel.hidePopup();
@@ -704,7 +724,7 @@
             
             aURL = 'chrome://viviecr/content/rpt_sales_summary.xul';
             features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
-            window.openDialog( aURL, '', features, processedTpl );
+            window.openDialog( aURL, '', features, processedTpl, parameters, printController );
         },
 
         select: function(index){
