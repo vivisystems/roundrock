@@ -738,6 +738,11 @@
                 data.store = GeckoJS.Session.get('storeContact');
                 if (data.store) data.store.terminal_no = GeckoJS.Session.get('terminal_no');
 	        }
+
+            // expand data with annotations
+            var annotationModel = new OrderAnnotationModel();
+            data.annotations = annotationModel.findByIndex('all', {index: 'order_id', value: data.order.id, order: 'type', recursive: 0});
+
             // dispatch beforePrintCheck event to allow extensions to add to the template data object or
             // to prevent check from printed
             if (!this.dispatchEvent('beforePrintSlip', {data: data,
@@ -752,9 +757,10 @@
             }
 
             //@debug
-             if (data.order) this.log(this.dump(data.order));
-             if (data.customer) this.log(this.dump(data.customer));
-             if (data.store) this.log(this.dump(data.store));
+            // if (data.order) this.log(this.dump(data.order));
+            // if (data.customer) this.log(this.dump(data.customer));
+            // if (data.store) this.log(this.dump(data.store));
+            // if (data.annotations) this.log(this.dump(data.annotations));
 
             // check if item is linked to this printer and set 'linked' accordingly
             if (data != null) {
