@@ -789,6 +789,12 @@ pref("vivipos.fec.settings.controlpanels.system.xterm.path", "/usr/bin/lilyterm 
 pref("vivipos.fec.settings.controlpanels.system.xterm.icon", "chrome://viviecr/content/skin/icons/gnome-run.png");
 pref("vivipos.fec.settings.controlpanels.system.xterm.roles", "acl_xterm");
 
+
+pref("vivipos.fec.settings.controlpanels.activity.promotions_manager.label", "Promotions Manager");
+pref("vivipos.fec.settings.controlpanels.activity.promotions_manager.path", "chrome://viviecr/content/promotions_manager.xul");
+pref("vivipos.fec.settings.controlpanels.activity.promotions_manager.icon", "chrome://viviecr/skin/icons/promotions.png");
+pref("vivipos.fec.settings.controlpanels.activity.promotions_manager.roles", "acl_manage_promotions");
+
 pref("vivipos.fec.registry.promotion.trigger.test.label", "test");
 pref("vivipos.fec.registry.promotion.trigger.test.classname", "test");
 pref("vivipos.fec.registry.promotion.trigger.test.class_uri", "chrome://viviecr/content/promotions/test_trigger.js");

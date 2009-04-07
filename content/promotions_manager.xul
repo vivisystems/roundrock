@@ -10,120 +10,144 @@
   %Promotions;
   ]>
 
-<window title="&hotkey.title;"
+<window title="&promotions_manager.title;"
 	hidechrome="true"
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-  <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js" />
+    
+    <script type="application/x-javascript" src="chrome://viviecr/content/models/promotion.js" />
 
   <!-- include startup script -->
-  <script src="chrome://viviecr/content/controllers/promotions_manager_controller.js" type="text/javascript"/>
+    <script src="chrome://viviecr/content/controllers/promotions_manager_controller.js" type="text/javascript"/>
     
-    <box id="hotkey-container"  class="main-dialog" flex="1">
+    <box id="promotionsmanager-container"  class="main-dialog" flex="1">
         <hbox flex="1" class="MainPnl" >
             <!-- vivifuncpanel -->
             <vbox class="MainL">
-                <vbox id="hotkey_prefs_box" class="LeftPnl" pack="center" flex="1">
+                <vbox id="promotionsmanager-box" class="LeftPnl" pack="center" flex="1">
                     
-                    <viviscrollabletree style="width: 300px;" id="hotkey_prefs_tree"
-                                                class="hotkey_list"
-                                                headers="&hotkey.prefs.name.label;,&hotkey.prefs.hotkey.label;"
-                                                fields="name,keydisplay"
+                    <viviscrollabletree style="width: 300px;" id="promotions_tree"
+                                                class="promotions_list"
+                                                headers="&promotions_manager.tree.name.label;,&promotions_manager.tree.active.label;"
+                                                fields="name,active"
                                                 seltype="single"
                                                 reverse="true"
                                                 flex="1"
                                                 hidevscroll="true"
                                                 hidecolumnpicker="true"
                                                 scrollUpClass="ScrollUp" scrollDownClass="ScrollDown"
-                                                onselect="$do('selectHotkey', this, 'HotkeyPrefs')"/>
+                                                onselect="$do('modify', this, 'PromotionsManager')"/>
                     <spacer height="3px" />
-                    <grid class="DataFormA">
-                        <columns>
-                            <column flex="1"/>
-                            <column flex="1"/>
-                        </columns>
-                        <rows>
-                            <row>
-                                <label value="&hotkey.search.hotkey.label;"/>
-                                <hotkey-textbox id="hotkey_search" size="4" style="width: 100px;" value="" oncommand="$do('searchHotkey', this, 'HotkeyPrefs')" />
-                            </row>
-                       </rows>
-                   </grid>
-
-
+                    <hbox class="ToolBar" flex="1">
+                        <button id="addBtn" label="&promotions_manager.button.action.add;" disabled="false" class="BtnAdd" oncommand="$do('add', null, 'PromotionsManager');" />
+                        <button id="upBtn" label="&promotions_manager.button.action.up;" disabled="true" class="BtnUp" oncommand="$do('up', null, 'PromotionsManager');" />
+                        <button id="downBtn" label="&promotions_manager.button.action.down;" disabled="true" class="BtnDown" oncommand="$do('down', null, 'PromotionsManager');" />
+                    </hbox>
                 </vbox>
             </vbox>
             <vbox flex="1">
-                <!-- Key Map -->
-                <vbox flex="1">
-                    <grid class="DataFormA" orient="vertical">
-                        <columns>
-                            <column flex="1"/>
-                            <column flex="1"/>
-                            <column flex="1"/>
-                            <column flex="1"/>
-                        </columns>
-                        <rows>
-                            <!-- hotkey -->
-                            <row>
-                                <textbox id="hotkey_id" name="id" form="hotkeyForm" hidden="true" />
-                                <label value="&hotkey.prefs.hotkey.label;"/>
-                                <hotkey-textbox id="hotkey_hotkey" name="hotkey" value="" disabled="true" />
-                            </row>
-                            
-                            <row>
-                                <label value="&hotkey.prefs.name.label;"/>
-                                <textbox id="hotkey_name" name="name" value="" form="hotkeyForm" readonly="true"/>
-                            </row>
+                <tabbox  flex="1" crop="right" class="RightTabbox">
+                    <tabs id="tabs" >
+                        <tab id="tabBasic" label="&promotions_manager.tab.basic;" />
+                        <tab id="tabTimeControl" label="&promotions_manager.tab.time_control;" />
+                        <tab id="tabTrigger" label="&promotions_manager.tab.trigger;" />
+                        <tab id="tabType" label="&promotions_manager.tab.type;" />
+                    </tabs>
+                    <tabpanels id="tabpanels" flex="1" >
 
-                            <!-- function link -->
-                            <row>
-                                <label value="&hotkey.prefs.linked.label;"/>
-                                <textbox id="hotkey_linked" name="linked" value="" form="hotkeyForm" readonly="true"/>
-                            </row>
+                        <!-- Plu Data -->
+                        <tabpanel flex="1" >
+                            <vbox flex="1">
+                                <textbox id="id" name="id" form="promotionForm" value='' hidden="true" />
+                                <checkbox id="active" name="active" form="promotionForm" label="&promotions_manager.label.active;" disabled="true" />
+                                <grid class="DataForm" flex="1">
+                                    <columns>
+                                        <column flex="1"/>
+                                        <column flex="1" />
+                                    </columns>
+                                    <rows>
+                                        <row>
+                                            <label value="&promotions_manager.label.name;" />
+                                            <textbox id="name" name="name" form="promotionForm" value='' disabled="true" />
+                                        </row>
+                                        <row>
+                                            <label value="&promotions_manager.label.code;" />
+                                            <textbox id="code" name="code" form="promotionForm" value='' disabled="true" />
+                                        </row>
+                                        <row>
+                                            <label value="&promotions_manager.label.alt_name1;" />
+                                            <textbox id="alt_name1" name="alt_name1" form="promotionForm" value='' disabled="true" />
+                                        </row>
+                                    </rows>
+                                </grid>
+                                <checkbox id="reserve_item" name="reserve_item" form="promotionForm" label="&promotions_manager.label.reserve_item;" disabled="true" />
+                                <checkbox id="repeatable" name="repeatable" form="promotionForm" label="&promotions_manager.label.repeatable;" disabled="true" />
+                            </vbox>
+                        </tabpanel>
+                        <tabpanel flex="1" >
+                            <vbox flex="1">
+                                <grid class="DataForm">
+                                    <columns>
+                                        <column flex="1"/>
+                                        <column flex="1" />
+                                    </columns>
+                                    <rows>
+                                        <row>
+                                            <vbox>
+                                                <label value="&promotions_manager.label.start_date;" />
+                                                <vividatetimepicker id="start_date" name="start_date" form="promotionForm" value='' type="popup" mode="date" />
+                                            </vbox>
+                                            <vbox>
+                                                <label value="&promotions_manager.label.end_date;" />
+                                                <vividatetimepicker id="end_date" name="end_date" form="promotionForm" value='' type="popup" mode="date"/>
+                                            </vbox>
+                                        </row>
+                                        <row>
+                                            <vbox>
+                                                <label value="&promotions_manager.label.start_time;" />
+                                                <vividatetimepicker id="start_time" name="start_time" form="promotionForm" value='' type="popup" mode="time"/>
+                                            </vbox>
+                                            <vbox>
+                                                <label value="&promotions_manager.label.end_time;" />
+                                                <vividatetimepicker id="end_time" name="end_time" form="promotionForm" value='' type="popup" mode="time"/>
+                                            </vbox>
+                                        </row>
+                                    </rows>
+                                </grid>
+                                <vbox>
+                                    <label value="&promotions_manager.label.days_of_week;" />
+                                    <viviscrollablebuttonpanel id="days_of_week" name="days_of_week" form="promotionForm" seltype="multiple" flex="1" cols="4" rows="2" labelField="name" default="" value=""
+                                               buttonClass="editbtns font-medium" hideScrollbar="true"/>
+                                </vbox>
 
-                            <!-- function label -->
-                            <row>
-                                <label value="&hotkey.prefs.data.label;"/>
-                                <textbox id="hotkey_data" name="data" value="" form="hotkeyForm" readonly="true"/>
-                            </row>
-                        </rows>
-                    </grid>
-                    <viviscrollabletree id="hotkey_function_tree"
-                                                class="keymap_function_list"
-                                                headers="&hotkey.tree.function.label;,&hotkey.tree.label.label;"
-                                                fields="name,label"
-                                                seltype="single"
-                                                flex="1"
-                                                hidevscroll="true"
-                                                hidecolumnpicker="true"
-                                                disabled="true"
-                                                scrollUpClass="ScrollUp" scrollDownClass="ScrollDown"
-                                                onselect="$do('selectFunction', this, 'HotkeyPrefs')"/>
-                    <spacer height="3px" />
-                    <hbox>
-                        <textbox class="descbox_keymap" id="hotkey_function_desc" wrap="true"
-                                         readonly="true" multiline="true" rows="3" flex="1">
-                        </textbox>
-                        <spacer width="3px" />
-                        <button id="hotkey_link" icon="apply"
-                                        label="&hotkey.prefs.link.label;"
-                                        disabled="true" class="ItemButtonB"
-                                        oncommand="$do('linkFunction', null, 'HotkeyPrefs')"/>
+                            </vbox>
+                        </tabpanel>
+
+                        <tabpanel flex="1" >
+                            <vbox flex="1">
+                                <spacer flex="1" />
+                            </vbox>
+                        </tabpanel>
+                        <tabpanel flex="1" >
+                            <vbox flex="1">
+                                <spacer flex="1" />
+                            </vbox>
+                        </tabpanel>
+                    </tabpanels>
+                </tabbox>
+
+                <hbox>
+                    <hbox class="ToolBar" flex="1">
+                        <button id="modifyBtn" label="&promotions_manager.button.action.modify;" disabled="true" class="BtnMod" oncommand="$do('update', null, 'PromotionsManager');" />
+                        <button id="deleteBtn" label="&promotions_manager.button.action.delete;" disabled="true" class="BtnDel" oncommand="$do('remove', null, 'PromotionsManager');" />
                     </hbox>
-                </vbox>
-                    <hbox>
-                        <hbox class="ToolBar" flex="1">
-                            <button id="add_hotkey" label="&hotkey.button.action.add;" disabled="false" class="BtnAdd" oncommand="$do('addHotkey', null, 'HotkeyPrefs');" />
-                            <button id="modify_hotkey" label="&hotkey.button.action.modify;" disabled="true" class="BtnMod" oncommand="$do('modifyHotkey', null, 'HotkeyPrefs');" />
-                            <button id="delete_hotkey" label="&hotkey.button.action.delete;" disabled="true" class="BtnDel" oncommand="$do('removeHotkey', null, 'HotkeyPrefs');" />
-                        </hbox>
-                        <hbox id="dialogButtons" class="dialogbtns" pack="center">
-                            <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
-                            <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="$do('cancelPreferences', null, 'HotkeyPrefs');"/>
-                        </hbox>
+                    <hbox id="dialogButtons" class="dialogbtns" pack="center">
+                        <button id="vkb" label=""  oncommand="VirtualKeyboard.toggle();" class="VkbBtn"/>
+                        <button class="ExitBtn" id="ok" label="&dialog.closeButton.label;" default="true" oncommand="$do('close', null, 'PromotionsManager');"/>
                     </hbox>
+                </hbox>
             </vbox>
         </hbox>
     </box>
