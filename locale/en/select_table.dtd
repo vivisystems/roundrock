@@ -2,3 +2,9 @@
 <!ENTITY selecttable.splitcheck  "Split Check">
 <!ENTITY selecttable.recallcheck  "Recall Check">
 <!ENTITY selecttable.mergecheck  "Merge Check">
+<!ENTITY selecttable.selectno  "Select Table">
+<!ENTITY selecttable.refreshtablestatus  "Refresh">
+<!ENTITY selecttable.transtable  "Trans Table">
+<!ENTITY selecttable.mergetable  "Merge Table">
+<!ENTITY selecttable.unmergetable  "Unmerge Table">
+<!ENTITY selecttable.bookingtable  "Booking Table">

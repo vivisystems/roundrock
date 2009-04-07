@@ -1,20 +1,35 @@
 <!ENTITY tableman.title  "Table Manage">
 <!ENTITY tableman.tab.tables "Tables">
 <!ENTITY tableman.tab.regions "Regions">
+<!ENTITY tableman.tab.bookings "Bookings">
+<!ENTITY tableman.tab.tableoptions "Options">
 <!ENTITY tableman.tab.tablemap "Table Map">
 
-<!ENTITY tableman.field.active "Active">
-<!ENTITY tableman.field.tableno "Table No">
-<!ENTITY tableman.field.tablename "Label">
-<!ENTITY tableman.field.seats "Seats">
-<!ENTITY tableman.field.region "Region">
+<!ENTITY tableman.table.active "Active">
+<!ENTITY tableman.table.tableno "Table No">
+<!ENTITY tableman.table.tablename "Label">
+<!ENTITY tableman.table.seats "Seats">
+<!ENTITY tableman.table.region "Region">
 
-<!ENTITY tableman.result.count "Table Count">
+<!ENTITY tableman.region.name "Region Name">
+<!ENTITY tableman.region.bgimage "Background Image">
+
+<!ENTITY tableman.region.count "Region Count:">
+<!ENTITY tableman.table.count "Table Count:">
+<!ENTITY tableman.booking.count "Booking Count:">
+
+<!ENTITY tableman.booking.booking "Booking Time">
+<!ENTITY tableman.booking.contact "Contact">
+<!ENTITY tableman.booking.telephone "Telephone">
+<!ENTITY tableman.booking.address "Address">
+<!ENTITY tableman.booking.note "Note">
 
 <!ENTITY tableman.button.search "Search">
 <!ENTITY tableman.button.add "Add">
 <!ENTITY tableman.button.modify "Modify">
+<!ENTITY tableman.button.toggleactive "Toggle Active">
 <!ENTITY tableman.button.delete "Delete">
+<!ENTITY tableman.button.savesettings "Save">
 
 <!ENTITY tableman.properties "Properties:">
 <!ENTITY tableman.no "No:">
@@ -24,4 +39,24 @@
 <!ENTITY tableman.phone "Phone:">
 <!ENTITY tableman.fax "Fax:">
 <!ENTITY tableman.address "Address:">
+
+<!ENTITY tableman.tableoptions.options "Options:">
+<!ENTITY tableman.tableoptions.tablewinasfirstwin "Table window as first window">
+<!ENTITY tableman.tableoptions.virtualtablemap "Use virtual table map as default table window">
+<!ENTITY tableman.tableoptions.requirecheckno "Require Check No">
+<!ENTITY tableman.tableoptions.requiretableno "Require Table No">
+<!ENTITY tableman.tableoptions.requireguestnum "Require guest number">
+<!ENTITY tableman.tableoptions.tableperiodlimit "Time limit for the use of table (Minutes):">
+<!ENTITY tableman.tableoptions.tablebookingtimeout "Booking time out (Minutes):">
+<!ENTITY tableman.tableoptions.tableremindtime "Remind before booking time (Minutes):">
+
+<!ENTITY tableman.tableoptions.displayoptions "Display Elements:">
+<!ENTITY tableman.tableoptions.displaycheckno "Check No">
+<!ENTITY tableman.tableoptions.displaytablelabel "Table Label">
+<!ENTITY tableman.tableoptions.displayseqno "Sequence No">
+<!ENTITY tableman.tableoptions.displaybooking "Booking">
+<!ENTITY tableman.tableoptions.displayperiod "Period">
+<!ENTITY tableman.tableoptions.displaytotal "Total">
+<!ENTITY tableman.tableoptions.displaycapacity "Capacity">
+<!ENTITY tableman.tableoptions.displayclerk "Service Clerk">
 

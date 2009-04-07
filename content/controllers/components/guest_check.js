@@ -133,24 +133,53 @@
             var i = 1;
             var ar = this.getCheckList('AllCheck', null);
 
+            var tableModel = new TableModel();
+            var tables = tableModel.find('all', {});
+
+            /*
             var tables = [];
             for(var k=1; k <= 100; k++) {
                 var o = {};
                 o.table_no = k;
                 tables.push(o);
             }
+            */
+
+
+            var tableSettings = GeckoJS.Configure.read('vivipos.fec.settings.GuestCheck.TableSettings') || {};
+            var min = tableSettings.TableRemindTime || 120;
+            var start_time = Math.round(Date.now().addMinutes(-min) / 1000);
+            var end_time = Math.round(Date.now().addMinutes(min) / 1000);
+            var conditions = "table_bookings.booking>='" + start_time +
+                            "' AND table_bookings.booking<='" + end_time +
+                            "'";
+            var bookingModel = new TableBookingModel();
+            var bookings = bookingModel.find('all', {conditions: conditions});
 
             ar.forEach(function(o) {
                 if (o.table_no) {
                     if (tables[o.table_no - 1].sequence) {
-                        tables[o.table_no - 1].sequence = tables[o.table_no - 1].sequence + ", " + o.sequence;
-                        tables[o.table_no - 1].check_no = tables[o.table_no - 1].check_no + ", " + o.check_no;
+                        // tables[o.table_no - 1].sequence = tables[o.table_no - 1].sequence + ", " + o.sequence;
+                        // tables[o.table_no - 1].check_no = tables[o.table_no - 1].check_no + ", " + o.check_no;
+                        tables[o.table_no - 1].checks += 1;
                     } else {
                         tables[o.table_no - 1].sequence = o.sequence;
                         tables[o.table_no - 1].check_no = o.check_no;
+                        tables[o.table_no - 1].total = o.total;
+                        tables[o.table_no - 1].no_of_customers = o.no_of_customers;
+                        tables[o.table_no - 1].checks = 1;
+                        tables[o.table_no - 1].transaction_created = o.transaction_created;
+                        tables[o.table_no - 1].order_id = o.id;
+                        tables[o.table_no - 1].clerk = o.service_clerk_displayname;
+                        // tables[o.table_no - 1].table_label = o.table_name;
                     }
                 }
             });
+
+            bookings.forEach(function(o){
+                tables[o.table_no - 1].booking = o;
+            });
+
 
             var screenwidth = GeckoJS.Session.get('screenwidth') || '800';
             var screenheight = GeckoJS.Session.get('screenheight') || '600';
@@ -167,18 +196,22 @@
             if (inputObj.ok && inputObj.index) {
                 var idx = inputObj.index;
                 i = tables[idx].table_no;
+                var id = tables[idx].order_id;
 
                 switch (inputObj.action) {
                     case 'RecallCheck':
-                        alert('RecallCheck...');
+                        // alert('RecallCheck...');
                         this.recallByTableNo(i);
-                        // return;
                         break;
                     case 'SplitCheck':
-                        alert('SplitCheck...');
+                        // alert('SplitCheck...');
+                        var targetCheck = this.unserializeFromOrder(id);
+                        this.splitOrder(id, targetCheck);
                         break;
                     case 'MergeCheck':
-                        alert('MergeCheck...');
+                        // alert('MergeCheck...');
+                        var targetCheck = this.unserializeFromOrder(id);
+                        this.mergeOrder(id, targetCheck);
                         break;
                 }
             }else {
@@ -239,7 +272,7 @@
             var self = this;
             var order = new OrderModel();
             var fields = ['orders.id', 'orders.sequence', 'orders.check_no',
-                'orders.table_no', 'orders.status'];
+                'orders.table_no', 'orders.status', 'orders.no_of_customers', 'orders.total', 'orders.transaction_created'];
             switch (key) {
                 case 'CheckNo':
                     var conditions = "orders.check_no='" + no + "' AND orders.status='2'";
@@ -587,6 +620,8 @@
             //this.log("GuestCheck split check...no:" + no);
 
             var ar = this.getCheckList('AllCheck', null);
+
+
 
             var order = new OrderModel();
             var fields = ['orders.id', 'orders.sequence', 'orders.check_no',

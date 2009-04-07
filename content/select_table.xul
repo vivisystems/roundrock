@@ -2,22 +2,25 @@
 <!DOCTYPE window [
   <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
   %Dialog;
-  <!ENTITY % SelectQueues SYSTEM "chrome://viviecr/locale/select_table.dtd">
-  %SelectQueues;
+  <!ENTITY % SelectTable SYSTEM "chrome://viviecr/locale/select_table.dtd">
+  %SelectTable;
   ]>
 <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/options_common.css" type="text/css"?>
 <?xml-stylesheet href="chrome://viviecr/skin/user/selectBox.css" type="text/css"?>
+<?xml-stylesheet href="chrome://viviecr/skin/user/table_win.css" type="text/css"?>
 
 <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
 
-<window title="select.checks.title;"
-        hidechrome="true"
+<window title="&selecttable.title;"
+        hidechrome="false"
         xmlns:html="http://www.w3.org/1999/xhtml"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
     <script type="application/x-javascript" src="chrome://vivipos/content/libs/jquery.js" />
+    <script type="application/x-javascript" src="chrome://vivipos/content/libs/date.js" />
+
     <script type="application/x-javascript">
         window['GeckoJS'] = opener.GeckoJS;
         window['GREUtils'] = opener.GREUtils;
@@ -26,29 +29,57 @@
 
     <vbox flex="1" class="main-dialog">
         <vbox flex="1" class="MainPnl">
-            <caption label="&selecttable.title;"  class="PageTitle" />
+            <caption id='main_title' label="&selecttable.title;"  class="PageTitle" />
             <label id="queues" hidden="true" value="" />
             <hbox class="SelectBox">
-                <viviscrollablebuttonpanel id="tableScrollablepanel" pre="true" flex="1" cols="4" rows="5"  seltype="single" labelField="table_no"
+                <viviscrollablebuttonpanel id="tableScrollablepanel" pre="true" flex="1" cols="4" rows="4"  seltype="single" labelField="table_no"
                                            class="ItemScrollablepanel"
-                                           buttonClass="ItemButtonA TableHeight"
+                                           buttonClass="ItemButtonA TableHeight2"
+                                           buttonTagName="table_status_btn"
                                            scrollUpClass="ScrollUp"
-                                           scrollDownClass="ScrollDown">
+                                           scrollDownClass="ScrollDown"
+                                           oncommand="doFunc();">
                     <spacer flex="1"/>
                 </viviscrollablebuttonpanel>
             </hbox>
             <spacer flex="1" />
             <hbox class="ToolBar" flex="1" pack="center">
-                <button id="recall_check" label="&selecttable.recallcheck;" default="false" oncommand="doRecallCheck();"/>
+                <arrowscrollbox id="func_panel" orient="horizontal" flex="1" class="arrowScrollBox">
+                    <button  id="ok" label="&selecttable.selectno;" default="true" type="radio" group="func" oncommand="doSelectTableNo();"/>
+                    <button id="recall_check" label="&selecttable.recallcheck;" type="radio" group="func" default="false" oncommand="doRecallCheck();"/>
+                    <button id="unmerge_table" label="&selecttable.unmergetable;" type="radio" group="func" default="false" oncommand="doCancelFunc();"/>
+                    <button id="merge_table" label="&selecttable.mergetable;" type="radio" group="func" default="false" oncommand="doMergeCheck();"/>
+
+                    <button id="split_check" label="&selecttable.splitcheck;" type="radio" group="func" default="false" oncommand="doSplitCheck();"/>
+                    <button id="merge_check" label="&selecttable.mergecheck;" type="radio" group="func" default="false" oncommand="doMergeCheck();"/>
+                    <button  id="booking_table" label="&selecttable.bookingtable;" default="true" type="radio" group="func" oncommand="doSelectTableNo();"/>
+                </arrowscrollbox>
+                <button  id="refresh_table_status" label="&selecttable.refreshtablestatus;" default="true" type="radio" group="func" oncommand="doRefreshTableStatus();"/>
+                <!-- button  id="ok" label="&dialog.okButton.label;" default="true" type="radio" group="func" oncommand="doOKButton();"/ -->
+                <button  id="cancel" label="&dialog.cancelButton.label;" default="false" oncommand="doCancelFunc();"/>
+
+                <!-- button id="recall_check" label="&selecttable.recallcheck;" default="false" oncommand="doRecallCheck();"/>
                 <button id="split_check" label="&selecttable.splitcheck;" default="false" oncommand="doSplitCheck();"/>
                 <button id="merge_check" label="&selecttable.mergecheck;" default="false" oncommand="doMergeCheck();"/>
                 <button  id="ok" label="&dialog.okButton.label;" default="true" oncommand="doOKButton();"/>
-                <button  id="cancel" label="&dialog.cancelButton.label;" default="false" oncommand="doCancelButton();"/>
+                <button  id="cancel" label="&dialog.cancelButton.label;" default="false" oncommand="doCancelButton();"/ -->
             </hbox>
         </vbox>
         
     </vbox>
-  
-    
+
+    <panel id="prompt_panel" position="overlap" noautohide="true" class="PromptPnl">
+        <hbox flex="1" class="PromptBox">
+            <vbox flex="1">
+                <label id="prompt_1" value="prompt 1" class="PromptLabel1" />
+                <label id="prompt_2" value="prompt 2" class="PromptLabel2" />
+                <spacer flex="1" />
+                <label id="prompt_3" value="prompt 3" class="PromptLabel3" />
+            </vbox>
+            <vbox>
+                
+            </vbox>
+        </hbox>
+    </panel>
 
 </window>
