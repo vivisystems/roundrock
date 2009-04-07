@@ -16,7 +16,8 @@
 <!ENTITY general.changedepartmentclearbuffer "Clear input buffer when switching departments">
 <!ENTITY general.clearcartafterfinalization "Clear register screen after order is finalized">
 <!ENTITY general.allowoverstock "Allow negative stock">
-<!ENTITY general.idletime "System Idle(Second)">
+<!ENTITY general.viewlocalordersonly "View orders from this terminal only">
+<!ENTITY general.idletime "System idle time (seconds)">
 <!ENTITY general.ageverificationack "Require clerk acknowledgement for age verification">
 <!ENTITY general.positivepricerequired "Items must be registered with positive prices">
 <!ENTITY general.maxsaleperiodleaddays "Maximum days sale period can lead calendar date">

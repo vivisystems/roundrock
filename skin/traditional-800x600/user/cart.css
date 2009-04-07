@@ -146,6 +146,8 @@ treechildren::-moz-tree-row(treeTOTAL) {background-color: #da7f12;}
 treechildren::-moz-tree-row(batchMarker) {border-bottom: 2px dotted black !important;}
 treechildren::-moz-tree-cell-text(discountApplied) {color: brown; font-style: italic; font-weight: bolder;}
 treechildren::-moz-tree-cell-text(surchargeApplied) {color: green; font-style: italic; font-weight: bolder;}
+treechildren::-moz-tree-cell-text(treecellTax) {font-size: 13px !important; font-weight: normal !important;}
+treechildren::-moz-tree-cell-text(current_qty) {font-size: 13px !important; font-weight: normal !important;}
 /*
 treechildren::-moz-tree-cell-text(treecellSUBTOTAL) {color: #3d5470;}
 treechildren::-moz-tree-row(treeTRAY) {background-color: #8e9d90;}
@@ -182,8 +184,8 @@ treechildren::-moz-tree-image(treecellTagged) {list-style-image: url(images/chec
 }
 
 .cartList tree #current_qty {
-    max-width: 67px;
-    min-width: 67px;
+    max-width: 52px;
+    min-width: 52px;
 }
 
 .cartList tree #current_price {

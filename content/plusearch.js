@@ -16,12 +16,12 @@
             function(){
                 // inputObj.condiments = document.getElementById('condiments').value;
                 //inputObj.index = document.getElementById('queueScrollablepanel').value;
-                // inputObj.ok = true;
+                inputObj.ok = true;
                 
                 return true;
             },
             function(){
-                // inputObj.ok = false;
+                inputObj.ok = false;
 
                 return true;
             }

@@ -150,7 +150,7 @@
 
                 this.BrowserPrint.getPrintSettings();
                 this.BrowserPrint.setPaperSizeUnit(1);
-                this.BrowserPrint.setPaperSize( 297, 210 );
+                this.BrowserPrint.setPaperSize( 210, 297 );
                 // this.BrowserPrint.setPaperEdge(20, 20, 20, 20);
 
                 this.BrowserPrint.getWebBrowserPrint('preview_frame');

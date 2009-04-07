@@ -156,9 +156,10 @@
         },
 
 
-        PLUSearchDialog: function () {
-            
+        PLUSearchDialog: function (addtocart) {
+            //
             var buf = this._getKeypadController().getBuffer();
+
             this.requestCommand('clear', null, 'Cart');
             var item;
             var txn = GeckoJS.Session.get('current_transaction');
@@ -175,6 +176,14 @@
             var height = this.screenheight;
 
             GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=" + width + ",height=" + height, aArguments);
+            if (aArguments.ok) {
+                if (addtocart && aArguments.item) {
+                    this.requestCommand('addItem',aArguments.item,'Cart');
+                }
+                return aArguments.item;
+            }
+            else
+                return null;
         },
 
         printerDashboard: function () {
