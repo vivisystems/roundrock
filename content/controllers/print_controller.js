@@ -675,6 +675,33 @@
             }
         },
 
+        // return report printer paperwidth
+
+        getReportPaperWidth: function(type) {
+            var device = this.getDeviceController();
+
+            if (device == null) {
+                NotifyUtils.error(_('Error in device manager! Please check your device configuration'));
+                return;
+            }
+
+            // check device settings
+            var printer = (type == 'report' ? 1 : 2);
+
+			// to test with the 'alert' below, just comment the following switch statement and setup a dummy printer.
+            switch (device.isDeviceEnabled('report', printer)) {
+                case -2:
+                case -1:
+                case 0:
+                    return;
+
+                default:
+                    var enabledDevices = device.getEnabledDevices('report', printer);
+                    return enabledDevices[0].paperwidth;
+            }
+
+        },
+
         // handles user initiated receipt requests
         printReport: function(type, tpl, data) {
             var device = this.getDeviceController();
@@ -727,7 +754,6 @@
             }
             var portPath = this.getPortPath(port);
             var commands = {};
-            
             if (portPath == null || portPath == '') {
                 NotifyUtils.error(_('Specified device port [%S] does not exist!', [port]));
                 return;

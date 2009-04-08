@@ -986,6 +986,7 @@
                         checkaction: selectedDevices[type + '-1-check-action'],
                         couponaction: selectedDevices[type + '-1-coupon-action'],
                         giftcardaction: selectedDevices[type + '-1-giftcard-action'],
+                        paperwidth: selectedDevices[type + '-1-paperwidth'],
                         number: 1
                     });
                 }
