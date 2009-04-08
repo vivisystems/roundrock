@@ -313,6 +313,8 @@
         _setPluSet: function () {
             var productsById = GeckoJS.Session.get('productsById');
             var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
+            var groupsById = GeckoJS.Session.get('plugroupsById');
+
             var str = $('#setmenu').val();
 
             var pluset = GeckoJS.String.parseStr(str);
@@ -323,15 +325,27 @@
             for (var key in pluset) {
                 key = decodeURI(key);
                 if (key == '') break;
-                
-                var qty = pluset[key];
+
+                // label=plu_no|price|qty|linkgroup|reduction
+                var parms = (pluset[key] || '').split('|');
                 try {
-                    var id = barcodesIndexes[key];
-                    var name = productsById[id].name;
+                    var id = barcodesIndexes[parms[0]];
+                    var product = productsById[id];
+                    var preset = product ? product.name : '';
+
+                    var groupId = parms[3];
+                    var linkgroup = groupsById[groupId];
+                    var group = linkgroup ? linkgroup.name : '';
+
                     this._pluset.push({
-                        no: key,
-                        name: name,
-                        qty: qty
+                        label: key,
+                        preset: preset,
+                        price: parms[1],
+                        qty: parms[2],
+                        group: group,
+                        reduction: _(parms[3]),
+                        product: product,
+                        linkgroup: linkgroup
                     });
                 } catch (e) {
                     var id = '';

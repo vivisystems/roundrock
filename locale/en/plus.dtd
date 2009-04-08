@@ -57,9 +57,18 @@
 <!ENTITY plus.sale.unit.gallon "Gallon">
 <!ENTITY plus.location "Stock Location">
 
-<!ENTITY plus.header.no "No.">
-<!ENTITY plus.header.name "Name">
+<!ENTITY plus.header.label "Label">
+<!ENTITY plus.header.preset "Name">
 <!ENTITY plus.header.quantity "Qty">
+<!ENTITY plus.header.baseprice "Price">
+<!ENTITY plus.header.group "Group">
+<!ENTITY plus.header.reduction "*">
+<!ENTITY plus.setmenu.label "Label">
+<!ENTITY plus.setmenu.base.price "Base Price">
+<!ENTITY plus.setmenu.quantity "Quantity">
+<!ENTITY plus.setmenu.reduce.price "Allow price reduction">
+<!ENTITY plus.setmenu.preset.item "Preset Item">
+<!ENTITY plus.setmenu.linkgroup "Product Group">
 
 <!ENTITY plus.image "Product Icon">
 <!ENTITY plus.button.color "Button Color">

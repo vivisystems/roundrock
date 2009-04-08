@@ -290,14 +290,56 @@
 
                         <tabpanel flex="1" >
                             <vbox  style="overflow: auto" flex="1" >
-                                <label value="&plus.setmenu;" class="SubTitle"/>
                                 <label hidden="true" id="setmenu" form="productForm" name="setmenu" value="" />
-                                <viviscrollabletree id="plusetscrollablepanel" flex="1" rows="7" headers="&plus.header.no;,&plus.header.name;,&plus.header.quantity;" fields="no,name,qty"
+                                <viviscrollabletree id="plusetscrollablepanel" flex="1"
+                                                    headers="&plus.header.label;,&plus.header.preset;,&plus.header.quantity;,&plus.header.baseprice;,&plus.header.group;,&plus.header.reduction;"
+                                                    fields="label,preset,qty,baseprice,group,reduction"
+                                                    hidecolumnpicker="true"
                                                     onclick="$do('clickPluSetsPanel',this.selectedIndex, 'Plus');"
                                                     class="Listpnl" scrollUpClass="ScrollUp" scrollDownClass="ScrollDown">
                                     <vivibutton id="+" class="systoolbtn mediumimagebtn plusbtn" oncommand="$do('getPlu', null, 'Plus');" />
                                     <vivibutton id="-" class="systoolbtn mediumimagebtn minusbtn" oncommand="$do('removePluSet', null, 'Plus');"/>
+                                    <vivibutton id="up" class="systoolbtn mediumimagebtn upbtn" oncommand="$do('moveSetItem', -1, 'Plus');" />
+                                    <vivibutton id="down" class="systoolbtn mediumimagebtn downbtn" oncommand="$do('moveSetItem', 1, 'Plus');"/>
                                 </viviscrollabletree>
+                                <spacer flex="1"/>
+                                <hbox>
+                                    <grid class="DataForm">
+                                        <columns>
+                                            <column flex="0" /><column flex="0" /><column flex="0"/>
+                                        </columns>
+                                        <rows>
+                                            <row>
+                                                <vbox>
+                                                    <label value="&plus.setmenu.label;" control="setmenu_label"/>
+                                                    <textbox id="setmenu_label" size="3" form="setmenuForm" name="setmenu_label" value="" onfocus="this.select()" oninput="$do('validateSetmenuForm', null, 'Plus')"/>
+                                                </vbox>
+                                                <vbox>
+                                                    <label value="&plus.setmenu.base.price;" control="setmenu_baseprice"/>
+                                                    <textbox id="setmenu_baseprice" size="3" type="number" value="0" default="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true" form="setmenuForm" name="setmenu_baseprice" sclass="geneditbox right" onfocus="this.select()"/>
+                                                </vbox>
+                                                <vbox>
+                                                    <label value="&plus.setmenu.quantity;" control="setmenu_quantity"/>
+                                                    <textbox id="setmenu_quantity" size="3" type="number" value="1" default="1" decimalplaces="0" min="1" hidespinbuttons="true" form="setmenuForm" name="setmenu_baseprice" class="geneditbox right" onfocus="this.select()"/>
+                                                </vbox>
+                                            </row>
+                                            <row>
+                                                <checkbox id="setmenu_price_reduction" value="false" label="&plus.setmenu.reduce.price;" form="setmenuForm" name="setmenu_price_reduction" default="0"/>
+                                                <vbox>
+                                                    <label value="&plus.setmenu.preset.item;" control="setmenu_preset_item"/>
+                                                    <textbox id="setmenu_preset" size="3" form="setmenuForm" name="setmenu_preset_item" readonly="true" value="" onfocus="this.select()" oninput="$do('validateSetmenuForm', null, 'Plus')"/>
+                                                </vbox>
+                                                <vbox>
+                                                    <label value="&plus.setmenu.linkgroup;" control="setmenu_linkgroup"/>
+                                                    <textbox id="setmenu_linkgroup" size="3" form="setmenuForm" name="setmenu_linkgroup" readonly="true" value="" onfocus="this.select()" oninput="$do('validateSetmenuForm', null, 'Plus')"/>
+                                                </vbox>
+                                            </row>
+                                        </rows>
+                                    </grid>
+                                    <hbox class="ToolBar1" flex="1" pack="center" style="border-width: 2px">
+                                        <button id="modify_setitem" flex="1" label="&plus.button.action.modify;" disabled="true" class="BtnMod" oncommand="$do('modifySetitem', null, 'Plus');" />
+                                    </hbox>
+                                </hbox>
                             </vbox>
                         </tabpanel>
 
