@@ -293,7 +293,7 @@
                 this._pluset.splice(selectedIndex, 1);
                 plusetscrollabletree.treeBoxObject.rowCountChanged(this._pluset.length, -1);
 
-                if (selectedIndex > this._pluset.length) {
+                if (--selectedIndex >= this._pluset.length) {
                     selectedIndex = this._pluset.length - 1;
                 }
                 this.selectSetItem(selectedIndex);
