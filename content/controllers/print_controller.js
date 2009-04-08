@@ -678,7 +678,7 @@
         // handles user initiated receipt requests
         printReport: function(type, tpl, data) {
             var device = this.getDeviceController();
-           
+          
             if (device == null) {
                 NotifyUtils.error(_('Error in device manager! Please check your device configuration'));
                 return;
@@ -720,6 +720,7 @@
 
         // print slip using the given parameters
         printSlip: function(data, template, port, portspeed, handshaking, devicemodel, encoding, device, copies) {
+
             if (this._worker == null) {
                 NotifyUtils.error(_('Error in Print controller; no worker thread available!'));
                 return;
@@ -740,8 +741,8 @@
 	        }
 
             // expand data with annotations
-            var annotationModel = new OrderAnnotationModel();
-            data.annotations = annotationModel.findByIndex('all', {index: 'order_id', value: data.order.id, order: 'type', recursive: 0});
+           // var annotationModel = new OrderAnnotationModel();
+           // data.annotations = annotationModel.findByIndex('all', {index: 'order_id', value: data.order.id, order: 'type', recursive: 0});
 
             // dispatch beforePrintCheck event to allow extensions to add to the template data object or
             // to prevent check from printed

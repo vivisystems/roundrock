@@ -174,9 +174,11 @@
                 var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
                 var datas;
                 datas = this._datas;
-
-                // this.RcpExport.print(datas, tpl);
-                var rcp = opener.opener.opener.GeckoJS.Controller.getInstanceByName('Print');
+				
+                var mainWindow = window.mainWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+   					.getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("Vivipos:Main");
+   				var rcp = mainWindow.GeckoJS.Controller.getInstanceByName('Print');
+                
                 rcp.printReport('report', tpl, datas);
             } catch (e) {
                 //
