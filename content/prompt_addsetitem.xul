@@ -15,7 +15,7 @@
         <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('cancel').click()" />
     </keyset>
 
-    <script type="application/x-javascript" src="chrome://viviecr/content/prompt_addpluset.js" />
+    <script type="application/x-javascript" src="chrome://viviecr/content/prompt_addsetitem.js" />
     <script type="application/x-javascript">
         var GeckoJS = opener.GeckoJS;
         var GREUtils = opener.GREUtils;
@@ -34,12 +34,6 @@
                         <vbox>
                             <label id="title0" style="width:6em" value="" control="input0"/>
                             <textbox id="input0" value="" oninput="validateInput()" onfocus="this.select()"/>
-                        </vbox>
-                    </row>
-                    <row>
-                        <vbox>
-                            <label id="title1" style="width:6em" value="" control="input1"/>
-                            <textbox id="input1" value="" oninput="validateInput()" onfocus="this.select()"/>
                         </vbox>
                     </row>
                 </rows>

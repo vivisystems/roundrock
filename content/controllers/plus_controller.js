@@ -117,6 +117,9 @@
 
             // initialize input field states
             this.validateForm(true);
+
+            // initialize PluSet form
+            this.validatePluSetForm();
         },
 
         changePluPanel: function(index) {
@@ -307,7 +310,7 @@
             this._pluset.forEach(function(o){
                 setmenu.push(encodeURI(o.no + '=' + o.qty));
             });
-            $('#setmenu').val( setmenu.join('&'));
+            $('#pluset').val( setmenu.join('&'));
         },
 
         _setPluSet: function () {
@@ -315,7 +318,7 @@
             var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
             var groupsById = GeckoJS.Session.get('plugroupsById');
 
-            var str = $('#setmenu').val();
+            var str = $('#pluset').val();
 
             var pluset = GeckoJS.String.parseStr(str);
 
@@ -328,30 +331,26 @@
 
                 // label=plu_no|price|qty|linkgroup|reduction
                 var parms = (pluset[key] || '').split('|');
-                try {
-                    var id = barcodesIndexes[parms[0]];
-                    var product = productsById[id];
-                    var preset = product ? product.name : '';
+                var id = barcodesIndexes[parms[0]];
+                var product = productsById[id];
+                var preset = product ? product.name : '';
+                var preset_no = product ? product.no : null;
 
-                    var groupId = parms[3];
-                    var linkgroup = groupsById[groupId];
-                    var group = linkgroup ? linkgroup.name : '';
+                var groupId = parms[3];
+                var linkgroup = groupsById[groupId];
+                var group = linkgroup ? linkgroup.name : '';
+                var linkgroup_id = linkgroup ? linkgroup.id : null;
 
-                    this._pluset.push({
-                        label: key,
-                        preset: preset,
-                        price: parms[1],
-                        qty: parms[2],
-                        group: group,
-                        reduction: _(parms[3]),
-                        product: product,
-                        linkgroup: linkgroup
-                    });
-                } catch (e) {
-                    var id = '';
-                    var name = '';
-                }
-                
+                this._pluset.push({
+                    label: key,
+                    preset: preset,
+                    price: parms[1],
+                    qty: parms[2],
+                    group: group,
+                    reduction: _(parms[3]),
+                    preset_no: preset_no,
+                    linkgroup_id: linkgroup_id
+                });
             };
 
             var panelView =  new GeckoJS.NSITreeViewArray(this._pluset);
@@ -388,18 +387,38 @@
             document.getElementById('cond_group_name').value = cond_group_name;
         },*/
 
-        getPlu: function (){
+        addSetItem: function (){
 
-            var aURL = 'chrome://viviecr/content/prompt_addpluset.xul';
+            var aURL = 'chrome://viviecr/content/prompt_additem.xul';
             var features = 'chrome,titlebar,toolbar,centerscreen,modal,width=400,height=300';
             var inputObj = {
-                input0:null, require0:true, alphaOnly0:true,
-                input1:1, require1:true, numberOnly1:true
+                input0:null, require0:true
             };
 
-            window.openDialog(aURL, _('Add New Product Set'), features, _('Product Set'), '', _('Product No.or Barcode'), _('Quantity'), inputObj);
+            window.openDialog(aURL, _('Add New Set Item'), features, _('Set Item'), '', _('Label'), '', inputObj);
 
-            if (inputObj.ok && inputObj.input0 && inputObj.input1) {
+            if (inputObj.ok && inputObj.input0) {
+                
+                var newItem = {
+                    label: inputObj.input0,
+                    preset: '',
+                    price: '',
+                    qty: 1,
+                    group: '',
+                    reduction: _('N'),
+                    preset_no: null,
+                    linkgroup_id: null
+                };
+
+                this._pluset.push(newItem);
+                alert('internal set item: ' + GeckoJS.BaseObject.dump(this._pluset));
+                
+                var plusetscrollabletree = this.getPluSetListObj();
+                plusetscrollabletree.treeBoxObject.rowCountChanged(this._pluset.len, 1);
+                this.getPluSetListObj().refresh();
+                alert('view data: ' + GeckoJS.BaseObject.dump(this.getPluSetListObj().datasource.data));
+                
+                /*
                 var product = this._searchPlu(inputObj.input0);
                 if (product) {
                     // validate product - must not be a product set itself, must not be this product set
@@ -439,13 +458,14 @@
                     this._pluset.forEach(function(o){
                         setmenu.push(encodeURI(o.no + '=' + o.qty));
                     });
-                    $('#setmenu').val( setmenu.join('&'));
+                    $('#pluset').val( setmenu.join('&'));
                 }
                 else {
                     GREUtils.Dialog.alert(window,
                                           _('Product Set'),
                                           _('Product not found [%S].', [inputObj.input0]));
                 }
+                */
             }
 
         },
@@ -1174,6 +1194,36 @@
             }
         },
 
+        validatePluSetForm: function() {
+            // input elements
+            var selectedIndex = this.getPluSetListObj().selectedIndex;
+            var label = document.getElementById('setitem_label').value;
+            var basePrice = document.getElementById('setitem_baseprice').value;
+            var qty = parseInt(document.getElementById('setitem_quantity').value);
+            var preset = document.getElementById('setitem_preset_no').value;
+            var linkgroup = document.getElementById('setitem_linkgroup_id').value;
+
+            // action elements
+            var modifyBtn = document.getElementById('modify_setitem');
+
+            // enable modify btn if:
+            //
+            // 1. an setitem has been selected
+            // 2. label is not null
+            // 3. either or both of preset and linkgroup are set
+            // 4. qty > 0
+
+            if ((selectedIndex > -1) &&
+                (label != null && label != '') &&
+                ((preset != null && preset != '') || (linkgroup != null && linkgroup != '')) &&
+                (qty > 0)) {
+                modifyBtn.removeAttribute('disabled');
+            }
+            else {
+                modifyBtn.setAttribute('disabled', true);
+            }
+        },
+        
         validateForm: function(resetTabs) {
             // category selected?
             document.getElementById('add_plu').setAttribute('disabled', (this._selCateNo == null || this._selCateNo == -1));
