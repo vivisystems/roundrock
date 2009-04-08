@@ -83,7 +83,7 @@
         load: function(barcode) {
             
             var fields = [];
-            var conditions = "products.no like '" + barcode + "%' or products.barcode like '" + barcode + "%' or products.name like '%" + barcode + "%'";
+            var conditions = "products.no like '%" + barcode + "%' or products.barcode like '%" + barcode + "%' or products.name like '%" + barcode + "%'";
             var prodModel = new ProductModel();
             var datas = prodModel.find('all',{fields: fields, conditions: conditions});
             this._listDatas = datas;

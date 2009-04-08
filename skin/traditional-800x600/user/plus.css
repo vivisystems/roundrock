@@ -170,10 +170,11 @@
     margin: 5px 0;
 }
 
+/*
 .DataForm textbox {
     max-width: 208px;
 }
-
+*/
 .PLTable {
     margin-left: 8px;
 }
@@ -231,4 +232,20 @@
 .AdvButton{
     padding: 4px 8px;
     min-height: 40px;
+}
+
+#plusetscrollabletree tree {
+    font-size: x-small;
+}
+
+#plusetscrollabletree tree #label {
+    text-align: left;
+}
+
+#plusetscrollabletree tree #preset, #linkgroup, #reduction_label {
+    text-align: center;
+}
+
+#plusetscrollabletree tree #quantity, #baseprice {
+    text-align: right;
 }

@@ -566,7 +566,7 @@
                                             <label value="&devices.paperwidth.label;"/>
                                             <menulist id="report-1-paperwidth" name="report-1-paperwidth" form="deviceForm">
                                                 <menupopup id="report-1-paperwidth-popup">
-                                                    <menuitem label="&devices.paperwidth.narrow;" value="56mm"/>
+                                                    <menuitem label="&devices.paperwidth.narrow;" value="58mm"/>
                                                     <menuitem label="&devices.paperwidth.normal;" value="80mm"/>
                                                 </menupopup>
                                             </menulist>

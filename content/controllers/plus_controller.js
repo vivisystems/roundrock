@@ -17,6 +17,7 @@
         catePanelView: null,
         productPanelView: null,
         _pluset: [],
+        _productGroups: null,
         _selectedPluSetIndex: null,
         _condGroupsById: null,
 
@@ -26,11 +27,15 @@
             this.screenheight = GeckoJS.Configure.read('vivipos.fec.mainscreen.height') || 600;
 
             var pluGroupModel = new PlugroupModel();
-            var groups = pluGroupModel.find('all');
+            var groups = pluGroupModel.find('all', {
+                order: 'display_order, name'
+            } );
 
             var group_listscrollablepanel = document.getElementById('group_listscrollablepanel');
             var plugroupPanelView = new NSIPluGroupsView(groups);
             group_listscrollablepanel.datasource = plugroupPanelView;
+
+            this._productGroups = groups;
 
             var condGroups = GeckoJS.Session.get('condGroups');
 
@@ -230,6 +235,8 @@
             }
             
             this.validateForm(index == -1);
+
+            this.selectSetItem(-1);
         },
 
         getDepartment: function () {
@@ -273,44 +280,48 @@
         
         getPluSetListObj: function() {
             if(this._listObj == null) {
-                this._listObj = document.getElementById('plusetscrollablepanel');
+                this._listObj = document.getElementById('plusetscrollabletree');
             }
             return this._listObj;
         },
 
-        clickPluSetsPanel: function (index) {
-            this._selectedPluSetIndex = index;
-        },
+        removeSetItem: function () {
+            var plusetscrollabletree = this.getPluSetListObj();
+            var selectedIndex = plusetscrollabletree.selectedIndex;
+            var selectedItems = plusetscrollabletree.selectedItems;
+            if (selectedIndex > -1 && selectedItems.length > 0) {
+                this._pluset.splice(selectedIndex, 1);
+                plusetscrollabletree.treeBoxObject.rowCountChanged(this._pluset.length, -1);
 
-        _searchPlu: function (barcode) {
-            $('#plu').val('').focus();
-            if (barcode == '') return;
-
-            var productsById = GeckoJS.Session.get('productsById');
-            var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
-            var product;
-
-            if (!barcodesIndexes[barcode]) {
-                // barcode notfound
-                return null;
-            }else {
-                var id = barcodesIndexes[barcode];
-                product = productsById[id];
-                return product;
+                if (selectedIndex > this._pluset.length) {
+                    selectedIndex = this._pluset.length - 1;
+                }
+                this.selectSetItem(selectedIndex);
             }
         },
 
-        removePluSet: function (){
-            if (this._selectedPluSetIndex == null) return;
-            this._pluset.splice(this._selectedPluSetIndex, 1);
-            var panelView =  new GeckoJS.NSITreeViewArray(this._pluset);
-            this.getPluSetListObj().datasource = panelView;
+        moveSetItem: function (dir) {
+            var plusetscrollabletree = this.getPluSetListObj();
+            var selectedIndex = plusetscrollabletree.selectedIndex;
+            var selectedItems = plusetscrollabletree.selectedItems;
 
-            var setmenu = [];
-            this._pluset.forEach(function(o){
-                setmenu.push(encodeURI(o.no + '=' + o.qty));
-            });
-            $('#pluset').val( setmenu.join('&'));
+            if (selectedIndex > -1 && selectedItems.length > 0) {
+                var newIndex = selectedIndex + dir;
+                if (newIndex >= this._pluset.length) {
+                    newIndex = this._pluset.length - 1;
+                }
+                else if (newIndex < 0) {
+                    newIndex = 0;
+                }
+
+                if (newIndex != selectedIndex) {
+                    var currentItem = this._pluset[selectedIndex];
+                    this._pluset[selectedIndex] = this._pluset[newIndex];
+                    this._pluset[newIndex] = currentItem;
+
+                    this.selectSetItem(newIndex);
+                }
+            }
         },
 
         _setPluSet: function () {
@@ -319,40 +330,28 @@
             var groupsById = GeckoJS.Session.get('plugroupsById');
 
             var str = $('#pluset').val();
+            
+            // this.log('pluset:' + this.dump(str));
 
-            var pluset = GeckoJS.String.parseStr(str);
+            if (str == null || str == '') {
+                this._pluset = [];
+            }
+            else {
+                this._pluset = GeckoJS.BaseObject.unserialize(str);
+            }
 
-            // this.log('pluset:' + this.dump(pluset));
+            // retrieve current product and group names
+            for (var i = 0; i < this._pluset.length; i++) {
+                var preset_no = this._pluset[i].preset_no;
+                var linkgroup_id = this._pluset[i].linkgroup_id;
 
-            this._pluset = [];
-            for (var key in pluset) {
-                key = decodeURI(key);
-                if (key == '') break;
+                var product_id = barcodesIndexes[preset_no];
+                var product = product_id ? productsById[product_id] : '';
+                var group = groupsById[linkgroup_id];
 
-                // label=plu_no|price|qty|linkgroup|reduction
-                var parms = (pluset[key] || '').split('|');
-                var id = barcodesIndexes[parms[0]];
-                var product = productsById[id];
-                var preset = product ? product.name : '';
-                var preset_no = product ? product.no : null;
-
-                var groupId = parms[3];
-                var linkgroup = groupsById[groupId];
-                var group = linkgroup ? linkgroup.name : '';
-                var linkgroup_id = linkgroup ? linkgroup.id : null;
-
-                this._pluset.push({
-                    label: key,
-                    preset: preset,
-                    price: parms[1],
-                    qty: parms[2],
-                    group: group,
-                    reduction: _(parms[3]),
-                    preset_no: preset_no,
-                    linkgroup_id: linkgroup_id
-                });
-            };
-
+                this._pluset[i].preset = product ? product.name : '';
+                this._pluset[i].linkgroup = group ? group.name : '';
+            }
             var panelView =  new GeckoJS.NSITreeViewArray(this._pluset);
             this.getPluSetListObj().datasource = panelView;
         },
@@ -402,72 +401,128 @@
                 var newItem = {
                     label: inputObj.input0,
                     preset: '',
-                    price: '',
-                    qty: 1,
-                    group: '',
-                    reduction: _('N'),
-                    preset_no: null,
-                    linkgroup_id: null
+                    baseprice: '',
+                    quantity: 1,
+                    linkgroup: '',
+                    reduction: 0,
+                    reduction_label: _('N'),
+                    preset_no: '',
+                    linkgroup_id: ''
                 };
 
-                this._pluset.push(newItem);
-                alert('internal set item: ' + GeckoJS.BaseObject.dump(this._pluset));
-                
+                // splice into current data
                 var plusetscrollabletree = this.getPluSetListObj();
-                plusetscrollabletree.treeBoxObject.rowCountChanged(this._pluset.len, 1);
-                this.getPluSetListObj().refresh();
-                alert('view data: ' + GeckoJS.BaseObject.dump(this.getPluSetListObj().datasource.data));
+                var index = plusetscrollabletree.selectedIndex;
                 
-                /*
-                var product = this._searchPlu(inputObj.input0);
-                if (product) {
-                    // validate product - must not be a product set itself, must not be this product set
-                    var formData = this.getInputData();
-                    if (product.no == formData.no) {
-                        //@todo OSD?
-                        GREUtils.Dialog.alert(window,
-                                              _('Product Set'),
-                                              _('[%S] (%S) may not be a member of its own product set.', [product.name, inputObj.input0]));
-                        return;
-                    }
-
-                    if (product.setmenu != null && product.setmenu.length > 0) {
-                        GREUtils.Dialog.alert(window,
-                                              _('Product Set'),
-                                              _('[%S] (%S) is a product set and may not be a member of another product set.', [product.name, inputObj.input0]));
-                        return;
-                    }
-
-                    var inputData = {
-                        no: product.no,
-                        name: product.name,
-                        qty: inputObj.input1
-                    };
-
-                    var index = this.getPluSetListObj().currentIndex;
-
-                    if (index < 0)
-                        this._pluset.push(inputData);
-                    else {
-                        this._pluset.splice(index, 0, inputData);
-                    }
-
-                    var panelView =  new GeckoJS.NSITreeViewArray(this._pluset);
-                    this.getPluSetListObj().datasource = panelView;
-                    var setmenu = [];
-                    this._pluset.forEach(function(o){
-                        setmenu.push(encodeURI(o.no + '=' + o.qty));
-                    });
-                    $('#pluset').val( setmenu.join('&'));
-                }
-                else {
-                    GREUtils.Dialog.alert(window,
-                                          _('Product Set'),
-                                          _('Product not found [%S].', [inputObj.input0]));
-                }
-                */
+                this._pluset.splice(++index, 0, newItem);
+                
+                plusetscrollabletree.treeBoxObject.rowCountChanged(this._pluset.length, 1);
+                this.selectSetItem(index);
             }
 
+        },
+
+        modifySetItem: function() {
+            var plusetscrollabletree = this.getPluSetListObj();
+            var selectedIndex = plusetscrollabletree.selectedIndex;
+
+            if (selectedIndex > -1) {
+                var modifiedItem = GeckoJS.FormHelper.serializeToObject('setitemForm');
+                modifiedItem.reduction_label = (modifiedItem.reduction) ? _('Y') : _('N');
+
+                this._pluset[selectedIndex] = modifiedItem;
+                plusetscrollabletree.treeBoxObject.ensureRowIsVisible(selectedIndex);
+                plusetscrollabletree.refresh();
+            }
+        },
+        
+        selectSetItem: function(index) {
+
+            var setItem = this._pluset[index];
+            var plusetscrollabletree = this.getPluSetListObj();
+            
+            if (setItem) {
+                GeckoJS.FormHelper.unserializeFromObject('setitemForm', setItem);
+            }
+            else {
+                GeckoJS.FormHelper.reset('setitemForm');
+            }
+
+            plusetscrollabletree.selection.select(index);
+            plusetscrollabletree.treeBoxObject.ensureRowIsVisible(index);
+            plusetscrollabletree.refresh();
+
+            this.validatePluSetForm();
+        },
+
+        selectProduct: function() {
+            
+            var aURL = "chrome://viviecr/content/plusearch.xul";
+            var aName = _('Product Search');
+            var width = this.screenwidth;
+            var height = this.screenheight;
+            var pluNo = document.getElementById('setitem_preset_no').value;
+            var productNo = document.getElementById('product_no').value;
+            var inputObj = {buffer: pluNo};
+
+            GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=" + width + ",height=" + height, inputObj);
+            if (inputObj.ok) {
+                if (inputObj.item) {
+                    if (inputObj.item.pluset) {
+                        NotifyUtils.warn(_('[%S] (%S) is a product set and may not be a member of another product set.', [inputObj.item.name, inputObj.item.no]));
+                    }
+                    else if (inputObj.item.no == productNo) {
+                        NotifyUtils.warn(_('[%S] (%S) may not be a member of its own product set.', [inputObj.item.name, inputObj.item.no]));
+                    }
+                    else {
+                        document.getElementById('setitem_preset').value = inputObj.item.name;
+                        document.getElementById('setitem_preset_no').value = inputObj.item.no;
+                    }
+                }
+            }
+            else {
+                document.getElementById('setitem_preset').value = '';
+                document.getElementById('setitem_preset_no').value = ''
+            }
+
+            this.validatePluSetForm();
+        },
+
+        selectProductGroup: function() {
+
+            var aURL = "chrome://viviecr/content/select_product_group.xul";
+            var aName = _('Product Group');
+            var width = this.screenwidth;
+            var height = this.screenheight;
+            var groupNameObj = document.getElementById('setitem_linkgroup');
+            var groupIdObj = document.getElementById('setitem_linkgroup_id');
+
+            var groupName = groupNameObj.value;
+
+            // locate index of selected index
+            var productGroups = this._productGroups;
+            var index = -1;
+            if (groupName != '' && productGroups != null) {
+                for (var i = 0; i < productGroups.length; i++) {
+                    if (productGroups[i].name == groupName) {
+                        index = i;
+                        break;
+                    }
+                }
+            }
+            var inputObj = {groupData: productGroups, index: index};
+
+            GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=" + width + ",height=" + height, inputObj);
+            if (inputObj.ok && inputObj.group_id != '') {
+                groupNameObj.value = inputObj.group_name;
+                groupIdObj.value = inputObj.group_id;
+            }
+            else {
+                groupNameObj.value = '';
+                groupIdObj.value = '';
+            }
+
+            this.validatePluSetForm();
         },
 
         initDefaultTax: function () {
@@ -706,33 +761,6 @@
 
         },
 
-        _setMenuFromString: function (plu) {
-            //GREUtils.log('setMenuStr: ' + setMenuStr);
-            var entries = plu.setmenu.split('&');
-            var setitems = [];
-            //GREUtils.log('entries: ' + GeckoJS.BaseObject.dump(entries));
-            if (entries.length > 0) {
-                for (var i = 0; i < entries.length; i++) {
-                    var entry = entries[i].split('=');
-                    var plucode = entry[0];
-                    var pluqty = entry[1];
-
-                    //GREUtils.log('entry: ' + GeckoJS.BaseObject.dump(entry));
-                    var product = this._searchPlu(plucode);
-
-                    if (product != null) {
-                        //GREUtils.log('product: ' + GeckoJS.BaseObject.dump(product));
-                        var setitem = {product_id: plu.id,
-                                       item_id: product.id,
-                                       quantity: pluqty};
-                        setitems.push(setitem);
-                        //GREUtils.log('setitem: ' + GeckoJS.BaseObject.dump(setitem));
-                    }
-                }
-            }
-            return setitems;
-        },
-
         modify: function  () {
             if (this._selectedIndex == null || this._selectedIndex == -1) return;
 
@@ -745,8 +773,12 @@
             if (this._checkData(inputData) == 0) {
                 var prodModel = new ProductModel();
                 //try {
-                    var setitems = this._setMenuFromString(inputData);
-                    
+                    if (this._pluset != null && this._pluset.length > 0) {
+                        inputData.pluset = GeckoJS.BaseObject.serialize(this._pluset);
+                    }
+                    else {
+                        inputData.pluset = '';
+                    }
                     prodModel.id = inputData.id;
                     prodModel.save(inputData);
                     
@@ -756,8 +788,8 @@
 
                     // first we delete old items
                     var oldSetItems = setItemModel.findByIndex('all', {
-                        index: 'product_id',
-                        value: prodModel.id
+                        index: 'pluset_no',
+                        value: prodModel.no
                     });
 
                     oldSetItems.forEach(function(item) {
@@ -766,10 +798,14 @@
 
                     // then we add new set items
 
-                    setitems.forEach(function(item) {
-                        item.id = '';
-                        setItemModel.save(item);
-                    })
+                    if (this._pluset != null && this._pluset.length > 0) {
+                        this._pluset.forEach(function(setitem) {
+                            setitem.id = '';
+                            setItemModel.id = '';
+                            setitem.pluset_no = inputData.no;
+                            setItemModel.save(setitem);
+                        })
+                    }
                     
                     this.updateSession('modify', inputData, product);
                     
@@ -816,18 +852,18 @@
             if (product) {
                 // check if product is included in set menu; if it is, don't allow removal
                 var setItemModel = new SetItemModel();
-                var setMenu = setItemModel.findByIndex('first', {
-                    index: 'item_id',
-                    value: product.id
+                var pluset = setItemModel.findByIndex('first', {
+                    index: 'preset_no',
+                    value: product.no
                 });
-                if (setMenu != null) {
-                    NotifyUtils.warn(_('Product [%S] is part of a product set [%S] and may not be removed', [product.name, setMenu.Product.name]));
+                if (pluset != null) {
+                    NotifyUtils.warn(_('Product [%S] is part of a product set [%S] and may not be removed', [product.name, pluset.pluset_no]));
                     return;
                 }
 
                 if (GREUtils.Dialog.confirm(null, _('confirm delete %S', [product.name]), _('Are you sure?'))) {
                 
-                    try {
+                    //try {
                         prodModel.del(product.id);
 
                         // cascade delete set items
@@ -835,16 +871,15 @@
                         var setItemModel = new SetItemModel();
 
                         var oldSetItems = setItemModel.findByIndex('all', {
-                            index: 'product_id',
-                            value: product.id
+                            index: 'pluset_no',
+                            value: product.no
                         });
 
-                        oldSetItems.forEach(function(item) {
-                            setItemModel.del(item.id);
-                            try {
-                                this.RemoveImage(item.no);
-                            } catch (e) {}
+                        oldSetItems.forEach(function(setitem) {
+                            setItemModel.del(setitem.id);
                         })
+
+                        this.RemoveImage(product.no);
                         
                         this.updateSession('remove', product);
 
@@ -855,11 +890,12 @@
 
                         // @todo OSD
                         OsdUtils.info(_('Product [%S] removed successfully', [product.name]));
-                    }
+                    /*}
                     catch (e) {
                         // @todo OSD
                         NotifyUtils.error(_('An error occurred while removing Product [%S]. The product may not have been removed successfully', [product.name]));
                     }
+                        */
                 }
             }
         },
@@ -1198,13 +1234,14 @@
             // input elements
             var selectedIndex = this.getPluSetListObj().selectedIndex;
             var label = document.getElementById('setitem_label').value;
-            var basePrice = document.getElementById('setitem_baseprice').value;
             var qty = parseInt(document.getElementById('setitem_quantity').value);
             var preset = document.getElementById('setitem_preset_no').value;
             var linkgroup = document.getElementById('setitem_linkgroup_id').value;
 
             // action elements
             var modifyBtn = document.getElementById('modify_setitem');
+            var presetObj = document.getElementById('setitem_preset');
+            var groupObj = document.getElementById('setitem_linkgroup');
 
             // enable modify btn if:
             //
@@ -1212,15 +1249,22 @@
             // 2. label is not null
             // 3. either or both of preset and linkgroup are set
             // 4. qty > 0
-
-            if ((selectedIndex > -1) &&
-                (label != null && label != '') &&
-                ((preset != null && preset != '') || (linkgroup != null && linkgroup != '')) &&
-                (qty > 0)) {
-                modifyBtn.removeAttribute('disabled');
+            if (selectedIndex > -1) {
+                if ((label != null && label != '') &&
+                    ((preset != null && preset != '') || (linkgroup != null && linkgroup != '')) &&
+                    (qty > 0)) {
+                    modifyBtn.removeAttribute('disabled');
+                }
+                else {
+                    modifyBtn.setAttribute('disabled', true);
+                }
+                presetObj.removeAttribute('disabled');
+                groupObj.removeAttribute('disabled');
             }
             else {
                 modifyBtn.setAttribute('disabled', true);
+                presetObj.setAttribute('disabled', true);
+                groupObj.setAttribute('disabled', true);
             }
         },
         

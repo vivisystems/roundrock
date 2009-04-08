@@ -291,65 +291,68 @@
                         <tabpanel flex="1" >
                             <vbox  style="overflow: auto" flex="1" >
                                 <label hidden="true" id="pluset" form="productForm" name="pluset" value="" />
-                                <viviscrollabletree id="plusetscrollablepanel" flex="1"
+                                <viviscrollabletree id="plusetscrollabletree" flex="1"
                                                     headers="&plus.header.label;,&plus.header.preset;,&plus.header.quantity;,&plus.header.baseprice;,&plus.header.group;,&plus.header.reduction;"
-                                                    fields="label,preset,qty,baseprice,group,reduction"
+                                                    fields="label,preset,quantity,baseprice,linkgroup,reduction_label"
                                                     hidecolumnpicker="true"
-                                                    onclick="$do('clickPluSetsPanel',this.selectedIndex, 'Plus');"
+                                                    onclick="$do('selectSetItem',this.selectedIndex, 'Plus');"
                                                     class="Listpnl" scrollUpClass="ScrollUp" scrollDownClass="ScrollDown">
-                                    <vivibutton id="+" class="systoolbtn mediumimagebtn plusbtn" oncommand="$do('addSetItem', null, 'Plus');" />
-                                    <vivibutton id="-" class="systoolbtn mediumimagebtn minusbtn" oncommand="$do('removeSetItem', null, 'Plus');"/>
-                                    <vivibutton id="up" class="systoolbtn mediumimagebtn upbtn" oncommand="$do('moveSetItem', -1, 'Plus');" />
-                                    <vivibutton id="down" class="systoolbtn mediumimagebtn downbtn" oncommand="$do('moveSetItem', 1, 'Plus');"/>
+                                    <vivibutton id="+" class="systoolbtn mediumimagebtn plusbtn" onclick="event.stopPropagation()" oncommand="$do('addSetItem', null, 'Plus');" />
+                                    <vivibutton id="-" class="systoolbtn mediumimagebtn minusbtn" onclick="event.stopPropagation()" oncommand="$do('removeSetItem', null, 'Plus');"/>
+                                    <vivibutton id="up" class="systoolbtn mediumimagebtn upbtn" onclick="event.stopPropagation()" oncommand="$do('moveSetItem', -1, 'Plus');" />
+                                    <vivibutton id="down" class="systoolbtn mediumimagebtn downbtn" onclick="event.stopPropagation()" oncommand="$do('moveSetItem', 1, 'Plus');"/>
                                 </viviscrollabletree>
-                                <spacer flex="1"/>
+                                <spacer height="10px"/>
                                 <hbox>
-                                    <grid class="DataForm">
+                                    <grid class="DataForm" flex="1">
                                         <columns>
-                                            <column flex="0" /><column flex="0" /><column flex="0"/>
+                                            <column flex="1" /><column/><column/>
                                         </columns>
                                         <rows>
                                             <row>
                                                 <vbox>
                                                     <label value="&plus.setitem.label;" control="setitem_label"/>
-                                                    <textbox id="setitem_label" size="3" value=""
-                                                             form="setitemForm" name="setitem_label" default=""
+                                                    <textbox id="setitem_label" value="" size="15"
+                                                             form="setitemForm" name="label" default=""
                                                              onfocus="this.select()" oninput="$do('validatesetitemForm', null, 'Plus')"/>
                                                 </vbox>
                                                 <vbox>
                                                     <label value="&plus.setitem.base.price;" control="setitem_baseprice"/>
                                                     <textbox id="setitem_baseprice" size="3" type="number" value="0" decimalplaces="Infinity" min="-Infinity" hidespinbuttons="true" class="geneditbox right"
-                                                             form="setitemForm" name="setitem_baseprice" default="0"
+                                                             form="setitemForm" name="baseprice" default="0"
                                                              onfocus="this.select()" oninput="$do('validateSetItemForm', null, 'Plus')"/>
                                                 </vbox>
                                                 <vbox>
                                                     <label value="&plus.setitem.quantity;" control="setitem_quantity"/>
                                                     <textbox id="setitem_quantity" size="3" type="number" value="1" decimalplaces="0" min="1" hidespinbuttons="true" class="geneditbox right"
-                                                             form="setitemForm" name="setitem_baseprice" default="1"
+                                                             form="setitemForm" name="quantity" default="1"
                                                              onfocus="this.select()" oninput="$do('validateSetItemForm', null, 'Plus')"/>
                                                 </vbox>
                                             </row>
                                             <row>
                                                 <checkbox id="setitem_price_reduction" value="false" label="&plus.setitem.reduce.price;"
-                                                          form="setitemForm" name="setitem_price_reduction" default="0"/>
+                                                          form="setitemForm" name="reduction" default="0"/>
+                                                <label hidden="true" id="setitem_reduction_label" form="setitemForm" name="reduction_label" value="" />
                                                 <vbox>
-                                                    <label value="&plus.setitem.preset.item;" control="setitem_preset_item"/>
-                                                    <label hidden="true" id="setitem_preset_no" form="setitemForm" name="setitem_preset_no" value="" />
+                                                    <label value="&plus.setitem.preset.item;" control="setitem_preset"/>
+                                                    <label hidden="true" id="setitem_preset_no" form="setitemForm" name="preset_no" value="" />
                                                     <textbox id="setitem_preset" size="3" readonly="true" value=""
-                                                             form="setitemForm" name="setitem_preset_item"
+                                                             form="setitemForm" name="preset"
+                                                             onclick="$do('selectProduct', null, 'Plus')"
                                                              onfocus="this.select()" oninput="$do('validateSetItemForm', null, 'Plus')"/>
                                                 </vbox>
                                                 <vbox>
                                                     <label value="&plus.setitem.linkgroup;" control="setitem_linkgroup"/>
-                                                    <label hidden="true" id="setitem_linkgroup_id" form="setitemForm" name="setitem_linkgroup_id" value="" />
+                                                    <label hidden="true" id="setitem_linkgroup_id" form="setitemForm" name="linkgroup_id" value="" />
                                                     <textbox id="setitem_linkgroup" size="3" readonly="true" value=""
-                                                             form="setitemForm" name="setitem_linkgroup"
+                                                             form="setitemForm" name="linkgroup"
+                                                             onclick="$do('selectProductGroup', null, 'Plus')"
                                                              onfocus="this.select()" oninput="$do('validateSetItemForm', null, 'Plus')"/>
                                                 </vbox>
                                             </row>
                                         </rows>
                                     </grid>
-                                    <button id="modify_setitem" flex="1" label="&plus.button.action.modify;" disabled="true" class="BtnMod" oncommand="$do('modifySetitem', null, 'Plus');" />
+                                    <button id="modify_setitem" label="&plus.button.action.update.setitem;" disabled="true" class="BtnMod" oncommand="$do('modifySetItem', null, 'Plus');" />
                                 </hbox>
                             </vbox>
                         </tabpanel>
