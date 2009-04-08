@@ -4,9 +4,8 @@
      * RptDailySales Controller
      */
 
-    GeckoJS.Controller.extend( {
+    RptBaseController.extend( {
         name: 'RptSalesSummary',
-        components: [ 'BrowserPrint', 'CsvExport', 'CheckMedia' ],
 
         _mediaPath: null,
         _datas: null,
@@ -16,33 +15,7 @@
         _periodtype: null,
         _shiftno: null,
         
-        _fileName: "/rpt_sales_summary",
-        
-        _printController: null,
-
-        _showWaitPanel: function(panel, sleepTime) {
-            var waitPanel = document.getElementById( panel );
-            var width = GeckoJS.Configure.read( "vivipos.fec.mainscreen.width" ) || 800;
-            var height = GeckoJS.Configure.read( "vivipos.fec.mainscreen.height" ) || 600;
-            waitPanel.sizeTo( 360, 120 );
-            var x = ( width - 360 ) / 2;
-            var y = ( height - 240 ) / 2;
-            waitPanel.openPopupAtScreen( x, y );
-
-            // release CPU for progressbar ...
-            if ( !sleepTime ) {
-              sleepTime = 1000;
-            }
-            this.sleep(sleepTime);
-            return waitPanel;
-        },
-
-        _enableButton: function( enable ) {
-            var disabled = !enable;
-            $( '#export_pdf' ).attr( 'disabled', disabled );
-            $( '#export_csv' ).attr( 'disabled', disabled );
-            $( '#export_rcp' ).attr( 'disabled', disabled );
-        },
+        _fileName: "rpt_sales_summary",
 
         _getConditions: function() {
             this._start = document.getElementById( 'start_date' ).value;
@@ -289,7 +262,7 @@
             return data;
         },
 
-        _SalesSummary: function() {
+        _salesSummary: function() {
             // Before invoking, be sure that the private attributes are initialized by methods _getConditions or _setConditioins.
             start = parseInt( this._start / 1000 );
             end = parseInt( this._end / 1000 );
@@ -490,47 +463,26 @@
 			return records;
 		},
 		
-		_set_datas: function() {
+		_set_reportRecords: function() {
 			// Before invoking, be sure that the private attributes are initialized by methods _getConditions or _setConditioins.
-			
-			var storeContact = GeckoJS.Session.get( 'storeContact' );
-            var clerk = "";
-            var clerk_displayname = "";
-            var user = new GeckoJS.AclComponent().getUserPrincipal();
-            if ( user != null ) {
-                clerk = user.username;
-                clerk_displayname = user.description;
-            }
+			this._getConditions();
 
             var start_str = ( new Date( this._start ) ).toString( 'yyyy/MM/dd HH:mm' );
             var end_str = ( new Date( this._end ) ).toString( 'yyyy/MM/dd HH:mm' );
 
-            var data = {
-                head: {
-                    title: _( 'Sales Summary Report' ),
-                    subtitle: '( based on ' + _( this._periodtype ) + ' )',
-                    start_time: start_str,
-                    end_time: end_str,
-                    store: storeContact,
-                    clerk_displayname: clerk_displayname
-                },
-                body: {
-                    hourly_sales: this._hourlySales(),
-                    dept_sales: this._deptSalesBillboard(),
-                    prod_sales: this._prodSalesBillboard(),
-                    payment_list: this._paymentList(),
-                    sales_summary: this._SalesSummary(),
-                    destination_summary: this._destinationSummary(),
-                    tax_summary: this._taxSummary(),
-                    discount_summary: this._discountSurchargeSummary( 'discount' ),
-                    surcharge_summary: this._discountSurchargeSummary( 'surcharge' )
-                },
-                foot: {
-                    gen_time: ( new Date() ).toString( 'yyyy/MM/dd HH:mm:ss' )
-                }
-            }
-
-            this._datas = data;
+			this._reportRecords.head.subtitle = '( based on ' + _( this._periodtype ) + ' )';
+			this._reportRecords.head.start_time = start_str;
+			this._reportRecords.head.end_time = end_str;
+			
+			this._reportRecords.body.hourly_sales = this._hourlySales();
+			this._reportRecords.body.dept_sales = this._deptSalesBillboard();
+			this._reportRecords.body.prod_sales = this._prodSalesBillboard();
+			this._reportRecords.body.payment_list = this._paymentList();
+			this._reportRecords.body.sales_summary = this._salesSummary();
+			this._reportRecords.body.destination_summary = this._destinationSummary();
+			this._reportRecords.body.tax_summary = this._taxSummary();
+			this._reportRecords.body.discount_summary = this._discountSurchargeSummary( 'discount' );
+			this._reportRecords.body.surcharge_summary = this._discountSurchargeSummary( 'surcharge' );
 		},
 		
 		printSalesSummary: function( start, end, terminalNo, periodType, shiftNo, printController ) {
@@ -538,7 +490,7 @@
 			this._setConditions( start, end, terminalNo, periodType, shiftNo );
 			this._set_datas();
 			
-			var path = GREUtils.File.chromeToPath( "chrome://viviecr/content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl" );
+			var path = GREUtils.File.chromeToPath( 'chrome://viviecr/content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl' );
 
             var file = GREUtils.File.getFile( path );
             var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
@@ -552,142 +504,12 @@
         	this._setConditions( start, end, terminalNo, periodType, shiftNo );
 			this._set_datas();
 			
-			var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl");
+			var path = GREUtils.File.chromeToPath( 'chrome://viviecr/content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl' );
 
             var file = GREUtils.File.getFile( path );
             var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
 			
 			return tpl.process( this._datas );
-        },
-        
-        set_printController: function( printController ) {
-        	this._printController = printController;
-        },
-		
-        execute: function() {
-            var waitPanel = this._showWaitPanel('wait_panel');
-
-            this._getConditions();
-            
-            this._set_datas();
-            
-            var path = GREUtils.File.chromeToPath("chrome://viviecr/content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl");
-
-            var file = GREUtils.File.getFile( path );
-            var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
-
-            var result = tpl.process( this._datas );
-
-            var bw = document.getElementById( 'preview_frame' );
-            var doc = bw.contentWindow.document.getElementById( 'abody' );
-
-            doc.innerHTML = result;
-
-            this._enableButton( true );
-            
-            // initialize the splitter.
-            var splitter = document.getElementById( 'splitter_zoom' );
-            splitter.setAttribute( "state", "collapsed" );
-
-            waitPanel.hidePopup();
-        },
-
-        exportPdf: function() {
-			if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to export PDF copy of this report?' ) ) )
-        		return;
-        		
-            try {
-                this._enableButton( false );
-                var media_path = this.CheckMedia.checkMedia( 'report_export' );
-                
-                if (!media_path){
-                    NotifyUtils.info( _( 'Media not found!! Please attach the USB thumb drive...' ) );
-                    return;
-                }
-
-                var waitPanel = this._showWaitPanel( 'wait_panel' );
-
-                this.BrowserPrint.getPrintSettings();
-
-                this.BrowserPrint.setPaperSizeUnit( 1 );
-                this.BrowserPrint.setPaperSize( 210, 297 );
-                this.BrowserPrint.setPaperEdge( 0, 0, 0, 0 );
-                this.BrowserPrint.setPaperMargin( 0, 0, 0, 0 );
-
-                this.BrowserPrint.getWebBrowserPrint( 'preview_frame' );
-                this.BrowserPrint.printToPdf( media_path + this._fileName );
-      
-            } catch (e) {
-                //
-            } finally {
-                this._enableButton( true );
-                if ( waitPanel != undefined )
-                	waitPanel.hidePopup();
-            }
-        },
-
-        exportCsv: function() {
-        	if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to export CSV copy of this report?' ) ) )
-        		return;
-        		
-            try {
-                this._enableButton( false );
-                var media_path = this.CheckMedia.checkMedia( 'report_export' );
-                if (!media_path){
-                    NotifyUtils.info( _( 'Media not found!! Please attach the USB thumb drive...' ) );
-                    return;
-                }
-
-                var waitPanel = this._showWaitPanel( 'wait_panel', 100 );
-
-                var path = GREUtils.File.chromeToPath( "chrome://viviecr/content/reports/tpl/rpt_sales_summary/rpt_sales_summary_csv.tpl" );
-
-                var file = GREUtils.File.getFile( path );
-                var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes(file) );
-                var datas;
-                datas = this._datas;
-
-                this.CsvExport.printToFile( media_path + this._fileName, datas, tpl );
-
-            } catch ( e ) {
-                //
-            } finally {
-                this._enableButton( true );
-                if ( waitPanel != undefined )
-                	waitPanel.hidePopup();
-            }
-
-        },
-
-        exportRcp: function() {
-        	if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to print this report?' ) ) )
-        		return;
-        		
-            try {
-                this._enableButton( false );
-                var waitPanel = this._showWaitPanel( 'wait_panel', 100 );
-
-                var path = GREUtils.File.chromeToPath( "chrome://viviecr/content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl" );
-
-                var file = GREUtils.File.getFile( path );
-                var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
-                var datas;
-                datas = this._datas;
-
-                var rcp = null;
-                if ( opener.opener == null )// in the case of invoked while shift changing.
-                	rcp = this._printController;
-                else rcp = opener.opener.opener.GeckoJS.Controller.getInstanceByName( 'Print' );
-                
-                rcp.printReport( 'report', tpl, datas );
-            } catch ( e ) {
-            	//
-            } finally {
-                this._enableButton( true );
-                if ( waitPanel != undefined )
-                	waitPanel.hidePopup();
-            }
-
         },
 
         load: function() {
@@ -703,10 +525,6 @@
             document.getElementById( 'end_date' ).value = end;
 
             this._enableButton( false );
-
         }
-
     });
-
-
 })();

@@ -15,7 +15,7 @@
 		        store: null,
 		        clerk_displayname: ''
 		    },
-		    body: null,
+		    body: {},
 		    foot: {
 		    	gen_time: ( new Date() ).toString( 'yyyy/MM/dd HH:mm:ss' )
 		    }
@@ -158,9 +158,9 @@
    					.getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
    				var rcp = mainWindow.GeckoJS.Controller.getInstanceByName( 'Print' );
    				
-   				var paperSize = rcp.getReportPaperWidth( 'report' ) || '80mm';
+   				var paperSize = /*rcp.getReportPaperWidth( 'report' ) || */'58mm';
 				alert( paperSize );
-                var path = GREUtils.File.chromeToPath( 'chrome://viviecr/content/reports/tpl/' + this._fileName + '/' + '_rcp_' + paperSize + '.tpl' );
+                var path = GREUtils.File.chromeToPath( 'chrome://viviecr/content/reports/tpl/' + this._fileName + '/' + this._fileName + '_rcp_' + paperSize + '.tpl' );
 
                 var file = GREUtils.File.getFile( path );
                 var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
