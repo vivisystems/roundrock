@@ -20,3 +20,4 @@
 <!ENTITY rptdailysalesdetail.items "Items">
 <!ENTITY rptdailysalesdetail.all "List All">
 <!ENTITY rptdailysalesdetail.wait "Waiting...">
+<!ENTITY rptdailysalesdetail.sequence_no "Sequence:">

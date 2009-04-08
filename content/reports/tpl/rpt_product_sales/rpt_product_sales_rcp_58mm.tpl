@@ -8,7 +8,10 @@ ${head.start_time} ~
 ${head.end_time}
 
 ${head.title|center:24}
-{for item in body}
+{for category in body}
+------------------------
+${category.no} - ${category.name}
+{for item in category.orderItems}
 ------------------------
 ${_( '(rpt)No.' ) + ':'}
 ${item.product_no|right:24}
@@ -24,9 +27,10 @@ ${item.total|right:24}
 ------------------------
 ${_( '(rpt)Summary' )}
 ${_( '(rpt)Qty.' ) + ':'}
-${foot.qty|right:24}
+${category.summary.qty|default:0|right:24}
 ${_( '(rpt)Total' ) + ':'}
-${foot.summary|right:24}
+${category.summary.total|default:0|viviFormatPrices:true|right:24}
+{/for}
 ------------------------
 ${foot.gen_time}
 [&CR]

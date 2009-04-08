@@ -156,9 +156,10 @@
         },
 
 
-        PLUSearchDialog: function () {
-            
+        PLUSearchDialog: function (addtocart) {
+            //
             var buf = this._getKeypadController().getBuffer();
+
             this.requestCommand('clear', null, 'Cart');
             var item;
             var txn = GeckoJS.Session.get('current_transaction');
@@ -175,6 +176,14 @@
             var height = this.screenheight;
 
             GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=" + width + ",height=" + height, aArguments);
+            if (aArguments.ok) {
+                if (addtocart && aArguments.item) {
+                    this.requestCommand('addItem',aArguments.item,'Cart');
+                }
+                return aArguments.item;
+            }
+            else
+                return null;
         },
 
         printerDashboard: function () {
@@ -292,7 +301,7 @@
         orderDialog: function () {
             var aURL = 'chrome://viviecr/content/view_order.xul';
             var aName = _('Order Details');
-            var aArguments = this._getKeypadController().getBuffer();
+            var aArguments = {index: 'sequence', value: this._getKeypadController().getBuffer()};
             var posX = 0;
             var posY = 0;
             var width = this.screenwidth;
@@ -352,6 +361,7 @@
                         // department not group
                         var buf = this._getKeypadController().getBuffer();
                         if(GeckoJS.Session.get('cart_set_qty_value') != null || buf.length > 0  ) {
+                            dep.cate_no = dep.no;
                             return this.requestCommand('addItem',dep,'Cart');
                         }
                     }

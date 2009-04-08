@@ -1,12 +1,13 @@
 (function(){
-    include('chrome://viviecr/content/models/order.js');
-    include('chrome://viviecr/content/models/order_item.js');
+	include( 'chrome://viviecr/content/models/category.js' );
+    include( 'chrome://viviecr/content/models/order.js' );
+    include( 'chrome://viviecr/content/models/order_item.js' );
 
     // include controllers  and register itself
 
-    include('chrome://viviecr/content/reports/controllers/rpt_product_sales_controller.js');
-    include('chrome://viviecr/content/reports/controllers/components/browser_print.js');
-    include('chrome://viviecr/content/reports/controllers/components/csv_export.js');
+    include( 'chrome://viviecr/content/reports/controllers/rpt_product_sales_controller.js' );
+    include( 'chrome://viviecr/content/reports/controllers/components/browser_print.js' );
+    include( 'chrome://viviecr/content/reports/controllers/components/csv_export.js' );
     include( 'chrome://viviecr/content/reports/controllers/components/check_media.js' );
 
     /**
@@ -14,21 +15,21 @@
      */
     function startup() {
 
-        $('#togglesize')[0].addEventListener('command', toggleSize, false);
-        $do('load', null, 'RptProductSales');
+        $( '#togglesize' )[ 0 ].addEventListener( 'command', toggleSize, false );
+        $do( 'load', null, 'RptProductSales' );
 
     };
 
     function toggleSize() {
-        var splitter = document.getElementById('splitter_zoom');
-        if (splitter.getAttribute("state") == "collapsed") {
-            splitter.setAttribute("state", "open");
+        var splitter = document.getElementById( 'splitter_zoom' );
+        if ( splitter.getAttribute( 'state' ) == 'collapsed' ) {
+            splitter.setAttribute( 'state', 'open' );
         } else {
-            splitter.setAttribute("state", "collapsed");
+            splitter.setAttribute( 'state', 'collapsed' );
         }
     }
 
-    window.addEventListener('load', startup, false);
+    window.addEventListener( 'load', startup, false );
 
 })();
 

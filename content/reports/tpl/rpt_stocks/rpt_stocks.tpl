@@ -21,7 +21,7 @@
             <!--caption>${category.no} - ${category.name}</caption-->
             <thead>
             	<tr>
-            		<td colspan="8" class="subtitle">${category.no} - ${category.name}</td>
+            		<td colspan="4" class="subtitle">${category.no} - ${category.name}</td>
             	</tr>
                 <tr class="fields">
                     <th style="text-align: left;">${_( '(rpt)No.' )}</th>

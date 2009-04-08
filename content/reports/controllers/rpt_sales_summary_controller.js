@@ -17,6 +17,8 @@
         _shiftno: null,
         
         _fileName: "/rpt_sales_summary",
+        
+        _printController: null,
 
         _showWaitPanel: function(panel, sleepTime) {
             var waitPanel = document.getElementById( panel );
@@ -56,6 +58,11 @@
         	this._machineid = machineid;
             this._periodtype = periodtype;
             this._shiftno = shiftno;
+        },
+        
+        setConditionsAnd_datas: function( parameters ) {
+        	this._setConditions( parameters.start, parameters.end, parameters.machineid, parameters.periodtype, parameters.shiftno );
+        	this._set_datas();
         },
 
         _hourlySales: function() {
@@ -552,6 +559,10 @@
 			
 			return tpl.process( this._datas );
         },
+        
+        set_printController: function( printController ) {
+        	this._printController = printController;
+        },
 		
         execute: function() {
             var waitPanel = this._showWaitPanel('wait_panel');
@@ -663,8 +674,11 @@
                 var datas;
                 datas = this._datas;
 
-                // this.RcpExport.print( datas, tpl );
-                var rcp = opener.opener.opener.GeckoJS.Controller.getInstanceByName( 'Print' );
+                var rcp = null;
+                if ( opener.opener == null )// in the case of invoked while shift changing.
+                	rcp = this._printController;
+                else rcp = opener.opener.opener.GeckoJS.Controller.getInstanceByName( 'Print' );
+                
                 rcp.printReport( 'report', tpl, datas );
             } catch ( e ) {
             	//

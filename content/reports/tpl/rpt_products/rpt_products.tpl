@@ -18,7 +18,7 @@
 	</div>
 	
 {for category in body}
-        <table id="body-table">
+        <table id="body-table" style="width: 100%">
             <!--caption>${category.no} - ${category.name}</caption-->
             <thead>
             	<tr>
@@ -48,16 +48,16 @@
                     <td colspan="5">
                         <table>
                             <tr>
-                                <td></td>
-                                <td style="text-align: right;">Level1{if plu.level_enable1}*{/if}</td>
-                                <td style="text-align: right;">Level2{if plu.level_enable2}*{/if}</td>
-                                <td style="text-align: right;">Level3{if plu.level_enable3}*{/if}</td>
-                                <td style="text-align: right;">Level4{if plu.level_enable4}*{/if}</td>
-                                <td style="text-align: right;">Level5{if plu.level_enable5}*{/if}</td>
-                                <td style="text-align: right;">Level6{if plu.level_enable6}*{/if}</td>
-                                <td style="text-align: right;">Level7{if plu.level_enable7}*{/if}</td>
-                                <td style="text-align: right;">Level8{if plu.level_enable8}*{/if}</td>
-                                <td style="text-align: right;">Level9{if plu.level_enable9}*{/if}</td>
+                                <td style="width: 10%;"></td>
+                                <td style="text-align: right; width: 10%;">Level1{if plu.level_enable1}*{/if}</td>
+                                <td style="text-align: right; width: 10%;">Level2{if plu.level_enable2}*{/if}</td>
+                                <td style="text-align: right; width: 10%;">Level3{if plu.level_enable3}*{/if}</td>
+                                <td style="text-align: right; width: 10%;">Level4{if plu.level_enable4}*{/if}</td>
+                                <td style="text-align: right; width: 10%;">Level5{if plu.level_enable5}*{/if}</td>
+                                <td style="text-align: right; width: 10%;">Level6{if plu.level_enable6}*{/if}</td>
+                                <td style="text-align: right; width: 10%;">Level7{if plu.level_enable7}*{/if}</td>
+                                <td style="text-align: right; width: 10%;">Level8{if plu.level_enable8}*{/if}</td>
+                                <td style="text-align: right; width: 10%;">Level9{if plu.level_enable9}*{/if}</td>
                             </tr>
                             <tr>
                                 <td>${_( '(rpt)Price' ) + ':'}</td>
@@ -85,32 +85,25 @@
                             </tr>
                             <tr>
                                 <td>${_( '(rpt)Lalo' ) + ':'}</td>
-                                <td style="text-align: right;">${plu.price_lalo1|viviFormatPrices:true}</td>
-                                <td style="text-align: right;">${plu.price_lalo1|viviFormatPrices:true}</td>
-                                <td style="text-align: right;">${plu.price_lalo1|viviFormatPrices:true}</td>
-                                <td style="text-align: right;">${plu.price_lalo4|viviFormatPrices:true}</td>
-                                <td style="text-align: right;">${plu.price_lalo5|viviFormatPrices:true}</td>
-                                <td style="text-align: right;">${plu.price_lalo6|viviFormatPrices:true}</td>
-                                <td style="text-align: right;">${plu.price_lalo7|viviFormatPrices:true}</td>
-                                <td style="text-align: right;">${plu.price_lalo8|viviFormatPrices:true}</td>
-                                <td style="text-align: right;">${plu.price_lalo9|viviFormatPrices:true}</td>
+                                <td style="text-align: left;">${plu.price_lalo1|viviFormatPrices:true}</td>
+                                <td style="text-align: left;">${plu.price_lalo1|viviFormatPrices:true}</td>
+                                <td style="text-align: left;">${plu.price_lalo1|viviFormatPrices:true}</td>
+                                <td style="text-align: left;">${plu.price_lalo4|viviFormatPrices:true}</td>
+                                <td style="text-align: left;">${plu.price_lalo5|viviFormatPrices:true}</td>
+                                <td style="text-align: left;">${plu.price_lalo6|viviFormatPrices:true}</td>
+                                <td style="text-align: left;">${plu.price_lalo7|viviFormatPrices:true}</td>
+                                <td style="text-align: left;">${plu.price_lalo8|viviFormatPrices:true}</td>
+                                <td style="text-align: left;">${plu.price_lalo9|viviFormatPrices:true}</td>
                             </tr>
                             <tr>
-                                <td colspan="10">
-                                    <table>
-                                        <tr>
-                                            <td>${_( '(rpt)Maintain_Stock' ) + ': '}${plu.auto_maintain_stock}</td>
-                                            <td>${_( '(rpt)Return_Stock' ) + ': '}${plu.return_stock}</td>
-                                            <td>${_( '(rpt)Single' ) + ': '}${plu.single}</td>
-                                            <td>${_( '(rpt)Age_Verification' ) + ': '}${plu.age_verification}</td>
-                                            <td>${_( '(rpt)Visible' ) + ': '}${plu.visible}</td>
-                                        </tr>
-                                    </table>
-                                </td>
+                                <td colspan="2">${_( '(rpt)Maintain_Stock' ) + ': '}${plu.auto_maintain_stock}</td>
+                                <td colspan="2">${_( '(rpt)Return_Stock' ) + ': '}${plu.return_stock}</td>
+                                <td colspan="2">${_( '(rpt)Single' ) + ': '}${plu.single}</td>
+                                <td colspan="2">${_( '(rpt)Age_Verification' ) + ': '}${plu.age_verification}</td>
+                                <td colspan="2">${_( '(rpt)Visible' ) + ': '}${plu.visible}</td>
                             </tr>
                         </table>
                     </td>
-
                 </tr>
 
 {/for}

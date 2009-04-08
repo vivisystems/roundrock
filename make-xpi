@@ -2,7 +2,7 @@ rm -f viviecr_*.xpi
 
 rel_date=`date +'%Y%m%d%H%M%S'`
 version=`cat VERSION`	
-filename=viviecr_${rel_date}.xpi
+filename=viviecr_${version}_${rel_date}.xpi
 
 reg="s/<em:version>.*<\/em:version>/<em:version>${version}.${rel_date}<\/em:version>/g"
 

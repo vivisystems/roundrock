@@ -11,6 +11,8 @@
         _datas: null,
         
         _fileName: "/rpt_cash_by_clerk",
+        
+        _printController: null,
 
         _showWaitPanel: function(panel, sleepTime) {
             var waitPanel = document.getElementById(panel);
@@ -114,6 +116,14 @@
             }
             
             this._datas = data;
+        },
+        
+         set_datas: function( parameters ) {
+        	this._set_datas( parameters.start, parameters.end, parameters.periodType, parameters.shiftNo, parameters.terminalNo );
+        },
+        
+        set_printController: function( printController ) {
+        	this._printController = printController;
         },
         
         printShiftChangeReport: function( start, end, periodType, shiftNo, terminalNo, printController ) {
@@ -255,8 +265,11 @@
                 var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
                 var datas = this._datas;
 
-                // this.RcpExport.print( datas, tpl );
-                var rcp = opener.opener.opener.GeckoJS.Controller.getInstanceByName( 'Print' );
+				var rcp = null;
+                if ( opener.opener == null )// in the case of invoked while shift changing.
+                	rcp = this._printController;
+                else rcp = opener.opener.opener.GeckoJS.Controller.getInstanceByName( 'Print' );
+                
                 rcp.printReport( 'report', tpl, datas );
             } catch (e) {
                 //
