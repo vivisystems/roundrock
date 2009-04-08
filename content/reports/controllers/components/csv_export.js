@@ -35,7 +35,7 @@
 
             try {
 
-                var saveFile = new GeckoJS.File( csvFileName + ( new Date() ).toString( 'yyyyMMddHHmm' ) + ".csv", true );
+                var saveFile = new GeckoJS.File( csvFileName, true );
                 saveFile.open("w");
 
                 var buf = tpl.process(datas);
