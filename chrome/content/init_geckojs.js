@@ -212,10 +212,14 @@
     include('chrome://vivipos/content/models/sync_setting.js');
     include('chrome://vivipos/content/behaviors/sync.js');
 
-    Components.utils.import('resource://app/modules/osd_utils.jsm', window);
-    Components.utils.import('resource://app/modules/notify_utils.jsm', window);
-    Components.utils.import('resource://app/modules/vkb.jsm', window);
-
+    try {
+        Components.utils.import('resource://app/modules/osd_utils.jsm');
+        Components.utils.import('resource://app/modules/notify_utils.jsm');
+        Components.utils.import('resource://app/modules/vkb.jsm');
+    }catch(e){
+        // maybe permission deny
+        dump(e.message);
+    }
 
     // Dispatcher shortcut
     var shortDispatcher = {};

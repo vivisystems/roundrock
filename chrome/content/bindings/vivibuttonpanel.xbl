@@ -125,12 +125,26 @@
 
                 if (val == null || typeof val == 'undefined' ) return;
 
-                if (!this.datasource) return this.selectedItems = (val+"").split(',');
+                if (!this.datasource) {
+                    var _selectedItems = (val+"").length > 0 ? (val+"").split(',') : [] ;
+
+                    // convert to int
+                    for (var i = 0; i < _selectedItems.length; i++) {
+                        _selectedItems[i] = parseInt(_selectedItems[i]);
+                    };
+                    return this.selectedItems = _selectedItems ;
+                }
 
                 if (typeof this.datasource['setValue'] == 'function') {
                     return this.datasource.setValue(val);
                 }else {
-                    return this.selectedItems = (val+"").split(',');
+                    var _selectedItems = (val+"").length > 0 ? (val+"").split(',') : [] ;
+
+                    // convert to int
+                    for (var i = 0; i < _selectedItems.length; i++) {
+                        _selectedItems[i] = parseInt(_selectedItems[i]);
+                    };
+                    return this.selectedItems = _selectedItems ;
                 }
 
             ]]>
@@ -666,7 +680,7 @@
             var startOffset = this.startOffset;
             var seltype = this.seltype;
 
-            //GREUtils.log('updateSelectedItemState ' + this.parentNode.parentNode.id + ' selectedItems = ' + selectedItems.join('||')  + ' ,offset = ' + startOffset );
+            // GREUtils.log('updateSelectedItemState ' + this.parentNode.parentNode.id + ' selectedItems = ' + selectedItems.join('||')  + ' ,offset = ' + startOffset );
 
             // update selectedItemGroup for all selecteditems
             selectedItems.forEach(function(idx) {
@@ -680,14 +694,13 @@
 
             }, this);
 
-
             // update button checked state
             for(let i=0; i < buttonCount ; i++) {
 
                 let row = startOffset + i;
-
+               
                 if (GeckoJS.Array.inArray(row, selectedItems) != -1) {
-                    
+
                     buttons[i].setAttribute('selected', true);
                     buttons[i].setAttribute('checked', true);
 
