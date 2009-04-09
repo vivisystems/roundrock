@@ -3,6 +3,8 @@
     /**
      * RptDepartments Controller
      */
+     
+    include( 'chrome://viviecr/content/reports/controllers/rpt_base_controller.js' );
 
     RptBaseController.extend( {
         name: 'RptDepartments',

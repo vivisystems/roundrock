@@ -77,7 +77,7 @@ ${_( '(rpt)Top Department Sales' )}
 ${_( '(rpt)Department' ) + ':'}
 ${detail.cate_no + '-' + detail.cate_name|right:24}
 ${_( '(rpt)Quantity' ) + ':'}
-${detail.qty||default:0|right:24}
+${detail.qty|default:0|right:24}
 ${_( '(rpt)Total' ) + ':'}
 ${detail.total|default:0|viviFormatPrices:true|right:24}
   

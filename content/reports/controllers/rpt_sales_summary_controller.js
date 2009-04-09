@@ -3,6 +3,7 @@
     /**
      * RptDailySales Controller
      */
+    include( 'chrome://viviecr/content/reports/controllers/rpt_base_controller.js' );
 
     RptBaseController.extend( {
         name: 'RptSalesSummary',
@@ -33,15 +34,15 @@
             this._shiftno = shiftno;
         },
         
-        setConditionsAnd_datas: function( parameters ) {
+        setConditionsAnd_reportRecords: function( parameters ) {
         	this._setConditions( parameters.start, parameters.end, parameters.machineid, parameters.periodtype, parameters.shiftno );
-        	this._set_datas();
+        	this._set_reportData();
         },
 
         _hourlySales: function() {
             // Before invoking, be sure that the private attributes are initialized by methods _getConditions or _setConditioins.
-            start = parseInt( this._start / 1000 );
-            end = parseInt( this._end / 1000 );
+            start = parseInt( this._start / 1000, 10 );
+            end = parseInt( this._end / 1000, 10 );
 
             var fields = ['orders.transaction_created',
                             'orders.terminal_no',
@@ -89,8 +90,8 @@
 
         _deptSalesBillboard: function() {
             // Before invoking, be sure that the private attributes are initialized by methods _getConditions or _setConditioins.
-            start = parseInt( this._start / 1000 );
-            end = parseInt( this._end / 1000 );
+            start = parseInt( this._start / 1000, 10 );
+            end = parseInt( this._end / 1000, 10 );
 
             var orderItem = new OrderItemModel();
 
@@ -146,8 +147,8 @@
 
         _prodSalesBillboard: function() {
             // Before invoking, be sure that the private attributes are initialized by methods _getConditions or _setConditioins.
-            start = parseInt( this._start / 1000 );
-            end = parseInt( this._end / 1000 );
+            start = parseInt( this._start / 1000, 10 );
+            end = parseInt( this._end / 1000, 10 );
 
             var orderItem = new OrderItemModel();
 
@@ -189,8 +190,8 @@
 
         _paymentList: function() {
             // Before invoking, be sure that the private attributes are initialized by methods _getConditions or _setConditioins.
-            start = parseInt( this._start / 1000 );
-            end = parseInt( this._end / 1000 );
+            start = parseInt( this._start / 1000, 10 );
+            end = parseInt( this._end / 1000, 10 );
 
             var fields = [
                             'order_payments.name',
@@ -264,8 +265,8 @@
 
         _salesSummary: function() {
             // Before invoking, be sure that the private attributes are initialized by methods _getConditions or _setConditioins.
-            start = parseInt( this._start / 1000 );
-            end = parseInt( this._end / 1000 );
+            start = parseInt( this._start / 1000, 10 );
+            end = parseInt( this._end / 1000, 10 );
 
             var fields = ['orders.transaction_created',
                             'orders.terminal_no',
@@ -305,8 +306,8 @@
         
         _taxSummary: function() {
         	// Before invoking, be sure that the private attributes are initialized by methods _getConditions or _setConditioins.
-            start = parseInt( this._start / 1000 );
-            end = parseInt( this._end / 1000 );
+            start = parseInt( this._start / 1000, 10 );
+            end = parseInt( this._end / 1000, 10 );
             
             var fields = [
                             'order_items.tax_name',
@@ -362,8 +363,8 @@
 
 		_destinationSummary: function() {
 			// Before invoking, be sure that the private attributes are initialized by methods _getConditions or _setConditioins.
-            start = parseInt( this._start / 1000 );
-            end = parseInt( this._end / 1000 );
+            start = parseInt( this._start / 1000, 10 );
+            end = parseInt( this._end / 1000, 10 );
             
             var fields = [
                             'orders.destination as "Order.destination"',
@@ -399,8 +400,8 @@
 		
 		_discountSurchargeSummary: function( discountOrSurcharge ) {
 			// Before invoking, be sure that the private attributes are initialized by methods _getConditions or _setConditioins.
-            start = parseInt( this._start / 1000 );
-            end = parseInt( this._end / 1000 );
+            start = parseInt( this._start / 1000, 10 );
+            end = parseInt( this._end / 1000, 10 );
             
             var fields = [
                             discountOrSurcharge + '_name',
@@ -464,10 +465,16 @@
 		},
 		
 		_set_reportRecords: function() {
-			// Before invoking, be sure that the private attributes are initialized by methods _getConditions or _setConditioins.
+			
 			this._getConditions();
 
-            var start_str = ( new Date( this._start ) ).toString( 'yyyy/MM/dd HH:mm' );
+            this._set_reportData();
+		},
+		
+		_set_reportData: function() {
+			// Before invoking, be sure that the private attributes are initialized by methods _getConditions or _setConditioins.
+			
+			var start_str = ( new Date( this._start ) ).toString( 'yyyy/MM/dd HH:mm' );
             var end_str = ( new Date( this._end ) ).toString( 'yyyy/MM/dd HH:mm' );
 
 			this._reportRecords.head.subtitle = '( based on ' + _( this._periodtype ) + ' )';
@@ -485,31 +492,36 @@
 			this._reportRecords.body.surcharge_summary = this._discountSurchargeSummary( 'surcharge' );
 		},
 		
-		printSalesSummary: function( start, end, terminalNo, periodType, shiftNo, printController ) {
-			
+		printSalesSummary: function( start, end, terminalNo, periodType, shiftNo ) {
 			this._setConditions( start, end, terminalNo, periodType, shiftNo );
-			this._set_datas();
+			this._set_reportData();
+			this._setTemplateDataHead();
 			
-			var path = GREUtils.File.chromeToPath( 'chrome://viviecr/content/reports/tpl/rpt_sales_summary/rpt_sales_summary_rcp_80mm.tpl' );
+			var mainWindow = window.mainWindow = Components.classes[ '@mozilla.org/appshell/window-mediator;1' ]
+				.getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
+			var rcp = mainWindow.GeckoJS.Controller.getInstanceByName( 'Print' );
+			
+			var paperSize = rcp.getReportPaperWidth( 'report' ) || '80mm';
+			
+			var path = GREUtils.File.chromeToPath( 'chrome://viviecr/content/reports/tpl/' + this._fileName + '/' + this._fileName + '_rcp_' + paperSize + '.tpl' );
 
             var file = GREUtils.File.getFile( path );
             var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
 			
-			//tpl.process( this._datas );
-            //var rcp = opener.opener.opener.GeckoJS.Controller.getInstanceByName( 'Print' );
-            printController.printReport( 'report', tpl, this._datas );
+            rcp.printReport( 'report', tpl, this._reportRecords );
         },
         
         getProcessedTpl: function( start, end, terminalNo, periodType, shiftNo ) {
         	this._setConditions( start, end, terminalNo, periodType, shiftNo );
-			this._set_datas();
+			this._set_reportData();
+			this._setTemplateDataHead();
 			
-			var path = GREUtils.File.chromeToPath( 'chrome://viviecr/content/reports/tpl/rpt_sales_summary/rpt_sales_summary.tpl' );
+			var path = GREUtils.File.chromeToPath( 'chrome://viviecr/content/reports/tpl/' + this._fileName + '/' + this._fileName + '.tpl' );
 
             var file = GREUtils.File.getFile( path );
             var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
 			
-			return tpl.process( this._datas );
+			return tpl.process( this._reportRecords );
         },
 
         load: function() {

@@ -8,6 +8,8 @@
     var __controller__ = {
         name: 'RptBase',
         components: [ 'BrowserPrint', 'CsvExport', 'CheckMedia' ],
+        packageName: 'viviecr',
+        
         // _data is a reserved word. Don't use it in anywhere of our own controllers.
         _reportRecords: { // data for template to use.
 		    head: {
@@ -58,7 +60,7 @@
         },
         
         _exploit_reportRecords: function() {
-        	var path = GREUtils.File.chromeToPath( 'chrome://viviecr/content/reports/tpl/' + this._fileName + '/' + this._fileName + '.tpl' );
+        	var path = GREUtils.File.chromeToPath( 'chrome://' + this.packageName + '/content/reports/tpl/' + this._fileName + '/' + this._fileName + '.tpl' );
 	        var file = GREUtils.File.getFile( path );
 	        var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
 	        var result = tpl.process( this._reportRecords );
@@ -86,8 +88,10 @@
                 	waitPanel.hidePopup();
             }
         },
-
-        exportPdf: function() {
+		/**
+		 * @param paperProperties is a object consisted of the width, height, edges, margins of the paper.
+		 */
+        exportPdf: function( paperProperties ) {
         	if ( !GREUtils.Dialog.confirm( window, '', _( 'Are you sure you want to export PDF copy of this report?' ) ) )
         		return;
         		
@@ -103,10 +107,16 @@
 
                 this.BrowserPrint.getPrintSettings();
 
-                this.BrowserPrint.setPaperSizeUnit( 1 );
-                this.BrowserPrint.setPaperSize( 210, 297 );
-                this.BrowserPrint.setPaperEdge( 0, 0, 0, 0 );
-                this.BrowserPrint.setPaperMargin( 0, 0, 0, 0 );
+				if ( paperProperties ) {
+					if ( paperProperties.paperSize )
+		            	this.BrowserPrint.setPaperSize( paperProperties.paperSize.width, paperProperties.paperSize.height );
+		            if ( paperProperties.paperEdges )
+		            	this.BrowserPrint.setPaperEdge( paperProperties.paperEdges.left, paperProperties.paperEdges.right, paperProperties.paperEdges.top, paperProperties.paperEdges.bottom );
+		            if ( paperProperties.paperMargins )
+		            	this.BrowserPrint.setPaperMargin( paperProperties.paperMargins.left, paperProperties.paperMargin.right, paperProperties.paperMargins.top, paperProperties.paperMargins.bottom );
+		            if ( paperProperties.paperHeader )
+		            	this.BrowserPrint.setPaperHeader( paperProperties.paperHeader.left, paperProperties.paperHeader.right );
+		        }
 
                 this.BrowserPrint.getWebBrowserPrint( 'preview_frame' );
                 this.BrowserPrint.printToPdf( media_path + '/' + this._fileName + ( new Date() ).toString( 'yyyyMMddHHmm' ) + '.pdf' );
@@ -132,7 +142,7 @@
 
                 var waitPanel = this._showWaitPanel( 'wait_panel', 100 );
 
-                var path = GREUtils.File.chromeToPath( 'chrome://viviecr/content/reports/tpl/' + this._fileName + '/' + this._fileName + '_csv.tpl' );
+                var path = GREUtils.File.chromeToPath( 'chrome://' + this.packageName + '/content/reports/tpl/' + this._fileName + '/' + this._fileName + '_csv.tpl' );
 
                 var file = GREUtils.File.getFile( path );
                 var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
@@ -158,9 +168,8 @@
    					.getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow( 'Vivipos:Main' );
    				var rcp = mainWindow.GeckoJS.Controller.getInstanceByName( 'Print' );
    				
-   				var paperSize = /*rcp.getReportPaperWidth( 'report' ) || */'58mm';
-				alert( paperSize );
-                var path = GREUtils.File.chromeToPath( 'chrome://viviecr/content/reports/tpl/' + this._fileName + '/' + this._fileName + '_rcp_' + paperSize + '.tpl' );
+   				var paperSize = rcp.getReportPaperWidth( 'report' ) || '80mm';
+                var path = GREUtils.File.chromeToPath( 'chrome://' + this.packageName + '/content/reports/tpl/' + this._fileName + '/' + this._fileName + '_rcp_' + paperSize + '.tpl' );
 
                 var file = GREUtils.File.getFile( path );
                 var tpl = GREUtils.Charset.convertToUnicode( GREUtils.File.readAllBytes( file ) );
