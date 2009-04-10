@@ -675,10 +675,37 @@
             }
         },
 
+        // return report printer paperwidth
+
+        getReportPaperWidth: function(type) {
+            var device = this.getDeviceController();
+
+            if (device == null) {
+                NotifyUtils.error(_('Error in device manager! Please check your device configuration'));
+                return;
+            }
+
+            // check device settings
+            var printer = (type == 'report' ? 1 : 2);
+
+			// to test with the 'alert' below, just comment the following switch statement and setup a dummy printer.
+            switch (device.isDeviceEnabled('report', printer)) {
+                case -2:
+                case -1:
+                case 0:
+                    return;
+
+                default:
+                    var enabledDevices = device.getEnabledDevices('report', printer);
+                    return enabledDevices[0].paperwidth;
+            }
+
+        },
+
         // handles user initiated receipt requests
         printReport: function(type, tpl, data) {
             var device = this.getDeviceController();
-           
+          
             if (device == null) {
                 NotifyUtils.error(_('Error in device manager! Please check your device configuration'));
                 return;
@@ -720,13 +747,13 @@
 
         // print slip using the given parameters
         printSlip: function(data, template, port, portspeed, handshaking, devicemodel, encoding, device, copies) {
+
             if (this._worker == null) {
                 NotifyUtils.error(_('Error in Print controller; no worker thread available!'));
                 return;
             }
             var portPath = this.getPortPath(port);
             var commands = {};
-            
             if (portPath == null || portPath == '') {
                 NotifyUtils.error(_('Specified device port [%S] does not exist!', [port]));
                 return;
@@ -737,7 +764,12 @@
                 data.customer = GeckoJS.Session.get('current_customer');
                 data.store = GeckoJS.Session.get('storeContact');
                 if (data.store) data.store.terminal_no = GeckoJS.Session.get('terminal_no');
+                
+                // expand data with annotations
+                var annotationModel = new OrderAnnotationModel();
+                data.annotations = annotationModel.findByIndex('all', {index: 'order_id', value: data.order.id, order: 'type', recursive: 0});
 	        }
+
             // dispatch beforePrintCheck event to allow extensions to add to the template data object or
             // to prevent check from printed
             if (!this.dispatchEvent('beforePrintSlip', {data: data,
@@ -752,9 +784,10 @@
             }
 
             //@debug
-             if (data.order) this.log(this.dump(data.order));
-             if (data.customer) this.log(this.dump(data.customer));
-             if (data.store) this.log(this.dump(data.store));
+            // if (data.order) this.log(this.dump(data.order));
+            // if (data.customer) this.log(this.dump(data.customer));
+            // if (data.store) this.log(this.dump(data.store));
+            // if (data.annotations) this.log(this.dump(data.annotations));
 
             // check if item is linked to this printer and set 'linked' accordingly
             if (data != null) {

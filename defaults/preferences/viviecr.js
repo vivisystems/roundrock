@@ -148,6 +148,11 @@ pref("vivipos.fec.settings.controlpanels.config.functionpanel.path", "chrome://v
 pref("vivipos.fec.settings.controlpanels.config.functionpanel.icon", "chrome://viviecr/skin/icons/icon_functionpnl.png");
 pref("vivipos.fec.settings.controlpanels.config.functionpanel.roles", "acl_manage_function_panel");
 
+pref("vivipos.fec.settings.controlpanels.system.tableman.label", "Table Manage");
+pref("vivipos.fec.settings.controlpanels.system.tableman.path", "chrome://viviecr/content/table_man.xul");
+pref("vivipos.fec.settings.controlpanels.system.tableman.icon", "chrome://viviecr/skin/icons/icon_generic.png");
+pref("vivipos.fec.settings.controlpanels.system.tableman.roles", "acl_manage_tableman");
+
 pref("vivipos.fec.settings.controlpanels.system.network_setting.label", "Network Setting");
 pref("vivipos.fec.settings.controlpanels.system.network_setting.type", "application");
 pref("vivipos.fec.settings.controlpanels.system.network_setting.path", "/usr/bin/wicd-client -n");
