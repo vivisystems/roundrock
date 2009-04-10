@@ -31,16 +31,16 @@ ${_( '(rpt)Ledger Out' ) + ':'|left:12}${master.ledger_out|default:0|viviFormatP
   destDetails.push(detail);
 {/eval}
 {else}
-{if detail.name.length > 0}${detail.name|left:10}{else}${detail.type|left:10}{/if}
-:${detail.amount|default:0|viviFormatPrices:true|right:13}
-${_( '(rpt)Count' ) + ':'|left:12}${detail.count|default:0|right:13}
+{if detail.name.length > 0}${detail.name + ':'|left:11}{else}${detail.type + ':'|left:11}{/if}
+${detail.amount|default:0|viviFormatPrices:true|right:13}
+${_( '(rpt)Count' ) + ':'|left:12}${detail.count|default:0|right:12}
 {/if}
 {/for}
 {if destDetails.length > 0}
 ------------------------
 {for dest in destDetails}
 ${dest.name + ':'|left:12}${dest.amount|default:0|viviFormatPrices:true|right:13}
-${_( '(rpt)Count' ) + ':'}${dest.count|default:0|right:13}
+${_( '(rpt)Count' ) + ':'|left:12}${dest.count|default:0|right:12}
 {/for}
 {/if}
 {/for}

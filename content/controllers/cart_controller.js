@@ -31,6 +31,7 @@
             GeckoJS.Session.remove('cart_last_sell_item');
             GeckoJS.Session.remove('cart_set_price_value');
             GeckoJS.Session.remove('cart_set_qty_value');
+
         },
 
         suspend: function () {
@@ -2673,7 +2674,6 @@
             // save order unless the order is being finalized (i.e. status == 1)
             if (status != 1) oldTransaction.submit(status);
             oldTransaction.data.status = status;
-            
             this.dispatchEvent('afterSubmit', oldTransaction);
 
             // sleep to allow UI events to update
@@ -3382,22 +3382,13 @@
         },
 
         newCheck: function() {
+this.log("newCheck...");
             var no = this._getKeypadController().getBuffer();
             this._getKeypadController().clearBuffer();
 
             this.cancelReturn();
 
-            var curTransaction = this._getTransaction();
-            if (curTransaction == null) {
-                NotifyUtils.warn(_('Not an open order; unable to store'));
-                return; // fatal error ?
-            }
-
-            curTransaction = this._getTransaction(true);
-            if (curTransaction == null) {
-                NotifyUtils.warn(_('fatal error!!'));
-                return; // fatal error ?
-            }
+            var curTransaction = null;
 
             var r = -1;
             if (no.length == 0) {
@@ -3405,33 +3396,19 @@
             } else {
                 r = this.GuestCheck.check(no);
             }
-
-            if (r >= 0) {
-                curTransaction.data.check_no = r;
-            } else {
-                NotifyUtils.warn(_('Check# %S is exist!!', [no]));
-            }
+this.log("after newCheck..." + r);
 
             this.subtotal();
         },
 
         newTable: function() {
+this.log("newTable...");
             var no = this._getKeypadController().getBuffer();
             this._getKeypadController().clearBuffer();
 
             this.cancelReturn();
 
-            var curTransaction = this._getTransaction();
-            if (curTransaction == null) {
-                NotifyUtils.warn(_('Not an open order; unable to store'));
-                return; // fatal error ?
-            }
-
-            curTransaction = this._getTransaction(true);
-            if (curTransaction == null) {
-                NotifyUtils.warn(_('fatal error!!'));
-                return; // fatal error ?
-            }
+            var curTransaction = null;
 
             var r = -1;
             if (no.length == 0) {
@@ -3439,12 +3416,7 @@
             } else {
                 r = this.GuestCheck.table(no);
             }
-
-            if (r >= 0) {
-                curTransaction.data.table_no = r;
-            } else {
-                NotifyUtils.warn(_('Table# %S is exist!!', [no]));
-            }
+this.log("after newTable..." + r);
 
             this.subtotal();
         },
@@ -3524,10 +3496,12 @@
                 return; // fatal error ?
             }
 
-            curTransaction = this._getTransaction(true);
             if (curTransaction == null) {
-                NotifyUtils.warn(_('fatal error!!'));
-                return; // fatal error ?
+                curTransaction = this._getTransaction(true);
+                if (curTransaction == null) {
+                    NotifyUtils.warn(_('fatal error!!'));
+                    return; // fatal error ?
+                }
             }
 
             var r = this.GuestCheck.guest(no);
@@ -3645,241 +3619,8 @@
             }
 
             var r = this.GuestCheck.transferToTableNo(no);
-        },
-
-        guestCheck: function(action) {
-            // check if has buffer
-            var buf = this._getKeypadController().getBuffer();
-            this._getKeypadController().clearBuffer();
-
-            this.cancelReturn();
-
-            var curTransaction;
-            var param = action.split('|');
-            var action = param[0];
-            var param2 = param[1];
-
-            var no = buf;
-
-            var r = -1;
-
-            this.dispatchEvent('onWarning', '');
-
-            switch(action) {
-                case 'newCheck':
-                    curTransaction = this._getTransaction(true);
-                    if (curTransaction == null) {
-                        NotifyUtils.warn(_('fatal error!!'));
-                        return; // fatal error ?
-                    }
-
-                    if (buf.length == 0) {
-                        r = this.GuestCheck.getNewCheckNo();
-                    } else {
-                        r = this.GuestCheck.check(no);
-                    }
-
-                    if (r >= 0) {
-                        curTransaction.data.check_no = r;
-                    } else {
-                        NotifyUtils.warn(_('Check# %S is exist!!', [no]));
-                    }
-                    break;
-                case 'releaseCheck':
-                    curTransaction = this._getTransaction(true);
-                    if (curTransaction == null) {
-                        NotifyUtils.warn(_('fatal error!!'));
-                        return; // fatal error ?
-                    }
-
-                    r = this.GuestCheck.releaseCheckNo(no);
-                    break;
-                case 'newTable':
-                    curTransaction = this._getTransaction(true);
-                    if (curTransaction == null) {
-                        NotifyUtils.warn(_('fatal error!!'));
-                        return; // fatal error ?
-                    }
-
-                    if (buf.length == 0) {
-                        r = this.GuestCheck.getNewTableNo();
-                    } else {
-                        r = this.GuestCheck.table(no);
-                    }
-
-                    if (r >= 0) {
-                        curTransaction.data.table_no = r;
-                    } else {
-                        NotifyUtils.warn(_('Table# %S is exist!!', [no]));
-                    }
-                    break;
-                case 'guest':
-                    curTransaction = this._getTransaction(true);
-                    if (curTransaction == null) {
-                        NotifyUtils.warn(_('fatal error!!'));
-                        return; // fatal error ?
-                    }
-
-                    r = this.GuestCheck.guest(no);
-                    curTransaction.data.no_of_customers = no;
-                    break;
-                case 'store':
-                    curTransaction = this._getTransaction();
-                    if (curTransaction == null) {
-                        NotifyUtils.warn(_('Not an open order; unable to store'));
-                        return; // fatal error ?
-                    }
-
-                    if (curTransaction.data.status == 1) {
-                        NotifyUtils.warn(_('This order has been submitted'));
-                        return;
-                    }
-                    if (curTransaction.data.closed) {
-                        NotifyUtils.warn(_('This order is closed pending payment and may only be finalized'));
-                        return;
-                    }
-                    if (curTransaction.data.items_count == 0) {
-                        NotifyUtils.warn(_('This order is empty'));
-                        return;
-                    }
-                    var modified = curTransaction.isModified();
-                    if (modified) {
-                        r = this.GuestCheck.store();
-                        this.dispatchEvent('onStore', curTransaction);
-                    }
-                    else {
-                        NotifyUtils.warn(_('No change to store'));
-                    }
-                    break;
-                case 'recallSequence':
-                    r = this.GuestCheck.recallByOrderNo(no);
-                case 'recallCheck':
-                    r = this.GuestCheck.recallByCheckNo(no);
-                    break;
-                case 'recallTable':
-                    r = this.GuestCheck.recallByTableNo(no);
-                    break;
-
-                case 'transferSequence':
-                    curTransaction = this._getTransaction();
-                    if (curTransaction == null) {
-                        NotifyUtils.warn(_('Not an open order; unable to store'));
-                        return; // fatal error ?
-                    }
-
-                    if (curTransaction.data.status == 1) {
-                        NotifyUtils.warn(_('This order has been submitted'));
-                        return;
-                    }
-                    if (curTransaction.data.closed) {
-                        NotifyUtils.warn(_('This order is closed pending payment and may only be finalized'));
-                        return;
-                    }
-                    if (curTransaction.data.items_count == 0) {
-                        NotifyUtils.warn(_('This order is empty'));
-                        return;
-                    }
-                    var modified = curTransaction.isModified();
-                    if (modified) {
-                        NotifyUtils.warn(_('This order has been modified and must be stored first'));
-                        // r = this.GuestCheck.store();
-                        // this.dispatchEvent('onStore', curTransaction);
-                    }
-
-                    r = this.GuestCheck.transferToOrderNo(no);
-                    break;
-                case 'transferCheck':
-                    curTransaction = this._getTransaction();
-                    if (curTransaction == null) {
-                        NotifyUtils.warn(_('Not an open order; unable to store'));
-                        return; // fatal error ?
-                    }
-
-                    if (curTransaction.data.status == 1) {
-                        NotifyUtils.warn(_('This order has been submitted'));
-                        return;
-                    }
-                    if (curTransaction.data.closed) {
-                        NotifyUtils.warn(_('This order is closed pending payment and may only be finalized'));
-                        return;
-                    }
-                    if (curTransaction.data.items_count == 0) {
-                        NotifyUtils.warn(_('This order is empty'));
-                        return;
-                    }
-                    var modified = curTransaction.isModified();
-                    if (modified) {
-                        NotifyUtils.warn(_('This order has been modified and must be stored first'));
-                        // r = this.GuestCheck.store();
-                        // this.dispatchEvent('onStore', curTransaction);
-                    }
-
-                    // r = this.GuestCheck.transferToCheckNo(no);
-                    r = this.GuestCheck.mergeOrder(no, curTransaction.data);
-                    break;
-                case 'transferTable':
-                    curTransaction = this._getTransaction();
-                    if (curTransaction == null) {
-                        NotifyUtils.warn(_('Not an open order; unable to store'));
-                        return; // fatal error ?
-                    }
-
-                    if (curTransaction.data.status == 1) {
-                        NotifyUtils.warn(_('This order has been submitted'));
-                        return;
-                    }
-                    if (curTransaction.data.closed) {
-                        NotifyUtils.warn(_('This order is closed pending payment and may only be finalized'));
-                        return;
-                    }
-                    if (curTransaction.data.items_count == 0) {
-                        NotifyUtils.warn(_('This order is empty'));
-                        return;
-                    }
-                    var modified = curTransaction.isModified();
-                    if (modified) {
-                        NotifyUtils.warn(_('This order has been modified and must be stored first'));
-                        // r = this.GuestCheck.store();
-                        // this.dispatchEvent('onStore', curTransaction);
-                    }
-                    
-                    r = this.GuestCheck.transferToTableNo(no);
-                    break;
-                case 'splitOrder':
-                    curTransaction = this._getTransaction();
-                    if (curTransaction == null) {
-                        NotifyUtils.warn(_('Not an open order; unable to store'));
-                        return; // fatal error ?
-                    }
-
-                    if (curTransaction.data.status == 1) {
-                        NotifyUtils.warn(_('This order has been submitted'));
-                        return;
-                    }
-                    if (curTransaction.data.closed) {
-                        NotifyUtils.warn(_('This order is closed pending payment and may only be finalized'));
-                        return;
-                    }
-                    if (curTransaction.data.items_count == 0) {
-                        NotifyUtils.warn(_('This order is empty'));
-                        return;
-                    }
-                    var modified = curTransaction.isModified();
-                    if (modified) {
-                        NotifyUtils.warn(_('This order has been modified and must be stored first'));
-                        // r = this.GuestCheck.store();
-                        // this.dispatchEvent('onStore', curTransaction);
-                    }
-
-                    r = this.GuestCheck.splitOrder(no, curTransaction.data);
-
-                    break;
-            }
-            // @irving: comment out the subtotal() call 02-16-09
-            //this.subtotal();
-            
-            return;
         }
+        
     };
 
     GeckoJS.Controller.extend(__controller__);

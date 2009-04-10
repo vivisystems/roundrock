@@ -1,9 +1,9 @@
 "${head.store.name}"
 "${head.store.branch}"
-"${_( '(rpt)Telphone' ) + ':'}","'${head.store.telephone1}"
-"${_( '(rpt)Terminal' ) + ':'}","'${head.store.terminal_no}"
-"${_( '(rpt)Clerk' ) + ':'}","'${head.clerk_displayname}"
-"${_( '(rpt)Printed Time' ) + ':'}","'${foot.gen_time}"
+"${_( '(rpt)Telphone' ) + ':'}","${head.store.telephone1}"
+"${_( '(rpt)Terminal' ) + ':'}","${head.store.terminal_no}"
+"${_( '(rpt)Clerk' ) + ':'}","${head.clerk_displayname}"
+"${_( '(rpt)Printed Time' ) + ':'}","${foot.gen_time}"
 "${_( '(rpt)Start' ) + ':'}","${head.start_time}"
 "${_( '(rpt)End' ) + ':'}","${head.end_time}"
 ""
@@ -51,7 +51,7 @@
 "${_( '(rpt)Top Department Sales' )}"
 "","${_( '(rpt)Department' )}","${_( '(rpt)Qty' )}","${_( '(rpt)Total' )}"
 {for detail in body.dept_sales.records}
-"","'${detail.cate_no}-${detail.cate_name}","${detail.qty|default:0}","${detail.total|default:0|viviFormatPrices:true}"
+"","${detail.cate_no}-${detail.cate_name}","${detail.qty|default:0}","${detail.total|default:0|viviFormatPrices:true}"
 {/for}
 "${_( '(rpt)Summary' ) + ':'}","","${body.dept_sales.summary.qty|default:0}","${body.dept_sales.summary.total|default:0|viviFormatPrices:true}"
 "",""

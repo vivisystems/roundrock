@@ -22,6 +22,7 @@
             if(main) {
                 main.addEventListener('onSetClerk', this.startShift, this);
             }
+
         },
 
         load: function() {
@@ -630,15 +631,14 @@
         	
         	try {
 		        var reportController = GeckoJS.Controller.getInstanceByName( 'RptCashByClerk' );
-		        var printController = GeckoJS.Controller.getInstanceByName( 'Print' );
-		        var salePeriod = this.getSalePeriod();
+		        var salePeriod = this.getSalePeriod() * 1000;
 		        var terminalNo = GeckoJS.Session.get( 'terminal_no' );
 		        
 		        var shiftNumber = '';
 				if ( !all )
 					shiftNumber = this.getShiftNumber().toString();
 
-		        reportController.printShiftChangeReport( salePeriod * 1000, salePeriod * 1000, 'sale_period', shiftNumber, terminalNo, printController );
+		        reportController.printShiftChangeReport( salePeriod, salePeriod, 'sale_period', shiftNumber, terminalNo );
 		    } catch ( e ) {
 		    } finally {
 		    	if ( waitPanel ) waitPanel.hidePopup();
@@ -653,11 +653,10 @@
         	
         	try {
 		        var reportController = GeckoJS.Controller.getInstanceByName( 'RptSalesSummary' );
-		        var printController = GeckoJS.Controller.getInstanceByName( 'Print' );
-		        var salePeriod = this.getSalePeriod();
+		        var salePeriod = this.getSalePeriod() * 1000;
 		        var terminalNo = GeckoJS.Session.get( 'terminal_no' );
 
-		        reportController.printSalesSummary( salePeriod * 1000, salePeriod * 1000, terminalNo, 'sale_period', '', printController );
+		        reportController.printSalesSummary( salePeriod, salePeriod, terminalNo, 'sale_period', '' );
 		    } catch ( e ) {
 		    } finally {
 		    	if ( waitPanel ) waitPanel.hidePopup();
@@ -666,27 +665,26 @@
         
         reviewShiftReport: function( all ) {
             var reportController = GeckoJS.Controller.getInstanceByName('RptCashByClerk');
-            var printController = GeckoJS.Controller.getInstanceByName( 'Print' );
             var salePeriod = this.getSalePeriod() * 1000;
             var terminalNo = GeckoJS.Session.get('terminal_no');
             var periodType = 'sale_period';
-            
-            var parameters = {
+
+			var shiftNumber = '';
+			if ( !all )
+				shiftNumber = this.getShiftNumber().toString();
+				
+			var parameters = {
 				start: salePeriod,
 				end: salePeriod,
 				periodType: periodType,
 				shiftNo: shiftNumber,
 				terminalNo: terminalNo
 			};
-
-			var shiftNumber = '';
-			if ( !all )
-				shiftNumber = this.getShiftNumber().toString();
 		
 			var waitPanel = this._showWaitPanel( 'wait_panel', 1000 );
 			
 			try {
-				var processedTpl = reportController.getProcessedTpl(salePeriod, salePeriod, periodType, shiftNumber, terminalNo);
+				var processedTpl = reportController.getProcessedTpl( salePeriod, salePeriod, periodType, shiftNumber, terminalNo );
 			} catch ( e ) {
 			} finally {
 				if ( waitPanel ) waitPanel.hidePopup();
@@ -694,12 +692,11 @@
 		       
 		    aURL = 'chrome://viviecr/content/rpt_cash_by_clerk.xul';
 		    features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
-		    window.openDialog( aURL, '', features, processedTpl, parameters, printController );
+		    window.openDialog( aURL, '', features, processedTpl, parameters );
         },
 
         reviewDailySales: function() {
             var reportController = GeckoJS.Controller.getInstanceByName( 'RptSalesSummary' );
-            var printController = GeckoJS.Controller.getInstanceByName( 'Print' );
             var salePeriod = this.getSalePeriod() * 1000;
             var terminalNo = GeckoJS.Session.get( 'terminal_no' );
             var periodType = 'sale_period';
@@ -724,7 +721,7 @@
             
             aURL = 'chrome://viviecr/content/rpt_sales_summary.xul';
             features = 'chrome,titlebar,toolbar,centerscreen,modal,width=' + this.screenwidth + ',height=' + this.screenheight;
-            window.openDialog( aURL, '', features, processedTpl, parameters, printController );
+            window.openDialog( aURL, '', features, processedTpl, parameters );
         },
 
         select: function(index){

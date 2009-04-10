@@ -16,7 +16,7 @@ ${_( '(rpt)Time' ) + ':'}
 ${detail.transaction_created|unixTimeToString:'yyyy-M-d'|right:24}
 ${_( '(rpt)Sequence' ) + ':'}
 ${detail.sequence|right:24}
-${_( '(rpt)Service' + ':'}
+${_( '(rpt)Service' ) + ':'}
 ${detail.service_clerk_displayname|viviFormatPrices:true|right:24}
 ${_( '(rpt)Proceeds' ) + ':'}
 ${detail.proceeds_clerk_displayname|viviFormatPrices:true|right:24}
@@ -32,7 +32,7 @@ ${_( '(rpt)Payment' ) + ':'}
 ${detail.total|viviFormatPrices:true|right:24}
 ${_( '(rpt)Cash' ) + ':'}
 ${detail.cash|default:0|viviFormatPrices:true|right:24}
-${_( '(rpt)Check' + ':'}
+${_( '(rpt)Check' ) + ':'}
 ${detail.check|viviFormatPrices:true|right:24}
 ${_( '(rpt)Credit Card' ) + ':'}
 ${detail.creditcard|default:0|viviFormatPrices:true|right:24}

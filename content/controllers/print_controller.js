@@ -705,7 +705,7 @@
         // handles user initiated receipt requests
         printReport: function(type, tpl, data) {
             var device = this.getDeviceController();
-           
+          
             if (device == null) {
                 NotifyUtils.error(_('Error in device manager! Please check your device configuration'));
                 return;
@@ -747,6 +747,7 @@
 
         // print slip using the given parameters
         printSlip: function(data, template, port, portspeed, handshaking, devicemodel, encoding, device, copies) {
+
             if (this._worker == null) {
                 NotifyUtils.error(_('Error in Print controller; no worker thread available!'));
                 return;
