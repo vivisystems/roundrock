@@ -14,6 +14,7 @@
 
 <?xul-overlay href="chrome://viviecr/content/dialogs/prompt_additem.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/dialogs/select_condiments.xul" ?>
+<?xul-overlay href="chrome://viviecr/content/dialogs/select_setitem.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/dialogs/select_queues.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/dialogs/payment_details.xul" ?>
 <?xul-overlay href="chrome://viviecr/content/dialogs/creditcard_remark.xul" ?>
@@ -43,7 +44,7 @@
 
   <!-- front-end UI controllers -->
   <script src='chrome://viviecr/content/controllers/main_controller.js'/>
-  <script src='chrome://viviecr/content/controllers/cart_controller.js'/>
+  <script src='chrome://viviecr/content/controllers/cart_controller.js' type='application/x-javascript'/>
   <script src='chrome://viviecr/content/controllers/keypad_controller.js'/>
   <script src='chrome://viviecr/content/controllers/layout_controller.js'/>
 

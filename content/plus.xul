@@ -290,7 +290,6 @@
 
                         <tabpanel flex="1" >
                             <vbox  style="overflow: auto" flex="1" >
-                                <label hidden="true" id="pluset" form="productForm" name="pluset" value="" />
                                 <viviscrollabletree id="plusetscrollabletree" flex="1"
                                                     headers="&plus.header.label;,&plus.header.preset;,&plus.header.quantity;,&plus.header.baseprice;,&plus.header.group;,&plus.header.reduction;"
                                                     fields="label,preset,quantity,baseprice,linkgroup,reduction_label"

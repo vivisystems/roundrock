@@ -226,6 +226,8 @@
                 var rate = product.rate;
                 $('#rate').val(rate);
                 $('#rate_name').val(this.getRateName(rate));
+
+                this.log(this.dump(product));
             }
             else {
                 var valObj = this.getInputDefault();
@@ -293,7 +295,7 @@
                 this._pluset.splice(selectedIndex, 1);
                 plusetscrollabletree.treeBoxObject.rowCountChanged(this._pluset.length, -1);
 
-                if (--selectedIndex >= this._pluset.length) {
+                if (selectedIndex >= this._pluset.length) {
                     selectedIndex = this._pluset.length - 1;
                 }
                 this.selectSetItem(selectedIndex);
@@ -329,15 +331,20 @@
             var barcodesIndexes = GeckoJS.Session.get('barcodesIndexes');
             var groupsById = GeckoJS.Session.get('plugroupsById');
 
-            var str = $('#pluset').val();
-            
-            // this.log('pluset:' + this.dump(str));
+            // get current product no
+            var productNo = document.getElementById('product_no').value;
 
-            if (str == null || str == '') {
-                this._pluset = [];
+            if (productNo != null && productNo != '') {
+                // load set items from DB
+                var setItemModel = new SetItemModel();
+                this._pluset = setItemModel.findByIndex('all', {
+                    index: 'pluset_no',
+                    value: productNo,
+                    order: 'sequence'
+                });
             }
             else {
-                this._pluset = GeckoJS.BaseObject.unserialize(str);
+                this._pluset = [];
             }
 
             // retrieve current product and group names
@@ -351,7 +358,9 @@
 
                 this._pluset[i].preset = product ? product.name : '';
                 this._pluset[i].linkgroup = group ? group.name : '';
+                this._pluset[i].reduction_label = this._pluset[i].reduction ? _('Y') : _('N');
             }
+        
             var panelView =  new GeckoJS.NSITreeViewArray(this._pluset);
             this.getPluSetListObj().datasource = panelView;
         },
@@ -468,7 +477,7 @@
             GREUtils.Dialog.openWindow(window, aURL, aName, "chrome,dialog,modal,centerscreen,dependent=yes,resize=no,width=" + width + ",height=" + height, inputObj);
             if (inputObj.ok) {
                 if (inputObj.item) {
-                    if (inputObj.item.pluset) {
+                    if (inputObj.item.SetItem && inputObj.item.SetItem.length > 0) {
                         NotifyUtils.warn(_('[%S] (%S) is a product set and may not be a member of another product set.', [inputObj.item.name, inputObj.item.no]));
                     }
                     else if (inputObj.item.no == productNo) {
@@ -661,6 +670,30 @@
                         }
                     }
                 }
+
+                // if set items are defined, make sure product is not the default iten of another prouct set
+                if (this._pluset != null && this._pluset.length > 0) {
+                    var setItemModel = new SetItemModel();
+
+                    var pluSetItem = setItemModel.findByIndex('first', {
+                        index: 'preset_no',
+                        value: data.no
+                    });
+                    if (pluSetItem) {
+                        NotifyUtils.warn(_('This product is part of product set [%S] and may not itself be a product set', [pluSetItem.pluset_no]));
+                        return 8;
+                    }
+
+                    // also make sure each set item entry has either preset_no or linkgroup_id set
+                    for (var i = 0; i < this._pluset.length; i++) {
+                        var entry = this._pluset[i];
+                        if ((entry.preset_no == null || entry.preset_no == '') &&
+                            (entry.linkgroup_id == null || entry.linkgroup_id == '')) {
+                            NotifyUtils.warn(_('Product set item [%S] does not have either default item or group configured', [entry.label]));
+                            return 9;
+                        }
+                    }
+                }
             }
             return result;
         },
@@ -773,12 +806,6 @@
             if (this._checkData(inputData) == 0) {
                 var prodModel = new ProductModel();
                 //try {
-                    if (this._pluset != null && this._pluset.length > 0) {
-                        inputData.pluset = GeckoJS.BaseObject.serialize(this._pluset);
-                    }
-                    else {
-                        inputData.pluset = '';
-                    }
                     prodModel.id = inputData.id;
                     prodModel.save(inputData);
                     
@@ -789,22 +816,30 @@
                     // first we delete old items
                     var oldSetItems = setItemModel.findByIndex('all', {
                         index: 'pluset_no',
-                        value: prodModel.no
+                        value: inputData.no
                     });
-
-                    oldSetItems.forEach(function(item) {
-                        setItemModel.del(item.id);
+                    
+                    oldSetItems.forEach(function(setitem) {
+                        setItemModel.del(setitem.id);
                     })
 
                     // then we add new set items
 
                     if (this._pluset != null && this._pluset.length > 0) {
-                        this._pluset.forEach(function(setitem) {
+
+                        for (var i = 0; i < this._pluset.length; i++) {
+                            var setitem = this._pluset[i];
                             setitem.id = '';
                             setItemModel.id = '';
+                            setitem.sequence = i;
                             setitem.pluset_no = inputData.no;
+
                             setItemModel.save(setitem);
-                        })
+                        }
+                        product.SetItem = this._pluset;
+                    }
+                    else {
+                        product.SetItem = [];
                     }
                     
                     this.updateSession('modify', inputData, product);

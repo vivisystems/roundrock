@@ -65,6 +65,17 @@
             var byId ={}, indexCate = {}, indexCateAll={}, indexLinkGroup = {}, indexLinkGroupAll={}, indexBarcode = {};
             
             if (products) products.forEach(function(product) {
+
+                // load set items
+                var setItemModel = new SetItemModel();
+                var setitems = setItemModel.findByIndex('all', {
+                    index: 'pluset_no',
+                    value: product.no,
+                    order: 'sequence'
+                });
+
+                product.SetItem = setitems;
+
                 if (product.barcode == null) {
                     product.barcode = "";
                 }

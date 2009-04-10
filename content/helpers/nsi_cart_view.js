@@ -81,12 +81,9 @@
                     else newIndex = oldIndex;
                 }
                 */
-            }else {
-                this.tree.invalidate();
-                //this.tree.ensureRowIsVisible(oldIndex);
-                //this.tree.view.selection.currentIndex = oldIndex;
-                //this.tree.view.selection.select(oldIndex);
             }
+            this.tree.invalidate();
+
             if (newIndex < 0) newIndex = (this.data.length > 0) ? 0 : -1;
             else if (newIndex >= this.data.length) newIndex = this.data.length - 1;
             //GREUtils.log('rowCountChanged 2: ' + rc1 + ', ' + rc2 + ', ' + newIndex);
