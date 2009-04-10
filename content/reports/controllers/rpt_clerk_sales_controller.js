@@ -149,10 +149,10 @@
             				
             				case 'terminal_no':
             				case 'associated_clerk_displayname':
+            				case 'transaction_created':
             					if ( a > b ) return 1;
 				    			if ( a < b ) return -1;
 				    			return 0;
-				    		case 'transaction_created':
 				    		case 'sequence':
 				    		case 'invoice_no':
 				    		case 'item_subtotal':

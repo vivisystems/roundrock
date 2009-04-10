@@ -18,7 +18,6 @@
 			var start_str = document.getElementById('start_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
             var end_str = document.getElementById('end_date').datetimeValue.toString('yyyy/MM/dd HH:mm');
 
-            // var department = document.getElementById('department').value;
             var machineid = document.getElementById( 'machine_id' ).value;
 
             start = parseInt(start / 1000, 10);
@@ -37,9 +36,8 @@
             var conditions = "created>='" + start +
                             "' AND created<='" + end + "'";
             
-            if ( machineid.length > 0 ) {
+            if ( machineid.length > 0 )
                 conditions += " AND terminal_no LIKE '" + machineid + "%'";
-            }
 
             var groupby = '';
             var orderby = 'terminal_no';

@@ -21,3 +21,7 @@
 <!ENTITY rptdailysalessummary.giftcard "Gift Card">
 <!ENTITY rptdailysalessummary.all "List All">
 <!ENTITY rptdailysalessummary.wait "Waiting...">
+<!ENTITY rptdailysalessummary.periodtype "Period Type:">
+<!ENTITY rptdailysalessummary.starttime "Order Start Time">
+<!ENTITY rptdailysalessummary.saleperiod "Sale Period">
+<!ENTITY rptdailysalessummary.time "Time">

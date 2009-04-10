@@ -13,7 +13,7 @@
         
         _setData: function( start, end, periodType, shiftNo, sortBy, terminalNo, department, empty_department ) {
             var start_str = ( new Date( start ) ).toString( 'yyyy/MM/dd HH:mm' );
-			var end_str = ( new Date( start ) ).toString( 'yyyy/MM/dd HH:mm' );
+			var end_str = ( new Date( end ) ).toString( 'yyyy/MM/dd HH:mm' );
 			
             start = parseInt( start / 1000, 10 );
             end = parseInt( end / 1000, 10 );
@@ -70,29 +70,6 @@
 
             var orderItemRecords = orderItem.find( 'all',{ fields: fields, conditions: conditions, group: groupby, recursive:1, order: orderby } );
 
-			if ( sortBy != 'all' ) {
-				orderItemRecords.sort(
-					function ( a, b ) {
-						a = a[ sortBy ];
-						b = b[ sortBy ];
-						
-						switch ( sortBy ) {
-							case 'product_no':
-							case 'product_name':
-								if ( a > b ) return 1;
-								if ( a < b ) return -1;
-								return 0;
-							case 'avg_price':
-							case 'qty':
-							case 'total':
-								if ( a < b ) return 1;
-								if ( a > b ) return -1;
-								return 0;
-						}
-					}
-				);
-			}
-
             orderItemRecords.forEach( function( record ) {
             	delete record.OrderItem;
 				record[ 'avg_price' ] = record[ 'total' ] / record[ 'qty' ];
@@ -102,12 +79,61 @@
                 categories[ record.cate_no ].summary.total += record.total;
             } );
             
+            // insert the zero sales products.
+            var noSalesProduct = document.getElementById( 'no_sales_product' ).value;
+            if ( noSalesProduct == 'show' ) {
+		        var productModel = new ProductModel();
+		        var sql = 'attach database "/data/databases/vivipos_order.sqlite" as vivipos_order;';
+		        productModel.execute( sql );
+		        sql = 'select no, name, cate_no from products where no not in ( select distinct product_no from vivipos_order.order_items ) order by no;';
+		        var zeroSalesProducts = productModel.getDataSource().fetchAll( sql );
+		        sql = 'detach database vivipos_order;';
+		        productModel.execute( sql );
+		        
+		        zeroSalesProducts.forEach( function( zeroSalesProducts ) {
+		        	categories[ zeroSalesProducts.cate_no ].orderItems.push( {
+		        		product_no: zeroSalesProducts.no,
+		        		product_name: zeroSalesProducts.name,
+		        		avg_price: 0,
+		        		qty: 0,
+		        		total: 0
+		        	} );
+		        } );
+		    }
+            
+            // hide the no sales department if users want it that way.
             if ( empty_department == 'hide' ) {
 		        for ( var category in categories ) {
 		        	if ( categories[ category ].orderItems.length == 0 )
 		        		delete categories[ category ];
 		        }
 		    }
+		    
+		    // for sorting.
+		    if ( sortBy != 'all' ) {
+		    	for ( var category in categories ) {
+		    		categories[ category ].orderItems.sort(
+						function ( a, b ) {
+							a = a[ sortBy ];
+							b = b[ sortBy ];
+						
+							switch ( sortBy ) {
+								case 'product_no':
+								case 'product_name':
+									if ( a > b ) return 1;
+									if ( a < b ) return -1;
+									return 0;
+								case 'avg_price':
+								case 'qty':
+								case 'total':
+									if ( a < b ) return 1;
+									if ( a > b ) return -1;
+									return 0;
+							}
+						}
+					);
+				}
+			}
 		    
 		    this._reportRecords.head.title = _( 'Product Sales Report' );
 		    this._reportRecords.head.start_time = start_str;

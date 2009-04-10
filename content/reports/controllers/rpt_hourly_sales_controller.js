@@ -63,10 +63,10 @@
             			
             			switch ( sortby ) {
             				case 'terminal_no':
+            				case 'Hour':
             					if ( a > b ) return 1;
 				    			if ( a < b ) return -1;
 				    			return 0;
-            				case 'Hour':
             				case 'HourTotal':
             				case 'OrderNum':
             				case 'Guests':

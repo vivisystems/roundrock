@@ -83,18 +83,29 @@
 				                	<label value="&productsales.empty_department;" />
 						            <menulist id="empty_department">
 						                <menupopup id="empty_department_menupopup">
-						                    <menuitem selected="true" label="&productsales.show;" value="show" />
-						                    <menuitem selected="false" label="&productsales.hide;" value="hide" />
+						                    <menuitem selected="true" label="&productsales.hide;" value="hide" />
+						                    <menuitem selected="false" label="&productsales.show;" value="show" />
 						                </menupopup>
 						            </menulist>
 						        </vbox>
 				            </row>
 		                    <row>
 		                    	<vbox>
+				                	<label value="&productsales.no_sales_product;" />
+								        <menulist id="no_sales_product">
+								            <menupopup id="no_sales_product_menupopup">
+								                <menuitem selected="true" label="&productsales.hide;" value="hide" />
+								                <menuitem selected="false" label="&productsales.show;" value="show" />
+								            </menupopup>
+								    </menulist>
+								</vbox>
+		                    	<vbox>
 				                    <label value="&productsales.shiftno;" />
 				                    <textbox id="shiftno" value='' width="300"/>
 				                </vbox>
-						        <vbox>
+		                    </row>
+		                    <row>
+		                    	<vbox>
 				                    <label value="&productsales.machineid;" />
 				                    <textbox id="machine_id" value='' width="300"/>
 				                </vbox>
