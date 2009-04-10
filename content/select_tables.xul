@@ -31,6 +31,7 @@
                 <viviscrollablebuttonpanel id="checkScrollablepanel" pre="true" flex="1" cols="4" rows="5"  seltype="single" labelField="check_no"
                                            class="ItemScrollablepanel"
                                            buttonClass="ItemButtonA TableHeight"
+                                           buttonTagName="button"
                                            scrollUpClass="ScrollUp"
                                            scrollDownClass="ScrollDown">
                     <spacer flex="1"/>

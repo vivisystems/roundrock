@@ -274,7 +274,10 @@
 
             // gen order object from items
             for (var key in self._sourceCheck) {
-                if (typeof(self._sourceCheck[key]) == 'object' && self._sourceCheck[key].constructor.name == 'Array' ) {
+            	if (self._sourceCheck[key] == null) {
+                    order[key] = null;
+            	}
+                else if (typeof(self._sourceCheck[key]) == 'object' && self._sourceCheck[key].constructor.name == 'Array' ) {
                     order[key] = [];
                 }
                 else if (typeof(self._sourceCheck[key]) == "object") {
@@ -323,7 +326,10 @@
 
                 // gen order object from items
                 for (var key in self._sourceCheck) {
-                    if (typeof(self._sourceCheck[key]) == 'object' && self._sourceCheck[key].constructor.name == 'Array' ) {
+                    if (self._sourceCheck[key] == null) {
+                        order[key] = null;
+                    }
+                    else if (typeof(self._sourceCheck[key]) == 'object' && self._sourceCheck[key].constructor.name == 'Array' ) {
                         order[key] = [];
                     }
                     else if (typeof(self._sourceCheck[key]) == "object") {
