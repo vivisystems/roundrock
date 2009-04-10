@@ -38,9 +38,15 @@
         }).register();
 
         $do('initial', null, "Main");
-    };
+    }
+
+    function destroy() {
+        this.observer.unregister();
+        $do('destroy', null, "Main");
+    }
 
     window.addEventListener('load', startup, false);
+    window.addEventListener('unload', destroy, false);
 
 
 })();

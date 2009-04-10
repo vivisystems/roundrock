@@ -15,13 +15,22 @@
 <!ENTITY    promotions_manager.button.action.delete  "Delete">
 
 <!ENTITY    promotions_manager.label.active     "Active this rule">
-<!ENTITY    promotions_manager.label.reserve_item     "Reserve Items for this rule">
+<!ENTITY    promotions_manager.label.reserve_item     "Reserve Matched Items (Prevent for next rule).">
 <!ENTITY    promotions_manager.label.repeatable     "Repeat Items for this rule">
 
 <!ENTITY    promotions_manager.label.name     "Name">
 <!ENTITY    promotions_manager.label.code     "Code">
 <!ENTITY    promotions_manager.label.alt_name1     "Alternate Name1">
 <!ENTITY    promotions_manager.label.alt_name2     "Alternate Name2">
+
+<!ENTITY    promotions_manager.label.member     "Member">
+<!ENTITY    promotions_manager.label.member_member     "Member Only">
+<!ENTITY    promotions_manager.label.member_nonmember     "Non Member">
+<!ENTITY    promotions_manager.label.member_everyone     "Everyone">
+
+
+<!ENTITY    promotions_manager.label.date_between     "Select Date Between">
+<!ENTITY    promotions_manager.label.time_duration     "Select Time Duration">
 
 <!ENTITY    promotions_manager.label.start_date     "Start Date">
 <!ENTITY    promotions_manager.label.end_date     "End Date">
@@ -30,3 +39,6 @@
 <!ENTITY    promotions_manager.label.end_time     "End Time">
 
 <!ENTITY    promotions_manager.label.days_of_week     "Days of Week">
+
+<!ENTITY    promotions_manager.label.select_trigger     "Select Trigger:">
+<!ENTITY    promotions_manager.label.select_type     "Select Type:">

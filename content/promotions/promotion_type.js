@@ -15,25 +15,91 @@ var __klass__ = {
      */
     init: function(controller, settings) {
         // PromotionType setup
-        this.controller = controller || null;
-        this.settings = settings || null;
+        this._controller = controller || null;
+        this._settings = settings || null;
+        this._prefs = {};
+        this._trigger = null;
+        this._cartItemModel = null;
+        this._discountSubtobal = 0;
 
     },
 
+    setController: function(controller) {
+        this._controller = controller || null;
+    },
+
+    getController: function() {
+        return this._controller;
+    },
+
+    setSettings: function(settings) {
+        this._settings = settings || null;
+    },
+
+    getSettings: function() {
+        return this._settings;
+    },
+
+    setPrefs: function(prefs) {
+        this._prefs = prefs || {};
+    },
+
+    getPrefs: function() {
+        return this._prefs;
+    },
 
     startup: function() {
-        // after constructor called
+
     },
 
-    setup: function(trigger) {
-        this.trigger = trigger || null;
+    setup: function(trigger) {       
+        this._trigger = trigger || null;
+        this._discountSubtobal = 0;
     },
+
+    getTrigger: function() {
+        return this._trigger;
+    },
+
+    getTransaction: function() {
+        return (this.getTrigger() ? this.getTrigger().getTransaction() : null);
+    },
+
+    getCartItemModel: function() {
+
+        // in-memory cart item model
+
+        // use trigger 's model
+        this._cartItemModel = this._cartItemModel ? this._cartItemModel : (this.getTrigger() ? this.getTrigger().getCartItemModel() : new PromotionCartItemModel());
+        return this._cartItemModel;
+
+        /*
+        this._cartItemModel = this._cartItemModel ? this._cartItemModel : ;
+
+        return this._cartItemModel;
+        */
+
+    },
+
+    /**
+     * Type must implement this method
+     */
+    setDiscountSubtobal: function(discountSubtobal) {
+        discountSubtobal = discountSubtobal < 0 ? 0 : discountSubtobal;
+        this._discountSubtobal = discountSubtobal;
+    },
+
+    getDiscountSubtobal: function() {
+        return this._discountSubtobal;
+    },
+
 
     /*
      * Type Action
      */
     execute: function() {
-        // abstract 
+        // abstract
+        return false;
     }
 
 

@@ -789,33 +789,16 @@ pref("vivipos.fec.settings.controlpanels.system.xterm.path", "/usr/bin/lilyterm 
 pref("vivipos.fec.settings.controlpanels.system.xterm.icon", "chrome://viviecr/content/skin/icons/gnome-run.png");
 pref("vivipos.fec.settings.controlpanels.system.xterm.roles", "acl_xterm");
 
-
 pref("vivipos.fec.settings.controlpanels.activity.promotions_manager.label", "Promotions Manager");
 pref("vivipos.fec.settings.controlpanels.activity.promotions_manager.path", "chrome://viviecr/content/promotions_manager.xul");
 pref("vivipos.fec.settings.controlpanels.activity.promotions_manager.icon", "chrome://viviecr/skin/icons/promotions.png");
 pref("vivipos.fec.settings.controlpanels.activity.promotions_manager.roles", "acl_manage_promotions");
 
-pref("vivipos.fec.registry.promotion.trigger.test.label", "test");
-pref("vivipos.fec.registry.promotion.trigger.test.classname", "test");
-pref("vivipos.fec.registry.promotion.trigger.test.class_uri", "chrome://viviecr/content/promotions/test_trigger.js");
-pref("vivipos.fec.registry.promotion.trigger.test.setting_uri", "chrome://viviecr/content/skin/icons/gnome-run.png");
+pref("vivipos.fec.registry.promotion.trigger.bypass.classname", "Bypass");
+pref("vivipos.fec.registry.promotion.trigger.bypass.class_uri", "chrome://viviecr/content/promotions/triggers/bypass_trigger.js");
+pref("vivipos.fec.registry.promotion.trigger.bypass.setting_uri", "chrome://viviecr/content/promotions/bypass_trigger_setting.xul");
 
-pref("vivipos.fec.registry.promotion.trigger.test2.label", "test2");
-pref("vivipos.fec.registry.promotion.trigger.test2.classname", "test2");
-pref("vivipos.fec.registry.promotion.trigger.test2.class_uri", "chrome://viviecr/content/promotions/test2_trigger.js");
-pref("vivipos.fec.registry.promotion.trigger.test2.setting_uri", "chrome://viviecr/content/skin/icons/gnome-run.png");
+pref("vivipos.fec.registry.promotion.type.bypass.classname", "Bypass");
+pref("vivipos.fec.registry.promotion.type.bypass.class_uri", "chrome://viviecr/content/promotions/types/bypass_type.js");
+pref("vivipos.fec.registry.promotion.type.bypass.setting_uri", "chrome://viviecr/content/promotions/bypass_type_setting.xul");
 
-pref("vivipos.fec.registry.promotion.trigger.test3.label", "test3");
-pref("vivipos.fec.registry.promotion.trigger.test3.classname", "test3");
-pref("vivipos.fec.registry.promotion.trigger.test3.class_uri", "chrome://viviecr/content/promotions/test2_trigger.js");
-pref("vivipos.fec.registry.promotion.trigger.test3.setting_uri", "chrome://viviecr/content/skin/icons/gnome-run.png");
-
-pref("vivipos.fec.registry.promotion.type.test.label", "test");
-pref("vivipos.fec.registry.promotion.type.test.classname", "test");
-pref("vivipos.fec.registry.promotion.type.test.class_uri", "chrome://viviecr/content/promotions/test_type.js");
-pref("vivipos.fec.registry.promotion.type.test.setting_uri", "chrome://viviecr/content/skin/icons/gnome-run.png");
-
-pref("vivipos.fec.registry.promotion.type.test2.label", "test");
-pref("vivipos.fec.registry.promotion.type.test2.classname", "test");
-pref("vivipos.fec.registry.promotion.type.test2.class_uri", "chrome://viviecr/content/promotions/test2_type.js");
-pref("vivipos.fec.registry.promotion.type.test2.setting_uri", "chrome://viviecr/content/skin/icons/gnome-run.png");

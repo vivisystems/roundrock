@@ -1854,3 +1854,28 @@ msgstr ""
 
 msgid "Unable to display order; no order sequence given"
 msgstr ""
+
+msgid "Promotions Manager"
+msgstr ""
+
+msgid "acl_manage_promotions"
+msgstr "Promotions Manager"
+
+msgid "trigger.bypass.label"
+msgstr "ByPass"
+
+msgid "trigger.bypass.name"
+msgstr "ByPass"
+
+msgid "trigger.bypass.desc"
+msgstr "ByPass Trigger always pass success to promotion type."
+
+msgid "type.bypass.label"
+msgstr "ByPass"
+
+msgid "type.bypass.name"
+msgstr "ByPass"
+
+msgid "type.bypass.desc"
+msgstr "ByPass Type always pass success."
+
