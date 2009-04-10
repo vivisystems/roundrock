@@ -1774,6 +1774,15 @@ msgstr "Display Name"
 msgid "(rpt)Access Group"
 msgstr "Access Group"
 
+msgid "(rpt)Telphone"
+msgstr "Telphone"
+
+msgid "(rpt)Start"
+msgstr "Start"
+
+msgid "(rpt)End"
+msgstr "End"
+
 msgid "(view)completed"
 msgstr "completed"
 

@@ -268,9 +268,7 @@
             start = parseInt( this._start / 1000, 10 );
             end = parseInt( this._end / 1000, 10 );
 
-            var fields = ['orders.transaction_created',
-                            'orders.terminal_no',
-                            'orders.status',
+            var fields = [
                             'SUM("orders"."total") AS "Order.Total"',
                             'SUM( "orders"."item_subtotal" ) AS "Order.ItemSubtotal"',
                             'SUM( "orders"."discount_subtotal" ) AS "Order.DiscountSubtotal"',
@@ -281,7 +279,7 @@
                             'SUM("orders"."items_count") AS "Order.ItemsCount"',
                             'AVG("orders"."total") AS "Order.AvgTotal"',
                             'AVG("orders"."no_of_customers") AS "Order.AvgGuests"',
-                            'AVG("orders"."items_count") AS "Order.AvgItemsCount"',
+                            'AVG("orders"."items_count") AS "Order.AvgItemsCount"'
                         ];
 
              var conditions = "orders." + this._periodtype + ">='" + start +
@@ -299,9 +297,16 @@
             var orderby = 'orders.terminal_no,orders.' + this._periodtype;
 
             var order = new OrderModel();
-            var datas = order.find( 'first', { fields: fields, conditions: conditions, group2: groupby, order: orderby, recursive: -1 } );
+            var orderRecords = order.find( 'first', { fields: fields, conditions: conditions, group2: groupby, order: orderby, recursive: 0 } );
+            
+            // get the number of sold items.
+            var sql = "select sum( current_qty ) as qty from order_items join orders on orders.id = order_items.order_id where " + conditions;
+            var orderItem = new OrderItemModel();
+            var orderItemRecords = orderItem.getDataSource().fetchAll( sql );
+            
+            orderRecords.ItemsCount = orderItemRecords[ 0 ].qty;
 
-            return datas;
+            return orderRecords;
         },
         
         _taxSummary: function() {

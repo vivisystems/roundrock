@@ -73,15 +73,15 @@
 
                     <tr>
                         <td style="text-align: left;">${_( '(rpt)Average Total' ) + ':'}</td>
-                        <td style="text-align: right;">${body.sales_summary.AvgTotal|default:0|viviFormatPrices:true}</td>
+                        <td style="text-align: right;">${body.sales_summary.AvgTotal.toFixed( 2 )|default:0}</td>
                     </tr>
                     <tr>
                         <td style="text-align: left;">${_( '(rpt)Average Guest' ) + ':'}</td>
-                        <td style="text-align: right;">${body.sales_summary.AvgGuests|default:0|viviFormatPrices:true}</td>
+                        <td style="text-align: right;">${body.sales_summary.AvgGuests.toFixed( 2 )|default:0}</td>
                     </tr>
                     <tr>
                         <td style="text-align: left;">${_( '(rpt)Average Items' ) + ':'}</td>
-                        <td style="text-aligna: right;">${body.sales_summary.AvgItemsCount|default:0|viviFormatPrices:true}</td>
+                        <td style="text-align: right;">${body.sales_summary.AvgItemsCount.toFixed( 2 )|default:0}</td>
                     </tr>
                 </tbody>
                 <tfoot>
