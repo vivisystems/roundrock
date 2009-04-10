@@ -20,9 +20,6 @@
             // this._super(c);
 GREUtils.log("table status initialize...");
 
-            var tableModel = new TableModel;
-            tableModel.createDBTables();
-
             this._checkList = GeckoJS.Session.get('vivipos_fec_guest_check_check_list');
             this._tableList = GeckoJS.Session.get('vivipos_fec_guest_check_table_list');
             this._tableStatusList = GeckoJS.Session.get('vivipos_fec_guest_check_table_status_list');
